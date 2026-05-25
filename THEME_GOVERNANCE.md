@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 2.4.0
+Version: 2.4.3
 Last updated: 2026-05-25
 
 This document defines how products may extend `gdsTheme` without creating a second design authority.
@@ -11,6 +11,7 @@ This document defines how products may extend `gdsTheme` without creating a seco
 - `gdsTheme` is the only shared token authority.
 - Product brands may extend it through documented overrides.
 - Products may not fork the shared theme into a permanent parallel token system.
+- Public and operator accent surfaces must resolve from shared semantic contracts such as `AccentPanel`, not product-local `light-dark(...)` patches or raw `*.0` shade assumptions.
 
 ## Allowed extension surfaces
 
@@ -84,3 +85,4 @@ Rules:
 - `gdsDarkPublicTheme` is the approved preset for products that deliberately default to a dark public shell.
 - `gdsFlatSurfaceTheme` is the approved preset for products that need flatter operational surfaces without creating a second token authority.
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
+- `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.

@@ -64,11 +64,15 @@ export function PublicShell({
           <Stack gap="xl">{children}</Stack>
         </Container>
         {footer ? (
-          <Box component="footer" py="xl">
+          <Box component={typeof footer === 'string' ? 'footer' : 'div'} py="xl">
             <Container size={containerSize}>
-              <Text size="sm" c="dimmed">
-                {footer}
-              </Text>
+              {typeof footer === 'string' ? (
+                <Text size="sm" c="dimmed">
+                  {footer}
+                </Text>
+              ) : (
+                footer
+              )}
             </Container>
           </Box>
         ) : null}

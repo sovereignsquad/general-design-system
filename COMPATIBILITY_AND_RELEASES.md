@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.4.2
+Version: 2.4.3
 Last updated: 2026-05-25
 
 This document defines the supported package/runtime contract for `@gds/theme`, `@gds/core`, and `@gds/admin`.
@@ -53,6 +53,7 @@ Recommended usage:
 - use `@gds/theme/server` `withGdsMotion` only when a product explicitly opts into shared motion defaults
 - use `@gds/core/server` or `@gds/admin/server` when a server-rendered layout only needs structural primitives
 - use `@gds/*/client` for hook-driven or clearly interactive surfaces
+- release validation now verifies that published `server` entrypoints remain free of client-only module drift and that documented export targets exist in built `dist` output
 
 ## Next.js App Router consumer path
 
@@ -64,7 +65,7 @@ Use server-safe entrypoints in layouts, metadata builders, and non-interactive c
 
 ```ts
 import { gdsTheme, extendGdsTheme } from '@gds/theme/server';
-import { PageHeader, AuthShell } from '@gds/core/server';
+import { AccentPanel, DocsPageShell, PageHeader, AuthShell } from '@gds/core/server';
 import { WorkspaceHeader } from '@gds/admin/server';
 ```
 
@@ -110,6 +111,13 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 ```
 
 This is the intended stable consumer path for products that want direct package adoption without rebuilding GDS internals locally.
+
+## Canonical bootstrap notes
+
+- `app/layout.tsx` should own `ColorSchemeScript`, root `lang`, and root `dir`.
+- `app/providers.tsx` should be the only client boundary that mounts `GdsProvider`.
+- non-interactive public/editorial primitives like `PublicShell`, `DocsPageShell`, `AccentPanel`, `EditorialHero`, `FeatureBand`, and `PublicBrandFooter` may render from `@gds/core/server`.
+- interactive controls like `ThemeToggle`, `SemanticButton`, `UploadDropzone`, and `ResponsiveDataView` belong on `@gds/*/client`.
 
 ## Versioning policy
 

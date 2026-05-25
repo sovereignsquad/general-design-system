@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 2.4.2
+Version: 2.4.3
 Last updated: 2026-05-25
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
@@ -36,6 +36,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Machine-readable Contracts**: `compatibility.matrix.json`, `schemas/gds-adoption.schema.json`, and `TEMPLATES/gds-adoption.json.template` — shared compatibility, adoption, and validation contracts.
 - **Tooling Packages**: `@gds/eslint-config` and `@gds/compliance` — shared lint and compliance enforcement for adopting repos.
 - **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@gds/core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
+- **Public Surface Primitives**: `AccentPanel`, `EditorialHero`, `FeatureBand`, and `PublicBrandFooter` from `@gds/core` — canonical public/editorial contracts for accent-safe surfaces, split hero composition, service/trust bands, and branded footer layouts.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
@@ -73,7 +74,7 @@ Required repository behavior:
 
 ## Validation Commands
 
-- `npm run verify:release` — checks release alignment, then runs build, lint, and tests
+- `npm run verify:release` — checks release alignment, builds all packages/apps, verifies export boundaries, then runs lint, tests, and reference validation
 - `npm run verify:references` — validates the reference consumers and their adoption manifests
 - `npm run build` — builds `@gds/theme`, `@gds/core`, `@gds/admin`, and the playground in dependency order
 - `npm run lint` — runs the playground lint target

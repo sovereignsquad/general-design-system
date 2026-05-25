@@ -1,8 +1,8 @@
 # Foundation
 
 Status: Active SSOT
-Version: 2.3.0
-Last updated: 2026-05-24
+Version: 2.4.3
+Last updated: 2026-05-25
 
 ## 1. Core Principles
 
@@ -59,6 +59,7 @@ Readable UI is mandatory. Visual mood never outranks whether a human can read an
   - Large text / Icons: At least 3:1.
   - Interactive states / Outlines: At least 3:1.
 - **Mantine Implementation**: The Mantine theme must define readable color-mode defaults for `Text`, `Title`, `Card`, `Paper`, inputs, and overlays so that developers do not need page-level color overrides.
+- **Accent Surfaces**: Public and operator accent surfaces must use canonical semantic accent contracts such as `AccentPanel`. Consumer code may not guess readability with raw `bg="*.0"` shades or page-local `light-dark(...)` patches.
 
 ## 5. Primitive & Wrapper Policy
 
@@ -93,3 +94,4 @@ Before a project creates a second implementation of any family, it must check `P
 - Package versions must align to the repository `VERSION`.
 - Server-rendered consumers should prefer documented server-safe subpath exports when they do not need hook-driven interactivity.
 - Interactive consumers may use client-safe entrypoints or root exports where backwards compatibility is required.
+- Release validation must fail if documented `server` entrypoints drift into client-only modules or published export targets go missing.

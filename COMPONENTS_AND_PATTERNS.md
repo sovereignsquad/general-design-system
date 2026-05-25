@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 2.4.2
+Version: 2.4.3
 Last updated: 2026-05-25
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -34,6 +34,7 @@ This document defines the canonical behavior for UI components, workflows, and r
 | **Checkboxes/Radios** | Checkbox = independent opt-in. Radio = mutually exclusive. Switch = immediate on/off action. | `md` |
 | **Product Cards** | Fixed slots for media/icon, title, metadata, status/progress, primary action, and overflow actions. One visible primary action on mobile. | `md` |
 | **Public Product Cards** | Media-first public cards must keep price, availability state, and one clear mobile action visible without consumer-local layout authority. | `md` |
+| **Accent Panels** | Accent and emphasis surfaces must remain readable in light, dark, and auto color schemes through the shared accent contract, not raw tone-0 backgrounds. | `md` |
 | **Metric Cards** | Prominent value, readable label, optional trend/status. Analytics may not outrank next action or urgent exceptions on mobile. | `md` |
 | **Data Toolbars** | Search, filters, sort, reset, and create actions in predictable order. Active filters visible and removable. | `md` |
 | **State Blocks** | Loading, empty, error, permission, disabled, and success states must explain the state and provide the next action where possible. | `md` |
@@ -42,6 +43,9 @@ This document defines the canonical behavior for UI components, workflows, and r
 | **Auth Shells** | Auth entry surfaces must define title, error/helper placement, provider-brand exception handling, and safe action hierarchy. | `md` |
 | **Article Shells** | Docs/news/legal/editorial surfaces must define width, heading rhythm, metadata, side-rail behavior, and mobile collapse. | `md` |
 | **Docs Page Shell** | Docs shells may add breadcrumbs, next-step affordances, side rail slots, and shared code-block treatment without redefining article readability rules. | `md` |
+| **Editorial Hero** | Public/editorial hero sections must use a shared split text/media contract with one clear primary CTA, deterministic mobile collapse, and background-safe media fade behavior. | `xl` |
+| **Feature Band** | Hero-adjacent trust/service/value strips must use a shared multi-column contract with honest loading and empty states. | `md` |
+| **Public Brand Footer** | Narrative/media/quote public footers must use a shared footer composition contract instead of repo-local layout systems. | `lg` |
 | **Docs Code Blocks** | Install/reference code blocks must use a shared wrapper with accessible copy affordance and neutral styling. | `md` |
 | **CTA Button Groups** | Public CTA groups must preserve one obvious primary action, stack safely on small screens, and avoid ornamental motion or hierarchy chrome. | `md` |
 | **Upload Surfaces** | Upload/drop surfaces must define drag state, a11y labels, empty/error messaging, and replace/remove behavior. | `md` |
@@ -82,6 +86,10 @@ The following families are mandatory local contracts when a project has the corr
 | **Article / Docs Shell** | Product has release notes, docs, news, or blog content | article width, side rail behavior, metadata, typography, mobile collapse |
 | **State Block** | Always | loading, empty, error, permission, disabled, success, not-enough-data states |
 | **Public Shell** | Product has public marketing, docs, listing, profile, or auth-adjacent surfaces | brand slot, nav model, readability width, CTA hierarchy, footer, mobile nav |
+| **Accent Surface** | Product needs a repeated highlighted guidance, support, rollout, or emphasis panel | readable light/dark tones, border/background/foreground semantics, nested focus visibility |
+| **Editorial Hero** | Product has split text/media public landing sections | CTA hierarchy, media fade, mobile collapse, loading/error behavior |
+| **Feature Band** | Product has repeated public trust/service/location bands | icon/media slot, title rhythm, loading/empty behavior, mobile stacking |
+| **Public Brand Footer** | Product uses branded footer storytelling beyond a plain link list | narrative, actions, secondary quote/media slot, legal row, mobile collapse |
 | **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, preview, replace/remove, status overlays |
 | **Access Summary** | Product has scoped roles or blocked/forbidden states | role badges, scope labels, blocked/forbidden handling, ownership cues |
 | **Access Recovery** | Product has protected routes, scope failures, expired sessions, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |

@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 2.4.3 - 2026-05-25
+
+- Added `AccentPanel` as the canonical light/dark-safe accent surface contract for public and operator-facing emphasis panels.
+- Added `EditorialHero`, `FeatureBand`, and `PublicBrandFooter` to `@gds/core` for shared public/editorial composition without repo-local layout authority.
+- Hardened release verification with export-contract checks that fail on missing published export targets or server entrypoints that drift into client-only modules.
+- Updated the Next.js and Vite reference consumers to exercise the new public/editorial primitives and the server-safe import path.
+
 ## 2.4.2 - 2026-05-25
 
 - Added `@gds/core` `PublicProductCard` for media-first public menu, catalog, and offer surfaces with price/state/action hierarchy.

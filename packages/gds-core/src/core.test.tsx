@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { AccessSummary } from './AccessSummary';
 import { AccessRecoveryPanel } from './AccessRecoveryPanel';
+import { AccentPanel, resolveAccentPanelStyles } from './AccentPanel';
 import { ArticleShell } from './ArticleShell';
 import { AuthShell } from './AuthShell';
 import { CtaButtonGroup } from './CtaButtonGroup';
@@ -12,10 +13,13 @@ import { DataToolbar } from './DataToolbar';
 import { DocsCodeBlock } from './DocsCodeBlock';
 import { DocsPageShell } from './DocsPageShell';
 import { EmptyState } from './EmptyState';
+import { EditorialHero } from './EditorialHero';
+import { FeatureBand } from './FeatureBand';
 import { GameBoardTile } from './GameBoardTile';
 import { MetricCard } from './MetricCard';
 import { PageHeader } from './PageHeader';
 import { PlaceholderPanel } from './PlaceholderPanel';
+import { PublicBrandFooter } from './PublicBrandFooter';
 import { PublicProductCard } from './PublicProductCard';
 import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
@@ -362,6 +366,82 @@ describe('@gds/core', () => {
     expect(screen.getByText('Need at least 5 submissions.')).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
     expect(screen.getByText('Northern Region')).toBeInTheDocument();
+  });
+
+  it('resolves accent surface styles and renders the shared accent panel contract', () => {
+    const subtle = resolveAccentPanelStyles('violet', 'subtle');
+    const outline = resolveAccentPanelStyles('green', 'soft-outline');
+
+    expect(subtle.backgroundColor).toContain('light-dark');
+    expect(outline.border).toContain('var(--mantine-color-green-4)');
+
+    renderWithGds(
+      <AccentPanel tone="blue" title="Shared accent" badge="Contract">
+        Accent-safe copy
+      </AccentPanel>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Shared accent' })).toBeInTheDocument();
+    expect(screen.getByText('Contract')).toBeInTheDocument();
+    expect(screen.getByText('Accent-safe copy')).toBeInTheDocument();
+  });
+
+  it('renders editorial heroes with one primary CTA and deterministic error fallback', () => {
+    const { rerender } = renderWithGds(
+      <EditorialHero
+        eyebrow="Editorial"
+        title="Shared public hero"
+        description="Split media and text layouts are now GDS-governed."
+        actions={[
+          { label: 'Primary path', variant: 'primary' },
+          { label: 'Second primary', variant: 'primary' },
+        ]}
+        meta={[{ id: 'stack', label: 'Server safe' }]}
+        media={<div>Media slot</div>}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Shared public hero' })).toBeInTheDocument();
+    expect(screen.getByText('Server safe')).toBeInTheDocument();
+    expect(screen.getByText('Primary path')).toBeInTheDocument();
+    expect(screen.getByText('Second primary')).toBeInTheDocument();
+
+    rerender(
+      <EditorialHero
+        title="Shared public hero"
+        actions={[{ label: 'Primary path', variant: 'primary' }]}
+        error="Unable to load hero media."
+      />,
+    );
+
+    expect(screen.getByText('Media unavailable')).toBeInTheDocument();
+    expect(screen.getByText('Unable to load hero media.')).toBeInTheDocument();
+  });
+
+  it('renders feature bands and branded footers as shared public composition primitives', () => {
+    renderWithGds(
+      <>
+        <FeatureBand
+          columns={2}
+          items={[
+            { id: 'one', title: 'Fast pickup', description: 'Ready in 15 minutes.' },
+            { id: 'two', title: 'Local delivery', description: 'Live in selected districts.' },
+          ]}
+        />
+        <PublicBrandFooter
+          brandTitle="Shared footer"
+          description="Narrative, actions, and secondary content now share one footer contract."
+          actions={<a href="/support">Support</a>}
+          secondary={<blockquote>Quote-led supporting content.</blockquote>}
+          legal="© Shared footer contract"
+        />
+      </>,
+    );
+
+    expect(screen.getByText('Fast pickup')).toBeInTheDocument();
+    expect(screen.getByText('Local delivery')).toBeInTheDocument();
+    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Support' })).toBeInTheDocument();
   });
 
   it('renders public product cards with visible price and sold-out action disabling', () => {
