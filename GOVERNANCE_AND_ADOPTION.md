@@ -1,7 +1,7 @@
 # Governance & Adoption
 
 Status: Active SSOT
-Version: 2.4.0
+Version: 2.4.2
 Last updated: 2026-05-25
 
 This document defines how products adopt the design system, enforce compliance, and migrate legacy UI. 
@@ -95,6 +95,16 @@ Exceptions must be documented in the local project adapter. The note must includ
 - User Impact
 - Removal condition / expiration
 Exceptions must remain narrow. Do not promote a one-off exception into a shared primitive unless documented here first.
+
+If a consumer needs an approved dependency-level exception such as `lucide-react`, the exception should also appear in `gds-adoption.json` with:
+
+- `dependency`
+- optional `allowImports`
+- `reason`
+- `owner`
+- `reviewDate`
+
+Shared lint/compliance tooling may use that manifest-level allowlist to keep the default GDS guardrails active without forcing a repo to abandon the shared tooling entirely.
 
 Reference policies:
 

@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 2.4.1
+Version: 2.4.2
 Last updated: 2026-05-25
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
@@ -35,6 +35,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Templates**: `TEMPLATES/` — Starter templates for your project's theme, providers, shell, and thin wrappers.
 - **Machine-readable Contracts**: `compatibility.matrix.json`, `schemas/gds-adoption.schema.json`, and `TEMPLATES/gds-adoption.json.template` — shared compatibility, adoption, and validation contracts.
 - **Tooling Packages**: `@gds/eslint-config` and `@gds/compliance` — shared lint and compliance enforcement for adopting repos.
+- **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@gds/core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 

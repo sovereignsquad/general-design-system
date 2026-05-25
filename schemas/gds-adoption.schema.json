@@ -78,6 +78,12 @@
         "required": ["surface", "reason", "owner", "reviewDate"],
         "properties": {
           "surface": { "type": "string", "minLength": 1 },
+          "dependency": { "type": "string", "minLength": 1 },
+          "allowImports": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
           "reason": { "type": "string", "minLength": 1 },
           "owner": { "type": "string", "minLength": 1 },
           "reviewDate": {

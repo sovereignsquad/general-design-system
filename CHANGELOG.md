@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 2.4.2 - 2026-05-25
+
+- Added `@gds/core` `PublicProductCard` for media-first public menu, catalog, and offer surfaces with price/state/action hierarchy.
+- Added `es` locale support plus canonical `GdsLocale` and `getGdsMessages(locale)` exports for host-i18n bridges.
+- Extended shared lint/compliance tooling to support manifest-driven approved dependency/import exceptions such as `lucide-react`.
+- Updated compatibility, governance, and Pesti Est adoption docs for registry-first CI usage and locale/exception guidance.
+
 ## 2.4.1 - 2026-05-25
 
 - Added `@gds/core` `AccessRecoveryPanel` as the canonical protected-content, expired-session, and recoverable failure surface.

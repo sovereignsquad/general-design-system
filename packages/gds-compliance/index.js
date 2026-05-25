@@ -4,7 +4,8 @@ import { extname, dirname, join, resolve } from 'node:path';
 const SOURCE_EXTENSIONS = new Set(['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs']);
 const IGNORED_DIRS = new Set(['node_modules', '.git', '.next', 'dist', 'coverage']);
 const RAW_COLOR_PATTERN = /#(?:[0-9a-fA-F]{3,8})\b|rgb[a]?\s*\(/;
-const FORBIDDEN_IMPORT_PATTERN = /(?:@\/components\/ui\/|@radix-ui\/|tailwindcss(?:\/|$)|lucide-react$)/;
+const IMPORT_SOURCE_PATTERN = /(?:import\s+[^'"]*?from\s*|import\s*)['"]([^'"]+)['"]/g;
+const DEFAULT_FORBIDDEN_IMPORTS = ['@/components/ui/', '@radix-ui/', 'tailwindcss', 'lucide-react'];
 
 export function validateManifest(manifest) {
   const findings = [];
@@ -63,7 +64,23 @@ function walk(dir, files = []) {
   return files;
 }
 
-function scanSourceFile(filePath) {
+function isForbiddenImport(source, allowedImports) {
+  if (allowedImports.has(source)) {
+    return false;
+  }
+
+  return DEFAULT_FORBIDDEN_IMPORTS.some((entry) => {
+    if (entry.endsWith('/')) {
+      return source.startsWith(entry);
+    }
+    if (entry === 'tailwindcss') {
+      return source === 'tailwindcss' || source.startsWith('tailwindcss/');
+    }
+    return source === entry;
+  });
+}
+
+function scanSourceFile(filePath, allowedImports) {
   const findings = [];
   const content = readFileSync(filePath, 'utf8');
 
@@ -76,13 +93,16 @@ function scanSourceFile(filePath) {
     });
   }
 
-  if (FORBIDDEN_IMPORT_PATTERN.test(content)) {
-    findings.push({
-      rule: 'forbidden-import',
-      severity: 'error',
-      file: filePath,
-      message: 'Forbidden UI import detected; use canonical GDS surfaces instead.',
-    });
+  for (const match of content.matchAll(IMPORT_SOURCE_PATTERN)) {
+    const source = match[1];
+    if (source && isForbiddenImport(source, allowedImports)) {
+      findings.push({
+        rule: 'forbidden-import',
+        severity: 'error',
+        file: filePath,
+        message: `Forbidden UI import detected (${source}); use canonical GDS surfaces instead.`,
+      });
+    }
   }
 
   return findings;
@@ -93,6 +113,16 @@ export function runComplianceCheck({ manifestPath }) {
   const manifestRoot = dirname(absoluteManifestPath);
   const manifest = JSON.parse(readFileSync(absoluteManifestPath, 'utf8'));
   const findings = validateManifest(manifest);
+  const allowedImports = new Set();
+
+  for (const exception of manifest.approvedExceptions ?? []) {
+    if (exception.dependency) {
+      allowedImports.add(exception.dependency);
+    }
+    for (const value of exception.allowImports ?? []) {
+      allowedImports.add(value);
+    }
+  }
 
   for (const adapter of manifest.localAdapters ?? []) {
     if (adapter.status === 'active' || adapter.status === 'exception') {
@@ -110,7 +140,7 @@ export function runComplianceCheck({ manifestPath }) {
 
   const sourceFiles = walk(manifestRoot);
   for (const filePath of sourceFiles) {
-    findings.push(...scanSourceFile(filePath));
+    findings.push(...scanSourceFile(filePath, allowedImports));
   }
 
   return {

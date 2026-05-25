@@ -16,6 +16,7 @@ import { GameBoardTile } from './GameBoardTile';
 import { MetricCard } from './MetricCard';
 import { PageHeader } from './PageHeader';
 import { PlaceholderPanel } from './PlaceholderPanel';
+import { PublicProductCard } from './PublicProductCard';
 import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
 import { SemanticButton } from './SemanticButton';
@@ -25,6 +26,7 @@ import { StatsSection } from './StatsSection';
 import { StatusBadge } from './StatusBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { UploadDropzone } from './UploadDropzone';
+import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
 
 describe('@gds/core', () => {
   it('renders semantic button labels from translation messages', () => {
@@ -101,6 +103,18 @@ describe('@gds/core', () => {
     expect(screen.getByText('87%')).toBeInTheDocument();
     expect(screen.getByText('Weekly completion rate')).toBeInTheDocument();
     expect(screen.getByText('+4%')).toBeInTheDocument();
+  });
+
+  it('keeps locale packs in parity and resolves locale messages with fallback', () => {
+    const locales = { en, es, hu, de, fr, it: itLocale, ru, he, ar };
+    const expectedKeys = Object.keys(en).sort();
+
+    for (const locale of Object.values(locales)) {
+      expect(Object.keys(locale).sort()).toEqual(expectedKeys);
+    }
+
+    expect(getGdsMessages('es')['gds.action.save']).toBe('Guardar');
+    expect(getGdsMessages('unknown-locale')['gds.action.save']).toBe('Save');
   });
 
   it('renders shared state blocks for empty and permission messaging', () => {
@@ -348,5 +362,41 @@ describe('@gds/core', () => {
     expect(screen.getByText('Need at least 5 submissions.')).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
     expect(screen.getByText('Northern Region')).toBeInTheDocument();
+  });
+
+  it('renders public product cards with visible price and sold-out action disabling', () => {
+    renderWithGds(
+      <>
+        <PublicProductCard
+          title="Chef tasting menu"
+          description="Five courses with seasonal ingredients."
+          price="EUR 89"
+          helperText="Per person"
+          metadata={[{ label: 'Availability', value: 'Evenings only' }]}
+          primaryAction={<button type="button">Reserve</button>}
+        />
+        <PublicProductCard
+          title="House special"
+          state="sold-out"
+          primaryAction={<button type="button">Order now</button>}
+        />
+      </>,
+    );
+
+    expect(screen.getByText('EUR 89')).toBeInTheDocument();
+    expect(screen.getByText('Per person')).toBeInTheDocument();
+    expect(screen.getByText('Sold out')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Order now' })).toBeDisabled();
+  });
+
+  it('renders public product card loading and missing-image fallback states', () => {
+    const { rerender } = renderWithGds(
+      <PublicProductCard title="Seasonal plate" loading />,
+    );
+
+    expect(document.querySelectorAll('.mantine-Skeleton-root').length).toBeGreaterThan(0);
+
+    rerender(<PublicProductCard title="Seasonal plate" />);
+    expect(screen.getByLabelText('No product image available')).toBeInTheDocument();
   });
 });

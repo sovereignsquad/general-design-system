@@ -1,7 +1,7 @@
 # Portfolio Adoption Matrix
 
 Status: Active SSOT
-Version: 2.4.1
+Version: 2.4.2
 Last updated: 2026-05-25
 
 This matrix gives the shared GDS a portfolio-level view of where each project stands, what kind of migration it needs, and what the next practical move should be.
@@ -43,7 +43,7 @@ Prioritize in this order:
 | Manus | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Misisimi | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Narimato | Mantine 7 + vendored `@gds/core` / `@gds/theme`; local adapter `docs/GDS_ADOPTION.md` | Mantine-rooted enforcement | Low | Keep packages synced (`npm run gds:sync`); extend CI guard; see `PROJECTS/NARIMATO.md` |
-| Pesti Est / budapest-night | Mantine-first product with local brand theme extension and strong i18n/RTL needs | Mantine-rooted enforcement | Medium | Close package publishing, theme-extension, discovery-shell, and RTL adapter gaps so local duplicates can shrink. |
+| Pesti Est / budapest-night | Mantine-first product with local brand theme extension and strong i18n/RTL needs; adoption plan now in progress | Mantine-rooted enforcement | Medium | Close package publishing, theme-extension, discovery-shell, and RTL adapter gaps so local duplicates can shrink. |
 | Openclaw | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Opencode | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Paperclip | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |

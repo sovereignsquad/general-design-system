@@ -4,6 +4,7 @@ import {
   CtaButtonGroup,
   DocsPageShell,
   PlaceholderPanel,
+  PublicProductCard,
   PublicShell,
   SimpleDataTable,
   StatsSection,
@@ -42,6 +43,14 @@ export function App() {
           state="expired-session"
           onSignIn={() => undefined}
           onBack={() => undefined}
+        />
+        <PublicProductCard
+          title="Signature tasting"
+          description="A media-first public card using the shared catalog contract."
+          price="EUR 79"
+          helperText="Preorder available"
+          state="preorder"
+          primaryAction={<Button>Reserve</Button>}
         />
         <StatsSection title="Regional summary">
           <SimpleDataTable

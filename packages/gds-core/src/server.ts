@@ -6,6 +6,7 @@ export * from './MetricCard';
 export * from './ProgressCard';
 export * from './GameBoardTile';
 export * from './ProductCard';
+export * from './PublicProductCard';
 export * from './StateBlock';
 export * from './DataToolbar';
 export * from './PublicShell';

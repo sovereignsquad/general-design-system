@@ -1,12 +1,31 @@
 const RAW_COLOR_PATTERN = /#(?:[0-9a-fA-F]{3,8})\b|rgb[a]?\s*\(/;
 const RAW_SPACING_PATTERN = /\b(?:padding|margin|gap|radius|borderRadius)\s*:\s*['"`]?\d+(?:px|rem)/;
-const FORBIDDEN_IMPORT_PATTERN = /^(?:@\/components\/ui\/|@radix-ui\/|tailwindcss(?:\/|$)|lucide-react$)/;
+const DEFAULT_FORBIDDEN_IMPORTS = ['@/components/ui/', '@radix-ui/', 'tailwindcss', 'lucide-react'];
 
 function shouldIgnoreFile(filename = '') {
   return /(?:^|\/)(?:dist|coverage|node_modules)\//.test(filename);
 }
 
-const rules = {
+function isForbiddenImport(source, allowedImports) {
+  if (allowedImports.includes(source)) {
+    return false;
+  }
+
+  return DEFAULT_FORBIDDEN_IMPORTS.some((entry) => {
+    if (entry.endsWith('/')) {
+      return source.startsWith(entry);
+    }
+    if (entry === 'tailwindcss') {
+      return source === 'tailwindcss' || source.startsWith('tailwindcss/');
+    }
+    return source === entry;
+  });
+}
+
+function createRules(options = {}) {
+  const allowedImports = options.allowedImports ?? [];
+
+  return {
   'no-raw-design-values': {
     meta: {
       type: 'problem',
@@ -75,7 +94,7 @@ const rules = {
       return {
         ImportDeclaration(node) {
           const source = node.source.value;
-          if (typeof source === 'string' && FORBIDDEN_IMPORT_PATTERN.test(source)) {
+          if (typeof source === 'string' && isForbiddenImport(source, allowedImports)) {
             context.report({
               node,
               messageId: 'forbiddenImport',
@@ -86,25 +105,42 @@ const rules = {
       };
     },
   },
-};
+  };
+}
 
-export const gdsPlugin = {
-  meta: {
-    name: '@gds/eslint-config',
-  },
-  rules,
-};
+export function resolveAllowedImports(manifest = {}) {
+  const imports = new Set();
+  for (const exception of manifest.approvedExceptions ?? []) {
+    if (exception.dependency) {
+      imports.add(exception.dependency);
+    }
+    for (const value of exception.allowImports ?? []) {
+      imports.add(value);
+    }
+  }
+  return [...imports];
+}
 
-export const gdsConfig = [
-  {
-    plugins: {
-      gds: gdsPlugin,
+export function createGdsConfig(options = {}) {
+  const rules = createRules(options);
+  return [
+    {
+      plugins: {
+        gds: {
+          meta: {
+            name: '@gds/eslint-config',
+          },
+          rules,
+        },
+      },
+      rules: {
+        'gds/no-raw-design-values': 'error',
+        'gds/no-forbidden-ui-imports': 'error',
+      },
     },
-    rules: {
-      'gds/no-raw-design-values': 'error',
-      'gds/no-forbidden-ui-imports': 'error',
-    },
-  },
-];
+  ];
+}
+
+export const gdsConfig = createGdsConfig();
 
 export default gdsConfig;

@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 2.4.1
+Version: 2.4.2
 Last updated: 2026-05-25
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -33,6 +33,7 @@ This document defines the canonical behavior for UI components, workflows, and r
 | **Selects / Combobox** | Use `Select` for small sets, `Combobox` (searchable) for long lists. Use `MultiSelect` only when truly needed. | `md` |
 | **Checkboxes/Radios** | Checkbox = independent opt-in. Radio = mutually exclusive. Switch = immediate on/off action. | `md` |
 | **Product Cards** | Fixed slots for media/icon, title, metadata, status/progress, primary action, and overflow actions. One visible primary action on mobile. | `md` |
+| **Public Product Cards** | Media-first public cards must keep price, availability state, and one clear mobile action visible without consumer-local layout authority. | `md` |
 | **Metric Cards** | Prominent value, readable label, optional trend/status. Analytics may not outrank next action or urgent exceptions on mobile. | `md` |
 | **Data Toolbars** | Search, filters, sort, reset, and create actions in predictable order. Active filters visible and removable. | `md` |
 | **State Blocks** | Loading, empty, error, permission, disabled, and success states must explain the state and provide the next action where possible. | `md` |
@@ -74,6 +75,7 @@ The following families are mandatory local contracts when a project has the corr
 | **App Shell** | Product has authenticated, public, admin, or docs areas | navigation model, account controls, active route, mobile behavior |
 | **Page Header** | Product has more than one page | title, purpose text, primary action, secondary action placement |
 | **Product Card** | Product lists courses, providers, children, records, articles, accounts, or other repeated objects | content slots, action slots, mobile order, loading/empty behavior |
+| **Public Product Card** | Product has media-first menu, catalog, offer, or discovery cards | image treatment, price/helper hierarchy, availability states, one mobile primary action, missing-image/loading behavior |
 | **Metric / Progress Card** | Product shows repeated stats or progress | value hierarchy, label rules, trend/status rules, mobile priority |
 | **Data Toolbar / Responsive Data View** | Product has admin/editor/search/list workflows | search, filters, sort, reset, create, desktop table strategy, mobile fallback |
 | **Auth Shell** | Product has login, signup, account linking, consent, or guest entry | auth actions, error placement, provider branding, anonymous/guest behavior |

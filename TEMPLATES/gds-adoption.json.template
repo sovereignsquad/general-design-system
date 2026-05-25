@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "2.4.0",
+  "gdsVersion": "2.4.2",
   "productArchetype": "hybrid",
   "supportedEntryPoints": [
     "@gds/theme/client",
@@ -26,6 +26,14 @@
     {
       "surface": "Map embed",
       "reason": "Third-party map engine remains outside canonical GDS scope.",
+      "owner": "platform-ui",
+      "reviewDate": "2026-05-25"
+    },
+    {
+      "surface": "Approved icon exception",
+      "dependency": "lucide-react",
+      "allowImports": ["lucide-react"],
+      "reason": "Consumer keeps a reviewed icon exception while remaining on shared lint/compliance tooling.",
       "owner": "platform-ui",
       "reviewDate": "2026-05-25"
     }

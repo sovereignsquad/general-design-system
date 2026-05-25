@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.4.0
+Version: 2.4.2
 Last updated: 2026-05-25
 
 This document defines the supported package/runtime contract for `@gds/theme`, `@gds/core`, and `@gds/admin`.
@@ -24,6 +24,20 @@ Canonical install path:
 1. consume `@gds/theme`, `@gds/core`, and `@gds/admin` as installable packages
 2. keep Mantine, React, and React DOM aligned to the compatibility matrix
 3. avoid sibling-repo `file:` links for production CI/Vercel flows unless explicitly documented as temporary local development strategy
+
+### Production CI/Vercel note
+
+For hosted CI and Vercel builds, the intended end state is:
+
+1. install `@gds/*` from a registry
+2. keep the consumer repo independent of a sibling GDS checkout
+3. pin the consumed GDS version explicitly in the consumer repo
+
+Until npm publication is executed from an authenticated release environment, this repository is only **publish-ready**, not registry-published by default.
+
+### GitHub Packages fallback
+
+If npm publication is not yet available, consumers may use a GitHub Packages distribution path once packages are published there by the release operator. The consumer contract remains the same: install from a registry, do not rely on sibling `file:` links in production-like flows.
 
 ## Export contract
 
