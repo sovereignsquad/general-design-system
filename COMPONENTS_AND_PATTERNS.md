@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 2.4.0
+Version: 2.4.1
 Last updated: 2026-05-25
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -45,6 +45,7 @@ This document defines the canonical behavior for UI components, workflows, and r
 | **CTA Button Groups** | Public CTA groups must preserve one obvious primary action, stack safely on small screens, and avoid ornamental motion or hierarchy chrome. | `md` |
 | **Upload Surfaces** | Upload/drop surfaces must define drag state, a11y labels, empty/error messaging, and replace/remove behavior. | `md` |
 | **Access Summaries** | Role, scope, blocked/forbidden, and ownership cues must be explicit and may not rely on color only. | `md` |
+| **Access Recovery Panels** | Protected-content and expired-session failures must use one canonical recovery surface with clear state meaning and one obvious mobile recovery action. | `md` |
 | **Placeholder Panels** | Placeholder and coming-soon surfaces must be honest, visibly non-live, and must not imply fabricated data. | `md` |
 | **Simple Data Tables** | Public/product summary tables must support loading, empty, error, and threshold-safe states without importing admin CRUD semantics. | `md` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
@@ -81,5 +82,6 @@ The following families are mandatory local contracts when a project has the corr
 | **Public Shell** | Product has public marketing, docs, listing, profile, or auth-adjacent surfaces | brand slot, nav model, readability width, CTA hierarchy, footer, mobile nav |
 | **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, preview, replace/remove, status overlays |
 | **Access Summary** | Product has scoped roles or blocked/forbidden states | role badges, scope labels, blocked/forbidden handling, ownership cues |
+| **Access Recovery** | Product has protected routes, scope failures, expired sessions, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |
 
 Mantine UI examples may be used to inform these contracts only after the project confirms the GDS behavior, responsive rules, and token boundaries remain unchanged.

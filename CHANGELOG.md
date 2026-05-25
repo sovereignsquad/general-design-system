@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 2.4.1 - 2026-05-25
+
+- Added `@gds/core` `AccessRecoveryPanel` as the canonical protected-content, expired-session, and recoverable failure surface.
+- Updated component contracts to treat access recovery as a first-class shared pattern family.
+- Resolved the learner-shell evaluation by documenting that LMS learner shells remain local adapters until broader portfolio reuse is proven.
+- Updated Amanoba guidance to consume shared access recovery now while keeping learner shell, course cards, and gamification list cards local for now.
+
 ## 2.3.2 - 2026-05-25
 
 - Added `@gds/core` `GameBoardTile` for memory-match and flip/select game boards (reduced-motion aware).

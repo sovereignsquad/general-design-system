@@ -1,5 +1,6 @@
 import { Button } from '@mantine/core';
 import {
+  AccessRecoveryPanel,
   CtaButtonGroup,
   DocsPageShell,
   PlaceholderPanel,
@@ -36,6 +37,11 @@ export function App() {
           description="This surface remains a governed placeholder until data is connected."
           badge="Coming soon"
           mode="placeholder"
+        />
+        <AccessRecoveryPanel
+          state="expired-session"
+          onSignIn={() => undefined}
+          onBack={() => undefined}
         />
         <StatsSection title="Regional summary">
           <SimpleDataTable

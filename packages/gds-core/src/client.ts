@@ -22,6 +22,7 @@ export * from './DocsPageShell';
 export * from './UploadDropzone';
 export * from './MediaCard';
 export * from './AccessSummary';
+export * from './AccessRecoveryPanel';
 export * from './FormField';
 export * from './PageHeader';
 export * from './FilterDrawer';

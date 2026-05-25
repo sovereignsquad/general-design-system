@@ -1,8 +1,8 @@
 # Portfolio Adoption Matrix
 
 Status: Active SSOT
-Version: 2.3.0
-Last updated: 2026-05-24
+Version: 2.4.1
+Last updated: 2026-05-25
 
 This matrix gives the shared GDS a portfolio-level view of where each project stands, what kind of migration it needs, and what the next practical move should be.
 
@@ -27,7 +27,7 @@ Prioritize in this order:
 
 | Project | Observed Foundation Signal | Archetype | Risk | Recommendation |
 |---|---|---|---|---|
-| Amanoba | `@gds/*` 2.3.x adopted on `main`; patterns in `patterns/gds/`; local LearnerAppShell/CourseCard until #80 | Package adoption in progress | High | Bump to latest GDS line; delete locals when LearnerAppShell + course variants ship. |
+| Amanoba | `@gds/*` adopted on `main`; patterns in `patterns/gds/`; shared `AccessRecoveryPanel`; learner shell/course cards remain intentional locals pending wider reuse proof | Package adoption in progress | High | Bump to latest GDS line; delete recovery local now; keep learner shell and course/gamification cards local until a second product proves the same contract. |
 | KIDEX | Mantine detected; active project plan exists | Mantine-rooted drift cleanup | Medium | Keep mobile shell, dashboard, and child-registry normalization as the next priority; focus on action hierarchy and responsive consistency. |
 | SSO | Mantine detected; active project plan exists | Mantine-rooted drift cleanup | Medium | Finish docs/editorial migration and delete the remaining legacy CSS/theme stack. |
 | Impact / sovereignsquad | Mantine 7 + Vite MPA; local shell/state adapters; vendored theme behavior | Mantine-rooted contract gap | Medium | Publish package install path first, then align public shell, docs shell, state/upload surfaces, and dark-mode policy. |

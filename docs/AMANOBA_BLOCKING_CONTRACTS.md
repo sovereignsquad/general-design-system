@@ -1,7 +1,7 @@
 # Amanoba-Blocking Contract Scaffolds
 
-Status: Working coordination (GDS issue #80)  
-Version: 2.3.2  
+Status: Decision record after issue split (`#97`, `#99`)  
+Version: 2.4.1  
 Last updated: 2026-05-25
 
 Contracts below unblock deletion of permanent Amanoba-only forks after `mvp-factory-control` epic #868.
@@ -15,40 +15,46 @@ Contracts below unblock deletion of permanent Amanoba-only forks after `mvp-fact
 | ProductCard (base) | `@gds/core` | active |
 | DataToolbar, ResponsiveDataView | `@gds/admin` | active |
 | GameBoardTile | `@gds/core` | active (2.3.2) |
+| AccessRecoveryPanel | `@gds/core` | active (2.4.1) |
 | extendGdsTheme / client+server entrypoints | `@gds/theme` | required |
 
-## Remaining (target for 2.3.x)
+## Decision: Learner shell stays local for now
 
-### LearnerAppShell — `required` for LMS apps
+`LearnerAppShell` is **not promoted into GDS** at this time.
 
-**Problem:** Full learner chrome (nav, account, locale, mobile nav, consent offset) is duplicated per product.
+Reason:
 
-**Slots:** `logo`, `primaryNav`, `accountMenu`, `localeControl`, `pageHeader`, `actions`, `children`.
+- current evidence in this repo does not prove a second LMS/guided-learning product with the same structural shell contract
+- shipping it now would likely encode Amanoba information architecture into core
+- the correct GDS behavior today is to compose learner-local shells from `PublicShell`, `PageHeader`, `AuthShell`, `ProductCard`, and other existing primitives
 
-**States:** signed-in, signed-out (marketing subset), mobile drawer open/closed.
+Next trigger for re-evaluation:
 
-**Package path (planned):** `@gds/core/client` → `LearnerAppShell`.
+- promote only after a second product proves the same slot structure and mobile navigation model
+- track this through [general-design-system#99](https://github.com/sovereignsquad/general-design-system/issues/99)
 
-### Course card variants — `required` where courses are listed
+## Intentional local-only surfaces for now
 
-Compose from `ProductCard`:
+### Course card variants
 
 - `CourseCatalogCard`
 - `EnrolledCourseCard`
 - `CourseProgressCard`
 - `AdminCourseCard`
 
-### CourseAccessRecoveryPanel — `active`
+These remain Amanoba-local until a second product proves the same structural card family.
 
-**Problem:** Protected lesson/quiz routes need sign-in, back, and retry without conflating `AccessSummary`.
+### Gamification list cards
 
-**Actions:** sign-in CTA, navigate back, retry fetch.
+Quest, reward, and leaderboard list cards remain local until broader reuse is proven.
 
-### Gamification list cards — `active`
+## Canonical replacement for course access recovery
 
-Quest step progress, reward catalog card, leaderboard row (mobile: one primary action).
+Protected lesson and quiz recovery should now use `@gds/core` `AccessRecoveryPanel`.
 
 ## Amanoba adoption pointer
 
 - Consumer: `moldovancsaba/amanoba` — `docs/product/DESIGN_UPDATE.md`
-- Upstream tracking: [general-design-system#80](https://github.com/sovereignsquad/general-design-system/issues/80)
+- Upstream tracking:
+  - [general-design-system#97](https://github.com/sovereignsquad/general-design-system/issues/97)
+  - [general-design-system#99](https://github.com/sovereignsquad/general-design-system/issues/99)

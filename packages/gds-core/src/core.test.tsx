@@ -3,6 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { AccessSummary } from './AccessSummary';
+import { AccessRecoveryPanel } from './AccessRecoveryPanel';
 import { ArticleShell } from './ArticleShell';
 import { AuthShell } from './AuthShell';
 import { CtaButtonGroup } from './CtaButtonGroup';
@@ -113,6 +114,46 @@ describe('@gds/core', () => {
     expect(screen.getByText('No reports yet')).toBeInTheDocument();
     expect(screen.getByText('Partner access')).toBeInTheDocument();
     expect(screen.getByText('Scope: Northern region')).toBeInTheDocument();
+  });
+
+  it('renders canonical access-recovery defaults and invokes recovery actions', async () => {
+    const user = userEvent.setup();
+    const onSignIn = vi.fn();
+    const onBack = vi.fn();
+
+    renderWithGds(
+      <AccessRecoveryPanel state="unauthenticated" onSignIn={onSignIn} onBack={onBack} />,
+    );
+
+    expect(screen.getByText('Sign in required')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Login' }));
+    await user.click(screen.getByRole('button', { name: 'Back' }));
+
+    expect(onSignIn).toHaveBeenCalledTimes(1);
+    expect(onBack).toHaveBeenCalledTimes(1);
+  });
+
+  it('supports retry-first unavailable states and explicit support actions', async () => {
+    const user = userEvent.setup();
+    const onRetry = vi.fn();
+    const onHelp = vi.fn();
+
+    renderWithGds(
+      <AccessRecoveryPanel
+        state="unavailable"
+        onRetry={onRetry}
+        supportAction={{ action: 'help', onClick: onHelp, variant: 'subtle' }}
+      />,
+    );
+
+    expect(screen.getByText('Content is temporarily unavailable')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Refresh' }));
+    await user.click(screen.getByRole('button', { name: 'Help' }));
+
+    expect(onRetry).toHaveBeenCalledTimes(1);
+    expect(onHelp).toHaveBeenCalledTimes(1);
   });
 
   it('renders the public shell and toolbar contracts', () => {
