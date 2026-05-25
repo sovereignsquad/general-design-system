@@ -8,6 +8,7 @@ All notable policy changes to the General Design System are recorded here.
 - Added `EditorialHero`, `FeatureBand`, and `PublicBrandFooter` to `@gds/core` for shared public/editorial composition without repo-local layout authority.
 - Hardened release verification with export-contract checks that fail on missing published export targets or server entrypoints that drift into client-only modules.
 - Updated the Next.js and Vite reference consumers to exercise the new public/editorial primitives and the server-safe import path.
+- Added an authenticated publish runbook and shared `publish:dry-run` / `publish:npm` scripts for the five public GDS packages.
 
 ## 2.4.2 - 2026-05-25
 

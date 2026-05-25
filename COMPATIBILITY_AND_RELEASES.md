@@ -35,6 +35,14 @@ For hosted CI and Vercel builds, the intended end state is:
 
 Until npm publication is executed from an authenticated release environment, this repository is only **publish-ready**, not registry-published by default.
 
+Authenticated release operators should use [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md) together with:
+
+```bash
+npm run verify:release
+npm run publish:dry-run
+npm run publish:npm
+```
+
 ### GitHub Packages fallback
 
 If npm publication is not yet available, consumers may use a GitHub Packages distribution path once packages are published there by the release operator. The consumer contract remains the same: install from a registry, do not rely on sibling `file:` links in production-like flows.

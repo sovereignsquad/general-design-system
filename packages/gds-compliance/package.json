@@ -4,7 +4,7 @@
   "type": "module",
   "main": "./index.js",
   "bin": {
-    "gds-compliance": "./bin/gds-compliance.js"
+    "gds-compliance": "bin/gds-compliance.js"
   },
   "exports": {
     ".": "./index.js"

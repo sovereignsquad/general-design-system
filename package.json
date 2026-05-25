@@ -12,7 +12,9 @@
     "lint": "npm run lint --workspace=apps/playground",
     "test": "vitest",
     "test:run": "vitest run",
-    "verify:references": "node scripts/verify-reference-consumers.mjs"
+    "verify:references": "node scripts/verify-reference-consumers.mjs",
+    "publish:dry-run": "node scripts/publish-packages.mjs --dry-run",
+    "publish:npm": "node scripts/publish-packages.mjs"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.8.0",
