@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 2.4.4 - 2026-05-25
+
+- Enhanced `PublicShell` with canonical header variants, class-name hooks, and server-safe mobile navigation modes so public consumers can stop shipping repo-local spacing and nav overrides.
+- Enhanced `PublicBrandFooter` with documented layout variants and slot-level class hooks for narrative, media, quote, and legal regions.
+- Enhanced `PublicProductCard` with localized state-label overrides plus pickup and inventory helper-note support for menu, discovery, and retail-like public surfaces.
+- Updated the Vite and Next.js reference consumers plus shared component tests to exercise the new public-surface contracts end to end.
+
 ## 2.4.3 - 2026-05-25
 
 - Added `AccentPanel` as the canonical light/dark-safe accent surface contract for public and operator-facing emphasis panels.

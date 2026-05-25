@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 2.4.3
+Version: 2.4.4
 Last updated: 2026-05-25
 
 This document defines how products may extend `gdsTheme` without creating a second design authority.

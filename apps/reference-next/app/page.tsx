@@ -23,6 +23,14 @@ export default function Page() {
       activeNavId="home"
       actions={<Button variant="default">Status</Button>}
       footer="Next.js App Router consumer reference"
+      headerVariant="compact"
+      mobileNavigationMode="drawer"
+      mobileNavigation={
+        <>
+          <Anchor href="/">Home</Anchor>
+          <Anchor href="/docs">Docs</Anchor>
+        </>
+      }
     >
       <DocsPageShell
         breadcrumbs={[{ label: 'Reference', href: '/' }, { label: 'Overview' }]}
@@ -98,6 +106,7 @@ export default function Page() {
           badge="Roadmap"
         />
         <PublicBrandFooter
+          layoutVariant="balanced-quote"
           brandTitle="GDS reference consumer"
           description="Public footer storytelling, legal scaffolding, and utility links now live in shared core primitives."
           actions={

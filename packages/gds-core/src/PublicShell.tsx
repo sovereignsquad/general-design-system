@@ -2,6 +2,19 @@ import type { ReactNode } from 'react';
 import { AppShell, Box, Burger, Container, Group, Stack, Text } from '@mantine/core';
 import { PublicNav, type PublicNavItem } from './PublicNav';
 
+export type PublicShellHeaderVariant = 'default' | 'branded-quiet' | 'compact';
+export type PublicShellMobileNavigationMode = 'sheet' | 'inline-collapse' | 'drawer';
+
+export interface PublicShellClassNames {
+  root?: string;
+  header?: string;
+  brand?: string;
+  navigation?: string;
+  actions?: string;
+  content?: string;
+  mobileNavigation?: string;
+}
+
 export interface PublicShellProps {
   brand: ReactNode;
   navItems?: PublicNavItem[];
@@ -14,6 +27,54 @@ export interface PublicShellProps {
   headerBordered?: boolean;
   compact?: boolean;
   maxContentWidth?: number | 'sm' | 'md' | 'lg';
+  headerVariant?: PublicShellHeaderVariant;
+  mobileNavigationMode?: PublicShellMobileNavigationMode;
+  classNames?: PublicShellClassNames;
+}
+
+function InlineMobileNavigation({
+  mobileNavigation,
+  className,
+  mode,
+}: {
+  mobileNavigation: ReactNode;
+  className?: string;
+  mode: Extract<PublicShellMobileNavigationMode, 'inline-collapse' | 'drawer'>;
+}) {
+  return (
+    <Box component="details" hiddenFrom="sm" className={className}>
+      <Box
+        component="summary"
+        aria-label={mode === 'drawer' ? 'Open site navigation drawer' : 'Open site navigation'}
+        style={{
+          listStyle: 'none',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+        }}
+      >
+        <Burger opened={false} aria-hidden />
+        <Text size="sm" fw={600}>
+          Menu
+        </Text>
+      </Box>
+      <Box
+        mt="sm"
+        p="sm"
+        style={{
+          borderRadius: 'var(--mantine-radius-lg)',
+          border: '1px solid var(--mantine-color-default-border)',
+          background:
+            mode === 'drawer'
+              ? 'light-dark(var(--mantine-color-white), color-mix(in srgb, var(--mantine-color-dark-7) 92%, black))'
+              : 'var(--mantine-color-body)',
+        }}
+      >
+        <Stack gap="sm">{mobileNavigation}</Stack>
+      </Box>
+    </Box>
+  );
 }
 
 export function PublicShell({
@@ -28,28 +89,53 @@ export function PublicShell({
   headerBordered = true,
   compact = false,
   maxContentWidth,
+  headerVariant = 'default',
+  mobileNavigationMode = 'sheet',
+  classNames,
 }: PublicShellProps) {
   const resolvedNavigation = navigation ?? (navItems ? <PublicNav items={navItems} activeId={activeNavId} /> : null);
   const containerSize = maxContentWidth ?? (compact ? 'md' : 'lg');
+  const headerHeight = headerVariant === 'compact' ? 64 : headerVariant === 'branded-quiet' ? 88 : 72;
+  const mainPadding = headerVariant === 'compact' ? 'lg' : 'xl';
+  const usesInlineMobileNavigation = Boolean(mobileNavigation) && mobileNavigationMode !== 'sheet';
+  const usesSheetMobileNavigation = Boolean(mobileNavigation) && mobileNavigationMode === 'sheet';
 
   return (
-    <AppShell header={{ height: 72 }} footer={mobileNavigation ? { height: 68 } : undefined} padding={0}>
-      <AppShell.Header withBorder={headerBordered}>
-        <Container size={containerSize} h="100%">
-          <Group h="100%" justify="space-between" wrap="nowrap">
-            <Group wrap="nowrap" gap="sm">
-              {mobileNavigation ? <Burger hiddenFrom="sm" disabled opened={false} aria-hidden /> : null}
+    <AppShell
+      className={classNames?.root}
+      header={{ height: headerHeight }}
+      footer={usesSheetMobileNavigation ? { height: 68 } : undefined}
+      padding={0}
+    >
+      <AppShell.Header withBorder={headerBordered} className={classNames?.header} data-header-variant={headerVariant}>
+        <Container size={containerSize} h="100%" py={headerVariant === 'branded-quiet' ? 'sm' : 0}>
+          <Group
+            h="100%"
+            justify="space-between"
+            wrap="nowrap"
+            gap={headerVariant === 'compact' ? 'sm' : 'lg'}
+          >
+            <Group wrap="nowrap" gap={headerVariant === 'compact' ? 'xs' : 'sm'} className={classNames?.brand}>
+              {usesInlineMobileNavigation ? (
+                <InlineMobileNavigation
+                  mobileNavigation={mobileNavigation}
+                  className={classNames?.mobileNavigation}
+                  mode={mobileNavigationMode}
+                />
+              ) : null}
               <Box>{brand}</Box>
             </Group>
-            <Group visibleFrom="sm" gap="lg">
+            <Group visibleFrom="sm" gap={headerVariant === 'compact' ? 'md' : 'lg'} className={classNames?.navigation}>
               {resolvedNavigation}
             </Group>
-            <Group gap="sm">{actions}</Group>
+            <Group gap="sm" className={classNames?.actions}>
+              {actions}
+            </Group>
           </Group>
         </Container>
       </AppShell.Header>
 
-      {mobileNavigation ? (
+      {usesSheetMobileNavigation ? (
         <AppShell.Footer withBorder>
           <Container size={containerSize} h="100%">
             <Group h="100%" justify="space-around" wrap="nowrap">
@@ -60,7 +146,7 @@ export function PublicShell({
       ) : null}
 
       <AppShell.Main>
-        <Container size={containerSize} py="xl">
+        <Container size={containerSize} py={mainPadding} className={classNames?.content}>
           <Stack gap="xl">{children}</Stack>
         </Container>
         {footer ? (

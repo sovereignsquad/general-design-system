@@ -4,6 +4,7 @@ import { AspectRatio, Badge, Card, Group, Skeleton, Stack, Text, ThemeIcon, Titl
 import { GdsIcons } from './icons';
 
 export type PublicProductCardState = 'available' | 'limited' | 'sold-out' | 'preorder';
+export type PublicProductCardHelperKind = 'supporting' | 'pickup' | 'inventory';
 
 export interface PublicProductCardMetaItem {
   label: string;
@@ -17,7 +18,11 @@ export interface PublicProductCardProps {
   imageAlt?: string;
   price?: ReactNode;
   helperText?: ReactNode;
+  helperKind?: PublicProductCardHelperKind;
+  pickupNote?: ReactNode;
+  inventoryNote?: ReactNode;
   state?: PublicProductCardState;
+  stateLabels?: Partial<Record<PublicProductCardState, string>>;
   primaryAction?: ReactNode;
   secondaryAction?: ReactNode;
   metadata?: PublicProductCardMetaItem[];
@@ -87,7 +92,11 @@ export function PublicProductCard({
   image,
   price,
   helperText,
+  helperKind = 'supporting',
+  pickupNote,
+  inventoryNote,
   state = 'available',
+  stateLabels,
   primaryAction,
   secondaryAction,
   metadata = [],
@@ -102,7 +111,14 @@ export function PublicProductCard({
   const isActionDisabled = disabled || state === 'sold-out';
   const resolvedPrimaryAction = enhanceAction(primaryAction, isActionDisabled);
   const resolvedSecondaryAction = enhanceAction(secondaryAction, disabled);
-  const stateBadge = stateConfig[state];
+  const stateBadge = {
+    ...stateConfig[state],
+    label: stateLabels?.[state] ?? stateConfig[state].label,
+  };
+  const supportingHelper = helperKind === 'supporting' ? helperText : null;
+  const pickupHelper = helperKind === 'pickup' ? helperText : pickupNote;
+  const inventoryHelper = helperKind === 'inventory' ? helperText : inventoryNote;
+  const hasSupportingRegion = Boolean(price || supportingHelper || pickupHelper || inventoryHelper);
 
   return (
     <Card withBorder radius="lg" padding={compact ? 'md' : 'lg'}>
@@ -125,7 +141,7 @@ export function PublicProductCard({
           </Badge>
         </Group>
 
-        {(price || helperText) ? (
+        {hasSupportingRegion ? (
           <Group justify="space-between" align="flex-end" gap="sm" wrap="nowrap">
             <Stack gap={2} style={{ minWidth: 0, flex: 1 }}>
               {price ? (
@@ -133,9 +149,9 @@ export function PublicProductCard({
                   {price}
                 </Text>
               ) : null}
-              {helperText ? (
+              {supportingHelper ? (
                 <Text size="xs" c="dimmed">
-                  {helperText}
+                  {supportingHelper}
                 </Text>
               ) : null}
             </Stack>
@@ -145,8 +161,28 @@ export function PublicProductCard({
           <Group justify="flex-end">{resolvedPrimaryAction}</Group>
         ) : null}
 
-        {metadata.length ? (
+        {(pickupHelper || inventoryHelper || metadata.length) ? (
           <Stack gap={6}>
+            {pickupHelper ? (
+              <Group justify="space-between" gap="sm">
+                <Text size="sm" c="dimmed">
+                  Pickup
+                </Text>
+                <Text size="sm" fw={500} ta="right">
+                  {pickupHelper}
+                </Text>
+              </Group>
+            ) : null}
+            {inventoryHelper ? (
+              <Group justify="space-between" gap="sm">
+                <Text size="sm" c="dimmed">
+                  Availability
+                </Text>
+                <Text size="sm" fw={500} ta="right">
+                  {inventoryHelper}
+                </Text>
+              </Group>
+            ) : null}
             {metadata.map((item) => (
               <Group key={item.label} justify="space-between" gap="sm">
                 <Text size="sm" c="dimmed">

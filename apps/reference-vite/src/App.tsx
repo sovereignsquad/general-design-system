@@ -26,6 +26,14 @@ export function App() {
       activeNavId="docs"
       actions={<ThemeToggle />}
       footer="Vite public consumer reference"
+      headerVariant="branded-quiet"
+      mobileNavigationMode="inline-collapse"
+      mobileNavigation={
+        <>
+          <Anchor href="/">Home</Anchor>
+          <Anchor href="/docs">Docs</Anchor>
+        </>
+      }
     >
       <DocsPageShell
         breadcrumbs={[{ label: 'Docs', href: '/' }, { label: 'Install' }]}
@@ -99,8 +107,11 @@ export function App() {
           title="Signature tasting"
           description="A media-first public card using the shared catalog contract."
           price="EUR 79"
-          helperText="Preorder available"
+          helperText="Ready for pickup after 18:30"
+          helperKind="pickup"
+          inventoryNote="12 tasting slots left"
           state="preorder"
+          stateLabels={{ preorder: 'Reserve ahead' }}
           primaryAction={<Button>Reserve</Button>}
         />
         <StatsSection title="Regional summary">
@@ -110,6 +121,7 @@ export function App() {
           />
         </StatsSection>
         <PublicBrandFooter
+          layoutVariant="immersive-media"
           media={
             <AspectRatio ratio={4 / 3}>
               <Image

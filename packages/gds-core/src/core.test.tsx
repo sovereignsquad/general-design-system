@@ -182,6 +182,9 @@ describe('@gds/core', () => {
         activeNavId="gallery"
         actions={<button type="button">Sign in</button>}
         footer="Shared public chrome"
+        mobileNavigationMode="inline-collapse"
+        mobileNavigation={<a href="/gallery">Gallery</a>}
+        headerVariant="branded-quiet"
       >
         <DataToolbar
           searchSlot={<input aria-label="Search" />}
@@ -192,10 +195,11 @@ describe('@gds/core', () => {
     );
 
     expect(screen.getByText('Camera')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Gallery' })).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: 'Gallery' })).toHaveLength(2);
     expect(screen.getByRole('button', { name: 'Sign in' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Create' })).toBeInTheDocument();
     expect(screen.getByText('Published')).toBeInTheDocument();
+    expect(screen.getByText('Menu')).toBeInTheDocument();
   });
 
   it('renders public navigation and footer primitives with accessible active state', () => {
@@ -429,6 +433,7 @@ describe('@gds/core', () => {
           ]}
         />
         <PublicBrandFooter
+          layoutVariant="balanced-quote"
           brandTitle="Shared footer"
           description="Narrative, actions, and secondary content now share one footer contract."
           actions={<a href="/support">Support</a>}
@@ -444,14 +449,18 @@ describe('@gds/core', () => {
     expect(screen.getByRole('link', { name: 'Support' })).toBeInTheDocument();
   });
 
-  it('renders public product cards with visible price and sold-out action disabling', () => {
+  it('renders public product cards with visible price, helper regions, and sold-out action disabling', () => {
     renderWithGds(
       <>
         <PublicProductCard
           title="Chef tasting menu"
           description="Five courses with seasonal ingredients."
           price="EUR 89"
-          helperText="Per person"
+          helperText="Reserve before 18:00"
+          helperKind="pickup"
+          inventoryNote="Only 8 left tonight"
+          stateLabels={{ preorder: 'Pre-order', limited: 'Low stock' }}
+          state="limited"
           metadata={[{ label: 'Availability', value: 'Evenings only' }]}
           primaryAction={<button type="button">Reserve</button>}
         />
@@ -464,7 +473,9 @@ describe('@gds/core', () => {
     );
 
     expect(screen.getByText('EUR 89')).toBeInTheDocument();
-    expect(screen.getByText('Per person')).toBeInTheDocument();
+    expect(screen.getByText('Reserve before 18:00')).toBeInTheDocument();
+    expect(screen.getByText('Only 8 left tonight')).toBeInTheDocument();
+    expect(screen.getByText('Low stock')).toBeInTheDocument();
     expect(screen.getByText('Sold out')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Order now' })).toBeDisabled();
   });
