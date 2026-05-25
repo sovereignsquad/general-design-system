@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "tsc --noEmit",
+    "build:app-router": "next build",
     "dev": "next dev"
   },
   "dependencies": {

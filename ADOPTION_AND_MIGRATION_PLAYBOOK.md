@@ -1,7 +1,7 @@
 # Adoption & Migration Playbook
 
 Status: Active SSOT
-Version: 2.5.0
+Version: 2.5.1
 Last updated: 2026-05-25
 
 This playbook defines the canonical path for adopting GDS through direct package consumption and for migrating repos away from local mirrored adapters or legacy UI systems.
@@ -106,7 +106,7 @@ Run:
 ```bash
 npm install
 npm run build
-npm run test
+npm run test:run
 gds-compliance check --manifest ./gds-adoption.json
 ```
 

@@ -2,7 +2,11 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## 2.4.4 - 2026-05-25
+## 2.5.1 - 2026-05-25
+
+- Expanded `@gds/compliance` with configurable banned imports plus default stale-SSOT reference detection so consumer repos can catch lingering legacy UI dependencies and outdated documentation paths through shared tooling.
+- Added [COMPLIANCE_TOOLKIT.md](/Users/Shared/Projects/general-design-system/COMPLIANCE_TOOLKIT.md) as the canonical CI and local enforcement contract for `@gds/eslint-config` and `@gds/compliance`.
+- Updated template and adoption artifacts to use the canonical repository path and the current machine-readable manifest contract.
 
 ## 2.5.0 - 2026-05-25
 

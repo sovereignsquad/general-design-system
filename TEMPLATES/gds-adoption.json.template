@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "2.5.0",
+  "gdsVersion": "2.5.1",
   "productArchetype": "hybrid",
   "supportedEntryPoints": [
     "@gds/theme/client",
@@ -51,6 +51,9 @@
     "protectedSurfacePaths": [
       "src/gds",
       "src/components/public"
+    ],
+    "bannedImports": [
+      "legacy-ui-kit"
     ]
   },
   "migrationStatus": "partial",

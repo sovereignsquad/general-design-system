@@ -6,6 +6,10 @@ const IGNORED_DIRS = new Set(['node_modules', '.git', '.next', 'dist', 'coverage
 const RAW_COLOR_PATTERN = /#(?:[0-9a-fA-F]{3,8})\b|rgb[a]?\s*\(/;
 const IMPORT_SOURCE_PATTERN = /(?:import\s+[^'"]*?from\s*|import\s*)['"]([^'"]+)['"]/g;
 const DEFAULT_FORBIDDEN_IMPORTS = ['@/components/ui/', '@radix-ui/', 'tailwindcss', 'lucide-react'];
+const DEFAULT_STALE_DOCUMENTATION_REFERENCES = [
+  '/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM',
+  'GENERAL_DESIGN_SYSTEM',
+];
 
 export function validateManifest(manifest) {
   const findings = [];
@@ -44,6 +48,21 @@ export function validateManifest(manifest) {
     }
   }
 
+  for (const [field, value] of Object.entries({
+    documentationPaths: manifest.compliance?.documentationPaths ?? [],
+    staleDocumentationReferences: manifest.compliance?.staleDocumentationReferences ?? [],
+    protectedSurfacePaths: manifest.compliance?.protectedSurfacePaths ?? [],
+    bannedImports: manifest.compliance?.bannedImports ?? [],
+  })) {
+    if (!Array.isArray(value)) {
+      findings.push({
+        rule: 'manifest.invalidComplianceConfig',
+        severity: 'error',
+        message: `compliance.${field} must be an array when provided.`,
+      });
+    }
+  }
+
   return findings;
 }
 
@@ -61,6 +80,7 @@ function walk(dir, files = []) {
       files.push(join(dir, entry.name));
     }
   }
+
   return files;
 }
 
@@ -68,12 +88,12 @@ function normalizePath(value) {
   return value.replace(/\\/g, '/');
 }
 
-function isForbiddenImport(source, allowedImports) {
+function isForbiddenImport(source, allowedImports, forbiddenImports) {
   if (allowedImports.has(source)) {
     return false;
   }
 
-  return DEFAULT_FORBIDDEN_IMPORTS.some((entry) => {
+  return forbiddenImports.some((entry) => {
     if (entry.endsWith('/')) {
       return source.startsWith(entry);
     }
@@ -84,7 +104,7 @@ function isForbiddenImport(source, allowedImports) {
   });
 }
 
-function scanSourceFile(filePath, allowedImports) {
+function scanSourceFile(filePath, allowedImports, forbiddenImports) {
   const findings = [];
   const content = readFileSync(filePath, 'utf8');
 
@@ -99,7 +119,7 @@ function scanSourceFile(filePath, allowedImports) {
 
   for (const match of content.matchAll(IMPORT_SOURCE_PATTERN)) {
     const source = match[1];
-    if (source && isForbiddenImport(source, allowedImports)) {
+    if (source && isForbiddenImport(source, allowedImports, forbiddenImports)) {
       findings.push({
         rule: 'forbidden-import',
         severity: 'error',
@@ -117,7 +137,7 @@ function scanDocumentationFile(filePath, staleReferences) {
   const content = readFileSync(filePath, 'utf8');
 
   for (const staleReference of staleReferences) {
-    if (content.includes(staleReference)) {
+    if (staleReference && content.includes(staleReference)) {
       findings.push({
         rule: 'stale-documentation-reference',
         severity: 'error',
@@ -137,8 +157,15 @@ export function runComplianceCheck({ manifestPath }) {
   const findings = validateManifest(manifest);
   const allowedImports = new Set();
   const documentationPaths = manifest.compliance?.documentationPaths ?? [];
-  const staleDocumentationReferences = manifest.compliance?.staleDocumentationReferences ?? [];
+  const staleDocumentationReferences = [
+    ...DEFAULT_STALE_DOCUMENTATION_REFERENCES,
+    ...(manifest.compliance?.staleDocumentationReferences ?? []),
+  ];
   const protectedSurfacePaths = manifest.compliance?.protectedSurfacePaths ?? [];
+  const forbiddenImports = [
+    ...DEFAULT_FORBIDDEN_IMPORTS,
+    ...(manifest.compliance?.bannedImports ?? []),
+  ];
 
   for (const exception of manifest.approvedExceptions ?? []) {
     if (exception.dependency) {
@@ -192,7 +219,7 @@ export function runComplianceCheck({ manifestPath }) {
 
   const sourceFiles = walk(manifestRoot);
   for (const filePath of sourceFiles) {
-    findings.push(...scanSourceFile(filePath, allowedImports));
+    findings.push(...scanSourceFile(filePath, allowedImports, forbiddenImports));
   }
 
   if (protectedSurfacePaths.length) {

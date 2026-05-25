@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { ColorSchemeScript } from '@mantine/core';
 import './globals.css';
-import ProviderHost from './provider-host';
+import Providers from './providers';
 
 export const metadata = {
   title: 'GDS Next.js Reference',
@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ColorSchemeScript defaultColorScheme="light" />
       </head>
       <body>
-        <ProviderHost>{children}</ProviderHost>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
