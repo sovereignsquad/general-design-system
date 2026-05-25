@@ -4,6 +4,7 @@ export * from './StatusBadge';
 export * from './EmptyState';
 export * from './MetricCard';
 export * from './ProgressCard';
+export * from './GameBoardTile';
 export * from './ProductCard';
 export * from './StateBlock';
 export * from './DataToolbar';

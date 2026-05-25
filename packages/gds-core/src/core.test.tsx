@@ -8,6 +8,7 @@ import { AuthShell } from './AuthShell';
 import { ConfirmDialog } from './ConfirmDialog';
 import { DataToolbar } from './DataToolbar';
 import { EmptyState } from './EmptyState';
+import { GameBoardTile } from './GameBoardTile';
 import { MetricCard } from './MetricCard';
 import { PageHeader } from './PageHeader';
 import { PublicShell } from './PublicShell';
@@ -214,5 +215,18 @@ describe('@gds/core', () => {
 
     expect(onFilesSelected).toHaveBeenCalledTimes(1);
     expect(onFilesSelected.mock.calls[0][0][0].name).toBe('first.txt');
+  });
+
+  it('renders game board tile face and handles press', async () => {
+    const user = userEvent.setup();
+    const onPress = vi.fn();
+
+    renderWithGds(
+      <GameBoardTile face="A" revealed={false} matched={false} disabled={false} onPress={onPress} />,
+    );
+
+    expect(screen.getByText('A')).toBeInTheDocument();
+    await user.click(screen.getByRole('button'));
+    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });

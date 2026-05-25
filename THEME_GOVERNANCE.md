@@ -1,8 +1,8 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 2.3.0
-Last updated: 2026-05-24
+Version: 2.3.2
+Last updated: 2026-05-25
 
 This document defines how products may extend `gdsTheme` without creating a second design authority.
 
@@ -46,3 +46,35 @@ Recommended model:
 - a product may default to dark when that is part of its deliberate shell identity
 - dark products must still provide readable tokens for text, paper, card, alert, table, and link surfaces
 - mixed-mode islands remain exceptions, not the default layout strategy
+
+## Appendix: Amanoba dark shell + yellow CTA
+
+Amanoba is a dark-default LMS/game product. Recommended recipe:
+
+```ts
+import { extendGdsTheme } from '@gds/theme/client';
+
+export const amanobaMantineTheme = extendGdsTheme({
+  primaryColor: 'amanoba',
+  colors: {
+    amanoba: [/* yellow scale */],
+    amanobaYellow: [/* alias scale */],
+    ink: [/* dark grey scale */],
+  },
+  other: {
+    brand: { /* email/OG/chart tokens */ },
+    email: { /* transactional email palette */ },
+  },
+  components: {
+    Text: { defaultProps: { c: 'gray.2' } },
+    Card: { defaultProps: { bg: 'ink.8', withBorder: true } },
+    /* form + modal dark surfaces */
+  },
+});
+```
+
+Rules:
+
+- use `@gds/theme/client` in client providers; use `@gds/theme/server` only for SSR-safe theme data
+- do not call `withGdsMotion()` unless product marketing explicitly wants shared hover motion
+- keep provider-branded OAuth colors in documented exception surfaces, not in `primaryColor`

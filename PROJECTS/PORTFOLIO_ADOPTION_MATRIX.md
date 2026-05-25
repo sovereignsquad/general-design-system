@@ -27,7 +27,7 @@ Prioritize in this order:
 
 | Project | Observed Foundation Signal | Archetype | Risk | Recommendation |
 |---|---|---|---|---|
-| Amanoba | Mantine + Tailwind + Radix detected; active project plan exists | Mixed foundation | High | Continue full Mantine-only replacement. Delete remaining Tailwind/Radix product authority after high-traffic migrations. |
+| Amanoba | `@gds/*` 2.3.x adopted on `main`; patterns in `patterns/gds/`; local LearnerAppShell/CourseCard until #80 | Package adoption in progress | High | Bump to latest GDS line; delete locals when LearnerAppShell + course variants ship. |
 | KIDEX | Mantine detected; active project plan exists | Mantine-rooted drift cleanup | Medium | Keep mobile shell, dashboard, and child-registry normalization as the next priority; focus on action hierarchy and responsive consistency. |
 | SSO | Mantine detected; active project plan exists | Mantine-rooted drift cleanup | Medium | Finish docs/editorial migration and delete the remaining legacy CSS/theme stack. |
 | Impact / sovereignsquad | Mantine 7 + Vite MPA; local shell/state adapters; vendored theme behavior | Mantine-rooted contract gap | Medium | Publish package install path first, then align public shell, docs shell, state/upload surfaces, and dark-mode policy. |

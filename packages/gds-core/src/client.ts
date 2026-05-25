@@ -7,6 +7,7 @@ export * from './vocabulary';
 export * from './SemanticButton';
 export * from './MetricCard';
 export * from './ProgressCard';
+export * from './GameBoardTile';
 export * from './ProductCard';
 export * from './StateBlock';
 export * from './DataToolbar';

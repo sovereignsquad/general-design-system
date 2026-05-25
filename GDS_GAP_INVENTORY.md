@@ -1,7 +1,7 @@
 # GDS Gap Inventory
 
 Status: Working inventory  
-Last updated: 2026-05-24
+Last updated: 2026-05-25
 
 This file captures the color-theme and UI/UX gaps that are still **not covered** or only **partially covered** by the current General Design System.
 
@@ -321,16 +321,21 @@ Evidence:
 - [PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md](/Users/Shared/Projects/general-design-system/PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md:159)
 - [PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md](/Users/Shared/Projects/general-design-system/PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md:97)
 
-## 2B. Covered In Policy, But Not Yet Delivered As Reusable GDS Package Surface
+## 2B. Package surfaces shipped (2.3.0–2.3.2)
 
-The rulebooks cover these families, but the current shared package exports do not yet provide reusable implementations for them.
+As of release **2.3.2**, the following are exported from `@gds/core`, `@gds/admin`, and `@gds/theme` (see [COMPATIBILITY_AND_RELEASES.md](./COMPATIBILITY_AND_RELEASES.md)):
 
-Current package exports:
+- **core:** `MetricCard`, `ProgressCard`, `ProductCard`, `StateBlock`, `AuthShell`, `PublicShell`, `ArticleShell`, `PageHeader`, `GameBoardTile`, …
+- **admin:** `DataToolbar`, `ResponsiveDataView`, `AppShell`, `WorkspaceHeader`, …
+- **theme:** `extendGdsTheme`, `gdsTheme`, `withGdsMotion`, `./client` and `./server` entrypoints
 
-- core: [packages/gds-core/src/index.ts](/Users/Shared/Projects/general-design-system/packages/gds-core/src/index.ts:1)
-- admin: [packages/gds-admin/src/index.ts](/Users/Shared/Projects/general-design-system/packages/gds-admin/src/index.ts:1)
+Remaining Amanoba-blocking contracts: [docs/AMANOBA_BLOCKING_CONTRACTS.md](./docs/AMANOBA_BLOCKING_CONTRACTS.md).
 
-Missing reusable GDS package surfaces:
+## 2C. Covered In Policy, But Not Yet Delivered As Reusable GDS Package Surface (legacy inventory)
+
+The items below were gaps before 2.3.0; many are now shipped. Kept for audit trail—prefer §2B and `AMANOBA_BLOCKING_CONTRACTS.md` for current status.
+
+Missing reusable GDS package surfaces (historical):
 
 ### 1. Product card contract/component
 
