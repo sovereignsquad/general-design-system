@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 2.4.4
+Version: 2.5.0
 Last updated: 2026-05-25
 
 This document defines how products may extend `gdsTheme` without creating a second design authority.
@@ -84,5 +84,6 @@ Rules:
 
 - `gdsDarkPublicTheme` is the approved preset for products that deliberately default to a dark public shell.
 - `gdsFlatSurfaceTheme` is the approved preset for products that need flatter operational surfaces without creating a second token authority.
+- `gdsEditorialPublicTheme` is the approved preset for public/editorial products that need serif-forward storytelling and flatter public surfaces without creating a private token branch.
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
 - `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.

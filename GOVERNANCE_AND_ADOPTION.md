@@ -1,7 +1,7 @@
 # Governance & Adoption
 
 Status: Active SSOT
-Version: 2.4.4
+Version: 2.5.0
 Last updated: 2026-05-25
 
 This document defines how products adopt the design system, enforce compliance, and migrate legacy UI. 
@@ -71,6 +71,7 @@ Projects must actively enforce the Mantine-only policy to prevent design-system 
 - **Adoption Manifest**: Every mature adopter should declare a `gds-adoption.json` file validated against `schemas/gds-adoption.schema.json`.
 - **Shared Lint Config**: `@gds/eslint-config` should be the default enforcement package for raw design value and forbidden import checks.
 - **Compliance CLI**: `gds-compliance` should validate manifest structure, adapter paths, exception metadata, and repo-level drift.
+- **Compliance Config**: `gds-adoption.json` may declare `compliance.documentationPaths`, `compliance.staleDocumentationReferences`, and `compliance.protectedSurfacePaths` so shared tooling can catch stale SSOT references and protected-surface drift without product-local scripts.
 - **Import Boundaries**: Lint rules forbidding imports from legacy primitive directories.
 - **Forbidden Values**: Lint against raw CSS colors (e.g., `#FF0000`), hard-coded radii, and unapproved size tokens in feature UI.
 - **Static Checks**: CI/CD checks to prevent new legacy patterns.
@@ -105,6 +106,14 @@ If a consumer needs an approved dependency-level exception such as `lucide-react
 - `reviewDate`
 
 Shared lint/compliance tooling may use that manifest-level allowlist to keep the default GDS guardrails active without forcing a repo to abandon the shared tooling entirely.
+
+Recommended compliance path:
+
+1. declare the manifest
+2. add documentation paths
+3. add stale-reference strings that should never remain in local docs
+4. declare protected surface directories once high-traffic governed contracts exist
+5. fail CI on `gds-compliance check`
 
 Reference policies:
 

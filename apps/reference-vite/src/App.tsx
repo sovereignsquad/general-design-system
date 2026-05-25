@@ -2,10 +2,14 @@ import { Anchor, AspectRatio, Button, Image, Stack, Text } from '@mantine/core';
 import {
   AccessRecoveryPanel,
   AccentPanel,
+  BrowseSurface,
+  ConsumerSection,
   CtaButtonGroup,
   DocsPageShell,
+  EditorialCard,
   EditorialHero,
   FeatureBand,
+  MediaField,
   PlaceholderPanel,
   PublicBrandFooter,
   PublicProductCard,
@@ -67,6 +71,7 @@ export function App() {
           tertiary={<Button variant="subtle">Review adoption manifest</Button>}
         />
         <FeatureBand
+          variant="process"
           items={[
             {
               id: 'trust',
@@ -88,7 +93,7 @@ export function App() {
             },
           ]}
         />
-        <AccentPanel tone="green" title="Migration-safe adoption" badge="2.4.3">
+        <AccentPanel tone="green" title="Migration-safe adoption" badge="2.5.0">
           Public and operator-facing accent surfaces now ship through GDS instead of product-local `bg=&quot;*.0&quot;`
           assumptions.
         </AccentPanel>
@@ -113,6 +118,60 @@ export function App() {
           state="preorder"
           stateLabels={{ preorder: 'Reserve ahead' }}
           primaryAction={<Button>Reserve</Button>}
+        />
+        <BrowseSurface
+          eyebrow="Shared browse"
+          title="Discovery surfaces can stay package-native"
+          description="Consumers no longer need product-local filter headers to build browse pages."
+          resultCount={9}
+          activeFilters={[{ id: 'featured', label: 'Featured' }]}
+          scopeOptions={[
+            { id: 'all', label: 'All', active: true },
+            { id: 'regional', label: 'Regional' },
+          ]}
+          toolbar={{ searchSlot: <input aria-label="Search browse items" /> }}
+          mobileFilters={<Button variant="default">Filters</Button>}
+          content={(
+            <EditorialCard
+              eyebrow="Editorial"
+              title="Shared guide card"
+              description="Editorial and promo cards now share one canonical contract."
+              badge="Guide"
+              tone="cool"
+              ctaLabel="Read guide"
+            />
+          )}
+        />
+        <ConsumerSection
+          title="Consumer summary"
+          description="Member/account surfaces can use the same reusable section shell."
+          action={<Button variant="default">View all</Button>}
+        >
+          <SimpleDataTable
+            columns={[{ key: 'label', header: 'Label' }, { key: 'value', header: 'Value' }]}
+            rows={[
+              { label: 'Favorites', value: '18' },
+              { label: 'Alerts', value: '2' },
+            ]}
+          />
+        </ConsumerSection>
+        <MediaField
+          label="Shared media field"
+          description="Package-native media editing flow with preview and URL entry."
+          preview={
+            <AspectRatio ratio={16 / 9}>
+              <Image
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80"
+                alt="Selected menu photography"
+              />
+            </AspectRatio>
+          }
+          uploadControl={<Button variant="default">Upload asset</Button>}
+          urlInput={<input aria-label="Asset URL" defaultValue="https://example.com/media.jpg" />}
+          helpText="Use one reviewed media field instead of separate custom upload and preview widgets."
+          policyText="Only licensed and approved public imagery may be published."
+          value="https://example.com/media.jpg"
+          state="saved"
         />
         <StatsSection title="Regional summary">
           <SimpleDataTable

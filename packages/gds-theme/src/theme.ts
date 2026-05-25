@@ -125,6 +125,37 @@ export const gdsFlatSurfaceTheme = extendGdsTheme({
   },
 });
 
+export const gdsEditorialPublicTheme = extendGdsTheme({
+  headings: {
+    fontFamily: '"Instrument Serif", Georgia, "Times New Roman", serif',
+    sizes: {
+      h1: { fontSize: '2.75rem', fontWeight: '700' },
+      h2: { fontSize: '2rem', fontWeight: '700' },
+      h3: { fontSize: '1.375rem', fontWeight: '600' },
+    },
+  },
+  shadows: {
+    xs: 'none',
+    sm: 'none',
+    md: 'none',
+    lg: 'none',
+    xl: 'none',
+  },
+  components: {
+    Card: {
+      defaultProps: {
+        shadow: undefined,
+        withBorder: true,
+      },
+    },
+    Paper: {
+      defaultProps: {
+        withBorder: true,
+      },
+    },
+  },
+});
+
 export function extendGdsTheme(overrides: MantineThemeOverride = {}) {
   return mergeMantineTheme(baseTheme, overrides);
 }

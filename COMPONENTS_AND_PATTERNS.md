@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 2.4.4
+Version: 2.5.0
 Last updated: 2026-05-25
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -45,6 +45,11 @@ This document defines the canonical behavior for UI components, workflows, and r
 | **Docs Page Shell** | Docs shells may add breadcrumbs, next-step affordances, side rail slots, and shared code-block treatment without redefining article readability rules. | `md` |
 | **Editorial Hero** | Public/editorial hero sections must use a shared split text/media contract with one clear primary CTA, deterministic mobile collapse, and background-safe media fade behavior. | `xl` |
 | **Feature Band** | Hero-adjacent trust/service/value strips must use a shared multi-column contract with honest loading and empty states. | `md` |
+| **Browse Surface** | Catalog/discovery surfaces must use one governed result header + toolbar + filter + scope rhythm instead of page-local list chrome. | `lg` |
+| **Editorial Cards** | Guide, promo, collection, and discovery cards must share one canonical media/title/meta/CTA contract. | `md` |
+| **Consumer Sections** | Consumer account and member dashboard clusters must use a shared section shell with title, description, action, and governed content area. | `lg` |
+| **Media Fields** | Media editing must unify upload, URL entry, preview, status, reset/remove, and policy messaging in one shared contract. | `lg` |
+| **Content Operations Editor** | Admin content/settings editors must use a shared scaffold for multi-section editing, preview rails, and sticky or repeated save bars. | `xl` |
 | **Public Brand Footer** | Narrative/media/quote public footers must use a shared footer composition contract with documented layout variants and slot hooks instead of repo-local layout systems. | `lg` |
 | **Docs Code Blocks** | Install/reference code blocks must use a shared wrapper with accessible copy affordance and neutral styling. | `md` |
 | **CTA Button Groups** | Public CTA groups must preserve one obvious primary action, stack safely on small screens, and avoid ornamental motion or hierarchy chrome. | `md` |
@@ -89,6 +94,11 @@ The following families are mandatory local contracts when a project has the corr
 | **Accent Surface** | Product needs a repeated highlighted guidance, support, rollout, or emphasis panel | readable light/dark tones, border/background/foreground semantics, nested focus visibility |
 | **Editorial Hero** | Product has split text/media public landing sections | CTA hierarchy, media fade, mobile collapse, loading/error behavior |
 | **Feature Band** | Product has repeated public trust/service/location bands | icon/media slot, title rhythm, loading/empty behavior, mobile stacking |
+| **Browse Surface** | Product has searchable discovery, marketplace, catalog, or finder pages | result summary, filters, scope control, mobile filter entry, empty/error/loading states |
+| **Editorial Card** | Product has repeated public guides, promos, collections, or editorial discovery cards | media slot, badge/meta rhythm, CTA treatment, hover/focus behavior |
+| **Consumer Dashboard Section** | Product has member/account/dashboard areas | section chrome, summaries, partial-data handling, action placement |
+| **Media Field** | Product allows media upload, URL entry, preview, replace, or remove | selection, preview, status, reset/remove, error/help/policy states |
+| **Content Operations Editor** | Product has CMS-like settings, content, or site-operations screens | section grouping, preview/settings rails, action bar, validation/recovery rhythm |
 | **Public Brand Footer** | Product uses branded footer storytelling beyond a plain link list | narrative, actions, secondary quote/media slot, legal row, mobile collapse, layout variant choice |
 | **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, preview, replace/remove, status overlays |
 | **Access Summary** | Product has scoped roles or blocked/forbidden states | role badges, scope labels, blocked/forbidden handling, ownership cues |

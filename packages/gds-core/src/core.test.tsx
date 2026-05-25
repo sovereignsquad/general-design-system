@@ -7,15 +7,19 @@ import { AccessRecoveryPanel } from './AccessRecoveryPanel';
 import { AccentPanel, resolveAccentPanelStyles } from './AccentPanel';
 import { ArticleShell } from './ArticleShell';
 import { AuthShell } from './AuthShell';
+import { BrowseSurface } from './BrowseSurface';
+import { ConsumerSection } from './ConsumerSection';
 import { CtaButtonGroup } from './CtaButtonGroup';
 import { ConfirmDialog } from './ConfirmDialog';
 import { DataToolbar } from './DataToolbar';
 import { DocsCodeBlock } from './DocsCodeBlock';
 import { DocsPageShell } from './DocsPageShell';
 import { EmptyState } from './EmptyState';
+import { EditorialCard } from './EditorialCard';
 import { EditorialHero } from './EditorialHero';
 import { FeatureBand } from './FeatureBand';
 import { GameBoardTile } from './GameBoardTile';
+import { MediaField } from './MediaField';
 import { MetricCard } from './MetricCard';
 import { PageHeader } from './PageHeader';
 import { PlaceholderPanel } from './PlaceholderPanel';
@@ -109,6 +113,105 @@ describe('@gds/core', () => {
     expect(screen.getByText('+4%')).toBeInTheDocument();
   });
 
+  it('renders a canonical browse surface with scope controls and active filters', async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+    const onSelect = vi.fn();
+
+    renderWithGds(
+      <BrowseSurface
+        eyebrow="Discover"
+        title="Browse shared content"
+        description="Use shared browse chrome instead of page-local filter stacks."
+        resultCount={12}
+        activeFilters={[{ id: 'published', label: 'Published', onRemove }]}
+        scopeOptions={[
+          { id: 'all', label: 'All regions', active: true, onSelect },
+          { id: 'east', label: 'East', onSelect },
+        ]}
+        toolbar={{ searchSlot: <input aria-label="Search records" /> }}
+        sortControl={<button type="button">Newest first</button>}
+        mobileFilters={<button type="button">Filters</button>}
+        content={<div>Browse results</div>}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Browse shared content' })).toBeInTheDocument();
+    expect(screen.getByText('12 results')).toBeInTheDocument();
+    expect(screen.getByLabelText('Search records')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'All regions' })).toBeInTheDocument();
+    expect(screen.getByText('Browse results')).toBeInTheDocument();
+
+    await user.click(screen.getAllByText('Published')[0]);
+    await user.click(screen.getByRole('button', { name: 'East' }));
+
+    expect(onRemove).toHaveBeenCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders editorial cards and consumer sections as reusable public/consumer contracts', () => {
+    renderWithGds(
+      <>
+        <EditorialCard
+          eyebrow="Guide"
+          title="Neighborhood picks"
+          description="Shared editorial card contract."
+          badge="Featured"
+          ctaLabel="Read guide"
+          href="/guide"
+          variant="featured"
+          tone="warm"
+        />
+        <ConsumerSection
+          title="Account summary"
+          description="Use the shared section shell for account and dashboard clusters."
+          action={<button type="button">Manage</button>}
+        >
+          <MetricCard label="Saved items" value="18" />
+        </ConsumerSection>
+      </>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Neighborhood picks' })).toBeInTheDocument();
+    expect(screen.getByText('Featured')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Account summary' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Manage' })).toBeInTheDocument();
+    expect(screen.getByText('Saved items')).toBeInTheDocument();
+  });
+
+  it('renders media fields with upload, URL, preview, and recovery actions', async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+    const onReset = vi.fn();
+
+    renderWithGds(
+      <MediaField
+        label="Hero image"
+        description="Choose a shared media asset."
+        value="https://cdn.example.com/hero.jpg"
+        preview={<img alt="Hero preview" src="https://cdn.example.com/hero.jpg" />}
+        uploadControl={<button type="button">Upload image</button>}
+        urlInput={<input aria-label="Image URL" defaultValue="https://cdn.example.com/hero.jpg" />}
+        helpText="Prefer authored media with descriptive alt text."
+        policyText="Public media must meet shared licensing policy."
+        state="saved"
+        onRemove={onRemove}
+        onReset={onReset}
+      />,
+    );
+
+    expect(screen.getByText('Hero image')).toBeInTheDocument();
+    expect(screen.getByText('Saved')).toBeInTheDocument();
+    expect(screen.getByAltText('Hero preview')).toBeInTheDocument();
+    expect(screen.getByLabelText('Image URL')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Reset' }));
+    await user.click(screen.getByRole('button', { name: 'Remove' }));
+
+    expect(onReset).toHaveBeenCalledTimes(1);
+    expect(onRemove).toHaveBeenCalledTimes(1);
+  });
+
   it('keeps locale packs in parity and resolves locale messages with fallback', () => {
     const locales = { en, es, hu, de, fr, it: itLocale, ru, he, ar };
     const expectedKeys = Object.keys(en).sort();
@@ -200,6 +303,52 @@ describe('@gds/core', () => {
     expect(screen.getByRole('button', { name: 'Create' })).toBeInTheDocument();
     expect(screen.getByText('Published')).toBeInTheDocument();
     expect(screen.getByText('Menu')).toBeInTheDocument();
+  });
+
+  it('supports enhanced editorial-hero media fades and flat public surfaces', () => {
+    const { container } = renderWithGds(
+      <EditorialHero
+        eyebrow="Editorial"
+        title="Shared public storytelling"
+        description="Enhanced hero surface."
+        media={<div>Media slot</div>}
+        mediaFade="background-match"
+        surfaceVariant="flat-public"
+      />,
+    );
+
+    expect(screen.getByText('Shared public storytelling')).toBeInTheDocument();
+    expect(screen.getByText('Media slot')).toBeInTheDocument();
+    expect(container.querySelector('figure[aria-label]') ?? container.querySelector('figure')).toBeInTheDocument();
+  });
+
+  it('supports compact and process feature-band variants', () => {
+    renderWithGds(
+      <>
+        <FeatureBand
+          columns={4}
+          variant="compact"
+          items={[
+            { id: 'one', title: 'One' },
+            { id: 'two', title: 'Two' },
+            { id: 'three', title: 'Three' },
+            { id: 'four', title: 'Four' },
+          ]}
+        />
+        <FeatureBand
+          variant="process"
+          items={[
+            { id: 'step-1', title: 'Plan' },
+            { id: 'step-2', title: 'Ship', stepLabel: 'Step B' },
+          ]}
+        />
+      </>,
+    );
+
+    expect(screen.getByText('One')).toBeInTheDocument();
+    expect(screen.getByText('Four')).toBeInTheDocument();
+    expect(screen.getByText('Step 1')).toBeInTheDocument();
+    expect(screen.getByText('Step B')).toBeInTheDocument();
   });
 
   it('renders public navigation and footer primitives with accessible active state', () => {

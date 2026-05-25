@@ -1,9 +1,13 @@
 import { Anchor, AspectRatio, Badge, Button, Image, Stack, Text } from '@mantine/core';
 import {
   AccentPanel,
+  BrowseSurface,
+  ConsumerSection,
   DocsPageShell,
+  EditorialCard,
   EditorialHero,
   FeatureBand,
+  MediaField,
   PlaceholderPanel,
   PublicBrandFooter,
   PublicShell,
@@ -60,6 +64,8 @@ export default function Page() {
           }
         />
         <FeatureBand
+          variant="process"
+          columns={3}
           items={[
             {
               id: 'bootstrap',
@@ -93,12 +99,70 @@ export default function Page() {
             ]}
           />
         </StatsSection>
+        <BrowseSurface
+          eyebrow="Browse contract"
+          title="Canonical discovery chrome"
+          description="Result headers, scope chips, filters, and mobile filter controls now live in one governed contract."
+          resultCount={24}
+          activeFilters={[{ id: 'server', label: 'Server-safe' }, { id: 'published', label: 'Published' }]}
+          scopeOptions={[
+            { id: 'all', label: 'All surfaces', active: true },
+            { id: 'public', label: 'Public only' },
+          ]}
+          toolbar={{ searchSlot: <input aria-label="Search contracts" /> }}
+          sortControl={<Button variant="default">Newest first</Button>}
+          mobileFilters={<Button variant="default">Open filters</Button>}
+          content={(
+            <EditorialCard
+              eyebrow="Example"
+              title="Reference browse card"
+              description="Browse surfaces can render any governed content region beneath the shared toolbar."
+              badge="Shared"
+              ctaLabel="Inspect"
+              variant="featured"
+            />
+          )}
+        />
+        <ConsumerSection
+          title="Consumer dashboard shell"
+          description="Account and member dashboards can group reusable summaries inside the shared section contract."
+          action={<Button variant="default">Manage</Button>}
+        >
+          <SimpleDataTable
+            columns={[
+              { key: 'metric', header: 'Metric' },
+              { key: 'value', header: 'Value' },
+            ]}
+            rows={[
+              { metric: 'Saved views', value: '12' },
+              { metric: 'Pending actions', value: '3' },
+            ]}
+          />
+        </ConsumerSection>
         <AccentPanel tone="blue" title="Canonical accent surface" badge="Shared contract">
           <Text>
             This panel uses the canonical GDS accent-surface contract instead of consumer-local `light-dark(...)`
             styling.
           </Text>
         </AccentPanel>
+        <MediaField
+          label="Media field contract"
+          description="Upload, URL entry, preview, and policy guidance live in a single governed surface."
+          preview={
+            <AspectRatio ratio={16 / 9}>
+              <Image
+                src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80"
+                alt="Media field preview"
+              />
+            </AspectRatio>
+          }
+          uploadControl={<Button variant="default">Upload image</Button>}
+          urlInput={<input aria-label="Media URL" defaultValue="https://example.com/hero.jpg" />}
+          helpText="Keep alt text and rights metadata with the selected asset."
+          policyText="Use approved public media only."
+          value="https://example.com/hero.jpg"
+          state="saved"
+        />
         <PlaceholderPanel
           title="Future rollout"
           description="Additional product surfaces can adopt the same package path without local forks."

@@ -6,7 +6,7 @@ import { openConfirmModal } from '@mantine/modals';
 import { Button } from '@mantine/core';
 import { renderWithGds } from '../../../test-utils/render';
 import { GdsProvider } from './GdsProvider';
-import { gdsDarkPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
+import { gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
 
 function ProviderConsumer() {
   return (
@@ -65,5 +65,6 @@ describe('GdsProvider', () => {
 
     expect(screen.getByText('Dark shell')).toBeInTheDocument();
     expect(gdsFlatSurfaceTheme.shadows.md).toBe('none');
+    expect(gdsEditorialPublicTheme.headings.fontFamily).toContain('Instrument Serif');
   });
 });

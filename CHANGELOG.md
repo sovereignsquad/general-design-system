@@ -4,6 +4,16 @@ All notable policy changes to the General Design System are recorded here.
 
 ## 2.4.4 - 2026-05-25
 
+## 2.5.0 - 2026-05-25
+
+- Added new cross-project public and consumer contracts in `@gds/core`: `BrowseSurface`, `EditorialCard`, `ConsumerSection`, and `MediaField`.
+- Added new content-operations contracts in `@gds/admin`: `ContentOpsEditor`, `ContentOpsSection`, and `ContentOpsActionBar`.
+- Added `gdsEditorialPublicTheme` to `@gds/theme` as the approved serif-forward, flatter editorial preset.
+- Added `ADOPTION_AND_MIGRATION_PLAYBOOK.md` plus manifest-driven compliance settings for documentation paths, stale-reference detection, and protected surface declarations.
+- Updated the Next.js and Vite reference consumers plus shared component tests to exercise the new browse, consumer, media, and content-operations contracts.
+
+## 2.4.4 - 2026-05-25
+
 - Enhanced `PublicShell` with canonical header variants, class-name hooks, and server-safe mobile navigation modes so public consumers can stop shipping repo-local spacing and nav overrides.
 - Enhanced `PublicBrandFooter` with documented layout variants and slot-level class hooks for narrative, media, quote, and legal regions.
 - Enhanced `PublicProductCard` with localized state-label overrides plus pickup and inventory helper-note support for menu, discovery, and retail-like public surfaces.

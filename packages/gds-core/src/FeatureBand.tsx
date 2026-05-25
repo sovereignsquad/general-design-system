@@ -10,23 +10,29 @@ export interface FeatureBandItem {
   meta?: ReactNode;
   icon?: ReactNode;
   media?: ReactNode;
+  stepLabel?: ReactNode;
 }
 
 export interface FeatureBandProps {
   items: FeatureBandItem[];
-  columns?: 2 | 3;
+  columns?: 2 | 3 | 4;
   bordered?: boolean;
   loading?: boolean;
   emptyState?: ReactNode;
+  variant?: 'default' | 'process' | 'compact';
 }
 
-function FeatureBandSkeleton({ columns = 3, bordered = true }: Pick<FeatureBandProps, 'columns' | 'bordered'>) {
+function FeatureBandSkeleton({
+  columns = 3,
+  bordered = true,
+  variant = 'default',
+}: Pick<FeatureBandProps, 'columns' | 'bordered' | 'variant'>) {
   return (
     <SimpleGrid cols={{ base: 1, sm: Math.min(columns, 2), lg: columns }} spacing="lg">
       {Array.from({ length: columns }).map((_, index) => (
-        <Paper key={index} withBorder={bordered} radius="lg" p="lg">
+        <Paper key={index} withBorder={bordered} radius="lg" p={variant === 'compact' ? 'md' : 'lg'}>
           <Stack gap="md">
-            <Skeleton height={42} width={42} radius="xl" />
+            <Skeleton height={variant === 'process' ? 28 : 42} width={variant === 'process' ? 72 : 42} radius="xl" />
             <Stack gap="xs">
               <Skeleton height={20} width="75%" radius="md" />
               <Skeleton height={14} width="100%" radius="md" />
@@ -45,9 +51,10 @@ export function FeatureBand({
   bordered = true,
   loading = false,
   emptyState,
+  variant = 'default',
 }: FeatureBandProps) {
   if (loading) {
-    return <FeatureBandSkeleton columns={columns} bordered={bordered} />;
+    return <FeatureBandSkeleton columns={columns} bordered={bordered} variant={variant} />;
   }
 
   if (!items.length) {
@@ -64,10 +71,25 @@ export function FeatureBand({
   return (
     <Box component="section" aria-label="Supporting features">
       <SimpleGrid cols={{ base: 1, sm: Math.min(columns, 2), lg: columns }} spacing="lg">
-        {items.map((item) => (
-          <Paper key={item.id} withBorder={bordered} radius="lg" p="lg">
+        {items.map((item, index) => (
+          <Paper key={item.id} withBorder={bordered} radius="lg" p={variant === 'compact' ? 'md' : 'lg'}>
             <Stack gap="md">
-              {item.media ? (
+              {variant === 'process' ? (
+                <Group>
+                  <Text
+                    fw={800}
+                    size="sm"
+                    px="sm"
+                    py={6}
+                    style={{
+                      borderRadius: '999px',
+                      background: 'var(--mantine-color-violet-light)',
+                    }}
+                  >
+                    {item.stepLabel ?? `Step ${index + 1}`}
+                  </Text>
+                </Group>
+              ) : item.media ? (
                 item.media
               ) : item.icon ? (
                 <Group>

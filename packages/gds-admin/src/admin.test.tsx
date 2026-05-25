@@ -6,6 +6,9 @@ import { Button } from '@mantine/core';
 import { DataToolbar, MetricCard } from '@gds/core';
 import { renderWithGds } from '../../../test-utils/render';
 import { AppShell } from './AppShell';
+import { ContentOpsActionBar } from './ContentOpsActionBar';
+import { ContentOpsEditor } from './ContentOpsEditor';
+import { ContentOpsSection } from './ContentOpsSection';
 import { DataTable } from './DataTable';
 import { EditorScaffold } from './EditorScaffold';
 import { FormSection } from './FormSection';
@@ -172,5 +175,41 @@ describe('@gds/admin', () => {
     expect(screen.getByText('Form column')).toBeInTheDocument();
     expect(screen.getByText('Preview column')).toBeInTheDocument();
     expect(screen.getByText('Settings column')).toBeInTheDocument();
+  });
+
+  it('renders content operations editors with section scaffolds and action states', () => {
+    renderWithGds(
+      <ContentOpsEditor
+        header={<PageHeader title="Site settings" description="Govern shared content operations." />}
+        status={<InfoCard title="Publish state" value="Draft" description="Changes are staged." />}
+        sections={(
+          <>
+            <ContentOpsSection id="hero" title="Hero content" description="Manage public hero content.">
+              <div>Hero fields</div>
+            </ContentOpsSection>
+            <ContentOpsSection id="seo" title="SEO" tone="warning">
+              <div>SEO fields</div>
+            </ContentOpsSection>
+          </>
+        )}
+        actionBar={(
+          <ContentOpsActionBar
+            dirty
+            status="Last saved 5 minutes ago"
+            secondaryAction={<Button variant="default">Reset</Button>}
+            primaryAction={<Button>Save changes</Button>}
+          />
+        )}
+        preview={<div>Preview panel</div>}
+        settings={<div>Settings rail</div>}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Site settings' })).toBeInTheDocument();
+    expect(screen.getByText('Hero fields')).toBeInTheDocument();
+    expect(screen.getByText('SEO fields')).toBeInTheDocument();
+    expect(screen.getByText('Unsaved changes')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Save changes' })).toBeInTheDocument();
+    expect(screen.getByText('Preview panel')).toBeInTheDocument();
   });
 });

@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 2.4.4
+Version: 2.5.0
 Last updated: 2026-05-25
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
@@ -17,7 +17,8 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 3. **Use the Pattern Service Model**: Before borrowing from Mantine UI or another project, read [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) to convert references into governed, reusable contracts.
 4. **Read the Service Backbone Plan**: Use [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) to understand how the GDS operates as a reliable, cross-project service with adoption, validation, and portfolio layers.
 5. **Adopt & Migrate**: Use [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) to understand how to correctly implement this system in a new or legacy codebase, including the required local project statement, the adoption manifest, and compliance tooling.
-6. **Check Compatibility & Release Rules**: Use [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) before wiring package installs, CI/Vercel builds, or framework upgrades.
+6. **Run the Adoption Playbook**: Use [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) when converting a local mirror, a legacy UI system, or a new product to direct package consumption.
+7. **Check Compatibility & Release Rules**: Use [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) before wiring package installs, CI/Vercel builds, or framework upgrades.
 
 ### What You Can Find Here
 
@@ -26,6 +27,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
 - **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
 - **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
+- **Adoption & Migration Playbook**: [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) — The canonical step-by-step path from local mirrors or legacy UI systems to direct `@gds/*` package consumption.
 - **Compatibility & Releases**: [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) — Supported Mantine/React/Next ranges, subpath exports, version alignment, and upgrade expectations.
 - **Release Publish Runbook**: [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md) — Authenticated npm publish flow, dry-run command, and recovery guidance.
 - **Theme Governance**: [THEME_GOVERNANCE.md](/Users/Shared/Projects/general-design-system/THEME_GOVERNANCE.md) — Brand extension, dark-mode defaults, white-label, flat-surface, and tenant-theme rules.
@@ -37,7 +39,8 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Machine-readable Contracts**: `compatibility.matrix.json`, `schemas/gds-adoption.schema.json`, and `TEMPLATES/gds-adoption.json.template` — shared compatibility, adoption, and validation contracts.
 - **Tooling Packages**: `@gds/eslint-config` and `@gds/compliance` — shared lint and compliance enforcement for adopting repos.
 - **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@gds/core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
-- **Public Surface Primitives**: `AccentPanel`, `EditorialHero`, `FeatureBand`, `PublicBrandFooter`, and the enhanced `PublicShell` / `PublicProductCard` contracts from `@gds/core` — canonical public/editorial contracts for accent-safe surfaces, split hero composition, service/trust bands, branded footer layouts, shell/mobile-nav rhythm, and localized media-first card states.
+- **Public & Consumer Surface Primitives**: `AccentPanel`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `MediaField`, `PublicBrandFooter`, and the enhanced `PublicShell` / `PublicProductCard` contracts from `@gds/core` — canonical public/editorial contracts for accent-safe surfaces, split hero composition, service/trust bands, browse/discovery chrome, editorial cards, consumer dashboard grouping, governed media editing, branded footer layouts, shell/mobile-nav rhythm, and localized media-first card states.
+- **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, and `ContentOpsActionBar` from `@gds/admin` — canonical scaffolds for multi-section content/settings operations.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
@@ -59,6 +62,7 @@ Product repositories may **not** redefine:
 - responsive strategy
 - accessibility baseline
 - UX meaning of canonical controls
+- package-consumption and migration authority once the direct `@gds/*` path is active
 
 **If a project-local UI document conflicts with this directory, this directory wins.**
 

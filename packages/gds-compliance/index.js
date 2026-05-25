@@ -64,6 +64,10 @@ function walk(dir, files = []) {
   return files;
 }
 
+function normalizePath(value) {
+  return value.replace(/\\/g, '/');
+}
+
 function isForbiddenImport(source, allowedImports) {
   if (allowedImports.has(source)) {
     return false;
@@ -108,12 +112,33 @@ function scanSourceFile(filePath, allowedImports) {
   return findings;
 }
 
+function scanDocumentationFile(filePath, staleReferences) {
+  const findings = [];
+  const content = readFileSync(filePath, 'utf8');
+
+  for (const staleReference of staleReferences) {
+    if (content.includes(staleReference)) {
+      findings.push({
+        rule: 'stale-documentation-reference',
+        severity: 'error',
+        file: filePath,
+        message: `Stale GDS reference detected (${staleReference}). Update local docs to the active SSOT structure.`,
+      });
+    }
+  }
+
+  return findings;
+}
+
 export function runComplianceCheck({ manifestPath }) {
   const absoluteManifestPath = resolve(manifestPath);
   const manifestRoot = dirname(absoluteManifestPath);
   const manifest = JSON.parse(readFileSync(absoluteManifestPath, 'utf8'));
   const findings = validateManifest(manifest);
   const allowedImports = new Set();
+  const documentationPaths = manifest.compliance?.documentationPaths ?? [];
+  const staleDocumentationReferences = manifest.compliance?.staleDocumentationReferences ?? [];
+  const protectedSurfacePaths = manifest.compliance?.protectedSurfacePaths ?? [];
 
   for (const exception of manifest.approvedExceptions ?? []) {
     if (exception.dependency) {
@@ -138,9 +163,60 @@ export function runComplianceCheck({ manifestPath }) {
     }
   }
 
+  for (const documentationPath of documentationPaths) {
+    const absoluteDocumentationPath = resolve(manifestRoot, documentationPath);
+    if (!existsSync(absoluteDocumentationPath)) {
+      findings.push({
+        rule: 'missing-documentation-path',
+        severity: 'error',
+        file: documentationPath,
+        message: `Declared documentation path does not exist: ${documentationPath}`,
+      });
+      continue;
+    }
+
+    findings.push(...scanDocumentationFile(absoluteDocumentationPath, staleDocumentationReferences));
+  }
+
+  for (const protectedSurfacePath of protectedSurfacePaths) {
+    const absoluteProtectedSurfacePath = resolve(manifestRoot, protectedSurfacePath);
+    if (!existsSync(absoluteProtectedSurfacePath)) {
+      findings.push({
+        rule: 'missing-protected-surface',
+        severity: 'error',
+        file: protectedSurfacePath,
+        message: `Declared protected surface path does not exist: ${protectedSurfacePath}`,
+      });
+    }
+  }
+
   const sourceFiles = walk(manifestRoot);
   for (const filePath of sourceFiles) {
     findings.push(...scanSourceFile(filePath, allowedImports));
+  }
+
+  if (protectedSurfacePaths.length) {
+    const normalizedProtectedSurfacePaths = protectedSurfacePaths.map((value) => normalizePath(resolve(manifestRoot, value)));
+
+    for (const filePath of sourceFiles) {
+      const normalizedFilePath = normalizePath(filePath);
+      const isProtectedSurface = normalizedProtectedSurfacePaths.some((protectedSurfacePath) =>
+        normalizedFilePath === protectedSurfacePath || normalizedFilePath.startsWith(`${protectedSurfacePath}/`));
+
+      if (!isProtectedSurface) {
+        continue;
+      }
+
+      const content = readFileSync(filePath, 'utf8');
+      if (/className\s*=\s*["'`][^"'`]*(?:bg-|text-|border-|rounded-|shadow-|grid |flex |px-|py-|mx-|my-)/.test(content)) {
+        findings.push({
+          rule: 'protected-surface-utility-drift',
+          severity: 'warn',
+          file: filePath,
+          message: 'Protected surface contains utility-style className tokens. Prefer canonical GDS surfaces or Mantine-native styling for governed files.',
+        });
+      }
+    }
   }
 
   return {

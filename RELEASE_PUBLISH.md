@@ -1,7 +1,7 @@
 # Release Publish Runbook
 
 Status: Active SSOT
-Version: 2.4.3
+Version: 2.5.0
 Last updated: 2026-05-25
 
 This runbook defines the authenticated package-publish flow for the General Design System.

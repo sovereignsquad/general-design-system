@@ -1,31 +1,43 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import { Box, Stack, Text } from '@mantine/core';
 
 export interface FormFieldProps {
-  label: string;
-  description?: string;
-  error?: string;
-  children: React.ReactNode;
+  label: ReactNode;
+  description?: ReactNode;
+  error?: ReactNode;
+  children: ReactNode;
 }
 
 export function FormField({ label, description, error, children }: FormFieldProps) {
   return (
     <Box component="label">
       <Stack gap={4}>
-        <Text size="xs" fw={600} c="dimmed">
-          {label}
-        </Text>
-        {description ? (
-          <Text size="xs" c="dimmed">
-            {description}
+        {typeof label === 'string' ? (
+          <Text size="xs" fw={600} c="dimmed">
+            {label}
           </Text>
-        ) : null}
+        ) : (
+          label
+        )}
+        {description
+          ? typeof description === 'string'
+            ? (
+              <Text size="xs" c="dimmed">
+                {description}
+              </Text>
+              )
+            : description
+          : null}
         {children}
-        {error ? (
-          <Text size="xs" c="red.7">
-            {error}
-          </Text>
-        ) : null}
+        {error
+          ? typeof error === 'string'
+            ? (
+              <Text size="xs" c="red.7">
+                {error}
+              </Text>
+              )
+            : error
+          : null}
       </Stack>
     </Box>
   );

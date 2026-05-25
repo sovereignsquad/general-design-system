@@ -23,6 +23,7 @@ const requiredFiles = [
   'schemas/gds-adoption.schema.json',
   'TEMPLATES/gds-adoption.json.template',
   'DEPRECATIONS_AND_MIGRATIONS.md',
+  'ADOPTION_AND_MIGRATION_PLAYBOOK.md',
 ];
 
 const mismatches = [];

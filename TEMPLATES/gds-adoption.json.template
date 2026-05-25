@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "2.4.2",
+  "gdsVersion": "2.5.0",
   "productArchetype": "hybrid",
   "supportedEntryPoints": [
     "@gds/theme/client",
@@ -38,6 +38,21 @@
       "reviewDate": "2026-05-25"
     }
   ],
+  "compliance": {
+    "documentationPaths": [
+      "README.md",
+      "docs/design-system-adapter.md"
+    ],
+    "staleDocumentationReferences": [
+      "MANTINE_RUNTIME.md",
+      "COMPONENT_CONTRACTS.md",
+      "MANTINE_PLATFORM.md"
+    ],
+    "protectedSurfacePaths": [
+      "src/gds",
+      "src/components/public"
+    ]
+  },
   "migrationStatus": "partial",
   "owner": "platform-ui",
   "lastReviewedAt": "2026-05-25"

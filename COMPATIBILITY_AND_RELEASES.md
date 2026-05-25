@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.4.4
+Version: 2.5.0
 Last updated: 2026-05-25
 
 This document defines the supported package/runtime contract for `@gds/theme`, `@gds/core`, and `@gds/admin`.
@@ -127,6 +127,17 @@ This is the intended stable consumer path for products that want direct package 
 - `app/providers.tsx` should be the only client boundary that mounts `GdsProvider`.
 - non-interactive public/editorial primitives like `PublicShell`, `DocsPageShell`, `AccentPanel`, `EditorialHero`, `FeatureBand`, and `PublicBrandFooter` may render from `@gds/core/server`.
 - interactive controls like `ThemeToggle`, `SemanticButton`, `UploadDropzone`, and `ResponsiveDataView` belong on `@gds/*/client`.
+
+## Canonical migration note
+
+When a product currently uses local mirrored `src/gds/*` contracts or a sibling checkout, the supported path is:
+
+1. install published `@gds/*` packages
+2. move root provider/theme imports to package entrypoints
+3. replace mirrored contract imports family-by-family
+4. keep the local manifest and compliance config active until all mirrors are deleted
+
+See [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) for the full sequence and rollback path.
 
 ## Versioning policy
 

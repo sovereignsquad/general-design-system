@@ -97,6 +97,27 @@
         }
       }
     },
+    "compliance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "documentationPaths": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "staleDocumentationReferences": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "protectedSurfacePaths": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
     "migrationStatus": {
       "type": "string",
       "enum": ["planned", "partial", "governed", "blocked", "deprecated"]

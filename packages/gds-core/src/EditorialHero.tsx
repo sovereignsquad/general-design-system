@@ -28,11 +28,19 @@ export interface EditorialHeroProps {
   media?: ReactNode;
   mediaAlt?: string;
   mediaPosition?: 'right' | 'left';
-  mediaFade?: 'none' | 'soft-start' | 'background-blend';
+  mediaFade?: 'none' | 'soft-start' | 'background-blend' | 'background-match' | 'mask-soft-edge';
   align?: 'start' | 'center';
   compact?: boolean;
   loading?: boolean;
   error?: ReactNode;
+  surfaceVariant?: 'default' | 'flat-public';
+  classNames?: {
+    root?: string;
+    content?: string;
+    media?: string;
+    actions?: string;
+    meta?: string;
+  };
 }
 
 function resolveActionVariant(
@@ -165,15 +173,34 @@ function MediaFrame({
   media,
   mediaAlt,
   mediaFade,
+  className,
 }: {
   media?: ReactNode;
   mediaAlt?: string;
   mediaFade: EditorialHeroProps['mediaFade'];
+  className?: string;
 }) {
+  let overlayBackground: string | null = null;
+
+  if (mediaFade === 'background-blend') {
+    overlayBackground =
+      'linear-gradient(135deg, light-dark(rgba(255,255,255,0), rgba(17,24,39,0.08)) 0%, light-dark(rgba(255,255,255,0.42), rgba(17,24,39,0.54)) 100%)';
+  } else if (mediaFade === 'background-match') {
+    overlayBackground =
+      'linear-gradient(180deg, rgba(255,255,255,0) 0%, light-dark(rgba(248,250,252,0.75), rgba(17,24,39,0.56)) 100%)';
+  } else if (mediaFade === 'mask-soft-edge') {
+    overlayBackground =
+      'linear-gradient(90deg, light-dark(rgba(255,255,255,0.78), rgba(17,24,39,0.68)) 0%, rgba(255,255,255,0.18) 18%, rgba(255,255,255,0) 42%)';
+  } else if (mediaFade === 'soft-start') {
+    overlayBackground =
+      'linear-gradient(90deg, light-dark(rgba(255,255,255,0.9), rgba(17,24,39,0.72)) 0%, rgba(255,255,255,0) 28%)';
+  }
+
   return (
     <Box
       component="figure"
       m={0}
+      className={className}
       style={{
         position: 'relative',
         overflow: 'hidden',
@@ -183,17 +210,14 @@ function MediaFrame({
       aria-label={mediaAlt}
     >
       {media ?? <MediaFallback />}
-      {media && mediaFade !== 'none' ? (
+      {media && overlayBackground ? (
         <Box
           aria-hidden
           style={{
             position: 'absolute',
             inset: 0,
             pointerEvents: 'none',
-            background:
-              mediaFade === 'background-blend'
-                ? 'linear-gradient(135deg, light-dark(rgba(255,255,255,0), rgba(17,24,39,0.08)) 0%, light-dark(rgba(255,255,255,0.42), rgba(17,24,39,0.54)) 100%)'
-                : 'linear-gradient(90deg, light-dark(rgba(255,255,255,0.9), rgba(17,24,39,0.72)) 0%, rgba(255,255,255,0) 28%)',
+            background: overlayBackground,
           }}
         />
       ) : null}
@@ -215,6 +239,8 @@ export function EditorialHero({
   compact = false,
   loading = false,
   error,
+  surfaceVariant = 'default',
+  classNames,
 }: EditorialHeroProps) {
   if (loading) {
     return <LoadingHero compact={compact} />;
@@ -232,7 +258,7 @@ export function EditorialHero({
   });
 
   const textSlot = (
-    <Stack gap={compact ? 'md' : 'lg'} justify="center" h="100%">
+    <Stack gap={compact ? 'md' : 'lg'} justify="center" h="100%" className={classNames?.content}>
       <Stack gap="sm" align={stackAlign}>
         {eyebrow ? (
           <Text size="sm" fw={700} c="dimmed" ta={textAlign}>
@@ -250,15 +276,17 @@ export function EditorialHero({
       </Stack>
 
       {renderedActions.length ? (
-        <CtaButtonGroup
-          primary={renderedActions[0]}
-          secondary={renderedActions[1]}
-          tertiary={renderedActions[2]}
-        />
+        <Box className={classNames?.actions}>
+          <CtaButtonGroup
+            primary={renderedActions[0]}
+            secondary={renderedActions[1]}
+            tertiary={renderedActions[2]}
+          />
+        </Box>
       ) : null}
 
       {meta.length ? (
-        <Group gap="sm" wrap="wrap" aria-label="Supporting details">
+        <Group gap="sm" wrap="wrap" aria-label="Supporting details" className={classNames?.meta}>
           {meta.map((item) => (
             <Group
               key={item.id}
@@ -286,7 +314,7 @@ export function EditorialHero({
       {error}
     </AccentPanel>
   ) : (
-    <MediaFrame media={media} mediaAlt={mediaAlt} mediaFade={mediaFade} />
+    <MediaFrame media={media} mediaAlt={mediaAlt} mediaFade={mediaFade} className={classNames?.media} />
   );
 
   const textCol = (
@@ -302,7 +330,14 @@ export function EditorialHero({
   );
 
   return (
-    <Paper component="section" withBorder radius="xl" p={compact ? 'lg' : 'xl'}>
+    <Paper
+      component="section"
+      withBorder
+      radius="xl"
+      p={compact ? 'lg' : 'xl'}
+      className={classNames?.root}
+      style={surfaceVariant === 'flat-public' ? { boxShadow: 'none' } : undefined}
+    >
       <Grid gutter={compact ? 'lg' : 'xl'} align="center">
         {textCol}
         {mediaCol}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "2.4.4",
+  "gdsVersion": "2.5.0",
   "productArchetype": "public",
   "supportedEntryPoints": [
     "@gds/theme/client",
@@ -12,6 +12,10 @@
     "DocsPageShell",
     "EditorialHero",
     "FeatureBand",
+    "BrowseSurface",
+    "EditorialCard",
+    "ConsumerSection",
+    "MediaField",
     "PublicBrandFooter",
     "SimpleDataTable",
     "PlaceholderPanel"

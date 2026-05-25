@@ -8,3 +8,6 @@ export * from './PageHeader';
 export * from './ResponsiveDataView';
 export * from './WorkspaceHeader';
 export * from './EditorScaffold';
+export * from './ContentOpsSection';
+export * from './ContentOpsActionBar';
+export * from './ContentOpsEditor';
