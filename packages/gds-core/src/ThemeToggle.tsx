@@ -1,3 +1,5 @@
+'use client';
+
 import { ActionIcon, useMantineColorScheme, useComputedColorScheme } from '@mantine/core';
 import { useGdsTranslation } from '@gds/theme';
 import { GdsIcons } from './icons';

@@ -1,8 +1,11 @@
 import type { ReactNode } from 'react';
 import { AppShell, Box, Burger, Container, Group, Stack, Text } from '@mantine/core';
+import { PublicNav, type PublicNavItem } from './PublicNav';
 
 export interface PublicShellProps {
   brand: ReactNode;
+  navItems?: PublicNavItem[];
+  activeNavId?: string;
   navigation?: ReactNode;
   actions?: ReactNode;
   footer?: ReactNode;
@@ -10,10 +13,13 @@ export interface PublicShellProps {
   children: ReactNode;
   headerBordered?: boolean;
   compact?: boolean;
+  maxContentWidth?: number | 'sm' | 'md' | 'lg';
 }
 
 export function PublicShell({
   brand,
+  navItems,
+  activeNavId,
   navigation,
   actions,
   footer,
@@ -21,18 +27,22 @@ export function PublicShell({
   children,
   headerBordered = true,
   compact = false,
+  maxContentWidth,
 }: PublicShellProps) {
+  const resolvedNavigation = navigation ?? (navItems ? <PublicNav items={navItems} activeId={activeNavId} /> : null);
+  const containerSize = maxContentWidth ?? (compact ? 'md' : 'lg');
+
   return (
     <AppShell header={{ height: 72 }} footer={mobileNavigation ? { height: 68 } : undefined} padding={0}>
       <AppShell.Header withBorder={headerBordered}>
-        <Container size={compact ? 'md' : 'lg'} h="100%">
+        <Container size={containerSize} h="100%">
           <Group h="100%" justify="space-between" wrap="nowrap">
             <Group wrap="nowrap" gap="sm">
               {mobileNavigation ? <Burger hiddenFrom="sm" disabled opened={false} aria-hidden /> : null}
               <Box>{brand}</Box>
             </Group>
             <Group visibleFrom="sm" gap="lg">
-              {navigation}
+              {resolvedNavigation}
             </Group>
             <Group gap="sm">{actions}</Group>
           </Group>
@@ -41,7 +51,7 @@ export function PublicShell({
 
       {mobileNavigation ? (
         <AppShell.Footer withBorder>
-          <Container size={compact ? 'md' : 'lg'} h="100%">
+          <Container size={containerSize} h="100%">
             <Group h="100%" justify="space-around" wrap="nowrap">
               {mobileNavigation}
             </Group>
@@ -50,12 +60,12 @@ export function PublicShell({
       ) : null}
 
       <AppShell.Main>
-        <Container size={compact ? 'md' : 'lg'} py="xl">
+        <Container size={containerSize} py="xl">
           <Stack gap="xl">{children}</Stack>
         </Container>
         {footer ? (
           <Box component="footer" py="xl">
-            <Container size={compact ? 'md' : 'lg'}>
+            <Container size={containerSize}>
               <Text size="sm" c="dimmed">
                 {footer}
               </Text>

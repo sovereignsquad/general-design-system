@@ -1,0 +1,21 @@
+{
+  "gdsVersion": "2.4.0",
+  "supportedLines": [
+    {
+      "react": "18.2.x",
+      "next": "15.x",
+      "mantine": "7.9.x",
+      "vite": "8.x",
+      "status": "supported",
+      "notes": "Primary CI validation line for published packages and reference consumers."
+    },
+    {
+      "react": "19.x",
+      "next": "15.x",
+      "mantine": "7.9.x",
+      "vite": "8.x",
+      "status": "supported",
+      "notes": "Peer-compatible line for direct package consumers; covered by typed entrypoint and fixture validation."
+    }
+  ]
+}

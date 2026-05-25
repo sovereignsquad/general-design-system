@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "gdsVersion": "2.4.0",
+  "productArchetype": "public",
+  "supportedEntryPoints": [
+    "@gds/theme/client",
+    "@gds/core/client"
+  ],
+  "requiredContracts": [
+    "PublicShell",
+    "PublicNav",
+    "DocsPageShell",
+    "SimpleDataTable",
+    "PlaceholderPanel"
+  ],
+  "localAdapters": [],
+  "approvedExceptions": [],
+  "migrationStatus": "governed",
+  "owner": "gds-platform",
+  "lastReviewedAt": "2026-05-25"
+}

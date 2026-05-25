@@ -1,0 +1,24 @@
+{
+  "name": "reference-next",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "dev": "next dev"
+  },
+  "dependencies": {
+    "@gds/core": "*",
+    "@gds/theme": "*",
+    "@mantine/core": "^7.9.0",
+    "@mantine/hooks": "^7.9.0",
+    "next": "^15.5.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "~6.0.2"
+  }
+}

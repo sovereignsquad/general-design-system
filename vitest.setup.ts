@@ -25,3 +25,14 @@ Object.defineProperty(window, 'localStorage', {
     length: 0,
   },
 });
+
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+Object.defineProperty(globalThis, 'ResizeObserver', {
+  writable: true,
+  value: ResizeObserverMock,
+});

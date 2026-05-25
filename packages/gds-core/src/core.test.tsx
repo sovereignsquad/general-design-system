@@ -5,15 +5,22 @@ import { renderWithGds } from '../../../test-utils/render';
 import { AccessSummary } from './AccessSummary';
 import { ArticleShell } from './ArticleShell';
 import { AuthShell } from './AuthShell';
+import { CtaButtonGroup } from './CtaButtonGroup';
 import { ConfirmDialog } from './ConfirmDialog';
 import { DataToolbar } from './DataToolbar';
+import { DocsCodeBlock } from './DocsCodeBlock';
+import { DocsPageShell } from './DocsPageShell';
 import { EmptyState } from './EmptyState';
 import { GameBoardTile } from './GameBoardTile';
 import { MetricCard } from './MetricCard';
 import { PageHeader } from './PageHeader';
+import { PlaceholderPanel } from './PlaceholderPanel';
+import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
 import { SemanticButton } from './SemanticButton';
+import { SimpleDataTable } from './SimpleDataTable';
 import { StateBlock } from './StateBlock';
+import { StatsSection } from './StatsSection';
 import { StatusBadge } from './StatusBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { UploadDropzone } from './UploadDropzone';
@@ -112,7 +119,8 @@ describe('@gds/core', () => {
     renderWithGds(
       <PublicShell
         brand={<span>Camera</span>}
-        navigation={<a href="/gallery">Gallery</a>}
+        navItems={[{ id: 'gallery', label: 'Gallery', href: '/gallery' }]}
+        activeNavId="gallery"
         actions={<button type="button">Sign in</button>}
         footer="Shared public chrome"
       >
@@ -129,6 +137,20 @@ describe('@gds/core', () => {
     expect(screen.getByRole('button', { name: 'Sign in' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Create' })).toBeInTheDocument();
     expect(screen.getByText('Published')).toBeInTheDocument();
+  });
+
+  it('renders public navigation and footer primitives with accessible active state', () => {
+    renderWithGds(
+      <PublicNav
+        items={[
+          { id: 'home', label: 'Home', href: '/' },
+          { id: 'docs', label: 'Docs', href: '/docs' },
+        ]}
+        activeId="docs"
+      />,
+    );
+
+    expect(screen.getByRole('link', { name: 'Docs' })).toHaveAttribute('aria-current', 'page');
   });
 
   it('renders auth and article shells as shared content contracts', () => {
@@ -156,6 +178,40 @@ describe('@gds/core', () => {
     expect(screen.getByRole('button', { name: 'Continue' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Install the design system' })).toBeInTheDocument();
     expect(screen.getByText('5 min read')).toBeInTheDocument();
+  });
+
+  it('renders docs shells, code blocks, and CTA groups', () => {
+    const clipboardWriteText = vi.fn();
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: clipboardWriteText,
+      },
+    });
+
+    renderWithGds(
+      <>
+        <DocsPageShell
+          breadcrumbs={[{ label: 'Docs', href: '/docs' }, { label: 'Install' }]}
+          title="Install packages"
+          lead="Use the published packages and root provider."
+          footerNext={{ label: 'Next: Providers', href: '/providers' }}
+        >
+          <DocsCodeBlock code="npm install @gds/theme @gds/core" language="bash" title="Install" />
+        </DocsPageShell>
+        <CtaButtonGroup
+          primary={<button type="button">Start</button>}
+          secondary={<button type="button">Learn more</button>}
+          tertiary={<button type="button">View docs</button>}
+        />
+      </>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Install packages' })).toBeInTheDocument();
+    expect(screen.getByText('npm install @gds/theme @gds.core'.replace('.core', '/core'))).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Copy code block' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Learn more' })).toBeInTheDocument();
   });
 
   it('renders neutral page-header eyebrows by default and supports opt-in ornamental styling', () => {
@@ -228,5 +284,28 @@ describe('@gds/core', () => {
     expect(screen.getByText('A')).toBeInTheDocument();
     await user.click(screen.getByRole('button'));
     expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders placeholder and simple data primitives with deterministic state handling', () => {
+    renderWithGds(
+      <>
+        <PlaceholderPanel
+          title="Impact dashboard"
+          description="Data will appear after the first reporting window closes."
+          badge="Coming soon"
+          mode="placeholder"
+        />
+        <StatsSection title="Category summary" belowThreshold thresholdMessage="Need at least 5 submissions." />
+        <SimpleDataTable
+          columns={[{ key: 'name', header: 'Name' }]}
+          rows={[{ name: 'Northern Region' }]}
+        />
+      </>,
+    );
+
+    expect(screen.getByText('Coming soon')).toBeInTheDocument();
+    expect(screen.getByText('Need at least 5 submissions.')).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
+    expect(screen.getByText('Northern Region')).toBeInTheDocument();
   });
 });

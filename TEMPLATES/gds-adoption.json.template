@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "gdsVersion": "2.4.0",
+  "productArchetype": "hybrid",
+  "supportedEntryPoints": [
+    "@gds/theme/client",
+    "@gds/theme/server",
+    "@gds/core/client",
+    "@gds/core/server",
+    "@gds/admin/client"
+  ],
+  "requiredContracts": [
+    "AppShell",
+    "PageHeader",
+    "StateBlock",
+    "PublicShell"
+  ],
+  "localAdapters": [
+    {
+      "contract": "PublicShell",
+      "path": "src/ui/PublicShell.tsx",
+      "status": "active"
+    }
+  ],
+  "approvedExceptions": [
+    {
+      "surface": "Map embed",
+      "reason": "Third-party map engine remains outside canonical GDS scope.",
+      "owner": "platform-ui",
+      "reviewDate": "2026-05-25"
+    }
+  ],
+  "migrationStatus": "partial",
+  "owner": "platform-ui",
+  "lastReviewedAt": "2026-05-25"
+}

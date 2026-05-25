@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { SimpleGrid, Stack } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';

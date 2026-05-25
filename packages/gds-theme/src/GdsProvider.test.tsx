@@ -5,7 +5,8 @@ import { notifications } from '@mantine/notifications';
 import { openConfirmModal } from '@mantine/modals';
 import { Button } from '@mantine/core';
 import { renderWithGds } from '../../../test-utils/render';
-import { gdsTheme, withGdsMotion } from './theme';
+import { GdsProvider } from './GdsProvider';
+import { gdsDarkPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
 
 function ProviderConsumer() {
   return (
@@ -53,5 +54,16 @@ describe('GdsProvider', () => {
     expect(motionTheme.components.Card?.styles?.root).toMatchObject({
       transition: 'transform 150ms ease, box-shadow 150ms ease',
     });
+  });
+
+  it('accepts theme and defaultColorScheme overrides for direct package consumers', () => {
+    renderWithGds(
+      <GdsProvider theme={gdsDarkPublicTheme} defaultColorScheme="dark">
+        <div>Dark shell</div>
+      </GdsProvider>,
+    );
+
+    expect(screen.getByText('Dark shell')).toBeInTheDocument();
+    expect(gdsFlatSurfaceTheme.shadows.md).toBe('none');
   });
 });

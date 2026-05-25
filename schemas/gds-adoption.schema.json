@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sovereignsquad.github.io/general-design-system/gds-adoption.schema.json",
+  "title": "GDS Adoption Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "gdsVersion",
+    "productArchetype",
+    "requiredContracts",
+    "localAdapters",
+    "approvedExceptions",
+    "migrationStatus",
+    "owner",
+    "lastReviewedAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "gdsVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "productArchetype": {
+      "type": "string",
+      "enum": ["public", "admin", "hybrid", "theme-only"]
+    },
+    "supportedEntryPoints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "@gds/theme",
+          "@gds/theme/client",
+          "@gds/theme/server",
+          "@gds/core",
+          "@gds/core/client",
+          "@gds/core/server",
+          "@gds/admin",
+          "@gds/admin/client",
+          "@gds/admin/server"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "requiredContracts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "localAdapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["contract", "path", "status"],
+        "properties": {
+          "contract": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "status": {
+            "type": "string",
+            "enum": ["planned", "active", "deprecated", "exception"]
+          }
+        }
+      }
+    },
+    "approvedExceptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["surface", "reason", "owner", "reviewDate"],
+        "properties": {
+          "surface": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 },
+          "owner": { "type": "string", "minLength": 1 },
+          "reviewDate": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "removeBy": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        }
+      }
+    },
+    "migrationStatus": {
+      "type": "string",
+      "enum": ["planned", "partial", "governed", "blocked", "deprecated"]
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lastReviewedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    }
+  }
+}

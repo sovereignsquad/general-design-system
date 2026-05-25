@@ -5,3 +5,5 @@ coverage/
 *.log
 node_modules
 dist
+.next/
+*.tsbuildinfo

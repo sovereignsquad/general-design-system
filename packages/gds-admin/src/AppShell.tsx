@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { AppShell as MantineAppShell, Burger, Group, Stack, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';

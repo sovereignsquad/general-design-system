@@ -1,10 +1,10 @@
 # General Design System
 
 Status: Active SSOT
-Version: 2.3.0
-Last updated: 2026-05-24
+Version: 2.4.0
+Last updated: 2026-05-25
 
-`/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM` is the cross-project single source of truth for design, UI, and UX.
+`/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 
 ## How to Use This Design System
 
@@ -12,26 +12,30 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 
 ### Getting Started
 
-1. **Familiarize Yourself with the Foundation**: Start by reading [FOUNDATION.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/FOUNDATION.md) to understand the core principles, accessibility baselines, and our strict Mantine token policies.
-2. **Review the Component Contracts**: Before building a new UI component or workflow, check [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/COMPONENTS_AND_PATTERNS.md) to see if a canonical pattern already exists for buttons, tables, modals, or forms.
-3. **Use the Pattern Service Model**: Before borrowing from Mantine UI or another project, read [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/PATTERN_SERVICE_MODEL.md) to convert references into governed, reusable contracts.
-4. **Read the Service Backbone Plan**: Use [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) to understand how the GDS operates as a reliable, cross-project service with adoption, validation, and portfolio layers.
-5. **Adopt & Migrate**: Use [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/GOVERNANCE_AND_ADOPTION.md) to understand how to correctly implement this system in a new or legacy codebase, including the required local project statement.
-6. **Check Compatibility & Release Rules**: Use [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/COMPATIBILITY_AND_RELEASES.md) before wiring package installs, CI/Vercel builds, or framework upgrades.
+1. **Familiarize Yourself with the Foundation**: Start by reading [FOUNDATION.md](/Users/Shared/Projects/general-design-system/FOUNDATION.md) to understand the core principles, accessibility baselines, and our strict Mantine token policies.
+2. **Review the Component Contracts**: Before building a new UI component or workflow, check [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) to see if a canonical pattern already exists for buttons, tables, modals, public shells, docs pages, or public data surfaces.
+3. **Use the Pattern Service Model**: Before borrowing from Mantine UI or another project, read [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) to convert references into governed, reusable contracts.
+4. **Read the Service Backbone Plan**: Use [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) to understand how the GDS operates as a reliable, cross-project service with adoption, validation, and portfolio layers.
+5. **Adopt & Migrate**: Use [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) to understand how to correctly implement this system in a new or legacy codebase, including the required local project statement, the adoption manifest, and compliance tooling.
+6. **Check Compatibility & Release Rules**: Use [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) before wiring package installs, CI/Vercel builds, or framework upgrades.
 
 ### What You Can Find Here
 
-- **Core Principles & Tokens**: [FOUNDATION.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/FOUNDATION.md) — The fundamental rules that guide UI decisions, dark/light modes, and Mantine boundaries.
-- **Component Contracts & Patterns**: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/COMPONENTS_AND_PATTERNS.md) — Required behaviors for standard UI elements and full-page workflows.
-- **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
-- **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
-- **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
-- **Compatibility & Releases**: [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/COMPATIBILITY_AND_RELEASES.md) — Supported Mantine/React/Next ranges, subpath exports, version alignment, and upgrade expectations.
-- **Theme Governance**: [THEME_GOVERNANCE.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/THEME_GOVERNANCE.md) — Brand extension, dark-mode defaults, white-label, and tenant-theme rules.
-- **Exception Surfaces**: [EXCEPTION_SURFACES.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/EXCEPTION_SURFACES.md) — Chart, map, embed, and other approved exception-surface guidance.
-- **Portfolio Matrix**: [PROJECTS/PORTFOLIO_ADOPTION_MATRIX.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/PROJECTS/PORTFOLIO_ADOPTION_MATRIX.md) — The current cross-project inventory, archetypes, and recommended next actions.
+- **Core Principles & Tokens**: [FOUNDATION.md](/Users/Shared/Projects/general-design-system/FOUNDATION.md) — The fundamental rules that guide UI decisions, dark/light modes, and Mantine boundaries.
+- **Component Contracts & Patterns**: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) — Required behaviors for standard UI elements and full-page workflows.
+- **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
+- **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
+- **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
+- **Compatibility & Releases**: [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) — Supported Mantine/React/Next ranges, subpath exports, version alignment, and upgrade expectations.
+- **Theme Governance**: [THEME_GOVERNANCE.md](/Users/Shared/Projects/general-design-system/THEME_GOVERNANCE.md) — Brand extension, dark-mode defaults, white-label, flat-surface, and tenant-theme rules.
+- **Exception Surfaces**: [EXCEPTION_SURFACES.md](/Users/Shared/Projects/general-design-system/EXCEPTION_SURFACES.md) — Chart, map, embed, and other approved exception-surface guidance.
+- **Deprecations & Migrations**: [DEPRECATIONS_AND_MIGRATIONS.md](/Users/Shared/Projects/general-design-system/DEPRECATIONS_AND_MIGRATIONS.md) — Contract retirement policy, migration rules, and release handover expectations.
+- **Portfolio Matrix**: [PROJECTS/PORTFOLIO_ADOPTION_MATRIX.md](/Users/Shared/Projects/general-design-system/PROJECTS/PORTFOLIO_ADOPTION_MATRIX.md) — The current cross-project inventory, archetypes, and recommended next actions.
 - **Operational Files**: `CONTRIBUTING.md` and `CHANGELOG.md` — Shared rules for contributing to the design system and its versioned history.
 - **Templates**: `TEMPLATES/` — Starter templates for your project's theme, providers, shell, and thin wrappers.
+- **Machine-readable Contracts**: `compatibility.matrix.json`, `schemas/gds-adoption.schema.json`, and `TEMPLATES/gds-adoption.json.template` — shared compatibility, adoption, and validation contracts.
+- **Tooling Packages**: `@gds/eslint-config` and `@gds/compliance` — shared lint and compliance enforcement for adopting repos.
+- **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
 ---
@@ -69,6 +73,7 @@ Required repository behavior:
 ## Validation Commands
 
 - `npm run verify:release` — checks release alignment, then runs build, lint, and tests
+- `npm run verify:references` — validates the reference consumers and their adoption manifests
 - `npm run build` — builds `@gds/theme`, `@gds/core`, `@gds/admin`, and the playground in dependency order
 - `npm run lint` — runs the playground lint target
 - `npm run test:run` — runs the shared jsdom component test suite for the workspace packages
@@ -77,6 +82,8 @@ The shared package validation path is now expected to cover:
 - provider composition in `@gds/theme`
 - behavior coverage in `@gds/core` and `@gds/admin`
 - i18n-safe shared copy
+- reference consumer manifests and fixture validation
+- compliance tooling and shared lint enforcement
 - GitHub Actions quality gates before deployment
 - version and project-plan alignment for active adopter releases
 

@@ -1,12 +1,14 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.3.1
+Version: 2.4.0
 Last updated: 2026-05-25
 
 This document defines the supported package/runtime contract for `@gds/theme`, `@gds/core`, and `@gds/admin`.
 
 ## Supported matrix
+
+The machine-readable authority for the supported lines lives in [compatibility.matrix.json](/Users/Shared/Projects/general-design-system/compatibility.matrix.json).
 
 | Surface | Supported now | Notes |
 |---|---|---|
@@ -124,3 +126,12 @@ Adopting products are expected to:
 - record the consumed version in their local adapter doc
 - rerun build, lint, and test/compliance checks when upgrading
 - review shell, theme, and state-surface changes for regressions before promoting to production
+
+## Reference consumers
+
+This repository now includes:
+
+- `apps/reference-vite` for direct public-product package consumption
+- `apps/reference-next` for App Router-oriented runtime structure and typed route contracts
+
+These fixtures are verified through `npm run verify:references` and act as the living adoption baseline for new consumers.

@@ -1,1 +1,1 @@
-export { gdsTheme, extendGdsTheme, withGdsMotion } from './theme';
+export { gdsTheme, gdsDarkPublicTheme, gdsFlatSurfaceTheme, extendGdsTheme, withGdsMotion } from './theme';

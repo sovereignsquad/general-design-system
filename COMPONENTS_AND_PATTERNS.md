@@ -1,8 +1,8 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 2.3.0
-Last updated: 2026-05-24
+Version: 2.4.0
+Last updated: 2026-05-25
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
 
@@ -37,10 +37,17 @@ This document defines the canonical behavior for UI components, workflows, and r
 | **Data Toolbars** | Search, filters, sort, reset, and create actions in predictable order. Active filters visible and removable. | `md` |
 | **State Blocks** | Loading, empty, error, permission, disabled, and success states must explain the state and provide the next action where possible. | `md` |
 | **Public Shells** | Public marketing/discovery/docs shells must define brand slot, navigation rhythm, readability width, CTA hierarchy, footer slot, and mobile nav behavior. | `md` |
+| **Public Nav** | Primary public navigation uses explicit nav items, an explicit active item, and semantic `aria-current` handling. | `md` |
 | **Auth Shells** | Auth entry surfaces must define title, error/helper placement, provider-brand exception handling, and safe action hierarchy. | `md` |
 | **Article Shells** | Docs/news/legal/editorial surfaces must define width, heading rhythm, metadata, side-rail behavior, and mobile collapse. | `md` |
+| **Docs Page Shell** | Docs shells may add breadcrumbs, next-step affordances, side rail slots, and shared code-block treatment without redefining article readability rules. | `md` |
+| **Docs Code Blocks** | Install/reference code blocks must use a shared wrapper with accessible copy affordance and neutral styling. | `md` |
+| **CTA Button Groups** | Public CTA groups must preserve one obvious primary action, stack safely on small screens, and avoid ornamental motion or hierarchy chrome. | `md` |
 | **Upload Surfaces** | Upload/drop surfaces must define drag state, a11y labels, empty/error messaging, and replace/remove behavior. | `md` |
 | **Access Summaries** | Role, scope, blocked/forbidden, and ownership cues must be explicit and may not rely on color only. | `md` |
+| **Placeholder Panels** | Placeholder and coming-soon surfaces must be honest, visibly non-live, and must not imply fabricated data. | `md` |
+| **Simple Data Tables** | Public/product summary tables must support loading, empty, error, and threshold-safe states without importing admin CRUD semantics. | `md` |
+| **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
 
 ## 4. Feedback & Messaging
 

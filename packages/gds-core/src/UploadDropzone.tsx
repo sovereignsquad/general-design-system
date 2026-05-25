@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useState } from 'react';
 import { Box, Button, Group, Stack, Text } from '@mantine/core';
 import { GdsIcons } from './icons';
@@ -9,6 +11,7 @@ export interface UploadDropzoneProps {
   accept?: string;
   multiple?: boolean;
   actionLabel?: string;
+  mode?: 'panel' | 'inline';
 }
 
 export function UploadDropzone({
@@ -18,6 +21,7 @@ export function UploadDropzone({
   accept,
   multiple = true,
   actionLabel = 'Choose files',
+  mode = 'panel',
 }: UploadDropzoneProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
@@ -42,7 +46,7 @@ export function UploadDropzone({
         setDragging(false);
         forwardFiles(event.dataTransfer.files);
       }}
-      p="xl"
+      p={mode === 'inline' ? 'md' : 'xl'}
       style={{
         border: `1px dashed var(${dragging ? '--mantine-color-violet-6' : '--mantine-color-default-border'})`,
         borderRadius: 'var(--mantine-radius-lg)',
@@ -57,7 +61,7 @@ export function UploadDropzone({
         multiple={multiple}
         onChange={(event) => forwardFiles(event.currentTarget.files)}
       />
-      <Stack align="center" ta="center" gap="sm">
+      <Stack align={mode === 'inline' ? 'flex-start' : 'center'} ta={mode === 'inline' ? 'left' : 'center'} gap="sm">
         <UploadIcon size="1.5rem" />
         <Text fw={600}>{title}</Text>
         {description ? (

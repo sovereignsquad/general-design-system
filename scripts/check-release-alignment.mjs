@@ -8,12 +8,21 @@ const packagePaths = [
   'packages/gds-theme/package.json',
   'packages/gds-core/package.json',
   'packages/gds-admin/package.json',
+  'packages/gds-eslint-config/package.json',
+  'packages/gds-compliance/package.json',
 ];
 
 const projectPlans = [
   'PROJECTS/IMPACT_MANTINE_REFACTOR.md',
   'PROJECTS/CAMERA_ADOPTION_PLAN.md',
   'PROJECTS/PESTIEST_MANTINE_REFACTOR.md',
+];
+
+const requiredFiles = [
+  'compatibility.matrix.json',
+  'schemas/gds-adoption.schema.json',
+  'TEMPLATES/gds-adoption.json.template',
+  'DEPRECATIONS_AND_MIGRATIONS.md',
 ];
 
 const mismatches = [];
@@ -28,6 +37,17 @@ for (const packagePath of packagePaths) {
 for (const projectPlan of projectPlans) {
   if (!existsSync(resolve(root, projectPlan))) {
     mismatches.push(`Missing required project plan: ${projectPlan}`);
+  }
+}
+
+const compatibilityMatrix = JSON.parse(readFileSync(resolve(root, 'compatibility.matrix.json'), 'utf8'));
+if (compatibilityMatrix.gdsVersion !== version) {
+  mismatches.push(`compatibility.matrix.json has gdsVersion ${compatibilityMatrix.gdsVersion}, expected ${version}`);
+}
+
+for (const requiredFile of requiredFiles) {
+  if (!existsSync(resolve(root, requiredFile))) {
+    mismatches.push(`Missing required release artifact: ${requiredFile}`);
   }
 }
 

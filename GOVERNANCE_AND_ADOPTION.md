@@ -1,8 +1,8 @@
 # Governance & Adoption
 
 Status: Active SSOT
-Version: 2.3.0
-Last updated: 2026-05-24
+Version: 2.4.0
+Last updated: 2026-05-25
 
 This document defines how products adopt the design system, enforce compliance, and migrate legacy UI. 
 
@@ -21,6 +21,7 @@ The local adapter must document:
 - Local wrapper component locations.
 - Local paths for every required pattern-service contract: shell, page header, product card, metric card, data toolbar, responsive data view, auth shell, article shell, and state block where applicable.
 - Known exceptions and the migration backlog.
+- Path to the machine-readable `gds-adoption.json` manifest when the repo is on the formal compliance path.
 
 **Compliance Definition:** A project is compliant when this directory is documented as the SSOT, Mantine is the *only* foundational UI primitive system, tokens come exclusively from the shared project theme, and legacy CSS/primitives have been deleted or reduced to documented narrow exceptions.
 
@@ -67,6 +68,9 @@ Migrate legacy applications via true refactoring, not by bridging old token laye
 Projects must actively enforce the Mantine-only policy to prevent design-system drift.
 
 ### Minimum Enforcement Layers
+- **Adoption Manifest**: Every mature adopter should declare a `gds-adoption.json` file validated against `schemas/gds-adoption.schema.json`.
+- **Shared Lint Config**: `@gds/eslint-config` should be the default enforcement package for raw design value and forbidden import checks.
+- **Compliance CLI**: `gds-compliance` should validate manifest structure, adapter paths, exception metadata, and repo-level drift.
 - **Import Boundaries**: Lint rules forbidding imports from legacy primitive directories.
 - **Forbidden Values**: Lint against raw CSS colors (e.g., `#FF0000`), hard-coded radii, and unapproved size tokens in feature UI.
 - **Static Checks**: CI/CD checks to prevent new legacy patterns.
@@ -94,14 +98,21 @@ Exceptions must remain narrow. Do not promote a one-off exception into a shared 
 
 Reference policies:
 
-- [THEME_GOVERNANCE.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/THEME_GOVERNANCE.md)
-- [EXCEPTION_SURFACES.md](/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM/EXCEPTION_SURFACES.md)
+- [THEME_GOVERNANCE.md](/Users/Shared/Projects/general-design-system/THEME_GOVERNANCE.md)
+- [EXCEPTION_SURFACES.md](/Users/Shared/Projects/general-design-system/EXCEPTION_SURFACES.md)
+- [DEPRECATIONS_AND_MIGRATIONS.md](/Users/Shared/Projects/general-design-system/DEPRECATIONS_AND_MIGRATIONS.md)
 
 ## 4A. Package Consumption Rule
 
 - Adopt shared packages through the documented install path whenever possible.
 - Vendored or sibling-repo package copies must be treated as temporary transitional strategy, not the desired steady state.
 - CI/Vercel-hosted products should prefer the published/shared package path once available.
+
+### Project Adoption Manifest Rule
+
+- New and actively governed consumers should include `gds-adoption.json`.
+- The manifest must record the consumed GDS version, required contracts, local adapters, approved exceptions, and migration state.
+- Compliance tooling must treat the manifest as the machine-readable contract for repo-level validation.
 
 ## 5. Cross-Project Pattern Service Adoption
 

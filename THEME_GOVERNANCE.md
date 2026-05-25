@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 2.3.2
+Version: 2.4.0
 Last updated: 2026-05-25
 
 This document defines how products may extend `gdsTheme` without creating a second design authority.
@@ -78,3 +78,9 @@ Rules:
 - use `@gds/theme/client` in client providers; use `@gds/theme/server` only for SSR-safe theme data
 - do not call `withGdsMotion()` unless product marketing explicitly wants shared hover motion
 - keep provider-branded OAuth colors in documented exception surfaces, not in `primaryColor`
+
+## Approved preset modes
+
+- `gdsDarkPublicTheme` is the approved preset for products that deliberately default to a dark public shell.
+- `gdsFlatSurfaceTheme` is the approved preset for products that need flatter operational surfaces without creating a second token authority.
+- `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.

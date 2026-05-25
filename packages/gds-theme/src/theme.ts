@@ -66,6 +66,65 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
 
 export const gdsTheme = baseTheme;
 
+export const gdsDarkPublicTheme = extendGdsTheme({
+  primaryColor: 'violet',
+  components: {
+    AppShell: {
+      styles: {
+        main: {
+          backgroundColor: 'var(--mantine-color-dark-8)',
+        },
+      },
+    },
+    Card: {
+      styles: {
+        root: {
+          backgroundColor: 'var(--mantine-color-dark-7)',
+          borderColor: 'var(--mantine-color-dark-4)',
+        },
+      },
+    },
+    Paper: {
+      styles: {
+        root: {
+          backgroundColor: 'var(--mantine-color-dark-7)',
+          borderColor: 'var(--mantine-color-dark-4)',
+        },
+      },
+    },
+    Table: {
+      styles: {
+        table: {
+          color: 'var(--mantine-color-gray-0)',
+        },
+      },
+    },
+  },
+});
+
+export const gdsFlatSurfaceTheme = extendGdsTheme({
+  shadows: {
+    xs: 'none',
+    sm: 'none',
+    md: 'none',
+    lg: 'none',
+    xl: 'none',
+  },
+  components: {
+    Card: {
+      defaultProps: {
+        shadow: undefined,
+        withBorder: true,
+      },
+    },
+    Paper: {
+      defaultProps: {
+        withBorder: true,
+      },
+    },
+  },
+});
+
 export function extendGdsTheme(overrides: MantineThemeOverride = {}) {
   return mergeMantineTheme(baseTheme, overrides);
 }
