@@ -79,6 +79,7 @@ Required repository behavior:
 - `npm run verify:references` — validates the reference consumers and their adoption manifests
 - `npm run publish:dry-run` — validates the authenticated package publish sequence without uploading artifacts
 - `npm run publish:npm` — publishes the five public GDS packages from an authenticated npm environment
+- `npm run verify:published` — checks the registry until all five packages resolve to the current `VERSION`
 - `npm run build` — builds `@gds/theme`, `@gds/core`, `@gds/admin`, and the playground in dependency order
 - `npm run lint` — runs the playground lint target
 - `npm run test:run` — runs the shared jsdom component test suite for the workspace packages

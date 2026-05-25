@@ -41,6 +41,7 @@ Authenticated release operators should use [RELEASE_PUBLISH.md](/Users/Shared/Pr
 npm run verify:release
 npm run publish:dry-run
 npm run publish:npm
+npm run verify:published
 ```
 
 ### GitHub Packages fallback

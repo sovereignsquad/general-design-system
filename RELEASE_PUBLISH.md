@@ -45,6 +45,7 @@ npm run publish:dry-run
 ```bash
 npm run verify:release
 npm run publish:npm
+npm run verify:published
 ```
 
 ## Expected publish order
@@ -58,16 +59,36 @@ npm run publish:npm
 ## Post-publish verification
 
 ```bash
-npm view @gds/theme version
-npm view @gds/core version
-npm view @gds/admin version
-npm view @gds/eslint-config version
-npm view @gds/compliance version
+npm run verify:published
 ```
+
+Environment knobs for propagation delay:
+
+```bash
+GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published
+```
+
+## GitHub Actions publish path
+
+This repository includes a manual workflow at:
+
+- `.github/workflows/publish-npm.yml`
+
+Required secret:
+
+- `NPM_TOKEN`
+
+Workflow behavior:
+
+1. runs `npm ci`
+2. runs `npm run verify:release`
+3. publishes all five packages
+4. polls the registry until the release line is visible
 
 ## Recovery guidance
 
 - if `verify:release` fails, do not publish anything
+- if `verify:published` fails because of propagation delay, rerun only the verification step with a larger retry window before assuming publication failed
 - if a partial publish succeeds, do not republish the same version with changed contents
 - ship a corrective patch version instead
 - update `CHANGELOG.md` if the corrective patch changes consumer behavior

@@ -14,7 +14,8 @@
     "test:run": "vitest run",
     "verify:references": "node scripts/verify-reference-consumers.mjs",
     "publish:dry-run": "node scripts/publish-packages.mjs --dry-run",
-    "publish:npm": "node scripts/publish-packages.mjs"
+    "publish:npm": "node scripts/publish-packages.mjs",
+    "verify:published": "node scripts/check-registry-publication.mjs"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.8.0",

@@ -9,6 +9,7 @@ All notable policy changes to the General Design System are recorded here.
 - Hardened release verification with export-contract checks that fail on missing published export targets or server entrypoints that drift into client-only modules.
 - Updated the Next.js and Vite reference consumers to exercise the new public/editorial primitives and the server-safe import path.
 - Added an authenticated publish runbook and shared `publish:dry-run` / `publish:npm` scripts for the five public GDS packages.
+- Added `verify:published` plus a manual GitHub Actions publish workflow so authenticated CI can publish and verify registry availability with bounded retry behavior.
 
 ## 2.4.2 - 2026-05-25
 
