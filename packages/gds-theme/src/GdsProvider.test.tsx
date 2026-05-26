@@ -6,7 +6,7 @@ import { openConfirmModal } from '@mantine/modals';
 import { Button } from '@mantine/core';
 import { renderWithGds } from '../../../test-utils/render';
 import { GdsProvider } from './GdsProvider';
-import { gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
+import { createPublicBrandTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
 
 function ProviderConsumer() {
   return (
@@ -57,6 +57,14 @@ describe('GdsProvider', () => {
   });
 
   it('accepts theme and defaultColorScheme overrides for direct package consumers', () => {
+    const brandedTheme = createPublicBrandTheme({
+      editorialSerif: true,
+      flatSurfaces: true,
+      overrides: {
+        primaryColor: 'blue',
+      },
+    });
+
     renderWithGds(
       <GdsProvider theme={gdsDarkPublicTheme} defaultColorScheme="dark">
         <div>Dark shell</div>
@@ -66,5 +74,8 @@ describe('GdsProvider', () => {
     expect(screen.getByText('Dark shell')).toBeInTheDocument();
     expect(gdsFlatSurfaceTheme.shadows.md).toBe('none');
     expect(gdsEditorialPublicTheme.headings.fontFamily).toContain('Instrument Serif');
+    expect(brandedTheme.primaryColor).toBe('blue');
+    expect(brandedTheme.shadows.md).toBe('none');
+    expect(brandedTheme.headings.fontFamily).toContain('Instrument Serif');
   });
 });

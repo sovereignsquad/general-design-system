@@ -8,6 +8,7 @@ import { AccentPanel, resolveAccentPanelStyles } from './AccentPanel';
 import { ArticleShell } from './ArticleShell';
 import { AuthShell } from './AuthShell';
 import { BrowseSurface } from './BrowseSurface';
+import { ConsumerDashboardGrid } from './ConsumerDashboardGrid';
 import { ConsumerSection } from './ConsumerSection';
 import { CtaButtonGroup } from './CtaButtonGroup';
 import { ConfirmDialog } from './ConfirmDialog';
@@ -28,6 +29,7 @@ import { PublicProductCard } from './PublicProductCard';
 import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
 import { SemanticButton } from './SemanticButton';
+import { SectionPanel } from './SectionPanel';
 import { SimpleDataTable } from './SimpleDataTable';
 import { StateBlock } from './StateBlock';
 import { StatsSection } from './StatsSection';
@@ -129,6 +131,7 @@ describe('@gds/core', () => {
           { id: 'all', label: 'All regions', active: true, onSelect },
           { id: 'east', label: 'East', onSelect },
         ]}
+        locationControls={<button type="button">Budapest</button>}
         toolbar={{ searchSlot: <input aria-label="Search records" /> }}
         sortControl={<button type="button">Newest first</button>}
         mobileFilters={<button type="button">Filters</button>}
@@ -140,6 +143,7 @@ describe('@gds/core', () => {
     expect(screen.getByText('12 results')).toBeInTheDocument();
     expect(screen.getByLabelText('Search records')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'All regions' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Budapest' })).toBeInTheDocument();
     expect(screen.getByText('Browse results')).toBeInTheDocument();
 
     await user.click(screen.getAllByText('Published')[0]);
@@ -167,7 +171,12 @@ describe('@gds/core', () => {
           description="Use the shared section shell for account and dashboard clusters."
           action={<button type="button">Manage</button>}
         >
-          <MetricCard label="Saved items" value="18" />
+          <ConsumerDashboardGrid columns={2}>
+            <MetricCard label="Saved items" value="18" />
+            <SectionPanel title="Alerts" description="Shared operational panel rhythm.">
+              <span>2 pending</span>
+            </SectionPanel>
+          </ConsumerDashboardGrid>
         </ConsumerSection>
       </>,
     );
@@ -177,6 +186,7 @@ describe('@gds/core', () => {
     expect(screen.getByRole('heading', { name: 'Account summary' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Manage' })).toBeInTheDocument();
     expect(screen.getByText('Saved items')).toBeInTheDocument();
+    expect(screen.getByText('2 pending')).toBeInTheDocument();
   });
 
   it('renders media fields with upload, URL, preview, and recovery actions', async () => {
@@ -194,9 +204,11 @@ describe('@gds/core', () => {
         urlInput={<input aria-label="Image URL" defaultValue="https://cdn.example.com/hero.jpg" />}
         helpText="Prefer authored media with descriptive alt text."
         policyText="Public media must meet shared licensing policy."
+        retryAction={<button type="button">Retry</button>}
         state="saved"
         onRemove={onRemove}
         onReset={onReset}
+        mode="split"
       />,
     );
 
@@ -204,6 +216,7 @@ describe('@gds/core', () => {
     expect(screen.getByText('Saved')).toBeInTheDocument();
     expect(screen.getByAltText('Hero preview')).toBeInTheDocument();
     expect(screen.getByLabelText('Image URL')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Reset' }));
     await user.click(screen.getByRole('button', { name: 'Remove' }));

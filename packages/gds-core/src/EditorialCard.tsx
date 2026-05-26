@@ -15,13 +15,36 @@ export interface EditorialCardProps {
   onClick?: () => void;
   tone?: 'default' | 'warm' | 'cool' | 'muted';
   variant?: 'standard' | 'compact' | 'featured';
+  classNames?: {
+    root?: string;
+    media?: string;
+    body?: string;
+    title?: string;
+    meta?: string;
+    action?: string;
+  };
 }
 
 const tonePalette = {
-  default: { accent: 'violet', background: 'var(--mantine-color-body)' },
-  warm: { accent: 'orange', background: 'var(--mantine-color-orange-0)' },
-  cool: { accent: 'blue', background: 'var(--mantine-color-blue-0)' },
-  muted: { accent: 'gray', background: 'var(--mantine-color-gray-0)' },
+  default: {
+    accent: 'violet',
+    background: 'var(--mantine-color-body)',
+  },
+  warm: {
+    accent: 'orange',
+    background:
+      'light-dark(var(--mantine-color-orange-0), color-mix(in srgb, var(--mantine-color-orange-9) 16%, var(--mantine-color-body)))',
+  },
+  cool: {
+    accent: 'blue',
+    background:
+      'light-dark(var(--mantine-color-blue-0), color-mix(in srgb, var(--mantine-color-blue-9) 16%, var(--mantine-color-body)))',
+  },
+  muted: {
+    accent: 'gray',
+    background:
+      'light-dark(var(--mantine-color-gray-0), color-mix(in srgb, var(--mantine-color-dark-7) 92%, black))',
+  },
 } as const;
 
 function EditorialMediaFallback({ compact }: { compact: boolean }) {
@@ -56,6 +79,7 @@ export function EditorialCard({
   onClick,
   tone = 'default',
   variant = 'standard',
+  classNames,
 }: EditorialCardProps) {
   const compact = variant === 'compact';
   const featured = variant === 'featured';
@@ -68,6 +92,7 @@ export function EditorialCard({
 
   return (
     <Card
+      className={classNames?.root}
       withBorder
       radius="xl"
       padding={0}
@@ -79,17 +104,19 @@ export function EditorialCard({
         cursor: href || onClick ? 'pointer' : 'default',
       }}
     >
-      <Card.Section>{media ?? <EditorialMediaFallback compact={compact} />}</Card.Section>
+      <Card.Section className={classNames?.media}>{media ?? <EditorialMediaFallback compact={compact} />}</Card.Section>
 
-      <Stack gap="md" p={compact ? 'md' : 'lg'}>
+      <Stack gap="md" p={compact ? 'md' : 'lg'} className={classNames?.body}>
         <Group justify="space-between" align="flex-start" gap="sm" wrap="wrap">
           <Stack gap={4} flex={1}>
             {eyebrow ? (
-              <Text size="xs" fw={700} tt="uppercase" c="dimmed" style={{ letterSpacing: '0.14em' }}>
+              <Text size="xs" fw={700} c="dimmed">
                 {eyebrow}
               </Text>
             ) : null}
-            <Title order={compact ? 4 : 3}>{title}</Title>
+            <Title order={compact ? 4 : 3} className={classNames?.title}>
+              {title}
+            </Title>
           </Stack>
           {badge ? (
             typeof badge === 'string' ? (
@@ -109,13 +136,13 @@ export function EditorialCard({
         ) : null}
 
         {meta ? (
-          <Text size="sm" c="dimmed">
+          <Text size="sm" c="dimmed" className={classNames?.meta}>
             {meta}
           </Text>
         ) : null}
 
         {(href || onClick || ctaLabel) ? (
-          <Group gap={6} c={`${palette.accent}.7`}>
+          <Group gap={6} c={`${palette.accent}.7`} className={classNames?.action}>
             <Text fw={600} size="sm">
               {ctaLabel}
             </Text>

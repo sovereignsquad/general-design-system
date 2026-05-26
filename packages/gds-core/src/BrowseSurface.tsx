@@ -25,18 +25,21 @@ export interface BrowseSurfaceProps {
   activeFilters?: BrowseSurfaceFilterChip[];
   scopeOptions?: BrowseSurfaceScopeOption[];
   scopeLabel?: ReactNode;
+  locationControls?: ReactNode;
   primaryControls?: ReactNode;
   toolbar?: Omit<DataToolbarProps, 'activeFilters'> & {
     fallbackActiveFilters?: DataToolbarProps['activeFilters'];
   };
   sortControl?: ReactNode;
   mobileFilters?: ReactNode;
+  filterDrawer?: ReactNode;
   content: ReactNode;
   loading?: boolean;
   loadingTitle?: string;
   loadingDescription?: ReactNode;
   error?: ReactNode;
   errorTitle?: string;
+  errorAction?: ReactNode;
   empty?: boolean;
   emptyTitle?: string;
   emptyDescription?: ReactNode;
@@ -52,16 +55,19 @@ export function BrowseSurface({
   activeFilters = [],
   scopeOptions = [],
   scopeLabel = 'Scope',
+  locationControls,
   primaryControls,
   toolbar,
   sortControl,
   mobileFilters,
+  filterDrawer,
   content,
   loading = false,
   loadingTitle = 'Loading results',
   loadingDescription = 'The browse surface is still synchronizing.',
   error,
   errorTitle = 'Unable to load results',
+  errorAction,
   empty = false,
   emptyTitle = 'No matching results',
   emptyDescription = 'Try adjusting your filters or broadening the current scope.',
@@ -77,7 +83,7 @@ export function BrowseSurface({
   if (loading) {
     body = <StateBlock variant="loading" title={loadingTitle} description={loadingDescription} compact />;
   } else if (error) {
-    body = <StateBlock variant="error" title={errorTitle} description={error} action={emptyAction} compact />;
+    body = <StateBlock variant="error" title={errorTitle} description={error} action={errorAction ?? emptyAction} compact />;
   } else if (empty) {
     body = <StateBlock variant="empty" title={emptyTitle} description={emptyDescription} action={emptyAction} compact />;
   }
@@ -132,6 +138,15 @@ export function BrowseSurface({
             </Stack>
           ) : null}
 
+          {locationControls ? (
+            <Stack gap="xs">
+              <Text size="sm" fw={600} c="dimmed">
+                Location
+              </Text>
+              {locationControls}
+            </Stack>
+          ) : null}
+
           {toolbar || sortControl ? (
             <SimpleGrid cols={{ base: 1, lg: sortControl ? 2 : 1 }} spacing="md">
               {toolbar ? (
@@ -161,6 +176,8 @@ export function BrowseSurface({
               {mobileFilters}
             </Stack>
           ) : null}
+
+          {filterDrawer ? <Box hiddenFrom="lg">{filterDrawer}</Box> : null}
 
           {activeFilters.length ? (
             <Group gap="xs" wrap="wrap">

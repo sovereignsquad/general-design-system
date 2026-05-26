@@ -156,6 +156,37 @@ export const gdsEditorialPublicTheme = extendGdsTheme({
   },
 });
 
+export interface PublicBrandThemeOptions {
+  editorialSerif?: boolean;
+  flatSurfaces?: boolean;
+  overrides?: MantineThemeOverride;
+}
+
+export function createPublicBrandTheme({
+  editorialSerif = false,
+  flatSurfaces = false,
+  overrides = {},
+}: PublicBrandThemeOptions = {}) {
+  const layeredOverrides: MantineThemeOverride[] = [];
+
+  if (flatSurfaces) {
+    layeredOverrides.push(gdsFlatSurfaceTheme);
+  }
+
+  if (editorialSerif) {
+    layeredOverrides.push(gdsEditorialPublicTheme);
+  }
+
+  layeredOverrides.push(overrides);
+
+  const mergedOverrides = layeredOverrides.reduce<MantineThemeOverride>(
+    (theme, layer) => mergeThemeOverrides(theme, layer),
+    {},
+  );
+
+  return extendGdsTheme(mergedOverrides);
+}
+
 export function extendGdsTheme(overrides: MantineThemeOverride = {}) {
   return mergeMantineTheme(baseTheme, overrides);
 }

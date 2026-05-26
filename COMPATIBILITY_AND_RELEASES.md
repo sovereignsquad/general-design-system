@@ -1,8 +1,8 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.5.1
-Last updated: 2026-05-25
+Version: 2.6.0
+Last updated: 2026-05-26
 
 This document defines the supported package/runtime contract for `@gds/theme`, `@gds/core`, and `@gds/admin`.
 
@@ -13,7 +13,8 @@ The machine-readable authority for the supported lines lives in [compatibility.m
 | Surface | Supported now | Notes |
 |---|---|---|
 | Mantine | `^7.9.0` | Current build and test target |
-| React | `^18.2.0`, `^19.0.0` | React 19 compatibility is declared at the peer layer; package behavior is still validated primarily on React 18 in this repo |
+| Mantine consumer smoke | `8.3.x` | Package peers and packed consumer smoke are validated against Mantine 8.3.6 with React 19 |
+| React | `^18.2.0`, `^19.0.0` | React 19 compatibility is declared at the peer layer and validated through the Mantine 8 consumer smoke harness |
 | Next.js | App Router and Pages Router consumers | Use server-safe/client-safe subpath imports where applicable |
 | Vite | Supported | Playground and static/Multi-Page App consumers remain valid |
 
@@ -177,3 +178,8 @@ This repository now includes:
 - `apps/reference-next` for App Router-oriented runtime structure and typed route contracts
 
 These fixtures are verified through `npm run verify:references` and act as the living adoption baseline for new consumers.
+
+## Compatibility evidence
+
+- `npm run verify:mantine8` packs `@gds/theme`, `@gds/core`, and `@gds/admin`, installs them into a clean temporary consumer using Mantine `8.3.6`, React `19.2.0`, React DOM `19.2.0`, and Next `15.5.18`, then runs `tsc --noEmit`.
+- `apps/reference-next` remains the typed App Router reference fixture. `npm run build:app-router --workspace=reference-next` is kept as an explicit non-gating harness while the upstream `/404` / `/_error` prerender failure on Next `15.5.x` is still reproducible even against a trivial reference route tree.

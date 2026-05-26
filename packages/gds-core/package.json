@@ -1,6 +1,6 @@
 {
   "name": "@gds/core",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -33,9 +33,9 @@
     "dev": "tsup --watch"
   },
   "peerDependencies": {
-    "@gds/theme": "^2.5.1",
-    "@mantine/core": "^7.9.0",
-    "@mantine/hooks": "^7.9.0",
+    "@gds/theme": "^2.6.0",
+    "@mantine/core": "^7.9.0 || ^8.3.0",
+    "@mantine/hooks": "^7.9.0 || ^8.3.0",
     "@tabler/icons-react": "^3.5.0",
     "react": "^18.2.0 || ^19.0.0",
     "react-dom": "^18.2.0 || ^19.0.0"

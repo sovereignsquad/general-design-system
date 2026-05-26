@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 2.5.1
+Version: 2.6.0
 Last updated: 2026-05-25
 
 This document defines how products may extend `gdsTheme` without creating a second design authority.
@@ -41,6 +41,8 @@ Recommended model:
 1. start from `extendGdsTheme(...)`
 2. apply product-level overrides
 3. apply tenant-level overrides only on documented brand surfaces
+
+For public/editorial products that want one sanctioned entrypoint instead of ad hoc merging, use `createPublicBrandTheme({ editorialSerif, flatSurfaces, overrides })` from `@gds/theme`.
 
 ## Dark-mode rule
 
@@ -85,5 +87,6 @@ Rules:
 - `gdsDarkPublicTheme` is the approved preset for products that deliberately default to a dark public shell.
 - `gdsFlatSurfaceTheme` is the approved preset for products that need flatter operational surfaces without creating a second token authority.
 - `gdsEditorialPublicTheme` is the approved preset for public/editorial products that need serif-forward storytelling and flatter public surfaces without creating a private token branch.
+- `createPublicBrandTheme()` is the approved composition helper for branded public products that need to layer serif headings, flat surfaces, and product-local token overrides in one governed merge path.
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
 - `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.

@@ -4,6 +4,7 @@ import { EditorScaffold } from './EditorScaffold';
 
 export interface ContentOpsEditorProps {
   header?: ReactNode;
+  context?: ReactNode;
   status?: ReactNode;
   sections: ReactNode;
   actionBar?: ReactNode;
@@ -13,6 +14,7 @@ export interface ContentOpsEditorProps {
 
 export function ContentOpsEditor({
   header,
+  context,
   status,
   sections,
   actionBar,
@@ -24,9 +26,12 @@ export function ContentOpsEditor({
       {header}
       {status}
       <EditorScaffold
-        form={<Stack gap="lg">{sections}{actionBar}</Stack>}
+        context={context}
+        form={<Stack gap="lg">{sections}</Stack>}
         preview={preview}
         settings={settings}
+        footer={actionBar}
+        stickyFooter
       />
     </Stack>
   );

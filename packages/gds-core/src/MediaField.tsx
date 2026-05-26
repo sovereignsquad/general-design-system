@@ -12,12 +12,14 @@ export interface MediaFieldProps {
   helpText?: ReactNode;
   policyText?: ReactNode;
   error?: ReactNode;
+  retryAction?: ReactNode;
   onRemove?: () => void;
   onReset?: () => void;
   removeAction?: ReactNode;
   resetAction?: ReactNode;
   statusAction?: ReactNode;
   state?: 'empty' | 'selected' | 'saved' | 'invalid' | 'uploading';
+  mode?: 'stacked' | 'split';
 }
 
 const stateLabels: Record<NonNullable<MediaFieldProps['state']>, { label: string; color: string }> = {
@@ -38,12 +40,14 @@ export function MediaField({
   helpText,
   policyText,
   error,
+  retryAction,
   onRemove,
   onReset,
   removeAction,
   resetAction,
   statusAction,
   state = 'empty',
+  mode = 'stacked',
 }: MediaFieldProps) {
   const stateBadge = stateLabels[state];
   const resolvedRemoveAction =
@@ -73,7 +77,7 @@ export function MediaField({
           {(uploadControl || urlInput) ? (
             <>
               <Divider />
-              <Stack gap="sm">
+              <Stack gap="sm" style={mode === 'split' ? { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' } : undefined}>
                 {uploadControl}
                 {urlInput}
               </Stack>
@@ -103,6 +107,7 @@ export function MediaField({
           {(resolvedRemoveAction || resolvedResetAction) ? (
             <Group gap="sm">
               {resolvedResetAction}
+              {retryAction}
               {resolvedRemoveAction}
             </Group>
           ) : null}

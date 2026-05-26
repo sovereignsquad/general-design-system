@@ -2,6 +2,15 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 2.6.0 - 2026-05-26
+
+- Added `SectionPanel` and `ConsumerDashboardGrid` to `@gds/core` as the canonical operational panel rhythm and consumer dashboard layout scaffolds.
+- Hardened shared operational contracts in `@gds/admin`: `AppShell` now supports primary/secondary/account navigation regions and header context, `PageHeader` now supports subtitle/status/overflow actions, `ResponsiveDataView` now supports active filter chips plus mobile filter surfaces, and `EditorScaffold` / `ContentOpsEditor` now support context and sticky footer action regions.
+- Enhanced `@gds/core` `BrowseSurface`, `EditorialCard`, `FilterDrawer`, and `MediaField` to reduce remaining local public/admin overrides.
+- Added `createPublicBrandTheme()` to `@gds/theme` and formalized the branded public theme merge path.
+- Widened shared Mantine peer ranges to include `8.3.x` and added `npm run verify:mantine8` as a packed-consumer compatibility smoke for Mantine 8.3.6 + React 19.2.0 + Next 15.5.18.
+- Documented the canonical searchable-selection decision: use governed Mantine recipe composition rather than a new shared wrapper until a stronger repeated contract emerges.
+
 ## 2.5.1 - 2026-05-25
 
 - Expanded `@gds/compliance` with configurable banned imports plus default stale-SSOT reference detection so consumer repos can catch lingering legacy UI dependencies and outdated documentation paths through shared tooling.

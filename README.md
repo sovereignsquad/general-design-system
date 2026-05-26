@@ -1,8 +1,8 @@
 # General Design System
 
 Status: Active SSOT
-Version: 2.5.1
-Last updated: 2026-05-25
+Version: 2.6.0
+Last updated: 2026-05-26
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 
@@ -40,8 +40,8 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Machine-readable Contracts**: `compatibility.matrix.json`, `schemas/gds-adoption.schema.json`, and `TEMPLATES/gds-adoption.json.template` — shared compatibility, adoption, and validation contracts.
 - **Tooling Packages**: `@gds/eslint-config` and `@gds/compliance` — shared lint and compliance enforcement for adopting repos.
 - **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@gds/core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
-- **Public & Consumer Surface Primitives**: `AccentPanel`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `MediaField`, `PublicBrandFooter`, and the enhanced `PublicShell` / `PublicProductCard` contracts from `@gds/core` — canonical public/editorial contracts for accent-safe surfaces, split hero composition, service/trust bands, browse/discovery chrome, editorial cards, consumer dashboard grouping, governed media editing, branded footer layouts, shell/mobile-nav rhythm, and localized media-first card states.
-- **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, and `ContentOpsActionBar` from `@gds/admin` — canonical scaffolds for multi-section content/settings operations.
+- **Public & Consumer Surface Primitives**: `AccentPanel`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `PublicBrandFooter`, and the enhanced `PublicShell` / `PublicProductCard` contracts from `@gds/core` — canonical public/editorial contracts for accent-safe surfaces, split hero composition, service/trust bands, browse/discovery chrome, editorial cards, consumer dashboard grouping, operational section framing, governed media editing, branded footer layouts, shell/mobile-nav rhythm, and localized media-first card states.
+- **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@gds/admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
@@ -82,6 +82,7 @@ Required repository behavior:
 
 - `npm run verify:release` — checks release alignment, builds all packages/apps, verifies export boundaries, then runs lint, tests, and reference validation
 - `npm run verify:references` — validates the reference consumers and their adoption manifests
+- `npm run verify:mantine8` — packs the packages and validates a clean Mantine 8.3 / React 19 consumer install smoke
 - `npm run publish:dry-run` — validates the authenticated package publish sequence without uploading artifacts
 - `npm run publish:npm` — publishes the five public GDS packages from an authenticated npm environment
 - `npm run verify:published` — checks the registry until all five packages resolve to the current `VERSION`

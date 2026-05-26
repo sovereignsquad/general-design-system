@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Link } from 'react-router-dom';
 import { Button } from '@mantine/core';
-import { DataToolbar, MetricCard } from '@gds/core';
+import { DataToolbar, FilterDrawer, MetricCard } from '@gds/core';
 import { renderWithGds } from '../../../test-utils/render';
 import { AppShell } from './AppShell';
 import { ContentOpsActionBar } from './ContentOpsActionBar';
@@ -24,7 +24,10 @@ describe('@gds/admin', () => {
     renderWithGds(
       <AppShell
         logoText="Control Center"
-        navLinks={<SemanticNavLink action="home" component={Link} to="/" />}
+        primaryNavigation={<SemanticNavLink action="home" component={Link} to="/" />}
+        secondaryNavigation={<SemanticNavLink action="settings" component={Link} to="/settings" />}
+        accountPanel={<Button variant="subtle">Logout</Button>}
+        headerContext="Operations workspace"
         headerActions={<Button type="button">Header action</Button>}
         mobileNavigation={<Button variant="subtle">Home</Button>}
       >
@@ -34,6 +37,9 @@ describe('@gds/admin', () => {
 
     expect(screen.getByText('Control Center')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Settings' })).toBeInTheDocument();
+    expect(screen.getByText('Operations workspace')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Logout' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Header action' })).toBeInTheDocument();
     expect(screen.getAllByRole('button', { name: 'Home' }).length).toBeGreaterThan(0);
     expect(screen.getByText('Main content')).toBeInTheDocument();
@@ -113,15 +119,21 @@ describe('@gds/admin', () => {
       <PageHeader
         title="Projects"
         description="Review active product work."
+        subtitle="Operational queue"
+        status={<span>Draft</span>}
         primaryAction={<Button type="button">Create project</Button>}
         secondaryActions={<Button variant="default" type="button">Export</Button>}
+        overflowActions={[{ label: 'Archive' }]}
       />,
     );
 
     expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument();
+    expect(screen.getByText('Operational queue')).toBeInTheDocument();
     expect(screen.getByText('Review active product work.')).toBeInTheDocument();
+    expect(screen.getByText('Draft')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Create project' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Export' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'More actions' })).toBeInTheDocument();
   });
 
   it('renders KPI strips with positive and negative deltas', () => {
@@ -145,6 +157,9 @@ describe('@gds/admin', () => {
         columns={[{ key: 'name', label: 'Name' }]}
         data={[{ slug: 'alpha', name: 'Alpha' }]}
         toolbar={<DataToolbar searchSlot={<input aria-label="Search" />} />}
+        activeFilters={[{ label: 'Published' }]}
+        mobileFilters={<Button variant="default">Filters</Button>}
+        filterDrawer={<FilterDrawer opened onClose={() => {}} title="Filters" mode="bottom-sheet" />}
         renderCard={(item) => <MetricCard label={String(item.name)} value="1" />}
         getRowKey={(item) => item.slug}
       />,
@@ -152,6 +167,7 @@ describe('@gds/admin', () => {
 
     expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
     expect(screen.getByLabelText('Search')).toBeInTheDocument();
+    expect(screen.getByText('Published')).toBeInTheDocument();
   });
 
   it('renders workspace headers and editor scaffolds', () => {
@@ -164,17 +180,22 @@ describe('@gds/admin', () => {
             primaryAction={<Button type="button">Save</Button>}
           />
         }
+        context={<div>Setup context</div>}
         form={<div>Form column</div>}
         preview={<div>Preview column</div>}
         settings={<div>Settings column</div>}
+        footer={<div>Sticky footer</div>}
+        stickyFooter
       />,
     );
 
     expect(screen.getByRole('heading', { name: 'Course editor' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    expect(screen.getByText('Setup context')).toBeInTheDocument();
     expect(screen.getByText('Form column')).toBeInTheDocument();
     expect(screen.getByText('Preview column')).toBeInTheDocument();
     expect(screen.getByText('Settings column')).toBeInTheDocument();
+    expect(screen.getByText('Sticky footer')).toBeInTheDocument();
   });
 
   it('renders content operations editors with section scaffolds and action states', () => {
