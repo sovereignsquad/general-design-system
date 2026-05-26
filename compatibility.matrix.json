@@ -24,6 +24,14 @@
       "vite": "8.x",
       "status": "supported",
       "notes": "Validated through packed consumer installation smoke using Mantine 8.3.6 and React 19.2.0."
+    },
+    {
+      "react": "19.x",
+      "next": "15.x",
+      "mantine": "9.2.x",
+      "vite": "8.x",
+      "status": "supported",
+      "notes": "Validated through packed consumer installation smoke using Mantine 9.2.1 and React 19.2.0."
     }
   ]
 }

@@ -327,12 +327,20 @@ function PlaygroundContent() {
                 <Stack gap="sm">
                   <Title order={2}>Platform Adoption Progress</Title>
                   <Text size="sm" c="dimmed">Our current standard is adopted fully across six live repositories:</Text>
+                  <Paper withBorder p="md" radius="lg">
+                    <Stack gap={6}>
+                      <Text fw={700} size="sm">Current supported consumer line</Text>
+                      <Text size="sm" c="dimmed">
+                        Direct package adoption is verified for React 19 with Mantine 8.3.x and 9.2.x. Public GitHub release assets remain the temporary supported install path until npm publication is live.
+                      </Text>
+                    </Stack>
+                  </Paper>
                   <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing="sm">
                     {['sso', 'kidex', 'classscout', 'messmass', 'narimato', 'general-design-system'].map((app) => (
                       <Paper key={app} withBorder p="md" radius="lg" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-                        <Badge color="teal" variant="light">GDS 2.3.0</Badge>
+                        <Badge color="teal" variant="light">GDS 2.6.1</Badge>
                         <Text fw={700} size="sm" tt="uppercase">{app.replace('-',' ')}</Text>
-                        <Text size="xs" c="dimmed">100% Aligned</Text>
+                        <Text size="xs" c="dimmed">Release-aligned</Text>
                       </Paper>
                     ))}
                   </SimpleGrid>
@@ -415,7 +423,7 @@ function PlaygroundContent() {
                     <MetricCard 
                       label="Adoption Frequency" 
                       value="4,821 Builds" 
-                      description="Deploy count since GDS 2.3 launch"
+                      description="Deploy count since the GDS 2.6 package-consumption hardening pass"
                       trend={{ label: '+24.5%', tone: 'positive' }}
                       icon={<IconActivity size="1.2rem" />}
                     />
@@ -425,7 +433,7 @@ function PlaygroundContent() {
                       value="28 / 28 Pages" 
                       progress={100} 
                       progressLabel="SSO Documentation Pages"
-                      description="Migration of doc files to pure Mantine v7"
+                      description="Migration of doc files to package-native Mantine contracts with Mantine 9-ready peer support"
                       action={<Badge color="teal" variant="light">Completed</Badge>}
                     />
 
@@ -515,7 +523,7 @@ function PlaygroundContent() {
                   title="Purge Legacy CSS Stylesheets?"
                   loading={demoLoad}
                 >
-                  This action will permanently delete `styles/docs.module.css` and `styles/docs-layout.module.css` across the SSO repository. Downstream pages will be strictly governed by GDS 2.3.0 theme rules.
+                  This action will permanently delete `styles/docs.module.css` and `styles/docs-layout.module.css` across the SSO repository. Downstream pages will be strictly governed by the GDS 2.6.1 package and theme contract.
                 </ConfirmDialog>
               </Stack>
             } />

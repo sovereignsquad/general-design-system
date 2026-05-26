@@ -7,7 +7,12 @@ export function ClientPanel() {
   return (
     <>
       <ThemeToggle />
-      <DocsCodeBlock code="npm install @doneisbetter/gds-theme @doneisbetter/gds-core" language="bash" title="Install" />
+      <DocsCodeBlock
+        code={`npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-admin
+npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`}
+        language="bash"
+        title="Install"
+      />
       <CtaButtonGroup
         primary={<Button>Adopt provider</Button>}
         secondary={<Button variant="default">Review exports</Button>}

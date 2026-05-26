@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 2.6.1
-Last updated: 2026-05-26
+Last updated: 2026-05-27
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 
@@ -30,7 +30,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Adoption & Migration Playbook**: [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) — The canonical step-by-step path from local mirrors or legacy UI systems to direct `@doneisbetter/gds-*` package consumption.
 - **Compatibility & Releases**: [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) — Supported Mantine/React/Next ranges, subpath exports, version alignment, and upgrade expectations.
 - **Release Publish Runbook**: [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md) — Authenticated npm publish flow, dry-run command, and recovery guidance.
-- **Verified Consumer Install Proof**: [VERIFIED_CONSUMER_INSTALL_PROOF.md](/Users/Shared/Projects/general-design-system/VERIFIED_CONSUMER_INSTALL_PROOF.md) — The current evidence for Next 15 / React 19 / Mantine 8 package consumption and the documented temporary install path.
+- **Verified Consumer Install Proof**: [VERIFIED_CONSUMER_INSTALL_PROOF.md](/Users/Shared/Projects/general-design-system/VERIFIED_CONSUMER_INSTALL_PROOF.md) — The current evidence for Next 15 / React 19 / Mantine 8 and 9 package consumption plus the documented temporary install path.
 - **Compliance Toolkit**: [COMPLIANCE_TOOLKIT.md](/Users/Shared/Projects/general-design-system/COMPLIANCE_TOOLKIT.md) — Shared lint, manifest validation, stale-doc detection, banned-import governance, and repo-level drift checks.
 - **Theme Governance**: [THEME_GOVERNANCE.md](/Users/Shared/Projects/general-design-system/THEME_GOVERNANCE.md) — Brand extension, dark-mode defaults, white-label, flat-surface, and tenant-theme rules.
 - **Exception Surfaces**: [EXCEPTION_SURFACES.md](/Users/Shared/Projects/general-design-system/EXCEPTION_SURFACES.md) — Chart, map, embed, and other approved exception-surface guidance.
@@ -83,12 +83,13 @@ Required repository behavior:
 
 - `npm run verify:release` — checks release alignment, builds all packages/apps, verifies export boundaries, then runs lint, tests, and reference validation
 - `npm run verify:references` — validates the reference consumers and their adoption manifests
-- `npm run verify:mantine8` — packs the packages and validates a clean Mantine 8.3 / React 19 consumer install smoke
+- `npm run verify:mantine` — packs the packages and validates clean Mantine 8.3 and 9.2 / React 19 consumer install smoke
 - `npm run publish:dry-run` — validates the authenticated package publish sequence without uploading artifacts
 - `npm run publish:npm` — publishes the five public GDS packages from an authenticated npm environment
 - `npm run verify:published` — checks the registry until all five packages resolve to the current `VERSION`
 - `npm run pack:release` — creates public tarballs, checksums, and install instructions for the temporary GitHub release-asset distribution path
 - `npm run build` — builds `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, `@doneisbetter/gds-admin`, and the playground in dependency order
+- `npm install` — on supported macOS and Linux x64 environments, the root optional native bindings now bootstrap the local Vite/tsup build layer without extra manual install steps
 - `npm run lint` — runs the playground lint target
 - `npm run test:run` — runs the shared jsdom component test suite for the workspace packages
 

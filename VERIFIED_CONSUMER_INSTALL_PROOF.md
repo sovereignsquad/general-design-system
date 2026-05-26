@@ -2,7 +2,7 @@
 
 Status: Active SSOT  
 Version: 2.6.1  
-Last updated: 2026-05-26
+Last updated: 2026-05-27
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
@@ -11,7 +11,9 @@ This document records the current proof points for the direct package-consumptio
 - Framework: Next.js `15.5.18`
 - React: `19.2.0`
 - React DOM: `19.2.0`
-- Mantine: `8.3.6`
+- Mantine:
+  - `8.3.6`
+  - `9.2.1`
 - Router style: App Router reference fixture
 - Package line:
   - `@doneisbetter/gds-theme`
@@ -25,11 +27,12 @@ This document records the current proof points for the direct package-consumptio
 
 ### 1. Packed consumer install smoke
 
-`npm run verify:mantine8` packs the three runtime packages, installs them into a clean temporary consumer, and verifies TypeScript compatibility against:
+`npm run verify:mantine` packs the three runtime packages, installs them into clean temporary consumers, and verifies TypeScript compatibility against:
 
 - Next `15.5.18`
 - React `19.2.0`
 - Mantine `8.3.6`
+- Mantine `9.2.1`
 
 The smoke fixture imports and type-checks:
 
@@ -37,7 +40,20 @@ The smoke fixture imports and type-checks:
 - `@doneisbetter/gds-core/client`
 - `@doneisbetter/gds-admin/client`
 
-This proves that the package contents, peer ranges, and export maps are internally coherent for the declared compatibility line.
+This proves that the package contents, peer ranges, and export maps are internally coherent for the declared Mantine 8 and Mantine 9 compatibility lines.
+
+### 1a. Fresh root workspace build readiness
+
+The repository root also declares platform-scoped optional native bindings for:
+
+- `@rolldown/binding-darwin-arm64`
+- `@rolldown/binding-darwin-x64`
+- `@rolldown/binding-linux-x64-gnu`
+- `@rollup/rollup-darwin-arm64`
+- `@rollup/rollup-darwin-x64`
+- `@rollup/rollup-linux-x64-gnu`
+
+This is intended to make a fresh root `npm install` sufficient for local Vite and tsup builds on the supported macOS and Linux x64 environments.
 
 ### 2. Typed App Router reference fixture
 
@@ -82,6 +98,6 @@ Temporary supported install path while npm publication is still pending:
 ## Evidence commands
 
 ```bash
-npm run verify:mantine8
+npm run verify:mantine
 npm run verify:references
 ```

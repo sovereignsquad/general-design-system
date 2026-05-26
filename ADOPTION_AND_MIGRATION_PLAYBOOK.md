@@ -1,8 +1,8 @@
 # Adoption & Migration Playbook
 
 Status: Active SSOT
-Version: 2.5.1
-Last updated: 2026-05-25
+Version: 2.6.1
+Last updated: 2026-05-27
 
 This playbook defines the canonical path for adopting GDS through direct package consumption and for migrating repos away from local mirrored adapters or legacy UI systems.
 
@@ -107,10 +107,17 @@ Run:
 npm install
 npm run build
 npm run test:run
+npm run verify:mantine
 gds-compliance check --manifest ./gds-adoption.json
 ```
 
 For Next.js consumers, also verify the production build path. For public products, verify at least one high-traffic route and one empty/error state.
+
+Consumer dependency baseline:
+
+- React `19.x` is supported
+- Mantine `8.3.x` and `9.2.x` are verified consumer-install lines
+- use GitHub release assets until the npm package line is publicly available
 
 ## 7. Rollback & Recovery
 

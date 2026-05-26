@@ -1,4 +1,4 @@
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -13,6 +13,16 @@ mkdirSync(packsDir, { recursive: true });
 mkdirSync(appDir, { recursive: true });
 
 const workspaces = ['@doneisbetter/gds-theme', '@doneisbetter/gds-core', '@doneisbetter/gds-admin'];
+const matrices = [
+  {
+    label: 'Mantine 8 / React 19',
+    mantineVersion: '8.3.6',
+  },
+  {
+    label: 'Mantine 9 / React 19',
+    mantineVersion: '9.2.1',
+  },
+];
 
 for (const workspace of workspaces) {
   execFileSync('npm', ['pack', '--pack-destination', packsDir, '--workspace', workspace], {
@@ -20,41 +30,6 @@ for (const workspace of workspaces) {
     stdio: 'ignore',
   });
 }
-
-writeFileSync(
-  join(appDir, 'package.json'),
-  JSON.stringify(
-    {
-      name: 'gds-mantine8-smoke',
-      private: true,
-      type: 'module',
-      scripts: {
-        build: 'tsc --noEmit',
-      },
-      dependencies: {
-        '@doneisbetter/gds-theme': `file:../packs/doneisbetter-gds-theme-${version}.tgz`,
-        '@doneisbetter/gds-core': `file:../packs/doneisbetter-gds-core-${version}.tgz`,
-        '@doneisbetter/gds-admin': `file:../packs/doneisbetter-gds-admin-${version}.tgz`,
-        '@mantine/core': '8.3.6',
-        '@mantine/hooks': '8.3.6',
-        '@mantine/modals': '8.3.6',
-        '@mantine/notifications': '8.3.6',
-        '@tabler/icons-react': '3.35.0',
-        next: '15.5.18',
-        react: '19.2.0',
-        'react-dom': '19.2.0',
-      },
-      devDependencies: {
-        '@types/node': '24.10.1',
-        '@types/react': '19.2.2',
-        '@types/react-dom': '19.2.2',
-        typescript: '6.0.2',
-      },
-    },
-    null,
-    2,
-  ),
-);
 
 writeFileSync(
   join(appDir, 'tsconfig.json'),
@@ -101,9 +76,53 @@ console.log(Boolean(demo));
 );
 
 try {
-  execFileSync('npm', ['install', '--silent'], { cwd: appDir, stdio: 'inherit' });
-  execFileSync('npm', ['run', 'build'], { cwd: appDir, stdio: 'inherit' });
-  console.log('Mantine 8 / React 19 compatibility smoke passed.');
+  for (const matrix of matrices) {
+    if (existsSync(join(appDir, 'node_modules'))) {
+      rmSync(join(appDir, 'node_modules'), { recursive: true, force: true });
+    }
+    if (existsSync(join(appDir, 'package-lock.json'))) {
+      rmSync(join(appDir, 'package-lock.json'), { force: true });
+    }
+
+    writeFileSync(
+      join(appDir, 'package.json'),
+      JSON.stringify(
+        {
+          name: 'gds-mantine-compat-smoke',
+          private: true,
+          type: 'module',
+          scripts: {
+            build: 'tsc --noEmit',
+          },
+          dependencies: {
+            '@doneisbetter/gds-theme': `file:../packs/doneisbetter-gds-theme-${version}.tgz`,
+            '@doneisbetter/gds-core': `file:../packs/doneisbetter-gds-core-${version}.tgz`,
+            '@doneisbetter/gds-admin': `file:../packs/doneisbetter-gds-admin-${version}.tgz`,
+            '@mantine/core': matrix.mantineVersion,
+            '@mantine/hooks': matrix.mantineVersion,
+            '@mantine/modals': matrix.mantineVersion,
+            '@mantine/notifications': matrix.mantineVersion,
+            '@tabler/icons-react': '3.35.0',
+            next: '15.5.18',
+            react: '19.2.0',
+            'react-dom': '19.2.0',
+          },
+          devDependencies: {
+            '@types/node': '24.10.1',
+            '@types/react': '19.2.2',
+            '@types/react-dom': '19.2.2',
+            typescript: '6.0.2',
+          },
+        },
+        null,
+        2,
+      ),
+    );
+
+    execFileSync('npm', ['install', '--silent'], { cwd: appDir, stdio: 'inherit' });
+    execFileSync('npm', ['run', 'build'], { cwd: appDir, stdio: 'inherit' });
+    console.log(`${matrix.label} compatibility smoke passed.`);
+  }
 } finally {
   rmSync(workspaceRoot, { recursive: true, force: true });
 }

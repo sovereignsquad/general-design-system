@@ -422,7 +422,12 @@ describe('@doneisbetter/gds-core', () => {
           lead="Use the published packages and root provider."
           footerNext={{ label: 'Next: Providers', href: '/providers' }}
         >
-          <DocsCodeBlock code="npm install @doneisbetter/gds-theme @doneisbetter/gds-core" language="bash" title="Install" />
+          <DocsCodeBlock
+            code={`npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-admin
+npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`}
+            language="bash"
+            title="Install"
+          />
         </DocsPageShell>
         <CtaButtonGroup
           primary={<button type="button">Start</button>}
@@ -433,7 +438,7 @@ describe('@doneisbetter/gds-core', () => {
     );
 
     expect(screen.getByRole('heading', { name: 'Install packages' })).toBeInTheDocument();
-    expect(screen.getByText('npm install @doneisbetter/gds-theme @doneisbetter/gds-core')).toBeInTheDocument();
+    expect(screen.getByText(/npm install @doneisbetter\/gds-theme @doneisbetter\/gds-core @doneisbetter\/gds-admin/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Copy code block' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Learn more' })).toBeInTheDocument();

@@ -61,6 +61,7 @@ const installGuide = `# Temporary Release Bundle Install (${version})
 
 Canonical registry target: npm
 Temporary supported install path: public GitHub release assets for tag \`${tag}\`
+Verified consumer line: React 19 + Mantine 8.3.x or 9.2.x
 
 Runtime packages:
 ${runtimePackages.map((pkg) => `- ${pkg.name}: ${pkg.url}`).join('\n')}
@@ -73,6 +74,12 @@ Install commands:
 \`\`\`bash
 npm install ${runtimePackages.map((pkg) => pkg.url).join(' ')}
 npm install -D ${devPackages.map((pkg) => pkg.url).join(' ')}
+\`\`\`
+
+Required consumer peers:
+
+\`\`\`bash
+npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
 \`\`\`
 `;
 

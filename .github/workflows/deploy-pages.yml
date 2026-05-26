@@ -26,9 +26,9 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
-        run: npm ci
-      - name: Install Rolldown Linux binding
-        run: npm install --no-save @rolldown/binding-linux-x64-gnu
+        run: npm ci --omit=optional
+      - name: Install Linux native build bindings
+        run: npm install --no-save @rollup/rollup-linux-x64-gnu @rolldown/binding-linux-x64-gnu
       - name: Build GDS Theme
         run: npm run build --workspace=@doneisbetter/gds-theme
       - name: Build GDS Core

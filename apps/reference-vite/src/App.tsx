@@ -20,6 +20,9 @@ import {
 } from '@doneisbetter/gds-core/client';
 
 export function App() {
+  const installCode = `npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-admin
+npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`;
+
   return (
     <PublicShell
       brand={<strong>GDS Reference</strong>}
@@ -47,7 +50,7 @@ export function App() {
         <EditorialHero
           eyebrow="Shared public storytelling"
           title="Public/editorial primitives now live in @doneisbetter/gds-core"
-          description="Consumers can build split hero, feature-band, accent, and branded footer sections without local CSS authorities."
+          description="Consumers can adopt the shared package line directly on Mantine 8.3.x or 9.2.x without local CSS authorities or mirror packages."
           actions={[
             { label: 'Install packages', variant: 'primary' },
             { label: 'Read compatibility', variant: 'secondary' },
@@ -70,13 +73,16 @@ export function App() {
           secondary={<Button variant="default">Read compatibility</Button>}
           tertiary={<Button variant="subtle">Review adoption manifest</Button>}
         />
+        <Text component="pre" style={{ whiteSpace: 'pre-wrap', overflowX: 'auto' }}>
+          {installCode}
+        </Text>
         <FeatureBand
           variant="process"
           items={[
             {
               id: 'trust',
               title: 'Trusted runtime path',
-              description: 'Registry-first installs and reference consumers reduce private bootstrap invention.',
+              description: 'Registry-first installs remain the target, and release-asset installs stay CI-safe until public npm publication is live.',
               meta: 'CI + Vercel safe',
             },
             {

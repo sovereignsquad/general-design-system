@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 2.6.1
-Last updated: 2026-05-26
+Last updated: 2026-05-27
 
 This document defines the supported package/runtime contract for `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
 
@@ -12,9 +12,9 @@ The machine-readable authority for the supported lines lives in [compatibility.m
 
 | Surface | Supported now | Notes |
 |---|---|---|
-| Mantine | `^7.9.0` | Current build and test target |
-| Mantine consumer smoke | `8.3.x` | Package peers and packed consumer smoke are validated against Mantine 8.3.6 with React 19 |
-| React | `^18.2.0`, `^19.0.0` | React 19 compatibility is declared at the peer layer and validated through the Mantine 8 consumer smoke harness |
+| Mantine | `^7.9.0` | Current in-repo build and test target |
+| Mantine consumer smoke | `8.3.x`, `9.2.x` | Package peers and packed consumer smoke are validated against Mantine 8.3.6 and 9.2.1 with React 19 |
+| React | `^18.2.0`, `^19.0.0` | React 19 compatibility is declared at the peer layer and validated through Mantine 8 and 9 packed-consumer smoke harnesses |
 | Next.js | App Router and Pages Router consumers | Use server-safe/client-safe subpath imports where applicable |
 | Vite | Supported | Playground and static/Multi-Page App consumers remain valid |
 
@@ -59,6 +59,7 @@ This is the only supported temporary path because it:
 - works in CI
 - works in Vercel or other hosted builds
 - keeps the consumer repo independent from sibling `file:` links
+- preserves plain `npm install` peer resolution for Mantine `8.3.x` and `9.2.x` consumers
 
 Tag format:
 
@@ -92,6 +93,16 @@ Auth expectations for the temporary path:
 - standard GitHub public release asset availability is sufficient
 
 See [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md) for the operator-side bundling flow.
+
+### Local workspace build note
+
+The root workspace now declares platform-scoped optional native bindings for `rolldown` and `rollup` on the supported local and CI environments:
+
+- macOS arm64
+- macOS x64
+- Linux x64 (glibc)
+
+That means a fresh root `npm install` should provision the native build layer needed by Vite and tsup without manual follow-up installs on those platforms.
 
 ## Export contract
 
@@ -225,7 +236,7 @@ These fixtures are verified through `npm run verify:references` and act as the l
 
 ## Compatibility evidence
 
-- `npm run verify:mantine8` packs `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`, installs them into a clean temporary consumer using Mantine `8.3.6`, React `19.2.0`, React DOM `19.2.0`, and Next `15.5.18`, then runs `tsc --noEmit`.
+- `npm run verify:mantine` packs `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`, installs them into clean temporary consumers using Mantine `8.3.6` and `9.2.1`, React `19.2.0`, React DOM `19.2.0`, and Next `15.5.18`, then runs `tsc --noEmit`.
 - `apps/reference-next` remains the typed App Router reference fixture. `npm run build:app-router --workspace=reference-next` is kept as an explicit non-gating harness while the upstream `/404` / `/_error` prerender failure on Next `15.5.x` is still reproducible even against a trivial reference route tree.
 
 See [VERIFIED_CONSUMER_INSTALL_PROOF.md](/Users/Shared/Projects/general-design-system/VERIFIED_CONSUMER_INSTALL_PROOF.md) for the consumer-facing proof summary.

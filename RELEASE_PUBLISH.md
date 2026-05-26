@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 2.6.1
-Last updated: 2026-05-26
+Last updated: 2026-05-27
 
 This runbook defines the authenticated package-publish flow for the General Design System.
 
@@ -117,18 +117,20 @@ Required secret:
 
 Workflow behavior:
 
-1. runs `npm ci`
-2. runs `npm run verify:release`
-3. publishes all five packages
-4. polls the registry until the release line is visible
+1. runs `npm ci --omit=optional`
+2. installs Linux-native `rollup` and `rolldown` bindings explicitly
+3. runs `npm run verify:release`
+4. publishes all five packages
+5. polls the registry until the release line is visible
 
 The bundle workflow:
 
-1. runs `npm ci`
-2. runs `npm run verify:release`
-3. runs `npm run pack:release`
-4. uploads the tarballs as a workflow artifact
-5. on a `gds-v*` tag, attaches those tarballs to a GitHub release
+1. runs `npm ci --omit=optional`
+2. installs Linux-native `rollup` and `rolldown` bindings explicitly
+3. runs `npm run verify:release`
+4. runs `npm run pack:release`
+5. uploads the tarballs as a workflow artifact
+6. on a `gds-v*` tag, attaches those tarballs to a GitHub release
 
 ## Recovery guidance
 

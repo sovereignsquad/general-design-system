@@ -6,18 +6,27 @@
     "apps/*"
   ],
   "scripts": {
-    "verify:release": "node scripts/check-release-alignment.mjs && npm run build && node scripts/check-export-contract.mjs && npm run lint && npm run test:run && npm run verify:references && npm run verify:mantine8",
+    "verify:release": "node scripts/check-release-alignment.mjs && npm run build && node scripts/check-export-contract.mjs && npm run lint && npm run test:run && npm run verify:references && npm run verify:mantine",
     "build": "npm run build --workspace=@doneisbetter/gds-theme && npm run build --workspace=@doneisbetter/gds-core && npm run build --workspace=@doneisbetter/gds-admin && npm run build --workspace=playground && npm run build --workspace=reference-vite && npm run build --workspace=reference-next",
     "dev": "npm run dev --workspace=apps/playground",
     "lint": "npm run lint --workspace=apps/playground",
     "test": "vitest",
     "test:run": "vitest run",
     "verify:references": "node scripts/verify-reference-consumers.mjs",
+    "verify:mantine": "node scripts/verify-mantine8-compat.mjs",
     "verify:mantine8": "node scripts/verify-mantine8-compat.mjs",
     "pack:release": "node scripts/create-release-bundles.mjs",
     "publish:dry-run": "node scripts/publish-packages.mjs --dry-run",
     "publish:npm": "node scripts/publish-packages.mjs",
     "verify:published": "node scripts/check-registry-publication.mjs"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-darwin-arm64": "1.0.2",
+    "@rolldown/binding-darwin-x64": "1.0.2",
+    "@rolldown/binding-linux-x64-gnu": "1.0.2",
+    "@rollup/rollup-darwin-arm64": "4.60.4",
+    "@rollup/rollup-darwin-x64": "4.60.4",
+    "@rollup/rollup-linux-x64-gnu": "4.60.4"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
