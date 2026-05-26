@@ -3,11 +3,11 @@
   "gdsVersion": "2.5.1",
   "productArchetype": "hybrid",
   "supportedEntryPoints": [
-    "@gds/theme/client",
-    "@gds/theme/server",
-    "@gds/core/client",
-    "@gds/core/server",
-    "@gds/admin/client"
+    "@doneisbetter/gds-theme/client",
+    "@doneisbetter/gds-theme/server",
+    "@doneisbetter/gds-core/client",
+    "@doneisbetter/gds-core/server",
+    "@doneisbetter/gds-admin/client"
   ],
   "requiredContracts": [
     "AppShell",
@@ -33,7 +33,7 @@
       "surface": "Approved icon exception",
       "dependency": "lucide-react",
       "allowImports": ["lucide-react"],
-      "reason": "Consumer keeps a reviewed icon exception while remaining on shared lint/compliance tooling.",
+      "reason": "Consumer keeps a reviewed icon exception while remaining on shared lint/gds-compliance tooling.",
       "owner": "platform-ui",
       "reviewDate": "2026-05-25"
     }

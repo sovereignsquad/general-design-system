@@ -3,8 +3,8 @@
   "gdsVersion": "2.5.1",
   "productArchetype": "public",
   "supportedEntryPoints": [
-    "@gds/theme/client",
-    "@gds/core/client"
+    "@doneisbetter/gds-theme/client",
+    "@doneisbetter/gds-core/client"
   ],
   "requiredContracts": [
     "PublicShell",

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
-import { GdsProvider, gdsDarkPublicTheme } from '@gds/theme/client';
+import { GdsProvider, gdsDarkPublicTheme } from '@doneisbetter/gds-theme/client';
 import { App } from './App';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

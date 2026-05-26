@@ -12,7 +12,7 @@ const appDir = join(workspaceRoot, 'app');
 mkdirSync(packsDir, { recursive: true });
 mkdirSync(appDir, { recursive: true });
 
-const workspaces = ['@gds/theme', '@gds/core', '@gds/admin'];
+const workspaces = ['@doneisbetter/gds-theme', '@doneisbetter/gds-core', '@doneisbetter/gds-admin'];
 
 for (const workspace of workspaces) {
   execFileSync('npm', ['pack', '--pack-destination', packsDir, '--workspace', workspace], {
@@ -32,9 +32,9 @@ writeFileSync(
         build: 'tsc --noEmit',
       },
       dependencies: {
-        '@gds/theme': `file:../packs/gds-theme-${version}.tgz`,
-        '@gds/core': `file:../packs/gds-core-${version}.tgz`,
-        '@gds/admin': `file:../packs/gds-admin-${version}.tgz`,
+        '@doneisbetter/gds-theme': `file:../packs/doneisbetter-gds-theme-${version}.tgz`,
+        '@doneisbetter/gds-core': `file:../packs/doneisbetter-gds-core-${version}.tgz`,
+        '@doneisbetter/gds-admin': `file:../packs/doneisbetter-gds-admin-${version}.tgz`,
         '@mantine/core': '8.3.6',
         '@mantine/hooks': '8.3.6',
         '@mantine/modals': '8.3.6',
@@ -80,9 +80,9 @@ writeFileSync(
 writeFileSync(
   join(appDir, 'index.tsx'),
   `import React from 'react';
-import { GdsProvider } from '@gds/theme/client';
-import { BrowseSurface, EditorialHero, MediaField } from '@gds/core/client';
-import { AppShell, PageHeader, ResponsiveDataView } from '@gds/admin/client';
+import { GdsProvider } from '@doneisbetter/gds-theme/client';
+import { BrowseSurface, EditorialHero, MediaField } from '@doneisbetter/gds-core/client';
+import { AppShell, PageHeader, ResponsiveDataView } from '@doneisbetter/gds-admin/client';
 
 const demo = (
   <GdsProvider>

@@ -27,9 +27,9 @@ Prioritize in this order:
 
 | Project | Observed Foundation Signal | Archetype | Risk | Recommendation |
 |---|---|---|---|---|
-| Amanoba | `@gds/*` adopted on `main`; patterns in `patterns/gds/`; shared `AccessRecoveryPanel`; learner shell/course cards remain intentional locals pending wider reuse proof | Package adoption in progress | High | Bump to latest GDS line; delete recovery local now; keep learner shell and course/gamification cards local until a second product proves the same contract. |
+| Amanoba | `@doneisbetter/gds-*` adopted on `main`; patterns in `patterns/gds/`; shared `AccessRecoveryPanel`; learner shell/course cards remain intentional locals pending wider reuse proof | Package adoption in progress | High | Bump to latest GDS line; delete recovery local now; keep learner shell and course/gamification cards local until a second product proves the same contract. |
 | KIDEX | Mantine detected; active project plan exists | Mantine-rooted drift cleanup | Medium | Keep mobile shell, dashboard, and child-registry normalization as the next priority; focus on action hierarchy and responsive consistency. |
-| SSO | Mantine detected; active project plan exists | Mantine-rooted drift cleanup | Medium | Finish docs/editorial migration and delete the remaining legacy CSS/theme stack. |
+| SSO | Mantine detected; active project plan exists | Mantine-rooted drift cleanup | Medium | Finish docs/editorial migration and delete the remaining legacy CSS/gds-theme stack. |
 | Impact / sovereignsquad | Mantine 7 + Vite MPA; local shell/state adapters; vendored theme behavior | Mantine-rooted contract gap | Medium | Publish package install path first, then align public shell, docs shell, state/upload surfaces, and dark-mode policy. |
 | Camera | Shared-system candidate with admin/public/media/editor requirements; framework upgrade pressure | Shared contract driver | High | Prioritize compatibility, SSR-safe exports, admin contract strengthening, and media/editor/access pattern families. |
 | Messmass | No Mantine package detected; active product repo with local custom UI system; local coding standards still contain stale hybrid-authority language | Custom local system | Critical | Create root Mantine runtime, rewrite local authority docs, and migrate shared admin/reporting/analytics shells and primitives first. |
@@ -42,7 +42,7 @@ Prioritize in this order:
 | Kormanyvalto | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Manus | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Misisimi | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
-| Narimato | Mantine 7 + vendored `@gds/core` / `@gds/theme`; local adapter `docs/GDS_ADOPTION.md` | Mantine-rooted enforcement | Low | Keep packages synced (`npm run gds:sync`); extend CI guard; see `PROJECTS/NARIMATO.md` |
+| Narimato | Mantine 7 + vendored `@doneisbetter/gds-core` / `@doneisbetter/gds-theme`; local adapter `docs/GDS_ADOPTION.md` | Mantine-rooted enforcement | Low | Keep packages synced (`npm run gds:sync`); extend CI guard; see `PROJECTS/NARIMATO.md` |
 | Pesti Est / budapest-night | Mantine-first product with local brand theme extension and strong i18n/RTL needs; adoption plan now in progress | Mantine-rooted enforcement | Medium | Close package publishing, theme-extension, discovery-shell, and RTL adapter gaps so local duplicates can shrink. |
 | Openclaw | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Opencode | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |

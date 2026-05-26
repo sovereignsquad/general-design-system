@@ -33,15 +33,15 @@
       "items": {
         "type": "string",
         "enum": [
-          "@gds/theme",
-          "@gds/theme/client",
-          "@gds/theme/server",
-          "@gds/core",
-          "@gds/core/client",
-          "@gds/core/server",
-          "@gds/admin",
-          "@gds/admin/client",
-          "@gds/admin/server"
+          "@doneisbetter/gds-theme",
+          "@doneisbetter/gds-theme/client",
+          "@doneisbetter/gds-theme/server",
+          "@doneisbetter/gds-core",
+          "@doneisbetter/gds-core/client",
+          "@doneisbetter/gds-core/server",
+          "@doneisbetter/gds-admin",
+          "@doneisbetter/gds-admin/client",
+          "@doneisbetter/gds-admin/server"
         ]
       },
       "uniqueItems": true

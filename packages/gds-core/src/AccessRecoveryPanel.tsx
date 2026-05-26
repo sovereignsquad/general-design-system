@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { Group } from '@mantine/core';
-import { useGdsTranslation } from '@gds/theme';
+import { useGdsTranslation } from '@doneisbetter/gds-theme';
 import { SemanticButton } from './SemanticButton';
 import { StateBlock } from './StateBlock';
 import type { SemanticAction } from './vocabulary';

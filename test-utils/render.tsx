@@ -2,8 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import type { RenderOptions } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { GdsProvider } from '@gds/theme';
-import { en } from '@gds/core';
+import { GdsProvider } from '@doneisbetter/gds-theme';
+import { en } from '@doneisbetter/gds-core';
 
 interface TestProvidersProps {
   children: React.ReactNode;

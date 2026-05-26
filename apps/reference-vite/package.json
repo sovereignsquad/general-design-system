@@ -8,8 +8,9 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@gds/core": "*",
-    "@gds/theme": "*",
+    "@doneisbetter/gds-core": "*",
+    "@doneisbetter/gds-theme": "*",
+    "@floating-ui/core": "^1.7.5",
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
     "react": "^18.3.1",

@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Link } from 'react-router-dom';
 import { Button } from '@mantine/core';
-import { DataToolbar, FilterDrawer, MetricCard } from '@gds/core';
+import { DataToolbar, FilterDrawer, MetricCard } from '@doneisbetter/gds-core';
 import { renderWithGds } from '../../../test-utils/render';
 import { AppShell } from './AppShell';
 import { ContentOpsActionBar } from './ContentOpsActionBar';
@@ -19,7 +19,7 @@ import { SemanticNavLink } from './SemanticNavLink';
 import { StatsStrip } from './StatsStrip';
 import { WorkspaceHeader } from './WorkspaceHeader';
 
-describe('@gds/admin', () => {
+describe('@doneisbetter/gds-admin', () => {
   it('renders the app shell with navigation, actions, and main content', () => {
     renderWithGds(
       <AppShell

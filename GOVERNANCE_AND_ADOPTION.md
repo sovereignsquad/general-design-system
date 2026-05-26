@@ -69,10 +69,10 @@ Projects must actively enforce the Mantine-only policy to prevent design-system 
 
 ### Minimum Enforcement Layers
 - **Adoption Manifest**: Every mature adopter should declare a `gds-adoption.json` file validated against `schemas/gds-adoption.schema.json`.
-- **Shared Lint Config**: `@gds/eslint-config` should be the default enforcement package for raw design value and forbidden import checks.
+- **Shared Lint Config**: `@doneisbetter/gds-eslint-config` should be the default enforcement package for raw design value and forbidden import checks.
 - **Compliance CLI**: `gds-compliance` should validate manifest structure, adapter paths, exception metadata, and repo-level drift.
 - **Compliance Config**: `gds-adoption.json` may declare `compliance.documentationPaths`, `compliance.staleDocumentationReferences`, `compliance.protectedSurfacePaths`, and `compliance.bannedImports` so shared tooling can catch stale SSOT references, protected-surface drift, and lingering legacy UI dependencies without product-local scripts.
-- **Compliance Toolkit Contract**: Use [COMPLIANCE_TOOLKIT.md](/Users/Shared/Projects/general-design-system/COMPLIANCE_TOOLKIT.md) as the normative package + CI contract for `@gds/eslint-config` and `@gds/compliance`.
+- **Compliance Toolkit Contract**: Use [COMPLIANCE_TOOLKIT.md](/Users/Shared/Projects/general-design-system/COMPLIANCE_TOOLKIT.md) as the normative package + CI contract for `@doneisbetter/gds-eslint-config` and `@doneisbetter/gds-compliance`.
 - **Import Boundaries**: Lint rules forbidding imports from legacy primitive directories.
 - **Forbidden Values**: Lint against raw CSS colors (e.g., `#FF0000`), hard-coded radii, and unapproved size tokens in feature UI.
 - **Static Checks**: CI/CD checks to prevent new legacy patterns.
@@ -83,7 +83,7 @@ Projects must actively enforce the Mantine-only policy to prevent design-system 
 
 ## 5. Canonical Adoption Path
 
-Use [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) as the normative staged path from local mirrored adapters or partial GDS adoption to direct `@gds/*` package consumption.
+Use [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) as the normative staged path from local mirrored adapters or partial GDS adoption to direct `@doneisbetter/gds-*` package consumption.
 
 ### Pull Request Checklist
 Reviewers must ask:
@@ -110,7 +110,7 @@ If a consumer needs an approved dependency-level exception such as `lucide-react
 - `owner`
 - `reviewDate`
 
-Shared lint/compliance tooling may use that manifest-level allowlist to keep the default GDS guardrails active without forcing a repo to abandon the shared tooling entirely.
+Shared lint/gds-compliance tooling may use that manifest-level allowlist to keep the default GDS guardrails active without forcing a repo to abandon the shared tooling entirely.
 
 Recommended compliance path:
 

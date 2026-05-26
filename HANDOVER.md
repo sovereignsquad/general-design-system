@@ -7,7 +7,7 @@ Repository: `/Users/Shared/Projects/general-design-system`
 ## Delivered in this repo
 
 - aligned the GDS release line to `2.3.0`
-- added publish-ready package metadata for `@gds/theme`, `@gds/core`, and `@gds/admin`
+- added publish-ready package metadata for `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`
 - added `client` and `server` subpath exports for SSR-safe consumption guidance
 - strengthened the shared package surface with:
   - `MetricCard`

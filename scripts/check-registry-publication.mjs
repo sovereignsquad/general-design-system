@@ -9,11 +9,11 @@ const delayMs = Number.parseInt(process.env.GDS_REGISTRY_DELAY_MS ?? '5000', 10)
 const registry = process.env.GDS_NPM_REGISTRY ?? 'https://registry.npmjs.org';
 
 const packages = [
-  '@gds/theme',
-  '@gds/core',
-  '@gds/admin',
-  '@gds/eslint-config',
-  '@gds/compliance',
+  '@doneisbetter/gds-theme',
+  '@doneisbetter/gds-core',
+  '@doneisbetter/gds-admin',
+  '@doneisbetter/gds-eslint-config',
+  '@doneisbetter/gds-compliance',
 ];
 
 function sleep(ms) {

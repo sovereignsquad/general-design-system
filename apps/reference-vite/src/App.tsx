@@ -17,7 +17,7 @@ import {
   SimpleDataTable,
   StatsSection,
   ThemeToggle,
-} from '@gds/core/client';
+} from '@doneisbetter/gds-core/client';
 
 export function App() {
   return (
@@ -46,7 +46,7 @@ export function App() {
       >
         <EditorialHero
           eyebrow="Shared public storytelling"
-          title="Public/editorial primitives now live in @gds/core"
+          title="Public/editorial primitives now live in @doneisbetter/gds-core"
           description="Consumers can build split hero, feature-band, accent, and branded footer sections without local CSS authorities."
           actions={[
             { label: 'Install packages', variant: 'primary' },

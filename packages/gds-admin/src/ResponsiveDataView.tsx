@@ -3,7 +3,7 @@
 import React from 'react';
 import { Badge, Group, SimpleGrid, Stack } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { StateBlock } from '@gds/core';
+import { StateBlock } from '@doneisbetter/gds-core';
 import { DataTable, type DataTableColumn } from './DataTable';
 
 export interface ResponsiveDataViewFilterChip {

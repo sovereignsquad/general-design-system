@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { GdsProvider } from '@gds/theme';
+import { GdsProvider } from '@doneisbetter/gds-theme';
 import { 
   AppShell, 
   DataTable, 
@@ -9,7 +9,7 @@ import {
   SemanticNavLink,
   WorkspaceHeader,
   ResponsiveDataView,
-} from '@gds/admin';
+} from '@doneisbetter/gds-admin';
 import { 
   SemanticButton, 
   GdsVocabulary, 
@@ -23,7 +23,7 @@ import {
   AccessSummary,
   UploadDropzone,
   ConfirmDialog
-} from '@gds/core';
+} from '@doneisbetter/gds-core';
 import { 
   Stack, 
   Button, 

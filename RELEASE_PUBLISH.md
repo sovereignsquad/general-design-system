@@ -28,11 +28,11 @@ npm adduser
 
 ## Publishable packages
 
-- `@gds/theme`
-- `@gds/core`
-- `@gds/admin`
-- `@gds/eslint-config`
-- `@gds/compliance`
+- `@doneisbetter/gds-theme`
+- `@doneisbetter/gds-core`
+- `@doneisbetter/gds-admin`
+- `@doneisbetter/gds-eslint-config`
+- `@doneisbetter/gds-compliance`
 
 ## Dry-run first
 
@@ -50,11 +50,11 @@ npm run verify:published
 
 ## Expected publish order
 
-1. `@gds/theme`
-2. `@gds/core`
-3. `@gds/admin`
-4. `@gds/eslint-config`
-5. `@gds/compliance`
+1. `@doneisbetter/gds-theme`
+2. `@doneisbetter/gds-core`
+3. `@doneisbetter/gds-admin`
+4. `@doneisbetter/gds-eslint-config`
+5. `@doneisbetter/gds-compliance`
 
 ## Post-publish verification
 

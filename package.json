@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "verify:release": "node scripts/check-release-alignment.mjs && npm run build && node scripts/check-export-contract.mjs && npm run lint && npm run test:run && npm run verify:references && npm run verify:mantine8",
-    "build": "npm run build --workspace=@gds/theme && npm run build --workspace=@gds/core && npm run build --workspace=@gds/admin && npm run build --workspace=playground && npm run build --workspace=reference-vite && npm run build --workspace=reference-next",
+    "build": "npm run build --workspace=@doneisbetter/gds-theme && npm run build --workspace=@doneisbetter/gds-core && npm run build --workspace=@doneisbetter/gds-admin && npm run build --workspace=playground && npm run build --workspace=reference-vite && npm run build --workspace=reference-next",
     "dev": "npm run dev --workspace=apps/playground",
     "lint": "npm run lint --workspace=apps/playground",
     "test": "vitest",
@@ -19,6 +19,8 @@
     "verify:published": "node scripts/check-registry-publication.mjs"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@humanfs/core": "^0.19.2",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",

@@ -42,7 +42,7 @@ Recommended model:
 2. apply product-level overrides
 3. apply tenant-level overrides only on documented brand surfaces
 
-For public/editorial products that want one sanctioned entrypoint instead of ad hoc merging, use `createPublicBrandTheme({ editorialSerif, flatSurfaces, overrides })` from `@gds/theme`.
+For public/editorial products that want one sanctioned entrypoint instead of ad hoc merging, use `createPublicBrandTheme({ editorialSerif, flatSurfaces, overrides })` from `@doneisbetter/gds-theme`.
 
 ## Dark-mode rule
 
@@ -55,30 +55,30 @@ For public/editorial products that want one sanctioned entrypoint instead of ad 
 Amanoba is a dark-default LMS/game product. Recommended recipe:
 
 ```ts
-import { extendGdsTheme } from '@gds/theme/client';
+import { extendGdsTheme } from '@doneisbetter/gds-theme/client';
 
 export const amanobaMantineTheme = extendGdsTheme({
   primaryColor: 'amanoba',
   colors: {
-    amanoba: [/* yellow scale */],
-    amanobaYellow: [/* alias scale */],
-    ink: [/* dark grey scale */],
+    amanoba: [/gds-* yellow scale */],
+    amanobaYellow: [/gds-* alias scale */],
+    ink: [/gds-* dark grey scale */],
   },
   other: {
-    brand: { /* email/OG/chart tokens */ },
-    email: { /* transactional email palette */ },
+    brand: { /gds-* email/OG/chart tokens */ },
+    email: { /gds-* transactional email palette */ },
   },
   components: {
     Text: { defaultProps: { c: 'gray.2' } },
     Card: { defaultProps: { bg: 'ink.8', withBorder: true } },
-    /* form + modal dark surfaces */
+    /gds-* form + modal dark surfaces */
   },
 });
 ```
 
 Rules:
 
-- use `@gds/theme/client` in client providers; use `@gds/theme/server` only for SSR-safe theme data
+- use `@doneisbetter/gds-theme/client` in client providers; use `@doneisbetter/gds-theme/server` only for SSR-safe theme data
 - do not call `withGdsMotion()` unless product marketing explicitly wants shared hover motion
 - keep provider-branded OAuth colors in documented exception surfaces, not in `primaryColor`
 

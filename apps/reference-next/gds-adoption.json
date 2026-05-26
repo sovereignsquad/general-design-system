@@ -3,10 +3,10 @@
   "gdsVersion": "2.5.1",
   "productArchetype": "hybrid",
   "supportedEntryPoints": [
-    "@gds/theme/client",
-    "@gds/theme/server",
-    "@gds/core/client",
-    "@gds/core/server"
+    "@doneisbetter/gds-theme/client",
+    "@doneisbetter/gds-theme/server",
+    "@doneisbetter/gds-core/client",
+    "@doneisbetter/gds-core/server"
   ],
   "requiredContracts": [
     "GdsProvider",

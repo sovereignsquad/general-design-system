@@ -63,7 +63,7 @@ Status: `partially covered`
 
 Examples:
 
-- dense KPI/reporting/admin analytics surfaces
+- dense KPI/reporting/gds-admin analytics surfaces
 - evidence-heavy reporting workspaces
 
 Why this is a gap:
@@ -323,7 +323,7 @@ Evidence:
 
 ## 2B. Package surfaces shipped (2.3.0–2.3.2)
 
-As of release **2.3.2**, the following are exported from `@gds/core`, `@gds/admin`, and `@gds/theme` (see [COMPATIBILITY_AND_RELEASES.md](./COMPATIBILITY_AND_RELEASES.md)):
+As of release **2.3.2**, the following are exported from `@doneisbetter/gds-core`, `@doneisbetter/gds-admin`, and `@doneisbetter/gds-theme` (see [COMPATIBILITY_AND_RELEASES.md](./COMPATIBILITY_AND_RELEASES.md)):
 
 - **core:** `MetricCard`, `ProgressCard`, `ProductCard`, `StateBlock`, `AuthShell`, `PublicShell`, `ArticleShell`, `PageHeader`, `GameBoardTile`, …
 - **admin:** `DataToolbar`, `ResponsiveDataView`, `AppShell`, `WorkspaceHeader`, …

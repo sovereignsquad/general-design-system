@@ -1,7 +1,7 @@
 import type { Key, ReactNode } from 'react';
 import { Table, Paper, LoadingOverlay } from '@mantine/core';
-import { useGdsTranslation } from '@gds/theme';
-import { StateBlock } from '@gds/core';
+import { useGdsTranslation } from '@doneisbetter/gds-theme';
+import { StateBlock } from '@doneisbetter/gds-core';
 
 export interface DataTableColumn<T> {
   key: string;

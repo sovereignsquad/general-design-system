@@ -38,7 +38,7 @@ import { ThemeToggle } from './ThemeToggle';
 import { UploadDropzone } from './UploadDropzone';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
 
-describe('@gds/core', () => {
+describe('@doneisbetter/gds-core', () => {
   it('renders semantic button labels from translation messages', () => {
     renderWithGds(<SemanticButton action="save" />, {
       messages: { 'gds.action.save': 'Speichern' },
@@ -422,7 +422,7 @@ describe('@gds/core', () => {
           lead="Use the published packages and root provider."
           footerNext={{ label: 'Next: Providers', href: '/providers' }}
         >
-          <DocsCodeBlock code="npm install @gds/theme @gds/core" language="bash" title="Install" />
+          <DocsCodeBlock code="npm install @doneisbetter/gds-theme @doneisbetter/gds-core" language="bash" title="Install" />
         </DocsPageShell>
         <CtaButtonGroup
           primary={<button type="button">Start</button>}
@@ -433,7 +433,7 @@ describe('@gds/core', () => {
     );
 
     expect(screen.getByRole('heading', { name: 'Install packages' })).toBeInTheDocument();
-    expect(screen.getByText('npm install @gds/theme @gds.core'.replace('.core', '/core'))).toBeInTheDocument();
+    expect(screen.getByText('npm install @doneisbetter/gds-theme @doneisbetter/gds-core')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Copy code block' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Learn more' })).toBeInTheDocument();

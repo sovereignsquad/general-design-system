@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
 import { NavLink, createPolymorphicComponent } from '@mantine/core';
 import type { NavLinkProps } from '@mantine/core';
-import { useGdsTranslation } from '@gds/theme';
-import { GdsVocabulary, type SemanticAction } from '@gds/core';
+import { useGdsTranslation } from '@doneisbetter/gds-theme';
+import { GdsVocabulary, type SemanticAction } from '@doneisbetter/gds-core';
 
 export interface SemanticNavLinkProps extends Omit<NavLinkProps, 'leftSection' | 'label'> {
   action: SemanticAction;

@@ -13,7 +13,7 @@ import {
   PublicShell,
   SimpleDataTable,
   StatsSection,
-} from '@gds/core/server';
+} from '@doneisbetter/gds-core/server';
 import { ClientPanel } from './client-panel';
 
 export default function Page() {
@@ -44,7 +44,7 @@ export default function Page() {
       >
         <EditorialHero
           eyebrow="Server-safe public surface"
-          title="Build public pages from @gds/core/server"
+          title="Build public pages from @doneisbetter/gds-core/server"
           description="This hero, feature band, stats section, accent panel, and branded footer all render from the server-safe package surface."
           actions={[
             { label: 'Read compatibility', href: '/docs', variant: 'primary' },

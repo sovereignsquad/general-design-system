@@ -8,8 +8,8 @@
     "dev": "next dev"
   },
   "dependencies": {
-    "@gds/core": "*",
-    "@gds/theme": "*",
+    "@doneisbetter/gds-core": "*",
+    "@doneisbetter/gds-theme": "*",
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
     "next": "^15.5.6",

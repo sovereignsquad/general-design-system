@@ -4,7 +4,7 @@ Status: Active SSOT
 Version: 2.4.0  
 Last updated: 2026-05-25
 
-This document defines how `@gds/*` contracts are deprecated, replaced, and removed.
+This document defines how `@doneisbetter/gds-*` contracts are deprecated, replaced, and removed.
 
 ## Required deprecation metadata
 
@@ -23,11 +23,11 @@ Example:
 ```json
 {
   "contract": "LegacyPageHeader",
-  "replacement": "@gds/core PageHeader",
+  "replacement": "@doneisbetter/gds-core PageHeader",
   "deprecatedIn": "2.4.0",
   "removalTarget": "2.6.0",
   "detectionRule": "deprecated-import",
-  "migrationGuide": "Replace the local wrapper with @gds/core PageHeader.",
+  "migrationGuide": "Replace the local wrapper with @doneisbetter/gds-core PageHeader.",
   "riskLevel": "medium"
 }
 ```

@@ -27,7 +27,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
 - **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
 - **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
-- **Adoption & Migration Playbook**: [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) — The canonical step-by-step path from local mirrors or legacy UI systems to direct `@gds/*` package consumption.
+- **Adoption & Migration Playbook**: [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) — The canonical step-by-step path from local mirrors or legacy UI systems to direct `@doneisbetter/gds-*` package consumption.
 - **Compatibility & Releases**: [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) — Supported Mantine/React/Next ranges, subpath exports, version alignment, and upgrade expectations.
 - **Release Publish Runbook**: [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md) — Authenticated npm publish flow, dry-run command, and recovery guidance.
 - **Compliance Toolkit**: [COMPLIANCE_TOOLKIT.md](/Users/Shared/Projects/general-design-system/COMPLIANCE_TOOLKIT.md) — Shared lint, manifest validation, stale-doc detection, banned-import governance, and repo-level drift checks.
@@ -38,10 +38,10 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Operational Files**: `CONTRIBUTING.md` and `CHANGELOG.md` — Shared rules for contributing to the design system and its versioned history.
 - **Templates**: `TEMPLATES/` — Starter templates for your project's theme, providers, shell, and thin wrappers.
 - **Machine-readable Contracts**: `compatibility.matrix.json`, `schemas/gds-adoption.schema.json`, and `TEMPLATES/gds-adoption.json.template` — shared compatibility, adoption, and validation contracts.
-- **Tooling Packages**: `@gds/eslint-config` and `@gds/compliance` — shared lint and compliance enforcement for adopting repos.
-- **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@gds/core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
-- **Public & Consumer Surface Primitives**: `AccentPanel`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `PublicBrandFooter`, and the enhanced `PublicShell` / `PublicProductCard` contracts from `@gds/core` — canonical public/editorial contracts for accent-safe surfaces, split hero composition, service/trust bands, browse/discovery chrome, editorial cards, consumer dashboard grouping, operational section framing, governed media editing, branded footer layouts, shell/mobile-nav rhythm, and localized media-first card states.
-- **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@gds/admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
+- **Tooling Packages**: `@doneisbetter/gds-eslint-config` and `@doneisbetter/gds-compliance` — shared lint and compliance enforcement for adopting repos.
+- **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@doneisbetter/gds-core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
+- **Public & Consumer Surface Primitives**: `AccentPanel`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `PublicBrandFooter`, and the enhanced `PublicShell` / `PublicProductCard` contracts from `@doneisbetter/gds-core` — canonical public/editorial contracts for accent-safe surfaces, split hero composition, service/trust bands, browse/discovery chrome, editorial cards, consumer dashboard grouping, operational section framing, governed media editing, branded footer layouts, shell/mobile-nav rhythm, and localized media-first card states.
+- **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@doneisbetter/gds-admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
@@ -63,7 +63,7 @@ Product repositories may **not** redefine:
 - responsive strategy
 - accessibility baseline
 - UX meaning of canonical controls
-- package-consumption and migration authority once the direct `@gds/*` path is active
+- package-consumption and migration authority once the direct `@doneisbetter/gds-*` path is active
 
 **If a project-local UI document conflicts with this directory, this directory wins.**
 
@@ -86,13 +86,13 @@ Required repository behavior:
 - `npm run publish:dry-run` — validates the authenticated package publish sequence without uploading artifacts
 - `npm run publish:npm` — publishes the five public GDS packages from an authenticated npm environment
 - `npm run verify:published` — checks the registry until all five packages resolve to the current `VERSION`
-- `npm run build` — builds `@gds/theme`, `@gds/core`, `@gds/admin`, and the playground in dependency order
+- `npm run build` — builds `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, `@doneisbetter/gds-admin`, and the playground in dependency order
 - `npm run lint` — runs the playground lint target
 - `npm run test:run` — runs the shared jsdom component test suite for the workspace packages
 
 The shared package validation path is now expected to cover:
-- provider composition in `@gds/theme`
-- behavior coverage in `@gds/core` and `@gds/admin`
+- provider composition in `@doneisbetter/gds-theme`
+- behavior coverage in `@doneisbetter/gds-core` and `@doneisbetter/gds-admin`
 - i18n-safe shared copy
 - reference consumer manifests and fixture validation
 - compliance tooling and shared lint enforcement

@@ -7,7 +7,7 @@ Project: `/Users/moldovancsaba/Projects/narimato`
 
 ## Objective
 
-Narimato is a **Mantine-only** product with vendored `@gds/core` and `@gds/theme`. The public participant site and local operator setup UI follow GDS shells, headers, and state patterns. Work in this phase focuses on **provable compliance** (package sync, guardrails, pattern inventory), not greenfield UI discovery.
+Narimato is a **Mantine-only** product with vendored `@doneisbetter/gds-core` and `@doneisbetter/gds-theme`. The public participant site and local operator setup UI follow GDS shells, headers, and state patterns. Work in this phase focuses on **provable compliance** (package sync, guardrails, pattern inventory), not greenfield UI discovery.
 
 ## Foundation signal
 
@@ -37,7 +37,7 @@ Narimato is a **Mantine-only** product with vendored `@gds/core` and `@gds/theme
 | Operator shell | `components/operator/NarimatoOperatorShell.js` | Done |
 | Auth shell | `components/NarimatoAuthShell.js` | Done |
 | Page header | `components/NarimatoPageHeader.js` | Done |
-| State block | `@gds/core` EmptyState, StatusBadge, ConfirmDialog | Done |
+| State block | `@doneisbetter/gds-core` EmptyState, StatusBadge, ConfirmDialog | Done |
 | Metric card | Inline in operator dashboard | Backlog |
 | Article shell | Legal pages via `PublicShell` | Partial |
 | Data toolbar / responsive table | — | N/A |
@@ -54,7 +54,7 @@ npm run build:operator
 
 ## Remaining work
 
-1. Keep vendored `@gds/*` in sync with SSOT `dist/` after normative releases.
+1. Keep vendored `@doneisbetter/gds-*` in sync with SSOT `dist/` after normative releases.
 2. Extend CI guard as GDS enforcement rules grow.
 3. Extract `NarimatoMetricCard` if metrics appear on multiple surfaces.
 4. Optional: `SemanticButton` / `GdsVocabulary` for repeated operator actions.

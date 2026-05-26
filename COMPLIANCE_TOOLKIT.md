@@ -8,8 +8,8 @@ This document defines the canonical governance enforcement toolkit for GDS consu
 
 ## Packages
 
-- `@gds/eslint-config` provides shared lint rules for raw design values and forbidden UI imports.
-- `@gds/compliance` provides the `gds-compliance` CLI for manifest validation, adapter verification, stale-doc detection, and repo-level drift checks.
+- `@doneisbetter/gds-eslint-config` provides shared lint rules for raw design values and forbidden UI imports.
+- `@doneisbetter/gds-compliance` provides the `gds-compliance` CLI for manifest validation, adapter verification, stale-doc detection, and repo-level drift checks.
 
 ## Canonical command contract
 
@@ -36,7 +36,7 @@ Exit behavior:
 - invalid approved exception metadata
 - missing declared adapter paths
 - forbidden raw color literals outside approved theme/token files
-- forbidden UI imports such as `@radix-ui/*`, `tailwindcss`, or other configured legacy UI dependencies
+- forbidden UI imports such as `@radix-ui/gds-*`, `tailwindcss`, or other configured legacy UI dependencies
 - stale SSOT references in docs, including legacy uppercase path references such as `/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM`
 
 ## Manifest configuration

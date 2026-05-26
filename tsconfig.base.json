@@ -13,9 +13,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@gds/theme": ["packages/gds-theme/src/index.ts"],
-      "@gds/core": ["packages/gds-core/src/index.ts"],
-      "@gds/admin": ["packages/gds-admin/src/index.ts"]
+      "@doneisbetter/gds-theme": ["packages/gds-theme/src/index.ts"],
+      "@doneisbetter/gds-core": ["packages/gds-core/src/index.ts"],
+      "@doneisbetter/gds-admin": ["packages/gds-admin/src/index.ts"]
     },
     "strict": true,
     "noUnusedLocals": true,

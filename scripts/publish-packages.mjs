@@ -7,11 +7,11 @@ const version = readFileSync(resolve(root, 'VERSION'), 'utf8').trim();
 const dryRun = process.argv.includes('--dry-run');
 
 const workspaces = [
-  '@gds/theme',
-  '@gds/core',
-  '@gds/admin',
-  '@gds/eslint-config',
-  '@gds/compliance',
+  '@doneisbetter/gds-theme',
+  '@doneisbetter/gds-core',
+  '@doneisbetter/gds-admin',
+  '@doneisbetter/gds-eslint-config',
+  '@doneisbetter/gds-compliance',
 ];
 
 function run(command, args) {

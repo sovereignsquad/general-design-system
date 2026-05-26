@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 import { AppShell as MantineAppShell, Burger, Divider, Group, ScrollArea, Stack, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { ThemeToggle } from '@gds/core';
+import { ThemeToggle } from '@doneisbetter/gds-core';
 
 export interface AppShellProps {
   logoText?: string;

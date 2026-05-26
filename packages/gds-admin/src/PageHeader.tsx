@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { ActionIcon, Breadcrumbs, Group, Menu, Title, Text, Box, Stack } from '@mantine/core';
-import { GdsIcons } from '@gds/core';
+import { GdsIcons } from '@doneisbetter/gds-core';
 
 export interface PageHeaderOverflowAction {
   label: ReactNode;
