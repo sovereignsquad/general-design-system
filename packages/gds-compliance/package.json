@@ -15,5 +15,10 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sovereignsquad/general-design-system.git",
+    "directory": "packages/gds-compliance"
   }
 }

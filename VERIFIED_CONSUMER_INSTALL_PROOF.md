@@ -1,0 +1,87 @@
+# Verified Consumer Install Proof
+
+Status: Active SSOT  
+Version: 2.6.1  
+Last updated: 2026-05-26
+
+This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
+
+## Verified consumer baseline
+
+- Framework: Next.js `15.5.18`
+- React: `19.2.0`
+- React DOM: `19.2.0`
+- Mantine: `8.3.6`
+- Router style: App Router reference fixture
+- Package line:
+  - `@doneisbetter/gds-theme`
+  - `@doneisbetter/gds-core`
+  - `@doneisbetter/gds-admin`
+- Required subpaths:
+  - `server`
+  - `client`
+
+## What is currently verified
+
+### 1. Packed consumer install smoke
+
+`npm run verify:mantine8` packs the three runtime packages, installs them into a clean temporary consumer, and verifies TypeScript compatibility against:
+
+- Next `15.5.18`
+- React `19.2.0`
+- Mantine `8.3.6`
+
+The smoke fixture imports and type-checks:
+
+- `@doneisbetter/gds-theme/client`
+- `@doneisbetter/gds-core/client`
+- `@doneisbetter/gds-admin/client`
+
+This proves that the package contents, peer ranges, and export maps are internally coherent for the declared compatibility line.
+
+### 2. Typed App Router reference fixture
+
+`apps/reference-next` is the in-repo App Router consumer reference. It exists to validate the documented root split:
+
+- server-side theme and structural imports from:
+  - `@doneisbetter/gds-theme/server`
+  - `@doneisbetter/gds-core/server`
+  - `@doneisbetter/gds-admin/server`
+- client-side provider and interactive imports from:
+  - `@doneisbetter/gds-theme/client`
+  - `@doneisbetter/gds-core/client`
+  - `@doneisbetter/gds-admin/client`
+
+This fixture is covered by `npm run verify:references`.
+
+### 3. Known boundary
+
+The App Router fixture remains a typed runtime reference rather than a hard release gate for full `next build`, because the upstream `/404` / `/_error` prerender edge on Next `15.5.x` is still reproducible even against a trivial route tree.
+
+That means the current verified statement is:
+
+- the package export contract is verified
+- the consumer dependency graph is verified
+- the App Router import split is verified
+- full production Next prerender remains a tracked hardening area, not an undocumented assumption
+
+## Consumer install commands
+
+Canonical end-state install source:
+
+```bash
+npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-admin
+npm install -D @doneisbetter/gds-eslint-config @doneisbetter/gds-compliance
+```
+
+Temporary supported install path while npm publication is still pending:
+
+- use the release-asset tarballs described in [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md)
+- do not use sibling `file:` links in CI or Vercel flows
+
+## Evidence commands
+
+```bash
+npm run verify:mantine8
+npm run verify:references
+```

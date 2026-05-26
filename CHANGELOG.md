@@ -8,6 +8,9 @@ All notable policy changes to the General Design System are recorded here.
 - Updated package metadata, workspace wiring, reference consumers, compliance manifests, docs, and release scripts to consume the `@doneisbetter/gds-*` package family consistently.
 - Fixed release-environment dependency gaps (`@floating-ui/core`, `@humanfs/core`, and `@babel/core`) so local and CI release verification run cleanly on the current toolchain.
 - Updated the packed Mantine 8 compatibility harness to install the renamed tarballs correctly and verified the `@doneisbetter/gds-*` line against Mantine `8.3.6`, React `19.2.0`, and Next `15.5.18`.
+- Clarified npm as the canonical future registry source and documented public GitHub release assets as the approved temporary install path while npm publication remains unavailable.
+- Added `npm run pack:release`, release-bundle checksums/manifests, and the `GDS Release Bundles` GitHub Actions workflow.
+- Added `VERIFIED_CONSUMER_INSTALL_PROOF.md` to make the current Next 15 / React 19 / Mantine 8 install evidence explicit for adopter teams.
 
 ## 2.6.0 - 2026-05-26
 

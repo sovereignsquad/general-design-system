@@ -1,10 +1,17 @@
 # Release Publish Runbook
 
 Status: Active SSOT
-Version: 2.5.0
-Last updated: 2026-05-25
+Version: 2.6.1
+Last updated: 2026-05-26
 
 This runbook defines the authenticated package-publish flow for the General Design System.
+
+Canonical registry target: **npm**
+
+Temporary supported distribution path while npm publication is still unavailable:
+
+- public GitHub release assets attached to tag `gds-v<VERSION>`
+- generated from `npm run pack:release`
 
 ## Preconditions
 
@@ -40,6 +47,35 @@ npm adduser
 npm run publish:dry-run
 ```
 
+## Build temporary release bundles
+
+When npm publication is blocked but consumer teams still need a supported install path, generate public tarballs first:
+
+```bash
+npm run verify:release
+npm run pack:release
+```
+
+That creates:
+
+- `dist/release-bundles/<VERSION>/manifest.json`
+- `dist/release-bundles/<VERSION>/INSTALL_FROM_RELEASE_ASSETS.md`
+- one `.tgz` file per publishable package
+
+Recommended public release tag:
+
+```text
+gds-v<VERSION>
+```
+
+Recommended GitHub release asset upload:
+
+```bash
+gh release create gds-v$(cat VERSION) dist/release-bundles/$(cat VERSION)/* --title "GDS $(cat VERSION) release bundles"
+```
+
+Once the release exists, consumers may install directly from the asset URLs without `.npmrc` or auth setup because the repository is public.
+
 ## Real publish
 
 ```bash
@@ -73,6 +109,7 @@ GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published
 This repository includes a manual workflow at:
 
 - `.github/workflows/publish-npm.yml`
+- `.github/workflows/release-bundles.yml`
 
 Required secret:
 
@@ -84,6 +121,14 @@ Workflow behavior:
 2. runs `npm run verify:release`
 3. publishes all five packages
 4. polls the registry until the release line is visible
+
+The bundle workflow:
+
+1. runs `npm ci`
+2. runs `npm run verify:release`
+3. runs `npm run pack:release`
+4. uploads the tarballs as a workflow artifact
+5. on a `gds-v*` tag, attaches those tarballs to a GitHub release
 
 ## Recovery guidance
 

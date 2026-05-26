@@ -14,6 +14,7 @@
     "test:run": "vitest run",
     "verify:references": "node scripts/verify-reference-consumers.mjs",
     "verify:mantine8": "node scripts/verify-mantine8-compat.mjs",
+    "pack:release": "node scripts/create-release-bundles.mjs",
     "publish:dry-run": "node scripts/publish-packages.mjs --dry-run",
     "publish:npm": "node scripts/publish-packages.mjs",
     "verify:published": "node scripts/check-registry-publication.mjs"

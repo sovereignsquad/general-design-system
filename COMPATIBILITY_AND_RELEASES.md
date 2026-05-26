@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.6.0
+Version: 2.6.1
 Last updated: 2026-05-26
 
 This document defines the supported package/runtime contract for `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
@@ -34,7 +34,11 @@ For hosted CI and Vercel builds, the intended end state is:
 2. keep the consumer repo independent of a sibling GDS checkout
 3. pin the consumed GDS version explicitly in the consumer repo
 
-Until npm publication is executed from an authenticated release environment, this repository is only **publish-ready**, not registry-published by default.
+Canonical registry target: **npm**
+
+Current live status: the `@doneisbetter/*` package line is not yet visible on the public npm registry, so consumer repos must treat npm as the intended end state, not the currently available install source.
+
+Until npm publication is executed successfully, this repository is only **publish-ready**, not npm-published by default.
 
 Authenticated release operators should use [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md) together with:
 
@@ -45,9 +49,49 @@ npm run publish:npm
 npm run verify:published
 ```
 
-### GitHub Packages fallback
+### Approved temporary distribution path
 
-If npm publication is not yet available, consumers may use a GitHub Packages distribution path once packages are published there by the release operator. The consumer contract remains the same: install from a registry, do not rely on sibling `file:` links in production-like flows.
+If npm publication is not yet available, the approved temporary install source is **public GitHub release assets** from this repository.
+
+This is the only supported temporary path because it:
+
+- works in local development
+- works in CI
+- works in Vercel or other hosted builds
+- keeps the consumer repo independent from sibling `file:` links
+
+Tag format:
+
+```text
+gds-v<VERSION>
+```
+
+Asset URL format:
+
+```text
+https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/<asset-name>.tgz
+```
+
+Example for `2.6.1`:
+
+```bash
+npm install \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-theme-2.6.1.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-core-2.6.1.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-admin-2.6.1.tgz
+
+npm install -D \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-eslint-config-2.6.1.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-compliance-2.6.1.tgz
+```
+
+Auth expectations for the temporary path:
+
+- no `.npmrc` override is required for public release assets
+- no npm token is required for consumers
+- standard GitHub public release asset availability is sufficient
+
+See [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md) for the operator-side bundling flow.
 
 ## Export contract
 
@@ -183,3 +227,5 @@ These fixtures are verified through `npm run verify:references` and act as the l
 
 - `npm run verify:mantine8` packs `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`, installs them into a clean temporary consumer using Mantine `8.3.6`, React `19.2.0`, React DOM `19.2.0`, and Next `15.5.18`, then runs `tsc --noEmit`.
 - `apps/reference-next` remains the typed App Router reference fixture. `npm run build:app-router --workspace=reference-next` is kept as an explicit non-gating harness while the upstream `/404` / `/_error` prerender failure on Next `15.5.x` is still reproducible even against a trivial reference route tree.
+
+See [VERIFIED_CONSUMER_INSTALL_PROOF.md](/Users/Shared/Projects/general-design-system/VERIFIED_CONSUMER_INSTALL_PROOF.md) for the consumer-facing proof summary.

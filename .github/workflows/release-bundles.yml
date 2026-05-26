@@ -1,0 +1,55 @@
+name: GDS Release Bundles
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "gds-v*"
+
+permissions:
+  contents: write
+
+jobs:
+  bundles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Rolldown Linux binding
+        run: npm install --no-save @rolldown/binding-linux-x64-gnu
+
+      - name: Verify release quality gates
+        run: npm run verify:release
+
+      - name: Pack release bundles
+        run: npm run pack:release
+
+      - name: Upload bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gds-release-bundles
+          path: dist/release-bundles
+
+      - name: Create or update GitHub release
+        if: startsWith(github.ref, 'refs/tags/gds-v')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="$(cat VERSION)"
+          TAG="${GITHUB_REF_NAME}"
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+            gh release create "$TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "GDS ${VERSION} release bundles" \
+              --notes "Temporary public tarball distribution path for GDS ${VERSION}."
+          gh release upload "$TAG" dist/release-bundles/"$VERSION"/* --clobber --repo "$GITHUB_REPOSITORY"
