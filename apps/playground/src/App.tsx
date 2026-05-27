@@ -113,6 +113,33 @@ const codemodCode = `node scripts/codemods/run-codemod.mjs discovery-shell ./src
 node scripts/codemods/run-codemod.mjs action-bar ./src
 node scripts/codemods/run-codemod.mjs listing-card ./src`;
 
+const consumerUsageCode = `import { DiscoveryShell, ActionBar, ListingCard } from '@doneisbetter/gds-core/client';
+import { GdsProvider } from '@doneisbetter/gds-theme/client';
+
+export function App() {
+  return (
+    <GdsProvider>
+      <DiscoveryShell
+        header={<div>Catalog</div>}
+        sidebar={<div>Sidebar navigation</div>}
+      >
+        <ActionBar primary={{ action: 'save' }} />
+        <ListingCard
+          title="Sample listing"
+          metadata={[{ id: 'date', label: 'Date', value: 'June 14' }]}
+          primaryAction={<button type="button">Open</button>}
+        />
+      </DiscoveryShell>
+    </GdsProvider>
+  );
+}`;
+
+const verificationCode = `npm install
+npm run build
+npm run test:run
+npm run verify:mantine
+gds-compliance check --manifest ./gds-adoption.json`;
+
 const cameraVocabularyPack = createGdsVocabularyPack('camera', {
   moderate: {
     defaultMessage: 'Moderate',
@@ -446,8 +473,25 @@ function PlaygroundContent() {
               <Stack gap="xl">
                 <PageHeader
                   title="Installation Manual"
-                  description="Use npm as the canonical registry source, keep Mantine and React peers aligned, and follow the documented App Router or Pages Router import split."
+                  description="This is the production install path for consumer teams. Install from npm, mount one provider, adopt canonical primitives, then enforce compliance in CI."
                 />
+
+                <SimpleGrid cols={{ base: 1, md: 4 }} spacing="lg">
+                  {[
+                    { step: '1', title: 'Install packages', detail: 'Use npm for the runtime and governance packages.' },
+                    { step: '2', title: 'Mount one provider', detail: 'Root ownership belongs to one GdsProvider only.' },
+                    { step: '3', title: 'Use canonical surfaces', detail: 'Adopt DiscoveryShell, ActionBar, ListingCard, MapPanel, and DetailProfileShell where applicable.' },
+                    { step: '4', title: 'Enforce in CI', detail: 'Run build, tests, verify:mantine, and gds-compliance before merge.' },
+                  ].map((item) => (
+                    <Paper key={item.step} withBorder p="lg" radius="xl">
+                      <Stack gap="sm">
+                        <Badge variant="light" color="teal">Step {item.step}</Badge>
+                        <Title order={4}>{item.title}</Title>
+                        <Text size="sm" c="dimmed">{item.detail}</Text>
+                      </Stack>
+                    </Paper>
+                  ))}
+                </SimpleGrid>
 
                 <FormSection title="Canonical Install Commands" description="This is the supported production install path for all consumer repos.">
                   <DocsCodeBlock title="Runtime + governance packages" language="bash" code={installCode} />
@@ -459,6 +503,14 @@ function PlaygroundContent() {
 
                 <FormSection title="Canonical Next.js Bootstrap" description="Mount GDS once at the root and separate client/server usage correctly.">
                   <DocsCodeBlock title="App Router root contract" language="tsx" code={appRouterCode} />
+                </FormSection>
+
+                <FormSection title="Canonical Usage Shape" description="Install is only the first step. Consumers are expected to compose around the shared primitives rather than creating a parallel UI authority.">
+                  <DocsCodeBlock title="Shared package usage" language="tsx" code={consumerUsageCode} />
+                </FormSection>
+
+                <FormSection title="Required Verification Before Adoption" description="A consumer is not considered ready until the install, build, type, and governance checks are passing together.">
+                  <DocsCodeBlock title="Verification contract" language="bash" code={verificationCode} />
                 </FormSection>
 
                 <FormSection title="Strict GDS-only Compliance" description="Enable strict mode after the canonical shell, action, listing, and detail primitives are in place.">
@@ -473,6 +525,7 @@ function PlaygroundContent() {
                   <Paper withBorder p="lg" radius="xl">
                     <List spacing="sm" size="sm">
                       <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/README.md" target="_blank" rel="noreferrer">README.md</Anchor></List.Item>
+                      <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/INSTALLATION_GUIDE.md" target="_blank" rel="noreferrer">INSTALLATION_GUIDE.md</Anchor></List.Item>
                       <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/COMPATIBILITY_AND_RELEASES.md" target="_blank" rel="noreferrer">COMPATIBILITY_AND_RELEASES.md</Anchor></List.Item>
                       <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/FOUNDATION.md" target="_blank" rel="noreferrer">FOUNDATION.md</Anchor></List.Item>
                       <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/COMPONENTS_AND_PATTERNS.md" target="_blank" rel="noreferrer">COMPONENTS_AND_PATTERNS.md</Anchor></List.Item>
@@ -489,7 +542,7 @@ function PlaygroundContent() {
               <Stack gap="xl">
                 <PageHeader
                   title="Rulebook & Operating Contract"
-                  description="The site is both showcase and service manual. Consumer repos may compose around GDS, but they may not create a second design-system authority."
+                  description="Consumer repos may compose around GDS, but they may not create a second design-system authority. These are the rules that define a compliant adoption."
                 />
 
                 <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
@@ -518,9 +571,50 @@ function PlaygroundContent() {
                     <List spacing="sm" size="sm">
                       <List.Item>Use GDS tokens, spacing, typography, and state patterns instead of page-local equivalents.</List.Item>
                       <List.Item>Use `@doneisbetter/gds-core` for public/shared primitives and `@doneisbetter/gds-admin` for admin/operational surfaces.</List.Item>
+                      <List.Item>Use canonical primitives when the surface exists: `DiscoveryShell`, `ActionBar`, `ListingCard`, `MapPanel`, `DetailProfileShell`.</List.Item>
                       <List.Item>Document all exceptions explicitly in the adoption manifest with owner and review date.</List.Item>
                       <List.Item>Run `gds-compliance` and the shared ESLint config in CI before merging.</List.Item>
                       <List.Item>Prefer upstreaming repeated gaps into GDS rather than creating product-local “temporary” primitives.</List.Item>
+                    </List>
+                  </Paper>
+                </FormSection>
+
+                <FormSection title="What Good Adoption Looks Like" description="This is the expected operational sequence for a team moving toward true GDS-only delivery.">
+                  <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
+                    <Paper withBorder p="lg" radius="xl">
+                      <Stack gap="sm">
+                        <Title order={4}>Do</Title>
+                        <List spacing="xs" size="sm">
+                          <List.Item>Install the packages directly from npm.</List.Item>
+                          <List.Item>Mount one `GdsProvider` at the root.</List.Item>
+                          <List.Item>Keep `server` and `client` imports separated intentionally.</List.Item>
+                          <List.Item>Replace local shells, card wrappers, and button stacks with the canonical primitives.</List.Item>
+                          <List.Item>Enable strict mode after migration, not before it.</List.Item>
+                        </List>
+                      </Stack>
+                    </Paper>
+                    <Paper withBorder p="lg" radius="xl">
+                      <Stack gap="sm">
+                        <Title order={4}>Do Not</Title>
+                        <List spacing="xs" size="sm">
+                          <List.Item>Keep a second token or component authority active.</List.Item>
+                          <List.Item>Use sibling `file:` links in CI or hosted builds.</List.Item>
+                          <List.Item>Create local `AppShell`, `ButtonGroup`, or listing-card wrappers once GDS owns that surface.</List.Item>
+                          <List.Item>Treat the manifest as optional after adoption begins.</List.Item>
+                          <List.Item>Use GitHub release bundles as the default install path when npm is healthy.</List.Item>
+                        </List>
+                      </Stack>
+                    </Paper>
+                  </SimpleGrid>
+                </FormSection>
+
+                <FormSection title="Escalation Path For Teams" description="When a product gap exists, the correct response is governance, not silent divergence.">
+                  <Paper withBorder p="lg" radius="xl">
+                    <List spacing="sm" size="sm">
+                      <List.Item>If the primitive exists in GDS, adopt it directly.</List.Item>
+                      <List.Item>If a product-specific semantic action is missing, extend through a governed vocabulary pack.</List.Item>
+                      <List.Item>If a surface is genuinely missing, open a GDS issue and add only a narrow temporary exception in `gds-adoption.json`.</List.Item>
+                      <List.Item>If the repo is ready for hard enforcement, enable `strictMode` and keep exceptions explicit and reviewed.</List.Item>
                     </List>
                   </Paper>
                 </FormSection>
