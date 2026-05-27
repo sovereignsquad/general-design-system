@@ -1,28 +1,33 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@mantine/core';
 import type { ButtonProps } from '@mantine/core';
 import { useGdsTranslation } from '@doneisbetter/gds-theme';
 import { IconCheck, IconX } from '@tabler/icons-react';
-import { GdsVocabulary, getSemanticActionLabel } from './vocabulary';
-import type { SemanticAction } from './vocabulary';
+import { getSemanticActionLabel, resolveSemanticActionConfig } from './vocabulary';
+import type { GdsVocabularyPack, SemanticActionId } from './vocabulary';
 
 export interface SemanticButtonProps extends ButtonProps, Omit<React.ComponentPropsWithoutRef<'button'>, keyof ButtonProps | 'leftSection' | 'children'> {
-  action: SemanticAction;
+  action: SemanticActionId;
   loading?: boolean;
   feedbackState?: 'success' | 'error' | null;
   feedbackText?: string;
   prerenderLabelOnly?: boolean;
+  vocabularyPacks?: GdsVocabularyPack[];
 }
 
-/**
- * SemanticButton strictly enforces ubiquitous language and standardized iconography.
- * Developers cannot pass arbitrary text or icons; they must use a semantic action key.
- */
-export function SemanticButton({ action, loading, feedbackState, feedbackText, prerenderLabelOnly = true, ...props }: SemanticButtonProps) {
+export function SemanticButton({
+  action,
+  loading,
+  feedbackState,
+  feedbackText,
+  prerenderLabelOnly = true,
+  vocabularyPacks = [],
+  ...props
+}: SemanticButtonProps) {
   const { t } = useGdsTranslation();
-  const config = GdsVocabulary[action];
+  const config = resolveSemanticActionConfig(action, vocabularyPacks);
 
   const [mounted, setMounted] = useState(!prerenderLabelOnly);
   const [internalFeedback, setInternalFeedback] = useState<'success' | 'error' | null>(null);
@@ -42,23 +47,20 @@ export function SemanticButton({ action, loading, feedbackState, feedbackText, p
   }, [feedbackState]);
 
   let Icon = config.icon;
-  let label = getSemanticActionLabel(action, t);
+  let label = getSemanticActionLabel(action, t, vocabularyPacks);
   let color = props.color;
 
   if (!mounted) {
     const { leftSection, ...buttonProps } = props;
     return (
       <Button loading={loading} color={color} {...buttonProps}>
-        {getSemanticActionLabel(action)}
+        {getSemanticActionLabel(action, undefined, vocabularyPacks)}
       </Button>
     );
   }
 
   if (internalFeedback === 'success') {
-    const defaultFeedback = ('feedback' in config && config.feedback) 
-      ? config.feedback 
-      : { icon: IconCheck, color: 'teal', messageId: 'gds.feedback.saved' };
-      
+    const defaultFeedback = config.feedback ?? { icon: IconCheck, color: 'teal', messageId: 'gds.feedback.saved' };
     Icon = defaultFeedback.icon;
     label = feedbackText || t(defaultFeedback.messageId, 'Success');
     color = defaultFeedback.color;
@@ -69,8 +71,8 @@ export function SemanticButton({ action, loading, feedbackState, feedbackText, p
   }
 
   return (
-    <Button 
-      leftSection={<Icon size="1rem" />} 
+    <Button
+      leftSection={<Icon size="1rem" />}
       loading={loading}
       color={color}
       {...props}

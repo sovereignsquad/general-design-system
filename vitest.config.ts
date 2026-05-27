@@ -17,7 +17,16 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./vitest.setup.ts'],
     css: false,
-    include: ['packages/gds-*/src/*.test.ts', 'packages/gds-*/src/*.test.tsx'],
+    include: [
+      'packages/gds-*/src/*.test.ts',
+      'packages/gds-*/src/*.test.tsx',
+      'packages/gds-*/src/*.test.js',
+      'packages/gds-*/src/*.test.jsx',
+      'packages/gds-*/*.test.ts',
+      'packages/gds-*/*.test.tsx',
+      'packages/gds-*/*.test.js',
+      'packages/gds-*/*.test.jsx',
+    ],
     coverage: {
       reporter: ['text'],
     },

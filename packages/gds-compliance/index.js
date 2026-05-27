@@ -10,6 +10,13 @@ const DEFAULT_STALE_DOCUMENTATION_REFERENCES = [
   '/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM',
   'GENERAL_DESIGN_SYSTEM',
 ];
+const STRICT_COMPLIANCE_FIELDS = [
+  'approvedShellPrimitives',
+  'approvedDetailPrimitives',
+  'approvedListingPrimitives',
+  'approvedActionPrimitives',
+  'approvedTemporaryExceptions',
+];
 
 export function validateManifest(manifest) {
   const findings = [];
@@ -55,6 +62,25 @@ export function validateManifest(manifest) {
     bannedImports: manifest.compliance?.bannedImports ?? [],
   })) {
     if (!Array.isArray(value)) {
+      findings.push({
+        rule: 'manifest.invalidComplianceConfig',
+        severity: 'error',
+        message: `compliance.${field} must be an array when provided.`,
+      });
+    }
+  }
+
+  if (manifest.compliance?.strictMode != null && typeof manifest.compliance.strictMode !== 'boolean') {
+    findings.push({
+      rule: 'manifest.invalidComplianceConfig',
+      severity: 'error',
+      message: 'compliance.strictMode must be a boolean when provided.',
+    });
+  }
+
+  for (const field of STRICT_COMPLIANCE_FIELDS) {
+    const value = manifest.compliance?.[field];
+    if (value != null && !Array.isArray(value)) {
       findings.push({
         rule: 'manifest.invalidComplianceConfig',
         severity: 'error',
@@ -150,6 +176,75 @@ function scanDocumentationFile(filePath, staleReferences) {
   return findings;
 }
 
+function inferStrictSurface(contract) {
+  const normalized = contract.toLowerCase();
+  if (normalized.includes('shell')) return 'shell';
+  if (normalized.includes('detail') || normalized.includes('profile')) return 'detail';
+  if (normalized.includes('card') || normalized.includes('listing')) return 'listing';
+  if (normalized.includes('action') || normalized.includes('button')) return 'action';
+  return null;
+}
+
+function runStrictCompliance({ manifest, manifestRoot, sourceFiles }) {
+  const findings = [];
+  const strict = manifest.compliance ?? {};
+  const approvedBySurface = {
+    shell: new Set(strict.approvedShellPrimitives ?? []),
+    detail: new Set(strict.approvedDetailPrimitives ?? []),
+    listing: new Set(strict.approvedListingPrimitives ?? []),
+    action: new Set(strict.approvedActionPrimitives ?? []),
+  };
+  const approvedTemporaryExceptions = new Set(strict.approvedTemporaryExceptions ?? []);
+
+  for (const adapter of manifest.localAdapters ?? []) {
+    if (!['active', 'exception'].includes(adapter.status)) {
+      continue;
+    }
+
+    const surface = inferStrictSurface(adapter.contract);
+    if (!surface) {
+      continue;
+    }
+
+    if (approvedBySurface[surface].has(adapter.contract) || approvedTemporaryExceptions.has(adapter.contract)) {
+      continue;
+    }
+
+    findings.push({
+      rule: `strict.${surface}.local-adapter`,
+      severity: 'error',
+      file: adapter.path,
+      message: `Strict mode forbids local ${surface} adapter "${adapter.contract}". Migrate to the approved GDS primitive or declare a reviewed temporary exception.`,
+    });
+  }
+
+  for (const filePath of sourceFiles) {
+    const content = readFileSync(filePath, 'utf8');
+
+    if (/AppShell\s+as\s+MantineAppShell|<MantineAppShell\b|from\s+['"]@mantine\/core['"][\s\S]{0,120}AppShell/.test(content)) {
+      findings.push({
+        rule: 'strict.shell.mantine-app-shell',
+        severity: 'error',
+        file: filePath,
+        message: 'Strict mode forbids local Mantine AppShell wrappers. Use DiscoveryShell or the approved GDS shell wrapper.',
+      });
+    }
+
+    if (/(interface|type)\s+\w*(ActionBar|ButtonGroup|ButtonStack|Cta)\w*\s*[\{=]|export function \w*(ActionBar|ButtonGroup|ButtonStack|Cta)\w*/.test(content)
+      && /from\s+['"]@mantine\/core['"][\s\S]{0,200}\bButton\b/.test(content)
+      && !/from\s+['"]@doneisbetter\/gds-core['"][\s\S]{0,200}\bActionBar\b/.test(content)) {
+      findings.push({
+        rule: 'strict.action.legacy-wrapper',
+        severity: 'error',
+        file: filePath,
+        message: 'Strict mode forbids local button/action wrapper implementations. Use the canonical GDS ActionBar and semantic actions.',
+      });
+    }
+  }
+
+  return findings;
+}
+
 export function runComplianceCheck({ manifestPath }) {
   const absoluteManifestPath = resolve(manifestPath);
   const manifestRoot = dirname(absoluteManifestPath);
@@ -166,6 +261,7 @@ export function runComplianceCheck({ manifestPath }) {
     ...DEFAULT_FORBIDDEN_IMPORTS,
     ...(manifest.compliance?.bannedImports ?? []),
   ];
+  const strictMode = manifest.compliance?.strictMode === true;
 
   for (const exception of manifest.approvedExceptions ?? []) {
     if (exception.dependency) {
@@ -244,6 +340,10 @@ export function runComplianceCheck({ manifestPath }) {
         });
       }
     }
+  }
+
+  if (strictMode) {
+    findings.push(...runStrictCompliance({ manifest, manifestRoot, sourceFiles }));
   }
 
   return {

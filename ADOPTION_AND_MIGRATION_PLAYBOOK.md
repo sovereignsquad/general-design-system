@@ -1,7 +1,7 @@
 # Adoption & Migration Playbook
 
 Status: Active SSOT
-Version: 2.6.2
+Version: 2.6.3
 Last updated: 2026-05-27
 
 This playbook defines the canonical path for adopting GDS through direct package consumption and for migrating repos away from local mirrored adapters or legacy UI systems.
@@ -14,7 +14,7 @@ Every governed consumer should converge on this shape:
 2. mount `GdsProvider` once at the application root
 3. consume shared contracts through documented `server` and `client` entrypoints
 4. keep local adapters narrow, temporary, and machine-declared in `gds-adoption.json`
-5. validate adoption through build, test, and `gds-compliance`
+5. validate adoption through build, test, codemods where applicable, and `gds-compliance`
 
 ## 2. Adoption Profiles
 
@@ -25,7 +25,7 @@ Use when the product has little or no existing UI system.
 Execution:
 1. install packages
 2. wire root provider and theme
-3. choose shell, page-header, state-block, and card contracts
+3. choose shell, page-header, state-block, card, and action contracts
 4. add `gds-adoption.json`
 5. enable shared lint/gds-compliance in CI
 
@@ -38,6 +38,7 @@ Execution:
 2. replace one mirrored contract family at a time with direct `@doneisbetter/gds-*` consumption
 3. delete the local mirror only after build, test, and route verification pass
 4. remove temporary import aliases and sibling-repo assumptions
+5. use the reference codemods for safe mechanical rewrites before touching bespoke cases manually
 
 ### Legacy migration
 
@@ -46,7 +47,7 @@ Use when the product still has a prior design/token/component authority.
 Execution:
 1. freeze legacy UI expansion
 2. establish `GdsProvider` and theme ownership
-3. migrate one governed surface family at a time
+3. migrate one governed surface family at a time in this order: shell -> navigation -> actions -> listing -> detail -> embeds
 4. record exceptions narrowly
 5. delete legacy primitives and token sources
 
@@ -93,11 +94,18 @@ async function migrateConsumerRepo() {
   freezeLegacyUI();
   addGdsProviderAtRoot();
   declareAdoptionManifest();
+  runReferenceCodemods();
   replaceOneSurfaceFamilyAtATime();
   runBuildAndCompliance();
   deleteRetiredAdapters();
 }
 ```
+
+Reference codemods currently available:
+
+- `node scripts/codemods/run-codemod.mjs discovery-shell ./src`
+- `node scripts/codemods/run-codemod.mjs action-bar ./src`
+- `node scripts/codemods/run-codemod.mjs listing-card ./src`
 
 ## 6. Required Verification Before Promotion
 
@@ -117,7 +125,21 @@ Consumer dependency baseline:
 
 - React `19.x` is supported
 - Mantine `8.3.x` and `9.2.x` are verified consumer-install lines
-- use GitHub release assets until the npm package line is publicly available
+- use GitHub release assets only as an operational fallback when npm publication is temporarily unavailable
+
+For true GDS-only repos, enable strict mode in the manifest once the canonical primitives are in place:
+
+```json
+{
+  "compliance": {
+    "strictMode": true,
+    "approvedShellPrimitives": ["DiscoveryShell"],
+    "approvedDetailPrimitives": ["DetailProfileShell"],
+    "approvedListingPrimitives": ["ListingCard"],
+    "approvedActionPrimitives": ["ActionBar"]
+  }
+}
+```
 
 ## 7. Rollback & Recovery
 
@@ -137,6 +159,7 @@ Every adopter must maintain:
 - validation commands
 - approved exceptions
 - current consumed GDS version
+- strict-mode status and approved primitive lanes if the repo is targeting 100% GDS-only
 
 ## 9. Anti-Patterns
 
@@ -145,3 +168,4 @@ Do not:
 - preserve local mirrored contracts as permanent hidden authorities
 - mix direct package consumption with a second live token system
 - skip manifest or compliance setup after package adoption
+- introduce new shell/card/button wrappers after the canonical GDS primitive for that surface exists

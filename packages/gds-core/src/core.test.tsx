@@ -1,10 +1,12 @@
 import React from 'react';
+import { Text, Title } from '@mantine/core';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { AccessSummary } from './AccessSummary';
 import { AccessRecoveryPanel } from './AccessRecoveryPanel';
 import { AccentPanel, resolveAccentPanelStyles } from './AccentPanel';
+import { ActionBar } from './ActionBar';
 import { ArticleShell } from './ArticleShell';
 import { AuthShell } from './AuthShell';
 import { BrowseSurface } from './BrowseSurface';
@@ -14,6 +16,7 @@ import { CtaButtonGroup } from './CtaButtonGroup';
 import { ConfirmDialog } from './ConfirmDialog';
 import { ChoiceChip } from './ChoiceChip';
 import { DataToolbar } from './DataToolbar';
+import { DetailProfileShell } from './DetailProfileShell';
 import { DocsCodeBlock } from './DocsCodeBlock';
 import { DocsPageShell } from './DocsPageShell';
 import { EmptyState } from './EmptyState';
@@ -21,6 +24,8 @@ import { EditorialCard } from './EditorialCard';
 import { EditorialHero } from './EditorialHero';
 import { FeatureBand } from './FeatureBand';
 import { GameBoardTile } from './GameBoardTile';
+import { ListingCard } from './ListingCard';
+import { MapPanel } from './MapPanel';
 import { MediaField } from './MediaField';
 import { MetricCard } from './MetricCard';
 import { PageHeader } from './PageHeader';
@@ -29,8 +34,10 @@ import { PublicBrandFooter } from './PublicBrandFooter';
 import { PublicProductCard } from './PublicProductCard';
 import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
+import { DiscoveryShell } from './DiscoveryShell';
 import { SemanticButton } from './SemanticButton';
 import { SectionPanel } from './SectionPanel';
+import { SidebarNav, SidebarNavItem, SidebarNavSection } from './SidebarNav';
 import { SimpleDataTable } from './SimpleDataTable';
 import { StateBlock } from './StateBlock';
 import { StatsSection } from './StatsSection';
@@ -38,7 +45,8 @@ import { StatusBadge } from './StatusBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { UploadDropzone } from './UploadDropzone';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
-import { getSemanticActionLabel } from './vocabulary';
+import { GdsIcons } from './icons';
+import { createGdsVocabularyPack, getSemanticActionLabel } from './vocabulary';
 
 describe('@doneisbetter/gds-core', () => {
   it('renders semantic button labels from translation messages', () => {
@@ -182,6 +190,180 @@ describe('@doneisbetter/gds-core', () => {
 
     expect(onRemove).toHaveBeenCalledTimes(1);
     expect(onSelect).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders the discovery shell with grouped sidebar navigation', () => {
+    renderWithGds(
+      <DiscoveryShell
+        header={<Text fw={700}>Operations shell</Text>}
+        sidebar={(
+          <SidebarNav>
+            <SidebarNavSection label="Primary">
+              <SidebarNavItem action="home" href="/" active />
+              <SidebarNavItem action="settings" href="/settings" />
+            </SidebarNavSection>
+            <SidebarNavSection label="Account" pushToBottom>
+              <SidebarNavItem action="logout" component="button" />
+            </SidebarNavSection>
+          </SidebarNav>
+        )}
+        footer={<button type="button">Home</button>}
+      >
+        <div>Discovery content</div>
+      </DiscoveryShell>,
+    );
+
+    expect(screen.getByText('Operations shell')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Toggle navigation' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'Settings' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Logout' })).toBeInTheDocument();
+    expect(screen.getByText('Discovery content')).toBeInTheDocument();
+  });
+
+  it('renders a semantic action bar with governed action priority and icon-only actions', async () => {
+    const user = userEvent.setup();
+    const onSave = vi.fn();
+    const onReset = vi.fn();
+    const onSettings = vi.fn();
+
+    renderWithGds(
+      <ActionBar
+        primary={{ action: 'save', onClick: onSave }}
+        secondary={[{ action: 'cancel', onClick: onReset }]}
+        tertiary={[{ action: 'preview', onClick: () => {} }]}
+        iconOnly={[{ action: 'settings', onClick: onSettings }]}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Preview' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Settings' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
+    await user.click(screen.getByRole('button', { name: 'Settings' }));
+
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onReset).toHaveBeenCalledTimes(1);
+    expect(onSettings).toHaveBeenCalledTimes(1);
+  });
+
+  it('supports governed semantic vocabulary packs without raw-label escape hatches', () => {
+    const cameraPack = createGdsVocabularyPack('camera', {
+      moderate: {
+        defaultMessage: 'Moderate',
+        icon: GdsIcons.Verify,
+      },
+    });
+
+    renderWithGds(
+      <ActionBar
+        primary={{ action: 'camera:moderate' }}
+        vocabularyPacks={[cameraPack]}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Moderate' })).toBeInTheDocument();
+    expect(getSemanticActionLabel('camera:moderate', undefined, [cameraPack])).toBe('Moderate');
+  });
+
+  it('renders the unified listing-card contract with featured disclosure and governed affordances', async () => {
+    const user = userEvent.setup();
+    const onSave = vi.fn();
+    const onShare = vi.fn();
+
+    renderWithGds(
+      <ListingCard
+        title="Budapest Community Meetup"
+        description="A shared listing contract for events, venues, and communities."
+        price="Free"
+        featured
+        sponsoredDisclosure="Sponsored listing"
+        metadata={[
+          { id: 'date', label: 'Date', value: 'June 7' },
+          { id: 'location', label: 'Location', value: 'District V' },
+        ]}
+        primaryAction={<button type="button">View details</button>}
+        saveAction={{ action: 'save', onClick: onSave }}
+        shareAction={{ action: 'refer', ariaLabel: 'Share listing', onClick: onShare }}
+      />,
+    );
+
+    expect(screen.getByText('Featured')).toBeInTheDocument();
+    expect(screen.getByText('Sponsored listing')).toBeInTheDocument();
+    expect(screen.getByText('June 7')).toBeInTheDocument();
+    expect(screen.getByText('District V')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'View details' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    await user.click(screen.getByRole('button', { name: 'Share listing' }));
+
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onShare).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders the sanctioned map panel states and iframe contract', () => {
+    const { rerender } = renderWithGds(
+      <MapPanel
+        title="Venue map"
+        description="Shared embed containment."
+        loading
+      />,
+    );
+
+    expect(screen.getByText('Loading map')).toBeInTheDocument();
+
+    rerender(
+      <MapPanel
+        title="Venue map"
+        description="Shared embed containment."
+        error="The map provider is unavailable."
+      />,
+    );
+    expect(screen.getByText('Map unavailable')).toBeInTheDocument();
+    expect(screen.getByText('The map provider is unavailable.')).toBeInTheDocument();
+
+    rerender(
+      <MapPanel
+        title="Venue map"
+        description="Shared embed containment."
+        iframeSrc="https://example.com/embed"
+        embedTitle="Budapest venue map"
+      />,
+    );
+
+    expect(screen.getByTitle('Budapest venue map')).toBeInTheDocument();
+  });
+
+  it('renders the detail profile shell in page and drawer modes', () => {
+    const { rerender } = renderWithGds(
+      <DetailProfileShell
+        mode="page"
+        hero={<Title order={2}>Venue profile</Title>}
+        actions={<ActionBar primary={{ action: 'preview' }} />}
+        sections={[
+          <SectionPanel key="overview" title="Overview"><Text>Profile summary</Text></SectionPanel>,
+          <SectionPanel key="schedule" title="Schedule"><Text>Weekdays</Text></SectionPanel>,
+        ]}
+        related={<Text>Related listings</Text>}
+      />,
+    );
+
+    expect(screen.getByText('Venue profile')).toBeInTheDocument();
+    expect(screen.getByText('Profile summary')).toBeInTheDocument();
+    expect(screen.getByText('Related listings')).toBeInTheDocument();
+
+    rerender(
+      <DetailProfileShell
+        mode="drawer"
+        hero={<Title order={2}>Venue profile</Title>}
+        sections={[<SectionPanel key="overview" title="Overview"><Text>Drawer summary</Text></SectionPanel>]}
+      />,
+    );
+
+    expect(screen.getByText('Drawer summary')).toBeInTheDocument();
   });
 
   it('renders editorial cards and consumer sections as reusable public/consumer contracts', () => {

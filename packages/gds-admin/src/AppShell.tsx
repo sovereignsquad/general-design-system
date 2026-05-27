@@ -1,9 +1,8 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { AppShell as MantineAppShell, Burger, Divider, Group, ScrollArea, Stack, Text, Title } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { ThemeToggle } from '@doneisbetter/gds-core';
+import { Divider, Group, Stack, Text, Title } from '@mantine/core';
+import { DiscoveryShell, ThemeToggle } from '@doneisbetter/gds-core';
 
 export interface AppShellProps {
   logoText?: string;
@@ -32,24 +31,14 @@ export function AppShell({
   mobileNavigation,
   children,
 }: AppShellProps) {
-  const [opened, { toggle }] = useDisclosure();
   const primaryNav = primaryNavigation ?? navLinks;
 
   return (
-    <MantineAppShell
-      header={{ height: headerContext ? 72 : 60 }}
-      footer={mobileNavigation ? { height: 68 } : undefined}
-      navbar={{
-        width: 250,
-        breakpoint: 'sm',
-        collapsed: { mobile: !opened },
-      }}
-      padding="md"
-    >
-      <MantineAppShell.Header>
-        <Group h="100%" px="md" justify="space-between" align="center" wrap="nowrap">
+    <DiscoveryShell
+      headerHeight={headerContext ? 72 : 60}
+      header={(
+        <Group h="100%" justify="space-between" align="center" wrap="nowrap">
           <Group wrap="nowrap" style={{ minWidth: 0, flex: 1 }}>
-            <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" aria-label="Toggle navigation" />
             <Stack gap={0} style={{ minWidth: 0 }}>
               <Title order={3} lineClamp={1}>
                 {logoText}
@@ -66,11 +55,9 @@ export function AppShell({
             <ThemeToggle />
           </Group>
         </Group>
-      </MantineAppShell.Header>
-
-      <MantineAppShell.Navbar p="md">
-        <ScrollArea h="100%" type="auto">
-          <Stack gap="md" h="100%">
+      )}
+      sidebar={(
+        <Stack gap="md" h="100%">
             {primaryNav ? (
               <Stack gap="xs">
                 <Text size="xs" fw={700} c="dimmed">
@@ -90,7 +77,7 @@ export function AppShell({
                 </Stack>
               </>
             ) : null}
-            {accountPanel ? (
+          {accountPanel ? (
               <>
                 <Divider mt="auto" />
                 <Stack gap="xs">
@@ -101,21 +88,11 @@ export function AppShell({
                 </Stack>
               </>
             ) : null}
-          </Stack>
-        </ScrollArea>
-      </MantineAppShell.Navbar>
-
-      {mobileNavigation ? (
-        <MantineAppShell.Footer>
-          <Group h="100%" px="md" justify="space-around" wrap="nowrap">
-            {mobileNavigation}
-          </Group>
-        </MantineAppShell.Footer>
-      ) : null}
-
-      <MantineAppShell.Main>
-        {children}
-      </MantineAppShell.Main>
-    </MantineAppShell>
+        </Stack>
+      )}
+      footer={mobileNavigation}
+    >
+      {children}
+    </DiscoveryShell>
   );
 }

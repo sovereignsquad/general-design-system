@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 2.6.2
+Version: 2.6.3
 Last updated: 2026-05-27
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -13,6 +13,8 @@ This document defines the canonical behavior for UI components, workflows, and r
 - **Mobile Navigation**: Must preserve access to primary destinations without forcing users to open a drawer for routine work (prefer bottom nav or visible top tabs). Secondary nav and preferences belong in a drawer or overflow menu.
 - **Page Headers**: Must answer: *Where am I? What is this for? What can I do next?* Page-level primary actions belong here. Avoid massive marketing-style headers in operational UI.
 - **Shell Contracts**: Each project must define one local shell contract per user area (for example learner, admin, public, article/docs). Pages may not invent their own navigation rhythm once a shell contract exists.
+- **DiscoveryShell**: Sidebar-first authenticated discovery, explore, catalog, and dashboard products must use `DiscoveryShell` as the canonical shell contract unless an approved exception is documented. It owns header, sidebar, main, mobile collapse, and sticky-nav rhythm.
+- **Sidebar IA**: Sidebar information architecture must be composed through `SidebarNav`, `SidebarNavSection`, and `SidebarNavItem` so section labels, active states, icon spacing, and mobile collapse semantics stay aligned.
 
 ## 2. Common Workflows & Patterns
 
@@ -22,6 +24,9 @@ This document defines the canonical behavior for UI components, workflows, and r
 - **Search, Filters, & Lists**: Place filters near the data they affect. Active filters must be visible and removable. Preserving filters during navigation is a feature, not a bug.
 - **Destructive Actions**: Must be visually distinct (e.g., danger color) and require confirmation for irreversible impacts. High-impact deletions must restate the target by name.
 - **Pattern Service Reuse**: Repeated cards, metrics, tables, filters, auth panels, article layouts, and state blocks must be implemented through local contracts derived from `PATTERN_SERVICE_MODEL.md`, not per-page composition.
+- **Semantic Actions**: Repeated CTA rows and button stacks must use `ActionBar` plus semantic action IDs. Do not create local button-stack wrappers when the need is priority orchestration rather than bespoke business logic.
+- **Detail Surfaces**: Drawer and page detail experiences should converge on `DetailProfileShell` so hero, sections, related content, and action placement remain consistent between contexts.
+- **Embed Surfaces**: Third-party maps and iframe panels must use `MapPanel` or a documented exception. Freeform embeds are not an approved default.
 
 ## 3. Core Component Contracts
 
@@ -39,6 +44,12 @@ This document defines the canonical behavior for UI components, workflows, and r
 | **Metric Cards** | Prominent value, readable label, optional trend/status. Analytics may not outrank next action or urgent exceptions on mobile. | `md` |
 | **Data Toolbars** | Search, filters, sort, reset, and create actions in predictable order. Active filters visible and removable. | `md` |
 | **State Blocks** | Loading, empty, error, permission, disabled, and success states must explain the state and provide the next action where possible. | `md` |
+| **Discovery Shell** | Canonical sidebar-first shell with header, sidebar, main, mobile drawer collapse, optional footer nav, and sticky navigation behavior. | `xl` |
+| **Sidebar Navigation** | Sectioned sidebar IA with labels, active-route signaling, semantic icons/labels, and consistent row spacing. | `md` |
+| **Action Bar** | Semantic action orchestration for primary, secondary, tertiary, and icon-only actions with governed responsive wrapping. | `md` |
+| **Listing Card** | Unified discovery/listing card for events, venues, communities, and similar public objects with media, metadata, disclosure, and save/share affordances. | `md` |
+| **Map Panel** | Sanctioned map/embed panel with shared header chrome, semantic actions, and built-in loading/empty/error states. | `lg` |
+| **Detail Profile Shell** | Shared detail composition for page and drawer modes with hero, section stack, action placement, and related content. | `xl` |
 | **Public Shells** | Public marketing/discovery/docs shells must define brand slot, navigation rhythm, readability width, CTA hierarchy, footer slot, and mobile nav behavior, including branded header variants and non-hook mobile nav patterns. | `md` |
 | **Public Nav** | Primary public navigation uses explicit nav items, an explicit active item, and semantic `aria-current` handling. | `md` |
 | **Auth Shells** | Auth entry surfaces must define title, error/helper placement, provider-brand exception handling, and safe action hierarchy. | `md` |
@@ -86,11 +97,14 @@ The following families are mandatory local contracts when a project has the corr
 | Family | Required When | Must Define |
 |---|---|---|
 | **App Shell** | Product has authenticated, public, admin, or docs areas | navigation model, account controls, active route, mobile behavior |
+| **DiscoveryShell** | Product has sidebar-first explore, catalog, directory, dashboard, or workspace surfaces | header/sidebar/main contract, mobile collapse, sticky sidebar, chrome spacing |
 | **Page Header** | Product has more than one page | title, purpose text, primary action, secondary action placement |
 | **Product Card** | Product lists courses, providers, children, records, articles, accounts, or other repeated objects | content slots, action slots, mobile order, loading/empty behavior |
+| **Listing Card** | Product lists public discovery objects such as events, venues, communities, clubs, or offers | media ratio, disclosure, metadata rows, save/share/cta affordances |
 | **Public Product Card** | Product has media-first menu, catalog, offer, or discovery cards | image treatment, price/helper hierarchy, availability states, localized helper labels, one mobile primary action, missing-image/loading behavior |
 | **Metric / Progress Card** | Product shows repeated stats or progress | value hierarchy, label rules, trend/status rules, mobile priority |
 | **Data Toolbar / Responsive Data View** | Product has admin/editor/search/list workflows | search, filters, sort, reset, create, desktop table strategy, mobile fallback |
+| **ActionBar** | Product has repeated action rows, save bars, CTA clusters, or semantic button stacks | primary/secondary/tertiary priority, icon-only lane, mobile wrapping, loading/disabled states |
 | **Auth Shell** | Product has login, signup, account linking, consent, or guest entry | auth actions, error placement, provider branding, anonymous/guest behavior |
 | **Article / Docs Shell** | Product has release notes, docs, news, or blog content | article width, side rail behavior, metadata, typography, mobile collapse |
 | **State Block** | Always | loading, empty, error, permission, disabled, success, not-enough-data states |
@@ -103,6 +117,8 @@ The following families are mandatory local contracts when a project has the corr
 | **Consumer Dashboard Section** | Product has member/account/dashboard areas | section chrome, summaries, partial-data handling, action placement |
 | **Media Field** | Product allows media upload, URL entry, preview, replace, or remove | selection, preview, status, reset/remove, error/help/policy states |
 | **Content Operations Editor** | Product has CMS-like settings, content, or site-operations screens | section grouping, preview/settings rails, action bar, validation/recovery rhythm |
+| **DetailProfileShell** | Product has repeated page/drawer detail surfaces for profiles, items, or entities | hero/meta, sections, related content, action placement, divider rhythm |
+| **MapPanel** | Product embeds maps or other sanctioned third-party iframe surfaces | title/description/actions, loading/empty/error states, embed accessibility and sizing |
 | **Searchable Selection** | Product has repeated searchable selects or comboboxes | use the documented Mantine recipe path first; do not invent local wrappers unless GDS promotes a new canonical export |
 | **Public Brand Footer** | Product uses branded footer storytelling beyond a plain link list | narrative, actions, secondary quote/media slot, legal row, mobile collapse, layout variant choice |
 | **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, preview, replace/remove, status overlays |
@@ -110,3 +126,14 @@ The following families are mandatory local contracts when a project has the corr
 | **Access Recovery** | Product has protected routes, scope failures, expired sessions, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |
 
 Mantine UI examples may be used to inform these contracts only after the project confirms the GDS behavior, responsive rules, and token boundaries remain unchanged.
+
+## 7. Semantic Vocabulary Extension Lane
+
+When a product needs a governed semantic action that does not exist in the core vocabulary, extend it through `createGdsVocabularyPack(namespace, actions)` and pass the resulting pack into `SemanticButton`, `ActionBar`, or `SidebarNavItem`.
+
+Rules:
+
+- use a stable product namespace such as `camera`
+- keep extension labels semantic and reusable, not page-specific copy
+- do not bypass the system with raw labels/icons in shared action primitives
+- upstream the action into core when the need repeats across products

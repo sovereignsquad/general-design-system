@@ -1,10 +1,9 @@
 import { forwardRef } from 'react';
-import { NavLink, createPolymorphicComponent } from '@mantine/core';
-import type { NavLinkProps } from '@mantine/core';
-import { useGdsTranslation } from '@doneisbetter/gds-theme';
-import { GdsVocabulary, type SemanticAction } from '@doneisbetter/gds-core';
+import { createPolymorphicComponent } from '@mantine/core';
+import type { SidebarNavItemProps, SemanticAction } from '@doneisbetter/gds-core';
+import { SidebarNavItem } from '@doneisbetter/gds-core';
 
-export interface SemanticNavLinkProps extends Omit<NavLinkProps, 'leftSection' | 'label'> {
+export interface SemanticNavLinkProps extends Omit<SidebarNavItemProps, 'label' | 'icon' | 'action'> {
   action: SemanticAction;
 }
 
@@ -14,15 +13,10 @@ export interface SemanticNavLinkProps extends Omit<NavLinkProps, 'leftSection' |
  */
 const _SemanticNavLink = forwardRef<HTMLAnchorElement, SemanticNavLinkProps>(
   ({ action, ...props }, ref) => {
-    const { t } = useGdsTranslation();
-    const config = GdsVocabulary[action];
-    const Icon = config.icon;
-
     return (
-      <NavLink
+      <SidebarNavItem
         ref={ref}
-        label={t(config.id, config.defaultMessage)}
-        leftSection={<Icon size="1rem" stroke={1.5} />}
+        action={action}
         {...props}
       />
     );

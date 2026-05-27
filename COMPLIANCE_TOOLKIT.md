@@ -1,8 +1,8 @@
 # Compliance Toolkit
 
 Status: Active SSOT
-Version: 2.5.1
-Last updated: 2026-05-25
+Version: 2.6.3
+Last updated: 2026-05-27
 
 This document defines the canonical governance enforcement toolkit for GDS consumers.
 
@@ -54,6 +54,34 @@ Optional compliance extensions live in `gds-adoption.json`:
 }
 ```
 
+For repositories targeting true GDS-only enforcement, enable strict mode:
+
+```json
+{
+  "compliance": {
+    "strictMode": true,
+    "approvedShellPrimitives": ["DiscoveryShell"],
+    "approvedDetailPrimitives": ["DetailProfileShell"],
+    "approvedListingPrimitives": ["ListingCard"],
+    "approvedActionPrimitives": ["ActionBar"],
+    "approvedTemporaryExceptions": ["MapPanel"]
+  }
+}
+```
+
+Strict mode adds hard failures for:
+- local Mantine `AppShell` wrappers
+- local shell/detail/listing/action adapters that are not approved or explicitly excepted
+- legacy local button-wrapper patterns that bypass the canonical semantic action system
+
+Recommended activation order:
+
+1. migrate to `DiscoveryShell` and governed sidebar primitives
+2. migrate action stacks to `ActionBar`
+3. migrate repeated discovery cards to `ListingCard`
+4. migrate detail surfaces to `DetailProfileShell`
+5. enable `strictMode` and keep any short-lived gaps in `approvedTemporaryExceptions`
+
 Use this only for additive repo-local bans and legacy cleanup signals. Do not use it to carve holes in the canonical GDS ruleset.
 
 ## CI integration
@@ -64,6 +92,14 @@ Recommended consumer CI step:
 npm run lint
 gds-compliance validate-manifest --manifest ./gds-adoption.json
 gds-compliance check --manifest ./gds-adoption.json
+```
+
+If the repo uses the reference codemods during migration, run them in dry-run mode in PRs before switching to strict mode:
+
+```bash
+node scripts/codemods/run-codemod.mjs discovery-shell ./src
+node scripts/codemods/run-codemod.mjs action-bar ./src
+node scripts/codemods/run-codemod.mjs listing-card ./src
 ```
 
 ## What this toolkit does not replace

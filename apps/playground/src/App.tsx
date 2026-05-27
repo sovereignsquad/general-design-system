@@ -11,9 +11,18 @@ import {
   ResponsiveDataView,
 } from '@doneisbetter/gds-admin';
 import { 
+  ActionBar,
+  createGdsVocabularyPack,
+  DetailProfileShell,
+  DiscoveryShell,
   DocsCodeBlock,
-  SemanticButton, 
   GdsVocabulary, 
+  ListingCard,
+  MapPanel,
+  SemanticButton, 
+  SidebarNav,
+  SidebarNavItem,
+  SidebarNavSection,
   type SemanticAction, 
   en, hu, de, fr, it, ru, he, ar,
   MetricCard,
@@ -89,6 +98,27 @@ import { GdsProvider } from '@doneisbetter/gds-theme/client';
 export default function Providers({ children }: { children: React.ReactNode }) {
   return <GdsProvider>{children}</GdsProvider>;
 }`;
+
+const strictModeCode = `{
+  "compliance": {
+    "strictMode": true,
+    "approvedShellPrimitives": ["DiscoveryShell"],
+    "approvedDetailPrimitives": ["DetailProfileShell"],
+    "approvedListingPrimitives": ["ListingCard"],
+    "approvedActionPrimitives": ["ActionBar"]
+  }
+}`;
+
+const codemodCode = `node scripts/codemods/run-codemod.mjs discovery-shell ./src
+node scripts/codemods/run-codemod.mjs action-bar ./src
+node scripts/codemods/run-codemod.mjs listing-card ./src`;
+
+const cameraVocabularyPack = createGdsVocabularyPack('camera', {
+  moderate: {
+    defaultMessage: 'Moderate',
+    icon: GdsVocabulary.verify.icon,
+  },
+});
 
 // 1. Custom High-Fidelity SVG spline Line Chart with glowing gradients
 function SvgLineChart() {
@@ -431,6 +461,14 @@ function PlaygroundContent() {
                   <DocsCodeBlock title="App Router root contract" language="tsx" code={appRouterCode} />
                 </FormSection>
 
+                <FormSection title="Strict GDS-only Compliance" description="Enable strict mode after the canonical shell, action, listing, and detail primitives are in place.">
+                  <DocsCodeBlock title="gds-adoption.json compliance block" language="json" code={strictModeCode} />
+                </FormSection>
+
+                <FormSection title="Reference Migration Codemods" description="Use the repo codemods in dry-run mode first to safely identify mechanical migrations before enabling strict mode.">
+                  <DocsCodeBlock title="Codemod dry-run commands" language="bash" code={codemodCode} />
+                </FormSection>
+
                 <FormSection title="What To Read First" description="These rulebooks and proof documents are the required onboarding sequence.">
                   <Paper withBorder p="lg" radius="xl">
                     <List spacing="sm" size="sm">
@@ -640,49 +678,32 @@ npm run verify:references`}
 
                 <FormSection title="Catalog & Discovery Contracts" description="These showcase the released discovery-oriented GDS primitives that consumers can use today.">
                   <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
-                    <ProductCard
+                    <ListingCard
                       title="Danube Evening Run Club"
-                      description="Discovery-oriented product card with governed metadata, status messaging, and standard CTA structure."
-                      status={<Badge color="teal">Featured</Badge>}
+                      description="Unified public listing contract with governed promo disclosure, metadata rows, and affordance placement."
+                      featured
+                      sponsoredDisclosure="Sponsored placement. Selection criteria are disclosed in the host app."
+                      price="Free"
                       metadata={[
-                        { label: 'Date', value: 'June 14' },
-                        { label: 'Time', value: '18:30' },
-                        { label: 'Location', value: 'Budapest, Margaret Bridge' },
+                        { id: 'date', label: 'Date', value: 'June 14' },
+                        { id: 'time', label: 'Time', value: '18:30' },
+                        { id: 'location', label: 'Location', value: 'Budapest, Margaret Bridge' },
                       ]}
-                      secondaryActions={[
-                        { label: 'View details' },
-                        { label: 'Save for later' },
-                      ]}
+                      primaryAction={<SemanticButton action="preview" size="sm" />}
+                      saveAction={{ action: 'save' }}
+                      shareAction={{ action: 'forward' }}
                     />
 
-                    <Paper withBorder p="lg" radius="xl">
-                      <Stack gap="md">
-                        <Group justify="space-between">
-                          <Title order={4}>Discovery map panel</Title>
-                          <Badge variant="light">Embed-safe container</Badge>
-                        </Group>
-                        <Text size="sm" c="dimmed">
-                          Sanctioned third-party embeds should live inside governed chrome with explicit titles, descriptions, and fallback states rather than freeform iframes.
-                        </Text>
-                        <Box
-                          style={{
-                            borderRadius: 12,
-                            overflow: 'hidden',
-                            border: '1px solid var(--mantine-color-gray-3)',
-                          }}
-                        >
-                          <iframe
-                            src="https://www.openstreetmap.org/export/embed.html?bbox=19.03%2C47.49%2C19.08%2C47.52&layer=mapnik"
-                            title="Budapest sample discovery map"
-                            style={{ width: '100%', height: 260, border: 0 }}
-                          />
-                        </Box>
-                        <Group gap="sm">
-                          <SemanticButton action="preview" variant="light" />
-                          <SemanticButton action="refresh" variant="subtle" />
-                        </Group>
-                      </Stack>
-                    </Paper>
+                    <MapPanel
+                      title="Discovery map panel"
+                      description="Sanctioned third-party embeds live inside governed chrome with explicit titles, actions, and fallback-state behavior."
+                      actions={{
+                        primary: { action: 'preview', size: 'sm' },
+                        tertiary: [{ action: 'refresh', size: 'sm' }],
+                      }}
+                      iframeSrc="https://www.openstreetmap.org/export/embed.html?bbox=19.03%2C47.49%2C19.08%2C47.52&layer=mapnik"
+                      embedTitle="Budapest sample discovery map"
+                    />
                   </SimpleGrid>
                 </FormSection>
 
@@ -733,18 +754,64 @@ npm run verify:references`}
               <Stack gap="xl">
                 <PageHeader 
                   title="Layout Primitives & Scaffolding" 
-                  description="Test complex administrative screens using standard scaffolding wrappers: WorkspaceHeader, FormSection, and ResponsiveDataView."
+                  description="These examples exercise the new governed shell, navigation, action, and detail-profile primitives directly."
                 />
 
-                <WorkspaceHeader 
-                  title="Catalog Operations"
-                  breadcrumbs={[
-                    <Link key="1" to="/" style={{ textDecoration: 'none', color: 'var(--mantine-color-teal-6)' }}>Rulebook</Link>,
-                    <Text key="2" size="sm">Admin Workspace</Text>
-                  ]}
-                  secondaryActions={<Button variant="default" size="xs">Cancel</Button>}
-                  primaryAction={<Button color="teal" size="xs">Save Changes</Button>}
-                />
+                <FormSection title="DiscoveryShell + SidebarNav" description="Use this contract instead of local AppShell wrappers for sidebar-first applications.">
+                  <Paper withBorder p="md" radius="xl">
+                    <Box style={{ minHeight: 520, overflow: 'hidden', borderRadius: 16 }}>
+                      <DiscoveryShell
+                        header={<WorkspaceHeader title="Catalog Operations" description="Governed sidebar-first shell" />}
+                        sidebar={(
+                          <SidebarNav ariaLabel="Catalog navigation">
+                            <SidebarNavSection label="Primary">
+                              <SidebarNavItem action="dashboard" href="#dashboard" active />
+                              <SidebarNavItem action="calendar" href="#schedule" />
+                              <SidebarNavItem action="analytics" href="#analytics" />
+                            </SidebarNavSection>
+                            <SidebarNavSection label="Account" pushToBottom>
+                              <SidebarNavItem action="settings" href="#settings" />
+                              <SidebarNavItem action="logout" component="button" />
+                            </SidebarNavSection>
+                          </SidebarNav>
+                        )}
+                        footer={<SemanticButton action="home" variant="subtle" />}
+                      >
+                        <Stack gap="lg">
+                          <ActionBar
+                            primary={{ action: 'save', size: 'sm' }}
+                            secondary={[{ action: 'cancel', size: 'sm' }]}
+                            tertiary={[{ action: 'preview', size: 'sm' }]}
+                            iconOnly={[{ action: 'settings' }]}
+                          />
+                          <ResponsiveDataView 
+                            data={[
+                              { id: '1', name: 'Universal SSO', type: 'OAuth/OIDC Provider', adoption: '100%' },
+                              { id: '2', name: 'KIDEX Platform', type: 'Conductor Intel App', adoption: '100%' },
+                              { id: '3', name: 'ClassScout NYC', type: 'Class Catalog App', adoption: '100%' }
+                            ]}
+                            columns={[
+                              { key: 'name', label: 'Adopter Repository' },
+                              { key: 'type', label: 'Archetype' },
+                              { key: 'adoption', label: 'Migration Status' },
+                            ]}
+                            renderCard={(item) => (
+                              <Paper withBorder p="md" radius="lg">
+                                <Stack gap="xs">
+                                  <Group justify="space-between">
+                                    <Text fw={700} size="sm">{item.name}</Text>
+                                    <Badge color="teal" variant="light">{item.adoption}</Badge>
+                                  </Group>
+                                  <Text size="xs" c="dimmed">{item.type}</Text>
+                                </Stack>
+                              </Paper>
+                            )}
+                          />
+                        </Stack>
+                      </DiscoveryShell>
+                    </Box>
+                  </Paper>
+                </FormSection>
 
                 <FormSection title="Asset Attachment dropzone" description="Standard GDS UploadDropzone component built on top of Mantine and ImgBB validation constraints.">
                   <UploadDropzone 
@@ -761,30 +828,40 @@ npm run verify:references`}
                   />
                 </FormSection>
 
-                <FormSection title="Responsive Data View Component" description="Automatically toggle between rich cards (on mobile screens) and tabular lists (on desktop screens) cleanly.">
-                  <ResponsiveDataView 
-                    data={[
-                      { id: '1', name: 'Universal SSO', type: 'OAuth/OIDC Provider', adoption: '100%' },
-                      { id: '2', name: 'KIDEX Platform', type: 'Conductor Intel App', adoption: '100%' },
-                      { id: '3', name: 'ClassScout NYC', type: 'Class Catalog App', adoption: '100%' }
-                    ]}
-                    columns={[
-                      { key: 'name', label: 'Adopter Repository' },
-                      { key: 'type', label: 'Archetype' },
-                      { key: 'adoption', label: 'Migration Status' },
-                    ]}
-                    renderCard={(item) => (
-                      <Paper withBorder p="md" radius="lg">
-                        <Stack gap="xs">
-                          <Group justify="space-between">
-                            <Text fw={700} size="sm">{item.name}</Text>
-                            <Badge color="teal" variant="light">{item.adoption}</Badge>
-                          </Group>
-                          <Text size="xs" c="dimmed">{item.type}</Text>
+                <FormSection title="DetailProfileShell" description="Use the same detail composition in drawer and full-page modes instead of maintaining divergent local profile panels.">
+                  <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
+                    <DetailProfileShell
+                      mode="page"
+                      hero={(
+                        <Stack gap={4}>
+                          <Badge color="teal" variant="light">Page mode</Badge>
+                          <Title order={3}>Budapest Run Collective</Title>
+                          <Text size="sm" c="dimmed">Community profile with governed hero, actions, sections, and related content.</Text>
                         </Stack>
-                      </Paper>
-                    )}
-                  />
+                      )}
+                      actions={<ActionBar primary={{ action: 'message', size: 'sm' }} secondary={[{ action: 'save', size: 'sm' }]} />}
+                      sections={[
+                        <Paper key="overview" withBorder p="md" radius="lg">Weekly meetups, coach rotation, and beginner-friendly pacing.</Paper>,
+                        <Paper key="schedule" withBorder p="md" radius="lg">Tuesday and Thursday at 18:30, Saturday long run at 08:00.</Paper>,
+                      ]}
+                      related={<Paper withBorder p="md" radius="lg">Related groups: Danube Sprinters, City Tempo, Margaret Bridge Runners.</Paper>}
+                    />
+                    <DetailProfileShell
+                      mode="drawer"
+                      hero={(
+                        <Stack gap={4}>
+                          <Badge color="violet" variant="light">Drawer mode</Badge>
+                          <Title order={4}>Operator detail rail</Title>
+                          <Text size="sm" c="dimmed">Same contract, denser presentation.</Text>
+                        </Stack>
+                      )}
+                      actions={<ActionBar primary={{ action: 'edit', size: 'sm' }} tertiary={[{ action: 'preview', size: 'sm' }]} />}
+                      sections={[
+                        <Paper key="status" withBorder p="md" radius="lg">Status: featured listing, review scheduled, sponsor disclosure active.</Paper>,
+                        <Paper key="owner" withBorder p="md" radius="lg">Owner: Camera discovery operations.</Paper>,
+                      ]}
+                    />
+                  </SimpleGrid>
                 </FormSection>
 
                 <FormSection title="Access Summary Scoping" description="Standard scoping summaries displaying active owner, roles, and allowed client accesses.">
@@ -803,8 +880,29 @@ npm run verify:references`}
               <Stack gap="xl">
                 <PageHeader 
                   title="Semantic Dictionary & Testing Matrix" 
-                  description="Test all GDS semantic actions across interactive feedback loops. Every action resolves 1:1 to a specific Tabler icon, tone, and localized phrase."
+                  description="Test the canonical semantic vocabulary and the governed product-extension lane. Every action resolves to one icon, one meaning, and one localized label contract."
                 />
+
+                <FormSection title="Product vocabulary packs" description="Missing product actions extend the governed vocabulary through a namespace instead of raw labels and icons.">
+                  <Paper withBorder p="lg" radius="xl">
+                    <Stack gap="md">
+                      <Text size="sm" c="dimmed">
+                        This example uses a `camera` vocabulary pack to add a product-specific moderation action while still flowing through `ActionBar`, `SidebarNavItem`, and `SemanticButton`.
+                      </Text>
+                      <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
+                        <SemanticButton action="camera:moderate" vocabularyPacks={[cameraVocabularyPack]} />
+                        <ActionBar primary={{ action: 'camera:moderate' }} vocabularyPacks={[cameraVocabularyPack]} />
+                        <Paper withBorder p="sm" radius="lg">
+                          <SidebarNav ariaLabel="Vocabulary extension preview">
+                            <SidebarNavSection label="Product actions">
+                              <SidebarNavItem action="camera:moderate" href="#moderate" vocabularyPacks={[cameraVocabularyPack]} />
+                            </SidebarNavSection>
+                          </SidebarNav>
+                        </Paper>
+                      </SimpleGrid>
+                    </Stack>
+                  </Paper>
+                </FormSection>
                 
                 <Stack gap="md">
                   {(Object.keys(GdsVocabulary) as SemanticAction[]).map(action => (

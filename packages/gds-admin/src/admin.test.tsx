@@ -233,4 +233,24 @@ describe('@doneisbetter/gds-admin', () => {
     expect(screen.getByRole('button', { name: 'Save changes' })).toBeInTheDocument();
     expect(screen.getByText('Preview panel')).toBeInTheDocument();
   });
+
+  it('supports semantic action-bar orchestration through the admin content-ops wrapper', () => {
+    renderWithGds(
+      <ContentOpsActionBar
+        saving
+        status="Publishing in progress"
+        actions={{
+          primary: { action: 'save' },
+          secondary: [{ action: 'cancel' }],
+          iconOnly: [{ action: 'settings' }],
+        }}
+      />,
+    );
+
+    expect(screen.getByText('Saving')).toBeInTheDocument();
+    expect(screen.getByText('Publishing in progress')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Settings' })).toBeInTheDocument();
+  });
 });
