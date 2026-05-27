@@ -71,6 +71,12 @@ describe('@doneisbetter/gds-core', () => {
     expect(document.querySelector('.mantine-Loader-root')).toBeInTheDocument();
   });
 
+  it('supports prerender label-only semantic buttons for static pages', () => {
+    renderWithGds(<SemanticButton action="save" prerenderLabelOnly />);
+
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+  });
+
   it('renders choice chips as neutral links and toggle buttons', async () => {
     const user = userEvent.setup();
     const onSelect = vi.fn();

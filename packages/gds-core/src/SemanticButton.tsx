@@ -13,17 +13,25 @@ export interface SemanticButtonProps extends ButtonProps, Omit<React.ComponentPr
   loading?: boolean;
   feedbackState?: 'success' | 'error' | null;
   feedbackText?: string;
+  prerenderLabelOnly?: boolean;
 }
 
 /**
  * SemanticButton strictly enforces ubiquitous language and standardized iconography.
  * Developers cannot pass arbitrary text or icons; they must use a semantic action key.
  */
-export function SemanticButton({ action, loading, feedbackState, feedbackText, ...props }: SemanticButtonProps) {
+export function SemanticButton({ action, loading, feedbackState, feedbackText, prerenderLabelOnly = true, ...props }: SemanticButtonProps) {
   const { t } = useGdsTranslation();
   const config = GdsVocabulary[action];
-  
+
+  const [mounted, setMounted] = useState(!prerenderLabelOnly);
   const [internalFeedback, setInternalFeedback] = useState<'success' | 'error' | null>(null);
+
+  useEffect(() => {
+    if (prerenderLabelOnly) {
+      setMounted(true);
+    }
+  }, [prerenderLabelOnly]);
 
   useEffect(() => {
     if (feedbackState) {
@@ -36,6 +44,15 @@ export function SemanticButton({ action, loading, feedbackState, feedbackText, .
   let Icon = config.icon;
   let label = getSemanticActionLabel(action, t);
   let color = props.color;
+
+  if (!mounted) {
+    const { leftSection, ...buttonProps } = props;
+    return (
+      <Button loading={loading} color={color} {...buttonProps}>
+        {getSemanticActionLabel(action)}
+      </Button>
+    );
+  }
 
   if (internalFeedback === 'success') {
     const defaultFeedback = ('feedback' in config && config.feedback) 

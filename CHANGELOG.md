@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 2.6.3 - 2026-05-27
+
+- Added `showGdsNotification(...)` to `@doneisbetter/gds-theme/client` as the canonical semantic notification helper for consumers already governed by the shared provider stack.
+- Enhanced `AuthShell` with `headerActions` so products can place theme toggles or other small auth-entry controls without rebuilding the shell locally.
+- Enhanced `PageHeader` to accept `subtitle` as an alias for `description`, reducing consumer-only adapter code.
+- Hardened `SemanticButton` to use the label-first prerender path by default, removing the need for client repos to carry their own hydration-safe semantic-button wrappers.
+
 ## 2.6.2 - 2026-05-27
 
 - Expanded shared Mantine peer support to include `^9.0.0` across the runtime packages and verified fresh packed-consumer installs against Mantine `9.2.1`, React `19.2.0`, and Next `15.5.18`.

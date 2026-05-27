@@ -2,3 +2,5 @@ export { gdsTheme, gdsDarkPublicTheme, gdsFlatSurfaceTheme, gdsEditorialPublicTh
 export { GdsProvider } from './GdsProvider';
 export type { GdsProviderProps } from './GdsProvider';
 export { useGdsTranslation } from './i18n';
+export { showGdsNotification } from './notifications';
+export type { GdsNotificationOptions, GdsNotificationTone } from './notifications';

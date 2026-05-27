@@ -5,17 +5,23 @@ export interface AuthShellProps {
   title: string;
   description?: ReactNode;
   brand?: ReactNode;
+  headerActions?: ReactNode;
   footer?: ReactNode;
   helper?: ReactNode;
   children: ReactNode;
 }
 
-export function AuthShell({ title, description, brand, footer, helper, children }: AuthShellProps) {
+export function AuthShell({ title, description, brand, headerActions, footer, helper, children }: AuthShellProps) {
   return (
     <Box py={{ base: 'xl', md: '4rem' }}>
       <Container size="xs">
         <Stack gap="xl">
-          {brand ? <Group justify="center">{brand}</Group> : null}
+          {brand || headerActions ? (
+            <Group justify={brand && headerActions ? 'space-between' : 'center'} align="center">
+              {brand ? <Box>{brand}</Box> : <Box />}
+              {headerActions ? <Group gap="sm">{headerActions}</Group> : null}
+            </Group>
+          ) : null}
           <Card withBorder radius="lg" padding="xl">
             <Stack gap="lg">
               <Stack gap="xs" ta="center">

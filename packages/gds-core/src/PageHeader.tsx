@@ -6,6 +6,7 @@ export type PageHeaderEyebrowVariant = 'neutral' | 'ornamental';
 export interface PageHeaderProps {
   title: string;
   description?: string;
+  subtitle?: string;
   eyebrow?: string;
   actions?: React.ReactNode;
   eyebrowVariant?: PageHeaderEyebrowVariant;
@@ -14,10 +15,13 @@ export interface PageHeaderProps {
 export function PageHeader({
   title,
   description,
+  subtitle,
   eyebrow,
   actions,
   eyebrowVariant = 'neutral',
 }: PageHeaderProps) {
+  const resolvedDescription = description ?? subtitle;
+
   const eyebrowProps =
     eyebrowVariant === 'ornamental'
       ? { tt: 'uppercase' as const, style: { letterSpacing: '0.12em' } }
@@ -32,9 +36,9 @@ export function PageHeader({
           </Text>
         )}
         <Title order={1}>{title}</Title>
-        {description && (
+        {resolvedDescription && (
           <Text c="dimmed" maw={720}>
-            {description}
+            {resolvedDescription}
           </Text>
         )}
       </Stack>

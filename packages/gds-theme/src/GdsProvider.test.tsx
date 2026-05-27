@@ -6,6 +6,7 @@ import { openConfirmModal } from '@mantine/modals';
 import { Button } from '@mantine/core';
 import { renderWithGds } from '../../../test-utils/render';
 import { GdsProvider } from './GdsProvider';
+import { showGdsNotification } from './notifications';
 import { createPublicBrandTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
 
 function ProviderConsumer() {
@@ -33,6 +34,15 @@ describe('GdsProvider', () => {
     await user.click(screen.getByRole('button', { name: 'Show modal' }));
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
     expect(screen.getByText('Shared modal')).toBeInTheDocument();
+  });
+
+  it('exposes a shared semantic notification helper', async () => {
+    const user = userEvent.setup();
+
+    renderWithGds(<Button onClick={() => showGdsNotification({ message: 'Saved through helper', tone: 'success' })}>Helper notification</Button>);
+
+    await user.click(screen.getByRole('button', { name: 'Helper notification' }));
+    expect(await screen.findByText('Saved through helper')).toBeInTheDocument();
   });
 
   it('sets rtl direction for rtl locales', () => {
