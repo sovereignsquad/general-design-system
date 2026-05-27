@@ -4,7 +4,7 @@ Status: Active SSOT
 Version: 2.6.3
 Last updated: 2026-05-27
 
-This guide is the canonical consumer setup path for `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
+This guide is the canonical consumer setup path for the public umbrella package `@doneisbetter/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
 ## 1. Supported consumer baseline
 
@@ -19,10 +19,10 @@ See [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system
 
 ## 2. Canonical install commands
 
-Runtime packages:
+Preferred runtime package:
 
 ```bash
-npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-admin
+npm install @doneisbetter/gds
 ```
 
 Governance packages:
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 // app/providers.tsx
 'use client';
 
-import { GdsProvider } from '@doneisbetter/gds-theme/client';
+import { GdsProvider } from '@doneisbetter/gds/client';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return <GdsProvider>{children}</GdsProvider>;
@@ -76,7 +76,7 @@ Mount one provider at the application root:
 ```tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { GdsProvider } from '@doneisbetter/gds-theme/client';
+import { GdsProvider } from '@doneisbetter/gds/client';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -90,14 +90,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 Use the package lanes intentionally:
 
-- `@doneisbetter/gds-theme` for the provider and shared theme ownership
-- `@doneisbetter/gds-core` for shared/public/editorial/discovery/detail primitives
-- `@doneisbetter/gds-admin` for authenticated operational shells and admin scaffolds
+- `@doneisbetter/gds` for the simplest public install path across provider, public, discovery, detail, and admin primitives
+- `@doneisbetter/gds-theme` for consumers that want only the provider/theme lane
+- `@doneisbetter/gds-core` for consumers that want only shared/public/editorial/discovery/detail primitives
+- `@doneisbetter/gds-admin` for consumers that want only authenticated operational shells and admin scaffolds
 
 Use the runtime entrypoints intentionally:
 
-- `@doneisbetter/gds-*/server` for non-interactive structural surfaces
-- `@doneisbetter/gds-*/client` for interactive components and provider mounting
+- `@doneisbetter/gds/server` for non-interactive structural surfaces
+- `@doneisbetter/gds/client` for interactive components and provider mounting
+- granular `@doneisbetter/gds-*/server` and `@doneisbetter/gds-*/client` lanes remain supported when needed
 
 Prefer canonical primitives over local reinvention:
 

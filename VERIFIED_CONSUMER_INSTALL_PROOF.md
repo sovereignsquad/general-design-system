@@ -19,6 +19,7 @@ Current repository line: `2.6.3`
   - `9.2.1`
 - Router style: App Router reference fixture
 - Package line:
+  - `@doneisbetter/gds`
   - `@doneisbetter/gds-theme`
   - `@doneisbetter/gds-core`
   - `@doneisbetter/gds-admin`
@@ -30,18 +31,16 @@ Current repository line: `2.6.3`
 
 ### 1. Packed consumer install smoke
 
-`npm run verify:mantine` packs the three runtime packages, installs them into clean temporary consumers, and verifies TypeScript compatibility against:
+`npm run verify:mantine` packs the umbrella package plus the three runtime packages, installs them into clean temporary consumers, and verifies TypeScript compatibility against:
 
 - Next `15.5.18`
 - React `19.2.0`
 - Mantine `8.3.6`
 - Mantine `9.2.1`
 
-The smoke fixture imports and type-checks:
+The smoke fixture imports and type-checks the public umbrella entrypoint:
 
-- `@doneisbetter/gds-theme/client`
-- `@doneisbetter/gds-core/client`
-- `@doneisbetter/gds-admin/client`
+- `@doneisbetter/gds/client`
 
 This proves that the package contents, peer ranges, and export maps are internally coherent for the declared Mantine 8 and Mantine 9 compatibility lines.
 
@@ -89,7 +88,7 @@ That means the current verified statement is:
 Canonical end-state install source:
 
 ```bash
-npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-admin
+npm install @doneisbetter/gds
 npm install -D @doneisbetter/gds-eslint-config @doneisbetter/gds-compliance
 ```
 

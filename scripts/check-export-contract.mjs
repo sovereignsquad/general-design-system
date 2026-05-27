@@ -7,6 +7,7 @@ const packages = [
   'packages/gds-theme',
   'packages/gds-core',
   'packages/gds-admin',
+  'packages/gds',
 ];
 
 const mismatches = [];

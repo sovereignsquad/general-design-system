@@ -8,6 +8,7 @@ const packagePaths = [
   'packages/gds-theme/package.json',
   'packages/gds-core/package.json',
   'packages/gds-admin/package.json',
+  'packages/gds/package.json',
   'packages/gds-eslint-config/package.json',
   'packages/gds-compliance/package.json',
 ];

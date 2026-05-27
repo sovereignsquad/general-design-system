@@ -27,7 +27,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
 - **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
 - **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
-- **Adoption & Migration Playbook**: [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) — The canonical step-by-step path from local mirrors or legacy UI systems to direct `@doneisbetter/gds-*` package consumption.
+- **Adoption & Migration Playbook**: [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) — The canonical step-by-step path from local mirrors or legacy UI systems to direct `@doneisbetter/gds` or granular `@doneisbetter/gds-*` package consumption.
 - **Compatibility & Releases**: [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) — Supported Mantine/React/Next ranges, subpath exports, version alignment, and upgrade expectations.
 - **Installation Guide**: [INSTALLATION_GUIDE.md](/Users/Shared/Projects/general-design-system/INSTALLATION_GUIDE.md) — The canonical production install path, runtime bootstrap, verification sequence, and common setup mistakes for consumers.
 - **Release Publish Runbook**: [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md) — Authenticated npm publish flow, dry-run command, and recovery guidance.
@@ -41,6 +41,8 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Operational Files**: `CONTRIBUTING.md` and `CHANGELOG.md` — Shared rules for contributing to the design system and its versioned history.
 - **Templates**: `TEMPLATES/` — Starter templates for your project's theme, providers, shell, and thin wrappers.
 - **Machine-readable Contracts**: `compatibility.matrix.json`, `schemas/gds-adoption.schema.json`, and `TEMPLATES/gds-adoption.json.template` — shared compatibility, adoption, and validation contracts.
+- **Primary Runtime Package**: `@doneisbetter/gds` — the public umbrella install for most consumers, re-exporting the theme, core, and admin surface families through root, `client`, and `server` entrypoints.
+- **Granular Runtime Packages**: `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin` — direct lanes for consumers that want tighter dependency boundaries or package-by-package upgrades.
 - **Tooling Packages**: `@doneisbetter/gds-eslint-config` and `@doneisbetter/gds-compliance` — shared lint and compliance enforcement for adopting repos.
 - **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@doneisbetter/gds-core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
 - **Public, Discovery, and Detail Surface Primitives**: `AccentPanel`, `ChoiceChip`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `PublicBrandFooter`, `DiscoveryShell`, `SidebarNav`, `ActionBar`, `ListingCard`, `MapPanel`, `DetailProfileShell`, `PublicFlowShell`, `PlaybackSurface`, `PublicFoodCard`, `FoodMenuSection`, and the enhanced `PublicShell` / `PublicProductCard` contracts from `@doneisbetter/gds-core` — canonical public/editorial contracts for accent-safe surfaces, sidebar-first shells, governed navigation and actions, unified discovery cards, sanctioned embed panels, detail/profile composition, public staged flows, kiosk/playback surfaces, food/menu presentation, consumer dashboard grouping, operational framing, and localized media-first card states.
@@ -66,7 +68,7 @@ Product repositories may **not** redefine:
 - responsive strategy
 - accessibility baseline
 - UX meaning of canonical controls
-- package-consumption and migration authority once the direct `@doneisbetter/gds-*` path is active
+- package-consumption and migration authority once the direct `@doneisbetter/gds` or granular `@doneisbetter/gds-*` path is active
 
 **If a project-local UI document conflicts with this directory, this directory wins.**
 
@@ -87,17 +89,17 @@ Required repository behavior:
 - `npm run verify:references` — validates the reference consumers and their adoption manifests
 - `npm run verify:mantine` — packs the packages and validates clean Mantine 8.3 and 9.2 / React 19 consumer install smoke
 - `npm run publish:dry-run` — validates the authenticated package publish sequence without uploading artifacts
-- `npm run publish:npm` — publishes the five public GDS packages from an authenticated npm environment
-- `npm run verify:published` — checks the registry until all five packages resolve to the current `VERSION`
+- `npm run publish:npm` — publishes the six public GDS packages from an authenticated npm environment
+- `npm run verify:published` — checks the registry until all six packages resolve to the current `VERSION`
 - `npm run pack:release` — creates public tarballs, checksums, and install instructions for the fallback GitHub release-bundle distribution path
-- `npm run build` — builds `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, `@doneisbetter/gds-admin`, and the playground in dependency order
+- `npm run build` — builds `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, `@doneisbetter/gds-admin`, `@doneisbetter/gds`, and the playground in dependency order
 - `node scripts/codemods/run-codemod.mjs <transform> <path>` — runs the reference migration codemods in dry-run mode by default
 - `npm install` — on supported macOS and Linux x64 environments, the root optional native bindings now bootstrap the local Vite/tsup build layer without extra manual install steps
 - `npm run lint` — runs the playground lint target
 - `npm run test:run` — runs the shared jsdom component test suite for the workspace packages
 
 The shared package validation path is now expected to cover:
-- provider composition in `@doneisbetter/gds-theme`
+- provider composition in `@doneisbetter/gds-theme` and `@doneisbetter/gds`
 - behavior coverage in `@doneisbetter/gds-core` and `@doneisbetter/gds-admin`
 - i18n-safe shared copy
 - reference consumer manifests and fixture validation

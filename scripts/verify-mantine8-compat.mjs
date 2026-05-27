@@ -12,7 +12,7 @@ const appDir = join(workspaceRoot, 'app');
 mkdirSync(packsDir, { recursive: true });
 mkdirSync(appDir, { recursive: true });
 
-const workspaces = ['@doneisbetter/gds-theme', '@doneisbetter/gds-core', '@doneisbetter/gds-admin'];
+const workspaces = ['@doneisbetter/gds-theme', '@doneisbetter/gds-core', '@doneisbetter/gds-admin', '@doneisbetter/gds'];
 const matrices = [
   {
     label: 'Mantine 8 / React 19',
@@ -55,9 +55,7 @@ writeFileSync(
 writeFileSync(
   join(appDir, 'index.tsx'),
   `import React from 'react';
-import { GdsProvider } from '@doneisbetter/gds-theme/client';
-import { BrowseSurface, EditorialHero, MediaField } from '@doneisbetter/gds-core/client';
-import { AppShell, PageHeader, ResponsiveDataView } from '@doneisbetter/gds-admin/client';
+import { AppShell, BrowseSurface, EditorialHero, GdsProvider, MediaField, PageHeader, ResponsiveDataView } from '@doneisbetter/gds/client';
 
 const demo = (
   <GdsProvider>
@@ -95,6 +93,7 @@ try {
             build: 'tsc --noEmit',
           },
           dependencies: {
+            '@doneisbetter/gds': `file:../packs/doneisbetter-gds-${version}.tgz`,
             '@doneisbetter/gds-theme': `file:../packs/doneisbetter-gds-theme-${version}.tgz`,
             '@doneisbetter/gds-core': `file:../packs/doneisbetter-gds-core-${version}.tgz`,
             '@doneisbetter/gds-admin': `file:../packs/doneisbetter-gds-admin-${version}.tgz`,

@@ -1,0 +1,72 @@
+{
+  "name": "@doneisbetter/gds",
+  "version": "2.6.3",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "client": ["dist/client.d.ts"],
+      "server": ["dist/server.d.ts"]
+    }
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sovereignsquad/general-design-system.git",
+    "directory": "packages/gds"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.mjs",
+      "require": "./dist/client.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.mjs",
+      "require": "./dist/server.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "@doneisbetter/gds-admin": "^2.6.3",
+    "@doneisbetter/gds-core": "^2.6.3",
+    "@doneisbetter/gds-theme": "^2.6.3"
+  },
+  "peerDependencies": {
+    "@mantine/core": "^7.9.0 || ^8.3.0 || ^9.0.0",
+    "@mantine/hooks": "^7.9.0 || ^8.3.0 || ^9.0.0",
+    "@mantine/modals": "^7.9.0 || ^8.3.0 || ^9.0.0",
+    "@mantine/notifications": "^7.9.0 || ^8.3.0 || ^9.0.0",
+    "@tabler/icons-react": "^3.5.0",
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@doneisbetter/gds-admin": "*",
+    "@doneisbetter/gds-core": "*",
+    "@doneisbetter/gds-theme": "*",
+    "@mantine/core": "^7.9.0",
+    "@mantine/hooks": "^7.9.0",
+    "@mantine/modals": "^7.9.0",
+    "@mantine/notifications": "^7.9.0",
+    "@tabler/icons-react": "^3.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

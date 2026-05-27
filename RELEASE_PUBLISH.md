@@ -1,7 +1,7 @@
 # Release Publish Runbook
 
 Status: Active SSOT
-Version: 2.6.2
+Version: 2.6.3
 Last updated: 2026-05-27
 
 This runbook defines the authenticated package-publish flow for the General Design System.
@@ -11,13 +11,15 @@ Canonical registry target: **npm**
 Current registry reality:
 
 - canonical install source: npm
-- latest published baseline: `2.6.1`
-- current repository line: `2.6.2`
+- latest published baseline: `2.6.3`
+- current repository line: `2.6.3`
 
 GitHub release assets remain an optional fallback distribution path for unpublished release candidates:
 
 - public release assets attached to tag `gds-v<VERSION>`
 - generated from `npm run pack:release`
+
+`@doneisbetter/gds` is the preferred public npm convenience package. The release-bundle fallback remains split-package oriented because the umbrella package depends on the granular runtime packages.
 
 ## Preconditions
 
@@ -41,6 +43,7 @@ npm adduser
 
 ## Publishable packages
 
+- `@doneisbetter/gds`
 - `@doneisbetter/gds-theme`
 - `@doneisbetter/gds-core`
 - `@doneisbetter/gds-admin`
@@ -95,8 +98,9 @@ npm run verify:published
 1. `@doneisbetter/gds-theme`
 2. `@doneisbetter/gds-core`
 3. `@doneisbetter/gds-admin`
-4. `@doneisbetter/gds-eslint-config`
-5. `@doneisbetter/gds-compliance`
+4. `@doneisbetter/gds`
+5. `@doneisbetter/gds-eslint-config`
+6. `@doneisbetter/gds-compliance`
 
 ## Post-publish verification
 
@@ -126,7 +130,7 @@ Workflow behavior:
 1. runs `npm ci --omit=optional`
 2. installs Linux-native `rollup` and `rolldown` bindings explicitly
 3. runs `npm run verify:release`
-4. publishes all five packages
+4. publishes all six packages
 5. polls the registry until the release line is visible
 
 The bundle workflow:

@@ -79,7 +79,7 @@ const localesMap: Record<string, { label: string, messages: Record<string, strin
   hu: { label: 'Magyar', messages: hu },
 };
 
-const installCode = `npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-admin
+const installCode = `npm install @doneisbetter/gds
 npm install -D @doneisbetter/gds-eslint-config @doneisbetter/gds-compliance`;
 
 const peerCode = `npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`;
@@ -100,7 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 // app/providers.tsx
 'use client';
 
-import { GdsProvider } from '@doneisbetter/gds-theme/client';
+import { GdsProvider } from '@doneisbetter/gds/client';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return <GdsProvider>{children}</GdsProvider>;
@@ -121,8 +121,7 @@ node scripts/codemods/run-codemod.mjs action-bar ./src
 node scripts/codemods/run-codemod.mjs listing-card ./src`;
 const featureRequestRecipient = 'moldovancsaba+general.design.system@gmail.com';
 
-const consumerUsageCode = `import { DiscoveryShell, ActionBar, ListingCard } from '@doneisbetter/gds-core/client';
-import { GdsProvider } from '@doneisbetter/gds-theme/client';
+const consumerUsageCode = `import { DiscoveryShell, ActionBar, ListingCard, GdsProvider } from '@doneisbetter/gds/client';
 
 export function App() {
   return (
@@ -637,7 +636,7 @@ function PlaygroundContent() {
                   <Paper withBorder p="lg" radius="xl">
                     <Stack gap="sm">
                       <Title order={3}>Authority</Title>
-                      <Text size="sm" c="dimmed">Use `@doneisbetter/gds-*` packages directly. Do not use the old `@gds/*` names, vendored mirrors, or sibling `file:` links in CI or hosted builds.</Text>
+                      <Text size="sm" c="dimmed">Use `@doneisbetter/gds` as the default public install path. Keep the granular `@doneisbetter/gds-*` packages for advanced consumers only. Do not use the old `@gds/*` names, vendored mirrors, or sibling `file:` links in CI or hosted builds.</Text>
                     </Stack>
                   </Paper>
                   <Paper withBorder p="lg" radius="xl">
@@ -658,7 +657,7 @@ function PlaygroundContent() {
                   <Paper withBorder p="lg" radius="xl">
                     <List spacing="sm" size="sm">
                       <List.Item>Use GDS tokens, spacing, typography, and state patterns instead of page-local equivalents.</List.Item>
-                      <List.Item>Use `@doneisbetter/gds-core` for public/shared primitives and `@doneisbetter/gds-admin` for admin/operational surfaces.</List.Item>
+                      <List.Item>Use `@doneisbetter/gds` as the default runtime package, or split into `@doneisbetter/gds-core` and `@doneisbetter/gds-admin` only when package-level separation is intentional.</List.Item>
                       <List.Item>Use canonical primitives when the surface exists: `DiscoveryShell`, `ActionBar`, `ListingCard`, `MapPanel`, `DetailProfileShell`.</List.Item>
                       <List.Item>Document all exceptions explicitly in the adoption manifest with owner and review date.</List.Item>
                       <List.Item>Run `gds-compliance` and the shared ESLint config in CI before merging.</List.Item>

@@ -4,7 +4,7 @@ Status: Active SSOT
 Version: 2.6.3
 Last updated: 2026-05-27
 
-This document defines the supported package/runtime contract for `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
+This document defines the supported package/runtime contract for the umbrella package `@doneisbetter/gds` and the granular runtime packages `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
 
 ## Supported matrix
 
@@ -22,7 +22,7 @@ The machine-readable authority for the supported lines lives in [compatibility.m
 
 Canonical install path:
 
-1. consume `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin` as installable packages
+1. consume `@doneisbetter/gds` as the preferred public install path, or consume `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin` directly when package-level separation is intentional
 2. keep Mantine, React, and React DOM aligned to the compatibility matrix
 3. avoid sibling-repo `file:` links for production CI/Vercel flows unless explicitly documented as temporary local development strategy
 
@@ -30,7 +30,7 @@ Canonical install path:
 
 For hosted CI and Vercel builds, the intended end state is:
 
-1. install `@doneisbetter/gds-*` from a registry
+1. install `@doneisbetter/gds` from a registry for the simplest path, or granular `@doneisbetter/gds-*` packages when a consumer needs tighter dependency boundaries
 2. keep the consumer repo independent of a sibling GDS checkout
 3. pin the consumed GDS version explicitly in the consumer repo
 
@@ -117,10 +117,12 @@ Every package now exposes:
 
 Recommended usage:
 
-- use `@doneisbetter/gds-theme/server` for `gdsTheme` and `extendGdsTheme`
+- use `@doneisbetter/gds/server` for the simplest server-safe umbrella path
+- use `@doneisbetter/gds-theme/server` for `gdsTheme` and `extendGdsTheme` when a consumer intentionally imports granular lanes
 - use `@doneisbetter/gds-theme/server` `withGdsMotion` only when a product explicitly opts into shared motion defaults
 - use `@doneisbetter/gds-core/server` or `@doneisbetter/gds-admin/server` when a server-rendered layout only needs structural primitives
-- use `@doneisbetter/gds-*/client` for hook-driven or clearly interactive surfaces
+- use `@doneisbetter/gds/client` for the simplest client-safe umbrella path
+- use granular `@doneisbetter/gds-*/client` for hook-driven or clearly interactive surfaces when package-level separation matters
 - release validation now verifies that published `server` entrypoints remain free of client-only module drift and that documented export targets exist in built `dist` output
 
 ## Next.js App Router consumer path
@@ -178,20 +180,20 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 }
 ```
 
-This is the intended stable consumer path for products that want direct package adoption without rebuilding GDS internals locally.
+This is the intended stable consumer path for products that want direct package adoption without rebuilding GDS internals locally. The umbrella `@doneisbetter/gds` package is the preferred public install target; the granular package examples remain supported when a consumer wants stricter package boundaries.
 
 ## Canonical bootstrap notes
 
 - `app/layout.tsx` should own `ColorSchemeScript`, root `lang`, and root `dir`.
 - `app/providers.tsx` should be the only client boundary that mounts `GdsProvider`.
 - non-interactive public/editorial primitives like `PublicShell`, `DocsPageShell`, `AccentPanel`, `EditorialHero`, `FeatureBand`, and `PublicBrandFooter` may render from `@doneisbetter/gds-core/server`.
-- interactive controls like `ThemeToggle`, `SemanticButton`, `UploadDropzone`, and `ResponsiveDataView` belong on `@doneisbetter/gds-*/client`.
+- interactive controls like `ThemeToggle`, `SemanticButton`, `UploadDropzone`, and `ResponsiveDataView` belong on `@doneisbetter/gds/client` or the granular `@doneisbetter/gds-*/client` lanes.
 
 ## Canonical migration note
 
 When a product currently uses local mirrored `src/gds/gds-*` contracts or a sibling checkout, the supported path is:
 
-1. install published `@doneisbetter/gds-*` packages
+1. install the published `@doneisbetter/gds` umbrella package or the granular `@doneisbetter/gds-*` packages
 2. move root provider/gds-theme imports to package entrypoints
 3. replace mirrored contract imports family-by-family
 4. keep the local manifest and compliance config active until all mirrors are deleted
@@ -239,7 +241,7 @@ These fixtures are verified through `npm run verify:references` and act as the l
 
 ## Compatibility evidence
 
-- `npm run verify:mantine` packs `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`, installs them into clean temporary consumers using Mantine `8.3.6` and `9.2.1`, React `19.2.0`, React DOM `19.2.0`, and Next `15.5.18`, then runs `tsc --noEmit`.
+- `npm run verify:mantine` packs `@doneisbetter/gds`, `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`, installs them into clean temporary consumers using Mantine `8.3.6` and `9.2.1`, React `19.2.0`, React DOM `19.2.0`, and Next `15.5.18`, then runs `tsc --noEmit`.
 - `apps/reference-next` remains the typed App Router reference fixture. `npm run build:app-router --workspace=reference-next` is kept as an explicit non-gating harness while the upstream `/404` / `/_error` prerender failure on Next `15.5.x` is still reproducible even against a trivial reference route tree.
 
 See [VERIFIED_CONSUMER_INSTALL_PROOF.md](/Users/Shared/Projects/general-design-system/VERIFIED_CONSUMER_INSTALL_PROOF.md) for the consumer-facing proof summary.

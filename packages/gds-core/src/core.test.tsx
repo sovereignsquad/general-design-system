@@ -779,7 +779,7 @@ describe('@doneisbetter/gds-core', () => {
           footerNext={{ label: 'Next: Providers', href: '/providers' }}
         >
           <DocsCodeBlock
-            code={`npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-admin
+            code={`npm install @doneisbetter/gds
 npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`}
             language="bash"
             title="Install"
@@ -794,7 +794,7 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     );
 
     expect(screen.getByRole('heading', { name: 'Install packages' })).toBeInTheDocument();
-    expect(screen.getByText(/npm install @doneisbetter\/gds-theme @doneisbetter\/gds-core @doneisbetter\/gds-admin/)).toBeInTheDocument();
+    expect(screen.getByText(/npm install @doneisbetter\/gds/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Copy code block' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Learn more' })).toBeInTheDocument();

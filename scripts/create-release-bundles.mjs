@@ -13,6 +13,7 @@ const workspaces = [
   { name: '@doneisbetter/gds-theme', dev: false },
   { name: '@doneisbetter/gds-core', dev: false },
   { name: '@doneisbetter/gds-admin', dev: false },
+  { name: '@doneisbetter/gds', dev: false, registryOnly: true },
   { name: '@doneisbetter/gds-eslint-config', dev: true },
   { name: '@doneisbetter/gds-compliance', dev: true },
 ];
@@ -50,12 +51,16 @@ for (const workspace of workspaces) {
     filename: packInfo.filename,
     sha256: checksum,
     installGroup: workspace.dev ? 'devDependency' : 'dependency',
+    registryOnly: workspace.registryOnly ?? false,
     url: `${manifest.releaseAssetBaseUrl}/${packInfo.filename}`,
   });
 }
 
-const runtimePackages = manifest.packages.filter((pkg) => pkg.installGroup === 'dependency');
+const runtimePackages = manifest.packages.filter(
+  (pkg) => pkg.installGroup === 'dependency' && !pkg.registryOnly,
+);
 const devPackages = manifest.packages.filter((pkg) => pkg.installGroup === 'devDependency');
+const registryOnlyPackages = manifest.packages.filter((pkg) => pkg.registryOnly);
 
 const installGuide = `# Temporary Release Bundle Install (${version})
 
@@ -68,6 +73,9 @@ ${runtimePackages.map((pkg) => `- ${pkg.name}: ${pkg.url}`).join('\n')}
 
 Dev packages:
 ${devPackages.map((pkg) => `- ${pkg.name}: ${pkg.url}`).join('\n')}
+
+Registry-only convenience packages:
+${registryOnlyPackages.map((pkg) => `- ${pkg.name}: publish to npm for the single-package install path`).join('\n')}
 
 Install commands:
 
