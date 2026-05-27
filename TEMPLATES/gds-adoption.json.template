@@ -25,17 +25,63 @@
   "approvedExceptions": [
     {
       "surface": "Map embed",
+      "category": "package-coverage-gap",
+      "scope": [
+        "src/features/venues/components/VenueMap.tsx"
+      ],
       "reason": "Third-party map engine remains outside canonical GDS scope.",
+      "allowedImplementation": [
+        "MapPanel with a sanctioned iframe or map-runtime slot"
+      ],
+      "mustStillUse": [
+        "GDS spacing tokens",
+        "GDS accessibility labels",
+        "GDS loading, empty, and error states"
+      ],
+      "mustNotDo": [
+        "Create a local replacement shell",
+        "Bypass accessibility labeling",
+        "Use free-form raw layout CSS as a parallel design system"
+      ],
+      "a11yRequirements": [
+        "Keyboard reachable fallback actions",
+        "Accessible title for the embedded runtime"
+      ],
+      "testingRequirements": [
+        "Empty and provider-error states covered in component tests"
+      ],
+      "observabilityRequirements": [
+        "Recoverable provider failures visible to operators"
+      ],
       "owner": "platform-ui",
-      "reviewDate": "2026-05-25"
+      "reviewDate": "2026-05-27",
+      "exitCondition": "Replace with the canonical GDS primitive once the package line covers this surface directly.",
+      "status": "temporary"
     },
     {
       "surface": "Approved icon exception",
+      "category": "migration-bridge",
+      "scope": [
+        "src/icons/legacy/*.tsx"
+      ],
       "dependency": "lucide-react",
       "allowImports": ["lucide-react"],
       "reason": "Consumer keeps a reviewed icon exception while remaining on shared lint/gds-compliance tooling.",
+      "allowedImplementation": [
+        "Imports confined to the reviewed bridge layer"
+      ],
+      "mustStillUse": [
+        "GDS action semantics",
+        "GDS spacing and color tokens"
+      ],
+      "mustNotDo": [
+        "Spread lucide-react imports into feature UI",
+        "Use the bridge as a permanent icon policy"
+      ],
       "owner": "platform-ui",
-      "reviewDate": "2026-05-25"
+      "reviewDate": "2026-05-27",
+      "exitCondition": "Remove once the consumer has finished the icon migration to the canonical GDS vocabulary.",
+      "status": "temporary"
     }
   ],
   "compliance": {

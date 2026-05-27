@@ -78,6 +78,20 @@
         "required": ["surface", "reason", "owner", "reviewDate"],
         "properties": {
           "surface": { "type": "string", "minLength": 1 },
+          "category": {
+            "type": "string",
+            "enum": [
+              "runtime-constraint",
+              "product-authored-experience",
+              "package-coverage-gap",
+              "migration-bridge"
+            ]
+          },
+          "scope": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
           "dependency": { "type": "string", "minLength": 1 },
           "allowImports": {
             "type": "array",
@@ -85,10 +99,45 @@
             "uniqueItems": true
           },
           "reason": { "type": "string", "minLength": 1 },
+          "allowedImplementation": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "mustStillUse": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "mustNotDo": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "a11yRequirements": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "testingRequirements": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "observabilityRequirements": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
           "owner": { "type": "string", "minLength": 1 },
           "reviewDate": {
             "type": "string",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "exitCondition": { "type": "string", "minLength": 1 },
+          "status": {
+            "type": "string",
+            "enum": ["temporary", "approved", "deprecated", "removed"]
           },
           "removeBy": {
             "type": "string",

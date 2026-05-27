@@ -84,4 +84,63 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
     expect(report.findings.filter((finding) => finding.rule.startsWith('strict.'))).toHaveLength(0);
   });
+
+  it('fails legacy approved exceptions that do not use the canonical exception contract', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.3',
+        productArchetype: 'public',
+        requiredContracts: ['PublicShell'],
+        localAdapters: [],
+        approvedExceptions: [
+          {
+            surface: 'Map embed',
+            reason: 'Third-party map engine remains outside canonical GDS scope.',
+            owner: 'platform-ui',
+            reviewDate: '2026-05-27',
+          },
+        ],
+        migrationStatus: 'partial',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-27',
+      }, null, 2),
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('exception-required-fields');
+  });
+
+  it('fails approved exceptions that use over-broad scope patterns', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.3',
+        productArchetype: 'hybrid',
+        requiredContracts: ['DiscoveryShell'],
+        localAdapters: [],
+        approvedExceptions: [
+          {
+            surface: 'Playback runtime',
+            category: 'runtime-constraint',
+            scope: ['src/**'],
+            reason: 'Playback still depends on a runtime outside canonical package scope.',
+            allowedImplementation: ['PlaybackSurface with bounded runtime slot'],
+            mustStillUse: ['GDS layout tokens'],
+            mustNotDo: ['Replace the GDS public shell'],
+            owner: 'platform-ui',
+            reviewDate: '2026-05-27',
+            exitCondition: 'Replace once playback runtime can move into the package line.',
+            status: 'temporary',
+          },
+        ],
+        migrationStatus: 'partial',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-27',
+      }, null, 2),
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('exception-broad-scope');
+  });
 });

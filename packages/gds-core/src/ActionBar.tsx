@@ -6,6 +6,7 @@ import type { GdsVocabularyPack, SemanticActionId } from './vocabulary';
 export interface ActionBarAction extends Omit<ButtonProps, 'leftSection' | 'children'> {
   action: SemanticActionId;
   ariaLabel?: string;
+  onClick?: () => void;
 }
 
 export interface ActionBarIconAction {

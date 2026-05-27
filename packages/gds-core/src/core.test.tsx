@@ -23,6 +23,7 @@ import { EmptyState } from './EmptyState';
 import { EditorialCard } from './EditorialCard';
 import { EditorialHero } from './EditorialHero';
 import { FeatureBand } from './FeatureBand';
+import { FoodMenuSection } from './FoodMenuSection';
 import { GameBoardTile } from './GameBoardTile';
 import { ListingCard } from './ListingCard';
 import { MapPanel } from './MapPanel';
@@ -30,6 +31,9 @@ import { MediaField } from './MediaField';
 import { MetricCard } from './MetricCard';
 import { PageHeader } from './PageHeader';
 import { PlaceholderPanel } from './PlaceholderPanel';
+import { PlaybackSurface } from './PlaybackSurface';
+import { PublicFlowShell } from './PublicFlowShell';
+import { PublicFoodCard } from './PublicFoodCard';
 import { PublicBrandFooter } from './PublicBrandFooter';
 import { PublicProductCard } from './PublicProductCard';
 import { PublicNav } from './PublicNav';
@@ -304,6 +308,83 @@ describe('@doneisbetter/gds-core', () => {
     expect(onShare).toHaveBeenCalledTimes(1);
   });
 
+  it('renders the public food card contract with food-specific helper and availability states', () => {
+    renderWithGds(
+      <>
+        <PublicFoodCard
+          title="Roasted tomato soup"
+          description="Fresh basil, sour cream, and house bread."
+          price="EUR 7.50"
+          priceNote="Per portion"
+          state="limited"
+          helperText="Preorder by Friday 18:00"
+          pickupNote="Saturday 09:00-12:00"
+          freshnessNote="Best served warm"
+          quantityHint="12 portions left"
+          markers={[
+            { id: 'vegetarian', label: 'Vegetarian', tone: 'positive' },
+            { id: 'limited', label: 'Weekly batch', tone: 'warning' },
+          ]}
+          metadata={[
+            { id: 'allergens', label: 'Contains dairy' },
+            { id: 'portion', label: '500 ml' },
+          ]}
+          primaryAction={<button type="button">Preorder</button>}
+        />
+        <PublicFoodCard
+          title="Pistachio morning bun"
+          state="sold-out"
+          primaryAction={<button type="button">Add to order</button>}
+        />
+      </>,
+    );
+
+    expect(screen.getByText('Roasted tomato soup')).toBeInTheDocument();
+    expect(screen.getByText('EUR 7.50')).toBeInTheDocument();
+    expect(screen.getByText('Preorder by Friday 18:00')).toBeInTheDocument();
+    expect(screen.getByText('Saturday 09:00-12:00')).toBeInTheDocument();
+    expect(screen.getByText('Best served warm')).toBeInTheDocument();
+    expect(screen.getByText('Vegetarian')).toBeInTheDocument();
+    expect(screen.getByText('Contains dairy')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Add to order' })).toBeDisabled();
+  });
+
+  it('renders grouped food menu sections on top of the canonical food card', () => {
+    renderWithGds(
+      <FoodMenuSection
+        title="Saturday preorder menu"
+        sectionNote="Pickup window: Saturday 09:00-12:00"
+        categories={[
+          {
+            id: 'soups',
+            title: 'Soups',
+            helperNote: 'Freshly prepared every Friday evening.',
+            items: [
+              {
+                id: 'tomato',
+                title: 'Roasted tomato soup',
+                state: 'preorder',
+                price: 'EUR 7.50',
+                primaryAction: <button type="button">Reserve</button>,
+              },
+            ],
+          },
+          {
+            id: 'desserts',
+            title: 'Desserts',
+            items: [],
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Saturday preorder menu' })).toBeInTheDocument();
+    expect(screen.getByText('Pickup window: Saturday 09:00-12:00')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Soups' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Desserts' })).not.toBeInTheDocument();
+    expect(screen.getByText('Roasted tomato soup')).toBeInTheDocument();
+  });
+
   it('renders the sanctioned map panel states and iframe contract', () => {
     const { rerender } = renderWithGds(
       <MapPanel
@@ -335,6 +416,68 @@ describe('@doneisbetter/gds-core', () => {
     );
 
     expect(screen.getByTitle('Budapest venue map')).toBeInTheDocument();
+  });
+
+  it('renders staged public flow shells with deterministic action priority and runtime boundary slots', () => {
+    renderWithGds(
+      <PublicFlowShell
+        eyebrow="Capture flow"
+        stage={{
+          id: 'review',
+          title: 'Review your capture',
+          description: 'Approve the image before sharing it.',
+          status: 'ready',
+          body: <Text>Captured frame preview</Text>,
+          notice: 'Only publish content you have the right to share.',
+          actions: [
+            { action: 'cancel', priority: 'secondary' },
+            { action: 'send', priority: 'primary' },
+            { action: 'preview', priority: 'tertiary' },
+          ],
+        }}
+        hardwareSurface={<Text>Runtime preview slot</Text>}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Review your capture' })).toBeInTheDocument();
+    expect(screen.getByText('Captured frame preview')).toBeInTheDocument();
+    expect(screen.getByText('Runtime preview slot')).toBeInTheDocument();
+    expect(screen.getByText('Only publish content you have the right to share.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Send' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Preview' })).toBeInTheDocument();
+  });
+
+  it('renders playback surfaces across degraded and empty states', () => {
+    const { rerender } = renderWithGds(
+      <PlaybackSurface
+        title="Storefront loop"
+        state="playing"
+        statusMessage="Looping chef specials on the kiosk screen."
+        media={<Text>Playback media slot</Text>}
+        controls={<button type="button">Pause</button>}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Storefront loop' })).toBeInTheDocument();
+    expect(screen.getByText('Playback media slot')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Pause' })).toBeInTheDocument();
+    expect(screen.getByText('Playing')).toBeInTheDocument();
+
+    rerender(
+      <PlaybackSurface
+        title="Storefront loop"
+        state="degraded"
+        statusMessage="One media asset failed, continuing with the next slide."
+        media={<Text>Fallback loop</Text>}
+      />,
+    );
+
+    expect(screen.getByText('Playback degraded')).toBeInTheDocument();
+    expect(screen.getAllByText('One media asset failed, continuing with the next slide.')).toHaveLength(2);
+
+    rerender(<PlaybackSurface title="Storefront loop" state="empty" />);
+    expect(screen.getByText('No playback content available')).toBeInTheDocument();
   });
 
   it('renders the detail profile shell in page and drawer modes', () => {

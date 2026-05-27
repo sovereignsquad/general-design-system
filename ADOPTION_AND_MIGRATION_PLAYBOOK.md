@@ -161,6 +161,25 @@ Every adopter must maintain:
 - current consumed GDS version
 - strict-mode status and approved primitive lanes if the repo is targeting 100% GDS-only
 
+Approved exceptions should be declared as governed records, not prose-only reminders. At minimum, each exception in `gds-adoption.json` should define:
+
+- `surface`
+- `category`
+- narrow `scope`
+- `reason`
+- `allowedImplementation`
+- `mustStillUse`
+- `mustNotDo`
+- `a11yRequirements`
+- `testingRequirements`
+- `observabilityRequirements`
+- `owner`
+- `reviewDate`
+- `exitCondition`
+- `status`
+
+This keeps rollback, review cadence, and compliance enforcement deterministic across repos.
+
 ## 9. Anti-Patterns
 
 Do not:

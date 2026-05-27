@@ -103,6 +103,25 @@ Exceptions must be documented in the local project adapter. The note must includ
 - Removal condition / expiration
 Exceptions must remain narrow. Do not promote a one-off exception into a shared primitive unless documented here first.
 
+For machine-readable governance and CI enforcement, `gds-adoption.json` should use the canonical exception contract fields:
+
+- `surface`
+- `category`
+- narrow `scope`
+- `reason`
+- `allowedImplementation`
+- `mustStillUse`
+- `mustNotDo`
+- `a11yRequirements`
+- `testingRequirements`
+- `observabilityRequirements`
+- `owner`
+- `reviewDate`
+- `exitCondition`
+- `status`
+
+Use `category` to distinguish runtime constraints, product-authored experiences, package coverage gaps, and short-lived migration bridges. Broad file globs are not acceptable exception scope.
+
 If a consumer needs an approved dependency-level exception such as `lucide-react`, the exception should also appear in `gds-adoption.json` with:
 
 - `dependency`
@@ -135,6 +154,7 @@ Reference policies:
 - [THEME_GOVERNANCE.md](/Users/Shared/Projects/general-design-system/THEME_GOVERNANCE.md)
 - [EXCEPTION_SURFACES.md](/Users/Shared/Projects/general-design-system/EXCEPTION_SURFACES.md)
 - [DEPRECATIONS_AND_MIGRATIONS.md](/Users/Shared/Projects/general-design-system/DEPRECATIONS_AND_MIGRATIONS.md)
+- [TEMPLATES/gds-adoption.json.template](/Users/Shared/Projects/general-design-system/TEMPLATES/gds-adoption.json.template)
 
 ## 4A. Package Consumption Rule
 

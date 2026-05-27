@@ -54,6 +54,25 @@ Optional compliance extensions live in `gds-adoption.json`:
 }
 ```
 
+`approvedExceptions` entries must now use the canonical exception contract, not a free-form note. Each exception should declare:
+
+- `surface`
+- `category`
+- narrow `scope`
+- `reason`
+- `allowedImplementation`
+- `mustStillUse`
+- `mustNotDo`
+- `a11yRequirements`
+- `testingRequirements`
+- `observabilityRequirements`
+- `owner`
+- `reviewDate`
+- `exitCondition`
+- `status`
+
+`gds-compliance` will fail broad scopes such as `src/**` and will flag missing canonical fields as manifest drift. Use [EXCEPTION_SURFACES.md](/Users/Shared/Projects/general-design-system/EXCEPTION_SURFACES.md) and [TEMPLATES/gds-adoption.json.template](/Users/Shared/Projects/general-design-system/TEMPLATES/gds-adoption.json.template) as the normative examples.
+
 For repositories targeting true GDS-only enforcement, enable strict mode:
 
 ```json

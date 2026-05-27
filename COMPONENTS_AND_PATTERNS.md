@@ -48,8 +48,12 @@ This document defines the canonical behavior for UI components, workflows, and r
 | **Sidebar Navigation** | Sectioned sidebar IA with labels, active-route signaling, semantic icons/labels, and consistent row spacing. | `md` |
 | **Action Bar** | Semantic action orchestration for primary, secondary, tertiary, and icon-only actions with governed responsive wrapping. | `md` |
 | **Listing Card** | Unified discovery/listing card for events, venues, communities, and similar public objects with media, metadata, disclosure, and save/share affordances. | `md` |
+| **Public Food Card** | Food/menu card for dishes, bundles, bakery drops, and FMCG seasonal sets with governed freshness, pickup, scarcity, and action semantics. | `md` |
+| **Food Menu Section** | Grouped weekly or category-based food/menu composition built on the canonical food-card contract. | `lg` |
 | **Map Panel** | Sanctioned map/embed panel with shared header chrome, semantic actions, and built-in loading/empty/error states. | `lg` |
 | **Detail Profile Shell** | Shared detail composition for page and drawer modes with hero, section stack, action placement, and related content. | `xl` |
+| **Public Flow Shell** | Staged public-flow shell for consent, review, share, and recovery states around bounded hardware-adjacent or upload-driven experiences. | `xl` |
+| **Playback Surface** | Fullscreen, embedded, or kiosk playback framing for timed or media-first presentation with governed error and degraded states. | `xl` |
 | **Public Shells** | Public marketing/discovery/docs shells must define brand slot, navigation rhythm, readability width, CTA hierarchy, footer slot, and mobile nav behavior, including branded header variants and non-hook mobile nav patterns. | `md` |
 | **Public Nav** | Primary public navigation uses explicit nav items, an explicit active item, and semantic `aria-current` handling. | `md` |
 | **Auth Shells** | Auth entry surfaces must define title, error/helper placement, provider-brand exception handling, and safe action hierarchy. | `md` |
@@ -101,6 +105,8 @@ The following families are mandatory local contracts when a project has the corr
 | **Page Header** | Product has more than one page | title, purpose text, primary action, secondary action placement |
 | **Product Card** | Product lists courses, providers, children, records, articles, accounts, or other repeated objects | content slots, action slots, mobile order, loading/empty behavior |
 | **Listing Card** | Product lists public discovery objects such as events, venues, communities, clubs, or offers | media ratio, disclosure, metadata rows, save/share/cta affordances |
+| **Public Food Card** | Product lists dishes, prepared meals, bakery drops, bundles, or seasonal food sets | food-oriented price hierarchy, freshness/pickup/scarcity helper text, menu-specific states |
+| **Food Menu Section** | Product presents grouped weekly menus, category menus, or preorder collections | grouped headings, section notes, category helper notes, governed item grids, empty menu handling |
 | **Public Product Card** | Product has media-first menu, catalog, offer, or discovery cards | image treatment, price/helper hierarchy, availability states, localized helper labels, one mobile primary action, missing-image/loading behavior |
 | **Metric / Progress Card** | Product shows repeated stats or progress | value hierarchy, label rules, trend/status rules, mobile priority |
 | **Data Toolbar / Responsive Data View** | Product has admin/editor/search/list workflows | search, filters, sort, reset, create, desktop table strategy, mobile fallback |
@@ -119,6 +125,8 @@ The following families are mandatory local contracts when a project has the corr
 | **Content Operations Editor** | Product has CMS-like settings, content, or site-operations screens | section grouping, preview/settings rails, action bar, validation/recovery rhythm |
 | **DetailProfileShell** | Product has repeated page/drawer detail surfaces for profiles, items, or entities | hero/meta, sections, related content, action placement, divider rhythm |
 | **MapPanel** | Product embeds maps or other sanctioned third-party iframe surfaces | title/description/actions, loading/empty/error states, embed accessibility and sizing |
+| **Public Flow Shell** | Product has staged public capture, upload, consent, review, share, or recovery journeys | stage header, state semantics, action ordering, bounded runtime/hardware slot |
+| **Playback Surface** | Product has fullscreen, kiosk, slideshow, or timed media presentation | playback framing, degraded/error/empty states, lightweight control lane, mode semantics |
 | **Searchable Selection** | Product has repeated searchable selects or comboboxes | use the documented Mantine recipe path first; do not invent local wrappers unless GDS promotes a new canonical export |
 | **Public Brand Footer** | Product uses branded footer storytelling beyond a plain link list | narrative, actions, secondary quote/media slot, legal row, mobile collapse, layout variant choice |
 | **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, preview, replace/remove, status overlays |

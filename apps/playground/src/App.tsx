@@ -17,9 +17,13 @@ import {
   DetailProfileShell,
   DiscoveryShell,
   DocsCodeBlock,
+  FoodMenuSection,
   GdsVocabulary, 
   ListingCard,
   MapPanel,
+  PlaybackSurface,
+  PublicFlowShell,
+  PublicFoodCard,
   SemanticButton, 
   SidebarNav,
   SidebarNavItem,
@@ -885,6 +889,103 @@ npm run verify:references`}
                   </SimpleGrid>
                 </FormSection>
 
+                <FormSection title="Food & Menu Contracts" description="Food-oriented products now have canonical card and grouped-section contracts instead of generic product cards plus local CSS.">
+                  <Stack gap="lg">
+                    <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
+                      <PublicFoodCard
+                        title="Roasted Tomato Soup"
+                        description="Slow-roasted tomatoes, basil oil, and house bread."
+                        price="EUR 7.50"
+                        priceNote="Per portion"
+                        state="preorder"
+                        helperText="Order cutoff: Friday 18:00"
+                        pickupNote="Saturday 09:00-12:00"
+                        freshnessNote="Best served warm"
+                        quantityHint="12 portions left"
+                        markers={[
+                          { id: 'vegetarian', label: 'Vegetarian', tone: 'positive' },
+                          { id: 'weekly', label: 'Weekly batch', tone: 'warning' },
+                        ]}
+                        metadata={[
+                          { id: 'allergens', label: 'Contains dairy' },
+                          { id: 'portion', label: '500 ml' },
+                        ]}
+                        primaryAction={<SemanticButton action="submit" />}
+                        secondaryAction={<Button variant="default">Details</Button>}
+                      />
+
+                      <PublicFoodCard
+                        title="Summer Picnic Box"
+                        description="Seasonal FMCG tasting pack with pastries, dips, and chef specials."
+                        price="EUR 29.00"
+                        state="limited"
+                        helperText="Limited seasonal bundle"
+                        freshnessNote="Prepared the same morning"
+                        markers={[
+                          { id: 'bundle', label: 'Bundle' },
+                          { id: 'seasonal', label: 'Seasonal', tone: 'warning' },
+                        ]}
+                        metadata={[
+                          { id: 'serves', label: 'Serves 2-3' },
+                          { id: 'pickup', label: 'Pickup or courier' },
+                        ]}
+                        primaryAction={<SemanticButton action="save" />}
+                      />
+                    </SimpleGrid>
+
+                    <FoodMenuSection
+                      eyebrow="Weekly menu"
+                      title="Laura Organic Saturday Menu"
+                      description="A governed grouped menu built from the canonical food card contract."
+                      sectionNote="Pickup only this week. All dishes are prepared fresh on Saturday morning."
+                      categories={[
+                        {
+                          id: 'soups',
+                          title: 'Soups',
+                          helperNote: 'Prepared in small weekly batches.',
+                          items: [
+                            {
+                              id: 'tomato-soup',
+                              title: 'Roasted Tomato Soup',
+                              description: 'Basil oil, sour cream, and crusty bread.',
+                              price: 'EUR 7.50',
+                              state: 'preorder',
+                              helperText: 'Reserve before Friday 18:00',
+                              pickupNote: 'Saturday 09:00-12:00',
+                              primaryAction: <Button>Reserve</Button>,
+                            },
+                            {
+                              id: 'thai-carrot',
+                              title: 'Thai Carrot Soup',
+                              description: 'Coconut, ginger, and lime.',
+                              price: 'EUR 7.20',
+                              state: 'available',
+                              freshnessNote: 'Best enjoyed within 24 hours',
+                              primaryAction: <Button>Order</Button>,
+                            },
+                          ],
+                        },
+                        {
+                          id: 'desserts',
+                          title: 'Desserts',
+                          helperNote: 'Small-batch bakery drop.',
+                          items: [
+                            {
+                              id: 'pistachio-bun',
+                              title: 'Pistachio Morning Bun',
+                              description: 'Buttery laminated pastry with pistachio cream.',
+                              price: 'EUR 4.80',
+                              state: 'limited',
+                              quantityHint: '18 left',
+                              primaryAction: <Button>Reserve</Button>,
+                            },
+                          ],
+                        },
+                      ]}
+                    />
+                  </Stack>
+                </FormSection>
+
                 <FormSection title="System State Blocks" description="Provides clean feedback blocks during loading, empty data, or unauthorized actions.">
                   <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
                     <Paper withBorder p="md" radius="xl">
@@ -1038,6 +1139,51 @@ npm run verify:references`}
                         <Paper key="status" withBorder p="md" radius="lg">Status: featured listing, review scheduled, sponsor disclosure active.</Paper>,
                         <Paper key="owner" withBorder p="md" radius="lg">Owner: Camera discovery operations.</Paper>,
                       ]}
+                    />
+                  </SimpleGrid>
+                </FormSection>
+
+                <FormSection title="Capture & Playback Contracts" description="Hardware-adjacent and timed-media experiences now have governed shells. Only the actual runtime media region remains an explicit boundary.">
+                  <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
+                    <PublicFlowShell
+                      eyebrow="Public flow"
+                      stage={{
+                        id: 'review',
+                        title: 'Review your capture',
+                        description: 'Consent, review, share, and recovery stages follow the same public-flow contract.',
+                        status: 'ready',
+                        body: (
+                          <Paper withBorder p="md" radius="lg">
+                            <Text size="sm">Captured image preview, captions, and confirmation copy render inside the governed flow shell.</Text>
+                          </Paper>
+                        ),
+                        notice: 'The live camera preview remains a bounded runtime slot and must still meet the documented accessibility rules.',
+                        actions: [
+                          { action: 'cancel', priority: 'secondary' },
+                          { action: 'send', priority: 'primary' },
+                          { action: 'preview', priority: 'tertiary' },
+                        ],
+                      }}
+                      hardwareSurface={
+                        <Paper withBorder p="xl" radius="lg" style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <Text size="sm" c="dimmed">Runtime hardware preview slot</Text>
+                        </Paper>
+                      }
+                      exitAction={<Button variant="default">Safe Exit</Button>}
+                    />
+
+                    <PlaybackSurface
+                      title="Storefront playback"
+                      state="playing"
+                      mode="kiosk"
+                      statusMessage="Looping seasonal menu highlights on a public kiosk display."
+                      media={
+                        <Paper withBorder p="xl" radius="lg" style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <Text size="sm" c="dimmed">Timed media presenter slot</Text>
+                        </Paper>
+                      }
+                      controls={<Button variant="default" size="xs">Pause</Button>}
+                      overlays={<Badge color="teal" variant="light">Kiosk mode</Badge>}
                     />
                   </SimpleGrid>
                 </FormSection>

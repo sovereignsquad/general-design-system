@@ -17,6 +17,22 @@ const STRICT_COMPLIANCE_FIELDS = [
   'approvedActionPrimitives',
   'approvedTemporaryExceptions',
 ];
+const EXCEPTION_CATEGORIES = new Set([
+  'runtime-constraint',
+  'product-authored-experience',
+  'package-coverage-gap',
+  'migration-bridge',
+]);
+const EXCEPTION_STATUSES = new Set(['temporary', 'approved', 'deprecated', 'removed']);
+const EXCEPTION_REQUIRED_FIELDS = [
+  'category',
+  'scope',
+  'allowedImplementation',
+  'mustStillUse',
+  'mustNotDo',
+  'exitCondition',
+  'status',
+];
 
 export function validateManifest(manifest) {
   const findings = [];
@@ -85,6 +101,64 @@ export function validateManifest(manifest) {
         rule: 'manifest.invalidComplianceConfig',
         severity: 'error',
         message: `compliance.${field} must be an array when provided.`,
+      });
+    }
+  }
+
+  return findings;
+}
+
+function hasBroadScope(scope) {
+  return scope.some((entry) =>
+    ['*', '**', 'app/**', 'src/**', './**', '/**'].includes(entry) || /(^|\/)\*\*$/.test(entry));
+}
+
+function validateApprovedExceptions(manifest) {
+  const findings = [];
+
+  for (const exception of manifest.approvedExceptions ?? []) {
+    const missingFields = EXCEPTION_REQUIRED_FIELDS.filter((field) => {
+      const value = exception[field];
+      if (Array.isArray(value)) {
+        return value.length === 0;
+      }
+      return !value;
+    });
+
+    if (missingFields.length > 0) {
+      findings.push({
+        rule: 'exception-required-fields',
+        severity: 'error',
+        file: exception.surface,
+        message: `Approved exception "${exception.surface}" must define ${missingFields.join(', ')}. Upgrade legacy exception entries to the canonical exception-surface contract.`,
+      });
+      continue;
+    }
+
+    if (!EXCEPTION_CATEGORIES.has(exception.category)) {
+      findings.push({
+        rule: 'exception-invalid-category',
+        severity: 'error',
+        file: exception.surface,
+        message: `Approved exception "${exception.surface}" uses unsupported category "${exception.category}".`,
+      });
+    }
+
+    if (!EXCEPTION_STATUSES.has(exception.status)) {
+      findings.push({
+        rule: 'exception-invalid-status',
+        severity: 'error',
+        file: exception.surface,
+        message: `Approved exception "${exception.surface}" uses unsupported status "${exception.status}".`,
+      });
+    }
+
+    if (hasBroadScope(exception.scope ?? [])) {
+      findings.push({
+        rule: 'exception-broad-scope',
+        severity: 'error',
+        file: exception.surface,
+        message: `Approved exception "${exception.surface}" has an over-broad scope. Exception scopes must stay narrow and reviewable.`,
       });
     }
   }
@@ -317,6 +391,8 @@ export function runComplianceCheck({ manifestPath }) {
   for (const filePath of sourceFiles) {
     findings.push(...scanSourceFile(filePath, allowedImports, forbiddenImports));
   }
+
+  findings.push(...validateApprovedExceptions(manifest));
 
   if (protectedSurfacePaths.length) {
     const normalizedProtectedSurfacePaths = protectedSurfacePaths.map((value) => normalizePath(resolve(manifestRoot, value)));
