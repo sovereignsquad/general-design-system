@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.6.2
+Version: 2.6.3
 Last updated: 2026-05-27
 
 This document defines the supported package/runtime contract for `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
@@ -38,12 +38,10 @@ Canonical registry target: **npm**
 
 Current live status:
 
-- published npm baseline: `2.6.1`
-- current repository line: `2.6.2`
+- published npm baseline: `2.6.3`
+- current repository line: `2.6.3`
 
-Consumer repos should install the latest published npm version unless they are explicitly validating an unpublished release candidate.
-
-Until npm publication is executed successfully, this repository is only **publish-ready**, not npm-published by default.
+Consumer repos should install the latest published npm version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
 Authenticated release operators should use [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md) together with:
 
@@ -54,11 +52,11 @@ npm run publish:npm
 npm run verify:published
 ```
 
-### Approved temporary distribution path
+### Fallback release-bundle distribution path
 
-If npm publication is not yet available, the approved temporary install source is **public GitHub release assets** from this repository.
+If npm is temporarily unavailable for operational reasons, the approved fallback install source is **public GitHub release assets** from this repository.
 
-This is the only supported temporary path because it:
+This fallback path:
 
 - works in local development
 - works in CI
@@ -78,17 +76,17 @@ Asset URL format:
 https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/<asset-name>.tgz
 ```
 
-Example for `2.6.1`:
+Example for `2.6.3`:
 
 ```bash
 npm install \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-theme-2.6.1.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-core-2.6.1.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-admin-2.6.1.tgz
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.3/doneisbetter-gds-theme-2.6.3.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.3/doneisbetter-gds-core-2.6.3.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.3/doneisbetter-gds-admin-2.6.3.tgz
 
 npm install -D \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-eslint-config-2.6.1.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.1/doneisbetter-gds-compliance-2.6.1.tgz
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.3/doneisbetter-gds-eslint-config-2.6.3.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.3/doneisbetter-gds-compliance-2.6.3.tgz
 ```
 
 Auth expectations for the temporary path:

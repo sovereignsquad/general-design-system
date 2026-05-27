@@ -11,6 +11,10 @@ import {
   ResponsiveDataView,
 } from '@doneisbetter/gds-admin';
 import { 
+  ActionBar,
+  DocsCodeBlock,
+  ListingCard,
+  MapPanel,
   SemanticButton, 
   GdsVocabulary, 
   type SemanticAction, 
@@ -37,7 +41,9 @@ import {
   Divider, 
   Badge, 
   Code,
-  ThemeIcon
+  ThemeIcon,
+  Anchor,
+  List
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { 
@@ -59,6 +65,33 @@ const localesMap: Record<string, { label: string, messages: Record<string, strin
   ar: { label: 'العربية (Arabic)', messages: ar },
   hu: { label: 'Magyar', messages: hu },
 };
+
+const installCode = `npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-admin
+npm install -D @doneisbetter/gds-eslint-config @doneisbetter/gds-compliance`;
+
+const peerCode = `npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`;
+
+const appRouterCode = `// app/layout.tsx
+import Providers from './providers';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  );
+}
+
+// app/providers.tsx
+'use client';
+
+import { GdsProvider } from '@doneisbetter/gds-theme/client';
+
+export default function Providers({ children }: { children: React.ReactNode }) {
+  return <GdsProvider>{children}</GdsProvider>;
+}`;
 
 // 1. Custom High-Fidelity SVG spline Line Chart with glowing gradients
 function SvgLineChart() {
@@ -202,6 +235,20 @@ function PlaygroundContent() {
       active={location.pathname === '/'} 
     />,
     <SemanticNavLink 
+      key="install" 
+      action="download" 
+      component={Link}
+      to="/install"
+      active={location.pathname === '/install'} 
+    />,
+    <SemanticNavLink 
+      key="rulebook" 
+      action="verify" 
+      component={Link}
+      to="/rulebook"
+      active={location.pathname === '/rulebook'} 
+    />,
+    <SemanticNavLink 
       key="tokens" 
       action="theme" 
       component={Link}
@@ -331,20 +378,128 @@ function PlaygroundContent() {
                     <Stack gap={6}>
                       <Text fw={700} size="sm">Current supported consumer line</Text>
                       <Text size="sm" c="dimmed">
-                        Direct package adoption is verified for React 19 with Mantine 8.3.x and 9.2.x. Public GitHub release assets remain the temporary supported install path until npm publication is live.
+                        Direct npm package adoption is live and verified for React 19 with Mantine 8.3.x and 9.2.x. GitHub release bundles remain an operational fallback path only.
                       </Text>
                     </Stack>
                   </Paper>
                   <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing="sm">
                     {['sso', 'kidex', 'classscout', 'messmass', 'narimato', 'general-design-system'].map((app) => (
                       <Paper key={app} withBorder p="md" radius="lg" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-                        <Badge color="teal" variant="light">GDS 2.6.2</Badge>
+                        <Badge color="teal" variant="light">GDS 2.6.3</Badge>
                         <Text fw={700} size="sm" tt="uppercase">{app.replace('-',' ')}</Text>
                         <Text size="xs" c="dimmed">Release-aligned</Text>
                       </Paper>
                     ))}
                   </SimpleGrid>
                 </Stack>
+
+                <Paper withBorder p="xl" radius="xl">
+                  <Stack gap="md">
+                    <Group justify="space-between" align="flex-start" wrap="wrap">
+                      <Stack gap={4}>
+                        <Title order={2}>Foundation Slice: Shell, Navigation, and Actions</Title>
+                        <Text size="sm" c="dimmed" maw={720}>
+                          The current implementation now ships a canonical sidebar-first shell in core, shared sidebar navigation primitives, and a semantic action bar for governed CTA priority.
+                        </Text>
+                      </Stack>
+                      <Badge color="teal" variant="light">Implemented in GDS core/admin</Badge>
+                    </Group>
+                    <ActionBar
+                      primary={{ action: 'save' }}
+                      secondary={[{ action: 'cancel' }]}
+                      tertiary={[{ action: 'preview' }]}
+                      iconOnly={[{ action: 'settings' }]}
+                    />
+                  </Stack>
+                </Paper>
+              </Stack>
+            } />
+
+            <Route path="/install" element={
+              <Stack gap="xl">
+                <PageHeader
+                  title="Installation Manual"
+                  description="Use npm as the canonical registry source, keep Mantine and React peers aligned, and follow the documented App Router or Pages Router import split."
+                />
+
+                <FormSection title="Canonical Install Commands" description="This is the supported production install path for all consumer repos.">
+                  <DocsCodeBlock title="Runtime + governance packages" language="bash" code={installCode} />
+                </FormSection>
+
+                <FormSection title="Required Peer Packages" description="Consumers must provide the Mantine runtime explicitly.">
+                  <DocsCodeBlock title="Peer installation" language="bash" code={peerCode} />
+                </FormSection>
+
+                <FormSection title="Canonical Next.js Bootstrap" description="Mount GDS once at the root and separate client/server usage correctly.">
+                  <DocsCodeBlock title="App Router root contract" language="tsx" code={appRouterCode} />
+                </FormSection>
+
+                <FormSection title="What To Read First" description="These rulebooks and proof documents are the required onboarding sequence.">
+                  <Paper withBorder p="lg" radius="xl">
+                    <List spacing="sm" size="sm">
+                      <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/README.md" target="_blank" rel="noreferrer">README.md</Anchor></List.Item>
+                      <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/COMPATIBILITY_AND_RELEASES.md" target="_blank" rel="noreferrer">COMPATIBILITY_AND_RELEASES.md</Anchor></List.Item>
+                      <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/FOUNDATION.md" target="_blank" rel="noreferrer">FOUNDATION.md</Anchor></List.Item>
+                      <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/COMPONENTS_AND_PATTERNS.md" target="_blank" rel="noreferrer">COMPONENTS_AND_PATTERNS.md</Anchor></List.Item>
+                      <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/GOVERNANCE_AND_ADOPTION.md" target="_blank" rel="noreferrer">GOVERNANCE_AND_ADOPTION.md</Anchor></List.Item>
+                      <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/ADOPTION_AND_MIGRATION_PLAYBOOK.md" target="_blank" rel="noreferrer">ADOPTION_AND_MIGRATION_PLAYBOOK.md</Anchor></List.Item>
+                      <List.Item><Anchor href="https://github.com/sovereignsquad/general-design-system/blob/main/VERIFIED_CONSUMER_INSTALL_PROOF.md" target="_blank" rel="noreferrer">VERIFIED_CONSUMER_INSTALL_PROOF.md</Anchor></List.Item>
+                    </List>
+                  </Paper>
+                </FormSection>
+              </Stack>
+            } />
+
+            <Route path="/rulebook" element={
+              <Stack gap="xl">
+                <PageHeader
+                  title="Rulebook & Operating Contract"
+                  description="The site is both showcase and service manual. Consumer repos may compose around GDS, but they may not create a second design-system authority."
+                />
+
+                <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
+                  <Paper withBorder p="lg" radius="xl">
+                    <Stack gap="sm">
+                      <Title order={3}>Authority</Title>
+                      <Text size="sm" c="dimmed">Use `@doneisbetter/gds-*` packages directly. Do not use the old `@gds/*` names, vendored mirrors, or sibling `file:` links in CI or hosted builds.</Text>
+                    </Stack>
+                  </Paper>
+                  <Paper withBorder p="lg" radius="xl">
+                    <Stack gap="sm">
+                      <Title order={3}>Runtime</Title>
+                      <Text size="sm" c="dimmed">Mount one `GdsProvider`, keep `client` and `server` imports separated, and extend the theme instead of forking it.</Text>
+                    </Stack>
+                  </Paper>
+                  <Paper withBorder p="lg" radius="xl">
+                    <Stack gap="sm">
+                      <Title order={3}>Governance</Title>
+                      <Text size="sm" c="dimmed">Every consumer must carry a `gds-adoption.json` manifest and run the shared lint/compliance tooling in CI.</Text>
+                    </Stack>
+                  </Paper>
+                </SimpleGrid>
+
+                <FormSection title="Required Rules" description="These are the non-negotiables for teams consuming the system.">
+                  <Paper withBorder p="lg" radius="xl">
+                    <List spacing="sm" size="sm">
+                      <List.Item>Use GDS tokens, spacing, typography, and state patterns instead of page-local equivalents.</List.Item>
+                      <List.Item>Use `@doneisbetter/gds-core` for public/shared primitives and `@doneisbetter/gds-admin` for admin/operational surfaces.</List.Item>
+                      <List.Item>Document all exceptions explicitly in the adoption manifest with owner and review date.</List.Item>
+                      <List.Item>Run `gds-compliance` and the shared ESLint config in CI before merging.</List.Item>
+                      <List.Item>Prefer upstreaming repeated gaps into GDS rather than creating product-local “temporary” primitives.</List.Item>
+                    </List>
+                  </Paper>
+                </FormSection>
+
+                <FormSection title="Verification Commands" description="These checks are the minimum operator and consumer contract.">
+                  <DocsCodeBlock
+                    title="Verification"
+                    language="bash"
+                    code={`npm run verify:release
+npm run verify:published
+npm run verify:mantine
+npm run verify:references`}
+                  />
+                </FormSection>
               </Stack>
             } />
 
@@ -486,6 +641,37 @@ function PlaygroundContent() {
                   </SimpleGrid>
                 </FormSection>
 
+                <FormSection title="Canonical Listing & Map Contracts" description="These are the new GDS-only migration targets for discovery cards and sanctioned third-party embeds.">
+                  <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
+                    <ListingCard
+                      title="Danube Evening Run Club"
+                      description="Unified listing-card contract with featured state, ad disclosure, metadata rows, and governed affordances."
+                      featured
+                      sponsoredDisclosure="Sponsored listing"
+                      price="Free"
+                      metadata={[
+                        { id: 'date', label: 'Date', value: 'June 14' },
+                        { id: 'time', label: 'Time', value: '18:30' },
+                        { id: 'location', label: 'Location', value: 'Budapest, Margaret Bridge' },
+                      ]}
+                      primaryAction={<Button size="sm">View details</Button>}
+                      saveAction={{ action: 'save', onClick: () => {} }}
+                      shareAction={{ action: 'refer', ariaLabel: 'Share listing', onClick: () => {} }}
+                    />
+
+                    <MapPanel
+                      title="Discovery map panel"
+                      description="Sanctioned container for third-party embeds with explicit chrome and state handling."
+                      iframeSrc="https://www.openstreetmap.org/export/embed.html?bbox=19.03%2C47.49%2C19.08%2C47.52&layer=mapnik"
+                      embedTitle="Budapest sample discovery map"
+                      actions={{
+                        primary: { action: 'preview' },
+                        secondary: [{ action: 'refresh' }],
+                      }}
+                    />
+                  </SimpleGrid>
+                </FormSection>
+
                 <FormSection title="System State Blocks" description="Provides clean feedback blocks during loading, empty data, or unauthorized actions.">
                   <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
                     <Paper withBorder p="md" radius="xl">
@@ -523,7 +709,7 @@ function PlaygroundContent() {
                   title="Purge Legacy CSS Stylesheets?"
                   loading={demoLoad}
                 >
-                  This action will permanently delete `styles/docs.module.css` and `styles/docs-layout.module.css` across the SSO repository. Downstream pages will be strictly governed by the GDS 2.6.2 package and theme contract.
+                  This action will permanently delete `styles/docs.module.css` and `styles/docs-layout.module.css` across the SSO repository. Downstream pages will be strictly governed by the GDS 2.6.3 package and theme contract.
                 </ConfirmDialog>
               </Stack>
             } />

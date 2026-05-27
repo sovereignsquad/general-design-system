@@ -9,6 +9,13 @@ All notable policy changes to the General Design System are recorded here.
 - Enhanced `PageHeader` to accept `subtitle` as an alias for `description`, reducing consumer-only adapter code.
 - Hardened `SemanticButton` to use the label-first prerender path by default, removing the need for client repos to carry their own hydration-safe semantic-button wrappers.
 
+## 2.6.3 - 2026-05-27
+
+- Published the full `@doneisbetter/*` package line to npm and verified public installability for `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, `@doneisbetter/gds-admin`, `@doneisbetter/gds-eslint-config`, and `@doneisbetter/gds-compliance`.
+- Added `showGdsNotification(...)` to `@doneisbetter/gds-theme/client`, plus consumer-hardening improvements for `AuthShell`, `PageHeader`, and `SemanticButton`.
+- Updated the GitHub Pages site to function as both a live showcase and the canonical onboarding portal, including installation-manual and rulebook sections alongside the existing component demos.
+- Aligned README, compatibility guidance, install proof, and website copy to the live npm `2.6.3` line, keeping GitHub release bundles as a fallback path instead of the primary distribution story.
+
 ## 2.6.2 - 2026-05-27
 
 - Expanded shared Mantine peer support to include `^9.0.0` across the runtime packages and verified fresh packed-consumer installs against Mantine `9.2.1`, React `19.2.0`, and Next `15.5.18`.

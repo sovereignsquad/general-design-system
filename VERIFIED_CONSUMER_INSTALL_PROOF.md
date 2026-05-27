@@ -1,13 +1,13 @@
 # Verified Consumer Install Proof
 
 Status: Active SSOT  
-Version: 2.6.2  
+Version: 2.6.3  
 Last updated: 2026-05-27
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
-Latest published npm baseline validated by this proof: `2.6.1`  
-Current repository line: `2.6.2`
+Latest published npm baseline validated by this proof: `2.6.3`  
+Current repository line: `2.6.3`
 
 ## Verified consumer baseline
 
@@ -93,7 +93,7 @@ npm install @doneisbetter/gds-theme @doneisbetter/gds-core @doneisbetter/gds-adm
 npm install -D @doneisbetter/gds-eslint-config @doneisbetter/gds-compliance
 ```
 
-Temporary supported install path while npm publication is still pending:
+Fallback release-bundle install path if npm is temporarily unavailable:
 
 - use the release-asset tarballs described in [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md)
 - do not use sibling `file:` links in CI or Vercel flows
