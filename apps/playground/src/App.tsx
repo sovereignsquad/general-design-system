@@ -11,10 +11,7 @@ import {
   ResponsiveDataView,
 } from '@doneisbetter/gds-admin';
 import { 
-  ActionBar,
   DocsCodeBlock,
-  ListingCard,
-  MapPanel,
   SemanticButton, 
   GdsVocabulary, 
   type SemanticAction, 
@@ -399,17 +396,17 @@ function PlaygroundContent() {
                       <Stack gap={4}>
                         <Title order={2}>Foundation Slice: Shell, Navigation, and Actions</Title>
                         <Text size="sm" c="dimmed" maw={720}>
-                          The current implementation now ships a canonical sidebar-first shell in core, shared sidebar navigation primitives, and a semantic action bar for governed CTA priority.
+                          The current implementation ships governed shells, semantic navigation, and standardized CTA hierarchy across both public and admin experiences.
                         </Text>
                       </Stack>
                       <Badge color="teal" variant="light">Implemented in GDS core/admin</Badge>
                     </Group>
-                    <ActionBar
-                      primary={{ action: 'save' }}
-                      secondary={[{ action: 'cancel' }]}
-                      tertiary={[{ action: 'preview' }]}
-                      iconOnly={[{ action: 'settings' }]}
-                    />
+                    <Group gap="sm" wrap="wrap">
+                      <SemanticButton action="save" />
+                      <SemanticButton action="cancel" variant="light" />
+                      <SemanticButton action="preview" variant="subtle" />
+                      <SemanticButton action="settings" variant="default" />
+                    </Group>
                   </Stack>
                 </Paper>
               </Stack>
@@ -641,34 +638,51 @@ npm run verify:references`}
                   </SimpleGrid>
                 </FormSection>
 
-                <FormSection title="Canonical Listing & Map Contracts" description="These are the new GDS-only migration targets for discovery cards and sanctioned third-party embeds.">
+                <FormSection title="Catalog & Discovery Contracts" description="These showcase the released discovery-oriented GDS primitives that consumers can use today.">
                   <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
-                    <ListingCard
+                    <ProductCard
                       title="Danube Evening Run Club"
-                      description="Unified listing-card contract with featured state, ad disclosure, metadata rows, and governed affordances."
-                      featured
-                      sponsoredDisclosure="Sponsored listing"
-                      price="Free"
+                      description="Discovery-oriented product card with governed metadata, status messaging, and standard CTA structure."
+                      status={<Badge color="teal">Featured</Badge>}
                       metadata={[
-                        { id: 'date', label: 'Date', value: 'June 14' },
-                        { id: 'time', label: 'Time', value: '18:30' },
-                        { id: 'location', label: 'Location', value: 'Budapest, Margaret Bridge' },
+                        { label: 'Date', value: 'June 14' },
+                        { label: 'Time', value: '18:30' },
+                        { label: 'Location', value: 'Budapest, Margaret Bridge' },
                       ]}
-                      primaryAction={<Button size="sm">View details</Button>}
-                      saveAction={{ action: 'save', onClick: () => {} }}
-                      shareAction={{ action: 'refer', ariaLabel: 'Share listing', onClick: () => {} }}
+                      secondaryActions={[
+                        { label: 'View details' },
+                        { label: 'Save for later' },
+                      ]}
                     />
 
-                    <MapPanel
-                      title="Discovery map panel"
-                      description="Sanctioned container for third-party embeds with explicit chrome and state handling."
-                      iframeSrc="https://www.openstreetmap.org/export/embed.html?bbox=19.03%2C47.49%2C19.08%2C47.52&layer=mapnik"
-                      embedTitle="Budapest sample discovery map"
-                      actions={{
-                        primary: { action: 'preview' },
-                        secondary: [{ action: 'refresh' }],
-                      }}
-                    />
+                    <Paper withBorder p="lg" radius="xl">
+                      <Stack gap="md">
+                        <Group justify="space-between">
+                          <Title order={4}>Discovery map panel</Title>
+                          <Badge variant="light">Embed-safe container</Badge>
+                        </Group>
+                        <Text size="sm" c="dimmed">
+                          Sanctioned third-party embeds should live inside governed chrome with explicit titles, descriptions, and fallback states rather than freeform iframes.
+                        </Text>
+                        <Box
+                          style={{
+                            borderRadius: 12,
+                            overflow: 'hidden',
+                            border: '1px solid var(--mantine-color-gray-3)',
+                          }}
+                        >
+                          <iframe
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=19.03%2C47.49%2C19.08%2C47.52&layer=mapnik"
+                            title="Budapest sample discovery map"
+                            style={{ width: '100%', height: 260, border: 0 }}
+                          />
+                        </Box>
+                        <Group gap="sm">
+                          <SemanticButton action="preview" variant="light" />
+                          <SemanticButton action="refresh" variant="subtle" />
+                        </Group>
+                      </Stack>
+                    </Paper>
                   </SimpleGrid>
                 </FormSection>
 
