@@ -39,3 +39,6 @@ jobs:
 
       - name: Verify registry publication
         run: npm run verify:published
+        env:
+          GDS_REGISTRY_RETRIES: 15
+          GDS_REGISTRY_DELAY_MS: 10000
