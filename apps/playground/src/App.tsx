@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { GdsProvider } from '@doneisbetter/gds-theme';
 import { 
@@ -49,7 +50,9 @@ import {
   Code,
   ThemeIcon,
   Anchor,
-  List
+  List,
+  TextInput,
+  Textarea
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { 
@@ -112,6 +115,7 @@ const strictModeCode = `{
 const codemodCode = `node scripts/codemods/run-codemod.mjs discovery-shell ./src
 node scripts/codemods/run-codemod.mjs action-bar ./src
 node scripts/codemods/run-codemod.mjs listing-card ./src`;
+const featureRequestRecipient = 'moldovancsaba+general.design.system@gmail.com';
 
 const consumerUsageCode = `import { DiscoveryShell, ActionBar, ListingCard } from '@doneisbetter/gds-core/client';
 import { GdsProvider } from '@doneisbetter/gds-theme/client';
@@ -263,6 +267,10 @@ function PlaygroundContent() {
   const [locale, setLocale] = useState<string>('en');
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [demoLoad, setDemoLoad] = useState(false);
+  const [requestName, setRequestName] = useState('');
+  const [requestEmail, setRequestEmail] = useState('');
+  const [requestFeature, setRequestFeature] = useState('');
+  const [requestUseCase, setRequestUseCase] = useState('');
   const location = useLocation();
 
   const handleConfirmAction = () => {
@@ -278,6 +286,29 @@ function PlaygroundContent() {
         radius: 'md'
       });
     }, 1200);
+  };
+
+  const handleFeatureRequestSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const subject = requestFeature.trim()
+      ? `GDS Feature Request: ${requestFeature.trim()}`
+      : 'GDS Feature Request';
+
+    const body = [
+      'Feature request for the General Design System',
+      '',
+      `Name: ${requestName.trim() || 'Not provided'}`,
+      `Email: ${requestEmail.trim() || 'Not provided'}`,
+      '',
+      'Requested feature:',
+      requestFeature.trim() || 'Not provided',
+      '',
+      'Use case / missing capability:',
+      requestUseCase.trim() || 'Not provided',
+    ].join('\n');
+
+    window.location.href = `mailto:${featureRequestRecipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   const navLinks = [
@@ -466,6 +497,59 @@ function PlaygroundContent() {
                     </Group>
                   </Stack>
                 </Paper>
+
+                <FormSection title="Request a Feature" description="If something useful is missing from GDS, send it directly to the maintainers. This first version uses your local mail client.">
+                  <Paper withBorder p="xl" radius="xl">
+                    <Stack gap="lg">
+                      <Text size="sm" c="dimmed" maw={760}>
+                        Keep it simple: describe the missing function, what product surface needs it, and why the existing primitives are not enough. The request opens an email draft to <Anchor href={`mailto:${featureRequestRecipient}`}>{featureRequestRecipient}</Anchor>.
+                      </Text>
+
+                      <Box component="form" onSubmit={handleFeatureRequestSubmit}>
+                        <Stack gap="md">
+                          <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+                            <TextInput
+                              label="Name"
+                              placeholder="Optional"
+                              value={requestName}
+                              onChange={(event) => setRequestName(event.currentTarget.value)}
+                            />
+                            <TextInput
+                              label="Email"
+                              type="email"
+                              placeholder="Optional"
+                              value={requestEmail}
+                              onChange={(event) => setRequestEmail(event.currentTarget.value)}
+                            />
+                          </SimpleGrid>
+
+                          <TextInput
+                            label="Requested feature"
+                            placeholder="Example: DiscoveryShell support for pinned secondary filters"
+                            required
+                            value={requestFeature}
+                            onChange={(event) => setRequestFeature(event.currentTarget.value)}
+                          />
+
+                          <Textarea
+                            label="Use case"
+                            placeholder="What workflow is blocked or awkward today? Which product or screen needs this?"
+                            minRows={5}
+                            value={requestUseCase}
+                            onChange={(event) => setRequestUseCase(event.currentTarget.value)}
+                          />
+
+                          <Group justify="space-between" align="center" gap="md" wrap="wrap">
+                            <Text size="sm" c="dimmed">
+                              If the form does not open your mail app, send the request manually to {featureRequestRecipient}.
+                            </Text>
+                            <Button type="submit">Open Email Draft</Button>
+                          </Group>
+                        </Stack>
+                      </Box>
+                    </Stack>
+                  </Paper>
+                </FormSection>
               </Stack>
             } />
 
