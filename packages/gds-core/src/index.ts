@@ -4,6 +4,7 @@ export * from './ConfirmDialog';
 export * from './icons';
 export * from './ThemeToggle';
 export * from './vocabulary';
+export * from './ChoiceChip';
 export * from './SemanticButton';
 export * from './MetricCard';
 export * from './ProgressCard';

@@ -102,3 +102,15 @@ export const GdsVocabulary = {
 } as const;
 
 export type SemanticAction = keyof typeof GdsVocabulary;
+
+export function getSemanticActionConfig(action: SemanticAction) {
+  return GdsVocabulary[action];
+}
+
+export function getSemanticActionLabel(
+  action: SemanticAction,
+  translate?: (id: string, defaultMessage: string) => string,
+) {
+  const config = getSemanticActionConfig(action);
+  return translate ? translate(config.id, config.defaultMessage) : config.defaultMessage;
+}

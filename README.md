@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 2.6.1
+Version: 2.6.2
 Last updated: 2026-05-27
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
@@ -41,7 +41,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Machine-readable Contracts**: `compatibility.matrix.json`, `schemas/gds-adoption.schema.json`, and `TEMPLATES/gds-adoption.json.template` — shared compatibility, adoption, and validation contracts.
 - **Tooling Packages**: `@doneisbetter/gds-eslint-config` and `@doneisbetter/gds-compliance` — shared lint and compliance enforcement for adopting repos.
 - **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@doneisbetter/gds-core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
-- **Public & Consumer Surface Primitives**: `AccentPanel`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `PublicBrandFooter`, and the enhanced `PublicShell` / `PublicProductCard` contracts from `@doneisbetter/gds-core` — canonical public/editorial contracts for accent-safe surfaces, split hero composition, service/trust bands, browse/discovery chrome, editorial cards, consumer dashboard grouping, operational section framing, governed media editing, branded footer layouts, shell/mobile-nav rhythm, and localized media-first card states.
+- **Public & Consumer Surface Primitives**: `AccentPanel`, `ChoiceChip`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `PublicBrandFooter`, and the enhanced `PublicShell` / `PublicProductCard` contracts from `@doneisbetter/gds-core` — canonical public/editorial contracts for accent-safe surfaces, lightweight selection chips, split hero composition, service/trust bands, browse/discovery chrome, editorial cards, consumer dashboard grouping, operational section framing, governed media editing, branded footer layouts, shell/mobile-nav rhythm, and localized media-first card states.
 - **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@doneisbetter/gds-admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.

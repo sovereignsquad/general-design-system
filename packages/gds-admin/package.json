@@ -1,6 +1,6 @@
 {
   "name": "@doneisbetter/gds-admin",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -38,8 +38,8 @@
     "dev": "tsup --watch"
   },
   "peerDependencies": {
-    "@doneisbetter/gds-core": "^2.6.1",
-    "@doneisbetter/gds-theme": "^2.6.1",
+    "@doneisbetter/gds-core": "^2.6.2",
+    "@doneisbetter/gds-theme": "^2.6.2",
     "@mantine/core": "^7.9.0 || ^8.3.0 || ^9.0.0",
     "@mantine/hooks": "^7.9.0 || ^8.3.0 || ^9.0.0",
     "@tabler/icons-react": "^3.5.0",

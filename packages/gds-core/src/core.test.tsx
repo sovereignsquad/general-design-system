@@ -12,6 +12,7 @@ import { ConsumerDashboardGrid } from './ConsumerDashboardGrid';
 import { ConsumerSection } from './ConsumerSection';
 import { CtaButtonGroup } from './CtaButtonGroup';
 import { ConfirmDialog } from './ConfirmDialog';
+import { ChoiceChip } from './ChoiceChip';
 import { DataToolbar } from './DataToolbar';
 import { DocsCodeBlock } from './DocsCodeBlock';
 import { DocsPageShell } from './DocsPageShell';
@@ -37,6 +38,7 @@ import { StatusBadge } from './StatusBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { UploadDropzone } from './UploadDropzone';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
+import { getSemanticActionLabel } from './vocabulary';
 
 describe('@doneisbetter/gds-core', () => {
   it('renders semantic button labels from translation messages', () => {
@@ -45,6 +47,11 @@ describe('@doneisbetter/gds-core', () => {
     });
 
     expect(screen.getByRole('button', { name: 'Speichern' })).toBeInTheDocument();
+  });
+
+  it('exposes a server-safe semantic action label helper', () => {
+    expect(getSemanticActionLabel('save')).toBe('Save');
+    expect(getSemanticActionLabel('save', (id, fallback) => (id === 'gds.action.save' ? 'Guardar' : fallback))).toBe('Guardar');
   });
 
   it('shows success and error feedback states for semantic buttons', () => {
@@ -62,6 +69,24 @@ describe('@doneisbetter/gds-core', () => {
 
     expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
     expect(document.querySelector('.mantine-Loader-root')).toBeInTheDocument();
+  });
+
+  it('renders choice chips as neutral links and toggle buttons', async () => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+
+    renderWithGds(
+      <>
+        <ChoiceChip label="Active link" href="/active" active />
+        <ChoiceChip label="Toggle me" active onClick={onSelect} />
+      </>,
+    );
+
+    expect(screen.getByRole('link', { name: 'Active link' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('button', { name: 'Toggle me' })).toHaveAttribute('aria-pressed', 'true');
+
+    await user.click(screen.getByRole('button', { name: 'Toggle me' }));
+    expect(onSelect).toHaveBeenCalledTimes(1);
   });
 
   it('renders destructive confirm dialogs with the expected actions', async () => {

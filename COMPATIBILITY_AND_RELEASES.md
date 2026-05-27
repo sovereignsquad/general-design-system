@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.6.1
+Version: 2.6.2
 Last updated: 2026-05-27
 
 This document defines the supported package/runtime contract for `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
@@ -36,7 +36,12 @@ For hosted CI and Vercel builds, the intended end state is:
 
 Canonical registry target: **npm**
 
-Current live status: the `@doneisbetter/*` package line is not yet visible on the public npm registry, so consumer repos must treat npm as the intended end state, not the currently available install source.
+Current live status:
+
+- published npm baseline: `2.6.1`
+- current repository line: `2.6.2`
+
+Consumer repos should install the latest published npm version unless they are explicitly validating an unpublished release candidate.
 
 Until npm publication is executed successfully, this repository is only **publish-ready**, not npm-published by default.
 

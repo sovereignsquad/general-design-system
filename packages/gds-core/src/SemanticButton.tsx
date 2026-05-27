@@ -5,7 +5,7 @@ import { Button } from '@mantine/core';
 import type { ButtonProps } from '@mantine/core';
 import { useGdsTranslation } from '@doneisbetter/gds-theme';
 import { IconCheck, IconX } from '@tabler/icons-react';
-import { GdsVocabulary } from './vocabulary';
+import { GdsVocabulary, getSemanticActionLabel } from './vocabulary';
 import type { SemanticAction } from './vocabulary';
 
 export interface SemanticButtonProps extends ButtonProps, Omit<React.ComponentPropsWithoutRef<'button'>, keyof ButtonProps | 'leftSection' | 'children'> {
@@ -34,7 +34,7 @@ export function SemanticButton({ action, loading, feedbackState, feedbackText, .
   }, [feedbackState]);
 
   let Icon = config.icon;
-  let label = t(config.id, config.defaultMessage);
+  let label = getSemanticActionLabel(action, t);
   let color = props.color;
 
   if (internalFeedback === 'success') {

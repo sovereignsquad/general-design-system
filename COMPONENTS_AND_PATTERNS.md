@@ -1,8 +1,8 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 2.6.0
-Last updated: 2026-05-25
+Version: 2.6.2
+Last updated: 2026-05-27
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
 
@@ -28,6 +28,7 @@ This document defines the canonical behavior for UI components, workflows, and r
 | Component | Policy / Behavior | Preferred Size |
 |---|---|---|
 | **Buttons** | `primary` (main action), `secondary` (lower-emphasis), `subtle` (utility), `danger` (destructive). Do not place multiple primaries side by side. | `md` |
+| **Choice Chips** | Neutral chips for lightweight filter, scope, taxonomy, and mode selection. Use active state and shared tokens rather than ad hoc badge colors or CSS pills. | `sm` |
 | **Icon Buttons** | Must have accessible labels. Keep sizes stable in clusters. | `md` |
 | **Inputs (Text/Search/Password)** | Visible labels required. Field-level errors must appear nearby. Show/hide required for passwords. Debounce remote search. | `md` |
 | **Selects / Combobox** | Use `Select` for small sets, `Combobox` (searchable) for long lists. Canonical decision: do **not** wrap searchable selection yet; use governed Mantine composition for static and async search with shared labeling, empty, loading, and mobile ergonomics. Use `MultiSelect` only when truly needed. | `md` |
