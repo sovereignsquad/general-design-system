@@ -18,6 +18,10 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     css: false,
     include: [
+      'apps/*/src/*.test.ts',
+      'apps/*/src/*.test.tsx',
+      'apps/*/src/*.test.js',
+      'apps/*/src/*.test.jsx',
       'packages/gds-*/src/*.test.ts',
       'packages/gds-*/src/*.test.tsx',
       'packages/gds-*/src/*.test.js',
