@@ -1,18 +1,28 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { DocsCodeBlock, SemanticButton } from '@doneisbetter/gds-core';
+import { ActionBar, DocsCodeBlock, ListingCard, SemanticButton, ThemeToggle } from '@doneisbetter/gds-core';
 import { FormSection, PageHeader } from '@doneisbetter/gds-admin';
+import {
+  GdsProvider,
+  createPublicBrandTheme,
+  gdsDarkPublicTheme,
+  gdsEditorialPublicTheme,
+  gdsFlatSurfaceTheme,
+  gdsTheme,
+} from '@doneisbetter/gds-theme';
 import {
   Anchor,
   Badge,
   Box,
   Button,
+  Checkbox,
   Code,
   Divider,
   Group,
   List,
   Paper,
+  Select,
   SimpleGrid,
   Stack,
   Text,
@@ -95,6 +105,206 @@ npm run verify:mantine
 gds-compliance check --manifest ./gds-adoption.json`;
 
 const featureRequestRecipient = 'moldovancsaba+general.design.system@gmail.com';
+
+type ThemePresetId = 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand';
+type ThemeSchemeId = 'light' | 'dark' | 'auto';
+
+function TokensThemeLab() {
+  const [preset, setPreset] = useState<ThemePresetId>('default');
+  const [colorScheme, setColorScheme] = useState<ThemeSchemeId>('light');
+  const [brandPrimary, setBrandPrimary] = useState('blue');
+  const [brandFlatSurfaces, setBrandFlatSurfaces] = useState(true);
+  const [brandEditorialSerif, setBrandEditorialSerif] = useState(false);
+
+  const selectedTheme = useMemo(() => {
+    switch (preset) {
+      case 'dark-public':
+        return gdsDarkPublicTheme;
+      case 'flat-surface':
+        return gdsFlatSurfaceTheme;
+      case 'editorial':
+        return gdsEditorialPublicTheme;
+      case 'brand':
+        return createPublicBrandTheme({
+          flatSurfaces: brandFlatSurfaces,
+          editorialSerif: brandEditorialSerif,
+          overrides: {
+            primaryColor: brandPrimary,
+          },
+        });
+      default:
+        return gdsTheme;
+    }
+  }, [brandEditorialSerif, brandFlatSurfaces, brandPrimary, preset]);
+
+  const previewKey = `${preset}-${colorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
+
+  const tokenSwatches = [
+    { name: 'Primary 6', variable: '--mantine-color-violet-6', color: 'var(--mantine-color-violet-6)' },
+    { name: 'Body', variable: '--mantine-color-body', color: 'var(--mantine-color-body)' },
+    { name: 'Text', variable: '--mantine-color-text', color: 'var(--mantine-color-text)' },
+    { name: 'Border', variable: '--mantine-color-default-border', color: 'var(--mantine-color-default-border)' },
+    { name: 'Success 6', variable: '--mantine-color-teal-6', color: 'var(--mantine-color-teal-6)' },
+    { name: 'Warning 6', variable: '--mantine-color-orange-6', color: 'var(--mantine-color-orange-6)' },
+  ];
+
+  return (
+    <Stack gap="lg">
+      <SimpleGrid cols={{ base: 1, lg: 3 }} spacing="lg">
+        <Paper withBorder p="lg" radius="xl">
+          <Stack gap="md">
+            <Title order={4}>Theme Preset</Title>
+            <Select
+              label="Preset"
+              value={preset}
+              onChange={(value) => setPreset((value as ThemePresetId) || 'default')}
+              data={[
+                { value: 'default', label: 'Default runtime theme' },
+                { value: 'dark-public', label: 'Dark public theme' },
+                { value: 'flat-surface', label: 'Flat surface theme' },
+                { value: 'editorial', label: 'Editorial serif theme' },
+                { value: 'brand', label: 'Brand theme generator' },
+              ]}
+            />
+            <Select
+              label="Preview color scheme"
+              value={colorScheme}
+              onChange={(value) => setColorScheme((value as ThemeSchemeId) || 'light')}
+              data={[
+                { value: 'light', label: 'Light' },
+                { value: 'dark', label: 'Dark' },
+                { value: 'auto', label: 'Auto' },
+              ]}
+            />
+            <Text size="sm" c="dimmed">
+              This remounts an isolated preview provider so you can test presets without changing the whole docs site.
+            </Text>
+          </Stack>
+        </Paper>
+
+        <Paper withBorder p="lg" radius="xl">
+          <Stack gap="md">
+            <Title order={4}>Brand Builder Options</Title>
+            <Select
+              label="Brand primary color"
+              value={brandPrimary}
+              onChange={(value) => setBrandPrimary(value || 'blue')}
+              disabled={preset !== 'brand'}
+              data={['blue', 'violet', 'teal', 'grape', 'indigo', 'orange']}
+            />
+            <Checkbox
+              label="Use flat surfaces"
+              checked={brandFlatSurfaces}
+              onChange={(event) => setBrandFlatSurfaces(event.currentTarget.checked)}
+              disabled={preset !== 'brand'}
+            />
+            <Checkbox
+              label="Use editorial serif headings"
+              checked={brandEditorialSerif}
+              onChange={(event) => setBrandEditorialSerif(event.currentTarget.checked)}
+              disabled={preset !== 'brand'}
+            />
+            <Text size="sm" c="dimmed">
+              The brand builder composes the shipped theme helpers instead of inventing a site-only styling system.
+            </Text>
+          </Stack>
+        </Paper>
+
+        <Paper withBorder p="lg" radius="xl">
+          <Stack gap="md">
+            <Title order={4}>Shipped Theme Lanes</Title>
+            <List spacing="xs" size="sm">
+              <List.Item>`gdsTheme`</List.Item>
+              <List.Item>`gdsDarkPublicTheme`</List.Item>
+              <List.Item>`gdsFlatSurfaceTheme`</List.Item>
+              <List.Item>`gdsEditorialPublicTheme`</List.Item>
+              <List.Item>`createPublicBrandTheme(...)`</List.Item>
+            </List>
+            <Code block>{preset === 'brand'
+              ? `createPublicBrandTheme({ flatSurfaces: ${brandFlatSurfaces}, editorialSerif: ${brandEditorialSerif}, overrides: { primaryColor: '${brandPrimary}' } })`
+              : preset === 'dark-public'
+                ? 'gdsDarkPublicTheme'
+                : preset === 'flat-surface'
+                  ? 'gdsFlatSurfaceTheme'
+                  : preset === 'editorial'
+                    ? 'gdsEditorialPublicTheme'
+                    : 'gdsTheme'}</Code>
+          </Stack>
+        </Paper>
+      </SimpleGrid>
+
+      <Paper withBorder p="lg" radius="xl">
+        <Stack gap="md">
+          <Group justify="space-between" align="flex-start" wrap="wrap">
+            <Stack gap={4}>
+              <Title order={4}>Live Theme Preview</Title>
+              <Text size="sm" c="dimmed">
+                Test preset composition, color scheme behavior, typography, actions, cards, and token usage in a real isolated GDS provider.
+              </Text>
+            </Stack>
+            <ThemeToggle />
+          </Group>
+
+          <GdsProvider key={previewKey} theme={selectedTheme} defaultColorScheme={colorScheme}>
+            <Paper withBorder p="lg" radius="xl">
+              <Stack gap="lg">
+                <Group justify="space-between" align="flex-start" wrap="wrap">
+                  <Stack gap={4}>
+                    <Title order={3}>Theme Preview Surface</Title>
+                    <Text size="sm" c="dimmed">
+                      Preset: {preset} · Color scheme: {colorScheme}
+                    </Text>
+                  </Stack>
+                  <ThemeToggle />
+                </Group>
+
+                <SimpleGrid cols={{ base: 1, xl: 2 }} spacing="lg">
+                  <Stack gap="md">
+                    <ActionBar
+                      primary={{ action: 'save', size: 'sm' }}
+                      secondary={[{ action: 'cancel', size: 'sm' }]}
+                      tertiary={[{ action: 'preview', size: 'sm' }]}
+                      iconOnly={[{ action: 'settings' }]}
+                    />
+                    <TextInput label="Theme-aware input" placeholder="Preview form field treatment" />
+                    <Group gap="sm" wrap="wrap">
+                      <Badge variant="light">Runtime</Badge>
+                      <Badge color="teal" variant="light">Success</Badge>
+                      <Badge color="orange" variant="light">Warning</Badge>
+                      <Badge color="red" variant="light">Danger</Badge>
+                    </Group>
+                  </Stack>
+
+                  <ListingCard
+                    title="Theme Lab Reference Card"
+                    description="Use this preview to evaluate spacing, type hierarchy, borders, elevation, and primary-accent behavior."
+                    metadata={[
+                      { id: 'preset', label: 'Preset', value: preset },
+                      { id: 'scheme', label: 'Color scheme', value: colorScheme },
+                    ]}
+                    primaryAction={<SemanticButton action="preview" size="sm" />}
+                    saveAction={{ action: 'save' }}
+                    shareAction={{ action: 'forward' }}
+                  />
+                </SimpleGrid>
+
+                <SimpleGrid cols={{ base: 2, md: 3, xl: 6 }} spacing="md">
+                  {tokenSwatches.map((swatch) => (
+                    <Paper key={swatch.variable} withBorder p="sm" radius="lg">
+                      <Box style={{ height: 56, borderRadius: 10, background: swatch.color, marginBottom: 8 }} />
+                      <Text fw={700} size="xs">{swatch.name}</Text>
+                      <Code block fz="9px" mt={4}>{swatch.variable}</Code>
+                    </Paper>
+                  ))}
+                </SimpleGrid>
+              </Stack>
+            </Paper>
+          </GdsProvider>
+        </Stack>
+      </Paper>
+    </Stack>
+  );
+}
 
 export function OverviewPage() {
   const [requestName, setRequestName] = useState('');
@@ -447,8 +657,12 @@ export function TokensPage() {
     <Stack gap="xl">
       <PageHeader
         title="Color Systems & Theme Tokens"
-        description="Explore GDS's strict primary, secondary, and semantic feedback palettes. Click on any color to inspect its CSS variables."
+        description="Inspect the shipped token lanes, test the available theme presets, and evaluate light/dark behavior in a live isolated preview instead of a static swatch wall."
       />
+
+      <FormSection title="Theme Lab" description="Test the actual shipped GDS theme presets and color-scheme behavior. This is the fastest way to understand what is already available without reading source files.">
+        <TokensThemeLab />
+      </FormSection>
 
       <FormSection title="Brand Primaries" description="Our central core tones drive semantic hierarchy and layout surfaces.">
         <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing="md">
@@ -500,6 +714,41 @@ export function TokensPage() {
             <Text size="sm" c="dimmed">Text Size SM (Dimmed): Subtitles, helper text, and secondary details.</Text>
           </Stack>
         </Paper>
+      </FormSection>
+
+      <FormSection title="How To Use These Theme Lanes" description="The token and preset layer is already shipped in the runtime packages. Consumers should select or extend these lanes instead of forking a second theme authority.">
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
+          <DocsCodeBlock
+            title="Direct preset usage"
+            language="tsx"
+            code={`import { GdsProvider, gdsDarkPublicTheme } from '@doneisbetter/gds-theme/client';
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <GdsProvider theme={gdsDarkPublicTheme} defaultColorScheme="dark">
+      {children}
+    </GdsProvider>
+  );
+}`}
+          />
+          <DocsCodeBlock
+            title="Brand theme composition"
+            language="tsx"
+            code={`import { GdsProvider, createPublicBrandTheme } from '@doneisbetter/gds-theme/client';
+
+const brandTheme = createPublicBrandTheme({
+  flatSurfaces: true,
+  editorialSerif: false,
+  overrides: {
+    primaryColor: 'blue',
+  },
+});
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return <GdsProvider theme={brandTheme}>{children}</GdsProvider>;
+}`}
+          />
+        </SimpleGrid>
       </FormSection>
     </Stack>
   );

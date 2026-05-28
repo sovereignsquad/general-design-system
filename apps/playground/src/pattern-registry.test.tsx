@@ -2,6 +2,7 @@ import { screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
 import { PatternFamilyPage, PatternsIndexPage } from './pattern-pages';
 import { patternRegistry } from './pattern-registry';
+import { TokensPage } from './info-pages';
 
 describe('playground pattern registry', () => {
   it('keeps ids and anchors unique', () => {
@@ -19,6 +20,10 @@ describe('playground pattern registry', () => {
     }
   });
 
+  it('keeps the public catalog fully represented as live demos', () => {
+    expect(patternRegistry.every((entry) => entry.coverageStatus === 'live-demo')).toBe(true);
+  });
+
   it('renders the pattern index page', () => {
     renderWithGds(<PatternsIndexPage />);
 
@@ -34,5 +39,14 @@ describe('playground pattern registry', () => {
     expect(screen.getByText('Public Shells')).toBeTruthy();
     expect(screen.getByText('Editorial Hero')).toBeTruthy();
     expect(screen.getAllByText(/Live demo|Reference guidance|Pending primitive|Blocked/).length).toBeGreaterThan(0);
+  });
+
+  it('renders the interactive tokens theme lab', () => {
+    renderWithGds(<TokensPage />);
+
+    expect(screen.getByText('Theme Lab')).toBeTruthy();
+    expect(screen.getByText('Live Theme Preview')).toBeTruthy();
+    expect(screen.getAllByLabelText('Preset').length).toBeGreaterThan(0);
+    expect(screen.getAllByLabelText('Preview color scheme').length).toBeGreaterThan(0);
   });
 });
