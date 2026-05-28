@@ -41,12 +41,28 @@ describe('playground pattern registry', () => {
     expect(screen.getAllByText(/Live demo|Reference guidance|Pending primitive|Blocked/).length).toBeGreaterThan(0);
   });
 
+  it('renders every family route with headings and navigable demo links', () => {
+    const families = ['foundations', 'public', 'operations', 'data', 'access', 'feedback'] as const;
+
+    for (const family of families) {
+      const { unmount } = renderWithGds(<PatternFamilyPage family={family} />);
+
+      expect(screen.getAllByRole('heading', { level: 1 }).length).toBeGreaterThan(0);
+      expect(screen.getAllByRole('heading').length).toBeGreaterThan(3);
+      expect(screen.getAllByRole('link').length).toBeGreaterThan(0);
+      unmount();
+    }
+  });
+
   it('renders the interactive tokens theme lab', () => {
     renderWithGds(<TokensPage />);
 
     expect(screen.getByText('Theme Lab')).toBeTruthy();
     expect(screen.getByText('Live Theme Preview')).toBeTruthy();
+    expect(screen.getByText('Creator-Authored Experience Boundary')).toBeTruthy();
     expect(screen.getAllByLabelText('Preset').length).toBeGreaterThan(0);
     expect(screen.getAllByLabelText('Preview color scheme').length).toBeGreaterThan(0);
+    expect(screen.getByRole('link', { name: 'Open theme governance' })).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Open exception-surface rules' })).toBeTruthy();
   });
 });

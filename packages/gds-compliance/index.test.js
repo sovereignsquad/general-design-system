@@ -143,4 +143,115 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
     expect(report.findings.map((finding) => finding.rule)).toContain('exception-broad-scope');
   });
+
+  it('fails stale approved exceptions whose scope no longer matches repository files', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.4',
+        productArchetype: 'public',
+        requiredContracts: ['MapPanel'],
+        localAdapters: [],
+        approvedExceptions: [
+          {
+            surface: 'Legacy creator stylesheet',
+            category: 'product-authored-experience',
+            scope: ['src/creator/theme.css.ts'],
+            reason: 'Creator-authored experience styling remains temporarily local.',
+            allowedImplementation: ['Bounded creator canvas only'],
+            mustStillUse: ['GDS public shell', 'GDS consent controls'],
+            mustNotDo: ['Replace shared app chrome'],
+            a11yRequirements: ['Shared controls stay keyboard accessible'],
+            testingRequirements: ['Fallback experience remains covered'],
+            observabilityRequirements: ['Broken theme load is visible to operators'],
+            owner: 'platform-ui',
+            reviewDate: '2026-05-28',
+            exitCondition: 'Replace with packaged creator theme lane.',
+            status: 'temporary',
+          },
+        ],
+        migrationStatus: 'partial',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-28',
+      }, null, 2),
+      'src/app/page.tsx': `export default function Page() { return null; }`,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('exception-scope-no-matches');
+  });
+
+  it('fails local exception adapters that are not covered by an approved exception scope', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.4',
+        productArchetype: 'hybrid',
+        requiredContracts: ['PublicShell'],
+        localAdapters: [
+          { contract: 'CreatorExperienceShell', path: 'src/creator/CreatorExperienceShell.tsx', status: 'exception' },
+        ],
+        approvedExceptions: [
+          {
+            surface: 'Creator canvas css',
+            category: 'product-authored-experience',
+            scope: ['src/creator/theme/*.ts'],
+            reason: 'Creator-authored experience styling remains temporarily local.',
+            allowedImplementation: ['Bounded creator canvas only'],
+            mustStillUse: ['GDS public shell', 'GDS consent controls'],
+            mustNotDo: ['Replace shared app chrome'],
+            a11yRequirements: ['Shared controls stay keyboard accessible'],
+            testingRequirements: ['Fallback experience remains covered'],
+            observabilityRequirements: ['Broken theme load is visible to operators'],
+            owner: 'platform-ui',
+            reviewDate: '2026-05-28',
+            exitCondition: 'Replace with packaged creator theme lane.',
+            status: 'temporary',
+          },
+        ],
+        migrationStatus: 'partial',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-28',
+      }, null, 2),
+      'src/creator/CreatorExperienceShell.tsx': `export function CreatorExperienceShell() { return null; }`,
+      'src/creator/theme/tokens.ts': `export const themeToken = true;`,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('exception-adapter-outside-scope');
+  });
+
+  it('requires accessibility, testing, and observability metadata for creator-authored experience exceptions', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.4',
+        productArchetype: 'public',
+        requiredContracts: ['PublicShell'],
+        localAdapters: [],
+        approvedExceptions: [
+          {
+            surface: 'Creator-owned public canvas',
+            category: 'product-authored-experience',
+            scope: ['src/creator/canvas.tsx'],
+            reason: 'A creator-owned branded experience canvas remains temporarily local.',
+            allowedImplementation: ['Bounded creator canvas only'],
+            mustStillUse: ['GDS public shell'],
+            mustNotDo: ['Replace GDS app chrome'],
+            owner: 'platform-ui',
+            reviewDate: '2026-05-28',
+            exitCondition: 'Replace once the shared creator canvas lane lands.',
+            status: 'temporary',
+          },
+        ],
+        migrationStatus: 'partial',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-28',
+      }, null, 2),
+      'src/creator/canvas.tsx': `export const creatorCanvas = true;`,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('exception-product-authored-metadata');
+  });
 });

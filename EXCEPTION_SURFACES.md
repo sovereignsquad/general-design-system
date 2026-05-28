@@ -28,6 +28,12 @@ Optional but strongly recommended:
 - `testingRequirements`
 - `observabilityRequirements`
 
+Mandatory when `category` is `product-authored-experience`:
+
+- `a11yRequirements`
+- `testingRequirements`
+- `observabilityRequirements`
+
 Exception categories:
 
 - `runtime-constraint`
@@ -36,6 +42,13 @@ Exception categories:
 - `migration-bridge`
 
 Exceptions must remain narrow. Broad scopes such as `src/**`, `app/**`, or whole-surface bypasses are not valid.
+
+Creator-authored experience exceptions must also remain non-authoritative:
+
+- the exception may own only the bounded public or editorial experience canvas
+- GDS still owns surrounding shell, navigation, shared controls, consent, legal, and recovery chrome
+- a local exception adapter with status `exception` must be covered by an approved exception scope
+- stale exception scopes that no longer match repository files are invalid and should be removed
 
 ## Chart surfaces
 
@@ -99,6 +112,7 @@ It does own:
 - offline HTML report rendering
 - certificate, email, and OG rendering internals
 - third-party provider-branded auth controls when branding requirements cannot be normalized further
+- bounded creator-authored campaign/editorial experience canvases when the shell-vs-canvas boundary remains explicit
 
 ## Required documentation for any exception
 

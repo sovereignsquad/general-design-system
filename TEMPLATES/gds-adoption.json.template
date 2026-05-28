@@ -82,6 +82,44 @@
       "reviewDate": "2026-05-27",
       "exitCondition": "Remove once the consumer has finished the icon migration to the canonical GDS vocabulary.",
       "status": "temporary"
+    },
+    {
+      "surface": "Creator-authored campaign canvas",
+      "category": "product-authored-experience",
+      "scope": [
+        "src/features/campaigns/creator-canvas/*.tsx",
+        "src/features/campaigns/creator-canvas/*.css.ts"
+      ],
+      "reason": "A bounded creator-owned campaign surface temporarily retains product-local presentation overrides.",
+      "allowedImplementation": [
+        "Creator-authored CSS scoped to the approved canvas root only"
+      ],
+      "mustStillUse": [
+        "GDS public shell",
+        "GDS shared consent and legal controls",
+        "GDS state and recovery surfaces outside the canvas"
+      ],
+      "mustNotDo": [
+        "Replace shared app chrome",
+        "Hide required consent controls",
+        "Apply creator CSS outside the approved canvas scope"
+      ],
+      "a11yRequirements": [
+        "Shared controls remain keyboard accessible and labeled",
+        "Critical text and consent surfaces preserve contrast and readability"
+      ],
+      "testingRequirements": [
+        "Base fallback presentation covered when creator styles fail to load",
+        "Mobile layout and shared control visibility covered in route verification"
+      ],
+      "observabilityRequirements": [
+        "Broken or malformed override payloads are visible to operators",
+        "Moderation and publish workflows can identify the themed canvas owner"
+      ],
+      "owner": "platform-ui",
+      "reviewDate": "2026-05-28",
+      "exitCondition": "Replace once the shared creator-authored experience theming lane covers this use case directly.",
+      "status": "temporary"
     }
   ],
   "compliance": {

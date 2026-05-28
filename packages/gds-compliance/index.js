@@ -33,6 +33,11 @@ const EXCEPTION_REQUIRED_FIELDS = [
   'exitCondition',
   'status',
 ];
+const PRODUCT_AUTHORED_REQUIRED_FIELDS = [
+  'a11yRequirements',
+  'testingRequirements',
+  'observabilityRequirements',
+];
 
 export function validateManifest(manifest) {
   const findings = [];
@@ -161,6 +166,22 @@ function validateApprovedExceptions(manifest) {
         message: `Approved exception "${exception.surface}" has an over-broad scope. Exception scopes must stay narrow and reviewable.`,
       });
     }
+
+    if (exception.category === 'product-authored-experience') {
+      const missingProductAuthoredFields = PRODUCT_AUTHORED_REQUIRED_FIELDS.filter((field) => {
+        const value = exception[field];
+        return !Array.isArray(value) || value.length === 0;
+      });
+
+      if (missingProductAuthoredFields.length > 0) {
+        findings.push({
+          rule: 'exception-product-authored-metadata',
+          severity: 'error',
+          file: exception.surface,
+          message: `Creator-authored experience exception "${exception.surface}" must define ${missingProductAuthoredFields.join(', ')} so accessibility, testing, and observability obligations remain explicit.`,
+        });
+      }
+    }
   }
 
   return findings;
@@ -186,6 +207,23 @@ function walk(dir, files = []) {
 
 function normalizePath(value) {
   return value.replace(/\\/g, '/');
+}
+
+function escapeRegex(value) {
+  return value.replace(/[|\\{}()[\]^$+?.]/g, '\\$&');
+}
+
+function globToRegExp(pattern) {
+  const normalized = normalizePath(pattern).replace(/^\.\//, '');
+  const escaped = escapeRegex(normalized)
+    .replace(/\\\*\\\*/g, '.*')
+    .replace(/\\\*/g, '[^/]*');
+  return new RegExp(`^${escaped}$`);
+}
+
+function matchesScope(relativePath, scopes) {
+  const normalizedRelativePath = normalizePath(relativePath).replace(/^\.\//, '');
+  return scopes.some((scope) => globToRegExp(scope).test(normalizedRelativePath));
 }
 
 function isForbiddenImport(source, allowedImports, forbiddenImports) {
@@ -319,6 +357,53 @@ function runStrictCompliance({ manifest, manifestRoot, sourceFiles }) {
   return findings;
 }
 
+function validateApprovedExceptionsAgainstRepo({ manifestRoot, manifest, sourceFiles }) {
+  const findings = [];
+  const normalizedRoot = normalizePath(manifestRoot).replace(/\/$/, '');
+  const normalizedSourceFiles = sourceFiles.map((absolutePath) => ({
+    absolutePath,
+    relativePath: normalizePath(absolutePath).replace(`${normalizedRoot}/`, ''),
+  }));
+
+  for (const exception of manifest.approvedExceptions ?? []) {
+    const scopes = exception.scope ?? [];
+    if (!scopes.length) {
+      continue;
+    }
+
+    const matchingFiles = normalizedSourceFiles.filter((file) => matchesScope(file.relativePath, scopes));
+    if (!matchingFiles.length) {
+      findings.push({
+        rule: 'exception-scope-no-matches',
+        severity: 'error',
+        file: exception.surface,
+        message: `Approved exception "${exception.surface}" does not match any files in the repository. Remove the stale exception or narrow it to the real implementation path.`,
+      });
+    }
+  }
+
+  for (const adapter of manifest.localAdapters ?? []) {
+    if (adapter.status !== 'exception') {
+      continue;
+    }
+
+    const normalizedAdapterPath = normalizePath(adapter.path).replace(/^\.\//, '');
+    const coveredByApprovedException = (manifest.approvedExceptions ?? []).some((exception) =>
+      matchesScope(normalizedAdapterPath, exception.scope ?? []));
+
+    if (!coveredByApprovedException) {
+      findings.push({
+        rule: 'exception-adapter-outside-scope',
+        severity: 'error',
+        file: adapter.path,
+        message: `Local adapter exception "${adapter.contract}" is not covered by any approved exception scope. Tie exception adapters to a reviewed narrow exception instead of leaving local authority unbounded.`,
+      });
+    }
+  }
+
+  return findings;
+}
+
 export function runComplianceCheck({ manifestPath }) {
   const absoluteManifestPath = resolve(manifestPath);
   const manifestRoot = dirname(absoluteManifestPath);
@@ -393,6 +478,7 @@ export function runComplianceCheck({ manifestPath }) {
   }
 
   findings.push(...validateApprovedExceptions(manifest));
+  findings.push(...validateApprovedExceptionsAgainstRepo({ manifestRoot, manifest, sourceFiles }));
 
   if (protectedSurfacePaths.length) {
     const normalizedProtectedSurfacePaths = protectedSurfacePaths.map((value) => normalizePath(resolve(manifestRoot, value)));

@@ -73,6 +73,12 @@ Optional compliance extensions live in `gds-adoption.json`:
 
 `gds-compliance` will fail broad scopes such as `src/**` and will flag missing canonical fields as manifest drift. Use [EXCEPTION_SURFACES.md](/Users/Shared/Projects/general-design-system/EXCEPTION_SURFACES.md) and [TEMPLATES/gds-adoption.json.template](/Users/Shared/Projects/general-design-system/TEMPLATES/gds-adoption.json.template) as the normative examples.
 
+Additional enforcement now applies for creator-authored experience exceptions:
+
+- `category: "product-authored-experience"` must also define `a11yRequirements`, `testingRequirements`, and `observabilityRequirements`
+- approved exception scopes must match at least one real repository file
+- local adapters with `status: "exception"` must be covered by an approved exception scope
+
 For repositories targeting true GDS-only enforcement, enable strict mode:
 
 ```json

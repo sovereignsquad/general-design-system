@@ -105,6 +105,8 @@ npm run verify:mantine
 gds-compliance check --manifest ./gds-adoption.json`;
 
 const featureRequestRecipient = 'moldovancsaba+general.design.system@gmail.com';
+const themeGovernanceUrl = 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md';
+const exceptionSurfacesUrl = 'https://github.com/sovereignsquad/general-design-system/blob/main/EXCEPTION_SURFACES.md';
 
 type ThemePresetId = 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand';
 type ThemeSchemeId = 'light' | 'dark' | 'auto';
@@ -660,6 +662,19 @@ export function TokensPage() {
         description="Inspect the shipped token lanes, test the available theme presets, and evaluate light/dark behavior in a live isolated preview instead of a static swatch wall."
       />
 
+      <Paper withBorder p="lg" radius="xl">
+        <Stack gap="sm">
+          <Title order={4}>What this page is for</Title>
+          <Text size="sm" c="dimmed">
+            Use this route to test the shipped theme lanes, compare light and dark behavior, and understand the creator-theme boundary before inventing product-local token logic.
+          </Text>
+          <Group gap="sm" wrap="wrap">
+            <Anchor href={themeGovernanceUrl} target="_blank" rel="noreferrer">Open theme governance</Anchor>
+            <Anchor href={exceptionSurfacesUrl} target="_blank" rel="noreferrer">Open exception-surface rules</Anchor>
+          </Group>
+        </Stack>
+      </Paper>
+
       <FormSection title="Theme Lab" description="Test the actual shipped GDS theme presets and color-scheme behavior. This is the fastest way to understand what is already available without reading source files.">
         <TokensThemeLab />
       </FormSection>
@@ -749,6 +764,94 @@ export function Providers({ children }: { children: React.ReactNode }) {
 }`}
           />
         </SimpleGrid>
+      </FormSection>
+
+      <FormSection title="Creator-Authored Experience Boundary" description="Some products need a branded or creator-owned canvas. That is allowed only as a bounded experience override lane, never as a second application theme authority.">
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
+          <Paper withBorder p="lg" radius="xl">
+            <Stack gap="sm">
+              <Title order={4}>What stays GDS-owned</Title>
+              <List spacing="xs" size="sm">
+                <List.Item>Public shell and navigation</List.Item>
+                <List.Item>Shared controls and semantic actions</List.Item>
+                <List.Item>Consent, legal, recovery, and system messaging</List.Item>
+                <List.Item>Accessibility baseline and state semantics</List.Item>
+              </List>
+            </Stack>
+          </Paper>
+          <Paper withBorder p="lg" radius="xl">
+            <Stack gap="sm">
+              <Title order={4}>What may be creator-owned</Title>
+              <List spacing="xs" size="sm">
+                <List.Item>A bounded experience canvas only</List.Item>
+                <List.Item>Scoped presentation overrides after base experience styles</List.Item>
+                <List.Item>Decorative media, color, and typography inside that canvas</List.Item>
+                <List.Item>Product-managed storage and moderation of the override payload</List.Item>
+              </List>
+            </Stack>
+          </Paper>
+        </SimpleGrid>
+        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
+          <Paper withBorder p="lg" radius="xl">
+            <Stack gap="xs">
+              <Title order={5}>Allowed override modes</Title>
+              <List spacing="xs" size="sm">
+                <List.Item>Scoped class hooks on the approved canvas root</List.Item>
+                <List.Item>Scoped CSS applied after base experience styles</List.Item>
+                <List.Item>Creator-owned decorative media and bounded typography choices</List.Item>
+              </List>
+            </Stack>
+          </Paper>
+          <Paper withBorder p="lg" radius="xl">
+            <Stack gap="xs">
+              <Title order={5}>Operational requirements</Title>
+              <List spacing="xs" size="sm">
+                <List.Item>Malformed overrides must fail back to base GDS presentation</List.Item>
+                <List.Item>Products still own moderation and payload sanitization</List.Item>
+                <List.Item>Broken override loads must be visible to operators</List.Item>
+              </List>
+            </Stack>
+          </Paper>
+          <Paper withBorder p="lg" radius="xl">
+            <Stack gap="xs">
+              <Title order={5}>Never allowed</Title>
+              <List spacing="xs" size="sm">
+                <List.Item>Replacing `PublicShell`, `PublicNav`, or shared app chrome</List.Item>
+                <List.Item>Hiding consent, legal, recovery, or other required system controls</List.Item>
+                <List.Item>Using creator CSS as a second app-wide theme authority</List.Item>
+              </List>
+            </Stack>
+          </Paper>
+        </SimpleGrid>
+        <Paper withBorder p="lg" radius="xl">
+          <Stack gap="xs">
+            <Title order={4}>Required render order</Title>
+            <List spacing="xs" size="sm">
+              <List.Item>Render GDS shell and system-owned controls first.</List.Item>
+              <List.Item>Render the approved creator canvas second.</List.Item>
+              <List.Item>Apply creator-scoped overrides only after base experience styles and only inside that canvas.</List.Item>
+              <List.Item>Fall back safely to the base GDS presentation when override data is missing or invalid.</List.Item>
+            </List>
+          </Stack>
+        </Paper>
+        <DocsCodeBlock
+          title="Creator-authored manifest shape"
+          language="json"
+          code={`{
+  "surface": "Creator-authored campaign canvas",
+  "category": "product-authored-experience",
+  "scope": ["src/features/campaigns/creator-canvas/*.tsx"],
+  "allowedImplementation": ["Scoped CSS inside the approved canvas root only"],
+  "mustStillUse": ["GDS public shell", "GDS shared consent controls"],
+  "mustNotDo": ["Replace app chrome", "Hide required legal controls"],
+  "a11yRequirements": ["Shared controls stay keyboard accessible"],
+  "testingRequirements": ["Fallback presentation covered in route verification"],
+  "observabilityRequirements": ["Broken override payloads are visible to operators"]
+}`}
+        />
+        <Text size="sm" c="dimmed">
+          The normative rule text lives in <Anchor href={themeGovernanceUrl} target="_blank" rel="noreferrer">THEME_GOVERNANCE.md</Anchor> and <Anchor href={exceptionSurfacesUrl} target="_blank" rel="noreferrer">EXCEPTION_SURFACES.md</Anchor>. This route exists so teams can test the shipped theme lanes and understand the allowed boundary before they build local overrides.
+        </Text>
       </FormSection>
     </Stack>
   );

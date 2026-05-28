@@ -122,6 +122,14 @@ For machine-readable governance and CI enforcement, `gds-adoption.json` should u
 
 Use `category` to distinguish runtime constraints, product-authored experiences, package coverage gaps, and short-lived migration bridges. Broad file globs are not acceptable exception scope.
 
+For `product-authored-experience` exceptions, the manifest must also declare:
+
+- `a11yRequirements`
+- `testingRequirements`
+- `observabilityRequirements`
+
+Those creator-authored lanes may style only the bounded experience canvas. They may not replace GDS-owned shell, navigation, consent, legal, or recovery chrome.
+
 If a consumer needs an approved dependency-level exception such as `lucide-react`, the exception should also appear in `gds-adoption.json` with:
 
 - `dependency`

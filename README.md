@@ -26,6 +26,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Core Principles & Tokens**: [FOUNDATION.md](/Users/Shared/Projects/general-design-system/FOUNDATION.md) — The fundamental rules that guide UI decisions, dark/light modes, and Mantine boundaries.
 - **Component Contracts & Patterns**: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) — Required behaviors for standard UI elements and full-page workflows.
 - **Live Pattern Catalog**: [https://sovereignsquad.github.io/general-design-system/patterns](https://sovereignsquad.github.io/general-design-system/patterns) — The public registry-backed component and pattern reference site with family pages for foundations, public, operations, data, access, and feedback coverage.
+- **Interactive Theme Lab**: [https://sovereignsquad.github.io/general-design-system/tokens](https://sovereignsquad.github.io/general-design-system/tokens) — Live testing for shipped theme presets, light/dark behavior, token surfaces, and the bounded creator-authored theming lane.
 - **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
 - **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
 - **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
@@ -59,6 +60,7 @@ The GitHub Pages site is the public runtime reference for this repository:
 
 - Overview: `https://sovereignsquad.github.io/general-design-system/`
 - Install guide: `https://sovereignsquad.github.io/general-design-system/install`
+- Tokens and theme lab: `https://sovereignsquad.github.io/general-design-system/tokens`
 - Pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
 - Pattern family routes:
 - `.../patterns/foundations`
