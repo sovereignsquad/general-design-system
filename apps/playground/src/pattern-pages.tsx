@@ -54,7 +54,6 @@ import {
   ContentOpsEditor,
   FormSection,
   PageHeader,
-  WorkspaceHeader,
 } from '@doneisbetter/gds-admin';
 import {
   ActionIcon,
@@ -243,36 +242,74 @@ function PatternDemo({ entryId }: { entryId: string }) {
     case 'sidebar-navigation':
     case 'action-bar':
       return (
-        <Box style={{ minHeight: 420, overflow: 'hidden', borderRadius: 20, border: '1px solid var(--mantine-color-default-border)' }}>
-          <DiscoveryShell
-            header={<WorkspaceHeader title="Pattern Registry" description="Governed discovery shell with sidebar information architecture." />}
-            sidebar={(
-              <SidebarNav ariaLabel="Pattern navigation">
-                <SidebarNavSection label="Foundations">
-                  <SidebarNavItem action="dashboard" href="#layout" active />
-                  <SidebarNavItem action="grid" href="#cards" />
-                  <SidebarNavItem action="settings" href="#actions" />
-                </SidebarNavSection>
-                <SidebarNavSection label="Account" pushToBottom>
-                  <SidebarNavItem action="notifications" href="#updates" />
-                  <SidebarNavItem action="logout" component="button" />
-                </SidebarNavSection>
-              </SidebarNav>
-            )}
-          >
-            <Stack gap="lg">
-              <ActionBar
-                primary={{ action: 'save', size: 'sm' }}
-                secondary={[{ action: 'cancel', size: 'sm' }]}
-                tertiary={[{ action: 'preview', size: 'sm' }]}
-                iconOnly={[{ action: 'settings' }]}
-              />
-              <Text size="sm" c="dimmed">
-                The same shell owns desktop persistence, mobile collapse, semantic actions, and governed spacing.
-              </Text>
-            </Stack>
-          </DiscoveryShell>
-        </Box>
+        <Paper withBorder radius="xl" p="sm">
+          <Stack gap="md">
+            <Group justify="space-between" wrap="wrap" gap="md">
+              <Text fw={700}>Contained shell preview</Text>
+              <Badge variant="light" color="teal">Desktop contract</Badge>
+            </Group>
+            <Box
+              style={{
+                minHeight: 420,
+                overflow: 'hidden',
+                borderRadius: 20,
+                border: '1px solid var(--mantine-color-default-border)',
+                background:
+                  'linear-gradient(180deg, color-mix(in srgb, var(--mantine-color-dark-6) 78%, black) 0%, color-mix(in srgb, var(--mantine-color-dark-8) 92%, black) 100%)',
+                padding: 16,
+              }}
+            >
+              <Paper withBorder radius="xl" style={{ overflow: 'hidden', minHeight: 388 }}>
+                <Box
+                  px="md"
+                  py="xs"
+                  style={{
+                    borderBottom: '1px solid var(--mantine-color-default-border)',
+                    background: 'color-mix(in srgb, var(--mantine-color-dark-6) 84%, black)',
+                  }}
+                >
+                  <Text size="xs" c="dimmed">DiscoveryShell example</Text>
+                </Box>
+                <DiscoveryShell
+                  header={(
+                    <Group justify="space-between" align="flex-start" gap="md" wrap="wrap">
+                      <Stack gap={2}>
+                        <Text fw={700}>Pattern Registry</Text>
+                        <Text size="sm" c="dimmed">Governed discovery shell with sidebar information architecture.</Text>
+                      </Stack>
+                      <Badge variant="light" color="teal">Preview</Badge>
+                    </Group>
+                  )}
+                  sidebar={(
+                    <SidebarNav ariaLabel="Pattern navigation">
+                      <SidebarNavSection label="Foundations">
+                        <SidebarNavItem action="dashboard" href="#layout" active />
+                        <SidebarNavItem action="grid" href="#cards" />
+                        <SidebarNavItem action="settings" href="#actions" />
+                      </SidebarNavSection>
+                      <SidebarNavSection label="Account" pushToBottom>
+                        <SidebarNavItem action="notifications" href="#updates" />
+                        <SidebarNavItem action="logout" component="button" />
+                      </SidebarNavSection>
+                    </SidebarNav>
+                  )}
+                >
+                  <Stack gap="lg">
+                    <ActionBar
+                      primary={{ action: 'save', size: 'sm' }}
+                      secondary={[{ action: 'cancel', size: 'sm' }]}
+                      tertiary={[{ action: 'preview', size: 'sm' }]}
+                      iconOnly={[{ action: 'settings' }]}
+                    />
+                    <Text size="sm" c="dimmed">
+                      The same shell owns desktop persistence, mobile collapse, semantic actions, and governed spacing.
+                    </Text>
+                  </Stack>
+                </DiscoveryShell>
+              </Paper>
+            </Box>
+          </Stack>
+        </Paper>
       );
     case 'buttons':
       return (

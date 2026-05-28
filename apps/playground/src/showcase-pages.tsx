@@ -33,7 +33,6 @@ import {
   FormSection,
   PageHeader,
   ResponsiveDataView,
-  WorkspaceHeader,
 } from '@doneisbetter/gds-admin';
 import {
   Badge,
@@ -131,6 +130,147 @@ function InteractiveDemoButton({ action }: { action: SemanticAction }) {
       feedbackState={feedback}
       onClick={handleClick}
     />
+  );
+}
+
+function ShellShowcaseHeader({
+  title,
+  description,
+  badge,
+}: {
+  title: string;
+  description: string;
+  badge: string;
+}) {
+  return (
+    <Group justify="space-between" align="flex-start" gap="md" wrap="wrap">
+      <Stack gap={2}>
+        <Text fw={700}>{title}</Text>
+        <Text size="sm" c="dimmed" maw={620}>{description}</Text>
+      </Stack>
+      <Badge variant="light" color="teal">{badge}</Badge>
+    </Group>
+  );
+}
+
+function ShellShowcaseFrame() {
+  return (
+    <Paper withBorder radius="xl" p="md">
+      <Stack gap="lg">
+        <ShellShowcaseHeader
+          title="Contained desktop preview"
+          description="This is a framed example of the DiscoveryShell contract, not a second website inside the docs page."
+          badge="Preview only"
+        />
+
+        <Box
+          style={{
+            padding: 16,
+            borderRadius: 20,
+            background:
+              'linear-gradient(180deg, color-mix(in srgb, var(--mantine-color-dark-6) 78%, black) 0%, color-mix(in srgb, var(--mantine-color-dark-8) 92%, black) 100%)',
+          }}
+        >
+          <Paper
+            withBorder
+            radius="xl"
+            style={{
+              overflow: 'hidden',
+              minHeight: 440,
+              boxShadow: '0 32px 80px rgba(0, 0, 0, 0.28)',
+            }}
+          >
+            <Box
+              px="md"
+              py="xs"
+              style={{
+                borderBottom: '1px solid var(--mantine-color-default-border)',
+                background: 'color-mix(in srgb, var(--mantine-color-dark-6) 84%, black)',
+              }}
+            >
+              <Group justify="space-between" align="center">
+                <Group gap={8}>
+                  <Box style={{ width: 10, height: 10, borderRadius: 999, background: 'var(--mantine-color-red-6)' }} />
+                  <Box style={{ width: 10, height: 10, borderRadius: 999, background: 'var(--mantine-color-yellow-6)' }} />
+                  <Box style={{ width: 10, height: 10, borderRadius: 999, background: 'var(--mantine-color-green-6)' }} />
+                </Group>
+                <Text size="xs" c="dimmed">DiscoveryShell desktop example</Text>
+              </Group>
+            </Box>
+
+            <DiscoveryShell
+              header={(
+                <ShellShowcaseHeader
+                  title="Catalog Operations"
+                  description="Sidebar-first workspace with governed spacing, persistent navigation, and semantic actions."
+                  badge="Desktop"
+                />
+              )}
+              sidebar={(
+                <SidebarNav ariaLabel="Catalog navigation">
+                  <SidebarNavSection label="Primary">
+                    <SidebarNavItem action="dashboard" href="#dashboard" active />
+                    <SidebarNavItem action="calendar" href="#schedule" />
+                    <SidebarNavItem action="analytics" href="#analytics" />
+                  </SidebarNavSection>
+                  <SidebarNavSection label="Account" pushToBottom>
+                    <SidebarNavItem action="settings" href="#settings" />
+                    <SidebarNavItem action="logout" component="button" />
+                  </SidebarNavSection>
+                </SidebarNav>
+              )}
+            >
+              <Stack gap="lg">
+                <ActionBar
+                  primary={{ action: 'save', size: 'sm' }}
+                  secondary={[{ action: 'cancel', size: 'sm' }]}
+                  tertiary={[{ action: 'preview', size: 'sm' }]}
+                  iconOnly={[{ action: 'settings' }]}
+                />
+                <ResponsiveDataView
+                  data={[
+                    { id: '1', name: 'Universal SSO', type: 'OAuth/OIDC Provider', adoption: '100%' },
+                    { id: '2', name: 'KIDEX Platform', type: 'Conductor Intel App', adoption: '100%' },
+                    { id: '3', name: 'ClassScout NYC', type: 'Class Catalog App', adoption: '100%' },
+                  ]}
+                  columns={[
+                    { key: 'name', label: 'Adopter Repository' },
+                    { key: 'type', label: 'Archetype' },
+                    { key: 'adoption', label: 'Migration Status' },
+                  ]}
+                  renderCard={(item) => (
+                    <Paper withBorder p="md" radius="lg">
+                      <Stack gap="xs">
+                        <Group justify="space-between">
+                          <Text fw={700} size="sm">{item.name}</Text>
+                          <Badge color="teal" variant="light">{item.adoption}</Badge>
+                        </Group>
+                        <Text size="xs" c="dimmed">{item.type}</Text>
+                      </Stack>
+                    </Paper>
+                  )}
+                />
+              </Stack>
+            </DiscoveryShell>
+          </Paper>
+        </Box>
+
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+          <Paper withBorder p="md" radius="lg">
+            <Stack gap="xs">
+              <Text fw={700} size="sm">What this demonstrates</Text>
+              <Text size="sm" c="dimmed">Sidebar information architecture, governed header rhythm, semantic action hierarchy, and shared data-view behavior.</Text>
+            </Stack>
+          </Paper>
+          <Paper withBorder p="md" radius="lg">
+            <Stack gap="xs">
+              <Text fw={700} size="sm">Mobile behavior</Text>
+              <Text size="sm" c="dimmed">On small screens the sidebar collapses into the shell drawer. The docs site shows the desktop contract here instead of trying to fake a full mobile viewport.</Text>
+            </Stack>
+          </Paper>
+        </SimpleGrid>
+      </Stack>
+    </Paper>
   );
 }
 
@@ -403,59 +543,7 @@ export function LayoutsPage() {
       />
 
       <FormSection title="DiscoveryShell + SidebarNav" description="Use this contract instead of local AppShell wrappers for sidebar-first applications.">
-        <Paper withBorder p="md" radius="xl">
-          <Box style={{ minHeight: 520, overflow: 'hidden', borderRadius: 16 }}>
-            <DiscoveryShell
-              header={<WorkspaceHeader title="Catalog Operations" description="Governed sidebar-first shell" />}
-              sidebar={(
-                <SidebarNav ariaLabel="Catalog navigation">
-                  <SidebarNavSection label="Primary">
-                    <SidebarNavItem action="dashboard" href="#dashboard" active />
-                    <SidebarNavItem action="calendar" href="#schedule" />
-                    <SidebarNavItem action="analytics" href="#analytics" />
-                  </SidebarNavSection>
-                  <SidebarNavSection label="Account" pushToBottom>
-                    <SidebarNavItem action="settings" href="#settings" />
-                    <SidebarNavItem action="logout" component="button" />
-                  </SidebarNavSection>
-                </SidebarNav>
-              )}
-              footer={<SemanticButton action="home" variant="subtle" />}
-            >
-              <Stack gap="lg">
-                <ActionBar
-                  primary={{ action: 'save', size: 'sm' }}
-                  secondary={[{ action: 'cancel', size: 'sm' }]}
-                  tertiary={[{ action: 'preview', size: 'sm' }]}
-                  iconOnly={[{ action: 'settings' }]}
-                />
-                <ResponsiveDataView
-                  data={[
-                    { id: '1', name: 'Universal SSO', type: 'OAuth/OIDC Provider', adoption: '100%' },
-                    { id: '2', name: 'KIDEX Platform', type: 'Conductor Intel App', adoption: '100%' },
-                    { id: '3', name: 'ClassScout NYC', type: 'Class Catalog App', adoption: '100%' },
-                  ]}
-                  columns={[
-                    { key: 'name', label: 'Adopter Repository' },
-                    { key: 'type', label: 'Archetype' },
-                    { key: 'adoption', label: 'Migration Status' },
-                  ]}
-                  renderCard={(item) => (
-                    <Paper withBorder p="md" radius="lg">
-                      <Stack gap="xs">
-                        <Group justify="space-between">
-                          <Text fw={700} size="sm">{item.name}</Text>
-                          <Badge color="teal" variant="light">{item.adoption}</Badge>
-                        </Group>
-                        <Text size="xs" c="dimmed">{item.type}</Text>
-                      </Stack>
-                    </Paper>
-                  )}
-                />
-              </Stack>
-            </DiscoveryShell>
-          </Box>
-        </Paper>
+        <ShellShowcaseFrame />
       </FormSection>
 
       <FormSection title="Asset Attachment dropzone" description="Standard GDS UploadDropzone component built on top of Mantine and ImgBB validation constraints.">
