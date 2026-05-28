@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { ActionBar, DocsCodeBlock, ListingCard, SemanticButton, ThemeToggle } from '@doneisbetter/gds-core';
@@ -18,11 +18,10 @@ import {
   Button,
   Checkbox,
   Code,
-  Divider,
   Group,
   List,
+  NativeSelect,
   Paper,
-  Select,
   SimpleGrid,
   Stack,
   Text,
@@ -111,15 +110,50 @@ const exceptionSurfacesUrl = 'https://github.com/sovereignsquad/general-design-s
 type ThemePresetId = 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand';
 type ThemeSchemeId = 'light' | 'dark' | 'auto';
 
+const themePresetCatalog: Record<ThemePresetId, { label: string; bestFor: string; summary: string; themeKey: string }> = {
+  default: {
+    label: 'Default runtime theme',
+    bestFor: 'Balanced multi-surface products that need the baseline GDS system.',
+    summary: 'The default shared runtime lane for most adopters.',
+    themeKey: 'gdsTheme',
+  },
+  'dark-public': {
+    label: 'Dark public theme',
+    bestFor: 'Dark-first public experiences and campaign-style landing surfaces.',
+    summary: 'A darker public presentation lane with the shipped runtime rhythm intact.',
+    themeKey: 'gdsDarkPublicTheme',
+  },
+  'flat-surface': {
+    label: 'Flat surface theme',
+    bestFor: 'Operational products that prefer quieter elevation and flatter surface contrast.',
+    summary: 'Removes some visual weight without creating a second token authority.',
+    themeKey: 'gdsFlatSurfaceTheme',
+  },
+  editorial: {
+    label: 'Editorial serif theme',
+    bestFor: 'Documentation, editorial, and content-led experiences.',
+    summary: 'Adds a more expressive public reading tone while staying inside GDS contracts.',
+    themeKey: 'gdsEditorialPublicTheme',
+  },
+  brand: {
+    label: 'Brand theme generator',
+    bestFor: 'Consumer teams that need controlled brand expression without forking the system.',
+    summary: 'Composes the shipped helpers into a governed product-authored theme lane.',
+    themeKey: 'createPublicBrandTheme(...)',
+  },
+};
+
 function TokensThemeLab() {
   const [preset, setPreset] = useState<ThemePresetId>('default');
   const [colorScheme, setColorScheme] = useState<ThemeSchemeId>('light');
   const [brandPrimary, setBrandPrimary] = useState('blue');
   const [brandFlatSurfaces, setBrandFlatSurfaces] = useState(true);
   const [brandEditorialSerif, setBrandEditorialSerif] = useState(false);
+  const [comparisonEnabled, setComparisonEnabled] = useState(false);
+  const [comparisonPreset, setComparisonPreset] = useState<ThemePresetId>('editorial');
 
-  const selectedTheme = useMemo(() => {
-    switch (preset) {
+  const getThemeByPreset = (presetId: ThemePresetId) => {
+    switch (presetId) {
       case 'dark-public':
         return gdsDarkPublicTheme;
       case 'flat-surface':
@@ -137,9 +171,13 @@ function TokensThemeLab() {
       default:
         return gdsTheme;
     }
-  }, [brandEditorialSerif, brandFlatSurfaces, brandPrimary, preset]);
+  };
+
+  const selectedTheme = getThemeByPreset(preset);
+  const comparisonTheme = getThemeByPreset(comparisonPreset);
 
   const previewKey = `${preset}-${colorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
+  const comparisonPreviewKey = `${comparisonPreset}-${colorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
 
   const tokenSwatches = [
     { name: 'Primary 6', variable: '--mantine-color-violet-6', color: 'var(--mantine-color-violet-6)' },
@@ -150,34 +188,44 @@ function TokensThemeLab() {
     { name: 'Warning 6', variable: '--mantine-color-orange-6', color: 'var(--mantine-color-orange-6)' },
   ];
 
+  const selectionSummary = themePresetCatalog[preset];
+  const comparisonSummary = themePresetCatalog[comparisonPreset];
+
+  const resetThemeLab = () => {
+    setPreset('default');
+    setColorScheme('light');
+    setBrandPrimary('blue');
+    setBrandFlatSurfaces(true);
+    setBrandEditorialSerif(false);
+    setComparisonEnabled(false);
+    setComparisonPreset('editorial');
+  };
+
   return (
     <Stack gap="lg">
       <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} spacing="lg">
         <Paper withBorder p="lg" radius="xl">
           <Stack gap="md">
             <Title order={4}>Theme Preset</Title>
-            <Select
+            <NativeSelect
               label="Preset"
               value={preset}
-              onChange={(value) => setPreset((value as ThemePresetId) || 'default')}
-              data={[
-                { value: 'default', label: 'Default runtime theme' },
-                { value: 'dark-public', label: 'Dark public theme' },
-                { value: 'flat-surface', label: 'Flat surface theme' },
-                { value: 'editorial', label: 'Editorial serif theme' },
-                { value: 'brand', label: 'Brand theme generator' },
-              ]}
+              onChange={(event) => setPreset((event.currentTarget.value as ThemePresetId) || 'default')}
+              data={Object.entries(themePresetCatalog).map(([value, config]) => ({ value, label: config.label }))}
             />
-            <Select
+            <NativeSelect
               label="Preview color scheme"
               value={colorScheme}
-              onChange={(value) => setColorScheme((value as ThemeSchemeId) || 'light')}
+              onChange={(event) => setColorScheme((event.currentTarget.value as ThemeSchemeId) || 'light')}
               data={[
                 { value: 'light', label: 'Light' },
                 { value: 'dark', label: 'Dark' },
                 { value: 'auto', label: 'Auto' },
               ]}
             />
+            <Button variant="default" size="sm" onClick={resetThemeLab}>
+              Reset theme lab
+            </Button>
             <Text size="sm" c="dimmed">
               This remounts an isolated preview provider so you can test presets without changing the whole docs site.
             </Text>
@@ -187,10 +235,10 @@ function TokensThemeLab() {
         <Paper withBorder p="lg" radius="xl">
           <Stack gap="md">
             <Title order={4}>Brand Builder Options</Title>
-            <Select
+            <NativeSelect
               label="Brand primary color"
               value={brandPrimary}
-              onChange={(value) => setBrandPrimary(value || 'blue')}
+              onChange={(event) => setBrandPrimary(event.currentTarget.value || 'blue')}
               disabled={preset !== 'brand'}
               data={['blue', 'violet', 'teal', 'grape', 'indigo', 'orange']}
             />
@@ -214,26 +262,47 @@ function TokensThemeLab() {
 
         <Paper withBorder p="lg" radius="xl">
           <Stack gap="md">
-            <Title order={4}>Shipped Theme Lanes</Title>
-            <List spacing="xs" size="sm">
-              <List.Item>`gdsTheme`</List.Item>
-              <List.Item>`gdsDarkPublicTheme`</List.Item>
-              <List.Item>`gdsFlatSurfaceTheme`</List.Item>
-              <List.Item>`gdsEditorialPublicTheme`</List.Item>
-              <List.Item>`createPublicBrandTheme(...)`</List.Item>
-            </List>
-            <Code block>{preset === 'brand'
-              ? `createPublicBrandTheme({ flatSurfaces: ${brandFlatSurfaces}, editorialSerif: ${brandEditorialSerif}, overrides: { primaryColor: '${brandPrimary}' } })`
-              : preset === 'dark-public'
-                ? 'gdsDarkPublicTheme'
-                : preset === 'flat-surface'
-                  ? 'gdsFlatSurfaceTheme'
-                  : preset === 'editorial'
-                    ? 'gdsEditorialPublicTheme'
-                    : 'gdsTheme'}</Code>
+            <Title order={4}>Current Selection Summary</Title>
+            <Stack gap={6}>
+              <Text fw={700}>{selectionSummary.label}</Text>
+              <Text size="sm" c="dimmed">{selectionSummary.summary}</Text>
+              <Text size="sm"><strong>Best for:</strong> {selectionSummary.bestFor}</Text>
+              <Text size="sm"><strong>Runtime lane:</strong> <Code>{selectionSummary.themeKey}</Code></Text>
+            </Stack>
+            <Checkbox
+              label="Compare against a second shipped preset"
+              checked={comparisonEnabled}
+              onChange={(event) => setComparisonEnabled(event.currentTarget.checked)}
+            />
+            <NativeSelect
+              label="Comparison preset"
+              value={comparisonPreset}
+              onChange={(event) => setComparisonPreset((event.currentTarget.value as ThemePresetId) || 'editorial')}
+              disabled={!comparisonEnabled}
+              data={Object.entries(themePresetCatalog)
+                .filter(([value]) => value !== preset)
+                .map(([value, config]) => ({ value, label: config.label }))}
+            />
           </Stack>
         </Paper>
       </SimpleGrid>
+
+      <Paper withBorder p="lg" radius="xl">
+        <Stack gap="md">
+          <Title order={4}>Shipped Theme Lanes</Title>
+          <SimpleGrid cols={{ base: 1, md: 2, xl: 5 }} spacing="md">
+            {Object.values(themePresetCatalog).map((lane) => (
+              <Paper key={lane.themeKey} withBorder p="md" radius="lg">
+                <Stack gap={6}>
+                  <Text fw={700} size="sm">{lane.label}</Text>
+                  <Text size="sm" c="dimmed">{lane.summary}</Text>
+                  <Code block fz="10px">{lane.themeKey}</Code>
+                </Stack>
+              </Paper>
+            ))}
+          </SimpleGrid>
+        </Stack>
+      </Paper>
 
       <Paper withBorder p="lg" radius="xl">
         <Stack gap="md">
@@ -241,67 +310,101 @@ function TokensThemeLab() {
             <Stack gap={4}>
               <Title order={4}>Live Theme Preview</Title>
               <Text size="sm" c="dimmed">
-                Test preset composition, color scheme behavior, typography, actions, cards, and token usage in a real isolated GDS provider.
+                Test preset composition, color-scheme behavior, typography, actions, cards, and token usage in a real isolated GDS provider. This route is the public theme explorer for the shipped system.
               </Text>
             </Stack>
             <ThemeToggle />
           </Group>
 
-          <GdsProvider key={previewKey} theme={selectedTheme} defaultColorScheme={colorScheme}>
-            <Paper withBorder p="lg" radius="xl">
-              <Stack gap="lg">
-                <Group justify="space-between" align="flex-start" wrap="wrap">
-                  <Stack gap={4}>
-                    <Title order={3}>Theme Preview Surface</Title>
-                    <Text size="sm" c="dimmed">
-                      Preset: {preset} · Color scheme: {colorScheme}
-                    </Text>
-                  </Stack>
-                  <ThemeToggle />
-                </Group>
+          <SimpleGrid cols={{ base: 1, xl: comparisonEnabled ? 2 : 1 }} spacing="lg">
+            <GdsProvider key={previewKey} theme={selectedTheme} defaultColorScheme={colorScheme}>
+              <Paper withBorder p="lg" radius="xl">
+                <Stack gap="lg">
+                  <Group justify="space-between" align="flex-start" wrap="wrap">
+                    <Stack gap={4}>
+                      <Title order={3}>Primary Preview Surface</Title>
+                      <Text size="sm" c="dimmed">
+                        Preset: {selectionSummary.label} · Color scheme: {colorScheme}
+                      </Text>
+                    </Stack>
+                    <ThemeToggle />
+                  </Group>
 
-                <SimpleGrid cols={{ base: 1, xl: 2 }} spacing="lg">
-                  <Stack gap="md">
-                    <ActionBar
-                      primary={{ action: 'save', size: 'sm' }}
-                      secondary={[{ action: 'cancel', size: 'sm' }]}
-                      tertiary={[{ action: 'preview', size: 'sm' }]}
-                      iconOnly={[{ action: 'settings' }]}
+                  <SimpleGrid cols={{ base: 1, xl: 2 }} spacing="lg">
+                    <Stack gap="md">
+                      <ActionBar
+                        primary={{ action: 'save', size: 'sm' }}
+                        secondary={[{ action: 'cancel', size: 'sm' }]}
+                        tertiary={[{ action: 'preview', size: 'sm' }]}
+                        iconOnly={[{ action: 'settings' }]}
+                      />
+                      <TextInput label="Theme-aware input" placeholder="Preview form field treatment" />
+                      <Group gap="sm" wrap="wrap">
+                        <Badge variant="light">Runtime</Badge>
+                        <Badge color="teal" variant="light">Success</Badge>
+                        <Badge color="orange" variant="light">Warning</Badge>
+                        <Badge color="red" variant="light">Danger</Badge>
+                      </Group>
+                    </Stack>
+
+                    <ListingCard
+                      title="Theme Lab Reference Card"
+                      description="Use this preview to evaluate spacing, type hierarchy, borders, elevation, and primary-accent behavior."
+                      metadata={[
+                        { id: 'preset', label: 'Preset', value: selectionSummary.label },
+                        { id: 'scheme', label: 'Color scheme', value: colorScheme },
+                      ]}
+                      primaryAction={<SemanticButton action="preview" size="sm" />}
+                      saveAction={{ action: 'save' }}
+                      shareAction={{ action: 'forward' }}
                     />
-                    <TextInput label="Theme-aware input" placeholder="Preview form field treatment" />
+                  </SimpleGrid>
+
+                  <SimpleGrid cols={{ base: 2, md: 3, xl: 6 }} spacing="md">
+                    {tokenSwatches.map((swatch) => (
+                      <Paper key={swatch.variable} withBorder p="sm" radius="lg">
+                        <Box style={{ height: 56, borderRadius: 10, background: swatch.color, marginBottom: 8 }} />
+                        <Text fw={700} size="xs">{swatch.name}</Text>
+                        <Code block fz="9px" mt={4}>{swatch.variable}</Code>
+                      </Paper>
+                    ))}
+                  </SimpleGrid>
+                </Stack>
+              </Paper>
+            </GdsProvider>
+
+            {comparisonEnabled ? (
+              <GdsProvider key={comparisonPreviewKey} theme={comparisonTheme} defaultColorScheme={colorScheme}>
+                <Paper withBorder p="lg" radius="xl">
+                  <Stack gap="lg">
+                    <Group justify="space-between" align="flex-start" wrap="wrap">
+                      <Stack gap={4}>
+                        <Title order={3}>Comparison Preview Surface</Title>
+                        <Text size="sm" c="dimmed">
+                          Preset: {comparisonSummary.label} · Color scheme: {colorScheme}
+                        </Text>
+                      </Stack>
+                      <Badge variant="light" color="violet">Comparison</Badge>
+                    </Group>
+                    <ListingCard
+                      title="Comparison Card"
+                      description={comparisonSummary.summary}
+                      metadata={[
+                        { id: 'preset', label: 'Preset', value: comparisonSummary.label },
+                        { id: 'best-for', label: 'Best for', value: comparisonSummary.bestFor },
+                      ]}
+                      primaryAction={<SemanticButton action="preview" size="sm" />}
+                    />
                     <Group gap="sm" wrap="wrap">
                       <Badge variant="light">Runtime</Badge>
                       <Badge color="teal" variant="light">Success</Badge>
                       <Badge color="orange" variant="light">Warning</Badge>
-                      <Badge color="red" variant="light">Danger</Badge>
                     </Group>
                   </Stack>
-
-                  <ListingCard
-                    title="Theme Lab Reference Card"
-                    description="Use this preview to evaluate spacing, type hierarchy, borders, elevation, and primary-accent behavior."
-                    metadata={[
-                      { id: 'preset', label: 'Preset', value: preset },
-                      { id: 'scheme', label: 'Color scheme', value: colorScheme },
-                    ]}
-                    primaryAction={<SemanticButton action="preview" size="sm" />}
-                    saveAction={{ action: 'save' }}
-                    shareAction={{ action: 'forward' }}
-                  />
-                </SimpleGrid>
-
-                <SimpleGrid cols={{ base: 2, md: 3, xl: 6 }} spacing="md">
-                  {tokenSwatches.map((swatch) => (
-                    <Paper key={swatch.variable} withBorder p="sm" radius="lg">
-                      <Box style={{ height: 56, borderRadius: 10, background: swatch.color, marginBottom: 8 }} />
-                      <Text fw={700} size="xs">{swatch.name}</Text>
-                      <Code block fz="9px" mt={4}>{swatch.variable}</Code>
-                    </Paper>
-                  ))}
-                </SimpleGrid>
-              </Stack>
-            </Paper>
-          </GdsProvider>
+                </Paper>
+              </GdsProvider>
+            ) : null}
+          </SimpleGrid>
         </Stack>
       </Paper>
     </Stack>
@@ -340,58 +443,105 @@ export function OverviewPage() {
   return (
     <Stack gap="xl">
       <PageHeader
-        title="GDS Principles & Core Guidelines"
-        description="The General Design System (GDS) is built on strict ubiquitous language, semantic consistency, and a zero-legacy CSS module policy."
+        title="General Design System"
+        description="GDS is the shared design, UI, and UX system for teams that want faster delivery, better consistency, and less local front-end drift. This website is both the official reference and the live demo of the shipped system."
         primaryAction={
-          <Link to="/themes" style={{ textDecoration: 'none' }}>
+          <Link to="/install" style={{ textDecoration: 'none' }}>
             <SemanticButton action="start" size="md" />
           </Link>
         }
       />
 
+      <Paper withBorder p="xl" radius="xl">
+        <Stack gap="lg">
+          <Group gap="sm" wrap="wrap">
+            <Badge color="teal" variant="light">Official website</Badge>
+            <Badge color="violet" variant="light">Live demo</Badge>
+            <Badge color="orange" variant="light">npm-ready</Badge>
+          </Group>
+          <Stack gap="xs" maw={860}>
+            <Title order={2}>One place to understand, install, test, and trust GDS</Title>
+            <Text size="lg" c="dimmed">
+              We use this site to show the real shipped system, not marketing mockups. You can read the install path, inspect the pattern catalog, test the theme lanes, review governance rules, and browse live demos of the current primitives in one place.
+            </Text>
+          </Stack>
+          <Group gap="sm" wrap="wrap">
+            <Button component={Link} to="/patterns">Browse patterns</Button>
+            <Button component={Link} to="/themes" variant="light">Explore themes</Button>
+            <Button component={Link} to="/live-demos" variant="default">Open live demos</Button>
+            <Button component={Link} to="/governance" variant="subtle">Read governance</Button>
+          </Group>
+        </Stack>
+      </Paper>
+
       <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
         <Paper withBorder p="xl" radius="xl">
-          <Stack gap="md" align="center" ta="center">
+          <Stack gap="md">
             <ThemeIcon size={48} radius="xl" color="teal.6" variant="light">
               <IconShieldCheck size="1.8rem" />
             </ThemeIcon>
-            <Title order={3}>1:1 Semantic Action Mapping</Title>
+            <Title order={3}>What GDS Is</Title>
             <Text size="sm" c="dimmed">
-              Every action has exactly one designated icon and semantic tone across all apps. No overlapping checks or duplicate verbs.
+              A production-grade design system with shared packages, governed primitives, compliance tooling, live reference pages, and a single source of truth for teams building public, admin, and hybrid products.
             </Text>
           </Stack>
         </Paper>
 
         <Paper withBorder p="xl" radius="xl">
-          <Stack gap="md" align="center" ta="center">
+          <Stack gap="md">
             <ThemeIcon size={48} radius="xl" color="violet.6" variant="light">
               <IconActivity size="1.8rem" />
             </ThemeIcon>
-            <Title order={3}>Component Contract Parity</Title>
+            <Title order={3}>Why Teams Use It</Title>
             <Text size="sm" c="dimmed">
-              Downstream products consume shared packages directly under a unified schema, eliminating local drift and redundant adapters.
+              It reduces local wrappers, duplicated styling systems, and inconsistent UX decisions. Teams move faster because they build on shared contracts instead of renegotiating shells, cards, actions, themes, and states in every repo.
             </Text>
           </Stack>
         </Paper>
 
         <Paper withBorder p="xl" radius="xl">
-          <Stack gap="md" align="center" ta="center">
+          <Stack gap="md">
             <ThemeIcon size={48} radius="xl" color="orange.6" variant="light">
               <IconPalette size="1.8rem" />
             </ThemeIcon>
-            <Title order={3}>Zero CSS-Module Baseline</Title>
+            <Title order={3}>Who It Is For</Title>
             <Text size="sm" c="dimmed">
-              Product layouts are built exclusively with GDS tokenized primitives, eliminating scattered class hierarchies.
+              Product teams, platform teams, designers, and maintainers who need one reliable shared system for public experiences, operational tooling, marketplace/discovery surfaces, content workflows, and governed theming.
             </Text>
           </Stack>
         </Paper>
       </SimpleGrid>
 
-      <Divider />
+      <FormSection title="Why GDS Works" description="The system is useful because it combines runtime packages, live proof, and governance instead of leaving teams with loose guidelines only.">
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
+          <Paper withBorder p="xl" radius="xl">
+            <Stack gap="md">
+              <Title order={3}>Built for real delivery</Title>
+              <List spacing="sm" size="sm">
+                <List.Item>Direct npm install path for the shared package line</List.Item>
+                <List.Item>Canonical patterns for shells, actions, listings, detail surfaces, embeds, auth, share, and food/menu experiences</List.Item>
+                <List.Item>Reference demos and docs on the same public site</List.Item>
+                <List.Item>Compliance and validation tooling for teams that want true GDS-only enforcement</List.Item>
+              </List>
+            </Stack>
+          </Paper>
+          <Paper withBorder p="xl" radius="xl">
+            <Stack gap="md">
+              <Title order={3}>Built to prevent drift</Title>
+              <List spacing="sm" size="sm">
+                <List.Item>One semantic action vocabulary instead of local button folklore</List.Item>
+                <List.Item>One governed theme system instead of parallel token layers</List.Item>
+                <List.Item>One pattern catalog that shows what already exists before teams build locally</List.Item>
+                <List.Item>One adoption path with install, governance, migration, and verification rules</List.Item>
+              </List>
+            </Stack>
+          </Paper>
+        </SimpleGrid>
+      </FormSection>
 
       <Stack gap="sm">
         <Title order={2}>Platform Adoption Progress</Title>
-        <Text size="sm" c="dimmed">Our current standard is adopted fully across six live repositories:</Text>
+        <Text size="sm" c="dimmed">The current runtime line is already used as a real shared system, not just a design exercise.</Text>
         <Paper withBorder p="md" radius="lg">
           <Stack gap={6}>
             <Text fw={700} size="sm">Current supported consumer line</Text>
@@ -415,19 +565,43 @@ export function OverviewPage() {
         <Stack gap="md">
           <Group justify="space-between" align="flex-start" wrap="wrap">
             <Stack gap={4}>
-              <Title order={2}>Foundation Slice: Shell, Navigation, and Actions</Title>
+              <Title order={2}>This site is also the live demo</Title>
               <Text size="sm" c="dimmed" maw={720}>
-                The current implementation ships governed shells, semantic navigation, and standardized CTA hierarchy across both public and admin experiences.
+                Everything here should help visitors move from understanding to verification. The pattern pages show shipped contracts, the theme explorer shows real runtime theme lanes, the live demos show public and admin surfaces, and the governance pages explain how to adopt the system safely.
               </Text>
             </Stack>
-            <Badge color="teal" variant="light">Implemented in GDS core/admin</Badge>
+            <Badge color="teal" variant="light">Official reference + runtime proof</Badge>
           </Group>
-          <Group gap="sm" wrap="wrap">
-            <SemanticButton action="save" />
-            <SemanticButton action="cancel" variant="light" />
-            <SemanticButton action="preview" variant="subtle" />
-            <SemanticButton action="settings" variant="default" />
-          </Group>
+          <SimpleGrid cols={{ base: 1, md: 4 }} spacing="md">
+            <Paper withBorder p="md" radius="lg">
+              <Stack gap="xs">
+                <Text fw={700} size="sm">Install</Text>
+                <Text size="sm" c="dimmed">See the public npm path, bootstrap contract, and verification commands.</Text>
+                <Button component={Link} to="/install" variant="light">Open install guide</Button>
+              </Stack>
+            </Paper>
+            <Paper withBorder p="md" radius="lg">
+              <Stack gap="xs">
+                <Text fw={700} size="sm">Patterns</Text>
+                <Text size="sm" c="dimmed">Browse the catalog of governed shells, cards, actions, states, and workflows.</Text>
+                <Button component={Link} to="/patterns" variant="light">Open pattern catalog</Button>
+              </Stack>
+            </Paper>
+            <Paper withBorder p="md" radius="lg">
+              <Stack gap="xs">
+                <Text fw={700} size="sm">Themes</Text>
+                <Text size="sm" c="dimmed">Test shipped presets, color-scheme behavior, and the creator-theme boundary.</Text>
+                <Button component={Link} to="/themes" variant="light">Open theme explorer</Button>
+              </Stack>
+            </Paper>
+            <Paper withBorder p="md" radius="lg">
+              <Stack gap="xs">
+                <Text fw={700} size="sm">Live demos</Text>
+                <Text size="sm" c="dimmed">Inspect curated demos for shells, discovery surfaces, semantics, and analytics.</Text>
+                <Button component={Link} to="/live-demos" variant="light">Open live demos</Button>
+              </Stack>
+            </Paper>
+          </SimpleGrid>
         </Stack>
       </Paper>
 

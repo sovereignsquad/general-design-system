@@ -7,7 +7,8 @@ All notable policy changes to the General Design System are recorded here.
 - Added the registry-backed GitHub Pages pattern catalog under `/patterns` with dedicated family routes for foundations, public, operations, data, access, and feedback coverage.
 - Expanded the public docs site to show live demos for the remaining workflow and responsive-guidance contracts that had previously been represented only as reference notes.
 - Hardened the GitHub Pages playground with route-level lazy loading, deterministic vendor chunking, and contained shell previews so the public site behaves like a documentation site instead of a nested application demo.
-- Added an interactive `/tokens` theme lab so adopters can switch among shipped theme presets, test light/dark behavior, and inspect the bounded creator-authored theming lane directly on the public site.
+- Added an interactive `/themes` explorer so adopters can switch among shipped theme presets, test light/dark behavior, inspect the bounded creator-authored theming lane, and compare theme lanes directly on the public site.
+- Added a dedicated `/live-demos` hub so the public website separates official docs from runtime showcase sections more clearly.
 - Strengthened `@doneisbetter/gds-compliance` exception enforcement to fail stale exception scopes, uncovered local exception adapters, and incomplete creator-authored experience exception metadata.
 - Updated theme governance, exception-surface, compliance, and adoption rulebooks to formalize the creator-authored experience contract and the new repo-to-manifest exception checks.
 - Added `SocialAuthButtons` to `@doneisbetter/gds-core` as the canonical provider-entry cluster for Google, Apple, GitHub, Microsoft, LinkedIn, Discord, X, Facebook, and email-shaped auth lanes.

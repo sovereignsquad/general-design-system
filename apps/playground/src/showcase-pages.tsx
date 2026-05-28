@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   AccessSummary,
   ActionBar,
@@ -271,6 +272,82 @@ function ShellShowcaseFrame() {
         </SimpleGrid>
       </Stack>
     </Paper>
+  );
+}
+
+export function LiveDemosPage() {
+  return (
+    <Stack gap="xl">
+      <PageHeader
+        title="Live Demos"
+        description="This section is the public runtime showcase for shipped GDS surfaces. Use it to inspect real compositions, interaction states, and governed primitives instead of guessing from package names alone."
+      />
+
+      <Paper withBorder p="xl" radius="xl">
+        <Stack gap="md">
+          <Group gap="sm" wrap="wrap">
+            <Badge color="teal" variant="light">Official runtime proof</Badge>
+            <Badge color="violet" variant="light">Public showcase</Badge>
+            <Badge color="orange" variant="light">Shipped contracts only</Badge>
+          </Group>
+          <Text size="lg" c="dimmed" maw={860}>
+            These demos are intentionally separated from the docs and governance pages. The goal here is practical inspection: what the system already ships, how it behaves, and which surfaces teams should adopt before building locally.
+          </Text>
+        </Stack>
+      </Paper>
+
+      <SimpleGrid cols={{ base: 1, md: 2, xl: 4 }} spacing="lg">
+        {[
+          {
+            title: 'Discovery & Cards',
+            description: 'Listing, media, map, food, and share surfaces for public and discovery-heavy products.',
+            href: '/live-demos/surfaces',
+          },
+          {
+            title: 'Shells & Layouts',
+            description: 'DiscoveryShell, detail-shell, and admin composition patterns with governed navigation rhythm.',
+            href: '/live-demos/layouts',
+          },
+          {
+            title: 'Actions, Auth & Semantics',
+            description: 'Semantic actions, social auth, vocabulary extension, and interaction-state contracts.',
+            href: '/live-demos/semantics',
+          },
+          {
+            title: 'Analytics & Data Views',
+            description: 'Operational metrics, data tables, responsive views, and analysis-oriented panels.',
+            href: '/live-demos/analytics',
+          },
+        ].map((section) => (
+          <Paper key={section.href} withBorder p="lg" radius="xl">
+            <Stack gap="sm">
+              <Title order={3}>{section.title}</Title>
+              <Text size="sm" c="dimmed">{section.description}</Text>
+              <Button component={Link} to={section.href} variant="light">
+                Open section
+              </Button>
+            </Stack>
+          </Paper>
+        ))}
+      </SimpleGrid>
+
+      <Paper withBorder p="xl" radius="xl">
+        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
+          <Stack gap="xs">
+            <Text fw={700}>What these demos prove</Text>
+            <Text size="sm" c="dimmed">That GDS is not just a written rulebook. The primitives on this site are the actual shipped system rendered live.</Text>
+          </Stack>
+          <Stack gap="xs">
+            <Text fw={700}>How to use them</Text>
+            <Text size="sm" c="dimmed">Inspect the pattern behavior here, then move to the install and governance pages before adopting the same contract in a consumer product.</Text>
+          </Stack>
+          <Stack gap="xs">
+            <Text fw={700}>When not to improvise</Text>
+            <Text size="sm" c="dimmed">If a surface already exists in these demos, teams should not create a parallel local wrapper without a documented temporary exception.</Text>
+          </Stack>
+        </SimpleGrid>
+      </Paper>
+    </Stack>
   );
 }
 

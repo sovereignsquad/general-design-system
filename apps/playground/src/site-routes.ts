@@ -79,7 +79,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
   {
     id: 'demo-surfaces',
     path: '/live-demos/surfaces',
-    label: 'Surface Demos',
+    label: 'Discovery & Cards',
     action: 'grid',
     audienceIntent: 'live-demos',
     navGroup: 'secondary',
@@ -89,7 +89,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
   {
     id: 'demo-layouts',
     path: '/live-demos/layouts',
-    label: 'Shell Demos',
+    label: 'Shells & Layouts',
     action: 'copy',
     audienceIntent: 'live-demos',
     navGroup: 'secondary',
@@ -99,7 +99,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
   {
     id: 'demo-semantics',
     path: '/live-demos/semantics',
-    label: 'Semantic Demos',
+    label: 'Actions & Auth',
     action: 'list',
     audienceIntent: 'live-demos',
     navGroup: 'secondary',
@@ -109,7 +109,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
   {
     id: 'demo-analytics',
     path: '/live-demos/analytics',
-    label: 'Analytics Demos',
+    label: 'Analytics & Data',
     action: 'analytics',
     audienceIntent: 'live-demos',
     navGroup: 'secondary',

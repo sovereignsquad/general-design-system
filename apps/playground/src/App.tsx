@@ -16,6 +16,7 @@ import {
   Menu, 
   Group, 
   Skeleton,
+  Text,
 } from '@mantine/core';
 import { 
   IconLanguage, 
@@ -66,6 +67,11 @@ const FeedbackPatternPage = lazy(async () => {
 const CardsPage = lazy(async () => {
   const module = await import('./showcase-pages');
   return { default: module.CardsPage };
+});
+
+const LiveDemosPage = lazy(async () => {
+  const module = await import('./showcase-pages');
+  return { default: module.LiveDemosPage };
 });
 
 const LayoutsPage = lazy(async () => {
@@ -195,6 +201,16 @@ function PlaygroundContent() {
         headerActions={headerActions}
       >
         <Box p="md" maw={1200} mx="auto">
+          {locale !== 'en' ? (
+            <Paper withBorder p="md" radius="xl" mb="md">
+              <Stack gap={4}>
+                <Text fw={700} size="sm">Localization note</Text>
+                <Text size="sm" c="dimmed">
+                  Shared GDS component vocabulary switches with the selected locale. Full website copy is still being localized, so the main docs and demo explanations remain English for now.
+                </Text>
+              </Stack>
+            </Paper>
+          ) : null}
           <Routes>
             <Route path="/" element={<Suspense fallback={<RouteFallback />}><OverviewPage /></Suspense>} />
 
@@ -212,7 +228,7 @@ function PlaygroundContent() {
 
             <Route path="/themes" element={<Suspense fallback={<RouteFallback />}><TokensPage /></Suspense>} />
 
-            <Route path="/live-demos" element={<Navigate to="/live-demos/surfaces" replace />} />
+            <Route path="/live-demos" element={<Suspense fallback={<RouteFallback />}><LiveDemosPage /></Suspense>} />
 
             <Route path="/live-demos/surfaces" element={<Suspense fallback={<RouteFallback />}><CardsPage /></Suspense>} />
 

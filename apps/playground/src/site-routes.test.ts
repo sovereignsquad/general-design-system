@@ -27,11 +27,11 @@ describe('public site routes', () => {
   });
 
   it('groups live-demo routes into secondary navigation', () => {
-    expect(getSecondaryRoutes('live-demos').map((route) => route.path)).toEqual([
-      '/live-demos/surfaces',
-      '/live-demos/layouts',
-      '/live-demos/semantics',
-      '/live-demos/analytics',
+    expect(getSecondaryRoutes('live-demos').map((route) => `${route.label}:${route.path}`)).toEqual([
+      'Discovery & Cards:/live-demos/surfaces',
+      'Shells & Layouts:/live-demos/layouts',
+      'Actions & Auth:/live-demos/semantics',
+      'Analytics & Data:/live-demos/analytics',
     ]);
   });
 
