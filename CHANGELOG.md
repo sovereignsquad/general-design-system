@@ -4,6 +4,9 @@ All notable policy changes to the General Design System are recorded here.
 
 ## 2.6.4 - 2026-05-28
 
+- Added the registry-backed GitHub Pages pattern catalog under `/patterns` with dedicated family routes for foundations, public, operations, data, access, and feedback coverage.
+- Expanded the public docs site to show live demos for the remaining workflow and responsive-guidance contracts that had previously been represented only as reference notes.
+- Hardened the GitHub Pages playground with route-level lazy loading, deterministic vendor chunking, and contained shell previews so the public site behaves like a documentation site instead of a nested application demo.
 - Added `SocialAuthButtons` to `@doneisbetter/gds-core` as the canonical provider-entry cluster for Google, Apple, GitHub, Microsoft, LinkedIn, Discord, X, Facebook, and email-shaped auth lanes.
 - Added `ShareButtonGroup` to `@doneisbetter/gds-core` as the canonical public sharing surface for native share, copy-link, email, message, and social-channel actions.
 - Enhanced `AuthShell` to support governed social-auth placement and divider rhythm instead of consumer-local auth-provider layouts.

@@ -142,6 +142,13 @@ Recommended compliance path:
 6. fail CI on `gds-compliance check`
 7. enable `strictMode` once the repo is ready for true GDS-only enforcement
 
+Before declaring a new local surface gap, teams must check both:
+
+- [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md)
+- `https://sovereignsquad.github.io/general-design-system/patterns`
+
+The markdown document is the normative contract. The GitHub Pages pattern catalog is the live visual proof and demo inventory for those contracts.
+
 Strict mode should approve the canonical lanes explicitly:
 
 - `DiscoveryShell`

@@ -6,6 +6,20 @@ Last updated: 2026-05-28
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
 
+Public reference site:
+
+- overview: `https://sovereignsquad.github.io/general-design-system/`
+- pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
+- family pages:
+- `.../patterns/foundations`
+- `.../patterns/public`
+- `.../patterns/operations`
+- `.../patterns/data`
+- `.../patterns/access`
+- `.../patterns/feedback`
+
+The website is the live visual reference for these contracts. This document remains the normative SSOT for policy and required behavior.
+
 ## 1. Application Shell & Navigation
 
 - **Stable Shell**: Every authenticated product needs a stable shell that makes current location and primary destinations obvious.

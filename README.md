@@ -14,16 +14,18 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 
 1. **Familiarize Yourself with the Foundation**: Start by reading [FOUNDATION.md](/Users/Shared/Projects/general-design-system/FOUNDATION.md) to understand the core principles, accessibility baselines, and our strict Mantine token policies.
 2. **Review the Component Contracts**: Before building a new UI component or workflow, check [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) to see if a canonical pattern already exists for buttons, tables, modals, public shells, docs pages, or public data surfaces.
-3. **Use the Pattern Service Model**: Before borrowing from Mantine UI or another project, read [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) to convert references into governed, reusable contracts.
-4. **Read the Service Backbone Plan**: Use [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) to understand how the GDS operates as a reliable, cross-project service with adoption, validation, and portfolio layers.
-5. **Adopt & Migrate**: Use [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) to understand how to correctly implement this system in a new or legacy codebase, including the required local project statement, the adoption manifest, and compliance tooling.
-6. **Run the Adoption Playbook**: Use [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) when converting a local mirror, a legacy UI system, or a new product to direct package consumption.
-7. **Check Compatibility & Release Rules**: Use [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) before wiring package installs, CI/Vercel builds, or framework upgrades.
+3. **Open the Live Pattern Catalog**: Use [https://sovereignsquad.github.io/general-design-system/patterns](https://sovereignsquad.github.io/general-design-system/patterns) to inspect the public, registry-backed reference site that demonstrates the documented contracts directly.
+4. **Use the Pattern Service Model**: Before borrowing from Mantine UI or another project, read [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) to convert references into governed, reusable contracts.
+5. **Read the Service Backbone Plan**: Use [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) to understand how the GDS operates as a reliable, cross-project service with adoption, validation, and portfolio layers.
+6. **Adopt & Migrate**: Use [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) to understand how to correctly implement this system in a new or legacy codebase, including the required local project statement, the adoption manifest, and compliance tooling.
+7. **Run the Adoption Playbook**: Use [ADOPTION_AND_MIGRATION_PLAYBOOK.md](/Users/Shared/Projects/general-design-system/ADOPTION_AND_MIGRATION_PLAYBOOK.md) when converting a local mirror, a legacy UI system, or a new product to direct package consumption.
+8. **Check Compatibility & Release Rules**: Use [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system/COMPATIBILITY_AND_RELEASES.md) before wiring package installs, CI/Vercel builds, or framework upgrades.
 
 ### What You Can Find Here
 
 - **Core Principles & Tokens**: [FOUNDATION.md](/Users/Shared/Projects/general-design-system/FOUNDATION.md) — The fundamental rules that guide UI decisions, dark/light modes, and Mantine boundaries.
 - **Component Contracts & Patterns**: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) — Required behaviors for standard UI elements and full-page workflows.
+- **Live Pattern Catalog**: [https://sovereignsquad.github.io/general-design-system/patterns](https://sovereignsquad.github.io/general-design-system/patterns) — The public registry-backed component and pattern reference site with family pages for foundations, public, operations, data, access, and feedback coverage.
 - **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
 - **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
 - **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
@@ -48,7 +50,35 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Public, Discovery, and Detail Surface Primitives**: `AccentPanel`, `ChoiceChip`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `PublicBrandFooter`, `DiscoveryShell`, `SidebarNav`, `ActionBar`, `ListingCard`, `ShareButtonGroup`, `MapPanel`, `DetailProfileShell`, `PublicFlowShell`, `PlaybackSurface`, `PublicFoodCard`, `FoodMenuSection`, `SocialAuthButtons`, and the enhanced `PublicShell` / `PublicProductCard` / `AuthShell` contracts from `@doneisbetter/gds-core` — canonical public/editorial contracts for accent-safe surfaces, sidebar-first shells, governed navigation and actions, unified discovery cards, sanctioned share/embed panels, detail/profile composition, public staged flows, kiosk/playback surfaces, food/menu presentation, consumer dashboard grouping, operational framing, social-auth entry, and localized media-first card states.
 - **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@doneisbetter/gds-admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
+- **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, rulebook, tokens, showcase routes, and the live pattern catalog.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
+
+## Public Site Contract
+
+The GitHub Pages site is the public runtime reference for this repository:
+
+- Overview: `https://sovereignsquad.github.io/general-design-system/`
+- Install guide: `https://sovereignsquad.github.io/general-design-system/install`
+- Pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
+- Pattern family routes:
+- `.../patterns/foundations`
+- `.../patterns/public`
+- `.../patterns/operations`
+- `.../patterns/data`
+- `.../patterns/access`
+- `.../patterns/feedback`
+
+Use the site for:
+- live visual inspection of canonical contracts
+- route-level pattern discovery
+- installation and governance onboarding
+- public demos of responsive and state behavior
+
+Use the markdown SSOT documents for:
+- normative policy
+- enforcement rules
+- migration authority
+- versioned contract wording
 
 ---
 

@@ -6,6 +6,13 @@ Last updated: 2026-05-28
 
 This guide is the canonical consumer setup path for the public umbrella package `@doneisbetter/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
+Public install and reference routes:
+
+- live install page: `https://sovereignsquad.github.io/general-design-system/install`
+- live rulebook: `https://sovereignsquad.github.io/general-design-system/rulebook`
+- live tokens page: `https://sovereignsquad.github.io/general-design-system/tokens`
+- live pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
+
 ## 1. Supported consumer baseline
 
 Current verified consumer line:
@@ -110,6 +117,15 @@ Prefer canonical primitives over local reinvention:
 - `MapPanel` for sanctioned embeds
 - `DetailProfileShell` for page/drawer detail surfaces
 
+Before introducing a new local surface contract, verify the live catalog first:
+
+- `.../patterns/foundations` for shells, navigation, actions, controls, and shared workflow guidance
+- `.../patterns/public` for public, editorial, docs, listing, and footer surfaces
+- `.../patterns/operations` for dashboards, section panels, content editors, and detail patterns
+- `.../patterns/data` for search, toolbars, tables, browse, and reporting rhythm
+- `.../patterns/access` for auth, upload, recovery, sharing, and staged public flows
+- `.../patterns/feedback` for state messaging, alerts, badges, modals, drawers, and responsive ergonomics
+
 ## 5. Required governance setup
 
 Every mature consumer should add a `gds-adoption.json` manifest and run shared compliance checks in CI.
@@ -157,6 +173,7 @@ Do not:
 - invent local shell, card, or action wrappers when the canonical GDS primitive already exists
 - mix `server` and `client` entrypoints arbitrarily
 - enable strict mode before the canonical primitives are actually adopted
+- assume a missing local implementation means the GDS contract does not exist; check the live pattern catalog and SSOT first
 
 ## 8. Fallback install path
 

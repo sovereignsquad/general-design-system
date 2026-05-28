@@ -119,6 +119,13 @@ npm run verify:mantine
 gds-compliance check --manifest ./gds-adoption.json
 ```
 
+Also verify the affected surface against the live public reference when applicable:
+
+- `https://sovereignsquad.github.io/general-design-system/patterns`
+- relevant family page for the surface being adopted
+
+This prevents teams from reintroducing local wrappers for already-shipped contracts that are visibly available in the GDS site.
+
 For Next.js consumers, also verify the production build path. For public products, verify at least one high-traffic route and one empty/error state.
 
 Consumer dependency baseline:

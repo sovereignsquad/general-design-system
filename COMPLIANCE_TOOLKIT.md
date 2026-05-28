@@ -101,6 +101,13 @@ Recommended activation order:
 4. migrate detail surfaces to `DetailProfileShell`
 5. enable `strictMode` and keep any short-lived gaps in `approvedTemporaryExceptions`
 
+Reference review input for migration teams:
+
+- SSOT policy: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md)
+- live pattern site: `https://sovereignsquad.github.io/general-design-system/patterns`
+
+The compliance toolkit does not replace design review. It enforces the declared contract after teams have confirmed the shipped surface inventory.
+
 Use this only for additive repo-local bans and legacy cleanup signals. Do not use it to carve holes in the canonical GDS ruleset.
 
 ## CI integration
