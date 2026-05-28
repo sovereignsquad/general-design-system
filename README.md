@@ -26,7 +26,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Core Principles & Tokens**: [FOUNDATION.md](/Users/Shared/Projects/general-design-system/FOUNDATION.md) — The fundamental rules that guide UI decisions, dark/light modes, and Mantine boundaries.
 - **Component Contracts & Patterns**: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) — Required behaviors for standard UI elements and full-page workflows.
 - **Live Pattern Catalog**: [https://sovereignsquad.github.io/general-design-system/patterns](https://sovereignsquad.github.io/general-design-system/patterns) — The public registry-backed component and pattern reference site with family pages for foundations, public, operations, data, access, and feedback coverage.
-- **Interactive Theme Lab**: [https://sovereignsquad.github.io/general-design-system/tokens](https://sovereignsquad.github.io/general-design-system/tokens) — Live testing for shipped theme presets, light/dark behavior, token surfaces, and the bounded creator-authored theming lane.
+- **Interactive Theme Lab**: [https://sovereignsquad.github.io/general-design-system/themes](https://sovereignsquad.github.io/general-design-system/themes) — Live testing for shipped theme presets, light/dark behavior, token surfaces, and the bounded creator-authored theming lane.
 - **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
 - **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
 - **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
@@ -51,7 +51,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Public, Discovery, and Detail Surface Primitives**: `AccentPanel`, `ChoiceChip`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `PublicBrandFooter`, `DiscoveryShell`, `SidebarNav`, `ActionBar`, `ListingCard`, `ShareButtonGroup`, `MapPanel`, `DetailProfileShell`, `PublicFlowShell`, `PlaybackSurface`, `PublicFoodCard`, `FoodMenuSection`, `SocialAuthButtons`, and the enhanced `PublicShell` / `PublicProductCard` / `AuthShell` contracts from `@doneisbetter/gds-core` — canonical public/editorial contracts for accent-safe surfaces, sidebar-first shells, governed navigation and actions, unified discovery cards, sanctioned share/embed panels, detail/profile composition, public staged flows, kiosk/playback surfaces, food/menu presentation, consumer dashboard grouping, operational framing, social-auth entry, and localized media-first card states.
 - **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@doneisbetter/gds-admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
-- **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, rulebook, tokens, showcase routes, and the live pattern catalog.
+- **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, governance guidance, theme explorer, live demos, and the pattern catalog.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
 ## Public Site Contract
@@ -60,8 +60,10 @@ The GitHub Pages site is the public runtime reference for this repository:
 
 - Overview: `https://sovereignsquad.github.io/general-design-system/`
 - Install guide: `https://sovereignsquad.github.io/general-design-system/install`
-- Tokens and theme lab: `https://sovereignsquad.github.io/general-design-system/tokens`
+- Theme explorer: `https://sovereignsquad.github.io/general-design-system/themes`
+- Governance guide: `https://sovereignsquad.github.io/general-design-system/governance`
 - Pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
+- Live demos: `https://sovereignsquad.github.io/general-design-system/live-demos`
 - Pattern family routes:
 - `.../patterns/foundations`
 - `.../patterns/public`

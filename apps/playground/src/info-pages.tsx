@@ -343,7 +343,7 @@ export function OverviewPage() {
         title="GDS Principles & Core Guidelines"
         description="The General Design System (GDS) is built on strict ubiquitous language, semantic consistency, and a zero-legacy CSS module policy."
         primaryAction={
-          <Link to="/tokens" style={{ textDecoration: 'none' }}>
+          <Link to="/themes" style={{ textDecoration: 'none' }}>
             <SemanticButton action="start" size="md" />
           </Link>
         }

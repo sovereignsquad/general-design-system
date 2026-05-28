@@ -1,12 +1,12 @@
 import { lazy, Suspense, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import { GdsProvider } from '@doneisbetter/gds-theme';
 import { 
   AppShell, 
-  SemanticNavLink,
 } from '@doneisbetter/gds-admin';
 import { 
   en, hu, de, fr, it, ru, he, ar,
+  SidebarNavItem,
 } from '@doneisbetter/gds-core';
 import { 
   Stack, 
@@ -21,6 +21,12 @@ import {
   IconLanguage, 
   IconChevronDown, 
 } from '@tabler/icons-react';
+import {
+  getLegacyRedirects,
+  getPrimaryRoutes,
+  getSecondaryRoutes,
+  isRouteActive,
+} from './site-routes';
 
 const PatternsIndexPage = lazy(async () => {
   const module = await import('./pattern-pages');
@@ -124,72 +130,36 @@ const localesMap: Record<string, { label: string, messages: Record<string, strin
 function PlaygroundContent() {
   const [locale, setLocale] = useState<string>('en');
   const location = useLocation();
+  const primaryRoutes = getPrimaryRoutes();
+  const demoRoutes = getSecondaryRoutes('live-demos');
 
-  const navLinks = [
-    <SemanticNavLink 
-      key="overview" 
-      action="home" 
+  const navLinks = primaryRoutes.map((route) => (
+    <SidebarNavItem
+      key={route.id}
+      action={route.action}
+      label={route.label}
       component={Link}
-      to="/"
-      active={location.pathname === '/'} 
-    />,
-    <SemanticNavLink 
-      key="install" 
-      action="download" 
-      component={Link}
-      to="/install"
-      active={location.pathname === '/install'} 
-    />,
-    <SemanticNavLink
-      key="patterns"
-      action="grid"
-      component={Link}
-      to="/patterns"
-      active={location.pathname === '/patterns' || location.pathname.startsWith('/patterns/')}
-    />,
-    <SemanticNavLink 
-      key="rulebook" 
-      action="verify" 
-      component={Link}
-      to="/rulebook"
-      active={location.pathname === '/rulebook'} 
-    />,
-    <SemanticNavLink 
-      key="tokens" 
-      action="theme" 
-      component={Link}
-      to="/tokens"
-      active={location.pathname === '/tokens'} 
-    />,
-    <SemanticNavLink 
-      key="cards" 
-      action="grid" 
-      component={Link}
-      to="/cards"
-      active={location.pathname === '/cards'} 
-    />,
-    <SemanticNavLink 
-      key="layouts" 
-      action="copy" 
-      component={Link}
-      to="/layouts"
-      active={location.pathname === '/layouts'} 
-    />,
-    <SemanticNavLink 
-      key="vocabulary" 
-      action="list" 
-      component={Link}
-      to="/vocabulary"
-      active={location.pathname === '/vocabulary'} 
-    />,
-    <SemanticNavLink 
-      key="analytics" 
-      action="analytics" 
-      component={Link}
-      to="/analytics"
-      active={location.pathname === '/analytics'} 
-    />,
-  ];
+      to={route.path}
+      active={isRouteActive(location.pathname, route)}
+    />
+  ));
+
+  const secondaryNavigation = location.pathname.startsWith('/live-demos')
+    ? demoRoutes.map((route) => (
+        <SidebarNavItem
+          key={route.id}
+          action={route.action}
+          label={route.label}
+          component={Link}
+          to={route.path}
+          active={isRouteActive(location.pathname, route)}
+        />
+      ))
+    : undefined;
+
+  const headerContext = location.pathname.startsWith('/live-demos')
+    ? 'Official GDS site and live demo hub'
+    : 'Official GDS website, docs, and live runtime reference';
 
   const headerActions = (
     <Group gap="sm">
@@ -218,8 +188,10 @@ function PlaygroundContent() {
   return (
     <GdsProvider locale={locale} messages={localesMap[locale]?.messages || localesMap.en.messages}>
       <AppShell
-        logoText="GDS Rulebook"
+        logoText="General Design System"
         navLinks={navLinks}
+        secondaryNavigation={secondaryNavigation}
+        headerContext={headerContext}
         headerActions={headerActions}
       >
         <Box p="md" maw={1200} mx="auto">
@@ -236,17 +208,27 @@ function PlaygroundContent() {
 
             <Route path="/install" element={<Suspense fallback={<RouteFallback />}><InstallPage /></Suspense>} />
 
-            <Route path="/rulebook" element={<Suspense fallback={<RouteFallback />}><RulebookPage /></Suspense>} />
+            <Route path="/governance" element={<Suspense fallback={<RouteFallback />}><RulebookPage /></Suspense>} />
 
-            <Route path="/tokens" element={<Suspense fallback={<RouteFallback />}><TokensPage /></Suspense>} />
+            <Route path="/themes" element={<Suspense fallback={<RouteFallback />}><TokensPage /></Suspense>} />
 
-            <Route path="/cards" element={<Suspense fallback={<RouteFallback />}><CardsPage /></Suspense>} />
+            <Route path="/live-demos" element={<Navigate to="/live-demos/surfaces" replace />} />
 
-            <Route path="/layouts" element={<Suspense fallback={<RouteFallback />}><LayoutsPage /></Suspense>} />
+            <Route path="/live-demos/surfaces" element={<Suspense fallback={<RouteFallback />}><CardsPage /></Suspense>} />
 
-            <Route path="/vocabulary" element={<Suspense fallback={<RouteFallback />}><VocabularyPage /></Suspense>} />
+            <Route path="/live-demos/layouts" element={<Suspense fallback={<RouteFallback />}><LayoutsPage /></Suspense>} />
 
-            <Route path="/analytics" element={<Suspense fallback={<RouteFallback />}><AnalyticsPage /></Suspense>} />
+            <Route path="/live-demos/semantics" element={<Suspense fallback={<RouteFallback />}><VocabularyPage /></Suspense>} />
+
+            <Route path="/live-demos/analytics" element={<Suspense fallback={<RouteFallback />}><AnalyticsPage /></Suspense>} />
+
+            {getLegacyRedirects().map((redirect) => (
+              <Route
+                key={redirect.legacyPath}
+                path={redirect.legacyPath}
+                element={<Navigate to={redirect.to} replace />}
+              />
+            ))}
           </Routes>
         </Box>
       </AppShell>

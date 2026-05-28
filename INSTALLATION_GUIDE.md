@@ -9,9 +9,10 @@ This guide is the canonical consumer setup path for the public umbrella package 
 Public install and reference routes:
 
 - live install page: `https://sovereignsquad.github.io/general-design-system/install`
-- live rulebook: `https://sovereignsquad.github.io/general-design-system/rulebook`
-- live tokens page: `https://sovereignsquad.github.io/general-design-system/tokens`
+- live governance page: `https://sovereignsquad.github.io/general-design-system/governance`
+- live themes page: `https://sovereignsquad.github.io/general-design-system/themes`
 - live pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
+- live demos page: `https://sovereignsquad.github.io/general-design-system/live-demos`
 
 ## 1. Supported consumer baseline
 
