@@ -13,6 +13,7 @@ import {
 } from '@doneisbetter/gds-admin';
 import { 
   ActionBar,
+  AuthShell,
   createGdsVocabularyPack,
   DetailProfileShell,
   DiscoveryShell,
@@ -24,10 +25,12 @@ import {
   PlaybackSurface,
   PublicFlowShell,
   PublicFoodCard,
+  ShareButtonGroup,
   SemanticButton, 
   SidebarNav,
   SidebarNavItem,
   SidebarNavSection,
+  SocialAuthButtons,
   type SemanticAction, 
   en, hu, de, fr, it, ru, he, ar,
   MetricCard,
@@ -886,6 +889,15 @@ npm run verify:references`}
                       embedTitle="Budapest sample discovery map"
                     />
                   </SimpleGrid>
+                  <Paper withBorder p="lg" radius="xl">
+                    <ShareButtonGroup
+                      url="https://sovereignsquad.github.io/general-design-system/"
+                      title="General Design System"
+                      text="Explore the public GDS runtime and adoption docs."
+                      channels={['native', 'copy', 'mail', 'linkedin', 'x']}
+                      description="Governed share buttons replace product-local copy-link and social-share wrappers."
+                    />
+                  </Paper>
                 </FormSection>
 
                 <FormSection title="Food & Menu Contracts" description="Food-oriented products now have canonical card and grouped-section contracts instead of generic product cards plus local CSS.">
@@ -1104,6 +1116,44 @@ npm run verify:references`}
                     }}
                     accept="image/*"
                   />
+                </FormSection>
+
+                <FormSection title="Auth + Sharing Contracts" description="Provider-based entry and public sharing should use canonical primitives rather than per-product button stacks.">
+                  <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
+                    <AuthShell
+                      title="Welcome back"
+                      description="Use the same governed auth-entry surface across login, signup, and linking journeys."
+                      socialAuth={(
+                        <SocialAuthButtons
+                          providers={[
+                            { id: 'google', href: '#google' },
+                            { id: 'apple', href: '#apple' },
+                            { id: 'github', href: '#github', description: 'For developer workspaces' },
+                          ]}
+                          layout="grid"
+                        />
+                      )}
+                      helper="If your organization requires SSO, continue with the approved identity provider above."
+                    >
+                      <Stack gap="sm">
+                        <TextInput label="Email" placeholder="name@company.com" />
+                        <TextInput label="Password" type="password" placeholder="Enter your password" />
+                        <Button>Continue</Button>
+                      </Stack>
+                    </AuthShell>
+
+                    <Paper withBorder p="lg" radius="xl">
+                      <ShareButtonGroup
+                        url="https://sovereignsquad.github.io/general-design-system/"
+                        title="General Design System"
+                        text="Adopt the canonical GDS runtime and governance stack."
+                        channels={['copy', 'mail', 'message', 'whatsapp', 'telegram']}
+                        compact
+                        label="Compact share lane"
+                        description="Use compact mode when a card, detail drawer, or footer needs governed icon-only sharing."
+                      />
+                    </Paper>
+                  </SimpleGrid>
                 </FormSection>
 
                 <FormSection title="DetailProfileShell" description="Use the same detail composition in drawer and full-page modes instead of maintaining divergent local profile panels.">

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Box, Card, Container, Group, Stack, Text, Title } from '@mantine/core';
+import { Box, Card, Container, Divider, Group, Stack, Text, Title } from '@mantine/core';
 
 export interface AuthShellProps {
   title: string;
@@ -8,10 +8,22 @@ export interface AuthShellProps {
   headerActions?: ReactNode;
   footer?: ReactNode;
   helper?: ReactNode;
+  socialAuth?: ReactNode;
+  dividerLabel?: ReactNode;
   children: ReactNode;
 }
 
-export function AuthShell({ title, description, brand, headerActions, footer, helper, children }: AuthShellProps) {
+export function AuthShell({
+  title,
+  description,
+  brand,
+  headerActions,
+  footer,
+  helper,
+  socialAuth,
+  dividerLabel = 'Or continue with your account',
+  children,
+}: AuthShellProps) {
   return (
     <Box py={{ base: 'xl', md: '4rem' }}>
       <Container size="xs">
@@ -32,6 +44,8 @@ export function AuthShell({ title, description, brand, headerActions, footer, he
                   </Text>
                 ) : null}
               </Stack>
+              {socialAuth ? <Box>{socialAuth}</Box> : null}
+              {socialAuth ? <Divider label={dividerLabel} labelPosition="center" /> : null}
               {children}
               {helper ? (
                 <Text size="sm" c="dimmed" ta="center">

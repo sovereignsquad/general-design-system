@@ -38,11 +38,13 @@ import { PublicBrandFooter } from './PublicBrandFooter';
 import { PublicProductCard } from './PublicProductCard';
 import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
+import { ShareButtonGroup } from './ShareButtonGroup';
 import { DiscoveryShell } from './DiscoveryShell';
 import { SemanticButton } from './SemanticButton';
 import { SectionPanel } from './SectionPanel';
 import { SidebarNav, SidebarNavItem, SidebarNavSection } from './SidebarNav';
 import { SimpleDataTable } from './SimpleDataTable';
+import { SocialAuthButtons } from './SocialAuthButtons';
 import { StateBlock } from './StateBlock';
 import { StatsSection } from './StatsSection';
 import { StatusBadge } from './StatusBadge';
@@ -740,6 +742,14 @@ describe('@doneisbetter/gds-core', () => {
         <AuthShell
           title="Sign in"
           description="Use your workspace account."
+          socialAuth={
+            <SocialAuthButtons
+              providers={[
+                { id: 'google', href: '/auth/google' },
+                { id: 'github', href: '/auth/github', description: 'For engineering workspaces' },
+              ]}
+            />
+          }
           helper="Contact support if you cannot access your account."
         >
           <button type="button">Continue</button>
@@ -756,9 +766,55 @@ describe('@doneisbetter/gds-core', () => {
     );
 
     expect(screen.getByRole('heading', { name: 'Sign in' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Continue with Google' })).toBeInTheDocument();
+    expect(screen.getByText('Or continue with your account')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Continue' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Install the design system' })).toBeInTheDocument();
     expect(screen.getByText('5 min read')).toBeInTheDocument();
+  });
+
+  it('renders governed share buttons with copy and native share behavior', async () => {
+    const user = userEvent.setup();
+    const clipboardWriteText = vi.fn().mockResolvedValue(undefined);
+    const nativeShare = vi.fn().mockResolvedValue(undefined);
+
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: clipboardWriteText,
+      },
+    });
+
+    Object.defineProperty(navigator, 'share', {
+      configurable: true,
+      value: nativeShare,
+    });
+
+    renderWithGds(
+      <ShareButtonGroup
+        url="https://example.com/listing"
+        title="Harvest Dinner"
+        text="Join this community dinner."
+        channels={['native', 'copy', 'mail', 'x']}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Share' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Copy link' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Email' })).toHaveAttribute('href', expect.stringContaining('mailto:'));
+    expect(screen.getByRole('link', { name: 'Share on X' })).toHaveAttribute('href', expect.stringContaining('x.com/intent/tweet'));
+
+    await user.click(screen.getByRole('button', { name: 'Copy link' }));
+    expect(clipboardWriteText).toHaveBeenCalledWith('https://example.com/listing');
+    expect(screen.getByText('Link copied.')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Share' }));
+    expect(nativeShare).toHaveBeenCalledWith({
+      url: 'https://example.com/listing',
+      title: 'Harvest Dinner',
+      text: 'Join this community dinner.',
+    });
+    expect(screen.getByText('Share sheet opened.')).toBeInTheDocument();
   });
 
   it('renders docs shells, code blocks, and CTA groups', () => {

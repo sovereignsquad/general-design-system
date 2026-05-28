@@ -24,6 +24,7 @@ export * from './PublicNav';
 export * from './PublicSiteFooter';
 export * from './PublicBrandFooter';
 export * from './AuthShell';
+export * from './SocialAuthButtons';
 export * from './ArticleShell';
 export * from './CtaButtonGroup';
 export * from './DocsPageShell';
