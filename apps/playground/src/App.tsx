@@ -476,7 +476,7 @@ function PlaygroundContent() {
                   <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing="sm">
                     {['sso', 'kidex', 'classscout', 'messmass', 'narimato', 'general-design-system'].map((app) => (
                       <Paper key={app} withBorder p="md" radius="lg" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-                        <Badge color="teal" variant="light">GDS 2.6.3</Badge>
+                        <Badge color="teal" variant="light">GDS 2.6.4</Badge>
                         <Text fw={700} size="sm" tt="uppercase">{app.replace('-',' ')}</Text>
                         <Text size="xs" c="dimmed">Release-aligned</Text>
                       </Paper>
@@ -1034,7 +1034,7 @@ npm run verify:references`}
                   title="Purge Legacy CSS Stylesheets?"
                   loading={demoLoad}
                 >
-                  This action will permanently delete `styles/docs.module.css` and `styles/docs-layout.module.css` across the SSO repository. Downstream pages will be strictly governed by the GDS 2.6.3 package and theme contract.
+                  This action will permanently delete `styles/docs.module.css` and `styles/docs-layout.module.css` across the SSO repository. Downstream pages will be strictly governed by the GDS 2.6.4 package and theme contract.
                 </ConfirmDialog>
               </Stack>
             } />
