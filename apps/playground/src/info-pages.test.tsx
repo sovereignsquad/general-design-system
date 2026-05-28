@@ -6,12 +6,12 @@ describe('playground overview page', () => {
   it('frames the site as the official reference and live demo', () => {
     renderWithGds(<OverviewPage />);
 
-    expect(screen.getByText('General Design System')).toBeTruthy();
-    expect(screen.getByText(/official reference and the live demo/i)).toBeTruthy();
-    expect(screen.getByText('One place to understand, install, test, and trust GDS')).toBeTruthy();
-    expect(screen.getByRole('link', { name: 'Browse patterns' })).toBeTruthy();
-    expect(screen.getByRole('link', { name: 'Explore themes' })).toBeTruthy();
+    expect(screen.getAllByRole('heading', { name: 'General Design System' }).length).toBeGreaterThan(0);
+    expect(screen.getByText('Official reference and live demo')).toBeTruthy();
+    expect(screen.getByText(/One place to understand, install, test, and trust GDS/i)).toBeTruthy();
+    expect(screen.getAllByRole('link', { name: 'Browse patterns' }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: 'Explore themes' }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole('link', { name: 'Open live demos' }).length).toBeGreaterThan(0);
-    expect(screen.getByRole('link', { name: 'Read governance' })).toBeTruthy();
+    expect(screen.getAllByRole('link', { name: 'Read governance' }).length).toBeGreaterThan(0);
   });
 });

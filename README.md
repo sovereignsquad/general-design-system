@@ -52,6 +52,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@doneisbetter/gds-admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, governance guidance, theme explorer, live demos, and the pattern catalog.
+- **Reference-Site Primitives**: `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, `ReferenceThemeExplorer`, and `ReferenceSiteShell` — canonical GDS-owned primitives for rendering the official website and any future reference/docs surfaces without site-local pseudo-components.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
 ## Public Site Contract
@@ -77,12 +78,18 @@ Use the site for:
 - route-level pattern discovery
 - installation and governance onboarding
 - public demos of responsive and state behavior
+- proof that the reference site itself is expected to consume GDS primitives directly rather than invent local shell, card, or docs wrappers
 
 Use the markdown SSOT documents for:
 - normative policy
 - enforcement rules
 - migration authority
 - versioned contract wording
+
+Reference-site rule:
+
+- `apps/playground` is not a special exemption zone; it is expected to behave like the strictest public GDS consumer in the repository
+- if the site needs a reusable docs/reference surface, that surface must be implemented in a GDS package or deleted as non-canonical local noise
 
 ---
 

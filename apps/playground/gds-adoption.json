@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "gdsVersion": "2.6.4",
+  "productArchetype": "public",
+  "supportedEntryPoints": [
+    "@doneisbetter/gds-theme/client",
+    "@doneisbetter/gds-core/client",
+    "@doneisbetter/gds-admin"
+  ],
+  "requiredContracts": [
+    "ReferenceSiteShell",
+    "ReferenceSection",
+    "ReferenceLinkGrid",
+    "ReferenceLocaleNotice",
+    "ReferenceThemeExplorer",
+    "DiscoveryShell",
+    "ActionBar",
+    "ListingCard",
+    "DetailProfileShell",
+    "PublicFlowShell",
+    "SocialAuthButtons",
+    "ShareButtonGroup"
+  ],
+  "localAdapters": [],
+  "approvedExceptions": [],
+  "migrationStatus": "governed",
+  "owner": "gds-platform",
+  "lastReviewedAt": "2026-05-28",
+  "compliance": {
+    "documentationPaths": [
+      "../../README.md",
+      "../../COMPONENTS_AND_PATTERNS.md",
+      "../../INSTALLATION_GUIDE.md",
+      "../../THEME_GOVERNANCE.md",
+      "../../COMPLIANCE_TOOLKIT.md"
+    ],
+    "staleDocumentationReferences": [
+      "MANTINE_RUNTIME.md",
+      "COMPONENT_CONTRACTS.md",
+      "MANTINE_PLATFORM.md"
+    ],
+    "protectedSurfacePaths": [
+      "src"
+    ],
+    "bannedImports": [
+      "@mantine/core",
+      "@mantine/hooks",
+      "@mantine/notifications"
+    ],
+    "strictMode": true,
+    "approvedShellPrimitives": [
+      "DiscoveryShell",
+      "ReferenceSiteShell"
+    ],
+    "approvedDetailPrimitives": [
+      "DetailProfileShell"
+    ],
+    "approvedListingPrimitives": [
+      "ListingCard",
+      "PublicFoodCard",
+      "FoodMenuSection"
+    ],
+    "approvedActionPrimitives": [
+      "ActionBar",
+      "SemanticButton",
+      "ShareButtonGroup",
+      "SocialAuthButtons"
+    ],
+    "approvedTemporaryExceptions": []
+  }
+}

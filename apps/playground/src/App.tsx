@@ -1,27 +1,20 @@
 import { lazy, Suspense, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { GdsProvider } from '@doneisbetter/gds-theme';
-import { 
-  AppShell, 
-} from '@doneisbetter/gds-admin';
-import { 
-  en, hu, de, fr, it, ru, he, ar,
+import { ReferenceSiteShell } from '@doneisbetter/gds-admin';
+import {
+  ReferenceLocaleNotice,
   SidebarNavItem,
+  StateBlock,
+  ar,
+  de,
+  en,
+  fr,
+  he,
+  hu,
+  it,
+  ru,
 } from '@doneisbetter/gds-core';
-import { 
-  Stack, 
-  Button, 
-  Paper, 
-  Box, 
-  Menu, 
-  Group, 
-  Skeleton,
-  Text,
-} from '@mantine/core';
-import { 
-  IconLanguage, 
-  IconChevronDown, 
-} from '@tabler/icons-react';
 import {
   getLegacyRedirects,
   getPrimaryRoutes,
@@ -111,18 +104,15 @@ const TokensPage = lazy(async () => {
 
 function RouteFallback() {
   return (
-    <Paper withBorder p="xl" radius="xl">
-      <Stack gap="md">
-        <Skeleton height={20} width="30%" radius="xl" />
-        <Skeleton height={42} radius="md" />
-        <Skeleton height={42} radius="md" />
-        <Skeleton height={180} radius="lg" />
-      </Stack>
-    </Paper>
+    <StateBlock
+      variant="loading"
+      title="Loading reference route"
+      description="The official GDS website is loading the next live example."
+    />
   );
 }
 
-const localesMap: Record<string, { label: string, messages: Record<string, string> }> = {
+const localesMap: Record<string, { label: string; messages: Record<string, string> }> = {
   en: { label: 'English', messages: en },
   de: { label: 'Deutsch', messages: de },
   fr: { label: 'Français', messages: fr },
@@ -139,7 +129,7 @@ function PlaygroundContent() {
   const primaryRoutes = getPrimaryRoutes();
   const demoRoutes = getSecondaryRoutes('live-demos');
 
-  const navLinks = primaryRoutes.map((route) => (
+  const primaryNavigation = primaryRoutes.map((route) => (
     <SidebarNavItem
       key={route.id}
       action={route.action}
@@ -165,89 +155,53 @@ function PlaygroundContent() {
 
   const headerContext = location.pathname.startsWith('/live-demos')
     ? 'Official GDS site and live demo hub'
-    : 'Official GDS website, docs, and live runtime reference';
-
-  const headerActions = (
-    <Group gap="sm">
-      <Menu position="bottom-end" withArrow>
-        <Menu.Target>
-          <Button 
-            variant="light" 
-            radius="md"
-            leftSection={<IconLanguage size="1.2rem" />}
-            rightSection={<IconChevronDown size="1rem" />}
-          >
-            {localesMap[locale]?.label || 'Language'}
-          </Button>
-        </Menu.Target>
-        <Menu.Dropdown>
-          {Object.entries(localesMap).map(([key, config]) => (
-            <Menu.Item key={key} onClick={() => setLocale(key)}>
-              {config.label}
-            </Menu.Item>
-          ))}
-        </Menu.Dropdown>
-      </Menu>
-    </Group>
-  );
+    : 'Official GDS website, docs, rules, themes, and runtime proof';
 
   return (
-    <GdsProvider locale={locale} messages={localesMap[locale]?.messages || localesMap.en.messages}>
-      <AppShell
+    <GdsProvider locale={locale} messages={localesMap[locale]?.messages ?? localesMap.en.messages}>
+      <ReferenceSiteShell
         logoText="General Design System"
-        navLinks={navLinks}
+        primaryNavigation={primaryNavigation}
         secondaryNavigation={secondaryNavigation}
         headerContext={headerContext}
-        headerActions={headerActions}
+        locale={locale}
+        localeOptions={Object.entries(localesMap).map(([id, value]) => ({ id, label: value.label }))}
+        onLocaleChange={setLocale}
+        localizationNotice={
+          locale !== 'en' ? (
+            <ReferenceLocaleNotice
+              localeLabel={localesMap[locale]?.label ?? locale}
+              detail="Shared GDS vocabulary switches with the selected locale. Full website copy is still being localized, so the reference-site narrative remains English for now."
+            />
+          ) : undefined
+        }
       >
-        <Box p="md" maw={1200} mx="auto">
-          {locale !== 'en' ? (
-            <Paper withBorder p="md" radius="xl" mb="md">
-              <Stack gap={4}>
-                <Text fw={700} size="sm">Localization note</Text>
-                <Text size="sm" c="dimmed">
-                  Shared GDS component vocabulary switches with the selected locale. Full website copy is still being localized, so the main docs and demo explanations remain English for now.
-                </Text>
-              </Stack>
-            </Paper>
-          ) : null}
-          <Routes>
-            <Route path="/" element={<Suspense fallback={<RouteFallback />}><OverviewPage /></Suspense>} />
-
-            <Route path="/patterns" element={<Suspense fallback={<RouteFallback />}><PatternsIndexPage /></Suspense>} />
-            <Route path="/patterns/foundations" element={<Suspense fallback={<RouteFallback />}><FoundationsPatternPage /></Suspense>} />
-            <Route path="/patterns/public" element={<Suspense fallback={<RouteFallback />}><PublicPatternPage /></Suspense>} />
-            <Route path="/patterns/operations" element={<Suspense fallback={<RouteFallback />}><OperationsPatternPage /></Suspense>} />
-            <Route path="/patterns/data" element={<Suspense fallback={<RouteFallback />}><DataPatternPage /></Suspense>} />
-            <Route path="/patterns/access" element={<Suspense fallback={<RouteFallback />}><AccessPatternPage /></Suspense>} />
-            <Route path="/patterns/feedback" element={<Suspense fallback={<RouteFallback />}><FeedbackPatternPage /></Suspense>} />
-
-            <Route path="/install" element={<Suspense fallback={<RouteFallback />}><InstallPage /></Suspense>} />
-
-            <Route path="/governance" element={<Suspense fallback={<RouteFallback />}><RulebookPage /></Suspense>} />
-
-            <Route path="/themes" element={<Suspense fallback={<RouteFallback />}><TokensPage /></Suspense>} />
-
-            <Route path="/live-demos" element={<Suspense fallback={<RouteFallback />}><LiveDemosPage /></Suspense>} />
-
-            <Route path="/live-demos/surfaces" element={<Suspense fallback={<RouteFallback />}><CardsPage /></Suspense>} />
-
-            <Route path="/live-demos/layouts" element={<Suspense fallback={<RouteFallback />}><LayoutsPage /></Suspense>} />
-
-            <Route path="/live-demos/semantics" element={<Suspense fallback={<RouteFallback />}><VocabularyPage /></Suspense>} />
-
-            <Route path="/live-demos/analytics" element={<Suspense fallback={<RouteFallback />}><AnalyticsPage /></Suspense>} />
-
-            {getLegacyRedirects().map((redirect) => (
-              <Route
-                key={redirect.legacyPath}
-                path={redirect.legacyPath}
-                element={<Navigate to={redirect.to} replace />}
-              />
-            ))}
-          </Routes>
-        </Box>
-      </AppShell>
+        <Routes>
+          <Route path="/" element={<Suspense fallback={<RouteFallback />}><OverviewPage /></Suspense>} />
+          <Route path="/patterns" element={<Suspense fallback={<RouteFallback />}><PatternsIndexPage /></Suspense>} />
+          <Route path="/patterns/foundations" element={<Suspense fallback={<RouteFallback />}><FoundationsPatternPage /></Suspense>} />
+          <Route path="/patterns/public" element={<Suspense fallback={<RouteFallback />}><PublicPatternPage /></Suspense>} />
+          <Route path="/patterns/operations" element={<Suspense fallback={<RouteFallback />}><OperationsPatternPage /></Suspense>} />
+          <Route path="/patterns/data" element={<Suspense fallback={<RouteFallback />}><DataPatternPage /></Suspense>} />
+          <Route path="/patterns/access" element={<Suspense fallback={<RouteFallback />}><AccessPatternPage /></Suspense>} />
+          <Route path="/patterns/feedback" element={<Suspense fallback={<RouteFallback />}><FeedbackPatternPage /></Suspense>} />
+          <Route path="/install" element={<Suspense fallback={<RouteFallback />}><InstallPage /></Suspense>} />
+          <Route path="/governance" element={<Suspense fallback={<RouteFallback />}><RulebookPage /></Suspense>} />
+          <Route path="/themes" element={<Suspense fallback={<RouteFallback />}><TokensPage /></Suspense>} />
+          <Route path="/live-demos" element={<Suspense fallback={<RouteFallback />}><LiveDemosPage /></Suspense>} />
+          <Route path="/live-demos/surfaces" element={<Suspense fallback={<RouteFallback />}><CardsPage /></Suspense>} />
+          <Route path="/live-demos/layouts" element={<Suspense fallback={<RouteFallback />}><LayoutsPage /></Suspense>} />
+          <Route path="/live-demos/semantics" element={<Suspense fallback={<RouteFallback />}><VocabularyPage /></Suspense>} />
+          <Route path="/live-demos/analytics" element={<Suspense fallback={<RouteFallback />}><AnalyticsPage /></Suspense>} />
+          {getLegacyRedirects().map((redirect) => (
+            <Route
+              key={redirect.legacyPath}
+              path={redirect.legacyPath}
+              element={<Navigate to={redirect.to} replace />}
+            />
+          ))}
+        </Routes>
+      </ReferenceSiteShell>
     </GdsProvider>
   );
 }

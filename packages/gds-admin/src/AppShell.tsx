@@ -13,6 +13,7 @@ export interface AppShellProps {
   headerContext?: ReactNode;
   headerActions?: ReactNode;
   mobileNavigation?: ReactNode;
+  showThemeToggle?: boolean;
   children: ReactNode;
 }
 
@@ -29,6 +30,7 @@ export function AppShell({
   headerContext,
   headerActions,
   mobileNavigation,
+  showThemeToggle = true,
   children,
 }: AppShellProps) {
   const primaryNav = primaryNavigation ?? navLinks;
@@ -52,7 +54,7 @@ export function AppShell({
           </Group>
           <Group wrap="nowrap">
             {headerActions}
-            <ThemeToggle />
+            {showThemeToggle ? <ThemeToggle /> : null}
           </Group>
         </Group>
       )}

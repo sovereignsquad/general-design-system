@@ -19,6 +19,7 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./styles.css": "./styles.css",
     "./client": {
       "types": "./dist/client.d.ts",
       "import": "./dist/client.mjs",
@@ -31,7 +32,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "styles.css"
   ],
   "scripts": {
     "build": "tsup",

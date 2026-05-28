@@ -83,7 +83,10 @@ for (const packageDir of packages) {
   );
 
   for (const exportConfig of Object.values(pkg.exports)) {
-    for (const exportTarget of Object.values(exportConfig)) {
+    const exportTargets =
+      typeof exportConfig === 'string' ? [exportConfig] : Object.values(exportConfig);
+
+    for (const exportTarget of exportTargets) {
       const resolvedTarget = resolve(packageRoot, exportTarget);
       if (!existsSync(resolvedTarget)) {
         mismatches.push(`${pkg.name} is missing published export target ${exportTarget}`);

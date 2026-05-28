@@ -142,6 +142,6 @@ Rules:
 - `gdsFlatSurfaceTheme` is the approved preset for products that need flatter operational surfaces without creating a second token authority.
 - `gdsEditorialPublicTheme` is the approved preset for public/editorial products that need serif-forward storytelling and flatter public surfaces without creating a private token branch.
 - `createPublicBrandTheme()` is the approved composition helper for branded public products that need to layer serif headings, flat surfaces, and product-local token overrides in one governed merge path.
-- the live token/theme lab at `https://sovereignsquad.github.io/general-design-system/tokens` is the public reference surface for testing these shipped preset lanes interactively
+- the live token/theme lab at `https://sovereignsquad.github.io/general-design-system/themes` is the public reference surface for testing these shipped preset lanes interactively
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
 - `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.

@@ -37,7 +37,7 @@ Exit behavior:
 - missing declared adapter paths
 - forbidden raw color literals outside approved theme/token files
 - forbidden UI imports such as `@radix-ui/gds-*`, `tailwindcss`, or other configured legacy UI dependencies
-- stale SSOT references in docs, including legacy uppercase path references such as `/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM`
+- stale SSOT references in docs, including legacy path references to superseded local SSOT directories
 
 ## Manifest configuration
 
@@ -98,6 +98,8 @@ Strict mode adds hard failures for:
 - local Mantine `AppShell` wrappers
 - local shell/detail/listing/action adapters that are not approved or explicitly excepted
 - legacy local button-wrapper patterns that bypass the canonical semantic action system
+
+For the official reference site, strict mode should also be treated as the baseline expectation, not an optional maturity step. `apps/playground` is the canonical proof that docs, demos, and theme exploration can be delivered through GDS-owned contracts.
 
 Recommended activation order:
 

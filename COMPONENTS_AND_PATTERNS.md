@@ -20,6 +20,8 @@ Public reference site:
 
 The website is the live visual reference for these contracts. This document remains the normative SSOT for policy and required behavior.
 
+The official website must also consume these contracts directly. `apps/playground` is the reference consumer, not a carve-out for local docs-only wrappers.
+
 ## 1. Application Shell & Navigation
 
 - **Stable Shell**: Every authenticated product needs a stable shell that makes current location and primary destinations obvious.
@@ -69,6 +71,11 @@ The website is the live visual reference for these contracts. This document rema
 | **Detail Profile Shell** | Shared detail composition for page and drawer modes with hero, section stack, action placement, and related content. | `xl` |
 | **Public Flow Shell** | Staged public-flow shell for consent, review, share, and recovery states around bounded hardware-adjacent or upload-driven experiences. | `xl` |
 | **Playback Surface** | Fullscreen, embedded, or kiosk playback framing for timed or media-first presentation with governed error and degraded states. | `xl` |
+| **Reference Section** | Canonical docs/reference content section with governed title, summary, density, and action rhythm for the official site and future reference surfaces. | `lg` |
+| **Reference Link Grid** | Canonical docs/reference card grid for install, governance, demo, and pattern-navigation links with consistent CTA structure. | `lg` |
+| **Reference Locale Notice** | Canonical disclosure surface for partial or in-progress localized reference-site coverage so language claims stay honest. | `md` |
+| **Reference Theme Explorer** | Canonical shipped-theme explorer with preset switching, color-scheme preview, bounded creator-authored controls, and live proof surfaces. | `xl` |
+| **Reference Site Shell** | Canonical public reference-site shell for the official website and future docs/reference properties using governed navigation, route context, and footer rhythm. | `xl` |
 | **Public Shells** | Public marketing/discovery/docs shells must define brand slot, navigation rhythm, readability width, CTA hierarchy, footer slot, and mobile nav behavior, including branded header variants and non-hook mobile nav patterns. | `md` |
 | **Public Nav** | Primary public navigation uses explicit nav items, an explicit active item, and semantic `aria-current` handling. | `md` |
 | **Auth Shells** | Auth entry surfaces must define title, error/helper placement, provider-brand exception handling, safe action hierarchy, and canonical social-auth placement. | `md` |
@@ -147,6 +154,8 @@ The following families are mandatory local contracts when a project has the corr
 | **Playback Surface** | Product has fullscreen, kiosk, slideshow, or timed media presentation | playback framing, degraded/error/empty states, lightweight control lane, mode semantics |
 | **Searchable Selection** | Product has repeated searchable selects or comboboxes | use the documented Mantine recipe path first; do not invent local wrappers unless GDS promotes a new canonical export |
 | **Public Brand Footer** | Product uses branded footer storytelling beyond a plain link list | narrative, actions, secondary quote/media slot, legal row, mobile collapse, layout variant choice |
+| **Reference Site Shell** | Product or property is the official docs/reference site for a governed system | public nav model, route grouping, live-demo disclosure, footer rhythm, locale notice placement |
+| **Reference Theme Explorer** | Product or property needs a governed public theme-inspection surface | shipped preset list, preview scheme control, creator-authored guardrails, preview reset, live proof surfaces |
 | **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, preview, replace/remove, status overlays |
 | **Access Summary** | Product has scoped roles or blocked/forbidden states | role badges, scope labels, blocked/forbidden handling, ownership cues |
 | **Access Recovery** | Product has protected routes, scope failures, expired sessions, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |

@@ -153,6 +153,8 @@ For repos targeting true GDS-only enforcement:
 }
 ```
 
+The official GitHub Pages site in `apps/playground` follows this same direction. Treat it as the public proof that docs, pattern catalogs, theme exploration, and live demos can be shipped through GDS-owned contracts instead of local Mantine-heavy composition.
+
 ## 6. Required verification before adoption
 
 Run:

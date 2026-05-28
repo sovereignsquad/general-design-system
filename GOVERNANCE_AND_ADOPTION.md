@@ -164,6 +164,14 @@ Strict mode should approve the canonical lanes explicitly:
 - `ListingCard`
 - `ActionBar`
 
+For the official reference site, also prefer:
+
+- `ReferenceSiteShell`
+- `ReferenceSection`
+- `ReferenceLinkGrid`
+- `ReferenceThemeExplorer`
+- `ReferenceLocaleNotice`
+
 Reference policies:
 
 - [THEME_GOVERNANCE.md](/Users/Shared/Projects/general-design-system/THEME_GOVERNANCE.md)

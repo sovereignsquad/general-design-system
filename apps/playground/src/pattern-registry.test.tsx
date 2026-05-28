@@ -32,13 +32,13 @@ describe('playground pattern registry', () => {
     expect(screen.getByText('Access & Recovery')).toBeTruthy();
   });
 
-  it('renders a public family page with live and reference coverage', () => {
+  it('renders a public family page with the documented entries', () => {
     renderWithGds(<PatternFamilyPage family="public" />);
 
-    expect(screen.getByText('Public, Editorial, & Docs')).toBeTruthy();
+    expect(screen.getAllByText('Public, Editorial, & Docs').length).toBeGreaterThan(0);
     expect(screen.getByText('Public Shells')).toBeTruthy();
     expect(screen.getByText('Editorial Hero')).toBeTruthy();
-    expect(screen.getAllByText(/Live demo|Reference guidance|Pending primitive|Blocked/).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('heading').length).toBeGreaterThan(4);
   });
 
   it('renders every family route with headings and navigable demo links', () => {

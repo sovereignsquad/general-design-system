@@ -6,6 +6,7 @@ export * from './SemanticNavLink';
 export * from './InfoCard';
 export * from './PageHeader';
 export * from './ResponsiveDataView';
+export * from './ReferenceSiteShell';
 export * from './WorkspaceHeader';
 export * from './EditorScaffold';
 export * from './ContentOpsSection';

@@ -4,6 +4,9 @@ All notable policy changes to the General Design System are recorded here.
 
 ## 2.6.4 - 2026-05-28
 
+- Added `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, and `ReferenceThemeExplorer` to `@doneisbetter/gds-core` plus `ReferenceSiteShell` to `@doneisbetter/gds-admin` so the official website can consume GDS-owned docs/reference primitives instead of site-local Mantine composition.
+- Converted `apps/playground` onto the new reference-site primitives, replaced the remaining direct page-level Mantine composition in the public site source, and added a strict `gds-adoption.json` baseline for the website.
+- Updated the public route structure, docs copy, and rulebooks so the GitHub Pages site is described as both the official GDS website and a strict live reference consumer rather than a separate playground exception.
 - Added the registry-backed GitHub Pages pattern catalog under `/patterns` with dedicated family routes for foundations, public, operations, data, access, and feedback coverage.
 - Expanded the public docs site to show live demos for the remaining workflow and responsive-guidance contracts that had previously been represented only as reference notes.
 - Hardened the GitHub Pages playground with route-level lazy loading, deterministic vendor chunking, and contained shell previews so the public site behaves like a documentation site instead of a nested application demo.

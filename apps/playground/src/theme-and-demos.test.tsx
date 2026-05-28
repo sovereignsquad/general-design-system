@@ -14,8 +14,8 @@ describe('playground theme explorer and live demos hub', () => {
     fireEvent.change(schemeSelect, { target: { value: 'dark' } });
 
     expect(screen.getAllByText('Brand theme generator').length).toBeGreaterThan(0);
-    expect(screen.getByText(/controlled brand expression/i)).toBeTruthy();
-    expect(screen.getByText(/Color scheme: dark/i)).toBeTruthy();
+    expect(screen.getAllByText(/controlled brand expression/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText((_, node) => node?.textContent?.includes('Color scheme: dark') ?? false).length).toBeGreaterThan(0);
 
     fireEvent.click(screen.getByLabelText('Compare against a second shipped preset'));
     fireEvent.change(screen.getByLabelText('Comparison preset'), { target: { value: 'flat-surface' } });
@@ -36,6 +36,6 @@ describe('playground theme explorer and live demos hub', () => {
     expect(screen.getByText(/public runtime showcase/i)).toBeTruthy();
     expect(screen.getAllByRole('link', { name: 'Open section' }).length).toBeGreaterThan(0);
     expect(screen.getByText('Discovery & Cards')).toBeTruthy();
-    expect(screen.getByText('Actions, Auth & Semantics')).toBeTruthy();
+    expect(screen.getByText('Actions & Auth')).toBeTruthy();
   });
 });

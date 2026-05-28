@@ -1,894 +1,449 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   AccessSummary,
   ActionBar,
   AuthShell,
-  ConfirmDialog,
-  createGdsVocabularyPack,
+  ConsumerDashboardGrid,
   DetailProfileShell,
   DiscoveryShell,
+  DocsPageShell,
+  FeatureBand,
   FoodMenuSection,
-  GdsVocabulary,
   ListingCard,
   MapPanel,
   MediaCard,
   MetricCard,
   PlaybackSurface,
   ProgressCard,
-  ProductCard,
   PublicFlowShell,
   PublicFoodCard,
+  ReferenceLinkGrid,
+  ReferenceSection,
+  SectionPanel,
   SemanticButton,
   ShareButtonGroup,
   SidebarNav,
   SidebarNavItem,
   SidebarNavSection,
   SocialAuthButtons,
-  StateBlock,
-  UploadDropzone,
-  type SemanticAction,
+  StatsSection,
 } from '@doneisbetter/gds-core';
-import {
-  DataTable,
-  FormSection,
-  PageHeader,
-  ResponsiveDataView,
-} from '@doneisbetter/gds-admin';
-import {
-  Badge,
-  Box,
-  Button,
-  Group,
-  Paper,
-  SimpleGrid,
-  Stack,
-  Text,
-  TextInput,
-  Title,
-} from '@mantine/core';
-import { notifications } from '@mantine/notifications';
-import {
-  IconActivity,
-  IconShieldCheck,
-} from '@tabler/icons-react';
+import { DataTable, PageHeader, ResponsiveDataView } from '@doneisbetter/gds-admin';
 
-const cameraVocabularyPack = createGdsVocabularyPack('camera', {
-  moderate: {
-    defaultMessage: 'Moderate',
-    icon: GdsVocabulary.verify.icon,
-  },
-});
-
-function SvgLineChart() {
+function DemoFooter() {
   return (
-    <Box style={{ width: '100%', height: 240, position: 'relative' }}>
-      <svg viewBox="0 0 500 200" width="100%" height="100%">
-        <defs>
-          <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--mantine-color-teal-5)" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="var(--mantine-color-teal-9)" stopOpacity="0.0" />
-          </linearGradient>
-        </defs>
-        <line x1="40" y1="20" x2="480" y2="20" stroke="var(--mantine-color-gray-2)" strokeDasharray="4 4" />
-        <line x1="40" y1="70" x2="480" y2="70" stroke="var(--mantine-color-gray-2)" strokeDasharray="4 4" />
-        <line x1="40" y1="120" x2="480" y2="120" stroke="var(--mantine-color-gray-2)" strokeDasharray="4 4" />
-        <line x1="40" y1="170" x2="480" y2="170" stroke="var(--mantine-color-gray-3)" />
-        <path d="M 40 170 Q 150 130 250 80 T 480 30" fill="none" stroke="var(--mantine-color-teal-6)" strokeWidth="3.5" />
-        <path d="M 40 170 Q 150 130 250 80 T 480 30 L 480 170 L 40 170 Z" fill="url(#chartGradient)" />
-        <circle cx="40" cy="170" r="6" fill="var(--mantine-color-teal-6)" stroke="white" strokeWidth="2.5" />
-        <circle cx="150" cy="143" r="6" fill="var(--mantine-color-teal-6)" stroke="white" strokeWidth="2.5" />
-        <circle cx="250" cy="80" r="6" fill="var(--mantine-color-teal-6)" stroke="white" strokeWidth="2.5" />
-        <circle cx="365" cy="45" r="6" fill="var(--mantine-color-teal-6)" stroke="white" strokeWidth="2.5" />
-        <circle cx="480" cy="30" r="6" fill="var(--mantine-color-teal-6)" stroke="white" strokeWidth="2.5" />
-        <text x="40" y="190" fontSize="10" fontWeight="600" fill="var(--mantine-color-gray-6)" textAnchor="middle">Q1</text>
-        <text x="150" y="190" fontSize="10" fontWeight="600" fill="var(--mantine-color-gray-6)" textAnchor="middle">Q2</text>
-        <text x="250" y="190" fontSize="10" fontWeight="600" fill="var(--mantine-color-gray-6)" textAnchor="middle">Q3</text>
-        <text x="365" y="190" fontSize="10" fontWeight="600" fill="var(--mantine-color-gray-6)" textAnchor="middle">Q4</text>
-        <text x="480" y="190" fontSize="10" fontWeight="600" fill="var(--mantine-color-gray-6)" textAnchor="middle">Deploy</text>
-      </svg>
-    </Box>
-  );
-}
-
-function SvgDoughnutChart() {
-  return (
-    <Box style={{ width: '100%', height: 240, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-      <svg viewBox="0 0 200 200" width="160" height="160">
-        <circle cx="100" cy="100" r="75" fill="none" stroke="var(--mantine-color-gray-1)" strokeWidth="20" />
-        <circle cx="100" cy="100" r="75" fill="none" stroke="var(--mantine-color-teal-6)" strokeWidth="20" strokeDasharray="188 471" strokeDashoffset="0" transform="rotate(-90 100 100)" />
-        <circle cx="100" cy="100" r="75" fill="none" stroke="var(--mantine-color-indigo-6)" strokeWidth="20" strokeDasharray="141 471" strokeDashoffset="-188" transform="rotate(-90 100 100)" />
-        <circle cx="100" cy="100" r="75" fill="none" stroke="var(--mantine-color-violet-6)" strokeWidth="20" strokeDasharray="71 471" strokeDashoffset="-329" transform="rotate(-90 100 100)" />
-        <circle cx="100" cy="100" r="75" fill="none" stroke="var(--mantine-color-orange-6)" strokeWidth="20" strokeDasharray="71 471" strokeDashoffset="-400" transform="rotate(-90 100 100)" />
-      </svg>
-      <Box style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Text fz="10px" fw={700} c="dimmed" tt="uppercase" lh={1} mb="2px">Ecosystem</Text>
-        <Text fz="md" fw={800} lh={1.2}>6 Adopters</Text>
-      </Box>
-    </Box>
-  );
-}
-
-function InteractiveDemoButton({ action }: { action: SemanticAction }) {
-  const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState<'success' | 'error' | null>(null);
-
-  const handleClick = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      const isDestructive = ['delete', 'clear', 'uncheck'].includes(action);
-      setFeedback(isDestructive ? 'error' : 'success');
-      setTimeout(() => setFeedback(null), 2000);
-    }, 1000);
-  };
-
-  return (
-    <SemanticButton
-      action={action}
-      fullWidth
-      loading={loading}
-      feedbackState={feedback}
-      onClick={handleClick}
-    />
-  );
-}
-
-function ShellShowcaseHeader({
-  title,
-  description,
-  badge,
-}: {
-  title: string;
-  description: string;
-  badge: string;
-}) {
-  return (
-    <Group justify="space-between" align="flex-start" gap="md" wrap="wrap">
-      <Stack gap={2}>
-        <Text fw={700}>{title}</Text>
-        <Text size="sm" c="dimmed" maw={620}>{description}</Text>
-      </Stack>
-      <Badge variant="light" color="teal">{badge}</Badge>
-    </Group>
-  );
-}
-
-function ShellShowcaseFrame() {
-  return (
-    <Paper withBorder radius="xl" p="md">
-      <Stack gap="lg">
-        <ShellShowcaseHeader
-          title="Contained desktop preview"
-          description="This is a framed example of the DiscoveryShell contract, not a second website inside the docs page."
-          badge="Preview only"
-        />
-
-        <Box
-          style={{
-            padding: 16,
-            borderRadius: 20,
-            background:
-              'linear-gradient(180deg, color-mix(in srgb, var(--mantine-color-dark-6) 78%, black) 0%, color-mix(in srgb, var(--mantine-color-dark-8) 92%, black) 100%)',
-          }}
-        >
-          <Paper
-            withBorder
-            radius="xl"
-            style={{
-              overflow: 'hidden',
-              minHeight: 440,
-              boxShadow: '0 32px 80px rgba(0, 0, 0, 0.28)',
-            }}
-          >
-            <Box
-              px="md"
-              py="xs"
-              style={{
-                borderBottom: '1px solid var(--mantine-color-default-border)',
-                background: 'color-mix(in srgb, var(--mantine-color-dark-6) 84%, black)',
-              }}
-            >
-              <Group justify="space-between" align="center">
-                <Group gap={8}>
-                  <Box style={{ width: 10, height: 10, borderRadius: 999, background: 'var(--mantine-color-red-6)' }} />
-                  <Box style={{ width: 10, height: 10, borderRadius: 999, background: 'var(--mantine-color-yellow-6)' }} />
-                  <Box style={{ width: 10, height: 10, borderRadius: 999, background: 'var(--mantine-color-green-6)' }} />
-                </Group>
-                <Text size="xs" c="dimmed">DiscoveryShell desktop example</Text>
-              </Group>
-            </Box>
-
-            <DiscoveryShell
-              header={(
-                <ShellShowcaseHeader
-                  title="Catalog Operations"
-                  description="Sidebar-first workspace with governed spacing, persistent navigation, and semantic actions."
-                  badge="Desktop"
-                />
-              )}
-              sidebar={(
-                <SidebarNav ariaLabel="Catalog navigation">
-                  <SidebarNavSection label="Primary">
-                    <SidebarNavItem action="dashboard" href="#dashboard" active />
-                    <SidebarNavItem action="calendar" href="#schedule" />
-                    <SidebarNavItem action="analytics" href="#analytics" />
-                  </SidebarNavSection>
-                  <SidebarNavSection label="Account" pushToBottom>
-                    <SidebarNavItem action="settings" href="#settings" />
-                    <SidebarNavItem action="logout" component="button" />
-                  </SidebarNavSection>
-                </SidebarNav>
-              )}
-            >
-              <Stack gap="lg">
-                <ActionBar
-                  primary={{ action: 'save', size: 'sm' }}
-                  secondary={[{ action: 'cancel', size: 'sm' }]}
-                  tertiary={[{ action: 'preview', size: 'sm' }]}
-                  iconOnly={[{ action: 'settings' }]}
-                />
-                <ResponsiveDataView
-                  data={[
-                    { id: '1', name: 'Universal SSO', type: 'OAuth/OIDC Provider', adoption: '100%' },
-                    { id: '2', name: 'KIDEX Platform', type: 'Conductor Intel App', adoption: '100%' },
-                    { id: '3', name: 'ClassScout NYC', type: 'Class Catalog App', adoption: '100%' },
-                  ]}
-                  columns={[
-                    { key: 'name', label: 'Adopter Repository' },
-                    { key: 'type', label: 'Archetype' },
-                    { key: 'adoption', label: 'Migration Status' },
-                  ]}
-                  renderCard={(item) => (
-                    <Paper withBorder p="md" radius="lg">
-                      <Stack gap="xs">
-                        <Group justify="space-between">
-                          <Text fw={700} size="sm">{item.name}</Text>
-                          <Badge color="teal" variant="light">{item.adoption}</Badge>
-                        </Group>
-                        <Text size="xs" c="dimmed">{item.type}</Text>
-                      </Stack>
-                    </Paper>
-                  )}
-                />
-              </Stack>
-            </DiscoveryShell>
-          </Paper>
-        </Box>
-
-        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
-          <Paper withBorder p="md" radius="lg">
-            <Stack gap="xs">
-              <Text fw={700} size="sm">What this demonstrates</Text>
-              <Text size="sm" c="dimmed">Sidebar information architecture, governed header rhythm, semantic action hierarchy, and shared data-view behavior.</Text>
-            </Stack>
-          </Paper>
-          <Paper withBorder p="md" radius="lg">
-            <Stack gap="xs">
-              <Text fw={700} size="sm">Mobile behavior</Text>
-              <Text size="sm" c="dimmed">On small screens the sidebar collapses into the shell drawer. The docs site shows the desktop contract here instead of trying to fake a full mobile viewport.</Text>
-            </Stack>
-          </Paper>
-        </SimpleGrid>
-      </Stack>
-    </Paper>
+    <p style={{ margin: 0 }}>
+      Need something missing? <a href="mailto:moldovancsaba+general.design.system@gmail.com">Request a feature</a>.
+    </p>
   );
 }
 
 export function LiveDemosPage() {
   return (
-    <Stack gap="xl">
-      <PageHeader
-        title="Live Demos"
-        description="This section is the public runtime showcase for shipped GDS surfaces. Use it to inspect real compositions, interaction states, and governed primitives instead of guessing from package names alone."
-      />
+    <DocsPageShell
+      title="Live Demos"
+      eyebrow="Official runtime proof"
+      lead="This section is the public runtime showcase for shipped GDS surfaces. Use it to inspect real compositions and interaction contracts before building locally."
+    >
+      <ReferenceSection
+        title="Open a live demo family"
+        description="The demos are separated by purpose so visitors can inspect the exact runtime lane they care about."
+      >
+        <ReferenceLinkGrid
+          items={[
+            {
+              id: 'surfaces',
+              title: 'Discovery & Cards',
+              description: 'Listing, media, map, menu, and share surfaces for public and discovery-heavy products.',
+              href: '/general-design-system/live-demos/surfaces',
+            },
+            {
+              id: 'layouts',
+              title: 'Shells & Layouts',
+              description: 'DiscoveryShell, detail shells, and bounded public flows with governed layout rhythm.',
+              href: '/general-design-system/live-demos/layouts',
+            },
+            {
+              id: 'semantics',
+              title: 'Actions & Auth',
+              description: 'Semantic actions, social auth, share buttons, and governed interaction states.',
+              href: '/general-design-system/live-demos/semantics',
+            },
+            {
+              id: 'analytics',
+              title: 'Analytics & Data',
+              description: 'Metrics, data views, and operational summaries for analytics-oriented workflows.',
+              href: '/general-design-system/live-demos/analytics',
+            },
+          ]}
+        />
+      </ReferenceSection>
 
-      <Paper withBorder p="xl" radius="xl">
-        <Stack gap="md">
-          <Group gap="sm" wrap="wrap">
-            <Badge color="teal" variant="light">Official runtime proof</Badge>
-            <Badge color="violet" variant="light">Public showcase</Badge>
-            <Badge color="orange" variant="light">Shipped contracts only</Badge>
-          </Group>
-          <Text size="lg" c="dimmed" maw={860}>
-            These demos are intentionally separated from the docs and governance pages. The goal here is practical inspection: what the system already ships, how it behaves, and which surfaces teams should adopt before building locally.
-          </Text>
-        </Stack>
-      </Paper>
+      <ReferenceSection
+        title="How to read these demos"
+        description="These are live examples built from shipped GDS packages. They are not mock marketing art and they are not local component sandboxes."
+      >
+        <FeatureBand
+          columns={3}
+          items={[
+            {
+              id: 'shipped',
+              title: 'Shipped contracts only',
+              description: 'The live demo routes should show the actual primitives we publish, not custom website-only replacements.',
+            },
+            {
+              id: 'bounded',
+              title: 'Bounded previews',
+              description: 'Contained examples are preferred over fake nested websites so the docs stay readable and honest.',
+            },
+            {
+              id: 'migration',
+              title: 'Migration target',
+              description: 'Each demo is also a migration target for teams currently using local wrappers and bespoke UI.',
+            },
+          ]}
+        />
+      </ReferenceSection>
 
-      <SimpleGrid cols={{ base: 1, md: 2, xl: 4 }} spacing="lg">
-        {[
-          {
-            title: 'Discovery & Cards',
-            description: 'Listing, media, map, food, and share surfaces for public and discovery-heavy products.',
-            href: '/live-demos/surfaces',
-          },
-          {
-            title: 'Shells & Layouts',
-            description: 'DiscoveryShell, detail-shell, and admin composition patterns with governed navigation rhythm.',
-            href: '/live-demos/layouts',
-          },
-          {
-            title: 'Actions, Auth & Semantics',
-            description: 'Semantic actions, social auth, vocabulary extension, and interaction-state contracts.',
-            href: '/live-demos/semantics',
-          },
-          {
-            title: 'Analytics & Data Views',
-            description: 'Operational metrics, data tables, responsive views, and analysis-oriented panels.',
-            href: '/live-demos/analytics',
-          },
-        ].map((section) => (
-          <Paper key={section.href} withBorder p="lg" radius="xl">
-            <Stack gap="sm">
-              <Title order={3}>{section.title}</Title>
-              <Text size="sm" c="dimmed">{section.description}</Text>
-              <Button component={Link} to={section.href} variant="light">
-                Open section
-              </Button>
-            </Stack>
-          </Paper>
-        ))}
-      </SimpleGrid>
-
-      <Paper withBorder p="xl" radius="xl">
-        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
-          <Stack gap="xs">
-            <Text fw={700}>What these demos prove</Text>
-            <Text size="sm" c="dimmed">That GDS is not just a written rulebook. The primitives on this site are the actual shipped system rendered live.</Text>
-          </Stack>
-          <Stack gap="xs">
-            <Text fw={700}>How to use them</Text>
-            <Text size="sm" c="dimmed">Inspect the pattern behavior here, then move to the install and governance pages before adopting the same contract in a consumer product.</Text>
-          </Stack>
-          <Stack gap="xs">
-            <Text fw={700}>When not to improvise</Text>
-            <Text size="sm" c="dimmed">If a surface already exists in these demos, teams should not create a parallel local wrapper without a documented temporary exception.</Text>
-          </Stack>
-        </SimpleGrid>
-      </Paper>
-    </Stack>
+      <DemoFooter />
+    </DocsPageShell>
   );
 }
 
 export function CardsPage() {
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [demoLoad, setDemoLoad] = useState(false);
-
-  const handleConfirmAction = () => {
-    setDemoLoad(true);
-    setTimeout(() => {
-      setDemoLoad(false);
-      setConfirmOpen(false);
-      notifications.show({
-        title: 'Legacy CSS Purged',
-        message: 'All custom CSS modules have been eradicated successfully.',
-        color: 'teal',
-      });
-    }, 1200);
-  };
-
   return (
-    <Stack gap="xl">
-      <PageHeader
-        title="Card Primitives & Interactive States"
-        description="Our standard card structures display structured data, progress widgets, and empty/error system layouts consistently."
-      />
-
-      <FormSection title="Metric & Progress Cards" description="Use MetricCard and ProgressCard to structure KPI metrics and milestones.">
-        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
-          <MetricCard
-            label="Adoption Frequency"
-            value="4,821 Builds"
-            description="Deploy count since the GDS 2.6 package-consumption hardening pass"
-            trend={{ label: '+24.5%', tone: 'positive' }}
-            icon={<IconActivity size="1.2rem" />}
-          />
-          <ProgressCard
-            label="Migration Progress"
-            value="28 / 28 Pages"
-            progress={100}
-            progressLabel="SSO Documentation Pages"
-            description="Migration of doc files to package-native Mantine contracts with Mantine 9-ready peer support"
-            action={<Badge color="teal" variant="light">Completed</Badge>}
-          />
-          <MetricCard
-            label="Platform Health"
-            value="0 Failures"
-            description="CI smoketests build success rate"
-            trend={{ label: 'Stable', tone: 'neutral' }}
-            icon={<IconShieldCheck size="1.2rem" />}
-          />
-        </SimpleGrid>
-      </FormSection>
-
-      <FormSection title="Product & Media Cards" description="High-fidelity representations of adopter products.">
-        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-          <ProductCard
-            title="KIDEX Conductor Portal"
-            description="Conductor-facing child assessment and development-intelligence platform. Custom assessment widgets and operational-first sequencing."
-            status={<Badge color="teal">Active</Badge>}
-            metadata={[
-              { label: 'Role Scopes', value: 'Conductor, Caregiver, Coach' },
-              { label: 'Theme Tones', value: 'Teal, Amber, Blue' },
-            ]}
-            secondaryActions={[
-              { label: 'Open Workspace' },
-              { label: 'Audit Records' },
-            ]}
-          />
-
-          <MediaCard
-            title="ClassScout Catalog Cataloging"
-            description={(
-              <Stack gap="xs">
-                <Text size="sm">Catalog operations for birthday parties, camps, classes, and activities across NYC. Curated machine-ingest pipeline and ImgBB media integration.</Text>
-                <Group gap="xs">
-                  <Badge variant="light" size="xs">Ingest Key: Configured</Badge>
-                  <Badge variant="light" size="xs">5 Boroughs</Badge>
-                </Group>
-              </Stack>
-            )}
-            image={(
-              <img
-                src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=600&auto=format&fit=crop"
-                alt="ClassScout"
-                style={{ width: '100%', height: 180, objectFit: 'cover' }}
-              />
-            )}
-            status="Catalog"
-          />
-        </SimpleGrid>
-      </FormSection>
-
-      <FormSection title="Catalog & Discovery Contracts" description="These showcase the released discovery-oriented GDS primitives that consumers can use today.">
-        <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
-          <ListingCard
-            title="Danube Evening Run Club"
-            description="Unified public listing contract with governed promo disclosure, metadata rows, and affordance placement."
-            featured
-            sponsoredDisclosure="Sponsored placement. Selection criteria are disclosed in the host app."
-            price="Free"
-            metadata={[
-              { id: 'date', label: 'Date', value: 'June 14' },
-              { id: 'time', label: 'Time', value: '18:30' },
-              { id: 'location', label: 'Location', value: 'Budapest, Margaret Bridge' },
-            ]}
-            primaryAction={<SemanticButton action="preview" size="sm" />}
-            saveAction={{ action: 'save' }}
-            shareAction={{ action: 'forward' }}
-          />
-
-          <MapPanel
-            title="Discovery map panel"
-            description="Sanctioned third-party embeds live inside governed chrome with explicit titles, actions, and fallback-state behavior."
-            actions={{
-              primary: { action: 'preview', size: 'sm' },
-              tertiary: [{ action: 'refresh', size: 'sm' }],
-            }}
-            iframeSrc="https://www.openstreetmap.org/export/embed.html?bbox=19.03%2C47.49%2C19.08%2C47.52&layer=mapnik"
-            embedTitle="Budapest sample discovery map"
-          />
-        </SimpleGrid>
-        <Paper withBorder p="lg" radius="xl">
-          <ShareButtonGroup
-            url="https://sovereignsquad.github.io/general-design-system/"
-            title="General Design System"
-            text="Explore the public GDS runtime and adoption docs."
-            channels={['native', 'copy', 'mail', 'linkedin', 'x']}
-            description="Governed share buttons replace product-local copy-link and social-share wrappers."
-          />
-        </Paper>
-      </FormSection>
-
-      <FormSection title="Food & Menu Contracts" description="Food-oriented products now have canonical card and grouped-section contracts instead of generic product cards plus local CSS.">
-        <Stack gap="lg">
-          <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
-            <PublicFoodCard
-              title="Roasted Tomato Soup"
-              description="Slow-roasted tomatoes, basil oil, and house bread."
-              price="EUR 7.50"
-              priceNote="Per portion"
-              state="preorder"
-              helperText="Order cutoff: Friday 18:00"
-              pickupNote="Saturday 09:00-12:00"
-              freshnessNote="Best served warm"
-              quantityHint="12 portions left"
-              markers={[
-                { id: 'vegetarian', label: 'Vegetarian', tone: 'positive' },
-                { id: 'weekly', label: 'Weekly batch', tone: 'warning' },
-              ]}
-              metadata={[
-                { id: 'allergens', label: 'Contains dairy' },
-                { id: 'portion', label: '500 ml' },
-              ]}
-              primaryAction={<SemanticButton action="submit" />}
-              secondaryAction={<Button variant="default">Details</Button>}
-            />
-
-            <PublicFoodCard
-              title="Summer Picnic Box"
-              description="Seasonal FMCG tasting pack with pastries, dips, and chef specials."
-              price="EUR 29.00"
-              state="limited"
-              helperText="Limited seasonal bundle"
-              freshnessNote="Prepared the same morning"
-              markers={[
-                { id: 'bundle', label: 'Bundle' },
-                { id: 'seasonal', label: 'Seasonal', tone: 'warning' },
-              ]}
-              metadata={[
-                { id: 'serves', label: 'Serves 2-3' },
-                { id: 'pickup', label: 'Pickup or courier' },
-              ]}
-              primaryAction={<SemanticButton action="save" />}
-            />
-          </SimpleGrid>
-
-          <FoodMenuSection
-            eyebrow="Weekly menu"
-            title="Laura Organic Saturday Menu"
-            description="A governed grouped menu built from the canonical food card contract."
-            sectionNote="Pickup only this week. All dishes are prepared fresh on Saturday morning."
-            categories={[
-              {
-                id: 'soups',
-                title: 'Soups',
-                helperNote: 'Prepared in small weekly batches.',
-                items: [
-                  {
-                    id: 'tomato-soup',
-                    title: 'Roasted Tomato Soup',
-                    description: 'Basil oil, sour cream, and crusty bread.',
-                    price: 'EUR 7.50',
-                    state: 'preorder',
-                    helperText: 'Reserve before Friday 18:00',
-                    pickupNote: 'Saturday 09:00-12:00',
-                    primaryAction: <Button>Reserve</Button>,
-                  },
-                  {
-                    id: 'thai-carrot',
-                    title: 'Thai Carrot Soup',
-                    description: 'Coconut, ginger, and lime.',
-                    price: 'EUR 7.20',
-                    state: 'available',
-                    freshnessNote: 'Best enjoyed within 24 hours',
-                    primaryAction: <Button>Order</Button>,
-                  },
-                ],
-              },
-              {
-                id: 'desserts',
-                title: 'Desserts',
-                helperNote: 'Small-batch bakery drop.',
-                items: [
-                  {
-                    id: 'pistachio-bun',
-                    title: 'Pistachio Morning Bun',
-                    description: 'Buttery laminated pastry with pistachio cream.',
-                    price: 'EUR 4.80',
-                    state: 'limited',
-                    quantityHint: '18 left',
-                    primaryAction: <Button>Reserve</Button>,
-                  },
-                ],
-              },
-            ]}
-          />
-        </Stack>
-      </FormSection>
-
-      <FormSection title="System State Blocks" description="Provides clean feedback blocks during loading, empty data, or unauthorized actions.">
-        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
-          <Paper withBorder p="md" radius="xl">
-            <StateBlock variant="empty" title="Empty Catalog" description="Load items into your catalog to begin configuring structured metadata." compact />
-          </Paper>
-          <Paper withBorder p="md" radius="xl">
-            <StateBlock variant="loading" title="Synchronizing Database..." description="Fetching the latest semantic changes from the Mongo server." compact />
-          </Paper>
-          <Paper withBorder p="md" radius="xl" style={{ position: 'relative' }}>
-            <StateBlock
-              variant="permission"
-              title="Access Scoped"
-              description="This workspace requires admin privileges to manage recurring programs."
-              compact
-              action={<Button variant="light" size="xs" onClick={() => setConfirmOpen(true)}>Authorize Workspace</Button>}
-            />
-          </Paper>
-        </SimpleGrid>
-      </FormSection>
-
-      <ConfirmDialog
-        opened={confirmOpen}
-        onClose={() => setConfirmOpen(false)}
-        onConfirm={handleConfirmAction}
-        title="Purge Legacy CSS Stylesheets?"
-        loading={demoLoad}
+    <DocsPageShell
+      title="Discovery & Cards"
+      eyebrow="Live demo family"
+      lead="Public discovery surfaces should converge on shared cards, menus, map containment, and governed share affordances."
+    >
+      <ReferenceSection
+        title="Unified listing card"
+        description="Use one configurable listing-card contract instead of proliferating event, venue, and community cards."
       >
-        This action will permanently delete `styles/docs.module.css` and `styles/docs-layout.module.css` across the SSO repository. Downstream pages will be strictly governed by the GDS 2.6.4 package and theme contract.
-      </ConfirmDialog>
-    </Stack>
+        <ListingCard
+          title="Danube Sunset Run"
+          description="A public discovery card with featured treatment, governed metadata rows, and clear save/share affordances."
+          featured
+          sponsoredDisclosure="Sponsored placement. Selection criteria belong to the host product."
+          price="Free"
+          metadata={[
+            { id: 'date', label: 'Date', value: 'June 14' },
+            { id: 'time', label: 'Time', value: '18:30' },
+            { id: 'location', label: 'Location', value: 'Margaret Island' },
+          ]}
+          saveAction={{ action: 'save' }}
+          shareAction={{ action: 'refer' }}
+          primaryAction={<a href="/general-design-system/live-demos/surfaces">Open listing</a>}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection title="Food surfaces" description="Food and menu contracts are first-class public surfaces, not downstream product exceptions.">
+        <PublicFoodCard
+          title="Smoked paprika chicken bowl"
+          description="Canonical public food card with availability state, helper copy, and one clear primary action."
+          state="preorder"
+          price="€12.50"
+          helperText="Pickup window closes at 18:00."
+          pickupNote="Today, 17:15-18:00"
+          freshnessNote="Prepared in small daily batches"
+          markers={[
+            { id: 'featured', label: 'Featured', tone: 'positive' },
+            { id: 'hot', label: 'Limited batch', tone: 'warning' },
+          ]}
+          primaryAction={<a href="/general-design-system/live-demos/surfaces">Reserve pickup</a>}
+        />
+        <FoodMenuSection
+          title="Weekly menu"
+          description="Grouped menu categories with consistent category rhythm and per-item affordances."
+          categories={[
+            {
+              id: 'lunch',
+              title: 'Lunch',
+              description: 'Fast pickup dishes for midday orders.',
+              items: [
+                {
+                  id: 'dish-1',
+                  title: 'Smoked paprika chicken bowl',
+                  state: 'available',
+                  price: '€12.50',
+                  description: 'Roasted vegetables, herbed rice, and citrus yogurt.',
+                  primaryAction: <a href="/general-design-system/live-demos/surfaces">Add to order</a>,
+                },
+                {
+                  id: 'dish-2',
+                  title: 'Green falafel plate',
+                  state: 'limited',
+                  price: '€10.90',
+                  description: 'Tahini slaw, pickled onions, and flatbread.',
+                  primaryAction: <a href="/general-design-system/live-demos/surfaces">Add to order</a>,
+                },
+              ],
+            },
+          ]}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection title="Map and media containment" description="Embeds and media should render inside the sanctioned GDS containment surfaces.">
+        <MapPanel
+          title="Meetup route map"
+          description="MapPanel keeps third-party embeds inside shared header chrome, loading, and failure behavior."
+          empty="No coordinates published yet."
+        />
+        <MediaCard
+          title="Public media card"
+          description="Media-led discovery surface for stories, bundles, guides, and catalog promotions."
+          status="Published"
+          image={<div style={{ aspectRatio: '16 / 9', background: 'linear-gradient(135deg, var(--mantine-color-violet-5), var(--mantine-color-teal-5))' }} />}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection title="Governed sharing" description="Sharing should use the canonical share-button group instead of local icon clusters.">
+        <ShareButtonGroup
+          url="https://sovereignsquad.github.io/general-design-system/live-demos/surfaces"
+          title="General Design System live demos"
+          text="Inspect the shipped discovery and card surfaces."
+          channels={['copy', 'mail', 'linkedin', 'whatsapp']}
+        />
+      </ReferenceSection>
+
+      <DemoFooter />
+    </DocsPageShell>
   );
 }
 
 export function LayoutsPage() {
   return (
-    <Stack gap="xl">
-      <PageHeader
-        title="Layout Primitives & Scaffolding"
-        description="These examples exercise the new governed shell, navigation, action, and detail-profile primitives directly."
-      />
-
-      <FormSection title="DiscoveryShell + SidebarNav" description="Use this contract instead of local AppShell wrappers for sidebar-first applications.">
-        <ShellShowcaseFrame />
-      </FormSection>
-
-      <FormSection title="Asset Attachment dropzone" description="Standard GDS UploadDropzone component built on top of Mantine and ImgBB validation constraints.">
-        <UploadDropzone
-          title="Drag and drop or choose GDS assets to upload"
-          description="Supports high-fidelity image mockups up to 5MB."
-          onFilesSelected={(files: File[]) => {
-            notifications.show({
-              title: 'Asset Selected',
-              message: `Successfully loaded ${files[0].name} to playground client memory.`,
-              color: 'teal',
-            });
-          }}
-          accept="image/*"
-        />
-      </FormSection>
-
-      <FormSection title="Auth + Sharing Contracts" description="Provider-based entry and public sharing should use canonical primitives rather than per-product button stacks.">
-        <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
-          <AuthShell
-            title="Welcome back"
-            description="Use the same governed auth-entry surface across login, signup, and linking journeys."
-            socialAuth={(
-              <SocialAuthButtons
-                providers={[
-                  { id: 'google', href: '#google' },
-                  { id: 'apple', href: '#apple' },
-                  { id: 'github', href: '#github', description: 'For developer workspaces' },
-                ]}
-                layout="grid"
-              />
-            )}
-            helper="If your organization requires SSO, continue with the approved identity provider above."
-          >
-            <Stack gap="sm">
-              <TextInput label="Email" placeholder="name@company.com" />
-              <TextInput label="Password" type="password" placeholder="Enter your password" />
-              <Button>Continue</Button>
-            </Stack>
-          </AuthShell>
-
-          <Paper withBorder p="lg" radius="xl">
-            <ShareButtonGroup
-              url="https://sovereignsquad.github.io/general-design-system/"
-              title="General Design System"
-              text="Adopt the canonical GDS runtime and governance stack."
-              channels={['copy', 'mail', 'message', 'whatsapp', 'telegram']}
-              compact
-              label="Compact share lane"
-              description="Use compact mode when a card, detail drawer, or footer needs governed icon-only sharing."
+    <DocsPageShell
+      title="Shells & Layouts"
+      eyebrow="Live demo family"
+      lead="Application shells, detail shells, and staged public flows should converge on shared structure instead of page-local layout contracts."
+    >
+      <ReferenceSection
+        title="Discovery shell"
+        description="Sidebar-first applications should use the canonical shell with governed sidebar IA and semantic actions."
+      >
+        <DiscoveryShell
+          header={(
+            <PageHeader
+              title="Catalog Operations"
+              description="Governed sidebar-first shell"
+              primaryAction={<SemanticButton action="save" size="sm" />}
             />
-          </Paper>
-        </SimpleGrid>
-      </FormSection>
+          )}
+          sidebar={(
+            <SidebarNav ariaLabel="Catalog navigation">
+              <SidebarNavSection label="Primary">
+                <SidebarNavItem action="dashboard" href="/general-design-system/live-demos/layouts" active />
+                <SidebarNavItem action="calendar" href="/general-design-system/patterns/foundations" />
+                <SidebarNavItem action="analytics" href="/general-design-system/live-demos/analytics" />
+              </SidebarNavSection>
+              <SidebarNavSection label="Account" pushToBottom>
+                <SidebarNavItem action="settings" href="/general-design-system/governance" />
+                <SidebarNavItem action="logout" component="button" />
+              </SidebarNavSection>
+            </SidebarNav>
+          )}
+        >
+          <SectionPanel
+            title="Contained desktop preview"
+            description="This is a real DiscoveryShell contract shown inside a bounded preview rather than a fake nested website."
+          >
+            <ActionBar
+              primary={{ action: 'save', size: 'sm' }}
+              secondary={[{ action: 'cancel', size: 'sm' }]}
+              tertiary={[{ action: 'preview', size: 'sm' }]}
+            />
+          </SectionPanel>
+        </DiscoveryShell>
+      </ReferenceSection>
 
-      <FormSection title="DetailProfileShell" description="Use the same detail composition in drawer and full-page modes instead of maintaining divergent local profile panels.">
-        <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
-          <DetailProfileShell
-            mode="page"
-            hero={(
-              <Stack gap={4}>
-                <Badge color="teal" variant="light">Page mode</Badge>
-                <Title order={3}>Budapest Run Collective</Title>
-                <Text size="sm" c="dimmed">Community profile with governed hero, actions, sections, and related content.</Text>
-              </Stack>
-            )}
-            actions={<ActionBar primary={{ action: 'message', size: 'sm' }} secondary={[{ action: 'save', size: 'sm' }]} />}
-            sections={[
-              <Paper key="overview" withBorder p="md" radius="lg">Weekly meetups, coach rotation, and beginner-friendly pacing.</Paper>,
-              <Paper key="schedule" withBorder p="md" radius="lg">Tuesday and Thursday at 18:30, Saturday long run at 08:00.</Paper>,
-            ]}
-            related={<Paper withBorder p="md" radius="lg">Related groups: Danube Sprinters, City Tempo, Margaret Bridge Runners.</Paper>}
-          />
-          <DetailProfileShell
-            mode="drawer"
-            hero={(
-              <Stack gap={4}>
-                <Badge color="violet" variant="light">Drawer mode</Badge>
-                <Title order={4}>Operator detail rail</Title>
-                <Text size="sm" c="dimmed">Same contract, denser presentation.</Text>
-              </Stack>
-            )}
-            actions={<ActionBar primary={{ action: 'edit', size: 'sm' }} tertiary={[{ action: 'preview', size: 'sm' }]} />}
-            sections={[
-              <Paper key="status" withBorder p="md" radius="lg">Status: featured listing, review scheduled, sponsor disclosure active.</Paper>,
-              <Paper key="owner" withBorder p="md" radius="lg">Owner: Camera discovery operations.</Paper>,
-            ]}
-          />
-        </SimpleGrid>
-      </FormSection>
-
-      <FormSection title="Capture & Playback Contracts" description="Hardware-adjacent and timed-media experiences now have governed shells. Only the actual runtime media region remains an explicit boundary.">
-        <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="lg">
-          <PublicFlowShell
-            eyebrow="Public flow"
-            stage={{
-              id: 'review',
-              title: 'Review your capture',
-              description: 'Consent, review, share, and recovery stages follow the same public-flow contract.',
-              status: 'ready',
-              body: (
-                <Paper withBorder p="md" radius="lg">
-                  <Text size="sm">Captured image preview, captions, and confirmation copy render inside the governed flow shell.</Text>
-                </Paper>
-              ),
-              notice: 'The live camera preview remains a bounded runtime slot and must still meet the documented accessibility rules.',
-              actions: [
-                { action: 'cancel', priority: 'secondary' },
-                { action: 'send', priority: 'primary' },
-                { action: 'preview', priority: 'tertiary' },
-              ],
-            }}
-            hardwareSurface={(
-              <Paper withBorder p="xl" radius="lg" style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Text size="sm" c="dimmed">Runtime hardware preview slot</Text>
-              </Paper>
-            )}
-            exitAction={<Button variant="default">Safe Exit</Button>}
-          />
-
-          <PlaybackSurface
-            title="Storefront playback"
-            state="playing"
-            mode="kiosk"
-            statusMessage="Looping seasonal menu highlights on a public kiosk display."
-            media={(
-              <Paper withBorder p="xl" radius="lg" style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Text size="sm" c="dimmed">Timed media presenter slot</Text>
-              </Paper>
-            )}
-            controls={<Button variant="default" size="xs">Pause</Button>}
-            overlays={<Badge color="teal" variant="light">Kiosk mode</Badge>}
-          />
-        </SimpleGrid>
-      </FormSection>
-
-      <FormSection title="Access Summary Scoping" description="Standard scoping summaries displaying active owner, roles, and allowed client accesses.">
-        <AccessSummary
-          title="moldovancsaba"
-          roles={['System Owner', 'Global Admin']}
-          scope="All Ecosystem Repositories (sso, kidex, classscout, messmass, narimato)"
-          description="Last verified active just now using keychain key authorization."
+      <ReferenceSection
+        title="Detail profile shell"
+        description="Drawer and page detail experiences should share one consistent hero, section stack, and related-items rhythm."
+      >
+        <DetailProfileShell
+          hero={<PageHeader title="Universal SSO" description="OAuth/OIDC provider rollout detail surface" />}
+          actions={<ActionBar primary={{ action: 'edit', size: 'sm' }} secondary={[{ action: 'refer', size: 'sm' }]} />}
+          sections={[
+            <SectionPanel key="overview" title="Overview" description="Shared detail-shell content blocks.">
+              <p style={{ margin: 0 }}>Use the same detail contract across page and drawer modes instead of growing product-local profile panels.</p>
+            </SectionPanel>,
+            <AccessSummary
+              key="access"
+              title="Access summary"
+              roles={['platform-ui', 'maintainers']}
+              scope="Public adopters"
+              description="The detail shell can mix profile sections with access/readiness information without inventing a second layout contract."
+            />,
+          ]}
         />
-      </FormSection>
-    </Stack>
+      </ReferenceSection>
+
+      <ReferenceSection
+        title="Bounded public flows"
+        description="Hardware-adjacent or staged public flows should stay inside the sanctioned public-flow shell."
+      >
+        <PublicFlowShell
+          eyebrow="Capture flow"
+          stage={{
+            id: 'capture-ready',
+            title: 'Review your capture setup',
+            description: 'The flow contract governs stage status, actions, and bounded hardware surfaces.',
+            status: 'ready',
+            body: (
+              <SectionPanel title="Before you continue" description="This is where a staged flow explains the next irreversible step.">
+                <p style={{ margin: 0 }}>Confirm lighting, permissions, and the intended upload destination before opening a hardware-adjacent step.</p>
+              </SectionPanel>
+            ),
+            actions: [
+              { action: 'start', priority: 'primary' },
+              { action: 'cancel', priority: 'secondary' },
+            ],
+          }}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection
+        title="Playback surface"
+        description="Video and timed-media playback should render through the canonical playback contract."
+      >
+        <PlaybackSurface
+          title="Product walkthrough"
+          state="ready"
+          statusMessage="Accessible playback surface with bounded description and media containment."
+          media={<div style={{ aspectRatio: '16 / 9', background: 'linear-gradient(135deg, var(--mantine-color-dark-6), var(--mantine-color-violet-6))' }} />}
+        />
+      </ReferenceSection>
+
+      <DemoFooter />
+    </DocsPageShell>
   );
 }
 
 export function VocabularyPage() {
+  const [feedback, setFeedback] = useState<'success' | 'error' | null>(null);
+
+  const showFeedback = (next: 'success' | 'error') => {
+    setFeedback(next);
+    setTimeout(() => setFeedback(null), 1600);
+  };
+
   return (
-    <Stack gap="xl">
-      <PageHeader
-        title="Semantic Dictionary & Testing Matrix"
-        description="Test the canonical semantic vocabulary and the governed product-extension lane. Every action resolves to one icon, one meaning, and one localized label contract."
-      />
+    <DocsPageShell
+      title="Actions & Auth"
+      eyebrow="Live demo family"
+      lead="Semantic actions and canonical auth/share surfaces exist so products do not need local wrappers for buttons, login providers, or social distribution."
+    >
+      <ReferenceSection title="Semantic action system" description="Use semantic actions instead of free-form button stacks wherever the intent is already known.">
+        <ActionBar
+          primary={{ action: 'save' }}
+          secondary={[{ action: 'cancel' }]}
+          tertiary={[{ action: 'preview' }, { action: 'refer' }]}
+          iconOnly={[{ action: 'settings' }]}
+        />
+      </ReferenceSection>
 
-      <FormSection title="Product vocabulary packs" description="Missing product actions extend the governed vocabulary through a namespace instead of raw labels and icons.">
-        <Paper withBorder p="lg" radius="xl">
-          <Stack gap="md">
-            <Text size="sm" c="dimmed">
-              This example uses a `camera` vocabulary pack to add a product-specific moderation action while still flowing through `ActionBar`, `SidebarNavItem`, and `SemanticButton`.
-            </Text>
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
-              <SemanticButton action="camera:moderate" vocabularyPacks={[cameraVocabularyPack]} />
-              <ActionBar primary={{ action: 'camera:moderate' }} vocabularyPacks={[cameraVocabularyPack]} />
-              <Paper withBorder p="sm" radius="lg">
-                <SidebarNav ariaLabel="Vocabulary extension preview">
-                  <SidebarNavSection label="Product actions">
-                    <SidebarNavItem action="camera:moderate" href="#moderate" vocabularyPacks={[cameraVocabularyPack]} />
-                  </SidebarNavSection>
-                </SidebarNav>
-              </Paper>
-            </SimpleGrid>
-          </Stack>
-        </Paper>
-      </FormSection>
+      <ReferenceSection title="Feedback states" description="Interaction states remain visible and consistent without route-local button wrappers.">
+        <>
+          <SemanticButton action="submit" feedbackState={feedback} onClick={() => showFeedback('success')} />
+          <SemanticButton action="delete" feedbackState={feedback === 'success' ? null : feedback} onClick={() => showFeedback('error')} color="red" />
+        </>
+      </ReferenceSection>
 
-      <Stack gap="md">
-        {(Object.keys(GdsVocabulary) as SemanticAction[]).map((action) => (
-          <Paper key={action} withBorder p="lg" radius="lg">
-            <Stack gap="sm">
-              <Group justify="space-between">
-                <Box fw={700} fz="xs" tt="uppercase" c="dimmed">gds.action.{action}</Box>
-                <Badge color="gray" variant="outline">Icon: {GdsVocabulary[action].icon.name}</Badge>
-              </Group>
-              <SimpleGrid cols={{ base: 1, sm: 2, md: 5 }} spacing="sm">
-                <Box>
-                  <Box fz="xs" c="dimmed" mb={4}>Default</Box>
-                  <SemanticButton action={action} fullWidth />
-                </Box>
-                <Box>
-                  <Box fz="xs" c="dimmed" mb={4}>Light Variant</Box>
-                  <SemanticButton action={action} fullWidth variant="light" />
-                </Box>
-                <Box>
-                  <Box fz="xs" c="dimmed" mb={4}>Disabled</Box>
-                  <SemanticButton action={action} fullWidth disabled />
-                </Box>
-                <Box>
-                  <Box fz="xs" c="dimmed" mb={4}>Loading</Box>
-                  <SemanticButton action={action} fullWidth loading />
-                </Box>
-                <Box>
-                  <Box fz="xs" c="dimmed" mb={4}>Micro-Feedback Demo</Box>
-                  <InteractiveDemoButton action={action} />
-                </Box>
-              </SimpleGrid>
-            </Stack>
-          </Paper>
-        ))}
-      </Stack>
-    </Stack>
+      <ReferenceSection title="Canonical social auth" description="Provider-based login belongs to the shared auth surface, not to custom stacks inside each product.">
+        <AuthShell
+          title="Sign in to GDS"
+          description="Canonical social-auth placement inside the shared auth shell."
+          socialAuth={(
+            <SocialAuthButtons
+              layout="grid"
+              providers={[
+                { id: 'google' },
+                { id: 'apple' },
+                { id: 'github' },
+                { id: 'microsoft' },
+              ]}
+            />
+          )}
+          helper="You can swap in your product session wiring while preserving the shared auth presentation."
+        >
+          <SectionPanel title="Email lane" description="Products keep their backend auth implementation. GDS governs the surface contract.">
+            <p style={{ margin: 0 }}>This bounded helper block replaces the old pattern of every app inventing a different social-login stack.</p>
+          </SectionPanel>
+        </AuthShell>
+      </ReferenceSection>
+
+      <ReferenceSection title="Share buttons" description="Use the canonical share-button group instead of per-product icon clusters.">
+        <ShareButtonGroup
+          url="https://sovereignsquad.github.io/general-design-system/live-demos/semantics"
+          title="GDS actions and auth live demo"
+          text="Inspect semantic actions and canonical social-auth surfaces."
+          channels={['native', 'copy', 'mail', 'x']}
+          compact
+        />
+      </ReferenceSection>
+
+      <DemoFooter />
+    </DocsPageShell>
   );
 }
 
 export function AnalyticsPage() {
+  const rows = [
+    { id: '1', surface: 'DiscoveryShell', coverage: 'Live demo', status: 'Adopted' },
+    { id: '2', surface: 'ListingCard', coverage: 'Live demo', status: 'Adopted' },
+    { id: '3', surface: 'MapPanel', coverage: 'Live demo', status: 'Adopted' },
+  ];
+
   return (
-    <Stack gap="xl">
-      <PageHeader
-        title="Themed Analytics & Custom SVG Charts"
-        description="Clean dashboards built natively on top of GDS design tokens, featuring interactive spline curves, doughnut shares, and period toolbars."
-      />
+    <DocsPageShell
+      title="Analytics & Data"
+      eyebrow="Live demo family"
+      lead="Operational metrics, shared data views, and threshold-aware analytics should use the canonical GDS surfaces rather than local reporting wrappers."
+    >
+      <ReferenceSection title="Metric and progress surfaces" description="Shared metrics should remain readable, threshold-aware, and consistent across products.">
+        <ConsumerDashboardGrid columns={3}>
+          <MetricCard label="Catalog coverage" value="73 entries" description="Pattern inventory shown on the public site." />
+          <ProgressCard label="Reference-site conversion" value="Strict consumer" progress={100} progressLabel="Current state" />
+          <MetricCard label="npm line" value="2.6.4" description="Public package and docs release line." />
+        </ConsumerDashboardGrid>
+      </ReferenceSection>
 
-      <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
-        <Paper withBorder p="xl" radius="xl">
-          <Stack gap="md">
-            <Group justify="space-between">
-              <Stack gap={2}>
-                <Title order={3}>Ecosystem Adoption Spline</Title>
-                <Text size="xs" c="dimmed">Quarterly GDS integration growth rate across adopter repositories</Text>
-              </Stack>
-              <Badge color="teal" variant="light">Adoption Rate</Badge>
-            </Group>
-            <SvgLineChart />
-          </Stack>
-        </Paper>
-
-        <Paper withBorder p="xl" radius="xl">
-          <Stack gap="md">
-            <Group justify="space-between">
-              <Stack gap={2}>
-                <Title order={3}>Product Registry Distribution</Title>
-                <Text size="xs" c="dimmed">Share of managed variables inside active downstreams</Text>
-              </Stack>
-              <Badge color="indigo" variant="light">Product Shares</Badge>
-            </Group>
-            <SvgDoughnutChart />
-          </Stack>
-        </Paper>
-      </SimpleGrid>
-
-      <Stack gap="md">
-        <Title order={3}>Adoption Metadata Ledger</Title>
-        <DataTable
+      <ReferenceSection title="Shared data views" description="ResponsiveDataView and DataTable handle desktop/mobile rhythm without inventing local list shells.">
+        <ResponsiveDataView
+          data={rows}
           columns={[
-            { key: 'repo', label: 'Repository' },
-            { key: 'category', label: 'Archetype' },
-            { key: 'coverage', label: 'Token Coverage' },
-            { key: 'status', label: 'Governance Grade' },
+            { key: 'surface', label: 'Surface' },
+            { key: 'coverage', label: 'Coverage' },
+            { key: 'status', label: 'Status' },
           ]}
-          data={[
-            { repo: 'Universal SSO', category: 'OAuth / Documentation Portal', coverage: '100% Core Primitives', status: 'A+' },
-            { repo: 'KIDEX Intel Platform', category: 'Conductor Assessment Tool', coverage: '98% Theme & Layouts', status: 'A' },
-            { repo: 'ClassScout NYC', category: 'Public Classes & Camp Directory', coverage: '100% Grid & Details', status: 'A+' },
-            { repo: 'Messmass Analytics', category: 'Executive Visualization Console', coverage: '96% Form Fields', status: 'A' },
-          ]}
+          renderCard={(item) => (
+            <SectionPanel title={item.surface} description={item.coverage}>
+              <p style={{ margin: 0 }}>{item.status}</p>
+            </SectionPanel>
+          )}
         />
-      </Stack>
-    </Stack>
+        <DataTable
+          data={rows}
+          columns={[
+            { key: 'surface', label: 'Surface' },
+            { key: 'coverage', label: 'Coverage' },
+            { key: 'status', label: 'Status' },
+          ]}
+          getRowKey={(row) => row.id}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection title="Statistics thresholds" description="StatsSection communicates loading, threshold, and empty states instead of leaving analytics surfaces vague.">
+        <StatsSection
+          title="Adoption threshold example"
+          belowThreshold
+          thresholdMessage="This report remains hidden until the consumer has enough live traffic to produce stable numbers."
+        />
+      </ReferenceSection>
+
+      <DemoFooter />
+    </DocsPageShell>
   );
 }

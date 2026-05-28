@@ -4,11 +4,13 @@ import { runComplianceCheck, formatReport } from '../packages/gds-compliance/ind
 
 const root = process.cwd();
 const manifests = [
+  'apps/playground/gds-adoption.json',
   'apps/reference-vite/gds-adoption.json',
   'apps/reference-next/gds-adoption.json',
 ];
 
 const expectedOutputs = [
+  'apps/playground/dist/index.html',
   'apps/reference-vite/dist/index.html',
   'apps/reference-next/app/layout.tsx',
   'apps/reference-next/app/providers.tsx',
