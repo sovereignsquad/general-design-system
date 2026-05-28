@@ -2,19 +2,20 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 2.6.4 - 2026-05-28
+
+- Added `SocialAuthButtons` to `@doneisbetter/gds-core` as the canonical provider-entry cluster for Google, Apple, GitHub, Microsoft, LinkedIn, Discord, X, Facebook, and email-shaped auth lanes.
+- Added `ShareButtonGroup` to `@doneisbetter/gds-core` as the canonical public sharing surface for native share, copy-link, email, message, and social-channel actions.
+- Enhanced `AuthShell` to support governed social-auth placement and divider rhythm instead of consumer-local auth-provider layouts.
+- Published the umbrella install path `@doneisbetter/gds` as the preferred public npm entrypoint while keeping the granular runtime packages available for stricter dependency boundaries.
+- Aligned release automation and public documentation so npm publication, GitHub Pages guidance, and release-bundle fallback distribution target the same live release line.
+
 ## 2.6.3 - 2026-05-27
 
 - Added `showGdsNotification(...)` to `@doneisbetter/gds-theme/client` as the canonical semantic notification helper for consumers already governed by the shared provider stack.
 - Enhanced `AuthShell` with `headerActions` so products can place theme toggles or other small auth-entry controls without rebuilding the shell locally.
 - Enhanced `PageHeader` to accept `subtitle` as an alias for `description`, reducing consumer-only adapter code.
 - Hardened `SemanticButton` to use the label-first prerender path by default, removing the need for client repos to carry their own hydration-safe semantic-button wrappers.
-
-## 2.6.3 - 2026-05-27
-
-- Published the full `@doneisbetter/*` package line to npm and verified public installability for `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, `@doneisbetter/gds-admin`, `@doneisbetter/gds-eslint-config`, and `@doneisbetter/gds-compliance`.
-- Added `showGdsNotification(...)` to `@doneisbetter/gds-theme/client`, plus consumer-hardening improvements for `AuthShell`, `PageHeader`, and `SemanticButton`.
-- Updated the GitHub Pages site to function as both a live showcase and the canonical onboarding portal, including installation-manual and rulebook sections alongside the existing component demos.
-- Aligned README, compatibility guidance, install proof, and website copy to the live npm `2.6.3` line, keeping GitHub release bundles as a fallback path instead of the primary distribution story.
 
 ## 2.6.2 - 2026-05-27
 
