@@ -152,7 +152,7 @@ function TokensThemeLab() {
 
   return (
     <Stack gap="lg">
-      <SimpleGrid cols={{ base: 1, lg: 3 }} spacing="lg">
+      <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} spacing="lg">
         <Paper withBorder p="lg" radius="xl">
           <Stack gap="md">
             <Title order={4}>Theme Preset</Title>
