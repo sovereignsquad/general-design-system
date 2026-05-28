@@ -229,6 +229,71 @@ function PatternDemo({ entryId }: { entryId: string }) {
   const closeConfirm = () => setConfirmOpen(false);
 
   switch (entryId) {
+    case 'stable-shell':
+    case 'shell-contracts':
+      return (
+        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
+          <AccentPanel tone="green" title="Authenticated workspace" badge="DiscoveryShell">
+            <Text size="sm">
+              Sidebar-first operational products converge on one stable application shell with explicit destination rhythm and account controls.
+            </Text>
+          </AccentPanel>
+          <AccentPanel tone="violet" title="Public surface" badge="PublicShell">
+            <Text size="sm">
+              Marketing, docs, and discovery pages share a branded public shell rather than inventing route-local navigation chrome.
+            </Text>
+          </AccentPanel>
+          <AccentPanel tone="blue" title="Article / docs surface" badge="DocsPageShell">
+            <Text size="sm">
+              Readability-first reference pages use the docs/article shell lane instead of borrowing operational layout patterns.
+            </Text>
+          </AccentPanel>
+        </SimpleGrid>
+      );
+    case 'primary-navigation':
+      return (
+        <Stack gap="md">
+          <PublicNav
+            activeId="patterns"
+            items={[
+              { id: 'overview', label: 'Overview', href: '#overview' },
+              { id: 'patterns', label: 'Patterns', href: '#patterns' },
+              { id: 'install', label: 'Install', href: '#install' },
+              { id: 'governance', label: 'Governance', href: '#governance' },
+            ]}
+          />
+          <Text size="sm" c="dimmed">
+            Primary navigation exposes destinations. Actions like publish, save, and delete stay in headers and action bars, not in the navigation model.
+          </Text>
+        </Stack>
+      );
+    case 'mobile-navigation':
+      return (
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+          <Paper withBorder p="md" radius="xl">
+            <Stack gap="sm">
+              <Text fw={700} size="sm">Always-visible primary destinations</Text>
+              <Group grow>
+                <Button variant="light">Home</Button>
+                <Button variant="light">Browse</Button>
+                <Button variant="light">Inbox</Button>
+              </Group>
+              <Text size="sm" c="dimmed">
+                Routine destinations remain reachable without forcing a hidden drawer for every tap.
+              </Text>
+            </Stack>
+          </Paper>
+          <Paper withBorder p="md" radius="xl">
+            <Stack gap="sm">
+              <Text fw={700} size="sm">Secondary controls in overflow</Text>
+              <Button variant="default" leftSection={<IconLayoutSidebarRightCollapse size="1rem" />}>Open preferences</Button>
+              <Text size="sm" c="dimmed">
+                Secondary filters, account options, and less frequent controls collapse into a drawer or overflow lane.
+              </Text>
+            </Stack>
+          </Paper>
+        </SimpleGrid>
+      );
     case 'page-headers':
       return (
         <PageHeader
@@ -353,6 +418,29 @@ function PatternDemo({ entryId }: { entryId: string }) {
           <PasswordInput label="Password" placeholder="Enter secure password" />
         </SimpleGrid>
       );
+    case 'forms':
+      return (
+        <Paper withBorder p="lg" radius="xl">
+          <Stack gap="md">
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+              <TextInput label="Workspace name" placeholder="General Design System" description="Grouped fields keep related setup together." />
+              <Select
+                label="Release line"
+                defaultValue="2.6.4"
+                data={[
+                  { value: '2.6.4', label: '2.6.4' },
+                  { value: '2.6.3', label: '2.6.3' },
+                ]}
+              />
+            </SimpleGrid>
+            <TextInput label="Owner email" placeholder="moldovancsaba@example.com" error="Shown close to the field when validation fails." />
+            <Group justify="flex-end">
+              <Button variant="default">Cancel</Button>
+              <Button loading>Save changes</Button>
+            </Group>
+          </Stack>
+        </Paper>
+      );
     case 'selects-combobox':
       return (
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
@@ -446,6 +534,28 @@ function PatternDemo({ entryId }: { entryId: string }) {
           />
         </SimpleGrid>
       );
+    case 'dashboards':
+      return (
+        <ConsumerDashboardGrid columns={2}>
+          <MetricCard
+            label="Next action"
+            value="Publish docs"
+            description="Operational dashboards surface the next concrete action first."
+            trend={{ label: 'Due today', tone: 'neutral' }}
+          />
+          <Alert color="red" title="Urgent exception">
+            Pages deploy is blocked until the latest docs-site commit finishes the workflow run.
+          </Alert>
+          <SectionPanel title="Recent work" description="Most recent operational context.">
+            <Text size="sm">Pattern catalog hardening, shell-preview cleanup, and route-level code splitting shipped today.</Text>
+          </SectionPanel>
+          <MetricCard
+            label="Analytics"
+            value="64 entries"
+            description="Charts and broad reporting come after actions and exceptions."
+          />
+        </ConsumerDashboardGrid>
+      );
     case 'data-toolbars':
       return (
         <DataToolbar
@@ -458,6 +568,35 @@ function PatternDemo({ entryId }: { entryId: string }) {
             { label: 'Mantine 9' },
             { label: 'Public route' },
           ]}
+        />
+      );
+    case 'search-filters-lists':
+      return (
+        <BrowseSurface
+          eyebrow="Search workflow"
+          title="Governed search, filters, and lists"
+          description="Active filters stay close to the results they affect and remain removable."
+          resultCount={12}
+          scopeOptions={[
+            { id: 'all', label: 'All', active: true },
+            { id: 'public', label: 'Public' },
+            { id: 'admin', label: 'Admin' },
+          ]}
+          toolbar={{
+            searchSlot: <TextInput placeholder="Search by pattern name" leftSection={<IconSearch size="1rem" />} />,
+            filterSlot: <Button variant="default" leftSection={<IconFilter size="1rem" />}>Filters</Button>,
+            sortSlot: <Select placeholder="Sort" data={['Name', 'Coverage', 'Family']} />,
+          }}
+          activeFilters={[
+            { id: 'family', label: 'Foundations' },
+            { id: 'coverage', label: 'Live demo' },
+          ]}
+          content={
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+              <EditorialCard title="DiscoveryShell" description="Canonical sidebar-first workspace shell." badge="Foundations" />
+              <EditorialCard title="ListingCard" description="Unified public discovery card contract." badge="Public" />
+            </SimpleGrid>
+          }
         />
       );
     case 'state-blocks':
@@ -697,6 +836,30 @@ function PatternDemo({ entryId }: { entryId: string }) {
           layout="grid"
         />
       );
+    case 'admin-editor-flows':
+      return (
+        <ContentOpsEditor
+          header={<PageHeader title="Documentation settings" description="Dense, predictable editor flow with explicit save consequences." />}
+          context={<AccentPanel tone="gray" title="Edit context">Drafts should survive recoverable failures and bulk actions must communicate scope clearly.</AccentPanel>}
+          sections={
+            <>
+              <SectionPanel title="Metadata" description="Core release and docs metadata.">
+                <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+                  <TextInput label="Release title" placeholder="GDS 2.6.4" />
+                  <Select label="Visibility" data={['Public', 'Internal preview']} defaultValue="Public" />
+                </SimpleGrid>
+              </SectionPanel>
+              <SectionPanel title="Bulk updates" description="Operators need predictable consequence framing.">
+                <Checkbox label="Apply navigation copy updates to all pattern routes" />
+                <Checkbox label="Regenerate pattern summary snapshots" />
+              </SectionPanel>
+            </>
+          }
+          preview={<Paper withBorder p="md" radius="lg">Preview rail</Paper>}
+          settings={<Paper withBorder p="md" radius="lg">Validation and publishing rail</Paper>}
+          actionBar={<ActionBar primary={{ action: 'save' }} secondary={[{ action: 'cancel' }]} tertiary={[{ action: 'preview' }]} />}
+        />
+      );
     case 'article-shells':
       return (
         <ArticleShell
@@ -921,6 +1084,109 @@ function PatternDemo({ entryId }: { entryId: string }) {
           }
         />
       );
+    case 'small-screen-priority':
+      return (
+        <Stack gap="md">
+          <Text size="sm" c="dimmed">
+            Mobile order should be: next action, urgent exception, recent work, then analytics.
+          </Text>
+          <Stack gap="sm" maw={360}>
+            <Paper withBorder p="md" radius="lg">
+              <Text fw={700} size="sm">1. Next action</Text>
+              <Text size="sm" c="dimmed">Publish updated pattern docs</Text>
+            </Paper>
+            <Alert color="red" title="2. Urgent exception">
+              Social auth wording still needs legal review for one provider.
+            </Alert>
+            <Paper withBorder p="md" radius="lg">
+              <Text fw={700} size="sm">3. Recent work</Text>
+              <Text size="sm" c="dimmed">Pattern family pages were added and route-split this week.</Text>
+            </Paper>
+            <Paper withBorder p="md" radius="lg">
+              <Text fw={700} size="sm">4. Analytics</Text>
+              <Text size="sm" c="dimmed">64 documented entries, 51 live demos.</Text>
+            </Paper>
+          </Stack>
+        </Stack>
+      );
+    case 'table-responsive-strategies':
+      return (
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+          <Paper withBorder p="md" radius="xl">
+            <Stack gap="sm">
+              <Text fw={700} size="sm">Desktop summary table</Text>
+              <SimpleDataTable
+                columns={[
+                  { key: 'component', header: 'Component' },
+                  { key: 'family', header: 'Family' },
+                  { key: 'coverage', header: 'Coverage' },
+                ]}
+                rows={[
+                  { component: 'DiscoveryShell', family: 'Foundations', coverage: 'Live demo' },
+                  { component: 'MapPanel', family: 'Public', coverage: 'Live demo' },
+                ]}
+              />
+            </Stack>
+          </Paper>
+          <Paper withBorder p="md" radius="xl">
+            <Stack gap="sm">
+              <Text fw={700} size="sm">Mobile fallback cards</Text>
+              <SimpleGrid cols={1} spacing="sm">
+                <EditorialCard title="DiscoveryShell" description="Foundations · Live demo" />
+                <EditorialCard title="MapPanel" description="Public · Live demo" tone="cool" />
+              </SimpleGrid>
+            </Stack>
+          </Paper>
+        </SimpleGrid>
+      );
+    case 'mobile-action-density':
+      return (
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+          <ListingCard
+            title="One clear mobile action"
+            description="Cards keep one obvious primary action visible and move the rest into governed affordances."
+            metadata={[{ id: 'scope', label: 'Scope', value: 'Public docs' }]}
+            primaryAction={<SemanticButton action="preview" size="sm" />}
+            saveAction={{ action: 'save' }}
+            shareAction={{ action: 'forward' }}
+          />
+          <Paper withBorder p="md" radius="xl">
+            <Stack gap="sm">
+              <Text fw={700} size="sm">Avoid risky icon-only clusters</Text>
+              <Group gap="xs">
+                <Button>Primary</Button>
+                <ActionIcon aria-label="Overflow options">
+                  <IconBell size="1rem" />
+                </ActionIcon>
+              </Group>
+              <Text size="sm" c="dimmed">
+                Keep adjacent icon-only actions limited on small screens so touch targets stay safe and intentional.
+              </Text>
+            </Stack>
+          </Paper>
+        </SimpleGrid>
+      );
+    case 'searchable-selection':
+      return (
+        <Stack gap="md">
+          <Select
+            searchable
+            label="Searchable selection recipe"
+            placeholder="Choose an existing canonical surface"
+            data={[
+              'DiscoveryShell',
+              'ActionBar',
+              'ListingCard',
+              'MapPanel',
+              'DetailProfileShell',
+              'PublicFlowShell',
+            ]}
+          />
+          <Alert color="blue" title="Current policy">
+            Until GDS promotes a dedicated searchable-selection export, follow the documented Mantine composition recipe with shared labeling, loading, empty, and mobile ergonomics.
+          </Alert>
+        </Stack>
+      );
     case 'access-summaries':
       return (
         <AccessSummary
@@ -1074,6 +1340,20 @@ function PatternDemo({ entryId }: { entryId: string }) {
             High-impact destructive actions must restate their scope and require explicit confirmation.
           </ConfirmDialog>
         </>
+      );
+    case 'pattern-service-reuse':
+      return (
+        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
+          <SectionPanel title="Shared cards" description="Use the published card contracts.">
+            <Text size="sm">ListingCard, ProductCard, EditorialCard, and PublicFoodCard replace page-local wrappers.</Text>
+          </SectionPanel>
+          <SectionPanel title="Shared workflows" description="Use the published flow and editor contracts.">
+            <Text size="sm">ActionBar, ContentOpsEditor, BrowseSurface, and PublicFlowShell centralize repeated workflow rhythm.</Text>
+          </SectionPanel>
+          <SectionPanel title="Shared states" description="Keep empty/loading/error behavior governed.">
+            <Text size="sm">StateBlock, PlaceholderPanel, AccessRecoveryPanel, and ConfirmDialog prevent divergent state UX.</Text>
+          </SectionPanel>
+        </SimpleGrid>
       );
     default:
       return null;

@@ -35,7 +35,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Application Shell & Navigation',
     family: 'foundations',
     section: 'Shell & Navigation Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Authenticated products need one stable structural shell with obvious location and destination rhythm.',
   },
   {
@@ -44,7 +44,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Application Shell & Navigation',
     family: 'foundations',
     section: 'Shell & Navigation Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Primary navigation must expose destinations, not actions, and maintain active-route signaling.',
   },
   {
@@ -53,7 +53,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Application Shell & Navigation',
     family: 'foundations',
     section: 'Shell & Navigation Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Primary destinations must stay reachable on mobile without forcing hidden-drawer-only usage.',
   },
   {
@@ -73,7 +73,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Application Shell & Navigation',
     family: 'foundations',
     section: 'Shell & Navigation Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Each user area must converge on one shell contract rather than page-local layout rhythm.',
   },
   {
@@ -104,7 +104,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Common Workflows & Patterns',
     family: 'operations',
     section: 'Workflow Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Dashboards prioritize next actions and urgent exceptions before broad analytics, especially on mobile.',
   },
   {
@@ -113,7 +113,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Common Workflows & Patterns',
     family: 'foundations',
     section: 'Workflow Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Forms should validate without punishing typing and must expose grouped fields and loading submit states.',
   },
   {
@@ -122,7 +122,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Common Workflows & Patterns',
     family: 'operations',
     section: 'Workflow Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Operational editing surfaces favor dense, predictable information and explicit bulk-action consequences.',
   },
   {
@@ -131,7 +131,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Common Workflows & Patterns',
     family: 'data',
     section: 'Workflow Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Filters stay near the data they affect, active filters remain removable, and preserved filter state is a feature.',
   },
   {
@@ -149,7 +149,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Common Workflows & Patterns',
     family: 'foundations',
     section: 'Workflow Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Repeated cards, tables, auth panels, and state blocks should be implemented through shared contracts, not page-local composition.',
   },
   {
@@ -739,7 +739,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Responsive Behavior & Touch Ergonomics',
     family: 'feedback',
     section: 'Responsive Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'On small screens the system prioritizes next actions, urgent exceptions, recent work, then analytics.',
   },
   {
@@ -748,7 +748,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Responsive Behavior & Touch Ergonomics',
     family: 'data',
     section: 'Responsive Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Desktop tables must adapt through scroll, cards, priority columns, or stacked rows rather than naive shrinking.',
   },
   {
@@ -757,7 +757,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Responsive Behavior & Touch Ergonomics',
     family: 'feedback',
     section: 'Responsive Guidance',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Cards should keep one visible primary action on mobile and avoid risky icon-only adjacency.',
   },
   {
@@ -766,7 +766,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Required Reusable Pattern Families',
     family: 'data',
     section: 'Search & Data Views',
-    coverageStatus: 'static-reference',
+    coverageStatus: 'live-demo',
     summary: 'Searchable selection follows the documented Mantine recipe path until a dedicated GDS export is promoted.',
   },
   {
