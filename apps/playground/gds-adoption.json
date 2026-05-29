@@ -13,6 +13,7 @@
     "ReferenceLinkGrid",
     "ReferenceLocaleNotice",
     "ReferenceThemeExplorer",
+    "DocsShell",
     "DiscoveryShell",
     "ActionBar",
     "ListingCard",
@@ -49,6 +50,7 @@
     ],
     "strictMode": true,
     "approvedShellPrimitives": [
+      "DocsShell",
       "DiscoveryShell",
       "ReferenceSiteShell"
     ],

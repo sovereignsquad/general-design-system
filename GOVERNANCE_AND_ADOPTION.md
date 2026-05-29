@@ -168,7 +168,7 @@ Strict mode should approve the canonical lanes explicitly:
 
 For the official reference site, also prefer:
 
-- `ReferenceSiteShell`
+- `DocsShell` (public/site docs shell)
 - `ReferenceSection`
 - `ReferenceLinkGrid`
 - `ReferenceThemeExplorer`

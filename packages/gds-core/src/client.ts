@@ -30,6 +30,7 @@ export * from './StateBlock';
 export * from './DataToolbar';
 export * from './PublicShell';
 export * from './DiscoveryShell';
+export * from './DocsShell';
 export * from './PublicNav';
 export * from './SidebarNav';
 export * from './PublicSiteFooter';

@@ -18,6 +18,7 @@ import { ChoiceChip } from './ChoiceChip';
 import { DataToolbar } from './DataToolbar';
 import { DetailProfileShell } from './DetailProfileShell';
 import { DocsCodeBlock } from './DocsCodeBlock';
+import { DocsShell } from './DocsShell';
 import { DocsPageShell } from './DocsPageShell';
 import { EmptyState } from './EmptyState';
 import { EditorialCard } from './EditorialCard';
@@ -227,6 +228,30 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByRole('link', { name: 'Settings' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Logout' })).toBeInTheDocument();
     expect(screen.getByText('Discovery content')).toBeInTheDocument();
+  });
+
+  it('renders docs shell with governed header, sidebar sections, and docs content', () => {
+    renderWithGds(
+      <DocsShell
+        brand={<Text fw={700}>General Design System</Text>}
+        primaryNavigation={<SidebarNavItem href="/patterns" active label="Patterns" />}
+        secondaryNavigation={<SidebarNavItem href="/themes" label="Themes" />}
+        headerContext="Official docs shell"
+        actions={<button type="button">Theme toggle</button>}
+        contentWidth="full"
+      >
+        <Text>Docs shell content area</Text>
+      </DocsShell>,
+    );
+
+    expect(screen.getByText('General Design System')).toBeInTheDocument();
+    expect(screen.getByText('Official docs shell')).toBeInTheDocument();
+    expect(screen.getByText('Docs shell content area')).toBeInTheDocument();
+    expect(screen.getByText('Primary')).toBeInTheDocument();
+    expect(screen.getByText('More')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Patterns' })).toHaveAttribute('href', '/patterns');
+    expect(screen.getByRole('link', { name: 'Themes' })).toHaveAttribute('href', '/themes');
+    expect(screen.getByRole('button', { name: 'Theme toggle' })).toBeInTheDocument();
   });
 
   it('renders a semantic action bar with governed action priority and icon-only actions', async () => {
