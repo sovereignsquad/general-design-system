@@ -411,6 +411,46 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     expect(rules).toContain('identity.provider.unapproved-id');
   });
 
+  it('enforces identity policy for ProviderIdentityButtonGroup provider ids', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.6',
+        productArchetype: 'public',
+        requiredContracts: ['ProviderIdentityButton'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-29',
+        compliance: {
+          identityProviderBranding: {
+            approvedProviders: ['google', 'apple'],
+            forbiddenCustomizations: ['size'],
+          },
+        },
+      }, null, 2),
+      'src/components/Auth.tsx': `
+        import { ProviderIdentityButtonGroup } from '@doneisbetter/gds-core';
+
+        export function Auth() {
+          return (
+            <ProviderIdentityButtonGroup
+              providers={[
+                { provider: 'google', href: '/auth/google' },
+                { provider: 'microsoft', href: '/auth/microsoft' },
+              ]}
+            />
+          );
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const rules = report.findings.map((finding) => finding.rule);
+    expect(rules).toContain('identity.provider.unapproved-id');
+  });
+
   it('flags forbidden SocialAuthButtons customizations from policy', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({

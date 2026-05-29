@@ -45,6 +45,7 @@ export * from './FeatureBand';
 export * from './MapPanel';
 export * from './PublicFlowShell';
 export * from './PlaybackSurface';
+export * from './ProviderIdentityButtons';
 export * from './ShareButtonGroup';
 export * from './UploadDropzone';
 export * from './MediaField';

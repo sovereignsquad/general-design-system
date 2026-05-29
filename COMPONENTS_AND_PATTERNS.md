@@ -79,7 +79,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Public Shells** | Public marketing/discovery/docs shells must define brand slot, navigation rhythm, readability width, CTA hierarchy, footer slot, and mobile nav behavior, including branded header variants and non-hook mobile nav patterns. | `md` |
 | **Public Nav** | Primary public navigation uses explicit nav items, an explicit active item, and semantic `aria-current` handling. | `md` |
 | **Auth Shells** | Auth entry surfaces must define title, error/helper placement, provider-brand exception handling, safe action hierarchy, and canonical social-auth placement. | `md` |
-| **Social Auth Buttons** | Provider-button cluster for Google, Apple, GitHub, and similar identity lanes with governed wording, spacing, and provider-brand treatment. | `md` |
+| **Social Auth Buttons** | Provider-button cluster for Google, Apple, GitHub, and similar identity lanes with governed wording, spacing, and provider-brand treatment. Use `ProviderIdentityButton` / `ProviderIdentityButtonGroup`; `SocialAuthButtons` is a compatibility façade. | `md` |
 | **Article Shells** | Docs/news/legal/editorial surfaces must define width, heading rhythm, metadata, side-rail behavior, and mobile collapse. | `md` |
 | **Docs Page Shell** | Docs shells may add breadcrumbs, next-step affordances, side rail slots, and shared code-block treatment without redefining article readability rules. | `md` |
 | **Editorial Hero** | Public/editorial hero sections must use a shared split text/media contract with one clear primary CTA, deterministic mobile collapse, and background-safe media fade behavior. | `xl` |
@@ -135,7 +135,7 @@ The following families are mandatory local contracts when a project has the corr
 | **Data Toolbar / Responsive Data View** | Product has admin/editor/search/list workflows | search, filters, sort, reset, create, desktop table strategy, mobile fallback |
 | **ActionBar** | Product has repeated action rows, save bars, CTA clusters, or semantic button stacks | primary/secondary/tertiary priority, icon-only lane, mobile wrapping, loading/disabled states |
 | **Auth Shell** | Product has login, signup, account linking, consent, or guest entry | auth actions, error placement, provider branding, anonymous/guest behavior |
-| **Social Auth Buttons** | Product has provider-based login, signup, SSO, or account-linking entry | provider ordering, brand treatment, divider usage, loading/disabled states |
+| **Social Auth Buttons** | Product has provider-based login, signup, SSO, or account-linking entry | provider ordering, brand treatment, divider usage, loading/disabled states. Prefer `ProviderIdentityButton` / `ProviderIdentityButtonGroup`; `SocialAuthButtons` is compatibility-only. |
 | **Article / Docs Shell** | Product has release notes, docs, news, or blog content | article width, side rail behavior, metadata, typography, mobile collapse |
 | **State Block** | Always | loading, empty, error, permission, disabled, success, not-enough-data states |
 | **Public Shell** | Product has public marketing, docs, listing, profile, or auth-adjacent surfaces | brand slot, nav model, readability width, CTA hierarchy, footer, mobile nav, branded header density |

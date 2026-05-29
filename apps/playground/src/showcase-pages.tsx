@@ -25,7 +25,7 @@ import {
   SidebarNav,
   SidebarNavItem,
   SidebarNavSection,
-  SocialAuthButtons,
+  ProviderIdentityButtonGroup,
   StatsSection,
 } from '@doneisbetter/gds-core';
 import { DataTable, PageHeader, ResponsiveDataView } from '@doneisbetter/gds-admin';
@@ -356,13 +356,13 @@ export function VocabularyPage() {
           title="Sign in to GDS"
           description="Canonical social-auth placement inside the shared auth shell."
           socialAuth={(
-            <SocialAuthButtons
+            <ProviderIdentityButtonGroup
               layout="grid"
               providers={[
-                { id: 'google' },
-                { id: 'apple' },
-                { id: 'github' },
-                { id: 'microsoft' },
+                { provider: 'google', href: '/auth/google' },
+                { provider: 'apple', href: '/auth/apple' },
+                { provider: 'github', href: '/auth/github' },
+                { provider: 'microsoft', href: '/auth/microsoft' },
               ]}
             />
           )}

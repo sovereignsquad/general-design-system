@@ -24,6 +24,7 @@ import {
   SidebarNavItem,
   SidebarNavSection,
   SocialAuthButtons,
+  ProviderIdentityButtonGroup,
   StateBlock,
   StatsSection,
 } from '@doneisbetter/gds-core';
@@ -129,6 +130,17 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'SocialAuthButtons':
       return <SocialAuthButtons layout="grid" providers={[{ id: 'google' }, { id: 'apple' }, { id: 'github' }, { id: 'microsoft' }]} />;
+    case 'ProviderIdentityButtonGroup':
+      return (
+        <ProviderIdentityButtonGroup
+          layout="grid"
+          providers={[
+            { provider: 'google', href: '/auth/google' },
+            { provider: 'apple', href: '/auth/apple' },
+            { provider: 'github', href: '/auth/github' },
+          ]}
+        />
+      );
     case 'ShareButtonGroup':
       return <ShareButtonGroup url="https://sovereignsquad.github.io/general-design-system/patterns" title="GDS pattern catalog" text="Inspect the shipped pattern inventory." compact />;
     case 'PublicFlowShell':

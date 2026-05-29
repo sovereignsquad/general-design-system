@@ -45,6 +45,7 @@ import { SectionPanel } from './SectionPanel';
 import { SidebarNav, SidebarNavItem, SidebarNavSection } from './SidebarNav';
 import { SimpleDataTable } from './SimpleDataTable';
 import { SocialAuthButtons } from './SocialAuthButtons';
+import { ProviderIdentityButton, ProviderIdentityButtonGroup, getProviderIdentityLabel } from './ProviderIdentityButtons';
 import { StateBlock } from './StateBlock';
 import { StatsSection } from './StatsSection';
 import { StatusBadge } from './StatusBadge';
@@ -734,6 +735,33 @@ describe('@doneisbetter/gds-core', () => {
     );
 
     expect(screen.getByRole('link', { name: 'Docs' })).toHaveAttribute('aria-current', 'page');
+  });
+
+  it('renders provider-identity buttons with stable fallback labels and states', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+
+    renderWithGds(
+      <ProviderIdentityButtonGroup
+        providers={[
+          { provider: 'google', onClick },
+          { provider: 'custom-id', label: 'Continue with Custom provider', disabled: true },
+          { provider: 'github', variant: 'outline' },
+          { provider: 'email', description: 'Email identity lane', size: 'sm' },
+        ]}
+        layout="grid"
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Continue with Google' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Continue with Custom provider' })).toBeInTheDocument();
+    expect(screen.getByText('Email identity lane')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Continue with Custom provider' })).toBeDisabled();
+
+    await user.click(screen.getByRole('button', { name: 'Continue with Google' }));
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(getProviderIdentityLabel('google')).toBe('Continue with Google');
   });
 
   it('renders auth and article shells as shared content contracts', () => {

@@ -511,10 +511,15 @@ function normalizeProviderId(value) {
 
 function parseProviderIdsFromSocialAuthUsage(usageChunk) {
   const providers = new Set();
-  const providerObjectRegex = /id:\s*['"]([^'"]+)['"]/g;
+  const providerObjectRegex = /\b(?:id|provider)\s*:\s*['"]([^'"]+)['"]/g;
+  const providerAttributeRegex = /provider\s*=\s*['"]([^'"]+)['"]/g;
   const providerArrayRegex = /providers\s*=\s*\[(.*?)\]/s;
 
   for (const match of usageChunk.matchAll(providerObjectRegex)) {
+    providers.add(normalizeProviderId(match[1]));
+  }
+
+  for (const match of usageChunk.matchAll(providerAttributeRegex)) {
     providers.add(normalizeProviderId(match[1]));
   }
 
@@ -556,7 +561,7 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
   const forbiddenCustomizations = Array.isArray(policy.forbiddenCustomizations)
     ? policy.forbiddenCustomizations
     : [];
-  const socialAuthUsages = /<SocialAuthButtons[\s\S]*?(?:\/\s*>|>[\s\S]*?<\/SocialAuthButtons>)/g;
+  const socialAuthUsages = /<(?:SocialAuthButtons|ProviderIdentityButton|ProviderIdentityButtonGroup)[\s\S]*?(?:\/\s*>|>[\s\S]*?<\/(?:SocialAuthButtons|ProviderIdentityButton|ProviderIdentityButtonGroup)>)/g;
   const providerTextRegex = /\b(google|apple|facebook|github|microsoft|linkedin|discord|\bx\b|email)\b/i;
   const mantineButtonImportRegex = /from\s+['"]@mantine\/core['"][\s\S]{0,240}\bButton\b/;
   const sourceRoot = normalizePath(manifestRoot).replace(/\/$/, '');
@@ -565,13 +570,13 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
     const content = readFileSync(filePath, 'utf8');
     const relativePath = normalizePath(filePath).replace(`${sourceRoot}/`, '');
 
-    if (!/SocialAuthButtons/.test(content) && (/\bSocialAuth\b/i.test(content) || providerTextRegex.test(content))) {
+    if (!/(?:SocialAuthButtons|ProviderIdentityButton|ProviderIdentityButtonGroup)/.test(content) && (/\bSocialAuth\b/i.test(content) || providerTextRegex.test(content))) {
       if (mantineButtonImportRegex.test(content) && providerTextRegex.test(content)) {
         findings.push({
           rule: 'identity.provider.custom-controls.warn',
           severity: 'warn',
           file: relativePath,
-          message: 'Social identity controls appear to use Mantine primitives directly. Consider using SocialAuthButtons and policy-conformant provider rendering.',
+          message: 'Social identity controls appear to use Mantine primitives directly. Consider using SocialAuthButtons or ProviderIdentityButton/ProviderIdentityButtonGroup and policy-conformant provider rendering.',
         });
       }
       continue;
@@ -587,7 +592,7 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
           rule: 'identity.provider.forbidden-customization',
           severity: 'error',
           file: relativePath,
-          message: `SocialAuthButtons usage in ${relativePath} sets forbidden customization "${forbidden}". Use the canonical policy-conformant SocialAuth surface.`,
+          message: `Social identity usage in ${relativePath} sets forbidden customization "${forbidden}". Use ProviderIdentityButton/ProviderIdentityButtonGroup or SocialAuthButtons instead.`,
         });
       }
 
@@ -597,18 +602,18 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
             rule: 'identity.provider.unapproved-id',
             severity: 'error',
             file: relativePath,
-            message: `SocialAuthButtons uses provider "${providerId}" not listed in compliance.identityProviderBranding.approvedProviders.`,
+            message: `Social identity usage uses provider "${providerId}" not listed in compliance.identityProviderBranding.approvedProviders.`,
           });
         }
       }
     }
 
-    if (content.includes('SocialAuthButtons') && !usages.length && providerTextRegex.test(content)) {
+    if (/(?:SocialAuthButtons|ProviderIdentityButton|ProviderIdentityButtonGroup)/.test(content) && !usages.length && providerTextRegex.test(content)) {
       findings.push({
         rule: 'identity.provider.missing-provider-list',
         severity: 'warn',
         file: relativePath,
-        message: 'SocialAuthButtons is used but provider ids could not be parsed for policy validation. Keep provider ids explicit and canonical.',
+        message: 'Social identity controls are present but provider ids could not be parsed for policy validation. Keep provider ids explicit and canonical.',
       });
     }
   }

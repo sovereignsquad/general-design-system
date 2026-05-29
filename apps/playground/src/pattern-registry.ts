@@ -449,6 +449,17 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'SocialAuthButtons',
   },
   {
+    id: 'provider-identity-buttons',
+    title: 'Provider Identity Buttons',
+    docSection: 'Core Component Contracts',
+    family: 'access',
+    section: 'Auth, Share, & Access',
+    coverageStatus: 'live-demo',
+    summary: 'Canonical provider-brand button and grouped provider-lane components for identity surfaces.',
+    importPath: '@doneisbetter/gds-core',
+    sourceComponent: 'ProviderIdentityButtonGroup',
+  },
+  {
     id: 'article-shells',
     title: 'Article Shells',
     docSection: 'Core Component Contracts',
