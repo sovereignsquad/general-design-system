@@ -406,7 +406,7 @@ export function AnalyticsPage() {
         <ConsumerDashboardGrid columns={3}>
           <MetricCard label="Catalog coverage" value="73 entries" description="Pattern inventory shown on the public site." />
           <ProgressCard label="Reference-site conversion" value="Strict consumer" progress={100} progressLabel="Current state" />
-          <MetricCard label="npm line" value="2.6.5" description="Public package and docs release line." />
+          <MetricCard label="npm line" value="2.6.6" description="Public package and docs release line." />
         </ConsumerDashboardGrid>
       </ReferenceSection>
 

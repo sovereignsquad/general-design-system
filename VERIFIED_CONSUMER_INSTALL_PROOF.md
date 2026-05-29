@@ -1,13 +1,13 @@
 # Verified Consumer Install Proof
 
 Status: Active SSOT  
-Version: 2.6.5  
+Version: 2.6.6  
 Last updated: 2026-05-29
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
-Latest published npm baseline validated by this proof: `2.6.5`  
-Current repository line: `2.6.5`
+Latest published npm baseline validated by this proof: `2.6.6`  
+Current repository line: `2.6.6`
 
 ## Verified consumer baseline
 

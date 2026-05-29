@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.6.5
+Version: 2.6.6
 Last updated: 2026-05-29
 
 This document defines the supported package/runtime contract for the umbrella package `@doneisbetter/gds` and the granular runtime packages `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
@@ -38,8 +38,8 @@ Canonical registry target: **npm**
 
 Current live status:
 
-- published npm baseline: `2.6.5`
-- current repository line: `2.6.5`
+- published npm baseline: `2.6.6`
+- current repository line: `2.6.6`
 
 Consumer repos should install the latest published npm version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
@@ -76,17 +76,17 @@ Asset URL format:
 https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/<asset-name>.tgz
 ```
 
-Example for `2.6.5`:
+Example for `2.6.6`:
 
 ```bash
 npm install \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.5/doneisbetter-gds-theme-2.6.5.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.5/doneisbetter-gds-core-2.6.5.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.5/doneisbetter-gds-admin-2.6.5.tgz
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.6/doneisbetter-gds-theme-2.6.6.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.6/doneisbetter-gds-core-2.6.6.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.6/doneisbetter-gds-admin-2.6.6.tgz
 
 npm install -D \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.5/doneisbetter-gds-eslint-config-2.6.5.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.5/doneisbetter-gds-compliance-2.6.5.tgz
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.6/doneisbetter-gds-eslint-config-2.6.6.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.6/doneisbetter-gds-compliance-2.6.6.tgz
 ```
 
 Auth expectations for the temporary path:

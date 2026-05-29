@@ -2,6 +2,12 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 2.6.6 - 2026-05-29
+
+- Cut and published the `2.6.6` npm release line so the widened docs/reference-shell layout is available through the public package line and not only on repository `main`.
+- Updated `DocsPageShell` in `@doneisbetter/gds-core` to use the full available page width for the official site and other reference/docs surfaces, removing the narrow article cap that was squeezing wide content such as the theme-governance explorer.
+- Aligned the public site copy, install guidance, and versioned docs/routes to the `2.6.6` line.
+
 ## 2.6.5 - 2026-05-29
 
 - Cut and published the `2.6.5` npm release line so consumers can update to the canonical theme-governance hardening through the public registry instead of relying on unpublished mainline changes.
