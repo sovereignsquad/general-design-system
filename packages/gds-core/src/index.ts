@@ -58,4 +58,5 @@ export * from './FilterDrawer';
 export * from './PlaceholderPanel';
 export * from './SimpleDataTable';
 export * from './StatsSection';
+export * from './SurfacePresentation';
 export * from './locales';

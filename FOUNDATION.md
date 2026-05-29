@@ -14,6 +14,7 @@ Last updated: 2026-05-25
 6. **Readability Outranks Aesthetics**: Color modes, contrast, and typography must serve human reading speed and comprehension above visual polish.
 7. **Responsive Intent**: Mobile and small-screen behavior must be designed intentionally, not left to default browser wrapping.
 8. **Pattern Reuse Before Local Invention**: Repeated shells, cards, metrics, toolbars, auth surfaces, article layouts, and state blocks must be promoted into shared contracts before they spread across pages or projects.
+9. **Contracted Panel Layout**: Repeated bounded state and section-framing patterns must use the shared surface presentation contract (`inline`, `centered`, `fill`) instead of repeated local wrapper logic.
 
 ## 2. Mantine Platform & Runtime Contract
 
@@ -41,6 +42,7 @@ When styling Mantine surfaces, enforce this exact order of preference:
 - Raw CSS hex/rgb values or hard-coded spacing values (e.g., `16px`) in feature code. 
 - Copying Mantine UI example CSS into feature code as a styling authority.
 - Creating page-local variants of reusable shells, cards, metrics, filters, auth panels, article layouts, or state blocks.
+- Rebuilding bounded state and panel framing in local components when a shared layout contract already exists.
 
 ## 3. Visual Language & Token Policy
 
@@ -85,6 +87,7 @@ Required shared contract families:
 - auth shells and account-entry panels
 - article/docs/news layouts
 - loading, empty, error, permission, disabled, and success state blocks
+- shared section/panel body presentation surfaces (`inline`, `centered`, `fill`)
 
 Before a project creates a second implementation of any family, it must check `PATTERN_SERVICE_MODEL.md`, update the GDS if the contract is missing, and document the local adapter path.
 

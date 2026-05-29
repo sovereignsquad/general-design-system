@@ -1,6 +1,10 @@
 import type { ReactNode } from 'react';
 import { Loader, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
+import {
+  resolveSurfacePresentationStyles,
+  type SurfacePresentationProps,
+} from './SurfacePresentation';
 
 export type StateBlockVariant =
   | 'loading'
@@ -12,7 +16,7 @@ export type StateBlockVariant =
   | 'info'
   | 'not-enough-data';
 
-export interface StateBlockProps {
+export interface StateBlockProps extends SurfacePresentationProps {
   variant: StateBlockVariant;
   title: string;
   description?: ReactNode;
@@ -39,21 +43,39 @@ export function StateBlock({
   action,
   icon,
   compact = false,
+  presentation = 'inline',
+  minHeight,
+  contentAlign,
+  contentJustify,
 }: StateBlockProps) {
   const config = variantConfig[variant];
+  const layout = resolveSurfacePresentationStyles({
+    presentation,
+    minHeight,
+    contentAlign,
+    contentJustify,
+  });
+  const centeredText = presentation !== 'inline'
+    ? (contentAlign ?? 'center') === 'center'
+    : !compact;
+  const centeredAlign = presentation !== 'inline' ? (contentAlign ?? 'center') : 'start';
+  const headingAlign = presentation === 'inline'
+    ? (compact ? 'flex-start' : 'center')
+    : (centeredAlign === 'center' ? 'center' : 'flex-start');
 
   return (
     <Stack
-      align={compact ? 'flex-start' : 'center'}
-      justify="center"
+      align={headingAlign}
+      justify={presentation === 'inline' ? 'center' : undefined}
       gap="md"
       py={compact ? 'md' : 'xl'}
-      ta={compact ? 'left' : 'center'}
+      ta={centeredText ? 'center' : 'left'}
+      style={layout}
     >
       <ThemeIcon variant="light" color={config.color} size={compact ? 'lg' : 'xl'} radius="xl">
         {icon ?? config.icon}
       </ThemeIcon>
-      <Stack gap={6} align={compact ? 'flex-start' : 'center'}>
+      <Stack gap={6} align={headingAlign}>
         <Title order={compact ? 4 : 3}>{title}</Title>
         {description ? (
           <Text c="dimmed" maw={compact ? undefined : 480}>

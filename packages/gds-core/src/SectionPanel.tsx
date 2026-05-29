@@ -1,9 +1,11 @@
 import type { ReactNode } from 'react';
-import { Divider, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { Box, Divider, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import type { SurfacePresentationProps } from './SurfacePresentation';
+import { resolveSurfacePresentationStyles } from './SurfacePresentation';
 
 export type SectionPanelTone = 'default' | 'supporting' | 'warning' | 'critical';
 
-export interface SectionPanelProps {
+export interface SectionPanelProps extends SurfacePresentationProps {
   title?: ReactNode;
   description?: ReactNode;
   action?: ReactNode;
@@ -28,7 +30,18 @@ export function SectionPanel({
   tone = 'default',
   id,
   divided = true,
+  presentation = 'inline',
+  minHeight,
+  contentAlign,
+  contentJustify,
 }: SectionPanelProps) {
+  const bodyLayout = resolveSurfacePresentationStyles({
+    presentation,
+    minHeight,
+    contentAlign,
+    contentJustify,
+  });
+
   return (
     <Paper id={id} withBorder radius="xl" p="lg" style={{ background: toneBackgrounds[tone] }}>
       <Stack gap="md">
@@ -50,7 +63,9 @@ export function SectionPanel({
             {divided ? <Divider /> : null}
           </>
         ) : null}
-        {children}
+        <Box style={bodyLayout}>
+          {children}
+        </Box>
       </Stack>
     </Paper>
   );

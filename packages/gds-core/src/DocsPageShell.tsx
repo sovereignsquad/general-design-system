@@ -28,7 +28,7 @@ export function DocsPageShell({
   children,
 }: DocsPageShellProps) {
   return (
-    <Container fluid py="xl" px="xl">
+    <Container fluid py="xl" px="xl" w="100%">
       <Group align="flex-start" gap="xl" wrap="nowrap">
         <Stack component="article" gap="lg" flex={1} miw={0}>
           {breadcrumbs.length ? (
@@ -43,7 +43,7 @@ export function DocsPageShell({
                 ),
               )}
             </Breadcrumbs>
-          ) : null}
+            ) : null}
           <Stack gap="sm">
             {eyebrow ? (
               <Text size="sm" fw={700} c="dimmed">
@@ -52,7 +52,7 @@ export function DocsPageShell({
             ) : null}
             <Title order={1}>{title}</Title>
             {lead ? (
-              <Text size="lg" c="dimmed" maw={920}>
+              <Text size="lg" c="dimmed">
                 {lead}
               </Text>
             ) : null}

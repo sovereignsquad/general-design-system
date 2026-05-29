@@ -401,7 +401,18 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         />
       );
     case 'state-blocks':
-      return <StateBlock variant="info" title="Shared feedback surface" description="Status language stays consistent." compact />;
+      return (
+        <StateBlock
+          variant="info"
+          title="Shared feedback surface"
+          description="State content can now use contract-driven centered presentation directly."
+          minHeight={320}
+          presentation="centered"
+          contentAlign="center"
+          contentJustify="center"
+          compact
+        />
+      );
     case 'action-bar':
       return <ActionBar primary={{ action: 'save' }} secondary={[{ action: 'cancel' }]} tertiary={[{ action: 'preview' }]} iconOnly={[{ action: 'settings' }]} />;
     case 'listing-card':
@@ -634,8 +645,18 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'section-panels':
       return (
-        <SectionPanel title="Reusable section panel" description="Shared bordered section for content chunks.">
-          <p style={{ margin: 0 }}>Use this panel as the canonical bounded composition for grouped content.</p>
+        <SectionPanel
+          title="Reusable section panel"
+          description="Shared bordered section for content chunks, including contract-driven body framing."
+          presentation="fill"
+          minHeight={280}
+          contentAlign="start"
+          contentJustify="start"
+        >
+          <p style={{ margin: 0 }}>
+            Use this panel as the canonical bounded composition for grouped content.
+          </p>
+          <p style={{ margin: 'var(--mantine-spacing-sm) 0 0' }}>Fill-mode examples can keep state surfaces stable without local wrappers.</p>
         </SectionPanel>
       );
     case 'public-brand-footer':

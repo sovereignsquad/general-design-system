@@ -449,7 +449,7 @@ export function InstallPage() {
             {
               id: 'actions',
               title: 'Semantic actions and auth',
-              description: 'Use ActionBar, SemanticButton, ProviderIdentityButton/ProviderIdentityButtonGroup, and ShareButtonGroup as the governed interaction path.',
+              description: 'Use ActionBar, SemanticButton, provider identity actions, and ShareButtonGroup as the governed interaction path.',
               href: '/general-design-system/live-demos/semantics',
             },
           ]}

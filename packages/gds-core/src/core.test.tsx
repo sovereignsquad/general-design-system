@@ -51,6 +51,7 @@ import { StatsSection } from './StatsSection';
 import { StatusBadge } from './StatusBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { UploadDropzone } from './UploadDropzone';
+import { resolveSurfacePresentationStyles } from './SurfacePresentation';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
 import { GdsIcons } from './icons';
 import { createGdsVocabularyPack, getSemanticActionLabel } from './vocabulary';
@@ -607,6 +608,72 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByText('No reports yet')).toBeInTheDocument();
     expect(screen.getByText('Partner access')).toBeInTheDocument();
     expect(screen.getByText('Scope: Northern region')).toBeInTheDocument();
+  });
+
+  it('resolves surface presentation styles for inline, centered, and fill modes', () => {
+    expect(resolveSurfacePresentationStyles({ presentation: 'inline', minHeight: 240 })).toEqual({ minHeight: '240px' });
+    expect(resolveSurfacePresentationStyles({
+      presentation: 'fill',
+      minHeight: 360,
+      contentAlign: 'start',
+      contentJustify: 'center',
+    })).toEqual({
+      minHeight: '360px',
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+    });
+    expect(resolveSurfacePresentationStyles({
+      presentation: 'centered',
+      minHeight: 180,
+      contentAlign: 'center',
+      contentJustify: 'center',
+    })).toEqual({
+      minHeight: '180px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    });
+  });
+
+  it('renders a centered StateBlock with min-height presentation', () => {
+    const { container } = renderWithGds(
+      <StateBlock
+        variant="loading"
+        title="Loading operations"
+        description="The panel should stay centered and stable."
+        minHeight={280}
+        presentation="centered"
+        contentAlign="center"
+        contentJustify="center"
+      />,
+    );
+
+    const hasPresentationStyles = Array.from(container.querySelectorAll('div[style]')).some(
+      (element) => element.getAttribute('style')?.includes('min-height: 280px') || element.getAttribute('style')?.includes('display: flex;'),
+    );
+
+    expect(hasPresentationStyles).toBe(true);
+    expect(screen.getByText('Loading operations')).toBeInTheDocument();
+  });
+
+  it('renders a fill-mode SectionPanel body with centered presentation', () => {
+    const { container } = renderWithGds(
+      <SectionPanel title="Panel with centered state" presentation="fill" minHeight={360} contentAlign="center" contentJustify="center">
+        <StateBlock variant="empty" title="No rows" description="Fill-mode state is now on the contract." compact />
+      </SectionPanel>,
+    );
+
+    const hasPresentationStyles = Array.from(container.querySelectorAll('div[style]')).some(
+      (element) => element.getAttribute('style')?.includes('min-height: 360px') && element.getAttribute('style')?.includes('display: flex;'),
+    );
+
+    expect(hasPresentationStyles).toBe(true);
+    expect(screen.getByText('Panel with centered state')).toBeInTheDocument();
+    expect(screen.getByText('No rows')).toBeInTheDocument();
   });
 
   it('renders canonical access-recovery defaults and invokes recovery actions', async () => {
