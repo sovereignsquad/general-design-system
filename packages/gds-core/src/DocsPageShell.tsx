@@ -28,9 +28,9 @@ export function DocsPageShell({
   children,
 }: DocsPageShellProps) {
   return (
-    <Container size="lg" py="xl">
+    <Container fluid py="xl" px="xl">
       <Group align="flex-start" gap="xl" wrap="nowrap">
-        <Stack component="article" gap="lg" maw={760} flex={1}>
+        <Stack component="article" gap="lg" flex={1} miw={0}>
           {breadcrumbs.length ? (
             <Breadcrumbs>
               {breadcrumbs.map((crumb) =>
@@ -52,7 +52,7 @@ export function DocsPageShell({
             ) : null}
             <Title order={1}>{title}</Title>
             {lead ? (
-              <Text size="lg" c="dimmed">
+              <Text size="lg" c="dimmed" maw={920}>
                 {lead}
               </Text>
             ) : null}
