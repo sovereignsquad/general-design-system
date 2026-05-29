@@ -76,6 +76,42 @@ npm run test:run
 npm run verify:mantine
 gds-compliance check --manifest ./gds-adoption.json`;
 
+const clientUpdateTemplate = `# Copy this to every client migration thread
+
+Team, we completed the GDS update to the 2.6.6 reference surface.
+
+What to do now:
+- Update all production dependencies to:
+  - @doneisbetter/gds@2.6.6
+  - @doneisbetter/gds-eslint-config@2.6.6 (dev)
+  - @doneisbetter/gds-compliance@2.6.6 (dev)
+- Remove local branding-layer theme extension code based on extendGdsTheme(...).
+- Route theme ownership through one approved lane:
+  - gdsTheme
+  - gdsDarkPublicTheme
+  - gdsFlatSurfaceTheme
+  - gdsEditorialPublicTheme
+  - createPublicBrandTheme(...)
+- If using adapters, declare:
+  - compliance.approvedThemeLanes
+  - compliance.themeOwnershipPaths
+- Replace local shell/navigation/action/card wrappers with:
+  - DiscoveryShell, SidebarNav, ActionBar, ListingCard, DetailProfileShell
+- Run in CI:
+  - npm run build
+  - npm run test:run
+  - npm run verify:mantine
+  - gds-compliance check --manifest ./gds-adoption.json
+
+Reference checks:
+- https://sovereignsquad.github.io/general-design-system/patterns
+- https://sovereignsquad.github.io/general-design-system/install
+- https://sovereignsquad.github.io/general-design-system/governance
+
+If any contract is missing locally, use:
+- gds-compliance findings
+- local exception with approved exception contract (temporary only).`;
+
 const featureRequestRecipient = 'moldovancsaba+general.design.system@gmail.com';
 
 function SiteFooter() {
@@ -460,6 +496,10 @@ export function InstallPage() {
         <DocsCodeBlock code={complianceCode} language="json" title="Strict adoption manifest" />
         <DocsCodeBlock code={themeGovernanceCode} language="json" title="Theme-governance manifest fields" />
         <DocsCodeBlock code={verificationCode} language="bash" title="Verification contract" />
+      </ReferenceSection>
+
+      <ReferenceSection title="Client update prompt" description="Use this exact text when you notify every adopter about the upgrade and enforcement details.">
+        <DocsCodeBlock code={clientUpdateTemplate} language="markdown" title="Reusable client rollout message" />
       </ReferenceSection>
 
       <SiteFooter />

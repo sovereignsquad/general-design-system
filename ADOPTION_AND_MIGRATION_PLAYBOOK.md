@@ -173,6 +173,9 @@ Every adopter must maintain:
 - approved exceptions
 - current consumed GDS version
 - strict-mode status and approved primitive lanes if the repo is targeting 100% GDS-only
+- a standardized client update template before each cross-team migration step
+
+A ready-to-send template is maintained in [CLIENT_UPGRADE_PROMPT.md](/Users/Shared/Projects/general-design-system/CLIENT_UPGRADE_PROMPT.md).
 
 Approved exceptions should be declared as governed records, not prose-only reminders. At minimum, each exception in `gds-adoption.json` should define:
 

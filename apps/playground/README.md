@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# General Design System Reference Site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The `playground` app is the canonical public website for General Design System documentation, patterns, and live demonstration. It is intentionally built as a strict GDS consumer and is the visual proof that the contracts in this repository can be consumed directly.
 
-Currently, two official plugins are available:
+## What this site publishes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `https://sovereignsquad.github.io/general-design-system/` — overview and positioning
+- `/install` — install and verification playbook
+- `/governance` — rules for GDS adoption and local exceptions
+- `/themes` — theme explorer and lane comparison (legacy `/tokens`)
+- `/patterns` — pattern catalog and family routes
+- `/live-demos` and family routes for shipped runtime proofs
+- `/request-feature` — canonical request intake for new primitives or policy updates
 
-## React Compiler
+Every major section uses package-owned primitives from `@doneisbetter/gds`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Local runbook
 
-## Expanding the ESLint configuration
+Prerequisites:
+- Node.js 22+
+- npm workspace install completed at repo root
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev   # serves apps/playground from /general-design-system/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The site is built and validated as part of the repository release checks:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run verify:release
 ```
+
+## Route validation
+
+The shell, menus, and route contracts are enforced by route tests in `src/site-routes.test.ts` and by the reference consumer contract checks in `scripts/verify-reference-consumers.mjs`.
+
+## Why this app exists
+
+This is not a secondary docs sandbox.
+
+- No local shell or card authority is allowed when a canonical GDS surface already exists.
+- Every visible contract must map to the markdown SSOT (`COMPONENTS_AND_PATTERNS.md`) and package-export boundaries.
+- The page content is expected to remain the reference quality bar for product adoptions.
+
+## Client rollout artifact
+
+Use [CLIENT_UPGRADE_PROMPT.md](/Users/Shared/Projects/general-design-system/CLIENT_UPGRADE_PROMPT.md) as the standard customer-facing message when asking teams to migrate.
+
+## Deployment
+
+GitHub Pages deployment is handled by workflow `/.github/workflows/deploy-pages.yml` and uses an SPA fallback.

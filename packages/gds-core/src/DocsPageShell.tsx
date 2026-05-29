@@ -28,7 +28,7 @@ export function DocsPageShell({
   children,
 }: DocsPageShellProps) {
   return (
-    <Container fluid py="xl" px="xl" w="100%">
+    <Container fluid py="xl" px={{ base: 'md', md: 'lg', lg: 'xl' }} w="100%" maw="100%">
       <Group align="flex-start" gap="xl" wrap="nowrap">
         <Stack component="article" gap="lg" flex={1} miw={0}>
           {breadcrumbs.length ? (

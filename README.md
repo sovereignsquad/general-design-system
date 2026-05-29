@@ -55,6 +55,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, governance guidance, theme explorer, live demos, and the pattern catalog.
 - **Reference-Site Primitives**: `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, `ReferenceThemeExplorer`, and `ReferenceSiteShell` — canonical GDS-owned primitives for rendering the official website and any future reference/docs surfaces without site-local pseudo-components.
+- **Client Upgrade Prompt**: [CLIENT_UPGRADE_PROMPT.md](/Users/Shared/Projects/general-design-system/CLIENT_UPGRADE_PROMPT.md) — copy/paste checklist and communication template for consumer teams.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
 ## Public Site Contract
