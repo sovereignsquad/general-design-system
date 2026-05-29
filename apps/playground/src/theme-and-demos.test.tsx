@@ -1,7 +1,14 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
 import { TokensPage } from './info-pages';
-import { LiveDemosPage } from './showcase-pages';
+import {
+  CardsPage,
+  FoodMenuPage,
+  LayoutsPage,
+  LiveDemosPage,
+  PlaybackPage,
+  VocabularyPage,
+} from './showcase-pages';
 
 describe('playground theme explorer and live demos hub', () => {
   it('lets visitors switch theme presets and compare a second shipped lane', () => {
@@ -47,5 +54,29 @@ describe('playground theme explorer and live demos hub', () => {
     expect(screen.getAllByRole('link', { name: 'Open section' }).length).toBeGreaterThan(0);
     expect(screen.getByText('Discovery & Cards')).toBeTruthy();
     expect(screen.getByText('Actions & Auth')).toBeTruthy();
+    expect(screen.getByText('Food & Menus')).toBeTruthy();
+    expect(screen.getByText('Playback & Capture')).toBeTruthy();
+  });
+
+  it('renders all dedicated demo families with GDS-owned contracts', () => {
+    renderWithGds(<CardsPage />);
+    expect(screen.getByText('Discovery & Cards')).toBeTruthy();
+    expect(screen.getByText('Governed sharing')).toBeTruthy();
+
+    renderWithGds(<LayoutsPage />);
+    expect(screen.getByText('Shells & Layouts')).toBeTruthy();
+    expect(screen.getByText('Discovery shell')).toBeTruthy();
+
+    renderWithGds(<VocabularyPage />);
+    expect(screen.getByText('Actions & Auth')).toBeTruthy();
+    expect(screen.getByText('Canonical social auth')).toBeTruthy();
+
+    renderWithGds(<FoodMenuPage />);
+    expect(screen.getByText('Food & Menu')).toBeTruthy();
+    expect(screen.getByText('Food cards')).toBeTruthy();
+
+    renderWithGds(<PlaybackPage />);
+    expect(screen.getByText('Playback & Capture')).toBeTruthy();
+    expect(screen.getByText('Capture/review stage')).toBeTruthy();
   });
 });

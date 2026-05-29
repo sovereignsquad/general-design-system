@@ -23,6 +23,7 @@ describe('public site routes', () => {
       'Themes',
       'Governance',
       'Live Demos',
+      'Request Feature',
     ]);
   });
 
@@ -31,6 +32,8 @@ describe('public site routes', () => {
       'Discovery & Cards:/live-demos/surfaces',
       'Shells & Layouts:/live-demos/layouts',
       'Actions & Auth:/live-demos/semantics',
+      'Food & Menus:/live-demos/food',
+      'Playback & Capture:/live-demos/playback',
       'Analytics & Data:/live-demos/analytics',
     ]);
   });

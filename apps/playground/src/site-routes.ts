@@ -6,7 +6,8 @@ export type PublicAudienceIntent =
   | 'patterns'
   | 'themes'
   | 'governance'
-  | 'live-demos';
+  | 'live-demos'
+  | 'feature-request';
 
 export interface PublicSiteRoute {
   id: string;
@@ -77,6 +78,15 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     activePrefixes: ['/live-demos'],
   },
   {
+    id: 'request-feature',
+    path: '/request-feature',
+    label: 'Request Feature',
+    action: 'submit',
+    audienceIntent: 'feature-request',
+    navGroup: 'primary',
+    activePrefixes: ['/request-feature'],
+  },
+  {
     id: 'demo-surfaces',
     path: '/live-demos/surfaces',
     label: 'Discovery & Cards',
@@ -105,6 +115,24 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     navGroup: 'secondary',
     activePrefixes: ['/live-demos/semantics'],
     legacyPaths: ['/vocabulary'],
+  },
+  {
+    id: 'demo-food',
+    path: '/live-demos/food',
+    label: 'Food & Menus',
+    action: 'gallery',
+    audienceIntent: 'live-demos',
+    navGroup: 'secondary',
+    activePrefixes: ['/live-demos/food'],
+  },
+  {
+    id: 'demo-playback',
+    path: '/live-demos/playback',
+    label: 'Playback & Capture',
+    action: 'capture',
+    audienceIntent: 'live-demos',
+    navGroup: 'secondary',
+    activePrefixes: ['/live-demos/playback'],
   },
   {
     id: 'demo-analytics',

@@ -62,6 +62,16 @@ const CardsPage = lazy(async () => {
   return { default: module.CardsPage };
 });
 
+const FoodMenuPage = lazy(async () => {
+  const module = await import('./showcase-pages');
+  return { default: module.FoodMenuPage };
+});
+
+const PlaybackPage = lazy(async () => {
+  const module = await import('./showcase-pages');
+  return { default: module.PlaybackPage };
+});
+
 const LiveDemosPage = lazy(async () => {
   const module = await import('./showcase-pages');
   return { default: module.LiveDemosPage };
@@ -100,6 +110,11 @@ const RulebookPage = lazy(async () => {
 const TokensPage = lazy(async () => {
   const module = await import('./info-pages');
   return { default: module.TokensPage };
+});
+
+const RequestFeaturePage = lazy(async () => {
+  const module = await import('./info-pages');
+  return { default: module.RequestFeaturePage };
 });
 
 function RouteFallback() {
@@ -155,7 +170,9 @@ function PlaygroundContent() {
 
   const headerContext = location.pathname.startsWith('/live-demos')
     ? 'Official GDS site and live demo hub'
-    : 'Official GDS website, docs, rules, themes, and runtime proof';
+    : location.pathname.startsWith('/request-feature')
+      ? 'Official GDS feature request intake'
+      : 'Official GDS website, docs, rules, themes, and runtime proof';
 
   return (
     <GdsProvider locale={locale} messages={localesMap[locale]?.messages ?? localesMap.en.messages}>
@@ -192,7 +209,10 @@ function PlaygroundContent() {
           <Route path="/live-demos/surfaces" element={<Suspense fallback={<RouteFallback />}><CardsPage /></Suspense>} />
           <Route path="/live-demos/layouts" element={<Suspense fallback={<RouteFallback />}><LayoutsPage /></Suspense>} />
           <Route path="/live-demos/semantics" element={<Suspense fallback={<RouteFallback />}><VocabularyPage /></Suspense>} />
+          <Route path="/live-demos/food" element={<Suspense fallback={<RouteFallback />}><FoodMenuPage /></Suspense>} />
+          <Route path="/live-demos/playback" element={<Suspense fallback={<RouteFallback />}><PlaybackPage /></Suspense>} />
           <Route path="/live-demos/analytics" element={<Suspense fallback={<RouteFallback />}><AnalyticsPage /></Suspense>} />
+          <Route path="/request-feature" element={<Suspense fallback={<RouteFallback />}><RequestFeaturePage /></Suspense>} />
           {getLegacyRedirects().map((redirect) => (
             <Route
               key={redirect.legacyPath}

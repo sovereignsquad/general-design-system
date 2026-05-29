@@ -13,6 +13,7 @@ Public install and reference routes:
 - live themes page: `https://sovereignsquad.github.io/general-design-system/themes`
 - live pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
 - live demos page: `https://sovereignsquad.github.io/general-design-system/live-demos`
+- feature request intake: `https://sovereignsquad.github.io/general-design-system/request-feature`
 
 ## 1. Supported consumer baseline
 

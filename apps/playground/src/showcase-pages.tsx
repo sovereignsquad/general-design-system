@@ -70,6 +70,18 @@ export function LiveDemosPage() {
               href: '/general-design-system/live-demos/semantics',
             },
             {
+              id: 'food',
+              title: 'Food & Menus',
+              description: 'Public food and menu contracts with availability, helper states, and grouped item behavior.',
+              href: '/general-design-system/live-demos/food',
+            },
+            {
+              id: 'playback',
+              title: 'Playback & Capture',
+              description: 'Playback surfaces and controlled capture/review flows without introducing app-local hardware UI.',
+              href: '/general-design-system/live-demos/playback',
+            },
+            {
               id: 'analytics',
               title: 'Analytics & Data',
               description: 'Metrics, data views, and operational summaries for analytics-oriented workflows.',
@@ -184,7 +196,7 @@ export function CardsPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="Map and media containment" description="Embeds and media should render inside the sanctioned GDS containment surfaces.">
+        <ReferenceSection title="Map and media containment" description="Embeds and media should render inside the sanctioned GDS containment surfaces.">
         <MapPanel
           title="Meetup route map"
           description="MapPanel keeps third-party embeds inside shared header chrome, loading, and failure behavior."
@@ -198,7 +210,7 @@ export function CardsPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="Governed sharing" description="Sharing should use the canonical share-button group instead of local icon clusters.">
+        <ReferenceSection title="Governed sharing" description="Sharing should use the canonical share-button group instead of local icon clusters.">
         <ShareButtonGroup
           url="https://sovereignsquad.github.io/general-design-system/live-demos/surfaces"
           title="General Design System live demos"
@@ -207,6 +219,71 @@ export function CardsPage() {
         />
       </ReferenceSection>
 
+      <DemoFooter />
+    </DocsPageShell>
+  );
+}
+
+export function FoodMenuPage() {
+  return (
+    <DocsPageShell
+      title="Food & Menu"
+      eyebrow="Live demo family"
+      lead="Food and menu contracts are first-class discovery surfaces. They should follow the same card, helper, and action rules as any other canonical listing."
+    >
+      <ReferenceSection
+        title="Food cards"
+        description="Use the shared PublicFoodCard for menu items with clear availability and helper cues."
+      >
+        <PublicFoodCard
+          title="Smoked paprika chicken bowl"
+          description="Balanced, protein-forward dish with transparent prep and pickup expectations."
+          state="preorder"
+          price="€12.50"
+          helperText="Pickup is available today after 17:15."
+          pickupNote="17:15-18:00"
+          freshnessNote="Made fresh in small batches."
+          markers={[
+            { id: 'featured', label: 'Featured', tone: 'positive' },
+            { id: 'hot', label: 'Limited batch', tone: 'warning' },
+          ]}
+          primaryAction={<a href="/general-design-system/live-demos/food">Reserve pickup</a>}
+        />
+      </ReferenceSection>
+      <ReferenceSection
+        title="Category menus"
+        description="FoodMenuSection keeps grouped discovery menus stable in spacing, card rhythm, and CTA placement."
+      >
+        <FoodMenuSection
+          title="Weekly menu"
+          description="Grouped menu categories with consistent action and disclosure behavior."
+          categories={[
+            {
+              id: 'lunch',
+              title: 'Lunch',
+              description: 'Fast pickup dishes for midday orders.',
+              items: [
+                {
+                  id: 'dish-1',
+                  title: 'Smoked paprika chicken bowl',
+                  state: 'available',
+                  price: '€12.50',
+                  description: 'Roasted vegetables, herbed rice, and citrus yogurt.',
+                  primaryAction: <a href="/general-design-system/live-demos/food">Add to order</a>,
+                },
+                {
+                  id: 'dish-2',
+                  title: 'Green falafel plate',
+                  state: 'limited',
+                  price: '€10.90',
+                  description: 'Tahini slaw, pickled onions, and flatbread.',
+                  primaryAction: <a href="/general-design-system/live-demos/food">Add to order</a>,
+                },
+              ],
+            },
+          ]}
+        />
+      </ReferenceSection>
       <DemoFooter />
     </DocsPageShell>
   );
@@ -381,6 +458,57 @@ export function VocabularyPage() {
           text="Inspect semantic actions and canonical social-auth surfaces."
           channels={['native', 'copy', 'mail', 'x']}
           compact
+        />
+      </ReferenceSection>
+
+      <DemoFooter />
+    </DocsPageShell>
+  );
+}
+
+export function PlaybackPage() {
+  return (
+    <DocsPageShell
+      title="Playback & Capture"
+      eyebrow="Live demo family"
+      lead="Playback and capture flows should use shared shells and staging semantics rather than product-local hardware scaffolding."
+    >
+      <ReferenceSection
+        title="Playback surfaces"
+        description="Use PlaybackSurface for bounded rich media experiences with explicit metadata and stable action affordances."
+      >
+        <PlaybackSurface
+          title="Product walkthrough"
+          state="ready"
+          statusMessage="Accessible playback surface with bounded media and clear next actions."
+          media={<div style={{ aspectRatio: '16 / 9', background: 'linear-gradient(135deg, var(--mantine-color-dark-7), var(--mantine-color-violet-6))' }} />}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection
+        title="Capture/review stage"
+        description="PublicFlowShell keeps capture, review, consent, and submission states predictable."
+      >
+        <PublicFlowShell
+          eyebrow="Capture review"
+          stage={{
+            id: 'capture-ready',
+            title: 'Review your capture setup',
+            description: 'The flow contract governs stage status, actions, and blocked/unblocked transitions.',
+            status: 'ready',
+            body: (
+              <SectionPanel
+                title="Capture pre-check"
+                description="Verify permissions, upload destination, and preview settings before users enter a production step."
+              >
+                <p style={{ margin: 0 }}>Do not invent local capture UX. Use this contract for every hardware-adjacent staged flow.</p>
+              </SectionPanel>
+            ),
+            actions: [
+              { action: 'start', priority: 'primary' },
+              { action: 'cancel', priority: 'secondary' },
+            ],
+          }}
         />
       </ReferenceSection>
 

@@ -27,6 +27,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Component Contracts & Patterns**: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) — Required behaviors for standard UI elements and full-page workflows.
 - **Live Pattern Catalog**: [https://sovereignsquad.github.io/general-design-system/patterns](https://sovereignsquad.github.io/general-design-system/patterns) — The public registry-backed component and pattern reference site with family pages for foundations, public, operations, data, access, and feedback coverage.
 - **Interactive Theme Lab**: [https://sovereignsquad.github.io/general-design-system/themes](https://sovereignsquad.github.io/general-design-system/themes) — Live testing for shipped theme presets, light/dark behavior, token surfaces, and the bounded creator-authored theming lane.
+- **Feature request intake**: [https://sovereignsquad.github.io/general-design-system/request-feature](https://sovereignsquad.github.io/general-design-system/request-feature) — Canonical intake for capability requests, governance questions, and missing contracts.
 - **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
 - **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](/Users/Shared/Projects/general-design-system/SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
 - **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](/Users/Shared/Projects/general-design-system/GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
@@ -62,10 +63,18 @@ The GitHub Pages site is the public runtime reference for this repository:
 
 - Overview: `https://sovereignsquad.github.io/general-design-system/`
 - Install guide: `https://sovereignsquad.github.io/general-design-system/install`
+- Feature request intake: `https://sovereignsquad.github.io/general-design-system/request-feature`
 - Theme explorer: `https://sovereignsquad.github.io/general-design-system/themes`
 - Governance guide: `https://sovereignsquad.github.io/general-design-system/governance`
 - Pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
 - Live demos: `https://sovereignsquad.github.io/general-design-system/live-demos`
+- Demo route families:
+- `.../live-demos/surfaces`
+- `.../live-demos/layouts`
+- `.../live-demos/semantics`
+- `.../live-demos/food`
+- `.../live-demos/playback`
+- `.../live-demos/analytics`
 - Pattern family routes:
 - `.../patterns/foundations`
 - `.../patterns/public`

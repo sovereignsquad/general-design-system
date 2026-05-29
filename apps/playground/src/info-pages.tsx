@@ -1,11 +1,15 @@
+import { useMemo, useState } from 'react';
 import {
+  ActionBar,
   DocsCodeBlock,
   DocsPageShell,
   FeatureBand,
+  FormField,
   PublicBrandFooter,
   ReferenceLinkGrid,
   ReferenceSection,
   ReferenceThemeExplorer,
+  StateBlock,
 } from '@doneisbetter/gds-core';
 
 const installCode = `npm install @doneisbetter/gds@2.6.6
@@ -76,12 +80,12 @@ const featureRequestRecipient = 'moldovancsaba+general.design.system@gmail.com';
 
 function SiteFooter() {
   return (
-    <PublicBrandFooter
-      brandTitle="General Design System"
-      description="The official GDS website and live demo. Every public route on this site exists to help teams understand what is shipped, how to install it, and which contracts they should adopt instead of building locally."
-      actions={(
-        <p style={{ margin: 0 }}>
-          <a href="/general-design-system/install">Install GDS</a>
+      <PublicBrandFooter
+        brandTitle="General Design System"
+        description="The official GDS website and live demo. Every public route on this site exists to help teams understand what is shipped, how to install it, and which contracts they should adopt instead of building locally."
+        actions={(
+          <p style={{ margin: 0 }}>
+            <a href="/general-design-system/install">Install GDS</a>
         </p>
       )}
       secondary={(
@@ -96,12 +100,174 @@ function SiteFooter() {
             <a href="/general-design-system/governance">Read governance</a>
           </p>
           <p style={{ margin: 0 }}>
-            <a href={`mailto:${featureRequestRecipient}`}>Request a feature</a>
+            <a href="/general-design-system/request-feature">Request a feature</a>
           </p>
         </>
       )}
       legal="Open source. Public npm packages. Governed adoption path."
     />
+  );
+}
+
+export function RequestFeaturePage() {
+  const [name, setName] = useState('Your name');
+  const [email, setEmail] = useState('');
+  const [organization, setOrganization] = useState('');
+  const [useCase, setUseCase] = useState('');
+  const [benefit, setBenefit] = useState('');
+  const [urgency, setUrgency] = useState('');
+
+  const mailSubject = useMemo(
+    () => `GDS Feature Request: ${useCase || 'New capability request'}`,
+    [useCase],
+  );
+
+  const mailBody = useMemo(() => {
+    const parts = [
+      `Requestor: ${name}`,
+      `Email: ${email}`,
+      `Organization: ${organization}`,
+      `Use case: ${useCase}`,
+      `Desired benefit: ${benefit}`,
+      `Priority/urgency: ${urgency}`,
+      '',
+      'Please keep this request focused to one capability.',
+    ];
+
+    return parts.join('\n');
+  }, [name, email, organization, useCase, benefit, urgency]);
+
+  const mailtoUrl = useMemo(
+    () => `mailto:${featureRequestRecipient}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`,
+    [mailSubject, mailBody],
+  );
+
+  return (
+    <DocsPageShell
+      title="Request a Feature"
+      eyebrow="Official intake path"
+      lead="Every feature request from teams should start with this simple form. We route it to the primary maintainers and add it to the public backlog."
+    >
+      <ReferenceSection title="Official feature request form" description="Use the shared mail path while we build the full API-backed tracker.">
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            window.location.href = mailtoUrl;
+          }}
+        >
+          <StateBlock
+            variant="info"
+            title="Why this form is simple"
+            description="It keeps onboarding friction low and records consistent evidence fields before we move to a structured portal."
+          />
+          <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+            <FormField label="Name">
+              <input
+                id="gds-feature-name"
+                aria-label="Name"
+                value={name}
+                onChange={(event) => setName(event.currentTarget.value)}
+                placeholder="Your name"
+                style={{ width: '100%' }}
+              />
+            </FormField>
+            <FormField label="Email">
+              <input
+                id="gds-feature-email"
+                aria-label="Email"
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.currentTarget.value)}
+                placeholder="you@company.com"
+                style={{ width: '100%' }}
+              />
+            </FormField>
+            <FormField label="Organization (optional)">
+              <input
+                id="gds-feature-org"
+                aria-label="Organization"
+                value={organization}
+                onChange={(event) => setOrganization(event.currentTarget.value)}
+                placeholder="Company or project name"
+                style={{ width: '100%' }}
+              />
+            </FormField>
+            <FormField label="What capability is missing?">
+              <textarea
+                id="gds-feature-what"
+                aria-label="What capability is missing?"
+                value={useCase}
+                onChange={(event) => setUseCase(event.currentTarget.value)}
+                placeholder="Describe the missing primitive or behavior."
+                rows={3}
+                style={{ width: '100%' }}
+              />
+            </FormField>
+            <FormField label="How will this help your product?">
+              <textarea
+                id="gds-feature-benefit"
+                aria-label="How will this help your product?"
+                value={benefit}
+                onChange={(event) => setBenefit(event.currentTarget.value)}
+                placeholder="Add expected outcomes, impact, and urgency."
+                rows={3}
+                style={{ width: '100%' }}
+              />
+            </FormField>
+            <FormField label="Urgency">
+              <input
+                id="gds-feature-urgency"
+                aria-label="Urgency"
+                value={urgency}
+                onChange={(event) => setUrgency(event.currentTarget.value)}
+                placeholder="High, Medium, Low"
+                style={{ width: '100%' }}
+              />
+            </FormField>
+          </div>
+          <div style={{ marginTop: 'var(--mantine-spacing-sm)' }}>
+            <ActionBar
+              primary={{ action: 'submit', onClick: () => { window.location.href = mailtoUrl; } }}
+              secondary={[{ action: 'reset', onClick: () => {
+                setName('Your name');
+                setEmail('');
+                setOrganization('');
+                setUseCase('');
+                setBenefit('');
+                setUrgency('');
+              } }]}
+            />
+          </div>
+        </form>
+      </ReferenceSection>
+
+      <ReferenceSection title="What we prioritize" description="If your request is aligned with the next-wave adoption surface, it gets a clear path to production sooner.">
+        <FeatureBand
+          columns={3}
+          items={[
+            {
+              id: 'auth',
+              title: 'Auth and social login',
+              description: 'Provider policy, login semantics, and social-brand contracts for reusable identity surfaces.',
+            },
+            {
+              id: 'playback',
+              title: 'Playback and capture',
+              description: 'Kiosk, staging, upload, and review flows should be represented by one governed contract.',
+            },
+            {
+              id: 'governance',
+              title: 'Governance automation',
+              description: 'If a component becomes reusable, we prioritize a strict contract and migration path.',
+            },
+          ]}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection title="Need to send directly" description={`Send urgent requests to ${featureRequestRecipient}.`}>
+        <a href={mailtoUrl}>Open prefilled email</a>
+      </ReferenceSection>
+    </DocsPageShell>
   );
 }
 
