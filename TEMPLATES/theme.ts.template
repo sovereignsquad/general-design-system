@@ -1,50 +1,16 @@
-import { createTheme, type MantineThemeOverride } from "@mantine/core";
+import type { MantineThemeOverride } from "@mantine/core";
+import { createPublicBrandTheme } from "@doneisbetter/gds-theme/client";
 
-export function getAppTheme(mode: "light" | "dark"): MantineThemeOverride {
-  const isDark = mode === "dark";
+const appThemeOverrides: MantineThemeOverride = {
+  primaryColor: "brand",
+  defaultRadius: "md",
+  fontFamily: "var(--font-app), sans-serif",
+  colors: {
+    brand: ["#eef8f7", "#d7f0ed", "#b0e2dd", "#86d2cc", "#58c2bb", "#2baea6", "#1f8b85", "#166a66", "#0d4a47", "#062a29"]
+  }
+};
 
-  return createTheme({
-    primaryColor: "brand",
-    defaultRadius: "md",
-    fontFamily: "var(--font-app), sans-serif",
-    breakpoints: {
-      xs: "36em",
-      sm: "48em",
-      md: "62em",
-      lg: "75em",
-      xl: "88em"
-    },
-    colors: {
-      brand: ["#eef8f7", "#d7f0ed", "#b0e2dd", "#86d2cc", "#58c2bb", "#2baea6", "#1f8b85", "#166a66", "#0d4a47", "#062a29"]
-    },
-    primaryShade: 5,
-    black: isDark ? "#f8fafc" : "#111827",
-    white: isDark ? "#0f172a" : "#ffffff",
-    components: {
-      Button: {
-        defaultProps: {
-          size: "md",
-          radius: "md"
-        }
-      },
-      TextInput: {
-        defaultProps: {
-          size: "md",
-          radius: "md"
-        }
-      },
-      Select: {
-        defaultProps: {
-          size: "md",
-          radius: "md"
-        }
-      },
-      Modal: {
-        defaultProps: {
-          centered: true,
-          radius: "md"
-        }
-      }
-    }
-  });
-}
+export const appTheme = createPublicBrandTheme({
+  flatSurfaces: true,
+  overrides: appThemeOverrides,
+});

@@ -16,6 +16,15 @@ const STRICT_COMPLIANCE_FIELDS = [
   'approvedListingPrimitives',
   'approvedActionPrimitives',
   'approvedTemporaryExceptions',
+  'approvedThemeLanes',
+  'themeOwnershipPaths',
+];
+const DEFAULT_APPROVED_THEME_LANES = [
+  'gdsTheme',
+  'gdsDarkPublicTheme',
+  'gdsFlatSurfaceTheme',
+  'gdsEditorialPublicTheme',
+  'createPublicBrandTheme',
 ];
 const EXCEPTION_CATEGORIES = new Set([
   'runtime-constraint',
@@ -404,6 +413,59 @@ function validateApprovedExceptionsAgainstRepo({ manifestRoot, manifest, sourceF
   return findings;
 }
 
+function isCoveredByApprovedException(relativePath, approvedExceptions = []) {
+  return approvedExceptions.some((exception) => matchesScope(relativePath, exception.scope ?? []));
+}
+
+function findThemeOwnershipFiles({ manifestRoot, sourceFiles, themeOwnershipPaths = [] }) {
+  if (!themeOwnershipPaths.length) {
+    return [];
+  }
+
+  const normalizedRoot = normalizePath(manifestRoot).replace(/\/$/, '');
+  return sourceFiles.filter((absolutePath) => {
+    const relativePath = normalizePath(absolutePath).replace(`${normalizedRoot}/`, '');
+    return themeOwnershipPaths.some((scope) => matchesScope(relativePath, [scope]));
+  });
+}
+
+function scanThemeGovernance({ manifestRoot, manifest, sourceFiles }) {
+  const findings = [];
+  const approvedThemeLanes = new Set(manifest.compliance?.approvedThemeLanes ?? DEFAULT_APPROVED_THEME_LANES);
+  const themeOwnershipPaths = manifest.compliance?.themeOwnershipPaths ?? [];
+  const themeFiles = findThemeOwnershipFiles({ manifestRoot, sourceFiles, themeOwnershipPaths });
+  const normalizedRoot = normalizePath(manifestRoot).replace(/\/$/, '');
+
+  for (const filePath of themeFiles) {
+    const content = readFileSync(filePath, 'utf8');
+    const relativePath = normalizePath(filePath).replace(`${normalizedRoot}/`, '');
+
+    if (isCoveredByApprovedException(relativePath, manifest.approvedExceptions ?? [])) {
+      continue;
+    }
+
+    if (/import\s*\{[^}]*\bextendGdsTheme\b[^}]*\}\s*from\s*['"]@doneisbetter\/gds(?:-theme)?(?:\/(?:client|server))?['"]/.test(content)) {
+      findings.push({
+        rule: 'theme.noncanonical-extend-helper',
+        severity: 'error',
+        file: relativePath,
+        message: `Theme ownership file "${relativePath}" imports extendGdsTheme(...). Consumer repos must use approved theme lanes (${[...approvedThemeLanes].join(', ')}) instead of a custom branding-layer helper.`,
+      });
+    }
+
+    if (/\b(createTheme|mergeMantineTheme|mergeThemeOverrides)\s*\(/.test(content)) {
+      findings.push({
+        rule: 'theme.parallel-branding-layer',
+        severity: 'error',
+        file: relativePath,
+        message: `Theme ownership file "${relativePath}" creates a local Mantine theme layer outside the approved GDS theme lanes. Use a shipped preset or createPublicBrandTheme(...) instead of a parallel branding authority.`,
+      });
+    }
+  }
+
+  return findings;
+}
+
 export function runComplianceCheck({ manifestPath }) {
   const absoluteManifestPath = resolve(manifestPath);
   const manifestRoot = dirname(absoluteManifestPath);
@@ -479,6 +541,7 @@ export function runComplianceCheck({ manifestPath }) {
 
   findings.push(...validateApprovedExceptions(manifest));
   findings.push(...validateApprovedExceptionsAgainstRepo({ manifestRoot, manifest, sourceFiles }));
+  findings.push(...scanThemeGovernance({ manifestRoot, manifest, sourceFiles }));
 
   if (protectedSurfacePaths.length) {
     const normalizedProtectedSurfacePaths = protectedSurfacePaths.map((value) => normalizePath(resolve(manifestRoot, value)));

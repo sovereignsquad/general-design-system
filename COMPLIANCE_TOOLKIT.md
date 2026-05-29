@@ -79,6 +79,28 @@ Additional enforcement now applies for creator-authored experience exceptions:
 - approved exception scopes must match at least one real repository file
 - local adapters with `status: "exception"` must be covered by an approved exception scope
 
+Theme-governance enforcement may also be declared in `gds-adoption.json`:
+
+```json
+{
+  "compliance": {
+    "approvedThemeLanes": [
+      "gdsTheme",
+      "gdsDarkPublicTheme",
+      "gdsFlatSurfaceTheme",
+      "gdsEditorialPublicTheme",
+      "createPublicBrandTheme"
+    ],
+    "themeOwnershipPaths": ["src/providers.tsx", "src/theme.ts"]
+  }
+}
+```
+
+When those fields are present, `gds-compliance` will flag:
+
+- direct consumer `extendGdsTheme(...)` usage
+- local Mantine theme construction in declared theme-ownership files that bypasses the approved GDS lanes
+
 For repositories targeting true GDS-only enforcement, enable strict mode:
 
 ```json
@@ -108,6 +130,7 @@ Recommended activation order:
 3. migrate repeated discovery cards to `ListingCard`
 4. migrate detail surfaces to `DetailProfileShell`
 5. enable `strictMode` and keep any short-lived gaps in `approvedTemporaryExceptions`
+6. add `approvedThemeLanes` and `themeOwnershipPaths` once provider/theme files are stable so custom branding-layer drift becomes measurable
 
 Reference review input for migration teams:
 

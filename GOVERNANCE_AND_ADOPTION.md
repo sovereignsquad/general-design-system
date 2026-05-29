@@ -72,6 +72,7 @@ Projects must actively enforce the Mantine-only policy to prevent design-system 
 - **Shared Lint Config**: `@doneisbetter/gds-eslint-config` should be the default enforcement package for raw design value and forbidden import checks.
 - **Compliance CLI**: `gds-compliance` should validate manifest structure, adapter paths, exception metadata, and repo-level drift.
 - **Compliance Config**: `gds-adoption.json` may declare `compliance.documentationPaths`, `compliance.staleDocumentationReferences`, `compliance.protectedSurfacePaths`, and `compliance.bannedImports` so shared tooling can catch stale SSOT references, protected-surface drift, and lingering legacy UI dependencies without product-local scripts.
+- **Theme Governance Config**: `gds-adoption.json` may declare `compliance.approvedThemeLanes` and `compliance.themeOwnershipPaths` so shared tooling can flag non-canonical branding-layer theme ownership in consumer repos.
 - **Strict GDS-only Mode**: Repos that have already migrated to canonical shells, actions, listings, and detail surfaces should enable `compliance.strictMode` so local shell adapters, local button wrappers, and other prohibited surface drift fail fast.
 - **Compliance Toolkit Contract**: Use [COMPLIANCE_TOOLKIT.md](/Users/Shared/Projects/general-design-system/COMPLIANCE_TOOLKIT.md) as the normative package + CI contract for `@doneisbetter/gds-eslint-config` and `@doneisbetter/gds-compliance`.
 - **Import Boundaries**: Lint rules forbidding imports from legacy primitive directories.
@@ -147,8 +148,9 @@ Recommended compliance path:
 3. add stale-reference strings that should never remain in local docs
 4. declare protected surface directories once high-traffic governed contracts exist
 5. migrate to canonical shell/action/listing/detail primitives
-6. fail CI on `gds-compliance check`
-7. enable `strictMode` once the repo is ready for true GDS-only enforcement
+6. declare the approved theme lanes and theme ownership paths once provider/theme files are stable
+7. fail CI on `gds-compliance check`
+8. enable `strictMode` once the repo is ready for true GDS-only enforcement
 
 Before declaring a new local surface gap, teams must check both:
 

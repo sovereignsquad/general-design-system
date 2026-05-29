@@ -1,10 +1,7 @@
 "use client";
 
-import { MantineProvider } from "@mantine/core";
-import { ModalsProvider } from "@mantine/modals";
-import { Notifications } from "@mantine/notifications";
-import { useMemo } from "react";
-import { getAppTheme } from "./theme";
+import { GdsProvider } from "@doneisbetter/gds-theme/client";
+import { appTheme } from "./theme";
 
 export function AppProviders({
   children,
@@ -13,14 +10,9 @@ export function AppProviders({
   children: React.ReactNode;
   mode: "light" | "dark";
 }) {
-  const theme = useMemo(() => getAppTheme(mode), [mode]);
-
   return (
-    <MantineProvider theme={theme} forceColorScheme={mode}>
-      <ModalsProvider>
-        <Notifications position="top-right" />
-        {children}
-      </ModalsProvider>
-    </MantineProvider>
+    <GdsProvider theme={appTheme} defaultColorScheme={mode}>
+      {children}
+    </GdsProvider>
   );
 }

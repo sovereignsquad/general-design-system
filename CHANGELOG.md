@@ -4,6 +4,9 @@ All notable policy changes to the General Design System are recorded here.
 
 ## 2.6.4 - 2026-05-28
 
+- Deprecated consumer-facing `extendGdsTheme(...)` as a canonical adopter path and formalized the approved theme lanes around `gdsTheme`, the shipped public presets, and `createPublicBrandTheme(...)`.
+- Added manifest-scoped theme-governance enforcement fields plus `gds-compliance` detection for direct `extendGdsTheme(...)` usage and parallel local branding-layer theme construction in declared theme-ownership files.
+- Aligned templates, reference consumers, install/governance docs, and theme guidance to the canonical adopter theme path so teams can copy a governed theme setup directly from GDS.
 - Added `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, and `ReferenceThemeExplorer` to `@doneisbetter/gds-core` plus `ReferenceSiteShell` to `@doneisbetter/gds-admin` so the official website can consume GDS-owned docs/reference primitives instead of site-local Mantine composition.
 - Converted `apps/playground` onto the new reference-site primitives, replaced the remaining direct page-level Mantine composition in the public site source, and added a strict `gds-adoption.json` baseline for the website.
 - Updated the public route structure, docs copy, and rulebooks so the GitHub Pages site is described as both the official GDS website and a strict live reference consumer rather than a separate playground exception.

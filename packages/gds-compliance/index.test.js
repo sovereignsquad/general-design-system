@@ -254,4 +254,119 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
     expect(report.findings.map((finding) => finding.rule)).toContain('exception-product-authored-metadata');
   });
+
+  it('flags direct consumer extendGdsTheme usage in declared theme ownership files', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.4',
+        productArchetype: 'public',
+        requiredContracts: ['GdsProvider'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-29',
+        compliance: {
+          approvedThemeLanes: [
+            'gdsTheme',
+            'gdsDarkPublicTheme',
+            'gdsFlatSurfaceTheme',
+            'gdsEditorialPublicTheme',
+            'createPublicBrandTheme',
+          ],
+          themeOwnershipPaths: ['src/providers.tsx'],
+        },
+      }, null, 2),
+      'src/providers.tsx': `
+        import { GdsProvider, extendGdsTheme } from '@doneisbetter/gds-theme/client';
+
+        const customTheme = extendGdsTheme({ primaryColor: 'blue' });
+
+        export function Providers({ children }) {
+          return <GdsProvider theme={customTheme}>{children}</GdsProvider>;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('theme.noncanonical-extend-helper');
+  });
+
+  it('passes canonical theme ownership when the repo uses approved shipped lanes', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.4',
+        productArchetype: 'public',
+        requiredContracts: ['GdsProvider'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-29',
+        compliance: {
+          approvedThemeLanes: [
+            'gdsTheme',
+            'gdsDarkPublicTheme',
+            'gdsFlatSurfaceTheme',
+            'gdsEditorialPublicTheme',
+            'createPublicBrandTheme',
+          ],
+          themeOwnershipPaths: ['src/providers.tsx'],
+        },
+      }, null, 2),
+      'src/providers.tsx': `
+        import { GdsProvider, createPublicBrandTheme } from '@doneisbetter/gds-theme/client';
+
+        const theme = createPublicBrandTheme({
+          flatSurfaces: true,
+          overrides: { primaryColor: 'blue' },
+        });
+
+        export function Providers({ children }) {
+          return <GdsProvider theme={theme}>{children}</GdsProvider>;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.filter((finding) => finding.rule.startsWith('theme.'))).toHaveLength(0);
+  });
+
+  it('flags local Mantine theme construction in declared theme ownership files', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.4',
+        productArchetype: 'public',
+        requiredContracts: ['GdsProvider'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-29',
+        compliance: {
+          approvedThemeLanes: [
+            'gdsTheme',
+            'gdsDarkPublicTheme',
+            'gdsFlatSurfaceTheme',
+            'gdsEditorialPublicTheme',
+            'createPublicBrandTheme',
+          ],
+          themeOwnershipPaths: ['src/theme.ts'],
+        },
+      }, null, 2),
+      'src/theme.ts': `
+        import { createTheme } from '@mantine/core';
+
+        export const appTheme = createTheme({
+          primaryColor: 'blue',
+        });
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('theme.parallel-branding-layer');
+  });
 });

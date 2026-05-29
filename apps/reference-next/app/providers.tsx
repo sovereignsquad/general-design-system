@@ -1,11 +1,18 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { GdsProvider, gdsFlatSurfaceTheme } from '@doneisbetter/gds-theme/client';
+import { GdsProvider, createPublicBrandTheme } from '@doneisbetter/gds-theme/client';
+
+const referenceNextTheme = createPublicBrandTheme({
+  flatSurfaces: true,
+  overrides: {
+    primaryColor: 'blue',
+  },
+});
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
-    <GdsProvider theme={gdsFlatSurfaceTheme} defaultColorScheme="light">
+    <GdsProvider theme={referenceNextTheme} defaultColorScheme="light">
       {children}
     </GdsProvider>
   );

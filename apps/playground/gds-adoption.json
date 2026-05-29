@@ -66,6 +66,16 @@
       "ShareButtonGroup",
       "SocialAuthButtons"
     ],
+    "approvedThemeLanes": [
+      "gdsTheme",
+      "gdsDarkPublicTheme",
+      "gdsFlatSurfaceTheme",
+      "gdsEditorialPublicTheme",
+      "createPublicBrandTheme"
+    ],
+    "themeOwnershipPaths": [
+      "src/main.tsx"
+    ],
     "approvedTemporaryExceptions": []
   }
 }

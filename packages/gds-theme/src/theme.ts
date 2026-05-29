@@ -162,6 +162,10 @@ export interface PublicBrandThemeOptions {
   overrides?: MantineThemeOverride;
 }
 
+function composeGdsTheme(overrides: MantineThemeOverride = {}) {
+  return mergeMantineTheme(baseTheme, overrides);
+}
+
 export function createPublicBrandTheme({
   editorialSerif = false,
   flatSurfaces = false,
@@ -184,11 +188,17 @@ export function createPublicBrandTheme({
     {},
   );
 
-  return extendGdsTheme(mergedOverrides);
+  return composeGdsTheme(mergedOverrides);
 }
 
+/**
+ * @deprecated Consumer repositories should use `gdsTheme`, `gdsDarkPublicTheme`,
+ * `gdsFlatSurfaceTheme`, `gdsEditorialPublicTheme`, or `createPublicBrandTheme(...)`
+ * instead of building a custom branding layer with `extendGdsTheme(...)`.
+ * This helper remains temporarily exported for bounded internal/runtime composition only.
+ */
 export function extendGdsTheme(overrides: MantineThemeOverride = {}) {
-  return mergeMantineTheme(baseTheme, overrides);
+  return composeGdsTheme(overrides);
 }
 
 export function withGdsMotion(overrides: MantineThemeOverride = {}) {

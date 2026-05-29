@@ -4,14 +4,20 @@ Status: Active SSOT
 Version: 2.6.4
 Last updated: 2026-05-28
 
-This document defines how products may extend `gdsTheme` without creating a second design authority.
+This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
 
 ## Base rule
 
 - `gdsTheme` is the only shared token authority.
-- Product brands may extend it through documented overrides.
+- Adopters must use one of the approved theme lanes:
+  - `gdsTheme`
+  - `gdsDarkPublicTheme`
+  - `gdsFlatSurfaceTheme`
+  - `gdsEditorialPublicTheme`
+  - `createPublicBrandTheme(...)`
 - Products may not fork the shared theme into a permanent parallel token system.
 - Public and operator accent surfaces must resolve from shared semantic contracts such as `AccentPanel`, not product-local `light-dark(...)` patches or raw `*.0` shade assumptions.
+- `extendGdsTheme(...)` is no longer a canonical adopter path. It remains temporarily exported only for bounded internal/runtime composition inside GDS-controlled implementation.
 
 ## Allowed extension surfaces
 
@@ -38,9 +44,9 @@ White-label or tenant theming is allowed only when:
 
 Recommended model:
 
-1. start from `extendGdsTheme(...)`
-2. apply product-level overrides
-3. apply tenant-level overrides only on documented brand surfaces
+1. start from the closest shipped lane
+2. use `createPublicBrandTheme(...)` when a branded public product needs governed overrides
+3. apply tenant-level overrides only on documented brand surfaces and only through the approved lane
 
 For public/editorial products that want one sanctioned entrypoint instead of ad hoc merging, use `createPublicBrandTheme({ editorialSerif, flatSurfaces, overrides })` from `@doneisbetter/gds-theme`.
 
@@ -109,23 +115,26 @@ This is a governance contract first. Products still own storage and moderation, 
 Amanoba is a dark-default LMS/game product. Recommended recipe:
 
 ```ts
-import { extendGdsTheme } from '@doneisbetter/gds-theme/client';
+import { createPublicBrandTheme } from '@doneisbetter/gds-theme/client';
 
-export const amanobaMantineTheme = extendGdsTheme({
-  primaryColor: 'amanoba',
-  colors: {
-    amanoba: [/gds-* yellow scale */],
-    amanobaYellow: [/gds-* alias scale */],
-    ink: [/gds-* dark grey scale */],
-  },
-  other: {
-    brand: { /gds-* email/OG/chart tokens */ },
-    email: { /gds-* transactional email palette */ },
-  },
-  components: {
-    Text: { defaultProps: { c: 'gray.2' } },
-    Card: { defaultProps: { bg: 'ink.8', withBorder: true } },
-    /gds-* form + modal dark surfaces */
+export const amanobaMantineTheme = createPublicBrandTheme({
+  flatSurfaces: true,
+  overrides: {
+    primaryColor: 'amanoba',
+    colors: {
+      amanoba: [/gds-* yellow scale */],
+      amanobaYellow: [/gds-* alias scale */],
+      ink: [/gds-* dark grey scale */],
+    },
+    other: {
+      brand: { /gds-* email/OG/chart tokens */ },
+      email: { /gds-* transactional email palette */ },
+    },
+    components: {
+      Text: { defaultProps: { c: 'gray.2' } },
+      Card: { defaultProps: { bg: 'ink.8', withBorder: true } },
+      /gds-* form + modal dark surfaces */
+    },
   },
 });
 ```
@@ -142,6 +151,7 @@ Rules:
 - `gdsFlatSurfaceTheme` is the approved preset for products that need flatter operational surfaces without creating a second token authority.
 - `gdsEditorialPublicTheme` is the approved preset for public/editorial products that need serif-forward storytelling and flatter public surfaces without creating a private token branch.
 - `createPublicBrandTheme()` is the approved composition helper for branded public products that need to layer serif headings, flat surfaces, and product-local token overrides in one governed merge path.
+- `extendGdsTheme()` is deprecated for consumer use and should not appear in adopter docs, templates, or theme ownership files.
 - the live token/theme lab at `https://sovereignsquad.github.io/general-design-system/themes` is the public reference surface for testing these shipped preset lanes interactively
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
 - `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.

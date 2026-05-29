@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "2.5.1",
+  "gdsVersion": "2.6.4",
   "productArchetype": "hybrid",
   "supportedEntryPoints": [
     "@doneisbetter/gds-theme/client",
@@ -151,6 +151,17 @@
     ],
     "approvedActionPrimitives": [
       "ActionBar"
+    ],
+    "approvedThemeLanes": [
+      "gdsTheme",
+      "gdsDarkPublicTheme",
+      "gdsFlatSurfaceTheme",
+      "gdsEditorialPublicTheme",
+      "createPublicBrandTheme"
+    ],
+    "themeOwnershipPaths": [
+      "src/providers.tsx",
+      "src/theme.ts"
     ],
     "approvedTemporaryExceptions": [
       "MapPanel"

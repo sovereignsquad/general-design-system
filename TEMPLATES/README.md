@@ -1,12 +1,12 @@
 # Templates
 
 Status: Reference
-Version: 2.5.1
-Last updated: 2026-05-25
+Version: 2.6.4
+Last updated: 2026-05-29
 
 These starter templates are reference implementations for adopting projects.
 
-They are not copy-paste mandates, but they define the expected shape of a Mantine-only implementation:
+They are not copy-paste mandates, but they define the expected shape of a GDS-governed implementation:
 
 - [theme.ts.template](/Users/Shared/Projects/general-design-system/TEMPLATES/theme.ts.template)
 - [providers.tsx.template](/Users/Shared/Projects/general-design-system/TEMPLATES/providers.tsx.template)

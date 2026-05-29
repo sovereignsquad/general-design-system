@@ -118,7 +118,7 @@ Every package now exposes:
 Recommended usage:
 
 - use `@doneisbetter/gds/server` for the simplest server-safe umbrella path
-- use `@doneisbetter/gds-theme/server` for `gdsTheme` and `extendGdsTheme` when a consumer intentionally imports granular lanes
+- use `@doneisbetter/gds-theme/server` for `gdsTheme`, the shipped public presets, and `createPublicBrandTheme(...)` when a consumer intentionally imports granular lanes
 - use `@doneisbetter/gds-theme/server` `withGdsMotion` only when a product explicitly opts into shared motion defaults
 - use `@doneisbetter/gds-core/server` or `@doneisbetter/gds-admin/server` when a server-rendered layout only needs structural primitives
 - use `@doneisbetter/gds/client` for the simplest client-safe umbrella path
@@ -134,7 +134,7 @@ Recommended production split for App Router consumers:
 Use server-safe entrypoints in layouts, metadata builders, and non-interactive composition:
 
 ```ts
-import { gdsTheme, extendGdsTheme } from '@doneisbetter/gds-theme/server';
+import { gdsTheme, createPublicBrandTheme } from '@doneisbetter/gds-theme/server';
 import { AccentPanel, DocsPageShell, PageHeader, AuthShell } from '@doneisbetter/gds-core/server';
 import { WorkspaceHeader } from '@doneisbetter/gds-admin/server';
 ```

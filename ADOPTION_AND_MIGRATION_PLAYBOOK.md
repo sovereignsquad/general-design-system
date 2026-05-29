@@ -24,7 +24,7 @@ Use when the product has little or no existing UI system.
 
 Execution:
 1. install packages
-2. wire root provider and theme
+2. wire root provider and theme through one approved lane (`gdsTheme`, shipped public preset, or `createPublicBrandTheme(...)`)
 3. choose shell, page-header, state-block, card, and action contracts
 4. add `gds-adoption.json`
 5. enable shared lint/gds-compliance in CI
@@ -82,6 +82,12 @@ import { AppShell } from '@doneisbetter/gds-admin/client';
 - root `dir`
 
 `app/providers.tsx` should be the only required client boundary for the shared provider.
+
+Theme ownership rule:
+
+- use shipped theme lanes first
+- use `createPublicBrandTheme(...)` when a branded public product needs governed overrides
+- do not keep a consumer-local `extendGdsTheme(...)` branding layer as the long-term adopter path
 
 ## 4. Vite / SPA Contract
 

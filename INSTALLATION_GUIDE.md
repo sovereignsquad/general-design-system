@@ -109,6 +109,16 @@ Use the runtime entrypoints intentionally:
 - `@doneisbetter/gds/client` for interactive components and provider mounting
 - granular `@doneisbetter/gds-*/server` and `@doneisbetter/gds-*/client` lanes remain supported when needed
 
+Use the theme lanes intentionally:
+
+- `gdsTheme` for the canonical base lane
+- `gdsDarkPublicTheme` for dark-default public products
+- `gdsFlatSurfaceTheme` for flatter operational surfaces
+- `gdsEditorialPublicTheme` for serif-forward editorial/public surfaces
+- `createPublicBrandTheme(...)` when a branded public product needs governed overrides on top of the shipped lanes
+
+Do not treat `extendGdsTheme(...)` as a consumer branding-layer API. It remains temporarily exported for bounded internal/runtime composition only and should be considered non-canonical for adopters.
+
 Prefer canonical primitives over local reinvention:
 
 - `DiscoveryShell` for sidebar-first applications
@@ -154,6 +164,23 @@ For repos targeting true GDS-only enforcement:
 ```
 
 The official GitHub Pages site in `apps/playground` follows this same direction. Treat it as the public proof that docs, pattern catalogs, theme exploration, and live demos can be shipped through GDS-owned contracts instead of local Mantine-heavy composition.
+
+For theme-governance enforcement, add explicit theme ownership paths once the repo is ready:
+
+```json
+{
+  "compliance": {
+    "approvedThemeLanes": [
+      "gdsTheme",
+      "gdsDarkPublicTheme",
+      "gdsFlatSurfaceTheme",
+      "gdsEditorialPublicTheme",
+      "createPublicBrandTheme"
+    ],
+    "themeOwnershipPaths": ["src/providers.tsx", "src/theme.ts"]
+  }
+}
+```
 
 ## 6. Required verification before adoption
 

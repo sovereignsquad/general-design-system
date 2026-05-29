@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "2.5.1",
+  "gdsVersion": "2.6.4",
   "productArchetype": "public",
   "supportedEntryPoints": [
     "@doneisbetter/gds-theme/client",
@@ -24,5 +24,17 @@
   "approvedExceptions": [],
   "migrationStatus": "governed",
   "owner": "gds-platform",
-  "lastReviewedAt": "2026-05-25"
+  "lastReviewedAt": "2026-05-29",
+  "compliance": {
+    "approvedThemeLanes": [
+      "gdsTheme",
+      "gdsDarkPublicTheme",
+      "gdsFlatSurfaceTheme",
+      "gdsEditorialPublicTheme",
+      "createPublicBrandTheme"
+    ],
+    "themeOwnershipPaths": [
+      "src/main.tsx"
+    ]
+  }
 }
