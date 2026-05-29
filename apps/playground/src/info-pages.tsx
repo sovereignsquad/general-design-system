@@ -8,8 +8,8 @@ import {
   ReferenceThemeExplorer,
 } from '@doneisbetter/gds-core';
 
-const installCode = `npm install @doneisbetter/gds
-npm install -D @doneisbetter/gds-eslint-config @doneisbetter/gds-compliance`;
+const installCode = `npm install @doneisbetter/gds@2.6.5
+npm install -D @doneisbetter/gds-eslint-config@2.6.5 @doneisbetter/gds-compliance@2.6.5`;
 
 const peerCode = `npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`;
 
@@ -21,6 +21,14 @@ import { GdsProvider } from '@doneisbetter/gds/client';
 export default function Providers({ children }: { children: React.ReactNode }) {
   return <GdsProvider>{children}</GdsProvider>;
 }`;
+
+const updateCode = `npm install @doneisbetter/gds@2.6.5
+
+# or granular runtime packages
+npm install @doneisbetter/gds-theme@2.6.5 @doneisbetter/gds-core@2.6.5 @doneisbetter/gds-admin@2.6.5
+
+# governance tooling
+npm install -D @doneisbetter/gds-eslint-config@2.6.5 @doneisbetter/gds-compliance@2.6.5`;
 
 const complianceCode = `{
   "schemaVersion": 1,
@@ -40,6 +48,22 @@ const complianceCode = `{
     "approvedDetailPrimitives": ["DetailProfileShell"],
     "approvedListingPrimitives": ["ListingCard"],
     "approvedActionPrimitives": ["ActionBar"]
+  }
+}`;
+
+const themeGovernanceCode = `{
+  "compliance": {
+    "approvedThemeLanes": [
+      "gdsTheme",
+      "gdsDarkPublicTheme",
+      "gdsFlatSurfaceTheme",
+      "gdsEditorialPublicTheme",
+      "createPublicBrandTheme"
+    ],
+    "themeOwnershipPaths": [
+      "src/providers.tsx",
+      "src/theme.ts"
+    ]
   }
 }`;
 
@@ -205,18 +229,43 @@ export function InstallPage() {
     <DocsPageShell
       title="Install GDS"
       eyebrow="Public install path"
-      lead="Use the umbrella npm package for the default public entry point, then satisfy the shared Mantine peer line and wire the provider once."
+      lead="Use the umbrella npm package for the default public entry point, then satisfy the shared Mantine peer line, wire the provider once, and align your theme ownership with the canonical `2.6.5` governance rules."
     >
       <ReferenceSection title="1. Install the packages" description="The open-source public entry point is the umbrella package.">
         <DocsCodeBlock code={installCode} language="bash" title="Install GDS packages" />
         <DocsCodeBlock code={peerCode} language="bash" title="Install peer dependencies" />
       </ReferenceSection>
 
-      <ReferenceSection title="2. Add the provider" description="All runtime surfaces assume one shared provider near the app root.">
+      <ReferenceSection title="2. Upgrade existing clients to 2.6.5" description="If your app already uses GDS, move the package line and governance tooling together.">
+        <DocsCodeBlock code={updateCode} language="bash" title="Upgrade commands" />
+        <FeatureBand
+          columns={3}
+          variant="compact"
+          items={[
+            {
+              id: 'low-risk',
+              title: 'Low-risk for shipped lanes',
+              description: 'If you already use a shipped GDS theme export directly, this should be a low-risk update.',
+            },
+            {
+              id: 'theme-shift',
+              title: 'Theme governance changed',
+              description: 'The main change is governance and enforcement. This is not a visual redesign of the canonical themes.',
+            },
+            {
+              id: 'compliance-shift',
+              title: 'Compliance is stronger',
+              description: 'Repos that adopt the new manifest fields can now detect non-canonical theme ownership automatically.',
+            },
+          ]}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection title="3. Add the provider" description="All runtime surfaces assume one shared provider near the app root.">
         <DocsCodeBlock code={providerCode} language="tsx" title="Provider setup" />
       </ReferenceSection>
 
-      <ReferenceSection title="3. Adopt the shipped contracts" description="Use the live demo and pattern catalog before inventing product-local wrappers.">
+      <ReferenceSection title="4. Adopt the shipped contracts" description="Use the live demo and pattern catalog before inventing product-local wrappers.">
         <ReferenceLinkGrid
           items={[
             {
@@ -241,8 +290,9 @@ export function InstallPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="4. Enforce the adoption contract" description="Treat your app as a real consumer with manifest-driven compliance.">
+      <ReferenceSection title="5. Enforce the adoption contract" description="Treat your app as a real consumer with manifest-driven compliance.">
         <DocsCodeBlock code={complianceCode} language="json" title="Strict adoption manifest" />
+        <DocsCodeBlock code={themeGovernanceCode} language="json" title="Theme-governance manifest fields" />
         <DocsCodeBlock code={verificationCode} language="bash" title="Verification contract" />
       </ReferenceSection>
 
@@ -290,6 +340,29 @@ export function RulebookPage() {
             { id: 'actions', title: 'Actions', description: 'Semantic actions, action bars, and governed CTA hierarchy.' },
             { id: 'content', title: 'Cards & detail', description: 'Listing, food, map, playback, profile, and editorial/display surfaces.' },
             { id: 'reference', title: 'Reference-site helpers', description: 'Theme explorer, docs sections, locale notices, and proof grids used by the official site.' },
+          ]}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection title="What changed in 2.6.5" description="Theme ownership is now explicit enough to review and enforce across client repos.">
+        <FeatureBand
+          columns={3}
+          items={[
+            {
+              id: 'approved-theme-lanes',
+              title: 'Approved theme lanes only',
+              description: 'Clients should use gdsTheme, the shipped public presets, or createPublicBrandTheme(...).',
+            },
+            {
+              id: 'no-custom-helper',
+              title: 'No long-term extendGdsTheme path',
+              description: 'extendGdsTheme(...) is no longer a canonical consumer branding-layer API.',
+            },
+            {
+              id: 'manifest-enforcement',
+              title: 'Manifest-based enforcement',
+              description: 'Clients can now declare approvedThemeLanes and themeOwnershipPaths so compliance tooling can flag drift.',
+            },
           ]}
         />
       </ReferenceSection>
@@ -356,6 +429,47 @@ export function TokensPage() {
       lead="Test the shipped GDS theme lanes, inspect the governed brand-theme generator, and verify how the official site behaves under each preset."
     >
       <ReferenceThemeExplorer />
+      <ReferenceSection
+        title="Approved adopter theme lanes"
+        description="These are the only canonical theme ownership paths we recommend to client teams on `2.6.5`."
+      >
+        <FeatureBand
+          columns={4}
+          variant="compact"
+          items={[
+            { id: 'base', title: 'gdsTheme', description: 'Canonical base lane.' },
+            { id: 'dark', title: 'gdsDarkPublicTheme', description: 'Dark-default public shell lane.' },
+            { id: 'flat', title: 'gdsFlatSurfaceTheme', description: 'Flatter operational surface lane.' },
+            { id: 'editorial', title: 'gdsEditorialPublicTheme', description: 'Serif-forward editorial/public lane.' },
+            { id: 'brand', title: 'createPublicBrandTheme(...)', description: 'Governed branded public composition helper.' },
+          ]}
+        />
+      </ReferenceSection>
+      <ReferenceSection
+        title="What clients need to care about"
+        description="The governance change is about theme ownership and enforceability, not about forcing a visual redesign."
+      >
+        <FeatureBand
+          columns={3}
+          items={[
+            {
+              id: 'no-helper',
+              title: 'Stop using extendGdsTheme(...)',
+              description: 'Do not keep it as a long-term consumer branding-layer path.',
+            },
+            {
+              id: 'manifest',
+              title: 'Declare theme ownership files',
+              description: 'Use approvedThemeLanes and themeOwnershipPaths in gds-adoption.json when you use gds-compliance.',
+            },
+            {
+              id: 'verify',
+              title: 'Verify after updating',
+              description: 'Run build, tests, and gds-compliance after moving to the 2.6.5 line.',
+            },
+          ]}
+        />
+      </ReferenceSection>
       <ReferenceSection
         title="Theme governance links"
         description="Use these rulebook pages when a team wants brand expression without creating a parallel design system."
