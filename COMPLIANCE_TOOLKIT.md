@@ -101,6 +101,29 @@ When those fields are present, `gds-compliance` will flag:
 - direct consumer `extendGdsTheme(...)` usage
 - local Mantine theme construction in declared theme-ownership files that bypasses the approved GDS lanes
 
+For identity-provider branding governance, declare a dedicated policy block:
+
+```json
+{
+  "compliance": {
+    "identityProviderBranding": {
+      "approvedProviders": ["google", "apple", "github", "microsoft", "discord", "x", "email"],
+      "forbiddenCustomizations": ["leftSection", "variant", "size", "fullWidth"],
+      "allowedVariants": ["solid", "outline", "neutral"],
+      "colorAuthority": "provider",
+      "minTouchTargetPx": 44,
+      "policyDocument": "IDENTITY_PROVIDER_BRANDING.md"
+    }
+  }
+}
+```
+
+`gds-compliance` checks this policy against all `SocialAuthButtons` usages in the repository source graph:
+
+- rejects providers not listed in `approvedProviders`
+- errors on forbidden prop customizations defined in `forbiddenCustomizations`
+- flags heuristic cases where social auth appears implemented with direct Mantine `Button` controls
+
 For repositories targeting true GDS-only enforcement, enable strict mode:
 
 ```json

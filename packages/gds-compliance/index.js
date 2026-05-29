@@ -47,7 +47,14 @@ const PRODUCT_AUTHORED_REQUIRED_FIELDS = [
   'testingRequirements',
   'observabilityRequirements',
 ];
-
+const IDENTITY_PROVIDER_BRANDING_FIELDS = [
+  'approvedProviders',
+  'forbiddenCustomizations',
+  'allowedVariants',
+  'colorAuthority',
+  'minTouchTargetPx',
+  'policyDocument',
+];
 export function validateManifest(manifest) {
   const findings = [];
 
@@ -97,6 +104,87 @@ export function validateManifest(manifest) {
         severity: 'error',
         message: `compliance.${field} must be an array when provided.`,
       });
+    }
+  }
+
+  const identityProviderBranding = manifest.compliance?.identityProviderBranding;
+  if (identityProviderBranding != null) {
+    if (typeof identityProviderBranding !== 'object') {
+      findings.push({
+        rule: 'manifest.invalidComplianceConfig',
+        severity: 'error',
+        message: 'compliance.identityProviderBranding must be an object when provided.',
+      });
+    } else {
+      if (!Array.isArray(identityProviderBranding.approvedProviders) || identityProviderBranding.approvedProviders.length === 0) {
+        findings.push({
+          rule: 'manifest.invalidComplianceConfig',
+          severity: 'error',
+          message: 'compliance.identityProviderBranding.approvedProviders must be a non-empty array.',
+        });
+      }
+
+      for (const field of IDENTITY_PROVIDER_BRANDING_FIELDS) {
+        const value = identityProviderBranding[field];
+        if (value == null) {
+          continue;
+        }
+
+        if ((field === 'forbiddenCustomizations' || field === 'allowedVariants') && !Array.isArray(value)) {
+          findings.push({
+            rule: 'manifest.invalidComplianceConfig',
+            severity: 'error',
+            message: `compliance.identityProviderBranding.${field} must be an array when provided.`,
+          });
+        }
+      }
+
+      if (Array.isArray(identityProviderBranding.allowedVariants)) {
+        const invalidVariants = identityProviderBranding.allowedVariants.filter((value) => !['solid', 'outline', 'neutral'].includes(String(value).trim().toLowerCase()));
+        if (invalidVariants.length > 0) {
+          findings.push({
+            rule: 'manifest.invalidComplianceConfig',
+            severity: 'error',
+            message: `compliance.identityProviderBranding.allowedVariants contains invalid values: ${invalidVariants.join(', ')}.`,
+          });
+        }
+      }
+
+      if (Array.isArray(identityProviderBranding.forbiddenCustomizations)) {
+        const hasNonStringCustomization = identityProviderBranding.forbiddenCustomizations.some((value) => typeof value !== 'string');
+        if (hasNonStringCustomization) {
+          findings.push({
+            rule: 'manifest.invalidComplianceConfig',
+            severity: 'error',
+            message: 'compliance.identityProviderBranding.forbiddenCustomizations may only contain strings.',
+          });
+        }
+      }
+
+      if (identityProviderBranding.minTouchTargetPx != null &&
+          (typeof identityProviderBranding.minTouchTargetPx !== 'number' || identityProviderBranding.minTouchTargetPx < 24)) {
+        findings.push({
+          rule: 'manifest.invalidComplianceConfig',
+          severity: 'error',
+          message: 'compliance.identityProviderBranding.minTouchTargetPx must be >= 24 when provided.',
+        });
+      }
+
+      if (identityProviderBranding.colorAuthority != null && !['provider', 'gds-outline', 'gds-neutral'].includes(identityProviderBranding.colorAuthority)) {
+        findings.push({
+          rule: 'manifest.invalidComplianceConfig',
+          severity: 'error',
+          message: 'compliance.identityProviderBranding.colorAuthority must be one of: provider, gds-outline, gds-neutral.',
+        });
+      }
+
+      if (identityProviderBranding.policyDocument != null && typeof identityProviderBranding.policyDocument !== 'string') {
+        findings.push({
+          rule: 'manifest.invalidComplianceConfig',
+          severity: 'error',
+          message: 'compliance.identityProviderBranding.policyDocument must be a string when provided.',
+        });
+      }
     }
   }
 
@@ -417,6 +505,117 @@ function isCoveredByApprovedException(relativePath, approvedExceptions = []) {
   return approvedExceptions.some((exception) => matchesScope(relativePath, exception.scope ?? []));
 }
 
+function normalizeProviderId(value) {
+  return String(value).trim().toLowerCase();
+}
+
+function parseProviderIdsFromSocialAuthUsage(usageChunk) {
+  const providers = new Set();
+  const providerObjectRegex = /id:\s*['"]([^'"]+)['"]/g;
+  const providerArrayRegex = /providers\s*=\s*\[(.*?)\]/s;
+
+  for (const match of usageChunk.matchAll(providerObjectRegex)) {
+    providers.add(normalizeProviderId(match[1]));
+  }
+
+  if (providers.size > 0) {
+    return providers;
+  }
+
+  const arrayMatch = usageChunk.match(providerArrayRegex);
+  if (!arrayMatch) {
+    return providers;
+  }
+
+  const idRegex = /['"]([^'"]+)['"]/g;
+  for (const match of arrayMatch[1].matchAll(idRegex)) {
+    providers.add(normalizeProviderId(match[1]));
+  }
+
+  return providers;
+}
+
+function hasForbiddenCustomization(usageChunk, forbiddenCustomizations = []) {
+  if (!forbiddenCustomizations.length) {
+    return [];
+  }
+
+  return forbiddenCustomizations
+    .map((customization) => normalizeProviderId(customization))
+    .filter((customization) => new RegExp(`\\b${escapeRegex(customization)}\\s*[:=]`, 'i').test(usageChunk));
+}
+
+function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
+  const findings = [];
+  const policy = manifest.compliance?.identityProviderBranding;
+  if (!policy || !Array.isArray(policy.approvedProviders) || !policy.approvedProviders.length) {
+    return findings;
+  }
+
+  const approvedProviders = new Set(policy.approvedProviders.map((provider) => normalizeProviderId(provider)));
+  const forbiddenCustomizations = Array.isArray(policy.forbiddenCustomizations)
+    ? policy.forbiddenCustomizations
+    : [];
+  const socialAuthUsages = /<SocialAuthButtons[\s\S]*?(?:\/\s*>|>[\s\S]*?<\/SocialAuthButtons>)/g;
+  const providerTextRegex = /\b(google|apple|facebook|github|microsoft|linkedin|discord|\bx\b|email)\b/i;
+  const mantineButtonImportRegex = /from\s+['"]@mantine\/core['"][\s\S]{0,240}\bButton\b/;
+  const sourceRoot = normalizePath(manifestRoot).replace(/\/$/, '');
+
+  for (const filePath of sourceFiles) {
+    const content = readFileSync(filePath, 'utf8');
+    const relativePath = normalizePath(filePath).replace(`${sourceRoot}/`, '');
+
+    if (!/SocialAuthButtons/.test(content) && (/\bSocialAuth\b/i.test(content) || providerTextRegex.test(content))) {
+      if (mantineButtonImportRegex.test(content) && providerTextRegex.test(content)) {
+        findings.push({
+          rule: 'identity.provider.custom-controls.warn',
+          severity: 'warn',
+          file: relativePath,
+          message: 'Social identity controls appear to use Mantine primitives directly. Consider using SocialAuthButtons and policy-conformant provider rendering.',
+        });
+      }
+      continue;
+    }
+
+    const usages = [...content.matchAll(socialAuthUsages)];
+    for (const usage of usages) {
+      const providerIds = parseProviderIdsFromSocialAuthUsage(usage[0]);
+      const forbiddenInUsage = hasForbiddenCustomization(usage[0], forbiddenCustomizations);
+
+      for (const forbidden of forbiddenInUsage) {
+        findings.push({
+          rule: 'identity.provider.forbidden-customization',
+          severity: 'error',
+          file: relativePath,
+          message: `SocialAuthButtons usage in ${relativePath} sets forbidden customization "${forbidden}". Use the canonical policy-conformant SocialAuth surface.`,
+        });
+      }
+
+      for (const providerId of providerIds) {
+        if (!approvedProviders.has(providerId)) {
+          findings.push({
+            rule: 'identity.provider.unapproved-id',
+            severity: 'error',
+            file: relativePath,
+            message: `SocialAuthButtons uses provider "${providerId}" not listed in compliance.identityProviderBranding.approvedProviders.`,
+          });
+        }
+      }
+    }
+
+    if (content.includes('SocialAuthButtons') && !usages.length && providerTextRegex.test(content)) {
+      findings.push({
+        rule: 'identity.provider.missing-provider-list',
+        severity: 'warn',
+        file: relativePath,
+        message: 'SocialAuthButtons is used but provider ids could not be parsed for policy validation. Keep provider ids explicit and canonical.',
+      });
+    }
+  }
+
+  return findings;
+}
+
 function findThemeOwnershipFiles({ manifestRoot, sourceFiles, themeOwnershipPaths = [] }) {
   if (!themeOwnershipPaths.length) {
     return [];
@@ -542,6 +741,7 @@ export function runComplianceCheck({ manifestPath }) {
   findings.push(...validateApprovedExceptions(manifest));
   findings.push(...validateApprovedExceptionsAgainstRepo({ manifestRoot, manifest, sourceFiles }));
   findings.push(...scanThemeGovernance({ manifestRoot, manifest, sourceFiles }));
+  findings.push(...scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }));
 
   if (protectedSurfacePaths.length) {
     const normalizedProtectedSurfacePaths = protectedSurfacePaths.map((value) => normalizePath(resolve(manifestRoot, value)));

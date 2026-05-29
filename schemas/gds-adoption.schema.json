@@ -225,6 +225,43 @@
           "type": "array",
           "items": { "type": "string", "minLength": 1 },
           "uniqueItems": true
+        },
+        "identityProviderBranding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["approvedProviders"],
+          "properties": {
+            "approvedProviders": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "uniqueItems": true
+            },
+            "forbiddenCustomizations": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "uniqueItems": true
+            },
+            "allowedVariants": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["solid", "outline", "neutral"]
+              },
+              "uniqueItems": true
+            },
+            "colorAuthority": {
+              "type": "string",
+              "enum": ["provider", "gds-outline", "gds-neutral"]
+            },
+            "minTouchTargetPx": {
+              "type": "integer",
+              "minimum": 24
+            },
+            "policyDocument": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
         }
       }
     },

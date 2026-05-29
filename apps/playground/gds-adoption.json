@@ -66,6 +66,34 @@
       "ShareButtonGroup",
       "SocialAuthButtons"
     ],
+    "identityProviderBranding": {
+      "approvedProviders": [
+        "google",
+        "apple",
+        "facebook",
+        "github",
+        "microsoft",
+        "linkedin",
+        "discord",
+        "x",
+        "email"
+      ],
+      "forbiddenCustomizations": [
+        "variant",
+        "leftSection",
+        "rightSection",
+        "size",
+        "fullWidth"
+      ],
+      "allowedVariants": [
+        "solid",
+        "outline",
+        "neutral"
+      ],
+      "colorAuthority": "provider",
+      "minTouchTargetPx": 44,
+      "policyDocument": "../../IDENTITY_PROVIDER_BRANDING.md"
+    },
     "approvedThemeLanes": [
       "gdsTheme",
       "gdsDarkPublicTheme",

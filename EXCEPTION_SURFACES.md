@@ -111,8 +111,9 @@ It does own:
 - immersive game/runtime canvases
 - offline HTML report rendering
 - certificate, email, and OG rendering internals
-- third-party provider-branded auth controls when branding requirements cannot be normalized further
 - bounded creator-authored campaign/editorial experience canvases when the shell-vs-canvas boundary remains explicit
+
+Third-party provider-branded auth controls are not a permanent exception. Products that use social authentication must declare their policy under `compliance.identityProviderBranding` and render through `SocialAuthButtons` in that policy.
 
 ## Required documentation for any exception
 

@@ -42,6 +42,21 @@ White-label or tenant theming is allowed only when:
 - contrast, readability, and focus states still meet the shared baseline
 - switching tenants does not introduce a second runtime provider authority
 
+## Identity provider branding policy
+
+Identity providers are part of the same governance envelope as theme authority. Adopters that render social auth must use `SocialAuthButtons` and pass providers from the approved policy list in `gds-adoption.json`.
+
+- approved providers are declared under `compliance.identityProviderBranding.approvedProviders`
+- forbidden customizations are declared under `compliance.identityProviderBranding.forbiddenCustomizations`
+- minimum accessible touch target is declared under `compliance.identityProviderBranding.minTouchTargetPx`
+- color authority is declared under `compliance.identityProviderBranding.colorAuthority`
+
+Allowed policy:
+
+- keep visual identity within policy-approved SocialAuth behavior
+- never implement local third-party-branded auth controls that bypass GDS action semantics
+- do not mutate provider icon/mark, loading, disabled, or label mechanics via per-product wrappers unless approved in policy
+
 Recommended model:
 
 1. start from the closest shipped lane

@@ -369,4 +369,140 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
     expect(report.findings.map((finding) => finding.rule)).toContain('theme.parallel-branding-layer');
   });
+
+  it('flags SocialAuthButtons providers that are not in identity branding policy', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.6',
+        productArchetype: 'public',
+        requiredContracts: ['SocialAuthButtons'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-29',
+        compliance: {
+          identityProviderBranding: {
+            approvedProviders: ['google', 'apple', 'github'],
+            forbiddenCustomizations: ['variant'],
+            minTouchTargetPx: 44,
+          },
+        },
+      }, null, 2),
+      'src/components/Auth.tsx': `
+        import { SocialAuthButtons } from '@doneisbetter/gds-core';
+
+        export function Auth() {
+          return (
+            <SocialAuthButtons
+              providers={[
+                { id: 'google', href: '/auth/google' },
+                { id: 'microsoft', href: '/auth/microsoft' },
+              ]}
+            />
+          );
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const rules = report.findings.map((finding) => finding.rule);
+    expect(rules).toContain('identity.provider.unapproved-id');
+  });
+
+  it('flags forbidden SocialAuthButtons customizations from policy', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.6',
+        productArchetype: 'public',
+        requiredContracts: ['SocialAuthButtons'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-29',
+        compliance: {
+          identityProviderBranding: {
+            approvedProviders: ['google'],
+            forbiddenCustomizations: ['leftSection', 'size'],
+          },
+        },
+      }, null, 2),
+      'src/components/Auth.tsx': `
+        import { SocialAuthButtons } from '@doneisbetter/gds-core';
+
+        export function Auth() {
+          return (
+            <SocialAuthButtons
+              providers={[{ id: 'google', leftSection: <span/> }]}
+              size="md"
+            />
+          );
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const rules = report.findings.map((finding) => finding.rule);
+    expect(rules).toContain('identity.provider.forbidden-customization');
+  });
+
+  it('warns when social auth appears custom-implemented with Mantine buttons', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.6',
+        productArchetype: 'public',
+        requiredContracts: ['SocialAuthButtons'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-29',
+        compliance: {
+          identityProviderBranding: {
+            approvedProviders: ['google'],
+          },
+        },
+      }, null, 2),
+      'src/components/Auth.tsx': `
+        import { Button } from '@mantine/core';
+
+        export function Auth() {
+          return <Button>Sign in with Google</Button>;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('identity.provider.custom-controls.warn');
+  });
+
+  it('fails invalid identity provider branding variant values', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.6',
+        productArchetype: 'public',
+        requiredContracts: ['SocialAuthButtons'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-29',
+        compliance: {
+          identityProviderBranding: {
+            approvedProviders: ['google'],
+            allowedVariants: ['invalid-variant'],
+          },
+        },
+      }, null, 2),
+      'src/components/Auth.tsx': `export const x = true;`,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('manifest.invalidComplianceConfig');
+  });
 });
