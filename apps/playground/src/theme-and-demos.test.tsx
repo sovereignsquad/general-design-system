@@ -29,6 +29,16 @@ describe('playground theme explorer and live demos hub', () => {
     expect((screen.getByLabelText('Preset') as HTMLSelectElement).value).toBe('default');
   });
 
+  it('forces the dark public lane to preview in dark mode even if light is selected', () => {
+    renderWithGds(<TokensPage />);
+
+    fireEvent.change(screen.getByLabelText('Preset'), { target: { value: 'dark-public' } });
+    fireEvent.change(screen.getByLabelText('Preview color scheme'), { target: { value: 'light' } });
+
+    expect(screen.getAllByText((_, node) => node?.textContent?.includes('Color scheme: dark') ?? false).length).toBeGreaterThan(0);
+    expect(screen.getByText(/always previews in dark mode/i)).toBeTruthy();
+  });
+
   it('frames the live demos section as the official runtime showcase', () => {
     renderWithGds(<LiveDemosPage />);
 

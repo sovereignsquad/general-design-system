@@ -33,6 +33,14 @@ import {
 export type ThemePresetId = 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand';
 export type ThemeSchemeId = 'light' | 'dark' | 'auto';
 
+function resolvePreviewColorScheme(presetId: ThemePresetId, requestedScheme: ThemeSchemeId): ThemeSchemeId {
+  if (presetId === 'dark-public') {
+    return 'dark';
+  }
+
+  return requestedScheme;
+}
+
 const themePresetCatalog: Record<
   ThemePresetId,
   { label: string; bestFor: string; summary: string; themeKey: string }
@@ -72,10 +80,14 @@ const themePresetCatalog: Record<
 function ThemePreviewSurface({
   preset,
   colorScheme,
+  requestedColorScheme,
 }: {
   preset: { label: string; summary: string; bestFor: string; themeKey: string };
   colorScheme: ThemeSchemeId;
+  requestedColorScheme?: ThemeSchemeId;
 }) {
+  const forcedScheme = requestedColorScheme && requestedColorScheme !== colorScheme;
+
   return (
     <Paper withBorder radius="xl" p="lg">
       <Stack gap="lg">
@@ -91,6 +103,11 @@ function ThemePreviewSurface({
             <Text size="sm">
               <strong>Color scheme:</strong> {colorScheme}
             </Text>
+            {forcedScheme ? (
+              <Text size="sm" c="dimmed">
+                This lane always previews in dark mode so the runtime stays inside its sanctioned contrast contract.
+              </Text>
+            ) : null}
           </Stack>
           <ThemeToggle />
         </Group>
@@ -170,9 +187,11 @@ export function ReferenceThemeExplorer() {
   const comparisonSummary = themePresetCatalog[comparisonPreset];
   const selectedTheme = useMemo(() => resolveTheme(preset), [preset, brandPrimary, brandFlatSurfaces, brandEditorialSerif]);
   const comparedTheme = useMemo(() => resolveTheme(comparisonPreset), [comparisonPreset, brandPrimary, brandFlatSurfaces, brandEditorialSerif]);
+  const effectiveColorScheme = resolvePreviewColorScheme(preset, colorScheme);
+  const effectiveComparisonScheme = resolvePreviewColorScheme(comparisonPreset, colorScheme);
 
-  const previewKey = `${preset}-${colorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
-  const comparisonPreviewKey = `${comparisonPreset}-${colorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
+  const previewKey = `${preset}-${effectiveColorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
+  const comparisonPreviewKey = `${comparisonPreset}-${effectiveComparisonScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
 
   const reset = () => {
     setPreset('default');
@@ -270,6 +289,11 @@ export function ReferenceThemeExplorer() {
                 <Text size="sm">
                   <strong>Color scheme:</strong> {colorScheme}
                 </Text>
+                {preset === 'dark-public' && colorScheme !== effectiveColorScheme ? (
+                  <Text size="sm" c="dimmed">
+                    gdsDarkPublicTheme always renders in dark mode inside the live preview.
+                  </Text>
+                ) : null}
               </Stack>
               <Checkbox
                 aria-label="Compare against a second shipped preset"
@@ -321,11 +345,15 @@ export function ReferenceThemeExplorer() {
         description="Visitors can test the shipped presets, compare lanes, and inspect actual GDS surfaces under each theme."
       >
         <SimpleGrid cols={{ base: 1, xl: comparisonEnabled ? 2 : 1 }} spacing="lg">
-          <GdsProvider key={previewKey} theme={selectedTheme} defaultColorScheme={colorScheme}>
-            <ThemePreviewSurface preset={selectionSummary} colorScheme={colorScheme} />
+          <GdsProvider key={previewKey} theme={selectedTheme} defaultColorScheme={effectiveColorScheme}>
+            <ThemePreviewSurface
+              preset={selectionSummary}
+              colorScheme={effectiveColorScheme}
+              requestedColorScheme={colorScheme}
+            />
           </GdsProvider>
           {comparisonEnabled ? (
-            <GdsProvider key={comparisonPreviewKey} theme={comparedTheme} defaultColorScheme={colorScheme}>
+            <GdsProvider key={comparisonPreviewKey} theme={comparedTheme} defaultColorScheme={effectiveComparisonScheme}>
               <Paper withBorder radius="xl" p="lg">
                 <Stack gap="md">
                   <Group justify="space-between" align="flex-start" wrap="wrap">
@@ -339,7 +367,11 @@ export function ReferenceThemeExplorer() {
                       {comparisonSummary.label}
                     </Badge>
                   </Group>
-                  <ThemePreviewSurface preset={comparisonSummary} colorScheme={colorScheme} />
+                  <ThemePreviewSurface
+                    preset={comparisonSummary}
+                    colorScheme={effectiveComparisonScheme}
+                    requestedColorScheme={colorScheme}
+                  />
                 </Stack>
               </Paper>
             </GdsProvider>
