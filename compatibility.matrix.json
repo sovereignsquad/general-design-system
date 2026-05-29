@@ -1,5 +1,5 @@
 {
-  "gdsVersion": "2.6.4",
+  "gdsVersion": "2.6.5",
   "supportedLines": [
     {
       "react": "18.2.x",

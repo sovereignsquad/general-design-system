@@ -24,7 +24,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
 const complianceCode = `{
   "schemaVersion": 1,
-  "gdsVersion": "2.6.4",
+  "gdsVersion": "2.6.5",
   "productArchetype": "hybrid",
   "requiredContracts": [
     "DiscoveryShell",
