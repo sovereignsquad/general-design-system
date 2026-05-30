@@ -43,37 +43,54 @@ function resolvePreviewColorScheme(presetId: ThemePresetId, requestedScheme: The
 
 const themePresetCatalog: Record<
   ThemePresetId,
-  { label: string; bestFor: string; summary: string; themeKey: string }
+  {
+    label: string;
+    bestFor: string;
+    summary: string;
+    themeKey: string;
+    supportedUse: string;
+    avoidFor?: string;
+  }
 > = {
   default: {
     label: 'Default runtime theme',
     bestFor: 'Balanced multi-surface products that need the baseline GDS system.',
     summary: 'The default shared runtime lane for most adopters.',
     themeKey: 'gdsTheme',
+    supportedUse: 'Starter products, hybrid public/admin apps, and teams adopting all canonical contracts.',
+    avoidFor: 'Avoid for products requiring a distinct editorial voice or guaranteed dark-first brand contrast.',
   },
   'dark-public': {
     label: 'Dark public theme',
     bestFor: 'Dark-first public experiences and campaign-style landing surfaces.',
     summary: 'A darker public presentation lane with the shipped runtime rhythm intact.',
     themeKey: 'gdsDarkPublicTheme',
+    supportedUse: 'Products with a deliberate dark visual baseline, low-light UX, or premium media-first surfaces.',
+    avoidFor: 'Avoid when mixed mode and editorial readability are core requirements.',
   },
   'flat-surface': {
     label: 'Flat surface theme',
     bestFor: 'Operational products that prefer quieter elevation and flatter surface contrast.',
     summary: 'Removes some visual weight without creating a second token authority.',
     themeKey: 'gdsFlatSurfaceTheme',
+    supportedUse: 'Dashboards, admin surfaces, and dense content where elevation becomes distracting.',
+    avoidFor: 'Avoid for brand-first storytelling or high-expressiveness hero-first pages.',
   },
   editorial: {
     label: 'Editorial serif theme',
     bestFor: 'Documentation, editorial, and content-led experiences.',
     summary: 'Adds a more expressive public reading tone while staying inside GDS contracts.',
     themeKey: 'gdsEditorialPublicTheme',
+    supportedUse: 'Guides, docs, and catalog content where reading comfort matters more than impact.',
+    avoidFor: 'Avoid for dense transactional or data-first workflows with strict minimal contrast.',
   },
   brand: {
     label: 'Brand theme generator',
     bestFor: 'Consumer teams that need controlled brand expression without forking the system.',
     summary: 'Composes the shipped helpers into a governed product-authored theme lane.',
     themeKey: 'createPublicBrandTheme(...)',
+    supportedUse: 'Whitelisted public branding programs with narrow product-authored intent and policy guardrails.',
+    avoidFor: 'Avoid for local style experiments or temporary visual fixes without compliance approval.',
   },
 };
 
@@ -331,9 +348,15 @@ export function ReferenceThemeExplorer() {
                 <Text size="sm" c="dimmed">
                   {lane.summary}
                 </Text>
+                <Text size="xs">
+                  <strong>Best for:</strong> {lane.supportedUse}
+                </Text>
                 <Code block fz="10px">
                   {lane.themeKey}
                 </Code>
+                <Text size="xs" c="dimmed">
+                  <strong>Avoid for:</strong> {lane.avoidFor ?? 'No special exclusion noted for this lane.'}
+                </Text>
               </Stack>
             </Paper>
           ))}

@@ -36,6 +36,39 @@ describe('playground theme explorer and live demos hub', () => {
     expect((screen.getByLabelText('Preset') as HTMLSelectElement).value).toBe('default');
   });
 
+  it('keeps brand controls disabled unless brand lane is selected', () => {
+    renderWithGds(<TokensPage />);
+
+    const presetSelect = screen.getByLabelText('Preset');
+    const primaryColorSelect = screen.getByLabelText('Brand primary color');
+    const flatSurfacesCheckbox = screen.getByLabelText('Use flat surfaces');
+    const editorialCheckbox = screen.getByLabelText('Use editorial serif headings');
+
+    expect((primaryColorSelect as HTMLSelectElement).disabled).toBe(true);
+    expect((flatSurfacesCheckbox as HTMLInputElement).disabled).toBe(true);
+    expect((editorialCheckbox as HTMLInputElement).disabled).toBe(true);
+
+    fireEvent.change(presetSelect, { target: { value: 'brand' } });
+
+    expect((primaryColorSelect as HTMLSelectElement).disabled).toBe(false);
+    expect((flatSurfacesCheckbox as HTMLInputElement).disabled).toBe(false);
+    expect((editorialCheckbox as HTMLInputElement).disabled).toBe(false);
+
+    fireEvent.change(presetSelect, { target: { value: 'default' } });
+
+    expect((primaryColorSelect as HTMLSelectElement).disabled).toBe(true);
+    expect((flatSurfacesCheckbox as HTMLInputElement).disabled).toBe(true);
+    expect((editorialCheckbox as HTMLInputElement).disabled).toBe(true);
+  });
+
+  it('shows supported and avoid guidance for each shipped lane', () => {
+    renderWithGds(<TokensPage />);
+
+    expect(screen.getAllByText(/Best for:/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Avoid for:/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Creator-Authored Experience Boundary').length).toBeGreaterThan(0);
+  });
+
   it('forces the dark public lane to preview in dark mode even if light is selected', () => {
     renderWithGds(<TokensPage />);
 
