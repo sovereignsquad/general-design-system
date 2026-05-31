@@ -981,6 +981,34 @@ export function PatternFamilyPage({ family }: { family: PatternFamily }) {
         { label: meta.title },
       ]}
     >
+      <ReferenceSection
+        title="How to use this family"
+        description="Use docs routes for policy and usage guidance, then validate behavior against live demos where interaction/runtimes are relevant."
+      >
+        <ReferenceLinkGrid
+          columns={3}
+          items={[
+            {
+              id: 'install-path',
+              title: 'Install path',
+              description: 'Use the canonical package and provider setup before adopting patterns locally.',
+              href: '/general-design-system/install',
+            },
+            {
+              id: 'governance-rules',
+              title: 'Governance rules',
+              description: 'Review strict adoption boundaries, exceptions, and deletion expectations.',
+              href: '/general-design-system/governance',
+            },
+            {
+              id: 'live-runtime-proof',
+              title: 'Live runtime proof',
+              description: 'Use live demo routes to verify runtime behavior, not just static documentation copy.',
+              href: '/general-design-system/live-demos',
+            },
+          ]}
+        />
+      </ReferenceSection>
       {Object.entries(groupedEntries).map(([section, sectionEntries]) => (
         <ReferenceSection
           key={section}

@@ -66,6 +66,8 @@ describe('playground pattern registry', () => {
       expect(screen.getAllByRole('heading', { level: 1 }).length).toBeGreaterThan(0);
       expect(screen.getAllByRole('heading').length).toBeGreaterThan(3);
       expect(screen.getAllByRole('link').length).toBeGreaterThan(0);
+      expect(screen.getByText('How to use this family')).toBeTruthy();
+      expect(screen.getByText('Live runtime proof')).toBeTruthy();
       unmount();
     }
   });

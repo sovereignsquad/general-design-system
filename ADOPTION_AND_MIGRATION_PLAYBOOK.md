@@ -163,6 +163,40 @@ If direct package adoption fails:
 3. document the blocked contract or entrypoint in the local adapter
 4. do not keep both the broken new contract and the restored legacy path active beyond the recovery window
 
+## 7.1 Surface presentation migration
+
+When replacing local state/panel wrappers, migrate to the shared presentation contract directly in `StateBlock` and `SectionPanel`.
+
+Supported modes:
+
+- `inline` for default in-flow surfaces
+- `centered` for bounded loading/empty/error composition
+- `fill` for panel-body or region-fill state presentation
+
+Canonical replacement direction:
+
+1. replace local `LoadingState` / `ErrorState` wrappers with `StateBlock` + presentation props
+2. replace local `SectionCard`/panel-body alignment wrappers with `SectionPanel` + presentation props
+3. keep `minHeight` on the canonical surface instead of parent layout wrappers
+
+Example:
+
+```tsx
+<SectionPanel title="Catalog" presentation="fill" minHeight={320} contentAlign="center" contentJustify="center">
+  <StateBlock
+    variant="loading"
+    title="Loading catalog"
+    description="Retrieving governed listing data"
+    presentation="centered"
+    minHeight={240}
+  />
+</SectionPanel>
+```
+
+Migration acceptance rule:
+
+- if a wrapper exists only to center/size state or panel-body content, it must be removed in favor of `inline` / `centered` / `fill` on GDS primitives.
+
 ## 8. Documentation Requirements
 
 Every adopter must maintain:

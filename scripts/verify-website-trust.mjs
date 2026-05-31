@@ -1,0 +1,53 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+const root = process.cwd();
+
+const appSource = readFileSync(resolve(root, 'apps/playground/src/App.tsx'), 'utf8');
+const routesSource = readFileSync(resolve(root, 'apps/playground/src/site-routes.ts'), 'utf8');
+const infoPagesSource = readFileSync(resolve(root, 'apps/playground/src/info-pages.tsx'), 'utf8');
+const showcaseSource = readFileSync(resolve(root, 'apps/playground/src/showcase-pages.tsx'), 'utf8');
+
+const failures = [];
+
+const requiredPrimaryLabels = [
+  "label: 'What Is GDS'",
+  "label: 'Install'",
+  "label: 'Patterns'",
+  "label: 'Themes'",
+  "label: 'Governance'",
+  "label: 'Live Demos'",
+  "label: 'Request Feature'",
+];
+
+for (const label of requiredPrimaryLabels) {
+  if (!routesSource.includes(label)) {
+    failures.push(`Missing required primary navigation label in site-routes.ts: ${label}`);
+  }
+}
+
+if (!appSource.includes('Full website copy is still being localized')) {
+  failures.push('Locale honesty disclosure is missing from App.tsx.');
+}
+
+if (!showcaseSource.includes('public runtime showcase')) {
+  failures.push('Live demos page must explicitly frame itself as public runtime showcase.');
+}
+
+if (!infoPagesSource.includes('This website is both the public product site and the live runtime proof')) {
+  failures.push('Overview page must keep explicit live-demo framing in info-pages.tsx.');
+}
+
+if (!infoPagesSource.includes('<ReferenceThemeExplorer />')) {
+  failures.push('Themes page must render ReferenceThemeExplorer as the canonical interactive surface.');
+}
+
+if (failures.length > 0) {
+  console.error('Website trust verification failed:');
+  for (const failure of failures) {
+    console.error(`- ${failure}`);
+  }
+  process.exit(1);
+}
+
+console.log('Website trust verification passed.');
