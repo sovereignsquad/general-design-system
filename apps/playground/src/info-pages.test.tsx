@@ -56,4 +56,13 @@ describe('playground overview page', () => {
     renderWithGds(<TokensPage />, { locale: 'de' });
     expect(screen.getByText('Offizieller Theme-Explorer')).toBeTruthy();
   });
+
+  it('renders additional fully-covered locales for install and overview', () => {
+    const { unmount } = renderWithGds(<InstallPage />, { locale: 'it' });
+    expect(screen.getByRole('heading', { name: 'Installare GDS' })).toBeTruthy();
+    unmount();
+
+    renderWithGds(<OverviewPage />, { locale: 'hu' });
+    expect(screen.getByText('Hivatalos referencia és élő demó')).toBeTruthy();
+  });
 });

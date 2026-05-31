@@ -6,19 +6,19 @@ export interface LocalizedRouteCoverageRule {
 export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
   {
     routePrefix: '/',
-    fullCopyLocales: ['en', 'de', 'fr'],
+    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
   },
   {
     routePrefix: '/install',
-    fullCopyLocales: ['en', 'de', 'fr'],
+    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
   },
   {
     routePrefix: '/governance',
-    fullCopyLocales: ['en', 'de', 'fr'],
+    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
   },
   {
     routePrefix: '/themes',
-    fullCopyLocales: ['en', 'de', 'fr'],
+    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
   },
 ];
 

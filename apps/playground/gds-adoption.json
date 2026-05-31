@@ -108,7 +108,12 @@
         "fullCopyLocales": [
           "en",
           "de",
-          "fr"
+          "fr",
+          "it",
+          "ru",
+          "he",
+          "ar",
+          "hu"
         ]
       },
       {
@@ -116,7 +121,12 @@
         "fullCopyLocales": [
           "en",
           "de",
-          "fr"
+          "fr",
+          "it",
+          "ru",
+          "he",
+          "ar",
+          "hu"
         ]
       },
       {
@@ -124,7 +134,12 @@
         "fullCopyLocales": [
           "en",
           "de",
-          "fr"
+          "fr",
+          "it",
+          "ru",
+          "he",
+          "ar",
+          "hu"
         ]
       },
       {
@@ -132,7 +147,12 @@
         "fullCopyLocales": [
           "en",
           "de",
-          "fr"
+          "fr",
+          "it",
+          "ru",
+          "he",
+          "ar",
+          "hu"
         ]
       }
     ],
