@@ -101,6 +101,8 @@ When those fields are present, `gds-compliance` will flag:
 - direct consumer `extendGdsTheme(...)` usage
 - local Mantine theme construction in declared theme-ownership files that bypasses the approved GDS lanes
 
+The output must name the offending theme ownership file and provide an approved remediation path. A valid failure should point the team back to shipped lanes such as `gdsTheme`, `gdsDarkPublicTheme`, `gdsFlatSurfaceTheme`, `gdsEditorialPublicTheme`, or `createPublicBrandTheme(...)`.
+
 For identity-provider branding governance, declare a dedicated policy block:
 
 ```json

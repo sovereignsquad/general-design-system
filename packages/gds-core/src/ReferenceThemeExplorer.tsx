@@ -94,6 +94,24 @@ const themePresetCatalog: Record<
   },
 };
 
+const colorSchemeProof = [
+  {
+    id: 'light',
+    label: 'Light',
+    description: 'Validates readable default surfaces, controls, badges, and focus states against light backgrounds.',
+  },
+  {
+    id: 'dark',
+    label: 'Dark',
+    description: 'Validates contrast for public, operational, and feedback surfaces when dark mode is active.',
+  },
+  {
+    id: 'auto',
+    label: 'Auto',
+    description: 'Documents the adopter path for OS-controlled schemes while keeping the provider contract unchanged.',
+  },
+] as const;
+
 function ThemePreviewSurface({
   preset,
   colorScheme,
@@ -119,6 +137,9 @@ function ThemePreviewSurface({
             </Text>
             <Text size="sm">
               <strong>Color scheme:</strong> {colorScheme}
+            </Text>
+            <Text size="sm">
+              <strong>Accessibility proof:</strong> status uses text, badge label, and placement, not color alone.
             </Text>
             {forcedScheme ? (
               <Text size="sm" c="dimmed">
@@ -163,6 +184,7 @@ function ThemePreviewSurface({
             metadata={[
               { id: 'runtime', label: 'Runtime lane', value: preset.themeKey },
               { id: 'scheme', label: 'Color scheme', value: colorScheme },
+              { id: 'focus', label: 'A11y proof', value: 'Keyboard + readable states' },
             ]}
             primaryAction={<Button size="sm">Inspect route</Button>}
           />
@@ -290,7 +312,7 @@ export function ReferenceThemeExplorer() {
           </Paper>
 
           <Paper withBorder radius="xl" p="lg">
-            <Stack gap="md">
+            <Stack gap="md" role="status" aria-live="polite">
               <Title order={4}>Current selection summary</Title>
               <Stack gap={6}>
                 <Text fw={700}>{selectionSummary.label}</Text>
@@ -364,6 +386,27 @@ export function ReferenceThemeExplorer() {
       </ReferenceSection>
 
       <ReferenceSection
+        title="Light, dark, and auto proof"
+        description="Every official lane must remain usable across explicit light, explicit dark, and OS-controlled auto modes. The dark-public lane is intentionally forced to dark in preview to preserve its contrast contract."
+      >
+        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
+          {colorSchemeProof.map((item) => (
+            <Paper key={item.id} withBorder radius="lg" p="md">
+              <Stack gap={6}>
+                <Badge variant="light" color={item.id === 'dark' ? 'violet' : item.id === 'auto' ? 'teal' : 'blue'} w="fit-content">
+                  {item.label}
+                </Badge>
+                <Text size="sm">{item.description}</Text>
+                <Text size="xs" c="dimmed">
+                  Required proof: semantic text, visible focus, and contrast-safe state treatment.
+                </Text>
+              </Stack>
+            </Paper>
+          ))}
+        </SimpleGrid>
+      </ReferenceSection>
+
+      <ReferenceSection
         title="Live Theme Preview"
         description="Visitors can test the shipped presets, compare lanes, and inspect actual GDS surfaces under each theme."
       >
@@ -403,16 +446,36 @@ export function ReferenceThemeExplorer() {
       </ReferenceSection>
 
       <ReferenceSection
-        title="Creator-Authored Experience Boundary"
-        description="Creator-authored expression is allowed only through the sanctioned theme helpers and narrow exception process."
+        title="Unsupported lane boundary"
+        description="Unsupported local theme lanes are blocked by policy and compliance because they create parallel design-system authority."
         tone="supporting"
       >
-        <StateBlock
-          variant="info"
-          title="Shipped first, custom second"
-          description="The official site uses shipped presets and the public brand generator first. Product-authored overrides must stay reviewable, testable, and scoped."
-          compact
-        />
+        <Stack gap="md">
+          <StateBlock
+            variant="permission"
+            title="Do not create local branding-layer helpers"
+            description="If a consumer needs brand expression, use createPublicBrandTheme(...). If a lane is missing, request it for GDS instead of building extendGdsTheme(...), createTheme(...), or mergeMantineTheme(...) ownership locally."
+            compact
+          />
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+            <Paper withBorder radius="lg" p="md">
+              <Stack gap={6}>
+                <Text fw={700} size="sm">
+                  Approved remediation
+                </Text>
+                <Code block>createPublicBrandTheme({`{ flatSurfaces: true, overrides: { primaryColor: 'blue' } }`})</Code>
+              </Stack>
+            </Paper>
+            <Paper withBorder radius="lg" p="md">
+              <Stack gap={6}>
+                <Text fw={700} size="sm">
+                  Prohibited ownership
+                </Text>
+                <Code block>extendGdsTheme(...) / createTheme(...) / mergeMantineTheme(...)</Code>
+              </Stack>
+            </Paper>
+          </SimpleGrid>
+        </Stack>
       </ReferenceSection>
     </Stack>
   );

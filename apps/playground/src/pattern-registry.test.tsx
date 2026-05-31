@@ -77,7 +77,7 @@ describe('playground pattern registry', () => {
 
     expect(screen.getByText('Theme Lab')).toBeTruthy();
     expect(screen.getByText('Live Theme Preview')).toBeTruthy();
-    expect(screen.getByText('Creator-Authored Experience Boundary')).toBeTruthy();
+    expect(screen.getByText('Unsupported lane boundary')).toBeTruthy();
     expect(screen.getAllByLabelText('Preset').length).toBeGreaterThan(0);
     expect(screen.getAllByLabelText('Preview color scheme').length).toBeGreaterThan(0);
     expect(screen.getByRole('link', { name: 'Open theme governance' })).toBeTruthy();

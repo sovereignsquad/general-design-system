@@ -51,6 +51,7 @@ import { StateBlock } from './StateBlock';
 import { StatsSection } from './StatsSection';
 import { StatusBadge } from './StatusBadge';
 import { ThemeToggle } from './ThemeToggle';
+import { ReferenceThemeExplorer } from './ReferenceThemeExplorer';
 import { UploadDropzone } from './UploadDropzone';
 import { resolveSurfacePresentationStyles } from './SurfacePresentation';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
@@ -1014,6 +1015,31 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     await user.click(toggle);
     expect(document.documentElement.getAttribute('data-mantine-color-scheme')).toBe('light');
+  });
+
+  it('renders the reference theme explorer with all official lanes and recovery guidance', async () => {
+    const user = userEvent.setup();
+
+    renderWithGds(<ReferenceThemeExplorer />);
+
+    expect(screen.getByText('Theme Lab')).toBeInTheDocument();
+    expect(screen.getAllByText('gdsTheme').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('gdsDarkPublicTheme').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('gdsFlatSurfaceTheme').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('gdsEditorialPublicTheme').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('createPublicBrandTheme(...)').length).toBeGreaterThan(0);
+    expect(screen.getByText('Light, dark, and auto proof')).toBeInTheDocument();
+    expect(screen.getByText('Unsupported lane boundary')).toBeInTheDocument();
+
+    await user.selectOptions(screen.getByLabelText('Preset'), 'brand');
+    await user.selectOptions(screen.getByLabelText('Brand primary color'), 'teal');
+    expect(screen.getAllByText('Brand theme generator').length).toBeGreaterThan(0);
+
+    await user.click(screen.getByLabelText('Compare against a second shipped preset'));
+    expect(screen.getByText('Comparison Preview Surface')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Reset theme lab' }));
+    expect(screen.getAllByText('Default runtime theme').length).toBeGreaterThan(0);
   });
 
   it('forwards chosen files from the shared upload dropzone', async () => {

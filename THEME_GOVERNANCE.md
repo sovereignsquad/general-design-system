@@ -170,3 +170,15 @@ Rules:
 - the live token/theme lab at `https://sovereignsquad.github.io/general-design-system/themes` is the public reference surface for testing these shipped preset lanes interactively
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
 - `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.
+
+## 3.0.0 theme explorer proof contract
+
+The GitHub Pages theme route must prove all approved lanes before the 3.0.0 release:
+
+- preset selection for `gdsTheme`, `gdsDarkPublicTheme`, `gdsFlatSurfaceTheme`, `gdsEditorialPublicTheme`, and `createPublicBrandTheme(...)`
+- light, dark, and auto color-scheme proof copy
+- comparison mode between two shipped lanes
+- reset behavior that returns to the baseline `gdsTheme` lane
+- explicit unsupported-lane guidance that explains why `extendGdsTheme(...)`, `createTheme(...)`, and `mergeMantineTheme(...)` are prohibited in consumer-owned theme files
+
+If any lane regresses contrast or keyboard/focus visibility, block the release and keep consumers on the previous stable package line until the lane is fixed.

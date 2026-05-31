@@ -291,6 +291,10 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
 
     const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
     expect(report.findings.map((finding) => finding.rule)).toContain('theme.noncanonical-extend-helper');
+    const finding = report.findings.find((item) => item.rule === 'theme.noncanonical-extend-helper');
+    expect(finding.message).toContain('src/providers.tsx');
+    expect(finding.message).toContain('gdsTheme');
+    expect(finding.message).toContain('createPublicBrandTheme');
   });
 
   it('passes canonical theme ownership when the repo uses approved shipped lanes', () => {
@@ -368,6 +372,9 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
 
     const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
     expect(report.findings.map((finding) => finding.rule)).toContain('theme.parallel-branding-layer');
+    const finding = report.findings.find((item) => item.rule === 'theme.parallel-branding-layer');
+    expect(finding.message).toContain('src/theme.ts');
+    expect(finding.message).toContain('createPublicBrandTheme(...)');
   });
 
   it('flags SocialAuthButtons providers that are not in identity branding policy', () => {

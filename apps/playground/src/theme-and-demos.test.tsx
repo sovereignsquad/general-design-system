@@ -66,7 +66,8 @@ describe('playground theme explorer and live demos hub', () => {
 
     expect(screen.getAllByText(/Best for:/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Avoid for:/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Creator-Authored Experience Boundary').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Unsupported lane boundary').length).toBeGreaterThan(0);
+    expect(screen.getByText(/Do not create local branding-layer helpers/i)).toBeTruthy();
   });
 
   it('forces the dark public lane to preview in dark mode even if light is selected', () => {
