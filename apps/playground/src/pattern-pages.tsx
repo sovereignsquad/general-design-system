@@ -6,6 +6,7 @@ import {
   ArticleShell,
   AuthShell,
   BrowseSurface,
+  ChartTokenPanel,
   CtaButtonGroup,
   ChoiceChip,
   ConfirmDialog,
@@ -21,6 +22,7 @@ import {
   EditorialCard,
   EditorialHero,
   EmptyState,
+  EvidencePanel,
   FeatureBand,
   FilterDrawer,
   FoodMenuSection,
@@ -33,6 +35,7 @@ import {
   MediaField,
   MetricCard,
   PlaybackSurface,
+  PeriodSelector,
   PlaceholderPanel,
   ProgressCard,
   ProductCard,
@@ -47,6 +50,7 @@ import {
   ReferenceLocaleNotice,
   ReferenceSection,
   ReferenceThemeExplorer,
+  ReportingSection,
   SectionPanel,
   SemanticButton,
   ShareButtonGroup,
@@ -1001,6 +1005,69 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <EmptyState title="Nothing to show yet" description="Compatibility empty state remains visible in the catalog." action={<SemanticButton action="add" />} />;
     case 'stats-sections':
       return <StatsSection title="Threshold-aware statistics" belowThreshold thresholdMessage="Not enough data yet for this report." />;
+    case 'reporting-contracts':
+      return (
+        <ReportingSection
+          title="Operational evidence report"
+          description="A governed reporting section keeps period controls, metrics, chart summaries, evidence, and fallback tables in one predictable flow."
+          state="partial"
+          stateMessage="Two locations are missing from this period. The visible aggregate remains usable but must be disclosed."
+          periodControl={(
+            <PeriodSelector
+              label="Reporting period"
+              description="Use a canonical period control before inventing date-range chrome."
+              value="last-30"
+              timezone="Europe/Budapest"
+              scope="All restaurants"
+              filtered
+              stale
+              helperText="The consumer owns fetching and timezone math; GDS owns visible control structure."
+              options={[
+                { value: 'last-7', label: 'Last 7 days', description: 'Short-term operational view.' },
+                { value: 'last-30', label: 'Last 30 days', description: 'Default board reporting view.' },
+                { value: 'quarter', label: 'Quarter to date', description: 'Strategic planning view.' },
+              ]}
+            />
+          )}
+          metrics={(
+            <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))' }}>
+              <MetricCard label="Orders" value="1,240" description="Visible aggregate." trend={{ label: '+8%', tone: 'positive' }} />
+              <ProgressCard label="Evidence coverage" value="18 / 20" progress={90} progressLabel="Reporting sources" />
+            </div>
+          )}
+          chart={(
+            <ChartTokenPanel
+              title="Orders by channel"
+              description="Chart wrappers must provide text summaries, tokenized legends, and table fallback."
+              summary="Online orders account for 62 percent of visible orders; in-store orders account for 38 percent."
+              state="permission-limited"
+              legend={[
+                { label: 'Online', token: 'var(--mantine-color-blue-6)' },
+                { label: 'In-store', token: 'var(--mantine-color-teal-6)' },
+              ]}
+              tableFallback={(
+                <SimpleDataTable
+                  columns={[{ key: 'channel', header: 'Channel' }, { key: 'share', header: 'Share' }]}
+                  rows={[{ channel: 'Online', share: '62%' }, { channel: 'In-store', share: '38%' }]}
+                />
+              )}
+            />
+          )}
+          evidence={(
+            <EvidencePanel
+              title="Evidence trail"
+              description="Evidence panels disclose source, freshness, confidence, count, and access limitations."
+              source="Point-of-sale export"
+              freshness="Updated 12 minutes ago"
+              confidence="High"
+              evidenceCount={18}
+              state="permission-limited"
+              permissionNote="Private customer-level evidence is intentionally hidden from this aggregate."
+              retryAction={<button type="button">Refresh evidence</button>}
+            />
+          )}
+        />
+      );
     case 'alerts':
       return <StateBlock variant="error" compact title="Error guidance" description="Governed alert surfaces always include action context." />;
     case 'loaders-skeletons':

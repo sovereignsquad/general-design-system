@@ -59,6 +59,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Accent Panels** | Accent and emphasis surfaces must remain readable in light, dark, and auto color schemes through the shared accent contract, not raw tone-0 backgrounds. | `md` |
 | **Metric Cards** | Prominent value, readable label, optional trend/status. Analytics may not outrank next action or urgent exceptions on mobile. | `md` |
 | **Data Toolbars** | Search, filters, sort, reset, and create actions in predictable order. Active filters visible and removable. | `md` |
+| **Reporting Contracts** | Reporting-heavy workflows must use governed period controls, evidence/source panels, chart-token wrappers, text summaries, and table fallbacks. | `lg` |
 | **State Blocks** | Loading, empty, error, permission, disabled, and success states must explain the state and provide the next action where possible. | `md` |
 | **Surface Presentation** | Shared bounded layout contract for canonical state and panel surfaces using `inline`, `centered`, and `fill` modes with controlled min-height and alignment. | `md` |
 | **Discovery Shell** | Canonical sidebar-first shell with header, sidebar, main, mobile drawer collapse, optional footer nav, and sticky navigation behavior. | `xl` |
@@ -134,6 +135,10 @@ The following families are mandatory local contracts when a project has the corr
 | **Food Menu Section** | Product presents grouped weekly menus, category menus, or preorder collections | grouped headings, section notes, category helper notes, governed item grids, empty menu handling |
 | **Public Product Card** | Product has media-first menu, catalog, offer, or discovery cards | image treatment, price/helper hierarchy, availability states, localized helper labels, one mobile primary action, missing-image/loading behavior |
 | **Metric / Progress Card** | Product shows repeated stats or progress | value hierarchy, label rules, trend/status rules, mobile priority |
+| **Reporting Section** | Product has analytics, evidence, dashboard, KPI, or period-scoped reporting surfaces | period/scope control, metrics, evidence, chart summary, table fallback, partial/stale/permission-limited states |
+| **Period Selector** | Product lets users change reporting period, scope, or freshness windows | timezone disclosure, selected period description, filtered/stale state, disabled/error handling |
+| **Evidence Panel** | Product shows proof behind metrics, claims, reports, or moderation/audit decisions | source, freshness, confidence, evidence count, permission disclosure, retry action |
+| **Chart Token Panel** | Product renders charts or sanctioned third-party visualization surfaces | text summary, non-color-only legend, GDS token mapping, empty/error/below-threshold states, accessible table fallback |
 | **Data Toolbar / Responsive Data View** | Product has admin/editor/search/list workflows | search, filters, sort, reset, create, desktop table strategy, mobile fallback |
 | **ActionBar** | Product has repeated action rows, save bars, CTA clusters, or semantic button stacks | primary/secondary/tertiary priority, icon-only lane, mobile wrapping, loading/disabled states |
 | **Auth Shell** | Product has login, signup, account linking, consent, or guest entry | auth actions, error placement, provider branding, anonymous/guest behavior |
@@ -188,6 +193,31 @@ Supported `MediaField` states:
 | `readonly` | Asset is visible but not editable | Suppress edit controls and keep preview/value/policy visible |
 
 `UploadDropzone` is the canonical selection/drop surface. It owns keyboard file selection, drag state, selected-file summary, error/status/policy presentation, accepted-type and max-size guidance, retry/remove action slots, and readonly/disabled presentation. It must never own network transport, storage mutation, hidden retries, or timeouts. Consumers pass structured state (`upload-pending`, `upload-failed`, `unsupported-type`, `too-large`, `readonly`) from their runtime and wire retry/timeout behavior through explicit action slots.
+
+### Reporting, Evidence, and Chart Rules
+
+Reporting surfaces must not present charts or KPIs without proof context. Use `ReportingSection` as the top-level composition when a page combines period controls, metrics, charting, evidence, and fallback data. Use `PeriodSelector` for period/scope changes, `EvidencePanel` for source/freshness/confidence disclosure, and `ChartTokenPanel` for chart containment.
+
+Required reporting states:
+
+| State | Meaning | Required UX |
+|---|---|---|
+| `loading` | Report data is synchronizing | Show explicit loading text; do not leave blank charts |
+| `below-threshold` | Privacy or quality threshold is not met | Hide sensitive aggregates and explain threshold behavior |
+| `partial` | Some sources are missing | Keep the report visible only with a partial-data disclosure |
+| `empty` | No records match the scope | Explain the empty scope and offer a next action where possible |
+| `error` | Report preparation failed | Show retry action slot; GDS does not fetch or retry |
+| `stale` | Data exists but is outside freshness expectations | Show freshness disclosure and refresh affordance where available |
+| `filtered` | User or policy filters affect the result | Keep active scope/filter context visible |
+| `permission-limited` | Access rules hide some evidence or rows | Explain what is hidden without leaking private data |
+
+Chart rules:
+
+- charts must include a text summary that communicates the main result without requiring visual interpretation
+- legends must use labels plus token names or semantic descriptions; color alone is not enough
+- charts must provide a table fallback for the underlying summarized data when the data is meaningful to inspect
+- GDS owns chart wrapper, state, legend, summary, and fallback placement; consumers own chart library choice, data fetching, retries, timeouts, and timezone math
+- external chart embeds remain exception surfaces unless wrapped in `ChartTokenPanel` or another sanctioned GDS chart wrapper
 
 ## 7. Semantic Vocabulary Extension Lane
 

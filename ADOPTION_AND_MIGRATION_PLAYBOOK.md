@@ -235,6 +235,27 @@ Rollback rule:
 
 - if storage integration fails, roll back only the product service/upload adapter and keep the GDS presentation contract in place unless the field itself breaks accessibility or form submission.
 
+## 7.3 Reporting, evidence, and chart migration
+
+When replacing local analytics/reporting wrappers, keep runtime ownership explicit:
+
+- GDS owns period-control placement, state disclosure, chart wrapper chrome, text summaries, non-color-only legends, evidence/source/freshness/confidence panels, retry action slots, and accessible fallback placement.
+- The consuming product owns data fetching, query retries, timeouts, timezone calculations, chart-library runtime, export generation, and permission filtering.
+- Do not keep a local `ReportPanel`, `EvidenceCard`, `ChartCard`, or `DateRangeToolbar` wrapper when it only duplicates `ReportingSection`, `EvidencePanel`, `ChartTokenPanel`, or `PeriodSelector`.
+
+Canonical replacement direction:
+
+1. wrap mixed reporting pages with `ReportingSection`
+2. replace local date/period selectors with `PeriodSelector`
+3. replace evidence/proof/source disclosures with `EvidencePanel`
+4. wrap charts or chart embeds with `ChartTokenPanel`
+5. provide a text summary and table fallback for charts that communicate decision-making data
+6. map product runtime states into `loading`, `below-threshold`, `partial`, `empty`, `error`, `stale`, `filtered`, and `permission-limited`
+
+Rollback rule:
+
+- if the chart engine or data service fails, roll back only the product chart/data adapter and keep `ReportingSection`, `ChartTokenPanel`, and `EvidencePanel` in place so the user still sees governed error or fallback states.
+
 ## 8. Documentation Requirements
 
 Every adopter must maintain:

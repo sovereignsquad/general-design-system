@@ -935,6 +935,17 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'StatsSection',
   },
   {
+    id: 'reporting-contracts',
+    title: 'Reporting Contracts',
+    docSection: 'Core Component Contracts',
+    family: 'data',
+    section: 'Search & Data Views',
+    coverageStatus: 'live-demo',
+    summary: 'Reporting-heavy workflows use governed period controls, evidence panels, chart-token wrappers, and fallback tables.',
+    importPath: '@doneisbetter/gds-core',
+    sourceComponent: 'ReportingSection / PeriodSelector / EvidencePanel / ChartTokenPanel',
+  },
+  {
     id: 'alerts',
     title: 'Alerts',
     docSection: 'Feedback & Messaging',

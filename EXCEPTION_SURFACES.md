@@ -52,15 +52,29 @@ Creator-authored experience exceptions must also remain non-authoritative:
 
 ## Chart surfaces
 
-The GDS does not currently own chart engines.
+The GDS does not own chart engines or data fetching, but it now owns the canonical chart containment path through `ChartTokenPanel` and the reporting composition path through `ReportingSection`.
 
-It does own:
+It owns:
 
-- chart container framing
-- surrounding page rhythm
-- loading, empty, error, and permission states
+- chart container framing through `ChartTokenPanel`
+- surrounding page rhythm through `ReportingSection`
+- period/scope control placement through `PeriodSelector`
+- source/freshness/confidence disclosure through `EvidencePanel`
+- loading, empty, error, below-threshold, partial, stale, filtered, and permission-limited states
 - summary-before-chart priority on mobile
-- export/action placement around analytics panels
+- non-color-only legend placement and GDS token mapping
+- accessible table fallback placement
+- retry/action slot presentation around analytics panels
+
+It does not own:
+
+- chart library runtime
+- data fetching or storage
+- retries/timeouts
+- timezone calculation
+- export file generation
+
+External chart libraries or embeds are valid only when wrapped in the sanctioned chart/reporting contract and recorded as exceptions if they need runtime behavior outside GDS.
 
 ## Map surfaces
 

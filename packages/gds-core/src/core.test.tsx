@@ -26,11 +26,14 @@ import { EditorialHero } from './EditorialHero';
 import { FeatureBand } from './FeatureBand';
 import { FoodMenuSection } from './FoodMenuSection';
 import { GameBoardTile } from './GameBoardTile';
+import { ChartTokenPanel } from './ChartTokenPanel';
+import { EvidencePanel } from './EvidencePanel';
 import { ListingCard } from './ListingCard';
 import { MapPanel } from './MapPanel';
 import { MediaField } from './MediaField';
 import { MetricCard } from './MetricCard';
 import { PageHeader } from './PageHeader';
+import { PeriodSelector } from './PeriodSelector';
 import { PlaceholderPanel } from './PlaceholderPanel';
 import { PlaybackSurface } from './PlaybackSurface';
 import { PublicFlowShell } from './PublicFlowShell';
@@ -52,6 +55,7 @@ import { StatsSection } from './StatsSection';
 import { StatusBadge } from './StatusBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { ReferenceThemeExplorer } from './ReferenceThemeExplorer';
+import { ReportingSection } from './ReportingSection';
 import { UploadDropzone } from './UploadDropzone';
 import { resolveSurfacePresentationStyles } from './SurfacePresentation';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
@@ -1143,6 +1147,76 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getByText('Need at least 5 submissions.')).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
     expect(screen.getByText('Northern Region')).toBeInTheDocument();
+  });
+
+  it('renders reporting controls, evidence, and chart-token panels with governed states', async () => {
+    const user = userEvent.setup();
+    const onPeriodChange = vi.fn();
+
+    renderWithGds(
+      <ReportingSection
+        title="Revenue report"
+        description="Canonical reporting composition with period, evidence, metrics, chart summary, and table fallback."
+        state="partial"
+        stateMessage="Two locations have not reported yet."
+        periodControl={(
+          <PeriodSelector
+            label="Reporting period"
+            value="last-30"
+            timezone="Europe/Budapest"
+            scope="All locations"
+            filtered
+            stale
+            helperText="Periods are evaluated in the selected timezone."
+            onChange={onPeriodChange}
+            options={[
+              { value: 'last-7', label: 'Last 7 days', description: 'Short-term operating window.' },
+              { value: 'last-30', label: 'Last 30 days', description: 'Default reporting window.' },
+            ]}
+          />
+        )}
+        metrics={(
+          <div>
+            <MetricCard label="Orders" value="1,240" description="Permission-safe aggregate." />
+          </div>
+        )}
+        chart={(
+          <ChartTokenPanel
+            title="Orders by channel"
+            summary="Online orders account for 62 percent of visible orders; in-store accounts for 38 percent."
+            state="permission-limited"
+            legend={[
+              { label: 'Online', token: 'var(--mantine-color-blue-6)' },
+              { label: 'In-store', token: 'var(--mantine-color-teal-6)' },
+            ]}
+            tableFallback={<SimpleDataTable columns={[{ key: 'channel', header: 'Channel' }, { key: 'share', header: 'Share' }]} rows={[{ channel: 'Online', share: '62%' }]} />}
+          />
+        )}
+        evidence={(
+          <EvidencePanel
+            title="Evidence trail"
+            source="Point-of-sale export"
+            freshness="Updated 12 minutes ago"
+            confidence="High"
+            evidenceCount={18}
+            state="permission-limited"
+            permissionNote="Private customer-level rows are hidden from this aggregate."
+          />
+        )}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Revenue report' })).toBeInTheDocument();
+    expect(screen.getByLabelText('Reporting period')).toBeInTheDocument();
+    expect(screen.getByText('Timezone: Europe/Budapest')).toBeInTheDocument();
+    expect(screen.getByText('Stale data')).toBeInTheDocument();
+    expect(screen.getByText('Partial report')).toBeInTheDocument();
+    expect(screen.getByText('Evidence: 18')).toBeInTheDocument();
+    expect(screen.getByText('Accessible data fallback')).toBeInTheDocument();
+    expect(screen.getByText('Online: var(--mantine-color-blue-6)')).toBeInTheDocument();
+
+    await user.selectOptions(screen.getByLabelText('Reporting period'), 'last-7');
+    expect(onPeriodChange).toHaveBeenCalledWith('last-7');
   });
 
   it('resolves accent surface styles and renders the shared accent panel contract', () => {
