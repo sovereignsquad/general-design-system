@@ -142,7 +142,7 @@ Required repository behavior:
 ## Validation Commands
 
 - `npm run verify:release` — checks release alignment, builds all packages/apps, verifies export boundaries, then runs lint, tests, and reference validation
-- `npm run verify:references` — validates reference consumers, adoption manifests, official `DocsShell` usage, SSOT pattern-catalog coverage, website trust/clarity checks, surface-presentation migration evidence, route-level locale coverage declarations, and canonical theme-governance lanes
+- `npm run verify:references` — validates reference consumers, adoption manifests, official `DocsShell` usage, SSOT pattern-catalog coverage, package export-to-pattern coverage, website trust/clarity checks, surface-presentation migration evidence, route-level locale coverage declarations, and canonical theme-governance lanes
 - `npm run audit:board` — audits the canonical GDS project board for issue-state/project-status drift and prints any open or mismatched items
   - CI note: if GitHub API rate limiting blocks board reads, the audit emits a warning and continues unless `GDS_BOARD_AUDIT_STRICT=1` is set
 - `npm run audit:board:strict` — runs the same project-board audit in fail-hard mode for local release sign-off and board normalization work

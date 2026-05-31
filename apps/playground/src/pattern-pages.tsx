@@ -20,13 +20,16 @@ import {
   DocsPageShell,
   EditorialCard,
   EditorialHero,
+  EmptyState,
   FeatureBand,
   FilterDrawer,
   FoodMenuSection,
   FormField,
+  GameBoardTile,
   GdsIcons,
   ListingCard,
   MapPanel,
+  MediaCard,
   MediaField,
   MetricCard,
   PlaybackSurface,
@@ -39,6 +42,7 @@ import {
   PublicNav,
   PublicProductCard,
   PublicShell,
+  PublicSiteFooter,
   ReferenceLinkGrid,
   ReferenceLocaleNotice,
   ReferenceSection,
@@ -56,21 +60,32 @@ import {
   UploadDropzone,
   ProviderIdentityButtonGroup,
   StatsSection,
+  ThemeToggle,
 } from '@doneisbetter/gds-core';
 import {
+  AppShell,
   ContentOpsActionBar,
   ContentOpsEditor,
   ContentOpsSection,
   DataTable,
+  EditorScaffold,
+  FormSection,
+  InfoCard,
   PageHeader,
   ReferenceSiteShell,
   ResponsiveDataView,
+  SemanticNavLink,
+  StatsStrip,
+  WorkspaceHeader,
 } from '@doneisbetter/gds-admin';
 import {
   getFamilyEntries,
+  patternRegistry,
   type PatternFamily,
   type PatternRegistryEntry,
 } from './pattern-registry';
+
+const catalogEntryCount = patternRegistry.length;
 
 const familyMeta: Record<PatternFamily, { title: string; description: string }> = {
   foundations: {
@@ -192,6 +207,24 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           primaryAction={<ActionBar primary={{ action: 'save' }} />}
         />
       );
+    case 'theme-toggle':
+      return (
+        <SectionPanel title="Theme toggle" description="Use the package-owned color-scheme control instead of local switches.">
+          <ThemeToggle />
+        </SectionPanel>
+      );
+    case 'form-field':
+      return (
+        <FormField label="Canonical field" description="Visible label, helper text, and error placement are owned by GDS." error="Example validation message">
+          <input aria-label="Canonical field" defaultValue="Reference value" />
+        </FormField>
+      );
+    case 'game-board-tile':
+      return (
+        <div style={{ width: 120 }}>
+          <GameBoardTile face="GDS" revealed matched={false} disabled={false} onPress={() => {}} />
+        </div>
+      );
     case 'sidebar-navigation':
       return (
         <SidebarNav ariaLabel="Pattern reference sidebar">
@@ -209,7 +242,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return (
         <ConsumerDashboardGrid columns={3}>
           <MetricCard label="Next action" value="Publish docs" description="Prioritize next action first." />
-          <ProgressCard label="Coverage" value="73 entries" progress={100} progressLabel="Pattern-site coverage" />
+          <ProgressCard label="Coverage" value={`${catalogEntryCount} entries`} progress={100} progressLabel="Pattern-site coverage" />
           <MetricCard label="Critical exceptions" value="0" description="Urgent errors should stay visible above broad analytics." />
         </ConsumerDashboardGrid>
       );
@@ -376,6 +409,17 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           primaryAction={<a href="/general-design-system/live-demos/surfaces">Buy</a>}
         />
       );
+    case 'media-card':
+      return (
+        <MediaCard
+          title="Media compatibility card"
+          description="Use only where the full PublicProductCard contract is not needed."
+          status="Compatibility"
+          image={<div style={{ aspectRatio: '16 / 9', background: 'linear-gradient(135deg, var(--mantine-color-blue-1), var(--mantine-color-teal-1))' }} />}
+          overlay={<StatusBadge status="info">Media</StatusBadge>}
+          actions={[{ label: 'Preview' }]}
+        />
+      );
     case 'accent-panels':
       return (
         <AccentPanel tone="violet" title="Accent band">
@@ -416,6 +460,17 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           contentJustify="center"
           compact
         />
+      );
+    case 'surface-presentation':
+      return (
+        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+          <SectionPanel title="Centered presentation" description="Shared presentation helper powers panel and state body alignment." presentation="centered" minHeight={220}>
+            <StateBlock variant="empty" title="Centered state" description="No local wrapper needed for body alignment." compact />
+          </SectionPanel>
+          <SectionPanel title="Fill presentation" description="Fill mode keeps bounded state surfaces stable." presentation="fill" minHeight={180}>
+            <p style={{ margin: 0 }}>Content fills the governed panel body without custom layout CSS.</p>
+          </SectionPanel>
+        </div>
       );
     case 'action-bar':
       return <ActionBar primary={{ action: 'save' }} secondary={[{ action: 'cancel' }]} tertiary={[{ action: 'preview' }]} iconOnly={[{ action: 'settings' }]} />;
@@ -716,6 +771,48 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           actionBar={<ContentOpsActionBar dirty actions={{ primary: { action: 'save' }, secondary: [{ action: 'refresh' }] }} />}
         />
       );
+    case 'admin-app-shell':
+      return (
+        <AppShell
+          logoText="Admin GDS"
+          primaryNavigation={<SemanticNavLink action="dashboard" href="/general-design-system/patterns/operations" active />}
+          secondaryNavigation={<SemanticNavLink action="settings" href="/general-design-system/patterns" />}
+          headerContext="Admin compatibility shell"
+          showThemeToggle={false}
+        >
+          <SectionPanel title="Admin shell content" description="AppShell is backed by DiscoveryShell and remains an admin compatibility path.">
+            <p style={{ margin: 0 }}>Use DiscoveryShell directly for new sidebar-first apps when possible.</p>
+          </SectionPanel>
+        </AppShell>
+      );
+    case 'editor-scaffold':
+      return (
+        <EditorScaffold
+          header={<WorkspaceHeader title="Editor scaffold" description="Header, form, preview, settings, and footer stay in one scaffold." />}
+          form={<FormSection title="Form" description="Canonical grouped editor body."><FormField label="Name"><input aria-label="Name" /></FormField></FormSection>}
+          preview={<SectionPanel title="Preview" description="Bounded preview rail."><p style={{ margin: 0 }}>Preview content</p></SectionPanel>}
+          settings={<SectionPanel title="Settings" description="Bounded settings rail."><p style={{ margin: 0 }}>Settings content</p></SectionPanel>}
+          footer={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'cancel' }] }} />}
+          stickyFooter
+        />
+      );
+    case 'form-section':
+      return (
+        <FormSection title="Publication settings" description="Use FormSection for grouped admin form content.">
+          <FormField label="Visibility"><select aria-label="Visibility"><option>Public</option></select></FormField>
+        </FormSection>
+      );
+    case 'workspace-header':
+      return (
+        <WorkspaceHeader
+          breadcrumbs={[<a href="/general-design-system/patterns" key="patterns">Patterns</a>, <span key="operations">Operations</span>]}
+          eyebrow="Workspace"
+          title="Operations workspace"
+          description="Governed workspace context and action placement."
+          primaryAction={<SemanticButton action="save" />}
+          secondaryActions={<SemanticButton action="preview" />}
+        />
+      );
     case 'section-panels':
       return (
         <SectionPanel
@@ -740,6 +837,12 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           actions={<button type="button">Contact</button>}
           legal="© General Design System"
         />
+      );
+    case 'public-site-footer':
+      return (
+        <PublicSiteFooter meta="Versioned public reference surface">
+          Lightweight public footer for simple site meta and legal copy.
+        </PublicSiteFooter>
       );
     case 'filter-drawer':
       return (
@@ -796,6 +899,55 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           getRowKey={(row) => row.id}
         />
       );
+    case 'admin-data-table':
+      return (
+        <DataTable
+          data={[
+            { id: '1', surface: 'Admin AppShell', status: 'Compatibility' },
+            { id: '2', surface: 'ResponsiveDataView', status: 'Canonical' },
+          ]}
+          columns={[
+            { key: 'surface', label: 'Surface' },
+            { key: 'status', label: 'Status' },
+          ]}
+          getRowKey={(row: Record<string, string>) => row.id}
+        />
+      );
+    case 'responsive-data-view':
+      return (
+        <ResponsiveDataView
+          data={[
+            { id: '1', surface: 'ListingCard', state: 'Live demo' },
+            { id: '2', surface: 'MapPanel', state: 'Live demo' },
+          ]}
+          columns={[
+            { key: 'surface', label: 'Surface' },
+            { key: 'state', label: 'State' },
+          ]}
+          activeFilters={[{ label: 'Live demo', onRemove: () => {} }]}
+          renderCard={(item) => (
+            <SectionPanel title={String(item.surface)} description={String(item.state)}>
+              <p style={{ margin: 0 }}>Card fallback is owned by the consumer slot, not the responsive contract.</p>
+            </SectionPanel>
+          )}
+          getRowKey={(row) => String(row.id)}
+        />
+      );
+    case 'stats-strip':
+      return <StatsStrip stats={[{ label: 'Routes', value: 8, diff: 12 }, { label: 'Exports', value: 92, diff: 4 }, { label: 'Mismatches', value: 0, diff: 0 }]} />;
+    case 'info-card':
+      return <InfoCard title="Coverage" value="Export tracked" description="Admin information card with governed emphasis." icon={<GdsIcons.Info size="1rem" />} />;
+    case 'semantic-nav-link':
+      return (
+        <SidebarNav ariaLabel="Semantic admin navigation">
+          <SidebarNavSection label="Semantic">
+            <SemanticNavLink action="dashboard" href="/general-design-system/patterns/data" active />
+            <SemanticNavLink action="settings" href="/general-design-system/patterns" />
+          </SidebarNavSection>
+        </SidebarNav>
+      );
+    case 'empty-state':
+      return <EmptyState title="Nothing to show yet" description="Compatibility empty state remains visible in the catalog." action={<SemanticButton action="add" />} />;
     case 'stats-sections':
       return <StatsSection title="Threshold-aware statistics" belowThreshold thresholdMessage="Not enough data yet for this report." />;
     case 'alerts':

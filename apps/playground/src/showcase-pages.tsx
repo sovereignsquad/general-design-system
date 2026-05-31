@@ -29,6 +29,9 @@ import {
   StatsSection,
 } from '@doneisbetter/gds-core';
 import { DataTable, PageHeader, ResponsiveDataView } from '@doneisbetter/gds-admin';
+import { patternRegistry } from './pattern-registry';
+
+const catalogEntryCount = patternRegistry.length;
 
 function DemoFooter() {
   return (
@@ -532,7 +535,7 @@ export function AnalyticsPage() {
     >
       <ReferenceSection title="Metric and progress surfaces" description="Shared metrics should remain readable, threshold-aware, and consistent across products.">
         <ConsumerDashboardGrid columns={3}>
-          <MetricCard label="Catalog coverage" value="73 entries" description="Pattern inventory shown on the public site." />
+          <MetricCard label="Catalog coverage" value={`${catalogEntryCount} entries`} description="Pattern inventory shown on the public site." />
           <ProgressCard label="Reference-site conversion" value="Strict consumer" progress={100} progressLabel="Current state" />
           <MetricCard label="npm line" value="2.6.7" description="Public package and docs release line." />
         </ConsumerDashboardGrid>
