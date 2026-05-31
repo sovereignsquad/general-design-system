@@ -311,122 +311,131 @@ export function RequestFeaturePage() {
 }
 
 export function OverviewPage() {
+  const { locale } = useGdsTranslation();
+  const copy = {
+    en: {
+      title: 'General Design System',
+      eyebrow: 'Official reference and live demo',
+      lead: 'One place to understand, install, test, and trust GDS. This website is both the public product site and the live runtime proof of the shipped design system.',
+      meta: ['Open source', 'npm-ready', 'Live demos'],
+      whatTitle: 'What GDS is',
+      whatDescription: 'GDS is a governed design-system platform for products that want predictable UI contracts, shared runtime behavior, and a clear path away from local wrappers and UI drift.',
+      whyTitle: 'Why GDS is useful',
+      whyDescription: 'GDS works best for teams that want fewer local decisions, stronger accessibility defaults, clearer migration targets, and measurable compliance.',
+      startTitle: 'Start here',
+      startDescription: 'The fastest route depends on what you need right now.',
+    },
+    de: {
+      title: 'General Design System',
+      eyebrow: 'Offizielle Referenz und Live-Demo',
+      lead: 'Ein zentraler Ort, um GDS zu verstehen, zu installieren, zu testen und zu vertrauen. Diese Website ist sowohl die öffentliche Produktseite als auch der Live-Runtime-Beweis des ausgelieferten Design-Systems.',
+      meta: ['Open Source', 'npm-bereit', 'Live-Demos'],
+      whatTitle: 'Was GDS ist',
+      whatDescription: 'GDS ist eine gesteuerte Design-System-Plattform für Produkte, die vorhersagbare UI-Verträge, gemeinsames Runtime-Verhalten und einen klaren Weg weg von lokalen Wrappern und UI-Drift benötigen.',
+      whyTitle: 'Warum GDS nützlich ist',
+      whyDescription: 'GDS ist ideal für Teams, die weniger lokale Einzelentscheidungen, stärkere Accessibility-Standards, klarere Migrationsziele und messbare Compliance wollen.',
+      startTitle: 'Hier starten',
+      startDescription: 'Der schnellste Einstieg hängt davon ab, was du jetzt brauchst.',
+    },
+    fr: {
+      title: 'General Design System',
+      eyebrow: 'Référence officielle et démo live',
+      lead: 'Un seul endroit pour comprendre, installer, tester et fiabiliser GDS. Ce site est à la fois la vitrine publique et la preuve runtime du design system livré.',
+      meta: ['Open source', 'prêt pour npm', 'Démos live'],
+      whatTitle: 'Ce qu’est GDS',
+      whatDescription: 'GDS est une plateforme de design system gouvernée pour les produits qui veulent des contrats UI prévisibles, un comportement runtime partagé et une sortie claire des wrappers locaux.',
+      whyTitle: 'Pourquoi GDS est utile',
+      whyDescription: 'GDS convient aux équipes qui veulent moins de décisions locales, de meilleurs standards d’accessibilité, des migrations plus claires et une conformité mesurable.',
+      startTitle: 'Commencer ici',
+      startDescription: 'Le chemin le plus rapide dépend de votre besoin immédiat.',
+    },
+  } as const;
+  const i18n = copy[locale as keyof typeof copy] ?? copy.en;
+
   return (
     <DocsPageShell
-      title="General Design System"
-      eyebrow="Official reference and live demo"
-      lead="One place to understand, install, test, and trust GDS. This website is both the public product site and the live runtime proof of the shipped design system."
+      title={i18n.title}
+      eyebrow={i18n.eyebrow}
+      lead={i18n.lead}
       meta={(
         <>
-          <span>Open source</span>
-          <span>npm-ready</span>
-          <span>Live demos</span>
+          {i18n.meta.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
         </>
       )}
     >
       <ReferenceSection
-        title="What GDS is"
-        description="GDS is a governed design-system platform for products that want predictable UI contracts, shared runtime behavior, and a clear path away from local wrappers and UI drift."
+        title={i18n.whatTitle}
+        description={i18n.whatDescription}
       >
         <FeatureBand
           columns={3}
-          items={[
-            {
-              id: 'what',
-              title: 'Reusable runtime contracts',
-              description: 'Shells, cards, action systems, auth, embeds, feedback, and detail surfaces ship as canonical primitives.',
-            },
-            {
-              id: 'why',
-              title: 'A faster path to consistency',
-              description: 'Teams adopt shipped contracts instead of recreating layout, button, and card patterns from scratch.',
-            },
-            {
-              id: 'proof',
-              title: 'This site is the live demo',
-              description: 'Visitors can inspect the actual shipped theme lanes, public patterns, and application surfaces directly on this website.',
-            },
+          items={locale === 'de' ? [
+            { id: 'what', title: 'Wiederverwendbare Runtime-Contracts', description: 'Shells, Karten, Aktionssysteme, Auth, Embeds, Feedback und Detailflächen werden als kanonische Primitives ausgeliefert.' },
+            { id: 'why', title: 'Schneller zu Konsistenz', description: 'Teams übernehmen ausgelieferte Contracts statt Layout-, Button- und Kartenmuster lokal neu zu bauen.' },
+            { id: 'proof', title: 'Diese Seite ist die Live-Demo', description: 'Besucher können die real ausgelieferten Theme-Lanes, öffentlichen Patterns und App-Flächen direkt hier prüfen.' },
+          ] : locale === 'fr' ? [
+            { id: 'what', title: 'Contrats runtime réutilisables', description: 'Shells, cartes, systèmes d’action, auth, embeds, feedback et surfaces détail sont livrés comme primitives canoniques.' },
+            { id: 'why', title: 'Un chemin plus rapide vers la cohérence', description: 'Les équipes adoptent les contrats livrés au lieu de recréer localement layouts, boutons et cartes.' },
+            { id: 'proof', title: 'Ce site est la démo live', description: 'Les visiteurs peuvent inspecter ici les lanes de thème, patterns publics et surfaces applicatives réellement livrés.' },
+          ] : [
+            { id: 'what', title: 'Reusable runtime contracts', description: 'Shells, cards, action systems, auth, embeds, feedback, and detail surfaces ship as canonical primitives.' },
+            { id: 'why', title: 'A faster path to consistency', description: 'Teams adopt shipped contracts instead of recreating layout, button, and card patterns from scratch.' },
+            { id: 'proof', title: 'This site is the live demo', description: 'Visitors can inspect the actual shipped theme lanes, public patterns, and application surfaces directly on this website.' },
           ]}
         />
       </ReferenceSection>
 
       <ReferenceSection
-        title="Why GDS is useful"
-        description="GDS works best for teams that want fewer local decisions, stronger accessibility defaults, clearer migration targets, and measurable compliance."
+        title={i18n.whyTitle}
+        description={i18n.whyDescription}
       >
         <FeatureBand
           columns={4}
           variant="compact"
-          items={[
-            {
-              id: 'predictable',
-              title: 'Predictable delivery',
-              description: 'Stable contracts reduce clarification overhead and keep implementation decisions reviewable.',
-            },
-            {
-              id: 'shared-quality',
-              title: 'Shared quality bar',
-              description: 'Accessibility, empty/loading/error states, and semantic actions are handled through reusable surfaces.',
-            },
-            {
-              id: 'ops-clarity',
-              title: 'Operational clarity',
-              description: 'Consumers can verify adoption with manifests, compliance tooling, and published migration guidance.',
-            },
-            {
-              id: 'public-trust',
-              title: 'Public trust',
-              description: 'The official site is built on the same system it promotes, so visitors can inspect real shipped behavior.',
-            },
+          items={locale === 'de' ? [
+            { id: 'predictable', title: 'Planbare Lieferung', description: 'Stabile Contracts senken Abstimmungsaufwand und halten Entscheidungen überprüfbar.' },
+            { id: 'shared-quality', title: 'Gemeinsamer Qualitätsmaßstab', description: 'Accessibility, Empty/Loading/Error-Zustände und semantische Aktionen werden über wiederverwendbare Flächen geliefert.' },
+            { id: 'ops-clarity', title: 'Operative Klarheit', description: 'Consumer können Adoption über Manifeste, Compliance-Tooling und veröffentlichte Migrationsleitfäden verifizieren.' },
+            { id: 'public-trust', title: 'Öffentliches Vertrauen', description: 'Die offizielle Seite nutzt dasselbe System, das sie empfiehlt, und zeigt dadurch reales Laufzeitverhalten.' },
+          ] : locale === 'fr' ? [
+            { id: 'predictable', title: 'Livraison prévisible', description: 'Des contrats stables réduisent le coût de clarification et gardent les décisions auditable.' },
+            { id: 'shared-quality', title: 'Barre qualité partagée', description: 'Accessibilité, états vide/chargement/erreur et actions sémantiques sont fournis via des surfaces réutilisables.' },
+            { id: 'ops-clarity', title: 'Clarté opérationnelle', description: 'Les équipes vérifient l’adoption avec manifestes, outillage conformité et guides de migration publiés.' },
+            { id: 'public-trust', title: 'Confiance publique', description: 'Le site officiel est construit avec le système qu’il promeut, ce qui expose le comportement réellement livré.' },
+          ] : [
+            { id: 'predictable', title: 'Predictable delivery', description: 'Stable contracts reduce clarification overhead and keep implementation decisions reviewable.' },
+            { id: 'shared-quality', title: 'Shared quality bar', description: 'Accessibility, empty/loading/error states, and semantic actions are handled through reusable surfaces.' },
+            { id: 'ops-clarity', title: 'Operational clarity', description: 'Consumers can verify adoption with manifests, compliance tooling, and published migration guidance.' },
+            { id: 'public-trust', title: 'Public trust', description: 'The official site is built on the same system it promotes, so visitors can inspect real shipped behavior.' },
           ]}
         />
       </ReferenceSection>
 
-      <ReferenceSection title="Start here" description="The fastest route depends on what you need right now.">
+      <ReferenceSection title={i18n.startTitle} description={i18n.startDescription}>
         <ReferenceLinkGrid
-          items={[
-            {
-              id: 'patterns',
-              title: 'Browse patterns',
-              description: 'See the documented pattern inventory grouped by foundations, public, operations, data, access, and feedback.',
-              href: '/general-design-system/patterns',
-              badge: 'Pattern catalog',
-            },
-            {
-              id: 'coverage',
-              title: 'Open coverage matrix',
-              description: 'Track component and pattern parity between documentation and live runtime routes.',
-              href: '/general-design-system/coverage',
-              badge: 'Parity matrix',
-            },
-            {
-              id: 'themes',
-              title: 'Explore themes',
-              description: 'Test the shipped presets and the governed brand-theme generator in the live theme lab.',
-              href: '/general-design-system/themes',
-              badge: 'Theme explorer',
-            },
-            {
-              id: 'install',
-              title: 'Install GDS',
-              description: 'Copy the npm commands, provider setup, and verification contract used by real adopters.',
-              href: '/general-design-system/install',
-              badge: 'npm',
-            },
-            {
-              id: 'demos',
-              title: 'Open live demos',
-              description: 'Inspect runtime surfaces for shells, cards, auth, actions, food, playback, and analytics.',
-              href: '/general-design-system/live-demos',
-              badge: 'Live demos',
-            },
-            {
-              id: 'governance',
-              title: 'Read governance',
-              description: 'Understand strict mode, approved exceptions, and the rule that reusable needs belong in GDS rather than local app code.',
-              href: '/general-design-system/governance',
-              badge: 'Rulebook',
-            },
+          items={locale === 'de' ? [
+            { id: 'patterns', title: 'Patterns durchsuchen', description: 'Sieh das dokumentierte Pattern-Inventar nach Foundations, Public, Operations, Data, Access und Feedback.', href: '/general-design-system/patterns', badge: 'Pattern-Katalog' },
+            { id: 'coverage', title: 'Coverage-Matrix öffnen', description: 'Verfolge die Parität von Komponenten und Patterns zwischen Doku und Live-Routen.', href: '/general-design-system/coverage', badge: 'Paritätsmatrix' },
+            { id: 'themes', title: 'Themes erkunden', description: 'Teste ausgelieferte Presets und den gesteuerten Brand-Theme-Generator im Live-Lab.', href: '/general-design-system/themes', badge: 'Theme-Explorer' },
+            { id: 'install', title: 'GDS installieren', description: 'Übernimm npm-Befehle, Provider-Setup und Verifikationsvertrag aus realen Adopter-Pfaden.', href: '/general-design-system/install', badge: 'npm' },
+            { id: 'demos', title: 'Live-Demos öffnen', description: 'Prüfe Runtime-Flächen für Shells, Karten, Auth, Aktionen, Food, Playback und Analytics.', href: '/general-design-system/live-demos', badge: 'Live-Demos' },
+            { id: 'governance', title: 'Governance lesen', description: 'Verstehe Strict Mode, freigegebene Ausnahmen und die Regel, dass Wiederverwendbares in GDS gehört.', href: '/general-design-system/governance', badge: 'Regelwerk' },
+          ] : locale === 'fr' ? [
+            { id: 'patterns', title: 'Parcourir les patterns', description: 'Consultez l’inventaire documenté par familles foundations, public, operations, data, access et feedback.', href: '/general-design-system/patterns', badge: 'Catalogue patterns' },
+            { id: 'coverage', title: 'Ouvrir la matrice de couverture', description: 'Suivez la parité composants/patterns entre documentation et routes runtime.', href: '/general-design-system/coverage', badge: 'Matrice de parité' },
+            { id: 'themes', title: 'Explorer les thèmes', description: 'Testez les presets livrés et le générateur de thème de marque gouverné dans le labo live.', href: '/general-design-system/themes', badge: 'Explorateur de thèmes' },
+            { id: 'install', title: 'Installer GDS', description: 'Copiez les commandes npm, le setup provider et le contrat de vérification utilisés par les adopteurs réels.', href: '/general-design-system/install', badge: 'npm' },
+            { id: 'demos', title: 'Ouvrir les démos live', description: 'Inspectez les surfaces runtime pour shells, cartes, auth, actions, food, playback et analytics.', href: '/general-design-system/live-demos', badge: 'Démos live' },
+            { id: 'governance', title: 'Lire la gouvernance', description: 'Comprenez le mode strict, les exceptions approuvées et la règle qui impose les besoins réutilisables dans GDS.', href: '/general-design-system/governance', badge: 'Règles' },
+          ] : [
+            { id: 'patterns', title: 'Browse patterns', description: 'See the documented pattern inventory grouped by foundations, public, operations, data, access, and feedback.', href: '/general-design-system/patterns', badge: 'Pattern catalog' },
+            { id: 'coverage', title: 'Open coverage matrix', description: 'Track component and pattern parity between documentation and live runtime routes.', href: '/general-design-system/coverage', badge: 'Parity matrix' },
+            { id: 'themes', title: 'Explore themes', description: 'Test the shipped presets and the governed brand-theme generator in the live theme lab.', href: '/general-design-system/themes', badge: 'Theme explorer' },
+            { id: 'install', title: 'Install GDS', description: 'Copy the npm commands, provider setup, and verification contract used by real adopters.', href: '/general-design-system/install', badge: 'npm' },
+            { id: 'demos', title: 'Open live demos', description: 'Inspect runtime surfaces for shells, cards, auth, actions, food, playback, and analytics.', href: '/general-design-system/live-demos', badge: 'Live demos' },
+            { id: 'governance', title: 'Read governance', description: 'Understand strict mode, approved exceptions, and the rule that reusable needs belong in GDS rather than local app code.', href: '/general-design-system/governance', badge: 'Rulebook' },
           ]}
         />
       </ReferenceSection>
@@ -649,24 +658,54 @@ export function InstallPage() {
 
 export function RulebookPage() {
   const { locale } = useGdsTranslation();
-  const copy = {
-    en: {
-      title: 'Governance',
-      eyebrow: 'How to follow the rules properly',
-      lead: 'GDS adoption is deliberately strict: if a need is reusable, it should become a package-owned contract. If it is not reusable, it should stay narrow and reviewable or be deleted.',
-    },
-    de: {
-      title: 'Governance',
-      eyebrow: 'So werden die Regeln korrekt angewendet',
-      lead: 'Die GDS-Einführung ist bewusst streng: Wenn ein Bedarf wiederverwendbar ist, gehört er als paket-eigener Contract in GDS. Wenn er nicht wiederverwendbar ist, bleibt er eng begrenzt, überprüfbar oder wird entfernt.',
-    },
-    fr: {
-      title: 'Gouvernance',
-      eyebrow: 'Comment appliquer correctement les règles',
-      lead: 'L’adoption de GDS est volontairement stricte : si un besoin est réutilisable, il doit devenir un contrat possédé par les packages. Sinon, il doit rester limité, vérifiable, ou être supprimé.',
-    },
-  } as const;
-  const i18n = copy[locale as keyof typeof copy] ?? copy.en;
+  const copy = locale === 'de'
+    ? {
+        title: 'Governance',
+        eyebrow: 'So werden die Regeln korrekt angewendet',
+        lead: 'Die GDS-Einführung ist bewusst streng: Wenn ein Bedarf wiederverwendbar ist, gehört er als paket-eigener Contract in GDS. Wenn er nicht wiederverwendbar ist, bleibt er eng begrenzt, überprüfbar oder wird entfernt.',
+        requireTitle: 'Was wir verlangen',
+        requireDescription: 'Die gemeinsamen Regeln verhindern, dass lokale Design-Systeme in Produkt-Repositories wachsen.',
+        implementedTitle: 'Was in GDS implementiert wird',
+        implementedDescription: 'Wiederverwendbare Flächen gehören in Pakete, nicht in die App-Schicht.',
+        changedTitle: 'Was sich in 2.6.7 geändert hat',
+        changedDescription: 'Theme-Ownership ist jetzt explizit genug, um sie in Client-Repositories zu prüfen und zu erzwingen.',
+        fixedTitle: 'Was zur GDS-Nutzung angepasst wird',
+        fixedDescription: 'Ist der Bedarf bereits abgedeckt, wird lokale Komposition umgebaut statt neu abstrahiert.',
+        deletedTitle: 'Was gelöscht wird',
+        deletedDescription: 'Einige lokale Konstrukte sollten nie Teil der Referenzseite sein.',
+      }
+    : locale === 'fr'
+      ? {
+          title: 'Gouvernance',
+          eyebrow: 'Comment appliquer correctement les règles',
+          lead: 'L’adoption de GDS est volontairement stricte : si un besoin est réutilisable, il doit devenir un contrat possédé par les packages. Sinon, il doit rester limité, vérifiable, ou être supprimé.',
+          requireTitle: 'Ce que nous exigeons',
+          requireDescription: 'Les règles partagées évitent la croissance de systèmes de design locaux dans les bases produits.',
+          implementedTitle: 'Ce qui est implémenté dans GDS',
+          implementedDescription: 'Les surfaces réutilisables appartiennent aux packages, pas à la couche applicative.',
+          changedTitle: 'Ce qui a changé en 2.6.7',
+          changedDescription: 'La propriété du thème est désormais assez explicite pour être auditée et appliquée.',
+          fixedTitle: 'Ce qui doit être corrigé pour utiliser GDS',
+          fixedDescription: 'Si le besoin est déjà couvert, la composition locale doit être réécrite plutôt que ré-emballée.',
+          deletedTitle: 'Ce qui doit être supprimé',
+          deletedDescription: 'Certaines constructions locales n’auraient jamais dû faire partie du site de référence.',
+        }
+      : {
+          title: 'Governance',
+          eyebrow: 'How to follow the rules properly',
+          lead: 'GDS adoption is deliberately strict: if a need is reusable, it should become a package-owned contract. If it is not reusable, it should stay narrow and reviewable or be deleted.',
+          requireTitle: 'What we require',
+          requireDescription: 'The shared rules exist to prevent local design systems from growing inside product codebases.',
+          implementedTitle: 'What gets implemented in GDS',
+          implementedDescription: 'Reusable surfaces belong in packages, not in the app layer.',
+          changedTitle: 'What changed in 2.6.7',
+          changedDescription: 'Theme ownership is now explicit enough to review and enforce across client repos.',
+          fixedTitle: 'What gets fixed to use GDS',
+          fixedDescription: 'If the need is already covered, local composition should be rewritten rather than re-abstracted.',
+          deletedTitle: 'What gets deleted',
+          deletedDescription: 'Some local constructs should never have become part of the reference site.',
+        };
+  const i18n = copy;
 
   return (
     <DocsPageShell
@@ -674,7 +713,7 @@ export function RulebookPage() {
       eyebrow={i18n.eyebrow}
       lead={i18n.lead}
     >
-      <ReferenceSection title="What we require" description="The shared rules exist to prevent local design systems from growing inside product codebases.">
+      <ReferenceSection title={i18n.requireTitle} description={i18n.requireDescription}>
         <FeatureBand
           columns={3}
           items={[
@@ -697,7 +736,7 @@ export function RulebookPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="What gets implemented in GDS" description="Reusable surfaces belong in packages, not in the app layer.">
+      <ReferenceSection title={i18n.implementedTitle} description={i18n.implementedDescription}>
         <FeatureBand
           columns={4}
           variant="compact"
@@ -710,7 +749,7 @@ export function RulebookPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="What changed in 2.6.7" description="Theme ownership is now explicit enough to review and enforce across client repos.">
+      <ReferenceSection title={i18n.changedTitle} description={i18n.changedDescription}>
         <FeatureBand
           columns={3}
           items={[
@@ -733,7 +772,7 @@ export function RulebookPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="What gets fixed to use GDS" description="If the need is already covered, local composition should be rewritten rather than re-abstracted.">
+      <ReferenceSection title={i18n.fixedTitle} description={i18n.fixedDescription}>
         <ReferenceLinkGrid
           items={[
             {
@@ -758,7 +797,7 @@ export function RulebookPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="What gets deleted" description="Some local constructs should never have become part of the reference site.">
+      <ReferenceSection title={i18n.deletedTitle} description={i18n.deletedDescription}>
         <FeatureBand
           columns={3}
           variant="compact"
@@ -794,16 +833,34 @@ export function TokensPage() {
       title: 'Themes',
       eyebrow: 'Official theme explorer',
       lead: 'Test the shipped GDS theme lanes, inspect the governed brand-theme generator, and verify how the official site behaves under each preset.',
+      lanesTitle: 'Approved adopter theme lanes',
+      lanesDescription: 'These are the only canonical theme ownership paths we recommend to client teams on `2.6.7`.',
+      careTitle: 'What clients need to care about',
+      careDescription: 'The governance change is about theme ownership and enforceability, not about forcing a visual redesign.',
+      linksTitle: 'Theme governance links',
+      linksDescription: 'Use these rulebook pages when a team wants brand expression without creating a parallel design system.',
     },
     de: {
       title: 'Themes',
       eyebrow: 'Offizieller Theme-Explorer',
       lead: 'Teste die ausgelieferten GDS-Theme-Lanes, prüfe den gesteuerten Brand-Theme-Generator und verifiziere das Verhalten der offiziellen Seite pro Preset.',
+      lanesTitle: 'Freigegebene Theme-Lanes für Adopter',
+      lanesDescription: 'Das sind die einzigen kanonischen Theme-Ownership-Pfade, die wir Client-Teams in `2.6.7` empfehlen.',
+      careTitle: 'Worauf Clients achten müssen',
+      careDescription: 'Die Governance-Änderung betrifft Ownership und Durchsetzbarkeit, nicht ein visuelles Redesign.',
+      linksTitle: 'Links zur Theme-Governance',
+      linksDescription: 'Nutze diese Regelwerksseiten, wenn ein Team Markenprägung ohne paralleles Design-System braucht.',
     },
     fr: {
       title: 'Thèmes',
       eyebrow: 'Explorateur de thèmes officiel',
       lead: 'Testez les lanes de thème GDS livrées, inspectez le générateur de thème de marque gouverné et vérifiez le comportement du site officiel pour chaque preset.',
+      lanesTitle: 'Lanes de thème approuvées pour les adopteurs',
+      lanesDescription: 'Ce sont les seuls chemins canoniques de propriété du thème recommandés aux équipes clientes en `2.6.7`.',
+      careTitle: 'Ce que les clients doivent surveiller',
+      careDescription: 'Le changement principal concerne la gouvernance et l’application, pas une refonte visuelle.',
+      linksTitle: 'Liens de gouvernance thème',
+      linksDescription: 'Utilisez ces pages de règles lorsqu’une équipe veut de la marque sans système parallèle.',
     },
   } as const;
   const i18n = copy[locale as keyof typeof copy] ?? copy.en;
@@ -816,8 +873,8 @@ export function TokensPage() {
     >
       <ReferenceThemeExplorer />
       <ReferenceSection
-        title="Approved adopter theme lanes"
-        description="These are the only canonical theme ownership paths we recommend to client teams on `2.6.7`."
+        title={i18n.lanesTitle}
+        description={i18n.lanesDescription}
       >
         <FeatureBand
           columns={4}
@@ -832,8 +889,8 @@ export function TokensPage() {
         />
       </ReferenceSection>
       <ReferenceSection
-        title="What clients need to care about"
-        description="The governance change is about theme ownership and enforceability, not about forcing a visual redesign."
+        title={i18n.careTitle}
+        description={i18n.careDescription}
       >
         <FeatureBand
           columns={3}
@@ -857,8 +914,8 @@ export function TokensPage() {
         />
       </ReferenceSection>
       <ReferenceSection
-        title="Theme governance links"
-        description="Use these rulebook pages when a team wants brand expression without creating a parallel design system."
+        title={i18n.linksTitle}
+        description={i18n.linksDescription}
       >
         <ReferenceLinkGrid
           items={[
