@@ -44,10 +44,19 @@ function parseJson(command, retries = 3) {
 function main() {
   let projectData;
   let issueList;
+  const ciMode = process.env.CI === 'true';
+  const strictMode = process.env.GDS_BOARD_AUDIT_STRICT === '1';
   try {
     projectData = parseJson(`gh project item-list ${PROJECT_NUMBER} --owner ${OWNER} --limit 300 --format json`);
     issueList = parseJson(`gh issue list --repo ${OWNER}/${REPOSITORY} --state all --limit 500 --json number,state`);
   } catch (error) {
+    const message = String(error?.stderr ?? error?.message ?? error);
+    const rateLimited = message.includes('API rate limit exceeded');
+    if (ciMode && !strictMode && rateLimited) {
+      console.warn('Board audit warning: GitHub API rate limit exceeded in CI.');
+      console.warn('Skipping strict board audit for this run (set GDS_BOARD_AUDIT_STRICT=1 to fail hard).');
+      process.exit(0);
+    }
     console.error('Board audit failed: unable to fetch required GitHub data.');
     console.error('Tip: ensure gh auth is active and API rate limit is available.');
     process.exit(1);
