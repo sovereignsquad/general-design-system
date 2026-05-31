@@ -55,7 +55,8 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@doneisbetter/gds-admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, governance guidance, theme explorer, live demos, and the pattern catalog.
-- **Reference-Site Primitives**: `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, `ReferenceThemeExplorer`, `DocsShell`, and `ReferenceSiteShell` — canonical GDS-owned primitives for rendering the official website and future reference/docs surfaces without site-local pseudo-components.
+- **Reference-Site Primitives**: `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, `ReferenceThemeExplorer`, and `DocsShell` (official docs-site shell contract) plus `ReferenceSiteShell` (legacy/compatibility surface for bounded preview composition) — GDS-owned primitives for reference/docs surfaces without site-local pseudo-components.
+- **Board Sync Checklist**: [docs/BOARD_SYNC_CHECKLIST.md](/Users/Shared/Projects/general-design-system/docs/BOARD_SYNC_CHECKLIST.md) — required consistency pass between implementation, docs, and GitHub project-board issue state before release and after major delivery waves.
 - **Client Upgrade Prompt**: [CLIENT_UPGRADE_PROMPT.md](/Users/Shared/Projects/general-design-system/CLIENT_UPGRADE_PROMPT.md) — copy/paste checklist and communication template for consumer teams.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
