@@ -142,6 +142,7 @@ Required repository behavior:
 
 - `npm run verify:release` — checks release alignment, builds all packages/apps, verifies export boundaries, then runs lint, tests, and reference validation
 - `npm run verify:references` — validates reference consumers, adoption manifests, official `DocsShell` usage, SSOT pattern-catalog coverage, website trust/clarity checks, surface-presentation migration evidence, route-level locale coverage declarations, and canonical theme-governance lanes
+- `npm run audit:board` — audits the canonical GDS project board for issue-state/project-status drift and prints any open or mismatched items
 - `npm run verify:mantine` — packs the packages and validates clean Mantine 8.3 and 9.2 / React 19 consumer install smoke
 - `npm run publish:dry-run` — validates the authenticated package publish sequence without uploading artifacts
 - `npm run publish:npm` — publishes the six public GDS packages from an authenticated npm environment

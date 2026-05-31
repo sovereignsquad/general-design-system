@@ -32,6 +32,7 @@ Use this checklist before release, after major implementation waves, and before 
 
 - Run:
 ```bash
+npm run audit:board
 npm run verify:references
 npm run verify:release
 ```
