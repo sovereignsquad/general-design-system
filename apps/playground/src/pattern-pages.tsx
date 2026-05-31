@@ -16,6 +16,7 @@ import {
   DetailProfileShell,
   DiscoveryShell,
   DocsCodeBlock,
+  DocsShell,
   DocsPageShell,
   EditorialCard,
   EditorialHero,
@@ -39,7 +40,9 @@ import {
   PublicProductCard,
   PublicShell,
   ReferenceLinkGrid,
+  ReferenceLocaleNotice,
   ReferenceSection,
+  ReferenceThemeExplorer,
   SectionPanel,
   SemanticButton,
   ShareButtonGroup,
@@ -60,6 +63,7 @@ import {
   ContentOpsSection,
   DataTable,
   PageHeader,
+  ReferenceSiteShell,
   ResponsiveDataView,
 } from '@doneisbetter/gds-admin';
 import {
@@ -551,6 +555,75 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         >
           <p style={{ margin: 0 }}>The docs shell is now fully controlled by GDS.</p>
         </DocsPageShell>
+      );
+    case 'docs-shell':
+      return (
+        <DocsShell
+          brand={<strong>General Design System</strong>}
+          primaryNavigation={<SidebarNavItem action="home" href="/general-design-system/patterns/public" active />}
+          secondaryNavigation={<SidebarNavItem action="theme" href="/general-design-system/themes" />}
+          headerContext="Canonical docs/reference shell contract"
+          actions={<SemanticButton action="theme" size="sm" />}
+          contentWidth="full"
+        >
+          <SectionPanel title="Docs shell content" description="Reference/docs content belongs in package-owned shell framing.">
+            <p style={{ margin: 0 }}>The official site should use this contract instead of page-local shell wrappers.</p>
+          </SectionPanel>
+        </DocsShell>
+      );
+    case 'reference-section':
+      return (
+        <ReferenceSection
+          title="Governed section framing"
+          description="Reference pages should use one canonical section rhythm for heading, summary, and actionable content."
+        >
+          <p style={{ margin: 0 }}>This section is the package-owned docs contract used across the official site.</p>
+        </ReferenceSection>
+      );
+    case 'reference-link-grid':
+      return (
+        <ReferenceLinkGrid
+          columns={2}
+          items={[
+            {
+              id: 'install',
+              title: 'Install Guide',
+              description: 'Open the canonical install path and versioned package guidance.',
+              href: '/general-design-system/install',
+            },
+            {
+              id: 'governance',
+              title: 'Governance',
+              description: 'Read strict adoption and theme-ownership requirements.',
+              href: '/general-design-system/governance',
+            },
+          ]}
+        />
+      );
+    case 'reference-locale-notice':
+      return (
+        <ReferenceLocaleNotice
+          localeLabel="Deutsch"
+          detail="The reference-site narrative remains English while semantic vocabulary is already localized."
+        />
+      );
+    case 'reference-theme-explorer':
+      return <ReferenceThemeExplorer />;
+    case 'reference-site-shell':
+      return (
+        <ReferenceSiteShell
+          logoText="General Design System"
+          primaryNavigation={<SidebarNavItem action="home" href="/general-design-system" active />}
+          secondaryNavigation={<SidebarNavItem action="grid" href="/general-design-system/patterns" />}
+          headerContext="Reference website shell"
+          locale="en"
+          localeOptions={[{ id: 'en', label: 'English' }]}
+          onLocaleChange={() => {}}
+        >
+          <SectionPanel title="Reference-site composition" description="Legacy reference shell retained for bounded compatibility lanes.">
+            <p style={{ margin: 0 }}>Prefer DocsShell for the official site path, keep this contract only where explicitly required.</p>
+          </SectionPanel>
+        </ReferenceSiteShell>
       );
     case 'editorial-hero':
       return (

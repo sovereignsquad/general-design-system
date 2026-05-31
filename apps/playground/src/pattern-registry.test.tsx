@@ -24,6 +24,22 @@ describe('playground pattern registry', () => {
     expect(patternRegistry.every((entry) => entry.coverageStatus === 'live-demo')).toBe(true);
   });
 
+  it('keeps canonical docs and reference-site primitives represented', () => {
+    const ids = new Set(patternRegistry.map((entry) => entry.id));
+    const requiredReferenceIds = [
+      'docs-shell',
+      'reference-section',
+      'reference-link-grid',
+      'reference-locale-notice',
+      'reference-theme-explorer',
+      'reference-site-shell',
+    ];
+
+    for (const id of requiredReferenceIds) {
+      expect(ids.has(id)).toBe(true);
+    }
+  });
+
   it('renders the pattern index page', () => {
     renderWithGds(<PatternsIndexPage />);
 
