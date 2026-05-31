@@ -13,6 +13,7 @@
     "test": "vitest",
     "test:run": "vitest run",
     "verify:references": "node scripts/verify-reference-consumers.mjs && node scripts/verify-playground-shell-contract.mjs && node scripts/verify-pattern-catalog-coverage.mjs && node scripts/verify-website-trust.mjs && node scripts/verify-surface-presentation-adoption.mjs && node scripts/verify-locale-coverage.mjs && node scripts/verify-theme-governance.mjs",
+    "audit:board": "node scripts/audit-project-board.mjs",
     "verify:mantine": "node scripts/verify-mantine8-compat.mjs",
     "verify:mantine8": "node scripts/verify-mantine8-compat.mjs",
     "pack:release": "node scripts/create-release-bundles.mjs",
