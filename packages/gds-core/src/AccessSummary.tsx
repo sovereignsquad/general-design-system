@@ -6,17 +6,31 @@ export interface AccessSummaryProps {
   roles: string[];
   scope?: string;
   blocked?: boolean;
+  state?: 'allowed' | 'blocked' | 'forbidden' | 'expired' | 'permission-limited';
+  owner?: ReactNode;
+  recoveryHint?: ReactNode;
   description?: ReactNode;
 }
 
-export function AccessSummary({ title, roles, scope, blocked = false, description }: AccessSummaryProps) {
+const accessStateMeta: Record<NonNullable<AccessSummaryProps['state']>, { label: string; color: string }> = {
+  allowed: { label: 'Allowed', color: 'teal' },
+  blocked: { label: 'Blocked', color: 'red' },
+  forbidden: { label: 'Forbidden', color: 'red' },
+  expired: { label: 'Expired', color: 'orange' },
+  'permission-limited': { label: 'Permission limited', color: 'grape' },
+};
+
+export function AccessSummary({ title, roles, scope, blocked = false, state, owner, recoveryHint, description }: AccessSummaryProps) {
+  const resolvedState = state ?? (blocked ? 'blocked' : 'allowed');
+  const meta = accessStateMeta[resolvedState];
+
   return (
     <Card withBorder radius="lg" padding="lg">
       <Stack gap="sm">
         <Group justify="space-between" align="center">
           <Title order={4}>{title}</Title>
-          <Badge color={blocked ? 'red' : 'teal'} variant="light">
-            {blocked ? 'Blocked' : 'Allowed'}
+          <Badge color={meta.color} variant="light">
+            {meta.label}
           </Badge>
         </Group>
         <Group gap="xs">
@@ -29,6 +43,16 @@ export function AccessSummary({ title, roles, scope, blocked = false, descriptio
         {scope ? (
           <Text size="sm" c="dimmed">
             Scope: {scope}
+          </Text>
+        ) : null}
+        {owner ? (
+          <Text size="sm" c="dimmed">
+            Owner: {owner}
+          </Text>
+        ) : null}
+        {recoveryHint ? (
+          <Text size="sm" c={resolvedState === 'allowed' ? 'dimmed' : 'red.7'}>
+            {recoveryHint}
           </Text>
         ) : null}
         {description ? <Text size="sm">{description}</Text> : null}

@@ -49,7 +49,7 @@ import { SectionPanel } from './SectionPanel';
 import { SidebarNav, SidebarNavItem, SidebarNavSection } from './SidebarNav';
 import { SimpleDataTable } from './SimpleDataTable';
 import { SocialAuthButtons } from './SocialAuthButtons';
-import { ProviderIdentityButton, ProviderIdentityButtonGroup, getProviderIdentityLabel } from './ProviderIdentityButtons';
+import { ProviderIdentityButton, ProviderIdentityButtonGroup, getProviderIdentityLabel, getProviderIdentityPolicy, getSupportedProviderIdentityIds } from './ProviderIdentityButtons';
 import { StateBlock } from './StateBlock';
 import { StatsSection } from './StatsSection';
 import { StatusBadge } from './StatusBadge';
@@ -755,6 +755,37 @@ describe('@doneisbetter/gds-core', () => {
     expect(onHelp).toHaveBeenCalledTimes(1);
   });
 
+  it('renders timeout recovery and permission-limited access summaries without color-only state', async () => {
+    const user = userEvent.setup();
+    const onRetry = vi.fn();
+    const onBack = vi.fn();
+
+    renderWithGds(
+      <>
+        <AccessRecoveryPanel state="timeout" onRetry={onRetry} onBack={onBack} />
+        <AccessSummary
+          title="Tenant access"
+          roles={['Manager']}
+          scope="Budapest"
+          state="permission-limited"
+          owner="platform-ui"
+          recoveryHint="Ask an owner for the finance evidence scope."
+        />
+      </>,
+    );
+
+    expect(screen.getByText('Request timed out')).toBeInTheDocument();
+    expect(screen.getByText('Permission limited')).toBeInTheDocument();
+    expect(screen.getByText('Owner: platform-ui')).toBeInTheDocument();
+    expect(screen.getByText('Ask an owner for the finance evidence scope.')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Refresh' }));
+    await user.click(screen.getByRole('button', { name: 'Back' }));
+
+    expect(onRetry).toHaveBeenCalledTimes(1);
+    expect(onBack).toHaveBeenCalledTimes(1);
+  });
+
   it('renders the public shell and toolbar contracts', () => {
     renderWithGds(
       <PublicShell
@@ -851,9 +882,9 @@ describe('@doneisbetter/gds-core', () => {
       <ProviderIdentityButtonGroup
         providers={[
           { provider: 'google', onClick },
-          { provider: 'custom-id', label: 'Continue with Custom provider', disabled: true },
+          { provider: 'custom-id', label: 'Continue with Custom provider', disabled: true, error: 'Provider failed. Try another method.' },
           { provider: 'github', variant: 'outline' },
-          { provider: 'email', description: 'Email identity lane', size: 'sm' },
+          { provider: 'email', description: 'Email identity lane', policyNote: 'Allowed by tenant policy.', size: 'sm' },
         ]}
         layout="grid"
       />,
@@ -862,12 +893,16 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByRole('button', { name: 'Continue with Google' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Continue with Custom provider' })).toBeInTheDocument();
     expect(screen.getByText('Email identity lane')).toBeInTheDocument();
+    expect(screen.getByText('Allowed by tenant policy.')).toBeInTheDocument();
+    expect(screen.getByRole('alert')).toHaveTextContent('Provider failed. Try another method.');
     expect(screen.getByRole('button', { name: 'Continue with Custom provider' })).toBeDisabled();
 
     await user.click(screen.getByRole('button', { name: 'Continue with Google' }));
 
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(getProviderIdentityLabel('google')).toBe('Continue with Google');
+    expect(getSupportedProviderIdentityIds()).toContain('google');
+    expect(getProviderIdentityPolicy('google')).toMatchObject({ colorAuthority: 'provider', minTouchTargetPx: 44 });
   });
 
   it('renders auth and article shells as shared content contracts', () => {
@@ -875,12 +910,16 @@ describe('@doneisbetter/gds-core', () => {
       <>
         <AuthShell
           title="Sign in"
-          description="Use your workspace account."
+          description="Access governed workspaces with a supported provider."
+          intent="account-linking"
+          error="GitHub could not finish account linking."
+          guestAction={<button type="button">Continue as guest</button>}
+          supportAction={<button type="button">Contact support</button>}
           socialAuth={
             <SocialAuthButtons
               providers={[
                 { id: 'google', href: '/auth/google' },
-                { id: 'github', href: '/auth/github', description: 'For engineering workspaces' },
+                { id: 'github', href: '/auth/github', description: 'For engineering workspaces', tenantDisabledReason: 'Disabled by tenant policy.' },
               ]}
             />
           }
@@ -901,6 +940,10 @@ describe('@doneisbetter/gds-core', () => {
 
     expect(screen.getByRole('heading', { name: 'Sign in' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Continue with Google' })).toBeInTheDocument();
+    expect(screen.getByText('account linking')).toBeInTheDocument();
+    expect(screen.getByRole('alert')).toHaveTextContent('GitHub could not finish account linking.');
+    expect(screen.getByText('Disabled by tenant policy.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Continue as guest' })).toBeInTheDocument();
     expect(screen.getByText('Or continue with your account')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Continue' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Install the design system' })).toBeInTheDocument();

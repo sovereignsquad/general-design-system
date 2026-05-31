@@ -569,23 +569,28 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return (
         <AuthShell
           title="Sign in to GDS"
-          description="Canonical auth placement with optional social providers."
-          socialAuth={<SocialAuthButtons layout="grid" providers={[{ id: 'google' }, { id: 'github' }]} />}
+          description="Canonical auth placement with provider errors, guest entry, and support fallback."
+          intent="sign-in"
+          error="The last provider attempt timed out. Choose a provider, retry, or continue as guest if your product allows it."
+          socialAuth={<SocialAuthButtons layout="grid" providers={[{ id: 'google', policyNote: 'Approved by identity policy.' }, { id: 'github', tenantDisabledReason: 'Disabled by tenant policy.' }]} />}
+          guestAction={<button type="button">Continue as guest</button>}
+          supportAction={<button type="button">Contact support</button>}
           helper="Keep provider logic in the app; keep layout in GDS."
         >
           <p style={{ margin: 0 }}>Social auth remains part of the shared auth shell contract.</p>
         </AuthShell>
       );
     case 'social-auth-buttons':
-      return <SocialAuthButtons layout="grid" providers={[{ id: 'google' }, { id: 'apple' }, { id: 'github' }, { id: 'microsoft' }]} />;
+      return <SocialAuthButtons layout="grid" providers={[{ id: 'google' }, { id: 'apple' }, { id: 'github', error: 'Provider returned an error.' }, { id: 'microsoft', tenantDisabledReason: 'Tenant policy disabled Microsoft.' }]} />;
     case 'provider-identity-buttons':
       return (
         <ProviderIdentityButtonGroup
           layout="grid"
           providers={[
-            { provider: 'google', href: '/auth/google' },
+            { provider: 'google', href: '/auth/google', policyNote: 'Provider color authority remains governed.' },
             { provider: 'apple', href: '/auth/apple' },
-            { provider: 'github', href: '/auth/github' },
+            { provider: 'github', href: '/auth/github', tenantDisabledReason: 'Disabled by tenant policy.' },
+            { provider: 'email', href: '/auth/email', description: 'Fallback identity lane.' },
           ]}
         />
       );
@@ -927,9 +932,14 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         </div>
       );
     case 'access-summaries':
-      return <AccessSummary title="Shared access summary" roles={['platform-ui', 'maintainers']} scope="Reference site" description="Access and scope stay explicit." />;
+      return <AccessSummary title="Shared access summary" roles={['platform-ui', 'maintainers']} scope="Reference site" state="permission-limited" owner="platform-ui" recoveryHint="Request the docs-admin scope to unlock private evidence." description="Access and scope stay explicit." />;
     case 'access-recovery-panels':
-      return <AccessRecoveryPanel state="unauthenticated" onSignIn={() => {}} onBack={() => {}} />;
+      return (
+        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+          <AccessRecoveryPanel state="unauthenticated" onSignIn={() => {}} onBack={() => {}} />
+          <AccessRecoveryPanel state="timeout" onRetry={() => {}} onBack={() => {}} supportAction={{ action: 'help', onClick: () => {}, variant: 'subtle' }} />
+        </div>
+      );
     case 'placeholder-panels':
       return (
         <PlaceholderPanel

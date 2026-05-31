@@ -48,6 +48,7 @@ Identity providers are part of the same governance envelope as theme authority. 
 
 - approved providers are declared under `compliance.identityProviderBranding.approvedProviders`
 - forbidden customizations are declared under `compliance.identityProviderBranding.forbiddenCustomizations`
+- allowed visual variants are declared under `compliance.identityProviderBranding.allowedVariants`
 - minimum accessible touch target is declared under `compliance.identityProviderBranding.minTouchTargetPx`
 - color authority is declared under `compliance.identityProviderBranding.colorAuthority`
 
@@ -56,6 +57,8 @@ Allowed policy:
 - keep visual identity within policy-approved SocialAuth behavior
 - never implement local third-party-branded auth controls that bypass GDS action semantics
 - do not mutate provider icon/mark, loading, disabled, or label mechanics via per-product wrappers unless approved in policy
+- use `getSupportedProviderIdentityIds()` and `getProviderIdentityPolicy(provider)` when a consumer needs runtime audit or logging metadata
+- represent tenant-disabled and provider-error states through the shipped provider props, not local disabled button wrappers
 
 Recommended model:
 

@@ -23,8 +23,11 @@ export interface SocialAuthProviderOption {
   href?: string;
   onClick?: () => void;
   label?: ReactNode;
+  policyNote?: ReactNode;
+  error?: ReactNode;
   disabled?: boolean;
   loading?: boolean;
+  tenantDisabledReason?: ReactNode;
   description?: ReactNode;
   variant?: ProviderIdentityVariant;
   size?: ProviderIdentityButtonProps['size'];
@@ -53,10 +56,13 @@ export function SocialAuthButtons({
     provider: provider.id,
     label: provider.label,
     description: provider.description,
+    policyNote: provider.policyNote,
+    error: provider.error,
     href: provider.href,
     onClick: provider.onClick,
     disabled: provider.disabled,
     loading: provider.loading,
+    tenantDisabledReason: provider.tenantDisabledReason,
     size: (provider.size ?? (compact ? 'sm' : 'md')) as ProviderIdentityButtonProps['size'],
     variant: provider.variant,
   }));

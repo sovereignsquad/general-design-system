@@ -10,6 +10,7 @@ import type { SemanticAction } from './vocabulary';
 export type AccessRecoveryState =
   | 'unauthenticated'
   | 'expired-session'
+  | 'timeout'
   | 'forbidden'
   | 'missing'
   | 'unavailable';
@@ -45,6 +46,7 @@ type AccessRecoveryCopy = {
 const stateBlockVariantByState: Record<AccessRecoveryState, 'permission' | 'error' | 'info'> = {
   unauthenticated: 'permission',
   'expired-session': 'info',
+  timeout: 'error',
   forbidden: 'permission',
   missing: 'error',
   unavailable: 'error',
@@ -58,6 +60,10 @@ const defaultCopyByState: Record<AccessRecoveryState, AccessRecoveryCopy> = {
   'expired-session': {
     title: 'Session expired',
     description: 'Sign in again or retry to continue where you left off.',
+  },
+  timeout: {
+    title: 'Request timed out',
+    description: 'The recovery action took too long. Retry or choose a safe destination.',
   },
   forbidden: {
     title: 'You do not have access',
@@ -98,6 +104,12 @@ function defaultActionsForState(
         primary: signInAction ?? retryAction,
         secondary: retryAction && signInAction ? retryAction : backAction,
         tertiary: supportAction ?? null,
+      };
+    case 'timeout':
+      return {
+        primary: retryAction ?? backAction,
+        secondary: retryAction && backAction ? backAction : supportAction ?? null,
+        tertiary: retryAction && backAction ? supportAction ?? null : null,
       };
     case 'forbidden':
       return { primary: backAction, secondary: supportAction ?? null, tertiary: null };

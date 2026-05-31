@@ -81,8 +81,8 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Docs Shell** | Canonical docs/reference shell for public documentation surfaces with full-width content and governed sidebar/header contracts. | `xl` |
 | **Public Shells** | Public marketing/discovery/docs shells must define brand slot, navigation rhythm, readability width, CTA hierarchy, footer slot, and mobile nav behavior, including branded header variants and non-hook mobile nav patterns. | `md` |
 | **Public Nav** | Primary public navigation uses explicit nav items, an explicit active item, and semantic `aria-current` handling. | `md` |
-| **Auth Shells** | Auth entry surfaces must define title, error/helper placement, provider-brand exception handling, safe action hierarchy, and canonical social-auth placement. | `md` |
-| **Social Auth Buttons** | Provider-button cluster for Google, Apple, GitHub, and similar identity lanes with governed wording, spacing, and provider-brand treatment. Use `ProviderIdentityButton` / `ProviderIdentityButtonGroup`; `SocialAuthButtons` is a compatibility façade. | `md` |
+| **Auth Shells** | Auth entry surfaces must define intent, inline error/helper placement, guest/support lanes, provider-brand exception handling, safe action hierarchy, and canonical social-auth placement. | `md` |
+| **Social Auth Buttons** | Provider-button cluster for Google, Apple, GitHub, and similar identity lanes with governed wording, spacing, loading/error/tenant-disabled states, and provider-brand treatment. Use `ProviderIdentityButton` / `ProviderIdentityButtonGroup`; `SocialAuthButtons` is a compatibility façade. | `md` |
 | **Article Shells** | Docs/news/legal/editorial surfaces must define width, heading rhythm, metadata, side-rail behavior, and mobile collapse. | `md` |
 | **Docs Page Shell** | Docs shells may add breadcrumbs, next-step affordances, side rail slots, and shared code-block treatment without redefining article readability rules. | `md` |
 | **Editorial Hero** | Public/editorial hero sections must use a shared split text/media contract with one clear primary CTA, deterministic mobile collapse, and background-safe media fade behavior. | `xl` |
@@ -99,8 +99,8 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Docs Code Blocks** | Install/reference code blocks must use a shared wrapper with accessible copy affordance and neutral styling. | `md` |
 | **CTA Button Groups** | Public CTA groups must preserve one obvious primary action, stack safely on small screens, and avoid ornamental motion or hierarchy chrome. | `md` |
 | **Upload Surfaces** | Upload/drop surfaces must define drag state, selection, pending/error/readonly states, a11y labels, accepted-type/size guidance, policy messaging, and retry/remove behavior. | `md` |
-| **Access Summaries** | Role, scope, blocked/forbidden, and ownership cues must be explicit and may not rely on color only. | `md` |
-| **Access Recovery Panels** | Protected-content and expired-session failures must use one canonical recovery surface with clear state meaning and one obvious mobile recovery action. | `md` |
+| **Access Summaries** | Role, scope, owner, blocked/forbidden/expired/permission-limited, and recovery cues must be explicit and may not rely on color only. | `md` |
+| **Access Recovery Panels** | Protected-content, expired-session, timeout, unavailable, forbidden, and not-found failures must use one canonical recovery surface with clear state meaning and one obvious mobile recovery action. | `md` |
 | **Placeholder Panels** | Placeholder and coming-soon surfaces must be honest, visibly non-live, and must not imply fabricated data. | `md` |
 | **Simple Data Tables** | Public/product summary tables must support loading, empty, error, and threshold-safe states without importing admin CRUD semantics. | `md` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
@@ -141,8 +141,8 @@ The following families are mandatory local contracts when a project has the corr
 | **Chart Token Panel** | Product renders charts or sanctioned third-party visualization surfaces | text summary, non-color-only legend, GDS token mapping, empty/error/below-threshold states, accessible table fallback |
 | **Data Toolbar / Responsive Data View** | Product has admin/editor/search/list workflows | search, filters, sort, reset, create, desktop table strategy, mobile fallback |
 | **ActionBar** | Product has repeated action rows, save bars, CTA clusters, or semantic button stacks | primary/secondary/tertiary priority, icon-only lane, mobile wrapping, loading/disabled states |
-| **Auth Shell** | Product has login, signup, account linking, consent, or guest entry | auth actions, error placement, provider branding, anonymous/guest behavior |
-| **Social Auth Buttons** | Product has provider-based login, signup, SSO, or account-linking entry | provider ordering, brand treatment, divider usage, loading/disabled states. Prefer `ProviderIdentityButton` / `ProviderIdentityButtonGroup`; `SocialAuthButtons` is compatibility-only. |
+| **Auth Shell** | Product has login, signup, account linking, consent, or guest entry | auth intent, inline errors, provider branding, anonymous/guest behavior, support fallback |
+| **Social Auth Buttons** | Product has provider-based login, signup, SSO, or account-linking entry | provider ordering, brand treatment, divider usage, loading/error/tenant-disabled states. Prefer `ProviderIdentityButton` / `ProviderIdentityButtonGroup`; `SocialAuthButtons` is compatibility-only. |
 | **Article / Docs Shell** | Product has release notes, docs, news, or blog content | article width, side rail behavior, metadata, typography, mobile collapse |
 | **State Block** | Always | loading, empty, error, permission, disabled, success, not-enough-data states |
 | **Surface Presentation Contract** | Shared surfaces that need bounded framing | `inline`, `centered`, and `fill` body behavior for state and panel surfaces |
@@ -166,8 +166,8 @@ The following families are mandatory local contracts when a project has the corr
 | **Reference Site Shell** | Product or property is the official docs/reference site for a governed system | public nav model, route grouping, live-demo disclosure, footer rhythm, locale notice placement |
 | **Reference Theme Explorer** | Product or property needs a governed public theme-inspection surface | shipped preset list, preview scheme control, creator-authored guardrails, preview reset, live proof surfaces |
 | **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, pending/error/readonly states, accepted-type/size guidance, policy copy, retry/remove slots |
-| **Access Summary** | Product has scoped roles or blocked/forbidden states | role badges, scope labels, blocked/forbidden handling, ownership cues |
-| **Access Recovery** | Product has protected routes, scope failures, expired sessions, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |
+| **Access Summary** | Product has scoped roles or blocked/forbidden/expired/permission-limited states | role badges, scope labels, owner labels, recovery hints, non-color-only state labels |
+| **Access Recovery** | Product has protected routes, scope failures, expired sessions, timeouts, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |
 
 Mantine UI examples may be used to inform these contracts only after the project confirms the GDS behavior, responsive rules, and token boundaries remain unchanged.
 
@@ -218,6 +218,39 @@ Chart rules:
 - charts must provide a table fallback for the underlying summarized data when the data is meaningful to inspect
 - GDS owns chart wrapper, state, legend, summary, and fallback placement; consumers own chart library choice, data fetching, retries, timeouts, and timezone math
 - external chart embeds remain exception surfaces unless wrapped in `ChartTokenPanel` or another sanctioned GDS chart wrapper
+
+### Access, Auth, and Identity Rules
+
+Auth and protected-content surfaces must use `AuthShell`, `ProviderIdentityButton`, `ProviderIdentityButtonGroup`, `SocialAuthButtons`, `AccessSummary`, and `AccessRecoveryPanel` before creating local wrappers.
+
+Auth shell states and lanes:
+
+- `sign-in`, `sign-up`, `account-linking`, and `guest-entry` intent must be visible through the shell contract
+- provider errors must be inline and announced through accessible alert semantics
+- guest and support fallback actions must be explicit slots, not hidden links in product copy
+- GDS owns provider button presentation, label rhythm, disabled/loading/error/tenant-policy states, touch target, and focus visibility
+- consumers own OAuth/OIDC redirects, session mutation, provider telemetry, retries, and timeout logic
+
+Provider-brand governance:
+
+- approved providers are declared in `compliance.identityProviderBranding.approvedProviders`
+- visual variants are bounded by `allowedVariants`
+- forbidden local customizations are declared in `forbiddenCustomizations`
+- `getSupportedProviderIdentityIds()` exposes the shipped provider lane list
+- `getProviderIdentityPolicy(provider)` exposes the runtime policy metadata consumers can log or compare
+- unsupported providers must use explicit labels and remain governed by the neutral fallback style unless approved by policy
+
+Access and recovery states:
+
+| State | Required UX |
+|---|---|
+| `unauthenticated` | Sign-in action first, safe back action second |
+| `expired-session` | Sign-in or retry without losing recovery context |
+| `timeout` | Retry action first, back/support fallback visible |
+| `forbidden` | Scope meaning explained without leaking private data |
+| `missing` | Not-found meaning separated from permission failure |
+| `unavailable` | Retry/back/support hierarchy visible |
+| `permission-limited` | Access summaries disclose limited scope and owner/recovery path |
 
 ## 7. Semantic Vocabulary Extension Lane
 

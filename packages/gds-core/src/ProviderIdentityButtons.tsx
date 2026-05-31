@@ -57,10 +57,13 @@ export interface ProviderIdentityButtonProps {
   provider: ProviderIdentity;
   label?: ReactNode;
   description?: ReactNode;
+  policyNote?: ReactNode;
+  error?: ReactNode;
   href?: string;
   onClick?: () => void;
   disabled?: boolean;
   loading?: boolean;
+  tenantDisabledReason?: ReactNode;
   fullWidth?: boolean;
   size?: 'sm' | 'md' | 'lg';
   variant?: ProviderIdentityVariant;
@@ -128,6 +131,23 @@ export function getProviderIdentityLabel(provider: string, fallbackOverride?: Re
   return resolveProviderLabel(provider, fallbackOverride);
 }
 
+export function getSupportedProviderIdentityIds() {
+  return Object.keys(PROVIDER_IDENTITY_REGISTRY);
+}
+
+export function getProviderIdentityPolicy(provider: string) {
+  const meta = getProviderIdentityMeta(provider);
+
+  return {
+    id: meta.id,
+    supported: meta.supported,
+    providerLabel: meta.providerLabel,
+    colorAuthority: meta.supported ? 'provider' : 'gds-neutral',
+    minTouchTargetPx: 44,
+    allowedVariants: ['solid', 'outline', 'neutral'] as ProviderIdentityVariant[],
+  };
+}
+
 function ProviderIdentityMark({ provider }: { provider: string }) {
   const meta = getProviderIdentityMeta(provider);
 
@@ -150,10 +170,13 @@ export function ProviderIdentityButton({
   provider,
   label,
   description,
+  policyNote,
+  error,
   href,
   onClick,
   disabled,
   loading,
+  tenantDisabledReason,
   fullWidth = true,
   size = 'md',
   variant = 'neutral',
@@ -163,6 +186,7 @@ export function ProviderIdentityButton({
 }: ProviderIdentityButtonProps) {
   const meta = getProviderIdentityMeta(provider);
   const buttonLabel = resolveProviderLabel(provider, label);
+  const resolvedDisabled = disabled || Boolean(tenantDisabledReason);
   const buttonProps = href
     ? {
       component: 'a' as const,
@@ -182,7 +206,7 @@ export function ProviderIdentityButton({
       aria-label={ariaLabel ?? (typeof buttonLabel === 'string' ? buttonLabel : undefined)}
       aria-describedby={describedBy}
       leftSection={<ProviderIdentityMark provider={provider} />}
-      disabled={disabled}
+      disabled={resolvedDisabled}
       loading={loading}
       styles={{ root: { minHeight: minTouchTargetPx } }}
       {...buttonProps}
@@ -192,6 +216,21 @@ export function ProviderIdentityButton({
         {description ? (
           <Text size="xs" c="dimmed" lh={1.2}>
             {description}
+          </Text>
+        ) : null}
+        {policyNote ? (
+          <Text size="xs" c="dimmed" lh={1.2}>
+            {policyNote}
+          </Text>
+        ) : null}
+        {tenantDisabledReason ? (
+          <Text size="xs" c="orange.7" lh={1.2}>
+            {tenantDisabledReason}
+          </Text>
+        ) : null}
+        {error ? (
+          <Text size="xs" c="red.7" lh={1.2} role="alert">
+            {error}
           </Text>
         ) : null}
       </Stack>

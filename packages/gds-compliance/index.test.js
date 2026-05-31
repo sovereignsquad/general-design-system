@@ -458,6 +458,39 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     expect(rules).toContain('identity.provider.unapproved-id');
   });
 
+  it('enforces allowed provider identity variants from policy', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.7',
+        productArchetype: 'public',
+        requiredContracts: ['ProviderIdentityButton'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-31',
+        compliance: {
+          identityProviderBranding: {
+            approvedProviders: ['google'],
+            allowedVariants: ['neutral'],
+            minTouchTargetPx: 44,
+          },
+        },
+      }, null, 2),
+      'src/components/Auth.tsx': `
+        import { ProviderIdentityButton } from '@doneisbetter/gds-core';
+
+        export function Auth() {
+          return <ProviderIdentityButton provider="google" variant="solid" />;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('identity.provider.disallowed-variant');
+  });
+
   it('flags forbidden SocialAuthButtons customizations from policy', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({

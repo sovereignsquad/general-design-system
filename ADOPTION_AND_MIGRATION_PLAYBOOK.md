@@ -256,6 +256,27 @@ Rollback rule:
 
 - if the chart engine or data service fails, roll back only the product chart/data adapter and keep `ReportingSection`, `ChartTokenPanel`, and `EvidencePanel` in place so the user still sees governed error or fallback states.
 
+## 7.4 Auth, identity, and access migration
+
+When replacing local auth and protected-route wrappers, keep identity runtime ownership explicit:
+
+- GDS owns auth shell structure, provider button presentation, provider policy metadata, inline provider errors, tenant-disabled messaging, guest/support lanes, access summaries, and recovery action hierarchy.
+- The consuming product owns OAuth/OIDC redirects, session mutation, account linking backend calls, provider telemetry, retries, timeout handling, and tenant policy source data.
+- Do not keep a local `SocialLogin`, `ProviderButton`, `AuthCard`, `AccessDenied`, or `ProtectedRouteFallback` wrapper when it only duplicates `AuthShell`, `ProviderIdentityButtonGroup`, `SocialAuthButtons`, `AccessSummary`, or `AccessRecoveryPanel`.
+
+Canonical replacement direction:
+
+1. wrap login/signup/linking surfaces with `AuthShell`
+2. replace provider stacks with `ProviderIdentityButtonGroup` or compatibility `SocialAuthButtons`
+3. expose provider errors and tenant-disabled states through provider props
+4. replace protected-route failures with `AccessRecoveryPanel`
+5. replace role/scope summaries with `AccessSummary`
+6. declare `compliance.identityProviderBranding` and run `gds-compliance check`
+
+Rollback rule:
+
+- if a provider integration fails, roll back only the product OAuth/session adapter and keep the GDS auth/access presentation in place so the user sees explicit recovery, guest, or support paths.
+
 ## 8. Documentation Requirements
 
 Every adopter must maintain:

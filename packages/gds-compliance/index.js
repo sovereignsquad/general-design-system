@@ -561,6 +561,9 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
   const forbiddenCustomizations = Array.isArray(policy.forbiddenCustomizations)
     ? policy.forbiddenCustomizations
     : [];
+  const allowedVariants = Array.isArray(policy.allowedVariants)
+    ? new Set(policy.allowedVariants.map((variant) => normalizeProviderId(variant)))
+    : null;
   const socialAuthUsages = /<(?:SocialAuthButtons|ProviderIdentityButton|ProviderIdentityButtonGroup)[\s\S]*?(?:\/\s*>|>[\s\S]*?<\/(?:SocialAuthButtons|ProviderIdentityButton|ProviderIdentityButtonGroup)>)/g;
   const providerTextRegex = /\b(google|apple|facebook|github|microsoft|linkedin|discord|\bx\b|email)\b/i;
   const mantineButtonImportRegex = /from\s+['"]@mantine\/core['"][\s\S]{0,240}\bButton\b/;
@@ -594,6 +597,20 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
           file: relativePath,
           message: `Social identity usage in ${relativePath} sets forbidden customization "${forbidden}". Use ProviderIdentityButton/ProviderIdentityButtonGroup or SocialAuthButtons instead.`,
         });
+      }
+
+      if (allowedVariants) {
+        for (const match of usage[0].matchAll(/\bvariant\s*[:=]\s*['"]([^'"]+)['"]/g)) {
+          const variant = normalizeProviderId(match[1]);
+          if (!allowedVariants.has(variant)) {
+            findings.push({
+              rule: 'identity.provider.disallowed-variant',
+              severity: 'error',
+              file: relativePath,
+              message: `Social identity usage sets variant "${variant}" outside compliance.identityProviderBranding.allowedVariants.`,
+            });
+          }
+        }
       }
 
       for (const providerId of providerIds) {

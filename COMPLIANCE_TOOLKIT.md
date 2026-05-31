@@ -123,6 +123,7 @@ For identity-provider branding governance, declare a dedicated policy block:
 `gds-compliance` checks this policy against all `SocialAuthButtons` usages in the repository source graph:
 
 - rejects providers not listed in `approvedProviders`
+- errors when a provider usage sets `variant` outside `allowedVariants`
 - errors on forbidden prop customizations defined in `forbiddenCustomizations`
 - flags heuristic cases where social auth appears implemented with direct Mantine `Button` controls
 
