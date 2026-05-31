@@ -22,6 +22,7 @@ import {
   getSecondaryRoutes,
   isRouteActive,
 } from './site-routes';
+import { hasFullRouteLocalization } from './locale-coverage';
 
 const PatternsIndexPage = lazy(async () => {
   const module = await import('./pattern-pages');
@@ -207,10 +208,10 @@ function PlaygroundContent() {
         contentWidth="full"
       >
         <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
-          {locale !== 'en' ? (
+          {!hasFullRouteLocalization(location.pathname, locale) ? (
             <ReferenceLocaleNotice
               localeLabel={localesMap[locale]?.label ?? locale}
-              detail="Shared GDS vocabulary switches with the selected locale. Full website copy is still being localized, so the reference-site narrative remains English for now."
+              detail="Shared GDS vocabulary switches with the selected locale. Only routes listed as fully localized in the official coverage contract ship complete translated copy."
             />
           ) : null}
           <Routes>

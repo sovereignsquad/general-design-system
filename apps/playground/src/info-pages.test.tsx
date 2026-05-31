@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
-import { OverviewPage, RequestFeaturePage } from './info-pages';
+import { InstallPage, OverviewPage, RequestFeaturePage } from './info-pages';
 
 describe('playground overview page', () => {
   it('frames the site as the official reference and live demo', () => {
@@ -25,5 +25,19 @@ describe('playground overview page', () => {
     expect(screen.getByLabelText('What capability is missing?')).toBeTruthy();
     expect(screen.getByLabelText('How will this help your product?')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Submit' })).toBeTruthy();
+  });
+
+  it('renders fully localized install copy for de and fr locales', () => {
+    const { unmount } = renderWithGds(<InstallPage />, { locale: 'de' });
+
+    expect(screen.getByRole('heading', { name: 'GDS installieren' })).toBeTruthy();
+    expect(screen.getByText('Öffentlicher Installationspfad')).toBeTruthy();
+
+    unmount();
+
+    renderWithGds(<InstallPage />, { locale: 'fr' });
+
+    expect(screen.getByRole('heading', { name: 'Installer GDS' })).toBeTruthy();
+    expect(screen.getByText('Parcours d’installation public')).toBeTruthy();
   });
 });

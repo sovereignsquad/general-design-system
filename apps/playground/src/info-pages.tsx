@@ -11,6 +11,7 @@ import {
   ReferenceThemeExplorer,
   StateBlock,
 } from '@doneisbetter/gds-core';
+import { useGdsTranslation } from '@doneisbetter/gds-theme';
 
 const installCode = `npm install @doneisbetter/gds@2.6.7
 npm install -D @doneisbetter/gds-eslint-config@2.6.7 @doneisbetter/gds-compliance@2.6.7`;
@@ -427,19 +428,100 @@ export function OverviewPage() {
 }
 
 export function InstallPage() {
+  const { locale } = useGdsTranslation();
+  const installCopy = {
+    en: {
+      title: 'Install GDS',
+      eyebrow: 'Public install path',
+      lead: 'Use the umbrella npm package for the default public entry point, then satisfy the shared Mantine peer line, wire the provider once, and align your theme ownership with the canonical `2.6.7` governance rules.',
+      installSectionTitle: '1. Install the packages',
+      installSectionDescription: 'The open-source public entry point is the umbrella package.',
+      installCodeTitle: 'Install GDS packages',
+      peerCodeTitle: 'Install peer dependencies',
+      upgradeSectionTitle: '2. Upgrade existing clients to 2.6.7',
+      upgradeSectionDescription: 'If your app already uses GDS, move the package line and governance tooling together.',
+      upgradeCodeTitle: 'Upgrade commands',
+      providerSectionTitle: '3. Add the provider',
+      providerSectionDescription: 'All runtime surfaces assume one shared provider near the app root.',
+      providerCodeTitle: 'Provider setup',
+      adoptSectionTitle: '4. Adopt the shipped contracts',
+      adoptSectionDescription: 'Use the live demo and pattern catalog before inventing product-local wrappers.',
+      enforceSectionTitle: '5. Enforce the adoption contract',
+      enforceSectionDescription: 'Treat your app as a real consumer with manifest-driven compliance.',
+      strictManifestTitle: 'Strict adoption manifest',
+      themeManifestTitle: 'Theme-governance manifest fields',
+      verificationTitle: 'Verification contract',
+      clientSectionTitle: 'Client update prompt',
+      clientSectionDescription: 'Use this exact text when you notify every adopter about the upgrade and enforcement details.',
+      clientCodeTitle: 'Reusable client rollout message',
+    },
+    de: {
+      title: 'GDS installieren',
+      eyebrow: 'Öffentlicher Installationspfad',
+      lead: 'Verwende das Umbrella-npm-Paket als Standard-Einstieg, erfülle danach die gemeinsame Mantine-Peer-Linie, binde den Provider einmal ein und richte die Theme-Verantwortung nach den kanonischen `2.6.7`-Governance-Regeln aus.',
+      installSectionTitle: '1. Pakete installieren',
+      installSectionDescription: 'Der Open-Source-Öffentlichkeitspfad nutzt das Umbrella-Paket.',
+      installCodeTitle: 'GDS-Pakete installieren',
+      peerCodeTitle: 'Peer-Abhängigkeiten installieren',
+      upgradeSectionTitle: '2. Bestehende Clients auf 2.6.7 aktualisieren',
+      upgradeSectionDescription: 'Wenn eure App GDS bereits nutzt, aktualisiert Paketlinie und Governance-Tooling gemeinsam.',
+      upgradeCodeTitle: 'Update-Befehle',
+      providerSectionTitle: '3. Provider einbinden',
+      providerSectionDescription: 'Alle Runtime-Flächen erwarten einen gemeinsamen Provider nahe der App-Wurzel.',
+      providerCodeTitle: 'Provider-Setup',
+      adoptSectionTitle: '4. Ausgelieferte Contracts übernehmen',
+      adoptSectionDescription: 'Nutzt Live-Demos und Pattern-Katalog, bevor ihr lokale Wrapper erfindet.',
+      enforceSectionTitle: '5. Adoptionsvertrag erzwingen',
+      enforceSectionDescription: 'Behandle eure App als echten Consumer mit manifest-gesteuerter Compliance.',
+      strictManifestTitle: 'Striktes Adoptions-Manifest',
+      themeManifestTitle: 'Manifest-Felder für Theme-Governance',
+      verificationTitle: 'Verifikationsvertrag',
+      clientSectionTitle: 'Client-Update-Vorlage',
+      clientSectionDescription: 'Nutze genau diesen Text, wenn ihr alle Adopter über Upgrade und Enforcement informiert.',
+      clientCodeTitle: 'Wiederverwendbare Rollout-Nachricht',
+    },
+    fr: {
+      title: 'Installer GDS',
+      eyebrow: 'Parcours d’installation public',
+      lead: 'Utilisez le package npm umbrella comme point d’entrée public par défaut, puis respectez la ligne de dépendances pair Mantine, configurez le provider une seule fois et alignez la gouvernance de thème sur les règles canoniques `2.6.7`.',
+      installSectionTitle: '1. Installer les packages',
+      installSectionDescription: 'Le point d’entrée open source public est le package umbrella.',
+      installCodeTitle: 'Installer les packages GDS',
+      peerCodeTitle: 'Installer les dépendances pair',
+      upgradeSectionTitle: '2. Mettre à jour les clients existants vers 2.6.7',
+      upgradeSectionDescription: 'Si votre application utilise déjà GDS, mettez à jour la ligne de packages et les outils de gouvernance ensemble.',
+      upgradeCodeTitle: 'Commandes de mise à jour',
+      providerSectionTitle: '3. Ajouter le provider',
+      providerSectionDescription: 'Toutes les surfaces runtime supposent un provider partagé proche de la racine de l’application.',
+      providerCodeTitle: 'Configuration du provider',
+      adoptSectionTitle: '4. Adopter les contrats livrés',
+      adoptSectionDescription: 'Utilisez la démo live et le catalogue de patterns avant d’inventer des wrappers locaux.',
+      enforceSectionTitle: '5. Appliquer le contrat d’adoption',
+      enforceSectionDescription: 'Traitez votre application comme un vrai consumer avec une conformité pilotée par manifeste.',
+      strictManifestTitle: 'Manifeste d’adoption strict',
+      themeManifestTitle: 'Champs de manifeste pour la gouvernance de thème',
+      verificationTitle: 'Contrat de vérification',
+      clientSectionTitle: 'Modèle de mise à jour client',
+      clientSectionDescription: 'Utilisez exactement ce texte lorsque vous informez chaque équipe adopter de la mise à jour et de l’enforcement.',
+      clientCodeTitle: 'Message de déploiement réutilisable',
+    },
+  } as const;
+
+  const copy = installCopy[locale as keyof typeof installCopy] ?? installCopy.en;
+
   return (
     <DocsPageShell
-      title="Install GDS"
-      eyebrow="Public install path"
-      lead="Use the umbrella npm package for the default public entry point, then satisfy the shared Mantine peer line, wire the provider once, and align your theme ownership with the canonical `2.6.7` governance rules."
+      title={copy.title}
+      eyebrow={copy.eyebrow}
+      lead={copy.lead}
     >
-      <ReferenceSection title="1. Install the packages" description="The open-source public entry point is the umbrella package.">
-        <DocsCodeBlock code={installCode} language="bash" title="Install GDS packages" />
-        <DocsCodeBlock code={peerCode} language="bash" title="Install peer dependencies" />
+      <ReferenceSection title={copy.installSectionTitle} description={copy.installSectionDescription}>
+        <DocsCodeBlock code={installCode} language="bash" title={copy.installCodeTitle} />
+        <DocsCodeBlock code={peerCode} language="bash" title={copy.peerCodeTitle} />
       </ReferenceSection>
 
-      <ReferenceSection title="2. Upgrade existing clients to 2.6.7" description="If your app already uses GDS, move the package line and governance tooling together.">
-        <DocsCodeBlock code={updateCode} language="bash" title="Upgrade commands" />
+      <ReferenceSection title={copy.upgradeSectionTitle} description={copy.upgradeSectionDescription}>
+        <DocsCodeBlock code={updateCode} language="bash" title={copy.upgradeCodeTitle} />
         <FeatureBand
           columns={3}
           variant="compact"
@@ -463,11 +545,11 @@ export function InstallPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="3. Add the provider" description="All runtime surfaces assume one shared provider near the app root.">
-        <DocsCodeBlock code={providerCode} language="tsx" title="Provider setup" />
+      <ReferenceSection title={copy.providerSectionTitle} description={copy.providerSectionDescription}>
+        <DocsCodeBlock code={providerCode} language="tsx" title={copy.providerCodeTitle} />
       </ReferenceSection>
 
-      <ReferenceSection title="4. Adopt the shipped contracts" description="Use the live demo and pattern catalog before inventing product-local wrappers.">
+      <ReferenceSection title={copy.adoptSectionTitle} description={copy.adoptSectionDescription}>
         <ReferenceLinkGrid
           items={[
             {
@@ -492,14 +574,14 @@ export function InstallPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="5. Enforce the adoption contract" description="Treat your app as a real consumer with manifest-driven compliance.">
-        <DocsCodeBlock code={complianceCode} language="json" title="Strict adoption manifest" />
-        <DocsCodeBlock code={themeGovernanceCode} language="json" title="Theme-governance manifest fields" />
-        <DocsCodeBlock code={verificationCode} language="bash" title="Verification contract" />
+      <ReferenceSection title={copy.enforceSectionTitle} description={copy.enforceSectionDescription}>
+        <DocsCodeBlock code={complianceCode} language="json" title={copy.strictManifestTitle} />
+        <DocsCodeBlock code={themeGovernanceCode} language="json" title={copy.themeManifestTitle} />
+        <DocsCodeBlock code={verificationCode} language="bash" title={copy.verificationTitle} />
       </ReferenceSection>
 
-      <ReferenceSection title="Client update prompt" description="Use this exact text when you notify every adopter about the upgrade and enforcement details.">
-        <DocsCodeBlock code={clientUpdateTemplate} language="markdown" title="Reusable client rollout message" />
+      <ReferenceSection title={copy.clientSectionTitle} description={copy.clientSectionDescription}>
+        <DocsCodeBlock code={clientUpdateTemplate} language="markdown" title={copy.clientCodeTitle} />
       </ReferenceSection>
 
       <SiteFooter />

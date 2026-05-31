@@ -101,6 +101,16 @@
       "gdsEditorialPublicTheme",
       "createPublicBrandTheme"
     ],
+    "localizedRouteCoverage": [
+      {
+        "routePrefix": "/install",
+        "fullCopyLocales": [
+          "en",
+          "de",
+          "fr"
+        ]
+      }
+    ],
     "themeOwnershipPaths": [
       "src/main.tsx"
     ],

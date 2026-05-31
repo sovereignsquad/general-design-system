@@ -26,8 +26,8 @@ for (const label of requiredPrimaryLabels) {
   }
 }
 
-if (!appSource.includes('Full website copy is still being localized')) {
-  failures.push('Locale honesty disclosure is missing from App.tsx.');
+if (!appSource.includes('Only routes listed as fully localized in the official coverage contract ship complete translated copy.')) {
+  failures.push('Route-aware locale honesty disclosure is missing from App.tsx.');
 }
 
 if (!showcaseSource.includes('public runtime showcase')) {
