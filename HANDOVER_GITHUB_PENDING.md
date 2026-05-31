@@ -1,11 +1,11 @@
-# GitHub Handover (Pending Actions)
+# GitHub Handover (Safe Baseline)
 
-Status: Pending GitHub follow-up  
+Status: Safe baseline established  
 Last updated: 2026-05-31
 
 ## Context
 
-During final board verification, GitHub API rate limiting interrupted the post-close normalization sweep.
+Earlier board verification was interrupted by GitHub API rate limiting. The follow-up audit has now completed successfully against the canonical GDS project board.
 
 Completed already:
 
@@ -13,13 +13,34 @@ Completed already:
 - Earlier normalization: `#178` moved to `Done`, `#175` closed as duplicate/superseded
 - Earlier consistency closes: `#157`, `#169`, `#170`, `#171`, `#172`, `#173`
 
-## Required GitHub follow-up
+## Current Verified State
 
-1. Re-run board normalization audit once API quota resets.
-2. Ensure all closed issues on project `11` have project status `Done`.
-3. Ensure no open issues are marked `Done`.
-4. If any mismatches remain, patch them with `gh project item-edit`.
-5. Post one board-sync confirmation comment on the latest governance/meta issue.
+- Repository: `sovereignsquad/general-design-system`
+- Branch: `main`
+- Verified commit: `16d8ee9`
+- Canonical project board: `sovereignsquad#11`
+- Tracked project issue items: `71`
+- Open project issues: `0`
+- Issue state/project status mismatches: `0`
+- Latest `GDS Quality` workflow for `main`: passed
+- Latest GitHub Pages deployment workflow for `main`: passed
+- Published package line: `2.6.7`
+
+## Safe Operating Rule
+
+Only use project board `11` as the canonical GDS delivery board. Do not use repository-wide issue lists as GDS priority input because they can include unrelated product issues.
+
+Before starting another delivery wave, run:
+
+```bash
+npm run audit:board:strict
+```
+
+Before release or package publication, run:
+
+```bash
+npm run verify:release
+```
 
 ## Exact commands
 
@@ -33,6 +54,7 @@ Run automated audit script:
 
 ```bash
 npm run audit:board
+npm run audit:board:strict
 ```
 
 Manual fallback snapshot:

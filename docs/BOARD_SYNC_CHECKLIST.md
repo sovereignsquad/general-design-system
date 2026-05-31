@@ -32,6 +32,7 @@ Use this checklist before release, after major implementation waves, and before 
 
 - Run:
 ```bash
+npm run audit:board:strict
 npm run audit:board
 npm run verify:references
 npm run verify:release
@@ -40,7 +41,8 @@ npm run verify:release
 
 ## 5. Project Board Hygiene
 
-- Use `gh project item-list 11 --owner sovereignsquad --limit 200` to inspect current board items.
+- Use `npm run audit:board:strict` as the canonical board safety check before relying on project-board status.
+- Use `gh project item-list 11 --owner sovereignsquad --limit 200` only for manual inspection or targeted repair.
 - For each changed issue state, add a short closure/update comment with evidence paths.
 - Keep canonical work on one issue number per scope; avoid parallel duplicates.
 
