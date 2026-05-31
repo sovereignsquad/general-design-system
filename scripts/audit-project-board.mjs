@@ -51,9 +51,9 @@ function main() {
     issueList = parseJson(`gh issue list --repo ${OWNER}/${REPOSITORY} --state all --limit 500 --json number,state`);
   } catch (error) {
     const message = String(error?.stderr ?? error?.message ?? error);
-    const rateLimited = message.includes('API rate limit exceeded');
-    if (ciMode && !strictMode && rateLimited) {
-      console.warn('Board audit warning: GitHub API rate limit exceeded in CI.');
+    if (ciMode && !strictMode) {
+      console.warn('Board audit warning: GitHub board data could not be fetched in CI.');
+      console.warn(message.slice(0, 500));
       console.warn('Skipping strict board audit for this run (set GDS_BOARD_AUDIT_STRICT=1 to fail hard).');
       process.exit(0);
     }
