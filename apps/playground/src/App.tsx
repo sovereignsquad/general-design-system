@@ -104,6 +104,11 @@ const InstallPage = lazy(async () => {
   return { default: module.InstallPage };
 });
 
+const CoveragePage = lazy(async () => {
+  const module = await import('./info-pages');
+  return { default: module.CoveragePage };
+});
+
 const RulebookPage = lazy(async () => {
   const module = await import('./info-pages');
   return { default: module.RulebookPage };
@@ -223,6 +228,7 @@ function PlaygroundContent() {
             <Route path="/patterns/data" element={<Suspense fallback={<RouteFallback />}><DataPatternPage /></Suspense>} />
             <Route path="/patterns/access" element={<Suspense fallback={<RouteFallback />}><AccessPatternPage /></Suspense>} />
             <Route path="/patterns/feedback" element={<Suspense fallback={<RouteFallback />}><FeedbackPatternPage /></Suspense>} />
+            <Route path="/coverage" element={<Suspense fallback={<RouteFallback />}><CoveragePage /></Suspense>} />
             <Route path="/install" element={<Suspense fallback={<RouteFallback />}><InstallPage /></Suspense>} />
             <Route path="/governance" element={<Suspense fallback={<RouteFallback />}><RulebookPage /></Suspense>} />
             <Route path="/themes" element={<Suspense fallback={<RouteFallback />}><TokensPage /></Suspense>} />

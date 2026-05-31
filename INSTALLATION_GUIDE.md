@@ -12,6 +12,7 @@ Public install and reference routes:
 - live governance page: `https://sovereignsquad.github.io/general-design-system/governance`
 - live themes page: `https://sovereignsquad.github.io/general-design-system/themes`
 - live pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
+- live coverage matrix: `https://sovereignsquad.github.io/general-design-system/coverage`
 - live demos page: `https://sovereignsquad.github.io/general-design-system/live-demos`
 - feature request intake: `https://sovereignsquad.github.io/general-design-system/request-feature`
 

@@ -9,9 +9,11 @@ import {
   ReferenceLinkGrid,
   ReferenceSection,
   ReferenceThemeExplorer,
+  SimpleDataTable,
   StateBlock,
 } from '@doneisbetter/gds-core';
 import { useGdsTranslation } from '@doneisbetter/gds-theme';
+import { patternRegistry } from './pattern-registry';
 
 const installCode = `npm install @doneisbetter/gds@2.6.7
 npm install -D @doneisbetter/gds-eslint-config@2.6.7 @doneisbetter/gds-compliance@2.6.7`;
@@ -391,6 +393,13 @@ export function OverviewPage() {
               badge: 'Pattern catalog',
             },
             {
+              id: 'coverage',
+              title: 'Open coverage matrix',
+              description: 'Track component and pattern parity between documentation and live runtime routes.',
+              href: '/general-design-system/coverage',
+              badge: 'Parity matrix',
+            },
+            {
               id: 'themes',
               title: 'Explore themes',
               description: 'Test the shipped presets and the governed brand-theme generator in the live theme lab.',
@@ -422,6 +431,55 @@ export function OverviewPage() {
         />
       </ReferenceSection>
 
+      <SiteFooter />
+    </DocsPageShell>
+  );
+}
+
+export function CoveragePage() {
+  const statusCounts = patternRegistry.reduce<Record<string, number>>((acc, entry) => {
+    acc[entry.coverageStatus] = (acc[entry.coverageStatus] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  const rows = patternRegistry.map((entry) => ({
+    id: entry.id,
+    pattern: entry.title,
+    family: entry.family,
+    route: entry.route,
+    status: entry.coverageStatus,
+  }));
+
+  return (
+    <DocsPageShell
+      title="Coverage Matrix"
+      eyebrow="Pattern parity status"
+      lead="This page is the runtime parity matrix between COMPONENTS_AND_PATTERNS.md and the official demo routes. Use it to see what is shipped, where it is shown, and what remains blocked."
+    >
+      <ReferenceSection title="Coverage summary" description="Status counts are generated from the shared pattern registry used by the docs routes.">
+        <FeatureBand
+          columns={4}
+          variant="compact"
+          items={[
+            { id: 'live-demo', title: 'Live demo', description: `${statusCounts['live-demo'] ?? 0} patterns are rendered in interactive routes.` },
+            { id: 'static-reference', title: 'Static reference', description: `${statusCounts['static-reference'] ?? 0} patterns are documented without live runtime demos.` },
+            { id: 'pending-primitive', title: 'Pending primitive', description: `${statusCounts['pending-primitive'] ?? 0} patterns still need package-level primitives.` },
+            { id: 'blocked', title: 'Blocked', description: `${statusCounts.blocked ?? 0} patterns are blocked by known constraints or dependencies.` },
+          ]}
+        />
+      </ReferenceSection>
+      <ReferenceSection title="Pattern matrix" description="Every row points to the canonical family route where the pattern is represented.">
+        <SimpleDataTable
+          columns={[
+            { key: 'pattern', header: 'Pattern' },
+            { key: 'family', header: 'Family' },
+            { key: 'status', header: 'Status' },
+            { key: 'route', header: 'Route' },
+          ]}
+          rows={rows}
+          getRowKey={(row) => row.id}
+        />
+      </ReferenceSection>
       <SiteFooter />
     </DocsPageShell>
   );
@@ -590,11 +648,31 @@ export function InstallPage() {
 }
 
 export function RulebookPage() {
+  const { locale } = useGdsTranslation();
+  const copy = {
+    en: {
+      title: 'Governance',
+      eyebrow: 'How to follow the rules properly',
+      lead: 'GDS adoption is deliberately strict: if a need is reusable, it should become a package-owned contract. If it is not reusable, it should stay narrow and reviewable or be deleted.',
+    },
+    de: {
+      title: 'Governance',
+      eyebrow: 'So werden die Regeln korrekt angewendet',
+      lead: 'Die GDS-Einführung ist bewusst streng: Wenn ein Bedarf wiederverwendbar ist, gehört er als paket-eigener Contract in GDS. Wenn er nicht wiederverwendbar ist, bleibt er eng begrenzt, überprüfbar oder wird entfernt.',
+    },
+    fr: {
+      title: 'Gouvernance',
+      eyebrow: 'Comment appliquer correctement les règles',
+      lead: 'L’adoption de GDS est volontairement stricte : si un besoin est réutilisable, il doit devenir un contrat possédé par les packages. Sinon, il doit rester limité, vérifiable, ou être supprimé.',
+    },
+  } as const;
+  const i18n = copy[locale as keyof typeof copy] ?? copy.en;
+
   return (
     <DocsPageShell
-      title="Governance"
-      eyebrow="How to follow the rules properly"
-      lead="GDS adoption is deliberately strict: if a need is reusable, it should become a package-owned contract. If it is not reusable, it should stay narrow and reviewable or be deleted."
+      title={i18n.title}
+      eyebrow={i18n.eyebrow}
+      lead={i18n.lead}
     >
       <ReferenceSection title="What we require" description="The shared rules exist to prevent local design systems from growing inside product codebases.">
         <FeatureBand
@@ -710,11 +788,31 @@ export function RulebookPage() {
 }
 
 export function TokensPage() {
+  const { locale } = useGdsTranslation();
+  const copy = {
+    en: {
+      title: 'Themes',
+      eyebrow: 'Official theme explorer',
+      lead: 'Test the shipped GDS theme lanes, inspect the governed brand-theme generator, and verify how the official site behaves under each preset.',
+    },
+    de: {
+      title: 'Themes',
+      eyebrow: 'Offizieller Theme-Explorer',
+      lead: 'Teste die ausgelieferten GDS-Theme-Lanes, prüfe den gesteuerten Brand-Theme-Generator und verifiziere das Verhalten der offiziellen Seite pro Preset.',
+    },
+    fr: {
+      title: 'Thèmes',
+      eyebrow: 'Explorateur de thèmes officiel',
+      lead: 'Testez les lanes de thème GDS livrées, inspectez le générateur de thème de marque gouverné et vérifiez le comportement du site officiel pour chaque preset.',
+    },
+  } as const;
+  const i18n = copy[locale as keyof typeof copy] ?? copy.en;
+
   return (
     <DocsPageShell
-      title="Themes"
-      eyebrow="Official theme explorer"
-      lead="Test the shipped GDS theme lanes, inspect the governed brand-theme generator, and verify how the official site behaves under each preset."
+      title={i18n.title}
+      eyebrow={i18n.eyebrow}
+      lead={i18n.lead}
     >
       <ReferenceThemeExplorer />
       <ReferenceSection

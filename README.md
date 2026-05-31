@@ -26,6 +26,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Core Principles & Tokens**: [FOUNDATION.md](/Users/Shared/Projects/general-design-system/FOUNDATION.md) — The fundamental rules that guide UI decisions, dark/light modes, and Mantine boundaries.
 - **Component Contracts & Patterns**: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) — Required behaviors for standard UI elements and full-page workflows.
 - **Live Pattern Catalog**: [https://sovereignsquad.github.io/general-design-system/patterns](https://sovereignsquad.github.io/general-design-system/patterns) — The public registry-backed component and pattern reference site with family pages for foundations, public, operations, data, access, and feedback coverage.
+- **Coverage Matrix**: [https://sovereignsquad.github.io/general-design-system/coverage](https://sovereignsquad.github.io/general-design-system/coverage) — Route-level parity view of documented patterns versus live runtime representation status.
 - **Interactive Theme Lab**: [https://sovereignsquad.github.io/general-design-system/themes](https://sovereignsquad.github.io/general-design-system/themes) — Live testing for shipped theme presets, light/dark behavior, token surfaces, and the bounded creator-authored theming lane.
 - **Feature request intake**: [https://sovereignsquad.github.io/general-design-system/request-feature](https://sovereignsquad.github.io/general-design-system/request-feature) — Canonical intake for capability requests, governance questions, and missing contracts.
 - **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](/Users/Shared/Projects/general-design-system/PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
@@ -68,6 +69,7 @@ The GitHub Pages site is the public runtime reference for this repository:
 - Theme explorer: `https://sovereignsquad.github.io/general-design-system/themes`
 - Governance guide: `https://sovereignsquad.github.io/general-design-system/governance`
 - Pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
+- Coverage matrix: `https://sovereignsquad.github.io/general-design-system/coverage`
 - Live demos: `https://sovereignsquad.github.io/general-design-system/live-demos`
 - Demo route families:
 - `.../live-demos/surfaces`
@@ -138,7 +140,7 @@ Required repository behavior:
 ## Validation Commands
 
 - `npm run verify:release` — checks release alignment, builds all packages/apps, verifies export boundaries, then runs lint, tests, and reference validation
-- `npm run verify:references` — validates reference consumers, adoption manifests, official `DocsShell` usage, SSOT pattern-catalog coverage, website trust/clarity checks, surface-presentation migration evidence, and route-level locale coverage declarations
+- `npm run verify:references` — validates reference consumers, adoption manifests, official `DocsShell` usage, SSOT pattern-catalog coverage, website trust/clarity checks, surface-presentation migration evidence, route-level locale coverage declarations, and canonical theme-governance lanes
 - `npm run verify:mantine` — packs the packages and validates clean Mantine 8.3 and 9.2 / React 19 consumer install smoke
 - `npm run publish:dry-run` — validates the authenticated package publish sequence without uploading artifacts
 - `npm run publish:npm` — publishes the six public GDS packages from an authenticated npm environment

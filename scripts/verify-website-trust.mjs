@@ -14,6 +14,7 @@ const requiredPrimaryLabels = [
   "label: 'What Is GDS'",
   "label: 'Install'",
   "label: 'Patterns'",
+  "label: 'Coverage'",
   "label: 'Themes'",
   "label: 'Governance'",
   "label: 'Live Demos'",

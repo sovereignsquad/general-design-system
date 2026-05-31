@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
-import { InstallPage, OverviewPage, RequestFeaturePage } from './info-pages';
+import { CoveragePage, InstallPage, OverviewPage, RequestFeaturePage, RulebookPage, TokensPage } from './info-pages';
 
 describe('playground overview page', () => {
   it('frames the site as the official reference and live demo', () => {
@@ -10,6 +10,7 @@ describe('playground overview page', () => {
     expect(screen.getByText('Official reference and live demo')).toBeTruthy();
     expect(screen.getByText(/One place to understand, install, test, and trust GDS/i)).toBeTruthy();
     expect(screen.getAllByRole('link', { name: 'Browse patterns' }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: 'Open coverage matrix' }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole('link', { name: 'Explore themes' }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole('link', { name: 'Open live demos' }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole('link', { name: 'Read governance' }).length).toBeGreaterThan(0);
@@ -39,5 +40,20 @@ describe('playground overview page', () => {
 
     expect(screen.getByRole('heading', { name: 'Installer GDS' })).toBeTruthy();
     expect(screen.getByText('Parcours d’installation public')).toBeTruthy();
+  });
+
+  it('renders parity matrix route with coverage summary', () => {
+    renderWithGds(<CoveragePage />);
+    expect(screen.getByRole('heading', { name: 'Coverage Matrix' })).toBeTruthy();
+    expect(screen.getByText('Pattern parity status')).toBeTruthy();
+  });
+
+  it('keeps localized headings for themes and governance in de/fr', () => {
+    const { unmount } = renderWithGds(<RulebookPage />, { locale: 'fr' });
+    expect(screen.getByText('Comment appliquer correctement les règles')).toBeTruthy();
+    unmount();
+
+    renderWithGds(<TokensPage />, { locale: 'de' });
+    expect(screen.getByText('Offizieller Theme-Explorer')).toBeTruthy();
   });
 });

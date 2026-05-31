@@ -3,6 +3,7 @@ import type { SemanticAction } from '@doneisbetter/gds-core';
 export type PublicAudienceIntent =
   | 'overview'
   | 'install'
+  | 'coverage'
   | 'patterns'
   | 'themes'
   | 'governance'
@@ -47,6 +48,15 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'patterns',
     navGroup: 'primary',
     activePrefixes: ['/patterns'],
+  },
+  {
+    id: 'coverage',
+    path: '/coverage',
+    label: 'Coverage',
+    action: 'analytics',
+    audienceIntent: 'coverage',
+    navGroup: 'primary',
+    activePrefixes: ['/coverage'],
   },
   {
     id: 'themes',
