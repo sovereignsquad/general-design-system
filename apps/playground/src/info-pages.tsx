@@ -15,10 +15,34 @@ import {
 import { useGdsTranslation } from '@doneisbetter/gds-theme';
 import { patternRegistry } from './pattern-registry';
 
-const installCode = `npm install @doneisbetter/gds@2.6.7
-npm install -D @doneisbetter/gds-eslint-config@2.6.7 @doneisbetter/gds-compliance@2.6.7`;
+const stableGdsVersion = '2.6.7';
+const targetGdsVersion = '3.0.0';
+
+const installCode = `npm install @doneisbetter/gds@${targetGdsVersion}
+npm install -D @doneisbetter/gds-eslint-config@${targetGdsVersion} @doneisbetter/gds-compliance@${targetGdsVersion}`;
+
+const granularInstallCode = `npm install @doneisbetter/gds-theme@${targetGdsVersion} @doneisbetter/gds-core@${targetGdsVersion} @doneisbetter/gds-admin@${targetGdsVersion}
+npm install -D @doneisbetter/gds-eslint-config@${targetGdsVersion} @doneisbetter/gds-compliance@${targetGdsVersion}`;
 
 const peerCode = `npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`;
+const mantineCorePackage = '@mantine/' + 'core';
+
+const nextLayoutCode = `// app/layout.tsx
+import { ColorSchemeScript } from '${mantineCorePackage}';
+import Providers from './providers';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <ColorSchemeScript defaultColorScheme="light" />
+      </head>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  );
+}`;
 
 const providerCode = `// app/providers.tsx
 'use client';
@@ -29,17 +53,29 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return <GdsProvider>{children}</GdsProvider>;
 }`;
 
-const updateCode = `npm install @doneisbetter/gds@2.6.7
+const viteBootstrapCode = `// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { GdsProvider } from '@doneisbetter/gds/client';
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <GdsProvider>
+    <App />
+  </GdsProvider>,
+);`;
+
+const updateCode = `npm install @doneisbetter/gds@${targetGdsVersion}
 
 # or granular runtime packages
-npm install @doneisbetter/gds-theme@2.6.7 @doneisbetter/gds-core@2.6.7 @doneisbetter/gds-admin@2.6.7
+npm install @doneisbetter/gds-theme@${targetGdsVersion} @doneisbetter/gds-core@${targetGdsVersion} @doneisbetter/gds-admin@${targetGdsVersion}
 
 # governance tooling
-npm install -D @doneisbetter/gds-eslint-config@2.6.7 @doneisbetter/gds-compliance@2.6.7`;
+npm install -D @doneisbetter/gds-eslint-config@${targetGdsVersion} @doneisbetter/gds-compliance@${targetGdsVersion}`;
 
 const complianceCode = `{
   "schemaVersion": 1,
-  "gdsVersion": "2.6.7",
+  "gdsVersion": "${targetGdsVersion}",
   "productArchetype": "hybrid",
   "requiredContracts": [
     "DiscoveryShell",
@@ -79,15 +115,29 @@ npm run test:run
 npm run verify:mantine
 gds-compliance check --manifest ./gds-adoption.json`;
 
+const failureRecoveryCode = `# Peer conflict
+npm ls @mantine/core @mantine/hooks @mantine/modals @mantine/notifications react react-dom
+npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
+
+# Registry propagation after publish
+GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published
+
+# Consumer verification failure
+gds-compliance check --manifest ./gds-adoption.json --format text`;
+
+const fallbackInstallCode = `# Fallback only when npm is temporarily unavailable
+npm run pack:release
+gh release create gds-v${targetGdsVersion} dist/release-bundles/${targetGdsVersion}/* --title "GDS ${targetGdsVersion} release bundles"`;
+
 const clientUpdateTemplate = `# Copy this to every client migration thread
 
-Team, we completed the GDS update to the 2.6.7 reference surface.
+Team, we completed the GDS update to the ${targetGdsVersion} adoption platform release.
 
 What to do now:
 - Update all production dependencies to:
-  - @doneisbetter/gds@2.6.7
-  - @doneisbetter/gds-eslint-config@2.6.7 (dev)
-  - @doneisbetter/gds-compliance@2.6.7 (dev)
+  - @doneisbetter/gds@${targetGdsVersion}
+  - @doneisbetter/gds-eslint-config@${targetGdsVersion} (dev)
+  - @doneisbetter/gds-compliance@${targetGdsVersion} (dev)
 - Remove local branding-layer theme extension code based on extendGdsTheme(...).
 - Route theme ownership through one approved lane:
   - gdsTheme
@@ -559,18 +609,21 @@ export function InstallPage() {
   const installCopy = {
     en: {
       title: 'Install GDS',
-      eyebrow: 'Public install path',
-      lead: 'Use the umbrella npm package for the default public entry point, then satisfy the shared Mantine peer line, wire the provider once, and align your theme ownership with the canonical `2.6.7` governance rules.',
+      eyebrow: '3.0.0 public install path',
+      lead: `Use the umbrella npm package for the default public entry point, satisfy the shared Mantine peer line, wire the provider once, and align theme ownership with the canonical ${targetGdsVersion} governance rules. Current stable remains ${stableGdsVersion} until the release gate is complete.`,
       installSectionTitle: '1. Install the packages',
-      installSectionDescription: 'The open-source public entry point is the umbrella package.',
-      installCodeTitle: 'Install GDS packages',
+      installSectionDescription: 'The open-source public entry point is the umbrella package. Granular packages stay available for teams that intentionally separate runtime lanes.',
+      installCodeTitle: 'Install umbrella package',
+      granularCodeTitle: 'Install granular packages',
       peerCodeTitle: 'Install peer dependencies',
-      upgradeSectionTitle: '2. Upgrade existing clients to 2.6.7',
+      upgradeSectionTitle: `2. Upgrade existing clients to ${targetGdsVersion}`,
       upgradeSectionDescription: 'If your app already uses GDS, move the package line and governance tooling together.',
       upgradeCodeTitle: 'Upgrade commands',
       providerSectionTitle: '3. Add the provider',
-      providerSectionDescription: 'All runtime surfaces assume one shared provider near the app root.',
-      providerCodeTitle: 'Provider setup',
+      providerSectionDescription: 'All runtime surfaces assume one shared provider near the app root and one framework-native color-scheme bootstrap.',
+      nextLayoutTitle: 'Next.js App Router layout',
+      providerCodeTitle: 'Next.js provider setup',
+      viteBootstrapTitle: 'Vite / SPA bootstrap',
       adoptSectionTitle: '4. Adopt the shipped contracts',
       adoptSectionDescription: 'Use the live demo and pattern catalog before inventing product-local wrappers.',
       enforceSectionTitle: '5. Enforce the adoption contract',
@@ -578,24 +631,31 @@ export function InstallPage() {
       strictManifestTitle: 'Strict adoption manifest',
       themeManifestTitle: 'Theme-governance manifest fields',
       verificationTitle: 'Verification contract',
+      recoverySectionTitle: '6. Failure and recovery states',
+      recoverySectionDescription: 'Handle peer conflicts, npm propagation, and compliance failures explicitly. Do not hide retries or continue with a silent partial install.',
+      recoveryCodeTitle: 'Troubleshooting commands',
+      fallbackCodeTitle: 'Temporary release-asset fallback',
       clientSectionTitle: 'Client update prompt',
       clientSectionDescription: 'Use this exact text when you notify every adopter about the upgrade and enforcement details.',
       clientCodeTitle: 'Reusable client rollout message',
     },
     de: {
       title: 'GDS installieren',
-      eyebrow: 'Öffentlicher Installationspfad',
-      lead: 'Verwende das Umbrella-npm-Paket als Standard-Einstieg, erfülle danach die gemeinsame Mantine-Peer-Linie, binde den Provider einmal ein und richte die Theme-Verantwortung nach den kanonischen `2.6.7`-Governance-Regeln aus.',
+      eyebrow: 'Öffentlicher 3.0.0-Installationspfad',
+      lead: `Verwende das Umbrella-npm-Paket als Standard-Einstieg, erfülle die gemeinsame Mantine-Peer-Linie, binde den Provider einmal ein und richte Theme-Ownership nach ${targetGdsVersion} aus. Aktuell stabil bleibt ${stableGdsVersion}, bis das Release-Gate abgeschlossen ist.`,
       installSectionTitle: '1. Pakete installieren',
-      installSectionDescription: 'Der Open-Source-Öffentlichkeitspfad nutzt das Umbrella-Paket.',
-      installCodeTitle: 'GDS-Pakete installieren',
+      installSectionDescription: 'Der öffentliche Open-Source-Pfad nutzt das Umbrella-Paket. Granulare Pakete bleiben für bewusst getrennte Runtime-Lanes verfügbar.',
+      installCodeTitle: 'Umbrella-Paket installieren',
+      granularCodeTitle: 'Granulare Pakete installieren',
       peerCodeTitle: 'Peer-Abhängigkeiten installieren',
-      upgradeSectionTitle: '2. Bestehende Clients auf 2.6.7 aktualisieren',
+      upgradeSectionTitle: `2. Bestehende Clients auf ${targetGdsVersion} aktualisieren`,
       upgradeSectionDescription: 'Wenn eure App GDS bereits nutzt, aktualisiert Paketlinie und Governance-Tooling gemeinsam.',
       upgradeCodeTitle: 'Update-Befehle',
       providerSectionTitle: '3. Provider einbinden',
-      providerSectionDescription: 'Alle Runtime-Flächen erwarten einen gemeinsamen Provider nahe der App-Wurzel.',
-      providerCodeTitle: 'Provider-Setup',
+      providerSectionDescription: 'Alle Runtime-Flächen erwarten einen gemeinsamen Provider nahe der App-Wurzel und ein framework-natives Color-Scheme-Bootstrap.',
+      nextLayoutTitle: 'Next.js App-Router-Layout',
+      providerCodeTitle: 'Next.js Provider-Setup',
+      viteBootstrapTitle: 'Vite / SPA Bootstrap',
       adoptSectionTitle: '4. Ausgelieferte Contracts übernehmen',
       adoptSectionDescription: 'Nutzt Live-Demos und Pattern-Katalog, bevor ihr lokale Wrapper erfindet.',
       enforceSectionTitle: '5. Adoptionsvertrag erzwingen',
@@ -603,24 +663,31 @@ export function InstallPage() {
       strictManifestTitle: 'Striktes Adoptions-Manifest',
       themeManifestTitle: 'Manifest-Felder für Theme-Governance',
       verificationTitle: 'Verifikationsvertrag',
+      recoverySectionTitle: '6. Fehler- und Recovery-Zustände',
+      recoverySectionDescription: 'Peer-Konflikte, npm-Propagation und Compliance-Fehler müssen explizit behandelt werden.',
+      recoveryCodeTitle: 'Troubleshooting-Befehle',
+      fallbackCodeTitle: 'Temporärer Release-Asset-Fallback',
       clientSectionTitle: 'Client-Update-Vorlage',
       clientSectionDescription: 'Nutze genau diesen Text, wenn ihr alle Adopter über Upgrade und Enforcement informiert.',
       clientCodeTitle: 'Wiederverwendbare Rollout-Nachricht',
     },
     fr: {
       title: 'Installer GDS',
-      eyebrow: 'Parcours d’installation public',
-      lead: 'Utilisez le package npm umbrella comme point d’entrée public par défaut, puis respectez la ligne de dépendances pair Mantine, configurez le provider une seule fois et alignez la gouvernance de thème sur les règles canoniques `2.6.7`.',
+      eyebrow: 'Parcours d’installation public 3.0.0',
+      lead: `Utilisez le package npm umbrella, respectez la ligne de dépendances pair Mantine, configurez le provider une seule fois et alignez la gouvernance de thème sur ${targetGdsVersion}. La version stable reste ${stableGdsVersion} jusqu’à la fin du release gate.`,
       installSectionTitle: '1. Installer les packages',
-      installSectionDescription: 'Le point d’entrée open source public est le package umbrella.',
-      installCodeTitle: 'Installer les packages GDS',
+      installSectionDescription: 'Le point d’entrée open source public est le package umbrella. Les packages granulaires restent disponibles pour les lanes runtime séparées.',
+      installCodeTitle: 'Installer le package umbrella',
+      granularCodeTitle: 'Installer les packages granulaires',
       peerCodeTitle: 'Installer les dépendances pair',
-      upgradeSectionTitle: '2. Mettre à jour les clients existants vers 2.6.7',
+      upgradeSectionTitle: `2. Mettre à jour les clients existants vers ${targetGdsVersion}`,
       upgradeSectionDescription: 'Si votre application utilise déjà GDS, mettez à jour la ligne de packages et les outils de gouvernance ensemble.',
       upgradeCodeTitle: 'Commandes de mise à jour',
       providerSectionTitle: '3. Ajouter le provider',
-      providerSectionDescription: 'Toutes les surfaces runtime supposent un provider partagé proche de la racine de l’application.',
-      providerCodeTitle: 'Configuration du provider',
+      providerSectionDescription: 'Toutes les surfaces runtime supposent un provider partagé proche de la racine et un bootstrap de color scheme natif au framework.',
+      nextLayoutTitle: 'Layout Next.js App Router',
+      providerCodeTitle: 'Configuration du provider Next.js',
+      viteBootstrapTitle: 'Bootstrap Vite / SPA',
       adoptSectionTitle: '4. Adopter les contrats livrés',
       adoptSectionDescription: 'Utilisez la démo live et le catalogue de patterns avant d’inventer des wrappers locaux.',
       enforceSectionTitle: '5. Appliquer le contrat d’adoption',
@@ -628,6 +695,10 @@ export function InstallPage() {
       strictManifestTitle: 'Manifeste d’adoption strict',
       themeManifestTitle: 'Champs de manifeste pour la gouvernance de thème',
       verificationTitle: 'Contrat de vérification',
+      recoverySectionTitle: '6. États d’échec et de reprise',
+      recoverySectionDescription: 'Traitez explicitement les conflits peer, la propagation npm et les échecs de conformité.',
+      recoveryCodeTitle: 'Commandes de diagnostic',
+      fallbackCodeTitle: 'Fallback temporaire via release assets',
       clientSectionTitle: 'Modèle de mise à jour client',
       clientSectionDescription: 'Utilisez exactement ce texte lorsque vous informez chaque équipe adopter de la mise à jour et de l’enforcement.',
       clientCodeTitle: 'Message de déploiement réutilisable',
@@ -639,13 +710,16 @@ export function InstallPage() {
       installSectionTitle: '1. Installa i pacchetti',
       installSectionDescription: 'Il punto di ingresso pubblico open source è il pacchetto umbrella.',
       installCodeTitle: 'Installa i pacchetti GDS',
+      granularCodeTitle: 'Installa pacchetti granulari',
       peerCodeTitle: 'Installa le dipendenze peer',
       upgradeSectionTitle: '2. Aggiorna i client esistenti alla 2.6.7',
       upgradeSectionDescription: 'Se la tua app usa già GDS, aggiorna insieme linea pacchetti e tooling di governance.',
       upgradeCodeTitle: 'Comandi di aggiornamento',
       providerSectionTitle: '3. Aggiungi il provider',
       providerSectionDescription: 'Tutte le superfici runtime assumono un provider condiviso vicino alla root dell’app.',
+      nextLayoutTitle: 'Layout Next.js App Router',
       providerCodeTitle: 'Setup provider',
+      viteBootstrapTitle: 'Bootstrap Vite / SPA',
       adoptSectionTitle: '4. Adotta i contratti rilasciati',
       adoptSectionDescription: 'Usa live demo e catalogo pattern prima di introdurre wrapper locali.',
       enforceSectionTitle: '5. Applica il contratto di adozione',
@@ -653,6 +727,10 @@ export function InstallPage() {
       strictManifestTitle: 'Manifest di adozione strict',
       themeManifestTitle: 'Campi manifest per governance del tema',
       verificationTitle: 'Contratto di verifica',
+      recoverySectionTitle: '6. Stati di errore e recovery',
+      recoverySectionDescription: 'Gestisci conflitti peer, propagazione npm e fallimenti compliance in modo esplicito.',
+      recoveryCodeTitle: 'Comandi di troubleshooting',
+      fallbackCodeTitle: 'Fallback temporaneo con release asset',
       clientSectionTitle: 'Prompt aggiornamento client',
       clientSectionDescription: 'Usa questo testo quando notifichi tutti gli adopter su upgrade ed enforcement.',
       clientCodeTitle: 'Messaggio riutilizzabile di rollout client',
@@ -664,13 +742,16 @@ export function InstallPage() {
       installSectionTitle: '1. Установите пакеты',
       installSectionDescription: 'Публичная open-source точка входа — umbrella пакет.',
       installCodeTitle: 'Установить пакеты GDS',
+      granularCodeTitle: 'Установить granular пакеты',
       peerCodeTitle: 'Установить peer-зависимости',
       upgradeSectionTitle: '2. Обновите существующие клиенты до 2.6.7',
       upgradeSectionDescription: 'Если приложение уже использует GDS, обновляйте линию пакетов и governance tooling вместе.',
       upgradeCodeTitle: 'Команды обновления',
       providerSectionTitle: '3. Подключите provider',
       providerSectionDescription: 'Все runtime-поверхности предполагают один общий provider у корня приложения.',
+      nextLayoutTitle: 'Layout Next.js App Router',
       providerCodeTitle: 'Настройка provider',
+      viteBootstrapTitle: 'Bootstrap Vite / SPA',
       adoptSectionTitle: '4. Примите поставляемые контракты',
       adoptSectionDescription: 'Используйте live demo и каталог паттернов до создания локальных оберток.',
       enforceSectionTitle: '5. Включите контракт внедрения',
@@ -678,6 +759,10 @@ export function InstallPage() {
       strictManifestTitle: 'Строгий манифест внедрения',
       themeManifestTitle: 'Поля манифеста theme-governance',
       verificationTitle: 'Контракт проверки',
+      recoverySectionTitle: '6. Состояния ошибок и восстановления',
+      recoverySectionDescription: 'Явно обрабатывайте peer-конфликты, npm propagation и ошибки compliance.',
+      recoveryCodeTitle: 'Команды диагностики',
+      fallbackCodeTitle: 'Временный fallback через release assets',
       clientSectionTitle: 'Шаблон обновления клиента',
       clientSectionDescription: 'Используйте этот текст при уведомлении всех adopter-команд об обновлении.',
       clientCodeTitle: 'Переиспользуемое сообщение rollout для клиентов',
@@ -689,13 +774,16 @@ export function InstallPage() {
       installSectionTitle: '1. התקנת החבילות',
       installSectionDescription: 'נקודת הכניסה הציבורית בקוד פתוח היא חבילת ה-umbrella.',
       installCodeTitle: 'התקנת חבילות GDS',
+      granularCodeTitle: 'התקנת חבילות granular',
       peerCodeTitle: 'התקנת תלויות peer',
       upgradeSectionTitle: '2. עדכון לקוחות קיימים ל-2.6.7',
       upgradeSectionDescription: 'אם האפליקציה כבר משתמשת ב-GDS, עדכנו יחד את קו החבילות וכלי הממשל.',
       upgradeCodeTitle: 'פקודות עדכון',
       providerSectionTitle: '3. הוספת provider',
       providerSectionDescription: 'כל משטחי ה-runtime מניחים provider משותף אחד סמוך לשורש האפליקציה.',
+      nextLayoutTitle: 'Layout Next.js App Router',
       providerCodeTitle: 'הגדרת provider',
+      viteBootstrapTitle: 'Bootstrap Vite / SPA',
       adoptSectionTitle: '4. אימוץ חוזים רשמיים',
       adoptSectionDescription: 'השתמשו בדמו החי ובקטלוג התבניות לפני יצירת עטיפות מקומיות.',
       enforceSectionTitle: '5. אכיפת חוזה האימוץ',
@@ -703,6 +791,10 @@ export function InstallPage() {
       strictManifestTitle: 'Manifest אימוץ מחמיר',
       themeManifestTitle: 'שדות manifest לממשל תמה',
       verificationTitle: 'חוזה אימות',
+      recoverySectionTitle: '6. מצבי כשל ושחזור',
+      recoverySectionDescription: 'טפלו במפורש בקונפליקטי peer, propagation של npm וכשלי compliance.',
+      recoveryCodeTitle: 'פקודות troubleshooting',
+      fallbackCodeTitle: 'Fallback זמני דרך release assets',
       clientSectionTitle: 'תבנית עדכון ללקוחות',
       clientSectionDescription: 'השתמשו בטקסט הזה בעת עדכון כל הצוותים המאמצים על השדרוג והאכיפה.',
       clientCodeTitle: 'הודעת rollout לשימוש חוזר ללקוחות',
@@ -714,13 +806,16 @@ export function InstallPage() {
       installSectionTitle: '1. تثبيت الحزم',
       installSectionDescription: 'نقطة الدخول العامة مفتوحة المصدر هي الحزمة الشاملة.',
       installCodeTitle: 'تثبيت حزم GDS',
+      granularCodeTitle: 'تثبيت الحزم granular',
       peerCodeTitle: 'تثبيت تبعيات peer',
       upgradeSectionTitle: '2. تحديث العملاء الحاليين إلى 2.6.7',
       upgradeSectionDescription: 'إذا كان تطبيقك يستخدم GDS بالفعل، حدّث خط الحزم وأدوات الحوكمة معًا.',
       upgradeCodeTitle: 'أوامر التحديث',
       providerSectionTitle: '3. إضافة المزود',
       providerSectionDescription: 'كل أسطح التشغيل تفترض وجود مزود مشترك واحد قريب من جذر التطبيق.',
+      nextLayoutTitle: 'Layout Next.js App Router',
       providerCodeTitle: 'إعداد المزود',
+      viteBootstrapTitle: 'Bootstrap Vite / SPA',
       adoptSectionTitle: '4. اعتماد العقود المُصدَّرة',
       adoptSectionDescription: 'استخدم العرض الحي وكتالوج الأنماط قبل اختراع أغلفة محلية.',
       enforceSectionTitle: '5. فرض عقد الاعتماد',
@@ -728,6 +823,10 @@ export function InstallPage() {
       strictManifestTitle: 'Manifest اعتماد صارم',
       themeManifestTitle: 'حقول Manifest لحوكمة الثيم',
       verificationTitle: 'عقد التحقق',
+      recoverySectionTitle: '6. حالات الفشل والاستعادة',
+      recoverySectionDescription: 'تعامل صراحة مع تعارضات peer وانتشار npm وفشل الامتثال.',
+      recoveryCodeTitle: 'أوامر التشخيص',
+      fallbackCodeTitle: 'Fallback مؤقت عبر release assets',
       clientSectionTitle: 'قالب تحديث العملاء',
       clientSectionDescription: 'استخدم هذا النص عند إخطار جميع الفرق المتبنية بالتحديث ومتطلبات الإنفاذ.',
       clientCodeTitle: 'رسالة طرح قابلة لإعادة الاستخدام للعملاء',
@@ -739,13 +838,16 @@ export function InstallPage() {
       installSectionTitle: '1. Csomagok telepítése',
       installSectionDescription: 'A nyílt forrású nyilvános belépési pont az umbrella csomag.',
       installCodeTitle: 'GDS csomagok telepítése',
+      granularCodeTitle: 'Granuláris csomagok telepítése',
       peerCodeTitle: 'Peer függőségek telepítése',
       upgradeSectionTitle: '2. Meglévő kliensek frissítése 2.6.7-re',
       upgradeSectionDescription: 'Ha az app már használ GDS-t, együtt frissítsd a csomagsort és a governance eszközöket.',
       upgradeCodeTitle: 'Frissítési parancsok',
       providerSectionTitle: '3. Provider hozzáadása',
       providerSectionDescription: 'Minden runtime felület egy közös providerre épít az alkalmazás gyökeréhez közel.',
+      nextLayoutTitle: 'Next.js App Router layout',
       providerCodeTitle: 'Provider beállítás',
+      viteBootstrapTitle: 'Vite / SPA bootstrap',
       adoptSectionTitle: '4. Szállított szerződések átvétele',
       adoptSectionDescription: 'Használd az élő demót és a mintakatalógust, mielőtt helyi wrappert írnál.',
       enforceSectionTitle: '5. Az átvételi szerződés kikényszerítése',
@@ -753,6 +855,10 @@ export function InstallPage() {
       strictManifestTitle: 'Szigorú átvételi manifest',
       themeManifestTitle: 'Téma-governance manifest mezők',
       verificationTitle: 'Ellenőrzési szerződés',
+      recoverySectionTitle: '6. Hibák és helyreállítás',
+      recoverySectionDescription: 'Kezeld explicit módon a peer konfliktusokat, npm propagációt és compliance hibákat.',
+      recoveryCodeTitle: 'Hibaelhárítási parancsok',
+      fallbackCodeTitle: 'Ideiglenes release-asset fallback',
       clientSectionTitle: 'Ügyfélfrissítési sablon',
       clientSectionDescription: 'Ezt a szöveget használd, amikor minden adoptáló csapatot értesítesz a frissítésről és enforcementről.',
       clientCodeTitle: 'Újrahasznosítható ügyfél rollout üzenet',
@@ -769,6 +875,7 @@ export function InstallPage() {
     >
       <ReferenceSection title={copy.installSectionTitle} description={copy.installSectionDescription}>
         <DocsCodeBlock code={installCode} language="bash" title={copy.installCodeTitle} />
+        <DocsCodeBlock code={granularInstallCode} language="bash" title={copy.granularCodeTitle} />
         <DocsCodeBlock code={peerCode} language="bash" title={copy.peerCodeTitle} />
       </ReferenceSection>
 
@@ -798,7 +905,9 @@ export function InstallPage() {
       </ReferenceSection>
 
       <ReferenceSection title={copy.providerSectionTitle} description={copy.providerSectionDescription}>
+        <DocsCodeBlock code={nextLayoutCode} language="tsx" title={copy.nextLayoutTitle} />
         <DocsCodeBlock code={providerCode} language="tsx" title={copy.providerCodeTitle} />
+        <DocsCodeBlock code={viteBootstrapCode} language="tsx" title={copy.viteBootstrapTitle} />
       </ReferenceSection>
 
       <ReferenceSection title={copy.adoptSectionTitle} description={copy.adoptSectionDescription}>
@@ -830,6 +939,11 @@ export function InstallPage() {
         <DocsCodeBlock code={complianceCode} language="json" title={copy.strictManifestTitle} />
         <DocsCodeBlock code={themeGovernanceCode} language="json" title={copy.themeManifestTitle} />
         <DocsCodeBlock code={verificationCode} language="bash" title={copy.verificationTitle} />
+      </ReferenceSection>
+
+      <ReferenceSection title={copy.recoverySectionTitle} description={copy.recoverySectionDescription}>
+        <DocsCodeBlock code={failureRecoveryCode} language="bash" title={copy.recoveryCodeTitle} />
+        <DocsCodeBlock code={fallbackInstallCode} language="bash" title={copy.fallbackCodeTitle} />
       </ReferenceSection>
 
       <ReferenceSection title={copy.clientSectionTitle} description={copy.clientSectionDescription}>

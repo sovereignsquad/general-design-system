@@ -40,6 +40,7 @@ Current live status:
 
 - published npm baseline: `2.6.7`
 - current repository line: `2.6.7`
+- next major target: `3.0.0`
 
 Consumer repos should install the latest published npm version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
@@ -51,6 +52,22 @@ npm run publish:dry-run
 npm run publish:npm
 npm run verify:published
 ```
+
+For the `3.0.0` cutover, the install contract becomes:
+
+```bash
+npm install @doneisbetter/gds@3.0.0
+npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
+```
+
+Granular consumers should use the same version across every package:
+
+```bash
+npm install @doneisbetter/gds-theme@3.0.0 @doneisbetter/gds-core@3.0.0 @doneisbetter/gds-admin@3.0.0
+npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
+```
+
+Do not mix `2.6.7` and `3.0.0` packages in the same consumer dependency graph.
 
 ### Fallback release-bundle distribution path
 
@@ -188,6 +205,13 @@ This is the intended stable consumer path for products that want direct package 
 - `app/providers.tsx` should be the only client boundary that mounts `GdsProvider`.
 - non-interactive public/editorial primitives like `PublicShell`, `DocsPageShell`, `AccentPanel`, `EditorialHero`, `FeatureBand`, and `PublicBrandFooter` may render from `@doneisbetter/gds-core/server`.
 - interactive controls like `ThemeToggle`, `SemanticButton`, `UploadDropzone`, and `ResponsiveDataView` belong on `@doneisbetter/gds/client` or the granular `@doneisbetter/gds-*/client` lanes.
+
+### Bootstrap failure states
+
+- if `npm install` fails peer resolution, inspect the consumer's Mantine and React graph before using overrides
+- if a published version is temporarily invisible, use bounded registry retries through `GDS_REGISTRY_RETRIES` and `GDS_REGISTRY_DELAY_MS`
+- if npm publication is blocked, release assets may be used from `gds-v<VERSION>` as a temporary fallback only
+- if compliance fails, fix the local contract drift or declare a temporary exception; do not bypass the manifest check in CI
 
 ## Canonical migration note
 

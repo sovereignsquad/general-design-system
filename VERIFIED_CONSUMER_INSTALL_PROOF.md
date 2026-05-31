@@ -8,6 +8,7 @@ This document records the current proof points for the direct package-consumptio
 
 Latest published npm baseline validated by this proof: `2.6.7`  
 Current repository line: `2.6.7`
+Next major target: `3.0.0`
 
 ## Verified consumer baseline
 
@@ -85,11 +86,18 @@ That means the current verified statement is:
 
 ## Consumer install commands
 
-Canonical end-state install source:
+Canonical `3.0.0` end-state install source after the release gate opens:
 
 ```bash
-npm install @doneisbetter/gds
-npm install -D @doneisbetter/gds-eslint-config @doneisbetter/gds-compliance
+npm install @doneisbetter/gds@3.0.0
+npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
+```
+
+Granular package path:
+
+```bash
+npm install @doneisbetter/gds-theme@3.0.0 @doneisbetter/gds-core@3.0.0 @doneisbetter/gds-admin@3.0.0
+npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
 ```
 
 Fallback release-bundle install path if npm is temporarily unavailable:
@@ -102,4 +110,7 @@ Fallback release-bundle install path if npm is temporarily unavailable:
 ```bash
 npm run verify:mantine
 npm run verify:references
+npm run verify:published
 ```
+
+`npm run verify:published` uses bounded registry polling. Operators may increase the retry window for registry propagation with `GDS_REGISTRY_RETRIES` and `GDS_REGISTRY_DELAY_MS`, but release communication must wait until all six packages resolve to the same `VERSION`.

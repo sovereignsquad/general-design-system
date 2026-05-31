@@ -6,6 +6,12 @@ Last updated: 2026-05-31
 
 This guide is the canonical consumer setup path for the public umbrella package `@doneisbetter/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
+Release-line rule:
+
+- current stable package line: `2.6.7`
+- next major target: `3.0.0`
+- do not publish, announce, or ask clients to install `3.0.0` until all `GDS 3.0.0 - Adoption Platform Release` issues are complete and `npm run verify:published` confirms npm availability
+
 Public install and reference routes:
 
 - live install page: `https://sovereignsquad.github.io/general-design-system/install`
@@ -29,16 +35,23 @@ See [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system
 
 ## 2. Canonical install commands
 
-Preferred runtime package:
+Preferred `3.0.0` runtime package after the release gate opens:
 
 ```bash
-npm install @doneisbetter/gds
+npm install @doneisbetter/gds@3.0.0
 ```
 
 Governance packages:
 
 ```bash
-npm install -D @doneisbetter/gds-eslint-config @doneisbetter/gds-compliance
+npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
+```
+
+Granular runtime packages when package separation is intentional:
+
+```bash
+npm install @doneisbetter/gds-theme@3.0.0 @doneisbetter/gds-core@3.0.0 @doneisbetter/gds-admin@3.0.0
+npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
 ```
 
 Required peers:
@@ -51,15 +64,19 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
 ### Next.js App Router
 
-Use the server/client split explicitly.
+Use the server/client split explicitly. The layout owns the color-scheme script and the provider file owns the single client boundary.
 
 ```tsx
 // app/layout.tsx
+import { ColorSchemeScript } from '@mantine/core';
 import Providers from './providers';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <ColorSchemeScript defaultColorScheme="light" />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>
@@ -196,6 +213,12 @@ npm run verify:mantine
 gds-compliance check --manifest ./gds-adoption.json
 ```
 
+Expected failure handling:
+
+- peer conflict: run `npm ls @mantine/core @mantine/hooks @mantine/modals @mantine/notifications react react-dom`, then reinstall the supported peer line instead of forcing resolution
+- registry propagation after publish: rerun `GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published`
+- compliance failure: keep `strictMode` disabled until the failing local shell/card/action/detail adapter is migrated or declared as a temporary exception with owner, review date, tests, and exit condition
+
 ## 7. Common mistakes
 
 Do not:
@@ -210,3 +233,5 @@ Do not:
 ## 8. Fallback install path
 
 If npm is temporarily unavailable, use the public release tarballs described in [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md). That path is a fallback only, not the preferred steady-state install method.
+
+For the `3.0.0` release cutover, fallback assets must use tag `gds-v3.0.0` and must not be announced as the canonical path once npm verification passes.

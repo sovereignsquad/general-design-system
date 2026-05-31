@@ -98,6 +98,15 @@ npm run verify:published
 
 For a major release such as `3.0.0`, do not announce the release or update client install prompts until `npm run verify:published` confirms all six packages resolve from npm.
 
+The `3.0.0` release install matrix must remain version-locked:
+
+```bash
+npm install @doneisbetter/gds@3.0.0
+npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
+
+npm install @doneisbetter/gds-theme@3.0.0 @doneisbetter/gds-core@3.0.0 @doneisbetter/gds-admin@3.0.0
+```
+
 ## Expected publish order
 
 1. `@doneisbetter/gds-theme`
@@ -118,6 +127,13 @@ Environment knobs for propagation delay:
 ```bash
 GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published
 ```
+
+Retry policy:
+
+- default verification uses five attempts with a five-second delay
+- retries are bounded and visible in logs
+- do not loop indefinitely
+- if verification still fails after the retry window, treat the release as not ready for client communication
 
 ## GitHub Actions publish path
 

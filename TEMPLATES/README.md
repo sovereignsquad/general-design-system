@@ -10,6 +10,8 @@ They are not copy-paste mandates, but they define the expected shape of a GDS-go
 
 - [theme.ts.template](/Users/Shared/Projects/general-design-system/TEMPLATES/theme.ts.template)
 - [providers.tsx.template](/Users/Shared/Projects/general-design-system/TEMPLATES/providers.tsx.template)
+- [next-app-layout.tsx.template](/Users/Shared/Projects/general-design-system/TEMPLATES/next-app-layout.tsx.template)
+- [vite-main.tsx.template](/Users/Shared/Projects/general-design-system/TEMPLATES/vite-main.tsx.template)
 - [AppButton.tsx.template](/Users/Shared/Projects/general-design-system/TEMPLATES/AppButton.tsx.template)
 - [AppPageHeader.tsx.template](/Users/Shared/Projects/general-design-system/TEMPLATES/AppPageHeader.tsx.template)
 - [AppShell.tsx.template](/Users/Shared/Projects/general-design-system/TEMPLATES/AppShell.tsx.template)
