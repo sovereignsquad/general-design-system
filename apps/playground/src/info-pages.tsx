@@ -202,6 +202,7 @@ export function RequestFeaturePage() {
   const [name, setName] = useState('Your name');
   const [email, setEmail] = useState('');
   const [organization, setOrganization] = useState('');
+  const [requestType, setRequestType] = useState('missing-component');
   const [useCase, setUseCase] = useState('');
   const [benefit, setBenefit] = useState('');
   const [urgency, setUrgency] = useState('');
@@ -216,15 +217,21 @@ export function RequestFeaturePage() {
       `Requestor: ${name}`,
       `Email: ${email}`,
       `Organization: ${organization}`,
+      `Request type: ${requestType}`,
       `Use case: ${useCase}`,
       `Desired benefit: ${benefit}`,
       `Priority/urgency: ${urgency}`,
+      '',
+      'Triage contract:',
+      '- missing-component and missing-pattern requests can become scoped GDS issues',
+      '- docs-question and compliance-question requests may become docs/tooling tasks',
+      '- unsupported-product-specific requests should stay in the product repository',
       '',
       'Please keep this request focused to one capability.',
     ];
 
     return parts.join('\n');
-  }, [name, email, organization, useCase, benefit, urgency]);
+  }, [name, email, organization, requestType, useCase, benefit, urgency]);
 
   const mailtoUrl = useMemo(
     () => `mailto:${featureRequestRecipient}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`,
@@ -235,7 +242,7 @@ export function RequestFeaturePage() {
     <DocsPageShell
       title="Request a Feature"
       eyebrow="Official intake path"
-      lead="Every feature request from teams should start with this simple form. We route it to the primary maintainers and add it to the public backlog."
+      lead="Every feature request from teams should start with this simple mailto lane. Maintainers triage it into a GDS issue only when the need is reusable, accessible, and not product-specific."
     >
       <ReferenceSection title="Official feature request form" description="Use the shared mail path while we build the full API-backed tracker.">
         <form
@@ -281,6 +288,21 @@ export function RequestFeaturePage() {
                 style={{ width: '100%' }}
               />
             </FormField>
+            <FormField label="Request type">
+              <select
+                id="gds-feature-type"
+                aria-label="Request type"
+                value={requestType}
+                onChange={(event) => setRequestType(event.currentTarget.value)}
+                style={{ width: '100%' }}
+              >
+                <option value="missing-component">Missing component</option>
+                <option value="missing-pattern">Missing pattern</option>
+                <option value="docs-question">Documentation question</option>
+                <option value="compliance-question">Compliance question</option>
+                <option value="unsupported-product-specific">Unsupported product-specific request</option>
+              </select>
+            </FormField>
             <FormField label="What capability is missing?">
               <textarea
                 id="gds-feature-what"
@@ -321,6 +343,7 @@ export function RequestFeaturePage() {
                 setName('Your name');
                 setEmail('');
                 setOrganization('');
+                setRequestType('missing-component');
                 setUseCase('');
                 setBenefit('');
                 setUrgency('');
@@ -353,8 +376,41 @@ export function RequestFeaturePage() {
         />
       </ReferenceSection>
 
+      <ReferenceSection title="Triage and repository hygiene" description="Only reusable GDS capability requests belong in this repository and project board. Product-specific work must stay with the owning product.">
+        <FeatureBand
+          columns={3}
+          variant="compact"
+          items={[
+            {
+              id: 'promote',
+              title: 'Promote to GDS issue',
+              description: 'Repeated reusable need, clear accessibility contract, package API, docs, tests, and migration value.',
+            },
+            {
+              id: 'docs',
+              title: 'Route to docs or compliance',
+              description: 'Questions about installation, rule enforcement, manifests, or canonical usage become docs/tooling work.',
+            },
+            {
+              id: 'reject',
+              title: 'Reject or transfer',
+              description: 'One-off product screens, business logic, private integrations, or sensitive requests are not tracked on the GDS board.',
+            },
+          ]}
+        />
+      </ReferenceSection>
+
+      <ReferenceSection title="Mail-client fallback" description="If your mail client does not open, copy the address and send the same fields manually.">
+        <StateBlock
+          variant="info"
+          title={featureRequestRecipient}
+          description="Include request type, reusable use case, accessibility needs, affected product, urgency, and whether an existing GDS primitive nearly covers it."
+          compact
+        />
+      </ReferenceSection>
+
       <ReferenceSection title="Need to send directly" description={`Send urgent requests to ${featureRequestRecipient}.`}>
-        <a href={mailtoUrl}>Open prefilled email</a>
+        <a href={mailtoUrl} aria-label={`Open prefilled feature request email to ${featureRequestRecipient}`}>Open prefilled email</a>
       </ReferenceSection>
     </DocsPageShell>
   );

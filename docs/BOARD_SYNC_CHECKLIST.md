@@ -45,6 +45,9 @@ npm run verify:release
 - Use `gh project item-list 11 --owner sovereignsquad --limit 200` only for manual inspection or targeted repair.
 - For each changed issue state, add a short closure/update comment with evidence paths.
 - Keep canonical work on one issue number per scope; avoid parallel duplicates.
+- Keep unrelated product work out of this repository and project board. Product-specific backlog must be transferred or closed with a comment that names the owning product/repo.
+- Promote feature requests only when the request describes a reusable GDS component, pattern, compliance rule, documentation gap, or migration/tooling need.
+- Reject or transfer requests that are one-off product screens, private business logic, sensitive customer data, or implementation tasks that cannot become a reusable GDS contract.
 
 ## 6. Evidence Standard for Closure
 

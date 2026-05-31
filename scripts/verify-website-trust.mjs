@@ -43,6 +43,24 @@ if (!infoPagesSource.includes('<ReferenceThemeExplorer />')) {
   failures.push('Themes page must render ReferenceThemeExplorer as the canonical interactive surface.');
 }
 
+const requestFeatureProof = [
+  'moldovancsaba+general.design.system@gmail.com',
+  'missing-component',
+  'missing-pattern',
+  'docs-question',
+  'compliance-question',
+  'unsupported-product-specific',
+  'Triage and repository hygiene',
+  'Mail-client fallback',
+  'Open prefilled feature request email',
+];
+
+for (const proof of requestFeatureProof) {
+  if (!infoPagesSource.includes(proof)) {
+    failures.push(`Request-feature route must include intake/hygiene proof: ${proof}`);
+  }
+}
+
 if (failures.length > 0) {
   console.error('Website trust verification failed:');
   for (const failure of failures) {

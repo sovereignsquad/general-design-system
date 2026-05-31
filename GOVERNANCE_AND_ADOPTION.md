@@ -75,6 +75,23 @@ Projects must actively enforce the Mantine-only policy to prevent design-system 
 - **Theme Governance Config**: `gds-adoption.json` may declare `compliance.approvedThemeLanes` and `compliance.themeOwnershipPaths` so shared tooling can flag non-canonical branding-layer theme ownership in consumer repos.
 - **Strict GDS-only Mode**: Repos that have already migrated to canonical shells, actions, listings, and detail surfaces should enable `compliance.strictMode` so local shell adapters, local button wrappers, and other prohibited surface drift fail fast.
 - **Compliance Toolkit Contract**: Use [COMPLIANCE_TOOLKIT.md](/Users/Shared/Projects/general-design-system/COMPLIANCE_TOOLKIT.md) as the normative package + CI contract for `@doneisbetter/gds-eslint-config` and `@doneisbetter/gds-compliance`.
+
+## Feature Request Intake
+
+The public feature-request lane is:
+
+- `https://sovereignsquad.github.io/general-design-system/request-feature`
+- `mailto:moldovancsaba+general.design.system@gmail.com`
+
+Maintainers should classify each request as one of:
+
+- missing component
+- missing pattern
+- documentation question
+- compliance question
+- unsupported product-specific request
+
+Promote a request to a GitHub issue only when it can become a reusable GDS contract with accessibility, tests, documentation, and migration value. Product-specific backlog, private integrations, sensitive data, or one-off business logic must stay outside the GDS project board.
 - **Import Boundaries**: Lint rules forbidding imports from legacy primitive directories.
 - **Forbidden Values**: Lint against raw CSS colors (e.g., `#FF0000`), hard-coded radii, and unapproved size tokens in feature UI.
 - **Static Checks**: CI/CD checks to prevent new legacy patterns.

@@ -23,8 +23,14 @@ describe('playground overview page', () => {
     expect(screen.getByLabelText('Name')).toBeTruthy();
     expect(screen.getByLabelText('Email')).toBeTruthy();
     expect(screen.getByLabelText('Organization (optional)')).toBeTruthy();
+    expect(screen.getByLabelText('Request type')).toBeTruthy();
     expect(screen.getByLabelText('What capability is missing?')).toBeTruthy();
     expect(screen.getByLabelText('How will this help your product?')).toBeTruthy();
+    expect(screen.getByText('Triage and repository hygiene')).toBeTruthy();
+    expect(screen.getByText('Mail-client fallback')).toBeTruthy();
+    expect(screen.getByRole('link', { name: /Open prefilled feature request email/i }).getAttribute('href')).toContain(
+      'mailto:moldovancsaba+general.design.system@gmail.com',
+    );
     expect(screen.getByRole('button', { name: 'Submit' })).toBeTruthy();
   });
 
