@@ -746,16 +746,36 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'media-fields':
       return (
-        <MediaField
-          label="Hero image"
-          description="Use media field contract for upload and URL handling."
-          value="https://cdn.example.com/hero.jpg"
-          preview={<img alt="Hero preview" src="https://picsum.photos/id/1015/640/360" />}
-          uploadControl={<button type="button">Upload image</button>}
-          urlInput={<input aria-label="Image URL" defaultValue="https://cdn.example.com/hero.jpg" />}
-          helpText="Prefer authored media with descriptive alt text."
-          state="saved"
-        />
+        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+          <MediaField
+            label="Hero image"
+            description="Use the media-field contract for upload, URL entry, preview, status, and recovery."
+            value="https://cdn.example.com/hero.jpg"
+            preview={<img alt="Hero preview" src="https://picsum.photos/id/1015/640/360" />}
+            uploadControl={<button type="button">Upload image</button>}
+            urlInput={<input aria-label="Image URL" defaultValue="https://cdn.example.com/hero.jpg" />}
+            helpText="Prefer authored media with descriptive alt text."
+            policyText="Public assets must be licensed for reuse and include alt text before publishing."
+            acceptedTypes="JPEG, PNG, WebP"
+            maxSize="10 MB max"
+            progress={64}
+            replaceAction={<button type="button">Replace</button>}
+            retryAction={<button type="button">Retry</button>}
+            onReset={() => {}}
+            onRemove={() => {}}
+            state="uploading"
+          />
+          <MediaField
+            label="Locked campaign logo"
+            description="Readonly mode keeps preview and policy context visible while suppressing edit controls."
+            value="https://cdn.example.com/logo.png"
+            preview={<img alt="Campaign logo preview" src="https://picsum.photos/id/1025/640/360" />}
+            policyText="This asset is controlled by the brand system owner."
+            acceptedTypes="PNG"
+            maxSize="2 MB max"
+            readonly
+          />
+        </div>
       );
     case 'content-operations-editor':
       return (
@@ -870,7 +890,38 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         />
       );
     case 'upload-surfaces':
-      return <UploadDropzone title="Upload reference assets" description="Use the shared dropzone in upload-first flows." />;
+      return (
+        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+          <UploadDropzone
+            title="Upload reference assets"
+            description="Use the shared dropzone in upload-first flows. GDS renders state and policy; the product owns storage."
+            acceptedTypesLabel="PDF, PNG, JPEG"
+            maxSizeLabel="5 MB max"
+            selectedFiles={['brief.pdf']}
+            policyText="Do not upload private customer data or unsupported file types."
+            state="selected"
+            retryAction={<button type="button">Retry upload</button>}
+            removeAction={<button type="button">Remove asset</button>}
+          />
+          <UploadDropzone
+            title="Logo upload failed"
+            description="Error states must keep the next action visible and accessible."
+            acceptedTypesLabel="PNG only"
+            maxSizeLabel="2 MB max"
+            policyText="Replace the file with a compressed PNG before retrying."
+            state="too-large"
+            error="The selected file is larger than the allowed size."
+            retryAction={<button type="button">Choose another file</button>}
+            removeAction={<button type="button">Remove file</button>}
+          />
+          <UploadDropzone
+            title="Archived asset"
+            description="Readonly upload surfaces preserve asset context without accepting new files."
+            selectedFiles={['brand-mark.png']}
+            readonly
+          />
+        </div>
+      );
     case 'access-summaries':
       return <AccessSummary title="Shared access summary" roles={['platform-ui', 'maintainers']} scope="Reference site" description="Access and scope stay explicit." />;
     case 'access-recovery-panels':

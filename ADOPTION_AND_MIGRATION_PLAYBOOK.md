@@ -197,6 +197,44 @@ Migration acceptance rule:
 
 - if a wrapper exists only to center/size state or panel-body content, it must be removed in favor of `inline` / `centered` / `fill` on GDS primitives.
 
+## 7.2 Media and upload migration
+
+When replacing local upload widgets, split ownership clearly:
+
+- GDS owns visible field/dropzone chrome, labels, keyboard selection, drag state, selected-file summary, progress display, accepted-type/size guidance, policy copy, inline errors, and retry/remove/replace/reset action placement.
+- The consuming product owns file validation, storage calls, signed URLs, retries, timeouts, virus scanning, persistence, and audit logging.
+- Do not keep a local `UploadCard`, `ImagePicker`, `AssetDropzone`, or `MediaUploader` wrapper when it only duplicates `MediaField` or `UploadDropzone` behavior.
+
+Canonical replacement direction:
+
+1. replace local asset field wrappers with `MediaField`
+2. replace local drop/select surfaces with `UploadDropzone`
+3. map runtime state into the exported state unions (`uploading`, `upload-failed`, `unsupported-type`, `too-large`, `readonly`)
+4. pass retry/replace/remove/reset through explicit action slots instead of hiding transport behavior inside GDS
+5. keep storage/network logic in the product service layer and verify with route-level upload tests
+
+Example:
+
+```tsx
+<MediaField
+  label="Hero image"
+  state={upload.status === 'failed' ? 'upload-failed' : upload.status === 'pending' ? 'uploading' : 'selected'}
+  value={asset.url}
+  preview={<img alt={asset.alt} src={asset.previewUrl} />}
+  acceptedTypes="JPEG, PNG, WebP"
+  maxSize="10 MB max"
+  progress={upload.progress}
+  policyText="Public media must be licensed for reuse and include alt text."
+  retryAction={<button type="button" onClick={retryUpload}>Retry</button>}
+  replaceAction={<button type="button" onClick={openAssetPicker}>Replace</button>}
+  onRemove={removeAsset}
+/>
+```
+
+Rollback rule:
+
+- if storage integration fails, roll back only the product service/upload adapter and keep the GDS presentation contract in place unless the field itself breaks accessibility or form submission.
+
 ## 8. Documentation Requirements
 
 Every adopter must maintain:

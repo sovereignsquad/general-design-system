@@ -90,14 +90,14 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Editorial Cards** | Guide, promo, collection, and discovery cards must share one canonical media/title/meta/CTA contract. | `md` |
 | **Consumer Sections** | Consumer account and member dashboard clusters must use a shared section shell with title, description, action, and governed content area. | `lg` |
 | **Consumer Dashboard Grid** | Metric/progress/account-summary cards should use a shared responsive grid rhythm before introducing page-local dashboard layout CSS. | `lg` |
-| **Media Fields** | Media editing must unify upload, URL entry, preview, status, reset/remove, and policy messaging in one shared contract. | `lg` |
+| **Media Fields** | Media editing must unify upload, URL entry, preview, typed status, retry/replace/reset/remove actions, accepted-type/size guidance, and policy messaging in one shared contract. | `lg` |
 | **Content Operations Editor** | Admin content/settings editors must use a shared scaffold for multi-section editing, preview rails, and sticky or repeated save bars. | `xl` |
 | **Section Panels** | Operational dashboards, detail pages, and settings surfaces must reuse the shared section/panel framing contract instead of local `SectionCard` wrappers. Body layout now includes the same shared presentation contract (`inline`, `centered`, `fill`). | `lg` |
 | **Public Brand Footer** | Narrative/media/quote public footers must use a shared footer composition contract with documented layout variants and slot hooks instead of repo-local layout systems. | `lg` |
 | **Filter Drawer** | Mobile/operational filters must use the shared drawer/bottom-sheet contract with explicit apply/reset/close behavior. | `md` |
 | **Docs Code Blocks** | Install/reference code blocks must use a shared wrapper with accessible copy affordance and neutral styling. | `md` |
 | **CTA Button Groups** | Public CTA groups must preserve one obvious primary action, stack safely on small screens, and avoid ornamental motion or hierarchy chrome. | `md` |
-| **Upload Surfaces** | Upload/drop surfaces must define drag state, a11y labels, empty/error messaging, and replace/remove behavior. | `md` |
+| **Upload Surfaces** | Upload/drop surfaces must define drag state, selection, pending/error/readonly states, a11y labels, accepted-type/size guidance, policy messaging, and retry/remove behavior. | `md` |
 | **Access Summaries** | Role, scope, blocked/forbidden, and ownership cues must be explicit and may not rely on color only. | `md` |
 | **Access Recovery Panels** | Protected-content and expired-session failures must use one canonical recovery surface with clear state meaning and one obvious mobile recovery action. | `md` |
 | **Placeholder Panels** | Placeholder and coming-soon surfaces must be honest, visibly non-live, and must not imply fabricated data. | `md` |
@@ -149,7 +149,7 @@ The following families are mandatory local contracts when a project has the corr
 | **Browse Surface** | Product has searchable discovery, marketplace, catalog, or finder pages | result summary, filters, scope control, mobile filter entry, empty/error/loading states |
 | **Editorial Card** | Product has repeated public guides, promos, collections, or editorial discovery cards | media slot, badge/meta rhythm, CTA treatment, hover/focus behavior |
 | **Consumer Dashboard Section** | Product has member/account/dashboard areas | section chrome, summaries, partial-data handling, action placement |
-| **Media Field** | Product allows media upload, URL entry, preview, replace, or remove | selection, preview, status, reset/remove, error/help/policy states |
+| **Media Field** | Product allows media upload, URL entry, preview, replace, or remove | selection, preview, typed status, accepted-type/size guidance, progress, retry/replace/reset/remove, error/help/policy states |
 | **Content Operations Editor** | Product has CMS-like settings, content, or site-operations screens | section grouping, preview/settings rails, action bar, validation/recovery rhythm |
 | **DetailProfileShell** | Product has repeated page/drawer detail surfaces for profiles, items, or entities | hero/meta, sections, related content, action placement, divider rhythm |
 | **MapPanel** | Product embeds maps or other sanctioned third-party iframe surfaces | title/description/actions, loading/empty/error states, embed accessibility and sizing |
@@ -160,11 +160,34 @@ The following families are mandatory local contracts when a project has the corr
 | **Public Brand Footer** | Product uses branded footer storytelling beyond a plain link list | narrative, actions, secondary quote/media slot, legal row, mobile collapse, layout variant choice |
 | **Reference Site Shell** | Product or property is the official docs/reference site for a governed system | public nav model, route grouping, live-demo disclosure, footer rhythm, locale notice placement |
 | **Reference Theme Explorer** | Product or property needs a governed public theme-inspection surface | shipped preset list, preview scheme control, creator-authored guardrails, preview reset, live proof surfaces |
-| **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, preview, replace/remove, status overlays |
+| **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, pending/error/readonly states, accepted-type/size guidance, policy copy, retry/remove slots |
 | **Access Summary** | Product has scoped roles or blocked/forbidden states | role badges, scope labels, blocked/forbidden handling, ownership cues |
 | **Access Recovery** | Product has protected routes, scope failures, expired sessions, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |
 
 Mantine UI examples may be used to inform these contracts only after the project confirms the GDS behavior, responsive rules, and token boundaries remain unchanged.
+
+### Media/Upload State Matrix
+
+`MediaField` is the canonical field-level contract for assets that can be uploaded, linked by URL, previewed, replaced, reset, removed, or locked. It owns visible state, field chrome, help/error/policy placement, accepted-type and size guidance, progress presentation, and action-slot ordering. It does not upload files or call storage APIs.
+
+Supported `MediaField` states:
+
+| State | Meaning | Required UX |
+|---|---|---|
+| `empty` | No asset is selected | Show upload or URL entry plus helper/policy copy |
+| `drag-active` | A file is being dragged into a supported region | Show a visible drop affordance without relying on color only |
+| `selected` | An asset is selected but not necessarily persisted | Show preview/value and available replace/reset/remove actions |
+| `preview-loading` | Preview is resolving | Show preview status and keep recovery actions stable |
+| `uploading` | Consumer upload is in progress | Show bounded progress when supplied and do not imply hidden retries |
+| `upload-failed` | Consumer upload failed | Show inline error/policy and a visible retry slot |
+| `unsupported-type` | File type violates the consumer policy | Show accepted type guidance and a recovery action |
+| `too-large` | File size violates the consumer policy | Show max-size guidance and a recovery action |
+| `removed` | Asset was removed from the field | Show the removed state and keep reset/reselect path available when applicable |
+| `saved` | Asset is persisted or confirmed by the consumer | Show preview/value and governed edit actions |
+| `invalid` | Field validation failed outside upload policy | Show inline error and described recovery |
+| `readonly` | Asset is visible but not editable | Suppress edit controls and keep preview/value/policy visible |
+
+`UploadDropzone` is the canonical selection/drop surface. It owns keyboard file selection, drag state, selected-file summary, error/status/policy presentation, accepted-type and max-size guidance, retry/remove action slots, and readonly/disabled presentation. It must never own network transport, storage mutation, hidden retries, or timeouts. Consumers pass structured state (`upload-pending`, `upload-failed`, `unsupported-type`, `too-large`, `readonly`) from their runtime and wire retry/timeout behavior through explicit action slots.
 
 ## 7. Semantic Vocabulary Extension Lane
 

@@ -591,6 +591,10 @@ describe('@doneisbetter/gds-core', () => {
         helpText="Prefer authored media with descriptive alt text."
         policyText="Public media must meet shared licensing policy."
         retryAction={<button type="button">Retry</button>}
+        replaceAction={<button type="button">Replace</button>}
+        acceptedTypes="JPEG, PNG, WebP"
+        maxSize="10 MB max"
+        progress={64}
         state="saved"
         onRemove={onRemove}
         onReset={onReset}
@@ -602,6 +606,11 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByText('Saved')).toBeInTheDocument();
     expect(screen.getByAltText('Hero preview')).toBeInTheDocument();
     expect(screen.getByLabelText('Image URL')).toBeInTheDocument();
+    expect(screen.getByLabelText('Upload progress')).toBeInTheDocument();
+    expect(screen.getByText('64% complete')).toBeInTheDocument();
+    expect(screen.getByText('JPEG, PNG, WebP')).toBeInTheDocument();
+    expect(screen.getByText('10 MB max')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Replace' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Reset' }));
@@ -1050,15 +1059,54 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
       <UploadDropzone
         title="Upload evidence"
         description="Attach one or more files."
+        acceptedTypesLabel="PDF or image"
+        maxSizeLabel="5 MB max"
+        selectedFiles={['first.txt']}
+        policyText="Do not upload private customer data."
         onFilesSelected={onFilesSelected}
       />,
     );
+
+    expect(screen.getByText('idle')).toBeInTheDocument();
+    expect(screen.getByText('PDF or image')).toBeInTheDocument();
+    expect(screen.getByText('5 MB max')).toBeInTheDocument();
+    expect(screen.getByText('Selected: first.txt')).toBeInTheDocument();
+    expect(screen.getByText('Do not upload private customer data.')).toBeInTheDocument();
 
     const input = document.querySelector('input[type="file"]') as HTMLInputElement;
     await user.upload(input, [new File(['a'], 'first.txt', { type: 'text/plain' })]);
 
     expect(onFilesSelected).toHaveBeenCalledTimes(1);
     expect(onFilesSelected.mock.calls[0][0][0].name).toBe('first.txt');
+  });
+
+  it('renders upload dropzone error and readonly states without hidden network behavior', () => {
+    const onFilesSelected = vi.fn();
+
+    const { rerender } = renderWithGds(
+      <>
+        <UploadDropzone
+          title="Upload logo"
+          state="unsupported-type"
+          error="SVG files are not allowed for this surface."
+          retryAction={<button type="button">Try again</button>}
+          removeAction={<button type="button">Remove asset</button>}
+          onFilesSelected={onFilesSelected}
+        />
+      </>,
+    );
+
+    expect(screen.getByRole('alert')).toHaveTextContent('SVG files are not allowed for this surface.');
+    expect(screen.getByText('unsupported type')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Remove asset' })).toBeInTheDocument();
+
+    rerender(
+      <UploadDropzone title="Locked asset" readonly onFilesSelected={onFilesSelected} />,
+    );
+
+    expect(screen.getByText('readonly')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Choose files' })).toBeDisabled();
   });
 
   it('renders game board tile face and handles press', async () => {
