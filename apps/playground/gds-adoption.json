@@ -8,7 +8,6 @@
     "@doneisbetter/gds-admin"
   ],
   "requiredContracts": [
-    "ReferenceSiteShell",
     "ReferenceSection",
     "ReferenceLinkGrid",
     "ReferenceLocaleNotice",
@@ -51,8 +50,7 @@
     "strictMode": true,
     "approvedShellPrimitives": [
       "DocsShell",
-      "DiscoveryShell",
-      "ReferenceSiteShell"
+      "DiscoveryShell"
     ],
     "approvedDetailPrimitives": [
       "DetailProfileShell"
