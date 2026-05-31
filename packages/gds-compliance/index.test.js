@@ -60,6 +60,60 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     expect(rules).toContain('strict.shell.mantine-app-shell');
   });
 
+  it('flags local card, upload, reporting, and auth wrappers in strict mode', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.7',
+        productArchetype: 'hybrid',
+        requiredContracts: ['ListingCard', 'MediaField', 'ReportingSection', 'AuthShell'],
+        localAdapters: [
+          { contract: 'EventCard', path: 'src/EventCard.tsx', status: 'active' },
+          { contract: 'AssetUpload', path: 'src/AssetUpload.tsx', status: 'active' },
+          { contract: 'RevenueChart', path: 'src/RevenueChart.tsx', status: 'active' },
+          { contract: 'SocialLogin', path: 'src/SocialLogin.tsx', status: 'active' },
+        ],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-31',
+        compliance: {
+          strictMode: true,
+          approvedListingPrimitives: ['ListingCard'],
+          approvedMediaPrimitives: ['MediaField', 'UploadDropzone'],
+          approvedReportingPrimitives: ['ReportingSection', 'ChartTokenPanel'],
+          approvedAccessPrimitives: ['AuthShell', 'AccessRecoveryPanel'],
+        },
+      }, null, 2),
+      'src/EventCard.tsx': `
+        import { Card } from '@mantine/core';
+        export function EventCard() { return <Card>Event</Card>; }
+      `,
+      'src/AssetUpload.tsx': `
+        export function AssetUpload() { return <input type="file" />; }
+      `,
+      'src/RevenueChart.tsx': `
+        export function RevenueChart() { return <canvas />; }
+      `,
+      'src/SocialLogin.tsx': `
+        import { Button } from '@mantine/core';
+        export function SocialLogin() { return <Button>Continue with Google</Button>; }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const rules = report.findings.map((finding) => finding.rule);
+
+    expect(rules).toContain('strict.listing.local-adapter');
+    expect(rules).toContain('strict.media.local-adapter');
+    expect(rules).toContain('strict.reporting.local-adapter');
+    expect(rules).toContain('strict.access.local-adapter');
+    expect(rules).toContain('strict.listing.local-card-wrapper');
+    expect(rules).toContain('strict.media.local-upload-wrapper');
+    expect(rules).toContain('strict.reporting.local-chart-wrapper');
+    expect(rules).toContain('strict.access.local-auth-wrapper');
+  });
+
   it('passes strict mode when adapters are approved exceptions and no local wrappers exist', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({

@@ -152,6 +152,23 @@
     "approvedActionPrimitives": [
       "ActionBar"
     ],
+    "approvedMediaPrimitives": [
+      "MediaField",
+      "UploadDropzone"
+    ],
+    "approvedReportingPrimitives": [
+      "ReportingSection",
+      "PeriodSelector",
+      "EvidencePanel",
+      "ChartTokenPanel"
+    ],
+    "approvedAccessPrimitives": [
+      "AuthShell",
+      "ProviderIdentityButtonGroup",
+      "SocialAuthButtons",
+      "AccessSummary",
+      "AccessRecoveryPanel"
+    ],
     "identityProviderBranding": {
       "approvedProviders": [
         "google",

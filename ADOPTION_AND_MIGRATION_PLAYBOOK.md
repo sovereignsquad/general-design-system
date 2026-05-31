@@ -149,7 +149,10 @@ For true GDS-only repos, enable strict mode in the manifest once the canonical p
     "approvedShellPrimitives": ["DiscoveryShell"],
     "approvedDetailPrimitives": ["DetailProfileShell"],
     "approvedListingPrimitives": ["ListingCard"],
-    "approvedActionPrimitives": ["ActionBar"]
+    "approvedActionPrimitives": ["ActionBar"],
+    "approvedMediaPrimitives": ["MediaField", "UploadDropzone"],
+    "approvedReportingPrimitives": ["ReportingSection", "PeriodSelector", "EvidencePanel", "ChartTokenPanel"],
+    "approvedAccessPrimitives": ["AuthShell", "ProviderIdentityButtonGroup", "AccessSummary", "AccessRecoveryPanel"]
   }
 }
 ```

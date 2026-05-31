@@ -137,6 +137,9 @@ For repositories targeting true GDS-only enforcement, enable strict mode:
     "approvedDetailPrimitives": ["DetailProfileShell"],
     "approvedListingPrimitives": ["ListingCard"],
     "approvedActionPrimitives": ["ActionBar"],
+    "approvedMediaPrimitives": ["MediaField", "UploadDropzone"],
+    "approvedReportingPrimitives": ["ReportingSection", "PeriodSelector", "EvidencePanel", "ChartTokenPanel"],
+    "approvedAccessPrimitives": ["AuthShell", "ProviderIdentityButtonGroup", "AccessSummary", "AccessRecoveryPanel"],
     "approvedTemporaryExceptions": ["MapPanel"]
   }
 }
@@ -144,8 +147,12 @@ For repositories targeting true GDS-only enforcement, enable strict mode:
 
 Strict mode adds hard failures for:
 - local Mantine `AppShell` wrappers
-- local shell/detail/listing/action adapters that are not approved or explicitly excepted
+- local shell/detail/listing/action/media/reporting/access adapters that are not approved or explicitly excepted
 - legacy local button-wrapper patterns that bypass the canonical semantic action system
+- local Mantine-card listing wrappers that should use `ListingCard`, `PublicProductCard`, `PublicFoodCard`, or `MediaCard`
+- local media/upload wrappers that should use `MediaField` or `UploadDropzone`
+- local reporting/chart wrappers that should use `ReportingSection`, `EvidencePanel`, `PeriodSelector`, or `ChartTokenPanel`
+- local auth/access wrappers that should use `AuthShell`, provider identity controls, `AccessSummary`, or `AccessRecoveryPanel`
 
 For the official reference site, strict mode should also be treated as the baseline expectation, not an optional maturity step. `apps/playground` is the canonical proof that docs, demos, and theme exploration can be delivered through GDS-owned contracts.
 
@@ -155,8 +162,11 @@ Recommended activation order:
 2. migrate action stacks to `ActionBar`
 3. migrate repeated discovery cards to `ListingCard`
 4. migrate detail surfaces to `DetailProfileShell`
-5. enable `strictMode` and keep any short-lived gaps in `approvedTemporaryExceptions`
-6. add `approvedThemeLanes` and `themeOwnershipPaths` once provider/theme files are stable so custom branding-layer drift becomes measurable
+5. migrate media/upload surfaces to `MediaField` and `UploadDropzone`
+6. migrate reporting surfaces to `ReportingSection`, `EvidencePanel`, `PeriodSelector`, and `ChartTokenPanel`
+7. migrate access/auth surfaces to `AuthShell`, provider identity controls, `AccessSummary`, and `AccessRecoveryPanel`
+8. enable `strictMode` and keep any short-lived gaps in `approvedTemporaryExceptions`
+9. add `approvedThemeLanes` and `themeOwnershipPaths` once provider/theme files are stable so custom branding-layer drift becomes measurable
 
 Reference review input for migration teams:
 

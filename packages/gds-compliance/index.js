@@ -15,6 +15,9 @@ const STRICT_COMPLIANCE_FIELDS = [
   'approvedDetailPrimitives',
   'approvedListingPrimitives',
   'approvedActionPrimitives',
+  'approvedMediaPrimitives',
+  'approvedReportingPrimitives',
+  'approvedAccessPrimitives',
   'approvedTemporaryExceptions',
   'approvedThemeLanes',
   'themeOwnershipPaths',
@@ -391,6 +394,9 @@ function inferStrictSurface(contract) {
   if (normalized.includes('detail') || normalized.includes('profile')) return 'detail';
   if (normalized.includes('card') || normalized.includes('listing')) return 'listing';
   if (normalized.includes('action') || normalized.includes('button')) return 'action';
+  if (normalized.includes('media') || normalized.includes('upload') || normalized.includes('asset')) return 'media';
+  if (normalized.includes('report') || normalized.includes('chart') || normalized.includes('evidence') || normalized.includes('metric')) return 'reporting';
+  if (normalized.includes('auth') || normalized.includes('access') || normalized.includes('identity') || normalized.includes('login')) return 'access';
   return null;
 }
 
@@ -402,6 +408,9 @@ function runStrictCompliance({ manifest, manifestRoot, sourceFiles }) {
     detail: new Set(strict.approvedDetailPrimitives ?? []),
     listing: new Set(strict.approvedListingPrimitives ?? []),
     action: new Set(strict.approvedActionPrimitives ?? []),
+    media: new Set(strict.approvedMediaPrimitives ?? []),
+    reporting: new Set(strict.approvedReportingPrimitives ?? []),
+    access: new Set(strict.approvedAccessPrimitives ?? []),
   };
   const approvedTemporaryExceptions = new Set(strict.approvedTemporaryExceptions ?? []);
 
@@ -447,6 +456,50 @@ function runStrictCompliance({ manifest, manifestRoot, sourceFiles }) {
         severity: 'error',
         file: filePath,
         message: 'Strict mode forbids local button/action wrapper implementations. Use the canonical GDS ActionBar and semantic actions.',
+      });
+    }
+
+    if (/export function \w*(Listing|Venue|Event|Community|Product|Card)\w*\s*\(/.test(content)
+      && /from\s+['"]@mantine\/core['"][\s\S]{0,240}\bCard\b/.test(content)
+      && !/from\s+['"]@doneisbetter\/gds-core['"][\s\S]{0,260}\b(ListingCard|PublicProductCard|PublicFoodCard|MediaCard)\b/.test(content)) {
+      findings.push({
+        rule: 'strict.listing.local-card-wrapper',
+        severity: 'error',
+        file: filePath,
+        message: 'Strict mode forbids local listing/card wrappers backed by Mantine Card. Use ListingCard, PublicProductCard, PublicFoodCard, or MediaCard.',
+      });
+    }
+
+    if (/export function \w*(Upload|Media|Asset|ImagePicker|Dropzone)\w*\s*\(/.test(content)
+      && (/<input[^>]+type=["']file["']/.test(content) || /\bDropzone\b/.test(content))
+      && !/from\s+['"]@doneisbetter\/gds-core['"][\s\S]{0,260}\b(MediaField|UploadDropzone)\b/.test(content)) {
+      findings.push({
+        rule: 'strict.media.local-upload-wrapper',
+        severity: 'error',
+        file: filePath,
+        message: 'Strict mode forbids local media/upload wrappers. Use MediaField and UploadDropzone while keeping storage logic product-owned.',
+      });
+    }
+
+    if (/export function \w*(Report|Chart|Evidence|Analytics|Metric)\w*\s*\(/.test(content)
+      && (/\bChart\b|recharts|chart\.js|<canvas\b|svg\s+role=["']img["']/.test(content))
+      && !/from\s+['"]@doneisbetter\/gds-core['"][\s\S]{0,320}\b(ReportingSection|PeriodSelector|EvidencePanel|ChartTokenPanel|StatsSection|MetricCard)\b/.test(content)) {
+      findings.push({
+        rule: 'strict.reporting.local-chart-wrapper',
+        severity: 'error',
+        file: filePath,
+        message: 'Strict mode forbids local reporting/chart wrappers without the GDS reporting contract. Use ReportingSection, EvidencePanel, PeriodSelector, and ChartTokenPanel.',
+      });
+    }
+
+    if (/export function \w*(Auth|Login|Social|AccessDenied|Protected|Recovery)\w*\s*\(/.test(content)
+      && (/\b(google|apple|github|microsoft|facebook)\b/i.test(content) || /Access denied|Sign in required|Session expired/i.test(content))
+      && !/from\s+['"]@doneisbetter\/gds-core['"][\s\S]{0,360}\b(AuthShell|ProviderIdentityButton|ProviderIdentityButtonGroup|SocialAuthButtons|AccessSummary|AccessRecoveryPanel)\b/.test(content)) {
+      findings.push({
+        rule: 'strict.access.local-auth-wrapper',
+        severity: 'error',
+        file: filePath,
+        message: 'Strict mode forbids local auth/access wrappers. Use AuthShell, provider identity controls, AccessSummary, and AccessRecoveryPanel.',
       });
     }
   }
