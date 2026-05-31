@@ -32,7 +32,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'admin',
         requiredContracts: ['DiscoveryShell'],
         localAdapters: [{ contract: 'LocalShell', path: 'src/ui/LocalShell.tsx', status: 'active' }],
@@ -64,7 +64,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'hybrid',
         requiredContracts: ['DiscoveryShell', 'ActionBar'],
         localAdapters: [{ contract: 'DetailProfileShell', path: 'src/gds/detail.tsx', status: 'exception' }],
@@ -89,7 +89,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['PublicShell'],
         localAdapters: [],
@@ -115,7 +115,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'hybrid',
         requiredContracts: ['DiscoveryShell'],
         localAdapters: [],
@@ -148,7 +148,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['MapPanel'],
         localAdapters: [],
@@ -185,7 +185,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'hybrid',
         requiredContracts: ['PublicShell'],
         localAdapters: [
@@ -225,7 +225,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['PublicShell'],
         localAdapters: [],
@@ -259,7 +259,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['GdsProvider'],
         localAdapters: [],
@@ -297,7 +297,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['GdsProvider'],
         localAdapters: [],
@@ -338,7 +338,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['GdsProvider'],
         localAdapters: [],
@@ -374,7 +374,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['SocialAuthButtons'],
         localAdapters: [],
@@ -415,7 +415,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['ProviderIdentityButton'],
         localAdapters: [],
@@ -455,7 +455,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['SocialAuthButtons'],
         localAdapters: [],
@@ -493,7 +493,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['SocialAuthButtons'],
         localAdapters: [],
@@ -524,7 +524,7 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '2.6.6',
+        gdsVersion: '2.6.7',
         productArchetype: 'public',
         requiredContracts: ['SocialAuthButtons'],
         localAdapters: [],

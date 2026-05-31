@@ -1,8 +1,8 @@
 # Release Publish Runbook
 
 Status: Active SSOT
-Version: 2.6.6
-Last updated: 2026-05-29
+Version: 2.6.7
+Last updated: 2026-05-31
 
 This runbook defines the authenticated package-publish flow for the General Design System.
 
@@ -11,8 +11,8 @@ Canonical registry target: **npm**
 Current registry reality:
 
 - canonical install source: npm
-- latest published baseline: `2.6.6`
-- current repository line: `2.6.6`
+- latest published baseline: `2.6.7`
+- current repository line: `2.6.7`
 
 GitHub release assets remain an optional fallback distribution path for unpublished release candidates:
 

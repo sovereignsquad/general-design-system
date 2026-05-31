@@ -12,8 +12,8 @@ import {
   StateBlock,
 } from '@doneisbetter/gds-core';
 
-const installCode = `npm install @doneisbetter/gds@2.6.6
-npm install -D @doneisbetter/gds-eslint-config@2.6.6 @doneisbetter/gds-compliance@2.6.6`;
+const installCode = `npm install @doneisbetter/gds@2.6.7
+npm install -D @doneisbetter/gds-eslint-config@2.6.7 @doneisbetter/gds-compliance@2.6.7`;
 
 const peerCode = `npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`;
 
@@ -26,17 +26,17 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return <GdsProvider>{children}</GdsProvider>;
 }`;
 
-const updateCode = `npm install @doneisbetter/gds@2.6.6
+const updateCode = `npm install @doneisbetter/gds@2.6.7
 
 # or granular runtime packages
-npm install @doneisbetter/gds-theme@2.6.6 @doneisbetter/gds-core@2.6.6 @doneisbetter/gds-admin@2.6.6
+npm install @doneisbetter/gds-theme@2.6.7 @doneisbetter/gds-core@2.6.7 @doneisbetter/gds-admin@2.6.7
 
 # governance tooling
-npm install -D @doneisbetter/gds-eslint-config@2.6.6 @doneisbetter/gds-compliance@2.6.6`;
+npm install -D @doneisbetter/gds-eslint-config@2.6.7 @doneisbetter/gds-compliance@2.6.7`;
 
 const complianceCode = `{
   "schemaVersion": 1,
-  "gdsVersion": "2.6.6",
+  "gdsVersion": "2.6.7",
   "productArchetype": "hybrid",
   "requiredContracts": [
     "DiscoveryShell",
@@ -78,13 +78,13 @@ gds-compliance check --manifest ./gds-adoption.json`;
 
 const clientUpdateTemplate = `# Copy this to every client migration thread
 
-Team, we completed the GDS update to the 2.6.6 reference surface.
+Team, we completed the GDS update to the 2.6.7 reference surface.
 
 What to do now:
 - Update all production dependencies to:
-  - @doneisbetter/gds@2.6.6
-  - @doneisbetter/gds-eslint-config@2.6.6 (dev)
-  - @doneisbetter/gds-compliance@2.6.6 (dev)
+  - @doneisbetter/gds@2.6.7
+  - @doneisbetter/gds-eslint-config@2.6.7 (dev)
+  - @doneisbetter/gds-compliance@2.6.7 (dev)
 - Remove local branding-layer theme extension code based on extendGdsTheme(...).
 - Route theme ownership through one approved lane:
   - gdsTheme
@@ -431,14 +431,14 @@ export function InstallPage() {
     <DocsPageShell
       title="Install GDS"
       eyebrow="Public install path"
-      lead="Use the umbrella npm package for the default public entry point, then satisfy the shared Mantine peer line, wire the provider once, and align your theme ownership with the canonical `2.6.6` governance rules."
+      lead="Use the umbrella npm package for the default public entry point, then satisfy the shared Mantine peer line, wire the provider once, and align your theme ownership with the canonical `2.6.7` governance rules."
     >
       <ReferenceSection title="1. Install the packages" description="The open-source public entry point is the umbrella package.">
         <DocsCodeBlock code={installCode} language="bash" title="Install GDS packages" />
         <DocsCodeBlock code={peerCode} language="bash" title="Install peer dependencies" />
       </ReferenceSection>
 
-      <ReferenceSection title="2. Upgrade existing clients to 2.6.6" description="If your app already uses GDS, move the package line and governance tooling together.">
+      <ReferenceSection title="2. Upgrade existing clients to 2.6.7" description="If your app already uses GDS, move the package line and governance tooling together.">
         <DocsCodeBlock code={updateCode} language="bash" title="Upgrade commands" />
         <FeatureBand
           columns={3}
@@ -550,7 +550,7 @@ export function RulebookPage() {
         />
       </ReferenceSection>
 
-      <ReferenceSection title="What changed in 2.6.6" description="Theme ownership is now explicit enough to review and enforce across client repos.">
+      <ReferenceSection title="What changed in 2.6.7" description="Theme ownership is now explicit enough to review and enforce across client repos.">
         <FeatureBand
           columns={3}
           items={[
@@ -637,7 +637,7 @@ export function TokensPage() {
       <ReferenceThemeExplorer />
       <ReferenceSection
         title="Approved adopter theme lanes"
-        description="These are the only canonical theme ownership paths we recommend to client teams on `2.6.6`."
+        description="These are the only canonical theme ownership paths we recommend to client teams on `2.6.7`."
       >
         <FeatureBand
           columns={4}
@@ -671,7 +671,7 @@ export function TokensPage() {
             {
               id: 'verify',
               title: 'Verify after updating',
-              description: 'Run build, tests, and gds-compliance after moving to the 2.6.6 line.',
+              description: 'Run build, tests, and gds-compliance after moving to the 2.6.7 line.',
             },
           ]}
         />

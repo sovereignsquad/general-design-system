@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "2.6.6",
+  "gdsVersion": "2.6.7",
   "productArchetype": "hybrid",
   "supportedEntryPoints": [
     "@doneisbetter/gds-theme/client",

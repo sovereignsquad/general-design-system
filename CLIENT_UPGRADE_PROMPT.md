@@ -1,17 +1,17 @@
-# Client Upgrade Prompt (2.6.6)
+# Client Upgrade Prompt (2.6.7)
 
 ## What this is
 
-Use this for every product team when migrating to the 2.6.6 GDS consumer contract.
+Use this for every product team when migrating to the 2.6.7 GDS consumer contract.
 
 ## Copy/paste message
 
-Team, we completed the GDS upgrade to the 2.6.6 governance baseline.
+Team, we completed the GDS upgrade to the 2.6.7 governance baseline.
 
 - Update dependencies:
-  - `@doneisbetter/gds@2.6.6`
-  - `@doneisbetter/gds-eslint-config@2.6.6` (dev)
-  - `@doneisbetter/gds-compliance@2.6.6` (dev)
+  - `@doneisbetter/gds@2.6.7`
+  - `@doneisbetter/gds-eslint-config@2.6.7` (dev)
+  - `@doneisbetter/gds-compliance@2.6.7` (dev)
 - Replace local mirror/theme wrappers with approved GDS lanes:
   - `gdsTheme`
   - `gdsDarkPublicTheme`

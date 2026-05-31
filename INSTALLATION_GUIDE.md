@@ -1,8 +1,8 @@
 # Installation Guide
 
 Status: Active SSOT
-Version: 2.6.6
-Last updated: 2026-05-29
+Version: 2.6.7
+Last updated: 2026-05-31
 
 This guide is the canonical consumer setup path for the public umbrella package `@doneisbetter/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
