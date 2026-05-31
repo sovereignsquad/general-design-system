@@ -31,6 +31,31 @@ GDS 3.0.0 must let a consumer team answer these questions without clarification:
 - Consumer-facing docs must use one version line for the release: `3.0.0`.
 - Governance rules must be measurable through `gds-compliance`, not only documented.
 - The feature-request lane must capture missing functions without polluting the canonical delivery board.
+- The package version must remain `2.6.7` until Wave 10 begins; `3.0.0` is a target release line before that point, not an installable package claim.
+
+## Version Policy
+
+Use exactly two version meanings during this program:
+
+- `2.6.7`: the current stable package, documentation, npm, and GitHub Pages baseline.
+- `3.0.0`: the target major release milestone and workstream label until Wave 10.
+
+Do not update `VERSION`, package `version` fields, install snippets, client upgrade prompts, or public “current version” website copy to `3.0.0` until all implementation waves are complete and Wave 10 starts.
+
+Allowed before Wave 10:
+
+- milestone and issue labels named `3.0.0`
+- planning docs that clearly call `3.0.0` the target release
+- internal project-board sequencing
+- implementation work behind the current repository line
+
+Not allowed before Wave 10:
+
+- publishing package artifacts named `3.0.0`
+- telling clients to install `3.0.0`
+- changing docs headers that describe the current stable version
+- closing the 3.0.0 milestone
+- marking release complete before `npm run verify:published` passes
 
 ## Scope
 
@@ -143,9 +168,10 @@ Deliverables:
 
 - create `GDS 3.0.0 - Adoption Platform Release` milestone
 - create independent production-grade issues for each wave
-- keep old `2.6.7` milestones closed or archived after audit
+- keep old `2.6.7` milestones untouched as historical delivery groups unless a separate audit decides to close/archive them
 - add docs explaining that `3.0.0` is the target while `2.6.7` remains current stable until release
 - verify no unrelated issues remain in the repository
+- add a release-readiness checklist that can be used before Wave 10
 
 ### Wave 2: Reference Site Coverage
 
@@ -247,10 +273,46 @@ npm run publish:npm
 npm run verify:published
 ```
 
+## Release Readiness Checklist
+
+Use this checklist at the end of each wave and before Wave 10 starts.
+
+### Board And Scope
+
+- [ ] Only GDS-scoped issues are open in this repository.
+- [ ] Every open issue belongs to the canonical project board `sovereignsquad#11`.
+- [ ] Every 3.0.0 issue has the `3.0.0` label and the `GDS 3.0.0 - Adoption Platform Release` milestone.
+- [ ] `npm run audit:board:strict` passes with `state/status mismatches: 0`.
+- [ ] No unrelated product backlog appears on the GDS board.
+
+### Implementation Evidence
+
+- [ ] Each completed issue has code, docs, test, or verification evidence.
+- [ ] Reference-site changes use GDS primitives only.
+- [ ] Component/pattern claims match package exports and live demos.
+- [ ] Accessibility requirements are represented in docs, demos, or tests.
+- [ ] Theme-governance claims match compliance behavior.
+
+### Release Safety
+
+- [ ] `VERSION` still equals the stable release line until Wave 10 starts.
+- [ ] All package versions remain aligned with `VERSION`.
+- [ ] `npm run verify:references` passes.
+- [ ] `npm run verify:release` passes.
+- [ ] `npm run publish:dry-run` passes before real publish.
+- [ ] `npm run verify:published` passes after real publish.
+- [ ] GitHub Pages deploy passes after release docs are updated.
+
+### Client Communication
+
+- [ ] Install docs identify the real current package line.
+- [ ] Upgrade prompt is not sent until npm packages are available.
+- [ ] Migration guidance names breaking changes, required actions, and rollback path.
+- [ ] Feature-request intake remains visible and scoped to GDS needs.
+
 ## Rollback And Recovery
 
 - If package publication fails, do not mark the release complete; keep `3.0.0` issues open until npm verification passes.
 - If Pages deploy fails, keep the previous stable site live and fix the deploy before announcing 3.0.0.
 - If compliance rules produce false positives, narrow the rule and keep docs/runtime changes intact.
 - If a component contract is incomplete, mark it explicit `planned` or `pilot`; do not present it as required in 3.0.0 docs.
-

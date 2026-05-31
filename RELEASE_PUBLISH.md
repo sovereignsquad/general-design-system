@@ -28,6 +28,8 @@ GitHub release assets remain an optional fallback distribution path for unpublis
 - `VERSION` matches every publishable package version
 - `npm run verify:release` passes
 - operator is authenticated with npm
+- for the 3.0.0 program, all `GDS 3.0.0 - Adoption Platform Release` implementation issues are complete before `VERSION` is bumped from `2.6.7` to `3.0.0`
+- `npm run audit:board:strict` passes before and after the version bump
 
 Check auth:
 
@@ -88,10 +90,13 @@ Once the release exists, consumers may install directly from the asset URLs with
 ## Real publish
 
 ```bash
+npm run audit:board:strict
 npm run verify:release
 npm run publish:npm
 npm run verify:published
 ```
+
+For a major release such as `3.0.0`, do not announce the release or update client install prompts until `npm run verify:published` confirms all six packages resolve from npm.
 
 ## Expected publish order
 

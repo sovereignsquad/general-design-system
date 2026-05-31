@@ -2,6 +2,12 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased
+
+- Planned the `3.0.0` adoption-platform release as a governed major-release program while keeping `2.6.7` as the current stable package line until release cut.
+- Added the 3.0.0 release-readiness checklist covering board scope, implementation evidence, release safety, and client communication gates.
+- Updated the publish runbook so major releases require strict board audit before and after version bump and may not be announced until npm publication is verified.
+
 ## 2.6.7 - 2026-05-31
 
 - Cut and published the `2.6.7` npm release line so the widened docs/reference-shell layout is available through the public package line and not only on repository `main`.
