@@ -9,6 +9,7 @@ const localeCoveragePath = resolve(root, 'apps/playground/src/locale-coverage.ts
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const appSource = readFileSync(appPath, 'utf8');
 const localeCoverageSource = readFileSync(localeCoveragePath, 'utf8');
+const infoPagesSource = readFileSync(resolve(root, 'apps/playground/src/info-pages.tsx'), 'utf8');
 
 const failures = [];
 
@@ -56,6 +57,41 @@ if (!appSource.includes("from './locale-coverage'")) {
 
 if (!appSource.includes('Only routes listed as fully localized in the official coverage contract ship complete translated copy.')) {
   failures.push('App.tsx must keep locale disclosure copy aligned with route-coverage policy.');
+}
+
+const requiredCopyObjectsByRoute = new Map([
+  ['/', 'export function OverviewPage()'],
+  ['/install', 'export function InstallPage()'],
+  ['/governance', 'export function RulebookPage()'],
+  ['/themes', 'export function TokensPage()'],
+]);
+
+function ensureLocalesInCopyBlock(routePrefix, marker, locales) {
+  const markerIndex = infoPagesSource.indexOf(marker);
+  if (markerIndex === -1) {
+    failures.push(`info-pages.tsx must define copy block marker "${marker}" for route ${routePrefix}.`);
+    return;
+  }
+
+  const blockSource = infoPagesSource.slice(markerIndex, markerIndex + 14000);
+  for (const locale of locales) {
+    if (locale === 'en') {
+      continue;
+    }
+    const localeKey = `${locale}: {`;
+    const localeBranch = `locale === '${locale}'`;
+    if (!blockSource.includes(localeKey) && !blockSource.includes(localeBranch)) {
+      failures.push(`info-pages.tsx copy block for route ${routePrefix} must include locale "${locale}".`);
+    }
+  }
+}
+
+for (const rule of localizedRouteCoverage ?? []) {
+  const marker = requiredCopyObjectsByRoute.get(rule.routePrefix);
+  if (!marker) {
+    continue;
+  }
+  ensureLocalesInCopyBlock(rule.routePrefix, marker, rule.fullCopyLocales ?? []);
 }
 
 if (failures.length > 0) {
