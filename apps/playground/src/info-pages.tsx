@@ -11,6 +11,7 @@ import {
   ReferenceThemeExplorer,
   SimpleDataTable,
   StateBlock,
+  type ThemeExplorerSelection,
 } from '@doneisbetter/gds-core';
 import { useGdsTranslation } from '@doneisbetter/gds-theme';
 import { patternRegistry } from './pattern-registry';
@@ -1265,7 +1266,11 @@ export function RulebookPage() {
   );
 }
 
-export function TokensPage() {
+export function TokensPage({
+  onSiteThemeSelectionChange,
+}: {
+  onSiteThemeSelectionChange?: (selection: ThemeExplorerSelection) => void;
+}) {
   const { locale } = useGdsTranslation();
   const copy = {
     en: {
@@ -1365,7 +1370,7 @@ export function TokensPage() {
       eyebrow={i18n.eyebrow}
       lead={i18n.lead}
     >
-      <ReferenceThemeExplorer />
+      <ReferenceThemeExplorer onSelectionChange={onSiteThemeSelectionChange} />
       <ReferenceSection
         title={i18n.lanesTitle}
         description={i18n.lanesDescription}

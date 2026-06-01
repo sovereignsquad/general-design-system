@@ -63,7 +63,7 @@ const requiredCopyObjectsByRoute = new Map([
   ['/', 'export function OverviewPage()'],
   ['/install', 'export function InstallPage()'],
   ['/governance', 'export function RulebookPage()'],
-  ['/themes', 'export function TokensPage()'],
+  ['/themes', 'export function TokensPage'],
 ]);
 
 function ensureLocalesInCopyBlock(routePrefix, marker, locales) {

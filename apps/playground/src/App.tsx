@@ -1,6 +1,6 @@
 import { lazy, Suspense, useState } from 'react';
 import { BrowserRouter as Router, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { GdsProvider } from '@doneisbetter/gds-theme';
+import { GdsProvider, gdsTheme } from '@doneisbetter/gds-theme';
 import {
   ar,
   de,
@@ -15,6 +15,7 @@ import {
   SidebarNavItem,
   StateBlock,
   ThemeToggle,
+  type ThemeExplorerSelection,
 } from '@doneisbetter/gds-core';
 import {
   getLegacyRedirects,
@@ -147,6 +148,11 @@ const localesMap: Record<string, { label: string; messages: Record<string, strin
 
 function PlaygroundContent() {
   const [locale, setLocale] = useState<string>('en');
+  const [siteThemeSelection, setSiteThemeSelection] = useState<ThemeExplorerSelection>({
+    preset: 'default',
+    colorScheme: 'light',
+    theme: gdsTheme,
+  });
   const location = useLocation();
   const primaryRoutes = getPrimaryRoutes();
   const demoRoutes = getSecondaryRoutes('live-demos');
@@ -199,7 +205,13 @@ function PlaygroundContent() {
   );
 
   return (
-    <GdsProvider locale={locale} messages={localesMap[locale]?.messages ?? localesMap.en.messages}>
+    <GdsProvider
+      key={`${siteThemeSelection.preset}-${siteThemeSelection.colorScheme}`}
+      locale={locale}
+      messages={localesMap[locale]?.messages ?? localesMap.en.messages}
+      theme={siteThemeSelection.theme}
+      defaultColorScheme={siteThemeSelection.colorScheme}
+    >
       <DocsShell
         brand={<strong>General Design System</strong>}
         primaryNavigation={primaryNavigation}
@@ -227,7 +239,14 @@ function PlaygroundContent() {
           <Route path="/coverage" element={<Suspense fallback={<RouteFallback />}><CoveragePage /></Suspense>} />
           <Route path="/install" element={<Suspense fallback={<RouteFallback />}><InstallPage /></Suspense>} />
           <Route path="/governance" element={<Suspense fallback={<RouteFallback />}><RulebookPage /></Suspense>} />
-          <Route path="/themes" element={<Suspense fallback={<RouteFallback />}><TokensPage /></Suspense>} />
+          <Route
+            path="/themes"
+            element={(
+              <Suspense fallback={<RouteFallback />}>
+                <TokensPage onSiteThemeSelectionChange={setSiteThemeSelection} />
+              </Suspense>
+            )}
+          />
           <Route path="/live-demos" element={<Suspense fallback={<RouteFallback />}><LiveDemosPage /></Suspense>} />
           <Route path="/live-demos/surfaces" element={<Suspense fallback={<RouteFallback />}><CardsPage /></Suspense>} />
           <Route path="/live-demos/layouts" element={<Suspense fallback={<RouteFallback />}><LayoutsPage /></Suspense>} />

@@ -39,7 +39,7 @@ if (!infoPagesSource.includes('This website is both the public product site and 
   failures.push('Overview page must keep explicit live-demo framing in info-pages.tsx.');
 }
 
-if (!infoPagesSource.includes('<ReferenceThemeExplorer />')) {
+if (!infoPagesSource.includes('<ReferenceThemeExplorer')) {
   failures.push('Themes page must render ReferenceThemeExplorer as the canonical interactive surface.');
 }
 

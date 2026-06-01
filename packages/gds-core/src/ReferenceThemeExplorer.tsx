@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Badge,
   Button,
@@ -15,6 +15,7 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
+import type { MantineThemeOverride } from '@mantine/core';
 import { ActionBar } from './ActionBar';
 import { FormField } from './FormField';
 import { ListingCard } from './ListingCard';
@@ -32,6 +33,11 @@ import {
 
 export type ThemePresetId = 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand';
 export type ThemeSchemeId = 'light' | 'dark' | 'auto';
+export interface ThemeExplorerSelection {
+  preset: ThemePresetId;
+  colorScheme: ThemeSchemeId;
+  theme: MantineThemeOverride;
+}
 
 function resolvePreviewColorScheme(presetId: ThemePresetId, requestedScheme: ThemeSchemeId): ThemeSchemeId {
   if (presetId === 'dark-public') {
@@ -194,7 +200,11 @@ function ThemePreviewSurface({
   );
 }
 
-export function ReferenceThemeExplorer() {
+export function ReferenceThemeExplorer({
+  onSelectionChange,
+}: {
+  onSelectionChange?: (selection: ThemeExplorerSelection) => void;
+}) {
   const [preset, setPreset] = useState<ThemePresetId>('default');
   const [colorScheme, setColorScheme] = useState<ThemeSchemeId>('light');
   const [brandPrimary, setBrandPrimary] = useState('blue');
@@ -231,6 +241,14 @@ export function ReferenceThemeExplorer() {
 
   const previewKey = `${preset}-${effectiveColorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
   const comparisonPreviewKey = `${comparisonPreset}-${effectiveComparisonScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
+
+  useEffect(() => {
+    onSelectionChange?.({
+      preset,
+      colorScheme: effectiveColorScheme,
+      theme: selectedTheme,
+    });
+  }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme]);
 
   const reset = () => {
     setPreset('default');
@@ -276,7 +294,7 @@ export function ReferenceThemeExplorer() {
                 Reset theme lab
               </Button>
               <Text size="sm" c="dimmed">
-                The reference site remounts an isolated provider here so visitors can test shipped presets without changing the whole docs shell.
+                Theme changes apply to the official site shell so visitors can validate real whole-page runtime behavior.
               </Text>
             </Stack>
           </Paper>
