@@ -3,6 +3,7 @@ import {
   AccessRecoveryPanel,
   ActionBar,
   AccentPanel,
+  AdvancedDataTable,
   ArticleShell,
   AuthShell,
   BrowseSurface,
@@ -1031,16 +1032,18 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'admin-data-table':
       return (
-        <DataTable
-          data={[
+        <AdvancedDataTable
+          rows={[
             { id: '1', surface: 'Admin AppShell', status: 'Compatibility' },
             { id: '2', surface: 'ResponsiveDataView', status: 'Canonical' },
           ]}
           columns={[
-            { key: 'surface', label: 'Surface' },
-            { key: 'status', label: 'Status' },
+            { key: 'surface', label: 'Surface', sortable: true },
+            { key: 'status', label: 'Status', sortable: true },
           ]}
-          getRowKey={(row: Record<string, string>) => row.id}
+          rowId={(row) => String(row.id)}
+          stickyHeader
+          responsiveFallback="stacked-cards"
         />
       );
     case 'responsive-data-view':

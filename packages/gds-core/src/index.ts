@@ -61,6 +61,7 @@ export * from './PageHeader';
 export * from './FilterDrawer';
 export * from './PlaceholderPanel';
 export * from './SimpleDataTable';
+export * from './AdvancedDataTable.client';
 export * from './StatsSection';
 export * from './PeriodSelector';
 export * from './EvidencePanel';

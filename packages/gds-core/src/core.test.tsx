@@ -7,6 +7,7 @@ import { AccessSummary } from './AccessSummary';
 import { AccessRecoveryPanel } from './AccessRecoveryPanel';
 import { AccentPanel, resolveAccentPanelStyles } from './AccentPanel';
 import { ActionBar } from './ActionBar';
+import { AdvancedDataTable } from './AdvancedDataTable.client';
 import { ArticleShell } from './ArticleShell';
 import { AuthShell } from './AuthShell';
 import { AsyncSurface } from './AsyncSurface';
@@ -271,6 +272,30 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByText('Published')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Toggle row-1' }));
     expect(screen.getByText('1 selected')).toBeInTheDocument();
+  });
+
+  it('renders advanced data table sorting and row selection controls', async () => {
+    const user = userEvent.setup();
+
+    renderWithGds(
+      <AdvancedDataTable
+        rows={[
+          { id: '2', name: 'Bravo', status: 'Draft' },
+          { id: '1', name: 'Alpha', status: 'Published' },
+        ]}
+        columns={[
+          { key: 'name', label: 'Name', sortable: true },
+          { key: 'status', label: 'Status', sortable: true },
+        ]}
+        rowId={(row) => String(row.id)}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Sort by Name' })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Sort by Name' }));
+    await user.click(screen.getByRole('checkbox', { name: 'Select row 1' }));
+    expect(screen.getByText('2 rows')).toBeInTheDocument();
+    expect(screen.getByRole('checkbox', { name: 'Select row 1' })).toBeChecked();
   });
 
   it('renders the discovery shell with grouped sidebar navigation', () => {

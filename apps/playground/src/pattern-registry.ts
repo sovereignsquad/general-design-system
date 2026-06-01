@@ -866,7 +866,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Admin table primitive for operational registries and structured internal records.',
     importPath: '@doneisbetter/gds-admin',
-    sourceComponent: 'DataTable',
+    sourceComponent: 'AdvancedDataTable / DataTable',
   },
   {
     id: 'responsive-data-view',

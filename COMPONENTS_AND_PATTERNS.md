@@ -107,6 +107,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Access Recovery Panels** | Protected-content, expired-session, timeout, unavailable, forbidden, and not-found failures must use one canonical recovery surface with clear state meaning and one obvious mobile recovery action. | `md` |
 | **Placeholder Panels** | Placeholder and coming-soon surfaces must be honest, visibly non-live, and must not imply fabricated data. | `md` |
 | **Simple Data Tables** | Public/product summary tables must support loading, empty, error, and threshold-safe states without importing admin CRUD semantics. | `md` |
+| **Advanced Data Table** | Enterprise/operator tables should use `AdvancedDataTable` for governed sorting, row selection, density modes, sticky headers, and responsive card fallback behavior. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
 
 ## 4. Feedback & Messaging

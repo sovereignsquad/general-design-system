@@ -15,6 +15,7 @@ export const patternExportCoverage: ExportCoverageEntry[] = [
   { packageName: '@doneisbetter/gds-core', exportName: 'AccessSummary', status: 'live-demo', registryId: 'access-summaries', rationale: 'Canonical scoped access and role summary.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'AccentPanel', status: 'live-demo', registryId: 'accent-panels', rationale: 'Canonical color-mode-safe accent surface.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'ActionBar', status: 'live-demo', registryId: 'action-bar', rationale: 'Canonical semantic action orchestration.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'AdvancedDataTable', status: 'live-demo', registryId: 'admin-data-table', rationale: 'Canonical advanced table contract with sort, selection, density, sticky header, and fallback cards.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'ArticleShell', status: 'live-demo', registryId: 'article-shells', rationale: 'Canonical docs/editorial readability shell.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'AuthShell', status: 'live-demo', registryId: 'auth-shells', rationale: 'Canonical auth entry composition.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'AsyncSurface', status: 'live-demo', registryId: 'state-blocks', rationale: 'Canonical async loading/empty/error/retry surface orchestration.' },
