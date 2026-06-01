@@ -40,6 +40,9 @@ export interface ThemeExplorerSelection {
   theme: MantineThemeOverride;
   fontLane?: GdsFontLaneId;
   runtimeKey?: string;
+  brandPrimary?: string;
+  brandFlatSurfaces?: boolean;
+  brandEditorialSerif?: boolean;
 }
 
 function resolvePreviewColorScheme(presetId: ThemePresetId, requestedScheme: ThemeSchemeId): ThemeSchemeId {
@@ -166,16 +169,18 @@ function ThemePreviewSurface({
 }
 
 export function ReferenceThemeExplorer({
+  initialSelection,
   onSelectionChange,
 }: {
+  initialSelection?: ThemeExplorerSelection;
   onSelectionChange?: (selection: ThemeExplorerSelection) => void;
 }) {
-  const [preset, setPreset] = useState<ThemePresetId>('default');
-  const [colorScheme, setColorScheme] = useState<ThemeSchemeId>('light');
-  const [brandPrimary, setBrandPrimary] = useState('blue');
-  const [brandFlatSurfaces, setBrandFlatSurfaces] = useState(true);
-  const [brandEditorialSerif, setBrandEditorialSerif] = useState(false);
-  const [fontLane, setFontLane] = useState<GdsFontLaneId>('inter');
+  const [preset, setPreset] = useState<ThemePresetId>(initialSelection?.preset ?? 'default');
+  const [colorScheme, setColorScheme] = useState<ThemeSchemeId>(initialSelection?.colorScheme ?? 'light');
+  const [brandPrimary, setBrandPrimary] = useState(initialSelection?.brandPrimary ?? 'blue');
+  const [brandFlatSurfaces, setBrandFlatSurfaces] = useState(initialSelection?.brandFlatSurfaces ?? true);
+  const [brandEditorialSerif, setBrandEditorialSerif] = useState(initialSelection?.brandEditorialSerif ?? false);
+  const [fontLane, setFontLane] = useState<GdsFontLaneId>(initialSelection?.fontLane ?? 'inter');
   const [comparisonEnabled, setComparisonEnabled] = useState(false);
   const [comparisonPreset, setComparisonPreset] = useState<ThemePresetId>('editorial');
   const availableComparisonPresets = presetCatalog.filter((item) => item.id !== preset).map((item) => item.id);
@@ -204,8 +209,11 @@ export function ReferenceThemeExplorer({
       theme: selectedTheme,
       fontLane,
       runtimeKey: previewKey,
+      brandPrimary,
+      brandFlatSurfaces,
+      brandEditorialSerif,
     });
-  }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme, fontLane, previewKey]);
+  }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme, fontLane, previewKey, brandPrimary, brandFlatSurfaces, brandEditorialSerif]);
 
   useEffect(() => {
     if (comparisonPreset !== preset) {

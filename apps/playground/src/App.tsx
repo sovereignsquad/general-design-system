@@ -1,6 +1,12 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { GdsProvider, gdsTheme } from '@doneisbetter/gds-theme';
+import {
+  GdsProvider,
+  applyGdsFontLane,
+  resolveGdsThemePreset,
+  type GdsFontLaneId,
+  type GdsThemePresetId,
+} from '@doneisbetter/gds-theme';
 import {
   ar,
   de,
@@ -146,15 +152,83 @@ const localesMap: Record<string, { label: string; messages: Record<string, strin
   hu: { label: 'Magyar', messages: hu },
 };
 
+const themeSelectionStorageKey = 'gds-reference-theme-selection';
+
+type StoredThemeSelection = Pick<
+  ThemeExplorerSelection,
+  'preset' | 'colorScheme' | 'fontLane' | 'runtimeKey' | 'brandPrimary' | 'brandFlatSurfaces' | 'brandEditorialSerif'
+>;
+
+function createThemeSelection(stored: Partial<StoredThemeSelection> = {}): ThemeExplorerSelection {
+  const preset = (stored.preset ?? 'default') as GdsThemePresetId;
+  const colorScheme = stored.colorScheme ?? 'light';
+  const fontLane = (stored.fontLane ?? 'inter') as GdsFontLaneId;
+  const brandPrimary = stored.brandPrimary ?? 'blue';
+  const brandFlatSurfaces = stored.brandFlatSurfaces ?? true;
+  const brandEditorialSerif = stored.brandEditorialSerif ?? false;
+  const effectiveColorScheme = preset === 'dark-public' || preset === 'neon-night' ? 'dark' : colorScheme;
+  const runtimeKey = stored.runtimeKey ?? `${preset}-${effectiveColorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
+
+  return {
+    preset,
+    colorScheme: effectiveColorScheme,
+    theme: applyGdsFontLane(resolveGdsThemePreset(preset, {
+      brandPrimary,
+      brandFlatSurfaces,
+      brandEditorialSerif,
+    }), fontLane),
+    fontLane,
+    runtimeKey,
+    brandPrimary,
+    brandFlatSurfaces,
+    brandEditorialSerif,
+  };
+}
+
+function loadThemeSelection(): ThemeExplorerSelection {
+  if (typeof window === 'undefined') {
+    return createThemeSelection();
+  }
+
+  try {
+    const stored = window.localStorage.getItem(themeSelectionStorageKey);
+    return createThemeSelection(stored ? JSON.parse(stored) as Partial<StoredThemeSelection> : undefined);
+  } catch {
+    return createThemeSelection();
+  }
+}
+
+function persistThemeSelection(selection: ThemeExplorerSelection) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  const stored: StoredThemeSelection = {
+    preset: selection.preset,
+    colorScheme: selection.colorScheme,
+    fontLane: selection.fontLane,
+    runtimeKey: selection.runtimeKey,
+    brandPrimary: selection.brandPrimary,
+    brandFlatSurfaces: selection.brandFlatSurfaces,
+    brandEditorialSerif: selection.brandEditorialSerif,
+  };
+
+  try {
+    window.localStorage.setItem(themeSelectionStorageKey, JSON.stringify(stored));
+  } catch {
+    // Storage can be unavailable in hardened/private browser contexts. Runtime
+    // theme application should continue even if persistence is blocked.
+  }
+}
+
 function PlaygroundContent() {
   const [locale, setLocale] = useState<string>('en');
-  const [siteThemeSelection, setSiteThemeSelection] = useState<ThemeExplorerSelection>({
-    preset: 'default',
-    colorScheme: 'light',
-    theme: gdsTheme,
-    runtimeKey: 'default-light-blue-true-false-inter',
-  });
+  const [siteThemeSelection, setSiteThemeSelection] = useState<ThemeExplorerSelection>(() => loadThemeSelection());
   const location = useLocation();
+  const handleSiteThemeSelectionChange = useCallback((selection: ThemeExplorerSelection) => {
+    persistThemeSelection(selection);
+    setSiteThemeSelection(selection);
+  }, []);
   useEffect(() => {
     const resolveScheme = () =>
       siteThemeSelection.colorScheme === 'auto'
@@ -164,9 +238,13 @@ function PlaygroundContent() {
     const applyScheme = () => {
       document.documentElement.setAttribute('data-mantine-color-scheme', resolveScheme());
       document.documentElement.setAttribute('data-gds-theme-runtime', siteThemeSelection.runtimeKey ?? `${siteThemeSelection.preset}-${siteThemeSelection.colorScheme}`);
+      if (siteThemeSelection.fontLane) {
+        document.documentElement.setAttribute('data-gds-font-lane', siteThemeSelection.fontLane);
+      }
     };
 
     applyScheme();
+    persistThemeSelection(siteThemeSelection);
 
     if (siteThemeSelection.colorScheme !== 'auto') {
       return;
@@ -179,7 +257,7 @@ function PlaygroundContent() {
     return () => {
       mediaQuery.removeEventListener('change', handleChange);
     };
-  }, [siteThemeSelection.colorScheme, siteThemeSelection.preset, siteThemeSelection.runtimeKey]);
+  }, [siteThemeSelection]);
 
   const primaryRoutes = getPrimaryRoutes();
   const demoRoutes = getSecondaryRoutes('live-demos');
@@ -229,9 +307,10 @@ function PlaygroundContent() {
       </select>
       <ThemeToggle
         onColorSchemeChange={(nextScheme) =>
-          setSiteThemeSelection((previous) => ({
+          setSiteThemeSelection((previous) => createThemeSelection({
             ...previous,
             colorScheme: nextScheme,
+            runtimeKey: undefined,
           }))
         }
       />
@@ -277,7 +356,10 @@ function PlaygroundContent() {
             path="/themes"
             element={(
               <Suspense fallback={<RouteFallback />}>
-                <TokensPage onSiteThemeSelectionChange={setSiteThemeSelection} />
+                <TokensPage
+                  initialThemeSelection={siteThemeSelection}
+                  onSiteThemeSelectionChange={handleSiteThemeSelectionChange}
+                />
               </Suspense>
             )}
           />

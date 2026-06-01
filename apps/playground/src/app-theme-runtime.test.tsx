@@ -2,6 +2,13 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 
 describe('playground app runtime theme flow', () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+    document.documentElement.removeAttribute('data-gds-theme-runtime');
+    document.documentElement.removeAttribute('data-gds-font-lane');
+    document.documentElement.removeAttribute('data-mantine-color-scheme');
+  });
+
   it('applies dark -> light -> dark transitions on the live /themes route without resetting preset', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');
 
@@ -97,5 +104,38 @@ describe('playground app runtime theme flow', () => {
     );
 
     expect((presetSelect as HTMLSelectElement).value).toBe('neon-night');
+  });
+
+  it('persists selected theme and font lane across direct route loads', async () => {
+    window.history.pushState({}, '', '/general-design-system/themes');
+
+    const firstRender = render(<App />);
+
+    fireEvent.change(await screen.findByLabelText('Preset'), { target: { value: 'oceanic' } });
+    fireEvent.change(await screen.findByLabelText('Preview color scheme'), { target: { value: 'dark' } });
+    fireEvent.change(await screen.findByLabelText('Webfont lane'), { target: { value: 'space-grotesk' } });
+
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toContain('oceanic-dark'),
+    );
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-gds-font-lane')).toBe('space-grotesk'),
+    );
+    await waitFor(() =>
+      expect(window.localStorage.getItem('gds-reference-theme-selection')).toContain('oceanic'),
+    );
+
+    firstRender.unmount();
+    window.history.pushState({}, '', '/general-design-system/live-demos/surfaces');
+
+    render(<App />);
+
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toContain('oceanic-dark'),
+    );
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-gds-font-lane')).toBe('space-grotesk'),
+    );
+    expect(await screen.findByText('Discovery & Cards')).toBeTruthy();
   });
 });

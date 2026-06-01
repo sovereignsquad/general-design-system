@@ -1267,8 +1267,10 @@ export function RulebookPage() {
 }
 
 export function TokensPage({
+  initialThemeSelection,
   onSiteThemeSelectionChange,
 }: {
+  initialThemeSelection?: ThemeExplorerSelection;
   onSiteThemeSelectionChange?: (selection: ThemeExplorerSelection) => void;
 }) {
   const { locale } = useGdsTranslation();
@@ -1370,7 +1372,7 @@ export function TokensPage({
       eyebrow={i18n.eyebrow}
       lead={i18n.lead}
     >
-      <ReferenceThemeExplorer onSelectionChange={onSiteThemeSelectionChange} />
+      <ReferenceThemeExplorer initialSelection={initialThemeSelection} onSelectionChange={onSiteThemeSelectionChange} />
       <ReferenceSection
         title={i18n.lanesTitle}
         description={i18n.lanesDescription}
