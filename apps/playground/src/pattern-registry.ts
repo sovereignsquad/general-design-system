@@ -953,6 +953,8 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Messaging Primitives',
     coverageStatus: 'live-demo',
     summary: 'Alerts must explain the current state and the next action instead of acting as decorative chrome.',
+    importPath: '@doneisbetter/gds-core',
+    sourceComponent: 'InlineAlert / BannerNotice',
   },
   {
     id: 'loaders-skeletons',
@@ -971,6 +973,8 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Messaging Primitives',
     coverageStatus: 'live-demo',
     summary: 'Notifications are transient cross-surface feedback and may not be the only place a critical error appears.',
+    importPath: '@doneisbetter/gds-core',
+    sourceComponent: 'GdsNotificationProvider / NotificationCenter / InlineAlert / BannerNotice',
   },
   {
     id: 'badges',

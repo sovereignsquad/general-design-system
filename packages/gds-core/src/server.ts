@@ -51,5 +51,6 @@ export * from './PeriodSelector';
 export * from './EvidencePanel';
 export * from './ChartTokenPanel';
 export * from './ReportingSection';
+export * from './Notifications';
 export * from './SurfacePresentation';
 export * from './locales';

@@ -34,6 +34,10 @@ import {
   MediaCard,
   MediaField,
   MetricCard,
+  NotificationCenter,
+  GdsNotificationProvider,
+  BannerNotice,
+  InlineAlert,
   PlaybackSurface,
   PeriodSelector,
   PlaceholderPanel,
@@ -1101,9 +1105,26 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'notifications':
       return (
-        <SectionPanel title="Notification surface" description="Notifications remain contextual and explicit.">
-          <ActionBar primary={{ action: 'notifications' }} />
-        </SectionPanel>
+        <GdsNotificationProvider>
+          <SectionPanel title="Notification surface" description="Notifications remain contextual, actionable, and explicit.">
+            <div>
+              <BannerNotice
+                eyebrow="Service status"
+                severity="warning"
+                title="One partner connector is degraded"
+                message="Background sync is delayed. Critical failures are still shown inline as well."
+              />
+              <br />
+              <InlineAlert
+                severity="info"
+                title="Publishing queue active"
+                message="New items will appear once validation completes."
+              />
+              <br />
+              <NotificationCenter />
+            </div>
+          </SectionPanel>
+        </GdsNotificationProvider>
       );
     case 'badges':
       return (

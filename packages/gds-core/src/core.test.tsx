@@ -33,6 +33,7 @@ import { ListingCard } from './ListingCard';
 import { MapPanel } from './MapPanel';
 import { MediaField } from './MediaField';
 import { MetricCard } from './MetricCard';
+import { BannerNotice, GdsNotificationProvider, NotificationCenter, useGdsNotifications } from './Notifications';
 import { PageHeader } from './PageHeader';
 import { PeriodSelector } from './PeriodSelector';
 import { PlaceholderPanel } from './PlaceholderPanel';
@@ -668,6 +669,46 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByText('No reports yet')).toBeInTheDocument();
     expect(screen.getByText('Partner access')).toBeInTheDocument();
     expect(screen.getByText('Scope: Northern region')).toBeInTheDocument();
+  });
+
+  it('renders governed notification primitives with queue and dismiss behavior', async () => {
+    const user = userEvent.setup();
+
+    function NotificationProbe() {
+      const { notify } = useGdsNotifications();
+      return (
+        <button
+          type="button"
+          onClick={() => notify({
+            id: 'n-1',
+            title: 'Partner sync delayed',
+            message: 'Retry is available while sync catches up.',
+            severity: 'warning',
+          })}
+        >
+          Trigger
+        </button>
+      );
+    }
+
+    renderWithGds(
+      <GdsNotificationProvider>
+        <BannerNotice
+          severity="info"
+          eyebrow="Notice"
+          title="Governed notification lane"
+          message="Shared severity and action semantics."
+        />
+        <NotificationProbe />
+        <NotificationCenter />
+      </GdsNotificationProvider>,
+    );
+
+    expect(screen.getByText('Governed notification lane')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Trigger' }));
+    expect(screen.getByText('Partner sync delayed')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Dismiss' }));
+    expect(screen.queryByText('Partner sync delayed')).not.toBeInTheDocument();
   });
 
   it('renders async-surface states with deterministic retry behavior', async () => {
