@@ -14,6 +14,12 @@ import {
   ConsumerSection,
   createGdsVocabularyPack,
   DataToolbar,
+  ListingProvider,
+  useListingState,
+  ActiveFilterChips,
+  ResultSummary,
+  BulkActionsBar,
+  SortMenu,
   DetailProfileShell,
   DiscoveryShell,
   DocsCodeBlock,
@@ -96,6 +102,67 @@ import {
 } from './pattern-registry';
 
 const catalogEntryCount = patternRegistry.length;
+
+function ListingFrameworkDemo() {
+  const { state, dispatch } = useListingState();
+  const resultCount = state.search ? 4 : 12;
+
+  return (
+    <div>
+      <DataToolbar
+        searchSlot={(
+          <input
+            aria-label="Search dataset"
+            value={state.search}
+            onChange={(event) => dispatch({ type: 'set-search', value: event.currentTarget.value })}
+          />
+        )}
+        filterSlot={<button type="button" onClick={() => dispatch({ type: 'toggle-filter', value: 'Published' })}>Toggle published</button>}
+        sortSlot={(
+          <SortMenu
+            value={state.sort}
+            options={[
+              { value: 'newest', label: 'Newest' },
+              { value: 'oldest', label: 'Oldest' },
+              { value: 'a-z', label: 'A-Z' },
+            ]}
+            onChange={(value) => dispatch({ type: 'set-sort', value })}
+            label="Sort by"
+          />
+        )}
+        resetAction={<button type="button" onClick={() => dispatch({ type: 'reset-query' })}>Reset</button>}
+        createAction={<button type="button">Create</button>}
+        activeFilters={state.filters.map((filter) => ({
+          label: filter,
+          onRemove: () => dispatch({ type: 'toggle-filter', value: filter }),
+        }))}
+      />
+      <br />
+      <ResultSummary
+        resultCount={resultCount}
+        noun="records"
+        description={`Sort: ${state.sort}. Active filters: ${state.filters.length}.`}
+      />
+      <br />
+      <ActiveFilterChips
+        filters={state.filters.map((filter) => ({
+          id: filter,
+          label: filter,
+          onRemove: () => dispatch({ type: 'toggle-filter', value: filter }),
+        }))}
+      />
+      <br />
+      <BulkActionsBar
+        selectedCount={state.selection.length}
+        actions={<button type="button" onClick={() => dispatch({ type: 'toggle-selection', value: 'row-1' })}>Toggle row-1</button>}
+        clearAction={<button type="button" onClick={() => dispatch({ type: 'clear-selection' })}>Clear selection</button>}
+      />
+      <button type="button" onClick={() => dispatch({ type: 'toggle-selection', value: 'row-1' })}>
+        {state.selection.includes('row-1') ? 'Unselect row-1' : 'Select row-1'}
+      </button>
+    </div>
+  );
+}
 
 const familyMeta: Record<PatternFamily, { title: string; description: string }> = {
   foundations: {
@@ -446,17 +513,9 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'data-toolbars':
       return (
-        <DataToolbar
-          searchSlot={<input aria-label="Search dataset" />}
-          filterSlot={<button type="button">Filters</button>}
-          sortSlot={<select aria-label="Sort by"><option>Newest</option><option>Oldest</option></select>}
-          resetAction={<button type="button">Reset</button>}
-          createAction={<button type="button">Create</button>}
-          activeFilters={[
-            { label: 'Published', onRemove: () => {} },
-            { label: 'Admin scope', onRemove: () => {} },
-          ]}
-        />
+        <ListingProvider>
+          <ListingFrameworkDemo />
+        </ListingProvider>
       );
     case 'state-blocks':
       return (

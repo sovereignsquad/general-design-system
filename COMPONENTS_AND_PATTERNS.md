@@ -60,6 +60,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Accent Panels** | Accent and emphasis surfaces must remain readable in light, dark, and auto color schemes through the shared accent contract, not raw tone-0 backgrounds. | `md` |
 | **Metric Cards** | Prominent value, readable label, optional trend/status. Analytics may not outrank next action or urgent exceptions on mobile. | `md` |
 | **Data Toolbars** | Search, filters, sort, reset, and create actions in predictable order. Active filters visible and removable. | `md` |
+| **Listing State Contract** | Listing flows should use `ListingProvider` + `useListingState` with `SortMenu`, `ResultSummary`, `ActiveFilterChips`, and `BulkActionsBar` so search/sort/filter/page/selection stay in one governed runtime lane. | `md` |
 | **Reporting Contracts** | Reporting-heavy workflows must use governed period controls, evidence/source panels, chart-token wrappers, text summaries, and table fallbacks. | `lg` |
 | **State Blocks** | Loading, empty, error, permission, disabled, and success states must explain the state and provide the next action where possible. | `md` |
 | **Async Surface** | Async data surfaces should use `AsyncSurface` to enforce deterministic loading/empty/error/refreshing/success behavior with governed retry affordances. | `md` |

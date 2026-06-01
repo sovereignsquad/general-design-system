@@ -338,7 +338,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Search, filter, sort, reset, and create affordances must stay in a predictable operational order.',
     importPath: '@doneisbetter/gds-core',
-    sourceComponent: 'DataToolbar',
+    sourceComponent: 'ListingProvider / useListingState / DataToolbar / ActiveFilterChips / ResultSummary / SortMenu / BulkActionsBar',
   },
   {
     id: 'state-blocks',

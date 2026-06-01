@@ -17,6 +17,8 @@ import { CtaButtonGroup } from './CtaButtonGroup';
 import { ConfirmDialog } from './ConfirmDialog';
 import { ChoiceChip } from './ChoiceChip';
 import { DataToolbar } from './DataToolbar';
+import { ActiveFilterChips, BulkActionsBar, ResultSummary, SortMenu } from './ListingPrimitives';
+import { ListingProvider, listingQueryReducer, useListingState } from './ListingState.client';
 import { DetailProfileShell } from './DetailProfileShell';
 import { DocsCodeBlock } from './DocsCodeBlock';
 import { DocsShell } from './DocsShell';
@@ -207,6 +209,68 @@ describe('@doneisbetter/gds-core', () => {
 
     expect(onRemove).toHaveBeenCalledTimes(1);
     expect(onSelect).toHaveBeenCalledTimes(1);
+  });
+
+  it('applies listing query-state transitions deterministically', () => {
+    const initial = {
+      search: '',
+      sort: 'newest',
+      filters: [],
+      page: 2,
+      pageSize: 25,
+      selection: ['row-1'],
+    };
+    const searched = listingQueryReducer(initial, { type: 'set-search', value: 'camera' });
+    expect(searched.search).toBe('camera');
+    expect(searched.page).toBe(1);
+    expect(searched.selection).toHaveLength(0);
+
+    const withFilter = listingQueryReducer(searched, { type: 'toggle-filter', value: 'Published' });
+    expect(withFilter.filters).toContain('Published');
+
+    const sorted = listingQueryReducer(withFilter, { type: 'set-sort', value: 'a-z' });
+    expect(sorted.sort).toBe('a-z');
+  });
+
+  it('renders listing primitives with provider-backed selection and filter behavior', async () => {
+    const user = userEvent.setup();
+
+    function ListingProbe() {
+      const { state, dispatch } = useListingState();
+      return (
+        <>
+          <SortMenu
+            value={state.sort}
+            options={[{ value: 'newest', label: 'Newest' }, { value: 'oldest', label: 'Oldest' }]}
+            onChange={(value) => dispatch({ type: 'set-sort', value })}
+            label="Sort dataset"
+          />
+          <ResultSummary resultCount={12} noun="records" description="Shared summary." />
+          <ActiveFilterChips
+            filters={state.filters.map((filter) => ({
+              id: filter,
+              label: filter,
+              onRemove: () => dispatch({ type: 'toggle-filter', value: filter }),
+            }))}
+          />
+          <button type="button" onClick={() => dispatch({ type: 'toggle-filter', value: 'Published' })}>Toggle published</button>
+          <button type="button" onClick={() => dispatch({ type: 'toggle-selection', value: 'row-1' })}>Toggle row-1</button>
+          <BulkActionsBar selectedCount={state.selection.length} />
+        </>
+      );
+    }
+
+    renderWithGds(
+      <ListingProvider>
+        <ListingProbe />
+      </ListingProvider>,
+    );
+
+    expect(screen.getByText('12 records')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Toggle published' }));
+    expect(screen.getByText('Published')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Toggle row-1' }));
+    expect(screen.getByText('1 selected')).toBeInTheDocument();
   });
 
   it('renders the discovery shell with grouped sidebar navigation', () => {
