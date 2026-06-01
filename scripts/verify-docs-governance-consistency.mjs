@@ -12,6 +12,11 @@ const ssotDocs = [
   'THEME_GOVERNANCE.md',
   'INSTALLATION_GUIDE.md',
   'COMPATIBILITY_AND_RELEASES.md',
+  'CONTRIBUTING.md',
+  'PATTERN_SERVICE_MODEL.md',
+  'SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md',
+  'PROJECTS/PORTFOLIO_ADOPTION_MATRIX.md',
+  'TEMPLATES/README.md',
 ];
 
 const requiredThemeLanes = [
@@ -49,6 +54,7 @@ if (readme.includes('legacy/compatibility surface')) {
 
 const installGuide = readFileSync(resolve(root, 'INSTALLATION_GUIDE.md'), 'utf8');
 const themeGovernance = readFileSync(resolve(root, 'THEME_GOVERNANCE.md'), 'utf8');
+const implementationPlan = readFileSync(resolve(root, 'GDS_3_0_IMPLEMENTATION_PLAN.md'), 'utf8');
 
 for (const lane of requiredThemeLanes) {
   if (!installGuide.includes(lane)) {
@@ -57,6 +63,10 @@ for (const lane of requiredThemeLanes) {
   if (!themeGovernance.includes(lane)) {
     failures.push(`THEME_GOVERNANCE.md is missing canonical theme lane: ${lane}`);
   }
+}
+
+if (implementationPlan.includes('Current stable baseline: 2.6.7')) {
+  failures.push('GDS_3_0_IMPLEMENTATION_PLAN.md still references a pre-release stable baseline.');
 }
 
 if (failures.length > 0) {

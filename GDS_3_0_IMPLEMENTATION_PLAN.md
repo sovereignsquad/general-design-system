@@ -1,13 +1,13 @@
 # GDS 3.0.0 Implementation Plan
 
-Status: Planned
+Status: Completed
 Target release: 3.0.0
-Current stable baseline: 2.6.7
-Last updated: 2026-05-31
+Current stable baseline: 3.0.0
+Last updated: 2026-06-01
 
 This plan defines the next major General Design System release. GDS 3.0.0 is the release where the system becomes a complete adoption platform: package contracts, live reference site, governance tooling, feature-intake process, migration support, and production-grade component coverage must work together as one predictable operating model.
 
-The current package line remains `2.6.7` until the 3.0.0 work is implemented, verified, published, and documented. All roadmap, milestone, and project-board work for this wave must use `3.0.0` consistently.
+The 3.0.0 workstream is implemented, verified, published, and documented. This plan is retained as implementation evidence for the completed release.
 
 ## Release Objective
 
@@ -31,25 +31,25 @@ GDS 3.0.0 must let a consumer team answer these questions without clarification:
 - Consumer-facing docs must use one version line for the release: `3.0.0`.
 - Governance rules must be measurable through `gds-compliance`, not only documented.
 - The feature-request lane must capture missing functions without polluting the canonical delivery board.
-- The package version must remain `2.6.7` until Wave 10 begins; `3.0.0` is a target release line before that point, not an installable package claim.
+- 3.0.0 is now the active installable package line and governance baseline.
 
 ## Version Policy
 
-Use exactly two version meanings during this program:
+Use this historical interpretation for the completed program:
 
-- `2.6.7`: the current stable package, documentation, npm, and GitHub Pages baseline.
-- `3.0.0`: the target major release milestone and workstream label until Wave 10.
+- `2.6.7`: pre-release baseline before the cutover.
+- `3.0.0`: delivered major release line.
 
-Do not update `VERSION`, package `version` fields, install snippets, client upgrade prompts, or public “current version” website copy to `3.0.0` until all implementation waves are complete and Wave 10 starts.
+`VERSION`, package `version` fields, install snippets, client upgrade prompts, and public version copy are now aligned to `3.0.0`.
 
-Allowed before Wave 10:
+Historical “before Wave 10” policy:
 
 - milestone and issue labels named `3.0.0`
 - planning docs that clearly call `3.0.0` the target release
 - internal project-board sequencing
 - implementation work behind the current repository line
 
-Not allowed before Wave 10:
+Historical “not allowed before Wave 10” policy:
 
 - publishing package artifacts named `3.0.0`
 - telling clients to install `3.0.0`

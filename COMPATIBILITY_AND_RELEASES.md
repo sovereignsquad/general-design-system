@@ -67,7 +67,7 @@ npm install @doneisbetter/gds-theme@3.0.0 @doneisbetter/gds-core@3.0.0 @doneisbe
 npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
 ```
 
-Do not mix `2.6.7` and `3.0.0` packages in the same consumer dependency graph.
+Do not mix pre-3.0 package lines with `3.0.0` packages in the same consumer dependency graph.
 
 ### Fallback release-bundle distribution path
 
@@ -93,17 +93,17 @@ Asset URL format:
 https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/<asset-name>.tgz
 ```
 
-Example for `2.6.7`:
+Example for `3.0.0`:
 
 ```bash
 npm install \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.7/doneisbetter-gds-theme-2.6.7.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.7/doneisbetter-gds-core-2.6.7.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.7/doneisbetter-gds-admin-2.6.7.tgz
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-theme-3.0.0.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-core-3.0.0.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-admin-3.0.0.tgz
 
 npm install -D \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.7/doneisbetter-gds-eslint-config-2.6.7.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v2.6.7/doneisbetter-gds-compliance-2.6.7.tgz
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-eslint-config-3.0.0.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-compliance-3.0.0.tgz
 ```
 
 Auth expectations for the temporary path:

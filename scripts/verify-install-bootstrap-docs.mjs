@@ -26,7 +26,7 @@ const requiredByFile = {
   'COMPATIBILITY_AND_RELEASES.md': [
     '@doneisbetter/gds@3.0.0',
     '@doneisbetter/gds-theme@3.0.0',
-    'Do not mix `2.6.7` and `3.0.0`',
+    'Do not mix pre-3.0 package lines with `3.0.0` packages',
     'Bootstrap failure states',
   ],
   'VERIFIED_CONSUMER_INSTALL_PROOF.md': [
