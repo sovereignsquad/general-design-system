@@ -13,6 +13,7 @@ The `playground` app is the canonical public website for General Design System d
 - `/request-feature` — canonical request intake for new primitives or policy updates
 
 Every major section uses package-owned primitives from `@doneisbetter/gds`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
+The site now also demonstrates runtime governance contracts (forms, overlays, command palette, telemetry) directly from `@doneisbetter/gds-core`.
 
 ## Local runbook
 

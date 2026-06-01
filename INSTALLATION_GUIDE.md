@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.0.0
-Last updated: 2026-05-31
+Last updated: 2026-06-01
 
 This guide is the canonical consumer setup path for the public umbrella package `@doneisbetter/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
@@ -146,6 +146,10 @@ Prefer canonical primitives over local reinvention:
 - `ListingCard` for discovery cards
 - `MapPanel` for sanctioned embeds
 - `DetailProfileShell` for page/drawer detail surfaces
+- `useGdsForm` + `FormErrorSummary` for deterministic form-state, validation, and submit behavior
+- `OverlayManagerProvider` + `useOverlayManager` for deterministic layered overlay close behavior
+- `CommandRegistryProvider` + `useCommandLauncher` for keyboard-first quick-action execution
+- `GdsTelemetryProvider` + `useGdsTelemetry` for standardized UI observability events
 
 Before introducing a new local surface contract, verify the live catalog first:
 

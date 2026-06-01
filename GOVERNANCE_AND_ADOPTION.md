@@ -184,6 +184,10 @@ Strict mode should approve the canonical lanes explicitly:
 - `DetailProfileShell`
 - `ListingCard`
 - `ActionBar`
+- `useGdsForm` (or equivalent package-owned form contract wrapper)
+- `OverlayManagerProvider`
+- `CommandRegistryProvider`
+- `GdsTelemetryProvider`
 
 For the official reference site, also prefer:
 

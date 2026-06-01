@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.0.0
-Last updated: 2026-05-31
+Last updated: 2026-06-01
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 
@@ -54,6 +54,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Canonical Theme Lanes**: `gdsTheme`, `gdsDarkPublicTheme`, `gdsFlatSurfaceTheme`, `gdsEditorialPublicTheme`, and `createPublicBrandTheme(...)` — the only approved adopter-facing theme ownership paths; `extendGdsTheme(...)` is retained only as a bounded internal/runtime helper and is no longer a canonical consumer lane.
 - **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@doneisbetter/gds-core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
 - **Public, Discovery, Detail, Reporting, and Access Primitives**: `AccentPanel`, `ChoiceChip`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `UploadDropzone`, `ReportingSection`, `PeriodSelector`, `EvidencePanel`, `ChartTokenPanel`, `PublicBrandFooter`, `DiscoveryShell`, `SidebarNav`, `ActionBar`, `ListingCard`, `ShareButtonGroup`, `MapPanel`, `DetailProfileShell`, `PublicFlowShell`, `PlaybackSurface`, `PublicFoodCard`, `FoodMenuSection`, `ProviderIdentityButton`, `ProviderIdentityButtonGroup`, `SocialAuthButtons`, `AccessSummary`, `AccessRecoveryPanel`, and the enhanced `PublicShell` / `PublicProductCard` / `AuthShell` contracts from `@doneisbetter/gds-core` — canonical public/editorial contracts for accent-safe surfaces, sidebar-first shells, governed navigation and actions, unified discovery cards, sanctioned share/embed panels, detail/profile composition, public staged flows, kiosk/playback surfaces, food/menu presentation, reporting/evidence/chart containment, access recovery, consumer dashboard grouping, operational framing, social-auth entry, and localized media-first card states.
+- **Runtime Governance Primitives**: `useGdsForm`, `gdsFormReducer`, `GdsFormProvider`, `FormErrorSummary`, `ValidatedFieldMessage`, `OverlayManagerProvider`, `useOverlayManager`, `CommandRegistryProvider`, `CommandPalette`, `useCommandLauncher`, `GdsTelemetryProvider`, and `useGdsTelemetry` from `@doneisbetter/gds-core` — canonical runtime lanes for deterministic form submit/validation behavior, overlay stack governance, keyboard-first quick actions, and privacy-safe UI observability.
 - **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@doneisbetter/gds-admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, governance guidance, theme explorer, live demos, and the pattern catalog.
@@ -95,6 +96,7 @@ Use the site for:
 - installation and governance onboarding
 - public demos of responsive and state behavior
 - proof that the reference site itself is expected to consume GDS primitives directly rather than invent local shell, card, or docs wrappers
+- live runtime proof of form validation, overlay stack governance, command palette behavior, and telemetry contract events through the catalog demos (`/patterns/foundations`, `/patterns/feedback`)
 
 Use the markdown SSOT documents for:
 - normative policy
