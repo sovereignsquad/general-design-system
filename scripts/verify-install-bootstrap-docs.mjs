@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const root = process.cwd();
+const version = readFileSync(resolve(root, 'VERSION'), 'utf8').trim();
 
 const files = [
   'INSTALLATION_GUIDE.md',
@@ -17,36 +18,36 @@ const files = [
 
 const requiredByFile = {
   'INSTALLATION_GUIDE.md': [
-    '@doneisbetter/gds@3.0.0',
-    '@doneisbetter/gds-theme@3.0.0',
+    `@doneisbetter/gds@${version}`,
+    `@doneisbetter/gds-theme@${version}`,
     'ColorSchemeScript',
     'GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published',
-    'gds-v3.0.0',
+    `gds-v${version}`,
   ],
   'COMPATIBILITY_AND_RELEASES.md': [
-    '@doneisbetter/gds@3.0.0',
-    '@doneisbetter/gds-theme@3.0.0',
-    'Do not mix pre-3.0 package lines with `3.0.0` packages',
+    `@doneisbetter/gds@${version}`,
+    `@doneisbetter/gds-theme@${version}`,
+    `Do not mix pre-3.0 package lines with \`${version}\` packages`,
     'Bootstrap failure states',
   ],
   'VERIFIED_CONSUMER_INSTALL_PROOF.md': [
-    '@doneisbetter/gds@3.0.0',
-    '@doneisbetter/gds-theme@3.0.0',
+    `@doneisbetter/gds@${version}`,
+    `@doneisbetter/gds-theme@${version}`,
     'npm run verify:published',
     'bounded registry polling',
   ],
   'RELEASE_PUBLISH.md': [
-    '@doneisbetter/gds@3.0.0',
+    `@doneisbetter/gds@${version}`,
     'GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published',
     'retries are bounded',
   ],
   'CLIENT_UPGRADE_PROMPT.md': [
-    'GDS upgrade to the 3.0.0 adoption platform release',
+    `GDS upgrade to the ${version} adoption platform release`,
     'npm run verify:published',
-    '@doneisbetter/gds@3.0.0',
+    `@doneisbetter/gds@${version}`,
   ],
   'apps/playground/src/info-pages.tsx': [
-    "const targetGdsVersion = '3.0.0'",
+    `const targetGdsVersion = '${version}'`,
     'granularInstallCode',
     'nextLayoutCode',
     'viteBootstrapCode',

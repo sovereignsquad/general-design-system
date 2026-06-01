@@ -1,8 +1,8 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 3.0.0
-Last updated: 2026-05-31
+Version: 3.0.1
+Last updated: 2026-06-01
 
 This document defines the supported package/runtime contract for the umbrella package `@doneisbetter/gds` and the granular runtime packages `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
 
@@ -38,9 +38,9 @@ Canonical registry target: **npm**
 
 Current live status:
 
-- published npm baseline: `3.0.0`
-- current repository line: `3.0.0`
-- current major line: `3.0.0`
+- published npm baseline: `3.0.1`
+- current repository line: `3.0.1`
+- current major line: `3.0.x`
 
 Consumer repos should install the latest published npm version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
@@ -53,21 +53,21 @@ npm run publish:npm
 npm run verify:published
 ```
 
-For the `3.0.0` cutover, the install contract becomes:
+For the current `3.0.1` line, the install contract is:
 
 ```bash
-npm install @doneisbetter/gds@3.0.0
-npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
+npm install @doneisbetter/gds@3.0.1
+npm install -D @doneisbetter/gds-eslint-config@3.0.1 @doneisbetter/gds-compliance@3.0.1
 ```
 
 Granular consumers should use the same version across every package:
 
 ```bash
-npm install @doneisbetter/gds-theme@3.0.0 @doneisbetter/gds-core@3.0.0 @doneisbetter/gds-admin@3.0.0
-npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
+npm install @doneisbetter/gds-theme@3.0.1 @doneisbetter/gds-core@3.0.1 @doneisbetter/gds-admin@3.0.1
+npm install -D @doneisbetter/gds-eslint-config@3.0.1 @doneisbetter/gds-compliance@3.0.1
 ```
 
-Do not mix pre-3.0 package lines with `3.0.0` packages in the same consumer dependency graph.
+Do not mix pre-3.0 package lines with `3.0.1` packages in the same consumer dependency graph.
 
 ### Fallback release-bundle distribution path
 
@@ -97,13 +97,13 @@ Example for `3.0.0`:
 
 ```bash
 npm install \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-theme-3.0.0.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-core-3.0.0.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-admin-3.0.0.tgz
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.1/doneisbetter-gds-theme-3.0.1.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.1/doneisbetter-gds-core-3.0.1.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.1/doneisbetter-gds-admin-3.0.1.tgz
 
 npm install -D \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-eslint-config-3.0.0.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.0/doneisbetter-gds-compliance-3.0.0.tgz
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.1/doneisbetter-gds-eslint-config-3.0.1.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.0.1/doneisbetter-gds-compliance-3.0.1.tgz
 ```
 
 Auth expectations for the temporary path:

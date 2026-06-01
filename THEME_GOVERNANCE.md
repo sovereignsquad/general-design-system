@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 3.0.0
+Version: 3.0.1
 Last updated: 2026-06-01
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
@@ -173,6 +173,35 @@ Rules:
 - the live token/theme lab at `https://sovereignsquad.github.io/general-design-system/themes` is the public reference surface for testing these shipped preset lanes interactively
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
 - `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.
+
+## Colorful app theme presets
+
+GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering.
+
+Approved colorful preset ids:
+
+- `sunset` - warm orange product energy
+- `oceanic` - cool cyan-blue product clarity
+- `forest` - grounded green product trust
+- `ruby` - bold red high-attention product surfaces
+- `amber` - golden operational warmth
+- `neon-night` - dark-forward lime campaign surfaces
+- `skyline` - indigo technology surfaces
+- `aurora` - teal-cyan optimistic app surfaces
+- `coral` - expressive creator, commerce, and social surfaces
+- `mint` - clean growth, health, and learning surfaces
+- `orchid` - grape editorial and premium surfaces
+- `royal` - confident violet SaaS and professional surfaces
+
+Usage rule:
+
+```ts
+import { resolveGdsThemePreset } from '@doneisbetter/gds-theme/client';
+
+const theme = resolveGdsThemePreset('coral');
+```
+
+Do not create a product-local theme catalog to achieve colorful branding. If a color lane is missing, add it to the GDS preset registry, document the intended product use, add live Theme Lab coverage, and verify the lane through package tests.
 
 ## 3.0.0 theme explorer proof contract
 

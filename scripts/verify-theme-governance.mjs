@@ -8,6 +8,7 @@ const manifests = [
   'apps/reference-next/gds-adoption.json',
 ];
 const explorerSource = readFileSync(resolve(root, 'packages/gds-core/src/ReferenceThemeExplorer.tsx'), 'utf8');
+const themePresetSource = readFileSync(resolve(root, 'packages/gds-theme/src/theme-presets.ts'), 'utf8');
 const playgroundAppSource = readFileSync(resolve(root, 'apps/playground/src/App.tsx'), 'utf8');
 const runtimeTestSource = readFileSync(resolve(root, 'apps/playground/src/app-theme-runtime.test.tsx'), 'utf8');
 const themeGovernanceSource = readFileSync(resolve(root, 'THEME_GOVERNANCE.md'), 'utf8');
@@ -19,6 +20,21 @@ const canonicalThemeLanes = [
   'gdsFlatSurfaceTheme',
   'gdsEditorialPublicTheme',
   'createPublicBrandTheme',
+];
+
+const colorfulThemePresetIds = [
+  'sunset',
+  'oceanic',
+  'forest',
+  'ruby',
+  'amber',
+  'neon-night',
+  'skyline',
+  'aurora',
+  'coral',
+  'mint',
+  'orchid',
+  'royal',
 ];
 
 const failures = [];
@@ -61,6 +77,24 @@ for (const lane of canonicalThemeLanes) {
   if (!themeGovernanceSource.includes(lane)) {
     failures.push(`THEME_GOVERNANCE.md must document approved lane "${lane}".`);
   }
+}
+
+for (const presetId of colorfulThemePresetIds) {
+  if (!themeGovernanceSource.includes(`\`${presetId}\``)) {
+    failures.push(`THEME_GOVERNANCE.md must document colorful preset "${presetId}".`);
+  }
+
+  if (!themePresetSource.includes(`'${presetId}'`)) {
+    failures.push(`theme-presets.ts must ship colorful preset "${presetId}".`);
+  }
+}
+
+if (!explorerSource.includes('getGdsThemePresets()')) {
+  failures.push('ReferenceThemeExplorer must source theme options from getGdsThemePresets().');
+}
+
+if (!themeGovernanceSource.includes('Light mode and dark mode are scheme choices, not the full theme offering.')) {
+  failures.push('THEME_GOVERNANCE.md must state that light/dark schemes are not the full theme offering.');
 }
 
 if (!themeGovernanceSource.includes('3.0.0 theme explorer proof contract')) {

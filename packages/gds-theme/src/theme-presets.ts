@@ -13,7 +13,12 @@ export type GdsThemePresetId =
   | 'ruby'
   | 'amber'
   | 'neon-night'
-  | 'skyline';
+  | 'skyline'
+  | 'aurora'
+  | 'coral'
+  | 'mint'
+  | 'orchid'
+  | 'royal';
 
 export interface GdsThemePreset {
   id: GdsThemePresetId;
@@ -73,6 +78,11 @@ const customPresetThemes: Record<Exclude<GdsThemePresetId, 'default' | 'dark-pub
   amber: createVibrantPresetTheme('yellow'),
   'neon-night': createVibrantPresetTheme('lime', { darkForward: true }),
   skyline: createVibrantPresetTheme('indigo'),
+  aurora: createVibrantPresetTheme('teal'),
+  coral: createVibrantPresetTheme('pink'),
+  mint: createVibrantPresetTheme('lime'),
+  orchid: createVibrantPresetTheme('grape'),
+  royal: createVibrantPresetTheme('violet'),
 };
 
 const themePresetCatalog: GdsThemePreset[] = [
@@ -81,13 +91,18 @@ const themePresetCatalog: GdsThemePreset[] = [
   { id: 'flat-surface', label: 'Flat surface theme', description: 'Lower-elevation operational lane.', runtimeLane: 'gdsFlatSurfaceTheme' },
   { id: 'editorial', label: 'Editorial serif theme', description: 'Reading-first, serif headline lane.', runtimeLane: 'gdsEditorialPublicTheme' },
   { id: 'brand', label: 'Brand theme generator', description: 'Governed brand composition lane.', runtimeLane: 'createPublicBrandTheme(...)' },
-  { id: 'sunset', label: 'Sunset pulse', description: 'Warm orange-magenta vibrant lane.', runtimeLane: 'extendGdsTheme(primary=orange)' },
-  { id: 'oceanic', label: 'Oceanic wave', description: 'Cool cyan-blue vibrant lane.', runtimeLane: 'extendGdsTheme(primary=cyan)' },
-  { id: 'forest', label: 'Forest signal', description: 'Natural emerald-driven vibrant lane.', runtimeLane: 'extendGdsTheme(primary=green)' },
-  { id: 'ruby', label: 'Ruby spark', description: 'Bold red high-contrast lane.', runtimeLane: 'extendGdsTheme(primary=red)' },
-  { id: 'amber', label: 'Amber glow', description: 'Golden yellow energetic lane.', runtimeLane: 'extendGdsTheme(primary=yellow)' },
-  { id: 'neon-night', label: 'Neon night', description: 'Lime-accented dark-forward lane.', runtimeLane: 'extendGdsTheme(primary=lime)' },
-  { id: 'skyline', label: 'Skyline indigo', description: 'Indigo technology-forward lane.', runtimeLane: 'extendGdsTheme(primary=indigo)' },
+  { id: 'sunset', label: 'Sunset pulse', description: 'Warm orange-magenta vibrant lane.', runtimeLane: 'resolveGdsThemePreset(sunset)' },
+  { id: 'oceanic', label: 'Oceanic wave', description: 'Cool cyan-blue vibrant lane.', runtimeLane: 'resolveGdsThemePreset(oceanic)' },
+  { id: 'forest', label: 'Forest signal', description: 'Natural emerald-driven vibrant lane.', runtimeLane: 'resolveGdsThemePreset(forest)' },
+  { id: 'ruby', label: 'Ruby spark', description: 'Bold red high-contrast lane.', runtimeLane: 'resolveGdsThemePreset(ruby)' },
+  { id: 'amber', label: 'Amber glow', description: 'Golden yellow energetic lane.', runtimeLane: 'resolveGdsThemePreset(amber)' },
+  { id: 'neon-night', label: 'Neon night', description: 'Lime-accented dark-forward lane.', runtimeLane: 'resolveGdsThemePreset(neon-night)' },
+  { id: 'skyline', label: 'Skyline indigo', description: 'Indigo technology-forward lane.', runtimeLane: 'resolveGdsThemePreset(skyline)' },
+  { id: 'aurora', label: 'Aurora teal', description: 'Fresh teal-cyan app lane for optimistic product surfaces.', runtimeLane: 'resolveGdsThemePreset(aurora)' },
+  { id: 'coral', label: 'Coral bloom', description: 'Expressive pink-coral lane for creator, commerce, and social products.', runtimeLane: 'resolveGdsThemePreset(coral)' },
+  { id: 'mint', label: 'Mint circuit', description: 'Clean green-mint lane for health, learning, and growth products.', runtimeLane: 'resolveGdsThemePreset(mint)' },
+  { id: 'orchid', label: 'Orchid signal', description: 'Purple-grape lane for editorial, culture, and premium tools.', runtimeLane: 'resolveGdsThemePreset(orchid)' },
+  { id: 'royal', label: 'Royal violet', description: 'Confident violet lane for SaaS dashboards and professional apps.', runtimeLane: 'resolveGdsThemePreset(royal)' },
 ];
 
 export function getGdsThemePresets() {

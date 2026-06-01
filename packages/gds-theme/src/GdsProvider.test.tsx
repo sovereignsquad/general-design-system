@@ -91,14 +91,34 @@ describe('GdsProvider', () => {
     expect(brandedTheme.headings.fontFamily).toContain('Instrument Serif');
   });
 
-  it('exposes a governed 12-preset theme registry', () => {
+  it('exposes a governed colorful theme registry beyond light and dark', () => {
     const presets = getGdsThemePresets();
-    expect(presets.length).toBeGreaterThanOrEqual(12);
+    const colorfulPresetIds = [
+      'sunset',
+      'oceanic',
+      'forest',
+      'ruby',
+      'amber',
+      'neon-night',
+      'skyline',
+      'aurora',
+      'coral',
+      'mint',
+      'orchid',
+      'royal',
+    ];
+
+    expect(presets.length).toBeGreaterThanOrEqual(17);
     expect(presets.some((item) => item.id === 'default')).toBe(true);
     expect(presets.some((item) => item.id === 'brand')).toBe(true);
+    expect(colorfulPresetIds.every((id) => presets.some((item) => item.id === id))).toBe(true);
+    expect(presets.find((item) => item.id === 'coral')?.runtimeLane).toBe('resolveGdsThemePreset(coral)');
 
     const resolved = resolveGdsThemePreset('sunset');
     expect(resolved.primaryColor).toBe('orange');
+
+    const coral = resolveGdsThemePreset('coral');
+    expect(coral.primaryColor).toBe('pink');
   });
 
   it('exposes approved font lanes and applies them to theme contracts', () => {
