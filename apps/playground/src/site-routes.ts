@@ -90,7 +90,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
   {
     id: 'request-feature',
     path: '/request-feature',
-    label: 'Request Feature',
+    label: 'Request a Feature',
     action: 'submit',
     audienceIntent: 'feature-request',
     navGroup: 'primary',

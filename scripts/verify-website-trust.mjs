@@ -18,7 +18,7 @@ const requiredPrimaryLabels = [
   "label: 'Themes'",
   "label: 'Governance'",
   "label: 'Live Demos'",
-  "label: 'Request Feature'",
+  "label: 'Request a Feature'",
 ];
 
 for (const label of requiredPrimaryLabels) {

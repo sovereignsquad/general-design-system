@@ -24,7 +24,7 @@ describe('public site routes', () => {
       'Themes',
       'Governance',
       'Live Demos',
-      'Request Feature',
+      'Request a Feature',
     ]);
   });
 
