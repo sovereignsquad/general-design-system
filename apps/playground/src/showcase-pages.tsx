@@ -35,7 +35,7 @@ const catalogEntryCount = patternRegistry.length;
 
 function DemoFooter() {
   return (
-    <p style={{ margin: 0 }}>
+    <p>
       Need something missing? <a href="mailto:moldovancsaba+general.design.system@gmail.com">Request a feature</a>.
     </p>
   );
@@ -209,7 +209,7 @@ export function CardsPage() {
           title="Public media card"
           description="Media-led discovery surface for stories, bundles, guides, and catalog promotions."
           status="Published"
-          image={<div style={{ aspectRatio: '16 / 9', background: 'linear-gradient(135deg, var(--mantine-color-violet-5), var(--mantine-color-teal-5))' }} />}
+          image={<div />}
         />
       </ReferenceSection>
 
@@ -347,7 +347,7 @@ export function LayoutsPage() {
           actions={<ActionBar primary={{ action: 'edit', size: 'sm' }} secondary={[{ action: 'refer', size: 'sm' }]} />}
           sections={[
             <SectionPanel key="overview" title="Overview" description="Shared detail-shell content blocks.">
-              <p style={{ margin: 0 }}>Use the same detail contract across page and drawer modes instead of growing product-local profile panels.</p>
+              <p>Use the same detail contract across page and drawer modes instead of growing product-local profile panels.</p>
             </SectionPanel>,
             <AccessSummary
               key="access"
@@ -373,7 +373,7 @@ export function LayoutsPage() {
             status: 'ready',
             body: (
               <SectionPanel title="Before you continue" description="This is where a staged flow explains the next irreversible step.">
-                <p style={{ margin: 0 }}>Confirm lighting, permissions, and the intended upload destination before opening a hardware-adjacent step.</p>
+                <p>Confirm lighting, permissions, and the intended upload destination before opening a hardware-adjacent step.</p>
               </SectionPanel>
             ),
             actions: [
@@ -392,7 +392,7 @@ export function LayoutsPage() {
           title="Product walkthrough"
           state="ready"
           statusMessage="Accessible playback surface with bounded description and media containment."
-          media={<div style={{ aspectRatio: '16 / 9', background: 'linear-gradient(135deg, var(--mantine-color-dark-6), var(--mantine-color-violet-6))' }} />}
+          media={<div />}
         />
       </ReferenceSection>
 
@@ -449,7 +449,7 @@ export function VocabularyPage() {
           helper="You can swap in your product session wiring while preserving the shared auth presentation."
         >
           <SectionPanel title="Email lane" description="Products keep their backend auth implementation. GDS governs the surface contract.">
-            <p style={{ margin: 0 }}>This bounded helper block replaces the old pattern of every app inventing a different social-login stack.</p>
+            <p>This bounded helper block replaces the old pattern of every app inventing a different social-login stack.</p>
           </SectionPanel>
         </AuthShell>
       </ReferenceSection>
@@ -484,7 +484,7 @@ export function PlaybackPage() {
           title="Product walkthrough"
           state="ready"
           statusMessage="Accessible playback surface with bounded media and clear next actions."
-          media={<div style={{ aspectRatio: '16 / 9', background: 'linear-gradient(135deg, var(--mantine-color-dark-7), var(--mantine-color-violet-6))' }} />}
+          media={<div />}
         />
       </ReferenceSection>
 
@@ -504,7 +504,7 @@ export function PlaybackPage() {
                 title="Capture pre-check"
                 description="Verify permissions, upload destination, and preview settings before users enter a production step."
               >
-                <p style={{ margin: 0 }}>Do not invent local capture UX. Use this contract for every hardware-adjacent staged flow.</p>
+                <p>Do not invent local capture UX. Use this contract for every hardware-adjacent staged flow.</p>
               </SectionPanel>
             ),
             actions: [
@@ -551,7 +551,7 @@ export function AnalyticsPage() {
           ]}
           renderCard={(item) => (
             <SectionPanel title={item.surface} description={item.coverage}>
-              <p style={{ margin: 0 }}>{item.status}</p>
+              <p>{item.status}</p>
             </SectionPanel>
           )}
         />

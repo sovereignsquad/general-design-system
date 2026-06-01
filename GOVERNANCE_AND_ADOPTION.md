@@ -1,8 +1,8 @@
 # Governance & Adoption
 
 Status: Active SSOT
-Version: 2.6.7
-Last updated: 2026-05-31
+Version: 3.0.0
+Last updated: 2026-06-01
 
 This document defines how products adopt the design system, enforce compliance, and migrate legacy UI. 
 
@@ -99,6 +99,8 @@ Promote a request to a GitHub issue only when it can become a reusable GDS contr
 - **Pattern Drift Checks**: Static or review checks that prevent new page-local shell, header, card, metric, data-toolbar, auth, article, or state-block implementations when an approved local contract already exists.
 - **Mode/Readability Checks**: Visual or computed-style checks for dark/light mode contrast, clipped labels, and mixed-mode surfaces on high-traffic pages.
 - **Adapter Inventory Checks**: Periodic verification that required local contract paths still exist and still map to the declared responsibilities.
+- **GDS-only Source Gate (Mandatory)**: For the official GDS website consumer (`apps/playground`), CI must fail if core route files import from `@mantine/core` directly or use inline `style={{...}}` objects. This is enforced by `scripts/verify-playground-gds-only.mjs` through `npm run verify:references`.
+- **No Policy Bypass Rule**: If any verification gate fails, releases and board closure are blocked until the drift is fixed or an explicit reviewed exception contract is added.
 
 ## 5. Canonical Adoption Path
 

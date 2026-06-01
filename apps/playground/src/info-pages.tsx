@@ -169,29 +169,42 @@ const featureRequestRecipient = 'moldovancsaba+general.design.system@gmail.com';
 
 function SiteFooter() {
   return (
-      <PublicBrandFooter
-        brandTitle="General Design System"
-        description="The official GDS website and live demo. Every public route on this site exists to help teams understand what is shipped, how to install it, and which contracts they should adopt instead of building locally."
-        actions={(
-          <p style={{ margin: 0 }}>
-            <a href="/general-design-system/install">Install GDS</a>
-        </p>
+    <PublicBrandFooter
+      brandTitle="General Design System"
+      description="The official GDS website and live demo. Every public route on this site exists to help teams understand what is shipped, how to install it, and which contracts they should adopt instead of building locally."
+      actions={(
+        <a href="/general-design-system/install">Install GDS</a>
       )}
       secondary={(
-        <>
-          <p style={{ margin: 0 }}>
-            <a href="/general-design-system/patterns">Browse patterns</a>
-          </p>
-          <p style={{ margin: 0 }}>
-            <a href="/general-design-system/themes">Explore themes</a>
-          </p>
-          <p style={{ margin: 0 }}>
-            <a href="/general-design-system/governance">Read governance</a>
-          </p>
-          <p style={{ margin: 0 }}>
-            <a href="/general-design-system/request-feature">Request a feature</a>
-          </p>
-        </>
+        <ReferenceLinkGrid
+          columns={2}
+          items={[
+            {
+              id: 'patterns',
+              title: 'Browse patterns',
+              description: 'See component and pattern contracts grouped by family.',
+              href: '/general-design-system/patterns',
+            },
+            {
+              id: 'themes',
+              title: 'Explore themes',
+              description: 'Test every official theme lane in light and dark.',
+              href: '/general-design-system/themes',
+            },
+            {
+              id: 'governance',
+              title: 'Read governance',
+              description: 'Follow the canonical adoption and compliance rules.',
+              href: '/general-design-system/governance',
+            },
+            {
+              id: 'feature-request',
+              title: 'Request a feature',
+              description: 'Submit reusable capability requests for GDS.',
+              href: '/general-design-system/request-feature',
+            },
+          ]}
+        />
       )}
       legal="Open source. Public npm packages. Governed adoption path."
     />
@@ -256,7 +269,7 @@ export function RequestFeaturePage() {
             title="Why this form is simple"
             description="It keeps onboarding friction low and records consistent evidence fields before we move to a structured portal."
           />
-          <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+          <div>
             <FormField label="Name">
               <input
                 id="gds-feature-name"
@@ -264,7 +277,6 @@ export function RequestFeaturePage() {
                 value={name}
                 onChange={(event) => setName(event.currentTarget.value)}
                 placeholder="Your name"
-                style={{ width: '100%' }}
               />
             </FormField>
             <FormField label="Email">
@@ -275,7 +287,6 @@ export function RequestFeaturePage() {
                 value={email}
                 onChange={(event) => setEmail(event.currentTarget.value)}
                 placeholder="you@company.com"
-                style={{ width: '100%' }}
               />
             </FormField>
             <FormField label="Organization (optional)">
@@ -285,7 +296,6 @@ export function RequestFeaturePage() {
                 value={organization}
                 onChange={(event) => setOrganization(event.currentTarget.value)}
                 placeholder="Company or project name"
-                style={{ width: '100%' }}
               />
             </FormField>
             <FormField label="Request type">
@@ -294,7 +304,6 @@ export function RequestFeaturePage() {
                 aria-label="Request type"
                 value={requestType}
                 onChange={(event) => setRequestType(event.currentTarget.value)}
-                style={{ width: '100%' }}
               >
                 <option value="missing-component">Missing component</option>
                 <option value="missing-pattern">Missing pattern</option>
@@ -311,7 +320,6 @@ export function RequestFeaturePage() {
                 onChange={(event) => setUseCase(event.currentTarget.value)}
                 placeholder="Describe the missing primitive or behavior."
                 rows={3}
-                style={{ width: '100%' }}
               />
             </FormField>
             <FormField label="How will this help your product?">
@@ -322,7 +330,6 @@ export function RequestFeaturePage() {
                 onChange={(event) => setBenefit(event.currentTarget.value)}
                 placeholder="Add expected outcomes, impact, and urgency."
                 rows={3}
-                style={{ width: '100%' }}
               />
             </FormField>
             <FormField label="Urgency">
@@ -332,24 +339,21 @@ export function RequestFeaturePage() {
                 value={urgency}
                 onChange={(event) => setUrgency(event.currentTarget.value)}
                 placeholder="High, Medium, Low"
-                style={{ width: '100%' }}
               />
             </FormField>
           </div>
-          <div style={{ marginTop: 'var(--mantine-spacing-sm)' }}>
-            <ActionBar
-              primary={{ action: 'submit', onClick: () => { window.location.href = mailtoUrl; } }}
-              secondary={[{ action: 'reset', onClick: () => {
-                setName('Your name');
-                setEmail('');
-                setOrganization('');
-                setRequestType('missing-component');
-                setUseCase('');
-                setBenefit('');
-                setUrgency('');
-              } }]}
-            />
-          </div>
+          <ActionBar
+            primary={{ action: 'submit', onClick: () => { window.location.href = mailtoUrl; } }}
+            secondary={[{ action: 'reset', onClick: () => {
+              setName('Your name');
+              setEmail('');
+              setOrganization('');
+              setRequestType('missing-component');
+              setUseCase('');
+              setBenefit('');
+              setUrgency('');
+            } }]}
+          />
         </form>
       </ReferenceSection>
 

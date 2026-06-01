@@ -128,7 +128,7 @@ function groupEntries(entries: PatternRegistryEntry[]) {
 
 function DemoList({ items }: { items: string[] }) {
   return (
-    <ul style={{ margin: 0 }}>
+    <ul>
       {items.map((item) => (
         <li key={item}>{item}</li>
       ))}
@@ -138,7 +138,7 @@ function DemoList({ items }: { items: string[] }) {
 
 function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
   return (
-    <p style={{ margin: 0, color: 'var(--mantine-color-dimmed)' }}>
+    <p>
       {entry.docSection}
       {entry.sourceComponent ? ` • ${entry.sourceComponent}` : ''}
       {entry.importPath ? ` • ${entry.importPath}` : ''}
@@ -225,7 +225,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'game-board-tile':
       return (
-        <div style={{ width: 120 }}>
+        <div>
           <GameBoardTile face="GDS" revealed matched={false} disabled={false} onPress={() => {}} />
         </div>
       );
@@ -256,7 +256,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'checkboxes-radios':
       return (
         <SectionPanel title="Shared form guidance" description="GDS governs labels, descriptions, and state handling.">
-          <div style={{ display: 'grid', gap: 'var(--mantine-spacing-sm)' }}>
+          <div>
             <FormField label="Title" description="Use shared form fields for all labels and errors.">
               <input aria-label="Title" />
             </FormField>
@@ -271,7 +271,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             </FormField>
           </div>
           <ActionBar primary={{ action: 'submit' }} secondary={[{ action: 'cancel' }]} />
-          <p style={{ margin: 0 }}>Use controlled helper text and explicit save/discard behavior.</p>
+          <p>Use controlled helper text and explicit save/discard behavior.</p>
         </SectionPanel>
       );
     case 'admin-editor-flows':
@@ -301,12 +301,12 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           )}
           preview={
             <SectionPanel title="Live preview" description="Shared preview rail for editor contexts.">
-              <p style={{ margin: 0 }}>Keep previews close to the current editing state.</p>
+              <p>Keep previews close to the current editing state.</p>
             </SectionPanel>
           }
           settings={
             <SectionPanel title="Settings" description="Operations settings stay in the same contract.">
-              <p style={{ margin: 0 }}>Settings remain grouped and stable for team-wide governance.</p>
+              <p>Settings remain grouped and stable for team-wide governance.</p>
             </SectionPanel>
           }
           actionBar={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'refresh' }] }} />}
@@ -325,7 +325,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           ]}
           renderCard={(item) => (
             <SectionPanel title={item.surface} description={item.status}>
-              <p style={{ margin: 0 }}>Canonical searchable and filterable surface contract.</p>
+              <p>Canonical searchable and filterable surface contract.</p>
             </SectionPanel>
           )}
         />
@@ -355,7 +355,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           actions={<ActionBar primary={{ action: 'edit' }} secondary={[{ action: 'refer' }]} />}
           sections={[
             <SectionPanel key="overview" title="Overview" description="One detail contract for page and drawer modes.">
-              <p style={{ margin: 0 }}>Use one reusable composition, not local detail shells.</p>
+              <p>Use one reusable composition, not local detail shells.</p>
             </SectionPanel>,
           ]}
         />
@@ -380,7 +380,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'choice-chips':
       return (
-        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-sm)' }}>
+        <div>
           <ChoiceChip label="Draft" active />
           <ChoiceChip label="Published" onClick={() => {}} />
           <ChoiceChip label="Archived" />
@@ -419,7 +419,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Media compatibility card"
           description="Use only where the full PublicProductCard contract is not needed."
           status="Compatibility"
-          image={<div style={{ aspectRatio: '16 / 9', background: 'linear-gradient(135deg, var(--mantine-color-blue-1), var(--mantine-color-teal-1))' }} />}
+          image={<div />}
           overlay={<StatusBadge status="info">Media</StatusBadge>}
           actions={[{ label: 'Preview' }]}
         />
@@ -427,13 +427,13 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'accent-panels':
       return (
         <AccentPanel tone="violet" title="Accent band">
-          <p style={{ margin: 0 }}>Use accent panel for advisory messaging.</p>
-          <p style={{ margin: 0 }}>Shared tonal semantics preserve readability across surfaces.</p>
+          <p>Use accent panel for advisory messaging.</p>
+          <p>Shared tonal semantics preserve readability across surfaces.</p>
         </AccentPanel>
       );
     case 'metric-cards':
       return (
-        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+        <div>
           <MetricCard label="Coverage" value="100%" description="Live catalog coverage." trend={{ tone: 'positive', label: '+2%' }} />
           <ProgressCard label="Adoption" value="18 apps" progress={86} progressLabel="Connected teams" />
         </div>
@@ -467,12 +467,12 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'surface-presentation':
       return (
-        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+        <div>
           <SectionPanel title="Centered presentation" description="Shared presentation helper powers panel and state body alignment." presentation="centered" minHeight={220}>
             <StateBlock variant="empty" title="Centered state" description="No local wrapper needed for body alignment." compact />
           </SectionPanel>
           <SectionPanel title="Fill presentation" description="Fill mode keeps bounded state surfaces stable." presentation="fill" minHeight={180}>
-            <p style={{ margin: 0 }}>Content fills the governed panel body without custom layout CSS.</p>
+            <p>Content fills the governed panel body without custom layout CSS.</p>
           </SectionPanel>
         </div>
       );
@@ -540,7 +540,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Playback contract"
           state="ready"
           statusMessage="Accessible timed-media containment."
-          media={<div style={{ aspectRatio: '16 / 9', background: 'linear-gradient(135deg, var(--mantine-color-dark-6), var(--mantine-color-violet-6)' }} />}
+          media={<div />}
         />
       );
     case 'public-shells':
@@ -559,7 +559,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           maxContentWidth="lg"
         >
           <SectionPanel title="Public content area" description="Bounded public shell for docs and marketing pages.">
-            <p style={{ margin: 0 }}>Public chrome should not be re-implemented locally.</p>
+            <p>Public chrome should not be re-implemented locally.</p>
           </SectionPanel>
         </PublicShell>
       );
@@ -577,7 +577,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           supportAction={<button type="button">Contact support</button>}
           helper="Keep provider logic in the app; keep layout in GDS."
         >
-          <p style={{ margin: 0 }}>Social auth remains part of the shared auth shell contract.</p>
+          <p>Social auth remains part of the shared auth shell contract.</p>
         </AuthShell>
       );
     case 'social-auth-buttons':
@@ -602,12 +602,12 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           lead="Article content stays in one shared shell."
           sideRail={
             <SectionPanel title="Side rail" description="Related docs and indexes.">
-              <p style={{ margin: 0 }}>Surface side rails show indexes and adjacent references.</p>
+              <p>Surface side rails show indexes and adjacent references.</p>
             </SectionPanel>
           }
           meta={<span>Scope: Pattern catalog</span>}
         >
-          <p style={{ margin: 0 }}>Use ArticleShell for docs, legal, and editorial readability.</p>
+          <p>Use ArticleShell for docs, legal, and editorial readability.</p>
         </ArticleShell>
       );
     case 'docs-page-shell':
@@ -617,7 +617,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           lead="Docs surface with shared breadcrumbs and body layout."
           breadcrumbs={[{ label: 'Docs', href: '/general-design-system' }, { label: 'Patterns' }]}
         >
-          <p style={{ margin: 0 }}>The docs shell is now fully controlled by GDS.</p>
+          <p>The docs shell is now fully controlled by GDS.</p>
         </DocsPageShell>
       );
     case 'docs-shell':
@@ -631,7 +631,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           contentWidth="full"
         >
           <SectionPanel title="Docs shell content" description="Reference/docs content belongs in package-owned shell framing.">
-            <p style={{ margin: 0 }}>The official site should use this contract instead of page-local shell wrappers.</p>
+            <p>The official site should use this contract instead of page-local shell wrappers.</p>
           </SectionPanel>
         </DocsShell>
       );
@@ -641,7 +641,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Governed section framing"
           description="Reference pages should use one canonical section rhythm for heading, summary, and actionable content."
         >
-          <p style={{ margin: 0 }}>This section is the package-owned docs contract used across the official site.</p>
+          <p>This section is the package-owned docs contract used across the official site.</p>
         </ReferenceSection>
       );
     case 'reference-link-grid':
@@ -685,7 +685,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           onLocaleChange={() => {}}
         >
           <SectionPanel title="Reference-site composition" description="Legacy reference shell retained for bounded compatibility lanes.">
-            <p style={{ margin: 0 }}>Prefer DocsShell for the official site path, keep this contract only where explicitly required.</p>
+            <p>Prefer DocsShell for the official site path, keep this contract only where explicitly required.</p>
           </SectionPanel>
         </ReferenceSiteShell>
       );
@@ -696,7 +696,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Shipped editorial hero"
           description="Hero surface with media and action controls."
           actions={[{ label: 'Get started', href: '/general-design-system/patterns' }]}
-          media={<div style={{ aspectRatio: '16 / 11', background: 'linear-gradient(135deg, var(--mantine-color-violet-1), var(--mantine-color-gray-1))' }} />}
+          media={<div />}
         />
       );
     case 'feature-band':
@@ -741,7 +741,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           action={<ActionBar primary={{ action: 'save' }} />}
         >
           <SectionPanel title="Section content" description="Actions and metadata stay composable.">
-            <p style={{ margin: 0 }}>Section children are now explicit to satisfy required layout contract.</p>
+            <p>Section children are now explicit to satisfy required layout contract.</p>
           </SectionPanel>
         </ConsumerSection>
       );
@@ -755,7 +755,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'media-fields':
       return (
-        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+        <div>
           <MediaField
             label="Hero image"
             description="Use the media-field contract for upload, URL entry, preview, status, and recovery."
@@ -810,7 +810,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           showThemeToggle={false}
         >
           <SectionPanel title="Admin shell content" description="AppShell is backed by DiscoveryShell and remains an admin compatibility path.">
-            <p style={{ margin: 0 }}>Use DiscoveryShell directly for new sidebar-first apps when possible.</p>
+            <p>Use DiscoveryShell directly for new sidebar-first apps when possible.</p>
           </SectionPanel>
         </AppShell>
       );
@@ -819,8 +819,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         <EditorScaffold
           header={<WorkspaceHeader title="Editor scaffold" description="Header, form, preview, settings, and footer stay in one scaffold." />}
           form={<FormSection title="Form" description="Canonical grouped editor body."><FormField label="Name"><input aria-label="Name" /></FormField></FormSection>}
-          preview={<SectionPanel title="Preview" description="Bounded preview rail."><p style={{ margin: 0 }}>Preview content</p></SectionPanel>}
-          settings={<SectionPanel title="Settings" description="Bounded settings rail."><p style={{ margin: 0 }}>Settings content</p></SectionPanel>}
+          preview={<SectionPanel title="Preview" description="Bounded preview rail."><p>Preview content</p></SectionPanel>}
+          settings={<SectionPanel title="Settings" description="Bounded settings rail."><p>Settings content</p></SectionPanel>}
           footer={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'cancel' }] }} />}
           stickyFooter
         />
@@ -852,10 +852,10 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           contentAlign="start"
           contentJustify="start"
         >
-          <p style={{ margin: 0 }}>
+          <p>
             Use this panel as the canonical bounded composition for grouped content.
           </p>
-          <p style={{ margin: 'var(--mantine-spacing-sm) 0 0' }}>Fill-mode examples can keep state surfaces stable without local wrappers.</p>
+          <p>Fill-mode examples can keep state surfaces stable without local wrappers.</p>
         </SectionPanel>
       );
     case 'public-brand-footer':
@@ -884,7 +884,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           resetAction={<SemanticButton action="reset" />}
         >
           <SectionPanel title="Filter controls" description="Scope, sort, and type remain bounded.">
-            <p style={{ margin: 0 }}>Controls should stay compact and auditable.</p>
+            <p>Controls should stay compact and auditable.</p>
           </SectionPanel>
         </FilterDrawer>
       );
@@ -900,7 +900,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'upload-surfaces':
       return (
-        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+        <div>
           <UploadDropzone
             title="Upload reference assets"
             description="Use the shared dropzone in upload-first flows. GDS renders state and policy; the product owns storage."
@@ -935,7 +935,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <AccessSummary title="Shared access summary" roles={['platform-ui', 'maintainers']} scope="Reference site" state="permission-limited" owner="platform-ui" recoveryHint="Request the docs-admin scope to unlock private evidence." description="Access and scope stay explicit." />;
     case 'access-recovery-panels':
       return (
-        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)' }}>
+        <div>
           <AccessRecoveryPanel state="unauthenticated" onSignIn={() => {}} onBack={() => {}} />
           <AccessRecoveryPanel state="timeout" onRetry={() => {}} onBack={() => {}} supportAction={{ action: 'help', onClick: () => {}, variant: 'subtle' }} />
         </div>
@@ -992,7 +992,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           activeFilters={[{ label: 'Live demo', onRemove: () => {} }]}
           renderCard={(item) => (
             <SectionPanel title={String(item.surface)} description={String(item.state)}>
-              <p style={{ margin: 0 }}>Card fallback is owned by the consumer slot, not the responsive contract.</p>
+              <p>Card fallback is owned by the consumer slot, not the responsive contract.</p>
             </SectionPanel>
           )}
           getRowKey={(row) => String(row.id)}
@@ -1040,7 +1040,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             />
           )}
           metrics={(
-            <div style={{ display: 'grid', gap: 'var(--mantine-spacing-md)', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))' }}>
+            <div>
               <MetricCard label="Orders" value="1,240" description="Visible aggregate." trend={{ label: '+8%', tone: 'positive' }} />
               <ProgressCard label="Evidence coverage" value="18 / 20" progress={90} progressLabel="Reporting sources" />
             </div>
@@ -1107,7 +1107,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'badges':
       return (
-        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-sm)' }}>
+        <div>
           <StatusBadge status="success">Published</StatusBadge>
           <StatusBadge status="warning">Needs review</StatusBadge>
           <StatusBadge status="danger">Blocked</StatusBadge>
@@ -1135,7 +1135,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           description="Shared drawer contract for secondary operations."
         >
           <SectionPanel title="Filter slot" description="Use once across app surfaces.">
-            <p style={{ margin: 0 }}>Drawer filters are reusable across local page surfaces.</p>
+            <p>Drawer filters are reusable across local page surfaces.</p>
           </SectionPanel>
         </FilterDrawer>
       );
@@ -1173,7 +1173,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'searchable-selection':
       return (
-        <div style={{ display: 'grid', gap: 'var(--mantine-spacing-sm)' }}>
+        <div>
           <ActionBar primary={{ action: 'search' }} secondary={[{ action: 'submit' }]} />
           <DataToolbar
             searchSlot={<input aria-label="Search selection" />}
@@ -1199,7 +1199,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     default:
       return (
         <SectionPanel title="Live reference note" description="This documented pattern is represented through the shared component family.">
-          <p style={{ margin: 0 }}>{entry.summary}</p>
+          <p>{entry.summary}</p>
         </SectionPanel>
       );
   }

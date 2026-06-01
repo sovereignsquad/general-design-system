@@ -57,7 +57,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@doneisbetter/gds-admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, governance guidance, theme explorer, live demos, and the pattern catalog.
-- **Reference-Site Primitives**: `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, `ReferenceThemeExplorer`, and `DocsShell` (official docs-site shell contract) plus `ReferenceSiteShell` (legacy/compatibility surface for bounded preview composition) — GDS-owned primitives for reference/docs surfaces without site-local pseudo-components.
+- **Reference-Site Primitives**: `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, `ReferenceThemeExplorer`, and `DocsShell` — canonical GDS-owned primitives for reference/docs surfaces without site-local pseudo-components.
 - **Board Sync Checklist**: [docs/BOARD_SYNC_CHECKLIST.md](/Users/Shared/Projects/general-design-system/docs/BOARD_SYNC_CHECKLIST.md) — required consistency pass between implementation, docs, and GitHub project-board issue state before release and after major delivery waves.
 - **Client Upgrade Prompt**: [CLIENT_UPGRADE_PROMPT.md](/Users/Shared/Projects/general-design-system/CLIENT_UPGRADE_PROMPT.md) — copy/paste checklist and communication template for consumer teams.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
@@ -143,7 +143,7 @@ Required repository behavior:
 ## Validation Commands
 
 - `npm run verify:release` — checks release alignment, builds all packages/apps, verifies export boundaries, then runs lint, tests, and reference validation
-- `npm run verify:references` — validates reference consumers, adoption manifests, official `DocsShell` usage, SSOT pattern-catalog coverage, package export-to-pattern coverage, website trust/clarity checks, surface-presentation migration evidence, route-level locale coverage declarations, canonical theme-governance lanes, media/upload contracts, reporting/access contracts, and reference codemods
+- `npm run verify:references` — validates reference consumers, adoption manifests, official `DocsShell` usage, strict playground GDS-only source rules (no `@mantine/core` imports and no inline `style={{...}}` on core Pages routes), SSOT pattern-catalog coverage, package export-to-pattern coverage, website trust/clarity checks, surface-presentation migration evidence, route-level locale coverage declarations, canonical theme-governance lanes, media/upload contracts, reporting/access contracts, and reference codemods
 - `npm run audit:board` — audits the canonical GDS project board for issue-state/project-status drift and prints any open or mismatched items
   - CI note: if GitHub API rate limiting blocks board reads, the audit emits a warning and continues unless `GDS_BOARD_AUDIT_STRICT=1` is set
 - `npm run audit:board:strict` — runs the same project-board audit in fail-hard mode for local release sign-off and board normalization work

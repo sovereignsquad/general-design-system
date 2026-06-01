@@ -12,7 +12,7 @@
     "lint": "npm run lint --workspace=apps/playground",
     "test": "vitest",
     "test:run": "vitest run",
-    "verify:references": "node scripts/verify-reference-consumers.mjs && node scripts/verify-playground-shell-contract.mjs && node scripts/verify-pattern-catalog-coverage.mjs && node scripts/verify-pattern-export-coverage.mjs && node scripts/verify-website-trust.mjs && node scripts/verify-surface-presentation-adoption.mjs && node scripts/verify-locale-coverage.mjs && node scripts/verify-theme-governance.mjs && node scripts/verify-install-bootstrap-docs.mjs && node scripts/verify-media-upload-contract.mjs && node scripts/verify-reporting-contract.mjs && node scripts/verify-access-identity-contract.mjs && node scripts/verify-codemods.mjs",
+    "verify:references": "node scripts/verify-reference-consumers.mjs && node scripts/verify-playground-shell-contract.mjs && node scripts/verify-playground-gds-only.mjs && node scripts/verify-pattern-catalog-coverage.mjs && node scripts/verify-pattern-export-coverage.mjs && node scripts/verify-website-trust.mjs && node scripts/verify-surface-presentation-adoption.mjs && node scripts/verify-locale-coverage.mjs && node scripts/verify-theme-governance.mjs && node scripts/verify-install-bootstrap-docs.mjs && node scripts/verify-media-upload-contract.mjs && node scripts/verify-reporting-contract.mjs && node scripts/verify-access-identity-contract.mjs && node scripts/verify-codemods.mjs",
     "audit:board": "node scripts/audit-project-board.mjs",
     "audit:board:strict": "GDS_BOARD_AUDIT_STRICT=1 node scripts/audit-project-board.mjs",
     "verify:mantine": "node scripts/verify-mantine8-compat.mjs",
