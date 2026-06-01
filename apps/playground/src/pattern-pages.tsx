@@ -549,7 +549,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           brand={<strong>General Design System</strong>}
           navItems={[
             { id: 'overview', label: 'Overview', href: '/general-design-system/patterns' },
-            { id: 'docs', label: 'Docs', href: '/general-design-system/tokens' },
+            { id: 'docs', label: 'Docs', href: '/general-design-system/themes' },
           ]}
           activeNavId="overview"
           actions={<button type="button">Sign in</button>}
