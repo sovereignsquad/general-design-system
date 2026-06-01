@@ -1,15 +1,15 @@
 # Installation Guide
 
 Status: Active SSOT
-Version: 2.6.7
+Version: 3.0.0
 Last updated: 2026-05-31
 
 This guide is the canonical consumer setup path for the public umbrella package `@doneisbetter/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
 Release-line rule:
 
-- current stable package line: `2.6.7`
-- next major target: `3.0.0`
+- current stable package line: `3.0.0`
+- current major line: `3.0.0`
 - do not publish, announce, or ask clients to install `3.0.0` until all `GDS 3.0.0 - Adoption Platform Release` issues are complete and `npm run verify:published` confirms npm availability
 
 Public install and reference routes:

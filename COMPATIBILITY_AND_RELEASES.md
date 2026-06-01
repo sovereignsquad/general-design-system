@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 2.6.7
+Version: 3.0.0
 Last updated: 2026-05-31
 
 This document defines the supported package/runtime contract for the umbrella package `@doneisbetter/gds` and the granular runtime packages `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin`.
@@ -38,9 +38,9 @@ Canonical registry target: **npm**
 
 Current live status:
 
-- published npm baseline: `2.6.7`
-- current repository line: `2.6.7`
-- next major target: `3.0.0`
+- published npm baseline: `3.0.0`
+- current repository line: `3.0.0`
+- current major line: `3.0.0`
 
 Consumer repos should install the latest published npm version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 

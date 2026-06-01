@@ -537,7 +537,7 @@ export function AnalyticsPage() {
         <ConsumerDashboardGrid columns={3}>
           <MetricCard label="Catalog coverage" value={`${catalogEntryCount} entries`} description="Pattern inventory shown on the public site." />
           <ProgressCard label="Reference-site conversion" value="Strict consumer" progress={100} progressLabel="Current state" />
-          <MetricCard label="npm line" value="2.6.7" description="Public package and docs release line." />
+          <MetricCard label="npm line" value="3.0.0" description="Public package and docs release line." />
         </ConsumerDashboardGrid>
       </ReferenceSection>
 

@@ -2,7 +2,7 @@
 
 ## What this is
 
-Use this for every product team when migrating to the current stable `2.6.7` GDS consumer contract or preparing the `3.0.0` adoption-platform release.
+Use this for every product team migrating to the current stable `3.0.0` GDS adoption-platform release.
 
 ## Copy/paste message for 3.0.0 after publish verification
 
@@ -34,38 +34,6 @@ Team, we completed the GDS upgrade to the 3.0.0 adoption platform release.
   - `gds-compliance check --manifest ./gds-adoption.json`
 
 Do not start this migration until the GDS release owner confirms `npm run verify:published` passed for all six packages.
-
-## Copy/paste message for current stable 2.6.7
-
-Team, we completed the GDS upgrade to the 2.6.7 governance baseline.
-
-- Update dependencies:
-  - `@doneisbetter/gds@2.6.7`
-  - `@doneisbetter/gds-eslint-config@2.6.7` (dev)
-  - `@doneisbetter/gds-compliance@2.6.7` (dev)
-- Replace local mirror/theme wrappers with approved GDS lanes:
-  - `gdsTheme`
-  - `gdsDarkPublicTheme`
-  - `gdsFlatSurfaceTheme`
-  - `gdsEditorialPublicTheme`
-  - `createPublicBrandTheme(...)`
-- Remove `extendGdsTheme(...)` from consumer-owned code paths.
-- Ensure theme ownership fields exist in `gds-adoption.json`:
-  - `compliance.approvedThemeLanes`
-  - `compliance.themeOwnershipPaths`
-- Replace local wrappers in these priority lanes:
-  - `DiscoveryShell`
-  - `SidebarNav`
-  - `PageHeader`
-  - `ActionBar`
-  - `ListingCard`
-  - `DataToolbar` / `FilterDrawer`
-  - `DetailProfileShell`
-- Add or refresh `gds-adoption.json` and run:
-  - `npm run build`
-  - `npm run test:run`
-  - `npm run verify:mantine`
-  - `gds-compliance check --manifest ./gds-adoption.json`
 
 ### References
 

@@ -1,7 +1,7 @@
 # Release Publish Runbook
 
 Status: Active SSOT
-Version: 2.6.7
+Version: 3.0.0
 Last updated: 2026-05-31
 
 This runbook defines the authenticated package-publish flow for the General Design System.
@@ -11,8 +11,8 @@ Canonical registry target: **npm**
 Current registry reality:
 
 - canonical install source: npm
-- latest published baseline: `2.6.7`
-- current repository line: `2.6.7`
+- latest published baseline: `3.0.0`
+- current repository line: `3.0.0`
 
 GitHub release assets remain an optional fallback distribution path for unpublished release candidates:
 
@@ -28,7 +28,7 @@ GitHub release assets remain an optional fallback distribution path for unpublis
 - `VERSION` matches every publishable package version
 - `npm run verify:release` passes
 - operator is authenticated with npm
-- for the 3.0.0 program, all `GDS 3.0.0 - Adoption Platform Release` implementation issues are complete before `VERSION` is bumped from `2.6.7` to `3.0.0`
+- for the 3.0.0 program, all `GDS 3.0.0 - Adoption Platform Release` implementation issues are complete before publishing
 - `npm run audit:board:strict` passes before and after the version bump
 
 Check auth:

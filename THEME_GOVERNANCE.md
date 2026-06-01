@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 2.6.7
+Version: 3.0.0
 Last updated: 2026-05-31
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
