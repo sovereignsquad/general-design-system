@@ -155,10 +155,28 @@ function PlaygroundContent() {
   });
   const location = useLocation();
   useEffect(() => {
-    const nextScheme = siteThemeSelection.colorScheme === 'auto'
-      ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-      : siteThemeSelection.colorScheme;
-    document.documentElement.setAttribute('data-mantine-color-scheme', nextScheme);
+    const resolveScheme = () =>
+      siteThemeSelection.colorScheme === 'auto'
+        ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        : siteThemeSelection.colorScheme;
+
+    const applyScheme = () => {
+      document.documentElement.setAttribute('data-mantine-color-scheme', resolveScheme());
+    };
+
+    applyScheme();
+
+    if (siteThemeSelection.colorScheme !== 'auto') {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => applyScheme();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
   }, [siteThemeSelection.colorScheme]);
 
   const primaryRoutes = getPrimaryRoutes();
