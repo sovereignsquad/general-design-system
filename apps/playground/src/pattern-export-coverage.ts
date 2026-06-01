@@ -80,6 +80,7 @@ export const patternExportCoverage: ExportCoverageEntry[] = [
   { packageName: '@doneisbetter/gds-core', exportName: 'SurfacePresentation', status: 'support-api', registryId: 'surface-presentation', rationale: 'Shared presentation helper covered by StateBlock and SectionPanel demos.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'ThemeToggle', status: 'live-demo', registryId: 'theme-toggle', rationale: 'Canonical color-scheme toggle control.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'UploadDropzone', status: 'live-demo', registryId: 'upload-surfaces', rationale: 'Canonical upload/drop surface.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'useDiscoveryShellState', status: 'support-api', registryId: 'discovery-shell', rationale: 'Shell-state governance hook for canonical DiscoveryShell open/collapse behavior.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'createGdsVocabularyPack', status: 'support-api', registryId: 'vocabulary-extension-lane', rationale: 'Vocabulary pack helper supports semantic action extension.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'getGdsMessages', status: 'support-api', registryId: 'reference-locale-notice', rationale: 'Locale helper supports localized vocabulary and honest locale coverage.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'getProviderIdentityLabel', status: 'support-api', registryId: 'provider-identity-buttons', rationale: 'Provider-label helper supports governed identity button demos.' },

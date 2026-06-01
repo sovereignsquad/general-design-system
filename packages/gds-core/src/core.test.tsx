@@ -43,7 +43,7 @@ import { PublicProductCard } from './PublicProductCard';
 import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
 import { ShareButtonGroup } from './ShareButtonGroup';
-import { DiscoveryShell } from './DiscoveryShell';
+import { DiscoveryShell, useDiscoveryShellState } from './DiscoveryShell';
 import { SemanticButton } from './SemanticButton';
 import { SectionPanel } from './SectionPanel';
 import { SidebarNav, SidebarNavItem, SidebarNavSection } from './SidebarNav';
@@ -233,6 +233,26 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByRole('link', { name: 'Settings' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Logout' })).toBeInTheDocument();
     expect(screen.getByText('Discovery content')).toBeInTheDocument();
+  });
+
+  it('supports shell-state toggling with deterministic callbacks', async () => {
+    const user = userEvent.setup();
+    const onSidebarOpenedChange = vi.fn();
+
+    function ShellStateProbe() {
+      const state = useDiscoveryShellState({ onSidebarOpenedChange });
+      return (
+        <button type="button" onClick={state.toggle}>
+          {state.opened ? 'Open' : 'Closed'}
+        </button>
+      );
+    }
+
+    renderWithGds(<ShellStateProbe />);
+    await user.click(screen.getByRole('button', { name: 'Closed' }));
+    expect(onSidebarOpenedChange).toHaveBeenCalledWith(true);
+    await user.click(screen.getByRole('button', { name: 'Open' }));
+    expect(onSidebarOpenedChange).toHaveBeenCalledWith(false);
   });
 
   it('renders docs shell with governed header, sidebar sections, and docs content', () => {

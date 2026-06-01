@@ -1,9 +1,69 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { AppShell as MantineAppShell, Box, Burger, Group, ScrollArea } from '@mantine/core';
 import type { MantineBreakpoint, MantineSpacing } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks';
+
+export interface DiscoveryShellState {
+  opened: boolean;
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
+  setOpened: (next: boolean) => void;
+}
+
+export interface UseDiscoveryShellStateOptions {
+  defaultSidebarOpen?: boolean;
+  sidebarStorageKey?: string;
+  onSidebarOpenedChange?: (opened: boolean) => void;
+}
+
+export function useDiscoveryShellState({
+  defaultSidebarOpen = false,
+  sidebarStorageKey,
+  onSidebarOpenedChange,
+}: UseDiscoveryShellStateOptions = {}): DiscoveryShellState {
+  const [opened, setOpenedState] = useState(defaultSidebarOpen);
+
+  useEffect(() => {
+    if (!sidebarStorageKey || typeof window === 'undefined') {
+      return;
+    }
+    const stored = window.localStorage.getItem(sidebarStorageKey);
+    if (stored === 'open') {
+      setOpenedState(true);
+    }
+    if (stored === 'closed') {
+      setOpenedState(false);
+    }
+  }, [sidebarStorageKey]);
+
+  const persistAndNotify = (next: boolean) => {
+    if (sidebarStorageKey && typeof window !== 'undefined') {
+      window.localStorage.setItem(sidebarStorageKey, next ? 'open' : 'closed');
+    }
+    onSidebarOpenedChange?.(next);
+  };
+
+  const setOpened = (next: boolean) => {
+    setOpenedState(next);
+    persistAndNotify(next);
+  };
+
+  const open = () => setOpened(true);
+  const close = () => setOpened(false);
+  const toggle = () => {
+    setOpenedState((current) => {
+      const next = !current;
+      persistAndNotify(next);
+      return next;
+    });
+  };
+
+  return { opened, open, close, toggle, setOpened };
+}
 
 export interface DiscoveryShellProps {
   header?: ReactNode;
@@ -12,7 +72,12 @@ export interface DiscoveryShellProps {
   children: ReactNode;
   mobileNavigationLabel?: string;
   defaultSidebarOpen?: boolean;
+  sidebarStorageKey?: string;
+  sidebarOpened?: boolean;
+  onSidebarOpenedChange?: (opened: boolean) => void;
   stickySidebar?: boolean;
+  desktopCollapsible?: boolean;
+  desktopNavigationLabel?: string;
   sidebarWidth?: number | string;
   headerHeight?: number | string;
   shellPadding?: MantineSpacing | number;
@@ -30,13 +95,29 @@ export function DiscoveryShell({
   children,
   mobileNavigationLabel = 'Toggle navigation',
   defaultSidebarOpen = false,
+  sidebarStorageKey,
+  sidebarOpened,
+  onSidebarOpenedChange,
   stickySidebar = true,
+  desktopCollapsible = false,
+  desktopNavigationLabel = 'Toggle sidebar',
   sidebarWidth = 280,
   headerHeight = 60,
   shellPadding = 'md',
   collapseBreakpoint = 'sm',
 }: DiscoveryShellProps) {
-  const [opened, { toggle, close }] = useDisclosure(defaultSidebarOpen);
+  const breakpointByAlias: Record<MantineBreakpoint, string> = {
+    xs: '36em',
+    sm: '48em',
+    md: '62em',
+    lg: '75em',
+    xl: '88em',
+  };
+  const isMobile = useMediaQuery(`(max-width: ${breakpointByAlias[collapseBreakpoint]})`);
+  const shellState = useDiscoveryShellState({ defaultSidebarOpen, sidebarStorageKey, onSidebarOpenedChange });
+  const opened = sidebarOpened ?? shellState.opened;
+  const close = onSidebarOpenedChange ? () => onSidebarOpenedChange(false) : shellState.close;
+  const toggle = onSidebarOpenedChange ? () => onSidebarOpenedChange(!opened) : shellState.toggle;
 
   return (
     <MantineAppShell
@@ -45,7 +126,10 @@ export function DiscoveryShell({
       navbar={{
         width: sidebarWidth,
         breakpoint: collapseBreakpoint,
-        collapsed: { mobile: !opened },
+        collapsed: {
+          mobile: !opened,
+          desktop: desktopCollapsible ? !opened : false,
+        },
       }}
       padding={shellPadding}
     >
@@ -58,6 +142,15 @@ export function DiscoveryShell({
             size="sm"
             aria-label={mobileNavigationLabel}
           />
+          {desktopCollapsible ? (
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              visibleFrom={collapseBreakpoint}
+              size="sm"
+              aria-label={desktopNavigationLabel}
+            />
+          ) : null}
           <Box style={{ flex: 1, minWidth: 0 }}>
             {header}
           </Box>
@@ -90,7 +183,12 @@ export function DiscoveryShell({
         </MantineAppShell.Footer>
       ) : null}
 
-      <MantineAppShell.Main onClick={() => close()}>
+      <MantineAppShell.Main onClick={() => {
+        if (isMobile) {
+          close();
+        }
+      }}
+      >
         {children}
       </MantineAppShell.Main>
     </MantineAppShell>
