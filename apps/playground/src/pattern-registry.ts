@@ -148,6 +148,8 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Workflow Guidance',
     coverageStatus: 'live-demo',
     summary: 'Forms should validate without punishing typing and must expose grouped fields and loading submit states.',
+    importPath: '@doneisbetter/gds-core',
+    sourceComponent: 'useGdsForm / FormErrorSummary / ValidatedFieldMessage',
   },
   {
     id: 'admin-editor-flows',
@@ -954,7 +956,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Alerts must explain the current state and the next action instead of acting as decorative chrome.',
     importPath: '@doneisbetter/gds-core',
-    sourceComponent: 'InlineAlert / BannerNotice',
+    sourceComponent: 'InlineAlert / BannerNotice / GdsTelemetryProvider',
   },
   {
     id: 'loaders-skeletons',
@@ -996,7 +998,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Modals support focused edits and confirmations with trapped focus and no stacking.',
     importPath: '@doneisbetter/gds-core',
-    sourceComponent: 'ConfirmDialog',
+    sourceComponent: 'ConfirmDialog / OverlayManagerProvider',
   },
   {
     id: 'drawers',
@@ -1006,6 +1008,8 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Messaging Primitives',
     coverageStatus: 'live-demo',
     summary: 'Drawers support filters and secondary panels with explicit mobile and desktop sizing behavior.',
+    importPath: '@doneisbetter/gds-core',
+    sourceComponent: 'FilterDrawer / CommandRegistryProvider',
   },
   {
     id: 'small-screen-priority',

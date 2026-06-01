@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   AccessSummary,
   AccessRecoveryPanel,
@@ -34,6 +35,10 @@ import {
   FilterDrawer,
   FoodMenuSection,
   FormField,
+  FormErrorSummary,
+  GdsFormProvider,
+  useGdsForm,
+  ValidatedFieldMessage,
   GameBoardTile,
   GdsIcons,
   ListingCard,
@@ -42,6 +47,8 @@ import {
   MediaField,
   MetricCard,
   NotificationCenter,
+  OverlayManagerProvider,
+  useOverlayManager,
   GdsNotificationProvider,
   BannerNotice,
   InlineAlert,
@@ -75,6 +82,10 @@ import {
   LabelTag,
   SimpleDataTable,
   UploadDropzone,
+  CommandRegistryProvider,
+  useCommandLauncher,
+  GdsTelemetryProvider,
+  useGdsTelemetry,
   ProviderIdentityButtonGroup,
   StatsSection,
   ThemeToggle,
@@ -162,6 +173,128 @@ function ListingFrameworkDemo() {
         {state.selection.includes('row-1') ? 'Unselect row-1' : 'Select row-1'}
       </button>
     </div>
+  );
+}
+
+function FormArchitectureDemo() {
+  const form = useGdsForm({
+    initialValues: { title: '', status: 'Draft' },
+    validate: (snapshot) => {
+      const titleValue = String(snapshot.fields.title?.value ?? '').trim();
+      return titleValue.length < 3
+        ? [{ field: 'title', message: 'Title must contain at least 3 characters.', severity: 'blocking' as const }]
+        : [];
+    },
+    onSubmit: async () => {},
+  });
+
+  return (
+    <GdsFormProvider snapshot={form.snapshot}>
+      <SectionPanel title="Shared form guidance" description="GDS governs labels, descriptions, validation, and submit-state behavior.">
+        <div>
+          <FormErrorSummary />
+          <FormField label="Title" description="Use shared form fields for all labels and errors.">
+            <input
+              id="title"
+              aria-label="Title"
+              aria-describedby="title-error"
+              value={String(form.snapshot.fields.title?.value ?? '')}
+              onChange={(event) => form.setFieldValue('title', event.currentTarget.value)}
+              onBlur={() => form.touchField('title')}
+            />
+          </FormField>
+          <ValidatedFieldMessage field="title" />
+          <FormField label="Status" description="Use shared select semantics for branch choices.">
+            <select aria-label="Status" value={String(form.snapshot.fields.status?.value ?? 'Draft')} onChange={(event) => form.setFieldValue('status', event.currentTarget.value)}>
+              <option>Draft</option>
+              <option>Published</option>
+            </select>
+          </FormField>
+        </div>
+        <ActionBar
+          primary={{ action: 'submit', onClick: () => { void form.submit(); }, loading: form.snapshot.submitState === 'submitting' || form.snapshot.submitState === 'validating' }}
+          secondary={[{ action: 'cancel' }]}
+        />
+      </SectionPanel>
+    </GdsFormProvider>
+  );
+}
+
+function OverlayContractDemo() {
+  function OverlayProbe() {
+    const overlay = useOverlayManager();
+    const topOverlay = overlay.stack[overlay.stack.length - 1];
+    return (
+      <SectionPanel title="Overlay stack governance" description={`Top overlay: ${topOverlay?.id ?? 'none'}.`}>
+        <button type="button" onClick={() => overlay.registerOverlay({ id: 'dialog-a', kind: 'dialog', invokerId: 'open-dialog' })}>Register dialog</button>
+        <button type="button" onClick={() => overlay.registerOverlay({ id: 'drawer-a', kind: 'drawer', invokerId: 'open-drawer' })}>Register drawer</button>
+        <button type="button" onClick={() => overlay.unregisterOverlay('drawer-a')}>Unregister drawer</button>
+        <p>Escape close reason for top entry: {overlay.requestClose('drawer-a', 'escape') ?? 'blocked'}</p>
+      </SectionPanel>
+    );
+  }
+
+  return (
+    <OverlayManagerProvider>
+      <OverlayProbe />
+    </OverlayManagerProvider>
+  );
+}
+
+function CommandPaletteDemo() {
+  function CommandProbe() {
+    const launcher = useCommandLauncher();
+    return (
+      <SectionPanel title="Command palette" description="Cmd/Ctrl+K opens the shared command surface.">
+        <button
+          type="button"
+          onClick={() => launcher.registerCommands([
+            { id: 'open-patterns', label: 'Open patterns', keywords: ['patterns', 'catalog'], shortcut: 'Cmd+1', run: () => {} },
+            { id: 'open-governance', label: 'Open governance', keywords: ['rules'], shortcut: 'Cmd+2', run: () => {} },
+          ])}
+        >
+          Register commands
+        </button>
+        <button type="button" onClick={() => launcher.open()}>Open command palette</button>
+      </SectionPanel>
+    );
+  }
+
+  return (
+    <CommandRegistryProvider>
+      <CommandProbe />
+    </CommandRegistryProvider>
+  );
+}
+
+function TelemetryDemo() {
+  const [events, setEvents] = useState<string[]>([]);
+
+  function TelemetryProbe() {
+    const telemetry = useGdsTelemetry();
+    return (
+      <SectionPanel title="Telemetry contract" description="Cross-primitive event contract with privacy-safe defaults.">
+        <button
+          type="button"
+          onClick={() => telemetry.emit({
+            component: 'TelemetryDemo',
+            eventType: 'action-click',
+            correlationId: 'telemetry-demo',
+            outcome: 'info',
+            context: { route: 'patterns/alerts', locale: 'en', email: 'redacted@example.com' },
+          })}
+        >
+          Emit event
+        </button>
+        <DemoList items={events.length > 0 ? events : ['No events captured yet.']} />
+      </SectionPanel>
+    );
+  }
+
+  return (
+    <GdsTelemetryProvider sink={(event) => setEvents((current) => [...current, `${event.component}:${event.eventType}`])}>
+      <TelemetryProbe />
+    </GdsTelemetryProvider>
   );
 }
 
@@ -328,26 +461,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'inputs':
     case 'selects-combobox':
     case 'checkboxes-radios':
-      return (
-        <SectionPanel title="Shared form guidance" description="GDS governs labels, descriptions, and state handling.">
-          <div>
-            <FormField label="Title" description="Use shared form fields for all labels and errors.">
-              <input aria-label="Title" />
-            </FormField>
-            <FormField label="Status" description="Use shared select semantics for branch choices.">
-              <select aria-label="Status">
-                <option>Draft</option>
-                <option>Published</option>
-              </select>
-            </FormField>
-            <FormField label="Featured" description="Binary decisions remain explicit.">
-              <input type="checkbox" aria-label="Featured" />
-            </FormField>
-          </div>
-          <ActionBar primary={{ action: 'submit' }} secondary={[{ action: 'cancel' }]} />
-          <p>Use controlled helper text and explicit save/discard behavior.</p>
-        </SectionPanel>
-      );
+      return <FormArchitectureDemo />;
     case 'admin-editor-flows':
       return (
         <ContentOpsEditor
@@ -1147,7 +1261,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         />
       );
     case 'alerts':
-      return <StateBlock variant="error" compact title="Error guidance" description="Governed alert surfaces always include action context." />;
+      return <TelemetryDemo />;
     case 'loaders-skeletons':
       return <FeatureBand loading columns={3} items={[]} />;
     case 'public-flow-shell':
@@ -1208,29 +1322,9 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         </div>
       );
     case 'modals':
-      return (
-        <ConfirmDialog
-          opened
-          onClose={() => {}}
-          onConfirm={() => {}}
-          title="Delete this pattern"
-        >
-          Use modals only when explicit focus and confirmation are required.
-        </ConfirmDialog>
-      );
+      return <OverlayContractDemo />;
     case 'drawers':
-      return (
-        <FilterDrawer
-          opened
-          onClose={() => {}}
-          title="Filter drawer"
-          description="Shared drawer contract for secondary operations."
-        >
-          <SectionPanel title="Filter slot" description="Use once across app surfaces.">
-            <p>Drawer filters are reusable across local page surfaces.</p>
-          </SectionPanel>
-        </FilterDrawer>
-      );
+      return <CommandPaletteDemo />;
     case 'small-screen-priority':
       return (
         <ConsumerDashboardGrid columns={1}>

@@ -18,6 +18,8 @@ import { CtaButtonGroup } from './CtaButtonGroup';
 import { ConfirmDialog } from './ConfirmDialog';
 import { ChoiceChip } from './ChoiceChip';
 import { DataToolbar } from './DataToolbar';
+import { CommandRegistryProvider, useCommandLauncher } from './CommandPalette.client';
+import { FormErrorSummary, GdsFormProvider, gdsFormReducer, useGdsForm, ValidatedFieldMessage } from './GdsForm.client';
 import { ActiveFilterChips, BulkActionsBar, ResultSummary, SortMenu } from './ListingPrimitives';
 import { ListingProvider, listingQueryReducer, useListingState } from './ListingState.client';
 import { DetailProfileShell } from './DetailProfileShell';
@@ -66,6 +68,8 @@ import { UploadDropzone } from './UploadDropzone';
 import { resolveSurfacePresentationStyles } from './SurfacePresentation';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
 import { GdsIcons } from './icons';
+import { OverlayManagerProvider, useOverlayManager } from './OverlayManager.client';
+import { GdsTelemetryProvider, useGdsTelemetry } from './Telemetry.client';
 import { createGdsVocabularyPack, getSemanticActionLabel } from './vocabulary';
 
 describe('@doneisbetter/gds-core', () => {
@@ -1581,5 +1585,129 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     rerender(<PublicProductCard title="Seasonal plate" />);
     expect(screen.getByLabelText('No product image available')).toBeInTheDocument();
+  });
+
+  it('applies gds form reducer transitions and blocking summary output', async () => {
+    const user = userEvent.setup();
+    const reduced = gdsFormReducer(
+      { fields: { title: { value: '', touched: false, dirty: false } }, issues: [], submitState: 'idle' },
+      { type: 'set-field', field: 'title', value: 'Hi' },
+    );
+    expect(reduced.fields.title.dirty).toBe(true);
+
+    function FormProbe() {
+      const form = useGdsForm({
+        initialValues: { title: '' },
+        validate: (snapshot) => (String(snapshot.fields.title?.value ?? '').length < 3
+          ? [{ field: 'title', message: 'Title is too short.', severity: 'blocking' as const }]
+          : []),
+        onSubmit: async () => {},
+      });
+
+      return (
+        <GdsFormProvider snapshot={form.snapshot}>
+          <input
+            aria-label="Title"
+            value={String(form.snapshot.fields.title?.value ?? '')}
+            onChange={(event) => form.setFieldValue('title', event.currentTarget.value)}
+          />
+          <button type="button" onClick={() => { void form.submit(); }}>Submit</button>
+          <FormErrorSummary />
+          <ValidatedFieldMessage field="title" />
+        </GdsFormProvider>
+      );
+    }
+
+    renderWithGds(<FormProbe />);
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+    expect(screen.getAllByText('Title is too short.').length).toBeGreaterThan(0);
+  });
+
+  it('manages overlay stack with top-most close rules', async () => {
+    const user = userEvent.setup();
+
+    function OverlayProbe() {
+      const overlay = useOverlayManager();
+      return (
+        <>
+          <button type="button" onClick={() => overlay.registerOverlay({ id: 'dialog-a', kind: 'dialog' })}>Open A</button>
+          <button type="button" onClick={() => overlay.registerOverlay({ id: 'drawer-b', kind: 'drawer' })}>Open B</button>
+          <button type="button" onClick={() => overlay.unregisterOverlay('drawer-b')}>Close B</button>
+          <Text>{overlay.requestClose('dialog-a', 'escape') ?? 'blocked'}</Text>
+          <Text>{overlay.isTopMost('drawer-b') ? 'top' : 'not-top'}</Text>
+        </>
+      );
+    }
+
+    renderWithGds(
+      <OverlayManagerProvider>
+        <OverlayProbe />
+      </OverlayManagerProvider>,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Open A' }));
+    await user.click(screen.getByRole('button', { name: 'Open B' }));
+    expect(screen.getByText('top')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Close B' }));
+    expect(screen.getByText('escape')).toBeInTheDocument();
+  });
+
+  it('registers and executes command palette commands', async () => {
+    const user = userEvent.setup();
+    const run = vi.fn();
+
+    function CommandProbe() {
+      const launcher = useCommandLauncher();
+      return (
+        <>
+          <button type="button" onClick={() => launcher.registerCommands([{ id: 'save', label: 'Save draft', run }])}>Register</button>
+          <button type="button" onClick={() => launcher.open()}>Open</button>
+        </>
+      );
+    }
+
+    renderWithGds(
+      <CommandRegistryProvider>
+        <CommandProbe />
+      </CommandRegistryProvider>,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Register' }));
+    await user.click(screen.getByRole('button', { name: 'Open' }));
+    await user.click(await screen.findByRole('button', { name: 'Save draft' }));
+    expect(run).toHaveBeenCalledTimes(1);
+  });
+
+  it('emits sampled telemetry events with redacted context', async () => {
+    const user = userEvent.setup();
+    const sink = vi.fn();
+
+    function TelemetryProbe() {
+      const telemetry = useGdsTelemetry();
+      return (
+        <button
+          type="button"
+          onClick={() => telemetry.emit({
+            component: 'test',
+            eventType: 'click',
+            correlationId: 'always-sampled',
+            context: { route: 'patterns', email: 'hidden@example.com' },
+          })}
+        >
+          Emit
+        </button>
+      );
+    }
+
+    renderWithGds(
+      <GdsTelemetryProvider sampleRate={1} sink={sink}>
+        <TelemetryProbe />
+      </GdsTelemetryProvider>,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Emit' }));
+    expect(sink).toHaveBeenCalledTimes(1);
+    expect(sink.mock.calls[0][0].context.email).toBeUndefined();
+    expect(sink.mock.calls[0][0].context.route).toBe('patterns');
   });
 });
