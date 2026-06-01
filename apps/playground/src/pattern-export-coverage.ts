@@ -82,6 +82,8 @@ export const patternExportCoverage: ExportCoverageEntry[] = [
   { packageName: '@doneisbetter/gds-core', exportName: 'StateBlock', status: 'live-demo', registryId: 'state-blocks', rationale: 'Canonical state surface.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'StatsSection', status: 'live-demo', registryId: 'stats-sections', rationale: 'Canonical lightweight stats/reporting section.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'StatusBadge', status: 'live-demo', registryId: 'badges', rationale: 'Canonical status badge.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'CountBadge', status: 'live-demo', registryId: 'badges', rationale: 'Canonical numeric count badge with capped-overflow semantics.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'LabelTag', status: 'live-demo', registryId: 'badges', rationale: 'Canonical taxonomy label tag with governed tones.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'SurfacePresentation', status: 'support-api', registryId: 'surface-presentation', rationale: 'Shared presentation helper covered by StateBlock and SectionPanel demos.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'ThemeToggle', status: 'live-demo', registryId: 'theme-toggle', rationale: 'Canonical color-scheme toggle control.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'UploadDropzone', status: 'live-demo', registryId: 'upload-surfaces', rationale: 'Canonical upload/drop surface.' },

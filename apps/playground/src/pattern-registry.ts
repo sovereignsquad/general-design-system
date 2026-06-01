@@ -985,7 +985,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Badges are compact state cues and must not rely on color only.',
     importPath: '@doneisbetter/gds-core',
-    sourceComponent: 'StatusBadge',
+    sourceComponent: 'StatusBadge / CountBadge / LabelTag',
   },
   {
     id: 'modals',

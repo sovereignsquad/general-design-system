@@ -54,7 +54,7 @@ import { SocialAuthButtons } from './SocialAuthButtons';
 import { ProviderIdentityButton, ProviderIdentityButtonGroup, getProviderIdentityLabel, getProviderIdentityPolicy, getSupportedProviderIdentityIds } from './ProviderIdentityButtons';
 import { StateBlock } from './StateBlock';
 import { StatsSection } from './StatsSection';
-import { StatusBadge } from './StatusBadge';
+import { CountBadge, LabelTag, StatusBadge } from './StatusBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { ReferenceThemeExplorer } from './ReferenceThemeExplorer';
 import { ReportingSection } from './ReportingSection';
@@ -1152,6 +1152,19 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     const badge = screen.getByText('Needs review');
     expect(badge).toBeInTheDocument();
     expect(badge.closest('[data-variant="light"]')).toBeInTheDocument();
+  });
+
+  it('renders count badges and label tags with governed semantics', () => {
+    renderWithGds(
+      <>
+        <CountBadge value={128} cap={99} srLabel="More than ninety nine updates" />
+        <LabelTag label="Food" tone="info" />
+      </>,
+    );
+
+    expect(screen.getByText('99+')).toBeInTheDocument();
+    expect(screen.getByLabelText('More than ninety nine updates')).toBeInTheDocument();
+    expect(screen.getByText('Food')).toBeInTheDocument();
   });
 
   it('exposes an accessible theme toggle and switches the color scheme', async () => {

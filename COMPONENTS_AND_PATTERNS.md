@@ -113,7 +113,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 - **Alerts**: Scoped, meaningful state messaging. Must explain what the user can do next. Not for permanent page decoration.
 - **Loaders & Skeletons**: Use skeletons when the layout shape is known. Use loaders for actions. Long operations need text status, not just a spinner.
 - **Notifications**: Transient, cross-surface feedback. Do not use as the *only* place a critical error appears.
-- **Badges**: Compact state indication. Color must not be the only signal (use distinct text). Prefer `sm` size.
+- **Badges**: Use `StatusBadge` for state, `CountBadge` for numeric counters, and `LabelTag` for taxonomy labels. Color must not be the only signal (use distinct text). Prefer `sm` size.
 - **Modals**: Used for confirmation, focused edits, or blocking decisions. Trap focus inside. Do not stack modals. Mobile: near-full width. Desktop: centered, content-fit.
 - **Drawers**: Used for filters or secondary panels. Must define clear mobile vs desktop width behavior.
 

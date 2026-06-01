@@ -64,6 +64,8 @@ import {
   SocialAuthButtons,
   StateBlock,
   StatusBadge,
+  CountBadge,
+  LabelTag,
   SimpleDataTable,
   UploadDropzone,
   ProviderIdentityButtonGroup,
@@ -1134,6 +1136,13 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <StatusBadge status="danger">Blocked</StatusBadge>
           <StatusBadge status="info">Info</StatusBadge>
           <StatusBadge status="neutral">Draft</StatusBadge>
+          <br />
+          <LabelTag label="Food" tone="info" />
+          <LabelTag label="Community" tone="neutral" />
+          <LabelTag label="Priority" tone="warning" />
+          <br />
+          <CountBadge value={12} />
+          <CountBadge value={126} cap={99} srLabel="More than ninety nine updates" />
         </div>
       );
     case 'modals':
