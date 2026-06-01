@@ -206,11 +206,11 @@ function PlaygroundContent() {
 
   return (
     <GdsProvider
-      key={`${siteThemeSelection.preset}-${siteThemeSelection.colorScheme}`}
       locale={locale}
       messages={localesMap[locale]?.messages ?? localesMap.en.messages}
       theme={siteThemeSelection.theme}
       defaultColorScheme={siteThemeSelection.colorScheme}
+      forceColorScheme={siteThemeSelection.colorScheme === 'auto' ? undefined : siteThemeSelection.colorScheme}
     >
       <DocsShell
         brand={<strong>General Design System</strong>}

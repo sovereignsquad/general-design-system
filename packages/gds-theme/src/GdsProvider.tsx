@@ -14,6 +14,7 @@ export interface GdsProviderProps {
   messages?: Record<string, string>;
   theme?: MantineThemeOverride;
   defaultColorScheme?: 'light' | 'dark' | 'auto';
+  forceColorScheme?: 'light' | 'dark';
 }
 
 /**
@@ -26,6 +27,7 @@ export function GdsProvider({
   messages = {},
   theme = gdsTheme,
   defaultColorScheme = 'light',
+  forceColorScheme,
 }: GdsProviderProps) {
   const isRtl = ['ar', 'he'].includes(locale);
   const dir = isRtl ? 'rtl' : 'ltr';
@@ -33,7 +35,13 @@ export function GdsProvider({
   return (
     <DirectionProvider initialDirection={dir}>
       <GdsI18nContext.Provider value={{ locale, messages }}>
-        <MantineProvider theme={theme} withCssVariables withGlobalClasses defaultColorScheme={defaultColorScheme}>
+        <MantineProvider
+          theme={theme}
+          withCssVariables
+          withGlobalClasses
+          defaultColorScheme={defaultColorScheme}
+          forceColorScheme={forceColorScheme}
+        >
           <ModalsProvider>
             <>
               <Notifications />
