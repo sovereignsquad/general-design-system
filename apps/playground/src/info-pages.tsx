@@ -172,7 +172,7 @@ function SiteFooter() {
   return (
     <PublicBrandFooter
       brandTitle="General Design System"
-      description="The official GDS website and live demo. Every public route on this site exists to help teams understand what is shipped, how to install it, and which contracts they should adopt instead of building locally."
+      description={`The official GDS website and live demo. Every public route on this site exists to help teams understand what is shipped, how to install it, and which contracts they should adopt instead of building locally. Live version: ${stableGdsVersion}.`}
       actions={(
         <a href="/general-design-system/install">Install GDS</a>
       )}
@@ -207,7 +207,7 @@ function SiteFooter() {
           ]}
         />
       )}
-      legal="Open source. Public npm packages. Governed adoption path."
+      legal={`Open source. Public npm packages. Governed adoption path. Live version ${stableGdsVersion}.`}
     />
   );
 }
@@ -428,7 +428,7 @@ export function OverviewPage() {
       title: 'General Design System',
       eyebrow: 'Official reference and live demo',
       lead: 'One place to understand, install, test, and trust GDS. This website is both the public product site and the live runtime proof of the shipped design system.',
-      meta: ['Open source', 'npm-ready', 'Live demos'],
+      meta: ['Open source', 'npm-ready', 'Live demos', `Live version ${stableGdsVersion}`],
       whatTitle: 'What GDS is',
       whatDescription: 'GDS is a governed design-system platform for products that want predictable UI contracts, shared runtime behavior, and a clear path away from local wrappers and UI drift.',
       whyTitle: 'Why GDS is useful',
@@ -440,7 +440,7 @@ export function OverviewPage() {
       title: 'General Design System',
       eyebrow: 'Offizielle Referenz und Live-Demo',
       lead: 'Ein zentraler Ort, um GDS zu verstehen, zu installieren, zu testen und zu vertrauen. Diese Website ist sowohl die öffentliche Produktseite als auch der Live-Runtime-Beweis des ausgelieferten Design-Systems.',
-      meta: ['Open Source', 'npm-bereit', 'Live-Demos'],
+      meta: ['Open Source', 'npm-bereit', 'Live-Demos', `Live-Version ${stableGdsVersion}`],
       whatTitle: 'Was GDS ist',
       whatDescription: 'GDS ist eine gesteuerte Design-System-Plattform für Produkte, die vorhersagbare UI-Verträge, gemeinsames Runtime-Verhalten und einen klaren Weg weg von lokalen Wrappern und UI-Drift benötigen.',
       whyTitle: 'Warum GDS nützlich ist',
@@ -452,7 +452,7 @@ export function OverviewPage() {
       title: 'General Design System',
       eyebrow: 'Référence officielle et démo live',
       lead: 'Un seul endroit pour comprendre, installer, tester et fiabiliser GDS. Ce site est à la fois la vitrine publique et la preuve runtime du design system livré.',
-      meta: ['Open source', 'prêt pour npm', 'Démos live'],
+      meta: ['Open source', 'prêt pour npm', 'Démos live', `Version live ${stableGdsVersion}`],
       whatTitle: 'Ce qu’est GDS',
       whatDescription: 'GDS est une plateforme de design system gouvernée pour les produits qui veulent des contrats UI prévisibles, un comportement runtime partagé et une sortie claire des wrappers locaux.',
       whyTitle: 'Pourquoi GDS est utile',
@@ -464,7 +464,7 @@ export function OverviewPage() {
       title: 'General Design System',
       eyebrow: 'Riferimento ufficiale e demo live',
       lead: 'Un unico posto per capire, installare, testare e fidarsi di GDS. Questo sito è sia prodotto pubblico sia prova runtime del design system rilasciato.',
-      meta: ['Open source', 'pronto per npm', 'Demo live'],
+      meta: ['Open source', 'pronto per npm', 'Demo live', `Versione live ${stableGdsVersion}`],
       whatTitle: 'Cos’è GDS',
       whatDescription: 'GDS è una piattaforma di design system governata per prodotti che vogliono contratti UI prevedibili e comportamento runtime condiviso.',
       whyTitle: 'Perché GDS è utile',
@@ -476,7 +476,7 @@ export function OverviewPage() {
       title: 'General Design System',
       eyebrow: 'Официальный референс и live-демо',
       lead: 'Единая точка, чтобы понять, установить, протестировать и доверять GDS. Этот сайт одновременно публичный продукт и runtime-доказательство поставляемой системы.',
-      meta: ['Open source', 'готово для npm', 'Live-демо'],
+      meta: ['Open source', 'готово для npm', 'Live-демо', `Live-версия ${stableGdsVersion}`],
       whatTitle: 'Что такое GDS',
       whatDescription: 'GDS — управляемая дизайн-системная платформа для предсказуемых UI-контрактов и общего runtime-поведения.',
       whyTitle: 'Почему GDS полезен',
@@ -488,7 +488,7 @@ export function OverviewPage() {
       title: 'General Design System',
       eyebrow: 'אתר ייחוס ודמו חי רשמי',
       lead: 'מקום אחד להבין, להתקין, לבדוק ולסמוך על GDS. האתר הזה הוא גם אתר המוצר הציבורי וגם הוכחת runtime חיה של המערכת.',
-      meta: ['קוד פתוח', 'מוכן ל-npm', 'דמואים חיים'],
+      meta: ['קוד פתוח', 'מוכן ל-npm', 'דמואים חיים', `${stableGdsVersion} גרסת לייב`],
       whatTitle: 'מה זה GDS',
       whatDescription: 'GDS היא פלטפורמת Design System מנוהלת למוצרים שרוצים חוזי UI צפויים והתנהגות runtime משותפת.',
       whyTitle: 'למה GDS מועיל',
@@ -500,7 +500,7 @@ export function OverviewPage() {
       title: 'General Design System',
       eyebrow: 'مرجع رسمي وعرض حي',
       lead: 'مكان واحد لفهم GDS وتثبيته واختباره وبناء الثقة به. هذا الموقع هو موقع المنتج العام وإثبات التشغيل الحي للنظام.',
-      meta: ['مفتوح المصدر', 'جاهز لـ npm', 'عروض حية'],
+      meta: ['مفتوح المصدر', 'جاهز لـ npm', 'عروض حية', `الإصدار الحي ${stableGdsVersion}`],
       whatTitle: 'ما هو GDS',
       whatDescription: 'GDS منصة تصميم محكومة للمنتجات التي تريد عقود واجهات متوقعة وسلوك تشغيل مشترك.',
       whyTitle: 'لماذا GDS مفيد',
@@ -512,7 +512,7 @@ export function OverviewPage() {
       title: 'General Design System',
       eyebrow: 'Hivatalos referencia és élő demó',
       lead: 'Egy hely, ahol megértheted, telepítheted, tesztelheted és megbízhatóan használhatod a GDS-t. Ez az oldal egyszerre nyilvános termékoldal és élő runtime bizonyíték.',
-      meta: ['Nyílt forráskód', 'npm-kész', 'Élő demók'],
+      meta: ['Nyílt forráskód', 'npm-kész', 'Élő demók', `Élő verzió ${stableGdsVersion}`],
       whatTitle: 'Mi a GDS',
       whatDescription: 'A GDS egy irányított design system platform kiszámítható UI-szerződésekkel és közös runtime viselkedéssel.',
       whyTitle: 'Miért hasznos a GDS',
