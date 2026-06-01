@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { GdsProvider, gdsTheme } from '@doneisbetter/gds-theme';
 import {
@@ -154,6 +154,13 @@ function PlaygroundContent() {
     theme: gdsTheme,
   });
   const location = useLocation();
+  useEffect(() => {
+    const nextScheme = siteThemeSelection.colorScheme === 'auto'
+      ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      : siteThemeSelection.colorScheme;
+    document.documentElement.setAttribute('data-mantine-color-scheme', nextScheme);
+  }, [siteThemeSelection.colorScheme]);
+
   const primaryRoutes = getPrimaryRoutes();
   const demoRoutes = getSecondaryRoutes('live-demos');
 
