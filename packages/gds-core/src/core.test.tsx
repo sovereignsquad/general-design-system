@@ -33,8 +33,10 @@ import { FeatureBand } from './FeatureBand';
 import { FoodMenuSection } from './FoodMenuSection';
 import { GameBoardTile } from './GameBoardTile';
 import { ChartTokenPanel } from './ChartTokenPanel';
+import { GdsChart } from './GdsChart';
 import { EvidencePanel } from './EvidencePanel';
 import { ListingCard } from './ListingCard';
+import { renderGdsLayout } from './LayoutBlocks';
 import { MapPanel } from './MapPanel';
 import { MediaField } from './MediaField';
 import { MetricCard } from './MetricCard';
@@ -1709,5 +1711,35 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(sink).toHaveBeenCalledTimes(1);
     expect(sink.mock.calls[0][0].context.email).toBeUndefined();
     expect(sink.mock.calls[0][0].context.route).toBe('patterns');
+  });
+
+  it('renders the expanded chart contract and fallback data table', () => {
+    renderWithGds(
+      <GdsChart
+        type="heatmap"
+        title="Heatmap contract"
+        summary="Governed chart wrapper."
+        data={[{ label: 'Cell A', value: 4 }, { label: 'Cell B', value: 9 }]}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Heatmap contract' })).toBeInTheDocument();
+    expect(screen.getByText('Type lane: heatmap')).toBeInTheDocument();
+    expect(screen.getByText('Cell A')).toBeInTheDocument();
+  });
+
+  it('renders schema-based layout blocks through the governed renderer', () => {
+    renderWithGds(
+      renderGdsLayout({
+        version: '1',
+        blocks: [
+          { id: 'hero', type: 'hero', props: { title: 'Layout hero', description: 'Schema block.' } },
+          { id: 'cta', type: 'cta', props: {} },
+        ],
+      }),
+    );
+
+    expect(screen.getByText('Layout hero')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
   });
 });

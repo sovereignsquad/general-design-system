@@ -6,8 +6,10 @@ import { openConfirmModal } from '@mantine/modals';
 import { Button } from '@mantine/core';
 import { renderWithGds } from '../../../test-utils/render';
 import { GdsProvider } from './GdsProvider';
+import { applyGdsFontLane, getGdsFontLanes } from './font-lanes';
 import { showGdsNotification } from './notifications';
 import { createPublicBrandTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
+import { getGdsThemePresets, resolveGdsThemePreset } from './theme-presets';
 
 function ProviderConsumer() {
   return (
@@ -87,5 +89,23 @@ describe('GdsProvider', () => {
     expect(brandedTheme.primaryColor).toBe('blue');
     expect(brandedTheme.shadows.md).toBe('none');
     expect(brandedTheme.headings.fontFamily).toContain('Instrument Serif');
+  });
+
+  it('exposes a governed 12-preset theme registry', () => {
+    const presets = getGdsThemePresets();
+    expect(presets.length).toBeGreaterThanOrEqual(12);
+    expect(presets.some((item) => item.id === 'default')).toBe(true);
+    expect(presets.some((item) => item.id === 'brand')).toBe(true);
+
+    const resolved = resolveGdsThemePreset('sunset');
+    expect(resolved.primaryColor).toBe('orange');
+  });
+
+  it('exposes approved font lanes and applies them to theme contracts', () => {
+    const lanes = getGdsFontLanes();
+    expect(lanes.length).toBeGreaterThanOrEqual(10);
+
+    const themed = applyGdsFontLane(gdsTheme, 'instrument-serif');
+    expect(themed.headings?.fontFamily).toContain('Instrument Serif');
   });
 });

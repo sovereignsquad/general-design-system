@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { ActionIcon, AspectRatio, Badge, Card, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
 import { GdsVocabulary, getSemanticActionLabel, type SemanticAction } from './vocabulary';
+import { gdsCardSizePaddingMap, gdsCardTitleOrderMap, type GdsCardInteractiveMode, type GdsCardSize } from './CardContracts';
 
 export type ListingCardMediaRatio = '1:1' | '4:3' | '16:9';
 
@@ -36,6 +37,11 @@ export interface ListingCardProps {
   saveAction?: ListingCardAffordance;
   shareAction?: ListingCardAffordance;
   compact?: boolean;
+  size?: GdsCardSize;
+  interactiveMode?: GdsCardInteractiveMode;
+  revealContent?: ReactNode;
+  onSurfaceActivate?: () => void;
+  defaultFlipped?: boolean;
 }
 
 const ratioMap: Record<ListingCardMediaRatio, number> = {
@@ -114,7 +120,13 @@ export function ListingCard({
   saveAction,
   shareAction,
   compact = false,
+  size = 'md',
+  interactiveMode = 'none',
+  revealContent,
+  onSurfaceActivate,
+  defaultFlipped = false,
 }: ListingCardProps) {
+  const cardPadding = compact ? 'md' : gdsCardSizePaddingMap[size];
   const titleContent =
     href && typeof title === 'string' ? (
       <Text component="a" href={href} inherit td="none">
@@ -124,8 +136,24 @@ export function ListingCard({
       title
     );
 
+  const interactiveProps = interactiveMode === 'surface-link' && href
+    ? { component: 'a' as const, href }
+    : interactiveMode === 'surface-button'
+      ? { component: 'button' as const, type: 'button' as const, onClick: onSurfaceActivate }
+      : {};
+
+  if (interactiveMode === 'flip' && defaultFlipped && revealContent) {
+    return (
+      <Card withBorder radius="lg" padding={cardPadding}>
+        <Stack gap="sm">
+          {revealContent}
+        </Stack>
+      </Card>
+    );
+  }
+
   return (
-    <Card withBorder radius="lg" padding={compact ? 'md' : 'lg'}>
+    <Card withBorder radius="lg" padding={cardPadding} {...interactiveProps}>
       <Stack gap={compact ? 'sm' : 'md'}>
         {image ?? <ListingImageFallback mediaRatio={mediaRatio} />}
 
@@ -147,7 +175,7 @@ export function ListingCard({
         ) : null}
 
         <Stack gap={4}>
-          <Title order={compact ? 5 : 4} lineClamp={2}>
+          <Title order={compact ? 5 : gdsCardTitleOrderMap[size]} lineClamp={2}>
             {titleContent}
           </Title>
           {description ? (
@@ -190,6 +218,7 @@ export function ListingCard({
             {saveAction ? <ListingAffordance affordance={saveAction} /> : null}
             {shareAction ? <ListingAffordance affordance={shareAction} /> : null}
             {primaryAction}
+            {interactiveMode === 'flip' && revealContent ? <Text size="xs" c="dimmed">Flip mode supports reveal surfaces.</Text> : null}
           </Group>
         </Group>
       </Stack>

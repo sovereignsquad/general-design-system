@@ -578,17 +578,27 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <ActionBar primary={{ action: 'save' }} iconOnly={[{ action: 'settings' }, { action: 'search' }, { action: 'help' }]} />;
     case 'product-cards':
       return (
-        <ProductCard
-          title="Reusable product"
-          description="One product contract across products and docs."
-          status="Published"
-          metadata={[{ label: 'Price', value: '€39' }]}
-          primaryAction={<a href="/general-design-system/patterns/public">Open</a>}
-          secondaryActions={[
-            { label: 'Save', href: '/general-design-system/patterns' },
-            { label: 'Share', href: '/general-design-system/patterns' },
-          ]}
-        />
+        <div>
+          <ProductCard
+            title="Reusable product"
+            description="One product contract across products and docs."
+            status="Published"
+            size="md"
+            metadata={[{ label: 'Price', value: '€39' }]}
+            primaryAction={<a href="/general-design-system/patterns/public">Open</a>}
+            secondaryActions={[
+              { label: 'Save', href: '/general-design-system/patterns' },
+              { label: 'Share', href: '/general-design-system/patterns' },
+            ]}
+          />
+          <ProductCard
+            title="Compact product"
+            description="Smaller size variant."
+            status="Draft"
+            size="xs"
+            metadata={[{ label: 'Price', value: '€12' }]}
+          />
+        </div>
       );
     case 'public-product-cards':
       return (
@@ -596,8 +606,11 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Public product card"
           description="Flat media-first variant for licensed surfaces."
           price="€39"
+          size="lg"
           state="available"
           metadata={[{ label: 'Scope', value: 'UI primitives' }]}
+          interactiveMode="surface-button"
+          onSurfaceActivate={() => {}}
           primaryAction={<a href="/general-design-system/live-demos/surfaces">Buy</a>}
         />
       );
@@ -670,6 +683,9 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           primaryAction={<a href="/general-design-system/patterns">Open</a>}
           saveAction={{ action: 'save' }}
           shareAction={{ action: 'refer' }}
+          size="lg"
+          interactiveMode="flip"
+          revealContent={<p>Flip-side content slot for extended context and compliance-safe disclosure text.</p>}
         />
       );
     case 'share-button-group':

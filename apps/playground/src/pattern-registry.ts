@@ -108,6 +108,8 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Shell & Navigation Guidance',
     coverageStatus: 'live-demo',
     summary: 'Each user area must converge on one shell contract rather than page-local layout rhythm.',
+    importPath: '@doneisbetter/gds-core',
+    sourceComponent: 'DiscoveryShell / DocsShell / renderGdsLayout',
   },
   {
     id: 'discovery-shell',
@@ -945,7 +947,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Reporting-heavy workflows use governed period controls, evidence panels, chart-token wrappers, and fallback tables.',
     importPath: '@doneisbetter/gds-core',
-    sourceComponent: 'ReportingSection / PeriodSelector / EvidencePanel / ChartTokenPanel',
+    sourceComponent: 'ReportingSection / PeriodSelector / EvidencePanel / ChartTokenPanel / GdsChart',
   },
   {
     id: 'alerts',

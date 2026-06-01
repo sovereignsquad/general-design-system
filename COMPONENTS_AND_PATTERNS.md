@@ -112,6 +112,11 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Placeholder Panels** | Placeholder and coming-soon surfaces must be honest, visibly non-live, and must not imply fabricated data. | `md` |
 | **Simple Data Tables** | Public/product summary tables must support loading, empty, error, and threshold-safe states without importing admin CRUD semantics. | `md` |
 | **Advanced Data Table** | Enterprise/operator tables should use `AdvancedDataTable` for governed sorting, row selection, density modes, sticky headers, and responsive card fallback behavior. | `lg` |
+| **Theme Preset Registry** | Theme choice should use the shipped multi-preset registry (`getGdsThemePresets` + `resolveGdsThemePreset`) instead of product-local theme catalogs. | `md` |
+| **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes` + `applyGdsFontLane`) with governed fallback stacks. | `md` |
+| **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior. | `md` |
+| **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with fallback tables and state wrappers. | `lg` |
+| **Block Layout Schema** | Page assembly should use `renderGdsLayout` and schema-driven blocks for repeatable developer composition. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
 
 ## 4. Feedback & Messaging

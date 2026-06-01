@@ -24,19 +24,21 @@ import { StateBlock } from './StateBlock';
 import { ThemeToggle } from './ThemeToggle';
 import {
   GdsProvider,
-  createPublicBrandTheme,
-  gdsDarkPublicTheme,
-  gdsEditorialPublicTheme,
-  gdsFlatSurfaceTheme,
-  gdsTheme,
+  applyGdsFontLane,
+  getGdsFontLanes,
+  getGdsThemePresets,
+  resolveGdsThemePreset,
+  type GdsFontLaneId,
+  type GdsThemePresetId,
 } from '@doneisbetter/gds-theme';
 
-export type ThemePresetId = 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand';
+export type ThemePresetId = GdsThemePresetId;
 export type ThemeSchemeId = 'light' | 'dark' | 'auto';
 export interface ThemeExplorerSelection {
   preset: ThemePresetId;
   colorScheme: ThemeSchemeId;
   theme: MantineThemeOverride;
+  fontLane?: GdsFontLaneId;
 }
 
 function resolvePreviewColorScheme(presetId: ThemePresetId, requestedScheme: ThemeSchemeId): ThemeSchemeId {
@@ -47,58 +49,20 @@ function resolvePreviewColorScheme(presetId: ThemePresetId, requestedScheme: The
   return requestedScheme;
 }
 
-const themePresetCatalog: Record<
-  ThemePresetId,
-  {
-    label: string;
-    bestFor: string;
-    summary: string;
-    themeKey: string;
-    supportedUse: string;
-    avoidFor?: string;
-  }
-> = {
-  default: {
-    label: 'Default runtime theme',
-    bestFor: 'Balanced multi-surface products that need the baseline GDS system.',
-    summary: 'The default shared runtime lane for most adopters.',
-    themeKey: 'gdsTheme',
-    supportedUse: 'Starter products, hybrid public/admin apps, and teams adopting all canonical contracts.',
-    avoidFor: 'Avoid for products requiring a distinct editorial voice or guaranteed dark-first brand contrast.',
-  },
-  'dark-public': {
-    label: 'Dark public theme',
-    bestFor: 'Dark-first public experiences and campaign-style landing surfaces.',
-    summary: 'A darker public presentation lane with the shipped runtime rhythm intact.',
-    themeKey: 'gdsDarkPublicTheme',
-    supportedUse: 'Products with a deliberate dark visual baseline, low-light UX, or premium media-first surfaces.',
-    avoidFor: 'Avoid when mixed mode and editorial readability are core requirements.',
-  },
-  'flat-surface': {
-    label: 'Flat surface theme',
-    bestFor: 'Operational products that prefer quieter elevation and flatter surface contrast.',
-    summary: 'Removes some visual weight without creating a second token authority.',
-    themeKey: 'gdsFlatSurfaceTheme',
-    supportedUse: 'Dashboards, admin surfaces, and dense content where elevation becomes distracting.',
-    avoidFor: 'Avoid for brand-first storytelling or high-expressiveness hero-first pages.',
-  },
-  editorial: {
-    label: 'Editorial serif theme',
-    bestFor: 'Documentation, editorial, and content-led experiences.',
-    summary: 'Adds a more expressive public reading tone while staying inside GDS contracts.',
-    themeKey: 'gdsEditorialPublicTheme',
-    supportedUse: 'Guides, docs, and catalog content where reading comfort matters more than impact.',
-    avoidFor: 'Avoid for dense transactional or data-first workflows with strict minimal contrast.',
-  },
-  brand: {
-    label: 'Brand theme generator',
-    bestFor: 'Consumer teams that need controlled brand expression without forking the system.',
-    summary: 'Composes the shipped helpers into a governed product-authored theme lane.',
-    themeKey: 'createPublicBrandTheme(...)',
-    supportedUse: 'Whitelisted public branding programs with narrow product-authored intent and policy guardrails.',
-    avoidFor: 'Avoid for local style experiments or temporary visual fixes without compliance approval.',
-  },
-};
+const presetCatalog = getGdsThemePresets();
+const themePresetCatalog = Object.fromEntries(
+  presetCatalog.map((preset) => [
+    preset.id,
+    {
+      label: preset.label,
+      bestFor: `Apps aligned with ${preset.label.toLowerCase()}.`,
+      summary: preset.description,
+      themeKey: preset.runtimeLane,
+      supportedUse: `General product adoption with ${preset.label}.`,
+      avoidFor: 'Avoid creating a local non-canonical theme authority.',
+    },
+  ]),
+) as Record<ThemePresetId, { label: string; bestFor: string; summary: string; themeKey: string; supportedUse: string; avoidFor?: string }>;
 
 const colorSchemeProof = [
   {
@@ -210,27 +174,16 @@ export function ReferenceThemeExplorer({
   const [brandPrimary, setBrandPrimary] = useState('blue');
   const [brandFlatSurfaces, setBrandFlatSurfaces] = useState(true);
   const [brandEditorialSerif, setBrandEditorialSerif] = useState(false);
+  const [fontLane, setFontLane] = useState<GdsFontLaneId>('inter');
   const [comparisonEnabled, setComparisonEnabled] = useState(false);
   const [comparisonPreset, setComparisonPreset] = useState<ThemePresetId>('editorial');
 
-  const resolveTheme = (presetId: ThemePresetId) => {
-    switch (presetId) {
-      case 'dark-public':
-        return gdsDarkPublicTheme;
-      case 'flat-surface':
-        return gdsFlatSurfaceTheme;
-      case 'editorial':
-        return gdsEditorialPublicTheme;
-      case 'brand':
-        return createPublicBrandTheme({
-          flatSurfaces: brandFlatSurfaces,
-          editorialSerif: brandEditorialSerif,
-          overrides: { primaryColor: brandPrimary },
-        });
-      default:
-        return gdsTheme;
-    }
-  };
+  const resolveTheme = (presetId: ThemePresetId) =>
+    applyGdsFontLane(resolveGdsThemePreset(presetId, {
+      brandPrimary,
+      brandFlatSurfaces,
+      brandEditorialSerif,
+    }), fontLane);
 
   const selectionSummary = themePresetCatalog[preset];
   const comparisonSummary = themePresetCatalog[comparisonPreset];
@@ -239,16 +192,17 @@ export function ReferenceThemeExplorer({
   const effectiveColorScheme = resolvePreviewColorScheme(preset, colorScheme);
   const effectiveComparisonScheme = resolvePreviewColorScheme(comparisonPreset, colorScheme);
 
-  const previewKey = `${preset}-${effectiveColorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
-  const comparisonPreviewKey = `${comparisonPreset}-${effectiveComparisonScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}`;
+  const previewKey = `${preset}-${effectiveColorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
+  const comparisonPreviewKey = `${comparisonPreset}-${effectiveComparisonScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
 
   useEffect(() => {
     onSelectionChange?.({
       preset,
       colorScheme: effectiveColorScheme,
       theme: selectedTheme,
+      fontLane,
     });
-  }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme]);
+  }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme, fontLane]);
 
   const reset = () => {
     setPreset('default');
@@ -258,6 +212,7 @@ export function ReferenceThemeExplorer({
     setBrandEditorialSerif(false);
     setComparisonEnabled(false);
     setComparisonPreset('editorial');
+    setFontLane('inter');
   };
 
   return (
@@ -288,6 +243,14 @@ export function ReferenceThemeExplorer({
                     { value: 'dark', label: 'Dark' },
                     { value: 'auto', label: 'Auto' },
                   ]}
+                />
+              </FormField>
+              <FormField label="Webfont lane">
+                <NativeSelect
+                  aria-label="Webfont lane"
+                  value={fontLane}
+                  onChange={(event) => setFontLane((event.currentTarget.value as GdsFontLaneId) || 'inter')}
+                  data={getGdsFontLanes().map((lane) => ({ value: lane.id, label: lane.label }))}
                 />
               </FormField>
               <Button variant="default" size="sm" onClick={reset}>

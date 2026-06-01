@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Badge, Card, Group, Menu, Stack, Text, ThemeIcon, Title, ActionIcon } from '@mantine/core';
 import { GdsIcons } from './icons';
+import { gdsCardSizePaddingMap, gdsCardTitleOrderMap, type GdsCardSize } from './CardContracts';
 
 export interface ProductCardMetaItem {
   label: string;
@@ -24,6 +25,7 @@ export interface ProductCardProps {
   primaryAction?: ReactNode;
   secondaryActions?: ProductCardAction[];
   footer?: ReactNode;
+  size?: GdsCardSize;
 }
 
 export function ProductCard({
@@ -36,11 +38,12 @@ export function ProductCard({
   primaryAction,
   secondaryActions = [],
   footer,
+  size = 'md',
 }: ProductCardProps) {
   const MoreIcon = GdsIcons.Menu;
 
   return (
-    <Card withBorder radius="lg" padding="lg">
+    <Card withBorder radius="lg" padding={gdsCardSizePaddingMap[size]}>
       <Stack gap="md">
         {media}
 
@@ -52,7 +55,7 @@ export function ProductCard({
               </ThemeIcon>
             ) : null}
             <Stack gap={4}>
-              <Title order={4}>{title}</Title>
+              <Title order={gdsCardTitleOrderMap[size]}>{title}</Title>
               {description ? (
                 <Text size="sm" c="dimmed" lineClamp={3}>
                   {description}

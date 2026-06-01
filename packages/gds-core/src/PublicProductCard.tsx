@@ -2,6 +2,7 @@ import type { ReactElement, ReactNode } from 'react';
 import { cloneElement, isValidElement } from 'react';
 import { AspectRatio, Badge, Card, Group, Skeleton, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
+import { gdsCardSizePaddingMap, gdsCardTitleOrderMap, type GdsCardInteractiveMode, type GdsCardSize } from './CardContracts';
 
 export type PublicProductCardState = 'available' | 'limited' | 'sold-out' | 'preorder';
 export type PublicProductCardHelperKind = 'supporting' | 'pickup' | 'inventory';
@@ -27,8 +28,11 @@ export interface PublicProductCardProps {
   secondaryAction?: ReactNode;
   metadata?: PublicProductCardMetaItem[];
   compact?: boolean;
+  size?: GdsCardSize;
   loading?: boolean;
   disabled?: boolean;
+  interactiveMode?: GdsCardInteractiveMode;
+  onSurfaceActivate?: () => void;
 }
 
 const stateConfig: Record<PublicProductCardState, { label: string; color: string }> = {
@@ -101,8 +105,11 @@ export function PublicProductCard({
   secondaryAction,
   metadata = [],
   compact = false,
+  size = 'md',
   loading = false,
   disabled = false,
+  interactiveMode = 'none',
+  onSurfaceActivate,
 }: PublicProductCardProps) {
   if (loading) {
     return <LoadingCard compact={compact} />;
@@ -120,14 +127,18 @@ export function PublicProductCard({
   const inventoryHelper = helperKind === 'inventory' ? helperText : inventoryNote;
   const hasSupportingRegion = Boolean(price || supportingHelper || pickupHelper || inventoryHelper);
 
+  const interactiveProps = interactiveMode === 'surface-button'
+    ? { component: 'button' as const, type: 'button' as const, onClick: onSurfaceActivate }
+    : {};
+
   return (
-    <Card withBorder radius="lg" padding={compact ? 'md' : 'lg'}>
+    <Card withBorder radius="lg" padding={compact ? 'md' : gdsCardSizePaddingMap[size]} {...interactiveProps}>
       <Stack gap={compact ? 'sm' : 'md'}>
         {image ?? <ImageFallback compact={compact} />}
 
         <Group justify="space-between" align="flex-start" wrap="nowrap" gap="sm">
           <Stack gap={4} style={{ minWidth: 0, flex: 1 }}>
-            <Title order={compact ? 5 : 4} lineClamp={2}>
+            <Title order={compact ? 5 : gdsCardTitleOrderMap[size]} lineClamp={2}>
               {title}
             </Title>
             {description ? (

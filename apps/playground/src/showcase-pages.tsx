@@ -9,7 +9,9 @@ import {
   DocsPageShell,
   FeatureBand,
   FoodMenuSection,
+  GdsChart,
   ListingCard,
+  renderGdsLayout,
   MapPanel,
   MediaCard,
   MetricCard,
@@ -293,6 +295,17 @@ export function FoodMenuPage() {
 }
 
 export function LayoutsPage() {
+  const demoSchema = {
+    version: '1' as const,
+    blocks: [
+      { id: 'hero-1', type: 'hero' as const, props: { title: 'Block hero', description: 'Schema-composed layout hero.' } },
+      { id: 'stats-1', type: 'stats' as const, props: { items: [{ label: 'Blocks', value: '6' }, { label: 'Schema', value: 'v1' }, { label: 'Status', value: 'Live' }] } },
+      { id: 'cards-1', type: 'cards-grid' as const, props: { items: [{ title: 'Block card A', description: 'Composable listing slot.' }, { title: 'Block card B', description: 'Shared contract only.' }] } },
+      { id: 'cta-1', type: 'cta' as const, props: {} },
+      { id: 'footer-1', type: 'footer' as const, props: { text: 'Layout block footer contract.' } },
+    ],
+  };
+
   return (
     <DocsPageShell
       title="Shells & Layouts"
@@ -394,6 +407,13 @@ export function LayoutsPage() {
           statusMessage="Accessible playback surface with bounded description and media containment."
           media={<div />}
         />
+      </ReferenceSection>
+
+      <ReferenceSection
+        title="Block-based layout schema"
+        description="Developers can compose pages from governed blocks using the shared schema renderer."
+      >
+        {renderGdsLayout(demoSchema)}
       </ReferenceSection>
 
       <DemoFooter />
@@ -572,6 +592,23 @@ export function AnalyticsPage() {
           belowThreshold
           thresholdMessage="This report remains hidden until the consumer has enough live traffic to produce stable numbers."
         />
+      </ReferenceSection>
+
+      <ReferenceSection title="Expanded chart catalog" description="GDS now exposes a governed 12-type chart contract with shared state and fallback behavior.">
+        <ConsumerDashboardGrid columns={3}>
+          <GdsChart type="line" title="Line chart" summary="Trend over time." data={[{ label: 'Mon', value: 12 }, { label: 'Tue', value: 19 }]} />
+          <GdsChart type="area" title="Area chart" summary="Filled trend continuity." data={[{ label: 'A', value: 7 }, { label: 'B', value: 16 }]} />
+          <GdsChart type="bar" title="Bar chart" summary="Category totals." data={[{ label: 'North', value: 44 }, { label: 'South', value: 30 }]} />
+          <GdsChart type="stacked-bar" title="Stacked bar chart" summary="Grouped category totals." data={[{ label: 'Q1', value: 34, group: 'A' }, { label: 'Q1', value: 21, group: 'B' }]} />
+          <GdsChart type="pie" title="Pie chart" summary="Part-to-whole split." data={[{ label: 'Organic', value: 62 }, { label: 'Paid', value: 38 }]} />
+          <GdsChart type="donut" title="Donut chart" summary="Part-to-whole with center context." data={[{ label: 'Web', value: 75 }, { label: 'Store', value: 25 }]} />
+          <GdsChart type="radar" title="Radar chart" summary="Multi-dimension profile." data={[{ label: 'Reach', value: 80 }, { label: 'Retention', value: 63 }]} />
+          <GdsChart type="scatter" title="Scatter chart" summary="Correlation map." data={[{ label: 'Point A', value: 21 }, { label: 'Point B', value: 40 }]} />
+          <GdsChart type="bubble" title="Bubble chart" summary="Weighted scatter profile." data={[{ label: 'Segment A', value: 30 }, { label: 'Segment B', value: 55 }]} />
+          <GdsChart type="heatmap" title="Heatmap" summary="Intensity by matrix cell." data={[{ label: 'Cell 1', value: 9 }, { label: 'Cell 2', value: 4 }]} />
+          <GdsChart type="funnel" title="Funnel chart" summary="Stage conversion progression." data={[{ label: 'Visits', value: 100 }, { label: 'Leads', value: 25 }]} />
+          <GdsChart type="treemap" title="Treemap" summary="Hierarchical distribution." data={[{ label: 'Cluster A', value: 54 }, { label: 'Cluster B', value: 31 }]} />
+        </ConsumerDashboardGrid>
       </ReferenceSection>
 
       <DemoFooter />
