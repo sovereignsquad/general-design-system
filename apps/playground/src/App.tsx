@@ -207,7 +207,14 @@ function PlaygroundContent() {
           </option>
         ))}
       </select>
-      <ThemeToggle />
+      <ThemeToggle
+        onColorSchemeChange={(nextScheme) =>
+          setSiteThemeSelection((previous) => ({
+            ...previous,
+            colorScheme: nextScheme,
+          }))
+        }
+      />
     </>
   );
 

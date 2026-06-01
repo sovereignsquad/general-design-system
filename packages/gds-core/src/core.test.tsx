@@ -1060,17 +1060,20 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
   it('exposes an accessible theme toggle and switches the color scheme', async () => {
     const user = userEvent.setup();
+    const changes: Array<'light' | 'dark'> = [];
 
-    renderWithGds(<ThemeToggle />);
+    renderWithGds(<ThemeToggle onColorSchemeChange={(next) => changes.push(next)} />);
 
     const toggle = screen.getByRole('button', { name: 'Toggle color scheme' });
     expect(toggle).toBeInTheDocument();
 
     await user.click(toggle);
     expect(document.documentElement.getAttribute('data-mantine-color-scheme')).toBe('dark');
+    expect(changes.at(-1)).toBe('dark');
 
     await user.click(toggle);
     expect(document.documentElement.getAttribute('data-mantine-color-scheme')).toBe('light');
+    expect(changes.at(-1)).toBe('light');
   });
 
   it('renders the reference theme explorer with all official lanes and recovery guidance', async () => {
