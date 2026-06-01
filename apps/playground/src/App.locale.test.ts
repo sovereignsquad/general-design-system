@@ -6,11 +6,11 @@ describe('playground route locale coverage', () => {
     expect(hasFullRouteLocalization('/install', 'de')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'fr')).toBe(true);
     expect(hasFullRouteLocalization('/', 'de')).toBe(true);
-    expect(hasFullRouteLocalization('/themes', 'de')).toBe(true);
+    expect(hasFullRouteLocalization('/themes', 'de')).toBe(false);
     expect(hasFullRouteLocalization('/governance', 'fr')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'it')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'ru')).toBe(true);
-    expect(hasFullRouteLocalization('/themes', 'he')).toBe(true);
+    expect(hasFullRouteLocalization('/themes', 'he')).toBe(false);
     expect(hasFullRouteLocalization('/governance', 'ar')).toBe(true);
     expect(hasFullRouteLocalization('/', 'hu')).toBe(true);
 

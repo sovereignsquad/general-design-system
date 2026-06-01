@@ -145,14 +145,7 @@
       {
         "routePrefix": "/themes",
         "fullCopyLocales": [
-          "en",
-          "de",
-          "fr",
-          "it",
-          "ru",
-          "he",
-          "ar",
-          "hu"
+          "en"
         ]
       }
     ],
