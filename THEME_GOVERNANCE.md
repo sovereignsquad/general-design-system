@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.0.0
-Last updated: 2026-05-31
+Last updated: 2026-06-01
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
 
@@ -185,3 +185,82 @@ The GitHub Pages theme route must prove all approved lanes before the 3.0.0 rele
 - explicit unsupported-lane guidance that explains why `extendGdsTheme(...)`, `createTheme(...)`, and `mergeMantineTheme(...)` are prohibited in consumer-owned theme files
 
 If any lane regresses contrast or keyboard/focus visibility, block the release and keep consumers on the previous stable package line until the lane is fixed.
+
+## Runtime persistence contract
+
+Theme selection is part of the public reference-site runtime contract, not temporary page state.
+
+The official website and any governed adopter that offers theme or typography switching must preserve the selected runtime across:
+
+- internal navigation
+- direct links to nested routes
+- GitHub Pages or static-host SPA fallback reloads
+- full browser refreshes
+- remounting the theme explorer after visiting another route
+
+Required implementation:
+
+1. Store only serializable theme intent:
+   - preset id
+   - effective color scheme
+   - font lane id
+   - brand primary id
+   - governed brand flags
+   - runtime key
+2. Reconstruct the Mantine theme from GDS helpers on startup:
+   - `resolveGdsThemePreset(...)`
+   - `applyGdsFontLane(...)`
+3. Apply the reconstructed runtime to the root provider before route content depends on it.
+4. Set root runtime attributes for inspection and regression checks:
+   - `data-mantine-color-scheme`
+   - `data-gds-theme-runtime`
+   - `data-gds-font-lane`
+5. Pass the active runtime selection back into `ReferenceThemeExplorer` so controls reflect the whole-site runtime instead of resetting to local defaults.
+6. Treat storage as best-effort. If `localStorage` is blocked, theme application must still work for the current session.
+7. Add regression coverage that selects a non-default preset and non-default font lane, remounts the app on a nested route, and verifies the selected runtime survives.
+
+What ruins the system:
+
+- keeping theme selection only in component-local `useState`
+- storing a full Mantine theme object instead of serializable intent
+- rebuilding the root provider from `gdsTheme` defaults on every direct route load
+- letting `/themes` controls own a private runtime that differs from the site shell
+- using route-local CSS, `light-dark(...)` patches, or page-specific providers to fake runtime changes
+- persisting only color scheme while dropping preset, font lane, or brand-generator options
+- allowing static-host 404 fallback loads to reset the runtime
+- using `extendGdsTheme(...)`, `createTheme(...)`, or `mergeMantineTheme(...)` in consumer-owned theme files as a shortcut around the approved lane contract
+
+Preferred reference-site shape:
+
+```ts
+type StoredThemeSelection = {
+  preset: GdsThemePresetId;
+  colorScheme: 'light' | 'dark' | 'auto';
+  fontLane: GdsFontLaneId;
+  runtimeKey?: string;
+  brandPrimary?: string;
+  brandFlatSurfaces?: boolean;
+  brandEditorialSerif?: boolean;
+};
+
+const selection = createThemeSelection(readStoredSelection());
+
+<GdsProvider
+  theme={selection.theme}
+  defaultColorScheme={selection.colorScheme}
+  forceColorScheme={selection.colorScheme === 'auto' ? undefined : selection.colorScheme}
+>
+  <ReferenceThemeExplorer
+    initialSelection={selection}
+    onSelectionChange={persistAndApplySelection}
+  />
+</GdsProvider>;
+```
+
+Review checklist for runtime-theme work:
+
+- Can a visitor choose `Oceanic wave`, switch to dark mode, choose `Space Grotesk`, then open `/live-demos/surfaces` directly without losing the runtime?
+- Do direct links and static-host fallback pages serve the same persisted runtime as normal internal navigation?
+- Are font files or imports available for every advertised font lane?
+- Does the test harness use a real in-memory storage implementation instead of a no-op storage mock?
+- Does CI fail if the persistence contract is removed from the official reference app?

@@ -111,6 +111,7 @@ Reviewers must ask:
 - Does this use Mantine primitives or thin wrappers?
 - Could theme defaults solve this instead of local override logic?
 - Does this use the documented server-safe/client-safe import path for the target runtime?
+- If runtime theme or typography switching is present, does it persist serializable theme intent across direct links, static-host fallback reloads, browser refreshes, and route remounts?
 - Are loading, empty, error, disabled, and success states explicitly handled?
 - Does this use an existing local pattern-service contract instead of inventing a page-local version?
 - Does the component remain keyboard and screen-reader usable?
