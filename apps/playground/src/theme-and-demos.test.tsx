@@ -21,7 +21,7 @@ describe('playground theme explorer and live demos hub', () => {
     fireEvent.change(schemeSelect, { target: { value: 'dark' } });
 
     expect(screen.getAllByText('Brand theme generator').length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/controlled brand expression/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText('createPublicBrandTheme(...)').length).toBeGreaterThan(0);
     expect(screen.getAllByText((_, node) => node?.textContent?.includes('Color scheme: dark') ?? false).length).toBeGreaterThan(0);
 
     fireEvent.click(screen.getByLabelText('Compare against a second shipped preset'));

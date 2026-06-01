@@ -177,6 +177,7 @@ export function ReferenceThemeExplorer({
   const [fontLane, setFontLane] = useState<GdsFontLaneId>('inter');
   const [comparisonEnabled, setComparisonEnabled] = useState(false);
   const [comparisonPreset, setComparisonPreset] = useState<ThemePresetId>('editorial');
+  const availableComparisonPresets = presetCatalog.filter((item) => item.id !== preset).map((item) => item.id);
 
   const resolveTheme = (presetId: ThemePresetId) =>
     applyGdsFontLane(resolveGdsThemePreset(presetId, {
@@ -187,8 +188,8 @@ export function ReferenceThemeExplorer({
 
   const selectionSummary = themePresetCatalog[preset];
   const comparisonSummary = themePresetCatalog[comparisonPreset];
-  const selectedTheme = useMemo(() => resolveTheme(preset), [preset, brandPrimary, brandFlatSurfaces, brandEditorialSerif]);
-  const comparedTheme = useMemo(() => resolveTheme(comparisonPreset), [comparisonPreset, brandPrimary, brandFlatSurfaces, brandEditorialSerif]);
+  const selectedTheme = useMemo(() => resolveTheme(preset), [preset, brandPrimary, brandFlatSurfaces, brandEditorialSerif, fontLane]);
+  const comparedTheme = useMemo(() => resolveTheme(comparisonPreset), [comparisonPreset, brandPrimary, brandFlatSurfaces, brandEditorialSerif, fontLane]);
   const effectiveColorScheme = resolvePreviewColorScheme(preset, colorScheme);
   const effectiveComparisonScheme = resolvePreviewColorScheme(comparisonPreset, colorScheme);
 
@@ -203,6 +204,14 @@ export function ReferenceThemeExplorer({
       fontLane,
     });
   }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme, fontLane]);
+
+  useEffect(() => {
+    if (comparisonPreset !== preset) {
+      return;
+    }
+
+    setComparisonPreset(availableComparisonPresets[0] ?? 'editorial');
+  }, [comparisonPreset, preset, availableComparisonPresets]);
 
   const reset = () => {
     setPreset('default');
@@ -327,9 +336,7 @@ export function ReferenceThemeExplorer({
                   value={comparisonPreset}
                   onChange={(event) => setComparisonPreset((event.currentTarget.value as ThemePresetId) || 'editorial')}
                   disabled={!comparisonEnabled}
-                  data={Object.entries(themePresetCatalog)
-                    .filter(([value]) => value !== preset)
-                    .map(([value, item]) => ({ value, label: item.label }))}
+                  data={availableComparisonPresets.map((value) => ({ value, label: themePresetCatalog[value].label }))}
                 />
               </FormField>
             </Stack>
