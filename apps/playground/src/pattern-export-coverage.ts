@@ -49,6 +49,7 @@ export const patternExportCoverage: ExportCoverageEntry[] = [
   { packageName: '@doneisbetter/gds-core', exportName: 'MetricCard', status: 'live-demo', registryId: 'metric-cards', rationale: 'Canonical metric card.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'GdsNotificationProvider', status: 'live-demo', registryId: 'notifications', rationale: 'Canonical notification provider and queue contract.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'NotificationCenter', status: 'live-demo', registryId: 'notifications', rationale: 'Canonical persistent notification-center rendering contract.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'NotificationCenterView', status: 'support-api', registryId: 'notifications', rationale: 'Server-safe notification-center view used by the client queue facade.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'InlineAlert', status: 'live-demo', registryId: 'alerts', rationale: 'Canonical inline alert primitive for local contextual messaging.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'BannerNotice', status: 'live-demo', registryId: 'notifications', rationale: 'Canonical banner-style notification surface.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'PageHeader', status: 'live-demo', registryId: 'page-headers', rationale: 'Core page-header contract for public/shared surfaces.' },

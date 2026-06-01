@@ -1,6 +1,3 @@
-'use client';
-
-import { createContext, useContext, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Alert, Badge, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import type { StateBlockVariant } from './StateBlock';
@@ -34,13 +31,6 @@ export interface BannerNoticeProps extends InlineAlertProps {
   eyebrow?: ReactNode;
 }
 
-interface GdsNotificationContextValue {
-  notifications: GdsNotificationMessage[];
-  notify: (message: GdsNotificationMessage) => void;
-  dismiss: (id: string) => void;
-  clear: () => void;
-}
-
 const notificationColorMap: Record<GdsNotificationSeverity, string> = {
   success: 'teal',
   error: 'red',
@@ -55,47 +45,6 @@ function severityToStateVariant(severity: GdsNotificationSeverity): StateBlockVa
   if (severity === 'warning') return 'not-enough-data';
   if (severity === 'neutral') return 'disabled';
   return 'info';
-}
-
-const GdsNotificationContext = createContext<GdsNotificationContextValue | null>(null);
-
-export function GdsNotificationProvider({ children }: { children: ReactNode }) {
-  const [notifications, setNotifications] = useState<GdsNotificationMessage[]>([]);
-
-  const value = useMemo<GdsNotificationContextValue>(() => ({
-    notifications,
-    notify: (message) => {
-      setNotifications((current) => {
-        const rest = current.filter((item) => item.id !== message.id);
-        return [...rest, message];
-      });
-      if (typeof message.autoCloseMs === 'number' && message.autoCloseMs > 0) {
-        window.setTimeout(() => {
-          setNotifications((current) => current.filter((item) => item.id !== message.id));
-        }, message.autoCloseMs);
-      }
-    },
-    dismiss: (id) => {
-      setNotifications((current) => current.filter((item) => item.id !== id));
-    },
-    clear: () => {
-      setNotifications([]);
-    },
-  }), [notifications]);
-
-  return (
-    <GdsNotificationContext.Provider value={value}>
-      {children}
-    </GdsNotificationContext.Provider>
-  );
-}
-
-export function useGdsNotifications() {
-  const context = useContext(GdsNotificationContext);
-  if (!context) {
-    throw new Error('useGdsNotifications must be used within GdsNotificationProvider.');
-  }
-  return context;
 }
 
 export function InlineAlert({
@@ -146,21 +95,25 @@ export function BannerNotice({
   );
 }
 
-export function NotificationCenter({
+export function NotificationCenterView({
+  notifications,
+  onDismiss,
+  onClear,
   title = 'Notifications',
   emptyMessage = 'No active notifications.',
 }: {
+  notifications: GdsNotificationMessage[];
+  onDismiss?: (id: string) => void;
+  onClear?: () => void;
   title?: ReactNode;
   emptyMessage?: ReactNode;
 }) {
-  const { notifications, dismiss, clear } = useGdsNotifications();
-
   return (
     <Paper withBorder radius="lg" p="md">
       <Stack gap="md">
         <Group justify="space-between" align="center">
           <Title order={4}>{title}</Title>
-          <Button size="xs" variant="subtle" onClick={clear} disabled={notifications.length === 0}>
+          <Button size="xs" variant="subtle" onClick={onClear} disabled={notifications.length === 0 || !onClear}>
             Clear all
           </Button>
         </Group>
@@ -181,7 +134,7 @@ export function NotificationCenter({
                         {action.label}
                       </Button>
                     ))}
-                    <Button size="xs" variant="subtle" onClick={() => dismiss(item.id)}>
+                    <Button size="xs" variant="subtle" onClick={() => onDismiss?.(item.id)} disabled={!onDismiss}>
                       Dismiss
                     </Button>
                   </Group>
