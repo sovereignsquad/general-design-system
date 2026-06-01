@@ -28,6 +28,10 @@ describe('playground app runtime theme flow', () => {
       expect(document.documentElement.getAttribute('data-mantine-color-scheme')).toBe('dark'),
     );
 
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toContain('brand-dark'),
+    );
+
     expect((presetSelect as HTMLSelectElement).value).toBe('brand');
   });
 
@@ -74,5 +78,24 @@ describe('playground app runtime theme flow', () => {
     expect((editorialCheckbox as HTMLInputElement).checked).toBe(true);
     expect((compareCheckbox as HTMLInputElement).checked).toBe(true);
     expect((comparisonPresetSelect as HTMLSelectElement).value).toBe('dark-public');
+  });
+
+  it('applies a dark-forward preset to the whole app runtime without a manual scheme step', async () => {
+    window.history.pushState({}, '', '/general-design-system/themes');
+
+    render(<App />);
+
+    const presetSelect = await screen.findByLabelText('Preset');
+
+    fireEvent.change(presetSelect, { target: { value: 'neon-night' } });
+
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-mantine-color-scheme')).toBe('dark'),
+    );
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toContain('neon-night-dark'),
+    );
+
+    expect((presetSelect as HTMLSelectElement).value).toBe('neon-night');
   });
 });

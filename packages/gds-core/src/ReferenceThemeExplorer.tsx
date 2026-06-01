@@ -39,10 +39,11 @@ export interface ThemeExplorerSelection {
   colorScheme: ThemeSchemeId;
   theme: MantineThemeOverride;
   fontLane?: GdsFontLaneId;
+  runtimeKey?: string;
 }
 
 function resolvePreviewColorScheme(presetId: ThemePresetId, requestedScheme: ThemeSchemeId): ThemeSchemeId {
-  if (presetId === 'dark-public') {
+  if (presetId === 'dark-public' || presetId === 'neon-night') {
     return 'dark';
   }
 
@@ -202,8 +203,9 @@ export function ReferenceThemeExplorer({
       colorScheme: effectiveColorScheme,
       theme: selectedTheme,
       fontLane,
+      runtimeKey: previewKey,
     });
-  }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme, fontLane]);
+  }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme, fontLane, previewKey]);
 
   useEffect(() => {
     if (comparisonPreset !== preset) {
@@ -318,9 +320,9 @@ export function ReferenceThemeExplorer({
                 <Text size="sm">
                   <strong>Color scheme:</strong> {colorScheme}
                 </Text>
-                {preset === 'dark-public' && colorScheme !== effectiveColorScheme ? (
+                {(preset === 'dark-public' || preset === 'neon-night') && colorScheme !== effectiveColorScheme ? (
                   <Text size="sm" c="dimmed">
-                    gdsDarkPublicTheme always renders in dark mode inside the live preview.
+                    This dark-forward preset always renders in dark mode inside the live preview.
                   </Text>
                 ) : null}
               </Stack>

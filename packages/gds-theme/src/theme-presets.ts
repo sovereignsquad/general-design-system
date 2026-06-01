@@ -22,25 +22,57 @@ export interface GdsThemePreset {
   runtimeLane: string;
 }
 
-const customPresetThemes: Record<Exclude<GdsThemePresetId, 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand'>, MantineThemeOverride> = {
-  sunset: extendGdsTheme({ primaryColor: 'orange' }),
-  oceanic: extendGdsTheme({ primaryColor: 'cyan' }),
-  forest: extendGdsTheme({ primaryColor: 'green' }),
-  ruby: extendGdsTheme({ primaryColor: 'red' }),
-  amber: extendGdsTheme({ primaryColor: 'yellow' }),
-  'neon-night': extendGdsTheme({
-    primaryColor: 'lime',
+function createVibrantPresetTheme(primaryColor: string, options: { darkForward?: boolean } = {}): MantineThemeOverride {
+  const darkSurface = options.darkForward
+    ? `color-mix(in srgb, var(--mantine-color-${primaryColor}-9) 18%, var(--mantine-color-dark-8))`
+    : 'var(--mantine-color-dark-8)';
+
+  return extendGdsTheme({
+    primaryColor,
     components: {
+      AppShell: {
+        styles: {
+          main: {
+            background: `light-dark(color-mix(in srgb, var(--mantine-color-${primaryColor}-0) 58%, var(--mantine-color-white)), ${darkSurface})`,
+          },
+          header: {
+            background: `light-dark(color-mix(in srgb, var(--mantine-color-${primaryColor}-0) 68%, var(--mantine-color-white)), var(--mantine-color-dark-8))`,
+            borderColor: `light-dark(var(--mantine-color-${primaryColor}-2), var(--mantine-color-dark-5))`,
+          },
+          navbar: {
+            background: `light-dark(color-mix(in srgb, var(--mantine-color-${primaryColor}-0) 48%, var(--mantine-color-white)), var(--mantine-color-dark-8))`,
+            borderColor: `light-dark(var(--mantine-color-${primaryColor}-2), var(--mantine-color-dark-5))`,
+          },
+        },
+      },
       Card: {
         styles: {
           root: {
-            backgroundColor: 'light-dark(var(--mantine-color-lime-0), color-mix(in srgb, var(--mantine-color-lime-9) 10%, var(--mantine-color-dark-7)))',
+            background: `light-dark(var(--mantine-color-white), color-mix(in srgb, var(--mantine-color-${primaryColor}-9) 10%, var(--mantine-color-dark-7)))`,
+            borderColor: `light-dark(var(--mantine-color-${primaryColor}-2), var(--mantine-color-dark-4))`,
+          },
+        },
+      },
+      Paper: {
+        styles: {
+          root: {
+            background: `light-dark(color-mix(in srgb, var(--mantine-color-${primaryColor}-0) 16%, var(--mantine-color-white)), color-mix(in srgb, var(--mantine-color-${primaryColor}-9) 8%, var(--mantine-color-dark-7)))`,
+            borderColor: `light-dark(var(--mantine-color-${primaryColor}-2), var(--mantine-color-dark-4))`,
           },
         },
       },
     },
-  }),
-  skyline: extendGdsTheme({ primaryColor: 'indigo' }),
+  });
+}
+
+const customPresetThemes: Record<Exclude<GdsThemePresetId, 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand'>, MantineThemeOverride> = {
+  sunset: createVibrantPresetTheme('orange'),
+  oceanic: createVibrantPresetTheme('cyan'),
+  forest: createVibrantPresetTheme('green'),
+  ruby: createVibrantPresetTheme('red'),
+  amber: createVibrantPresetTheme('yellow'),
+  'neon-night': createVibrantPresetTheme('lime', { darkForward: true }),
+  skyline: createVibrantPresetTheme('indigo'),
 };
 
 const themePresetCatalog: GdsThemePreset[] = [

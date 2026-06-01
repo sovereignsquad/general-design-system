@@ -152,6 +152,7 @@ function PlaygroundContent() {
     preset: 'default',
     colorScheme: 'light',
     theme: gdsTheme,
+    runtimeKey: 'default-light-blue-true-false-inter',
   });
   const location = useLocation();
   useEffect(() => {
@@ -162,6 +163,7 @@ function PlaygroundContent() {
 
     const applyScheme = () => {
       document.documentElement.setAttribute('data-mantine-color-scheme', resolveScheme());
+      document.documentElement.setAttribute('data-gds-theme-runtime', siteThemeSelection.runtimeKey ?? `${siteThemeSelection.preset}-${siteThemeSelection.colorScheme}`);
     };
 
     applyScheme();
@@ -177,7 +179,7 @@ function PlaygroundContent() {
     return () => {
       mediaQuery.removeEventListener('change', handleChange);
     };
-  }, [siteThemeSelection.colorScheme]);
+  }, [siteThemeSelection.colorScheme, siteThemeSelection.preset, siteThemeSelection.runtimeKey]);
 
   const primaryRoutes = getPrimaryRoutes();
   const demoRoutes = getSecondaryRoutes('live-demos');

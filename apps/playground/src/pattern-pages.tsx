@@ -220,20 +220,21 @@ function FormArchitectureDemo() {
   );
 }
 
-function OverlayContractDemo() {
-  function OverlayProbe() {
-    const overlay = useOverlayManager();
-    const topOverlay = overlay.stack[overlay.stack.length - 1];
-    return (
-      <SectionPanel title="Overlay stack governance" description={`Top overlay: ${topOverlay?.id ?? 'none'}.`}>
-        <button type="button" onClick={() => overlay.registerOverlay({ id: 'dialog-a', kind: 'dialog', invokerId: 'open-dialog' })}>Register dialog</button>
-        <button type="button" onClick={() => overlay.registerOverlay({ id: 'drawer-a', kind: 'drawer', invokerId: 'open-drawer' })}>Register drawer</button>
-        <button type="button" onClick={() => overlay.unregisterOverlay('drawer-a')}>Unregister drawer</button>
-        <p>Escape close reason for top entry: {overlay.requestClose('drawer-a', 'escape') ?? 'blocked'}</p>
-      </SectionPanel>
-    );
-  }
+function OverlayProbe() {
+  const overlay = useOverlayManager();
+  const topOverlay = overlay.stack[overlay.stack.length - 1];
 
+  return (
+    <SectionPanel title="Overlay stack governance" description={`Top overlay: ${topOverlay?.id ?? 'none'}.`}>
+      <button type="button" onClick={() => overlay.registerOverlay({ id: 'dialog-a', kind: 'dialog', invokerId: 'open-dialog' })}>Register dialog</button>
+      <button type="button" onClick={() => overlay.registerOverlay({ id: 'drawer-a', kind: 'drawer', invokerId: 'open-drawer' })}>Register drawer</button>
+      <button type="button" onClick={() => overlay.unregisterOverlay('drawer-a')}>Unregister drawer</button>
+      <p>Escape close reason for top entry: {overlay.requestClose('drawer-a', 'escape') ?? 'blocked'}</p>
+    </SectionPanel>
+  );
+}
+
+function OverlayContractDemo() {
   return (
     <OverlayManagerProvider>
       <OverlayProbe />
@@ -241,25 +242,26 @@ function OverlayContractDemo() {
   );
 }
 
-function CommandPaletteDemo() {
-  function CommandProbe() {
-    const launcher = useCommandLauncher();
-    return (
-      <SectionPanel title="Command palette" description="Cmd/Ctrl+K opens the shared command surface.">
-        <button
-          type="button"
-          onClick={() => launcher.registerCommands([
-            { id: 'open-patterns', label: 'Open patterns', keywords: ['patterns', 'catalog'], shortcut: 'Cmd+1', run: () => {} },
-            { id: 'open-governance', label: 'Open governance', keywords: ['rules'], shortcut: 'Cmd+2', run: () => {} },
-          ])}
-        >
-          Register commands
-        </button>
-        <button type="button" onClick={() => launcher.open()}>Open command palette</button>
-      </SectionPanel>
-    );
-  }
+function CommandProbe() {
+  const launcher = useCommandLauncher();
 
+  return (
+    <SectionPanel title="Command palette" description="Cmd/Ctrl+K opens the shared command surface.">
+      <button
+        type="button"
+        onClick={() => launcher.registerCommands([
+          { id: 'open-patterns', label: 'Open patterns', keywords: ['patterns', 'catalog'], shortcut: 'Cmd+1', run: () => {} },
+          { id: 'open-governance', label: 'Open governance', keywords: ['rules'], shortcut: 'Cmd+2', run: () => {} },
+        ])}
+      >
+        Register commands
+      </button>
+      <button type="button" onClick={() => launcher.open()}>Open command palette</button>
+    </SectionPanel>
+  );
+}
+
+function CommandPaletteDemo() {
   return (
     <CommandRegistryProvider>
       <CommandProbe />
@@ -267,33 +269,34 @@ function CommandPaletteDemo() {
   );
 }
 
+function TelemetryProbe({ events }: { events: string[] }) {
+  const telemetry = useGdsTelemetry();
+
+  return (
+    <SectionPanel title="Telemetry contract" description="Cross-primitive event contract with privacy-safe defaults.">
+      <button
+        type="button"
+        onClick={() => telemetry.emit({
+          component: 'TelemetryDemo',
+          eventType: 'action-click',
+          correlationId: 'telemetry-demo',
+          outcome: 'info',
+          context: { route: 'patterns/alerts', locale: 'en', email: 'redacted@example.com' },
+        })}
+      >
+        Emit event
+      </button>
+      <DemoList items={events.length > 0 ? events : ['No events captured yet.']} />
+    </SectionPanel>
+  );
+}
+
 function TelemetryDemo() {
   const [events, setEvents] = useState<string[]>([]);
 
-  function TelemetryProbe() {
-    const telemetry = useGdsTelemetry();
-    return (
-      <SectionPanel title="Telemetry contract" description="Cross-primitive event contract with privacy-safe defaults.">
-        <button
-          type="button"
-          onClick={() => telemetry.emit({
-            component: 'TelemetryDemo',
-            eventType: 'action-click',
-            correlationId: 'telemetry-demo',
-            outcome: 'info',
-            context: { route: 'patterns/alerts', locale: 'en', email: 'redacted@example.com' },
-          })}
-        >
-          Emit event
-        </button>
-        <DemoList items={events.length > 0 ? events : ['No events captured yet.']} />
-      </SectionPanel>
-    );
-  }
-
   return (
     <GdsTelemetryProvider sink={(event) => setEvents((current) => [...current, `${event.component}:${event.eventType}`])}>
-      <TelemetryProbe />
+      <TelemetryProbe events={events} />
     </GdsTelemetryProvider>
   );
 }

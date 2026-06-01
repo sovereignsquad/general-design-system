@@ -70,7 +70,7 @@ describe('playground theme explorer and live demos hub', () => {
     expect(screen.getByText(/Do not create local branding-layer helpers/i)).toBeTruthy();
   });
 
-  it('forces the dark public lane to preview in dark mode even if light is selected', () => {
+  it('forces dark-forward lanes to preview in dark mode even if light is selected', () => {
     renderWithGds(<TokensPage />);
 
     fireEvent.change(screen.getByLabelText('Preset'), { target: { value: 'dark-public' } });
@@ -78,6 +78,11 @@ describe('playground theme explorer and live demos hub', () => {
 
     expect(screen.getAllByText((_, node) => node?.textContent?.includes('Color scheme: dark') ?? false).length).toBeGreaterThan(0);
     expect(screen.getByText(/always previews in dark mode/i)).toBeTruthy();
+
+    fireEvent.change(screen.getByLabelText('Preset'), { target: { value: 'neon-night' } });
+
+    expect(screen.getAllByText((_, node) => node?.textContent?.includes('Color scheme: dark') ?? false).length).toBeGreaterThan(0);
+    expect(screen.getByText(/dark-forward preset always renders in dark mode/i)).toBeTruthy();
   });
 
   it('frames the live demos section as the official runtime showcase', () => {

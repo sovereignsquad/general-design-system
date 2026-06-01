@@ -35,7 +35,7 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
       },
       styles: {
         root: {
-          backgroundColor: 'var(--mantine-color-body)',
+          background: 'var(--mantine-color-body)',
         }
       }
     },
@@ -72,14 +72,14 @@ export const gdsDarkPublicTheme = extendGdsTheme({
     AppShell: {
       styles: {
         main: {
-          backgroundColor: 'var(--mantine-color-dark-8)',
+          background: 'var(--mantine-color-dark-8)',
         },
       },
     },
     Card: {
       styles: {
         root: {
-          backgroundColor: 'var(--mantine-color-dark-7)',
+          background: 'var(--mantine-color-dark-7)',
           borderColor: 'var(--mantine-color-dark-4)',
         },
       },
@@ -87,7 +87,7 @@ export const gdsDarkPublicTheme = extendGdsTheme({
     Paper: {
       styles: {
         root: {
-          backgroundColor: 'var(--mantine-color-dark-7)',
+          background: 'var(--mantine-color-dark-7)',
           borderColor: 'var(--mantine-color-dark-4)',
         },
       },

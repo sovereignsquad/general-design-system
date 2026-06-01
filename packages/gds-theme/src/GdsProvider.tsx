@@ -45,7 +45,14 @@ export function GdsProvider({
           <ModalsProvider>
             <>
               <Notifications />
-              <Box dir={dir} h="100%">
+              <Box
+                dir={dir}
+                mih="100vh"
+                h="100%"
+                bg="var(--mantine-color-body)"
+                c="var(--mantine-color-text)"
+                style={{ transition: 'background-color 120ms ease, color 120ms ease' }}
+              >
                 {children}
               </Box>
             </>
