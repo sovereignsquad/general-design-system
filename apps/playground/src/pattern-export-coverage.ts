@@ -17,6 +17,7 @@ export const patternExportCoverage: ExportCoverageEntry[] = [
   { packageName: '@doneisbetter/gds-core', exportName: 'ActionBar', status: 'live-demo', registryId: 'action-bar', rationale: 'Canonical semantic action orchestration.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'ArticleShell', status: 'live-demo', registryId: 'article-shells', rationale: 'Canonical docs/editorial readability shell.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'AuthShell', status: 'live-demo', registryId: 'auth-shells', rationale: 'Canonical auth entry composition.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'AsyncSurface', status: 'live-demo', registryId: 'state-blocks', rationale: 'Canonical async loading/empty/error/retry surface orchestration.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'BrowseSurface', status: 'live-demo', registryId: 'browse-surface', rationale: 'Canonical browse/search/list surface.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'ChartTokenPanel', status: 'live-demo', registryId: 'reporting-contracts', rationale: 'Canonical chart-token and accessible chart fallback wrapper.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'ChoiceChip', status: 'live-demo', registryId: 'choice-chips', rationale: 'Canonical lightweight choice/filter chip.' },

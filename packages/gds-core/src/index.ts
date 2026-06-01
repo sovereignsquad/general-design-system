@@ -27,6 +27,7 @@ export * from './AccentPanel';
 export * from './SectionPanel';
 export * from './DetailProfileShell';
 export * from './StateBlock';
+export * from './AsyncSurface';
 export * from './DataToolbar';
 export * from './PublicShell';
 export * from './DiscoveryShell';

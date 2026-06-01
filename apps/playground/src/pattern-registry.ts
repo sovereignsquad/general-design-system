@@ -349,7 +349,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Loading, empty, error, permission, disabled, and success states now include shared presentation modes for centered/fill bounded surfaces.',
     importPath: '@doneisbetter/gds-core',
-    sourceComponent: 'StateBlock',
+    sourceComponent: 'StateBlock / AsyncSurface',
   },
   {
     id: 'surface-presentation',

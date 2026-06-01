@@ -9,6 +9,7 @@ import { AccentPanel, resolveAccentPanelStyles } from './AccentPanel';
 import { ActionBar } from './ActionBar';
 import { ArticleShell } from './ArticleShell';
 import { AuthShell } from './AuthShell';
+import { AsyncSurface } from './AsyncSurface';
 import { BrowseSurface } from './BrowseSurface';
 import { ConsumerDashboardGrid } from './ConsumerDashboardGrid';
 import { ConsumerSection } from './ConsumerSection';
@@ -667,6 +668,40 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByText('No reports yet')).toBeInTheDocument();
     expect(screen.getByText('Partner access')).toBeInTheDocument();
     expect(screen.getByText('Scope: Northern region')).toBeInTheDocument();
+  });
+
+  it('renders async-surface states with deterministic retry behavior', async () => {
+    const user = userEvent.setup();
+    const onRetry = vi.fn();
+    const { rerender } = renderWithGds(
+      <AsyncSurface
+        state="loading"
+        loadingTitle="Loading records"
+        loadingDescription="Please wait."
+      />,
+    );
+
+    expect(screen.getByText('Loading records')).toBeInTheDocument();
+
+    rerender(
+      <AsyncSurface
+        state="error"
+        errorTitle="Failed to load records"
+        errorDescription="The dataset is temporarily unavailable."
+        onRetry={onRetry}
+      />,
+    );
+    expect(screen.getByText('Failed to load records')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Retry' }));
+    expect(onRetry).toHaveBeenCalledTimes(1);
+
+    rerender(
+      <AsyncSurface
+        state="success"
+        successContent={<div>Records loaded</div>}
+      />,
+    );
+    expect(screen.getByText('Records loaded')).toBeInTheDocument();
   });
 
   it('resolves surface presentation styles for inline, centered, and fill modes', () => {
