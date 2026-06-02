@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import type { MantineThemeOverride } from '@mantine/core';
-import { applyGdsFontLane, getGdsFontLanes, type GdsFontLaneId } from './font-lanes';
+import { applyGdsFontLane, isGdsFontLaneId, type GdsFontLaneId } from './font-lanes';
 import { getGdsThemePresets, resolveGdsThemePreset, type GdsThemePresetId } from './theme-presets';
 import { getGdsVibeThemeCssVariables } from './vibe-themes';
 
@@ -44,10 +44,6 @@ function isThemePresetId(value: unknown): value is GdsThemePresetId {
   return typeof value === 'string' && getGdsThemePresets().some((preset) => preset.id === value);
 }
 
-function isFontLaneId(value: unknown): value is GdsFontLaneId {
-  return typeof value === 'string' && getGdsFontLanes().some((lane) => lane.id === value);
-}
-
 function isScheme(value: unknown): value is GdsThemeScheme {
   return value === 'light' || value === 'dark' || value === 'auto';
 }
@@ -64,7 +60,7 @@ export function createGdsThemePresetSelection(stored: Partial<GdsStoredThemePres
   const preset = isThemePresetId(stored.preset) ? stored.preset : 'default';
   const requestedColorScheme = isScheme(stored.colorScheme) ? stored.colorScheme : 'light';
   const colorScheme = resolveEffectiveScheme(preset, requestedColorScheme);
-  const fontLane = isFontLaneId(stored.fontLane) ? stored.fontLane : 'inter';
+  const fontLane = isGdsFontLaneId(stored.fontLane) ? stored.fontLane : 'inter';
   const brandPrimary = typeof stored.brandPrimary === 'string' ? stored.brandPrimary : 'blue';
   const brandFlatSurfaces = typeof stored.brandFlatSurfaces === 'boolean' ? stored.brandFlatSurfaces : true;
   const brandEditorialSerif = typeof stored.brandEditorialSerif === 'boolean' ? stored.brandEditorialSerif : false;

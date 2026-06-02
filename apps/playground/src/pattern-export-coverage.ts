@@ -1,4 +1,4 @@
-export type ExportCoveragePackage = '@doneisbetter/gds-core' | '@doneisbetter/gds-admin';
+export type ExportCoveragePackage = '@doneisbetter/gds-theme' | '@doneisbetter/gds-core' | '@doneisbetter/gds-admin';
 
 export type ExportCoverageStatus = 'live-demo' | 'support-api' | 'compatibility';
 
@@ -11,6 +11,29 @@ export interface ExportCoverageEntry {
 }
 
 export const patternExportCoverage: ExportCoverageEntry[] = [
+  { packageName: '@doneisbetter/gds-theme', exportName: 'gdsTheme', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Canonical base theme lane represented by the reference theme explorer and install docs.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'gdsDarkPublicTheme', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Canonical dark public lane represented by the reference theme explorer.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'gdsFlatSurfaceTheme', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Canonical flat surface lane represented by the reference theme explorer.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'gdsEditorialPublicTheme', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Canonical editorial public lane represented by the reference theme explorer.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'createPublicBrandTheme', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Governed brand theme generator represented by the reference theme explorer.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'extendGdsTheme', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Deprecated bounded helper is documented through the theme-governance warning lane.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'withGdsMotion', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Theme helper remains covered as a governed theme support API.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'getGdsThemePresets', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Preset registry drives the reference theme explorer.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'resolveGdsThemePreset', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Preset resolver drives the reference theme explorer previews.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'getGdsVibeThemes', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Vibe registry powers the shipped lane list in the reference theme explorer.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'resolveGdsVibeTheme', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Vibe resolver is covered by theme runtime and preview tests.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'getGdsVibeThemeCssVariables', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Runtime CSS variable resolver powers whole-site theme application.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'getGdsFontLanes', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Font lane selector in the theme explorer lists approved typography lanes.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'resolveGdsFontLane', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Font lane resolver recovers unknown stored values to the default lane.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'isGdsFontLaneId', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Font lane guard covers stored preference and user-provided lane recovery.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'getGdsFontLaneStylesheetUrls', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Approved font stylesheet URL list supports governed non-blocking loading.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'applyGdsFontLane', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Theme explorer applies selected font lane to the preview and site shell.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'createGdsThemePresetSelection', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Runtime state factory is covered by theme persistence tests.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'useGdsThemePresetState', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'Reference site uses the persistent runtime hook for theme, color-scheme, and font-lane switching.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'GdsProvider', status: 'support-api', registryId: 'reference-site-shell', rationale: 'Provider owns the reference site runtime theme, locale, and color-scheme context.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'GdsI18nContext', status: 'support-api', registryId: 'reference-locale-notice', rationale: 'I18n context backs the locale-aware reference site shell.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'useGdsTranslation', status: 'support-api', registryId: 'reference-locale-notice', rationale: 'Translation hook backs localized GDS copy in the reference site.' },
+  { packageName: '@doneisbetter/gds-theme', exportName: 'showGdsNotification', status: 'support-api', registryId: 'notifications', rationale: 'Notification helper belongs to the canonical notification surface family.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'AccessRecoveryPanel', status: 'live-demo', registryId: 'access-recovery-panels', rationale: 'Canonical protected-content recovery surface.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'AccessSummary', status: 'live-demo', registryId: 'access-summaries', rationale: 'Canonical scoped access and role summary.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'AccentPanel', status: 'live-demo', registryId: 'accent-panels', rationale: 'Canonical color-mode-safe accent surface.' },

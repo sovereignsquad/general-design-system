@@ -65,6 +65,7 @@ function collectPublicRuntimeExports(sourceDir) {
 }
 
 const packageSourceDirs = {
+  '@doneisbetter/gds-theme': resolve(root, 'packages/gds-theme/src'),
   '@doneisbetter/gds-core': resolve(root, 'packages/gds-core/src'),
   '@doneisbetter/gds-admin': resolve(root, 'packages/gds-admin/src'),
 };

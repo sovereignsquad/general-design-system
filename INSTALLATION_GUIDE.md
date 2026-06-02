@@ -138,6 +138,14 @@ Use the theme lanes intentionally:
 
 Do not treat `extendGdsTheme(...)` as a consumer branding-layer API. It remains temporarily exported for bounded internal/runtime composition only and should be considered non-canonical for adopters.
 
+Use font lanes intentionally:
+
+- `getGdsFontLanes()` lists the approved 10+ font lanes with fallback stacks, locale coverage, source metadata, and loading strategy
+- `resolveGdsFontLane(...)` and `isGdsFontLaneId(...)` recover safely from unknown stored values
+- `getGdsFontLaneStylesheetUrls()` exposes the approved non-blocking stylesheet URLs when a host app wants to preload fonts
+- `applyGdsFontLane(theme, laneId)` binds typography into the same provider-owned theme lane as colors and surfaces
+- do not add local font catalogs, route-local `@font-face`, or unmanaged Google Fonts links outside the registry
+
 Prefer canonical primitives over local reinvention:
 
 - `DiscoveryShell` for sidebar-first applications

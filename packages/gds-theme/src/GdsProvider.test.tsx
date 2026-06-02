@@ -6,7 +6,7 @@ import { openConfirmModal } from '@mantine/modals';
 import { Button } from '@mantine/core';
 import { renderWithGds } from '../../../test-utils/render';
 import { GdsProvider } from './GdsProvider';
-import { applyGdsFontLane, getGdsFontLanes } from './font-lanes';
+import { applyGdsFontLane, getGdsFontLaneStylesheetUrls, getGdsFontLanes, isGdsFontLaneId, resolveGdsFontLane } from './font-lanes';
 import { showGdsNotification } from './notifications';
 import { createPublicBrandTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
 import { getGdsThemePresets, resolveGdsThemePreset } from './theme-presets';
@@ -154,9 +154,19 @@ describe('GdsProvider', () => {
   it('exposes approved font lanes and applies them to theme contracts', () => {
     const lanes = getGdsFontLanes();
     expect(lanes.length).toBeGreaterThanOrEqual(10);
+    expect(lanes.every((lane) => lane.fontDisplay === 'swap')).toBe(true);
+    expect(lanes.every((lane) => lane.fallbackStack.length > 0)).toBe(true);
+    expect(lanes.every((lane) => lane.localeCoverage.includes('en'))).toBe(true);
+    expect(lanes.every((lane) => lane.source === 'google-fonts-compatible' || lane.source === 'system')).toBe(true);
+    expect(getGdsFontLaneStylesheetUrls().length).toBeGreaterThanOrEqual(10);
+    expect(isGdsFontLaneId('space-grotesk')).toBe(true);
+    expect(isGdsFontLaneId('local-product-font')).toBe(false);
+    expect(resolveGdsFontLane('local-product-font').id).toBe('inter');
 
     const themed = applyGdsFontLane(gdsTheme, 'instrument-serif');
     expect(themed.headings?.fontFamily).toContain('Instrument Serif');
+    expect(themed.other?.gdsFontLane).toBe('instrument-serif');
+    expect(applyGdsFontLane(gdsTheme, 'local-product-font').other?.gdsFontLane).toBe('inter');
   });
 
   it('exposes a persistent runtime preset hook for global theme switching', async () => {

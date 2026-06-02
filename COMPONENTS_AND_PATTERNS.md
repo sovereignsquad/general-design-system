@@ -115,7 +115,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Theme Preset Registry** | Theme choice should use the shipped multi-preset registry (`getGdsThemePresets` + `resolveGdsThemePreset`) instead of product-local theme catalogs. The registry must include expressive colorful lanes, not only neutral light/dark presentation. | `md` |
 | **CSS VibeTheme Registry** | Full-color app themes must use `getGdsVibeThemes`, `resolveGdsVibeTheme`, and the `--gds-vibe-*` CSS variables for canvas, shell, surfaces, controls, focus, and hero treatment instead of image backgrounds or one-off app gradients. | `md` |
 | **Theme Runtime State** | Runtime preset switching must use `useGdsThemePresetState` for validation, persistence, root runtime attributes, and full-shell application instead of route-local theme state. | `md` |
-| **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes` + `applyGdsFontLane`) with governed fallback stacks. | `md` |
+| **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes`, `resolveGdsFontLane`, `isGdsFontLaneId`, `getGdsFontLaneStylesheetUrls`, and `applyGdsFontLane`) with governed source metadata, `font-display: swap`, locale coverage, and fallback stacks. | `md` |
 | **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior. | `md` |
 | **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with the package-owned type registry, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
 | **Block Layout Schema** | Page assembly should use `renderGdsLayout`, `validateGdsLayout`, `renderGdsLayoutWithDiagnostics`, and schema-driven blocks for repeatable developer composition. Default governed blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`; product-authored blocks must enter through `registerGdsBlock`. | `lg` |
@@ -186,6 +186,17 @@ The following families are mandatory local contracts when a project has the corr
 | **Access Recovery** | Product has protected routes, scope failures, expired sessions, timeouts, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |
 
 Mantine UI examples may be used to inform these contracts only after the project confirms the GDS behavior, responsive rules, and token boundaries remain unchanged.
+
+### Typography Runtime Rules
+
+GDS typography is governed by the font lane registry. Use it when products need brand expression without a local font system.
+
+- use `getGdsFontLanes()` to present approved lanes only
+- use `resolveGdsFontLane(id)` and `isGdsFontLaneId(id)` for stored or user-provided values
+- use `getGdsFontLaneStylesheetUrls()` when an app wants to preload or attach approved stylesheet URLs
+- use `applyGdsFontLane(theme, laneId)` to bind typography into the provider theme
+- keep `font-display: swap`, fallback stacks, and locale coverage from the registry intact
+- do not add route-local `@font-face`, raw Google Fonts URLs, or product-owned font catalogs
 
 ### Block Layout Schema Rules
 
