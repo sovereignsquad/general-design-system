@@ -230,6 +230,11 @@ Required reporting states:
 Chart rules:
 
 - chart types must resolve through `gdsChartTypeRegistry`; do not create route-local chart type strings
+- Set A primitives (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`) must resolve through `gdsChartSetATypeRegistry` and keep their type-specific validation enabled
+- line/area sparse points require `connectNulls: true`; otherwise missing values become governed chart errors
+- pie/donut data must produce a positive total and may not include negative slice values
+- radar data may not include negative axis values
+- scatter data must provide numeric `secondaryValue` values unless the consumer explicitly opts out through config for a documented compatibility lane
 - adapters may render with any approved charting library, but must enter through the `GdsChart` `renderer` contract so GDS keeps state, summary, legend, fallback, and a11y ownership
 - datasets must pass `validateGdsChartData` before rendering; invalid values, missing grouped data, empty data, below-threshold data, and over-budget datasets must become governed states
 - charts must include a text summary that communicates the main result without requiring visual interpretation

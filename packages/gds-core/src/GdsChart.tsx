@@ -18,11 +18,21 @@ export type GdsChartType =
   | 'funnel'
   | 'treemap';
 
+export type GdsChartSetAType =
+  | 'line'
+  | 'area'
+  | 'bar'
+  | 'stacked-bar'
+  | 'pie'
+  | 'donut'
+  | 'radar'
+  | 'scatter';
+
 export interface GdsChartDatum {
   label: string;
-  value: number;
+  value: number | null;
   group?: string;
-  secondaryValue?: number;
+  secondaryValue?: number | null;
 }
 
 export interface GdsChartTypeDefinition {
@@ -42,13 +52,40 @@ export interface GdsChartLegendItem {
   description?: string;
 }
 
-export interface GdsChartConfig {
+export interface GdsChartBaseConfig {
   minDataPoints?: number;
   maxDataPoints?: number;
-  valueFormatter?: (value: number) => ReactNode;
+  valueFormatter?: (value: number | null) => ReactNode;
   groupLabel?: string;
   tableValueHeader?: string;
 }
+
+export interface GdsCartesianChartConfig extends GdsChartBaseConfig {
+  allowNegative?: boolean;
+  connectNulls?: boolean;
+  showValueMarkers?: boolean;
+}
+
+export interface GdsPartToWholeChartConfig extends GdsChartBaseConfig {
+  showPercentages?: boolean;
+  minSliceValue?: number;
+}
+
+export interface GdsRadarChartConfig extends GdsChartBaseConfig {
+  maxAxisValue?: number;
+}
+
+export interface GdsScatterChartConfig extends GdsChartBaseConfig {
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  requireSecondaryValue?: boolean;
+}
+
+export type GdsChartConfig =
+  | GdsCartesianChartConfig
+  | GdsPartToWholeChartConfig
+  | GdsRadarChartConfig
+  | GdsScatterChartConfig;
 
 export interface GdsChartValidationResult {
   state: ChartTokenPanelState;
@@ -102,6 +139,40 @@ export const gdsDefaultChartLegend: GdsChartLegendItem[] = [
   { label: 'Secondary series', token: 'teal.6', description: 'Grouped or comparative value' },
 ];
 
+export const gdsChartSetATypeRegistry: Record<GdsChartSetAType, GdsChartTypeDefinition> = {
+  line: gdsChartTypeRegistry.line,
+  area: gdsChartTypeRegistry.area,
+  bar: gdsChartTypeRegistry.bar,
+  'stacked-bar': gdsChartTypeRegistry['stacked-bar'],
+  pie: gdsChartTypeRegistry.pie,
+  donut: gdsChartTypeRegistry.donut,
+  radar: gdsChartTypeRegistry.radar,
+  scatter: gdsChartTypeRegistry.scatter,
+};
+
+export function isGdsChartSetAType(type: GdsChartType): type is GdsChartSetAType {
+  return type in gdsChartSetATypeRegistry;
+}
+
+function isFiniteNumber(value: number | null | undefined): value is number {
+  return typeof value === 'number' && Number.isFinite(value);
+}
+
+function getSetARendererLabel(type: GdsChartType) {
+  const labels: Partial<Record<GdsChartType, string>> = {
+    line: 'ordered trend path',
+    area: 'filled trend surface',
+    bar: 'category bars',
+    'stacked-bar': 'grouped category stacks',
+    pie: 'part-to-whole slices',
+    donut: 'part-to-whole ring',
+    radar: 'radial dimension profile',
+    scatter: 'x/y point field',
+  };
+
+  return labels[type] ?? 'vendor-neutral chart surface';
+}
+
 export function validateGdsChartData(
   type: GdsChartType,
   data: GdsChartDatum[],
@@ -139,13 +210,45 @@ export function validateGdsChartData(
       issues.push(`Point ${index + 1} is missing a visible label.`);
     }
 
-    if (!Number.isFinite(item.value)) {
+    if (item.value === null && (type === 'line' || type === 'area') && 'connectNulls' in config && config.connectNulls) {
+      return;
+    }
+
+    if (!isFiniteNumber(item.value)) {
       issues.push(`Point ${index + 1} has an invalid numeric value.`);
     }
   });
 
   if (definition.requiresGroup && data.some((item) => !item.group)) {
     issues.push(`${definition.label} charts require a group value for every data point.`);
+  }
+
+  if (type === 'pie' || type === 'donut') {
+    const numericValues = data.map((item) => item.value).filter(isFiniteNumber);
+    const total = numericValues.reduce((sum, value) => sum + value, 0);
+
+    if (numericValues.some((value) => value < 0)) {
+      issues.push(`${definition.label} charts cannot render negative slice values.`);
+    }
+
+    if (total <= 0) {
+      issues.push(`${definition.label} charts require a positive total.`);
+    }
+  }
+
+  if (type === 'radar') {
+    const numericValues = data.map((item) => item.value).filter(isFiniteNumber);
+    if (numericValues.some((value) => value < 0)) {
+      issues.push('Radar charts cannot render negative axis values.');
+    }
+  }
+
+  if (type === 'scatter' && (!('requireSecondaryValue' in config) || config.requireSecondaryValue !== false)) {
+    data.forEach((item, index) => {
+      if (!isFiniteNumber(item.secondaryValue)) {
+        issues.push(`Scatter point ${index + 1} requires a numeric secondaryValue.`);
+      }
+    });
   }
 
   return {
@@ -169,6 +272,9 @@ function DefaultChartRenderer({ type, title, summary, data, definition, labelled
         </Text>
         <Text size="xs" c="dimmed">Type lane: {type}</Text>
         <Text size="xs" c="dimmed">Registry family: {definition.family}</Text>
+        {isGdsChartSetAType(type) ? (
+          <Text size="xs" c="dimmed">Set A primitive: {getSetARendererLabel(type)}</Text>
+        ) : null}
         <Text size="xs" c="dimmed">Data points: {data.length}</Text>
       </Stack>
     </Paper>
@@ -192,7 +298,8 @@ export function GdsChart({
   const resolvedState = state ?? validation.state;
   const tableRows = validation.visibleData.map((item) => ({
     label: item.label,
-    value: config.valueFormatter ? config.valueFormatter(item.value) : String(item.value),
+    value: config.valueFormatter ? config.valueFormatter(item.value) : String(item.value ?? 'missing'),
+    secondaryValue: item.secondaryValue === undefined || item.secondaryValue === null ? '-' : String(item.secondaryValue),
     group: item.group ?? '-',
   }));
   const Renderer = renderer ?? DefaultChartRenderer;
@@ -210,6 +317,7 @@ export function GdsChart({
           columns={[
             { key: 'label', header: 'Label' },
             { key: 'value', header: config.tableValueHeader ?? 'Value' },
+            { key: 'secondaryValue', header: 'Secondary value' },
             { key: 'group', header: config.groupLabel ?? 'Group' },
           ]}
           rows={tableRows}

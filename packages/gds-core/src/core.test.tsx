@@ -33,7 +33,7 @@ import { FeatureBand } from './FeatureBand';
 import { FoodMenuSection } from './FoodMenuSection';
 import { GameBoardTile } from './GameBoardTile';
 import { ChartTokenPanel } from './ChartTokenPanel';
-import { GdsChart, gdsChartTypeRegistry, validateGdsChartData } from './GdsChart';
+import { GdsChart, gdsChartTypeRegistry, gdsChartSetATypeRegistry, isGdsChartSetAType, validateGdsChartData } from './GdsChart';
 import { EvidencePanel } from './EvidencePanel';
 import { ListingCard } from './ListingCard';
 import { renderGdsLayout } from './LayoutBlocks';
@@ -1777,6 +1777,9 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
   it('validates chart schemas, thresholds, and rendering budgets before adapter rendering', () => {
     expect(Object.keys(gdsChartTypeRegistry)).toHaveLength(12);
+    expect(Object.keys(gdsChartSetATypeRegistry)).toEqual(['line', 'area', 'bar', 'stacked-bar', 'pie', 'donut', 'radar', 'scatter']);
+    expect(isGdsChartSetAType('scatter')).toBe(true);
+    expect(isGdsChartSetAType('heatmap')).toBe(false);
 
     expect(validateGdsChartData('pie', [{ label: 'Only', value: 1 }])).toMatchObject({
       state: 'below-threshold',
@@ -1801,6 +1804,57 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     });
   });
 
+  it('applies type-specific Set A chart validation rules', () => {
+    expect(validateGdsChartData('line', [
+      { label: 'Mon', value: 4 },
+      { label: 'Tue', value: null },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Point 2 has an invalid numeric value.'],
+    });
+
+    expect(validateGdsChartData('line', [
+      { label: 'Mon', value: 4 },
+      { label: 'Tue', value: null },
+    ], { connectNulls: true })).toMatchObject({
+      state: 'ready',
+      issues: [],
+    });
+
+    expect(validateGdsChartData('donut', [
+      { label: 'A', value: 0 },
+      { label: 'B', value: 0 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Donut charts require a positive total.'],
+    });
+
+    expect(validateGdsChartData('pie', [
+      { label: 'A', value: -1 },
+      { label: 'B', value: 2 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Pie charts cannot render negative slice values.'],
+    });
+
+    expect(validateGdsChartData('radar', [
+      { label: 'Reach', value: 4 },
+      { label: 'Quality', value: -2 },
+      { label: 'Retention', value: 8 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Radar charts cannot render negative axis values.'],
+    });
+
+    expect(validateGdsChartData('scatter', [
+      { label: 'A', value: 2 },
+      { label: 'B', value: 5, secondaryValue: 8 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Scatter point 1 requires a numeric secondaryValue.'],
+    });
+  });
+
   it('supports vendor-neutral chart renderer adapters while GDS owns shell semantics', () => {
     const renderer = vi.fn((context) => (
       <div role="img" aria-labelledby={context.labelledBy} aria-describedby={context.describedBy}>
@@ -1822,6 +1876,24 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getByText('Adapter rendered line with 2 points')).toBeInTheDocument();
     expect(screen.getByText('Primary series: blue.6')).toBeInTheDocument();
     expect(screen.getByText('Accessible data fallback')).toBeInTheDocument();
+  });
+
+  it('renders Set A chart primitive metadata and scatter fallback fields', () => {
+    renderWithGds(
+      <GdsChart
+        type="scatter"
+        title="Scatter primitive"
+        summary="Correlation across value pairs."
+        data={[
+          { label: 'A', value: 4, secondaryValue: 12 },
+          { label: 'B', value: 9, secondaryValue: 19 },
+        ]}
+      />,
+    );
+
+    expect(screen.getByText('Set A primitive: x/y point field')).toBeInTheDocument();
+    expect(screen.getByText('Secondary value')).toBeInTheDocument();
+    expect(screen.getByText('12')).toBeInTheDocument();
   });
 
   it('renders schema-based layout blocks through the governed renderer', () => {
