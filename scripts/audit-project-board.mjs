@@ -15,7 +15,10 @@ function sleep(ms) {
 function isRateLimitError(error) {
   const stderr = String(error?.stderr ?? '');
   const message = String(error?.message ?? '');
-  return stderr.includes('API rate limit exceeded') || message.includes('API rate limit exceeded');
+  return stderr.includes('API rate limit exceeded') ||
+    message.includes('API rate limit exceeded') ||
+    stderr.includes('rate limit') ||
+    message.includes('rate limit');
 }
 
 function runWithRetry(command, retries = 3) {
@@ -41,21 +44,25 @@ function parseJson(command, retries = 3) {
   return JSON.parse(output);
 }
 
+function warnAndExitNonStrict(message) {
+  console.warn('Board audit warning: GitHub board data could not be fetched.');
+  console.warn(message.slice(0, 500));
+  console.warn('Skipping non-strict board audit for this run.');
+  console.warn('Use `npm run audit:board:strict` or `GDS_BOARD_AUDIT_STRICT=1 npm run audit:board` to fail hard.');
+  process.exit(0);
+}
+
 function main() {
   let projectData;
   let issueList;
-  const ciMode = process.env.CI === 'true';
   const strictMode = process.env.GDS_BOARD_AUDIT_STRICT === '1';
   try {
     projectData = parseJson(`gh project item-list ${PROJECT_NUMBER} --owner ${OWNER} --limit 300 --format json`);
     issueList = parseJson(`gh issue list --repo ${OWNER}/${REPOSITORY} --state all --limit 500 --json number,state`);
   } catch (error) {
     const message = String(error?.stderr ?? error?.message ?? error);
-    if (ciMode && !strictMode) {
-      console.warn('Board audit warning: GitHub board data could not be fetched in CI.');
-      console.warn(message.slice(0, 500));
-      console.warn('Skipping strict board audit for this run (set GDS_BOARD_AUDIT_STRICT=1 to fail hard).');
-      process.exit(0);
+    if (!strictMode) {
+      warnAndExitNonStrict(message);
     }
     console.error('Board audit failed: unable to fetch required GitHub data.');
     console.error('Tip: ensure gh auth is active and API rate limit is available.');
