@@ -2,7 +2,7 @@ import type { ReactElement, ReactNode } from 'react';
 import { cloneElement, isValidElement } from 'react';
 import { AspectRatio, Badge, Card, Group, Skeleton, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
-import { gdsCardSizePaddingMap, gdsCardTitleOrderMap, type GdsCardInteractiveMode, type GdsCardSize } from './CardContracts';
+import { resolveGdsCardContract, type GdsCardDensity, type GdsCardInteractiveMode, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
 export type PublicProductCardState = 'available' | 'limited' | 'sold-out' | 'preorder';
 export type PublicProductCardHelperKind = 'supporting' | 'pickup' | 'inventory';
@@ -29,6 +29,8 @@ export interface PublicProductCardProps {
   metadata?: PublicProductCardMetaItem[];
   compact?: boolean;
   size?: GdsCardSize;
+  density?: GdsCardDensity;
+  variant?: GdsCardVariant;
   loading?: boolean;
   disabled?: boolean;
   interactiveMode?: GdsCardInteractiveMode;
@@ -69,11 +71,13 @@ function ImageFallback({ compact }: { compact: boolean }) {
   );
 }
 
-function LoadingCard({ compact }: { compact: boolean }) {
+function LoadingCard({ compact, size, density, variant }: { compact: boolean; size: GdsCardSize; density: GdsCardDensity; variant: GdsCardVariant }) {
+  const contract = resolveGdsCardContract({ compact, size, density, variant });
+
   return (
-    <Card withBorder radius="lg" padding={compact ? 'md' : 'lg'}>
-      <Stack gap="md">
-        <AspectRatio ratio={compact ? 16 / 9 : 4 / 3}>
+    <Card withBorder radius="lg" padding={contract.padding} {...contract.dataAttributes}>
+      <Stack gap={contract.gap}>
+        <AspectRatio ratio={contract.mediaRatio}>
           <Skeleton radius="md" />
         </AspectRatio>
         <Stack gap="xs">
@@ -106,13 +110,17 @@ export function PublicProductCard({
   metadata = [],
   compact = false,
   size = 'md',
+  density = 'comfortable',
+  variant = 'default',
   loading = false,
   disabled = false,
   interactiveMode = 'none',
   onSurfaceActivate,
 }: PublicProductCardProps) {
+  const contract = resolveGdsCardContract({ compact, size, density, variant });
+
   if (loading) {
-    return <LoadingCard compact={compact} />;
+    return <LoadingCard compact={compact} size={size} density={density} variant={variant} />;
   }
 
   const isActionDisabled = disabled || state === 'sold-out';
@@ -132,17 +140,17 @@ export function PublicProductCard({
     : {};
 
   return (
-    <Card withBorder radius="lg" padding={compact ? 'md' : gdsCardSizePaddingMap[size]} {...interactiveProps}>
-      <Stack gap={compact ? 'sm' : 'md'}>
+    <Card withBorder radius="lg" padding={contract.padding} {...contract.dataAttributes} {...interactiveProps}>
+      <Stack gap={contract.gap}>
         {image ?? <ImageFallback compact={compact} />}
 
         <Group justify="space-between" align="flex-start" wrap="nowrap" gap="sm">
           <Stack gap={4} style={{ minWidth: 0, flex: 1 }}>
-            <Title order={compact ? 5 : gdsCardTitleOrderMap[size]} lineClamp={2}>
+            <Title order={contract.titleOrder} lineClamp={2}>
               {title}
             </Title>
             {description ? (
-              <Text size="sm" c="dimmed" lineClamp={compact ? 2 : 3}>
+              <Text size="sm" c="dimmed" lineClamp={contract.descriptionClamp}>
                 {description}
               </Text>
             ) : null}
@@ -156,7 +164,7 @@ export function PublicProductCard({
           <Group justify="space-between" align="flex-end" gap="sm" wrap="nowrap">
             <Stack gap={2} style={{ minWidth: 0, flex: 1 }}>
               {price ? (
-                <Text fw={700} size={compact ? 'md' : 'lg'}>
+                <Text fw={700} size={contract.size === 'xs' || contract.size === 'sm' ? 'md' : 'lg'}>
                   {price}
                 </Text>
               ) : null}

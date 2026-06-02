@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Badge, Card, Group, Menu, Stack, Text, ThemeIcon, Title, ActionIcon } from '@mantine/core';
 import { GdsIcons } from './icons';
-import { gdsCardSizePaddingMap, gdsCardTitleOrderMap, type GdsCardSize } from './CardContracts';
+import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
 export interface ProductCardMetaItem {
   label: string;
@@ -26,6 +26,8 @@ export interface ProductCardProps {
   secondaryActions?: ProductCardAction[];
   footer?: ReactNode;
   size?: GdsCardSize;
+  density?: GdsCardDensity;
+  variant?: GdsCardVariant;
 }
 
 export function ProductCard({
@@ -39,12 +41,15 @@ export function ProductCard({
   secondaryActions = [],
   footer,
   size = 'md',
+  density = 'comfortable',
+  variant = 'default',
 }: ProductCardProps) {
   const MoreIcon = GdsIcons.Menu;
+  const contract = resolveGdsCardContract({ size, density, variant });
 
   return (
-    <Card withBorder radius="lg" padding={gdsCardSizePaddingMap[size]}>
-      <Stack gap="md">
+    <Card withBorder radius="lg" padding={contract.padding} {...contract.dataAttributes}>
+      <Stack gap={contract.gap}>
         {media}
 
         <Group justify="space-between" align="flex-start" wrap="nowrap">
@@ -55,9 +60,9 @@ export function ProductCard({
               </ThemeIcon>
             ) : null}
             <Stack gap={4}>
-              <Title order={gdsCardTitleOrderMap[size]}>{title}</Title>
+              <Title order={contract.titleOrder}>{title}</Title>
               {description ? (
-                <Text size="sm" c="dimmed" lineClamp={3}>
+                <Text size="sm" c="dimmed" lineClamp={contract.descriptionClamp}>
                   {description}
                 </Text>
               ) : null}

@@ -39,6 +39,7 @@ import { ListingCard } from './ListingCard';
 import { renderGdsLayout } from './LayoutBlocks';
 import { MapPanel } from './MapPanel';
 import { MediaField } from './MediaField';
+import { MediaCard } from './MediaCard';
 import { MetricCard } from './MetricCard';
 import { BannerNotice } from './Notifications';
 import { GdsNotificationProvider, NotificationCenter, useGdsNotifications } from './Notifications.client';
@@ -49,6 +50,7 @@ import { PlaybackSurface } from './PlaybackSurface';
 import { PublicFlowShell } from './PublicFlowShell';
 import { PublicFoodCard } from './PublicFoodCard';
 import { PublicBrandFooter } from './PublicBrandFooter';
+import { ProductCard } from './ProductCard';
 import { PublicProductCard } from './PublicProductCard';
 import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
@@ -68,6 +70,7 @@ import { ReferenceThemeExplorer } from './ReferenceThemeExplorer';
 import { ReportingSection } from './ReportingSection';
 import { UploadDropzone } from './UploadDropzone';
 import { resolveSurfacePresentationStyles } from './SurfacePresentation';
+import { resolveGdsCardContract } from './CardContracts';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
 import { GdsIcons } from './icons';
 import { OverlayManagerProvider, useOverlayManager } from './OverlayManager.client';
@@ -458,6 +461,49 @@ describe('@doneisbetter/gds-core', () => {
 
     expect(onSave).toHaveBeenCalledTimes(1);
     expect(onShare).toHaveBeenCalledTimes(1);
+  });
+
+  it('resolves governed card size, density, and variant contracts deterministically', () => {
+    expect(resolveGdsCardContract({ size: 'xl', density: 'spacious', variant: 'media-left' })).toMatchObject({
+      size: 'xl',
+      density: 'spacious',
+      variant: 'media-left',
+      padding: 'xl',
+      titleOrder: 3,
+      descriptionClamp: 4,
+      mediaPlacement: 'left',
+      minTouchTarget: 44,
+    });
+
+    expect(resolveGdsCardContract({ compact: true, size: 'xl', density: 'spacious' })).toMatchObject({
+      size: 'sm',
+      density: 'compact',
+      variant: 'compact',
+      padding: 'xs',
+      titleOrder: 5,
+      descriptionClamp: 2,
+      minTouchTarget: 40,
+    });
+  });
+
+  it('applies the shared card contract across canonical card families', () => {
+    renderWithGds(
+      <>
+        <ProductCard title="Sized product" size="xl" density="spacious" variant="media-left" />
+        <ListingCard title="Dense listing" size="xs" density="compact" variant="compact" />
+        <PublicFoodCard title="Food card" state="available" size="lg" density="spacious" />
+        <PublicProductCard title="Public card" size="sm" density="compact" />
+        <MediaCard title="Media card" image={<div />} size="md" density="comfortable" />
+        <EditorialCard title="Editorial card" size="xl" density="spacious" variant="featured" />
+      </>,
+    );
+
+    expect(screen.getByText('Sized product').closest('[data-gds-card-size]')).toHaveAttribute('data-gds-card-size', 'xl');
+    expect(screen.getByText('Dense listing').closest('[data-gds-card-density]')).toHaveAttribute('data-gds-card-density', 'compact');
+    expect(screen.getByText('Food card').closest('[data-gds-card-density]')).toHaveAttribute('data-gds-card-density', 'spacious');
+    expect(screen.getByText('Public card').closest('[data-gds-card-size]')).toHaveAttribute('data-gds-card-size', 'sm');
+    expect(screen.getByText('Media card').closest('[data-gds-card-variant]')).toHaveAttribute('data-gds-card-variant', 'media-top');
+    expect(screen.getByText('Editorial card').closest('[data-gds-card-size]')).toHaveAttribute('data-gds-card-size', 'xl');
   });
 
   it('renders the public food card contract with food-specific helper and availability states', () => {

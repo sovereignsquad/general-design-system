@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { ActionIcon, AspectRatio, Badge, Card, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
 import { GdsVocabulary, getSemanticActionLabel, type SemanticAction } from './vocabulary';
-import { gdsCardSizePaddingMap, gdsCardTitleOrderMap, type GdsCardInteractiveMode, type GdsCardSize } from './CardContracts';
+import { resolveGdsCardContract, type GdsCardDensity, type GdsCardInteractiveMode, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
 export type ListingCardMediaRatio = '1:1' | '4:3' | '16:9';
 
@@ -38,6 +38,8 @@ export interface ListingCardProps {
   shareAction?: ListingCardAffordance;
   compact?: boolean;
   size?: GdsCardSize;
+  density?: GdsCardDensity;
+  variant?: GdsCardVariant;
   interactiveMode?: GdsCardInteractiveMode;
   revealContent?: ReactNode;
   onSurfaceActivate?: () => void;
@@ -121,12 +123,15 @@ export function ListingCard({
   shareAction,
   compact = false,
   size = 'md',
+  density = 'comfortable',
+  variant = 'default',
   interactiveMode = 'none',
   revealContent,
   onSurfaceActivate,
   defaultFlipped = false,
 }: ListingCardProps) {
-  const cardPadding = compact ? 'md' : gdsCardSizePaddingMap[size];
+  const contract = resolveGdsCardContract({ compact, size, density, variant });
+  const cardPadding = contract.padding;
   const titleContent =
     href && typeof title === 'string' ? (
       <Text component="a" href={href} inherit td="none">
@@ -144,8 +149,8 @@ export function ListingCard({
 
   if (interactiveMode === 'flip' && defaultFlipped && revealContent) {
     return (
-      <Card withBorder radius="lg" padding={cardPadding}>
-        <Stack gap="sm">
+      <Card withBorder radius="lg" padding={cardPadding} {...contract.dataAttributes}>
+        <Stack gap={contract.gap}>
           {revealContent}
         </Stack>
       </Card>
@@ -153,8 +158,8 @@ export function ListingCard({
   }
 
   return (
-    <Card withBorder radius="lg" padding={cardPadding} {...interactiveProps}>
-      <Stack gap={compact ? 'sm' : 'md'}>
+    <Card withBorder radius="lg" padding={cardPadding} {...contract.dataAttributes} {...interactiveProps}>
+      <Stack gap={contract.gap}>
         {image ?? <ListingImageFallback mediaRatio={mediaRatio} />}
 
         {(featured || sponsoredDisclosure) ? (
@@ -175,11 +180,11 @@ export function ListingCard({
         ) : null}
 
         <Stack gap={4}>
-          <Title order={compact ? 5 : gdsCardTitleOrderMap[size]} lineClamp={2}>
+          <Title order={contract.titleOrder} lineClamp={2}>
             {titleContent}
           </Title>
           {description ? (
-            <Text size="sm" c="dimmed" lineClamp={compact ? 2 : 3}>
+            <Text size="sm" c="dimmed" lineClamp={contract.descriptionClamp}>
               {description}
             </Text>
           ) : null}
@@ -208,7 +213,7 @@ export function ListingCard({
         <Group justify="space-between" align="center" gap="sm" wrap="wrap">
           <Stack gap={2} style={{ minWidth: 0, flex: 1 }}>
             {price ? (
-              <Text fw={700} size={compact ? 'md' : 'lg'}>
+              <Text fw={700} size={contract.size === 'xs' || contract.size === 'sm' ? 'md' : 'lg'}>
                 {price}
               </Text>
             ) : null}

@@ -2,6 +2,7 @@ import type { ReactElement, ReactNode } from 'react';
 import { cloneElement, isValidElement } from 'react';
 import { AspectRatio, Badge, Card, Group, Skeleton, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
+import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
 export type FoodCardAvailabilityState = 'available' | 'preorder' | 'limited' | 'sold-out' | 'coming-soon';
 export type FoodCardMediaRatio = 'square' | 'dish' | 'landscape';
@@ -35,6 +36,9 @@ export interface PublicFoodCardProps {
   secondaryAction?: ReactNode;
   quantityHint?: ReactNode;
   mediaRatio?: FoodCardMediaRatio;
+  size?: GdsCardSize;
+  density?: GdsCardDensity;
+  variant?: GdsCardVariant;
   loading?: boolean;
   disabled?: boolean;
 }
@@ -81,10 +85,12 @@ function FoodImageFallback({ mediaRatio }: { mediaRatio: FoodCardMediaRatio }) {
   );
 }
 
-function LoadingFoodCard({ mediaRatio }: { mediaRatio: FoodCardMediaRatio }) {
+function LoadingFoodCard({ mediaRatio, size, density, variant }: { mediaRatio: FoodCardMediaRatio; size: GdsCardSize; density: GdsCardDensity; variant: GdsCardVariant }) {
+  const contract = resolveGdsCardContract({ size, density, variant });
+
   return (
-    <Card withBorder radius="lg" padding="lg">
-      <Stack gap="md">
+    <Card withBorder radius="lg" padding={contract.padding} {...contract.dataAttributes}>
+      <Stack gap={contract.gap}>
         <AspectRatio ratio={ratioMap[mediaRatio]}>
           <Skeleton radius="md" />
         </AspectRatio>
@@ -118,11 +124,16 @@ export function PublicFoodCard({
   secondaryAction,
   quantityHint,
   mediaRatio = 'dish',
+  size = 'md',
+  density = 'comfortable',
+  variant = 'default',
   loading = false,
   disabled = false,
 }: PublicFoodCardProps) {
+  const contract = resolveGdsCardContract({ size, density, variant });
+
   if (loading) {
-    return <LoadingFoodCard mediaRatio={mediaRatio} />;
+    return <LoadingFoodCard mediaRatio={mediaRatio} size={size} density={density} variant={variant} />;
   }
 
   const stateBadge = stateConfig[state];
@@ -131,8 +142,8 @@ export function PublicFoodCard({
   const resolvedSecondaryAction = enhanceAction(secondaryAction, disabled);
 
   return (
-    <Card withBorder radius="lg" padding="lg">
-      <Stack gap="md">
+    <Card withBorder radius="lg" padding={contract.padding} {...contract.dataAttributes}>
+      <Stack gap={contract.gap}>
         {image ?? <FoodImageFallback mediaRatio={mediaRatio} />}
 
         {(markers.length > 0 || quantityHint) ? (
@@ -154,11 +165,11 @@ export function PublicFoodCard({
 
         <Group justify="space-between" align="flex-start" gap="sm" wrap="nowrap">
           <Stack gap={4} style={{ minWidth: 0, flex: 1 }}>
-            <Title order={4} lineClamp={2}>
+            <Title order={contract.titleOrder} lineClamp={2}>
               {title}
             </Title>
             {description ? (
-              <Text size="sm" c="dimmed" lineClamp={3}>
+              <Text size="sm" c="dimmed" lineClamp={contract.descriptionClamp}>
                 {description}
               </Text>
             ) : null}
@@ -171,7 +182,7 @@ export function PublicFoodCard({
         <Group justify="space-between" align="flex-end" gap="sm" wrap="nowrap">
           <Stack gap={2} style={{ minWidth: 0, flex: 1 }}>
             {price ? (
-              <Text fw={800} size="lg">
+              <Text fw={800} size={contract.size === 'xs' || contract.size === 'sm' ? 'md' : 'lg'}>
                 {price}
               </Text>
             ) : null}

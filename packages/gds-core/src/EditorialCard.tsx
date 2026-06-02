@@ -1,6 +1,9 @@
 import type { ReactNode } from 'react';
 import { Anchor, AspectRatio, Badge, Box, Card, Group, Stack, Text, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
+import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
+
+export type EditorialCardVariant = 'standard' | 'featured' | GdsCardVariant;
 
 export interface EditorialCardProps {
   media?: ReactNode;
@@ -14,7 +17,9 @@ export interface EditorialCardProps {
   href?: string;
   onClick?: () => void;
   tone?: 'default' | 'warm' | 'cool' | 'muted';
-  variant?: 'standard' | 'compact' | 'featured';
+  variant?: EditorialCardVariant;
+  size?: GdsCardSize;
+  density?: GdsCardDensity;
   classNames?: {
     root?: string;
     media?: string;
@@ -79,10 +84,14 @@ export function EditorialCard({
   onClick,
   tone = 'default',
   variant = 'standard',
+  size = 'md',
+  density = 'comfortable',
   classNames,
 }: EditorialCardProps) {
   const compact = variant === 'compact';
   const featured = variant === 'featured';
+  const contractVariant: GdsCardVariant = variant === 'standard' || variant === 'featured' ? 'default' : variant;
+  const contract = resolveGdsCardContract({ compact, size, density, variant: contractVariant });
   const palette = tonePalette[tone];
   const interactiveProps = href
     ? { component: 'a' as const, href }
@@ -96,6 +105,7 @@ export function EditorialCard({
       withBorder
       radius="xl"
       padding={0}
+      {...contract.dataAttributes}
       {...interactiveProps}
       style={{
         overflow: 'hidden',
@@ -106,7 +116,7 @@ export function EditorialCard({
     >
       <Card.Section className={classNames?.media}>{media ?? <EditorialMediaFallback compact={compact} />}</Card.Section>
 
-      <Stack gap="md" p={compact ? 'md' : 'lg'} className={classNames?.body}>
+      <Stack gap={contract.gap} p={contract.padding} className={classNames?.body}>
         <Group justify="space-between" align="flex-start" gap="sm" wrap="wrap">
           <Stack gap={4} flex={1}>
             {eyebrow ? (
@@ -114,7 +124,7 @@ export function EditorialCard({
                 {eyebrow}
               </Text>
             ) : null}
-            <Title order={compact ? 4 : 3} className={classNames?.title}>
+            <Title order={contract.titleOrder} className={classNames?.title}>
               {title}
             </Title>
           </Stack>
@@ -130,7 +140,7 @@ export function EditorialCard({
         </Group>
 
         {description ? (
-          <Text size="sm" c="dimmed">
+          <Text size="sm" c="dimmed" lineClamp={contract.descriptionClamp}>
             {description}
           </Text>
         ) : null}

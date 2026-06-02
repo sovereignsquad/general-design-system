@@ -581,12 +581,14 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <ActionBar primary={{ action: 'save' }} iconOnly={[{ action: 'settings' }, { action: 'search' }, { action: 'help' }]} />;
     case 'product-cards':
       return (
-        <div>
+        <ConsumerDashboardGrid columns={3}>
           <ProductCard
-            title="Reusable product"
-            description="One product contract across products and docs."
+            title="Spacious product"
+            description="XL spacious card using the shared resolver for title hierarchy, spacing, and metadata rhythm."
             status="Published"
-            size="md"
+            size="xl"
+            density="spacious"
+            variant="media-left"
             metadata={[{ label: 'Price', value: '€39' }]}
             primaryAction={<a href="/general-design-system/patterns/public">Open</a>}
             secondaryActions={[
@@ -596,12 +598,24 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           />
           <ProductCard
             title="Compact product"
-            description="Smaller size variant."
+            description="Dense contract for tighter lists without local CSS."
             status="Draft"
             size="xs"
+            density="compact"
+            variant="compact"
             metadata={[{ label: 'Price', value: '€12' }]}
           />
-        </div>
+          <PublicProductCard
+            title="Public media card"
+            description="Shared public card using the same size and density API."
+            price="€24"
+            state="limited"
+            size="lg"
+            density="comfortable"
+            metadata={[{ label: 'Contract', value: 'GDS-owned' }]}
+            primaryAction={<a href="/general-design-system/live-demos/surfaces">Open</a>}
+          />
+        </ConsumerDashboardGrid>
       );
     case 'public-product-cards':
       return (

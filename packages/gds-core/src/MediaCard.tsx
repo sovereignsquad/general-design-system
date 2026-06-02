@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { ActionIcon, Badge, Card, Group, Stack, Text, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
+import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
 export interface MediaCardAction {
   label: string;
@@ -14,13 +15,27 @@ export interface MediaCardProps {
   status?: string;
   overlay?: ReactNode;
   actions?: MediaCardAction[];
+  size?: GdsCardSize;
+  density?: GdsCardDensity;
+  variant?: GdsCardVariant;
 }
 
-export function MediaCard({ title, image, description, status, overlay, actions = [] }: MediaCardProps) {
+export function MediaCard({
+  title,
+  image,
+  description,
+  status,
+  overlay,
+  actions = [],
+  size = 'md',
+  density = 'comfortable',
+  variant = 'media-top',
+}: MediaCardProps) {
   const EyeIcon = GdsIcons.Eye;
+  const contract = resolveGdsCardContract({ size, density, variant });
 
   return (
-    <Card withBorder radius="lg" padding="md">
+    <Card withBorder radius="lg" padding={contract.padding} {...contract.dataAttributes}>
       <Card.Section pos="relative">
         {image}
         {overlay ? (
@@ -29,12 +44,12 @@ export function MediaCard({ title, image, description, status, overlay, actions 
           </div>
         ) : null}
       </Card.Section>
-      <Stack gap="sm" mt="md">
+      <Stack gap={contract.gap} mt={contract.gap}>
         <Group justify="space-between" align="flex-start">
           <Stack gap={4}>
-            <Title order={4}>{title}</Title>
+            <Title order={contract.titleOrder}>{title}</Title>
             {description ? (
-              <Text size="sm" c="dimmed" lineClamp={2}>
+              <Text size="sm" c="dimmed" lineClamp={contract.descriptionClamp}>
                 {description}
               </Text>
             ) : null}
