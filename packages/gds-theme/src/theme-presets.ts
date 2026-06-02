@@ -18,7 +18,8 @@ export type GdsThemePresetId =
   | 'coral'
   | 'mint'
   | 'orchid'
-  | 'royal';
+  | 'royal'
+  | 'cosmic';
 
 export interface GdsThemePreset {
   id: GdsThemePresetId;
@@ -83,6 +84,7 @@ const customPresetThemes: Record<Exclude<GdsThemePresetId, 'default' | 'dark-pub
   mint: createVibrantPresetTheme('lime'),
   orchid: createVibrantPresetTheme('grape'),
   royal: createVibrantPresetTheme('violet'),
+  cosmic: createVibrantPresetTheme('violet', { darkForward: true }),
 };
 
 const themePresetCatalog: GdsThemePreset[] = [
@@ -103,6 +105,7 @@ const themePresetCatalog: GdsThemePreset[] = [
   { id: 'mint', label: 'Mint circuit', description: 'Clean green-mint lane for health, learning, and growth products.', runtimeLane: 'resolveGdsThemePreset(mint)' },
   { id: 'orchid', label: 'Orchid signal', description: 'Purple-grape lane for editorial, culture, and premium tools.', runtimeLane: 'resolveGdsThemePreset(orchid)' },
   { id: 'royal', label: 'Royal violet', description: 'Confident violet lane for SaaS dashboards and professional apps.', runtimeLane: 'resolveGdsThemePreset(royal)' },
+  { id: 'cosmic', label: 'Cosmic burst', description: 'Highly saturated blue-violet-cyan-magenta showcase lane for bold public apps and launch surfaces.', runtimeLane: 'resolveGdsThemePreset(cosmic)' },
 ];
 
 export function getGdsThemePresets() {

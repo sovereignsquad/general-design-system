@@ -228,6 +228,130 @@ html[data-gds-theme-preset='royal'] .mantine-Card-root {
   border-color: color-mix(in srgb, var(--gds-vibe-border) 78%, var(--gds-vibe-primary)) !important;
 }
 
+html[data-gds-theme-preset='cosmic'] body {
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 92% 32%, rgba(255, 180, 70, 0.95) 0 8%, transparent 22%),
+    radial-gradient(circle at 84% 42%, rgba(255, 45, 190, 0.75) 0 12%, transparent 28%),
+    radial-gradient(circle at 72% 18%, rgba(0, 220, 255, 0.55) 0 11%, transparent 28%),
+    radial-gradient(circle at 22% 82%, rgba(255, 60, 210, 0.35) 0 5%, transparent 16%),
+    linear-gradient(135deg, #19005c 0%, #071a80 38%, #003fd1 63%, #4d08a8 100%) !important;
+  background-attachment: fixed;
+}
+
+html[data-gds-theme-preset='cosmic'] body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: '';
+  background:
+    radial-gradient(circle at 80% 30%, rgba(160, 42, 255, 0.95) 0 4%, transparent 11%),
+    radial-gradient(circle at 72% 36%, rgba(0, 145, 255, 0.8) 0 3%, transparent 9%),
+    radial-gradient(circle at 98% 74%, rgba(120, 25, 255, 0.75) 0 10%, transparent 24%),
+    linear-gradient(115deg, transparent 0 61%, rgba(0, 245, 255, 0.42) 61% 72%, transparent 72%);
+  filter: blur(0.5px);
+}
+
+html[data-gds-theme-preset='cosmic'] body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: '';
+  opacity: 0.38;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.95) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.45) 0 1px, transparent 1.4px);
+  background-position: 20px 40px, 90px 120px;
+  background-size: 160px 160px, 260px 260px;
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-AppShell-main {
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 92% 32%, rgba(255, 180, 70, 0.95) 0 8%, transparent 22%),
+    radial-gradient(circle at 84% 42%, rgba(255, 45, 190, 0.75) 0 12%, transparent 28%),
+    radial-gradient(circle at 72% 18%, rgba(0, 220, 255, 0.55) 0 11%, transparent 28%),
+    radial-gradient(circle at 22% 82%, rgba(255, 60, 210, 0.35) 0 5%, transparent 16%),
+    linear-gradient(135deg, #19005c 0%, #071a80 38%, #003fd1 63%, #4d08a8 100%) !important;
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-AppShell-header,
+html[data-gds-theme-preset='cosmic'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='cosmic'] .mantine-AppShell-footer {
+  color: #ffffff;
+  background: rgba(10, 18, 70, 0.62) !important;
+  border-color: rgba(190, 160, 255, 0.45) !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(22px) saturate(1.25);
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-Paper-root,
+html[data-gds-theme-preset='cosmic'] .mantine-Card-root {
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(224, 24, 255, 0.2), transparent 13rem),
+    rgba(10, 18, 70, 0.62) !important;
+  border-color: rgba(190, 160, 255, 0.45) !important;
+  border-radius: 28px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(22px) saturate(1.2);
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-Button-root:not([data-variant='default']) {
+  color: #ffffff;
+  background: linear-gradient(135deg, #7c3cff, #e018ff, #ff9b3d) !important;
+  border-color: transparent !important;
+  box-shadow: 0 12px 32px rgba(224, 24, 255, 0.32);
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-Button-root[data-variant='default'],
+html[data-gds-theme-preset='cosmic'] .mantine-Input-input,
+html[data-gds-theme-preset='cosmic'] .mantine-NativeSelect-input,
+html[data-gds-theme-preset='cosmic'] .mantine-Textarea-input {
+  color: #ffffff;
+  background: rgba(16, 26, 86, 0.54) !important;
+  border-color: rgba(190, 160, 255, 0.45) !important;
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-Input-input::placeholder,
+html[data-gds-theme-preset='cosmic'] .mantine-Textarea-input::placeholder {
+  color: rgba(235, 238, 255, 0.58);
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-AppShell-main h1,
+html[data-gds-theme-preset='cosmic'] .mantine-AppShell-main h2,
+html[data-gds-theme-preset='cosmic'] .mantine-AppShell-main h3,
+html[data-gds-theme-preset='cosmic'] .mantine-AppShell-main h4,
+html[data-gds-theme-preset='cosmic'] .mantine-Text-root,
+html[data-gds-theme-preset='cosmic'] .mantine-InputWrapper-label {
+  color: #ffffff;
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-Text-root[data-dimmed],
+html[data-gds-theme-preset='cosmic'] .mantine-InputWrapper-description {
+  color: rgba(235, 238, 255, 0.76);
+}
+
+@media (max-width: 768px) {
+  html[data-gds-theme-preset='cosmic'] body,
+  html[data-gds-theme-preset='cosmic'] .mantine-AppShell-main {
+    background:
+      radial-gradient(circle at 115% 18%, rgba(255, 170, 70, 0.95) 0 13%, transparent 31%),
+      radial-gradient(circle at 90% 38%, rgba(255, 45, 190, 0.72) 0 17%, transparent 38%),
+      radial-gradient(circle at 58% 14%, rgba(0, 220, 255, 0.48) 0 13%, transparent 35%),
+      linear-gradient(150deg, #180052 0%, #07136f 42%, #0038bc 70%, #5207a4 100%) !important;
+  }
+
+  html[data-gds-theme-preset='cosmic'] body::before {
+    background:
+      radial-gradient(circle at 83% 32%, rgba(160, 42, 255, 0.9) 0 8%, transparent 20%),
+      radial-gradient(circle at 95% 76%, rgba(120, 25, 255, 0.7) 0 14%, transparent 34%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html[data-gds-theme-preset] a,
   html[data-gds-theme-preset] button {

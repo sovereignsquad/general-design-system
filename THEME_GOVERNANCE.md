@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 3.0.3
+Version: 3.0.4
 Last updated: 2026-06-01
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
@@ -192,6 +192,7 @@ Approved colorful preset ids:
 - `mint` - clean growth, health, and learning surfaces
 - `orchid` - grape editorial and premium surfaces
 - `royal` - confident violet SaaS and professional surfaces
+- `cosmic` - highly saturated blue-violet-cyan-magenta launch and showcase surfaces
 
 Usage rule:
 
@@ -215,6 +216,7 @@ Runtime rule:
 - `useGdsThemePresetState(...)` must set `data-gds-theme-preset`, `data-gds-theme-runtime`, `data-gds-font-lane`, `data-mantine-color-scheme`, and the `--gds-vibe-*` CSS variables on the document root.
 - The official site must use the selected VibeTheme across the whole shell, not only inside the Theme Lab card.
 - VibeTheme visuals must be CSS-only: gradients, color-mix, surface variables, and component tokens are allowed; pixel/image backgrounds are not the default theme mechanism.
+- `cosmic` is the sanctioned high-saturation reference lane. If teams need a dramatic multicolour app vibe, start from `cosmic` instead of building route-local image or gradient systems.
 
 Do not create a product-local theme catalog to achieve colorful branding. If a color lane is missing, add it to the GDS preset registry and VibeTheme registry, document the intended product use, add live Theme Lab coverage, and verify the lane through package tests.
 

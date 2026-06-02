@@ -2,6 +2,11 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.0.4 - 2026-06-02
+
+- Added `cosmic` as the first intentionally high-saturation CSS VibeTheme, with a multicolour blue-violet-cyan-magenta background, star-field atmosphere, glass panels, and vivid gradient primary controls.
+- Documented `cosmic` as the sanctioned dramatic showcase lane so consumers do not need route-local image backgrounds or private gradient systems for bold launch/public surfaces.
+
 ## 3.0.3 - 2026-06-02
 
 - Added package-owned CSS VibeThemes for the colorful preset line so `sunset`, `oceanic`, `forest`, `ruby`, `amber`, `neon-night`, `skyline`, `aurora`, `coral`, `mint`, `orchid`, and `royal` now expose full canvas, shell, surface, border, text, accent, glow, gradient, and hero tokens instead of only changing `primaryColor`.

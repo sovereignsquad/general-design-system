@@ -125,6 +125,7 @@ describe('GdsProvider', () => {
       'mint',
       'orchid',
       'royal',
+      'cosmic',
     ];
 
     expect(presets.length).toBeGreaterThanOrEqual(17);
@@ -144,6 +145,10 @@ describe('GdsProvider', () => {
     expect(royalVibe.primary).toBe('#7c3aed');
     expect(royalVibe.accent).toBe('#06b6d4');
     expect(royalVibe.hero).toContain('linear-gradient');
+
+    const cosmicVibe = resolveGdsVibeTheme('cosmic');
+    expect(cosmicVibe.label).toBe('Cosmic burst');
+    expect(cosmicVibe.gradient).toContain('#19005c');
   });
 
   it('exposes approved font lanes and applies them to theme contracts', () => {

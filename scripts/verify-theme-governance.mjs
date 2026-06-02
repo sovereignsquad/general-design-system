@@ -39,6 +39,7 @@ const colorfulThemePresetIds = [
   'mint',
   'orchid',
   'royal',
+  'cosmic',
 ];
 
 const failures = [];
