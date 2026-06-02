@@ -9,6 +9,8 @@ const manifests = [
 ];
 const explorerSource = readFileSync(resolve(root, 'packages/gds-core/src/ReferenceThemeExplorer.tsx'), 'utf8');
 const themePresetSource = readFileSync(resolve(root, 'packages/gds-theme/src/theme-presets.ts'), 'utf8');
+const vibeThemeSource = readFileSync(resolve(root, 'packages/gds-theme/src/vibe-themes.ts'), 'utf8');
+const themeStylesSource = readFileSync(resolve(root, 'packages/gds-theme/styles.css'), 'utf8');
 const playgroundAppSource = readFileSync(resolve(root, 'apps/playground/src/App.tsx'), 'utf8');
 const runtimeTestSource = readFileSync(resolve(root, 'apps/playground/src/app-theme-runtime.test.tsx'), 'utf8');
 const themeRuntimeSource = readFileSync(resolve(root, 'packages/gds-theme/src/theme-runtime.ts'), 'utf8');
@@ -89,10 +91,40 @@ for (const presetId of colorfulThemePresetIds) {
   if (!themePresetSource.includes(`'${presetId}'`)) {
     failures.push(`theme-presets.ts must ship colorful preset "${presetId}".`);
   }
+
+  if (!vibeThemeSource.includes(`${presetId}:`) && !vibeThemeSource.includes(`'${presetId}':`)) {
+    failures.push(`vibe-themes.ts must ship CSS VibeTheme "${presetId}".`);
+  }
 }
 
 if (!explorerSource.includes('getGdsThemePresets()')) {
   failures.push('ReferenceThemeExplorer must source theme options from getGdsThemePresets().');
+}
+
+const requiredVibeThemeProof = [
+  'getGdsVibeThemes',
+  'CSS VibeTheme',
+  'Current VibeTheme contract',
+  'not bitmap backgrounds',
+];
+
+for (const proof of requiredVibeThemeProof) {
+  if (!explorerSource.includes(proof)) {
+    failures.push(`ReferenceThemeExplorer must include VibeTheme proof: ${proof}`);
+  }
+}
+
+const requiredVibeRuntimeProof = [
+  'getGdsVibeThemeCssVariables',
+  'data-gds-theme-preset',
+  '--gds-vibe-primary',
+  '--gds-vibe-accent',
+];
+
+for (const proof of requiredVibeRuntimeProof) {
+  if (!themeRuntimeSource.includes(proof) && !themeStylesSource.includes(proof) && !themeProviderTestSource.includes(proof)) {
+    failures.push(`Theme runtime/styles/tests must preserve VibeTheme proof: ${proof}`);
+  }
 }
 
 if (!themeGovernanceSource.includes('Light mode and dark mode are scheme choices, not the full theme offering.')) {

@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 3.0.2
+Version: 3.0.3
 Last updated: 2026-06-01
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
@@ -174,9 +174,9 @@ Rules:
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
 - `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.
 
-## Colorful app theme presets
+## CSS VibeThemes
 
-GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering.
+GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.
 
 Approved colorful preset ids:
 
@@ -196,14 +196,35 @@ Approved colorful preset ids:
 Usage rule:
 
 ```ts
-import { resolveGdsThemePreset, useGdsThemePresetState } from '@doneisbetter/gds-theme/client';
+import {
+  getGdsVibeThemes,
+  resolveGdsThemePreset,
+  resolveGdsVibeTheme,
+  useGdsThemePresetState,
+} from '@doneisbetter/gds-theme/client';
 
 const theme = resolveGdsThemePreset('coral');
+const vibe = resolveGdsVibeTheme('coral');
+const availableVibes = getGdsVibeThemes();
 
 const { selection, setPreset, setScheme, setFontLane, reset } = useGdsThemePresetState();
 ```
 
-Do not create a product-local theme catalog to achieve colorful branding. If a color lane is missing, add it to the GDS preset registry, document the intended product use, add live Theme Lab coverage, and verify the lane through package tests.
+Runtime rule:
+
+- `useGdsThemePresetState(...)` must set `data-gds-theme-preset`, `data-gds-theme-runtime`, `data-gds-font-lane`, `data-mantine-color-scheme`, and the `--gds-vibe-*` CSS variables on the document root.
+- The official site must use the selected VibeTheme across the whole shell, not only inside the Theme Lab card.
+- VibeTheme visuals must be CSS-only: gradients, color-mix, surface variables, and component tokens are allowed; pixel/image backgrounds are not the default theme mechanism.
+
+Do not create a product-local theme catalog to achieve colorful branding. If a color lane is missing, add it to the GDS preset registry and VibeTheme registry, document the intended product use, add live Theme Lab coverage, and verify the lane through package tests.
+
+Avoid:
+
+- route-local theme state that resets on navigation
+- hardcoded app-only gradients outside the GDS VibeTheme registry
+- using image backgrounds as the theme identity
+- changing only `primaryColor` while leaving shell, controls, cards, nav, focus, and page canvas visually neutral
+- consumer-owned `createTheme(...)`, `mergeMantineTheme(...)`, or `extendGdsTheme(...)` theme catalogs
 
 ## 3.0.0 theme explorer proof contract
 

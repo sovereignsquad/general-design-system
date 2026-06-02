@@ -89,14 +89,14 @@ That means the current verified statement is:
 Canonical `3.0.0` end-state install source after the release gate opens:
 
 ```bash
-npm install @doneisbetter/gds@3.0.2
+npm install @doneisbetter/gds@3.0.3
 npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
 ```
 
 Granular package path:
 
 ```bash
-npm install @doneisbetter/gds-theme@3.0.2 @doneisbetter/gds-core@3.0.2 @doneisbetter/gds-admin@3.0.2
+npm install @doneisbetter/gds-theme@3.0.3 @doneisbetter/gds-core@3.0.3 @doneisbetter/gds-admin@3.0.3
 npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
 ```
 

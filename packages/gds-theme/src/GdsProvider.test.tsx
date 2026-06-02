@@ -11,6 +11,7 @@ import { showGdsNotification } from './notifications';
 import { createPublicBrandTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
 import { getGdsThemePresets, resolveGdsThemePreset } from './theme-presets';
 import { useGdsThemePresetState } from './theme-runtime';
+import { getGdsVibeThemes, resolveGdsVibeTheme } from './vibe-themes';
 
 function ProviderConsumer() {
   return (
@@ -110,6 +111,7 @@ describe('GdsProvider', () => {
 
   it('exposes a governed colorful theme registry beyond light and dark', () => {
     const presets = getGdsThemePresets();
+    const vibes = getGdsVibeThemes();
     const colorfulPresetIds = [
       'sunset',
       'oceanic',
@@ -129,6 +131,7 @@ describe('GdsProvider', () => {
     expect(presets.some((item) => item.id === 'default')).toBe(true);
     expect(presets.some((item) => item.id === 'brand')).toBe(true);
     expect(colorfulPresetIds.every((id) => presets.some((item) => item.id === id))).toBe(true);
+    expect(colorfulPresetIds.every((id) => vibes.some((item) => item.id === id))).toBe(true);
     expect(presets.find((item) => item.id === 'coral')?.runtimeLane).toBe('resolveGdsThemePreset(coral)');
 
     const resolved = resolveGdsThemePreset('sunset');
@@ -136,6 +139,11 @@ describe('GdsProvider', () => {
 
     const coral = resolveGdsThemePreset('coral');
     expect(coral.primaryColor).toBe('pink');
+
+    const royalVibe = resolveGdsVibeTheme('royal');
+    expect(royalVibe.primary).toBe('#7c3aed');
+    expect(royalVibe.accent).toBe('#06b6d4');
+    expect(royalVibe.hero).toContain('linear-gradient');
   });
 
   it('exposes approved font lanes and applies them to theme contracts', () => {
@@ -160,7 +168,10 @@ describe('GdsProvider', () => {
 
     expect(screen.getByTestId('runtime-key')).toHaveTextContent('coral-dark-blue-true-false-space-grotesk');
     expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toBe('coral-dark-blue-true-false-space-grotesk');
+    expect(document.documentElement.getAttribute('data-gds-theme-preset')).toBe('coral');
     expect(document.documentElement.getAttribute('data-gds-font-lane')).toBe('space-grotesk');
+    expect(document.documentElement.style.getPropertyValue('--gds-vibe-primary')).toBe('#db2777');
+    expect(document.documentElement.style.getPropertyValue('--gds-vibe-accent')).toBe('#fb7185');
     expect(window.localStorage.getItem('gds-test-theme-runtime')).toContain('coral');
 
     await user.click(screen.getByRole('button', { name: 'Reset runtime' }));

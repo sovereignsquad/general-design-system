@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { MantineThemeOverride } from '@mantine/core';
 import { applyGdsFontLane, getGdsFontLanes, type GdsFontLaneId } from './font-lanes';
 import { getGdsThemePresets, resolveGdsThemePreset, type GdsThemePresetId } from './theme-presets';
+import { getGdsVibeThemeCssVariables } from './vibe-themes';
 
 export type GdsThemeScheme = 'light' | 'dark' | 'auto';
 
@@ -129,9 +130,17 @@ function resolveDocumentScheme(selection: GdsThemePresetSelection) {
 }
 
 function applyDocumentRuntime(selection: GdsThemePresetSelection) {
-  document.documentElement.setAttribute('data-mantine-color-scheme', resolveDocumentScheme(selection));
+  const documentScheme = resolveDocumentScheme(selection);
+  const vibeVariables = getGdsVibeThemeCssVariables(selection.preset, documentScheme);
+
+  document.documentElement.setAttribute('data-mantine-color-scheme', documentScheme);
+  document.documentElement.setAttribute('data-gds-theme-preset', selection.preset);
   document.documentElement.setAttribute('data-gds-theme-runtime', selection.runtimeKey ?? `${selection.preset}-${selection.colorScheme}`);
   document.documentElement.setAttribute('data-gds-font-lane', selection.fontLane);
+
+  Object.entries(vibeVariables).forEach(([property, value]) => {
+    document.documentElement.style.setProperty(property, value);
+  });
 }
 
 export function useGdsThemePresetState({

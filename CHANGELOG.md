@@ -2,6 +2,12 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.0.3 - 2026-06-02
+
+- Added package-owned CSS VibeThemes for the colorful preset line so `sunset`, `oceanic`, `forest`, `ruby`, `amber`, `neon-night`, `skyline`, `aurora`, `coral`, `mint`, `orchid`, and `royal` now expose full canvas, shell, surface, border, text, accent, glow, gradient, and hero tokens instead of only changing `primaryColor`.
+- Extended `useGdsThemePresetState(...)` to apply `data-gds-theme-preset` plus `--gds-vibe-*` CSS variables on the document root, making whole-site theme switching persistent across direct links and route changes.
+- Updated the GitHub Pages Theme Lab with a visual VibeTheme gallery and current-token proof section, and documented the no-image-background/no-local-theme-catalog governance rule.
+
 ## 3.0.0 - 2026-05-31
 
 - Delivered the adoption-platform release with hardened install/bootstrap docs, reference-site governance, public feature-request intake, media/upload contracts, reporting/evidence/chart contracts, auth/access identity hardening, strict compliance expansion, and verified reference codemods.

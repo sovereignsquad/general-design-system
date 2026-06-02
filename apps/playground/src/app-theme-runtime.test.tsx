@@ -1,12 +1,16 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { resolveGdsVibeTheme } from '@doneisbetter/gds-theme';
 import App from './App';
 
 describe('playground app runtime theme flow', () => {
   beforeEach(() => {
     window.localStorage.clear();
     document.documentElement.removeAttribute('data-gds-theme-runtime');
+    document.documentElement.removeAttribute('data-gds-theme-preset');
     document.documentElement.removeAttribute('data-gds-font-lane');
     document.documentElement.removeAttribute('data-mantine-color-scheme');
+    document.documentElement.style.removeProperty('--gds-vibe-primary');
+    document.documentElement.style.removeProperty('--gds-vibe-accent');
   });
 
   it('applies dark -> light -> dark transitions on the live /themes route without resetting preset', async () => {
@@ -108,6 +112,7 @@ describe('playground app runtime theme flow', () => {
 
   it('persists selected theme and font lane across direct route loads', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');
+    const expectedOceanicVibe = resolveGdsVibeTheme('oceanic');
 
     const firstRender = render(<App />);
 
@@ -119,7 +124,13 @@ describe('playground app runtime theme flow', () => {
       expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toContain('oceanic-dark'),
     );
     await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-gds-theme-preset')).toBe('oceanic'),
+    );
+    await waitFor(() =>
       expect(document.documentElement.getAttribute('data-gds-font-lane')).toBe('space-grotesk'),
+    );
+    await waitFor(() =>
+      expect(document.documentElement.style.getPropertyValue('--gds-vibe-primary')).toBe(expectedOceanicVibe.primary),
     );
     await waitFor(() =>
       expect(window.localStorage.getItem('gds-reference-theme-selection')).toContain('oceanic'),
@@ -134,7 +145,13 @@ describe('playground app runtime theme flow', () => {
       expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toContain('oceanic-dark'),
     );
     await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-gds-theme-preset')).toBe('oceanic'),
+    );
+    await waitFor(() =>
       expect(document.documentElement.getAttribute('data-gds-font-lane')).toBe('space-grotesk'),
+    );
+    await waitFor(() =>
+      expect(document.documentElement.style.getPropertyValue('--gds-vibe-accent')).toBe(expectedOceanicVibe.accent),
     );
     expect(await screen.findByText('Discovery & Cards')).toBeTruthy();
   });

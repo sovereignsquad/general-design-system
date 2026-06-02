@@ -64,6 +64,9 @@ describe('playground theme explorer and live demos hub', () => {
   it('shows supported and avoid guidance for each shipped lane', () => {
     renderWithGds(<TokensPage />);
 
+    expect(screen.getAllByText('CSS VibeTheme').length).toBeGreaterThanOrEqual(12);
+    expect(screen.getByText('Current VibeTheme contract')).toBeTruthy();
+    expect(screen.getAllByRole('button', { name: 'Preview this vibe' }).length).toBeGreaterThanOrEqual(12);
     expect(screen.getAllByText(/Best for:/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Avoid for:/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText('Unsupported lane boundary').length).toBeGreaterThan(0);

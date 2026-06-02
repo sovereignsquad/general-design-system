@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 3.0.2
+Version: 3.0.3
 Last updated: 2026-06-01
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
@@ -52,7 +52,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Granular Runtime Packages**: `@doneisbetter/gds-theme`, `@doneisbetter/gds-core`, and `@doneisbetter/gds-admin` — direct lanes for consumers that want tighter dependency boundaries or package-by-package upgrades.
 - **Tooling Packages**: `@doneisbetter/gds-eslint-config` and `@doneisbetter/gds-compliance` — shared lint and compliance enforcement for adopting repos.
 - **Canonical Theme Lanes**: `gdsTheme`, `gdsDarkPublicTheme`, `gdsFlatSurfaceTheme`, `gdsEditorialPublicTheme`, and `createPublicBrandTheme(...)` — the only approved adopter-facing theme ownership paths; `extendGdsTheme(...)` is retained only as a bounded internal/runtime helper and is no longer a canonical consumer lane.
-- **Colorful App Theme Presets**: `sunset`, `oceanic`, `forest`, `ruby`, `amber`, `neon-night`, `skyline`, `aurora`, `coral`, `mint`, `orchid`, and `royal` — governed vibrant lanes resolved through `getGdsThemePresets()` and `resolveGdsThemePreset(...)` so products can ship expressive color without forking theme authority.
+- **CSS VibeThemes**: `sunset`, `oceanic`, `forest`, `ruby`, `amber`, `neon-night`, `skyline`, `aurora`, `coral`, `mint`, `orchid`, and `royal` — governed vibrant lanes resolved through `getGdsThemePresets()`, `resolveGdsThemePreset(...)`, `getGdsVibeThemes()`, and runtime CSS variables so products can ship expressive color without image backgrounds or local theme authority.
 - **Theme Runtime State**: `useGdsThemePresetState(...)` from `@doneisbetter/gds-theme/client` — canonical runtime hook for persistent whole-site preset switching, font-lane switching, root runtime attributes, corrupted-storage fallback, and reset behavior.
 - **Locale Bridge**: `getGdsMessages(locale)` and `GdsLocale` from `@doneisbetter/gds-core` — canonical bridge for host i18n systems that want GDS-owned semantic labels only.
 - **Public, Discovery, Detail, Reporting, and Access Primitives**: `AccentPanel`, `ChoiceChip`, `EditorialHero`, `FeatureBand`, `BrowseSurface`, `EditorialCard`, `ConsumerSection`, `ConsumerDashboardGrid`, `SectionPanel`, `MediaField`, `UploadDropzone`, `ReportingSection`, `PeriodSelector`, `EvidencePanel`, `ChartTokenPanel`, `PublicBrandFooter`, `DiscoveryShell`, `SidebarNav`, `ActionBar`, `ListingCard`, `ShareButtonGroup`, `MapPanel`, `DetailProfileShell`, `PublicFlowShell`, `PlaybackSurface`, `PublicFoodCard`, `FoodMenuSection`, `ProviderIdentityButton`, `ProviderIdentityButtonGroup`, `SocialAuthButtons`, `AccessSummary`, `AccessRecoveryPanel`, and the enhanced `PublicShell` / `PublicProductCard` / `AuthShell` contracts from `@doneisbetter/gds-core` — canonical public/editorial contracts for accent-safe surfaces, sidebar-first shells, governed navigation and actions, unified discovery cards, sanctioned share/embed panels, detail/profile composition, public staged flows, kiosk/playback surfaces, food/menu presentation, reporting/evidence/chart containment, access recovery, consumer dashboard grouping, operational framing, social-auth entry, and localized media-first card states.

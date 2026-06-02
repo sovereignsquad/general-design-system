@@ -1,0 +1,312 @@
+import type { GdsThemePresetId } from './theme-presets';
+
+export interface GdsVibeTheme {
+  id: GdsThemePresetId;
+  label: string;
+  primary: string;
+  accent: string;
+  glow: string;
+  canvasLight: string;
+  canvasDark: string;
+  shellLight: string;
+  shellDark: string;
+  surfaceLight: string;
+  surfaceDark: string;
+  borderLight: string;
+  borderDark: string;
+  textLight: string;
+  textDark: string;
+  mutedLight: string;
+  mutedDark: string;
+  gradient: string;
+  hero: string;
+}
+
+const neutralVibe: GdsVibeTheme = {
+  id: 'default',
+  label: 'Default runtime theme',
+  primary: '#7c3aed',
+  accent: '#06b6d4',
+  glow: 'rgba(124, 58, 237, 0.2)',
+  canvasLight: '#f8fafc',
+  canvasDark: '#0f172a',
+  shellLight: 'rgba(255, 255, 255, 0.82)',
+  shellDark: 'rgba(15, 23, 42, 0.84)',
+  surfaceLight: 'rgba(255, 255, 255, 0.9)',
+  surfaceDark: 'rgba(30, 41, 59, 0.82)',
+  borderLight: 'rgba(124, 58, 237, 0.22)',
+  borderDark: 'rgba(167, 139, 250, 0.28)',
+  textLight: '#111827',
+  textDark: '#f8fafc',
+  mutedLight: '#64748b',
+  mutedDark: '#cbd5e1',
+  gradient: 'radial-gradient(circle at 18% 12%, rgba(124, 58, 237, 0.18), transparent 28%), radial-gradient(circle at 82% 8%, rgba(6, 182, 212, 0.16), transparent 30%)',
+  hero: 'linear-gradient(135deg, rgba(124, 58, 237, 0.14), rgba(6, 182, 212, 0.12))',
+};
+
+const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
+  default: neutralVibe,
+  'dark-public': {
+    ...neutralVibe,
+    id: 'dark-public',
+    label: 'Dark public theme',
+    primary: '#8b5cf6',
+    accent: '#22d3ee',
+    canvasLight: '#f5f3ff',
+    canvasDark: '#050816',
+    shellDark: 'rgba(8, 13, 32, 0.88)',
+    surfaceDark: 'rgba(18, 24, 52, 0.86)',
+    gradient: 'radial-gradient(circle at 20% 12%, rgba(139, 92, 246, 0.34), transparent 30%), radial-gradient(circle at 82% 16%, rgba(34, 211, 238, 0.2), transparent 28%)',
+    hero: 'linear-gradient(135deg, rgba(139, 92, 246, 0.35), rgba(34, 211, 238, 0.14))',
+  },
+  'flat-surface': {
+    ...neutralVibe,
+    id: 'flat-surface',
+    label: 'Flat surface theme',
+    primary: '#2563eb',
+    accent: '#14b8a6',
+    canvasLight: '#f8fafc',
+    canvasDark: '#111827',
+    shellLight: 'rgba(248, 250, 252, 0.94)',
+    surfaceLight: 'rgba(255, 255, 255, 0.94)',
+    gradient: 'linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(20, 184, 166, 0.08))',
+    hero: 'linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(20, 184, 166, 0.1))',
+  },
+  editorial: {
+    ...neutralVibe,
+    id: 'editorial',
+    label: 'Editorial serif theme',
+    primary: '#9a3412',
+    accent: '#be123c',
+    canvasLight: '#fff7ed',
+    canvasDark: '#1c1917',
+    shellLight: 'rgba(255, 247, 237, 0.9)',
+    surfaceLight: 'rgba(255, 251, 247, 0.92)',
+    borderLight: 'rgba(154, 52, 18, 0.22)',
+    gradient: 'radial-gradient(circle at 12% 12%, rgba(251, 146, 60, 0.22), transparent 28%), radial-gradient(circle at 84% 10%, rgba(190, 18, 60, 0.12), transparent 28%)',
+    hero: 'linear-gradient(135deg, rgba(251, 146, 60, 0.18), rgba(190, 18, 60, 0.12))',
+  },
+  brand: {
+    ...neutralVibe,
+    id: 'brand',
+    label: 'Brand theme generator',
+  },
+  sunset: {
+    ...neutralVibe,
+    id: 'sunset',
+    label: 'Sunset pulse',
+    primary: '#f97316',
+    accent: '#ec4899',
+    glow: 'rgba(249, 115, 22, 0.3)',
+    canvasLight: '#fff7ed',
+    canvasDark: '#211106',
+    shellLight: 'rgba(255, 247, 237, 0.9)',
+    shellDark: 'rgba(44, 18, 10, 0.88)',
+    surfaceLight: 'rgba(255, 250, 245, 0.9)',
+    surfaceDark: 'rgba(68, 24, 12, 0.78)',
+    borderLight: 'rgba(249, 115, 22, 0.3)',
+    borderDark: 'rgba(251, 146, 60, 0.36)',
+    gradient: 'radial-gradient(circle at 14% 8%, rgba(251, 146, 60, 0.38), transparent 28%), radial-gradient(circle at 88% 18%, rgba(236, 72, 153, 0.32), transparent 32%), linear-gradient(135deg, rgba(255, 247, 237, 0.96), rgba(253, 242, 248, 0.86))',
+    hero: 'linear-gradient(135deg, rgba(249, 115, 22, 0.26), rgba(236, 72, 153, 0.22))',
+  },
+  oceanic: {
+    ...neutralVibe,
+    id: 'oceanic',
+    label: 'Oceanic wave',
+    primary: '#0891b2',
+    accent: '#2563eb',
+    glow: 'rgba(8, 145, 178, 0.28)',
+    canvasLight: '#ecfeff',
+    canvasDark: '#04131f',
+    shellLight: 'rgba(236, 254, 255, 0.88)',
+    shellDark: 'rgba(5, 26, 44, 0.88)',
+    surfaceLight: 'rgba(248, 253, 255, 0.9)',
+    surfaceDark: 'rgba(8, 47, 73, 0.78)',
+    borderLight: 'rgba(8, 145, 178, 0.28)',
+    borderDark: 'rgba(103, 232, 249, 0.28)',
+    gradient: 'radial-gradient(circle at 18% 8%, rgba(34, 211, 238, 0.32), transparent 30%), radial-gradient(circle at 86% 14%, rgba(37, 99, 235, 0.28), transparent 32%), linear-gradient(135deg, rgba(236, 254, 255, 0.96), rgba(239, 246, 255, 0.9))',
+    hero: 'linear-gradient(135deg, rgba(8, 145, 178, 0.24), rgba(37, 99, 235, 0.2))',
+  },
+  forest: {
+    ...neutralVibe,
+    id: 'forest',
+    label: 'Forest signal',
+    primary: '#16a34a',
+    accent: '#84cc16',
+    glow: 'rgba(22, 163, 74, 0.28)',
+    canvasLight: '#f0fdf4',
+    canvasDark: '#06180d',
+    shellLight: 'rgba(240, 253, 244, 0.9)',
+    shellDark: 'rgba(8, 35, 19, 0.88)',
+    surfaceLight: 'rgba(250, 255, 251, 0.9)',
+    surfaceDark: 'rgba(20, 83, 45, 0.72)',
+    borderLight: 'rgba(22, 163, 74, 0.26)',
+    borderDark: 'rgba(134, 239, 172, 0.28)',
+    gradient: 'radial-gradient(circle at 18% 10%, rgba(34, 197, 94, 0.28), transparent 28%), radial-gradient(circle at 84% 14%, rgba(132, 204, 22, 0.24), transparent 30%)',
+    hero: 'linear-gradient(135deg, rgba(22, 163, 74, 0.22), rgba(132, 204, 22, 0.18))',
+  },
+  ruby: {
+    ...neutralVibe,
+    id: 'ruby',
+    label: 'Ruby spark',
+    primary: '#e11d48',
+    accent: '#f97316',
+    canvasLight: '#fff1f2',
+    canvasDark: '#22050c',
+    shellLight: 'rgba(255, 241, 242, 0.9)',
+    shellDark: 'rgba(50, 8, 18, 0.88)',
+    surfaceDark: 'rgba(76, 20, 32, 0.76)',
+    borderLight: 'rgba(225, 29, 72, 0.28)',
+    gradient: 'radial-gradient(circle at 18% 8%, rgba(225, 29, 72, 0.32), transparent 28%), radial-gradient(circle at 86% 18%, rgba(249, 115, 22, 0.22), transparent 30%)',
+    hero: 'linear-gradient(135deg, rgba(225, 29, 72, 0.24), rgba(249, 115, 22, 0.18))',
+  },
+  amber: {
+    ...neutralVibe,
+    id: 'amber',
+    label: 'Amber glow',
+    primary: '#d97706',
+    accent: '#eab308',
+    canvasLight: '#fffbeb',
+    canvasDark: '#1f1604',
+    shellLight: 'rgba(255, 251, 235, 0.9)',
+    shellDark: 'rgba(41, 29, 6, 0.88)',
+    surfaceDark: 'rgba(69, 46, 10, 0.76)',
+    borderLight: 'rgba(217, 119, 6, 0.28)',
+    gradient: 'radial-gradient(circle at 14% 10%, rgba(251, 191, 36, 0.34), transparent 30%), radial-gradient(circle at 84% 12%, rgba(217, 119, 6, 0.22), transparent 28%)',
+    hero: 'linear-gradient(135deg, rgba(217, 119, 6, 0.22), rgba(234, 179, 8, 0.2))',
+  },
+  'neon-night': {
+    ...neutralVibe,
+    id: 'neon-night',
+    label: 'Neon night',
+    primary: '#84cc16',
+    accent: '#22d3ee',
+    glow: 'rgba(132, 204, 22, 0.34)',
+    canvasLight: '#f7fee7',
+    canvasDark: '#030712',
+    shellLight: 'rgba(247, 254, 231, 0.88)',
+    shellDark: 'rgba(5, 12, 24, 0.9)',
+    surfaceDark: 'rgba(12, 23, 36, 0.86)',
+    borderLight: 'rgba(132, 204, 22, 0.3)',
+    borderDark: 'rgba(190, 242, 100, 0.34)',
+    gradient: 'radial-gradient(circle at 16% 8%, rgba(132, 204, 22, 0.36), transparent 26%), radial-gradient(circle at 86% 12%, rgba(34, 211, 238, 0.28), transparent 30%), linear-gradient(135deg, rgba(3, 7, 18, 0.96), rgba(8, 47, 73, 0.74))',
+    hero: 'linear-gradient(135deg, rgba(132, 204, 22, 0.28), rgba(34, 211, 238, 0.18))',
+  },
+  skyline: {
+    ...neutralVibe,
+    id: 'skyline',
+    label: 'Skyline indigo',
+    primary: '#4f46e5',
+    accent: '#0ea5e9',
+    canvasLight: '#eef2ff',
+    canvasDark: '#0b1026',
+    shellLight: 'rgba(238, 242, 255, 0.9)',
+    shellDark: 'rgba(13, 20, 52, 0.88)',
+    surfaceDark: 'rgba(30, 41, 86, 0.78)',
+    borderLight: 'rgba(79, 70, 229, 0.28)',
+    gradient: 'radial-gradient(circle at 18% 8%, rgba(79, 70, 229, 0.32), transparent 28%), radial-gradient(circle at 84% 12%, rgba(14, 165, 233, 0.28), transparent 30%)',
+    hero: 'linear-gradient(135deg, rgba(79, 70, 229, 0.24), rgba(14, 165, 233, 0.18))',
+  },
+  aurora: {
+    ...neutralVibe,
+    id: 'aurora',
+    label: 'Aurora teal',
+    primary: '#0d9488',
+    accent: '#a3e635',
+    canvasLight: '#f0fdfa',
+    canvasDark: '#04211f',
+    shellLight: 'rgba(240, 253, 250, 0.9)',
+    shellDark: 'rgba(5, 44, 42, 0.88)',
+    surfaceDark: 'rgba(19, 78, 74, 0.76)',
+    borderLight: 'rgba(13, 148, 136, 0.28)',
+    gradient: 'radial-gradient(circle at 16% 8%, rgba(45, 212, 191, 0.32), transparent 28%), radial-gradient(circle at 84% 14%, rgba(163, 230, 53, 0.22), transparent 30%)',
+    hero: 'linear-gradient(135deg, rgba(13, 148, 136, 0.24), rgba(163, 230, 53, 0.16))',
+  },
+  coral: {
+    ...neutralVibe,
+    id: 'coral',
+    label: 'Coral bloom',
+    primary: '#db2777',
+    accent: '#fb7185',
+    canvasLight: '#fdf2f8',
+    canvasDark: '#251021',
+    shellLight: 'rgba(253, 242, 248, 0.9)',
+    shellDark: 'rgba(50, 18, 43, 0.88)',
+    surfaceDark: 'rgba(80, 28, 66, 0.76)',
+    borderLight: 'rgba(219, 39, 119, 0.28)',
+    gradient: 'radial-gradient(circle at 16% 8%, rgba(219, 39, 119, 0.3), transparent 28%), radial-gradient(circle at 84% 14%, rgba(251, 113, 133, 0.24), transparent 30%)',
+    hero: 'linear-gradient(135deg, rgba(219, 39, 119, 0.22), rgba(251, 113, 133, 0.18))',
+  },
+  mint: {
+    ...neutralVibe,
+    id: 'mint',
+    label: 'Mint circuit',
+    primary: '#059669',
+    accent: '#14b8a6',
+    canvasLight: '#ecfdf5',
+    canvasDark: '#031c16',
+    shellLight: 'rgba(236, 253, 245, 0.9)',
+    shellDark: 'rgba(5, 42, 34, 0.88)',
+    surfaceDark: 'rgba(6, 78, 59, 0.74)',
+    borderLight: 'rgba(5, 150, 105, 0.28)',
+    gradient: 'radial-gradient(circle at 16% 8%, rgba(16, 185, 129, 0.3), transparent 28%), radial-gradient(circle at 84% 14%, rgba(20, 184, 166, 0.22), transparent 30%)',
+    hero: 'linear-gradient(135deg, rgba(5, 150, 105, 0.24), rgba(20, 184, 166, 0.16))',
+  },
+  orchid: {
+    ...neutralVibe,
+    id: 'orchid',
+    label: 'Orchid signal',
+    primary: '#9333ea',
+    accent: '#ec4899',
+    canvasLight: '#faf5ff',
+    canvasDark: '#1d0b2f',
+    shellLight: 'rgba(250, 245, 255, 0.9)',
+    shellDark: 'rgba(39, 15, 63, 0.88)',
+    surfaceDark: 'rgba(59, 25, 94, 0.78)',
+    borderLight: 'rgba(147, 51, 234, 0.28)',
+    gradient: 'radial-gradient(circle at 16% 8%, rgba(147, 51, 234, 0.32), transparent 28%), radial-gradient(circle at 84% 14%, rgba(236, 72, 153, 0.24), transparent 30%)',
+    hero: 'linear-gradient(135deg, rgba(147, 51, 234, 0.24), rgba(236, 72, 153, 0.18))',
+  },
+  royal: {
+    ...neutralVibe,
+    id: 'royal',
+    label: 'Royal violet',
+    primary: '#7c3aed',
+    accent: '#06b6d4',
+    canvasLight: '#f5f3ff',
+    canvasDark: '#100a2d',
+    shellLight: 'rgba(245, 243, 255, 0.9)',
+    shellDark: 'rgba(21, 13, 59, 0.88)',
+    surfaceDark: 'rgba(46, 26, 104, 0.78)',
+    borderLight: 'rgba(124, 58, 237, 0.3)',
+    gradient: 'radial-gradient(circle at 15% 9%, rgba(124, 58, 237, 0.34), transparent 28%), radial-gradient(circle at 82% 12%, rgba(6, 182, 212, 0.28), transparent 30%), radial-gradient(circle at 92% 72%, rgba(236, 72, 153, 0.2), transparent 26%)',
+    hero: 'linear-gradient(135deg, rgba(124, 58, 237, 0.28), rgba(6, 182, 212, 0.18), rgba(236, 72, 153, 0.18))',
+  },
+};
+
+export function getGdsVibeThemes() {
+  return Object.values(vibeThemes);
+}
+
+export function resolveGdsVibeTheme(id: GdsThemePresetId) {
+  return vibeThemes[id] ?? neutralVibe;
+}
+
+export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: 'light' | 'dark') {
+  const vibe = resolveGdsVibeTheme(id);
+  const dark = colorScheme === 'dark';
+
+  return {
+    '--gds-vibe-primary': vibe.primary,
+    '--gds-vibe-accent': vibe.accent,
+    '--gds-vibe-glow': vibe.glow,
+    '--gds-vibe-canvas': dark ? vibe.canvasDark : vibe.canvasLight,
+    '--gds-vibe-shell': dark ? vibe.shellDark : vibe.shellLight,
+    '--gds-vibe-surface': dark ? vibe.surfaceDark : vibe.surfaceLight,
+    '--gds-vibe-border': dark ? vibe.borderDark : vibe.borderLight,
+    '--gds-vibe-text': dark ? vibe.textDark : vibe.textLight,
+    '--gds-vibe-muted': dark ? vibe.mutedDark : vibe.mutedLight,
+    '--gds-vibe-gradient': vibe.gradient,
+    '--gds-vibe-hero': vibe.hero,
+  };
+}

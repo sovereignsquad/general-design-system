@@ -1,3 +1,236 @@
 @import '@mantine/core/styles.css';
 @import '@mantine/notifications/styles.css';
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --gds-vibe-primary: #7c3aed;
+  --gds-vibe-accent: #06b6d4;
+  --gds-vibe-glow: rgba(124, 58, 237, 0.2);
+  --gds-vibe-canvas: #f8fafc;
+  --gds-vibe-shell: rgba(255, 255, 255, 0.82);
+  --gds-vibe-surface: rgba(255, 255, 255, 0.9);
+  --gds-vibe-border: rgba(124, 58, 237, 0.22);
+  --gds-vibe-text: #111827;
+  --gds-vibe-muted: #64748b;
+  --gds-vibe-gradient: radial-gradient(circle at 18% 12%, rgba(124, 58, 237, 0.18), transparent 28%), radial-gradient(circle at 82% 8%, rgba(6, 182, 212, 0.16), transparent 30%);
+  --gds-vibe-hero: linear-gradient(135deg, rgba(124, 58, 237, 0.14), rgba(6, 182, 212, 0.12));
+}
+
+html[data-gds-theme-preset] body {
+  color: var(--gds-vibe-text);
+  background:
+    var(--gds-vibe-gradient),
+    linear-gradient(135deg, var(--gds-vibe-canvas), color-mix(in srgb, var(--gds-vibe-primary) 8%, var(--gds-vibe-canvas)));
+  background-attachment: fixed;
+}
+
+html[data-gds-theme-preset] body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: '';
+  background:
+    radial-gradient(circle at 8% 78%, color-mix(in srgb, var(--gds-vibe-primary) 24%, transparent), transparent 24rem),
+    radial-gradient(circle at 92% 24%, color-mix(in srgb, var(--gds-vibe-accent) 22%, transparent), transparent 28rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-primary) 8%, transparent), transparent 42%);
+}
+
+html[data-gds-theme-preset] .mantine-AppShell-main {
+  min-height: 100vh;
+  color: var(--gds-vibe-text);
+  background:
+    radial-gradient(circle at 92% 12%, color-mix(in srgb, var(--gds-vibe-accent) 18%, transparent), transparent 24rem),
+    radial-gradient(circle at 8% 88%, color-mix(in srgb, var(--gds-vibe-primary) 16%, transparent), transparent 24rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-canvas) 90%, white), var(--gds-vibe-canvas));
+}
+
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-AppShell-main {
+  background:
+    radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--gds-vibe-accent) 24%, transparent), transparent 25rem),
+    radial-gradient(circle at 12% 80%, color-mix(in srgb, var(--gds-vibe-primary) 26%, transparent), transparent 24rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-canvas) 94%, black), var(--gds-vibe-canvas));
+}
+
+html[data-gds-theme-preset] .mantine-AppShell-header,
+html[data-gds-theme-preset] .mantine-AppShell-navbar,
+html[data-gds-theme-preset] .mantine-AppShell-footer {
+  color: var(--gds-vibe-text);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-shell) 88%, var(--gds-vibe-primary) 8%), var(--gds-vibe-shell));
+  border-color: var(--gds-vibe-border);
+  backdrop-filter: blur(20px) saturate(1.25);
+  box-shadow: 0 18px 60px color-mix(in srgb, var(--gds-vibe-glow) 36%, transparent);
+}
+
+html[data-gds-theme-preset] .mantine-AppShell-navbar {
+  background:
+    radial-gradient(circle at 86% 78%, color-mix(in srgb, var(--gds-vibe-accent) 16%, transparent), transparent 11rem),
+    linear-gradient(155deg, color-mix(in srgb, var(--gds-vibe-shell) 82%, var(--gds-vibe-primary) 10%), var(--gds-vibe-shell));
+}
+
+html[data-gds-theme-preset] .mantine-Paper-root,
+html[data-gds-theme-preset] .mantine-Card-root {
+  color: var(--gds-vibe-text);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 94%, white), color-mix(in srgb, var(--gds-vibe-surface) 86%, var(--gds-vibe-primary) 7%));
+  border-color: var(--gds-vibe-border);
+  box-shadow: 0 18px 54px color-mix(in srgb, var(--gds-vibe-glow) 20%, transparent);
+}
+
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-Paper-root,
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-Card-root {
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%));
+}
+
+html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']) {
+  background: linear-gradient(135deg, var(--gds-vibe-primary), var(--gds-vibe-accent));
+  border-color: color-mix(in srgb, var(--gds-vibe-primary) 72%, var(--gds-vibe-accent));
+  color: white;
+  box-shadow: 0 12px 34px color-mix(in srgb, var(--gds-vibe-glow) 58%, transparent);
+}
+
+html[data-gds-theme-preset] .mantine-Button-root[data-variant='default'] {
+  color: var(--gds-vibe-text);
+  background: color-mix(in srgb, var(--gds-vibe-surface) 90%, var(--gds-vibe-primary) 7%);
+  border-color: var(--gds-vibe-border);
+}
+
+html[data-gds-theme-preset] .mantine-Badge-root {
+  color: color-mix(in srgb, var(--gds-vibe-primary) 76%, var(--gds-vibe-text));
+  background: color-mix(in srgb, var(--gds-vibe-primary) 15%, transparent);
+  border-color: color-mix(in srgb, var(--gds-vibe-primary) 28%, transparent);
+}
+
+html[data-gds-theme-preset] .mantine-Input-input,
+html[data-gds-theme-preset] .mantine-NativeSelect-input,
+html[data-gds-theme-preset] .mantine-Textarea-input {
+  color: var(--gds-vibe-text);
+  background: color-mix(in srgb, var(--gds-vibe-surface) 88%, transparent);
+  border-color: color-mix(in srgb, var(--gds-vibe-border) 90%, var(--gds-vibe-primary));
+}
+
+html[data-gds-theme-preset] .mantine-Input-input:focus,
+html[data-gds-theme-preset] .mantine-NativeSelect-input:focus,
+html[data-gds-theme-preset] .mantine-Textarea-input:focus {
+  border-color: var(--gds-vibe-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gds-vibe-primary) 18%, transparent);
+}
+
+html[data-gds-theme-preset] .mantine-Checkbox-input:checked {
+  background: linear-gradient(135deg, var(--gds-vibe-primary), var(--gds-vibe-accent));
+  border-color: var(--gds-vibe-primary);
+}
+
+html[data-gds-theme-preset] a,
+html[data-gds-theme-preset] button {
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+
+html[data-gds-theme-preset] .mantine-AppShell-main h1,
+html[data-gds-theme-preset] .mantine-AppShell-main h2,
+html[data-gds-theme-preset] .mantine-AppShell-main h3 {
+  color: var(--gds-vibe-text);
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--gds-vibe-surface) 70%, transparent);
+}
+
+html[data-gds-theme-preset] .mantine-Text-root[data-dimmed],
+html[data-gds-theme-preset] .mantine-InputWrapper-description,
+html[data-gds-theme-preset] .mantine-InputWrapper-label {
+  color: var(--gds-vibe-muted);
+}
+
+html[data-gds-theme-preset='default'] body,
+html[data-gds-theme-preset='flat-surface'] body,
+html[data-gds-theme-preset='editorial'] body,
+html[data-gds-theme-preset='brand'] body {
+  background:
+    var(--gds-vibe-gradient),
+    linear-gradient(135deg, var(--gds-vibe-canvas), color-mix(in srgb, var(--gds-vibe-primary) 4%, var(--gds-vibe-canvas)));
+}
+
+html[data-gds-theme-preset='sunset'] .mantine-AppShell-main,
+html[data-gds-theme-preset='oceanic'] .mantine-AppShell-main,
+html[data-gds-theme-preset='forest'] .mantine-AppShell-main,
+html[data-gds-theme-preset='ruby'] .mantine-AppShell-main,
+html[data-gds-theme-preset='amber'] .mantine-AppShell-main,
+html[data-gds-theme-preset='neon-night'] .mantine-AppShell-main,
+html[data-gds-theme-preset='skyline'] .mantine-AppShell-main,
+html[data-gds-theme-preset='aurora'] .mantine-AppShell-main,
+html[data-gds-theme-preset='coral'] .mantine-AppShell-main,
+html[data-gds-theme-preset='mint'] .mantine-AppShell-main,
+html[data-gds-theme-preset='orchid'] .mantine-AppShell-main,
+html[data-gds-theme-preset='royal'] .mantine-AppShell-main {
+  background:
+    radial-gradient(circle at 86% 10%, color-mix(in srgb, var(--gds-vibe-accent) 34%, transparent), transparent 22rem),
+    radial-gradient(circle at 10% 78%, color-mix(in srgb, var(--gds-vibe-primary) 30%, transparent), transparent 25rem),
+    radial-gradient(circle at 78% 88%, color-mix(in srgb, var(--gds-vibe-primary) 16%, transparent), transparent 18rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-canvas) 72%, var(--gds-vibe-primary) 18%), color-mix(in srgb, var(--gds-vibe-canvas) 74%, var(--gds-vibe-accent) 14%)) !important;
+}
+
+html[data-gds-theme-preset='sunset'] .mantine-AppShell-header,
+html[data-gds-theme-preset='sunset'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='oceanic'] .mantine-AppShell-header,
+html[data-gds-theme-preset='oceanic'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='forest'] .mantine-AppShell-header,
+html[data-gds-theme-preset='forest'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='ruby'] .mantine-AppShell-header,
+html[data-gds-theme-preset='ruby'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='amber'] .mantine-AppShell-header,
+html[data-gds-theme-preset='amber'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='neon-night'] .mantine-AppShell-header,
+html[data-gds-theme-preset='neon-night'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='skyline'] .mantine-AppShell-header,
+html[data-gds-theme-preset='skyline'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='aurora'] .mantine-AppShell-header,
+html[data-gds-theme-preset='aurora'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='coral'] .mantine-AppShell-header,
+html[data-gds-theme-preset='coral'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='mint'] .mantine-AppShell-header,
+html[data-gds-theme-preset='mint'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='orchid'] .mantine-AppShell-header,
+html[data-gds-theme-preset='orchid'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='royal'] .mantine-AppShell-header,
+html[data-gds-theme-preset='royal'] .mantine-AppShell-navbar {
+  background:
+    radial-gradient(circle at 90% 20%, color-mix(in srgb, var(--gds-vibe-accent) 24%, transparent), transparent 14rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-shell) 68%, var(--gds-vibe-primary) 20%), color-mix(in srgb, var(--gds-vibe-shell) 74%, var(--gds-vibe-accent) 10%)) !important;
+}
+
+html[data-gds-theme-preset='sunset'] .mantine-Paper-root,
+html[data-gds-theme-preset='sunset'] .mantine-Card-root,
+html[data-gds-theme-preset='oceanic'] .mantine-Paper-root,
+html[data-gds-theme-preset='oceanic'] .mantine-Card-root,
+html[data-gds-theme-preset='forest'] .mantine-Paper-root,
+html[data-gds-theme-preset='forest'] .mantine-Card-root,
+html[data-gds-theme-preset='ruby'] .mantine-Paper-root,
+html[data-gds-theme-preset='ruby'] .mantine-Card-root,
+html[data-gds-theme-preset='amber'] .mantine-Paper-root,
+html[data-gds-theme-preset='amber'] .mantine-Card-root,
+html[data-gds-theme-preset='neon-night'] .mantine-Paper-root,
+html[data-gds-theme-preset='neon-night'] .mantine-Card-root,
+html[data-gds-theme-preset='skyline'] .mantine-Paper-root,
+html[data-gds-theme-preset='skyline'] .mantine-Card-root,
+html[data-gds-theme-preset='aurora'] .mantine-Paper-root,
+html[data-gds-theme-preset='aurora'] .mantine-Card-root,
+html[data-gds-theme-preset='coral'] .mantine-Paper-root,
+html[data-gds-theme-preset='coral'] .mantine-Card-root,
+html[data-gds-theme-preset='mint'] .mantine-Paper-root,
+html[data-gds-theme-preset='mint'] .mantine-Card-root,
+html[data-gds-theme-preset='orchid'] .mantine-Paper-root,
+html[data-gds-theme-preset='orchid'] .mantine-Card-root,
+html[data-gds-theme-preset='royal'] .mantine-Paper-root,
+html[data-gds-theme-preset='royal'] .mantine-Card-root {
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--gds-vibe-accent) 16%, transparent), transparent 12rem),
+    linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 82%, white), color-mix(in srgb, var(--gds-vibe-surface) 74%, var(--gds-vibe-primary) 14%)) !important;
+  border-color: color-mix(in srgb, var(--gds-vibe-border) 78%, var(--gds-vibe-primary)) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-gds-theme-preset] a,
+  html[data-gds-theme-preset] button {
+    transition: none;
+  }
+}

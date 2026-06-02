@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   Badge,
+  Box,
   Button,
   Checkbox,
   Code,
@@ -27,6 +28,7 @@ import {
   applyGdsFontLane,
   getGdsFontLanes,
   getGdsThemePresets,
+  getGdsVibeThemes,
   resolveGdsThemePreset,
   type GdsFontLaneId,
   type GdsThemePresetId,
@@ -54,6 +56,8 @@ function resolvePreviewColorScheme(presetId: ThemePresetId, requestedScheme: The
 }
 
 const presetCatalog = getGdsThemePresets();
+const vibeCatalog = getGdsVibeThemes();
+const vibeCatalogById = Object.fromEntries(vibeCatalog.map((vibe) => [vibe.id, vibe]));
 const themePresetCatalog = Object.fromEntries(
   presetCatalog.map((preset) => [
     preset.id,
@@ -201,6 +205,7 @@ export function ReferenceThemeExplorer({
 
   const previewKey = `${preset}-${effectiveColorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
   const comparisonPreviewKey = `${comparisonPreset}-${effectiveComparisonScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
+  const selectedVibe = vibeCatalogById[preset];
 
   useEffect(() => {
     onSelectionChange?.({
@@ -356,14 +361,60 @@ export function ReferenceThemeExplorer({
 
       <ReferenceSection
         title="Shipped theme lanes"
-        description="Every lane below is part of the supported system. The website uses these exact helpers as its live runtime proof."
+        description="Every lane below is a supported runtime preset. Colourful lanes ship as full CSS-based VibeThemes: canvas, shell, surface, control, focus, and accent tokens, not bitmap backgrounds."
       >
-        <SimpleGrid cols={{ base: 1, md: 2, xl: 5 }} spacing="md">
-          {Object.values(themePresetCatalog).map((lane) => (
-            <Paper key={lane.themeKey} withBorder radius="lg" p="md">
+        <SimpleGrid cols={{ base: 1, md: 2, xl: 4 }} spacing="md">
+          {vibeCatalog.map((vibe) => {
+            const lane = themePresetCatalog[vibe.id];
+            const isSelected = vibe.id === preset;
+
+            return (
+            <Paper
+              key={lane.themeKey}
+              withBorder
+              radius="lg"
+              p="md"
+              role="group"
+              aria-label={`${lane.label} vibe theme`}
+              style={{
+                background: `linear-gradient(135deg, ${vibe.surfaceLight}, color-mix(in srgb, ${vibe.primary} 12%, ${vibe.surfaceLight})), ${vibe.gradient}`,
+                borderColor: isSelected ? vibe.primary : vibe.borderLight,
+                boxShadow: isSelected ? `0 0 0 2px ${vibe.primary}, 0 18px 46px ${vibe.glow}` : undefined,
+              }}
+            >
               <Stack gap={6}>
+                <Group gap="xs" justify="space-between" align="flex-start" wrap="nowrap">
+                  <Group gap={6} wrap="nowrap">
+                    <Box
+                      aria-hidden="true"
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: 999,
+                        background: `linear-gradient(135deg, ${vibe.primary}, ${vibe.accent})`,
+                        boxShadow: `0 10px 28px ${vibe.glow}`,
+                        border: `1px solid ${vibe.borderLight}`,
+                      }}
+                    />
+                    <Text fw={700} size="sm">
+                      {lane.label}
+                    </Text>
+                  </Group>
+                  {isSelected ? (
+                    <Badge variant="light">Selected</Badge>
+                  ) : null}
+                </Group>
+                <Box
+                  aria-hidden="true"
+                  style={{
+                    height: 56,
+                    borderRadius: 16,
+                    background: vibe.hero,
+                    border: `1px solid ${vibe.borderLight}`,
+                  }}
+                />
                 <Text fw={700} size="sm">
-                  {lane.label}
+                  CSS VibeTheme
                 </Text>
                 <Text size="sm" c="dimmed">
                   {lane.summary}
@@ -374,13 +425,55 @@ export function ReferenceThemeExplorer({
                 <Code block fz="10px">
                   {lane.themeKey}
                 </Code>
+                <Button
+                  size="xs"
+                  variant={isSelected ? 'filled' : 'default'}
+                  onClick={() => setPreset(vibe.id)}
+                >
+                  Preview this vibe
+                </Button>
                 <Text size="xs" c="dimmed">
                   <strong>Avoid for:</strong> {lane.avoidFor ?? 'No special exclusion noted for this lane.'}
                 </Text>
               </Stack>
             </Paper>
-          ))}
+            );
+          })}
         </SimpleGrid>
+      </ReferenceSection>
+
+      <ReferenceSection
+        title="Current VibeTheme contract"
+        description="The selected preset exports these package-owned CSS tokens. Consumers can render expressive product surfaces while staying inside GDS theme ownership."
+      >
+        <Paper withBorder radius="xl" p="lg" style={{ background: selectedVibe?.hero }}>
+          <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
+            {selectedVibe ? [
+              ['Primary', selectedVibe.primary],
+              ['Accent', selectedVibe.accent],
+              ['Light canvas', selectedVibe.canvasLight],
+              ['Dark canvas', selectedVibe.canvasDark],
+              ['Light surface', selectedVibe.surfaceLight],
+              ['Dark surface', selectedVibe.surfaceDark],
+            ].map(([label, value]) => (
+              <Paper key={label} withBorder radius="lg" p="md">
+                <Stack gap={8}>
+                  <Box
+                    aria-hidden="true"
+                    style={{
+                      height: 38,
+                      borderRadius: 12,
+                      background: value,
+                      border: `1px solid ${selectedVibe.borderLight}`,
+                    }}
+                  />
+                  <Text fw={700} size="sm">{label}</Text>
+                  <Code fz="11px">{value}</Code>
+                </Stack>
+              </Paper>
+            )) : null}
+          </SimpleGrid>
+        </Paper>
       </ReferenceSection>
 
       <ReferenceSection
