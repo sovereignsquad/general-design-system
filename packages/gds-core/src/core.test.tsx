@@ -463,6 +463,67 @@ describe('@doneisbetter/gds-core', () => {
     expect(onShare).toHaveBeenCalledTimes(1);
   });
 
+  it('handles interactive listing-card surface modes with keyboard-safe flip behavior', async () => {
+    const user = userEvent.setup();
+    const onActivate = vi.fn();
+
+    renderWithGds(
+      <ListingCard
+        title="Interactive listing"
+        description="Front surface"
+        interactiveMode="flip"
+        revealContent={<Text>Revealed governed details</Text>}
+        onSurfaceActivate={onActivate}
+        saveAction={{ action: 'save', onClick: onActivate }}
+      />,
+    );
+
+    const card = screen.getByRole('button', { name: 'Toggle details for Interactive listing' });
+    expect(card).toHaveAttribute('aria-expanded', 'false');
+    expect(card).toHaveAttribute('data-gds-card-interactive-mode', 'flip');
+    expect(card).toHaveAttribute('data-gds-card-flipped', 'false');
+
+    await user.keyboard('{Tab}');
+    await user.keyboard('{Enter}');
+
+    expect(card).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByText('Revealed governed details')).toBeInTheDocument();
+    expect(onActivate).toHaveBeenCalledTimes(1);
+
+    await user.keyboard(' ');
+
+    expect(card).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getByText('Front surface')).toBeInTheDocument();
+    expect(onActivate).toHaveBeenCalledTimes(2);
+
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    expect(onActivate).toHaveBeenCalledTimes(3);
+    expect(card).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('invokes full-surface listing-card button activation without double-firing nested controls', async () => {
+    const user = userEvent.setup();
+    const onSurfaceActivate = vi.fn();
+    const onSave = vi.fn();
+
+    renderWithGds(
+      <ListingCard
+        title="Surface action listing"
+        description="The whole card is a governed action target."
+        interactiveMode="surface-button"
+        onSurfaceActivate={onSurfaceActivate}
+        saveAction={{ action: 'save', onClick: onSave }}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Surface action listing' }));
+    expect(onSurfaceActivate).toHaveBeenCalledTimes(1);
+
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onSurfaceActivate).toHaveBeenCalledTimes(1);
+  });
+
   it('resolves governed card size, density, and variant contracts deterministically', () => {
     expect(resolveGdsCardContract({ size: 'xl', density: 'spacious', variant: 'media-left' })).toMatchObject({
       size: 'xl',

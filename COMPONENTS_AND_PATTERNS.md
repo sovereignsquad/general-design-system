@@ -116,7 +116,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **CSS VibeTheme Registry** | Full-color app themes must use `getGdsVibeThemes`, `resolveGdsVibeTheme`, and the `--gds-vibe-*` CSS variables for canvas, shell, surfaces, controls, focus, and hero treatment instead of image backgrounds or one-off app gradients. | `md` |
 | **Theme Runtime State** | Runtime preset switching must use `useGdsThemePresetState` for validation, persistence, root runtime attributes, and full-shell application instead of route-local theme state. | `md` |
 | **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes`, `resolveGdsFontLane`, `isGdsFontLaneId`, `getGdsFontLaneStylesheetUrls`, and `applyGdsFontLane`) with governed source metadata, `font-display: swap`, locale coverage, and fallback stacks. | `md` |
-| **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior. | `md` |
+| **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior, nested-action isolation, and `aria-expanded` for reveal surfaces. | `md` |
 | **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with the package-owned type registry, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
 | **Block Layout Schema** | Page assembly should use `renderGdsLayout`, `validateGdsLayout`, `renderGdsLayoutWithDiagnostics`, and schema-driven blocks for repeatable developer composition. Default governed blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`; product-authored blocks must enter through `registerGdsBlock`. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
@@ -197,6 +197,16 @@ GDS typography is governed by the font lane registry. Use it when products need 
 - use `applyGdsFontLane(theme, laneId)` to bind typography into the provider theme
 - keep `font-display: swap`, fallback stacks, and locale coverage from the registry intact
 - do not add route-local `@font-face`, raw Google Fonts URLs, or product-owned font catalogs
+
+### Interactive Card Rules
+
+Use `interactiveMode` on the governed card family instead of wrapping cards in local anchors/buttons.
+
+- `surface-link` is for full-surface navigation cues when the card has an `href`
+- `surface-button` is for command-style card activation through `onSurfaceActivate`
+- `flip` is for a reveal surface with `revealContent`; it must expose `aria-expanded` and keyboard activation
+- nested save/share/CTA controls must not double-fire the parent card surface action
+- do not build 3D novelty flips, hover-only reveals, or cards that require pointer interaction to access hidden content
 
 ### Block Layout Schema Rules
 

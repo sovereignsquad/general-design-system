@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
 import { ActionIcon, AspectRatio, Badge, Card, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
 import { GdsVocabulary, getSemanticActionLabel, type SemanticAction } from './vocabulary';
@@ -58,6 +58,15 @@ const toneColorMap: Record<NonNullable<ListingMetadataRow['tone']>, string | und
   warning: 'orange',
   muted: 'gray',
 };
+
+function isNestedInteractiveTarget(eventTarget: EventTarget | null, currentTarget: EventTarget | null) {
+  if (!(eventTarget instanceof Element) || !(currentTarget instanceof Element)) {
+    return false;
+  }
+
+  const nestedInteractive = eventTarget.closest('a, button, input, select, textarea, [role="button"], [role="link"]');
+  return Boolean(nestedInteractive && nestedInteractive !== currentTarget);
+}
 
 function ListingImageFallback({ mediaRatio }: { mediaRatio: ListingCardMediaRatio }) {
   return (
@@ -130,10 +139,13 @@ export function ListingCard({
   onSurfaceActivate,
   defaultFlipped = false,
 }: ListingCardProps) {
+  const [flipped, setFlipped] = useState(defaultFlipped);
   const contract = resolveGdsCardContract({ compact, size, density, variant });
   const cardPadding = contract.padding;
+  const isInteractive = interactiveMode !== 'none';
+  const isFlipMode = interactiveMode === 'flip' && Boolean(revealContent);
   const titleContent =
-    href && typeof title === 'string' ? (
+    href && typeof title === 'string' && interactiveMode === 'none' ? (
       <Text component="a" href={href} inherit td="none">
         {title}
       </Text>
@@ -141,91 +153,137 @@ export function ListingCard({
       title
     );
 
-  const interactiveProps = interactiveMode === 'surface-link' && href
-    ? { component: 'a' as const, href }
-    : interactiveMode === 'surface-button'
-      ? { component: 'button' as const, type: 'button' as const, onClick: onSurfaceActivate }
-      : {};
+  const activateSurface = (event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>) => {
+    if (isNestedInteractiveTarget(event.target, event.currentTarget)) {
+      return;
+    }
 
-  if (interactiveMode === 'flip' && defaultFlipped && revealContent) {
-    return (
-      <Card withBorder radius="lg" padding={cardPadding} {...contract.dataAttributes}>
-        <Stack gap={contract.gap}>
-          {revealContent}
-        </Stack>
-      </Card>
-    );
-  }
+    if (isFlipMode) {
+      setFlipped((current) => !current);
+      onSurfaceActivate?.();
+      return;
+    }
+
+    if (interactiveMode === 'surface-button') {
+      onSurfaceActivate?.();
+      return;
+    }
+
+    if (interactiveMode === 'surface-link' && href) {
+      onSurfaceActivate?.();
+      if (typeof window !== 'undefined') {
+        window.location.assign(href);
+      }
+    }
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (!isInteractive || isNestedInteractiveTarget(event.target, event.currentTarget)) {
+      return;
+    }
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      activateSurface(event);
+    }
+  };
+
+  const surfaceLabel = typeof title === 'string' ? title : 'listing';
+  const interactiveProps = isInteractive
+    ? {
+        role: interactiveMode === 'surface-link' ? 'link' : 'button',
+        tabIndex: 0,
+        onClick: activateSurface,
+        onKeyDown: handleKeyDown,
+        'aria-expanded': isFlipMode ? flipped : undefined,
+        'aria-label': isFlipMode ? `Toggle details for ${surfaceLabel}` : surfaceLabel,
+      }
+    : {};
 
   return (
-    <Card withBorder radius="lg" padding={cardPadding} {...contract.dataAttributes} {...interactiveProps}>
+    <Card
+      withBorder
+      radius="lg"
+      padding={cardPadding}
+      {...contract.dataAttributes}
+      data-gds-card-interactive-mode={interactiveMode}
+      data-gds-card-flipped={isFlipMode ? String(flipped) : undefined}
+      style={isInteractive ? { cursor: 'pointer', transition: 'transform 120ms ease, box-shadow 120ms ease' } : undefined}
+      {...interactiveProps}
+    >
       <Stack gap={contract.gap}>
-        {image ?? <ListingImageFallback mediaRatio={mediaRatio} />}
+        {isFlipMode && flipped ? (
+          revealContent
+        ) : (
+          <>
+            {image ?? <ListingImageFallback mediaRatio={mediaRatio} />}
 
-        {(featured || sponsoredDisclosure) ? (
-          <Group justify="space-between" gap="sm" wrap="wrap">
-            {featured ? (
-              <Badge variant="light" color="violet">
-                Featured
-              </Badge>
-            ) : (
-              <span />
-            )}
-            {sponsoredDisclosure ? (
-              <Text size="xs" c="dimmed">
-                {sponsoredDisclosure}
-              </Text>
-            ) : null}
-          </Group>
-        ) : null}
-
-        <Stack gap={4}>
-          <Title order={contract.titleOrder} lineClamp={2}>
-            {titleContent}
-          </Title>
-          {description ? (
-            <Text size="sm" c="dimmed" lineClamp={contract.descriptionClamp}>
-              {description}
-            </Text>
-          ) : null}
-        </Stack>
-
-        {metadata.length ? (
-          <Stack gap="xs">
-            {metadata.map((item) => (
-              <Group key={item.id} justify="space-between" align="flex-start" gap="sm" wrap="nowrap">
-                <Group gap="xs" wrap="nowrap" style={{ minWidth: 0, flex: 1 }}>
-                  {item.icon}
-                  <Text size="sm" c={item.tone ? toneColorMap[item.tone] : 'dimmed'} lineClamp={1}>
-                    {item.label}
-                  </Text>
-                </Group>
-                {item.value ? (
-                  <Text size="sm" fw={500} ta="right">
-                    {item.value}
+            {(featured || sponsoredDisclosure) ? (
+              <Group justify="space-between" gap="sm" wrap="wrap">
+                {featured ? (
+                  <Badge variant="light" color="violet">
+                    Featured
+                  </Badge>
+                ) : (
+                  <span />
+                )}
+                {sponsoredDisclosure ? (
+                  <Text size="xs" c="dimmed">
+                    {sponsoredDisclosure}
                   </Text>
                 ) : null}
               </Group>
-            ))}
-          </Stack>
-        ) : null}
-
-        <Group justify="space-between" align="center" gap="sm" wrap="wrap">
-          <Stack gap={2} style={{ minWidth: 0, flex: 1 }}>
-            {price ? (
-              <Text fw={700} size={contract.size === 'xs' || contract.size === 'sm' ? 'md' : 'lg'}>
-                {price}
-              </Text>
             ) : null}
-          </Stack>
 
-          <Group gap="xs" wrap="nowrap" justify="flex-end" style={{ marginInlineStart: 'auto' }}>
-            {saveAction ? <ListingAffordance affordance={saveAction} /> : null}
-            {shareAction ? <ListingAffordance affordance={shareAction} /> : null}
-            {primaryAction}
-            {interactiveMode === 'flip' && revealContent ? <Text size="xs" c="dimmed">Flip mode supports reveal surfaces.</Text> : null}
-          </Group>
-        </Group>
+            <Stack gap={4}>
+              <Title order={contract.titleOrder} lineClamp={2}>
+                {titleContent}
+              </Title>
+              {description ? (
+                <Text size="sm" c="dimmed" lineClamp={contract.descriptionClamp}>
+                  {description}
+                </Text>
+              ) : null}
+            </Stack>
+
+            {metadata.length ? (
+              <Stack gap="xs">
+                {metadata.map((item) => (
+                  <Group key={item.id} justify="space-between" align="flex-start" gap="sm" wrap="nowrap">
+                    <Group gap="xs" wrap="nowrap" style={{ minWidth: 0, flex: 1 }}>
+                      {item.icon}
+                      <Text size="sm" c={item.tone ? toneColorMap[item.tone] : 'dimmed'} lineClamp={1}>
+                        {item.label}
+                      </Text>
+                    </Group>
+                    {item.value ? (
+                      <Text size="sm" fw={500} ta="right">
+                        {item.value}
+                      </Text>
+                    ) : null}
+                  </Group>
+                ))}
+              </Stack>
+            ) : null}
+
+            <Group justify="space-between" align="center" gap="sm" wrap="wrap">
+              <Stack gap={2} style={{ minWidth: 0, flex: 1 }}>
+                {price ? (
+                  <Text fw={700} size={contract.size === 'xs' || contract.size === 'sm' ? 'md' : 'lg'}>
+                    {price}
+                  </Text>
+                ) : null}
+              </Stack>
+
+              <Group gap="xs" wrap="nowrap" justify="flex-end" style={{ marginInlineStart: 'auto' }}>
+                {saveAction ? <ListingAffordance affordance={saveAction} /> : null}
+                {shareAction ? <ListingAffordance affordance={shareAction} /> : null}
+                {primaryAction}
+                {isFlipMode ? <Text size="xs" c="dimmed">Press Enter or Space to reveal details.</Text> : null}
+              </Group>
+            </Group>
+          </>
+        )}
       </Stack>
     </Card>
   );
