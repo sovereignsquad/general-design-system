@@ -117,7 +117,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Theme Runtime State** | Runtime preset switching must use `useGdsThemePresetState` for validation, persistence, root runtime attributes, and full-shell application instead of route-local theme state. | `md` |
 | **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes` + `applyGdsFontLane`) with governed fallback stacks. | `md` |
 | **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior. | `md` |
-| **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with fallback tables and state wrappers. | `lg` |
+| **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with the package-owned type registry, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
 | **Block Layout Schema** | Page assembly should use `renderGdsLayout` and schema-driven blocks for repeatable developer composition. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
 
@@ -229,10 +229,13 @@ Required reporting states:
 
 Chart rules:
 
+- chart types must resolve through `gdsChartTypeRegistry`; do not create route-local chart type strings
+- adapters may render with any approved charting library, but must enter through the `GdsChart` `renderer` contract so GDS keeps state, summary, legend, fallback, and a11y ownership
+- datasets must pass `validateGdsChartData` before rendering; invalid values, missing grouped data, empty data, below-threshold data, and over-budget datasets must become governed states
 - charts must include a text summary that communicates the main result without requiring visual interpretation
 - legends must use labels plus token names or semantic descriptions; color alone is not enough
 - charts must provide a table fallback for the underlying summarized data when the data is meaningful to inspect
-- GDS owns chart wrapper, state, legend, summary, and fallback placement; consumers own chart library choice, data fetching, retries, timeouts, and timezone math
+- GDS owns chart wrapper, state, legend, summary, fallback placement, schema validation, and rendering budget disclosure; consumers own chart library choice, data fetching, retries, timeouts, and timezone math
 - external chart embeds remain exception surfaces unless wrapped in `ChartTokenPanel` or another sanctioned GDS chart wrapper
 
 ### Access, Auth, and Identity Rules

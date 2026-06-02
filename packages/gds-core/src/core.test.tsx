@@ -33,7 +33,7 @@ import { FeatureBand } from './FeatureBand';
 import { FoodMenuSection } from './FoodMenuSection';
 import { GameBoardTile } from './GameBoardTile';
 import { ChartTokenPanel } from './ChartTokenPanel';
-import { GdsChart } from './GdsChart';
+import { GdsChart, gdsChartTypeRegistry, validateGdsChartData } from './GdsChart';
 import { EvidencePanel } from './EvidencePanel';
 import { ListingCard } from './ListingCard';
 import { renderGdsLayout } from './LayoutBlocks';
@@ -1771,7 +1771,57 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     expect(screen.getByRole('heading', { name: 'Heatmap contract' })).toBeInTheDocument();
     expect(screen.getByText('Type lane: heatmap')).toBeInTheDocument();
+    expect(screen.getByText('Registry family: matrix')).toBeInTheDocument();
     expect(screen.getByText('Cell A')).toBeInTheDocument();
+  });
+
+  it('validates chart schemas, thresholds, and rendering budgets before adapter rendering', () => {
+    expect(Object.keys(gdsChartTypeRegistry)).toHaveLength(12);
+
+    expect(validateGdsChartData('pie', [{ label: 'Only', value: 1 }])).toMatchObject({
+      state: 'below-threshold',
+      issues: ['Pie charts require at least 2 data points.'],
+    });
+
+    expect(validateGdsChartData('stacked-bar', [
+      { label: 'Q1', value: 12 },
+      { label: 'Q1', value: 8, group: 'B' },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Stacked bar charts require a group value for every data point.'],
+    });
+
+    expect(validateGdsChartData('bar', [
+      { label: 'A', value: 1 },
+      { label: 'B', value: 2 },
+    ], { maxDataPoints: 1 })).toMatchObject({
+      state: 'error',
+      issues: ['Dataset has 2 points, above the 1 point rendering budget.'],
+      visibleData: [{ label: 'A', value: 1 }],
+    });
+  });
+
+  it('supports vendor-neutral chart renderer adapters while GDS owns shell semantics', () => {
+    const renderer = vi.fn((context) => (
+      <div role="img" aria-labelledby={context.labelledBy} aria-describedby={context.describedBy}>
+        Adapter rendered {context.type} with {context.data.length} points
+      </div>
+    ));
+
+    renderWithGds(
+      <GdsChart
+        type="line"
+        title="Adapter chart"
+        summary="Adapter summary."
+        data={[{ label: 'Mon', value: 4 }, { label: 'Tue', value: 9 }]}
+        renderer={renderer}
+      />,
+    );
+
+    expect(renderer).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('Adapter rendered line with 2 points')).toBeInTheDocument();
+    expect(screen.getByText('Primary series: blue.6')).toBeInTheDocument();
+    expect(screen.getByText('Accessible data fallback')).toBeInTheDocument();
   });
 
   it('renders schema-based layout blocks through the governed renderer', () => {
