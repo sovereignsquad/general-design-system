@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 3.0.1
+Version: 3.0.2
 Last updated: 2026-06-01
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -113,6 +113,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Simple Data Tables** | Public/product summary tables must support loading, empty, error, and threshold-safe states without importing admin CRUD semantics. | `md` |
 | **Advanced Data Table** | Enterprise/operator tables should use `AdvancedDataTable` for governed sorting, row selection, density modes, sticky headers, and responsive card fallback behavior. | `lg` |
 | **Theme Preset Registry** | Theme choice should use the shipped multi-preset registry (`getGdsThemePresets` + `resolveGdsThemePreset`) instead of product-local theme catalogs. The registry must include expressive colorful lanes, not only neutral light/dark presentation. | `md` |
+| **Theme Runtime State** | Runtime preset switching must use `useGdsThemePresetState` for validation, persistence, root runtime attributes, and full-shell application instead of route-local theme state. | `md` |
 | **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes` + `applyGdsFontLane`) with governed fallback stacks. | `md` |
 | **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior. | `md` |
 | **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with fallback tables and state wrappers. | `lg` |

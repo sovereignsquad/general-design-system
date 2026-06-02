@@ -10,6 +10,7 @@ import { applyGdsFontLane, getGdsFontLanes } from './font-lanes';
 import { showGdsNotification } from './notifications';
 import { createPublicBrandTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
 import { getGdsThemePresets, resolveGdsThemePreset } from './theme-presets';
+import { useGdsThemePresetState } from './theme-runtime';
 
 function ProviderConsumer() {
   return (
@@ -20,6 +21,22 @@ function ProviderConsumer() {
       <Button onClick={() => openConfirmModal({ title: 'Shared modal', labels: { confirm: 'Yes', cancel: 'No' } })}>
         Show modal
       </Button>
+    </>
+  );
+}
+
+function ThemeRuntimeConsumer() {
+  const { selection, setPreset, setScheme, setFontLane, reset } = useGdsThemePresetState({
+    storageKey: 'gds-test-theme-runtime',
+  });
+
+  return (
+    <>
+      <div data-testid="runtime-key">{selection.runtimeKey}</div>
+      <Button onClick={() => setPreset('coral')}>Set coral</Button>
+      <Button onClick={() => setScheme('dark')}>Set dark</Button>
+      <Button onClick={() => setFontLane('space-grotesk')}>Set Space Grotesk</Button>
+      <Button onClick={reset}>Reset runtime</Button>
     </>
   );
 }
@@ -127,5 +144,27 @@ describe('GdsProvider', () => {
 
     const themed = applyGdsFontLane(gdsTheme, 'instrument-serif');
     expect(themed.headings?.fontFamily).toContain('Instrument Serif');
+  });
+
+  it('exposes a persistent runtime preset hook for global theme switching', async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem('gds-test-theme-runtime', '{broken json');
+
+    renderWithGds(<ThemeRuntimeConsumer />);
+
+    expect(screen.getByTestId('runtime-key')).toHaveTextContent('default-light-blue-true-false-inter');
+
+    await user.click(screen.getByRole('button', { name: 'Set coral' }));
+    await user.click(screen.getByRole('button', { name: 'Set dark' }));
+    await user.click(screen.getByRole('button', { name: 'Set Space Grotesk' }));
+
+    expect(screen.getByTestId('runtime-key')).toHaveTextContent('coral-dark-blue-true-false-space-grotesk');
+    expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toBe('coral-dark-blue-true-false-space-grotesk');
+    expect(document.documentElement.getAttribute('data-gds-font-lane')).toBe('space-grotesk');
+    expect(window.localStorage.getItem('gds-test-theme-runtime')).toContain('coral');
+
+    await user.click(screen.getByRole('button', { name: 'Reset runtime' }));
+
+    expect(screen.getByTestId('runtime-key')).toHaveTextContent('default-light-blue-true-false-inter');
   });
 });

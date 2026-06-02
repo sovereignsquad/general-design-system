@@ -101,10 +101,10 @@ For a major release such as `3.0.0`, do not announce the release or update clien
 The `3.0.0` release install matrix must remain version-locked:
 
 ```bash
-npm install @doneisbetter/gds@3.0.1
+npm install @doneisbetter/gds@3.0.2
 npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
 
-npm install @doneisbetter/gds-theme@3.0.1 @doneisbetter/gds-core@3.0.1 @doneisbetter/gds-admin@3.0.1
+npm install @doneisbetter/gds-theme@3.0.2 @doneisbetter/gds-core@3.0.2 @doneisbetter/gds-admin@3.0.2
 ```
 
 ## Expected publish order

@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 3.0.1
+Version: 3.0.2
 Last updated: 2026-06-01
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
@@ -196,9 +196,11 @@ Approved colorful preset ids:
 Usage rule:
 
 ```ts
-import { resolveGdsThemePreset } from '@doneisbetter/gds-theme/client';
+import { resolveGdsThemePreset, useGdsThemePresetState } from '@doneisbetter/gds-theme/client';
 
 const theme = resolveGdsThemePreset('coral');
+
+const { selection, setPreset, setScheme, setFontLane, reset } = useGdsThemePresetState();
 ```
 
 Do not create a product-local theme catalog to achieve colorful branding. If a color lane is missing, add it to the GDS preset registry, document the intended product use, add live Theme Lab coverage, and verify the lane through package tests.
@@ -239,6 +241,7 @@ Required implementation:
 2. Reconstruct the Mantine theme from GDS helpers on startup:
    - `resolveGdsThemePreset(...)`
    - `applyGdsFontLane(...)`
+   - or use the canonical `useGdsThemePresetState(...)` hook, which performs the same validation, reconstruction, persistence, and root attribute application
 3. Apply the reconstructed runtime to the root provider before route content depends on it.
 4. Set root runtime attributes for inspection and regression checks:
    - `data-mantine-color-scheme`
@@ -262,17 +265,14 @@ What ruins the system:
 Preferred reference-site shape:
 
 ```ts
-type StoredThemeSelection = {
-  preset: GdsThemePresetId;
-  colorScheme: 'light' | 'dark' | 'auto';
-  fontLane: GdsFontLaneId;
-  runtimeKey?: string;
-  brandPrimary?: string;
-  brandFlatSurfaces?: boolean;
-  brandEditorialSerif?: boolean;
-};
-
-const selection = createThemeSelection(readStoredSelection());
+const {
+  selection,
+  setSelection,
+  setPreset,
+  setScheme,
+  setFontLane,
+  reset,
+} = useGdsThemePresetState({ storageKey: 'gds-reference-theme-selection' });
 
 <GdsProvider
   theme={selection.theme}
@@ -281,7 +281,7 @@ const selection = createThemeSelection(readStoredSelection());
 >
   <ReferenceThemeExplorer
     initialSelection={selection}
-    onSelectionChange={persistAndApplySelection}
+    onSelectionChange={setSelection}
   />
 </GdsProvider>;
 ```

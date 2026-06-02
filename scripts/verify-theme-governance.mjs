@@ -11,6 +11,8 @@ const explorerSource = readFileSync(resolve(root, 'packages/gds-core/src/Referen
 const themePresetSource = readFileSync(resolve(root, 'packages/gds-theme/src/theme-presets.ts'), 'utf8');
 const playgroundAppSource = readFileSync(resolve(root, 'apps/playground/src/App.tsx'), 'utf8');
 const runtimeTestSource = readFileSync(resolve(root, 'apps/playground/src/app-theme-runtime.test.tsx'), 'utf8');
+const themeRuntimeSource = readFileSync(resolve(root, 'packages/gds-theme/src/theme-runtime.ts'), 'utf8');
+const themeProviderTestSource = readFileSync(resolve(root, 'packages/gds-theme/src/GdsProvider.test.tsx'), 'utf8');
 const themeGovernanceSource = readFileSync(resolve(root, 'THEME_GOVERNANCE.md'), 'utf8');
 const complianceToolkitSource = readFileSync(resolve(root, 'COMPLIANCE_TOOLKIT.md'), 'utf8');
 
@@ -119,19 +121,46 @@ for (const proof of requiredRuntimeGovernance) {
 
 const requiredPlaygroundRuntimeContract = [
   'gds-reference-theme-selection',
-  'createThemeSelection',
-  'loadThemeSelection',
-  'persistThemeSelection',
-  'resolveGdsThemePreset',
-  'applyGdsFontLane',
-  'data-gds-theme-runtime',
-  'data-gds-font-lane',
+  'useGdsThemePresetState',
   'initialThemeSelection',
 ];
 
 for (const proof of requiredPlaygroundRuntimeContract) {
   if (!playgroundAppSource.includes(proof)) {
     failures.push(`apps/playground/src/App.tsx must preserve runtime theme persistence contract: ${proof}`);
+  }
+}
+
+const requiredThemeRuntimeHookContract = [
+  'useGdsThemePresetState',
+  'createGdsThemePresetSelection',
+  'setPreset',
+  'setScheme',
+  'setFontLane',
+  'setBrandOptions',
+  'reset',
+  'resolveGdsThemePreset',
+  'applyGdsFontLane',
+  'data-gds-theme-runtime',
+  'data-gds-font-lane',
+  'localStorage.setItem',
+];
+
+for (const proof of requiredThemeRuntimeHookContract) {
+  if (!themeRuntimeSource.includes(proof)) {
+    failures.push(`theme-runtime.ts must preserve shared runtime preset hook contract: ${proof}`);
+  }
+}
+
+const requiredRuntimeHookTestProof = [
+  'exposes a persistent runtime preset hook for global theme switching',
+  'gds-test-theme-runtime',
+  'coral-dark-blue-true-false-space-grotesk',
+];
+
+for (const proof of requiredRuntimeHookTestProof) {
+  if (!themeProviderTestSource.includes(proof)) {
+    failures.push(`GdsProvider.test.tsx must cover shared runtime preset hook behavior: ${proof}`);
   }
 }
 
