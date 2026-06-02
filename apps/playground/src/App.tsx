@@ -26,7 +26,7 @@ import {
   getSecondaryRoutes,
   isRouteActive,
 } from './site-routes';
-import { hasFullRouteLocalization } from './locale-coverage';
+import { getFullCopyLocalesForRoute, hasFullRouteLocalization } from './locale-coverage';
 
 const PatternsIndexPage = lazy(async () => {
   const module = await import('./pattern-pages');
@@ -157,6 +157,11 @@ function PlaygroundContent() {
     setScheme: setSiteThemeScheme,
   } = useGdsThemePresetState({ storageKey: 'gds-reference-theme-selection' });
   const location = useLocation();
+  const routeLocaleIds = getFullCopyLocalesForRoute(location.pathname);
+  const routeLocaleOptions = routeLocaleIds
+    .map((id) => [id, localesMap[id]] as const)
+    .filter((entry): entry is readonly [string, { label: string; messages: Record<string, string> }] => Boolean(entry[1]));
+  const effectiveLocale = hasFullRouteLocalization(location.pathname, locale) ? locale : 'en';
   const handleSiteThemeSelectionChange = useCallback((selection: ThemeExplorerSelection) => {
     setSiteThemeSelection(selection);
   }, [setSiteThemeSelection]);
@@ -198,10 +203,10 @@ function PlaygroundContent() {
     <>
       <select
         aria-label="Select site locale"
-        value={locale}
+        value={effectiveLocale}
         onChange={(event) => setLocale(event.target.value)}
       >
-        {Object.entries(localesMap).map(([id, localeValue]) => (
+        {routeLocaleOptions.map(([id, localeValue]) => (
           <option key={id} value={id}>
             {localeValue.label}
           </option>
@@ -215,8 +220,8 @@ function PlaygroundContent() {
 
   return (
     <GdsProvider
-      locale={locale}
-      messages={localesMap[locale]?.messages ?? localesMap.en.messages}
+      locale={effectiveLocale}
+      messages={localesMap[effectiveLocale]?.messages ?? localesMap.en.messages}
       theme={siteThemeSelection.theme}
       defaultColorScheme={siteThemeSelection.colorScheme}
       forceColorScheme={siteThemeSelection.colorScheme === 'auto' ? undefined : siteThemeSelection.colorScheme}
@@ -230,10 +235,10 @@ function PlaygroundContent() {
         mobileNavigationMode="drawer"
         contentWidth="full"
       >
-        {!hasFullRouteLocalization(location.pathname, locale) ? (
+        {locale !== effectiveLocale ? (
           <ReferenceLocaleNotice
-            localeLabel={localesMap[locale]?.label ?? locale}
-            detail="Shared GDS vocabulary switches with the selected locale. Only routes listed as fully localized in the official coverage contract ship complete translated copy."
+            localeLabel="English only"
+            detail={`Shared GDS vocabulary switches with the selected locale. Only routes listed as fully localized in the official coverage contract ship complete translated copy. ${localesMap[locale]?.label ?? locale} remains available on routes with full-copy coverage.`}
           />
         ) : null}
         <Routes>

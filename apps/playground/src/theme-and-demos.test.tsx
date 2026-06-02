@@ -86,6 +86,11 @@ describe('playground theme explorer and live demos hub', () => {
 
     expect(screen.getAllByText((_, node) => node?.textContent?.includes('Color scheme: dark') ?? false).length).toBeGreaterThan(0);
     expect(screen.getByText(/dark-forward preset always renders in dark mode/i)).toBeTruthy();
+
+    fireEvent.change(screen.getByLabelText('Preset'), { target: { value: 'cosmic' } });
+
+    expect(screen.getAllByText((_, node) => node?.textContent?.includes('Color scheme: dark') ?? false).length).toBeGreaterThan(0);
+    expect((screen.getByLabelText('Preset') as HTMLSelectElement).value).toBe('cosmic');
   });
 
   it('frames the live demos section as the official runtime showcase', () => {

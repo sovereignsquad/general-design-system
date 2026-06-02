@@ -22,14 +22,22 @@ export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
   },
 ];
 
-export function hasFullRouteLocalization(pathname: string, locale: string) {
-  const matchingRules = localizedRouteCoverage
+function getRouteLocalizationRule(pathname: string) {
+  return localizedRouteCoverage
     .filter((rule) => pathname === rule.routePrefix || pathname.startsWith(`${rule.routePrefix}/`))
     .sort((a, b) => b.routePrefix.length - a.routePrefix.length);
+}
+
+export function getFullCopyLocalesForRoute(pathname: string) {
+  const matchingRules = getRouteLocalizationRule(pathname);
 
   if (matchingRules.length === 0) {
-    return locale === 'en';
+    return ['en'];
   }
 
-  return matchingRules[0].fullCopyLocales.includes(locale);
+  return matchingRules[0].fullCopyLocales;
+}
+
+export function hasFullRouteLocalization(pathname: string, locale: string) {
+  return getFullCopyLocalesForRoute(pathname).includes(locale);
 }

@@ -48,7 +48,7 @@ export interface ThemeExplorerSelection {
 }
 
 function resolvePreviewColorScheme(presetId: ThemePresetId, requestedScheme: ThemeSchemeId): ThemeSchemeId {
-  if (presetId === 'dark-public' || presetId === 'neon-night') {
+  if (presetId === 'dark-public' || presetId === 'neon-night' || presetId === 'cosmic') {
     return 'dark';
   }
 
@@ -333,7 +333,7 @@ export function ReferenceThemeExplorer({
                 <Text size="sm">
                   <strong>Color scheme:</strong> {colorScheme}
                 </Text>
-                {(preset === 'dark-public' || preset === 'neon-night') && colorScheme !== effectiveColorScheme ? (
+                {(preset === 'dark-public' || preset === 'neon-night' || preset === 'cosmic') && colorScheme !== effectiveColorScheme ? (
                   <Text size="sm" c="dimmed">
                     This dark-forward preset always renders in dark mode inside the live preview.
                   </Text>

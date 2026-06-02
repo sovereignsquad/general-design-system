@@ -91,7 +91,7 @@ describe('playground app runtime theme flow', () => {
     expect((comparisonPresetSelect as HTMLSelectElement).value).toBe('dark-public');
   });
 
-  it('applies a dark-forward preset to the whole app runtime without a manual scheme step', async () => {
+  it('applies dark-forward presets to the whole app runtime without a manual scheme step', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');
 
     render(<App />);
@@ -108,6 +108,16 @@ describe('playground app runtime theme flow', () => {
     );
 
     expect((presetSelect as HTMLSelectElement).value).toBe('neon-night');
+
+    fireEvent.change(presetSelect, { target: { value: 'cosmic' } });
+
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-mantine-color-scheme')).toBe('dark'),
+    );
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toContain('cosmic-dark'),
+    );
+    expect((presetSelect as HTMLSelectElement).value).toBe('cosmic');
   });
 
   it('persists selected theme and font lane across direct route loads', async () => {

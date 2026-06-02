@@ -292,9 +292,9 @@ html[data-gds-theme-preset='cosmic'] .mantine-Paper-root,
 html[data-gds-theme-preset='cosmic'] .mantine-Card-root {
   color: #ffffff;
   background:
-    radial-gradient(circle at 100% 0%, rgba(224, 24, 255, 0.2), transparent 13rem),
-    rgba(10, 18, 70, 0.62) !important;
-  border-color: rgba(190, 160, 255, 0.45) !important;
+    radial-gradient(circle at 100% 0%, rgba(224, 24, 255, 0.24), transparent 13rem),
+    linear-gradient(145deg, rgba(16, 24, 92, 0.88), rgba(9, 13, 58, 0.78)) !important;
+  border-color: rgba(212, 190, 255, 0.58) !important;
   border-radius: 28px;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(22px) saturate(1.2);
@@ -312,8 +312,8 @@ html[data-gds-theme-preset='cosmic'] .mantine-Input-input,
 html[data-gds-theme-preset='cosmic'] .mantine-NativeSelect-input,
 html[data-gds-theme-preset='cosmic'] .mantine-Textarea-input {
   color: #ffffff;
-  background: rgba(16, 26, 86, 0.54) !important;
-  border-color: rgba(190, 160, 255, 0.45) !important;
+  background: rgba(16, 26, 86, 0.72) !important;
+  border-color: rgba(212, 190, 255, 0.58) !important;
 }
 
 html[data-gds-theme-preset='cosmic'] .mantine-Input-input::placeholder,
@@ -327,12 +327,26 @@ html[data-gds-theme-preset='cosmic'] .mantine-AppShell-main h3,
 html[data-gds-theme-preset='cosmic'] .mantine-AppShell-main h4,
 html[data-gds-theme-preset='cosmic'] .mantine-Text-root,
 html[data-gds-theme-preset='cosmic'] .mantine-InputWrapper-label {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 html[data-gds-theme-preset='cosmic'] .mantine-Text-root[data-dimmed],
-html[data-gds-theme-preset='cosmic'] .mantine-InputWrapper-description {
-  color: rgba(235, 238, 255, 0.76);
+html[data-gds-theme-preset='cosmic'] .mantine-InputWrapper-description,
+html[data-gds-theme-preset='cosmic'] [style*='--mantine-color-dimmed'],
+html[data-gds-theme-preset='cosmic'] .mantine-Text-root[style*='color'] {
+  color: rgba(245, 247, 255, 0.84) !important;
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-Code-root {
+  color: #ffd4ff;
+  background: rgba(124, 60, 255, 0.28);
+  border: 1px solid rgba(212, 190, 255, 0.24);
+}
+
+html[data-gds-theme-preset='cosmic'] .mantine-Badge-root {
+  color: #f7d8ff;
+  background: rgba(124, 60, 255, 0.34);
+  border-color: rgba(224, 24, 255, 0.35);
 }
 
 @media (max-width: 768px) {

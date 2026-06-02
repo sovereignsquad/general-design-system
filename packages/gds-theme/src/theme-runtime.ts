@@ -53,7 +53,7 @@ function isScheme(value: unknown): value is GdsThemeScheme {
 }
 
 function resolveEffectiveScheme(preset: GdsThemePresetId, colorScheme: GdsThemeScheme): GdsThemeScheme {
-  if (preset === 'dark-public' || preset === 'neon-night') {
+  if (preset === 'dark-public' || preset === 'neon-night' || preset === 'cosmic') {
     return 'dark';
   }
 

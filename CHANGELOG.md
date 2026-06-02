@@ -2,6 +2,11 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.0.5 - 2026-06-02
+
+- Fixed the `cosmic` VibeTheme to behave as a dark-forward runtime lane so the Theme Lab and live preview no longer render washed-out light panels or low-contrast muted text.
+- Tightened `cosmic` glass panels, inputs, badges, code blocks, and dimmed text treatment so the high-saturation multicolour background remains vivid while content stays readable.
+
 ## 3.0.4 - 2026-06-02
 
 - Added `cosmic` as the first intentionally high-saturation CSS VibeTheme, with a multicolour blue-violet-cyan-magenta background, star-field atmosphere, glass panels, and vivid gradient primary controls.
