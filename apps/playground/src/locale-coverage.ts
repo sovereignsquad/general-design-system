@@ -18,7 +18,7 @@ export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
   },
   {
     routePrefix: '/themes',
-    fullCopyLocales: ['en'],
+    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
   },
 ];
 

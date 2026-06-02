@@ -118,7 +118,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes` + `applyGdsFontLane`) with governed fallback stacks. | `md` |
 | **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior. | `md` |
 | **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with the package-owned type registry, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
-| **Block Layout Schema** | Page assembly should use `renderGdsLayout` and schema-driven blocks for repeatable developer composition. | `lg` |
+| **Block Layout Schema** | Page assembly should use `renderGdsLayout`, `validateGdsLayout`, `renderGdsLayoutWithDiagnostics`, and schema-driven blocks for repeatable developer composition. Default governed blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`; product-authored blocks must enter through `registerGdsBlock`. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
 
 ## 4. Feedback & Messaging
@@ -186,6 +186,18 @@ The following families are mandatory local contracts when a project has the corr
 | **Access Recovery** | Product has protected routes, scope failures, expired sessions, timeouts, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |
 
 Mantine UI examples may be used to inform these contracts only after the project confirms the GDS behavior, responsive rules, and token boundaries remain unchanged.
+
+### Block Layout Schema Rules
+
+`renderGdsLayout` is the canonical schema renderer for JSON-serializable page assembly. Use it when a product needs repeatable landing pages, docs sections, dashboards, catalog pages, or onboarding surfaces without local layout glue.
+
+- schemas must use `version: "1"` and include at least one block
+- default blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`
+- call `validateGdsLayout` before persisting or previewing authored schemas
+- use `renderGdsLayoutWithDiagnostics` when editors or docs previews need visible diagnostics
+- use `registerGdsBlock(type, renderer)` only for reusable product-authored blocks; do not register page-local one-offs
+- unsupported block types, malformed props, empty schemas, and unsafe script/javascript strings must surface as GDS diagnostics instead of throwing blank screens
+- block rendering must stay pure GDS primitives; schemas must not execute arbitrary code or raw HTML
 
 ### Media/Upload State Matrix
 

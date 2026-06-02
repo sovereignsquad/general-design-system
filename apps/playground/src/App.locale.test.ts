@@ -9,11 +9,11 @@ describe('playground route locale coverage', () => {
     expect(hasFullRouteLocalization('/install', 'de')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'fr')).toBe(true);
     expect(hasFullRouteLocalization('/', 'de')).toBe(true);
-    expect(hasFullRouteLocalization('/themes', 'de')).toBe(false);
+    expect(hasFullRouteLocalization('/themes', 'de')).toBe(true);
     expect(hasFullRouteLocalization('/governance', 'fr')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'it')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'ru')).toBe(true);
-    expect(hasFullRouteLocalization('/themes', 'he')).toBe(false);
+    expect(hasFullRouteLocalization('/themes', 'he')).toBe(true);
     expect(hasFullRouteLocalization('/governance', 'ar')).toBe(true);
     expect(hasFullRouteLocalization('/', 'hu')).toBe(true);
 
@@ -24,11 +24,11 @@ describe('playground route locale coverage', () => {
 
   it('returns the full-copy locale list for each route', () => {
     expect(getFullCopyLocalesForRoute('/install')).toContain('hu');
-    expect(getFullCopyLocalesForRoute('/themes')).toEqual(['en']);
+    expect(getFullCopyLocalesForRoute('/themes')).toContain('hu');
     expect(getFullCopyLocalesForRoute('/patterns/public')).toEqual(['en']);
   });
 
-  it('does not claim an unsupported language on English-only routes', async () => {
+  it('keeps supported localized languages available on the themes route', async () => {
     window.history.pushState({}, '', '/general-design-system/');
 
     render(createElement(App));
@@ -40,9 +40,9 @@ describe('playground route locale coverage', () => {
     fireEvent.click(screen.getByRole('link', { name: 'Themes' }));
 
     await waitFor(() => expect(window.location.pathname).toBe('/general-design-system/themes'));
-    await waitFor(() => expect(localeSelect.value).toBe('en'));
+    await waitFor(() => expect(localeSelect.value).toBe('hu'));
 
-    expect(Array.from(localeSelect.options).map((option) => option.value)).toEqual(['en']);
-    expect(screen.queryByRole('option', { name: 'Magyar' })).toBeNull();
+    expect(Array.from(localeSelect.options).map((option) => option.value)).toContain('hu');
+    expect(screen.getByRole('option', { name: 'Magyar' })).toBeTruthy();
   });
 });

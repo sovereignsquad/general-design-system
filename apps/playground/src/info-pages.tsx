@@ -522,7 +522,6 @@ export function OverviewPage() {
     },
   } as const;
   const i18n = copy[locale as keyof typeof copy] ?? copy.en;
-
   return (
     <DocsPageShell
       title={i18n.title}
@@ -1365,6 +1364,69 @@ export function TokensPage({
     },
   } as const;
   const i18n = copy[locale as keyof typeof copy] ?? copy.en;
+  const themePageLists = {
+    en: {
+      lanes: [
+        { id: 'base', title: 'gdsTheme', description: 'Canonical base lane.' },
+        { id: 'dark', title: 'gdsDarkPublicTheme', description: 'Dark-default public shell lane.' },
+        { id: 'flat', title: 'gdsFlatSurfaceTheme', description: 'Flatter operational surface lane.' },
+        { id: 'editorial', title: 'gdsEditorialPublicTheme', description: 'Serif-forward editorial/public lane.' },
+        { id: 'brand', title: 'createPublicBrandTheme(...)', description: 'Governed branded public composition helper.' },
+        { id: 'vibes', title: 'CSS VibeThemes', description: 'Full-color package-owned presets for shell, canvas, surfaces, controls, focus, hero, and accent tokens.' },
+      ],
+      care: [
+        { id: 'no-helper', title: 'Stop using extendGdsTheme(...)', description: 'Do not keep it as a long-term consumer branding-layer path.' },
+        { id: 'vibe-tokens', title: 'Use --gds-vibe-* tokens', description: 'Do not rebuild colorful theme visuals with route-local gradients, image backgrounds, or product-owned theme catalogs.' },
+        { id: 'manifest', title: 'Declare theme ownership files', description: 'Use approvedThemeLanes and themeOwnershipPaths in gds-adoption.json when you use gds-compliance.' },
+        { id: 'verify', title: 'Verify after updating', description: 'Run build, tests, and gds-compliance after moving to the 3.0.5 line.' },
+      ],
+      links: [
+        { id: 'theme-governance', title: 'Open theme governance', description: 'Read the canonical theme-lane rules and the creator-authored boundary.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
+        { id: 'exception-rules', title: 'Open exception-surface rules', description: 'Read the narrow exception contract for surfaces that cannot yet be covered directly.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/EXCEPTION_SURFACES.md' },
+      ],
+    },
+    de: {
+      lanes: [
+        { id: 'base', title: 'gdsTheme', description: 'Kanonische Basis-Lane.' },
+        { id: 'dark', title: 'gdsDarkPublicTheme', description: 'Dark-default Public-Shell-Lane.' },
+        { id: 'flat', title: 'gdsFlatSurfaceTheme', description: 'Flachere operative Surface-Lane.' },
+        { id: 'editorial', title: 'gdsEditorialPublicTheme', description: 'Serif-forward Editorial/Public-Lane.' },
+        { id: 'brand', title: 'createPublicBrandTheme(...)', description: 'Gesteuerter Brand-Public-Composition-Helper.' },
+        { id: 'vibes', title: 'CSS VibeThemes', description: 'Vollfarbige package-owned Presets für Shell, Canvas, Surfaces, Controls, Focus, Hero und Accent-Tokens.' },
+      ],
+      care: [
+        { id: 'no-helper', title: 'extendGdsTheme(...) nicht mehr verwenden', description: 'Nicht als langfristigen Consumer-Branding-Layer-Pfad behalten.' },
+        { id: 'vibe-tokens', title: '--gds-vibe-* Tokens verwenden', description: 'Farbige Theme-Visuals nicht mit routenlokalen Gradients, Bildhintergründen oder produkt-eigenen Theme-Katalogen neu bauen.' },
+        { id: 'manifest', title: 'Theme-Ownership-Dateien deklarieren', description: 'Nutze approvedThemeLanes und themeOwnershipPaths in gds-adoption.json, wenn du gds-compliance verwendest.' },
+        { id: 'verify', title: 'Nach dem Update verifizieren', description: 'Führe Build, Tests und gds-compliance nach dem Wechsel auf die 3.0.5-Linie aus.' },
+      ],
+      links: [
+        { id: 'theme-governance', title: 'Theme-Governance öffnen', description: 'Lies die kanonischen Theme-Lane-Regeln und die creator-authored Grenze.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
+        { id: 'exception-rules', title: 'Exception-Surface-Regeln öffnen', description: 'Lies den engen Exception-Vertrag für Surfaces, die noch nicht direkt abgedeckt werden können.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/EXCEPTION_SURFACES.md' },
+      ],
+    },
+    hu: {
+      lanes: [
+        { id: 'base', title: 'gdsTheme', description: 'Kanonikus alap lane.' },
+        { id: 'dark', title: 'gdsDarkPublicTheme', description: 'Dark-default public shell lane.' },
+        { id: 'flat', title: 'gdsFlatSurfaceTheme', description: 'Laposabb operációs surface lane.' },
+        { id: 'editorial', title: 'gdsEditorialPublicTheme', description: 'Serif-forward editorial/public lane.' },
+        { id: 'brand', title: 'createPublicBrandTheme(...)', description: 'Szabályozott branded public composition helper.' },
+        { id: 'vibes', title: 'CSS VibeThemes', description: 'Teljes színű package-owned presetek shell, canvas, surface, control, focus, hero és accent tokenekhez.' },
+      ],
+      care: [
+        { id: 'no-helper', title: 'Ne használd tovább az extendGdsTheme(...)-et', description: 'Ne maradjon hosszú távú consumer branding-layer útvonal.' },
+        { id: 'vibe-tokens', title: '--gds-vibe-* tokenek használata', description: 'Ne építsd újra a színes téma vizuálokat route-local gradiensekkel, kép hátterekkel vagy product-owned theme katalógusokkal.' },
+        { id: 'manifest', title: 'Téma ownership fájlok deklarálása', description: 'Használd az approvedThemeLanes és themeOwnershipPaths mezőket a gds-adoption.json fájlban, amikor gds-compliance-t futtatsz.' },
+        { id: 'verify', title: 'Frissítés után ellenőrzés', description: 'Futtass buildet, teszteket és gds-compliance-t a 3.0.5 vonalra váltás után.' },
+      ],
+      links: [
+        { id: 'theme-governance', title: 'Theme governance megnyitása', description: 'Olvasd el a kanonikus theme-lane szabályokat és a creator-authored határt.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
+        { id: 'exception-rules', title: 'Exception-surface szabályok megnyitása', description: 'Olvasd el a szűk exception contractot azokhoz a surface-ekhez, amelyek még nem fedhetők le közvetlenül.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/EXCEPTION_SURFACES.md' },
+      ],
+    },
+  };
+  const localizedLists = themePageLists[locale as keyof typeof themePageLists] ?? themePageLists.en;
 
   return (
     <DocsPageShell
@@ -1380,14 +1442,7 @@ export function TokensPage({
         <FeatureBand
           columns={4}
           variant="compact"
-          items={[
-            { id: 'base', title: 'gdsTheme', description: 'Canonical base lane.' },
-            { id: 'dark', title: 'gdsDarkPublicTheme', description: 'Dark-default public shell lane.' },
-            { id: 'flat', title: 'gdsFlatSurfaceTheme', description: 'Flatter operational surface lane.' },
-            { id: 'editorial', title: 'gdsEditorialPublicTheme', description: 'Serif-forward editorial/public lane.' },
-            { id: 'brand', title: 'createPublicBrandTheme(...)', description: 'Governed branded public composition helper.' },
-            { id: 'vibes', title: 'CSS VibeThemes', description: 'Full-color package-owned presets for shell, canvas, surfaces, controls, focus, hero, and accent tokens.' },
-          ]}
+          items={localizedLists.lanes}
         />
       </ReferenceSection>
       <ReferenceSection
@@ -1396,28 +1451,7 @@ export function TokensPage({
       >
         <FeatureBand
           columns={3}
-          items={[
-            {
-              id: 'no-helper',
-              title: 'Stop using extendGdsTheme(...)',
-              description: 'Do not keep it as a long-term consumer branding-layer path.',
-            },
-            {
-              id: 'vibe-tokens',
-              title: 'Use --gds-vibe-* tokens',
-              description: 'Do not rebuild colorful theme visuals with route-local gradients, image backgrounds, or product-owned theme catalogs.',
-            },
-            {
-              id: 'manifest',
-              title: 'Declare theme ownership files',
-              description: 'Use approvedThemeLanes and themeOwnershipPaths in gds-adoption.json when you use gds-compliance.',
-            },
-            {
-              id: 'verify',
-              title: 'Verify after updating',
-              description: 'Run build, tests, and gds-compliance after moving to the 3.0.5 line.',
-            },
-          ]}
+          items={localizedLists.care}
         />
       </ReferenceSection>
       <ReferenceSection
@@ -1425,20 +1459,7 @@ export function TokensPage({
         description={i18n.linksDescription}
       >
         <ReferenceLinkGrid
-          items={[
-            {
-              id: 'theme-governance',
-              title: 'Open theme governance',
-              description: 'Read the canonical theme-lane rules and the creator-authored boundary.',
-              href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md',
-            },
-            {
-              id: 'exception-rules',
-              title: 'Open exception-surface rules',
-              description: 'Read the narrow exception contract for surfaces that cannot yet be covered directly.',
-              href: 'https://github.com/sovereignsquad/general-design-system/blob/main/EXCEPTION_SURFACES.md',
-            },
-          ]}
+          items={localizedLists.links}
           columns={2}
         />
       </ReferenceSection>

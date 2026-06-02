@@ -30,6 +30,7 @@ import {
   getGdsThemePresets,
   getGdsVibeThemes,
   resolveGdsThemePreset,
+  useGdsTranslation,
   type GdsFontLaneId,
   type GdsThemePresetId,
 } from '@doneisbetter/gds-theme';
@@ -90,14 +91,364 @@ const colorSchemeProof = [
   },
 ] as const;
 
+const explorerCopy = {
+  en: {
+    themeLabTitle: 'Theme Lab',
+    themeLabDescription: 'Test the actual shipped GDS theme presets, color-scheme behavior, and the governed brand-theme generator. This page is part of the live demo, not a separate styling experiment.',
+    themePresetTitle: 'Theme preset',
+    presetLabel: 'Preset',
+    previewColorSchemeLabel: 'Preview color scheme',
+    webfontLaneLabel: 'Webfont lane',
+    resetThemeLab: 'Reset theme lab',
+    shellBehavior: 'Theme changes apply to the official site shell so visitors can validate real whole-page runtime behavior.',
+    brandOptionsTitle: 'Brand builder options',
+    brandPrimaryColorLabel: 'Brand primary color',
+    useFlatSurfaces: 'Use flat surfaces',
+    useEditorialSerif: 'Use editorial serif headings',
+    generatorDescription: 'The generator composes shipped helpers instead of creating a second theme authority inside the website.',
+    currentSelectionTitle: 'Current selection summary',
+    bestFor: 'Best for:',
+    runtimeLane: 'Runtime lane:',
+    colorScheme: 'Color scheme:',
+    darkForwardNotice: 'This dark-forward preset always renders in dark mode inside the live preview.',
+    compareToggle: 'Compare against a second shipped preset',
+    comparisonPresetLabel: 'Comparison preset',
+    shippedLanesTitle: 'Shipped theme lanes',
+    shippedLanesDescription: 'Every lane below is a supported runtime preset. Colourful lanes ship as full CSS-based VibeThemes: canvas, shell, surface, control, focus, and accent tokens, not bitmap backgrounds.',
+    selected: 'Selected',
+    cssVibeTheme: 'CSS VibeTheme',
+    previewVibe: 'Preview this vibe',
+    avoidFor: 'Avoid for:',
+    noSpecialExclusion: 'No special exclusion noted for this lane.',
+    vibeContractTitle: 'Current VibeTheme contract',
+    vibeContractDescription: 'The selected preset exports these package-owned CSS tokens. Consumers can render expressive product surfaces while staying inside GDS theme ownership.',
+    tokenLabels: ['Primary', 'Accent', 'Light canvas', 'Dark canvas', 'Light surface', 'Dark surface'],
+    proofTitle: 'Light, dark, and auto proof',
+    proofDescription: 'Every official lane must remain usable across explicit light, explicit dark, and OS-controlled auto modes. The dark-public lane is intentionally forced to dark in preview to preserve its contrast contract.',
+    requiredProof: 'Required proof: semantic text, visible focus, and contrast-safe state treatment.',
+    livePreviewTitle: 'Live Theme Preview',
+    livePreviewDescription: 'Visitors can test the shipped presets, compare lanes, and inspect actual GDS surfaces under each theme.',
+    comparisonPreviewTitle: 'Comparison Preview Surface',
+    comparisonPreviewDescription: 'Compare another shipped theme against the current selection before adopting it downstream.',
+    unsupportedTitle: 'Unsupported lane boundary',
+    unsupportedDescription: 'Unsupported local theme lanes are blocked by policy and compliance because they create parallel design-system authority.',
+    doNotCreateTitle: 'Do not create local branding-layer helpers',
+    doNotCreateDescription: 'If a consumer needs brand expression, use createPublicBrandTheme(...). If a lane is missing, request it for GDS instead of building extendGdsTheme(...), createTheme(...), or mergeMantineTheme(...) ownership locally.',
+    approvedRemediation: 'Approved remediation',
+    prohibitedOwnership: 'Prohibited ownership',
+    previewBestFor: 'Best for:',
+    previewColorScheme: 'Color scheme:',
+    previewA11yProof: 'Accessibility proof:',
+    previewA11yDescription: 'status uses text, badge label, and placement, not color alone.',
+    forcedDarkPreview: 'This lane always previews in dark mode so the runtime stays inside its sanctioned contrast contract.',
+    tokenControls: 'Token-backed controls',
+    referenceInput: 'Reference input',
+    referenceInputDescription: 'Inputs stay inside the theme lane instead of drifting into route-local styling.',
+    referenceInputPlaceholder: 'Search or type a route name',
+    success: 'Success',
+    warning: 'Warning',
+    critical: 'Critical',
+    proofSurfaceTitle: 'Reference site proof surface',
+    proofSurfaceDescription: 'This preview uses the real shipped design-system runtime rather than a docs-only styling lane.',
+    inspectRoute: 'Inspect route',
+    metadataRuntimeLane: 'Runtime lane',
+    metadataColorScheme: 'Color scheme',
+    metadataA11yProof: 'A11y proof',
+    metadataA11yValue: 'Keyboard + readable states',
+    appsAlignedWith: 'Apps aligned with',
+    generalAdoptionWith: 'General product adoption with',
+    avoidLocalTheme: 'Avoid creating a local non-canonical theme authority.',
+    schemes: { light: 'Light', dark: 'Dark', auto: 'Auto' },
+    schemeDescriptions: {
+      light: 'Validates readable default surfaces, controls, badges, and focus states against light backgrounds.',
+      dark: 'Validates contrast for public, operational, and feedback surfaces when dark mode is active.',
+      auto: 'Documents the adopter path for OS-controlled schemes while keeping the provider contract unchanged.',
+    },
+    presetLabels: {
+      default: 'Default runtime theme',
+      'dark-public': 'Dark public theme',
+      'flat-surface': 'Flat surface theme',
+      editorial: 'Editorial serif theme',
+      brand: 'Brand theme generator',
+      sunset: 'Sunset pulse',
+      oceanic: 'Oceanic wave',
+      forest: 'Forest signal',
+      ruby: 'Ruby spark',
+      amber: 'Amber glow',
+      'neon-night': 'Neon night',
+      skyline: 'Skyline indigo',
+      aurora: 'Aurora teal',
+      coral: 'Coral bloom',
+      mint: 'Mint circuit',
+      orchid: 'Orchid signal',
+      royal: 'Royal violet',
+      cosmic: 'Cosmic burst',
+    },
+    presetSummaries: {
+      default: 'Balanced neutral baseline lane.',
+      'dark-public': 'Dark-first public presentation lane.',
+      'flat-surface': 'Lower-elevation operational lane.',
+      editorial: 'Reading-focused lane with serif headlines.',
+      brand: 'Governed brand composition lane.',
+      sunset: 'Warm orange-magenta vibrant lane.',
+      oceanic: 'Cool cyan-blue vibrant lane.',
+      forest: 'Natural emerald-led vibrant lane.',
+      ruby: 'Strong red high-contrast lane.',
+      amber: 'Golden energetic lane.',
+      'neon-night': 'Lime-accented dark-forward lane.',
+      skyline: 'Indigo technology-forward lane.',
+      aurora: 'Fresh teal-cyan app lane for optimistic product surfaces.',
+      coral: 'Expressive pink-coral lane for creator, commerce, and social products.',
+      mint: 'Clean green-mint lane for health, learning, and growth products.',
+      orchid: 'Purple-grape lane for editorial, culture, and premium tools.',
+      royal: 'Confident violet lane for SaaS dashboards and professional apps.',
+      cosmic: 'Highly saturated blue-violet-cyan-magenta showcase lane for bold public apps and launch surfaces.',
+    },
+  },
+  de: {
+    themeLabTitle: 'Theme-Labor',
+    themeLabDescription: 'Teste die ausgelieferten GDS-Theme-Presets, das Farbschema-Verhalten und den gesteuerten Brand-Theme-Generator. Diese Seite ist Teil der Live-Demo, kein separates Styling-Experiment.',
+    themePresetTitle: 'Theme-Preset',
+    presetLabel: 'Preset',
+    previewColorSchemeLabel: 'Vorschau-Farbschema',
+    webfontLaneLabel: 'Webfont-Lane',
+    resetThemeLab: 'Theme-Labor zurücksetzen',
+    shellBehavior: 'Theme-Änderungen wirken auf die offizielle Site-Shell, damit Besucher echtes Ganzseitenverhalten prüfen können.',
+    brandOptionsTitle: 'Optionen des Brand-Builders',
+    brandPrimaryColorLabel: 'Primäre Markenfarbe',
+    useFlatSurfaces: 'Flache Oberflächen verwenden',
+    useEditorialSerif: 'Editoriale Serif-Überschriften verwenden',
+    generatorDescription: 'Der Generator kombiniert ausgelieferte Helfer, statt im Website-Code eine zweite Theme-Autorität aufzubauen.',
+    currentSelectionTitle: 'Zusammenfassung der Auswahl',
+    bestFor: 'Geeignet für:',
+    runtimeLane: 'Runtime-Lane:',
+    colorScheme: 'Farbschema:',
+    darkForwardNotice: 'Dieses Dark-Forward-Preset rendert in der Live-Vorschau immer im Dunkelmodus.',
+    compareToggle: 'Mit einem zweiten ausgelieferten Preset vergleichen',
+    comparisonPresetLabel: 'Vergleichs-Preset',
+    shippedLanesTitle: 'Ausgelieferte Theme-Lanes',
+    shippedLanesDescription: 'Jede Lane unten ist ein unterstütztes Runtime-Preset. Farbige Lanes werden als vollständige CSS-basierte VibeThemes ausgeliefert: Canvas, Shell, Surface, Controls, Focus und Accent-Tokens, keine Bitmap-Hintergründe.',
+    selected: 'Ausgewählt',
+    cssVibeTheme: 'CSS VibeTheme',
+    previewVibe: 'Diesen Vibe ansehen',
+    avoidFor: 'Vermeiden für:',
+    noSpecialExclusion: 'Für diese Lane ist kein besonderer Ausschluss vermerkt.',
+    vibeContractTitle: 'Aktueller VibeTheme-Vertrag',
+    vibeContractDescription: 'Das ausgewählte Preset exportiert diese package-eigenen CSS-Tokens. Consumer können expressive Produktflächen rendern und bleiben in der GDS-Theme-Ownership.',
+    tokenLabels: ['Primär', 'Akzent', 'Heller Canvas', 'Dunkler Canvas', 'Helle Oberfläche', 'Dunkle Oberfläche'],
+    proofTitle: 'Proof für Hell, Dunkel und Auto',
+    proofDescription: 'Jede offizielle Lane muss in explizitem Hellmodus, explizitem Dunkelmodus und OS-gesteuertem Auto-Modus nutzbar bleiben. Die Dark-Public-Lane wird in der Vorschau bewusst dunkel erzwungen.',
+    requiredProof: 'Erforderlicher Proof: semantischer Text, sichtbarer Fokus und kontrastsichere Statusbehandlung.',
+    livePreviewTitle: 'Live-Theme-Vorschau',
+    livePreviewDescription: 'Besucher können ausgelieferte Presets testen, Lanes vergleichen und echte GDS-Flächen unter jedem Theme prüfen.',
+    comparisonPreviewTitle: 'Vergleichs-Vorschaufläche',
+    comparisonPreviewDescription: 'Vergleiche ein weiteres ausgeliefertes Theme mit der aktuellen Auswahl, bevor es downstream übernommen wird.',
+    unsupportedTitle: 'Grenze nicht unterstützter Lanes',
+    unsupportedDescription: 'Nicht unterstützte lokale Theme-Lanes werden durch Policy und Compliance blockiert, weil sie parallele Design-System-Autorität schaffen.',
+    doNotCreateTitle: 'Keine lokalen Branding-Layer-Helfer erstellen',
+    doNotCreateDescription: 'Wenn ein Consumer Markenausdruck braucht, verwende createPublicBrandTheme(...). Fehlt eine Lane, fordere sie für GDS an, statt lokal extendGdsTheme(...), createTheme(...) oder mergeMantineTheme(...) aufzubauen.',
+    approvedRemediation: 'Genehmigte Abhilfe',
+    prohibitedOwnership: 'Verbotene Ownership',
+    previewBestFor: 'Geeignet für:',
+    previewColorScheme: 'Farbschema:',
+    previewA11yProof: 'Accessibility-Proof:',
+    previewA11yDescription: 'Status nutzt Text, Badge-Label und Platzierung, nicht nur Farbe.',
+    forcedDarkPreview: 'Diese Lane wird immer dunkel dargestellt, damit die Runtime im genehmigten Kontrastvertrag bleibt.',
+    tokenControls: 'Token-gestützte Controls',
+    referenceInput: 'Referenzeingabe',
+    referenceInputDescription: 'Eingaben bleiben in der Theme-Lane, statt in routenlokales Styling abzudriften.',
+    referenceInputPlaceholder: 'Route suchen oder Namen eingeben',
+    success: 'Erfolg',
+    warning: 'Warnung',
+    critical: 'Kritisch',
+    proofSurfaceTitle: 'Proof-Fläche der Referenzseite',
+    proofSurfaceDescription: 'Diese Vorschau nutzt die echte ausgelieferte Design-System-Runtime statt einer docs-only Styling-Lane.',
+    inspectRoute: 'Route prüfen',
+    metadataRuntimeLane: 'Runtime-Lane',
+    metadataColorScheme: 'Farbschema',
+    metadataA11yProof: 'A11y-Proof',
+    metadataA11yValue: 'Tastatur + lesbare Zustände',
+    appsAlignedWith: 'Apps ausgerichtet auf',
+    generalAdoptionWith: 'Allgemeine Produktadoption mit',
+    avoidLocalTheme: 'Keine lokale nicht-kanonische Theme-Autorität erstellen.',
+    schemes: { light: 'Hell', dark: 'Dunkel', auto: 'Auto' },
+    schemeDescriptions: {
+      light: 'Prüft lesbare Standardflächen, Controls, Badges und Fokuszustände auf hellen Hintergründen.',
+      dark: 'Prüft Kontrast für Public-, Operations- und Feedback-Flächen im Dunkelmodus.',
+      auto: 'Dokumentiert den Adopter-Pfad für OS-gesteuerte Schemes bei unverändertem Provider-Vertrag.',
+    },
+    presetLabels: {
+      default: 'Standard-Runtime-Theme',
+      'dark-public': 'Dunkles Public-Theme',
+      'flat-surface': 'Flat-Surface-Theme',
+      editorial: 'Editoriales Serif-Theme',
+      brand: 'Brand-Theme-Generator',
+      sunset: 'Sunset Pulse',
+      oceanic: 'Oceanic Wave',
+      forest: 'Forest Signal',
+      ruby: 'Ruby Spark',
+      amber: 'Amber Glow',
+      'neon-night': 'Neon Night',
+      skyline: 'Skyline Indigo',
+      aurora: 'Aurora Teal',
+      coral: 'Coral Bloom',
+      mint: 'Mint Circuit',
+      orchid: 'Orchid Signal',
+      royal: 'Royal Violet',
+      cosmic: 'Cosmic Burst',
+    },
+    presetSummaries: {
+      default: 'Ausgewogene, neutrale Basis-Lane.',
+      'dark-public': 'Dunkel-first Public-Lane.',
+      'flat-surface': 'Operative Lane mit geringerer Elevation.',
+      editorial: 'Lesefokussierte Lane mit Serif-Headlines.',
+      brand: 'Gesteuerte Brand-Composition-Lane.',
+      sunset: 'Warme orange-magenta Vibrant-Lane.',
+      oceanic: 'Kühle cyan-blaue Vibrant-Lane.',
+      forest: 'Natürliche smaragdgetriebene Vibrant-Lane.',
+      ruby: 'Kräftige rote High-Contrast-Lane.',
+      amber: 'Goldgelbe energetische Lane.',
+      'neon-night': 'Lime-akzentuierte Dark-Forward-Lane.',
+      skyline: 'Indigo Technology-Forward-Lane.',
+      aurora: 'Frische teal-cyan App-Lane für optimistische Produktflächen.',
+      coral: 'Expressive pink-coral Lane für Creator-, Commerce- und Social-Produkte.',
+      mint: 'Saubere grün-mint Lane für Health, Learning und Growth.',
+      orchid: 'Purple-grape Lane für Editorial, Kultur und Premium-Tools.',
+      royal: 'Selbstbewusste violette Lane für SaaS-Dashboards und professionelle Apps.',
+      cosmic: 'Hochgesättigte blue-violet-cyan-magenta Showcase-Lane für mutige Public Apps und Launch-Flächen.',
+    },
+  },
+  hu: {
+    themeLabTitle: 'Témalabor',
+    themeLabDescription: 'Teszteld a szállított GDS téma preseteket, a színséma működését és a szabályozott brand-theme generátort. Ez az oldal a live demó része, nem külön styling-kísérlet.',
+    themePresetTitle: 'Téma preset',
+    presetLabel: 'Téma preset',
+    previewColorSchemeLabel: 'Előnézeti színséma',
+    webfontLaneLabel: 'Webfont sáv',
+    resetThemeLab: 'Témalabor visszaállítása',
+    shellBehavior: 'A témaváltások az official site shellre is érvényesek, így a látogatók valódi teljes oldalas runtime viselkedést ellenőrizhetnek.',
+    brandOptionsTitle: 'Brand builder opciók',
+    brandPrimaryColorLabel: 'Elsődleges brand szín',
+    useFlatSurfaces: 'Lapos felületek használata',
+    useEditorialSerif: 'Editorial serif címsorok használata',
+    generatorDescription: 'A generátor szállított helpereket komponál, nem hoz létre második téma-autoritást a website-ban.',
+    currentSelectionTitle: 'Aktuális választás összefoglalója',
+    bestFor: 'Legjobb erre:',
+    runtimeLane: 'Runtime lane:',
+    colorScheme: 'Színséma:',
+    darkForwardNotice: 'Ez a dark-forward preset a live előnézetben mindig dark módban jelenik meg.',
+    compareToggle: 'Összehasonlítás második szállított presettel',
+    comparisonPresetLabel: 'Összehasonlító preset',
+    shippedLanesTitle: 'Szállított téma lane-ek',
+    shippedLanesDescription: 'Minden lenti lane támogatott runtime preset. A színes lane-ek teljes CSS-alapú VibeTheme-ként érkeznek: canvas, shell, surface, control, focus és accent tokenekkel, nem bitmap hátterekkel.',
+    selected: 'Kiválasztva',
+    cssVibeTheme: 'CSS VibeTheme',
+    previewVibe: 'Vibe előnézete',
+    avoidFor: 'Kerüld erre:',
+    noSpecialExclusion: 'Ehhez a lane-hez nincs külön kizárás megadva.',
+    vibeContractTitle: 'Aktuális VibeTheme szerződés',
+    vibeContractDescription: 'A kiválasztott preset ezeket a package-owned CSS tokeneket exportálja. A consumerek kifejező product surface-eket renderelhetnek GDS theme ownership-en belül.',
+    tokenLabels: ['Elsődleges', 'Akcentus', 'Világos canvas', 'Sötét canvas', 'Világos felület', 'Sötét felület'],
+    proofTitle: 'Light, dark és auto proof',
+    proofDescription: 'Minden official lane-nek használhatónak kell maradnia explicit light, explicit dark és OS-controlled auto módban. A dark-public lane előnézetben szándékosan dark módra van kényszerítve.',
+    requiredProof: 'Kötelező proof: szemantikus szöveg, látható fókusz és kontrasztbiztos állapotkezelés.',
+    livePreviewTitle: 'Live téma előnézet',
+    livePreviewDescription: 'A látogatók tesztelhetik a szállított preseteket, összehasonlíthatják a lane-eket és ellenőrizhetik a valódi GDS felületeket minden témában.',
+    comparisonPreviewTitle: 'Összehasonlító előnézeti felület',
+    comparisonPreviewDescription: 'Hasonlíts össze egy másik szállított témát az aktuális választással, mielőtt downstream adoptálod.',
+    unsupportedTitle: 'Nem támogatott lane határa',
+    unsupportedDescription: 'A nem támogatott lokális téma lane-eket policy és compliance blokkolja, mert párhuzamos design-system autoritást hoznak létre.',
+    doNotCreateTitle: 'Ne hozz létre lokális branding-layer helpereket',
+    doNotCreateDescription: 'Ha egy consumer brand kifejezést igényel, használd a createPublicBrandTheme(...)-et. Ha hiányzik egy lane, GDS-ben kérd, ne lokálisan építs extendGdsTheme(...), createTheme(...) vagy mergeMantineTheme(...) ownership-et.',
+    approvedRemediation: 'Jóváhagyott javítás',
+    prohibitedOwnership: 'Tiltott ownership',
+    previewBestFor: 'Legjobb erre:',
+    previewColorScheme: 'Színséma:',
+    previewA11yProof: 'Accessibility proof:',
+    previewA11yDescription: 'az állapot szöveget, badge labelt és elhelyezést használ, nem csak színt.',
+    forcedDarkPreview: 'Ez a lane mindig dark módban látszik, hogy a runtime a jóváhagyott kontraszt contracton belül maradjon.',
+    tokenControls: 'Token-backed controlok',
+    referenceInput: 'Referencia input',
+    referenceInputDescription: 'Az inputok a téma lane-en belül maradnak, nem csúsznak route-local stylingba.',
+    referenceInputPlaceholder: 'Keress vagy írj be route nevet',
+    success: 'Siker',
+    warning: 'Figyelmeztetés',
+    critical: 'Kritikus',
+    proofSurfaceTitle: 'Reference site proof surface',
+    proofSurfaceDescription: 'Ez az előnézet a valódi szállított design-system runtime-ot használja, nem docs-only styling lane-t.',
+    inspectRoute: 'Route vizsgálata',
+    metadataRuntimeLane: 'Runtime lane',
+    metadataColorScheme: 'Színséma',
+    metadataA11yProof: 'A11y proof',
+    metadataA11yValue: 'Billentyűzet + olvasható állapotok',
+    appsAlignedWith: 'Alkalmazások ehhez igazítva:',
+    generalAdoptionWith: 'Általános product adoption ezzel:',
+    avoidLocalTheme: 'Ne hozz létre lokális, nem kanonikus téma-autoritást.',
+    schemes: { light: 'Világos', dark: 'Sötét', auto: 'Auto' },
+    schemeDescriptions: {
+      light: 'Ellenőrzi az olvasható alapfelületeket, controlokat, badge-eket és fókuszállapotokat világos háttéren.',
+      dark: 'Ellenőrzi a public, operational és feedback felületek kontrasztját aktív dark módban.',
+      auto: 'Dokumentálja az OS-controlled scheme adopter útját változatlan provider contract mellett.',
+    },
+    presetLabels: {
+      default: 'Alap runtime téma',
+      'dark-public': 'Sötét public téma',
+      'flat-surface': 'Lapos felület téma',
+      editorial: 'Editorial serif téma',
+      brand: 'Brand téma generátor',
+      sunset: 'Sunset pulse',
+      oceanic: 'Oceanic wave',
+      forest: 'Forest signal',
+      ruby: 'Ruby spark',
+      amber: 'Amber glow',
+      'neon-night': 'Neon night',
+      skyline: 'Skyline indigo',
+      aurora: 'Aurora teal',
+      coral: 'Coral bloom',
+      mint: 'Mint circuit',
+      orchid: 'Orchid signal',
+      royal: 'Royal violet',
+      cosmic: 'Cosmic burst',
+    },
+    presetSummaries: {
+      default: 'Kiegyensúlyozott, neutrális baseline lane.',
+      'dark-public': 'Dark-first public lane.',
+      'flat-surface': 'Alacsonyabb elevation operációs lane.',
+      editorial: 'Olvasásközpontú lane serif headline-okkal.',
+      brand: 'Szabályozott brand composition lane.',
+      sunset: 'Meleg narancs-magenta vibrant lane.',
+      oceanic: 'Hűvös cyan-kék vibrant lane.',
+      forest: 'Természetes emerald-központú vibrant lane.',
+      ruby: 'Erős piros, magas kontrasztú lane.',
+      amber: 'Aranysárga, energikus lane.',
+      'neon-night': 'Lime-akcentusú dark-forward lane.',
+      skyline: 'Indigo, technology-forward lane.',
+      aurora: 'Friss teal-cyan app lane optimista product surface-ekhez.',
+      coral: 'Kifejező pink-coral lane creator, commerce és social productokhoz.',
+      mint: 'Tiszta zöld-mint lane health, learning és growth productokhoz.',
+      orchid: 'Purple-grape lane editorial, culture és premium toolokhoz.',
+      royal: 'Magabiztos violet lane SaaS dashboardokhoz és professzionális appokhoz.',
+      cosmic: 'Erősen telített blue-violet-cyan-magenta showcase lane merész public appokhoz és launch surface-ekhez.',
+    },
+  },
+};
+
+type ExplorerCopy = Omit<typeof explorerCopy.en, 'presetLabels' | 'presetSummaries'> & {
+  presetLabels: Partial<Record<ThemePresetId, string>>;
+  presetSummaries: Partial<Record<ThemePresetId, string>>;
+};
+const fallbackExplorerCopy: ExplorerCopy = explorerCopy.en;
+
 function ThemePreviewSurface({
   preset,
   colorScheme,
   requestedColorScheme,
+  copy,
 }: {
   preset: { label: string; summary: string; bestFor: string; themeKey: string };
   colorScheme: ThemeSchemeId;
   requestedColorScheme?: ThemeSchemeId;
+  copy: ExplorerCopy;
 }) {
   const forcedScheme = requestedColorScheme && requestedColorScheme !== colorScheme;
 
@@ -111,17 +462,17 @@ function ThemePreviewSurface({
               {preset.summary}
             </Text>
             <Text size="sm">
-              <strong>Best for:</strong> {preset.bestFor}
+              <strong>{copy.previewBestFor}</strong> {preset.bestFor}
             </Text>
             <Text size="sm">
-              <strong>Color scheme:</strong> {colorScheme}
+              <strong>{copy.previewColorScheme}</strong> {colorScheme} ({copy.schemes[colorScheme]})
             </Text>
             <Text size="sm">
-              <strong>Accessibility proof:</strong> status uses text, badge label, and placement, not color alone.
+              <strong>{copy.previewA11yProof}</strong> {copy.previewA11yDescription}
             </Text>
             {forcedScheme ? (
               <Text size="sm" c="dimmed">
-                This lane always previews in dark mode so the runtime stays inside its sanctioned contrast contract.
+                {copy.forcedDarkPreview}
               </Text>
             ) : null}
           </Stack>
@@ -138,33 +489,33 @@ function ThemePreviewSurface({
           <Paper withBorder radius="lg" p="md">
             <Stack gap="sm">
               <Text fw={700} size="sm">
-                Token-backed controls
+                {copy.tokenControls}
               </Text>
-              <FormField label="Reference input" description="Inputs stay inside the theme lane instead of drifting into route-local styling.">
-                <TextInput placeholder="Search or type a route name" />
+              <FormField label={copy.referenceInput} description={copy.referenceInputDescription}>
+                <TextInput placeholder={copy.referenceInputPlaceholder} />
               </FormField>
               <Group gap="xs" wrap="wrap">
                 <Badge color="teal" variant="light">
-                  Success
+                  {copy.success}
                 </Badge>
                 <Badge color="orange" variant="light">
-                  Warning
+                  {copy.warning}
                 </Badge>
                 <Badge color="red" variant="light">
-                  Critical
+                  {copy.critical}
                 </Badge>
               </Group>
             </Stack>
           </Paper>
           <ListingCard
-            title="Reference site proof surface"
-            description="This preview uses the real shipped design-system runtime rather than a docs-only styling lane."
+            title={copy.proofSurfaceTitle}
+            description={copy.proofSurfaceDescription}
             metadata={[
-              { id: 'runtime', label: 'Runtime lane', value: preset.themeKey },
-              { id: 'scheme', label: 'Color scheme', value: colorScheme },
-              { id: 'focus', label: 'A11y proof', value: 'Keyboard + readable states' },
+              { id: 'runtime', label: copy.metadataRuntimeLane, value: preset.themeKey },
+              { id: 'scheme', label: copy.metadataColorScheme, value: copy.schemes[colorScheme] },
+              { id: 'focus', label: copy.metadataA11yProof, value: copy.metadataA11yValue },
             ]}
-            primaryAction={<Button size="sm">Inspect route</Button>}
+            primaryAction={<Button size="sm">{copy.inspectRoute}</Button>}
           />
         </SimpleGrid>
       </Stack>
@@ -179,6 +530,8 @@ export function ReferenceThemeExplorer({
   initialSelection?: ThemeExplorerSelection;
   onSelectionChange?: (selection: ThemeExplorerSelection) => void;
 }) {
+  const { locale } = useGdsTranslation();
+  const copy = (explorerCopy[locale as keyof typeof explorerCopy] ?? fallbackExplorerCopy) as ExplorerCopy;
   const [preset, setPreset] = useState<ThemePresetId>(initialSelection?.preset ?? 'default');
   const [colorScheme, setColorScheme] = useState<ThemeSchemeId>(initialSelection?.colorScheme ?? 'light');
   const [brandPrimary, setBrandPrimary] = useState(initialSelection?.brandPrimary ?? 'blue');
@@ -196,8 +549,27 @@ export function ReferenceThemeExplorer({
       brandEditorialSerif,
     }), fontLane);
 
-  const selectionSummary = themePresetCatalog[preset];
-  const comparisonSummary = themePresetCatalog[comparisonPreset];
+  const localizedThemeCatalog = useMemo(() => {
+    const presetLabels = copy.presetLabels as Partial<Record<ThemePresetId, string>>;
+    const presetSummaries = copy.presetSummaries as Partial<Record<ThemePresetId, string>>;
+
+    return Object.fromEntries(Object.entries(themePresetCatalog).map(([id, item]) => {
+      const presetId = id as ThemePresetId;
+      const label = presetLabels[presetId] ?? item.label;
+      const summary = presetSummaries[presetId] ?? item.summary;
+
+      return [presetId, {
+        ...item,
+        label,
+        summary,
+        bestFor: `${copy.appsAlignedWith} ${label}.`,
+        supportedUse: `${copy.generalAdoptionWith} ${label}.`,
+        avoidFor: copy.avoidLocalTheme,
+      }];
+    })) as Record<ThemePresetId, { label: string; bestFor: string; summary: string; themeKey: string; supportedUse: string; avoidFor?: string }>;
+  }, [copy]);
+  const selectionSummary = localizedThemeCatalog[preset];
+  const comparisonSummary = localizedThemeCatalog[comparisonPreset];
   const selectedTheme = useMemo(() => resolveTheme(preset), [preset, brandPrimary, brandFlatSurfaces, brandEditorialSerif, fontLane]);
   const comparedTheme = useMemo(() => resolveTheme(comparisonPreset), [comparisonPreset, brandPrimary, brandFlatSurfaces, brandEditorialSerif, fontLane]);
   const effectiveColorScheme = resolvePreviewColorScheme(preset, colorScheme);
@@ -242,56 +614,56 @@ export function ReferenceThemeExplorer({
   return (
     <Stack gap="xl">
       <ReferenceSection
-        title="Theme Lab"
-        description="Test the actual shipped GDS theme presets, color-scheme behavior, and the governed brand-theme generator. This page is part of the live demo, not a separate styling experiment."
+        title={copy.themeLabTitle}
+        description={copy.themeLabDescription}
       >
         <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} spacing="lg">
           <Paper withBorder radius="xl" p="lg">
             <Stack gap="md">
-              <Title order={4}>Theme preset</Title>
-              <FormField label="Preset">
+              <Title order={4}>{copy.themePresetTitle}</Title>
+              <FormField label={copy.presetLabel}>
                 <NativeSelect
-                  aria-label="Preset"
+                  aria-label={copy.presetLabel}
                   value={preset}
                   onChange={(event) => setPreset((event.currentTarget.value as ThemePresetId) || 'default')}
-                  data={Object.entries(themePresetCatalog).map(([value, item]) => ({ value, label: item.label }))}
+                  data={Object.entries(localizedThemeCatalog).map(([value, item]) => ({ value, label: item.label }))}
                 />
               </FormField>
-              <FormField label="Preview color scheme">
+              <FormField label={copy.previewColorSchemeLabel}>
                 <NativeSelect
-                  aria-label="Preview color scheme"
+                  aria-label={copy.previewColorSchemeLabel}
                   value={colorScheme}
                   onChange={(event) => setColorScheme((event.currentTarget.value as ThemeSchemeId) || 'light')}
                   data={[
-                    { value: 'light', label: 'Light' },
-                    { value: 'dark', label: 'Dark' },
-                    { value: 'auto', label: 'Auto' },
+                    { value: 'light', label: copy.schemes.light },
+                    { value: 'dark', label: copy.schemes.dark },
+                    { value: 'auto', label: copy.schemes.auto },
                   ]}
                 />
               </FormField>
-              <FormField label="Webfont lane">
+              <FormField label={copy.webfontLaneLabel}>
                 <NativeSelect
-                  aria-label="Webfont lane"
+                  aria-label={copy.webfontLaneLabel}
                   value={fontLane}
                   onChange={(event) => setFontLane((event.currentTarget.value as GdsFontLaneId) || 'inter')}
                   data={getGdsFontLanes().map((lane) => ({ value: lane.id, label: lane.label }))}
                 />
               </FormField>
               <Button variant="default" size="sm" onClick={reset}>
-                Reset theme lab
+                {copy.resetThemeLab}
               </Button>
               <Text size="sm" c="dimmed">
-                Theme changes apply to the official site shell so visitors can validate real whole-page runtime behavior.
+                {copy.shellBehavior}
               </Text>
             </Stack>
           </Paper>
 
           <Paper withBorder radius="xl" p="lg">
             <Stack gap="md">
-              <Title order={4}>Brand builder options</Title>
-              <FormField label="Brand primary color">
+              <Title order={4}>{copy.brandOptionsTitle}</Title>
+              <FormField label={copy.brandPrimaryColorLabel}>
                 <NativeSelect
-                  aria-label="Brand primary color"
+                  aria-label={copy.brandPrimaryColorLabel}
                   value={brandPrimary}
                   onChange={(event) => setBrandPrimary(event.currentTarget.value || 'blue')}
                   data={['blue', 'violet', 'teal', 'grape', 'indigo', 'orange']}
@@ -299,59 +671,59 @@ export function ReferenceThemeExplorer({
                 />
               </FormField>
               <Checkbox
-                label="Use flat surfaces"
+                label={copy.useFlatSurfaces}
                 checked={brandFlatSurfaces}
                 onChange={(event) => setBrandFlatSurfaces(event.currentTarget.checked)}
                 disabled={preset !== 'brand'}
               />
               <Checkbox
-                label="Use editorial serif headings"
+                label={copy.useEditorialSerif}
                 checked={brandEditorialSerif}
                 onChange={(event) => setBrandEditorialSerif(event.currentTarget.checked)}
                 disabled={preset !== 'brand'}
               />
               <Text size="sm" c="dimmed">
-                The generator composes shipped helpers instead of creating a second theme authority inside the website.
+                {copy.generatorDescription}
               </Text>
             </Stack>
           </Paper>
 
           <Paper withBorder radius="xl" p="lg">
             <Stack gap="md" role="status" aria-live="polite">
-              <Title order={4}>Current selection summary</Title>
+              <Title order={4}>{copy.currentSelectionTitle}</Title>
               <Stack gap={6}>
                 <Text fw={700}>{selectionSummary.label}</Text>
                 <Text size="sm" c="dimmed">
                   {selectionSummary.summary}
                 </Text>
                 <Text size="sm">
-                  <strong>Best for:</strong> {selectionSummary.bestFor}
+                  <strong>{copy.bestFor}</strong> {selectionSummary.bestFor}
                 </Text>
                 <Text size="sm">
-                  <strong>Runtime lane:</strong> <Code>{selectionSummary.themeKey}</Code>
+                  <strong>{copy.runtimeLane}</strong> <Code>{selectionSummary.themeKey}</Code>
                 </Text>
                 <Text size="sm">
-                  <strong>Color scheme:</strong> {colorScheme}
+                  <strong>{copy.colorScheme}</strong> {colorScheme} ({copy.schemes[colorScheme]})
                 </Text>
                 {(preset === 'dark-public' || preset === 'neon-night' || preset === 'cosmic') && colorScheme !== effectiveColorScheme ? (
                   <Text size="sm" c="dimmed">
-                    This dark-forward preset always renders in dark mode inside the live preview.
+                    {copy.darkForwardNotice}
                   </Text>
                 ) : null}
               </Stack>
               <Checkbox
-                aria-label="Compare against a second shipped preset"
-                label="Compare against a second shipped preset"
+                aria-label={copy.compareToggle}
+                label={copy.compareToggle}
                 checked={comparisonEnabled}
                 onChange={(event) => setComparisonEnabled(event.currentTarget.checked)}
               />
-              <FormField label="Comparison preset">
+              <FormField label={copy.comparisonPresetLabel}>
                 <NativeSelect
-                  aria-label="Comparison preset"
+                  aria-label={copy.comparisonPresetLabel}
                   value={comparisonPreset}
                   onChange={(event) => setComparisonPreset((event.currentTarget.value as ThemePresetId) || 'editorial')}
                   disabled={!comparisonEnabled}
-                  data={availableComparisonPresets.map((value) => ({ value, label: themePresetCatalog[value].label }))}
+                  data={availableComparisonPresets.map((value) => ({ value, label: localizedThemeCatalog[value].label }))}
                 />
               </FormField>
             </Stack>
@@ -360,12 +732,12 @@ export function ReferenceThemeExplorer({
       </ReferenceSection>
 
       <ReferenceSection
-        title="Shipped theme lanes"
-        description="Every lane below is a supported runtime preset. Colourful lanes ship as full CSS-based VibeThemes: canvas, shell, surface, control, focus, and accent tokens, not bitmap backgrounds."
+        title={copy.shippedLanesTitle}
+        description={copy.shippedLanesDescription}
       >
         <SimpleGrid cols={{ base: 1, md: 2, xl: 4 }} spacing="md">
           {vibeCatalog.map((vibe) => {
-            const lane = themePresetCatalog[vibe.id];
+            const lane = localizedThemeCatalog[vibe.id];
             const isSelected = vibe.id === preset;
 
             return (
@@ -375,7 +747,7 @@ export function ReferenceThemeExplorer({
               radius="lg"
               p="md"
               role="group"
-              aria-label={`${lane.label} vibe theme`}
+              aria-label={`${lane.label} ${copy.cssVibeTheme}`}
               style={{
                 background: `linear-gradient(135deg, ${vibe.surfaceLight}, color-mix(in srgb, ${vibe.primary} 12%, ${vibe.surfaceLight})), ${vibe.gradient}`,
                 borderColor: isSelected ? vibe.primary : vibe.borderLight,
@@ -401,7 +773,7 @@ export function ReferenceThemeExplorer({
                     </Text>
                   </Group>
                   {isSelected ? (
-                    <Badge variant="light">Selected</Badge>
+                    <Badge variant="light">{copy.selected}</Badge>
                   ) : null}
                 </Group>
                 <Box
@@ -414,13 +786,13 @@ export function ReferenceThemeExplorer({
                   }}
                 />
                 <Text fw={700} size="sm">
-                  CSS VibeTheme
+                  {copy.cssVibeTheme}
                 </Text>
                 <Text size="sm" c="dimmed">
                   {lane.summary}
                 </Text>
                 <Text size="xs">
-                  <strong>Best for:</strong> {lane.supportedUse}
+                  <strong>{copy.bestFor}</strong> {lane.supportedUse}
                 </Text>
                 <Code block fz="10px">
                   {lane.themeKey}
@@ -430,10 +802,10 @@ export function ReferenceThemeExplorer({
                   variant={isSelected ? 'filled' : 'default'}
                   onClick={() => setPreset(vibe.id)}
                 >
-                  Preview this vibe
+                  {copy.previewVibe}
                 </Button>
                 <Text size="xs" c="dimmed">
-                  <strong>Avoid for:</strong> {lane.avoidFor ?? 'No special exclusion noted for this lane.'}
+                  <strong>{copy.avoidFor}</strong> {lane.avoidFor ?? copy.noSpecialExclusion}
                 </Text>
               </Stack>
             </Paper>
@@ -443,18 +815,18 @@ export function ReferenceThemeExplorer({
       </ReferenceSection>
 
       <ReferenceSection
-        title="Current VibeTheme contract"
-        description="The selected preset exports these package-owned CSS tokens. Consumers can render expressive product surfaces while staying inside GDS theme ownership."
+        title={copy.vibeContractTitle}
+        description={copy.vibeContractDescription}
       >
         <Paper withBorder radius="xl" p="lg" style={{ background: selectedVibe?.hero }}>
           <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
             {selectedVibe ? [
-              ['Primary', selectedVibe.primary],
-              ['Accent', selectedVibe.accent],
-              ['Light canvas', selectedVibe.canvasLight],
-              ['Dark canvas', selectedVibe.canvasDark],
-              ['Light surface', selectedVibe.surfaceLight],
-              ['Dark surface', selectedVibe.surfaceDark],
+              [copy.tokenLabels[0], selectedVibe.primary],
+              [copy.tokenLabels[1], selectedVibe.accent],
+              [copy.tokenLabels[2], selectedVibe.canvasLight],
+              [copy.tokenLabels[3], selectedVibe.canvasDark],
+              [copy.tokenLabels[4], selectedVibe.surfaceLight],
+              [copy.tokenLabels[5], selectedVibe.surfaceDark],
             ].map(([label, value]) => (
               <Paper key={label} withBorder radius="lg" p="md">
                 <Stack gap={8}>
@@ -477,19 +849,19 @@ export function ReferenceThemeExplorer({
       </ReferenceSection>
 
       <ReferenceSection
-        title="Light, dark, and auto proof"
-        description="Every official lane must remain usable across explicit light, explicit dark, and OS-controlled auto modes. The dark-public lane is intentionally forced to dark in preview to preserve its contrast contract."
+        title={copy.proofTitle}
+        description={copy.proofDescription}
       >
         <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
           {colorSchemeProof.map((item) => (
             <Paper key={item.id} withBorder radius="lg" p="md">
               <Stack gap={6}>
                 <Badge variant="light" color={item.id === 'dark' ? 'violet' : item.id === 'auto' ? 'teal' : 'blue'} w="fit-content">
-                  {item.label}
+                  {copy.schemes[item.id]}
                 </Badge>
-                <Text size="sm">{item.description}</Text>
+                <Text size="sm">{copy.schemeDescriptions[item.id]}</Text>
                 <Text size="xs" c="dimmed">
-                  Required proof: semantic text, visible focus, and contrast-safe state treatment.
+                  {copy.requiredProof}
                 </Text>
               </Stack>
             </Paper>
@@ -498,8 +870,8 @@ export function ReferenceThemeExplorer({
       </ReferenceSection>
 
       <ReferenceSection
-        title="Live Theme Preview"
-        description="Visitors can test the shipped presets, compare lanes, and inspect actual GDS surfaces under each theme."
+        title={copy.livePreviewTitle}
+        description={copy.livePreviewDescription}
       >
         <SimpleGrid cols={{ base: 1, xl: comparisonEnabled ? 2 : 1 }} spacing="lg">
           <GdsProvider key={previewKey} theme={selectedTheme} defaultColorScheme={effectiveColorScheme}>
@@ -507,6 +879,7 @@ export function ReferenceThemeExplorer({
               preset={selectionSummary}
               colorScheme={effectiveColorScheme}
               requestedColorScheme={colorScheme}
+              copy={copy}
             />
           </GdsProvider>
           {comparisonEnabled ? (
@@ -515,9 +888,9 @@ export function ReferenceThemeExplorer({
                 <Stack gap="md">
                   <Group justify="space-between" align="flex-start" wrap="wrap">
                     <Stack gap={4}>
-                      <Text fw={700}>Comparison Preview Surface</Text>
+                      <Text fw={700}>{copy.comparisonPreviewTitle}</Text>
                       <Text size="sm" c="dimmed">
-                        Compare another shipped theme against the current selection before adopting it downstream.
+                        {copy.comparisonPreviewDescription}
                       </Text>
                     </Stack>
                     <Badge color="violet" variant="light">
@@ -528,6 +901,7 @@ export function ReferenceThemeExplorer({
                     preset={comparisonSummary}
                     colorScheme={effectiveComparisonScheme}
                     requestedColorScheme={colorScheme}
+                    copy={copy}
                   />
                 </Stack>
               </Paper>
@@ -537,22 +911,22 @@ export function ReferenceThemeExplorer({
       </ReferenceSection>
 
       <ReferenceSection
-        title="Unsupported lane boundary"
-        description="Unsupported local theme lanes are blocked by policy and compliance because they create parallel design-system authority."
+        title={copy.unsupportedTitle}
+        description={copy.unsupportedDescription}
         tone="supporting"
       >
         <Stack gap="md">
           <StateBlock
             variant="permission"
-            title="Do not create local branding-layer helpers"
-            description="If a consumer needs brand expression, use createPublicBrandTheme(...). If a lane is missing, request it for GDS instead of building extendGdsTheme(...), createTheme(...), or mergeMantineTheme(...) ownership locally."
+            title={copy.doNotCreateTitle}
+            description={copy.doNotCreateDescription}
             compact
           />
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
             <Paper withBorder radius="lg" p="md">
               <Stack gap={6}>
                 <Text fw={700} size="sm">
-                  Approved remediation
+                  {copy.approvedRemediation}
                 </Text>
                 <Code block>createPublicBrandTheme({`{ flatSurfaces: true, overrides: { primaryColor: 'blue' } }`})</Code>
               </Stack>
@@ -560,7 +934,7 @@ export function ReferenceThemeExplorer({
             <Paper withBorder radius="lg" p="md">
               <Stack gap={6}>
                 <Text fw={700} size="sm">
-                  Prohibited ownership
+                  {copy.prohibitedOwnership}
                 </Text>
                 <Code block>extendGdsTheme(...) / createTheme(...) / mergeMantineTheme(...)</Code>
               </Stack>

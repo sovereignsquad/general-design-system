@@ -36,7 +36,7 @@ import { ChartTokenPanel } from './ChartTokenPanel';
 import { GdsChart, gdsChartTypeRegistry, gdsChartSetATypeRegistry, isGdsChartSetAType, validateGdsChartData } from './GdsChart';
 import { EvidencePanel } from './EvidencePanel';
 import { ListingCard } from './ListingCard';
-import { renderGdsLayout } from './LayoutBlocks';
+import { getGdsBlockTypes, registerGdsBlock, renderGdsLayout, renderGdsLayoutWithDiagnostics, validateGdsLayout } from './LayoutBlocks';
 import { MapPanel } from './MapPanel';
 import { MediaField } from './MediaField';
 import { MediaCard } from './MediaCard';
@@ -1902,12 +1902,56 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
         version: '1',
         blocks: [
           { id: 'hero', type: 'hero', props: { title: 'Layout hero', description: 'Schema block.' } },
+          { id: 'stats', type: 'stats', props: { items: [{ label: 'Blocks', value: '8' }] } },
+          { id: 'table', type: 'table', props: { columns: [{ key: 'name', header: 'Name' }], rows: [{ name: 'Schema row' }] } },
+          { id: 'filter', type: 'filter', props: { searchLabel: 'Search block', filterLabel: 'Filter block', sortLabel: 'Sort block' } },
           { id: 'cta', type: 'cta', props: {} },
         ],
       }),
     );
 
     expect(screen.getByText('Layout hero')).toBeInTheDocument();
+    expect(screen.getByText('Blocks')).toBeInTheDocument();
+    expect(screen.getByText('Schema row')).toBeInTheDocument();
+    expect(screen.getByText('Search block')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+  });
+
+  it('validates layout schemas and renders actionable diagnostics for unsafe or unknown blocks', () => {
+    const schema = {
+      version: '1' as const,
+      blocks: [
+        { id: 'bad', type: 'unknown', props: { title: '<script>alert(1)</script>' } },
+      ],
+    };
+
+    const result = renderGdsLayoutWithDiagnostics(schema);
+
+    expect(validateGdsLayout(schema)).toEqual([
+      { blockId: 'bad', message: 'Unsupported layout block type "unknown".' },
+      { blockId: 'bad', message: 'Layout block props may not include script or javascript URL content.' },
+    ]);
+    expect(result.issues).toHaveLength(2);
+
+    renderWithGds(result.node);
+    expect(screen.getByText('Layout diagnostics')).toBeInTheDocument();
+    expect(screen.getByText('Unsupported block type: unknown')).toBeInTheDocument();
+  });
+
+  it('supports registered custom GDS layout blocks without replacing the default registry', () => {
+    registerGdsBlock('notice', (block) => (
+      <StateBlock variant="info" title={String(block.props.title ?? 'Notice')} compact />
+    ));
+
+    expect(getGdsBlockTypes()).toEqual(expect.arrayContaining(['hero', 'stats', 'cards-grid', 'table', 'chart', 'filter', 'cta', 'footer', 'notice']));
+
+    renderWithGds(
+      renderGdsLayout({
+        version: '1',
+        blocks: [{ id: 'notice', type: 'notice', props: { title: 'Registered notice' } }],
+      }),
+    );
+
+    expect(screen.getByText('Registered notice')).toBeInTheDocument();
   });
 });

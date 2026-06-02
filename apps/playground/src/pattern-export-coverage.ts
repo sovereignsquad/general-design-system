@@ -139,6 +139,10 @@ export const patternExportCoverage: ExportCoverageEntry[] = [
   { packageName: '@doneisbetter/gds-core', exportName: 'resolveSemanticActionConfig', status: 'support-api', registryId: 'vocabulary-extension-lane', rationale: 'Semantic vocabulary resolver covered by action demos.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'resolveSurfacePresentationStyles', status: 'support-api', registryId: 'surface-presentation', rationale: 'Presentation helper covered by SectionPanel and StateBlock demos.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'renderGdsLayout', status: 'live-demo', registryId: 'shell-contracts', rationale: 'Block-based governed layout renderer for schema-composed page assembly.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'renderGdsLayoutWithDiagnostics', status: 'support-api', registryId: 'shell-contracts', rationale: 'Schema renderer result with validation diagnostics for block-based page assembly.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'validateGdsLayout', status: 'support-api', registryId: 'shell-contracts', rationale: 'Layout schema validation for unsupported blocks, malformed props, and unsafe string content.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'registerGdsBlock', status: 'support-api', registryId: 'shell-contracts', rationale: 'Governed block registry extension lane for reusable product-authored blocks.' },
+  { packageName: '@doneisbetter/gds-core', exportName: 'getGdsBlockTypes', status: 'support-api', registryId: 'shell-contracts', rationale: 'Default and registered block type discovery for docs and adoption tooling.' },
   { packageName: '@doneisbetter/gds-core', exportName: 'isPresentationMode', status: 'support-api', registryId: 'surface-presentation', rationale: 'Presentation guard covered by SectionPanel and StateBlock demos.' },
 
   { packageName: '@doneisbetter/gds-admin', exportName: 'AppShell', status: 'live-demo', registryId: 'admin-app-shell', rationale: 'Admin compatibility shell built on DiscoveryShell.' },

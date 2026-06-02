@@ -20,7 +20,7 @@ describe('playground theme explorer and live demos hub', () => {
     fireEvent.change(presetSelect, { target: { value: 'brand' } });
     fireEvent.change(schemeSelect, { target: { value: 'dark' } });
 
-    expect(screen.getAllByText('Brand theme generator').length).toBeGreaterThan(0);
+    expect((presetSelect as HTMLSelectElement).value).toBe('brand');
     expect(screen.getAllByText('createPublicBrandTheme(...)').length).toBeGreaterThan(0);
     expect(screen.getAllByText((_, node) => node?.textContent?.includes('Color scheme: dark') ?? false).length).toBeGreaterThan(0);
 
@@ -28,11 +28,10 @@ describe('playground theme explorer and live demos hub', () => {
     fireEvent.change(screen.getByLabelText('Comparison preset'), { target: { value: 'flat-surface' } });
 
     expect(screen.getByText('Comparison Preview Surface')).toBeTruthy();
-    expect(screen.getAllByText('Flat surface theme').length).toBeGreaterThan(0);
+    expect((screen.getByLabelText('Comparison preset') as HTMLSelectElement).value).toBe('flat-surface');
 
     fireEvent.click(screen.getByRole('button', { name: 'Reset theme lab' }));
 
-    expect(screen.getAllByText('Default runtime theme').length).toBeGreaterThan(0);
     expect((screen.getByLabelText('Preset') as HTMLSelectElement).value).toBe('default');
   });
 
