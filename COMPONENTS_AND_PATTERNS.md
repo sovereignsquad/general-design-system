@@ -117,7 +117,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Theme Runtime State** | Runtime preset switching must use `useGdsThemePresetState` for validation, persistence, root runtime attributes, and full-shell application instead of route-local theme state. | `md` |
 | **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes`, `resolveGdsFontLane`, `isGdsFontLaneId`, `getGdsFontLaneStylesheetUrls`, and `applyGdsFontLane`) with governed source metadata, `font-display: swap`, locale coverage, and fallback stacks. | `md` |
 | **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior, nested-action isolation, and `aria-expanded` for reveal surfaces. | `md` |
-| **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with the package-owned type registry, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
+| **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with package-owned Set A / Set B registries, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
 | **Block Layout Schema** | Page assembly should use `renderGdsLayout`, `validateGdsLayout`, `renderGdsLayoutWithDiagnostics`, and schema-driven blocks for repeatable developer composition. Default governed blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`; product-authored blocks must enter through `registerGdsBlock`. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
 
@@ -264,10 +264,15 @@ Chart rules:
 
 - chart types must resolve through `gdsChartTypeRegistry`; do not create route-local chart type strings
 - Set A primitives (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`) must resolve through `gdsChartSetATypeRegistry` and keep their type-specific validation enabled
+- Set B primitives (`bubble`, `heatmap`, `funnel`, `treemap`) must resolve through `gdsChartSetBTypeRegistry` and keep their advanced-data validation enabled
 - line/area sparse points require `connectNulls: true`; otherwise missing values become governed chart errors
 - pie/donut data must produce a positive total and may not include negative slice values
 - radar data may not include negative axis values
 - scatter data must provide numeric `secondaryValue` values unless the consumer explicitly opts out through config for a documented compatibility lane
+- bubble data must provide positive numeric `secondaryValue` values for bubble size
+- heatmap data must provide a `group` value for each matrix row
+- funnel data must be non-negative and descending unless `enforceDescending: false` is explicitly documented
+- treemap data must provide positive node area values
 - adapters may render with any approved charting library, but must enter through the `GdsChart` `renderer` contract so GDS keeps state, summary, legend, fallback, and a11y ownership
 - datasets must pass `validateGdsChartData` before rendering; invalid values, missing grouped data, empty data, below-threshold data, and over-budget datasets must become governed states
 - charts must include a text summary that communicates the main result without requiring visual interpretation

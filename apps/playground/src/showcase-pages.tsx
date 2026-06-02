@@ -604,8 +604,8 @@ export function AnalyticsPage() {
           <GdsChart type="donut" title="Donut chart" summary="Part-to-whole with center context." data={[{ label: 'Web', value: 75 }, { label: 'Store', value: 25 }]} />
           <GdsChart type="radar" title="Radar chart" summary="Multi-dimension profile." data={[{ label: 'Reach', value: 80 }, { label: 'Retention', value: 63 }]} />
           <GdsChart type="scatter" title="Scatter chart" summary="Correlation map." data={[{ label: 'Point A', value: 21, secondaryValue: 11 }, { label: 'Point B', value: 40, secondaryValue: 24 }]} />
-          <GdsChart type="bubble" title="Bubble chart" summary="Weighted scatter profile." data={[{ label: 'Segment A', value: 30 }, { label: 'Segment B', value: 55 }]} />
-          <GdsChart type="heatmap" title="Heatmap" summary="Intensity by matrix cell." data={[{ label: 'Cell 1', value: 9 }, { label: 'Cell 2', value: 4 }]} />
+          <GdsChart type="bubble" title="Bubble chart" summary="Weighted scatter profile." data={[{ label: 'Segment A', value: 30, secondaryValue: 14 }, { label: 'Segment B', value: 55, secondaryValue: 22 }]} />
+          <GdsChart type="heatmap" title="Heatmap" summary="Intensity by matrix cell." data={[{ label: 'Morning', value: 9, group: 'Mon' }, { label: 'Evening', value: 4, group: 'Tue' }]} />
           <GdsChart type="funnel" title="Funnel chart" summary="Stage conversion progression." data={[{ label: 'Visits', value: 100 }, { label: 'Leads', value: 25 }]} />
           <GdsChart type="treemap" title="Treemap" summary="Hierarchical distribution." data={[{ label: 'Cluster A', value: 54 }, { label: 'Cluster B', value: 31 }]} />
         </ConsumerDashboardGrid>

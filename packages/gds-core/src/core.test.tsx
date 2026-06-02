@@ -33,7 +33,7 @@ import { FeatureBand } from './FeatureBand';
 import { FoodMenuSection } from './FoodMenuSection';
 import { GameBoardTile } from './GameBoardTile';
 import { ChartTokenPanel } from './ChartTokenPanel';
-import { GdsChart, gdsChartTypeRegistry, gdsChartSetATypeRegistry, isGdsChartSetAType, validateGdsChartData } from './GdsChart';
+import { GdsChart, gdsChartTypeRegistry, gdsChartSetATypeRegistry, gdsChartSetBTypeRegistry, isGdsChartSetAType, isGdsChartSetBType, validateGdsChartData } from './GdsChart';
 import { EvidencePanel } from './EvidencePanel';
 import { ListingCard } from './ListingCard';
 import { getGdsBlockTypes, registerGdsBlock, renderGdsLayout, renderGdsLayoutWithDiagnostics, validateGdsLayout } from './LayoutBlocks';
@@ -1826,7 +1826,10 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
         type="heatmap"
         title="Heatmap contract"
         summary="Governed chart wrapper."
-        data={[{ label: 'Cell A', value: 4 }, { label: 'Cell B', value: 9 }]}
+        data={[
+          { label: 'Cell A', value: 4, group: 'Row 1' },
+          { label: 'Cell B', value: 9, group: 'Row 2' },
+        ]}
       />,
     );
 
@@ -1839,8 +1842,10 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
   it('validates chart schemas, thresholds, and rendering budgets before adapter rendering', () => {
     expect(Object.keys(gdsChartTypeRegistry)).toHaveLength(12);
     expect(Object.keys(gdsChartSetATypeRegistry)).toEqual(['line', 'area', 'bar', 'stacked-bar', 'pie', 'donut', 'radar', 'scatter']);
+    expect(Object.keys(gdsChartSetBTypeRegistry)).toEqual(['bubble', 'heatmap', 'funnel', 'treemap']);
     expect(isGdsChartSetAType('scatter')).toBe(true);
     expect(isGdsChartSetAType('heatmap')).toBe(false);
+    expect(isGdsChartSetBType('heatmap')).toBe(true);
 
     expect(validateGdsChartData('pie', [{ label: 'Only', value: 1 }])).toMatchObject({
       state: 'below-threshold',
@@ -1955,6 +1960,57 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getByText('Set A primitive: x/y point field')).toBeInTheDocument();
     expect(screen.getByText('Secondary value')).toBeInTheDocument();
     expect(screen.getByText('12')).toBeInTheDocument();
+  });
+
+  it('applies type-specific Set B chart validation rules and metadata', () => {
+    expect(validateGdsChartData('bubble', [
+      { label: 'A', value: 4 },
+      { label: 'B', value: 9, secondaryValue: 0 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: [
+        'Bubble point 1 requires a numeric secondaryValue for bubble size.',
+        'Bubble point 2 requires a positive secondaryValue for bubble size.',
+      ],
+    });
+
+    expect(validateGdsChartData('heatmap', [
+      { label: 'Morning', value: 4, group: 'Mon' },
+      { label: 'Evening', value: 9 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Heatmap cell 2 requires a group value for the matrix row.'],
+    });
+
+    expect(validateGdsChartData('funnel', [
+      { label: 'Visits', value: 100 },
+      { label: 'Trials', value: 120 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Funnel stage 2 cannot be greater than the previous stage.'],
+    });
+
+    expect(validateGdsChartData('treemap', [
+      { label: 'Cluster A', value: 42 },
+      { label: 'Cluster B', value: 0 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Treemap node 2 requires a positive area value.'],
+    });
+
+    renderWithGds(
+      <GdsChart
+        type="bubble"
+        title="Bubble primitive"
+        summary="Weighted distribution."
+        data={[
+          { label: 'Segment A', value: 30, secondaryValue: 14 },
+          { label: 'Segment B', value: 55, secondaryValue: 22 },
+        ]}
+      />,
+    );
+
+    expect(screen.getByText('Set B primitive: weighted x/y bubble field')).toBeInTheDocument();
   });
 
   it('renders schema-based layout blocks through the governed renderer', () => {

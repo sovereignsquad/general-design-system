@@ -28,6 +28,12 @@ export type GdsChartSetAType =
   | 'radar'
   | 'scatter';
 
+export type GdsChartSetBType =
+  | 'bubble'
+  | 'heatmap'
+  | 'funnel'
+  | 'treemap';
+
 export interface GdsChartDatum {
   label: string;
   value: number | null;
@@ -81,11 +87,34 @@ export interface GdsScatterChartConfig extends GdsChartBaseConfig {
   requireSecondaryValue?: boolean;
 }
 
+export interface GdsBubbleChartConfig extends GdsChartBaseConfig {
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  sizeLabel?: string;
+}
+
+export interface GdsHeatmapChartConfig extends GdsChartBaseConfig {
+  rowLabel?: string;
+  columnLabel?: string;
+}
+
+export interface GdsFunnelChartConfig extends GdsChartBaseConfig {
+  enforceDescending?: boolean;
+}
+
+export interface GdsTreemapChartConfig extends GdsChartBaseConfig {
+  parentLabel?: string;
+}
+
 export type GdsChartConfig =
   | GdsCartesianChartConfig
   | GdsPartToWholeChartConfig
   | GdsRadarChartConfig
-  | GdsScatterChartConfig;
+  | GdsScatterChartConfig
+  | GdsBubbleChartConfig
+  | GdsHeatmapChartConfig
+  | GdsFunnelChartConfig
+  | GdsTreemapChartConfig;
 
 export interface GdsChartValidationResult {
   state: ChartTokenPanelState;
@@ -150,8 +179,19 @@ export const gdsChartSetATypeRegistry: Record<GdsChartSetAType, GdsChartTypeDefi
   scatter: gdsChartTypeRegistry.scatter,
 };
 
+export const gdsChartSetBTypeRegistry: Record<GdsChartSetBType, GdsChartTypeDefinition> = {
+  bubble: gdsChartTypeRegistry.bubble,
+  heatmap: gdsChartTypeRegistry.heatmap,
+  funnel: gdsChartTypeRegistry.funnel,
+  treemap: gdsChartTypeRegistry.treemap,
+};
+
 export function isGdsChartSetAType(type: GdsChartType): type is GdsChartSetAType {
   return type in gdsChartSetATypeRegistry;
+}
+
+export function isGdsChartSetBType(type: GdsChartType): type is GdsChartSetBType {
+  return type in gdsChartSetBTypeRegistry;
 }
 
 function isFiniteNumber(value: number | null | undefined): value is number {
@@ -171,6 +211,17 @@ function getSetARendererLabel(type: GdsChartType) {
   };
 
   return labels[type] ?? 'vendor-neutral chart surface';
+}
+
+function getSetBRendererLabel(type: GdsChartType) {
+  const labels: Partial<Record<GdsChartType, string>> = {
+    bubble: 'weighted x/y bubble field',
+    heatmap: 'row/column intensity matrix',
+    funnel: 'stage conversion progression',
+    treemap: 'hierarchical area distribution',
+  };
+
+  return labels[type] ?? 'advanced chart surface';
 }
 
 export function validateGdsChartData(
@@ -251,6 +302,49 @@ export function validateGdsChartData(
     });
   }
 
+  if (type === 'bubble') {
+    data.forEach((item, index) => {
+      if (!isFiniteNumber(item.secondaryValue)) {
+        issues.push(`Bubble point ${index + 1} requires a numeric secondaryValue for bubble size.`);
+      } else if (item.secondaryValue <= 0) {
+        issues.push(`Bubble point ${index + 1} requires a positive secondaryValue for bubble size.`);
+      }
+    });
+  }
+
+  if (type === 'heatmap') {
+    data.forEach((item, index) => {
+      if (!item.group) {
+        issues.push(`Heatmap cell ${index + 1} requires a group value for the matrix row.`);
+      }
+    });
+  }
+
+  if (type === 'funnel') {
+    const numericValues = data.map((item) => item.value).filter(isFiniteNumber);
+    if (numericValues.some((value) => value < 0)) {
+      issues.push('Funnel charts cannot render negative stage values.');
+    }
+
+    const shouldEnforceDescending = !('enforceDescending' in config) || config.enforceDescending !== false;
+    if (shouldEnforceDescending) {
+      numericValues.forEach((value, index) => {
+        const previousValue = numericValues[index - 1];
+        if (index > 0 && value > previousValue) {
+          issues.push(`Funnel stage ${index + 1} cannot be greater than the previous stage.`);
+        }
+      });
+    }
+  }
+
+  if (type === 'treemap') {
+    data.forEach((item, index) => {
+      if (isFiniteNumber(item.value) && item.value <= 0) {
+        issues.push(`Treemap node ${index + 1} requires a positive area value.`);
+      }
+    });
+  }
+
   return {
     state: issues.length ? 'error' : 'ready',
     issues,
@@ -274,6 +368,9 @@ function DefaultChartRenderer({ type, title, summary, data, definition, labelled
         <Text size="xs" c="dimmed">Registry family: {definition.family}</Text>
         {isGdsChartSetAType(type) ? (
           <Text size="xs" c="dimmed">Set A primitive: {getSetARendererLabel(type)}</Text>
+        ) : null}
+        {isGdsChartSetBType(type) ? (
+          <Text size="xs" c="dimmed">Set B primitive: {getSetBRendererLabel(type)}</Text>
         ) : null}
         <Text size="xs" c="dimmed">Data points: {data.length}</Text>
       </Stack>
