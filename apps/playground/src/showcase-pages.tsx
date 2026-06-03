@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
+  type LayoutSchema,
   AccessSummary,
   ActionBar,
   AuthShell,
@@ -11,7 +12,6 @@ import {
   FoodMenuSection,
   GdsChart,
   ListingCard,
-  renderGdsLayout,
   MapPanel,
   MediaCard,
   MetricCard,
@@ -27,13 +27,122 @@ import {
   SidebarNav,
   SidebarNavItem,
   SidebarNavSection,
+  StateBlock,
   ProviderIdentityButtonGroup,
   StatsSection,
+  renderGdsLayoutWithDiagnostics,
 } from '@doneisbetter/gds-core';
 import { DataTable, PageHeader, ResponsiveDataView } from '@doneisbetter/gds-admin';
 import { patternRegistry } from './pattern-registry';
 
 const catalogEntryCount = patternRegistry.length;
+
+interface LayoutTemplate {
+  id: string;
+  name: string;
+  description: string;
+  schema: LayoutSchema;
+}
+
+const layoutTemplates: LayoutTemplate[] = [
+  {
+    id: 'landing-feed',
+    name: 'Landing Discovery Feed',
+    description: 'Hero-first composition with compact stats, card list, CTA, and footer for quick discovery launches.',
+    schema: {
+      version: '1',
+      blocks: [
+        { id: 'hero', type: 'hero', props: { title: 'Discovery landing', description: 'Shipped layout contracts for product surfaces.' } },
+        { id: 'stats', type: 'stats', props: { items: [{ label: 'Cards', value: '4' }, { label: 'Regions', value: '4' }, { label: 'Status', value: 'Live' }] } },
+        { id: 'cards', type: 'cards-grid', props: { items: [{ title: 'Published listing', description: 'Canonical listing surface block.' }, { title: 'Saved item', description: 'Governed action and metadata placement.' }] } },
+        { id: 'cta', type: 'cta', props: {} },
+        { id: 'footer', type: 'footer', props: { text: 'Use this pattern for home and collection surfaces.' } },
+      ],
+    },
+  },
+  {
+    id: 'operations-dashboard',
+    name: 'Operations Dashboard',
+    description: 'Filter + table + chart contract for operational and data-heavy admin pages.',
+    schema: {
+      version: '1',
+      blocks: [
+        { id: 'hero', type: 'hero', props: { title: 'Operations Dashboard', description: 'A layout schema that keeps discovery, filter, and reporting in one rhythm.' } },
+        { id: 'filter', type: 'filter', props: { searchLabel: 'Search records', filterLabel: 'Open filters', sortLabel: 'Sort by urgency' } },
+        {
+          id: 'table',
+          type: 'table',
+          props: {
+            columns: [
+              { key: 'name', header: 'Name' },
+              { key: 'status', header: 'Status' },
+              { key: 'owner', header: 'Owner' },
+            ],
+            rows: [
+              { name: 'Import policy', status: 'Active', owner: 'Ops' },
+              { name: 'Theme lane', status: 'Pending', owner: 'Design' },
+            ],
+          },
+        },
+        {
+          id: 'chart',
+          type: 'chart',
+          props: {
+            chartType: 'bar',
+            title: 'Weekly adoption trend',
+            summary: 'Governed chart contract for operations dashboards.',
+            data: [
+              { label: 'Mon', value: 12 },
+              { label: 'Tue', value: 8 },
+              { label: 'Wed', value: 14 },
+              { label: 'Thu', value: 20 },
+            ],
+          },
+        },
+      ],
+    },
+  },
+  {
+    id: 'detail-listing',
+    name: 'Detail Listing Stack',
+    description: 'Cards + table fallback + footer for detail-oriented detail and admin page sections.',
+    schema: {
+      version: '1',
+      blocks: [
+        { id: 'hero', type: 'hero', props: { title: 'Entity detail surface', description: 'Reusable detail-screen rhythm for product entities.' } },
+        { id: 'cards', type: 'cards-grid', props: { items: [{ title: 'Overview', description: 'Governed section card.' }, { title: 'Actions', description: 'CTA and reference actions.' }, { title: 'Status', description: 'Operational status with standard emphasis.' }] } },
+        {
+          id: 'table',
+          type: 'table',
+          props: {
+            columns: [{ key: 'metric', header: 'Metric' }, { key: 'value', header: 'Value' }],
+            rows: [{ metric: 'Response time', value: '120ms' }, { metric: 'Error rate', value: '0.4%' }],
+          },
+        },
+        { id: 'footer', type: 'footer', props: { text: 'Use this for long-form entity and admin detail blocks.' } },
+      ],
+    },
+  },
+  {
+    id: 'diagnostic-invalid',
+    name: 'Validation Failure Example',
+    description: 'Intentionally malformed contract used to test diagnostics and invalid-block behavior.',
+    schema: {
+      version: '1',
+      blocks: [
+        {
+          id: 'bad-type',
+          type: 'ghost',
+          props: { message: 'Unsupported block type to validate diagnostics output.' },
+        },
+      ],
+    },
+  },
+];
+
+function layoutTemplateText(template: LayoutTemplate) {
+  return JSON.stringify(template.schema, null, 2);
+}
 
 function DemoFooter() {
   return (
@@ -295,16 +404,65 @@ export function FoodMenuPage() {
 }
 
 export function LayoutsPage() {
-  const demoSchema = {
-    version: '1' as const,
-    blocks: [
-      { id: 'hero-1', type: 'hero' as const, props: { title: 'Block hero', description: 'Schema-composed layout hero.' } },
-      { id: 'stats-1', type: 'stats' as const, props: { items: [{ label: 'Blocks', value: '6' }, { label: 'Schema', value: 'v1' }, { label: 'Status', value: 'Live' }] } },
-      { id: 'cards-1', type: 'cards-grid' as const, props: { items: [{ title: 'Block card A', description: 'Composable listing slot.' }, { title: 'Block card B', description: 'Shared contract only.' }] } },
-      { id: 'cta-1', type: 'cta' as const, props: {} },
-      { id: 'footer-1', type: 'footer' as const, props: { text: 'Layout block footer contract.' } },
-    ],
+  const initialTemplate = layoutTemplates[0]!;
+  const [selectedTemplateId, setSelectedTemplateId] = useState(initialTemplate.id);
+  const [schemaText, setSchemaText] = useState(layoutTemplateText(initialTemplate));
+  const [appliedSchemaText, setAppliedSchemaText] = useState(layoutTemplateText(initialTemplate));
+  const [editorError, setEditorError] = useState('');
+
+  const renderedTemplate = useMemo(() => {
+    try {
+      const parsed = JSON.parse(appliedSchemaText) as LayoutSchema;
+      return renderGdsLayoutWithDiagnostics(parsed);
+    } catch {
+      return {
+        issues: [{ blockId: 'schema', message: 'Unable to parse schema JSON. Make sure the payload is valid JSON.' }],
+        node: (
+          <StateBlock
+            variant="error"
+            title="Schema parser error"
+            description="The current editor JSON is not valid. Fix the braces, quotes, and commas before applying."
+          />
+        ),
+      };
+    }
+  }, [appliedSchemaText]);
+  const canCopySchema = typeof window !== 'undefined' && Boolean(navigator?.clipboard);
+  const issueCount = renderedTemplate.issues.length;
+
+  const applySchema = () => {
+    try {
+      JSON.parse(schemaText);
+      setAppliedSchemaText(schemaText);
+      setEditorError('');
+    } catch (error) {
+      setEditorError(error instanceof Error ? error.message : 'Invalid JSON payload');
+    }
   };
+
+  const handleTemplateChange = (nextTemplateId: string) => {
+    setSelectedTemplateId(nextTemplateId);
+    const nextTemplate = layoutTemplates.find((template) => template.id === nextTemplateId);
+
+    if (!nextTemplate) {
+      return;
+    }
+
+    const nextText = layoutTemplateText(nextTemplate);
+    setSchemaText(nextText);
+    setAppliedSchemaText(nextText);
+    setEditorError('');
+  };
+
+  const copySchema = async () => {
+    if (!canCopySchema) {
+      return;
+    }
+
+    await navigator.clipboard.writeText(appliedSchemaText);
+  };
+
+  const selectedTemplate = layoutTemplates.find((entry) => entry.id === selectedTemplateId);
 
   return (
     <DocsPageShell
@@ -413,7 +571,65 @@ export function LayoutsPage() {
         title="Block-based layout schema"
         description="Developers can compose pages from governed blocks using the shared schema renderer."
       >
-        {renderGdsLayout(demoSchema)}
+        <SectionPanel title="Template cookbook" description="Pick a template, edit JSON, then apply to preview live diagnostics and rendered layout.">
+          <label htmlFor="layout-template-select">
+            Template preset
+            <select
+              id="layout-template-select"
+              aria-label="Template preset"
+              value={selectedTemplateId}
+              onChange={(event) => handleTemplateChange(event.currentTarget.value)}
+            >
+              {layoutTemplates.map((template) => (
+                <option key={template.id} value={template.id}>
+                  {template.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <br />
+          <label htmlFor="layout-template-description">
+            Current template summary
+            <textarea id="layout-template-description" rows={2} value={selectedTemplate?.description ?? ''} readOnly />
+          </label>
+          <br />
+          <label htmlFor="layout-schema-json">
+            Layout schema JSON
+            <textarea
+              id="layout-schema-json"
+              aria-label="Layout schema JSON"
+              value={schemaText}
+              rows={16}
+              onChange={(event) => {
+                setSchemaText(event.currentTarget.value);
+              }}
+            />
+          </label>
+          <div>
+            <button type="button" onClick={applySchema}>Apply schema</button>
+            <button type="button" onClick={() => handleTemplateChange(selectedTemplateId)}>Reset to template</button>
+            <button type="button" onClick={() => void copySchema()} disabled={!canCopySchema}>Copy schema</button>
+          </div>
+          {editorError ? <StateBlock variant="error" title="Invalid JSON" description={editorError} /> : null}
+          <p aria-live="polite">
+            Diagnostic result: {issueCount === 0 ? 'no issues' : `${issueCount} issue${issueCount === 1 ? '' : 's'}`}
+          </p>
+          <SectionPanel
+            title={`Schema render preview (${selectedTemplate?.schema.version ?? '1'})`}
+            description="Rendered output is produced from the current applied schema."
+          >
+            {renderedTemplate.node}
+          </SectionPanel>
+          {issueCount ? (
+            <SectionPanel title="Schema issues" description="Fix these payload issues before using the template in production code.">
+              <ul>
+                {renderedTemplate.issues.map((issue, index) => (
+                  <li key={`${issue.blockId ?? 'schema'}-${index}`}>{issue.blockId ? `${issue.blockId}: ` : ''}{issue.message}</li>
+                ))}
+              </ul>
+            </SectionPanel>
+          ) : null}
+        </SectionPanel>
       </ReferenceSection>
 
       <DemoFooter />

@@ -125,4 +125,30 @@ describe('playground theme explorer and live demos hub', () => {
     expect(screen.getByText('Playback & Capture')).toBeTruthy();
     expect(screen.getByText('Capture/review stage')).toBeTruthy();
   });
+
+  it('offers a layout template cookbook with editable JSON and diagnostics', () => {
+    renderWithGds(<LayoutsPage />);
+
+    expect(screen.getByText('Block-based layout schema')).toBeTruthy();
+    expect(screen.getByRole('combobox', { name: 'Template preset' })).toBeTruthy();
+    expect(screen.getByLabelText('Layout schema JSON')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Apply schema' })).toBeTruthy();
+    expect(screen.getByText(/Diagnostic result:/i)).toBeTruthy();
+
+    fireEvent.change(screen.getByRole('combobox', { name: 'Template preset' }), {
+      target: { value: 'diagnostic-invalid' },
+    });
+
+    expect(screen.getByText(/Validation Failure Example/i)).toBeTruthy();
+    expect(screen.getAllByText(/Unsupported layout block type "ghost"/i).length).toBeGreaterThan(0);
+
+    fireEvent.change(screen.getByLabelText('Layout schema JSON'), {
+      target: { value: '{ "version": "1", "blocks": [ { "id": "broken", "type": "hero", "props": { "title": "Edited", "description": "inline edit" } } ] }' },
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Apply schema' }));
+
+    expect(screen.getByText('Edited')).toBeTruthy();
+    expect(screen.getByText(/No issues|Diagnostic result: no issues/i)).toBeTruthy();
+  });
 });
