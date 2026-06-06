@@ -1,14 +1,14 @@
 # Installation Guide
 
 Status: Active SSOT
-Version: 3.0.7
+Version: 3.3.0
 Last updated: 2026-06-06
 
 This guide is the canonical consumer setup path for the public umbrella package `@doneisbetter/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
 Release-line rule:
 
-- current stable package line: `3.0.7`
+- current stable package line: `3.3.0`
 - current major line: `3.0.x`
 - do not publish, announce, or ask clients to install a new version until `npm run verify:published` confirms npm availability
 
@@ -35,23 +35,23 @@ See [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system
 
 ## 2. Canonical install commands
 
-Preferred `3.0.7` runtime package after the release gate opens:
+Preferred `3.3.0` runtime package after the release gate opens:
 
 ```bash
-npm install @doneisbetter/gds@3.0.7
+npm install @doneisbetter/gds@3.3.0
 ```
 
 Governance packages:
 
 ```bash
-npm install -D @doneisbetter/gds-eslint-config@3.0.7 @doneisbetter/gds-compliance@3.0.7
+npm install -D @doneisbetter/gds-eslint-config@3.3.0 @doneisbetter/gds-compliance@3.3.0
 ```
 
 Granular runtime packages when package separation is intentional:
 
 ```bash
-npm install @doneisbetter/gds-theme@3.0.7 @doneisbetter/gds-core@3.0.7 @doneisbetter/gds-admin@3.0.7
-npm install -D @doneisbetter/gds-eslint-config@3.0.7 @doneisbetter/gds-compliance@3.0.7
+npm install @doneisbetter/gds-theme@3.3.0 @doneisbetter/gds-core@3.3.0 @doneisbetter/gds-admin@3.3.0
+npm install -D @doneisbetter/gds-eslint-config@3.3.0 @doneisbetter/gds-compliance@3.3.0
 ```
 
 Required peers:
@@ -248,4 +248,4 @@ Do not:
 
 If npm is temporarily unavailable, use the public release tarballs described in [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md). That path is a fallback only, not the preferred steady-state install method.
 
-For the `3.0.7` release cutover, fallback assets must use tag `gds-v3.0.7` and must not be announced as the canonical path once npm verification passes.
+For the `3.3.0` release cutover, fallback assets must use tag `gds-v3.3.0` and must not be announced as the canonical path once npm verification passes.

@@ -20,6 +20,8 @@ describe('public site routes', () => {
       'What Is GDS',
       'Install',
       'Patterns',
+      'API',
+      'Use Cases',
       'Coverage',
       'Themes',
       'Governance',

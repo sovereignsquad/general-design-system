@@ -1,7 +1,7 @@
 # Release Publish Runbook
 
 Status: Active SSOT
-Version: 3.0.7
+Version: 3.3.0
 Last updated: 2026-06-06
 
 This runbook defines the authenticated package-publish flow for the General Design System.
@@ -11,8 +11,8 @@ Canonical registry target: **npm**
 Current registry reality:
 
 - canonical install source: npm
-- latest published baseline: `3.0.7`
-- current repository line: `3.0.7`
+- latest published baseline: `3.3.0`
+- current repository line: `3.3.0`
 
 GitHub release assets remain an optional fallback distribution path for unpublished release candidates:
 
@@ -27,6 +27,11 @@ GitHub release assets remain an optional fallback distribution path for unpublis
 - local `HEAD` is ready to release
 - `VERSION` matches every publishable package version
 - `npm run verify:release` passes
+- API documentation and i18n gates pass:
+  - `npm run verify:api-docs-coverage`
+  - `npm run verify:i18n-route-coverage`
+  - `npm run verify:i18n-message-parity`
+  - `npm run verify:i18n-package-copy`
 - operator is authenticated with npm
 - for strict adoption releases, all scoped implementation issues are complete before publishing
 - `npm run audit:board:strict` passes before and after the version bump
@@ -98,13 +103,13 @@ npm run verify:published
 
 Do not announce the release or update client install prompts until `npm run verify:published` confirms all six packages resolve from npm.
 
-The `3.0.7` release install matrix must remain version-locked:
+The `3.3.0` release install matrix must remain version-locked:
 
 ```bash
-npm install @doneisbetter/gds@3.0.7
-npm install -D @doneisbetter/gds-eslint-config@3.0.7 @doneisbetter/gds-compliance@3.0.7
+npm install @doneisbetter/gds@3.3.0
+npm install -D @doneisbetter/gds-eslint-config@3.3.0 @doneisbetter/gds-compliance@3.3.0
 
-npm install @doneisbetter/gds-theme@3.0.7 @doneisbetter/gds-core@3.0.7 @doneisbetter/gds-admin@3.0.7
+npm install @doneisbetter/gds-theme@3.3.0 @doneisbetter/gds-core@3.3.0 @doneisbetter/gds-admin@3.3.0
 ```
 
 ## Expected publish order

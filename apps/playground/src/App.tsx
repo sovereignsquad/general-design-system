@@ -113,6 +113,16 @@ const CoveragePage = lazy(async () => {
   return { default: module.CoveragePage };
 });
 
+const ApiReferencePage = lazy(async () => {
+  const module = await import('./info-pages');
+  return { default: module.ApiReferencePage };
+});
+
+const UseCasesPage = lazy(async () => {
+  const module = await import('./info-pages');
+  return { default: module.UseCasesPage };
+});
+
 const RulebookPage = lazy(async () => {
   const module = await import('./info-pages');
   return { default: module.RulebookPage };
@@ -251,6 +261,8 @@ function PlaygroundContent() {
           <Route path="/patterns/access" element={<Suspense fallback={<RouteFallback />}><AccessPatternPage /></Suspense>} />
           <Route path="/patterns/feedback" element={<Suspense fallback={<RouteFallback />}><FeedbackPatternPage /></Suspense>} />
           <Route path="/coverage" element={<Suspense fallback={<RouteFallback />}><CoveragePage /></Suspense>} />
+          <Route path="/api" element={<Suspense fallback={<RouteFallback />}><ApiReferencePage /></Suspense>} />
+          <Route path="/use-cases" element={<Suspense fallback={<RouteFallback />}><UseCasesPage /></Suspense>} />
           <Route path="/install" element={<Suspense fallback={<RouteFallback />}><InstallPage /></Suspense>} />
           <Route path="/governance" element={<Suspense fallback={<RouteFallback />}><RulebookPage /></Suspense>} />
           <Route

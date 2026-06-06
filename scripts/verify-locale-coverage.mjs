@@ -62,6 +62,8 @@ if (!appSource.includes('Only routes listed as fully localized in the official c
 const requiredCopyObjectsByRoute = new Map([
   ['/', 'export function OverviewPage()'],
   ['/install', 'export function InstallPage()'],
+  ['/api', 'export function ApiReferencePage()'],
+  ['/use-cases', 'export function UseCasesPage()'],
   ['/governance', 'export function RulebookPage()'],
   ['/themes', 'export function TokensPage'],
 ]);
@@ -92,6 +94,14 @@ for (const rule of localizedRouteCoverage ?? []) {
     continue;
   }
   ensureLocalesInCopyBlock(rule.routePrefix, marker, rule.fullCopyLocales ?? []);
+}
+
+for (const match of localeCoverageSource.matchAll(/routePrefix:\s*'([^']+)'/g)) {
+  const routePrefix = match[1];
+  const existsInManifest = (localizedRouteCoverage ?? []).some((rule) => rule.routePrefix === routePrefix);
+  if (!existsInManifest) {
+    failures.push(`apps/playground/gds-adoption.json must declare localizedRouteCoverage for ${routePrefix}.`);
+  }
 }
 
 if (failures.length > 0) {

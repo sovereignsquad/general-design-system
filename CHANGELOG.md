@@ -2,6 +2,14 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.3.0 - 2026-06-06
+
+- Added registry-backed `/api` documentation for published GDS package exports, including import paths, runtime lanes, state contracts, accessibility notes, and verification metadata.
+- Added `/use-cases` as the product-owner adoption guide for matching product needs to package lanes, primary contracts, risk, accessibility obligations, and operational checks.
+- Added `API_REFERENCE.md`, `USER_GUIDE.md`, and `CLI_AND_LLD.md` so GitHub readers can discover the same API, product, CLI, and low-level design contracts without relying only on the GitHub Pages UI.
+- Added release gates for API documentation coverage, route localization coverage, package message parity, and native-dialog i18n copy enforcement.
+- Fixed project-board audit issue-state pagination so the strict board audit reports all current open project items.
+
 ## 3.0.7 - 2026-06-06
 
 - Added package-owned block layout cookbook APIs: `getGdsLayoutTemplates`, `getGdsLayoutTemplate`, and `GdsLayoutTemplatePreview`.

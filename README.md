@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 3.0.7
+Version: 3.3.0
 Last updated: 2026-06-06
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
@@ -26,6 +26,9 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Core Principles & Tokens**: [FOUNDATION.md](/Users/Shared/Projects/general-design-system/FOUNDATION.md) — The fundamental rules that guide UI decisions, dark/light modes, and Mantine boundaries.
 - **Component Contracts & Patterns**: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) — Required behaviors for standard UI elements and full-page workflows.
 - **Live Pattern Catalog**: [https://sovereignsquad.github.io/general-design-system/patterns](https://sovereignsquad.github.io/general-design-system/patterns) — The public registry-backed component and pattern reference site with family pages for foundations, public, operations, data, access, and feedback coverage.
+- **API Reference**: [https://sovereignsquad.github.io/general-design-system/api](https://sovereignsquad.github.io/general-design-system/api) and [API_REFERENCE.md](/Users/Shared/Projects/general-design-system/API_REFERENCE.md) — Registry-backed package export reference with import paths, runtime lanes, accessibility notes, state contracts, and verification coverage.
+- **Product Use Cases**: [https://sovereignsquad.github.io/general-design-system/use-cases](https://sovereignsquad.github.io/general-design-system/use-cases) and [USER_GUIDE.md](/Users/Shared/Projects/general-design-system/USER_GUIDE.md) — Product-owner adoption guide for choosing GDS package lanes and operational checks.
+- **CLI and Low-Level Design**: [CLI_AND_LLD.md](/Users/Shared/Projects/general-design-system/CLI_AND_LLD.md) — Verification command inventory and the low-level docs/i18n architecture.
 - **Coverage Matrix**: [https://sovereignsquad.github.io/general-design-system/coverage](https://sovereignsquad.github.io/general-design-system/coverage) — Route-level parity view of documented patterns versus live runtime representation status.
 - **Interactive Theme Lab**: [https://sovereignsquad.github.io/general-design-system/themes](https://sovereignsquad.github.io/general-design-system/themes) — Live testing for shipped theme presets, colorful app lanes, light/dark behavior, token surfaces, and the bounded creator-authored theming lane.
 - **Feature request intake**: [https://sovereignsquad.github.io/general-design-system/request-feature](https://sovereignsquad.github.io/general-design-system/request-feature) — Canonical intake for capability requests, governance questions, and missing contracts.
@@ -77,6 +80,8 @@ The GitHub Pages site is the public runtime reference for this repository:
 - Governance guide: `https://sovereignsquad.github.io/general-design-system/governance`
 - Pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
 - Coverage matrix: `https://sovereignsquad.github.io/general-design-system/coverage`
+- API reference: `https://sovereignsquad.github.io/general-design-system/api`
+- Product use cases: `https://sovereignsquad.github.io/general-design-system/use-cases`
 - Live demos: `https://sovereignsquad.github.io/general-design-system/live-demos`
 - Demo route families:
 - `.../live-demos/surfaces`
@@ -149,6 +154,10 @@ Required repository behavior:
 
 - `npm run verify:release` — checks release alignment, builds all packages/apps, verifies export boundaries, then runs lint, tests, and reference validation
 - `npm run verify:references` — validates reference consumers, adoption manifests, official `DocsShell` usage, strict playground GDS-only source rules (no `@mantine/core` imports and no inline `style={{...}}` on core Pages routes), SSOT pattern-catalog coverage, package export-to-pattern coverage, website trust/clarity checks, surface-presentation migration evidence, route-level locale coverage declarations, canonical theme-governance lanes, media/upload contracts, reporting/access contracts, and reference codemods
+- `npm run verify:api-docs-coverage` — validates the registry-backed public API documentation contract for shipped runtime exports
+- `npm run verify:i18n-route-coverage` — validates localized route declarations and route-copy implementation markers
+- `npm run verify:i18n-message-parity` — validates package locale pack key parity
+- `npm run verify:i18n-package-copy` — blocks native dialog prompt copy in packages
 - `npm run audit:board` — audits the canonical GDS project board for issue-state/project-status drift and prints any open or mismatched items
   - CI note: if GitHub API rate limiting blocks board reads, the audit emits a warning and continues unless `GDS_BOARD_AUDIT_STRICT=1` is set
 - `npm run audit:board:strict` — runs the same project-board audit in fail-hard mode for local release sign-off and board normalization work

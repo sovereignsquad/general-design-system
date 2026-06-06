@@ -58,7 +58,9 @@ function main() {
   const strictMode = process.env.GDS_BOARD_AUDIT_STRICT === '1';
   try {
     projectData = parseJson(`gh project item-list ${PROJECT_NUMBER} --owner ${OWNER} --limit 300 --format json`);
-    issueList = parseJson(`gh issue list --repo ${OWNER}/${REPOSITORY} --state all --limit 500 --json number,state`);
+    const openIssues = parseJson(`gh issue list --repo ${OWNER}/${REPOSITORY} --state open --limit 1000 --json number,state`);
+    const closedIssues = parseJson(`gh issue list --repo ${OWNER}/${REPOSITORY} --state closed --limit 1000 --json number,state`);
+    issueList = [...openIssues, ...closedIssues];
   } catch (error) {
     const message = String(error?.stderr ?? error?.message ?? error);
     if (!strictMode) {

@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
-import { CoveragePage, InstallPage, OverviewPage, RequestFeaturePage, RulebookPage, TokensPage } from './info-pages';
+import { ApiReferencePage, CoveragePage, InstallPage, OverviewPage, RequestFeaturePage, RulebookPage, TokensPage, UseCasesPage } from './info-pages';
 
 describe('playground overview page', () => {
   it('frames the site as the official reference and live demo', () => {
@@ -38,21 +38,35 @@ describe('playground overview page', () => {
     const { unmount } = renderWithGds(<InstallPage />, { locale: 'de' });
 
     expect(screen.getByRole('heading', { name: 'GDS installieren' })).toBeTruthy();
-    expect(screen.getByText('Öffentlicher 3.0.7-Installationspfad')).toBeTruthy();
-    expect(screen.getAllByText(/@doneisbetter\/gds@3.0.7/).length).toBeGreaterThan(0);
+    expect(screen.getByText('Öffentlicher 3.3.0-Installationspfad')).toBeTruthy();
+    expect(screen.getAllByText(/@doneisbetter\/gds@3.3.0/).length).toBeGreaterThan(0);
 
     unmount();
 
     renderWithGds(<InstallPage />, { locale: 'fr' });
 
     expect(screen.getByRole('heading', { name: 'Installer GDS' })).toBeTruthy();
-    expect(screen.getByText('Parcours d’installation public 3.0.7')).toBeTruthy();
+    expect(screen.getByText('Parcours d’installation public 3.3.0')).toBeTruthy();
   });
 
   it('renders parity matrix route with coverage summary', () => {
     renderWithGds(<CoveragePage />);
     expect(screen.getByRole('heading', { name: 'Coverage Matrix' })).toBeTruthy();
     expect(screen.getByText('Pattern parity status')).toBeTruthy();
+  });
+
+  it('renders API reference and product-owner use-case routes', () => {
+    const { unmount } = renderWithGds(<ApiReferencePage />);
+    expect(screen.getByRole('heading', { name: 'API Reference' })).toBeTruthy();
+    expect(screen.getByText('Published package contracts')).toBeTruthy();
+    expect(screen.getAllByText('@doneisbetter/gds-core').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Import path').length).toBeGreaterThan(0);
+    unmount();
+
+    renderWithGds(<UseCasesPage />);
+    expect(screen.getByRole('heading', { name: 'Use Cases' })).toBeTruthy();
+    expect(screen.getByText('Product-owner adoption guide')).toBeTruthy();
+    expect(screen.getAllByText('Admin resource manager').length).toBeGreaterThan(0);
   });
 
   it('keeps localized headings for themes and governance in de/fr', () => {

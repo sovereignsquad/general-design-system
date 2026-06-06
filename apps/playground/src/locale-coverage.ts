@@ -13,6 +13,14 @@ export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
     fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
   },
   {
+    routePrefix: '/api',
+    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+  },
+  {
+    routePrefix: '/use-cases',
+    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+  },
+  {
     routePrefix: '/governance',
     fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
   },
