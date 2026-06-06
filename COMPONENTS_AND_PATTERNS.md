@@ -1,8 +1,8 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 3.0.6
-Last updated: 2026-06-01
+Version: 3.0.7
+Last updated: 2026-06-06
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
 
@@ -128,7 +128,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes`, `resolveGdsFontLane`, `isGdsFontLaneId`, `getGdsFontLaneStylesheetUrls`, and `applyGdsFontLane`) with governed source metadata, `font-display: swap`, locale coverage, and fallback stacks. | `md` |
 | **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior, nested-action isolation, and `aria-expanded` for reveal surfaces. | `md` |
 | **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with package-owned Set A / Set B registries, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
-| **Block Layout Schema** | Page assembly should use `renderGdsLayout`, `validateGdsLayout`, `renderGdsLayoutWithDiagnostics`, and schema-driven blocks for repeatable developer composition. Default governed blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`; product-authored blocks must enter through `registerGdsBlock`. | `lg` |
+| **Block Layout Schema** | Page assembly should use `renderGdsLayout`, `validateGdsLayout`, `renderGdsLayoutWithDiagnostics`, `getGdsLayoutTemplates`, `getGdsLayoutTemplate`, `GdsLayoutTemplatePreview`, and schema-driven blocks for repeatable developer composition. Default governed blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`; product-authored blocks must enter through `registerGdsBlock`. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
 
 ## 4. Feedback & Messaging
@@ -226,6 +226,8 @@ Use `interactiveMode` on the governed card family instead of wrapping cards in l
 - default blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`
 - call `validateGdsLayout` before persisting or previewing authored schemas
 - use `renderGdsLayoutWithDiagnostics` when editors or docs previews need visible diagnostics
+- use `getGdsLayoutTemplates()` and `getGdsLayoutTemplate(id)` for package-owned starter schemas instead of copying app-local examples
+- use `GdsLayoutTemplatePreview` for interactive docs/developer cookbook routes that need template selection, JSON editing, copy behavior, diagnostics, and rendered output
 - use `registerGdsBlock(type, renderer)` only for reusable product-authored blocks; do not register page-local one-offs
 - unsupported block types, malformed props, empty schemas, and unsafe script/javascript strings must surface as GDS diagnostics instead of throwing blank screens
 - block rendering must stay pure GDS primitives; schemas must not execute arbitrary code or raw HTML

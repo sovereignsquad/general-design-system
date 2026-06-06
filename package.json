@@ -6,7 +6,7 @@
     "apps/*"
   ],
   "scripts": {
-    "verify:release": "node scripts/check-release-alignment.mjs && npm run build && node scripts/check-export-contract.mjs && npm run lint && npm run test:run && npm run verify:references && npm run audit:board && npm run verify:mantine",
+    "verify:release": "node scripts/check-release-alignment.mjs && npm run build && node scripts/check-export-contract.mjs && npm run lint && npm run test:run && npm run verify:references && npm run audit:dependencies && npm run audit:board && npm run verify:mantine",
     "build": "npm run build --workspace=@doneisbetter/gds-theme && npm run build --workspace=@doneisbetter/gds-core && npm run build --workspace=@doneisbetter/gds-admin && npm run build --workspace=@doneisbetter/gds && npm run build --workspace=playground && npm run build --workspace=reference-vite && npm run build --workspace=reference-next",
     "dev": "npm run dev --workspace=apps/playground",
     "lint": "npm run lint --workspace=apps/playground",
@@ -15,6 +15,7 @@
     "verify:references": "node scripts/verify-reference-consumers.mjs && node scripts/verify-playground-shell-contract.mjs && node scripts/verify-playground-gds-only.mjs && node scripts/verify-playground-internal-links.mjs && node scripts/verify-docs-governance-consistency.mjs && node scripts/verify-pattern-catalog-coverage.mjs && node scripts/verify-pattern-export-coverage.mjs && node scripts/verify-website-trust.mjs && node scripts/verify-surface-presentation-adoption.mjs && node scripts/verify-locale-coverage.mjs && node scripts/verify-theme-governance.mjs && node scripts/verify-install-bootstrap-docs.mjs && node scripts/verify-media-upload-contract.mjs && node scripts/verify-reporting-contract.mjs && node scripts/verify-access-identity-contract.mjs && node scripts/verify-codemods.mjs",
     "audit:board": "node scripts/audit-project-board.mjs",
     "audit:board:strict": "GDS_BOARD_AUDIT_STRICT=1 node scripts/audit-project-board.mjs",
+    "audit:dependencies": "node scripts/verify-dependency-audit.mjs",
     "verify:mantine": "node scripts/verify-mantine8-compat.mjs",
     "verify:mantine8": "node scripts/verify-mantine8-compat.mjs",
     "pack:release": "node scripts/create-release-bundles.mjs",
@@ -39,6 +40,6 @@
     "jsdom": "^26.1.0",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.8"
   }
 }

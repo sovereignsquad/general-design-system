@@ -33,6 +33,127 @@ export interface LayoutRenderResult {
 
 export type GdsBlockRenderer = (block: LayoutBlock) => ReactNode;
 
+export interface GdsLayoutTemplate {
+  id: string;
+  title: string;
+  description: string;
+  useCase: string;
+  schema: LayoutSchema;
+}
+
+const gdsLayoutTemplates: GdsLayoutTemplate[] = [
+  {
+    id: 'landing-feed',
+    title: 'Landing Discovery Feed',
+    description: 'Hero-first composition with compact stats, card list, CTA, and footer for quick discovery launches.',
+    useCase: 'Public landing pages, campaign pages, and discovery entry points.',
+    schema: {
+      version: '1',
+      blocks: [
+        { id: 'hero', type: 'hero', props: { title: 'Discovery landing', description: 'Shipped layout contracts for product surfaces.' } },
+        { id: 'stats', type: 'stats', props: { items: [{ label: 'Cards', value: '4' }, { label: 'Regions', value: '4' }, { label: 'Status', value: 'Live' }] } },
+        { id: 'cards', type: 'cards-grid', props: { items: [{ title: 'Published listing', description: 'Canonical listing surface block.' }, { title: 'Saved item', description: 'Governed action and metadata placement.' }] } },
+        { id: 'cta', type: 'cta', props: {} },
+        { id: 'footer', type: 'footer', props: { text: 'Use this pattern for home and collection surfaces.' } },
+      ],
+    },
+  },
+  {
+    id: 'operations-dashboard',
+    title: 'Operations Dashboard',
+    description: 'Filter, table, and chart contract for operational and data-heavy admin pages.',
+    useCase: 'Operational dashboards, admin review pages, and analytics summary pages.',
+    schema: {
+      version: '1',
+      blocks: [
+        { id: 'hero', type: 'hero', props: { title: 'Operations Dashboard', description: 'A layout schema that keeps discovery, filter, and reporting in one rhythm.' } },
+        { id: 'filter', type: 'filter', props: { searchLabel: 'Search records', filterLabel: 'Open filters', sortLabel: 'Sort by urgency' } },
+        {
+          id: 'table',
+          type: 'table',
+          props: {
+            columns: [
+              { key: 'name', header: 'Name' },
+              { key: 'status', header: 'Status' },
+              { key: 'owner', header: 'Owner' },
+            ],
+            rows: [
+              { name: 'Import policy', status: 'Active', owner: 'Ops' },
+              { name: 'Theme lane', status: 'Pending', owner: 'Design' },
+            ],
+          },
+        },
+        {
+          id: 'chart',
+          type: 'chart',
+          props: {
+            chartType: 'bar',
+            title: 'Weekly adoption trend',
+            summary: 'Governed chart contract for operations dashboards.',
+            data: [
+              { label: 'Mon', value: 12 },
+              { label: 'Tue', value: 8 },
+              { label: 'Wed', value: 14 },
+              { label: 'Thu', value: 20 },
+            ],
+          },
+        },
+      ],
+    },
+  },
+  {
+    id: 'detail-listing',
+    title: 'Detail Listing Stack',
+    description: 'Cards, table fallback, and footer for detail-oriented product and admin page sections.',
+    useCase: 'Entity detail screens, resource managers, and admin detail pages.',
+    schema: {
+      version: '1',
+      blocks: [
+        { id: 'hero', type: 'hero', props: { title: 'Entity detail surface', description: 'Reusable detail-screen rhythm for product entities.' } },
+        { id: 'cards', type: 'cards-grid', props: { items: [{ title: 'Overview', description: 'Governed section card.' }, { title: 'Actions', description: 'CTA and reference actions.' }, { title: 'Status', description: 'Operational status with standard emphasis.' }] } },
+        {
+          id: 'table',
+          type: 'table',
+          props: {
+            columns: [{ key: 'metric', header: 'Metric' }, { key: 'value', header: 'Value' }],
+            rows: [{ metric: 'Response time', value: '120ms' }, { metric: 'Error rate', value: '0.4%' }],
+          },
+        },
+        { id: 'footer', type: 'footer', props: { text: 'Use this for long-form entity and admin detail blocks.' } },
+      ],
+    },
+  },
+  {
+    id: 'diagnostic-invalid',
+    title: 'Validation Failure Example',
+    description: 'Intentionally malformed contract used to test diagnostics and invalid-block behavior.',
+    useCase: 'Developer validation and diagnostics training.',
+    schema: {
+      version: '1',
+      blocks: [
+        {
+          id: 'bad-type',
+          type: 'ghost',
+          props: { message: 'Unsupported block type to validate diagnostics output.' },
+        },
+      ],
+    },
+  },
+];
+
+function cloneLayoutTemplate(template: GdsLayoutTemplate): GdsLayoutTemplate {
+  return JSON.parse(JSON.stringify(template)) as GdsLayoutTemplate;
+}
+
+export function getGdsLayoutTemplates(): GdsLayoutTemplate[] {
+  return gdsLayoutTemplates.map(cloneLayoutTemplate);
+}
+
+export function getGdsLayoutTemplate(id: string): GdsLayoutTemplate | undefined {
+  const template = gdsLayoutTemplates.find((entry) => entry.id === id);
+  return template ? cloneLayoutTemplate(template) : undefined;
+}
+
 const blockRegistry = new Map<string, GdsBlockRenderer>();
 
 function asString(value: unknown, fallback: string) {

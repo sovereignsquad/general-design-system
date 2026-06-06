@@ -2,6 +2,12 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.0.7 - 2026-06-06
+
+- Added package-owned block layout cookbook APIs: `getGdsLayoutTemplates`, `getGdsLayoutTemplate`, and `GdsLayoutTemplatePreview`.
+- Replaced the reference-site layout cookbook's app-local raw form controls with the GDS-owned preview component while preserving template selection, JSON editing, diagnostics, copy behavior, and rendered preview states.
+- Added `npm run audit:dependencies` to the release gate, upgraded Vitest to `4.1.8`, moved the private Next reference fixture to dev-only scope, and documented the remaining upstream Next/PostCSS dev advisory in `DEPENDENCY_AUDIT.md`.
+
 ## 3.0.6 - 2026-06-06
 
 - Added package-native admin CRUD primitives in `@doneisbetter/gds-admin`: `AdminTextInput`, `AdminTextarea`, `AdminCheckbox`, `AdminSelect`, `AdminFileUpload`, `AdminFormSection`, `AdminFormStatus`, `AdminFormActions`, and `AdminCrudForm`.

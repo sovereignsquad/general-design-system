@@ -74,6 +74,7 @@ export * from './EvidencePanel';
 export * from './ChartTokenPanel';
 export * from './GdsChart';
 export * from './LayoutBlocks';
+export * from './LayoutTemplatePreview.client';
 export * from './ReportingSection';
 export * from './Notifications';
 export * from './Notifications.client';

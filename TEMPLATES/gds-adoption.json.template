@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "3.0.6",
+  "gdsVersion": "3.0.7",
   "productArchetype": "hybrid",
   "supportedEntryPoints": [
     "@doneisbetter/gds-theme/client",
@@ -20,7 +20,8 @@
     "AdminTextInput",
     "AdminDataTable",
     "GdsConfirmProvider",
-    "GdsIcon"
+    "GdsIcon",
+    "GdsLayoutTemplatePreview"
   ],
   "localAdapters": [
     {
@@ -72,7 +73,9 @@
         "src/icons/legacy/*.tsx"
       ],
       "dependency": "lucide-react",
-      "allowImports": ["lucide-react"],
+      "allowImports": [
+        "lucide-react"
+      ],
       "reason": "Consumer keeps a reviewed icon exception while remaining on shared lint/gds-compliance tooling.",
       "allowedImplementation": [
         "Imports confined to the reviewed bridge layer"

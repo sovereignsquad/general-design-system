@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, Title } from '@mantine/core';
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { AccessSummary } from './AccessSummary';
@@ -36,7 +36,8 @@ import { ChartTokenPanel } from './ChartTokenPanel';
 import { GdsChart, gdsChartTypeRegistry, gdsChartSetATypeRegistry, gdsChartSetBTypeRegistry, isGdsChartSetAType, isGdsChartSetBType, validateGdsChartData } from './GdsChart';
 import { EvidencePanel } from './EvidencePanel';
 import { ListingCard } from './ListingCard';
-import { getGdsBlockTypes, registerGdsBlock, renderGdsLayout, renderGdsLayoutWithDiagnostics, validateGdsLayout } from './LayoutBlocks';
+import { getGdsBlockTypes, getGdsLayoutTemplate, getGdsLayoutTemplates, registerGdsBlock, renderGdsLayout, renderGdsLayoutWithDiagnostics, validateGdsLayout } from './LayoutBlocks';
+import { GdsLayoutTemplatePreview } from './LayoutTemplatePreview.client';
 import { MapPanel } from './MapPanel';
 import { MediaField } from './MediaField';
 import { MediaCard } from './MediaCard';
@@ -2181,5 +2182,36 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     );
 
     expect(screen.getByText('Registered notice')).toBeInTheDocument();
+  });
+
+  it('exposes cloned layout starter templates for developer cookbook flows', () => {
+    const templates = getGdsLayoutTemplates();
+    expect(templates.map((template) => template.id)).toEqual(expect.arrayContaining(['landing-feed', 'operations-dashboard', 'detail-listing']));
+    expect(getGdsLayoutTemplate('operations-dashboard')?.schema.blocks.some((block) => block.type === 'chart')).toBe(true);
+
+    templates[0]!.schema.blocks = [];
+    expect(getGdsLayoutTemplate('landing-feed')?.schema.blocks.length).toBeGreaterThan(0);
+  });
+
+  it('renders the package-owned layout template preview with diagnostics and edited schema output', () => {
+    renderWithGds(<GdsLayoutTemplatePreview />);
+
+    expect(screen.getByText('Template cookbook')).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Template preset' })).toBeInTheDocument();
+    expect(screen.getByLabelText('Layout schema JSON')).toBeInTheDocument();
+    expect(screen.getByText(/Diagnostic result: no issues/i)).toBeInTheDocument();
+
+    fireEvent.change(screen.getByRole('combobox', { name: 'Template preset' }), {
+      target: { value: 'diagnostic-invalid' },
+    });
+
+    expect(screen.getByDisplayValue('Validation Failure Example')).toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('Layout schema JSON'), {
+      target: { value: '{ "version": "1", "blocks": [ { "id": "bad", "type": "ghost", "props": {} } ] }' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Apply schema' }));
+
+    expect(screen.getAllByText(/Unsupported layout block type "ghost"/i).length).toBeGreaterThan(0);
   });
 });
