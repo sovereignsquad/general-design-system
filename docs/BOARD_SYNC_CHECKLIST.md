@@ -64,6 +64,7 @@ Use this handover when GitHub GraphQL rate limiting prevents immediate project-b
 Delivered release evidence:
 
 - Commit: `87b2dea`
+- Handover continuation commits: `42fa0c1`, `2549073`, `a2d4247`
 - Tag: `gds-v3.4.0`
 - Release: `https://github.com/sovereignsquad/general-design-system/releases/tag/gds-v3.4.0`
 - npm publication: all six public packages verified at `3.4.0`
