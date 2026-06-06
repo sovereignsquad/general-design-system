@@ -76,7 +76,7 @@ function ensureLocalesInCopyBlock(routePrefix, marker, locales) {
     return;
   }
 
-  const blockSource = infoPagesSource.slice(markerIndex, markerIndex + 24000);
+  const blockSource = infoPagesSource.slice(markerIndex, markerIndex + 60000);
   for (const locale of locales) {
     if (locale === 'en') {
       continue;

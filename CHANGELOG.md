@@ -2,6 +2,12 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.4.1 - 2026-06-06
+
+- Fixed the public reference site locale experience so the overview route no longer mixes English cards and links into Russian, Italian, Hebrew, Arabic, Hungarian, German, or French full-copy locales.
+- Localized the shared site footer and primary navigation labels used by the full-copy routes.
+- Added regression coverage to fail when Russian overview renders the English strings `Operational clarity`, `Public trust`, or `Browse patterns`.
+
 ## 3.4.0 - 2026-06-06
 
 - Added issue-backed maturity capability contracts for the seven recommended high-value GDS delivery areas: admin delivery, runtime feedback, foundation surfaces, global readiness, adoption governance, theme operations, and product-system delivery.

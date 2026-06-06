@@ -43,7 +43,7 @@ describe('playground route locale coverage', () => {
     fireEvent.change(localeSelect, { target: { value: 'hu' } });
     expect(localeSelect.value).toBe('hu');
 
-    fireEvent.click(screen.getByRole('link', { name: 'Themes' }));
+    fireEvent.click(screen.getByRole('link', { name: 'Témák' }));
 
     await waitFor(() => expect(window.location.pathname).toBe('/general-design-system/themes'));
     await waitFor(() => expect(localeSelect.value).toBe('hu'));

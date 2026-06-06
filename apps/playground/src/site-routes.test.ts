@@ -1,6 +1,7 @@
 import {
   getLegacyRedirects,
   getPrimaryRoutes,
+  getRouteLabel,
   getSecondaryRoutes,
   isRouteActive,
   publicSiteRoutes,
@@ -29,6 +30,15 @@ describe('public site routes', () => {
       'Live Demos',
       'Request a Feature',
     ]);
+  });
+
+  it('localizes primary route labels without changing canonical English labels', () => {
+    const overview = publicSiteRoutes.find((route) => route.id === 'overview');
+    const maturity = publicSiteRoutes.find((route) => route.id === 'maturity');
+
+    expect(getRouteLabel(overview!, 'en')).toBe('What Is GDS');
+    expect(getRouteLabel(overview!, 'ru')).toBe('Что такое GDS');
+    expect(getRouteLabel(maturity!, 'ar')).toBe('النضج');
   });
 
   it('groups live-demo routes into secondary navigation', () => {

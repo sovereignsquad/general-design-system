@@ -23,6 +23,7 @@ import {
 import {
   getLegacyRedirects,
   getPrimaryRoutes,
+  getRouteLabel,
   getSecondaryRoutes,
   isRouteActive,
 } from './site-routes';
@@ -188,7 +189,7 @@ function PlaygroundContent() {
     <SidebarNavItem
       key={route.id}
       action={route.action}
-      label={route.label}
+      label={getRouteLabel(route, effectiveLocale)}
       component={Link}
       to={route.path}
       active={isRouteActive(location.pathname, route)}
@@ -209,10 +210,34 @@ function PlaygroundContent() {
     : undefined;
 
   const headerContext = location.pathname.startsWith('/live-demos')
-    ? 'Official GDS site and live demo hub'
+    ? ({
+        de: 'Offizielle GDS-Website und Live-Demo-Hub',
+        fr: 'Site GDS officiel et hub de démos live',
+        it: 'Sito GDS ufficiale e hub demo live',
+        ru: 'Официальный сайт GDS и центр live-демо',
+        he: 'אתר GDS רשמי ומרכז דמואים חיים',
+        ar: 'موقع GDS الرسمي ومركز العروض الحية',
+        hu: 'Hivatalos GDS oldal és élő demó központ',
+      }[effectiveLocale] ?? 'Official GDS site and live demo hub')
     : location.pathname.startsWith('/request-feature')
-      ? 'Official GDS feature request intake'
-      : 'Official GDS website, docs, rules, themes, and runtime proof';
+      ? ({
+          de: 'Offizieller GDS Feature-Request-Eingang',
+          fr: 'Canal officiel de demande de feature GDS',
+          it: 'Canale ufficiale per richieste feature GDS',
+          ru: 'Официальный прием запросов функций GDS',
+          he: 'ערוץ רשמי לבקשות יכולת GDS',
+          ar: 'قناة طلب ميزات GDS الرسمية',
+          hu: 'Hivatalos GDS feature kérési csatorna',
+        }[effectiveLocale] ?? 'Official GDS feature request intake')
+      : ({
+          de: 'Offizielle GDS-Website, Dokumentation, Regeln, Themes und Runtime-Nachweis',
+          fr: 'Site GDS officiel, documentation, règles, thèmes et preuve runtime',
+          it: 'Sito GDS ufficiale, documentazione, regole, temi e prova runtime',
+          ru: 'Официальный сайт GDS, документация, правила, темы и runtime-доказательство',
+          he: 'אתר GDS רשמי, תיעוד, כללים, ערכות עיצוב והוכחת runtime',
+          ar: 'موقع GDS الرسمي والتوثيق والقواعد والثيمات وإثبات التشغيل',
+          hu: 'Hivatalos GDS weboldal, dokumentáció, szabályok, témák és runtime bizonyíték',
+        }[effectiveLocale] ?? 'Official GDS website, docs, rules, themes, and runtime proof');
 
   const headerActions = (
     <>

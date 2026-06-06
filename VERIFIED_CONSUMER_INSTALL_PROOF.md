@@ -1,13 +1,13 @@
 # Verified Consumer Install Proof
 
 Status: Active SSOT
-Version: 3.4.0
+Version: 3.4.1
 Last updated: 2026-06-06
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
-Latest published npm baseline validated by this proof: `3.4.0`
-Current repository line: `3.4.0`
+Latest published npm baseline validated by this proof: `3.4.1`
+Current repository line: `3.4.1`
 Current major line: `3.0.x`
 
 ## Verified consumer baseline
@@ -86,18 +86,18 @@ That means the current verified statement is:
 
 ## Consumer install commands
 
-Canonical `3.4.0` end-state install source after the release gate opens:
+Canonical `3.4.1` end-state install source after the release gate opens:
 
 ```bash
-npm install @doneisbetter/gds@3.4.0
-npm install -D @doneisbetter/gds-eslint-config@3.4.0 @doneisbetter/gds-compliance@3.4.0
+npm install @doneisbetter/gds@3.4.1
+npm install -D @doneisbetter/gds-eslint-config@3.4.1 @doneisbetter/gds-compliance@3.4.1
 ```
 
 Granular package path:
 
 ```bash
-npm install @doneisbetter/gds-theme@3.4.0 @doneisbetter/gds-core@3.4.0 @doneisbetter/gds-admin@3.4.0
-npm install -D @doneisbetter/gds-eslint-config@3.4.0 @doneisbetter/gds-compliance@3.4.0
+npm install @doneisbetter/gds-theme@3.4.1 @doneisbetter/gds-core@3.4.1 @doneisbetter/gds-admin@3.4.1
+npm install -D @doneisbetter/gds-eslint-config@3.4.1 @doneisbetter/gds-compliance@3.4.1
 ```
 
 Fallback release-bundle install path if npm is temporarily unavailable:

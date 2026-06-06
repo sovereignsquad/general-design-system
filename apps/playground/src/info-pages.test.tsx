@@ -38,15 +38,15 @@ describe('playground overview page', () => {
     const { unmount } = renderWithGds(<InstallPage />, { locale: 'de' });
 
     expect(screen.getByRole('heading', { name: 'GDS installieren' })).toBeTruthy();
-    expect(screen.getByText('Öffentlicher 3.4.0-Installationspfad')).toBeTruthy();
-    expect(screen.getAllByText(/@doneisbetter\/gds@3.4.0/).length).toBeGreaterThan(0);
+    expect(screen.getByText('Öffentlicher 3.4.1-Installationspfad')).toBeTruthy();
+    expect(screen.getAllByText(/@doneisbetter\/gds@3.4.1/).length).toBeGreaterThan(0);
 
     unmount();
 
     renderWithGds(<InstallPage />, { locale: 'fr' });
 
     expect(screen.getByRole('heading', { name: 'Installer GDS' })).toBeTruthy();
-    expect(screen.getByText('Parcours d’installation public 3.4.0')).toBeTruthy();
+    expect(screen.getByText('Parcours d’installation public 3.4.1')).toBeTruthy();
   });
 
   it('renders parity matrix route with coverage summary', () => {
@@ -91,5 +91,16 @@ describe('playground overview page', () => {
 
     renderWithGds(<OverviewPage />, { locale: 'hu' });
     expect(screen.getByText('Hivatalos referencia és élő demó')).toBeTruthy();
+  });
+
+  it('does not show English overview card copy when Russian is selected', () => {
+    renderWithGds(<OverviewPage />, { locale: 'ru' });
+
+    expect(screen.getByText('Операционная ясность')).toBeTruthy();
+    expect(screen.getByText('Публичное доверие')).toBeTruthy();
+    expect(screen.getAllByText('Открыть паттерны').length).toBeGreaterThan(0);
+    expect(screen.queryByText('Operational clarity')).toBeNull();
+    expect(screen.queryByText('Public trust')).toBeNull();
+    expect(screen.queryByText('Browse patterns')).toBeNull();
   });
 });

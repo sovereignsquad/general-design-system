@@ -1,6 +1,6 @@
 {
   "name": "@doneisbetter/gds",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -48,9 +48,9 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@doneisbetter/gds-admin": "^3.4.0",
-    "@doneisbetter/gds-core": "^3.4.0",
-    "@doneisbetter/gds-theme": "^3.4.0"
+    "@doneisbetter/gds-admin": "^3.4.1",
+    "@doneisbetter/gds-core": "^3.4.1",
+    "@doneisbetter/gds-theme": "^3.4.1"
   },
   "peerDependencies": {
     "@mantine/core": "^7.9.0 || ^8.3.0 || ^9.0.0",
