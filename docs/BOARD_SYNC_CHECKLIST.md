@@ -87,6 +87,33 @@ Pending GitHub project-board mutation if GraphQL is rate-limited:
 - Run `npm run audit:board:strict` after the project-board Status field is updated.
 - Expected strict board result after normalization: no open project-board issues for the 3.4.0 delivery set and no state/status mismatches.
 
+Repository project-board target:
+
+- Organization: `sovereignsquad`
+- Repository: `sovereignsquad/general-design-system`
+- Project: `{GDS} - From IDEA to LIVE`
+- Project number: `11`
+- Status field: `Status`
+- Target Status option: `Done`
+- 3.4.0 issue set: `#240`, `#241`, `#242`, `#243`, `#244`, `#245`, `#246`
+
+Later board update procedure:
+
+```bash
+gh api rate_limit
+# continue only when resources.graphql.remaining is greater than 0
+
+# Move issues #240-#246 to Status Done in project 11.
+# Then verify:
+npm run audit:board:strict
+```
+
+Expected board audit after the later update:
+
+```text
+state/status mismatches: 0
+```
+
 Operational note:
 
 - REST API may still allow issue comments, issue closure, and release creation while GraphQL project-board mutations are blocked.
