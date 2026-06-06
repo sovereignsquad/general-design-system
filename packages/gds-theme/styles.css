@@ -2,6 +2,12 @@
 @import '@mantine/notifications/styles.css';
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap');
 
+.mantine-AppShell-navbar[data-gds-mobile-navbar-open='true'] {
+  --app-shell-navbar-transform: translateX(0) !important;
+  --app-shell-navbar-transform-rtl: translateX(0) !important;
+  transform: translateX(0) !important;
+}
+
 :root {
   --gds-vibe-primary: #7c3aed;
   --gds-vibe-accent: #06b6d4;

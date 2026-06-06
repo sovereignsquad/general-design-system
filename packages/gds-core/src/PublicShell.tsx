@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import type { ReactNode } from 'react';
 import { AppShell, Box, Burger, Container, Group, Stack, Text } from '@mantine/core';
 import { PublicNav, type PublicNavItem } from './PublicNav';
@@ -32,6 +33,12 @@ export interface PublicShellProps {
   classNames?: PublicShellClassNames;
 }
 
+const navigationActivationSelector = 'a[href], button, [role="menuitem"], [data-gds-nav-close]';
+
+function isNavigationActivationTarget(target: EventTarget | null) {
+  return target instanceof HTMLElement && Boolean(target.closest(navigationActivationSelector));
+}
+
 function InlineMobileNavigation({
   mobileNavigation,
   className,
@@ -41,8 +48,10 @@ function InlineMobileNavigation({
   className?: string;
   mode: Extract<PublicShellMobileNavigationMode, 'inline-collapse' | 'drawer'>;
 }) {
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+
   return (
-    <Box component="details" hiddenFrom="sm" className={className}>
+    <Box component="details" hiddenFrom="sm" className={className} ref={detailsRef}>
       <Box
         component="summary"
         aria-label={mode === 'drawer' ? 'Open site navigation drawer' : 'Open site navigation'}
@@ -62,6 +71,11 @@ function InlineMobileNavigation({
       <Box
         mt="sm"
         p="sm"
+        onClickCapture={(event) => {
+          if (isNavigationActivationTarget(event.target) && detailsRef.current) {
+            detailsRef.current.open = false;
+          }
+        }}
         style={{
           borderRadius: 'var(--mantine-radius-lg)',
           border: '1px solid var(--mantine-color-default-border)',

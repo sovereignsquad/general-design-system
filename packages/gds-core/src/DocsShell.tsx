@@ -22,6 +22,12 @@ interface DocsShellSidebarProps {
   secondaryNavigation?: ReactNode;
 }
 
+const navigationActivationSelector = 'a[href], button, [role="menuitem"], [data-gds-nav-close]';
+
+function isNavigationActivationTarget(target: EventTarget | null) {
+  return target instanceof HTMLElement && Boolean(target.closest(navigationActivationSelector));
+}
+
 function DocsShellSidebar({ primaryNavigation, secondaryNavigation }: DocsShellSidebarProps) {
   return (
     <Stack gap="md" h="100%">
@@ -87,7 +93,17 @@ export function DocsShell({
                 <Transition mounted={mobileNavOpen} transition="pop" duration={120}>
                   {(styles) => (
                     <Box style={styles}>
-                      <Paper mt="xs" p="sm" radius="sm" withBorder>
+                      <Paper
+                        mt="xs"
+                        p="sm"
+                        radius="sm"
+                        withBorder
+                        onClickCapture={(event) => {
+                          if (isNavigationActivationTarget(event.target)) {
+                            setMobileNavOpen(false);
+                          }
+                        }}
+                      >
                         {mobileNavigation}
                       </Paper>
                     </Box>

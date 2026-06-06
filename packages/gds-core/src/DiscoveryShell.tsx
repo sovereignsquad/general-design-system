@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { AppShell as MantineAppShell, Box, Burger, Group, ScrollArea } from '@mantine/core';
 import type { MantineBreakpoint, MantineSpacing } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -82,6 +82,13 @@ export interface DiscoveryShellProps {
   headerHeight?: number | string;
   shellPadding?: MantineSpacing | number;
   collapseBreakpoint?: MantineBreakpoint;
+  closeMobileNavigationOnItemSelect?: boolean;
+}
+
+const navigationActivationSelector = 'a[href], button, [role="menuitem"], [data-gds-nav-close]';
+
+function isNavigationActivationTarget(target: EventTarget | null) {
+  return target instanceof HTMLElement && Boolean(target.closest(navigationActivationSelector));
 }
 
 /**
@@ -105,6 +112,7 @@ export function DiscoveryShell({
   headerHeight = 60,
   shellPadding = 'md',
   collapseBreakpoint = 'sm',
+  closeMobileNavigationOnItemSelect = true,
 }: DiscoveryShellProps) {
   const breakpointByAlias: Record<MantineBreakpoint, string> = {
     xs: '36em',
@@ -118,6 +126,12 @@ export function DiscoveryShell({
   const opened = sidebarOpened ?? shellState.opened;
   const close = onSidebarOpenedChange ? () => onSidebarOpenedChange(false) : shellState.close;
   const toggle = onSidebarOpenedChange ? () => onSidebarOpenedChange(!opened) : shellState.toggle;
+  const openMobileNavbarStyle = isMobile && opened
+    ? ({
+        '--app-shell-navbar-transform': 'translateX(0)',
+        '--app-shell-navbar-transform-rtl': 'translateX(0)',
+      } as CSSProperties)
+    : undefined;
 
   return (
     <MantineAppShell
@@ -157,7 +171,17 @@ export function DiscoveryShell({
         </Group>
       </MantineAppShell.Header>
 
-      <MantineAppShell.Navbar p="md" data-sticky-sidebar={stickySidebar || undefined}>
+      <MantineAppShell.Navbar
+        p="md"
+        data-sticky-sidebar={stickySidebar || undefined}
+        data-gds-mobile-navbar-open={isMobile && opened ? 'true' : undefined}
+        style={openMobileNavbarStyle}
+        onClickCapture={(event) => {
+          if (closeMobileNavigationOnItemSelect && opened && isMobile && isNavigationActivationTarget(event.target)) {
+            close();
+          }
+        }}
+      >
         <ScrollArea h="100%" type="auto">
           <Box
             h="100%"

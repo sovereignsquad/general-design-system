@@ -1,7 +1,7 @@
 # Service Backbone Implementation Plan
 
 Status: Active SSOT
-Version: 3.4.2
+Version: 3.4.3
 Last updated: 2026-06-06
 
 This document turns the General Design System into a reliable cross-project service, not just a policy library. It defines the operating backbone required so products can adopt Mantine-only UI in a followable, replicable, and maintainable way without reinventing rules in each repository.

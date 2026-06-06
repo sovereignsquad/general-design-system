@@ -84,6 +84,30 @@ import { CreatorThemeBoundary, validateCreatorCss } from './CreatorTheme';
 import { GdsTelemetryProvider, useGdsTelemetry } from './Telemetry.client';
 import { createGdsVocabularyPack, getSemanticActionLabel } from './vocabulary';
 
+function mockMatchMedia(matches: boolean) {
+  const original = window.matchMedia;
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: (query: string) => ({
+      matches,
+      media: query,
+      onchange: null,
+      addListener: () => {},
+      removeListener: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => false,
+    }),
+  });
+
+  return () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: original,
+    });
+  };
+}
+
 describe('@doneisbetter/gds-core', () => {
   it('renders semantic button labels from translation messages', () => {
     renderWithGds(<SemanticButton action="save" />, {
@@ -466,6 +490,65 @@ describe('@doneisbetter/gds-core', () => {
     expect(onSidebarOpenedChange).toHaveBeenCalledWith(true);
     await user.click(screen.getByRole('button', { name: 'Open' }));
     expect(onSidebarOpenedChange).toHaveBeenCalledWith(false);
+  });
+
+  it('closes mobile discovery navigation when a nav item is selected', async () => {
+    const restoreMatchMedia = mockMatchMedia(true);
+    const user = userEvent.setup();
+    const onSidebarOpenedChange = vi.fn();
+
+    try {
+      renderWithGds(
+        <DiscoveryShell
+          header={<Text fw={700}>Mobile shell</Text>}
+          sidebarOpened
+          onSidebarOpenedChange={onSidebarOpenedChange}
+          sidebar={(
+            <SidebarNav>
+              <SidebarNavItem href="#maturity" label="Maturity" />
+            </SidebarNav>
+          )}
+        >
+          <div>Discovery content</div>
+        </DiscoveryShell>,
+      );
+
+      await user.click(screen.getByRole('link', { name: 'Maturity' }));
+      expect(onSidebarOpenedChange).toHaveBeenCalledWith(false);
+    } finally {
+      restoreMatchMedia();
+    }
+  });
+
+  it('opens uncontrolled mobile discovery navigation from the hamburger', async () => {
+    const restoreMatchMedia = mockMatchMedia(true);
+    const user = userEvent.setup();
+
+    try {
+      const { container } = renderWithGds(
+        <DiscoveryShell
+          header={<Text fw={700}>Mobile shell</Text>}
+          mobileNavigationLabel="Open mobile navigation"
+          sidebar={(
+            <SidebarNav>
+              <SidebarNavItem href="#maturity" label="Maturity" />
+            </SidebarNav>
+          )}
+        >
+          <div>Discovery content</div>
+        </DiscoveryShell>,
+      );
+
+      await user.click(screen.getByRole('button', { name: 'Open mobile navigation' }));
+      const navbar = container.querySelector('.mantine-AppShell-navbar');
+      expect(navbar).toHaveAttribute('data-gds-mobile-navbar-open', 'true');
+      expect(navbar).toHaveStyle({
+        '--app-shell-navbar-transform': 'translateX(0)',
+        '--app-shell-navbar-transform-rtl': 'translateX(0)',
+      });
+    } finally {
+      restoreMatchMedia();
+    }
   });
 
   it('renders docs shell with governed header, sidebar sections, and docs content', () => {
@@ -1206,7 +1289,7 @@ describe('@doneisbetter/gds-core', () => {
         actions={<button type="button">Sign in</button>}
         footer="Shared public chrome"
         mobileNavigationMode="inline-collapse"
-        mobileNavigation={<a href="/gallery">Gallery</a>}
+        mobileNavigation={<a href="#gallery">Gallery</a>}
         headerVariant="branded-quiet"
       >
         <DataToolbar
@@ -1223,6 +1306,27 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByRole('button', { name: 'Create' })).toBeInTheDocument();
     expect(screen.getByText('Published')).toBeInTheDocument();
     expect(screen.getByText('Menu')).toBeInTheDocument();
+  });
+
+  it('collapses public inline mobile navigation after selecting an item', async () => {
+    const user = userEvent.setup();
+
+    renderWithGds(
+      <PublicShell
+        brand={<span>Camera</span>}
+        mobileNavigationMode="inline-collapse"
+        mobileNavigation={<a href="#gallery">Gallery</a>}
+      >
+        <Text>Public content</Text>
+      </PublicShell>,
+    );
+
+    const details = document.querySelector('details');
+    expect(details).toBeTruthy();
+    details!.open = true;
+
+    await user.click(screen.getByRole('link', { name: 'Gallery' }));
+    expect(details).not.toHaveAttribute('open');
   });
 
   it('supports enhanced editorial-hero media fades and flat public surfaces', () => {

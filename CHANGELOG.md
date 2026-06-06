@@ -2,6 +2,12 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.4.3 - 2026-06-07
+
+- Fixed mobile shell navigation so `DiscoveryShell` opens reliably from the hamburger and closes the mobile menu when a navigation item is selected, with `closeMobileNavigationOnItemSelect` available for rare controlled-menu opt-outs.
+- Fixed inline mobile navigation in `DocsShell` and `PublicShell` so documentation and public flow menus collapse back to the hamburger/menu state after link or action activation.
+- Added regression coverage for mobile navigation close-on-selection behavior across discovery and public shell contracts.
+
 ## 3.4.2 - 2026-06-06
 
 - Moved reference-site localized route labels, app-shell copy, page copy, and theme-explorer copy out of React runtime components into dedicated i18n resource contracts.
