@@ -1,7 +1,7 @@
 'use client';
 
 import { type ReactNode, useState } from 'react';
-import { Box, Burger, Container, Divider, Group, Stack, Text, Transition } from '@mantine/core';
+import { Box, Burger, Container, Divider, Group, Paper, Stack, Text, Transition } from '@mantine/core';
 import { DiscoveryShell } from './DiscoveryShell';
 
 export interface DocsShellProps {
@@ -73,8 +73,8 @@ export function DocsShell({
   return (
     <DiscoveryShell
       header={(
-        <Group h="100%" justify="space-between" align="center" wrap="nowrap" gap="md">
-          <Group gap="sm" align="center" wrap="nowrap" style={{ minWidth: 0 }}>
+        <Group h="100%" w="100%" miw={0} justify="space-between" align="center" wrap="nowrap" gap="sm">
+          <Group gap="sm" align="center" wrap="nowrap" flex="1 1 auto" miw={0}>
             {mobileNavigationMode === 'inline-collapse' && mobileNavigation ? (
               <>
                 <Burger
@@ -87,24 +87,24 @@ export function DocsShell({
                 <Transition mounted={mobileNavOpen} transition="pop" duration={120}>
                   {(styles) => (
                     <Box style={styles}>
-                      <Box mt="xs" p="sm" style={{ borderRadius: 8, border: '1px solid var(--mantine-color-default-border)' }}>
+                      <Paper mt="xs" p="sm" radius="sm" withBorder>
                         {mobileNavigation}
-                      </Box>
+                      </Paper>
                     </Box>
                   )}
                 </Transition>
               </>
             ) : null}
-            <Box style={{ minWidth: 0 }}>
+            <Box flex="0 1 auto" miw={0}>
               {brand}
             </Box>
             {headerContext ? (
-              <Text size="sm" c="dimmed" lineClamp={1}>
+              <Text visibleFrom="sm" size="sm" c="dimmed" lineClamp={1} miw={0}>
                 {headerContext}
               </Text>
             ) : null}
           </Group>
-          <Group gap="sm" wrap="nowrap" style={{ minWidth: 0 }}>
+          <Group gap="xs" wrap="nowrap" flex="0 1 auto" miw={0} maw="48vw">
             {actions}
           </Group>
         </Group>

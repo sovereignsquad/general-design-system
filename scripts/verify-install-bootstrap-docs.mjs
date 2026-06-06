@@ -11,6 +11,7 @@ const files = [
   'RELEASE_PUBLISH.md',
   'CLIENT_UPGRADE_PROMPT.md',
   'apps/playground/src/info-pages.tsx',
+  'apps/playground/src/site-copy.ts',
   'TEMPLATES/README.md',
   'TEMPLATES/next-app-layout.tsx.template',
   'TEMPLATES/vite-main.tsx.template',
@@ -47,12 +48,15 @@ const requiredByFile = {
     `@doneisbetter/gds@${version}`,
   ],
   'apps/playground/src/info-pages.tsx': [
-    `const targetGdsVersion = '${version}'`,
     'granularInstallCode',
     'nextLayoutCode',
     'viteBootstrapCode',
     'failureRecoveryCode',
     'fallbackInstallCode',
+  ],
+  'apps/playground/src/site-copy.ts': [
+    `export const targetGdsVersion = '${version}'`,
+    `export const stableGdsVersion = '${version}'`,
   ],
   'TEMPLATES/README.md': [
     'next-app-layout.tsx.template',

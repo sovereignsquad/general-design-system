@@ -1,36 +1,40 @@
+import { siteLocaleRegistry } from './site-copy';
+
 export interface LocalizedRouteCoverageRule {
   routePrefix: string;
   fullCopyLocales: string[];
 }
 
+const allSiteLocaleIds = Object.keys(siteLocaleRegistry);
+
 export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
   {
     routePrefix: '/',
-    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+    fullCopyLocales: allSiteLocaleIds,
   },
   {
     routePrefix: '/install',
-    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+    fullCopyLocales: allSiteLocaleIds,
   },
   {
     routePrefix: '/api',
-    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+    fullCopyLocales: allSiteLocaleIds,
   },
   {
     routePrefix: '/maturity',
-    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+    fullCopyLocales: allSiteLocaleIds,
   },
   {
     routePrefix: '/use-cases',
-    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+    fullCopyLocales: allSiteLocaleIds,
   },
   {
     routePrefix: '/governance',
-    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+    fullCopyLocales: allSiteLocaleIds,
   },
   {
     routePrefix: '/themes',
-    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+    fullCopyLocales: allSiteLocaleIds,
   },
 ];
 
@@ -44,7 +48,7 @@ export function getFullCopyLocalesForRoute(pathname: string) {
   const matchingRules = getRouteLocalizationRule(pathname);
 
   if (matchingRules.length === 0) {
-    return ['en'];
+    return [allSiteLocaleIds[0] ?? 'en'];
   }
 
   return matchingRules[0].fullCopyLocales;

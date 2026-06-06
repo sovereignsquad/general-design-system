@@ -2,19 +2,12 @@ import { lazy, Suspense, useCallback, useState } from 'react';
 import { BrowserRouter as Router, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import {
   GdsProvider,
+  useGdsTranslation,
   useGdsThemePresetState,
 } from '@doneisbetter/gds-theme';
 import {
-  ar,
-  de,
   DocsShell,
-  en,
-  fr,
-  he,
-  hu,
-  it,
   ReferenceLocaleNotice,
-  ru,
   SidebarNavItem,
   StateBlock,
   ThemeToggle,
@@ -28,6 +21,13 @@ import {
   isRouteActive,
 } from './site-routes';
 import { getFullCopyLocalesForRoute, hasFullRouteLocalization } from './locale-coverage';
+import {
+  getAppShellCopy,
+  getSiteHeaderContext,
+  getSiteLocale,
+  getSiteLocaleOptions,
+  getSiteRouteLabel,
+} from './site-copy';
 
 const PatternsIndexPage = lazy(async () => {
   const module = await import('./pattern-pages');
@@ -145,25 +145,17 @@ const RequestFeaturePage = lazy(async () => {
 });
 
 function RouteFallback() {
+  const { locale } = useGdsTranslation();
+  const copy = getAppShellCopy(locale);
+
   return (
     <StateBlock
       variant="loading"
-      title="Loading reference route"
-      description="The official GDS website is loading the next live example."
+      title={copy.routeFallbackTitle}
+      description={copy.routeFallbackDescription}
     />
   );
 }
-
-const localesMap: Record<string, { label: string; messages: Record<string, string> }> = {
-  en: { label: 'English', messages: en },
-  de: { label: 'Deutsch', messages: de },
-  fr: { label: 'Français', messages: fr },
-  it: { label: 'Italiano', messages: it },
-  ru: { label: 'Русский', messages: ru },
-  he: { label: 'עברית (Hebrew)', messages: he },
-  ar: { label: 'العربية (Arabic)', messages: ar },
-  hu: { label: 'Magyar', messages: hu },
-};
 
 function PlaygroundContent() {
   const [locale, setLocale] = useState<string>('en');
@@ -174,10 +166,10 @@ function PlaygroundContent() {
   } = useGdsThemePresetState({ storageKey: 'gds-reference-theme-selection' });
   const location = useLocation();
   const routeLocaleIds = getFullCopyLocalesForRoute(location.pathname);
-  const routeLocaleOptions = routeLocaleIds
-    .map((id) => [id, localesMap[id]] as const)
-    .filter((entry): entry is readonly [string, { label: string; messages: Record<string, string> }] => Boolean(entry[1]));
+  const routeLocaleOptions = getSiteLocaleOptions(routeLocaleIds);
   const effectiveLocale = hasFullRouteLocalization(location.pathname, locale) ? locale : 'en';
+  const effectiveSiteLocale = getSiteLocale(effectiveLocale);
+  const appShell = getAppShellCopy(effectiveLocale);
   const handleSiteThemeSelectionChange = useCallback((selection: ThemeExplorerSelection) => {
     setSiteThemeSelection(selection);
   }, [setSiteThemeSelection]);
@@ -189,7 +181,7 @@ function PlaygroundContent() {
     <SidebarNavItem
       key={route.id}
       action={route.action}
-      label={getRouteLabel(route, effectiveLocale)}
+      label={getSiteRouteLabel(route.id, getRouteLabel(route), effectiveLocale)}
       component={Link}
       to={route.path}
       active={isRouteActive(location.pathname, route)}
@@ -209,40 +201,12 @@ function PlaygroundContent() {
       ))
     : undefined;
 
-  const headerContext = location.pathname.startsWith('/live-demos')
-    ? ({
-        de: 'Offizielle GDS-Website und Live-Demo-Hub',
-        fr: 'Site GDS officiel et hub de démos live',
-        it: 'Sito GDS ufficiale e hub demo live',
-        ru: 'Официальный сайт GDS и центр live-демо',
-        he: 'אתר GDS רשמי ומרכז דמואים חיים',
-        ar: 'موقع GDS الرسمي ومركز العروض الحية',
-        hu: 'Hivatalos GDS oldal és élő demó központ',
-      }[effectiveLocale] ?? 'Official GDS site and live demo hub')
-    : location.pathname.startsWith('/request-feature')
-      ? ({
-          de: 'Offizieller GDS Feature-Request-Eingang',
-          fr: 'Canal officiel de demande de feature GDS',
-          it: 'Canale ufficiale per richieste feature GDS',
-          ru: 'Официальный прием запросов функций GDS',
-          he: 'ערוץ רשמי לבקשות יכולת GDS',
-          ar: 'قناة طلب ميزات GDS الرسمية',
-          hu: 'Hivatalos GDS feature kérési csatorna',
-        }[effectiveLocale] ?? 'Official GDS feature request intake')
-      : ({
-          de: 'Offizielle GDS-Website, Dokumentation, Regeln, Themes und Runtime-Nachweis',
-          fr: 'Site GDS officiel, documentation, règles, thèmes et preuve runtime',
-          it: 'Sito GDS ufficiale, documentazione, regole, temi e prova runtime',
-          ru: 'Официальный сайт GDS, документация, правила, темы и runtime-доказательство',
-          he: 'אתר GDS רשמי, תיעוד, כללים, ערכות עיצוב והוכחת runtime',
-          ar: 'موقع GDS الرسمي والتوثيق والقواعد والثيمات وإثبات التشغيل',
-          hu: 'Hivatalos GDS weboldal, dokumentáció, szabályok, témák és runtime bizonyíték',
-        }[effectiveLocale] ?? 'Official GDS website, docs, rules, themes, and runtime proof');
+  const headerContext = getSiteHeaderContext(location.pathname, effectiveLocale);
 
   const headerActions = (
     <>
       <select
-        aria-label="Select site locale"
+        aria-label={appShell.localeSelectLabel}
         value={effectiveLocale}
         onChange={(event) => setLocale(event.target.value)}
       >
@@ -261,7 +225,7 @@ function PlaygroundContent() {
   return (
     <GdsProvider
       locale={effectiveLocale}
-      messages={localesMap[effectiveLocale]?.messages ?? localesMap.en.messages}
+      messages={effectiveSiteLocale.messages}
       theme={siteThemeSelection.theme}
       defaultColorScheme={siteThemeSelection.colorScheme}
       forceColorScheme={siteThemeSelection.colorScheme === 'auto' ? undefined : siteThemeSelection.colorScheme}
@@ -277,8 +241,8 @@ function PlaygroundContent() {
       >
         {locale !== effectiveLocale ? (
           <ReferenceLocaleNotice
-            localeLabel="English only"
-            detail={`Shared GDS vocabulary switches with the selected locale. Only routes listed as fully localized in the official coverage contract ship complete translated copy. ${localesMap[locale]?.label ?? locale} remains available on routes with full-copy coverage.`}
+            localeLabel={appShell.localeFallbackLabel}
+            detail={appShell.localeFallbackDetail.replace('{localeLabel}', getSiteLocale(locale).label)}
           />
         ) : null}
         <Routes>

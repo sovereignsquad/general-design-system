@@ -17,7 +17,6 @@ export interface PublicSiteRoute {
   id: string;
   path: string;
   label: string;
-  localizedLabels?: Partial<Record<string, string>>;
   action: SemanticAction;
   audienceIntent: PublicAudienceIntent;
   navGroup: 'primary' | 'secondary';
@@ -30,15 +29,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'overview',
     path: '/',
     label: 'What Is GDS',
-    localizedLabels: {
-      de: 'Was ist GDS',
-      fr: 'GDS, c’est quoi',
-      it: 'Cos’è GDS',
-      ru: 'Что такое GDS',
-      he: 'מה זה GDS',
-      ar: 'ما هو GDS',
-      hu: 'Mi a GDS',
-    },
     action: 'home',
     audienceIntent: 'overview',
     navGroup: 'primary',
@@ -48,15 +38,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'install',
     path: '/install',
     label: 'Install',
-    localizedLabels: {
-      de: 'Installieren',
-      fr: 'Installer',
-      it: 'Installa',
-      ru: 'Установка',
-      he: 'התקנה',
-      ar: 'التثبيت',
-      hu: 'Telepítés',
-    },
     action: 'download',
     audienceIntent: 'install',
     navGroup: 'primary',
@@ -66,15 +47,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'patterns',
     path: '/patterns',
     label: 'Patterns',
-    localizedLabels: {
-      de: 'Patterns',
-      fr: 'Patterns',
-      it: 'Pattern',
-      ru: 'Паттерны',
-      he: 'תבניות',
-      ar: 'الأنماط',
-      hu: 'Minták',
-    },
     action: 'grid',
     audienceIntent: 'patterns',
     navGroup: 'primary',
@@ -84,15 +56,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'api',
     path: '/api',
     label: 'API',
-    localizedLabels: {
-      de: 'API',
-      fr: 'API',
-      it: 'API',
-      ru: 'API',
-      he: 'API',
-      ar: 'API',
-      hu: 'API',
-    },
     action: 'copy',
     audienceIntent: 'api',
     navGroup: 'primary',
@@ -102,15 +65,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'maturity',
     path: '/maturity',
     label: 'Maturity',
-    localizedLabels: {
-      de: 'Reifegrad',
-      fr: 'Maturité',
-      it: 'Maturità',
-      ru: 'Зрелость',
-      he: 'בשלות',
-      ar: 'النضج',
-      hu: 'Érettség',
-    },
     action: 'verify',
     audienceIntent: 'maturity',
     navGroup: 'primary',
@@ -120,15 +74,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'use-cases',
     path: '/use-cases',
     label: 'Use Cases',
-    localizedLabels: {
-      de: 'Use Cases',
-      fr: 'Cas d’usage',
-      it: 'Casi d’uso',
-      ru: 'Сценарии',
-      he: 'שימושים',
-      ar: 'حالات الاستخدام',
-      hu: 'Use case-ek',
-    },
     action: 'list',
     audienceIntent: 'use-cases',
     navGroup: 'primary',
@@ -138,15 +83,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'coverage',
     path: '/coverage',
     label: 'Coverage',
-    localizedLabels: {
-      de: 'Abdeckung',
-      fr: 'Couverture',
-      it: 'Copertura',
-      ru: 'Покрытие',
-      he: 'כיסוי',
-      ar: 'التغطية',
-      hu: 'Lefedettség',
-    },
     action: 'analytics',
     audienceIntent: 'coverage',
     navGroup: 'primary',
@@ -156,15 +92,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'themes',
     path: '/themes',
     label: 'Themes',
-    localizedLabels: {
-      de: 'Themes',
-      fr: 'Thèmes',
-      it: 'Temi',
-      ru: 'Темы',
-      he: 'ערכות עיצוב',
-      ar: 'الثيمات',
-      hu: 'Témák',
-    },
     action: 'theme',
     audienceIntent: 'themes',
     navGroup: 'primary',
@@ -175,15 +102,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'governance',
     path: '/governance',
     label: 'Governance',
-    localizedLabels: {
-      de: 'Governance',
-      fr: 'Gouvernance',
-      it: 'Governance',
-      ru: 'Управление',
-      he: 'ממשל',
-      ar: 'الحوكمة',
-      hu: 'Governance',
-    },
     action: 'verify',
     audienceIntent: 'governance',
     navGroup: 'primary',
@@ -194,15 +112,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'live-demos',
     path: '/live-demos',
     label: 'Live Demos',
-    localizedLabels: {
-      de: 'Live-Demos',
-      fr: 'Démos live',
-      it: 'Demo live',
-      ru: 'Live-демо',
-      he: 'דמואים חיים',
-      ar: 'عروض حية',
-      hu: 'Élő demók',
-    },
     action: 'preview',
     audienceIntent: 'live-demos',
     navGroup: 'primary',
@@ -212,15 +121,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     id: 'request-feature',
     path: '/request-feature',
     label: 'Request a Feature',
-    localizedLabels: {
-      de: 'Feature anfragen',
-      fr: 'Demander une feature',
-      it: 'Richiedi feature',
-      ru: 'Запросить функцию',
-      he: 'בקשת יכולת',
-      ar: 'طلب ميزة',
-      hu: 'Feature kérése',
-    },
     action: 'submit',
     audienceIntent: 'feature-request',
     navGroup: 'primary',
@@ -298,8 +198,8 @@ export function getPrimaryRoutes() {
   return publicSiteRoutes.filter((route) => route.navGroup === 'primary');
 }
 
-export function getRouteLabel(route: PublicSiteRoute, locale = 'en') {
-  return route.localizedLabels?.[locale] ?? route.label;
+export function getRouteLabel(route: PublicSiteRoute) {
+  return route.label;
 }
 
 export function getSecondaryRoutes(intent: PublicAudienceIntent) {

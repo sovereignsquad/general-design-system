@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.4.2 - 2026-06-06
+
+- Moved reference-site localized route labels, app-shell copy, page copy, and theme-explorer copy out of React runtime components into dedicated i18n resource contracts.
+- Added public locale metadata helpers in `@doneisbetter/gds-theme`: `gdsLocaleMetadata`, `getGdsLocaleMetadata(...)`, `isGdsRtlLocale(...)`, and `getGdsLocaleIdsByScript(...)`.
+- Updated `GdsProvider` and font-lane coverage to resolve RTL and script support from locale metadata instead of hardcoded language arrays.
+- Replaced the locale coverage verifier so CI fails on component-local language dictionaries, `locale === ...` branches, localized route labels, and locale arrays outside approved i18n resource files.
+
 ## 3.4.1 - 2026-06-06
 
 - Fixed the public reference site locale experience so the overview route no longer mixes English cards and links into Russian, Italian, Hebrew, Arabic, Hungarian, German, or French full-copy locales.

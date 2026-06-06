@@ -6,7 +6,7 @@ import { MantineProvider, DirectionProvider, Box } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { gdsTheme } from './theme';
-import { GdsI18nContext } from './i18n';
+import { GdsI18nContext, isGdsRtlLocale } from './i18n';
 
 export interface GdsProviderProps {
   children: React.ReactNode;
@@ -29,7 +29,7 @@ export function GdsProvider({
   defaultColorScheme = 'light',
   forceColorScheme,
 }: GdsProviderProps) {
-  const isRtl = ['ar', 'he'].includes(locale);
+  const isRtl = isGdsRtlLocale(locale);
   const dir = isRtl ? 'rtl' : 'ltr';
   
   return (

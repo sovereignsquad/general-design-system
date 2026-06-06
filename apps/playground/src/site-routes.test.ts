@@ -6,6 +6,7 @@ import {
   isRouteActive,
   publicSiteRoutes,
 } from './site-routes';
+import { getSiteRouteLabel } from './site-copy';
 
 describe('public site routes', () => {
   it('keeps route ids and paths unique', () => {
@@ -32,13 +33,13 @@ describe('public site routes', () => {
     ]);
   });
 
-  it('localizes primary route labels without changing canonical English labels', () => {
+  it('keeps localized route labels in the site copy contract', () => {
     const overview = publicSiteRoutes.find((route) => route.id === 'overview');
     const maturity = publicSiteRoutes.find((route) => route.id === 'maturity');
 
-    expect(getRouteLabel(overview!, 'en')).toBe('What Is GDS');
-    expect(getRouteLabel(overview!, 'ru')).toBe('Что такое GDS');
-    expect(getRouteLabel(maturity!, 'ar')).toBe('النضج');
+    expect(getSiteRouteLabel(overview!.id, getRouteLabel(overview!), 'en')).toBe('What Is GDS');
+    expect(getSiteRouteLabel(overview!.id, getRouteLabel(overview!), 'ru')).toBe('Что такое GDS');
+    expect(getSiteRouteLabel(maturity!.id, getRouteLabel(maturity!), 'ar')).toBe('النضج');
   });
 
   it('groups live-demo routes into secondary navigation', () => {

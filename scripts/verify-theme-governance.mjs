@@ -8,6 +8,8 @@ const manifests = [
   'apps/reference-next/gds-adoption.json',
 ];
 const explorerSource = readFileSync(resolve(root, 'packages/gds-core/src/ReferenceThemeExplorer.tsx'), 'utf8');
+const explorerCopySource = readFileSync(resolve(root, 'packages/gds-core/src/ReferenceThemeExplorer.copy.ts'), 'utf8');
+const explorerContractSource = `${explorerSource}\n${explorerCopySource}`;
 const themePresetSource = readFileSync(resolve(root, 'packages/gds-theme/src/theme-presets.ts'), 'utf8');
 const vibeThemeSource = readFileSync(resolve(root, 'packages/gds-theme/src/vibe-themes.ts'), 'utf8');
 const themeStylesSource = readFileSync(resolve(root, 'packages/gds-theme/styles.css'), 'utf8');
@@ -73,7 +75,7 @@ const requiredExplorerProof = [
 ];
 
 for (const proof of requiredExplorerProof) {
-  if (!explorerSource.includes(proof)) {
+  if (!explorerContractSource.includes(proof)) {
     failures.push(`ReferenceThemeExplorer must include theme-governance proof: ${proof}`);
   }
 }
@@ -110,7 +112,7 @@ const requiredVibeThemeProof = [
 ];
 
 for (const proof of requiredVibeThemeProof) {
-  if (!explorerSource.includes(proof)) {
+  if (!explorerContractSource.includes(proof)) {
     failures.push(`ReferenceThemeExplorer must include VibeTheme proof: ${proof}`);
   }
 }

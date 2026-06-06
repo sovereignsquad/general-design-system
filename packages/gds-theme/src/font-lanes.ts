@@ -1,5 +1,6 @@
 import type { MantineThemeOverride } from '@mantine/core';
 import { mergeThemeOverrides } from '@mantine/core';
+import { getGdsLocaleIdsByScript } from './i18n';
 
 export type GdsFontLaneId =
   | 'inter'
@@ -33,8 +34,8 @@ export interface GdsFontLane {
 const sansFallback = 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
 const serifFallback = 'Georgia, "Times New Roman", serif';
 const monoFallback = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
-const broadLatinLocales = ['en', 'de', 'fr', 'it', 'hu'];
-const broadUiLocales = ['en', 'de', 'fr', 'it', 'hu', 'ru'];
+const broadLatinLocales = getGdsLocaleIdsByScript(['latin']);
+const broadUiLocales = getGdsLocaleIdsByScript(['latin', 'cyrillic']);
 
 function googleFontUrl(family: string) {
   return `https://fonts.googleapis.com/css2?family=${family}:wght@400;500;600;700;800&display=swap`;
