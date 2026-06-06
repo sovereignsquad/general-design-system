@@ -1,7 +1,7 @@
 # Board Sync Checklist
 
 Status: Active
-Last updated: 2026-05-31
+Last updated: 2026-06-06
 
 Use this checklist before release, after major implementation waves, and before closing canonical project-board issues.
 
@@ -56,3 +56,38 @@ Each closure comment should include:
 - implemented file paths
 - verifier/test path
 - command or gate proving integrity (`verify:references` or `verify:release`)
+
+## 7. GDS 3.4.0 Board Handover
+
+Use this handover when GitHub GraphQL rate limiting prevents immediate project-board mutation after the `3.4.0` release.
+
+Delivered release evidence:
+
+- Commit: `87b2dea`
+- Tag: `gds-v3.4.0`
+- Release: `https://github.com/sovereignsquad/general-design-system/releases/tag/gds-v3.4.0`
+- npm publication: all six public packages verified at `3.4.0`
+- Verification passed: `npm run verify:release`
+- Registry verification passed: `npm run verify:published`
+
+Issues created from the issue #81 production-grade standard and closed with release evidence:
+
+- `#240` Admin Delivery: Data tables, resource managers, and form orchestration - production contracts
+- `#241` Runtime Feedback: Confirmation, toast, modal, drawer, and command surfaces - unified API
+- `#242` Foundation Surfaces: Layout primitives, safe styling, and icon registry - governed composition API
+- `#243` Global Readiness: i18n runtime and accessibility evidence - localized product quality API
+- `#244` Adoption Governance: Codemods, dashboard, and exception lifecycle - CI-enforced migration API
+- `#245` Theme Operations: Token authoring, high contrast, motion, and design handoff - release-safe theming API
+- `#246` Product System: Content standards, page templates, and observability - product-owner delivery contract
+
+Pending GitHub project-board mutation if GraphQL is rate-limited:
+
+- Move project items for issues `#240` through `#246` to Status `Done`.
+- Keep them in milestone `GDS 3.4.0 - Product delivery maturity`.
+- Run `npm run audit:board:strict` after the project-board Status field is updated.
+- Expected strict board result after normalization: no open project-board issues for the 3.4.0 delivery set and no state/status mismatches.
+
+Operational note:
+
+- REST API may still allow issue comments, issue closure, and release creation while GraphQL project-board mutations are blocked.
+- Project-board Status updates require GraphQL capacity. If blocked, retry after the reset shown by `gh api rate_limit`.
