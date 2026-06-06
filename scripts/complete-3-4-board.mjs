@@ -6,7 +6,7 @@ const PROJECT_NUMBER = '11';
 const PROJECT_ID = 'PVT_kwDOEEuBB84BYuSM';
 const STATUS_FIELD_ID = 'PVTSSF_lADOEEuBB84BYuSMzhTyAgE';
 const DONE_OPTION_ID = '98236657';
-const ISSUE_NUMBERS = [240, 241, 242, 243, 244, 245, 246];
+const ISSUE_NUMBERS = [240, 241, 242, 243, 244, 245, 246, 272];
 
 function gh(args) {
   return execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();

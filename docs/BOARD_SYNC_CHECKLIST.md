@@ -80,10 +80,11 @@ Issues created from the issue #81 production-grade standard and closed with rele
 - `#244` Adoption Governance: Codemods, dashboard, and exception lifecycle - CI-enforced migration API
 - `#245` Theme Operations: Token authoring, high contrast, motion, and design handoff - release-safe theming API
 - `#246` Product System: Content standards, page templates, and observability - product-owner delivery contract
+- `#272` i18n Quality: Full-copy routes must not render mixed-language overview UI
 
 Pending GitHub project-board mutation if GraphQL is rate-limited:
 
-- Move project items for issues `#240` through `#246` to Status `Done`.
+- Move project items for issues `#240` through `#246` and `#272` to Status `Done`.
 - Keep them in milestone `GDS 3.4.0 - Product delivery maturity`.
 - Run `npm run audit:board:strict` after the project-board Status field is updated.
 - Expected strict board result after normalization: no open project-board issues for the 3.4.0 delivery set and no state/status mismatches.
@@ -96,7 +97,7 @@ Repository project-board target:
 - Project number: `11`
 - Status field: `Status`
 - Target Status option: `Done`
-- 3.4.0 issue set: `#240`, `#241`, `#242`, `#243`, `#244`, `#245`, `#246`
+- 3.4.x issue set: `#240`, `#241`, `#242`, `#243`, `#244`, `#245`, `#246`, `#272`
 
 Later board update procedure:
 
