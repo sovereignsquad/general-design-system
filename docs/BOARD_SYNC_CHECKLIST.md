@@ -103,9 +103,7 @@ Later board update procedure:
 gh api rate_limit
 # continue only when resources.graphql.remaining is greater than 0
 
-# Move issues #240-#246 to Status Done in project 11.
-# Then verify:
-npm run audit:board:strict
+npm run board:complete-3.4
 ```
 
 Expected board audit after the later update:
