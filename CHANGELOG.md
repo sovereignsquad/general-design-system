@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.0.6 - 2026-06-06
+
+- Added package-native admin CRUD primitives in `@doneisbetter/gds-admin`: `AdminTextInput`, `AdminTextarea`, `AdminCheckbox`, `AdminSelect`, `AdminFileUpload`, `AdminFormSection`, `AdminFormStatus`, `AdminFormActions`, and `AdminCrudForm`.
+- Added hardened admin data/resource surfaces: `AdminDataTable`, `AdminAnalyticsTable`, `AdminModal`, `AdminDetailDrawer`, `AdminReviewLayout`, `AdminResourceManager`, `AdminResourceGrid`, `AdminResourceCard`, `AdminResourceToolbar`, and `AdminResourceEmptyState`.
+- Added core interaction/runtime contracts: `GdsConfirmProvider`, `useGdsConfirm`, `GdsToastProvider`, `useGdsToasts`, typed `GdsIcon`, `MediaPreviewCard`, `PublicCaptureFlow`, `PlaybackControls`, and creator theme validation/boundary utilities.
+- Expanded `gds-compliance` strict mode to detect direct Mantine imports, direct Tabler imports, raw form controls/buttons, browser dialogs, raw table markup, inline styles, and undeclared local GDS adapters with exception-aware suppression.
+
 ## 3.0.5 - 2026-06-02
 
 - Fixed the `cosmic` VibeTheme to behave as a dark-forward runtime lane so the Theme Lab and live preview no longer render washed-out light panels or low-contrast muted text.

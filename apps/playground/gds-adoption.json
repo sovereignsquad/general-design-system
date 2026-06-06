@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "3.0.0",
+  "gdsVersion": "3.0.6",
   "productArchetype": "public",
   "supportedEntryPoints": [
     "@doneisbetter/gds-theme/client",
@@ -23,7 +23,36 @@
     "ShareButtonGroup"
   ],
   "localAdapters": [],
-  "approvedExceptions": [],
+  "approvedExceptions": [
+    {
+      "surface": "Reference demo slot controls",
+      "category": "package-coverage-gap",
+      "scope": [
+        "src/App.tsx",
+        "src/info-pages.tsx",
+        "src/pattern-pages.tsx",
+        "src/showcase-pages.tsx"
+      ],
+      "reason": "The official reference site still contains bounded raw form/control placeholders inside GDS component demo slots while package-native field examples are rolled into the demo catalog.",
+      "allowedImplementation": [
+        "Raw controls may appear only as inert demo-slot content inside GDS-owned reference pages"
+      ],
+      "mustStillUse": [
+        "GDS shells",
+        "GDS section contracts",
+        "GDS action and state primitives around the demo slot"
+      ],
+      "mustNotDo": [
+        "Use raw controls as reference-site chrome",
+        "Use raw controls outside the listed demo files",
+        "Import parallel UI libraries"
+      ],
+      "owner": "gds-platform",
+      "reviewDate": "2026-06-06",
+      "exitCondition": "Replace remaining demo-slot placeholders with package-native GDS field/action examples.",
+      "status": "temporary"
+    }
+  ],
   "migrationStatus": "governed",
   "owner": "gds-platform",
   "lastReviewedAt": "2026-05-31",

@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 3.0.5
+Version: 3.0.6
 Last updated: 2026-06-01
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -107,6 +107,16 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Docs Code Blocks** | Install/reference code blocks must use a shared wrapper with accessible copy affordance and neutral styling. | `md` |
 | **CTA Button Groups** | Public CTA groups must preserve one obvious primary action, stack safely on small screens, and avoid ornamental motion or hierarchy chrome. | `md` |
 | **Upload Surfaces** | Upload/drop surfaces must define drag state, selection, pending/error/readonly states, a11y labels, accepted-type/size guidance, policy messaging, and retry/remove behavior. | `md` |
+| **Admin CRUD Field Kit** | Admin create/edit/delete pages must use package-native admin fields instead of direct consumer Mantine controls. Use `AdminTextInput`, `AdminTextarea`, `AdminCheckbox`, `AdminSelect`, `AdminFileUpload`, `AdminFormSection`, `AdminFormStatus`, `AdminFormActions`, and `AdminCrudForm` for routine CRUD flows. | `md` |
+| **Admin Data Tables** | Admin CRUD and analytics tables must use `AdminDataTable` or `AdminAnalyticsTable` for sortable columns, captions, numeric alignment, row headers, loading/empty/error/permission states, and responsive overflow/card fallback behavior. | `lg` |
+| **Admin Resource Managers** | Repeated resource-management workflows must use `AdminResourceManager`, `AdminResourceGrid`, and `AdminResourceCard` for list/create/edit/delete/preview/copy/toggle flows before introducing local manager wrappers. | `xl` |
+| **Admin Overlays** | Admin review, audit, media-preview, and detail flows must use `AdminModal` or `AdminDetailDrawer` so focus return, mobile full-screen behavior, state rendering, and action footers stay governed. | `lg` |
+| **Confirmation And Toast Runtime** | Destructive actions and transient completion/failure feedback must use `GdsConfirmProvider`, `useGdsConfirm`, `GdsToastProvider`, and `useGdsToasts` instead of `alert()`, `window.confirm()`, or local notification wrappers. | `md` |
+| **Semantic Icon Registry** | Consumer code must use `GdsIcon`, `GdsIconKey`, semantic actions, or package-owned `GdsIcons` compatibility exports instead of importing `@tabler/icons-react` directly. | `sm` |
+| **Media Preview Cards** | Asset preview cards must use `MediaPreviewCard` for source/thumbnail URLs, alt/caption behavior, contain/cover modes, metadata, actions, and missing/error/loading states. | `md` |
+| **Public Capture Flow** | Public identity, consent, capture, accept, CTA, restart, and share flows should use `PublicCaptureFlow` and its stage helpers around bounded hardware slots. Hardware/device runtime remains consumer-owned under approved exceptions. | `xl` |
+| **Playback Controls** | Fullscreen, kiosk, slideshow, and timed playback surfaces should use `PlaybackControls`, `PlaybackOverlayControls`, and `usePlaybackKeyboardControls` around consumer-owned media engines. | `lg` |
+| **Creator Theme Boundary** | Creator-authored CSS must enter through `CreatorThemeBoundary`, `validateCreatorCss`, and `CreatorThemeDiagnostics` with scoped selectors, blocked unsafe properties, fallback behavior, and visibility/contrast diagnostics. | `lg` |
 | **Access Summaries** | Role, scope, owner, blocked/forbidden/expired/permission-limited, and recovery cues must be explicit and may not rely on color only. | `md` |
 | **Access Recovery Panels** | Protected-content, expired-session, timeout, unavailable, forbidden, and not-found failures must use one canonical recovery surface with clear state meaning and one obvious mobile recovery action. | `md` |
 | **Placeholder Panels** | Placeholder and coming-soon surfaces must be honest, visibly non-live, and must not imply fabricated data. | `md` |

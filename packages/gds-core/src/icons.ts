@@ -90,6 +90,7 @@ import {
   IconFileText,
   IconShare
 } from '@tabler/icons-react';
+import { createElement } from 'react';
 
 
 /**
@@ -211,3 +212,45 @@ export const GdsIcons = {
   Moon: IconMoon,
   Sun: IconSun,
 };
+
+export type GdsIconKey = keyof typeof GdsIcons;
+
+export function isGdsIconKey(value: string): value is GdsIconKey {
+  return value in GdsIcons;
+}
+
+export function getGdsIconKeys(): GdsIconKey[] {
+  return Object.keys(GdsIcons) as GdsIconKey[];
+}
+
+export interface GdsIconProps {
+  icon: GdsIconKey;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | number | string;
+  label?: string;
+  decorative?: boolean;
+  stroke?: number;
+}
+
+const iconSizes: Record<'xs' | 'sm' | 'md' | 'lg', string> = {
+  xs: '0.875rem',
+  sm: '1rem',
+  md: '1.125rem',
+  lg: '1.35rem',
+};
+
+export function GdsIcon({
+  icon,
+  size = 'md',
+  label,
+  decorative = !label,
+  stroke = 1.75,
+}: GdsIconProps) {
+  const Icon = GdsIcons[icon] ?? GdsIcons.Help;
+  return createElement(Icon, {
+    size: typeof size === 'number' ? `${size}px` : iconSizes[size as keyof typeof iconSizes] ?? size,
+    stroke,
+    'aria-hidden': decorative || undefined,
+    'aria-label': !decorative ? label : undefined,
+    role: !decorative ? 'img' : undefined,
+  });
+}

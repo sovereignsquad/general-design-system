@@ -38,6 +38,14 @@ Exit behavior:
 - forbidden raw color literals outside approved theme/token files
 - forbidden UI imports such as `@radix-ui/gds-*`, `tailwindcss`, or other configured legacy UI dependencies
 - stale SSOT references in docs, including legacy path references to superseded local SSOT directories
+- strict consumer drift rules when `compliance.strictMode` is `true`:
+- `strict.import.mantine-core` for direct consumer `@mantine/core` imports
+- `strict.import.tabler-icons` for direct consumer `@tabler/icons-react` imports
+- `strict.raw-control` for raw `<button>`, `<input>`, `<select>`, or `<textarea>` usage outside approved scopes
+- `strict.browser-dialog` for `alert()`, `confirm()`, or `window.confirm()`
+- `strict.raw-table` for raw `<table>`, `<th>`, or `<td>` usage outside approved table contracts
+- `strict.inline-style` for inline `style={{ ... }}` drift outside approved scopes
+- `strict.local-gds-adapter` for undeclared local `components/gds/*` adapters
 
 ## Manifest configuration
 

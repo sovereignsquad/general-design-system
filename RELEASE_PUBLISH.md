@@ -1,8 +1,8 @@
 # Release Publish Runbook
 
 Status: Active SSOT
-Version: 3.0.0
-Last updated: 2026-05-31
+Version: 3.0.6
+Last updated: 2026-06-06
 
 This runbook defines the authenticated package-publish flow for the General Design System.
 
@@ -11,8 +11,8 @@ Canonical registry target: **npm**
 Current registry reality:
 
 - canonical install source: npm
-- latest published baseline: `3.0.0`
-- current repository line: `3.0.0`
+- latest published baseline: `3.0.6`
+- current repository line: `3.0.6`
 
 GitHub release assets remain an optional fallback distribution path for unpublished release candidates:
 
@@ -28,7 +28,7 @@ GitHub release assets remain an optional fallback distribution path for unpublis
 - `VERSION` matches every publishable package version
 - `npm run verify:release` passes
 - operator is authenticated with npm
-- for the 3.0.0 program, all `GDS 3.0.0 - Adoption Platform Release` implementation issues are complete before publishing
+- for strict adoption releases, all scoped implementation issues are complete before publishing
 - `npm run audit:board:strict` passes before and after the version bump
 
 Check auth:
@@ -96,15 +96,15 @@ npm run publish:npm
 npm run verify:published
 ```
 
-For a major release such as `3.0.0`, do not announce the release or update client install prompts until `npm run verify:published` confirms all six packages resolve from npm.
+Do not announce the release or update client install prompts until `npm run verify:published` confirms all six packages resolve from npm.
 
-The `3.0.0` release install matrix must remain version-locked:
+The `3.0.6` release install matrix must remain version-locked:
 
 ```bash
-npm install @doneisbetter/gds@3.0.5
-npm install -D @doneisbetter/gds-eslint-config@3.0.0 @doneisbetter/gds-compliance@3.0.0
+npm install @doneisbetter/gds@3.0.6
+npm install -D @doneisbetter/gds-eslint-config@3.0.6 @doneisbetter/gds-compliance@3.0.6
 
-npm install @doneisbetter/gds-theme@3.0.5 @doneisbetter/gds-core@3.0.5 @doneisbetter/gds-admin@3.0.5
+npm install @doneisbetter/gds-theme@3.0.6 @doneisbetter/gds-core@3.0.6 @doneisbetter/gds-admin@3.0.6
 ```
 
 ## Expected publish order

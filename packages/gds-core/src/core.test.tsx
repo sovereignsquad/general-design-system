@@ -73,7 +73,13 @@ import { resolveSurfacePresentationStyles } from './SurfacePresentation';
 import { resolveGdsCardContract } from './CardContracts';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
 import { GdsIcons } from './icons';
+import { GdsIcon } from './icons';
 import { OverlayManagerProvider, useOverlayManager } from './OverlayManager.client';
+import { GdsConfirmProvider, GdsToastProvider, useGdsConfirm, useGdsToasts } from './FeedbackRuntime.client';
+import { MediaPreviewCard } from './MediaPreviewCard';
+import { PublicCaptureFlow } from './PublicCaptureFlow';
+import { PlaybackControls, usePlaybackKeyboardControls } from './PlaybackControls.client';
+import { CreatorThemeBoundary, validateCreatorCss } from './CreatorTheme';
 import { GdsTelemetryProvider, useGdsTelemetry } from './Telemetry.client';
 import { createGdsVocabularyPack, getSemanticActionLabel } from './vocabulary';
 
@@ -143,7 +149,7 @@ describe('@doneisbetter/gds-core', () => {
       </ConfirmDialog>,
     );
 
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
     expect(screen.getByText('This action cannot be undone.')).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Cancel' }));
@@ -151,6 +157,52 @@ describe('@doneisbetter/gds-core', () => {
 
     await user.click(screen.getByRole('button', { name: 'Confirm' }));
     expect(onConfirm).toHaveBeenCalledTimes(1);
+  });
+
+  it('supports provider-based confirmations and toast helpers', async () => {
+    const user = userEvent.setup();
+    const onConfirmed = vi.fn();
+
+    function Probe() {
+      const confirm = useGdsConfirm();
+      const toasts = useGdsToasts();
+      return (
+        <>
+          <button
+            type="button"
+            onClick={() => {
+              void confirm.confirmDestructive({
+                title: 'Delete asset',
+                targetName: 'Primary logo',
+                message: 'This cannot be undone.',
+              }).then((confirmed) => {
+                if (confirmed) {
+                  onConfirmed();
+                  toasts.notifySuccess({ title: 'Deleted' });
+                }
+              });
+            }}
+          >
+            Open delete
+          </button>
+        </>
+      );
+    }
+
+    renderWithGds(
+      <GdsToastProvider>
+        <GdsConfirmProvider>
+          <Probe />
+          <NotificationCenter />
+        </GdsConfirmProvider>
+      </GdsToastProvider>,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Open delete' }));
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Delete' }));
+    expect(onConfirmed).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('Deleted')).toBeInTheDocument();
   });
 
   it('renders empty states with optional action content', () => {
@@ -165,6 +217,65 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByText('No projects yet')).toBeInTheDocument();
     expect(screen.getByText('Create your first project to get started.')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Create project' })).toBeInTheDocument();
+  });
+
+  it('renders typed icons and structured media previews', () => {
+    renderWithGds(
+      <>
+        <GdsIcon icon="Save" label="Save icon" />
+        <MediaPreviewCard
+          title="Hero image"
+          src="/hero.png"
+          alt="Hero image"
+          metadata={[{ label: 'Format', value: 'PNG' }]}
+        />
+      </>,
+    );
+
+    expect(screen.getByRole('img', { name: 'Save icon' })).toBeInTheDocument();
+    expect(screen.getByText('Hero image')).toBeInTheDocument();
+    expect(screen.getByText(/Format:/)).toBeInTheDocument();
+  });
+
+  it('renders public capture flows and playback controls with callbacks', async () => {
+    const user = userEvent.setup();
+    const onPlayPause = vi.fn();
+
+    renderWithGds(
+      <>
+        <PublicCaptureFlow
+          stage="consent"
+          state="ready"
+          body={<div>Consent checkbox</div>}
+          actions={[{ action: 'confirm', priority: 'primary' }]}
+        />
+        <PlaybackControls state="paused" onPlayPause={onPlayPause} canGoNext={false} />
+      </>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Review consent' })).toBeInTheDocument();
+    expect(screen.getByText('Consent checkbox')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Play' }));
+    expect(onPlayPause).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
+  });
+
+  it('validates creator CSS and blocks unsafe scoped themes', () => {
+    const issues = validateCreatorCss('[data-gds-creator-theme="x"] .cta { display: none; color: #fff; }', {
+      scopeSelector: '[data-gds-creator-theme="x"]',
+    });
+
+    expect(issues.map((issue) => issue.code)).toContain('creator-css-blocked-property');
+    expect(issues.map((issue) => issue.code)).toContain('creator-css-raw-color');
+
+    renderWithGds(
+      <CreatorThemeBoundary css={'body { display: none; }'} scopeId="x">
+        <div>Fallback content</div>
+      </CreatorThemeBoundary>,
+    );
+
+    expect(screen.getByText('creator-css-out-of-scope')).toBeInTheDocument();
+    expect(screen.getByText('Fallback content')).toBeInTheDocument();
   });
 
   it('renders metric cards with trends and descriptions', () => {

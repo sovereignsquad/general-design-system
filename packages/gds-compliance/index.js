@@ -6,6 +6,43 @@ const IGNORED_DIRS = new Set(['node_modules', '.git', '.next', 'dist', 'coverage
 const RAW_COLOR_PATTERN = /#(?:[0-9a-fA-F]{3,8})\b|rgb[a]?\s*\(/;
 const IMPORT_SOURCE_PATTERN = /(?:import\s+[^'"]*?from\s*|import\s*)['"]([^'"]+)['"]/g;
 const DEFAULT_FORBIDDEN_IMPORTS = ['@/components/ui/', '@radix-ui/', 'tailwindcss', 'lucide-react'];
+const STRICT_RULE_METADATA = {
+  'strict.import.mantine-core': {
+    family: 'package-import',
+    allowedExceptionCategories: ['package-coverage-gap', 'migration-bridge'],
+    remediation: 'Use package-native GDS primitives instead of direct @mantine/core imports in consumer code.',
+  },
+  'strict.import.tabler-icons': {
+    family: 'package-import',
+    allowedExceptionCategories: ['package-coverage-gap', 'migration-bridge'],
+    remediation: 'Use GdsIcon, GdsIcons, or semantic GDS actions instead of direct @tabler/icons-react imports.',
+  },
+  'strict.raw-control': {
+    family: 'raw-control',
+    allowedExceptionCategories: ['runtime-constraint', 'package-coverage-gap', 'migration-bridge'],
+    remediation: 'Use GDS form, button, action, or public-flow primitives for raw controls.',
+  },
+  'strict.browser-dialog': {
+    family: 'runtime-control',
+    allowedExceptionCategories: ['runtime-constraint', 'migration-bridge'],
+    remediation: 'Use GDS confirmation and notification contracts instead of alert() or window.confirm().',
+  },
+  'strict.raw-table': {
+    family: 'raw-table',
+    allowedExceptionCategories: ['package-coverage-gap', 'migration-bridge'],
+    remediation: 'Use AdminDataTable, AdminAnalyticsTable, SimpleDataTable, or AdvancedDataTable.',
+  },
+  'strict.inline-style': {
+    family: 'inline-style',
+    allowedExceptionCategories: ['runtime-constraint', 'product-authored-experience', 'package-coverage-gap', 'migration-bridge'],
+    remediation: 'Use GDS layout/style primitives or declare a narrow approved exception.',
+  },
+  'strict.local-gds-adapter': {
+    family: 'local-adapter',
+    allowedExceptionCategories: ['package-coverage-gap', 'migration-bridge'],
+    remediation: 'Declare the adapter in gds-adoption.json or migrate to a package-native GDS contract.',
+  },
+};
 const DEFAULT_STALE_DOCUMENTATION_REFERENCES = [
   '/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM',
   'GENERAL_DESIGN_SYSTEM',
@@ -558,6 +595,144 @@ function isCoveredByApprovedException(relativePath, approvedExceptions = []) {
   return approvedExceptions.some((exception) => matchesScope(relativePath, exception.scope ?? []));
 }
 
+function getSuppressionDecision({ rule, relativePath, manifest }) {
+  const metadata = STRICT_RULE_METADATA[rule];
+  if (!metadata) {
+    return { suppressed: false, reason: 'Rule has no suppression metadata.' };
+  }
+
+  const candidates = (manifest.approvedExceptions ?? []).filter((exception) =>
+    matchesScope(relativePath, exception.scope ?? []));
+
+  for (const exception of candidates) {
+    if (!['approved', 'temporary'].includes(exception.status)) {
+      continue;
+    }
+    if (!metadata.allowedExceptionCategories.includes(exception.category)) {
+      continue;
+    }
+    return { suppressed: true, exceptionSurface: exception.surface };
+  }
+
+  if (candidates.length > 0) {
+    return {
+      suppressed: false,
+      reason: `Matching exception scope exists, but category/status does not allow ${metadata.family}.`,
+    };
+  }
+
+  return { suppressed: false, reason: 'No approved exception scope matched.' };
+}
+
+function pushStrictFinding({ findings, manifest, normalizedRoot, filePath, rule, message, severity = 'error' }) {
+  const relativePath = normalizePath(filePath).replace(`${normalizedRoot}/`, '');
+  const decision = getSuppressionDecision({ rule, relativePath, manifest });
+  if (decision.suppressed) {
+    return;
+  }
+  findings.push({
+    rule,
+    severity,
+    file: relativePath,
+    message,
+  });
+}
+
+function scanStrictConsumerViolations({ manifest, sourceFiles, manifestRoot }) {
+  const findings = [];
+  const normalizedRoot = normalizePath(manifestRoot).replace(/\/$/, '');
+
+  for (const filePath of sourceFiles) {
+    const relativePath = normalizePath(filePath).replace(`${normalizedRoot}/`, '');
+    const content = readFileSync(filePath, 'utf8');
+    const inGdsPackage = /(^|\/)packages\/gds-(?:core|admin|theme)\//.test(relativePath);
+    const inDocumentation = /\.(md|mdx)$/.test(relativePath) || /(^|\/)docs\//.test(relativePath);
+
+    if (!inGdsPackage && /from\s+['"]@mantine\/core['"]/.test(content)) {
+      pushStrictFinding({
+        findings,
+        manifest,
+        normalizedRoot,
+        filePath,
+        rule: 'strict.import.mantine-core',
+        message: `${STRICT_RULE_METADATA['strict.import.mantine-core'].remediation}`,
+      });
+    }
+
+    if (!inGdsPackage && /from\s+['"]@tabler\/icons-react['"]/.test(content)) {
+      pushStrictFinding({
+        findings,
+        manifest,
+        normalizedRoot,
+        filePath,
+        rule: 'strict.import.tabler-icons',
+        message: `${STRICT_RULE_METADATA['strict.import.tabler-icons'].remediation}`,
+      });
+    }
+
+    if (!inDocumentation && /<(button|input|select|textarea)\b/i.test(content)) {
+      pushStrictFinding({
+        findings,
+        manifest,
+        normalizedRoot,
+        filePath,
+        rule: 'strict.raw-control',
+        message: `${STRICT_RULE_METADATA['strict.raw-control'].remediation}`,
+      });
+    }
+
+    if (/\b(?:window\.)?(?:alert|confirm)\s*\(/.test(content)) {
+      pushStrictFinding({
+        findings,
+        manifest,
+        normalizedRoot,
+        filePath,
+        rule: 'strict.browser-dialog',
+        message: `${STRICT_RULE_METADATA['strict.browser-dialog'].remediation}`,
+      });
+    }
+
+    if (!inDocumentation && /<(table|th|td)\b/i.test(content)) {
+      pushStrictFinding({
+        findings,
+        manifest,
+        normalizedRoot,
+        filePath,
+        rule: 'strict.raw-table',
+        message: `${STRICT_RULE_METADATA['strict.raw-table'].remediation}`,
+      });
+    }
+
+    if (/style\s*=\s*\{\s*\{/.test(content)) {
+      pushStrictFinding({
+        findings,
+        manifest,
+        normalizedRoot,
+        filePath,
+        rule: 'strict.inline-style',
+        severity: manifest.compliance?.strictMode === true ? 'error' : 'warn',
+        message: `${STRICT_RULE_METADATA['strict.inline-style'].remediation}`,
+      });
+    }
+
+    if (/components\/gds\//.test(relativePath)) {
+      const declared = (manifest.localAdapters ?? []).some((adapter) => normalizePath(adapter.path).replace(/^\.\//, '') === relativePath);
+      if (!declared) {
+        pushStrictFinding({
+          findings,
+          manifest,
+          normalizedRoot,
+          filePath,
+          rule: 'strict.local-gds-adapter',
+          message: `${STRICT_RULE_METADATA['strict.local-gds-adapter'].remediation}`,
+        });
+      }
+    }
+  }
+
+  return findings;
+}
+
 function normalizeProviderId(value) {
   return String(value).trim().toLowerCase();
 }
@@ -844,6 +1019,7 @@ export function runComplianceCheck({ manifestPath }) {
 
   if (strictMode) {
     findings.push(...runStrictCompliance({ manifest, manifestRoot, sourceFiles }));
+    findings.push(...scanStrictConsumerViolations({ manifest, manifestRoot, sourceFiles }));
   }
 
   return {

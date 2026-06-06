@@ -6,6 +6,10 @@ import { Button } from '@mantine/core';
 import { DataToolbar, FilterDrawer, MetricCard } from '@doneisbetter/gds-core';
 import { renderWithGds } from '../../../test-utils/render';
 import { AppShell } from './AppShell';
+import { AdminDataTable } from './AdminDataTable';
+import { AdminTextInput, AdminFormActions } from './AdminForms';
+import { AdminDetailDrawer } from './AdminOverlays';
+import { AdminResourceManager } from './AdminResourceManager';
 import { ContentOpsActionBar } from './ContentOpsActionBar';
 import { ContentOpsEditor } from './ContentOpsEditor';
 import { ContentOpsSection } from './ContentOpsSection';
@@ -252,5 +256,77 @@ describe('@doneisbetter/gds-admin', () => {
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Settings' })).toBeInTheDocument();
+  });
+
+  it('renders package-native admin form controls and action rows', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    const onSubmit = vi.fn();
+
+    renderWithGds(
+      <>
+        <AdminTextInput name="title" label="Title" value="Draft" onChange={onChange} error="Required" />
+        <AdminFormActions
+          dirty
+          submitAction={{ action: 'save', onClick: onSubmit }}
+          cancelAction={{ action: 'cancel' }}
+          deleteAction={{ action: 'delete' }}
+        />
+      </>,
+    );
+
+    expect(screen.getByLabelText('Title')).toHaveAttribute('aria-invalid', 'true');
+    await user.clear(screen.getByLabelText('Title'));
+    await user.type(screen.getByLabelText('Title'), 'Published');
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('Unsaved changes')).toBeInTheDocument();
+  });
+
+  it('renders sortable admin data tables with stateful headers', async () => {
+    const user = userEvent.setup();
+    const onSortChange = vi.fn();
+
+    renderWithGds(
+      <AdminDataTable
+        caption="Submission analytics"
+        rows={[{ id: 'a', name: 'Alpha', count: 3 }]}
+        columns={[
+          { key: 'name', header: 'Name', rowHeader: true, sortable: true },
+          { key: 'count', header: 'Count', numeric: true },
+        ]}
+        sort={{ key: 'name', direction: 'asc' }}
+        onSortChange={onSortChange}
+        getRowKey={(row) => row.id}
+      />,
+    );
+
+    expect(screen.getByRole('columnheader', { name: /Name/ })).toHaveAttribute('aria-sort', 'ascending');
+    expect(screen.getAllByText('Submission analytics').length).toBeGreaterThan(0);
+    await user.click(screen.getByRole('button', { name: 'Sort by Name' }));
+    expect(onSortChange).toHaveBeenCalledWith({ key: 'name', direction: 'desc' });
+  });
+
+  it('renders admin drawers and resource managers with GDS states', () => {
+    renderWithGds(
+      <>
+        <AdminDetailDrawer opened onClose={() => {}} title="Review result" description="Audit the generated asset.">
+          <div>Review body</div>
+        </AdminDetailDrawer>
+        <AdminResourceManager
+          title="Logos"
+          records={[{ id: 'logo', title: 'Primary logo', mediaAlt: 'Primary logo', metadata: [{ label: 'Type', value: 'PNG' }] }]}
+          actions={[{ id: 'edit', label: 'Edit', kind: 'primary' }]}
+        />
+      </>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Review result' })).toBeInTheDocument();
+    expect(screen.getByText('Review body')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Logos' })).toBeInTheDocument();
+    expect(screen.getByText('Primary logo')).toBeInTheDocument();
+    expect(screen.getByText(/Type:/)).toBeInTheDocument();
   });
 });

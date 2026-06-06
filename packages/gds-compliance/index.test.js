@@ -58,6 +58,90 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
 
     expect(rules).toContain('strict.shell.local-adapter');
     expect(rules).toContain('strict.shell.mantine-app-shell');
+    expect(rules).toContain('strict.import.mantine-core');
+  });
+
+  it('flags strict consumer import, raw control, browser dialog, raw table, and inline-style drift', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '3.2.0',
+        productArchetype: 'admin',
+        requiredContracts: ['AdminTextInput', 'AdminDataTable', 'GdsIcon'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'partial',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-06-06',
+        compliance: { strictMode: true },
+      }, null, 2),
+      'src/AdminPage.tsx': `
+        import { Button } from '@mantine/core';
+        import { IconTrash } from '@tabler/icons-react';
+        export function AdminPage() {
+          window.confirm('Delete?');
+          return <div style={{ color: 'red' }}><button>Delete</button><table><tbody><tr><td>1</td></tr></tbody></table></div>;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const rules = report.findings.map((finding) => finding.rule);
+
+    expect(rules).toContain('strict.import.mantine-core');
+    expect(rules).toContain('strict.import.tabler-icons');
+    expect(rules).toContain('strict.raw-control');
+    expect(rules).toContain('strict.browser-dialog');
+    expect(rules).toContain('strict.raw-table');
+    expect(rules).toContain('strict.inline-style');
+  });
+
+  it('suppresses strict drift only when the exception category and status match the violation family', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '3.2.0',
+        productArchetype: 'public',
+        requiredContracts: ['PublicCaptureFlow'],
+        localAdapters: [],
+        approvedExceptions: [
+          {
+            surface: 'Capture hardware controls',
+            category: 'runtime-constraint',
+            scope: ['src/capture/HardwareControls.tsx'],
+            reason: 'Native hardware controls are temporarily runtime-owned.',
+            allowedImplementation: ['Bounded hardware slot'],
+            mustStillUse: ['PublicCaptureFlow'],
+            mustNotDo: ['Replace GDS shell'],
+            owner: 'platform-ui',
+            reviewDate: '2026-06-06',
+            exitCondition: 'Replace once hardware controls are package-native.',
+            status: 'temporary',
+          },
+        ],
+        migrationStatus: 'partial',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-06-06',
+        compliance: { strictMode: true },
+      }, null, 2),
+      'src/capture/HardwareControls.tsx': `
+        export function HardwareControls() {
+          window.confirm('Retry?');
+          return <button>Runtime control</button>;
+        }
+      `,
+      'src/capture/Unrelated.tsx': `
+        import { IconTrash } from '@tabler/icons-react';
+        export function Unrelated() { return <IconTrash />; }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const strictFindings = report.findings.filter((finding) => finding.rule.startsWith('strict.'));
+
+    expect(strictFindings.map((finding) => finding.rule)).not.toContain('strict.browser-dialog');
+    expect(strictFindings.map((finding) => finding.rule)).not.toContain('strict.raw-control');
+    expect(strictFindings.map((finding) => finding.rule)).toContain('strict.import.tabler-icons');
   });
 
   it('flags local card, upload, reporting, and auth wrappers in strict mode', () => {

@@ -1,7 +1,7 @@
 # Foundation
 
 Status: Active SSOT
-Version: 3.0.5
+Version: 3.0.6
 Last updated: 2026-06-01
 
 ## 1. Core Principles

@@ -6,3 +6,6 @@ export * from './WorkspaceHeader';
 export * from './ContentOpsSection';
 export * from './ContentOpsActionBar';
 export * from './ContentOpsEditor';
+export * from './AdminForms';
+export * from './AdminDataTable';
+export * from './AdminResourceManager';

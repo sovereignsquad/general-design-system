@@ -1,19 +1,26 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "2.6.7",
+  "gdsVersion": "3.0.6",
   "productArchetype": "hybrid",
   "supportedEntryPoints": [
     "@doneisbetter/gds-theme/client",
     "@doneisbetter/gds-theme/server",
     "@doneisbetter/gds-core/client",
     "@doneisbetter/gds-core/server",
-    "@doneisbetter/gds-admin/client"
+    "@doneisbetter/gds-admin/client",
+    "@doneisbetter/gds-admin/server",
+    "@doneisbetter/gds/client",
+    "@doneisbetter/gds/server"
   ],
   "requiredContracts": [
     "AppShell",
     "PageHeader",
     "StateBlock",
-    "PublicShell"
+    "PublicShell",
+    "AdminTextInput",
+    "AdminDataTable",
+    "GdsConfirmProvider",
+    "GdsIcon"
   ],
   "localAdapters": [
     {
@@ -147,20 +154,29 @@
       "DetailProfileShell"
     ],
     "approvedListingPrimitives": [
-      "ListingCard"
+      "ListingCard",
+      "AdminResourceManager",
+      "AdminResourceGrid",
+      "AdminResourceCard"
     ],
     "approvedActionPrimitives": [
-      "ActionBar"
+      "ActionBar",
+      "AdminFormActions",
+      "GdsConfirmProvider",
+      "GdsToastProvider"
     ],
     "approvedMediaPrimitives": [
       "MediaField",
-      "UploadDropzone"
+      "UploadDropzone",
+      "MediaPreviewCard"
     ],
     "approvedReportingPrimitives": [
       "ReportingSection",
       "PeriodSelector",
       "EvidencePanel",
-      "ChartTokenPanel"
+      "ChartTokenPanel",
+      "AdminDataTable",
+      "AdminAnalyticsTable"
     ],
     "approvedAccessPrimitives": [
       "AuthShell",
@@ -210,6 +226,15 @@
     ],
     "approvedTemporaryExceptions": [
       "MapPanel"
+    ],
+    "strictViolationFamilies": [
+      "strict.import.mantine-core",
+      "strict.import.tabler-icons",
+      "strict.raw-control",
+      "strict.browser-dialog",
+      "strict.raw-table",
+      "strict.inline-style",
+      "strict.local-gds-adapter"
     ]
   },
   "migrationStatus": "partial",
