@@ -118,6 +118,11 @@ const ApiReferencePage = lazy(async () => {
   return { default: module.ApiReferencePage };
 });
 
+const MaturityPage = lazy(async () => {
+  const module = await import('./info-pages');
+  return { default: module.MaturityPage };
+});
+
 const UseCasesPage = lazy(async () => {
   const module = await import('./info-pages');
   return { default: module.UseCasesPage };
@@ -262,6 +267,7 @@ function PlaygroundContent() {
           <Route path="/patterns/feedback" element={<Suspense fallback={<RouteFallback />}><FeedbackPatternPage /></Suspense>} />
           <Route path="/coverage" element={<Suspense fallback={<RouteFallback />}><CoveragePage /></Suspense>} />
           <Route path="/api" element={<Suspense fallback={<RouteFallback />}><ApiReferencePage /></Suspense>} />
+          <Route path="/maturity" element={<Suspense fallback={<RouteFallback />}><MaturityPage /></Suspense>} />
           <Route path="/use-cases" element={<Suspense fallback={<RouteFallback />}><UseCasesPage /></Suspense>} />
           <Route path="/install" element={<Suspense fallback={<RouteFallback />}><InstallPage /></Suspense>} />
           <Route path="/governance" element={<Suspense fallback={<RouteFallback />}><RulebookPage /></Suspense>} />

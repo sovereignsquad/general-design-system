@@ -9,6 +9,17 @@ This repository ships the public API reference from `apps/playground/src/api-ref
 - `@doneisbetter/gds-core` owns public surfaces, docs surfaces, feedback, forms, tables, playback, media, layout, icon, and state primitives.
 - `@doneisbetter/gds-admin` owns operator CRUD, resource manager, admin table, overlay, and admin shell contracts.
 
+## Maturity Capability API
+
+`@doneisbetter/gds-core` now exports the seven recommended maturity capability contracts:
+
+- `getGdsMaturityCapabilities()`
+- `getGdsRecommendedMaturityCapabilities()`
+- `getGdsMaturityCapability(id)`
+- `getGdsMaturitySummary()`
+
+These helpers expose the issue-backed delivery groups for admin delivery, runtime feedback, foundation surfaces, global readiness, adoption governance, theme operations, and product-system delivery. Each entry includes package lanes, primary contracts, runtime flow, UX states, accessibility, observability, retry/timeout behavior, rollback, testing, documentation, edge cases, and operational behavior.
+
 ## Registry Fields
 
 Every public entry includes:

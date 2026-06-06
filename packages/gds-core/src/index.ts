@@ -83,4 +83,5 @@ export * from './SurfacePresentation';
 export * from './PublicCaptureFlow';
 export * from './PlaybackControls.client';
 export * from './CreatorTheme';
+export * from './MaturityCapabilities';
 export * from './locales';

@@ -190,6 +190,17 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     summary: 'Repeated cards, tables, auth panels, and state blocks should be implemented through shared contracts, not page-local composition.',
   },
   {
+    id: 'maturity-capabilities',
+    title: 'Maturity Capabilities',
+    docSection: 'Common Workflows & Patterns',
+    family: 'foundations',
+    section: 'Workflow Guidance',
+    coverageStatus: 'live-demo',
+    summary: 'Issue-backed product maturity registry for the seven highest-value GDS capability groups, including contracts, accessibility, observability, rollback, testing, and documentation evidence.',
+    importPath: '@doneisbetter/gds-core',
+    sourceComponent: 'getGdsRecommendedMaturityCapabilities / getGdsMaturitySummary',
+  },
+  {
     id: 'semantic-actions',
     title: 'Semantic Actions',
     docSection: 'Common Workflows & Patterns',

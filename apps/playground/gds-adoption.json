@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "3.3.0",
+  "gdsVersion": "3.4.0",
   "productArchetype": "public",
   "supportedEntryPoints": [
     "@doneisbetter/gds-theme/client",
@@ -160,6 +160,19 @@
       },
       {
         "routePrefix": "/api",
+        "fullCopyLocales": [
+          "en",
+          "de",
+          "fr",
+          "it",
+          "ru",
+          "he",
+          "ar",
+          "hu"
+        ]
+      },
+      {
+        "routePrefix": "/maturity",
         "fullCopyLocales": [
           "en",
           "de",

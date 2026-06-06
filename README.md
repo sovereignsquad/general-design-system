@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 3.3.0
+Version: 3.4.0
 Last updated: 2026-06-06
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
@@ -27,6 +27,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Component Contracts & Patterns**: [COMPONENTS_AND_PATTERNS.md](/Users/Shared/Projects/general-design-system/COMPONENTS_AND_PATTERNS.md) — Required behaviors for standard UI elements and full-page workflows.
 - **Live Pattern Catalog**: [https://sovereignsquad.github.io/general-design-system/patterns](https://sovereignsquad.github.io/general-design-system/patterns) — The public registry-backed component and pattern reference site with family pages for foundations, public, operations, data, access, and feedback coverage.
 - **API Reference**: [https://sovereignsquad.github.io/general-design-system/api](https://sovereignsquad.github.io/general-design-system/api) and [API_REFERENCE.md](/Users/Shared/Projects/general-design-system/API_REFERENCE.md) — Registry-backed package export reference with import paths, runtime lanes, accessibility notes, state contracts, and verification coverage.
+- **Maturity Capabilities**: [https://sovereignsquad.github.io/general-design-system/maturity](https://sovereignsquad.github.io/general-design-system/maturity) — The seven recommended high-value capability groups with issue links, package lanes, benefits, accessibility, observability, rollback, testing, and product-owner delivery value in every supported site language.
 - **Product Use Cases**: [https://sovereignsquad.github.io/general-design-system/use-cases](https://sovereignsquad.github.io/general-design-system/use-cases) and [USER_GUIDE.md](/Users/Shared/Projects/general-design-system/USER_GUIDE.md) — Product-owner adoption guide for choosing GDS package lanes and operational checks.
 - **CLI and Low-Level Design**: [CLI_AND_LLD.md](/Users/Shared/Projects/general-design-system/CLI_AND_LLD.md) — Verification command inventory and the low-level docs/i18n architecture.
 - **Coverage Matrix**: [https://sovereignsquad.github.io/general-design-system/coverage](https://sovereignsquad.github.io/general-design-system/coverage) — Route-level parity view of documented patterns versus live runtime representation status.
@@ -81,6 +82,7 @@ The GitHub Pages site is the public runtime reference for this repository:
 - Pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
 - Coverage matrix: `https://sovereignsquad.github.io/general-design-system/coverage`
 - API reference: `https://sovereignsquad.github.io/general-design-system/api`
+- Maturity capabilities: `https://sovereignsquad.github.io/general-design-system/maturity`
 - Product use cases: `https://sovereignsquad.github.io/general-design-system/use-cases`
 - Live demos: `https://sovereignsquad.github.io/general-design-system/live-demos`
 - Demo route families:

@@ -59,4 +59,5 @@ export * from './ReportingSection';
 export * from './Notifications';
 export * from './SurfacePresentation';
 export * from './CreatorTheme';
+export * from './MaturityCapabilities';
 export * from './locales';

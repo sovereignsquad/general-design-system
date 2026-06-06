@@ -17,6 +17,10 @@ export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
     fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
   },
   {
+    routePrefix: '/maturity',
+    fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
+  },
+  {
     routePrefix: '/use-cases',
     fullCopyLocales: ['en', 'de', 'fr', 'it', 'ru', 'he', 'ar', 'hu'],
   },

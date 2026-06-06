@@ -5,6 +5,8 @@ import {
   DocsPageShell,
   FeatureBand,
   FormField,
+  getGdsMaturitySummary,
+  getGdsRecommendedMaturityCapabilities,
   PublicBrandFooter,
   ReferenceLinkGrid,
   ReferenceSection,
@@ -18,8 +20,8 @@ import { apiReferenceEntries, apiReferencePackages, getApiReferenceEntries, getA
 import { patternRegistry } from './pattern-registry';
 import { productUseCases } from './product-use-cases';
 
-const stableGdsVersion = '3.3.0';
-const targetGdsVersion = '3.3.0';
+const stableGdsVersion = '3.4.0';
+const targetGdsVersion = '3.4.0';
 
 const installCode = `npm install @doneisbetter/gds@${targetGdsVersion}
 npm install -D @doneisbetter/gds-eslint-config@${targetGdsVersion} @doneisbetter/gds-compliance@${targetGdsVersion}`;
@@ -815,6 +817,154 @@ export function ApiReferencePage() {
   );
 }
 
+export function MaturityPage() {
+  const { locale } = useGdsTranslation();
+  const copy = {
+    en: {
+      title: 'Maturity Roadmap Delivered',
+      eyebrow: 'Seven recommended capability groups',
+      lead: 'The highest-value GDS maturity work is now organized as issue-backed, package-native delivery contracts with benefits, APIs, accessibility, observability, rollback, testing, and documentation evidence.',
+      summaryTitle: 'Delivery summary',
+      summaryDescription: 'This page is generated from the exported GDS maturity capability registry.',
+      benefitsTitle: 'Product benefits',
+      benefitsDescription: 'Use these rows to decide which package lane and contract should replace local UI work.',
+      operationsTitle: 'Operational readiness',
+      operationsDescription: 'Every capability defines runtime flow, UX states, accessibility, telemetry, retry, rollback, and test evidence.',
+    },
+    de: {
+      title: 'Maturity-Roadmap geliefert',
+      eyebrow: 'Sieben empfohlene Capability-Gruppen',
+      lead: 'Die wertvollste GDS-Maturity-Arbeit ist jetzt als issue-gestützte, package-native Delivery-Contracts mit Nutzen, APIs, Accessibility, Observability, Rollback, Tests und Dokumentation organisiert.',
+      summaryTitle: 'Delivery-Zusammenfassung',
+      summaryDescription: 'Diese Seite kommt aus der exportierten GDS-Maturity-Capability-Registry.',
+      benefitsTitle: 'Produktnutzen',
+      benefitsDescription: 'Nutze diese Zeilen, um Package-Lane und Contract statt lokaler UI-Arbeit zu wählen.',
+      operationsTitle: 'Operative Bereitschaft',
+      operationsDescription: 'Jede Capability definiert Runtime Flow, UX-Zustände, Accessibility, Telemetrie, Retry, Rollback und Testnachweis.',
+    },
+    fr: {
+      title: 'Feuille de route maturité livrée',
+      eyebrow: 'Sept groupes de capacités recommandés',
+      lead: 'Le travail de maturité GDS le plus utile est maintenant structuré en contrats package-native liés à des issues, avec bénéfices, APIs, accessibilité, observabilité, rollback, tests et documentation.',
+      summaryTitle: 'Résumé de livraison',
+      summaryDescription: 'Cette page est générée depuis le registre exporté des capacités de maturité GDS.',
+      benefitsTitle: 'Bénéfices produit',
+      benefitsDescription: 'Utilisez ces lignes pour choisir la lane package et le contrat qui remplacent le travail UI local.',
+      operationsTitle: 'Préparation opérationnelle',
+      operationsDescription: 'Chaque capacité définit flow runtime, états UX, accessibilité, télémétrie, retry, rollback et preuves de test.',
+    },
+    it: {
+      title: 'Roadmap di maturità consegnata',
+      eyebrow: 'Sette gruppi di capability consigliati',
+      lead: 'Il lavoro GDS a valore più alto è ora organizzato come contratti package-native collegati a issue, con benefici, API, accessibilità, osservabilità, rollback, test e documentazione.',
+      summaryTitle: 'Riepilogo delivery',
+      summaryDescription: 'Questa pagina è generata dal registro esportato delle capability di maturità GDS.',
+      benefitsTitle: 'Benefici prodotto',
+      benefitsDescription: 'Usa queste righe per scegliere package lane e contratto al posto di UI locale.',
+      operationsTitle: 'Prontezza operativa',
+      operationsDescription: 'Ogni capability definisce runtime flow, stati UX, accessibilità, telemetria, retry, rollback e prove di test.',
+    },
+    ru: {
+      title: 'Дорожная карта зрелости доставлена',
+      eyebrow: 'Семь рекомендуемых групп возможностей',
+      lead: 'Самая ценная работа по зрелости GDS теперь оформлена как package-native контракты с issue, пользой, API, доступностью, observability, rollback, тестами и документацией.',
+      summaryTitle: 'Сводка поставки',
+      summaryDescription: 'Эта страница генерируется из экспортированного реестра maturity capabilities GDS.',
+      benefitsTitle: 'Польза для продукта',
+      benefitsDescription: 'Используйте строки, чтобы выбрать package lane и контракт вместо локальной UI-разработки.',
+      operationsTitle: 'Операционная готовность',
+      operationsDescription: 'Каждая capability определяет runtime flow, UX-состояния, доступность, телеметрию, retry, rollback и тестовые доказательства.',
+    },
+    he: {
+      title: 'מפת בשלות נמסרה',
+      eyebrow: 'שבע קבוצות capability מומלצות',
+      lead: 'עבודת הבשלות החשובה ביותר של GDS מאורגנת עכשיו כחוזים package-native עם issues, תועלת, APIs, נגישות, observability, rollback, בדיקות ותיעוד.',
+      summaryTitle: 'סיכום מסירה',
+      summaryDescription: 'העמוד נוצר מתוך registry מיוצא של יכולות בשלות GDS.',
+      benefitsTitle: 'תועלת מוצרית',
+      benefitsDescription: 'השתמשו בשורות כדי לבחור package lane וחוזה במקום UI מקומי.',
+      operationsTitle: 'מוכנות תפעולית',
+      operationsDescription: 'כל capability מגדירה runtime flow, מצבי UX, נגישות, telemetry, retry, rollback והוכחות בדיקה.',
+    },
+    ar: {
+      title: 'تم تسليم خارطة النضج',
+      eyebrow: 'سبع مجموعات قدرات موصى بها',
+      lead: 'أصبح عمل نضج GDS الأعلى قيمة منظما كعقود package-native مرتبطة بقضايا، مع فوائد وواجهات API ووصولية ومراقبة واسترجاع واختبارات وتوثيق.',
+      summaryTitle: 'ملخص التسليم',
+      summaryDescription: 'تولد هذه الصفحة من سجل قدرات النضج المصدر من GDS.',
+      benefitsTitle: 'فوائد المنتج',
+      benefitsDescription: 'استخدم هذه الصفوف لاختيار مسار الحزمة والعقد بدلا من عمل UI محلي.',
+      operationsTitle: 'الجاهزية التشغيلية',
+      operationsDescription: 'كل قدرة تحدد تدفق التشغيل وحالات UX والوصولية والتليمترية وإعادة المحاولة والاسترجاع ودليل الاختبار.',
+    },
+    hu: {
+      title: 'Maturity roadmap leszállítva',
+      eyebrow: 'Hét ajánlott capability csoport',
+      lead: 'A legnagyobb értékű GDS maturity munka most issue-alapú, package-native delivery contractként érhető el előnyökkel, API-kkal, akadálymentességgel, observabilityvel, rollbackkel, tesztekkel és dokumentációval.',
+      summaryTitle: 'Delivery összefoglaló',
+      summaryDescription: 'Ez az oldal az exportált GDS maturity capability registryből generálódik.',
+      benefitsTitle: 'Termék előnyök',
+      benefitsDescription: 'Ezekkel a sorokkal válaszd ki, melyik package lane és contract váltja a lokális UI munkát.',
+      operationsTitle: 'Operatív felkészültség',
+      operationsDescription: 'Minden capability definiál runtime flow-t, UX állapotokat, akadálymentességet, telemetriát, retryt, rollbacket és teszt bizonyítékot.',
+    },
+  } as const;
+  const i18n = copy[locale as keyof typeof copy] ?? copy.en;
+  const capabilities = getGdsRecommendedMaturityCapabilities();
+  const summary = getGdsMaturitySummary();
+
+  return (
+    <DocsPageShell title={i18n.title} eyebrow={i18n.eyebrow} lead={i18n.lead}>
+      <ReferenceSection title={i18n.summaryTitle} description={i18n.summaryDescription}>
+        <FeatureBand
+          columns={4}
+          variant="compact"
+          items={[
+            { id: 'total', title: 'Capabilities', description: `${summary.total} recommended delivery groups are issue-backed and exported.` },
+            { id: 'production', title: 'Production ready', description: `${summary['production-ready']} groups ship package-native production contracts.` },
+            { id: 'tooling', title: 'Tooling', description: `${summary['adoption-tooling']} group owns adoption governance and migration evidence.` },
+            { id: 'ops', title: 'Operations', description: `${summary['operational-contract']} groups define operational release contracts.` },
+          ]}
+        />
+      </ReferenceSection>
+      <ReferenceSection title={i18n.benefitsTitle} description={i18n.benefitsDescription}>
+        <SimpleDataTable
+          columns={[
+            { key: 'order', header: 'Order' },
+            { key: 'issue', header: 'Issue' },
+            { key: 'title', header: 'Capability' },
+            { key: 'benefit', header: 'Benefit' },
+            { key: 'packages', header: 'Packages' },
+            { key: 'contracts', header: 'Primary contracts' },
+          ]}
+          rows={capabilities.map((capability) => ({
+            id: capability.id,
+            order: String(capability.priorityOrder),
+            issue: `#${capability.issueNumber}`,
+            title: capability.title,
+            benefit: capability.benefit,
+            packages: capability.packageLanes.join(', '),
+            contracts: capability.primaryContracts.join(', '),
+          }))}
+          getRowKey={(row) => row.id}
+        />
+      </ReferenceSection>
+      <ReferenceSection title={i18n.operationsTitle} description={i18n.operationsDescription}>
+        {capabilities.map((capability) => (
+          <StateBlock
+            key={capability.id}
+            variant={capability.status === 'adoption-tooling' ? 'info' : 'success'}
+            title={`${capability.priorityOrder}. ${capability.title}`}
+            description={`States: ${capability.uxStates.join(', ')}. Observability: ${capability.observability.join(', ')}. Rollback: ${capability.rollback}`}
+            compact
+          />
+        ))}
+      </ReferenceSection>
+      <SiteFooter />
+    </DocsPageShell>
+  );
+}
+
 export function UseCasesPage() {
   const { locale } = useGdsTranslation();
   const copy = {
@@ -930,7 +1080,7 @@ export function InstallPage() {
   const installCopy = {
     en: {
       title: 'Install GDS',
-      eyebrow: '3.3.0 public install path',
+      eyebrow: '3.4.0 public install path',
       lead: `Use the umbrella npm package for the default public entry point, satisfy the shared Mantine peer line, wire the provider once, and align theme ownership with the canonical ${targetGdsVersion} governance rules. Current stable is ${stableGdsVersion} after publish verification.`,
       installSectionTitle: '1. Install the packages',
       installSectionDescription: 'The open-source public entry point is the umbrella package. Granular packages stay available for teams that intentionally separate runtime lanes.',
@@ -962,7 +1112,7 @@ export function InstallPage() {
     },
     de: {
       title: 'GDS installieren',
-      eyebrow: 'Öffentlicher 3.3.0-Installationspfad',
+      eyebrow: 'Öffentlicher 3.4.0-Installationspfad',
       lead: `Verwende das Umbrella-npm-Paket als Standard-Einstieg, erfülle die gemeinsame Mantine-Peer-Linie, binde den Provider einmal ein und richte Theme-Ownership nach ${targetGdsVersion} aus. Aktuell stabil ist ${stableGdsVersion} nach der Publish-Verifikation.`,
       installSectionTitle: '1. Pakete installieren',
       installSectionDescription: 'Der öffentliche Open-Source-Pfad nutzt das Umbrella-Paket. Granulare Pakete bleiben für bewusst getrennte Runtime-Lanes verfügbar.',
@@ -994,7 +1144,7 @@ export function InstallPage() {
     },
     fr: {
       title: 'Installer GDS',
-      eyebrow: 'Parcours d’installation public 3.3.0',
+      eyebrow: 'Parcours d’installation public 3.4.0',
       lead: `Utilisez le package npm umbrella, respectez la ligne de dépendances pair Mantine, configurez le provider une seule fois et alignez la gouvernance de thème sur ${targetGdsVersion}. La version stable est ${stableGdsVersion} après vérification de publication.`,
       installSectionTitle: '1. Installer les packages',
       installSectionDescription: 'Le point d’entrée open source public est le package umbrella. Les packages granulaires restent disponibles pour les lanes runtime séparées.',
@@ -1027,13 +1177,13 @@ export function InstallPage() {
     it: {
       title: 'Installare GDS',
       eyebrow: 'Percorso di installazione pubblico',
-      lead: 'Usa il pacchetto npm umbrella come punto di ingresso pubblico predefinito, soddisfa la linea peer condivisa di Mantine, configura il provider una sola volta e allinea la governance del tema alle regole canoniche `3.3.0`.',
+      lead: 'Usa il pacchetto npm umbrella come punto di ingresso pubblico predefinito, soddisfa la linea peer condivisa di Mantine, configura il provider una sola volta e allinea la governance del tema alle regole canoniche `3.4.0`.',
       installSectionTitle: '1. Installa i pacchetti',
       installSectionDescription: 'Il punto di ingresso pubblico open source è il pacchetto umbrella.',
       installCodeTitle: 'Installa i pacchetti GDS',
       granularCodeTitle: 'Installa pacchetti granulari',
       peerCodeTitle: 'Installa le dipendenze peer',
-      upgradeSectionTitle: '2. Aggiorna i client esistenti alla 3.3.0',
+      upgradeSectionTitle: '2. Aggiorna i client esistenti alla 3.4.0',
       upgradeSectionDescription: 'Se la tua app usa già GDS, aggiorna insieme linea pacchetti e tooling di governance.',
       upgradeCodeTitle: 'Comandi di aggiornamento',
       providerSectionTitle: '3. Aggiungi il provider',
@@ -1059,13 +1209,13 @@ export function InstallPage() {
     ru: {
       title: 'Установка GDS',
       eyebrow: 'Публичный путь установки',
-      lead: 'Используйте umbrella npm-пакет как основной публичный вход, соблюдайте общую peer-линейку Mantine, подключите provider один раз и выровняйте владение темой по каноническим правилам `3.3.0`.',
+      lead: 'Используйте umbrella npm-пакет как основной публичный вход, соблюдайте общую peer-линейку Mantine, подключите provider один раз и выровняйте владение темой по каноническим правилам `3.4.0`.',
       installSectionTitle: '1. Установите пакеты',
       installSectionDescription: 'Публичная open-source точка входа — umbrella пакет.',
       installCodeTitle: 'Установить пакеты GDS',
       granularCodeTitle: 'Установить granular пакеты',
       peerCodeTitle: 'Установить peer-зависимости',
-      upgradeSectionTitle: '2. Обновите существующие клиенты до 3.3.0',
+      upgradeSectionTitle: '2. Обновите существующие клиенты до 3.4.0',
       upgradeSectionDescription: 'Если приложение уже использует GDS, обновляйте линию пакетов и governance tooling вместе.',
       upgradeCodeTitle: 'Команды обновления',
       providerSectionTitle: '3. Подключите provider',
@@ -1091,13 +1241,13 @@ export function InstallPage() {
     he: {
       title: 'התקנת GDS',
       eyebrow: 'מסלול התקנה ציבורי',
-      lead: 'השתמשו בחבילת npm umbrella כנקודת הכניסה הציבורית, השלימו את קו ה-peer של Mantine, הגדירו provider פעם אחת ויישרו את בעלות התמה לכללי `3.3.0` הקנוניים.',
+      lead: 'השתמשו בחבילת npm umbrella כנקודת הכניסה הציבורית, השלימו את קו ה-peer של Mantine, הגדירו provider פעם אחת ויישרו את בעלות התמה לכללי `3.4.0` הקנוניים.',
       installSectionTitle: '1. התקנת החבילות',
       installSectionDescription: 'נקודת הכניסה הציבורית בקוד פתוח היא חבילת ה-umbrella.',
       installCodeTitle: 'התקנת חבילות GDS',
       granularCodeTitle: 'התקנת חבילות granular',
       peerCodeTitle: 'התקנת תלויות peer',
-      upgradeSectionTitle: '2. עדכון לקוחות קיימים ל-3.3.0',
+      upgradeSectionTitle: '2. עדכון לקוחות קיימים ל-3.4.0',
       upgradeSectionDescription: 'אם האפליקציה כבר משתמשת ב-GDS, עדכנו יחד את קו החבילות וכלי הממשל.',
       upgradeCodeTitle: 'פקודות עדכון',
       providerSectionTitle: '3. הוספת provider',
@@ -1123,13 +1273,13 @@ export function InstallPage() {
     ar: {
       title: 'تثبيت GDS',
       eyebrow: 'مسار التثبيت العام',
-      lead: 'استخدم حزمة npm الشاملة كنقطة الدخول العامة الافتراضية، ثم التزم بخط peer الخاص بـ Mantine، واضبط المزود مرة واحدة، ووافق حوكمة الثيم مع قواعد `3.3.0` القياسية.',
+      lead: 'استخدم حزمة npm الشاملة كنقطة الدخول العامة الافتراضية، ثم التزم بخط peer الخاص بـ Mantine، واضبط المزود مرة واحدة، ووافق حوكمة الثيم مع قواعد `3.4.0` القياسية.',
       installSectionTitle: '1. تثبيت الحزم',
       installSectionDescription: 'نقطة الدخول العامة مفتوحة المصدر هي الحزمة الشاملة.',
       installCodeTitle: 'تثبيت حزم GDS',
       granularCodeTitle: 'تثبيت الحزم granular',
       peerCodeTitle: 'تثبيت تبعيات peer',
-      upgradeSectionTitle: '2. تحديث العملاء الحاليين إلى 3.3.0',
+      upgradeSectionTitle: '2. تحديث العملاء الحاليين إلى 3.4.0',
       upgradeSectionDescription: 'إذا كان تطبيقك يستخدم GDS بالفعل، حدّث خط الحزم وأدوات الحوكمة معًا.',
       upgradeCodeTitle: 'أوامر التحديث',
       providerSectionTitle: '3. إضافة المزود',
@@ -1155,13 +1305,13 @@ export function InstallPage() {
     hu: {
       title: 'GDS telepítése',
       eyebrow: 'Nyilvános telepítési útvonal',
-      lead: 'Használd az umbrella npm csomagot alapértelmezett nyilvános belépési pontként, teljesítsd a közös Mantine peer sort, kösd be egyszer a providert, és igazítsd a téma-tulajdonlást a kanonikus `3.3.0` szabályokhoz.',
+      lead: 'Használd az umbrella npm csomagot alapértelmezett nyilvános belépési pontként, teljesítsd a közös Mantine peer sort, kösd be egyszer a providert, és igazítsd a téma-tulajdonlást a kanonikus `3.4.0` szabályokhoz.',
       installSectionTitle: '1. Csomagok telepítése',
       installSectionDescription: 'A nyílt forrású nyilvános belépési pont az umbrella csomag.',
       installCodeTitle: 'GDS csomagok telepítése',
       granularCodeTitle: 'Granuláris csomagok telepítése',
       peerCodeTitle: 'Peer függőségek telepítése',
-      upgradeSectionTitle: '2. Meglévő kliensek frissítése 3.3.0-re',
+      upgradeSectionTitle: '2. Meglévő kliensek frissítése 3.4.0-re',
       upgradeSectionDescription: 'Ha az app már használ GDS-t, együtt frissítsd a csomagsort és a governance eszközöket.',
       upgradeCodeTitle: 'Frissítési parancsok',
       providerSectionTitle: '3. Provider hozzáadása',
@@ -1287,7 +1437,7 @@ export function RulebookPage() {
         requireDescription: 'Die gemeinsamen Regeln verhindern, dass lokale Design-Systeme in Produkt-Repositories wachsen.',
         implementedTitle: 'Was in GDS implementiert wird',
         implementedDescription: 'Wiederverwendbare Flächen gehören in Pakete, nicht in die App-Schicht.',
-        changedTitle: 'Was sich in 3.3.0 geändert hat',
+        changedTitle: 'Was sich in 3.4.0 geändert hat',
         changedDescription: 'Theme-Ownership ist jetzt explizit genug, um sie in Client-Repositories zu prüfen und zu erzwingen.',
         fixedTitle: 'Was zur GDS-Nutzung angepasst wird',
         fixedDescription: 'Ist der Bedarf bereits abgedeckt, wird lokale Komposition umgebaut statt neu abstrahiert.',
@@ -1303,7 +1453,7 @@ export function RulebookPage() {
           requireDescription: 'Les règles partagées évitent la croissance de systèmes de design locaux dans les bases produits.',
           implementedTitle: 'Ce qui est implémenté dans GDS',
           implementedDescription: 'Les surfaces réutilisables appartiennent aux packages, pas à la couche applicative.',
-          changedTitle: 'Ce qui a changé en 3.3.0',
+          changedTitle: 'Ce qui a changé en 3.4.0',
           changedDescription: 'La propriété du thème est désormais assez explicite pour être auditée et appliquée.',
           fixedTitle: 'Ce qui doit être corrigé pour utiliser GDS',
           fixedDescription: 'Si le besoin est déjà couvert, la composition locale doit être réécrite plutôt que ré-emballée.',
@@ -1319,7 +1469,7 @@ export function RulebookPage() {
             requireDescription: 'Le regole condivise impediscono la crescita di design system locali nei codebase prodotto.',
             implementedTitle: 'Cosa viene implementato in GDS',
             implementedDescription: 'Le superfici riusabili appartengono ai package, non al layer applicativo.',
-            changedTitle: 'Cosa è cambiato nella 3.3.0',
+            changedTitle: 'Cosa è cambiato nella 3.4.0',
             changedDescription: 'La proprietà del tema è ora abbastanza esplicita da poter essere verificata e applicata.',
             fixedTitle: 'Cosa va corretto per usare GDS',
             fixedDescription: 'Se il bisogno è già coperto, la composizione locale va riscritta invece di essere re-astratta.',
@@ -1335,7 +1485,7 @@ export function RulebookPage() {
               requireDescription: 'Общие правила не дают локальным дизайн-системам разрастаться внутри продуктовых кодовых баз.',
               implementedTitle: 'Что реализуется в GDS',
               implementedDescription: 'Переиспользуемые поверхности принадлежат пакетам, а не слою приложения.',
-              changedTitle: 'Что изменилось в 3.3.0',
+              changedTitle: 'Что изменилось в 3.4.0',
               changedDescription: 'Владение темой теперь достаточно явно, чтобы его можно было проверять и принудительно применять.',
               fixedTitle: 'Что нужно исправить для использования GDS',
               fixedDescription: 'Если потребность уже покрыта, локальную композицию нужно переписать, а не переоборачивать.',
@@ -1351,7 +1501,7 @@ export function RulebookPage() {
                 requireDescription: 'הכללים המשותפים מונעים צמיחה של מערכות עיצוב מקומיות בתוך קודבייסים מוצריים.',
                 implementedTitle: 'מה ממומש בתוך GDS',
                 implementedDescription: 'משטחים לשימוש חוזר שייכים לחבילות ולא לשכבת האפליקציה.',
-                changedTitle: 'מה השתנה ב-3.3.0',
+                changedTitle: 'מה השתנה ב-3.4.0',
                 changedDescription: 'בעלות התמה מוגדרת כעת בצורה מפורשת מספיק לבדיקה ואכיפה.',
                 fixedTitle: 'מה מתקנים כדי להשתמש ב-GDS',
                 fixedDescription: 'אם הצורך כבר מכוסה, יש לשכתב קומפוזיציה מקומית במקום לבצע עטיפה מחדש.',
@@ -1367,7 +1517,7 @@ export function RulebookPage() {
                   requireDescription: 'القواعد المشتركة تمنع نمو أنظمة تصميم محلية داخل قواعد الأكواد الخاصة بالمنتجات.',
                   implementedTitle: 'ما الذي يتم تنفيذه في GDS',
                   implementedDescription: 'الأسطح القابلة لإعادة الاستخدام تنتمي إلى الحزم وليس إلى طبقة التطبيق.',
-                  changedTitle: 'ما الذي تغير في 3.3.0',
+                  changedTitle: 'ما الذي تغير في 3.4.0',
                   changedDescription: 'أصبحت ملكية الثيم واضحة بما يكفي للمراجعة والإنفاذ عبر مستودعات العملاء.',
                   fixedTitle: 'ما الذي يجب إصلاحه لاستخدام GDS',
                   fixedDescription: 'إذا كانت الحاجة مغطاة بالفعل، يجب إعادة كتابة التركيب المحلي بدل إعادة تغليفه.',
@@ -1383,7 +1533,7 @@ export function RulebookPage() {
                     requireDescription: 'A közös szabályok megakadályozzák, hogy helyi design rendszerek nőjenek a termék-kódbázisokban.',
                     implementedTitle: 'Mi kerül a GDS-be',
                     implementedDescription: 'Az újrahasznosítható felületek a csomagokhoz tartoznak, nem az alkalmazási réteghez.',
-                    changedTitle: 'Mi változott a 3.3.0-ben',
+                    changedTitle: 'Mi változott a 3.4.0-ben',
                     changedDescription: 'A téma-tulajdonlás most már elég explicit a felülvizsgálathoz és kikényszerítéshez.',
                     fixedTitle: 'Mit kell javítani a GDS használatához',
                     fixedDescription: 'Ha az igény már lefedett, a helyi kompozíciót át kell írni, nem újracsomagolni.',
@@ -1398,7 +1548,7 @@ export function RulebookPage() {
           requireDescription: 'The shared rules exist to prevent local design systems from growing inside product codebases.',
           implementedTitle: 'What gets implemented in GDS',
           implementedDescription: 'Reusable surfaces belong in packages, not in the app layer.',
-          changedTitle: 'What changed in 3.3.0',
+          changedTitle: 'What changed in 3.4.0',
           changedDescription: 'Theme ownership now includes full CSS VibeThemes: expressive color is package-owned, route-persistent, and enforced without image backgrounds or local theme catalogs.',
           fixedTitle: 'What gets fixed to use GDS',
           fixedDescription: 'If the need is already covered, local composition should be rewritten rather than re-abstracted.',
@@ -1540,7 +1690,7 @@ export function TokensPage({
       eyebrow: 'Official theme explorer',
       lead: 'Test the shipped GDS theme lanes, inspect the governed brand-theme generator, and verify how the official site behaves under each preset.',
       lanesTitle: 'Approved adopter theme lanes',
-      lanesDescription: 'These are the only canonical theme ownership paths we recommend to client teams on `3.3.0`.',
+      lanesDescription: 'These are the only canonical theme ownership paths we recommend to client teams on `3.4.0`.',
       careTitle: 'What clients need to care about',
       careDescription: 'The governance change is about theme ownership and enforceability, not about forcing a visual redesign.',
       linksTitle: 'Theme governance links',
@@ -1551,7 +1701,7 @@ export function TokensPage({
       eyebrow: 'Offizieller Theme-Explorer',
       lead: 'Teste die ausgelieferten GDS-Theme-Lanes, prüfe den gesteuerten Brand-Theme-Generator und verifiziere das Verhalten der offiziellen Seite pro Preset.',
       lanesTitle: 'Freigegebene Theme-Lanes für Adopter',
-      lanesDescription: 'Das sind die einzigen kanonischen Theme-Ownership-Pfade, die wir Client-Teams in `3.3.0` empfehlen.',
+      lanesDescription: 'Das sind die einzigen kanonischen Theme-Ownership-Pfade, die wir Client-Teams in `3.4.0` empfehlen.',
       careTitle: 'Worauf Clients achten müssen',
       careDescription: 'Die Governance-Änderung betrifft Ownership und Durchsetzbarkeit, nicht ein visuelles Redesign.',
       linksTitle: 'Links zur Theme-Governance',
@@ -1562,7 +1712,7 @@ export function TokensPage({
       eyebrow: 'Explorateur de thèmes officiel',
       lead: 'Testez les lanes de thème GDS livrées, inspectez le générateur de thème de marque gouverné et vérifiez le comportement du site officiel pour chaque preset.',
       lanesTitle: 'Lanes de thème approuvées pour les adopteurs',
-      lanesDescription: 'Ce sont les seuls chemins canoniques de propriété du thème recommandés aux équipes clientes en `3.3.0`.',
+      lanesDescription: 'Ce sont les seuls chemins canoniques de propriété du thème recommandés aux équipes clientes en `3.4.0`.',
       careTitle: 'Ce que les clients doivent surveiller',
       careDescription: 'Le changement principal concerne la gouvernance et l’application, pas une refonte visuelle.',
       linksTitle: 'Liens de gouvernance thème',
@@ -1573,7 +1723,7 @@ export function TokensPage({
       eyebrow: 'Esploratore temi ufficiale',
       lead: 'Testa le theme lane GDS rilasciate, ispeziona il generatore brand-theme governato e verifica il comportamento del sito ufficiale per ogni preset.',
       lanesTitle: 'Theme lane approvate per gli adopter',
-      lanesDescription: 'Questi sono gli unici percorsi canonici di proprietà tema raccomandati ai team client su `3.3.0`.',
+      lanesDescription: 'Questi sono gli unici percorsi canonici di proprietà tema raccomandati ai team client su `3.4.0`.',
       careTitle: 'Cosa devono considerare i client',
       careDescription: 'Il cambiamento riguarda governance e enforcement, non un redesign visivo.',
       linksTitle: 'Link governance del tema',
@@ -1584,7 +1734,7 @@ export function TokensPage({
       eyebrow: 'Официальный обозреватель тем',
       lead: 'Проверьте поставляемые theme lane GDS, изучите управляемый генератор бренд-темы и верифицируйте поведение официального сайта для каждого пресета.',
       lanesTitle: 'Одобренные theme lane для adopter-команд',
-      lanesDescription: 'Это единственные канонические пути владения темой, рекомендуемые клиентам на `3.3.0`.',
+      lanesDescription: 'Это единственные канонические пути владения темой, рекомендуемые клиентам на `3.4.0`.',
       careTitle: 'На что клиентам обратить внимание',
       careDescription: 'Изменение касается governance и enforcement, а не визуального редизайна.',
       linksTitle: 'Ссылки по theme governance',
@@ -1595,7 +1745,7 @@ export function TokensPage({
       eyebrow: 'סייר התמות הרשמי',
       lead: 'בדקו את נתיבי התמה שסופקו ב-GDS, בחנו את מחולל תמת המותג המנוהל ואמתו את התנהגות האתר הרשמי בכל preset.',
       lanesTitle: 'נתיבי תמה מאושרים למאמצים',
-      lanesDescription: 'אלה נתיבי בעלות התמה הקנוניים היחידים המומלצים לצוותי לקוח ב-`3.3.0`.',
+      lanesDescription: 'אלה נתיבי בעלות התמה הקנוניים היחידים המומלצים לצוותי לקוח ב-`3.4.0`.',
       careTitle: 'למה לקוחות צריכים לשים לב',
       careDescription: 'השינוי הוא בממשל ובאכיפה, לא בעיצוב חזותי מחדש.',
       linksTitle: 'קישורי ממשל תמה',
@@ -1606,7 +1756,7 @@ export function TokensPage({
       eyebrow: 'مستكشف الثيمات الرسمي',
       lead: 'اختبر مسارات الثيم في GDS، وافحص مُولّد ثيم العلامة الخاضع للحوكمة، وتحقق من سلوك الموقع الرسمي لكل إعداد مسبق.',
       lanesTitle: 'مسارات الثيم المعتمدة للفرق المتبنية',
-      lanesDescription: 'هذه هي مسارات ملكية الثيم القياسية الوحيدة الموصى بها لفرق العملاء على `3.3.0`.',
+      lanesDescription: 'هذه هي مسارات ملكية الثيم القياسية الوحيدة الموصى بها لفرق العملاء على `3.4.0`.',
       careTitle: 'ما الذي يجب أن يهتم به العملاء',
       careDescription: 'التغيير يتعلق بالحوكمة والإنفاذ وليس بإعادة تصميم بصري.',
       linksTitle: 'روابط حوكمة الثيم',
@@ -1617,7 +1767,7 @@ export function TokensPage({
       eyebrow: 'Hivatalos témafelfedező',
       lead: 'Teszteld a szállított GDS témacsatornákat, vizsgáld a szabályozott brand-theme generátort, és ellenőrizd a hivatalos oldal viselkedését minden presetnél.',
       lanesTitle: 'Jóváhagyott témautak adoptálóknak',
-      lanesDescription: 'Ezek az egyetlen kanonikus téma-tulajdonlási utak, amelyeket a klienscsapatoknak ajánlunk `3.3.0` alatt.',
+      lanesDescription: 'Ezek az egyetlen kanonikus téma-tulajdonlási utak, amelyeket a klienscsapatoknak ajánlunk `3.4.0` alatt.',
       careTitle: 'Mire figyeljenek az ügyfelek',
       careDescription: 'A változás a governance és enforcement területén történt, nem vizuális újratervezés.',
       linksTitle: 'Téma-governance linkek',
@@ -1639,7 +1789,7 @@ export function TokensPage({
         { id: 'no-helper', title: 'Stop using extendGdsTheme(...)', description: 'Do not keep it as a long-term consumer branding-layer path.' },
         { id: 'vibe-tokens', title: 'Use --gds-vibe-* tokens', description: 'Do not rebuild colorful theme visuals with route-local gradients, image backgrounds, or product-owned theme catalogs.' },
         { id: 'manifest', title: 'Declare theme ownership files', description: 'Use approvedThemeLanes and themeOwnershipPaths in gds-adoption.json when you use gds-compliance.' },
-        { id: 'verify', title: 'Verify after updating', description: 'Run build, tests, and gds-compliance after moving to the 3.3.0 line.' },
+        { id: 'verify', title: 'Verify after updating', description: 'Run build, tests, and gds-compliance after moving to the 3.4.0 line.' },
       ],
       links: [
         { id: 'theme-governance', title: 'Open theme governance', description: 'Read the canonical theme-lane rules and the creator-authored boundary.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
@@ -1659,7 +1809,7 @@ export function TokensPage({
         { id: 'no-helper', title: 'extendGdsTheme(...) nicht mehr verwenden', description: 'Nicht als langfristigen Consumer-Branding-Layer-Pfad behalten.' },
         { id: 'vibe-tokens', title: '--gds-vibe-* Tokens verwenden', description: 'Farbige Theme-Visuals nicht mit routenlokalen Gradients, Bildhintergründen oder produkt-eigenen Theme-Katalogen neu bauen.' },
         { id: 'manifest', title: 'Theme-Ownership-Dateien deklarieren', description: 'Nutze approvedThemeLanes und themeOwnershipPaths in gds-adoption.json, wenn du gds-compliance verwendest.' },
-        { id: 'verify', title: 'Nach dem Update verifizieren', description: 'Führe Build, Tests und gds-compliance nach dem Wechsel auf die 3.3.0-Linie aus.' },
+        { id: 'verify', title: 'Nach dem Update verifizieren', description: 'Führe Build, Tests und gds-compliance nach dem Wechsel auf die 3.4.0-Linie aus.' },
       ],
       links: [
         { id: 'theme-governance', title: 'Theme-Governance öffnen', description: 'Lies die kanonischen Theme-Lane-Regeln und die creator-authored Grenze.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
@@ -1679,7 +1829,7 @@ export function TokensPage({
         { id: 'no-helper', title: 'Ne használd tovább az extendGdsTheme(...)-et', description: 'Ne maradjon hosszú távú consumer branding-layer útvonal.' },
         { id: 'vibe-tokens', title: '--gds-vibe-* tokenek használata', description: 'Ne építsd újra a színes téma vizuálokat route-local gradiensekkel, kép hátterekkel vagy product-owned theme katalógusokkal.' },
         { id: 'manifest', title: 'Téma ownership fájlok deklarálása', description: 'Használd az approvedThemeLanes és themeOwnershipPaths mezőket a gds-adoption.json fájlban, amikor gds-compliance-t futtatsz.' },
-        { id: 'verify', title: 'Frissítés után ellenőrzés', description: 'Futtass buildet, teszteket és gds-compliance-t a 3.3.0 vonalra váltás után.' },
+        { id: 'verify', title: 'Frissítés után ellenőrzés', description: 'Futtass buildet, teszteket és gds-compliance-t a 3.4.0 vonalra váltás után.' },
       ],
       links: [
         { id: 'theme-governance', title: 'Theme governance megnyitása', description: 'Olvasd el a kanonikus theme-lane szabályokat és a creator-authored határt.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
@@ -1701,7 +1851,7 @@ export function TokensPage({
         { id: 'no-helper', title: 'Arrêter extendGdsTheme(...)', description: 'Ne pas le conserver comme chemin durable de branding-layer consumer.' },
         { id: 'vibe-tokens', title: 'Utiliser les tokens --gds-vibe-*', description: 'Ne reconstruisez pas les visuels colorés avec des gradients route-local, images de fond ou catalogues de thème produit.' },
         { id: 'manifest', title: 'Déclarer les fichiers de propriété thème', description: 'Utilisez approvedThemeLanes et themeOwnershipPaths dans gds-adoption.json avec gds-compliance.' },
-        { id: 'verify', title: 'Vérifier après mise à jour', description: 'Exécutez build, tests et gds-compliance après le passage à la ligne 3.3.0.' },
+        { id: 'verify', title: 'Vérifier après mise à jour', description: 'Exécutez build, tests et gds-compliance après le passage à la ligne 3.4.0.' },
       ],
       links: [
         { id: 'theme-governance', title: 'Ouvrir la gouvernance thème', description: 'Lire les règles canoniques des theme lanes et la limite creator-authored.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
@@ -1721,7 +1871,7 @@ export function TokensPage({
         { id: 'no-helper', title: 'Smetti di usare extendGdsTheme(...)', description: 'Non mantenerlo come percorso consumer branding-layer a lungo termine.' },
         { id: 'vibe-tokens', title: 'Usa i token --gds-vibe-*', description: 'Non ricostruire visual tema colorati con gradienti route-local, sfondi immagine o cataloghi tema product-owned.' },
         { id: 'manifest', title: 'Dichiara i file di ownership tema', description: 'Usa approvedThemeLanes e themeOwnershipPaths in gds-adoption.json quando usi gds-compliance.' },
-        { id: 'verify', title: 'Verifica dopo l’aggiornamento', description: 'Esegui build, test e gds-compliance dopo il passaggio alla linea 3.3.0.' },
+        { id: 'verify', title: 'Verifica dopo l’aggiornamento', description: 'Esegui build, test e gds-compliance dopo il passaggio alla linea 3.4.0.' },
       ],
       links: [
         { id: 'theme-governance', title: 'Apri governance tema', description: 'Leggi le regole canoniche delle theme lane e il confine creator-authored.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
@@ -1741,7 +1891,7 @@ export function TokensPage({
         { id: 'no-helper', title: 'Прекратить использовать extendGdsTheme(...)', description: 'Не сохраняйте это как долгосрочный consumer branding-layer путь.' },
         { id: 'vibe-tokens', title: 'Использовать токены --gds-vibe-*', description: 'Не пересобирайте цветные визуалы тем через route-local градиенты, изображения или product-owned каталоги.' },
         { id: 'manifest', title: 'Объявить файлы ownership темы', description: 'Используйте approvedThemeLanes и themeOwnershipPaths в gds-adoption.json при gds-compliance.' },
-        { id: 'verify', title: 'Проверить после обновления', description: 'Запустите build, tests и gds-compliance после перехода на линию 3.3.0.' },
+        { id: 'verify', title: 'Проверить после обновления', description: 'Запустите build, tests и gds-compliance после перехода на линию 3.4.0.' },
       ],
       links: [
         { id: 'theme-governance', title: 'Открыть governance темы', description: 'Прочитайте канонические правила theme-lane и creator-authored границу.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
@@ -1761,7 +1911,7 @@ export function TokensPage({
         { id: 'no-helper', title: 'להפסיק להשתמש ב-extendGdsTheme(...)', description: 'לא להשאיר אותו כנתיב consumer branding-layer לטווח ארוך.' },
         { id: 'vibe-tokens', title: 'להשתמש ב-tokenים --gds-vibe-*', description: 'לא לבנות מחדש ויזואליות צבעונית עם gradients מקומיים, רקעי תמונה או קטלוגי תמה product-owned.' },
         { id: 'manifest', title: 'להצהיר על קבצי ownership של תמה', description: 'השתמשו ב-approvedThemeLanes וב-themeOwnershipPaths בתוך gds-adoption.json עם gds-compliance.' },
-        { id: 'verify', title: 'לאמת אחרי עדכון', description: 'הריצו build, tests ו-gds-compliance אחרי מעבר לקו 3.3.0.' },
+        { id: 'verify', title: 'לאמת אחרי עדכון', description: 'הריצו build, tests ו-gds-compliance אחרי מעבר לקו 3.4.0.' },
       ],
       links: [
         { id: 'theme-governance', title: 'פתיחת governance לתמות', description: 'קראו את כללי theme-lane הקנוניים ואת גבול creator-authored.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },
@@ -1781,7 +1931,7 @@ export function TokensPage({
         { id: 'no-helper', title: 'أوقف استخدام extendGdsTheme(...)', description: 'لا تحتفظ به كمسار دائم لطبقة branding خاصة بالمستهلك.' },
         { id: 'vibe-tokens', title: 'استخدم رموز --gds-vibe-*', description: 'لا تعيد بناء visual الثيمات الملونة بتدرجات محلية للمسار أو خلفيات صور أو كتالوجات product-owned.' },
         { id: 'manifest', title: 'صرّح بملفات ownership للثيم', description: 'استخدم approvedThemeLanes و themeOwnershipPaths في gds-adoption.json عند تشغيل gds-compliance.' },
-        { id: 'verify', title: 'تحقق بعد التحديث', description: 'شغّل build و tests و gds-compliance بعد الانتقال إلى خط 3.3.0.' },
+        { id: 'verify', title: 'تحقق بعد التحديث', description: 'شغّل build و tests و gds-compliance بعد الانتقال إلى خط 3.4.0.' },
       ],
       links: [
         { id: 'theme-governance', title: 'فتح حوكمة الثيم', description: 'اقرأ قواعد theme-lane القياسية وحدود creator-authored.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/THEME_GOVERNANCE.md' },

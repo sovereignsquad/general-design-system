@@ -22,6 +22,20 @@ gds-compliance check --manifest ./gds-adoption.json
 3. Confirm the recommended contracts, accessibility requirement, operational checks, and risk level.
 4. Request a feature only when no shipped contract covers the reusable need.
 
+## Recommended Maturity Capabilities
+
+Use `/maturity` and `getGdsRecommendedMaturityCapabilities()` before creating local UI infrastructure. The seven recommended areas are now package-native delivery contracts:
+
+- Admin delivery contracts for forms, tables, analytics, and resource managers.
+- Runtime feedback for confirmation, toast, modal, drawer, and command surfaces.
+- Foundation surface governance for layout primitives, safe styling, and icons.
+- Global readiness for i18n runtime behavior and accessibility evidence.
+- Adoption governance for compliance, codemods, dashboards, and exception lifecycle.
+- Theme operations for token authoring, high contrast, motion, and design handoff.
+- Product system delivery for content standards, page templates, and telemetry.
+
+Product owners should approve local UI work only when the need is not covered by these contracts or when a temporary exception is recorded in `gds-adoption.json` with owner, review date, exit condition, and replacement path.
+
 ## Accessibility DoD
 
 Every UI delivered with GDS must preserve keyboard operation, visible focus, semantic labels, contrast, reduced motion, non-color-only meaning, and mobile-safe layout.

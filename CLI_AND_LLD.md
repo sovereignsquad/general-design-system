@@ -41,6 +41,21 @@ Flow:
 3. Package message parity keeps every locale pack aligned with English baseline keys.
 4. Release gates fail on missing route declarations, missing message keys, or native dialog copy in packages.
 
+## Maturity Registry LLD
+
+Source:
+
+- `packages/gds-core/src/MaturityCapabilities.ts`
+- `apps/playground/src/info-pages.tsx`
+- GitHub issues `#240` through `#246`
+
+Flow:
+
+1. GitHub issues define the production-grade implementation scope.
+2. The package maturity registry exposes the same seven capability groups as typed static data.
+3. `/maturity` renders benefits, package lanes, contracts, states, observability, rollback, and test evidence in every supported site language.
+4. `verify:api-docs-coverage` ensures the registry helpers are represented in public API coverage.
+
 ## Rollback
 
 If a release gate creates an emergency false positive, remove it from `verify:references` only in the patch branch, keep the script runnable manually, document the exception, and restore strict release gating in the next patch.

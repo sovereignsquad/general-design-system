@@ -2,6 +2,14 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.4.0 - 2026-06-06
+
+- Added issue-backed maturity capability contracts for the seven recommended high-value GDS delivery areas: admin delivery, runtime feedback, foundation surfaces, global readiness, adoption governance, theme operations, and product-system delivery.
+- Added `getGdsMaturityCapabilities()`, `getGdsRecommendedMaturityCapabilities()`, `getGdsMaturityCapability(...)`, and `getGdsMaturitySummary()` to `@doneisbetter/gds-core`.
+- Added the localized `/maturity` GitHub Pages route so developers and product owners can inspect benefits, package lanes, primary contracts, UX states, accessibility, observability, rollback, testing, and operational behavior in every supported site language.
+- Created the 3.4.0 GitHub project-board issue set using the issue #81 production-grade structure.
+- Updated API, user-guide, CLI/LLD, install, compatibility, release, and README guidance to the `3.4.0` npm release line.
+
 ## 3.3.0 - 2026-06-06
 
 - Added registry-backed `/api` documentation for published GDS package exports, including import paths, runtime lanes, state contracts, accessibility notes, and verification metadata.

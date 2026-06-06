@@ -853,7 +853,7 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
       }
     }
 
-    if (/(?:SocialAuthButtons|ProviderIdentityButton|ProviderIdentityButtonGroup)/.test(content) && !usages.length && providerTextRegex.test(content)) {
+    if (/<(?:SocialAuthButtons|ProviderIdentityButton|ProviderIdentityButtonGroup)\b/.test(content) && !usages.length && providerTextRegex.test(content)) {
       findings.push({
         rule: 'identity.provider.missing-provider-list',
         severity: 'warn',

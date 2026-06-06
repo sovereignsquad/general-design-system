@@ -21,6 +21,7 @@ describe('public site routes', () => {
       'Install',
       'Patterns',
       'API',
+      'Maturity',
       'Use Cases',
       'Coverage',
       'Themes',

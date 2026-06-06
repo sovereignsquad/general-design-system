@@ -63,6 +63,7 @@ const requiredCopyObjectsByRoute = new Map([
   ['/', 'export function OverviewPage()'],
   ['/install', 'export function InstallPage()'],
   ['/api', 'export function ApiReferencePage()'],
+  ['/maturity', 'export function MaturityPage()'],
   ['/use-cases', 'export function UseCasesPage()'],
   ['/governance', 'export function RulebookPage()'],
   ['/themes', 'export function TokensPage'],

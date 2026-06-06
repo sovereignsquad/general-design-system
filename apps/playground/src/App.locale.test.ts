@@ -16,6 +16,7 @@ describe('playground route locale coverage', () => {
     expect(hasFullRouteLocalization('/themes', 'he')).toBe(true);
     expect(hasFullRouteLocalization('/governance', 'ar')).toBe(true);
     expect(hasFullRouteLocalization('/api', 'de')).toBe(true);
+    expect(hasFullRouteLocalization('/maturity', 'ar')).toBe(true);
     expect(hasFullRouteLocalization('/use-cases', 'hu')).toBe(true);
     expect(hasFullRouteLocalization('/', 'hu')).toBe(true);
 
@@ -27,6 +28,7 @@ describe('playground route locale coverage', () => {
   it('returns the full-copy locale list for each route', () => {
     expect(getFullCopyLocalesForRoute('/install')).toContain('hu');
     expect(getFullCopyLocalesForRoute('/api')).toContain('hu');
+    expect(getFullCopyLocalesForRoute('/maturity')).toContain('hu');
     expect(getFullCopyLocalesForRoute('/use-cases')).toContain('hu');
     expect(getFullCopyLocalesForRoute('/themes')).toContain('hu');
     expect(getFullCopyLocalesForRoute('/patterns/public')).toEqual(['en']);
