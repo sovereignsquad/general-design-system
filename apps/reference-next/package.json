@@ -1,15 +1,15 @@
 {
   "name": "reference-next",
   "private": true,
-  "version": "3.4.5",
+  "version": "3.4.6",
   "scripts": {
     "build": "tsc --noEmit",
     "build:app-router": "next build",
     "dev": "next dev"
   },
   "dependencies": {
-    "@doneisbetter/gds-core": "3.4.5",
-    "@doneisbetter/gds-theme": "3.4.5",
+    "@doneisbetter/gds-core": "3.4.6",
+    "@doneisbetter/gds-theme": "3.4.6",
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
     "react": "^18.3.1",

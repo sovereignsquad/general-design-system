@@ -1684,6 +1684,14 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getAllByText('Default runtime theme').length).toBeGreaterThan(0);
   });
 
+  it('does not merge partial reference theme explorer translations with English fallback copy', () => {
+    renderWithGds(<ReferenceThemeExplorer />, { locale: 'ru' });
+
+    expect(screen.getByText('Theme Lab')).toBeInTheDocument();
+    expect(screen.queryByText('Лаборатория тем')).not.toBeInTheDocument();
+    expect(screen.getAllByText('Default runtime theme').length).toBeGreaterThan(0);
+  });
+
   it('forwards chosen files from the shared upload dropzone', async () => {
     const user = userEvent.setup();
     const onFilesSelected = vi.fn();

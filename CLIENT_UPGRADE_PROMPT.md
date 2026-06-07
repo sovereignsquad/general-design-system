@@ -2,20 +2,20 @@
 
 ## What this is
 
-Use this for every product team migrating to the current stable `3.4.5` GDS adoption-platform release.
+Use this for every product team migrating to the current stable `3.4.6` GDS adoption-platform release.
 
-## Copy/paste message for 3.4.5 after publish verification
+## Copy/paste message for 3.4.6 after publish verification
 
-Team, we completed the GDS upgrade to the 3.4.5 adoption platform release.
+Team, we completed the GDS upgrade to the 3.4.6 adoption platform release.
 
 - Update dependencies:
-  - `@doneisbetter/gds@3.4.5`
-  - `@doneisbetter/gds-eslint-config@3.4.5` (dev)
-  - `@doneisbetter/gds-compliance@3.4.5` (dev)
+  - `@doneisbetter/gds@3.4.6`
+  - `@doneisbetter/gds-eslint-config@3.4.6` (dev)
+  - `@doneisbetter/gds-compliance@3.4.6` (dev)
 - If you use granular packages, keep every GDS package on the same version:
-  - `@doneisbetter/gds-theme@3.4.5`
-  - `@doneisbetter/gds-core@3.4.5`
-  - `@doneisbetter/gds-admin@3.4.5`
+  - `@doneisbetter/gds-theme@3.4.6`
+  - `@doneisbetter/gds-core@3.4.6`
+  - `@doneisbetter/gds-admin@3.4.6`
 - Install Mantine peers normally; do not force peer resolution.
 - Keep the App Router split:
   - `app/layout.tsx` owns `ColorSchemeScript`

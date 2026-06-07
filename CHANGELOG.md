@@ -2,6 +2,12 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.4.6 - 2026-06-07
+
+- Fixed the package-owned theme explorer i18n resolver so incomplete locale resources no longer render mixed-language surfaces by merging partial translations with English fallback copy.
+- Added regression coverage proving partial theme-explorer locale resources fall back to one complete language until the locale has full nested copy coverage.
+- Aligned package, reference-app, and install metadata to the `3.4.6` patch release line.
+
 ## 3.4.5 - 2026-06-07
 
 - Added strict consumer-admin migration enforcement with `approvedAdminPrimitives` and `strict.admin.local-wrapper` detection for product-local admin layout, form, action, card, breadcrumb, media, and field shims.

@@ -99,6 +99,62 @@ type ExplorerCopy = Omit<typeof referenceThemeExplorerCopy.en, 'presetLabels' | 
 };
 const fallbackExplorerCopy: ExplorerCopy = referenceThemeExplorerCopy.en;
 
+function hasCompleteCopyValue(referenceValue: unknown, candidateValue: unknown): boolean {
+  if (Array.isArray(referenceValue)) {
+    return Array.isArray(candidateValue) && referenceValue.every((_, index) => candidateValue[index] !== undefined);
+  }
+
+  if (referenceValue && typeof referenceValue === 'object') {
+    if (!candidateValue || typeof candidateValue !== 'object' || Array.isArray(candidateValue)) {
+      return false;
+    }
+
+    return Object.keys(referenceValue).every((key) =>
+      hasCompleteCopyValue(
+        (referenceValue as Record<string, unknown>)[key],
+        (candidateValue as Record<string, unknown>)[key]
+      )
+    );
+  }
+
+  return candidateValue !== undefined;
+}
+
+function hasCompleteExplorerCopy(copy: Partial<ExplorerCopy>): copy is ExplorerCopy {
+  return hasCompleteCopyValue(fallbackExplorerCopy, copy);
+}
+
+function resolveExplorerCopy(locale: string): ExplorerCopy {
+  const localeBaseCopy = (referenceThemeExplorerCopy[locale as keyof typeof referenceThemeExplorerCopy] ?? {}) as Partial<ExplorerCopy>;
+  const localeOverrideCopy = (referenceThemeExplorerCopyOverrides as Record<string, Partial<ExplorerCopy>>)[locale] ?? {};
+  const mergedCopy = {
+    ...localeBaseCopy,
+    ...localeOverrideCopy,
+    schemes: {
+      ...localeBaseCopy.schemes,
+      ...localeOverrideCopy.schemes,
+    },
+    schemeDescriptions: {
+      ...localeBaseCopy.schemeDescriptions,
+      ...localeOverrideCopy.schemeDescriptions,
+    },
+    presetLabels: {
+      ...localeBaseCopy.presetLabels,
+      ...localeOverrideCopy.presetLabels,
+    },
+    presetSummaries: {
+      ...localeBaseCopy.presetSummaries,
+      ...localeOverrideCopy.presetSummaries,
+    },
+  } as Partial<ExplorerCopy>;
+
+  if (!hasCompleteExplorerCopy(mergedCopy)) {
+    return fallbackExplorerCopy;
+  }
+
+  return mergedCopy;
+}
+
 
 function ThemePreviewSurface({
   preset,
@@ -192,33 +248,7 @@ export function ReferenceThemeExplorer({
   onSelectionChange?: (selection: ThemeExplorerSelection) => void;
 }) {
   const { locale } = useGdsTranslation();
-  const localeBaseCopy = (referenceThemeExplorerCopy[locale as keyof typeof referenceThemeExplorerCopy] ?? {}) as Partial<ExplorerCopy>;
-  const localeOverrideCopy = (referenceThemeExplorerCopyOverrides as Record<string, Partial<ExplorerCopy>>)[locale] ?? {};
-  const copy = {
-    ...fallbackExplorerCopy,
-    ...localeBaseCopy,
-    ...localeOverrideCopy,
-    schemes: {
-      ...fallbackExplorerCopy.schemes,
-      ...localeBaseCopy.schemes,
-      ...localeOverrideCopy.schemes,
-    },
-    schemeDescriptions: {
-      ...fallbackExplorerCopy.schemeDescriptions,
-      ...localeBaseCopy.schemeDescriptions,
-      ...localeOverrideCopy.schemeDescriptions,
-    },
-    presetLabels: {
-      ...fallbackExplorerCopy.presetLabels,
-      ...localeBaseCopy.presetLabels,
-      ...localeOverrideCopy.presetLabels,
-    },
-    presetSummaries: {
-      ...fallbackExplorerCopy.presetSummaries,
-      ...localeBaseCopy.presetSummaries,
-      ...localeOverrideCopy.presetSummaries,
-    },
-  } as ExplorerCopy;
+  const copy = resolveExplorerCopy(locale);
   const [preset, setPreset] = useState<ThemePresetId>(initialSelection?.preset ?? 'default');
   const [colorScheme, setColorScheme] = useState<ThemeSchemeId>(initialSelection?.colorScheme ?? 'light');
   const [brandPrimary, setBrandPrimary] = useState(initialSelection?.brandPrimary ?? 'blue');
