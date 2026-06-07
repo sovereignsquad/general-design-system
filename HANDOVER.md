@@ -4,6 +4,18 @@ Status: Active
 Date: 2026-05-24
 Repository: `/Users/Shared/Projects/general-design-system`
 
+## Current Canonical Board Note
+
+The current canonical GDS delivery board is organization project `sovereignsquad#11` (`{GDS} - From IDEA to LIVE`), not the older personal project listed below.
+
+As of 2026-06-07, issues `#247` through `#271` are open high-value-benefit GDS backlog issues and need to be added to project `11` when GitHub GraphQL project-board capacity resets. Use:
+
+```bash
+npm run board:sync-hvb
+```
+
+The latest observed blocker was `GraphQL: API rate limit exceeded for user ID 2206999`; reset was reported as `2026-06-07T13:54:46Z` (`2026-06-07 15:54:46 CEST`).
+
 ## Delivered in this repo
 
 - aligned the GDS release line to `2.3.0`

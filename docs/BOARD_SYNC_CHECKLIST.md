@@ -1,7 +1,7 @@
 # Board Sync Checklist
 
 Status: Active
-Last updated: 2026-06-06
+Last updated: 2026-06-07
 
 Use this checklist before release, after major implementation waves, and before closing canonical project-board issues.
 
@@ -82,12 +82,12 @@ Issues created from the issue #81 production-grade standard and closed with rele
 - `#246` Product System: Content standards, page templates, and observability - product-owner delivery contract
 - `#272` i18n Quality: Full-copy routes must not render mixed-language overview UI
 
-Pending GitHub project-board mutation if GraphQL is rate-limited:
+GitHub project-board mutation completed on 2026-06-07:
 
-- Move project items for issues `#240` through `#246` and `#272` to Status `Done`.
-- Keep them in milestone `GDS 3.4.0 - Product delivery maturity`.
-- Run `npm run audit:board:strict` after the project-board Status field is updated.
-- Expected strict board result after normalization: no open project-board issues for the 3.4.0 delivery set and no state/status mismatches.
+- Project items for issues `#240` through `#246` and `#272` were set to Status `Done`.
+- Issue `#272` was added to milestone `GDS 3.4.0 - Product delivery maturity`.
+- Targeted verification confirmed project item `PVTI_lADOEEuBB84BYuSMzgu9mfc` maps to closed issue `#272` with Status `Done`.
+- Full `npm run audit:board:strict` should be rerun after GitHub project-query rate limits recover; the targeted mutation is complete, but the full-board audit was blocked by GitHub API rate limiting during verification.
 
 Repository project-board target:
 
@@ -118,3 +118,43 @@ Operational note:
 
 - REST API may still allow issue comments, issue closure, and release creation while GraphQL project-board mutations are blocked.
 - Project-board Status updates require GraphQL capacity. If blocked, retry after the reset shown by `gh api rate_limit`.
+
+## 8. HVB Backlog Board Handover
+
+Use this handover for the 25 high-value-benefit implementation issues that were created from the GDS industry comparison and remain open for future delivery.
+
+Current issue state:
+
+- Open repository issues: `#247` through `#271`
+- P0 issues: `#247`, `#248`, `#249`, `#250`, `#251`, `#254`, `#255`, `#256`, `#257`, `#258`, `#259`, `#260`, `#261`, `#262`, `#263`, `#264`, `#266`, `#267`, `#268`, `#269`, `#270`, `#271`
+- P1 issues: `#252`, `#253`, `#265`
+- Milestone: `GDS 3.4.0 - Product delivery maturity`
+
+Required project-board mutation:
+
+- Add issues `#247` through `#271` to project `{GDS} - From IDEA to LIVE` (`sovereignsquad#11`) if missing.
+- Set P0 issues to Status `Backlog (SOONER)`.
+- Set P1 issues to Status `Roadmap (LATER)`.
+- Run `npm run audit:board:strict` after mutation.
+
+Current blocker:
+
+- GitHub GraphQL project-board API returned `API rate limit exceeded for user ID 2206999`.
+- Latest observed GraphQL reset: `2026-06-07T13:54:46Z` (`2026-06-07 15:54:46 CEST`).
+- REST issue reads still work, but project-board reads/writes are blocked until GraphQL capacity resets.
+
+Later board update procedure:
+
+```bash
+gh api rate_limit
+# continue only when resources.graphql.remaining is comfortably above 50
+
+npm run board:sync-hvb
+```
+
+Expected board audit after the later update:
+
+```text
+open issues: 25
+state/status mismatches: 0
+```

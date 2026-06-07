@@ -3,6 +3,48 @@
 Status: Safe baseline established  
 Last updated: 2026-05-31
 
+## 2026-06-07 HVB Board Sync Pending
+
+Repository issue inspection found 25 open high-value-benefit implementation issues that are reusable GDS backlog and should be tracked on canonical project board `sovereignsquad#11`:
+
+- `#247` Layout primitive completeness - governed responsive composition API
+- `#248` Safe styling API - token-backed constrained style props
+- `#249` Icon registry and semantic icon API - approved package-native symbols
+- `#250` Token authoring and validation tools - diff, lint, contrast, and theme reports
+- `#251` High-contrast and forced-colors mode - explicit accessibility theme contract
+- `#252` Motion system - tokens, presets, reduced-motion, and no-motion fallbacks
+- `#253` Design-to-code integration - Figma library mapping and handoff contract
+- `#254` Notification center - unified toast, status, announcement, and audit API
+- `#255` Confirmation and destructive action API - typed async risk and undo service
+- `#256` Modal, drawer, and command surface system - overlay lifecycle contract
+- `#257` Advanced form orchestration - validation, dirty state, autosave, optimistic submit, and recovery
+- `#258` Schema-driven forms - typed Zod, JSON Schema, and OpenAPI form builder
+- `#259` Data table engine - sort, filter, paginate, select, virtualize, export, and mobile states
+- `#260` Resource manager framework - CRUD list detail edit activate copy-preview pattern
+- `#261` Media and asset management system - upload preview metadata retry and accessibility contracts
+- `#262` Task-based pattern library - best-practice workflow contracts for product tasks
+- `#263` Production page templates - package-native admin settings resource CRUD analytics public event error empty states
+- `#264` i18n runtime components - pluralization formatting sorting RTL expansion and telemetry
+- `#265` Content design system - voice tone error CTA confirmation empty-state and localization-safe copy
+- `#266` Accessibility evidence framework - keyboard screen reader focus WCAG and AT/browser status
+- `#267` Automated accessibility CI package - Playwright axe keyboard focus and contrast gates
+- `#268` Migration codemods - Mantine Tabler raw controls inline styles alerts confirms and tables
+- `#269` Adoption dashboard - consumer app scoring for imports controls styles i18n tokens a11y and exceptions
+- `#270` Exception lifecycle governance - owner expiry risk replacement issue link and CI decay
+- `#271` Observability and operational contracts - standardized UX telemetry hooks
+
+Required board target:
+
+- Add all 25 issues to project `11` if missing.
+- Set P0 issues to `Backlog (SOONER)`.
+- Set P1 issues `#252`, `#253`, and `#265` to `Roadmap (LATER)`.
+- Run `npm run board:sync-hvb` after GitHub GraphQL capacity resets.
+
+Current blocker:
+
+- GitHub GraphQL project-board API returned `API rate limit exceeded for user ID 2206999`.
+- Latest observed GraphQL reset: `2026-06-07T13:54:46Z` (`2026-06-07 15:54:46 CEST`).
+
 ## Context
 
 Earlier board verification was interrupted by GitHub API rate limiting. The follow-up audit has now completed successfully against the canonical GDS project board.

@@ -20,6 +20,7 @@
     "audit:board": "node scripts/audit-project-board.mjs",
     "audit:board:strict": "GDS_BOARD_AUDIT_STRICT=1 node scripts/audit-project-board.mjs",
     "board:complete-3.4": "node scripts/complete-3-4-board.mjs && npm run audit:board:strict",
+    "board:sync-hvb": "node scripts/sync-hvb-board.mjs && npm run audit:board:strict",
     "audit:dependencies": "node scripts/verify-dependency-audit.mjs",
     "verify:mantine": "node scripts/verify-mantine8-compat.mjs",
     "verify:mantine8": "node scripts/verify-mantine8-compat.mjs",
