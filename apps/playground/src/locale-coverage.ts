@@ -18,6 +18,10 @@ export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
     fullCopyLocales: allSiteLocaleIds,
   },
   {
+    routePrefix: '/patterns',
+    fullCopyLocales: englishOnlyLocaleIds,
+  },
+  {
     routePrefix: '/api',
     fullCopyLocales: englishOnlyLocaleIds,
   },
@@ -30,11 +34,23 @@ export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
     fullCopyLocales: englishOnlyLocaleIds,
   },
   {
+    routePrefix: '/coverage',
+    fullCopyLocales: englishOnlyLocaleIds,
+  },
+  {
     routePrefix: '/governance',
     fullCopyLocales: englishOnlyLocaleIds,
   },
   {
     routePrefix: '/themes',
+    fullCopyLocales: englishOnlyLocaleIds,
+  },
+  {
+    routePrefix: '/live-demos',
+    fullCopyLocales: englishOnlyLocaleIds,
+  },
+  {
+    routePrefix: '/request-feature',
     fullCopyLocales: englishOnlyLocaleIds,
   },
 ];

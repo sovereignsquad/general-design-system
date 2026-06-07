@@ -17,10 +17,14 @@ describe('playground route locale coverage', () => {
     expect(hasFullRouteLocalization('/api', 'de')).toBe(false);
     expect(hasFullRouteLocalization('/maturity', 'es')).toBe(false);
     expect(hasFullRouteLocalization('/use-cases', 'hu')).toBe(false);
+    expect(hasFullRouteLocalization('/coverage', 'de')).toBe(false);
+    expect(hasFullRouteLocalization('/patterns', 'fr')).toBe(false);
     expect(hasFullRouteLocalization('/governance', 'fr')).toBe(false);
     expect(hasFullRouteLocalization('/governance', 'ar')).toBe(false);
     expect(hasFullRouteLocalization('/themes', 'de')).toBe(false);
     expect(hasFullRouteLocalization('/themes', 'he')).toBe(false);
+    expect(hasFullRouteLocalization('/live-demos', 'ru')).toBe(false);
+    expect(hasFullRouteLocalization('/request-feature', 'it')).toBe(false);
     expect(hasFullRouteLocalization('/install', 'pl')).toBe(false);
     expect(hasFullRouteLocalization('/patterns/public', 'de')).toBe(false);
     expect(hasFullRouteLocalization('/patterns/public', 'en')).toBe(true);
@@ -32,8 +36,12 @@ describe('playground route locale coverage', () => {
     expect(getFullCopyLocalesForRoute('/api')).toEqual(['en']);
     expect(getFullCopyLocalesForRoute('/maturity')).toEqual(['en']);
     expect(getFullCopyLocalesForRoute('/use-cases')).toEqual(['en']);
+    expect(getFullCopyLocalesForRoute('/coverage')).toEqual(['en']);
+    expect(getFullCopyLocalesForRoute('/patterns')).toEqual(['en']);
     expect(getFullCopyLocalesForRoute('/governance')).toEqual(['en']);
     expect(getFullCopyLocalesForRoute('/themes')).toEqual(['en']);
+    expect(getFullCopyLocalesForRoute('/live-demos')).toEqual(['en']);
+    expect(getFullCopyLocalesForRoute('/request-feature')).toEqual(['en']);
     expect(getFullCopyLocalesForRoute('/patterns/public')).toEqual(['en']);
   });
 

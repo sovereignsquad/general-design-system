@@ -5,10 +5,12 @@ const root = process.cwd();
 const manifestPath = resolve(root, 'apps/playground/gds-adoption.json');
 const siteCopyPath = resolve(root, 'apps/playground/src/site-copy.ts');
 const localeCoveragePath = resolve(root, 'apps/playground/src/locale-coverage.ts');
+const siteRoutesPath = resolve(root, 'apps/playground/src/site-routes.ts');
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const siteCopySource = readFileSync(siteCopyPath, 'utf8');
 const localeCoverageSource = readFileSync(localeCoveragePath, 'utf8');
+const siteRoutesSource = readFileSync(siteRoutesPath, 'utf8');
 
 const failures = [];
 const localizedRouteCoverage = manifest.compliance?.localizedRouteCoverage;
@@ -80,6 +82,19 @@ for (const routePrefix of ['/api', '/maturity', '/use-cases', '/governance', '/t
   const manifestValue = routeCoverageFromManifest.get(routePrefix);
   if (manifestValue && manifestValue !== 'en') {
     failures.push(`${routePrefix} must remain English-only until every registry/demo-data string on the route is centralized and translated.`);
+  }
+}
+
+const primaryRoutePaths = [
+  ...siteRoutesSource.matchAll(/path:\s*'([^']+)'[\s\S]*?navGroup:\s*'primary'/g),
+].map((match) => match[1]);
+
+for (const routePath of primaryRoutePaths) {
+  if (!routeCoverageFromManifest.has(routePath)) {
+    failures.push(`gds-adoption.json must declare localizedRouteCoverage for primary route "${routePath}".`);
+  }
+  if (!sourceRoutePrefixes.has(routePath)) {
+    failures.push(`locale-coverage.ts must declare localizedRouteCoverage for primary route "${routePath}".`);
   }
 }
 

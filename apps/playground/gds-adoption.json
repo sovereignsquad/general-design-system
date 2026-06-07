@@ -161,6 +161,12 @@
         ]
       },
       {
+        "routePrefix": "/patterns",
+        "fullCopyLocales": [
+          "en"
+        ]
+      },
+      {
         "routePrefix": "/api",
         "fullCopyLocales": [
           "en"
@@ -179,6 +185,12 @@
         ]
       },
       {
+        "routePrefix": "/coverage",
+        "fullCopyLocales": [
+          "en"
+        ]
+      },
+      {
         "routePrefix": "/governance",
         "fullCopyLocales": [
           "en"
@@ -186,6 +198,18 @@
       },
       {
         "routePrefix": "/themes",
+        "fullCopyLocales": [
+          "en"
+        ]
+      },
+      {
+        "routePrefix": "/live-demos",
+        "fullCopyLocales": [
+          "en"
+        ]
+      },
+      {
+        "routePrefix": "/request-feature",
         "fullCopyLocales": [
           "en"
         ]
