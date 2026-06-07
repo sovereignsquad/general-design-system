@@ -229,6 +229,23 @@ export interface GdsIconProps {
   label?: string;
   decorative?: boolean;
   stroke?: number;
+  tone?: GdsIconTone;
+}
+
+export type GdsIconTone = 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'muted';
+
+export const gdsIconToneColor: Record<GdsIconTone, string | undefined> = {
+  default: undefined,
+  primary: 'var(--mantine-primary-color-filled)',
+  success: 'var(--mantine-color-green-7)',
+  warning: 'var(--mantine-color-yellow-8)',
+  danger: 'var(--mantine-color-red-7)',
+  info: 'var(--mantine-color-blue-7)',
+  muted: 'var(--mantine-color-dimmed)',
+};
+
+export function getGdsIconToneColor(tone: GdsIconTone = 'default') {
+  return gdsIconToneColor[tone];
 }
 
 const iconSizes: Record<'xs' | 'sm' | 'md' | 'lg', string> = {
@@ -244,11 +261,13 @@ export function GdsIcon({
   label,
   decorative = !label,
   stroke = 1.75,
+  tone = 'default',
 }: GdsIconProps) {
   const Icon = GdsIcons[icon] ?? GdsIcons.Help;
   return createElement(Icon, {
     size: typeof size === 'number' ? `${size}px` : iconSizes[size as keyof typeof iconSizes] ?? size,
     stroke,
+    color: getGdsIconToneColor(tone),
     'aria-hidden': decorative || undefined,
     'aria-label': !decorative ? label : undefined,
     role: !decorative ? 'img' : undefined,

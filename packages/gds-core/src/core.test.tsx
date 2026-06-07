@@ -34,6 +34,9 @@ import { FoodMenuSection } from './FoodMenuSection';
 import { GameBoardTile } from './GameBoardTile';
 import { ChartTokenPanel } from './ChartTokenPanel';
 import { GdsChart, gdsChartTypeRegistry, gdsChartSetATypeRegistry, gdsChartSetBTypeRegistry, isGdsChartSetAType, isGdsChartSetBType, validateGdsChartData } from './GdsChart';
+import { GdsBarChart, GdsLineChart, GdsStackedBarChart, getGdsSeriesColor } from './SemanticCharts';
+import { BodyText, CardTitle, InlineEmphasis, LabelText, MetadataText, PageTitle, SectionTitle } from './Typography';
+import { ClippedFlexChild, FloatingActionPlacement, ListItemSection, NumericCell, OverflowContainer, SemanticInset, VisuallyHidden } from './StyleUtilities';
 import { EvidencePanel } from './EvidencePanel';
 import { ListingCard } from './ListingCard';
 import { getGdsBlockTypes, getGdsLayoutTemplate, getGdsLayoutTemplates, registerGdsBlock, renderGdsLayout, renderGdsLayoutWithDiagnostics, validateGdsLayout } from './LayoutBlocks';
@@ -74,7 +77,7 @@ import { resolveSurfacePresentationStyles } from './SurfacePresentation';
 import { resolveGdsCardContract } from './CardContracts';
 import { ar, de, en, es, fr, getGdsMessages, he, hu, it as itLocale, ru } from './locales';
 import { GdsIcons } from './icons';
-import { GdsIcon } from './icons';
+import { GdsIcon, getGdsIconToneColor } from './icons';
 import { OverlayManagerProvider, useOverlayManager } from './OverlayManager.client';
 import { GdsConfirmProvider, GdsToastProvider, useGdsConfirm, useGdsToasts } from './FeedbackRuntime.client';
 import { MediaPreviewCard } from './MediaPreviewCard';
@@ -117,6 +120,50 @@ describe('@doneisbetter/gds-core', () => {
     expect(screen.getByRole('button', { name: 'Speichern' })).toBeInTheDocument();
   });
 
+  it('renders package-native typography roles without local Text and Title ladders', () => {
+    renderWithGds(
+      <>
+        <PageTitle>Page heading</PageTitle>
+        <SectionTitle>Section heading</SectionTitle>
+        <CardTitle>Card heading</CardTitle>
+        <BodyText>Body copy</BodyText>
+        <MetadataText>Metadata</MetadataText>
+        <LabelText>Label</LabelText>
+        <InlineEmphasis>Important</InlineEmphasis>
+      </>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Page heading', level: 1 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Section heading', level: 2 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Card heading', level: 3 })).toBeInTheDocument();
+    expect(screen.getByText('Body copy')).toBeInTheDocument();
+    expect(screen.getByText('Metadata')).toBeInTheDocument();
+    expect(screen.getByText('Label')).toBeInTheDocument();
+    expect(screen.getByText('Important').tagName).toBe('STRONG');
+  });
+
+  it('provides sanctioned style utility surfaces for common layout mechanics', () => {
+    renderWithGds(
+      <>
+        <OverflowContainer label="Overflow list"><div>Scrollable</div></OverflowContainer>
+        <FloatingActionPlacement><button type="button">Save</button></FloatingActionPlacement>
+        <NumericCell>123</NumericCell>
+        <VisuallyHidden>Hidden caption</VisuallyHidden>
+        <ClippedFlexChild>Long child</ClippedFlexChild>
+        <SemanticInset>Inset</SemanticInset>
+        <ul><ListItemSection>Row</ListItemSection></ul>
+      </>,
+    );
+
+    expect(screen.getByLabelText('Overflow list')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    expect(screen.getByText('123')).toHaveStyle({ fontVariantNumeric: 'tabular-nums' });
+    expect(screen.getByText('Hidden caption')).toHaveStyle({ position: 'absolute' });
+    expect(screen.getByText('Long child')).toHaveStyle({ minWidth: '0' });
+    expect(screen.getByText('Inset')).toBeInTheDocument();
+    expect(screen.getByText('Row').tagName).toBe('LI');
+  });
+
   it('exposes a server-safe semantic action label helper', () => {
     expect(getSemanticActionLabel('save')).toBe('Save');
     expect(getSemanticActionLabel('save', (id, fallback) => (id === 'gds.action.save' ? 'Guardar' : fallback))).toBe('Guardar');
@@ -130,6 +177,14 @@ describe('@doneisbetter/gds-core', () => {
 
     rerender(<SemanticButton action="save" feedbackState="error" />);
     expect(screen.getByRole('button', { name: 'Something went wrong' })).toBeInTheDocument();
+  });
+
+  it('resolves semantic icon tones without consumer color strings', () => {
+    renderWithGds(<GdsIcon icon="Delete" label="Delete item" tone="danger" />);
+
+    expect(screen.getByRole('img', { name: 'Delete item' })).toBeInTheDocument();
+    expect(getGdsIconToneColor('danger')).toBe('var(--mantine-color-red-7)');
+    expect(getGdsIconToneColor('success')).toBe('var(--mantine-color-green-7)');
   });
 
   it('renders loading and disabled button states safely', () => {
@@ -2291,6 +2346,26 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getByText('Adapter rendered line with 2 points')).toBeInTheDocument();
     expect(screen.getByText('Primary series: blue.6')).toBeInTheDocument();
     expect(screen.getByText('Accessible data fallback')).toBeInTheDocument();
+  });
+
+  it('renders semantic chart wrappers with tone-based series colors', () => {
+    const data = [
+      { label: 'Open', value: 4, group: 'Status' },
+      { label: 'Closed', value: 8, group: 'Status' },
+    ];
+
+    renderWithGds(
+      <>
+        <GdsBarChart title="Bar chart" summary="Bar summary" data={data} seriesTone="success" />
+        <GdsLineChart title="Line chart" summary="Line summary" data={data} seriesTone="info" />
+        <GdsStackedBarChart title="Stacked chart" summary="Stacked summary" data={data} seriesTone="warning" />
+      </>,
+    );
+
+    expect(screen.getByRole('img', { name: 'Bar chart' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Line chart' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Stacked chart' })).toBeInTheDocument();
+    expect(getGdsSeriesColor('warning')).toBe('var(--mantine-color-yellow-7)');
   });
 
   it('renders Set A chart primitive metadata and scatter fallback fields', () => {

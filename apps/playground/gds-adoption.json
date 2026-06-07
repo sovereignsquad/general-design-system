@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "3.4.4",
+  "gdsVersion": "3.4.5",
   "productArchetype": "public",
   "supportedEntryPoints": [
     "@doneisbetter/gds-theme/client",
@@ -163,71 +163,31 @@
       {
         "routePrefix": "/api",
         "fullCopyLocales": [
-          "en",
-          "de",
-          "fr",
-          "it",
-          "es",
-          "ru",
-          "he",
-          "ar",
-          "hu"
+          "en"
         ]
       },
       {
         "routePrefix": "/maturity",
         "fullCopyLocales": [
-          "en",
-          "de",
-          "fr",
-          "it",
-          "es",
-          "ru",
-          "he",
-          "ar",
-          "hu"
+          "en"
         ]
       },
       {
         "routePrefix": "/use-cases",
         "fullCopyLocales": [
-          "en",
-          "de",
-          "fr",
-          "it",
-          "es",
-          "ru",
-          "he",
-          "ar",
-          "hu"
+          "en"
         ]
       },
       {
         "routePrefix": "/governance",
         "fullCopyLocales": [
-          "en",
-          "de",
-          "fr",
-          "it",
-          "es",
-          "ru",
-          "he",
-          "ar",
-          "hu"
+          "en"
         ]
       },
       {
         "routePrefix": "/themes",
         "fullCopyLocales": [
-          "en",
-          "de",
-          "fr",
-          "it",
-          "es",
-          "ru",
-          "he",
-          "ar",
-          "hu"
+          "en"
         ]
       }
     ],

@@ -2,6 +2,12 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.4.5 - 2026-06-07
+
+- Added strict consumer-admin migration enforcement with `approvedAdminPrimitives` and `strict.admin.local-wrapper` detection for product-local admin layout, form, action, card, breadcrumb, media, and field shims.
+- Added package-native core exports for primitive/layout, typography role, sanctioned style utility, semantic chart, and icon-tone contracts so strict consumers have installable replacements for common local wrappers.
+- Expanded the playground/reference site with Spanish full-copy route coverage and updated release/install guidance for the `3.4.5` package line.
+
 ## 3.4.4 - 2026-06-07
 
 - Added the package-native operational telemetry contract with `GdsOperationalEvent`, `GdsEventPayloadPolicy`, `GdsTelemetryAdapter`, `emitGdsEvent`, `createGdsTelemetryAdapter`, event taxonomy, and UX failure reason registry.

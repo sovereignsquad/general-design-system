@@ -1,4 +1,7 @@
 export * from './StatusBadge';
+export * from './GdsPrimitives';
+export * from './Typography';
+export * from './StyleUtilities';
 export * from './EmptyState';
 export * from './ConfirmDialog';
 export * from './icons';
@@ -73,6 +76,7 @@ export * from './PeriodSelector';
 export * from './EvidencePanel';
 export * from './ChartTokenPanel';
 export * from './GdsChart';
+export * from './SemanticCharts';
 export * from './LayoutBlocks';
 export * from './LayoutTemplatePreview.client';
 export * from './ReportingSection';
