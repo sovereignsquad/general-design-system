@@ -8,10 +8,12 @@ describe('playground route locale coverage', () => {
     expect(hasFullRouteLocalization('/install', 'en')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'de')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'fr')).toBe(true);
+    expect(hasFullRouteLocalization('/install', 'es')).toBe(true);
     expect(hasFullRouteLocalization('/', 'de')).toBe(true);
     expect(hasFullRouteLocalization('/themes', 'de')).toBe(true);
     expect(hasFullRouteLocalization('/governance', 'fr')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'it')).toBe(true);
+    expect(hasFullRouteLocalization('/maturity', 'es')).toBe(true);
     expect(hasFullRouteLocalization('/install', 'ru')).toBe(true);
     expect(hasFullRouteLocalization('/themes', 'he')).toBe(true);
     expect(hasFullRouteLocalization('/governance', 'ar')).toBe(true);
@@ -26,6 +28,8 @@ describe('playground route locale coverage', () => {
   });
 
   it('returns the full-copy locale list for each route', () => {
+    expect(getFullCopyLocalesForRoute('/').includes('es')).toBe(true);
+    expect(getFullCopyLocalesForRoute('/themes').includes('es')).toBe(true);
     expect(getFullCopyLocalesForRoute('/install')).toContain('hu');
     expect(getFullCopyLocalesForRoute('/api')).toContain('hu');
     expect(getFullCopyLocalesForRoute('/maturity')).toContain('hu');
@@ -50,5 +54,7 @@ describe('playground route locale coverage', () => {
 
     expect(Array.from(localeSelect.options).map((option) => option.value)).toContain('hu');
     expect(screen.getByRole('option', { name: 'Magyar' })).toBeTruthy();
+    expect(Array.from(localeSelect.options).map((option) => option.value)).toContain('es');
+    expect(screen.getByRole('option', { name: 'Español' })).toBeTruthy();
   });
 });

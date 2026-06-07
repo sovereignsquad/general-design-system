@@ -42,6 +42,11 @@ const STRICT_RULE_METADATA = {
     allowedExceptionCategories: ['package-coverage-gap', 'migration-bridge'],
     remediation: 'Declare the adapter in gds-adoption.json or migrate to a package-native GDS contract.',
   },
+  'strict.admin.local-wrapper': {
+    family: 'admin-wrapper',
+    allowedExceptionCategories: ['package-coverage-gap', 'migration-bridge'],
+    remediation: 'Use package-native GDS admin, core, and semantic primitives instead of product-local admin layout, form, card, badge, button, breadcrumb, or field wrappers.',
+  },
 };
 const DEFAULT_STALE_DOCUMENTATION_REFERENCES = [
   '/Users/Shared/Projects/GENERAL_DESIGN_SYSTEM',
@@ -55,6 +60,7 @@ const STRICT_COMPLIANCE_FIELDS = [
   'approvedMediaPrimitives',
   'approvedReportingPrimitives',
   'approvedAccessPrimitives',
+  'approvedAdminPrimitives',
   'approvedTemporaryExceptions',
   'approvedThemeLanes',
   'themeOwnershipPaths',
@@ -434,7 +440,55 @@ function inferStrictSurface(contract) {
   if (normalized.includes('media') || normalized.includes('upload') || normalized.includes('asset')) return 'media';
   if (normalized.includes('report') || normalized.includes('chart') || normalized.includes('evidence') || normalized.includes('metric')) return 'reporting';
   if (normalized.includes('auth') || normalized.includes('access') || normalized.includes('identity') || normalized.includes('login')) return 'access';
+  if (normalized.includes('admin') || normalized.includes('form') || normalized.includes('crud') || normalized.includes('workspace')) return 'admin';
   return null;
+}
+
+const ADMIN_LOCAL_WRAPPER_NAMES = [
+  'Anchor',
+  'Badge',
+  'Box',
+  'Breadcrumbs',
+  'Button',
+  'Card',
+  'Checkbox',
+  'Code',
+  'ColorField',
+  'Field',
+  'FileInput',
+  'Grid',
+  'Group',
+  'Image',
+  'Paper',
+  'Radio',
+  'Select',
+  'SimpleGrid',
+  'Stack',
+  'Text',
+  'Textarea',
+  'TextInput',
+  'Title',
+  'UnstyledButton',
+];
+
+function isAdminStrictSource({ manifest, filePath }) {
+  const normalizedPath = normalizePath(filePath);
+  const archetype = String(manifest.productArchetype ?? '').toLowerCase();
+  return archetype.includes('admin')
+    || archetype.includes('hybrid')
+    || /(?:^|\/)(?:app|pages|src|components)\/admin(?:\/|$)/.test(normalizedPath)
+    || /(?:^|\/)admin\//.test(normalizedPath);
+}
+
+function hasLocalAdminWrapperSignature(content) {
+  const wrapperAlternation = ADMIN_LOCAL_WRAPPER_NAMES.join('|');
+  const localDefinitionPattern = new RegExp(`(?:function|const|let|var)\\s+(?:${wrapperAlternation})\\b|(?:${wrapperAlternation})\\.Group\\s*=|Grid\\.Col\\s*=`);
+  if (localDefinitionPattern.test(content)) {
+    return true;
+  }
+
+  const localImportPattern = new RegExp(`import\\s+\\{[^}]*\\b(?:${wrapperAlternation})\\b[^}]*\\}\\s+from\\s+['"](?:\\.|\\.\\.|@/|~/|src/|components/)`);
+  return localImportPattern.test(content);
 }
 
 function runStrictCompliance({ manifest, manifestRoot, sourceFiles }) {
@@ -448,6 +502,7 @@ function runStrictCompliance({ manifest, manifestRoot, sourceFiles }) {
     media: new Set(strict.approvedMediaPrimitives ?? []),
     reporting: new Set(strict.approvedReportingPrimitives ?? []),
     access: new Set(strict.approvedAccessPrimitives ?? []),
+    admin: new Set(strict.approvedAdminPrimitives ?? []),
   };
   const approvedTemporaryExceptions = new Set(strict.approvedTemporaryExceptions ?? []);
 
@@ -537,6 +592,15 @@ function runStrictCompliance({ manifest, manifestRoot, sourceFiles }) {
         severity: 'error',
         file: filePath,
         message: 'Strict mode forbids local auth/access wrappers. Use AuthShell, provider identity controls, AccessSummary, and AccessRecoveryPanel.',
+      });
+    }
+
+    if (isAdminStrictSource({ manifest, filePath }) && hasLocalAdminWrapperSignature(content)) {
+      findings.push({
+        rule: 'strict.admin.local-wrapper',
+        severity: 'error',
+        file: filePath,
+        message: STRICT_RULE_METADATA['strict.admin.local-wrapper'].remediation,
       });
     }
   }

@@ -152,10 +152,76 @@ For true GDS-only repos, enable strict mode in the manifest once the canonical p
     "approvedActionPrimitives": ["ActionBar"],
     "approvedMediaPrimitives": ["MediaField", "UploadDropzone"],
     "approvedReportingPrimitives": ["ReportingSection", "PeriodSelector", "EvidencePanel", "ChartTokenPanel"],
-    "approvedAccessPrimitives": ["AuthShell", "ProviderIdentityButtonGroup", "AccessSummary", "AccessRecoveryPanel"]
+    "approvedAccessPrimitives": ["AuthShell", "ProviderIdentityButtonGroup", "AccessSummary", "AccessRecoveryPanel"],
+    "approvedAdminPrimitives": ["WorkspaceHeader", "InfoCard", "AdminCrudForm", "AdminFormSection", "AdminFormActions", "AdminTextInput", "AdminTextarea", "AdminCheckbox", "AdminSelect", "AdminFileUpload", "AdminResourceCard", "AdminModal", "AdminDetailDrawer"]
   }
 }
 ```
+
+## 6.1 Admin GDS-only migration contract
+
+Use this contract when a consumer admin area has page-local or product-local shims such as `Stack`, `Group`, `Grid`, `SimpleGrid`, `Text`, `Title`, `Card`, `Button`, `Badge`, `Breadcrumbs`, `Anchor`, `TextInput`, `Textarea`, `Checkbox`, `Select`, `FileInput`, `Radio`, `Field`, `ColorField`, `Paper`, `Box`, `Image`, or `UnstyledButton`.
+
+Architecture:
+
+1. keep product-owned data fetching, permissions, server actions, persistence, uploads, retries, and telemetry adapters in the consuming app
+2. replace visible admin layout, form, card, action, detail, overlay, and editor chrome with exported GDS contracts
+3. keep payload keys and API endpoints unchanged unless the product team explicitly ships a backend migration
+4. declare any remaining product-authored runtime surface as a narrow `approvedExceptions` entry with accessibility, testing, and observability obligations
+5. enable `compliance.strictMode` with `approvedAdminPrimitives` and run `gds-compliance check`
+
+Canonical replacement map:
+
+| Local pattern | GDS contract |
+|---|---|
+| page heading, breadcrumb, primary action | `WorkspaceHeader` plus semantic actions |
+| detail page hero and section stack | `DetailProfileShell`, `SectionPanel`, `InfoCard`, `StatusBadge` |
+| create/edit form shell | `AdminCrudForm`, `AdminFormSection`, `AdminFormActions`, `AdminFormStatus` |
+| routine text, textarea, checkbox, select, file fields | `AdminTextInput`, `AdminTextarea`, `AdminCheckbox`, `AdminSelect`, `AdminFileUpload` |
+| repeated admin resource cards | `AdminResourceCard` and `AdminResourceGrid` |
+| review, preview, audit, and secondary detail overlays | `AdminModal`, `AdminDetailDrawer`, `AdminReviewLayout` where available |
+| save/cancel/delete/approve/retry bars | `ActionBar`, `SemanticButton`, or the admin action props that wrap them |
+| upload and media preview chrome | `AdminFileUpload`, `MediaField`, `UploadDropzone`, `MediaPreviewCard` |
+| CMS-like editors with sections, preview, settings, sticky actions | `ContentOpsEditor`, `ContentOpsSection`, `EditorScaffold` |
+| slideshow, kiosk, or timed media controls | `PlaybackSurface`, `PlaybackControls`, `PlaybackOverlayControls` |
+
+Runtime flow:
+
+```ts
+async function renderAdminCreateOrEditRoute(params) {
+  const initialValues = await productOwnedLoader(params);
+  const permissions = await productOwnedPermissionLoader(params);
+
+  return (
+    <AdminCrudForm
+      title="Edit record"
+      status={mapProductStatusToAdminFormStatus(initialValues.status)}
+      actions={mapProductActionsToAdminFormActions(permissions)}
+    >
+      <AdminFormSection title="Details">
+        <AdminTextInput name="name" value={initialValues.name} onChange={setName} />
+        <AdminSelect name="status" value={initialValues.status} data={statusOptions} onChange={setStatus} />
+      </AdminFormSection>
+    </AdminCrudForm>
+  );
+}
+```
+
+Accessibility and UX requirements:
+
+- every field must have a visible label and nearby error text
+- keyboard order must follow the visual reading order through header, status, fields, secondary actions, and primary action
+- submit errors must keep entered data available and move focus to the summary or first invalid field
+- loading, readonly, permission-limited, empty, error, success, dirty, and stale-data states must be explicit and not color-only
+- destructive actions must use confirmation/runtime feedback contracts and restate the target
+- mobile action bars must keep one clear primary action and avoid adjacent ambiguous icon-only controls
+
+Operational requirements:
+
+- product-owned API calls keep existing retry, timeout, idempotency, upload, and rollback behavior
+- GDS owns visible affordances and state mapping only
+- observability events remain privacy-safe and should distinguish load, validation failure, submit start, submit success, submit failure, retry, timeout, and rollback/reopen
+- strict-mode failures for `strict.admin.local-wrapper` mean the product still has local admin UI authority and should not claim 100% GDS-only operation
 
 ## 7. Rollback & Recovery
 

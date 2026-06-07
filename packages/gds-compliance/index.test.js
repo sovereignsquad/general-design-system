@@ -198,6 +198,104 @@ describe('@doneisbetter/gds-compliance strict mode', () => {
     expect(rules).toContain('strict.access.local-auth-wrapper');
   });
 
+  it('flags local admin layout and form wrapper shims in strict mode', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '3.5.1',
+        productArchetype: 'admin',
+        requiredContracts: ['AdminCrudForm', 'AdminFormSection', 'AdminFormActions', 'AdminTextInput'],
+        localAdapters: [{ contract: 'AdminFormShim', path: 'app/admin/events/new/page.tsx', status: 'active' }],
+        approvedExceptions: [],
+        migrationStatus: 'partial',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-06-07',
+        compliance: {
+          strictMode: true,
+          approvedAdminPrimitives: ['AdminCrudForm', 'AdminFormSection', 'AdminFormActions', 'AdminTextInput'],
+        },
+      }, null, 2),
+      'app/admin/events/new/page.tsx': `
+        const Stack = ({ children }) => <div>{children}</div>;
+        const TextInput = ({ label }) => <label>{label}<input /></label>;
+        export default function NewEventPage() {
+          return <Stack><TextInput label="Name" /></Stack>;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const rules = report.findings.map((finding) => finding.rule);
+
+    expect(rules).toContain('strict.admin.local-adapter');
+    expect(rules).toContain('strict.admin.local-wrapper');
+  });
+
+  it('allows admin pages that consume canonical GDS admin primitives in strict mode', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '3.5.1',
+        productArchetype: 'admin',
+        requiredContracts: ['AdminCrudForm', 'AdminFormSection', 'AdminFormActions', 'AdminTextInput'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-06-07',
+        compliance: {
+          strictMode: true,
+          approvedAdminPrimitives: ['AdminCrudForm', 'AdminFormSection', 'AdminFormActions', 'AdminTextInput'],
+        },
+      }, null, 2),
+      'app/admin/events/new/page.tsx': `
+        import { AdminCrudForm, AdminFormSection, AdminTextInput } from '@doneisbetter/gds-admin';
+        export default function NewEventPage() {
+          return (
+            <AdminCrudForm title="Create record">
+              <AdminFormSection title="Details">
+                <AdminTextInput name="name" label="Name" value="" />
+              </AdminFormSection>
+            </AdminCrudForm>
+          );
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).not.toContain('strict.admin.local-wrapper');
+  });
+
+  it('keeps failing admin pages when canonical imports coexist with leftover local shims', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '3.5.1',
+        productArchetype: 'admin',
+        requiredContracts: ['AdminCrudForm', 'AdminTextInput'],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'partial',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-06-07',
+        compliance: {
+          strictMode: true,
+          approvedAdminPrimitives: ['AdminCrudForm', 'AdminTextInput'],
+        },
+      }, null, 2),
+      'app/admin/events/new/page.tsx': `
+        import { AdminCrudForm, AdminTextInput } from '@doneisbetter/gds-admin';
+        const Stack = ({ children }) => <div>{children}</div>;
+        export default function NewEventPage() {
+          return <AdminCrudForm><Stack><AdminTextInput name="name" label="Name" value="" /></Stack></AdminCrudForm>;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.map((finding) => finding.rule)).toContain('strict.admin.local-wrapper');
+  });
+
   it('passes strict mode when adapters are approved exceptions and no local wrappers exist', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({

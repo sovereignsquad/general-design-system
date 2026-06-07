@@ -38,6 +38,7 @@ describe('public site routes', () => {
     const maturity = publicSiteRoutes.find((route) => route.id === 'maturity');
 
     expect(getSiteRouteLabel(overview!.id, getRouteLabel(overview!), 'en')).toBe('What Is GDS');
+    expect(getSiteRouteLabel(overview!.id, getRouteLabel(overview!), 'es')).toBe('Qué es GDS');
     expect(getSiteRouteLabel(overview!.id, getRouteLabel(overview!), 'ru')).toBe('Что такое GDS');
     expect(getSiteRouteLabel(maturity!.id, getRouteLabel(maturity!), 'ar')).toBe('النضج');
   });
