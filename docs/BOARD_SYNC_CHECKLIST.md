@@ -130,31 +130,26 @@ Current issue state:
 - P1 issues: `#252`, `#253`, `#265`
 - Milestone: `GDS 3.4.0 - Product delivery maturity`
 
-Required project-board mutation:
+Completed project-board mutation:
 
-- Add issues `#247` through `#271` to project `{GDS} - From IDEA to LIVE` (`sovereignsquad#11`) if missing.
+- Added issues `#247` through `#271` to project `{GDS} - From IDEA to LIVE` (`sovereignsquad#11`).
 - Set P0 issues to Status `Backlog (SOONER)`.
 - Set P1 issues to Status `Roadmap (LATER)`.
-- Run `npm run audit:board:strict` after mutation.
+- Ran `npm run audit:board:strict`.
 
-Current blocker:
+Verified result:
 
-- Partial sync completed before the GitHub GraphQL limit was exhausted again: `#247` through `#256` were added/updated.
-- Remaining HVB issues to sync after reset: `#257` through `#271`.
-- GitHub GraphQL project-board API returned `API rate limit exceeded for user ID 2206999`.
-- Latest observed GraphQL reset: `2026-06-07T14:55:28Z` (`2026-06-07 16:55:28 CEST`).
-- REST issue reads still work, but project-board reads/writes are blocked until GraphQL capacity resets.
+- `tracked issue items: 161`
+- `open issues: 25`
+- `state/status mismatches: 0`
 
-Later board update procedure:
+Maintenance command:
 
 ```bash
-gh api rate_limit
-# continue only when resources.graphql.remaining is comfortably above 50
-
 npm run board:sync-hvb
 ```
 
-Expected board audit after the later update:
+Expected board audit:
 
 ```text
 open issues: 25

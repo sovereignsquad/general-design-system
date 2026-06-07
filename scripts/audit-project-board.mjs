@@ -5,7 +5,11 @@ const OWNER = process.env.GDS_PROJECT_OWNER ?? 'sovereignsquad';
 const REPOSITORY = process.env.GDS_PROJECT_REPO ?? 'general-design-system';
 
 function run(command) {
-  return execSync(command, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  return execSync(command, {
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024 * 20,
+    stdio: ['ignore', 'pipe', 'pipe'],
+  }).trim();
 }
 
 function sleep(ms) {

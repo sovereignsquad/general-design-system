@@ -3,9 +3,9 @@
 Status: Safe baseline established  
 Last updated: 2026-05-31
 
-## 2026-06-07 HVB Board Sync Pending
+## 2026-06-07 HVB Board Sync Completed
 
-Repository issue inspection found 25 open high-value-benefit implementation issues that are reusable GDS backlog and should be tracked on canonical project board `sovereignsquad#11`:
+Repository issue inspection found 25 open high-value-benefit implementation issues that are reusable GDS backlog and are now tracked on canonical project board `sovereignsquad#11`:
 
 - `#247` Layout primitive completeness - governed responsive composition API
 - `#248` Safe styling API - token-backed constrained style props
@@ -33,17 +33,18 @@ Repository issue inspection found 25 open high-value-benefit implementation issu
 - `#270` Exception lifecycle governance - owner expiry risk replacement issue link and CI decay
 - `#271` Observability and operational contracts - standardized UX telemetry hooks
 
-Required board target:
+Completed board target:
 
-- Add all 25 issues to project `11` if missing.
+- Added all 25 issues to project `11`.
 - Set P0 issues to `Backlog (SOONER)`.
 - Set P1 issues `#252`, `#253`, and `#265` to `Roadmap (LATER)`.
-- Run `npm run board:sync-hvb` after GitHub GraphQL capacity resets.
+- Verified with `npm run audit:board:strict`.
 
-Current blocker:
+Verified result:
 
-- GitHub GraphQL project-board API returned `API rate limit exceeded for user ID 2206999`.
-- Latest observed GraphQL reset: `2026-06-07T13:54:46Z` (`2026-06-07 15:54:46 CEST`).
+- `tracked issue items: 161`
+- `open issues: 25`
+- `state/status mismatches: 0`
 
 ## Context
 
