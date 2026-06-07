@@ -72,8 +72,9 @@ function inferExportKind(packageName: ExportCoveragePackage, exportName: string)
 
   if (exportName.startsWith('use')) return 'hook';
   if (exportName.endsWith('Provider')) return 'provider';
-  if (exportName.startsWith('get') || exportName.startsWith('resolve') || exportName.startsWith('validate') || exportName.startsWith('is')) return 'helper';
+  if (exportName.startsWith('create') || exportName.startsWith('emit') || exportName.startsWith('get') || exportName.startsWith('resolve') || exportName.startsWith('validate') || exportName.startsWith('is')) return 'helper';
   if (exportName.includes('Registry')) return 'registry';
+  if (exportName.endsWith('Types') || exportName.endsWith('Reasons')) return 'registry';
   if (/^[A-Z]/.test(exportName)) return 'component';
   return 'type';
 }

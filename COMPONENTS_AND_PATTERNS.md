@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 3.4.3
+Version: 3.4.4
 Last updated: 2026-06-06
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -66,7 +66,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **State Blocks** | Loading, empty, error, permission, disabled, and success states must explain the state and provide the next action where possible. | `md` |
 | **Async Surface** | Async data surfaces should use `AsyncSurface` to enforce deterministic loading/empty/error/refreshing/success behavior with governed retry affordances. | `md` |
 | **Notification Contracts** | Transient and persistent feedback must use `GdsNotificationProvider`, `NotificationCenter`, `InlineAlert`, and `BannerNotice` with explicit severity and action semantics. | `md` |
-| **UI Telemetry Contract** | Cross-primitive diagnostics should use `GdsTelemetryProvider` and `useGdsTelemetry` with privacy-safe context redaction and sampled dispatch. | `md` |
+| **UI Telemetry Contract** | Cross-primitive diagnostics should use `GdsTelemetryProvider`, `useGdsTelemetry`, `emitGdsEvent`, `createGdsTelemetryAdapter`, `gdsOperationalEventTypes`, and `gdsUxFailureReasons` for privacy-safe payload policy, sampled dispatch, adapter-unavailable states, bounded retry/timeout behavior, and non-blocking analytics failures. | `md` |
 | **Surface Presentation** | Shared bounded layout contract for canonical state and panel surfaces using `inline`, `centered`, and `fill` modes with controlled min-height and alignment. | `md` |
 | **Discovery Shell** | Canonical sidebar-first shell with header, sidebar, main, mobile drawer collapse, optional footer nav, and sticky navigation behavior. | `xl` |
 | **Sidebar Navigation** | Sectioned sidebar IA with labels, active-route signaling, semantic icons/labels, and consistent row spacing. | `md` |

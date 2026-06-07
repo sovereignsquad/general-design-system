@@ -56,6 +56,30 @@ Flow:
 3. `/maturity` renders benefits, package lanes, contracts, states, observability, rollback, and test evidence in every supported site language.
 4. `verify:api-docs-coverage` ensures the registry helpers are represented in public API coverage.
 
+## Operational Telemetry LLD
+
+Source:
+
+- `packages/gds-core/src/Telemetry.client.tsx`
+- `packages/gds-core/src/core.test.tsx`
+- `apps/playground/src/pattern-export-coverage.ts`
+
+Runtime flow:
+
+1. A GDS primitive, pattern, or consumer calls `useGdsTelemetry().emitGdsEvent(...)` or the exported `emitGdsEvent(...)` helper.
+2. GDS normalizes the event into `GdsOperationalEvent` with timestamp, component, event type, correlation ID, optional workflow/action IDs, outcome, failure reason, attempt, and timeout metadata.
+3. `GdsEventPayloadPolicy` removes unsafe payload keys by default and can hard-reject unsafe payloads for stricter products.
+4. Sampling returns `sampling-disabled` or `sampled-out` before any adapter work.
+5. Adapter availability returns `adapter-unavailable` without delaying the user action.
+6. `createGdsTelemetryAdapter(...)` wraps vendor analytics clients with bounded retry, timeout, and non-blocking error callbacks.
+7. Adapter failure never blocks UI state, accessible announcements, form submission, retry controls, or destructive-action recovery.
+
+Rollback:
+
+- Set `sampleRate` to `0` to disable dispatch.
+- Remove the adapter or pass no sink to drop events while preserving call sites.
+- Pin the previous package version if an additive telemetry export creates unexpected adoption risk.
+
 ## Rollback
 
 If a release gate creates an emergency false positive, remove it from `verify:references` only in the patch branch, keep the script runnable manually, document the exception, and restore strict release gating in the next patch.

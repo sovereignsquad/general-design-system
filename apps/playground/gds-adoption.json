@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "gdsVersion": "3.4.3",
+  "gdsVersion": "3.4.4",
   "productArchetype": "public",
   "supportedEntryPoints": [
     "@doneisbetter/gds-theme/client",

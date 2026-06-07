@@ -2,6 +2,12 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.4.4 - 2026-06-07
+
+- Added the package-native operational telemetry contract with `GdsOperationalEvent`, `GdsEventPayloadPolicy`, `GdsTelemetryAdapter`, `emitGdsEvent`, `createGdsTelemetryAdapter`, event taxonomy, and UX failure reason registry.
+- Added non-blocking adapter dispatch with emitted, adapter-unavailable, payload-rejected, sampled-out, sampling-disabled, and dropped states plus bounded retry and timeout behavior for analytics adapters.
+- Expanded telemetry tests, API coverage, install guidance, API reference, user guide, and LLD documentation for privacy-safe payload rules, accessibility boundaries, rollback, and operational behavior.
+
 ## 3.4.3 - 2026-06-07
 
 - Fixed mobile shell navigation so `DiscoveryShell` opens reliably from the hamburger and closes the mobile menu when a navigation item is selected, with `closeMobileNavigationOnItemSelect` available for rare controlled-menu opt-outs.

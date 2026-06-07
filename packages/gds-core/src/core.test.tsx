@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, Title } from '@mantine/core';
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { AccessSummary } from './AccessSummary';
@@ -81,7 +81,7 @@ import { MediaPreviewCard } from './MediaPreviewCard';
 import { PublicCaptureFlow } from './PublicCaptureFlow';
 import { PlaybackControls, usePlaybackKeyboardControls } from './PlaybackControls.client';
 import { CreatorThemeBoundary, validateCreatorCss } from './CreatorTheme';
-import { GdsTelemetryProvider, useGdsTelemetry } from './Telemetry.client';
+import { createGdsTelemetryAdapter, emitGdsEvent, GdsTelemetryProvider, gdsOperationalEventTypes, isGdsOperationalEventType, useGdsTelemetry } from './Telemetry.client';
 import { createGdsVocabularyPack, getSemanticActionLabel } from './vocabulary';
 
 function mockMatchMedia(matches: boolean) {
@@ -2034,6 +2034,139 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(sink).toHaveBeenCalledTimes(1);
     expect(sink.mock.calls[0][0].context.email).toBeUndefined();
     expect(sink.mock.calls[0][0].context.route).toBe('patterns');
+  });
+
+  it('exposes the operational telemetry taxonomy and typed guard', () => {
+    expect(gdsOperationalEventTypes).toContain('submit');
+    expect(gdsOperationalEventTypes).toContain('validation_error');
+    expect(gdsOperationalEventTypes).toContain('destructive_action');
+    expect(isGdsOperationalEventType('timeout')).toBe(true);
+    expect(isGdsOperationalEventType('product-local-event')).toBe(false);
+  });
+
+  it('emits provider telemetry through the canonical adapter alias with privacy-safe payloads', async () => {
+    const user = userEvent.setup();
+    const adapter = { id: 'test-adapter', emit: vi.fn() };
+
+    function TelemetryProbe() {
+      const telemetry = useGdsTelemetry();
+      return (
+        <button
+          type="button"
+          onClick={() => telemetry.emitGdsEvent({
+            component: 'test',
+            eventType: 'submit_error',
+            correlationId: 'adapter-sampled',
+            outcome: 'error',
+            reason: 'validation_failed',
+            payload: { fieldId: 'email', authToken: 'secret-token' },
+          })}
+        >
+          Emit canonical
+        </button>
+      );
+    }
+
+    renderWithGds(
+      <GdsTelemetryProvider sampleRate={1} adapter={adapter}>
+        <TelemetryProbe />
+      </GdsTelemetryProvider>,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Emit canonical' }));
+    expect(adapter.emit).toHaveBeenCalledTimes(1);
+    expect(adapter.emit.mock.calls[0][0]).toMatchObject({
+      component: 'test',
+      eventType: 'submit_error',
+      outcome: 'error',
+      reason: 'validation_failed',
+      payload: { fieldId: 'email' },
+    });
+    expect(adapter.emit.mock.calls[0][0].payload.authToken).toBeUndefined();
+  });
+
+  it('rejects unsafe telemetry payloads when policy requires explicit rejection', () => {
+    const sink = vi.fn();
+    const onRejectedPayload = vi.fn();
+
+    const result = emitGdsEvent({
+      sink,
+      payloadPolicy: {
+        rejectUnsafePayload: true,
+        onRejectedPayload,
+      },
+    }, {
+      component: 'test',
+      eventType: 'submit',
+      correlationId: 'reject-pii',
+      payload: { route: 'admin', email: 'hidden@example.com' },
+    });
+
+    expect(result.status).toBe('payload-rejected');
+    expect(result.rejectedKeys).toEqual(['email']);
+    expect(sink).not.toHaveBeenCalled();
+    expect(onRejectedPayload).toHaveBeenCalledWith(expect.objectContaining({
+      component: 'test',
+      eventType: 'submit',
+      rejectedKeys: ['email'],
+    }));
+  });
+
+  it('reports adapter unavailable and sampling disabled states without throwing', () => {
+    const adapter = { id: 'offline', isAvailable: () => false, emit: vi.fn() };
+    const baseEvent = {
+      component: 'test',
+      eventType: 'retry',
+      correlationId: 'offline-adapter',
+    };
+
+    expect(emitGdsEvent({ adapter }, baseEvent).status).toBe('adapter-unavailable');
+    expect(adapter.emit).not.toHaveBeenCalled();
+    expect(emitGdsEvent({ sink: vi.fn(), sampleRate: 0 }, baseEvent).status).toBe('sampling-disabled');
+  });
+
+  it('creates non-blocking telemetry adapters with bounded retry and error callbacks', async () => {
+    const emit = vi.fn()
+      .mockRejectedValueOnce(new Error('offline'))
+      .mockResolvedValueOnce(undefined);
+    const onError = vi.fn();
+    const adapter = createGdsTelemetryAdapter({
+      id: 'retrying-adapter',
+      emit,
+      retryAttempts: 1,
+      retryDelayMs: 0,
+      timeoutMs: 100,
+      onError,
+    });
+
+    adapter.emit({
+      component: 'test',
+      eventType: 'retry',
+      correlationId: 'retry-event',
+      ts: Date.now(),
+    });
+
+    await waitFor(() => expect(emit).toHaveBeenCalledTimes(2));
+    expect(onError).not.toHaveBeenCalled();
+
+    const failingOnError = vi.fn();
+    const failingAdapter = createGdsTelemetryAdapter({
+      id: 'failing-adapter',
+      emit: () => {
+        throw new Error('permanent failure');
+      },
+      timeoutMs: 100,
+      onError: failingOnError,
+    });
+
+    failingAdapter.emit({
+      component: 'test',
+      eventType: 'adapter_error',
+      correlationId: 'adapter-failure',
+      ts: Date.now(),
+    });
+
+    await waitFor(() => expect(failingOnError).toHaveBeenCalledTimes(1));
   });
 
   it('renders the expanded chart contract and fallback data table', () => {

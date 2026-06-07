@@ -36,6 +36,14 @@ Use `/maturity` and `getGdsRecommendedMaturityCapabilities()` before creating lo
 
 Product owners should approve local UI work only when the need is not covered by these contracts or when a temporary exception is recorded in `gds-adoption.json` with owner, review date, exit condition, and replacement path.
 
+## Operational Telemetry
+
+Use `GdsTelemetryProvider` and `useGdsTelemetry().emitGdsEvent(...)` for UX diagnostics in forms, tables, resource managers, upload flows, confirmations, notifications, overlays, and public flows. Use the exported `gdsOperationalEventTypes` and `gdsUxFailureReasons` registries so submit, validation, retry, timeout, upload failure, destructive action, and cancellation events are comparable across products.
+
+Analytics vendors must be connected through `createGdsTelemetryAdapter(...)`. The adapter is optional, non-blocking, and safe to disable with `sampleRate={0}` or by omitting the adapter. Telemetry payloads are scrubbed for common private fields by default, and stricter products can reject unsafe payloads with `GdsEventPayloadPolicy`.
+
+Telemetry is evidence, not UX. Every instrumented workflow still needs visible state, keyboard operation, accessible labels, screen-reader-compatible status, retry/recovery affordances, and localization-safe copy through the relevant GDS primitive.
+
 ## Accessibility DoD
 
 Every UI delivered with GDS must preserve keyboard operation, visible focus, semantic labels, contrast, reduced motion, non-color-only meaning, and mobile-safe layout.

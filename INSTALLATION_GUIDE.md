@@ -1,14 +1,14 @@
 # Installation Guide
 
 Status: Active SSOT
-Version: 3.4.3
+Version: 3.4.4
 Last updated: 2026-06-06
 
 This guide is the canonical consumer setup path for the public umbrella package `@doneisbetter/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
 Release-line rule:
 
-- current stable package line: `3.4.3`
+- current stable package line: `3.4.4`
 - current major line: `3.0.x`
 - do not publish, announce, or ask clients to install a new version until `npm run verify:published` confirms npm availability
 
@@ -35,23 +35,23 @@ See [COMPATIBILITY_AND_RELEASES.md](/Users/Shared/Projects/general-design-system
 
 ## 2. Canonical install commands
 
-Preferred `3.4.3` runtime package after the release gate opens:
+Preferred `3.4.4` runtime package after the release gate opens:
 
 ```bash
-npm install @doneisbetter/gds@3.4.3
+npm install @doneisbetter/gds@3.4.4
 ```
 
 Governance packages:
 
 ```bash
-npm install -D @doneisbetter/gds-eslint-config@3.4.3 @doneisbetter/gds-compliance@3.4.3
+npm install -D @doneisbetter/gds-eslint-config@3.4.4 @doneisbetter/gds-compliance@3.4.4
 ```
 
 Granular runtime packages when package separation is intentional:
 
 ```bash
-npm install @doneisbetter/gds-theme@3.4.3 @doneisbetter/gds-core@3.4.3 @doneisbetter/gds-admin@3.4.3
-npm install -D @doneisbetter/gds-eslint-config@3.4.3 @doneisbetter/gds-compliance@3.4.3
+npm install @doneisbetter/gds-theme@3.4.4 @doneisbetter/gds-core@3.4.4 @doneisbetter/gds-admin@3.4.4
+npm install -D @doneisbetter/gds-eslint-config@3.4.4 @doneisbetter/gds-compliance@3.4.4
 ```
 
 Required peers:
@@ -159,7 +159,8 @@ Prefer canonical primitives over local reinvention:
 - `useGdsForm` + `FormErrorSummary` for deterministic form-state, validation, and submit behavior
 - `OverlayManagerProvider` + `useOverlayManager` for deterministic layered overlay close behavior
 - `CommandRegistryProvider` + `useCommandLauncher` for keyboard-first quick-action execution
-- `GdsTelemetryProvider` + `useGdsTelemetry` for standardized UI observability events
+- `GdsTelemetryProvider` + `useGdsTelemetry` + `emitGdsEvent` for standardized UI observability events
+- `createGdsTelemetryAdapter` for vendor-neutral analytics sinks with bounded retry, timeout, adapter-unavailable, payload-rejected, sampling-disabled, sampled-out, emitted, and dropped states
 
 Before introducing a new local surface contract, verify the live catalog first:
 
@@ -248,4 +249,4 @@ Do not:
 
 If npm is temporarily unavailable, use the public release tarballs described in [RELEASE_PUBLISH.md](/Users/Shared/Projects/general-design-system/RELEASE_PUBLISH.md). That path is a fallback only, not the preferred steady-state install method.
 
-For the `3.4.3` release cutover, fallback assets must use tag `gds-v3.4.3` and must not be announced as the canonical path once npm verification passes.
+For the `3.4.4` release cutover, fallback assets must use tag `gds-v3.4.4` and must not be announced as the canonical path once npm verification passes.
