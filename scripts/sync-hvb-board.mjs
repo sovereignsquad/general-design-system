@@ -37,7 +37,11 @@ const ISSUE_STATUS = new Map([
 ]);
 
 function gh(args) {
-  return execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  return execFileSync('gh', args, {
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024 * 20,
+    stdio: ['ignore', 'pipe', 'pipe'],
+  }).trim();
 }
 
 function parseJson(args) {
@@ -49,18 +53,44 @@ function assertGraphqlCapacity() {
   const remaining = rateLimit.resources?.graphql?.remaining ?? 0;
   const reset = rateLimit.resources?.graphql?.reset;
 
-  if (remaining < ISSUE_STATUS.size * 2) {
+  if (remaining < 100) {
     const resetDate = reset ? new Date(reset * 1000).toISOString() : 'unknown';
     throw new Error(`GitHub GraphQL capacity is too low for HVB board sync. Remaining: ${remaining}. Retry after ${resetDate}.`);
   }
 }
 
-function listProjectItems() {
-  return parseJson(['project', 'item-list', PROJECT_NUMBER, '--owner', OWNER, '--limit', '300', '--format', 'json']).items ?? [];
+function findProjectItem(issueNumber) {
+  const items = parseJson([
+    'project',
+    'item-list',
+    PROJECT_NUMBER,
+    '--owner',
+    OWNER,
+    '--limit',
+    '10',
+    '--query',
+    `#${issueNumber}`,
+    '--format',
+    'json',
+  ]).items ?? [];
+
+  return items.find((item) => item.content?.number === issueNumber);
 }
 
-function findProjectItem(issueNumber, items) {
-  return items.find((item) => item.content?.number === issueNumber);
+function addProjectItem(issueUrl) {
+  const result = parseJson([
+    'project',
+    'item-add',
+    PROJECT_NUMBER,
+    '--owner',
+    OWNER,
+    '--url',
+    issueUrl,
+    '--format',
+    'json',
+  ]);
+
+  return result.id ? { id: result.id } : undefined;
 }
 
 function statusName(optionId) {
@@ -70,16 +100,12 @@ function statusName(optionId) {
 function main() {
   assertGraphqlCapacity();
 
-  let items = listProjectItems();
-
   for (const [issueNumber, statusOptionId] of ISSUE_STATUS) {
     const issueUrl = `https://github.com/${OWNER}/${REPO}/issues/${issueNumber}`;
-    let item = findProjectItem(issueNumber, items);
+    let item = findProjectItem(issueNumber);
 
     if (!item) {
-      gh(['project', 'item-add', PROJECT_NUMBER, '--owner', OWNER, '--url', issueUrl]);
-      items = listProjectItems();
-      item = findProjectItem(issueNumber, items);
+      item = addProjectItem(issueUrl);
     }
 
     if (!item?.id) {

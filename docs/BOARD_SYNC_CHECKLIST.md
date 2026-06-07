@@ -139,8 +139,10 @@ Required project-board mutation:
 
 Current blocker:
 
+- Partial sync completed before the GitHub GraphQL limit was exhausted again: `#247` through `#256` were added/updated.
+- Remaining HVB issues to sync after reset: `#257` through `#271`.
 - GitHub GraphQL project-board API returned `API rate limit exceeded for user ID 2206999`.
-- Latest observed GraphQL reset: `2026-06-07T13:54:46Z` (`2026-06-07 15:54:46 CEST`).
+- Latest observed GraphQL reset: `2026-06-07T14:55:28Z` (`2026-06-07 16:55:28 CEST`).
 - REST issue reads still work, but project-board reads/writes are blocked until GraphQL capacity resets.
 
 Later board update procedure:
