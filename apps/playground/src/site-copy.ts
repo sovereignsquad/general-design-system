@@ -13,12 +13,6 @@ import {
 export const stableGdsVersion = '3.4.5';
 export const targetGdsVersion = '3.4.5';
 
-type LocaleCopyMap<T> = Record<string, T> & { en: T };
-
-export function getSiteCopy<T>(copy: LocaleCopyMap<T>, locale: string): T {
-  return copy[locale] ?? copy.en;
-}
-
 export const siteLocaleRegistry = {
   en: { label: 'English', messages: en },
   de: { label: 'Deutsch', messages: de },
@@ -32,6 +26,11 @@ export const siteLocaleRegistry = {
 } as const;
 
 export type SiteLocaleId = keyof typeof siteLocaleRegistry;
+type LocaleCopyMap = Record<SiteLocaleId, unknown>;
+
+export function getSiteCopy<const T extends LocaleCopyMap>(copy: T, locale: string): T[SiteLocaleId] {
+  return copy[locale as SiteLocaleId] ?? copy.en;
+}
 
 export function getSiteLocale(id: string) {
   return siteLocaleRegistry[id as SiteLocaleId] ?? siteLocaleRegistry.en;
