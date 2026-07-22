@@ -6,6 +6,27 @@ Last updated: 2026-07-22
 
 This repository is shared design-system infrastructure.
 
+## Standing Operating Rules (non-negotiable)
+
+These apply to every change, every contributor (human or agent), regardless
+of task. Full detail for agents in [`CLAUDE.md`](CLAUDE.md).
+
+1. **Zero-tolerance quality gate for `main`** — no deprecation warnings, no
+   warnings, no errors anywhere in the build/lint/test/`verify:release`
+   chain for anything committed or merged to `main`. Fix the source; never
+   suppress or hide the signal.
+2. **Always work from GitHub issues** — decompose every request into
+   deliverables and record them as GitHub issues before/while implementing.
+   Reference and close issues from the commits that resolve them.
+3. **Documentation is mandatory** — ship doc updates in the same change set
+   as the behavior they describe, not as a follow-up.
+4. **Industry-standard Definition of Done is mandatory** — implemented,
+   tested, clean build/lint/test, documented, traceable to an issue, edge
+   cases considered, committed and pushed. Explicitly checked, not assumed.
+5. **Never guess** — read, research, and analyse the actual code/docs/system
+   state before acting or reporting a result. If something can't be verified,
+   say so instead of filling the gap with an assumption.
+
 ## Allowed Change Types
 
 - Shared foundation rules (`FOUNDATION.md`)
