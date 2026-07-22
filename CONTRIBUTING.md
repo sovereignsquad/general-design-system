@@ -26,6 +26,11 @@ of task. Full detail for agents in [`CLAUDE.md`](CLAUDE.md).
 5. **Never guess** — read, research, and analyse the actual code/docs/system
    state before acting or reporting a result. If something can't be verified,
    say so instead of filling the gap with an assumption.
+6. **Pre-authorized branch/push operations** — the repository owner uses
+   Claude Code on iOS mobile with no terminal access. `dev` and `preview`
+   branches may be created, merged, and pulled without asking first. When the
+   owner says "commit and push to main," push directly to `main` (no PR,
+   no waiting for approval) — provided Rule 1's quality gate passes.
 
 ## Allowed Change Types
 

@@ -78,3 +78,23 @@ Before making a change or stating a fact about this codebase:
   results that haven't been observed
 - if genuinely blocked from verifying something (no access, network policy,
   missing credentials), say so plainly instead of filling the gap with a guess
+
+## 6. Pre-authorized branch and push operations
+
+The user operates via Claude Code on iOS mobile with no terminal access —
+they cannot run git commands themselves and rely on the agent to execute
+them directly. The following operations are pre-authorized and do not
+require asking for confirmation each time:
+
+- **`dev` and `preview` branches** — create, merge, and pull these branches
+  freely as needed for staging/preview work, without asking first.
+- **Direct push to `main`** — when the user says "commit and push to main"
+  (or clearly equivalent phrasing), push the commit(s) directly to `main`.
+  Do not open a pull request instead and wait for approval unless the user
+  asks for a PR specifically.
+
+This authorization does not relax Rule 1: a direct push to `main` still
+requires a clean build/lint/test/`verify:release` chain first. It also does
+not extend to other destructive or hard-to-reverse operations (force-push,
+history rewrite, branch deletion, etc.) — those still require explicit
+per-instance confirmation.
