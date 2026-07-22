@@ -181,7 +181,15 @@ npm run verify:published:consumer
 # Consumer verification failure
 gds-compliance check --manifest ./gds-adoption.json --format text`;
 
-const fallbackInstallCode = `# Fallback only when npm is temporarily unavailable
+const fallbackConsumerInstallCode = `# Install directly from GitHub release assets — no npm registry, no auth, no waiting.
+# Use the granular packages, not the @sovereignsquad/gds umbrella (registry-only).
+npm install https://github.com/sovereignsquad/general-design-system/releases/download/gds-v${targetGdsVersion}/sovereignsquad-gds-theme-${targetGdsVersion}.tgz \\
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v${targetGdsVersion}/sovereignsquad-gds-core-${targetGdsVersion}.tgz \\
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v${targetGdsVersion}/sovereignsquad-gds-admin-${targetGdsVersion}.tgz
+
+npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`;
+
+const fallbackInstallCode = `# Maintainers: publish a release bundle when npm is temporarily unavailable
 npm run pack:release
 gh release create gds-v${targetGdsVersion} dist/release-bundles/${targetGdsVersion}/* --title "GDS ${targetGdsVersion} release bundles"`;
 
@@ -1003,6 +1011,7 @@ export function InstallPage() {
 
       <ReferenceSection title={copy.recoverySectionTitle} description={copy.recoverySectionDescription}>
         <DocsCodeBlock code={failureRecoveryCode} language="bash" title={copy.recoveryCodeTitle} />
+        <DocsCodeBlock code={fallbackConsumerInstallCode} language="bash" title={copy.fallbackConsumerCodeTitle} />
         <DocsCodeBlock code={fallbackInstallCode} language="bash" title={copy.fallbackCodeTitle} />
       </ReferenceSection>
 

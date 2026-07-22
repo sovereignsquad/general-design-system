@@ -183,6 +183,22 @@ Product repositories may **not** redefine:
 
 **If a project-local UI document conflicts with this directory, this directory wins.**
 
+## Install Without Publishing to npm (Release-Bundle Fallback)
+
+The canonical install source is npm, but a consumer team is never blocked on waiting for an npm publish. This repository is public, so `npm run pack:release` packs the granular runtime packages into `.tgz` tarballs attached to a public GitHub Release (tag `gds-v<VERSION>`), and any team can install straight from those release-asset URLs — no npm registry auth, no `.npmrc`, no waiting:
+
+```bash
+npm install https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/sovereignsquad-gds-theme-<VERSION>.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/sovereignsquad-gds-core-<VERSION>.tgz \
+  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/sovereignsquad-gds-admin-<VERSION>.tgz
+
+npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
+```
+
+- Use the **granular** packages (`gds-theme`, `gds-core`, `gds-admin`) for this path, not the `@sovereignsquad/gds` umbrella — the umbrella package's own dependency ranges assume its sub-packages resolve from the npm registry, so it is registry-only.
+- Exact tarball URLs and checksums for the current release live in the `manifest.json` and `INSTALL_FROM_RELEASE_ASSETS.md` produced under `dist/release-bundles/<VERSION>/` by `npm run pack:release`, and in the assets attached to the `gds-v<VERSION>` GitHub Release.
+- This is a fallback, not the steady-state install method — once `npm run verify:published` confirms npm availability for that version, use the npm registry path in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) instead. See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the full maintainer-side bundle/release process.
+
 ## Repository Rules
 
 This directory is intended to be managed as its own git repository.
