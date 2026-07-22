@@ -1,0 +1,63 @@
+name: GDS Auto Tag Release
+
+# Automates the release cutover step that previously required a maintainer to
+# manually push a `gds-v<VERSION>` tag (or draft a GitHub Release in the web UI).
+# Whenever a version bump (a change to the root VERSION file) lands on main,
+# this workflow creates and pushes the matching `gds-v<VERSION>` tag using the
+# Action run's own ambient GITHUB_TOKEN — which is unaffected by any restriction
+# on a human or agent's local git/API access, since it runs entirely on GitHub's
+# own infrastructure. Pushing that tag is what triggers the existing
+# release-bundles.yml (build + verify:release + pack + create/update the public
+# GitHub Release with tarball assets) and publish-npm.yml (npm publish, once
+# NPM_TOKEN is valid) — both already listen for `push: tags: gds-v*`.
+#
+# No manual GitHub UI step or local git access is required for a routine
+# release: bump VERSION (and the aligned package.json/doc versions per
+# check-release-alignment.mjs), merge to main, and this workflow does the rest.
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "VERSION"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gds-auto-tag-release
+  cancel-in-progress: false
+
+jobs:
+  auto-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine release tag
+        id: version
+        run: |
+          VERSION="$(cat VERSION)"
+          TAG="gds-v${VERSION}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/${TAG}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create and push release tag
+        if: steps.version.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "${{ steps.version.outputs.tag }}" -m "GDS ${{ steps.version.outputs.version }} release"
+          git push origin "${{ steps.version.outputs.tag }}"
+
+      - name: Skip (tag already exists)
+        if: steps.version.outputs.exists == 'true'
+        run: echo "Tag ${{ steps.version.outputs.tag }} already exists; skipping (VERSION unchanged since last release, or already released)."

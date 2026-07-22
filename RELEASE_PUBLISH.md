@@ -152,16 +152,36 @@ Retry policy:
 
 ## GitHub Actions publish path
 
-This repository includes a manual workflow at:
+This repository includes three workflows:
 
-- `.github/workflows/publish-npm.yml`
+- `.github/workflows/auto-tag-release.yml`
 - `.github/workflows/release-bundles.yml`
+- `.github/workflows/publish-npm.yml`
 
 Required secret:
 
 - `NPM_TOKEN`
 
-Workflow behavior:
+### Auto-tag-release (fully automatic — no manual tag/release step)
+
+Triggers on every push to `main` that changes the root `VERSION` file. It reads `VERSION`, checks whether the matching `gds-v<VERSION>` tag already exists on the remote, and if not, creates and pushes it using the workflow run's own ambient `GITHUB_TOKEN`. This makes a routine release a normal merge, not a separate manual step: bump `VERSION` (and the aligned package/doc versions per `check-release-alignment.mjs`), merge to `main`, and the tag push happens automatically. Pushing that tag is what fans out into the two workflows below — no maintainer needs to run `git tag`/`git push` or draft a release in the GitHub web UI for a routine version bump.
+
+Manually creating the tag (via `git push` or the GitHub UI, as in the 3.10.0 cutover before this workflow existed) still works and is the fallback if this workflow is ever disabled or a hotfix tag is needed outside the normal `VERSION`-bump flow.
+
+### Bundle workflow (`release-bundles.yml`)
+
+Triggers on `workflow_dispatch` or any pushed `gds-v*` tag (including the one `auto-tag-release.yml` just pushed):
+
+1. runs `npm ci --omit=optional`
+2. installs Linux-native `rollup` and `rolldown` bindings explicitly
+3. runs `npm run verify:release`
+4. runs `npm run pack:release`
+5. uploads the tarballs as a workflow artifact
+6. on a `gds-v*` tag, creates (or updates) the GitHub Release for that tag and attaches the tarballs as release assets
+
+### Publish workflow (`publish-npm.yml`)
+
+Triggers on `workflow_dispatch` or any pushed `gds-v*` tag:
 
 1. runs `npm ci --omit=optional`
 2. installs Linux-native `rollup` and `rolldown` bindings explicitly
@@ -169,14 +189,7 @@ Workflow behavior:
 4. publishes all seven packages
 5. polls the registry until the release line is visible
 
-The bundle workflow:
-
-1. runs `npm ci --omit=optional`
-2. installs Linux-native `rollup` and `rolldown` bindings explicitly
-3. runs `npm run verify:release`
-4. runs `npm run pack:release`
-5. uploads the tarballs as a workflow artifact
-6. on a `gds-v*` tag, attaches those tarballs to a GitHub release
+Both `release-bundles.yml` and `publish-npm.yml` gate their real side effects (creating the release, publishing to npm) behind their own `verify:release` run — a version bump that fails verification never reaches either. A tag can exist without a completed release/publish if `verify:release` fails downstream; treat that the same as any other failed release attempt (see Recovery guidance) rather than assuming the tag alone means the release shipped.
 
 ## Recovery guidance
 

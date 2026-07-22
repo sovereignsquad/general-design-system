@@ -2,6 +2,9 @@ name: GDS Publish
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - "gds-v*"
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
