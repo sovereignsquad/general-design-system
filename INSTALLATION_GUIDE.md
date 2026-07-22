@@ -289,3 +289,19 @@ Do not:
 If npm is temporarily unavailable, use the public release tarballs described in [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md). That path is a fallback only, not the preferred steady-state install method.
 
 For the `3.10.0` release cutover, fallback assets must use tag `gds-v3.10.0` and must not be announced as the canonical path once npm verification passes.
+
+## 9. GitHub Packages (alternate registry)
+
+All seven packages also publish to GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`), independently of the npmjs.com publish. Unlike the tarball fallback above, this is a real resolving registry, so the `@sovereignsquad/gds` umbrella package works here too.
+
+```ini
+# .npmrc
+@sovereignsquad:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+```bash
+npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
+```
+
+`GITHUB_TOKEN` must be your own personal access token (`read:packages` scope is sufficient) — GitHub Packages requires authentication for every install, even for public packages, unlike npmjs.com. See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the publish side.

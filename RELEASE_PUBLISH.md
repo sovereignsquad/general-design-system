@@ -21,6 +21,35 @@ GitHub release assets remain an optional fallback distribution path for unpublis
 
 `@sovereignsquad/gds` is the preferred public npm convenience package. The release-bundle fallback remains split-package oriented because the umbrella package depends on the granular runtime packages.
 
+## GitHub Packages (registry alternative)
+
+GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`) is a second, independent distribution channel for all seven packages, published automatically by `.github/workflows/publish-github-packages.yml`. Unlike the GitHub-release-tarball fallback, it is a real resolving registry, so the `@sovereignsquad/gds` umbrella package installs correctly there too (its internal dependency on the granular packages resolves against the same registry, the same way it does on npmjs.com).
+
+Why it exists: it authenticates with the workflow run's own ambient `GITHUB_TOKEN` (via the `packages: write` permission), not a separate `NPM_TOKEN` secret — so it keeps working even when the npmjs.com publish is blocked on npm account/token access, and requires no additional credential setup beyond what GitHub Actions already provides.
+
+Consumer install (requires authentication — GitHub Packages does not allow anonymous installs even for public packages, unlike npmjs.com):
+
+```ini
+# .npmrc
+@sovereignsquad:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+```bash
+npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
+```
+
+`GITHUB_TOKEN` here is a personal access token (classic, `read:packages` scope is sufficient) or an org-provisioned token, supplied by the consumer/their CI — not a GDS-owned secret.
+
+Manual publish (mirrors `npm run publish:npm`, pointed at GitHub Packages):
+
+```bash
+GDS_NPM_REGISTRY=https://npm.pkg.github.com npm run publish:npm
+GDS_NPM_REGISTRY=https://npm.pkg.github.com node scripts/check-registry-publication.mjs
+```
+
+Both `scripts/publish-packages.mjs` and `scripts/check-registry-publication.mjs` already read the `GDS_NPM_REGISTRY` environment variable, so no script changes are needed to target a different registry — only the active `.npmrc`/auth token changes.
+
 ## Preconditions
 
 - local branch is `main`
@@ -152,15 +181,18 @@ Retry policy:
 
 ## GitHub Actions publish path
 
-This repository includes three workflows:
+This repository includes four workflows:
 
 - `.github/workflows/auto-tag-release.yml`
 - `.github/workflows/release-bundles.yml`
 - `.github/workflows/publish-npm.yml`
+- `.github/workflows/publish-github-packages.yml`
 
-Required secret:
+Required secret (only for the npmjs.com path):
 
 - `NPM_TOKEN`
+
+`publish-github-packages.yml` needs no repository secret at all — it authenticates with the workflow run's own ambient `GITHUB_TOKEN`.
 
 ### Auto-tag-release (fully automatic — no manual tag/release step)
 
@@ -189,7 +221,19 @@ Triggers on `workflow_dispatch` or any pushed `gds-v*` tag:
 4. publishes all seven packages
 5. polls the registry until the release line is visible
 
-Both `release-bundles.yml` and `publish-npm.yml` gate their real side effects (creating the release, publishing to npm) behind their own `verify:release` run — a version bump that fails verification never reaches either. A tag can exist without a completed release/publish if `verify:release` fails downstream; treat that the same as any other failed release attempt (see Recovery guidance) rather than assuming the tag alone means the release shipped.
+### GitHub Packages workflow (`publish-github-packages.yml`)
+
+Triggers on `workflow_dispatch` or any pushed `gds-v*` tag, independently of `publish-npm.yml`:
+
+1. runs `npm ci --omit=optional`
+2. installs Linux-native `rollup` and `rolldown` bindings explicitly
+3. runs `npm run verify:release`
+4. publishes all seven packages to `https://npm.pkg.github.com` (via `GDS_NPM_REGISTRY` + the ambient `GITHUB_TOKEN` — see the "GitHub Packages" section above)
+5. polls that registry until the release line is visible
+
+Because this workflow doesn't depend on `NPM_TOKEN`, it keeps working even when the npmjs.com publish is blocked on npm account/token access — as it was during the 3.10.0 release.
+
+All three publish/bundle workflows (`release-bundles.yml`, `publish-npm.yml`, `publish-github-packages.yml`) gate their real side effects (creating the release, publishing to a registry) behind their own `verify:release` run — a version bump that fails verification never reaches any of them. A tag can exist without a completed release/publish if `verify:release` fails downstream; treat that the same as any other failed release attempt (see Recovery guidance) rather than assuming the tag alone means the release shipped.
 
 ## Recovery guidance
 

@@ -183,9 +183,29 @@ Product repositories may **not** redefine:
 
 **If a project-local UI document conflicts with this directory, this directory wins.**
 
-## Install Without Publishing to npm (Release-Bundle Fallback)
+## Install Without npmjs.com
 
-The canonical install source is npm, but a consumer team is never blocked on waiting for an npm publish. This repository is public, so `npm run pack:release` packs the granular runtime packages into `.tgz` tarballs attached to a public GitHub Release (tag `gds-v<VERSION>`), and any team can install straight from those release-asset URLs — no npm registry auth, no `.npmrc`, no waiting:
+The canonical install source is npm, but a consumer team is never blocked on waiting for an npmjs.com publish specifically — two independent alternate channels are published automatically on every release.
+
+### GitHub Packages (alternate registry)
+
+All seven packages also publish to GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`), authenticated in CI by the workflow run's own ambient `GITHUB_TOKEN` — no `NPM_TOKEN`/npm.com account dependency. Because it's a real resolving registry (not tarballs), the `@sovereignsquad/gds` umbrella package works here too:
+
+```ini
+# .npmrc
+@sovereignsquad:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+```bash
+npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
+```
+
+`GITHUB_TOKEN` here is your own personal access token (`read:packages` scope) — GitHub Packages requires authentication for every install, even for public packages, unlike npmjs.com.
+
+### Release-bundle tarballs (no registry at all)
+
+This repository is public, so `npm run pack:release` packs the granular runtime packages into `.tgz` tarballs attached to a public GitHub Release (tag `gds-v<VERSION>`), and any team can install straight from those release-asset URLs — no registry auth, no `.npmrc`, no waiting:
 
 ```bash
 npm install https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/sovereignsquad-gds-theme-<VERSION>.tgz \
@@ -195,9 +215,10 @@ npm install https://github.com/sovereignsquad/general-design-system/releases/dow
 npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
 ```
 
-- Use the **granular** packages (`gds-theme`, `gds-core`, `gds-admin`) for this path, not the `@sovereignsquad/gds` umbrella — the umbrella package's own dependency ranges assume its sub-packages resolve from the npm registry, so it is registry-only.
+- Use the **granular** packages (`gds-theme`, `gds-core`, `gds-admin`) for this path, not the `@sovereignsquad/gds` umbrella — the umbrella package's own dependency ranges assume its sub-packages resolve from a registry, so it is registry-only (works on npmjs.com and GitHub Packages, not from standalone tarballs).
 - Exact tarball URLs and checksums for the current release live in the `manifest.json` and `INSTALL_FROM_RELEASE_ASSETS.md` produced under `dist/release-bundles/<VERSION>/` by `npm run pack:release`, and in the assets attached to the `gds-v<VERSION>` GitHub Release.
-- This is a fallback, not the steady-state install method — once `npm run verify:published` confirms npm availability for that version, use the npm registry path in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) instead. See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the full maintainer-side bundle/release process.
+
+Both alternates are always-on parallel channels, not fallbacks that go away — but npmjs.com remains the canonical, preferred path in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md). See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the full publish process across all three channels.
 
 ## Repository Rules
 
