@@ -24,6 +24,13 @@ export interface MediaPreviewCardProps {
   metadata?: MediaPreviewMetadata[];
   actions?: ActionBarProps;
   status?: ReactNode;
+  /**
+   * When true, omit the media area entirely (no image, no placeholder block)
+   * for records with no `src`/`thumbnailSrc`, rendering title/metadata/actions only.
+   * Has no effect when `state` is `'loading'` or `'error'` — those states still
+   * need a visible surface to communicate progress or failure.
+   */
+  hideWhenNoMedia?: boolean;
 }
 
 const aspectRatios: Record<MediaPreviewAspectRatio, number> = {
@@ -45,33 +52,37 @@ export function MediaPreviewCard({
   metadata = [],
   actions,
   status,
+  hideWhenNoMedia = false,
 }: MediaPreviewCardProps) {
   const displaySrc = thumbnailSrc ?? src;
   const mediaState = !displaySrc && state === 'ready' ? 'missing' : state;
+  const suppressMediaArea = hideWhenNoMedia && mediaState === 'missing';
 
   return (
     <Card withBorder radius="lg" padding="md">
       <Stack gap="md">
-        <AspectRatio ratio={aspectRatios[aspectRatio]}>
-          {mediaState === 'ready' || mediaState === 'readonly' ? (
-            <Image
-              src={displaySrc}
-              alt={alt}
-              fit={fit}
-              radius="md"
-              fallbackSrc=""
-            />
-          ) : (
-            <Box bg="var(--mantine-color-gray-light)" style={{ display: 'grid', placeItems: 'center' }}>
-              <StateBlock
-                variant={mediaState === 'error' ? 'error' : mediaState === 'loading' ? 'loading' : 'empty'}
-                title={mediaState === 'error' ? 'Preview unavailable' : mediaState === 'loading' ? 'Loading preview' : 'No media'}
-                description={mediaState === 'error' ? 'The media preview could not be rendered.' : undefined}
-                compact
+        {suppressMediaArea ? null : (
+          <AspectRatio ratio={aspectRatios[aspectRatio]}>
+            {mediaState === 'ready' || mediaState === 'readonly' ? (
+              <Image
+                src={displaySrc}
+                alt={alt}
+                fit={fit}
+                radius="md"
+                fallbackSrc=""
               />
-            </Box>
-          )}
-        </AspectRatio>
+            ) : (
+              <Box bg="var(--mantine-color-gray-light)" style={{ display: 'grid', placeItems: 'center' }}>
+                <StateBlock
+                  variant={mediaState === 'error' ? 'error' : mediaState === 'loading' ? 'loading' : 'empty'}
+                  title={mediaState === 'error' ? 'Preview unavailable' : mediaState === 'loading' ? 'Loading preview' : 'No media'}
+                  description={mediaState === 'error' ? 'The media preview could not be rendered.' : undefined}
+                  compact
+                />
+              </Box>
+            )}
+          </AspectRatio>
+        )}
         {caption ? <Text size="xs" c="dimmed">{caption}</Text> : null}
         <Group justify="space-between" align="flex-start" gap="md">
           <Stack gap={4}>

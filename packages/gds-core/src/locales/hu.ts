@@ -155,4 +155,8 @@ export const hu = {
   'gds.chart.table.value': 'Érték',
   'gds.chart.table.secondaryValue': 'Másodlagos érték',
   'gds.chart.table.group': 'Csoport',
+  'gds.kanban.boardLabel': 'Kanban tábla',
+  'gds.kanban.moveItem': 'Áthelyezés',
+  'gds.kanban.moveTo': 'Áthelyezés ide',
+  'gds.kanban.emptyColumn': 'Nincs elem',
 };

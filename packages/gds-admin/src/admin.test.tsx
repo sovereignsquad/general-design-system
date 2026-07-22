@@ -329,4 +329,17 @@ describe('@sovereignsquad/gds-admin', () => {
     expect(screen.getByText('Primary logo')).toBeInTheDocument();
     expect(screen.getByText(/Type:/)).toBeInTheDocument();
   });
+
+  it('omits the media area for resource cards with no media when hideWhenNoMedia is set', () => {
+    renderWithGds(
+      <AdminResourceManager
+        title="Leads"
+        records={[{ id: 'lead-1', title: 'Acme Corp', mediaAlt: 'Acme Corp' }]}
+        hideWhenNoMedia
+      />,
+    );
+
+    expect(screen.getByText('Acme Corp')).toBeInTheDocument();
+    expect(screen.queryByText('No media')).not.toBeInTheDocument();
+  });
 });

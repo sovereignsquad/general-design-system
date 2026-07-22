@@ -155,4 +155,8 @@ export const ru = {
   'gds.chart.table.value': 'Значение',
   'gds.chart.table.secondaryValue': 'Вторичное значение',
   'gds.chart.table.group': 'Группа',
+  'gds.kanban.boardLabel': 'Канбан-доска',
+  'gds.kanban.moveItem': 'Переместить',
+  'gds.kanban.moveTo': 'Переместить в',
+  'gds.kanban.emptyColumn': 'Нет элементов',
 };

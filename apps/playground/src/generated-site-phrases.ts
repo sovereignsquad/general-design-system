@@ -2795,6 +2795,17 @@ export const generatedSitePhrases = {
     "fr": "Décrivez la primitive ou le comportement manquant.",
     "hu": "Ismertesse a hiányzó primitívet vagy viselkedést!"
   },
+  "p_532272ca8ece": {
+    "en": "Design review",
+    "de": "Designüberprüfung",
+    "es": "Revisión de diseño",
+    "it": "Revisione del progetto",
+    "ar": "مراجعة التصميم",
+    "ru": "Обзор дизайна",
+    "hu": "Tervezési áttekintés",
+    "he": "סקירת עיצוב",
+    "fr": "Revue de conception"
+  },
   "p_67e48da7783d": {
     "en": "Design with GDS in Claude Design",
     "de": "Design mit GDS in Claude Design",
@@ -3235,6 +3246,17 @@ export const generatedSitePhrases = {
     "hu": "Fánk diagram",
     "he": "תרשים סופגניות"
   },
+  "p_92ebba989c36": {
+    "en": "Draft proposal",
+    "ru": "Проект предложения",
+    "es": "Borrador de propuesta",
+    "he": "טיוטת הצעה",
+    "de": "Vorschlagsentwurf",
+    "fr": "Projet de proposition",
+    "it": "Bozza di proposta",
+    "ar": "مشروع الاقتراح",
+    "hu": "Javaslat tervezet"
+  },
   "p_1e664c3598e6": {
     "en": "Drawer and page detail experiences should converge on one governed detail shell contract.",
     "ru": "Подробные сведения о ящиках и страницах должны быть объединены в одном управляемом подробном контракте оболочки.",
@@ -3278,6 +3300,17 @@ export const generatedSitePhrases = {
     "de": "Drop-in-Repo-Regeln",
     "hu": "Drop-in repószabályok",
     "he": "כללי ריפו צניחה"
+  },
+  "p_82c3db79c7d6": {
+    "en": "Due Friday",
+    "de": "Fällig am Freitag",
+    "es": "Vencimiento el viernes",
+    "he": "מועד יום שישי",
+    "fr": "À rendre vendredi",
+    "it": "Scadenza venerdì",
+    "ar": "المقرر الجمعة",
+    "hu": "Pénteken esedékes",
+    "ru": "Срок сдачи в пятницу"
   },
   "p_ceb3e9d30b21": {
     "en": "Each demo is also a migration target for teams currently using local wrappers and bespoke UI.",
@@ -4874,6 +4907,17 @@ export const generatedSitePhrases = {
     "it": "In Claude Code, esegui /design-sync dal checkout di questo repository. Costruisce il pacchetto, crea e verifica tutte le 252 anteprime dei componenti e carica tutto in un nuovo progetto Claude Design. Le risincronizzazioni sono un comando.",
     "he": "ב-Claude Code, הפעל /design-sync מקופה של ריפו זה. הוא בונה את החבילה, מחבר ומאמת את כל 252 התצוגה המקדימה של הרכיבים, ומעלה הכל לפרויקט חדש של קלוד עיצוב. סנכרון מחדש הוא פקודה אחת."
   },
+  "p_c1f88e9d6c41": {
+    "en": "In progress",
+    "de": "Im Gange",
+    "fr": "En cours",
+    "it": "In corso",
+    "es": "En curso",
+    "ru": "В ходе выполнения",
+    "ar": "في تَقَدم",
+    "hu": "Folyamatban van",
+    "he": "בתהליך"
+  },
   "p_93477ab40f89": {
     "en": "Include request type, reusable use case, accessibility needs, affected product, urgency, and whether an existing GDS primitive nearly covers it.",
     "es": "Incluya el tipo de solicitud, el caso de uso reutilizable, las necesidades de accesibilidad, el producto afectado, la urgencia y si una primitiva GDS existente casi lo cubre.",
@@ -5093,6 +5137,17 @@ export const generatedSitePhrases = {
     "de": "14. Juni",
     "ru": "14 июня",
     "hu": "június 14"
+  },
+  "p_8e902805fe3b": {
+    "en": "Kanban Board",
+    "de": "Kanban-Board",
+    "ar": "مجلس كانبان",
+    "es": "Tablero Kanban",
+    "fr": "Tableau Kanban",
+    "it": "Tabellone Kanban",
+    "hu": "Kanban tábla",
+    "ru": "Канбан-доска",
+    "he": "מועצת קנבן"
   },
   "p_ca497d686f8d": {
     "en": "Keep exceptions narrow",
@@ -8977,6 +9032,17 @@ export const generatedSitePhrases = {
     "he": "תרשים פיזור",
     "hu": "Szórványdiagram"
   },
+  "p_ae935886f523": {
+    "en": "Schedule review",
+    "es": "Revisión del horario",
+    "ar": "مراجعة الجدول الزمني",
+    "ru": "Запланировать обзор",
+    "de": "Terminüberprüfung",
+    "it": "Pianifica la revisione",
+    "hu": "Áttekintés ütemezése",
+    "fr": "Révision du calendrier",
+    "he": "תזמון סקירה"
+  },
   "p_b68cc3210198": {
     "en": "Scope, sort, and type remain bounded.",
     "es": "El alcance, la clasificación y el tipo permanecen limitados.",
@@ -10055,6 +10121,17 @@ export const generatedSitePhrases = {
     "hu": "Szponzorált elhelyezés. A kiválasztási kritériumok a fogadó termékhez tartoznak.",
     "it": "Posizionamento sponsorizzato. I criteri di selezione appartengono al prodotto host."
   },
+  "p_8cebe84274ad": {
+    "en": "Sprint board",
+    "it": "Tavola da sprint",
+    "es": "tablero de velocidad",
+    "fr": "Tableau de sprint",
+    "hu": "Sprint tábla",
+    "de": "Sprintbrett",
+    "he": "לוח ספרינט",
+    "ar": "لوحة سبرينت",
+    "ru": "Спринтерская доска"
+  },
   "p_7cac7d625fb7": {
     "en": "SSOT-aligned live catalog",
     "es": "Catálogo en vivo alineado con SSOT",
@@ -10923,6 +11000,17 @@ export const generatedSitePhrases = {
     "ar": "يجب أن يحتوي العنوان على 3 أحرف على الأقل.",
     "ru": "Название должно содержать не менее 3 символов.",
     "hu": "A címnek legalább 3 karakterből kell állnia."
+  },
+  "p_100ec1bc78a4": {
+    "en": "To do",
+    "fr": "Faire",
+    "es": "Hacer",
+    "it": "Fare",
+    "ar": "للقيام به",
+    "ru": "Делать",
+    "hu": "tenni",
+    "de": "Zu tun",
+    "he": "לעשות"
   },
   "p_80e407799d2c": {
     "en": "Today, 17:15-18:00",

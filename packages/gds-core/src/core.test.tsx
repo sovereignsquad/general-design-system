@@ -90,6 +90,7 @@ import { GdsIcon, getGdsIconKeys, getGdsIconMetadata, getGdsIconToneColor, gdsIc
 import { GdsDialog, GdsDrawer, GdsModal, GdsSidePanel, OverlayManagerProvider, useOverlayManager } from './OverlayManager.client';
 import { GdsConfirmProvider, GdsToastProvider, useGdsConfirm, useGdsToasts } from './FeedbackRuntime.client';
 import { MediaPreviewCard } from './MediaPreviewCard';
+import { KanbanBoard } from './KanbanBoard.client';
 import { GdsAssetManager, createGdsAssetAdapter, useGdsAssetUploadQueue, validateGdsAsset } from './GdsAssetManager.client';
 import { PublicCaptureFlow } from './PublicCaptureFlow';
 import { PlaybackControls, usePlaybackKeyboardControls } from './PlaybackControls.client';
@@ -155,6 +156,30 @@ function mockMatchMedia(matches: boolean) {
     writable: true,
     value: (query: string) => ({
       matches,
+      media: query,
+      onchange: null,
+      addListener: () => {},
+      removeListener: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => false,
+    }),
+  });
+
+  return () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: original,
+    });
+  };
+}
+
+function mockMatchMediaByQuery(resolve: (query: string) => boolean) {
+  const original = window.matchMedia;
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: (query: string) => ({
+      matches: resolve(query),
       media: query,
       onchange: null,
       addListener: () => {},
@@ -1119,6 +1144,57 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByRole('img', { name: 'Save icon' })).toBeInTheDocument();
     expect(screen.getByText('Hero image')).toBeInTheDocument();
     expect(screen.getByText(/Format:/)).toBeInTheDocument();
+  });
+
+  it('falls back to a placeholder when media is missing, and omits it entirely with hideWhenNoMedia', () => {
+    const { rerender } = renderWithGds(
+      <MediaPreviewCard title="Untitled asset" alt="Untitled asset" />,
+    );
+
+    expect(screen.getByText('No media')).toBeInTheDocument();
+
+    rerender(
+      <MediaPreviewCard title="Untitled asset" alt="Untitled asset" hideWhenNoMedia />,
+    );
+
+    expect(screen.queryByText('No media')).not.toBeInTheDocument();
+    expect(screen.getByText('Untitled asset')).toBeInTheDocument();
+  });
+
+  it('resolves kanban orientation responsively and moves cards via a keyboard-accessible menu', async () => {
+    const user = userEvent.setup();
+    const onMoveItem = vi.fn();
+    const columns = [
+      { id: 'todo', title: 'To do', items: [{ id: 'task-1', title: 'Draft proposal' }] },
+      { id: 'done', title: 'Done', items: [] },
+    ];
+
+    const restorePortraitMobile = mockMatchMediaByQuery(
+      (query) => query.includes('orientation: portrait') || query.includes('max-width'),
+    );
+    const stacked = renderWithGds(
+      <KanbanBoard title="Sprint board" columns={columns} onMoveItem={onMoveItem} />,
+    );
+    expect(screen.getByRole('region', { name: 'Sprint board' })).toHaveAttribute(
+      'data-gds-kanban-orientation',
+      'stacked',
+    );
+    stacked.unmount();
+    restorePortraitMobile();
+
+    const restoreDesktop = mockMatchMediaByQuery(() => false);
+    renderWithGds(<KanbanBoard title="Sprint board" columns={columns} onMoveItem={onMoveItem} />);
+
+    expect(screen.getByRole('region', { name: 'Sprint board' })).toHaveAttribute(
+      'data-gds-kanban-orientation',
+      'columns',
+    );
+    expect(screen.getByText('No items')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Move: Draft proposal' }));
+    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }));
+    expect(onMoveItem).toHaveBeenCalledWith('task-1', 'todo', 'done');
+    restoreDesktop();
   });
 
   it('renders public capture flows and playback controls with callbacks', async () => {

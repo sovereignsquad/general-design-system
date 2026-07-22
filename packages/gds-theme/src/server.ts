@@ -15,3 +15,5 @@ export { createGdsMotionCssVariables, gdsMotionDurations, gdsMotionEasings, gdsM
 export type { GdsMotionDurationToken, GdsMotionEasingToken, GdsMotionPreset, GdsMotionPresetId, GdsReducedMotionPolicy, GdsResolvedMotionPreset } from './motion';
 export { createBrandTheme, deriveBrandSemanticTokens, brandContrastRatio, GdsBrandThemeError } from './brand-tokens';
 export type { BrandColorRamp, BrandColorRamps, BrandFonts, ClassUsaColorRampName, ClassUsaColorRamps, CreateBrandThemeOptions, CreateClassUsaBrandThemeOptions, GoldAthleteColorRampName, GoldAthleteColorRamps, CreateGoldAthleteBrandThemeOptions, BrandSemanticRole, BrandThemeResult } from './brand-tokens';
+export { getGdsPwaViewportMetaContent } from './viewport';
+export type { GdsPwaViewportOptions, GdsViewportZoomPolicy } from './viewport';

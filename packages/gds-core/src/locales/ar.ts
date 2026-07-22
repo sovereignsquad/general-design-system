@@ -155,4 +155,8 @@ export const ar = {
   'gds.chart.table.value': 'قيمة',
   'gds.chart.table.secondaryValue': 'القيمة الثانوية',
   'gds.chart.table.group': 'مجموعة',
+  'gds.kanban.boardLabel': 'لوحة كانبان',
+  'gds.kanban.moveItem': 'نقل',
+  'gds.kanban.moveTo': 'نقل إلى',
+  'gds.kanban.emptyColumn': 'لا توجد عناصر',
 };

@@ -155,4 +155,8 @@ export const it = {
   'gds.chart.table.value': 'Valore',
   'gds.chart.table.secondaryValue': 'Valore secondario',
   'gds.chart.table.group': 'Gruppo',
+  'gds.kanban.boardLabel': 'Bacheca kanban',
+  'gds.kanban.moveItem': 'Sposta',
+  'gds.kanban.moveTo': 'Sposta in',
+  'gds.kanban.emptyColumn': 'Nessun elemento',
 };

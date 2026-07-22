@@ -155,4 +155,8 @@ export const es = {
   'gds.chart.table.value': 'Valor',
   'gds.chart.table.secondaryValue': 'Valor secundario',
   'gds.chart.table.group': 'Grupo',
+  'gds.kanban.boardLabel': 'Tablero kanban',
+  'gds.kanban.moveItem': 'Mover',
+  'gds.kanban.moveTo': 'Mover a',
+  'gds.kanban.emptyColumn': 'Sin elementos',
 };

@@ -184,6 +184,7 @@ The following families are mandatory local contracts when a project has the corr
 | **Consumer Dashboard Section** | Product has member/account/dashboard areas | section chrome, summaries, partial-data handling, action placement |
 | **Media Field** | Product allows media upload, URL entry, preview, replace, or remove | selection, preview, typed status, accepted-type/size guidance, progress, retry/replace/reset/remove, error/help/policy states |
 | **Content Operations Editor** | Product has CMS-like settings, content, or site-operations screens | section grouping, preview/settings rails, action bar, validation/recovery rhythm |
+| **Kanban Board** | Product tracks records through named stages/columns (leads, tickets, tasks, review pipelines) | governed portrait-mobile-stacked vs. landscape/tablet/desktop-multi-column responsive rule, keyboard-accessible move-to-column action, empty-column state |
 | **DetailProfileShell** | Product has repeated page/drawer detail surfaces for profiles, items, or entities | hero/meta, sections, related content, action placement, divider rhythm |
 | **MapPanel** | Product embeds maps or other sanctioned third-party iframe surfaces | title/description/actions, loading/empty/error states, embed accessibility and sizing |
 | **Public Flow Shell** | Product has staged public capture, upload, consent, review, share, or recovery journeys | stage header, state semantics, action ordering, bounded runtime/hardware slot |
@@ -256,6 +257,20 @@ Supported `MediaField` states:
 | `readonly` | Asset is visible but not editable | Suppress edit controls and keep preview/value/policy visible |
 
 `UploadDropzone` is the canonical selection/drop surface. It owns keyboard file selection, drag state, selected-file summary, error/status/policy presentation, accepted-type and max-size guidance, retry/remove action slots, and readonly/disabled presentation. It must never own network transport, storage mutation, hidden retries, or timeouts. Consumers pass structured state (`upload-pending`, `upload-failed`, `unsupported-type`, `too-large`, `readonly`) from their runtime and wire retry/timeout behavior through explicit action slots.
+
+`MediaPreviewCard` (and `AdminResourceCard`/`AdminResourceGrid`/`AdminResourceManager`, which compose it) never throw or render a broken image when `src`/`thumbnailSrc` are absent — the default is a `StateBlock` "No media" placeholder inside the same aspect-ratio frame, so record grids stay visually aligned. Records that structurally have no media (e.g. lead/contact rows with no asset) should instead pass `hideWhenNoMedia`, which omits the media frame entirely and renders title/metadata/actions only. `hideWhenNoMedia` has no effect on `loading`/`error` states, which always need a visible surface. This is opt-in per grid/manager, not a default, because mixed record types (some with media, some without) usually want the aligned placeholder instead of jagged card heights.
+
+### Kanban Board Rules
+
+`KanbanBoard` (`KanbanColumn`/`KanbanCard` sub-parts, `useGdsKanbanOrientation` hook) is the canonical contract for stage/column tracking surfaces (leads, tickets, tasks, review pipelines). It owns the responsive layout rule so consumers never write local breakpoint CSS:
+
+- **Portrait mobile** (`useGdsKanbanOrientation`'s default `xs`/36em breakpoint, combined with `(orientation: portrait)`): columns render as a single stacked vertical list, one full-width column per section.
+- **Landscape phones, tablets (including portrait tablets), and desktop**: columns render multi-column with horizontal scroll (`ScrollArea`), a minimum per-column width (`columnWidth`, default `17.5rem`), and no wrapping.
+- Consumers may force `orientation="stacked"` / `"columns"` for a fixed-layout route, but `orientation="auto"` (the default) is the governed behavior and should be preferred.
+
+**No native HTML5 drag-and-drop.** Native `draggable`/`dragstart` reordering cannot be operated by keyboard or screen-reader users and is prohibited for this contract per the accessibility release gate (`FOUNDATION.md` §1.5). Instead, each `KanbanCard` exposes a "Move" action (`GdsIcons.Move`) opening a keyboard-operable menu listing the other columns; selecting one calls the consumer-supplied `onMoveItem(itemId, fromColumnId, toColumnId)`. Boards without `onMoveItem` render read-only (no move control).
+
+Empty columns show a governed "No items" state (`emptyColumnLabel` overridable) instead of a blank gap, so column boundaries stay legible at any card count.
 
 ### Reporting, Evidence, and Chart Rules
 

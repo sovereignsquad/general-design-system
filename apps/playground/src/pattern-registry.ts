@@ -730,6 +730,17 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'EditorScaffold',
   },
   {
+    id: 'kanban-board',
+    title: 'Kanban Board',
+    docSection: 'Core Component Contracts',
+    family: 'operations',
+    section: 'Editing & Content Ops',
+    coverageStatus: 'live-demo',
+    summary: 'Governed responsive kanban board: portrait mobile stacks columns vertically, landscape/tablet/desktop render multi-column with horizontal scroll, and cards move between columns through a keyboard-accessible menu instead of native drag-and-drop.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'KanbanBoard',
+  },
+  {
     id: 'form-section',
     title: 'Form Section',
     docSection: 'Core Component Contracts',

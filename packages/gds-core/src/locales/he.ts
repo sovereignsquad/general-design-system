@@ -155,4 +155,8 @@ export const he = {
   'gds.chart.table.value': 'ערך',
   'gds.chart.table.secondaryValue': 'ערך משני',
   'gds.chart.table.group': 'קבוצה',
+  'gds.kanban.boardLabel': 'לוח קנבן',
+  'gds.kanban.moveItem': 'העבר',
+  'gds.kanban.moveTo': 'העבר אל',
+  'gds.kanban.emptyColumn': 'אין פריטים',
 };

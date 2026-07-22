@@ -134,6 +134,9 @@
     "AdminReviewLayout": "Admin composite (AdminResourceManager) — admin-scoped review layout.",
     "AdminSelect": "Admin form control sub-part (AdminForms) — admin-scoped select.",
     "AdminTextInput": "Admin form control sub-part (AdminForms) — admin-scoped text input.",
-    "AdminTextarea": "Admin form control sub-part (AdminForms) — admin-scoped textarea."
+    "AdminTextarea": "Admin form control sub-part (AdminForms) — admin-scoped textarea.",
+
+    "KanbanCard": "Kanban sub-part (KanbanBoard.client) — card cell composed inside the registered KanbanBoard pattern.",
+    "KanbanColumn": "Kanban sub-part (KanbanBoard.client) — column composed inside the registered KanbanBoard pattern."
   }
 }

@@ -91,6 +91,8 @@ import {
   IconFileText,
   IconShare,
   IconStar,
+  IconArrowsMove,
+  IconLayoutKanban,
 } from '@tabler/icons-react';
 import { createElement } from 'react';
 
@@ -215,6 +217,8 @@ export const GdsIcons = {
   Menu: IconMenu2,
   Moon: IconMoon,
   Sun: IconSun,
+  Move: IconArrowsMove,
+  Kanban: IconLayoutKanban,
 };
 
 export type GdsIconKey = keyof typeof GdsIcons;
@@ -287,10 +291,10 @@ const categoryByIcon = {
   action: ['Add', 'Remove', 'Edit', 'Delete', 'Search', 'Save', 'Play', 'Start', 'Send', 'Reply', 'Forward', 'Attach', 'Upload', 'Download', 'Print', 'Copy', 'Duplicate', 'Check', 'Uncheck', 'Complete', 'Clear', 'Cancel', 'Confirm', 'Close', 'Export', 'Import', 'Preview', 'Clone', 'Restore', 'Toggle', 'Submit', 'Reset', 'Login', 'Register', 'Verify', 'Launch', 'Draft', 'Refer'],
   status: ['Success', 'Warning', 'Danger', 'Info'],
   resource: ['Users', 'Gallery', 'Profile', 'Course', 'Lesson', 'Certificate', 'Student', 'Class', 'Grade', 'Child', 'Family', 'Habit', 'Goal', 'Streak', 'Reward', 'Trophy', 'Crown', 'Star', 'Currency', 'Evidence'],
-  navigation: ['Dashboard', 'Analytics', 'Home', 'Inbox', 'Calendar', 'History', 'Grid', 'List', 'Back', 'ChevronDown', 'ChevronUp', 'Menu'],
+  navigation: ['Dashboard', 'Analytics', 'Home', 'Inbox', 'Calendar', 'History', 'Grid', 'List', 'Back', 'ChevronDown', 'ChevronUp', 'Menu', 'Kanban'],
   media: ['Capture', 'Record', 'Flip', 'Flash', 'Eye', 'EyeOff'],
   feedback: ['Message', 'Mail', 'Refresh', 'TrendingUp', 'TrendingDown', 'Notifications', 'Help'],
-  system: ['Settings', 'Language', 'Theme', 'Logout', 'Moon', 'Sun', 'Filter', 'Sort'],
+  system: ['Settings', 'Language', 'Theme', 'Logout', 'Moon', 'Sun', 'Filter', 'Sort', 'Move'],
 } as const satisfies Record<GdsIconCategory, readonly GdsIconKey[]>;
 
 function startCase(value: string) {

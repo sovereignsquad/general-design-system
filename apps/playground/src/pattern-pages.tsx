@@ -120,6 +120,8 @@ import {
   ProviderIdentityButtonGroup,
   StatsSection,
   ThemeToggle,
+  KanbanBoard,
+  type KanbanColumnData,
 } from '@sovereignsquad/gds-core';
 import {
   AppShell,
@@ -699,6 +701,50 @@ const familyMeta: Record<PatternFamily, { title: string; description: string }> 
     description: 'State communication, confirmations, placeholders, and threshold-aware response patterns.',
   },
 };
+
+function KanbanBoardDemo() {
+  const [columns, setColumns] = useState<KanbanColumnData[]>([
+    {
+      id: 'todo',
+      title: 'To do',
+      items: [
+        { id: 'draft-proposal', title: 'Draft proposal', description: 'Due Friday' },
+        { id: 'schedule-review', title: 'Schedule review' },
+      ],
+    },
+    {
+      id: 'in-progress',
+      title: 'In progress',
+      items: [{ id: 'design-review', title: 'Design review', status: 'Blocked' }],
+    },
+    { id: 'done', title: 'Done', items: [] },
+  ]);
+
+  function handleMoveItem(itemId: string, fromColumnId: string, toColumnId: string) {
+    setColumns((current) => {
+      const source = current.find((column) => column.id === fromColumnId);
+      const item = source?.items.find((candidate) => candidate.id === itemId);
+      if (!item) {
+        return current;
+      }
+      return current.map((column) => {
+        if (column.id === fromColumnId) {
+          return { ...column, items: column.items.filter((candidate) => candidate.id !== itemId) };
+        }
+        if (column.id === toColumnId) {
+          return { ...column, items: [...column.items, item] };
+        }
+        return column;
+      });
+    });
+  }
+
+  return (
+    <BoundedPreviewSurface minHeight="26rem">
+      <KanbanBoard title="Sprint board" columns={columns} onMoveItem={handleMoveItem} />
+    </BoundedPreviewSurface>
+  );
+}
 
 function groupEntries(entries: PatternRegistryEntry[]) {
   return entries.reduce<Record<string, PatternRegistryEntry[]>>((acc, entry) => {
@@ -1505,6 +1551,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <FormField label="Visibility"><select aria-label="Visibility"><option>Public</option></select></FormField>
         </FormSection>
       );
+    case 'kanban-board':
+      return <KanbanBoardDemo />;
     case 'workspace-header':
       return (
         <WorkspaceHeader

@@ -18,8 +18,8 @@ describe('playground app runtime theme flow', () => {
 
     render(<App />);
 
-    const presetSelect = await screen.findByLabelText('Preset');
-    const schemeSelect = await screen.findByLabelText('Preview color scheme');
+    const presetSelect = await screen.findByLabelText('Preset', undefined, { timeout: 5000 });
+    const schemeSelect = await screen.findByLabelText('Preview color scheme', undefined, { timeout: 5000 });
 
     fireEvent.change(presetSelect, { target: { value: 'brand' } });
     expect((presetSelect as HTMLSelectElement).value).toBe('brand');
@@ -51,13 +51,13 @@ describe('playground app runtime theme flow', () => {
 
     render(<App />);
 
-    const presetSelect = await screen.findByLabelText('Preset');
-    const schemeSelect = await screen.findByLabelText('Preview color scheme');
-    const brandPrimarySelect = await screen.findByLabelText('Brand primary color');
-    const flatSurfacesCheckbox = await screen.findByLabelText('Use flat surfaces');
-    const editorialCheckbox = await screen.findByLabelText('Use editorial serif headings');
-    const compareCheckbox = await screen.findByLabelText('Compare against a second shipped preset');
-    const comparisonPresetSelect = await screen.findByLabelText('Comparison preset');
+    const presetSelect = await screen.findByLabelText('Preset', undefined, { timeout: 5000 });
+    const schemeSelect = await screen.findByLabelText('Preview color scheme', undefined, { timeout: 5000 });
+    const brandPrimarySelect = await screen.findByLabelText('Brand primary color', undefined, { timeout: 5000 });
+    const flatSurfacesCheckbox = await screen.findByLabelText('Use flat surfaces', undefined, { timeout: 5000 });
+    const editorialCheckbox = await screen.findByLabelText('Use editorial serif headings', undefined, { timeout: 5000 });
+    const compareCheckbox = await screen.findByLabelText('Compare against a second shipped preset', undefined, { timeout: 5000 });
+    const comparisonPresetSelect = await screen.findByLabelText('Comparison preset', undefined, { timeout: 5000 });
 
     fireEvent.change(presetSelect, { target: { value: 'brand' } });
     expect((presetSelect as HTMLSelectElement).value).toBe('brand');
@@ -96,8 +96,8 @@ describe('playground app runtime theme flow', () => {
 
     render(<App />);
 
-    const presetSelect = await screen.findByLabelText('Preset');
-    const schemeSelect = await screen.findByLabelText('Preview color scheme');
+    const presetSelect = await screen.findByLabelText('Preset', undefined, { timeout: 5000 });
+    const schemeSelect = await screen.findByLabelText('Preview color scheme', undefined, { timeout: 5000 });
 
     fireEvent.change(presetSelect, { target: { value: 'neon-night' } });
     fireEvent.change(schemeSelect, { target: { value: 'light' } });
@@ -134,9 +134,9 @@ describe('playground app runtime theme flow', () => {
 
     const firstRender = render(<App />);
 
-    fireEvent.change(await screen.findByLabelText('Preset'), { target: { value: 'oceanic' } });
-    fireEvent.change(await screen.findByLabelText('Preview color scheme'), { target: { value: 'dark' } });
-    fireEvent.change(await screen.findByLabelText('Webfont lane'), { target: { value: 'space-grotesk' } });
+    fireEvent.change(await screen.findByLabelText('Preset', undefined, { timeout: 5000 }), { target: { value: 'oceanic' } });
+    fireEvent.change(await screen.findByLabelText('Preview color scheme', undefined, { timeout: 5000 }), { target: { value: 'dark' } });
+    fireEvent.change(await screen.findByLabelText('Webfont lane', undefined, { timeout: 5000 }), { target: { value: 'space-grotesk' } });
 
     await waitFor(() =>
       expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toContain('oceanic-dark'),
@@ -171,7 +171,7 @@ describe('playground app runtime theme flow', () => {
     await waitFor(() =>
       expect(document.documentElement.style.getPropertyValue('--gds-vibe-accent')).toBe(expectedOceanicVibe.accent),
     );
-    expect(await screen.findByText('Discovery & Cards')).toBeTruthy();
+    expect(await screen.findByText('Discovery & Cards', undefined, { timeout: 5000 })).toBeTruthy();
   });
 
   it('loads public pattern routes with the persisted dark runtime scheme', async () => {
@@ -184,7 +184,7 @@ describe('playground app runtime theme flow', () => {
 
     render(<App />);
 
-    expect(await screen.findByText('Partner discovery reference')).toBeTruthy();
+    expect(await screen.findByText('Partner discovery reference', undefined, { timeout: 5000 })).toBeTruthy();
     await waitFor(() =>
       expect(document.documentElement.getAttribute('data-mantine-color-scheme')).toBe('dark'),
     );

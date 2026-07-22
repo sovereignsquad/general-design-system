@@ -55,9 +55,11 @@ export interface AdminResourceCardProps<T extends AdminResourceRecord> {
   record: T;
   actions?: AdminResourceAction<T>[];
   onPreview?: (record: T) => void;
+  /** Omit the media area entirely for records with no media, instead of a placeholder block. */
+  hideWhenNoMedia?: boolean;
 }
 
-export function AdminResourceCard<T extends AdminResourceRecord>({ record, actions = [], onPreview }: AdminResourceCardProps<T>) {
+export function AdminResourceCard<T extends AdminResourceRecord>({ record, actions = [], onPreview, hideWhenNoMedia }: AdminResourceCardProps<T>) {
   const primary = actions.find((action) => action.kind === 'primary');
   const secondary = actions.filter((action) => action.kind === 'secondary' || action.kind === 'danger');
   const iconOnly = actions.filter((action) => action.kind === 'icon');
@@ -71,6 +73,7 @@ export function AdminResourceCard<T extends AdminResourceRecord>({ record, actio
       caption={record.description}
       status={record.status}
       metadata={record.metadata}
+      hideWhenNoMedia={hideWhenNoMedia}
       actions={{
         primary: primary
           ? {
@@ -102,13 +105,15 @@ export interface AdminResourceGridProps<T extends AdminResourceRecord> {
   records: T[];
   actions?: AdminResourceAction<T>[];
   onPreview?: (record: T) => void;
+  /** Omit the media area entirely for records with no media, instead of a placeholder block. */
+  hideWhenNoMedia?: boolean;
 }
 
-export function AdminResourceGrid<T extends AdminResourceRecord>({ records, actions, onPreview }: AdminResourceGridProps<T>) {
+export function AdminResourceGrid<T extends AdminResourceRecord>({ records, actions, onPreview, hideWhenNoMedia }: AdminResourceGridProps<T>) {
   return (
     <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
       {records.map((record) => (
-        <AdminResourceCard key={record.id} record={record} actions={actions} onPreview={onPreview} />
+        <AdminResourceCard key={record.id} record={record} actions={actions} onPreview={onPreview} hideWhenNoMedia={hideWhenNoMedia} />
       ))}
     </SimpleGrid>
   );
@@ -152,6 +157,8 @@ export interface AdminResourceManagerProps<T extends AdminResourceRecord> {
   onPreview?: (record: T) => void;
   emptyState?: ReactNode;
   errorDescription?: ReactNode;
+  /** Omit the media area entirely for records with no media, instead of a placeholder block. */
+  hideWhenNoMedia?: boolean;
 }
 
 export function AdminResourceManager<T extends AdminResourceRecord>({
@@ -165,6 +172,7 @@ export function AdminResourceManager<T extends AdminResourceRecord>({
   onPreview,
   emptyState,
   errorDescription,
+  hideWhenNoMedia,
 }: AdminResourceManagerProps<T>) {
   const asyncState = state === 'ready'
     ? 'success'
@@ -184,7 +192,7 @@ export function AdminResourceManager<T extends AdminResourceRecord>({
         emptyDescription={state === 'filtered' ? 'Reset filters or adjust the current scope.' : 'Create the first resource to continue.'}
         errorTitle={state === 'permission-limited' ? 'Limited access' : 'Unable to load resources'}
         errorDescription={errorDescription ?? (state === 'permission-limited' ? 'You do not have access to every resource in this manager.' : undefined)}
-        successContent={<AdminResourceGrid records={records} actions={actions} onPreview={onPreview} />}
+        successContent={<AdminResourceGrid records={records} actions={actions} onPreview={onPreview} hideWhenNoMedia={hideWhenNoMedia} />}
         retryAction={emptyState}
       />
     </Stack>
