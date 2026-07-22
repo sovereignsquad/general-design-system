@@ -8,8 +8,8 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@sovereignsquad/gds-core": "3.9.0",
-    "@sovereignsquad/gds-theme": "3.9.0",
+    "@sovereignsquad/gds-core": "3.10.0",
+    "@sovereignsquad/gds-theme": "3.10.0",
     "@floating-ui/core": "^1.7.5",
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",

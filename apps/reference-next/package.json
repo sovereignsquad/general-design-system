@@ -8,8 +8,8 @@
     "dev": "next dev"
   },
   "dependencies": {
-    "@sovereignsquad/gds-core": "3.9.0",
-    "@sovereignsquad/gds-theme": "3.9.0",
+    "@sovereignsquad/gds-core": "3.10.0",
+    "@sovereignsquad/gds-theme": "3.10.0",
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
     "react": "^18.3.1",
