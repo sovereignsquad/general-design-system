@@ -1,8 +1,8 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 3.9.0
-Last updated: 2026-06-26
+Version: 3.10.0
+Last updated: 2026-07-22
 
 This document defines the supported package/runtime contract for the umbrella package `@sovereignsquad/gds` and the granular runtime packages `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.
 
@@ -38,8 +38,8 @@ Canonical registry target: **npm**
 
 Current live status:
 
-- published npm baseline: `3.9.0`
-- current repository line: `3.9.0`
+- published npm baseline: `3.10.0`
+- current repository line: `3.10.0`
 - current major line: `3.0.x`
 
 Consumer repos should install the latest published npm version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
@@ -53,21 +53,21 @@ npm run publish:npm
 npm run verify:published
 ```
 
-For the current `3.9.0` line, the install contract is:
+For the current `3.10.0` line, the install contract is:
 
 ```bash
-npm install @sovereignsquad/gds@3.9.0
-npm install -D @sovereignsquad/gds-eslint-config@3.9.0 @sovereignsquad/gds-compliance@3.9.0
+npm install @sovereignsquad/gds@3.10.0
+npm install -D @sovereignsquad/gds-eslint-config@3.10.0 @sovereignsquad/gds-compliance@3.10.0
 ```
 
 Granular consumers should use the same version across every package:
 
 ```bash
-npm install @sovereignsquad/gds-theme@3.9.0 @sovereignsquad/gds-core@3.9.0 @sovereignsquad/gds-admin@3.9.0
-npm install -D @sovereignsquad/gds-eslint-config@3.9.0 @sovereignsquad/gds-compliance@3.9.0
+npm install @sovereignsquad/gds-theme@3.10.0 @sovereignsquad/gds-core@3.10.0 @sovereignsquad/gds-admin@3.10.0
+npm install -D @sovereignsquad/gds-eslint-config@3.10.0 @sovereignsquad/gds-compliance@3.10.0
 ```
 
-Do not mix pre-3.0 package lines with `3.9.0` packages in the same consumer dependency graph.
+Do not mix pre-3.0 package lines with `3.10.0` packages in the same consumer dependency graph.
 
 ### Fallback release-bundle distribution path
 

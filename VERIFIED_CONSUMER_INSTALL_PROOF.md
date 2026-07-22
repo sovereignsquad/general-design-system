@@ -1,13 +1,13 @@
 # Verified Consumer Install Proof
 
 Status: Active SSOT
-Version: 3.9.0
+Version: 3.10.0
 Last updated: 2026-06-21
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
-Latest published npm baseline validated by this proof: `3.9.0`
-Current repository line: `3.9.0`
+Latest published npm baseline validated by this proof: `3.10.0`
+Current repository line: `3.10.0`
 Current major line: `3.0.x`
 
 ## Verified consumer baseline
@@ -103,18 +103,18 @@ That means the current verified statement is:
 
 ## Consumer install commands
 
-Canonical `3.9.0` end-state install source after the release gate opens:
+Canonical `3.10.0` end-state install source after the release gate opens:
 
 ```bash
-npm install @sovereignsquad/gds@3.9.0
-npm install -D @sovereignsquad/gds-eslint-config@3.9.0 @sovereignsquad/gds-compliance@3.9.0 @sovereignsquad/gds-a11y@3.9.0
+npm install @sovereignsquad/gds@3.10.0
+npm install -D @sovereignsquad/gds-eslint-config@3.10.0 @sovereignsquad/gds-compliance@3.10.0 @sovereignsquad/gds-a11y@3.10.0
 ```
 
 Granular package path:
 
 ```bash
-npm install @sovereignsquad/gds-theme@3.9.0 @sovereignsquad/gds-core@3.9.0 @sovereignsquad/gds-admin@3.9.0
-npm install -D @sovereignsquad/gds-eslint-config@3.9.0 @sovereignsquad/gds-compliance@3.9.0 @sovereignsquad/gds-a11y@3.9.0
+npm install @sovereignsquad/gds-theme@3.10.0 @sovereignsquad/gds-core@3.10.0 @sovereignsquad/gds-admin@3.10.0
+npm install -D @sovereignsquad/gds-eslint-config@3.10.0 @sovereignsquad/gds-compliance@3.10.0 @sovereignsquad/gds-a11y@3.10.0
 ```
 
 Fallback release-bundle install path if npm is temporarily unavailable:

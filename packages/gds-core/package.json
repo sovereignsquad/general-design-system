@@ -1,6 +1,6 @@
 {
   "name": "@sovereignsquad/gds-core",
-  "version": "3.9.0",
+  "version": "3.10.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -38,7 +38,7 @@
     "dev": "tsup --watch"
   },
   "peerDependencies": {
-    "@sovereignsquad/gds-theme": "3.9.0",
+    "@sovereignsquad/gds-theme": "3.10.0",
     "@mantine/core": "^7.9.0 || ^8.3.0 || ^9.0.0",
     "@mantine/hooks": "^7.9.0 || ^8.3.0 || ^9.0.0",
     "@tabler/icons-react": "^3.5.0",
@@ -46,7 +46,7 @@
     "react-dom": "^18.2.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@sovereignsquad/gds-theme": "3.9.0",
+    "@sovereignsquad/gds-theme": "3.10.0",
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
     "@tabler/icons-react": "^3.5.0",
@@ -54,6 +54,6 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@sovereignsquad/gds-theme": "3.9.0"
+    "@sovereignsquad/gds-theme": "3.10.0"
   }
 }

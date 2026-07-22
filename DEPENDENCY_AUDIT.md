@@ -1,8 +1,8 @@
 # Dependency Audit Policy
 
 Status: Active SSOT
-Version: 3.0.7
-Last updated: 2026-06-06
+Version: 3.0.8
+Last updated: 2026-07-22
 
 This repository treats published runtime package dependencies and local reference/tooling dependencies differently.
 
@@ -33,6 +33,25 @@ Operational behavior:
 
 - Do not ship public consumer guidance that requires `apps/reference-next` as a runtime dependency.
 - Recheck monthly or when Next publishes a patched stable dependency graph.
+- Remove this exception once `npm audit --json` no longer reports the advisory through the reference fixture.
+
+### GHSA-f88m-g3jw-g9cj
+
+Owner: GDS platform
+Review date: 2026-08-22
+Scope: `apps/reference-next` development/reference fixture via `next@15.5.20` and nested `sharp@0.34.5` (libvips CVE-2026-33327/33328/35590/35591)
+Severity: high
+
+Reason:
+
+- The finding is reported through Next's nested `sharp` image-optimization dependency in the private App Router reference fixture, the same non-shipped dependency chain as `GHSA-qx2v-qp2m-jg93`.
+- `next` is kept in `devDependencies` for the reference fixture so it is not part of the production dependency audit or published GDS package runtime surface. The reference fixture does not serve or process untrusted images.
+- The only automated fix path (`npm audit fix --force`) downgrades `next` to `9.3.3`, a major regression far below the supported `15.x` reference line, so it is not a safe corrective action.
+
+Operational behavior:
+
+- Do not ship public consumer guidance that requires `apps/reference-next` as a runtime dependency.
+- Recheck monthly or when Next publishes a patched `sharp`/libvips dependency graph.
 - Remove this exception once `npm audit --json` no longer reports the advisory through the reference fixture.
 
 ## Resolved During 3.0.7

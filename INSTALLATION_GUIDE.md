@@ -1,8 +1,8 @@
 # Installation Guide
 
 Status: Active SSOT
-Version: 3.9.0
-Last updated: 2026-06-26
+Version: 3.10.0
+Last updated: 2026-07-22
 
 This guide is the canonical consumer setup path for the public umbrella package `@sovereignsquad/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
@@ -22,7 +22,7 @@ Use icons through the GDS-owned `GdsIcons` surface (`import { GdsIcons } from '@
 
 Release-line rule:
 
-- current stable package line: `3.9.0`
+- current stable package line: `3.10.0`
 - current major line: `3.0.x`
 - do not publish, announce, or ask clients to install a new version until `npm run verify:published` confirms npm availability
 
@@ -49,23 +49,23 @@ See [COMPATIBILITY_AND_RELEASES.md](COMPATIBILITY_AND_RELEASES.md) and [VERIFIED
 
 ## 2. Canonical install commands
 
-Preferred `3.9.0` runtime package after the release gate opens:
+Preferred `3.10.0` runtime package after the release gate opens:
 
 ```bash
-npm install @sovereignsquad/gds@3.9.0
+npm install @sovereignsquad/gds@3.10.0
 ```
 
 Governance packages:
 
 ```bash
-npm install -D @sovereignsquad/gds-eslint-config@3.9.0 @sovereignsquad/gds-compliance@3.9.0 @sovereignsquad/gds-a11y@3.9.0
+npm install -D @sovereignsquad/gds-eslint-config@3.10.0 @sovereignsquad/gds-compliance@3.10.0 @sovereignsquad/gds-a11y@3.10.0
 ```
 
 Granular runtime packages when package separation is intentional:
 
 ```bash
-npm install @sovereignsquad/gds-theme@3.9.0 @sovereignsquad/gds-core@3.9.0 @sovereignsquad/gds-admin@3.9.0
-npm install -D @sovereignsquad/gds-eslint-config@3.9.0 @sovereignsquad/gds-compliance@3.9.0 @sovereignsquad/gds-a11y@3.9.0
+npm install @sovereignsquad/gds-theme@3.10.0 @sovereignsquad/gds-core@3.10.0 @sovereignsquad/gds-admin@3.10.0
+npm install -D @sovereignsquad/gds-eslint-config@3.10.0 @sovereignsquad/gds-compliance@3.10.0 @sovereignsquad/gds-a11y@3.10.0
 ```
 
 Required peers:
@@ -130,6 +130,26 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </GdsProvider>,
 );
 ```
+
+### Viewport meta (including PWA app shells)
+
+Set `<meta name="viewport">` once, outside React render, using `getGdsPwaViewportMetaContent(...)` from `@sovereignsquad/gds-theme` instead of hand-writing the content string:
+
+```tsx
+// Next.js App Router — app/layout.tsx
+import { getGdsPwaViewportMetaContent } from '@sovereignsquad/gds-theme';
+
+export function generateViewport() {
+  return { other: { viewport: getGdsPwaViewportMetaContent() } };
+}
+```
+
+```html
+<!-- Vite / SPA — index.html -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+```
+
+The default (`zoomPolicy: 'browser-default'`) leaves pinch-zoom untouched — required for nearly every product. See [`docs/PWA_VIEWPORT_POLICY.md`](docs/PWA_VIEWPORT_POLICY.md) before opting an installed PWA app shell into the `'app-shell-fixed'` (zoom-disabled) lane; it is a reviewed exception with required accessibility mitigations, not a default.
 
 ## 4. How to use the packages correctly
 
@@ -268,4 +288,4 @@ Do not:
 
 If npm is temporarily unavailable, use the public release tarballs described in [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md). That path is a fallback only, not the preferred steady-state install method.
 
-For the `3.9.0` release cutover, fallback assets must use tag `gds-v3.9.0` and must not be announced as the canonical path once npm verification passes.
+For the `3.10.0` release cutover, fallback assets must use tag `gds-v3.10.0` and must not be announced as the canonical path once npm verification passes.

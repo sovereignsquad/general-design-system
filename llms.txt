@@ -54,6 +54,7 @@ export default function App() {
 - Forms: `GdsForm`, `GdsSchemaForm`, `FormField`, `FormSection`, `Select`, `TextInput`, `Switch`, `Radio`
 - Data: `GdsDataTable`/`DataTable` (via `createGdsTableAdapter`), `SimpleDataTable`, `Table`, `GdsBarChart`, `GdsLineChart`
 - Feedback/overlay: `EmptyState`, `StateBlock`, `GdsNotificationProvider`+`GdsNotificationCenter`, `GdsModal`, `GdsDrawer`, `ConfirmDialog`, `CommandPalette`
+- Operations: `KanbanBoard` (stage/column tracking — portrait-mobile stacked, landscape/tablet/desktop multi-column, keyboard-accessible move-to-column menu instead of drag-and-drop)
 - Access: `GdsAccessGate`, `AccessSummary`, `AccessRecoveryPanel`, social/provider auth buttons
 
 ## Docs
