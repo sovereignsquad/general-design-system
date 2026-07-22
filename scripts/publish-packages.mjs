@@ -15,7 +15,7 @@ const workspaces = [
   '@sovereignsquad/gds-eslint-config',
   '@sovereignsquad/gds-compliance',
 ];
-const registry = process.env.GDS_NPM_REGISTRY ?? 'https://registry.npmjs.org';
+const registry = process.env.GDS_NPM_REGISTRY ?? 'https://npm.pkg.github.com';
 
 function run(command, args) {
   execFileSync(command, args, {

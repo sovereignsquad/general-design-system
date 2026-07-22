@@ -12,6 +12,15 @@ GDS (`@sovereignsquad/gds`) is a governed React design system built on Mantine. 
 
 ## 2. Install and bootstrap
 
+GDS publishes exclusively to GitHub Packages (`https://npm.pkg.github.com`) — there is no npmjs.com publish and no anonymous install, even for public packages. Add to `.npmrc` first:
+
+```ini
+@sovereignsquad:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+`GITHUB_TOKEN` is a personal access token with `read:packages` scope (yours, or your CI's provisioned token) — not a GDS-owned secret. Then:
+
 ```bash
 npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react react react-dom
 ```

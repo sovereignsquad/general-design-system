@@ -6,28 +6,18 @@ Last updated: 2026-07-22
 
 This runbook defines the authenticated package-publish flow for the General Design System.
 
-Canonical registry target: **npm**
+Canonical registry target: **GitHub Packages** (`https://npm.pkg.github.com`)
 
 Current registry reality:
 
-- canonical install source: npm
-- latest published baseline: `3.9.0`
+- canonical install source: GitHub Packages
 - current repository line: `3.10.0`
 
-GitHub release assets remain an optional fallback distribution path for unpublished release candidates:
+GDS does not publish to npmjs.com. GitHub Packages is the sole registry, chosen specifically because it authenticates with the same ambient `GITHUB_TOKEN` every GitHub Actions run already has — no separate npm.com account, no `NPM_TOKEN` secret, no external credential to lose access to. `@sovereignsquad/gds` is the preferred convenience package; it installs correctly from GitHub Packages because it's a real resolving registry (its dependency on the granular runtime packages resolves against the same registry, exactly like npmjs.com would).
 
-- public release assets attached to tag `gds-v<VERSION>`
-- generated from `npm run pack:release`
+The one real tradeoff: GitHub Packages requires authentication for every install, even of public packages — there is no anonymous `npm install`. Every consumer needs a personal access token (`read:packages` scope) and an `.npmrc` entry. See "Consumer install" below and `INSTALLATION_GUIDE.md`.
 
-`@sovereignsquad/gds` is the preferred public npm convenience package. The release-bundle fallback remains split-package oriented because the umbrella package depends on the granular runtime packages.
-
-## GitHub Packages (registry alternative)
-
-GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`) is a second, independent distribution channel for all seven packages, published automatically by `.github/workflows/publish-github-packages.yml`. Unlike the GitHub-release-tarball fallback, it is a real resolving registry, so the `@sovereignsquad/gds` umbrella package installs correctly there too (its internal dependency on the granular packages resolves against the same registry, the same way it does on npmjs.com).
-
-Why it exists: it authenticates with the workflow run's own ambient `GITHUB_TOKEN` (via the `packages: write` permission), not a separate `NPM_TOKEN` secret — so it keeps working even when the npmjs.com publish is blocked on npm account/token access, and requires no additional credential setup beyond what GitHub Actions already provides.
-
-Consumer install (requires authentication — GitHub Packages does not allow anonymous installs even for public packages, unlike npmjs.com):
+## Consumer install
 
 ```ini
 # .npmrc
@@ -39,16 +29,7 @@ Consumer install (requires authentication — GitHub Packages does not allow ano
 npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
 ```
 
-`GITHUB_TOKEN` here is a personal access token (classic, `read:packages` scope is sufficient) or an org-provisioned token, supplied by the consumer/their CI — not a GDS-owned secret.
-
-Manual publish (mirrors `npm run publish:npm`, pointed at GitHub Packages):
-
-```bash
-GDS_NPM_REGISTRY=https://npm.pkg.github.com npm run publish:npm
-GDS_NPM_REGISTRY=https://npm.pkg.github.com node scripts/check-registry-publication.mjs
-```
-
-Both `scripts/publish-packages.mjs` and `scripts/check-registry-publication.mjs` already read the `GDS_NPM_REGISTRY` environment variable, so no script changes are needed to target a different registry — only the active `.npmrc`/auth token changes.
+`GITHUB_TOKEN` here is the consumer's own personal access token or their CI's provisioned token — not a GDS-owned secret.
 
 ## Preconditions
 
@@ -61,21 +42,10 @@ Both `scripts/publish-packages.mjs` and `scripts/check-registry-publication.mjs`
   - `npm run verify:i18n-route-coverage`
   - `npm run verify:i18n-message-parity`
   - `npm run verify:i18n-package-copy`
-- operator is authenticated with npm
 - for strict adoption releases, all scoped implementation issues are complete before publishing
 - `npm run audit:board:strict` passes before and after the version bump
 
-Check auth:
-
-```bash
-npm whoami
-```
-
-If that fails with `ENEEDAUTH`, authenticate first:
-
-```bash
-npm adduser
-```
+No local npm authentication step is required — publishing runs exclusively through `.github/workflows/publish-github-packages.yml`, authenticated by that workflow run's own `GITHUB_TOKEN`. There is no `npm whoami`/`npm adduser` precondition.
 
 ## Publishable packages
 
@@ -83,6 +53,7 @@ npm adduser
 - `@sovereignsquad/gds-theme`
 - `@sovereignsquad/gds-core`
 - `@sovereignsquad/gds-admin`
+- `@sovereignsquad/gds-a11y`
 - `@sovereignsquad/gds-eslint-config`
 - `@sovereignsquad/gds-compliance`
 
@@ -92,45 +63,17 @@ npm adduser
 npm run publish:dry-run
 ```
 
-## Build temporary release bundles
-
-When npm publication is blocked but consumer teams still need a supported install path, generate public tarballs first:
-
-```bash
-npm run verify:release
-npm run pack:release
-```
-
-That creates:
-
-- `dist/release-bundles/<VERSION>/manifest.json`
-- `dist/release-bundles/<VERSION>/INSTALL_FROM_RELEASE_ASSETS.md`
-- one `.tgz` file per publishable package
-
-Recommended public release tag:
-
-```text
-gds-v<VERSION>
-```
-
-Recommended GitHub release asset upload:
-
-```bash
-gh release create gds-v$(cat VERSION) dist/release-bundles/$(cat VERSION)/* --title "GDS $(cat VERSION) release bundles"
-```
-
-Once the release exists, consumers may install directly from the asset URLs without `.npmrc` or auth setup because the repository is public.
-
 ## Real publish
+
+The real publish runs in CI, not from a maintainer's machine:
 
 ```bash
 npm run audit:board:strict
-npm run verify:release
-npm run publish:npm
-npm run verify:published
 ```
 
-Do not announce the release or update client install prompts until `npm run verify:published` confirms all seven packages resolve from npm and the clean published-consumer smoke passes.
+then trigger `.github/workflows/publish-github-packages.yml` (automatically, via a `gds-v<VERSION>` tag push — see "Fully automatic release cutover" below — or manually via `workflow_dispatch`). That workflow runs `verify:release`, publishes all seven packages to GitHub Packages, and polls the registry until the release line is visible (`npm run verify:published`).
+
+Do not announce the release or update client install prompts until that workflow's "Verify registry publication" step passes.
 
 The `3.10.0` release install matrix must remain version-locked:
 
@@ -140,6 +83,8 @@ npm install -D @sovereignsquad/gds-eslint-config@3.10.0 @sovereignsquad/gds-comp
 
 npm install @sovereignsquad/gds-theme@3.10.0 @sovereignsquad/gds-core@3.10.0 @sovereignsquad/gds-admin@3.10.0
 ```
+
+(All installs above require the `.npmrc` scope mapping from "Consumer install".)
 
 ## Expected publish order
 
@@ -163,7 +108,7 @@ Environment knobs for propagation delay:
 GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published
 ```
 
-Use `npm run verify:published:availability` when you need only registry polling during incident triage. Use `npm run verify:published:consumer` to rerun the clean npm install/import smoke after propagation succeeds.
+Use `npm run verify:published:availability` when you need only registry polling during incident triage. Use `npm run verify:published:consumer` to rerun the clean npm install/import smoke after propagation succeeds (this needs a `read:packages`-scoped token in `NODE_AUTH_TOKEN`/`GDS_NPM_TOKEN` to authenticate the temporary install against GitHub Packages).
 
 To close known delivered issues and normalize project-board cards after publish:
 
@@ -181,28 +126,23 @@ Retry policy:
 
 ## GitHub Actions publish path
 
-This repository includes four workflows:
+This repository includes three workflows:
 
 - `.github/workflows/auto-tag-release.yml`
 - `.github/workflows/release-bundles.yml`
-- `.github/workflows/publish-npm.yml`
 - `.github/workflows/publish-github-packages.yml`
 
-Required secret (only for the npmjs.com path):
-
-- `NPM_TOKEN`
-
-`publish-github-packages.yml` needs no repository secret at all — it authenticates with the workflow run's own ambient `GITHUB_TOKEN`.
+No repository secret is required for any of them — each authenticates with the workflow run's own ambient `GITHUB_TOKEN`.
 
 ### Auto-tag-release (fully automatic — no manual tag/release step)
 
 Triggers on every push to `main` that changes the root `VERSION` file. It reads `VERSION`, checks whether the matching `gds-v<VERSION>` tag already exists on the remote, and if not, creates and pushes it using the workflow run's own ambient `GITHUB_TOKEN`. This makes a routine release a normal merge, not a separate manual step: bump `VERSION` (and the aligned package/doc versions per `check-release-alignment.mjs`), merge to `main`, and the tag push happens automatically. Pushing that tag is what fans out into the two workflows below — no maintainer needs to run `git tag`/`git push` or draft a release in the GitHub web UI for a routine version bump.
 
-Manually creating the tag (via `git push` or the GitHub UI, as in the 3.10.0 cutover before this workflow existed) still works and is the fallback if this workflow is ever disabled or a hotfix tag is needed outside the normal `VERSION`-bump flow.
+Manually creating the tag (via `git push` or the GitHub UI) still works and is the fallback if this workflow is ever disabled or a hotfix tag is needed outside the normal `VERSION`-bump flow.
 
 ### Bundle workflow (`release-bundles.yml`)
 
-Triggers on `workflow_dispatch` or any pushed `gds-v*` tag (including the one `auto-tag-release.yml` just pushed):
+Triggers on `workflow_dispatch` or any pushed `gds-v*` tag:
 
 1. runs `npm ci --omit=optional`
 2. installs Linux-native `rollup` and `rolldown` bindings explicitly
@@ -211,29 +151,19 @@ Triggers on `workflow_dispatch` or any pushed `gds-v*` tag (including the one `a
 5. uploads the tarballs as a workflow artifact
 6. on a `gds-v*` tag, creates (or updates) the GitHub Release for that tag and attaches the tarballs as release assets
 
-### Publish workflow (`publish-npm.yml`)
+This workflow is **not** a documented consumer install path — it exists to give each release a visible GitHub Release page (notes, tag history) and a downloadable artifact for audit/offline purposes. The canonical way to install GDS is GitHub Packages; do not point consumers at these tarball URLs.
+
+### Publish workflow (`publish-github-packages.yml`)
 
 Triggers on `workflow_dispatch` or any pushed `gds-v*` tag:
 
 1. runs `npm ci --omit=optional`
 2. installs Linux-native `rollup` and `rolldown` bindings explicitly
 3. runs `npm run verify:release`
-4. publishes all seven packages
-5. polls the registry until the release line is visible
-
-### GitHub Packages workflow (`publish-github-packages.yml`)
-
-Triggers on `workflow_dispatch` or any pushed `gds-v*` tag, independently of `publish-npm.yml`:
-
-1. runs `npm ci --omit=optional`
-2. installs Linux-native `rollup` and `rolldown` bindings explicitly
-3. runs `npm run verify:release`
-4. publishes all seven packages to `https://npm.pkg.github.com` (via `GDS_NPM_REGISTRY` + the ambient `GITHUB_TOKEN` — see the "GitHub Packages" section above)
+4. publishes all seven packages to `https://npm.pkg.github.com` (via `actions/setup-node`'s `registry-url`/`scope` inputs + the ambient `GITHUB_TOKEN` — no repository secret configured)
 5. polls that registry until the release line is visible
 
-Because this workflow doesn't depend on `NPM_TOKEN`, it keeps working even when the npmjs.com publish is blocked on npm account/token access — as it was during the 3.10.0 release.
-
-All three publish/bundle workflows (`release-bundles.yml`, `publish-npm.yml`, `publish-github-packages.yml`) gate their real side effects (creating the release, publishing to a registry) behind their own `verify:release` run — a version bump that fails verification never reaches any of them. A tag can exist without a completed release/publish if `verify:release` fails downstream; treat that the same as any other failed release attempt (see Recovery guidance) rather than assuming the tag alone means the release shipped.
+Both `release-bundles.yml` and `publish-github-packages.yml` gate their real side effects (creating the release, publishing to the registry) behind their own `verify:release` run — a version bump that fails verification never reaches either. A tag can exist without a completed release/publish if `verify:release` fails downstream; treat that the same as any other failed release attempt (see Recovery guidance) rather than assuming the tag alone means the release shipped.
 
 ## Recovery guidance
 

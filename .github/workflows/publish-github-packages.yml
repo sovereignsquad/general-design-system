@@ -1,20 +1,18 @@
-name: GDS Publish (GitHub Packages)
+name: GDS Publish
 
-# Publishes all seven GDS packages to GitHub Packages' npm-compatible registry
-# (npm.pkg.github.com) instead of npmjs.com. Authenticates with the workflow
-# run's own ambient GITHUB_TOKEN (scoped by the `packages: write` permission
-# below) — no separate npm.com account or NPM_TOKEN secret required. This is
-# a second, independent distribution channel alongside publish-npm.yml
-# (npmjs.com) and release-bundles.yml (GitHub Release tarballs); a failure or
-# missing credential in one channel never blocks the others, since each is
-# its own workflow with its own trigger and auth.
+# Canonical publish workflow: publishes all seven GDS packages to GitHub
+# Packages' npm-compatible registry (npm.pkg.github.com), authenticated with
+# the workflow run's own ambient GITHUB_TOKEN (scoped by the `packages: write`
+# permission below) — no separate npm.com account or token ever required.
+# GitHub Packages is the sole canonical distribution channel for GDS; there is
+# no parallel npmjs.com publish workflow.
 #
-# Consumers install from this channel by adding to their .npmrc:
+# Consumers install by adding to their .npmrc:
 #   @sovereignsquad:registry=https://npm.pkg.github.com
 # and authenticating with a personal access token that has at least
 # `read:packages` scope (GitHub Packages requires authentication for every
-# install, even for public packages — unlike npmjs.com). See the
-# "GitHub Packages" section in RELEASE_PUBLISH.md.
+# install, even for public packages). See RELEASE_PUBLISH.md and
+# INSTALLATION_GUIDE.md.
 
 on:
   workflow_dispatch:
@@ -59,8 +57,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Verify GitHub Packages publication
-        run: node scripts/check-registry-publication.mjs
+      - name: Verify registry publication
+        run: npm run verify:published
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GDS_REGISTRY_RETRIES: 15

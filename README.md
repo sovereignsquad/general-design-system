@@ -183,13 +183,9 @@ Product repositories may **not** redefine:
 
 **If a project-local UI document conflicts with this directory, this directory wins.**
 
-## Install Without npmjs.com
+## Install (GitHub Packages)
 
-The canonical install source is npm, but a consumer team is never blocked on waiting for an npmjs.com publish specifically — two independent alternate channels are published automatically on every release.
-
-### GitHub Packages (alternate registry)
-
-All seven packages also publish to GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`), authenticated in CI by the workflow run's own ambient `GITHUB_TOKEN` — no `NPM_TOKEN`/npm.com account dependency. Because it's a real resolving registry (not tarballs), the `@sovereignsquad/gds` umbrella package works here too:
+GDS does not publish to npmjs.com. **GitHub Packages is the sole canonical registry** (`https://npm.pkg.github.com`), authenticated in CI by the workflow run's own ambient `GITHUB_TOKEN` — no `NPM_TOKEN`/npm.com account dependency. Because it's a real resolving registry (not tarballs), the `@sovereignsquad/gds` umbrella package works here too:
 
 ```ini
 # .npmrc
@@ -201,24 +197,13 @@ All seven packages also publish to GitHub Packages' npm-compatible registry (`ht
 npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
 ```
 
-`GITHUB_TOKEN` here is your own personal access token (`read:packages` scope) — GitHub Packages requires authentication for every install, even for public packages, unlike npmjs.com.
+`GITHUB_TOKEN` here is your own personal access token (`read:packages` scope) — GitHub Packages requires authentication for every install, even for public packages; there is no anonymous `npm install` path. See [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) for full setup and troubleshooting.
 
-### Release-bundle tarballs (no registry at all)
+### Release-visibility artifacts (not an install path)
 
-This repository is public, so `npm run pack:release` packs the granular runtime packages into `.tgz` tarballs attached to a public GitHub Release (tag `gds-v<VERSION>`), and any team can install straight from those release-asset URLs — no registry auth, no `.npmrc`, no waiting:
+Every `gds-v<VERSION>` tag also produces a public GitHub Release with `.tgz` tarballs attached, via `npm run pack:release`. These exist for audit/offline visibility only — they are **not** a documented consumer install path, and the `@sovereignsquad/gds` umbrella package cannot be installed this way (its dependency ranges assume its sub-packages resolve from a registry). Do not point consumers at these tarball URLs; use GitHub Packages above.
 
-```bash
-npm install https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/sovereignsquad-gds-theme-<VERSION>.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/sovereignsquad-gds-core-<VERSION>.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/sovereignsquad-gds-admin-<VERSION>.tgz
-
-npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
-```
-
-- Use the **granular** packages (`gds-theme`, `gds-core`, `gds-admin`) for this path, not the `@sovereignsquad/gds` umbrella — the umbrella package's own dependency ranges assume its sub-packages resolve from a registry, so it is registry-only (works on npmjs.com and GitHub Packages, not from standalone tarballs).
-- Exact tarball URLs and checksums for the current release live in the `manifest.json` and `INSTALL_FROM_RELEASE_ASSETS.md` produced under `dist/release-bundles/<VERSION>/` by `npm run pack:release`, and in the assets attached to the `gds-v<VERSION>` GitHub Release.
-
-Both alternates are always-on parallel channels, not fallbacks that go away — but npmjs.com remains the canonical, preferred path in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md). See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the full publish process across all three channels.
+See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the full publish process.
 
 ## Repository Rules
 

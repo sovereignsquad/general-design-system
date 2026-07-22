@@ -6,7 +6,7 @@ const root = process.cwd();
 const version = readFileSync(resolve(root, 'VERSION'), 'utf8').trim();
 const retries = Number.parseInt(process.env.GDS_REGISTRY_RETRIES ?? '5', 10);
 const delayMs = Number.parseInt(process.env.GDS_REGISTRY_DELAY_MS ?? '5000', 10);
-const registry = process.env.GDS_NPM_REGISTRY ?? 'https://registry.npmjs.org';
+const registry = process.env.GDS_NPM_REGISTRY ?? 'https://npm.pkg.github.com';
 
 const packages = [
   '@sovereignsquad/gds-theme',

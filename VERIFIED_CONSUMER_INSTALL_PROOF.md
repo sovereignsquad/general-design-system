@@ -6,7 +6,7 @@ Last updated: 2026-06-21
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
-Latest published npm baseline validated by this proof: `3.10.0`
+Latest published GitHub Packages baseline validated by this proof: `3.10.0`
 Current repository line: `3.10.0`
 Current major line: `3.0.x`
 
@@ -59,11 +59,11 @@ The repository root also declares platform-scoped optional native bindings for:
 
 This is intended to make a fresh root `npm install` sufficient for local Vite and tsup builds on the supported macOS and Linux x64 environments.
 
-### 2. Published npm consumer smoke
+### 2. Published GitHub Packages consumer smoke
 
 `npm run verify:published` now runs registry availability followed by `npm run verify:published:consumer`.
 
-The published smoke creates a temporary consumer outside the monorepo, installs the current `VERSION` from npm, type-checks imports from the umbrella and granular packages, and runs runtime import checks for:
+The published smoke creates a temporary consumer outside the monorepo, installs the current `VERSION` from GitHub Packages (authenticated via a `read:packages`-scoped token), type-checks imports from the umbrella and granular packages, and runs runtime import checks for:
 
 - `@sovereignsquad/gds`
 - `@sovereignsquad/gds-theme`
@@ -103,6 +103,13 @@ That means the current verified statement is:
 
 ## Consumer install commands
 
+All installs require the `.npmrc` scope mapping to GitHub Packages first:
+
+```ini
+@sovereignsquad:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
 Canonical `3.10.0` end-state install source after the release gate opens:
 
 ```bash
@@ -117,10 +124,7 @@ npm install @sovereignsquad/gds-theme@3.10.0 @sovereignsquad/gds-core@3.10.0 @so
 npm install -D @sovereignsquad/gds-eslint-config@3.10.0 @sovereignsquad/gds-compliance@3.10.0 @sovereignsquad/gds-a11y@3.10.0
 ```
 
-Fallback release-bundle install path if npm is temporarily unavailable:
-
-- use the release-asset tarballs described in [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md)
-- do not use sibling `file:` links in CI or Vercel flows
+Release-visibility tarballs attached to the `gds-v<VERSION>` GitHub Release (see [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md)) are audit/offline artifacts, not a documented install path — do not use them in place of the GitHub Packages install above, and do not use sibling `file:` links in CI or Vercel flows.
 
 ## Evidence commands
 

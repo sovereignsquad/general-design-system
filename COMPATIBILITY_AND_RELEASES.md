@@ -34,26 +34,29 @@ For hosted CI and Vercel builds, the intended end state is:
 2. keep the consumer repo independent of a sibling GDS checkout
 3. pin the consumed GDS version explicitly in the consumer repo
 
-Canonical registry target: **npm**
+Canonical registry target: **GitHub Packages** (`https://npm.pkg.github.com`)
+
+GDS does not publish to npmjs.com. GitHub Packages is the sole registry. Every install — including public packages — requires authentication:
+
+```ini
+# .npmrc
+@sovereignsquad:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+`GITHUB_TOKEN` is a personal access token with `read:packages` scope (yours, or your CI's provisioned token) — not a GDS-owned secret.
 
 Current live status:
 
-- published npm baseline: `3.10.0`
+- published baseline (GitHub Packages): `3.10.0`
 - current repository line: `3.10.0`
 - current major line: `3.0.x`
 
-Consumer repos should install the latest published npm version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
+Consumer repos should install the latest published version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
-Authenticated release operators should use [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) together with:
+Authenticated release operators should use [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md); publishing itself runs only through `.github/workflows/publish-github-packages.yml` in CI, not from a maintainer's machine.
 
-```bash
-npm run verify:release
-npm run publish:dry-run
-npm run publish:npm
-npm run verify:published
-```
-
-For the current `3.10.0` line, the install contract is:
+For the current `3.10.0` line, the install contract is (requires the `.npmrc` block above):
 
 ```bash
 npm install @sovereignsquad/gds@3.10.0
@@ -69,48 +72,12 @@ npm install -D @sovereignsquad/gds-eslint-config@3.10.0 @sovereignsquad/gds-comp
 
 Do not mix pre-3.0 package lines with `3.10.0` packages in the same consumer dependency graph.
 
-### Fallback release-bundle distribution path
+### Release-visibility artifacts (not an install path)
 
-If npm is temporarily unavailable for operational reasons, the approved fallback install source is **public GitHub release assets** from this repository.
+Every `gds-v<VERSION>` tag also produces a public GitHub Release with `.tgz` tarballs attached (via `npm run pack:release`), giving each release a visible page and a downloadable artifact for audit/offline purposes. These are **not** a documented consumer install path:
 
-This fallback path:
-
-- works in local development
-- works in CI
-- works in Vercel or other hosted builds
-- keeps the consumer repo independent from sibling `file:` links
-- preserves plain `npm install` peer resolution for Mantine `8.3.x` and `9.2.x` consumers
-
-Tag format:
-
-```text
-gds-v<VERSION>
-```
-
-Asset URL format:
-
-```text
-https://github.com/sovereignsquad/general-design-system/releases/download/gds-v<VERSION>/<asset-name>.tgz
-```
-
-Example for `3.8.0`:
-
-```bash
-npm install \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.8.0/sovereignsquad-gds-theme-3.8.0.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.8.0/sovereignsquad-gds-core-3.8.0.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.8.0/sovereignsquad-gds-admin-3.8.0.tgz
-
-npm install -D \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.8.0/sovereignsquad-gds-eslint-config-3.8.0.tgz \
-  https://github.com/sovereignsquad/general-design-system/releases/download/gds-v3.8.0/sovereignsquad-gds-compliance-3.8.0.tgz
-```
-
-Auth expectations for the temporary path:
-
-- no `.npmrc` override is required for public release assets
-- no npm token is required for consumers
-- standard GitHub public release asset availability is sufficient
+- the `@sovereignsquad/gds` umbrella package cannot be installed this way — its dependency ranges assume its sub-packages resolve from a registry
+- do not point consumers at these tarball URLs; use the GitHub Packages install contract above
 
 See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the operator-side bundling flow.
 

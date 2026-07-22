@@ -8,6 +8,12 @@ Use this for every product team migrating to the current stable `3.10.0` GDS ado
 
 Team, we completed the GDS upgrade to the 3.10.0 adoption platform release.
 
+- GDS installs exclusively from GitHub Packages — if your `.npmrc` doesn't already have it, add:
+  ```ini
+  @sovereignsquad:registry=https://npm.pkg.github.com
+  //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+  ```
+  (`GITHUB_TOKEN` is your own personal access token with `read:packages` scope — GitHub Packages requires authentication for every install, even public ones.)
 - Update dependencies:
   - `@sovereignsquad/gds@3.10.0`
   - `@sovereignsquad/gds-eslint-config@3.10.0` (dev)

@@ -6,21 +6,30 @@ import { readFileSync } from 'node:fs';
 
 const root = process.cwd();
 const version = process.env.GDS_PUBLISHED_SMOKE_VERSION ?? readFileSync(resolve(root, 'VERSION'), 'utf8').trim();
-const registry = process.env.GDS_NPM_REGISTRY ?? 'https://registry.npmjs.org';
+const registry = process.env.GDS_NPM_REGISTRY ?? 'https://npm.pkg.github.com';
+const registryHost = new URL(registry).host;
+const authToken = process.env.NODE_AUTH_TOKEN ?? process.env.GDS_NPM_TOKEN ?? '';
 const workspaceRoot = mkdtempSync(join(tmpdir(), 'gds-published-smoke-'));
 
 function run(command, args, cwd = workspaceRoot) {
   execFileSync(command, args, {
     cwd,
     stdio: 'inherit',
-    env: {
-      ...process.env,
-      npm_config_registry: registry,
-    },
+    env: process.env,
   });
 }
 
 try {
+  // Scope-only registry mapping — @sovereignsquad/* resolves from the GDS registry,
+  // everything else (react, @mantine/*, typescript, ...) keeps resolving from npm's
+  // normal default registry. A blanket `npm_config_registry` override would break
+  // those unscoped packages when the GDS registry is GitHub Packages, which only
+  // serves packages scoped to this org, not a full npmjs.com mirror.
+  writeFileSync(
+    join(workspaceRoot, '.npmrc'),
+    `@sovereignsquad:registry=${registry}\n//${registryHost}/:_authToken=${authToken}\n`,
+  );
+
   writeFileSync(
     join(workspaceRoot, 'package.json'),
     JSON.stringify(

@@ -8,8 +8,10 @@ name: GDS Auto Tag Release
 # on a human or agent's local git/API access, since it runs entirely on GitHub's
 # own infrastructure. Pushing that tag is what triggers the existing
 # release-bundles.yml (build + verify:release + pack + create/update the public
-# GitHub Release with tarball assets) and publish-npm.yml (npm publish, once
-# NPM_TOKEN is valid) — both already listen for `push: tags: gds-v*`.
+# GitHub Release with tarball assets) and publish-github-packages.yml (publishes
+# all seven packages to GitHub Packages using the workflow run's own ambient
+# GITHUB_TOKEN — no NPM_TOKEN/npm.com account ever required) — both already
+# listen for `push: tags: gds-v*`.
 #
 # No manual GitHub UI step or local git access is required for a routine
 # release: bump VERSION (and the aligned package.json/doc versions per

@@ -34,6 +34,10 @@ import {
 } from './site-copy';
 import { productUseCases } from './product-use-cases';
 
+const npmrcCode = `# .npmrc
+@sovereignsquad:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}`;
+
 const installCode = `npm install @sovereignsquad/gds@${targetGdsVersion}
 npm install -D @sovereignsquad/gds-eslint-config@${targetGdsVersion} @sovereignsquad/gds-compliance@${targetGdsVersion} @sovereignsquad/gds-a11y@${targetGdsVersion}`;
 
@@ -181,15 +185,17 @@ npm run verify:published:consumer
 # Consumer verification failure
 gds-compliance check --manifest ./gds-adoption.json --format text`;
 
-const fallbackConsumerInstallCode = `# Install directly from GitHub release assets — no npm registry, no auth, no waiting.
-# Use the granular packages, not the @sovereignsquad/gds umbrella (registry-only).
+const fallbackConsumerInstallCode = `# NOT a documented install path — release-visibility artifact only.
+# GDS installs exclusively via GitHub Packages (see the .npmrc block above).
+# These tarballs exist for audit/offline purposes; the @sovereignsquad/gds
+# umbrella package cannot be installed this way (registry-only dependency ranges).
 npm install https://github.com/sovereignsquad/general-design-system/releases/download/gds-v${targetGdsVersion}/sovereignsquad-gds-theme-${targetGdsVersion}.tgz \\
   https://github.com/sovereignsquad/general-design-system/releases/download/gds-v${targetGdsVersion}/sovereignsquad-gds-core-${targetGdsVersion}.tgz \\
   https://github.com/sovereignsquad/general-design-system/releases/download/gds-v${targetGdsVersion}/sovereignsquad-gds-admin-${targetGdsVersion}.tgz
 
 npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react`;
 
-const fallbackInstallCode = `# Maintainers: publish a release bundle when npm is temporarily unavailable
+const fallbackInstallCode = `# Maintainers: this runs automatically in CI (release-bundles.yml) on every gds-v<VERSION> tag.
 npm run pack:release
 gh release create gds-v${targetGdsVersion} dist/release-bundles/${targetGdsVersion}/* --title "GDS ${targetGdsVersion} release bundles"`;
 
@@ -255,7 +261,11 @@ function SiteFooter() {
 }
 
 export function AiPage() {
-  const installCode = `npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react react react-dom`;
+  const installCode = `# .npmrc — required: GitHub Packages authenticates every install, even public packages.
+# @sovereignsquad:registry=https://npm.pkg.github.com
+# //npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}
+
+npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react react react-dom`;
 
   const providerCode = `import { GdsProvider, MetricCard, SemanticButton } from '@sovereignsquad/gds';
 
@@ -276,6 +286,9 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
 
   const claudeTemplate = `# CLAUDE.md
 GDS is the design system: npm install @sovereignsquad/gds
+GDS installs exclusively from GitHub Packages — add to .npmrc first:
+  @sovereignsquad:registry=https://npm.pkg.github.com
+  //npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}
 Wrap once in GdsProvider. Use SemanticButton action="..." not free text.
 Style with props/tokens only — no custom CSS.
 Full guide: https://sovereignsquad.github.io/general-design-system/ai`;
@@ -941,6 +954,7 @@ export function InstallPage() {
       lead={copy.lead}
     >
       <ReferenceSection title={copy.installSectionTitle} description={copy.installSectionDescription}>
+        <DocsCodeBlock code={npmrcCode} language="ini" title={copy.npmrcCodeTitle} />
         <DocsCodeBlock code={installCode} language="bash" title={copy.installCodeTitle} />
         <DocsCodeBlock code={granularInstallCode} language="bash" title={copy.granularCodeTitle} />
         <DocsCodeBlock code={peerCode} language="bash" title={copy.peerCodeTitle} />

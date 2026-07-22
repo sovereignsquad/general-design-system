@@ -4,6 +4,13 @@ GDS 3.8.0 delivers the first-class `Class USA` theme and the missing ClassScout 
 
 ## Install
 
+GDS publishes exclusively to GitHub Packages (`https://npm.pkg.github.com`) — add to `.npmrc` first (every install requires authentication, even for public packages):
+
+```ini
+@sovereignsquad:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
 ```bash
 npm install @sovereignsquad/gds@3.8.0
 ```
@@ -369,6 +376,9 @@ This project uses @sovereignsquad/gds for all UI. When building or changing inte
 
 ```markdown
 # CLAUDE.md
+GDS installs exclusively from GitHub Packages — add to .npmrc first:
+  @sovereignsquad:registry=https://npm.pkg.github.com
+  //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 Install: npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications
 Wrap once: <GdsProvider theme={classcoutTheme}> in src/providers.tsx
 Key rules:
