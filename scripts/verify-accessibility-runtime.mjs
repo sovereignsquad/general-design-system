@@ -1,5 +1,11 @@
-import { spawn } from 'node:child_process';
-import { launchBrowser as launchChromeBrowser, requestJson, wait } from './lib/browser-runtime.mjs';
+import {
+  createCdpClient,
+  launchBrowser as launchChromeBrowser,
+  startPreviewServer as startChromePreviewServer,
+  wait,
+  waitForReady,
+  evaluate,
+} from './lib/browser-runtime.mjs';
 
 const baseUrl = process.env.GDS_A11Y_BASE_URL ?? 'http://127.0.0.1:4173/general-design-system';
 const ownsPreviewServer = !process.env.GDS_A11Y_BASE_URL;
@@ -25,120 +31,11 @@ async function launchBrowser() {
 }
 
 async function startPreviewServer() {
-  if (!ownsPreviewServer) {
-    return null;
-  }
-
-  const server = spawn('npm', [
-    'run',
-    'preview',
-    '--workspace=playground',
-    '--',
-    '--host',
-    '127.0.0.1',
-    '--port',
-    '4173',
-    '--strictPort',
-  ], {
-    cwd: process.cwd(),
-    stdio: ['ignore', 'pipe', 'pipe'],
-  });
-
-  server.stdout.on('data', () => {});
-  server.stderr.on('data', () => {});
-
-  for (let attempt = 0; attempt < 80; attempt += 1) {
-    try {
-      const response = await fetch(`${baseUrl}/themes`);
-      if (response.ok) {
-        return server;
-      }
-    } catch {
-      await wait(125);
-    }
-  }
-
-  server.kill('SIGTERM');
-  throw new Error('Timed out waiting for playground preview server. Run npm run build before accessibility runtime verification.');
-}
-
-function createCdpClient(webSocketDebuggerUrl) {
-  const socket = new WebSocket(webSocketDebuggerUrl);
-  let id = 0;
-  const pending = new Map();
-
-  socket.addEventListener('message', (event) => {
-    const message = JSON.parse(event.data);
-    if (message.id && pending.has(message.id)) {
-      const { resolve, reject } = pending.get(message.id);
-      pending.delete(message.id);
-      if (message.error) {
-        reject(new Error(message.error.message));
-      } else {
-        resolve(message.result);
-      }
-    }
-  });
-
-  return new Promise((resolve, reject) => {
-    socket.addEventListener('open', () => {
-      resolve({
-        send(method, params = {}) {
-          id += 1;
-          socket.send(JSON.stringify({ id, method, params }));
-          return new Promise((commandResolve, commandReject) => {
-            pending.set(id, { resolve: commandResolve, reject: commandReject });
-          });
-        },
-        close() {
-          socket.close();
-        },
-      });
-    });
-    socket.addEventListener('error', () => reject(new Error('Unable to connect to Chrome DevTools WebSocket.')));
-  });
+  return startChromePreviewServer({ ownsPreviewServer, baseUrl, verificationLabel: 'accessibility' });
 }
 
 function absoluteUrl(route) {
   return `${baseUrl.replace(/\/$/, '')}${route}`;
-}
-
-async function evaluate(client, expression) {
-  const result = await client.send('Runtime.evaluate', {
-    expression,
-    awaitPromise: true,
-    returnByValue: true,
-  });
-
-  if (result.exceptionDetails) {
-    throw new Error(result.exceptionDetails.text ?? 'Runtime evaluation failed.');
-  }
-
-  return result.result.value;
-}
-
-// Poll until the page has actually rendered a governed surface with readable
-// text, instead of relying on a fixed delay. The Theme Lab (/themes) route is
-// heavy and can take longer than a flat wait to paint under CI load, which
-// previously caused flaky "no visible governed surface" failures.
-async function waitForReady(client, { timeout = 12000, interval = 200 } = {}) {
-  const deadline = Date.now() + timeout;
-  while (Date.now() < deadline) {
-    const ready = await evaluate(client, `(() => {
-      const visible = (el) => {
-        if (!el) return false;
-        const s = getComputedStyle(el);
-        const r = el.getBoundingClientRect();
-        return s.visibility !== 'hidden' && s.display !== 'none' && r.width > 0 && r.height > 0;
-      };
-      const surface = [...document.querySelectorAll('.mantine-Card-root,.mantine-Paper-root,[data-gds-owned-contrast],[data-gds-local-contrast]')].some(visible);
-      const hasText = (document.body?.innerText || '').trim().length >= 120;
-      return surface && hasText;
-    })()`);
-    if (ready) return true;
-    await wait(interval);
-  }
-  return false;
 }
 
 async function verifyCase(client, route, testCase) {
@@ -295,7 +192,7 @@ try {
     }
   }
 
-  client.close();
+  await client.close();
 } finally {
   await browserSession.close();
   previewServer?.kill('SIGTERM');

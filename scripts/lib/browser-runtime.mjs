@@ -3,10 +3,12 @@ import { existsSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-// Shared headless-Chrome lifecycle helper for the verify-*-runtime.mjs scripts
-// (forced-colors, theme-trust, accessibility). Previously each script carried
-// its own copy of this logic; all three had independently accumulated the same
-// ENOTEMPTY cleanup bug, which is exactly the risk a shared module removes.
+// Shared headless-Chrome/CDP/preview-server helper for the verify-*-runtime.mjs
+// scripts (forced-colors, theme-trust, accessibility). Previously each script
+// carried its own copy of this logic; duplicating it let real bugs (an ENOTEMPTY
+// cleanup crash, a missing stdout/stderr drain that risked a pipe-buffer
+// deadlock) exist in some copies but not others, unnoticed until this module
+// consolidated them.
 
 export function resolveChromePath() {
   const candidates = [
@@ -119,4 +121,125 @@ export async function launchBrowser({
 
   await disposeBrowser(browser, userDataDir);
   throw new Error(`Timed out waiting for Chrome DevTools endpoint.${stderr.trim() ? ` stderr: ${stderr.trim()}` : ''}`);
+}
+
+export function createCdpClient(webSocketDebuggerUrl) {
+  const socket = new WebSocket(webSocketDebuggerUrl);
+  let id = 0;
+  const pending = new Map();
+
+  socket.addEventListener('message', (event) => {
+    const message = JSON.parse(event.data);
+    if (message.id && pending.has(message.id)) {
+      const { resolve, reject } = pending.get(message.id);
+      pending.delete(message.id);
+      if (message.error) {
+        reject(new Error(message.error.message));
+      } else {
+        resolve(message.result);
+      }
+    }
+  });
+
+  return new Promise((resolve, reject) => {
+    socket.addEventListener('open', () => {
+      resolve({
+        send(method, params = {}) {
+          id += 1;
+          socket.send(JSON.stringify({ id, method, params }));
+          return new Promise((commandResolve, commandReject) => {
+            pending.set(id, { resolve: commandResolve, reject: commandReject });
+          });
+        },
+        close() {
+          // Wait for the socket to actually close, matching disposeBrowser's
+          // philosophy of not returning until cleanup has genuinely finished.
+          return new Promise((closed) => {
+            socket.addEventListener('close', () => closed(), { once: true });
+            socket.close();
+          });
+        },
+      });
+    });
+    socket.addEventListener('error', () => reject(new Error('Unable to connect to Chrome DevTools WebSocket.')));
+  });
+}
+
+export async function evaluate(client, expression) {
+  const result = await client.send('Runtime.evaluate', {
+    expression,
+    awaitPromise: true,
+    returnByValue: true,
+  });
+
+  if (result.exceptionDetails) {
+    throw new Error(result.exceptionDetails.text ?? 'Runtime evaluation failed.');
+  }
+
+  return result.result.value;
+}
+
+// Poll until the page has actually rendered a governed surface with readable
+// text, instead of relying on a fixed delay. The Theme Lab (/themes) route is
+// heavy and can take longer than a flat wait to paint under CI load, which
+// previously caused flaky "No visible governed surface found" failures.
+export async function waitForReady(client, { timeout = 12000, interval = 200 } = {}) {
+  const deadline = Date.now() + timeout;
+  while (Date.now() < deadline) {
+    const ready = await evaluate(client, `(() => {
+      const visible = (el) => {
+        if (!el) return false;
+        const s = getComputedStyle(el);
+        const r = el.getBoundingClientRect();
+        return s.visibility !== 'hidden' && s.display !== 'none' && r.width > 0 && r.height > 0;
+      };
+      const surface = [...document.querySelectorAll('.mantine-Card-root,.mantine-Paper-root,[data-gds-owned-contrast],[data-gds-local-contrast]')].some(visible);
+      const hasText = (document.body?.innerText || '').trim().length >= 120;
+      return surface && hasText;
+    })()`);
+    if (ready) return true;
+    await wait(interval);
+  }
+  return false;
+}
+
+export async function startPreviewServer({ ownsPreviewServer, baseUrl, verificationLabel }) {
+  if (!ownsPreviewServer) {
+    return null;
+  }
+
+  const server = spawn('npm', [
+    'run',
+    'preview',
+    '--workspace=playground',
+    '--',
+    '--host',
+    '127.0.0.1',
+    '--port',
+    '4173',
+    '--strictPort',
+  ], {
+    cwd: process.cwd(),
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+
+  // Drain stdout/stderr: an unread pipe fills its OS buffer and blocks the
+  // child process from writing further output, which can silently hang the
+  // preview server once it logs enough.
+  server.stdout.on('data', () => {});
+  server.stderr.on('data', () => {});
+
+  for (let attempt = 0; attempt < 80; attempt += 1) {
+    try {
+      const response = await fetch(`${baseUrl}/themes`);
+      if (response.ok) {
+        return server;
+      }
+    } catch {
+      await wait(125);
+    }
+  }
+
+  server.kill('SIGTERM');
+  throw new Error(`Timed out waiting for playground preview server. Run npm run build before ${verificationLabel} runtime verification.`);
 }
