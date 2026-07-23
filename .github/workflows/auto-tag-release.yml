@@ -6,12 +6,21 @@ name: GDS Auto Tag Release
 # this workflow creates and pushes the matching `gds-v<VERSION>` tag using the
 # Action run's own ambient GITHUB_TOKEN — which is unaffected by any restriction
 # on a human or agent's local git/API access, since it runs entirely on GitHub's
-# own infrastructure. Pushing that tag is what triggers the existing
-# release-bundles.yml (build + verify:release + pack + create/update the public
-# GitHub Release with tarball assets) and publish-github-packages.yml (publishes
-# all seven packages to GitHub Packages using the workflow run's own ambient
-# GITHUB_TOKEN — no NPM_TOKEN/npm.com account ever required) — both already
-# listen for `push: tags: gds-v*`.
+# own infrastructure.
+#
+# IMPORTANT (discovered 2026-07-23, first real run of this chain end-to-end):
+# pushing that tag does NOT, by itself, trigger release-bundles.yml or
+# publish-github-packages.yml even though both declare `push: tags: gds-v*`.
+# GitHub Actions has a built-in anti-recursion rule: any push/tag/ref made
+# using the default GITHUB_TOKEN never fires other workflows' `push`/`tag`
+# triggers, specifically to prevent workflow-triggers-workflow loops. The
+# gds-v3.11.0 tag was created and pushed successfully, but nothing downstream
+# fired — the release silently stalled at "tagged" instead of reaching
+# "published". This is why the workflow now explicitly dispatches both
+# downstream workflows itself (`gh workflow run ... --ref <tag>`) once the tag
+# is pushed, rather than relying on the tag-push event to fan out to them.
+# `gh workflow run` is an authenticated API call, not a push/ref event, so the
+# anti-recursion rule does not apply to it.
 #
 # No manual GitHub UI step or local git access is required for a routine
 # release: bump VERSION (and the aligned package.json/doc versions per
@@ -25,6 +34,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: gds-auto-tag-release
@@ -59,6 +69,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag -a "${{ steps.version.outputs.tag }}" -m "GDS ${{ steps.version.outputs.version }} release"
           git push origin "${{ steps.version.outputs.tag }}"
+
+      - name: Dispatch release-bundles and publish-github-packages for the new tag
+        if: steps.version.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run release-bundles.yml --repo "${{ github.repository }}" --ref "${{ steps.version.outputs.tag }}"
+          gh workflow run publish-github-packages.yml --repo "${{ github.repository }}" --ref "${{ steps.version.outputs.tag }}"
 
       - name: Skip (tag already exists)
         if: steps.version.outputs.exists == 'true'
