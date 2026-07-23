@@ -9,6 +9,7 @@ const policy = readFileSync(policyPath, 'utf8');
 const acceptedDevAdvisories = new Set([
   'GHSA-qx2v-qp2m-jg93',
   'GHSA-f88m-g3jw-g9cj',
+  'GHSA-6g55-p6wh-862q',
 ]);
 
 function runAudit(args) {

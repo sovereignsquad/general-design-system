@@ -1,8 +1,8 @@
 # Dependency Audit Policy
 
 Status: Active SSOT
-Version: 3.0.8
-Last updated: 2026-07-22
+Version: 3.0.9
+Last updated: 2026-07-23
 
 This repository treats published runtime package dependencies and local reference/tooling dependencies differently.
 
@@ -53,6 +53,25 @@ Operational behavior:
 - Do not ship public consumer guidance that requires `apps/reference-next` as a runtime dependency.
 - Recheck monthly or when Next publishes a patched `sharp`/libvips dependency graph.
 - Remove this exception once `npm audit --json` no longer reports the advisory through the reference fixture.
+
+### GHSA-6g55-p6wh-862q
+
+Owner: GDS platform
+Review date: 2026-08-23
+Scope: nested `postcss@8.4.31` (`<=8.5.11` vulnerable range) reached via two dev-only paths — `apps/reference-next`'s `next` dependency (same non-shipped reference fixture as the other accepted advisories above) and the root `tsup` devDependency used to build the published packages
+Severity: high
+
+Reason:
+
+- The advisory ("Arbitrary file read and information disclosure via attacker-controlled sourceMappingURL in CSS comments") requires processing attacker-controlled CSS input containing a malicious `sourceMappingURL` comment. Neither path applies here: `apps/reference-next` doesn't serve or process untrusted CSS, and `tsup` only ever processes GDS's own first-party, repo-controlled source during the build — no untrusted CSS ever reaches PostCSS in either case.
+- `postcss` is a nested dev-tooling dependency in both paths, not a runtime dependency of any published `@sovereignsquad/*` package (`npm audit --omit=dev` reports zero findings) — it never ships in built package output.
+- The only automated fix (`npm audit fix --force`) downgrades `next` to `9.3.3`, a major regression far below the supported `15.x` reference line, so it is not a safe corrective action.
+
+Operational behavior:
+
+- Do not ship public consumer guidance that requires `apps/reference-next` or `tsup` as a runtime dependency (already true — both are dev-only).
+- Recheck monthly or when Next/tsup publish a patched nested PostCSS dependency graph.
+- Remove this exception once `npm audit --json` no longer reports the advisory through either path.
 
 ## Resolved During 3.0.7
 
