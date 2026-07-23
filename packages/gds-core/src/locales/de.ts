@@ -159,4 +159,12 @@ export const de = {
   'gds.kanban.moveItem': 'Verschieben',
   'gds.kanban.moveTo': 'Verschieben nach',
   'gds.kanban.emptyColumn': 'Keine Einträge',
+  'gds.kanban.dragHandle': 'Zum Neuanordnen ziehen',
+  'gds.kanban.dragInstructions': 'Um eine Karte aufzunehmen, drücken Sie die Leertaste. Verwenden Sie beim Ziehen die Pfeiltasten, um die Karte zwischen und innerhalb von Spalten zu bewegen. Drücken Sie erneut die Leertaste, um die Karte abzulegen, oder drücken Sie Escape, um abzubrechen.',
+  'gds.kanban.announcePickedUp': 'Aufgenommen',
+  'gds.kanban.announceOverColumn': 'befindet sich über',
+  'gds.kanban.announceOverNone': 'befindet sich nicht mehr über einer Spalte',
+  'gds.kanban.announceDropped': 'wurde verschoben nach',
+  'gds.kanban.announceDroppedNone': 'wurde an die ursprüngliche Position zurückgesetzt',
+  'gds.kanban.announceCancelled': 'Verschieben abgebrochen für',
 };

@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sovereignsquad/gds-admin": "3.10.0",
-    "@sovereignsquad/gds-core": "3.10.0",
-    "@sovereignsquad/gds-theme": "3.10.0",
+    "@sovereignsquad/gds-admin": "3.11.0",
+    "@sovereignsquad/gds-core": "3.11.0",
+    "@sovereignsquad/gds-theme": "3.11.0",
     "@floating-ui/core": "^1.7.5",
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",

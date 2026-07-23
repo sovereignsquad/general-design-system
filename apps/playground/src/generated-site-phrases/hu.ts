@@ -463,6 +463,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Install path": "Telepítési útvonal",
   "Intensity by matrix cell.": "Intenzitás mátrixcellánként.",
   "Interaction states remain visible and consistent without route-local button wrappers.": "Az interakciós állapotok láthatóak és konzisztensek maradnak útvonal-helyi gombburkolók nélkül.",
+  "Internal notes": "Belső jegyzetek",
   "Issue-backed partner-compatible discovery system covering theme, shell, filters, map/list, detail, newsletter, content, observability, validation, and non-copy boundaries.": "Problématámogatású, partnerekkel kompatibilis felfedezőrendszer, amely témát, héjat, szűrőket, térképet/listát, részleteket, hírlevelet, tartalmat, megfigyelhetőséget, érvényesítést és nem másolható határokat tartalmaz.",
   "Issue-backed product maturity registry for the seven highest-value GDS capability groups, including contracts, accessibility, observability, rollback, testing, and documentation evidence.": "Hibaalapú terméklejárat-nyilvántartás a hét legnagyobb értékű GDS képességcsoporthoz, beleértve a szerződéseket, a hozzáférhetőséget, a megfigyelhetőséget, a visszaállítást, a tesztelést és a dokumentációs bizonyítékokat.",
   "It keeps onboarding friction low and records consistent evidence fields before we move to a structured portal.": "Alacsonyan tartja a beépítési súrlódást, és konzisztens bizonyítékmezőket rögzít, mielőtt egy strukturált portálra lépnénk.",

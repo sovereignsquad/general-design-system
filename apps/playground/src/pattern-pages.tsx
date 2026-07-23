@@ -124,6 +124,9 @@ import {
   type KanbanColumnData,
 } from '@sovereignsquad/gds-core';
 import {
+  AdminSelect,
+  AdminTextarea,
+  AdminTextInput,
   AppShell,
   ContentOpsActionBar,
   ContentOpsEditor,
@@ -338,6 +341,72 @@ function FormControlFamilyDemo() {
         />
       </SectionPanel>
     </div>
+  );
+}
+
+function AdminEditorFlowsDemo() {
+  const [visibility, setVisibility] = useState<string | null>('public');
+  const [slug, setSlug] = useState('catalog-admin-shell');
+  const [notes, setNotes] = useState('');
+
+  return (
+    <ContentOpsEditor
+      header={<PageHeader title="Catalog admin shell" description="Canonical content operations workflow." />}
+      status={(
+        <ContentOpsActionBar
+          dirty
+          status="Editing in shared governance mode."
+          actions={{
+            primary: { action: 'save' },
+            secondary: [{ action: 'cancel' }],
+            tertiary: [{ action: 'preview' }],
+          }}
+        />
+      )}
+      sections={(
+        <ContentOpsSection id="visibility" title="Visibility" description="Use shared sections and form contracts.">
+          {/*
+           * size="xs"/"sm" (and the implicit default) all exercise the mobile
+           * input-focus auto-zoom guard (gdsTheme's Input.vars) — these are the
+           * exact AdminForms wrapper components a consuming app reported the
+           * gap against, not just raw Mantine controls.
+           */}
+          <AdminSelect
+            name="visibility"
+            label="Visibility"
+            description="Governed control and descriptive labels."
+            size="xs"
+            value={visibility}
+            onChange={setVisibility}
+            data={[{ value: 'public', label: 'Public' }, { value: 'private', label: 'Private' }]}
+          />
+          <AdminTextInput
+            name="slug"
+            label="Slug"
+            size="sm"
+            value={slug}
+            onChange={setSlug}
+          />
+          <AdminTextarea
+            name="notes"
+            label="Internal notes"
+            value={notes}
+            onChange={setNotes}
+          />
+        </ContentOpsSection>
+      )}
+      preview={
+        <SectionPanel title="Live preview" description="Shared preview rail for editor contexts.">
+          <p>Keep previews close to the current editing state.</p>
+        </SectionPanel>
+      }
+      settings={
+        <SectionPanel title="Settings" description="Operations settings stay in the same contract.">
+          <p>Settings remain grouped and stable for team-wide governance.</p>
+        </SectionPanel>
+      }
+      actionBar={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'refresh' }] }} />}
+    />
   );
 }
 
@@ -720,7 +789,7 @@ function KanbanBoardDemo() {
     { id: 'done', title: 'Done', items: [] },
   ]);
 
-  function handleMoveItem(itemId: string, fromColumnId: string, toColumnId: string) {
+  function handleMoveItem(itemId: string, fromColumnId: string, toColumnId: string, toIndex?: number) {
     setColumns((current) => {
       const source = current.find((column) => column.id === fromColumnId);
       const item = source?.items.find((candidate) => candidate.id === itemId);
@@ -728,11 +797,17 @@ function KanbanBoardDemo() {
         return current;
       }
       return current.map((column) => {
+        if (column.id === fromColumnId && column.id === toColumnId) {
+          const withoutItem = column.items.filter((candidate) => candidate.id !== itemId);
+          const insertAt = toIndex ?? withoutItem.length;
+          return { ...column, items: [...withoutItem.slice(0, insertAt), item, ...withoutItem.slice(insertAt)] };
+        }
         if (column.id === fromColumnId) {
           return { ...column, items: column.items.filter((candidate) => candidate.id !== itemId) };
         }
         if (column.id === toColumnId) {
-          return { ...column, items: [...column.items, item] };
+          const insertAt = toIndex ?? column.items.length;
+          return { ...column, items: [...column.items.slice(0, insertAt), item, ...column.items.slice(insertAt)] };
         }
         return column;
       });
@@ -741,7 +816,7 @@ function KanbanBoardDemo() {
 
   return (
     <BoundedPreviewSurface minHeight="26rem">
-      <KanbanBoard title="Sprint board" columns={columns} onMoveItem={handleMoveItem} />
+      <KanbanBoard title="Sprint board" columns={columns} onMoveItem={handleMoveItem} enableDrag />
     </BoundedPreviewSurface>
   );
 }
@@ -961,43 +1036,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'checkboxes-radios':
       return <FormArchitectureDemo />;
     case 'admin-editor-flows':
-      return (
-        <ContentOpsEditor
-          header={<PageHeader title="Catalog admin shell" description="Canonical content operations workflow." />}
-          status={(
-            <ContentOpsActionBar
-              dirty
-              status="Editing in shared governance mode."
-              actions={{
-                primary: { action: 'save' },
-                secondary: [{ action: 'cancel' }],
-                tertiary: [{ action: 'preview' }],
-              }}
-            />
-          )}
-          sections={(
-            <ContentOpsSection id="visibility" title="Visibility" description="Use shared sections and form contracts.">
-              <FormField label="Visibility" description="Governed control and descriptive labels.">
-                <select aria-label="Visibility">
-                  <option>Public</option>
-                  <option>Private</option>
-                </select>
-              </FormField>
-            </ContentOpsSection>
-          )}
-          preview={
-            <SectionPanel title="Live preview" description="Shared preview rail for editor contexts.">
-              <p>Keep previews close to the current editing state.</p>
-            </SectionPanel>
-          }
-          settings={
-            <SectionPanel title="Settings" description="Operations settings stay in the same contract.">
-              <p>Settings remain grouped and stable for team-wide governance.</p>
-            </SectionPanel>
-          }
-          actionBar={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'refresh' }] }} />}
-        />
-      );
+      return <AdminEditorFlowsDemo />;
     case 'search-filters-lists':
       return (
         <ResponsiveDataView

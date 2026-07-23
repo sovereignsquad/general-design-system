@@ -1,8 +1,8 @@
 # PWA Viewport & Zoom Policy
 
 Status: Active SSOT
-Version: 3.10.0
-Last updated: 2026-07-22
+Version: 3.11.0
+Last updated: 2026-07-23
 
 GDS owns one canonical answer for mobile viewport configuration, including whether a product may disable pinch-zoom for an installed PWA that should feel like a native app shell. Consumers must use `getGdsPwaViewportMetaContent(...)` from `@sovereignsquad/gds-theme` instead of hand-writing a `<meta name="viewport">` string per project.
 
@@ -50,6 +50,14 @@ A product adopting `app-shell-fixed` must still satisfy, and document per this c
 5. **Scope stays narrow** — apply the fixed viewport only to the installed/standalone app-shell entry point, not to any marketing, docs, article, or public browser-tab surface the same product may also serve.
 6. **Testing** — verify at OS text-size 200% (or the platform-equivalent "Larger Text" setting) that the shell remains usable before shipping.
 7. **Exit condition** — revert to `'browser-default'` if the product later grows reading-heavy content (articles, long-form tables, dense forms) that the standalone shell was not scoped for.
+
+## Input-focus auto-zoom — a separate mechanism, guarded by default
+
+The two lanes above (`zoomPolicy`) only ever control **pinch-zoom** (`user-scalable`). Mobile Safari and Chrome have an entirely separate zoom behavior: the browser force-zooms the whole page when a focused text input's *computed* font-size is under 16px, regardless of `zoomPolicy` or any viewport meta content. This is not something `getGdsPwaViewportMetaContent(...)` can affect at all.
+
+GDS guards this by default, not via this API: `gdsTheme`'s `components.Input.vars` floors the effective font-size of every Input-based control (`TextInput`, `Textarea`, `NativeSelect`, `Select`, `PasswordInput`, `NumberInput`, `MultiSelect`, `Autocomplete`, `TagsInput` — including `gds-admin`'s `AdminTextInput`/`AdminTextarea`/`AdminSelect`, which are thin pass-throughs over the same Mantine primitives) to at least 16px at the risky `xs`/`sm`/default sizes, using `max(1rem, var(--mantine-font-size-sm))` so OS-level text-size scaling is never blocked. `md`/`lg`/`xl` sizes already render at 16px+ and are untouched.
+
+Unlike `app-shell-fixed`, this requires no opt-in and no per-product review — it only raises a legibility floor on already-tiny text and never touches pinch-zoom or OS text scaling, so it carries none of the WCAG 1.4.4/1.4.10 trade-offs discussed above. If your app uses raw native `<input>`/`<select>`/`<textarea>` elements outside any GDS component (for example, a fully custom form), this guard does not reach them — apply the same `max(1rem, 1em)`-style floor yourself.
 
 ## Relationship to the PWA manifest
 

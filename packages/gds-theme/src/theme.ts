@@ -57,6 +57,27 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
     Code: {
       classNames: { root: 'gds-code' },
     },
+    // Mobile input-focus auto-zoom guard (dev-reported gap): iOS Safari/Chrome force-zoom
+    // the page when a focused input's computed font-size is under 16px. Mantine's `xs`/`sm`
+    // sizes (and the implicit `sm` default) render at 12-14px. `Input.vars` is the same
+    // CSS-custom-property channel Mantine's own built-in resolver uses to set `--input-fz`,
+    // so this wins with no specificity contest and no `!important` — unlike a bare
+    // `input, select, textarea { font-size: 16px }` consumer rule, which always loses to
+    // Mantine's generated class selector regardless of stylesheet order. `md`/`lg`/`xl`
+    // already render >=16px and are left untouched (returning `undefined` here falls
+    // through to Mantine's own default). Applies to every Input-based control (TextInput,
+    // Textarea, NativeSelect, Select, PasswordInput, NumberInput, MultiSelect, Autocomplete,
+    // TagsInput) since they all resolve `--input-fz` through this shared `Input` theme key.
+    Input: {
+      vars: (_theme: unknown, props: { size?: string }) => ({
+        wrapper: {
+          '--input-fz':
+            props.size === undefined || props.size === 'xs' || props.size === 'sm'
+              ? 'max(1rem, var(--mantine-font-size-sm))'
+              : undefined,
+        },
+      }),
+    },
     TextInput: {
       defaultProps: {
         radius: 'md',

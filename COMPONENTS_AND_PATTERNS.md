@@ -1,8 +1,8 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 3.10.0
-Last updated: 2026-07-22
+Version: 3.11.0
+Last updated: 2026-07-23
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
 
@@ -268,7 +268,7 @@ Supported `MediaField` states:
 - **Landscape phones, tablets (including portrait tablets), and desktop**: columns render multi-column with horizontal scroll (`ScrollArea`), a minimum per-column width (`columnWidth`, default `17.5rem`), and no wrapping.
 - Consumers may force `orientation="stacked"` / `"columns"` for a fixed-layout route, but `orientation="auto"` (the default) is the governed behavior and should be preferred.
 
-**No native HTML5 drag-and-drop.** Native `draggable`/`dragstart` reordering cannot be operated by keyboard or screen-reader users and is prohibited for this contract per the accessibility release gate (`FOUNDATION.md` §1.5). Instead, each `KanbanCard` exposes a "Move" action (`GdsIcons.Move`) opening a keyboard-operable menu listing the other columns; selecting one calls the consumer-supplied `onMoveItem(itemId, fromColumnId, toColumnId)`. Boards without `onMoveItem` render read-only (no move control).
+**No native HTML5 drag-and-drop.** Native `draggable`/`dragstart` reordering cannot be operated by keyboard or screen-reader users and remains prohibited for this contract per the accessibility release gate (`FOUNDATION.md` §1.5). Every `KanbanCard` always exposes a "Move" action (`GdsIcons.Move`) opening a keyboard-operable menu listing the other columns; selecting one calls the consumer-supplied `onMoveItem(itemId, fromColumnId, toColumnId, toIndex?)`. Boards without `onMoveItem` render read-only (no move control, no drag handle). The opt-in `enableDrag` prop (default `false`) additionally renders a pointer/touch/keyboard drag handle per card, built on `@dnd-kit`'s accessible sensors — not native HTML5 drag-and-drop — with its own keyboard-operable pickup/move/drop path and localized screen-reader announcements. The Move menu is never hidden or replaced when `enableDrag` is on; it stays the guaranteed accessible-equivalent fallback in both modes.
 
 Empty columns show a governed "No items" state (`emptyColumnLabel` overridable) instead of a blank gap, so column boundaries stay legible at any card count.
 

@@ -1,8 +1,8 @@
 # General Design System
 
 Status: Active SSOT
-Version: 3.10.0
-Last updated: 2026-07-22
+Version: 3.11.0
+Last updated: 2026-07-23
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 

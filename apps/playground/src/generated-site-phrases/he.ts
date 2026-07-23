@@ -463,6 +463,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Install path": "נתיב התקן",
   "Intensity by matrix cell.": "עוצמה לפי תא מטריצה.",
   "Interaction states remain visible and consistent without route-local button wrappers.": "מצבי אינטראקציה נשארים גלויים ועקביים ללא מעטפת לחצנים מקומיים.",
+  "Internal notes": "הערות פנימיות",
   "Issue-backed partner-compatible discovery system covering theme, shell, filters, map/list, detail, newsletter, content, observability, validation, and non-copy boundaries.": "מערכת גילוי תואמת שותפים מגובת בעיה המכסה נושא, מעטפת, מסננים, מפה/רשימה, פירוט, ניוזלטר, תוכן, צפייה, אימות וגבולות ללא העתקה.",
   "Issue-backed product maturity registry for the seven highest-value GDS capability groups, including contracts, accessibility, observability, rollback, testing, and documentation evidence.": "רישום בשלות מוצר מגובה בבעיות עבור שבע קבוצות יכולות ה-GDS בעלות הערך הגבוה ביותר, כולל חוזים, נגישות, צפייה, החזרה, בדיקות וראיות תיעוד.",
   "It keeps onboarding friction low and records consistent evidence fields before we move to a structured portal.": "זה שומר על חיכוך ההפעלה נמוך ומתעד שדות ראיות עקביים לפני שאנחנו עוברים לפורטל מובנה.",

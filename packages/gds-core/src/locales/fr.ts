@@ -159,4 +159,12 @@ export const fr = {
   'gds.kanban.moveItem': 'Déplacer',
   'gds.kanban.moveTo': 'Déplacer vers',
   'gds.kanban.emptyColumn': 'Aucun élément',
+  'gds.kanban.dragHandle': 'Faire glisser pour réorganiser',
+  'gds.kanban.dragInstructions': "Pour saisir une carte, appuyez sur la barre d'espace. Pendant le glissement, utilisez les touches fléchées pour déplacer la carte entre les colonnes et à l'intérieur de celles-ci. Appuyez à nouveau sur espace pour déposer la carte, ou appuyez sur échap pour annuler.",
+  'gds.kanban.announcePickedUp': 'A été saisi',
+  'gds.kanban.announceOverColumn': 'est au-dessus de',
+  'gds.kanban.announceOverNone': "n'est plus au-dessus d'une colonne",
+  'gds.kanban.announceDropped': 'a été déplacé vers',
+  'gds.kanban.announceDroppedNone': "a été replacé à sa position d'origine",
+  'gds.kanban.announceCancelled': 'Réorganisation annulée pour',
 };

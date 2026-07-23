@@ -159,4 +159,12 @@ export const ru = {
   'gds.kanban.moveItem': 'Переместить',
   'gds.kanban.moveTo': 'Переместить в',
   'gds.kanban.emptyColumn': 'Нет элементов',
+  'gds.kanban.dragHandle': 'Перетащите, чтобы изменить порядок',
+  'gds.kanban.dragInstructions': 'Чтобы взять карточку, нажмите пробел. Во время перетаскивания используйте клавиши со стрелками, чтобы переместить карточку между колонками и внутри них. Снова нажмите пробел, чтобы отпустить карточку, или нажмите Escape для отмены.',
+  'gds.kanban.announcePickedUp': 'Взято',
+  'gds.kanban.announceOverColumn': 'находится над',
+  'gds.kanban.announceOverNone': 'больше не находится над колонкой',
+  'gds.kanban.announceDropped': 'перемещено в',
+  'gds.kanban.announceDroppedNone': 'возвращено на исходную позицию',
+  'gds.kanban.announceCancelled': 'Перемещение отменено для',
 };

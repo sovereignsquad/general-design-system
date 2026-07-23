@@ -463,6 +463,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Install path": "Ruta de instalación",
   "Intensity by matrix cell.": "Intensidad por celda de la matriz.",
   "Interaction states remain visible and consistent without route-local button wrappers.": "Los estados de interacción permanecen visibles y consistentes sin envoltorios de botones locales de ruta.",
+  "Internal notes": "Notas internas",
   "Issue-backed partner-compatible discovery system covering theme, shell, filters, map/list, detail, newsletter, content, observability, validation, and non-copy boundaries.": "Sistema de descubrimiento compatible con socios respaldado por temas que cubre temas, shell, filtros, mapa/lista, detalles, boletín informativo, contenido, observabilidad, validación y límites de no copia.",
   "Issue-backed product maturity registry for the seven highest-value GDS capability groups, including contracts, accessibility, observability, rollback, testing, and documentation evidence.": "Registro de madurez de productos respaldado por emisiones para los siete grupos de capacidades GDS de mayor valor, incluidos contratos, accesibilidad, observabilidad, reversión, pruebas y evidencia de documentación.",
   "It keeps onboarding friction low and records consistent evidence fields before we move to a structured portal.": "Mantiene baja la fricción de incorporación y registra campos de evidencia consistentes antes de pasar a un portal estructurado.",

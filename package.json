@@ -6,7 +6,7 @@
     "apps/*"
   ],
   "scripts": {
-    "verify:release": "node scripts/check-release-alignment.mjs && npm run build && node scripts/check-export-contract.mjs && npm run verify:boundary && npm run verify:vendor-pin && npm run lint && npm run test:run && npm run verify:references && npm run verify:a11y-package && npm run verify:theme-accessibility && npm run verify:theme-tokens && npm run verify:forced-colors-runtime && npm run verify:theme-trust-runtime && npm run audit:dependencies && npm run audit:board && npm run verify:mantine && npm run verify:component-catalog-parity",
+    "verify:release": "node scripts/check-release-alignment.mjs && npm run build && node scripts/check-export-contract.mjs && npm run verify:boundary && npm run verify:vendor-pin && npm run lint && npm run test:run && npm run verify:references && npm run verify:a11y-package && npm run verify:theme-accessibility && npm run verify:theme-tokens && npm run verify:forced-colors-runtime && npm run verify:theme-trust-runtime && npm run verify:input-zoom-guard-runtime && npm run verify:kanban-drag-accessibility-runtime && npm run audit:dependencies && npm run audit:board && npm run verify:mantine && npm run verify:component-catalog-parity",
     "build": "npm run build --workspace=@sovereignsquad/gds-theme && npm run build --workspace=@sovereignsquad/gds-core && npm run build --workspace=@sovereignsquad/gds-admin && npm run build --workspace=@sovereignsquad/gds-a11y && npm run build --workspace=@sovereignsquad/gds && npm run build --workspace=playground && npm run build --workspace=reference-vite && npm run build --workspace=reference-next",
     "dev": "npm run dev --workspace=apps/playground",
     "lint": "npm run lint --workspace=apps/playground",
@@ -19,6 +19,8 @@
     "verify:theme-accessibility": "node scripts/verify-theme-accessibility.mjs",
     "verify:theme-tokens": "node scripts/verify-theme-token-contract.mjs",
     "verify:forced-colors-runtime": "node scripts/verify-forced-colors-runtime.mjs",
+    "verify:input-zoom-guard-runtime": "node scripts/verify-input-zoom-guard-runtime.mjs",
+    "verify:kanban-drag-accessibility-runtime": "node scripts/verify-kanban-drag-accessibility-runtime.mjs",
     "verify:theme-trust-runtime": "node scripts/verify-theme-trust-runtime.mjs",
     "verify:accessibility-runtime": "node scripts/verify-accessibility-runtime.mjs",
     "verify:a11y-package": "npm run build --workspace=@sovereignsquad/gds-a11y && npm run test:run -- packages/gds-a11y/src/index.test.ts && node scripts/verify-a11y-package.mjs",
@@ -67,7 +69,7 @@
     "typescript": "^5.4.5",
     "vitest": "^4.1.8"
   },
-  "version": "3.10.0",
+  "version": "3.11.0",
   "overrides": {
     "tsup": {
       "esbuild": "0.28.1"

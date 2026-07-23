@@ -463,6 +463,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Install path": "مسار التثبيت",
   "Intensity by matrix cell.": "شدة بواسطة خلية المصفوفة.",
   "Interaction states remain visible and consistent without route-local button wrappers.": "تظل حالات التفاعل مرئية ومتسقة بدون أغلفة أزرار التوجيه المحلية.",
+  "Internal notes": "ملاحظات داخلية",
   "Issue-backed partner-compatible discovery system covering theme, shell, filters, map/list, detail, newsletter, content, observability, validation, and non-copy boundaries.": "نظام اكتشاف متوافق مع الشريك ومدعوم بالإصدار يغطي السمة والقشرة والمرشحات والخريطة/القائمة والتفاصيل والرسالة الإخبارية والمحتوى وإمكانية الملاحظة والتحقق من الصحة والحدود غير القابلة للنسخ.",
   "Issue-backed product maturity registry for the seven highest-value GDS capability groups, including contracts, accessibility, observability, rollback, testing, and documentation evidence.": "سجل نضج المنتج المدعوم بالإصدار لمجموعات قدرات GDS السبعة الأعلى قيمة، بما في ذلك العقود وإمكانية الوصول وإمكانية المراقبة والتراجع والاختبار وأدلة التوثيق.",
   "It keeps onboarding friction low and records consistent evidence fields before we move to a structured portal.": "فهو يحافظ على مستوى منخفض من الاحتكاك ويسجل حقول الأدلة المتسقة قبل أن ننتقل إلى بوابة منظمة.",

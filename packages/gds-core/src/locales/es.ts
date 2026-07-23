@@ -159,4 +159,12 @@ export const es = {
   'gds.kanban.moveItem': 'Mover',
   'gds.kanban.moveTo': 'Mover a',
   'gds.kanban.emptyColumn': 'Sin elementos',
+  'gds.kanban.dragHandle': 'Arrastrar para reordenar',
+  'gds.kanban.dragInstructions': 'Para levantar una tarjeta, presione la barra espaciadora. Mientras arrastra, use las teclas de flecha para mover la tarjeta entre columnas y dentro de ellas. Presione espacio nuevamente para soltar la tarjeta, o presione escape para cancelar.',
+  'gds.kanban.announcePickedUp': 'Se recogió',
+  'gds.kanban.announceOverColumn': 'está sobre',
+  'gds.kanban.announceOverNone': 'ya no está sobre una columna',
+  'gds.kanban.announceDropped': 'se movió a',
+  'gds.kanban.announceDroppedNone': 'volvió a su posición original',
+  'gds.kanban.announceCancelled': 'Se canceló la reorganización de',
 };

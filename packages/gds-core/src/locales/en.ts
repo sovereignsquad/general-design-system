@@ -159,4 +159,12 @@ export const en = {
   'gds.kanban.moveItem': 'Move',
   'gds.kanban.moveTo': 'Move to',
   'gds.kanban.emptyColumn': 'No items',
+  'gds.kanban.dragHandle': 'Drag to reorder',
+  'gds.kanban.dragInstructions': 'To pick up a card, press the space bar. While dragging, use the arrow keys to move the card between and within columns. Press space again to drop the card, or press escape to cancel.',
+  'gds.kanban.announcePickedUp': 'Picked up',
+  'gds.kanban.announceOverColumn': 'is over',
+  'gds.kanban.announceOverNone': 'is no longer over a column',
+  'gds.kanban.announceDropped': 'was moved to',
+  'gds.kanban.announceDroppedNone': 'was returned to its original position',
+  'gds.kanban.announceCancelled': 'Reordering cancelled for',
 };

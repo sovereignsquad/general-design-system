@@ -159,4 +159,12 @@ export const hu = {
   'gds.kanban.moveItem': 'Áthelyezés',
   'gds.kanban.moveTo': 'Áthelyezés ide',
   'gds.kanban.emptyColumn': 'Nincs elem',
+  'gds.kanban.dragHandle': 'Húzza az átrendezéshez',
+  'gds.kanban.dragInstructions': 'Egy kártya felvételéhez nyomja meg a szóközt. Húzás közben a nyílbillentyűkkel mozgassa a kártyát az oszlopok között és azokon belül. Nyomja meg újra a szóközt a kártya elengedéséhez, vagy nyomja meg az Escape billentyűt a megszakításhoz.',
+  'gds.kanban.announcePickedUp': 'Felvéve',
+  'gds.kanban.announceOverColumn': 'efelett van',
+  'gds.kanban.announceOverNone': 'már nincs oszlop felett',
+  'gds.kanban.announceDropped': 'áthelyezve ide',
+  'gds.kanban.announceDroppedNone': 'visszakerült az eredeti helyére',
+  'gds.kanban.announceCancelled': 'Átrendezés megszakítva ennek',
 };

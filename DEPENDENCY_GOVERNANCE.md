@@ -1,8 +1,8 @@
 # Dependency Governance
 
 Status: Active SSOT
-Version: 3.10.0
-Last updated: 2026-07-22
+Version: 3.11.0
+Last updated: 2026-07-23
 
 GDS is dependency-governed, not dependency-free. React, Mantine, and Tabler are accepted only behind GDS-owned contracts, release gates, and exception lifecycle rules.
 
@@ -13,6 +13,7 @@ GDS is dependency-governed, not dependency-free. React, Mantine, and Tabler are 
 | Platform | `react`, `react-dom` | Required React runtime foundation | Consumers install compatible peers directly |
 | Primitive engine | `@mantine/core`, `@mantine/hooks`, `@mantine/modals`, `@mantine/notifications` | GDS implementation engine for accessible primitives, overlays, forms, layout, and theme runtime | Consumers use GDS contracts first; direct use in strict surfaces requires an approved dependency-boundary exception |
 | Asset | `@tabler/icons-react` | Internal icon source behind semantic GDS icon APIs | Consumers use `GdsIcon`, `GdsIcons`, or semantic actions instead of direct Tabler imports |
+| Interaction engine | `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities` | Internal pointer/touch/keyboard drag-and-drop engine for `KanbanBoard`'s opt-in `enableDrag` interaction | Fully encapsulated inside `KanbanBoard.client.tsx` — never a public GDS export or a consumer-facing import; no dependency-boundary exception applies since consumers have no legitimate direct-import path to gate |
 | Tooling | `eslint`, `typescript`, `vite`, `vitest`, `tsup`, compatibility/audit tooling | Build, validation, docs, and compliance only | Tooling does not become runtime UI authority |
 
 ## Replacement Triggers

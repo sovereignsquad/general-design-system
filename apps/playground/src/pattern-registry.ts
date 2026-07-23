@@ -736,7 +736,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     family: 'operations',
     section: 'Editing & Content Ops',
     coverageStatus: 'live-demo',
-    summary: 'Governed responsive kanban board: portrait mobile stacks columns vertically, landscape/tablet/desktop render multi-column with horizontal scroll, and cards move between columns through a keyboard-accessible menu instead of native drag-and-drop.',
+    summary: 'Governed responsive kanban board: portrait mobile stacks columns vertically, landscape/tablet/desktop render multi-column with horizontal scroll. Cards always offer a keyboard-accessible move menu, plus an opt-in pointer/touch/keyboard drag handle (enableDrag) built on accessible sensors rather than native drag-and-drop.',
     importPath: '@sovereignsquad/gds-core',
     sourceComponent: 'KanbanBoard',
   },

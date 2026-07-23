@@ -3573,7 +3573,10 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     expect(screen.getByText('Generated from contract.')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Name' })).toHaveAttribute('aria-describedby', 'name-description name-error');
-    expect(screen.getByRole('combobox', { name: 'Role' })).toBeInTheDocument();
+    // renderDefaultField's raw native fallback carries no Mantine class/--input-fz, so it
+    // needs its own mobile input-focus auto-zoom guard (issue #380).
+    expect(screen.getByRole('textbox', { name: 'Name' })).toHaveStyle({ fontSize: 'max(1rem, 1em)' });
+    expect(screen.getByRole('combobox', { name: 'Role' })).toHaveStyle({ fontSize: 'max(1rem, 1em)' });
     expect(screen.getByRole('textbox', { name: 'Files' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Submit' }));

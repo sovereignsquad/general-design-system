@@ -557,18 +557,23 @@ function renderDefaultField({ field, value, setValue, describedBy, invalid }: Gd
       />
     );
   }
+  // Mobile input-focus auto-zoom guard for the raw native text-entry elements below:
+  // unlike Mantine-backed controls (guarded via gdsTheme's Input.vars), these carry no
+  // Mantine class and no --input-fz variable at all, so the theme-level fix can't reach
+  // them. `boolean` (checkbox) is excluded since it never triggers focus-zoom.
+  const textEntryStyle = { fontSize: 'max(1rem, 1em)' };
   if (field.type === 'boolean') return <input {...common} type="checkbox" checked={Boolean(value)} onChange={(event) => setValue(event.currentTarget.checked)} />;
-  if (field.type === 'number') return <input {...common} type="number" value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value === '' ? '' : Number(event.currentTarget.value))} />;
+  if (field.type === 'number') return <input {...common} style={textEntryStyle} type="number" value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value === '' ? '' : Number(event.currentTarget.value))} />;
   if (field.type === 'select') {
     return (
-      <select {...common} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)}>
+      <select {...common} style={textEntryStyle} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)}>
         <option value="">Select...</option>
         {(field.options ?? []).map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
       </select>
     );
   }
-  if (field.type === 'textarea') return <textarea {...common} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)} />;
-  return <input {...common} type={field.type === 'password' ? 'password' : field.type === 'email' ? 'email' : field.type === 'url' ? 'url' : field.type === 'date' ? 'date' : 'text'} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)} />;
+  if (field.type === 'textarea') return <textarea {...common} style={textEntryStyle} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)} />;
+  return <input {...common} style={textEntryStyle} type={field.type === 'password' ? 'password' : field.type === 'email' ? 'email' : field.type === 'url' ? 'url' : field.type === 'date' ? 'date' : 'text'} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)} />;
 }
 
 export function GdsSchemaForm<TValues extends Record<string, unknown> = Record<string, unknown>>({

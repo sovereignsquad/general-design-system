@@ -159,4 +159,12 @@ export const it = {
   'gds.kanban.moveItem': 'Sposta',
   'gds.kanban.moveTo': 'Sposta in',
   'gds.kanban.emptyColumn': 'Nessun elemento',
+  'gds.kanban.dragHandle': 'Trascina per riordinare',
+  'gds.kanban.dragInstructions': 'Per prendere una scheda, premere la barra spaziatrice. Durante il trascinamento, utilizzare i tasti freccia per spostare la scheda tra le colonne e al loro interno. Premere di nuovo spazio per rilasciare la scheda, oppure premere Esc per annullare.',
+  'gds.kanban.announcePickedUp': 'Sollevato',
+  'gds.kanban.announceOverColumn': 'si trova sopra',
+  'gds.kanban.announceOverNone': 'non è più sopra una colonna',
+  'gds.kanban.announceDropped': 'è stato spostato in',
+  'gds.kanban.announceDroppedNone': 'è stato riportato alla posizione originale',
+  'gds.kanban.announceCancelled': 'Riordino annullato per',
 };
