@@ -53,7 +53,7 @@ describe('playground route locale coverage', () => {
     expect(Array.from(localeSelect.options).map((option) => option.value)).toEqual(allLocaleIds);
   });
 
-  it('does not rewrite interactive control text with generated phrase translation', () => {
+  it('does not rewrite interactive control text with generated phrase translation', async () => {
     const root = document.createElement('div');
     const nodes = ['button', 'label', 'a', 'p'].map((tagName) => {
       const element = document.createElement(tagName);
@@ -65,7 +65,7 @@ describe('playground route locale coverage', () => {
       return element;
     });
 
-    translateSiteDom(root, 'fr');
+    await translateSiteDom(root, 'fr');
 
     expect(nodes[0].textContent).toBe('Accent band');
     expect(nodes[1].textContent).toBe('Accent band');

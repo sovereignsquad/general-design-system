@@ -1,5 +1,4 @@
 import { readFileSync } from 'node:fs';
-import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
@@ -14,13 +13,9 @@ const targetFiles = [
   'apps/playground/src/product-use-cases.ts',
   'apps/playground/src/site-routes.ts',
 ];
-const localeIds = ['en', 'de', 'fr', 'it', 'es', 'ru', 'he', 'ar', 'hu'];
-const generatedPath = resolve(root, 'apps/playground/src/generated-site-phrases.ts');
+const localeIds = ['de', 'fr', 'it', 'es', 'ru', 'he', 'ar', 'hu'];
+const generatedDir = resolve(root, 'apps/playground/src/generated-site-phrases');
 const failures = [];
-
-function stableKey(value) {
-  return `p_${createHash('sha256').update(value).digest('hex').slice(0, 12)}`;
-}
 
 function shouldInclude(value) {
   if (!/[A-Za-z][a-z]/.test(value)) return false;
@@ -54,32 +49,32 @@ function extractPhrases(source) {
   return phrases;
 }
 
-const generatedSource = readFileSync(generatedPath, 'utf8');
-const match = generatedSource.match(/export const generatedSitePhrases = (\{[\s\S]*?\n\}) as const;/);
-if (!match) {
-  failures.push('generated-site-phrases.ts must export generatedSitePhrases as a const object.');
-} else {
-  const generated = Function(`return (${match[1]});`)();
-  const requiredPhrases = new Set();
-
-  for (const relativePath of targetFiles) {
-    const source = readFileSync(resolve(root, relativePath), 'utf8');
-    for (const phrase of extractPhrases(source)) {
-      requiredPhrases.add(phrase);
-    }
+function readLocaleMap(locale) {
+  const path = resolve(generatedDir, `${locale}.ts`);
+  const source = readFileSync(path, 'utf8');
+  const match = source.match(/export const generatedSitePhrases: Record<string, string> = (\{[\s\S]*?\n\}) as const;/);
+  if (!match) {
+    failures.push(`generated-site-phrases/${locale}.ts must export generatedSitePhrases as a const Record<string, string>.`);
+    return {};
   }
+  return Function(`return (${match[1]});`)();
+}
 
-  for (const phrase of requiredPhrases) {
-    const key = stableKey(phrase);
-    const entry = generated[key];
-    if (!entry) {
-      failures.push(`generated-site-phrases.ts is missing phrase key ${key}: ${phrase}`);
-      continue;
-    }
-    for (const locale of localeIds) {
-      if (typeof entry[locale] !== 'string' || entry[locale].trim().length === 0) {
-        failures.push(`generated-site-phrases.ts key ${key} is missing ${locale} translation.`);
-      }
+const localeMaps = Object.fromEntries(localeIds.map((locale) => [locale, readLocaleMap(locale)]));
+
+const requiredPhrases = new Set();
+for (const relativePath of targetFiles) {
+  const source = readFileSync(resolve(root, relativePath), 'utf8');
+  for (const phrase of extractPhrases(source)) {
+    requiredPhrases.add(phrase);
+  }
+}
+
+for (const phrase of requiredPhrases) {
+  for (const locale of localeIds) {
+    const translated = localeMaps[locale][phrase];
+    if (typeof translated !== 'string' || translated.trim().length === 0) {
+      failures.push(`generated-site-phrases/${locale}.ts is missing a translation for phrase: ${phrase}`);
     }
   }
 }
@@ -92,4 +87,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('Site phrase translation verification passed.');
+console.log(`Site phrase translation verification passed for ${requiredPhrases.size} phrases across ${localeIds.length} locales.`);

@@ -227,15 +227,17 @@ function PlaygroundContent() {
 
     // Dynamically imported: the generated phrase dictionary behind this module
     // is large and only ever needed once a visitor picks a non-English locale.
+    // translateSiteDom is itself async — it loads only the requested locale's
+    // phrase chunk (not all of them) before it starts rewriting text.
     import('./site-phrase-translation').then(({ translateSiteDom }) => {
       if (cancelled) {
         return;
       }
 
-      translateSiteDom(root, effectiveLocale);
+      translateSiteDom(root, effectiveLocale).catch(() => {});
 
       observer = new MutationObserver(() => {
-        translateSiteDom(root, effectiveLocale);
+        translateSiteDom(root, effectiveLocale).catch(() => {});
       });
       observer.observe(root, { childList: true, subtree: true, characterData: true });
     });
