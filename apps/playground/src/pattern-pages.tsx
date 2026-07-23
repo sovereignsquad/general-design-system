@@ -1945,7 +1945,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     default:
       return (
         <SectionPanel title="Live reference note" description="This documented pattern is represented through the shared component family.">
-          <p>{entry.summary}</p>
+          <p>No interactive demo renders here — this pattern is implemented through the exports and coverage details listed above.</p>
         </SectionPanel>
       );
   }
