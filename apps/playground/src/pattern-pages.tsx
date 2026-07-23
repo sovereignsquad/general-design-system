@@ -1018,7 +1018,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'destructive-actions':
       return (
-        <ConfirmDialog opened onClose={() => {}} onConfirm={() => {}} title="Delete this pattern" isDanger>
+        <ConfirmDialog opened onClose={() => {}} onConfirm={() => {}} title="Delete this pattern" confirmAction="delete" isDanger>
           Destructive actions must remain explicit and reversible only with confirmation.
         </ConfirmDialog>
       );

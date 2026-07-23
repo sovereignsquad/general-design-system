@@ -577,6 +577,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "No anonymous claims": "Никаких анонимных претензий",
   "No coordinates published yet.": "Координаты пока не опубликованы.",
   "No events captured yet.": "События пока не зафиксированы.",
+  "No interactive demo renders here — this pattern is implemented through the exports and coverage details listed above.": "Здесь нет интерактивных демонстрационных рендеров — этот шаблон реализуется посредством экспорта и деталей покрытия, перечисленных выше.",
   "No local authority": "Нет местной власти",
   "No local wrapper needed for body alignment.": "Для выравнивания тела не требуется локальная оболочка.",
   "No map source configured for this demo.": "Для этой демонстрации не настроен источник карты.",

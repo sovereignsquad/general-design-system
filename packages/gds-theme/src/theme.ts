@@ -84,30 +84,30 @@ export const gdsDarkPublicTheme = extendGdsTheme({
     AppShell: {
       styles: {
         main: {
-          background: 'var(--mantine-color-dark-8)',
+          background: 'light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))',
         },
       },
     },
     Card: {
       styles: {
         root: {
-          background: 'var(--mantine-color-dark-7)',
-          borderColor: 'var(--mantine-color-dark-4)',
+          background: 'light-dark(var(--mantine-color-white), var(--mantine-color-dark-7))',
+          borderColor: 'light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))',
         },
       },
     },
     Paper: {
       styles: {
         root: {
-          background: 'var(--mantine-color-dark-7)',
-          borderColor: 'var(--mantine-color-dark-4)',
+          background: 'light-dark(var(--mantine-color-white), var(--mantine-color-dark-7))',
+          borderColor: 'light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))',
         },
       },
     },
     Table: {
       styles: {
         table: {
-          color: 'var(--mantine-color-gray-0)',
+          color: 'light-dark(var(--mantine-color-dark-7), var(--mantine-color-gray-0))',
         },
       },
     },

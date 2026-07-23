@@ -577,6 +577,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "No anonymous claims": "Nincs névtelen állítás",
   "No coordinates published yet.": "Még nem tettek közzé koordinátákat.",
   "No events captured yet.": "Még nincsenek rögzített események.",
+  "No interactive demo renders here — this pattern is implemented through the exports and coverage details listed above.": "Itt nincs interaktív bemutató – ez a minta a fent felsorolt ​​exportálási és lefedettségi részleteken keresztül valósul meg.",
   "No local authority": "Nincs helyi hatóság",
   "No local wrapper needed for body alignment.": "Nincs szükség helyi borításra a test igazításához.",
   "No map source configured for this demo.": "Nincs beállítva térképforrás ehhez a demóhoz.",

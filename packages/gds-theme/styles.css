@@ -154,11 +154,25 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .gds-card {
     linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%));
 }
 
-html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']) {
+html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
   background: linear-gradient(135deg, var(--gds-vibe-primary), var(--gds-vibe-accent));
   border-color: color-mix(in srgb, var(--gds-vibe-primary) 72%, var(--gds-vibe-accent));
   color: white;
   box-shadow: 0 12px 34px color-mix(in srgb, var(--gds-vibe-glow) 58%, transparent);
+}
+
+/*
+ * Danger-colored buttons (Button color="red", e.g. SemanticButton's "delete"/"cancel"
+ * destructive actions) must keep their native red styling instead of being repainted
+ * with the decorative brand gradient above — otherwise every destructive action in the
+ * product looks identical to a primary action, defeating the color semantic entirely.
+ * Mirrors the existing --gds-vibe-danger carve-out already used for red Text/Menu items.
+ */
+html[data-gds-theme-preset] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red'] {
+  background: var(--mantine-color-red-filled);
+  border-color: var(--mantine-color-red-filled);
+  color: var(--mantine-color-white);
+  box-shadow: none;
 }
 
 html[data-gds-theme-preset] .mantine-Button-root[data-variant='default'] {
@@ -484,11 +498,18 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .gds-card
   backdrop-filter: blur(22px) saturate(1.2);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root:not([data-variant='default']) {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
   color: #ffffff;
   background: linear-gradient(135deg, #7c3cff, #e018ff, #ff9b3d) !important;
   border-color: transparent !important;
   box-shadow: 0 12px 32px rgba(224, 24, 255, 0.32);
+}
+
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red'] {
+  color: #ffffff;
+  background: var(--mantine-color-red-filled) !important;
+  border-color: var(--mantine-color-red-filled) !important;
+  box-shadow: none;
 }
 
 html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root[data-variant='default'],
@@ -582,11 +603,18 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .gds-card {
   border-color: var(--gds-vibe-border) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root:not([data-variant='default']),
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:not([data-variant='default']) {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
   color: #ffffff !important;
   background: linear-gradient(135deg, var(--gds-vibe-primary), var(--gds-vibe-accent)) !important;
   border-color: color-mix(in srgb, var(--gds-vibe-primary) 72%, var(--gds-vibe-accent)) !important;
+}
+
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red'],
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red'] {
+  color: var(--mantine-color-white) !important;
+  background: var(--mantine-color-red-filled) !important;
+  border-color: var(--mantine-color-red-filled) !important;
 }
 
 html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root[data-variant='default'],

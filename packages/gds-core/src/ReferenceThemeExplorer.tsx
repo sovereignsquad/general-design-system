@@ -257,6 +257,8 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
       radius: 'var(--mantine-radius-xl)',
       backgroundColor: athleteGold.canvasDark,
       borderColor: athleteGold.borderDark,
+      text: athleteGold.textDark,
+      muted: athleteGold.mutedDark,
     }),
   });
 
@@ -421,6 +423,9 @@ export function ReferenceThemeExplorer({
       backgroundColor: selectedVibe.surfaceDark,
       control: `color-mix(in srgb, ${selectedVibe.surfaceLight} 90%, ${selectedVibe.primary} 10%)`,
       borderColor: selectedVibe.borderLight,
+      text: selectedVibe.textDark,
+      muted: selectedVibe.mutedDark,
+      controlText: selectedVibe.textLight,
     }),
   }) : undefined;
 
