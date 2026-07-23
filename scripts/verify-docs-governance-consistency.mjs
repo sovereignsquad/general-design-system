@@ -87,7 +87,8 @@ for (const file of docsWithAbsoluteLocalLinks) {
 const installGuide = readFileSync(resolve(root, 'INSTALLATION_GUIDE.md'), 'utf8');
 const themeGovernance = readFileSync(resolve(root, 'THEME_GOVERNANCE.md'), 'utf8');
 const implementationPlan = readFileSync(resolve(root, 'GDS_3_0_IMPLEMENTATION_PLAN.md'), 'utf8');
-const siteCopy = readFileSync(resolve(root, 'apps/playground/src/site-copy.ts'), 'utf8');
+const siteCopy = readFileSync(resolve(root, 'apps/playground/src/site-copy.ts'), 'utf8')
+  + readFileSync(resolve(root, 'apps/playground/src/page-copy.ts'), 'utf8');
 
 for (const lane of requiredThemeLanes) {
   if (!installGuide.includes(lane)) {

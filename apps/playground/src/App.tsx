@@ -29,7 +29,6 @@ import {
   getSiteLocaleOptions,
   getSiteRouteLabel,
 } from './site-copy';
-import { translateSiteDom } from './site-phrase-translation';
 
 const PatternsIndexPage = lazy(async () => {
   const module = await import('./pattern-pages');
@@ -223,14 +222,28 @@ function PlaygroundContent() {
       return undefined;
     }
 
-    translateSiteDom(root, effectiveLocale);
+    let cancelled = false;
+    let observer: MutationObserver | undefined;
 
-    const observer = new MutationObserver(() => {
+    // Dynamically imported: the generated phrase dictionary behind this module
+    // is large and only ever needed once a visitor picks a non-English locale.
+    import('./site-phrase-translation').then(({ translateSiteDom }) => {
+      if (cancelled) {
+        return;
+      }
+
       translateSiteDom(root, effectiveLocale);
-    });
-    observer.observe(root, { childList: true, subtree: true, characterData: true });
 
-    return () => observer.disconnect();
+      observer = new MutationObserver(() => {
+        translateSiteDom(root, effectiveLocale);
+      });
+      observer.observe(root, { childList: true, subtree: true, characterData: true });
+    });
+
+    return () => {
+      cancelled = true;
+      observer?.disconnect();
+    };
   }, [effectiveLocale, location.pathname]);
 
   const headerActions = (

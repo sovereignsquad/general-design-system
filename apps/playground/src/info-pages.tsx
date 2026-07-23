@@ -20,18 +20,20 @@ import { apiReferenceEntries, apiReferencePackages, getApiReferenceEntries, getA
 import { accessibilityEvidenceEntries, accessibilityEvidenceSummary } from './accessibility-evidence-registry';
 import { patternRegistry } from './pattern-registry';
 import {
+  getSiteCopy,
+  targetGdsVersion,
+} from './site-copy';
+import {
   apiReferenceCopy,
   getRulebookCopy,
-  getSiteCopy,
   getThemePageLists,
   installCopy,
   maturityCopy,
   overviewCopy,
   siteFooterCopy,
-  targetGdsVersion,
   tokensCopy,
   useCasesCopy,
-} from './site-copy';
+} from './page-copy';
 import { productUseCases } from './product-use-cases';
 
 const npmrcCode = `# .npmrc

@@ -54,7 +54,14 @@ async function disposeBrowser(browser, userDataDir) {
       browser.kill('SIGTERM');
     });
   }
-  rmSync(userDataDir, { recursive: true, force: true, maxRetries: 8, retryDelay: 125 });
+  try {
+    rmSync(userDataDir, { recursive: true, force: true, maxRetries: 8, retryDelay: 125 });
+  } catch (error) {
+    // A leftover /tmp profile directory is a cleanup nuisance, not a verification
+    // failure — some environments still hold a file handle briefly after Chrome's
+    // exit event fires, and this must never mask or crash before the real result.
+    console.warn(`Warning: could not remove Chrome profile dir ${userDataDir}: ${error.message}`);
+  }
 }
 
 async function launchBrowser() {

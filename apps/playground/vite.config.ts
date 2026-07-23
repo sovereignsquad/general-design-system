@@ -11,37 +11,37 @@ export default defineConfig({
   build: {
     rolldownOptions: {
       output: {
-        manualChunks(id) {
-          if (!id.includes('node_modules')) {
-            return undefined
-          }
-
-          if (id.includes('/react-router-dom/')) {
-            return 'vendor-router'
-          }
-
-          if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/scheduler/')) {
-            return 'vendor-react'
-          }
-
-          if (
-            id.includes('/@mantine/') ||
-            id.includes('/@floating-ui/') ||
-            id.includes('/clsx/') ||
-            id.includes('/embla-carousel-')
-          ) {
-            return 'vendor-mantine'
-          }
-
-          if (
-            id.includes('/@sovereignsquad/gds-core/') ||
-            id.includes('/@sovereignsquad/gds-admin/') ||
-            id.includes('/@sovereignsquad/gds-theme/')
-          ) {
-            return 'vendor-gds'
-          }
-
-          return 'vendor-misc'
+        codeSplitting: {
+          groups: [
+            {
+              name: 'vendor-router',
+              test: /node_modules[\\/]react-router-dom[\\/]/,
+              priority: 4,
+            },
+            {
+              name: 'vendor-react',
+              test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+              priority: 3,
+            },
+            {
+              name: 'vendor-mantine',
+              test: /node_modules[\\/](@mantine|@floating-ui|clsx|embla-carousel-)/,
+              priority: 2,
+            },
+            {
+              // GDS workspace packages resolve through npm workspace symlinks to
+              // their real path under packages/, not through node_modules/, so
+              // they need their own test pattern instead of a node_modules match.
+              name: 'vendor-gds',
+              test: /[\\/]packages[\\/]gds-(core|admin|theme)[\\/]/,
+              priority: 1,
+            },
+            {
+              name: 'vendor-misc',
+              test: /node_modules[\\/]/,
+              priority: 0,
+            },
+          ],
         },
       },
     },

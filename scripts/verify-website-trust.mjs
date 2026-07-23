@@ -6,7 +6,8 @@ const root = process.cwd();
 const appSource = readFileSync(resolve(root, 'apps/playground/src/App.tsx'), 'utf8');
 const routesSource = readFileSync(resolve(root, 'apps/playground/src/site-routes.ts'), 'utf8');
 const infoPagesSource = readFileSync(resolve(root, 'apps/playground/src/info-pages.tsx'), 'utf8');
-const siteCopySource = readFileSync(resolve(root, 'apps/playground/src/site-copy.ts'), 'utf8');
+const siteCopySource = readFileSync(resolve(root, 'apps/playground/src/site-copy.ts'), 'utf8')
+  + readFileSync(resolve(root, 'apps/playground/src/page-copy.ts'), 'utf8');
 const showcaseSource = readFileSync(resolve(root, 'apps/playground/src/showcase-pages.tsx'), 'utf8');
 
 const failures = [];
