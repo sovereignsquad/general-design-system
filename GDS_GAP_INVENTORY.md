@@ -3,6 +3,13 @@
 Status: Working inventory  
 Last updated: 2026-06-13
 
+> **Note (2026-07-23):** this file predates several completed features
+> (charts, uploads, command palette, evidence panels, period selectors) and
+> should not be read as current without cross-checking source. See
+> [`DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md`](DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md)
+> for an up-to-date, source-verified gap list benchmarked against major
+> external design systems.
+
 This file captures the color-theme and UI/UX gaps that are still **not covered** or only **partially covered** by the current General Design System.
 
 Definitions used here:
