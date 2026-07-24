@@ -61,3 +61,6 @@ export type { BrandColorRamp, BrandColorRamps, BrandFonts, ClassUsaColorRampName
 // ── PWA viewport ──
 export { getGdsPwaViewportMetaContent } from './viewport';
 export type { GdsPwaViewportOptions, GdsViewportZoomPolicy } from './viewport';
+
+// ── Development diagnostics ──
+export { gdsDevWarnOnce, resetGdsDevWarnings } from './dev-warnings';

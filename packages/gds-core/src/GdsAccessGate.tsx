@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react';
 import { useEffect, useId } from 'react';
 import { Badge, Box, Button, Card, Group, Skeleton, Stack, Text, Title } from '@mantine/core';
+import { gdsDevWarnOnce } from '@sovereignsquad/gds-theme';
 import { AccessRecoveryPanel } from './AccessRecoveryPanel';
 import { StateBlock } from './StateBlock';
 import {
@@ -122,6 +123,17 @@ export function GdsAccessGate({
     teaserLabel,
     protectedContentPolicy,
   });
+
+  // Surface contract violations to developers even when no `onEvent` handler is
+  // wired — otherwise an invalid state/reason/action combination renders silently
+  // wrong with no console signal at all. This is *in addition to* the onEvent
+  // path below, not a replacement for it.
+  if (validation.length > 0) {
+    gdsDevWarnOnce(
+      `GdsAccessGate:contract:${validation.join('|')}`,
+      `GdsAccessGate received an invalid contract: ${validation.join('; ')} Fix the state/reason/action combination — the gate may render an inconsistent state.`,
+    );
+  }
 
   const emit = (event: GdsAccessGateEvent) => onEvent?.(event);
 
