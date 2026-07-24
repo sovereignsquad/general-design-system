@@ -94,16 +94,22 @@ Actions use `GdsPageTemplateAction`:
   label: 'Save changes',
   kind: 'primary',
   disabled: false,
-  pending: false,
+  loading: false,
   onClick: saveSettings,
 }
 ```
+
+> `loading` is the busy-state flag (renders the action disabled with a `…`
+> suffix), named for consistency with every other GDS action/button API. The
+> older `pending` prop is **deprecated**: it is still honored as an alias for
+> `loading` (with a dev-only console warning) and will be removed in a future
+> major version — migrate to `loading`. If both are set, `loading` wins.
 
 Action requirements:
 
 - provide a stable `id`
 - provide a visible `label`
-- expose pending/disabled state through the template props
+- expose loading/disabled state through the template props
 - route destructive behavior through the confirmation service before execution
 - emit metadata-only telemetry from the host, not private resource payloads
 

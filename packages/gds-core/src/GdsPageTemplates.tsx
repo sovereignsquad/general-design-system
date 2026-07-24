@@ -1,5 +1,6 @@
 import type { Key, ReactNode } from 'react';
 import { Badge, Card, Divider, Group, List, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { gdsDevWarnOnce } from '@sovereignsquad/gds-theme';
 import { AsyncSurface, type AsyncSurfaceState } from './AsyncSurface';
 import { GdsBox, GdsGrid, GdsStack } from './LayoutPrimitives';
 import { MetricCard, type MetricCardProps } from './MetricCard';
@@ -48,6 +49,18 @@ export interface GdsPageTemplateAction {
   label: string;
   kind?: 'primary' | 'secondary' | 'danger' | 'link';
   disabled?: boolean;
+  /**
+   * Busy/loading state: renders the action disabled with a `…` suffix. Named
+   * `loading` to match every other GDS action/button API (`SemanticButton`,
+   * `ConfirmDialog`, `GdsAccessGateAction`, table row actions).
+   */
+  loading?: boolean;
+  /**
+   * @deprecated Use {@link GdsPageTemplateAction.loading} instead — renamed for
+   * consistency with every other GDS action/button API. `pending` is still
+   * honored as an alias (mapped to `loading`, with a dev-only warning) and will
+   * be removed in a future major version. If both are set, `loading` wins.
+   */
   pending?: boolean;
   destructive?: boolean;
   onClick?: () => void;
@@ -376,32 +389,50 @@ function actionColor(action: GdsPageTemplateAction) {
   return 'gray';
 }
 
+/**
+ * Resolves an action's busy state, honoring the deprecated `pending` alias.
+ * `loading` takes precedence; if only the legacy `pending` is set, it is used and
+ * a one-time dev warning points the caller at `loading`.
+ */
+function actionIsBusy(action: GdsPageTemplateAction): boolean {
+  if (action.pending !== undefined && action.loading === undefined) {
+    gdsDevWarnOnce(
+      'GdsPageTemplateAction:pending-deprecated',
+      'GdsPageTemplateAction.pending is deprecated; rename it to `loading` for consistency with every other GDS action API. `pending` is still honored for now and will be removed in a future major version.',
+    );
+  }
+  return action.loading ?? action.pending ?? false;
+}
+
 function renderActions(actions: GdsPageTemplateAction[] = []) {
   if (!actions.length) return null;
   return (
     <Group gap="sm" wrap="wrap">
-      {actions.map((action) => (
-        <button
-          key={action.id}
-          type="button"
-          aria-disabled={action.disabled || action.pending || undefined}
-          disabled={action.disabled || action.pending}
-          onClick={action.onClick}
-          data-gds-template-action={action.id}
-          data-gds-template-action-kind={action.kind ?? 'secondary'}
-          style={{
-            minHeight: 40,
-            borderRadius: 'var(--mantine-radius-md)',
-            border: '1px solid var(--mantine-color-default-border)',
-            padding: '0 var(--mantine-spacing-md)',
-            fontWeight: 700,
-            color: `var(--mantine-color-${actionColor(action)}-7)`,
-            background: actionVariant(action) === 'filled' ? `var(--mantine-color-${actionColor(action)}-1)` : 'var(--mantine-color-body)',
-          }}
-        >
-          {action.pending ? `${action.label}...` : action.label}
-        </button>
-      ))}
+      {actions.map((action) => {
+        const busy = actionIsBusy(action);
+        return (
+          <button
+            key={action.id}
+            type="button"
+            aria-disabled={action.disabled || busy || undefined}
+            disabled={action.disabled || busy}
+            onClick={action.onClick}
+            data-gds-template-action={action.id}
+            data-gds-template-action-kind={action.kind ?? 'secondary'}
+            style={{
+              minHeight: 40,
+              borderRadius: 'var(--mantine-radius-md)',
+              border: '1px solid var(--mantine-color-default-border)',
+              padding: '0 var(--mantine-spacing-md)',
+              fontWeight: 700,
+              color: `var(--mantine-color-${actionColor(action)}-7)`,
+              background: actionVariant(action) === 'filled' ? `var(--mantine-color-${actionColor(action)}-1)` : 'var(--mantine-color-body)',
+            }}
+          >
+            {busy ? `${action.label}...` : action.label}
+          </button>
+        );
+      })}
     </Group>
   );
 }
