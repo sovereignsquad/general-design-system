@@ -18,6 +18,12 @@ export interface SimpleDataTableProps<T extends Record<string, unknown>> {
   getRowKey?: (row: T, index: number) => React.Key;
 }
 
+/**
+ * Lightweight read-only table: renders `rows` against `columns` (`{ key, header,
+ * render? }`) with governed loading, empty, and error states and no interactivity.
+ * Use it for static tabular data (summaries, detail sub-tables); reach for
+ * {@link GdsDataTable} when you need sorting, filtering, pagination, or selection.
+ */
 export function SimpleDataTable<T extends Record<string, unknown>>({
   columns,
   rows,

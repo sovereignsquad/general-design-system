@@ -260,6 +260,15 @@ export function useGdsResourceManager<T extends GdsResourceRecord>({
   };
 }
 
+/**
+ * Full CRUD list/detail surface driven entirely by a typed `GdsResourceAdapter`.
+ * It renders the resource list, an optional detail pane (`renderDetail`), the
+ * governed action set gated by the adapter's `getPermissions`, and every async
+ * state (loading/empty/error/permission) from the adapter's responses. Use it as
+ * the backbone of an admin resource screen so create/read/update/delete,
+ * permissions, and state handling all flow from one adapter contract. See
+ * `docs/TUTORIAL_CRUD_ADMIN_SCREEN.md` for a worked example.
+ */
 export function GdsResourceManager<T extends GdsResourceRecord>({
   title,
   description,

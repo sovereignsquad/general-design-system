@@ -596,6 +596,13 @@ function renderDefaultField({ field, value, setValue, describedBy, invalid }: Gd
   return <input {...common} style={textEntryStyle} type={field.type === 'password' ? 'password' : field.type === 'email' ? 'email' : field.type === 'url' ? 'url' : 'text'} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)} />;
 }
 
+/**
+ * Renders a complete, validated form from a declarative `GdsFormSchema` instead
+ * of hand-written inputs: each field's `type` maps to the governed control, with
+ * required/length/pattern validation, submitting/error states, and optional file
+ * upload built in. Use it for create/edit forms; generate the schema from JSON
+ * Schema, OpenAPI, or Zod via `createGdsFormFromSchema` when you already have one.
+ */
 export function GdsSchemaForm<TValues extends Record<string, unknown> = Record<string, unknown>>({
   schema,
   onSubmit,

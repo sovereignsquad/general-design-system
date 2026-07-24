@@ -366,6 +366,13 @@ function useGdsTableKeyNav(rowCount: number, columnCount: number) {
   return { tbodyRef, handleKeyDown, focusedCell, setFocusedCell };
 }
 
+/**
+ * Full-featured governed data table: search, sort, filter, paginate, select, and
+ * export over a `GdsTableDataAdapter` (local or remote), with an accessible table
+ * structure, a mobile card fallback, and loading/empty/error states. Use it for
+ * rich interactive grids; use {@link SimpleDataTable} for a static read-only
+ * table, or `AdminDataTable` for a lighter sortable admin table.
+ */
 export function GdsDataTable<T extends Record<string, unknown>>({
   columns,
   rowId,

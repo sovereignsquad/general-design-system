@@ -22,6 +22,12 @@ const toneBackgrounds: Record<SectionPanelTone, string> = {
   critical: 'light-dark(var(--mantine-color-red-0), color-mix(in srgb, var(--mantine-color-red-9) 18%, var(--mantine-color-body)))',
 };
 
+/**
+ * Titled content section with an optional description, header `action`, and tone.
+ * Use it to group related content under a governed section heading — the standard
+ * building block for the panels inside dashboards, detail pages, and settings
+ * surfaces — instead of ad-hoc card-plus-title markup.
+ */
 export function SectionPanel({
   title,
   description,

@@ -12,6 +12,12 @@ export interface PageHeaderProps {
   eyebrowVariant?: PageHeaderEyebrowVariant;
 }
 
+/**
+ * The standard page header: an optional eyebrow, the page `title` (with optional
+ * subtitle/description), and a right-aligned `actions` slot. Use it at the top of
+ * a route to answer "where am I, what is this surface, and what can I do here" in
+ * one governed, accessible header.
+ */
 export function PageHeader({
   title,
   description,

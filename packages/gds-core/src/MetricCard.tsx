@@ -21,6 +21,12 @@ const trendColors: Record<MetricTrendTone, string> = {
   neutral: 'gray',
 };
 
+/**
+ * Compact KPI card: a labelled headline `value` with an optional trend indicator
+ * (`positive`/`negative`/`neutral`) and supporting description, icon, and footer.
+ * Use it in dashboard metric rows to present a single number and its movement in
+ * a consistent, accessible tile.
+ */
 export function MetricCard({ label, value, description, trend, icon, footer }: MetricCardProps) {
   return (
     <Card withBorder radius="lg" padding="lg">

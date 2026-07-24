@@ -64,6 +64,13 @@ function stateBlockFor(state: AdminTableState, error?: ReactNode, empty?: ReactN
   return { variant: 'empty', title: 'No records available', description: empty ?? 'No rows match the current table scope.' };
 }
 
+/**
+ * Sortable admin table with governed ready/loading/empty/error/permission states,
+ * accessible column headers, an optional toolbar/actions row, and a mobile card
+ * fallback (`renderMobileCard`). Requires a `getRowKey`. Use it for admin list
+ * views that need column sorting and state handling but not the full
+ * search/filter/paginate machinery of `GdsDataTable`.
+ */
 export function AdminDataTable<T extends Record<string, unknown>>({
   rows,
   columns,

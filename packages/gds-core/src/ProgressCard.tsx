@@ -10,6 +10,12 @@ export interface ProgressCardProps {
   action?: ReactNode;
 }
 
+/**
+ * Card that pairs a labelled `value` with a progress bar (`progress`, plus an
+ * optional `progressLabel`) and optional description/action. Use it to show
+ * movement toward a goal — quota usage, onboarding completion, task progress — as
+ * a single governed, accessible tile.
+ */
 export function ProgressCard({
   label,
   value,

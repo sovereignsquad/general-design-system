@@ -28,6 +28,13 @@ export interface ResponsiveDataViewProps<T extends Record<string, unknown>> {
   getRowKey?: (item: T, index: number) => React.Key;
 }
 
+/**
+ * Data surface that renders a table on wide viewports and a card list (via
+ * `renderCard`) on narrow ones, sharing the same `data`/`columns` and carrying
+ * governed loading, empty, and error states plus optional toolbar/filter slots.
+ * Use it when a list must stay usable on both desktop and mobile without you
+ * writing two separate layouts.
+ */
 export function ResponsiveDataView<T extends Record<string, unknown>>({
   data,
   columns,

@@ -46,6 +46,13 @@ function renderSemanticAction(action: ActionBarAction, slot: 'primary' | 'second
   );
 }
 
+/**
+ * Governed row of semantic actions arranged by priority — one `primary`, plus
+ * `secondary`, `tertiary`, and `iconOnly` groups — each resolved from the GDS
+ * action vocabulary so labels and variants stay consistent everywhere. Use it for
+ * the action cluster on a page header, toolbar, or card footer instead of laying
+ * out raw buttons.
+ */
 export function ActionBar({
   primary,
   secondary = [],
