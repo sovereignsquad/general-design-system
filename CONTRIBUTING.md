@@ -2,7 +2,7 @@
 
 Status: Active
 Version: 3.12.0
-Last updated: 2026-07-23
+Last updated: 2026-07-24
 
 This repository is shared design-system infrastructure.
 
@@ -59,6 +59,77 @@ Before merging shared package changes, run:
 - `npm run test:run`
 
 If a change affects root composition, shared copy, or exported component behavior, the change should include or update automated tests unless there is a documented reason it cannot.
+
+## Adding a Component or Pattern
+
+This is the concrete, end-to-end mechanics for shipping a new public component
+or pattern. It is the practical companion to the conceptual lifecycle in
+[`PATTERN_SERVICE_MODEL.md`](PATTERN_SERVICE_MODEL.md). Each new component must
+pass `npm run verify:release`; the steps below are what that gate actually
+checks, in the order you'll do them. Worked example: a `StatusPill` in
+`@sovereignsquad/gds-core`.
+
+1. **Create the source file(s).** Component source lives in `packages/<pkg>/src/`
+   (e.g. `packages/gds-core/src/StatusPill.tsx`). If the component uses hooks,
+   state, refs, or any browser API, add `'use client';` as the first line **and**
+   name the file with a `.client.tsx` suffix (17 such files exist today, e.g.
+   `KanbanBoard.client.tsx`); a server-safe component (no `'use client'`) is a
+   plain `.tsx`. Colocate the test as `StatusPill.test.tsx` in the same folder.
+
+2. **Export it, with JSDoc.** Add the export to the package barrel
+   (`packages/gds-core/src/index.ts`) under the appropriate `// ── … ──` section
+   group. Every symbol re-exported from a public entry point must carry a
+   one-paragraph JSDoc (what it does + when to use it) — see the *JSDoc*
+   convention below. Client-only components are additionally reachable through
+   `client.ts`; server-safe ones through `server.ts`. `check-export-contract`
+   fails if `server.ts` transitively reaches any `'use client'` file, so keep
+   client code out of the server entry.
+
+3. **Register it in the catalog.** Every public PascalCase UI component must be
+   either registered or explicitly exempted, or `verify:component-catalog-parity`
+   fails:
+   - **Registered** — add (or extend) a `PatternRegistryEntry` in
+     `apps/playground/src/pattern-registry.ts` with `sourceComponent: 'StatusPill'`.
+     Registry membership is what drives the catalog's every-theme render,
+     forced-colors check, i18n routing, and accessibility-evidence capture, so
+     prefer this for anything with visible UI.
+   - **Exempted** — if it is a non-catalog primitive/utility, add it to
+     `boundary/component-catalog-exemptions.json` with a reason.
+
+4. **Add export coverage.** Add an `ExportCoverageEntry` to
+   `apps/playground/src/pattern-export-coverage.ts`
+   (`{ packageName, exportName, status, registryId, rationale }`). **Any**
+   exported `function`/`const`/`class` in package `src/` must have a coverage
+   entry, or `verify:pattern-export-coverage` and `verify:api-docs-coverage`
+   fail. Use `status: 'support-api'` for non-visual helpers (skips the live-demo
+   evidence requirement); `registryId` must be a real `id` in `pattern-registry.ts`.
+
+5. **Internationalize every string.** No user-facing English literal goes in a
+   component. Add a `gds.*` message key and consume it via
+   `useGdsTranslation().t('gds.statusPill.label', 'Status')`. The key must be
+   added to **all 12 locale packs** in `packages/gds-core/src/locales/` (`en`,
+   `es`, `de`, `fr`, `it`, `hu`, `ru`, `he`, `ar`, `zh`, `ja`, `ko`) with full
+   parity — `verify:i18n-message-parity` fails on a key missing from any pack,
+   and `verify:i18n-package-copy` / `verify:locale-coverage` guard package copy
+   and route coverage.
+
+6. **Respect the vendor boundary.** Don't leak engine types (`@mantine/*`,
+   `@tabler/icons-react`, `@dnd-kit/*`) into the public `.d.ts` surface, and
+   don't introduce new `.mantine-*` CSS selectors — `verify:boundary` freezes
+   both surfaces to an allowlist that can only shrink. Wrap vendor types behind
+   GDS-owned interfaces (see `GdsDateInputBaseProps` for the pattern) and use
+   GDS styling hooks.
+
+7. **Test and verify.** Cover the component with a colocated `.test.tsx`
+   (`renderWithGds` from `test-utils/render` wires the provider/router), then run
+   `npm run verify:release`. The relevant sub-checks are `build`, `lint`,
+   `test:run`, `verify:component-catalog-parity`, and the `verify:references`
+   chain (pattern-catalog-coverage, pattern-export-coverage, api-docs-coverage,
+   locale-coverage, i18n-message-parity, owned-contrast, and more).
+
+8. **Document it.** Add the component's contract to
+   `COMPONENTS_AND_PATTERNS.md` (and any deeper `docs/*.md` reference), and a
+   `CHANGELOG.md` entry — per Standing Rule 3, docs ship in the same change set.
 
 ## Comment & Documentation Conventions
 

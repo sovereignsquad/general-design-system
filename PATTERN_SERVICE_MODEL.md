@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.12.0
-Last updated: 2026-07-23
+Last updated: 2026-07-24
 
 This document defines how shared UI patterns are discovered, evaluated, promoted, implemented, and enforced across projects. It exists so product teams can borrow proven Mantine-native ideas without creating a second design system, local visual drift, or page-specific UI inventions.
 
@@ -12,6 +12,9 @@ This document works together with:
 - `COMPONENTS_AND_PATTERNS.md` for canonical behavior contracts
 - `SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md` for portfolio operating structure
 - `GOVERNANCE_AND_ADOPTION.md` for local adoption and migration rules
+- `CONTRIBUTING.md`'s "Adding a Component or Pattern" section for the concrete,
+  step-by-step authoring mechanics (file layout, registration, i18n, the
+  `verify:*` gates) that implement this model
 
 ## 1. Operating Principle
 
