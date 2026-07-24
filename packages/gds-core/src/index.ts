@@ -1,120 +1,172 @@
-export * from './StatusBadge';
+// Public barrel for `@sovereignsquad/gds-core`.
+//
+// Exports are grouped by role (primitives → surfaces → shells → forms → data →
+// reporting → runtime) so the surface is navigable without cross-referencing
+// COMPONENTS_AND_PATTERNS.md. Grouping is documentation only — every entry is a
+// flat `export *`, so ordering carries no runtime or precedence meaning.
+//
+// Deliberately NOT re-exported here: `GdsRichTextEditor` is intentionally
+// subpath-only (`@sovereignsquad/gds-core/rich-text-editor`) so its heavier
+// "Content engine" dependency (Tiptap/ProseMirror) stays out of the default
+// bundle. Its absence from this barrel is by design, not an omission — see
+// DEPENDENCY_GOVERNANCE.md.
+
+// ── Primitives & style utilities ──
 export * from './GdsPrimitives';
 export * from './Typography';
+export * from './StatusBadge';
 export * from './StyleUtilities';
-export * from './LayoutPrimitives';
 export * from './SafeStyles';
-export * from './EmptyState';
-export * from './ConfirmDialog';
-export * from './icons';
-export * from './ThemeToggle';
-export * from './ReferenceLocaleNotice';
-export * from './ReferenceLinkGrid';
-export * from './ReferenceSection';
-export * from './ReferenceThemeExplorer';
 export * from './vocabulary';
-export * from './ChoiceChip';
+export * from './icons';
+export * from './GdsDensity';
+export * from './CardContracts';
+
+// ── Layout & structural surfaces ──
+export * from './LayoutPrimitives';
+export * from './LayoutBlocks';
+export * from './AccentPanel';
+export * from './SectionPanel';
+export * from './BrowseSurface';
+export * from './BoundedPreviewSurface';
+export * from './OwnedContrastSurface';
+export * from './SurfacePresentation';
+
+// ── Buttons, actions & chips ──
 export * from './SemanticButton';
 export * from './ActionBar';
+export * from './CtaButtonGroup';
+export * from './ProviderIdentityButtons';
+export * from './ShareButtonGroup';
+export * from './SocialAuthButtons';
+export * from './ChoiceChip';
+export * from './NumberStepper';
+export * from './ThemeToggle';
+
+// ── Feedback, empty & async states ──
+export * from './EmptyState';
+export * from './StateBlock';
+export * from './AsyncSurface';
+export * from './PlaceholderPanel';
+export * from './ConfirmDialog';
+export * from './Notifications';
+export * from './Notifications.client';
+export * from './FeedbackRuntime.client';
+export * from './Telemetry.client';
+
+// ── Cards & content surfaces ──
 export * from './MetricCard';
 export * from './ProgressCard';
 export * from './ConsumerSection';
 export * from './ConsumerDashboardGrid';
 export * from './GameBoardTile';
 export * from './EditorialCard';
+export * from './EditorialHero';
+export * from './FeatureBand';
 export * from './ProductCard';
 export * from './PublicProductCard';
 export * from './PublicFoodCard';
 export * from './FoodMenuSection';
 export * from './ListingCard';
-export * from './CardContracts';
-export * from './GdsDensity';
-export * from './BrowseSurface';
-export * from './BoundedPreviewSurface';
-export * from './OwnedContrastSurface';
-export * from './AccentPanel';
-export * from './SectionPanel';
-export * from './DetailProfileShell';
-export * from './StateBlock';
-export * from './AsyncSurface';
-export * from './DataToolbar';
 export * from './ListingPrimitives';
 export * from './ListingState.client';
+export * from './DetailProfileShell';
+export * from './FitScoreChip';
+export * from './MeaningBadge';
+export * from './AISearchCard';
+
+// ── Shells & navigation ──
 export * from './PublicShell';
 export * from './DiscoveryShell';
 export * from './DocsShell';
+export * from './DocsPageShell';
+export * from './ArticleShell';
+export * from './AuthShell';
 export * from './PublicNav';
 export * from './BottomTabBar';
 export * from './SidebarNav';
 export * from './PublicSiteFooter';
 export * from './PublicBrandFooter';
-export * from './AuthShell';
-export * from './SocialAuthButtons';
-export * from './ArticleShell';
-export * from './DocsCodeBlock';
-export * from './CtaButtonGroup';
-export * from './DocsPageShell';
 export * from './GdsBreadcrumbs';
-export * from './EditorialHero';
-export * from './FeatureBand';
-export * from './MapPanel';
-export * from './PublicFlowShell';
-export * from './PlaybackSurface';
-export * from './ProviderIdentityButtons';
-export * from './ShareButtonGroup';
-export * from './UploadDropzone';
-export * from './MediaField';
-export * from './MediaCard';
-export * from './MediaPreviewCard';
-export * from './GdsAssetManager.client';
-export * from './AccessSummary';
-export * from './AccessRecoveryPanel';
-export * from './GdsAccessGate';
-export * from './AccessibilityEvidence';
+export * from './PageHeader';
+export * from './DocsCodeBlock';
+
+// ── Forms & validation ──
 export * from './FormField';
 export * from './GdsFormControls';
 export * from './GdsDateInput.client';
 export * from './GdsForm.client';
 export * from './GdsSchemaForm.client';
-export * from './PageHeader';
+export * from './SearchableSelect';
 export * from './FilterDrawer';
-export * from './PlaceholderPanel';
+export * from './DataToolbar';
+
+// ── Media & upload ──
+export * from './UploadDropzone';
+export * from './MediaField';
+export * from './MediaCard';
+export * from './MediaPreviewCard';
+export * from './MediaWithFallback';
+export * from './GdsAssetManager.client';
+export * from './PlaybackSurface';
+export * from './PlaybackControls.client';
+
+// ── Data tables & resource management ──
 export * from './SimpleDataTable';
 export * from './AdvancedDataTable.client';
 export * from './GdsDataTable.client';
 export * from './GdsResourceManager.client';
-export * from './OverlayManager.client';
-export * from './FeedbackRuntime.client';
-export * from './CommandPalette.client';
+
+// ── Reporting, charts & evidence ──
 export * from './StatsSection';
 export * from './PeriodSelector';
 export * from './EvidencePanel';
 export * from './ChartTokenPanel';
 export * from './GdsChart';
 export * from './SemanticCharts';
-export * from './LayoutBlocks';
-export * from './LayoutTemplatePreview.client';
 export * from './ReportingSection';
-export * from './Notifications';
-export * from './Notifications.client';
-export * from './Telemetry.client';
-export * from './SurfacePresentation';
-export * from './PublicCaptureFlow';
-export * from './PlaybackControls.client';
-export * from './CreatorTheme';
-export * from './MaturityCapabilities';
-export * from './TaskPatterns';
-export * from './GdsPageTemplates';
+
+// ── Access & identity ──
+export * from './AccessSummary';
+export * from './AccessRecoveryPanel';
+export * from './GdsAccessGate';
+export * from './AccessibilityEvidence';
+
+// ── Overlays, command palette & runtime providers ──
+export * from './OverlayManager.client';
+export * from './CommandPalette.client';
 export * from './GdsI18nRuntime';
+
+// ── Page templates & task patterns ──
+export * from './GdsPageTemplates';
+export * from './TaskPatterns';
+export * from './MaturityCapabilities';
+export * from './CreatorTheme';
+export * from './LayoutTemplatePreview.client';
+
+// ── Content-design & handoff tooling ──
 export * from './GdsContentDesign';
 export * from './GdsDesignHandoff';
-export * from './PartnerDiscovery';
-export * from './locales';
-export * from './FitScoreChip';
-export * from './MeaningBadge';
-export * from './MediaWithFallback';
-export * from './NumberStepper';
-export * from './SearchableSelect';
-export * from './ChatSurface';
-export * from './AISearchCard';
+
+// ── Kanban ──
 export * from './KanbanBoard.client';
+
+// ── Chat surfaces ──
+export * from './ChatSurface';
+
+// ── Public capture & flow shells ──
+export * from './PublicFlowShell';
+export * from './PublicCaptureFlow';
+export * from './MapPanel';
+
+// ── Partner surfaces ──
+export * from './PartnerDiscovery';
+
+// ── Reference-site building blocks ──
+export * from './ReferenceLocaleNotice';
+export * from './ReferenceLinkGrid';
+export * from './ReferenceSection';
+export * from './ReferenceThemeExplorer';
+
+// ── i18n message packs ──
+export * from './locales';
