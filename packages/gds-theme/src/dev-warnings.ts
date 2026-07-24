@@ -1,3 +1,12 @@
+// `process.env.NODE_ENV` is statically replaced by every app bundler (Vite, Next,
+// webpack, esbuild), so the production branch below — and the message strings at
+// the call sites — are dead-code-eliminated from production builds. This narrow
+// ambient declaration lets the shared source typecheck in browser apps that alias
+// this package to source and don't pull in @types/node, without widening any
+// runtime contract; the `typeof process` guard still covers runtimes where the
+// constant is not replaced and `process` is genuinely absent.
+declare const process: { env: Record<string, string | undefined> };
+
 const warnedKeys = new Set<string>();
 
 /**
@@ -21,7 +30,7 @@ const warnedKeys = new Set<string>();
  * @param message Developer-facing explanation; emitted prefixed with `[GDS]`.
  */
 export function gdsDevWarnOnce(key: string, message: string): void {
-  if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
     return;
   }
   if (warnedKeys.has(key)) {
