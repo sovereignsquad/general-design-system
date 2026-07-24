@@ -486,6 +486,14 @@ function DefaultChartRenderer({ type, title, summary, data, definition, labelled
   );
 }
 
+/**
+ * Governed chart wrapper: it validates `data` for the requested `type`, resolves
+ * the loading/empty/error/ready `state`, and always renders an accessible
+ * data-table fallback alongside the visual so the information is never color- or
+ * canvas-only. Use this for every in-product chart instead of calling a charting
+ * library directly, so validation, state handling, and the accessible fallback
+ * come for free.
+ */
 export function GdsChart({
   type,
   title,

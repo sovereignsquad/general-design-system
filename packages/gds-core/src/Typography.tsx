@@ -14,6 +14,13 @@ export interface GdsTitleRoleProps extends GdsTypographyProps {
   order?: TitleProps['order'];
 }
 
+/**
+ * The page's primary heading, rendered at `h1` visual size. Use exactly one
+ * `PageTitle` per route so the document outline and assistive-tech landmark tree
+ * have a single top-level heading; use {@link SectionTitle} / {@link CardTitle}
+ * for the nested levels beneath it. `order` defaults to a semantic `<h1>` — set
+ * it only to correct the heading level while keeping the h1 appearance.
+ */
 export function PageTitle({ children, id, className, order = 1 }: GdsTitleRoleProps) {
   return (
     <Title id={id} className={className} order={order} size="h1" lh={1.1}>

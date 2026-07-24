@@ -41,6 +41,14 @@ const brandButtonStyles: Record<NonNullable<SemanticButtonProps['brandVariant']>
   },
 };
 
+/**
+ * Button whose label is resolved from a governed semantic `action` id (via the GDS
+ * vocabulary) rather than a hardcoded string, so the same action reads and
+ * localizes consistently everywhere it appears. Supports brand variants, a
+ * `loading` busy state, and transient success/error feedback. Use it for any
+ * action tied to a known semantic verb; fall back to Mantine's raw `Button` only
+ * for one-off actions with no vocabulary entry.
+ */
 export function SemanticButton({
   action,
   brandVariant,

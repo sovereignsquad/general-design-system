@@ -71,6 +71,13 @@ function renderStateBlock({
   );
 }
 
+/**
+ * State gate for any data-backed surface: given an async `state`, it renders the
+ * matching governed loading / empty / error / refreshing placeholder — each with
+ * a title, description, and optional retry action — or the `successContent` once
+ * ready. Use it to wrap list, detail, and report regions so every async state has
+ * a consistent, accessible presentation instead of ad-hoc spinners and blank gaps.
+ */
 export function AsyncSurface({
   state,
   successContent,

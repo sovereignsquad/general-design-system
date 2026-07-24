@@ -36,6 +36,14 @@ const variantConfig: Record<StateBlockVariant, { color: string; icon: ReactNode 
   'not-enough-data': { color: 'yellow', icon: <GdsIcons.Analytics size="1.1rem" /> },
 };
 
+/**
+ * A single governed status panel for a non-ready surface state — `loading`,
+ * `empty`, `error`, `permission`, `disabled`, `success`, `info`, or
+ * `not-enough-data` — with a variant-appropriate icon, title, description, and
+ * optional recovery action. It is the building block {@link AsyncSurface} composes;
+ * reach for it directly when you need one explicit state message in place of a
+ * blank region.
+ */
 export function StateBlock({
   variant,
   title,

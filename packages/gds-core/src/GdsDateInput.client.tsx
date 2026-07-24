@@ -95,6 +95,14 @@ export interface GdsDateInputProps extends GdsDateInputBaseProps {
   onChange?: (value: Date | null) => void;
 }
 
+/**
+ * Governed single-date input wrapping the date engine behind a GDS-owned prop
+ * surface. Accepts a `Date` or ISO (`yyyy-mm-dd`) string as `value` and emits a
+ * `Date | null`, with clearable UX and optional `minDate`/`maxDate` bounds
+ * (validated in development). Use it for any single calendar-date field; use
+ * {@link GdsDateTimeInput} when a time-of-day is also needed, or
+ * {@link GdsDateRangeInput} for a start/end range.
+ */
 export function GdsDateInput({ value, onChange, minDate, maxDate, ...rest }: GdsDateInputProps) {
   warnOnDateBounds('GdsDateInput', minDate, maxDate, [resolveDateValue(value)]);
   return (
@@ -114,6 +122,12 @@ export interface GdsDateTimeInputProps extends GdsDateInputBaseProps {
   onChange?: (value: Date | null) => void;
 }
 
+/**
+ * Governed date-and-time input: like {@link GdsDateInput} but captures a
+ * time-of-day alongside the calendar date, wrapping the date engine behind the
+ * same GDS-owned `Date | string` value / `Date | null` change contract. Use it
+ * when the moment matters (appointments, deadlines with a time), not just the day.
+ */
 export function GdsDateTimeInput({ value, onChange, minDate, maxDate, ...rest }: GdsDateTimeInputProps) {
   warnOnDateBounds('GdsDateTimeInput', minDate, maxDate, [resolveDateValue(value)]);
   return (
@@ -135,6 +149,12 @@ export interface GdsDateRangeInputProps extends GdsDateInputBaseProps {
   onChange?: (value: GdsDateRangeValue) => void;
 }
 
+/**
+ * Governed start/end date-range input built on the same GDS-owned surface as
+ * {@link GdsDateInput}. Its `value` and `onChange` use a `[start, end]` tuple of
+ * `Date | null`. Use it for period pickers — coverage windows, report ranges,
+ * booking spans — instead of wiring two separate single-date inputs.
+ */
 export function GdsDateRangeInput({ value, onChange, minDate, maxDate, ...rest }: GdsDateRangeInputProps) {
   warnOnDateBounds('GdsDateRangeInput', minDate, maxDate, value ?? [null, null]);
   return (

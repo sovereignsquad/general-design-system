@@ -170,6 +170,15 @@ export function createGdsDraftAdapter<TValues extends Record<string, unknown>>(
   };
 }
 
+/**
+ * Headless controller for a governed form: it holds the field snapshot, runs
+ * synchronous then (only if clean) asynchronous validation on submit, and tracks
+ * the submit lifecycle (`validating` → `submitting` → `success`/`error`). Use it
+ * for a self-contained form where you render the fields yourself and just need
+ * value state, ordered validation, and submit/retry wiring. For draft autosave,
+ * optimistic submit, server-error mapping, or telemetry, use
+ * {@link useGdsFormOrchestration} instead.
+ */
 export function useGdsForm<TValues extends Record<string, unknown>>({
   initialValues,
   validate,
@@ -221,6 +230,14 @@ export function useGdsForm<TValues extends Record<string, unknown>>({
   );
 }
 
+/**
+ * Extended form controller that layers product-grade orchestration on top of
+ * {@link useGdsForm}: optional draft persistence and autosave (via a
+ * `draftAdapter`), optimistic submit, server-error mapping, and lifecycle
+ * telemetry through `onEvent`. Reach for this when a form must survive reloads,
+ * report analytics, or reconcile server-side validation errors; use the lighter
+ * {@link useGdsForm} when it does not.
+ */
 export function useGdsFormOrchestration<TValues extends Record<string, unknown>>({
   initialValues,
   validate,

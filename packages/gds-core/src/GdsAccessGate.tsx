@@ -90,6 +90,14 @@ function renderProtectedContent(content: ReactNode | (() => ReactNode)) {
   return typeof content === 'function' ? (content as () => ReactNode)() : content;
 }
 
+/**
+ * Renders a public teaser/preview and gates the protected content behind an access
+ * `state` (`locked`, `permission-denied`, `expired`, `unlocked`, …), showing
+ * governed sign-in/subscribe/request-access/retry recovery actions and — per
+ * `protectedContentPolicy` — never evaluating the protected subtree while locked.
+ * Use it for paywalls, auth walls, and entitlement gates: drive `state`/`reason`
+ * from your own auth/entitlement runtime and handle choices via `onAction`/`onEvent`.
+ */
 export function GdsAccessGate({
   id,
   state,
