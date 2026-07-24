@@ -1,5 +1,16 @@
 import type { GdsThemePresetId } from './theme-presets';
 
+// This file intentionally maintains its own hand-authored color values rather
+// than deriving them from `theme-presets.ts`'s Mantine hue names (e.g.
+// `createVibrantPresetTheme('orange')`): the two systems draw from genuinely
+// different color sources by design (Mantine's functional color ramp vs. a
+// bespoke, more saturated "vibe" atmosphere palette), so forcing one to derive
+// from the other would be a real visual-design decision, not a mechanical
+// refactor, and isn't safe to make unilaterally. `vibe-themes.test.ts` guards
+// the drift risk that IS safe to eliminate mechanically: every preset id in
+// `theme-presets.ts`'s catalog must have a matching entry here, and vice
+// versa, so adding a new preset to one file without the other fails CI.
+
 export interface GdsVibeTheme {
   id: GdsThemePresetId;
   label: string;

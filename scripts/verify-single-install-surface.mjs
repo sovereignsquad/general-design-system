@@ -31,6 +31,8 @@ const ENGINE_PEERS = [
   '@mantine/hooks',
   '@mantine/modals',
   '@mantine/notifications',
+  '@mantine/dates',
+  'dayjs',
   '@tabler/icons-react',
 ];
 const PLATFORM_PEERS = ['react', 'react-dom'];

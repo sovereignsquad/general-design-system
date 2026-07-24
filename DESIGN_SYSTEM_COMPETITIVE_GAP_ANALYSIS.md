@@ -2,7 +2,7 @@
 
 Status: Active reference — roadmap input (not an implementation commitment)
 Last updated: 2026-07-23
-Tracking issue: #386
+Tracking issue: #386 (P0/P1/P2 delivery batch tracked in #387-#398)
 
 This document compares GDS's current theme foundation, layout primitives, and
 component/pattern catalog against eight major design systems, to build a
@@ -16,7 +16,7 @@ issues" rule), don't work directly off this list.
 
 - **GDS-side findings** were produced by directly reading source
   (`packages/gds-theme`, `packages/gds-core`, `packages/gds-admin`,
-  `packages/gds-a11y`) and the current SSOT docs at `v3.11.1` — not inferred
+  `packages/gds-a11y`) and the current SSOT docs at `v3.12.0` — not inferred
   from naming conventions or memory. Every claim below about what GDS does or
   doesn't ship was verified by grep/read of actual source files.
 - **External-side findings** combine two sources: (a) live web searches run
@@ -41,7 +41,7 @@ issues" rule), don't work directly off this list.
 
 ## 1. Theme foundation comparison
 
-| Dimension | GDS (v3.11.1) | Material 3 | Fluent 2 | Carbon | Ant Design 5 | Polaris / Spectrum / Atlassian / Chakra |
+| Dimension | GDS (v3.12.0) | Material 3 | Fluent 2 | Carbon | Ant Design 5 | Polaris / Spectrum / Atlassian / Chakra |
 |---|---|---|---|---|---|---|
 | **Elevation / shadow** | No dedicated scale. Base theme overrides only `shadows.md`/`shadows.lg`; `gdsFlatSurfaceTheme` and `gdsEditorialPublicTheme` zero out **all five** shadow steps. `FOUNDATION.md` explicitly prohibits "decorative shadow layering." | 6-level token scale (`--mat-sys-level0`…`level5`), each a defined box-shadow | z-depth scale 0–32dp, key-shadow + ambient-shadow pairing, explicit prominence tiers | Tokenized shadow depths, paired with theme tokens | 4 shadow tiers, paired with motion durations/easings in one "Elevation & Depth" spec | Spectrum ships a full elevation ramp; Chakra ships a `shadow` token scale (`xs`–`2xl`) |
 | **z-index / stacking layers** | **None published.** Overlay coordination (`OverlayManagerProvider`) is behavioral only — no `--gds-z-*` scale exists anywhere in `gds-theme/src` (confirmed by grep, zero hits) | Explicit z-index/layer tokens | Documented layer tokens | Explicit z-index scale | Component-level z-index tokens | Chakra publishes a documented `zIndex` token scale |
@@ -73,47 +73,90 @@ implementation.
    `PageHeader`/`WorkspaceHeader`/`DocsPageShell` — no independently
    exported, reusable primitive. Polaris, Carbon, Ant Design, Atlassian all
    ship this as a first-class nav component.
-3. **z-index / stacking-layer token scale.** No `--gds-z-*` scale exists.
-   Consumers building any custom overlay (a common escape hatch even in a
-   governed system) have no documented layering authority to align against —
-   this will keep causing ad hoc z-index guesses until it's published.
+3. **z-index / stacking-layer token scale.** ~~No `--gds-z-*` scale exists.~~
+   **Resolved** (issue #391): rather than publishing a competing scale, GDS
+   now documents and defers to Mantine's own already-shipped
+   `--mantine-z-index-*` CSS variables via a new typed `gdsZIndexToken`
+   export, and fixed two real ad hoc violations found during
+   implementation (`BottomTabBar` and `FloatingActionPlacement` each
+   independently hardcoded different arbitrary numbers — 200 and 20 — with
+   no shared authority between them).
 
 ### P1 — real gaps, narrower blast radius
 
-4. **Rich text / markdown editor contract.** "Content Ops Editor" patterns
-   own the surrounding layout (section grouping, preview rail, save bar) but
-   not the actual text-editing surface inside them — zero hits for
-   `RichText`/`tiptap`/markdown-editor in source.
+4. **Rich text / markdown editor contract.** ~~"Content Ops Editor" patterns
+   own the surrounding layout... but not the actual text-editing surface.~~
+   **Resolved** (issue #392): `GdsRichTextEditor` wraps Tiptap (user-confirmed
+   choice, matching the dnd-kit precedent's reasoning — hand-rolling
+   selection/undo/paste-sanitization/IME composition reliably is high-risk),
+   fully encapsulated behind a dedicated `@sovereignsquad/gds-core/rich-text-editor`
+   subpath export (not the main barrel) so its larger Content-engine
+   dependency stays genuinely opt-in — confirmed via `apps/reference-vite`'s
+   own vendor chunk staying at its pre-change size since it never imports the
+   subpath, while the playground (which does demo the editor) shows the real,
+   earned cost.
 5. **Global density-mode theme primitive** (`compact`/`comfortable`/
-   `spacious`). Exists only as scattered per-component props today; Carbon
-   and Fluon (via platform scaling) both treat density as a top-level theme
-   axis GDS has no equivalent for.
-6. **Named column-grid layout primitive** (12/16/24-column). GDS's
-   `GdsGrid`/`GdsSplit`/`GdsSidebar` cover flex/CSS-grid layout needs but
-   there's no explicit grid system matching Carbon's 2x Grid or Ant Design's
-   24-col `Grid` — worth deciding whether this is actually needed given
-   GDS's existing primitives already solve most real layouts, or whether
-   it's cosmetic parity.
+   `spacious`). ~~Exists only as scattered per-component props today~~
+   **Resolved** (issue #393): `GdsDensityProvider`/`useGdsDensity` ship as a
+   new, additive context products can set once. Existing components
+   (`AdvancedDataTable`'s own 2-value density state, `CardContracts`'s
+   existing `compact`/`comfortable`/`spacious` prop default) are
+   deliberately left unchanged to avoid any behavior-change risk; a new
+   `useGdsCardContract()` wrapper documents the opt-in extension pattern
+   (fall back to ambient density instead of a hardcoded default) for new
+   call sites going forward.
+6. **Named column-grid layout primitive** (12/16/24-column). **Resolved**
+   (issue #394): `GdsColumnGrid`/`GdsColumnGridItem` add an explicit
+   track-span grid (12-column default, configurable) matching Carbon's 2x
+   Grid / Ant Design's 24-col `Grid`, complementing rather than replacing
+   `GdsGrid`'s equal-width auto-column layouts.
 7. **Elevation/shadow token scale**, even a minimal 3–4 level one scoped to
-   overlays only. The current "no decorative shadows" policy is a
-   deliberate, reasonable stance for cards/surfaces — but modals/drawers/
-   popovers still need *some* documented elevation contract rather than
-   ad hoc per-component shadow values.
-8. **CJK / Indic locale coverage.** All 9 shipped locales
-   (`en/es/hu/de/fr/it/ru/he/ar`) are Latin/Cyrillic/Hebrew/Arabic script
-   families — no Chinese, Japanese, Korean, Thai, or Devanagari support.
-   Blocks any APAC-facing consumer product outright. Ant Design is
-   CJK-native; Carbon and Fluent both support CJK broadly.
+   overlays only. **Resolved** (issue #395): `Popover.defaultProps.shadow`
+   is now explicitly `'md'`, cascading to Menu/HoverCard/Select-family
+   dropdowns (none of which set their own shadow prop). `Modal` has no
+   theme-configurable shadow prop in this Mantine version, so its elevation
+   stays Mantine's own fixed styling — documented as a real constraint, not
+   silently left unaddressed. Cards/surfaces keep the existing, deliberate
+   "no decorative shadows" policy unchanged.
+8. **CJK / Indic locale coverage.** ~~All 9 shipped locales... no Chinese,
+   Japanese, Korean, Thai, or Devanagari support.~~ **Partially resolved**
+   (issue #396): `zh` (Simplified Chinese), `ja`, and `ko` message locales
+   now ship (168 keys each, full parity with `en`), with correct
+   `direction`/`script` metadata (`han`/`kana`/`hangul`). **Caveat, as
+   disclosed in the issue itself**: translated via the same automated
+   Google Translate approach already used for the playground's site
+   phrases (`scripts/generate-site-phrase-translations.mjs`'s method,
+   applied to these message keys) — not reviewed by a native speaker.
+   Spot-checked output is plausible (e.g. `设置`/`設定`/`설정` for
+   "Settings") but some entries are known-rough (e.g. `ja`'s "Analytics"
+   translated to a mathematical/calculus sense of the word, not the
+   business-analytics sense) — flag for native-speaker review before
+   treating as production-quality, matching how the existing 9 locales
+   were not independently re-verified either. Thai/Devanagari remain
+   unaddressed.
 
 ### P2 — lower urgency, narrower audience or already partially mitigated
 
-9. **Broader first-party icon catalog / icon-search tooling** — ~92 wrapped
-   Tabler icons is materially smaller than every peer's catalog, but
-   consumers can request additions to the semantic wrapper as needed today.
+9. **Broader first-party icon catalog / icon-search tooling.** ~~~92 wrapped
+   Tabler icons is materially smaller than every peer's catalog~~ **Expanded**
+   (issue #397): ~40 new semantic icon keys added (navigation: chevron
+   left/right, plain arrows, external-link, link; commerce: cart, package,
+   payment, wallet, discount, tag; security: lock/unlock, key, biometric;
+   rich-text-editor toolbar icons; plus location, building, folder, archive,
+   connectivity, flag, tool, phone, drag-handle). Still smaller than every
+   peer's full catalog by design — GDS wraps a curated subset behind
+   semantic names rather than exposing Tabler's full ~4,000-icon set; still
+   no icon-search tooling, and consumers can keep requesting additions to
+   the semantic wrapper as needed.
 10. **Financial/network chart types** (candlestick/OHLC, Sankey, box-plot,
-    choropleth map). Only relevant to data-heavy consumer products; GDS's
-    chart *contract* architecture (12 types across two governed sets) would
-    accommodate new types cleanly if/when a real consumer need appears.
+    choropleth map). **Partially resolved** (issue #398): `candlestick`
+    (OHLC) and `sankey` (flow) now ship as a new governed "Set C"
+    (`gdsChartSetCTypeRegistry`), with their own validation rules (OHLC
+    high/low range containment; sankey source/target/non-negative-flow),
+    confirming the chart *contract* architecture (now 14 types across three
+    governed sets) accommodates new types cleanly. Box-plot and
+    choropleth-map chart types remain unaddressed (maps stay routed to the
+    separate `MapPanel` embed contract, deliberately not a `GdsChart` type).
 
 ### Internal tech debt surfaced incidentally (not competitive gaps, but should feed the same roadmap)
 
@@ -129,9 +172,17 @@ implementation.
     `GdsThemePresetId` entries needs both a Mantine `MantineThemeOverride`
     object (`theme-presets.ts`) and an independently hand-authored CSS "vibe
     theme" object with its own color-authoring approach (`vibe-themes.ts`).
-    16 of the 23 presets are one-line "vibrant" generator calls in the first
-    file but still require a fully hand-written counterpart in the second —
-    a real drift risk that compounds with every new preset added.
+    15 of the 23 presets are one-line "vibrant" generator calls in the first
+    file but still require a fully hand-written counterpart in the second.
+    **Resolved with a scope caveat** (issue #388): the two systems draw from
+    genuinely different color sources by design (Mantine's functional ramp
+    vs. a bespoke, more saturated "vibe" palette — the hex values don't
+    correspond to Mantine's own ramp shades), so mechanically deriving one
+    from the other would be a real visual-design decision, not a refactor,
+    and wasn't safe to force unilaterally. Added `vibe-themes.test.ts`, a
+    parity guard that fails CI if a preset id is ever added to one file
+    without the other — the drift risk that *was* safe to eliminate
+    mechanically.
 13. **Stale `GDS_GAP_INVENTORY.md`.** Dated 2026-06-13, materially older
     than the rest of the SSOT (2026-07-23). Several of its "not covered"
     claims are now resolved in current source (charts, uploads, command

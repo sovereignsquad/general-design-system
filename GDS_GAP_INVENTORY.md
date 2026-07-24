@@ -1,14 +1,16 @@
 # GDS Gap Inventory
 
 Status: Working inventory  
-Last updated: 2026-06-13
+Last updated: 2026-07-23
 
-> **Note (2026-07-23):** this file predates several completed features
-> (charts, uploads, command palette, evidence panels, period selectors) and
-> should not be read as current without cross-checking source. See
+> **Note (2026-07-23):** this file's remaining "not covered" claims were
+> cross-checked against current source (previously several were stale —
+> charts, uploads, command palette, evidence panels, and period selectors
+> were all already resolved and have been corrected below). See
 > [`DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md`](DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md)
-> for an up-to-date, source-verified gap list benchmarked against major
-> external design systems.
+> for the current, source-verified gap list benchmarked against major
+> external design systems — prefer that document for new planning going
+> forward; this one is kept for its project-specific evidence trail.
 
 This file captures the color-theme and UI/UX gaps that are still **not covered** or only **partially covered** by the current General Design System.
 
@@ -166,15 +168,16 @@ Evidence:
 
 ### 1. Breadcrumbs
 
-Status: `not covered`
+Status: `resolved` (issue #390) — `GdsBreadcrumbs` ships as a standalone, independently reusable breadcrumb trail; `DocsPageShell` now uses it internally.
 
-Why this is a gap:
+Why this was a gap:
 
-- Page headers are covered, but breadcrumb behavior is only referenced in project plans and not defined in the SSOT.
+- Breadcrumb behavior was only embedded inside `PageHeader`/`WorkspaceHeader`/`DocsPageShell`, with no standalone, independently exported primitive.
 
 Evidence:
 
 - [PROJECTS/MESSMASS_MANTINE_REFACTOR.md](PROJECTS/MESSMASS_MANTINE_REFACTOR.md#L51)
+- [DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md](DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md) P0 item 2
 
 ### 2. Period selectors / reporting time-range controls
 
@@ -216,37 +219,30 @@ Evidence:
 
 ### 5. File upload / image upload workflows
 
-Status: `not covered`
+Status: `resolved` — `UploadDropzone` and `MediaField` ship in `@sovereignsquad/gds-core` (network transport remains a documented consumer responsibility; GDS owns the UI states only).
 
-Why this is a gap:
-
-- Current condensed SSOT documents do not define an upload contract, while project plans still call out upload workflows.
-
-Evidence:
+Evidence (historical):
 
 - [PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md](PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md#L110)
 
 ### 6. Date/time input and calendar workflows
 
-Status: `not covered`
+Status: `in progress` (tracking issue #389, part of the 2026-07-23 delivery batch)
 
-Why this is a gap:
+Why this was a gap:
 
-- The current rulebooks do not define date/time input behavior even though project plans identify `@mantine/dates` as an expected surface area.
+- `GdsSchemaForm` infers a `date` field type from JSON Schema `format: 'date'`, but no backing UI component shipped — `@mantine/dates` was not a dependency anywhere in the monorepo.
 
 Evidence:
 
 - [PROJECTS/AMANOBA_MANTINE_REFACTOR.md](PROJECTS/AMANOBA_MANTINE_REFACTOR.md#L104)
+- [DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md](DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md) P0 item 1
 
 ### 7. Chart / analytics visualization surfaces
 
-Status: `not covered`
+Status: `resolved` — `GdsChart` ships a 12-type governed wrapper/contract (two type sets, per-type validation rules) plus `SemanticCharts` (`GdsAreaChart`/`GdsSparkline`/`GdsLongitudinalChart`/`GdsBenchmarkBarChart`/`GdsRadarChart`/`GdsMaturityRadarChart`/`GdsGaugeChart`), `ReportingSection`, `PeriodSelector`, and `EvidencePanel`.
 
-Why this is a gap:
-
-- GDS has dashboard priority guidance, but no visualization contract for charts, reporting canvases, or analytics blocks.
-
-Evidence:
+Evidence (historical):
 
 - [PROJECTS/AMANOBA_MANTINE_REFACTOR.md](PROJECTS/AMANOBA_MANTINE_REFACTOR.md#L174)
 - [PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md](PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md#L198)
@@ -254,38 +250,31 @@ Evidence:
 
 ### 8. Map integrations
 
-Status: `not covered`
+Status: `resolved` — `MapPanel` ships as a governed embed-exception surface (deliberately outside the `GdsChart` contract; see `DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md` item 10 for the remaining nuance that maps aren't a chart *type*).
 
-Why this is a gap:
-
-- Explicit exception area in ClassScout without any shared GDS contract.
-
-Evidence:
+Evidence (historical):
 
 - [PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md](PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md#L199)
 
 ### 9. Rich text / markdown editor contract
 
-Status: `not covered`
+Status: `resolved` (issue #392) — `GdsRichTextEditor` (Tiptap-backed, encapsulated behind a dedicated `@sovereignsquad/gds-core/rich-text-editor` subpath so the dependency stays opt-in) now composes into `ContentOpsEditor`'s demo as the description field.
 
-Why this is a gap:
+Why this was a gap:
 
-- Editor flows are mentioned broadly, but no canonical content-editor contract exists.
+- "Content Ops Editor" patterns own the surrounding layout (section grouping, preview rail, save bar) but not the actual text-editing surface inside them.
 
 Evidence:
 
 - [PROJECTS/AMANOBA_MANTINE_REFACTOR.md](PROJECTS/AMANOBA_MANTINE_REFACTOR.md#L56)
 - [PROJECTS/AMANOBA_MANTINE_REFACTOR.md](PROJECTS/AMANOBA_MANTINE_REFACTOR.md#L59)
+- [DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md](DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md) P1 item 4
 
 ### 10. Command palette / spotlight flows
 
-Status: `not covered`
+Status: `resolved` — `CommandPalette.client.tsx` ships `CommandRegistryProvider`/`useCommandLauncher` as a GDS-level command palette contract (not `@mantine/spotlight` directly).
 
-Why this is a gap:
-
-- `@mantine/spotlight` is identified as a likely optional package, but there is no GDS-level command palette contract.
-
-Evidence:
+Evidence (historical):
 
 - [PROJECTS/AMANOBA_MANTINE_REFACTOR.md](PROJECTS/AMANOBA_MANTINE_REFACTOR.md#L107)
 

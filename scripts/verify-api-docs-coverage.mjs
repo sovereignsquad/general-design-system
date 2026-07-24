@@ -25,7 +25,10 @@ const ignoredExports = new Set([
   'he',
   'hu',
   'it',
+  'ja',
+  'ko',
   'ru',
+  'zh',
 ]);
 
 function walk(dir) {

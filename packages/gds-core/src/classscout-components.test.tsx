@@ -35,6 +35,11 @@ describe('BottomTabBar (#317)', () => {
     const { container } = renderWithGds(<BottomTabBar items={[]} />);
     expect(container.querySelector('nav')).toBeNull();
   });
+
+  it('uses GDS\'s published z-index authority for its fixed page chrome, not an ad hoc number (#391)', () => {
+    renderWithGds(<BottomTabBar items={items} activeId="scout" />);
+    expect(screen.getByRole('navigation', { name: 'Primary' })).toHaveStyle({ zIndex: 'var(--mantine-z-index-app)' });
+  });
 });
 
 describe('FitScoreChip (#319)', () => {

@@ -39,12 +39,12 @@ import { FeatureBand } from './FeatureBand';
 import { FoodMenuSection } from './FoodMenuSection';
 import { GameBoardTile } from './GameBoardTile';
 import { ChartTokenPanel } from './ChartTokenPanel';
-import { GdsChart, gdsChartTypeRegistry, gdsChartSetATypeRegistry, gdsChartSetBTypeRegistry, isGdsChartSetAType, isGdsChartSetBType, validateGdsChartData } from './GdsChart';
+import { GdsChart, gdsChartTypeRegistry, gdsChartSetATypeRegistry, gdsChartSetBTypeRegistry, gdsChartSetCTypeRegistry, isGdsChartSetAType, isGdsChartSetBType, isGdsChartSetCType, validateGdsChartData } from './GdsChart';
 import { GdsAreaChart, GdsBarChart, GdsBenchmarkBarChart, GdsCalendarHeatmapChart, GdsDivergingBarChart, GdsGaugeChart, GdsHistogramChart, GdsLineChart, GdsLongitudinalChart, GdsMaturityRadarChart, GdsRadarChart, GdsSlopeChart, GdsSparkline, GdsStackedBarChart, GdsSymmetryChart, getGdsSeriesColor } from './SemanticCharts';
 import { GdsRatingScale, GdsSegmentedControl, GdsSlider, GdsWizardStepper } from './GdsFormControls';
 import { BodyText, CardTitle, InlineEmphasis, LabelText, MetadataText, PageTitle, SectionTitle } from './Typography';
 import { ClippedFlexChild, FloatingActionPlacement, ListItemSection, NumericCell, OverflowContainer, SemanticInset, VisuallyHidden } from './StyleUtilities';
-import { GdsBox, GdsCluster, GdsContainer, GdsGrid, GdsInline, GdsSidebar, GdsSplit, GdsStack, normalizeGdsResponsiveValue, resolveGdsLayoutStyle } from './LayoutPrimitives';
+import { GdsBox, GdsCluster, GdsColumnGrid, GdsColumnGridItem, GdsContainer, GdsGrid, GdsInline, GdsSidebar, GdsSplit, GdsStack, normalizeGdsResponsiveValue, resolveGdsLayoutStyle } from './LayoutPrimitives';
 import { GdsMediaFrame, GdsOverflowFrame, GdsResponsiveVisibility, GdsSafeBox, createGdsStyleContract, gdsStyle } from './SafeStyles';
 import { EvidencePanel } from './EvidencePanel';
 import { ListingCard } from './ListingCard';
@@ -723,6 +723,10 @@ describe('@sovereignsquad/gds-core', () => {
 
     expect(screen.getByLabelText('Overflow list')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    // FloatingActionPlacement is page-level fixed chrome, not an overlay — it must use
+    // GDS's published z-index authority (gdsZIndexToken.app) rather than an ad hoc
+    // number, so it can never silently drift out of sync with modals/popovers (#391).
+    expect(screen.getByRole('button', { name: 'Save' }).parentElement).toHaveStyle({ zIndex: 'var(--mantine-z-index-app)' });
     expect(screen.getByText('123')).toHaveStyle({ fontVariantNumeric: 'tabular-nums' });
     expect(screen.getByText('Hidden caption')).toHaveStyle({ position: 'absolute' });
     expect(screen.getByText('Long child')).toHaveStyle({ minWidth: '0' });
@@ -763,6 +767,21 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByLabelText('Sidebar layout')).toHaveTextContent('Sidebar');
     expect(screen.getByRole('main', { name: 'Page container' })).toHaveStyle({ width: '100%' });
     expect(document.querySelectorAll('style[data-gds-layout]').length).toBeGreaterThan(0);
+  });
+
+  it('provides a named column-grid primitive for explicit track-span layouts (#394)', () => {
+    renderWithGds(
+      <GdsColumnGrid aria-label="Column grid" columns={12}>
+        <GdsColumnGridItem aria-label="Half span" span={6}>Half</GdsColumnGridItem>
+        <GdsColumnGridItem aria-label="Offset item" span={4} start={9}>Offset</GdsColumnGridItem>
+        <GdsColumnGridItem aria-label="Auto item">Auto</GdsColumnGridItem>
+      </GdsColumnGrid>,
+    );
+
+    expect(screen.getByLabelText('Column grid')).toHaveStyle({ display: 'grid', gridTemplateColumns: 'repeat(12, minmax(0, 1fr))' });
+    expect(screen.getByLabelText('Half span')).toHaveStyle({ gridColumnEnd: 'span 6' });
+    expect(screen.getByLabelText('Offset item')).toHaveStyle({ gridColumnStart: '9', gridColumnEnd: 'span 4' });
+    expect(screen.getByLabelText('Auto item')).not.toHaveAttribute('style', expect.stringContaining('grid-column'));
   });
 
   it('resolves safe style contracts without raw consumer CSS values', () => {
@@ -838,6 +857,11 @@ describe('@sovereignsquad/gds-core', () => {
 
     expect(getGdsIconKeys()).toContain('Delete');
     expect(gdsIconRegistry.Delete.category).toBe('action');
+    // Icon catalog expansion (issue #397): rich-text-editor + commerce/security/navigation icons.
+    expect(gdsIconRegistry.Bold.category).toBe('content');
+    expect(gdsIconRegistry.Cart.category).toBe('commerce');
+    expect(gdsIconRegistry.Lock.category).toBe('security');
+    expect(gdsIconRegistry.ChevronLeft.category).toBe('navigation');
     expect(getGdsIconMetadata('delete')).toMatchObject({
       name: 'Delete',
       category: 'action',
@@ -3586,6 +3610,27 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     await waitFor(() => expect(submit).toHaveBeenCalledWith(expect.objectContaining({ name: 'Ada' })));
   });
 
+  it('renders schema date fields with a real date picker and submits an ISO string (issue #389)', async () => {
+    const user = userEvent.setup();
+    const submit = vi.fn();
+    const result = jsonSchemaToGdsFormSchema({
+      title: 'Booking',
+      type: 'object',
+      required: ['startDate'],
+      properties: {
+        startDate: { type: 'string', format: 'date', title: 'Start date' },
+      },
+    }, { id: 'booking-form' });
+
+    renderWithGds(<GdsSchemaForm schema={result.schema!} onSubmit={submit} />);
+
+    const input = screen.getByLabelText('Start date');
+    await user.type(input, 'July 23, 2026');
+    await user.tab();
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+    await waitFor(() => expect(submit).toHaveBeenCalledWith(expect.objectContaining({ startDate: '2026-07-23' })));
+  });
+
   it('renders schema file-upload fields with dropzone policy, validation, and File payloads', async () => {
     const user = userEvent.setup();
     const submit = vi.fn();
@@ -3998,12 +4043,15 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
   });
 
   it('validates chart schemas, thresholds, and rendering budgets before adapter rendering', () => {
-    expect(Object.keys(gdsChartTypeRegistry)).toHaveLength(12);
+    expect(Object.keys(gdsChartTypeRegistry)).toHaveLength(14);
     expect(Object.keys(gdsChartSetATypeRegistry)).toEqual(['line', 'area', 'bar', 'stacked-bar', 'pie', 'donut', 'radar', 'scatter']);
     expect(Object.keys(gdsChartSetBTypeRegistry)).toEqual(['bubble', 'heatmap', 'funnel', 'treemap']);
+    expect(Object.keys(gdsChartSetCTypeRegistry)).toEqual(['candlestick', 'sankey']);
     expect(isGdsChartSetAType('scatter')).toBe(true);
     expect(isGdsChartSetAType('heatmap')).toBe(false);
     expect(isGdsChartSetBType('heatmap')).toBe(true);
+    expect(isGdsChartSetCType('candlestick')).toBe(true);
+    expect(isGdsChartSetCType('bar')).toBe(false);
 
     expect(validateGdsChartData('pie', [{ label: 'Only', value: 1 }])).toMatchObject({
       state: 'below-threshold',
@@ -4245,6 +4293,38 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
       issues: ['Treemap node 2 requires a positive area value.'],
     });
 
+    expect(validateGdsChartData('candlestick', [
+      { label: 'Day 1', value: null, open: 10, high: 12, low: 9, close: 11 },
+    ])).toMatchObject({ state: 'ready' });
+
+    expect(validateGdsChartData('candlestick', [
+      { label: 'Day 1', value: null, open: 10, high: 8, low: 9, close: 11 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ["Candlestick point 1 has a high/low range that doesn't contain its open/close values."],
+    });
+
+    expect(validateGdsChartData('candlestick', [
+      { label: 'Day 1', value: null, open: 10, high: 12 },
+    ])).toMatchObject({
+      state: 'error',
+      issues: ['Candlestick point 1 requires numeric open, high, low, and close values.'],
+    });
+
+    expect(validateGdsChartData('sankey', [
+      { label: 'A to B', value: 40, source: 'A', target: 'B' },
+    ])).toMatchObject({ state: 'ready' });
+
+    expect(validateGdsChartData('sankey', [
+      { label: 'A to B', value: -5, source: 'A' },
+    ])).toMatchObject({
+      state: 'error',
+      issues: [
+        'Sankey flow 1 requires both a source and a target node.',
+        'Sankey flow 1 cannot render a negative flow value.',
+      ],
+    });
+
     renderWithGds(
       <GdsChart
         type="bubble"
@@ -4258,6 +4338,17 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     );
 
     expect(screen.getByText('Set B primitive: weighted x/y bubble field')).toBeInTheDocument();
+
+    renderWithGds(
+      <GdsChart
+        type="candlestick"
+        title="Candlestick primitive"
+        summary="Daily price movement."
+        data={[{ label: 'Day 1', value: null, open: 10, high: 12, low: 9, close: 11 }]}
+      />,
+    );
+
+    expect(screen.getByText('Set C primitive: open-high-low-close price series')).toBeInTheDocument();
   });
 
   it('renders schema-based layout blocks through the governed renderer', () => {

@@ -1,7 +1,7 @@
 # Release Publish Runbook
 
 Status: Active SSOT
-Version: 3.11.1
+Version: 3.12.0
 Last updated: 2026-07-22
 
 This runbook defines the authenticated package-publish flow for the General Design System.
@@ -11,7 +11,7 @@ Canonical registry target: **GitHub Packages** (`https://npm.pkg.github.com`)
 Current registry reality:
 
 - canonical install source: GitHub Packages
-- current repository line: `3.11.1`
+- current repository line: `3.12.0`
 
 GDS does not publish to npmjs.com. GitHub Packages is the sole registry, chosen specifically because it authenticates with the same ambient `GITHUB_TOKEN` every GitHub Actions run already has — no separate npm.com account, no `NPM_TOKEN` secret, no external credential to lose access to. `@sovereignsquad/gds` is the preferred convenience package; it installs correctly from GitHub Packages because it's a real resolving registry (its dependency on the granular runtime packages resolves against the same registry, exactly like npmjs.com would).
 
@@ -75,13 +75,13 @@ then trigger `.github/workflows/publish-github-packages.yml` (automatically, via
 
 Do not announce the release or update client install prompts until that workflow's "Verify registry publication" step passes.
 
-The `3.11.1` release install matrix must remain version-locked:
+The `3.12.0` release install matrix must remain version-locked:
 
 ```bash
-npm install @sovereignsquad/gds@3.11.1
-npm install -D @sovereignsquad/gds-eslint-config@3.11.1 @sovereignsquad/gds-compliance@3.11.1 @sovereignsquad/gds-a11y@3.11.1
+npm install @sovereignsquad/gds@3.12.0
+npm install -D @sovereignsquad/gds-eslint-config@3.12.0 @sovereignsquad/gds-compliance@3.12.0 @sovereignsquad/gds-a11y@3.12.0
 
-npm install @sovereignsquad/gds-theme@3.11.1 @sovereignsquad/gds-core@3.11.1 @sovereignsquad/gds-admin@3.11.1
+npm install @sovereignsquad/gds-theme@3.12.0 @sovereignsquad/gds-core@3.12.0 @sovereignsquad/gds-admin@3.12.0
 ```
 
 (All installs above require the `.npmrc` scope mapping from "Consumer install".)

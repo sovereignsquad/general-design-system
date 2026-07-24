@@ -16,7 +16,9 @@ export type GdsChartType =
   | 'bubble'
   | 'heatmap'
   | 'funnel'
-  | 'treemap';
+  | 'treemap'
+  | 'candlestick'
+  | 'sankey';
 
 export type GdsChartSetAType =
   | 'line'
@@ -34,11 +36,24 @@ export type GdsChartSetBType =
   | 'funnel'
   | 'treemap';
 
+/** Specialized chart types (issue #398): financial (candlestick) and network-flow (sankey), the data-heavy chart families most peer design systems (Carbon, Spectrum) include that GDS didn't. */
+export type GdsChartSetCType =
+  | 'candlestick'
+  | 'sankey';
+
 export interface GdsChartDatum {
   label: string;
   value: number | null;
   group?: string;
   secondaryValue?: number | null;
+  /** Candlestick (OHLC) fields — open/high/low/close for the period this point represents. */
+  open?: number;
+  high?: number;
+  low?: number;
+  close?: number;
+  /** Sankey (flow) fields — the node this point flows from/to; `value` carries the flow magnitude. */
+  source?: string;
+  target?: string;
 }
 
 export interface GdsChartTypeDefinition {
@@ -107,6 +122,14 @@ export interface GdsTreemapChartConfig extends GdsChartBaseConfig {
   parentLabel?: string;
 }
 
+export interface GdsCandlestickChartConfig extends GdsChartBaseConfig {
+  priceAxisLabel?: string;
+}
+
+export interface GdsSankeyChartConfig extends GdsChartBaseConfig {
+  nodeLabel?: string;
+}
+
 export type GdsChartConfig =
   | GdsCartesianChartConfig
   | GdsPartToWholeChartConfig
@@ -115,7 +138,9 @@ export type GdsChartConfig =
   | GdsBubbleChartConfig
   | GdsHeatmapChartConfig
   | GdsFunnelChartConfig
-  | GdsTreemapChartConfig;
+  | GdsTreemapChartConfig
+  | GdsCandlestickChartConfig
+  | GdsSankeyChartConfig;
 
 export interface GdsChartValidationResult {
   state: ChartTokenPanelState;
@@ -162,6 +187,8 @@ export const gdsChartTypeRegistry: Record<GdsChartType, GdsChartTypeDefinition> 
   heatmap: { type: 'heatmap', label: 'Heatmap', family: 'matrix', minDataPoints: 2, maxDataPoints: 400, summaryHint: 'Intensity matrix.' },
   funnel: { type: 'funnel', label: 'Funnel', family: 'process', minDataPoints: 2, maxDataPoints: 12, summaryHint: 'Stage conversion progression.' },
   treemap: { type: 'treemap', label: 'Treemap', family: 'hierarchy', minDataPoints: 2, maxDataPoints: 200, summaryHint: 'Hierarchical distribution.' },
+  candlestick: { type: 'candlestick', label: 'Candlestick', family: 'cartesian', minDataPoints: 1, maxDataPoints: 500, summaryHint: 'Open-high-low-close price movement over time.' },
+  sankey: { type: 'sankey', label: 'Sankey', family: 'process', minDataPoints: 1, maxDataPoints: 200, requiresGroup: false, summaryHint: 'Flow volume between source and target stages.' },
 };
 
 export const gdsDefaultChartLegend: GdsChartLegendItem[] = [
@@ -187,12 +214,21 @@ export const gdsChartSetBTypeRegistry: Record<GdsChartSetBType, GdsChartTypeDefi
   treemap: gdsChartTypeRegistry.treemap,
 };
 
+export const gdsChartSetCTypeRegistry: Record<GdsChartSetCType, GdsChartTypeDefinition> = {
+  candlestick: gdsChartTypeRegistry.candlestick,
+  sankey: gdsChartTypeRegistry.sankey,
+};
+
 export function isGdsChartSetAType(type: GdsChartType): type is GdsChartSetAType {
   return type in gdsChartSetATypeRegistry;
 }
 
 export function isGdsChartSetBType(type: GdsChartType): type is GdsChartSetBType {
   return type in gdsChartSetBTypeRegistry;
+}
+
+export function isGdsChartSetCType(type: GdsChartType): type is GdsChartSetCType {
+  return type in gdsChartSetCTypeRegistry;
 }
 
 function isFiniteNumber(value: number | null | undefined): value is number {
@@ -246,6 +282,15 @@ function getSetBRendererLabel(type: GdsChartType) {
   return labels[type] ?? 'advanced chart surface';
 }
 
+function getSetCRendererLabel(type: GdsChartType) {
+  const labels: Partial<Record<GdsChartType, string>> = {
+    candlestick: 'open-high-low-close price series',
+    sankey: 'source-to-target flow diagram',
+  };
+
+  return labels[type] ?? 'specialized chart surface';
+}
+
 export function validateGdsChartData(
   type: GdsChartType,
   data: GdsChartDatum[],
@@ -292,6 +337,12 @@ export function validateGdsChartData(
     }
 
     if (item.value === null && (type === 'line' || type === 'area') && 'connectNulls' in config && config.connectNulls) {
+      return;
+    }
+
+    // Candlestick points carry their real data in open/high/low/close, not `value`
+    // (checked separately below) — skip the generic numeric-value requirement here.
+    if (type === 'candlestick') {
       return;
     }
 
@@ -375,6 +426,30 @@ export function validateGdsChartData(
     });
   }
 
+  if (type === 'candlestick') {
+    visibleData.forEach((item, index) => {
+      const { open, high, low, close } = item;
+      if (![open, high, low, close].every(isFiniteNumber)) {
+        issues.push(`Candlestick point ${index + 1} requires numeric open, high, low, and close values.`);
+        return;
+      }
+      if (high! < Math.max(open!, close!) || low! > Math.min(open!, close!)) {
+        issues.push(`Candlestick point ${index + 1} has a high/low range that doesn't contain its open/close values.`);
+      }
+    });
+  }
+
+  if (type === 'sankey') {
+    visibleData.forEach((item, index) => {
+      if (!item.source || !item.target) {
+        issues.push(`Sankey flow ${index + 1} requires both a source and a target node.`);
+      }
+      if (isFiniteNumber(item.value) && item.value < 0) {
+        issues.push(`Sankey flow ${index + 1} cannot render a negative flow value.`);
+      }
+    });
+  }
+
   return {
     state: issues.length ? (decimated && issues.length === 1 ? 'partial' : 'error') : 'ready',
     issues,
@@ -401,6 +476,9 @@ function DefaultChartRenderer({ type, title, summary, data, definition, labelled
         ) : null}
         {isGdsChartSetBType(type) ? (
           <Text size="xs" c="dimmed">Set B primitive: {getSetBRendererLabel(type)}</Text>
+        ) : null}
+        {isGdsChartSetCType(type) ? (
+          <Text size="xs" c="dimmed">Set C primitive: {getSetCRendererLabel(type)}</Text>
         ) : null}
         <Text size="xs" c="dimmed">Data points: {data.length}</Text>
       </Stack>

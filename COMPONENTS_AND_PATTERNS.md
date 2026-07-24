@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 3.11.1
+Version: 3.12.0
 Last updated: 2026-07-23
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -54,6 +54,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Choice Chips** | Neutral chips for lightweight filter, scope, taxonomy, and mode selection. Use active state and shared tokens rather than ad hoc badge colors or CSS pills. | `sm` |
 | **Icon Buttons** | Must have accessible labels. Keep sizes stable in clusters. | `md` |
 | **Inputs (Text/Search/Password)** | Visible labels required. Field-level errors must appear nearby. Show/hide required for passwords. Debounce remote search. | `md` |
+| **Date/Time Inputs** | Use `GdsDateInput`, `GdsDateTimeInput`, and `GdsDateRangeInput` (built on `@mantine/dates`) — never import `@mantine/dates` directly. `GdsSchemaForm`'s `date` field type renders `GdsDateInput` automatically, keeping its stored value as an ISO (`yyyy-mm-dd`) string for backward compatibility with existing `onSubmit` handlers. | `md` |
 | **Selects / Combobox** | Use `Select` for small sets, `Combobox` (searchable) for long lists. Canonical decision: do **not** wrap searchable selection yet; use governed Mantine composition for static and async search with shared labeling, empty, loading, and mobile ergonomics. Use `MultiSelect` only when truly needed. | `md` |
 | **Checkboxes/Radios** | Checkbox = independent opt-in. Radio = mutually exclusive. Switch = immediate on/off action. | `md` |
 | **Product Cards** | Fixed slots for media/icon, title, metadata, status/progress, primary action, and overflow actions. Use the shared `size`, `density`, and `variant` card contract instead of local width/padding/title CSS. One visible primary action on mobile. | `md` |
@@ -63,6 +64,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Data Toolbars** | Search, filters, sort, reset, and create actions in predictable order. Active filters visible and removable. | `md` |
 | **Listing State Contract** | Listing flows should use `ListingProvider` + `useListingState` with `SortMenu`, `ResultSummary`, `ActiveFilterChips`, and `BulkActionsBar` so search/sort/filter/page/selection stay in one governed runtime lane. | `md` |
 | **Form Validation Contract** | Form-heavy flows should use `useGdsForm` plus `FormErrorSummary`/`ValidatedFieldMessage` so touched/dirty/async validation/submit states stay deterministic. | `md` |
+| **Rich Text Editor** | Content-editing surfaces (e.g. inside `ContentOpsEditor`) should use `GdsRichTextEditor` (Tiptap-backed) for the actual text-editing region — never a hand-rolled `contentEditable`. Import it from the dedicated `@sovereignsquad/gds-core/rich-text-editor` subpath, not the main package entry, so its larger Content-engine dependency stays opt-in for consumers who don't use it. | `md` |
 | **Reporting Contracts** | Reporting-heavy workflows must use governed period controls, evidence/source panels, chart-token wrappers, text summaries, and table fallbacks. | `lg` |
 | **State Blocks** | Loading, empty, error, permission, disabled, and success states must explain the state and provide the next action where possible. | `md` |
 | **Async Surface** | Async data surfaces should use `AsyncSurface` to enforce deterministic loading/empty/error/refreshing/success behavior with governed retry affordances. | `md` |
@@ -71,6 +73,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Surface Presentation** | Shared bounded layout contract for canonical state and panel surfaces using `inline`, `centered`, and `fill` modes with controlled min-height and alignment. | `md` |
 | **Discovery Shell** | Canonical sidebar-first shell with header, sidebar, main, mobile drawer collapse, optional footer nav, and sticky navigation behavior. | `xl` |
 | **Sidebar Navigation** | Sectioned sidebar IA with labels, active-route signaling, semantic icons/labels, and consistent row spacing. | `md` |
+| **Breadcrumbs** | Use `GdsBreadcrumbs` — a standalone, independently reusable breadcrumb trail (labeled `nav` landmark; the last item always renders as the non-link current page, even if it carries an `href`). `DocsPageShell` uses it internally; use it directly anywhere else a breadcrumb trail is needed instead of importing `@mantine/core`'s `Breadcrumbs` directly. | `md` |
 | **Action Bar** | Semantic action orchestration for primary, secondary, tertiary, and icon-only actions with governed responsive wrapping. | `md` |
 | **Listing Card** | Unified discovery/listing card for events, venues, communities, and similar public objects with media, metadata, disclosure, and save/share affordances. Use `size`, `density`, and `variant` for governed layouts; do not create event/venue/community-specific card wrappers. | `md` |
 | **Share Button Group** | Governed public sharing contract with native share, copy-link, and channel buttons instead of product-local share wrappers. | `md` |
@@ -129,7 +132,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Theme Runtime State** | Runtime preset switching must use `useGdsThemePresetState` for validation, persistence, root runtime attributes, and full-shell application instead of route-local theme state. | `md` |
 | **Font Lane Registry** | Typography switching should use approved font lanes (`getGdsFontLanes`, `resolveGdsFontLane`, `isGdsFontLaneId`, `getGdsFontLaneStylesheetUrls`, and `applyGdsFontLane`) with governed source metadata, `font-display: swap`, locale coverage, and fallback stacks. | `md` |
 | **Interactive Card Modes** | Card interactivity should use shared `interactiveMode` semantics (`surface-link`, `surface-button`, `flip`) with keyboard-safe behavior, nested-action isolation, and `aria-expanded` for reveal surfaces. | `md` |
-| **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`) with package-owned Set A / Set B registries, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
+| **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`, `candlestick`, `sankey`) with package-owned Set A / Set B / Set C registries, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
 | **Block Layout Schema** | Page assembly should use `renderGdsLayout`, `validateGdsLayout`, `renderGdsLayoutWithDiagnostics`, `getGdsLayoutTemplates`, `getGdsLayoutTemplate`, `GdsLayoutTemplatePreview`, and schema-driven blocks for repeatable developer composition. Default governed blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`; product-authored blocks must enter through `registerGdsBlock`. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
 
@@ -294,6 +297,7 @@ Chart rules:
 - chart types must resolve through `gdsChartTypeRegistry`; do not create route-local chart type strings
 - Set A primitives (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`) must resolve through `gdsChartSetATypeRegistry` and keep their type-specific validation enabled
 - Set B primitives (`bubble`, `heatmap`, `funnel`, `treemap`) must resolve through `gdsChartSetBTypeRegistry` and keep their advanced-data validation enabled
+- Set C (specialized) primitives (`candlestick`, `sankey`) must resolve through `gdsChartSetCTypeRegistry` and keep their advanced-data validation enabled
 - line/area sparse points require `connectNulls: true`; otherwise missing values become governed chart errors
 - pie/donut data must produce a positive total and may not include negative slice values
 - radar data may not include negative axis values
@@ -302,6 +306,8 @@ Chart rules:
 - heatmap data must provide a `group` value for each matrix row
 - funnel data must be non-negative and descending unless `enforceDescending: false` is explicitly documented
 - treemap data must provide positive node area values
+- candlestick data must provide numeric `open`/`high`/`low`/`close` per point, with `high`/`low` containing the `open`/`close` range
+- sankey data must provide both a `source` and `target` node per flow, with a non-negative `value` as the flow magnitude
 - adapters may render with any approved charting library, but must enter through the `GdsChart` `renderer` contract so GDS keeps state, summary, legend, fallback, and a11y ownership
 - datasets must pass `validateGdsChartData` before rendering; invalid values, missing grouped data, empty data, below-threshold data, and over-budget datasets must become governed states
 - charts must include a text summary that communicates the main result without requiring visual interpretation

@@ -16,11 +16,27 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
       h3: { fontSize: '1.25rem', fontWeight: '600' },
     },
   },
+  // Overlay elevation scale (issue #395). GDS's "no decorative shadow
+  // layering" policy (FOUNDATION.md) applies to cards/surfaces, not
+  // overlays — FOUNDATION.md explicitly says "Overlays may use elevation."
+  // `xs`/`sm` were previously unset (silently falling through to Mantine's
+  // own defaults, with `sm` already carrying real meaning: Card's own
+  // `shadow: 'sm'` default below depends on it, so it's deliberately left
+  // alone here to avoid changing Card's established appearance). `md`/`lg`
+  // give overlay-tier components (Popover and everything built on it —
+  // Menu, HoverCard, Select/Combobox/MultiSelect/Autocomplete dropdowns) an
+  // explicit, documented elevation instead of an undocumented Mantine
+  // default or ad hoc per-component value.
   shadows: {
     md: '0 8px 24px rgba(15, 23, 42, 0.08)',
     lg: '0 16px 40px rgba(15, 23, 42, 0.12)',
   },
   components: {
+    Popover: {
+      defaultProps: {
+        shadow: 'md',
+      },
+    },
     Button: {
       defaultProps: {
         radius: 'md',

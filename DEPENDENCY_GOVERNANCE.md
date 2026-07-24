@@ -1,7 +1,7 @@
 # Dependency Governance
 
 Status: Active SSOT
-Version: 3.11.1
+Version: 3.12.0
 Last updated: 2026-07-23
 
 GDS is dependency-governed, not dependency-free. React, Mantine, and Tabler are accepted only behind GDS-owned contracts, release gates, and exception lifecycle rules.
@@ -11,9 +11,10 @@ GDS is dependency-governed, not dependency-free. React, Mantine, and Tabler are 
 | Class | Packages | Public authority | Consumer rule |
 |---|---|---|---|
 | Platform | `react`, `react-dom` | Required React runtime foundation | Consumers install compatible peers directly |
-| Primitive engine | `@mantine/core`, `@mantine/hooks`, `@mantine/modals`, `@mantine/notifications` | GDS implementation engine for accessible primitives, overlays, forms, layout, and theme runtime | Consumers use GDS contracts first; direct use in strict surfaces requires an approved dependency-boundary exception |
+| Primitive engine | `@mantine/core`, `@mantine/hooks`, `@mantine/modals`, `@mantine/notifications`, `@mantine/dates`, `dayjs` | GDS implementation engine for accessible primitives, overlays, forms, layout, theme runtime, and date/time input | Consumers use GDS contracts first; direct use in strict surfaces requires an approved dependency-boundary exception. `@mantine/dates` and `dayjs` are peer dependencies (not regular dependencies) like the rest of this class, since `@mantine/dates` shares the same single-Mantine-instance context requirement as `@mantine/core`, and `dayjs` must be a single shared instance across the host app for locale/plugin configuration to apply consistently |
 | Asset | `@tabler/icons-react` | Internal icon source behind semantic GDS icon APIs | Consumers use `GdsIcon`, `GdsIcons`, or semantic actions instead of direct Tabler imports |
 | Interaction engine | `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities` | Internal pointer/touch/keyboard drag-and-drop engine for `KanbanBoard`'s opt-in `enableDrag` interaction | Fully encapsulated inside `KanbanBoard.client.tsx` — never a public GDS export or a consumer-facing import; no dependency-boundary exception applies since consumers have no legitimate direct-import path to gate |
+| Content engine | `@tiptap/core`, `@tiptap/pm`, `@tiptap/react`, `@tiptap/starter-kit` | Internal rich-text editing engine for `GdsRichTextEditor` | Fully encapsulated inside `GdsRichTextEditor.client.tsx` — never a public GDS export or a consumer-facing import; consumers get/set HTML strings through `GdsRichTextEditor`'s props only, never Tiptap's `Editor`/extension APIs directly |
 | Tooling | `eslint`, `typescript`, `vite`, `vitest`, `tsup`, compatibility/audit tooling | Build, validation, docs, and compliance only | Tooling does not become runtime UI authority |
 
 ## Replacement Triggers
@@ -52,6 +53,7 @@ Strict consumers may not import dependency UI authority directly in protected su
 - `@mantine/core`
 - `@mantine/hooks`
 - `@mantine/notifications`
+- `@mantine/dates`
 - `@tabler/icons-react`
 
 Allowed direct usage must be narrow, reviewed, and represented as a `dependency-boundary` exception in `gds-adoption.json`.

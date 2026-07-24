@@ -4,9 +4,17 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Button, Stack, Text } from '@mantine/core';
 import { FormField } from './FormField';
+import { GdsDateInput } from './GdsDateInput.client';
 import { GdsFormProvider, GdsValidationSummary, type GdsFormOrchestrationEvent, type ValidationIssue, ValidatedFieldMessage, useGdsFormOrchestration } from './GdsForm.client';
 import { StateBlock } from './StateBlock';
 import { UploadDropzone, type UploadDropzoneState } from './UploadDropzone';
+
+function toIsoDateString(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
 export type GdsSchemaFieldType = 'text' | 'email' | 'url' | 'password' | 'number' | 'boolean' | 'select' | 'textarea' | 'date' | 'hidden' | 'conditional' | 'file-upload' | 'unsupported';
 
@@ -573,7 +581,19 @@ function renderDefaultField({ field, value, setValue, describedBy, invalid }: Gd
     );
   }
   if (field.type === 'textarea') return <textarea {...common} style={textEntryStyle} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)} />;
-  return <input {...common} style={textEntryStyle} type={field.type === 'password' ? 'password' : field.type === 'email' ? 'email' : field.type === 'url' ? 'url' : field.type === 'date' ? 'date' : 'text'} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)} />;
+  if (field.type === 'date') {
+    // The field's stored value stays an ISO ("yyyy-mm-dd") string, matching the
+    // native <input type="date"> contract this replaces, so existing onSubmit
+    // handlers built against that string shape keep working unchanged.
+    return (
+      <GdsDateInput
+        {...common}
+        value={typeof value === 'string' && value.length > 0 ? value : null}
+        onChange={(next) => setValue(next ? toIsoDateString(next) : '')}
+      />
+    );
+  }
+  return <input {...common} style={textEntryStyle} type={field.type === 'password' ? 'password' : field.type === 'email' ? 'email' : field.type === 'url' ? 'url' : 'text'} value={String(value ?? '')} onChange={(event) => setValue(event.currentTarget.value)} />;
 }
 
 export function GdsSchemaForm<TValues extends Record<string, unknown> = Record<string, unknown>>({

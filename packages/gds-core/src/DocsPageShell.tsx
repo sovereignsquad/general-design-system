@@ -1,10 +1,8 @@
 import type { ReactNode } from 'react';
-import { Anchor, Breadcrumbs, Container, Group, Stack, Text, Title } from '@mantine/core';
+import { Anchor, Container, Group, Stack, Text, Title } from '@mantine/core';
+import { GdsBreadcrumbs, type GdsBreadcrumbItem } from './GdsBreadcrumbs';
 
-export interface BreadcrumbItem {
-  label: string;
-  href?: string;
-}
+export type BreadcrumbItem = GdsBreadcrumbItem;
 
 export interface DocsPageShellProps {
   breadcrumbs?: BreadcrumbItem[];
@@ -31,19 +29,7 @@ export function DocsPageShell({
     <Container fluid py="xl" px={{ base: 'md', md: 'lg', lg: 'xl' }} w="100%" maw="100%">
       <Group align="flex-start" gap="xl" wrap="nowrap">
         <Stack component="article" gap="lg" flex={1} miw={0}>
-          {breadcrumbs.length ? (
-            <Breadcrumbs>
-              {breadcrumbs.map((crumb) =>
-                crumb.href ? (
-                  <Anchor key={`${crumb.label}-${crumb.href}`} href={crumb.href}>
-                    {crumb.label}
-                  </Anchor>
-                ) : (
-                  <Text key={crumb.label}>{crumb.label}</Text>
-                ),
-              )}
-            </Breadcrumbs>
-            ) : null}
+          <GdsBreadcrumbs items={breadcrumbs} />
           <Stack gap="sm">
             {eyebrow ? (
               <Text size="sm" fw={700} c="dimmed">

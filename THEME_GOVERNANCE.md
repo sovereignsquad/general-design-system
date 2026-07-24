@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 3.11.1
+Version: 3.12.0
 Last updated: 2026-07-23
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
@@ -210,6 +210,20 @@ Rules:
 - the live token/theme lab at `https://sovereignsquad.github.io/general-design-system/themes` is the public reference surface for testing these shipped preset lanes interactively
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
 - `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.
+
+## Z-index / stacking layers
+
+GDS does not publish a second, competing z-index scale. `@mantine/core/styles.css` (loaded via the mandatory `@sovereignsquad/gds-theme/styles.css` import) already ships a documented CSS variable scale — `--mantine-z-index-app` (100), `--mantine-z-index-modal` (200), `--mantine-z-index-popover` (300), `--mantine-z-index-overlay` (400), `--mantine-z-index-max` (9999) — and GDS defers to it as the single stacking authority rather than inventing a parallel one that could drift out of sync.
+
+`gdsZIndexToken` (`@sovereignsquad/gds-theme`) exposes this scale by documented, typed tier name (`app`, `modal`, `popover`, `overlay`, `max`) so GDS's own components and consumers don't need to know Mantine's internal variable names. Any GDS component that renders fixed/sticky page-level chrome outside a Mantine overlay primitive (e.g. `BottomTabBar`, `FloatingActionPlacement`) must use `gdsZIndexToken.app` rather than an ad hoc number — this was a real, unpublished gap (see `DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md` P0 item 3) where two such components independently hardcoded different arbitrary values (200 and 20) with no shared authority. Consumers building custom overlays outside GDS's own component set should align with the same scale instead of guessing a number.
+
+## Elevation
+
+FOUNDATION.md's "no decorative shadow layering" policy governs cards and surfaces, not overlays — FOUNDATION.md explicitly says "Overlays may use elevation." Previously this had no published contract at all (issue #395): `gdsTheme.components.Popover.defaultProps.shadow` is now explicitly set to `'md'` (`shadows.md`'s already-established, deliberate soft-shadow value), giving Popover and everything built on top of it — Menu, HoverCard, and Select/Combobox/MultiSelect/Autocomplete dropdowns, none of which set their own `shadow` prop internally — a documented elevation tier instead of an undocumented Mantine default. `shadows.sm` is deliberately left untouched: `Card`'s own `shadow: 'sm'` default already depends on it, and changing it would be a real visual regression for every card in the system. Mantine's `Modal` does not expose a theme-configurable `shadow` prop at all, so its elevation remains Mantine's own fixed, non-GDS-owned styling.
+
+## Density
+
+`GdsDensityProvider`/`useGdsDensity` (`@sovereignsquad/gds-core`) publish a global density-mode axis (`compact`/`comfortable`/`spacious`) that a product can set once at the app or section level, rather than relying only on each component's own scattered local density prop (`AdvancedDataTable`'s density state, `CardContracts`'s `density` prop). This is new and purely additive: existing components' own defaults and props are unchanged. New density-aware call sites should read `useGdsDensity()` (or use `useGdsCardContract()`, the density-aware wrapper around `resolveGdsCardContract`) as the extension pattern, falling back to the ambient value only when no explicit `density` prop is passed — an explicit prop always wins.
 
 ## CSS VibeThemes
 

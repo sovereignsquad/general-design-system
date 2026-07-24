@@ -1,4 +1,5 @@
 import { Anchor, Box, Stack, Text } from '@mantine/core';
+import { gdsZIndexToken } from '@sovereignsquad/gds-theme';
 import type { PublicNavItem } from './PublicNav';
 
 /**
@@ -65,7 +66,7 @@ export function BottomTabBar({
         position: 'fixed',
         insetInline: 0,
         bottom: 0,
-        zIndex: 200,
+        zIndex: gdsZIndexToken.app,
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'stretch',

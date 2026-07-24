@@ -57,10 +57,10 @@ export default function App() {
 
 ## Component families
 
-- Layout: `GdsBox`, `GdsStack`, `GdsInline`, `GdsCluster`, `GdsGrid`, `GdsSplit`, `GdsSidebar`, `GdsContainer`, `GdsBleed`
-- Shells: `AppShell`, `PublicShell`, `AuthShell`, `ArticleShell`, `DiscoveryShell`, `WorkspaceHeader`, `PageHeader`
+- Layout: `GdsBox`, `GdsStack`, `GdsInline`, `GdsCluster`, `GdsGrid`, `GdsColumnGrid`/`GdsColumnGridItem` (named 12-column track-span grid), `GdsSplit`, `GdsSidebar`, `GdsContainer`, `GdsBleed`
+- Shells: `AppShell`, `PublicShell`, `AuthShell`, `ArticleShell`, `DiscoveryShell`, `WorkspaceHeader`, `PageHeader`, `GdsBreadcrumbs`
 - Cards/surfaces: `MetricCard`, `ProgressCard`, `ProductCard`, `EditorialCard`, `EditorialHero`, `InfoCard`, `SectionPanel`, `AccentPanel`, `StatsStrip`
-- Forms: `GdsForm`, `GdsSchemaForm`, `FormField`, `FormSection`, `Select`, `TextInput`, `Switch`, `Radio`
+- Forms: `GdsForm`, `GdsSchemaForm`, `FormField`, `FormSection`, `Select`, `TextInput`, `Switch`, `Radio`, `GdsDateInput`, `GdsDateTimeInput`, `GdsDateRangeInput`, `GdsRichTextEditor` (import from `@sovereignsquad/gds-core/rich-text-editor`, not the main entry — its Tiptap dependency is deliberately opt-in)
 - Data: `GdsDataTable`/`DataTable` (via `createGdsTableAdapter`), `SimpleDataTable`, `Table`, `GdsBarChart`, `GdsLineChart`
 - Feedback/overlay: `EmptyState`, `StateBlock`, `GdsNotificationProvider`+`GdsNotificationCenter`, `GdsModal`, `GdsDrawer`, `ConfirmDialog`, `CommandPalette`
 - Operations: `KanbanBoard` (stage/column tracking — portrait-mobile stacked, landscape/tablet/desktop multi-column; keyboard-accessible move-to-column menu always available, plus an opt-in `enableDrag` pointer/touch/keyboard drag handle built on `@dnd-kit`, never native HTML5 drag-and-drop)

@@ -17,3 +17,18 @@ describe('gdsTheme Input.vars mobile input-zoom guard', () => {
     expect(resolveInputFz('xl')).toBeUndefined();
   });
 });
+
+describe('gdsTheme overlay elevation scale (#395)', () => {
+  it('gives Popover (and everything built on it — Menu, HoverCard, Select/Combobox dropdowns) an explicit documented shadow tier', () => {
+    expect(gdsTheme.components.Popover.defaultProps).toEqual({ shadow: 'md' });
+  });
+
+  it('does not touch shadows.sm, which Card already depends on for its own established default', () => {
+    expect(gdsTheme.components.Card.defaultProps).toMatchObject({ shadow: 'sm' });
+  });
+
+  it('publishes explicit md/lg overlay shadow values rather than leaving them at silent Mantine defaults', () => {
+    expect(gdsTheme.shadows.md).toBe('0 8px 24px rgba(15, 23, 42, 0.08)');
+    expect(gdsTheme.shadows.lg).toBe('0 16px 40px rgba(15, 23, 42, 0.12)');
+  });
+});

@@ -13,6 +13,8 @@
     "GdsSidebar": "Layout primitive (sidebar frame) — composed into registered shells.",
     "GdsMediaFrame": "Layout primitive (aspect-ratio media frame) — composed into registered patterns.",
     "GdsOverflowFrame": "Layout primitive (overflow frame) — composed into registered patterns.",
+    "GdsColumnGrid": "Layout primitive (explicit column grid) — composed into registered patterns, not itself a catalog pattern.",
+    "GdsColumnGridItem": "Layout primitive (column-grid track-span child) — composed into registered patterns.",
     "GdsDirectionBoundary": "Layout/RTL utility boundary — not a standalone catalog pattern.",
     "GdsResponsiveVisibility": "Layout utility (responsive show/hide) — not a standalone catalog pattern.",
     "BoundedPreviewSurface": "Layout/preview primitive used to bound catalog demos — not itself a catalog pattern.",
@@ -47,6 +49,7 @@
     "GdsFormProvider": "Provider/context (form orchestration) — non-visual; forms pattern is registered via useGdsForm.",
     "GdsToastProvider": "Provider/context (toast) — non-visual; notification pattern is registered via GdsNotificationProvider.",
     "CreatorThemeBoundary": "Provider/context (creator theme scope) — non-visual boundary.",
+    "GdsDensityProvider": "Provider/context (global density mode) — non-visual; density-aware cards are registered via ProductCard.",
     "CreatorThemeDiagnostics": "Diagnostics/dev surface (creator theme) — not a consumer-facing catalog pattern.",
 
     "GdsIcon": "Icon surface (GDS-owned icon component) — icon rendering primitive, not a catalog pattern.",

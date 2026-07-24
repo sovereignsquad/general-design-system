@@ -2,6 +2,32 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.12.0 - 2026-07-23 — competitive gap-closing batch (#387-#398)
+
+Following `DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md`'s benchmark against Material Design 3, Fluent UI 2, IBM Carbon, Ant Design 5, Shopify Polaris, Adobe Spectrum, Atlassian Design System, and Chakra UI, this release closes every P0/P1/P2 gap identified plus three incidental tech-debt items, in one consolidated batch.
+
+**P0 — highest-impact gaps:**
+- **Date/time picker family** (#389): `GdsDateInput`, `GdsDateTimeInput`, `GdsDateRangeInput` wrap `@mantine/dates` (new peer dependency, matching the `@mantine/core` engine class). `GdsSchemaForm`'s `date` field type now renders `GdsDateInput` instead of a bare native `<input type="date">`, keeping its stored value as an ISO (`yyyy-mm-dd`) string for backward compatibility.
+- **`GdsBreadcrumbs`** (#390): standalone, independently reusable breadcrumb trail (labeled `nav` landmark; last item always renders as the non-link current page even if it carries an `href`). `DocsPageShell` now uses it internally instead of an inline, duplicated implementation.
+- **z-index token scale** (#391): `gdsZIndexToken` (`@sovereignsquad/gds-theme`) documents and defers to Mantine's own `--mantine-z-index-*` CSS variable scale as the single stacking authority. Fixed two real ad hoc violations found during implementation — `BottomTabBar` and `FloatingActionPlacement` each independently hardcoded different arbitrary z-index values (200 and 20) with no shared authority; both now use `gdsZIndexToken.app`.
+
+**P1 — real gaps, narrower blast radius:**
+- **`GdsRichTextEditor`** (#392): Tiptap-backed rich text editor (user-confirmed dependency choice, matching the `@dnd-kit` precedent's reasoning), composed into `ContentOpsEditor`'s demo as the description field. Fully encapsulated behind a dedicated `@sovereignsquad/gds-core/rich-text-editor` subpath export — kept out of the main package entry so its larger "Content engine" dependency stays genuinely opt-in (confirmed: `apps/reference-vite`'s own vendor chunk stayed at its pre-change size, since it never imports the subpath).
+- **Global density-mode primitive** (#393): `GdsDensityProvider`/`useGdsDensity` publish a `compact`/`comfortable`/`spacious` axis products can set once, plus `useGdsCardContract()` documenting the fall-back-to-ambient-density extension pattern. Purely additive — no existing component's default changed.
+- **`GdsColumnGrid`/`GdsColumnGridItem`** (#394): named 12-column (configurable) track-span grid, matching Carbon's 2x Grid / Ant Design's 24-col `Grid`, complementing `GdsGrid`'s equal-width auto-column layouts.
+- **Overlay elevation scale** (#395): `Popover.defaultProps.shadow` is now explicitly `'md'`, cascading to Menu/HoverCard/Select-family dropdowns. `Card`'s existing `shadow: 'sm'` default is untouched. `Modal` has no theme-configurable shadow prop in this Mantine version, documented as a real constraint rather than left silently unaddressed.
+- **CJK locale coverage** (#396): `zh` (Simplified Chinese), `ja`, `ko` message locales ship with full parity (168 keys each) and correct `direction`/`script` metadata. Machine-translated via the same disclosed Google Translate approach already used for playground site-phrases — **not reviewed by a native speaker**; flagged for review before treating as production-quality.
+
+**P2 — lower urgency:**
+- **Icon catalog expansion** (#397): ~40 new semantic icon keys (navigation, commerce, security, rich-text-editor toolbar, plus location/building/folder/archive/connectivity/flag/tool/phone/drag-handle).
+- **Financial/network chart types** (#398): `candlestick` (OHLC) and `sankey` (flow) ship as a new governed "Set C" (`gdsChartSetCTypeRegistry`), with their own validation rules (OHLC high/low range containment; sankey source/target/non-negative-flow).
+
+**Incidental tech debt fixed:**
+- **Locale-metadata drift** (#387): `es` (Spanish) shipped full messages in `gds-core/locales` but was missing from `gds-theme`'s `gdsLocaleMetadata` (RTL/script-detection registry), silently mis-defaulting to English direction/script rules. Fixed, plus a new parity test guards against recurrence. `GDS_GAP_INVENTORY.md`'s stale "not covered" claims (charts, uploads, command palette, evidence panels) were also corrected.
+- **Vibe-theme/preset drift guard** (#388): the 23 `GdsThemePresetId` entries each need a Mantine theme override (`theme-presets.ts`) and an independently hand-authored CSS "vibe theme" object (`vibe-themes.ts`). Confirmed the two intentionally draw from different color sources (Mantine's functional ramp vs. a bespoke, more saturated palette), so merging them isn't a safe mechanical refactor — added `vibe-themes.test.ts` instead, which fails CI if a preset id is ever added to one file without the other.
+
+See `DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md` for the full comparison this batch was scoped against.
+
 ## 3.11.1 - 2026-07-23 — release-cutover patch (no functional change)
 
 - **Patch-only version bump** (#385): `gds-v3.11.0`'s git tag was created by `auto-tag-release.yml` before that same day's fix to the workflow (explicit `gh workflow run --ref` dispatch, added to work around GitHub Actions' anti-recursion rule for `GITHUB_TOKEN`-authored pushes) landed, so the tag was stuck pointing at the pre-fix commit and `release-bundles.yml` never created a GitHub Release/tarball for it. Moving the existing tag directly was attempted and blocked (git proxy `403` on both tag deletion and force-push, no GitHub-API tag-ref tool available). This patch bump carries no functional/code change beyond the version-bump surfaces themselves — it exists solely so the now-fixed automated pipeline produces a correctly-tagged `gds-v3.11.1` release and GitHub Packages publish with zero manual tag surgery.

@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { Box, ScrollArea } from '@mantine/core';
 import type { BoxProps, ScrollAreaProps } from '@mantine/core';
+import { gdsZIndexToken } from '@sovereignsquad/gds-theme';
 
 export interface OverflowContainerProps extends Omit<ScrollAreaProps, 'children'> {
   children: ReactNode;
@@ -41,7 +42,7 @@ export function FloatingActionPlacement({
     <Box
       style={{
         position: 'fixed',
-        zIndex: 20,
+        zIndex: gdsZIndexToken.app,
         [block]: offset,
         [inline === 'end' ? 'right' : 'left']: offset,
         ...style,

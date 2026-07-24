@@ -81,7 +81,10 @@ const ignoredExports = new Set([
   'he',
   'hu',
   'it',
+  'ja',
+  'ko',
   'ru',
+  'zh',
 ]);
 
 const coveredByPackage = new Map();

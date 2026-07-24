@@ -36,6 +36,9 @@ import {
   GdsSlider,
   GdsRatingScale,
   GdsWizardStepper,
+  GdsDateInput,
+  GdsDateTimeInput,
+  GdsDateRangeInput,
   MissingDataPrompt,
   ListingProvider,
   useListingState,
@@ -123,6 +126,11 @@ import {
   KanbanBoard,
   type KanbanColumnData,
 } from '@sovereignsquad/gds-core';
+// Dedicated subpath import: GdsRichTextEditor's Tiptap/ProseMirror engine is
+// deliberately excluded from the main '@sovereignsquad/gds-core' barrel so
+// consumers who don't use it never bundle it (see the comment in
+// packages/gds-core/src/rich-text-editor.ts).
+import { GdsRichTextEditor } from '@sovereignsquad/gds-core/rich-text-editor';
 import {
   AdminSelect,
   AdminTextarea,
@@ -255,6 +263,12 @@ function FormControlFamilyDemo() {
   const [effort, setEffort] = useState<number>(3);
   const [boundary, setBoundary] = useState<number>(5);
   const [wizardStep, setWizardStep] = useState<number>(0);
+  const [sessionDate, setSessionDate] = useState<Date | null>(new Date('2026-07-24'));
+  const [checkInTime, setCheckInTime] = useState<Date | null>(new Date('2026-07-24T09:00:00'));
+  const [coverageWindow, setCoverageWindow] = useState<[Date | null, Date | null]>([
+    new Date('2026-07-24'),
+    new Date('2026-08-07'),
+  ]);
 
   const wizardSteps = [
     { id: 'profile', title: 'Profile', description: 'Confirm athlete identity and cohort.' },
@@ -340,6 +354,13 @@ function FormControlFamilyDemo() {
           onSaveNext={() => setWizardStep((current) => Math.min(wizardSteps.length - 1, current + 1))}
         />
       </SectionPanel>
+      <SectionPanel title="Date and time inputs" description="Governed date/time/date-range pickers wrapping @mantine/dates behind a GDS-owned contract.">
+        <GdsDateInput label="Session date" value={sessionDate} onChange={setSessionDate} />
+        <br />
+        <GdsDateTimeInput label="Check-in time" value={checkInTime} onChange={setCheckInTime} />
+        <br />
+        <GdsDateRangeInput label="Coverage window" value={coverageWindow} onChange={setCoverageWindow} />
+      </SectionPanel>
     </div>
   );
 }
@@ -348,6 +369,7 @@ function AdminEditorFlowsDemo() {
   const [visibility, setVisibility] = useState<string | null>('public');
   const [slug, setSlug] = useState('catalog-admin-shell');
   const [notes, setNotes] = useState('');
+  const [body, setBody] = useState('<p>Describe the catalog item here.</p>');
 
   return (
     <ContentOpsEditor
@@ -364,6 +386,7 @@ function AdminEditorFlowsDemo() {
         />
       )}
       sections={(
+        <>
         <ContentOpsSection id="visibility" title="Visibility" description="Use shared sections and form contracts.">
           {/*
            * size="xs"/"sm" (and the implicit default) all exercise the mobile
@@ -394,6 +417,10 @@ function AdminEditorFlowsDemo() {
             onChange={setNotes}
           />
         </ContentOpsSection>
+        <ContentOpsSection id="body" title="Description" description="Content Ops Editor composes GdsRichTextEditor for the actual text-editing surface, closing the previous gap where this shell owned only the surrounding layout.">
+          <GdsRichTextEditor label="Description" value={body} onChange={setBody} />
+        </ContentOpsSection>
+        </>
       )}
       preview={
         <SectionPanel title="Live preview" description="Shared preview rail for editor contexts.">

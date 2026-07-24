@@ -43,6 +43,7 @@ export * from './ProviderIdentityButtons';
 export * from './ArticleShell';
 export * from './CtaButtonGroup';
 export * from './DocsPageShell';
+export * from './GdsBreadcrumbs';
 export * from './EditorialHero';
 export * from './FeatureBand';
 export * from './MapPanel';

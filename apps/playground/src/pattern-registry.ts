@@ -151,7 +151,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Forms should validate without punishing typing and must expose grouped fields and loading submit states.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'useGdsForm / useGdsFormOrchestration / GdsValidationSummary / FormErrorSummary / ValidatedFieldMessage / GdsSegmentedControl / GdsSlider / GdsRatingScale / GdsWizardStepper',
+    sourceComponent: 'useGdsForm / useGdsFormOrchestration / GdsValidationSummary / FormErrorSummary / ValidatedFieldMessage / GdsSegmentedControl / GdsSlider / GdsRatingScale / GdsWizardStepper / GdsDateInput / GdsDateTimeInput / GdsDateRangeInput',
   },
   {
     id: 'admin-editor-flows',
@@ -551,7 +551,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Docs surfaces may add breadcrumbs, next-step links, and code-treatment slots without redefining readability.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'DocsPageShell',
+    sourceComponent: 'DocsPageShell, GdsBreadcrumbs',
   },
   {
     id: 'docs-shell',

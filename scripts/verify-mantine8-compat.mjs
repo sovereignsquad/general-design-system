@@ -114,6 +114,8 @@ try {
             '@mantine/hooks': matrix.mantineVersion,
             '@mantine/modals': matrix.mantineVersion,
             '@mantine/notifications': matrix.mantineVersion,
+            '@mantine/dates': matrix.mantineVersion,
+            dayjs: '1.11.21',
             '@tabler/icons-react': '3.35.0',
             react: matrix.reactVersion,
             'react-dom': matrix.reactVersion,

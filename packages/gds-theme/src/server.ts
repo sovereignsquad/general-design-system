@@ -12,6 +12,8 @@ export type { GdsThemeCompatibilityReport, GdsThemeCompatibilityResult, GdsTheme
 export { getGdsFontLanes, resolveGdsFontLane, applyGdsFontLane, getGdsFontLaneStylesheetUrls, isGdsFontLaneId } from './font-lanes';
 export type { GdsFontLane, GdsFontLaneId, GdsFontLaneLoadStrategy, GdsFontLaneSource } from './font-lanes';
 export { createGdsMotionCssVariables, gdsMotionDurations, gdsMotionEasings, gdsMotionPresets, getGdsMotionPreset } from './motion';
+export { gdsZIndexToken } from './z-index';
+export type { GdsZIndexTier } from './z-index';
 export type { GdsMotionDurationToken, GdsMotionEasingToken, GdsMotionPreset, GdsMotionPresetId, GdsReducedMotionPolicy, GdsResolvedMotionPreset } from './motion';
 export { createBrandTheme, deriveBrandSemanticTokens, brandContrastRatio, GdsBrandThemeError } from './brand-tokens';
 export type { BrandColorRamp, BrandColorRamps, BrandFonts, ClassUsaColorRampName, ClassUsaColorRamps, CreateBrandThemeOptions, CreateClassUsaBrandThemeOptions, GoldAthleteColorRampName, GoldAthleteColorRamps, CreateGoldAthleteBrandThemeOptions, BrandSemanticRole, BrandThemeResult } from './brand-tokens';

@@ -49,6 +49,18 @@ export interface GdsGridProps extends GdsLayoutPrimitiveBaseProps {
   minColumnWidth?: GdsLayoutSize;
 }
 
+export interface GdsColumnGridProps extends GdsLayoutPrimitiveBaseProps {
+  /** Total number of tracks in the grid — the same number `GdsColumnGridItem`'s `span` counts against. Defaults to 12, matching the most common column-grid convention (Carbon's 2x Grid, Ant Design's `Grid`). */
+  columns?: GdsResponsiveValue<number>;
+}
+
+export interface GdsColumnGridItemProps extends GdsLayoutPrimitiveBaseProps {
+  /** How many of the parent's tracks this item spans. Omit to let the browser's native CSS grid auto-placement apply (one track). */
+  span?: GdsResponsiveValue<number>;
+  /** Which track this item starts at (1-indexed), for explicit placement instead of auto-flow. */
+  start?: GdsResponsiveValue<number>;
+}
+
 export interface GdsSplitProps extends GdsLayoutPrimitiveBaseProps {
   ratio?: '1:1' | '2:1' | '1:2' | '3:2' | '2:3';
   collapseBelow?: Exclude<GdsLayoutBreakpoint, 'base'>;
@@ -359,6 +371,74 @@ export const GdsGrid = forwardRef<HTMLElement, GdsGridProps>(function GdsGrid({
         gap={gap}
         className={joinClassNames(generatedClassName, className)}
         style={{ gridTemplateColumns: resolveGridColumns(baseValue(columns, 1), minColumnWidth), minWidth: 0, ...style }}
+        {...props}
+      />
+    </>
+  );
+});
+
+/**
+ * Named column-grid primitive (12-column default, configurable), matching
+ * the explicit column-grid systems most peer design systems ship (Carbon's
+ * 2x Grid, Ant Design's 24-col `Grid`) — `GdsGrid` above covers equal-width
+ * auto-column layouts, but has no concept of an item spanning a specific
+ * number of shared tracks. See DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md P1
+ * item 6.
+ */
+export const GdsColumnGrid = forwardRef<HTMLElement, GdsColumnGridProps>(function GdsColumnGrid({
+  columns = 12,
+  gap = 'md',
+  component = 'div',
+  className,
+  style,
+  ...props
+}, ref) {
+  const generatedClassName = composeResponsiveClass({ columns, type: 'column-grid' });
+  const css = responsiveCss(generatedClassName, 'grid-template-columns', columns, (value) => `repeat(${value}, minmax(0, 1fr))`);
+  return (
+    <>
+      {renderResponsiveStyle(css)}
+      <GdsBox
+        ref={ref}
+        component={component}
+        display="grid"
+        gap={gap}
+        className={joinClassNames(generatedClassName, className)}
+        style={{ gridTemplateColumns: `repeat(${baseValue(columns, 12)}, minmax(0, 1fr))`, minWidth: 0, ...style }}
+        {...props}
+      />
+    </>
+  );
+});
+
+export const GdsColumnGridItem = forwardRef<HTMLElement, GdsColumnGridItemProps>(function GdsColumnGridItem({
+  span,
+  start,
+  component = 'div',
+  className,
+  style,
+  ...props
+}, ref) {
+  const generatedClassName = composeResponsiveClass({ span, start, type: 'column-grid-item' });
+  const css = [
+    responsiveCss(generatedClassName, 'grid-column-start', start, (value) => value),
+    responsiveCss(generatedClassName, 'grid-column-end', span, (value) => `span ${value}`),
+  ].join('');
+  const baseSpan = normalizeGdsResponsiveValue(span).base;
+  const baseStart = normalizeGdsResponsiveValue(start).base;
+  return (
+    <>
+      {renderResponsiveStyle(css)}
+      <GdsBox
+        ref={ref}
+        component={component}
+        className={joinClassNames(generatedClassName, className)}
+        style={{
+          gridColumnStart: baseStart,
+          gridColumnEnd: baseSpan !== undefined ? `span ${baseSpan}` : undefined,
+          minWidth: 0,
+          ...style,
+        }}
         {...props}
       />
     </>
