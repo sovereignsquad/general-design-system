@@ -78,19 +78,29 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Checkout
+        # Needed for scripts/verify-pages-deploy-smoke.mjs and its
+        # scripts/lib/browser-runtime.mjs helper below — this job has no
+        # repo checkout by default.
+        uses: actions/checkout@v4
       - name: Post-deploy smoke check
-        # Confirms the deploy actually served, not just that upload succeeded.
-        # A few retries since Pages propagation isn't always instant.
+        # apps/playground is a pure client-side-rendered SPA (see
+        # scripts/generate-playground-static-routes.mjs) — the raw served
+        # HTML is always just an empty <div id="root"> shell, so a plain
+        # curl+grep can never see rendered content (this replaced an earlier
+        # version of this step that tried exactly that and failed in
+        # production for precisely this reason). This launches headless
+        # Chrome — already preinstalled on GitHub's ubuntu-latest runners —
+        # to actually navigate to the deployed URL and wait for the SPA to
+        # hydrate and render real content, the same technique this repo's
+        # local verify-*-runtime.mjs scripts already use.
         run: |
           url="${{ steps.deployment.outputs.page_url }}"
-          for attempt in 1 2 3 4 5; do
-            status=$(curl -s -o /tmp/pages-smoke.html -w '%{http_code}' "$url" || echo "000")
-            if [ "$status" = "200" ] && grep -q "What Is GDS" /tmp/pages-smoke.html; then
-              echo "Post-deploy smoke check passed (attempt $attempt, HTTP $status)."
+          for attempt in 1 2 3; do
+            if node scripts/verify-pages-deploy-smoke.mjs "$url"; then
               exit 0
             fi
-            echo "Attempt $attempt: HTTP $status, retrying in 10s..."
-            sleep 10
+            echo "Attempt $attempt failed, retrying in 15s (Pages propagation can lag briefly)..."
+            sleep 15
           done
-          echo "Post-deploy smoke check failed: $url did not return HTTP 200 with expected content after 5 attempts."
           exit 1
