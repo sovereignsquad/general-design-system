@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.12.0
-Last updated: 2026-07-23
+Last updated: 2026-07-24
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
 
@@ -274,6 +274,28 @@ Supported `MediaField` states:
 **No native HTML5 drag-and-drop.** Native `draggable`/`dragstart` reordering cannot be operated by keyboard or screen-reader users and remains prohibited for this contract per the accessibility release gate (`FOUNDATION.md` §1.5). Every `KanbanCard` always exposes a "Move" action (`GdsIcons.Move`) opening a keyboard-operable menu listing the other columns; selecting one calls the consumer-supplied `onMoveItem(itemId, fromColumnId, toColumnId, toIndex?)`. Boards without `onMoveItem` render read-only (no move control, no drag handle). The opt-in `enableDrag` prop (default `false`) additionally renders a pointer/touch/keyboard drag handle per card, built on `@dnd-kit`'s accessible sensors — not native HTML5 drag-and-drop — with its own keyboard-operable pickup/move/drop path and localized screen-reader announcements. The Move menu is never hidden or replaced when `enableDrag` is on; it stays the guaranteed accessible-equivalent fallback in both modes.
 
 Empty columns show a governed "No items" state (`emptyColumnLabel` overridable) instead of a blank gap, so column boundaries stay legible at any card count.
+
+**Typed item/column extension.** `KanbanBoard`, `KanbanColumn`, and `KanbanCard` (and their prop interfaces) are generic over the item and column shape — `KanbanBoard<TItem extends KanbanItem, TColumn extends KanbanColumnData<TItem>>` — both parameters defaulting to the base `KanbanItem` / `KanbanColumnData`. Consumers who attach app-specific fields to a record extend those base contracts and receive them **fully typed inside `renderItem`, with no cast**:
+
+```tsx
+interface LeadItem extends KanbanItem {
+  lead: Lead; // app-specific required field
+}
+interface LeadColumn extends KanbanColumnData<LeadItem> {
+  stageOwner: string;
+}
+
+<KanbanBoard<LeadItem, LeadColumn>
+  columns={columns} // LeadColumn[]
+  onMoveItem={handleMove}
+  renderItem={(item, column) => (
+    // `item` is LeadItem (has `lead`); `column` is LeadColumn (has `stageOwner`)
+    <LeadCard lead={item.lead} owner={column.stageOwner} />
+  )}
+/>;
+```
+
+The type parameters are inferred from `columns` + `renderItem`, so the explicit `<LeadItem, LeadColumn>` arguments are optional. Because both default to the base contracts, existing non-generic usages compile unchanged, and `onMoveItem` keeps its string-id signature (`(itemId, fromColumnId, toColumnId, toIndex?)`) — no vendor drag-engine types are exposed on the public surface.
 
 ### Reporting, Evidence, and Chart Rules
 

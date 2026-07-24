@@ -31,10 +31,10 @@ export interface KanbanItem {
   ariaLabel?: string;
 }
 
-export interface KanbanColumnData {
+export interface KanbanColumnData<TItem extends KanbanItem = KanbanItem> {
   id: string;
   title: string;
-  items: KanbanItem[];
+  items: TItem[];
 }
 
 export type KanbanOrientation = 'stacked' | 'columns';
@@ -84,18 +84,24 @@ function DragGripGlyph() {
   );
 }
 
-export interface KanbanCardProps {
-  item: KanbanItem;
-  column: KanbanColumnData;
-  columns: KanbanColumnData[];
+export interface KanbanCardProps<
+  TItem extends KanbanItem = KanbanItem,
+  TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
+> {
+  item: TItem;
+  column: TColumn;
+  columns: TColumn[];
   /** Called on a menu-driven or drag-driven move. `toIndex` is only populated by drag. */
   onMoveItem?: OnMoveItem;
-  renderItem?: (item: KanbanItem, column: KanbanColumnData) => ReactNode;
+  renderItem?: (item: TItem, column: TColumn) => ReactNode;
   /** Renders an additional pointer/touch/keyboard drag handle alongside the Move menu. */
   enableDrag?: boolean;
 }
 
-export function KanbanCard({ item, column, columns, onMoveItem, renderItem, enableDrag }: KanbanCardProps) {
+export function KanbanCard<
+  TItem extends KanbanItem = KanbanItem,
+  TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
+>({ item, column, columns, onMoveItem, renderItem, enableDrag }: KanbanCardProps<TItem, TColumn>) {
   const { t } = useGdsTranslation();
   const moveTargets = columns.filter((candidate) => candidate.id !== column.id);
   const accessibleName = item.ariaLabel ?? (typeof item.title === 'string' ? item.title : undefined);
@@ -187,17 +193,23 @@ export function KanbanCard({ item, column, columns, onMoveItem, renderItem, enab
   );
 }
 
-export interface KanbanColumnProps {
-  column: KanbanColumnData;
-  columns: KanbanColumnData[];
+export interface KanbanColumnProps<
+  TItem extends KanbanItem = KanbanItem,
+  TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
+> {
+  column: TColumn;
+  columns: TColumn[];
   onMoveItem?: OnMoveItem;
-  renderItem?: (item: KanbanItem, column: KanbanColumnData) => ReactNode;
+  renderItem?: (item: TItem, column: TColumn) => ReactNode;
   emptyLabel?: ReactNode;
   width?: number | string;
   enableDrag?: boolean;
 }
 
-export function KanbanColumn({ column, columns, onMoveItem, renderItem, emptyLabel, width, enableDrag }: KanbanColumnProps) {
+export function KanbanColumn<
+  TItem extends KanbanItem = KanbanItem,
+  TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
+>({ column, columns, onMoveItem, renderItem, emptyLabel, width, enableDrag }: KanbanColumnProps<TItem, TColumn>) {
   const { t } = useGdsTranslation();
   // A droppable region keyed by the column id itself, so dropping on an empty column
   // (or in the empty space below the last card) resolves to this column even though
@@ -207,7 +219,7 @@ export function KanbanColumn({ column, columns, onMoveItem, renderItem, emptyLab
   const cards = column.items.length ? (
     <Stack gap="xs" ref={enableDrag ? droppable.setNodeRef : undefined} data-gds-kanban-drop-zone={column.id}>
       {column.items.map((item) => (
-        <KanbanCard
+        <KanbanCard<TItem, TColumn>
           key={item.id}
           item={item}
           column={column}
@@ -254,15 +266,18 @@ export function KanbanColumn({ column, columns, onMoveItem, renderItem, emptyLab
   );
 }
 
-export interface KanbanBoardProps {
+export interface KanbanBoardProps<
+  TItem extends KanbanItem = KanbanItem,
+  TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
+> {
   title?: ReactNode;
-  columns: KanbanColumnData[];
+  columns: TColumn[];
   /** Called when a card's move menu selects a target column, or (with `enableDrag`) when a
    * drag gesture completes. `toIndex` is only populated by drag; menu-driven moves append
    * to the end of the target column, matching existing behavior. Omit to render a read-only board. */
   onMoveItem?: OnMoveItem;
   /** Custom card body renderer. The card shell, border, and move action remain governed. */
-  renderItem?: (item: KanbanItem, column: KanbanColumnData) => ReactNode;
+  renderItem?: (item: TItem, column: TColumn) => ReactNode;
   emptyColumnLabel?: ReactNode;
   /**
    * `'auto'` (default) resolves the governed responsive rule via `useGdsKanbanOrientation`:
@@ -288,7 +303,10 @@ export interface KanbanBoardProps {
   enableDrag?: boolean;
 }
 
-function findColumnByItemId(columns: KanbanColumnData[], itemId: string) {
+function findColumnByItemId<TColumn extends KanbanColumnData>(
+  columns: TColumn[],
+  itemId: string,
+): TColumn | undefined {
   return columns.find((column) => column.items.some((item) => item.id === itemId));
 }
 
@@ -306,7 +324,10 @@ function itemTitleText(item: KanbanItem | undefined) {
  * users); an opt-in pointer/touch/keyboard drag affordance (`enableDrag`) is available
  * alongside it, built on `@dnd-kit`'s accessible sensors rather than native `draggable`.
  */
-export function KanbanBoard({
+export function KanbanBoard<
+  TItem extends KanbanItem = KanbanItem,
+  TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
+>({
   title,
   columns,
   onMoveItem,
@@ -316,12 +337,12 @@ export function KanbanBoard({
   columnWidth = '17.5rem',
   boardLabel,
   enableDrag = false,
-}: KanbanBoardProps) {
+}: KanbanBoardProps<TItem, TColumn>) {
   const { t } = useGdsTranslation();
   const autoOrientation = useGdsKanbanOrientation();
   const resolvedOrientation = orientation === 'auto' ? autoOrientation : orientation;
   const regionLabel = boardLabel ?? (typeof title === 'string' ? title : t('gds.kanban.boardLabel', 'Kanban board'));
-  const [activeItem, setActiveItem] = useState<{ item: KanbanItem; column: KanbanColumnData } | null>(null);
+  const [activeItem, setActiveItem] = useState<{ item: TItem; column: TColumn } | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -407,7 +428,7 @@ export function KanbanBoard({
 
   const columnList = (width: number | string | undefined) =>
     columns.map((column) => (
-      <KanbanColumn
+      <KanbanColumn<TItem, TColumn>
         key={column.id}
         column={column}
         columns={columns}

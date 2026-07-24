@@ -2,6 +2,10 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased
+
+- **Generic `KanbanBoard` item/column typing** (#399): `KanbanBoard`, `KanbanColumn`, `KanbanCard`, and their prop interfaces are now generic over the item and column shape — `KanbanBoard<TItem extends KanbanItem, TColumn extends KanbanColumnData<TItem>>`, with `KanbanColumnData<TItem extends KanbanItem = KanbanItem>` carrying `items: TItem[]`. Both parameters default to the base `KanbanItem` / `KanbanColumnData`, so this is a **backward-compatible typing enhancement with no runtime behavior change** — existing non-generic call sites (including the playground's `KanbanBoardDemo` and all prior tests) compile unchanged. Consumers who extend `KanbanItem` / `KanbanColumnData` with app-specific required fields now receive them fully typed inside `renderItem(item, column)` **without a cast** (previously the fixed `(KanbanItem, KanbanColumnData)` callback signature made an extended-shape `renderItem` a compile error at the call site — surfaced by a real downstream consumer build). `onMoveItem` keeps its string-id signature and no `@dnd-kit` types leak onto the public surface (`verify:boundary` unaffected). See the "Typed item/column extension" note in [`COMPONENTS_AND_PATTERNS.md`](COMPONENTS_AND_PATTERNS.md).
+
 ## 3.12.0 - 2026-07-23 — competitive gap-closing batch (#387-#398)
 
 Following `DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md`'s benchmark against Material Design 3, Fluent UI 2, IBM Carbon, Ant Design 5, Shopify Polaris, Adobe Spectrum, Atlassian Design System, and Chakra UI, this release closes every P0/P1/P2 gap identified plus three incidental tech-debt items, in one consolidated batch.

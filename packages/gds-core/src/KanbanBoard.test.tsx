@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
-import { KanbanBoard, type KanbanColumnData } from './KanbanBoard.client';
+import { KanbanBoard, type KanbanColumnData, type KanbanItem } from './KanbanBoard.client';
 
 // jsdom does not implement real layout (getBoundingClientRect returns 0-rects), so a
 // genuine pointer/keyboard dnd-kit drag gesture cannot be reliably simulated here —
@@ -70,5 +70,49 @@ describe('KanbanBoard', () => {
     const doneColumn = screen.getByText('Done').closest('[data-gds-kanban-column]');
     expect(doneColumn).not.toBeNull();
     expect(within(doneColumn as HTMLElement).getByText('No items')).toBeInTheDocument();
+  });
+
+  it('accepts app-extended item/column shapes and passes them typed into renderItem (no cast)', () => {
+    // Regression coverage for #399: a consumer extends KanbanItem/KanbanColumnData with
+    // app-specific required fields and receives them fully typed inside renderItem, with
+    // no type assertion. The `item.lead.owner` / `column.stageOwner` reads below only
+    // compile because the generic parameters flow the narrowed shapes through the callback;
+    // before the fix, `renderItem`'s fixed `(KanbanItem, KanbanColumnData)` signature made
+    // this a type error at the call site.
+    interface LeadItem extends KanbanItem {
+      lead: { owner: string };
+    }
+    interface LeadColumn extends KanbanColumnData<LeadItem> {
+      stageOwner: string;
+    }
+
+    const columns: LeadColumn[] = [
+      {
+        id: 'new',
+        title: 'New',
+        stageOwner: 'Alex',
+        items: [{ id: 'l1', title: 'Acme Corp', lead: { owner: 'Sam' } }],
+      },
+      { id: 'won', title: 'Won', stageOwner: 'Jordan', items: [] },
+    ];
+
+    const seen: Array<{ owner: string; stageOwner: string }> = [];
+    const renderItem = (item: LeadItem, column: LeadColumn) => {
+      // No cast: `item` is LeadItem (has `lead`), `column` is LeadColumn (has `stageOwner`).
+      seen.push({ owner: item.lead.owner, stageOwner: column.stageOwner });
+      return <span data-testid={`lead-${item.id}`}>{item.lead.owner}</span>;
+    };
+
+    renderWithGds(
+      <KanbanBoard<LeadItem, LeadColumn>
+        title="Pipeline"
+        columns={columns}
+        renderItem={renderItem}
+        onMoveItem={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByTestId('lead-l1')).toHaveTextContent('Sam');
+    expect(seen).toContainEqual({ owner: 'Sam', stageOwner: 'Alex' });
   });
 });
