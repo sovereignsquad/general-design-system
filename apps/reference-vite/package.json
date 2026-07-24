@@ -11,8 +11,8 @@
     "@floating-ui/core": "^1.7.5",
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
-    "@sovereignsquad/gds-core": "3.12.0",
-    "@sovereignsquad/gds-theme": "3.12.0",
+    "@sovereignsquad/gds-core": "3.13.0",
+    "@sovereignsquad/gds-theme": "3.13.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
