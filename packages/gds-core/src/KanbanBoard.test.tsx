@@ -116,3 +116,41 @@ describe('KanbanBoard', () => {
     expect(seen).toContainEqual({ owner: 'Sam', stageOwner: 'Alex' });
   });
 });
+
+describe('KanbanCard move-menu affordance (#429)', () => {
+  it('defaults the move-menu trigger to a non-drag "More" glyph, never the arrows-move icon', () => {
+    renderWithGds(<KanbanBoard title="Sprint board" columns={makeColumns()} onMoveItem={vi.fn()} />);
+    const moveButton = screen.getByRole('button', { name: 'Move: Task A' });
+    // The "tap to open a menu" affordance must not imply free drag.
+    expect(moveButton.querySelector('[data-gds-icon="More"]')).not.toBeNull();
+    expect(moveButton.querySelector('[data-gds-icon="Move"]')).toBeNull();
+  });
+
+  it('renders a custom moveMenuIcon while keeping the menu fully functional', async () => {
+    const user = userEvent.setup();
+    const onMoveItem = vi.fn();
+    renderWithGds(
+      <KanbanBoard
+        title="Sprint board"
+        columns={makeColumns()}
+        onMoveItem={onMoveItem}
+        moveMenuIcon={<span data-testid="custom-move-icon" />}
+      />,
+    );
+    const moveButton = screen.getByRole('button', { name: 'Move: Task A' });
+    expect(within(moveButton).getByTestId('custom-move-icon')).toBeInTheDocument();
+    expect(moveButton.querySelector('[data-gds-icon]')).toBeNull();
+
+    await user.click(moveButton);
+    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }));
+    expect(onMoveItem).toHaveBeenCalledWith('a', 'todo', 'done');
+  });
+
+  it('lets moveMenuLabel override the accessible verb (item name still appended)', () => {
+    renderWithGds(
+      <KanbanBoard title="Sprint board" columns={makeColumns()} onMoveItem={vi.fn()} moveMenuLabel="Relocate" />,
+    );
+    expect(screen.getByRole('button', { name: 'Relocate: Task A' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Move: Task A' })).not.toBeInTheDocument();
+  });
+});

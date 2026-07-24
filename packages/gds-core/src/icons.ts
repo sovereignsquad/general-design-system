@@ -92,6 +92,7 @@ import {
   IconShare,
   IconStar,
   IconArrowsMove,
+  IconDotsVertical,
   IconLayoutKanban,
   IconBold,
   IconItalic,
@@ -257,6 +258,7 @@ export const GdsIcons = {
   Moon: IconMoon,
   Sun: IconSun,
   Move: IconArrowsMove,
+  More: IconDotsVertical,
   Kanban: IconLayoutKanban,
 
   // Rich text editor (issue #392)
@@ -378,7 +380,7 @@ const categoryByIcon = {
   navigation: ['Dashboard', 'Analytics', 'Home', 'Inbox', 'Calendar', 'History', 'Grid', 'List', 'Back', 'ChevronDown', 'ChevronUp', 'ChevronLeft', 'ChevronRight', 'ArrowUp', 'ArrowDown', 'ExternalLink', 'Link', 'Menu', 'Kanban', 'Location'],
   media: ['Capture', 'Record', 'Flip', 'Flash', 'Eye', 'EyeOff'],
   feedback: ['Message', 'Mail', 'Refresh', 'TrendingUp', 'TrendingDown', 'Notifications', 'Help'],
-  system: ['Settings', 'Language', 'Theme', 'Logout', 'Moon', 'Sun', 'Filter', 'Sort', 'Move', 'Connectivity', 'Tool'],
+  system: ['Settings', 'Language', 'Theme', 'Logout', 'Moon', 'Sun', 'Filter', 'Sort', 'Move', 'More', 'Connectivity', 'Tool'],
   content: ['Bold', 'Italic', 'Underline', 'Strikethrough', 'Quote', 'OrderedList', 'InlineCode', 'Heading1', 'Heading2', 'Undo', 'Redo'],
   commerce: ['Cart', 'Package', 'Payment', 'Wallet', 'Discount', 'Tag'],
   security: ['Lock', 'Unlock', 'Key', 'Biometric'],

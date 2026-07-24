@@ -96,18 +96,28 @@ export interface KanbanCardProps<
   renderItem?: (item: TItem, column: TColumn) => ReactNode;
   /** Renders an additional pointer/touch/keyboard drag handle alongside the Move menu. */
   enableDrag?: boolean;
+  /**
+   * Icon for the "move to column" **menu** trigger. Defaults to a `More`
+   * (vertical-dots) glyph — a "tap to open a menu" affordance that deliberately
+   * does NOT imply free drag, since this control is a tap-to-open destination
+   * picker, not a drag handle (the drag handle is separate and gated by
+   * `enableDrag`). Override only if your icon set has a better "pick a
+   * destination" glyph; avoid drag-implying icons here.
+   */
+  moveMenuIcon?: ReactNode;
+  /** Overrides the verb in the move-menu trigger's accessible label (default `"Move"`); the item name is still appended when available. */
+  moveMenuLabel?: string;
 }
 
 export function KanbanCard<
   TItem extends KanbanItem = KanbanItem,
   TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
->({ item, column, columns, onMoveItem, renderItem, enableDrag }: KanbanCardProps<TItem, TColumn>) {
+>({ item, column, columns, onMoveItem, renderItem, enableDrag, moveMenuIcon, moveMenuLabel }: KanbanCardProps<TItem, TColumn>) {
   const { t } = useGdsTranslation();
   const moveTargets = columns.filter((candidate) => candidate.id !== column.id);
   const accessibleName = item.ariaLabel ?? (typeof item.title === 'string' ? item.title : undefined);
-  const moveLabel = accessibleName
-    ? `${t('gds.kanban.moveItem', 'Move')}: ${accessibleName}`
-    : t('gds.kanban.moveItem', 'Move');
+  const moveVerb = moveMenuLabel ?? t('gds.kanban.moveItem', 'Move');
+  const moveLabel = accessibleName ? `${moveVerb}: ${accessibleName}` : moveVerb;
   const dragHandleLabel = accessibleName
     ? `${t('gds.kanban.dragHandle', 'Drag to reorder')}: ${accessibleName}`
     : t('gds.kanban.dragHandle', 'Drag to reorder');
@@ -170,7 +180,7 @@ export function KanbanCard<
             <Menu withinPortal position="bottom-end" shadow="md">
               <Menu.Target>
                 <ActionIcon variant="subtle" color="gray" size="sm" aria-label={moveLabel}>
-                  <GdsIcon icon="Move" decorative />
+                  {moveMenuIcon ?? <GdsIcon icon="More" decorative />}
                 </ActionIcon>
               </Menu.Target>
               <Menu.Dropdown>
@@ -204,12 +214,14 @@ export interface KanbanColumnProps<
   emptyLabel?: ReactNode;
   width?: number | string;
   enableDrag?: boolean;
+  moveMenuIcon?: ReactNode;
+  moveMenuLabel?: string;
 }
 
 export function KanbanColumn<
   TItem extends KanbanItem = KanbanItem,
   TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
->({ column, columns, onMoveItem, renderItem, emptyLabel, width, enableDrag }: KanbanColumnProps<TItem, TColumn>) {
+>({ column, columns, onMoveItem, renderItem, emptyLabel, width, enableDrag, moveMenuIcon, moveMenuLabel }: KanbanColumnProps<TItem, TColumn>) {
   const { t } = useGdsTranslation();
   // A droppable region keyed by the column id itself, so dropping on an empty column
   // (or in the empty space below the last card) resolves to this column even though
@@ -227,6 +239,8 @@ export function KanbanColumn<
           onMoveItem={onMoveItem}
           renderItem={renderItem}
           enableDrag={enableDrag}
+          moveMenuIcon={moveMenuIcon}
+          moveMenuLabel={moveMenuLabel}
         />
       ))}
     </Stack>
@@ -301,6 +315,18 @@ export interface KanbanBoardProps<
    * Move menu. Requires `onMoveItem`; has no effect on a read-only board.
    */
   enableDrag?: boolean;
+  /**
+   * Icon for each card's "move to column" **menu** trigger. Defaults to a `More`
+   * (vertical-dots) glyph — a "tap to open a menu" affordance that intentionally
+   * does not imply free drag. The move menu is a tap-to-open destination picker
+   * (always available, the accessible-equivalent fallback), distinct from the
+   * `enableDrag` drag **handle**, which is the only control that implies physical
+   * dragging — so this icon stays the same whether `enableDrag` is on or off.
+   * Override only with another non-drag "pick a destination" glyph.
+   */
+  moveMenuIcon?: ReactNode;
+  /** Overrides the verb in each move-menu trigger's accessible label (default `"Move"`); the item name is still appended when available. */
+  moveMenuLabel?: string;
 }
 
 function findColumnByItemId<TColumn extends KanbanColumnData>(
@@ -337,6 +363,8 @@ export function KanbanBoard<
   columnWidth = '17.5rem',
   boardLabel,
   enableDrag = false,
+  moveMenuIcon,
+  moveMenuLabel,
 }: KanbanBoardProps<TItem, TColumn>) {
   const { t } = useGdsTranslation();
   const autoOrientation = useGdsKanbanOrientation();
@@ -437,6 +465,8 @@ export function KanbanBoard<
         emptyLabel={emptyColumnLabel}
         enableDrag={dragActive}
         width={width}
+        moveMenuIcon={moveMenuIcon}
+        moveMenuLabel={moveMenuLabel}
       />
     ));
 
