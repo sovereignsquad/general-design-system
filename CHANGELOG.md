@@ -76,28 +76,32 @@ See `DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md` for the full comparison this bat
 - **Actionable table cells**: `GdsDataTable` columns can mark `interactive: true`; grid-cell focus remains roving while `Enter`/`F2` enters nested controls and `Escape` returns to the cell.
 - **Release board sync**: `board:sync-release` closes explicitly delivered issues and normalizes closed GitHub project-board cards to `Done`, with dry-run and idempotent behavior.
 
-## 3.6.0 - 2026-06-26
+## 3.6.0 - 2026-06-26 (sprint 2)
 
-- **GdsDataTable keyboard navigation** (GH-333): roving grid-cell focus with Up/Down/Left/Right/Home/End traversal, `role="grid"` semantics, `aria-selected`/`aria-rowindex` per row, and `aria-live` row/column announcements.
-- **GdsSchemaForm `FileUploadField`** (GH-334): `'file-upload'` schema field type now maps JSON Schema `format: "binary"` / `data-url` into the governed `UploadDropzone`, supports accept/multiple/max-size/progress metadata, validates required and oversized files, and submits `File[]` payloads.
-- **VibeTheme expansion + `VibeThemePicker`** (GH-335): honey-amber `warm` lane plus the new `Athlete Gold` black-and-gold performance lane are registered in `theme-presets` and `vibe-themes`; `VibeThemePicker` renders swatch buttons for all 20 vibe presets with keyboard-accessible `role="radiogroup"` and live glow/border selection states.
-- **CI Mantine 9 matrix** (GH-336): `quality.yml` now runs `validate` across `mantine-7` and `mantine-9` with `fail-fast: false`, overriding Mantine packages to `^9` in the second leg via `npm install --no-save`.
-- **AccessGate `render-degraded-while-locked` policy** (GH-337): new `protectedContentPolicy` value renders the protected subtree with `aria-hidden` + `inert` while the gate is locked, enabling SEO-crawlable and hydration-ready degraded content surfaces.
+Two batches shipped under the 3.6.0 version number before per-batch versioning
+discipline began in 3.7.0 — kept as two dated entries, sprint 1 first, for
+historical accuracy rather than merged or renumbered.
+
+- **GdsDataTable keyboard navigation** (#333): roving grid-cell focus with Up/Down/Left/Right/Home/End traversal, `role="grid"` semantics, `aria-selected`/`aria-rowindex` per row, and `aria-live` row/column announcements.
+- **GdsSchemaForm `FileUploadField`** (#334): `'file-upload'` schema field type now maps JSON Schema `format: "binary"` / `data-url` into the governed `UploadDropzone`, supports accept/multiple/max-size/progress metadata, validates required and oversized files, and submits `File[]` payloads.
+- **VibeTheme expansion + `VibeThemePicker`** (#335): honey-amber `warm` lane plus the new `Athlete Gold` black-and-gold performance lane are registered in `theme-presets` and `vibe-themes`; `VibeThemePicker` renders swatch buttons for all 20 vibe presets with keyboard-accessible `role="radiogroup"` and live glow/border selection states.
+- **CI Mantine 9 matrix** (#336): `quality.yml` now runs `validate` across `mantine-7` and `mantine-9` with `fail-fast: false`, overriding Mantine packages to `^9` in the second leg via `npm install --no-save`.
+- **AccessGate `render-degraded-while-locked` policy** (#337): new `protectedContentPolicy` value renders the protected subtree with `aria-hidden` + `inert` while the gate is locked, enabling SEO-crawlable and hydration-ready degraded content surfaces.
 
 ## 3.6.0 - 2026-06-26 (sprint 1)
 
-- **`/ai` route** (GH-327): live playground page at `/ai` surfacing `llms.txt`, install steps, drop-in `AGENTS.md`/`CLAUDE.md` templates, non-negotiable agent rules, and a "Design with GDS in Claude Design" entry point. Registered in locale-coverage and gds-adoption governance contracts; all 9 locale packs covered.
-- **10 Claude Design previews** (GH-328): hand-authored `.design-sync/previews/` for the 10 ClassScout components shipped in 3.5.0 — `BottomTabBar`, `SearchableSelect`, `FitScoreChip`, `ChatThread`, `ChatMessage`, `ChatInput`, `StreamingIndicator`, `MeaningBadge`, `MediaWithFallback`, `NumberStepper`, `AISearchCard`. Pending upload to canonical Claude Design project via `/design-sync`.
-- **ClassScout integration guide** (GH-330): `docs/CLASSSCOUT_INTEGRATION.md` with install, GdsProvider bootstrap with `createBrandTheme`, and per-contract usage examples for all 10 B1–B10 gaps; drop-in `AGENTS.md`/`CLAUDE.md` for the ClassScout repo.
-- **Mantine 9 migration audit** (GH-329): `docs/MANTINE9_MIGRATION.md`; `verify:mantine` already passes Mantine 9 with no GDS code changes required.
-- Opened milestone #26 (GDS 3.6.0) and 5 backlog issues (GH-327–331).
-- Closed all 10 ClassScout issues (GH-316–325) with 3.5.0 delivery notes; closed milestone #25.
+- **`/ai` route** (#327): live playground page at `/ai` surfacing `llms.txt`, install steps, drop-in `AGENTS.md`/`CLAUDE.md` templates, non-negotiable agent rules, and a "Design with GDS in Claude Design" entry point. Registered in locale-coverage and gds-adoption governance contracts; all 9 locale packs covered.
+- **10 Claude Design previews** (#328): hand-authored `.design-sync/previews/` for the 10 ClassScout components shipped in 3.5.0 — `BottomTabBar`, `SearchableSelect`, `FitScoreChip`, `ChatThread`, `ChatMessage`, `ChatInput`, `StreamingIndicator`, `MeaningBadge`, `MediaWithFallback`, `NumberStepper`, `AISearchCard`. Pending upload to canonical Claude Design project via `/design-sync`.
+- **ClassScout integration guide** (#330): `docs/CLASSSCOUT_INTEGRATION.md` with install, GdsProvider bootstrap with `createBrandTheme`, and per-contract usage examples for all 10 B1–B10 gaps; drop-in `AGENTS.md`/`CLAUDE.md` for the ClassScout repo.
+- **Mantine 9 migration audit** (#329): `docs/MANTINE9_MIGRATION.md`; `verify:mantine` already passes Mantine 9 with no GDS code changes required.
+- Opened milestone #26 (GDS 3.6.0) and 5 backlog issues (#327-331).
+- Closed all 10 ClassScout issues (#316-325) with 3.5.0 delivery notes; closed milestone #25.
 
 ## 3.5.0 - 2026-06-21
 
-- ClassScout pure-GDS unblock (issues GH-316–GH-325): closed the 10 gaps required for consumers to ship on pure GDS with no app-level forks.
-  - `gds-theme`: `createBrandTheme({ brandColors, fonts })` plus a brand-named semantic token layer (`brand.primary`, `bg.page`, `text.*`, `price`, `state.*`) emitted as `--gds-*` variables on top of the governed token graph, with WCAG-AA contrast enforcement (GH-316).
-  - `gds-core`: `'bottom-tab'` mobile navigation mode + `BottomTabBar` (safe-area aware, raised center action) for `PublicShell`/`DiscoveryShell` (GH-317); `SearchableSelect` combobox with async/grouped options and full keyboard a11y (GH-318); `FitScoreChip` (GH-319); `ListingCard` `reason`/`score`/`actions` composition slots (GH-320); conversation surface `ChatThread`/`ChatMessage`/`ChatInput`/`StreamingIndicator` (GH-321); `MeaningBadge` distinct from `StatusBadge` (GH-322); `MediaWithFallback` resilient media (GH-323); `NumberStepper` (GH-324); `AISearchCard` governed assistant-entry pattern (GH-325).
+- ClassScout pure-GDS unblock (issues #316–#325): closed the 10 gaps required for consumers to ship on pure GDS with no app-level forks.
+  - `gds-theme`: `createBrandTheme({ brandColors, fonts })` plus a brand-named semantic token layer (`brand.primary`, `bg.page`, `text.*`, `price`, `state.*`) emitted as `--gds-*` variables on top of the governed token graph, with WCAG-AA contrast enforcement (#316).
+  - `gds-core`: `'bottom-tab'` mobile navigation mode + `BottomTabBar` (safe-area aware, raised center action) for `PublicShell`/`DiscoveryShell` (#317); `SearchableSelect` combobox with async/grouped options and full keyboard a11y (#318); `FitScoreChip` (#319); `ListingCard` `reason`/`score`/`actions` composition slots (#320); conversation surface `ChatThread`/`ChatMessage`/`ChatInput`/`StreamingIndicator` (#321); `MeaningBadge` distinct from `StatusBadge` (#322); `MediaWithFallback` resilient media (#323); `NumberStepper` (#324); `AISearchCard` governed assistant-entry pattern (#325).
   - All new UI consumes GDS tokens, is keyboard- and screen-reader-accessible, and is registered in the pattern export/API-docs coverage registries.
 - Added an AI-agent integration layer so GDS is consumable by Claude, Claude Code, Cursor, Copilot, and any LLM tool: `llms.txt` (universal machine-readable entry point), `docs/AI_AGENT_GUIDE.md`, and a "Use with AI" quick-start in the README.
 - Added drop-in repo rule templates `TEMPLATES/AGENTS.md.template` (cross-tool `AGENTS.md` standard) and `TEMPLATES/CLAUDE.md.template` so consuming repos make every agent session build with GDS automatically.

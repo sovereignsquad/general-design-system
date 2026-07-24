@@ -47,7 +47,7 @@ Never nest a second `GdsProvider` or add a parallel Mantine `MantineProvider`. `
 
 ## B1 — Class USA brand theme (`createBrandTheme('class-usa')`)
 
-GH-316 · `@sovereignsquad/gds-theme`
+#316 · `@sovereignsquad/gds-theme`
 
 ```tsx
 import { createBrandTheme } from '@sovereignsquad/gds-theme';
@@ -110,7 +110,7 @@ import {
 
 ## B2 — Mobile bottom-tab navigation (`BottomTabBar`)
 
-GH-317 · `@sovereignsquad/gds-core`
+#317 · `@sovereignsquad/gds-core`
 
 Used automatically when you pass `mobileNavigationMode="bottom-tab"` to `PublicShell` or `DiscoveryShell`. Direct use:
 
@@ -137,7 +137,7 @@ Max 5 items. The `emphasizedItemId` renders the raised center-action button. `hi
 
 ## B3 — Conversation surface (`ChatThread` / `ChatMessage` / `ChatInput` / `StreamingIndicator`)
 
-GH-321 · `@sovereignsquad/gds-core`
+#321 · `@sovereignsquad/gds-core`
 
 ```tsx
 import { ChatThread, type ChatMessageModel } from '@sovereignsquad/gds-core';
@@ -169,7 +169,7 @@ Embed `ListingCard` or any GDS surface in `message.cards[]` — up to `maxEmbedd
 
 ## B4 — Searchable select / combobox (`SearchableSelect`)
 
-GH-318 · `@sovereignsquad/gds-core`
+#318 · `@sovereignsquad/gds-core`
 
 ```tsx
 import { SearchableSelect } from '@sovereignsquad/gds-core';
@@ -203,7 +203,7 @@ Stale async responses are discarded automatically. The `group` field clusters op
 
 ## B5 — Fit-score chip (`FitScoreChip`)
 
-GH-319 · `@sovereignsquad/gds-core`
+#319 · `@sovereignsquad/gds-core`
 
 ```tsx
 import { FitScoreChip } from '@sovereignsquad/gds-core';
@@ -233,7 +233,7 @@ Color is deterministic from score band — but meaning is always conveyed by tex
 
 ## B6 — AI listing card slots (`ListingCard` reason / score / actions)
 
-GH-320 · `@sovereignsquad/gds-core`
+#320 · `@sovereignsquad/gds-core`
 
 ```tsx
 import { ListingCard, FitScoreChip, SemanticButton } from '@sovereignsquad/gds';
@@ -267,7 +267,7 @@ import { ListingCard, FitScoreChip, SemanticButton } from '@sovereignsquad/gds';
 
 ## B7 — Meaning badges (`MeaningBadge`)
 
-GH-322 · `@sovereignsquad/gds-core`
+#322 · `@sovereignsquad/gds-core`
 
 Distinct from `StatusBadge` (system status). Use for editorial/brand labels:
 
@@ -286,7 +286,7 @@ Variants map to brand tokens; meaning is always conveyed by label text, not colo
 
 ## B8 — Resilient card media (`MediaWithFallback`)
 
-GH-323 · `@sovereignsquad/gds-core`
+#323 · `@sovereignsquad/gds-core`
 
 ```tsx
 import { MediaWithFallback } from '@sovereignsquad/gds-core';
@@ -306,7 +306,7 @@ Never collapses to null — always reserves the aspect-ratio box. Fires `onError
 
 ## B9 — Number stepper (`NumberStepper`)
 
-GH-324 · `@sovereignsquad/gds-core`
+#324 · `@sovereignsquad/gds-core`
 
 ```tsx
 import { NumberStepper } from '@sovereignsquad/gds-core';
@@ -329,7 +329,7 @@ Keyboard: Arrow keys step, Home/End jump to bounds. Disables the relevant button
 
 ## B10 — AI search card (`AISearchCard`)
 
-GH-325 · `@sovereignsquad/gds-core`
+#325 · `@sovereignsquad/gds-core`
 
 Governed assistant-entry surface — search input + BETA badge + prompt chips:
 

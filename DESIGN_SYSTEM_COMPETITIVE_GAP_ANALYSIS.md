@@ -1,7 +1,9 @@
 # Design System Competitive Gap Analysis
 
-Status: Active reference — roadmap input (not an implementation commitment)
-Last updated: 2026-07-23
+Status: Active reference — roadmap input (not an implementation commitment).
+Canonical roadmap doc as of 2026-07-24 (housekeeping issue #406); superseded
+GDS_GAP_INVENTORY.md is archived — see that file for a pointer here.
+Last updated: 2026-07-24
 Tracking issue: #386 (P0/P1/P2 delivery batch tracked in #387-#398)
 
 This document compares GDS's current theme foundation, layout primitives, and
@@ -62,17 +64,21 @@ implementation.
 
 ### P0 — highest-impact, broadly blocking
 
-1. **Date/time picker & calendar.** `GdsSchemaForm`'s schema adapters
+1. **Date/time picker & calendar.** ~~`GdsSchemaForm`'s schema adapters
    (`jsonSchemaToGdsFormSchema`, `openApiToGdsFormSchema`,
    `zodToGdsFormSchema`) already infer a `date` field type from
-   `format: 'date'`, but there is **no backing UI component** — `@mantine/dates`
-   isn't even a dependency anywhere in the monorepo. Every system surveyed
-   (Material, Fluent, Carbon, Ant Design, Polaris, Spectrum, Chakra) ships
-   one. This is the single most concrete, verifiable hole found.
-2. **Standalone `Breadcrumbs` component.** Currently folded only into
+   `format: 'date'`, but there is no backing UI component — `@mantine/dates`
+   isn't even a dependency anywhere in the monorepo.~~ **Resolved** (issue
+   #389): `GdsDateInput`/`GdsDateTimeInput`/`GdsDateRangeInput` wrap
+   `@mantine/dates` behind a fully GDS-owned prop contract (no vendor type
+   leakage — see `verify-public-types-boundary.mjs`), now backing
+   `GdsSchemaForm`'s `date` field type and live-demoed in the Forms pattern.
+2. **Standalone `Breadcrumbs` component.** ~~Currently folded only into
    `PageHeader`/`WorkspaceHeader`/`DocsPageShell` — no independently
-   exported, reusable primitive. Polaris, Carbon, Ant Design, Atlassian all
-   ship this as a first-class nav component.
+   exported, reusable primitive.~~ **Resolved** (issue #390): `GdsBreadcrumbs`
+   ships as an independently exported, reusable primitive with its own
+   labeled `<nav>` landmark, and `DocsPageShell` now composes it internally
+   instead of duplicating breadcrumb rendering.
 3. **z-index / stacking-layer token scale.** ~~No `--gds-z-*` scale exists.~~
    **Resolved** (issue #391): rather than publishing a competing scale, GDS
    now documents and defers to Mantine's own already-shipped
@@ -220,3 +226,51 @@ When any P0/P1/P2 item here is picked up for real implementation:
 3. Follow the existing sequencing pattern used for prior GDS feature work
    (dependency governance amendment → core implementation → accessibility/
    i18n verification → docs/changelog) rather than shipping silently.
+
+## 5. Appendix — theme-family coverage gaps (migrated from GDS_GAP_INVENTORY.md)
+
+This section is distinct in kind from Sections 1-2 above: those compare GDS's
+*component/pattern catalog* against external design systems. This appendix
+instead tracks **theme-family variation** GDS's own token/theme architecture
+does not yet define a canonical shared contract for, surfaced from real
+consumer-project refactors (evidence links below), not competitive benchmarking.
+Definitions: **not covered** = no SSOT contract exists yet; **partially
+covered** = rulebooks mention the family generically but no reusable
+package-level primitive exists.
+
+1. **Provider-branded auth themes** — `not covered`. `AuthShell` doesn't define
+   a canonical rule for how third-party/provider brand colors coexist with
+   Mantine token authority. Evidence: `PROJECTS/SSO_MANTINE_REFACTOR.md#L43`,
+   `PROJECTS/AMANOBA_MANTINE_REFACTOR.md#L173`.
+2. **White-label / tenant / organization theme variation** — `not covered`.
+   GDS requires one token authority per product but doesn't define controlled
+   per-tenant/per-org branding variation. Evidence:
+   `PROJECTS/SSO_MANTINE_REFACTOR.md#L184`,
+   `PROJECTS/MESSMASS_MANTINE_REFACTOR.md#L131`.
+3. **Reporting / analytics dashboard theme grammar** — `partially covered`.
+   Metric cards and dashboard priority rules exist, but no full shared visual
+   grammar for reporting-heavy screens. Evidence:
+   `COMPONENTS_AND_PATTERNS.md#L19`, `PROJECTS/MESSMASS_MANTINE_REFACTOR.md#L111`,
+   `PROJECTS/KIDEX_MANTINE_REFACTOR.md#L49`.
+4. **Mixed-mode preview/editor theme exception** — `not covered`. Foundation
+   allows preview/editor exceptions to the "one active mode" rule, but no
+   reusable contract defines their behavior. Evidence: `FOUNDATION.md#L55`.
+5. **Editorial / docs shell theme variant** — `partially covered`. Article/docs
+   shells are covered generically but no shared package-level article/docs
+   theme implementation exists. Evidence: `COMPONENTS_AND_PATTERNS.md#L67`,
+   `PROJECTS/NARIMATO.md#L61`, `PROJECTS/SSO_MANTINE_REFACTOR.md#L43`.
+6. **Game / immersive full-viewport theme chrome** — `not covered`. No
+   immersive/gameplay theme contract exists. Evidence:
+   `PROJECTS/AMANOBA_MANTINE_REFACTOR.md#L169`, `PROJECTS/NARIMATO.md#L66`.
+7. **Certificate / OG / email rendering palettes** — `not covered`. Treated as
+   exceptions with no shared palette contract. Evidence:
+   `PROJECTS/AMANOBA_MANTINE_REFACTOR.md#L170-171`.
+8. **Chart / map / embed theming rules** — `not covered`. Charts/maps/embeds
+   are allowed as exceptions but GDS doesn't define how their colors align
+   with Mantine tokens. Evidence: `PROJECTS/CLASSSCOUT_MANTINE_REFACTOR.md#L198`,
+   `PROJECTS/AMANOBA_MANTINE_REFACTOR.md#L174`, `PROJECTS/MESSMASS_MANTINE_REFACTOR.md#L63`.
+
+These are lower-urgency than the P0/P1/P2 catalog gaps above (narrower,
+consumer-specific theme-variation needs rather than missing components) and
+are not yet prioritized — listed here so the evidence trail isn't lost, not
+as a commitment to build any of them next.
