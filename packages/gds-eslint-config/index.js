@@ -74,6 +74,61 @@ function createRules(options = {}) {
       };
     },
   },
+  'require-exported-jsdoc': {
+    meta: {
+      type: 'suggestion',
+      docs: {
+        description: 'Require a JSDoc comment on top-level exported components, hooks, and functions.',
+      },
+      schema: [],
+      messages: {
+        missingJsdoc: 'Exported {{kind}} "{{name}}" needs a JSDoc comment explaining what it does and when to use it.',
+      },
+    },
+    create(context) {
+      const filename = context.filename ?? '';
+      if (shouldIgnoreFile(filename) || /\.test\.[jt]sx?$/.test(filename)) {
+        return {};
+      }
+
+      const sourceCode = context.sourceCode ?? context.getSourceCode();
+
+      const hasLeadingJsdoc = (node) => {
+        const comments = sourceCode.getCommentsBefore(node);
+        const last = comments[comments.length - 1];
+        return Boolean(last && last.type === 'Block' && last.value.startsWith('*'));
+      };
+
+      const checkDeclaration = (node, kind, name) => {
+        if (!name || !hasLeadingJsdoc(node)) {
+          if (name) {
+            context.report({ node, messageId: 'missingJsdoc', data: { kind, name } });
+          }
+        }
+      };
+
+      return {
+        ExportNamedDeclaration(node) {
+          const decl = node.declaration;
+          if (!decl) return;
+
+          if (decl.type === 'FunctionDeclaration') {
+            checkDeclaration(node, 'function', decl.id?.name);
+          } else if (decl.type === 'ClassDeclaration') {
+            checkDeclaration(node, 'class', decl.id?.name);
+          } else if (decl.type === 'TSInterfaceDeclaration') {
+            checkDeclaration(node, 'interface', decl.id?.name);
+          } else if (decl.type === 'VariableDeclaration') {
+            for (const declarator of decl.declarations) {
+              if (declarator.id?.type === 'Identifier') {
+                checkDeclaration(node, 'export', declarator.id.name);
+              }
+            }
+          }
+        },
+      };
+    },
+  },
   'no-forbidden-ui-imports': {
     meta: {
       type: 'problem',
@@ -123,7 +178,7 @@ export function resolveAllowedImports(manifest = {}) {
 
 export function createGdsConfig(options = {}) {
   const rules = createRules(options);
-  return [
+  const config = [
     {
       plugins: {
         gds: {
@@ -139,6 +194,22 @@ export function createGdsConfig(options = {}) {
       },
     },
   ];
+
+  // Opt-in only: not enabled by default yet. Turning this on repo-wide today
+  // would fail the zero-tolerance lint gate against the ~891 currently
+  // undocumented public exports found by the JSDoc backfill audit (issue
+  // #414). A consuming package's own eslint.config.js can enable it early,
+  // scoped to files it has already backfilled, via `jsdocFiles`.
+  if (options.enforceExportedJsdoc) {
+    config.push({
+      files: options.jsdocFiles ?? ['**/*.{ts,tsx}'],
+      rules: {
+        'gds/require-exported-jsdoc': 'error',
+      },
+    });
+  }
+
+  return config;
 }
 
 export const gdsConfig = createGdsConfig();

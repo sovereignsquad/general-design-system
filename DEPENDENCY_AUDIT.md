@@ -73,6 +73,34 @@ Operational behavior:
 - Recheck monthly or when Next/tsup publish a patched nested PostCSS dependency graph.
 - Remove this exception once `npm audit --json` no longer reports the advisory through either path.
 
+## Staleness & Deprecation Sweep (added 2026-07-24, housekeeping issue #406)
+
+`scripts/generate-dependency-risk-report.mjs` now also records an
+`npm outdated`-derived staleness snapshot and a deprecation check
+(`npm view <pkg> deprecated`) in `dependency-risk-report.json`'s `staleness`
+field, run as part of `audit:dependencies`. This is deliberately
+**warn-and-record, not release-blocking** — flipping every outdated or
+soft-deprecated dependency into a hard gate overnight would create an
+unplannable cascade of forced upgrades. Findings are triaged here, by hand,
+after each sweep; only a specific triaged item ever becomes a hard
+requirement (tracked as its own dedicated issue, never a blanket policy
+change to this file).
+
+First sweep (2026-07-24): 28 outdated packages, 0 deprecated packages found.
+Disposition for the 13 packages with a newer major version available:
+
+| Package(s) | Disposition | Reason |
+|---|---|---|
+| `@mantine/core`, `@mantine/dates`, `@mantine/hooks`, `@mantine/modals`, `@mantine/notifications` (7.17.8 → 9.4.2) | Tracked, no action | Intentional multi-version support lane — `verify:mantine` already smoke-tests Mantine 7/8/9 compatibility on every release; this is the CI matrix working as designed, not staleness. |
+| `react`, `react-dom` (18.3.1 → 19.2.8) | Tracked, no action | React 18 is a deliberately supported compatibility lane per `compatibility.matrix.json`; same category as Mantine above. |
+| `next` (15.5.21 → 16.2.11) | Accepted, review at next sweep | Dev-only reference-fixture dependency (`apps/reference-next`), not a published runtime dependency; already carries its own accepted-advisory entries above. |
+| `typescript` (5.9.3 → 7.0.2) | Accepted, review at next sweep | Tooling-only; no known compatibility blocker identified yet, but a major TS upgrade warrants its own dedicated verification pass rather than a routine bump. |
+| `@babel/core` (7.29.7 → 8.0.1), `@testing-library/jest-dom` (6.9.1 → 7.0.0), `@types/node` (24.13.3 → 26.1.1), `jsdom` (26.1.0 → 29.1.1) | Accepted, review at next sweep | Dev/test tooling only, no runtime exposure; routine upgrades deferred to avoid unrelated churn in this housekeeping batch. |
+
+Owner: GDS platform. Review cadence: re-run `npm run audit:dependencies` and
+re-triage this table at least once per minor release, or sooner if a
+deprecation notice appears (`staleness.deprecatedPackages` non-empty).
+
 ## Resolved During 3.0.7
 
 - `vitest` was upgraded from `3.2.4` to `4.1.8`, resolving GHSA-5xrq-8626-4rwp for the local test runner.

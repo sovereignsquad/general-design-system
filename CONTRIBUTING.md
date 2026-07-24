@@ -60,6 +60,34 @@ Before merging shared package changes, run:
 
 If a change affects root composition, shared copy, or exported component behavior, the change should include or update automated tests unless there is a documented reason it cannot.
 
+## Comment & Documentation Conventions
+
+- **Issue references.** Use bare `#NNN` (GitHub's native auto-linking format)
+  in comments, CHANGELOG entries, and doc prose — not `GH-NNN` or other
+  variants. **Exception:** inside any `.js`/`.jsx`/`.ts`/`.tsx` file under
+  `apps/*` (the consumer-surface apps `gds-compliance`'s `strict.raw-color`
+  rule scans for raw hex color literals), do **not** write a bare `#NNN`
+  issue reference — every digit `0-9` is also a valid hex character, so a
+  3-8 digit issue number immediately after `#` is indistinguishable from a
+  CSS hex color literal (`#316` reads as valid 3-digit hex shorthand) and
+  will fail `verify:release`'s compliance gate. In those files, write
+  `issue NNN` (no `#`) instead. `.md` files are never scanned by this rule
+  and may always use bare `#NNN`.
+- **JSDoc.** Every symbol re-exported from a package's public entry point
+  (`index.ts`, `client.ts`, `server.ts`) — components, hooks, and exported
+  utility functions — must carry a JSDoc comment explaining what it does and
+  when to use it (one paragraph is enough; see `GdsBreadcrumbs.tsx` or
+  `GdsDensity.tsx` for the target style). Internal helpers, `.test.tsx`
+  files, and demo/story code are exempt. This is enforced by
+  `eslint-plugin-jsdoc`'s `require-jsdoc` rule, scoped to exported
+  declarations only, in `@sovereignsquad/gds-eslint-config`.
+- **File-header comments are not required.** This codebase has never
+  consistently used them (many long-standing files, e.g. `Typography.tsx`,
+  have none) and retrofitting one everywhere would be pure diff churn with
+  no functional payoff. Don't add one to a file you're not otherwise
+  touching; feel free to add a short one to a file you are touching for
+  another reason, if it genuinely helps orient a reader.
+
 ## Recommended Commit Scopes
 
 - `foundation` (Changes to tokens, accessibility, Mantine baseline)

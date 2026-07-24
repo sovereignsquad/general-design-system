@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.8.0
-Last updated: 2026-06-30
+Last updated: 2026-07-24
 
 Schema forms turn existing contracts into governed GDS form models. Use them when a product already has JSON Schema, OpenAPI, or Zod contracts and needs predictable labels, required state, validation, i18n keys, and accessibility wiring.
 
@@ -76,6 +76,47 @@ When `uploadAdapter` is provided, the default `file-upload` field:
     },
   }}
   onSubmit={save}
+/>
+```
+
+## Cookbook
+
+Generate and render a form directly from a JSON Schema object:
+
+```tsx
+const { schema } = jsonSchemaToGdsFormSchema({
+  title: 'Profile',
+  type: 'object',
+  required: ['email'],
+  properties: {
+    email: { type: 'string', format: 'email', title: 'Email address' },
+    startDate: { type: 'string', format: 'date', title: 'Start date' },
+    role: { type: 'string', enum: ['Admin', 'Editor'] },
+  },
+}, { id: 'profile' });
+
+<GdsSchemaForm schema={schema!} onSubmit={saveProfile} />
+```
+
+Generate a form from an OpenAPI request-body schema:
+
+```tsx
+const { schema } = openApiToGdsFormSchema(openApiDocument, { schemaName: 'Venue' });
+
+<GdsSchemaForm schema={schema!} onSubmit={saveVenue} />
+```
+
+Override a renderer-required field (arrays, `$ref`, `oneOf`/`anyOf`) rather
+than letting it block submission — must still use GDS components, not a
+route-local visual system:
+
+```tsx
+<GdsSchemaForm
+  schema={schema!}
+  onSubmit={saveGallery}
+  renderers={{
+    gallery: ({ field }) => <UploadDropzone aria-label={field.label} />,
+  }}
 />
 ```
 

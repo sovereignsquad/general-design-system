@@ -53,6 +53,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Governance & Migration**: [GOVERNANCE_AND_ADOPTION.md](GOVERNANCE_AND_ADOPTION.md) — Strict rules on how projects must adopt the system, review PRs, and deprecate old code.
 - **Adoption & Migration Playbook**: [ADOPTION_AND_MIGRATION_PLAYBOOK.md](ADOPTION_AND_MIGRATION_PLAYBOOK.md) — The canonical step-by-step path from local mirrors or legacy UI systems to direct `@sovereignsquad/gds` or granular `@sovereignsquad/gds-*` package consumption.
 - **Compatibility & Releases**: [COMPATIBILITY_AND_RELEASES.md](COMPATIBILITY_AND_RELEASES.md) — Supported Mantine/React/Next ranges, subpath exports, version alignment, and upgrade expectations.
+- **Case Study — ClassScout**: [docs/CASE_STUDY_CLASSSCOUT.md](docs/CASE_STUDY_CLASSSCOUT.md) — How a real consumer integration's 10 blocking gaps became 10 governed, reusable GDS components instead of app-local one-offs.
 - **Dependency Governance**: [DEPENDENCY_GOVERNANCE.md](DEPENDENCY_GOVERNANCE.md) — React, Mantine, and Tabler dependency classes, import boundaries, exception lifecycle, compatibility gates, and risk reporting.
 - **Installation Guide**: [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) — The canonical production install path, runtime bootstrap, verification sequence, and common setup mistakes for consumers.
 - **Release Publish Runbook**: [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) — Authenticated npm publish flow, dry-run command, and recovery guidance.

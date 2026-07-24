@@ -40,6 +40,22 @@ jobs:
         run: npm run build --workspace=@sovereignsquad/gds-admin
       - name: Build Playground
         run: npm run build --workspace=playground
+      - name: Verify Pages content gate
+        # Fast, Pages-specific sanity gate before deploying to production.
+        # Deliberately NOT the full `verify:release` — the sibling `GDS
+        # Quality` workflow already runs that on every push to `main` (in
+        # parallel, not as a dependency of this workflow), so duplicating it
+        # here would double CI cost for no new signal. This subset instead
+        # targets what's specific to the live site: it builds/lints/tests,
+        # confirms the component catalog is still complete, and checks for
+        # known legacy-link regressions and required trust-page content.
+        run: |
+          npm run lint --workspace=playground
+          npx vitest run apps/playground
+          node scripts/verify-component-catalog-parity.mjs
+          node scripts/verify-playground-internal-links.mjs
+          node scripts/verify-playground-route-links.mjs
+          node scripts/verify-website-trust.mjs
       - name: Setup SPA Routing Fallback
         run: cp ./apps/playground/dist/index.html ./apps/playground/dist/404.html
       - name: Setup Pages
@@ -62,3 +78,19 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Post-deploy smoke check
+        # Confirms the deploy actually served, not just that upload succeeded.
+        # A few retries since Pages propagation isn't always instant.
+        run: |
+          url="${{ steps.deployment.outputs.page_url }}"
+          for attempt in 1 2 3 4 5; do
+            status=$(curl -s -o /tmp/pages-smoke.html -w '%{http_code}' "$url" || echo "000")
+            if [ "$status" = "200" ] && grep -q "What Is GDS" /tmp/pages-smoke.html; then
+              echo "Post-deploy smoke check passed (attempt $attempt, HTTP $status)."
+              exit 0
+            fi
+            echo "Attempt $attempt: HTTP $status, retrying in 10s..."
+            sleep 10
+          done
+          echo "Post-deploy smoke check failed: $url did not return HTTP 200 with expected content after 5 attempts."
+          exit 1
