@@ -73,6 +73,25 @@ Operational behavior:
 - Recheck monthly or when Next/tsup publish a patched nested PostCSS dependency graph.
 - Remove this exception once `npm audit --json` no longer reports the advisory through either path.
 
+### GHSA-r28c-9q8g-f849
+
+Owner: GDS platform
+Review date: 2026-08-24
+Scope: nested `postcss@8.4.31` reached via the same two dev-only paths as `GHSA-6g55-p6wh-862q` above — `apps/reference-next`'s `next` dependency (non-shipped App Router reference fixture) and the root `tsup` devDependency used to build the published packages
+Severity: high
+
+Reason:
+
+- The advisory ("Path Traversal in Previous Source Map Auto-Loading (sourceMappingURL) leads to Arbitrary `.map` File Disclosure") is the same PostCSS source-map class as `GHSA-6g55-p6wh-862q`: it requires PostCSS to process attacker-controlled CSS containing a malicious `sourceMappingURL`. Neither path does that — `apps/reference-next` never serves or processes untrusted CSS, and `tsup` only ever processes GDS's own first-party, repo-controlled source during the build.
+- `postcss` is a nested dev-tooling dependency in both paths, not a runtime dependency of any published `@sovereignsquad/*` package (`npm audit --omit=dev` reports zero findings) — it never ships in built package output.
+- Newly disclosed after the 3.12.0 line; surfaced here once the react-router production advisory (GHSA-qwww-vcr4-c8h2) was remediated by the React 19 / react-router 8 upgrade and stopped masking the full-audit dev findings. Forcing a nested-`postcss` override across `next`/`tsup` risks build-graph churn in the reference fixture for no shipped benefit, matching the disposition already recorded for `GHSA-6g55-p6wh-862q`.
+
+Operational behavior:
+
+- Do not ship public consumer guidance that requires `apps/reference-next` or `tsup` as a runtime dependency (already true — both are dev-only).
+- Recheck monthly or when Next/tsup publish a patched nested PostCSS dependency graph.
+- Remove this exception once `npm audit --json` no longer reports the advisory through either path.
+
 ## Staleness & Deprecation Sweep (added 2026-07-24, housekeeping issue #406)
 
 `scripts/generate-dependency-risk-report.mjs` now also records an
@@ -92,7 +111,7 @@ Disposition for the 13 packages with a newer major version available:
 | Package(s) | Disposition | Reason |
 |---|---|---|
 | `@mantine/core`, `@mantine/dates`, `@mantine/hooks`, `@mantine/modals`, `@mantine/notifications` (7.17.8 → 9.4.2) | Tracked, no action | Intentional multi-version support lane — `verify:mantine` already smoke-tests Mantine 7/8/9 compatibility on every release; this is the CI matrix working as designed, not staleness. |
-| `react`, `react-dom` (18.3.1 → 19.2.8) | Tracked, no action | React 18 is a deliberately supported compatibility lane per `compatibility.matrix.json`; same category as Mantine above. |
+| `react`, `react-dom` (18.3.1 → 19.2.7) | Upgraded (workspace runtime) | Bumped the dev/app runtime to React 19 so the playground can adopt `react-router@8` (which peer-requires React ≥19.2.7) and remediate GHSA-qwww-vcr4-c8h2 (issue #430). The published peer range stays `^18.2.0 || ^19.0.0` — React 18 remains a supported consumer lane, still validated via `verify:mantine`'s Mantine 7 + React 18 consumer-install smoke. |
 | `next` (15.5.21 → 16.2.11) | Accepted, review at next sweep | Dev-only reference-fixture dependency (`apps/reference-next`), not a published runtime dependency; already carries its own accepted-advisory entries above. |
 | `typescript` (5.9.3 → 7.0.2) | Accepted, review at next sweep | Tooling-only; no known compatibility blocker identified yet, but a major TS upgrade warrants its own dedicated verification pass rather than a routine bump. |
 | `@babel/core` (7.29.7 → 8.0.1), `@testing-library/jest-dom` (6.9.1 → 7.0.0), `@types/node` (24.13.3 → 26.1.1), `jsdom` (26.1.0 → 29.1.1) | Accepted, review at next sweep | Dev/test tooling only, no runtime exposure; routine upgrades deferred to avoid unrelated churn in this housekeeping batch. |

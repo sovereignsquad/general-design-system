@@ -65,6 +65,7 @@
     "@testing-library/user-event": "^14.6.1",
     "esbuild": "^0.28.1",
     "jsdom": "^26.1.0",
+    "react-router": "^8.3.0",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
     "vitest": "^4.1.8"

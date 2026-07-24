@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Button } from '@mantine/core';
 import { DataToolbar, FilterDrawer, MetricCard } from '@sovereignsquad/gds-core';
 import { renderWithGds } from '../../../test-utils/render';

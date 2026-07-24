@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Navigate, Route, Routes, useLocation } from 'react-router';
 import {
   GdsProvider,
   useGdsTranslation,
