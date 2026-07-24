@@ -53,6 +53,8 @@ try {
           '@mantine/hooks': '8.3.6',
           '@mantine/modals': '8.3.6',
           '@mantine/notifications': '8.3.6',
+          '@mantine/dates': '8.3.6',
+          dayjs: '1.11.21',
           '@tabler/icons-react': '3.35.0',
           '@types/node': '24.10.1',
           '@types/react': '19.2.2',
