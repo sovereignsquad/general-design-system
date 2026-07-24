@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.12.0
-Last updated: 2026-07-23
+Last updated: 2026-07-24
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 
@@ -33,6 +33,11 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 6. **Adopt & Migrate**: Use [GOVERNANCE_AND_ADOPTION.md](GOVERNANCE_AND_ADOPTION.md) to understand how to correctly implement this system in a new or legacy codebase, including the required local project statement, the adoption manifest, and compliance tooling.
 7. **Run the Adoption Playbook**: Use [ADOPTION_AND_MIGRATION_PLAYBOOK.md](ADOPTION_AND_MIGRATION_PLAYBOOK.md) when converting a local mirror, a legacy UI system, or a new product to direct package consumption.
 8. **Check Compatibility & Release Rules**: Use [COMPATIBILITY_AND_RELEASES.md](COMPATIBILITY_AND_RELEASES.md) before wiring package installs, CI/Vercel builds, or framework upgrades.
+
+> **Prefer to learn by building?** Follow the hands-on
+> [Tutorial: Build a CRUD Admin Screen with GDS Primitives](docs/TUTORIAL_CRUD_ADMIN_SCREEN.md)
+> to assemble a real list/detail/create/update screen from the governed resource,
+> form, table, and shell primitives, step by step.
 
 ### What You Can Find Here
 

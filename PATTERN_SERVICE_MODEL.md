@@ -15,6 +15,8 @@ This document works together with:
 - `CONTRIBUTING.md`'s "Adding a Component or Pattern" section for the concrete,
   step-by-step authoring mechanics (file layout, registration, i18n, the
   `verify:*` gates) that implement this model
+- `docs/TUTORIAL_CRUD_ADMIN_SCREEN.md` for a worked, end-to-end example of
+  composing the governed resource/form/table/shell primitives into one screen
 
 ## 1. Operating Principle
 
