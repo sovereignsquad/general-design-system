@@ -23,6 +23,7 @@ export * from './GdsDensity';
 export * from './CardContracts';
 
 // ── Layout & structural surfaces ──
+export * from './breakpoints';
 export * from './LayoutPrimitives';
 export * from './LayoutBlocks';
 export * from './AccentPanel';

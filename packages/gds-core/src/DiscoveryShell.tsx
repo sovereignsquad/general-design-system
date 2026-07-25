@@ -5,6 +5,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { AppShell as MantineAppShell, Box, Burger, Group, ScrollArea } from '@mantine/core';
 import type { MantineBreakpoint, MantineSpacing } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { gdsBreakpointByAlias } from './breakpoints';
 
 export interface DiscoveryShellState {
   opened: boolean;
@@ -114,14 +115,7 @@ export function DiscoveryShell({
   collapseBreakpoint = 'sm',
   closeMobileNavigationOnItemSelect = true,
 }: DiscoveryShellProps) {
-  const breakpointByAlias: Record<MantineBreakpoint, string> = {
-    xs: '36em',
-    sm: '48em',
-    md: '62em',
-    lg: '75em',
-    xl: '88em',
-  };
-  const isMobile = useMediaQuery(`(max-width: ${breakpointByAlias[collapseBreakpoint]})`);
+  const isMobile = useMediaQuery(`(max-width: ${gdsBreakpointByAlias[collapseBreakpoint as keyof typeof gdsBreakpointByAlias]})`);
   const shellState = useDiscoveryShellState({ defaultSidebarOpen, sidebarStorageKey, onSidebarOpenedChange });
   const opened = sidebarOpened ?? shellState.opened;
   const close = onSidebarOpenedChange ? () => onSidebarOpenedChange(false) : shellState.close;

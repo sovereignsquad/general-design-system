@@ -1,7 +1,7 @@
 # Responsive & Platform Guidance — Size Classes, Multi-Screen, PWA
 
 Status: Active SSOT
-Version: 3.14.2
+Version: 3.14.3
 Last updated: 2026-07-25
 
 This is GDS's answer to three questions the audit surfaced (issue #455): *what does GDS guarantee across screen sizes and device types, does it support multi-screen / PWA, and what are the per-screen best practices?* It also records the **explicit scope decisions** — build vs. documented non-goal — for the areas that need one, so consumers can plan around a stated position rather than an implicit gap.
@@ -22,7 +22,7 @@ GDS adopts a small, named **size-class vocabulary** so guidance and code talk ab
 
 **Rule:** reach for a size class, not a raw media query. GDS primitives resolve these internally (e.g. `useGdsKanbanOrientation` stacks columns at `compact` portrait and goes multi-column otherwise; `DiscoveryShell` collapses its rail at a chosen breakpoint). Consumers should compose GDS responsive primitives and the layout components in [`LAYOUT_PRIMITIVES.md`](LAYOUT_PRIMITIVES.md) rather than hand-rolling breakpoints.
 
-> **Known consolidation (tracked):** the internal `breakpointByAlias` alias→width map is currently duplicated in `KanbanBoard` and `DiscoveryShell`. Promoting it to one shared, exported size-class token is filed as a follow-up (see [Child issues](#child-issues-filed)); until then, the table above is the single documented source of truth.
+> **Single source of truth:** the alias→width map above is exported as **`gdsBreakpointByAlias`** from `@sovereignsquad/gds-core` (the one map `KanbanBoard`/`useGdsKanbanOrientation` and `DiscoveryShell` resolve against). Consumers building custom responsive chrome should import it rather than hard-coding pixel breakpoints.
 
 ## Per-screen-size best practices
 
@@ -77,7 +77,7 @@ Do/don't visual pairs, a recipes/templates gallery, wider prose-doc localization
 
 Per the epic's "split into child issues as each is picked up" guidance, the concrete **build** decisions above are filed as their own tracked issues:
 
-- **#457** — consolidate the duplicated `breakpointByAlias` into one shared size-class token.
+- **#457** — consolidate the duplicated `breakpointByAlias` into one shared size-class token. ✅ **Delivered** as the exported `gdsBreakpointByAlias` (see [Single source of truth](#named-size-classes) above).
 - **#458** — PWA thin build: web-app-manifest helper, `display-mode: standalone` detection, and `env(safe-area-inset-*)` safe-area tokens (with service-worker/offline and install-prompt UX kept as explicit non-goals).
 - **#459** — screen-organized case studies + a foldable/dual-screen (`viewport-segments`) exploration.
 

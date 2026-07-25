@@ -2,6 +2,10 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.3 - 2026-07-25 — Shared `gdsBreakpointByAlias` size-class helper
+
+- **`gdsBreakpointByAlias` public helper** (#457): the breakpoint alias→width map (`{ xs: 36em, sm: 48em, md: 62em, lg: 75em, xl: 88em }`) was duplicated inside `KanbanBoard` (`useGdsKanbanOrientation`) and `DiscoveryShell`. It is now a single exported `gdsBreakpointByAlias` from `@sovereignsquad/gds-core`, consumed by both — one source of truth aligned with the named size-class vocabulary in `docs/RESPONSIVE_AND_PLATFORM_GUIDANCE.md`. Additive and backward compatible: existing behavior is unchanged; consumers building custom responsive chrome can now resolve the same governed widths instead of hard-coding pixel breakpoints. `verify:token-contrast-scoring` (#456) also joined the release chain in this line — real per-token-pair WCAG scoring of the readable-text fg/bg pairs across all shipped themes — though it added no consumer-facing behavior.
+
 ## 3.14.2 - 2026-07-25 — Forced-colors hardening for themed surfaces + widened forced-colors gate coverage (3.14.0 quality follow-up)
 
 Quality follow-up to the 3.14.0 primitives (epic #440, group A). This closes the theme half of #445 by fixing a real forced-colors accessibility bug that the widened gate coverage surfaced.

@@ -1,7 +1,7 @@
 # Design Tokens — W3C DTCG Export
 
 Status: Active SSOT
-Version: 3.14.2
+Version: 3.14.3
 Last updated: 2026-07-25
 
 GDS publishes its design tokens in the **W3C Design Tokens Community Group (DTCG)** format so they can be consumed by Figma variables, [Style Dictionary](https://styledictionary.com/) v4, Tokens Studio, and other platform tooling — not only by the Mantine-native runtime (issue #452).

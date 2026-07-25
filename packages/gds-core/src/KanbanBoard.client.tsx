@@ -21,6 +21,7 @@ import {
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GdsIcon } from './icons';
+import { gdsBreakpointByAlias } from './breakpoints';
 
 export interface KanbanItem {
   id: string;
@@ -54,14 +55,6 @@ export interface KanbanColumnData<TItem extends KanbanItem = KanbanItem> {
 
 export type KanbanOrientation = 'stacked' | 'columns';
 
-const breakpointByAlias: Record<MantineBreakpoint, string> = {
-  xs: '36em',
-  sm: '48em',
-  md: '62em',
-  lg: '75em',
-  xl: '88em',
-};
-
 export interface UseGdsKanbanOrientationOptions {
   /**
    * Width, at or below which a portrait viewport is treated as "mobile" (1-column stacked).
@@ -80,7 +73,7 @@ export function useGdsKanbanOrientation({
   stackedBreakpoint = 'xs',
 }: UseGdsKanbanOrientationOptions = {}): KanbanOrientation {
   const isPortrait = useMediaQuery('(orientation: portrait)');
-  const isNarrow = useMediaQuery(`(max-width: ${breakpointByAlias[stackedBreakpoint]})`);
+  const isNarrow = useMediaQuery(`(max-width: ${gdsBreakpointByAlias[stackedBreakpoint as keyof typeof gdsBreakpointByAlias]})`);
   return isPortrait && isNarrow ? 'stacked' : 'columns';
 }
 
