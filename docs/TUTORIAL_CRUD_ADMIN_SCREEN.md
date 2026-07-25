@@ -136,6 +136,10 @@ the `onSubmit` handler.
 > `createGdsFormFromSchema(source, { adapter: 'json-schema' | 'openapi' | 'zod' })`
 > to generate the `GdsFormSchema` instead of writing `fields` by hand.
 
+> Need a grouped multi-select or a repeatable "add another row of N fields" section?
+> Use the `checkbox-group` and `repeatable` field types (#437) instead of dropping to
+> plain Mantine — see [`docs/SCHEMA_FORMS.md`](SCHEMA_FORMS.md#grouped-and-repeatable-fields-437).
+
 ---
 
 ## Step 3 — Wire the list/detail surface with `GdsResourceManager`

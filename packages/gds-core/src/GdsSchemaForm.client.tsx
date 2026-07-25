@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { Button, Stack, Text } from '@mantine/core';
+import { Button, Group, Paper, Stack, Text } from '@mantine/core';
 import { FormField } from './FormField';
 import { GdsDateInput } from './GdsDateInput.client';
 import { GdsFormProvider, GdsValidationSummary, type GdsFormOrchestrationEvent, type ValidationIssue, ValidatedFieldMessage, useGdsFormOrchestration } from './GdsForm.client';
@@ -16,7 +16,7 @@ function toIsoDateString(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-export type GdsSchemaFieldType = 'text' | 'email' | 'url' | 'password' | 'number' | 'boolean' | 'select' | 'textarea' | 'date' | 'hidden' | 'conditional' | 'file-upload' | 'unsupported';
+export type GdsSchemaFieldType = 'text' | 'email' | 'url' | 'password' | 'number' | 'boolean' | 'select' | 'checkbox-group' | 'repeatable' | 'textarea' | 'date' | 'hidden' | 'conditional' | 'file-upload' | 'unsupported';
 
 export interface GdsFieldOption {
   label: string;
@@ -32,7 +32,18 @@ export interface GdsFieldDescriptor {
   required?: boolean;
   hidden?: boolean;
   condition?: string;
+  /** Choices for `select` and `checkbox-group` fields. */
   options?: GdsFieldOption[];
+  /** Sub-fields of a `repeatable` row group. Each row is an object keyed by these fields' names. */
+  fields?: GdsFieldDescriptor[];
+  /** Minimum rows for a `repeatable` field (also its initial row count when no `defaultValue`). */
+  minRows?: number;
+  /** Maximum rows for a `repeatable` field. */
+  maxRows?: number;
+  /** Accessible/visible label for a `repeatable` field's add-row button (default "Add row"). */
+  addRowLabel?: string;
+  /** Accessible/visible label for a `repeatable` field's remove-row button (default "Remove"). */
+  removeRowLabel?: string;
   defaultValue?: unknown;
   minLength?: number;
   maxLength?: number;
@@ -189,7 +200,9 @@ function normalizeJsonField(formId: string, name: string, source: Record<string,
   if (enumValues?.length) {
     return {
       ...base,
-      type: 'select',
+      // A schema author opts into a checkbox group over a dropdown with
+      // `x-gds-fieldType: 'checkbox-group'`; otherwise an enum renders as a select.
+      type: customType === 'checkbox-group' ? 'checkbox-group' : 'select',
       options: enumValues.map((value) => ({ label: String(value), value: String(value) })),
     };
   }
@@ -294,10 +307,25 @@ export function createGdsFormFromSchema(source: unknown, options: CreateGdsFormF
   return zodToGdsFormSchema(source, { id: options.id });
 }
 
+function scalarInitialValue(field: GdsFieldDescriptor): unknown {
+  if (field.type === 'boolean') return false;
+  if (field.type === 'checkbox-group' || field.type === 'repeatable') return [];
+  return '';
+}
+
+/** Builds one blank row for a `repeatable` field from its sub-field defaults. */
+function makeRepeatableRow(field: GdsFieldDescriptor): Record<string, unknown> {
+  return Object.fromEntries((field.fields ?? []).map((sub) => [sub.name, sub.defaultValue ?? scalarInitialValue(sub)]));
+}
+
 function getInitialValues(schema: GdsFormSchema) {
   return Object.fromEntries(schema.fields.map((field) => {
-    const fallback = field.type === 'boolean' ? false : '';
-    return [field.name, field.defaultValue ?? fallback];
+    if (field.type === 'repeatable') {
+      if (Array.isArray(field.defaultValue)) return [field.name, field.defaultValue];
+      const minRows = field.minRows ?? 0;
+      return [field.name, Array.from({ length: minRows }, () => makeRepeatableRow(field))];
+    }
+    return [field.name, field.defaultValue ?? scalarInitialValue(field)];
   }));
 }
 
@@ -312,6 +340,36 @@ function validateSchemaValues(schema: GdsFormSchema, values: Record<string, unkn
     const fileValues = Array.isArray(value) ? value : [];
     const text = String(value ?? '').trim();
     if (field.type === 'unsupported' && !renderers[field.name] && !renderers[field.type]) return [{ field: field.name, message: field.unsupportedReason ?? 'Unsupported schema field.', severity: 'blocking' as const }];
+    if (field.type === 'checkbox-group') {
+      const selected = Array.isArray(value) ? value : [];
+      if (field.required && selected.length === 0) {
+        return [{ field: field.name, message: `${field.label} requires at least one selection.`, severity: 'blocking' as const }];
+      }
+      return [];
+    }
+    if (field.type === 'repeatable') {
+      const rows = (Array.isArray(value) ? value : []) as Array<Record<string, unknown>>;
+      const minRows = field.minRows ?? (field.required ? 1 : 0);
+      const issues: ValidationIssue[] = [];
+      if (rows.length < minRows) {
+        issues.push({ field: field.name, message: `${field.label} requires at least ${minRows} row${minRows === 1 ? '' : 's'}.`, severity: 'blocking' as const });
+      }
+      if (field.maxRows !== undefined && rows.length > field.maxRows) {
+        issues.push({ field: field.name, message: `${field.label} allows at most ${field.maxRows} row${field.maxRows === 1 ? '' : 's'}.`, severity: 'blocking' as const });
+      }
+      const requiredSubFields = (field.fields ?? []).filter((sub) => sub.required);
+      const hasMissingRequired = rows.some((row) =>
+        requiredSubFields.some((sub) => {
+          const subValue = row?.[sub.name];
+          if (sub.type === 'checkbox-group') return !Array.isArray(subValue) || subValue.length === 0;
+          return subValue === undefined || subValue === null || String(subValue).trim() === '';
+        }),
+      );
+      if (hasMissingRequired) {
+        issues.push({ field: field.name, message: `${field.label} has a row with a missing required field.`, severity: 'blocking' as const });
+      }
+      return issues;
+    }
     if (field.required && field.type === 'file-upload' && fileValues.length === 0) return [{ field: field.name, message: `${field.label} is required.`, severity: 'blocking' as const }];
     if (field.required && field.type !== 'file-upload' && (value === undefined || value === null || text === '')) return [{ field: field.name, message: `${field.label} is required.`, severity: 'blocking' as const }];
     if (field.type === 'file-upload' && field.maxFileSizeBytes && fileValues.some((file) => isFileValue(file) && file.size > field.maxFileSizeBytes!)) return [{ field: field.name, message: `${field.label} contains a file larger than ${field.maxFileSizeLabel ?? `${field.maxFileSizeBytes} bytes`}.`, severity: 'blocking' as const }];
@@ -536,7 +594,159 @@ export function FileUploadField({
   );
 }
 
-function renderDefaultField({ field, value, setValue, describedBy, invalid }: GdsFieldRendererContext, options: { uploadAdapter?: GdsSchemaUploadAdapter; onEvent?: (event: GdsSchemaFormEvent) => void } = {}) {
+const visuallyHidden = {
+  position: 'absolute' as const,
+  width: 1,
+  height: 1,
+  padding: 0,
+  margin: -1,
+  overflow: 'hidden' as const,
+  clip: 'rect(0, 0, 0, 0)',
+  whiteSpace: 'nowrap' as const,
+  border: 0,
+};
+
+/**
+ * Grouped multi-select rendered as a `fieldset` of checkboxes (value is a
+ * `string[]`), distinct from the single `boolean` checkbox and the `select`
+ * dropdown. The visible group label comes from the surrounding `FormField`; a
+ * visually-hidden `legend` names the group for assistive tech.
+ */
+function CheckboxGroupField({ field, value, setValue, describedBy, invalid }: GdsFieldRendererContext) {
+  const selected = Array.isArray(value) ? (value as string[]) : [];
+  const toggle = (optionValue: string, checked: boolean) => {
+    setValue(checked ? [...selected, optionValue] : selected.filter((entry) => entry !== optionValue));
+  };
+  return (
+    <fieldset
+      data-gds-checkbox-group={field.name}
+      aria-describedby={describedBy}
+      aria-invalid={invalid || undefined}
+      style={{ border: 0, margin: 0, padding: 0, minInlineSize: 'auto' }}
+    >
+      <legend style={visuallyHidden}>{field.label}</legend>
+      <Stack gap={6}>
+        {(field.options ?? []).map((option) => {
+          const inputId = `${field.name}-${option.value}`;
+          return (
+            <label key={option.value} htmlFor={inputId} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <input
+                id={inputId}
+                type="checkbox"
+                aria-label={option.label}
+                checked={selected.includes(option.value)}
+                onChange={(event) => toggle(option.value, event.currentTarget.checked)}
+              />
+              <span>{option.label}</span>
+            </label>
+          );
+        })}
+      </Stack>
+    </fieldset>
+  );
+}
+
+interface RepeatableFieldProps extends GdsFieldRendererContext {
+  renderers: GdsFieldRendererMap;
+  uploadAdapter?: GdsSchemaUploadAdapter;
+  onEvent?: (event: GdsSchemaFormEvent) => void;
+}
+
+/**
+ * Repeatable row group: an "add another row of N fields" primitive. The value is
+ * an array of row objects keyed by the descriptor's `fields`. Each row renders
+ * its sub-fields through the same renderer path (override by sub-field name or
+ * type, else the governed default control), with governed add/remove controls,
+ * min/max bounds, focus management, and a live row-count announcement.
+ */
+function RepeatableField({ field, value, setValue, describedBy, invalid, renderers, uploadAdapter, onEvent }: RepeatableFieldProps) {
+  const rows = (Array.isArray(value) ? value : []) as Array<Record<string, unknown>>;
+  const subFields = field.fields ?? [];
+  const minRows = field.minRows ?? 0;
+  const canAdd = field.maxRows === undefined || rows.length < field.maxRows;
+  const canRemove = rows.length > minRows;
+  const addLabel = field.addRowLabel ?? 'Add row';
+  const removeLabel = field.removeRowLabel ?? 'Remove';
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const addButtonRef = useRef<HTMLButtonElement | null>(null);
+  const pendingFocus = useRef<'add' | 'remove' | null>(null);
+  const [announcement, setAnnouncement] = useState('');
+
+  useEffect(() => {
+    if (pendingFocus.current === 'add') {
+      const lastRow = containerRef.current?.querySelector(`[data-gds-repeatable-row="${rows.length - 1}"]`);
+      lastRow?.querySelector<HTMLElement>('input, select, textarea, button')?.focus();
+    } else if (pendingFocus.current === 'remove') {
+      addButtonRef.current?.focus();
+    }
+    pendingFocus.current = null;
+  }, [rows.length]);
+
+  const addRow = () => {
+    pendingFocus.current = 'add';
+    const next = [...rows, makeRepeatableRow(field)];
+    setValue(next);
+    setAnnouncement(`Row added, ${next.length} ${next.length === 1 ? 'row' : 'rows'}.`);
+  };
+  const removeRow = (index: number) => {
+    pendingFocus.current = 'remove';
+    const next = rows.filter((_, rowIndex) => rowIndex !== index);
+    setValue(next);
+    setAnnouncement(`Row removed, ${next.length} ${next.length === 1 ? 'row' : 'rows'}.`);
+  };
+  const setRowFieldValue = (index: number, name: string, next: unknown) => {
+    setValue(rows.map((row, rowIndex) => (rowIndex === index ? { ...row, [name]: next } : row)));
+  };
+
+  return (
+    <Stack gap="sm" ref={containerRef} data-gds-repeatable={field.name} aria-describedby={describedBy} aria-invalid={invalid || undefined}>
+      {rows.map((row, index) => (
+        <Paper key={index} withBorder radius="md" p="sm" data-gds-repeatable-row={index}>
+          <Stack gap="xs">
+            <Group justify="space-between" align="center" wrap="nowrap">
+              <Text size="xs" fw={600} c="dimmed">{`${field.label} ${index + 1}`}</Text>
+              <Button
+                type="button"
+                size="xs"
+                variant="subtle"
+                color="red"
+                disabled={!canRemove}
+                aria-label={`${removeLabel}: ${field.label} ${index + 1}`}
+                onClick={() => removeRow(index)}
+              >
+                {removeLabel}
+              </Button>
+            </Group>
+            {subFields.map((sub) => {
+              const subContext: GdsFieldRendererContext = {
+                field: sub,
+                value: row?.[sub.name],
+                setValue: (next) => setRowFieldValue(index, sub.name, next),
+                describedBy: `${field.name}-${index}-${sub.name}-description`,
+                invalid: false,
+              };
+              const subRenderer = renderers[sub.name] ?? renderers[sub.type];
+              return (
+                <FormField key={sub.name} label={`${sub.label}${sub.required ? ' (required)' : ''}`}>
+                  {subRenderer ? subRenderer(subContext) : renderDefaultField(subContext, { uploadAdapter, onEvent, renderers })}
+                </FormField>
+              );
+            })}
+          </Stack>
+        </Paper>
+      ))}
+      <Group>
+        <Button ref={addButtonRef} type="button" size="xs" variant="light" disabled={!canAdd} onClick={addRow}>
+          {addLabel}
+        </Button>
+      </Group>
+      <div aria-live="polite" style={visuallyHidden}>{announcement}</div>
+    </Stack>
+  );
+}
+
+function renderDefaultField({ field, value, setValue, describedBy, invalid }: GdsFieldRendererContext, options: { uploadAdapter?: GdsSchemaUploadAdapter; onEvent?: (event: GdsSchemaFormEvent) => void; renderers?: GdsFieldRendererMap } = {}) {
   const common = {
     id: field.name,
     'aria-label': field.label,
@@ -562,6 +772,23 @@ function renderDefaultField({ field, value, setValue, describedBy, invalid }: Gd
         uploadAdapter={options.uploadAdapter}
         onUploadEvent={options.onEvent}
         onChange={(files) => setValue(files)}
+      />
+    );
+  }
+  if (field.type === 'checkbox-group') {
+    return <CheckboxGroupField field={field} value={value} setValue={setValue} describedBy={describedBy} invalid={invalid} />;
+  }
+  if (field.type === 'repeatable') {
+    return (
+      <RepeatableField
+        field={field}
+        value={value}
+        setValue={setValue}
+        describedBy={describedBy}
+        invalid={invalid}
+        renderers={options.renderers ?? {}}
+        uploadAdapter={options.uploadAdapter}
+        onEvent={options.onEvent}
       />
     );
   }
@@ -652,7 +879,7 @@ export function GdsSchemaForm<TValues extends Record<string, unknown> = Record<s
               label={`${field.label}${field.required ? ' (required)' : ''}`}
               description={field.description ? <Text id={`${field.name}-description`} size="xs" c="dimmed">{field.description}</Text> : undefined}
             >
-              {renderer ? renderer(context) : renderDefaultField(context, { uploadAdapter, onEvent })}
+              {renderer ? renderer(context) : renderDefaultField(context, { uploadAdapter, onEvent, renderers })}
               <span id={`${field.name}-error`}>
                 <ValidatedFieldMessage field={field.name} />
               </span>

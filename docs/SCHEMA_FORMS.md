@@ -17,9 +17,18 @@ Schema forms turn existing contracts into governed GDS form models. Use them whe
 
 ## Support Matrix
 
-- Supported: string, email, URL, password, date, number, integer, boolean, enum/select, textarea by long `maxLength`, hidden fields, conditional-field metadata, and schema file uploads.
-- Requires renderer override: arrays, nested objects, `$ref`, `oneOf`, and `anyOf`.
+- Supported: string, email, URL, password, date, number, integer, boolean, enum/select, `checkbox-group` (grouped multi-select), `repeatable` (repeatable row group), textarea by long `maxLength`, hidden fields, conditional-field metadata, and schema file uploads.
+- Requires renderer override: nested objects, `$ref`, `oneOf`, and `anyOf`. (Enum arrays can render as a `checkbox-group`; general arrays of objects use a `repeatable` field — see below.)
 - Unsupported schema nodes produce advisory adapter issues and blocking generated-form validation until a renderer override is supplied.
+
+## Grouped and repeatable fields (#437)
+
+Two field types cover shapes that previously forced consumers to drop to plain Mantine:
+
+- **`checkbox-group`** — a grouped multi-select rendered as a `fieldset` of checkboxes, distinct from the single `boolean` checkbox and the `select` dropdown. Choices come from the field's `options`; the value is a `string[]`. `required` means at least one selection. From a JSON Schema, an `enum` renders as a `checkbox-group` (instead of a `select`) when the property carries `x-gds-fieldType: 'checkbox-group'`.
+- **`repeatable`** — an "add another row of N fields" primitive. The descriptor carries nested `fields: GdsFieldDescriptor[]`; the value is an array of row objects keyed by those sub-fields. Governed add/remove controls, `minRows`/`maxRows` bounds (`minRows` also seeds the initial row count), and per-row required-sub-field validation are built in. Sub-fields render through the same renderer path (override by sub-field name or type, else the governed default control). Add/remove buttons are labeled with row context, focus moves to the new row on add / the add button on remove, and row-count changes are announced via an `aria-live` region. `addRowLabel`/`removeRowLabel` set the button copy. `repeatable` is intended for hand-authored descriptors; the JSON Schema/OpenAPI/Zod adapters do not auto-build nested `fields`.
+
+Both types flow through the `renderers` override map and `onEvent`. Group- and row-level validation messages surface in `GdsValidationSummary` and at field level via `ValidatedFieldMessage`.
 
 ## Accessibility Contract
 

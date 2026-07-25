@@ -3631,6 +3631,91 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     await waitFor(() => expect(submit).toHaveBeenCalledWith(expect.objectContaining({ startDate: '2026-07-23' })));
   });
 
+  it('renders a checkbox-group field, edits it, validates required, and submits a string[] (#437)', async () => {
+    const user = userEvent.setup();
+    const submit = vi.fn();
+    const schema = {
+      id: 'prefs-form',
+      title: 'Preferences',
+      fields: [
+        {
+          name: 'channels',
+          type: 'checkbox-group' as const,
+          label: 'Channels',
+          i18nKey: 'gds.form.prefs.channels',
+          required: true,
+          options: [
+            { label: 'Email', value: 'email' },
+            { label: 'SMS', value: 'sms' },
+          ],
+        },
+      ],
+    };
+
+    renderWithGds(<GdsSchemaForm schema={schema} onSubmit={submit} />);
+
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+    expect(screen.getAllByText('Channels requires at least one selection.').length).toBeGreaterThan(0);
+    expect(submit).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole('checkbox', { name: 'Email' }));
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+    await waitFor(() => expect(submit).toHaveBeenCalledWith(expect.objectContaining({ channels: ['email'] })));
+  });
+
+  it('renders a repeatable row group with add/remove, min/max bounds, and required-subfield validation (#437)', async () => {
+    const user = userEvent.setup();
+    const submit = vi.fn();
+    const schema = {
+      id: 'team-form',
+      title: 'Team',
+      fields: [
+        {
+          name: 'members',
+          type: 'repeatable' as const,
+          label: 'Member',
+          i18nKey: 'gds.form.team.members',
+          minRows: 1,
+          maxRows: 2,
+          addRowLabel: 'Add member',
+          removeRowLabel: 'Remove member',
+          fields: [
+            { name: 'fullName', type: 'text' as const, label: 'Full name', i18nKey: 'gds.form.team.fullName', required: true },
+            { name: 'role', type: 'text' as const, label: 'Role', i18nKey: 'gds.form.team.role' },
+          ],
+        },
+      ],
+    };
+
+    renderWithGds(<GdsSchemaForm schema={schema} onSubmit={submit} />);
+
+    // minRows:1 renders one row up front; its remove button is disabled (can't go below min).
+    expect(screen.getByText('Member 1')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Remove member: Member 1' })).toBeDisabled();
+
+    // Required sub-field empty blocks submit.
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+    expect(screen.getAllByText('Member has a row with a missing required field.').length).toBeGreaterThan(0);
+    expect(submit).not.toHaveBeenCalled();
+
+    const row1 = screen.getByText('Member 1').closest('[data-gds-repeatable-row]') as HTMLElement;
+    await user.type(within(row1).getByRole('textbox', { name: 'Full name' }), 'Ada');
+
+    await user.click(screen.getByRole('button', { name: 'Add member' }));
+    expect(screen.getByText('Member 2')).toBeInTheDocument();
+    // maxRows:2 reached — add is disabled.
+    expect(screen.getByRole('button', { name: 'Add member' })).toBeDisabled();
+
+    const row2 = screen.getByText('Member 2').closest('[data-gds-repeatable-row]') as HTMLElement;
+    await user.type(within(row2).getByRole('textbox', { name: 'Full name' }), 'Bo');
+
+    await user.click(screen.getByRole('button', { name: 'Remove member: Member 2' }));
+    expect(screen.queryByText('Member 2')).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+    await waitFor(() => expect(submit).toHaveBeenCalledWith(expect.objectContaining({ members: [{ fullName: 'Ada', role: '' }] })));
+  });
+
   it('renders schema file-upload fields with dropzone policy, validation, and File payloads', async () => {
     const user = userEvent.setup();
     const submit = vi.fn();
