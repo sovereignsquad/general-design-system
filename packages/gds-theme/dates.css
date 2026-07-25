@@ -8,9 +8,11 @@
  * installed and never hit a build-time "Module not found: @mantine/dates".
  *
  * Import this file IN ADDITION to `styles.css` only when you use a GDS date
- * component. It requires `@mantine/dates` and `dayjs` to be installed (they are
- * optional peers of `@sovereignsquad/gds-theme`, and already required peers of
- * `@sovereignsquad/gds-core`, which is where the date components live).
+ * component. It requires `@mantine/dates` and `dayjs` to be installed — they are
+ * required peers of `@sovereignsquad/gds-core` (which is where the date
+ * components live and import them), so any consumer that loads this stylesheet
+ * already has them. `gds-theme` itself declares no JS dependency on them; this
+ * is a CSS `@import` convenience only.
  *
  *   import '@sovereignsquad/gds-theme/styles.css';
  *   import '@sovereignsquad/gds-theme/dates.css'; // only when using GdsDate* components
