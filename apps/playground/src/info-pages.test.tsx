@@ -38,15 +38,15 @@ describe('playground overview page', () => {
     const { unmount } = renderWithGds(<InstallPage />, { locale: 'de' });
 
     expect(screen.getByRole('heading', { name: 'GDS installieren' })).toBeTruthy();
-    expect(screen.getByText('Öffentlicher 3.13.0-Installationspfad')).toBeTruthy();
-    expect(screen.getAllByText(/@sovereignsquad\/gds@3.13.0/).length).toBeGreaterThan(0);
+    expect(screen.getByText('Öffentlicher 3.14.0-Installationspfad')).toBeTruthy();
+    expect(screen.getAllByText(/@sovereignsquad\/gds@3.14.0/).length).toBeGreaterThan(0);
 
     unmount();
 
     renderWithGds(<InstallPage />, { locale: 'fr' });
 
     expect(screen.getByRole('heading', { name: 'Installer GDS' })).toBeTruthy();
-    expect(screen.getByText('Parcours d’installation public 3.13.0')).toBeTruthy();
+    expect(screen.getByText('Parcours d’installation public 3.14.0')).toBeTruthy();
   });
 
   it('renders parity matrix route with coverage summary', () => {

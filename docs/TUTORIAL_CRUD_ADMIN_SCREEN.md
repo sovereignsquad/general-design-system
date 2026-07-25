@@ -1,7 +1,7 @@
 # Tutorial: Build a CRUD Admin Screen with GDS Primitives
 
 Status: Active
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 
 Every other GDS doc is a **reference** (Runtime API / Contract / States /
 Accessibility). This one is a **tutorial**: it walks, in order, through building

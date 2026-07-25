@@ -1,7 +1,7 @@
 # GDS Gap Inventory
 
 Status: Archived — superseded by [DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md](DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md) as of 2026-07-24 (housekeeping issue #406, tracked under #408/#418/#419).
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 
 This file is kept for historical audit trail only — do not use it for new
 planning. Its content has been consolidated:

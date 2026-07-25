@@ -1,7 +1,7 @@
 # Case Study: ClassScout — From 10 Blocking Gaps to 10 Governed GDS Primitives
 
 Status: Active reference
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 
 ## The problem
 

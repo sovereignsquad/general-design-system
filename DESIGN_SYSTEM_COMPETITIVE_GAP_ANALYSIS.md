@@ -3,7 +3,7 @@
 Status: Active reference — roadmap input (not an implementation commitment).
 Canonical roadmap doc as of 2026-07-24 (housekeeping issue #406); superseded
 GDS_GAP_INVENTORY.md is archived — see that file for a pointer here.
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 Tracking issue: #386 (P0/P1/P2 delivery batch tracked in #387-#398)
 
 This document compares GDS's current theme foundation, layout primitives, and

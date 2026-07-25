@@ -1,7 +1,7 @@
 # Housekeeping Initiative — July 2026
 
 Status: Active reference — evidence trail and retrospective (not an SSOT contract)
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 Tracking issue: #406
 
 ## Purpose

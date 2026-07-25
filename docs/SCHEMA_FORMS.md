@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.8.0
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 
 Schema forms turn existing contracts into governed GDS form models. Use them when a product already has JSON Schema, OpenAPI, or Zod contracts and needs predictable labels, required state, validation, i18n keys, and accessibility wiring.
 
