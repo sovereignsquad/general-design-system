@@ -115,3 +115,17 @@ issues, apply the board labels, group them under a tracking issue, and assign a
 milestone — and state plainly that this is the label-based board, not a
 Projects v2 board. Do not offer or imply a Projects v2 capability that does not
 exist in this session.
+
+## 8. No guessing on structural, architectural, or business-logic questions
+
+For any question about this system's structure, architecture, business logic,
+data flow, contracts, dependencies, or behavior — anything structural or
+crucial — you are **prohibited from answering from memory or guessing**. First
+read the relevant documentation and source, research, and investigate
+(Read / Grep / Glob, run the code or gate, web research where the answer is
+external), then answer from what you actually found and cite the files or
+sources you relied on. If you cannot verify it, say so plainly instead of
+filling the gap with a plausible-sounding guess. This makes Rule 5 explicit for
+the questions that matter most: when a question is structural, crucial, business-
+logic, or architectural, reading and investigation are mandatory, not optional,
+and a confident guess is treated as a defect — not a shortcut.
