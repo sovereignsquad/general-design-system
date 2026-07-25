@@ -20,6 +20,7 @@ import {
   ProgressCard,
   PublicFlowShell,
   PublicFoodCard,
+  GdsSegmentedControl,
   ReferenceLinkGrid,
   ReferenceSection,
   SectionPanel,
@@ -414,6 +415,8 @@ export function LayoutsPage() {
 
 export function VocabularyPage() {
   const [feedback, setFeedback] = useState<'success' | 'error' | null>(null);
+  const [demoAction, setDemoAction] = useState<'save' | 'delete' | 'preview' | 'add'>('save');
+  const [demoBrand, setDemoBrand] = useState<'primary' | 'secondary' | 'accent'>('primary');
 
   const showFeedback = (next: 'success' | 'error') => {
     setFeedback(next);
@@ -440,6 +443,34 @@ export function VocabularyPage() {
           <SemanticButton action="submit" feedbackState={feedback} onClick={() => showFeedback('success')} />
           <SemanticButton action="delete" feedbackState={feedback === 'success' ? null : feedback} onClick={() => showFeedback('error')} color="red" />
         </>
+      </ReferenceSection>
+
+      <ReferenceSection title="Interactive controls" description="Storybook-parity: toggle the props to see the governed SemanticButton update live inside the catalog — no local wrapper, no external tool.">
+        <GdsSegmentedControl
+          ariaLabel="Action"
+          value={demoAction}
+          onChange={(next) => setDemoAction(next as 'save' | 'delete' | 'preview' | 'add')}
+          options={[
+            { value: 'save', label: 'Save' },
+            { value: 'delete', label: 'Delete' },
+            { value: 'preview', label: 'Preview' },
+            { value: 'add', label: 'Add' },
+          ]}
+        />
+        <br />
+        <GdsSegmentedControl
+          ariaLabel="Brand variant"
+          value={demoBrand}
+          onChange={(next) => setDemoBrand(next as 'primary' | 'secondary' | 'accent')}
+          options={[
+            { value: 'primary', label: 'Primary' },
+            { value: 'secondary', label: 'Secondary' },
+            { value: 'accent', label: 'Accent' },
+          ]}
+        />
+        <br />
+        <SemanticButton action={demoAction} brandVariant={demoBrand} />
+        <BodyText>{`<SemanticButton action="${demoAction}" brandVariant="${demoBrand}" />`}</BodyText>
       </ReferenceSection>
 
       <ReferenceSection title="Canonical social auth" description="Provider-based login belongs to the shared auth surface, not to custom stacks inside each product.">
