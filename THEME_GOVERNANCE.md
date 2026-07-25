@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 3.14.1
+Version: 3.14.2
 Last updated: 2026-07-25
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
@@ -163,7 +163,8 @@ Forced-colors contract:
 - disabled states must resolve from `GrayText`
 - selected/active states must resolve from `Highlight` / `HighlightText`
 - focus indicators must stay visibly outlined in forced-colors mode
-- runtime acceptance requires the browser-level `verify:forced-colors-runtime` gate, not only static CSS review
+- this contract binds **every** theme lane, including the expressive vibe/brand presets (`cosmic`, `neon-night`, …) whose `!important` gradients must not out-specify the forced-colors reset; a specificity backstop in `styles.css` guarantees this
+- runtime acceptance requires the browser-level `verify:forced-colors-runtime` gate, not only static CSS review — which now sweeps the new-component pattern routes across 8 presets (including the vibe lanes) so a gradient-leak regression in any lane is caught
 
 ## Appendix: Amanoba dark shell + yellow CTA
 

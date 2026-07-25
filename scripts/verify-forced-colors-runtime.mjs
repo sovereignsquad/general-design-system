@@ -9,16 +9,58 @@ import {
 
 const baseUrl = process.env.GDS_A11Y_BASE_URL ?? 'http://127.0.0.1:4173/general-design-system';
 const ownsPreviewServer = !process.env.GDS_A11Y_BASE_URL;
-const routes = [
-  '/themes',
-  '/live-demos/layouts',
-  '/live-demos/analytics',
-  '/live-demos/semantics',
-];
-const cases = [
+
+// Original smoke coverage: broad shell/demo routes at three representative presets.
+const baseCases = [
   { preset: 'default', scheme: 'light' },
   { preset: 'dark-public', scheme: 'dark' },
   { preset: 'partner-discovery', scheme: 'dark' },
+];
+
+// Widened preset coverage (#445): well beyond the original 3/23. Applied to the
+// two 3.14.0 component routes so the new controls are exercised across neutral,
+// dark, flat-surface, editorial, brand-discovery, high-saturation vibe, and warm
+// lanes — the kinds of themes where a dark-on-dark / light-on-light regression
+// would otherwise slip through. (Presets resolve via theme-presets.ts, the
+// palette that actually paints components — not the coarser vibe-themes palette
+// the static theme-accessibility report scores.)
+const widenedCases = [
+  { preset: 'default', scheme: 'light' },
+  { preset: 'dark-public', scheme: 'dark' },
+  { preset: 'flat-surface', scheme: 'light' },
+  { preset: 'editorial', scheme: 'light' },
+  { preset: 'partner-discovery', scheme: 'dark' },
+  { preset: 'neon-night', scheme: 'dark' },
+  { preset: 'cosmic', scheme: 'dark' },
+  { preset: 'amber', scheme: 'light' },
+];
+
+// The 3.14.0 controls that previously escaped every contrast/forced-colors gate
+// (#440/#445): the Kanban collapse toggle + per-column footer, and the schema
+// form's checkbox-group + repeatable rows. Each is asserted mounted-and-painted
+// on the route that renders it, in forced-colors mode, across every widened
+// preset — so a vanished-in-forced-colors or decorative-background regression on
+// these specific controls fails verify:release instead of shipping silently.
+const kanbanComponents = [
+  { selector: '[data-gds-kanban-column] .mantine-ActionIcon-root[aria-expanded]', label: 'Kanban collapse toggle' },
+  { selector: '[data-gds-kanban-footer] .mantine-Button-root', label: 'Kanban column footer load-more button' },
+];
+const formComponents = [
+  { selector: '[data-gds-checkbox-group] .mantine-Checkbox-input', label: 'Schema-form checkbox-group checkbox' },
+  { selector: '[data-gds-repeatable-row]', label: 'Schema-form repeatable row' },
+  { selector: '[data-gds-repeatable] .mantine-Button-root', label: 'Schema-form repeatable add/remove button' },
+];
+
+// Route coverage is driven off the pattern-catalog families that actually mount
+// the new components (`/patterns/operations` = Kanban, `/patterns/foundations` =
+// Forms), which the old 4-route list never visited.
+const routeConfigs = [
+  { route: '/themes', cases: baseCases, components: [] },
+  { route: '/live-demos/layouts', cases: baseCases, components: [] },
+  { route: '/live-demos/analytics', cases: baseCases, components: [] },
+  { route: '/live-demos/semantics', cases: baseCases, components: [] },
+  { route: '/patterns/operations', cases: widenedCases, components: kanbanComponents },
+  { route: '/patterns/foundations', cases: widenedCases, components: formComponents },
 ];
 
 async function launchBrowser() {
@@ -40,7 +82,9 @@ function absoluteUrl(route) {
   return `${baseUrl.replace(/\/$/, '')}${route}`;
 }
 
-async function verifyCase(client, route, testCase) {
+async function verifyCase(client, routeConfig, testCase) {
+  const route = routeConfig.route;
+  const components = routeConfig.components ?? [];
   await client.send('Page.bringToFront');
   await client.send('Emulation.setEmulatedMedia', {
     media: '',
@@ -119,6 +163,26 @@ async function verifyCase(client, route, testCase) {
       if (isTransparent(style.backgroundColor)) failures.push('Selected/active control lost forced-colors background.');
     }
 
+    // Targeted 3.14.0 component coverage (#445): each required control must be
+    // mounted, visible, free of decorative background images, and painted with
+    // at least one of text/border/background color in forced-colors mode.
+    const requiredComponents = ${JSON.stringify(components)};
+    for (const component of requiredComponents) {
+      const element = [...document.querySelectorAll(component.selector)].find(visible);
+      if (!element) {
+        failures.push('Required 3.14.0 component not found/visible: ' + component.label + ' (' + component.selector + ').');
+        continue;
+      }
+      const style = getComputedStyle(element);
+      if (style.backgroundImage !== 'none') {
+        failures.push(component.label + ' paints a decorative background image in forced-colors.');
+      }
+      const painted = !isTransparent(style.color) || !isTransparent(style.borderColor) || !isTransparent(style.backgroundColor);
+      if (!painted) {
+        failures.push(component.label + ' has no visible text/border/background color in forced-colors.');
+      }
+    }
+
     return {
       route: '${route}',
       preset: '${testCase.preset}',
@@ -137,15 +201,15 @@ try {
   await client.send('Page.enable');
   await client.send('Runtime.enable');
 
-  for (const route of routes) {
-    for (const testCase of cases) {
+  for (const routeConfig of routeConfigs) {
+    for (const testCase of routeConfig.cases) {
       // Retry transient render misses: a fresh navigation usually paints fine
       // on the next attempt. A genuine forced-colors violation fails every
       // attempt and is still recorded.
-      let result = await verifyCase(client, route, testCase);
+      let result = await verifyCase(client, routeConfig, testCase);
       for (let attempt = 2; attempt <= 3 && result.failures.length; attempt++) {
         await wait(600);
-        result = await verifyCase(client, route, testCase);
+        result = await verifyCase(client, routeConfig, testCase);
       }
       if (result.failures.length) failures.push(result);
     }
@@ -165,7 +229,14 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`GDS forced-colors runtime verification passed for ${routes.length * cases.length} route/theme cases at ${baseUrl}.`);
+const totalCases = routeConfigs.reduce((sum, config) => sum + config.cases.length, 0);
+const presetCount = new Set(routeConfigs.flatMap((config) => config.cases.map((testCase) => testCase.preset))).size;
+const componentCount = routeConfigs.reduce((sum, config) => sum + (config.components?.length ?? 0), 0);
+console.log(
+  `GDS forced-colors runtime verification passed for ${totalCases} route/theme cases ` +
+    `across ${routeConfigs.length} routes and ${presetCount} presets ` +
+    `(${componentCount} targeted 3.14.0 component checks) at ${baseUrl}.`,
+);
 // Force a clean exit: spawned preview-server/browser children can keep the Node
 // event loop alive under CI (orphaned child handles), which previously hung the
 // verify:release chain for the full 6-hour job timeout. The OS reaps the orphans.

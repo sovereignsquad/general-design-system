@@ -166,9 +166,9 @@ Flow:
 
 1. The browser verifier launches a real headless Chrome session.
 2. CDP emulates `forced-colors: active` and the selected color scheme.
-3. Real docs/demo routes load with shipped theme presets.
-4. The verifier checks that governed surfaces lose decorative backgrounds, controls keep platform-backed colors, and focus outlines remain visible.
-5. `verify:forced-colors-runtime` blocks release promotion if those runtime checks fail.
+3. Real docs/demo routes load with shipped theme presets. Coverage includes the pattern-catalog family routes that mount the newest components — `/patterns/operations` (Kanban) and `/patterns/foundations` (Forms) — and sweeps those two routes across **8** theme presets (neutral, dark, flat-surface, editorial, brand-discovery, the high-saturation vibe lanes `cosmic`/`neon-night`, and warm), not just the 3-preset smoke set used for the broader shell routes.
+4. The verifier checks that governed surfaces lose decorative backgrounds, controls keep platform-backed colors, and focus outlines remain visible. It additionally runs targeted per-component checks on the Kanban collapse toggle + column footer and the schema form's checkbox-group + repeatable rows, so those specific controls are provably inside the gate rather than escaping it.
+5. `verify:forced-colors-runtime` blocks release promotion if those runtime checks fail. The widened preset sweep is what surfaced (and now guards against) the vibe/brand lanes leaking `!important` gradient backgrounds past the forced-colors reset — fixed by the specificity backstop at the end of `styles.css`.
 
 ## Rollback
 

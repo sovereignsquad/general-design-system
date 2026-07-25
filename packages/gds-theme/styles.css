@@ -824,3 +824,68 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
     transform: none !important;
   }
 }
+
+/*
+ * Forced-colors specificity backstop for themed surfaces and controls (#445).
+ *
+ * The forced-colors reset above already neutralizes decorative gradients, but
+ * its `html[data-gds-theme-preset] …` selectors carry only ONE attribute, so
+ * the per-preset vibe/brand rules — which scope on TWO attributes
+ * (`[data-mantine-color-scheme][data-gds-theme-preset='cosmic']` …) and, for
+ * buttons, stack `:not()` clauses — out-specify it, and their `!important`
+ * gradients therefore survived into forced-colors mode. (The widened preset
+ * coverage in verify-forced-colors-runtime.mjs is what surfaced this on the
+ * cosmic and neon-night lanes; the original 3-preset sweep never visited them.)
+ *
+ * Each selector below adds `:not(#gds-never)`: `#gds-never` matches no element
+ * (nothing carries that id), so it changes which elements are selected not at
+ * all — but it contributes an ID's specificity weight, which outranks every
+ * preset rule no matter how many attributes or `:not()`s they stack. That
+ * guarantees decorative backgrounds cannot paint over the OS forced-colors
+ * palette in ANY theme lane, present or future.
+ */
+@media (forced-colors: active) {
+  html[data-gds-theme-preset] .gds-paper:not(#gds-never),
+  html[data-gds-theme-preset] .gds-card:not(#gds-never),
+  html[data-gds-theme-preset] [data-gds-owned-contrast]:not(#gds-never),
+  html[data-gds-theme-preset] [data-gds-local-contrast]:not(#gds-never) {
+    color: CanvasText !important;
+    background: Canvas !important;
+    background-image: none !important;
+    border-color: CanvasText !important;
+    backdrop-filter: none !important;
+  }
+
+  html[data-gds-theme-preset] .mantine-Button-root:not(#gds-never),
+  html[data-gds-theme-preset] .mantine-ActionIcon-root:not(#gds-never),
+  html[data-gds-theme-preset] .mantine-Input-input:not(#gds-never),
+  html[data-gds-theme-preset] .mantine-NativeSelect-input:not(#gds-never),
+  html[data-gds-theme-preset] .mantine-Textarea-input:not(#gds-never) {
+    color: ButtonText !important;
+    background: ButtonFace !important;
+    background-image: none !important;
+    border-color: ButtonText !important;
+  }
+
+  html[data-gds-theme-preset] .mantine-Button-root[data-variant='filled']:not(#gds-never),
+  html[data-gds-theme-preset] .mantine-Button-root[data-variant='light']:not(#gds-never),
+  html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):not(#gds-never) {
+    color: HighlightText !important;
+    background: Highlight !important;
+    background-image: none !important;
+    border-color: Highlight !important;
+  }
+
+  html[data-gds-theme-preset] .mantine-Badge-root:not(#gds-never),
+  html[data-gds-theme-preset] .gds-code:not(#gds-never) {
+    color: MarkText !important;
+    background: Mark !important;
+    background-image: none !important;
+    border-color: MarkText !important;
+  }
+
+  html[data-gds-theme-preset] body:not(#gds-never)::before,
+  html[data-gds-theme-preset] body:not(#gds-never)::after {
+    display: none !important;
+  }
+}
