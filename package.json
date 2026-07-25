@@ -6,7 +6,7 @@
     "apps/*"
   ],
   "scripts": {
-    "verify:release": "node scripts/check-release-alignment.mjs && npm run build && node scripts/check-export-contract.mjs && npm run verify:boundary && npm run verify:vendor-pin && npm run lint && npm run test:run && npm run verify:references && npm run verify:a11y-package && npm run verify:theme-accessibility && npm run verify:theme-tokens && npm run verify:forced-colors-runtime && npm run verify:theme-trust-runtime && npm run verify:input-zoom-guard-runtime && npm run verify:kanban-drag-accessibility-runtime && npm run audit:dependencies && npm run audit:board && npm run verify:mantine && npm run verify:component-catalog-parity",
+    "verify:release": "node scripts/check-release-alignment.mjs && npm run build && node scripts/check-export-contract.mjs && npm run verify:boundary && npm run verify:vendor-pin && npm run lint && npm run test:run && npm run verify:references && npm run verify:a11y-package && npm run verify:theme-accessibility && npm run verify:theme-tokens && npm run verify:tokens-dtcg && npm run verify:forced-colors-runtime && npm run verify:theme-trust-runtime && npm run verify:input-zoom-guard-runtime && npm run verify:kanban-drag-accessibility-runtime && npm run audit:dependencies && npm run audit:board && npm run verify:mantine && npm run verify:component-catalog-parity",
     "build": "npm run build --workspace=@sovereignsquad/gds-theme && npm run build --workspace=@sovereignsquad/gds-core && npm run build --workspace=@sovereignsquad/gds-admin && npm run build --workspace=@sovereignsquad/gds-a11y && npm run build --workspace=@sovereignsquad/gds && npm run build --workspace=playground && npm run build --workspace=reference-vite && npm run build --workspace=reference-next",
     "dev": "npm run dev --workspace=apps/playground",
     "lint": "npm run lint --workspace=apps/playground",
@@ -18,6 +18,8 @@
     "verify:api-docs-coverage": "node scripts/verify-api-docs-coverage.mjs",
     "verify:theme-accessibility": "node scripts/verify-theme-accessibility.mjs",
     "verify:theme-tokens": "node scripts/verify-theme-token-contract.mjs",
+    "tokens:dtcg": "npm run build --workspace=@sovereignsquad/gds-theme && node scripts/generate-dtcg-tokens.mjs",
+    "verify:tokens-dtcg": "npm run build --workspace=@sovereignsquad/gds-theme && node scripts/generate-dtcg-tokens.mjs --check",
     "verify:forced-colors-runtime": "node scripts/verify-forced-colors-runtime.mjs",
     "verify:input-zoom-guard-runtime": "node scripts/verify-input-zoom-guard-runtime.mjs",
     "verify:kanban-drag-accessibility-runtime": "node scripts/verify-kanban-drag-accessibility-runtime.mjs",
