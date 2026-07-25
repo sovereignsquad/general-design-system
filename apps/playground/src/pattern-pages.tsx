@@ -125,6 +125,8 @@ import {
   ThemeToggle,
   KanbanBoard,
   type KanbanColumnData,
+  GdsSchemaForm,
+  type GdsFormSchema,
 } from '@sovereignsquad/gds-core';
 // Dedicated subpath import: GdsRichTextEditor's Tiptap/ProseMirror engine is
 // deliberately excluded from the main '@sovereignsquad/gds-core' barrel so
@@ -798,23 +800,49 @@ const familyMeta: Record<PatternFamily, { title: string; description: string }> 
   },
 };
 
+// Governed "Load more" verb for the per-column footer, registered as a
+// vocabulary pack so the footer button is a themed, contrast-checked
+// SemanticButton (not a raw control) — see issue 441 / renderColumnFooter.
+const KANBAN_LOAD_MORE_VOCAB = createGdsVocabularyPack('board', {
+  loadMore: { defaultMessage: 'Load more', icon: GdsIcons.List },
+});
+
+// The demo columns carry a client-side `backlog` (the not-yet-loaded page) so
+// the "Load more" footer has real rows to reveal; `totalCount` is the server
+// total the header badge reports, independent of how many are currently loaded.
+type KanbanDemoColumn = KanbanColumnData & { backlog: KanbanColumnData['items'] };
+
 function KanbanBoardDemo() {
-  const [columns, setColumns] = useState<KanbanColumnData[]>([
+  const [columns, setColumns] = useState<KanbanDemoColumn[]>([
     {
       id: 'todo',
       title: 'To do',
+      totalCount: 6,
       items: [
         { id: 'draft-proposal', title: 'Draft proposal', description: 'Due Friday' },
         { id: 'schedule-review', title: 'Schedule review' },
+      ],
+      backlog: [
+        { id: 'sync-stakeholders', title: 'Sync stakeholders' },
+        { id: 'estimate-effort', title: 'Estimate effort' },
+        { id: 'define-scope', title: 'Define scope' },
+        { id: 'assign-owners', title: 'Assign owners' },
       ],
     },
     {
       id: 'in-progress',
       title: 'In progress',
+      totalCount: 3,
       items: [{ id: 'design-review', title: 'Design review', status: 'Blocked' }],
+      backlog: [
+        { id: 'api-contract', title: 'API contract' },
+        { id: 'copy-pass', title: 'Copy pass' },
+      ],
     },
-    { id: 'done', title: 'Done', items: [] },
+    { id: 'done', title: 'Done', totalCount: 0, items: [], backlog: [] },
   ]);
+  // Controlled per-column collapse: the empty "Done" column starts collapsed.
+  const [collapsedColumnIds, setCollapsedColumnIds] = useState<string[]>(['done']);
 
   function handleMoveItem(itemId: string, fromColumnId: string, toColumnId: string, toIndex?: number) {
     setColumns((current) => {
@@ -841,9 +869,138 @@ function KanbanBoardDemo() {
     });
   }
 
+  function loadMoreItems(columnId: string) {
+    setColumns((current) =>
+      current.map((column) => {
+        if (column.id !== columnId || column.backlog.length === 0) {
+          return column;
+        }
+        const nextPage = column.backlog.slice(0, 2);
+        return { ...column, items: [...column.items, ...nextPage], backlog: column.backlog.slice(2) };
+      }),
+    );
+  }
+
+  function handleCollapsedChange(columnId: string, collapsed: boolean) {
+    setCollapsedColumnIds((current) =>
+      collapsed ? [...current, columnId] : current.filter((id) => id !== columnId),
+    );
+  }
+
   return (
     <BoundedPreviewSurface minHeight="26rem">
-      <KanbanBoard title="Sprint board" columns={columns} onMoveItem={handleMoveItem} enableDrag />
+      <KanbanBoard
+        title={
+          <span>
+            <GdsIcons.Grid size="1rem" /> Sprint board
+          </span>
+        }
+        boardLabel="Sprint board"
+        columns={columns}
+        onMoveItem={handleMoveItem}
+        enableDrag
+        collapsible
+        collapsedColumnIds={collapsedColumnIds}
+        onCollapsedChange={handleCollapsedChange}
+        renderColumnFooter={(column) => {
+          const total = column.totalCount ?? column.items.length;
+          const remaining = total - column.items.length;
+          if (remaining <= 0) {
+            return null;
+          }
+          return (
+            <>
+              <BodyText component="span">
+                Showing {column.items.length} of {total}
+              </BodyText>{' '}
+              <SemanticButton
+                action="board:loadMore"
+                vocabularyPacks={[KANBAN_LOAD_MORE_VOCAB]}
+                variant="subtle"
+                size="xs"
+                onClick={() => loadMoreItems(column.id)}
+              />
+            </>
+          );
+        }}
+      />
+    </BoundedPreviewSurface>
+  );
+}
+
+// Live GdsSchemaForm demo (issue 442): a schema-generated form that mounts the new
+// `checkbox-group` (grouped multi-select) and `repeatable` (add-another-row)
+// field types in the public catalog, so they fall under the catalog-driven
+// contrast/forced-colors/a11y gates instead of escaping all of them.
+const schemaFormDemoSchema: GdsFormSchema = {
+  id: 'demo-intake',
+  title: 'Project intake',
+  description: 'Schema-generated form: a themed grouped multi-select and a repeatable row group.',
+  fields: [
+    {
+      name: 'projectName',
+      type: 'text',
+      label: 'Project name',
+      i18nKey: 'gds.form.demo-intake.projectName',
+      required: true,
+    },
+    {
+      name: 'channels',
+      type: 'checkbox-group',
+      label: 'Notification channels',
+      i18nKey: 'gds.form.demo-intake.channels',
+      required: true,
+      options: [
+        { label: 'Email', value: 'email' },
+        { label: 'SMS', value: 'sms' },
+        { label: 'In-app', value: 'in-app' },
+      ],
+    },
+    {
+      name: 'members',
+      type: 'repeatable',
+      label: 'Team members',
+      i18nKey: 'gds.form.demo-intake.members',
+      minRows: 1,
+      maxRows: 4,
+      addRowLabel: 'Add member',
+      removeRowLabel: 'Remove member',
+      fields: [
+        {
+          name: 'fullName',
+          type: 'text',
+          label: 'Full name',
+          i18nKey: 'gds.form.demo-intake.members.fullName',
+          required: true,
+        },
+        {
+          name: 'role',
+          type: 'select',
+          label: 'Role',
+          i18nKey: 'gds.form.demo-intake.members.role',
+          options: [
+            { label: 'Owner', value: 'owner' },
+            { label: 'Editor', value: 'editor' },
+            { label: 'Viewer', value: 'viewer' },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+function SchemaFormDemo() {
+  const [submitted, setSubmitted] = useState<string | null>(null);
+  return (
+    <BoundedPreviewSurface minHeight="30rem">
+      <GdsSchemaForm
+        schema={schemaFormDemoSchema}
+        submitLabel="Submit intake"
+        onSubmit={(values) => {
+          setSubmitted(JSON.stringify(values));
+        }}
+      />
+      {submitted ? <BodyText>Submitted (demo only — no data leaves the page).</BodyText> : null}
     </BoundedPreviewSurface>
   );
 }
@@ -1056,6 +1213,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <FormArchitectureDemo />
           <br />
           <FormControlFamilyDemo />
+          <br />
+          <SchemaFormDemo />
         </div>
       );
     case 'inputs':

@@ -20,8 +20,13 @@ export default defineConfig({
     // the real, earned size of a showcase app exercising the whole component
     // surface, not an accidental leak. Raised to match that known, deliberate
     // size rather than silencing a signal that would still fire for a genuine
-    // future regression.
-    chunkSizeWarningLimit: 900,
+    // future regression. Re-baselined from 900 to 940 when the Forms pattern
+    // gained a live GdsSchemaForm demo (checkbox-group + repeatable field types,
+    // issue 442): that mounted GdsSchemaForm subtree is workspace gds-core code,
+    // which the codeSplitting rule below always groups into vendor-gds, so it
+    // cannot be split out — the ~15 kB it adds is earned showcase surface. The
+    // ceiling stays tight (a real regression adds tens-to-hundreds of kB).
+    chunkSizeWarningLimit: 940,
     rolldownOptions: {
       output: {
         codeSplitting: {

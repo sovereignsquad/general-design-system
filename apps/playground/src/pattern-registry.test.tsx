@@ -57,6 +57,19 @@ describe('playground pattern registry', () => {
     expect(screen.getAllByRole('heading').length).toBeGreaterThan(4);
   });
 
+  it('mounts the live GdsSchemaForm demo (checkbox-group + repeatable) in the Forms entry', () => {
+    renderWithGds(<PatternFamilyPage family="foundations" />);
+
+    // Schema-generated form title + field labels (checkbox-group and repeatable)
+    expect(screen.getByText('Project intake')).toBeTruthy();
+    expect(screen.getByText('Notification channels')).toBeTruthy();
+    // checkbox-group options render as themed checkboxes
+    expect(screen.getByRole('checkbox', { name: 'Email' })).toBeTruthy();
+    // repeatable row group exposes an add-row control
+    expect(screen.getByRole('button', { name: 'Add member' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Submit intake' })).toBeTruthy();
+  });
+
   it('renders every family route with headings and navigable demo links', () => {
     const families = ['foundations', 'public', 'operations', 'data', 'access', 'feedback'] as const;
 
