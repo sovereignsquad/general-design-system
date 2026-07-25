@@ -1,9 +1,12 @@
 # Board Sync Checklist
 
 Status: Active
-Last updated: 2026-06-07
+Last updated: 2026-07-25
 
-Use this checklist before release, after major implementation waves, and before closing canonical project-board issues.
+The GDS project board is **GitHub Issues filtered by `status:` labels** — see
+[`PROJECT_BOARD.md`](../PROJECT_BOARD.md) for the taxonomy and tooling. There is
+no external Projects v2 board. Use this checklist before release, after major
+implementation waves, and before closing canonical issues.
 
 ## 1. Implementation vs Issue State
 
@@ -32,22 +35,24 @@ Use this checklist before release, after major implementation waves, and before 
 
 - Run:
 ```bash
+npm run board:labels
 npm run audit:board:strict
-npm run audit:board
 npm run verify:references
 npm run verify:release
 ```
 - Confirm no skipped checks and no local-only bypass.
 
-## 5. Project Board Hygiene
+## 5. Issue Board Hygiene
 
-- Use `npm run audit:board:strict` as the canonical board safety check before relying on project-board status.
-- Use `gh project item-list 11 --owner sovereignsquad --limit 200` only for manual inspection or targeted repair.
+- Every **open** issue carries exactly one `status:` label (its board column); `npm run audit:board:strict` fails if not.
+- A **closed** issue is Done — there is no `status: done` label. At release, `npm run board:sync-release` closes delivered issues and strips their status labels.
+- Set a `priority:` label (`p0`/`p1`/`p2`) and one or more `area:` labels so the board is filterable.
 - For each changed issue state, add a short closure/update comment with evidence paths.
 - Keep canonical work on one issue number per scope; avoid parallel duplicates.
-- Keep unrelated product work out of this repository and project board. Product-specific backlog must be transferred or closed with a comment that names the owning product/repo.
+- Keep unrelated product work out of this repository and issue board. Product-specific backlog must be transferred or closed with a comment that names the owning product/repo.
 - Promote feature requests only when the request describes a reusable GDS component, pattern, compliance rule, documentation gap, or migration/tooling need.
 - Reject or transfer requests that are one-off product screens, private business logic, sensitive customer data, or implementation tasks that cannot become a reusable GDS contract.
+- Board reads/writes use only the default `GITHUB_TOKEN` (`issues: read`/`write`); no PAT is required.
 
 ## 6. Evidence Standard for Closure
 
@@ -57,110 +62,29 @@ Each closure comment should include:
 - verifier/test path
 - command or gate proving integrity (`verify:references` or `verify:release`)
 
-## 7. GDS 3.4.0 Board Handover
+## 7. Historical — retired Projects v2 board (project #11)
 
-Use this handover when GitHub GraphQL rate limiting prevents immediate project-board mutation after the `3.4.0` release.
+Before the label-based board, GDS tracked issues on an org-level Projects v2
+board, `{GDS} - From IDEA to LIVE` (`sovereignsquad#11`), with a `Status` field
+and a `Done` option. Writing that board required a `GDS_PROJECT_TOKEN` PAT with
+`project` scope — the default `GITHUB_TOKEN` could not perform org-level
+Projects v2 writes, no repo tooling/MCP path could reach it, and it drifted after
+each release. It was retired in favor of the label board (see issue #431 and its
+successor). The former board-sync scripts (`board:complete-3.4`, `board:sync-hvb`,
+`audit-project-board.mjs`) and their GraphQL rate-limit handling were removed.
 
-Delivered release evidence:
+The 3.4.x delivery records below are preserved for historical traceability only;
+their `gh project ...` / `npm run board:*` commands no longer exist.
 
-- Commit: `87b2dea`
-- Handover continuation commits: `42fa0c1`, `2549073`, `a2d4247`
-- Tag: `gds-v3.4.0`
-- Release: `https://github.com/sovereignsquad/general-design-system/releases/tag/gds-v3.4.0`
-- npm publication: all six public packages verified at `3.4.0`
-- Verification passed: `npm run verify:release`
-- Registry verification passed: `npm run verify:published`
+### 3.4.0 release (delivered)
 
-Issues created from the issue #81 production-grade standard and closed with release evidence:
+- Commit `87b2dea`; tag `gds-v3.4.0`; all six public packages verified at `3.4.0`.
+- Issues delivered and closed with release evidence: `#240`–`#246` and `#272`.
+- These were set to Projects v2 Status `Done` on 2026-06-07 (mechanism now retired).
 
-- `#240` Admin Delivery: Data tables, resource managers, and form orchestration - production contracts
-- `#241` Runtime Feedback: Confirmation, toast, modal, drawer, and command surfaces - unified API
-- `#242` Foundation Surfaces: Layout primitives, safe styling, and icon registry - governed composition API
-- `#243` Global Readiness: i18n runtime and accessibility evidence - localized product quality API
-- `#244` Adoption Governance: Codemods, dashboard, and exception lifecycle - CI-enforced migration API
-- `#245` Theme Operations: Token authoring, high contrast, motion, and design handoff - release-safe theming API
-- `#246` Product System: Content standards, page templates, and observability - product-owner delivery contract
-- `#272` i18n Quality: Full-copy routes must not render mixed-language overview UI
+### HVB backlog (created for future delivery)
 
-GitHub project-board mutation completed on 2026-06-07:
-
-- Project items for issues `#240` through `#246` and `#272` were set to Status `Done`.
-- Issue `#272` was added to milestone `GDS 3.4.0 - Product delivery maturity`.
-- Targeted verification confirmed project item `PVTI_lADOEEuBB84BYuSMzgu9mfc` maps to closed issue `#272` with Status `Done`.
-- Full `npm run audit:board:strict` should be rerun after GitHub project-query rate limits recover; the targeted mutation is complete, but the full-board audit was blocked by GitHub API rate limiting during verification.
-
-Repository project-board target:
-
-- Organization: `sovereignsquad`
-- Repository: `sovereignsquad/general-design-system`
-- Project: `{GDS} - From IDEA to LIVE`
-- Project number: `11`
-- Status field: `Status`
-- Target Status option: `Done`
-- 3.4.x issue set: `#240`, `#241`, `#242`, `#243`, `#244`, `#245`, `#246`, `#272`
-
-Later board update procedure:
-
-```bash
-gh api rate_limit
-# continue only when resources.graphql.remaining is greater than 0
-
-npm run board:complete-3.4
-```
-
-Expected board audit after the later update:
-
-```text
-state/status mismatches: 0
-```
-
-Operational note:
-
-- REST API may still allow issue comments, issue closure, and release creation while GraphQL project-board mutations are blocked.
-- Project-board Status updates require GraphQL capacity. If blocked, retry after the reset shown by `gh api rate_limit`.
-
-## 8. HVB Backlog Board Handover
-
-Use this handover for the 25 high-value-benefit implementation issues that were created from the GDS industry comparison and remain open for future delivery.
-
-Current issue state:
-
-- Open repository issues: `#247` through `#271`
-- P0 issues: `#247`, `#248`, `#249`, `#250`, `#251`, `#254`, `#255`, `#256`, `#257`, `#258`, `#259`, `#260`, `#261`, `#262`, `#263`, `#264`, `#266`, `#267`, `#268`, `#269`, `#270`, `#271`
-- P1 issues: `#252`, `#253`, `#265`
-- Milestone: `GDS 3.4.0 - Product delivery maturity`
-
-Completed project-board mutation:
-
-- Added issues `#247` through `#271` to project `{GDS} - From IDEA to LIVE` (`sovereignsquad#11`).
-- Set P0 issues to Status `Backlog (SOONER)`.
-- Set P1 issues to Status `Roadmap (LATER)`.
-- Ran `npm run audit:board:strict`.
-
-Verified result:
-
-- `tracked issue items: 161`
-- `open issues: 25`
-- `state/status mismatches: 0`
-
-Maintenance command:
-
-```bash
-npm run board:sync-hvb
-```
-
-Release delivery sync:
-
-```bash
-GDS_RELEASE_DELIVERED_ISSUES=331 npm run board:sync-release
-npm run audit:board:strict
-```
-
-The release sync is idempotent: already-closed issues are skipped, closed issue cards are moved to `Done`, and no open issue is closed unless it is explicitly listed in `GDS_RELEASE_DELIVERED_ISSUES`.
-
-Expected board audit:
-
-```text
-open issues: 25
-state/status mismatches: 0
-```
+- 25 high-value-benefit issues `#247`–`#271` were opened from the GDS industry comparison.
+- P0: `#247`–`#251`, `#254`–`#264`, `#266`–`#271`; P1: `#252`, `#253`, `#265`.
+- Milestone: `GDS 3.4.0 - Product delivery maturity`.
+- Any still open should now carry a `status:` label and, where useful, `priority: p0`/`p1` on the label board.

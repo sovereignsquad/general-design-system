@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.13.0
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 
@@ -51,7 +51,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Coverage Matrix**: [https://sovereignsquad.github.io/general-design-system/coverage](https://sovereignsquad.github.io/general-design-system/coverage) — Route-level parity view of documented patterns versus live runtime representation status.
 - **Interactive Theme Lab**: [https://sovereignsquad.github.io/general-design-system/themes](https://sovereignsquad.github.io/general-design-system/themes) — Live testing for shipped theme presets, colorful app lanes, light/dark behavior, token surfaces, and the bounded creator-authored theming lane.
 - **Feature request intake**: [https://sovereignsquad.github.io/general-design-system/request-feature](https://sovereignsquad.github.io/general-design-system/request-feature) — Canonical intake for capability requests, governance questions, and missing contracts.
-- **Repository hygiene rule**: only reusable GDS components, patterns, docs, compliance, migration, release, or package work belongs on this repository board. Product-specific requests must be transferred or closed with an explicit owner.
+- **Repository hygiene rule**: only reusable GDS components, patterns, docs, compliance, migration, release, or package work belongs on this repository's [issue board](PROJECT_BOARD.md). Product-specific requests must be transferred or closed with an explicit owner.
 - **Pattern Service Model**: [PATTERN_SERVICE_MODEL.md](PATTERN_SERVICE_MODEL.md) — The reusable cross-project process for borrowing Mantine-native patterns, promoting them into contracts, and enforcing consistency.
 - **Service Backbone Plan**: [SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md](SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md) — The operating model that makes the GDS reliable, adaptable, and replicable across a portfolio of projects.
 - **GDS 3.0.0 Implementation Plan**: [GDS_3_0_IMPLEMENTATION_PLAN.md](GDS_3_0_IMPLEMENTATION_PLAN.md) — The next major-release plan for the adoption platform, reference site, feature intake, compliance, and release process.
@@ -114,7 +114,8 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
 - **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, governance guidance, theme explorer, live demos, and the pattern catalog.
 - **Reference-Site Primitives**: `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, `ReferenceThemeExplorer`, `DocsShell`, and `DocsHeaderActionSelect` — canonical GDS-owned primitives for reference/docs surfaces without site-local pseudo-components, including bounded localized header actions.
-- **Board Sync Checklist**: [docs/BOARD_SYNC_CHECKLIST.md](docs/BOARD_SYNC_CHECKLIST.md) — required consistency pass between implementation, docs, and GitHub project-board issue state before release and after major delivery waves.
+- **Project Board**: [PROJECT_BOARD.md](PROJECT_BOARD.md) — the label-based issue board (GitHub Issues grouped by `status:` labels; no external Projects v2 board), its taxonomy, saved-search views, and tooling.
+- **Board Sync Checklist**: [docs/BOARD_SYNC_CHECKLIST.md](docs/BOARD_SYNC_CHECKLIST.md) — required consistency pass between implementation, docs, and issue-board state before release and after major delivery waves.
 - **Client Upgrade Prompt**: [CLIENT_UPGRADE_PROMPT.md](CLIENT_UPGRADE_PROMPT.md) — copy/paste checklist and communication template for consumer teams.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
@@ -237,9 +238,10 @@ Required repository behavior:
 - `npm run verify:i18n-route-coverage` — validates localized route declarations and route-copy implementation markers
 - `npm run verify:i18n-message-parity` — validates package locale pack key parity
 - `npm run verify:i18n-package-copy` — blocks native dialog prompt copy in packages
-- `npm run audit:board` — audits the canonical GDS project board for issue-state/project-status drift and prints any open or mismatched items
-  - CI note: if GitHub API rate limiting blocks board reads, the audit emits a warning and continues unless `GDS_BOARD_AUDIT_STRICT=1` is set
-- `npm run audit:board:strict` — runs the same project-board audit in fail-hard mode for local release sign-off and board normalization work
+- `npm run board:labels` — idempotently provisions the issue-board label taxonomy (colors + descriptions) from `scripts/board-labels.config.mjs`; uses the default `GITHUB_TOKEN` (no PAT)
+- `npm run audit:board` — audits the label-based issue board ([PROJECT_BOARD.md](PROJECT_BOARD.md)): reports each open issue's `status:` column and any open issue missing/duplicating one
+  - CI note: if `gh`/the API is unavailable, the audit emits a warning and continues unless `GDS_BOARD_AUDIT_STRICT=1` is set
+- `npm run audit:board:strict` — runs the same issue-board audit in fail-hard mode for local release sign-off and board normalization work
 - `npm run audit:dependencies` — enforces zero production dependency advisories and verifies any dev/reference-tooling advisories are explicitly documented in [DEPENDENCY_AUDIT.md](DEPENDENCY_AUDIT.md)
 - `npm run verify:mantine` — packs the packages and validates clean Mantine 8.3 and 9.2 / React 19 consumer install smoke
 - `npm run publish:dry-run` — validates the authenticated package publish sequence without uploading artifacts
@@ -247,7 +249,7 @@ Required repository behavior:
 - `npm run verify:published` — checks the registry until all seven packages resolve to the current `VERSION`, then installs and type-checks a clean npm consumer fixture
 - `npm run verify:published:availability` — checks only npm registry version availability for the current `VERSION`
 - `npm run verify:published:consumer` — installs the current `VERSION` from npm into a temporary consumer and verifies imports/types outside the monorepo
-- `npm run board:sync-release` — closes explicitly delivered release issues from `GDS_RELEASE_DELIVERED_ISSUES` and syncs closed project cards to `Done`
+- `npm run board:sync-release` — closes explicitly delivered release issues from `GDS_RELEASE_DELIVERED_ISSUES` (closing is the "move to Done") and strips their `status:` labels
 - `npm run pack:release` — creates public tarballs, checksums, and install instructions for the fallback GitHub release-bundle distribution path
 - `npm run build` — builds `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, `@sovereignsquad/gds-admin`, `@sovereignsquad/gds`, and the playground in dependency order
 - `node scripts/codemods/run-codemod.mjs <transform> <path>` — runs the reference migration codemods in dry-run mode by default and emits `GdsCodemodResult` with changed files, manual follow-ups, failed transforms, and governed exception stubs

@@ -1,38 +1,50 @@
-name: GDS Board Sync
+name: GDS Issue Board
 
-# Moves every closed issue's card on the Projects v2 board (project #11) to
-# "Done" after a release. This is the CI counterpart to
-# `npm run board:sync-release` (scripts/sync-release-board.mjs), which needs the
-# `gh` CLI (preinstalled on GitHub-hosted runners).
+# Keeps the label-based issue board consistent (see PROJECT_BOARD.md). The
+# "board" is GitHub Issues grouped by their `status:` label — there is no
+# external Projects v2 board.
 #
-# AUTH: project #11 is an ORG-level Projects v2 board, and the default
-# GITHUB_TOKEN cannot write org Projects v2. This job reads a secret
-# `GDS_PROJECT_TOKEN` — a classic PAT with `repo` + `project` scopes, or a
-# fine-grained PAT with Issues: read/write + Projects: read/write for the
-# `sovereignsquad` org. If that secret is not set, the job warns and skips
-# instead of failing the release. See issue #431.
+# This job:
+#   1. provisions the canonical board labels (`npm run board:labels`) so their
+#      colors/descriptions match scripts/board-labels.config.mjs, and
+#   2. audits the board (`npm run audit:board:strict`) so every open issue sits
+#      in exactly one status column.
+#
+# AUTH: both steps use the ambient GITHUB_TOKEN with `issues: write`. No secret
+# PAT is required — this is the whole point of moving off Projects v2, whose
+# org-level writes the default token could not perform (it needed a
+# `GDS_PROJECT_TOKEN` PAT that had to be provisioned separately and warned-and-
+# skipped when absent).
 #
 # TRIGGER: `workflow_run` after "GDS Release Bundles" completes, plus manual
-# dispatch. This deliberately does NOT use `push: tags` — per
-# auto-tag-release.yml, a tag pushed by the default GITHUB_TOKEN never fires
-# other workflows' `push`/`tag` triggers (GitHub's anti-recursion rule), so a
-# tag trigger here would silently never run. `workflow_run` is unaffected by it.
+# dispatch and any push to main that changes the board tooling. `workflow_run`
+# is used (not `push: tags`) because a tag pushed by the default GITHUB_TOKEN
+# never fires other workflows' `push`/`tag` triggers (GitHub's anti-recursion
+# rule); `workflow_run` is unaffected.
 
 on:
   workflow_run:
     workflows: ["GDS Release Bundles"]
     types: [completed]
   workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - "scripts/board-labels.config.mjs"
+      - "scripts/ensure-board-labels.mjs"
+      - "scripts/audit-issue-board.mjs"
+      - ".github/workflows/board-sync.yml"
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
-  group: gds-board-sync
+  group: gds-issue-board
   cancel-in-progress: false
 
 jobs:
-  board-sync:
+  issue-board:
     # On workflow_run, only sync when the release bundle actually succeeded.
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
@@ -45,13 +57,13 @@ jobs:
         with:
           node-version: 24
 
-      - name: Sync release board (closed issues -> Done)
+      - name: Provision board labels
         env:
-          # PAT with Projects v2 write on the sovereignsquad org (see header).
-          GH_TOKEN: ${{ secrets.GDS_PROJECT_TOKEN }}
-        run: |
-          if [ -z "${GH_TOKEN}" ]; then
-            echo "::warning title=Board sync skipped::Secret GDS_PROJECT_TOKEN is not set. Projects v2 writes on org project #11 require a PAT with 'project' scope (the default GITHUB_TOKEN cannot). Add the secret to enable automatic board sync — see issue #431."
-            exit 0
-          fi
-          node scripts/sync-release-board.mjs
+          GH_TOKEN: ${{ github.token }}
+          GDS_BOARD_LABELS_STRICT: "1"
+        run: npm run board:labels
+
+      - name: Audit issue board (every open issue in one status column)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: npm run audit:board:strict

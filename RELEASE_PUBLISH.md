@@ -110,7 +110,7 @@ GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published
 
 Use `npm run verify:published:availability` when you need only registry polling during incident triage. Use `npm run verify:published:consumer` to rerun the clean npm install/import smoke after propagation succeeds (this needs a `read:packages`-scoped token in `NODE_AUTH_TOKEN`/`GDS_NPM_TOKEN` to authenticate the temporary install against GitHub Packages).
 
-To close known delivered issues and normalize project-board cards after publish:
+To close known delivered issues on the label board after publish (closing an issue is its "move to Done"; this also strips its `status:` label):
 
 ```bash
 GDS_RELEASE_DELIVERED_ISSUES=123,124 npm run board:sync-release
@@ -165,11 +165,11 @@ Triggers on `workflow_dispatch` or any pushed `gds-v*` tag:
 
 Both `release-bundles.yml` and `publish-github-packages.yml` gate their real side effects (creating the release, publishing to the registry) behind their own `verify:release` run — a version bump that fails verification never reaches either. A tag can exist without a completed release/publish if `verify:release` fails downstream; treat that the same as any other failed release attempt (see Recovery guidance) rather than assuming the tag alone means the release shipped.
 
-### Board sync (`board-sync.yml`)
+### Issue board (`board-sync.yml`)
 
-Runs `scripts/sync-release-board.mjs` (`npm run board:sync-release`) in CI to move every closed issue's card on the Projects v2 board (project #11) to **Done**. It triggers via `workflow_run` after **GDS Release Bundles** completes (plus manual `workflow_dispatch`) — deliberately not `push: tags`, since a `GITHUB_TOKEN`-pushed tag never fires `push`/`tag` triggers (the same anti-recursion rule documented under Auto-tag-release).
+The project board is **GitHub Issues filtered by `status:` labels**, not a Projects v2 board — see [`PROJECT_BOARD.md`](PROJECT_BOARD.md). The `board-sync.yml` workflow keeps that label board consistent: it provisions the canonical labels (`npm run board:labels`) and runs the strict board audit (`npm run audit:board:strict`, every open issue in exactly one status column). It triggers via `workflow_run` after **GDS Release Bundles** completes, plus manual `workflow_dispatch` and pushes to `main` that touch the board tooling — deliberately not `push: tags`, since a `GITHUB_TOKEN`-pushed tag never fires `push`/`tag` triggers (the same anti-recursion rule documented under Auto-tag-release).
 
-Because project #11 is an **org-level** Projects v2 board, the default `GITHUB_TOKEN` cannot write it. The job reads a `GDS_PROJECT_TOKEN` secret (a PAT with `repo` + `project` scopes, or a fine-grained PAT with Issues + Projects read/write for the `sovereignsquad` org). If that secret is not configured, the job **warns and skips** rather than failing the release — so board sync is opt-in via the secret, and never blocks a publish. See issue #431.
+Both steps use the ambient `GITHUB_TOKEN` with `issues: write` — **no secret PAT is required**. This is the point of the label-based board: unlike the retired org-level Projects v2 board (project #11), which needed a `GDS_PROJECT_TOKEN` PAT the default token could not stand in for, every board operation here is a label change the default token can perform. See issue #431 (the superseded Projects v2 sync) and `PROJECT_BOARD.md`.
 
 ## Recovery guidance
 
