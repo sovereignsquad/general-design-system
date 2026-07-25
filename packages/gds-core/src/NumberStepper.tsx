@@ -23,6 +23,12 @@ export interface NumberStepperProps {
   incrementLabel?: string;
 }
 
+/**
+ * Accessible bounded −/value/+ quantity control composed from GDS primitives.
+ * Enforces `min`/`max`/`step` with clamp + snap, supports keyboard control
+ * (Arrow/Home/End), and disables the relevant button at each bound. `ariaLabel`
+ * is required; `onChange` receives the clamped, snapped value.
+ */
 export function NumberStepper({
   value,
   onChange,

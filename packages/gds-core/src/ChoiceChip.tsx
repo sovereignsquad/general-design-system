@@ -63,12 +63,19 @@ export function ChoiceChip({
   return <Badge {...sharedProps}>{label}</Badge>;
 }
 
+/** A single option in a governed single-select chip group (`PillBar` / `SoftChipGroup` / `FilterChipGroup`). */
 export interface GdsSelectionOption<T extends string = string> {
   value: T;
   label: ReactNode;
   disabled?: boolean;
 }
 
+/**
+ * Props shared by the governed single-select chip groups. Each renders a
+ * horizontally-scrollable `radiogroup` of chips; `value` is the currently
+ * selected option value (or `null` for none), and `onChange` fires with the
+ * chosen value. `ariaLabel` names the group for assistive tech.
+ */
 export interface GdsSelectionGroupProps<T extends string = string> {
   options: GdsSelectionOption<T>[];
   value: T | null;
@@ -139,6 +146,13 @@ function SelectionBadge<T extends string>({
   );
 }
 
+/**
+ * Governed single-select chip group rendered as prominent, brand-filled "macro"
+ * pills in a horizontally-scrollable `radiogroup`. Use for a primary segmented
+ * choice (a mode switch or a top-level filter) where the options should read as
+ * buttons. For a quieter choice use `SoftChipGroup`; for filter facets use
+ * `FilterChipGroup`.
+ */
 export function PillBar<T extends string = string>({
   options,
   value,
@@ -169,6 +183,11 @@ export function PillBar<T extends string = string>({
   );
 }
 
+/**
+ * Governed single-select chip group rendered as compact, low-emphasis "micro"
+ * chips (support-colored when active) in a scrollable `radiogroup`. Use for a
+ * secondary, quieter choice than `PillBar`.
+ */
 export function SoftChipGroup<T extends string = string>({
   options,
   value,
@@ -199,6 +218,11 @@ export function SoftChipGroup<T extends string = string>({
   );
 }
 
+/**
+ * Governed single-select chip group styled as accent-tinted filter chips in a
+ * scrollable `radiogroup`. Use for a filter/facet selection where the active
+ * chip should read as an applied filter (accent tint) rather than a solid button.
+ */
 export function FilterChipGroup<T extends string = string>({
   options,
   value,

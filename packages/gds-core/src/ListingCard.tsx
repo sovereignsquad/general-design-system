@@ -4,8 +4,10 @@ import { GdsIcons } from './icons';
 import { GdsVocabulary, getSemanticActionLabel, type SemanticAction } from './vocabulary';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardInteractiveMode, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
+/** Aspect ratio for a `ListingCard`'s media slot. */
 export type ListingCardMediaRatio = '1:1' | '4:3' | '16:9';
 
+/** One key/value metadata row shown in a `ListingCard` (with an optional icon and tone). */
 export interface ListingMetadataRow {
   id: string;
   label: ReactNode;
@@ -14,6 +16,7 @@ export interface ListingMetadataRow {
   tone?: 'default' | 'positive' | 'warning' | 'muted';
 }
 
+/** A save/share-style affordance on a `ListingCard`, described by a semantic `action` and its handler/href. */
 export interface ListingCardAffordance {
   action: SemanticAction;
   onClick?: () => void;
@@ -23,6 +26,7 @@ export interface ListingCardAffordance {
   active?: boolean;
 }
 
+/** Props for {@link ListingCard}. */
 export interface ListingCardProps {
   title: ReactNode;
   href?: string;
@@ -71,6 +75,7 @@ const toneColorMap: Record<NonNullable<ListingMetadataRow['tone']>, string | und
   muted: 'gray',
 };
 
+/** Maximum footer affordances a `ListingCard` renders; extra `actions` are dropped past this cap. */
 export const MAX_LISTING_CARD_ACTIONS = 4;
 
 function resolveCardActions(actions?: ReactNode[]): ReactNode[] | null {
@@ -151,6 +156,14 @@ function ListingAffordance({ affordance }: { affordance: ListingCardAffordance }
   );
 }
 
+/**
+ * Governed listing/result card for search, catalog, and recommendation surfaces:
+ * media, title, description, metadata rows, price/rating, an optional match
+ * `score` and "why this fits" `reason` region, and up to
+ * {@link MAX_LISTING_CARD_ACTIONS} footer affordances plus save/share actions.
+ * Honors the shared card contract (`size`/`density`/`variant`/`interactiveMode`)
+ * and supports an optional flip-to-reveal back face via `revealContent`.
+ */
 export function ListingCard({
   title,
   href,

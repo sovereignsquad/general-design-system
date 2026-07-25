@@ -41,6 +41,13 @@ const bandLabel: Record<ScoreBand, string> = {
   partial: 'Partial fit',
 };
 
+/**
+ * Compact match-quality pill. Pass a `value` (0–100) and/or `label`; it colors on
+ * a deterministic great/good/partial band from brand tokens and, when
+ * `dimensions` are supplied, exposes an accessible tooltip listing the matched
+ * dimensions. Meaning is always conveyed by text (label + score), never color
+ * alone. Renders `null` when given neither `value` nor `label`.
+ */
 export function FitScoreChip({ value, label, dimensions, size = 'md', ...props }: FitScoreChipProps) {
   if (value == null && !label) {
     return null;
