@@ -18,6 +18,9 @@ const ssotDocs = [
   'SERVICE_BACKBONE_IMPLEMENTATION_PLAN.md',
   'PROJECTS/PORTFOLIO_ADOPTION_MATRIX.md',
   'TEMPLATES/README.md',
+  // The accessibility conformance report is refreshed per release (its version
+  // header must track VERSION), so it is governed like the other SSOT docs (#447).
+  'VPAT_CONFORMANCE.md',
 ];
 
 const requiredThemeLanes = [
