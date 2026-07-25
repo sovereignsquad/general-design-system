@@ -2,6 +2,14 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.1 - 2026-07-25 — GdsSchemaForm i18n + themed checkbox-group (3.14.0 quality follow-up)
+
+Quality follow-up to the 3.14.0 primitives (epic #440, group A):
+
+- **Themed checkbox-group** (#444): `GdsSchemaForm`'s `checkbox-group` now renders governed Mantine `Checkbox` controls instead of a raw native `<input type="checkbox">`, so the checkboxes inherit the GDS theme and the governed forced-colors remap like every other control (closing a real light/dark and forced-colors gap for that field). No API change.
+- **GdsSchemaForm i18n** (#443): the previously hardcoded-English user-facing strings — the `repeatable` row-count live announcements (`Row added/removed, N rows.`), the checkbox-group/repeatable validation messages (`requires at least one selection.`, `has a row with a missing required field.`, min/max rows), the shared `is required.` message, the default add/remove-row button labels, and the `(required)` marker — now route through `useGdsTranslation()` with new `gds.schemaForm.*` keys added across all **12** locale packs (English output unchanged). Added a test for the `repeatable` aria-live announcement. Consumer `addRowLabel`/`removeRowLabel` overrides still win. (Number-embedded pre-existing validation messages for `minLength`/`maxLength`/`pattern`/`email`/`number` remain a tracked follow-up under #443.)
+- **Docs** (#446): `llms.txt` updated to describe the 3.14.0 Kanban props, the `GdsSchemaForm` `checkbox-group`/`repeatable` field types, and the opt-in `dates.css`; `docs/SCHEMA_FORMS.md` notes the themed checkbox + localized messages.
+
 ## 3.14.0 - 2026-07-25 — Kanban server-pagination/footer/collapsible, opt-in date CSS, GdsSchemaForm primitives, label-based issue board
 
 - **KanbanColumn server-paginated count** (#432): the header count badge now renders `column.totalCount` when set, falling back to `column.items.length`. Server-paginated columns (where `items` hold only the loaded page) can show their real total instead of the loaded-page count. Additive and backward compatible — omitting `totalCount` is unchanged. `COMPONENTS_AND_PATTERNS.md` updated.

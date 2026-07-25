@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { Button, Group, Paper, Stack, Text } from '@mantine/core';
+import { Button, Checkbox, Group, Paper, Stack, Text } from '@mantine/core';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { FormField } from './FormField';
 import { GdsDateInput } from './GdsDateInput.client';
 import { GdsFormProvider, GdsValidationSummary, type GdsFormOrchestrationEvent, type ValidationIssue, ValidatedFieldMessage, useGdsFormOrchestration } from './GdsForm.client';
@@ -333,7 +334,10 @@ function isFileValue(value: unknown) {
   return typeof File !== 'undefined' && value instanceof File;
 }
 
-function validateSchemaValues(schema: GdsFormSchema, values: Record<string, unknown>, renderers: GdsFieldRendererMap = {}, options: { uploadAdapter?: GdsSchemaUploadAdapter } = {}): ValidationIssue[] {
+type GdsTranslate = (id: string, defaultMessage: string) => string;
+
+function validateSchemaValues(schema: GdsFormSchema, values: Record<string, unknown>, renderers: GdsFieldRendererMap = {}, options: { uploadAdapter?: GdsSchemaUploadAdapter; t?: GdsTranslate } = {}): ValidationIssue[] {
+  const t = options.t ?? ((_id: string, defaultMessage: string) => defaultMessage);
   return schema.fields.flatMap((field) => {
     if (field.hidden || field.type === 'hidden') return [];
     const value = values[field.name];
@@ -343,7 +347,7 @@ function validateSchemaValues(schema: GdsFormSchema, values: Record<string, unkn
     if (field.type === 'checkbox-group') {
       const selected = Array.isArray(value) ? value : [];
       if (field.required && selected.length === 0) {
-        return [{ field: field.name, message: `${field.label} requires at least one selection.`, severity: 'blocking' as const }];
+        return [{ field: field.name, message: `${field.label} ${t('gds.schemaForm.selectionRequired', 'requires at least one selection.')}`, severity: 'blocking' as const }];
       }
       return [];
     }
@@ -352,10 +356,10 @@ function validateSchemaValues(schema: GdsFormSchema, values: Record<string, unkn
       const minRows = field.minRows ?? (field.required ? 1 : 0);
       const issues: ValidationIssue[] = [];
       if (rows.length < minRows) {
-        issues.push({ field: field.name, message: `${field.label} requires at least ${minRows} row${minRows === 1 ? '' : 's'}.`, severity: 'blocking' as const });
+        issues.push({ field: field.name, message: `${field.label} ${t('gds.schemaForm.minRowsPhrase', 'requires at least')} ${minRows} ${minRows === 1 ? t('gds.schemaForm.rowOne', 'row') : t('gds.schemaForm.rowMany', 'rows')}.`, severity: 'blocking' as const });
       }
       if (field.maxRows !== undefined && rows.length > field.maxRows) {
-        issues.push({ field: field.name, message: `${field.label} allows at most ${field.maxRows} row${field.maxRows === 1 ? '' : 's'}.`, severity: 'blocking' as const });
+        issues.push({ field: field.name, message: `${field.label} ${t('gds.schemaForm.maxRowsPhrase', 'allows at most')} ${field.maxRows} ${field.maxRows === 1 ? t('gds.schemaForm.rowOne', 'row') : t('gds.schemaForm.rowMany', 'rows')}.`, severity: 'blocking' as const });
       }
       const requiredSubFields = (field.fields ?? []).filter((sub) => sub.required);
       const hasMissingRequired = rows.some((row) =>
@@ -366,12 +370,12 @@ function validateSchemaValues(schema: GdsFormSchema, values: Record<string, unkn
         }),
       );
       if (hasMissingRequired) {
-        issues.push({ field: field.name, message: `${field.label} has a row with a missing required field.`, severity: 'blocking' as const });
+        issues.push({ field: field.name, message: `${field.label} ${t('gds.schemaForm.rowMissingRequired', 'has a row with a missing required field.')}`, severity: 'blocking' as const });
       }
       return issues;
     }
-    if (field.required && field.type === 'file-upload' && fileValues.length === 0) return [{ field: field.name, message: `${field.label} is required.`, severity: 'blocking' as const }];
-    if (field.required && field.type !== 'file-upload' && (value === undefined || value === null || text === '')) return [{ field: field.name, message: `${field.label} is required.`, severity: 'blocking' as const }];
+    if (field.required && field.type === 'file-upload' && fileValues.length === 0) return [{ field: field.name, message: `${field.label} ${t('gds.schemaForm.required', 'is required.')}`, severity: 'blocking' as const }];
+    if (field.required && field.type !== 'file-upload' && (value === undefined || value === null || text === '')) return [{ field: field.name, message: `${field.label} ${t('gds.schemaForm.required', 'is required.')}`, severity: 'blocking' as const }];
     if (field.type === 'file-upload' && field.maxFileSizeBytes && fileValues.some((file) => isFileValue(file) && file.size > field.maxFileSizeBytes!)) return [{ field: field.name, message: `${field.label} contains a file larger than ${field.maxFileSizeLabel ?? `${field.maxFileSizeBytes} bytes`}.`, severity: 'blocking' as const }];
     if (field.type === 'file-upload' && options.uploadAdapter && fileValues.some(isFileValue)) return [{ field: field.name, message: `${field.label} upload must finish before submit.`, severity: 'blocking' as const }];
     if (field.minLength && text.length > 0 && text.length < field.minLength) return [{ field: field.name, message: `${field.label} must contain at least ${field.minLength} characters.`, severity: 'blocking' as const }];
@@ -626,21 +630,18 @@ function CheckboxGroupField({ field, value, setValue, describedBy, invalid }: Gd
     >
       <legend style={visuallyHidden}>{field.label}</legend>
       <Stack gap={6}>
-        {(field.options ?? []).map((option) => {
-          const inputId = `${field.name}-${option.value}`;
-          return (
-            <label key={option.value} htmlFor={inputId} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <input
-                id={inputId}
-                type="checkbox"
-                aria-label={option.label}
-                checked={selected.includes(option.value)}
-                onChange={(event) => toggle(option.value, event.currentTarget.checked)}
-              />
-              <span>{option.label}</span>
-            </label>
-          );
-        })}
+        {(field.options ?? []).map((option) => (
+          // Mantine Checkbox (not a raw native input) so the control inherits the GDS
+          // theme styling and the governed forced-colors remap like every other control.
+          <Checkbox
+            key={option.value}
+            value={option.value}
+            label={option.label}
+            aria-label={option.label}
+            checked={selected.includes(option.value)}
+            onChange={(event) => toggle(option.value, event.currentTarget.checked)}
+          />
+        ))}
       </Stack>
     </fieldset>
   );
@@ -660,13 +661,15 @@ interface RepeatableFieldProps extends GdsFieldRendererContext {
  * min/max bounds, focus management, and a live row-count announcement.
  */
 function RepeatableField({ field, value, setValue, describedBy, invalid, renderers, uploadAdapter, onEvent }: RepeatableFieldProps) {
+  const { t } = useGdsTranslation();
   const rows = (Array.isArray(value) ? value : []) as Array<Record<string, unknown>>;
   const subFields = field.fields ?? [];
   const minRows = field.minRows ?? 0;
   const canAdd = field.maxRows === undefined || rows.length < field.maxRows;
   const canRemove = rows.length > minRows;
-  const addLabel = field.addRowLabel ?? 'Add row';
-  const removeLabel = field.removeRowLabel ?? 'Remove';
+  const addLabel = field.addRowLabel ?? t('gds.schemaForm.addRow', 'Add row');
+  const removeLabel = field.removeRowLabel ?? t('gds.schemaForm.removeRow', 'Remove');
+  const rowNoun = (count: number) => (count === 1 ? t('gds.schemaForm.rowOne', 'row') : t('gds.schemaForm.rowMany', 'rows'));
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const addButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -687,13 +690,13 @@ function RepeatableField({ field, value, setValue, describedBy, invalid, rendere
     pendingFocus.current = 'add';
     const next = [...rows, makeRepeatableRow(field)];
     setValue(next);
-    setAnnouncement(`Row added, ${next.length} ${next.length === 1 ? 'row' : 'rows'}.`);
+    setAnnouncement(`${t('gds.schemaForm.rowAdded', 'Row added')}, ${next.length} ${rowNoun(next.length)}.`);
   };
   const removeRow = (index: number) => {
     pendingFocus.current = 'remove';
     const next = rows.filter((_, rowIndex) => rowIndex !== index);
     setValue(next);
-    setAnnouncement(`Row removed, ${next.length} ${next.length === 1 ? 'row' : 'rows'}.`);
+    setAnnouncement(`${t('gds.schemaForm.rowRemoved', 'Row removed')}, ${next.length} ${rowNoun(next.length)}.`);
   };
   const setRowFieldValue = (index: number, name: string, next: unknown) => {
     setValue(rows.map((row, rowIndex) => (rowIndex === index ? { ...row, [name]: next } : row)));
@@ -728,7 +731,7 @@ function RepeatableField({ field, value, setValue, describedBy, invalid, rendere
               };
               const subRenderer = renderers[sub.name] ?? renderers[sub.type];
               return (
-                <FormField key={sub.name} label={`${sub.label}${sub.required ? ' (required)' : ''}`}>
+                <FormField key={sub.name} label={`${sub.label}${sub.required ? ` ${t('gds.schemaForm.requiredMarker', '(required)')}` : ''}`}>
                   {subRenderer ? subRenderer(subContext) : renderDefaultField(subContext, { uploadAdapter, onEvent, renderers })}
                 </FormField>
               );
@@ -838,10 +841,11 @@ export function GdsSchemaForm<TValues extends Record<string, unknown> = Record<s
   onEvent,
   submitLabel = 'Submit',
 }: GdsSchemaFormProps<TValues>) {
+  const { t } = useGdsTranslation();
   const initialValues = useMemo(() => getInitialValues(schema), [schema]);
   const form = useGdsFormOrchestration({
     initialValues,
-    validate: (snapshot) => validateSchemaValues(schema, Object.fromEntries(Object.entries(snapshot.fields).map(([name, field]) => [name, field.value])), renderers, { uploadAdapter }),
+    validate: (snapshot) => validateSchemaValues(schema, Object.fromEntries(Object.entries(snapshot.fields).map(([name, field]) => [name, field.value])), renderers, { uploadAdapter, t }),
     onSubmit: async (values) => {
       try {
         await onSubmit(values as TValues);
@@ -876,7 +880,7 @@ export function GdsSchemaForm<TValues extends Record<string, unknown> = Record<s
           return (
             <FormField
               key={field.name}
-              label={`${field.label}${field.required ? ' (required)' : ''}`}
+              label={`${field.label}${field.required ? ` ${t('gds.schemaForm.requiredMarker', '(required)')}` : ''}`}
               description={field.description ? <Text id={`${field.name}-description`} size="xs" c="dimmed">{field.description}</Text> : undefined}
             >
               {renderer ? renderer(context) : renderDefaultField(context, { uploadAdapter, onEvent, renderers })}

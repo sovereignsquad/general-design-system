@@ -3703,6 +3703,8 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     await user.click(screen.getByRole('button', { name: 'Add member' }));
     expect(screen.getByText('Member 2')).toBeInTheDocument();
+    // The live region announces the new row count for screen-reader users.
+    expect(screen.getByText('Row added, 2 rows.')).toBeInTheDocument();
     // maxRows:2 reached — add is disabled.
     expect(screen.getByRole('button', { name: 'Add member' })).toBeDisabled();
 
