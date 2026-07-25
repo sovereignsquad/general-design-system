@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.13.0
-Last updated: 2026-07-22
+Last updated: 2026-07-24
 
 This runbook defines the authenticated package-publish flow for the General Design System.
 
@@ -164,6 +164,12 @@ Triggers on `workflow_dispatch` or any pushed `gds-v*` tag:
 5. polls that registry until the release line is visible
 
 Both `release-bundles.yml` and `publish-github-packages.yml` gate their real side effects (creating the release, publishing to the registry) behind their own `verify:release` run — a version bump that fails verification never reaches either. A tag can exist without a completed release/publish if `verify:release` fails downstream; treat that the same as any other failed release attempt (see Recovery guidance) rather than assuming the tag alone means the release shipped.
+
+### Board sync (`board-sync.yml`)
+
+Runs `scripts/sync-release-board.mjs` (`npm run board:sync-release`) in CI to move every closed issue's card on the Projects v2 board (project #11) to **Done**. It triggers via `workflow_run` after **GDS Release Bundles** completes (plus manual `workflow_dispatch`) — deliberately not `push: tags`, since a `GITHUB_TOKEN`-pushed tag never fires `push`/`tag` triggers (the same anti-recursion rule documented under Auto-tag-release).
+
+Because project #11 is an **org-level** Projects v2 board, the default `GITHUB_TOKEN` cannot write it. The job reads a `GDS_PROJECT_TOKEN` secret (a PAT with `repo` + `project` scopes, or a fine-grained PAT with Issues + Projects read/write for the `sovereignsquad` org). If that secret is not configured, the job **warns and skips** rather than failing the release — so board sync is opt-in via the secret, and never blocks a publish. See issue #431.
 
 ## Recovery guidance
 
