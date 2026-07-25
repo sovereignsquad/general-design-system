@@ -94,6 +94,8 @@ Use the server/client split explicitly. The layout owns the color-scheme script 
 
 > **Mandatory:** import `@sovereignsquad/gds-theme/styles.css` exactly once, before your own app styles. Without it, GDS surfaces — including dropdown/menu/overlay backgrounds — render unstyled (transparent dropdowns).
 
+> **Date components are opt-in (#433):** the mandatory `styles.css` does **not** pull in the Mantine dates stylesheet, so consumers that never render a GDS date component need neither `@mantine/dates` nor `dayjs`. If you use `GdsDateInput`, `GdsDateTimeInput`, `GdsDateRangeInput`, or a `GdsSchemaForm` `date` field, also `import '@sovereignsquad/gds-theme/dates.css';` (once, alongside `styles.css`) and install `@mantine/dates` + `dayjs` — they are optional peers of `@sovereignsquad/gds-theme` and required peers of `@sovereignsquad/gds-core`.
+
 ```tsx
 // app/layout.tsx
 import '@sovereignsquad/gds-theme/styles.css';

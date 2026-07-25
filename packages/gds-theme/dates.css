@@ -1,0 +1,18 @@
+/*
+ * Opt-in date-component styles (issue #433).
+ *
+ * The always-loaded `@sovereignsquad/gds-theme/styles.css` deliberately does NOT
+ * import the Mantine dates stylesheet, so consumers who never render a GDS date
+ * component (`GdsDateInput`, `GdsDateRangeInput`, `GdsDateTimeInput`, or a
+ * `GdsSchemaForm` `date` field) need neither `@mantine/dates` nor `dayjs`
+ * installed and never hit a build-time "Module not found: @mantine/dates".
+ *
+ * Import this file IN ADDITION to `styles.css` only when you use a GDS date
+ * component. It requires `@mantine/dates` and `dayjs` to be installed (they are
+ * optional peers of `@sovereignsquad/gds-theme`, and already required peers of
+ * `@sovereignsquad/gds-core`, which is where the date components live).
+ *
+ *   import '@sovereignsquad/gds-theme/styles.css';
+ *   import '@sovereignsquad/gds-theme/dates.css'; // only when using GdsDate* components
+ */
+@import '@mantine/dates/styles.css';
