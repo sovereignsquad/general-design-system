@@ -159,6 +159,8 @@ export const zh = {
   'gds.kanban.moveItem': '移动',
   'gds.kanban.moveTo': '移至',
   'gds.kanban.emptyColumn': '没有商品',
+  'gds.kanban.collapseColumn': '折叠列',
+  'gds.kanban.expandColumn': '展开列',
   'gds.kanban.dragHandle': '拖动以重新排序',
   'gds.kanban.dragInstructions': '要拿起卡片，请按空格键。拖动时，使用箭头键在列之间和列内移动卡片。再次按空格键放下卡片，或按退出键取消。',
   'gds.kanban.announcePickedUp': '已接',

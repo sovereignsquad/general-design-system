@@ -159,6 +159,8 @@ export const fr = {
   'gds.kanban.moveItem': 'Déplacer',
   'gds.kanban.moveTo': 'Déplacer vers',
   'gds.kanban.emptyColumn': 'Aucun élément',
+  'gds.kanban.collapseColumn': 'Réduire la colonne',
+  'gds.kanban.expandColumn': 'Développer la colonne',
   'gds.kanban.dragHandle': 'Faire glisser pour réorganiser',
   'gds.kanban.dragInstructions': "Pour saisir une carte, appuyez sur la barre d'espace. Pendant le glissement, utilisez les touches fléchées pour déplacer la carte entre les colonnes et à l'intérieur de celles-ci. Appuyez à nouveau sur espace pour déposer la carte, ou appuyez sur échap pour annuler.",
   'gds.kanban.announcePickedUp': 'A été saisi',

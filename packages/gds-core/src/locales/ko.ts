@@ -159,6 +159,8 @@ export const ko = {
   'gds.kanban.moveItem': '이동하다',
   'gds.kanban.moveTo': '다음으로 이동',
   'gds.kanban.emptyColumn': '항목 없음',
+  'gds.kanban.collapseColumn': '열 접기',
+  'gds.kanban.expandColumn': '열 펼치기',
   'gds.kanban.dragHandle': '드래그하여 재정렬하세요.',
   'gds.kanban.dragInstructions': '카드를 집으려면 스페이스바를 누르세요. 드래그하는 동안 화살표 키를 사용하여 열 사이와 열 내에서 카드를 이동하세요. 카드를 버리려면 스페이스바를 다시 누르고, 취소하려면 ESC를 누르세요.',
   'gds.kanban.announcePickedUp': '픽업',

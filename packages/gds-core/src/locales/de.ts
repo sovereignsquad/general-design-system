@@ -159,6 +159,8 @@ export const de = {
   'gds.kanban.moveItem': 'Verschieben',
   'gds.kanban.moveTo': 'Verschieben nach',
   'gds.kanban.emptyColumn': 'Keine Einträge',
+  'gds.kanban.collapseColumn': 'Spalte einklappen',
+  'gds.kanban.expandColumn': 'Spalte ausklappen',
   'gds.kanban.dragHandle': 'Zum Neuanordnen ziehen',
   'gds.kanban.dragInstructions': 'Um eine Karte aufzunehmen, drücken Sie die Leertaste. Verwenden Sie beim Ziehen die Pfeiltasten, um die Karte zwischen und innerhalb von Spalten zu bewegen. Drücken Sie erneut die Leertaste, um die Karte abzulegen, oder drücken Sie Escape, um abzubrechen.',
   'gds.kanban.announcePickedUp': 'Aufgenommen',

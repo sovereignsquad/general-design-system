@@ -159,6 +159,8 @@ export const ja = {
   'gds.kanban.moveItem': '動く',
   'gds.kanban.moveTo': 'に移動します',
   'gds.kanban.emptyColumn': 'アイテムがありません',
+  'gds.kanban.collapseColumn': '列を折りたたむ',
+  'gds.kanban.expandColumn': '列を展開する',
   'gds.kanban.dragHandle': 'ドラッグして並べ替えます',
   'gds.kanban.dragInstructions': 'カードを取得するには、スペースバーを押します。ドラッグ中に矢印キーを使用して、列間および列内でカードを移動します。もう一度スペースを押してカードをドロップするか、Esc を押してキャンセルします。',
   'gds.kanban.announcePickedUp': '拾った',

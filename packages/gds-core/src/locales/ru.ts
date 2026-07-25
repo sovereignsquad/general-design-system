@@ -159,6 +159,8 @@ export const ru = {
   'gds.kanban.moveItem': 'Переместить',
   'gds.kanban.moveTo': 'Переместить в',
   'gds.kanban.emptyColumn': 'Нет элементов',
+  'gds.kanban.collapseColumn': 'Свернуть столбец',
+  'gds.kanban.expandColumn': 'Развернуть столбец',
   'gds.kanban.dragHandle': 'Перетащите, чтобы изменить порядок',
   'gds.kanban.dragInstructions': 'Чтобы взять карточку, нажмите пробел. Во время перетаскивания используйте клавиши со стрелками, чтобы переместить карточку между колонками и внутри них. Снова нажмите пробел, чтобы отпустить карточку, или нажмите Escape для отмены.',
   'gds.kanban.announcePickedUp': 'Взято',

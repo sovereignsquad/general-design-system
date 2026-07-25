@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useId, useState } from 'react';
 import { ActionIcon, Badge, Box, Group, Menu, Paper, ScrollArea, Stack, Text, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
@@ -33,8 +33,23 @@ export interface KanbanItem {
 
 export interface KanbanColumnData<TItem extends KanbanItem = KanbanItem> {
   id: string;
-  title: string;
+  /**
+   * Column heading. A plain string renders as a governed `<Title>`; a
+   * `ReactNode` (icon + label, a colored dot, a custom count pill, …) renders
+   * verbatim. When `title` is not a plain string, set `ariaLabel` so move-menu
+   * targets and drag announcements still have a meaningful accessible name.
+   */
+  title: ReactNode;
   items: TItem[];
+  /**
+   * Real total for server-paginated columns, where `items` holds only the
+   * currently-loaded page. The header count badge prefers this when present and
+   * falls back to `items.length` when omitted — so existing consumers see zero
+   * behavior change on upgrade.
+   */
+  totalCount?: number;
+  /** Accessible name for move-menu targets and drag announcements when `title` is not plain text. */
+  ariaLabel?: string;
 }
 
 export type KanbanOrientation = 'stacked' | 'columns';
@@ -71,6 +86,9 @@ export function useGdsKanbanOrientation({
 
 type OnMoveItem = (itemId: string, fromColumnId: string, toColumnId: string, toIndex?: number) => void;
 
+/** Column-level footer renderer (pagination / "load more" / per-column actions). */
+type RenderColumnFooter<TColumn> = (column: TColumn) => ReactNode;
+
 /** Small decorative six-dot grip glyph for the drag handle. Not a semantic GDS icon —
  * this is a structural micro-affordance specific to the drag gesture, not a general
  * action, so it doesn't go through the `GdsIcon`/`GdsIcons` registry. */
@@ -82,6 +100,30 @@ function DragGripGlyph() {
       )}
     </svg>
   );
+}
+
+/** Decorative chevron for the collapse/expand toggle — points down when expanded,
+ * right when collapsed. Structural affordance specific to the disclosure control,
+ * so (like the drag grip) it is not a registry `GdsIcon`. */
+function ColumnDisclosureGlyph({ collapsed }: { collapsed: boolean }) {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      aria-hidden="true"
+      focusable="false"
+      style={{ transform: collapsed ? 'rotate(-90deg)' : 'none', transition: 'transform var(--gds-motion-duration-fast, 120ms) var(--gds-motion-ease-standard, ease)' }}
+    >
+      <path d="M2.5 4.5 L6 8 L9.5 4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** Resolves a plain-text accessible name for a column whose `title` may be a ReactNode. */
+function columnTitleText(column: KanbanColumnData | undefined): string {
+  if (!column) return '';
+  return column.ariaLabel ?? (typeof column.title === 'string' ? column.title : column.id);
 }
 
 export interface KanbanCardProps<
@@ -216,17 +258,67 @@ export interface KanbanColumnProps<
   enableDrag?: boolean;
   moveMenuIcon?: ReactNode;
   moveMenuLabel?: string;
+  /** Static element rendered below the card list, inside the column (pagination / "load more" / per-column actions). */
+  footer?: ReactNode;
+  /** Function form of `footer`, receiving the column; takes precedence over `footer` when both are set. */
+  renderFooter?: RenderColumnFooter<TColumn>;
+  /**
+   * Renders a header disclosure toggle that collapses the column body (cards +
+   * footer) to just its title and count. Off by default — existing consumers
+   * see no toggle. A collapsed column is not a drag drop target.
+   */
+  collapsible?: boolean;
+  /** Controlled collapsed state. Omit for uncontrolled (the column manages its own state). */
+  collapsed?: boolean;
+  /** Notified when the disclosure toggle changes the collapsed state. */
+  onCollapsedChange?: (collapsed: boolean) => void;
 }
 
 export function KanbanColumn<
   TItem extends KanbanItem = KanbanItem,
   TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
->({ column, columns, onMoveItem, renderItem, emptyLabel, width, enableDrag, moveMenuIcon, moveMenuLabel }: KanbanColumnProps<TItem, TColumn>) {
+>({
+  column,
+  columns,
+  onMoveItem,
+  renderItem,
+  emptyLabel,
+  width,
+  enableDrag,
+  moveMenuIcon,
+  moveMenuLabel,
+  footer,
+  renderFooter,
+  collapsible = false,
+  collapsed,
+  onCollapsedChange,
+}: KanbanColumnProps<TItem, TColumn>) {
   const { t } = useGdsTranslation();
   // A droppable region keyed by the column id itself, so dropping on an empty column
   // (or in the empty space below the last card) resolves to this column even though
   // there's no sibling card to land "over".
   const droppable = useDroppable({ id: column.id, disabled: !enableDrag });
+
+  const isControlledCollapse = collapsed !== undefined;
+  const [internalCollapsed, setInternalCollapsed] = useState(false);
+  const resolvedCollapsed = collapsible ? (isControlledCollapse ? Boolean(collapsed) : internalCollapsed) : false;
+  const bodyId = useId();
+
+  function handleToggleCollapsed() {
+    const next = !resolvedCollapsed;
+    if (!isControlledCollapse) {
+      setInternalCollapsed(next);
+    }
+    onCollapsedChange?.(next);
+  }
+
+  const columnName = columnTitleText(column);
+  const toggleVerb = resolvedCollapsed
+    ? t('gds.kanban.expandColumn', 'Expand column')
+    : t('gds.kanban.collapseColumn', 'Collapse column');
+  const toggleLabel = columnName ? `${toggleVerb}: ${columnName}` : toggleVerb;
+
+  const count = column.totalCount ?? column.items.length;
 
   const cards = column.items.length ? (
     <Stack gap="xs" ref={enableDrag ? droppable.setNodeRef : undefined} data-gds-kanban-drop-zone={column.id}>
@@ -255,6 +347,23 @@ export function KanbanColumn<
     </Text>
   );
 
+  const footerNode = renderFooter ? renderFooter(column) : footer;
+
+  const body = (
+    <>
+      {enableDrag ? (
+        <SortableContext items={column.items.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+          {cards}
+        </SortableContext>
+      ) : (
+        cards
+      )}
+      {footerNode != null && footerNode !== false ? (
+        <Box data-gds-kanban-footer={column.id}>{footerNode}</Box>
+      ) : null}
+    </>
+  );
+
   return (
     <Paper
       withBorder
@@ -262,18 +371,35 @@ export function KanbanColumn<
       p="md"
       style={width ? { minWidth: width, flex: '0 0 auto' } : undefined}
       data-gds-kanban-column={column.id}
+      data-gds-kanban-column-collapsed={collapsible && resolvedCollapsed ? 'true' : undefined}
     >
       <Stack gap="sm">
         <Group justify="space-between" align="center" wrap="nowrap">
-          <Title order={4}>{column.title}</Title>
-          <Badge variant="light">{column.items.length}</Badge>
+          <Group gap="xs" wrap="nowrap" style={{ minWidth: 0 }}>
+            {collapsible ? (
+              <ActionIcon
+                variant="subtle"
+                color="gray"
+                size="sm"
+                aria-label={toggleLabel}
+                aria-expanded={!resolvedCollapsed}
+                aria-controls={bodyId}
+                onClick={handleToggleCollapsed}
+                style={{ flexShrink: 0 }}
+              >
+                <ColumnDisclosureGlyph collapsed={resolvedCollapsed} />
+              </ActionIcon>
+            ) : null}
+            <Title order={4}>{column.title}</Title>
+          </Group>
+          <Badge variant="light">{count}</Badge>
         </Group>
-        {enableDrag ? (
-          <SortableContext items={column.items.map((item) => item.id)} strategy={verticalListSortingStrategy}>
-            {cards}
-          </SortableContext>
+        {collapsible ? (
+          <div id={bodyId} hidden={resolvedCollapsed} data-gds-kanban-column-body={column.id}>
+            {resolvedCollapsed ? null : <Stack gap="sm">{body}</Stack>}
+          </div>
         ) : (
-          cards
+          body
         )}
       </Stack>
     </Paper>
@@ -327,6 +453,18 @@ export interface KanbanBoardProps<
   moveMenuIcon?: ReactNode;
   /** Overrides the verb in each move-menu trigger's accessible label (default `"Move"`); the item name is still appended when available. */
   moveMenuLabel?: string;
+  /** Per-column footer renderer, applied to every column (pagination / "load more" / per-column actions). */
+  renderColumnFooter?: RenderColumnFooter<TColumn>;
+  /**
+   * Enables the per-column collapse/expand disclosure toggle on every column.
+   * Off by default. Pair with `collapsedColumnIds` + `onCollapsedChange` to control
+   * collapsed state, or leave those unset for uncontrolled per-column state.
+   */
+  collapsible?: boolean;
+  /** Controlled set of collapsed column ids. Omit for uncontrolled (the board manages its own state). */
+  collapsedColumnIds?: string[];
+  /** Notified with the column id and its new collapsed state whenever a column's toggle changes. */
+  onCollapsedChange?: (columnId: string, collapsed: boolean) => void;
 }
 
 function findColumnByItemId<TColumn extends KanbanColumnData>(
@@ -365,12 +503,28 @@ export function KanbanBoard<
   enableDrag = false,
   moveMenuIcon,
   moveMenuLabel,
+  renderColumnFooter,
+  collapsible = false,
+  collapsedColumnIds,
+  onCollapsedChange,
 }: KanbanBoardProps<TItem, TColumn>) {
   const { t } = useGdsTranslation();
   const autoOrientation = useGdsKanbanOrientation();
   const resolvedOrientation = orientation === 'auto' ? autoOrientation : orientation;
   const regionLabel = boardLabel ?? (typeof title === 'string' ? title : t('gds.kanban.boardLabel', 'Kanban board'));
   const [activeItem, setActiveItem] = useState<{ item: TItem; column: TColumn } | null>(null);
+  const [internalCollapsedIds, setInternalCollapsedIds] = useState<string[]>([]);
+  const isCollapseControlled = collapsedColumnIds !== undefined;
+  const collapsedIds = isCollapseControlled ? collapsedColumnIds : internalCollapsedIds;
+
+  function handleColumnCollapsedChange(columnId: string, next: boolean) {
+    if (!isCollapseControlled) {
+      setInternalCollapsedIds((prev) =>
+        next ? (prev.includes(columnId) ? prev : [...prev, columnId]) : prev.filter((id) => id !== columnId),
+      );
+    }
+    onCollapsedChange?.(columnId, next);
+  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -431,7 +585,7 @@ export function KanbanBoard<
       }
       const overId = String(over.id);
       const column = columns.find((candidate) => candidate.id === overId) ?? findColumnByItemId(columns, overId);
-      return `${itemTitleText(item)} ${t('gds.kanban.announceOverColumn', 'is over')} ${column?.title ?? ''}`;
+      return `${itemTitleText(item)} ${t('gds.kanban.announceOverColumn', 'is over')} ${columnTitleText(column)}`;
     },
     onDragEnd: ({ active, over }) => {
       const item = findColumnByItemId(columns, String(active.id))?.items.find((candidate) => candidate.id === active.id);
@@ -440,7 +594,7 @@ export function KanbanBoard<
       }
       const overId = String(over.id);
       const column = columns.find((candidate) => candidate.id === overId) ?? findColumnByItemId(columns, overId);
-      return `${itemTitleText(item)} ${t('gds.kanban.announceDropped', 'was moved to')} ${column?.title ?? ''}`;
+      return `${itemTitleText(item)} ${t('gds.kanban.announceDropped', 'was moved to')} ${columnTitleText(column)}`;
     },
     onDragCancel: ({ active }) => {
       const item = findColumnByItemId(columns, String(active.id))?.items.find((candidate) => candidate.id === active.id);
@@ -467,6 +621,10 @@ export function KanbanBoard<
         width={width}
         moveMenuIcon={moveMenuIcon}
         moveMenuLabel={moveMenuLabel}
+        renderFooter={renderColumnFooter}
+        collapsible={collapsible}
+        collapsed={collapsible ? collapsedIds.includes(column.id) : undefined}
+        onCollapsedChange={(next) => handleColumnCollapsedChange(column.id, next)}
       />
     ));
 

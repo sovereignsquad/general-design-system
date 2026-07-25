@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
-import { KanbanBoard, type KanbanColumnData, type KanbanItem } from './KanbanBoard.client';
+import { KanbanBoard, KanbanColumn, type KanbanColumnData, type KanbanItem } from './KanbanBoard.client';
 
 // jsdom does not implement real layout (getBoundingClientRect returns 0-rects), so a
 // genuine pointer/keyboard dnd-kit drag gesture cannot be reliably simulated here —
@@ -152,5 +152,100 @@ describe('KanbanCard move-menu affordance (#429)', () => {
     );
     expect(screen.getByRole('button', { name: 'Relocate: Task A' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Move: Task A' })).not.toBeInTheDocument();
+  });
+});
+
+describe('KanbanColumn header count (#432)', () => {
+  it('prefers column.totalCount for the count badge and falls back to items.length when omitted', () => {
+    const columns: KanbanColumnData[] = [
+      { id: 'todo', title: 'To do', totalCount: 137, items: [{ id: 'a', title: 'Task A' }] },
+      { id: 'done', title: 'Done', items: [] },
+    ];
+    renderWithGds(<KanbanBoard columns={columns} />);
+
+    const todo = screen.getByText('To do').closest('[data-gds-kanban-column]') as HTMLElement;
+    // Server-paginated: only one item loaded, but the real total is shown.
+    expect(within(todo).getByText('137')).toBeInTheDocument();
+    expect(within(todo).queryByText('1')).not.toBeInTheDocument();
+
+    const done = screen.getByText('Done').closest('[data-gds-kanban-column]') as HTMLElement;
+    expect(within(done).getByText('0')).toBeInTheDocument();
+  });
+});
+
+describe('KanbanColumnData.title ReactNode (#434)', () => {
+  it('renders a ReactNode column title while keeping move-menu targets accessible via ariaLabel', async () => {
+    const user = userEvent.setup();
+    const onMoveItem = vi.fn();
+    const columns: KanbanColumnData[] = [
+      { id: 'todo', title: <span data-testid="custom-title">To do</span>, ariaLabel: 'To do', items: [{ id: 'a', title: 'Task A' }] },
+      { id: 'done', title: <span>Done</span>, ariaLabel: 'Done', items: [] },
+    ];
+    renderWithGds(<KanbanBoard columns={columns} onMoveItem={onMoveItem} />);
+
+    expect(screen.getByTestId('custom-title')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Move: Task A' }));
+    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }));
+    expect(onMoveItem).toHaveBeenCalledWith('a', 'todo', 'done');
+  });
+});
+
+describe('KanbanColumn footer (#435)', () => {
+  it('renders a per-column footer via renderColumnFooter below each column', () => {
+    renderWithGds(
+      <KanbanBoard columns={makeColumns()} renderColumnFooter={(column) => <button type="button">Load more {column.id}</button>} />,
+    );
+    expect(screen.getByRole('button', { name: 'Load more todo' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Load more done' })).toBeInTheDocument();
+  });
+
+  it('renders a static footer via the KanbanColumn footer prop', () => {
+    const columns = makeColumns();
+    renderWithGds(<KanbanColumn column={columns[0]} columns={columns} footer={<div>Column footer</div>} />);
+    expect(screen.getByText('Column footer')).toBeInTheDocument();
+  });
+});
+
+describe('KanbanColumn collapsible (#436)', () => {
+  it('renders no disclosure toggle by default', () => {
+    renderWithGds(<KanbanBoard columns={makeColumns()} />);
+    expect(screen.queryByRole('button', { name: /Collapse column/i })).not.toBeInTheDocument();
+  });
+
+  it('collapses and expands a column (uncontrolled), keeping the count badge visible', async () => {
+    const user = userEvent.setup();
+    renderWithGds(<KanbanBoard columns={makeColumns()} collapsible />);
+
+    const toggle = screen.getByRole('button', { name: 'Collapse column: To do' });
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByText('Task A')).toBeInTheDocument();
+
+    await user.click(toggle);
+
+    const expandToggle = screen.getByRole('button', { name: 'Expand column: To do' });
+    expect(expandToggle).toHaveAttribute('aria-expanded', 'false');
+    // Body (cards) removed while collapsed…
+    expect(screen.queryByText('Task A')).not.toBeInTheDocument();
+    // …but the count badge stays visible (the point of collapsing).
+    const todo = screen.getByText('To do').closest('[data-gds-kanban-column]') as HTMLElement;
+    expect(within(todo).getByText('2')).toBeInTheDocument();
+  });
+
+  it('honors board-level collapsedColumnIds + onCollapsedChange (controlled)', async () => {
+    const user = userEvent.setup();
+    const onCollapsedChange = vi.fn();
+    const { rerender } = renderWithGds(
+      <KanbanBoard columns={makeColumns()} collapsible collapsedColumnIds={[]} onCollapsedChange={onCollapsedChange} />,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Collapse column: To do' }));
+    expect(onCollapsedChange).toHaveBeenCalledWith('todo', true);
+    // Controlled: nothing collapses until the parent updates the prop.
+    expect(screen.getByText('Task A')).toBeInTheDocument();
+
+    rerender(<KanbanBoard columns={makeColumns()} collapsible collapsedColumnIds={['todo']} onCollapsedChange={onCollapsedChange} />);
+    expect(screen.queryByText('Task A')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Expand column: To do' })).toBeInTheDocument();
   });
 });

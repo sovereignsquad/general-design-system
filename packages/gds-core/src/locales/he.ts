@@ -159,6 +159,8 @@ export const he = {
   'gds.kanban.moveItem': 'העבר',
   'gds.kanban.moveTo': 'העבר אל',
   'gds.kanban.emptyColumn': 'אין פריטים',
+  'gds.kanban.collapseColumn': 'כווץ עמודה',
+  'gds.kanban.expandColumn': 'הרחב עמודה',
   'gds.kanban.dragHandle': 'גרור לסידור מחדש',
   'gds.kanban.dragInstructions': 'כדי להרים כרטיס, לחץ על מקש הרווח. במהלך הגרירה, השתמש במקשי החצים כדי להזיז את הכרטיס בין עמודות ובתוכן. לחץ שוב על הרווח כדי להניח את הכרטיס, או לחץ על Escape כדי לבטל.',
   'gds.kanban.announcePickedUp': 'הורם',

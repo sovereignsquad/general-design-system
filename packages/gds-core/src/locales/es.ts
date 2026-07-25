@@ -159,6 +159,8 @@ export const es = {
   'gds.kanban.moveItem': 'Mover',
   'gds.kanban.moveTo': 'Mover a',
   'gds.kanban.emptyColumn': 'Sin elementos',
+  'gds.kanban.collapseColumn': 'Contraer columna',
+  'gds.kanban.expandColumn': 'Expandir columna',
   'gds.kanban.dragHandle': 'Arrastrar para reordenar',
   'gds.kanban.dragInstructions': 'Para levantar una tarjeta, presione la barra espaciadora. Mientras arrastra, use las teclas de flecha para mover la tarjeta entre columnas y dentro de ellas. Presione espacio nuevamente para soltar la tarjeta, o presione escape para cancelar.',
   'gds.kanban.announcePickedUp': 'Se recogió',

@@ -159,6 +159,8 @@ export const ar = {
   'gds.kanban.moveItem': 'نقل',
   'gds.kanban.moveTo': 'نقل إلى',
   'gds.kanban.emptyColumn': 'لا توجد عناصر',
+  'gds.kanban.collapseColumn': 'طيّ العمود',
+  'gds.kanban.expandColumn': 'توسيع العمود',
   'gds.kanban.dragHandle': 'اسحب لإعادة الترتيب',
   'gds.kanban.dragInstructions': 'لالتقاط بطاقة، اضغط على مفتاح المسافة. أثناء السحب، استخدم مفاتيح الأسهم لتحريك البطاقة بين الأعمدة وداخلها. اضغط على المسافة مرة أخرى لإسقاط البطاقة، أو اضغط على Escape للإلغاء.',
   'gds.kanban.announcePickedUp': 'تم الالتقاط',

@@ -277,6 +277,14 @@ Supported `MediaField` states:
 
 Empty columns show a governed "No items" state (`emptyColumnLabel` overridable) instead of a blank gap, so column boundaries stay legible at any card count.
 
+**Server-paginated column counts.** The header count badge renders `column.totalCount` when set, falling back to `column.items.length`. For a column whose `items` hold only the currently-loaded page, set `totalCount` to the real total so the badge reads e.g. `137`, not the loaded-page count. Omitting `totalCount` is unchanged behavior.
+
+**Rich column headings.** `KanbanColumnData.title` accepts a `ReactNode` (icon + label, a colored dot, a custom count pill), not just a string. When `title` is not a plain string, set `ariaLabel` on the column so move-menu targets ("Move to …") and drag announcements still have a meaningful accessible name; a string `title` needs no `ariaLabel`.
+
+**Column footers.** `KanbanColumn` accepts a `footer` (static `ReactNode`) or `renderFooter(column)` rendered below the card list, inside the column — the place for a "Load more" / pagination control (pairs with `totalCount`), a per-column summary, or an add-card button. From the board, `renderColumnFooter(column)` applies one footer to every column. Footers are outside the drag `SortableContext`.
+
+**Collapsible columns.** Opt in with `collapsible` (off by default). Each column then renders a header disclosure toggle — a real `button` with `aria-expanded` and `aria-controls` pointing at the column body — that folds the body (cards + footer) down to just the title and count badge (the badge stays visible). A collapsed column is not a drag drop target. Collapsed state is uncontrolled by default; control it board-wide with `collapsedColumnIds` + `onCollapsedChange(columnId, collapsed)`, or per-column with `collapsed` + `onCollapsedChange(collapsed)`. The disclosure chevron's motion respects `prefers-reduced-motion` via the GDS motion tokens.
+
 **Typed item/column extension.** `KanbanBoard`, `KanbanColumn`, and `KanbanCard` (and their prop interfaces) are generic over the item and column shape — `KanbanBoard<TItem extends KanbanItem, TColumn extends KanbanColumnData<TItem>>` — both parameters defaulting to the base `KanbanItem` / `KanbanColumnData`. Consumers who attach app-specific fields to a record extend those base contracts and receive them **fully typed inside `renderItem`, with no cast**:
 
 ```tsx

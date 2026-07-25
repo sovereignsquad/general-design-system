@@ -159,6 +159,8 @@ export const en = {
   'gds.kanban.moveItem': 'Move',
   'gds.kanban.moveTo': 'Move to',
   'gds.kanban.emptyColumn': 'No items',
+  'gds.kanban.collapseColumn': 'Collapse column',
+  'gds.kanban.expandColumn': 'Expand column',
   'gds.kanban.dragHandle': 'Drag to reorder',
   'gds.kanban.dragInstructions': 'To pick up a card, press the space bar. While dragging, use the arrow keys to move the card between and within columns. Press space again to drop the card, or press escape to cancel.',
   'gds.kanban.announcePickedUp': 'Picked up',

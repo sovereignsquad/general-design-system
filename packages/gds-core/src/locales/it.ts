@@ -159,6 +159,8 @@ export const it = {
   'gds.kanban.moveItem': 'Sposta',
   'gds.kanban.moveTo': 'Sposta in',
   'gds.kanban.emptyColumn': 'Nessun elemento',
+  'gds.kanban.collapseColumn': 'Comprimi colonna',
+  'gds.kanban.expandColumn': 'Espandi colonna',
   'gds.kanban.dragHandle': 'Trascina per riordinare',
   'gds.kanban.dragInstructions': 'Per prendere una scheda, premere la barra spaziatrice. Durante il trascinamento, utilizzare i tasti freccia per spostare la scheda tra le colonne e al loro interno. Premere di nuovo spazio per rilasciare la scheda, oppure premere Esc per annullare.',
   'gds.kanban.announcePickedUp': 'Sollevato',

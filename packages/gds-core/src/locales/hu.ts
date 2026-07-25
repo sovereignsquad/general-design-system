@@ -159,6 +159,8 @@ export const hu = {
   'gds.kanban.moveItem': 'Áthelyezés',
   'gds.kanban.moveTo': 'Áthelyezés ide',
   'gds.kanban.emptyColumn': 'Nincs elem',
+  'gds.kanban.collapseColumn': 'Oszlop összecsukása',
+  'gds.kanban.expandColumn': 'Oszlop kibontása',
   'gds.kanban.dragHandle': 'Húzza az átrendezéshez',
   'gds.kanban.dragInstructions': 'Egy kártya felvételéhez nyomja meg a szóközt. Húzás közben a nyílbillentyűkkel mozgassa a kártyát az oszlopok között és azokon belül. Nyomja meg újra a szóközt a kártya elengedéséhez, vagy nyomja meg az Escape billentyűt a megszakításhoz.',
   'gds.kanban.announcePickedUp': 'Felvéve',
