@@ -98,3 +98,20 @@ requires a clean build/lint/test/`verify:release` chain first. It also does
 not extend to other destructive or hard-to-reverse operations (force-push,
 history rewrite, branch deletion, etc.) — those still require explicit
 per-instance confirmation.
+
+## 7. No GitHub Projects (v2) board API — the board is labels
+
+This session's toolset has **no GitHub Projects (v2) board API**. The GitHub
+tools can create, label, close, and comment on **issues**, and manage
+**milestones** — but they cannot create a Projects v2 board, add cards/items to
+one, or set its status/column fields. Never claim a Projects v2 board was
+created or updated, and never attempt to write one.
+
+The GDS "project board" is therefore **GitHub Issues organized by labels** (see
+[`PROJECT_BOARD.md`](PROJECT_BOARD.md)): the `status:` / `priority:` / `area:`
+label taxonomy, plus a **tracking issue** and, where useful, a **milestone**.
+When asked to "add issues to the project board," deliver exactly that — file the
+issues, apply the board labels, group them under a tracking issue, and assign a
+milestone — and state plainly that this is the label-based board, not a
+Projects v2 board. Do not offer or imply a Projects v2 capability that does not
+exist in this session.
