@@ -19,6 +19,7 @@ import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { apiReferenceEntries, apiReferencePackages, getApiReferenceEntries, getApiReferenceSummary } from './api-reference-registry';
 import { accessibilityEvidenceEntries, accessibilityEvidenceSummary } from './accessibility-evidence-registry';
 import { patternRegistry } from './pattern-registry';
+import { ThemeBuilder } from './ThemeBuilder';
 import {
   getSiteCopy,
   targetGdsVersion,
@@ -1204,6 +1205,7 @@ export function TokensPage({
       lead={i18n.lead}
     >
       <ReferenceThemeExplorer initialSelection={initialThemeSelection} onSelectionChange={onSiteThemeSelectionChange} />
+      <ThemeBuilder />
       <ReferenceSection
         title={i18n.lanesTitle}
         description={i18n.lanesDescription}
