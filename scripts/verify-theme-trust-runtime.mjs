@@ -96,16 +96,35 @@ async function verifyRouteCase(client, route, testCase, viewport) {
       const controlSurfaces = document.querySelectorAll('[data-gds-owned-contrast="theme-lab-controls"]');
       const vibeGalleryCards = document.querySelectorAll('[data-gds-owned-contrast="vibe-gallery-card"]');
       const vibeContract = document.querySelector('[data-gds-owned-contrast="vibe-contract"]');
+      const activeMarkers = [...document.querySelectorAll('[data-gds-theme-lab-active]')].filter(visible);
 
-      if (controlSurfaces.length !== 3) failures.push('Theme Lab must render exactly 3 owned control surfaces.');
+      // Issue #461: the primary control/result cards must NOT be bespoke
+      // owned-contrast surfaces (that forced a dark surface onto a light page).
+      if (controlSurfaces.length !== 0) failures.push('Theme Lab control cards must not use the retired theme-lab-controls owned-contrast surface (issue #461).');
       if (vibeGalleryCards.length < 12) failures.push('Theme Lab must render the full owned vibe gallery.');
       if (!vibeContract) failures.push('Theme Lab must render the current owned VibeTheme contract surface.');
 
-      const firstControl = controlSurfaces[0];
-      if (firstControl) {
-        const style = firstControl.getAttribute('style') || '';
-        if (!style.includes('--gds-vibe-control-text')) failures.push('Owned control surface is missing control text tokens.');
-        if (!style.includes('background-image: var(--gds-local-background)')) failures.push('Owned control surface is missing owned local background application.');
+      // The active preset is clearly labelled in the control panel.
+      if (activeMarkers.length !== 2) failures.push('Theme Lab must mark the active preset with exactly two visible "Selected" indicators.');
+
+      // The control/result cards must re-theme globally exactly like any other
+      // plain .gds-paper on the page — same computed background — rather than
+      // carrying a divergent (dark) owned surface.
+      const controlCard = activeMarkers[0] ? activeMarkers[0].closest('.gds-paper') : null;
+      if (controlCard && controlCard.matches('[data-gds-owned-contrast], [data-gds-local-contrast]')) {
+        failures.push('Theme Lab control card must not be a bespoke owned-contrast surface (issue #461).');
+      }
+      const plainPageCard = [...document.querySelectorAll('.gds-paper')].find((element) =>
+        element !== controlCard
+        && !element.closest('[data-gds-owned-contrast]')
+        && !element.querySelector('[data-gds-theme-lab-active]')
+        && visible(element));
+      if (controlCard && plainPageCard) {
+        const controlBackground = getComputedStyle(controlCard).backgroundImage;
+        const pageBackground = getComputedStyle(plainPageCard).backgroundImage;
+        if (controlBackground !== pageBackground) {
+          failures.push('Theme Lab control card background diverges from the page theme — control cards must re-theme like any .gds-paper (issue #461).');
+        }
       }
     }
 

@@ -41,13 +41,22 @@ for (const proof of [
 for (const proof of [
   'getGdsOwnedContrastProps',
   'createGdsOwnedContrastTokens',
-  "role: 'theme-lab-controls'",
+  // Owned contrast is reserved for the vibe *swatch* surfaces (gallery, contract,
+  // Athlete Gold reference). The primary Theme Lab control/result cards must NOT
+  // carry it — they re-theme globally like any `.gds-paper` (issue #461) — so the
+  // retired `theme-lab-controls` role is intentionally absent from this list.
   "role: 'vibe-gallery-card'",
   "role: 'vibe-contract'",
+  "role: 'athlete-gold-reference'",
 ]) {
   if (!explorerSource.includes(proof)) {
     failures.push(`ReferenceThemeExplorer.tsx must consume the owned-contrast contract: ${proof}`);
   }
+}
+
+// Guard the fix: the retired role must not creep back onto the control cards.
+if (explorerSource.includes("role: 'theme-lab-controls'")) {
+  failures.push("ReferenceThemeExplorer.tsx must not re-introduce the retired 'theme-lab-controls' owned-contrast role (issue #461): the Theme Lab control cards re-theme globally, not via a bespoke owned-contrast surface.");
 }
 
 for (const sourceRoot of sourceRoots) {

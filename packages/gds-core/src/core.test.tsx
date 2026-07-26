@@ -3020,21 +3020,33 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getAllByText('Default runtime theme').length).toBeGreaterThan(0);
   });
 
-  it('marks mixed preview surfaces as package-owned contrast owners', () => {
+  it('themes control cards globally (not via bespoke owned-contrast) and marks the active preset', () => {
     const { container } = renderWithGds(<ReferenceThemeExplorer />);
 
-    expect(container.querySelectorAll('[data-gds-owned-contrast="theme-lab-controls"]').length).toBe(3);
+    // Issue #461: the primary Theme Lab control/result cards must NOT carry a
+    // bespoke owned-contrast surface — that forced a dark `surfaceDark` gradient
+    // onto them, painting dark boxes on a light page. They now re-theme globally
+    // like any `.gds-paper`, so the retired `theme-lab-controls` role is gone.
+    expect(container.querySelectorAll('[data-gds-owned-contrast="theme-lab-controls"]').length).toBe(0);
+    expect(container.querySelector('[data-gds-local-contrast="theme-lab-controls"]')).toBeNull();
+
+    // Owned contrast stays reserved for the intentional vibe *swatch* surfaces
+    // whose job is to preview a specific vibe atmosphere, not match the page.
     expect(container.querySelectorAll('[data-gds-owned-contrast="vibe-gallery-card"]').length).toBeGreaterThan(12);
     expect(container.querySelector('[data-gds-owned-contrast="vibe-contract"]')).toBeInTheDocument();
     expect(container.querySelector('[data-gds-owned-contrast="athlete-gold-reference"]')).toBeInTheDocument();
-    const firstControlSurface = container.querySelector('[data-gds-owned-contrast="theme-lab-controls"]');
-    expect(firstControlSurface?.getAttribute('style')).toContain('background-image: var(--gds-local-background)');
-    expect(firstControlSurface?.getAttribute('style')).toContain('--gds-vibe-control-text');
     const firstVibeCard = container.querySelector('[data-gds-owned-contrast="vibe-gallery-card"]');
     expect(firstVibeCard).toHaveStyle({ color: '#111827' });
     expect(firstVibeCard?.getAttribute('style')).toContain('background-color:');
     expect(firstVibeCard?.getAttribute('style')).toContain('background-image: var(--gds-local-background)');
     expect(firstVibeCard?.getAttribute('data-gds-local-contrast')).toBe('vibe-gallery-card');
+
+    // The currently-applied preset is clearly labelled "Selected" in the control
+    // panel (one badge on the preset picker, one on the selection summary).
+    const activeMarkers = container.querySelectorAll('[data-gds-theme-lab-active]');
+    expect(activeMarkers.length).toBe(2);
+    expect([...activeMarkers].some((element) => element.textContent?.includes('Selected'))).toBe(true);
+    expect([...activeMarkers].some((element) => element.textContent?.includes('Default runtime theme'))).toBe(true);
   });
 
   it('does not fall back to English reference theme explorer copy for non-English locales', () => {

@@ -413,21 +413,18 @@ export function ReferenceThemeExplorer({
   const comparisonPreviewKey = `${comparisonPreset}-${effectiveComparisonScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
   const previewRootId = `gds-theme-preview-${previewKey}`;
   const comparisonPreviewRootId = `gds-theme-preview-${comparisonPreviewKey}`;
+  // The Theme Lab control/result cards are deliberately NOT wrapped in an
+  // owned-contrast surface. When a preset is active the whole page (and every
+  // `.gds-paper`/`.gds-card`) re-themes globally via
+  // `html[data-gds-theme-preset] .gds-paper` in styles.css, so these cards
+  // re-theme their own background AND text exactly like any built-in theme —
+  // readable in light and dark across every preset. A local owned-contrast
+  // override here (issue #461) forced a `surfaceDark` gradient onto the cards,
+  // painting dark boxes on a light page ("ruins the page"). Owned contrast
+  // stays reserved for the intentional vibe *swatch* surfaces below (the
+  // gallery, the VibeTheme contract, and the Athlete Gold reference), whose job
+  // is to preview a specific vibe atmosphere rather than match the page.
   const selectedVibe = vibeCatalogById[preset];
-  const controlSurfaceProps = selectedVibe ? getGdsOwnedContrastProps({
-    role: 'theme-lab-controls',
-    tokens: createGdsOwnedContrastTokens(selectedVibe, {
-      background: `linear-gradient(180deg, color-mix(in srgb, ${selectedVibe.surfaceDark} 92%, black), color-mix(in srgb, ${selectedVibe.surfaceDark} 84%, ${selectedVibe.primary} 16%))`,
-      radius: 'var(--mantine-radius-xl)',
-      surface: selectedVibe.surfaceLight,
-      backgroundColor: selectedVibe.surfaceDark,
-      control: `color-mix(in srgb, ${selectedVibe.surfaceLight} 90%, ${selectedVibe.primary} 10%)`,
-      borderColor: selectedVibe.borderLight,
-      text: selectedVibe.textDark,
-      muted: selectedVibe.mutedDark,
-      controlText: selectedVibe.textLight,
-    }),
-  }) : undefined;
 
   useEffect(() => {
     onSelectionChange?.({
@@ -472,10 +469,12 @@ export function ReferenceThemeExplorer({
             withBorder
             radius="xl"
             p="lg"
-            {...controlSurfaceProps}
           >
             <Stack gap="md">
               <Title order={4}>{copy.themePresetTitle}</Title>
+              <Badge variant="light" w="fit-content" maw="100%" data-gds-theme-lab-active>
+                {copy.selected}: {selectionSummary.label}
+              </Badge>
               <FormField label={copy.presetLabel}>
                 <NativeSelect
                   aria-label={copy.presetLabel}
@@ -517,7 +516,6 @@ export function ReferenceThemeExplorer({
             withBorder
             radius="xl"
             p="lg"
-            {...controlSurfaceProps}
           >
             <Stack gap="md">
               <Title order={4}>{copy.brandOptionsTitle}</Title>
@@ -552,10 +550,12 @@ export function ReferenceThemeExplorer({
             withBorder
             radius="xl"
             p="lg"
-            {...controlSurfaceProps}
           >
             <Stack gap="md" role="status" aria-live="polite">
               <Title order={4}>{copy.currentSelectionTitle}</Title>
+              <Badge variant="light" w="fit-content" maw="100%" data-gds-theme-lab-active>
+                {copy.selected}: {selectionSummary.label}
+              </Badge>
               <Stack gap={6}>
                 <Text fw={700}>{selectionSummary.label}</Text>
                 <Text size="sm" c="dimmed">
