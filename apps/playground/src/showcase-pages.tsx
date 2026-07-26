@@ -420,6 +420,7 @@ export function VocabularyPage() {
   const [demoBrand, setDemoBrand] = useState<'primary' | 'secondary' | 'accent'>('primary');
   const [demoSize, setDemoSize] = useState<'sm' | 'md' | 'lg'>('md');
   const [demoMeaning, setDemoMeaning] = useState<'attention' | 'validation' | 'info' | 'urgency'>('attention');
+  const [demoTone, setDemoTone] = useState<'positive' | 'negative' | 'neutral'>('positive');
 
   const showFeedback = (next: 'success' | 'error') => {
     setFeedback(next);
@@ -502,6 +503,22 @@ export function VocabularyPage() {
         <br />
         <MeaningBadge variant={demoMeaning} label={`${demoMeaning} status`} />
         <BodyText>{`<MeaningBadge variant="${demoMeaning}" label="${demoMeaning} status" />`}</BodyText>
+      </ReferenceSection>
+
+      <ReferenceSection title="Interactive controls — MetricCard" description="Storybook-parity: switch the trend tone to see the governed MetricCard re-map its trend badge across the positive, negative, and neutral data lanes.">
+        <GdsSegmentedControl
+          ariaLabel="Trend tone"
+          value={demoTone}
+          onChange={(next) => setDemoTone(next as 'positive' | 'negative' | 'neutral')}
+          options={[
+            { value: 'positive', label: 'Positive' },
+            { value: 'negative', label: 'Negative' },
+            { value: 'neutral', label: 'Neutral' },
+          ]}
+        />
+        <br />
+        <MetricCard label="Monthly active users" value="12,480" trend={{ label: '+8.2% vs last month', tone: demoTone }} />
+        <BodyText>{`<MetricCard label="Monthly active users" value="12,480" trend={{ label: '+8.2% vs last month', tone: "${demoTone}" }} />`}</BodyText>
       </ReferenceSection>
 
       <ReferenceSection title="Canonical social auth" description="Provider-based login belongs to the shared auth surface, not to custom stacks inside each product.">
