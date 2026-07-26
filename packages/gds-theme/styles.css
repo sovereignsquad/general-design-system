@@ -68,6 +68,26 @@ html[data-mantine-color-scheme='dark'] {
   --gds-vibe-success: light-dark(var(--mantine-color-teal-7), var(--mantine-color-teal-2));
   --gds-vibe-gradient: radial-gradient(circle at 18% 12%, rgba(124, 58, 237, 0.18), transparent 28%), radial-gradient(circle at 82% 8%, rgba(6, 182, 212, 0.16), transparent 30%);
   --gds-vibe-hero: linear-gradient(135deg, rgba(124, 58, 237, 0.14), rgba(6, 182, 212, 0.12));
+  /* Default semantic-role token layer (#451). Canonical bg / surface / text /
+     border / on-inverse roles for the base gdsTheme, so components that read
+     `var(--gds-<role>, <fallback>)` resolve to one governed default instead of
+     divergent per-call-site fallbacks. The readable-text values equal the
+     contrast-gated `default` theme (verify:token-contrast-scoring), so the
+     documented per-token-pair contrast contract holds and is policed by that
+     gate. Brand/preset injection overrides these at runtime via inline :root
+     styles (inline wins over this stylesheet rule); see
+     docs/SEMANTIC_ROLE_TOKENS.md. */
+  --gds-bg-canvas: light-dark(#f8fafc, #0f172a);
+  --gds-bg-page: light-dark(#f8fafc, #0f172a);
+  --gds-bg-surface: light-dark(#ffffff, #1e293b);
+  --gds-bg-card: light-dark(#ffffff, #1e293b);
+  --gds-bg-inverse: #111827;
+  --gds-border-card: light-dark(#e2e8f0, #334155);
+  --gds-text-body: light-dark(#111827, #f8fafc);
+  --gds-text-primary: light-dark(#111827, #f8fafc);
+  --gds-text-meta: light-dark(#64748b, #cbd5e1);
+  --gds-text-secondary: light-dark(#64748b, #cbd5e1);
+  --gds-text-on-inverse: #f8fafc;
   --gds-motion-duration-instant: 0ms;
   --gds-motion-duration-fast: 120ms;
   --gds-motion-duration-base: 180ms;

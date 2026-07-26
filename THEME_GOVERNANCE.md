@@ -1,14 +1,14 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 3.14.8
+Version: 3.14.9
 Last updated: 2026-07-26
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
 
 ## Base rule
 
-- `gdsTheme` is the only shared token authority.
+- `gdsTheme` is the only shared token authority. Its **default semantic-role token layer** (`--gds-bg-*`, `--gds-text-*`, `--gds-border-card`, `--gds-text-on-inverse`) is defined at `:root` in `styles.css` so every surface resolves one governed value instead of a per-call-site fallback — see [`docs/SEMANTIC_ROLE_TOKENS.md`](docs/SEMANTIC_ROLE_TOKENS.md) for the values, the per-token-pair WCAG AA contrast contract (policed by `verify:token-contrast-scoring`), and the preset/brand override precedence.
 - Adopters must use one of the approved theme lanes:
   - `gdsTheme`
   - `gdsDarkPublicTheme`

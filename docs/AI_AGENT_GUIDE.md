@@ -1,7 +1,7 @@
 # AI Agent Guide
 
 Status: Active SSOT
-Version: 3.14.8
+Version: 3.14.9
 Last updated: 2026-07-26
 
 How any AI coding agent — Claude Code, Claude (claude.ai), Cursor, Copilot, or any LLM tool — should consume the General Design System (GDS). The machine-readable summary lives in [`llms.txt`](../llms.txt) at the repo root; this is the human- and agent-readable long form.

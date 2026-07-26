@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.9 - 2026-07-26 — Default semantic-role token layer for the base gdsTheme
+
+- **Default semantic-role token layer** (#451): the base `gdsTheme` now defines its **structural** semantic roles at `:root` in `@sovereignsquad/gds-theme/styles.css` — `--gds-bg-canvas`/`--gds-bg-page`/`--gds-bg-surface`/`--gds-bg-card`/`--gds-bg-inverse`, `--gds-border-card`, `--gds-text-body`/`--gds-text-primary`/`--gds-text-meta`/`--gds-text-secondary`, and `--gds-text-on-inverse` (light/dark via CSS `light-dark()`). Previously these role variables were defined only by `createBrandTheme(...)`, so the base theme left them undefined and every component fell back to a divergent per-call-site guess (`--gds-bg-surface` resolved to `#eee`/`gray-1`/`white` in different places). Now a component reads **one governed default** regardless of where it's used.
+  - **Values match the contrast-gated `default` theme**, so the documented per-token-pair **WCAG AA contrast contract** (`text-body`/`text-meta` on `bg-surface`/`bg-canvas`, `text-on-inverse` on `bg-inverse`) is guaranteed and **already policed by `verify:token-contrast-scoring`** — no new gate needed. Full table in the new [`docs/SEMANTIC_ROLE_TOKENS.md`](docs/SEMANTIC_ROLE_TOKENS.md).
+  - **Additive and no-regression:** brand/vibe-preset application injects role variables as inline `:root` styles that win over the stylesheet layer, so **presets are unaffected by construction**. The decorative/state/accent roles (`--gds-brand-accent`, `--gds-state-*`, `--gds-focus-ring`, `--gds-badge-*`, …) are deliberately **left undefined** at the default layer so their hue stays a brand/preset decision rather than a fixed default.
+  - **Role-misuse fix:** `BottomTabBar`'s top border read `--gds-text-secondary` (a text role) for a border; it now reads `--gds-border-card`, so the new governed `text-secondary` value cannot darken that hairline. `THEME_GOVERNANCE.md` and `README.md` updated.
+
 ## 3.14.8 - 2026-07-26 — Consumer WCAG contrast checker
 
 - **Consumer contrast checker** (#453): two additive, pure, **server-safe** exports in `@sovereignsquad/gds-theme` (root, `/server`, and `/client` entries) surface the same WCAG 2.x contrast math GDS hard-gates its own tokens with (`verify:token-contrast-scoring`), so consumers can score **their own** brand/custom color pairs before shipping instead of re-implementing the formula:

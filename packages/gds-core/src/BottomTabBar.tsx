@@ -73,7 +73,7 @@ export function BottomTabBar({
         height: `calc(${BOTTOM_TAB_HEIGHT}px + env(safe-area-inset-bottom, 0px))`,
         paddingBottom: 'env(safe-area-inset-bottom, 0px)',
         background: 'var(--gds-bg-surface, var(--mantine-color-white))',
-        borderTop: '1px solid var(--gds-text-secondary, var(--mantine-color-gray-3))',
+        borderTop: '1px solid var(--gds-border-card, var(--mantine-color-gray-3))',
       }}
     >
       {visibleItems.map((item) => {

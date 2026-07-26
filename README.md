@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 3.14.8
+Version: 3.14.9
 Last updated: 2026-07-26
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
@@ -87,6 +87,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Task Patterns**: [docs/TASK_PATTERNS.md](docs/TASK_PATTERNS.md) — Structured best-practice workflow contracts for create resource, review submission, bulk approve, failed upload recovery, copy public link, publish toggle, and destructive confirmation tasks.
 - **Production Page Templates**: [docs/PAGE_TEMPLATES.md](docs/PAGE_TEMPLATES.md) — Package-native admin dashboard, settings, resource manager, CRUD editor, analytics, public event, error page, and empty-state page templates with typed slots, required states, accessibility, telemetry events, and rollback guidance.
 - **Theme Governance**: [THEME_GOVERNANCE.md](THEME_GOVERNANCE.md) — Brand extension, dark-mode defaults, white-label, flat-surface, and tenant-theme rules.
+- **Default Semantic-Role Tokens**: [docs/SEMANTIC_ROLE_TOKENS.md](docs/SEMANTIC_ROLE_TOKENS.md) — The base `gdsTheme`'s canonical `--gds-bg-*`/`--gds-text-*`/`--gds-border-card` role layer defined at `:root`, its per-token-pair WCAG AA contrast contract (policed by `verify:token-contrast-scoring`), and the preset/brand override precedence.
 - **Design Tokens (W3C DTCG export)**: [docs/DESIGN_TOKENS_DTCG.md](docs/DESIGN_TOKENS_DTCG.md) and [tokens/gds.tokens.json](tokens/gds.tokens.json) — The GDS token set exported in W3C DTCG format (391 tokens across 23 presets) for Figma variables, Style Dictionary v4, and cross-platform tooling, generated from the authoritative code tokens and drift-checked in CI (`verify:tokens-dtcg`).
 - **Accessibility Evidence**: [ACCESSIBILITY_EVIDENCE.md](ACCESSIBILITY_EVIDENCE.md) — Structured keyboard, focus, WCAG, AT/browser, limitation, and recovery evidence for stable patterns.
 - **Accessibility Conformance Report (VPAT / WCAG 2.2 AA)**: [VPAT_CONFORMANCE.md](VPAT_CONFORMANCE.md) — The first-party VPAT® 2.5 / WCAG 2.2 Level AA conformance statement, generated from the accessibility-evidence registry and CI gates, with an explicit provider/consumer responsibility split and a per-release refresh path.

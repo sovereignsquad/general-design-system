@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 3.14.8
+Version: 3.14.9
 Last updated: 2026-07-26
 
 This document defines the supported package/runtime contract for the umbrella package `@sovereignsquad/gds` and the granular runtime packages `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.
@@ -49,29 +49,29 @@ GDS does not publish to npmjs.com. GitHub Packages is the sole registry. Every i
 
 Current live status:
 
-- published baseline (GitHub Packages): `3.14.8`
-- current repository line: `3.14.8`
+- published baseline (GitHub Packages): `3.14.9`
+- current repository line: `3.14.9`
 - current major line: `3.x`
 
 Consumer repos should install the latest published version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
 Authenticated release operators should use [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md); publishing itself runs only through `.github/workflows/publish-github-packages.yml` in CI, not from a maintainer's machine.
 
-For the current `3.14.8` line, the install contract is (requires the `.npmrc` block above):
+For the current `3.14.9` line, the install contract is (requires the `.npmrc` block above):
 
 ```bash
-npm install @sovereignsquad/gds@3.14.8
-npm install -D @sovereignsquad/gds-eslint-config@3.14.8 @sovereignsquad/gds-compliance@3.14.8
+npm install @sovereignsquad/gds@3.14.9
+npm install -D @sovereignsquad/gds-eslint-config@3.14.9 @sovereignsquad/gds-compliance@3.14.9
 ```
 
 Granular consumers should use the same version across every package:
 
 ```bash
-npm install @sovereignsquad/gds-theme@3.14.8 @sovereignsquad/gds-core@3.14.8 @sovereignsquad/gds-admin@3.14.8
-npm install -D @sovereignsquad/gds-eslint-config@3.14.8 @sovereignsquad/gds-compliance@3.14.8
+npm install @sovereignsquad/gds-theme@3.14.9 @sovereignsquad/gds-core@3.14.9 @sovereignsquad/gds-admin@3.14.9
+npm install -D @sovereignsquad/gds-eslint-config@3.14.9 @sovereignsquad/gds-compliance@3.14.9
 ```
 
-Do not mix pre-3.0 package lines with `3.14.8` packages in the same consumer dependency graph.
+Do not mix pre-3.0 package lines with `3.14.9` packages in the same consumer dependency graph.
 
 ### Release-visibility artifacts (not an install path)
 
