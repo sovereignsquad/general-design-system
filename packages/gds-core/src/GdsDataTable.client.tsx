@@ -5,22 +5,34 @@ import type { KeyboardEvent, ReactNode } from 'react';
 import { Button, Checkbox, Group, Pagination, ScrollArea, Stack, Table, Text, TextInput, VisuallyHidden } from '@mantine/core';
 import { StateBlock } from './StateBlock';
 
+/** Sort direction for a data-table column. */
 export type GdsTableSortDirection = 'asc' | 'desc';
+/** Lifecycle status of the data table's load and interactions. */
 export type GdsTableStatus = 'idle' | 'loading' | 'refreshing' | 'ready' | 'empty' | 'filtered-empty' | 'error' | 'partial' | 'exporting';
 
+/** Column definition for {@link GdsDataTable}. */
 export interface GdsTableColumn<T extends Record<string, unknown>> {
+  /** Row property this column reads. */
   key: keyof T & string;
   label: string;
+  /** Enables the sortable header button for this column. */
   sortable?: boolean;
+  /** Whether the column participates in search/filter matching. Defaults to true. */
   filterable?: boolean;
+  /** Hides the column from rendering while keeping it in the data set. */
   hidden?: boolean;
   width?: number | string;
+  /** Marks cells as containing focusable controls, enabling Enter/F2/Escape cell interaction. */
   interactive?: boolean;
+  /** Custom cell renderer; falls back to the stringified cell value. */
   render?: (row: T) => ReactNode;
+  /** Derives the sort/search value for a row, overriding the raw `key` value. */
   accessor?: (row: T) => string | number | boolean | null | undefined;
+  /** Ordering hint (lower first) for which fields surface in the mobile card fallback. */
   mobilePriority?: number;
 }
 
+/** Current query state (paging, search, sort, and filters) driving a data-table load. */
 export interface GdsTableQuery {
   page: number;
   pageSize: number;
@@ -30,23 +42,29 @@ export interface GdsTableQuery {
   filters: Record<string, string>;
 }
 
+/** Result returned by a data adapter's load: the page of rows plus the total row count. */
 export interface GdsTableLoadResult<T extends Record<string, unknown>> {
   rows: T[];
   total: number;
+  /** Marks the result as incomplete (e.g. capped/partial data), surfacing the `partial` status. */
   partial?: boolean;
 }
 
+/** Data source for a table, resolving a query into rows in local or remote mode. */
 export interface GdsTableDataAdapter<T extends Record<string, unknown>> {
   mode: 'local' | 'remote';
+  /** Resolves the query into a page of rows; receives an abort signal for cancellation/timeout. */
   load: (query: GdsTableQuery, signal?: AbortSignal) => Promise<GdsTableLoadResult<T>>;
 }
 
+/** Payload passed to an export handler: the active query, selected row ids, and current rows. */
 export interface GdsExportRequest<T extends Record<string, unknown>> {
   query: GdsTableQuery;
   selectedRowIds: string[];
   rows: T[];
 }
 
+/** Metadata-only telemetry event for table load/filter/sort/selection/export activity. */
 export interface GdsTableEvent {
   type: 'load_started' | 'load_failed' | 'filter_changed' | 'sort_changed' | 'selection_changed' | 'export_requested';
   timestamp: number;
@@ -54,17 +72,26 @@ export interface GdsTableEvent {
   message?: string;
 }
 
+/** Configuration for {@link useGdsDataTable} and {@link GdsDataTable}. */
 export interface UseGdsDataTableConfig<T extends Record<string, unknown>> {
   columns: GdsTableColumn<T>[];
+  /** Returns a stable unique id for a row, used for selection and keys. */
   rowId: (row: T, index: number) => string;
+  /** Data source that resolves queries into rows. */
   adapter: GdsTableDataAdapter<T>;
+  /** Seed values merged into the default query on first load. */
   initialQuery?: Partial<GdsTableQuery>;
+  /** Receives metadata-only table telemetry events. */
   onEvent?: (event: GdsTableEvent) => void;
+  /** Handles an export request; receives the active query, rows, and selection. */
   onExport?: (request: GdsExportRequest<T>) => Promise<void> | void;
+  /** Load timeout in milliseconds before the request is aborted. Defaults to 8000. */
   timeoutMs?: number;
+  /** Caps how many loaded rows are rendered, virtualizing the visible window. */
   virtualizedRowLimit?: number;
 }
 
+/** Imperative controller returned by {@link useGdsDataTable}: current state plus query, selection, and export actions. */
 export interface GdsDataTableController<T extends Record<string, unknown>> {
   query: GdsTableQuery;
   status: GdsTableStatus;
@@ -85,11 +112,17 @@ export interface GdsDataTableController<T extends Record<string, unknown>> {
   exportRows: () => Promise<void>;
 }
 
+/** Props for {@link GdsDataTable}, extending {@link UseGdsDataTableConfig}. */
 export interface GdsDataTableProps<T extends Record<string, unknown>> extends UseGdsDataTableConfig<T> {
+  /** Accessible table caption and heading text. Defaults to "Data table". */
   caption?: string;
+  /** Optional summary line rendered under the caption. */
   summary?: ReactNode;
+  /** Label for the export button. Defaults to "Export". */
   exportLabel?: string;
+  /** Label for the retry button shown in the error state. Defaults to "Retry". */
   retryLabel?: string;
+  /** Renders the mobile card fallback beneath the table. Defaults to true. */
   mobileCards?: boolean;
 }
 
@@ -135,6 +168,7 @@ function applyLocalQuery<T extends Record<string, unknown>>(rows: T[], columns: 
   return { rows: sorted.slice(start, start + query.pageSize), total: sorted.length };
 }
 
+/** Builds a local (in-memory) data adapter that filters, sorts, and paginates the given rows client-side. */
 export function createGdsTableAdapter<T extends Record<string, unknown>>(rows: T[], columns: GdsTableColumn<T>[]): GdsTableDataAdapter<T> {
   return {
     mode: 'local',
@@ -142,6 +176,7 @@ export function createGdsTableAdapter<T extends Record<string, unknown>>(rows: T
   };
 }
 
+/** Serializes a table query into a stable URL query string, with filter keys sorted for determinism. */
 export function serializeGdsTableQuery(query: GdsTableQuery) {
   const params = new URLSearchParams();
   params.set('page', String(query.page));
@@ -155,6 +190,11 @@ export function serializeGdsTableQuery(query: GdsTableQuery) {
   return params.toString();
 }
 
+/**
+ * Hook implementing the data-table controller: loads through the adapter with
+ * timeout/abort handling and manages query, rows, selection, status, retry, and
+ * export. Powers {@link GdsDataTable} and can drive custom table UIs.
+ */
 export function useGdsDataTable<T extends Record<string, unknown>>({
   rowId,
   adapter,

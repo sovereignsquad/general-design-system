@@ -1,13 +1,20 @@
 import { Card, Text, Group, ThemeIcon, Box } from '@mantine/core';
 
+/** Props for {@link InfoCard}. */
 export interface InfoCardProps {
+  /** Uppercased label shown above the value. */
   title: string;
+  /** Primary metric value. */
   value: string | number;
+  /** Supporting description under the value. */
   description?: string;
+  /** Icon rendered in a themed badge on the trailing edge. */
   icon?: React.ReactNode;
+  /** Mantine color for the icon badge; defaults to `blue`. */
   color?: string;
 }
 
+/** Compact metric card pairing a labelled value with an optional description and themed icon. */
 export function InfoCard({ title, value, description, icon, color = 'blue' }: InfoCardProps) {
   return (
     <Card p="xl">

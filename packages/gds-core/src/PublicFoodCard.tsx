@@ -4,41 +4,53 @@ import { AspectRatio, Badge, Card, Group, Skeleton, Stack, Text, ThemeIcon, Titl
 import { GdsIcons } from './icons';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
+/** Availability state of a food item; drives the status badge and whether the primary action is disabled. */
 export type FoodCardAvailabilityState = 'available' | 'preorder' | 'limited' | 'sold-out' | 'coming-soon';
+/** Aspect ratio of the card's media area. */
 export type FoodCardMediaRatio = 'square' | 'dish' | 'landscape';
 
+/** A small labelled marker badge (e.g. dietary tag) shown above the food card body. */
 export interface FoodCardMarker {
   id: string;
   label: string;
+  /** Badge color intent. Defaults to `'default'`. */
   tone?: 'default' | 'positive' | 'warning' | 'muted';
 }
 
+/** A labelled metadata row (with optional icon) shown in the food card footer. */
 export interface FoodCardMetadata {
   id: string;
   label: ReactNode;
   icon?: ReactNode;
 }
 
+/** Props for {@link PublicFoodCard}. */
 export interface PublicFoodCardProps {
   title: ReactNode;
   description?: ReactNode;
+  /** Media node; a placeholder icon is shown when omitted. */
   image?: ReactNode;
   imageAlt?: string;
   price?: ReactNode;
   priceNote?: ReactNode;
   state: FoodCardAvailabilityState;
   helperText?: ReactNode;
+  /** Pickup detail rendered as a labelled row. */
   pickupNote?: ReactNode;
+  /** Freshness detail rendered as a labelled row. */
   freshnessNote?: ReactNode;
   markers?: FoodCardMarker[];
   metadata?: FoodCardMetadata[];
+  /** Primary CTA; auto-disabled when the item is sold-out/coming-soon or the card is disabled. */
   primaryAction?: ReactNode;
   secondaryAction?: ReactNode;
+  /** Short quantity/stock hint shown alongside the markers. */
   quantityHint?: ReactNode;
   mediaRatio?: FoodCardMediaRatio;
   size?: GdsCardSize;
   density?: GdsCardDensity;
   variant?: GdsCardVariant;
+  /** Render the skeleton loading state. */
   loading?: boolean;
   disabled?: boolean;
 }
@@ -108,6 +120,12 @@ function LoadingFoodCard({ mediaRatio, size, density, variant }: { mediaRatio: F
   );
 }
 
+/**
+ * Governed public-facing food/menu card: media, availability badge, markers,
+ * price, pickup/freshness details, and metadata, resolved through the shared
+ * card contract. Actions are automatically disabled for sold-out/coming-soon
+ * states, and a skeleton is rendered while `loading`.
+ */
 export function PublicFoodCard({
   title,
   description,

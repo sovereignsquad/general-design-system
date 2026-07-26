@@ -1,7 +1,9 @@
 import { Badge, Card, Group, List, Stack, Text, Title } from '@mantine/core';
 
+/** Lifecycle status of a design-to-code mapping. */
 export type GdsHandoffStatus = 'approved' | 'experimental' | 'deprecated' | 'missing-mapping' | 'stale-mapping';
 
+/** One documented prop in a design-handoff component map, including its matching Figma control. */
 export interface GdsPropAnnotation {
   prop: string;
   type: string;
@@ -10,6 +12,7 @@ export interface GdsPropAnnotation {
   figmaControl?: string;
 }
 
+/** Maps a code component to its Figma component, with props, annotations, token links, and handoff/recovery notes. */
 export interface GdsDesignComponentMap {
   id: string;
   packageName: '@sovereignsquad/gds-core' | '@sovereignsquad/gds-theme' | '@sovereignsquad/gds-admin';
@@ -29,6 +32,7 @@ export interface GdsDesignComponentMap {
   recovery: string;
 }
 
+/** Maps a code design token to its Figma variable, the mode it applies to, and its usage. */
 export interface GdsDesignTokenMap {
   id: string;
   token: string;
@@ -38,6 +42,7 @@ export interface GdsDesignTokenMap {
   usage: string;
 }
 
+/** Generated report pairing component and token mappings with status counts and stale/missing/approved rollups. */
 export interface GdsDesignHandoffReport {
   generatedAt: string;
   components: GdsDesignComponentMap[];
@@ -181,14 +186,17 @@ function cloneComponent(component: GdsDesignComponentMap): GdsDesignComponentMap
   };
 }
 
+/** Returns deep clones of every design-handoff component mapping. */
 export function getGdsDesignComponentMappings() {
   return componentMappings.map(cloneComponent);
 }
 
+/** Returns copies of every design-handoff token mapping. */
 export function getGdsDesignTokenMappings() {
   return tokenMappings.map((token) => ({ ...token }));
 }
 
+/** Validates the component and token mappings for duplicate ids and missing required annotations, returning failure messages. */
 export function validateGdsDesignHandoffMappings(components: GdsDesignComponentMap[] = componentMappings, tokens: GdsDesignTokenMap[] = tokenMappings) {
   const failures: string[] = [];
   const componentIds = new Set<string>();
@@ -216,6 +224,7 @@ export function validateGdsDesignHandoffMappings(components: GdsDesignComponentM
   return failures;
 }
 
+/** Builds a {@link GdsDesignHandoffReport} from the current mappings, tallying status counts and stale/missing/approved lists. */
 export function generateGdsDesignHandoffReport(generatedAt = 'static') {
   const components = getGdsDesignComponentMappings();
   const tokens = getGdsDesignTokenMappings();
@@ -240,6 +249,7 @@ export function generateGdsDesignHandoffReport(generatedAt = 'static') {
   } satisfies GdsDesignHandoffReport;
 }
 
+/** Renders the design-handoff report as cards, one per component mapping with its contracts, props, focus behavior, and recovery notes. */
 export function GdsDesignHandoffCatalog() {
   const report = generateGdsDesignHandoffReport();
   return (

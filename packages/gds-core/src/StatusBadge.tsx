@@ -2,23 +2,32 @@ import type { ReactNode } from 'react';
 import { Badge } from '@mantine/core';
 import type { BadgeProps } from '@mantine/core';
 
+/** Semantic status meaning that maps to a fixed badge color. */
 export type StatusVariant = 'success' | 'warning' | 'danger' | 'info' | 'neutral';
 
+/** Props for `StatusBadge`; extends Mantine `BadgeProps` but replaces `color` with `status`. */
 export interface StatusBadgeProps extends Omit<BadgeProps, 'color'> {
+  /** Semantic status that determines the badge color. */
   status: StatusVariant;
   children: ReactNode;
 }
 
+/** Semantic tone for a `LabelTag`, mapped to a fixed color. */
 export type LabelTagTone = 'neutral' | 'info' | 'warning' | 'success';
 
+/** Props for `LabelTag`; extends Mantine `BadgeProps` minus `color`/`children`. */
 export interface LabelTagProps extends Omit<BadgeProps, 'color' | 'children'> {
+  /** Semantic tone that determines the tag color; defaults to `neutral`. */
   tone?: LabelTagTone;
   label: ReactNode;
 }
 
+/** Props for `CountBadge`; extends Mantine `BadgeProps` minus `color`/`children`. */
 export interface CountBadgeProps extends Omit<BadgeProps, 'color' | 'children'> {
   value: number;
+  /** Maximum shown before displaying `{cap}+`; defaults to 99. */
   cap?: number;
+  /** Accessible label (`aria-label`) for the badge. */
   srLabel?: string;
 }
 
@@ -49,6 +58,7 @@ export function StatusBadge({ status, children, ...props }: StatusBadgeProps) {
   );
 }
 
+/** Outline badge that renders `label` in a fixed color chosen by its semantic `tone`. */
 export function LabelTag({ tone = 'neutral', label, ...props }: LabelTagProps) {
   return (
     <Badge color={labelTagColorMap[tone]} variant="outline" {...props}>
@@ -57,6 +67,7 @@ export function LabelTag({ tone = 'neutral', label, ...props }: LabelTagProps) {
   );
 }
 
+/** Numeric count badge that clamps to a non-negative integer and shows `{cap}+` once the value exceeds `cap`. */
 export function CountBadge({ value, cap = 99, srLabel, ...props }: CountBadgeProps) {
   const normalizedValue = Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
   const normalizedCap = Math.max(1, Math.floor(cap));

@@ -4,12 +4,17 @@ import { useMantineColorScheme } from '@mantine/core';
 import { getGdsVibeThemes, getGdsVibeThemeCssVariables } from './vibe-themes';
 import type { GdsThemePresetId } from './theme-presets';
 
+/** Props for `VibeThemePicker`. */
 export interface VibeThemePickerProps {
+  /** Currently selected preset id. */
   value: GdsThemePresetId;
+  /** Called with the newly selected preset id. */
   onChange: (id: GdsThemePresetId) => void;
+  /** Accessible label and legend for the picker. Defaults to `'Choose theme'`. */
   label?: string;
 }
 
+/** Accessible radiogroup of vibe-theme swatches; each swatch previews a preset via its `--gds-vibe-*` variables and selects it on click. */
 export function VibeThemePicker({ value, onChange, label = 'Choose theme' }: VibeThemePickerProps) {
   const { colorScheme } = useMantineColorScheme();
   const scheme = colorScheme === 'dark' ? 'dark' : 'light';

@@ -4,16 +4,27 @@ import type { ReactNode } from 'react';
 import { Divider, Group, Stack, Text, Title } from '@mantine/core';
 import { DiscoveryShell, ThemeToggle } from '@sovereignsquad/gds-core';
 
+/** Props for {@link AppShell}. */
 export interface AppShellProps {
+  /** Brand text shown in the header; defaults to "GDS". */
   logoText?: string;
+  /** Legacy alias for the primary sidebar navigation; used when `primaryNavigation` is absent. */
   navLinks?: ReactNode;
+  /** Primary sidebar navigation. */
   primaryNavigation?: ReactNode;
+  /** Secondary ("More") sidebar navigation. */
   secondaryNavigation?: ReactNode;
+  /** Account panel pinned to the foot of the sidebar. */
   accountPanel?: ReactNode;
+  /** Secondary line under the logo; also increases the header height. */
   headerContext?: ReactNode;
+  /** Actions rendered on the trailing edge of the header. */
   headerActions?: ReactNode;
+  /** Footer content for mobile navigation. */
   mobileNavigation?: ReactNode;
+  /** Render the theme toggle in the header; defaults to `true`. */
   showThemeToggle?: boolean;
+  /** Main content area. */
   children: ReactNode;
 }
 

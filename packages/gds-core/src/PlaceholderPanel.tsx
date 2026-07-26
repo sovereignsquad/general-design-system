@@ -2,15 +2,25 @@ import type { ReactNode } from 'react';
 import { Badge, Card, Stack, Text, Title } from '@mantine/core';
 import { StateBlock } from './StateBlock';
 
+/** Props for {@link PlaceholderPanel}. */
 export interface PlaceholderPanelProps {
   title: string;
   description: ReactNode;
+  /** Optional badge shown above the title in placeholder mode. */
   badge?: string;
+  /** Optional footer text shown beneath the description in placeholder mode. */
   footer?: ReactNode;
+  /** Live content rendered directly when `mode` is "live". */
   children?: ReactNode;
+  /** "live" renders `children`; "placeholder" renders the governed placeholder card. */
   mode: 'placeholder' | 'live';
 }
 
+/**
+ * Renders `children` directly in "live" mode, or a governed placeholder card
+ * (badge, title, description, footer, and a not-enough-data block) when in
+ * "placeholder" mode or when no children are supplied.
+ */
 export function PlaceholderPanel({
   title,
   description,

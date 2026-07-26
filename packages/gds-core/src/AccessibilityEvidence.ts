@@ -1,3 +1,4 @@
+/** Verification state of an accessibility-evidence entry or AT/browser test row. */
 export type GdsAccessibilityEvidenceState =
   | 'verified'
   | 'partial'
@@ -5,50 +6,67 @@ export type GdsAccessibilityEvidenceState =
   | 'not-applicable'
   | 'expired';
 
+/** Documented keyboard behavior for a component or pattern. */
 export interface GdsKeyboardBehavior {
+  /** How focus moves through the component via Tab/Shift+Tab. */
   tabSequence: string;
+  /** How the primary action is triggered (Enter/Space/etc.). */
   activation: string;
+  /** Behavior of the Escape key, when relevant. */
   escapeBehavior?: string;
+  /** Additional keyboard shortcuts. */
   shortcuts?: string[];
 }
 
+/** Documented screen-reader behavior: what is announced and which semantics are exposed. */
 export interface GdsScreenReaderNote {
   summary: string;
+  /** Roles/states/properties exposed to assistive technology. */
   semantics: string[];
+  /** Live/dynamic announcements the component makes. */
   announcements: string[];
 }
 
+/** A single WCAG success-criterion mapping. */
 export interface GdsWcagMapping {
+  /** WCAG criterion number, e.g. `'1.3.1'`. */
   criterion: string;
   level: 'A' | 'AA' | 'AAA';
   note: string;
 }
 
+/** A recorded assistive-technology/browser test result for an evidence entry. */
 export interface GdsAtBrowserStatus {
   assistiveTechnology: string;
   browser: string;
   os: string;
   status: GdsAccessibilityEvidenceState;
+  /** ISO date the AT/browser combination was last verified. */
   verifiedAt: string;
   note: string;
 }
 
+/** A documented known accessibility limitation and its remediation path. */
 export interface GdsKnownLimitation {
   title: string;
   impact: string;
   owner: string;
+  /** Recommended alternative/replacement while the limitation stands. */
   replacementPath: string;
   followUpIssue?: string;
 }
 
+/** Full accessibility-evidence record for a governed component or pattern. */
 export interface GdsAccessibilityEvidence {
   id: string;
   title: string;
   kind: 'component' | 'pattern';
+  /** Route where the evidence can be reviewed. */
   route?: string;
   packageName?: string;
   owner: string;
   status: GdsAccessibilityEvidenceState;
+  /** ISO date the evidence was last updated; drives staleness checks. */
   updatedAt: string;
   evidenceSource: string;
   summary: string;
@@ -58,9 +76,11 @@ export interface GdsAccessibilityEvidence {
   wcagMappings: GdsWcagMapping[];
   atBrowserStatus: GdsAtBrowserStatus[];
   knownLimitations?: GdsKnownLimitation[];
+  /** How users recover from failure/error states. */
   recovery: string;
 }
 
+/** Aggregate counts across a set of accessibility-evidence entries. */
 export interface GdsAccessibilityEvidenceSummary {
   total: number;
   verified: number;
@@ -69,9 +89,11 @@ export interface GdsAccessibilityEvidenceSummary {
   notApplicable: number;
   expired: number;
   withKnownLimitations: number;
+  /** Count of AT/browser rows by their individual status. */
   atStatuses: Record<GdsAccessibilityEvidenceState, number>;
 }
 
+/** Result of validating a set of evidence entries: pass/fail, messages, and the summary. */
 export interface GdsAccessibilityEvidenceValidationResult {
   ok: boolean;
   failures: string[];
@@ -81,10 +103,12 @@ export interface GdsAccessibilityEvidenceValidationResult {
 const staleEvidenceDays = 180;
 const requiredWcagCriteria = ['1.3.1', '1.4.3', '2.1.1', '2.4.7', '4.1.2'];
 
+/** Builds a lookup of evidence entries keyed by their `id`. */
 export function createGdsAccessibilityEvidenceIndex(entries: GdsAccessibilityEvidence[]) {
   return Object.fromEntries(entries.map((entry) => [entry.id, entry])) as Record<string, GdsAccessibilityEvidence>;
 }
 
+/** Looks up a single evidence entry by `id` from either an array or an index record. */
 export function getGdsAccessibilityEvidence(
   entries: GdsAccessibilityEvidence[] | Record<string, GdsAccessibilityEvidence>,
   id: string,
@@ -96,6 +120,7 @@ export function getGdsAccessibilityEvidence(
   return entries[id];
 }
 
+/** Computes aggregate counts (by status and AT/browser row) across the given evidence entries. */
 export function getGdsAccessibilityEvidenceSummary(entries: GdsAccessibilityEvidence[]): GdsAccessibilityEvidenceSummary {
   const atStatuses: Record<GdsAccessibilityEvidenceState, number> = {
     verified: 0,
@@ -129,6 +154,12 @@ function diffDays(isoDate: string) {
   return Math.floor(age / (1000 * 60 * 60 * 24));
 }
 
+/**
+ * Validates evidence entries against the governance rules — required fields,
+ * unique ids, the mandatory WCAG criteria, staleness (older than 180 days must
+ * be marked expired), and consistency of known-limitation records — returning
+ * the pass/fail result, failure messages, and the summary.
+ */
 export function validateGdsAccessibilityEvidence(entries: GdsAccessibilityEvidence[]): GdsAccessibilityEvidenceValidationResult {
   const failures: string[] = [];
   const seen = new Set<string>();

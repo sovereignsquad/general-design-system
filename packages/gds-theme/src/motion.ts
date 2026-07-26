@@ -1,28 +1,48 @@
+/** Named motion duration token (maps to a millisecond value in `gdsMotionDurations`). */
 export type GdsMotionDurationToken = 'instant' | 'fast' | 'base' | 'slow' | 'slower';
+/** Named motion easing token (maps to a `cubic-bezier(...)` in `gdsMotionEasings`). */
 export type GdsMotionEasingToken = 'standard' | 'entrance' | 'exit' | 'emphasis' | 'linear';
+/** Identifier of a governed motion preset (one per interaction surface). */
 export type GdsMotionPresetId = 'overlay' | 'drawer' | 'command' | 'list' | 'feedback' | 'skeleton' | 'state';
+/** Reduced-motion policy: follow the OS (`'system'`), always reduce, or disable motion entirely. */
 export type GdsReducedMotionPolicy = 'system' | 'reduce' | 'no-motion';
 
+/** A governed motion preset: duration/easing tokens plus the full and reduced-motion transition strings. */
 export interface GdsMotionPreset {
   id: GdsMotionPresetId;
+  /** Duration token driving this preset. */
   duration: GdsMotionDurationToken;
+  /** Easing token driving this preset. */
   easing: GdsMotionEasingToken;
+  /** Delay before the transition starts, in milliseconds. */
   delayMs: number;
+  /** Full-motion CSS `transition` value. */
   transition: string;
+  /** `transform` applied in the entered state. */
   enterTransform: string;
+  /** `transform` applied in the exited state. */
   exitTransform: string;
+  /** CSS `transition` used when motion is reduced. */
   reducedTransition: string;
+  /** `transform` used when motion is reduced. */
   reducedTransform: string;
+  /** Where this preset is meant to be applied. */
   usage: string;
 }
 
+/** A motion preset resolved under a specific policy, with concrete values and an animate flag. */
 export interface GdsResolvedMotionPreset extends GdsMotionPreset {
+  /** Resolved duration in milliseconds (`0` under `'no-motion'`). */
   durationMs: number;
+  /** Resolved easing function value. */
   easingValue: string;
+  /** Policy this preset was resolved under. */
   policy: GdsReducedMotionPolicy;
+  /** `false` under `'no-motion'`; `true` otherwise. */
   shouldAnimate: boolean;
 }
 
+/** Motion duration tokens mapped to their millisecond values. */
 export const gdsMotionDurations: Record<GdsMotionDurationToken, number> = {
   instant: 0,
   fast: 120,
@@ -31,6 +51,7 @@ export const gdsMotionDurations: Record<GdsMotionDurationToken, number> = {
   slower: 360,
 };
 
+/** Motion easing tokens mapped to their CSS timing-function values. */
 export const gdsMotionEasings: Record<GdsMotionEasingToken, string> = {
   standard: 'cubic-bezier(0.2, 0, 0, 1)',
   entrance: 'cubic-bezier(0.16, 1, 0.3, 1)',
@@ -39,6 +60,7 @@ export const gdsMotionEasings: Record<GdsMotionEasingToken, string> = {
   linear: 'linear',
 };
 
+/** The governed motion presets keyed by id, one per interaction surface. */
 export const gdsMotionPresets: Record<GdsMotionPresetId, GdsMotionPreset> = {
   overlay: {
     id: 'overlay',
@@ -126,6 +148,12 @@ export const gdsMotionPresets: Record<GdsMotionPresetId, GdsMotionPreset> = {
   },
 };
 
+/**
+ * Resolves a motion preset under the given policy, producing concrete duration
+ * and easing values plus reduced-motion-aware transitions. Under `'reduce'` the
+ * reduced transition/transform are used; under `'no-motion'` duration is `0`,
+ * easing is linear, and `shouldAnimate` is `false`.
+ */
 export function getGdsMotionPreset(id: GdsMotionPresetId, policy: GdsReducedMotionPolicy = 'system'): GdsResolvedMotionPreset {
   const preset = gdsMotionPresets[id];
   const reduced = policy === 'reduce' || policy === 'no-motion';
@@ -142,6 +170,7 @@ export function getGdsMotionPreset(id: GdsMotionPresetId, policy: GdsReducedMoti
   };
 }
 
+/** Builds the `--gds-motion-duration-*` / `--gds-motion-ease-*` CSS variable map; under `'no-motion'` durations collapse to 0 and easings to linear. */
 export function createGdsMotionCssVariables(policy: GdsReducedMotionPolicy = 'system') {
   const noMotion = policy === 'no-motion';
   return {

@@ -1,3 +1,4 @@
+/** Italian (`it`) message pack for the GDS string catalog, keyed by message id. */
 export const it = {
   'gds.action.settings': 'Impostazioni',
   'gds.action.analytics': 'Analitica',

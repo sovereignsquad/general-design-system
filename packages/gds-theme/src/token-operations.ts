@@ -1,12 +1,18 @@
 import type { GdsThemePresetId } from './theme-presets';
 import { getGdsVibeThemes, type GdsVibeTheme } from './vibe-themes';
 
+/** Severity of a token validation finding. */
 export type GdsTokenSeverity = 'error' | 'warning';
+/** Kind of change recorded for a token between two graphs. */
 export type GdsTokenDiffChangeType = 'added' | 'removed' | 'changed';
 
+/** A single token in the design-system token graph. */
 export interface GdsTokenNode {
+  /** Fully-qualified token id (`themeId.role`). */
   id: string;
+  /** Preset theme this token belongs to. */
   themeId: GdsThemePresetId;
+  /** Semantic role the token fills. */
   role:
     | 'primary'
     | 'accent'
@@ -25,71 +31,108 @@ export interface GdsTokenNode {
     | 'muted-dark'
     | 'gradient'
     | 'hero';
+  /** CSS color or effect value. */
   value: string;
+  /** Whether the value is a plain color or a composite effect (gradient/hero). */
   category: 'color' | 'effect';
+  /** Which color scheme the value applies to. */
   mode: 'light' | 'dark' | 'shared';
 }
 
+/** A snapshot of every theme's tokens: the canonical structure validated and diffed by GDS CI. */
 export interface GdsTokenGraph {
+  /** ISO timestamp the graph was generated. */
   generatedAt: string;
+  /** Number of themes represented. */
   themeCount: number;
+  /** Total number of token nodes. */
   tokenCount: number;
+  /** Ids of the themes included. */
   themes: GdsThemePresetId[];
+  /** Every token node in the graph. */
   nodes: GdsTokenNode[];
 }
 
+/** A problem found while validating a token graph. */
 export interface GdsTokenValidationFinding {
   severity: GdsTokenSeverity;
+  /** Which validation rule was violated. */
   rule:
     | 'token.invalid-color'
     | 'token.missing-dark-pair'
     | 'token.missing-light-pair'
     | 'token.duplicate-id'
     | 'token.unknown-role';
+  /** Id (or role pair key) the finding concerns. */
   tokenId: string;
+  /** Human-readable explanation. */
   message: string;
 }
 
+/** Result of validating a token graph. */
 export interface GdsTokenValidationReport {
+  /** The graph that was validated. */
   graph: GdsTokenGraph;
+  /** All findings (errors and warnings). */
   findings: GdsTokenValidationFinding[];
+  /** Number of error-severity findings. */
   errorCount: number;
+  /** Number of warning-severity findings. */
   warningCount: number;
+  /** `true` when there are no errors. */
   ok: boolean;
 }
 
+/** One token-level change between two graphs. */
 export interface GdsTokenDiffEntry {
   type: GdsTokenDiffChangeType;
   tokenId: string;
+  /** Prior value (absent for `added`). */
   before?: string;
+  /** New value (absent for `removed`). */
   after?: string;
 }
 
+/** Result of diffing two token graphs. */
 export interface GdsTokenDiffReport {
+  /** ISO timestamp the diff was computed. */
   comparedAt: string;
+  /** Token count of the "before" graph. */
   beforeTokenCount: number;
+  /** Token count of the "after" graph. */
   afterTokenCount: number;
+  /** Number of changed/added/removed tokens. */
   changedCount: number;
+  /** The individual change entries, sorted by token id. */
   entries: GdsTokenDiffEntry[];
 }
 
+/** A single foreground/background surface pairing derived for a theme, with a compatibility verdict. */
 export interface GdsThemeCompatibilitySurface {
+  /** Which UI surface the pairing represents. */
   surface: 'page' | 'shell' | 'card' | 'border' | 'primary-action' | 'muted-copy';
   mode: 'light' | 'dark';
   foreground: string;
   background: string;
+  /** `'needs-review'` when a required token was missing; otherwise `'compatible'`. */
   status: 'compatible' | 'needs-review';
 }
 
+/** Per-theme compatibility result: all derived surface pairings for one theme. */
 export interface GdsThemeCompatibilityResult {
   themeId: GdsThemePresetId;
   surfaces: GdsThemeCompatibilitySurface[];
 }
 
+/** Aggregate compatibility report across every theme in a token graph. */
 export interface GdsThemeCompatibilityReport {
+  /** ISO timestamp the report was generated. */
   checkedAt: string;
+  /** Number of themes checked. */
   themeCount: number;
+  /** How many themes had every surface `'compatible'`. */
   compatibleThemeCount: number;
+  /** Per-theme results. */
   themes: GdsThemeCompatibilityResult[];
 }
 
@@ -138,6 +181,7 @@ function createThemeNodes(theme: GdsVibeTheme): GdsTokenNode[] {
   ];
 }
 
+/** Builds the token graph for every vibe theme (primary/accent/glow, canvas/shell/surface/border/text/muted light+dark, gradient, hero). */
 export function createGdsTokenGraph(): GdsTokenGraph {
   const themes = getGdsVibeThemes();
   const nodes = themes.flatMap(createThemeNodes);
@@ -151,6 +195,11 @@ export function createGdsTokenGraph(): GdsTokenGraph {
   };
 }
 
+/**
+ * Validates a token graph and returns a report. Flags duplicate ids and
+ * unparseable colors as errors, non-standard color roles as warnings, and any
+ * mode-paired role missing its light or dark counterpart as an error.
+ */
 export function validateGdsTokenGraph(graph: GdsTokenGraph = createGdsTokenGraph()): GdsTokenValidationReport {
   const findings: GdsTokenValidationFinding[] = [];
   const seen = new Set<string>();
@@ -230,6 +279,7 @@ function createNodeMap(graph: GdsTokenGraph) {
   return new Map(graph.nodes.map((node) => [node.id, node.value]));
 }
 
+/** Diffs two token graphs by id and reports each added, removed, or changed token value. */
 export function createGdsTokenDiff(before: GdsTokenGraph, after: GdsTokenGraph = createGdsTokenGraph()): GdsTokenDiffReport {
   const beforeMap = createNodeMap(before);
   const afterMap = createNodeMap(after);
@@ -262,6 +312,11 @@ export function createGdsTokenDiff(before: GdsTokenGraph, after: GdsTokenGraph =
   };
 }
 
+/**
+ * Derives the standard foreground/background surface pairings (page, shell,
+ * card, border, primary-action, muted-copy in both modes) for every theme in the
+ * graph, marking any pairing that references a missing token as `'needs-review'`.
+ */
 export function createGdsThemeCompatibilityReport(graph: GdsTokenGraph = createGdsTokenGraph()): GdsThemeCompatibilityReport {
   const themeMap = new Map<GdsThemePresetId, GdsTokenNode[]>();
   for (const node of graph.nodes) {

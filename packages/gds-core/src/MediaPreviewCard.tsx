@@ -3,26 +3,37 @@ import { AspectRatio, Badge, Box, Card, Group, Image, Stack, Text, Title } from 
 import { ActionBar, type ActionBarProps } from './ActionBar';
 import { StateBlock } from './StateBlock';
 
+/** `object-fit` policy for the preview image. */
 export type MediaFit = 'contain' | 'cover';
+/** Rendering state of the preview: loading, ready, missing media, error, or read-only. */
 export type MediaPreviewState = 'loading' | 'ready' | 'missing' | 'error' | 'readonly';
+/** Supported aspect ratios for the preview frame. */
 export type MediaPreviewAspectRatio = '1:1' | '4:3' | '16:9' | '3:4';
 
+/** A labeled metadata pair shown beneath the preview. */
 export interface MediaPreviewMetadata {
   label: ReactNode;
   value: ReactNode;
 }
 
+/** Props for {@link MediaPreviewCard}. */
 export interface MediaPreviewCardProps {
   title: ReactNode;
+  /** Full-resolution media source. */
   src?: string;
+  /** Thumbnail source; preferred over `src` for display when present. */
   thumbnailSrc?: string;
+  /** Alt text for the media. */
   alt: string;
   caption?: ReactNode;
   fit?: MediaFit;
   aspectRatio?: MediaPreviewAspectRatio;
+  /** Explicit state; defaults to `'ready'` when a source exists, else `'missing'`. */
   state?: MediaPreviewState;
   metadata?: MediaPreviewMetadata[];
+  /** Action bar rendered under the metadata. */
   actions?: ActionBarProps;
+  /** Status badge shown beside the title. */
   status?: ReactNode;
   /**
    * When true, omit the media area entirely (no image, no placeholder block)
@@ -40,6 +51,12 @@ const aspectRatios: Record<MediaPreviewAspectRatio, number> = {
   '3:4': 3 / 4,
 };
 
+/**
+ * Card that previews a single media item with a fixed aspect ratio, falling back
+ * to a governed state block (loading/error/empty) when the media is unavailable.
+ * Optionally shows a caption, labeled metadata, a status badge, and an action bar,
+ * and can omit the media area entirely via `hideWhenNoMedia`.
+ */
 export function MediaPreviewCard({
   title,
   src,

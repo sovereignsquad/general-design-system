@@ -1,3 +1,4 @@
+/** Hungarian (hu) message catalog for GDS core strings. */
 export const hu = {
   'gds.action.settings': 'Beállítások',
   'gds.action.analytics': 'Analitika',

@@ -9,15 +9,24 @@ import { gdsTheme } from './theme';
 import { GdsI18nContext, isGdsRtlLocale } from './i18n';
 import { OverlayAdapterProvider, mantineOverlayAdapter, type OverlayAdapter } from './overlay-adapter';
 
+/** Props for `GdsProvider`, the single required root provider. */
 export interface GdsProviderProps {
   children: React.ReactNode;
+  /** Active locale id; drives translations and text direction. Defaults to `'en'`. */
   locale?: string;
+  /** Translation dictionary keyed by message id. */
   messages?: Record<string, string>;
+  /** Mantine theme override to apply. Defaults to `gdsTheme`. */
   theme?: MantineThemeOverride;
+  /** Initial color scheme. Defaults to `'light'`. */
   defaultColorScheme?: 'light' | 'dark' | 'auto';
+  /** Pins the color scheme, overriding `defaultColorScheme` and any toggle. */
   forceColorScheme?: 'light' | 'dark';
+  /** Returns the element the color-scheme attribute is written to. Defaults to `<html>`. */
   colorSchemeRootElement?: () => HTMLElement | undefined;
+  /** CSS selector Mantine emits its theme variables under. Defaults to `':root'`. */
   cssVariablesSelector?: string;
+  /** When `true` (default), sets `data-mantine-color-scheme` on the document root. */
   applyDocumentColorScheme?: boolean;
   /**
    * Overlay engine adapter (issue #349). Defaults to the Mantine-backed adapter.

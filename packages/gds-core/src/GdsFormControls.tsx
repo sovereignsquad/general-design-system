@@ -2,22 +2,27 @@ import type { ReactNode } from 'react';
 import { Box, Button, Group, Progress, SegmentedControl, Slider, Stack, Text, Title } from '@mantine/core';
 import { FormField } from './FormField';
 
+/** A single option in a {@link GdsSegmentedControl}. */
 export interface GdsSegmentedControlOption<T extends string = string> {
   value: T;
   label: ReactNode;
   disabled?: boolean;
 }
 
+/** Props for {@link GdsSegmentedControl}. */
 export interface GdsSegmentedControlProps<T extends string = string> {
   value: T;
   onChange: (value: T) => void;
   options: GdsSegmentedControlOption<T>[];
+  /** Accessible name for the control group. */
   ariaLabel: string;
+  /** How options that exceed the width behave: horizontal `'scroll'` (default) or `'wrap'` onto multiple rows. */
   overflow?: 'scroll' | 'wrap';
   fullWidth?: boolean;
   disabled?: boolean;
 }
 
+/** Governed segmented control: a token-themed, overflow-aware `role="group"` of mutually-exclusive options. */
 export function GdsSegmentedControl<T extends string = string>({
   value,
   onChange,
@@ -69,19 +74,25 @@ export function GdsSegmentedControl<T extends string = string>({
   );
 }
 
+/** Props for {@link GdsSlider}. */
 export interface GdsSliderProps {
   label: ReactNode;
   description?: ReactNode;
   value: number;
   onChange: (value: number) => void;
+  /** Minimum value. Defaults to 1. */
   min?: number;
+  /** Maximum value. Defaults to 10. */
   max?: number;
+  /** Step increment. Defaults to 1. */
   step?: number;
   disabled?: boolean;
+  /** Accessible name; falls back to `label` when it is a string. */
   ariaLabel?: string;
   marks?: { value: number; label?: ReactNode }[];
 }
 
+/** Governed slider wrapped in a {@link FormField}, with brand-tokened color and an accessible label. */
 export function GdsSlider({
   label,
   description,
@@ -111,10 +122,13 @@ export function GdsSlider({
   );
 }
 
+/** Props for {@link GdsRatingScale} — a {@link GdsSlider} fixed to a 1..`scale` integer range. */
 export interface GdsRatingScaleProps extends Omit<GdsSliderProps, 'min' | 'max' | 'step'> {
+  /** Top of the rating range. Defaults to 5. */
   scale?: 5 | 10;
 }
 
+/** A {@link GdsSlider} preset for 1..`scale` integer ratings, with default end-point marks. */
 export function GdsRatingScale({ scale = 5, marks, ...props }: GdsRatingScaleProps) {
   return (
     <GdsSlider
@@ -130,6 +144,7 @@ export function GdsRatingScale({ scale = 5, marks, ...props }: GdsRatingScalePro
   );
 }
 
+/** A single step in a {@link GdsWizardStepper}. */
 export interface GdsWizardStep {
   id: string;
   title: ReactNode;
@@ -138,19 +153,28 @@ export interface GdsWizardStep {
   completed?: boolean;
 }
 
+/** Props for {@link GdsWizardStepper}. */
 export interface GdsWizardStepperProps {
   steps: GdsWizardStep[];
+  /** Index of the currently active step (clamped to a valid range). */
   activeStep: number;
   onStepChange?: (stepIndex: number) => void;
   onBack?: () => void;
+  /** Advance/finish handler; the primary button shows a loading state while it resolves. */
   onSaveNext?: () => void | Promise<void>;
   backLabel?: string;
   saveNextLabel?: string;
+  /** Label for the primary button on the final step. */
   finishLabel?: string;
   loading?: boolean;
   ariaLabel?: string;
 }
 
+/**
+ * Governed multi-step wizard: a progress bar, a scrollable ordered list of step
+ * buttons (with `aria-current="step"` on the active one), the current step's
+ * title/description, and Back / Save&Next (or Finish) controls.
+ */
 export function GdsWizardStepper({
   steps,
   activeStep,

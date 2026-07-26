@@ -3,33 +3,51 @@ import { Badge, Card, Group, Menu, Stack, Text, ThemeIcon, Title, ActionIcon } f
 import { GdsIcons } from './icons';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
+/** A label/value pair shown in the card's metadata list. */
 export interface ProductCardMetaItem {
   label: string;
   value: ReactNode;
 }
 
+/** A secondary action rendered in the card's overflow menu. */
 export interface ProductCardAction {
   label: string;
   onClick?: () => void;
+  /** Renders the item as a link when set, instead of a button. */
   href?: string;
   color?: string;
 }
 
+/** Props for {@link ProductCard}. */
 export interface ProductCardProps {
   title: string;
   description?: ReactNode;
+  /** Optional media rendered at the top of the card. */
   media?: ReactNode;
+  /** Optional leading icon shown in a theme-icon badge. */
   icon?: ReactNode;
+  /** Status indicator; strings render as a light badge, otherwise rendered as-is. */
   status?: ReactNode;
+  /** Label/value pairs listed in the card body. */
   metadata?: ProductCardMetaItem[];
+  /** Primary action rendered in the card footer. */
   primaryAction?: ReactNode;
+  /** Actions collapsed into an overflow ("More actions") menu. */
   secondaryActions?: ProductCardAction[];
   footer?: ReactNode;
+  /** Card size token from the GDS card contract. Defaults to "md". */
   size?: GdsCardSize;
+  /** Card density token from the GDS card contract. Defaults to "comfortable". */
   density?: GdsCardDensity;
+  /** Card variant token from the GDS card contract. Defaults to "default". */
   variant?: GdsCardVariant;
 }
 
+/**
+ * Governed product card composing media, an optional icon, title/description, a
+ * status badge, a metadata list, a primary action, and secondary actions collapsed
+ * into an overflow menu. Padding, gap, and title level come from the card contract.
+ */
 export function ProductCard({
   title,
   description,

@@ -11,27 +11,38 @@ import { GdsIcons } from './icons';
  * are exposed in the public API. Also closes the standing KIDEX combobox gap.
  */
 
+/** A single option for {@link SearchableSelect}. */
 export interface ComboboxOption<T extends string = string> {
   value: T;
   label: string;
+  /** Optional group heading this option is listed under. */
   group?: string;
   disabled?: boolean;
 }
 
+/** Props for {@link SearchableSelect}. */
 export interface SearchableSelectProps<T extends string = string> {
+  /** Currently selected value, or `null` when nothing is selected. */
   value: T | null;
+  /** Called with the new value, or `null` when the selection is cleared. */
   onChange: (value: T | null) => void;
   /** Synchronous options. Ignored when `loadOptions` is provided. */
   options?: ComboboxOption<T>[];
   /** Async option source. Rejection surfaces the error state with retry. */
   loadOptions?: (query: string) => Promise<ComboboxOption<T>[]>;
   placeholder?: string;
+  /** Shows a clear button when a value is selected. Defaults to false. */
   clearable?: boolean;
   disabled?: boolean;
+  /** Debounce in milliseconds before running an async search. Defaults to 250. */
   debounceMs?: number;
+  /** Empty-results message. Defaults to "No results found". */
   noResultsLabel?: string;
+  /** Async error message. Defaults to "Could not load options". */
   errorLabel?: string;
+  /** Retry-link label shown in the async error state. Defaults to "Retry". */
   retryLabel?: string;
+  /** Accessible label for the trigger button. */
   ariaLabel?: string;
 }
 
@@ -61,6 +72,11 @@ function groupOptions<T extends string>(options: ComboboxOption<T>[]): [string |
   return [...groups.entries()];
 }
 
+/**
+ * Canonical searchable single-select (combobox): typeahead filtering over sync or
+ * debounced async options (with stale-response cancellation), option grouping, and
+ * full keyboard accessibility. Exposes no Mantine types in its public API.
+ */
 export function SearchableSelect<T extends string = string>({
   value,
   onChange,

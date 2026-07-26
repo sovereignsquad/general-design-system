@@ -16,6 +16,7 @@ import {
  * of hardcoding hex, keeping brand application inside GDS token governance.
  */
 
+/** Five brand color ramps consumed by the legacy `createBrandTheme(options)` entry point. */
 export interface BrandColorRamps {
   /** Primary brand color (e.g. navy). Drives `brand.primary` / `bg.inverse`. */
   navy: string;
@@ -29,6 +30,7 @@ export interface BrandColorRamps {
   slate: string;
 }
 
+/** Display and body font families for a brand theme. */
 export interface BrandFonts {
   /** Display font applied to headings (e.g. 'Bogart'). */
   display: string;
@@ -36,6 +38,7 @@ export interface BrandFonts {
   body: string;
 }
 
+/** A 10-step Mantine-style color ramp (index 0 lightest to 9 darkest). */
 export type BrandColorRamp = readonly [
   string,
   string,
@@ -49,30 +52,47 @@ export type BrandColorRamp = readonly [
   string,
 ];
 
+/** Ramp key of the built-in Class USA brand palette. */
 export type ClassUsaColorRampName = 'navy' | 'terracotta' | 'sage' | 'cream' | 'slate';
 
+/** The five Class USA brand ramps keyed by name. */
 export type ClassUsaColorRamps = Record<ClassUsaColorRampName, BrandColorRamp>;
 
+/** Options for `createBrandTheme('class-usa', ...)`; every field is optional and falls back to the built-in Class USA defaults. */
 export interface CreateClassUsaBrandThemeOptions {
+  /** Override any subset of the Class USA color ramps. */
   colorRamps?: Partial<ClassUsaColorRamps>;
+  /** Override the display and/or body font. */
   fonts?: Partial<BrandFonts>;
+  /** Flatten surfaces (no shadows); defaults to `true` for this brand. */
   flatSurfaces?: boolean;
+  /** Discouraged escape hatch merged last; governed roles still win over collisions. */
   overrides?: MantineThemeOverride;
 }
 
+/** Ramp key of the built-in Gold Athlete brand palette. */
 export type GoldAthleteColorRampName = 'gold' | 'charcoal' | 'crimson' | 'ivory' | 'slate';
 
+/** The five Gold Athlete brand ramps keyed by name. */
 export type GoldAthleteColorRamps = Record<GoldAthleteColorRampName, BrandColorRamp>;
 
+/** Options for `createBrandTheme('gold-athlete', ...)`; every field is optional and falls back to the built-in Gold Athlete defaults. */
 export interface CreateGoldAthleteBrandThemeOptions {
+  /** Override any subset of the Gold Athlete color ramps. */
   colorRamps?: Partial<GoldAthleteColorRamps>;
+  /** Override the display and/or body font. */
   fonts?: Partial<BrandFonts>;
+  /** Flatten surfaces (no shadows); defaults to `true` for this brand. */
   flatSurfaces?: boolean;
+  /** Discouraged escape hatch merged last; governed roles still win over collisions. */
   overrides?: MantineThemeOverride;
 }
 
+/** Options for the legacy `createBrandTheme(options)` entry point (five ramps plus two fonts). */
 export interface CreateBrandThemeOptions {
+  /** Five brand color ramps (required). */
   brandColors: BrandColorRamps;
+  /** Display and body fonts (required). */
   fonts: BrandFonts;
   /** Flatten surfaces (no shadows). Preserved from `createPublicBrandTheme`. */
   flatSurfaces?: boolean;
@@ -80,6 +100,7 @@ export interface CreateBrandThemeOptions {
   overrides?: MantineThemeOverride;
 }
 
+/** A governed brand semantic role name; each resolves to a light + dark color pair. */
 export type BrandSemanticRole =
   | 'brand.primary'
   | 'brand.primaryPressed'
@@ -112,7 +133,9 @@ export type BrandSemanticRole =
   | 'control.disabledBg'
   | 'control.disabledText';
 
+/** Result of `createBrandTheme(...)`: the Mantine theme plus its governed token outputs. */
 export interface BrandThemeResult {
+  /** Fully composed Mantine theme, ready to pass to `GdsProvider`. */
   mantineTheme: MantineTheme;
   /** Brand-named semantic variables, light and dark, for injection at `:root`. */
   cssVariables: Record<string, string>;
@@ -120,6 +143,7 @@ export interface BrandThemeResult {
   tokenGraph: GdsTokenGraph;
 }
 
+/** Error thrown when brand theme input, WCAG contrast, or token-graph validation fails; carries the collected findings. */
 export class GdsBrandThemeError extends Error {
   readonly findings: GdsTokenValidationFinding[];
   constructor(message: string, findings: GdsTokenValidationFinding[] = []) {
@@ -503,9 +527,19 @@ function assertContrast(tokens: Record<BrandSemanticRole, SemanticPair>): GdsTok
   return findings;
 }
 
+/**
+ * Builds a governed brand theme and returns its Mantine theme, semantic
+ * CSS-variable map, and validated token graph. Throws `GdsBrandThemeError` when
+ * input, WCAG contrast, or token-graph validation fails.
+ *
+ * Overload: the built-in `'class-usa'` brand, optionally customized.
+ */
 export function createBrandTheme(id: 'class-usa', options?: CreateClassUsaBrandThemeOptions): BrandThemeResult;
+/** Overload: the built-in `'gold-athlete'` brand, optionally customized. */
 export function createBrandTheme(id: 'gold-athlete', options?: CreateGoldAthleteBrandThemeOptions): BrandThemeResult;
+/** Overload: a custom brand derived from five color ramps and two fonts. */
 export function createBrandTheme(options: CreateBrandThemeOptions): BrandThemeResult;
+/** Implementation dispatching to the `createBrandTheme` overloads above. */
 export function createBrandTheme(
   idOrOptions: 'class-usa' | 'gold-athlete' | CreateBrandThemeOptions,
   maybeOptions: CreateClassUsaBrandThemeOptions | CreateGoldAthleteBrandThemeOptions = {},

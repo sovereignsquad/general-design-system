@@ -1,10 +1,12 @@
 import { Anchor, Breadcrumbs, Text } from '@mantine/core';
 
+/** A single breadcrumb entry: a label and an optional link target. */
 export interface GdsBreadcrumbItem {
   label: string;
   href?: string;
 }
 
+/** Props for {@link GdsBreadcrumbs}. */
 export interface GdsBreadcrumbsProps {
   items: GdsBreadcrumbItem[];
   /**

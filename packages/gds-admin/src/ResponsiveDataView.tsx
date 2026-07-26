@@ -6,25 +6,43 @@ import { useMediaQuery } from '@mantine/hooks';
 import { StateBlock } from '@sovereignsquad/gds-core';
 import { DataTable, type DataTableColumn } from './DataTable';
 
+/** An active-filter chip shown above a {@link ResponsiveDataView}. */
 export interface ResponsiveDataViewFilterChip {
+  /** Chip label. */
   label: string;
+  /** Remove handler; when set, the chip shows a clear affordance. */
   onRemove?: () => void;
 }
 
+/** Props for {@link ResponsiveDataView}. */
 export interface ResponsiveDataViewProps<T extends Record<string, unknown>> {
+  /** Row records to render. */
   data: T[];
+  /** Column definitions for the desktop table. */
   columns: DataTableColumn<T>[];
+  /** Renders a card for each record in the mobile layout. */
   renderCard: (item: T, index: number) => React.ReactNode;
+  /** Show loading state. */
   loading?: boolean;
+  /** Error message; when set, an error state replaces the data. */
   error?: string;
+  /** Action element shown in the error state. */
   errorAction?: React.ReactNode;
+  /** Empty-state heading; defaults to "No results yet". */
   emptyTitle?: string;
+  /** Empty-state description. */
   emptyDescription?: string;
+  /** Action element shown in the empty state. */
   emptyAction?: React.ReactNode;
+  /** Active filter chips shown above the data. */
   activeFilters?: ResponsiveDataViewFilterChip[];
+  /** Toolbar content rendered above the data. */
   toolbar?: React.ReactNode;
+  /** Filter drawer shown on mobile viewports. */
   filterDrawer?: React.ReactNode;
+  /** Inline filter controls shown on mobile viewports. */
   mobileFilters?: React.ReactNode;
+  /** Stable React key for each row/card; defaults to the index. */
   getRowKey?: (item: T, index: number) => React.Key;
 }
 

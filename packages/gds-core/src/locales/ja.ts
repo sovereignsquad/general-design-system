@@ -1,3 +1,4 @@
+/** Japanese (ja) message dictionary for GDS components, keyed by translation id. */
 export const ja = {
   'gds.action.settings': '設定',
   'gds.action.analytics': '分析',

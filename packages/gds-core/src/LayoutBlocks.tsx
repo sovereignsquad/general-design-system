@@ -8,31 +8,38 @@ import { SectionPanel } from './SectionPanel';
 import { SimpleDataTable } from './SimpleDataTable';
 import { StateBlock } from './StateBlock';
 
+/** Built-in layout block types the default renderers cover. */
 export type LayoutBlockType = 'hero' | 'stats' | 'cards-grid' | 'table' | 'chart' | 'filter' | 'cta' | 'footer';
 
+/** One block in a layout schema: a stable id, a type, and an untyped props bag interpreted by that block's renderer. */
 export interface LayoutBlock {
   id: string;
   type: LayoutBlockType | string;
   props: Record<string, unknown>;
 }
 
+/** A versioned, serializable layout: an ordered list of blocks. */
 export interface LayoutSchema {
   version: '1';
   blocks: LayoutBlock[];
 }
 
+/** A single layout-validation problem, optionally scoped to the offending block. */
 export interface LayoutValidationIssue {
   blockId?: string;
   message: string;
 }
 
+/** Combined output of rendering a layout: its validation issues and the rendered node. */
 export interface LayoutRenderResult {
   issues: LayoutValidationIssue[];
   node: ReactNode;
 }
 
+/** Renders one {@link LayoutBlock} into a node; register custom types via {@link registerGdsBlock}. */
 export type GdsBlockRenderer = (block: LayoutBlock) => ReactNode;
 
+/** A named, reusable layout starting point: metadata plus a ready-made {@link LayoutSchema}. */
 export interface GdsLayoutTemplate {
   id: string;
   title: string;
@@ -145,10 +152,12 @@ function cloneLayoutTemplate(template: GdsLayoutTemplate): GdsLayoutTemplate {
   return JSON.parse(JSON.stringify(template)) as GdsLayoutTemplate;
 }
 
+/** Returns deep clones of every built-in layout template. */
 export function getGdsLayoutTemplates(): GdsLayoutTemplate[] {
   return gdsLayoutTemplates.map(cloneLayoutTemplate);
 }
 
+/** Returns a deep clone of the layout template with the given id, or `undefined`. */
 export function getGdsLayoutTemplate(id: string): GdsLayoutTemplate | undefined {
   const template = gdsLayoutTemplates.find((entry) => entry.id === id);
   return template ? cloneLayoutTemplate(template) : undefined;
@@ -298,6 +307,7 @@ for (const [type, renderer] of Object.entries(defaultRenderers)) {
   blockRegistry.set(type, renderer);
 }
 
+/** Registers (or overrides) the renderer for a layout block type. Throws on an empty type. */
 export function registerGdsBlock(type: string, renderer: GdsBlockRenderer) {
   if (!type.trim()) {
     throw new Error('GDS layout block type must be a non-empty string.');
@@ -306,10 +316,12 @@ export function registerGdsBlock(type: string, renderer: GdsBlockRenderer) {
   blockRegistry.set(type, renderer);
 }
 
+/** Returns every currently registered layout block type. */
 export function getGdsBlockTypes() {
   return [...blockRegistry.keys()];
 }
 
+/** Validates a layout schema: version, non-empty blocks, per-block id/type/props shape, and rejection of script or javascript-URL content. */
 export function validateGdsLayout(schema: LayoutSchema): LayoutValidationIssue[] {
   const issues: LayoutValidationIssue[] = [];
 
@@ -353,6 +365,7 @@ function renderBlock(block: LayoutBlock) {
   return renderer(block);
 }
 
+/** Renders a layout schema to a node, surfacing any validation issues as an inline diagnostics alert above the blocks. */
 export function renderGdsLayout(schema: LayoutSchema) {
   const issues = validateGdsLayout(schema);
 
@@ -380,6 +393,7 @@ export function renderGdsLayout(schema: LayoutSchema) {
   );
 }
 
+/** Renders a layout and returns both the rendered node and its validation issues. */
 export function renderGdsLayoutWithDiagnostics(schema: LayoutSchema): LayoutRenderResult {
   return {
     issues: validateGdsLayout(schema),

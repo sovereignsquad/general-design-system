@@ -6,9 +6,12 @@ import { Button, Group, Stack, Text } from '@mantine/core';
 import { GdsDataTable, createGdsTableAdapter, type GdsTableColumn } from './GdsDataTable.client';
 import { StateBlock } from './StateBlock';
 
+/** The governed set of CRUD/lifecycle actions a resource manager can run. */
 export type GdsResourceActionId = 'view' | 'create' | 'edit' | 'delete' | 'activate' | 'archive' | 'copy-preview';
+/** Async state of the resource workflow, covering list/detail loading, editing/saving, per-action progress, and error/permission/stale outcomes. */
 export type GdsResourceWorkflowState = 'loading-list' | 'empty' | 'ready' | 'detail-loading' | 'editing' | 'saving' | 'deleting' | 'activating' | 'permission-denied' | 'stale-data' | 'error';
 
+/** Minimal shape every managed resource must satisfy; extra fields are allowed via the index signature. */
 export interface GdsResourceRecord {
   id: string;
   title: string;
@@ -17,63 +20,86 @@ export interface GdsResourceRecord {
   [key: string]: unknown;
 }
 
+/** Whether a given action is allowed on the current resource, with a reason when denied. */
 export interface GdsResourcePermission {
   action: GdsResourceActionId;
   allowed: boolean;
+  /** Explanation shown when `allowed` is false. */
   reason?: string;
 }
 
+/** Outcome of a run action: the affected resource, a staleness flag, and any copied text (for copy-preview). */
 export interface GdsResourceActionResult<T extends GdsResourceRecord> {
   resource?: T;
   stale?: boolean;
   copiedText?: string;
 }
 
+/** Host-supplied backend for a resource manager: `list` is required; each optional mutation/permission hook enables the matching action. */
 export interface GdsResourceAdapter<T extends GdsResourceRecord> {
+  /** Loads all resources. */
   list: (signal?: AbortSignal) => Promise<T[]>;
+  /** Loads one resource by id for the detail pane. */
   detail?: (id: string, signal?: AbortSignal) => Promise<T | null>;
   create?: (values: Partial<T>, idempotencyKey?: string) => Promise<T>;
   update?: (id: string, values: Partial<T>, idempotencyKey?: string) => Promise<T>;
   delete?: (id: string, idempotencyKey?: string) => Promise<void>;
   activate?: (id: string, idempotencyKey?: string) => Promise<T>;
   archive?: (id: string, idempotencyKey?: string) => Promise<T>;
+  /** Returns a shareable preview URL/text for a resource. */
   copyPreview?: (id: string) => Promise<string>;
+  /** Returns the permission set for a resource (`null` when none is selected). */
   getPermissions?: (resource: T | null) => GdsResourcePermission[];
 }
 
+/** Metadata-only lifecycle event emitted as the workflow runs; never carries resource contents. */
 export interface GdsResourceManagerEvent {
   type: 'resource_loaded' | 'action_started' | 'action_failed' | 'action_completed' | 'permission_denied';
   action?: GdsResourceActionId;
   timestamp: number;
+  /** Always `'metadata-only'` — a reminder that no payload data is included. */
   privacy: 'metadata-only';
   message?: string;
 }
 
+/** Configuration for {@link useGdsResourceManager}. */
 export interface UseGdsResourceManagerConfig<T extends GdsResourceRecord> {
   adapter: GdsResourceAdapter<T>;
   onEvent?: (event: GdsResourceManagerEvent) => void;
+  /** Abort budget (ms) for the initial list load; defaults to 8000. */
   timeoutMs?: number;
+  /** Confirmation gate required before destructive actions (delete/archive). */
   confirmAction?: (action: GdsResourceActionId, resource: T | null) => Promise<boolean> | boolean;
 }
 
+/** Imperative controller returned by {@link useGdsResourceManager}: current data and state plus the methods that drive the workflow. */
 export interface GdsResourceManagerController<T extends GdsResourceRecord> {
   resources: T[];
   selectedResource: T | null;
   state: GdsResourceWorkflowState;
   error?: string;
   permissions: GdsResourcePermission[];
+  /** Reloads the resource list. */
   loadList: () => void;
+  /** Loads and selects a resource for the detail pane. */
   openDetail: (id: string) => Promise<T | null>;
+  /** Clears the current selection. */
   closeDetail: () => void;
+  /** Resolves whether an action is currently allowed. */
   canRunAction: (action: GdsResourceActionId, resource?: T | null) => GdsResourcePermission;
+  /** Runs an action through permission, confirmation, and state handling. */
   runAction: (action: GdsResourceActionId, resource: T | null, values?: Partial<T>) => Promise<GdsResourceActionResult<T> | null>;
 }
 
+/** Props for {@link GdsResourceManager}: the manager config plus the list/detail presentation. */
 export interface GdsResourceManagerProps<T extends GdsResourceRecord> extends UseGdsResourceManagerConfig<T> {
   title: string;
   description?: ReactNode;
+  /** Table columns; defaults to title/status/updated when omitted. */
   columns?: GdsTableColumn<T>[];
+  /** Copy shown when the list is empty. */
   emptyLabel?: string;
+  /** Custom renderer for the selected resource's detail pane. */
   renderDetail?: (resource: T, controller: GdsResourceManagerController<T>) => ReactNode;
 }
 
@@ -98,6 +124,11 @@ function defaultPermissions<T extends GdsResourceRecord>(resource: T | null): Gd
   ];
 }
 
+/**
+ * Builds an in-memory {@link GdsResourceAdapter} over a seed array — supporting
+ * list/detail/create/update/delete/activate/archive/copy-preview against local
+ * state — for demos, tests, and prototyping.
+ */
 export function createGdsResourceAdapter<T extends GdsResourceRecord>(initialResources: T[]): GdsResourceAdapter<T> {
   let resources = [...initialResources];
   return {
@@ -136,6 +167,12 @@ export function createGdsResourceAdapter<T extends GdsResourceRecord>(initialRes
   };
 }
 
+/**
+ * Hook implementing the resource workflow: loads the list on mount (with an abort
+ * timeout), tracks the selection and {@link GdsResourceWorkflowState}, resolves
+ * permissions from the adapter, and runs actions through permission and
+ * confirmation gates — exposing everything via a {@link GdsResourceManagerController}.
+ */
 export function useGdsResourceManager<T extends GdsResourceRecord>({
   adapter,
   onEvent,

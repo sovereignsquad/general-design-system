@@ -1,10 +1,13 @@
+/** The canonical lifecycle states every governed task pattern must cover. */
 export type GdsTaskState = 'start' | 'in-progress' | 'success' | 'empty' | 'error' | 'retry' | 'cancelled';
 
+/** A telemetry event a pattern emits, named with the metadata-only fields carried in its payload. */
 export interface GdsPatternTelemetryEvent {
   name: string;
   payloadFields: string[];
 }
 
+/** One step within a task pattern, naming its state, the component contracts it uses, accessibility requirements, and retry/timeout guidance. */
 export interface GdsTaskStep {
   id: string;
   label: string;
@@ -14,6 +17,7 @@ export interface GdsTaskStep {
   retryTimeout: string;
 }
 
+/** A complete governed task pattern: its intent, trigger, required data, states, steps, component contracts, telemetry, copy, accessibility, edge cases, and anti-patterns. */
 export interface GdsTaskPattern {
   id: string;
   title: string;
@@ -190,15 +194,18 @@ function clonePattern(pattern: GdsTaskPattern): GdsTaskPattern {
   };
 }
 
+/** Returns deep clones of all built-in task patterns, so callers can read or mutate them without affecting the canonical definitions. */
 export function getGdsTaskPatterns() {
   return taskPatterns.map(clonePattern);
 }
 
+/** Returns a deep clone of the task pattern with the given id, or `undefined` if none matches. */
 export function getGdsTaskPattern(id: string) {
   const pattern = taskPatterns.find((item) => item.id === id);
   return pattern ? clonePattern(pattern) : undefined;
 }
 
+/** Validates task patterns (the built-ins by default), returning a list of problems: duplicate ids, missing states, or absent telemetry/accessibility/do-not-build guidance. Empty means valid. */
 export function validateGdsTaskPatterns(patterns: GdsTaskPattern[] = taskPatterns) {
   const ids = new Set<string>();
   const issues: string[] = [];

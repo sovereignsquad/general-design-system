@@ -20,11 +20,14 @@ export type GdsDensityMode = GdsCardDensity;
 
 const GdsDensityContext = createContext<GdsDensityMode>('comfortable');
 
+/** Props for {@link GdsDensityProvider}. */
 export interface GdsDensityProviderProps {
+  /** Ambient density mode applied to the subtree. */
   density: GdsDensityMode;
   children: ReactNode;
 }
 
+/** Sets the ambient density mode read by `useGdsDensity()` for its descendants. */
 export function GdsDensityProvider({ density, children }: GdsDensityProviderProps) {
   return <GdsDensityContext.Provider value={density}>{children}</GdsDensityContext.Provider>;
 }

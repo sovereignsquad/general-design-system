@@ -8,29 +8,42 @@ import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { getSemanticActionLabel, resolveSemanticActionConfig } from './vocabulary';
 import type { GdsVocabularyPack, SemanticActionId } from './vocabulary';
 
+/** Props for {@link SidebarNav}, the `<nav>` container. */
 export interface SidebarNavProps {
   children: ReactNode;
+  /** Accessible label for the nav landmark; defaults to "Primary navigation". */
   ariaLabel?: string;
+  /** Vertical gap between sections; defaults to `'md'`. */
   gap?: string | number;
 }
 
+/** Props for {@link SidebarNavSection}, a labeled group of nav items. */
 export interface SidebarNavSectionProps {
+  /** Optional group heading. */
   label?: ReactNode;
   children: ReactNode;
+  /** When true, pushes the section to the bottom of the sidebar (via `margin-top: auto`). */
   pushToBottom?: boolean;
 }
 
+/** Props for {@link SidebarNavItem}; extends Mantine `NavLinkProps` but owns `label`/`leftSection`/`description`. */
 export interface SidebarNavItemProps extends Omit<NavLinkProps, 'label' | 'leftSection' | 'description'> {
+  /** Semantic action id; supplies a default label and icon from the vocabulary. */
   action?: SemanticActionId;
+  /** Explicit label; overrides the label derived from `action`. */
   label?: ReactNode;
   description?: ReactNode;
+  /** Content rendered in the item's right section. */
   badge?: ReactNode;
+  /** Explicit leading icon; overrides the icon derived from `action`. */
   icon?: ReactNode;
   'aria-label'?: string;
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
+  /** Vocabulary packs consulted to resolve `action` labels and icons. */
   vocabularyPacks?: GdsVocabularyPack[];
 }
 
+/** Full-height sidebar navigation landmark that stacks its sections inside a labeled `<nav>`. */
 export function SidebarNav({ children, ariaLabel = 'Primary navigation', gap = 'md' }: SidebarNavProps) {
   return (
     <Stack component="nav" aria-label={ariaLabel} gap={gap} h="100%">
@@ -39,6 +52,7 @@ export function SidebarNav({ children, ariaLabel = 'Primary navigation', gap = '
   );
 }
 
+/** Groups sidebar items under an optional heading; `pushToBottom` anchors the group to the bottom of the sidebar. */
 export function SidebarNavSection({ label, children, pushToBottom = false }: SidebarNavSectionProps) {
   return (
     <Stack gap="xs" mt={pushToBottom ? 'auto' : undefined}>
@@ -86,4 +100,10 @@ const _SidebarNavItem = forwardRef<HTMLAnchorElement, SidebarNavItemProps>(
   },
 );
 
+/**
+ * Polymorphic sidebar nav item built on Mantine `NavLink`. Resolves its label and
+ * leading icon from a semantic `action` (via the vocabulary/translation) unless
+ * overridden, mirrors the active state into `aria-current="page"`, and renders any
+ * `badge` in the right section. Renders as an `<a>` by default.
+ */
 export const SidebarNavItem = createPolymorphicComponent<'a', SidebarNavItemProps>(_SidebarNavItem);

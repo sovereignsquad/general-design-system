@@ -10,6 +10,7 @@ import { SimpleDataTable, type SimpleTableColumn } from './SimpleDataTable';
 import { StateBlock } from './StateBlock';
 import { StatusBadge, type StatusVariant } from './StatusBadge';
 
+/** Identifier for one of the governed page-template blueprints. */
 export type GdsPageTemplateId =
   | 'admin-dashboard'
   | 'settings'
@@ -20,6 +21,7 @@ export type GdsPageTemplateId =
   | 'error-page'
   | 'empty-state-page';
 
+/** Lifecycle / UX state a page template can render, driving its status badge and async state gate. */
 export type GdsPageTemplateState =
   | 'loading'
   | 'empty'
@@ -30,12 +32,14 @@ export type GdsPageTemplateState =
   | 'permission-denied'
   | 'not-found';
 
+/** Telemetry event names emitted by page templates. */
 export type GdsPageTemplateTelemetryEventName =
   | 'page_view'
   | 'state_visible'
   | 'action_clicked'
   | 'retry_requested';
 
+/** Metadata-only telemetry event describing a template render or interaction. */
 export interface GdsPageTemplateTelemetryEvent {
   name: GdsPageTemplateTelemetryEventName;
   templateId: GdsPageTemplateId;
@@ -44,9 +48,11 @@ export interface GdsPageTemplateTelemetryEvent {
   metadata?: Record<string, string | number | boolean | null>;
 }
 
+/** A button/action rendered in a page template's header or state region. */
 export interface GdsPageTemplateAction {
   id: string;
   label: string;
+  /** Visual/semantic role controlling the action's color and variant. Defaults to secondary. */
   kind?: 'primary' | 'secondary' | 'danger' | 'link';
   disabled?: boolean;
   /**
@@ -62,10 +68,12 @@ export interface GdsPageTemplateAction {
    * be removed in a future major version. If both are set, `loading` wins.
    */
   pending?: boolean;
+  /** Marks the action as destructive, rendering it in the danger (red) color. */
   destructive?: boolean;
   onClick?: () => void;
 }
 
+/** Static blueprint describing a page template's data, states, contracts, telemetry, accessibility, and rollback guidance. */
 export interface GdsPageTemplateConfig {
   id: GdsPageTemplateId;
   title: string;
@@ -81,68 +89,108 @@ export interface GdsPageTemplateConfig {
   rollback: string;
 }
 
+/** Shared props for every GDS page template: header content, current state, actions, and retry wiring. */
 export interface GdsPageTemplateBaseProps {
   title: string;
   description?: string;
+  /** Small uppercase label rendered above the title. */
   eyebrow?: string;
+  /** Current page state; drives the status badge and the async state gate. Defaults to `ready`. */
   state?: GdsPageTemplateState;
   actions?: GdsPageTemplateAction[];
+  /** Invoked when the user triggers the retry action shown in error/retrying states. */
   onRetry?: () => void;
   retryLabel?: string;
+  /** Overrides the status-badge text; defaults to a label derived from `state`. */
   statusLabel?: string;
   children?: ReactNode;
+  /** Optional content rendered in a bordered card between the header and the body. */
   metadata?: ReactNode;
 }
 
+/** Props for the admin dashboard template: a metric grid plus governed sections. */
 export interface GdsAdminDashboardTemplateProps extends GdsPageTemplateBaseProps {
+  /** Metric cards shown in the summary grid. */
   metrics?: MetricCardProps[];
+  /** Governed content sections rendered below the metrics. */
   sections?: GdsPageTemplateSection[];
 }
 
+/** Props for the settings template: grouped setting sections. */
 export interface GdsSettingsTemplateProps extends GdsPageTemplateBaseProps {
+  /** Labelled groups of settings fields rendered as sections. */
   groups?: GdsSettingsGroup[];
 }
 
+/** Props for the resource-manager template: a governed resource list with an optional detail pane. */
 export interface GdsResourceManagerTemplateProps<T extends Record<string, unknown> = Record<string, unknown>> extends GdsPageTemplateBaseProps {
+  /** Resource rows for the list table. */
   rows?: T[];
+  /** Column definitions for the list table. */
   columns?: SimpleTableColumn<T>[];
+  /** Optional detail content shown alongside the list when a resource is selected. */
   detail?: ReactNode;
+  /** Derives a stable React key for each row; defaults to the row index. */
   getRowKey?: (row: T, index: number) => Key;
 }
 
+/** Props for the CRUD editor template: form plus optional summary and destructive-actions zone. */
 export interface GdsCrudEditorTemplateProps extends GdsPageTemplateBaseProps {
+  /** The governed form rendered in the editor section. */
   form: ReactNode;
+  /** Optional read-only summary shown above the form. */
   summary?: ReactNode;
+  /** Optional destructive-actions section requiring confirmation/recovery copy. */
   destructiveZone?: ReactNode;
 }
 
+/** Props for the analytics template: metric grid, chart slot with table fallback, and optional insight card. */
 export interface GdsAnalyticsTemplateProps<T extends Record<string, unknown> = Record<string, unknown>> extends GdsPageTemplateBaseProps {
+  /** Metric cards shown in the summary grid. */
   metrics?: MetricCardProps[];
+  /** Governed chart slot; a not-enough-data block is shown when omitted. */
   chart?: ReactNode;
+  /** Rows for the accessible table fallback beneath the chart. */
   rows?: T[];
+  /** Column definitions for the table fallback. */
   columns?: SimpleTableColumn<T>[];
+  /** Optional insight/commentary card rendered between the chart and table. */
   insight?: ReactNode;
 }
 
+/** Props for the public event template: hero media, event metadata, details, and registration. */
 export interface GdsPublicEventTemplateProps extends GdsPageTemplateBaseProps {
+  /** Human-readable event date/time text. */
   when: string;
+  /** Optional event location text. */
   location?: string;
+  /** Optional hero media slot; a no-media recovery block is shown when omitted. */
   media?: ReactNode;
+  /** Optional event body/details content. */
   details?: ReactNode;
+  /** Optional registration content shown after a divider. */
   registration?: ReactNode;
 }
 
+/** Props for the error page template, restricted to error/not-found/permission-denied states. */
 export interface GdsErrorPageTemplateProps extends Omit<GdsPageTemplateBaseProps, 'state'> {
+  /** Error state to render. Defaults to `error`. */
   state?: Extract<GdsPageTemplateState, 'error' | 'not-found' | 'permission-denied'>;
+  /** Optional status/error code prefixed to the title (e.g. `404`). */
   code?: string | number;
+  /** Optional recovery action; falls back to a retry button when `onRetry` is set. */
   recovery?: ReactNode;
 }
 
+/** Props for the empty-state page template, restricted to empty/permission-denied/not-found states. */
 export interface GdsEmptyStateTemplateProps extends Omit<GdsPageTemplateBaseProps, 'state'> {
+  /** Empty state to render. Defaults to `empty`. */
   state?: Extract<GdsPageTemplateState, 'empty' | 'permission-denied' | 'not-found'>;
+  /** Optional illustration rendered above the title. */
   illustration?: ReactNode;
 }
 
+/** A titled content section rendered inside dashboard-style templates. */
 export interface GdsPageTemplateSection {
   id: string;
   title: string;
@@ -150,6 +198,7 @@ export interface GdsPageTemplateSection {
   content?: ReactNode;
 }
 
+/** A labelled group of settings fields rendered as a section in the settings template. */
 export interface GdsSettingsGroup {
   id: string;
   title: string;
@@ -296,15 +345,22 @@ function cloneTemplateConfig(config: GdsPageTemplateConfig): GdsPageTemplateConf
   };
 }
 
+/** Returns deep clones of every governed page-template config. */
 export function getGdsPageTemplates() {
   return templateConfigs.map(cloneTemplateConfig);
 }
 
+/** Returns a deep clone of the page-template config with the given id, or `undefined` if none matches. */
 export function getGdsPageTemplate(id: GdsPageTemplateId | string) {
   const template = templateConfigs.find((item) => item.id === id);
   return template ? cloneTemplateConfig(template) : undefined;
 }
 
+/**
+ * Validates page-template configs, returning human-readable failure messages
+ * (empty when all pass): unique ids plus required telemetry, accessibility,
+ * edge-case, and component-contract coverage.
+ */
 export function validateGdsPageTemplates(templates: GdsPageTemplateConfig[] = templateConfigs) {
   const failures: string[] = [];
   const ids = new Set<string>();
@@ -320,6 +376,7 @@ export function validateGdsPageTemplates(templates: GdsPageTemplateConfig[] = te
   return failures;
 }
 
+/** Builds a page-template telemetry event; the event name defaults to `state_visible`. */
 export function createGdsPageTemplateEvent(
   templateId: GdsPageTemplateId,
   state: GdsPageTemplateState,
@@ -514,6 +571,7 @@ function renderSections(sections: GdsPageTemplateSection[] = []) {
   );
 }
 
+/** Admin dashboard page template: a metric grid plus governed sections, wrapped in the shared async state gate. */
 export function GdsAdminDashboardTemplate({
   state = 'ready',
   metrics = [],
@@ -541,6 +599,7 @@ export function GdsAdminDashboardTemplate({
   );
 }
 
+/** Settings page template rendering grouped setting sections, with empty and state handling. */
 export function GdsSettingsTemplate({
   state = 'ready',
   groups = [],
@@ -568,6 +627,7 @@ export function GdsSettingsTemplate({
   );
 }
 
+/** Resource-manager page template: a governed resource list with an optional detail pane. */
 export function GdsResourceManagerTemplate<T extends Record<string, unknown> = Record<string, unknown>>({
   state = 'ready',
   rows = [],
@@ -597,6 +657,7 @@ export function GdsResourceManagerTemplate<T extends Record<string, unknown> = R
   );
 }
 
+/** CRUD editor page template composing an optional summary, the form, and an optional destructive-actions zone. */
 export function GdsCrudEditorTemplate({
   state = 'ready',
   form,
@@ -624,6 +685,7 @@ export function GdsCrudEditorTemplate({
   );
 }
 
+/** Analytics page template: metric grid, chart slot with accessible table fallback, and optional insight card. */
 export function GdsAnalyticsTemplate<T extends Record<string, unknown> = Record<string, unknown>>({
   state = 'ready',
   metrics = [],
@@ -658,6 +720,7 @@ export function GdsAnalyticsTemplate<T extends Record<string, unknown> = Record<
   );
 }
 
+/** Public event page template with hero media slot, event metadata, details, and registration, plus no-media recovery. */
 export function GdsPublicEventTemplate({
   state = 'ready',
   when,
@@ -697,6 +760,7 @@ export function GdsPublicEventTemplate({
   );
 }
 
+/** Error / not-found / permission-denied page template with explicit recovery actions. */
 export function GdsErrorPageTemplate({
   state = 'error',
   code,
@@ -722,6 +786,7 @@ export function GdsErrorPageTemplate({
   );
 }
 
+/** First-run / no-results page template with an optional illustration and recovery actions. */
 export function GdsEmptyStateTemplate({
   state = 'empty',
   title,
@@ -744,6 +809,7 @@ export function GdsEmptyStateTemplate({
   );
 }
 
+/** Renders a catalog of every page template as cards summarizing their contracts, states, and telemetry. */
 export function GdsPageTemplateCatalog() {
   return (
     <GdsStack gap="md">

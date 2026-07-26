@@ -12,20 +12,25 @@ import { GdsIcons } from './icons';
  * newline on Shift+Enter. Transport/persistence are owned by the caller.
  */
 
+/** Author of a chat message: the end user or the assistant. */
 export type ChatRole = 'user' | 'assistant';
 
+/** A single chat message: role, content, optional embedded cards, delivery state, and timestamp. */
 export interface ChatMessageModel {
   id: string;
   role: ChatRole;
   content: ReactNode;
   /** Assistant-embedded cards. Up to 5 are rendered; the rest are summarized. */
   cards?: ReactNode[];
+  /** Delivery state; `error` reveals a retry affordance and `streaming` marks in-progress output. */
   state?: 'sent' | 'streaming' | 'error';
   createdAt?: string;
 }
 
+/** Props for `ChatThread`. */
 export interface ChatThreadProps {
   messages: ChatMessageModel[];
+  /** Whether the assistant is streaming a reply (shows the typing indicator and disables input). */
   streaming?: boolean;
   onSend: (text: string) => void;
   inputDisabled?: boolean;
@@ -43,6 +48,7 @@ export interface ChatThreadProps {
 
 const PIN_THRESHOLD_PX = 48;
 
+/** Renders one role-styled message bubble with optional embedded result cards and an error/retry affordance. */
 export function ChatMessage({
   message,
   maxEmbeddedCards = 5,
@@ -111,6 +117,7 @@ export function ChatMessage({
   );
 }
 
+/** Animated three-dot indicator shown while the assistant is typing. */
 export function StreamingIndicator({ label = 'Assistant is typing' }: { label?: string }) {
   return (
     <Group gap={6} aria-label={label}>
@@ -132,6 +139,7 @@ function dotStyle(index: number): React.CSSProperties {
   };
 }
 
+/** Auto-sizing message composer that sends on Enter and inserts a newline on Shift+Enter. */
 export function ChatInput({
   onSend,
   disabled = false,
@@ -178,6 +186,7 @@ export function ChatInput({
   );
 }
 
+/** Auto-scrolling (pin-aware) chat thread: renders the message list as an ARIA live region with a streaming indicator and a composer. */
 export function ChatThread({
   messages,
   streaming = false,

@@ -2,26 +2,47 @@ import type { ReactNode } from 'react';
 import { ActionIcon, Breadcrumbs, Group, Menu, Title, Text, Box, Stack } from '@mantine/core';
 import { GdsIcons } from '@sovereignsquad/gds-core';
 
+/** A single item in the {@link PageHeader} overflow ("More actions") menu. */
 export interface PageHeaderOverflowAction {
+  /** Menu item label. */
   label: ReactNode;
+  /** Click handler; renders the item as a button. */
   onClick?: () => void;
+  /** Link target; renders the item as an anchor instead of a button. */
   href?: string;
+  /** Mantine color for the menu item. */
   color?: string;
+  /** Disable the menu item. */
   disabled?: boolean;
 }
 
+/** Props for {@link PageHeader}. */
 export interface PageHeaderProps {
+  /** Page title (rendered as an `h1`). */
   title: string;
+  /** Long-form description under the title. */
   description?: ReactNode;
+  /** Short subtitle under the title. */
   subtitle?: ReactNode;
+  /** Small eyebrow label above the title. */
   eyebrow?: string;
+  /** Breadcrumb trail rendered above the header. */
   breadcrumbs?: ReactNode[];
+  /** Status indicators shown under the title text. */
   status?: ReactNode;
+  /** Primary action rendered on the trailing edge. */
   primaryAction?: ReactNode;
+  /** Secondary actions rendered before the primary action. */
   secondaryActions?: ReactNode;
+  /** Actions collapsed into an overflow ("More actions") menu. */
   overflowActions?: PageHeaderOverflowAction[];
 }
 
+/**
+ * Governed page header: breadcrumbs, eyebrow, title, subtitle/description, and
+ * status on the left, with secondary/primary actions and an overflow menu on
+ * the trailing edge.
+ */
 export function PageHeader({
   title,
   description,

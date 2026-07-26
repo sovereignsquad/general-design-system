@@ -2,6 +2,7 @@ import type { MantineThemeOverride } from '@mantine/core';
 import { createPublicBrandTheme, extendGdsTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme } from './theme';
 import { createBrandTheme } from './brand-tokens';
 
+/** Identifier of a built-in GDS theme preset (accessibility, brand, and vibe lanes). */
 export type GdsThemePresetId =
   | 'default'
   | 'high-contrast'
@@ -29,10 +30,14 @@ export type GdsThemePresetId =
   | 'class-usa'
   | 'gold-athlete';
 
+/** Catalog entry describing a theme preset for selection UIs and documentation. */
 export interface GdsThemePreset {
   id: GdsThemePresetId;
+  /** Human-readable preset name. */
   label: string;
+  /** Short summary of the preset's look and intended use. */
   description: string;
+  /** Name of the runtime source that produces this preset (e.g. `resolveGdsThemePreset(...)`). */
   runtimeLane: string;
 }
 
@@ -75,6 +80,7 @@ function createVibrantPresetTheme(primaryColor: string): MantineThemeOverride {
   });
 }
 
+/** Compact, family-friendly teal/lime map-and-list discovery theme with explicit dark-mode tokens. */
 export const partnerDiscoveryThemePreset = extendGdsTheme({
   primaryColor: 'teal',
   fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
@@ -184,8 +190,10 @@ export const partnerDiscoveryThemePreset = extendGdsTheme({
   },
 });
 
+/** Mantine theme for the governed Class USA brand (ivory/navy/sage/terracotta). */
 export const classUsaThemePreset = createBrandTheme('class-usa').mantineTheme;
 
+/** Mantine theme for the governed Gold Athlete brand (black-and-metallic-gold). */
 export const goldAthleteThemePreset = createBrandTheme('gold-athlete').mantineTheme;
 
 // Accessibility lane (#453): a maximal-contrast, flat, undecorated preset built
@@ -275,10 +283,16 @@ const themePresetCatalog: GdsThemePreset[] = [
   { id: 'gold-athlete', label: 'Gold Athlete', description: 'Governed black-and-metallic-gold performance brand lane for Habigoal, with charcoal body text on ivory in light mode and ivory text with gold accents in dark mode.', runtimeLane: 'resolveGdsThemePreset(gold-athlete)' },
 ];
 
+/** Returns the full catalog of theme presets (id, label, description, runtime lane). */
 export function getGdsThemePresets() {
   return themePresetCatalog;
 }
 
+/**
+ * Resolves a preset id to its Mantine theme override. The `'brand'` lane is
+ * composed on demand from the optional brand options; all other ids map to a
+ * prebuilt lane, falling back to the default theme for unknown ids.
+ */
 export function resolveGdsThemePreset(id: GdsThemePresetId, options?: { brandPrimary?: string; brandFlatSurfaces?: boolean; brandEditorialSerif?: boolean }): MantineThemeOverride {
   switch (id) {
     case 'default':

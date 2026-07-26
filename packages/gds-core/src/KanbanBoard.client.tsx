@@ -23,6 +23,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { GdsIcon } from './icons';
 import { gdsBreakpointByAlias } from './breakpoints';
 
+/** A single card on the kanban board. */
 export interface KanbanItem {
   id: string;
   title: ReactNode;
@@ -32,6 +33,7 @@ export interface KanbanItem {
   ariaLabel?: string;
 }
 
+/** A column and the items it holds. */
 export interface KanbanColumnData<TItem extends KanbanItem = KanbanItem> {
   id: string;
   /**
@@ -53,8 +55,10 @@ export interface KanbanColumnData<TItem extends KanbanItem = KanbanItem> {
   ariaLabel?: string;
 }
 
+/** Board layout: a single `'stacked'` column per row, or side-by-side `'columns'`. */
 export type KanbanOrientation = 'stacked' | 'columns';
 
+/** Options for {@link useGdsKanbanOrientation}. */
 export interface UseGdsKanbanOrientationOptions {
   /**
    * Width, at or below which a portrait viewport is treated as "mobile" (1-column stacked).
@@ -119,6 +123,7 @@ function columnTitleText(column: KanbanColumnData | undefined): string {
   return column.ariaLabel ?? (typeof column.title === 'string' ? column.title : column.id);
 }
 
+/** Props for {@link KanbanCard}. */
 export interface KanbanCardProps<
   TItem extends KanbanItem = KanbanItem,
   TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
@@ -144,6 +149,11 @@ export interface KanbanCardProps<
   moveMenuLabel?: string;
 }
 
+/**
+ * A single governed kanban card: renders the item body, an always-available
+ * "move to column" menu (the accessible-equivalent reorder path), and, when
+ * `enableDrag` is set, an accessible drag handle built on `@dnd-kit`.
+ */
 export function KanbanCard<
   TItem extends KanbanItem = KanbanItem,
   TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
@@ -238,6 +248,7 @@ export function KanbanCard<
   );
 }
 
+/** Props for {@link KanbanColumn}. */
 export interface KanbanColumnProps<
   TItem extends KanbanItem = KanbanItem,
   TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
@@ -267,6 +278,11 @@ export interface KanbanColumnProps<
   onCollapsedChange?: (collapsed: boolean) => void;
 }
 
+/**
+ * A single kanban column: header with title and count badge, the card list (a
+ * droppable region when drag is enabled), an optional footer, and an optional
+ * collapse/expand disclosure toggle.
+ */
 export function KanbanColumn<
   TItem extends KanbanItem = KanbanItem,
   TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,
@@ -399,6 +415,7 @@ export function KanbanColumn<
   );
 }
 
+/** Props for {@link KanbanBoard}. */
 export interface KanbanBoardProps<
   TItem extends KanbanItem = KanbanItem,
   TColumn extends KanbanColumnData<TItem> = KanbanColumnData<TItem>,

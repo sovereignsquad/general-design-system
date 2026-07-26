@@ -1,3 +1,4 @@
+/** Lifecycle state of an access gate, from checking auth through locked/unlocking to unlocked, denied, expired, or errored. */
 export type GdsAccessGateState =
   | 'loading-auth'
   | 'preview'
@@ -8,6 +9,7 @@ export type GdsAccessGateState =
   | 'expired'
   | 'error';
 
+/** Why a gate is locked or denied — used to select the right message and recovery actions. */
 export type GdsAccessGateReason =
   | 'login-required'
   | 'subscription-required'
@@ -17,6 +19,7 @@ export type GdsAccessGateReason =
   | 'network-timeout'
   | 'unknown-error';
 
+/** Recovery actions a gate can offer. */
 export type GdsAccessGateActionKind =
   | 'sign-in'
   | 'sign-up'
@@ -25,47 +28,68 @@ export type GdsAccessGateActionKind =
   | 'retry'
   | 'back';
 
+/** A single recovery action rendered on a gate. */
 export interface GdsAccessGateAction {
   kind: GdsAccessGateActionKind;
+  /** Overrides the action's default label. */
   label?: string;
   disabled?: boolean;
   loading?: boolean;
   onClick?: () => void | Promise<void>;
 }
 
+/** Fully resolved description of a gate's current state: what to show, why, and how to recover. */
 export interface GdsAccessGateContract {
+  /** Stable gate identifier. */
   id: string;
   state: GdsAccessGateState;
   reason?: GdsAccessGateReason;
+  /** Visible heading. */
   title: string;
+  /** Visible body copy. */
   description: string;
+  /** Recovery actions, in caller order. */
   actions?: GdsAccessGateAction[];
+  /** Label of the entitlement required to unlock. */
   entitlementLabel?: string;
+  /** Label for the teaser/preview affordance. */
   teaserLabel?: string;
+  /** Rendering policy for protected content; must be declared for any non-unlocked state. */
   protectedContentPolicy?: 'never-render-while-locked' | 'render-degraded-while-locked';
 }
 
+/** Result of an auth-session check. */
 export interface GdsAccessSession {
   status: 'loading' | 'anonymous' | 'authenticated' | 'expired';
+  /** Authenticated subject identifier, when known. */
   subjectId?: string;
 }
 
+/** Result of an entitlement check for an authenticated session. */
 export interface GdsAccessEntitlement {
   allowed: boolean;
+  /** Denial reason when `allowed` is false. */
   reason?: GdsAccessGateReason;
+  /** Human-readable entitlement name (e.g. the plan) for messaging. */
   label?: string;
 }
 
+/** Host-provided source of truth for a gate: resolves the session and, optionally, the entitlement. */
 export interface GdsAccessAdapter {
+  /** Resolves the current session, honoring an optional abort signal. */
   getSession: (signal?: AbortSignal) => Promise<GdsAccessSession> | GdsAccessSession;
+  /** Resolves the entitlement for a session, when access is gated beyond sign-in. */
   getEntitlement?: (session: GdsAccessSession, signal?: AbortSignal) => Promise<GdsAccessEntitlement> | GdsAccessEntitlement;
 }
 
+/** Options for {@link resolveGdsAccessAdapterState}. */
 export interface GdsAccessAdapterOptions {
   gateId: string;
+  /** Timeout budget (ms) for the adapter calls; defaults to 3500. */
   timeoutMs?: number;
 }
 
+/** Analytics-safe event describing a gate view, action, or outcome; carries only redacted metadata. */
 export interface GdsAccessGateEvent {
   type:
     | 'gds.access_gate.view'
@@ -77,7 +101,9 @@ export interface GdsAccessGateEvent {
   gateId: string;
   state: GdsAccessGateState;
   reason?: GdsAccessGateReason;
+  /** Action taken, for `action` events. */
   actionKind?: GdsAccessGateActionKind;
+  /** Redacted metadata (see {@link redactGdsAccessGateMetadata}). */
   metadata?: Record<string, string | number | boolean>;
 }
 
@@ -113,22 +139,32 @@ const actionPriority: Record<GdsAccessGateActionKind, number> = {
 
 const sensitiveMetadataPattern = /token|secret|password|email|content|body|html|markdown|cookie|session/i;
 
+/** Returns a copy of every supported access-gate state. */
 export function getGdsAccessGateStates() {
   return [...states];
 }
 
+/** Returns a copy of every supported access-gate reason. */
 export function getGdsAccessGateReasons() {
   return [...reasons];
 }
 
+/** Returns the sort weight for an action kind (lower sorts first). */
 export function getGdsAccessGateActionPriority(kind: GdsAccessGateActionKind) {
   return actionPriority[kind];
 }
 
+/** Returns a new array of actions ordered by their governed priority. */
 export function sortGdsAccessGateActions(actions: GdsAccessGateAction[]) {
   return [...actions].sort((first, second) => actionPriority[first.kind] - actionPriority[second.kind]);
 }
 
+/**
+ * Validates a gate contract, returning human-readable failure messages (empty when
+ * valid). Checks for a stable id, a supported state/reason, a visible title and
+ * description, a declared `protectedContentPolicy` on any non-unlocked state, and a
+ * recovery action on locked/denied states.
+ */
 export function validateGdsAccessGateContract(contract: GdsAccessGateContract) {
   const failures: string[] = [];
 
@@ -161,6 +197,7 @@ export function validateGdsAccessGateContract(contract: GdsAccessGateContract) {
   return failures;
 }
 
+/** Returns a copy of metadata with sensitive keys (token, secret, password, email, content, etc.) replaced by `[redacted]` and any non-scalar values dropped. */
 export function redactGdsAccessGateMetadata(metadata: Record<string, unknown> = {}) {
   const safe: Record<string, string | number | boolean> = {};
 
@@ -177,6 +214,7 @@ export function redactGdsAccessGateMetadata(metadata: Record<string, unknown> = 
   return safe;
 }
 
+/** Builds a {@link GdsAccessGateEvent} from a contract, redacting the supplied metadata. */
 export function createGdsAccessGateEvent(
   type: GdsAccessGateEvent['type'],
   contract: Pick<GdsAccessGateContract, 'id' | 'state' | 'reason'>,
@@ -193,6 +231,12 @@ export function createGdsAccessGateEvent(
   };
 }
 
+/**
+ * Derives the {@link GdsAccessGateContract} to render from a session, entitlement,
+ * and/or error. Precedence: error → loading → anonymous (locked) → expired →
+ * entitlement denied (permission-denied) → unlocked, each with governed title, copy,
+ * recovery actions, and a fail-closed `protectedContentPolicy`.
+ */
 export function resolveGdsAccessState({
   gateId,
   session,
@@ -274,10 +318,16 @@ export function resolveGdsAccessState({
   };
 }
 
+/** Identity helper that returns the adapter unchanged, for type-checked inline definition. */
 export function createGdsAccessAdapter(adapter: GdsAccessAdapter) {
   return adapter;
 }
 
+/**
+ * Runs an adapter's session and (optional) entitlement checks under a timeout and
+ * returns the resolved {@link GdsAccessGateContract}. On timeout it maps to a
+ * `network-timeout` retry state; on other failures, a generic error state.
+ */
 export async function resolveGdsAccessAdapterState(
   adapter: GdsAccessAdapter,
   options: GdsAccessAdapterOptions,

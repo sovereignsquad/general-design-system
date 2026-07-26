@@ -307,16 +307,23 @@ export const GdsIcons = {
   DragHandle: IconGripVertical,
 };
 
+/** Canonical name of an icon in the {@link GdsIcons} dictionary. */
 export type GdsIconKey = keyof typeof GdsIcons;
+/** Accepted icon identifier: a canonical key, its lowercase form, or a known alias. */
 export type GdsIconName = GdsIconKey | Lowercase<GdsIconKey> | keyof typeof gdsIconNameAliases;
+/** Semantic grouping used to categorize registry icons. */
 export type GdsIconCategory = 'action' | 'status' | 'resource' | 'navigation' | 'media' | 'feedback' | 'system' | 'content' | 'commerce' | 'security';
+/** Whether an icon is purely decorative or conveys information to assistive tech. */
 export type GdsIconA11yMode = 'decorative' | 'informative';
 
+/** Registry metadata for a single icon. */
 export interface GdsIconMetadata {
   name: GdsIconKey;
   category: GdsIconCategory;
+  /** Human-readable label derived from the icon name (start-cased). */
   defaultLabel: string;
   a11yMode: GdsIconA11yMode;
+  /** Suggested `<GdsIcon />` usage snippet replacing a direct tabler import. */
   directImportReplacement: string;
 }
 
@@ -414,6 +421,7 @@ function resolveGdsIconKey(value: GdsIconName | string | undefined): GdsIconKey 
   return isGdsIconKey(normalized) ? normalized : 'Help';
 }
 
+/** Metadata registry keyed by icon name, derived from {@link GdsIcons}. */
 export const gdsIconRegistry = Object.fromEntries(
   (Object.keys(GdsIcons) as GdsIconKey[]).map((name) => [
     name,
@@ -427,30 +435,43 @@ export const gdsIconRegistry = Object.fromEntries(
   ]),
 ) as Record<GdsIconKey, GdsIconMetadata>;
 
+/** Type guard: whether a string is a canonical {@link GdsIcons} key. */
 export function isGdsIconKey(value: string): value is GdsIconKey {
   return value in GdsIcons;
 }
 
+/** Returns every canonical icon key in the dictionary. */
 export function getGdsIconKeys(): GdsIconKey[] {
   return Object.keys(GdsIcons) as GdsIconKey[];
 }
 
+/** Resolves an icon name (key, lowercase, or alias) to its metadata, falling back to the `Help` icon. */
 export function getGdsIconMetadata(name: GdsIconName | string): GdsIconMetadata {
   return gdsIconRegistry[resolveGdsIconKey(name)];
 }
 
+/** Props for {@link GdsIcon}. */
 export interface GdsIconProps {
+  /** Icon to render (key, lowercase, or alias). */
   icon?: GdsIconName;
+  /** Alternative to `icon`; used when `icon` is not provided. */
   name?: GdsIconName;
+  /** Named size token, or an explicit number/string CSS size. Defaults to "md". */
   size?: 'xs' | 'sm' | 'md' | 'lg' | number | string;
+  /** Accessible label; supplying it makes the icon informative rather than decorative. */
   label?: string;
+  /** Forces decorative (aria-hidden) rendering. Defaults to true when no `label` is given. */
   decorative?: boolean;
+  /** Stroke width passed to the underlying tabler icon. Defaults to 1.75. */
   stroke?: number;
+  /** Semantic color tone. Defaults to "default" (inherited color). */
   tone?: GdsIconTone;
 }
 
+/** Semantic color tone applied to an icon. */
 export type GdsIconTone = 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'muted';
 
+/** Maps each icon tone to its CSS color variable (`undefined` inherits the current color). */
 export const gdsIconToneColor: Record<GdsIconTone, string | undefined> = {
   default: undefined,
   primary: 'var(--mantine-primary-color-filled)',
@@ -461,6 +482,7 @@ export const gdsIconToneColor: Record<GdsIconTone, string | undefined> = {
   muted: 'var(--mantine-color-dimmed)',
 };
 
+/** Returns the CSS color for a tone; defaults to the inherited `default` tone. */
 export function getGdsIconToneColor(tone: GdsIconTone = 'default') {
   return gdsIconToneColor[tone];
 }
@@ -472,6 +494,11 @@ const iconSizes: Record<'xs' | 'sm' | 'md' | 'lg', string> = {
   lg: '1.35rem',
 };
 
+/**
+ * Renders a governed semantic icon from the {@link GdsIcons} dictionary, applying
+ * size and tone tokens and the correct decorative-vs-labelled accessibility
+ * attributes. Consumers must use this instead of importing tabler icons directly.
+ */
 export function GdsIcon({
   icon,
   name,

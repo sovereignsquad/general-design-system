@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react';
 import { gdsDevWarnOnce } from './dev-warnings';
 
+/** Built-in locale catalog: label, writing direction, and script for each supported locale. */
 export const gdsLocaleMetadata = {
   en: { label: 'English', direction: 'ltr', script: 'latin' },
   es: { label: 'Español', direction: 'ltr', script: 'latin' },
@@ -16,26 +17,35 @@ export const gdsLocaleMetadata = {
   ko: { label: '한국어', direction: 'ltr', script: 'hangul' },
 } as const;
 
+/** Any supported locale id (a key of `gdsLocaleMetadata`). */
 export type GdsLocaleId = keyof typeof gdsLocaleMetadata;
+/** Writing direction of a supported locale (`'ltr'` or `'rtl'`). */
 export type GdsLocaleDirection = (typeof gdsLocaleMetadata)[GdsLocaleId]['direction'];
+/** Script of a supported locale (e.g. `'latin'`, `'cyrillic'`, `'arabic'`). */
 export type GdsLocaleScript = (typeof gdsLocaleMetadata)[GdsLocaleId]['script'];
 
+/** Returns metadata for `locale`, falling back to English for unknown locales. */
 export function getGdsLocaleMetadata(locale: string) {
   return gdsLocaleMetadata[locale as GdsLocaleId] ?? gdsLocaleMetadata.en;
 }
 
+/** `true` when `locale` is a right-to-left locale. */
 export function isGdsRtlLocale(locale: string) {
   return getGdsLocaleMetadata(locale).direction === 'rtl';
 }
 
+/** Returns the ids of all supported locales whose script is in `scripts`. */
 export function getGdsLocaleIdsByScript(scripts: GdsLocaleScript[]) {
   return Object.entries(gdsLocaleMetadata)
     .filter(([, metadata]) => scripts.includes(metadata.script))
     .map(([locale]) => locale);
 }
 
+/** Value carried by `GdsI18nContext`: the active locale and its message dictionary. */
 export interface GdsI18nContextValue {
+  /** Active locale id. */
   locale: string;
+  /** Translation dictionary keyed by message id. */
   messages: Record<string, string>;
 }
 
@@ -50,6 +60,7 @@ const defaultGdsI18nContextValue: GdsI18nContextValue = {
   messages: {},
 };
 
+/** React context supplying the active locale and messages to `useGdsTranslation`. */
 export const GdsI18nContext = createContext<GdsI18nContextValue>(defaultGdsI18nContextValue);
 
 /**

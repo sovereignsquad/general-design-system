@@ -20,12 +20,19 @@ import {
 
 export * from './GdsAccessGateRuntime';
 
+/** Props for `GdsAccessGate`, extending the access-gate contract with the rendered content and handlers. */
 export interface GdsAccessGateProps extends GdsAccessGateContract {
+  /** Public teaser/preview shown regardless of access state. */
   preview: ReactNode;
+  /** Content revealed once unlocked; a function form is only evaluated when it is actually rendered. */
   protectedContent: ReactNode | (() => ReactNode);
+  /** Placeholder shown in place of protected content while locked; defaults to a skeleton. */
   lockedPlaceholder?: ReactNode;
+  /** Extra metadata attached to emitted events. */
   metadata?: Record<string, unknown>;
+  /** Called when a recovery action is chosen. */
   onAction?: (action: GdsAccessGateAction) => void | Promise<void>;
+  /** Receives access-gate lifecycle events (view, denied, unlocked, timeout, error, action). */
   onEvent?: (event: GdsAccessGateEvent) => void;
 }
 

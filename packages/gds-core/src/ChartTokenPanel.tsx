@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Badge, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { StateBlock } from './StateBlock';
 
+/** Data/availability state of the chart panel. */
 export type ChartTokenPanelState =
   | 'ready'
   | 'loading'
@@ -11,23 +12,37 @@ export type ChartTokenPanelState =
   | 'error'
   | 'permission-limited';
 
+/** One legend entry mapping a label to the design token driving its series color. */
 export interface ChartLegendItem {
   label: ReactNode;
+  /** Design token (CSS variable or color name) shown alongside the label. */
   token: string;
   description?: ReactNode;
 }
 
+/** Props for {@link ChartTokenPanel}. */
 export interface ChartTokenPanelProps {
   title: ReactNode;
   description?: ReactNode;
+  /** Plain-text summary of the chart, also used as the description in state blocks. */
   summary: ReactNode;
+  /** Panel state; drives which state block (if any) replaces the chart. Defaults to "ready". */
   state?: ChartTokenPanelState;
+  /** Token-based legend entries rendered as badges. */
   legend?: ChartLegendItem[];
+  /** The chart itself, rendered in the ready state. */
   children?: ReactNode;
+  /** Optional accessible data table shown beneath the chart. */
   tableFallback?: ReactNode;
+  /** Optional retry action surfaced in loading/empty/error state blocks. */
   retryAction?: ReactNode;
 }
 
+/**
+ * Governed chart container: renders a title, an accessible summary, a token-based
+ * legend, the chart, and an optional accessible table fallback, replacing the chart
+ * with loading/empty/below-threshold/error state blocks as the state requires.
+ */
 export function ChartTokenPanel({
   title,
   description,

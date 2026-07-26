@@ -5,13 +5,18 @@ import type { ReactNode } from 'react';
 import { ActionIcon, Group, Modal, Stack, Text, TextInput } from '@mantine/core';
 import { GdsIcons } from './icons';
 
+/** A registrable command shown in the {@link CommandPalette}. */
 export interface CommandDef {
   id: string;
   label: string;
   group?: string;
+  /** Extra terms matched by search in addition to the label. */
   keywords?: string[];
+  /** Display-only shortcut hint (e.g. `'⌘K'`). */
   shortcut?: string;
+  /** Action run when the command is chosen. */
   run: () => Promise<void> | void;
+  /** When present and returning `false`, the command is hidden from the palette. */
   enabledWhen?: () => boolean;
 }
 
@@ -41,6 +46,7 @@ function scoreCommand(command: CommandDef, query: string, recentUse: Record<stri
   return (0.6 * prefix) + (0.3 * keyword) + (0.1 * recent);
 }
 
+/** Provides the command registry and open/close state to the subtree, and mounts the {@link CommandPalette} modal. */
 export function CommandRegistryProvider({ children }: { children: ReactNode }) {
   const [commands, setCommands] = useState<CommandDef[]>([]);
   const [opened, setOpened] = useState(false);
@@ -60,6 +66,7 @@ export function CommandRegistryProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/** Hook to open/close the palette and register commands; throws outside a {@link CommandRegistryProvider}. */
 export function useCommandLauncher() {
   const context = useContext(CommandPaletteContext);
   if (!context) {
@@ -72,6 +79,11 @@ export function useCommandLauncher() {
   };
 }
 
+/**
+ * Modal command palette: a searchable, score-ranked list of registered commands
+ * that opens on Cmd/Ctrl+K and closes on Escape. Must be rendered within a
+ * {@link CommandRegistryProvider} (mounted by it automatically).
+ */
 export function CommandPalette({ opened, onClose }: { opened: boolean; onClose: () => void }) {
   const contextValue = useContext(CommandPaletteContext);
   if (!contextValue) {

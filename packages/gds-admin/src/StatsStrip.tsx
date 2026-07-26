@@ -1,15 +1,22 @@
 import { SimpleGrid, Paper, Text, Group, Box } from '@mantine/core';
 
+/** A single stat rendered by {@link StatsStrip}. */
 export interface StatItem {
+  /** Uppercased stat label. */
   label: string;
+  /** Stat value. */
   value: string | number;
+  /** Percentage delta; positive renders teal with a `+`, negative renders red. */
   diff?: number;
 }
 
+/** Props for {@link StatsStrip}. */
 export interface StatsStripProps {
+  /** Stats to render as cards. */
   stats: StatItem[];
 }
 
+/** Responsive 1/2/3-column grid of stat cards, each showing a label, value, and optional signed delta. */
 export function StatsStrip({ stats }: StatsStripProps) {
   const items = stats.map((stat, index) => (
     <Paper key={index} p="lg" withBorder radius="md">

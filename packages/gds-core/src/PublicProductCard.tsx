@@ -4,36 +4,52 @@ import { AspectRatio, Badge, Card, Group, Skeleton, Stack, Text, ThemeIcon, Titl
 import { GdsIcons } from './icons';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardInteractiveMode, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
+/** Availability state driving the product card's status badge and action gating. */
 export type PublicProductCardState = 'available' | 'limited' | 'sold-out' | 'preorder';
+/** Which supporting region the `helperText` targets: general supporting copy, pickup, or inventory. */
 export type PublicProductCardHelperKind = 'supporting' | 'pickup' | 'inventory';
 
+/** A labeled metadata row shown in the product card's detail list. */
 export interface PublicProductCardMetaItem {
   label: string;
   value: ReactNode;
 }
 
+/** Props for {@link PublicProductCard}. */
 export interface PublicProductCardProps {
   title: string;
   description?: ReactNode;
+  /** Media node; an icon placeholder is shown when omitted. */
   image?: ReactNode;
   imageAlt?: string;
   price?: ReactNode;
+  /** Supporting copy routed to the region named by `helperKind`. */
   helperText?: ReactNode;
+  /** Which region `helperText` fills; defaults to `'supporting'`. */
   helperKind?: PublicProductCardHelperKind;
+  /** Pickup detail row; also the fallback when `helperKind` is not `'pickup'`. */
   pickupNote?: ReactNode;
+  /** Availability detail row; also the fallback when `helperKind` is not `'inventory'`. */
   inventoryNote?: ReactNode;
+  /** Availability state; defaults to `'available'`. */
   state?: PublicProductCardState;
+  /** Per-state overrides for the status badge label. */
   stateLabels?: Partial<Record<PublicProductCardState, string>>;
+  /** Primary CTA; auto-disabled when the card is disabled or sold out. */
   primaryAction?: ReactNode;
+  /** Secondary action; disabled when the card is disabled. */
   secondaryAction?: ReactNode;
   metadata?: PublicProductCardMetaItem[];
   compact?: boolean;
   size?: GdsCardSize;
   density?: GdsCardDensity;
   variant?: GdsCardVariant;
+  /** When true, renders a skeleton loading card. */
   loading?: boolean;
   disabled?: boolean;
+  /** Whether the whole surface is interactive; `'surface-button'` makes the card a button. */
   interactiveMode?: GdsCardInteractiveMode;
+  /** Called when the surface is activated in `'surface-button'` mode. */
   onSurfaceActivate?: () => void;
 }
 
@@ -94,6 +110,13 @@ function LoadingCard({ compact, size, density, variant }: { compact: boolean; si
   );
 }
 
+/**
+ * Public-facing product card: media (or placeholder), title/description, an
+ * availability badge, price with supporting/pickup/inventory helper rows, metadata,
+ * and primary/secondary actions. Actions are auto-disabled when disabled or sold out,
+ * a skeleton renders while `loading`, and the whole surface can act as a button via
+ * `interactiveMode`. Sizing derives from the resolved card contract.
+ */
 export function PublicProductCard({
   title,
   description,

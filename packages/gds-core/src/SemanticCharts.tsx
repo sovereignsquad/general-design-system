@@ -2,8 +2,10 @@ import type { ReactNode } from 'react';
 import { Box, Group, Paper, Stack, Text } from '@mantine/core';
 import { GdsChart, type GdsChartDatum, type GdsChartProps, type GdsChartRendererContext } from './GdsChart';
 
+/** Semantic series color tokens for GDS charts, each resolved to a theme variable by {@link gdsSeriesPalette}. */
 export type GdsSeriesTone = 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral' | 'accent';
 
+/** Maps each {@link GdsSeriesTone} to its resolved CSS color variable (brand/state token with Mantine fallbacks). */
 export const gdsSeriesPalette: Record<GdsSeriesTone, string> = {
   primary: 'var(--gds-brand-primary, var(--gds-vibe-primary, var(--mantine-primary-color-filled)))',
   success: 'var(--gds-state-success, var(--mantine-color-green-6))',
@@ -14,18 +16,27 @@ export const gdsSeriesPalette: Record<GdsSeriesTone, string> = {
   accent: 'var(--gds-brand-accent-action, var(--gds-brand-accent, var(--gds-vibe-accent, var(--mantine-primary-color-filled))))',
 };
 
+/** Returns the resolved CSS color for a series tone (defaults to `'primary'`). */
 export function getGdsSeriesColor(tone: GdsSeriesTone = 'primary') {
   return gdsSeriesPalette[tone];
 }
 
+/** Props for {@link SemanticChartFrame}. */
 export interface SemanticChartFrameProps {
   title: string;
   summary: string;
   children: ReactNode;
+  /** Element id that labels the chart region (wired to `aria-labelledby`). */
   labelledBy: string;
+  /** Element id that describes the chart region (wired to `aria-describedby`). */
   describedBy: string;
 }
 
+/**
+ * Accessible, bordered frame for a semantic chart. Renders the title and summary
+ * and exposes the whole panel as a single `role="img"` region labelled and
+ * described by the supplied element ids.
+ */
 export function SemanticChartFrame({ title, summary, children, labelledBy, describedBy }: SemanticChartFrameProps) {
   return (
     <Paper withBorder radius="md" p="md" role="img" aria-labelledby={labelledBy} aria-describedby={describedBy}>
@@ -170,71 +181,92 @@ function semanticRenderer(kind: SemanticRendererKind, tone: GdsSeriesTone) {
   );
 }
 
+/** Shared props for the semantic chart wrappers — `GdsChartProps` minus the internally-fixed `type`, `legend`, and `renderer`. */
 export interface SemanticChartProps extends Omit<GdsChartProps, 'type' | 'legend' | 'renderer'> {
+  /** Semantic tone applied to the series color and legend. Defaults to `'primary'` (some presets default to `'accent'`/`'neutral'`/`'info'`). */
   seriesTone?: GdsSeriesTone;
 }
 
+/** Governed bar chart with a semantic series tone. */
 export function GdsBarChart({ seriesTone = 'primary', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="bar" legend={[{ label: 'Series', token: seriesTone }]} renderer={semanticRenderer('bar', seriesTone)} />;
 }
 
+/** Governed line chart with a semantic series tone. */
 export function GdsLineChart({ seriesTone = 'primary', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="line" legend={[{ label: 'Series', token: seriesTone }]} renderer={semanticRenderer('line', seriesTone)} />;
 }
 
+/** Governed stacked-bar chart with a semantic series tone. */
 export function GdsStackedBarChart({ seriesTone = 'primary', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="stacked-bar" legend={[{ label: 'Series', token: seriesTone }]} renderer={semanticRenderer('stacked-bar', seriesTone)} />;
 }
 
+/** Governed area chart with a semantic series tone. */
 export function GdsAreaChart({ seriesTone = 'primary', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="area" legend={[{ label: 'Series', token: seriesTone }]} renderer={semanticRenderer('area', seriesTone)} />;
 }
 
+/** Compact inline line chart (sparkline); decimates large series by default. */
 export function GdsSparkline({ seriesTone = 'primary', config, ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="line" config={{ decimateLargeSeries: true, ...config }} legend={[{ label: 'Series', token: seriesTone }]} renderer={semanticRenderer('sparkline', seriesTone)} />;
 }
 
+/** Line chart for longitudinal/time-series data; decimates large series by default. */
 export function GdsLongitudinalChart({ seriesTone = 'primary', config, ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="line" config={{ decimateLargeSeries: true, ...config }} legend={[{ label: 'Series', token: seriesTone }]} renderer={semanticRenderer('line', seriesTone)} />;
 }
 
+/** Bar chart whose legend is labelled as a benchmark comparison. */
 export function GdsBenchmarkBarChart({ seriesTone = 'primary', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="bar" legend={[{ label: 'Benchmark', token: seriesTone }]} renderer={semanticRenderer('bar', seriesTone)} />;
 }
 
+/** Governed radar/profile chart with a semantic series tone. */
 export function GdsRadarChart({ seriesTone = 'primary', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="radar" legend={[{ label: 'Profile', token: seriesTone }]} renderer={semanticRenderer('radar', seriesTone)} />;
 }
 
+/** Radar chart preset for maturity profiles (accent tone by default). */
 export function GdsMaturityRadarChart({ seriesTone = 'accent', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="radar" legend={[{ label: 'Maturity', token: seriesTone }]} renderer={semanticRenderer('radar', seriesTone)} />;
 }
 
+/** Single-value gauge rendered from the first datum. */
 export function GdsGaugeChart({ seriesTone = 'primary', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="bar" legend={[{ label: 'Gauge', token: seriesTone }]} renderer={semanticRenderer('gauge', seriesTone)} />;
 }
 
+/** Heatmap chart for calendar-style intensity (accent tone by default). */
 export function GdsCalendarHeatmapChart({ seriesTone = 'accent', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="heatmap" legend={[{ label: 'Intensity', token: seriesTone }]} renderer={semanticRenderer('heatmap', seriesTone)} />;
 }
 
+/** Bar chart preset for distributions/histograms (neutral tone by default). */
 export function GdsHistogramChart({ seriesTone = 'neutral', ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="bar" legend={[{ label: 'Distribution', token: seriesTone }]} renderer={semanticRenderer('bar', seriesTone)} />;
 }
 
+/** Bar chart that allows negative values, for diverging series (accent tone by default). */
 export function GdsDivergingBarChart({ seriesTone = 'accent', config, ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="bar" config={{ allowNegative: true, ...config }} legend={[{ label: 'Diverging series', token: seriesTone }]} renderer={semanticRenderer('bar', seriesTone)} />;
 }
 
+/** Two-point slope line chart; decimates large series by default. */
 export function GdsSlopeChart({ seriesTone = 'primary', config, ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="line" config={{ decimateLargeSeries: true, ...config }} legend={[{ label: 'Slope', token: seriesTone }]} renderer={semanticRenderer('line', seriesTone)} />;
 }
 
+/** Scatter-backed chart for symmetry comparisons; secondary value optional (info tone by default). */
 export function GdsSymmetryChart({ seriesTone = 'info', config, ...props }: SemanticChartProps) {
   return <GdsChart {...props} type="scatter" config={{ requireSecondaryValue: false, ...config }} legend={[{ label: 'Symmetry', token: seriesTone }]} renderer={semanticRenderer('line', seriesTone)} />;
 }
 
+/** Governed chart tooltip surface (aliases Mantine `Paper`). */
 export const GdsChartTooltip: typeof Paper = Paper;
+/** Governed chart legend container (aliases Mantine `Group`). */
 export const GdsChartLegend: typeof Group = Group;
+/** Governed chart axis container (aliases Mantine `Box`). */
 export const GdsChartAxis: typeof Box = Box;
+/** Alias of {@link SemanticChartFrame} for responsive chart layouts. */
 export const GdsResponsiveChartFrame = SemanticChartFrame;

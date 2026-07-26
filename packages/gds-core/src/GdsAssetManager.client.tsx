@@ -7,68 +7,90 @@ import { MediaPreviewCard, type MediaFit, type MediaPreviewAspectRatio } from '.
 import { UploadDropzone } from './UploadDropzone';
 import { StateBlock } from './StateBlock';
 
+/** How an asset's media is fitted in previews: the underlying `MediaFit` values plus `'crop'`. */
 export type GdsAssetDisplayMode = MediaFit | 'crop';
+/** Lifecycle state of an asset as it moves through validation, upload, and metadata capture. */
 export type GdsAssetStatus = 'empty' | 'validating' | 'uploading' | 'processing' | 'ready' | 'failed' | 'retrying' | 'metadata-incomplete';
 
+/** A managed media asset with its source, metadata, and current lifecycle status. */
 export interface GdsAsset {
   id: string;
   url?: string;
   thumbnailUrl?: string;
   fileName: string;
   mimeType: string;
+  /** Size in bytes. */
   size: number;
+  /** Alternative text; required before publish when the alt-text policy demands it. */
   alt?: string;
   caption?: string;
   status: GdsAssetStatus;
   displayMode?: GdsAssetDisplayMode;
 }
 
+/** Policy for which accessibility metadata must be present before an asset is `ready`. */
 export interface GdsAltTextPolicy {
+  /** Require non-empty alt text before the asset is considered complete. */
   requireAlt?: boolean;
+  /** Require a non-empty caption before the asset is considered complete. */
   requireCaption?: boolean;
 }
 
+/** Validation policy for accepted file types and size, extending the alt-text requirements. */
 export interface GdsAssetValidationPolicy extends GdsAltTextPolicy {
+  /** Allowed MIME types; when set, other types fail validation. */
   acceptedTypes?: string[];
+  /** Maximum file size in bytes. */
   maxSizeBytes?: number;
 }
 
+/** A single upload request handed to a {@link GdsAssetAdapter}. */
 export interface GdsAssetUploadRequest {
   file: File;
+  /** Abort signal wired to the queue's per-upload timeout. */
   signal?: AbortSignal;
+  /** Progress callback (0–100) the adapter should call as bytes upload. */
   onProgress?: (progress: number) => void;
 }
 
+/** Pluggable transport for uploading, removing, and thumbnailing assets. */
 export interface GdsAssetAdapter {
   upload: (request: GdsAssetUploadRequest) => Promise<GdsAsset>;
   remove?: (assetId: string) => Promise<void> | void;
   thumbnail?: (asset: GdsAsset) => Promise<string> | string;
 }
 
+/** One entry in the upload queue, tracking its file, resolved asset, progress, and error. */
 export interface GdsAssetQueueItem {
   id: string;
   fileName: string;
   file?: File;
   asset?: GdsAsset;
   status: GdsAssetStatus;
+  /** Upload progress, 0–100. */
   progress: number;
   error?: string;
 }
 
+/** A metadata-only queue event emitted for observability (never carries file contents). */
 export interface GdsAssetEvent {
   type: 'asset_selected' | 'validation_failed' | 'upload_started' | 'upload_failed' | 'upload_retry' | 'metadata_saved';
   timestamp: number;
+  /** Always `'metadata-only'` — a marker that no file bytes are included. */
   privacy: 'metadata-only';
   message?: string;
 }
 
+/** Configuration for {@link useGdsAssetUploadQueue}. */
 export interface UseGdsAssetUploadQueueConfig {
   adapter: GdsAssetAdapter;
   policy?: GdsAssetValidationPolicy;
   onEvent?: (event: GdsAssetEvent) => void;
+  /** Per-upload abort timeout in ms. Defaults to 10000. */
   timeoutMs?: number;
 }
 
+/** Imperative controller returned by {@link useGdsAssetUploadQueue}. */
 export interface GdsAssetUploadQueueController {
   items: GdsAssetQueueItem[];
   selectFiles: (files: File[]) => Promise<void>;
@@ -77,15 +99,18 @@ export interface GdsAssetUploadQueueController {
   saveMetadata: (itemId: string, metadata: Pick<GdsAsset, 'alt' | 'caption' | 'displayMode'>) => void;
 }
 
+/** Props for {@link GdsAssetPreviewCard}. */
 export interface GdsAssetPreviewCardProps {
   asset: GdsAsset;
   aspectRatio?: MediaPreviewAspectRatio;
   actions?: ReactNode;
 }
 
+/** Props for {@link GdsAssetManager}, combining the upload-queue config with presentation options. */
 export interface GdsAssetManagerProps extends UseGdsAssetUploadQueueConfig {
   title: string;
   description?: string;
+  /** Allow selecting more than one file. Defaults to `true`. */
   multiple?: boolean;
   displayMode?: GdsAssetDisplayMode;
 }
@@ -98,6 +123,7 @@ function assetIdFromFile(file: File) {
   return `${file.name}-${file.size}-${file.lastModified}`;
 }
 
+/** Creates a default in-browser {@link GdsAssetAdapter} that uploads via `URL.createObjectURL` and leaves metadata incomplete. */
 export function createGdsAssetAdapter(): GdsAssetAdapter {
   return {
     upload: async ({ file, onProgress }) => {
@@ -115,6 +141,7 @@ export function createGdsAssetAdapter(): GdsAssetAdapter {
   };
 }
 
+/** Validates a file against the accepted-types and max-size policy, returning `{ valid, message? }`. */
 export function validateGdsAsset(file: File, policy: GdsAssetValidationPolicy = {}) {
   if (policy.acceptedTypes?.length && !policy.acceptedTypes.includes(file.type)) {
     return { valid: false, message: `Unsupported file type: ${file.type || 'unknown'}.` };
@@ -131,6 +158,11 @@ function metadataComplete(asset: GdsAsset, policy: GdsAltTextPolicy = {}) {
   return true;
 }
 
+/**
+ * Governed upload-queue hook: validates selected files, uploads them through the
+ * adapter with a per-item timeout, tracks progress/retry/removal, and enforces
+ * the alt-text/caption policy before an item reaches `ready`.
+ */
 export function useGdsAssetUploadQueue({
   adapter,
   policy = {},
@@ -202,6 +234,7 @@ export function useGdsAssetUploadQueue({
   return { items, selectFiles, retry, remove, saveMetadata };
 }
 
+/** Renders a single asset as a governed {@link MediaPreviewCard}, mapping status to the card's state and showing type/size metadata. */
 export function GdsAssetPreviewCard({ asset, aspectRatio = '1:1' }: GdsAssetPreviewCardProps) {
   return (
     <MediaPreviewCard
@@ -222,6 +255,11 @@ export function GdsAssetPreviewCard({ asset, aspectRatio = '1:1' }: GdsAssetPrev
   );
 }
 
+/**
+ * End-to-end governed asset manager: a dropzone wired to {@link useGdsAssetUploadQueue},
+ * per-item previews, retry controls, and inline alt-text/caption editing that gates
+ * publish until the metadata policy is satisfied.
+ */
 export function GdsAssetManager({
   title,
   description,

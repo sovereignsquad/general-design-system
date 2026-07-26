@@ -4,6 +4,7 @@ import { AccentPanel } from './AccentPanel';
 import { CtaButtonGroup } from './CtaButtonGroup';
 import { GdsIcons } from './icons';
 
+/** A call-to-action rendered in the hero; links when `href` is set, otherwise a button. First action defaults to primary. */
 export type EditorialHeroAction = {
   label: string;
   href?: string;
@@ -13,27 +14,42 @@ export type EditorialHeroAction = {
   loading?: boolean;
 };
 
+/** A supporting metadata chip shown beneath the hero actions. */
 export type EditorialHeroMetaItem = {
   id: string;
   label: string;
   icon?: ReactNode;
 };
 
+/** Props for the `EditorialHero` component. */
 export interface EditorialHeroProps {
+  /** Small overline text above the title. */
   eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
+  /** CTAs; only the first three render, with at most one promoted to primary. */
   actions?: EditorialHeroAction[];
+  /** Supporting detail chips. */
   meta?: EditorialHeroMetaItem[];
+  /** Media node; a placeholder is shown when omitted. */
   media?: ReactNode;
+  /** Accessible label for the media figure. */
   mediaAlt?: string;
+  /** Which side the media sits on at `md`+. Defaults to `right`. */
   mediaPosition?: 'right' | 'left';
+  /** Overlay fade applied over the media. Defaults to `soft-start`. */
   mediaFade?: 'none' | 'soft-start' | 'background-blend' | 'background-match' | 'mask-soft-edge';
+  /** Text/content alignment. Defaults to `start`. */
   align?: 'start' | 'center';
+  /** Tighter spacing/padding. Defaults to `false`. */
   compact?: boolean;
+  /** Render the skeleton loading state. Defaults to `false`. */
   loading?: boolean;
+  /** Error content shown in place of the media when it fails to load. */
   error?: ReactNode;
+  /** `flat-public` removes the surface shadow. Defaults to `default`. */
   surfaceVariant?: 'default' | 'flat-public';
+  /** Per-slot class name overrides. */
   classNames?: {
     root?: string;
     content?: string;
@@ -225,6 +241,11 @@ function MediaFrame({
   );
 }
 
+/**
+ * Two-column editorial hero pairing eyebrow/title/description and up to three
+ * CTAs with a media figure, on a bordered surface. Renders a skeleton while
+ * `loading`, and an error panel in place of the media when `error` is set.
+ */
 export function EditorialHero({
   eyebrow,
   title,

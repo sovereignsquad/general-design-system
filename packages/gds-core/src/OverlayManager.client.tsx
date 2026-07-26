@@ -6,37 +6,55 @@ import { Drawer, Modal } from '@mantine/core';
 import type { DrawerProps, ModalProps } from '@mantine/core';
 import { getGdsMotionPreset, useGdsTranslation } from '@sovereignsquad/gds-theme';
 
+/** Governed overlay surface kinds. */
 export type GdsOverlayType = 'modal' | 'dialog' | 'drawer' | 'sheet' | 'popover' | 'command';
+/** Overlay kind tracked by the manager, including the non-focus-trapping tooltip. */
 export type OverlayKind = GdsOverlayType | 'tooltip';
+/** Why an overlay close was requested. */
 export type OverlayCloseReason = 'escape' | 'backdrop' | 'outside-click' | 'programmatic' | 'action' | 'route-change';
+/** Lifecycle status of an overlay within the manager's stack. */
 export type GdsOverlayStatus = 'opening' | 'open' | 'nested' | 'closing' | 'blocked-close' | 'route-recovery' | 'mobile-fullscreen';
+/** How an overlay reacts to a route change: close, preserve, or recover. */
 export type GdsOverlayRoutePolicy = 'close' | 'preserve' | 'recover';
+/** Metadata-only overlay lifecycle event names. */
 export type GdsOverlayEventType = 'overlay_opened' | 'overlay_closed' | 'escape_close' | 'blocked_close' | 'route_recovered';
 
+/** Per-overlay behavior policy: close triggers, nesting, route handling, and focus return. */
 export interface GdsOverlayPolicy {
+  /** Whether Escape closes the overlay. Defaults to true. */
   closeOnEscape?: boolean;
+  /** Whether a backdrop / outside click closes the overlay. Defaults to true. */
   closeOnOutsideClick?: boolean;
+  /** Whether this overlay may stack on top of an existing one instead of replacing it. Defaults to false. */
   allowNested?: boolean;
+  /** Behavior on route change. Defaults to `close`. */
   routeChange?: GdsOverlayRoutePolicy;
+  /** Renders the surface full-screen on mobile. Defaults to false. */
   mobileFullscreen?: boolean;
+  /** Whether to return focus to the invoker when the overlay closes. Defaults to true. */
   returnFocus?: boolean;
 }
 
+/** Describes an overlay when it registers with the manager. */
 export interface OverlayDescriptor {
+  /** Stable unique overlay id. */
   id: string;
   kind: OverlayKind;
   title?: ReactNode;
   description?: ReactNode;
+  /** DOM id of the element that opened the overlay, used to restore focus on close. */
   invokerId?: string;
   policy?: GdsOverlayPolicy;
   status?: GdsOverlayStatus;
 }
 
+/** An overlay descriptor augmented with stack bookkeeping (open timestamp and resolved status). */
 export interface GdsOverlayStackItem extends OverlayDescriptor {
   openedAt: number;
   status: GdsOverlayStatus;
 }
 
+/** Metadata-only event emitted for overlay lifecycle changes; carries no user content. */
 export interface GdsOverlayEvent {
   type: GdsOverlayEventType;
   id: string;
@@ -58,11 +76,16 @@ interface OverlayManagerValue {
   requestClose: (id: string, reason: OverlayCloseReason) => OverlayCloseReason | null;
 }
 
+/** Props for {@link OverlayManagerProvider}. */
 export interface OverlayManagerProviderProps {
   children: ReactNode;
+  /** Baseline policy merged under each overlay's own policy. */
   defaultPolicy?: GdsOverlayPolicy;
+  /** When true, opening any overlay replaces the current stack (no nesting). Defaults to false. */
   singleOverlayMode?: boolean;
+  /** Changing this value signals a route change, triggering each overlay's route policy. */
   routeKey?: string | number;
+  /** Receives metadata-only overlay lifecycle events. */
   onOverlayEvent?: (event: GdsOverlayEvent) => void;
 }
 
@@ -105,6 +128,11 @@ function getFocusableElement(invokerId?: string) {
   return active instanceof HTMLElement ? active : null;
 }
 
+/**
+ * Context provider owning the overlay stack: registration, nesting vs. single-overlay
+ * replacement, focus return, route-change handling, and metadata-only event emission.
+ * Wrap the app (or a subtree) so GDS overlay surfaces can coordinate.
+ */
 export function OverlayManagerProvider({
   children,
   defaultPolicy,
@@ -223,6 +251,7 @@ export function OverlayManagerProvider({
   );
 }
 
+/** Returns the overlay manager context; throws if used outside an {@link OverlayManagerProvider}. */
 export function useOverlayManager() {
   const context = useContext(OverlayManagerContext);
   if (!context) {
@@ -243,10 +272,15 @@ interface GdsOverlaySurfaceBaseProps {
   onBlockedClose?: (reason: OverlayCloseReason) => void;
 }
 
+/** Props for {@link GdsModal}: the governed overlay base props plus Mantine `Modal` props the manager does not control. */
 export type GdsModalProps = GdsOverlaySurfaceBaseProps & Omit<ModalProps, 'opened' | 'onClose' | 'title' | 'children' | 'trapFocus'>;
+/** Props for {@link GdsDrawer}: the governed overlay base props plus Mantine `Drawer` props the manager does not control. */
 export type GdsDrawerProps = GdsOverlaySurfaceBaseProps & Omit<DrawerProps, 'opened' | 'onClose' | 'title' | 'children' | 'trapFocus'>;
+/** Alias of {@link GdsModalProps} for the dialog surface. */
 export type GdsDialogProps = GdsModalProps;
+/** Alias of {@link GdsDrawerProps} for the side-panel surface. */
 export type GdsSidePanelProps = GdsDrawerProps;
+/** Alias of {@link GdsDrawerProps} for the bottom-sheet surface. */
 export type GdsSheetProps = GdsDrawerProps;
 
 function useOverlaySurface({
@@ -285,6 +319,7 @@ function useOverlaySurface({
   return requestClose;
 }
 
+/** Governed modal surface that registers with the overlay manager, traps focus, and honors its close policy. */
 export function GdsModal({
   id,
   opened,
@@ -319,6 +354,7 @@ export function GdsModal({
   );
 }
 
+/** Governed drawer surface that registers with the overlay manager, traps focus, and honors its close policy. */
 export function GdsDrawer({
   id,
   opened,
@@ -354,14 +390,17 @@ export function GdsDrawer({
   );
 }
 
+/** Bottom-anchored, mobile-fullscreen {@link GdsDrawer} variant. */
 export function GdsSheet(props: GdsSheetProps) {
   return <GdsDrawer {...props} position={props.position ?? 'bottom'} policy={{ mobileFullscreen: true, ...props.policy }} />;
 }
 
+/** Semantic alias of {@link GdsModal} for dialog use cases. */
 export function GdsDialog(props: GdsDialogProps) {
   return <GdsModal {...props} />;
 }
 
+/** Right-anchored (by default) {@link GdsDrawer} variant for side panels. */
 export function GdsSidePanel(props: GdsSidePanelProps) {
   return <GdsDrawer {...props} position={props.position ?? 'right'} />;
 }

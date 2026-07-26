@@ -20,29 +20,37 @@ import {
 import { GdsIcons } from './icons';
 import { StateBlock } from './StateBlock';
 
+/** Price tier for a partner place, rendered as `$` through `$$$$`. */
 export type PartnerPriceLevel = '$' | '$$' | '$$$' | '$$$$';
 
+/** Navigation/link entry used across the discovery shell header, footer, and detail actions. */
 export interface PartnerNavItem {
   id: string;
   label: string;
   href: string;
+  /** Marks the item as the current page (`aria-current="page"`, emphasized styling). */
   current?: boolean;
+  /** Opens the link in a new tab with `rel="noreferrer noopener"` when true. */
   external?: boolean;
 }
 
+/** Selectable amenity option shown in filter chips and amenity grids. */
 export interface PartnerAmenityOption {
   id: string;
   label: string;
+  /** Optional leading icon rendered alongside the label. */
   icon?: ReactNode;
   description?: string;
 }
 
+/** Current discovery filter selection: free-text query, chosen amenity ids, and price tiers. */
 export interface PartnerDiscoveryFilterState {
   query: string;
   amenities: string[];
   prices: PartnerPriceLevel[];
 }
 
+/** Localized copy for the discovery filter bar and modal. */
 export interface PartnerDiscoveryFilterLabels {
   search: string;
   searchPlaceholder: string;
@@ -52,9 +60,11 @@ export interface PartnerDiscoveryFilterLabels {
   apply: string;
   amenities: string;
   price: string;
+  /** Accessible label for the active-filters group; defaults to "Selected filters". */
   selected?: string;
 }
 
+/** A place returned by discovery search, positioned on the map and rendered as a result card. */
 export interface PartnerPlaceResult {
   id: string;
   title: string;
@@ -63,9 +73,11 @@ export interface PartnerPlaceResult {
   amenities: string[];
   price?: PartnerPriceLevel;
   href: string;
+  /** Optional map position; places without coordinates are treated as always in-viewport. */
   coordinates?: { lat: number; lng: number };
 }
 
+/** Geographic bounds of the visible map, used to keep only in-view places. */
 export interface PartnerMapViewport {
   north: number;
   south: number;
@@ -73,6 +85,7 @@ export interface PartnerMapViewport {
   west: number;
 }
 
+/** Props passed to a caller-supplied map adapter so it can render pins and report interactions. */
 export interface PartnerMapAdapterProps {
   places: PartnerPlaceResult[];
   activePlaceId?: string;
@@ -80,6 +93,7 @@ export interface PartnerMapAdapterProps {
   onViewportChange?: (viewport: PartnerMapViewport) => void;
 }
 
+/** Telemetry event names emitted across the partner-discovery components. */
 export type PartnerDiscoveryEventName =
   | 'filter_open'
   | 'filter_apply'
@@ -96,15 +110,19 @@ export type PartnerDiscoveryEventName =
   | 'newsletter_submit_failure'
   | 'submission_failure';
 
+/** A single telemetry event with its source component, timestamp, and redacted metadata. */
 export interface PartnerDiscoveryEvent {
   name: PartnerDiscoveryEventName;
   component: string;
   timestamp: string;
+  /** Extra event context; sensitive keys are stripped by `redactPartnerDiscoveryEventMetadata`. */
   metadata?: Record<string, string | number | boolean | null>;
 }
 
+/** Consumer callback invoked with each emitted discovery telemetry event. */
 export type PartnerDiscoveryEventHandler = (event: PartnerDiscoveryEvent) => void;
 
+/** Default set of amenity filter options shipped with the discovery components. */
 export const partnerDiscoveryDefaultAmenities: PartnerAmenityOption[] = [
   { id: 'high-chairs', label: 'High chairs' },
   { id: 'booster-seats', label: 'Booster seats' },
@@ -116,6 +134,7 @@ export const partnerDiscoveryDefaultAmenities: PartnerAmenityOption[] = [
   { id: 'reservations', label: 'Reservations' },
 ];
 
+/** Empty starting filter state (no query, amenities, or prices selected). */
 export const partnerDiscoveryDefaultFilterState: PartnerDiscoveryFilterState = {
   query: '',
   amenities: [],
@@ -149,6 +168,10 @@ function createPartnerEvent(
   };
 }
 
+/**
+ * Returns a copy of the metadata with sensitive keys (email, phone, query,
+ * apiKey, token, location, lat, lng) replaced by `[redacted]`.
+ */
 export function redactPartnerDiscoveryEventMetadata(metadata: PartnerDiscoveryEvent['metadata'] = {}) {
   const blocked = new Set(['email', 'phone', 'query', 'apiKey', 'token', 'location', 'lat', 'lng']);
   return Object.fromEntries(
@@ -159,6 +182,11 @@ export function redactPartnerDiscoveryEventMetadata(metadata: PartnerDiscoveryEv
   );
 }
 
+/**
+ * Builds a discovery event and dispatches it to `handler`; a no-op when no
+ * handler is provided. Handler errors are swallowed so telemetry adapters can
+ * never break the UI flow.
+ */
 export function emitPartnerDiscoveryEvent(
   handler: PartnerDiscoveryEventHandler | undefined,
   name: PartnerDiscoveryEventName,
@@ -176,6 +204,7 @@ export function emitPartnerDiscoveryEvent(
   }
 }
 
+/** Returns a new filter state with the given amenity id toggled on or off. */
 export function togglePartnerAmenity(
   state: PartnerDiscoveryFilterState,
   amenityId: string,
@@ -187,6 +216,7 @@ export function togglePartnerAmenity(
   return { ...state, amenities };
 }
 
+/** Returns a new filter state with the given price tier toggled on or off. */
 export function togglePartnerPrice(
   state: PartnerDiscoveryFilterState,
   price: PartnerPriceLevel,
@@ -198,10 +228,16 @@ export function togglePartnerPrice(
   return { ...state, prices };
 }
 
+/** Returns a fresh copy of the default (empty) discovery filter state. */
 export function resetPartnerDiscoveryFilters(): PartnerDiscoveryFilterState {
   return { ...partnerDiscoveryDefaultFilterState };
 }
 
+/**
+ * Filters places by case-insensitive query, required amenities, selected price
+ * tiers, and (when supplied) the map viewport bounds. Places without
+ * coordinates are always kept regardless of the viewport.
+ */
 export function filterPartnerPlaces(
   places: PartnerPlaceResult[],
   filters: PartnerDiscoveryFilterState,
@@ -228,9 +264,11 @@ export function filterPartnerPlaces(
   });
 }
 
+/** Props for the discovery page shell: branding, primary nav, optional footer, and content. */
 export interface PartnerDiscoveryShellProps {
   logo: ReactNode;
   navItems: PartnerNavItem[];
+  /** Optional footer with a copyright line plus legal and social links. */
   footer?: {
     copyright: string;
     legalLinks: PartnerNavItem[];
@@ -239,6 +277,7 @@ export interface PartnerDiscoveryShellProps {
   children: ReactNode;
 }
 
+/** Page-level layout for partner discovery: header, main content, and optional footer on a themed surface. */
 export function PartnerDiscoveryShell({
   logo,
   navItems,
@@ -262,6 +301,7 @@ export function PartnerDiscoveryShell({
   );
 }
 
+/** Discovery shell header: the logo alongside a primary navigation group. */
 export function PartnerDiscoveryHeader({
   logo,
   navItems,
@@ -290,6 +330,7 @@ export function PartnerDiscoveryHeader({
   );
 }
 
+/** Discovery shell footer rendering the copyright line plus legal and social links. */
 export function PartnerDiscoveryFooter({
   copyright,
   legalLinks,
@@ -307,12 +348,15 @@ export function PartnerDiscoveryFooter({
   );
 }
 
+/** Props for the toggleable grid of amenity filter chips. */
 export interface AmenityChipGridProps {
   amenities: PartnerAmenityOption[];
+  /** Ids of the currently selected amenities. */
   selected: string[];
   onToggle?: (amenityId: string) => void;
 }
 
+/** Grid of amenity chips rendered as pressable toggle buttons; shows an empty state when none are available. */
 export function AmenityChipGrid({
   amenities,
   selected,
@@ -355,12 +399,16 @@ export function AmenityChipGrid({
   );
 }
 
+/** Props for the discovery filter bar and its modal. */
 export interface PartnerDiscoveryFiltersProps {
   value: PartnerDiscoveryFilterState;
   amenities: PartnerAmenityOption[];
   labels: PartnerDiscoveryFilterLabels;
+  /** Price tiers offered in the modal; defaults to `['$', '$$', '$$$', '$$$$']`. */
   prices?: PartnerPriceLevel[];
+  /** Whether the filter modal is open. */
   opened?: boolean;
+  /** Disables the search input and open/apply controls while true. */
   loading?: boolean;
   onQueryChange?: (query: string) => void;
   onAmenityToggle?: (amenityId: string) => void;
@@ -372,6 +420,7 @@ export interface PartnerDiscoveryFiltersProps {
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
+/** Search + filter controls with an active-filter summary and a modal for amenity and price selection. */
 export function PartnerDiscoveryFilters({
   value,
   amenities,
@@ -493,15 +542,20 @@ export function PartnerDiscoveryFilters({
   );
 }
 
+/** Props for a single place result card. */
 export interface PartnerPlaceResultCardProps {
   place: PartnerPlaceResult;
+  /** Map of amenity id to display label for the amenity badges. */
   amenityLabels?: Record<string, string>;
+  /** Highlights the card as the active/selected result. */
   active?: boolean;
+  /** Label for the "see details" link; defaults to "See details". */
   detailLabel?: ReactNode;
   onSelect?: (placeId: string) => void;
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
+/** Card summarizing a place: title link, category/neighborhood/price line, amenity badges, and a details link. */
 export function PartnerPlaceResultCard({
   place,
   amenityLabels = {},
@@ -553,12 +607,14 @@ export function PartnerPlaceResultCard({
   );
 }
 
+/** Props for a single interactive map pin. */
 export interface PartnerMapPinProps {
   label: string;
   active?: boolean;
   onSelect?: () => void;
 }
 
+/** Circular map-pin button that toggles pressed state and exposes an accessible label. */
 export function PartnerMapPin({
   label,
   active = false,
@@ -584,13 +640,17 @@ export function PartnerMapPin({
   );
 }
 
+/** Props for the map zoom controls. */
 export interface PartnerMapControlsProps {
   onZoomIn?: () => void;
   onZoomOut?: () => void;
+  /** Accessible label for the zoom-in button; defaults to "Zoom in". */
   zoomInLabel?: string;
+  /** Accessible label for the zoom-out button; defaults to "Zoom out". */
   zoomOutLabel?: string;
 }
 
+/** Zoom-in / zoom-out icon button pair for the map. */
 export function PartnerMapControls({
   onZoomIn,
   onZoomOut,
@@ -609,20 +669,24 @@ export function PartnerMapControls({
   );
 }
 
+/** Props for the split map + results-list shell. */
 export interface PartnerMapListShellProps {
   places: PartnerPlaceResult[];
   filters: PartnerDiscoveryFilterState;
   activePlaceId?: string;
   loading?: boolean;
   error?: ReactNode;
+  /** Message shown when filtering yields no places. */
   empty?: ReactNode;
   onRetry?: () => void;
   onActivePlaceChange?: (placeId: string) => void;
+  /** Optional adapter that renders the map pane; without it the pane shows a list-only notice. */
   mapAdapter?: (props: PartnerMapAdapterProps) => ReactNode;
   amenityLabels?: Record<string, string>;
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
+/** Two-column shell pairing a map pane (via `mapAdapter`) with a filtered list of result cards, handling loading, error, and empty states. */
 export function PartnerMapListShell({
   places,
   filters,
@@ -699,6 +763,7 @@ export function PartnerMapListShell({
   );
 }
 
+/** Full detail record for a place, powering the detail template. */
 export interface PartnerPlaceDetail {
   id: string;
   title: string;
@@ -706,8 +771,10 @@ export interface PartnerPlaceDetail {
   phone?: string;
   neighborhood?: string;
   category?: string;
+  /** Parent-oriented tip highlighted on the detail page. */
   parentTip?: string;
   amenities: PartnerAmenityOption[];
+  /** Optional outbound links (photos, website, menu, and share URL). */
   links?: {
     photos?: string;
     website?: string;
@@ -716,6 +783,7 @@ export interface PartnerPlaceDetail {
   };
 }
 
+/** Localized copy for the place detail template. */
 export interface PartnerPlaceDetailLabels {
   back: string;
   photos: string;
@@ -727,15 +795,18 @@ export interface PartnerPlaceDetailLabels {
   shareFailed: string;
 }
 
+/** Props for the place detail template. */
 export interface PartnerPlaceDetailTemplateProps {
   place: PartnerPlaceDetail;
   backHref: string;
   labels: PartnerPlaceDetailLabels;
+  /** Share button lifecycle state driving its loading state and label. Defaults to `'idle'`. */
   shareState?: 'idle' | 'copying' | 'copied' | 'failed';
   onShare?: (url: string) => void;
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
+/** Detail page for a single place: title, contact info, action buttons (photos/website/menu/share), badges, parent tip, and amenities. */
 export function PartnerPlaceDetailTemplate({
   place,
   backHref,
@@ -799,6 +870,7 @@ export function PartnerPlaceDetailTemplate({
   );
 }
 
+/** Emphasized panel presenting a parent-oriented tip with a labeled badge. */
 export function PartnerParentTipPanel({
   label,
   children,
@@ -816,6 +888,7 @@ export function PartnerParentTipPanel({
   );
 }
 
+/** Grid of amenity tiles (optional icon + label); renders an empty state when there are none. */
 export function PartnerAmenityBadgeGrid({ amenities }: { amenities: PartnerAmenityOption[] }) {
   if (!amenities.length) {
     return <StateBlock variant="empty" title="No amenities listed" compact />;
@@ -835,6 +908,7 @@ export function PartnerAmenityBadgeGrid({ amenities }: { amenities: PartnerAmeni
   );
 }
 
+/** Localized copy for the newsletter capture modal and form. */
 export interface PartnerNewsletterLabels {
   title: string;
   description?: string;
@@ -846,11 +920,14 @@ export interface PartnerNewsletterLabels {
   errorMessage: string;
 }
 
+/** Props for the newsletter capture modal. */
 export interface PartnerNewsletterCaptureProps {
   opened?: boolean;
   labels: PartnerNewsletterLabels;
+  /** Optional decorative visual shown above the form. */
   visual?: ReactNode;
   email?: string;
+  /** Submission lifecycle state driving loading, success, and error display. Defaults to `'idle'`. */
   state?: 'idle' | 'submitting' | 'success' | 'error';
   onEmailChange?: (email: string) => void;
   onSubmit?: () => void;
@@ -858,6 +935,7 @@ export interface PartnerNewsletterCaptureProps {
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
+/** Modal wrapper around `PartnerNewsletterForm` that emits success/failure telemetry on submit. */
 export function PartnerNewsletterCapture({
   opened = false,
   labels,
@@ -887,6 +965,7 @@ export function PartnerNewsletterCapture({
   );
 }
 
+/** Email capture form with description, input, and submit/dismiss actions, reflecting the submission state. */
 export function PartnerNewsletterForm({
   labels,
   visual,
@@ -919,20 +998,24 @@ export function PartnerNewsletterForm({
   );
 }
 
+/** Editorial link entry used by the partner list index. */
 export interface PartnerEditorialLink {
   id: string;
   title: string;
   href: string;
   description?: string;
+  /** Opens the link in a new tab with `rel="noreferrer noopener"` when true. */
   external?: boolean;
 }
 
+/** A single FAQ question/answer pair. */
 export interface PartnerFaqItem {
   id: string;
   question: string;
   answer: ReactNode;
 }
 
+/** Titled list of editorial links, with an empty state when there are none. */
 export function PartnerListIndex({
   title,
   items,
@@ -957,6 +1040,7 @@ export function PartnerListIndex({
   );
 }
 
+/** Renders a list of FAQ question/answer pairs, or an empty state when none are given. */
 export function PartnerFaqList({ items }: { items: PartnerFaqItem[] }) {
   if (!items.length) {
     return <StateBlock variant="empty" title="No FAQ items" compact />;
@@ -974,6 +1058,7 @@ export function PartnerFaqList({ items }: { items: PartnerFaqItem[] }) {
   );
 }
 
+/** Contact panel with a heading, optional description, and a mailto link. */
 export function PartnerContactBlock({
   title,
   description,
@@ -994,6 +1079,7 @@ export function PartnerContactBlock({
   );
 }
 
+/** Submission page wrapper that swaps between the form, a success block, and an error block. */
 export function PartnerSubmissionEntry({
   title,
   description,
@@ -1021,6 +1107,7 @@ export function PartnerSubmissionEntry({
   );
 }
 
+/** Renders a titled page as a sequence of divider-separated content sections. */
 export function PartnerAboutPageSections({
   title,
   sections,

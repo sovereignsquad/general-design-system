@@ -3,12 +3,14 @@ import { Badge, Box, Button, Group, Paper, SimpleGrid, Stack, Text, Title } from
 import { DataToolbar, type DataToolbarProps } from './DataToolbar';
 import { StateBlock } from './StateBlock';
 
+/** An active-filter chip shown on a browse surface, with an optional remove handler. */
 export interface BrowseSurfaceFilterChip {
   id: string;
   label: ReactNode;
   onRemove?: () => void;
 }
 
+/** A selectable scope option (e.g. a saved view or segment) shown above the results. */
 export interface BrowseSurfaceScopeOption {
   id: string;
   label: ReactNode;
@@ -16,6 +18,7 @@ export interface BrowseSurfaceScopeOption {
   onSelect?: () => void;
 }
 
+/** Props for {@link BrowseSurface}. */
 export interface BrowseSurfaceProps {
   eyebrow?: ReactNode;
   title: ReactNode;
@@ -27,12 +30,14 @@ export interface BrowseSurfaceProps {
   scopeLabel?: ReactNode;
   locationControls?: ReactNode;
   primaryControls?: ReactNode;
+  /** DataToolbar props (minus `activeFilters`, which the surface derives), plus a `fallbackActiveFilters` used when no `activeFilters` are set. */
   toolbar?: Omit<DataToolbarProps, 'activeFilters'> & {
     fallbackActiveFilters?: DataToolbarProps['activeFilters'];
   };
   sortControl?: ReactNode;
   mobileFilters?: ReactNode;
   filterDrawer?: ReactNode;
+  /** Main results region, rendered when not in the loading, error, or empty state. */
   content: ReactNode;
   loading?: boolean;
   loadingTitle?: string;
@@ -46,6 +51,12 @@ export interface BrowseSurfaceProps {
   emptyAction?: ReactNode;
 }
 
+/**
+ * Governed browse/search results scaffold: a header with eyebrow, title, result
+ * count, scope options, location and filter controls, and active-filter chips,
+ * above a results region that swaps to a governed loading, error, or empty
+ * {@link StateBlock} based on the `loading`/`error`/`empty` flags.
+ */
 export function BrowseSurface({
   eyebrow,
   title,

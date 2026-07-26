@@ -18,6 +18,7 @@ import React, { createContext, useContext } from 'react';
  * does not widen the vendor boundary.
  */
 
+/** Anchored placement of an overlay relative to its trigger. */
 export type GdsOverlayPlacement =
   | 'top'
   | 'bottom'
@@ -28,10 +29,13 @@ export type GdsOverlayPlacement =
   | 'bottom-start'
   | 'bottom-end';
 
+/** ARIA role an overlay surface presents as. */
 export type GdsOverlayRole = 'menu' | 'listbox' | 'dialog' | 'tooltip';
 
+/** Why an overlay was dismissed. */
 export type GdsOverlayDismissReason = 'escape' | 'outside' | 'select' | 'programmatic';
 
+/** GDS-owned default configuration for overlays, independent of the underlying engine. */
 export interface GdsOverlayConfig {
   /** Default anchored placement for GDS overlays. */
   placement: GdsOverlayPlacement;
@@ -51,12 +55,15 @@ export interface GdsOverlayConfig {
  * no consumer change.
  */
 export interface OverlayAdapter {
+  /** Stable adapter identifier (e.g. `'mantine'`). */
   readonly id: string;
+  /** Default overlay configuration this adapter provides. */
   readonly config: GdsOverlayConfig;
   /** Props/attributes to spread onto an overlay surface for a given role. */
   surfaceProps(role: GdsOverlayRole): Record<string, unknown>;
 }
 
+/** The default overlay configuration: bottom-start placement, portalled, focus-trapped, 140ms transition. */
 export const defaultGdsOverlayConfig: GdsOverlayConfig = {
   placement: 'bottom-start',
   withinPortal: true,
@@ -80,6 +87,7 @@ export const mantineOverlayAdapter: OverlayAdapter = {
 
 const OverlayAdapterContext = createContext<OverlayAdapter>(mantineOverlayAdapter);
 
+/** Provides an overlay adapter to descendant GDS overlay components via context. */
 export function OverlayAdapterProvider({
   adapter,
   children,

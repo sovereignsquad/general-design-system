@@ -20,18 +20,30 @@ import type {
 import { ActionBar, type ActionBarProps, FormField, StateBlock } from '@sovereignsquad/gds-core';
 import { FormSection } from './FormSection';
 
+/** Governed per-field lifecycle state; drives disabled/read-only derivation. */
 export type AdminFieldState = 'idle' | 'loading' | 'error' | 'success' | 'readonly' | 'disabled';
+/** Governed form-level status state rendered by {@link AdminFormStatus}. */
 export type AdminFormStatusState = 'idle' | 'loading' | 'error' | 'success' | 'dirty' | 'readonly';
 
+/** Shared props for the governed admin field wrappers (text, textarea, checkbox, select, file). */
 export interface AdminFieldBaseProps {
+  /** Control id; defaults to `name` when omitted. */
   id?: string;
+  /** Form field name. */
   name: string;
+  /** Field label. */
   label: ReactNode;
+  /** Supporting description text. */
   description?: ReactNode;
+  /** Error content; presence marks the field invalid. */
   error?: ReactNode;
+  /** Mark the field required. */
   required?: boolean;
+  /** Governed field state; `loading`/`disabled` disable the control, `readonly` makes it read-only. */
   state?: AdminFieldState;
+  /** Explicitly disable the control. */
   disabled?: boolean;
+  /** Explicitly make the control read-only. */
   readOnly?: boolean;
 }
 
@@ -47,11 +59,19 @@ function isReadOnly({ readOnly, state }: Pick<AdminFieldBaseProps, 'readOnly' | 
   return readOnly || state === 'readonly';
 }
 
+/** Props for {@link AdminTextInput}: {@link AdminFieldBaseProps} plus a controlled string value. */
 export interface AdminTextInputProps extends AdminFieldBaseProps, Omit<TextInputProps, 'label' | 'description' | 'error' | 'name' | 'id' | 'onChange'> {
+  /** Controlled input value. */
   value: string;
+  /** Called with the next value on change. */
   onChange?: (value: string) => void;
 }
 
+/**
+ * Governed single-line text field: a Mantine `TextInput` wrapped in the GDS
+ * `FormField` for consistent label/description/error handling, with disabled
+ * and read-only state derived from {@link AdminFieldBaseProps.state}.
+ */
 export function AdminTextInput({
   id,
   name,
@@ -86,11 +106,19 @@ export function AdminTextInput({
   );
 }
 
+/** Props for {@link AdminTextarea}: {@link AdminFieldBaseProps} plus a controlled string value. */
 export interface AdminTextareaProps extends AdminFieldBaseProps, Omit<TextareaProps, 'label' | 'description' | 'error' | 'name' | 'id' | 'onChange'> {
+  /** Controlled textarea value. */
   value: string;
+  /** Called with the next value on change. */
   onChange?: (value: string) => void;
 }
 
+/**
+ * Governed multi-line text field: a Mantine `Textarea` (autosizing, min 3 rows)
+ * wrapped in the GDS `FormField`, with disabled/read-only state derived from
+ * {@link AdminFieldBaseProps.state}.
+ */
 export function AdminTextarea({
   id,
   name,
@@ -127,11 +155,18 @@ export function AdminTextarea({
   );
 }
 
+/** Props for {@link AdminCheckbox}: {@link AdminFieldBaseProps} plus a controlled boolean. */
 export interface AdminCheckboxProps extends AdminFieldBaseProps, Omit<CheckboxProps, 'label' | 'description' | 'error' | 'name' | 'id' | 'onChange'> {
+  /** Controlled checked state. */
   checked: boolean;
+  /** Called with the next checked state on change. */
   onChange?: (checked: boolean) => void;
 }
 
+/**
+ * Governed checkbox field: a Mantine `Checkbox` wrapped in the GDS `FormField`,
+ * with disabled state derived from {@link AdminFieldBaseProps.state}.
+ */
 export function AdminCheckbox({
   id,
   name,
@@ -164,11 +199,18 @@ export function AdminCheckbox({
   );
 }
 
+/** Props for {@link AdminSelect}: {@link AdminFieldBaseProps} plus a controlled nullable value. */
 export interface AdminSelectProps extends AdminFieldBaseProps, Omit<SelectProps, 'label' | 'description' | 'error' | 'name' | 'id' | 'onChange'> {
+  /** Controlled selected value, or `null` when nothing is selected. */
   value: string | null;
+  /** Called with the next value on change. */
   onChange?: (value: string | null) => void;
 }
 
+/**
+ * Governed select field: a Mantine `Select` wrapped in the GDS `FormField`,
+ * with disabled state derived from {@link AdminFieldBaseProps.state}.
+ */
 export function AdminSelect({
   id,
   name,
@@ -201,11 +243,18 @@ export function AdminSelect({
   );
 }
 
+/** Props for {@link AdminFileUpload}: {@link AdminFieldBaseProps} plus a controlled nullable file. */
 export interface AdminFileUploadProps extends AdminFieldBaseProps, Omit<FileInputProps, 'label' | 'description' | 'error' | 'name' | 'id' | 'onChange'> {
+  /** Controlled selected file, or `null` when none. */
   value: File | null;
+  /** Called with the next file (or `null` when cleared) on change. */
   onChange?: (value: File | null) => void;
 }
 
+/**
+ * Governed file field: a clearable Mantine `FileInput` wrapped in the GDS
+ * `FormField`, with disabled state derived from {@link AdminFieldBaseProps.state}.
+ */
 export function AdminFileUpload({
   id,
   name,
@@ -239,21 +288,32 @@ export function AdminFileUpload({
   );
 }
 
+/** Props for {@link AdminFormSection}. */
 export interface AdminFormSectionProps {
+  /** Section heading. */
   title: string;
+  /** Supporting description text under the heading. */
   description?: string;
+  /** Section content. */
   children: ReactNode;
+  /** Render a trailing divider below the section. */
   withDivider?: boolean;
 }
 
+/** Thin governed pass-through over {@link FormSection} for grouping admin form fields. */
 export function AdminFormSection(props: AdminFormSectionProps) {
   return <FormSection {...props} />;
 }
 
+/** Props for {@link AdminFormStatus}. */
 export interface AdminFormStatusProps {
+  /** Governed status state; `idle` renders nothing. */
   state: AdminFormStatusState;
+  /** Override for the default per-state title. */
   title?: string;
+  /** Supporting description text. */
   description?: ReactNode;
+  /** Action element rendered alongside the status. */
   action?: ReactNode;
 }
 
@@ -266,6 +326,10 @@ const statusTitle: Record<AdminFormStatusState, string> = {
   readonly: 'Read only',
 };
 
+/**
+ * Governed form-status banner: maps {@link AdminFormStatusState} to a `StateBlock`
+ * variant with a default per-state title. Renders nothing while `idle`.
+ */
 export function AdminFormStatus({ state, title, description, action }: AdminFormStatusProps) {
   if (state === 'idle') {
     return null;
@@ -292,18 +356,33 @@ export function AdminFormStatus({ state, title, description, action }: AdminForm
   );
 }
 
+/** Props for {@link AdminFormActions}. */
 export interface AdminFormActionsProps {
+  /** Whether the form has unsaved changes; drives the status label. */
   dirty?: boolean;
+  /** Whether a save is in flight; sets the submit action's loading state. */
   submitting?: boolean;
+  /** Disable the submit action. */
   disabled?: boolean;
+  /** Primary submit action. */
   submitAction?: ActionBarProps['primary'];
+  /** Cancel action, prepended to the secondary actions. */
   cancelAction?: NonNullable<ActionBarProps['secondary']>[number];
+  /** Delete action, appended to the tertiary actions and defaulted to red. */
   deleteAction?: NonNullable<ActionBarProps['tertiary']>[number];
+  /** Additional secondary actions. */
   secondaryActions?: ActionBarProps['secondary'];
+  /** Additional tertiary actions. */
   tertiaryActions?: ActionBarProps['tertiary'];
+  /** Supporting status text shown beside the state label. */
   status?: ReactNode;
 }
 
+/**
+ * Governed form action bar: composes submit/cancel/delete plus extra actions
+ * into the GDS `ActionBar`, and shows a Saving/Unsaved changes/Ready label
+ * derived from `submitting` and `dirty`.
+ */
 export function AdminFormActions({
   dirty = false,
   submitting = false,
@@ -334,14 +413,25 @@ export function AdminFormActions({
   );
 }
 
+/** Props for {@link AdminCrudForm}. */
 export interface AdminCrudFormProps {
+  /** Optional form title; when set, fields are wrapped in an {@link AdminFormSection}. */
   title?: string;
+  /** Supporting description text under the title. */
   description?: string;
+  /** Form status banner props. */
   status?: AdminFormStatusProps;
+  /** Form action bar props. */
   actions?: AdminFormActionsProps;
+  /** Form fields. */
   children: ReactNode;
 }
 
+/**
+ * Governed CRUD form scaffold: stacks an optional titled section, the
+ * {@link AdminFormStatus} banner, and the {@link AdminFormActions} bar around the
+ * supplied fields.
+ */
 export function AdminCrudForm({ title, description, status, actions, children }: AdminCrudFormProps) {
   return (
     <Stack gap="lg">

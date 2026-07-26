@@ -1,7 +1,9 @@
 import type { GdsThemePresetId } from './theme-presets';
 import { getGdsVibeThemes, type GdsVibeTheme } from './vibe-themes';
 
+/** Color scheme a contrast check is evaluated in. */
 export type GdsContrastMode = 'light' | 'dark';
+/** UI text or focus-indicator role whose foreground/background pair is contrast-checked. */
 export type GdsContrastRole =
   | 'page text'
   | 'surface text'
@@ -10,46 +12,82 @@ export type GdsContrastRole =
   | 'link text'
   | 'focus indicator';
 
+/** Severity of an accessibility finding: `'blocking'` fails the gate, `'warning'` is advisory. */
 export type GdsAccessibilityFindingSeverity = 'blocking' | 'warning';
 
+/**
+ * A contrast problem found while statically auditing theme tokens: either a pair
+ * that failed its minimum ratio (`'blocking'`) or a pair whose colors could not be
+ * resolved statically and must be covered by runtime checks (`'warning'`).
+ */
 export interface GdsContrastFinding {
+  /** Vibe/preset theme the pair belongs to. */
   themeId: GdsThemePresetId;
+  /** Color scheme the pair was evaluated in. */
   mode: GdsContrastMode;
+  /** UI role of the checked pair. */
   role: GdsContrastRole;
+  /** Foreground color as authored in the theme. */
   foreground: string;
+  /** Background color as authored in the theme. */
   background: string;
+  /** Measured WCAG ratio; `0` when the colors could not be resolved statically. */
   ratio: number;
+  /** Required minimum ratio for this role. */
   minimumRatio: number;
+  /** `'blocking'` failed the ratio; `'warning'` could not be statically resolved. */
   severity: GdsAccessibilityFindingSeverity;
+  /** Human-readable explanation. */
   message: string;
 }
 
+/** One resolved contrast measurement for a theme role/mode pair. */
 export interface GdsContrastCheck {
+  /** Vibe/preset theme the pair belongs to. */
   themeId: GdsThemePresetId;
+  /** Color scheme the pair was evaluated in. */
   mode: GdsContrastMode;
+  /** UI role of the checked pair. */
   role: GdsContrastRole;
   foreground: string;
   background: string;
+  /** Measured WCAG contrast ratio. */
   ratio: number;
+  /** Required minimum ratio for this role. */
   minimumRatio: number;
+  /** `true` when `ratio >= minimumRatio`. */
   passes: boolean;
 }
 
+/** A forced-colors (Windows High Contrast) role mapped to the CSS system color it must adopt. */
 export interface GdsForcedColorRole {
+  /** Semantic UI role (e.g. `'page canvas'`, `'link text'`). */
   role: string;
+  /** CSS system color keyword the role must map to (e.g. `'Canvas'`, `'LinkText'`). */
   cssSystemColor: string;
+  /** Why this mapping is required. */
   reason: string;
 }
 
+/** Full static accessibility audit of every vibe theme across light and dark modes. */
 export interface GdsThemeAccessibilityReport {
+  /** ISO timestamp the report was generated (fixed epoch for deterministic snapshots). */
   checkedAt: string;
+  /** Number of themes audited. */
   themeCount: number;
+  /** Number of color schemes audited per theme (light + dark = 2). */
   modeCount: number;
+  /** Count of blocking (failing) findings. */
   blockingCount: number;
+  /** Count of advisory (unresolvable) findings. */
   warningCount: number;
+  /** Every resolved contrast measurement. */
   checks: GdsContrastCheck[];
+  /** Failing and unresolvable findings. */
   findings: GdsContrastFinding[];
+  /** Forced-colors role → system-color mapping the design system guarantees. */
   forcedColorRoles: GdsForcedColorRole[];
+  /** Runtime verification commands that static checks cannot replace. */
   recommendedRuntimeChecks: string[];
 }
 
@@ -254,6 +292,11 @@ function checkRole(
   };
 }
 
+/**
+ * Statically audits every vibe theme in light and dark modes, scoring each
+ * governed text/focus role against its WCAG minimum ratio, and returns the full
+ * report (checks, findings, forced-color mappings, recommended runtime checks).
+ */
 export function createGdsThemeAccessibilityReport(): GdsThemeAccessibilityReport {
   const checks: GdsContrastCheck[] = [];
   const findings: GdsContrastFinding[] = [];
@@ -303,6 +346,7 @@ export function createGdsThemeAccessibilityReport(): GdsThemeAccessibilityReport
   };
 }
 
+/** Runs the accessibility report and returns `{ ok, report }`, where `ok` is `true` when there are no blocking findings. */
 export function validateGdsThemeAccessibility() {
   const report = createGdsThemeAccessibilityReport();
 

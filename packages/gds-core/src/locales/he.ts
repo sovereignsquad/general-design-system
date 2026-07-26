@@ -1,3 +1,4 @@
+/** Hebrew (he) message catalog mapping GDS message ids to their translated strings. */
 export const he = {
   'gds.action.settings': 'הגדרות',
   'gds.action.analytics': 'ניתוח נתונים',

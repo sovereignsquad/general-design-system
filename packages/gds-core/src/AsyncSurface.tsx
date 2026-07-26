@@ -3,6 +3,7 @@ import { StateBlock } from './StateBlock';
 import type { StateBlockVariant } from './StateBlock';
 import type { SurfacePresentationProps } from './SurfacePresentation';
 
+/** The async lifecycle state an {@link AsyncSurface} renders. */
 export type AsyncSurfaceState =
   | 'idle'
   | 'loading'
@@ -11,9 +12,12 @@ export type AsyncSurfaceState =
   | 'error'
   | 'refreshing';
 
+/** Props for {@link AsyncSurface}. */
 export interface AsyncSurfaceProps extends SurfacePresentationProps {
   state: AsyncSurfaceState;
+  /** Content shown once `state` is `success`. */
   successContent?: ReactNode;
+  /** Content shown in the `idle` state; falls back to `successContent`. */
   idleContent?: ReactNode;
   loadingTitle?: string;
   loadingDescription?: ReactNode;
@@ -23,7 +27,9 @@ export interface AsyncSurfaceProps extends SurfacePresentationProps {
   errorDescription?: ReactNode;
   refreshingTitle?: string;
   refreshingDescription?: ReactNode;
+  /** Builds the default retry button shown in the empty and error states. */
   onRetry?: () => void;
+  /** Custom retry action; overrides the default button built from `onRetry`. */
   retryAction?: ReactNode;
   compact?: boolean;
 }

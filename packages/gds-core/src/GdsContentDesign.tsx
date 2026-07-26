@@ -1,7 +1,9 @@
 import { Badge, Card, Group, List, Stack, Text, Title } from '@mantine/core';
 import { createGdsTextExpansionFixture } from './GdsI18nRuntime';
 
+/** Severity/intent lane a content pattern or message belongs to. */
 export type GdsMessageSeverity = 'info' | 'success' | 'warning' | 'error' | 'destructive' | 'empty' | 'permission';
+/** Identifier for each governed UX content pattern (error recovery, empty state, primary CTA, and so on). */
 export type GdsContentPatternId =
   | 'error-recovery'
   | 'retryable-failure'
@@ -12,6 +14,7 @@ export type GdsContentPatternId =
   | 'form-hint'
   | 'success-feedback';
 
+/** Contract for one placeholder token in a copy template: its name, description, example, and whether it is required and localization-safe. */
 export interface GdsPlaceholderContract {
   name: string;
   description: string;
@@ -20,6 +23,7 @@ export interface GdsPlaceholderContract {
   localizationSafe: boolean;
 }
 
+/** A localizable copy template for a content pattern: its i18n key, text with placeholders, and recommended max length. */
 export interface GdsCopyTemplate {
   id: string;
   patternId: GdsContentPatternId;
@@ -29,6 +33,7 @@ export interface GdsCopyTemplate {
   maxRecommendedLength: number;
 }
 
+/** Full definition of a governed content pattern: intent, voice rules, component/task mappings, live-region policy, templates, and accessibility/localization guidance. */
 export interface GdsContentPattern {
   id: GdsContentPatternId;
   title: string;
@@ -295,27 +300,33 @@ function clonePattern(pattern: GdsContentPattern): GdsContentPattern {
   };
 }
 
+/** Returns deep clones of every governed content pattern. */
 export function getGdsContentPatterns() {
   return contentPatterns.map(clonePattern);
 }
 
+/** Returns a deep clone of the content pattern with the given id, or `undefined`. */
 export function getGdsContentPattern(id: GdsContentPatternId | string) {
   const pattern = contentPatterns.find((item) => item.id === id);
   return pattern ? clonePattern(pattern) : undefined;
 }
 
+/** Returns every copy template across all content patterns. */
 export function getGdsCopyTemplates() {
   return getGdsContentPatterns().flatMap((pattern) => pattern.templates);
 }
 
+/** Returns the copy template with the given id, or `undefined`. */
 export function getGdsCopyTemplate(id: string) {
   return getGdsCopyTemplates().find((template) => template.id === id);
 }
 
+/** Interpolates a template's `{placeholder}` tokens with `values`, leaving unknown tokens untouched. */
 export function renderGdsCopyTemplate(template: GdsCopyTemplate, values: Record<string, string | number>) {
   return template.text.replace(/\{([A-Za-z0-9_.-]+)\}/g, (match, key) => String(values[key] ?? match));
 }
 
+/** Validates one template against its placeholder contracts and length budget, returning human-readable failure messages. */
 export function validateGdsCopyTemplate(template: GdsCopyTemplate, values: Record<string, string | number> = {}) {
   const failures: string[] = [];
   for (const placeholder of template.placeholders) {
@@ -332,6 +343,7 @@ export function validateGdsCopyTemplate(template: GdsCopyTemplate, values: Recor
   return failures;
 }
 
+/** Validates the content-pattern catalog for duplicate ids, missing required fields, and per-template failures. */
 export function validateGdsContentPatterns(patterns: GdsContentPattern[] = contentPatterns) {
   const failures: string[] = [];
   const ids = new Set<string>();
@@ -350,6 +362,7 @@ export function validateGdsContentPatterns(patterns: GdsContentPattern[] = conte
   return failures;
 }
 
+/** Builds a text-expansion fixture per copy template for the given locale, to preview localized-length growth. */
 export function createGdsContentExpansionReport(locale = 'de') {
   return getGdsCopyTemplates().map((template) => ({
     templateId: template.id,
@@ -358,6 +371,7 @@ export function createGdsContentExpansionReport(locale = 'de') {
   }));
 }
 
+/** Renders the full content-pattern catalog as cards, listing each pattern's contracts, tasks, telemetry, and "do not write" guidance. */
 export function GdsContentPatternCatalog() {
   return (
     <Stack gap="md">

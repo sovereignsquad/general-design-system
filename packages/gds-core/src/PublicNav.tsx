@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react';
 import { Anchor, Group } from '@mantine/core';
 
+/** A single public navigation entry. */
 export interface PublicNavItem {
   id: string;
   label: string;
   href: string;
+  /** Opens the link in a new tab with `rel="noreferrer"`. */
   external?: boolean;
   /** Optional icon, used by surfaces that render icons (e.g. bottom-tab nav). */
   icon?: ReactNode;
@@ -12,12 +14,16 @@ export interface PublicNavItem {
   disabled?: boolean;
 }
 
+/** Props for the `PublicNav` component. */
 export interface PublicNavProps {
   items: PublicNavItem[];
+  /** Id of the currently active item, marked with `aria-current="page"`. */
   activeId?: string;
+  /** Overrides link rendering per item; receives the item and its active state. */
   renderLink?: (item: PublicNavItem, active: boolean) => ReactNode;
 }
 
+/** Horizontal primary navigation landmark for public pages; renders governed anchors by default, or a custom link per item via `renderLink`, marking the active item with `aria-current`. */
 export function PublicNav({ items, activeId, renderLink }: PublicNavProps) {
   return (
     <Group component="nav" aria-label="Primary" gap="lg" wrap="nowrap">

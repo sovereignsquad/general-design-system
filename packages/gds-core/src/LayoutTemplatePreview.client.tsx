@@ -11,10 +11,15 @@ import {
   renderGdsLayoutWithDiagnostics,
 } from './LayoutBlocks';
 
+/** Props for `GdsLayoutTemplatePreview`. */
 export interface GdsLayoutTemplatePreviewProps {
+  /** Templates to choose from; defaults to the built-in GDS layout templates. */
   templates?: GdsLayoutTemplate[];
+  /** Id of the template selected initially; falls back to the first template. */
   initialTemplateId?: string;
+  /** Panel heading; defaults to "Template cookbook". */
   title?: string;
+  /** Panel description shown under the title. */
   description?: string;
 }
 
@@ -26,6 +31,11 @@ function parseSchema(schemaText: string): LayoutSchema {
   return JSON.parse(schemaText) as LayoutSchema;
 }
 
+/**
+ * Interactive layout-template cookbook: pick a template, edit its schema JSON, and
+ * apply it to render the live layout with validation diagnostics; also supports
+ * resetting to the template and copying the schema to the clipboard.
+ */
 export function GdsLayoutTemplatePreview({
   templates = getGdsLayoutTemplates(),
   initialTemplateId,

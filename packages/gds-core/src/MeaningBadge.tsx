@@ -10,10 +10,13 @@ import type { BadgeProps } from '@mantine/core';
  * conveyed by the label text, never color alone.
  */
 
+/** Editorial/brand meaning conveyed by a {@link MeaningBadge}. */
 export type MeaningVariant = 'attention' | 'validation' | 'info' | 'urgency';
 
+/** Props for {@link MeaningBadge}; extends Mantine `BadgeProps` minus `color`/`children`. */
 export interface MeaningBadgeProps extends Omit<BadgeProps, 'color' | 'children'> {
   variant: MeaningVariant;
+  /** Badge text; meaning is always carried by this label, never color alone. */
   label: ReactNode;
   icon?: ReactNode;
 }
@@ -42,6 +45,7 @@ const meaningTokens: Record<MeaningVariant, MeaningTokens> = {
   },
 };
 
+/** Renders an editorial/brand meaning badge for the given `variant`; returns `null` when `label` is empty. */
 export function MeaningBadge({ variant, label, icon, ...props }: MeaningBadgeProps) {
   if (!label) {
     return null;

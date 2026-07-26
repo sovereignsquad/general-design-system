@@ -1,15 +1,21 @@
 import type { ReactNode } from 'react';
 import { Container, Group, Stack, Text, Title } from '@mantine/core';
 
+/** Props for the `ArticleShell` component. */
 export interface ArticleShellProps {
+  /** Uppercase overline above the title. */
   eyebrow?: string;
   title: string;
+  /** Lead/intro paragraph shown beneath the title. */
   lead?: ReactNode;
+  /** Byline/metadata row shown below the lead. */
   meta?: ReactNode;
+  /** Optional right-hand rail, shown only from the `lg` breakpoint up. */
   sideRail?: ReactNode;
   children: ReactNode;
 }
 
+/** Long-form article layout: a centered content column with eyebrow/title/lead/meta header and an optional right side rail on large screens. */
 export function ArticleShell({ eyebrow, title, lead, meta, sideRail, children }: ArticleShellProps) {
   return (
     <Container size="lg" py="xl">

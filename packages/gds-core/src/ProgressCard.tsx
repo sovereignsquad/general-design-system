@@ -1,12 +1,16 @@
 import type { ReactNode } from 'react';
 import { Card, Group, Progress, Stack, Text, Title } from '@mantine/core';
 
+/** Props for {@link ProgressCard}. */
 export interface ProgressCardProps {
   label: string;
   value: ReactNode;
+  /** Progress percentage (0–100) shown by the bar and the rounded percent label. */
   progress: number;
+  /** Label for the progress row. Defaults to "Progress". */
   progressLabel?: string;
   description?: ReactNode;
+  /** Optional action rendered in the card header. */
   action?: ReactNode;
 }
 

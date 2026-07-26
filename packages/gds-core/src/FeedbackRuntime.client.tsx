@@ -8,51 +8,77 @@ import { GdsNotificationProvider, useGdsNotifications } from './Notifications.cl
 import type { GdsNotificationMessage } from './Notifications';
 import type { SemanticAction } from './vocabulary';
 
+/** Description of a confirmation prompt shown by `useGdsConfirm().confirm`. */
 export interface ConfirmRequest {
   id?: string;
   title: string;
   message: ReactNode;
+  /** Name of the target being acted on, shown in bold above the message. */
   targetName?: string;
+  /** Consequence text rendered beneath the message. */
   consequence?: ReactNode;
+  /** Semantic action id for the confirm button; defaults to `confirm` (or `delete` when `danger`). */
   confirmAction?: SemanticAction;
+  /** Semantic action id for the cancel button; defaults to `cancel`. */
   cancelAction?: SemanticAction;
+  /** Styles the dialog as destructive (red confirm button). */
   danger?: boolean;
 }
 
+/** Imperative confirmation API provided by `GdsConfirmProvider` and read via `useGdsConfirm`. */
 export interface GdsConfirmApi {
+  /** Opens a yes/no confirmation and resolves to whether the user confirmed. */
   confirm: (request: ConfirmRequest) => Promise<boolean>;
+  /** Opens a pre-marked destructive confirmation that requires a target name. */
   confirmDestructive: (request: ConfirmRequest & { targetName: string }) => Promise<boolean>;
+  /** Runs a full destructive-action flow (validate, execute, optional undo) and resolves with the result. */
   confirmAction: <TPayload = unknown>(request: GdsConfirmationRequest<TPayload>) => Promise<GdsDestructiveActionResult<TPayload>>;
 }
 
+/** Relative risk of a confirmed action, used to derive default danger styling and event metadata. */
 export type GdsRiskLevel = 'low' | 'medium' | 'high' | 'critical';
+/** Lifecycle status of a destructive-action confirmation. */
 export type GdsConfirmationStatus = 'idle' | 'open' | 'validating' | 'executing' | 'succeeded' | 'failed' | 'undoable' | 'cancelled';
+/** Telemetry event types emitted over a confirmation's lifecycle. */
 export type GdsConfirmationEventType = 'opened' | 'cancelled' | 'confirmed' | 'failed' | 'retry' | 'undo_started' | 'undo_completed';
 
+/** Undo policy for a confirmed action, exposing a time-boxed undo affordance. */
 export interface GdsUndoPolicy<TPayload = unknown> {
+  /** How long, in milliseconds, undo stays available after the action succeeds. */
   windowMs: number;
+  /** Label for the undo button; defaults to "Undo". */
   label?: string;
+  /** Invoked when the user triggers undo within the window. */
   onUndo: (payload: TPayload) => void | Promise<void>;
 }
 
+/** A destructive-action request carrying a payload plus optional validation, execution, timeout, retry, and undo behavior. */
 export interface GdsConfirmationRequest<TPayload = unknown> extends ConfirmRequest {
   payload: TPayload;
   riskLevel?: GdsRiskLevel;
+  /** Preview node rendered inside the dialog body. */
   preview?: ReactNode;
+  /** Pre-execution check; return `true` to proceed, or a string/false to abort with a message. */
   validateTarget?: (payload: TPayload) => boolean | string | Promise<boolean | string>;
+  /** Performs the action once confirmed and validated. */
   execute?: (payload: TPayload) => void | Promise<void>;
+  /** Milliseconds before `execute` is treated as timed out; defaults to the provider's timeout. */
   timeoutMs?: number;
+  /** Allows re-running the action from the failed state. */
   retryable?: boolean;
   undo?: GdsUndoPolicy<TPayload>;
 }
 
+/** Result returned by `confirmAction`, reporting the final status and any undo window. */
 export interface GdsDestructiveActionResult<TPayload = unknown> {
   status: GdsConfirmationStatus;
   payload?: TPayload;
   error?: string;
+  /** Epoch-ms deadline until which undo remains available, when the action is undoable. */
   undoUntil?: number;
 }
 
+/** Metadata-only telemetry event describing a confirmation lifecycle transition. */
 export interface GdsConfirmationEvent {
   type: GdsConfirmationEventType;
   id: string;
@@ -62,8 +88,10 @@ export interface GdsConfirmationEvent {
   privacy: 'metadata-only';
 }
 
+/** Props for `GdsConfirmProvider`. */
 export interface GdsConfirmProviderProps {
   children: ReactNode;
+  /** Default execute timeout in ms applied when a request omits `timeoutMs`. Defaults to 10000. */
   defaultTimeoutMs?: number;
   onConfirmationEvent?: (event: GdsConfirmationEvent) => void;
 }
@@ -107,6 +135,12 @@ function timeoutPromise(timeoutMs: number) {
   });
 }
 
+/**
+ * Provides the imperative confirmation API and renders the shared `ConfirmDialog`
+ * plus an undo banner. Handles boolean confirms and full destructive-action flows
+ * (validate, then execute with a timeout, then an optional time-boxed undo),
+ * restoring focus on close and emitting metadata-only lifecycle events.
+ */
 export function GdsConfirmProvider({
   children,
   defaultTimeoutMs = 10000,
@@ -286,6 +320,7 @@ export function GdsConfirmProvider({
   );
 }
 
+/** Returns the confirmation API; throws if used outside a `GdsConfirmProvider`. */
 export function useGdsConfirm() {
   const context = useContext(GdsConfirmContext);
   if (!context) {
@@ -294,13 +329,18 @@ export function useGdsConfirm() {
   return context;
 }
 
+/** Toast payload accepted by the toast API: a notification message without a preset id or severity. */
 export interface GdsToastMessage extends Omit<GdsNotificationMessage, 'id' | 'severity'> {
   id?: string;
 }
 
+/** Imperative toast API provided by `GdsToastProvider` and read via `useGdsToasts`. */
 export interface GdsToastApi {
+  /** Shows a success toast (auto-closes after 4s by default). */
   notifySuccess: (message: GdsToastMessage) => void;
+  /** Shows an error toast (persistent by default) with an optional retry action. */
   notifyError: (message: GdsToastMessage & { retry?: () => void | Promise<void> }) => void;
+  /** Shows a short action-complete success toast (auto-closes after 3s by default). */
   notifyActionComplete: (message: GdsToastMessage) => void;
 }
 
@@ -310,6 +350,7 @@ function createToastId(prefix: string) {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
+/** Wraps children in the notification provider and exposes the governed toast API via `useGdsToasts`. */
 export function GdsToastProvider({ children }: { children: ReactNode }) {
   return (
     <GdsNotificationProvider>
@@ -345,6 +386,7 @@ function GdsToastProviderInner({ children }: { children: ReactNode }) {
   return <GdsToastContext.Provider value={value}>{children}</GdsToastContext.Provider>;
 }
 
+/** Returns the toast API; throws if used outside a `GdsToastProvider`. */
 export function useGdsToasts() {
   const context = useContext(GdsToastContext);
   if (!context) {

@@ -90,8 +90,11 @@ export interface GdsDateInputBaseProps {
   'aria-invalid'?: boolean;
 }
 
+/** Props for {@link GdsDateInput}: a single date `value` (`Date` or ISO string) and a `Date | null` change handler. */
 export interface GdsDateInputProps extends GdsDateInputBaseProps {
+  /** Selected date as a `Date` or ISO (`yyyy-mm-dd`) string. */
   value?: Date | string | null;
+  /** Called with the selected date, or `null` when cleared. */
   onChange?: (value: Date | null) => void;
 }
 
@@ -117,8 +120,11 @@ export function GdsDateInput({ value, onChange, minDate, maxDate, ...rest }: Gds
   );
 }
 
+/** Props for {@link GdsDateTimeInput}: a single date-and-time `value` (`Date` or ISO string) and a `Date | null` change handler. */
 export interface GdsDateTimeInputProps extends GdsDateInputBaseProps {
+  /** Selected moment as a `Date` or ISO string. */
   value?: Date | string | null;
+  /** Called with the selected moment, or `null` when cleared. */
   onChange?: (value: Date | null) => void;
 }
 
@@ -142,10 +148,14 @@ export function GdsDateTimeInput({ value, onChange, minDate, maxDate, ...rest }:
   );
 }
 
+/** A `[start, end]` date-range tuple; either end may be `null` while the range is incomplete. */
 export type GdsDateRangeValue = [Date | null, Date | null];
 
+/** Props for {@link GdsDateRangeInput}: a `[start, end]` range `value` and a matching change handler. */
 export interface GdsDateRangeInputProps extends GdsDateInputBaseProps {
+  /** Selected `[start, end]` range. */
   value?: GdsDateRangeValue;
+  /** Called with the updated `[start, end]` range. */
   onChange?: (value: GdsDateRangeValue) => void;
 }
 

@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { ActionIcon, Button, Group, Stack, Text } from '@mantine/core';
 import { GdsIcons } from './icons';
 
+/** A share destination: the Web Share API (`native`), clipboard (`copy`), or a specific network. */
 export type ShareChannel =
   | 'native'
   | 'copy'
@@ -16,12 +17,17 @@ export type ShareChannel =
   | 'whatsapp'
   | 'telegram';
 
+/** Props for {@link ShareButtonGroup}. */
 export interface ShareButtonGroupProps {
+  /** URL to share. */
   url: string;
   title?: string;
   text?: string;
+  /** Channels to render, in order. Defaults to `['native', 'copy', 'mail']`. */
   channels?: ShareChannel[];
+  /** Render icon-only action buttons instead of labelled buttons. */
   compact?: boolean;
+  /** Heading above the buttons. Defaults to `'Share this'`. */
   label?: ReactNode;
   description?: ReactNode;
 }
@@ -91,6 +97,12 @@ function ShareAction({
   );
 }
 
+/**
+ * Governed share affordance rendering a chosen set of {@link ShareChannel}s.
+ * `native` uses the Web Share API (falling back to copy), `copy` writes the URL
+ * to the clipboard, and network channels open pre-encoded share intents, each
+ * with a transient confirmation message.
+ */
 export function ShareButtonGroup({
   url,
   title,

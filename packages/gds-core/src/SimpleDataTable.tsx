@@ -2,12 +2,14 @@ import type { ReactNode } from 'react';
 import { ScrollArea, Table } from '@mantine/core';
 import { StateBlock } from './StateBlock';
 
+/** A column definition for {@link SimpleDataTable}: the row key, a header, and an optional custom cell renderer. */
 export interface SimpleTableColumn<T extends Record<string, unknown>> {
   key: keyof T | string;
   header: string;
   render?: (row: T) => ReactNode;
 }
 
+/** Props for {@link SimpleDataTable}. */
 export interface SimpleDataTableProps<T extends Record<string, unknown>> {
   columns: SimpleTableColumn<T>[];
   rows: T[];
@@ -15,6 +17,7 @@ export interface SimpleDataTableProps<T extends Record<string, unknown>> {
   error?: string | null;
   emptyTitle?: string;
   emptyDescription?: string;
+  /** Derives a stable React key per row; defaults to the row index. */
   getRowKey?: (row: T, index: number) => React.Key;
 }
 

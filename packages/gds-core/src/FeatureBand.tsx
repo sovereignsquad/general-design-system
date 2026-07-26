@@ -3,22 +3,32 @@ import { Box, Group, Paper, SimpleGrid, Skeleton, Stack, Text, ThemeIcon, Title 
 import { EmptyState } from './EmptyState';
 import { GdsIcons } from './icons';
 
+/** A single feature entry rendered as a card within a `FeatureBand`. */
 export interface FeatureBandItem {
   id: string;
   title: ReactNode;
   description?: ReactNode;
   meta?: ReactNode;
+  /** Icon shown in a themed circle when no `media` is provided. */
   icon?: ReactNode;
+  /** Custom media rendered in place of the icon. */
   media?: ReactNode;
+  /** Step badge label used by the `process` variant; defaults to "Step {n}". */
   stepLabel?: ReactNode;
 }
 
+/** Props for `FeatureBand`. */
 export interface FeatureBandProps {
   items: FeatureBandItem[];
+  /** Number of columns at the largest breakpoint; defaults to 3. */
   columns?: 2 | 3 | 4;
+  /** Draws a border around each card; defaults to true. */
   bordered?: boolean;
+  /** Shows a skeleton placeholder grid while true. */
   loading?: boolean;
+  /** Custom node shown when there are no items; falls back to a default empty state. */
   emptyState?: ReactNode;
+  /** Card layout style; defaults to `default`. */
   variant?: 'default' | 'process' | 'compact';
 }
 
@@ -45,6 +55,7 @@ function FeatureBandSkeleton({
   );
 }
 
+/** Responsive grid of supporting feature cards with loading skeletons and an empty state; supports default, process (numbered steps), and compact variants. */
 export function FeatureBand({
   items,
   columns = 3,

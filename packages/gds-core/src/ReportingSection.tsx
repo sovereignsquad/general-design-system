@@ -2,6 +2,11 @@ import type { ReactNode } from 'react';
 import { Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { StateBlock } from './StateBlock';
 
+/**
+ * State of a reporting section: `ready` shows content; `loading`/`empty`/`error`/
+ * `below-threshold`/`permission-limited` replace it with a governed state block;
+ * `partial`/`stale`/`filtered` show an inline info banner above the content.
+ */
 export type ReportingSectionState =
   | 'ready'
   | 'loading'
@@ -13,20 +18,34 @@ export type ReportingSectionState =
   | 'filtered'
   | 'permission-limited';
 
+/** Props for {@link ReportingSection}. */
 export interface ReportingSectionProps {
   title: ReactNode;
   description?: ReactNode;
   state?: ReportingSectionState;
+  /** Period/date-range control rendered above the report body. */
   periodControl?: ReactNode;
+  /** Evidence/footnote content rendered last. */
   evidence?: ReactNode;
+  /** Metric tiles slot. */
   metrics?: ReactNode;
+  /** Chart slot. */
   chart?: ReactNode;
+  /** Table slot. */
   table?: ReactNode;
+  /** Header action, right-aligned. */
   action?: ReactNode;
+  /** Overrides the default copy for the active state's message. */
   stateMessage?: ReactNode;
+  /** Retry control shown in the error and permission-limited state blocks. */
   retryAction?: ReactNode;
 }
 
+/**
+ * Governed reporting surface that frames a report's period control, metrics, chart,
+ * table, and evidence, and swaps in the appropriate state block (loading/empty/error/
+ * threshold/permission) or inline banner (partial/stale/filtered) based on `state`.
+ */
 export function ReportingSection({
   title,
   description,

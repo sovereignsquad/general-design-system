@@ -4,8 +4,11 @@ import { ActionIcon, useMantineColorScheme, useComputedColorScheme } from '@mant
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { GdsIcons } from './icons';
 
+/** Props for the `ThemeToggle` component. */
 export interface ThemeToggleProps {
+  /** Icon button size. Defaults to `md`. */
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** Called with the newly selected scheme after each toggle. */
   onColorSchemeChange?: (nextScheme: 'light' | 'dark') => void;
 }
 

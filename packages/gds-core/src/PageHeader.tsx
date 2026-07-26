@@ -1,14 +1,21 @@
 import React from 'react';
 import { Box, Group, Stack, Text, Title } from '@mantine/core';
 
+/** Eyebrow styling: plain `neutral` text, or `ornamental` uppercase with wider letter-spacing. */
 export type PageHeaderEyebrowVariant = 'neutral' | 'ornamental';
 
+/** Props for {@link PageHeader}. */
 export interface PageHeaderProps {
   title: string;
+  /** Supporting copy under the title; falls back to `subtitle` when omitted. */
   description?: string;
+  /** Alias for `description`, used when `description` is not set. */
   subtitle?: string;
+  /** Small kicker label above the title. */
   eyebrow?: string;
+  /** Right-aligned actions slot. */
   actions?: React.ReactNode;
+  /** Visual treatment for the eyebrow; defaults to `'neutral'`. */
   eyebrowVariant?: PageHeaderEyebrowVariant;
 }
 

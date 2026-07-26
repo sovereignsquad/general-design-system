@@ -5,32 +5,48 @@ import type { ReactNode } from 'react';
 import { Checkbox, Group, ScrollArea, SegmentedControl, Stack, Table, Text } from '@mantine/core';
 import { StateBlock } from './StateBlock';
 
+/** Row spacing density for the advanced data table. */
 export type AdvancedTableDensity = 'compact' | 'comfortable';
+/** Sort direction for a table column. */
 export type AdvancedSortDirection = 'asc' | 'desc';
 
+/** Definition of a single advanced-table column. */
 export interface AdvancedTableColumn<T extends Record<string, unknown>> {
+  /** Row property key used to read the cell value and as the column identity. */
   key: string;
   label: string;
+  /** Enables the sortable header button for this column. */
   sortable?: boolean;
   width?: number | string;
+  /** Custom cell renderer; defaults to the stringified row value. */
   render?: (row: T) => ReactNode;
+  /** Extracts the value used for sorting; defaults to the stringified row value. */
   sortAccessor?: (row: T) => string | number;
 }
 
+/** Props for the `AdvancedDataTable` component. Selection and sort are uncontrolled unless the matching value/change props are supplied. */
 export interface AdvancedDataTableProps<T extends Record<string, unknown>> {
   rows: T[];
   columns: AdvancedTableColumn<T>[];
+  /** Derives a stable id for each row. */
   rowId: (row: T, index: number) => string;
   loading?: boolean;
+  /** Error message; when set, an error state block is shown instead of the table. */
   error?: string | null;
+  /** Row density. Uncontrolled default is `comfortable`. */
   density?: AdvancedTableDensity;
+  /** Keep the header visible while scrolling. Defaults to `true`. */
   stickyHeader?: boolean;
+  /** Top offset for the sticky header, in pixels. Defaults to `0`. */
   stickyHeaderOffset?: number;
+  /** Controlled selected row ids; provide with `onSelectedRowIdsChange`. */
   selectedRowIds?: string[];
   onSelectedRowIdsChange?: (ids: string[]) => void;
+  /** Controlled sort column key; provide with `onSortChange`. */
   sortBy?: string;
   sortDirection?: AdvancedSortDirection;
   onSortChange?: (columnKey: string, direction: AdvancedSortDirection) => void;
+  /** Small-screen fallback: render the first rows as stacked cards, or `none`. Defaults to `stacked-cards`. */
   responsiveFallback?: 'stacked-cards' | 'none';
 }
 
@@ -41,6 +57,12 @@ function compareValues(a: string | number, b: string | number) {
   return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: 'base' });
 }
 
+/**
+ * Governed enterprise data grid with sortable columns, row and select-all
+ * selection, adjustable density, and a sticky header. Selection and sort work
+ * uncontrolled, or become controlled when the matching value/change props are
+ * passed. Renders error, loading, and empty state blocks in place of the table.
+ */
 export function AdvancedDataTable<T extends Record<string, unknown>>({
   rows,
   columns,

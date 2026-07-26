@@ -4,13 +4,16 @@ import { useState } from 'react';
 import { ActionIcon, Code, Group, Paper, Stack, Text } from '@mantine/core';
 import { GdsIcons } from './icons';
 
+/** Props for {@link DocsCodeBlock}. */
 export interface DocsCodeBlockProps {
   code: string;
   language?: string;
   title?: string;
+  /** Show the copy-to-clipboard button; defaults to on. */
   withCopy?: boolean;
 }
 
+/** Renders a code block in a bordered panel with an optional title, language label, and copy-to-clipboard action. */
 export function DocsCodeBlock({ code, language, title, withCopy = true }: DocsCodeBlockProps) {
   const [copied, setCopied] = useState(false);
 

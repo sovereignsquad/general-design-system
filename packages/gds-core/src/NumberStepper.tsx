@@ -10,16 +10,23 @@ import { GdsIcons } from './icons';
  * public API.
  */
 
+/** Props for {@link NumberStepper}. */
 export interface NumberStepperProps {
   value: number;
+  /** Receives the clamped, step-snapped value on every change. */
   onChange: (value: number) => void;
+  /** Lower bound (inclusive); defaults to 0. */
   min?: number;
+  /** Upper bound (inclusive); defaults to +Infinity (unbounded). */
   max?: number;
+  /** Increment size; values snap to this from `min`. Defaults to 1. */
   step?: number;
   disabled?: boolean;
   /** Required accessible label for the control. */
   ariaLabel: string;
+  /** Accessible label for the decrement button; defaults to "Decrease". */
   decrementLabel?: string;
+  /** Accessible label for the increment button; defaults to "Increase". */
   incrementLabel?: string;
 }
 

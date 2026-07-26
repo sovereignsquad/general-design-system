@@ -1,3 +1,4 @@
+/** Spanish (es) translation table for GDS component and pattern strings. */
 export const es = {
   'gds.action.settings': 'Configuración',
   'gds.action.analytics': 'Analítica',

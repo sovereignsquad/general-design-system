@@ -6,16 +6,23 @@ import type { NativeSelectProps } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { DiscoveryShell } from './DiscoveryShell';
 
+/** Props for {@link DocsShell}. */
 export interface DocsShellProps {
   brand: ReactNode;
+  /** Main navigation shown in the sidebar under a "Primary" heading. */
   primaryNavigation?: ReactNode;
+  /** Secondary navigation shown in the sidebar under a "More" heading. */
   secondaryNavigation?: ReactNode;
+  /** Contextual text shown next to the brand on wider viewports. */
   headerContext?: ReactNode;
   actions?: ReactNode;
+  /** Navigation surfaced on small viewports. */
   mobileNavigation?: ReactNode;
+  /** Whether mobile navigation collapses inline under the header or opens in a drawer. Defaults to `'drawer'`. */
   mobileNavigationMode?: 'inline-collapse' | 'drawer';
   footer?: ReactNode;
   children: ReactNode;
+  /** Content container width; `'full'` spans the viewport. Defaults to `'full'`. */
   contentWidth?: number | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
@@ -24,14 +31,18 @@ interface DocsShellSidebarProps {
   secondaryNavigation?: ReactNode;
 }
 
+/** A single option in a {@link DocsHeaderActionSelect}. */
 export interface DocsHeaderActionSelectOption {
   value: string;
   label: string;
 }
 
+/** Props for {@link DocsHeaderActionSelect}. */
 export interface DocsHeaderActionSelectProps extends Omit<NativeSelectProps, 'data' | 'onChange'> {
+  /** Accessible label for the select (rendered as `aria-label`). */
   label: string;
   options: DocsHeaderActionSelectOption[];
+  /** Called with the selected option's value. */
   onChange: (value: string) => void;
 }
 
@@ -77,6 +88,7 @@ function resolveContentContainerSize(value: DocsShellProps['contentWidth']) {
   return value ?? 'lg';
 }
 
+/** Compact, width-clamped native select for the docs header action row (e.g. version/language pickers). */
 export function DocsHeaderActionSelect({
   label,
   options,
@@ -101,6 +113,11 @@ export function DocsHeaderActionSelect({
   );
 }
 
+/**
+ * Documentation app shell built on {@link DiscoveryShell}: a brand/context header
+ * with actions, a primary/secondary sidebar, optional inline-collapse or drawer
+ * mobile navigation, and a width-constrained content container.
+ */
 export function DocsShell({
   brand,
   primaryNavigation,

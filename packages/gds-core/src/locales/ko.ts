@@ -1,3 +1,4 @@
+/** Korean (ko) translation table for GDS component and pattern strings. */
 export const ko = {
   'gds.action.settings': '설정',
   'gds.action.analytics': '해석학',

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Button, SimpleGrid, Stack, Text, ThemeIcon } from '@mantine/core';
 
+/** Registry of built-in identity providers, mapping each id to its display label, short mark, and brand color. */
 export const PROVIDER_IDENTITY_REGISTRY = {
   google: {
     providerLabel: 'Google',
@@ -49,31 +50,41 @@ export const PROVIDER_IDENTITY_REGISTRY = {
   },
 } as const;
 
+/** A known provider id from the registry, or any other provider string. */
 export type ProviderIdentity = keyof typeof PROVIDER_IDENTITY_REGISTRY | (string & {});
 
+/** Visual variant for a provider button: brand-colored `solid`, `outline`, or GDS-`neutral`. */
 export type ProviderIdentityVariant = 'solid' | 'outline' | 'neutral';
 
+/** Props for {@link ProviderIdentityButton}. */
 export interface ProviderIdentityButtonProps {
   provider: ProviderIdentity;
+  /** Overrides the default "Continue with <provider>" label. */
   label?: ReactNode;
   description?: ReactNode;
+  /** Policy/consent note shown under the label. */
   policyNote?: ReactNode;
   error?: ReactNode;
+  /** Renders the button as a link to this URL instead of firing `onClick`. */
   href?: string;
   onClick?: () => void;
   disabled?: boolean;
   loading?: boolean;
+  /** When set, disables the button and explains why the tenant blocked this provider. */
   tenantDisabledReason?: ReactNode;
   fullWidth?: boolean;
   size?: 'sm' | 'md' | 'lg';
   variant?: ProviderIdentityVariant;
   ariaLabel?: string;
   describedBy?: string;
+  /** Minimum touch-target height in px; defaults to 44. */
   minTouchTargetPx?: number;
 }
 
+/** Props for {@link ProviderIdentityButtonGroup}. */
 export interface ProviderIdentityButtonGroupProps {
   providers: ProviderIdentityButtonProps[];
+  /** Vertical `stack` (default) or two-column responsive `grid` layout. */
   layout?: 'stack' | 'grid';
 }
 
@@ -127,14 +138,22 @@ function mapVariant(variant: ProviderIdentityVariant = 'neutral'): 'filled' | 'o
   return 'default';
 }
 
+/** Returns a provider's button label — the custom override if given, otherwise "Continue with <providerLabel>". */
 export function getProviderIdentityLabel(provider: string, fallbackOverride?: ReactNode) {
   return resolveProviderLabel(provider, fallbackOverride);
 }
 
+/** Returns the ids of all built-in providers in {@link PROVIDER_IDENTITY_REGISTRY}. */
 export function getSupportedProviderIdentityIds() {
   return Object.keys(PROVIDER_IDENTITY_REGISTRY);
 }
 
+/**
+ * Returns the governance policy for a provider: its normalized id, whether it is
+ * registry-supported, the provider label, who owns the color (`'provider'` for
+ * supported, `'gds-neutral'` otherwise), the 44px minimum touch target, and the
+ * allowed variants.
+ */
 export function getProviderIdentityPolicy(provider: string) {
   const meta = getProviderIdentityMeta(provider);
 
@@ -166,6 +185,13 @@ function ProviderIdentityMark({ provider }: { provider: string }) {
   );
 }
 
+/**
+ * Governed social/identity sign-in button. Renders the provider mark and a
+ * "Continue with <provider>" label (or a custom one), maps `variant` to a Mantine
+ * button variant, enforces the minimum touch target, and stacks optional
+ * description, policy, tenant-disabled, and error copy. Renders as a link when
+ * `href` is set; disabled when `disabled` or `tenantDisabledReason` is present.
+ */
 export function ProviderIdentityButton({
   provider,
   label,
@@ -238,6 +264,7 @@ export function ProviderIdentityButton({
   );
 }
 
+/** Renders a set of {@link ProviderIdentityButton}s in a vertical stack or two-column grid; returns `null` when `providers` is empty. */
 export function ProviderIdentityButtonGroup({ providers, layout = 'stack' }: ProviderIdentityButtonGroupProps) {
   if (!providers.length) {
     return null;

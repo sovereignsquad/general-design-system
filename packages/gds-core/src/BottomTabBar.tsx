@@ -11,11 +11,15 @@ import type { PublicNavItem } from './PublicNav';
  * `PublicShell`/`DiscoveryShell` when `mobileNavigationMode="bottom-tab"`.
  */
 
+/** Maximum number of tabs the bottom tab bar renders. */
 export const BOTTOM_TAB_MAX_ITEMS = 5;
+/** Bar height in pixels, excluding the safe-area inset. */
 export const BOTTOM_TAB_HEIGHT = 64;
 
+/** Props for {@link BottomTabBar}. */
 export interface BottomTabBarProps {
   items: PublicNavItem[];
+  /** Id of the active tab; falls back to the first item when unset or unmatched. */
   activeId?: string;
   /** Item id to render as a raised, accent-filled center action. */
   emphasizedItemId?: string;
@@ -23,6 +27,7 @@ export interface BottomTabBarProps {
   maxItems?: number;
   /** Analytics hook fired when a tab is selected. */
   onNavItemSelect?: (id: string) => void;
+  /** Accessible name for the `<nav>`. Defaults to `'Primary'`. */
   ariaLabel?: string;
   className?: string;
 }
@@ -34,6 +39,12 @@ function resolveActiveId(items: PublicNavItem[], activeId?: string): string | un
   return items[0]?.id;
 }
 
+/**
+ * Fixed, mobile-only (`hiddenFrom="sm"`) bottom tab navigation rendered from
+ * `PublicNavItem[]`. Theme-tokened and safe-area aware, with an optional raised
+ * accent center action. Throws if given more than `maxItems` (capped at
+ * {@link BOTTOM_TAB_MAX_ITEMS}); renders nothing when there are no items.
+ */
 export function BottomTabBar({
   items,
   activeId,

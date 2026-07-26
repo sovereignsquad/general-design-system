@@ -4,6 +4,7 @@ import { useRef, useState, type ReactNode } from 'react';
 import { Badge, Box, Button, Group, Progress, Stack, Text } from '@mantine/core';
 import { GdsIcons } from './icons';
 
+/** Visual/interaction state of an `UploadDropzone`. */
 export type UploadDropzoneState =
   | 'idle'
   | 'drag-active'
@@ -15,30 +16,56 @@ export type UploadDropzoneState =
   | 'removed'
   | 'readonly';
 
+/** Props for `UploadDropzone`. */
 export interface UploadDropzoneProps {
   title: string;
   description?: string;
+  /** Called with the chosen files on drop or file-picker selection. */
   onFilesSelected?: (files: File[]) => void;
+  /** `accept` attribute forwarded to the underlying file input. */
   accept?: string;
+  /** Badge summarizing the accepted file types. */
   acceptedTypesLabel?: string;
+  /** Badge summarizing the maximum file size. */
   maxSizeLabel?: string;
+  /** Allows selecting multiple files; defaults to true. */
   multiple?: boolean;
+  /** Label for the choose-files button; defaults to "Choose files". */
   actionLabel?: string;
+  /** Layout density; `panel` (default) or condensed `inline`. */
   mode?: 'panel' | 'inline';
+  /** Controlled dropzone state; defaults to `idle`. */
   state?: UploadDropzoneState;
+  /** Names of already-selected files, listed below the prompt. */
   selectedFiles?: string[];
+  /** Error message shown in the alert region. */
   error?: string;
+  /** Policy or help text shown near the actions. */
   policyText?: string;
+  /** Upload progress (0–100), shown while in the `upload-pending` state. */
   progressValue?: number;
+  /** `id` applied to the file input. */
   inputId?: string;
+  /** `aria-describedby` applied to the file input. */
   describedBy?: string;
+  /** Forces the invalid/error styling regardless of `state`. */
   invalid?: boolean;
+  /** Marks the file input as required. */
   required?: boolean;
+  /** Retry control shown alongside the choose-files button. */
   retryAction?: ReactNode;
+  /** Remove control shown alongside the choose-files button. */
   removeAction?: ReactNode;
+  /** Renders a non-interactive, disabled dropzone; defaults to false. */
   readonly?: boolean;
 }
 
+/**
+ * Accessible drag-and-drop upload zone with governed states (idle, drag-active,
+ * selected, upload-pending with a progress bar, and error variants), an
+ * accepted-types / max-size summary, and optional retry/remove actions. Forwards
+ * selected files via `onFilesSelected`; file transport is owned by the caller.
+ */
 export function UploadDropzone({
   title,
   description,

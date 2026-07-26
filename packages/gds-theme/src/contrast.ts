@@ -18,6 +18,7 @@ export type GdsContrastLevel = 'AA' | 'AAA';
 /** Text size bucket: `'normal'` (< 18pt / < 14pt bold) or `'large'`. */
 export type GdsContrastTextSize = 'normal' | 'large';
 
+/** Outcome of a single `checkGdsContrast` call: the measured ratio, the threshold, and whether it passes. */
 export interface GdsContrastResult {
   /** WCAG contrast ratio, 1–21, rounded to 2 decimals. */
   ratio: number;

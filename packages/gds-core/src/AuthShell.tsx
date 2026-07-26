@@ -1,22 +1,40 @@
 import type { ReactNode } from 'react';
 import { Alert, Badge, Box, Card, Container, Divider, Group, Stack, Text, Title } from '@mantine/core';
 
+/** Props for {@link AuthShell}. */
 export interface AuthShellProps {
   title: string;
   description?: ReactNode;
+  /** Auth flow the shell frames; drives the intent badge. Defaults to `'sign-in'`. */
   intent?: 'sign-in' | 'sign-up' | 'account-linking' | 'guest-entry';
+  /** Brand mark shown in the header. */
   brand?: ReactNode;
+  /** Header-level actions (e.g. a locale switcher). */
   headerActions?: ReactNode;
+  /** Footer copy shown below the card. */
   footer?: ReactNode;
+  /** Helper copy shown inside the card, below the form. */
   helper?: ReactNode;
+  /** Error banner shown above the form. */
   error?: ReactNode;
+  /** Guest-entry action shown in the card's action row. */
   guestAction?: ReactNode;
+  /** Support/help action shown in the card's action row. */
   supportAction?: ReactNode;
+  /** Social/identity sign-in block; when present a divider separates it from the form. */
   socialAuth?: ReactNode;
+  /** Label for the divider between social auth and the form. */
   dividerLabel?: ReactNode;
+  /** The form (or other primary content) rendered inside the card. */
   children: ReactNode;
 }
 
+/**
+ * Centered authentication scaffold for sign-in/sign-up/linking/guest flows: an
+ * optional brand + header actions, a card holding an intent badge, title, error
+ * banner, optional social-auth block with divider, the form (`children`), and
+ * guest/support actions plus helper and footer copy.
+ */
 export function AuthShell({
   title,
   description,

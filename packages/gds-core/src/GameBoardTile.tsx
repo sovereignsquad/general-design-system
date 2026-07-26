@@ -5,11 +5,16 @@ import type { MantineColor } from '@mantine/core';
 import { Center, Paper, Text, UnstyledButton, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
+/** Props for {@link GameBoardTile}. */
 export interface GameBoardTileProps {
+  /** Content shown on the tile's revealed face. */
   face: ReactNode;
+  /** Whether the tile is currently face-up. */
   revealed: boolean;
+  /** Whether the tile has been matched (dimmed, no highlight). */
   matched: boolean;
   disabled: boolean;
+  /** Called when the tile is pressed. */
   onPress: () => void;
   /** Mantine color token for revealed (non-matched) highlight, e.g. `violet.5` or product primary. */
   highlightColor?: MantineColor;

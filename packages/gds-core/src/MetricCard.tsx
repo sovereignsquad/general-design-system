@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react';
 import { Badge, Card, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 
+/** Props for {@link MetricCard}. */
 export interface MetricCardProps {
   label: string;
   value: ReactNode;
   description?: ReactNode;
+  /** Optional trend indicator rendered as a tone-colored badge. */
   trend?: {
     label: string;
     tone?: 'positive' | 'negative' | 'neutral';

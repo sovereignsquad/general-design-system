@@ -4,19 +4,31 @@ import { PublicFlowShell, type PublicFlowAction, type PublicFlowStageStatus } fr
 import { ShareButtonGroup, type ShareButtonGroupProps } from './ShareButtonGroup';
 import { StateBlock } from './StateBlock';
 
+/** Stage of the public capture flow. */
 export type PublicCaptureStageId = 'identify' | 'consent' | 'capture' | 'accept' | 'cta' | 'restart' | 'share';
+/** Runtime state of the capture hardware and flow. */
 export type CaptureRuntimeState = 'idle' | 'loading' | 'ready' | 'permission-denied' | 'hardware-unavailable' | 'error' | 'complete';
 
+/** Props for {@link PublicCaptureFlow}. */
 export interface PublicCaptureFlowProps {
+  /** Current flow stage; selects default title/description copy. */
   stage: PublicCaptureStageId;
+  /** Current runtime state; drives the flow status and permission/hardware recovery bodies. */
   state: CaptureRuntimeState;
+  /** Overrides the stage's default title. */
   title?: ReactNode;
+  /** Overrides the stage's default description. */
   description?: ReactNode;
+  /** Bounded hardware surface (e.g. camera view) rendered only during the `capture` stage. */
   hardwareSurface?: ReactNode;
+  /** Stage body content shown when no runtime recovery block applies. */
   body?: ReactNode;
+  /** Optional inline notice text for the stage. */
   notice?: ReactNode;
   actions?: PublicFlowAction[];
+  /** Share options; on the `share` stage these render as the flow body. */
   share?: ShareButtonGroupProps;
+  /** Optional exit control rendered in the shell header. */
   exitAction?: ReactNode;
 }
 
@@ -48,6 +60,11 @@ function runtimeStateBody(state: CaptureRuntimeState) {
   return null;
 }
 
+/**
+ * Governed public capture flow: maps a capture stage and runtime state onto a
+ * {@link PublicFlowShell}, supplying default stage copy, permission/hardware
+ * recovery bodies, and an optional share overlay on the final stage.
+ */
 export function PublicCaptureFlow({
   stage,
   state,
@@ -80,10 +97,12 @@ export function PublicCaptureFlow({
   );
 }
 
+/** Identity stage layout: stacks the supplied identity fields. */
 export function PublicIdentityStep({ children }: { children: ReactNode }) {
   return <Stack gap="md">{children}</Stack>;
 }
 
+/** Consent stage layout: renders consent copy above its control (e.g. a checkbox). */
 export function PublicConsentStep({ consentText, control }: { consentText: ReactNode; control: ReactNode }) {
   return (
     <Stack gap="md">
@@ -93,6 +112,7 @@ export function PublicConsentStep({ consentText, control }: { consentText: React
   );
 }
 
+/** Accept stage layout: renders the captured result preview above accept/retry actions. */
 export function PublicAcceptStep({ preview, actions }: { preview: ReactNode; actions?: ReactNode }) {
   return (
     <Stack gap="md">
@@ -102,14 +122,17 @@ export function PublicAcceptStep({ preview, actions }: { preview: ReactNode; act
   );
 }
 
+/** Call-to-action stage layout: stacks the supplied CTA content. */
 export function PublicCtaStep({ children }: { children: ReactNode }) {
   return <Stack gap="md">{children}</Stack>;
 }
 
+/** Restart stage layout: stacks the supplied restart content. */
 export function PublicRestartStep({ children }: { children: ReactNode }) {
   return <Stack gap="md">{children}</Stack>;
 }
 
+/** Share stage overlay: renders a {@link ShareButtonGroup} for the public result. */
 export function PublicShareOverlay(props: ShareButtonGroupProps) {
   return <ShareButtonGroup {...props} />;
 }

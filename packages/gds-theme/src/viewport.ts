@@ -18,6 +18,7 @@
  */
 export type GdsViewportZoomPolicy = 'browser-default' | 'app-shell-fixed';
 
+/** Options for `getGdsPwaViewportMetaContent`. */
 export interface GdsPwaViewportOptions {
   /** Defaults to `'browser-default'`. See `docs/PWA_VIEWPORT_POLICY.md` before choosing `'app-shell-fixed'`. */
   zoomPolicy?: GdsViewportZoomPolicy;

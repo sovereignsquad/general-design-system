@@ -6,35 +6,58 @@ import { applyGdsFontLane, isGdsFontLaneId, type GdsFontLaneId } from './font-la
 import { getGdsThemePresets, resolveGdsThemePreset, type GdsThemePresetId } from './theme-presets';
 import { getGdsVibeThemeCssVariables } from './vibe-themes';
 
+/** Requested color scheme: fixed `'light'`/`'dark'`, or `'auto'` to follow the OS. */
 export type GdsThemeScheme = 'light' | 'dark' | 'auto';
 
+/** The serializable theme selection persisted to storage. */
 export interface GdsStoredThemePresetState {
+  /** Selected theme preset. */
   preset: GdsThemePresetId;
+  /** Selected color scheme. */
   colorScheme: GdsThemeScheme;
+  /** Selected font lane. */
   fontLane: GdsFontLaneId;
+  /** Identity/cache key derived from the whole selection. */
   runtimeKey?: string;
+  /** Primary color for the `'brand'` preset lane. */
   brandPrimary?: string;
+  /** Flat-surfaces flag for the `'brand'` preset lane. */
   brandFlatSurfaces?: boolean;
+  /** Editorial-serif flag for the `'brand'` preset lane. */
   brandEditorialSerif?: boolean;
 }
 
+/** A stored selection plus the resolved Mantine theme it produces. */
 export interface GdsThemePresetSelection extends GdsStoredThemePresetState {
+  /** Resolved Mantine theme override for the current selection. */
   theme: MantineThemeOverride;
 }
 
+/** Options for `useGdsThemePresetState`. */
 export interface UseGdsThemePresetStateOptions {
+  /** localStorage key used to persist the selection. */
   storageKey?: string;
+  /** Initial selection applied when nothing is stored. */
   initialSelection?: Partial<GdsStoredThemePresetState>;
+  /** When `true` (default), writes scheme/preset/font attributes and vibe CSS variables to `<html>`. */
   applyToDocument?: boolean;
 }
 
+/** Return value of `useGdsThemePresetState`: the current selection and setters for each facet. */
 export interface UseGdsThemePresetStateResult {
+  /** Current resolved selection. */
   selection: GdsThemePresetSelection;
+  /** Replaces the selection from a partial stored state. */
   setSelection: (selection: Partial<GdsStoredThemePresetState>) => void;
+  /** Updates the preset only. */
   setPreset: (preset: GdsThemePresetId) => void;
+  /** Updates the color scheme only. */
   setScheme: (scheme: GdsThemeScheme) => void;
+  /** Updates the font lane only. */
   setFontLane: (fontLane: GdsFontLaneId) => void;
+  /** Updates the brand-lane options only. */
   setBrandOptions: (options: Pick<GdsStoredThemePresetState, 'brandPrimary' | 'brandFlatSurfaces' | 'brandEditorialSerif'>) => void;
+  /** Resets to the initial selection. */
   reset: () => void;
 }
 
@@ -48,6 +71,12 @@ function isScheme(value: unknown): value is GdsThemeScheme {
   return value === 'light' || value === 'dark' || value === 'auto';
 }
 
+/**
+ * Normalizes a partial stored selection into a full selection: each field is
+ * validated and defaulted (`default` preset, `light` scheme, `inter` font,
+ * `blue` brand primary, flat surfaces on, serif off), a `runtimeKey` is derived,
+ * and the resolved Mantine theme (preset + font lane) is attached.
+ */
 export function createGdsThemePresetSelection(stored: Partial<GdsStoredThemePresetState> = {}): GdsThemePresetSelection {
   const preset = isThemePresetId(stored.preset) ? stored.preset : 'default';
   const colorScheme = isScheme(stored.colorScheme) ? stored.colorScheme : 'light';
@@ -132,6 +161,13 @@ function applyDocumentRuntime(selection: GdsThemePresetSelection) {
   return documentScheme;
 }
 
+/**
+ * Client hook managing theme-preset selection: hydrates from localStorage,
+ * persists changes, and (when `applyToDocument`) writes the scheme/preset/font
+ * attributes and vibe CSS variables to `<html>` — reconciling `'auto'` scheme
+ * with the OS preference and guarding the color-scheme attribute against
+ * external mutation. Returns the selection and per-facet setters.
+ */
 export function useGdsThemePresetState({
   storageKey = defaultStorageKey,
   initialSelection,

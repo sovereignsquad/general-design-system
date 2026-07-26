@@ -7,6 +7,7 @@ import type { MantineBreakpoint, MantineSpacing } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { gdsBreakpointByAlias } from './breakpoints';
 
+/** Sidebar open/close state plus imperative controls returned by `useDiscoveryShellState`. */
 export interface DiscoveryShellState {
   opened: boolean;
   open: () => void;
@@ -15,12 +16,20 @@ export interface DiscoveryShellState {
   setOpened: (next: boolean) => void;
 }
 
+/** Options for `useDiscoveryShellState`. */
 export interface UseDiscoveryShellStateOptions {
+  /** Initial open state before any stored value is read; defaults to false. */
   defaultSidebarOpen?: boolean;
+  /** localStorage key used to persist and restore the sidebar open state. */
   sidebarStorageKey?: string;
+  /** Called whenever the open state changes. */
   onSidebarOpenedChange?: (opened: boolean) => void;
 }
 
+/**
+ * Manages sidebar open/close state for `DiscoveryShell`, optionally persisting it
+ * to `localStorage` under `sidebarStorageKey` and notifying `onSidebarOpenedChange`.
+ */
 export function useDiscoveryShellState({
   defaultSidebarOpen = false,
   sidebarStorageKey,
@@ -66,23 +75,34 @@ export function useDiscoveryShellState({
   return { opened, open, close, toggle, setOpened };
 }
 
+/** Props for `DiscoveryShell`. */
 export interface DiscoveryShellProps {
   header?: ReactNode;
   sidebar: ReactNode;
   footer?: ReactNode;
   children: ReactNode;
+  /** Accessible label for the mobile navigation toggle; defaults to "Toggle navigation". */
   mobileNavigationLabel?: string;
   defaultSidebarOpen?: boolean;
   sidebarStorageKey?: string;
+  /** Controlled sidebar open state; when set, the shell defers to the caller instead of its own state. */
   sidebarOpened?: boolean;
   onSidebarOpenedChange?: (opened: boolean) => void;
+  /** Keeps the sidebar sticky within the viewport; defaults to true. */
   stickySidebar?: boolean;
+  /** Allows collapsing the sidebar on desktop via a burger; defaults to false. */
   desktopCollapsible?: boolean;
+  /** Accessible label for the desktop sidebar toggle; defaults to "Toggle sidebar". */
   desktopNavigationLabel?: string;
+  /** Sidebar width; defaults to 280. */
   sidebarWidth?: number | string;
+  /** Header height; defaults to 60. */
   headerHeight?: number | string;
+  /** Main-content padding; defaults to "md". */
   shellPadding?: MantineSpacing | number;
+  /** Breakpoint at which the sidebar collapses into the mobile drawer; defaults to "sm". */
   collapseBreakpoint?: MantineBreakpoint;
+  /** Closes the mobile drawer when a nav item is activated; defaults to true. */
   closeMobileNavigationOnItemSelect?: boolean;
 }
 

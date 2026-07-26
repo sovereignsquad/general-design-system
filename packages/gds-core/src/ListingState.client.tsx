@@ -3,20 +3,29 @@
 import { createContext, useContext, useMemo, useReducer } from 'react';
 import type { ReactNode } from 'react';
 
+/** Serializable query state for a listing surface: search, sort, active filters, pagination, and row selection. */
 export interface ListingQueryState {
   search: string;
   sort: string;
   filters: string[];
   page: number;
   pageSize: number;
+  /** Ids of currently selected rows. */
   selection: string[];
 }
 
+/** Initial defaults for a listing's query state. */
 export interface ListingStateConfig {
+  /** Initial sort; defaults to `'newest'`. */
   defaultSort?: string;
+  /** Initial page size; defaults to 25. */
   defaultPageSize?: number;
 }
 
+/**
+ * Reducer actions for {@link ListingQueryState}. Search/sort/filter/page-size
+ * changes reset to page 1 and clear the selection; `reset-query` restores defaults.
+ */
 export type ListingAction =
   | { type: 'set-search'; value: string }
   | { type: 'set-sort'; value: string }
@@ -28,6 +37,7 @@ export type ListingAction =
   | { type: 'clear-selection' }
   | { type: 'reset-query' };
 
+/** Context value exposed by {@link ListingProvider}: the current query state and its dispatch. */
 export interface ListingStateValue {
   state: ListingQueryState;
   dispatch: (action: ListingAction) => void;
@@ -44,6 +54,12 @@ function createInitialState(config: ListingStateConfig = {}): ListingQueryState 
   };
 }
 
+/**
+ * Reducer for {@link ListingQueryState}. Search/sort/filter/page-size changes reset
+ * the page to 1 and clear the selection; page numbers are clamped to at least 1;
+ * filter and selection toggles add/remove the value; `reset-query` restores the
+ * initial state while preserving the current sort and page size.
+ */
 export function listingQueryReducer(state: ListingQueryState, action: ListingAction): ListingQueryState {
   if (action.type === 'set-search') {
     return { ...state, search: action.value, page: 1, selection: [] };
@@ -85,6 +101,7 @@ export function listingQueryReducer(state: ListingQueryState, action: ListingAct
 
 const ListingStateContext = createContext<ListingStateValue | null>(null);
 
+/** Provides {@link ListingQueryState} and its dispatch to descendants via context, seeded from `config`. */
 export function ListingProvider({
   children,
   config,
@@ -97,6 +114,7 @@ export function ListingProvider({
   return <ListingStateContext.Provider value={value}>{children}</ListingStateContext.Provider>;
 }
 
+/** Returns the nearest {@link ListingStateValue}; throws when used outside a {@link ListingProvider}. */
 export function useListingState() {
   const context = useContext(ListingStateContext);
   if (!context) {

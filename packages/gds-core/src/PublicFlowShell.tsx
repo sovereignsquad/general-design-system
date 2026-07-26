@@ -6,34 +6,49 @@ import { EmptyState } from './EmptyState';
 import { StateBlock } from './StateBlock';
 import type { SemanticActionId } from './vocabulary';
 
+/** Status of a public flow stage, driving its badge tone and body fallbacks. */
 export type PublicFlowStageStatus = 'idle' | 'loading' | 'ready' | 'error' | 'complete';
+/** Priority slot an action occupies in the flow's action bar. */
 export type PublicFlowActionPriority = 'primary' | 'secondary' | 'tertiary';
 
+/** A semantic action rendered in the flow's action bar. */
 export type PublicFlowAction = {
+  /** Semantic action id resolving to a governed label/icon. */
   action: SemanticActionId;
+  /** Action-bar slot for this action. */
   priority: PublicFlowActionPriority;
   disabled?: boolean;
   loading?: boolean;
   onClick?: () => void;
 };
 
+/** Describes the current public flow stage: identity, status, body, actions, and notices. */
 export type PublicFlowStage = {
   id: string;
   title: ReactNode;
   description?: ReactNode;
   status: PublicFlowStageStatus;
+  /** Main stage content; replaced by loading/error/empty fallbacks based on `status`. */
   body?: ReactNode;
   actions?: PublicFlowAction[];
+  /** Supplementary content rendered after the body and hardware surface. */
   aside?: ReactNode;
+  /** Optional inline notice text shown above the body. */
   notice?: ReactNode;
 };
 
+/** Props for {@link PublicFlowShell}. */
 export interface PublicFlowShellProps {
   stage: PublicFlowStage;
+  /** Small uppercase label rendered above the stage title. */
   eyebrow?: ReactNode;
+  /** Optional exit control rendered in the header. */
   exitAction?: ReactNode;
+  /** Bounded hardware surface (e.g. camera view) rendered after the body. */
   hardwareSurface?: ReactNode;
+  /** Custom empty-state content when the stage has neither a body nor a hardware surface. */
   emptyState?: ReactNode;
+  /** Custom error-state content shown when `status` is `error`. */
   errorState?: ReactNode;
 }
 
@@ -83,6 +98,11 @@ function toActionBar(actions: PublicFlowAction[] = []): ActionBarProps | undefin
   };
 }
 
+/**
+ * Governed shell for a single public flow stage: renders the stage header and
+ * status badge, the body with loading/error/empty fallbacks, an optional bounded
+ * hardware surface, and a priority-ordered action bar.
+ */
 export function PublicFlowShell({
   stage,
   eyebrow,

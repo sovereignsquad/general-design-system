@@ -1,13 +1,19 @@
 import type { ReactNode } from 'react';
 import { Badge, Box, Group, Paper, Stack, Text, Title } from '@mantine/core';
 
+/** Color family for an `AccentPanel`. */
 export type AccentTone = 'gray' | 'violet' | 'green' | 'red' | 'amber' | 'blue';
+/** Fill style for an `AccentPanel`: tinted `subtle` background, or `soft-outline` (body background with a toned border). */
 export type AccentPanelVariant = 'subtle' | 'soft-outline';
 
+/** Props for `AccentPanel`. */
 export interface AccentPanelProps {
+  /** Color family; defaults to `violet`. */
   tone?: AccentTone;
+  /** Fill style; defaults to `subtle`. */
   variant?: AccentPanelVariant;
   title?: ReactNode;
+  /** Optional badge; a string renders as a filled badge in the panel tone, any other node is passed through. */
   badge?: ReactNode;
   children: ReactNode;
 }
@@ -45,6 +51,7 @@ const toneStyles: Record<AccentTone, { bg: string; border: string; color: string
   },
 };
 
+/** Resolves the background, border, and text CSS for the given tone and variant. */
 export function resolveAccentPanelStyles(tone: AccentTone = 'violet', variant: AccentPanelVariant = 'subtle') {
   const token = toneStyles[tone];
 
@@ -63,6 +70,7 @@ export function resolveAccentPanelStyles(tone: AccentTone = 'violet', variant: A
   };
 }
 
+/** Rounded panel with a tone-driven accent surface, an optional title/badge header, and body content. */
 export function AccentPanel({
   tone = 'violet',
   variant = 'subtle',

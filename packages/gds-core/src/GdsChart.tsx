@@ -4,6 +4,7 @@ import { Badge, Group, Paper, Stack, Text } from '@mantine/core';
 import { ChartTokenPanel, type ChartTokenPanelState } from './ChartTokenPanel';
 import { SimpleDataTable } from './SimpleDataTable';
 
+/** Every chart type GDS governs, across the cartesian, part-to-whole, radial, matrix, hierarchy, process, financial, and flow families. */
 export type GdsChartType =
   | 'line'
   | 'area'
@@ -20,6 +21,7 @@ export type GdsChartType =
   | 'candlestick'
   | 'sankey';
 
+/** Set A: the core chart types (line, area, bar, stacked-bar, pie, donut, radar, scatter) every consumer surface supports. */
 export type GdsChartSetAType =
   | 'line'
   | 'area'
@@ -30,6 +32,7 @@ export type GdsChartSetAType =
   | 'radar'
   | 'scatter';
 
+/** Set B: advanced distribution and hierarchy chart types (bubble, heatmap, funnel, treemap). */
 export type GdsChartSetBType =
   | 'bubble'
   | 'heatmap'
@@ -41,10 +44,14 @@ export type GdsChartSetCType =
   | 'candlestick'
   | 'sankey';
 
+/** A single chart data point; which fields carry meaning depends on the chart type. */
 export interface GdsChartDatum {
   label: string;
+  /** Primary numeric value; `null` marks a missing point (gapped or skipped depending on type/config). */
   value: number | null;
+  /** Series or matrix-row grouping key; required by grouped types like stacked-bar and heatmap. */
   group?: string;
+  /** Second measure — scatter y-value, bubble size, and similar. */
   secondaryValue?: number | null;
   /** Candlestick (OHLC) fields — open/high/low/close for the period this point represents. */
   open?: number;
@@ -56,80 +63,106 @@ export interface GdsChartDatum {
   target?: string;
 }
 
+/** Registry entry for a chart type: its display label, family, data-point bounds, and validation flags. */
 export interface GdsChartTypeDefinition {
   type: GdsChartType;
   label: string;
   family: 'cartesian' | 'part-to-whole' | 'radial' | 'matrix' | 'hierarchy' | 'process';
   minDataPoints: number;
   maxDataPoints: number;
+  /** Type requires a `group` on every datum (e.g. stacked-bar). */
   requiresGroup?: boolean;
+  /** Type reads each datum's `secondaryValue` (e.g. scatter, bubble). */
   supportsSecondaryValue?: boolean;
+  /** Short hint describing what the chart communicates. */
   summaryHint: string;
 }
 
+/** One legend entry mapping a series `label` to its design `token`. */
 export interface GdsChartLegendItem {
   label: string;
   token: string;
   description?: string;
 }
 
+/** Options shared by every chart config: data-point bounds, large-series decimation, value formatting, and table-fallback headers. */
 export interface GdsChartBaseConfig {
   minDataPoints?: number;
   maxDataPoints?: number;
+  /** Down-sample series above `maxDataPoints` instead of erroring. */
   decimateLargeSeries?: boolean;
+  /** Formats each numeric value for both the visual and the table fallback. */
   valueFormatter?: (value: number | null) => ReactNode;
+  /** Header for the `group` column in the table fallback. */
   groupLabel?: string;
+  /** Header for the value column in the table fallback. */
   tableValueHeader?: string;
 }
 
+/** Config for cartesian types (line, area, bar, scatter, and similar). */
 export interface GdsCartesianChartConfig extends GdsChartBaseConfig {
   allowNegative?: boolean;
+  /** Bridge across `null` points instead of breaking the line/area. */
   connectNulls?: boolean;
   showValueMarkers?: boolean;
 }
 
+/** Config for part-to-whole types (pie, donut). */
 export interface GdsPartToWholeChartConfig extends GdsChartBaseConfig {
   showPercentages?: boolean;
+  /** Slices below this value are treated as too small to render. */
   minSliceValue?: number;
 }
 
+/** Config for radar charts. */
 export interface GdsRadarChartConfig extends GdsChartBaseConfig {
+  /** Fixed maximum applied to every radial axis. */
   maxAxisValue?: number;
 }
 
+/** Config for scatter charts. */
 export interface GdsScatterChartConfig extends GdsChartBaseConfig {
   xAxisLabel?: string;
   yAxisLabel?: string;
+  /** Require a numeric `secondaryValue` (y) on every point; defaults to on. */
   requireSecondaryValue?: boolean;
 }
 
+/** Config for bubble charts, where each datum's `secondaryValue` drives bubble size. */
 export interface GdsBubbleChartConfig extends GdsChartBaseConfig {
   xAxisLabel?: string;
   yAxisLabel?: string;
   sizeLabel?: string;
 }
 
+/** Config for heatmap charts; each datum's `group` supplies the matrix row. */
 export interface GdsHeatmapChartConfig extends GdsChartBaseConfig {
   rowLabel?: string;
   columnLabel?: string;
 }
 
+/** Config for funnel charts. */
 export interface GdsFunnelChartConfig extends GdsChartBaseConfig {
+  /** Enforce that each stage is no larger than the previous one; defaults to on. */
   enforceDescending?: boolean;
 }
 
+/** Config for treemap charts. */
 export interface GdsTreemapChartConfig extends GdsChartBaseConfig {
   parentLabel?: string;
 }
 
+/** Config for candlestick charts, which read each datum's open/high/low/close. */
 export interface GdsCandlestickChartConfig extends GdsChartBaseConfig {
   priceAxisLabel?: string;
 }
 
+/** Config for sankey charts, which read each datum's `source`, `target`, and `value`. */
 export interface GdsSankeyChartConfig extends GdsChartBaseConfig {
   nodeLabel?: string;
 }
 
+/** Union of every chart config; the applicable member is chosen by the chart `type`. */
 export type GdsChartConfig =
   | GdsCartesianChartConfig
   | GdsPartToWholeChartConfig
@@ -142,13 +175,16 @@ export type GdsChartConfig =
   | GdsCandlestickChartConfig
   | GdsSankeyChartConfig;
 
+/** Result of {@link validateGdsChartData}: the resolved surface state, any issue messages, the data actually rendered, and the type definition. */
 export interface GdsChartValidationResult {
   state: ChartTokenPanelState;
   issues: string[];
+  /** The data that will actually render (decimated when oversized and allowed). */
   visibleData: GdsChartDatum[];
   definition: GdsChartTypeDefinition;
 }
 
+/** Everything a renderer adapter receives to draw a chart, including the resolved data and the accessibility `labelledBy`/`describedBy` ids to wire up. */
 export interface GdsChartRendererContext {
   type: GdsChartType;
   title: string;
@@ -160,20 +196,28 @@ export interface GdsChartRendererContext {
   describedBy: string;
 }
 
+/** Pluggable renderer that turns a {@link GdsChartRendererContext} into the visual chart node. */
 export type GdsChartRendererAdapter = (context: GdsChartRendererContext) => ReactNode;
 
+/** Props for {@link GdsChart}. */
 export interface GdsChartProps {
   type: GdsChartType;
   title: string;
+  /** Accessible text summary read alongside the visual; validation issues are appended to it. */
   summary: string;
   data: GdsChartDatum[];
   config?: GdsChartConfig;
+  /** Legend entries; defaults to {@link gdsDefaultChartLegend}. */
   legend?: GdsChartLegendItem[];
+  /** Force the surface state; when omitted it is derived from validation. */
   state?: ChartTokenPanelState;
+  /** Recovery action shown in the error/empty state. */
   retryAction?: ReactNode;
+  /** Custom visual renderer; defaults to the built-in vendor-neutral surface. */
   renderer?: GdsChartRendererAdapter;
 }
 
+/** Canonical registry of every {@link GdsChartType} keyed to its {@link GdsChartTypeDefinition}. */
 export const gdsChartTypeRegistry: Record<GdsChartType, GdsChartTypeDefinition> = {
   line: { type: 'line', label: 'Line', family: 'cartesian', minDataPoints: 2, maxDataPoints: 500, summaryHint: 'Trend over an ordered series.' },
   area: { type: 'area', label: 'Area', family: 'cartesian', minDataPoints: 2, maxDataPoints: 500, summaryHint: 'Filled trend over an ordered series.' },
@@ -191,11 +235,13 @@ export const gdsChartTypeRegistry: Record<GdsChartType, GdsChartTypeDefinition> 
   sankey: { type: 'sankey', label: 'Sankey', family: 'process', minDataPoints: 1, maxDataPoints: 200, requiresGroup: false, summaryHint: 'Flow volume between source and target stages.' },
 };
 
+/** Default two-entry legend (primary and secondary series) used when no `legend` is supplied. */
 export const gdsDefaultChartLegend: GdsChartLegendItem[] = [
   { label: 'Primary series', token: 'brand.primary', description: 'Primary measured value' },
   { label: 'Secondary series', token: 'support', description: 'Grouped or comparative value' },
 ];
 
+/** Registry subset covering only the Set A chart types. */
 export const gdsChartSetATypeRegistry: Record<GdsChartSetAType, GdsChartTypeDefinition> = {
   line: gdsChartTypeRegistry.line,
   area: gdsChartTypeRegistry.area,
@@ -207,6 +253,7 @@ export const gdsChartSetATypeRegistry: Record<GdsChartSetAType, GdsChartTypeDefi
   scatter: gdsChartTypeRegistry.scatter,
 };
 
+/** Registry subset covering only the Set B chart types. */
 export const gdsChartSetBTypeRegistry: Record<GdsChartSetBType, GdsChartTypeDefinition> = {
   bubble: gdsChartTypeRegistry.bubble,
   heatmap: gdsChartTypeRegistry.heatmap,
@@ -214,19 +261,23 @@ export const gdsChartSetBTypeRegistry: Record<GdsChartSetBType, GdsChartTypeDefi
   treemap: gdsChartTypeRegistry.treemap,
 };
 
+/** Registry subset covering only the Set C (specialized) chart types. */
 export const gdsChartSetCTypeRegistry: Record<GdsChartSetCType, GdsChartTypeDefinition> = {
   candlestick: gdsChartTypeRegistry.candlestick,
   sankey: gdsChartTypeRegistry.sankey,
 };
 
+/** Type guard: whether `type` belongs to the Set A chart types. */
 export function isGdsChartSetAType(type: GdsChartType): type is GdsChartSetAType {
   return type in gdsChartSetATypeRegistry;
 }
 
+/** Type guard: whether `type` belongs to the Set B chart types. */
 export function isGdsChartSetBType(type: GdsChartType): type is GdsChartSetBType {
   return type in gdsChartSetBTypeRegistry;
 }
 
+/** Type guard: whether `type` belongs to the Set C chart types. */
 export function isGdsChartSetCType(type: GdsChartType): type is GdsChartSetCType {
   return type in gdsChartSetCTypeRegistry;
 }
@@ -291,6 +342,12 @@ function getSetCRendererLabel(type: GdsChartType) {
   return labels[type] ?? 'specialized chart surface';
 }
 
+/**
+ * Validates `data` against the rules for `type` — min/max point bounds, required
+ * groups, and per-type numeric constraints — and resolves the surface state, the
+ * issue messages, and the data to actually render (decimated when oversized and
+ * allowed). Powers {@link GdsChart}; call it directly to pre-check a dataset.
+ */
 export function validateGdsChartData(
   type: GdsChartType,
   data: GdsChartDatum[],

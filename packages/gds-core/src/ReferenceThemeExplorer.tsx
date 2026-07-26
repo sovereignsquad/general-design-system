@@ -38,14 +38,20 @@ import {
   type GdsThemePresetId,
 } from '@sovereignsquad/gds-theme';
 
+/** Id of a GDS theme preset (re-exported from the theme package). */
 export type ThemePresetId = GdsThemePresetId;
+/** Color scheme selection for a preview: light, dark, or OS-driven auto. */
 export type ThemeSchemeId = 'light' | 'dark' | 'auto';
+/** Current Theme Lab selection reported via `onSelectionChange`. */
 export interface ThemeExplorerSelection {
   preset: ThemePresetId;
   colorScheme: ThemeSchemeId;
+  /** Resolved Mantine theme for the selected preset and brand options. */
   theme: MantineThemeOverride;
   fontLane?: GdsFontLaneId;
+  /** Stable key identifying the current preview configuration. */
   runtimeKey?: string;
+  /** Brand primary color, applied only when the `brand` preset is active. */
   brandPrimary?: string;
   brandFlatSurfaces?: boolean;
   brandEditorialSerif?: boolean;
@@ -356,6 +362,12 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
   );
 }
 
+/**
+ * Interactive Theme Lab reference: selects a theme preset, color scheme, brand
+ * options, and font lane; previews governed surfaces (with optional side-by-side
+ * comparison), the shipped vibe gallery, and the token contract, reporting the
+ * live selection through `onSelectionChange`.
+ */
 export function ReferenceThemeExplorer({
   initialSelection,
   onSelectionChange,

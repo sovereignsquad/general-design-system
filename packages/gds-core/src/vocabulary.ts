@@ -1,5 +1,6 @@
 import { GdsIcons } from './icons';
 
+/** Canonical registry of built-in semantic actions, keyed by action name, each with a stable message `id`, `defaultMessage`, `icon`, and success `feedback`. */
 export const GdsVocabulary = {
   settings: { id: 'gds.action.settings', defaultMessage: 'Settings', icon: GdsIcons.Settings, feedback: { icon: GdsIcons.Settings, color: 'teal', messageId: 'gds.feedback.saved' } },
   analytics: { id: 'gds.action.analytics', defaultMessage: 'Analytics', icon: GdsIcons.Analytics, feedback: { icon: GdsIcons.Analytics, color: 'teal', messageId: 'gds.feedback.loaded' } },
@@ -88,12 +89,16 @@ export const GdsVocabulary = {
   evidence: { id: 'gds.action.evidence', defaultMessage: 'Evidence', icon: GdsIcons.Evidence, feedback: { icon: GdsIcons.Evidence, color: 'teal', messageId: 'gds.feedback.added' } },
 } as const;
 
+/** A built-in action name — any key of `GdsVocabulary`. */
 export type SemanticAction = keyof typeof GdsVocabulary;
+/** Either a built-in `SemanticAction` or a namespaced pack action of the form `"namespace:key"`. */
 export type SemanticActionId = SemanticAction | `${string}:${string}`;
+/** Translator function that maps a message id and default message to a localized string. */
 export type VocabularyResolver = (id: string, defaultMessage: string) => string;
 
 type BaseSemanticActionDefinition = (typeof GdsVocabulary)[SemanticAction];
 
+/** Full definition of a semantic action: message id/default, icon, and optional aria label, destructive flag, and feedback. */
 export interface SemanticActionDefinition {
   id: string;
   defaultMessage: string;
@@ -103,11 +108,13 @@ export interface SemanticActionDefinition {
   feedback?: BaseSemanticActionDefinition['feedback'];
 }
 
+/** A namespaced bundle of custom semantic actions that can be merged into the vocabulary. */
 export interface GdsVocabularyPack {
   namespace: string;
   actions: Record<string, SemanticActionDefinition>;
 }
 
+/** Builds a `GdsVocabularyPack`, namespacing each action key to `"namespace:key"` and generating its `id` as `gds.action.<namespace>.<key>`. */
 export function createGdsVocabularyPack(namespace: string, actions: Record<string, Omit<SemanticActionDefinition, 'id'>>) {
   return {
     namespace,
@@ -123,6 +130,7 @@ export function createGdsVocabularyPack(namespace: string, actions: Record<strin
   } satisfies GdsVocabularyPack;
 }
 
+/** Flattens an array of vocabulary packs into a single action map; later packs override earlier ones on key collision. */
 export function mergeGdsVocabularyPacks(packs: GdsVocabularyPack[] = []) {
   return packs.reduce<Record<string, SemanticActionDefinition>>((acc, pack) => {
     for (const [key, definition] of Object.entries(pack.actions)) {
@@ -132,6 +140,7 @@ export function mergeGdsVocabularyPacks(packs: GdsVocabularyPack[] = []) {
   }, {});
 }
 
+/** Looks up an action's definition, checking the built-in vocabulary first then the merged packs; throws if the action is unknown. */
 export function resolveSemanticActionConfig(action: SemanticActionId, packs: GdsVocabularyPack[] = []) {
   const baseConfig = (GdsVocabulary as Record<string, SemanticActionDefinition>)[action];
   if (baseConfig) {
@@ -147,10 +156,12 @@ export function resolveSemanticActionConfig(action: SemanticActionId, packs: Gds
   throw new Error(`Unknown semantic action: ${action}`);
 }
 
+/** Convenience alias of {@link resolveSemanticActionConfig}. */
 export function getSemanticActionConfig(action: SemanticActionId, packs: GdsVocabularyPack[] = []) {
   return resolveSemanticActionConfig(action, packs);
 }
 
+/** Returns an action's display label, running it through `translate` when provided, otherwise falling back to its `defaultMessage`. */
 export function getSemanticActionLabel(action: SemanticActionId, translate?: VocabularyResolver, packs: GdsVocabularyPack[] = []) {
   const config = resolveSemanticActionConfig(action, packs);
   return translate ? translate(config.id, config.defaultMessage) : config.defaultMessage;

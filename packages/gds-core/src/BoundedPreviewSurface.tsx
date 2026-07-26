@@ -1,9 +1,12 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { Box, Paper } from '@mantine/core';
 
+/** Props for {@link BoundedPreviewSurface}. */
 export interface BoundedPreviewSurfaceProps {
   children: ReactNode;
+  /** Minimum height of the bounded surface. Defaults to a responsive clamp. */
   minHeight?: CSSProperties['minHeight'];
+  /** Maximum height of the bounded surface. Defaults to "42rem". */
   maxHeight?: CSSProperties['maxHeight'];
 }
 

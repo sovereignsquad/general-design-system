@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Anchor, Badge, Group, Paper, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
+/** One card in a {@link ReferenceLinkGrid}: a linked title and description with optional badge and meta. */
 export interface ReferenceLinkGridItem {
   id: string;
   title: ReactNode;
@@ -11,11 +12,13 @@ export interface ReferenceLinkGridItem {
   meta?: ReactNode;
 }
 
+/** Props for {@link ReferenceLinkGrid}. */
 export interface ReferenceLinkGridProps {
   items: ReferenceLinkGridItem[];
   columns?: 2 | 3 | 4;
 }
 
+/** Renders a responsive grid of reference link cards, each ending with a governed "Open section" link. */
 export function ReferenceLinkGrid({
   items,
   columns = 3,

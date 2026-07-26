@@ -3,23 +3,38 @@ import { Anchor, AspectRatio, Badge, Box, Card, Group, Stack, Text, Title } from
 import { GdsIcons } from './icons';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
+/** Visual variant of an editorial card: standard, featured, or a base GDS card variant. */
 export type EditorialCardVariant = 'standard' | 'featured' | GdsCardVariant;
 
+/** Props for {@link EditorialCard}. */
 export interface EditorialCardProps {
+  /** Media rendered in the card's top section; falls back to a gallery-icon placeholder. */
   media?: ReactNode;
+  /** Accessible label used on the CTA anchor when set. */
   mediaAlt?: string;
+  /** Small uppercase label above the title. */
   eyebrow?: ReactNode;
+  /** Badge; strings render as a toned light badge, otherwise rendered as-is. */
   badge?: ReactNode;
   title: ReactNode;
   description?: ReactNode;
+  /** Supplementary meta line beneath the description. */
   meta?: ReactNode;
+  /** Call-to-action label. Defaults to "Explore". */
   ctaLabel?: ReactNode;
+  /** Renders the whole card as a link when set. */
   href?: string;
+  /** Renders the whole card as a button when set (and `href` is absent). */
   onClick?: () => void;
+  /** Color tone applied to accents and the featured background. Defaults to "default". */
   tone?: 'default' | 'warm' | 'cool' | 'muted';
+  /** Card variant; "featured" tints the background. Defaults to "standard". */
   variant?: EditorialCardVariant;
+  /** Card size token from the GDS card contract. Defaults to "md". */
   size?: GdsCardSize;
+  /** Card density token from the GDS card contract. Defaults to "comfortable". */
   density?: GdsCardDensity;
+  /** Optional per-slot class-name overrides. */
   classNames?: {
     root?: string;
     media?: string;
@@ -71,6 +86,11 @@ function EditorialMediaFallback({ compact }: { compact: boolean }) {
   );
 }
 
+/**
+ * Governed editorial/marketing card: media (with an icon fallback), eyebrow, badge,
+ * title, description, meta, and a call-to-action. Tinted by `tone`, and rendered as
+ * a link or button when `href`/`onClick` is provided.
+ */
 export function EditorialCard({
   media,
   mediaAlt,

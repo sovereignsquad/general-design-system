@@ -2,6 +2,11 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.11 - 2026-07-26 — Complete JSDoc coverage on the public API + coverage gate
+
+- **Full JSDoc backfill** (#414): every public export across the consumer-facing packages now carries a JSDoc block — **1,136/1,136 public exports documented (100%)**, up from ~6%: `gds-core` 914, `gds-admin` 85, `gds-theme` 137, `gds-a11y` already complete. Component functions get a summary of what they are and their governed behavior; props interfaces get an interface-level block plus **per-property docs on the fields consumers hover** (defaults, throw conditions, accessibility roles), all written from the actual implementation. Comment-only — no runtime or type changes beyond the emitted `.d.ts` now carrying the docs, so editors surface field-level hover documentation for the entire shipped API.
+- **New coverage gate** (#414): `verify:api-jsdoc-coverage` (wired into `verify:references` / `verify:release`) asserts public exports stay documented at a ≥95% floor per package and overall, mechanically enforcing the ship-with-docs Definition of Done so the surface can't silently regress. Closes #414.
+
 ## 3.14.10 - 2026-07-26 — First-class accessibility theme presets: high-contrast + colorblind-safe
 
 Delivers the theme-preset half of #453 — the two accessibility presets peers ship (Primer's high-contrast/colorblind lanes) that GDS lacked as *selectable presets* despite having forced-colors support and contrast CI.

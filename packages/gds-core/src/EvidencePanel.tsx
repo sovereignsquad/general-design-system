@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Alert, Badge, Group, Paper, Stack, Text, Title } from '@mantine/core';
 
+/** Data-quality state of an evidence panel; drives the status badge and alert tone. */
 export type EvidencePanelState =
   | 'current'
   | 'stale'
@@ -10,15 +11,23 @@ export type EvidencePanelState =
   | 'empty'
   | 'error';
 
+/** Props for {@link EvidencePanel}. */
 export interface EvidencePanelProps {
   title: ReactNode;
   description?: ReactNode;
+  /** Data source, shown as an outline badge. */
   source?: ReactNode;
+  /** Freshness indicator, shown as an outline badge. */
   freshness?: ReactNode;
+  /** Confidence indicator, shown as an outline badge. */
   confidence?: ReactNode;
+  /** Data-quality state. Defaults to `'current'`. */
   state?: EvidencePanelState;
+  /** Number of supporting evidence items, shown as a badge. */
   evidenceCount?: number;
+  /** Note about restricted/limited access, shown in an alert. */
   permissionNote?: ReactNode;
+  /** Retry control rendered at the bottom of the panel. */
   retryAction?: ReactNode;
   details?: ReactNode;
   children?: ReactNode;
@@ -34,6 +43,11 @@ const stateTone: Record<EvidencePanelState, { label: string; color: string }> = 
   error: { label: 'Needs attention', color: 'red' },
 };
 
+/**
+ * Governed panel for presenting decision evidence with its provenance: a status
+ * badge for the data-quality state, source/freshness/confidence/count badges, an
+ * optional permission alert, and a retry action for problem states.
+ */
 export function EvidencePanel({
   title,
   description,

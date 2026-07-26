@@ -12,6 +12,7 @@ import type { GdsWebAppManifestDisplay } from './pwa';
  * server-safe manifest generator and safe-area tokens in `pwa.ts`.
  */
 
+/** Installed-PWA display state reported by `useGdsStandaloneDisplayMode`. */
 export interface GdsStandaloneDisplayModeState {
   /**
    * `true` when the app is running as an installed PWA (`standalone` or

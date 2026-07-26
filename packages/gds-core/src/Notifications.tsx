@@ -3,11 +3,17 @@ import { Alert, Badge, Button, Group, Paper, Stack, Text, Title } from '@mantine
 import type { StateBlockVariant } from './StateBlock';
 import { GdsIcons } from './icons';
 
+/** Semantic severity of a notification, driving its color and accessibility role. */
 export type GdsNotificationSeverity = 'success' | 'error' | 'warning' | 'info' | 'neutral' | 'loading';
+/** Lifecycle status of a notification instance. */
 export type GdsNotificationStatus = 'shown' | 'loading' | 'retrying' | 'dismissed' | 'failed' | 'succeeded';
+/** How long a notification stays: auto-dismissing (`transient`), sticky (`persistent`/`critical`), or screen-reader-only (`announcement-only`). */
 export type GdsNotificationPersistence = 'transient' | 'persistent' | 'critical' | 'announcement-only';
+/** ARIA live-region politeness for announcing a notification (`off` suppresses announcement). */
 export type GdsNotificationLivePolicy = 'polite' | 'assertive' | 'off';
+/** How a new notification is reconciled against an existing one with the same key. */
 export type GdsNotificationDedupePolicy = 'replace' | 'ignore' | 'append';
+/** Kind of audit event emitted over a notification's lifecycle. */
 export type GdsNotificationAuditEventType =
   | 'shown'
   | 'updated'
@@ -18,6 +24,7 @@ export type GdsNotificationAuditEventType =
   | 'retry_failed'
   | 'retry_succeeded';
 
+/** A user-actionable button attached to a notification. */
 export interface GdsNotificationAction {
   id: string;
   label: string;
@@ -25,22 +32,31 @@ export interface GdsNotificationAction {
   disabled?: boolean;
 }
 
+/** Retry behavior for a failed notification. */
 export interface GdsNotificationRetryPolicy {
+  /** Text for the retry button. Defaults to "Retry" at render time. */
   label?: string;
+  /** Maximum number of retry attempts allowed. */
   maxAttempts?: number;
+  /** Per-attempt timeout in milliseconds. */
   timeoutMs?: number;
+  /** Invoked when the user triggers a retry; may be async. */
   onRetry: () => void | Promise<void>;
 }
 
+/** Delivery/lifecycle policy applied to a notification. */
 export interface GdsNotificationPolicy {
+  /** Auto-close delay in milliseconds, or `false` to keep it open until dismissed. */
   autoCloseMs?: number | false;
   dedupe?: GdsNotificationDedupePolicy;
   persistence?: GdsNotificationPersistence;
   live?: GdsNotificationLivePolicy;
 }
 
+/** A single notification and its full state, including actions, retry, and timestamps. */
 export interface GdsNotificationMessage {
   id: string;
+  /** Stable key used for deduplication across updates. */
   key?: string;
   title: string;
   message?: ReactNode;
@@ -51,12 +67,15 @@ export interface GdsNotificationMessage {
   autoCloseMs?: number | false;
   actions?: GdsNotificationAction[];
   retry?: GdsNotificationRetryPolicy;
+  /** Number of retry attempts made so far. */
   retryAttempts?: number;
   createdAt?: number;
   updatedAt?: number;
+  /** When true, the notification is announced to assistive tech but not rendered visually. */
   announcementOnly?: boolean;
 }
 
+/** Immutable, privacy-safe (metadata-only) record of a notification lifecycle event, for logging/telemetry. */
 export interface GdsNotificationAuditEvent {
   type: GdsNotificationAuditEventType;
   id: string;
@@ -66,18 +85,24 @@ export interface GdsNotificationAuditEvent {
   timestamp: number;
   actionId?: string;
   retryAttempt?: number;
+  /** Always `'metadata-only'` — audit events never carry notification content. */
   privacy: 'metadata-only';
 }
 
+/** Props for the `InlineAlert` component. */
 export interface InlineAlertProps {
   title: string;
   message?: ReactNode;
+  /** Severity driving color and role. Defaults to `info`. */
   severity?: GdsNotificationSeverity;
   status?: GdsNotificationStatus;
+  /** Optional action node rendered below the message. */
   action?: ReactNode;
 }
 
+/** Props for the `BannerNotice` component. */
 export interface BannerNoticeProps extends InlineAlertProps {
+  /** Optional leading badge label shown before the severity badge. */
   eyebrow?: ReactNode;
 }
 
@@ -98,10 +123,12 @@ function severityToStateVariant(severity: GdsNotificationSeverity): StateBlockVa
   return 'info';
 }
 
+/** Generates a unique notification id from a prefix (default `notification`), the current timestamp, and a random suffix. */
 export function createGdsNotificationId(prefix = 'notification') {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
+/** Resolves the ARIA live policy for a message: explicit `live` wins, else `announcement-only` is polite, error/warning are assertive, and everything else is polite. */
 export function getGdsNotificationLivePolicy(message: Pick<GdsNotificationMessage, 'severity' | 'live' | 'persistence'>): GdsNotificationLivePolicy {
   if (message.live) return message.live;
   if (message.persistence === 'announcement-only') return 'polite';
@@ -109,6 +136,7 @@ export function getGdsNotificationLivePolicy(message: Pick<GdsNotificationMessag
   return 'polite';
 }
 
+/** Builds a metadata-only `GdsNotificationAuditEvent` of the given type from a notification, stamping the current time and merging optional action/retry metadata. */
 export function createGdsNotificationAuditEvent(
   type: GdsNotificationAuditEventType,
   notification: GdsNotificationMessage,
@@ -126,6 +154,7 @@ export function createGdsNotificationAuditEvent(
   };
 }
 
+/** Inline, in-flow alert built on Mantine's `Alert`. Uses `role="alert"` for errors and `role="status"` otherwise, with a matching ARIA live region. */
 export function InlineAlert({
   title,
   message,
@@ -157,6 +186,7 @@ export function InlineAlert({
   );
 }
 
+/** Prominent bordered banner notice with an optional eyebrow badge, severity badge, title, and action, for page- or section-level messages. */
 export function BannerNotice({
   eyebrow,
   title,
@@ -183,6 +213,11 @@ export function BannerNotice({
   );
 }
 
+/**
+ * Governed notification-center panel rendering a list of `InlineAlert`s with
+ * per-item actions, retry, and dismiss, plus a "Clear all" control. Filters out
+ * announcement-only messages, which are surfaced to assistive tech elsewhere.
+ */
 export function NotificationCenterView({
   notifications,
   onDismiss,

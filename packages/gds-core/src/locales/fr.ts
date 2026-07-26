@@ -1,3 +1,4 @@
+/** French (fr) translation messages for the GDS vocabulary and component copy. */
 export const fr = {
   'gds.action.settings': 'Paramètres',
   'gds.action.analytics': 'Analytique',

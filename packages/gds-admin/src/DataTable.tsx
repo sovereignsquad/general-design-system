@@ -3,16 +3,25 @@ import { Table, Paper, LoadingOverlay } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { StateBlock } from '@sovereignsquad/gds-core';
 
+/** Column definition for {@link DataTable}. */
 export interface DataTableColumn<T> {
+  /** Stable column identity; also used to read `item[key]` when no `render` is given. */
   key: string;
+  /** Header cell text. */
   label: string;
+  /** Custom cell renderer; falls back to `item[key]` when omitted. */
   render?: (item: T) => ReactNode;
 }
 
+/** Props for {@link DataTable}. */
 export interface DataTableProps<T> {
+  /** Row records to render. */
   data: T[];
+  /** Column definitions. */
   columns: DataTableColumn<T>[];
+  /** Show a loading overlay over the table. */
   loading?: boolean;
+  /** Stable React key for each row; defaults to the row index. */
   getRowKey?: (item: T, index: number) => Key;
 }
 

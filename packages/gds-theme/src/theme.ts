@@ -113,8 +113,10 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
   },
 }));
 
+/** The baseline GDS Mantine theme: neutral defaults, governed shadows, and GDS component styling. */
 export const gdsTheme = baseTheme;
 
+/** Dark-public lane: `gdsTheme` with explicit light/dark surfaces for shell, cards, paper, and tables. */
 export const gdsDarkPublicTheme = extendGdsTheme({
   primaryColor: 'violet',
   components: {
@@ -151,6 +153,7 @@ export const gdsDarkPublicTheme = extendGdsTheme({
   },
 });
 
+/** Flat-surface lane: `gdsTheme` with all shadows removed and bordered Card/Paper. */
 export const gdsFlatSurfaceTheme = extendGdsTheme({
   shadows: {
     xs: 'none',
@@ -174,6 +177,7 @@ export const gdsFlatSurfaceTheme = extendGdsTheme({
   },
 });
 
+/** Editorial lane: `gdsTheme` with a serif heading family, larger heading sizes, and flat surfaces. */
 export const gdsEditorialPublicTheme = extendGdsTheme({
   headings: {
     fontFamily: '"Instrument Serif", Georgia, "Times New Roman", serif',
@@ -205,9 +209,13 @@ export const gdsEditorialPublicTheme = extendGdsTheme({
   },
 });
 
+/** Options for `createPublicBrandTheme`: which lanes to layer over the base theme, plus extra overrides. */
 export interface PublicBrandThemeOptions {
+  /** Layer the editorial serif lane. */
   editorialSerif?: boolean;
+  /** Layer the flat-surface (no-shadow) lane. */
   flatSurfaces?: boolean;
+  /** Additional Mantine overrides merged last (win over the layered lanes). */
   overrides?: MantineThemeOverride;
 }
 
@@ -215,6 +223,7 @@ function composeGdsTheme(overrides: MantineThemeOverride = {}) {
   return mergeMantineTheme(baseTheme, overrides);
 }
 
+/** Composes a public brand theme by layering the flat-surface and/or editorial lanes and the given overrides over the base GDS theme. */
 export function createPublicBrandTheme({
   editorialSerif = false,
   flatSurfaces = false,
@@ -250,6 +259,7 @@ export function extendGdsTheme(overrides: MantineThemeOverride = {}) {
   return composeGdsTheme(overrides);
 }
 
+/** Extends the GDS theme with governed hover/press Button and Card motion (feedback and list presets), then merges `overrides` on top. */
 export function withGdsMotion(overrides: MantineThemeOverride = {}) {
   const feedbackMotion = getGdsMotionPreset('feedback');
   const listMotion = getGdsMotionPreset('list');

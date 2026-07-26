@@ -6,8 +6,13 @@ import type { GdsVibeTheme } from '@sovereignsquad/gds-theme';
 // retired `theme-lab-controls` role (issue #461) forced the Theme Lab's primary
 // control/result cards onto a dark `surfaceDark` surface, which painted dark
 // boxes on a light page; those cards now re-theme globally like any `.gds-paper`.
+/**
+ * Identifies an intentional owned-contrast surface — a *vibe swatch* that previews
+ * a specific theme atmosphere rather than matching the surrounding page.
+ */
 export type GdsOwnedContrastRole = 'vibe-gallery-card' | 'vibe-contract' | 'athlete-gold-reference';
 
+/** Resolved color and shape tokens for an owned-contrast surface, published as CSS variables and inline styles. */
 export interface GdsOwnedContrastTokens {
   text: string;
   muted: string;
@@ -18,18 +23,28 @@ export interface GdsOwnedContrastTokens {
   surface: string;
   border: string;
   link: string;
+  /** Background color for controls placed on the surface. */
   control: string;
+  /** Foreground/text color for controls placed on the surface. */
   controlText: string;
+  /** Optional explicit surface background color override. */
   backgroundColor?: string;
+  /** Optional explicit border color override. */
   borderColor?: string;
   boxShadow?: CSSProperties['boxShadow'];
 }
 
+/** Input to `getGdsOwnedContrastProps`: the surface role and its resolved tokens. */
 export interface GdsOwnedContrastPropsInput {
   role: GdsOwnedContrastRole;
   tokens: GdsOwnedContrastTokens;
 }
 
+/**
+ * Builds owned-contrast tokens from a vibe theme plus a required background and
+ * radius, deriving any unset roles (surface, border, text, muted, link, control,
+ * …) from the vibe's light-mode values.
+ */
 export function createGdsOwnedContrastTokens(
   vibe: GdsVibeTheme,
   options: {
@@ -70,6 +85,11 @@ export function createGdsOwnedContrastTokens(
   };
 }
 
+/**
+ * Turns a role and its tokens into props to spread onto a surface element: the
+ * `data-gds-owned-contrast`/`data-gds-local-contrast` markers plus an inline style
+ * that publishes the tokens as CSS variables and base colors.
+ */
 export function getGdsOwnedContrastProps({ role, tokens }: GdsOwnedContrastPropsInput) {
   const style: CSSProperties = {
     '--mantine-color-text': tokens.text,

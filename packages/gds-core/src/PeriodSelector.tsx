@@ -2,27 +2,39 @@ import type { ReactNode } from 'react';
 import { Badge, Group, Stack, Text } from '@mantine/core';
 import { FormField } from './FormField';
 
+/** A selectable reporting period. */
 export interface PeriodSelectorOption {
   value: string;
   label: string;
+  /** Supporting copy shown below the selector when this option is active. */
   description?: string;
 }
 
+/** Props for {@link PeriodSelector}. */
 export interface PeriodSelectorProps {
   label: ReactNode;
   description?: ReactNode;
   value: string;
   options: PeriodSelectorOption[];
   onChange?: (value: string) => void;
+  /** Timezone shown as a context badge. */
   timezone?: string;
+  /** Scope indicator shown as a badge. */
   scope?: ReactNode;
   helperText?: ReactNode;
   error?: ReactNode;
+  /** Marks the data as stale via a badge. */
   stale?: boolean;
+  /** Marks the data as filtered via a badge. */
   filtered?: boolean;
   disabled?: boolean;
 }
 
+/**
+ * Governed reporting-period selector: a labelled native select wrapped in a
+ * {@link FormField}, with context badges (timezone, scope, filtered, stale) and
+ * the active option's description.
+ */
 export function PeriodSelector({
   label,
   description,

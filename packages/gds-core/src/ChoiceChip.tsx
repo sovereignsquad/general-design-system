@@ -2,11 +2,16 @@ import type { CSSProperties, ReactNode } from 'react';
 import { Badge, Box, Group } from '@mantine/core';
 import type { BadgeProps } from '@mantine/core';
 
+/** Props for {@link ChoiceChip}; extends Mantine `BadgeProps` minus `children`/`variant`. */
 export interface ChoiceChipProps extends Omit<BadgeProps, 'children' | 'variant'> {
   label: ReactNode;
+  /** Active/selected state; renders filled and sets `aria-current`/`aria-pressed`. */
   active?: boolean;
+  /** When set, the chip renders as a link (anchor by default). */
   href?: string;
+  /** Click handler; renders the chip as a `button` when no `href`/`component` is given. */
   onClick?: React.MouseEventHandler<HTMLElement>;
+  /** Override the rendered element (e.g. a router `Link`). */
   component?: React.ElementType;
 }
 

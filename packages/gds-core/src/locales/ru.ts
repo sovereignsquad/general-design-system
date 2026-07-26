@@ -1,3 +1,4 @@
+/** Russian (ru) translation messages for the GDS vocabulary and component copy. */
 export const ru = {
   'gds.action.settings': 'Настройки',
   'gds.action.analytics': 'Аналитика',

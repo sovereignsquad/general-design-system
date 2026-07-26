@@ -23,6 +23,7 @@ export interface GdsWebAppManifestIcon {
   purpose?: 'any' | 'maskable' | 'monochrome' | string;
 }
 
+/** Inputs for `getGdsWebAppManifest`; pass resolved GDS theme colors for `themeColor`/`backgroundColor`. */
 export interface GdsWebAppManifestOptions {
   /** Human-readable application name (required). */
   name: string;

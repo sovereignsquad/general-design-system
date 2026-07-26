@@ -27,10 +27,14 @@ interface GdsNotificationContextValue {
 
 const GdsNotificationContext = createContext<GdsNotificationContextValue | null>(null);
 
+/** Props for {@link GdsNotificationProvider}. */
 export interface GdsNotificationProviderProps {
   children: ReactNode;
+  /** Suppress the visible list; notifications become announcement-only for assistive tech. */
   disabled?: boolean;
+  /** Default policy (persistence, live region, auto-close, dedupe) applied to each notification. */
   defaultPolicy?: GdsNotificationPolicy;
+  /** Receives every notification lifecycle audit event. */
   onAuditEvent?: (event: GdsNotificationAuditEvent) => void;
 }
 
@@ -60,6 +64,11 @@ function notificationMatches(item: GdsNotificationMessage, next: GdsNotification
   return item.id === next.id || (Boolean(next.key) && item.key === next.key);
 }
 
+/**
+ * Context provider and controller for GDS notifications: exposes {@link useGdsNotifications}
+ * to notify, update, and dismiss, and handles dedupe, auto-close timers, retry with
+ * attempt limits, and audit events, mirroring announcements into an accessible live region.
+ */
 export function GdsNotificationProvider({
   children,
   disabled = false,
@@ -225,6 +234,7 @@ export function GdsNotificationProvider({
   );
 }
 
+/** Hook to access the notification controller; throws if used outside a {@link GdsNotificationProvider}. */
 export function useGdsNotifications() {
   const context = useContext(GdsNotificationContext);
   if (!context) {
@@ -233,6 +243,7 @@ export function useGdsNotifications() {
   return context;
 }
 
+/** Renders the current notifications from context as a dismissible, retryable list with a clear-all control. */
 export function NotificationCenter({
   title = 'Notifications',
   emptyMessage = 'No active notifications.',
@@ -265,4 +276,5 @@ export function NotificationCenter({
   );
 }
 
+/** Alias for {@link NotificationCenter}. */
 export const GdsNotificationCenter = NotificationCenter;

@@ -13,16 +13,24 @@ import { GdsIcons } from './icons';
  * via `onSubmit`; the component performs no navigation itself.
  */
 
+/** Props for the `AISearchCard` component. */
 export interface AISearchCardProps {
+  /** Called with the trimmed query when the user submits (Enter or the search button). */
   onSubmit: (query: string) => void;
+  /** Suggested prompt chips. */
   prompts?: string[];
+  /** Called when a prompt chip is chosen; when omitted, choosing a prompt calls `onSubmit` instead. */
   onPromptSelect?: (prompt: string) => void;
+  /** Input placeholder and accessible label. Defaults to "Ask anything…". */
   placeholder?: string;
+  /** Text of the beta badge. Defaults to "BETA". */
   betaLabel?: string;
+  /** Accessible label for the search region. Defaults to "AI search". */
   ariaLabel?: string;
   disabled?: boolean;
 }
 
+/** Governed AI search entry card (see file overview): search input, BETA badge, and prompt chips; submits trimmed, non-empty queries via `onSubmit` and performs no navigation itself. */
 export function AISearchCard({
   onSubmit,
   prompts = [],

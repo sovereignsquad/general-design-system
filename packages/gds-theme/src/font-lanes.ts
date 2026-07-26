@@ -2,6 +2,7 @@ import type { MantineThemeOverride } from '@mantine/core';
 import { mergeThemeOverrides } from '@mantine/core';
 import { getGdsLocaleIdsByScript } from './i18n';
 
+/** Identifier of a built-in GDS font lane (a paired body/heading font stack). */
 export type GdsFontLaneId =
   | 'inter'
   | 'manrope'
@@ -15,20 +16,33 @@ export type GdsFontLaneId =
   | 'instrument-serif'
   | 'source-serif';
 
+/** Where a lane's fonts come from: a native system stack or a Google-Fonts-compatible web font. */
 export type GdsFontLaneSource = 'system' | 'google-fonts-compatible';
+/** How a lane's fonts are loaded: from the system stack, or via a non-blocking stylesheet link. */
 export type GdsFontLaneLoadStrategy = 'system-stack' | 'non-blocking-stylesheet';
 
+/** A resolved font lane: paired body/heading/mono stacks plus loading and coverage metadata. */
 export interface GdsFontLane {
   id: GdsFontLaneId;
+  /** Human-readable lane name (e.g. `'Plus Jakarta Sans'`). */
   label: string;
+  /** CSS `font-family` stack for body copy. */
   body: string;
+  /** CSS `font-family` stack for headings. */
   heading: string;
+  /** CSS `font-family` stack for monospace text. */
   mono: string;
+  /** Fallback family stack rendered until the web font loads. */
   fallbackStack: string;
+  /** Locale ids this lane's fonts adequately cover. */
   localeCoverage: string[];
+  /** System stack vs Google-Fonts-compatible web font. */
   source: GdsFontLaneSource;
+  /** Always `'swap'` so text renders immediately in the fallback. */
   fontDisplay: 'swap';
+  /** Loading strategy derived from `source`. */
   loadStrategy: GdsFontLaneLoadStrategy;
+  /** Stylesheet URL that loads the web font, when one is required. */
   cssImportUrl?: string;
 }
 
@@ -65,22 +79,27 @@ const lanes: readonly GdsFontLane[] = [
   lane({ id: 'source-serif', label: 'Source Serif', body: `"Source Serif 4", ${serifFallback}`, heading: `"Source Serif 4", ${serifFallback}`, fallbackStack: serifFallback, localeCoverage: broadUiLocales, source: 'google-fonts-compatible', cssImportUrl: googleFontUrl('Source+Serif+4') }),
 ] as const;
 
+/** Returns a copy of all built-in font lanes. */
 export function getGdsFontLanes() {
   return [...lanes];
 }
 
+/** Type guard: `true` when `id` is a known `GdsFontLaneId`. */
 export function isGdsFontLaneId(id: unknown): id is GdsFontLaneId {
   return typeof id === 'string' && lanes.some((lane) => lane.id === id);
 }
 
+/** Resolves a lane by id, falling back to the first lane (`inter`) for unknown/nullish ids. */
 export function resolveGdsFontLane(id: GdsFontLaneId | string | null | undefined): GdsFontLane {
   return lanes.find((lane) => lane.id === id) ?? lanes[0];
 }
 
+/** Returns the de-duplicated set of web-font stylesheet URLs across all lanes. */
 export function getGdsFontLaneStylesheetUrls() {
   return [...new Set(lanes.flatMap((lane) => lane.cssImportUrl ? [lane.cssImportUrl] : []))];
 }
 
+/** Merges a lane's body/heading/mono fonts and lane metadata into a Mantine theme override. */
 export function applyGdsFontLane(theme: MantineThemeOverride, laneId: GdsFontLaneId | string | null | undefined): MantineThemeOverride {
   const lane = resolveGdsFontLane(laneId);
   return mergeThemeOverrides(theme, {

@@ -3,16 +3,21 @@ import { ActionIcon, Badge, Card, Group, Stack, Text, Title } from '@mantine/cor
 import { GdsIcons } from './icons';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
+/** An icon action rendered in the media card's action row; `label` is used as the accessible name. */
 export interface MediaCardAction {
   label: string;
   onClick?: () => void;
 }
 
+/** Props for {@link MediaCard}. */
 export interface MediaCardProps {
   title: string;
+  /** Media node rendered in the top card section. */
   image: ReactNode;
   description?: ReactNode;
+  /** Status badge shown beside the title. */
   status?: string;
+  /** Content overlaid on the media, anchored top-right. */
   overlay?: ReactNode;
   actions?: MediaCardAction[];
   size?: GdsCardSize;
@@ -20,6 +25,11 @@ export interface MediaCardProps {
   variant?: GdsCardVariant;
 }
 
+/**
+ * Media-forward card with a full-bleed media section on top, an optional overlay,
+ * then a title/description block, status badge, and a row of icon actions. Padding,
+ * gaps, and title level derive from the resolved card contract.
+ */
 export function MediaCard({
   title,
   image,

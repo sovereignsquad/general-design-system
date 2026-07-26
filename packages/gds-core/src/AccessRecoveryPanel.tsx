@@ -7,6 +7,7 @@ import { SemanticButton } from './SemanticButton';
 import { StateBlock } from './StateBlock';
 import type { SemanticAction } from './vocabulary';
 
+/** Access failure the panel helps the user recover from. */
 export type AccessRecoveryState =
   | 'unauthenticated'
   | 'expired-session'
@@ -15,26 +16,41 @@ export type AccessRecoveryState =
   | 'missing'
   | 'unavailable';
 
+/** A recovery action button rendered in the panel. */
 export interface AccessRecoveryAction {
+  /** Semantic action id resolving to a governed label/icon. */
   action: SemanticAction;
   onClick?: () => void;
   loading?: boolean;
   disabled?: boolean;
   color?: string;
+  /** Button variant; the primary action defaults to "filled", others to "default". */
   variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default';
 }
 
+/** Props for {@link AccessRecoveryPanel}. */
 export interface AccessRecoveryPanelProps {
+  /** Access failure to render; selects default copy and recovery actions. */
   state: AccessRecoveryState;
+  /** Overrides the localized default title for the state. */
   title?: string;
+  /** Overrides the localized default description for the state. */
   description?: ReactNode;
+  /** Explicit primary action, overriding the state's default. `null` removes it. */
   primaryAction?: AccessRecoveryAction | null;
+  /** Explicit secondary action, overriding the state's default. `null` removes it. */
   secondaryAction?: AccessRecoveryAction | null;
+  /** Explicit tertiary action, overriding the state's default. `null` removes it. */
   tertiaryAction?: AccessRecoveryAction | null;
+  /** Wires the default retry action where the state supports it. */
   onRetry?: () => void;
+  /** Wires the default sign-in action where the state supports it. */
   onSignIn?: () => void;
+  /** Wires the default back action where the state supports it. */
   onBack?: () => void;
+  /** Optional support/contact action placed in a remaining slot. */
   supportAction?: AccessRecoveryAction | null;
+  /** Renders the underlying StateBlock in compact form. */
   compact?: boolean;
 }
 
@@ -155,6 +171,11 @@ function ActionGroup({
   );
 }
 
+/**
+ * Governed access-recovery panel: renders a StateBlock with localized title and
+ * description plus default primary/secondary/tertiary recovery actions tailored to
+ * each access-failure state. Any action can be overridden or removed per prop.
+ */
 export function AccessRecoveryPanel({
   state,
   title,

@@ -10,14 +10,20 @@ import type { BadgeProps } from '@mantine/core';
  * conveyed by text (label + value), never color alone.
  */
 
+/** One matched dimension listed in the chip's tooltip. */
 export interface FitScoreDimension {
   label: string;
+  /** Relative importance of this dimension, if scored. */
   weight?: number;
 }
 
+/** Props for {@link FitScoreChip}; extends Mantine `BadgeProps` minus `color`/`children`, which the chip controls. */
 export interface FitScoreChipProps extends Omit<BadgeProps, 'color' | 'children'> {
+  /** Match score 0–100; clamped and rounded before display. */
   value?: number;
+  /** Overrides the derived band label (e.g. "Great fit"). */
   label?: string;
+  /** Matched dimensions; when present, the chip gains a tooltip listing them. */
   dimensions?: FitScoreDimension[];
 }
 

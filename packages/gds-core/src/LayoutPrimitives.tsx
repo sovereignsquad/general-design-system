@@ -2,58 +2,87 @@ import { forwardRef, type CSSProperties, type ElementType, type ReactNode } from
 import { Box } from '@mantine/core';
 import type { BoxProps } from '@mantine/core';
 
+/** Breakpoint keys used across the layout primitives, from `base` (no min-width) up through `xl`. */
 export type GdsLayoutBreakpoint = 'base' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+/** Spacing-scale token for gap/padding/margin. `0`/`none` is zero; `xs`–`xl` map to Mantine spacing vars; `2xl` is 1.5× `xl`. */
 export type GdsLayoutToken = 0 | 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+/** Width/size token: the spacing tokens plus named content widths (`content`, `narrow`, `page`, `wide`) and `full` (100%). */
 export type GdsLayoutSize = Exclude<GdsLayoutToken, 0> | 'content' | 'narrow' | 'page' | 'wide' | 'full';
+/** Either a single value applied at all breakpoints, or a partial per-breakpoint map. */
 export type GdsResponsiveValue<T> = T | Partial<Record<GdsLayoutBreakpoint, T>>;
+/** Cross-axis (`align-items`) alignment keyword. */
 export type GdsLayoutAlign = 'start' | 'center' | 'end' | 'stretch' | 'baseline';
+/** Main-axis (`justify-content`) distribution keyword. */
 export type GdsLayoutJustify = 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
+/** CSS `overflow` keyword accepted by the layout primitives. */
 export type GdsLayoutOverflow = 'visible' | 'hidden' | 'auto' | 'clip';
+/** Flex-wrap keyword (`reverse` maps to `wrap-reverse`). */
 export type GdsLayoutWrap = 'wrap' | 'nowrap' | 'reverse';
 
+/** Normalized form of a `GdsResponsiveValue`: a base value plus a map of breakpoint-specific overrides. */
 export interface GdsResponsiveResolution<T> {
   base?: T;
   breakpoints: Partial<Record<Exclude<GdsLayoutBreakpoint, 'base'>, T>>;
 }
 
+/** Shared props for every layout primitive: token-based, responsive spacing/alignment on a governed `Box`. */
 export interface GdsLayoutPrimitiveBaseProps extends Omit<BoxProps, 'align' | 'children' | 'component' | 'display' | 'gap' | 'justify' | 'm' | 'maw' | 'miw' | 'p' | 'style'> {
   children?: ReactNode;
+  /** Element or component to render as, via Mantine's polymorphic `component`. Defaults to `div`. */
   component?: ElementType;
   style?: CSSProperties;
+  /** Space between children, as a spacing token; may vary per breakpoint. */
   gap?: GdsResponsiveValue<GdsLayoutToken>;
+  /** Inner padding, as a spacing token; may vary per breakpoint. */
   padding?: GdsResponsiveValue<GdsLayoutToken>;
+  /** Outer margin, as a spacing token; may vary per breakpoint. */
   margin?: GdsResponsiveValue<GdsLayoutToken>;
+  /** Cross-axis alignment; may vary per breakpoint. */
   align?: GdsResponsiveValue<GdsLayoutAlign>;
+  /** Main-axis distribution; may vary per breakpoint. */
   justify?: GdsResponsiveValue<GdsLayoutJustify>;
   overflow?: GdsLayoutOverflow;
+  /** Minimum-width behavior: `zero` (min-width:0, the flex/grid overflow fix), `content` (max-content), or `auto`. */
   minWidth?: 'auto' | 'zero' | 'content';
+  /** Maximum width, as a size token; may vary per breakpoint. */
   maxWidth?: GdsResponsiveValue<GdsLayoutSize>;
 }
 
+/** General-purpose layout box with a configurable `display` mode. */
 export interface GdsBoxProps extends GdsLayoutPrimitiveBaseProps {
   display?: GdsResponsiveValue<'block' | 'flex' | 'grid' | 'inline-flex' | 'inline-grid' | 'contents'>;
 }
 
+/** Vertical flex stack. */
 export interface GdsStackProps extends GdsLayoutPrimitiveBaseProps {
+  /** Reverse the visual order of children (`column-reverse`). Defaults to `false`. */
   reverse?: boolean;
 }
 
+/** Horizontal flex row with configurable wrapping. */
 export interface GdsInlineProps extends GdsLayoutPrimitiveBaseProps {
+  /** Wrapping behavior; may vary per breakpoint. Defaults to `wrap`. */
   wrap?: GdsResponsiveValue<GdsLayoutWrap>;
 }
 
+/** Inline row preset that spreads its children apart (`justify` defaults to `between`). */
 export interface GdsClusterProps extends GdsInlineProps {}
 
+/** Equal-width auto-column CSS grid. */
 export interface GdsGridProps extends GdsLayoutPrimitiveBaseProps {
+  /** Fixed column count, or `auto-fit`/`auto-fill` for responsive track packing; may vary per breakpoint. */
   columns?: GdsResponsiveValue<number | 'auto-fit' | 'auto-fill'>;
+  /** Minimum track width used with `auto-fit`/`auto-fill`. */
   minColumnWidth?: GdsLayoutSize;
 }
 
+/** Named column-grid track container that `GdsColumnGridItem` spans against. */
 export interface GdsColumnGridProps extends GdsLayoutPrimitiveBaseProps {
   /** Total number of tracks in the grid — the same number `GdsColumnGridItem`'s `span` counts against. Defaults to 12, matching the most common column-grid convention (Carbon's 2x Grid, Ant Design's `Grid`). */
   columns?: GdsResponsiveValue<number>;
 }
 
+/** A single item within a `GdsColumnGrid`. */
 export interface GdsColumnGridItemProps extends GdsLayoutPrimitiveBaseProps {
   /** How many of the parent's tracks this item spans. Omit to let the browser's native CSS grid auto-placement apply (one track). */
   span?: GdsResponsiveValue<number>;
@@ -61,23 +90,35 @@ export interface GdsColumnGridItemProps extends GdsLayoutPrimitiveBaseProps {
   start?: GdsResponsiveValue<number>;
 }
 
+/** Two-column split that collapses to a single stacked column below a breakpoint. */
 export interface GdsSplitProps extends GdsLayoutPrimitiveBaseProps {
+  /** Relative width of the two columns. Defaults to `1:1`. */
   ratio?: '1:1' | '2:1' | '1:2' | '3:2' | '2:3';
+  /** Breakpoint below which the split stacks vertically. Defaults to `md`. */
   collapseBelow?: Exclude<GdsLayoutBreakpoint, 'base'>;
 }
 
+/** Sidebar-plus-content layout that collapses to a single column below a breakpoint. */
 export interface GdsSidebarProps extends GdsLayoutPrimitiveBaseProps {
+  /** Which side the fixed-width sidebar sits on. Defaults to `start`. */
   side?: 'start' | 'end';
+  /** Width of the sidebar track. Defaults to `content`. */
   sidebarWidth?: GdsLayoutSize;
+  /** Breakpoint below which the layout stacks vertically. Defaults to `md`. */
   collapseBelow?: Exclude<GdsLayoutBreakpoint, 'base'>;
 }
 
+/** Full-bleed wrapper that pulls its content outward with negative inline margins. */
 export interface GdsBleedProps extends GdsLayoutPrimitiveBaseProps {
+  /** Amount to bleed outward, as a spacing token; may vary per breakpoint. Defaults to `md`. */
   bleed?: GdsResponsiveValue<GdsLayoutToken>;
 }
 
+/** Centered, max-width content container. */
 export interface GdsContainerProps extends GdsLayoutPrimitiveBaseProps {
+  /** Maximum content width, as a size token; may vary per breakpoint. Defaults to `page`. */
   size?: GdsResponsiveValue<GdsLayoutSize>;
+  /** Horizontally center the container with `auto` inline margins. Defaults to `true`. */
   center?: boolean;
 }
 
@@ -143,6 +184,7 @@ function isResponsiveRecord<T>(value: GdsResponsiveValue<T> | undefined): value 
   return Boolean(value && typeof value === 'object' && !Array.isArray(value));
 }
 
+/** Splits a `GdsResponsiveValue` into its base value and per-breakpoint overrides; a bare value becomes the base with no overrides. */
 export function normalizeGdsResponsiveValue<T>(value: GdsResponsiveValue<T> | undefined): GdsResponsiveResolution<T> {
   if (value === undefined) {
     return { breakpoints: {} };
@@ -203,6 +245,7 @@ function renderResponsiveStyle(css: string) {
   return css ? <style data-gds-layout>{css}</style> : null;
 }
 
+/** Resolves the base (non-responsive) inline style object for a layout primitive from its token props, merging any explicit `style` last. */
 export function resolveGdsLayoutStyle({
   display = 'block',
   gap,
@@ -246,6 +289,7 @@ function joinClassNames(...classNames: Array<string | undefined>) {
   return classNames.filter(Boolean).join(' ') || undefined;
 }
 
+/** Foundational governed layout box: token-based responsive spacing, alignment, and sizing over Mantine's `Box`. All other layout primitives compose it. */
 export const GdsBox = forwardRef<HTMLElement, GdsBoxProps>(function GdsBox({
   children,
   className,
@@ -280,6 +324,7 @@ export const GdsBox = forwardRef<HTMLElement, GdsBoxProps>(function GdsBox({
   );
 });
 
+/** Vertical flex stack (`gap` defaults to `md`, `align` to `stretch`); `reverse` flips to `column-reverse`. */
 export const GdsStack = forwardRef<HTMLElement, GdsStackProps>(function GdsStack({
   reverse = false,
   gap = 'md',
@@ -301,6 +346,7 @@ export const GdsStack = forwardRef<HTMLElement, GdsStackProps>(function GdsStack
   );
 });
 
+/** Horizontal flex row (`gap` defaults to `sm`, `align` to `center`, `wrap` to `wrap`). */
 export const GdsInline = forwardRef<HTMLElement, GdsInlineProps>(function GdsInline({
   gap = 'sm',
   align = 'center',
@@ -331,6 +377,7 @@ export const GdsInline = forwardRef<HTMLElement, GdsInlineProps>(function GdsInl
   );
 });
 
+/** `GdsInline` preset that pushes children to opposite ends (`justify` defaults to `between`), for toolbar/header rows. */
 export const GdsCluster = forwardRef<HTMLElement, GdsClusterProps>(function GdsCluster({
   align = 'center',
   justify = 'between',
@@ -350,6 +397,7 @@ function resolveGridColumns(columns: number | 'auto-fit' | 'auto-fill' | undefin
   return 'repeat(1, minmax(0, 1fr))';
 }
 
+/** Equal-width CSS grid (`columns` defaults to 1 at base, 2 from `md`); `auto-fit`/`auto-fill` pack tracks by `minColumnWidth`. */
 export const GdsGrid = forwardRef<HTMLElement, GdsGridProps>(function GdsGrid({
   columns = { base: 1, md: 2 },
   minColumnWidth = 'content',
@@ -411,6 +459,7 @@ export const GdsColumnGrid = forwardRef<HTMLElement, GdsColumnGridProps>(functio
   );
 });
 
+/** A child of `GdsColumnGrid` that spans `span` tracks and optionally starts at `start`; omitting both uses native grid auto-flow. */
 export const GdsColumnGridItem = forwardRef<HTMLElement, GdsColumnGridItemProps>(function GdsColumnGridItem({
   span,
   start,
@@ -450,6 +499,7 @@ function splitTemplate(ratio: NonNullable<GdsSplitProps['ratio']>) {
   return `minmax(0, ${start}fr) minmax(0, ${end}fr)`;
 }
 
+/** Two-column split at a fixed `ratio` (default `1:1`) that collapses to a single stacked column below `collapseBelow` (default `md`). */
 export const GdsSplit = forwardRef<HTMLElement, GdsSplitProps>(function GdsSplit({
   ratio = '1:1',
   collapseBelow = 'md',
@@ -475,6 +525,7 @@ export const GdsSplit = forwardRef<HTMLElement, GdsSplitProps>(function GdsSplit
   );
 });
 
+/** Fixed-width sidebar beside a fluid content column (`side` default `start`, `sidebarWidth` default `content`), collapsing to one column below `collapseBelow` (default `md`). */
 export const GdsSidebar = forwardRef<HTMLElement, GdsSidebarProps>(function GdsSidebar({
   side = 'start',
   sidebarWidth = 'content',
@@ -503,6 +554,7 @@ export const GdsSidebar = forwardRef<HTMLElement, GdsSidebarProps>(function GdsS
   );
 });
 
+/** Breaks its content out of the parent's inline padding via negative inline margins (`bleed` default `md`). */
 export const GdsBleed = forwardRef<HTMLElement, GdsBleedProps>(function GdsBleed({
   bleed = 'md',
   className,
@@ -528,6 +580,7 @@ export const GdsBleed = forwardRef<HTMLElement, GdsBleedProps>(function GdsBleed
   );
 });
 
+/** Centered max-width content wrapper (`size` default `page`, `padding` default `md`/`lg` from `md`), centered unless `center` is `false`. */
 export const GdsContainer = forwardRef<HTMLElement, GdsContainerProps>(function GdsContainer({
   size = 'page',
   center = true,

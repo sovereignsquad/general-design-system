@@ -17,21 +17,26 @@ function toIsoDateString(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
+/** Every field type the schema-form engine can render, plus the `hidden`/`conditional`/`unsupported` control markers. */
 export type GdsSchemaFieldType = 'text' | 'email' | 'url' | 'password' | 'number' | 'boolean' | 'select' | 'checkbox-group' | 'repeatable' | 'textarea' | 'date' | 'hidden' | 'conditional' | 'file-upload' | 'unsupported';
 
+/** A single choice for a `select` or `checkbox-group` field. */
 export interface GdsFieldOption {
   label: string;
   value: string;
 }
 
+/** Declarative description of one form field — its type, labels, validation bounds, and any upload/repeatable/conditional metadata. Produced by the schema adapters and consumed by the renderers. */
 export interface GdsFieldDescriptor {
   name: string;
   type: GdsSchemaFieldType;
   label: string;
   description?: string;
+  /** Translation key used to localize this field's label and messages. */
   i18nKey: string;
   required?: boolean;
   hidden?: boolean;
+  /** Expression that gates whether the field renders (makes the field `conditional`). */
   condition?: string;
   /** Choices for `select` and `checkbox-group` fields. */
   options?: GdsFieldOption[];
@@ -62,6 +67,7 @@ export interface GdsFieldDescriptor {
   unsupportedReason?: string;
 }
 
+/** A complete declarative form: an id, optional title/description, and its ordered field descriptors. */
 export interface GdsFormSchema {
   id: string;
   title?: string;
@@ -69,12 +75,14 @@ export interface GdsFormSchema {
   fields: GdsFieldDescriptor[];
 }
 
+/** Output of a schema adapter: the generated form schema (when parseable), plus any validation issues and telemetry events. */
 export interface GdsSchemaAdapterResult {
   schema?: GdsFormSchema;
   issues: ValidationIssue[];
   events: GdsSchemaFormEvent[];
 }
 
+/** Metadata an upload adapter returns for a stored file (id, name, url, size, type, plus arbitrary extra fields). */
 export interface GdsSchemaUploadResult {
   [key: string]: unknown;
   id?: string;
@@ -85,6 +93,7 @@ export interface GdsSchemaUploadResult {
   metadata?: Record<string, unknown>;
 }
 
+/** Arguments passed to an upload adapter's `upload`: the field, its selected files, an abort `signal`, and a progress callback. */
 export interface GdsSchemaUploadRequest {
   field: GdsFieldDescriptor;
   files: File[];
@@ -92,17 +101,20 @@ export interface GdsSchemaUploadRequest {
   onProgress: (progress: number) => void;
 }
 
+/** Arguments passed to an upload adapter's `remove`: the field, its already-uploaded values, and an abort `signal`. */
 export interface GdsSchemaUploadRemoveRequest {
   field: GdsFieldDescriptor;
   value: GdsSchemaUploadResult[];
   signal: AbortSignal;
 }
 
+/** Consumer-owned adapter that performs the file uploads (and optional removals) for `file-upload` fields. */
 export interface GdsSchemaUploadAdapter {
   upload: (request: GdsSchemaUploadRequest) => Promise<GdsSchemaUploadResult | GdsSchemaUploadResult[]>;
   remove?: (request: GdsSchemaUploadRemoveRequest) => Promise<void>;
 }
 
+/** Metadata-only telemetry event emitted during schema parsing, submission, and the upload lifecycle. */
 export interface GdsSchemaFormEvent {
   type:
     | 'schema_parse_failed'
@@ -121,8 +133,10 @@ export interface GdsSchemaFormEvent {
   message?: string;
 }
 
+/** Renders a single field's control from its {@link GdsFieldRendererContext}. */
 export type GdsFieldRenderer = (context: GdsFieldRendererContext) => ReactNode;
 
+/** Context handed to a field renderer: the descriptor, its current `value`, a `setValue` setter, the `describedBy` id, and validity. */
 export interface GdsFieldRendererContext {
   field: GdsFieldDescriptor;
   value: unknown;
@@ -131,18 +145,24 @@ export interface GdsFieldRendererContext {
   invalid: boolean;
 }
 
+/** Map of field renderers keyed by field type or field name; a name key overrides the type key. */
 export type GdsFieldRendererMap = Partial<Record<GdsSchemaFieldType | string, GdsFieldRenderer>>;
 
+/** Options for {@link createGdsFormFromSchema}: which adapter to run and an optional id and (OpenAPI) schema name. */
 export interface CreateGdsFormFromSchemaOptions {
   adapter: 'json-schema' | 'openapi' | 'zod';
   id?: string;
   schemaName?: string;
 }
 
+/** Props for {@link GdsSchemaForm}. */
 export interface GdsSchemaFormProps<TValues extends Record<string, unknown> = Record<string, unknown>> {
   schema: GdsFormSchema;
+  /** Called with the collected typed values once validation passes. */
   onSubmit: (values: TValues) => Promise<void> | void;
+  /** Per-type or per-name renderer overrides for individual fields. */
   renderers?: GdsFieldRendererMap;
+  /** Adapter used to upload the files of any `file-upload` field. */
   uploadAdapter?: GdsSchemaUploadAdapter;
   onEvent?: (event: GdsSchemaFormEvent | GdsFormOrchestrationEvent) => void;
   submitLabel?: string;
@@ -222,6 +242,7 @@ function normalizeJsonField(formId: string, name: string, source: Record<string,
   return { ...base, type: 'text' };
 }
 
+/** Converts a JSON Schema object into a {@link GdsFormSchema}, mapping each property to a field descriptor and flagging unsupported shapes as issues. */
 export function jsonSchemaToGdsFormSchema(schema: Record<string, unknown>, options: { id?: string } = {}): GdsSchemaAdapterResult {
   const id = options.id ?? (typeof schema.$id === 'string' ? schema.$id.replace(/[^a-zA-Z0-9_-]/g, '-') : 'schema-form');
   const properties = schema.properties;
@@ -247,6 +268,7 @@ export function jsonSchemaToGdsFormSchema(schema: Record<string, unknown>, optio
   };
 }
 
+/** Converts an OpenAPI document — a requestBody schema or a named `components.schemas` entry — into a {@link GdsFormSchema}. */
 export function openApiToGdsFormSchema(document: Record<string, any>, options: { id?: string; schemaName?: string } = {}): GdsSchemaAdapterResult {
   const schema = options.schemaName
     ? document.components?.schemas?.[options.schemaName]
@@ -289,6 +311,7 @@ function zodFieldToJson(name: string, field: any): Record<string, unknown> {
   return json;
 }
 
+/** Converts a Zod object schema into a {@link GdsFormSchema} by reading its shape and required keys. */
 export function zodToGdsFormSchema(zodSchema: unknown, options: { id?: string } = {}): GdsSchemaAdapterResult {
   const shape = readZodShape(zodSchema);
   if (!shape) {
@@ -302,6 +325,7 @@ export function zodToGdsFormSchema(zodSchema: unknown, options: { id?: string } 
   return jsonSchemaToGdsFormSchema({ type: 'object', properties, required }, { id: options.id ?? 'zod-form' });
 }
 
+/** Adapter entry point: builds a {@link GdsFormSchema} from a JSON Schema, OpenAPI document, or Zod schema per `options.adapter`. */
 export function createGdsFormFromSchema(source: unknown, options: CreateGdsFormFromSchemaOptions): GdsSchemaAdapterResult {
   if (options.adapter === 'json-schema') return jsonSchemaToGdsFormSchema(source as Record<string, unknown>, { id: options.id });
   if (options.adapter === 'openapi') return openApiToGdsFormSchema(source as Record<string, unknown>, { id: options.id, schemaName: options.schemaName });
@@ -392,6 +416,7 @@ function validateSchemaValues(schema: GdsFormSchema, values: Record<string, unkn
   });
 }
 
+/** Props for {@link FileUploadField}. */
 export interface FileUploadFieldProps {
   id: string;
   label: string;
@@ -424,6 +449,11 @@ function getUploadFileNames(value: unknown) {
   });
 }
 
+/**
+ * File-upload control for schema forms: wraps {@link UploadDropzone} and, when an
+ * `uploadAdapter` is supplied, drives the upload lifecycle — progress, retry,
+ * cancel, and remove — with abort handling and metadata-only event emission.
+ */
 export function FileUploadField({
   id,
   label,

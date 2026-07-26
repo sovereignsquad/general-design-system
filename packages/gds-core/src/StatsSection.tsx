@@ -3,16 +3,27 @@ import { Stack, Title } from '@mantine/core';
 import { PlaceholderPanel, type PlaceholderPanelProps } from './PlaceholderPanel';
 import { StateBlock } from './StateBlock';
 
+/** Props for {@link StatsSection}. */
 export interface StatsSectionProps {
   title: string;
   loading?: boolean;
+  /** Error message; when set, replaces content with an error state block. */
   error?: string | null;
+  /** When true, hides content behind a "not enough data" state block. */
   belowThreshold?: boolean;
+  /** Overrides the default copy for the below-threshold state. */
   thresholdMessage?: ReactNode;
+  /** The statistics content shown in the ready state. */
   children?: ReactNode;
+  /** Placeholder panel shown when no other state applies and no children are given. */
   placeholder?: Omit<PlaceholderPanelProps, 'mode'>;
 }
 
+/**
+ * Titled container for a shared statistics surface that resolves, in priority
+ * order, to an error, loading, below-threshold, placeholder, or the provided
+ * `children`, keeping data-availability states consistent across dashboards.
+ */
 export function StatsSection({
   title,
   loading = false,

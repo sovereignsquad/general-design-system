@@ -11,25 +11,45 @@ import type { GdsThemePresetId } from './theme-presets';
 // `theme-presets.ts`'s catalog must have a matching entry here, and vice
 // versa, so adding a new preset to one file without the other fails CI.
 
+/** The saturated "vibe" atmosphere palette for one preset: brand hues plus light/dark surface, text, and decorative effect colors. */
 export interface GdsVibeTheme {
+  /** Preset id this vibe belongs to. */
   id: GdsThemePresetId;
+  /** Human-readable theme name. */
   label: string;
+  /** Primary brand color. */
   primary: string;
+  /** Accent color. */
   accent: string;
+  /** Translucent glow used for focus/hover atmosphere. */
   glow: string;
+  /** Page canvas background, light mode. */
   canvasLight: string;
+  /** Page canvas background, dark mode. */
   canvasDark: string;
+  /** Shell/app-bar surface, light mode. */
   shellLight: string;
+  /** Shell/app-bar surface, dark mode. */
   shellDark: string;
+  /** Card surface, light mode. */
   surfaceLight: string;
+  /** Card surface, dark mode. */
   surfaceDark: string;
+  /** Border color, light mode. */
   borderLight: string;
+  /** Border color, dark mode. */
   borderDark: string;
+  /** Body text color, light mode. */
   textLight: string;
+  /** Body text color, dark mode. */
   textDark: string;
+  /** Muted/meta text color, light mode. */
   mutedLight: string;
+  /** Muted/meta text color, dark mode. */
   mutedDark: string;
+  /** Decorative background gradient. */
   gradient: string;
+  /** Hero/banner gradient. */
   hero: string;
 }
 
@@ -486,10 +506,12 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   },
 };
 
+/** Returns every vibe theme. */
 export function getGdsVibeThemes() {
   return Object.values(vibeThemes);
 }
 
+/** Resolves the vibe theme for a preset id, falling back to the neutral default. */
 export function resolveGdsVibeTheme(id: GdsThemePresetId) {
   return vibeThemes[id] ?? neutralVibe;
 }
@@ -637,6 +659,13 @@ const brandSemanticCssVariablesByPreset: Partial<Record<GdsThemePresetId, Record
   'gold-athlete': goldAthleteSemanticCssVariables,
 };
 
+/**
+ * Builds the `--gds-vibe-*` CSS variables for a preset and color scheme (mode is
+ * resolved to the light or dark value of each token). For brand presets that
+ * define a semantic variable set (`class-usa`, `gold-athlete`), those `--gds-*`
+ * variables are merged in, with `-dark` values collapsed onto their base names
+ * in dark mode.
+ */
 export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: 'light' | 'dark') {
   const vibe = resolveGdsVibeTheme(id);
   const dark = colorScheme === 'dark';

@@ -3,15 +3,20 @@ import { Box, Divider, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import type { SurfacePresentationProps } from './SurfacePresentation';
 import { resolveSurfacePresentationStyles } from './SurfacePresentation';
 
+/** Visual tone of a section panel, setting its background emphasis. */
 export type SectionPanelTone = 'default' | 'supporting' | 'warning' | 'critical';
 
+/** Props for the `SectionPanel` component. */
 export interface SectionPanelProps extends SurfacePresentationProps {
   title?: ReactNode;
   description?: ReactNode;
+  /** Header action, aligned opposite the title. */
   action?: ReactNode;
   children: ReactNode;
+  /** Background tone. Defaults to `default`. */
   tone?: SectionPanelTone;
   id?: string;
+  /** Show a divider between the header and body. Defaults to `true`. */
   divided?: boolean;
 }
 

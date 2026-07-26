@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Badge, Button, Divider, Group, Paper, Progress, Stack, Text } from '@mantine/core';
 import { FormField } from './FormField';
 
+/** Lifecycle / validation state of a media field, driving its status badge. */
 export type MediaFieldState =
   | 'empty'
   | 'drag-active'
@@ -16,28 +17,47 @@ export type MediaFieldState =
   | 'invalid'
   | 'readonly';
 
+/** Props for {@link MediaField}. */
 export interface MediaFieldProps {
   label: ReactNode;
   description?: ReactNode;
+  /** Current media reference (e.g. a URL), shown as truncated text. */
   value?: string | null;
+  /** Preview element for the selected media. */
   preview?: ReactNode;
+  /** Upload control slot (e.g. a file input/dropzone), hidden in readonly mode. */
   uploadControl?: ReactNode;
+  /** URL input slot for referencing remote media, hidden in readonly mode. */
   urlInput?: ReactNode;
   helpText?: ReactNode;
+  /** Policy/constraints copy, shown in red when `error` is set. */
   policyText?: ReactNode;
   error?: ReactNode;
+  /** Retry action shown in the actions row (e.g. after an upload failure). */
   retryAction?: ReactNode;
+  /** Action to replace the current media. */
   replaceAction?: ReactNode;
+  /** Called by the default Remove button; ignored in readonly mode. */
   onRemove?: () => void;
+  /** Called by the default Reset button; ignored in readonly mode. */
   onReset?: () => void;
+  /** Custom remove action, overriding the default button built from `onRemove`. */
   removeAction?: ReactNode;
+  /** Custom reset action, overriding the default button built from `onReset`. */
   resetAction?: ReactNode;
+  /** Extra action rendered next to the status badge. */
   statusAction?: ReactNode;
+  /** Explicit field state. Defaults to "empty"; forced to "readonly" when `readonly`. */
   state?: MediaFieldState;
+  /** Accepted file types, shown as an outline badge. */
   acceptedTypes?: ReactNode;
+  /** Maximum size hint, shown as an outline badge. */
   maxSize?: ReactNode;
+  /** Upload progress percentage (0–100); renders a progress bar when provided. */
   progress?: number;
+  /** Read-only mode: hides upload/URL controls and the default remove/reset buttons. */
   readonly?: boolean;
+  /** Layout for the upload/URL controls. Defaults to "stacked". */
   mode?: 'stacked' | 'split';
 }
 
@@ -56,6 +76,11 @@ const stateLabels: Record<NonNullable<MediaFieldProps['state']>, { label: string
   readonly: { label: 'Read only', color: 'gray' },
 };
 
+/**
+ * Governed media upload/preview form field: wraps {@link FormField} and shows the
+ * current state badge, preview, upload progress, upload/URL controls, accepted-type
+ * and size hints, help/policy copy, and replace/remove/reset/retry actions.
+ */
 export function MediaField({
   label,
   description,

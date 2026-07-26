@@ -1,10 +1,13 @@
 import type { ReactNode } from 'react';
 import { Stack, Text, Title, Box } from '@mantine/core';
 
+/** Props for {@link EmptyState}. */
 export interface EmptyStateProps {
+  /** Optional icon shown above the title. */
   icon?: ReactNode;
   title: string;
   description: string;
+  /** Optional recovery/primary action shown below the description. */
   action?: ReactNode;
 }
 

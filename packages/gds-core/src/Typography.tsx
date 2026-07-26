@@ -4,12 +4,14 @@ import type { TitleProps } from '@mantine/core';
 
 const TextRole = Text as unknown as (props: Record<string, unknown>) => ReactElement;
 
+/** Shared props for every GDS typography role: content plus optional `id` and `className`. */
 export interface GdsTypographyProps {
   children: ReactNode;
   id?: string;
   className?: string;
 }
 
+/** Props for the heading roles, adding `order` to set the semantic heading level while keeping the role's visual size. */
 export interface GdsTitleRoleProps extends GdsTypographyProps {
   order?: TitleProps['order'];
 }
@@ -29,6 +31,7 @@ export function PageTitle({ children, id, className, order = 1 }: GdsTitleRolePr
   );
 }
 
+/** Section-level heading rendered at `h2` visual size; defaults to a semantic `<h2>`. Use beneath {@link PageTitle}. */
 export function SectionTitle({ children, id, className, order = 2 }: GdsTitleRoleProps) {
   return (
     <Title id={id} className={className} order={order} size="h2" lh={1.2}>
@@ -37,6 +40,7 @@ export function SectionTitle({ children, id, className, order = 2 }: GdsTitleRol
   );
 }
 
+/** Card or subsection heading rendered at `h4` visual size; defaults to a semantic `<h3>`. */
 export function CardTitle({ children, id, className, order = 3 }: GdsTitleRoleProps) {
   return (
     <Title id={id} className={className} order={order} size="h4" lh={1.25}>
@@ -45,10 +49,12 @@ export function CardTitle({ children, id, className, order = 3 }: GdsTitleRolePr
   );
 }
 
+/** Props for the body/inline text roles, adding `component` to override the rendered element. */
 export interface GdsTextRoleProps extends GdsTypographyProps {
   component?: ElementType;
 }
 
+/** Default body copy: small size with comfortable line height, rendered as a `<p>` by default. */
 export function BodyText({ children, id, className, component = 'p' }: GdsTextRoleProps) {
   return (
     <TextRole id={id} className={className} component={component} size="sm" lh={1.55}>
@@ -57,6 +63,7 @@ export function BodyText({ children, id, className, component = 'p' }: GdsTextRo
   );
 }
 
+/** Secondary metadata text: extra-small and dimmed, rendered as a `<span>` by default. */
 export function MetadataText({ children, id, className, component = 'span' }: GdsTextRoleProps) {
   return (
     <TextRole id={id} className={className} component={component} size="xs" c="dimmed">
@@ -65,6 +72,7 @@ export function MetadataText({ children, id, className, component = 'span' }: Gd
   );
 }
 
+/** Inline label text: small and semibold, rendered as a `<span>` by default. */
 export function LabelText({ children, id, className, component = 'span' }: GdsTextRoleProps) {
   return (
     <TextRole id={id} className={className} component={component} size="sm" fw={600}>
@@ -73,6 +81,7 @@ export function LabelText({ children, id, className, component = 'span' }: GdsTe
   );
 }
 
+/** Inline span that inherits the surrounding type styles, for wrapping a run of text without changing its appearance. */
 export function InlineText({ children, id, className, component = 'span' }: GdsTextRoleProps) {
   return (
     <TextRole id={id} className={className} component={component} span inherit>
@@ -81,6 +90,7 @@ export function InlineText({ children, id, className, component = 'span' }: GdsT
   );
 }
 
+/** Inline emphasis that inherits surrounding styles but bolds the text, rendered as `<strong>` by default. */
 export function InlineEmphasis({ children, id, className, component = 'strong' }: GdsTextRoleProps) {
   return (
     <TextRole id={id} className={className} component={component} span inherit fw={700}>

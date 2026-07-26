@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
 import { Box, Divider, Grid, Group, Paper, Stack, Text, Title } from '@mantine/core';
 
+/** Layout preset controlling the relative column widths of the brand footer. */
 export type PublicBrandFooterLayoutVariant = 'default' | 'immersive-media' | 'balanced-quote';
 
+/** Per-slot class-name overrides for {@link PublicBrandFooter}. */
 export interface PublicBrandFooterClassNames {
   root?: string;
   media?: string;
@@ -11,18 +13,28 @@ export interface PublicBrandFooterClassNames {
   legal?: string;
 }
 
+/** Props for {@link PublicBrandFooter}. */
 export interface PublicBrandFooterProps {
+  /** Media/visual column content. */
   media?: ReactNode;
   brandTitle?: ReactNode;
   description?: ReactNode;
   actions?: ReactNode;
+  /** Secondary column content (links, quote, etc.). */
   secondary?: ReactNode;
+  /** Legal/fine-print row shown below a divider. */
   legal?: ReactNode;
+  /** Reduce padding and internal spacing. */
   compact?: boolean;
   layoutVariant?: PublicBrandFooterLayoutVariant;
   classNames?: PublicBrandFooterClassNames;
 }
 
+/**
+ * Governed public brand footer: a responsive `<footer>` panel with optional
+ * media, primary (brand/description/actions), and secondary columns whose spans
+ * adapt to `layoutVariant`, plus an optional divided legal row.
+ */
 export function PublicBrandFooter({
   media,
   brandTitle,

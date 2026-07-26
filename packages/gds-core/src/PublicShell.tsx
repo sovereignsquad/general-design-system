@@ -4,9 +4,12 @@ import { AppShell, Box, Burger, Container, Group, Stack, Text } from '@mantine/c
 import { PublicNav, type PublicNavItem } from './PublicNav';
 import { BOTTOM_TAB_HEIGHT, BottomTabBar } from './BottomTabBar';
 
+/** Header presentation variant for {@link PublicShell}. */
 export type PublicShellHeaderVariant = 'default' | 'branded-quiet' | 'compact';
+/** How mobile navigation is presented: bottom sheet, inline collapse, drawer, or bottom tab bar. */
 export type PublicShellMobileNavigationMode = 'sheet' | 'inline-collapse' | 'drawer' | 'bottom-tab';
 
+/** Options for the `bottom-tab` mobile navigation mode. */
 export interface PublicShellBottomTabOptions {
   /** Item id rendered as a raised center action (e.g. an assistant entry). */
   emphasizedItemId?: string;
@@ -16,6 +19,7 @@ export interface PublicShellBottomTabOptions {
   onNavItemSelect?: (id: string) => void;
 }
 
+/** Optional class-name overrides for the shell's structural regions. */
 export interface PublicShellClassNames {
   root?: string;
   header?: string;
@@ -26,10 +30,13 @@ export interface PublicShellClassNames {
   mobileNavigation?: string;
 }
 
+/** Props for {@link PublicShell}. */
 export interface PublicShellProps {
   brand: ReactNode;
+  /** Nav items rendered by the built-in {@link PublicNav} when no `navigation` node is provided. */
   navItems?: PublicNavItem[];
   activeNavId?: string;
+  /** Custom desktop navigation node; overrides `navItems` when set. */
   navigation?: ReactNode;
   actions?: ReactNode;
   footer?: ReactNode;
@@ -37,9 +44,11 @@ export interface PublicShellProps {
   children: ReactNode;
   headerBordered?: boolean;
   compact?: boolean;
+  /** Max content width: a Mantine container size or an explicit pixel width. */
   maxContentWidth?: number | 'sm' | 'md' | 'lg';
   headerVariant?: PublicShellHeaderVariant;
   mobileNavigationMode?: PublicShellMobileNavigationMode;
+  /** Options applied when `mobileNavigationMode` is `bottom-tab`. */
   bottomTab?: PublicShellBottomTabOptions;
   classNames?: PublicShellClassNames;
 }
@@ -102,6 +111,12 @@ function InlineMobileNavigation({
   );
 }
 
+/**
+ * The governed page frame for public-facing surfaces: a Mantine `AppShell` with a
+ * branded header, desktop navigation, an actions slot, main content, an optional
+ * footer, and one of several mobile-navigation modes (sheet, inline-collapse,
+ * drawer, or bottom-tab). Compose page content as its children.
+ */
 export function PublicShell({
   brand,
   navItems,

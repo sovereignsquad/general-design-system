@@ -3,38 +3,66 @@ import { Box, Group, Paper, ScrollArea, Table, Text, UnstyledButton } from '@man
 import { StateBlock, type StateBlockProps } from '@sovereignsquad/gds-core';
 import { GdsIcons } from '@sovereignsquad/gds-core';
 
+/** Sort direction for an admin table column. */
 export type AdminSortDirection = 'asc' | 'desc';
+/** Horizontal alignment for an admin table column's cells. */
 export type AdminColumnAlign = 'start' | 'center' | 'end';
+/** Governed lifecycle state driving the table's state-block rendering. */
 export type AdminTableState = 'ready' | 'loading' | 'empty' | 'error' | 'permission-limited' | 'refreshing';
 
+/** Column definition for {@link AdminDataTable}. */
 export interface AdminDataTableColumn<T> {
+  /** Stable column identity; also used as the sort key. */
   key: string;
+  /** Header cell content. */
   header: ReactNode;
+  /** Derives a cell's content from the row; falls back to `row[key]` when omitted. */
   accessor?: (row: T, index: number) => ReactNode;
+  /** Render a sort control in the header and emit `onSortChange`. */
   sortable?: boolean;
+  /** Right-align the column as a numeric value. */
   numeric?: boolean;
+  /** Explicit cell alignment; overrides the numeric default. */
   align?: AdminColumnAlign;
+  /** Render cells as row-header `th` cells with `scope="row"`. */
   rowHeader?: boolean;
+  /** Fixed column width. */
   width?: number | string;
 }
 
+/** Active sort descriptor: which column and in which direction. */
 export interface AdminDataTableSort {
+  /** Key of the sorted column. */
   key: string;
+  /** Current sort direction. */
   direction: AdminSortDirection;
 }
 
+/** Props for {@link AdminDataTable}. */
 export interface AdminDataTableProps<T> {
+  /** Row records to render. */
   rows: T[];
+  /** Column definitions. */
   columns: AdminDataTableColumn<T>[];
+  /** Table caption / description text. */
   caption?: ReactNode;
+  /** Governed table state; defaults to `ready` when rows exist, otherwise `empty`. */
   state?: AdminTableState;
+  /** Error description shown in the error/permission state block. */
   error?: ReactNode;
+  /** Message shown in the empty state block. */
   empty?: ReactNode;
+  /** Content rendered in the leading toolbar slot. */
   toolbar?: ReactNode;
+  /** Content rendered in the trailing actions slot. */
   actions?: ReactNode;
+  /** Current sort, used to mark `aria-sort` and drive header controls. */
   sort?: AdminDataTableSort;
+  /** Called with the next sort when a sortable header is activated. */
   onSortChange?: (sort: AdminDataTableSort) => void;
+  /** Required stable React key for each row. */
   getRowKey: (row: T, index: number) => Key;
+  /** Renders a per-row card for the narrow-viewport fallback layout. */
   renderMobileCard?: (row: T, index: number) => ReactNode;
 }
 
@@ -179,12 +207,16 @@ export function AdminDataTable<T extends Record<string, unknown>>({
   );
 }
 
+/** Semantic tone for an analytics metric column. */
 export type AdminAnalyticsMetricTone = 'neutral' | 'positive' | 'negative' | 'warning';
 
+/** Props for {@link AdminAnalyticsTable}: {@link AdminDataTableProps} with tone-annotated metric columns. */
 export interface AdminAnalyticsTableProps<T extends Record<string, unknown>> extends Omit<AdminDataTableProps<T>, 'columns'> {
+  /** Column definitions, each optionally carrying a metric tone. */
   columns: Array<AdminDataTableColumn<T> & { metricTone?: AdminAnalyticsMetricTone }>;
 }
 
+/** Thin wrapper over {@link AdminDataTable} that defaults the caption to "Analytics metrics" for metric-oriented tables. */
 export function AdminAnalyticsTable<T extends Record<string, unknown>>(props: AdminAnalyticsTableProps<T>) {
   return <AdminDataTable {...props} caption={props.caption ?? 'Analytics metrics'} />;
 }

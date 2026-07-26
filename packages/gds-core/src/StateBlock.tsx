@@ -6,6 +6,7 @@ import {
   type SurfacePresentationProps,
 } from './SurfacePresentation';
 
+/** The non-ready surface state a {@link StateBlock} represents. */
 export type StateBlockVariant =
   | 'loading'
   | 'empty'
@@ -16,12 +17,16 @@ export type StateBlockVariant =
   | 'info'
   | 'not-enough-data';
 
+/** Props for {@link StateBlock}. */
 export interface StateBlockProps extends SurfacePresentationProps {
   variant: StateBlockVariant;
   title: string;
   description?: ReactNode;
+  /** Recovery action rendered below the message (e.g. a retry button). */
   action?: ReactNode;
+  /** Override the variant's default icon. */
   icon?: ReactNode;
+  /** Tighter spacing and a smaller heading for inline use. */
   compact?: boolean;
 }
 
@@ -96,11 +101,14 @@ export function StateBlock({
   );
 }
 
+/** Props for {@link MissingDataPrompt}; like {@link StateBlockProps} but without `variant` and with an optional `title`. */
 export interface MissingDataPromptProps extends Omit<StateBlockProps, 'variant' | 'title'> {
   title?: string;
+  /** Names of the missing fields, listed under the description. */
   missingFields?: ReactNode[];
 }
 
+/** A `not-enough-data` {@link StateBlock} preset that lists the missing fields and prompts the user to supply them. */
 export function MissingDataPrompt({
   title = 'Missing data',
   description = 'Add the required data before this view can show a reliable result.',

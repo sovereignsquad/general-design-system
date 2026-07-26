@@ -3,30 +3,44 @@ import { Box } from '@mantine/core';
 import type { BoxProps } from '@mantine/core';
 import type { GdsLayoutBreakpoint, GdsLayoutToken, GdsResponsiveValue } from './LayoutPrimitives';
 
+/** CSS `object-fit` policy for governed media. */
 export type GdsMediaFit = 'cover' | 'contain' | 'fill' | 'scale-down';
+/** Overflow policy for a safe surface: visible, clip, single-axis scroll, auto, or `contained` (auto scroll with overscroll containment). */
 export type GdsOverflowPolicy = 'visible' | 'clip' | 'scroll-x' | 'scroll-y' | 'auto' | 'contained';
+/** Semantic background role mapped to theme-aware surface tokens. */
 export type GdsSemanticBackground = 'canvas' | 'surface' | 'subtle' | 'accent' | 'danger' | 'success' | 'warning' | 'info' | 'transparent';
+/** Semantic border role mapped to theme-aware border tokens. */
 export type GdsBorderRole = 'none' | 'default' | 'subtle' | 'accent' | 'danger' | 'success' | 'focus';
+/** Corner-radius token, from `none` to fully `round`. */
 export type GdsRadiusToken = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'round';
+/** Visibility state: shown, `display:none`, or visually hidden but screen-reader accessible. */
 export type GdsVisibilityValue = 'visible' | 'hidden' | 'screen-reader-only';
 
+/** Token-only style inputs for the safe-surface primitives; every field maps to a governed value, so no raw CSS leaks through. */
 export interface GdsSafeStyleProps {
   background?: GdsSemanticBackground;
   border?: GdsBorderRole;
   radius?: GdsRadiusToken;
   shadow?: 'none' | 'subtle' | 'raised';
   overflow?: GdsOverflowPolicy;
+  /** `object-fit` applied to media content. */
   mediaFit?: GdsMediaFit;
   aspectRatio?: 'square' | 'video' | 'photo' | 'wide' | 'portrait';
+  /** Inner padding, from the layout spacing scale. */
   inset?: GdsLayoutToken;
+  /** Visibility, optionally set per breakpoint. */
   visibility?: GdsResponsiveValue<GdsVisibilityValue>;
+  /** Focus ring placement: standard or inset. */
   focusRing?: 'default' | 'inset';
+  /** Forced-colors handling: adapt automatically or preserve authored colors. */
   forcedColors?: 'auto' | 'preserve';
 }
 
+/** Resolved output of the safe-style engine: a class name, inline style, companion CSS, and data attributes to spread onto an element. */
 export interface GdsStyleContract {
   className: string;
   style: CSSProperties;
+  /** Breakpoint CSS (e.g. responsive visibility) to inject alongside the element. */
   css: string;
   attributes: {
     'data-gds-safe-style': string;
@@ -35,26 +49,37 @@ export interface GdsStyleContract {
   };
 }
 
+/** Props for {@link GdsSafeBox}: a Mantine `Box` restricted to governed `safeStyle` tokens plus an escape-hatch inline `style`. */
 export interface GdsSafeBoxProps extends Omit<BoxProps, 'children' | 'style'> {
   children?: ReactNode;
+  /** Governed style tokens applied to the box. */
   safeStyle?: GdsSafeStyleProps;
+  /** Inline style merged over the resolved safe style. */
   style?: CSSProperties;
 }
 
+/** Props for {@link GdsMediaFrame}: a {@link GdsSafeBox} preset for media. */
 export interface GdsMediaFrameProps extends Omit<GdsSafeBoxProps, 'safeStyle'> {
   children: ReactNode;
+  /** `object-fit` for the media; defaults to `'cover'`. */
   fit?: GdsMediaFit;
+  /** Frame aspect ratio; defaults to `'photo'`. */
   aspectRatio?: NonNullable<GdsSafeStyleProps['aspectRatio']>;
 }
 
+/** Props for {@link GdsOverflowFrame}: a {@link GdsSafeBox} preset that applies a scroll/overflow policy. */
 export interface GdsOverflowFrameProps extends Omit<GdsSafeBoxProps, 'safeStyle'> {
   children: ReactNode;
+  /** Overflow policy; defaults to `'contained'`. */
   policy?: GdsOverflowPolicy;
+  /** Accessible label for the scroll region. */
   label?: string;
 }
 
+/** Props for {@link GdsResponsiveVisibility}: shows or hides children per breakpoint. */
 export interface GdsResponsiveVisibilityProps extends Omit<GdsSafeBoxProps, 'safeStyle'> {
   children: ReactNode;
+  /** Visibility value, set per breakpoint. */
   visibility: GdsResponsiveValue<GdsVisibilityValue>;
 }
 
@@ -189,6 +214,12 @@ function visibilityCss(className: string, visibility: GdsResponsiveValue<GdsVisi
     .join('');
 }
 
+/**
+ * Resolves {@link GdsSafeStyleProps} into an inline `style` object and the safe-style
+ * data attributes (no class name or breakpoint CSS). Translates each token to theme
+ * values and applies the overflow/focus-ring rules. Used internally by
+ * {@link createGdsStyleContract}.
+ */
 export function gdsStyle(props: GdsSafeStyleProps = {}): Omit<GdsStyleContract, 'className' | 'css'> {
   const {
     background,
@@ -250,6 +281,7 @@ export function gdsStyle(props: GdsSafeStyleProps = {}): Omit<GdsStyleContract, 
   };
 }
 
+/** Resolves safe-style props into a full {@link GdsStyleContract} — a deterministic hashed class name, inline style, breakpoint CSS, and data attributes tagged with `id`. */
 export function createGdsStyleContract(id: string, props: GdsSafeStyleProps = {}): GdsStyleContract {
   const className = hashSafeStyle(`${id}:${JSON.stringify(props)}`);
   const resolved = gdsStyle(props);
@@ -268,6 +300,11 @@ function SafeStyleSheet({ css }: { css: string }) {
   return css ? <style data-gds-safe-style-sheet>{css}</style> : null;
 }
 
+/**
+ * Governed `Box` that renders only token-driven styles from `safeStyle`, injecting
+ * any companion breakpoint CSS. The base primitive the other safe-surface
+ * components build on.
+ */
 export function GdsSafeBox({
   children,
   safeStyle,
@@ -291,6 +328,7 @@ export function GdsSafeBox({
   );
 }
 
+/** Safe surface for media that clips its content to a fixed aspect ratio, applies the given `object-fit`, and centers the child. */
 export function GdsMediaFrame({
   children,
   fit = 'cover',
@@ -309,6 +347,7 @@ export function GdsMediaFrame({
   );
 }
 
+/** Safe surface that constrains overflow to a governed scroll `policy`, labeled for assistive tech. */
 export function GdsOverflowFrame({
   children,
   policy = 'contained',
@@ -326,6 +365,7 @@ export function GdsOverflowFrame({
   );
 }
 
+/** Safe surface that shows or hides its children per breakpoint using generated media-query CSS. */
 export function GdsResponsiveVisibility({
   children,
   visibility,

@@ -1,5 +1,7 @@
+/** Delivery status of a maturity capability. */
 export type GdsMaturityCapabilityStatus = 'production-ready' | 'adoption-tooling' | 'operational-contract';
 
+/** Identifier for one of the recommended maturity capability areas. */
 export type GdsMaturityCapabilityArea =
   | 'admin-delivery'
   | 'runtime-feedback'
@@ -9,6 +11,11 @@ export type GdsMaturityCapabilityArea =
   | 'theme-operations'
   | 'product-system';
 
+/**
+ * Static registry entry describing one recommended GDS maturity capability: its
+ * issue, benefit, package lanes, contracts, runtime flow, UX states, accessibility,
+ * observability, testing, documentation, edge cases, and operational behavior.
+ */
 export interface GdsMaturityCapability {
   id: GdsMaturityCapabilityArea;
   issueNumber: number;
@@ -188,19 +195,23 @@ function cloneCapability(capability: GdsMaturityCapability): GdsMaturityCapabili
   };
 }
 
+/** Returns deep clones of every maturity capability in registry order. */
 export function getGdsMaturityCapabilities(): GdsMaturityCapability[] {
   return maturityCapabilities.map(cloneCapability);
 }
 
+/** Returns the maturity capabilities sorted by their recommended priority order. */
 export function getGdsRecommendedMaturityCapabilities(): GdsMaturityCapability[] {
   return getGdsMaturityCapabilities().sort((a, b) => a.priorityOrder - b.priorityOrder);
 }
 
+/** Returns a deep clone of the maturity capability for the given area, or `undefined` if none matches. */
 export function getGdsMaturityCapability(id: GdsMaturityCapabilityArea): GdsMaturityCapability | undefined {
   const capability = maturityCapabilities.find((entry) => entry.id === id);
   return capability ? cloneCapability(capability) : undefined;
 }
 
+/** Counts capabilities by status, returning per-status tallies plus an overall `total`. */
 export function getGdsMaturitySummary() {
   return maturityCapabilities.reduce<Record<GdsMaturityCapabilityStatus | 'total', number>>((summary, capability) => {
     summary.total += 1;

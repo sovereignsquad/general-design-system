@@ -3,17 +3,25 @@ import { Badge, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { EmptyState } from './EmptyState';
 import { StateBlock } from './StateBlock';
 
+/** Lifecycle state of a `PlaybackSurface`, driving the status badge and rendered body. */
 export type PlaybackSurfaceState = 'loading' | 'ready' | 'playing' | 'empty' | 'error' | 'degraded';
 
+/** Props for `PlaybackSurface`. */
 export interface PlaybackSurfaceProps {
   title?: ReactNode;
   state: PlaybackSurfaceState;
+  /** Media node rendered in the ready, playing, and degraded states. */
   media?: ReactNode;
   statusMessage?: ReactNode;
+  /** Playback controls shown in the header. */
   controls?: ReactNode;
+  /** Custom node for the `empty` state; falls back to a default empty state. */
   emptyState?: ReactNode;
+  /** Custom node for the `error` state; falls back to a default error block. */
   errorState?: ReactNode;
+  /** Nodes layered over the media (e.g. captions or badges). */
   overlays?: ReactNode;
+  /** Presentation mode surfaced via `data-playback-mode`; defaults to `embedded`. */
   mode?: 'fullscreen' | 'embedded' | 'kiosk';
 }
 
@@ -26,6 +34,7 @@ const stateTone: Record<PlaybackSurfaceState, { label: string; color: string }> 
   degraded: { label: 'Degraded', color: 'orange' },
 };
 
+/** Governed media playback container that renders a status badge and swaps its body across loading, empty, error, degraded, and ready/playing states. */
 export function PlaybackSurface({
   title,
   state,

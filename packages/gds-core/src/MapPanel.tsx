@@ -4,20 +4,30 @@ import type { ActionBarProps } from './ActionBar';
 import { ActionBar } from './ActionBar';
 import { StateBlock } from './StateBlock';
 
+/** Props for the `MapPanel` component. */
 export interface MapPanelProps {
   title: ReactNode;
   description?: ReactNode;
+  /** Optional header action bar. */
   actions?: ActionBarProps;
   loading?: boolean;
+  /** Description shown in the empty state when no map source is provided. */
   empty?: ReactNode;
+  /** Error content; when set, an error state block replaces the map. */
   error?: ReactNode;
+  /** Accessible title for the embedded iframe. Defaults to "Embedded map". */
   embedTitle?: string;
+  /** Sanctioned embed URL rendered in a sandboxed iframe (used when `renderMap` is not given). */
   iframeSrc?: string;
+  /** iframe sandbox permissions. Defaults to `allow-scripts allow-same-origin allow-popups`. */
   iframeSandbox?: string;
+  /** Custom map renderer; takes precedence over `iframeSrc`. */
   renderMap?: () => ReactNode;
+  /** Minimum height of the custom map body. Defaults to `320`. */
   minHeight?: number | string;
 }
 
+/** Governed map surface: a titled bordered panel that renders a custom map (`renderMap`) or a sandboxed embed (`iframeSrc`), with loading, empty, and error state blocks. */
 export function MapPanel({
   title,
   description,

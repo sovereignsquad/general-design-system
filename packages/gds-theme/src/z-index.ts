@@ -21,4 +21,5 @@ export const gdsZIndexToken = {
   max: 'var(--mantine-z-index-max)',
 } as const;
 
+/** A stacking-layer tier name (a key of `gdsZIndexToken`). */
 export type GdsZIndexTier = keyof typeof gdsZIndexToken;

@@ -6,6 +6,7 @@ import { EditorContent, useEditor, useEditorState, type Editor } from '@tiptap/r
 import StarterKit from '@tiptap/starter-kit';
 import { GdsIcon, type GdsIconName } from './icons';
 
+/** Props for the `GdsRichTextEditor` component. */
 export interface GdsRichTextEditorProps {
   /** Controlled HTML value. */
   value?: string;

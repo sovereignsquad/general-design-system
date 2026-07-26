@@ -23,6 +23,11 @@ export interface ReferenceSectionProps {
   children: ReactNode;
 }
 
+/**
+ * Governed reference/content section over {@link SectionPanel}: an optional
+ * eyebrow, title, description, and header link, rendered without an internal
+ * divider.
+ */
 export function ReferenceSection({
   title,
   description,

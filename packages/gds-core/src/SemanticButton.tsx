@@ -8,13 +8,20 @@ import { IconCheck, IconX } from '@tabler/icons-react';
 import { getSemanticActionLabel, resolveSemanticActionConfig } from './vocabulary';
 import type { GdsVocabularyPack, SemanticActionId } from './vocabulary';
 
+/** Props for `SemanticButton`; extends Mantine `ButtonProps` and the native button attributes. */
 export interface SemanticButtonProps extends ButtonProps, Omit<React.ComponentPropsWithoutRef<'button'>, keyof ButtonProps | 'leftSection' | 'children'> {
+  /** Governed semantic action id whose label and icon are resolved from the vocabulary. */
   action: SemanticActionId;
+  /** Applies a brand color treatment; the `disabled` variant also disables the button. */
   brandVariant?: 'primary' | 'secondary' | 'accent' | 'disabled';
   loading?: boolean;
+  /** Triggers a transient success/error feedback treatment (icon, color, label) for ~2s. */
   feedbackState?: 'success' | 'error' | null;
+  /** Overrides the label shown during a feedback state. */
   feedbackText?: string;
+  /** Renders the untranslated label on first paint to avoid a hydration mismatch, then upgrades; defaults to true. */
   prerenderLabelOnly?: boolean;
+  /** Additional vocabulary packs consulted when resolving the action's label and icon. */
   vocabularyPacks?: GdsVocabularyPack[];
 }
 

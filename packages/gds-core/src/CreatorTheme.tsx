@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
 import { Alert, Stack, Text } from '@mantine/core';
 
+/** Severity of a creator-CSS validation issue; `error` blocks the CSS from applying, `warning` does not. */
 export type CreatorCssSeverity = 'error' | 'warning';
 
+/** A single issue found while validating creator-authored CSS, with a machine code and optional offending selector/property. */
 export interface CreatorCssValidationIssue {
   code: string;
   severity: CreatorCssSeverity;
@@ -11,20 +13,30 @@ export interface CreatorCssValidationIssue {
   property?: string;
 }
 
+/** Policy governing what creator-authored CSS may contain. */
 export interface CreatorCssPolicy {
+  /** Required prefix every selector must start with (the theme scope). */
   scopeSelector?: string;
+  /** Maximum allowed CSS length in characters. Defaults to 12,000. */
   maxLength?: number;
+  /** Property names that may not be set. Defaults to a layout/visibility block list. */
   blockedProperties?: string[];
+  /** Selector patterns that are rejected. Defaults to global/script/visibility-guard patterns. */
   blockedSelectorPatterns?: RegExp[];
+  /** Selectors that must remain visible and cannot be hidden. */
   requiredVisibleSelectors?: string[];
 }
 
+/** Props for `CreatorThemeBoundary`. */
 export interface CreatorThemeBoundaryProps {
+  /** Creator-authored CSS to validate and, if clean, inject. */
   css: string;
+  /** Unique id used to build the `[data-gds-creator-theme]` scope selector. */
   scopeId: string;
   policy?: CreatorCssPolicy;
   requiredVisibleSelectors?: string[];
   children: ReactNode;
+  /** Called with the validation issues found for this CSS. */
   onDiagnostics?: (issues: CreatorCssValidationIssue[]) => void;
 }
 
@@ -47,6 +59,12 @@ function addIssue(issues: CreatorCssValidationIssue[], issue: CreatorCssValidati
   issues.push(issue);
 }
 
+/**
+ * Validates creator-authored CSS against a policy, returning all issues (empty
+ * when clean). Flags oversized input, unsafe functions (`javascript:`,
+ * `expression()`, `@import`), out-of-scope or blocked selectors, blocked
+ * properties, and warns on raw colors that bypass GDS/Mantine token variables.
+ */
 export function validateCreatorCss(css: string, policy: CreatorCssPolicy = {}): CreatorCssValidationIssue[] {
   const issues: CreatorCssValidationIssue[] = [];
   const maxLength = policy.maxLength ?? 12_000;
@@ -124,6 +142,7 @@ export function validateCreatorCss(css: string, policy: CreatorCssPolicy = {}): 
   return issues;
 }
 
+/** Renders creator-CSS validation issues as color-coded alerts (red for errors, yellow for warnings), or a success alert when there are none. */
 export function CreatorThemeDiagnostics({ issues }: { issues: CreatorCssValidationIssue[] }) {
   if (!issues.length) {
     return <Alert color="teal" title="Creator theme valid">No blocking creator theme diagnostics.</Alert>;
@@ -140,6 +159,11 @@ export function CreatorThemeDiagnostics({ issues }: { issues: CreatorCssValidati
   );
 }
 
+/**
+ * Scoped wrapper that validates creator CSS against the theme scope and injects
+ * it only when there are no blocking errors; on error it renders the diagnostics
+ * instead of the styles. Children always render inside the scoped container.
+ */
 export function CreatorThemeBoundary({
   css,
   scopeId,

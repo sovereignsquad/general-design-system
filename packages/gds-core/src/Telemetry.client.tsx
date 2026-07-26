@@ -3,6 +3,7 @@
 import { createContext, useContext, useMemo } from 'react';
 import type { ReactNode } from 'react';
 
+/** Canonical GDS operational (UX) event types emitted by governed components. */
 export const gdsOperationalEventTypes = [
   'submit',
   'submit_success',
@@ -18,6 +19,7 @@ export const gdsOperationalEventTypes = [
   'payload_rejected',
 ] as const;
 
+/** Canonical failure-reason codes attached to failed/rejected telemetry events. */
 export const gdsUxFailureReasons = [
   'adapter_unavailable',
   'network_unavailable',
@@ -31,56 +33,83 @@ export const gdsUxFailureReasons = [
   'unknown',
 ] as const;
 
+/** An event type: one of {@link gdsOperationalEventTypes} or any custom string. */
 export type GdsOperationalEventType = (typeof gdsOperationalEventTypes)[number] | (string & {});
+/** A failure reason: one of {@link gdsUxFailureReasons} or any custom string. */
 export type GdsUxFailureReason = (typeof gdsUxFailureReasons)[number] | (string & {});
+/** Outcome recorded alongside a telemetry event. */
 export type GdsTelemetryOutcome = 'pending' | 'success' | 'error' | 'info' | 'cancelled' | 'timeout' | 'rejected';
+/** Allowed primitive value types inside a telemetry payload. */
 export type GdsTelemetryPayloadValue = string | number | boolean | null;
+/** Flat key/value bag of telemetry payload values. */
 export type GdsTelemetryPayload = Record<string, GdsTelemetryPayloadValue>;
 
+/** A normalized operational telemetry event as delivered to sinks and adapters. */
 export interface GdsOperationalEvent {
+  /** Name of the emitting component. */
   component: string;
   eventType: GdsOperationalEventType;
+  /** Emission timestamp (epoch ms). */
   ts: number;
+  /** Id used to correlate related events and to drive deterministic sampling. */
   correlationId: string;
   outcome?: GdsTelemetryOutcome;
   reason?: GdsUxFailureReason;
   actionId?: string;
   workflowId?: string;
   operationId?: string;
+  /** Attempt number for retried operations. */
   attempt?: number;
   timeoutMs?: number;
+  /** Structured context, scrubbed by the payload policy before dispatch. */
   context?: GdsTelemetryPayload;
+  /** Event payload, scrubbed by the payload policy before dispatch. */
   payload?: GdsTelemetryPayload;
 }
 
+/** Backward-compatible alias of {@link GdsOperationalEvent}. */
 export interface GdsUiEvent extends GdsOperationalEvent {}
 
+/** Input shape for emitting an event; `ts` is filled in automatically when omitted. */
 export type GdsOperationalEventInput = Omit<GdsOperationalEvent, 'ts'> & { ts?: number };
+/** A function that receives normalized telemetry events (sync or async). */
 export type GdsTelemetrySink = (event: GdsOperationalEvent) => void | Promise<void>;
 
+/** A telemetry transport: emits events, optionally gated by availability and with a flush hook. */
 export interface GdsTelemetryAdapter {
   id: string;
   emit: GdsTelemetrySink;
+  /** When present and returning `false`, events are reported as `adapter-unavailable` instead of emitted. */
   isAvailable?: () => boolean;
   flush?: () => void | Promise<void>;
 }
 
+/** Governs how event `context`/`payload` are scrubbed before dispatch. */
 export interface GdsEventPayloadPolicy {
+  /** Keys whose values are dropped (case-insensitive substring match); merged with the built-in unsafe-key list. */
   redactKeys?: string[];
+  /** Keys that mark the payload as rejected (case-insensitive substring match). */
   rejectKeys?: string[];
+  /** When `true`, an event with any rejected key is dropped entirely rather than scrubbed. */
   rejectUnsafePayload?: boolean;
+  /** Maximum number of keys retained per payload. Defaults to 24. */
   maxKeys?: number;
+  /** Maximum string length before truncation. Defaults to 160. */
   maxStringLength?: number;
+  /** Called with the rejected keys whenever scrubbing removes any. */
   onRejectedPayload?: (details: GdsRejectedPayloadDetails) => void;
 }
 
+/** Details reported to `onRejectedPayload` when payload keys are redacted or rejected. */
 export interface GdsRejectedPayloadDetails {
   component: string;
   eventType: GdsOperationalEventType;
   correlationId: string;
+  /** The payload keys that were removed. */
   rejectedKeys: string[];
 }
 
+/** Result status returned when an event is dispatched via {@link emitGdsEvent}. */
 export type GdsTelemetryDispatchStatus =
   | 'emitted'
   | 'adapter-unavailable'
@@ -89,31 +118,43 @@ export type GdsTelemetryDispatchStatus =
   | 'sampling-disabled'
   | 'dropped';
 
+/** Outcome of a dispatch attempt: the status plus the normalized event and any rejected keys. */
 export interface GdsTelemetryDispatchResult {
   status: GdsTelemetryDispatchStatus;
+  /** The normalized (scrubbed, timestamped) event, when one was produced. */
   event?: GdsOperationalEvent;
   rejectedKeys?: string[];
 }
 
+/** Options controlling a single {@link emitGdsEvent} dispatch. */
 export interface GdsTelemetryDispatchOptions {
+  /** Preferred transport; takes precedence over `sink`. */
   adapter?: GdsTelemetryAdapter;
+  /** Legacy sink used when no `adapter` is provided. */
   sink?: GdsTelemetrySink;
+  /** Fraction of events to keep (0–1), applied deterministically per `correlationId`. Defaults to 1. */
   sampleRate?: number;
   payloadPolicy?: GdsEventPayloadPolicy;
   onAdapterError?: (error: unknown, event: GdsOperationalEvent) => void;
 }
 
+/** Configuration for {@link createGdsTelemetryAdapter}, adding timeout/retry behavior around a sink. */
 export interface GdsTelemetryAdapterOptions {
   id: string;
   emit: GdsTelemetrySink;
   isAvailable?: () => boolean;
   flush?: () => void | Promise<void>;
+  /** Per-attempt timeout in ms. Defaults to 1000. */
   timeoutMs?: number;
+  /** Number of extra retries after the first attempt. Defaults to 0. */
   retryAttempts?: number;
+  /** Delay between retries in ms. Defaults to 0. */
   retryDelayMs?: number;
+  /** Called with the last error once all attempts are exhausted. */
   onError?: (error: unknown, event: GdsOperationalEvent) => void;
 }
 
+/** Props for {@link GdsTelemetryProvider}; mirror {@link GdsTelemetryDispatchOptions} for the whole subtree. */
 export interface GdsTelemetryProviderProps {
   children: ReactNode;
   sink?: GdsTelemetrySink;
@@ -268,10 +309,16 @@ function dispatchToAdapter(
   }
 }
 
+/** Type guard: `true` when the string is one of the canonical {@link gdsOperationalEventTypes}. */
 export function isGdsOperationalEventType(eventType: string): eventType is (typeof gdsOperationalEventTypes)[number] {
   return gdsOperationalEventTypes.includes(eventType as (typeof gdsOperationalEventTypes)[number]);
 }
 
+/**
+ * Wraps a sink into a {@link GdsTelemetryAdapter} that applies per-attempt
+ * timeout and retry, stamps each attempt number onto the event, and reports the
+ * final error to `onError` when all attempts fail.
+ */
 export function createGdsTelemetryAdapter({
   id,
   emit,
@@ -308,6 +355,11 @@ export function createGdsTelemetryAdapter({
   };
 }
 
+/**
+ * Core dispatch: applies sampling, scrubs the payload per policy, and routes the
+ * normalized event to the adapter (or legacy sink), returning a
+ * {@link GdsTelemetryDispatchResult} describing what happened.
+ */
 export function emitGdsEvent({
   adapter,
   sink,
@@ -347,6 +399,7 @@ export function emitGdsEvent({
   return { status: 'dropped', event: normalized.event };
 }
 
+/** Provides a memoized telemetry `emit` to the subtree via context, bound to the given adapter/sink and policy. */
 export function GdsTelemetryProvider({
   children,
   sink,
@@ -363,6 +416,7 @@ export function GdsTelemetryProvider({
   return <GdsTelemetryContext.Provider value={value}>{children}</GdsTelemetryContext.Provider>;
 }
 
+/** Reads the telemetry context; throws when used outside a {@link GdsTelemetryProvider}. */
 export function useGdsTelemetry() {
   const context = useContext(GdsTelemetryContext);
   if (!context) {

@@ -1,3 +1,4 @@
+/** Arabic (ar) message catalog for GDS core strings. */
 export const ar = {
   'gds.action.settings': 'الإعدادات',
   'gds.action.analytics': 'تحليلات',

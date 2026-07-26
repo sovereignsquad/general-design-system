@@ -4,22 +4,29 @@ import { createContext, useCallback, useContext, useMemo, useReducer, useRef, us
 import type { ReactNode } from 'react';
 import { Alert, Anchor, Stack, Text } from '@mantine/core';
 
+/** Severity of a validation issue; `blocking` prevents submit, `warning`/`info` do not. */
 export type ValidationSeverity = 'blocking' | 'warning' | 'info';
 
+/** A single field-level validation issue. */
 export interface ValidationIssue {
   field: string;
   message: string;
   severity: ValidationSeverity;
 }
 
+/** Lifecycle state of a form submission, from `idle` through validation, autosave, and success/error. */
 export type SubmitState = 'idle' | 'validating' | 'autosaving' | 'saved' | 'submitting' | 'optimistic' | 'success' | 'error' | 'restored';
 
+/** Per-field state tracked by the form reducer. */
 export interface FieldState {
   value: unknown;
+  /** Whether the field has been focused/blurred by the user. */
   touched: boolean;
+  /** Whether the field's value has changed from its initial value. */
   dirty: boolean;
 }
 
+/** Complete immutable snapshot of a form: all field states, current issues, and submit status. */
 export interface FormSnapshot {
   fields: Record<string, FieldState>;
   issues: ValidationIssue[];
@@ -46,6 +53,7 @@ function createSnapshot(values: Record<string, unknown>): FormSnapshot {
   return { fields, issues: [], submitState: 'idle' };
 }
 
+/** Pure reducer that advances a `FormSnapshot`: setting/touching fields, replacing issues, updating submit state, or resetting to new values. */
 export function gdsFormReducer(state: FormSnapshot, action: GdsFormAction): FormSnapshot {
   switch (action.type) {
     case 'set-field': {
@@ -99,29 +107,39 @@ interface UseGdsFormConfig<TValues extends Record<string, unknown>> {
   onSubmit: SubmitHandler<TValues>;
 }
 
+/** Pluggable draft persistence for form orchestration: load, save, and clear draft values. */
 export interface GdsDraftAdapter<TValues extends Record<string, unknown>> {
   load: () => Promise<TValues | null> | TValues | null;
   save: (values: TValues) => Promise<void> | void;
   clear: () => Promise<void> | void;
 }
 
+/** A server-side validation error, optionally tied to a specific field. */
 export interface GdsFormServerError {
   field?: string;
   message: string;
 }
 
+/** Metadata-only telemetry event emitted over the orchestrated form lifecycle. */
 export interface GdsFormOrchestrationEvent {
   type: 'dirty_changed' | 'validation_failed' | 'autosave_succeeded' | 'submit_failed' | 'retry_succeeded' | 'draft_restored';
   status: SubmitState;
   timestamp: number;
+  /** Always `'metadata-only'` — events never carry field values. */
   privacy: 'metadata-only';
 }
 
+/** Configuration for `useGdsFormOrchestration`, extending the base form config with drafts, autosave, optimistic submit, server-error mapping, and telemetry. */
 export interface UseGdsFormOrchestrationConfig<TValues extends Record<string, unknown>> extends UseGdsFormConfig<TValues> {
+  /** Adapter enabling draft load/save/clear (draft restore requires this). */
   draftAdapter?: GdsDraftAdapter<TValues>;
+  /** Autosave the draft before each submit. Defaults to `false`. */
   autosave?: boolean;
+  /** Enter the `optimistic` state instead of `submitting` while the submit is in flight. Defaults to `false`. */
   optimisticSubmit?: boolean;
+  /** Maps a thrown submit error into field-level server errors. */
   mapServerErrors?: (error: unknown) => GdsFormServerError[];
+  /** Receives lifecycle telemetry events. */
   onEvent?: (event: GdsFormOrchestrationEvent) => void;
 }
 
@@ -147,6 +165,7 @@ function emitFormEvent(onEvent: UseGdsFormOrchestrationConfig<any>['onEvent'], t
   onEvent?.({ type, status, timestamp: Date.now(), privacy: 'metadata-only' });
 }
 
+/** Builds a `GdsDraftAdapter` backed by a Web Storage store (defaults to `localStorage`), JSON-serializing values under `storageKey` and treating parse failures as no draft. */
 export function createGdsDraftAdapter<TValues extends Record<string, unknown>>(
   storageKey: string,
   storage: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'> = window.localStorage,
@@ -356,10 +375,12 @@ interface GdsFormContextValue {
 
 const GdsFormContext = createContext<GdsFormContextValue | null>(null);
 
+/** Context provider that exposes a form `snapshot` to descendant field/summary components (`FormErrorSummary`, `ValidatedFieldMessage`). */
 export function GdsFormProvider({ snapshot, children }: { snapshot: FormSnapshot; children: ReactNode }) {
   return <GdsFormContext.Provider value={{ snapshot }}>{children}</GdsFormContext.Provider>;
 }
 
+/** Returns the current `FormSnapshot` from the nearest `GdsFormProvider`; throws if used outside one. */
 export function useGdsFormSnapshot() {
   const context = useContext(GdsFormContext);
   if (!context) {
@@ -368,6 +389,7 @@ export function useGdsFormSnapshot() {
   return context.snapshot;
 }
 
+/** Renders a red `Alert` listing the snapshot's blocking issues as in-page anchor links to each field; renders nothing when there are none. */
 export function FormErrorSummary({ title = 'Please review the following issues.' }: { title?: ReactNode }) {
   const snapshot = useGdsFormSnapshot();
   const blocking = snapshot.issues.filter((issue) => issue.severity === 'blocking');
@@ -388,8 +410,10 @@ export function FormErrorSummary({ title = 'Please review the following issues.'
   );
 }
 
+/** Alias of {@link FormErrorSummary}. */
 export const GdsValidationSummary = FormErrorSummary;
 
+/** Renders the first blocking issue for `field` as an error message (id `${field}-error`, for `aria-describedby`); renders nothing when the field is valid. */
 export function ValidatedFieldMessage({ field }: { field: string }) {
   const snapshot = useGdsFormSnapshot();
   const issue = snapshot.issues.find((item) => item.field === field && item.severity === 'blocking');

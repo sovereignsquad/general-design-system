@@ -1,3 +1,4 @@
+/** Chinese (zh) message catalog mapping GDS message ids to their translated strings. */
 export const zh = {
   'gds.action.settings': '设置',
   'gds.action.analytics': '分析',

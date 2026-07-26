@@ -1,3 +1,4 @@
+/** German (`de`) message pack for the GDS string catalog, keyed by message id. */
 export const de = {
   'gds.action.settings': 'Einstellungen',
   'gds.action.analytics': 'Analyse',

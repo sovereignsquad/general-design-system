@@ -1,3 +1,4 @@
+/** English (reference-locale) message dictionary for GDS components, keyed by translation id. */
 export const en = {
   'gds.action.settings': 'Settings',
   'gds.action.analytics': 'Analytics',

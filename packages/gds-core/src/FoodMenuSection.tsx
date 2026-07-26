@@ -4,8 +4,10 @@ import { EmptyState } from './EmptyState';
 import { PublicFoodCard } from './PublicFoodCard';
 import type { PublicFoodCardProps } from './PublicFoodCard';
 
+/** One menu item: {@link PublicFoodCard} props plus a stable `id`. */
 export type FoodMenuItem = PublicFoodCardProps & { id: string };
 
+/** A titled group of menu items, with optional description and helper note. */
 export type FoodMenuCategory = {
   id: string;
   title: ReactNode;
@@ -14,6 +16,7 @@ export type FoodMenuCategory = {
   items: FoodMenuItem[];
 };
 
+/** Props for {@link FoodMenuSection}. */
 export interface FoodMenuSectionProps {
   title: ReactNode;
   description?: ReactNode;
@@ -21,11 +24,19 @@ export interface FoodMenuSectionProps {
   categories: FoodMenuCategory[];
   sectionNote?: ReactNode;
   action?: ReactNode;
+  /** Node shown when no category has visible items; defaults to a built-in {@link EmptyState}. */
   emptyState?: ReactNode;
   columns?: 1 | 2 | 3 | 4;
+  /** Also render categories that have no items; defaults to hiding them. */
   showEmptyCategories?: boolean;
 }
 
+/**
+ * Renders a grouped food menu: a section header plus each category's items in a
+ * responsive card grid. Empty categories are hidden unless `showEmptyCategories`
+ * is set, and an {@link EmptyState} (or the provided `emptyState`) shows when no
+ * category has visible items.
+ */
 export function FoodMenuSection({
   title,
   description,

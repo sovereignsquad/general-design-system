@@ -1,6 +1,6 @@
 # ClassScout / Class USA Integration Guide
 
-GDS 3.14.10 delivers the first-class `Class USA` theme and the missing ClassScout primitives required to ship on pure GDS with no app-level forks, raw design values, or app-local chart/control shims.
+GDS 3.14.11 delivers the first-class `Class USA` theme and the missing ClassScout primitives required to ship on pure GDS with no app-level forks, raw design values, or app-local chart/control shims.
 
 ## Install
 
@@ -12,7 +12,7 @@ GDS publishes exclusively to GitHub Packages (`https://npm.pkg.github.com`) — 
 ```
 
 ```bash
-npm install @sovereignsquad/gds@3.14.10
+npm install @sovereignsquad/gds@3.14.11
 ```
 
 ## Bootstrap

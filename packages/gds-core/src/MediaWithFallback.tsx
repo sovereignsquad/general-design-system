@@ -10,6 +10,7 @@ import { AspectRatio, Box, Text } from '@mantine/core';
  * box reserves space to avoid layout shift.
  */
 
+/** Props for {@link MediaWithFallback}. */
 export interface MediaWithFallbackProps {
   src?: string;
   /** Required for accessibility. Use `alt=""` for decorative images. */
@@ -38,6 +39,7 @@ function initialsFor(label?: string): string {
     .join('');
 }
 
+/** Renders `src` inside a fixed aspect-ratio box, showing a branded fallback (and an optional loading shimmer) on load error or missing `src`, so a broken image never collapses the layout. */
 export function MediaWithFallback({
   src,
   alt,
