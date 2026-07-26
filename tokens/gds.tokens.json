@@ -4,8 +4,8 @@
     "com.sovereignsquad.gds": {
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
-      "themeCount": 23,
-      "tokenCount": 391,
+      "themeCount": 25,
+      "tokenCount": 425,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "note": "Regenerated and drift-checked in CI (verify:tokens-dtcg). The code tokens remain the single source of truth."
     }
@@ -210,6 +210,424 @@
         "$type": "com.sovereignsquad.gds.cssGradient",
         "$value": "linear-gradient(135deg, rgba(124, 58, 237, 0.14), rgba(6, 182, 212, 0.12))",
         "$description": "default hero (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "hero",
+            "mode": "shared",
+            "category": "effect",
+            "cssComposite": true
+          }
+        }
+      }
+    },
+    "high-contrast": {
+      "$description": "GDS theme preset: high-contrast",
+      "primary": {
+        "$type": "color",
+        "$value": "#0b3d91",
+        "$description": "high-contrast primary (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "primary",
+            "mode": "shared",
+            "category": "color"
+          }
+        }
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "#7a1fa2",
+        "$description": "high-contrast accent (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "accent",
+            "mode": "shared",
+            "category": "color"
+          }
+        }
+      },
+      "glow": {
+        "$type": "color",
+        "$value": "rgba(0, 0, 0, 0.25)",
+        "$description": "high-contrast glow (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "glow",
+            "mode": "shared",
+            "category": "color"
+          }
+        }
+      },
+      "canvas-light": {
+        "$type": "color",
+        "$value": "#ffffff",
+        "$description": "high-contrast canvas-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "canvas-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "canvas-dark": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "high-contrast canvas-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "canvas-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "shell-light": {
+        "$type": "color",
+        "$value": "#ffffff",
+        "$description": "high-contrast shell-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "shell-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "shell-dark": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "high-contrast shell-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "shell-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "surface-light": {
+        "$type": "color",
+        "$value": "#ffffff",
+        "$description": "high-contrast surface-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "surface-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "surface-dark": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "high-contrast surface-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "surface-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "border-light": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "high-contrast border-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "border-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "border-dark": {
+        "$type": "color",
+        "$value": "#ffffff",
+        "$description": "high-contrast border-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "border-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "text-light": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "high-contrast text-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "text-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "text-dark": {
+        "$type": "color",
+        "$value": "#ffffff",
+        "$description": "high-contrast text-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "text-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "muted-light": {
+        "$type": "color",
+        "$value": "#3a3a3a",
+        "$description": "high-contrast muted-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "muted-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "muted-dark": {
+        "$type": "color",
+        "$value": "#d6d6d6",
+        "$description": "high-contrast muted-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "muted-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "gradient": {
+        "$type": "com.sovereignsquad.gds.cssGradient",
+        "$value": "linear-gradient(transparent, transparent)",
+        "$description": "high-contrast gradient (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "gradient",
+            "mode": "shared",
+            "category": "effect",
+            "cssComposite": true
+          }
+        }
+      },
+      "hero": {
+        "$type": "com.sovereignsquad.gds.cssGradient",
+        "$value": "linear-gradient(transparent, transparent)",
+        "$description": "high-contrast hero (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "hero",
+            "mode": "shared",
+            "category": "effect",
+            "cssComposite": true
+          }
+        }
+      }
+    },
+    "colorblind-safe": {
+      "$description": "GDS theme preset: colorblind-safe",
+      "primary": {
+        "$type": "color",
+        "$value": "#0072b2",
+        "$description": "colorblind-safe primary (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "primary",
+            "mode": "shared",
+            "category": "color"
+          }
+        }
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "#d55e00",
+        "$description": "colorblind-safe accent (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "accent",
+            "mode": "shared",
+            "category": "color"
+          }
+        }
+      },
+      "glow": {
+        "$type": "color",
+        "$value": "rgba(0, 114, 178, 0.2)",
+        "$description": "colorblind-safe glow (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "glow",
+            "mode": "shared",
+            "category": "color"
+          }
+        }
+      },
+      "canvas-light": {
+        "$type": "color",
+        "$value": "#f6f8fb",
+        "$description": "colorblind-safe canvas-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "canvas-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "canvas-dark": {
+        "$type": "color",
+        "$value": "#0a1420",
+        "$description": "colorblind-safe canvas-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "canvas-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "shell-light": {
+        "$type": "color",
+        "$value": "rgba(255, 255, 255, 0.85)",
+        "$description": "colorblind-safe shell-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "shell-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "shell-dark": {
+        "$type": "color",
+        "$value": "rgba(10, 20, 32, 0.85)",
+        "$description": "colorblind-safe shell-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "shell-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "surface-light": {
+        "$type": "color",
+        "$value": "#ffffff",
+        "$description": "colorblind-safe surface-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "surface-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "surface-dark": {
+        "$type": "color",
+        "$value": "#101b28",
+        "$description": "colorblind-safe surface-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "surface-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "border-light": {
+        "$type": "color",
+        "$value": "rgba(0, 114, 178, 0.28)",
+        "$description": "colorblind-safe border-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "border-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "border-dark": {
+        "$type": "color",
+        "$value": "rgba(86, 180, 233, 0.32)",
+        "$description": "colorblind-safe border-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "border-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "text-light": {
+        "$type": "color",
+        "$value": "#12181f",
+        "$description": "colorblind-safe text-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "text-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "text-dark": {
+        "$type": "color",
+        "$value": "#f2f6fa",
+        "$description": "colorblind-safe text-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "text-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "muted-light": {
+        "$type": "color",
+        "$value": "#475569",
+        "$description": "colorblind-safe muted-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "muted-light",
+            "mode": "light",
+            "category": "color"
+          }
+        }
+      },
+      "muted-dark": {
+        "$type": "color",
+        "$value": "#c3ccd6",
+        "$description": "colorblind-safe muted-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "muted-dark",
+            "mode": "dark",
+            "category": "color"
+          }
+        }
+      },
+      "gradient": {
+        "$type": "com.sovereignsquad.gds.cssGradient",
+        "$value": "radial-gradient(circle at 18% 12%, rgba(0, 114, 178, 0.16), transparent 30%), radial-gradient(circle at 82% 10%, rgba(213, 94, 0, 0.14), transparent 30%)",
+        "$description": "colorblind-safe gradient (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "gradient",
+            "mode": "shared",
+            "category": "effect",
+            "cssComposite": true
+          }
+        }
+      },
+      "hero": {
+        "$type": "com.sovereignsquad.gds.cssGradient",
+        "$value": "linear-gradient(135deg, rgba(0, 114, 178, 0.16), rgba(213, 94, 0, 0.12))",
+        "$description": "colorblind-safe hero (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
             "role": "hero",

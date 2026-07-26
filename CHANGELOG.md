@@ -2,6 +2,14 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.10 - 2026-07-26 — First-class accessibility theme presets: high-contrast + colorblind-safe
+
+Delivers the theme-preset half of #453 — the two accessibility presets peers ship (Primer's high-contrast/colorblind lanes) that GDS lacked as *selectable presets* despite having forced-colors support and contrast CI.
+
+- **`high-contrast` preset** (#453): a maximal-contrast, flat, undecorated accessibility lane. Pure black/white canvases and surfaces, black/white body text (21:1), near-pure dark-gray/light-gray meta text (AAA, ≥11:1 both schemes), solid black/white borders, near-black filled controls (`primaryColor: 'dark'` + `autoContrast`), no shadows, and no decorative gradients (a scoped `styles.css` rule flattens the body and suppresses the vibe overlay). Distinct from OS-driven `forced-colors` support (which GDS also honors) — this is a preset a product or user can choose deliberately.
+- **`colorblind-safe` preset** (#453): a brand palette drawn from the **Okabe-Ito** colorblind-safe qualitative set (Okabe & Ito, 2008) — `primary` = blue `#0072b2`, `accent` = vermillion `#d55e00`, the classic pairing that stays distinguishable across deuteranopia/protanopia/tritanopia — with `autoContrast` filled controls and dark-on-light AA/AAA text. It targets the categorical/brand palette; GDS's standing "never signal state by hue alone" rule (semantic components carry a label + icon per WCAG 1.4.1) already keeps success/danger distinguishable under every preset.
+- Both are first-class entries in `getGdsThemePresets()` (so they appear in the Theme Lab automatically) and ship full `GdsVibeTheme` token sets. The token graph, `verify:token-contrast-scoring` (now **200 readable-text pairs across 25 themes**, all ≥ AA — the two new lanes clear AAA), `verify:theme-accessibility` (300 checks), the DTCG export (`tokens/gds.tokens.json`, 25 themes), and `THEME_GOVERNANCE.md` are all updated. Additive; no change to existing presets.
+
 ## 3.14.9 - 2026-07-26 — Default semantic-role token layer for the base gdsTheme
 
 - **Default semantic-role token layer** (#451): the base `gdsTheme` now defines its **structural** semantic roles at `:root` in `@sovereignsquad/gds-theme/styles.css` — `--gds-bg-canvas`/`--gds-bg-page`/`--gds-bg-surface`/`--gds-bg-card`/`--gds-bg-inverse`, `--gds-border-card`, `--gds-text-body`/`--gds-text-primary`/`--gds-text-meta`/`--gds-text-secondary`, and `--gds-text-on-inverse` (light/dark via CSS `light-dark()`). Previously these role variables were defined only by `createBrandTheme(...)`, so the base theme left them undefined and every component fell back to a divergent per-call-site guess (`--gds-bg-surface` resolved to `#eee`/`gray-1`/`white` in different places). Now a component reads **one governed default** regardless of where it's used.

@@ -4,6 +4,8 @@ import { createBrandTheme } from './brand-tokens';
 
 export type GdsThemePresetId =
   | 'default'
+  | 'high-contrast'
+  | 'colorblind-safe'
   | 'dark-public'
   | 'flat-surface'
   | 'editorial'
@@ -186,7 +188,46 @@ export const classUsaThemePreset = createBrandTheme('class-usa').mantineTheme;
 
 export const goldAthleteThemePreset = createBrandTheme('gold-athlete').mantineTheme;
 
+// Accessibility lane (#453): a maximal-contrast, flat, undecorated preset built
+// on the `high-contrast` VibeTheme tokens. `primaryColor: 'dark'` + autoContrast
+// gives near-black filled controls with white labels (max legibility); shadows
+// are removed and Card/Paper/AppShell surfaces read the pure `--gds-vibe-*`
+// tokens with a solid 2px border. Text/meta clear WCAG AAA in both schemes.
+const highContrastPresetTheme = extendGdsTheme({
+  primaryColor: 'dark',
+  autoContrast: true,
+  luminanceThreshold: 0.4,
+  defaultRadius: 'sm',
+  shadows: { xs: 'none', sm: 'none', md: 'none', lg: 'none', xl: 'none' },
+  components: {
+    AppShell: {
+      styles: {
+        main: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-canvas)' },
+        header: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-canvas)', borderColor: 'var(--gds-vibe-border)' },
+        navbar: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-canvas)', borderColor: 'var(--gds-vibe-border)' },
+      },
+    },
+    Card: {
+      defaultProps: { withBorder: true, shadow: undefined },
+      styles: { root: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-surface)', borderColor: 'var(--gds-vibe-border)', borderWidth: 2 } },
+    },
+    Paper: {
+      defaultProps: { withBorder: true, shadow: undefined },
+      styles: { root: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-surface)', borderColor: 'var(--gds-vibe-border)', borderWidth: 2 } },
+    },
+    Button: { defaultProps: { fw: 700 } },
+  },
+});
+
+const colorblindSafePresetTheme = extendGdsTheme({
+  primaryColor: 'blue',
+  autoContrast: true,
+  luminanceThreshold: 0.4,
+});
+
 const customPresetThemes: Record<Exclude<GdsThemePresetId, 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand' | 'partner-discovery'>, MantineThemeOverride> = {
+  'high-contrast': highContrastPresetTheme,
+  'colorblind-safe': colorblindSafePresetTheme,
   sunset: createVibrantPresetTheme('orange'),
   oceanic: createVibrantPresetTheme('cyan'),
   forest: createVibrantPresetTheme('green'),
@@ -208,6 +249,8 @@ const customPresetThemes: Record<Exclude<GdsThemePresetId, 'default' | 'dark-pub
 
 const themePresetCatalog: GdsThemePreset[] = [
   { id: 'default', label: 'Default runtime theme', description: 'Balanced, neutral baseline lane.', runtimeLane: 'gdsTheme' },
+  { id: 'high-contrast', label: 'High contrast', description: 'Maximal-contrast accessibility lane: pure black/white surfaces, WCAG AAA text and meta, solid borders, and no decorative gradients.', runtimeLane: 'resolveGdsThemePreset(high-contrast)' },
+  { id: 'colorblind-safe', label: 'Colorblind safe', description: 'Accessibility lane using the Okabe-Ito colorblind-safe brand palette (blue/vermillion) that stays distinguishable across deuteranopia, protanopia, and tritanopia.', runtimeLane: 'resolveGdsThemePreset(colorblind-safe)' },
   { id: 'dark-public', label: 'Dark public theme', description: 'Dark public lane with explicit light and dark modes.', runtimeLane: 'gdsDarkPublicTheme' },
   { id: 'flat-surface', label: 'Flat surface theme', description: 'Lower-elevation operational lane.', runtimeLane: 'gdsFlatSurfaceTheme' },
   { id: 'editorial', label: 'Editorial serif theme', description: 'Reading-first, serif headline lane.', runtimeLane: 'gdsEditorialPublicTheme' },

@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 3.14.9
+Version: 3.14.10
 Last updated: 2026-07-26
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
@@ -203,6 +203,8 @@ Rules:
 
 ## Approved preset modes
 
+- `high-contrast` (`resolveGdsThemePreset('high-contrast')`) is the approved **accessibility** lane: a maximal-contrast, flat, undecorated preset with pure black/white surfaces, WCAG AAA body and meta text in both schemes, solid borders, near-black filled controls, and no decorative gradients. It is a first-class selectable preset (issue #453) — distinct from OS-driven `forced-colors` support, which GDS also honors — for products or users that want a deliberately high-contrast shell. Verified by `verify:token-contrast-scoring` and `verify:theme-accessibility`.
+- `colorblind-safe` (`resolveGdsThemePreset('colorblind-safe')`) is the approved **accessibility** lane whose brand palette is drawn from the Okabe-Ito colorblind-safe qualitative set (blue `#0072b2` / vermillion `#d55e00`) so categorical/brand color stays distinguishable across deuteranopia, protanopia, and tritanopia (issue #453). It complements — it does not replace — GDS's standing rule that state is never signalled by hue alone (semantic components carry a label + icon per WCAG 1.4.1), which is what keeps success/danger distinguishable under every preset.
 - `gdsDarkPublicTheme` is the approved preset for products that deliberately default to a dark public shell.
 - `gdsFlatSurfaceTheme` is the approved preset for products that need flatter operational surfaces without creating a second token authority.
 - `gdsEditorialPublicTheme` is the approved preset for public/editorial products that need serif-forward storytelling and flatter public surfaces without creating a private token branch.

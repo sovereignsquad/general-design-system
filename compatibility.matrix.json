@@ -1,5 +1,5 @@
 {
-  "gdsVersion": "3.14.9",
+  "gdsVersion": "3.14.10",
   "typescript": {
     "packagesBuild": "5.9.x",
     "referenceApps": "6.0.x",

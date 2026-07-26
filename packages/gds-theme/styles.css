@@ -121,6 +121,21 @@ html[data-gds-theme-preset] body::before {
     linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-primary) 8%, transparent), transparent 42%);
 }
 
+/* High-contrast accessibility lane (#453): override the decorative vibe body
+   treatment with a flat, pure canvas and suppress the tinted radial overlay, so
+   the shell reads as a plain maximal-contrast surface in both schemes. */
+html[data-gds-theme-preset='high-contrast'] body {
+  background: var(--gds-vibe-canvas);
+}
+
+html[data-gds-theme-preset='high-contrast'] body::before {
+  display: none;
+}
+
+html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-main {
+  background: var(--gds-vibe-canvas);
+}
+
 html[data-gds-theme-preset] .mantine-AppShell-main {
   --mantine-color-text: var(--gds-vibe-text);
   --mantine-color-dimmed: var(--gds-vibe-muted);

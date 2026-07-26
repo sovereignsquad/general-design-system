@@ -57,6 +57,62 @@ const neutralVibe: GdsVibeTheme = {
 
 const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   default: neutralVibe,
+  // Accessibility lane (#453): maximal-contrast, flat, undecorated. Pure
+  // white/black canvases, black/white body text, near-pure dark-gray/light-gray
+  // meta text (all AAA), and solid black/white borders. No gradients or glows —
+  // the atmosphere fields resolve to flat transparent so the shell reads as a
+  // plain high-contrast surface. Text/meta on canvas/surface clear WCAG AAA in
+  // both schemes (verified in verify:token-contrast-scoring / theme-accessibility).
+  'high-contrast': {
+    id: 'high-contrast',
+    label: 'High contrast',
+    primary: '#0b3d91',
+    accent: '#7a1fa2',
+    glow: 'rgba(0, 0, 0, 0.25)',
+    canvasLight: '#ffffff',
+    canvasDark: '#000000',
+    shellLight: '#ffffff',
+    shellDark: '#000000',
+    surfaceLight: '#ffffff',
+    surfaceDark: '#000000',
+    borderLight: '#000000',
+    borderDark: '#ffffff',
+    textLight: '#000000',
+    textDark: '#ffffff',
+    mutedLight: '#3a3a3a',
+    mutedDark: '#d6d6d6',
+    gradient: 'linear-gradient(transparent, transparent)',
+    hero: 'linear-gradient(transparent, transparent)',
+  },
+  // Accessibility lane (#453): colorblind-safe brand palette drawn from the
+  // Okabe-Ito qualitative set (Okabe & Ito, 2008) — the validated colors that
+  // stay distinguishable across deuteranopia, protanopia, and tritanopia.
+  // `primary` = Okabe-Ito blue (#0072b2), `accent` = Okabe-Ito vermillion
+  // (#d55e00): the classic CVD-safe categorical pairing. Text/meta stay dark on
+  // light (AA/AAA). GDS never signals state by hue alone (MeaningBadge et al.
+  // carry a label + icon per WCAG 1.4.1), so this lane targets the brand/
+  // categorical palette rather than the state colors.
+  'colorblind-safe': {
+    id: 'colorblind-safe',
+    label: 'Colorblind safe',
+    primary: '#0072b2',
+    accent: '#d55e00',
+    glow: 'rgba(0, 114, 178, 0.2)',
+    canvasLight: '#f6f8fb',
+    canvasDark: '#0a1420',
+    shellLight: 'rgba(255, 255, 255, 0.85)',
+    shellDark: 'rgba(10, 20, 32, 0.85)',
+    surfaceLight: '#ffffff',
+    surfaceDark: '#101b28',
+    borderLight: 'rgba(0, 114, 178, 0.28)',
+    borderDark: 'rgba(86, 180, 233, 0.32)',
+    textLight: '#12181f',
+    textDark: '#f2f6fa',
+    mutedLight: '#475569',
+    mutedDark: '#c3ccd6',
+    gradient: 'radial-gradient(circle at 18% 12%, rgba(0, 114, 178, 0.16), transparent 30%), radial-gradient(circle at 82% 10%, rgba(213, 94, 0, 0.14), transparent 30%)',
+    hero: 'linear-gradient(135deg, rgba(0, 114, 178, 0.16), rgba(213, 94, 0, 0.12))',
+  },
   'dark-public': {
     ...neutralVibe,
     id: 'dark-public',
