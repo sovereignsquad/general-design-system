@@ -2,6 +2,14 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.8 - 2026-07-26 — Consumer WCAG contrast checker
+
+- **Consumer contrast checker** (#453): two additive, pure, **server-safe** exports in `@sovereignsquad/gds-theme` (root, `/server`, and `/client` entries) surface the same WCAG 2.x contrast math GDS hard-gates its own tokens with (`verify:token-contrast-scoring`), so consumers can score **their own** brand/custom color pairs before shipping instead of re-implementing the formula:
+  - **`getGdsContrastRatio(foreground, background)`** — returns the WCAG contrast ratio (1–21, 2-dp), accepting `#hex` (3-/6-digit), `rgb()`, and `rgba()`; a translucent foreground is composited over the background first so the scored color is the one a user sees. Throws on an unparseable color.
+  - **`checkGdsContrast(foreground, background, options?)`** — checks a pair against a chosen WCAG threshold and reports `{ ratio, required, passes, level, size }`. Defaults to the GDS baseline **AA / normal (4.5:1)**; `level` (`'AA'`|`'AAA'`) and `size` (`'normal'`|`'large'`) select the 4.5 / 3 / 7 / 4.5 thresholds.
+
+  No React, no DOM — safe in a Server Component, route handler, or build script. Documented in [`docs/CONTRAST_CHECKER.md`](docs/CONTRAST_CHECKER.md). This is the consumer-facing checker slice of #453; the broader theme-builder/preset work on that issue remains open.
+
 ## 3.14.7 - 2026-07-26 — Screen-organized case studies + recorded foldable decision; JSDoc backfill batch
 
 - **Screen-organized case studies + recorded foldable decision** (#459): new [`docs/CASE_STUDIES_BY_SCREEN.md`](docs/CASE_STUDIES_BY_SCREEN.md) walks three screen types — a list-detail admin (operational shell + `GdsSplit`/`DetailProfileShell`), a public discovery surface (`PublicShell` + `BottomTabBar` + a supporting pane), and a kiosk/large-screen lane — each composed only from the canonical layout templates and walked across the named size classes (`compact`→`xlarge`), complementing the existing migration/adoption case study. The **foldable / dual-screen build-or-not decision** is recorded: **defer** — a single-window fold reads as a normal responsive size-class boundary today, and CSS `viewport-segments` is too narrowly supported to gate on — with a re-evaluation trigger when `viewport-segments` reaches baseline browser support; multi-window/Window Management orchestration stays a permanent non-goal. `RESPONSIVE_AND_PLATFORM_GUIDANCE.md` and `README.md` updated. Docs-only.

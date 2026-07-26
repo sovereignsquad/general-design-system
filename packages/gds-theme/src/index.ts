@@ -19,6 +19,8 @@ export type { VibeThemePickerProps } from './VibeThemePicker.client';
 // ── Accessibility & contrast reporting ──
 export { createGdsThemeAccessibilityReport, validateGdsThemeAccessibility } from './accessibility-report';
 export type { GdsAccessibilityFindingSeverity, GdsContrastCheck, GdsContrastFinding, GdsContrastMode, GdsContrastRole, GdsForcedColorRole, GdsThemeAccessibilityReport } from './accessibility-report';
+export { getGdsContrastRatio, checkGdsContrast } from './contrast';
+export type { GdsContrastLevel, GdsContrastResult, GdsContrastTextSize } from './contrast';
 
 // ── Token graph, diffing & compatibility ──
 export { createGdsTokenDiff, createGdsTokenGraph, createGdsThemeCompatibilityReport, validateGdsTokenGraph } from './token-operations';

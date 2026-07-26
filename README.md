@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 3.14.7
+Version: 3.14.8
 Last updated: 2026-07-26
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
@@ -92,6 +92,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Accessibility Conformance Report (VPAT / WCAG 2.2 AA)**: [VPAT_CONFORMANCE.md](VPAT_CONFORMANCE.md) — The first-party VPAT® 2.5 / WCAG 2.2 Level AA conformance statement, generated from the accessibility-evidence registry and CI gates, with an explicit provider/consumer responsibility split and a per-release refresh path.
 - **Per-Component Accessibility Reference**: [docs/ACCESSIBILITY_PER_COMPONENT.md](docs/ACCESSIBILITY_PER_COMPONENT.md) — Consumer-facing keyboard-interaction tables, focus/screen-reader behavior, and the provider/consumer responsibility split per pattern family and for high-traffic components (Kanban, GdsSchemaForm, overlays), plus how to adopt the `gds-a11y` CI helpers.
 - **Accessibility CI Package**: [A11Y_CI_PACKAGE.md](A11Y_CI_PACKAGE.md) — Reusable Playwright/axe helpers for keyboard, focus-trap, contrast, suppression, and deterministic report gates.
+- **Consumer Contrast Checker**: [docs/CONTRAST_CHECKER.md](docs/CONTRAST_CHECKER.md) — Pure, server-safe `getGdsContrastRatio(...)` / `checkGdsContrast(...)` exposing the same WCAG 2.x contrast math GDS hard-gates its own tokens with, so consumers can score their own brand/custom color pairs against AA/AAA (normal/large) thresholds before shipping.
 - **Exception Surfaces**: [EXCEPTION_SURFACES.md](EXCEPTION_SURFACES.md) — Chart, map, embed, and other approved exception-surface guidance.
 - **Deprecations & Migrations**: [DEPRECATIONS_AND_MIGRATIONS.md](DEPRECATIONS_AND_MIGRATIONS.md) — Contract retirement policy, migration rules, and release handover expectations.
 - **Portfolio Matrix**: [PROJECTS/PORTFOLIO_ADOPTION_MATRIX.md](PROJECTS/PORTFOLIO_ADOPTION_MATRIX.md) — The current cross-project inventory, archetypes, and recommended next actions.
