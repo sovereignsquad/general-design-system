@@ -14,6 +14,7 @@ import {
   GdsChart,
   ListingCard,
   MapPanel,
+  MeaningBadge,
   MediaCard,
   MetricCard,
   PlaybackSurface,
@@ -417,6 +418,8 @@ export function VocabularyPage() {
   const [feedback, setFeedback] = useState<'success' | 'error' | null>(null);
   const [demoAction, setDemoAction] = useState<'save' | 'delete' | 'preview' | 'add'>('save');
   const [demoBrand, setDemoBrand] = useState<'primary' | 'secondary' | 'accent'>('primary');
+  const [demoSize, setDemoSize] = useState<'sm' | 'md' | 'lg'>('md');
+  const [demoMeaning, setDemoMeaning] = useState<'attention' | 'validation' | 'info' | 'urgency'>('attention');
 
   const showFeedback = (next: 'success' | 'error') => {
     setFeedback(next);
@@ -469,8 +472,36 @@ export function VocabularyPage() {
           ]}
         />
         <br />
-        <SemanticButton action={demoAction} brandVariant={demoBrand} />
-        <BodyText>{`<SemanticButton action="${demoAction}" brandVariant="${demoBrand}" />`}</BodyText>
+        <GdsSegmentedControl
+          ariaLabel="Size"
+          value={demoSize}
+          onChange={(next) => setDemoSize(next as 'sm' | 'md' | 'lg')}
+          options={[
+            { value: 'sm', label: 'Small' },
+            { value: 'md', label: 'Medium' },
+            { value: 'lg', label: 'Large' },
+          ]}
+        />
+        <br />
+        <SemanticButton action={demoAction} brandVariant={demoBrand} size={demoSize} />
+        <BodyText>{`<SemanticButton action="${demoAction}" brandVariant="${demoBrand}" size="${demoSize}" />`}</BodyText>
+      </ReferenceSection>
+
+      <ReferenceSection title="Interactive controls — MeaningBadge" description="Storybook-parity: switch the semantic variant to see the governed MeaningBadge re-map its background and foreground tokens live.">
+        <GdsSegmentedControl
+          ariaLabel="Meaning variant"
+          value={demoMeaning}
+          onChange={(next) => setDemoMeaning(next as 'attention' | 'validation' | 'info' | 'urgency')}
+          options={[
+            { value: 'attention', label: 'Attention' },
+            { value: 'validation', label: 'Validation' },
+            { value: 'info', label: 'Info' },
+            { value: 'urgency', label: 'Urgency' },
+          ]}
+        />
+        <br />
+        <MeaningBadge variant={demoMeaning} label={`${demoMeaning} status`} />
+        <BodyText>{`<MeaningBadge variant="${demoMeaning}" label="${demoMeaning} status" />`}</BodyText>
       </ReferenceSection>
 
       <ReferenceSection title="Canonical social auth" description="Provider-based login belongs to the shared auth surface, not to custom stacks inside each product.">
