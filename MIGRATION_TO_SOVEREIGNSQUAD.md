@@ -102,7 +102,7 @@ Consumers that are not migrating an existing integration install the umbrella
 package only:
 
 ```bash
-npm install @sovereignsquad/gds@3.14.4 react react-dom
+npm install @sovereignsquad/gds@3.14.5 react react-dom
 ```
 
 Then import the stylesheet first, before any GDS component:

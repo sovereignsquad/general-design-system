@@ -12,18 +12,20 @@ import { createGdsTokenGraph } from '../packages/gds-theme/dist/index.mjs';
 // Scope and honesty notes:
 // - Translucent surface/text values are composited over the mode's canvas so the
 //   scored color is the one a user actually sees.
-// - Only pairs that MUST meet 4.5:1 are hard-gated: body text (text-*) on card
-//   and page, and meta text (muted-*) on card. These are the primary readable-
-//   text pairs.
+// - Pairs that MUST meet 4.5:1 are hard-gated: body text (text-*) on card and
+//   page, and meta text (muted-*) on both card AND page. These are the readable-
+//   text pairs. (meta-on-page was promoted from advisory to hard-gated in #460
+//   once every expressive light lane cleared 4.5:1.)
 // - Subtle decorative *card borders* are intentionally NOT gated at 3:1: WCAG
 //   1.4.11 exempts a boundary that is not the sole means of identifying a
 //   component (GDS cards are identified by content/elevation, and the border is
 //   a redundant same-family separator). Their ratios are printed as INFO so
 //   nothing is hidden.
-// - Meta text on the page canvas (muted over canvas) is a secondary usage with a
-//   few marginal (4.2-4.5) values in expressive lanes; it is reported as a
-//   WARN-level advisory, not a hard failure, and tracked as a follow-up rather
-//   than forcing an expressive-palette change here.
+// - Meta text on the page canvas (muted over canvas) is now hard-gated (#460):
+//   the eight expressive light lanes that previously sat at 4.26-4.48 (dark-public,
+//   editorial, sunset, ruby, skyline, coral, orchid, royal) had their `mutedLight`
+//   nudged darker so every meta-on-page pair clears 4.5:1. The ADVISORY tier is
+//   retained in the machinery for any future marginal pair, but is currently empty.
 // - For the runtime-CSS base presets (default/dark-public/flat-surface/editorial,
 //   painted via Mantine light-dark()/color-mix()), the token-graph values are a
 //   close proxy; their as-painted contrast is additionally covered by the
@@ -95,7 +97,7 @@ const pairSpecs = [
   ['text', 'surface', 4.5, 'body text on card', HARD],
   ['text', 'canvas', 4.5, 'body text on page', HARD],
   ['muted', 'surface', 4.5, 'meta text on card', HARD],
-  ['muted', 'canvas', 4.5, 'meta text on page', ADVISORY],
+  ['muted', 'canvas', 4.5, 'meta text on page', HARD],
   ['border', 'surface', 3.0, 'card border (decorative, non-gated)', INFO],
 ];
 

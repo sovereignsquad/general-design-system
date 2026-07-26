@@ -2,6 +2,10 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.5 - 2026-07-26 — Meta-text-on-page contrast hard-gated (every lane clears WCAG AA)
+
+- **Meta-on-page contrast nudged to WCAG AA and promoted to a hard gate** (#460): eight expressive light lanes (`dark-public`, `editorial`, `sunset`, `ruby`, `skyline`, `coral`, `orchid`, `royal`) shared the default `mutedLight` (`#64748b`), which on their tinted light canvases produced meta/muted-text-on-page contrast of **4.26–4.48** — just under 4.5:1. `verify:token-contrast-scoring` previously reported these as non-blocking *advisories*. Those lanes now carry a slightly darker `mutedLight` (`#5f6d82`) — a minimal nudge that clears 4.5:1 on every one of those canvases (worst case 4.70) while keeping meta-on-card comfortably above AA (≥5.2) — and the `muted`-on-`canvas` pair is **promoted from advisory to a hard release gate**. The gate now hard-asserts **184 readable-text fg/bg pairs across 23 themes** at WCAG AA 4.5:1 with an empty advisory tier. Only `mutedLight` in light mode changed (dark mode, body text, and the lanes that were already ≥4.5 are untouched); the DTCG token export (`tokens/gds.tokens.json`) is regenerated to match, and `VPAT_CONFORMANCE.md` is updated.
+
 ## 3.14.4 - 2026-07-26 — Theme Lab result cards re-theme like a built-in theme + active-preset indicator
 
 Bug fix for the Theme Lab (`/themes`, `ReferenceThemeExplorer`), reported as "Theme Lab ruins the page."

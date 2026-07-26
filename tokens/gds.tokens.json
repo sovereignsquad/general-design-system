@@ -380,7 +380,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#64748b",
+        "$value": "#5f6d82",
         "$description": "dark-public muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -798,7 +798,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#64748b",
+        "$value": "#5f6d82",
         "$description": "editorial muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1843,7 +1843,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#64748b",
+        "$value": "#5f6d82",
         "$description": "sunset muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -2470,7 +2470,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#64748b",
+        "$value": "#5f6d82",
         "$description": "ruby muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -3097,7 +3097,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#64748b",
+        "$value": "#5f6d82",
         "$description": "skyline muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -3515,7 +3515,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#64748b",
+        "$value": "#5f6d82",
         "$description": "coral muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -3933,7 +3933,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#64748b",
+        "$value": "#5f6d82",
         "$description": "orchid muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -4142,7 +4142,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#64748b",
+        "$value": "#5f6d82",
         "$description": "royal muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {

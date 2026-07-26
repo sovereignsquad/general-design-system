@@ -1,10 +1,10 @@
 # Accessibility Conformance Report (VPAT® 2.5) — General Design System
 
 Status: Active SSOT
-Version: 3.14.4
+Version: 3.14.5
 Last updated: 2026-07-26
 
-**Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `3.14.4`
+**Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `3.14.5`
 **Report Date:** 2026-07-25
 **Product Description:** A governed React + Mantine component and pattern library (theme, core components, admin scaffolds, accessibility CI helpers) consumed by product teams to build accessible application and public-site UIs.
 **Contact Information:** file an accessibility issue or question through the repository's feature/intake channel — the [`request-feature`](https://sovereignsquad.github.io/general-design-system/request-feature) route or the [GitHub issue board](PROJECT_BOARD.md).
@@ -108,7 +108,7 @@ Carried verbatim from the accessibility-evidence registry (limitations must stay
 - **Embed / third-party iframe surfaces** — the GDS containment shell (e.g. `MapPanel`) is verified, but third-party iframe internals remain vendor-owned and require consumer-provided fallback text. Recovery: use the governed fallback and a metadata-tracked suppression with an expiry.
 - **Searchable selection (recipe lane)** — keyboard and naming are governed, but a temporary recipe-backed lane still awaits a promoted first-class GDS export.
 - **Not yet gate-asserted (scored Partially Supports above):** Text Spacing (1.4.12), Focus Not Obscured (2.4.11), and Target Size (2.5.8) rely on design conventions rather than a dedicated release gate.
-- **Contrast scoring coverage:** `verify:token-contrast-scoring` (#456) now numerically scores the readable-text fg/bg pairs (body/meta text over card/page) from the actual token values across all 23 themes. Two residual gaps remain tracked, not hidden: (a) a handful of *secondary* meta-text-on-page pairs sit marginally below 4.5:1 (4.26–4.48) in expressive light-mode lanes — reported by the gate as advisories and tracked for a contrast nudge; (b) the runtime-CSS base presets (`default`/`dark-public`/`flat-surface`/`editorial`, painted via Mantine `light-dark()`/`color-mix()`) are scored from their token-graph proxy statically, with their as-painted contrast additionally covered by the forced-colors runtime gate — true runtime scoring of those lanes is a further enhancement.
+- **Contrast scoring coverage:** `verify:token-contrast-scoring` (#456) numerically scores the readable-text fg/bg pairs (body/meta text over card/page) from the actual token values across all 23 themes — **184 pairs, all hard-gated at WCAG AA 4.5:1**. The meta-text-on-page pairs that previously sat marginally below 4.5:1 (4.26–4.48) in eight expressive light lanes were nudged darker and the pair promoted from advisory to hard-gated (#460), so the advisory tier is now empty. One scoped note remains: the runtime-CSS base presets (`default`/`dark-public`/`flat-surface`/`editorial`, painted via Mantine `light-dark()`/`color-mix()`) are scored from their token-graph proxy statically, with their as-painted contrast additionally covered by the forced-colors runtime gate — true runtime scoring of those lanes is a further enhancement.
 
 ## Refresh path
 

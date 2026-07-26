@@ -60,6 +60,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   'dark-public': {
     ...neutralVibe,
     id: 'dark-public',
+    mutedLight: '#5f6d82',
     label: 'Dark public theme',
     primary: '#8b5cf6',
     accent: '#22d3ee',
@@ -86,6 +87,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   editorial: {
     ...neutralVibe,
     id: 'editorial',
+    mutedLight: '#5f6d82',
     label: 'Editorial serif theme',
     primary: '#9a3412',
     accent: '#be123c',
@@ -171,6 +173,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   sunset: {
     ...neutralVibe,
     id: 'sunset',
+    mutedLight: '#5f6d82',
     label: 'Sunset pulse',
     primary: '#f97316',
     accent: '#ec4899',
@@ -225,6 +228,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   ruby: {
     ...neutralVibe,
     id: 'ruby',
+    mutedLight: '#5f6d82',
     label: 'Ruby spark',
     primary: '#e11d48',
     accent: '#f97316',
@@ -272,6 +276,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   skyline: {
     ...neutralVibe,
     id: 'skyline',
+    mutedLight: '#5f6d82',
     label: 'Skyline indigo',
     primary: '#4f46e5',
     accent: '#0ea5e9',
@@ -302,6 +307,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   coral: {
     ...neutralVibe,
     id: 'coral',
+    mutedLight: '#5f6d82',
     label: 'Coral bloom',
     primary: '#db2777',
     accent: '#fb7185',
@@ -332,6 +338,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   orchid: {
     ...neutralVibe,
     id: 'orchid',
+    mutedLight: '#5f6d82',
     label: 'Orchid signal',
     primary: '#9333ea',
     accent: '#ec4899',
@@ -347,6 +354,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   royal: {
     ...neutralVibe,
     id: 'royal',
+    mutedLight: '#5f6d82',
     label: 'Royal violet',
     primary: '#7c3aed',
     accent: '#06b6d4',
