@@ -1,7 +1,7 @@
 # Responsive & Platform Guidance — Size Classes, Multi-Screen, PWA
 
 Status: Active SSOT
-Version: 3.14.5
+Version: 3.14.6
 Last updated: 2026-07-26
 
 This is GDS's answer to three questions the audit surfaced (issue #455): *what does GDS guarantee across screen sizes and device types, does it support multi-screen / PWA, and what are the per-screen best practices?* It also records the **explicit scope decisions** — build vs. documented non-goal — for the areas that need one, so consumers can plan around a stated position rather than an implicit gap.
@@ -57,9 +57,9 @@ Compose these from shipped primitives instead of bespoke page scaffolds:
 
 These are engineering **recommendations** (the roadmap owner may override); each is stated explicitly so there is no implicit gap.
 
-### PWA — *partial build (recommended)*
-Today GDS ships a viewport/zoom policy + helper (`getGdsPwaViewportMetaContent`, the `app-shell-fixed` exception lane) but no manifest/offline/install surface. **Recommendation: build the thin, standards-based pieces; do not build an app framework.**
-- **Build (filed as child issues):** a web-app-manifest generator/helper, `display-mode: standalone` detection, and `env(safe-area-inset-*)` safe-area tokens.
+### PWA — *partial build (delivered)*
+GDS ships the thin, standards-based PWA pieces and no app framework: the viewport/zoom policy + helper (`getGdsPwaViewportMetaContent`, the `app-shell-fixed` exception lane), plus the #458 thin build below.
+- **Delivered (#458):** a web-app-manifest generator (`getGdsWebAppManifest`), `display-mode: standalone` detection (`useGdsStandaloneDisplayMode`), and `env(safe-area-inset-*)` safe-area tokens (`gdsSafeAreaInset` + the `--gds-safe-area-inset-*` custom properties). See [`PWA_VIEWPORT_POLICY.md`](PWA_VIEWPORT_POLICY.md#pwa-thin-build-helpers-458).
 - **Documented non-goal:** service-worker/offline caching strategy and an install-prompt UX framework — these are application-architecture concerns that belong to the consuming app, not a component library. GDS documents the integration point rather than owning the runtime.
 
 ### Multi-screen — *documented non-goal (recommended), with one exception*
@@ -78,7 +78,7 @@ Do/don't visual pairs, a recipes/templates gallery, wider prose-doc localization
 Per the epic's "split into child issues as each is picked up" guidance, the concrete **build** decisions above are filed as their own tracked issues:
 
 - **#457** — consolidate the duplicated `breakpointByAlias` into one shared size-class token. ✅ **Delivered** as the exported `gdsBreakpointByAlias` (see [Single source of truth](#named-size-classes) above).
-- **#458** — PWA thin build: web-app-manifest helper, `display-mode: standalone` detection, and `env(safe-area-inset-*)` safe-area tokens (with service-worker/offline and install-prompt UX kept as explicit non-goals).
+- **#458** — PWA thin build: web-app-manifest helper, `display-mode: standalone` detection, and `env(safe-area-inset-*)` safe-area tokens (with service-worker/offline and install-prompt UX kept as explicit non-goals). ✅ **Delivered** as `getGdsWebAppManifest`, `useGdsStandaloneDisplayMode`, and `gdsSafeAreaInset` (see [`PWA_VIEWPORT_POLICY.md`](PWA_VIEWPORT_POLICY.md#pwa-thin-build-helpers-458)).
 - **#459** — screen-organized case studies + a foldable/dual-screen (`viewport-segments`) exploration.
 
 This document is the standing decision record those issues resolve against; update it when a decision changes.

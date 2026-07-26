@@ -2,6 +2,17 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.6 - 2026-07-26 — PWA thin build: web-app-manifest generator, standalone detection, safe-area tokens
+
+Delivers the standards-based PWA pieces scoped in #455 (PWA = *partial build*), keeping GDS a component/theme library rather than an app framework.
+
+- **PWA thin build** (#458): three additive, tree-shakeable helpers in `@sovereignsquad/gds-theme` (no breaking changes):
+  - **`getGdsWebAppManifest(options)`** — server-safe generator returning a valid, spec-shaped W3C web-app-manifest object from GDS theme/brand inputs, so the manifest's `theme_color`/`background_color` stay aligned to the active theme instead of a hand-maintained duplicate. Required `name`/`themeColor`/`backgroundColor` (throws otherwise); defaults `display: 'standalone'`, `start_url`/`scope`/`id: '/'`, `short_name` falls back to `name`. GDS does not serve the manifest — consumers serialize the result to their `manifest.webmanifest` (e.g. a Next.js `app/manifest.ts`). Exported from the root, `/server`, and `/client` entries.
+  - **`useGdsStandaloneDisplayMode()`** — SSR-safe client hook reporting whether the app runs as an installed PWA and its current `display-mode` (`standalone`/`fullscreen`/`minimal-ui`/`browser`), updating live on mode change; detects the `display-mode` media features plus iOS Safari's legacy `navigator.standalone`. Exported from the root and `/client` entries.
+  - **`gdsSafeAreaInset`** + **`--gds-safe-area-inset-{top,right,bottom,left}`** — governed safe-area inset custom properties in `styles.css` (each `env(safe-area-inset-*, 0px)`, resolving to `0px` on non-notched displays) exposed as ready-to-use `var(...)` strings, so shells/consumers read one inset source instead of hard-coding `env(safe-area-inset-*)`.
+
+  **Explicit non-goals (unchanged):** service-worker/offline caching and an install-prompt UX framework — application-architecture concerns owned by the consuming app; GDS documents the integration point only. Documented in `docs/PWA_VIEWPORT_POLICY.md` and `docs/RESPONSIVE_AND_PLATFORM_GUIDANCE.md`.
+
 ## 3.14.5 - 2026-07-26 — Meta-text-on-page contrast hard-gated (every lane clears WCAG AA)
 
 - **Meta-on-page contrast nudged to WCAG AA and promoted to a hard gate** (#460): eight expressive light lanes (`dark-public`, `editorial`, `sunset`, `ruby`, `skyline`, `coral`, `orchid`, `royal`) shared the default `mutedLight` (`#64748b`), which on their tinted light canvases produced meta/muted-text-on-page contrast of **4.26–4.48** — just under 4.5:1. `verify:token-contrast-scoring` previously reported these as non-blocking *advisories*. Those lanes now carry a slightly darker `mutedLight` (`#5f6d82`) — a minimal nudge that clears 4.5:1 on every one of those canvases (worst case 4.70) while keeping meta-on-card comfortably above AA (≥5.2) — and the `muted`-on-`canvas` pair is **promoted from advisory to a hard release gate**. The gate now hard-asserts **184 readable-text fg/bg pairs across 23 themes** at WCAG AA 4.5:1 with an empty advisory tier. Only `mutedLight` in light mode changed (dark mode, body text, and the lanes that were already ≥4.5 are untouched); the DTCG token export (`tokens/gds.tokens.json`) is regenerated to match, and `VPAT_CONFORMANCE.md` is updated.

@@ -21,6 +21,13 @@
  */
 :root {
   --gds-overlay-surface: #ffffff;
+  /* PWA safe-area insets (#458): each resolves to 0px on non-notched displays,
+     so GDS shells and consumer surfaces read one governed inset source via
+     `gdsSafeAreaInset` instead of hard-coding raw env(safe-area-inset-*). */
+  --gds-safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --gds-safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --gds-safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --gds-safe-area-inset-left: env(safe-area-inset-left, 0px);
 }
 html[data-mantine-color-scheme='dark'] {
   --gds-overlay-surface: var(--mantine-color-dark-6, #25262b);

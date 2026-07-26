@@ -61,6 +61,10 @@ export type { BrandColorRamp, BrandColorRamps, BrandFonts, ClassUsaColorRampName
 // ── PWA viewport ──
 export { getGdsPwaViewportMetaContent } from './viewport';
 export type { GdsPwaViewportOptions, GdsViewportZoomPolicy } from './viewport';
+export { getGdsWebAppManifest, gdsSafeAreaInset } from './pwa';
+export type { GdsWebAppManifest, GdsWebAppManifestOptions, GdsWebAppManifestIcon, GdsWebAppManifestDisplay } from './pwa';
+export { useGdsStandaloneDisplayMode } from './pwa.client';
+export type { GdsStandaloneDisplayModeState } from './pwa.client';
 
 // ── Development diagnostics ──
 export { gdsDevWarnOnce, resetGdsDevWarnings } from './dev-warnings';

@@ -1,7 +1,7 @@
 # PWA Viewport & Zoom Policy
 
 Status: Active SSOT
-Version: 3.14.5
+Version: 3.14.6
 Last updated: 2026-07-26
 
 GDS owns one canonical answer for mobile viewport configuration, including whether a product may disable pinch-zoom for an installed PWA that should feel like a native app shell. Consumers must use `getGdsPwaViewportMetaContent(...)` from `@sovereignsquad/gds-theme` instead of hand-writing a `<meta name="viewport">` string per project.
@@ -61,4 +61,50 @@ Unlike `app-shell-fixed`, this requires no opt-in and no per-product review — 
 
 ## Relationship to the PWA manifest
 
-`zoomPolicy: 'app-shell-fixed'` only affects in-browser zoom gestures. It does not, by itself, make a site installable or standalone — that is controlled by the web app manifest's `display` field (`standalone` or `fullscreen`) and a registered service worker, which remain product-owned and outside GDS's scope. Use the two together deliberately: a manifest `display: standalone` PWA is the intended target for this lane, not a plain browser-tab site.
+`zoomPolicy: 'app-shell-fixed'` only affects in-browser zoom gestures. It does not, by itself, make a site installable or standalone — that is controlled by the web app manifest's `display` field (`standalone` or `fullscreen`) and a registered service worker, which remain product-owned and outside GDS's scope. Use the two together deliberately: a manifest `display: standalone` PWA is the intended target for this lane, not a plain browser-tab site. GDS ships a governed manifest **generator** (`getGdsWebAppManifest`, below) so the manifest's colors stay aligned to the active theme, but serving the manifest and registering a service worker stay product-owned.
+
+## PWA thin-build helpers (#458)
+
+GDS is a component/theme library, not an app framework, so its PWA surface is a deliberate **partial build** (see [`RESPONSIVE_AND_PLATFORM_GUIDANCE.md`](RESPONSIVE_AND_PLATFORM_GUIDANCE.md)): the standards-based pieces that belong in a design system, and nothing more. **Explicit non-goals** (owned by the consuming app): service-worker/offline caching and an install-prompt UX framework — GDS documents the integration point only.
+
+### Web app manifest — `getGdsWebAppManifest(options)`
+
+Server-safe generator (`@sovereignsquad/gds-theme`, `/server`, `/client`) that returns a valid, spec-shaped web-app-manifest object from GDS theme/brand inputs, so the manifest's `theme_color`/`background_color` stay aligned to the active theme instead of a hand-maintained duplicate. GDS does not serve the manifest — serialize the result and expose it at your `manifest.webmanifest` URL.
+
+```ts
+// Next.js app/manifest.ts
+import { getGdsWebAppManifest, resolveGdsVibeTheme } from '@sovereignsquad/gds-theme/server';
+
+const vibe = resolveGdsVibeTheme('cosmic');
+
+export default function manifest() {
+  return getGdsWebAppManifest({
+    name: 'Cosmic App',
+    themeColor: vibe.primary,
+    backgroundColor: vibe.canvasLight,
+    display: 'standalone', // default
+    icons: [{ src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }],
+  });
+}
+```
+
+Required: `name`, `themeColor`, `backgroundColor` (throws otherwise). Defaults: `display: 'standalone'`, `start_url`/`scope`/`id: '/'`, and `short_name` falls back to `name`.
+
+### Standalone detection — `useGdsStandaloneDisplayMode()`
+
+Client hook (`@sovereignsquad/gds-theme`, `/client`) reporting whether the app is running as an installed PWA and its current `display-mode`, updating live if the mode changes mid-session. SSR-safe: returns `{ isStandalone: false, displayMode: 'browser' }` until mounted on the client. Detects `standalone`/`fullscreen`/`minimal-ui` via `display-mode` media queries plus iOS Safari's legacy `navigator.standalone`.
+
+```tsx
+const { isStandalone } = useGdsStandaloneDisplayMode();
+return isStandalone ? <AppShellHeader /> : <BrowserHeaderWithInstallHint />;
+```
+
+### Safe-area insets — `gdsSafeAreaInset`
+
+`@sovereignsquad/gds-theme/styles.css` defines governed `--gds-safe-area-inset-{top,right,bottom,left}` custom properties, each `env(safe-area-inset-*, 0px)` (resolving to `0px` on non-notched displays). `gdsSafeAreaInset` exposes them as ready-to-use `var(...)` strings for JS/inline styling, so shells and consumers read one governed inset source instead of hard-coding `env(safe-area-inset-*)`:
+
+```tsx
+import { gdsSafeAreaInset } from '@sovereignsquad/gds-theme';
+
+<footer style={{ paddingBottom: gdsSafeAreaInset.bottom }} />;
+```

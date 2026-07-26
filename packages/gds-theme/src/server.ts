@@ -19,3 +19,5 @@ export { createBrandTheme, deriveBrandSemanticTokens, brandContrastRatio, GdsBra
 export type { BrandColorRamp, BrandColorRamps, BrandFonts, ClassUsaColorRampName, ClassUsaColorRamps, CreateBrandThemeOptions, CreateClassUsaBrandThemeOptions, GoldAthleteColorRampName, GoldAthleteColorRamps, CreateGoldAthleteBrandThemeOptions, BrandSemanticRole, BrandThemeResult } from './brand-tokens';
 export { getGdsPwaViewportMetaContent } from './viewport';
 export type { GdsPwaViewportOptions, GdsViewportZoomPolicy } from './viewport';
+export { getGdsWebAppManifest, gdsSafeAreaInset } from './pwa';
+export type { GdsWebAppManifest, GdsWebAppManifestOptions, GdsWebAppManifestIcon, GdsWebAppManifestDisplay } from './pwa';

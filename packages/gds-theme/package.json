@@ -1,6 +1,6 @@
 {
   "name": "@sovereignsquad/gds-theme",
-  "version": "3.14.5",
+  "version": "3.14.6",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
