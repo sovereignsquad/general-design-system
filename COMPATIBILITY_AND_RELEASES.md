@@ -17,6 +17,7 @@ The machine-readable authority for the supported lines lives in [compatibility.m
 | React | `^18.2.0`, `^19.0.0` | React 19 compatibility is declared at the peer layer and validated through Mantine 8 and 9 packed-consumer smoke harnesses |
 | Next.js | App Router and Pages Router consumers | Use server-safe/client-safe subpath imports where applicable |
 | Vite | Supported | Playground and static/Multi-Page App consumers remain valid |
+| TypeScript | `5.9.x` (packages build), `6.0.x` (reference apps) | Published packages are typechecked and their `.d.ts` emitted under TS 5.9.x (peer floor `5.4.5`); the private reference apps run TS 6.0.x — an intentional cross-major lane. A package-build TS major bump gets its own dedicated verification pass, not a routine bump. |
 
 ## Install contract
 
