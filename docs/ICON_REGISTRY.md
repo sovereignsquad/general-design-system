@@ -1,8 +1,8 @@
 # Icon Registry
 
 Status: Active SSOT
-Version: 3.5.0
-Last updated: 2026-06-21
+Version: 3.14.4
+Last updated: 2026-07-26
 
 The icon registry is the approved replacement for consumer direct imports from `@tabler/icons-react` or other icon libraries. Consumers choose icons by GDS semantic meaning, not vendor component names.
 

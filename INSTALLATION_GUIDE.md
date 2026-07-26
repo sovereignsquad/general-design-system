@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.4
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 
 This guide is the canonical consumer setup path for the public umbrella package `@sovereignsquad/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 

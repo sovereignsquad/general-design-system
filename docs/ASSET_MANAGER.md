@@ -1,8 +1,8 @@
 # Asset Manager
 
 Status: Active SSOT
-Version: 3.5.0
-Last updated: 2026-06-21
+Version: 3.14.4
+Last updated: 2026-07-26
 
 The GDS asset manager owns the UI state machine for media selection, validation, upload progress, retry, preview, metadata, alt text, captions, display modes, and failed asset recovery. Storage and upload infrastructure remain app-owned through adapters.
 

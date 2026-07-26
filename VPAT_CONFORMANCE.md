@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.4
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 
 **Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `3.14.4`
 **Report Date:** 2026-07-25

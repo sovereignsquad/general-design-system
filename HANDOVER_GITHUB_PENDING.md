@@ -1,7 +1,15 @@
 # GitHub Handover (Safe Baseline)
 
-Status: Safe baseline established  
+Status: Historical handover record (superseded 2026-07-26)  
 Last updated: 2026-05-31
+
+> **⚠️ Superseded — board model changed.** The GDS delivery board is now the
+> **label-based GitHub Issues board** (`status:` / `priority:` / `area:` labels),
+> documented in [PROJECT_BOARD.md](PROJECT_BOARD.md) and [CLAUDE.md](CLAUDE.md) §7.
+> The org-level **Projects v2 board `sovereignsquad#11`** referenced below is
+> **retired** — its `gh project …` commands and PAT-era item IDs no longer apply.
+> This file is kept only as a historical handover record; do not follow its board
+> operating rules.
 
 ## 2026-06-07 HVB Board Sync Completed
 

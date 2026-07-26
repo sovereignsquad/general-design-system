@@ -1,9 +1,14 @@
 # GDS 3.0.0 Implementation Plan
 
-Status: Completed
+Status: Completed (historical)
 Target release: 3.0.0
 Current stable baseline: 3.0.0
 Last updated: 2026-06-01
+
+> **Historical plan.** This is the completed 3.0.0 milestone plan; the current
+> GDS line is 3.14.4. Its references to the org-level **Projects v2 board
+> `sovereignsquad#11`** are **retired** — the board is now the **label-based
+> GitHub Issues board** ([PROJECT_BOARD.md](PROJECT_BOARD.md), [CLAUDE.md](CLAUDE.md) §7).
 
 This plan defines the next major General Design System release. GDS 3.0.0 is the release where the system becomes a complete adoption platform: package contracts, live reference site, governance tooling, feature-intake process, migration support, and production-grade component coverage must work together as one predictable operating model.
 

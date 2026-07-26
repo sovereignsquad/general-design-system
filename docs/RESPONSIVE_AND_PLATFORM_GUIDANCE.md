@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.4
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 
 This is GDS's answer to three questions the audit surfaced (issue #455): *what does GDS guarantee across screen sizes and device types, does it support multi-screen / PWA, and what are the per-screen best practices?* It also records the **explicit scope decisions** — build vs. documented non-goal — for the areas that need one, so consumers can plan around a stated position rather than an implicit gap.
 

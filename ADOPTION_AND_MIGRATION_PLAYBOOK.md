@@ -1,8 +1,8 @@
 # Adoption & Migration Playbook
 
 Status: Active SSOT
-Version: 3.0.0
-Last updated: 2026-06-13
+Version: 3.14.4
+Last updated: 2026-07-26
 
 This playbook defines the canonical path for adopting GDS through direct package consumption and for migrating repos away from local mirrored adapters or legacy UI systems.
 

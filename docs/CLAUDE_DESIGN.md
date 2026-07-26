@@ -1,8 +1,8 @@
 # Claude Design Integration
 
 Status: Active SSOT
-Version: 3.5.0
-Last updated: 2026-06-21
+Version: 3.14.4
+Last updated: 2026-07-26
 
 How to make **Claude Design** (claude.ai/design) build screens, flows, and prototypes with your real GDS components instead of generic ones — so every design the agent produces is on-brand, made of shipped GDS parts, and maps 1:1 onto code your engineers can ship.
 

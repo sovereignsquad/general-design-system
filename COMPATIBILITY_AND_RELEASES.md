@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.4
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 
 This document defines the supported package/runtime contract for the umbrella package `@sovereignsquad/gds` and the granular runtime packages `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.
 
@@ -50,7 +50,7 @@ Current live status:
 
 - published baseline (GitHub Packages): `3.14.4`
 - current repository line: `3.14.4`
-- current major line: `3.0.x`
+- current major line: `3.x`
 
 Consumer repos should install the latest published version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 

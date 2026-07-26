@@ -1,6 +1,6 @@
 # Mantine 9 Migration Guide
 
-GDS ships compatibility smokes for Mantine 7, 8, and 9 (see `scripts/verify-mantine8-compat.mjs`). As of GDS 3.5.0, **all three pass**. This document records the audit findings and any steps required for consumer repos upgrading their Mantine peer dep.
+GDS ships compatibility smokes for Mantine 7, 8, and 9 (see `scripts/verify-mantine8-compat.mjs`). All three have passed since GDS 3.5.0. This document records the audit findings and any steps required for consumer repos upgrading their Mantine peer dep.
 
 ## Smoke test status
 
@@ -78,7 +78,7 @@ This is tracked as part of GDS [issue #329](https://github.com/sovereignsquad/ge
 
 ## Summary
 
-GDS 3.5.0 is already Mantine 9 compatible — no GDS code changes are needed. Consumer repos should:
+GDS has been Mantine 9 compatible since 3.5.0 — no GDS code changes are needed. Consumer repos should:
 1. Upgrade their Mantine peer deps to `^9`
 2. Migrate any raw `TextInput icon={}` usages to `leftSection={}`
 3. Verify any custom CSS that overrides Mantine classes still works under Mantine 9's CSS layer model

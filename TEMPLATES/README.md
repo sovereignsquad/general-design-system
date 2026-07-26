@@ -2,7 +2,7 @@
 
 Status: Reference
 Version: 3.14.4
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 
 These starter templates are reference implementations for adopting projects.
 

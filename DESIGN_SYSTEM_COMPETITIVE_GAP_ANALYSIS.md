@@ -3,7 +3,7 @@
 Status: Active reference — roadmap input (not an implementation commitment).
 Canonical roadmap doc as of 2026-07-24 (housekeeping issue #406); superseded
 GDS_GAP_INVENTORY.md is archived — see that file for a pointer here.
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 Tracking issue: #386 (P0/P1/P2 delivery batch tracked in #387-#398)
 
 This document compares GDS's current theme foundation, layout primitives, and
@@ -18,7 +18,7 @@ issues" rule), don't work directly off this list.
 
 - **GDS-side findings** were produced by directly reading source
   (`packages/gds-theme`, `packages/gds-core`, `packages/gds-admin`,
-  `packages/gds-a11y`) and the current SSOT docs at `v3.12.0` — not inferred
+  `packages/gds-a11y`) and the current SSOT docs at `v3.14.4` — not inferred
   from naming conventions or memory. Every claim below about what GDS does or
   doesn't ship was verified by grep/read of actual source files.
 - **External-side findings** combine two sources: (a) live web searches run
@@ -43,7 +43,7 @@ issues" rule), don't work directly off this list.
 
 ## 1. Theme foundation comparison
 
-| Dimension | GDS (v3.12.0) | Material 3 | Fluent 2 | Carbon | Ant Design 5 | Polaris / Spectrum / Atlassian / Chakra |
+| Dimension | GDS (v3.14.4) | Material 3 | Fluent 2 | Carbon | Ant Design 5 | Polaris / Spectrum / Atlassian / Chakra |
 |---|---|---|---|---|---|---|
 | **Elevation / shadow** | No dedicated scale. Base theme overrides only `shadows.md`/`shadows.lg`; `gdsFlatSurfaceTheme` and `gdsEditorialPublicTheme` zero out **all five** shadow steps. `FOUNDATION.md` explicitly prohibits "decorative shadow layering." | 6-level token scale (`--mat-sys-level0`…`level5`), each a defined box-shadow | z-depth scale 0–32dp, key-shadow + ambient-shadow pairing, explicit prominence tiers | Tokenized shadow depths, paired with theme tokens | 4 shadow tiers, paired with motion durations/easings in one "Elevation & Depth" spec | Spectrum ships a full elevation ramp; Chakra ships a `shadow` token scale (`xs`–`2xl`) |
 | **z-index / stacking layers** | **None published.** Overlay coordination (`OverlayManagerProvider`) is behavioral only — no `--gds-z-*` scale exists anywhere in `gds-theme/src` (confirmed by grep, zero hits) | Explicit z-index/layer tokens | Documented layer tokens | Explicit z-index scale | Component-level z-index tokens | Chakra publishes a documented `zIndex` token scale |

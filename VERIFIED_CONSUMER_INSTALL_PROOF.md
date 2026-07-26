@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.4
-Last updated: 2026-06-21
+Last updated: 2026-07-26
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 

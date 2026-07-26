@@ -1,8 +1,8 @@
 # Data Table Engine
 
 Status: Active SSOT
-Version: 3.8.0
-Last updated: 2026-06-30
+Version: 3.14.4
+Last updated: 2026-07-26
 
 The GDS data table engine provides a headless state contract and a governed visual table for operational products. It covers local and remote data adapters, sorting, filtering, pagination, selection, export requests, mobile cards, loading/error/empty states, and virtualized row windows.
 

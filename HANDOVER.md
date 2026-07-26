@@ -1,8 +1,14 @@
 # Handover
 
-Status: Active
+Status: Historical handover record (superseded 2026-07-26)
 Date: 2026-05-24
 Repository: `/Users/Shared/Projects/general-design-system`
+
+> **⚠️ Superseded — board model changed.** The "GitHub Project Board State"
+> section below references the user-level **Projects v2 board #48**, which is
+> **retired**. The GDS delivery board is now the **label-based GitHub Issues
+> board** documented in [PROJECT_BOARD.md](PROJECT_BOARD.md) and
+> [CLAUDE.md](CLAUDE.md) §7. Kept only as a historical handover record.
 
 ## Current Canonical Board Note
 
