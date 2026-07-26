@@ -1,7 +1,7 @@
 # Compliance Toolkit
 
 Status: Active SSOT
-Version: 3.14.6
+Version: 3.14.7
 Last updated: 2026-07-26
 
 This document defines the canonical governance enforcement toolkit for GDS consumers.

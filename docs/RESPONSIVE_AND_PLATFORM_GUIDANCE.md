@@ -1,7 +1,7 @@
 # Responsive & Platform Guidance — Size Classes, Multi-Screen, PWA
 
 Status: Active SSOT
-Version: 3.14.6
+Version: 3.14.7
 Last updated: 2026-07-26
 
 This is GDS's answer to three questions the audit surfaced (issue #455): *what does GDS guarantee across screen sizes and device types, does it support multi-screen / PWA, and what are the per-screen best practices?* It also records the **explicit scope decisions** — build vs. documented non-goal — for the areas that need one, so consumers can plan around a stated position rather than an implicit gap.
@@ -65,10 +65,10 @@ GDS ships the thin, standards-based PWA pieces and no app framework: the viewpor
 ### Multi-screen — *documented non-goal (recommended), with one exception*
 GDS is single-viewport-responsive. **Recommendation:**
 - **Non-goal:** multi-monitor / multi-window orchestration and the Window Management API — these are application/OS concerns with no component-library surface; GDS will not add them.
-- **Possible future (filed as a child issue):** foldable / dual-screen support via CSS `viewport-segments` and a size-class extension, since that *is* expressible as a responsive layout concern. Tracked, not committed.
+- **Decided — do not build yet (#459):** foldable / dual-screen support via CSS `viewport-segments` + a size-class extension is **deferred**. A single-window fold reads as a normal responsive size-class boundary today, and committing a token/size-class surface now would gate GDS on an unstable, narrowly-supported spec. **Re-evaluation trigger:** revisit when `viewport-segments` (or `env(viewport-segment-*)`) reaches baseline support across the browsers in `compatibility.matrix.json`, then file a fresh issue for an additive `folded`/`spanned` size class. Full rationale in [`CASE_STUDIES_BY_SCREEN.md`](CASE_STUDIES_BY_SCREEN.md#foldable--dual-screen--recorded-decision-do-not-build-yet).
 
-### Per-screen case studies — *build (recommended)*
-Current case studies are migration/adoption-oriented. **Recommendation:** add screen-organized case studies (a list-detail admin, a public discovery surface, a kiosk lane) alongside the existing ones. Filed as a child issue.
+### Per-screen case studies — *delivered (#459)*
+Current migration/adoption case studies are joined by **screen-organized** ones — a list-detail admin, a public discovery surface, and a kiosk/large-screen lane, each composed from the canonical layout templates and walked across the named size classes — in [`CASE_STUDIES_BY_SCREEN.md`](CASE_STUDIES_BY_SCREEN.md).
 
 ### Guidance & community — *incremental build*
 Do/don't visual pairs, a recipes/templates gallery, wider prose-doc localization, and a public support channel are worthwhile but each is its own effort. The `request-feature` route already exists as the intake seed. These remain tracked under the parent epic (#440) and are decomposed as picked up.
@@ -79,6 +79,6 @@ Per the epic's "split into child issues as each is picked up" guidance, the conc
 
 - **#457** — consolidate the duplicated `breakpointByAlias` into one shared size-class token. ✅ **Delivered** as the exported `gdsBreakpointByAlias` (see [Single source of truth](#named-size-classes) above).
 - **#458** — PWA thin build: web-app-manifest helper, `display-mode: standalone` detection, and `env(safe-area-inset-*)` safe-area tokens (with service-worker/offline and install-prompt UX kept as explicit non-goals). ✅ **Delivered** as `getGdsWebAppManifest`, `useGdsStandaloneDisplayMode`, and `gdsSafeAreaInset` (see [`PWA_VIEWPORT_POLICY.md`](PWA_VIEWPORT_POLICY.md#pwa-thin-build-helpers-458)).
-- **#459** — screen-organized case studies + a foldable/dual-screen (`viewport-segments`) exploration.
+- **#459** — screen-organized case studies + a foldable/dual-screen (`viewport-segments`) exploration. ✅ **Delivered** in [`CASE_STUDIES_BY_SCREEN.md`](CASE_STUDIES_BY_SCREEN.md); foldable decision recorded: **defer**, re-evaluate when `viewport-segments` reaches baseline browser support.
 
 This document is the standing decision record those issues resolve against; update it when a decision changes.

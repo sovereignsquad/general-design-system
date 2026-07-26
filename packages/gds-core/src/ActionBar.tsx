@@ -4,25 +4,45 @@ import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { getSemanticActionLabel, resolveSemanticActionConfig } from './vocabulary';
 import type { GdsVocabularyPack, SemanticActionId } from './vocabulary';
 
+/**
+ * A button action in an {@link ActionBar}, resolved from the GDS action
+ * vocabulary. Extends Mantine `ButtonProps` (minus `leftSection`/`children`,
+ * which the vocabulary supplies as the icon and label).
+ */
 export interface ActionBarAction extends Omit<ButtonProps, 'leftSection' | 'children'> {
+  /** Semantic action id (e.g. `'save'`, `'cancel'`); resolves the label, icon, and default variant. */
   action: SemanticActionId;
+  /** Overrides the accessible name (defaults to the resolved vocabulary label). */
   ariaLabel?: string;
+  /** Click handler. */
   onClick?: () => void;
 }
 
+/** An icon-only action in an {@link ActionBar}, resolved from the GDS action vocabulary. */
 export interface ActionBarIconAction {
+  /** Semantic action id; resolves the icon and accessible label. */
   action: SemanticActionId;
+  /** Click handler. */
   onClick?: () => void;
+  /** Disables the control. */
   disabled?: boolean;
+  /** Overrides the accessible name (defaults to the resolved vocabulary label). */
   ariaLabel?: string;
 }
 
+/** Props for {@link ActionBar}. */
 export interface ActionBarProps {
+  /** The single highest-priority action, rendered filled at the trailing edge. */
   primary?: ActionBarAction;
+  /** Secondary actions, rendered at the leading edge. */
   secondary?: ActionBarAction[];
+  /** Tertiary (lowest-priority) actions, rendered alongside the secondary group. */
   tertiary?: ActionBarAction[];
+  /** Icon-only actions, rendered just before the primary action. */
   iconOnly?: ActionBarIconAction[];
+  /** Gap between actions and groups (a Mantine spacing token or px number). Defaults to `'sm'`. */
   gap?: MantineSpacing | number;
+  /** Additional vocabulary packs used to resolve custom semantic action ids. */
   vocabularyPacks?: GdsVocabularyPack[];
 }
 

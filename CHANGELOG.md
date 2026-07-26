@@ -2,6 +2,11 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.7 - 2026-07-26 — Screen-organized case studies + recorded foldable decision; JSDoc backfill batch
+
+- **Screen-organized case studies + recorded foldable decision** (#459): new [`docs/CASE_STUDIES_BY_SCREEN.md`](docs/CASE_STUDIES_BY_SCREEN.md) walks three screen types — a list-detail admin (operational shell + `GdsSplit`/`DetailProfileShell`), a public discovery surface (`PublicShell` + `BottomTabBar` + a supporting pane), and a kiosk/large-screen lane — each composed only from the canonical layout templates and walked across the named size classes (`compact`→`xlarge`), complementing the existing migration/adoption case study. The **foldable / dual-screen build-or-not decision** is recorded: **defer** — a single-window fold reads as a normal responsive size-class boundary today, and CSS `viewport-segments` is too narrowly supported to gate on — with a re-evaluation trigger when `viewport-segments` reaches baseline browser support; multi-window/Window Management orchestration stays a permanent non-goal. `RESPONSIVE_AND_PLATFORM_GUIDANCE.md` and `README.md` updated. Docs-only.
+- **JSDoc backfill — batch** (#414): added interface- and per-prop JSDoc to `FormFieldProps`, `ActionBarProps`/`ActionBarAction`/`ActionBarIconAction`, and `ReferenceSectionProps`, so consumer editors surface field-level docs on hover for these primitives. Docs-only (JSDoc → `.d.ts`), no behavior change. #414 remains open as the phased backfill tracker.
+
 ## 3.14.6 - 2026-07-26 — PWA thin build: web-app-manifest generator, standalone detection, safe-area tokens
 
 Delivers the standards-based PWA pieces scoped in #455 (PWA = *partial build*), keeping GDS a component/theme library rather than an app framework.

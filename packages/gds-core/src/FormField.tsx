@@ -1,10 +1,15 @@
 import type { ReactNode } from 'react';
 import { Box, Stack, Text } from '@mantine/core';
 
+/** Props for {@link FormField}. */
 export interface FormFieldProps {
+  /** The field label. A string renders in GDS dimmed field-label typography; a node is rendered as-is. */
   label: ReactNode;
+  /** Optional helper text shown below the label and above the control. */
   description?: ReactNode;
+  /** Optional inline error message shown below the control (a string renders in the GDS error color). */
   error?: ReactNode;
+  /** The form control this field labels and wraps. */
   children: ReactNode;
 }
 

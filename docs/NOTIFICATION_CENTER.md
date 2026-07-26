@@ -1,7 +1,7 @@
 # Notification Center
 
 Status: Active SSOT
-Version: 3.14.6
+Version: 3.14.7
 Last updated: 2026-07-26
 
 `GdsNotificationProvider` is the canonical GDS runtime for cross-surface feedback. Products must use it instead of route-local toast stacks, local live regions, custom retry buttons, or analytics-specific notification wrappers.
