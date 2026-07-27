@@ -1,8 +1,8 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 3.14.11
-Last updated: 2026-07-26
+Version: 3.14.12
+Last updated: 2026-07-27
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
 
@@ -284,6 +284,8 @@ Empty columns show a governed "No items" state (`emptyColumnLabel` overridable) 
 **Column footers.** `KanbanColumn` accepts a `footer` (static `ReactNode`) or `renderFooter(column)` rendered below the card list, inside the column — the place for a "Load more" / pagination control (pairs with `totalCount`), a per-column summary, or an add-card button. From the board, `renderColumnFooter(column)` applies one footer to every column. Footers are outside the drag `SortableContext`.
 
 **Collapsible columns.** Opt in with `collapsible` (off by default). Each column then renders a header disclosure toggle — a real `button` with `aria-expanded` and `aria-controls` pointing at the column body — that folds the body (cards + footer) down to just the title and count badge (the badge stays visible). A collapsed column is not a drag drop target. Collapsed state is uncontrolled by default; control it board-wide with `collapsedColumnIds` + `onCollapsedChange(columnId, collapsed)`, or per-column with `collapsed` + `onCollapsedChange(collapsed)`. The disclosure chevron's motion respects `prefers-reduced-motion` via the GDS motion tokens.
+
+**Wheel-scroll routing (`columnPanZone`).** In multi-column layout the columns live in a horizontal `ScrollArea`, and a desktop trackpad "natural scroll" gesture almost never has a perfectly-zero horizontal delta — so a gesture the user means as "scroll the page" can land inside that horizontal scroll region and fail to reach the page (reported live: "hovering a card, natural trackpad scroll doesn't work"). `columnPanZone` (default `'none'`, fully backward compatible) opts into **Linear-style zone routing**: with `'header'`, a wheel gesture over a column **header** pans the columns horizontally regardless of gesture shape, while a gesture over a card or empty space is never captured and scrolls the page normally. It is fine-pointer (desktop) only, inert in stacked orientation, and RTL-aware. Regardless of the prop, every header exposes a stable `data-gds-kanban-column-header="<columnId>"` hit region so a consumer can build their own routing if they need a different policy. The routing *decision* is unit-tested (which zone captures the gesture); the physical trackpad scroll is a manual/real-browser verification, as headless synthetic wheel events don't reproduce trackpad-driver behavior (issue #464).
 
 **Typed item/column extension.** `KanbanBoard`, `KanbanColumn`, and `KanbanCard` (and their prop interfaces) are generic over the item and column shape — `KanbanBoard<TItem extends KanbanItem, TColumn extends KanbanColumnData<TItem>>` — both parameters defaulting to the base `KanbanItem` / `KanbanColumnData`. Consumers who attach app-specific fields to a record extend those base contracts and receive them **fully typed inside `renderItem`, with no cast**:
 

@@ -2,6 +2,14 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.12 - 2026-07-27 — KanbanBoard zone-based wheel-scroll routing (#464)
+
+Fixes a real desktop-trackpad complaint from a consumer (`salesleadgenerator`): in multi-column layout the columns live in a horizontal `ScrollArea`, and a two-finger "natural scroll" gesture over a card could be captured by that horizontal region instead of scrolling the page.
+
+- **`data-gds-kanban-column-header="<columnId>"`** (always on, additive): each column header now exposes a stable hit-region attribute so consumers can target it — previously cards/columns/bodies/footers had `data-gds-kanban-*` but the header did not.
+- **`columnPanZone?: 'header' | 'none'`** (default `'none'`, fully backward compatible): opts into Linear-style zone routing. With `'header'`, a wheel gesture over a column header pans the columns horizontally regardless of gesture shape (a single non-passive listener on the `ScrollArea` viewport, routing via `closest('[data-gds-kanban-column-header]')`), while a gesture over a card or empty space is never captured and scrolls the page normally. Fine-pointer (desktop) only, inert in stacked orientation, RTL-aware. Existing consumers who don't opt in see zero behavior change.
+- Unit-tested for the routing decision (which zone captures the gesture, asserted via `preventDefault`); the physical trackpad scroll is a real-browser verification, since headless synthetic wheel events don't reproduce trackpad-driver behavior. Documented in `COMPONENTS_AND_PATTERNS.md`.
+
 ## 3.14.11 - 2026-07-26 — Complete JSDoc coverage on the public API + coverage gate
 
 - **Full JSDoc backfill** (#414): every public export across the consumer-facing packages now carries a JSDoc block — **1,136/1,136 public exports documented (100%)**, up from ~6%: `gds-core` 914, `gds-admin` 85, `gds-theme` 137, `gds-a11y` already complete. Component functions get a summary of what they are and their governed behavior; props interfaces get an interface-level block plus **per-property docs on the fields consumers hover** (defaults, throw conditions, accessibility roles), all written from the actual implementation. Comment-only — no runtime or type changes beyond the emitted `.d.ts` now carrying the docs, so editors surface field-level hover documentation for the entire shipped API.

@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useId, useState } from 'react';
+import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { ActionIcon, Badge, Box, Group, Menu, Paper, ScrollArea, Stack, Text, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
@@ -383,7 +383,7 @@ export function KanbanColumn<
       data-gds-kanban-column-collapsed={collapsible && resolvedCollapsed ? 'true' : undefined}
     >
       <Stack gap="sm">
-        <Group justify="space-between" align="center" wrap="nowrap">
+        <Group justify="space-between" align="center" wrap="nowrap" data-gds-kanban-column-header={column.id}>
           <Group gap="xs" wrap="nowrap" style={{ minWidth: 0 }}>
             {collapsible ? (
               <ActionIcon
@@ -438,6 +438,18 @@ export interface KanbanBoardProps<
   orientation?: 'auto' | KanbanOrientation;
   /** Minimum column width in multi-column layout. Defaults to `'17.5rem'` (scales with root font size). */
   columnWidth?: number | string;
+  /**
+   * Wheel-gesture routing over the multi-column horizontal scroll area (issue #464).
+   * Defaults to `'none'`: no interception — a wheel/trackpad gesture behaves natively
+   * (a vertical gesture chains to the page), fully backward compatible.
+   *
+   * `'header'` opts into Linear-style zone routing on **fine-pointer (desktop)** only:
+   * a wheel gesture whose target is a column **header** (`data-gds-kanban-column-header`)
+   * pans the columns horizontally regardless of gesture shape, while a gesture anywhere
+   * else (a card, empty space) is never captured and scrolls the page as usual. Inert in
+   * `'stacked'` orientation (there is no horizontal scroll area). RTL-aware.
+   */
+  columnPanZone?: 'header' | 'none';
   /** Accessible name for the board region. Defaults to `title` (if a string) or a governed fallback. */
   boardLabel?: string;
   /**
@@ -509,6 +521,7 @@ export function KanbanBoard<
   emptyColumnLabel,
   orientation = 'auto',
   columnWidth = '17.5rem',
+  columnPanZone = 'none',
   boardLabel,
   enableDrag = false,
   moveMenuIcon,
@@ -526,6 +539,34 @@ export function KanbanBoard<
   const [internalCollapsedIds, setInternalCollapsedIds] = useState<string[]>([]);
   const isCollapseControlled = collapsedColumnIds !== undefined;
   const collapsedIds = isCollapseControlled ? collapsedColumnIds : internalCollapsedIds;
+
+  // Zone-based wheel routing (#464): when `columnPanZone === 'header'`, a wheel gesture
+  // originating over a column header pans the horizontal scroll area, while gestures over
+  // cards/empty space fall through to native scroll chaining. One non-passive listener on
+  // the viewport (so it can `preventDefault`), fine-pointer only, columns orientation only.
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport || columnPanZone !== 'header' || resolvedOrientation === 'stacked') {
+      return undefined;
+    }
+    if (typeof window === 'undefined' || !window.matchMedia?.('(pointer: fine)').matches) {
+      return undefined;
+    }
+    const onWheel = (event: WheelEvent) => {
+      const target = event.target as Element | null;
+      if (!target?.closest?.('[data-gds-kanban-column-header]')) {
+        return; // Not the header zone — leave native scroll chaining untouched.
+      }
+      const delta = event.deltaY !== 0 ? event.deltaY : event.deltaX;
+      if (delta === 0) return;
+      const rtl = getComputedStyle(viewport).direction === 'rtl';
+      viewport.scrollLeft += rtl ? -delta : delta;
+      event.preventDefault();
+    };
+    viewport.addEventListener('wheel', onWheel, { passive: false });
+    return () => viewport.removeEventListener('wheel', onWheel);
+  }, [columnPanZone, resolvedOrientation]);
 
   function handleColumnCollapsedChange(columnId: string, next: boolean) {
     if (!isCollapseControlled) {
@@ -644,7 +685,7 @@ export function KanbanBoard<
       {resolvedOrientation === 'stacked' ? (
         <Stack gap="lg">{columnList(undefined)}</Stack>
       ) : (
-        <ScrollArea type="auto" scrollbarSize={8} offsetScrollbars>
+        <ScrollArea type="auto" scrollbarSize={8} offsetScrollbars viewportRef={viewportRef}>
           <Group gap="md" wrap="nowrap" align="flex-start">
             {columnList(columnWidth)}
           </Group>

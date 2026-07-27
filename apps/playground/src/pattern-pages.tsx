@@ -900,6 +900,7 @@ function KanbanBoardDemo() {
         onMoveItem={handleMoveItem}
         enableDrag
         collapsible
+        columnPanZone="header"
         collapsedColumnIds={collapsedColumnIds}
         onCollapsedChange={handleCollapsedChange}
         renderColumnFooter={(column) => {

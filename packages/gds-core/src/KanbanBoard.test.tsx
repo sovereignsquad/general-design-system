@@ -1,5 +1,5 @@
-import { describe, expect, it, vi } from 'vitest';
-import { screen, within } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { createEvent, fireEvent, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { KanbanBoard, KanbanColumn, type KanbanColumnData, type KanbanItem } from './KanbanBoard.client';
@@ -247,5 +247,67 @@ describe('KanbanColumn collapsible (#436)', () => {
     rerender(<KanbanBoard columns={makeColumns()} collapsible collapsedColumnIds={['todo']} onCollapsedChange={onCollapsedChange} />);
     expect(screen.queryByText('Task A')).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Expand column: To do' })).toBeInTheDocument();
+  });
+});
+
+// Zone-based wheel routing (#464). jsdom has no real layout/trackpad driver, so these
+// cover the routing *decision* — which zone captures a wheel gesture (asserted via
+// preventDefault, which the handler calls only after panning) — not the physical scroll,
+// which is verified in real Chrome. matchMedia is overridden per-test because the global
+// mock reports every query as non-matching (so '(pointer: fine)' would otherwise be false).
+describe('KanbanBoard column-pan wheel routing (#464)', () => {
+  const originalMatchMedia = window.matchMedia;
+  afterEach(() => {
+    window.matchMedia = originalMatchMedia;
+  });
+
+  const useFinePointer = () => {
+    window.matchMedia = ((query: string) => ({
+      matches: query.includes('pointer: fine'),
+      media: query,
+      onchange: null,
+      addListener: () => {},
+      removeListener: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => false,
+    })) as unknown as typeof window.matchMedia;
+  };
+
+  const wheelOver = (element: Element) => {
+    const event = createEvent.wheel(element, { deltaY: 120, bubbles: true, cancelable: true });
+    fireEvent(element, event);
+    return event;
+  };
+
+  it('always exposes a stable data-gds-kanban-column-header hit region per column', () => {
+    const { container } = renderWithGds(<KanbanBoard columns={makeColumns()} orientation="columns" />);
+    expect(container.querySelector('[data-gds-kanban-column-header="todo"]')).not.toBeNull();
+    expect(container.querySelector('[data-gds-kanban-column-header="done"]')).not.toBeNull();
+  });
+
+  it("columnPanZone='header' captures a wheel gesture over a header (preventDefault)", () => {
+    useFinePointer();
+    const { container } = renderWithGds(
+      <KanbanBoard columns={makeColumns()} orientation="columns" columnPanZone="header" />,
+    );
+    const header = container.querySelector('[data-gds-kanban-column-header="todo"]')!;
+    expect(wheelOver(header).defaultPrevented).toBe(true);
+  });
+
+  it("columnPanZone='header' never captures a wheel gesture over a card", () => {
+    useFinePointer();
+    const { container } = renderWithGds(
+      <KanbanBoard columns={makeColumns()} orientation="columns" columnPanZone="header" />,
+    );
+    const card = container.querySelector('[data-gds-kanban-card="a"]')!;
+    expect(wheelOver(card).defaultPrevented).toBe(false);
+  });
+
+  it("defaults to columnPanZone='none' — a header wheel gesture is not intercepted", () => {
+    useFinePointer();
+    const { container } = renderWithGds(<KanbanBoard columns={makeColumns()} orientation="columns" />);
+    const header = container.querySelector('[data-gds-kanban-column-header="todo"]')!;
+    expect(wheelOver(header).defaultPrevented).toBe(false);
   });
 });
