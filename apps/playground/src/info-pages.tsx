@@ -287,20 +287,11 @@ This project uses @sovereignsquad/gds for all UI.
 When building UI, compose shipped GDS components — do not author parallel primitives.
 Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
 
-  const claudeTemplate = `# CLAUDE.md
-GDS is the design system: npm install @sovereignsquad/gds
-GDS installs exclusively from GitHub Packages — add to .npmrc first:
-  @sovereignsquad:registry=https://npm.pkg.github.com
-  //npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}
-Wrap once in GdsProvider. Use SemanticButton action="..." not free text.
-Style with props/tokens only — no custom CSS.
-Full guide: https://sovereignsquad.github.io/general-design-system/ai`;
-
   return (
     <DocsPageShell
       title="Use GDS with AI"
       eyebrow="AI agent integration"
-      lead="GDS is designed to be used by Claude, Claude Code, Cursor, Copilot, and any LLM-powered coding tool. Every component ships TypeScript contracts, a machine-readable entry point (llms.txt), and drop-in repo rules so agents build with the real system automatically."
+      lead="GDS is designed to be used by AI coding agents and any LLM-powered coding tool. Every component ships TypeScript contracts, a machine-readable entry point (llms.txt), and drop-in repo rules so agents build with the real system automatically."
     >
       <ReferenceSection
         title="Machine-readable entry point (llms.txt)"
@@ -309,15 +300,14 @@ Full guide: https://sovereignsquad.github.io/general-design-system/ai`;
         <StateBlock
           variant="info"
           title="How agents find GDS"
-          description="Claude Code, Cursor, and any tool that honors the llms.txt standard reads this file automatically when present in a repo. Drop it into your consuming repo or point your agent at the GDS llms.txt directly."
+          description="Any agentic coding tool that honors the llms.txt standard reads this file automatically when present in a repo. Drop it into your consuming repo or point your agent at the GDS llms.txt directly."
         />
         <ReferenceLinkGrid
           items={[
             { id: 'llmstxt', title: 'llms.txt', description: 'Universal machine-readable entry point — install steps, rules, packages, component families.', href: 'https://raw.githubusercontent.com/sovereignsquad/general-design-system/main/llms.txt' },
-            { id: 'agent-guide', title: 'AI Agent Guide', description: 'Long-form guide for Claude Code, Cursor, Copilot — install, provider, contracts, component families.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/docs/AI_AGENT_GUIDE.md' },
-            { id: 'claude-design', title: 'Claude Design', description: 'Sync GDS into claude.ai/design so the design agent builds with real components.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/docs/CLAUDE_DESIGN.md' },
+            { id: 'agent-guide', title: 'AI Agent Guide', description: 'Long-form guide for any coding agent — install, provider, contracts, component families.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/docs/AI_AGENT_GUIDE.md' },
           ]}
-          columns={3}
+          columns={2}
         />
       </ReferenceSection>
 
@@ -340,13 +330,11 @@ Full guide: https://sovereignsquad.github.io/general-design-system/ai`;
             { key: 'purpose', header: 'Purpose' },
           ]}
           rows={[
-            { file: 'AGENTS.md', reads: 'Claude Code, Cursor, Codex, Copilot', purpose: 'Cross-tool standard. Tells any agent this project uses GDS and must not invent parallel primitives.' },
-            { file: 'CLAUDE.md', reads: 'Claude Code', purpose: 'Claude-specific rules: install path, GdsProvider, SemanticButton action enum, token-only styling.' },
+            { file: 'AGENTS.md', reads: 'Any agentic coding tool', purpose: 'Cross-tool standard. Tells any agent this project uses GDS and must not invent parallel primitives.' },
             { file: 'llms.txt', reads: 'Any LLM tool', purpose: 'Machine-readable summary of GDS rules, packages, and component families.' },
           ]}
         />
         <DocsCodeBlock code={agentsTemplate} language="markdown" />
-        <DocsCodeBlock code={claudeTemplate} language="markdown" />
       </ReferenceSection>
 
       <ReferenceSection
@@ -366,25 +354,6 @@ Full guide: https://sovereignsquad.github.io/general-design-system/ai`;
             { rule: 'One GdsProvider at the app root — never nest a second one', why: 'Nesting creates duplicate theme contexts and breaks token resolution.' },
             { rule: 'Gate private content with GdsAccessGate protectedContentPolicy="never-render-while-locked"', why: 'Prevents private/paid content from being mounted while locked.' },
           ]}
-        />
-      </ReferenceSection>
-
-      <ReferenceSection
-        title="Design with GDS in Claude Design"
-        description="Sync GDS into claude.ai/design so the design agent builds screens with your real components. Every preview is a live render of the shipped component."
-      >
-        <StateBlock
-          variant="info"
-          title="How to sync"
-          description="In Claude Code, run /design-sync from a checkout of this repo. It builds the bundle, authors and verifies all 252 component previews, and uploads everything to a new Claude Design project. Re-syncs are one command."
-        />
-        <ReferenceLinkGrid
-          items={[
-            { id: 'claude-design-guide', title: 'Claude Design sync guide', description: 'How to run /design-sync and use the synced project in claude.ai/design.', href: 'https://github.com/sovereignsquad/general-design-system/blob/main/docs/CLAUDE_DESIGN.md' },
-            { id: 'patterns', title: 'Component families', description: 'Browse the full GDS pattern catalog with live renders.', href: '/patterns' },
-            { id: 'api', title: 'API reference', description: 'Full TypeScript prop types for every GDS component.', href: '/api' },
-          ]}
-          columns={3}
         />
       </ReferenceSection>
     </DocsPageShell>

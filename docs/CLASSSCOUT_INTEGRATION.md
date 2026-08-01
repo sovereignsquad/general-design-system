@@ -1,6 +1,6 @@
 # ClassScout / Class USA Integration Guide
 
-GDS 3.14.12 delivers the first-class `Class USA` theme and the missing ClassScout primitives required to ship on pure GDS with no app-level forks, raw design values, or app-local chart/control shims.
+GDS 3.14.13 delivers the first-class `Class USA` theme and the missing ClassScout primitives required to ship on pure GDS with no app-level forks, raw design values, or app-local chart/control shims.
 
 ## Install
 
@@ -12,7 +12,7 @@ GDS publishes exclusively to GitHub Packages (`https://npm.pkg.github.com`) — 
 ```
 
 ```bash
-npm install @sovereignsquad/gds@3.14.12
+npm install @sovereignsquad/gds@3.14.13
 ```
 
 ## Bootstrap
@@ -355,7 +355,7 @@ import { AISearchCard } from '@sovereignsquad/gds-core';
 
 Copy these into the ClassScout repo root so every AI coding session follows GDS automatically:
 
-**`AGENTS.md`** (Claude Code, Cursor, Codex, Copilot):
+**`AGENTS.md`** (the cross-tool standard read by any agentic coding tool):
 
 ```markdown
 # AGENTS.md — UI is built with the General Design System (GDS)
@@ -369,23 +369,9 @@ This project uses @sovereignsquad/gds for all UI. When building or changing inte
   FitScoreChip, ListingCard (with reason/score/actions slots), MeaningBadge,
   MediaWithFallback, NumberStepper, SearchableSelect — all in @sovereignsquad/gds-core.
 - Brand theme: createBrandTheme from @sovereignsquad/gds-theme.
-- Full guide: https://sovereignsquad.github.io/general-design-system/ai
-```
-
-**`CLAUDE.md`** (Claude Code):
-
-```markdown
-# CLAUDE.md
-GDS installs exclusively from GitHub Packages — add to .npmrc first:
+- Install (GitHub Packages) — add to .npmrc first:
   @sovereignsquad:registry=https://npm.pkg.github.com
   //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-Install: npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications
-Wrap once: <GdsProvider theme={classcoutTheme}> in src/providers.tsx
-Key rules:
-- SemanticButton action="save"|"add"|"edit"|"delete" — not children
-- SearchableSelect/Select data={[{value,label}]} — not <option>
-- BottomTabBar items max 5; emphasizedItemId for raised center action
-- ChatThread onSend, messages[], streaming bool
-- AISearchCard onSubmit, prompts[]
-Full rules: https://sovereignsquad.github.io/general-design-system/ai
+  then: npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications
+- Full guide: https://sovereignsquad.github.io/general-design-system/ai
 ```

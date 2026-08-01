@@ -2,6 +2,14 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.13 - 2026-07-31 — Vendor-neutral AI-tool naming across docs, templates, and site copy (#465)
+
+Removes tool-specific branding from the AI-integration surface so GDS reads as consumable by any LLM-powered coding tool rather than naming particular products. No runtime, token, or component-API change.
+
+- **Removed the design-tool sync feature** (`.design-sync/` inputs, previews, and conventions, plus `docs/CLAUDE_DESIGN.md`): the sync path was documentation and committed preview inputs for a specific external design tool, not part of the shipped packages. The authoritative design-to-code path remains the DTCG token export (`tokens/gds.tokens.json`) and the handoff mapping documented in [`docs/FIGMA_UI_KIT.md`](docs/FIGMA_UI_KIT.md) and [`DESIGN_HANDOFF.md`](DESIGN_HANDOFF.md).
+- **Removed `TEMPLATES/CLAUDE.md.template`**: the cross-tool `TEMPLATES/AGENTS.md.template` (the `AGENTS.md` standard read by any agentic coding tool) is the single drop-in repo-rules template going forward.
+- **Neutralized AI-tool naming** in `README.md`, `llms.txt`, `docs/AI_AGENT_GUIDE.md`, `docs/CLASSSCOUT_INTEGRATION.md`, `TEMPLATES/AGENTS.md.template`, the `/ai` playground page, and all 8 non-English site-phrase packs — product names replaced with neutral descriptors ("AI coding agents", "any LLM-powered coding tool"). The `/ai` page drops the design-tool sync section and the tool-specific drop-in row; its link grid and repo-rules table are updated accordingly.
+
 ## 3.14.12 - 2026-07-27 — KanbanBoard zone-based wheel-scroll routing (#464)
 
 Fixes a real desktop-trackpad complaint from a consumer (`salesleadgenerator`): in multi-column layout the columns live in a horizontal `ScrollArea`, and a two-finger "natural scroll" gesture over a card could be captured by that horizontal region instead of scrolling the page.
@@ -193,9 +201,9 @@ historical accuracy rather than merged or renumbered.
 
 ## 3.6.0 - 2026-06-26 (sprint 1)
 
-- **`/ai` route** (#327): live playground page at `/ai` surfacing `llms.txt`, install steps, drop-in `AGENTS.md`/`CLAUDE.md` templates, non-negotiable agent rules, and a "Design with GDS in Claude Design" entry point. Registered in locale-coverage and gds-adoption governance contracts; all 9 locale packs covered.
-- **10 Claude Design previews** (#328): hand-authored `.design-sync/previews/` for the 10 ClassScout components shipped in 3.5.0 — `BottomTabBar`, `SearchableSelect`, `FitScoreChip`, `ChatThread`, `ChatMessage`, `ChatInput`, `StreamingIndicator`, `MeaningBadge`, `MediaWithFallback`, `NumberStepper`, `AISearchCard`. Pending upload to canonical Claude Design project via `/design-sync`.
-- **ClassScout integration guide** (#330): `docs/CLASSSCOUT_INTEGRATION.md` with install, GdsProvider bootstrap with `createBrandTheme`, and per-contract usage examples for all 10 B1–B10 gaps; drop-in `AGENTS.md`/`CLAUDE.md` for the ClassScout repo.
+- **`/ai` route** (#327): live playground page at `/ai` surfacing `llms.txt`, install steps, a drop-in `AGENTS.md` agent-rule template, non-negotiable agent rules, and a design-tool sync entry point. Registered in locale-coverage and gds-adoption governance contracts; all 9 locale packs covered.
+- **10 design-tool sync previews** (#328): hand-authored preview components for the 10 ClassScout components shipped in 3.5.0 — `BottomTabBar`, `SearchableSelect`, `FitScoreChip`, `ChatThread`, `ChatMessage`, `ChatInput`, `StreamingIndicator`, `MeaningBadge`, `MediaWithFallback`, `NumberStepper`, `AISearchCard`. For upload to the canonical design-tool sync project.
+- **ClassScout integration guide** (#330): `docs/CLASSSCOUT_INTEGRATION.md` with install, GdsProvider bootstrap with `createBrandTheme`, and per-contract usage examples for all 10 B1–B10 gaps; drop-in `AGENTS.md` agent rules for the ClassScout repo.
 - **Mantine 9 migration audit** (#329): `docs/MANTINE9_MIGRATION.md`; `verify:mantine` already passes Mantine 9 with no GDS code changes required.
 - Opened milestone #26 (GDS 3.6.0) and 5 backlog issues (#327-331).
 - Closed all 10 ClassScout issues (#316-325) with 3.5.0 delivery notes; closed milestone #25.
@@ -206,10 +214,10 @@ historical accuracy rather than merged or renumbered.
   - `gds-theme`: `createBrandTheme({ brandColors, fonts })` plus a brand-named semantic token layer (`brand.primary`, `bg.page`, `text.*`, `price`, `state.*`) emitted as `--gds-*` variables on top of the governed token graph, with WCAG-AA contrast enforcement (#316).
   - `gds-core`: `'bottom-tab'` mobile navigation mode + `BottomTabBar` (safe-area aware, raised center action) for `PublicShell`/`DiscoveryShell` (#317); `SearchableSelect` combobox with async/grouped options and full keyboard a11y (#318); `FitScoreChip` (#319); `ListingCard` `reason`/`score`/`actions` composition slots (#320); conversation surface `ChatThread`/`ChatMessage`/`ChatInput`/`StreamingIndicator` (#321); `MeaningBadge` distinct from `StatusBadge` (#322); `MediaWithFallback` resilient media (#323); `NumberStepper` (#324); `AISearchCard` governed assistant-entry pattern (#325).
   - All new UI consumes GDS tokens, is keyboard- and screen-reader-accessible, and is registered in the pattern export/API-docs coverage registries.
-- Added an AI-agent integration layer so GDS is consumable by Claude, Claude Code, Cursor, Copilot, and any LLM tool: `llms.txt` (universal machine-readable entry point), `docs/AI_AGENT_GUIDE.md`, and a "Use with AI" quick-start in the README.
-- Added drop-in repo rule templates `TEMPLATES/AGENTS.md.template` (cross-tool `AGENTS.md` standard) and `TEMPLATES/CLAUDE.md.template` so consuming repos make every agent session build with GDS automatically.
-- Added `docs/CLAUDE_DESIGN.md` documenting the Claude Design integration: syncing GDS into claude.ai/design (via `/design-sync` in Claude Code) so the design agent builds screens with the real GDS components, and the committed `.design-sync/` inputs that make a re-sync one command.
-- Synced all 252 components (249 hand-authored, render-verified previews + 3 floor-carded body-portal overlays) into the canonical GDS Claude Design project, with a conventions header teaching the GdsProvider/prop-token/semantic-action build idiom.
+- Added an AI-agent integration layer so GDS is consumable by any LLM-powered coding tool: `llms.txt` (universal machine-readable entry point), `docs/AI_AGENT_GUIDE.md`, and a "Use with AI" quick-start in the README.
+- Added a drop-in repo rule template `TEMPLATES/AGENTS.md.template` (cross-tool `AGENTS.md` standard) so consuming repos make every agent session build with GDS automatically.
+- Added a design-tool sync integration: syncing GDS into a visual design tool so the design agent builds screens with the real GDS components, with committed sync inputs that make a re-sync one command.
+- Synced all 252 components (249 hand-authored, render-verified previews + 3 floor-carded body-portal overlays) into the canonical GDS design-tool sync project, with a conventions header teaching the GdsProvider/prop-token/semantic-action build idiom.
 
 ## 3.4.14 - 2026-06-13
 

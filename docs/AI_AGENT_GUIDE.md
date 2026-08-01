@@ -1,10 +1,10 @@
 # AI Agent Guide
 
 Status: Active SSOT
-Version: 3.14.12
-Last updated: 2026-07-26
+Version: 3.14.13
+Last updated: 2026-07-31
 
-How any AI coding agent — Claude Code, Claude (claude.ai), Cursor, Copilot, or any LLM tool — should consume the General Design System (GDS). The machine-readable summary lives in [`llms.txt`](../llms.txt) at the repo root; this is the human- and agent-readable long form.
+How any AI coding agent — any LLM-powered coding tool — should consume the General Design System (GDS). The machine-readable summary lives in [`llms.txt`](../llms.txt) at the repo root; this is the human- and agent-readable long form.
 
 ## 1. What GDS is
 
@@ -85,8 +85,4 @@ When in doubt, read the component's props type and compose it — the shipped co
 
 ## 7. Make your repo agent-ready
 
-Drop [`TEMPLATES/AGENTS.md.template`](../TEMPLATES/AGENTS.md.template) in as `AGENTS.md` (read by Claude Code, Cursor, Codex, …) and [`TEMPLATES/CLAUDE.md.template`](../TEMPLATES/CLAUDE.md.template) as `CLAUDE.md` for Claude Code. They encode these rules so every agent session follows GDS automatically.
-
-## 8. Designing with GDS in Claude Design
-
-To make the claude.ai/design agent build screens with your real GDS components, see [`CLAUDE_DESIGN.md`](CLAUDE_DESIGN.md).
+Drop [`TEMPLATES/AGENTS.md.template`](../TEMPLATES/AGENTS.md.template) in as `AGENTS.md` (the cross-tool standard read by any agentic coding tool). It encodes these rules so every agent session follows GDS automatically.

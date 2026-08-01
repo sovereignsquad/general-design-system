@@ -1,8 +1,8 @@
 <!--
   Drop this file in at your repository root as `AGENTS.md` (the cross-tool
-  standard read by Claude Code, Cursor, Codex, and others). It tells any AI
-  coding agent that this project consumes the General Design System (GDS) and
-  must build UI with GDS contracts. Replace the PROJECT-SPECIFIC lines.
+  standard read by any agentic coding tool). It tells any AI coding agent that
+  this project consumes the General Design System (GDS) and must build UI with
+  GDS contracts. Replace the PROJECT-SPECIFIC lines.
 -->
 
 # AGENTS.md — UI is built with the General Design System (GDS)

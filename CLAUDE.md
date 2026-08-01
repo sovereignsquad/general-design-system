@@ -81,9 +81,9 @@ Before making a change or stating a fact about this codebase:
 
 ## 6. Pre-authorized branch and push operations
 
-The user operates via Claude Code on iOS mobile with no terminal access —
-they cannot run git commands themselves and rely on the agent to execute
-them directly. The following operations are pre-authorized and do not
+The user operates via an AI coding assistant on iOS mobile with no terminal
+access — they cannot run git commands themselves and rely on the agent to
+execute them directly. The following operations are pre-authorized and do not
 require asking for confirmation each time:
 
 - **`dev` and `preview` branches** — create, merge, and pull these branches

@@ -2,7 +2,7 @@
 
 > GDS is a governed, cross-project React design system published as `@sovereignsquad/gds`. It is built on Mantine and ships 250+ components, design tokens, theme presets, and runtime systems (forms, tables, overlays, notifications, access gates, i18n). Every product surface is composed from shipped GDS contracts — never reinvented locally.
 
-This file is the entry point for AI coding agents (Claude, Claude Code, Cursor, Copilot, and any LLM tool). It tells you what GDS is, how to install it, the non-negotiable rules, and where to read more. When building UI for a project that uses GDS, follow these rules and compose the shipped components — do not author parallel primitives or raw CSS.
+This file is the entry point for AI coding agents (any LLM-powered coding tool). It tells you what GDS is, how to install it, the non-negotiable rules, and where to read more. When building UI for a project that uses GDS, follow these rules and compose the shipped components — do not author parallel primitives or raw CSS.
 
 ## Install
 
@@ -69,11 +69,10 @@ export default function App() {
 ## Docs
 
 - Agent usage guide: docs/AI_AGENT_GUIDE.md
-- Claude Design integration (build designs with GDS): docs/CLAUDE_DESIGN.md
 - Foundation & rules: FOUNDATION.md
 - Components & patterns: COMPONENTS_AND_PATTERNS.md
 - Installation: INSTALLATION_GUIDE.md
 - Governance & adoption: GOVERNANCE_AND_ADOPTION.md
 - API reference: https://sovereignsquad.github.io/general-design-system/api
 - Live pattern catalog: https://sovereignsquad.github.io/general-design-system/patterns
-- Drop-in agent rules for your repo: TEMPLATES/AGENTS.md.template, TEMPLATES/CLAUDE.md.template
+- Drop-in agent rules for your repo: TEMPLATES/AGENTS.md.template

@@ -1,8 +1,8 @@
 # Contributing
 
 Status: Active
-Version: 3.14.12
-Last updated: 2026-07-26
+Version: 3.14.13
+Last updated: 2026-07-31
 
 This repository is shared design-system infrastructure.
 
@@ -27,7 +27,7 @@ of task. Full detail for agents in [`CLAUDE.md`](CLAUDE.md).
    state before acting or reporting a result. If something can't be verified,
    say so instead of filling the gap with an assumption.
 6. **Pre-authorized branch/push operations** — the repository owner uses
-   Claude Code on iOS mobile with no terminal access. `dev` and `preview`
+   an AI coding assistant on iOS mobile with no terminal access. `dev` and `preview`
    branches may be created, merged, and pulled without asking first. When the
    owner says "commit and push to main," push directly to `main` (no PR,
    no waiting for approval) — provided Rule 1's quality gate passes.

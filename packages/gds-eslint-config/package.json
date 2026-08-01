@@ -1,6 +1,6 @@
 {
   "name": "@sovereignsquad/gds-eslint-config",
-  "version": "3.14.12",
+  "version": "3.14.13",
   "type": "module",
   "main": "./index.js",
   "exports": {

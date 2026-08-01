@@ -1,6 +1,6 @@
 # ClassScout Redesign — Master Prompt for the Developer Agent
 
-> Paste everything below the line into your coding agent (Cursor / Claude Code) running **inside the `classscout` repo**. It is self-contained: exact paths, token values, fonts, logo assets, functions, and acceptance criteria. Deeper specs live in `docs/redesign/` and are referenced where useful.
+> Paste everything below the line into your AI coding agent running **inside the `classscout` repo**. It is self-contained: exact paths, token values, fonts, logo assets, functions, and acceptance criteria. Deeper specs live in `docs/redesign/` and are referenced where useful.
 
 ---
 
