@@ -1,7 +1,7 @@
 # Guided Onboarding Tour
 
 Status: Active SSOT
-Version: 3.14.15
+Version: 3.14.16
 Last updated: 2026-08-02
 
 A governed, accessible **guided tour** (spotlight coach-marks): it dims the
@@ -99,10 +99,15 @@ Never hard-code an `rgba()` dim in product code — read `--gds-overlay-scrim`.
 
 ## Where it's used
 
-The GDS site dogfoods the module on the [**Use with AI**](https://sovereignsquad.github.io/general-design-system/ai)
-page: it **auto-runs once** for first-time visitors (persisted per device) and a
-"Take the guided tour" control replays it on demand, spotlighting the llms.txt
-entry point, the install/bootstrap step, and the non-negotiable agent rules.
+The GDS site dogfoods the module on two surfaces, each **auto-running once** for
+first-time visitors (persisted per device) with a "Take the guided tour" control
+that replays on demand:
+
+- **Home page** — spotlights the live Theme Lab, the "what GDS gives you" band,
+  and the get-started links.
+- [**Use with AI**](https://sovereignsquad.github.io/general-design-system/ai) —
+  spotlights the llms.txt entry point, the install/bootstrap step, and the
+  non-negotiable agent rules.
 
 ### Auto-start without breaking automated gates
 
@@ -111,8 +116,16 @@ GDS's browser runtime gates start with empty `localStorage` — so to them every
 run looks like a "first visit" — which means an unconditional auto-start would
 render the tour overlay over the page a gate is asserting against and flake it.
 Rather than sniff for automation (unreliable under raw-CDP headless Chrome), the
-site scopes its auto-start to the `/ai` route, which `theme-trust`,
-`forced-colors`, `input-zoom`, and `kanban-drag` never load. When you add an
-auto-start tour to your own app, prefer a first-run surface your test/CI harness
-does not drive, or gate the auto-start behind an explicit "onboarding enabled"
-signal your harness can turn off.
+site uses two deterministic, route-aware signals:
+
+- **`/ai`** — a route no runtime gate loads at all, so its auto-start is
+  unconditional.
+- **Home (`/`)** — a route the `theme-trust` gate *does* load, but only ever as
+  `/?locale=xx` (with a query string), never bare `/`. So its auto-start is gated
+  on `window.location.search === ''`: a real visitor on `/` sees it once; the
+  gate's `/?locale=…` visits never trigger it.
+
+When you add an auto-start tour to your own app, prefer a first-run surface your
+test/CI harness does not drive, or gate the auto-start behind a signal your
+harness never satisfies (a clean URL, or an explicit "onboarding enabled" flag
+it can turn off).
