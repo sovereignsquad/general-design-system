@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 3.14.13
+Version: 3.14.14
 Last updated: 2026-07-27
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
@@ -382,6 +382,24 @@ Access and recovery states:
 | `missing` | Not-found meaning separated from permission failure |
 | `unavailable` | Retry/back/support hierarchy visible |
 | `permission-limited` | Access summaries disclose limited scope and owner/recovery path |
+
+### Guided Onboarding Tour Rules
+
+Product onboarding uses the governed guided-tour module (`GdsTourProvider` +
+`useGdsTour` / `GdsGuidedTour`), never a bespoke coach-mark. The full contract
+lives in [`docs/GUIDED_TOUR.md`](docs/GUIDED_TOUR.md).
+
+- Mount `GdsTourProvider` once, inside `GdsProvider`. Spotlight targets are
+  referenced by a stable `data-gds-tour-target` id (or a React ref) — never a
+  brittle CSS selector.
+- The dim is the governed `--gds-overlay-scrim` token — no raw `rgba()` in
+  product code. The spotlight degrades to a target outline under forced-colors
+  and drops travel animation under `prefers-reduced-motion`.
+- Each step card is a focus-trapped `role="dialog"`; focus enters the card and
+  returns to the invoker on exit; `Esc`/arrows/`Enter`/`Tab` are handled; a live
+  region announces "Step _n_ of _m_"; controls read the `gds.tour.*` locale keys.
+- A missing target skips the step with a dev warning rather than crashing.
+  Persist with `persist: 'localStorage'` so an auto-start tour runs once.
 
 ## 7. Semantic Vocabulary Extension Lane
 

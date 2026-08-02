@@ -1,5 +1,10 @@
 /** Russian (ru) translation messages for the GDS vocabulary and component copy. */
 export const ru = {
+  'gds.tour.next': "Далее",
+  'gds.tour.back': "Назад",
+  'gds.tour.skip': "Пропустить",
+  'gds.tour.done': "Готово",
+  'gds.tour.stepOfTotal': "Шаг {n} из {m}",
   'gds.action.settings': 'Настройки',
   'gds.action.analytics': 'Аналитика',
   'gds.action.dashboard': 'Панель',

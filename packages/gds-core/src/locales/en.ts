@@ -1,5 +1,10 @@
 /** English (reference-locale) message dictionary for GDS components, keyed by translation id. */
 export const en = {
+  'gds.tour.next': "Next",
+  'gds.tour.back': "Back",
+  'gds.tour.skip': "Skip",
+  'gds.tour.done': "Done",
+  'gds.tour.stepOfTotal': "Step {n} of {m}",
   'gds.action.settings': 'Settings',
   'gds.action.analytics': 'Analytics',
   'gds.action.dashboard': 'Dashboard',

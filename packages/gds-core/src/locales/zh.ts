@@ -1,5 +1,10 @@
 /** Chinese (zh) message catalog mapping GDS message ids to their translated strings. */
 export const zh = {
+  'gds.tour.next': "下一步",
+  'gds.tour.back': "上一步",
+  'gds.tour.skip': "跳过",
+  'gds.tour.done': "完成",
+  'gds.tour.stepOfTotal': "第 {n} 步，共 {m} 步",
   'gds.action.settings': '设置',
   'gds.action.analytics': '分析',
   'gds.action.dashboard': '仪表板',

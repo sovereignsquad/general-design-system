@@ -1,5 +1,10 @@
 /** French (fr) translation messages for the GDS vocabulary and component copy. */
 export const fr = {
+  'gds.tour.next': "Suivant",
+  'gds.tour.back': "Retour",
+  'gds.tour.skip': "Ignorer",
+  'gds.tour.done': "Terminé",
+  'gds.tour.stepOfTotal': "Étape {n} sur {m}",
   'gds.action.settings': 'Paramètres',
   'gds.action.analytics': 'Analytique',
   'gds.action.dashboard': 'Tableau de bord',

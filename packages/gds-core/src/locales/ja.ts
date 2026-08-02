@@ -1,5 +1,10 @@
 /** Japanese (ja) message dictionary for GDS components, keyed by translation id. */
 export const ja = {
+  'gds.tour.next': "次へ",
+  'gds.tour.back': "戻る",
+  'gds.tour.skip': "スキップ",
+  'gds.tour.done': "完了",
+  'gds.tour.stepOfTotal': "ステップ {n} / {m}",
   'gds.action.settings': '設定',
   'gds.action.analytics': '分析',
   'gds.action.dashboard': 'ダッシュボード',

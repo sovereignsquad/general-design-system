@@ -39,6 +39,7 @@ export const AREA_LABELS = [
   { name: 'area: docs', color: '0075ca', description: 'Documentation and SSOT governance' },
   { name: 'area: tooling', color: 'bfdadc', description: 'Build, release, CI, and verification scripts' },
   { name: 'area: a11y', color: 'd4c5f9', description: 'Accessibility behavior and evidence' },
+  { name: 'area: onboarding', color: 'c2e0c6', description: 'Guided tours, coach-marks, and first-run onboarding' },
 ];
 
 /** Every governed board label, in a stable order. */

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import {
   ActionBar,
   DocsCodeBlock,
@@ -13,6 +13,8 @@ import {
   ReferenceThemeExplorer,
   SimpleDataTable,
   StateBlock,
+  useGdsTour,
+  type GdsTourStep,
   type ThemeExplorerSelection,
 } from '@sovereignsquad/gds-core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
@@ -287,12 +289,52 @@ This project uses @sovereignsquad/gds for all UI.
 When building UI, compose shipped GDS components — do not author parallel primitives.
 Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
 
+  // Dogfood the shipped GdsGuidedTour module (issue 466): a launchable spotlight
+  // tour of this page's key resources, proving the tour on our own site.
+  const tour = useGdsTour();
+  const entryRef = useRef<HTMLDivElement>(null);
+  const bootstrapRef = useRef<HTMLDivElement>(null);
+  const rulesRef = useRef<HTMLDivElement>(null);
+  const tourSteps: GdsTourStep[] = [
+    {
+      id: 'entry',
+      target: entryRef,
+      title: 'Start with llms.txt',
+      body: 'Any agentic coding tool discovers GDS by fetching this machine-readable entry point — install steps, rules, packages, and component families.',
+      placement: 'bottom',
+    },
+    {
+      id: 'bootstrap',
+      target: bootstrapRef,
+      title: 'Install and wrap once',
+      body: 'One install command and a single GdsProvider at the app root. Agents follow these same two steps before composing any component.',
+      placement: 'top',
+    },
+    {
+      id: 'rules',
+      target: rulesRef,
+      title: 'Follow the non-negotiable rules',
+      body: 'These rules keep agent output on-brand and shippable: compose shipped components, style with tokens only, and honor the semantic contracts.',
+      placement: 'top',
+    },
+  ];
+
   return (
     <DocsPageShell
       title="Use GDS with AI"
       eyebrow="AI agent integration"
       lead="GDS is designed to be used by AI coding agents and any LLM-powered coding tool. Every component ships TypeScript contracts, a machine-readable entry point (llms.txt), and drop-in repo rules so agents build with the real system automatically."
     >
+      <div>
+        <button
+          type="button"
+          className="gds-tour-launch"
+          onClick={() => tour.start('gds-ai-page', tourSteps, { persist: 'none' })}
+        >
+          Take the guided tour
+        </button>
+      </div>
+      <div ref={entryRef} data-gds-tour-target="ai-entry">
       <ReferenceSection
         title="Machine-readable entry point (llms.txt)"
         description="Any LLM tool can discover GDS rules by fetching llms.txt at the repo root. It lists install steps, non-negotiable rules, packages, and component families."
@@ -310,7 +352,9 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
           columns={2}
         />
       </ReferenceSection>
+      </div>
 
+      <div ref={bootstrapRef} data-gds-tour-target="ai-bootstrap">
       <ReferenceSection
         title="Install and bootstrap"
         description="One install command, one required provider. Agents follow these same steps."
@@ -318,6 +362,7 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
         <DocsCodeBlock code={installCode} language="bash" />
         <DocsCodeBlock code={providerCode} language="tsx" />
       </ReferenceSection>
+      </div>
 
       <ReferenceSection
         title="Drop-in repo rules"
@@ -337,6 +382,7 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
         <DocsCodeBlock code={agentsTemplate} language="markdown" />
       </ReferenceSection>
 
+      <div ref={rulesRef} data-gds-tour-target="ai-rules">
       <ReferenceSection
         title="Non-negotiable rules for agents"
         description="These rules are encoded in llms.txt and the drop-in templates. Agents that follow them produce on-brand, shippable code."
@@ -356,6 +402,7 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
           ]}
         />
       </ReferenceSection>
+      </div>
     </DocsPageShell>
   );
 }

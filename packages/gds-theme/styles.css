@@ -21,6 +21,12 @@
  */
 :root {
   --gds-overlay-surface: #ffffff;
+  /* Guided-tour spotlight scrim (#467): the governed "greyish transparent
+     layer" a tour dims the page with. Token-owned so no raw rgba() lands in
+     component source, and so light/dark/forced-colors are governed centrally. */
+  --gds-overlay-scrim: rgba(2, 6, 23, 0.55);
+  --gds-tour-spotlight-radius: 12px;
+  --gds-tour-spotlight-padding: 8px;
   /* PWA safe-area insets (#458): each resolves to 0px on non-notched displays,
      so GDS shells and consumer surfaces read one governed inset source via
      `gdsSafeAreaInset` instead of hard-coding raw env(safe-area-inset-*). */
@@ -31,10 +37,14 @@
 }
 html[data-mantine-color-scheme='dark'] {
   --gds-overlay-surface: var(--mantine-color-dark-6, #25262b);
+  --gds-overlay-scrim: rgba(0, 0, 0, 0.66);
 }
 @media (forced-colors: active) {
   :root {
     --gds-overlay-surface: Canvas;
+    /* The dim is invisible in forced-colors, so the spotlight degrades to a
+       strong outline on the target instead (see the tour spotlight rules). */
+    --gds-overlay-scrim: transparent;
   }
 }
 
@@ -930,4 +940,155 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
   html[data-gds-theme-preset] body:not(#gds-never)::after {
     display: none !important;
   }
+}
+
+/*
+ * Guided Onboarding Tour (#466 / #467-#469).
+ *
+ * The spotlight is one portalled layer whose transparent hole is positioned
+ * with dynamic inline coordinates (from getBoundingClientRect); the dim itself
+ * is a giant box-shadow spilling out of that hole, tinted by the governed
+ * --gds-overlay-scrim token. The step card is anchored beside the hole. All
+ * colors read GDS tokens; only geometry is inline. Forced-colors drops the dim
+ * and outlines the target instead; reduced-motion removes travel animation.
+ */
+.gds-tour-spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: var(--mantine-z-index-overlay, 200);
+  pointer-events: none;
+}
+.gds-tour-spotlight__hole {
+  position: fixed;
+  border-radius: var(--gds-tour-spotlight-radius, 12px);
+  box-shadow: 0 0 0 9999px var(--gds-overlay-scrim, rgba(2, 6, 23, 0.55));
+  transition: top 220ms ease, left 220ms ease, width 220ms ease, height 220ms ease;
+  pointer-events: none;
+}
+.gds-tour-spotlight--interactive .gds-tour-spotlight__hole {
+  pointer-events: none;
+}
+.gds-tour-spotlight__blocker {
+  position: fixed;
+  inset: 0;
+  pointer-events: auto;
+}
+.gds-tour-card {
+  position: fixed;
+  z-index: calc(var(--mantine-z-index-overlay, 200) + 1);
+  max-width: min(360px, calc(100vw - 2rem));
+  box-sizing: border-box;
+  padding: 1rem 1.125rem 1.125rem;
+  border-radius: var(--mantine-radius-md, 12px);
+  background: var(--gds-overlay-surface, #ffffff);
+  color: var(--gds-text-body, var(--mantine-color-text, #111827));
+  border: 1px solid var(--gds-border-card, var(--mantine-color-gray-3, #dee2e6));
+  box-shadow: var(--mantine-shadow-lg, 0 12px 32px rgba(0, 0, 0, 0.18));
+  transition: top 220ms ease, left 220ms ease;
+}
+.gds-tour-card__progress {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--gds-text-meta, var(--mantine-color-dimmed, #64748b));
+  margin-bottom: 0.375rem;
+}
+.gds-tour-card__title {
+  margin: 0 0 0.375rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.gds-tour-card__body {
+  margin: 0 0 0.875rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--gds-text-body, var(--mantine-color-text, #111827));
+}
+.gds-tour-card__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.gds-tour-card__nav {
+  display: flex;
+  gap: 0.5rem;
+}
+.gds-tour-btn {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--mantine-radius-sm, 8px);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--gds-text-body, var(--mantine-color-text, #111827));
+}
+.gds-tour-btn:focus-visible {
+  outline: 2px solid var(--gds-focus-ring, var(--mantine-primary-color-filled, #1d4ed8));
+  outline-offset: 2px;
+}
+.gds-tour-btn--ghost {
+  color: var(--gds-text-meta, var(--mantine-color-dimmed, #64748b));
+}
+.gds-tour-btn--ghost:hover {
+  color: var(--gds-text-body, var(--mantine-color-text, #111827));
+}
+.gds-tour-btn--secondary {
+  border-color: var(--gds-border-card, var(--mantine-color-gray-4, #ced4da));
+}
+.gds-tour-btn--primary {
+  background: var(--mantine-primary-color-filled, #1d4ed8);
+  color: var(--mantine-primary-color-contrast, #ffffff);
+}
+[data-gds-tour-active-target] {
+  position: relative;
+  z-index: calc(var(--mantine-z-index-overlay, 200) + 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gds-tour-spotlight__hole,
+  .gds-tour-card {
+    transition: none;
+  }
+}
+@media (forced-colors: active) {
+  .gds-tour-spotlight__hole {
+    box-shadow: none;
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+  .gds-tour-card {
+    border-color: CanvasText;
+  }
+  .gds-tour-btn--primary {
+    background: Highlight;
+    color: HighlightText;
+  }
+}
+
+/* Guided-tour launcher affordance (playground dogfood, #471). */
+.gds-tour-launch {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--mantine-radius-sm, 8px);
+  border: 1px solid var(--gds-border-card, var(--mantine-color-gray-4, #ced4da));
+  background: var(--gds-bg-surface, var(--gds-overlay-surface, #ffffff));
+  color: var(--gds-text-body, var(--mantine-color-text, #111827));
+}
+.gds-tour-launch:hover {
+  border-color: var(--mantine-primary-color-filled, #1d4ed8);
+}
+.gds-tour-launch:focus-visible {
+  outline: 2px solid var(--gds-focus-ring, var(--mantine-primary-color-filled, #1d4ed8));
+  outline-offset: 2px;
 }

@@ -1,5 +1,10 @@
 /** German (`de`) message pack for the GDS string catalog, keyed by message id. */
 export const de = {
+  'gds.tour.next': "Weiter",
+  'gds.tour.back': "Zurück",
+  'gds.tour.skip': "Überspringen",
+  'gds.tour.done': "Fertig",
+  'gds.tour.stepOfTotal': "Schritt {n} von {m}",
   'gds.action.settings': 'Einstellungen',
   'gds.action.analytics': 'Analyse',
   'gds.action.dashboard': 'Dashboard',

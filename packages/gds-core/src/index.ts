@@ -136,6 +136,7 @@ export * from './AccessibilityEvidence';
 // ── Overlays, command palette & runtime providers ──
 export * from './OverlayManager.client';
 export * from './CommandPalette.client';
+export * from './GdsTour.client';
 export * from './GdsI18nRuntime';
 
 // ── Page templates & task patterns ──

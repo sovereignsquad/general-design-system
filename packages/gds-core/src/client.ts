@@ -86,6 +86,7 @@ export * from './GdsResourceManager.client';
 export * from './OverlayManager.client';
 export * from './FeedbackRuntime.client';
 export * from './CommandPalette.client';
+export * from './GdsTour.client';
 export * from './StatsSection';
 export * from './PeriodSelector';
 export * from './EvidencePanel';

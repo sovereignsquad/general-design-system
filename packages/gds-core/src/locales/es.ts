@@ -1,5 +1,10 @@
 /** Spanish (es) translation table for GDS component and pattern strings. */
 export const es = {
+  'gds.tour.next': "Siguiente",
+  'gds.tour.back': "Atrás",
+  'gds.tour.skip': "Omitir",
+  'gds.tour.done': "Listo",
+  'gds.tour.stepOfTotal': "Paso {n} de {m}",
   'gds.action.settings': 'Configuración',
   'gds.action.analytics': 'Analítica',
   'gds.action.dashboard': 'Panel',

@@ -1,5 +1,10 @@
 /** Hebrew (he) message catalog mapping GDS message ids to their translated strings. */
 export const he = {
+  'gds.tour.next': "הבא",
+  'gds.tour.back': "חזרה",
+  'gds.tour.skip': "דלג",
+  'gds.tour.done': "סיום",
+  'gds.tour.stepOfTotal': "שלב {n} מתוך {m}",
   'gds.action.settings': 'הגדרות',
   'gds.action.analytics': 'ניתוח נתונים',
   'gds.action.dashboard': 'לוח בקרה',
