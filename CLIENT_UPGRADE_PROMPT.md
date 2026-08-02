@@ -2,11 +2,11 @@
 
 ## What this is
 
-Use this for every product team migrating to the current stable `3.14.14` GDS adoption-platform release.
+Use this for every product team migrating to the current stable `3.14.15` GDS adoption-platform release.
 
-## Copy/paste message for 3.14.14 after publish verification
+## Copy/paste message for 3.14.15 after publish verification
 
-Team, we completed the GDS upgrade to the 3.14.14 adoption platform release.
+Team, we completed the GDS upgrade to the 3.14.15 adoption platform release.
 
 - GDS installs exclusively from GitHub Packages — if your `.npmrc` doesn't already have it, add:
   ```ini
@@ -15,13 +15,13 @@ Team, we completed the GDS upgrade to the 3.14.14 adoption platform release.
   ```
   (`GITHUB_TOKEN` is your own personal access token with `read:packages` scope — GitHub Packages requires authentication for every install, even public ones.)
 - Update dependencies:
-  - `@sovereignsquad/gds@3.14.14`
-  - `@sovereignsquad/gds-eslint-config@3.14.14` (dev)
-  - `@sovereignsquad/gds-compliance@3.14.14` (dev)
+  - `@sovereignsquad/gds@3.14.15`
+  - `@sovereignsquad/gds-eslint-config@3.14.15` (dev)
+  - `@sovereignsquad/gds-compliance@3.14.15` (dev)
 - If you use granular packages, keep every GDS package on the same version:
-  - `@sovereignsquad/gds-theme@3.14.14`
-  - `@sovereignsquad/gds-core@3.14.14`
-  - `@sovereignsquad/gds-admin@3.14.14`
+  - `@sovereignsquad/gds-theme@3.14.15`
+  - `@sovereignsquad/gds-core@3.14.15`
+  - `@sovereignsquad/gds-admin@3.14.15`
 - Install Mantine peers normally; do not force peer resolution.
 - Keep the App Router split:
   - `app/layout.tsx` owns `ColorSchemeScript`

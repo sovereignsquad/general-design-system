@@ -1,7 +1,7 @@
 # Guided Onboarding Tour
 
 Status: Active SSOT
-Version: 3.14.14
+Version: 3.14.15
 Last updated: 2026-08-02
 
 A governed, accessible **guided tour** (spotlight coach-marks): it dims the
@@ -100,5 +100,19 @@ Never hard-code an `rgba()` dim in product code — read `--gds-overlay-scrim`.
 ## Where it's used
 
 The GDS site dogfoods the module on the [**Use with AI**](https://sovereignsquad.github.io/general-design-system/ai)
-page: a "Take the guided tour" control spotlights the llms.txt entry point, the
-install/bootstrap step, and the non-negotiable agent rules.
+page: it **auto-runs once** for first-time visitors (persisted per device) and a
+"Take the guided tour" control replays it on demand, spotlighting the llms.txt
+entry point, the install/bootstrap step, and the non-negotiable agent rules.
+
+### Auto-start without breaking automated gates
+
+Auto-first-run is scoped to a route that no headless verification gate visits.
+GDS's browser runtime gates start with empty `localStorage` — so to them every
+run looks like a "first visit" — which means an unconditional auto-start would
+render the tour overlay over the page a gate is asserting against and flake it.
+Rather than sniff for automation (unreliable under raw-CDP headless Chrome), the
+site scopes its auto-start to the `/ai` route, which `theme-trust`,
+`forced-colors`, `input-zoom`, and `kanban-drag` never load. When you add an
+auto-start tour to your own app, prefer a first-run surface your test/CI harness
+does not drive, or gate the auto-start behind an explicit "onboarding enabled"
+signal your harness can turn off.

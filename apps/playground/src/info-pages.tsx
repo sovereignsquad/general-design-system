@@ -10,6 +10,7 @@ import {
   PublicBrandFooter,
   ReferenceLinkGrid,
   ReferenceSection,
+  GdsGuidedTour,
   ReferenceThemeExplorer,
   SimpleDataTable,
   StateBlock,
@@ -334,6 +335,10 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
           Take the guided tour
         </button>
       </div>
+      {/* Auto-run once for first-time visitors. Scoped to /ai (a route no headless
+          runtime gate visits) so the overlay can never flake theme-trust /
+          forced-colors runs. The launcher above always replays on demand. */}
+      <GdsGuidedTour id="gds-ai-page" steps={tourSteps} open persist="localStorage" />
       <div ref={entryRef} data-gds-tour-target="ai-entry">
       <ReferenceSection
         title="Machine-readable entry point (llms.txt)"
