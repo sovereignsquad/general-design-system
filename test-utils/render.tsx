@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import type { RenderOptions } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { GdsProvider } from '@sovereignsquad/gds-theme';
-import { en } from '@sovereignsquad/gds-core';
+import { en, GdsTourProvider } from '@sovereignsquad/gds-core';
 
 interface TestProvidersProps {
   children: React.ReactNode;
@@ -21,7 +21,7 @@ function TestProviders({
   return (
     <MemoryRouter initialEntries={[route]}>
       <GdsProvider locale={locale} messages={messages}>
-        {children}
+        <GdsTourProvider>{children}</GdsTourProvider>
       </GdsProvider>
     </MemoryRouter>
   );

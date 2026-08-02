@@ -310,7 +310,7 @@ export function GdsTourProvider({ children }: GdsTourProviderProps) {
     };
 
     const el = resolveTargetElement(activeStep.target);
-    el?.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+    el?.scrollIntoView?.({ block: 'center', inline: 'center', behavior: 'smooth' });
     // Measure after the scroll settles.
     const raf = window.requestAnimationFrame(() => window.setTimeout(measure, 60));
 

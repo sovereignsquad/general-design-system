@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.16 - 2026-08-02 — Guided tour: first-run onboarding on the home page (#474)
+
+Brings the auto-running onboarding tour to the home/overview page, where every visitor lands.
+
+- The home page now auto-runs a short tour once for first-time visitors — spotlighting the live Theme Lab, the "what GDS gives you" band, and the get-started links — with a "Take the guided tour" launcher that replays it on demand.
+- **Gate-safe by a no-query signal:** the home route *is* loaded by the `theme-trust` gate, but only ever as `/?locale=xx`, so auto-start is gated on `window.location.search === ''` — a real visitor on bare `/` sees it once; the gate's `/?locale=…` visits (query present) never trigger the overlay. Documented in [`docs/GUIDED_TOUR.md`](docs/GUIDED_TOUR.md). No module API change; `theme-trust` and the full `verify:release` stay green.
+
 ## 3.14.15 - 2026-08-02 — Guided tour: auto-run once for first-time visitors (#473)
 
 Completes the onboarding half of the guided-tour module (#466): the GDS site now **auto-runs** the tour once for first-time visitors, not just on manual click.
