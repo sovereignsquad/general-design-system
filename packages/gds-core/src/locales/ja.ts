@@ -4,6 +4,7 @@ export const ja = {
   'gds.tour.back': "戻る",
   'gds.tour.skip': "スキップ",
   'gds.tour.done': "完了",
+  'gds.tour.launch': "ガイドツアーを開始",
   'gds.tour.stepOfTotal': "ステップ {n} / {m}",
   'gds.action.settings': '設定',
   'gds.action.analytics': '分析',

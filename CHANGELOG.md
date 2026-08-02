@@ -2,6 +2,17 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.17 - 2026-08-02 — Guided tour: consistent rollout across every primary destination (#475)
+
+Extends the onboarding tour from two surfaces to **every primary site destination** through one shared launcher, so the "Take the guided tour" experience is identical everywhere and the gate-safe auto-start rule lives in exactly one place.
+
+- **New governed module export — `GdsTourButton` (`@sovereignsquad/gds-core`):** a themeable `.gds-tour-launch` launcher whose label reads the new localized `gds.tour.launch` key (added to all 12 locale packs) and starts a tour via `useGdsTour`. Customers get a drop-in launcher instead of hand-rolling a raw control.
+- **New shared site control — [`SiteTourLauncher`](apps/playground/src/SiteTourLauncher.tsx):** composes `GdsTourButton` + a gate-safe first-run auto-start (bare URL + real browser). The consistent launcher appears on every page and the auto-start decision is centralized here instead of copy-pasted per page.
+- **Auto-start pages:** Home, Use with AI, Pattern Catalog, Live Demos, API Reference, Coverage, Maturity, Use Cases, Governance, and Request a Feature each ship a page-specific spotlight tour that runs once for first-time visitors and replays on demand.
+- **Manual-only on gate routes:** Install (`/install`) and Themes (`/themes`) expose the launcher button but **omit** auto-start, because the accessibility / theme-trust / forced-colors runtime gates visit those bare routes — an auto-opened overlay would surface mid-verification. This corrects the Install page, which briefly carried auto-start.
+- **Gate safety, centralized:** auto-start fires only when `window.location.search === ''` (real visitors arrive on clean paths; gates visit `/?locale=xx` or deep sub-routes) **and** `Element.prototype.scrollIntoView` exists (`true` in Chrome, `false` under jsdom, so page unit tests never auto-fire). No automation sniffing.
+- Docs ([`docs/GUIDED_TOUR.md`](docs/GUIDED_TOUR.md)) updated with the full destination list, the manual-only rule, and the new `GdsTourButton` surface; `verify:release` (including the accessibility, theme-trust, and forced-colors runtime gates) stays green.
+
 ## 3.14.16 - 2026-08-02 — Guided tour: first-run onboarding on the home page (#474)
 
 Brings the auto-running onboarding tour to the home/overview page, where every visitor lands.

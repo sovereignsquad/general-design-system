@@ -1,7 +1,7 @@
 # PWA Viewport & Zoom Policy
 
 Status: Active SSOT
-Version: 3.14.16
+Version: 3.14.17
 Last updated: 2026-07-26
 
 GDS owns one canonical answer for mobile viewport configuration, including whether a product may disable pinch-zoom for an installed PWA that should feel like a native app shell. Consumers must use `getGdsPwaViewportMetaContent(...)` from `@sovereignsquad/gds-theme` instead of hand-writing a `<meta name="viewport">` string per project.

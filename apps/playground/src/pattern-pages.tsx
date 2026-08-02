@@ -158,6 +158,7 @@ import {
   type PatternFamily,
   type PatternRegistryEntry,
 } from './pattern-registry';
+import { SiteTourLauncher } from './SiteTourLauncher';
 
 const catalogEntryCount = patternRegistry.length;
 
@@ -2210,9 +2211,20 @@ export function PatternsIndexPage() {
       eyebrow="SSOT-aligned live catalog"
       lead="This catalog maps the documented pattern inventory to live runtime proof. The markdown SSOT remains normative, and this site is the visual reference."
     >
+      <SiteTourLauncher
+        tourId="gds-patterns"
+        autoStart
+        steps={[
+          { id: 'patterns-families', target: 'patterns-families', title: 'Browse pattern families', body: 'Each family is a public route grouping documented patterns. Open one to inspect its live, governed runtime contract.', placement: 'bottom' },
+          { id: 'patterns-coverage', target: 'patterns-coverage', title: 'Every pattern is traceable', body: 'The catalog stays a strict consumer of shipped primitives — each entry maps back to the canonical markdown SSOT, never a local fork.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="patterns-families">
       <ReferenceSection title="Browse pattern families" description="Every documented pattern is grouped into a public route so visitors can inspect the live contract.">
         <ReferenceLinkGrid items={counts} />
       </ReferenceSection>
+      </div>
+      <div data-gds-tour-target="patterns-coverage">
       <ReferenceSection title="Coverage promise" description="The official site is expected to remain a strict consumer of the primitives it documents.">
         <FeatureBand
           columns={3}
@@ -2223,6 +2235,7 @@ export function PatternsIndexPage() {
           ]}
         />
       </ReferenceSection>
+      </div>
     </DocsPageShell>
   );
 }

@@ -1,7 +1,7 @@
 # Guided Onboarding Tour
 
 Status: Active SSOT
-Version: 3.14.16
+Version: 3.14.17
 Last updated: 2026-08-02
 
 A governed, accessible **guided tour** (spotlight coach-marks): it dims the
@@ -18,6 +18,7 @@ theme-aware onboarding flow with no app-level forks (issue #466).
 | `GdsTourProvider` | provider | Mount once inside `GdsProvider`. Holds tour state and renders the spotlight + step card. |
 | `useGdsTour()` | hook | Imperative control: `start(id, steps, opts)`, `next()`, `back()`, `goTo(i)`, `stop(reason)`, plus `status`, `index`, `count`, `activeStep`. |
 | `GdsGuidedTour` | component | Declarative wrapper — starts a tour when `open` becomes true (persist-aware). Renders nothing. |
+| `GdsTourButton` | component | Governed launcher control — a themeable `.gds-tour-launch` button whose label reads the localized `gds.tour.launch` key; starts the given tour on click. |
 | `GdsTourStep` | type | One step: `{ id, target, title, body, placement?, canSkip?, spotlightPadding?, interaction? }`. |
 | `useHasSeenTour(id)` | hook | SSR-safe check for whether a persisted tour was already completed on this device. |
 
@@ -57,6 +58,14 @@ theme-aware onboarding flow with no app-level forks (issue #466).
    <button onClick={() => tour.start('editor-intro', steps, { persist: 'localStorage' })}>Take the tour</button>
    ```
 
+   …or drop in the governed launcher control (localized label, no raw button):
+
+   ```tsx
+   import { GdsTourButton } from '@sovereignsquad/gds-core';
+
+   <GdsTourButton tourId="editor-intro" steps={steps} persist="localStorage" />
+   ```
+
    …or declaratively, to auto-run once for first-time users:
 
    ```tsx
@@ -84,8 +93,9 @@ theme-aware onboarding flow with no app-level forks (issue #466).
   locked while a tour runs; the spotlight repositions on scroll/resize.
 - **Persistence** — `persist: 'localStorage'` marks a `tourId` seen so an
   auto-start tour runs only once; default is no persistence.
-- **i18n** — the Back / Next / Skip / Done / "Step _n_ of _m_" controls read the
-  `gds.tour.*` keys, shipped in all 12 GDS locale packs.
+- **i18n** — the Back / Next / Skip / Done / "Step _n_ of _m_" controls and the
+  `GdsTourButton` launcher label read the `gds.tour.*` keys (including
+  `gds.tour.launch`), shipped in all 12 GDS locale packs.
 
 ## Tokens
 
@@ -99,33 +109,53 @@ Never hard-code an `rgba()` dim in product code — read `--gds-overlay-scrim`.
 
 ## Where it's used
 
-The GDS site dogfoods the module on two surfaces, each **auto-running once** for
-first-time visitors (persisted per device) with a "Take the guided tour" control
-that replays on demand:
+The GDS site dogfoods the module across **every primary destination** through one
+shared [`SiteTourLauncher`](../apps/playground/src/SiteTourLauncher.tsx) control —
+a consistent "Take the guided tour" button on every page, plus a gate-safe
+first-run auto-start on the pages a verification gate never drives.
 
-- **Home page** — spotlights the live Theme Lab, the "what GDS gives you" band,
-  and the get-started links.
+**Auto-start pages** (launcher button + first-run overlay):
+
+- **Home** — the live Theme Lab, the "what GDS gives you" band, get-started links.
 - [**Use with AI**](https://sovereignsquad.github.io/general-design-system/ai) —
-  spotlights the llms.txt entry point, the install/bootstrap step, and the
-  non-negotiable agent rules.
+  the llms.txt entry point, install/bootstrap, and the non-negotiable agent rules.
+- **Pattern Catalog** — browse the pattern families and the SSOT traceability promise.
+- **Live Demos** — open a demo family and read the shipped-contract guarantee.
+- **API Reference** — the export summary lanes and the searchable export table.
+- **Coverage** — the shipped-vs-pending status band and the accessibility evidence.
+- **Maturity** — the delivery-maturity summary and the issue-backed capabilities.
+- **Use Cases** — pick the lane by product shape and confirm its operational contract.
+- **Governance** — the non-negotiable rules and enforced accessibility evidence.
+- **Request a Feature** — the intake form and the triage/repository-hygiene contract.
+
+**Manual-only pages** (launcher button, no auto-start — a runtime gate visits
+these bare routes, so an auto-opened overlay would surface mid-verification):
+
+- **Install** (`/install`) — visited by the accessibility runtime gate.
+- **Themes** (`/themes`) — visited by the theme-trust, accessibility, and
+  forced-colors runtime gates.
+
+The shared launcher centralizes the gate-safe auto-start decision so every page
+behaves identically: pass `autoStart` on a page no gate drives, omit it on a
+gate-visited route.
 
 ### Auto-start without breaking automated gates
 
-Auto-first-run is scoped to a route that no headless verification gate visits.
-GDS's browser runtime gates start with empty `localStorage` — so to them every
-run looks like a "first visit" — which means an unconditional auto-start would
-render the tour overlay over the page a gate is asserting against and flake it.
-Rather than sniff for automation (unreliable under raw-CDP headless Chrome), the
-site uses two deterministic, route-aware signals:
+`SiteTourLauncher` only auto-opens when **all** of these hold, so the overlay
+never surfaces during headless verification:
 
-- **`/ai`** — a route no runtime gate loads at all, so its auto-start is
-  unconditional.
-- **Home (`/`)** — a route the `theme-trust` gate *does* load, but only ever as
-  `/?locale=xx` (with a query string), never bare `/`. So its auto-start is gated
-  on `window.location.search === ''`: a real visitor on `/` sees it once; the
-  gate's `/?locale=…` visits never trigger it.
+- **A bare URL** — `window.location.search === ''`. GDS's browser runtime gates
+  visit query-bearing routes (`/?locale=xx`) or deep sub-routes; a real visitor
+  arrives on a clean path. This alone keeps the gate's localized-home visits from
+  triggering the home tour.
+- **A real browser** — `typeof Element.prototype.scrollIntoView === 'function'`.
+  This is `true` in Chrome and `false` under jsdom, so page unit tests that render
+  a page standalone never auto-fire the tour.
+- **`autoStart` opted in** — pages a gate visits by their bare path (`/install`,
+  `/themes`) omit `autoStart` entirely and expose the manual launcher only.
 
-When you add an auto-start tour to your own app, prefer a first-run surface your
-test/CI harness does not drive, or gate the auto-start behind a signal your
-harness never satisfies (a clean URL, or an explicit "onboarding enabled" flag
-it can turn off).
+Combined, these are deterministic and need no automation sniffing (unreliable
+under raw-CDP headless Chrome). When you add an auto-start tour to your own app,
+prefer a first-run surface your test/CI harness does not drive, or gate the
+auto-start behind a signal your harness never satisfies (a clean URL, or an
+explicit "onboarding enabled" flag it can turn off).

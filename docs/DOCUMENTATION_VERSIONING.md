@@ -1,7 +1,7 @@
 # Documentation Versioning
 
 Status: Active SSOT
-Version: 3.14.16
+Version: 3.14.17
 Last updated: 2026-07-26
 
 Peers (Chakra, Primer, …) keep prior-major documentation live so consumers pinned to an older major aren't stranded on docs that describe a newer API. GDS meets the same need (issue #454) — but because **GDS documentation lives in-repo as versioned Markdown**, every published release is already a complete, immutable documentation snapshot. This document is the decided scheme for reading docs at a specific version.
@@ -18,7 +18,7 @@ Because every `gds-v*` tag is an immutable Git ref, this needs no separate hoste
 
 ## Version index
 
-- **Current major — 3.x** (supported): [`main` docs](https://github.com/sovereignsquad/general-design-system/tree/main) · [live site](https://sovereignsquad.github.io/general-design-system) · latest release tag `gds-v3.14.16`.
+- **Current major — 3.x** (supported): [`main` docs](https://github.com/sovereignsquad/general-design-system/tree/main) · [live site](https://sovereignsquad.github.io/general-design-system) · latest release tag `gds-v3.14.17`.
 - **Previous major — 2.x** (archived, read-only): last release [`gds-v2.6.5`](https://github.com/sovereignsquad/general-design-system/tree/gds-v2.6.5) — browse its `FOUNDATION.md`, `COMPONENTS_AND_PATTERNS.md`, and `docs/**` for the 2.x contracts. Not maintained; upgrade guidance lives in [`DEPRECATIONS_AND_MIGRATIONS.md`](../DEPRECATIONS_AND_MIGRATIONS.md) and [`MIGRATION_TO_SOVEREIGNSQUAD.md`](../MIGRATION_TO_SOVEREIGNSQUAD.md).
 
 To read the docs for **any** other released version `X.Y.Z`, replace the tag: `github.com/sovereignsquad/general-design-system/tree/gds-vX.Y.Z`.

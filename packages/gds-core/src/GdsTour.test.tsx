@@ -5,6 +5,7 @@ import { renderWithGds } from '../../../test-utils/render';
 import {
   GdsTourProvider,
   GdsGuidedTour,
+  GdsTourButton,
   useGdsTour,
   useHasSeenTour,
   type GdsTourStep,
@@ -161,6 +162,33 @@ describe('GdsTour', () => {
     );
     await new Promise((r) => setTimeout(r, 50));
     expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('GdsTourButton renders the localized launch label and starts the tour on click', async () => {
+    renderWithGds(
+      <GdsTourProvider>
+        <span data-gds-tour-target="a">a</span>
+        <span data-gds-tour-target="b">b</span>
+        <GdsTourButton tourId="launcher" steps={steps} />
+      </GdsTourProvider>,
+    );
+    // Default label reads the localized gds.tour.launch key.
+    const launcher = screen.getByRole('button', { name: 'Take the guided tour' });
+    expect(launcher).toBeTruthy();
+    expect(launcher.className).toContain('gds-tour-launch');
+
+    await userEvent.click(launcher);
+    expect(await screen.findByRole('dialog')).toBeTruthy();
+    expect(screen.getByText('First stop')).toBeTruthy();
+  });
+
+  it('GdsTourButton accepts an explicit label override', () => {
+    renderWithGds(
+      <GdsTourProvider>
+        <GdsTourButton tourId="launcher" steps={steps} label="Show me around" />
+      </GdsTourProvider>,
+    );
+    expect(screen.getByRole('button', { name: 'Show me around' })).toBeTruthy();
   });
 
   it('useHasSeenTour reflects persisted state at mount', async () => {

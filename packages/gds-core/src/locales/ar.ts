@@ -4,6 +4,7 @@ export const ar = {
   'gds.tour.back': "رجوع",
   'gds.tour.skip': "تخطي",
   'gds.tour.done': "تم",
+  'gds.tour.launch': "ابدأ الجولة الإرشادية",
   'gds.tour.stepOfTotal': "الخطوة {n} من {m}",
   'gds.action.settings': 'الإعدادات',
   'gds.action.analytics': 'تحليلات',

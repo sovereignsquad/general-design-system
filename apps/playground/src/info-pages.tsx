@@ -10,15 +10,14 @@ import {
   PublicBrandFooter,
   ReferenceLinkGrid,
   ReferenceSection,
-  GdsGuidedTour,
   ReferenceThemeExplorer,
   SimpleDataTable,
   StateBlock,
-  useGdsTour,
   type GdsTourStep,
   type ThemeExplorerSelection,
 } from '@sovereignsquad/gds-core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
+import { SiteTourLauncher } from './SiteTourLauncher';
 import { apiReferenceEntries, apiReferencePackages, getApiReferenceEntries, getApiReferenceSummary } from './api-reference-registry';
 import { accessibilityEvidenceEntries, accessibilityEvidenceSummary } from './accessibility-evidence-registry';
 import { patternRegistry } from './pattern-registry';
@@ -290,9 +289,9 @@ This project uses @sovereignsquad/gds for all UI.
 When building UI, compose shipped GDS components — do not author parallel primitives.
 Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
 
-  // Dogfood the shipped GdsGuidedTour module (issue 466): a launchable spotlight
-  // tour of this page's key resources, proving the tour on our own site.
-  const tour = useGdsTour();
+  // Dogfood the shipped GdsGuidedTour module (issue 466) via the shared
+  // SiteTourLauncher: a launchable + auto-running spotlight tour of this page's
+  // key resources. /ai is visited by no runtime gate, so auto-start is safe.
   const entryRef = useRef<HTMLDivElement>(null);
   const bootstrapRef = useRef<HTMLDivElement>(null);
   const rulesRef = useRef<HTMLDivElement>(null);
@@ -326,19 +325,7 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
       eyebrow="AI agent integration"
       lead="GDS is designed to be used by AI coding agents and any LLM-powered coding tool. Every component ships TypeScript contracts, a machine-readable entry point (llms.txt), and drop-in repo rules so agents build with the real system automatically."
     >
-      <div>
-        <button
-          type="button"
-          className="gds-tour-launch"
-          onClick={() => tour.start('gds-ai-page', tourSteps, { persist: 'none' })}
-        >
-          Take the guided tour
-        </button>
-      </div>
-      {/* Auto-run once for first-time visitors. Scoped to /ai (a route no headless
-          runtime gate visits) so the overlay can never flake theme-trust /
-          forced-colors runs. The launcher above always replays on demand. */}
-      <GdsGuidedTour id="gds-ai-page" steps={tourSteps} open persist="localStorage" />
+      <SiteTourLauncher tourId="gds-ai-page" steps={tourSteps} autoStart />
       <div ref={entryRef} data-gds-tour-target="ai-entry">
       <ReferenceSection
         title="Machine-readable entry point (llms.txt)"
@@ -458,6 +445,15 @@ export function RequestFeaturePage() {
       eyebrow="Official intake path"
       lead="Every feature request from teams should start with this simple mailto lane. Maintainers triage it into a GDS issue only when the need is reusable, accessible, and not product-specific."
     >
+      <SiteTourLauncher
+        tourId="gds-request-feature"
+        autoStart
+        steps={[
+          { id: 'request-form', target: 'request-form', title: 'Submit one focused request', body: 'Fill the intake fields for a single capability. Submitting opens a prefilled email — the shared lane maintainers triage from.', placement: 'bottom' },
+          { id: 'request-triage', target: 'request-triage', title: 'How requests are triaged', body: 'Only reusable, accessible, non-product-specific needs become GDS issues. This is the contract for what gets promoted, routed, or rejected.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="request-form">
       <ReferenceSection title="Official feature request form" description="Use the shared mail path while we build the full API-backed tracker.">
         <form
           onSubmit={(event) => {
@@ -557,6 +553,7 @@ export function RequestFeaturePage() {
           />
         </form>
       </ReferenceSection>
+      </div>
 
       <ReferenceSection title="What we prioritize" description="If your request is aligned with the next-wave adoption surface, it gets a clear path to production sooner.">
         <FeatureBand
@@ -581,6 +578,7 @@ export function RequestFeaturePage() {
         />
       </ReferenceSection>
 
+      <div data-gds-tour-target="request-triage">
       <ReferenceSection title="Triage and repository hygiene" description="Only reusable GDS capability requests belong in this repository and project board. Product-specific work must stay with the owning product.">
         <FeatureBand
           columns={3}
@@ -604,6 +602,7 @@ export function RequestFeaturePage() {
           ]}
         />
       </ReferenceSection>
+      </div>
 
       <ReferenceSection title="Mail-client fallback" description="If your mail client does not open, copy the address and send the same fields manually.">
         <StateBlock
@@ -631,8 +630,10 @@ export function OverviewPage({
   const { locale } = useGdsTranslation();
   const i18n = getSiteCopy(overviewCopy, locale);
 
-  // First-run onboarding tour for new visitors landing on the home page.
-  const tour = useGdsTour();
+  // First-run onboarding tour for new visitors landing on the home page,
+  // launched via the shared SiteTourLauncher (consistent control + gate-safe
+  // auto-start). Home is a theme-trust route, but only ever visited as
+  // "/?locale=xx", so the launcher's no-query auto-start guard keeps it safe.
   const themesRef = useRef<HTMLDivElement>(null);
   const whatRef = useRef<HTMLDivElement>(null);
   const startRef = useRef<HTMLDivElement>(null);
@@ -659,17 +660,6 @@ export function OverviewPage({
       placement: 'top',
     },
   ];
-  // Gate-safe auto-start on a bare "/" (no query string): the theme-trust runtime
-  // gate only ever visits the home route as "/?locale=xx" (query present), so it
-  // never triggers the overlay. The scrollIntoView capability check keeps the tour
-  // from auto-firing under jsdom unit tests (which lack that API) — a real browser
-  // has it, jsdom does not — so no automation sniffing is needed anywhere.
-  const autoStart =
-    typeof window !== 'undefined' &&
-    window.location.search === '' &&
-    typeof Element !== 'undefined' &&
-    typeof Element.prototype.scrollIntoView === 'function';
-
   return (
     <DocsPageShell
       title={i18n.title}
@@ -683,16 +673,7 @@ export function OverviewPage({
         </>
       )}
     >
-      <div>
-        <button
-          type="button"
-          className="gds-tour-launch"
-          onClick={() => tour.start('gds-home', homeSteps, { persist: 'none' })}
-        >
-          Take the guided tour
-        </button>
-      </div>
-      <GdsGuidedTour id="gds-home" steps={homeSteps} open={autoStart} persist="localStorage" />
+      <SiteTourLauncher tourId="gds-home" steps={homeSteps} autoStart />
 
       <div ref={themesRef} data-gds-tour-target="home-themes">
       <ReferenceSection
@@ -769,6 +750,15 @@ export function CoveragePage() {
       eyebrow="Pattern parity status"
       lead="This page is the runtime parity matrix between COMPONENTS_AND_PATTERNS.md and the official demo routes. Use it to see what is shipped, where it is shown, and what remains blocked."
     >
+      <SiteTourLauncher
+        tourId="gds-coverage"
+        autoStart
+        steps={[
+          { id: 'coverage-summary', target: 'coverage-summary', title: 'See what is shipped', body: 'This status band summarizes how many patterns are live demos, static references, or still pending — generated from the shared pattern registry.', placement: 'bottom' },
+          { id: 'coverage-evidence', target: 'coverage-evidence', title: 'Accessibility evidence', body: 'Every stable pattern publishes keyboard, focus, WCAG, screen-reader, and AT/browser evidence — visible here, not buried in release notes.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="coverage-summary">
       <ReferenceSection title="Coverage summary" description="Status counts are generated from the shared pattern registry used by the docs routes.">
         <FeatureBand
           columns={4}
@@ -781,6 +771,7 @@ export function CoveragePage() {
           ]}
         />
       </ReferenceSection>
+      </div>
       <ReferenceSection title="Pattern matrix" description="Every row points to the canonical family route where the pattern is represented.">
         <SimpleDataTable
           columns={[
@@ -793,6 +784,7 @@ export function CoveragePage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
+      <div data-gds-tour-target="coverage-evidence">
       <ReferenceSection title="Accessibility evidence" description="Every stable pattern publishes package-owned keyboard, focus, WCAG, screen-reader, and AT/browser evidence. Known limitations stay visible here instead of hiding in release notes.">
         <FeatureBand
           columns={4}
@@ -815,6 +807,7 @@ export function CoveragePage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
+      </div>
       <SiteFooter />
     </DocsPageShell>
   );
@@ -845,6 +838,15 @@ export function ApiReferencePage() {
 
   return (
     <DocsPageShell title={i18n.title} eyebrow={i18n.eyebrow} lead={i18n.lead}>
+      <SiteTourLauncher
+        tourId="gds-api"
+        autoStart
+        steps={[
+          { id: 'api-summary', target: 'api-summary', title: 'The public API at a glance', body: 'Every documented export is counted here by lane — live-demo evidence, support contracts, canonical stability, and dependency-governed boundaries.', placement: 'bottom' },
+          { id: 'api-table', target: 'api-table', title: 'Search the full export table', body: 'Each row is one public entry with its package, kind, runtime lane, docs status, stability, dependency boundary, and exact import path.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="api-summary">
       <ReferenceSection title={i18n.summaryTitle} description={i18n.summaryDescription}>
         <FeatureBand
           columns={4}
@@ -870,6 +872,7 @@ export function ApiReferencePage() {
           }))}
         />
       </ReferenceSection>
+      </div>
       <ReferenceSection title="Accessibility evidence contract" description="The API surface is paired with a package-owned evidence registry so consumers can audit keyboard behavior, visible focus, WCAG mapping, assistive-technology coverage, known limitations, and recovery notes before adoption.">
         <FeatureBand
           columns={4}
@@ -892,6 +895,7 @@ export function ApiReferencePage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
+      <div data-gds-tour-target="api-table">
       <ReferenceSection title={i18n.tableTitle} description={i18n.tableDescription}>
         <SimpleDataTable
           columns={[
@@ -908,6 +912,7 @@ export function ApiReferencePage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
+      </div>
       <SiteFooter />
     </DocsPageShell>
   );
@@ -921,6 +926,15 @@ export function MaturityPage() {
 
   return (
     <DocsPageShell title={i18n.title} eyebrow={i18n.eyebrow} lead={i18n.lead}>
+      <SiteTourLauncher
+        tourId="gds-maturity"
+        autoStart
+        steps={[
+          { id: 'maturity-summary', target: 'maturity-summary', title: 'Delivery maturity at a glance', body: 'The recommended capability groups are counted by lane — production-ready contracts, adoption tooling, and operational release contracts.', placement: 'bottom' },
+          { id: 'maturity-benefits', target: 'maturity-benefits', title: 'Issue-backed capabilities', body: 'Each capability is traceable to a GitHub issue with its benefit, owning packages, and primary contracts — no unbacked roadmap claims.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="maturity-summary">
       <ReferenceSection title={i18n.summaryTitle} description={i18n.summaryDescription}>
         <FeatureBand
           columns={4}
@@ -933,6 +947,8 @@ export function MaturityPage() {
           ]}
         />
       </ReferenceSection>
+      </div>
+      <div data-gds-tour-target="maturity-benefits">
       <ReferenceSection title={i18n.benefitsTitle} description={i18n.benefitsDescription}>
         <SimpleDataTable
           columns={[
@@ -955,6 +971,7 @@ export function MaturityPage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
+      </div>
       <ReferenceSection title={i18n.operationsTitle} description={i18n.operationsDescription}>
         {capabilities.map((capability) => (
           <StateBlock
@@ -977,6 +994,15 @@ export function UseCasesPage() {
 
   return (
     <DocsPageShell title={i18n.title} eyebrow={i18n.eyebrow} lead={i18n.lead}>
+      <SiteTourLauncher
+        tourId="gds-use-cases"
+        autoStart
+        steps={[
+          { id: 'use-cases-guide', target: 'use-cases-guide', title: 'Pick the lane by product shape', body: 'Each card states the decision rule and the primary GDS contracts for that product shape, so you adopt the right lane before writing local UI.', placement: 'bottom' },
+          { id: 'use-cases-contract', target: 'use-cases-contract', title: 'Confirm the operational contract', body: 'The table pairs each use case with its audience, risk, recommended packages, and the checks a product owner should confirm before approving work.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="use-cases-guide">
       <ReferenceSection title={i18n.guideTitle} description={i18n.guideDescription}>
         <FeatureBand
           columns={2}
@@ -987,6 +1013,8 @@ export function UseCasesPage() {
           }))}
         />
       </ReferenceSection>
+      </div>
+      <div data-gds-tour-target="use-cases-contract">
       <ReferenceSection title="Operational contract" description="Product owners should confirm the delivery lane, risk, checks, and accessibility obligation before approving local UI work.">
         <SimpleDataTable
           columns={[
@@ -1007,6 +1035,7 @@ export function UseCasesPage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
+      </div>
       <ReferenceSection title="Accessibility and recovery" description="Every recommended lane carries explicit accessibility and operational behavior.">
         {productUseCases.map((useCase) => (
           <StateBlock
@@ -1034,12 +1063,23 @@ export function InstallPage() {
       eyebrow={copy.eyebrow}
       lead={copy.lead}
     >
+      {/* Manual launcher only: /install is visited by verify-accessibility-runtime,
+          so an auto-start overlay would surface during that gate. */}
+      <SiteTourLauncher
+        tourId="gds-install"
+        steps={[
+          { id: 'install-registry', target: 'install-registry', title: 'Install from GitHub Packages', body: 'Add the .npmrc registry line, then install @sovereignsquad/gds and its peers. Every install authenticates, even for public packages.', placement: 'bottom' },
+          { id: 'install-provider', target: 'install-provider', title: 'Wrap your app once', body: 'Load the GDS stylesheet, then wrap the app in a single GdsProvider — the one required root that injects theme, tokens, and locale.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="install-registry">
       <ReferenceSection title={copy.installSectionTitle} description={copy.installSectionDescription}>
         <DocsCodeBlock code={npmrcCode} language="ini" title={copy.npmrcCodeTitle} />
         <DocsCodeBlock code={installCode} language="bash" title={copy.installCodeTitle} />
         <DocsCodeBlock code={granularInstallCode} language="bash" title={copy.granularCodeTitle} />
         <DocsCodeBlock code={peerCode} language="bash" title={copy.peerCodeTitle} />
       </ReferenceSection>
+      </div>
 
       <ReferenceSection title={copy.upgradeSectionTitle} description={copy.upgradeSectionDescription}>
         <DocsCodeBlock code={updateCode} language="bash" title={copy.upgradeCodeTitle} />
@@ -1066,12 +1106,14 @@ export function InstallPage() {
         />
       </ReferenceSection>
 
+      <div data-gds-tour-target="install-provider">
       <ReferenceSection title={copy.providerSectionTitle} description={copy.providerSectionDescription}>
         <DocsCodeBlock code={nextLayoutCode} language="tsx" title={copy.nextLayoutTitle} />
         <DocsCodeBlock code={providerCode} language="tsx" title={copy.providerCodeTitle} />
         <DocsCodeBlock code={viteBootstrapCode} language="tsx" title={copy.viteBootstrapTitle} />
         <DocsCodeBlock code={scopedPreviewProviderCode} language="tsx" title={copy.scopedPreviewProviderTitle} />
       </ReferenceSection>
+      </div>
 
       <ReferenceSection title={copy.adoptSectionTitle} description={copy.adoptSectionDescription}>
         <ReferenceLinkGrid
@@ -1130,6 +1172,15 @@ export function RulebookPage() {
       eyebrow={i18n.eyebrow}
       lead={i18n.lead}
     >
+      <SiteTourLauncher
+        tourId="gds-governance"
+        autoStart
+        steps={[
+          { id: 'gov-require', target: 'gov-require', title: 'The non-negotiable rules', body: 'These are the standing rules every change on GDS must satisfy — the zero-tolerance quality gate, issue-driven work, and mandatory docs.', placement: 'bottom' },
+          { id: 'gov-evidence', target: 'gov-evidence', title: 'Accessibility is enforced', body: 'Stable patterns must publish structured accessibility evidence; missing or stale records fail release verification.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="gov-require">
       <ReferenceSection title={i18n.requireTitle} description={i18n.requireDescription}>
         <FeatureBand
           columns={3}
@@ -1152,6 +1203,7 @@ export function RulebookPage() {
           ]}
         />
       </ReferenceSection>
+      </div>
 
       <ReferenceSection title={i18n.implementedTitle} description={i18n.implementedDescription}>
         <FeatureBand
@@ -1237,6 +1289,7 @@ export function RulebookPage() {
           ]}
         />
       </ReferenceSection>
+      <div data-gds-tour-target="gov-evidence">
       <ReferenceSection title="Accessibility evidence rules" description="Stable patterns must publish structured evidence with owner, freshness, WCAG mapping, AT/browser status, known limitations, and recovery text. Missing or stale records fail release verification.">
         <FeatureBand
           columns={3}
@@ -1259,6 +1312,7 @@ export function RulebookPage() {
           ]}
         />
       </ReferenceSection>
+      </div>
 
       <SiteFooter />
     </DocsPageShell>
@@ -1282,8 +1336,21 @@ export function TokensPage({
       eyebrow={i18n.eyebrow}
       lead={i18n.lead}
     >
-      <ReferenceThemeExplorer initialSelection={initialThemeSelection} onSelectionChange={onSiteThemeSelectionChange} />
-      <ThemeBuilder />
+      {/* Manual launcher only: /themes is visited by the theme-trust, accessibility,
+          and forced-colors runtime gates, so it must never auto-open an overlay. */}
+      <SiteTourLauncher
+        tourId="gds-themes"
+        steps={[
+          { id: 'themes-explorer', target: 'themes-explorer', title: 'Preview every governed theme', body: 'Switch presets, color scheme, and brand color live. What you pick here is the same token contract your app ships.', placement: 'bottom' },
+          { id: 'themes-builder', target: 'themes-builder', title: 'Build your own brand theme', body: 'Generate a governed brand theme from a seed color — the builder emits the token overrides you drop into createBrandTheme.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="themes-explorer">
+        <ReferenceThemeExplorer initialSelection={initialThemeSelection} onSelectionChange={onSiteThemeSelectionChange} />
+      </div>
+      <div data-gds-tour-target="themes-builder">
+        <ThemeBuilder />
+      </div>
       <ReferenceSection
         title={i18n.lanesTitle}
         description={i18n.lanesDescription}

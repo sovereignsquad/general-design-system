@@ -9,6 +9,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type ComponentPropsWithoutRef,
   type ReactNode,
   type RefObject,
 } from 'react';
@@ -505,4 +506,52 @@ export function GdsGuidedTour({ id, steps, open = false, defaultStep, ...options
   }, [open, id]);
 
   return null;
+}
+
+/** Props for {@link GdsTourButton}; extends the native button attributes (minus `onClick`). */
+export interface GdsTourButtonProps
+  extends Omit<ComponentPropsWithoutRef<'button'>, 'onClick' | 'type'>,
+    GdsTourStartOptions {
+  /** The tour id to start when the button is pressed. */
+  tourId: string;
+  /** The ordered steps to run. */
+  steps: GdsTourStep[];
+  /** Visible label. Defaults to the localized `gds.tour.launch` control ("Take the guided tour"). */
+  label?: ReactNode;
+}
+
+/**
+ * Governed launcher button for a guided tour: renders a themeable
+ * `.gds-tour-launch` control whose label reads the localized `gds.tour.launch`
+ * key, and imperatively starts the given tour via {@link useGdsTour} on click.
+ * Use it wherever a product wants a "Take the guided tour" affordance without
+ * hand-rolling a raw control; pair it with {@link GdsGuidedTour} for first-run
+ * auto-start.
+ */
+export function GdsTourButton({
+  tourId,
+  steps,
+  label,
+  className,
+  startAt,
+  persist = 'none',
+  onStepChange,
+  onFinish,
+  onSkip,
+  onStop,
+  ...buttonProps
+}: GdsTourButtonProps) {
+  const { start } = useGdsTour();
+  const { t } = useGdsTranslation();
+
+  return (
+    <button
+      type="button"
+      className={className ? `gds-tour-launch ${className}` : 'gds-tour-launch'}
+      onClick={() => start(tourId, steps, { startAt, persist, onStepChange, onFinish, onSkip, onStop })}
+      {...buttonProps}
+    >
+      {label ?? t('gds.tour.launch', 'Take the guided tour')}
+    </button>
+  );
 }
