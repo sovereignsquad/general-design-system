@@ -4,6 +4,7 @@ export const hu = {
   'gds.tour.back': "Vissza",
   'gds.tour.skip': "Kihagyás",
   'gds.tour.done': "Kész",
+  'gds.tour.launch': "Vezetett bemutató indítása",
   'gds.tour.stepOfTotal': "{n}. lépés / {m}",
   'gds.action.settings': 'Beállítások',
   'gds.action.analytics': 'Analitika',

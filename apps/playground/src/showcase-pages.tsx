@@ -36,6 +36,7 @@ import {
 } from '@sovereignsquad/gds-core';
 import { DataTable, PageHeader, ResponsiveDataView } from '@sovereignsquad/gds-admin';
 import { patternRegistry } from './pattern-registry';
+import { SiteTourLauncher } from './SiteTourLauncher';
 
 const catalogEntryCount = patternRegistry.length;
 
@@ -54,6 +55,15 @@ export function LiveDemosPage() {
       eyebrow="Official runtime proof"
       lead="This section is the public runtime showcase for shipped GDS surfaces. Use it to inspect real compositions and interaction contracts before building locally."
     >
+      <SiteTourLauncher
+        tourId="gds-live-demos"
+        autoStart
+        steps={[
+          { id: 'live-demos-families', target: 'live-demos-families', title: 'Open a live demo family', body: 'Demos are grouped by purpose — discovery cards, shells, actions/auth, food, playback, analytics. Open the lane you are about to build.', placement: 'bottom' },
+          { id: 'live-demos-howto', target: 'live-demos-howto', title: 'These are shipped contracts', body: 'Every demo renders the real published primitives — not marketing art or local sandboxes — so each one doubles as a migration target.', placement: 'top' },
+        ]}
+      />
+      <div data-gds-tour-target="live-demos-families">
       <ReferenceSection
         title="Open a live demo family"
         description="The demos are separated by purpose so visitors can inspect the exact runtime lane they care about."
@@ -99,7 +109,9 @@ export function LiveDemosPage() {
           ]}
         />
       </ReferenceSection>
+      </div>
 
+      <div data-gds-tour-target="live-demos-howto">
       <ReferenceSection
         title="How to read these demos"
         description="These are live examples built from shipped GDS packages. They are not mock marketing art and they are not local component sandboxes."
@@ -125,6 +137,7 @@ export function LiveDemosPage() {
           ]}
         />
       </ReferenceSection>
+      </div>
 
       <DemoFooter />
     </DocsPageShell>

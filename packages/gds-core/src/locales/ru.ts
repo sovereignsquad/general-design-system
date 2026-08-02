@@ -4,6 +4,7 @@ export const ru = {
   'gds.tour.back': "Назад",
   'gds.tour.skip': "Пропустить",
   'gds.tour.done': "Готово",
+  'gds.tour.launch': "Пройти обучающий тур",
   'gds.tour.stepOfTotal': "Шаг {n} из {m}",
   'gds.action.settings': 'Настройки',
   'gds.action.analytics': 'Аналитика',

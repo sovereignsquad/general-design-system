@@ -4,6 +4,7 @@ export const ko = {
   'gds.tour.back': "뒤로",
   'gds.tour.skip': "건너뛰기",
   'gds.tour.done': "완료",
+  'gds.tour.launch': "가이드 투어 시작하기",
   'gds.tour.stepOfTotal': "{m}단계 중 {n}단계",
   'gds.action.settings': '설정',
   'gds.action.analytics': '해석학',

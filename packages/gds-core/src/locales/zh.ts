@@ -4,6 +4,7 @@ export const zh = {
   'gds.tour.back': "上一步",
   'gds.tour.skip': "跳过",
   'gds.tour.done': "完成",
+  'gds.tour.launch': "开始引导教程",
   'gds.tour.stepOfTotal': "第 {n} 步，共 {m} 步",
   'gds.action.settings': '设置',
   'gds.action.analytics': '分析',

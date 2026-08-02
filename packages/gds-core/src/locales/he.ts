@@ -4,6 +4,7 @@ export const he = {
   'gds.tour.back': "חזרה",
   'gds.tour.skip': "דלג",
   'gds.tour.done': "סיום",
+  'gds.tour.launch': "התחילו סיור מודרך",
   'gds.tour.stepOfTotal': "שלב {n} מתוך {m}",
   'gds.action.settings': 'הגדרות',
   'gds.action.analytics': 'ניתוח נתונים',

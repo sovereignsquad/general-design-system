@@ -4,6 +4,7 @@ export const de = {
   'gds.tour.back': "Zurück",
   'gds.tour.skip': "Überspringen",
   'gds.tour.done': "Fertig",
+  'gds.tour.launch': "Geführte Tour starten",
   'gds.tour.stepOfTotal': "Schritt {n} von {m}",
   'gds.action.settings': 'Einstellungen',
   'gds.action.analytics': 'Analyse',
