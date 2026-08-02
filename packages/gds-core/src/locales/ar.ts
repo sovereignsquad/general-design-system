@@ -1,5 +1,10 @@
 /** Arabic (ar) message catalog for GDS core strings. */
 export const ar = {
+  'gds.tour.next': "التالي",
+  'gds.tour.back': "رجوع",
+  'gds.tour.skip': "تخطي",
+  'gds.tour.done': "تم",
+  'gds.tour.stepOfTotal': "الخطوة {n} من {m}",
   'gds.action.settings': 'الإعدادات',
   'gds.action.analytics': 'تحليلات',
   'gds.action.dashboard': 'لوحة القيادة',

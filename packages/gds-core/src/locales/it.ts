@@ -1,5 +1,10 @@
 /** Italian (`it`) message pack for the GDS string catalog, keyed by message id. */
 export const it = {
+  'gds.tour.next': "Avanti",
+  'gds.tour.back': "Indietro",
+  'gds.tour.skip': "Salta",
+  'gds.tour.done': "Fine",
+  'gds.tour.stepOfTotal': "Passaggio {n} di {m}",
   'gds.action.settings': 'Impostazioni',
   'gds.action.analytics': 'Analitica',
   'gds.action.dashboard': 'Dashboard',

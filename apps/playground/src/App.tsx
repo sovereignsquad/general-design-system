@@ -8,6 +8,7 @@ import {
 import {
   DocsHeaderActionSelect,
   DocsShell,
+  GdsTourProvider,
   ReferenceLocaleNotice,
   SidebarNavItem,
   StateBlock,
@@ -278,6 +279,7 @@ function PlaygroundContent() {
       defaultColorScheme={siteThemeSelection.colorScheme}
       forceColorScheme={siteThemeSelection.colorScheme === 'auto' ? undefined : siteThemeSelection.colorScheme}
     >
+      <GdsTourProvider>
       <DocsShell
         brand={<strong>General Design System</strong>}
         primaryNavigation={primaryNavigation}
@@ -347,6 +349,7 @@ function PlaygroundContent() {
           ))}
         </Routes>
       </DocsShell>
+      </GdsTourProvider>
     </GdsProvider>
   );
 }

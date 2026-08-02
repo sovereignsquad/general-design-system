@@ -1,5 +1,10 @@
 /** Hungarian (hu) message catalog for GDS core strings. */
 export const hu = {
+  'gds.tour.next': "Tovább",
+  'gds.tour.back': "Vissza",
+  'gds.tour.skip': "Kihagyás",
+  'gds.tour.done': "Kész",
+  'gds.tour.stepOfTotal': "{n}. lépés / {m}",
   'gds.action.settings': 'Beállítások',
   'gds.action.analytics': 'Analitika',
   'gds.action.dashboard': 'Irányítópult',

@@ -46,6 +46,8 @@
     "GdsVocabulary": "i18n/vocabulary runtime surface (vocabulary) — provider/consumer helper, not a catalog pattern.",
 
     "GdsConfirmProvider": "Provider/context (overlay confirm) — non-visual; the confirm pattern is registered via ConfirmDialog.",
+    "GdsTourProvider": "Provider/context (guided-tour runtime) — non-visual controller; renders the spotlight/step-card overlay imperatively via useGdsTour, covered as support-api.",
+    "GdsGuidedTour": "Declarative controller (guided tour) — renders null and starts a tour via useGdsTour; non-visual, covered as support-api.",
     "GdsFormProvider": "Provider/context (form orchestration) — non-visual; forms pattern is registered via useGdsForm.",
     "GdsToastProvider": "Provider/context (toast) — non-visual; notification pattern is registered via GdsNotificationProvider.",
     "CreatorThemeBoundary": "Provider/context (creator theme scope) — non-visual boundary.",

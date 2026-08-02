@@ -1,5 +1,10 @@
 /** Korean (ko) translation table for GDS component and pattern strings. */
 export const ko = {
+  'gds.tour.next': "다음",
+  'gds.tour.back': "뒤로",
+  'gds.tour.skip': "건너뛰기",
+  'gds.tour.done': "완료",
+  'gds.tour.stepOfTotal': "{m}단계 중 {n}단계",
   'gds.action.settings': '설정',
   'gds.action.analytics': '해석학',
   'gds.action.dashboard': '계기반',

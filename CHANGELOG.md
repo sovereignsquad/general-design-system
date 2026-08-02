@@ -2,6 +2,17 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.14 - 2026-08-02 — Guided Onboarding Tour module (spotlight coach-marks) (#466)
+
+Ships a first-class, reusable **guided onboarding tour** so every product on GDS gets one governed, accessible, i18n'd first-run flow with no app-level forks — and dogfoods it on the GDS site.
+
+- **New module** (`@sovereignsquad/gds-core`): `GdsTourProvider`, `useGdsTour()`, the declarative `GdsGuidedTour`, the `GdsTourStep` type, and `useHasSeenTour()`. A tour dims the viewport, cuts a spotlight hole over the current target, and anchors a step card with Back / Next / Skip / Done and a "Step _n_ of _m_" indicator; advancing moves the spotlight and scrolls the next target into view. Targets are referenced by a stable `data-gds-tour-target` id or a React ref (#467–#470).
+- **Governed scrim token** (`gds-theme`): `--gds-overlay-scrim` (light/dark; `transparent` under forced-colors) plus `--gds-tour-spotlight-radius`/`-padding`, so no raw `rgba()` dim lands in product code.
+- **Accessibility**: focus-trapped `role="dialog"` step card with `aria-labelledby`/`describedby`, focus-return-to-invoker, `Esc`/arrows/`Enter`/`Tab` handling, a polite "Step _n_ of _m_" live region, forced-colors outline degrade, and `prefers-reduced-motion` support. Controls read new `gds.tour.*` keys shipped across all 12 locale packs.
+- **Docs**: new [`docs/GUIDED_TOUR.md`](docs/GUIDED_TOUR.md) (contract + consumer drop-in), a Guided Onboarding Tour rules section in `COMPONENTS_AND_PATTERNS.md`, and `llms.txt` coverage.
+- **Dogfood**: the [Use with AI](https://sovereignsquad.github.io/general-design-system/ai) page gains a "Take the guided tour" control that spotlights the llms.txt entry point, the install/bootstrap step, and the non-negotiable agent rules.
+- Board taxonomy extended with an `area: onboarding` label.
+
 ## 3.14.13 - 2026-07-31 — Vendor-neutral AI-tool naming across docs, templates, and site copy (#465)
 
 Removes tool-specific branding from the AI-integration surface so GDS reads as consumable by any LLM-powered coding tool rather than naming particular products. No runtime, token, or component-API change.
