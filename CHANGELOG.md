@@ -2,6 +2,13 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 3.14.15 - 2026-08-02 — Guided tour: auto-run once for first-time visitors (#473)
+
+Completes the onboarding half of the guided-tour module (#466): the GDS site now **auto-runs** the tour once for first-time visitors, not just on manual click.
+
+- The [Use with AI](https://sovereignsquad.github.io/general-design-system/ai) page mounts `GdsGuidedTour` with `open persist="localStorage"`, so a fresh visitor sees the tour once and never again; the "Take the guided tour" launcher still replays it on demand.
+- **Gate-safe by construction:** auto-start is scoped to the `/ai` route, which no headless runtime gate (`theme-trust`, `forced-colors`, `input-zoom`, `kanban-drag`) loads — so the overlay can never surface during a verification run. The rationale (and guidance for consumers doing their own auto-start) is documented in [`docs/GUIDED_TOUR.md`](docs/GUIDED_TOUR.md). No module API change.
+
 ## 3.14.14 - 2026-08-02 — Guided Onboarding Tour module (spotlight coach-marks) (#466)
 
 Ships a first-class, reusable **guided onboarding tour** so every product on GDS gets one governed, accessible, i18n'd first-run flow with no app-level forks — and dogfoods it on the GDS site.
