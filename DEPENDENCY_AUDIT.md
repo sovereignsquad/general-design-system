@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.17
-Last updated: 2026-07-26
+Last updated: 2026-08-05
 
 This repository treats published runtime package dependencies and local reference/tooling dependencies differently.
 
@@ -91,6 +91,25 @@ Operational behavior:
 - Do not ship public consumer guidance that requires `apps/reference-next` or `tsup` as a runtime dependency (already true — both are dev-only).
 - Recheck monthly or when Next/tsup publish a patched nested PostCSS dependency graph.
 - Remove this exception once `npm audit --json` no longer reports the advisory through either path.
+
+### GHSA-fxqj-rqcc-2cmp
+
+Owner: GDS platform
+Review date: 2026-09-05
+Scope: nested `postcss@8.4.31` reached via the same dev-only path as the other `postcss` advisories above — `apps/reference-next`'s `next` dependency (non-shipped App Router reference fixture)
+Severity: moderate
+
+Reason:
+
+- GitHub's own advisory title is "incomplete fix of `GHSA-6g55-p6wh-862q`" — this is a refinement of the sourceMappingURL/arbitrary-file-read class already accepted above, in the identical dependency chain, not a new exploit surface. The same disposition applies verbatim: it requires PostCSS to process attacker-controlled CSS containing a malicious `sourceMappingURL`, and `apps/reference-next` never serves or processes untrusted CSS.
+- `postcss` is a nested dev-tooling dependency, not a runtime dependency of any published `@sovereignsquad/*` package (`npm audit --omit=dev` reports zero findings) — it never ships in built package output.
+- `next@15.5.21` (the latest stable 15.x line) still hard-pins `postcss@8.4.31` internally (not a range), so no in-place patch or update within the supported 15.x reference line resolves it. The only fix is `next@16.3.0`, a semver-major bump — already tracked as "Accepted, review at next sweep" in the Staleness & Deprecation Sweep table below, and matching the same "no safe automated fix" disposition recorded for this advisory's siblings.
+
+Operational behavior:
+
+- Do not ship public consumer guidance that requires `apps/reference-next` as a runtime dependency (already true — dev-only).
+- Recheck monthly or when Next publishes a patched stable dependency graph, alongside the tracked `next@16` sweep item.
+- Remove this exception once `npm audit --json` no longer reports the advisory through the reference fixture.
 
 ## Staleness & Deprecation Sweep (added 2026-07-24, housekeeping issue #406)
 

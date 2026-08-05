@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.17
-Last updated: 2026-07-31
+Last updated: 2026-08-05
 
 How any AI coding agent — any LLM-powered coding tool — should consume the General Design System (GDS). The machine-readable summary lives in [`llms.txt`](../llms.txt) at the repo root; this is the human- and agent-readable long form.
 
@@ -12,7 +12,7 @@ GDS (`@sovereignsquad/gds`) is a governed React design system built on Mantine. 
 
 ## 2. Install and bootstrap
 
-GDS publishes exclusively to GitHub Packages (`https://npm.pkg.github.com`) — there is no npmjs.com publish and no anonymous install, even for public packages. Add to `.npmrc` first:
+GDS publishes current and future releases to GitHub Packages (`https://npm.pkg.github.com`); every install authenticates, even for public packages. (A frozen, deprecated `3.9.0` snapshot also remains on npmjs.com; use GitHub Packages for new installs.) Add to `.npmrc` first:
 
 ```ini
 @sovereignsquad:registry=https://npm.pkg.github.com

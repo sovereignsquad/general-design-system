@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.17
-Last updated: 2026-07-26
+Last updated: 2026-08-05
 
 This document defines the supported package/runtime contract for the umbrella package `@sovereignsquad/gds` and the granular runtime packages `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.
 
@@ -37,7 +37,7 @@ For hosted CI and Vercel builds, the intended end state is:
 
 Canonical registry target: **GitHub Packages** (`https://npm.pkg.github.com`)
 
-GDS does not publish to npmjs.com. GitHub Packages is the sole registry. Every install — including public packages — requires authentication:
+GDS publishes current and future releases to GitHub Packages, the canonical registry. (A frozen, deprecated `3.9.0` snapshot also remains on npmjs.com; new installs use GitHub Packages — see `INSTALLATION_GUIDE.md`.) Every GitHub Packages install — including of public packages — requires authentication:
 
 ```ini
 # .npmrc

@@ -2,13 +2,13 @@
 
 Status: Active SSOT
 Version: 3.14.17
-Last updated: 2026-07-26
+Last updated: 2026-08-05
 
 This guide is the canonical consumer setup path for the public umbrella package `@sovereignsquad/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
 ## Single install surface
 
-GDS publishes exclusively to GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`) — there is no npmjs.com publish. This means every install, for every consumer, starts with a one-time `.npmrc` entry:
+GDS publishes current and future releases to GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`). A frozen `3.9.0` snapshot of the packages also exists on npmjs.com — it is deprecated and unsupported (see [Migrating from the legacy npmjs 3.9.0 packages](#migrating-from-the-legacy-npmjs-390-packages) below); all new installs use GitHub Packages. Every install, for every consumer, starts with a one-time `.npmrc` entry:
 
 ```ini
 # .npmrc (project root)
@@ -16,7 +16,40 @@ GDS publishes exclusively to GitHub Packages' npm-compatible registry (`https://
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
-`GITHUB_TOKEN` is your own personal access token (classic, `read:packages` scope is sufficient) or your CI's provisioned token — not a GDS-owned secret. **GitHub Packages requires authentication for every install, even of public packages** — unlike npmjs.com, there is no anonymous `npm install` path. Export the token in your shell (or CI secret store) as `GITHUB_TOKEN` before running any command below.
+`GITHUB_TOKEN` is your own personal access token (a classic PAT with `read:packages` scope is sufficient) or your CI's provisioned token — not a GDS-owned secret. GitHub Packages authenticates every install, including of public packages, so a token is needed even though the packages are public. Export the token in your shell (or CI secret store) as `GITHUB_TOKEN` before running any command below; the `.npmrc` above expands `${GITHUB_TOKEN}` from that environment variable. If it is unset or empty, installs fail with `401 unauthenticated`. See [Troubleshooting `401`/`403` on install](#troubleshooting-401403-on-install) for the full checklist, including SAML-SSO token authorization.
+
+### Getting a `read:packages` token
+
+The GDS packages are published **public**, so there is nothing to request from the GDS maintainers and no org invitation involved — each consumer creates their own free token from their own GitHub account, and any authenticated GitHub account can read the packages. (The only hard requirement of this registry is that the consumer *has* a GitHub account.)
+
+**Classic PAT — the simplest path for installing:**
+
+1. GitHub → your avatar (top-right) → **Settings** → **Developer settings** (bottom of the left sidebar) → **Personal access tokens → Tokens (classic)**.
+2. **Generate new token (classic)**, give it a name (e.g. "GDS install") and an expiry.
+3. Select exactly one scope: **`read:packages`**. No other scope is needed to install.
+4. **Generate token** and copy the `ghp_…` value — GitHub shows it only once.
+5. **Only if your organization enforces SAML SSO:** on the token row, click **Configure SSO → Authorize** for the relevant org. A member of an SSO-enforced org whose token is not authorized gets a `401` even though the scope is correct.
+
+**Fine-grained PAT (more scoped, more setup):** Developer settings → **Personal access tokens → Fine-grained tokens** → Generate, set the **Resource owner** to the org and grant **Packages: Read-only**. This requires the org to allow fine-grained tokens (and sometimes an approval). Use the classic PAT above unless you specifically need the tighter scope.
+
+**Already have the `gh` CLI signed in? Reuse it instead of making a new PAT.** `gh auth login`'s default token does **not** include `read:packages`, so `npm install` still `401`s even though `gh` itself works — add the scope, then hand the resulting token to npm:
+
+```bash
+gh auth refresh -s read:packages    # adds the scope to your existing gh login
+export GITHUB_TOKEN=$(gh auth token)
+npm install @sovereignsquad/gds
+```
+
+(A brand-new login can request the scope up front instead: `gh auth login --scopes read:packages`.) `gh auth refresh` keeps your session's existing scopes and adds `read:packages` alongside them — it does not issue a `read:packages`-only token — so prefer the classic PAT above if you specifically want the narrowest possible scope. SSO authorization (step 5 above) still applies to whichever token you use.
+
+**Use the token without committing it:** keep the `${GITHUB_TOKEN}` indirection in `.npmrc` (never paste the literal `ghp_…` value into the file) and export it in the environment:
+
+```bash
+export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxx
+npm install
+```
+
+**In GitHub Actions, you do not need a PAT at all** — the workflow's built-in `secrets.GITHUB_TOKEN` reads packages when the job has `permissions: packages: read`; see [CI (GitHub Actions) setup](#ci-github-actions-setup). A PAT is only for local development and non-GitHub CI (e.g. Vercel), where you store it as a `GITHUB_TOKEN` secret.
 
 The vendor UI engine is still GDS's concern, not yours, once the registry is configured. Install the umbrella package and your own React; the engine is pulled in automatically:
 
@@ -284,9 +317,50 @@ gds-compliance check --manifest ./gds-adoption.json
 Expected failure handling:
 
 - peer conflict: run `npm ls @mantine/core @mantine/hooks @mantine/modals @mantine/notifications react react-dom`, then reinstall the supported peer line instead of forcing resolution
-- `401`/`403` on install: your `.npmrc` is missing the `@sovereignsquad:registry`/`_authToken` lines from "Single install surface", or your token lacks `read:packages` scope
+- `401`/`403` on install: see [Troubleshooting `401`/`403` on install](#troubleshooting-401403-on-install) below
 - registry propagation after publish: rerun `GDS_REGISTRY_RETRIES=8 GDS_REGISTRY_DELAY_MS=7000 npm run verify:published:availability`, then `npm run verify:published:consumer`
 - compliance failure: keep `strictMode` disabled until the failing local shell/card/action/detail adapter is migrated or declared as a temporary exception with owner, review date, tests, and exit condition
+
+### Troubleshooting `401`/`403` on install
+
+A `401 unauthenticated: User cannot be authenticated with the token provided` means GitHub Packages rejected the token outright. Work through these in order — they are listed most-common first:
+
+1. **`$GITHUB_TOKEN` is empty or unset.** The `.npmrc` line `//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}` only works if that environment variable is exported and non-empty. Run `echo $GITHUB_TOKEN` (or `printenv GITHUB_TOKEN`) — a blank result means npm sent an empty token, which reads as `401`. Export a real token first: `export GITHUB_TOKEN=ghp_...`.
+2. **Missing `read:packages` scope.** A classic PAT needs at least `read:packages`. Regenerate or edit the token's scopes.
+3. **SAML SSO not authorized for the org.** If `sovereignsquad` (or your own org) enforces SAML single sign-on, a correctly-scoped token still `401`s until it is explicitly authorized: open the token's settings page and use **Configure SSO → Authorize** for the org. This is the most common cause when the token *looks* correct.
+4. **Fine-grained PAT without the right access.** A fine-grained token must grant the resource owner (the org) and **Packages: read** permission, and the org must allow fine-grained tokens. If in doubt, use a classic PAT with `read:packages`.
+5. **`.npmrc` scope/registry lines missing.** Confirm both lines from [Single install surface](#single-install-surface) are present (`@sovereignsquad:registry=...` and the `_authToken` line).
+
+In GitHub Actions, prefer the workflow's own `secrets.GITHUB_TOKEN` (with `permissions: packages: read`) as `NODE_AUTH_TOKEN` rather than a personal token; see [CI setup](#ci-github-actions-setup) below.
+
+### CI (GitHub Actions) setup
+
+In a consumer repo's workflow, authenticate the ambient token to GitHub Packages and grant read permission:
+
+```yaml
+permissions:
+  contents: read
+  packages: read
+steps:
+  - uses: actions/setup-node@v6
+    with:
+      node-version: 24
+      registry-url: https://npm.pkg.github.com
+      scope: "@sovereignsquad"
+  - run: npm ci
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+For **local development**, each developer uses their own classic PAT (`read:packages`, SSO-authorized if required), exported as `GITHUB_TOKEN`. Do not commit tokens; keep the `${GITHUB_TOKEN}` indirection in `.npmrc` so the file carries no secret.
+
+### Migrating from the legacy npmjs 3.9.0 packages
+
+If your app currently installs `@sovereignsquad/gds-core@3.9.0` / `@sovereignsquad/gds-theme@3.9.0` (or the `@sovereignsquad/gds@3.9.0` umbrella) from **npmjs.com**, those listings are a frozen, deprecated snapshot that will not receive updates. Move to GitHub Packages:
+
+1. Add the `.npmrc` and token from [Single install surface](#single-install-surface).
+2. Switch to the recommended umbrella at the current version: `npm install @sovereignsquad/gds@3.14.17` (it re-exports `gds-core`, `gds-theme`, and `gds-admin`, so you depend on one package instead of several). If you prefer to keep the split packages, install `@sovereignsquad/gds-core@3.14.17` / `@sovereignsquad/gds-theme@3.14.17` instead — both resolve from GitHub Packages.
+3. The exports the 3.9.0 line exposed remain available at 3.14.x (for example `OverlayManagerProvider`, `useOverlayManager`, `DiscoveryShell`, and `SidebarNavItem` from `@sovereignsquad/gds-core`), so import paths that used the split package names keep working; the umbrella re-exports them under `@sovereignsquad/gds` as well.
 
 ## 7. Common mistakes
 

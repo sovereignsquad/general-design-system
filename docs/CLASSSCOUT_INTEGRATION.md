@@ -4,7 +4,7 @@ GDS 3.14.17 delivers the first-class `Class USA` theme and the missing ClassScou
 
 ## Install
 
-GDS publishes exclusively to GitHub Packages (`https://npm.pkg.github.com`) — add to `.npmrc` first (every install requires authentication, even for public packages):
+GDS publishes current and future releases to GitHub Packages (`https://npm.pkg.github.com`); a frozen, deprecated `3.9.0` snapshot also remains on npmjs.com (use GitHub Packages for new installs). Add to `.npmrc` first (every install authenticates, even for public packages):
 
 ```ini
 @sovereignsquad:registry=https://npm.pkg.github.com
