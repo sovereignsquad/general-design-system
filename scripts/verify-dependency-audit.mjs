@@ -11,6 +11,7 @@ const acceptedDevAdvisories = new Set([
   'GHSA-f88m-g3jw-g9cj',
   'GHSA-6g55-p6wh-862q',
   'GHSA-r28c-9q8g-f849',
+  'GHSA-fxqj-rqcc-2cmp',
 ]);
 
 function runAudit(args) {

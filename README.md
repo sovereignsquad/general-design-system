@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.17
-Last updated: 2026-07-31
+Last updated: 2026-08-05
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 
@@ -201,7 +201,7 @@ Product repositories may **not** redefine:
 
 ## Install (GitHub Packages)
 
-GDS does not publish to npmjs.com. **GitHub Packages is the sole canonical registry** (`https://npm.pkg.github.com`), authenticated in CI by the workflow run's own ambient `GITHUB_TOKEN` — no `NPM_TOKEN`/npm.com account dependency. Because it's a real resolving registry (not tarballs), the `@sovereignsquad/gds` umbrella package works here too:
+Current and future GDS releases publish to **GitHub Packages** (`https://npm.pkg.github.com`), the canonical registry — authenticated in CI by the workflow run's own ambient `GITHUB_TOKEN`, with no `NPM_TOKEN` or npm.com account dependency. Because it's a real resolving registry (not tarballs), the recommended `@sovereignsquad/gds` umbrella package resolves here too. A frozen `3.9.0` snapshot of the packages also exists on npmjs.com; it is **deprecated and unsupported** — kept only so existing installs keep resolving, and never updated — so new work should use GitHub Packages. Add to your `.npmrc`:
 
 ```ini
 # .npmrc
@@ -213,7 +213,7 @@ GDS does not publish to npmjs.com. **GitHub Packages is the sole canonical regis
 npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
 ```
 
-`GITHUB_TOKEN` here is your own personal access token (`read:packages` scope) — GitHub Packages requires authentication for every install, even for public packages; there is no anonymous `npm install` path. See [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) for full setup and troubleshooting.
+`${GITHUB_TOKEN}` is your own GitHub personal access token with `read:packages` scope, exported in your shell (or provided by CI). GitHub Packages authenticates every install — including public packages — so a token is needed here even though the packages are public. If your organization enforces SAML SSO, authorize the token for the `sovereignsquad` org first. See [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) for full setup and `401` troubleshooting.
 
 ### Release-visibility artifacts (not an install path)
 

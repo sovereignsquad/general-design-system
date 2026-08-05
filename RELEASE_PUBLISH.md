@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.17
-Last updated: 2026-07-25
+Last updated: 2026-08-05
 
 This runbook defines the authenticated package-publish flow for the General Design System.
 
@@ -13,9 +13,11 @@ Current registry reality:
 - canonical install source: GitHub Packages
 - current repository line: `3.14.17`
 
-GDS does not publish to npmjs.com. GitHub Packages is the sole registry, chosen specifically because it authenticates with the same ambient `GITHUB_TOKEN` every GitHub Actions run already has — no separate npm.com account, no `NPM_TOKEN` secret, no external credential to lose access to. `@sovereignsquad/gds` is the preferred convenience package; it installs correctly from GitHub Packages because it's a real resolving registry (its dependency on the granular runtime packages resolves against the same registry, exactly like npmjs.com would).
+GDS publishes current and future releases only to GitHub Packages, chosen specifically because it authenticates with the same ambient `GITHUB_TOKEN` every GitHub Actions run already has — no separate npm.com account, no `NPM_TOKEN` secret, no external credential to lose access to. `@sovereignsquad/gds` is the preferred convenience package; it installs correctly from GitHub Packages because it's a real resolving registry (its dependency on the granular runtime packages resolves against the same registry, exactly like npmjs.com would).
 
-The one real tradeoff: GitHub Packages requires authentication for every install, even of public packages — there is no anonymous `npm install`. Every consumer needs a personal access token (`read:packages` scope) and an `.npmrc` entry. See "Consumer install" below and `INSTALLATION_GUIDE.md`.
+A frozen `3.9.0` snapshot of the `@sovereignsquad` packages also exists on npmjs.com from before the move to GitHub-Packages-only. Those listings are **deprecated** (see [Deprecating the legacy npmjs 3.9.0 packages](#deprecating-the-legacy-npmjs-390-packages) below) — they still install so existing consumers are not broken, but they are frozen and never updated.
+
+The one real tradeoff: GitHub Packages authenticates every install, including of public packages. Every consumer needs a personal access token (`read:packages` scope) and an `.npmrc` entry. See "Consumer install" below and `INSTALLATION_GUIDE.md`.
 
 ## Consumer install
 
@@ -170,6 +172,22 @@ Both `release-bundles.yml` and `publish-github-packages.yml` gate their real sid
 The project board is **GitHub Issues filtered by `status:` labels**, not a Projects v2 board — see [`PROJECT_BOARD.md`](PROJECT_BOARD.md). The `board-sync.yml` workflow keeps that label board consistent: it provisions the canonical labels (`npm run board:labels`) and runs the strict board audit (`npm run audit:board:strict`, every open issue in exactly one status column). It triggers via `workflow_run` after **GDS Release Bundles** completes, plus manual `workflow_dispatch` and pushes to `main` that touch the board tooling — deliberately not `push: tags`, since a `GITHUB_TOKEN`-pushed tag never fires `push`/`tag` triggers (the same anti-recursion rule documented under Auto-tag-release).
 
 Both steps use the ambient `GITHUB_TOKEN` with `issues: write` — **no secret PAT is required**. This is the point of the label-based board: unlike the retired org-level Projects v2 board (project #11), which needed a `GDS_PROJECT_TOKEN` PAT the default token could not stand in for, every board operation here is a label change the default token can perform. See issue #431 (the superseded Projects v2 sync) and `PROJECT_BOARD.md`.
+
+## Deprecating the legacy npmjs 3.9.0 packages
+
+A `3.9.0` snapshot of the `@sovereignsquad` packages remains on **npmjs.com** from before the move to GitHub-Packages-only. The policy is to mark those listings deprecated (with a pointer to GitHub Packages) so consumers see a warning, without unpublishing them — unpublishing would break the apps still installing `3.9.0`, and npm blocks unpublish after 72 hours anyway.
+
+This is a manual, credentialed step against npmjs (it needs an npm account with publish rights to the `@sovereignsquad` scope — the repo's ambient GitHub Actions token cannot do it). Run once, authenticated to npmjs (`npm login --registry=https://registry.npmjs.org`), from a shell whose `.npmrc` is **not** pointing `@sovereignsquad` at GitHub Packages:
+
+```bash
+MSG="Deprecated on npmjs: GDS now publishes to GitHub Packages (https://npm.pkg.github.com). See INSTALLATION_GUIDE.md."
+npm deprecate @sovereignsquad/gds@3.9.0        "$MSG" --registry=https://registry.npmjs.org
+npm deprecate @sovereignsquad/gds-core@3.9.0   "$MSG" --registry=https://registry.npmjs.org
+npm deprecate @sovereignsquad/gds-theme@3.9.0  "$MSG" --registry=https://registry.npmjs.org
+npm deprecate @sovereignsquad/gds-admin@3.9.0  "$MSG" --registry=https://registry.npmjs.org
+```
+
+Do **not** unpublish these versions. To confirm afterward: `npm view @sovereignsquad/gds-core@3.9.0 deprecated --registry=https://registry.npmjs.org`.
 
 ## Recovery guidance
 
