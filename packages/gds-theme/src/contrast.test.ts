@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getGdsContrastRatio, checkGdsContrast } from './contrast';
+import { getGdsContrastRatio, checkGdsContrast, pickGdsAutoForeground } from './contrast';
 
 describe('getGdsContrastRatio', () => {
   it('returns 21 for black on white and 1 for identical colors', () => {
@@ -63,5 +63,40 @@ describe('checkGdsContrast', () => {
     expect(checkGdsContrast('#000', '#fff', { level: 'AA', size: 'large' }).required).toBe(3);
     expect(checkGdsContrast('#000', '#fff', { level: 'AAA', size: 'normal' }).required).toBe(7);
     expect(checkGdsContrast('#000', '#fff', { level: 'AAA', size: 'large' }).required).toBe(4.5);
+  });
+});
+
+describe('pickGdsAutoForeground', () => {
+  it('picks white for a dark background that clears AA with white', () => {
+    // white vs #155724 ≈ 8.68:1, black vs #155724 ≈ 2.42:1 — white is tried first and clears 4.5.
+    expect(pickGdsAutoForeground('#155724')).toBe('#ffffff');
+  });
+
+  it('picks black for a near-white background that clears AA with black', () => {
+    // white vs #f5f5f5 ≈ 1.09:1 (fails), black vs #f5f5f5 ≈ 19.26:1 (passes).
+    expect(pickGdsAutoForeground('#f5f5f5')).toBe('#000000');
+  });
+
+  it('falls back to whichever default candidate scores higher when neither clears the bar', () => {
+    // At AAA/normal (7:1): white vs #808080 ≈ 3.95:1, black vs #808080 ≈ 5.32:1 — neither
+    // passes, so the higher-scoring candidate (black) wins rather than an arbitrary default.
+    expect(pickGdsAutoForeground('#808080', { level: 'AAA' })).toBe('#000000');
+  });
+
+  it('respects a custom candidates list instead of the white/black default', () => {
+    // Yellow clears AA against this dark green (≈11.49:1) and is tried first.
+    expect(pickGdsAutoForeground('#0b3d20', { candidates: ['#ffff00', '#000000'] })).toBe('#ffff00');
+  });
+
+  it('respects level/size options the same way checkGdsContrast does', () => {
+    // #767676 on white ≈ 4.54:1: white passes AA/normal (4.5) but fails AAA/normal (7),
+    // so raising the level should flip the pick to black.
+    expect(pickGdsAutoForeground('#767676', { level: 'AA' })).toBe('#ffffff');
+    expect(pickGdsAutoForeground('#767676', { level: 'AAA' })).toBe('#000000');
+  });
+
+  it('never throws — an unparseable background falls back to the first candidate', () => {
+    expect(pickGdsAutoForeground('not-a-color')).toBe('#ffffff');
+    expect(pickGdsAutoForeground('not-a-color', { candidates: ['#000000', '#ffffff'] })).toBe('#000000');
   });
 });

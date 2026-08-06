@@ -129,3 +129,66 @@ export function checkGdsContrast(
   const ratio = getGdsContrastRatio(foreground, background);
   return { ratio, required, passes: ratio >= required, level, size };
 }
+
+/** Options for {@link pickGdsAutoForeground}. */
+export interface GdsAutoForegroundOptions {
+  /** WCAG conformance level to require; defaults to `'AA'`. */
+  level?: GdsContrastLevel;
+  /** Text size bucket to require; defaults to `'normal'` (the stricter 4.5:1 bar — a badge's foreground is usually a label or icon, not a decorative fill). */
+  size?: GdsContrastTextSize;
+  /** Candidate foreground colors to try, in preference order; defaults to `['#ffffff', '#000000']`. */
+  candidates?: string[];
+}
+
+/**
+ * Picks a foreground color that reads clearly against `background`, trying
+ * each of `options.candidates` in order and returning the first one that
+ * clears the requested WCAG threshold. If none clear the bar outright (a rare
+ * mid-luminance `background`), returns whichever candidate scored the highest
+ * ratio, so a badge's text/icon is always the *best available* choice rather
+ * than an arbitrary default.
+ *
+ * This exists because neither of the two obvious alternatives works for GDS's
+ * token system: Mantine's own `autoContrast` is a structural dead end for
+ * `var(--gds-*, fallback)` colors (`isLightColor` returns `false` for any
+ * `var(...)` input, so it can never even attempt a real comparison), and
+ * `getGdsContrastRatio` — while it does the correct math — throws on
+ * unparseable input, which would crash a badge render over a caller-supplied
+ * color GDS doesn't control. This function never throws: an unparseable
+ * `background` (or an unparseable candidate) falls back to the first
+ * candidate rather than propagating the error.
+ *
+ * @example
+ * ```ts
+ * pickGdsAutoForeground('#155724'); // '#ffffff' — white clears AA on that dark green
+ * pickGdsAutoForeground('#f5f5f5'); // '#000000' — black clears AA on that near-white
+ * pickGdsAutoForeground('not-a-color'); // '#ffffff' — unparseable input, safe default
+ * ```
+ */
+export function pickGdsAutoForeground(background: string, options: GdsAutoForegroundOptions = {}): string {
+  const level = options.level ?? 'AA';
+  const size = options.size ?? 'normal';
+  const candidates = options.candidates ?? ['#ffffff', '#000000'];
+  const required = THRESHOLDS[level][size];
+
+  let best = candidates[0];
+  let bestRatio = -1;
+
+  for (const candidate of candidates) {
+    let ratio: number;
+    try {
+      ratio = getGdsContrastRatio(candidate, background);
+    } catch {
+      return candidates[0];
+    }
+    if (ratio >= required) {
+      return candidate;
+    }
+    if (ratio > bestRatio) {
+      bestRatio = ratio;
+      best = candidate;
+    }
+  }
+
+  return best;
+}
