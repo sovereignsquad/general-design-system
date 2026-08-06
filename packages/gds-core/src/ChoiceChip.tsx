@@ -89,12 +89,60 @@ export interface GdsSelectionGroupProps<T extends string = string> {
   className?: string;
 }
 
-function SelectionScroller({ ariaLabel, className, children }: { ariaLabel: string; className?: string; children: ReactNode }) {
+function SelectionScroller<T extends string>({
+  ariaLabel,
+  className,
+  options,
+  value,
+  onChange,
+  children,
+}: {
+  ariaLabel: string;
+  className?: string;
+  options: GdsSelectionOption<T>[];
+  value: T | null;
+  onChange: (value: T) => void;
+  children: ReactNode;
+}) {
+  // Roving-tabindex radiogroup contract (#493): arrows move selection AND
+  // focus among enabled radios (wrapping), Home/End jump to the ends. The
+  // radios themselves carry tabIndex 0 only on the selected (or first
+  // enabled) option — one tab stop per group.
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const forward = event.key === 'ArrowRight' || event.key === 'ArrowDown';
+    const backward = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
+    const home = event.key === 'Home';
+    const end = event.key === 'End';
+    if (!forward && !backward && !home && !end) {
+      return;
+    }
+    const enabled = options.filter((option) => !option.disabled);
+    if (enabled.length === 0) {
+      return;
+    }
+    event.preventDefault();
+    const currentIndex = Math.max(
+      0,
+      enabled.findIndex((option) => option.value === value),
+    );
+    let nextIndex = currentIndex;
+    if (forward) nextIndex = (currentIndex + 1) % enabled.length;
+    if (backward) nextIndex = (currentIndex - 1 + enabled.length) % enabled.length;
+    if (home) nextIndex = 0;
+    if (end) nextIndex = enabled.length - 1;
+    const nextValue = enabled[nextIndex].value;
+    onChange(nextValue);
+    const group = event.currentTarget;
+    const radio = group.querySelector<HTMLElement>(`[role="radio"][data-gds-selection-value="${nextValue}"]`);
+    radio?.focus();
+  };
+
   return (
     <Box
       role="radiogroup"
       aria-label={ariaLabel}
       className={className}
+      onKeyDown={handleKeyDown}
       style={{
         overflowX: 'auto',
         scrollbarWidth: 'thin',
@@ -111,6 +159,7 @@ function SelectionScroller({ ariaLabel, className, children }: { ariaLabel: stri
 function SelectionBadge<T extends string>({
   option,
   active,
+  isTabStop,
   onChange,
   size,
   activeStyle,
@@ -118,6 +167,8 @@ function SelectionBadge<T extends string>({
 }: {
   option: GdsSelectionOption<T>;
   active: boolean;
+  /** Roving tabindex: exactly one radio per group is the tab stop. */
+  isTabStop: boolean;
   onChange: (value: T) => void;
   size: 'macro' | 'micro';
   activeStyle: CSSProperties;
@@ -129,6 +180,8 @@ function SelectionBadge<T extends string>({
       type="button"
       role="radio"
       aria-checked={active}
+      tabIndex={isTabStop ? 0 : -1}
+      data-gds-selection-value={option.value}
       disabled={option.disabled}
       radius="xl"
       size={size === 'macro' ? 'lg' : 'md'}
@@ -151,6 +204,11 @@ function SelectionBadge<T extends string>({
   );
 }
 
+function tabStopValueFor<T extends string>(options: GdsSelectionOption<T>[], value: T | null): T | undefined {
+  const selected = options.find((option) => option.value === value && !option.disabled);
+  return (selected ?? options.find((option) => !option.disabled))?.value;
+}
+
 /**
  * Governed single-select chip group rendered as prominent, brand-filled "macro"
  * pills in a horizontally-scrollable `radiogroup`. Use for a primary segmented
@@ -166,12 +224,13 @@ export function PillBar<T extends string = string>({
   className,
 }: GdsSelectionGroupProps<T>) {
   return (
-    <SelectionScroller ariaLabel={ariaLabel} className={className}>
+    <SelectionScroller ariaLabel={ariaLabel} className={className} options={options} value={value} onChange={onChange}>
       {options.map((option) => (
         <SelectionBadge
           key={option.value}
           option={option}
           active={option.value === value}
+          isTabStop={option.value === tabStopValueFor(options, value)}
           onChange={onChange}
           size="macro"
           activeStyle={{
@@ -201,12 +260,13 @@ export function SoftChipGroup<T extends string = string>({
   className,
 }: GdsSelectionGroupProps<T>) {
   return (
-    <SelectionScroller ariaLabel={ariaLabel} className={className}>
+    <SelectionScroller ariaLabel={ariaLabel} className={className} options={options} value={value} onChange={onChange}>
       {options.map((option) => (
         <SelectionBadge
           key={option.value}
           option={option}
           active={option.value === value}
+          isTabStop={option.value === tabStopValueFor(options, value)}
           onChange={onChange}
           size="micro"
           activeStyle={{
@@ -236,12 +296,13 @@ export function FilterChipGroup<T extends string = string>({
   className,
 }: GdsSelectionGroupProps<T>) {
   return (
-    <SelectionScroller ariaLabel={ariaLabel} className={className}>
+    <SelectionScroller ariaLabel={ariaLabel} className={className} options={options} value={value} onChange={onChange}>
       {options.map((option) => (
         <SelectionBadge
           key={option.value}
           option={option}
           active={option.value === value}
+          isTabStop={option.value === tabStopValueFor(options, value)}
           onChange={onChange}
           size="micro"
           activeStyle={{

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Badge, Box, Button, Group, Paper, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { GdsRemovableTag } from './GdsRemovableTag';
 import { DataToolbar, type DataToolbarProps } from './DataToolbar';
 import { StateBlock } from './StateBlock';
 
@@ -192,20 +193,21 @@ export function BrowseSurface({
 
           {activeFilters.length ? (
             <Group gap="xs" wrap="wrap">
-              {activeFilters.map((filter) => (
-                <Badge
-                  key={filter.id}
-                  variant="light"
-                  color="violet"
-                  rightSection={filter.onRemove ? <span aria-hidden="true">×</span> : undefined}
-                  style={filter.onRemove ? { cursor: 'pointer' } : undefined}
-                  {...(filter.onRemove
-                    ? { component: 'button', type: 'button', onClick: filter.onRemove, 'aria-label': `Remove ${filter.label} filter` }
-                    : {})}
-                >
-                  {filter.label}
-                </Badge>
-              ))}
+              {activeFilters.map((filter) =>
+                filter.onRemove ? (
+                  <GdsRemovableTag
+                    key={filter.id}
+                    label={filter.label}
+                    onRemove={filter.onRemove}
+                    removeLabel={`Remove ${filter.label} filter`}
+                    tone="info"
+                  />
+                ) : (
+                  <Badge key={filter.id} variant="light" color="violet">
+                    {filter.label}
+                  </Badge>
+                ),
+              )}
             </Group>
           ) : null}
         </Stack>

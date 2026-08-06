@@ -1022,7 +1022,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     coverageStatus: 'live-demo',
     summary: 'Badges are compact state cues and must not rely on color only. The shape vocabulary renders Tabler-geometry silhouettes for composed badge marks.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'StatusBadge / CountBadge / LabelTag / GdsBadgeShapeCircle / GdsBadgeShapeSquircle / GdsBadgeShapeHexagon / GdsBadgeShapeShield / GdsBadgeShapeRosette / GdsBadgeShapePin',
+    sourceComponent: 'StatusBadge / CountBadge / LabelTag / GdsBadgeShapeCircle / GdsBadgeShapeSquircle / GdsBadgeShapeHexagon / GdsBadgeShapeShield / GdsBadgeShapeRosette / GdsBadgeShapePin / GdsBadge / GdsBadgeStack / GdsBadgeStackLayer / GdsCountBadge / GdsRemovableTag',
   },
   {
     id: 'modals',

@@ -59,7 +59,7 @@ const meaningTokens: Record<MeaningVariant, MeaningTokens> = {
  * renders through the governed `GdsIcon` (decorative, inheriting the badge's
  * text color); any other `ReactNode` renders as-is.
  */
-export function MeaningBadge({ variant, label, icon, ...props }: MeaningBadgeProps) {
+export function MeaningBadge({ variant, label, icon, style, ...props }: MeaningBadgeProps) {
   if (!label) {
     return null;
   }
@@ -72,8 +72,8 @@ export function MeaningBadge({ variant, label, icon, ...props }: MeaningBadgePro
     <Badge
       variant="filled"
       leftSection={leftSection}
-      style={{ backgroundColor: tokens.bg, color: tokens.fg }}
       {...props}
+      style={{ backgroundColor: tokens.bg, color: tokens.fg, ...style }}
     >
       {label}
     </Badge>
