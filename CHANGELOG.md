@@ -2,6 +2,25 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased — Badge-system foundation: auto-foreground contrast helper (#486, part of epic #484)
+
+Badges render on 25 theme presets × custom brand colors; a static foreground color can't stay
+readable across all of them. Adds the pick-a-safe-foreground primitive the upcoming `GdsBadge`
+family needs, on top of the existing consumer contrast checker (#453).
+
+- **New `pickGdsAutoForeground(background, options?)`** (`@sovereignsquad/gds-theme`): tries each
+  of `options.candidates` (default `['#ffffff', '#000000']`) against `background` in order and
+  returns the first that clears the requested WCAG threshold (`AA`/`AAA` × `normal`/`large`,
+  same as `checkGdsContrast`); if none clear the bar, returns whichever scored highest so the
+  result is always the best available choice. **Never throws** — an unparseable `background` or
+  candidate falls back to the first candidate, since this is meant to be safe to call directly in
+  a render path over a caller-supplied color GDS doesn't control.
+- Exists because neither existing option works here: Mantine's `autoContrast` is a structural dead
+  end for `var(--gds-*, fallback)` values, and `getGdsContrastRatio` correctly throws on
+  unparseable input, which would crash a render.
+- Docs: [`docs/CONTRAST_CHECKER.md`](docs/CONTRAST_CHECKER.md) gains a `pickGdsAutoForeground`
+  section alongside `getGdsContrastRatio`/`checkGdsContrast`.
+
 ## Unreleased — Badge-system accessibility audit: 6 confirmed bug fixes (#478–#483)
 
 Fixes found while researching the upcoming customizable badge system, landed ahead of that work per the agreed "fix bugs now, then badge system" sequencing. No public API removals; `brandContrastRatio` now throws on unparseable input instead of silently scoring it as black (see #483).

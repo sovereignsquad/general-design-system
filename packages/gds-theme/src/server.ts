@@ -7,8 +7,8 @@ export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, der
 export type { GdsVibeTheme } from './vibe-themes';
 export { createGdsThemeAccessibilityReport, validateGdsThemeAccessibility } from './accessibility-report';
 export type { GdsAccessibilityFindingSeverity, GdsContrastCheck, GdsContrastFinding, GdsContrastMode, GdsContrastRole, GdsForcedColorRole, GdsThemeAccessibilityReport } from './accessibility-report';
-export { getGdsContrastRatio, checkGdsContrast } from './contrast';
-export type { GdsContrastLevel, GdsContrastResult, GdsContrastTextSize } from './contrast';
+export { getGdsContrastRatio, checkGdsContrast, pickGdsAutoForeground } from './contrast';
+export type { GdsContrastLevel, GdsContrastResult, GdsContrastTextSize, GdsAutoForegroundOptions } from './contrast';
 export { createGdsTokenDiff, createGdsTokenGraph, createGdsThemeCompatibilityReport, validateGdsTokenGraph } from './token-operations';
 export type { GdsThemeCompatibilityReport, GdsThemeCompatibilityResult, GdsThemeCompatibilitySurface, GdsTokenDiffChangeType, GdsTokenDiffEntry, GdsTokenDiffReport, GdsTokenGraph, GdsTokenNode, GdsTokenSeverity, GdsTokenValidationFinding, GdsTokenValidationReport } from './token-operations';
 export { getGdsFontLanes, resolveGdsFontLane, applyGdsFontLane, getGdsFontLaneStylesheetUrls, isGdsFontLaneId } from './font-lanes';

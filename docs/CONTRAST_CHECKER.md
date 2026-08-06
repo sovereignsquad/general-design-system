@@ -1,8 +1,8 @@
 # Consumer Contrast Checker
 
 Status: Active SSOT
-Version: 3.14.7
-Last updated: 2026-07-26
+Version: 3.14.17
+Last updated: 2026-08-06
 
 GDS hard-gates the contrast of its **own** readable-text token pairs in CI
 (`verify:token-contrast-scoring`, see [`THEME_GOVERNANCE.md`](../THEME_GOVERNANCE.md)).
@@ -19,7 +19,8 @@ handler, or a build script):
 
 - `getGdsContrastRatio(foreground, background)` → `number`
 - `checkGdsContrast(foreground, background, options?)` → `GdsContrastResult`
-- Types: `GdsContrastLevel`, `GdsContrastTextSize`, `GdsContrastResult`
+- `pickGdsAutoForeground(background, options?)` → `string`
+- Types: `GdsContrastLevel`, `GdsContrastTextSize`, `GdsContrastResult`, `GdsAutoForegroundOptions`
 
 ### `getGdsContrastRatio(foreground, background)`
 
@@ -70,6 +71,44 @@ Thresholds (WCAG 1.4.3 / 1.4.6):
 |---|---|---|
 | **AA** | 4.5 | 3 |
 | **AAA** | 7 | 4.5 |
+
+### `pickGdsAutoForeground(background, options?)`
+
+Picks a foreground color that reads clearly against `background` — the
+"what text/icon color goes on top of this badge?" question a component
+renders with, as opposed to `checkGdsContrast`'s "does this specific pair
+pass?" question. Tries each of `options.candidates` (default
+`['#ffffff', '#000000']`) in order and returns the first one that clears the
+requested WCAG threshold; if none clear the bar outright (a rare
+mid-luminance `background`), returns whichever candidate scored the highest
+ratio, so the result is always the *best available* choice rather than an
+arbitrary default. **Never throws** — an unparseable `background` or
+candidate falls back to the first candidate instead of propagating an error,
+since this is meant to be safe to call directly in a render path over a
+caller-supplied color GDS doesn't control.
+
+```ts
+import { pickGdsAutoForeground } from '@sovereignsquad/gds-theme';
+
+pickGdsAutoForeground('#155724'); // '#ffffff' — white clears AA on that dark green
+pickGdsAutoForeground('#f5f5f5'); // '#000000' — black clears AA on that near-white
+pickGdsAutoForeground('#808080', { level: 'AAA' });
+// '#000000' — neither candidate clears 7:1, so the higher-scoring one (black, ~5.32:1) wins
+pickGdsAutoForeground('not-a-color'); // '#ffffff' — unparseable input, safe default
+```
+
+`options` adds one field on top of `checkGdsContrast`'s `level`/`size`:
+
+| Option | Values | Default | Meaning |
+|---|---|---|---|
+| `candidates` | `string[]` | `['#ffffff', '#000000']` | Foreground colors to try, in preference order. |
+
+This exists because neither obvious alternative works for GDS's token
+system: Mantine's own `autoContrast` is a structural dead end for
+`var(--gds-*, fallback)` colors (its `isLightColor` check returns `false`
+for any `var(...)` input, so it can never attempt a real comparison), and
+`getGdsContrastRatio` — while it does the correct math — throws on
+unparseable input, which would crash a render over a caller-supplied color.
 
 ## How this relates to the other contrast surfaces
 
