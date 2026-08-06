@@ -57,6 +57,31 @@ describe('FitScoreChip (#319)', () => {
     const { container } = renderWithGds(<FitScoreChip />);
     expect(container.querySelector('.mantine-Badge-root')).toBeNull();
   });
+
+  it('gives the "good" and "partial" bands distinct colors', () => {
+    const { container: goodContainer } = renderWithGds(<FitScoreChip value={60} />);
+    const { container: partialContainer } = renderWithGds(<FitScoreChip value={20} />);
+
+    const goodBadge = goodContainer.querySelector('.mantine-Badge-root') as HTMLElement;
+    const partialBadge = partialContainer.querySelector('.mantine-Badge-root') as HTMLElement;
+
+    expect(goodBadge.style.backgroundColor).not.toBe('');
+    expect(goodBadge.style.backgroundColor).not.toBe(partialBadge.style.backgroundColor);
+  });
+
+  it('makes a chip with dimensions keyboard-focusable and reveals its tooltip on focus', async () => {
+    const user = userEvent.setup();
+    renderWithGds(
+      <FitScoreChip value={88} dimensions={[{ label: 'Budget' }, { label: 'Location' }]} />,
+    );
+
+    const chip = screen.getByLabelText(/score 88 of 100/i);
+    expect(chip).toHaveAttribute('tabIndex', '0');
+
+    await user.tab();
+    expect(chip).toHaveFocus();
+    expect(await screen.findByText(/Matched: Budget, Location/i)).toBeInTheDocument();
+  });
 });
 
 describe('MeaningBadge (#322)', () => {

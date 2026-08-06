@@ -174,6 +174,31 @@ describe('@sovereignsquad/gds-admin', () => {
     expect(screen.getByText('Published')).toBeInTheDocument();
   });
 
+  it('ResponsiveDataView removable filter chip is a real keyboard-operable button', async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+
+    renderWithGds(
+      <ResponsiveDataView
+        columns={[{ key: 'name', label: 'Name' }]}
+        data={[{ slug: 'alpha', name: 'Alpha' }]}
+        activeFilters={[{ label: 'Published', onRemove }]}
+        renderCard={(item) => <MetricCard label={String(item.name)} value="1" />}
+        getRowKey={(item) => item.slug}
+      />,
+    );
+
+    const chip = screen.getByRole('button', { name: 'Remove Published filter' });
+    chip.focus();
+    expect(chip).toHaveFocus();
+
+    await user.keyboard('{Enter}');
+    expect(onRemove).toHaveBeenCalledTimes(1);
+
+    await user.keyboard(' ');
+    expect(onRemove).toHaveBeenCalledTimes(2);
+  });
+
   it('renders workspace headers and editor scaffolds', () => {
     renderWithGds(
       <EditorScaffold

@@ -214,7 +214,11 @@ function mergeGoldAthleteColorRamps(overrides: Partial<GoldAthleteColorRamps> = 
 }
 
 function expandHex(hex: string): [number, number, number] {
-  let value = hex.replace('#', '').trim();
+  const trimmed = hex.trim();
+  if (!HEX_PATTERN.test(trimmed)) {
+    throw new Error(`brandContrastRatio expects a "#"-prefixed 3- or 6-digit hex color, received "${hex}".`);
+  }
+  let value = trimmed.slice(1);
   if (value.length === 3) {
     value = value
       .split('')
@@ -233,7 +237,7 @@ function relativeLuminance(hex: string): number {
   return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
 }
 
-/** WCAG contrast ratio between two opaque hex colors. */
+/** WCAG contrast ratio between two opaque `#`-prefixed 3- or 6-digit hex colors; throws on any other input (e.g. a CSS variable reference) instead of silently scoring against black. */
 export function brandContrastRatio(foreground: string, background: string): number {
   const lighter = Math.max(relativeLuminance(foreground), relativeLuminance(background));
   const darker = Math.min(relativeLuminance(foreground), relativeLuminance(background));
@@ -395,6 +399,8 @@ function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>): Reco
   });
   vars['--gds-brand-primary-pressed'] = tokens['brand.primaryPressed'].light;
   vars['--gds-brand-primary-pressed-dark'] = tokens['brand.primaryPressed'].dark;
+  vars['--gds-text-on-inverse'] = tokens['text.onInverse'].light;
+  vars['--gds-text-on-inverse-dark'] = tokens['text.onInverse'].dark;
   vars['--gds-brand-accent-action'] = tokens['brand.accent'].light;
   vars['--gds-brand-accent-action-dark'] = tokens['brand.accent'].dark;
   vars['--gds-brand-accent-tint'] = tokens['badge.urgencyBg'].light;

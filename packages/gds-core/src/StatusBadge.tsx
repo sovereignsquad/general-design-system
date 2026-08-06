@@ -52,7 +52,7 @@ const labelTagColorMap: Record<LabelTagTone, string> = {
  */
 export function StatusBadge({ status, children, ...props }: StatusBadgeProps) {
   return (
-    <Badge color={statusColorMap[status]} variant="light" {...props}>
+    <Badge data-gds-badge-fixed-tone="true" color={statusColorMap[status]} variant="light" {...props}>
       {children}
     </Badge>
   );
@@ -61,7 +61,7 @@ export function StatusBadge({ status, children, ...props }: StatusBadgeProps) {
 /** Outline badge that renders `label` in a fixed color chosen by its semantic `tone`. */
 export function LabelTag({ tone = 'neutral', label, ...props }: LabelTagProps) {
   return (
-    <Badge color={labelTagColorMap[tone]} variant="outline" {...props}>
+    <Badge data-gds-badge-fixed-tone="true" color={labelTagColorMap[tone]} variant="outline" {...props}>
       {label}
     </Badge>
   );

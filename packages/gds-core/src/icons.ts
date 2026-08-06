@@ -406,6 +406,11 @@ function categoryForIcon(name: GdsIconKey): GdsIconCategory {
   return 'system';
 }
 
+/** Every canonical icon key indexed by its fully-lowercased form, e.g. `'trendingup'` -> `'TrendingUp'`. */
+const gdsIconKeyByLowercase: Record<string, GdsIconKey> = Object.fromEntries(
+  (Object.keys(GdsIcons) as GdsIconKey[]).map((key) => [key.toLowerCase(), key]),
+);
+
 function resolveGdsIconKey(value: GdsIconName | string | undefined): GdsIconKey {
   if (!value) {
     return 'Help';
@@ -417,8 +422,7 @@ function resolveGdsIconKey(value: GdsIconName | string | undefined): GdsIconKey 
   if (alias) {
     return alias;
   }
-  const normalized = value.slice(0, 1).toUpperCase() + value.slice(1);
-  return isGdsIconKey(normalized) ? normalized : 'Help';
+  return gdsIconKeyByLowercase[value.toLowerCase()] ?? 'Help';
 }
 
 /** Metadata registry keyed by icon name, derived from {@link GdsIcons}. */

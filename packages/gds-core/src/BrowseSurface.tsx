@@ -197,9 +197,11 @@ export function BrowseSurface({
                   key={filter.id}
                   variant="light"
                   color="violet"
-                  rightSection={filter.onRemove ? '×' : undefined}
+                  rightSection={filter.onRemove ? <span aria-hidden="true">×</span> : undefined}
                   style={filter.onRemove ? { cursor: 'pointer' } : undefined}
-                  onClick={filter.onRemove}
+                  {...(filter.onRemove
+                    ? { component: 'button', type: 'button', onClick: filter.onRemove, 'aria-label': `Remove ${filter.label} filter` }
+                    : {})}
                 >
                   {filter.label}
                 </Badge>

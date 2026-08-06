@@ -873,6 +873,35 @@ describe('@sovereignsquad/gds-core', () => {
     expect(document.querySelector('[data-gds-icon="Warning"]')).toHaveAttribute('aria-hidden', 'true');
   });
 
+  it('resolves the lowercase form of every multi-word icon key, not just single-word ones', () => {
+    const multiWordKeys = [
+      'TrendingUp',
+      'TrendingDown',
+      'EyeOff',
+      'ChevronDown',
+      'ChevronUp',
+      'OrderedList',
+      'InlineCode',
+      'ChevronLeft',
+      'ChevronRight',
+      'ArrowUp',
+      'ArrowDown',
+      'ExternalLink',
+      'QrCode',
+      'DragHandle',
+    ];
+
+    for (const key of multiWordKeys) {
+      expect(getGdsIconMetadata(key.toLowerCase())).toMatchObject({ name: key });
+    }
+  });
+
+  it('resolves the lowercase form of every registered icon key to its canonical key', () => {
+    for (const key of getGdsIconKeys()) {
+      expect(getGdsIconMetadata(key.toLowerCase()).name).toBe(key);
+    }
+  });
+
   it('supports dependency-governed semantic icon names without direct Tabler imports', () => {
     renderWithGds(<GdsIcon name="Download" label="Download file" tone="primary" />);
 
@@ -1309,7 +1338,9 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByRole('button', { name: 'Budapest' })).toBeInTheDocument();
     expect(screen.getByText('Browse results')).toBeInTheDocument();
 
-    await user.click(screen.getAllByText('Published')[0]);
+    const removeChip = screen.getAllByRole('button', { name: 'Remove Published filter' })[0];
+    removeChip.focus();
+    await user.keyboard('{Enter}');
     await user.click(screen.getByRole('button', { name: 'East' }));
 
     expect(onRemove).toHaveBeenCalledTimes(1);
@@ -1376,6 +1407,44 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByText('Published')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Toggle row-1' }));
     expect(screen.getByText('1 selected')).toBeInTheDocument();
+  });
+
+  it('ActiveFilterChips removable chip is a real keyboard-operable button', async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+
+    renderWithGds(
+      <ActiveFilterChips filters={[{ id: 'published', label: 'Published', onRemove }]} />,
+    );
+
+    const chip = screen.getByRole('button', { name: 'Remove Published filter' });
+    chip.focus();
+    expect(chip).toHaveFocus();
+
+    await user.keyboard('{Enter}');
+    expect(onRemove).toHaveBeenCalledTimes(1);
+
+    await user.keyboard(' ');
+    expect(onRemove).toHaveBeenCalledTimes(2);
+  });
+
+  it('DataToolbar removable filter chip is a real keyboard-operable button', async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+
+    renderWithGds(
+      <DataToolbar activeFilters={[{ label: 'Published', onRemove }]} />,
+    );
+
+    const chip = screen.getByRole('button', { name: 'Remove Published filter' });
+    chip.focus();
+    expect(chip).toHaveFocus();
+
+    await user.keyboard('{Enter}');
+    expect(onRemove).toHaveBeenCalledTimes(1);
+
+    await user.keyboard(' ');
+    expect(onRemove).toHaveBeenCalledTimes(2);
   });
 
   it('renders advanced data table sorting and row selection controls', async () => {
@@ -2962,6 +3031,18 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(badge.closest('[data-variant="light"]')).toBeInTheDocument();
   });
 
+  it('marks StatusBadge and LabelTag as fixed-tone so theme presets cannot repaint their semantic color', () => {
+    renderWithGds(
+      <>
+        <StatusBadge status="danger">Failed</StatusBadge>
+        <LabelTag label="Food" tone="info" />
+      </>,
+    );
+
+    expect(screen.getByText('Failed').closest('[data-gds-badge-fixed-tone]')).toBeInTheDocument();
+    expect(screen.getByText('Food').closest('[data-gds-badge-fixed-tone]')).toBeInTheDocument();
+  });
+
   it('renders count badges and label tags with governed semantics', () => {
     renderWithGds(
       <>
@@ -2973,6 +3054,7 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getByText('99+')).toBeInTheDocument();
     expect(screen.getByLabelText('More than ninety nine updates')).toBeInTheDocument();
     expect(screen.getByText('Food')).toBeInTheDocument();
+    expect(screen.getByText('99+').closest('[data-gds-badge-fixed-tone]')).not.toBeInTheDocument();
   });
 
   it('exposes an accessible theme toggle and switches the color scheme', async () => {

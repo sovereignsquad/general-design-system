@@ -2,6 +2,17 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased — Badge-system accessibility audit: 6 confirmed bug fixes (#478–#483)
+
+Fixes found while researching the upcoming customizable badge system, landed ahead of that work per the agreed "fix bugs now, then badge system" sequencing. No public API removals; `brandContrastRatio` now throws on unparseable input instead of silently scoring it as black (see #483).
+
+- **Removable filter chips are now keyboard-operable** (#478): `ActiveFilterChips`, `DataToolbar`, `BrowseSurface`, and `ResponsiveDataView` rendered their remove affordance as a `<div onClick>`, unreachable by keyboard. They now render via Mantine `Badge`'s polymorphic `component="button"` with a real `aria-label` and `type="button"`.
+- **`StatusBadge`/`LabelTag` semantic color no longer gets overridden by theme presets** (#479): the preset decorative Badge tint (specificity `(0,2,1)`) beat Mantine's own color-prop-driven Badge styling (specificity `(0,1,0)`), silently repainting every semantic status badge to the same brand tint under any of the 25 presets. Both components now mark themselves `data-gds-badge-fixed-tone`, which the preset rule excludes.
+- **`FitScoreChip` tooltip is now keyboard-reachable, and its "good"/"partial" bands can no longer render identically** (#480): the chip gained `tabIndex`/focus-triggered tooltip events, and the `partial` band now reads `--gds-brand-accent-action` instead of duplicating `--gds-brand-accent`.
+- **`GdsIcon`/`resolveGdsIconKey` now resolves the lowercase form of every multi-word icon key** (#481): the previous single-character-capitalize fallback broke 14 keys (`TrendingUp`, `EyeOff`, `ChevronDown`, etc.), silently falling back to the generic `Help` icon. Replaced with a full case-insensitive lookup table.
+- **`createBrandTheme()` now emits `--gds-text-on-inverse`** (#482), the fully-kebab-cased name every consumer and preset actually reads, alongside the previously-emitted (but unused) `--gds-text-onInverse`.
+- **`brandContrastRatio()` now throws on unparseable hex input** (#483) instead of silently coercing it to black via `NaN`-bitwise-coercion, which previously produced a plausible-but-wrong contrast ratio for any caller passing e.g. a CSS variable reference.
+
 ## 3.14.17 - 2026-08-02 — Guided tour: consistent rollout across every primary destination (#475)
 
 Extends the onboarding tour from two surfaces to **every primary site destination** through one shared launcher, so the "Take the guided tour" experience is identical everywhere and the gate-safe auto-start rule lives in exactly one place.
