@@ -94,6 +94,22 @@ describe('MeaningBadge (#322)', () => {
     const { container } = renderWithGds(<MeaningBadge variant="info" label="" />);
     expect(container.querySelector('.mantine-Badge-root')).toBeNull();
   });
+
+  it('routes a canonical GdsIcons key through the governed GdsIcon (#494)', () => {
+    const { container } = renderWithGds(<MeaningBadge variant="urgency" label="Ends soon" icon="Warning" />);
+    const icon = container.querySelector('[data-gds-icon]');
+    expect(icon).not.toBeNull();
+    expect(icon).toHaveAttribute('data-gds-icon', 'Warning');
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('still renders a custom ReactNode icon as given (#494)', () => {
+    const { container } = renderWithGds(
+      <MeaningBadge variant="validation" label="Verified" icon={<span data-testid="custom-icon" />} />,
+    );
+    expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+    expect(container.querySelector('[data-gds-icon]')).toBeNull();
+  });
 });
 
 describe('MediaWithFallback (#323)', () => {

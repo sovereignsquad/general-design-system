@@ -2,6 +2,22 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased — Badges render the canonical GdsIcons set (#494, part of epic #484)
+
+The governed icon dictionary's `status` category maps one-to-one onto badge semantics, yet no
+badge component used it — `StatusBadge` was text-only and `MeaningBadge`'s `icon` was an
+ungoverned `ReactNode` pass-through.
+
+- **`StatusBadge` gains opt-in `withIcon`**: renders the canonical status icon
+  (`Success`/`Warning`/`Danger`/`Info`) through `GdsIcon` ahead of the label, decorative
+  (`aria-hidden`) since the label carries the meaning; `neutral` has no canonical status icon and
+  renders none.
+- **`MeaningBadge`'s `icon` prop now routes canonical `GdsIcons` keys through `GdsIcon`**
+  (e.g. `icon="Warning"`, `icon="Star"`); any other `ReactNode` renders exactly as before, so
+  existing custom-markup callers are unaffected.
+- Playground demos show both; [`COMPONENTS_AND_PATTERNS.md`](COMPONENTS_AND_PATTERNS.md)'s badge
+  rules now state that badge icons come from the governed dictionary, never ad hoc SVG.
+
 ## Unreleased — Badge-system foundation: auto-foreground contrast helper (#486, part of epic #484)
 
 Badges render on 25 theme presets × custom brand colors; a static foreground color can't stay

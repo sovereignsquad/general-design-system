@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
 import { Badge } from '@mantine/core';
 import type { BadgeProps } from '@mantine/core';
+import { GdsIcon } from './icons';
+import type { GdsIconKey } from './icons';
 
 /** Semantic status meaning that maps to a fixed badge color. */
 export type StatusVariant = 'success' | 'warning' | 'danger' | 'info' | 'neutral';
@@ -9,6 +11,13 @@ export type StatusVariant = 'success' | 'warning' | 'danger' | 'info' | 'neutral
 export interface StatusBadgeProps extends Omit<BadgeProps, 'color'> {
   /** Semantic status that determines the badge color. */
   status: StatusVariant;
+  /**
+   * Renders the canonical status icon from the governed `GdsIcons` dictionary
+   * (`Success`/`Warning`/`Danger`/`Info`) ahead of the label. `neutral` has no
+   * canonical status icon and renders none. The icon is decorative — the label
+   * text always carries the meaning.
+   */
+  withIcon?: boolean;
   children: ReactNode;
 }
 
@@ -46,13 +55,29 @@ const labelTagColorMap: Record<LabelTagTone, string> = {
   success: 'green',
 };
 
+const statusIconMap: Partial<Record<StatusVariant, GdsIconKey>> = {
+  success: 'Success',
+  warning: 'Warning',
+  danger: 'Danger',
+  info: 'Info',
+};
+
 /**
- * StatusBadge enforces strict semantic coloring. 
- * Arbitrary hex colors are prohibited.
+ * StatusBadge enforces strict semantic coloring.
+ * Arbitrary hex colors are prohibited. With `withIcon`, the matching canonical
+ * status icon from `GdsIcons` renders ahead of the label (inheriting the
+ * badge's text color); `neutral` renders no icon.
  */
-export function StatusBadge({ status, children, ...props }: StatusBadgeProps) {
+export function StatusBadge({ status, withIcon, children, ...props }: StatusBadgeProps) {
+  const iconKey = withIcon ? statusIconMap[status] : undefined;
   return (
-    <Badge data-gds-badge-fixed-tone="true" color={statusColorMap[status]} variant="light" {...props}>
+    <Badge
+      data-gds-badge-fixed-tone="true"
+      color={statusColorMap[status]}
+      variant="light"
+      leftSection={iconKey ? <GdsIcon icon={iconKey} size="xs" /> : undefined}
+      {...props}
+    >
       {children}
     </Badge>
   );

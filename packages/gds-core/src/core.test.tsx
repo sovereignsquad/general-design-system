@@ -3043,6 +3043,31 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getByText('Food').closest('[data-gds-badge-fixed-tone]')).toBeInTheDocument();
   });
 
+  it('renders the canonical governed status icon on StatusBadge when withIcon is set (#494)', () => {
+    renderWithGds(<StatusBadge status="success" withIcon>Published</StatusBadge>);
+
+    const badge = screen.getByText('Published').closest('.mantine-Badge-root') as HTMLElement;
+    const icon = badge.querySelector('[data-gds-icon]');
+    expect(icon).not.toBeNull();
+    expect(icon).toHaveAttribute('data-gds-icon', 'Success');
+    // Decorative: the label carries the meaning, the icon must stay hidden from AT.
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('renders no icon on StatusBadge without withIcon, and none for neutral even with it (#494)', () => {
+    renderWithGds(
+      <>
+        <StatusBadge status="warning">Plain</StatusBadge>
+        <StatusBadge status="neutral" withIcon>Draft</StatusBadge>
+      </>,
+    );
+
+    const plain = screen.getByText('Plain').closest('.mantine-Badge-root') as HTMLElement;
+    const neutral = screen.getByText('Draft').closest('.mantine-Badge-root') as HTMLElement;
+    expect(plain.querySelector('[data-gds-icon]')).toBeNull();
+    expect(neutral.querySelector('[data-gds-icon]')).toBeNull();
+  });
+
   it('renders count badges and label tags with governed semantics', () => {
     renderWithGds(
       <>
