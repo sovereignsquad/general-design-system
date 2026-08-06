@@ -1,7 +1,7 @@
 # Project Board
 
 Status: Active
-Last updated: 2026-07-25
+Last updated: 2026-08-06
 
 The GDS project board is **GitHub Issues filtered by labels** — not an external
 Projects v2 board. This is a deliberate simplification: every board operation
@@ -98,3 +98,46 @@ required a `GDS_PROJECT_TOKEN` PAT that the default CI token could not stand in
 for, no MCP/tooling path could reach, and which therefore drifted. The retired
 approach and its 3.4.x board handovers are preserved for reference in
 [`docs/BOARD_SYNC_CHECKLIST.md`](docs/BOARD_SYNC_CHECKLIST.md).
+
+## Coarse read-only mirror on the retired Projects v2 board (project #11)
+
+Project #11 (`{GDS} - From IDEA to LIVE`, `https://github.com/orgs/sovereignsquad/projects/11`)
+still exists and has **not** been reconnected via a PAT or a custom GitHub
+Action — that would reintroduce the exact write-access mechanism it was
+retired over. What it does have, confirmed directly in the board's own
+**Workflows** panel, is two of Projects v2's **built-in** rules already
+enabled, which need no PAT and no repo tooling at all:
+
+| Built-in rule | Effect | Status |
+| --- | --- | --- |
+| `Auto-add to project` + `Item added to project` | New repo issues/PRs are added to the board with Status `Todo (NEXT)` | **Live** |
+| `Item closed` | Closing an issue sets Status to `Done` | **Live** |
+
+There is **no built-in "label changed → set field" trigger** in Projects v2
+Workflows (confirmed against the board's full trigger list: `Auto-add
+sub-issues to project`, `Auto-close issue`, `Item added to project`, `Item
+closed`, `Pull request linked to issue`, `Pull request merged`, `Auto-add to
+project`, `Auto-archive items`, `Code changes requested`, `Code review
+approved`, `Item reopened` — none of them fire on a label event). So **while
+an issue is open, its board position never reflects its actual `status:`
+label** — every open issue sits at `Todo (NEXT)` regardless of whether it's
+`backlog`, `ready`, `in progress`, `in review`, or `blocked`, and only jumps
+to `Done` on close. The board is therefore only a coarse, two-state (open vs.
+done) secondary mirror — **the Issues tab filtered by `status:` labels
+remains the sole authoritative live source**, exactly as described above.
+
+The full `status:` label → board `Status` field mapping was decided for
+reference (in case anyone chooses to drag cards manually, or revisits the
+custom-Action option later), even though only the last row is actually live:
+
+| Repo label | Board `Status` | Live? |
+| --- | --- | --- |
+| `status: backlog` | `Backlog (SOONER)` | manual only |
+| `status: ready` | `Todo (NEXT)` | manual only (coincides with the auto "new item" default) |
+| `status: in progress` | `In Progress (NOW)` | manual only |
+| `status: in review` | `Review (ALMOST)` | manual only |
+| `status: blocked` | `Roadmap (LATER)` | manual only — **owner's explicit choice**; this dual-purposes the board's "someday roadmap" column as "blocked," so a `Roadmap (LATER)` card there is not necessarily an actual roadmap idea |
+| *(issue closed)* | `Done` | **live** |
+
+`IDEABANK (SOMEDAY)` and `Declined (NEVER)` are intentionally left with no
+label mapping.

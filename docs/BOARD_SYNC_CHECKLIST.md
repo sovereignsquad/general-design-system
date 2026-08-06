@@ -1,7 +1,7 @@
 # Board Sync Checklist
 
 Status: Active
-Last updated: 2026-07-25
+Last updated: 2026-08-06
 
 The GDS project board is **GitHub Issues filtered by `status:` labels** — see
 [`PROJECT_BOARD.md`](../PROJECT_BOARD.md) for the taxonomy and tooling. There is
@@ -72,6 +72,15 @@ Projects v2 writes, no repo tooling/MCP path could reach it, and it drifted afte
 each release. It was retired in favor of the label board (see issue #431 and its
 successor). The former board-sync scripts (`board:complete-3.4`, `board:sync-hvb`,
 `audit-project-board.mjs`) and their GraphQL rate-limit handling were removed.
+
+**2026-08-06 addendum:** the board itself still exists and was given a passive,
+read-only mirror by enabling two of Projects v2's own **built-in** workflow
+rules (`Auto-add to project` and `Item closed`) directly in the board's UI —
+no PAT, no custom Action, no repo tooling change, so none of the retirement
+reasoning above is reversed. This gives a coarse open/`Todo (NEXT)` vs.
+`Done` view only; see [`PROJECT_BOARD.md`](../PROJECT_BOARD.md#coarse-read-only-mirror-on-the-retired-projects-v2-board-project-11)
+for the full mapping table and why finer-grained sync was deliberately not
+pursued.
 
 The 3.4.x delivery records below are preserved for historical traceability only;
 their `gh project ...` / `npm run board:*` commands no longer exist.
