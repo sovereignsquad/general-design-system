@@ -981,7 +981,11 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
 }
 .gds-tour-card {
   position: fixed;
-  z-index: calc(var(--mantine-z-index-overlay, 200) + 1);
+  /* One above the elevated [data-gds-tour-active-target] (overlay + 1), which
+     itself sits above the .gds-tour-spotlight scrim (overlay). The card is a
+     portal sibling of the spotlight, not a child — inside it, this z-index
+     could never escape the spotlight's own stacking context (GH-495). */
+  z-index: calc(var(--mantine-z-index-overlay, 200) + 2);
   max-width: min(360px, calc(100vw - 2rem));
   box-sizing: border-box;
   padding: 1rem 1.125rem 1.125rem;

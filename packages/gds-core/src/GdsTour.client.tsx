@@ -397,18 +397,24 @@ export function GdsTourProvider({ children }: GdsTourProviderProps) {
   const overlay =
     mounted && running && activeStep && rect
       ? createPortal(
-          <div
-            className={`gds-tour-spotlight${activeStep.interaction === 'allow-target' ? ' gds-tour-spotlight--interactive' : ''}`}
-            data-gds-tour-overlay=""
-          >
-            {activeStep.interaction !== 'allow-target' ? (
-              <div className="gds-tour-spotlight__blocker" aria-hidden="true" />
-            ) : null}
+          <>
             <div
-              className="gds-tour-spotlight__hole"
-              aria-hidden="true"
-              style={{ top: rect.top, left: rect.left, width: rect.width, height: rect.height }}
-            />
+              className={`gds-tour-spotlight${activeStep.interaction === 'allow-target' ? ' gds-tour-spotlight--interactive' : ''}`}
+              data-gds-tour-overlay=""
+            >
+              {activeStep.interaction !== 'allow-target' ? (
+                <div className="gds-tour-spotlight__blocker" aria-hidden="true" />
+              ) : null}
+              <div
+                className="gds-tour-spotlight__hole"
+                aria-hidden="true"
+                style={{ top: rect.top, left: rect.left, width: rect.width, height: rect.height }}
+              />
+            </div>
+            {/* Sibling of the spotlight, not a child: the spotlight div is a
+                stacking context at the overlay level, and the elevated
+                [data-gds-tour-active-target] sits one above it — a card inside
+                the spotlight could never paint above the target it annotates. */}
             <div
               ref={cardRef}
               className="gds-tour-card"
@@ -454,7 +460,7 @@ export function GdsTourProvider({ children }: GdsTourProviderProps) {
                 </div>
               </div>
             </div>
-          </div>,
+          </>,
           document.body,
         )
       : null;

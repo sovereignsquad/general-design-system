@@ -79,6 +79,21 @@ describe('GdsTour', () => {
     expect(onFinish).toHaveBeenCalledTimes(1);
   });
 
+  it('renders the step card as a portal sibling of the spotlight, never inside its stacking context (#495)', async () => {
+    renderWithGds(
+      <GdsTourProvider>
+        <Harness />
+      </GdsTourProvider>,
+    );
+    await userEvent.click(screen.getByText('Alpha'));
+    const dialog = await screen.findByRole('dialog');
+    // Inside .gds-tour-spotlight (a fixed, overlay-level stacking context) the
+    // card's own z-index can never rise above the elevated tour target, which
+    // buries the dialog under the spotlighted content on small viewports.
+    expect(dialog.closest('.gds-tour-spotlight')).toBeNull();
+    expect(document.querySelector('[data-gds-tour-overlay]')).toBeTruthy();
+  });
+
   it('skips the tour via the Skip control', async () => {
     const onSkip = vi.fn();
     renderWithGds(
