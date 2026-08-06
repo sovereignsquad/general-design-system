@@ -2,6 +2,19 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased — Guided tour: step card no longer buried under the spotlighted target (#495)
+
+On small viewports, a tall spotlighted section (e.g. the home page Theme Lab) overlapped the
+bottom-anchored step card and painted **over** it — Skip/Next unreachable, page inert behind the
+scrim: the tour was unusable on mobile. Root cause: the card rendered *inside*
+`.gds-tour-spotlight`, whose own overlay-level stacking context capped the card below the
+elevated `[data-gds-tour-active-target]` (overlay + 1).
+
+- The card is now a portal **sibling** of the spotlight at `overlay + 2`, giving the intended
+  order scrim < spotlighted target < step card; regression-tested structurally (dialog must not
+  be a descendant of the spotlight) and re-verified on a 390×844 viewport with hit-testing.
+- [`docs/GUIDED_TOUR.md`](docs/GUIDED_TOUR.md) now documents the layering guarantee.
+
 ## Unreleased — Badge shape vocabulary: six Tabler-geometry silhouettes (#487, part of epic #484)
 
 Approved via the visual proposal review: six badge silhouettes, all authored from Tabler's own

@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.17
-Last updated: 2026-08-02
+Last updated: 2026-08-06
 
 A governed, accessible **guided tour** (spotlight coach-marks): it dims the
 viewport with the `--gds-overlay-scrim` token, cuts a spotlight hole over the
@@ -10,6 +10,11 @@ current target element, and anchors a step card explaining that function, with
 Back / Next / Skip / Done and a "Step _n_ of _m_" indicator. It ships in
 `@sovereignsquad/gds-core` so every product gets one accessible, i18n'd,
 theme-aware onboarding flow with no app-level forks (issue #466).
+
+Stacking order is guaranteed as scrim < spotlighted target < step card
+(`--mantine-z-index-overlay` + 0/1/2): the card renders as a portal *sibling*
+of the spotlight, never inside it, so a tall spotlighted section can never
+paint over the dialog even when the two overlap on small viewports (#495).
 
 ## Public surface
 
