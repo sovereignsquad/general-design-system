@@ -99,6 +99,25 @@ not extend to other destructive or hard-to-reverse operations (force-push,
 history rewrite, branch deletion, etc.) — those still require explicit
 per-instance confirmation.
 
+### "Push to origin main" is the git operation, not the downstream CI/CD pipeline
+
+When the user says "push to origin main" (or equivalent), that means: run
+`git push origin main` directly, once the commit has passed local
+`verify:release` per Rule 1. That git push succeeding is what "done" means.
+
+It does **not** mean waiting for, blocking on, gating the report of success
+on, or treating as part of the same task the separate GitHub Actions
+workflows (`GDS Quality`, `Deploy GDS Playground to GitHub Pages`, etc.)
+that trigger automatically afterward. Those are independent, asynchronous
+CI/CD processes outside the push itself. Report the push as complete once
+it lands on `origin/main`. If those downstream workflows later fail —
+including for reasons outside this repository's control, such as a GitHub
+Actions/Pages infrastructure incident (runner-queue starvation, OIDC
+key-endpoint propagation lag, etc.) — diagnose and report that as its own
+follow-up, with a definitive root-cause verdict once the evidence supports
+one, not as an open-ended retry loop narrated turn-by-turn as if the push
+itself were still in progress.
+
 ## 7. No GitHub Projects (v2) board API — the board is labels
 
 This session's toolset has **no GitHub Projects (v2) board API**. The GitHub
