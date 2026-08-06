@@ -2,6 +2,29 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased — Badge shape vocabulary: six Tabler-geometry silhouettes (#487, part of epic #484)
+
+Approved via the visual proposal review: six badge silhouettes, all authored from Tabler's own
+`iconNode` path data through Tabler's public `createReactComponent` — imported geometry, never
+hand-drawn, so the 24×24 space, corner language, and `currentColor` stroke behavior match the
+`GdsIcons` registry by construction.
+
+- **New `@sovereignsquad/gds-core` exports**: `GdsBadgeShapeCircle` (← `IconCircle`),
+  `GdsBadgeShapeSquircle` (← `IconSquareRounded`), `GdsBadgeShapeHexagon` (← `IconHexagon`),
+  `GdsBadgeShapeShield` (← `IconShield`), `GdsBadgeShapeRosette` (← `IconRosette`), and
+  `GdsBadgeShapePin` (← `IconMapPin`'s balloon silhouette, decorative inner dot dropped so the
+  head can host a composed icon — for badges placed on maps), plus the closed `GdsBadgeShapes`
+  dictionary and `GdsBadgeShapeName` union that #489's `GdsBadge` will typecheck its `shape`
+  prop against.
+- Deliberately siblings of `<GdsIcon />`, not registry keys: they expose the full Tabler prop
+  surface (`className`/`style`/`ref`/rest-spread) that badge composition (#488) needs and
+  `<GdsIcon />` intentionally withholds.
+- Suggested shape-to-meaning pairing (documented default, not enforced): circle=interest/count,
+  squircle=persona, hexagon=activity, shield=verification, rosette=certification, pin=location.
+- Demoed on the badges pattern; asserted mounted-and-painted under forced-colors on
+  `/patterns/feedback`; documented in [`docs/ICON_REGISTRY.md`](docs/ICON_REGISTRY.md) and
+  [`COMPONENTS_AND_PATTERNS.md`](COMPONENTS_AND_PATTERNS.md).
+
 ## Unreleased — Badges render the canonical GdsIcons set (#494, part of epic #484)
 
 The governed icon dictionary's `status` category maps one-to-one onto badge semantics, yet no
