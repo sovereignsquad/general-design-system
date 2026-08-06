@@ -85,6 +85,17 @@ const ignoredExports = new Set([
   'ko',
   'ru',
   'zh',
+  // packages/gds-theme/src/color-math.ts: pure internal sRGB color-math primitives
+  // shared between vibe-themes.ts and accessibility-report.ts. Not part of the
+  // package's public barrel (index.ts/client.ts/server.ts don't re-export them)
+  // and not a UI pattern, so there's no playground demo for them to cover.
+  'parseCssColor',
+  'blend',
+  'resolveOpaque',
+  'toRgbString',
+  'mixCssColors',
+  'luminance',
+  'contrastRatio',
 ]);
 
 const coveredByPackage = new Map();

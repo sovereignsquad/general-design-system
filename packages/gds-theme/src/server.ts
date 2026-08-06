@@ -3,7 +3,7 @@ export { getGdsThemePresets, resolveGdsThemePreset, partnerDiscoveryThemePreset,
 export type { GdsThemePreset, GdsThemePresetId } from './theme-presets';
 export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIdsByScript, getGdsLocaleMetadata, isGdsRtlLocale } from './i18n';
 export type { GdsI18nContextValue, GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './i18n';
-export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables } from './vibe-themes';
+export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, deriveVibeSemanticCssVariables } from './vibe-themes';
 export type { GdsVibeTheme } from './vibe-themes';
 export { createGdsThemeAccessibilityReport, validateGdsThemeAccessibility } from './accessibility-report';
 export type { GdsAccessibilityFindingSeverity, GdsContrastCheck, GdsContrastFinding, GdsContrastMode, GdsContrastRole, GdsForcedColorRole, GdsThemeAccessibilityReport } from './accessibility-report';

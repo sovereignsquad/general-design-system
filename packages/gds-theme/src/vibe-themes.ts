@@ -1,4 +1,5 @@
 import type { GdsThemePresetId } from './theme-presets';
+import { contrastRatio, mixCssColors, parseCssColor } from './color-math';
 
 // This file intentionally maintains its own hand-authored color values rather
 // than deriving them from `theme-presets.ts`'s Mantine hue names (e.g.
@@ -659,12 +660,169 @@ const brandSemanticCssVariablesByPreset: Partial<Record<GdsThemePresetId, Record
   'gold-athlete': goldAthleteSemanticCssVariables,
 };
 
+// Fixed, non-preset-tinted anchors for the three "alarm" state colors. Verified
+// against the two hand-authored presets: `state-danger`/`state-danger-dark` and
+// `state-warning-dark` are byte-identical between `class-usa` and `gold-athlete`
+// (`#b3261e`/`#f2786f` and `#e0a23c` respectively) — i.e. those roles were never
+// preset-tinted to begin with, so the derivation below doesn't tint them either.
+const UNIVERSAL_SUCCESS = '#1f8a4c';
+const UNIVERSAL_WARNING = '#b45309';
+const UNIVERSAL_WARNING_DARK = '#e0a23c';
+const UNIVERSAL_DANGER = '#b3261e';
+const UNIVERSAL_DANGER_DARK = '#f2786f';
+
+/** Nudges `candidate` toward black/white (in sRGB, matching the runtime `color-mix(in srgb, ...)`) until it clears `minRatio` against `background`, or gives up after 16 steps. */
+function ensureContrast(candidate: string, background: string, minRatio: number, towardWhite: boolean, fallback: string): string {
+  const step = towardWhite ? '#ffffff' : '#000000';
+  let color = candidate;
+  for (let i = 0; i < 16; i += 1) {
+    const ratio = contrastRatio(color, background, fallback);
+    if (ratio !== null && ratio >= minRatio) {
+      return color;
+    }
+    color = mixCssColors(color, step, 0.9, fallback);
+  }
+  return color;
+}
+
+function toRgba(hexOrRgb: string, alpha: number): string {
+  const parsed = parseCssColor(hexOrRgb);
+  if (!parsed) {
+    return hexOrRgb;
+  }
+  return `rgba(${Math.round(parsed.r)}, ${Math.round(parsed.g)}, ${Math.round(parsed.b)}, ${alpha})`;
+}
+
+/**
+ * Derives the full `--gds-*` semantic role variable set (the same 33-role schema
+ * hand-authored for `class-usa`/`gold-athlete` — see `classUsaSemanticCssVariables`)
+ * for any vibe theme that doesn't define one of its own, so badges and other
+ * semantic-role consumers get a real per-preset color everywhere instead of
+ * falling through to the 12 generic `--gds-vibe-*` variables. Several roles reuse
+ * an already-WCAG-safe vibe field directly (e.g. `brand-primary` = `textLight`,
+ * confirmed identical to that role in both hand-authored presets); the rest are
+ * mixed from the preset's own hue and pushed toward black/white with
+ * {@link ensureContrast} until they clear WCAG AA/non-text-AA against their
+ * background, rather than being hand-picked per preset.
+ */
+export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<string, string> {
+  const accentLight = ensureContrast(vibe.accent, vibe.canvasLight, 3, false, vibe.canvasLight);
+  const accentDark = ensureContrast(mixCssColors(vibe.accent, '#ffffff', 0.75, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
+  const accentAction = ensureContrast(mixCssColors(vibe.accent, '#000000', 0.75, vibe.canvasLight), vibe.canvasLight, 4.5, false, vibe.canvasLight);
+
+  const successLight = ensureContrast(mixCssColors(UNIVERSAL_SUCCESS, vibe.primary, 0.75, vibe.canvasLight), vibe.canvasLight, 3, false, vibe.canvasLight);
+  const successDark = ensureContrast(mixCssColors(UNIVERSAL_SUCCESS, '#ffffff', 0.55, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
+  const warningLight = ensureContrast(mixCssColors(UNIVERSAL_WARNING, vibe.primary, 0.75, vibe.canvasLight), vibe.canvasLight, 3, false, vibe.canvasLight);
+  const infoDark = ensureContrast(mixCssColors(vibe.mutedDark, '#ffffff', 0.3, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
+
+  const bgCardDark = mixCssColors(vibe.canvasDark, '#ffffff', 0.88, vibe.canvasDark);
+  const navInactiveOnInverse = toRgba(vibe.textDark, 0.72);
+
+  const badgeInfoLight = mixCssColors(vibe.canvasLight, vibe.textLight, 0.92, vibe.canvasLight);
+  const badgeInfoDark = mixCssColors(vibe.canvasDark, vibe.textDark, 0.85, vibe.canvasDark);
+  const badgeUrgencyBgLight = mixCssColors('#ffffff', UNIVERSAL_DANGER, 0.85, vibe.canvasLight);
+  const badgeUrgencyBgDark = mixCssColors(vibe.canvasDark, UNIVERSAL_DANGER, 0.75, vibe.canvasDark);
+
+  const controlDisabledBgLight = mixCssColors(vibe.canvasLight, vibe.mutedLight, 0.85, vibe.canvasLight);
+  const controlDisabledBgDark = mixCssColors(vibe.canvasDark, vibe.mutedDark, 0.75, vibe.canvasDark);
+
+  const supportLight = mixCssColors(vibe.mutedLight, accentLight, 0.6, vibe.canvasLight);
+  const supportDark = mixCssColors(vibe.mutedDark, accentDark, 0.6, vibe.canvasDark);
+
+  return {
+    '--gds-brand-primary': vibe.textLight,
+    '--gds-brand-primary-dark': vibe.textDark,
+    '--gds-brand-primary-pressed': vibe.canvasDark,
+    '--gds-brand-primary-pressed-dark': vibe.canvasDark,
+    '--gds-brand-accent': accentLight,
+    '--gds-brand-accent-dark': accentDark,
+    '--gds-brand-accent-action': accentAction,
+    '--gds-brand-accent-action-dark': accentAction,
+    '--gds-accent': accentLight,
+    '--gds-accent-dark': accentDark,
+    '--gds-support': supportLight,
+    '--gds-support-dark': supportDark,
+    '--gds-bg-canvas': vibe.canvasLight,
+    '--gds-bg-canvas-dark': vibe.canvasDark,
+    '--gds-bg-card': '#ffffff',
+    '--gds-bg-card-dark': bgCardDark,
+    '--gds-bg-page': vibe.canvasLight,
+    '--gds-bg-page-dark': vibe.canvasDark,
+    '--gds-bg-surface': '#ffffff',
+    '--gds-bg-surface-dark': bgCardDark,
+    '--gds-bg-inverse': vibe.textLight,
+    '--gds-bg-inverse-dark': vibe.textLight,
+    '--gds-border-card': vibe.borderLight,
+    '--gds-border-card-dark': vibe.borderDark,
+    '--gds-text-body': vibe.textLight,
+    '--gds-text-body-dark': vibe.textDark,
+    '--gds-text-meta': vibe.mutedLight,
+    '--gds-text-meta-dark': vibe.mutedDark,
+    '--gds-text-primary': vibe.textLight,
+    '--gds-text-primary-dark': vibe.textDark,
+    '--gds-text-secondary': vibe.mutedLight,
+    '--gds-text-secondary-dark': vibe.mutedDark,
+    '--gds-text-on-inverse': vibe.textDark,
+    '--gds-text-on-inverse-dark': vibe.textDark,
+    '--gds-nav-inactiveOnInverse': navInactiveOnInverse,
+    '--gds-nav-inactiveOnInverse-dark': navInactiveOnInverse,
+    '--gds-price': accentLight,
+    '--gds-price-dark': accentDark,
+    '--gds-star': accentLight,
+    '--gds-star-dark': accentDark,
+    '--gds-state-success': successLight,
+    '--gds-state-success-dark': successDark,
+    '--gds-state-warning': warningLight,
+    '--gds-state-warning-dark': UNIVERSAL_WARNING_DARK,
+    '--gds-state-danger': UNIVERSAL_DANGER,
+    '--gds-state-danger-dark': UNIVERSAL_DANGER_DARK,
+    '--gds-state-info': vibe.textLight,
+    '--gds-state-info-dark': infoDark,
+    '--gds-badge-attention': accentLight,
+    '--gds-badge-attention-dark': accentDark,
+    '--gds-badge-validation': successLight,
+    '--gds-badge-validation-dark': successDark,
+    '--gds-badge-info': badgeInfoLight,
+    '--gds-badge-info-dark': badgeInfoDark,
+    '--gds-badge-urgencyBg': badgeUrgencyBgLight,
+    '--gds-badge-urgencyBg-dark': badgeUrgencyBgDark,
+    '--gds-bg-info-tag': badgeInfoLight,
+    '--gds-bg-info-tag-dark': badgeInfoDark,
+    '--gds-brand-accent-tint': badgeUrgencyBgLight,
+    '--gds-brand-accent-tint-dark': badgeUrgencyBgDark,
+    '--gds-focus-ring': accentAction,
+    '--gds-focus-ring-dark': accentDark,
+    '--gds-control-disabledBg': controlDisabledBgLight,
+    '--gds-control-disabledBg-dark': controlDisabledBgDark,
+    '--gds-control-disabledText': vibe.mutedLight,
+    '--gds-control-disabledText-dark': vibe.mutedDark,
+  };
+}
+
+const derivedSemanticCssVariablesCache = new Map<GdsThemePresetId, Record<string, string>>();
+
+function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeTheme): Record<string, string> {
+  const handAuthored = brandSemanticCssVariablesByPreset[id];
+  if (handAuthored) {
+    return handAuthored;
+  }
+
+  const cached = derivedSemanticCssVariablesCache.get(id);
+  if (cached) {
+    return cached;
+  }
+
+  const derived = deriveVibeSemanticCssVariables(vibe);
+  derivedSemanticCssVariablesCache.set(id, derived);
+  return derived;
+}
+
 /**
  * Builds the `--gds-vibe-*` CSS variables for a preset and color scheme (mode is
- * resolved to the light or dark value of each token). For brand presets that
- * define a semantic variable set (`class-usa`, `gold-athlete`), those `--gds-*`
- * variables are merged in, with `-dark` values collapsed onto their base names
- * in dark mode.
+ * resolved to the light or dark value of each token), plus the full `--gds-*`
+ * semantic role set (hand-authored for `class-usa`/`gold-athlete`,
+ * {@link deriveVibeSemanticCssVariables} for every other preset), with `-dark`
+ * values collapsed onto their base names in dark mode.
  */
 export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: 'light' | 'dark') {
   const vibe = resolveGdsVibeTheme(id);
@@ -685,10 +843,7 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
     '--gds-vibe-hero': vibe.hero,
   };
 
-  const brandSemanticCssVariables = brandSemanticCssVariablesByPreset[id];
-  if (!brandSemanticCssVariables) {
-    return variables;
-  }
+  const brandSemanticCssVariables = resolveVibeSemanticCssVariables(id, vibe);
 
   const semanticVariables: Record<string, string> = { ...brandSemanticCssVariables };
   if (dark) {
