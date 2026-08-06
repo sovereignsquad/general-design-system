@@ -55,6 +55,10 @@ const formComponents = [
 // painted under forced-colors instead of vanishing with a flattened palette.
 const badgeShapeComponents = [
   { selector: '[data-gds-badge-shapes] svg', label: 'Badge shape silhouette (Tabler-geometry, currentColor stroke)' },
+  { selector: '[data-gds-badge]', label: 'GdsBadge static status/meaning label' },
+  { selector: '[data-gds-count-badge-demo] [data-gds-count-badge]', label: 'GdsCountBadge numeric pill' },
+  { selector: '[data-gds-removable-tag-demo] [data-gds-removable-tag]', label: 'GdsRemovableTag filter token' },
+  { selector: '[data-gds-badge-stack] [data-gds-badge-stack-layer]', label: 'GdsBadgeStack composed layer' },
 ];
 
 // Route coverage is driven off the pattern-catalog families that actually mount

@@ -1058,6 +1058,58 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
   position: relative;
   z-index: calc(var(--mantine-z-index-overlay, 200) + 1);
 }
+/* Badge composition stack (GH-488): Font Awesome layering model — a square
+   1em-default box with absolutely-positioned, centered layers. Corner layers
+   offset via transform; the optional cutout is a CSS mask (geometry, survives
+   forced-colors and gradient page backgrounds), never a painted ring. */
+[data-gds-badge-stack] {
+  position: relative;
+  display: inline-block;
+  width: var(--gds-badge-stack-size, 1em);
+  height: var(--gds-badge-stack-size, 1em);
+  vertical-align: middle;
+  line-height: 1;
+}
+[data-gds-badge-stack-layer] {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(var(--gds-badge-stack-layer-scale, 1));
+}
+[data-gds-badge-stack-layer] > svg {
+  width: 100%;
+  height: 100%;
+}
+[data-gds-badge-stack-layer="top-end"] {
+  transform: translate(35%, -35%) scale(var(--gds-badge-stack-layer-scale, 0.5));
+}
+[data-gds-badge-stack-layer="top-start"] {
+  transform: translate(-35%, -35%) scale(var(--gds-badge-stack-layer-scale, 0.5));
+}
+[data-gds-badge-stack-layer="bottom-end"] {
+  transform: translate(35%, 35%) scale(var(--gds-badge-stack-layer-scale, 0.5));
+}
+[data-gds-badge-stack-layer="bottom-start"] {
+  transform: translate(-35%, 35%) scale(var(--gds-badge-stack-layer-scale, 0.5));
+}
+[data-gds-badge-stack-cutout="top-end"] {
+  mask: radial-gradient(circle at 85% 15%, transparent 0 22%, #000 23%);
+  -webkit-mask: radial-gradient(circle at 85% 15%, transparent 0 22%, #000 23%);
+}
+[data-gds-badge-stack-cutout="top-start"] {
+  mask: radial-gradient(circle at 15% 15%, transparent 0 22%, #000 23%);
+  -webkit-mask: radial-gradient(circle at 15% 15%, transparent 0 22%, #000 23%);
+}
+[data-gds-badge-stack-cutout="bottom-end"] {
+  mask: radial-gradient(circle at 85% 85%, transparent 0 22%, #000 23%);
+  -webkit-mask: radial-gradient(circle at 85% 85%, transparent 0 22%, #000 23%);
+}
+[data-gds-badge-stack-cutout="bottom-start"] {
+  mask: radial-gradient(circle at 15% 85%, transparent 0 22%, #000 23%);
+  -webkit-mask: radial-gradient(circle at 15% 85%, transparent 0 22%, #000 23%);
+}
 @media (prefers-reduced-motion: reduce) {
   .gds-tour-spotlight__hole,
   .gds-tour-card {

@@ -119,6 +119,14 @@ import {
   GdsBadgeShapeShield,
   GdsBadgeShapeRosette,
   GdsBadgeShapePin,
+  GdsBadge,
+  GdsBadgeStack,
+  GdsBadgeStackLayer,
+  GdsCountBadge,
+  GdsRemovableTag,
+  GdsIcon,
+  MeaningBadge,
+  FitScoreChip,
   BodyText,
   SimpleDataTable,
   UploadDropzone,
@@ -2085,6 +2093,23 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           </SectionPanel>
         </GdsNotificationProvider>
       );
+    case 'meaning-badge':
+      return (
+        <div>
+          <MeaningBadge variant="attention" label="Featured" />
+          <MeaningBadge variant="validation" label="Verified" icon="Success" />
+          <MeaningBadge variant="info" label="Editorial pick" />
+          <MeaningBadge variant="urgency" label="Ends soon" icon="Warning" />
+        </div>
+      );
+    case 'fit-score-chip':
+      return (
+        <div>
+          <FitScoreChip value={92} dimensions={[{ label: 'Budget' }, { label: 'Location' }]} />
+          <FitScoreChip value={64} />
+          <FitScoreChip value={31} />
+        </div>
+      );
     case 'badges':
       return (
         <div>
@@ -2114,6 +2139,42 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             <GdsBadgeShapeRosette size={40} stroke={1.75} aria-hidden="true" />
             <GdsBadgeShapePin size={40} stroke={1.75} aria-hidden="true" />
           </span>
+          <br />
+          <GdsBadge tone="success" icon="Success" label="Published" />
+          <GdsBadge tone="warning" icon="Warning" label="Needs review" />
+          <GdsBadge tone="danger" icon="Danger" label="Blocked" />
+          <GdsBadge tone="info" icon="Info" label="Heads up" />
+          <GdsBadge tone="neutral" label="Draft" />
+          <br />
+          <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Swimming" />
+          <GdsBadge accent="grape" shape="circle" icon="Message" label="Choir" />
+          <GdsBadge accent="forest" shape="shield" icon="Verify" label="Certified" />
+          <GdsBadge accent="terracotta" shape="pin" icon="Location" label="Nearby" />
+          <br />
+          <span data-gds-count-badge-demo>
+            <GdsCountBadge value={7} label="notifications" />
+            <GdsCountBadge value={126} cap={99} label="unread messages" tone="info" />
+            <GdsCountBadge dot label="new activity" tone="danger" anchor={<GdsIcon icon="Notifications" size="lg" />} />
+            <GdsCountBadge value={3} label="drafts" tone="neutral" anchor={<GdsIcon icon="Inbox" size="lg" />} />
+          </span>
+          <br />
+          <span data-gds-removable-tag-demo>
+            <GdsRemovableTag label="Music" removeLabel="Remove filter: Music" onRemove={() => {}} />
+            <GdsRemovableTag label="Ages 6-8" tone="info" removeLabel="Remove filter: Ages 6-8" onRemove={() => {}} />
+            <GdsRemovableTag label="Weekends" tone="success" removeLabel="Remove filter: Weekends" onRemove={() => {}} />
+          </span>
+          <br />
+          <GdsBadgeStack size={44} label="Certified — verification mark">
+            <GdsBadgeStackLayer cutout="top-end">
+              <GdsBadgeShapeShield size="100%" stroke={1.75} />
+            </GdsBadgeStackLayer>
+            <GdsBadgeStackLayer scale={0.5}>
+              <GdsIcon icon="Success" size="100%" />
+            </GdsBadgeStackLayer>
+            <GdsBadgeStackLayer corner="top-end" scale={0.4}>
+              <GdsBadgeShapeCircle size="100%" stroke={1.75} />
+            </GdsBadgeStackLayer>
+          </GdsBadgeStack>
         </div>
       );
     case 'modals':

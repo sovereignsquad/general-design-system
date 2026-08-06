@@ -3,7 +3,7 @@
 import React from 'react';
 import { Badge, Group, SimpleGrid, Stack } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { StateBlock } from '@sovereignsquad/gds-core';
+import { GdsRemovableTag, StateBlock } from '@sovereignsquad/gds-core';
 import { DataTable, type DataTableColumn } from './DataTable';
 
 /** An active-filter chip shown above a {@link ResponsiveDataView}. */
@@ -76,20 +76,21 @@ export function ResponsiveDataView<T extends Record<string, unknown>>({
       {toolbar}
       {activeFilters.length ? (
         <Group gap="xs" wrap="wrap">
-          {activeFilters.map((filter, index) => (
-            <Badge
-              key={`${filter.label}-${index}`}
-              variant="light"
-              color="violet"
-              rightSection={filter.onRemove ? <span aria-hidden="true">×</span> : undefined}
-              style={filter.onRemove ? { cursor: 'pointer' } : undefined}
-              {...(filter.onRemove
-                ? { component: 'button', type: 'button', onClick: filter.onRemove, 'aria-label': `Remove ${filter.label} filter` }
-                : {})}
-            >
-              {filter.label}
-            </Badge>
-          ))}
+          {activeFilters.map((filter, index) =>
+            filter.onRemove ? (
+              <GdsRemovableTag
+                key={`${filter.label}-${index}`}
+                label={filter.label}
+                onRemove={filter.onRemove}
+                removeLabel={`Remove ${filter.label} filter`}
+                tone="info"
+              />
+            ) : (
+              <Badge key={`${filter.label}-${index}`} variant="light" color="violet">
+                {filter.label}
+              </Badge>
+            ),
+          )}
         </Group>
       ) : null}
       {mobileFilters && isMobile ? <Stack gap="xs">{mobileFilters}</Stack> : null}

@@ -54,7 +54,7 @@ const bandLabel: Record<ScoreBand, string> = {
  * dimensions. Meaning is always conveyed by text (label + score), never color
  * alone. Renders `null` when given neither `value` nor `label`.
  */
-export function FitScoreChip({ value, label, dimensions, size = 'md', ...props }: FitScoreChipProps) {
+export function FitScoreChip({ value, label, dimensions, size = 'md', style, ...props }: FitScoreChipProps) {
   if (value == null && !label) {
     return null;
   }
@@ -72,8 +72,8 @@ export function FitScoreChip({ value, label, dimensions, size = 'md', ...props }
       variant="filled"
       aria-label={accessibleLabel}
       tabIndex={hasTooltip ? 0 : undefined}
-      style={{ backgroundColor: bandColor[band], color: 'var(--gds-text-on-inverse, var(--mantine-color-white))' }}
       {...props}
+      style={{ backgroundColor: bandColor[band], color: 'var(--gds-text-on-inverse, var(--mantine-color-white))', ...style }}
     >
       {display}
     </Badge>
