@@ -69,6 +69,13 @@ describe('createBrandTheme', () => {
     }
   });
 
+  it('emits --gds-text-on-inverse (the fully-kebab name every consumer and preset actually reads), not just --gds-text-onInverse', () => {
+    const { cssVariables } = createBrandTheme({ brandColors: classScoutColors, fonts });
+    const tokens = deriveBrandSemanticTokens(classScoutColors);
+    expect(cssVariables['--gds-text-on-inverse']).toBe(tokens['text.onInverse'].light);
+    expect(cssVariables['--gds-text-on-inverse-dark']).toBe(tokens['text.onInverse'].dark);
+  });
+
   it('applies the display font to headings and the body font to body', () => {
     const { mantineTheme } = createBrandTheme({ brandColors: classScoutColors, fonts });
     expect(mantineTheme.headings.fontFamily).toContain('Bogart');
@@ -106,5 +113,16 @@ describe('brandContrastRatio', () => {
   it('computes a high ratio for navy on cream and white on navy', () => {
     expect(brandContrastRatio('#0b223e', '#faf7f1')).toBeGreaterThan(4.5);
     expect(brandContrastRatio('#ffffff', '#0b223e')).toBeGreaterThan(4.5);
+  });
+
+  it('accepts 3-digit hex shorthand', () => {
+    expect(brandContrastRatio('#000', '#fff')).toBeGreaterThan(20);
+  });
+
+  it('throws instead of silently scoring unparseable input against black', () => {
+    expect(() => brandContrastRatio('var(--gds-brand-accent)', '#faf7f1')).toThrow(/hex color/);
+    expect(() => brandContrastRatio('#0b223e', 'not-a-color')).toThrow(/hex color/);
+    expect(() => brandContrastRatio('#gggggg', '#faf7f1')).toThrow(/hex color/);
+    expect(() => brandContrastRatio('0b223e', '#faf7f1')).toThrow(/hex color/);
   });
 });

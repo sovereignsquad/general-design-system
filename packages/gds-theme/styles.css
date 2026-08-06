@@ -233,7 +233,13 @@ html[data-gds-theme-preset] .mantine-Button-root[data-variant='default'] {
   border-color: var(--gds-vibe-border);
 }
 
-html[data-gds-theme-preset] .mantine-Badge-root {
+/*
+ * Badges with a fixed semantic tone (StatusBadge, LabelTag) mark themselves with
+ * [data-gds-badge-fixed-tone] so their success/warning/danger/info/neutral color stays
+ * intact under every preset — otherwise this decorative vibe tint would repaint them
+ * all to the same brand color, defeating the semantic meaning they exist to carry.
+ */
+html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone]) {
   color: color-mix(in srgb, var(--gds-vibe-primary) 76%, var(--gds-vibe-text));
   background: color-mix(in srgb, var(--gds-vibe-primary) 15%, transparent);
   border-color: color-mix(in srgb, var(--gds-vibe-primary) 28%, transparent);

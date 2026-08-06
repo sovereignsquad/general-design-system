@@ -38,7 +38,7 @@ function bandForScore(value: number): ScoreBand {
 const bandColor: Record<ScoreBand, string> = {
   great: 'var(--gds-state-success, var(--mantine-color-teal-6))',
   good: 'var(--gds-brand-accent, var(--mantine-color-orange-5))',
-  partial: 'var(--gds-brand-accent, var(--mantine-color-orange-7))',
+  partial: 'var(--gds-brand-accent-action, var(--mantine-color-orange-7))',
 };
 
 const bandLabel: Record<ScoreBand, string> = {
@@ -64,12 +64,14 @@ export function FitScoreChip({ value, label, dimensions, size = 'md', ...props }
   const text = label ?? bandLabel[band];
   const display = clamped == null ? text : `${text} · ${clamped}`;
   const accessibleLabel = clamped == null ? text : `${text}, score ${clamped} of 100`;
+  const hasTooltip = Boolean(dimensions && dimensions.length > 0);
 
   const chip = (
     <Badge
       size={size}
       variant="filled"
       aria-label={accessibleLabel}
+      tabIndex={hasTooltip ? 0 : undefined}
       style={{ backgroundColor: bandColor[band], color: 'var(--gds-text-on-inverse, var(--mantine-color-white))' }}
       {...props}
     >
@@ -80,7 +82,7 @@ export function FitScoreChip({ value, label, dimensions, size = 'md', ...props }
   if (dimensions && dimensions.length > 0) {
     const tooltipLabel = dimensions.map((dimension) => dimension.label).join(', ');
     return (
-      <Tooltip label={`Matched: ${tooltipLabel}`} withArrow multiline>
+      <Tooltip label={`Matched: ${tooltipLabel}`} withArrow multiline events={{ hover: true, focus: true, touch: false }}>
         {chip}
       </Tooltip>
     );

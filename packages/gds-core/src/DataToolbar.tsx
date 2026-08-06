@@ -57,9 +57,11 @@ export function DataToolbar({
             <Badge
               key={filter.label}
               variant="light"
-              rightSection={filter.onRemove ? '×' : undefined}
+              rightSection={filter.onRemove ? <span aria-hidden="true">×</span> : undefined}
               style={filter.onRemove ? { cursor: 'pointer' } : undefined}
-              onClick={filter.onRemove}
+              {...(filter.onRemove
+                ? { component: 'button', type: 'button', onClick: filter.onRemove, 'aria-label': `Remove ${filter.label} filter` }
+                : {})}
             >
               {filter.label}
             </Badge>
