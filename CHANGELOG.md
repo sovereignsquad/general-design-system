@@ -13,6 +13,14 @@ Fixes found while researching the upcoming customizable badge system, landed ahe
 - **`createBrandTheme()` now emits `--gds-text-on-inverse`** (#482), the fully-kebab-cased name every consumer and preset actually reads, alongside the previously-emitted (but unused) `--gds-text-onInverse`.
 - **`brandContrastRatio()` now throws on unparseable hex input** (#483) instead of silently coercing it to black via `NaN`-bitwise-coercion, which previously produced a plausible-but-wrong contrast ratio for any caller passing e.g. a CSS variable reference.
 
+## Unreleased — Badge-system foundation: semantic role tokens for all 25 presets (#485, part of epic #484)
+
+Only `class-usa`/`gold-athlete` (2 of 25 presets) defined the `--gds-state-*`/`--gds-badge-*`/`--gds-brand-*`/etc. semantic role variables a theme-aware badge needs. Rather than give the new badge system a fallback-chain-only escape hatch, the gap is closed at the token layer: every preset now defines the full role set.
+
+- **New `packages/gds-theme/src/color-math.ts`**: sRGB color parsing/mixing/contrast utilities, extracted from `accessibility-report.ts` (no behavior change there — same math, now shared) so they can back the new derivation below too.
+- **New `deriveVibeSemanticCssVariables()`** (`vibe-themes.ts`): for the 23 presets without a hand-authored semantic set, mixes each role from that preset's own `GdsVibeTheme` palette in sRGB (matching the runtime `color-mix(in srgb, ...)`) and pushes it toward black/white until it clears WCAG AA (text) or non-text AA (3:1) against its background — verified for all 25 presets, both modes, in `vibe-themes.test.ts`. `state-danger`/`state-danger-dark`/`state-warning-dark` are fixed, non-preset-tinted anchors rather than derived, matching the values already shared identically between the two hand-authored presets. `class-usa`/`gold-athlete`'s existing values are untouched.
+- Docs: [`docs/SEMANTIC_ROLE_TOKENS.md`](docs/SEMANTIC_ROLE_TOKENS.md) updated to reflect that all 25 presets — not just 2 — now define the full role set; [`docs/DESIGN_TOKENS_DTCG.md`](docs/DESIGN_TOKENS_DTCG.md)'s stale "391 tokens across 23 presets" corrected to the actual 425/25.
+
 ## 3.14.17 - 2026-08-02 — Guided tour: consistent rollout across every primary destination (#475)
 
 Extends the onboarding tour from two surfaces to **every primary site destination** through one shared launcher, so the "Take the guided tour" experience is identical everywhere and the gate-safe auto-start rule lives in exactly one place.

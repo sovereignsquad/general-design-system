@@ -2,11 +2,11 @@
 
 Status: Active SSOT
 Version: 3.14.17
-Last updated: 2026-07-26
+Last updated: 2026-08-06
 
 GDS publishes its design tokens in the **W3C Design Tokens Community Group (DTCG)** format so they can be consumed by Figma variables, [Style Dictionary](https://styledictionary.com/) v4, Tokens Studio, and other platform tooling — not only by the Mantine-native runtime (issue #452).
 
-**Artifact:** [`tokens/gds.tokens.json`](../tokens/gds.tokens.json) — 391 tokens across 23 theme presets.
+**Artifact:** [`tokens/gds.tokens.json`](../tokens/gds.tokens.json) — 425 tokens across 25 theme presets (17 roles per preset; 375 `$type: "color"` + 50 `$type: "com.sovereignsquad.gds.cssGradient"` effect tokens).
 
 ## The code tokens stay authoritative
 

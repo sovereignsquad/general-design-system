@@ -1,5 +1,6 @@
 import type { GdsThemePresetId } from './theme-presets';
 import { getGdsVibeThemes, type GdsVibeTheme } from './vibe-themes';
+import { contrastRatio, mixCssColors } from './color-math';
 
 /** Color scheme a contrast check is evaluated in. */
 export type GdsContrastMode = 'light' | 'dark';
@@ -91,13 +92,6 @@ export interface GdsThemeAccessibilityReport {
   recommendedRuntimeChecks: string[];
 }
 
-interface RgbColor {
-  r: number;
-  g: number;
-  b: number;
-  a: number;
-}
-
 const MINIMUM_NORMAL_TEXT_RATIO = 4.5;
 const MINIMUM_NON_TEXT_RATIO = 3;
 
@@ -120,119 +114,6 @@ const recommendedRuntimeChecks = [
   'Run npm run verify:forced-colors-runtime against the docs site before publishing.',
   'Validate light, dark, and forced-colors active modes before accepting partner themes.',
 ];
-
-function clampChannel(value: number) {
-  return Math.max(0, Math.min(255, value));
-}
-
-function parseCssColor(value: string): RgbColor | null {
-  const input = value.trim().toLowerCase();
-
-  const hex = /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.exec(input);
-  if (hex) {
-    const raw = hex[1];
-    const expanded = raw.length === 3
-      ? raw.split('').map((char) => `${char}${char}`).join('')
-      : raw;
-    const r = parseInt(expanded.slice(0, 2), 16);
-    const g = parseInt(expanded.slice(2, 4), 16);
-    const b = parseInt(expanded.slice(4, 6), 16);
-    const a = expanded.length === 8 ? parseInt(expanded.slice(6, 8), 16) / 255 : 1;
-    return { r, g, b, a };
-  }
-
-  const rgb = /^rgba?\(([^)]+)\)$/.exec(input);
-  if (!rgb) {
-    return null;
-  }
-
-  const parts = rgb[1].split(',').map((part) => part.trim());
-  if (parts.length < 3) {
-    return null;
-  }
-
-  const [r, g, b] = parts.slice(0, 3).map((part) => {
-    if (part.endsWith('%')) {
-      return clampChannel((Number(part.slice(0, -1)) / 100) * 255);
-    }
-    return clampChannel(Number(part));
-  });
-  const a = parts[3] === undefined ? 1 : Math.max(0, Math.min(1, Number(parts[3])));
-
-  if ([r, g, b, a].some((channel) => Number.isNaN(channel))) {
-    return null;
-  }
-
-  return { r, g, b, a };
-}
-
-function blend(foreground: RgbColor, background: RgbColor): RgbColor {
-  const alpha = foreground.a + background.a * (1 - foreground.a);
-  if (alpha === 0) {
-    return { r: 255, g: 255, b: 255, a: 1 };
-  }
-
-  return {
-    r: ((foreground.r * foreground.a) + (background.r * background.a * (1 - foreground.a))) / alpha,
-    g: ((foreground.g * foreground.a) + (background.g * background.a * (1 - foreground.a))) / alpha,
-    b: ((foreground.b * foreground.a) + (background.b * background.a * (1 - foreground.a))) / alpha,
-    a: alpha,
-  };
-}
-
-function resolveOpaque(color: string, fallback: string) {
-  const parsed = parseCssColor(color);
-  const parsedFallback = parseCssColor(fallback);
-
-  if (!parsed || !parsedFallback) {
-    return null;
-  }
-
-  return parsed.a < 1 ? blend(parsed, parsedFallback) : parsed;
-}
-
-function toRgbString(color: RgbColor) {
-  return `rgb(${Math.round(color.r)}, ${Math.round(color.g)}, ${Math.round(color.b)})`;
-}
-
-function mixCssColors(first: string, second: string, firstWeight: number, fallbackBackground: string) {
-  const firstColor = resolveOpaque(first, fallbackBackground);
-  const secondColor = resolveOpaque(second, fallbackBackground);
-
-  if (!firstColor || !secondColor) {
-    return first;
-  }
-
-  const secondWeight = 1 - firstWeight;
-  return toRgbString({
-    r: (firstColor.r * firstWeight) + (secondColor.r * secondWeight),
-    g: (firstColor.g * firstWeight) + (secondColor.g * secondWeight),
-    b: (firstColor.b * firstWeight) + (secondColor.b * secondWeight),
-    a: 1,
-  });
-}
-
-function linearize(channel: number) {
-  const value = channel / 255;
-  return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
-}
-
-function luminance(color: RgbColor) {
-  return (0.2126 * linearize(color.r)) + (0.7152 * linearize(color.g)) + (0.0722 * linearize(color.b));
-}
-
-function contrastRatio(foreground: string, background: string, fallbackBackground: string) {
-  const foregroundColor = resolveOpaque(foreground, fallbackBackground);
-  const backgroundColor = resolveOpaque(background, fallbackBackground);
-
-  if (!foregroundColor || !backgroundColor) {
-    return null;
-  }
-
-  const light = Math.max(luminance(foregroundColor), luminance(backgroundColor));
-  const dark = Math.min(luminance(foregroundColor), luminance(backgroundColor));
-  return Number(((light + 0.05) / (dark + 0.05)).toFixed(2));
-}
 
 function checkRole(
   vibe: GdsVibeTheme,
