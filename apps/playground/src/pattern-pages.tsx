@@ -113,6 +113,12 @@ import {
   StatusBadge,
   CountBadge,
   LabelTag,
+  GdsBadgeShapeCircle,
+  GdsBadgeShapeSquircle,
+  GdsBadgeShapeHexagon,
+  GdsBadgeShapeShield,
+  GdsBadgeShapeRosette,
+  GdsBadgeShapePin,
   BodyText,
   SimpleDataTable,
   UploadDropzone,
@@ -2099,6 +2105,15 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <br />
           <CountBadge value={12} />
           <CountBadge value={126} cap={99} srLabel="More than ninety nine updates" />
+          <br />
+          <span data-gds-badge-shapes>
+            <GdsBadgeShapeCircle size={40} stroke={1.75} aria-hidden="true" />
+            <GdsBadgeShapeSquircle size={40} stroke={1.75} aria-hidden="true" />
+            <GdsBadgeShapeHexagon size={40} stroke={1.75} aria-hidden="true" />
+            <GdsBadgeShapeShield size={40} stroke={1.75} aria-hidden="true" />
+            <GdsBadgeShapeRosette size={40} stroke={1.75} aria-hidden="true" />
+            <GdsBadgeShapePin size={40} stroke={1.75} aria-hidden="true" />
+          </span>
         </div>
       );
     case 'modals':

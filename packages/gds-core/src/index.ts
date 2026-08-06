@@ -19,6 +19,7 @@ export * from './StyleUtilities';
 export * from './SafeStyles';
 export * from './vocabulary';
 export * from './icons';
+export * from './badge-shapes';
 export * from './GdsDensity';
 export * from './CardContracts';
 

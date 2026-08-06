@@ -50,6 +50,12 @@ const formComponents = [
   { selector: '[data-gds-repeatable-row]', label: 'Schema-form repeatable row' },
   { selector: '[data-gds-repeatable] .mantine-Button-root', label: 'Schema-form repeatable add/remove button' },
 ];
+// Badge shape vocabulary (#487): the six Tabler-geometry silhouettes render as
+// currentColor strokes on the badges pattern; assert they stay mounted and
+// painted under forced-colors instead of vanishing with a flattened palette.
+const badgeShapeComponents = [
+  { selector: '[data-gds-badge-shapes] svg', label: 'Badge shape silhouette (Tabler-geometry, currentColor stroke)' },
+];
 
 // Route coverage is driven off the pattern-catalog families that actually mount
 // the new components (`/patterns/operations` = Kanban, `/patterns/foundations` =
@@ -61,6 +67,7 @@ const routeConfigs = [
   { route: '/live-demos/semantics', cases: baseCases, components: [] },
   { route: '/patterns/operations', cases: widenedCases, components: kanbanComponents },
   { route: '/patterns/foundations', cases: widenedCases, components: formComponents },
+  { route: '/patterns/feedback', cases: baseCases, components: badgeShapeComponents },
 ];
 
 async function launchBrowser() {

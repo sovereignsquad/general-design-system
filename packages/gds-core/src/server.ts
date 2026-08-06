@@ -1,4 +1,5 @@
 export * from './icons';
+export * from './badge-shapes';
 export * from './vocabulary';
 export * from './ChoiceChip';
 export * from './StatusBadge';

@@ -57,6 +57,7 @@
 
     "GdsIcon": "Icon surface (GDS-owned icon component) — icon rendering primitive, not a catalog pattern.",
     "GdsIcons": "Icon surface (GDS-owned icon registry) — icon set, not a catalog pattern.",
+    "GdsBadgeShapes": "Badge shape dictionary (issue 487) — closed name→component lookup mirroring GdsIcons; the six shape components it maps to are registered on the badges pattern.",
 
     "GdsAdminDashboardTemplate": "Page template (GdsPageTemplates) — full-page scaffold, exempt per issue (templates/catalog).",
     "GdsAnalyticsTemplate": "Page template (GdsPageTemplates) — full-page scaffold.",

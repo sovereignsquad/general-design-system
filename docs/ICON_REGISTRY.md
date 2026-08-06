@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.14.17
-Last updated: 2026-07-26
+Last updated: 2026-08-06
 
 The icon registry is the approved replacement for consumer direct imports from `@tabler/icons-react` or other icon libraries. Consumers choose icons by GDS semantic meaning, not vendor component names.
 
@@ -65,6 +65,25 @@ Approved aliases include lowercase names such as `delete`, `save`, `warning`, `s
 | `media` | camera, record, preview, hide/show, flash |
 | `feedback` | messages, mail, refresh, trends, notifications, help |
 | `system` | settings, language, theme, logout, filters, sorting |
+
+## Badge Shapes (siblings, not registry entries)
+
+The badge shape vocabulary (issue #487, epic #484) lives beside the registry in
+`packages/gds-core/src/badge-shapes.ts`: `GdsBadgeShapeCircle`, `GdsBadgeShapeSquircle`,
+`GdsBadgeShapeHexagon`, `GdsBadgeShapeShield`, `GdsBadgeShapeRosette`, `GdsBadgeShapePin`,
+plus the closed `GdsBadgeShapes` name→component dictionary (`GdsBadgeShapeName` union).
+
+- Each shape is authored with Tabler's public `createReactComponent` from Tabler's own
+  `iconNode` path data (`IconCircle`, `IconSquareRounded`, `IconHexagon`, `IconShield`,
+  `IconRosette`, `IconMapPin`'s balloon) — imported geometry, never hand-drawn, so the
+  24×24 coordinate space, corner language, and `currentColor` stroke behavior match every
+  registry icon by construction.
+- They are deliberately **not** `GdsIcons` keys and do not render through `<GdsIcon />`:
+  badge composition (`GdsBadgeStack`, issue #488) needs the full Tabler prop surface
+  (`className`/`style`/`ref`/rest-spread) that `<GdsIcon />` intentionally withholds.
+- The pin uses only `IconMapPin`'s balloon silhouette — the decorative inner dot is
+  dropped so the head can host a composed icon (center the inner icon around y≈10.3 of
+  the 24-unit canvas, not the geometric middle).
 
 ## Accessibility Rules
 
