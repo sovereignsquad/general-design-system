@@ -2,7 +2,45 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — Guided tour: step card no longer buried under the spotlighted target (#495)
+## 3.15.0 - 2026-08-06 — Unified, always-theme-aware badge system (epic #484)
+
+Everything below ships together as the badge-system release: foundations (#485, #486), shape
+vocabulary (#487), canonical badge icons (#494), the component layer (#488–#491), cleanup
+(#493), docs (#492), and the guided-tour mobile fix (#495).
+
+### Badge system components: GdsBadge, GdsCountBadge, GdsRemovableTag, GdsBadgeStack (#488–#491), cleanup (#493), and docs (#492)
+
+Completes epic #484's component layer on the shipped foundations (#485–#487, #494). New
+front-door doc: [`docs/BADGE_SYSTEM.md`](docs/BADGE_SYSTEM.md).
+
+- **`GdsBadgeStack` + `GdsBadgeStackLayer`** (#488): Font Awesome-model layering box (square
+  `1em`-default, centered/corner layers, corner scale via custom properties). Corner dots
+  separate from the base mark with a CSS **mask cutout**, never a ring painted in the page
+  background (which breaks over vibe-theme gradients); all layers are `currentColor` DOM/SVG,
+  so forced-colors keeps them visible.
+- **`GdsBadge`** (#489): static status/meaning label with the closed two-axis color union —
+  semantic `tone` (`success|warning|danger|info|neutral` → `--gds-state-*` tokens) XOR curated
+  `accent` (10 fixed values, each test-verified ≥ 4.5:1 against white via
+  `pickGdsAutoForeground`); governed `icon` (GdsIcons) and `shape` (GdsBadgeShapes) props;
+  `label` required — meaning never in color alone; never interactive.
+- **`GdsCountBadge`** (#490): numeric/dot count, `value` XOR `dot` at the type level,
+  corner-anchorable to any element via the stack. Its `role="status"` live region is
+  **always mounted** (a region mounted later never announces its first appearance) and
+  announces "{count} {label}" — "99+ notifications", never the reverse.
+- **`GdsRemovableTag`** (#491): the removable filter token as one shared component — whole
+  chip is a `<button>` with a required, consumer-localized `removeLabel` (no baked-in
+  strings). Adopted by all four former inline copies: `ActiveFilterChips`
+  (ListingPrimitives), `DataToolbar`, `BrowseSurface`, and gds-admin's `ResponsiveDataView`.
+- **Cleanup (#493)**: `MeaningBadge` and `FitScoreChip` gained their missing live demos;
+  both components' `{...props}`-after-`style` spread no longer lets a caller's `style` wipe
+  token colors (merge order fixed, regression-tested); the `PillBar`/`SoftChipGroup`/
+  `FilterChipGroup` radiogroups now implement the roving tabindex + arrow-key contract their
+  ARIA roles promise (one tab stop per group; arrows/Home/End move selection and focus).
+  The stale DTCG token count item was already fixed in #485's commit.
+- All new components registered (registry + live demo + export coverage + catalog parity)
+  and asserted mounted-and-painted under forced-colors on `/patterns/feedback`.
+
+### Guided tour: step card no longer buried under the spotlighted target (#495)
 
 On small viewports, a tall spotlighted section (e.g. the home page Theme Lab) overlapped the
 bottom-anchored step card and painted **over** it — Skip/Next unreachable, page inert behind the
@@ -15,7 +53,7 @@ elevated `[data-gds-tour-active-target]` (overlay + 1).
   be a descendant of the spotlight) and re-verified on a 390×844 viewport with hit-testing.
 - [`docs/GUIDED_TOUR.md`](docs/GUIDED_TOUR.md) now documents the layering guarantee.
 
-## Unreleased — Badge shape vocabulary: six Tabler-geometry silhouettes (#487, part of epic #484)
+### Badge shape vocabulary: six Tabler-geometry silhouettes (#487, part of epic #484)
 
 Approved via the visual proposal review: six badge silhouettes, all authored from Tabler's own
 `iconNode` path data through Tabler's public `createReactComponent` — imported geometry, never
@@ -38,7 +76,7 @@ hand-drawn, so the 24×24 space, corner language, and `currentColor` stroke beha
   `/patterns/feedback`; documented in [`docs/ICON_REGISTRY.md`](docs/ICON_REGISTRY.md) and
   [`COMPONENTS_AND_PATTERNS.md`](COMPONENTS_AND_PATTERNS.md).
 
-## Unreleased — Badges render the canonical GdsIcons set (#494, part of epic #484)
+### Badges render the canonical GdsIcons set (#494, part of epic #484)
 
 The governed icon dictionary's `status` category maps one-to-one onto badge semantics, yet no
 badge component used it — `StatusBadge` was text-only and `MeaningBadge`'s `icon` was an
@@ -54,7 +92,7 @@ ungoverned `ReactNode` pass-through.
 - Playground demos show both; [`COMPONENTS_AND_PATTERNS.md`](COMPONENTS_AND_PATTERNS.md)'s badge
   rules now state that badge icons come from the governed dictionary, never ad hoc SVG.
 
-## Unreleased — Badge-system foundation: auto-foreground contrast helper (#486, part of epic #484)
+### Badge-system foundation: auto-foreground contrast helper (#486, part of epic #484)
 
 Badges render on 25 theme presets × custom brand colors; a static foreground color can't stay
 readable across all of them. Adds the pick-a-safe-foreground primitive the upcoming `GdsBadge`
@@ -73,7 +111,7 @@ family needs, on top of the existing consumer contrast checker (#453).
 - Docs: [`docs/CONTRAST_CHECKER.md`](docs/CONTRAST_CHECKER.md) gains a `pickGdsAutoForeground`
   section alongside `getGdsContrastRatio`/`checkGdsContrast`.
 
-## Unreleased — Badge-system accessibility audit: 6 confirmed bug fixes (#478–#483)
+### Badge-system accessibility audit: 6 confirmed bug fixes (#478–#483)
 
 Fixes found while researching the upcoming customizable badge system, landed ahead of that work per the agreed "fix bugs now, then badge system" sequencing. No public API removals; `brandContrastRatio` now throws on unparseable input instead of silently scoring it as black (see #483).
 
@@ -84,7 +122,7 @@ Fixes found while researching the upcoming customizable badge system, landed ahe
 - **`createBrandTheme()` now emits `--gds-text-on-inverse`** (#482), the fully-kebab-cased name every consumer and preset actually reads, alongside the previously-emitted (but unused) `--gds-text-onInverse`.
 - **`brandContrastRatio()` now throws on unparseable hex input** (#483) instead of silently coercing it to black via `NaN`-bitwise-coercion, which previously produced a plausible-but-wrong contrast ratio for any caller passing e.g. a CSS variable reference.
 
-## Unreleased — Badge-system foundation: semantic role tokens for all 25 presets (#485, part of epic #484)
+### Badge-system foundation: semantic role tokens for all 25 presets (#485, part of epic #484)
 
 Only `class-usa`/`gold-athlete` (2 of 25 presets) defined the `--gds-state-*`/`--gds-badge-*`/`--gds-brand-*`/etc. semantic role variables a theme-aware badge needs. Rather than give the new badge system a fallback-chain-only escape hatch, the gap is closed at the token layer: every preset now defines the full role set.
 
