@@ -515,7 +515,8 @@ export function VocabularyPage() {
         />
         <br />
         <MeaningBadge variant={demoMeaning} label={`${demoMeaning} status`} />
-        <BodyText>{`<MeaningBadge variant="${demoMeaning}" label="${demoMeaning} status" />`}</BodyText>
+        <MeaningBadge variant={demoMeaning} label={`${demoMeaning} status`} icon="Star" />
+        <BodyText>{`<MeaningBadge variant="${demoMeaning}" label="${demoMeaning} status" icon="Star" />`}</BodyText>
       </ReferenceSection>
 
       <ReferenceSection title="Interactive controls — MetricCard" description="Storybook-parity: switch the trend tone to see the governed MetricCard re-map its trend badge across the positive, negative, and neutral data lanes.">

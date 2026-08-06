@@ -2088,6 +2088,11 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <StatusBadge status="info">Info</StatusBadge>
           <StatusBadge status="neutral">Draft</StatusBadge>
           <br />
+          <StatusBadge status="success" withIcon>Published</StatusBadge>
+          <StatusBadge status="warning" withIcon>Needs review</StatusBadge>
+          <StatusBadge status="danger" withIcon>Blocked</StatusBadge>
+          <StatusBadge status="info" withIcon>Info</StatusBadge>
+          <br />
           <LabelTag label="Food" tone="info" />
           <LabelTag label="Community" tone="neutral" />
           <LabelTag label="Priority" tone="warning" />

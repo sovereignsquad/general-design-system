@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
 import { Badge } from '@mantine/core';
 import type { BadgeProps } from '@mantine/core';
+import { GdsIcon, isGdsIconKey } from './icons';
+import type { GdsIconKey } from './icons';
 
 /**
  * MeaningBadge (gap B7 / issue #322).
@@ -18,7 +20,13 @@ export interface MeaningBadgeProps extends Omit<BadgeProps, 'color' | 'children'
   variant: MeaningVariant;
   /** Badge text; meaning is always carried by this label, never color alone. */
   label: ReactNode;
-  icon?: ReactNode;
+  /**
+   * Leading icon. Pass a canonical `GdsIcons` key (e.g. `"Warning"`, `"Star"`)
+   * to render the governed icon through `GdsIcon` — the preferred, dictionary-
+   * enforced path. Any other `ReactNode` renders as given, for the rare case a
+   * consumer must supply custom markup.
+   */
+  icon?: GdsIconKey | ReactNode;
 }
 
 interface MeaningTokens {
@@ -45,18 +53,25 @@ const meaningTokens: Record<MeaningVariant, MeaningTokens> = {
   },
 };
 
-/** Renders an editorial/brand meaning badge for the given `variant`; returns `null` when `label` is empty. */
+/**
+ * Renders an editorial/brand meaning badge for the given `variant`; returns
+ * `null` when `label` is empty. An `icon` given as a canonical `GdsIcons` key
+ * renders through the governed `GdsIcon` (decorative, inheriting the badge's
+ * text color); any other `ReactNode` renders as-is.
+ */
 export function MeaningBadge({ variant, label, icon, ...props }: MeaningBadgeProps) {
   if (!label) {
     return null;
   }
 
   const tokens = meaningTokens[variant] ?? meaningTokens.info;
+  const leftSection =
+    typeof icon === 'string' && isGdsIconKey(icon) ? <GdsIcon icon={icon} size="xs" /> : icon;
 
   return (
     <Badge
       variant="filled"
-      leftSection={icon}
+      leftSection={leftSection}
       style={{ backgroundColor: tokens.bg, color: tokens.fg }}
       {...props}
     >
