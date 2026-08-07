@@ -6,7 +6,51 @@ All notable policy changes to the General Design System are recorded here.
 
 Everything below ships together as the badge-system release: foundations (#485, #486), shape
 vocabulary (#487), canonical badge icons (#494), the component layer (#488–#491), cleanup
-(#493), docs (#492), and the guided-tour mobile fix (#495).
+(#493), docs (#492), the guided-tour mobile fix (#495), a live-site modal fix (#496), and the
+badge composition gallery (#499).
+
+### Badge composition gallery: cards, buttons, maps, profiles, overlays, live cross-theme (#499, part of epic #498)
+
+The badges pattern demonstrated vocabulary swatches but no real usage guidance — how a badge
+actually looks composed onto the surfaces it ships on. Adds that composition directly to the
+governed pattern demo, built entirely from shipped components (no design-preview artifact
+stands in for this).
+
+- **New `GdsVibeThemeScope`** (`@sovereignsquad/gds-theme`): scopes a subtree to one theme
+  preset/scheme's `--gds-vibe-*`/`--gds-*` semantic CSS variables via `getGdsVibeThemeCssVariables`,
+  so a page can preview several presets side by side without switching the app-wide theme.
+  Server-safe (no hooks/browser APIs).
+- **Badges on cards**: `ProductCard`'s `status`/`footer` and `ListingCard`'s `score`/`reason`
+  slots — already `ReactNode` — now render real `GdsBadge`s in the badges gallery demo, no
+  component changes required.
+- **Badges beside buttons**: `GdsCountBadge`'s `anchor` corner-anchors to an icon inside a real
+  `<button>`, matching the existing anchor contract; the button carries the accessible name,
+  the pill stays decorative.
+- **Badges on a map**: `MapPanel`'s `renderMap` composes `GdsBadgeShapePin` with a **`fill`
+  override** (it defaults to a Tabler *outline* icon) into a filled marker, positioned with
+  `GdsBox`'s `pos`/`top`/`left` style props — no ad hoc inline CSS.
+- **Badge clusters on a profile**: multiple badges in a wrapping row beside identity, distinct
+  from `GdsBadgeStack`'s corner model, which stays reserved for one verification mark.
+- **Badges in overlays**: a `GdsDialog` confirming a badge was earned, and an `InlineAlert` with
+  a badge in its `action` slot.
+- **Live cross-theme matrix**: `VibeThemePicker` + `GdsVibeThemeScope` prove, live, that
+  `GdsBadge`'s `tone="success"` genuinely shifts per preset while `warning`/`danger`/`info`
+  (and every `accent`) render the same fixed value on every preset — three distinct, verified
+  behaviors the gallery shows side by side instead of one blanket "theme-aware" claim.
+- Docs: [`docs/BADGE_SYSTEM.md`](docs/BADGE_SYSTEM.md) gains a "Composition gallery" section
+  documenting each surface and `GdsVibeThemeScope`.
+
+### Fix permanently-open, un-closeable modal on `/patterns/feedback` (#496)
+
+The destructive-actions demo hardcoded `ConfirmDialog`'s `opened` to a literal `true` with
+no-op `onClose`/`onConfirm`, so the dialog opened on first paint and could never be dismissed —
+Escape, backdrop click, and the close button all called the no-op, and Mantine's `Modal` locks
+body scroll and traps focus while open, so the entire page was inert behind it.
+
+- Replaced with a real `useState`-driven demo (trigger button, working close), matching the
+  existing `OverlayAliasDemo` convention already used elsewhere in the file.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) gains a standing rule: overlay demos must never hardcode
+  `opened` to a literal `true`.
 
 ### Badge system components: GdsBadge, GdsCountBadge, GdsRemovableTag, GdsBadgeStack (#488–#491), cleanup (#493), and docs (#492)
 

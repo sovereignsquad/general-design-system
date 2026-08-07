@@ -5,6 +5,8 @@ export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, der
 export type { GdsVibeTheme } from './vibe-themes';
 export { VibeThemePicker } from './VibeThemePicker.client';
 export type { VibeThemePickerProps } from './VibeThemePicker.client';
+export { GdsVibeThemeScope } from './VibeThemeScope';
+export type { GdsVibeThemeScopeProps } from './VibeThemeScope';
 export { createGdsThemeAccessibilityReport, validateGdsThemeAccessibility } from './accessibility-report';
 export type { GdsAccessibilityFindingSeverity, GdsContrastCheck, GdsContrastFinding, GdsContrastMode, GdsContrastRole, GdsForcedColorRole, GdsThemeAccessibilityReport } from './accessibility-report';
 export { getGdsContrastRatio, checkGdsContrast, pickGdsAutoForeground } from './contrast';
