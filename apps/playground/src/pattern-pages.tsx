@@ -125,6 +125,7 @@ import {
   GdsCountBadge,
   GdsRemovableTag,
   GdsMapPinBadge,
+  GdsGeneratedThumbnail,
   gdsBadgeAccentColors,
   GdsBox,
   GdsStack,
@@ -670,6 +671,55 @@ function BadgeMapDemo() {
           </GdsBox>
         )}
       />
+    </SectionPanel>
+  );
+}
+
+function GeneratedThumbnailDemo() {
+  return (
+    <SectionPanel
+      title="Generated card thumbnails"
+      description="GdsGeneratedThumbnail (epic 503) composes a deterministic, zero-network SVG+HTML thumbnail from a listing's own category data — no image hosting, no AI image generation. paletteSource=&quot;theme&quot; (default, left two cards) reads the active theme's brand colors, so switching themes above restyles these along with everything else. paletteSource=&quot;category&quot; (right card) opts into the fixed curated-accent system instead, for consumers who want category color to stay stable across theme changes."
+    >
+      <GdsInline gap="md" align="start">
+        <GdsStack gap="xs" align="center">
+          <GdsBox w={220}>
+            <GdsGeneratedThumbnail
+              seed="demo-listing-1"
+              categories={[
+                { key: 'soccer', label: 'Soccer', icon: 'Location' },
+                { key: 'basketball', label: 'Basketball', icon: 'Habit' },
+                { key: 'gymnastics', label: 'Gymnastics', icon: 'Trophy' },
+              ]}
+            />
+          </GdsBox>
+          <BodyText>paletteSource="theme" (default)</BodyText>
+        </GdsStack>
+        <GdsStack gap="xs" align="center">
+          <GdsBox w={220}>
+            <GdsGeneratedThumbnail
+              seed="demo-listing-2"
+              categories={[{ key: 'art', label: 'Art', icon: 'Gallery' }]}
+            />
+          </GdsBox>
+          <BodyText>Single category, no secondary badges</BodyText>
+        </GdsStack>
+        <GdsStack gap="xs" align="center">
+          <GdsBox w={220}>
+            <GdsGeneratedThumbnail
+              seed="demo-listing-3"
+              categories={[
+                { key: 'swimming', label: 'Swimming', icon: 'Star' },
+                { key: 'yoga', label: 'Yoga', icon: 'Habit' },
+              ]}
+              paletteSource="category"
+              category="teal"
+              shade="deep"
+            />
+          </GdsBox>
+          <BodyText>paletteSource="category" (teal / deep)</BodyText>
+        </GdsStack>
+      </GdsInline>
     </SectionPanel>
   );
 }
@@ -1895,6 +1945,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           tone="cool"
         />
       );
+    case 'generated-imagery':
+      return <GeneratedThumbnailDemo />;
     case 'consumer-sections':
       return (
         <ConsumerSection
