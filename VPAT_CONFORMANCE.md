@@ -1,10 +1,10 @@
 # Accessibility Conformance Report (VPAT® 2.5) — General Design System
 
 Status: Active SSOT
-Version: 4.1.2
+Version: 4.1.3
 Last updated: 2026-07-26
 
-**Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `4.1.2`
+**Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `4.1.3`
 **Report Date:** 2026-07-25
 **Product Description:** A governed React + Mantine component and pattern library (theme, core components, admin scaffolds, accessibility CI helpers) consumed by product teams to build accessible application and public-site UIs.
 **Contact Information:** file an accessibility issue or question through the repository's feature/intake channel — the [`request-feature`](https://sovereignsquad.github.io/general-design-system/request-feature) route or the [GitHub issue board](PROJECT_BOARD.md).
@@ -30,7 +30,7 @@ We deliberately prefer **Partially Supports** / **Not Evaluated** over an optimi
 
 Conformance claims are grounded in first-party, re-runnable repository evidence, not prose assertion:
 
-- **Accessibility evidence registry** — [`ACCESSIBILITY_EVIDENCE.md`](ACCESSIBILITY_EVIDENCE.md) and `apps/playground/src/accessibility-evidence-registry.ts`, validated by `npm run verify:accessibility-evidence`. Every stable pattern publishes keyboard behavior, visible-focus behavior, screen-reader semantics/announcements, WCAG mappings (mandatory baseline `1.3.1`, `1.4.3`, `2.1.1`, `2.4.7`, `4.1.2`), an assistive-technology/browser status matrix, known limitations, and recovery guidance. The gate fails the release if any stable pattern is missing a record, a required field, a required WCAG mapping, an AT/browser row, or a limitation without an owner and recovery path.
+- **Accessibility evidence registry** — [`ACCESSIBILITY_EVIDENCE.md`](ACCESSIBILITY_EVIDENCE.md) and `apps/playground/src/accessibility-evidence-registry.ts`, validated by `npm run verify:accessibility-evidence`. Every stable pattern publishes keyboard behavior, visible-focus behavior, screen-reader semantics/announcements, WCAG mappings (mandatory baseline `1.3.1`, `1.4.3`, `2.1.1`, `2.4.7`, `4.1.3`), an assistive-technology/browser status matrix, known limitations, and recovery guidance. The gate fails the release if any stable pattern is missing a record, a required field, a required WCAG mapping, an AT/browser row, or a limitation without an owner and recovery path.
 - **Contrast gate** — `scripts/verify-theme-accessibility.mjs` (`npm run verify:theme-accessibility`) scores contrast across all shipped themes at release time.
 - **Forced-colors runtime gate** — `scripts/verify-forced-colors-runtime.mjs` (`npm run verify:forced-colors-runtime`) drives a real headless-Chrome session with `forced-colors: active` emulated, across the pattern-catalog routes and 8 theme presets, asserting governed surfaces drop decorative backgrounds, controls keep platform-backed colors, focus outlines stay visible, and no horizontal overflow occurs.
 - **Input-zoom guard** — `scripts/verify-input-zoom-guard-runtime.mjs` asserts focused text controls compute to ≥ 16px so mobile browsers do not force-zoom (supports Resize Text).
@@ -70,9 +70,9 @@ Re-run the full evidence chain with `npm run verify:accessibility-evidence && np
 | **3.3.2** Labels or Instructions | Partially Supports | Governed form fields require labels (FormField), expose descriptions, and mark required fields; the consumer supplies the label/instruction copy. |
 | **3.2.6** Consistent Help (WCAG 2.2) | Not Applicable | Placement of a help mechanism is a page/site decision owned by the consumer. |
 | **3.3.7** Redundant Entry (WCAG 2.2) | Partially Supports | Form orchestration supports draft/restore and controlled values so previously-entered data can be reused; the consumer wires persistence. |
-| **4.1.2** Name, Role, Value | Supports | Mandatory registry mapping; governed components expose name/role/value via semantic HTML or documented roles and keep state (expanded/selected/invalid) programmatically determinable. Evidence: `accessibility-evidence-registry.ts`. |
+| **4.1.3** Name, Role, Value | Supports | Mandatory registry mapping; governed components expose name/role/value via semantic HTML or documented roles and keep state (expanded/selected/invalid) programmatically determinable. Evidence: `accessibility-evidence-registry.ts`. |
 
-*(WCAG 2.2 removed 4.1.2 Parsing; it is intentionally omitted.)*
+*(WCAG 2.2 removed 4.1.3 Parsing; it is intentionally omitted.)*
 
 ## WCAG 2.2 — Level AA
 

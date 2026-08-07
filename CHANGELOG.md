@@ -2,6 +2,49 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.3 - 2026-08-07 — PageHeader title/action overlap and ActionBar wrapped-row alignment (#511)
+
+Found via user-reported screenshots on a narrow mobile viewport (title text
+overlapping its own action button; two related buttons landing on visibly
+misaligned rows). Confirmed via live rect measurement and screenshots
+before and after the fix, same as #509/#510.
+
+- **`PageHeader` title overlapped its action button.**
+  `packages/gds-admin/src/PageHeader.tsx`'s title `Box` had `minWidth: 0`
+  inside a `flex: 1` row beside the actions `Group` — a zero-basis flex
+  item can always "fit" by shrinking, so `wrap="wrap"` never triggered;
+  measured the title box shrunk to 86px while its text needed 217px, and
+  with no `overflow-wrap` set, the overflow rendered straight through the
+  Save button beside it. Fixed by removing `minWidth: 0` entirely rather
+  than replacing it with an invented pixel/rem threshold: the platform's
+  own flex default (`min-width: auto`, an item won't shrink past its
+  content's natural minimum) is exactly what forces the row to wrap once
+  both can't fit — confirmed via measurement that the title now renders at
+  its full natural width with zero overflow and no mid-word breaking, no
+  magic number required. `overflowWrap: 'break-word'` stays on the title
+  as a second line of defense for a single word wider than the row itself.
+- **`ActionBar` rows misaligned once wrapped.**
+  `packages/gds-core/src/ActionBar.tsx`'s primary/icon-only group carried
+  `marginInlineStart: 'auto'` — redundant on one row (the outer
+  `justify="space-between"` already handles that split) but forcing a
+  right-hugging second row under a left-aligned first row once the outer
+  group wrapped on mobile. Removed; confirmed `Cancel`/`Save` now share the
+  same `left` position when stacked.
+- **Token hygiene pass on #510's own CSS**, prompted by the same review:
+  `packages/gds-theme/styles.css`'s native-input rule referenced a literal
+  `0.75rem` for horizontal padding where a real Mantine spacing token
+  (`--mantine-spacing-sm`, confirmed equal to `0.75rem` by live
+  measurement) applies directly — swapped to the token reference. Its
+  `border-radius: var(--mantine-radius-sm, 4px)` fallback was already
+  correctly token-first and matches this file's existing convention for
+  defensive fallbacks, so left as-is.
+- Investigated, not changed: `BoundedPreviewSurface`'s `26rem`–`32rem`
+  `minHeight` (flagged as "wasted space" on the `DiscoveryShell` demo) is a
+  deliberate convention used identically across 8 different playground
+  demos, not an isolated mistake — left for a product decision rather than
+  an isolated edit.
+- All 522 existing tests pass unchanged.
+
 ## 4.1.2 - 2026-08-07 — Dark-mode theming gaps: date-picker popover, segmented control, checkboxes, native inputs (#510)
 
 Found via user-reported screenshots of the live playground in dark mode and
