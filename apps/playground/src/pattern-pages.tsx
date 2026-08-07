@@ -126,6 +126,7 @@ import {
   GdsRemovableTag,
   GdsMapPinBadge,
   GdsGeneratedThumbnail,
+  GdsGeneratedHero,
   gdsBadgeAccentColors,
   GdsBox,
   GdsStack,
@@ -720,6 +721,44 @@ function GeneratedThumbnailDemo() {
           <BodyText>paletteSource="category" (teal / deep)</BodyText>
         </GdsStack>
       </GdsInline>
+    </SectionPanel>
+  );
+}
+
+function GeneratedHeroDemo() {
+  const badges = [
+    { key: 'soccer', label: 'Soccer', icon: 'Location' as const },
+    { key: 'basketball', label: 'Basketball', icon: 'Habit' as const },
+    { key: 'gymnastics', label: 'Gymnastics', icon: 'Trophy' as const },
+    { key: 'swimming', label: 'Swimming', icon: 'Star' as const },
+    { key: 'art', label: 'Art', icon: 'Gallery' as const },
+    { key: 'music', label: 'Music', icon: 'Message' as const },
+  ];
+  return (
+    <SectionPanel
+      title="Generated hero backdrops"
+      description="GdsGeneratedHero shares GdsGeneratedThumbnail's palette and seed engine at banner scale: an accent wash plus one of four pluggable background strategies, and up to 6 ranked badges at a fixed size ladder (one large, two medium, three small) — fixed slots, not free placement, so the composition never reads as clutter."
+    >
+      <GdsStack gap="md">
+        <GdsGeneratedHero seed="demo-hero-wash" label="Sports classes in Riverdale" badges={badges} />
+        <GdsGeneratedHero seed="demo-hero-mosaic" label="Camps across the city" background="mosaic-abstract" badges={badges} />
+        <GdsGeneratedHero seed="demo-hero-icons" label="Every activity, one map" background="icon-field" badges={badges} />
+        <GdsGeneratedHero
+          seed="demo-hero-regions"
+          label="Neighborhood coverage"
+          badges={badges}
+          background={{
+            type: 'region-mosaic',
+            regions: [
+              { x0: 0.05, y0: 0.1, x1: 0.32, y1: 0.55 },
+              { x0: 0.3, y0: 0.15, x1: 0.5, y1: 0.42, weight: 1.6 },
+              { x0: 0.55, y0: 0.2, x1: 0.78, y1: 0.6 },
+              { x0: 0.62, y0: 0.55, x1: 0.9, y1: 0.92, weight: 2 },
+              { x0: 0.08, y0: 0.55, x1: 0.28, y1: 0.88 },
+            ],
+          }}
+        />
+      </GdsStack>
     </SectionPanel>
   );
 }
@@ -1946,7 +1985,13 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         />
       );
     case 'generated-imagery':
-      return <GeneratedThumbnailDemo />;
+      return (
+        <div>
+          <GeneratedThumbnailDemo />
+          <br />
+          <GeneratedHeroDemo />
+        </div>
+      );
     case 'consumer-sections':
       return (
         <ConsumerSection
