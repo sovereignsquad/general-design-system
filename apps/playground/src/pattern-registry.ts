@@ -664,6 +664,17 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'EditorialCard',
   },
   {
+    id: 'generated-imagery',
+    title: 'Generated Imagery',
+    docSection: 'Core Component Contracts',
+    family: 'public',
+    section: 'Editorial & Brand Storytelling',
+    coverageStatus: 'live-demo',
+    summary: 'Card thumbnails composed as deterministic, zero-network SVG+HTML from a listing\'s own category data — theme-managed by default (epic 503), so any consumer gets on-brand generated art with no image hosting.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsGeneratedThumbnail',
+  },
+  {
     id: 'consumer-sections',
     title: 'Consumer Sections',
     docSection: 'Core Component Contracts',
