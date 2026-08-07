@@ -4,8 +4,8 @@ import { GdsBadgeStack, GdsBadgeStackLayer } from './GdsBadgeStack';
 import { GdsBadgeShapePin } from './badge-shapes';
 import { GdsIcon } from './icons';
 import type { GdsIconKey } from './icons';
-import { gdsBadgeAccentColors } from './GdsBadge';
-import type { GdsBadgeAccentName } from './GdsBadge';
+import { gdsBadgeAccentShades } from './GdsBadge';
+import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
 
 /**
  * GdsMapPinBadge (issue #501): a category-colored map-pin marker with a
@@ -50,6 +50,15 @@ import type { GdsBadgeAccentName } from './GdsBadge';
  *   color — never `accent` — so it stays legible against its own
  *   background at any fill opacity. `fillOpacity` only ever touches the
  *   pin's fill; the icon layer always renders fully opaque.
+ * - **`shade` differentiates within one accent, darker-only** (issue #502).
+ *   `accent` alone is coarse — 10 slots for top-level categories. When
+ *   several related sub-categories (e.g. different sports) should read as
+ *   one family, `shade: 'deep' | 'deeper' | 'deepest'` darkens `accent` by
+ *   one of three precomputed, WCAG-verified steps (see
+ *   {@link GdsBadgeAccentShade}) instead of spending a second accent on
+ *   each one. Lightening isn't offered: it silently breaks the filled-mode
+ *   icon's white-on-`accent` contrast guarantee for several accents (`teal`
+ *   fails at only +4 lightness) — darkening has headroom for all 10.
  *
  * Note the pin's tail hides more than a third of that circle below the arc's
  * chord, so the visible dome's own midpoint sits above this point — the
@@ -84,6 +93,17 @@ export interface GdsMapPinBadgeProps {
    * and never affects the icon layer — the icon is always fully opaque.
    */
   fillOpacity?: number;
+  /**
+   * Darkens `accent` by one of three fixed, contrast-verified steps —
+   * `'deep' | 'deeper' | 'deepest'` — so several related sub-categories
+   * (e.g. different sports) can read as one accent family while staying
+   * individually distinguishable, without spending a second accent slot on
+   * each one. Defaults to `'base'` (the plain `accent` color, unchanged).
+   * Darker-only: see {@link GdsBadgeAccentShade} for why lightening isn't
+   * offered. `shade` combines with `filled`/`fillOpacity` normally — the
+   * shaded color is just what `accent` resolves to underneath.
+   */
+  shade?: GdsBadgeAccentShade;
   /** Marker size (width = height). Defaults to `40`. */
   size?: number | string;
 }
@@ -115,10 +135,11 @@ const ICON_SCALE = 0.46;
  * <GdsMapPinBadge accent="ocean" icon="Location" label="Community pool" />
  * <GdsMapPinBadge accent="forest" icon={<IconBallFootball />} label="Riverside Field — soccer" filled />
  * <GdsMapPinBadge accent="forest" icon="Habit" label="Trailhead" filled fillOpacity={0.85} />
+ * <GdsMapPinBadge accent="forest" shade="deeper" icon={<IconBallBasketball />} label="Rec Center — basketball" filled />
  * ```
  */
-export function GdsMapPinBadge({ accent, icon, label, filled = false, fillOpacity = 1, size = 40 }: GdsMapPinBadgeProps) {
-  const accentColor = gdsBadgeAccentColors[accent];
+export function GdsMapPinBadge({ accent, icon, label, filled = false, fillOpacity = 1, shade = 'base', size = 40 }: GdsMapPinBadgeProps) {
+  const accentColor = gdsBadgeAccentShades[accent][shade];
   const inverseColor = 'var(--gds-text-on-inverse, var(--mantine-color-white))';
   // Filled mode: the icon must contrast with the pin's own fill, so it
   // switches to the inverse color — it never reuses `accentColor` once the

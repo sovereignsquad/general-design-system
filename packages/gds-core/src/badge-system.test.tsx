@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { pickGdsAutoForeground, getGdsContrastRatio } from '../../gds-theme/src/contrast';
 import { GdsBadgeStack, GdsBadgeStackLayer } from './GdsBadgeStack';
-import { GdsBadge, gdsBadgeAccentColors } from './GdsBadge';
+import { GdsBadge, gdsBadgeAccentColors, gdsBadgeAccentShades } from './GdsBadge';
 import { GdsCountBadge } from './GdsCountBadge';
 import { GdsMapPinBadge } from './GdsMapPinBadge';
 import { GdsRemovableTag } from './GdsRemovableTag';
@@ -77,6 +77,19 @@ describe('GdsBadge (#489)', () => {
     for (const [name, hex] of Object.entries(gdsBadgeAccentColors)) {
       expect(pickGdsAutoForeground(hex), `accent ${name}`).toBe('#ffffff');
       expect(getGdsContrastRatio('#ffffff', hex), `accent ${name}`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it('every accent shade (#502) clears WCAG AA (4.5:1) against white, and each accent\'s four shades are all distinct', () => {
+    for (const [accentName, shades] of Object.entries(gdsBadgeAccentShades)) {
+      const seen = new Set<string>();
+      for (const [shadeName, hex] of Object.entries(shades)) {
+        expect(pickGdsAutoForeground(hex), `${accentName}/${shadeName}`).toBe('#ffffff');
+        expect(getGdsContrastRatio('#ffffff', hex), `${accentName}/${shadeName}`).toBeGreaterThanOrEqual(4.5);
+        expect(seen.has(hex), `${accentName}/${shadeName} duplicates an earlier shade of the same accent`).toBe(false);
+        seen.add(hex);
+      }
+      expect(shades.base).toBe(gdsBadgeAccentColors[accentName as keyof typeof gdsBadgeAccentColors]);
     }
   });
 
@@ -201,6 +214,22 @@ describe('GdsMapPinBadge (#501)', () => {
     const iconLayer = iconLayers[iconLayers.length - 1] as HTMLElement;
     expect(iconLayer.style.transform).toContain('translateY(-4.1667%)');
     expect(iconLayer.style.transform).toContain('scale(0.46)');
+  });
+
+  it('shade (#502) darkens accent for both the pin and outline-mode icon; defaults to base (unchanged from omitting the prop)', () => {
+    const { container: baseContainer } = renderWithGds(<GdsMapPinBadge accent="forest" icon="Location" label="Trailhead" />);
+    const basePin = baseContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
+    expect(basePin.getAttribute('stroke')).toBe(gdsBadgeAccentShades.forest.base);
+    expect(basePin.getAttribute('stroke')).toBe(gdsBadgeAccentColors.forest);
+
+    const { container: deeperContainer } = renderWithGds(<GdsMapPinBadge accent="forest" shade="deeper" icon="Location" label="Trailhead" />);
+    const deeperPin = deeperContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
+    expect(deeperPin.getAttribute('stroke')).toBe(gdsBadgeAccentShades.forest.deeper);
+    expect(deeperPin.getAttribute('stroke')).not.toBe(gdsBadgeAccentColors.forest);
+
+    const { container: filledContainer } = renderWithGds(<GdsMapPinBadge accent="forest" shade="deepest" icon="Location" label="Trailhead" filled />);
+    const filledPin = filledContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
+    expect(filledPin.getAttribute('fill')).toBe(gdsBadgeAccentShades.forest.deepest);
   });
 });
 

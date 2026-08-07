@@ -90,6 +90,7 @@ import { GdsMapPinBadge } from '@sovereignsquad/gds-core';
 <GdsMapPinBadge accent="ocean" icon="Location" label="Community pool" />
 <GdsMapPinBadge accent="forest" icon={<IconBallFootball />} label="Riverside Field — soccer" filled />
 <GdsMapPinBadge accent="forest" icon="Habit" label="Trailhead" filled fillOpacity={0.85} />
+<GdsMapPinBadge accent="forest" shade="deeper" icon={<IconBallBasketball />} label="Rec Center — basketball" filled />
 ```
 
 - `accent` — one of the curated 10 (never a free color; this is what makes
@@ -108,6 +109,11 @@ import { GdsMapPinBadge } from '@sovereignsquad/gds-core';
 - `fillOpacity` — 0–1, filled mode only, defaults to `1`. Softens the pin's
   own fill against dense basemap imagery. Never touches the icon: the icon
   layer is always fully opaque regardless of this value.
+- `shade` — `'base' | 'deep' | 'deeper' | 'deepest'` (issue #502), defaults to
+  `'base'`. Differentiates related sub-categories that should read as one
+  accent family (e.g. several sports under one `accent`) without spending a
+  second accent slot on each one — see "Within-accent differentiation: `shade`,
+  not transparency" below.
 
 **Exactly two layers — the pin, and the icon. No ring/capsule, ever.** An
 earlier revision tried a ring capsule behind the icon to guarantee contrast
@@ -128,6 +134,48 @@ separated wheels) render past that circle's own boundary above roughly
 `0.48`. `0.46` was chosen by overlaying the pin head's solved-center circle
 on the widest icons actually shipped here and confirming they stay inside
 it, not by centering only round/symmetric icons and assuming the rest fit.
+
+### Within-accent differentiation: `shade`, not transparency
+
+`accent` is coarse by design — 10 slots for top-level categories, so a map
+stays scannable at a glance (see "8 or fewer accent categories per surface"
+above). That's the wrong granularity when several *related* sub-categories
+(e.g. Football/Basketball/Tennis, all "sports") need to read as one family
+while still being individually distinguishable. `fillOpacity` doesn't solve
+this — it's transparency, not color differentiation, and does nothing in
+outline mode. `shade` is the real mechanism:
+
+```tsx
+<GdsMapPinBadge accent="forest" icon={<IconBallFootball />} label="Riverside Field — soccer" filled />
+<GdsMapPinBadge accent="forest" shade="deep" icon={<IconBallBasketball />} label="Rec Center — basketball" filled />
+<GdsMapPinBadge accent="forest" shade="deeper" icon={<IconBallTennis />} label="Courts — tennis" filled />
+<GdsMapPinBadge accent="forest" shade="deepest" icon={<IconBallVolleyball />} label="Beach — volleyball" filled />
+```
+
+**Darker-only, and that's not an arbitrary limit.** An earlier draft of this
+axis (a live-computed HSL lightness shift, explored in the interactive spec
+artifact before this shipped) let shades go lighter as well as darker. That
+was wrong: sweeping lightness deltas across all 10 accents against the
+white icon color `GdsMapPinBadge` uses in filled mode shows that
+**lightening any accent — even slightly — drops some of them below the
+4.5:1 WCAG AA bar the base palette already guarantees.** `teal` fails first,
+at only +4 lightness; `ocean`, `bronze`, `forest`, and `terracotta` follow
+shortly after. Darkening has generous headroom for all 10. `shade` only
+offers the direction that stays contrast-safe: `'base' | 'deep' | 'deeper' |
+'deepest'`, exported as `GdsBadgeAccentShade` alongside the precomputed
+`gdsBadgeAccentShades` palette (`GdsBadge.tsx`) — 10 accents × 4 levels, 40
+fixed hex values, every one verified ≥ 4.5:1 against white in badge tests,
+the same bar `gdsBadgeAccentColors` itself is held to.
+
+**Proportional spacing, not a fixed lightness delta.** Each accent's four
+levels are computed by interpolating from that accent's own base lightness
+down to a shared lightness floor, in three equal steps — not by subtracting
+the same fixed amount from every accent. A fixed delta reaches the floor at
+different points for different accents: `teal` starts darker than most, so
+a shared delta would floor out its `deeper` and `deepest` steps at nearly
+the same color, making them visually indistinguishable from each other.
+Proportional spacing keeps all four steps distinct for every accent,
+`teal` included — verified directly in tests, not just asserted.
 
 `GdsMapPinBadge` locks in the centering, stroke-matching, and contrast
 constants below by construction — including forcing `stroke={1.75}` onto
