@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## 3.15.0 - 2026-08-06 — Unified, always-theme-aware badge system (epic #484)
+## 4.0.0 - 2026-08-07 — Unified, always-theme-aware badge system (epic #484)
 
 Everything below ships together as the badge-system release: foundations (#485, #486), shape
 vocabulary (#487), canonical badge icons (#494), the component layer (#488–#491), cleanup
@@ -10,6 +10,12 @@ vocabulary (#487), canonical badge icons (#494), the component layer (#488–#49
 composition gallery (#499), a docs fix for hand-built pin compositions (#500), the new
 `GdsMapPinBadge` marker component (#501), and a contrast-safe within-accent shade axis for it
 (#502).
+
+**Published as 4.0.0, not 3.15.0.** `3.15.0` (the subset through #496) was already published to
+the registry earlier the same day this line's remaining work (#499–#502) landed; a published
+package version is immutable, so the only way to ship the rest of this epic is under a new
+version number. This release is a major bump for that reason alone — every change in it is
+additive and backward compatible, none of it breaking.
 
 ### `GdsMapPinBadge` gains a contrast-safe `shade` axis for within-accent differentiation (#502)
 

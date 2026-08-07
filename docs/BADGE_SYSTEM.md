@@ -1,7 +1,7 @@
 # Badge System
 
 Status: Active SSOT
-Version: 3.15.0
+Version: 4.0.0
 Last updated: 2026-08-07
 
 The unified, always-theme-aware GDS badge system (epic #484): one governed
