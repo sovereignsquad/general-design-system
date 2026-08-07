@@ -823,8 +823,17 @@ function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeThem
  * semantic role set (hand-authored for `class-usa`/`gold-athlete`,
  * {@link deriveVibeSemanticCssVariables} for every other preset), with `-dark`
  * values collapsed onto their base names in dark mode.
+ *
+ * Return type is explicitly `Record<string, string>`, not the narrower
+ * object-literal shape TS would otherwise infer from the `--gds-vibe-*`
+ * properties alone: the semantic role set (`--gds-brand-primary`,
+ * `--gds-state-success`, etc.) is merged in via `...semanticVariables` below
+ * and is real at runtime, but a plain object-literal return type doesn't
+ * carry that merge across a package's compiled `.d.ts` boundary. Annotating
+ * the true shape here (rather than each caller re-deriving or casting
+ * around the gap) is the fix at the source.
  */
-export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: 'light' | 'dark') {
+export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: 'light' | 'dark'): Record<string, string> {
   const vibe = resolveGdsVibeTheme(id);
   const dark = colorScheme === 'dark';
 

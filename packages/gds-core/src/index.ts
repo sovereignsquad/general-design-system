@@ -24,6 +24,7 @@ export * from './GdsBadgeStack';
 export * from './GdsBadge';
 export * from './GdsCountBadge';
 export * from './GdsMapPinBadge';
+export * from './generated-art-engine';
 export * from './GdsRemovableTag';
 export * from './GdsDensity';
 export * from './CardContracts';
