@@ -7,8 +7,49 @@ All notable policy changes to the General Design System are recorded here.
 Everything below ships together as the badge-system release: foundations (#485, #486), shape
 vocabulary (#487), canonical badge icons (#494), the component layer (#488–#491), cleanup
 (#493), docs (#492), the guided-tour mobile fix (#495), a live-site modal fix (#496), the badge
-composition gallery (#499), a docs fix for hand-built pin compositions (#500), and the new
-`GdsMapPinBadge` marker component (#501).
+composition gallery (#499), a docs fix for hand-built pin compositions (#500), the new
+`GdsMapPinBadge` marker component (#501), and a contrast-safe within-accent shade axis for it
+(#502).
+
+### `GdsMapPinBadge` gains a contrast-safe `shade` axis for within-accent differentiation (#502)
+
+`accent` is a closed union of 10 colors — the right granularity for top-level
+categories, but too coarse when several related sub-categories (e.g.
+different sports) need to read as one accent family while staying
+individually distinguishable. `fillOpacity` doesn't solve this: it's
+transparency, not color differentiation, and does nothing in outline mode.
+
+- **New `GdsBadgeAccentShade` type** (`'base' | 'deep' | 'deeper' |
+  'deepest'`) and **`gdsBadgeAccentShades` precomputed palette**
+  (`GdsBadge.tsx`, alongside `gdsBadgeAccentColors`): 10 accents × 4 levels,
+  40 fixed hex values.
+- **New `GdsMapPinBadge` prop `shade?: GdsBadgeAccentShade`**, default
+  `'base'` (backward compatible — omitting it changes nothing).
+- **Darker-only, not an arbitrary limit.** Sweeping lightness deltas across
+  all 10 accents against the white icon color `GdsMapPinBadge` uses in
+  filled mode shows that lightening any accent — even slightly — drops some
+  of them below the 4.5:1 WCAG AA bar the base palette already guarantees
+  (`teal` fails first, at only +4 lightness; `ocean`/`bronze`/`forest`/
+  `terracotta` follow shortly after). Darkening has generous headroom for
+  all 10, so that's the only direction offered. Every one of the 40 shade
+  values is verified ≥ 4.5:1 against white in tests, the same bar
+  `gdsBadgeAccentColors` itself is held to.
+- **Proportional spacing, not a fixed lightness delta.** Each accent's four
+  levels interpolate from that accent's own base lightness down to a shared
+  lightness floor in three equal steps, rather than subtracting the same
+  fixed amount from every accent — a fixed delta reaches the floor at
+  different points for different accents (`teal` starts darker than most),
+  producing near-duplicate `deeper`/`deepest` colors for exactly those
+  accents. Proportional spacing keeps all four steps visually distinct for
+  every accent, verified in tests (no two of one accent's four shades may
+  be equal).
+- The interactive spec artifact's "Sports family" demo — which had
+  previously used a live-computed, unverified lightness shift including
+  *lighter* steps — is corrected to use the real, contrast-verified
+  `gdsBadgeAccentShades` values.
+- `docs/BADGE_SYSTEM.md` gains a "Within-accent differentiation: `shade`,
+  not transparency" section.
+- Scoped to `GdsMapPinBadge`; `GdsBadge`'s own `accent` prop is unaffected.
 
 ### New `GdsMapPinBadge`: governed map-pin marker, exactly two layers, no ring (#501)
 
