@@ -2,6 +2,22 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.1 - 2026-08-07 — Generated Imagery: card-image placeholder use case + docs (#509)
+
+Epic #503 shipped `GdsGeneratedThumbnail`/`GdsGeneratedHero` with full API
+docs, but never demonstrated the use case that motivated the original ask:
+using generated art as the placeholder image on GDS's own public cards.
+
+- **Playground**: the `generated-imagery` pattern now shows `ListingCard`,
+  `PublicProductCard`, and `PublicFoodCard` each using `GdsGeneratedThumbnail`
+  as their `image` prop — no source changes to those cards were needed,
+  since `image` already accepted `ReactNode`; this was a discoverability gap,
+  not a missing capability.
+- **`docs/GENERATED_IMAGERY.md`**: added a "Use cases" section (no listing
+  photo yet, unphotographable category-only content, art-budget-free hero
+  banners, share images) and a "Using it as the card-image placeholder"
+  how-to section with a real `ListingCard` composition example.
+
 ## 4.1.0 - 2026-08-07 — Generated Imagery: theme-managed thumbnails & heroes (epic #503)
 
 A turnkey, theme-managed generated-imagery system: deterministic, zero-network

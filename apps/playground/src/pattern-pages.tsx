@@ -763,6 +763,56 @@ function GeneratedHeroDemo() {
   );
 }
 
+function GeneratedImageryCardPlaceholderDemo() {
+  return (
+    <SectionPanel
+      title="As a card-image placeholder"
+      description="image accepts any node on ListingCard, PublicProductCard, and PublicFoodCard — GdsGeneratedThumbnail composes directly into that slot, no changes to the card components required, so a listing keeps an on-brand thumbnail instead of a blank gray icon the moment it exists, real photo or not."
+    >
+      <GdsInline gap="lg" align="start">
+        <ListingCard
+          title="Riverside choir"
+          description="No host photo on file yet — the listing still reads as finished."
+          image={
+            <GdsGeneratedThumbnail
+              seed="listing-riverside-choir"
+              categories={[{ key: 'music', label: 'Choir', icon: 'Message' }]}
+              aspectRatio="4:3"
+            />
+          }
+          metadata={[{ id: 'schedule', label: 'Thursdays, 6pm' }]}
+        />
+        <PublicProductCard
+          title="Hand-thrown ceramic mug"
+          description="New maker's first listing — no product photo yet."
+          image={
+            <GdsGeneratedThumbnail
+              seed="product-ceramic-mug"
+              categories={[{ key: 'craft', label: 'Handmade', icon: 'Star' }]}
+              aspectRatio="4:3"
+            />
+          }
+          price="€18"
+          state="available"
+        />
+        <PublicFoodCard
+          title="Chef's daily special"
+          description="Same-day addition — no time for a photo shoot."
+          image={
+            <GdsGeneratedThumbnail
+              seed="food-daily-special"
+              categories={[{ key: 'kitchen', label: 'Kitchen pick', icon: 'Trophy' }]}
+              aspectRatio="4:3"
+            />
+          }
+          price="€14"
+          state="available"
+        />
+      </GdsInline>
+    </SectionPanel>
+  );
+}
+
 function BadgeProfileClusterDemo() {
   return (
     <SectionPanel title="Badge clusters on a profile" description="Multiple badges read left-to-right in a wrapping row beside identity — never stacked on the avatar, which the GdsBadgeStack corner model reserves for a single verification mark.">
@@ -1990,6 +2040,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <GeneratedThumbnailDemo />
           <br />
           <GeneratedHeroDemo />
+          <br />
+          <GeneratedImageryCardPlaceholderDemo />
         </div>
       );
     case 'consumer-sections':

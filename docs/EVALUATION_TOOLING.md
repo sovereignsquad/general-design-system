@@ -1,7 +1,7 @@
 # Evaluation Tooling & Tokenless Adoption Path
 
 Status: Active SSOT
-Version: 4.1.0
+Version: 4.1.1
 Last updated: 2026-07-26
 
 Carbon and Ant put an "Edit in StackBlitz/CodeSandbox" button on every demo — the biggest "read → run" adoption accelerator (issue #449). This document records the decision for how GDS meets that need, and the one dependency that gates the full version.

@@ -1,7 +1,7 @@
 # Generated Imagery
 
 Status: Active SSOT
-Version: 4.1.0
+Version: 4.1.1
 Last updated: 2026-08-07
 
 A turnkey, theme-managed generated-imagery system (epic #503):
@@ -24,6 +24,23 @@ produces the same result, on the server and the client alike.
 | `GdsGeneratedHero` | Banner-scale: accent wash + one of four background strategies + up to 6 ranked badges at a fixed size ladder | A full hero-with-copy component — eyebrow/title/CTAs stay whatever the consumer already renders |
 | `gdsGeneratedPaletteCssRefs` / `resolveGdsGeneratedPaletteHex` | The shared palette resolver both components (and any headless renderer) draw from | A new color system — it resolves the *existing* theme-token and curated-accent systems |
 | `gdsSeededRandom` | The shared deterministic PRNG both components use for placement | `Math.random()` — never used anywhere in this system, on purpose (SSR/hydration correctness) |
+
+## Use cases
+
+- **A listing has no photo yet.** A new host, seller, or menu item is created
+  before any real media exists — `GdsGeneratedThumbnail` fills the card's
+  image slot so the item reads as finished from the moment it's created,
+  never as a blank gray "no image" icon.
+- **The content type never had photography to begin with.** A category,
+  skill tag, or service type (e.g. "Soccer", "Choir", "Pickup only") has no
+  natural photo subject — the generated motif and badges carry that identity
+  instead of forcing a stock-photo search for something unphotographable.
+- **A location or category landing page needs a hero with no art budget.**
+  `GdsGeneratedHero` gives every such page an on-brand backdrop without a
+  photographer, a stock license, or per-page design work.
+- **A page needs a share image and has no dedicated marketing asset.** See
+  [Headless SVG generation for `og:image` and email](#headless-svg-generation-for-ogimage-and-email)
+  below — the same system, rendered server-side.
 
 ## Where this comes from
 
@@ -96,6 +113,33 @@ normally sits beside a real card title), the root carries no `role`, but
 the badges stay individually accessible regardless. When given, the root
 renders `role="group"` (never `role="img"`, which would collapse the
 individually-meaningful badges into one opaque name).
+
+### Using it as the card-image placeholder
+
+`ListingCard`, `PublicProductCard`, and `PublicFoodCard` all accept
+`image?: ReactNode` and fall back to a plain gray "no image" icon when it's
+omitted. `GdsGeneratedThumbnail` composes into that slot directly — no
+changes to any of those card components, no new prop, no adapter:
+
+```tsx
+import { GdsGeneratedThumbnail, ListingCard } from '@sovereignsquad/gds-core';
+
+<ListingCard
+  title={listing.title}
+  description={listing.description}
+  image={
+    listing.photoUrl ? (
+      <img src={listing.photoUrl} alt="" />
+    ) : (
+      <GdsGeneratedThumbnail seed={listing.id} categories={listing.categories} aspectRatio="4:3" />
+    )
+  }
+/>
+```
+
+The same pattern applies to `PublicProductCard` and `PublicFoodCard`'s
+`image` prop. See the `generated-imagery` pattern on the playground for all
+three composed live, side by side with their real fallback state.
 
 ## `GdsGeneratedHero`
 
@@ -256,5 +300,7 @@ const svg = buildGdsHeroSvg({
 ## Where to see it live
 
 The `generated-imagery` pattern on the playground (`/patterns/public`)
-renders `GdsGeneratedThumbnail` with both palette sources side by side, and
-`GdsGeneratedHero` across all four background strategies.
+renders `GdsGeneratedThumbnail` with both palette sources side by side,
+`GdsGeneratedHero` across all four background strategies, and
+`GdsGeneratedThumbnail` composed as the `image` placeholder on real
+`ListingCard`, `PublicProductCard`, and `PublicFoodCard` instances.
