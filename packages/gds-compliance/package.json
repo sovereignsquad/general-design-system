@@ -1,6 +1,6 @@
 {
   "name": "@sovereignsquad/gds-compliance",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "type": "module",
   "main": "./index.js",
   "bin": {
