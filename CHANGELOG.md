@@ -55,9 +55,44 @@ primitive, theme-managed by default rather than tied to one consumer's brand.
   [`BADGE_SYSTEM.md`](docs/BADGE_SYSTEM.md)'s new "The same activity identity,
   worn a different way" section for how this extends the map-pin accent+shade
   table rather than inventing a parallel one.
-- A headless, non-React `buildGdsThumbnailSvg()`/`buildGdsHeroSvg()` string
-  twin for `og:image` routes and email is deliberately not part of this
-  release — see #508.
+
+### Headless SVG generation for `og:image` and email (#508)
+
+- **`buildGdsThumbnailSvg()`/`buildGdsHeroSvg()`** (`generated-art-svg.ts`):
+  framework-agnostic, non-React twins of the two components above, returning
+  a complete, self-contained `<svg>` string — for `og:image` routes, email,
+  or any SSR/rasterization context with no live browser CSS cascade.
+  Exported from **`@sovereignsquad/gds-core/server` only**, never
+  `/index`/`/client`: they use `react-dom/server`'s `renderToStaticMarkup`
+  for icon rendering (Node/edge-SSR-safe, the same primitive Next.js's own
+  SSR pipeline is built on), which has no browser bundle to leak into by
+  mistake if it stayed out of the default barrel.
+- `'theme'`-mode colors need a literal resolved value here (no live DOM to
+  read a CSS variable from), so `resolveGdsGeneratedPaletteHex` requires
+  either `themePresetId` (one of the 25 built-in presets) or an explicit
+  `colors` override — see the module docs for why there's no silent
+  fallback guess. The `color-mix(...30%, black)` contrast guarantee is
+  reproduced as real RGB arithmetic on the literal hex (same ratio, same
+  provable floor), and badge labels are hand-laid-out SVG `<text>`, since
+  there's no HTML/CSS cascade to fall back on outside a browser.
+- Placement math (motif transform, hero badge-slot table, mosaic tiling,
+  icon-field scatter) is intentionally re-derived here rather than imported
+  from the React components: small, pure arithmetic with its own tests
+  holding both sides to the same documented geometry, not business logic
+  worth risking a cross-module refactor of two already-shipped components
+  over.
+- `docs/GENERATED_IMAGERY.md` gains the Next.js recipe (serving the SVG
+  string directly as `Content-Type: image/svg+xml` — the exact gap the
+  originating ClassScout proposal called out: "no listing has a share
+  image... per-listing `og:image` was never built") and a worked
+  `region-mosaic` example, using a fabricated region set, not real
+  consumer geo data.
+- Every generated sample was rendered to PNG via headless Chromium and
+  visually inspected, not just asserted structurally correct: this caught
+  a real bug in an early draft (icon `<svg>` elements ended up with
+  duplicate, conflicting `width`/`height`/`viewBox` attributes from a
+  string-splice approach, leaving nested-SVG percentage sizing unresolved)
+  before it shipped.
 
 ## 4.0.0 - 2026-08-07 — Unified, always-theme-aware badge system (epic #484)
 

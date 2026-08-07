@@ -46,11 +46,12 @@ import type { GdsGeneratedPaletteColors, GdsGeneratedPaletteSource } from './gen
  * across both modes, not because category mode needs it.
  *
  * A headless, non-React `buildGdsThumbnailSvg()` twin for OG/share-image use
- * (issue #508) is intentionally not part of this component: it needs
- * hand-rendered SVG `<text>` for the badge labels (no HTML/CSS cascade
- * outside a browser), a real enough difference from this component's HTML
- * badge layer that it belongs with its actual rasterization consumer, not
- * built speculatively ahead of one.
+ * (issue #508) lives in `generated-art-svg.ts`, exported from
+ * `@sovereignsquad/gds-core/server` only — it needs hand-rendered SVG
+ * `<text>` for the badge labels (no HTML/CSS cascade outside a browser),
+ * real enough of a difference from this component's HTML badge layer that
+ * it's a genuinely separate implementation, not a thin wrapper around this
+ * one. See `docs/GENERATED_IMAGERY.md`'s OG-image recipe section.
  */
 
 /** One ranked category driving {@link GdsGeneratedThumbnail}'s motif and badges. */
