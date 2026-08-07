@@ -1,7 +1,7 @@
 # Per-Component Accessibility Reference
 
 Status: Active SSOT
-Version: 4.0.0
+Version: 4.1.0
 Last updated: 2026-07-26
 
 Every leading design system (Carbon, Primer, Fluent, Adobe React Aria) ships a per-component **Accessibility** section: a keyboard-interaction table, focus behavior, screen-reader expectations, and an explicit "what the system provides vs. what you must do" split. This is that reference for GDS (issue #448). It is generated against the same package-owned accessibility-evidence registry that gates every release (`apps/playground/src/accessibility-evidence-registry.ts`, enforced by `npm run verify:accessibility-evidence`), so it cannot silently drift from what the components actually do.

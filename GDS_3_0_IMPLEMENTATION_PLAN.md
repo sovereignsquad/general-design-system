@@ -6,7 +6,7 @@ Current stable baseline: 3.0.0
 Last updated: 2026-06-01
 
 > **Historical plan.** This is the completed 3.0.0 milestone plan; the current
-> GDS line is 4.0.0. Its references to the org-level **Projects v2 board
+> GDS line is 4.1.0. Its references to the org-level **Projects v2 board
 > `sovereignsquad#11`** are **retired** — the board is now the **label-based
 > GitHub Issues board** ([PROJECT_BOARD.md](PROJECT_BOARD.md), [CLAUDE.md](CLAUDE.md) §7).
 

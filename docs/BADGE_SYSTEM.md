@@ -1,7 +1,7 @@
 # Badge System
 
 Status: Active SSOT
-Version: 4.0.0
+Version: 4.1.0
 Last updated: 2026-08-07
 
 The unified, always-theme-aware GDS badge system (epic #484): one governed
@@ -278,3 +278,12 @@ The badges pattern on the playground (`/patterns/feedback`) renders every
 component above plus the full composition gallery, and the forced-colors
 runtime gate asserts each stays mounted and painted under
 `forced-colors: active` on that route.
+
+## The same activity identity, worn a different way
+
+`GdsMapPinBadge`'s accent+shade table is the asset a category owns — a
+color and a glyph, grouped into families by accent and separated within a
+family by shade. `GdsGeneratedThumbnail`/`GdsGeneratedHero` (epic #503) draw
+from that same table to compose card thumbnails and hero backdrops, so a
+category reads the same whether it's a map pin, a card motif, or a hero
+badge. See [`GENERATED_IMAGERY.md`](GENERATED_IMAGERY.md).

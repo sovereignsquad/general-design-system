@@ -2,6 +2,63 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.0 - 2026-08-07 — Generated Imagery: theme-managed thumbnails & heroes (epic #503)
+
+A turnkey, theme-managed generated-imagery system: deterministic, zero-network
+SVG+HTML card thumbnails and hero backdrops composed from a consumer's own
+category data — no image hosting, no AI/generative-model image calls, no
+per-consumer design work. Generalizes a ClassScout engineering proposal
+(verified against source before this was built: every one of its 26 activity
+colors was an exact match to `gdsBadgeAccentShades`) into a first-class GDS
+primitive, theme-managed by default rather than tied to one consumer's brand.
+
+### New `GdsGeneratedThumbnail` and `GdsGeneratedHero` (#504, #505, #506)
+
+- **`gdsSeededRandom`, `gdsGeneratedPaletteCssRefs`, `resolveGdsGeneratedPaletteHex`**
+  (`generated-art-engine.ts`, #504): the shared foundations. A dependency-free
+  deterministic PRNG (no `Math.random()` anywhere in this system, so SSR and
+  client renders never mismatch), and a palette resolver with two sources —
+  `paletteSource: 'theme'` (default, reads `--gds-brand-primary`/
+  `--gds-brand-accent` as CSS var references, works for any of the 25 presets
+  or a custom brand with zero config) and `paletteSource: 'category'` (opts
+  into the existing fixed `gdsBadgeAccentColors`/`gdsBadgeAccentShades`, for
+  consumers who want category color stable across theme changes).
+- **`GdsGeneratedThumbnail`** (#505): card-scale — an accent wash, an
+  oversized low-opacity icon motif (seeded rotation/scale/position from the
+  entity id), and up to `maxBadges` ranked category badges. Two rendering
+  layers on purpose: the SVG background is decorative and `aria-hidden`
+  unconditionally; the badges are real HTML, individually accessible, never
+  collapsed into one `role="img"` name.
+- **`GdsGeneratedHero`** (#506): banner-scale — an accent wash, one of four
+  pluggable background strategies (`'wash'`, `'mosaic-abstract'`,
+  `'icon-field'`, or a consumer-supplied `{ type: 'region-mosaic', regions }`
+  for geo-mosaic products — GDS ships the rendering adapter only, no city or
+  brand data), and a seeded scatter of up to 6 ranked badges at a fixed size
+  ladder (one large, two medium, three small — fixed slots, not free
+  placement, so it never reads as clutter).
+- **Contrast is guaranteed, not assumed, for `paletteSource: 'theme'`.**
+  `'theme'` colors arrive as CSS `var(...)` references with no resolved hex
+  to check in JS, so every surface carrying fixed white text is pushed
+  through `color-mix(in srgb, <color> 30%, black)` first — provably clears
+  ≥7:1 against white even for the lightest possible input (pure white), so
+  the guarantee holds without knowing the theme's actual values.
+- Fixed `getGdsVibeThemeCssVariables`'s (`gds-theme`) return type to
+  `Record<string, string>`: it already merges in the full `--gds-*` semantic
+  role set at runtime, but the narrower object-literal type TypeScript
+  inferred across the compiled `.d.ts` boundary didn't reflect that. No
+  behavior change — verified against all three existing call sites.
+- Registered as the `generated-imagery` playground pattern with a live demo:
+  `GdsGeneratedThumbnail` with both palette sources side by side, and
+  `GdsGeneratedHero` across all four background strategies.
+- See [`GENERATED_IMAGERY.md`](docs/GENERATED_IMAGERY.md) for the full
+  palette/background/accessibility reference, and
+  [`BADGE_SYSTEM.md`](docs/BADGE_SYSTEM.md)'s new "The same activity identity,
+  worn a different way" section for how this extends the map-pin accent+shade
+  table rather than inventing a parallel one.
+- A headless, non-React `buildGdsThumbnailSvg()`/`buildGdsHeroSvg()` string
+  twin for `og:image` routes and email is deliberately not part of this
+  release — see #508.
+
 ## 4.0.0 - 2026-08-07 — Unified, always-theme-aware badge system (epic #484)
 
 Everything below ships together as the badge-system release: foundations (#485, #486), shape
