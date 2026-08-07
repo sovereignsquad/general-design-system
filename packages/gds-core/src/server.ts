@@ -93,3 +93,4 @@ export * from './NumberStepper';
 export * from './SearchableSelect';
 export * from './ChatSurface';
 export * from './AISearchCard';
+export * from './generated-art-svg';

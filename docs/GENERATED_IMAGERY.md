@@ -152,15 +152,106 @@ same-size slot (plus a small rotation jitter) — never the slot geometry and
 never the size-to-rank mapping, so the composition is always controlled
 even though every seed looks different.
 
-## No headless SVG-string builder here — see #508
+## Headless SVG generation for `og:image` and email
 
-Both components above are React/live-DOM only. A framework-agnostic
-`buildGdsThumbnailSvg()`/`buildGdsHeroSvg()` string twin for `og:image`
-routes and email is intentionally not part of this doc: it needs
-hand-rendered SVG `<text>` for badge labels (there's no HTML/CSS cascade
-outside a browser to fall back to), different enough from these components'
-HTML badge layer that it belongs with its actual rasterization recipe, not
-speculated about ahead of one.
+`GdsGeneratedThumbnail`/`GdsGeneratedHero` are React/live-DOM only — they
+lean on `var(--gds-brand-primary, ...)` and `color-mix(in srgb, ...)`,
+neither of which resolves outside a browser. For `og:image` routes, email,
+or any other context with no live CSS cascade, use their headless twins
+instead, exported from **`@sovereignsquad/gds-core/server`** only (never
+`/index`/`/client` — they use `react-dom/server`'s `renderToStaticMarkup`
+for icon rendering, which has no browser bundle to accidentally leak into):
+
+```ts
+import { buildGdsThumbnailSvg, buildGdsHeroSvg } from '@sovereignsquad/gds-core/server';
+```
+
+Both take literal hex colors, not CSS variable references — there is no
+live theme to read from in this context. `paletteSource: 'theme'` therefore
+requires either `themePresetId` (one of the 25 built-in presets, resolved
+via the same `getGdsVibeThemeCssVariables` the runtime theme switcher uses)
+or an explicit `colors` override for a custom brand theme; `paletteSource:
+'category'` needs neither, same as the React components. The `30%`
+`color-mix` contrast guarantee is reproduced as real RGB arithmetic on the
+literal hex (same ratio, same provable ≥7:1-against-white floor), and badge
+labels are hand-laid-out SVG `<text>`, not HTML.
+
+```ts
+const svg = buildGdsThumbnailSvg({
+  seed: listing.id,
+  categories: [
+    { key: 'soccer', label: 'Soccer', icon: 'Location' },
+    { key: 'basketball', label: 'Basketball', icon: 'Habit' },
+  ],
+  themePresetId: 'default', // or `colors: { primary, accent }` for a custom brand
+  label: `${listing.title} — Soccer`,
+});
+```
+
+### Next.js recipe: serve the SVG string directly
+
+The simplest, most portable Next.js recipe skips `ImageResponse`/Satori
+entirely — `buildGdsThumbnailSvg()`/`buildGdsHeroSvg()` already return a
+complete, valid `<svg>` document, and modern platforms (X/Twitter, Discord,
+Slack, most others) accept an SVG directly as an `og:image`:
+
+```ts
+// app/listings/[id]/og/route.ts
+import { buildGdsThumbnailSvg } from '@sovereignsquad/gds-core/server';
+import { getListing } from '@/lib/listings';
+
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+  const listing = await getListing(params.id);
+  const svg = buildGdsThumbnailSvg({
+    seed: listing.id,
+    categories: listing.categories,
+    themePresetId: 'default',
+    label: `${listing.title} — ${listing.categories[0].label}`,
+  });
+  return new Response(svg, {
+    headers: { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=31536000, immutable' },
+  });
+}
+```
+
+Wire it to `openGraph.images` in the listing's `generateMetadata()` — this
+is the exact gap the originating ClassScout proposal called out ("no
+listing has a share image... per-listing `og:image` was never built").
+
+**If a platform specifically requires PNG** (some do), `ImageResponse`
+needs a JSX element tree, not a pre-rendered string — Satori's restricted
+style subset doesn't support CSS variables or `color-mix()` either, so
+reuse the same `themePresetId`/`colors` palette inputs but hand-compose the
+JSX layout rather than embedding the SVG string; that composition isn't
+provided here, since it's a genuinely different rendering path with its own
+constraints worth getting right against a real Satori target, not guessed
+at speculatively.
+
+### Region-mosaic worked example
+
+`GdsGeneratedHero`'s `region-mosaic` background strategy needs a `regions`
+array — normalized `{ x0, y0, x1, y1, weight? }` fractions of the hero's own
+box. This is the shape a ClassScout-style neighborhood-coverage mosaic is
+built on, with a fabricated (non-real) region set standing in for actual
+geo data:
+
+```ts
+const svg = buildGdsHeroSvg({
+  seed: neighborhood.id,
+  themePresetId: 'default',
+  label: `${neighborhood.name} coverage`,
+  background: {
+    type: 'region-mosaic',
+    // Any consumer-owned bounding-box source works — normalize whatever
+    // coordinate system it uses (lat/lng, pixel, tile) to 0-1 fractions of
+    // the hero's own box first.
+    regions: neighborhoodBoxes.map((box) => ({
+      x0: box.left, y0: box.top, x1: box.right, y1: box.bottom,
+      weight: box.listingCount, // more listings -> more visible tint
+    })),
+  },
+});
+```
 
 ## Where to see it live
 
