@@ -58,13 +58,25 @@ export function PageHeader({
     <Stack gap="sm" mb="xl">
       {breadcrumbs?.length ? <Breadcrumbs>{breadcrumbs}</Breadcrumbs> : null}
       <Group justify="space-between" align="flex-start" gap="md" wrap="wrap">
-        <Box style={{ minWidth: 0, flex: 1 }}>
+        {/*
+         * No explicit minWidth: the previous `minWidth: 0` overrode the flex
+         * item's default `min-width: auto`, which let this box shrink to
+         * near-nothing next to a wide action group instead of the row
+         * wrapping — the title text then had no room to lay out even one word
+         * and overflowed straight through the actions beside it. Leaving
+         * min-width unset restores the platform default (an item won't
+         * shrink past its own content's natural minimum), which is exactly
+         * what forces the row to wrap once both can't fit — no magic number
+         * needed. `overflowWrap` on the Title is a second line of defense for
+         * any single word wider than the row itself.
+         */}
+        <Box style={{ flex: 1 }}>
           {eyebrow ? (
             <Text c="dimmed" size="sm" fw={700} mb={4}>
               {eyebrow}
             </Text>
           ) : null}
-          <Title order={1}>{title}</Title>
+          <Title order={1} style={{ overflowWrap: 'break-word' }}>{title}</Title>
           {subtitle ? (
             <Text c="dimmed" mt="xs" size="sm">
               {subtitle}

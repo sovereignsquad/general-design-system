@@ -91,7 +91,16 @@ export function ActionBar({
           {tertiary.map((action) => renderSemanticAction(action, 'tertiary', vocabularyPacks, t))}
         </Group>
 
-        <Group gap={gap} wrap="wrap" justify="flex-end" style={{ marginInlineStart: 'auto' }}>
+        {/*
+         * No `marginInlineStart: 'auto'` here: the outer Group's own
+         * `justify="space-between"` already pushes this group to the trailing
+         * edge whenever both groups fit on one row. The auto margin only ever
+         * mattered once the outer Group wrapped this group onto its own row —
+         * where it forced a right-aligned row sitting under a left-aligned
+         * secondary-action row, reading as misaligned rather than a single
+         * coherent stacked list.
+         */}
+        <Group gap={gap} wrap="wrap" justify="flex-end">
           {iconOnly.map(({ action, ariaLabel, ...props }) => {
             const config = resolveSemanticActionConfig(action, vocabularyPacks);
             const Icon = config.icon;

@@ -262,7 +262,7 @@ html[data-gds-theme-preset] textarea:not(.mantine-Textarea-input) {
   background: var(--gds-vibe-control);
   border: 1px solid color-mix(in srgb, var(--gds-vibe-border) 90%, var(--gds-vibe-primary));
   border-radius: var(--mantine-radius-sm, 4px);
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem var(--mantine-spacing-sm, 0.75rem);
 }
 
 html[data-gds-theme-preset] .mantine-Input-input::placeholder,

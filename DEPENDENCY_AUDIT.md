@@ -1,7 +1,7 @@
 # Dependency Audit Policy
 
 Status: Active SSOT
-Version: 4.1.2
+Version: 4.1.3
 Last updated: 2026-08-05
 
 This repository treats published runtime package dependencies and local reference/tooling dependencies differently.
