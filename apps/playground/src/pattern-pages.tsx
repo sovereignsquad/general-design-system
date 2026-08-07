@@ -564,6 +564,25 @@ function OverlayAliasDemo() {
   );
 }
 
+function DestructiveActionDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <SectionPanel title="Destructive confirmation" description="Irreversible actions require an explicit, dismissible confirmation — never a permanently-open dialog.">
+      <SemanticButton action="delete" onClick={() => setOpen(true)}>Delete pattern</SemanticButton>
+      <ConfirmDialog
+        opened={open}
+        onClose={() => setOpen(false)}
+        onConfirm={() => setOpen(false)}
+        title="Delete this pattern"
+        confirmAction="delete"
+        isDanger
+      >
+        Destructive actions must remain explicit and reversible only with confirmation.
+      </ConfirmDialog>
+    </SectionPanel>
+  );
+}
+
 function FormArchitectureDemo() {
   const form = useGdsForm({
     initialValues: { title: '', status: 'Draft' },
@@ -1258,11 +1277,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         />
       );
     case 'destructive-actions':
-      return (
-        <ConfirmDialog opened onClose={() => {}} onConfirm={() => {}} title="Delete this pattern" confirmAction="delete" isDanger>
-          Destructive actions must remain explicit and reversible only with confirmation.
-        </ConfirmDialog>
-      );
+      return <DestructiveActionDemo />;
     case 'pattern-service-reuse':
       return <PublicBrandFooter brandTitle="Pattern reuse" description="Shared primitives avoid local component drift." />;
     case 'semantic-actions':

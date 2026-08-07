@@ -131,6 +131,14 @@ checks, in the order you'll do them. Worked example: a `StatusPill` in
    `COMPONENTS_AND_PATTERNS.md` (and any deeper `docs/*.md` reference), and a
    `CHANGELOG.md` entry — per Standing Rule 3, docs ship in the same change set.
 
+**Overlay demos (`Modal`/`Dialog`/`Drawer`/`ConfirmDialog`) must never hardcode
+`opened` to a literal `true`.** A demo case rendered that way opens on first
+paint and — since `onClose` in a throwaway demo is typically a no-op — can
+never be dismissed, which locks page scroll and traps focus behind it,
+blocking every other pattern on that page (GH-496). Give every overlay demo
+real `useState` open/close behavior with a trigger button, matching
+`OverlayAliasDemo` in `apps/playground/src/pattern-pages.tsx`.
+
 ## Comment & Documentation Conventions
 
 - **Issue references.** Use bare `#NNN` (GitHub's native auto-linking format)
