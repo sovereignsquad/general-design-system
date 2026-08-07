@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 3.15.0
-Last updated: 2026-08-06
+Last updated: 2026-08-07
 
 The unified, always-theme-aware GDS badge system (epic #484): one governed
 family for status labels, category tags, counts, removable filter tokens, and
@@ -81,8 +81,56 @@ import { GdsBadge, GdsCountBadge, GdsRemovableTag } from '@sovereignsquad/gds-co
 circle = interest/count · squircle = persona · hexagon = activity ·
 shield = verification · rosette = certification/award · pin = location/maps.
 
+## Composition gallery (issue #499)
+
+Beyond the vocabulary swatches, the badges pattern demonstrates badges
+composed into the surfaces they actually ship on, using only shipped
+components — no design-preview artifact stands in for this:
+
+- **On cards** — `ProductCard`'s `status`/`footer` and `ListingCard`'s
+  `score`/`reason` slots accept any node, so a `GdsBadge` replaces the plain
+  status pill and a badge cluster summarizes categories/reasons.
+- **Beside buttons** — `GdsCountBadge`'s `anchor` corner-anchors to an icon
+  inside a real `<button>`; the button carries the accessible name, the pill
+  stays decorative, and count changes announce through the badge's own live
+  region. A plain `GdsBadge` can also sit beside a labeled button as a status
+  echo.
+- **On a map** — `MapPanel`'s `renderMap` composes `GdsBadgeShapePin` with a
+  **`fill` override** (it is a Tabler *outline* icon by default) so the
+  marker reads as a filled pin against basemap imagery, exactly the way
+  `GdsBadge`'s own `shape="pin"` composes shape + icon internally.
+- **Profile clusters** — several badges read left-to-right in a wrapping row
+  beside identity. `GdsBadgeStack`'s corner model stays reserved for a
+  *single* mark (e.g. a verification shield on the avatar), never a cluster.
+- **In overlays** — a `GdsDialog` can confirm a badge was just earned; an
+  `InlineAlert`'s `action` slot can carry a badge. Badges never render inside
+  a toast body, which stays text-only for assistive tech.
+- **Across themes, live** — `GdsVibeThemeScope` (new, this issue) scopes a
+  subtree to one preset/scheme's `--gds-vibe-*`/`--gds-state-*`/`--gds-badge-*`
+  variables, paired with `VibeThemePicker`, so the gallery proves live: `tone`
+  badges read `--gds-state-success` (genuinely varies per preset — WCAG-
+  derived) but `--gds-state-warning-dark`/`--gds-state-danger-dark`/
+  `--gds-state-info-dark` directly (fixed anchors, byte-identical on every
+  preset), while `accent` badges use fixed sRGB values that never read a CSS
+  variable at all. All three are real, verified behaviors, not one uniform
+  "theme-aware" claim — see `GdsVibeThemeScope`'s own tests for the
+  cross-preset assertions.
+
+```tsx
+import { VibeThemePicker, GdsVibeThemeScope } from '@sovereignsquad/gds-theme';
+
+<GdsVibeThemeScope presetId="high-contrast" scheme="light">
+  <GdsBadge tone="success" icon="Success" label="Published" />
+</GdsVibeThemeScope>
+```
+
+`GdsVibeThemeScope` is for side-by-side preset comparison (theme-preview
+panels, this gallery); product surfaces should keep reading the app-wide
+theme instead of scoping locally.
+
 ## Where to see it live
 
 The badges pattern on the playground (`/patterns/feedback`) renders every
-component above, and the forced-colors runtime gate asserts each stays
-mounted and painted under `forced-colors: active` on that route.
+component above plus the full composition gallery, and the forced-colors
+runtime gate asserts each stays mounted and painted under
+`forced-colors: active` on that route.

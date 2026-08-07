@@ -15,6 +15,8 @@ export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, der
 export type { GdsVibeTheme } from './vibe-themes';
 export { VibeThemePicker } from './VibeThemePicker.client';
 export type { VibeThemePickerProps } from './VibeThemePicker.client';
+export { GdsVibeThemeScope } from './VibeThemeScope';
+export type { GdsVibeThemeScopeProps } from './VibeThemeScope';
 
 // ── Accessibility & contrast reporting ──
 export { createGdsThemeAccessibilityReport, validateGdsThemeAccessibility } from './accessibility-report';

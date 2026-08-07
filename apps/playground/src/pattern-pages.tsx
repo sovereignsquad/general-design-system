@@ -124,6 +124,10 @@ import {
   GdsBadgeStackLayer,
   GdsCountBadge,
   GdsRemovableTag,
+  gdsBadgeAccentColors,
+  GdsBox,
+  GdsStack,
+  GdsInline,
   GdsIcon,
   MeaningBadge,
   FitScoreChip,
@@ -147,6 +151,7 @@ import {
 // consumers who don't use it never bundle it (see the comment in
 // packages/gds-core/src/rich-text-editor.ts).
 import { GdsRichTextEditor } from '@sovereignsquad/gds-core/rich-text-editor';
+import { VibeThemePicker, GdsVibeThemeScope, type GdsThemePresetId } from '@sovereignsquad/gds-theme';
 import {
   AdminSelect,
   AdminTextarea,
@@ -579,6 +584,195 @@ function DestructiveActionDemo() {
       >
         Destructive actions must remain explicit and reversible only with confirmation.
       </ConfirmDialog>
+    </SectionPanel>
+  );
+}
+
+function BadgeCardCompositionDemo() {
+  return (
+    <SectionPanel title="Badges on cards" description="A card's status slot and footer accept any node, so a badge replaces the plain status pill and a cluster of badges summarizes categories or reasons at a glance.">
+      <GdsInline gap="lg" align="start">
+        <ProductCard
+          title="Summer swim program"
+          description="Eight-week beginner track at the community pool."
+          status={<GdsBadge tone="success" icon="Success" label="Enrollment open" />}
+          metadata={[
+            { label: 'Ages', value: '6-12' },
+            { label: 'Sessions', value: '8' },
+          ]}
+          footer={
+            <GdsInline gap="xs">
+              <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Swimming" />
+              <GdsBadge accent="ocean" shape="circle" icon="Location" label="Pool 2" />
+            </GdsInline>
+          }
+        />
+        <ListingCard
+          title="Riverside choir"
+          description="All-ages community choir, no audition required."
+          metadata={[{ id: 'schedule', label: 'Thursdays, 6pm' }]}
+          score={<GdsBadge tone="info" icon="Info" label="Great fit" />}
+          reason={
+            <GdsInline gap="xs">
+              <GdsBadge accent="grape" shape="circle" icon="Message" label="Choir" />
+              <GdsBadge accent="forest" shape="shield" icon="Verify" label="Verified host" />
+            </GdsInline>
+          }
+        />
+      </GdsInline>
+    </SectionPanel>
+  );
+}
+
+function BadgeButtonAnchorDemo() {
+  return (
+    <SectionPanel title="Badges beside buttons" description="A count badge anchors to an icon button's corner via the same GdsBadgeStack corner model used to anchor an icon — the button stays the accessible hit target and name, the pill is decorative, and count changes announce through the badge's own live region. A plain badge can also sit beside a labeled button as a status echo.">
+      <GdsInline gap="xl">
+        <button type="button" aria-label="Notifications">
+          <GdsCountBadge value={4} label="unread notifications" anchor={<GdsIcon icon="Notifications" size="lg" />} anchorSize="1.75rem" />
+        </button>
+        <button type="button" aria-label="Save this listing">
+          <GdsCountBadge dot label="new activity on this listing" tone="info" anchor={<GdsIcon icon="Star" size="lg" />} anchorSize="1.75rem" />
+        </button>
+        <GdsInline gap="xs">
+          <SemanticButton action="save">Save</SemanticButton>
+          <GdsBadge tone="success" icon="Success" label="Saved" />
+        </GdsInline>
+      </GdsInline>
+    </SectionPanel>
+  );
+}
+
+const MAP_PIN_MARKERS: Array<{ id: string; left: string; top: string; accent: keyof typeof gdsBadgeAccentColors; icon: 'Location' | 'Habit' | 'Message' | 'Verify'; label: string }> = [
+  { id: 'pool', left: '28%', top: '38%', accent: 'ocean', icon: 'Location', label: 'Community pool' },
+  { id: 'studio', left: '58%', top: '24%', accent: 'teal', icon: 'Habit', label: 'Dance studio' },
+  { id: 'hall', left: '72%', top: '62%', accent: 'grape', icon: 'Message', label: 'Riverside hall' },
+  { id: 'center', left: '42%', top: '70%', accent: 'forest', icon: 'Verify', label: 'Certified center' },
+];
+
+function BadgeMapDemo() {
+  return (
+    <SectionPanel title="Badges on a map" description="Map markers reuse the pin badge shape, but filled solid via a fill override on GdsBadgeShapePin — the outline chip used inline would vanish against basemap imagery. Composition otherwise matches GdsBadge's own shape+icon layering exactly.">
+      <MapPanel
+        title="Nearby activities"
+        description="Schematic marker layout — swap renderMap for a real map integration in a consuming app."
+        minHeight={260}
+        renderMap={() => (
+          <GdsBox pos="relative" w="100%" h="100%">
+            {MAP_PIN_MARKERS.map((pin) => (
+              <GdsBox key={pin.id} pos="absolute" top={pin.top} left={pin.left}>
+                <GdsStack gap="xs" align="center">
+                  <GdsBadgeStack size={36} label={pin.label}>
+                    <GdsBadgeStackLayer>
+                      <GdsBadgeShapePin size="100%" stroke={1.5} color={gdsBadgeAccentColors[pin.accent]} fill={gdsBadgeAccentColors[pin.accent]} />
+                    </GdsBadgeStackLayer>
+                    <GdsBadgeStackLayer scale={0.42}>
+                      <GdsIcon icon={pin.icon} size="100%" tone="default" />
+                    </GdsBadgeStackLayer>
+                  </GdsBadgeStack>
+                </GdsStack>
+              </GdsBox>
+            ))}
+          </GdsBox>
+        )}
+      />
+    </SectionPanel>
+  );
+}
+
+function BadgeProfileClusterDemo() {
+  return (
+    <SectionPanel title="Badge clusters on a profile" description="Multiple badges read left-to-right in a wrapping row beside identity — never stacked on the avatar, which the GdsBadgeStack corner model reserves for a single verification mark.">
+      <GdsInline gap="md" align="start">
+        <GdsBadgeStack size={48} label="Jordan Rivera — verified host">
+          <GdsBadgeStackLayer cutout="bottom-end">
+            <GdsBadgeShapeCircle size="100%" stroke={1.5} />
+          </GdsBadgeStackLayer>
+          <GdsBadgeStackLayer scale={0.62}>
+            <GdsIcon icon="Profile" size="100%" tone="default" />
+          </GdsBadgeStackLayer>
+          <GdsBadgeStackLayer corner="bottom-end" scale={0.44}>
+            <GdsBadgeShapeShield size="100%" stroke={1.75} />
+          </GdsBadgeStackLayer>
+        </GdsBadgeStack>
+        <GdsStack gap="xs">
+          <BodyText>Jordan Rivera</BodyText>
+          <GdsInline gap="xs">
+            <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Swimming" />
+            <GdsBadge accent="grape" shape="circle" icon="Message" label="Choir" />
+            <GdsBadge accent="forest" shape="shield" icon="Verify" label="Certified coach" />
+            <GdsCountBadge value={3} label="badges earned this season" tone="info" />
+          </GdsInline>
+        </GdsStack>
+      </GdsInline>
+    </SectionPanel>
+  );
+}
+
+function BadgeOverlayDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <OverlayManagerProvider>
+      <SectionPanel title="Badges in overlays" description="A modal can confirm a badge was just earned; an inline alert carries a badge as its action content. Badges never appear inside a toast body, which stays text-only for assistive tech.">
+        <button id="open-badge-dialog" type="button" onClick={() => setOpen(true)}>View achievement</button>
+        <GdsDialog
+          id="badge-achievement-dialog"
+          opened={open}
+          onClose={() => setOpen(false)}
+          invokerId="open-badge-dialog"
+          title="Achievement unlocked"
+          description="A new badge was added to this profile."
+        >
+          <GdsInline gap="md">
+            <GdsBadgeStack size={56} label="Ten-session streak">
+              <GdsBadgeStackLayer>
+                <GdsBadgeShapeRosette size="100%" stroke={1.5} />
+              </GdsBadgeStackLayer>
+              <GdsBadgeStackLayer scale={0.5}>
+                <GdsIcon icon="Star" size="100%" tone="default" />
+              </GdsBadgeStackLayer>
+            </GdsBadgeStack>
+            <BodyText>Ten-session streak — keep it going!</BodyText>
+          </GdsInline>
+          <SemanticButton action="confirm" onClick={() => setOpen(false)}>Nice</SemanticButton>
+        </GdsDialog>
+        <InlineAlert
+          title="New badge available"
+          message="Complete two more sessions to unlock the Certified Coach badge."
+          severity="info"
+          action={<GdsBadge tone="info" icon="Info" label="2 sessions to go" />}
+        />
+        <InlineAlert
+          title="Certification expiring soon"
+          message="Renew before the season starts to keep the Certified Coach badge active."
+          severity="warning"
+          action={<GdsBadge tone="warning" icon="Warning" label="Renew by Sep 1" />}
+        />
+        <InlineAlert
+          title="Certification lapsed"
+          message="This badge no longer displays on the public profile until it is renewed."
+          severity="error"
+          action={<GdsBadge tone="danger" icon="Danger" label="Renewal required" />}
+        />
+      </SectionPanel>
+    </OverlayManagerProvider>
+  );
+}
+
+function BadgeThemeMatrixDemo() {
+  const [preset, setPreset] = useState<GdsThemePresetId>('default');
+  return (
+    <SectionPanel title="Badges across themes" description="Semantic tone maps to the --gds-state-* role tokens: success genuinely shifts per preset (WCAG-derived), while warning/danger/info intentionally read the same fixed value in every preset for consistent urgency signaling. The accent palette never changes — it is a fixed category vocabulary, independent of theme. Switch the preset below to compare live.">
+      <VibeThemePicker value={preset} onChange={setPreset} label="Preview preset" />
+      <GdsVibeThemeScope presetId={preset} scheme="light">
+        <GdsInline gap="sm">
+          <GdsBadge tone="success" icon="Success" label="Success — shifts per preset" />
+          <GdsBadge tone="warning" icon="Warning" label="Warning — fixed" />
+          <GdsBadge tone="danger" icon="Danger" label="Danger — fixed" />
+          <GdsBadge tone="info" icon="Info" label="Info — fixed" />
+          <GdsBadge accent="teal" icon="Habit" label="Accent — always fixed" />
+        </GdsInline>
+      </GdsVibeThemeScope>
     </SectionPanel>
   );
 }
@@ -2190,6 +2384,18 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
               <GdsBadgeShapeCircle size="100%" stroke={1.75} />
             </GdsBadgeStackLayer>
           </GdsBadgeStack>
+          <br />
+          <BadgeCardCompositionDemo />
+          <br />
+          <BadgeButtonAnchorDemo />
+          <br />
+          <BadgeMapDemo />
+          <br />
+          <BadgeProfileClusterDemo />
+          <br />
+          <BadgeOverlayDemo />
+          <br />
+          <BadgeThemeMatrixDemo />
         </div>
       );
     case 'modals':

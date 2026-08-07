@@ -5,6 +5,8 @@ export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIdsByScript, getGdsLocal
 export type { GdsI18nContextValue, GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './i18n';
 export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, deriveVibeSemanticCssVariables } from './vibe-themes';
 export type { GdsVibeTheme } from './vibe-themes';
+export { GdsVibeThemeScope } from './VibeThemeScope';
+export type { GdsVibeThemeScopeProps } from './VibeThemeScope';
 export { createGdsThemeAccessibilityReport, validateGdsThemeAccessibility } from './accessibility-report';
 export type { GdsAccessibilityFindingSeverity, GdsContrastCheck, GdsContrastFinding, GdsContrastMode, GdsContrastRole, GdsForcedColorRole, GdsThemeAccessibilityReport } from './accessibility-report';
 export { getGdsContrastRatio, checkGdsContrast, pickGdsAutoForeground } from './contrast';
