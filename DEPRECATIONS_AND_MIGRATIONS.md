@@ -1,7 +1,7 @@
 # Deprecations & Migrations
 
 Status: Active SSOT  
-Version: 3.15.0  
+Version: 4.0.0
 Last updated: 2026-08-05
 
 This document defines how `@sovereignsquad/gds-*` contracts are deprecated, replaced, and removed.
@@ -77,7 +77,7 @@ Beyond code contracts, a distribution channel can be deprecated.
 
 - `contract`: `@sovereignsquad/gds`, `@sovereignsquad/gds-core`, `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-admin` published on **npmjs.com** at `3.9.0`
 - `replacement`: the same packages on **GitHub Packages** (`https://npm.pkg.github.com`) at the current release, with `@sovereignsquad/gds` as the recommended umbrella
-- `deprecatedIn`: 3.15.0 (documentation); npmjs listings marked via `npm deprecate` — see [`RELEASE_PUBLISH.md`](RELEASE_PUBLISH.md#deprecating-the-legacy-npmjs-390-packages)
+- `deprecatedIn`: 4.0.0 (documentation); npmjs listings marked via `npm deprecate` — see [`RELEASE_PUBLISH.md`](RELEASE_PUBLISH.md#deprecating-the-legacy-npmjs-390-packages)
 - `removalTarget`: **none — not unpublished.** The `3.9.0` listings stay resolvable so existing consumers are not broken; they are frozen and receive no updates
 - `detectionRule`: a resolved `@sovereignsquad/*@3.9.0` from `registry.npmjs.org`
 - `migrationGuide`: [`INSTALLATION_GUIDE.md` → Migrating from the legacy npmjs 3.9.0 packages](INSTALLATION_GUIDE.md#migrating-from-the-legacy-npmjs-390-packages). The exports the `3.9.0` line exposed (e.g. `OverlayManagerProvider`, `useOverlayManager`, `DiscoveryShell`, `SidebarNavItem`) remain available at the current release

@@ -1,7 +1,7 @@
 # Default Semantic-Role Token Layer
 
 Status: Active SSOT
-Version: 3.15.0
+Version: 4.0.0
 Last updated: 2026-08-06
 
 GDS components speak in **semantic roles** — `var(--gds-bg-surface)`, `var(--gds-text-body)`, `var(--gds-border-card)` — not raw Mantine ramps. Historically those role variables were only *defined* by `createBrandTheme(...)`; the base `gdsTheme` left them undefined, so every component fell back to a per-call-site guess (`--gds-bg-surface` resolved to `#eee` in one place, `white` in another, `gray-1` in a third). That made the default theme's surfaces inconsistent and made a guaranteed contrast contract impossible (issue #451).
@@ -28,7 +28,7 @@ This layer defines the **structural contract roles** (backgrounds, text, border,
 
 ### Every preset now defines the full role set (badge-system foundation, #485)
 
-As of 3.15.0, all **25** presets define the full decorative/state/accent role set — not just `class-usa`/`gold-athlete`. `class-usa` and `gold-athlete` keep their existing hand-authored values (`classUsaSemanticCssVariables`/`goldAthleteSemanticCssVariables` in `packages/gds-theme/src/vibe-themes.ts`); the other 23 get theirs from `deriveVibeSemanticCssVariables()`, mixed from each preset's own `GdsVibeTheme` palette in sRGB (matching the runtime `color-mix(in srgb, ...)`) and pushed toward black/white until each pair clears WCAG AA (normal text) or non-text AA (3:1) against its background — verified for every preset, both modes, in `vibe-themes.test.ts`. `--gds-state-danger`/`--gds-state-danger-dark` and `--gds-state-warning-dark` are fixed, non-preset-tinted anchors (`#b3261e`/`#f2786f`/`#e0a23c`) rather than derived, since those exact values were already identical between the two hand-authored presets.
+As of 4.0.0, all **25** presets define the full decorative/state/accent role set — not just `class-usa`/`gold-athlete`. `class-usa` and `gold-athlete` keep their existing hand-authored values (`classUsaSemanticCssVariables`/`goldAthleteSemanticCssVariables` in `packages/gds-theme/src/vibe-themes.ts`); the other 23 get theirs from `deriveVibeSemanticCssVariables()`, mixed from each preset's own `GdsVibeTheme` palette in sRGB (matching the runtime `color-mix(in srgb, ...)`) and pushed toward black/white until each pair clears WCAG AA (normal text) or non-text AA (3:1) against its background — verified for every preset, both modes, in `vibe-themes.test.ts`. `--gds-state-danger`/`--gds-state-danger-dark` and `--gds-state-warning-dark` are fixed, non-preset-tinted anchors (`#b3261e`/`#f2786f`/`#e0a23c`) rather than derived, since those exact values were already identical between the two hand-authored presets.
 
 This was a deliberate scope decision for the badge-system epic (#484): badges need a real per-preset color everywhere, not a shared fallback chain, so the semantic role gap was closed at the token layer instead of inside the badge components.
 
