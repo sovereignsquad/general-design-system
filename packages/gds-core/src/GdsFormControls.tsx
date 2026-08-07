@@ -66,7 +66,13 @@ export function GdsSegmentedControl<T extends string = string>({
             whiteSpace: 'nowrap',
           },
           indicator: {
-            background: 'var(--gds-brand-primary, var(--gds-vibe-primary, var(--mantine-primary-color-filled)))',
+            // `--gds-vibe-primary` (the preset's own accent hue) comes first: this
+            // fill is purely decorative, and `--gds-brand-primary` is legitimately a
+            // neutral ink token for presets with no configured brand accent (it's
+            // meant for text, not fills) — reaching for it first painted the active
+            // segment's indicator near-white-on-white in the default preset's dark
+            // mode, making the selected value the least legible text on the page.
+            background: 'var(--gds-vibe-primary, var(--gds-brand-primary, var(--mantine-primary-color-filled)))',
           },
         }}
       />
