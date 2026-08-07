@@ -76,6 +76,30 @@ import { GdsBadge, GdsCountBadge, GdsRemovableTag } from '@sovereignsquad/gds-co
   a CSS mask cutout, never a ring painted in the page background color (which
   breaks over the gradient/hero surfaces vibe themes use).
 
+## Hand-built shape+icon compositions must match `GdsBadge`'s own contract
+
+`GdsBadge`'s `shape` prop is the sanctioned way to combine a `GdsBadgeShapes`
+silhouette with an icon — reach for it first. When a consumer needs its own
+composition instead (e.g. a standalone map-pin marker, not a flat badge), it
+must reproduce `GdsBadge.tsx`'s exact centering and stroke contract, not
+eyeball it:
+
+- **Icon scale + offset, by shape**: `scale: 0.42` **and** `translateY(-12%)`
+  for `shape="pin"` specifically (a pin's geometric bounding-box center sits
+  inside the pointed tail, well below the round "head" the icon needs to sit
+  in); `scale: 0.55` with **no** offset for the other five shapes (circle,
+  squircle, hexagon, shield, rosette), whose bounding-box center is already
+  the right icon position. Skipping the pin's `-12%` offset — e.g. centering
+  the icon on the pin's raw bounding box — reads as the icon sitting visibly
+  low in the head.
+- **Matching stroke weight**: the shape and the icon must render at the same
+  stroke width. Both `GdsBadgeShapePin` (and the other shapes) and `GdsIcon`
+  default to `stroke={1.75}` — if either is overridden, override both the
+  same way, or the icon reads thinner/thicker than its own pin outline.
+- Reference implementation: `GdsBadge.tsx`'s own `shape`+`icon` composition,
+  and the live "Badges on a map" section of the composition gallery below
+  (real filled pins, correct centering, one accent color per marker category).
+
 ## Suggested shape semantics (default, not enforced)
 
 circle = interest/count · squircle = persona · hexagon = activity ·

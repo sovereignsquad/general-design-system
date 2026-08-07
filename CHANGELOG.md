@@ -6,8 +6,25 @@ All notable policy changes to the General Design System are recorded here.
 
 Everything below ships together as the badge-system release: foundations (#485, #486), shape
 vocabulary (#487), canonical badge icons (#494), the component layer (#488–#491), cleanup
-(#493), docs (#492), the guided-tour mobile fix (#495), a live-site modal fix (#496), and the
-badge composition gallery (#499).
+(#493), docs (#492), the guided-tour mobile fix (#495), a live-site modal fix (#496), the badge
+composition gallery (#499), and a docs fix for hand-built pin compositions (#500).
+
+### Docs: hand-built shape+icon compositions must match GdsBadge's own centering/stroke contract (#500)
+
+A consumer team built their own map-pin icons (composing `GdsBadgeShapePin` + an icon by hand
+instead of `GdsBadge`'s `shape="pin"` prop) and shipped icons sitting visibly low in the pin
+head, at a mismatched stroke weight to the pin outline, and in one flat color with no
+per-category differentiation. The centering math (`scale: 0.42` + `translateY(-12%)` for pins,
+`scale: 0.55` with no offset for the other five shapes) existed only as a source comment in
+`GdsBadge.tsx`, never as an explicit rule in the SSOT doc a consumer building their own
+composition would actually read.
+
+- [`docs/BADGE_SYSTEM.md`](docs/BADGE_SYSTEM.md) gains a "Hand-built shape+icon compositions
+  must match `GdsBadge`'s own contract" section stating the exact scale/offset/stroke values and
+  pointing to `GdsBadge.tsx`'s own composition and the live "Badges on a map" gallery section as
+  reference implementations.
+- Documentation-only fix; not lint-enforceable, since it governs compositions built outside
+  GDS's own components.
 
 ### Badge composition gallery: cards, buttons, maps, profiles, overlays, live cross-theme (#499, part of epic #498)
 
