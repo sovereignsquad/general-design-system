@@ -7,17 +7,70 @@ All notable policy changes to the General Design System are recorded here.
 Everything below ships together as the badge-system release: foundations (#485, #486), shape
 vocabulary (#487), canonical badge icons (#494), the component layer (#488–#491), cleanup
 (#493), docs (#492), the guided-tour mobile fix (#495), a live-site modal fix (#496), the badge
-composition gallery (#499), and a docs fix for hand-built pin compositions (#500).
+composition gallery (#499), a docs fix for hand-built pin compositions (#500), and the new
+`GdsMapPinBadge` marker component (#501).
+
+### New `GdsMapPinBadge`: governed map-pin marker, exactly two layers, no ring (#501)
+
+A consumer team building activity-category map pins (Football, Trophy, ChefHat, TheaterMasks,
+Atom, Palette, Music — none of which exist in `GdsIcons`, so external icon sourcing is the
+correct path) went through three iterations, each with a different real defect: icon not
+centered, icon stroke heavier than the pin outline, and a visible label reading "BallFootball"
+(traced to deriving the label from Tabler's `IconBallFootball` component's own `displayName`
+rather than supplying a real category label). Each defect was individually documentable, but the
+actual gap was that hand-composing a category-colored pin marker had a set of constants to match
+by hand and no component to just use.
+
+Building the component surfaced two more defects of its own, caught before release: a first
+draft added a ring capsule behind the icon to guarantee contrast in filled mode, but the opaque
+disc shrank the icon to a sliver; dropping the ring without also changing the icon's own color
+just moved the bug — the icon kept the accent color and disappeared once the pin behind it
+filled with that same color. The shipped design fixes the actual problem instead of routing
+around it with a third layer.
+
+- **New `@sovereignsquad/gds-core` export `GdsMapPinBadge`**: `accent` (required, one of the
+  curated 10 — never a free color), `icon` (a `GdsIconKey` **or** any externally-sourced icon
+  element), `label` (required, consumer-supplied — the component never derives it from an icon's
+  own display name), `filled` (solid pin for real basemap imagery vs. the default outline mode
+  for schematic contexts), `fillOpacity` (0–1, filled mode only — touches only the pin's own
+  fill, never the icon), `size`. **No `ring` prop.**
+- **Exactly two layers: the pin, and the icon.** The icon's color always contrasts the pin's own
+  fill instead of ever reusing it — outline mode shares one `accent` color between pin and icon
+  (no fill to collide with); filled mode switches the icon to an inverse (white-on-dark) color and
+  keeps it fully opaque regardless of `fillOpacity`. With no ring to share space with, the icon is
+  sized to `0.46` of the marker (up from the `0.42` used inside `GdsBadge`'s small inline
+  `shape="pin"` badge, but not the removed ring's old `0.62` footprint — the pin head is a circle,
+  and wide-content icons like `IconMasksTheater`/`IconBike` render past its boundary above ~0.48,
+  verified against the widest icons actually shipped rather than only centered ones).
+- Built on `GdsBadgeStack`/`GdsBadgeStackLayer`, locking in `translateY(-4.1667%)` for the icon —
+  the pin head's own circle center solved from its path's arc geometry (radius 8, center
+  `(12, 11)` in the 24-unit path — one unit above the path box's own center, not the same point)
+  — and `stroke={1.75}` matching the pin. An externally-sourced icon element has its `stroke`
+  forced to `1.75` via `cloneElement` regardless of what the consumer's element passed — the exact
+  mismatch that kept recurring by hand is no longer possible to reproduce through this component.
+- Fixes a real, previously-shipped rendering bug found while building this: `GdsBadgeStackLayer`
+  applies its `scale` prop via a CSS class reading a custom property, but supplying a `style`
+  prop with its own `transform` (needed for the pin's vertical offset) takes cascade priority
+  over that class rule and silently drops the scale — `GdsBadge`'s own `shape="pin"` composition
+  had exactly this bug since it shipped: the icon was rendering completely unscaled. Both are now
+  fixed by including the scale directly in the same transform string as the offset.
+- The shipped "Badges on a map" section of the composition gallery (`/patterns/feedback`) now
+  uses `GdsMapPinBadge` in place of its previous hand-composed pin markers.
+- Docs: [`docs/BADGE_SYSTEM.md`](docs/BADGE_SYSTEM.md) gains a "Map markers: use
+  `GdsMapPinBadge`, don't hand-compose one" section, including the real
+  `IconBallFootball`/`"BallFootball"` example as the concrete reason the accessible label must
+  never come from an icon library's own display name, and the ring-capsule/icon-contrast
+  rationale above.
 
 ### Docs: hand-built shape+icon compositions must match GdsBadge's own centering/stroke contract (#500)
 
 A consumer team built their own map-pin icons (composing `GdsBadgeShapePin` + an icon by hand
 instead of `GdsBadge`'s `shape="pin"` prop) and shipped icons sitting visibly low in the pin
 head, at a mismatched stroke weight to the pin outline, and in one flat color with no
-per-category differentiation. The centering math (`scale: 0.42` + `translateY(-12%)` for pins,
-`scale: 0.55` with no offset for the other five shapes) existed only as a source comment in
-`GdsBadge.tsx`, never as an explicit rule in the SSOT doc a consumer building their own
-composition would actually read.
+per-category differentiation. The centering math (`scale: 0.42` + `translateY(-4.1667%)` for
+pins — the pin head circle's own solved center, not an eyeballed value — `scale: 0.55` with no
+offset for the other five shapes) existed only as a source comment in `GdsBadge.tsx`, never as an
+explicit rule in the SSOT doc a consumer building their own composition would actually read.
 
 - [`docs/BADGE_SYSTEM.md`](docs/BADGE_SYSTEM.md) gains a "Hand-built shape+icon compositions
   must match `GdsBadge`'s own contract" section stating the exact scale/offset/stroke values and

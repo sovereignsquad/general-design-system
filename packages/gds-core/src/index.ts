@@ -23,6 +23,7 @@ export * from './badge-shapes';
 export * from './GdsBadgeStack';
 export * from './GdsBadge';
 export * from './GdsCountBadge';
+export * from './GdsMapPinBadge';
 export * from './GdsRemovableTag';
 export * from './GdsDensity';
 export * from './CardContracts';

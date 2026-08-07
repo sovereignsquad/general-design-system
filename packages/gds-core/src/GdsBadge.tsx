@@ -134,7 +134,16 @@ export function GdsBadge(props: GdsBadgeProps) {
           <Shape size="100%" stroke={1.75} aria-hidden="true" />
         </GdsBadgeStackLayer>
         {icon ? (
-          <GdsBadgeStackLayer scale={shape === 'pin' ? 0.42 : 0.55} style={shape === 'pin' ? { transform: 'translateY(-12%)' } : undefined}>
+          <GdsBadgeStackLayer
+            scale={shape === 'pin' ? 0.42 : 0.55}
+            // A GdsBadgeStackLayer's own scale applies via a CSS class rule
+            // reading --gds-badge-stack-layer-scale; an inline `style.transform`
+            // (needed here for the pin's vertical offset) takes cascade
+            // priority over that class rule and would silently replace it, so
+            // the scale must be included directly in this transform string
+            // too, not left to the class rule to add on top.
+            style={shape === 'pin' ? { transform: 'translateY(-4.1667%) scale(0.42)' } : undefined}
+          >
             <GdsIcon icon={icon} size="100%" />
           </GdsBadgeStackLayer>
         ) : null}

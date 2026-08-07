@@ -593,7 +593,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Mantine-backed API; children are ignored.": "API מגובה Mantine; מתעלמים מהילדים.",
   "Map and media containment": "בלימת מפה ומדיה",
   "Map containment": "בלימת מפה",
-  "Map markers reuse the pin badge shape, but filled solid via a fill override on GdsBadgeShapePin — the outline chip used inline would vanish against basemap imagery. Composition otherwise matches GdsBadge's own shape+icon layering exactly.": "סמני מפה עושים שימוש חוזר בצורת תג הסיכה, אך מלאו באופן מוצק באמצעות ביטול מילוי ב-GdsBadgeShapePin - שבב המתאר המשמש בשורה ייעלם כנגד תמונות המפה הבסיסיות. אחרת, ההרכב תואם בדיוק את שכבות הצורה+סמלים של GdsBadge.",
+  "Map markers use GdsMapPinBadge — a governed pin marker, correct by construction, so consumers never hand-tune the centering/stroke/contrast constants themselves.": "סמני מפה משתמשים ב-GdsMapPinBadge - סמן סיכה נשלט, נכון לפי מבנה, כך שצרכנים לעולם אינם מכוונים ביד את קבועי המרוכז/מכה/ניגודיות.",
   "Map Panel": "לוח מפה",
   "MapPanel keeps third-party embeds inside shared header chrome, loading, and failure behavior.": "MapPanel שומר על הטמעות של צד שלישי בתוך כרום כותרת משותפת, התנהגות טעינה וכשל.",
   "Margaret Island": "האי מרגרט",

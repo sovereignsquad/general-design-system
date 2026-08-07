@@ -124,6 +124,7 @@ import {
   GdsBadgeStackLayer,
   GdsCountBadge,
   GdsRemovableTag,
+  GdsMapPinBadge,
   gdsBadgeAccentColors,
   GdsBox,
   GdsStack,
@@ -652,7 +653,7 @@ const MAP_PIN_MARKERS: Array<{ id: string; left: string; top: string; accent: ke
 
 function BadgeMapDemo() {
   return (
-    <SectionPanel title="Badges on a map" description="Map markers reuse the pin badge shape, but filled solid via a fill override on GdsBadgeShapePin — the outline chip used inline would vanish against basemap imagery. Composition otherwise matches GdsBadge's own shape+icon layering exactly.">
+    <SectionPanel title="Badges on a map" description="Map markers use GdsMapPinBadge — a governed pin marker, correct by construction, so consumers never hand-tune the centering/stroke/contrast constants themselves.">
       <MapPanel
         title="Nearby activities"
         description="Schematic marker layout — swap renderMap for a real map integration in a consuming app."
@@ -662,14 +663,7 @@ function BadgeMapDemo() {
             {MAP_PIN_MARKERS.map((pin) => (
               <GdsBox key={pin.id} pos="absolute" top={pin.top} left={pin.left}>
                 <GdsStack gap="xs" align="center">
-                  <GdsBadgeStack size={36} label={pin.label}>
-                    <GdsBadgeStackLayer>
-                      <GdsBadgeShapePin size="100%" stroke={1.5} color={gdsBadgeAccentColors[pin.accent]} fill={gdsBadgeAccentColors[pin.accent]} />
-                    </GdsBadgeStackLayer>
-                    <GdsBadgeStackLayer scale={0.42}>
-                      <GdsIcon icon={pin.icon} size="100%" tone="default" />
-                    </GdsBadgeStackLayer>
-                  </GdsBadgeStack>
+                  <GdsMapPinBadge size={36} accent={pin.accent} icon={pin.icon} label={pin.label} filled />
                 </GdsStack>
               </GdsBox>
             ))}

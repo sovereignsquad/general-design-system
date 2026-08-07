@@ -593,7 +593,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Mantine-backed API; children are ignored.": "API basée sur Mantine ; les enfants sont ignorés.",
   "Map and media containment": "Confinement des cartes et des médias",
   "Map containment": "Confinement de la carte",
-  "Map markers reuse the pin badge shape, but filled solid via a fill override on GdsBadgeShapePin — the outline chip used inline would vanish against basemap imagery. Composition otherwise matches GdsBadge's own shape+icon layering exactly.": "Les marqueurs de carte réutilisent la forme du badge, mais remplis de manière solide via un remplacement de remplissage sur GdsBadgeShapePin – la puce de contour utilisée en ligne disparaîtrait par rapport aux images de fond de carte. Par ailleurs, la composition correspond exactement à la superposition forme + icône de GdsBadge.",
+  "Map markers use GdsMapPinBadge — a governed pin marker, correct by construction, so consumers never hand-tune the centering/stroke/contrast constants themselves.": "Les marqueurs de carte utilisent GdsMapPinBadge – un marqueur d'épingle gouverné, correct par construction, afin que les consommateurs ne règlent jamais eux-mêmes les constantes de centrage/trait/contraste.",
   "Map Panel": "Panneau Carte",
   "MapPanel keeps third-party embeds inside shared header chrome, loading, and failure behavior.": "MapPanel conserve les intégrations tierces dans le comportement de chrome, de chargement et d'échec de l'en-tête partagé.",
   "Margaret Island": "Île Marguerite",

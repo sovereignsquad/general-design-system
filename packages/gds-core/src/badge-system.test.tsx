@@ -6,6 +6,7 @@ import { pickGdsAutoForeground, getGdsContrastRatio } from '../../gds-theme/src/
 import { GdsBadgeStack, GdsBadgeStackLayer } from './GdsBadgeStack';
 import { GdsBadge, gdsBadgeAccentColors } from './GdsBadge';
 import { GdsCountBadge } from './GdsCountBadge';
+import { GdsMapPinBadge } from './GdsMapPinBadge';
 import { GdsRemovableTag } from './GdsRemovableTag';
 import { MeaningBadge } from './MeaningBadge';
 import { FitScoreChip } from './FitScoreChip';
@@ -78,6 +79,15 @@ describe('GdsBadge (#489)', () => {
       expect(getGdsContrastRatio('#ffffff', hex), `accent ${name}`).toBeGreaterThanOrEqual(4.5);
     }
   });
+
+  it('shape="pin" actually scales its icon down (regression: a custom style.transform on GdsBadgeStackLayer silently drops the scale prop\'s CSS class, so the scale must be baked into the same transform string)', () => {
+    const { container } = renderWithGds(<GdsBadge accent="terracotta" shape="pin" icon="Location" label="Nearby" />);
+    const badge = screen.getByText('Nearby').closest('[data-gds-badge]') as HTMLElement;
+    const iconLayers = Array.from(badge.querySelectorAll('[data-gds-badge-stack-layer]'));
+    const iconLayer = iconLayers[iconLayers.length - 1] as HTMLElement;
+    expect(iconLayer.style.transform).toContain('scale(0.42)');
+    expect(iconLayer.style.transform).toContain('translateY(-4.1667%)');
+  });
 });
 
 describe('GdsCountBadge (#490)', () => {
@@ -101,6 +111,96 @@ describe('GdsCountBadge (#490)', () => {
     expect(screen.getByTestId('anchor-el')).toBeInTheDocument();
     expect(container.querySelector('[data-gds-badge-stack-layer="top-end"]')).not.toBeNull();
     expect(container.querySelector('[data-gds-badge-stack-cutout="top-end"]')).not.toBeNull();
+  });
+});
+
+describe('GdsMapPinBadge (#501)', () => {
+  it('renders role="img" named by the consumer-supplied label, never an icon library display name', () => {
+    renderWithGds(<GdsMapPinBadge accent="ocean" icon="Location" label="Community pool" />);
+    expect(screen.getByRole('img', { name: 'Community pool' })).toBeInTheDocument();
+  });
+
+  it('renders a canonical GdsIcons key through GdsIcon', () => {
+    const { container } = renderWithGds(<GdsMapPinBadge accent="forest" icon="Location" label="Trailhead" />);
+    expect(container.querySelector('svg[data-gds-icon="Location"]')).not.toBeNull();
+  });
+
+  it('forces stroke=1.75 onto an externally-sourced icon element, regardless of what it was given', () => {
+    function FakeExternalIcon(props: { stroke?: number }) {
+      return <svg data-testid="external-icon" data-stroke={props.stroke} />;
+    }
+    renderWithGds(<GdsMapPinBadge accent="grape" icon={<FakeExternalIcon stroke={2} />} label="Choir" />);
+    expect(screen.getByTestId('external-icon')).toHaveAttribute('data-stroke', '1.75');
+  });
+
+  it('is exactly two layers — the pin shape and the icon, no ring/capsule', () => {
+    const { container } = renderWithGds(<GdsMapPinBadge accent="ocean" icon="Location" label="Trailhead" />);
+    expect(container.querySelector('svg.tabler-icon-gds-badge-shape-circle')).toBeNull();
+    expect(container.querySelectorAll('[data-gds-badge-stack-layer]')).toHaveLength(2);
+  });
+
+  it('outline mode draws the pin unfilled; filled mode fills the pin in the accent color', () => {
+    const { container: outlineContainer } = renderWithGds(
+      <GdsMapPinBadge accent="teal" icon="Habit" label="Swimming" />,
+    );
+    const outlinePin = outlineContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
+    expect(outlinePin.getAttribute('fill')).toBe('none');
+    expect(outlinePin.getAttribute('stroke')).toBe(gdsBadgeAccentColors.teal);
+
+    const { container: filledContainer } = renderWithGds(
+      <GdsMapPinBadge accent="teal" icon="Habit" label="Swimming" filled />,
+    );
+    const filledPin = filledContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
+    expect(filledPin.getAttribute('fill')).toBe(gdsBadgeAccentColors.teal);
+  });
+
+  it('the icon is never the same color as the pin fill: accent color in outline mode, inverse color once filled', () => {
+    // jsdom normalizes an inline style.color to rgb(...); round-trip the
+    // expected hex through the same normalization instead of comparing
+    // formats that never match syntactically.
+    const cssColor = (hex: string) => {
+      const probe = document.createElement('div');
+      probe.style.color = hex;
+      return probe.style.color;
+    };
+
+    const { container: outlineContainer } = renderWithGds(
+      <GdsMapPinBadge accent="teal" icon="Habit" label="Swimming" />,
+    );
+    const outlineIconLayer = Array.from(outlineContainer.querySelectorAll('[data-gds-badge-stack-layer]')).at(-1) as HTMLElement;
+    expect(outlineIconLayer.style.color).toBe(cssColor(gdsBadgeAccentColors.teal));
+
+    const { container: filledContainer } = renderWithGds(
+      <GdsMapPinBadge accent="teal" icon="Habit" label="Swimming" filled />,
+    );
+    const filledPin = filledContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
+    const filledIconLayer = Array.from(filledContainer.querySelectorAll('[data-gds-badge-stack-layer]')).at(-1) as HTMLElement;
+    expect(filledIconLayer.style.color).not.toBe(filledPin.getAttribute('fill'));
+    expect(filledIconLayer.style.color).not.toBe(cssColor(gdsBadgeAccentColors.teal));
+  });
+
+  it('fillOpacity applies to the pin fill only, in filled mode; the icon layer never carries fill-opacity', () => {
+    const { container } = renderWithGds(
+      <GdsMapPinBadge accent="ocean" icon="Location" label="Trailhead" filled fillOpacity={0.85} />,
+    );
+    const pin = container.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
+    expect(pin.getAttribute('fill-opacity')).toBe('0.85');
+    const iconLayer = Array.from(container.querySelectorAll('[data-gds-badge-stack-layer]')).at(-1) as HTMLElement;
+    const iconSvg = iconLayer.querySelector('svg') as SVGElement;
+    expect(iconSvg.getAttribute('fill-opacity')).toBeNull();
+
+    const { container: outlineContainer } = renderWithGds(
+      <GdsMapPinBadge accent="ocean" icon="Location" label="Trailhead" fillOpacity={0.85} />,
+    );
+    expect(outlineContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin')).not.toHaveAttribute('fill-opacity');
+  });
+
+  it('centers the icon on the pin head circle\'s own solved center (-4.1667%), scaled to 0.46 — bigger than a ring-era icon needed, but kept inside the pin head circle for wide icons (masks, bike)', () => {
+    const { container } = renderWithGds(<GdsMapPinBadge accent="ocean" icon="Location" label="Trailhead" />);
+    const iconLayers = Array.from(container.querySelectorAll('[data-gds-badge-stack-layer]'));
+    const iconLayer = iconLayers[iconLayers.length - 1] as HTMLElement;
+    expect(iconLayer.style.transform).toContain('translateY(-4.1667%)');
+    expect(iconLayer.style.transform).toContain('scale(0.46)');
   });
 });
 

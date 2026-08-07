@@ -593,7 +593,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Mantine-backed API; children are ignored.": "واجهة برمجة التطبيقات المدعومة من Mantine؛ يتم تجاهل الأطفال.",
   "Map and media containment": "احتواء الخريطة والوسائط",
   "Map containment": "احتواء الخريطة",
-  "Map markers reuse the pin badge shape, but filled solid via a fill override on GdsBadgeShapePin — the outline chip used inline would vanish against basemap imagery. Composition otherwise matches GdsBadge's own shape+icon layering exactly.": "تعيد علامات الخريطة استخدام شكل شارة الدبوس، ولكن يتم ملؤها بشكل ثابت من خلال تجاوز التعبئة على GdsBadgeShapePin - ستختفي شريحة المخطط التفصيلي المستخدمة في السطر مقابل صور خريطة الأساس. يتطابق التركيب تمامًا مع شكل GdsBadge + طبقات الأيقونات.",
+  "Map markers use GdsMapPinBadge — a governed pin marker, correct by construction, so consumers never hand-tune the centering/stroke/contrast constants themselves.": "تستخدم علامات الخريطة GdsMapPinBadge - وهي علامة دبوس محكومة، ويتم تصحيحها من خلال البناء، بحيث لا يقوم المستهلكون أبدًا بضبط ثوابت التوسيط/الحدود/التباين يدويًا بأنفسهم.",
   "Map Panel": "لوحة الخريطة",
   "MapPanel keeps third-party embeds inside shared header chrome, loading, and failure behavior.": "يحتفظ MapPanel بتضمينات الجهات الخارجية داخل كروم الرأس المشترك وسلوك التحميل والفشل.",
   "Margaret Island": "جزيرة مارغريت",
