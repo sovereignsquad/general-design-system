@@ -1,10 +1,10 @@
 # Accessibility Conformance Report (VPAT® 2.5) — General Design System
 
 Status: Active SSOT
-Version: 4.1.1
+Version: 4.1.2
 Last updated: 2026-07-26
 
-**Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `4.1.1`
+**Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `4.1.2`
 **Report Date:** 2026-07-25
 **Product Description:** A governed React + Mantine component and pattern library (theme, core components, admin scaffolds, accessibility CI helpers) consumed by product teams to build accessible application and public-site UIs.
 **Contact Information:** file an accessibility issue or question through the repository's feature/intake channel — the [`request-feature`](https://sovereignsquad.github.io/general-design-system/request-feature) route or the [GitHub issue board](PROJECT_BOARD.md).
@@ -72,7 +72,7 @@ Re-run the full evidence chain with `npm run verify:accessibility-evidence && np
 | **3.3.7** Redundant Entry (WCAG 2.2) | Partially Supports | Form orchestration supports draft/restore and controlled values so previously-entered data can be reused; the consumer wires persistence. |
 | **4.1.2** Name, Role, Value | Supports | Mandatory registry mapping; governed components expose name/role/value via semantic HTML or documented roles and keep state (expanded/selected/invalid) programmatically determinable. Evidence: `accessibility-evidence-registry.ts`. |
 
-*(WCAG 2.2 removed 4.1.1 Parsing; it is intentionally omitted.)*
+*(WCAG 2.2 removed 4.1.2 Parsing; it is intentionally omitted.)*
 
 ## WCAG 2.2 — Level AA
 

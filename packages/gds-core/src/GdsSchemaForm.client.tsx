@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { Button, Checkbox, Group, Paper, Stack, Text } from '@mantine/core';
+import { Button, Checkbox, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { FormField } from './FormField';
 import { GdsDateInput } from './GdsDateInput.client';
@@ -890,7 +890,7 @@ export function GdsSchemaForm<TValues extends Record<string, unknown> = Record<s
   return (
     <GdsFormProvider snapshot={form.snapshot}>
       <Stack gap="md">
-        {schema.title ? <Text fw={700}>{schema.title}</Text> : null}
+        {schema.title ? <Title order={4}>{schema.title}</Title> : null}
         {schema.description ? <Text size="sm" c="dimmed">{schema.description}</Text> : null}
         <GdsValidationSummary />
         {schema.fields.map((field) => {

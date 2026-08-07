@@ -2,6 +2,52 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.2 - 2026-08-07 — Dark-mode theming gaps: date-picker popover, segmented control, checkboxes, native inputs (#510)
+
+Found via user-reported screenshots of the live playground in dark mode and
+confirmed via live `getComputedStyle` inspection against the built site
+before any fix landed — not assumed from the screenshots alone.
+
+- **`GdsSegmentedControl` active-indicator contrast failure (WCAG).**
+  Measured: white text (`rgb(255,255,255)`) on a near-white indicator
+  (`rgb(248,250,252)`) in dark mode — the *selected* value was the least
+  legible text on the page. `packages/gds-core/src/GdsFormControls.tsx`'s
+  indicator fill reached for `--gds-brand-primary` first, which for the
+  `default` preset is a neutral ink token (same value as
+  `--gds-text-body-dark`), not an accent color. Swapped the fallback order
+  to try `--gds-vibe-primary` (the preset's guaranteed accent hue) first —
+  confirmed via the same measurement: indicator now resolves to `#7c3aed`
+  (violet), legible white-on-accent.
+- **Date/time-picker popover completely unthemed.** The open calendar
+  (`.mantine-Popover-dropdown`, portalled to `document.body`) rendered
+  Mantine's flat dark-mode default (`rgb(46,46,46)` background, `rgb(66,66,66)`
+  border) instead of the theme's card gradient every other surface uses.
+  `packages/gds-theme/styles.css` now themes `.mantine-Popover-dropdown`
+  (light-mode `--gds-vibe-control` background, dark-mode gradient matching
+  `.gds-paper`/`.gds-card`) — covers Select/Combobox/DatePicker dropdowns
+  generally, not just the date picker.
+- **Unchecked `Checkbox` inputs unthemed.** `styles.css` only themed the
+  `:checked` state; the resting state fell through to the same flat Mantine
+  default as the popover. Added a base `.mantine-Checkbox-input` rule.
+- **`GdsSchemaForm` (and any "bring your own input" `FormField` usage)
+  native inputs unthemed.** `renderDefaultField` mounts plain native
+  `<input>`/`<select>`/`<textarea>` with no Mantine class to hang the
+  existing theming rule off of — in dark mode these fell through to the
+  *browser's own* native dark-mode form-control chrome (measured:
+  `rgb(59,59,59)` background, `2px inset` border), unrelated to GDS's
+  palette entirely. `styles.css` now themes bare native
+  `input`/`select`/`textarea` elements (excluding checkbox/radio/range/
+  file/color/button-like input types) within any GDS-themed page.
+- **`GdsSchemaForm` title now a real heading.** Was a plain `<Text>` (a
+  `<p>`), unreachable via screen-reader heading navigation; now
+  `<Title order={4}>`.
+- Not fixed here (design call, not a rendering defect): `ActionBar`'s
+  icon-only actions use Mantine's `variant="subtle"` (no visible chrome by
+  design) — flagged in #510 for a product decision, not changed.
+- All 522 existing tests pass unchanged; every fix re-verified live via
+  headless Chrome (`getComputedStyle` + screenshots) against the built
+  playground before merging.
+
 ## 4.1.1 - 2026-08-07 — Generated Imagery: card-image placeholder use case + docs (#509)
 
 Epic #503 shipped `GdsGeneratedThumbnail`/`GdsGeneratedHero` with full API

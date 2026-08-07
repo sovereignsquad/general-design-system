@@ -1,7 +1,7 @@
 # Form Orchestration
 
 Status: Active SSOT
-Version: 4.1.1
+Version: 4.1.2
 Last updated: 2026-07-26
 
 `useGdsFormOrchestration` is the canonical runtime contract for advanced GDS forms. It extends the existing `useGdsForm` field/summary model with autosave, optimistic submit, retry, server error mapping, and draft restore behavior.

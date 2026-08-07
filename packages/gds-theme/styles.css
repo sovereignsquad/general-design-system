@@ -247,10 +247,22 @@ html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone])
 
 html[data-gds-theme-preset] .mantine-Input-input,
 html[data-gds-theme-preset] .mantine-NativeSelect-input,
-html[data-gds-theme-preset] .mantine-Textarea-input {
+html[data-gds-theme-preset] .mantine-Textarea-input,
+/*
+ * GdsSchemaForm's default field renderer (and any "bring your own input"
+ * FormField usage) mounts plain native input/select/textarea elements — no
+ * Mantine class to hang the rule above off of, so without this they fall
+ * through to the browser's own native color-scheme rendering (a flat gray
+ * box with an inset border in dark mode, unrelated to the theme palette).
+ */
+html[data-gds-theme-preset] input:not([type='checkbox'], [type='radio'], [type='range'], [type='file'], [type='color'], [type='button'], [type='submit'], [type='reset'], [type='image']):not(.mantine-Input-input),
+html[data-gds-theme-preset] select:not(.mantine-NativeSelect-input),
+html[data-gds-theme-preset] textarea:not(.mantine-Textarea-input) {
   color: var(--gds-vibe-control-text);
   background: var(--gds-vibe-control);
-  border-color: color-mix(in srgb, var(--gds-vibe-border) 90%, var(--gds-vibe-primary));
+  border: 1px solid color-mix(in srgb, var(--gds-vibe-border) 90%, var(--gds-vibe-primary));
+  border-radius: var(--mantine-radius-sm, 4px);
+  padding: 0.5rem 0.75rem;
 }
 
 html[data-gds-theme-preset] .mantine-Input-input::placeholder,
@@ -263,6 +275,27 @@ html[data-gds-theme-preset] .mantine-NativeSelect-input:focus,
 html[data-gds-theme-preset] .mantine-Textarea-input:focus {
   border-color: var(--gds-vibe-focus);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--gds-vibe-focus) 24%, transparent);
+}
+
+/*
+ * The floating dropdown surface behind Select/Combobox/DatePicker/etc. is a
+ * Mantine Popover.Dropdown portalled to the document body — it carries no
+ * gds-paper/gds-card class, so without this it renders Mantine's own flat
+ * dark-mode default instead of the theme's card surface.
+ */
+html[data-gds-theme-preset] .mantine-Popover-dropdown {
+  background: var(--gds-vibe-control);
+  border-color: var(--gds-vibe-border);
+  color: var(--gds-vibe-control-text);
+}
+
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-Popover-dropdown {
+  background: linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%));
+}
+
+html[data-gds-theme-preset] .mantine-Checkbox-input {
+  background: var(--gds-vibe-control);
+  border-color: var(--gds-vibe-border);
 }
 
 html[data-gds-theme-preset] .mantine-Checkbox-input:checked {
