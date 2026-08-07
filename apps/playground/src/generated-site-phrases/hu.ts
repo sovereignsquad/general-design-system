@@ -593,7 +593,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Mantine-backed API; children are ignored.": "Mantine által támogatott API; a gyerekeket figyelmen kívül hagyják.",
   "Map and media containment": "Térkép és média elszigetelése",
   "Map containment": "Térképes elszigetelés",
-  "Map markers reuse the pin badge shape, but filled solid via a fill override on GdsBadgeShapePin — the outline chip used inline would vanish against basemap imagery. Composition otherwise matches GdsBadge's own shape+icon layering exactly.": "A térképjelölők újra felhasználják a gombostű jelvény alakját, de a GdsBadgeShapePin kitöltésének felülírásával szilárdan kitöltik – a beágyazott körvonal chip eltűnik az alaptérkép képeivel szemben. A kompozíció egyébként pontosan egyezik a GdsBadge saját alak+ikon rétegzésével.",
+  "Map markers use GdsMapPinBadge — a governed pin marker, correct by construction, so consumers never hand-tune the centering/stroke/contrast constants themselves.": "A térképjelölők GdsMapPinBadge-t használnak – egy szabályozott tűs jelölőt, felépítésüknek megfelelően, így a fogyasztók soha nem hangolják be kézzel a központosítási/vonási/kontraszt állandókat.",
   "Map Panel": "Térkép Panel",
   "MapPanel keeps third-party embeds inside shared header chrome, loading, and failure behavior.": "A MapPanel a harmadik féltől származó beágyazásokat a megosztott fejlécben tartja a króm, a betöltési és a meghibásodási viselkedésben.",
   "Margaret Island": "Margitsziget",

@@ -18,6 +18,7 @@ per-preset escape hatches.
 | `GdsRemovableTag` | Removable filter token (whole chip is a button) | Static decoration |
 | `GdsBadgeStack` + `GdsBadgeStackLayer` | Composition primitive: layered shape+icon+corner marks | A visible pattern by itself |
 | `GdsBadgeShapes` (`GdsBadgeShape*`) | Six silhouettes from Tabler's own geometry | Hand-drawn SVG |
+| `GdsMapPinBadge` | Category-colored map-pin marker, pin + icon only, correct by construction (issue #501) | A build-it-yourself pin composition, a ring/capsule layer |
 
 Legacy `StatusBadge`/`LabelTag`/`CountBadge`/`MeaningBadge`/`FitScoreChip`
 remain supported; new work should prefer the components above. Migrating the
@@ -76,22 +77,89 @@ import { GdsBadge, GdsCountBadge, GdsRemovableTag } from '@sovereignsquad/gds-co
   a CSS mask cutout, never a ring painted in the page background color (which
   breaks over the gradient/hero surfaces vibe themes use).
 
+## Map markers: use `GdsMapPinBadge`, don't hand-compose one
+
+A category-colored map-pin marker (an activity/interest icon in a filled or
+outline pin, e.g. sports/food/arts/music categories) is common enough, and
+easy enough to get subtly wrong by hand, that it has its own governed
+component — reach for it before composing `GdsBadgeShapePin` yourself:
+
+```tsx
+import { GdsMapPinBadge } from '@sovereignsquad/gds-core';
+
+<GdsMapPinBadge accent="ocean" icon="Location" label="Community pool" />
+<GdsMapPinBadge accent="forest" icon={<IconBallFootball />} label="Riverside Field — soccer" filled />
+<GdsMapPinBadge accent="forest" icon="Habit" label="Trailhead" filled fillOpacity={0.85} />
+```
+
+- `accent` — one of the curated 10 (never a free color; this is what makes
+  categories distinguishable on a map at a glance).
+- `icon` — a canonical `GdsIcons` key, **or** any externally-sourced icon
+  element. Categories like sports/hobbies/interests routinely have no
+  `GdsIcons` equivalent, so external sourcing (`package-coverage-gap`
+  exception) is expected here, not a compliance gap to work around.
+- `label` — required, and must be a real accessible name you write, **never**
+  derived from the icon's own import or display name. (A real example: Tabler's
+  `IconBallFootball` component displays as `"BallFootball"` — using that as
+  the visible label instead of writing `"Football"` is a wrong label, not a
+  stylistic choice.)
+- `filled` — solid pin for real basemap imagery (the default outline mode is
+  for schematic/light contexts).
+- `fillOpacity` — 0–1, filled mode only, defaults to `1`. Softens the pin's
+  own fill against dense basemap imagery. Never touches the icon: the icon
+  layer is always fully opaque regardless of this value.
+
+**Exactly two layers — the pin, and the icon. No ring/capsule, ever.** An
+earlier revision tried a ring capsule behind the icon to guarantee contrast
+in filled mode, and that was wrong on both sides: filled, the opaque ring
+disc ate most of the icon's own size; unfilled, the ring drawn as a second
+outline added a visible circle with no contrast benefit, reading as a
+"double ring" next to icons (like a soccer ball) that already draw their own
+circular outline. The actual problem — the icon disappearing into a
+same-color fill — is fixed directly instead: **the icon color always
+contrasts the pin's own fill.** Outline mode has no fill to collide with, so
+pin and icon share one `accent` color; filled mode switches the icon to an
+inverse (white-on-dark) color, never `accent`, regardless of `fillOpacity`.
+With no ring to share space with, the icon is sized to `0.46` of the marker
+(up from `0.42`, but not the ring's old `0.62`) so it fills more of the pin
+head — capped there because the pin head is a *circle*, and wide-content
+icons (`IconMasksTheater`'s two side-by-side masks, `IconBike`'s two
+separated wheels) render past that circle's own boundary above roughly
+`0.48`. `0.46` was chosen by overlaying the pin head's solved-center circle
+on the widest icons actually shipped here and confirming they stay inside
+it, not by centering only round/symmetric icons and assuming the rest fit.
+
+`GdsMapPinBadge` locks in the centering, stroke-matching, and contrast
+constants below by construction — including forcing `stroke={1.75}` onto
+whatever icon element you pass it, even if you forgot to set it yourself.
+Reach for `GdsBadge`'s own `shape="pin"` only when you need a flat inline
+badge, not a standalone marker (different, smaller icon-scale contract, no
+forced-external-icon-stroke handling).
+
 ## Hand-built shape+icon compositions must match `GdsBadge`'s own contract
 
 `GdsBadge`'s `shape` prop is the sanctioned way to combine a `GdsBadgeShapes`
-silhouette with an icon — reach for it first. When a consumer needs its own
-composition instead (e.g. a standalone map-pin marker, not a flat badge), it
-must reproduce `GdsBadge.tsx`'s exact centering and stroke contract, not
-eyeball it:
+silhouette with an icon — reach for it first (or `GdsMapPinBadge` for map
+markers specifically, above). When a consumer needs its own composition
+instead, it must reproduce `GdsBadge.tsx`'s exact centering and stroke
+contract, not eyeball it:
 
-- **Icon scale + offset, by shape**: `scale: 0.42` **and** `translateY(-12%)`
-  for `shape="pin"` specifically (a pin's geometric bounding-box center sits
-  inside the pointed tail, well below the round "head" the icon needs to sit
-  in); `scale: 0.55` with **no** offset for the other five shapes (circle,
-  squircle, hexagon, shield, rosette), whose bounding-box center is already
-  the right icon position. Skipping the pin's `-12%` offset — e.g. centering
-  the icon on the pin's raw bounding box — reads as the icon sitting visibly
-  low in the head.
+- **Icon scale + offset, by shape**: `scale: 0.42` **and** `translateY(-4.1667%)`
+  for `shape="pin"` specifically; `scale: 0.55` with **no** offset for the
+  other five shapes (circle, squircle, hexagon, shield, rosette), whose
+  bounding-box center is already the right icon position. The pin's offset is
+  not a value someone eyeballed: `GdsBadgeShapePin`'s head is a true circle —
+  its path is an SVG arc of radius 8 — and solving that arc's own center with
+  the standard endpoint-to-center formula (not approximated) puts it at
+  `(12, 11)` in the pin's 24-unit path space, one unit above the path box's
+  own center `(12, 12)`. `-1/24 = -4.1667%` is that exact offset. Centering on
+  the path's raw bounding-box center instead (`0%` offset) is measurably
+  wrong, not just a style preference — it is one full unit off the circle's
+  actual center. Note the pin's tail hides more than a third of that circle
+  below its chord, so the *visible* dome's own midpoint sits above this
+  point; the rule here is "center on the circle," not "center on what's
+  visibly rendered" — a deliberate, different rule change would be required
+  to target the latter instead.
 - **Matching stroke weight**: the shape and the icon must render at the same
   stroke width. Both `GdsBadgeShapePin` (and the other shapes) and `GdsIcon`
   default to `stroke={1.75}` — if either is overridden, override both the
@@ -99,6 +167,10 @@ eyeball it:
 - Reference implementation: `GdsBadge.tsx`'s own `shape`+`icon` composition,
   and the live "Badges on a map" section of the composition gallery below
   (real filled pins, correct centering, one accent color per marker category).
+- This `0.42` scale is specific to `GdsBadge`'s small inline badge context.
+  `GdsMapPinBadge` (above) is a different, larger, standalone marker with no
+  ring/capsule and its own `0.46` scale + fill-contrast contract — don't
+  cross-apply the two.
 
 ## Suggested shape semantics (default, not enforced)
 
