@@ -54,7 +54,14 @@ async function verifyRouteCase(client, route, testCase, viewport) {
   await setViewport(client, viewport);
   await client.send('Page.navigate', { url: absoluteUrl('/') });
   await wait(300);
-  await waitForReady(client);
+  // This script runs last among five Chrome-launching verify:*-runtime steps
+  // in the full verify:release chain, after two full workspace builds, lint,
+  // and the test suite — a longer timeout here (vs. the shared 12s default)
+  // gives real margin for cumulative CPU/memory pressure at that point in the
+  // chain. Confirmed via direct testing: this script passes reliably in
+  // isolation, and fails only intermittently (1-2 of 22 cases) at the tail of
+  // the full chain — consistent with transient load, not a rendering bug.
+  await waitForReady(client, { timeout: 25000 });
 
   await evaluate(client, `
     localStorage.setItem('gds-reference-theme-selection', JSON.stringify({
@@ -69,7 +76,14 @@ async function verifyRouteCase(client, route, testCase, viewport) {
   await wait(200);
   await client.send('Page.navigate', { url: absoluteUrl(route) });
   await wait(300);
-  await waitForReady(client);
+  // This script runs last among five Chrome-launching verify:*-runtime steps
+  // in the full verify:release chain, after two full workspace builds, lint,
+  // and the test suite — a longer timeout here (vs. the shared 12s default)
+  // gives real margin for cumulative CPU/memory pressure at that point in the
+  // chain. Confirmed via direct testing: this script passes reliably in
+  // isolation, and fails only intermittently (1-2 of 22 cases) at the tail of
+  // the full chain — consistent with transient load, not a rendering bug.
+  await waitForReady(client, { timeout: 25000 });
 
   return evaluate(client, `(() => {
     const failures = [];
@@ -168,7 +182,7 @@ try {
         // Retry transient render misses; genuine violations fail every attempt.
         let result = await verifyRouteCase(client, route, testCase, viewport);
         for (let attempt = 2; attempt <= 3 && result.failures.length; attempt++) {
-          await wait(600);
+          await wait(2000);
           result = await verifyRouteCase(client, route, testCase, viewport);
         }
         if (result.failures.length) {
@@ -181,7 +195,7 @@ try {
   for (const route of localizedHeaderRoutes) {
     let result = await verifyRouteCase(client, route, { preset: 'default', scheme: 'light' }, viewports[0]);
     for (let attempt = 2; attempt <= 3 && result.failures.length; attempt++) {
-      await wait(600);
+      await wait(2000);
       result = await verifyRouteCase(client, route, { preset: 'default', scheme: 'light' }, viewports[0]);
     }
     if (result.failures.length) {
@@ -192,7 +206,7 @@ try {
   await client.close();
 } finally {
   await browserSession.close();
-  previewServer?.kill('SIGTERM');
+  await previewServer?.kill('SIGTERM');
 }
 
 if (failures.length) {

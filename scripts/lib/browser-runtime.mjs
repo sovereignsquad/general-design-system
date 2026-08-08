@@ -203,6 +203,42 @@ export async function waitForReady(client, { timeout = 12000, interval = 200 } =
   return false;
 }
 
+// `npm run preview` spawns `vite` as a grandchild, not a direct child — signaling
+// the `npm` PID alone does not reliably reach it (npm's own signal-forwarding to
+// a running script is not guaranteed across environments). Observed in practice:
+// killing only the returned `npm` process left the real `vite preview` process
+// alive and still bound to :4173, which a later verify-*-runtime.mjs run's own
+// `startPreviewServer` would then race against — its `fetch` polling loop can
+// end up hitting that stale, orphaned server instead of the one it just spawned,
+// producing exactly the kind of intermittent "page rendered too little readable
+// text" / "governed markers missing" failures a content bug would never explain
+// (the failing route/theme/viewport combination differs between runs). Spawning
+// detached and killing the whole process group (`process.kill(-pid, ...)`) reaches
+// the vite grandchild too; waiting for the actual `exit` event — not just firing
+// the signal — mirrors `disposeBrowser`'s existing philosophy below and ensures
+// port 4173 is genuinely free before the caller's script (and its `finally` block)
+// returns control to whatever runs next in the `verify:release` chain.
+function killProcessGroup(server, signal) {
+  return new Promise((resolve) => {
+    if (server.exitCode !== null || server.signalCode !== null) {
+      resolve();
+      return;
+    }
+    const done = () => { clearTimeout(escalate); resolve(); };
+    const escalate = setTimeout(() => {
+      try { process.kill(-server.pid, 'SIGKILL'); } catch {}
+      try { server.kill('SIGKILL'); } catch {}
+    }, 3000);
+    server.once('exit', done);
+    try {
+      process.kill(-server.pid, signal);
+    } catch {
+      // No process group (e.g. already reaped) — fall back to the direct PID.
+      try { server.kill(signal); } catch { done(); }
+    }
+  });
+}
+
 export async function startPreviewServer({ ownsPreviewServer, baseUrl, verificationLabel }) {
   if (!ownsPreviewServer) {
     return null;
@@ -221,6 +257,7 @@ export async function startPreviewServer({ ownsPreviewServer, baseUrl, verificat
   ], {
     cwd: process.cwd(),
     stdio: ['ignore', 'pipe', 'pipe'],
+    detached: true,
   });
 
   // Drain stdout/stderr: an unread pipe fills its OS buffer and blocks the
@@ -229,17 +266,22 @@ export async function startPreviewServer({ ownsPreviewServer, baseUrl, verificat
   server.stdout.on('data', () => {});
   server.stderr.on('data', () => {});
 
+  const handle = {
+    pid: server.pid,
+    kill: (signal = 'SIGTERM') => killProcessGroup(server, signal),
+  };
+
   for (let attempt = 0; attempt < 80; attempt += 1) {
     try {
       const response = await fetch(`${baseUrl}/themes`);
       if (response.ok) {
-        return server;
+        return handle;
       }
     } catch {
       await wait(125);
     }
   }
 
-  server.kill('SIGTERM');
+  await handle.kill('SIGTERM');
   throw new Error(`Timed out waiting for playground preview server. Run npm run build before ${verificationLabel} runtime verification.`);
 }

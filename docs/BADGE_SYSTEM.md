@@ -1,8 +1,8 @@
 # Badge System
 
 Status: Active SSOT
-Version: 4.1.3
-Last updated: 2026-08-07
+Version: 4.1.5
+Last updated: 2026-08-08
 
 The unified, always-theme-aware GDS badge system (epic #484): one governed
 family for status labels, category tags, counts, removable filter tokens, and
@@ -37,8 +37,12 @@ remain supported; new work should prefer the components above. Migrating the
 - **Shape vocabulary** (#487): circle, squircle, hexagon, shield, rosette,
   pin — authored via Tabler's `createReactComponent` from Tabler's own
   `iconNode` data. See [`ICON_REGISTRY.md`](ICON_REGISTRY.md).
-- **Canonical icons in badges** (#494): badge icons render through `GdsIcon`
-  from the governed `GdsIcons` dictionary, never ad hoc SVG.
+- **Canonical icons in badges** (#494): `GdsBadge`'s `icon` prop (and legacy
+  `StatusBadge`/`MeaningBadge`) renders through `GdsIcon` from the governed
+  `GdsIcons` dictionary, never ad hoc SVG. This governs that closed-vocabulary
+  `icon` prop specifically — `GdsBadgeStackLayer`'s composition surface is a
+  separate, intentionally open contract; see "Composing icons `GdsIcons`
+  doesn't have" below.
 
 ## Color: a closed two-axis union
 
@@ -183,6 +187,53 @@ whatever icon element you pass it, even if you forgot to set it yourself.
 Reach for `GdsBadge`'s own `shape="pin"` only when you need a flat inline
 badge, not a standalone marker (different, smaller icon-scale contract, no
 forced-external-icon-stroke handling).
+
+## Composing icons `GdsIcons` doesn't have
+
+The "canonical icons in badges" rule above governs `GdsBadge`/
+`StatusBadge`/`MeaningBadge`'s closed `icon` prop — a `GdsIconKey`, resolved
+through `GdsIcon`, full stop. It does not extend to `GdsBadgeStack` +
+`GdsBadgeStackLayer` (`GdsBadgeStack.tsx`): `GdsBadgeStackLayer`'s
+`children` is typed as plain `ReactNode`, not constrained to `GdsIconKey`,
+and that's deliberate, not an oversight — `GdsIcon` withholds the
+`className`/`style`/`ref` composition surface a layering primitive needs to
+position layers against each other and against the base mark, so the stack
+takes whatever icon element a consumer hands it, `GdsIcons` member or not.
+
+This is the same vocabulary gap `GdsMapPinBadge` already documents above
+(sports/hobbies/interest categories `GdsIcons` has no entry for) — compose
+them as `GdsBadgeStackLayer` children directly, the same way an
+externally-sourced icon element is already sanctioned for `GdsMapPinBadge`'s
+own `icon` prop:
+
+```tsx
+import { GdsBadgeStack, GdsBadgeStackLayer } from '@sovereignsquad/gds-core';
+import { IconBallFootball } from '@tabler/icons-react';
+
+<GdsBadgeStack label="Football club member">
+  <GdsBadgeStackLayer>
+    <IconBallFootball />
+  </GdsBadgeStackLayer>
+</GdsBadgeStack>
+```
+
+`GdsBadgeStack`'s accessibility contract stays in force regardless of where
+a layer's icon came from: give the stack a `label` and the *whole* stack
+becomes `role="img"` with that label — individual layers are never labeled
+on their own — or omit `label` and the whole stack is `aria-hidden`.
+
+A direct `@tabler/icons-react` import like the one above still trips
+`gds-compliance`'s `strict.import.tabler-icons` rule outside
+`packages/gds-core/`, `packages/gds-admin/`, and `packages/gds-theme/` —
+exactly as it should. That isn't a compliance gap to route around; it's
+what the rule's own `package-coverage-gap` exception category exists for.
+Declare it in `gds-adoption.json`'s `approvedExceptions`: the entry needs
+the base fields every approved exception carries (`surface`, `reason`,
+`owner`, `reviewDate`) plus the fields a `package-coverage-gap` exception
+itself requires (`category: 'package-coverage-gap'`, `scope`,
+`allowedImplementation`, `mustStillUse`, `mustNotDo`, `exitCondition`,
+`status`) — see `packages/gds-compliance/index.js`'s
+`EXCEPTION_REQUIRED_FIELDS` for the enforced schema.
 
 ## Hand-built shape+icon compositions must match `GdsBadge`'s own contract
 

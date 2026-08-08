@@ -171,3 +171,47 @@ success. Rewriting already-pushed git history to strip old attribution is
 a destructive, hard-to-reverse operation on a shared branch — it still
 requires the explicit per-instance confirmation Rule 6 already requires for
 history rewrites; don't do it silently just because this policy exists.
+
+## 10. Fixes on the GDS page are always system-level — no detours (owner directive, 2026-08-08)
+
+`apps/playground` (the GDS website: patterns, live demos, Theme Lab, and
+every other route users see) is not just documentation — it is a **live
+demonstration of the system itself**. Anything wrong there is, by
+construction, wrong in the shared system, because the playground is
+required to consume `gds-core`/`gds-theme`/`gds-admin` the same way any
+other consumer does (see the top-level "Public reference site" framing in
+`COMPONENTS_AND_PATTERNS.md` and the `verify:playground-gds-only`/
+`verify:owned-contrast-compliance` gates that enforce it). This makes
+fixing a GDS-page bug categorically different from fixing an ordinary
+consumer-app bug:
+
+- **Diagnose to the real component, not the page.** When something is
+  broken on the GDS page, find and fix the root cause in the shared package
+  that renders it (`packages/gds-core`, `packages/gds-theme`,
+  `packages/gds-admin`, etc.) — never in `apps/playground` itself, and never
+  with a page-local override, wrapper, or workaround that only patches what
+  the user happens to see. A fix that only changes `apps/playground` without
+  touching the governed component it renders through is not a fix — it is a
+  detour, and detours on this point are **strictly forbidden**, no
+  exceptions, regardless of how small or urgent the visible symptom is.
+- **No hardcoded styles, anywhere in the fix.** Every color, spacing,
+  radius, size, or other visual value introduced or changed must come from
+  a governed design token (Mantine's own token/spacing/radius scale, or a
+  GDS `--gds-*` custom property) — never a raw hex/rgb literal, a bare
+  pixel/rem number, or a magic constant invented to make one screenshot
+  look right.
+- **No unique/one-off CSS.** Do not add page-scoped stylesheets, inline
+  `style` overrides, CSS Modules, or any selector that exists to style the
+  GDS page differently from how the shared component already renders for
+  every other consumer. If the shared component's own default is wrong,
+  fix the shared component's default — don't carve out an exception for the
+  page that happens to expose the bug.
+- **Verify the fix is systemic before calling it done.** After fixing the
+  shared component, confirm live (Rule 5) that the same defect doesn't
+  recur elsewhere the component is used, not just on the one route that was
+  reported.
+
+This rule sharpens Rule 1 (nothing broken ships) and Rule 4 (DoD) for the
+specific case of GDS-page bugs: the "requested behavior... demonstrably
+works" bar for a GDS-page fix is met only when the underlying shared
+component is fixed, not when the symptom on the page disappears.

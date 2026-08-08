@@ -247,13 +247,28 @@ html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone])
 
 html[data-gds-theme-preset] .mantine-Input-input,
 html[data-gds-theme-preset] .mantine-NativeSelect-input,
-html[data-gds-theme-preset] .mantine-Textarea-input,
+html[data-gds-theme-preset] .mantine-Textarea-input {
+  color: var(--gds-vibe-control-text);
+  background: var(--gds-vibe-control);
+  border: 1px solid color-mix(in srgb, var(--gds-vibe-border) 90%, var(--gds-vibe-primary));
+}
+
 /*
  * GdsSchemaForm's default field renderer (and any "bring your own input"
  * FormField usage) mounts plain native input/select/textarea elements — no
  * Mantine class to hang the rule above off of, so without this they fall
  * through to the browser's own native color-scheme rendering (a flat gray
  * box with an inset border in dark mode, unrelated to the theme palette).
+ * Unlike the Mantine-native rule above, these carry none of Mantine's own
+ * sizing: Mantine's single-line inputs vertically center text purely via a
+ * fixed `--input-height` and `--input-line-height: var(--input-height) - 2px`
+ * with zero vertical padding (all padding is horizontal-only, via
+ * `--input-padding-inline-*`) — so padding/radius must be set explicitly
+ * here, but must NOT be copied onto the Mantine-native classes above.
+ * Adding vertical padding there was tried once (#510) and shrank the
+ * available content box below that fixed 34px line-height, clipping select
+ * and input text (confirmed live: "Default runtime theme" render with its
+ * lower half cut off on the Theme Lab preset select).
  */
 html[data-gds-theme-preset] input:not([type='checkbox'], [type='radio'], [type='range'], [type='file'], [type='color'], [type='button'], [type='submit'], [type='reset'], [type='image']):not(.mantine-Input-input),
 html[data-gds-theme-preset] select:not(.mantine-NativeSelect-input),

@@ -54,7 +54,24 @@ export function SectionPanel({
   });
 
   return (
-    <Paper id={id} withBorder radius="xl" p="lg" style={{ background: toneBackgrounds[tone] }}>
+    // Responsive padding, not a flat `p="lg"`: this Paper is the outer shell
+    // every SectionPanel consumer nests further Paper-based cards inside (see
+    // ReferenceThemeExplorer's grid cards). Two flat-`lg` Paper shells
+    // stacking their own full padding ate up to ~35% of a narrow mobile
+    // viewport in unusable side margin before either card's own content
+    // started — confirmed live on a 390px viewport. `radius` drops one token
+    // (`xl` → `lg`) rather than going responsive: Mantine's `radius` prop is
+    // typed as a single `MantineRadius`, not the breakpoint-object `StyleProp`
+    // that spacing props like `p` accept, and a flat `lg` still keeps the
+    // corner proportional enough not to visually clip content at the new
+    // smaller mobile padding (the original `xl` would, at `xs` padding).
+    <Paper
+      id={id}
+      withBorder
+      radius="lg"
+      p={{ base: 'xs', sm: 'sm', md: 'lg' }}
+      style={{ background: toneBackgrounds[tone] }}
+    >
       <Stack gap="md">
         {(title || description || action) ? (
           <>

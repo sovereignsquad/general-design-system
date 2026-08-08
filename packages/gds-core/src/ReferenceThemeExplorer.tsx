@@ -176,7 +176,7 @@ function ThemePreviewSurface({
   copy: ExplorerCopy;
 }) {
   return (
-    <Paper withBorder radius="xl" p="lg">
+    <Paper withBorder radius="lg" p={{ base: 'xs', sm: 'sm', md: 'lg' }}>
       <Stack gap="lg">
         <Group justify="space-between" align="flex-start" wrap="wrap">
           <Stack gap={4}>
@@ -204,7 +204,7 @@ function ThemePreviewSurface({
         />
 
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
-          <Paper withBorder radius="lg" p="md">
+          <Paper withBorder radius="md" p={{ base: 'xs', sm: 'sm', md: 'md' }}>
             <Stack gap="sm">
               <Text fw={700} size="sm">
                 {copy.tokenControls}
@@ -271,8 +271,8 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
   return (
     <Paper
       withBorder
-      radius="xl"
-      p="lg"
+      radius="lg"
+      p={{ base: 'xs', sm: 'sm', md: 'lg' }}
       aria-label={copy.athleteGoldReferenceTitle ?? 'Athlete Gold reference surface'}
       {...surfaceProps}
     >
@@ -479,8 +479,8 @@ export function ReferenceThemeExplorer({
         <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} spacing="lg">
           <Paper
             withBorder
-            radius="xl"
-            p="lg"
+            radius="lg"
+            p={{ base: 'xs', sm: 'sm', md: 'lg' }}
           >
             <Stack gap="md">
               <Title order={4}>{copy.themePresetTitle}</Title>
@@ -526,8 +526,8 @@ export function ReferenceThemeExplorer({
 
           <Paper
             withBorder
-            radius="xl"
-            p="lg"
+            radius="lg"
+            p={{ base: 'xs', sm: 'sm', md: 'lg' }}
           >
             <Stack gap="md">
               <Title order={4}>{copy.brandOptionsTitle}</Title>
@@ -560,8 +560,8 @@ export function ReferenceThemeExplorer({
 
           <Paper
             withBorder
-            radius="xl"
-            p="lg"
+            radius="lg"
+            p={{ base: 'xs', sm: 'sm', md: 'lg' }}
           >
             <Stack gap="md" role="status" aria-live="polite">
               <Title order={4}>{copy.currentSelectionTitle}</Title>
@@ -626,8 +626,8 @@ export function ReferenceThemeExplorer({
             <Paper
               key={lane.themeKey}
               withBorder
-              radius="lg"
-              p="md"
+              radius="md"
+              p={{ base: 'xs', sm: 'sm', md: 'md' }}
               role="group"
               aria-label={`${lane.label} ${copy.cssVibeTheme}`}
               {...laneCardProps}
@@ -698,8 +698,8 @@ export function ReferenceThemeExplorer({
       >
         <Paper
           withBorder
-          radius="xl"
-          p="lg"
+          radius="lg"
+          p={{ base: 'xs', sm: 'sm', md: 'lg' }}
           {...(selectedVibe ? getGdsOwnedContrastProps({
             role: 'vibe-contract',
             tokens: createGdsOwnedContrastTokens(selectedVibe, {
@@ -718,7 +718,7 @@ export function ReferenceThemeExplorer({
               [copy.tokenLabels[4], selectedVibe.surfaceLight],
               [copy.tokenLabels[5], selectedVibe.surfaceDark],
             ].map(([label, value]) => (
-              <Paper key={label} withBorder radius="lg" p="md">
+              <Paper key={label} withBorder radius="md" p={{ base: 'xs', sm: 'sm', md: 'md' }}>
                 <Stack gap={8}>
                   <Box
                     aria-hidden="true"
@@ -751,7 +751,7 @@ export function ReferenceThemeExplorer({
       >
         <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
           {colorSchemeProof.map((item) => (
-            <Paper key={item.id} withBorder radius="lg" p="md">
+            <Paper key={item.id} withBorder radius="md" p={{ base: 'xs', sm: 'sm', md: 'md' }}>
               <Stack gap={6}>
                 <Badge variant="light" color={item.id === 'dark' ? 'violet' : item.id === 'auto' ? 'teal' : 'blue'} w="fit-content">
                   {copy.schemes[item.id]}
@@ -801,7 +801,7 @@ export function ReferenceThemeExplorer({
                 cssVariablesSelector={`#${comparisonPreviewRootId}`}
                 applyDocumentColorScheme={false}
               >
-                <Paper withBorder radius="xl" p="lg">
+                <Paper withBorder radius="lg" p={{ base: 'xs', sm: 'sm', md: 'lg' }}>
                   <Stack gap="md">
                     <Group justify="space-between" align="flex-start" wrap="wrap">
                       <Stack gap={4}>
@@ -840,7 +840,7 @@ export function ReferenceThemeExplorer({
             compact
           />
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
-            <Paper withBorder radius="lg" p="md">
+            <Paper withBorder radius="md" p={{ base: 'xs', sm: 'sm', md: 'md' }}>
               <Stack gap={6}>
                 <Text fw={700} size="sm">
                   {copy.approvedRemediation}
@@ -848,7 +848,7 @@ export function ReferenceThemeExplorer({
                 <Code block>createPublicBrandTheme({`{ flatSurfaces: true, overrides: { primaryColor: 'blue' } }`})</Code>
               </Stack>
             </Paper>
-            <Paper withBorder radius="lg" p="md">
+            <Paper withBorder radius="md" p={{ base: 'xs', sm: 'sm', md: 'md' }}>
               <Stack gap={6}>
                 <Text fw={700} size="sm">
                   {copy.prohibitedOwnership}
