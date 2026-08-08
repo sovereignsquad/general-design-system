@@ -46,6 +46,10 @@ export type { OverlayAdapter, GdsOverlayConfig, GdsOverlayPlacement, GdsOverlayR
 export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIdsByScript, getGdsLocaleMetadata, isGdsRtlLocale, useGdsTranslation } from './i18n';
 export type { GdsI18nContextValue, GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './i18n';
 
+// ── Badge icon style (issue #525) ──
+export { GdsIconStyleContext, useGdsBadgeIconStyle } from './icon-style';
+export type { GdsBadgeIconStyle, GdsIconStyleContextValue } from './icon-style';
+
 // ── Notifications ──
 export { showGdsNotification } from './notifications';
 export type { GdsNotificationOptions, GdsNotificationTone } from './notifications';

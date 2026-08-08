@@ -7,6 +7,7 @@ import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { gdsTheme } from './theme';
 import { GdsI18nContext, isGdsRtlLocale } from './i18n';
+import { GdsIconStyleContext, type GdsBadgeIconStyle } from './icon-style';
 import { OverlayAdapterProvider, mantineOverlayAdapter, type OverlayAdapter } from './overlay-adapter';
 
 /** Props for `GdsProvider`, the single required root provider. */
@@ -34,6 +35,15 @@ export interface GdsProviderProps {
    * consumer code or component API.
    */
   overlayAdapter?: OverlayAdapter;
+  /**
+   * Ambient badge glyph mode for `GdsBadge`/`GdsMapPinBadge` (issue #525).
+   * Defaults to `'tabler'` — every existing consumer's current behavior,
+   * unchanged. Set to `'emoji'` to switch every badge whose category has
+   * an emoji to render it, with badges lacking one falling back to their
+   * Tabler icon automatically. Individual badges can still override this
+   * locally via their own `iconStyle` prop.
+   */
+  defaultBadgeIconStyle?: GdsBadgeIconStyle;
 }
 
 type GdsMantineColorScheme = 'light' | 'dark' | 'auto';
@@ -83,6 +93,7 @@ export function GdsProvider({
   cssVariablesSelector = ':root',
   applyDocumentColorScheme = true,
   overlayAdapter = mantineOverlayAdapter,
+  defaultBadgeIconStyle = 'tabler',
 }: GdsProviderProps) {
   const isRtl = isGdsRtlLocale(locale);
   const dir = isRtl ? 'rtl' : 'ltr';
@@ -121,32 +132,34 @@ export function GdsProvider({
   return (
     <DirectionProvider initialDirection={dir}>
       <GdsI18nContext.Provider value={{ locale, messages }}>
-        <MantineProvider
-          theme={theme}
-          withCssVariables
-          withGlobalClasses
-          colorSchemeManager={colorSchemeManager}
-          defaultColorScheme={defaultColorScheme}
-          forceColorScheme={forceColorScheme}
-          getRootElement={colorSchemeRootElement}
-          cssVariablesSelector={cssVariablesSelector}
-        >
-          <ModalsProvider>
-            <OverlayAdapterProvider adapter={overlayAdapter}>
-              <Notifications />
-              <Box
-                dir={dir}
-                mih="100vh"
-                h="100%"
-                bg="var(--mantine-color-body)"
-                c="var(--mantine-color-text)"
-                style={{ ...themeCssVariables, transition: 'background-color 120ms ease, color 120ms ease' }}
-              >
-                {children}
-              </Box>
-            </OverlayAdapterProvider>
-          </ModalsProvider>
-        </MantineProvider>
+        <GdsIconStyleContext.Provider value={{ badgeIconStyle: defaultBadgeIconStyle }}>
+          <MantineProvider
+            theme={theme}
+            withCssVariables
+            withGlobalClasses
+            colorSchemeManager={colorSchemeManager}
+            defaultColorScheme={defaultColorScheme}
+            forceColorScheme={forceColorScheme}
+            getRootElement={colorSchemeRootElement}
+            cssVariablesSelector={cssVariablesSelector}
+          >
+            <ModalsProvider>
+              <OverlayAdapterProvider adapter={overlayAdapter}>
+                <Notifications />
+                <Box
+                  dir={dir}
+                  mih="100vh"
+                  h="100%"
+                  bg="var(--mantine-color-body)"
+                  c="var(--mantine-color-text)"
+                  style={{ ...themeCssVariables, transition: 'background-color 120ms ease, color 120ms ease' }}
+                >
+                  {children}
+                </Box>
+              </OverlayAdapterProvider>
+            </ModalsProvider>
+          </MantineProvider>
+        </GdsIconStyleContext.Provider>
       </GdsI18nContext.Provider>
     </DirectionProvider>
   );

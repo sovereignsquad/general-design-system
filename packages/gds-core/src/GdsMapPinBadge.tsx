@@ -1,5 +1,7 @@
 import { cloneElement, isValidElement } from 'react';
 import type { ReactNode } from 'react';
+import { gdsDevWarnOnce, useGdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
+import type { GdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
 import { GdsBadgeStack, GdsBadgeStackLayer } from './GdsBadgeStack';
 import { GdsBadgeShapePin } from './badge-shapes';
 import { GdsIcon } from './icons';
@@ -106,6 +108,24 @@ export interface GdsMapPinBadgeProps {
   shade?: GdsBadgeAccentShade;
   /** Marker size (width = height). Defaults to `40`. */
   size?: number | string;
+  /**
+   * Emoji glyph rendered instead of `icon` when the effective badge glyph
+   * mode is `'emoji'` (issue #525) — see `iconStyle` and `GdsProvider`'s
+   * `defaultBadgeIconStyle`. Optional: a marker with no `emoji` simply
+   * keeps rendering its Tabler `icon` even in emoji mode. In emoji mode the
+   * pin fills with a fixed dark-neutral disc (never the accent color, and
+   * never governed by `filled`/`fillOpacity` — both are ignored, with a
+   * dev-mode warning, since emoji legibility needs a fixed neutral behind
+   * it rather than an arbitrary accent) while the ring/silhouette keeps
+   * `accent`, matching the client-provided reference composition.
+   */
+  emoji?: string;
+  /**
+   * Per-instance override for the ambient badge glyph mode (issue #525).
+   * Defaults to whatever `GdsProvider`'s `defaultBadgeIconStyle` resolves
+   * to (itself defaulting to `'tabler'`, today's only behavior).
+   */
+  iconStyle?: GdsBadgeIconStyle;
 }
 
 const isIconKey = (icon: GdsIconKey | ReactNode): icon is GdsIconKey => typeof icon === 'string';
@@ -125,10 +145,25 @@ const PIN_HEAD_CENTER_OFFSET = 'translateY(-4.1667%)';
 const ICON_SCALE = 0.46;
 
 /**
+ * Fixed dark-neutral fill for the emoji-mode pin disc (issue #525) — the
+ * same value `GdsBadge`'s own emoji coin and `toneColors.neutral` (in
+ * `GdsBadge.tsx`) already use. Fixed, not theme- or brand-specific, so
+ * emoji legibility doesn't depend on which of the 25 presets or 10 accents
+ * is active — the same reasoning `GdsBadge`'s emoji coin documents.
+ */
+const EMOJI_DISC_FILL = 'var(--mantine-color-dark-7, #1f2937)';
+
+/**
  * Category-colored map-pin marker: a pin outline and a centered icon in one
  * curated `accent` color, exactly two layers. See the module docs for why
  * this exists instead of hand-composing `GdsBadgeShapePin` + an icon, and
  * why there is no ring/capsule option.
+ *
+ * `emoji`/`iconStyle` (issue #525) add a third pin composition alongside
+ * outline/filled: the ring stays `accent`, but the pin fills with a fixed
+ * dark-neutral disc (`EMOJI_DISC_FILL`) and the emoji renders centered on
+ * it, ignoring `filled`/`fillOpacity` — modeled directly on a client-
+ * provided reference (a sports-activity map using this component).
  *
  * @example
  * ```tsx
@@ -136,15 +171,39 @@ const ICON_SCALE = 0.46;
  * <GdsMapPinBadge accent="forest" icon={<IconBallFootball />} label="Riverside Field — soccer" filled />
  * <GdsMapPinBadge accent="forest" icon="Habit" label="Trailhead" filled fillOpacity={0.85} />
  * <GdsMapPinBadge accent="forest" shade="deeper" icon={<IconBallBasketball />} label="Rec Center — basketball" filled />
+ * <GdsMapPinBadge accent="terracotta" icon={<IconBallBasketball />} emoji="🏀" label="Pivot Point Basketball" />
  * ```
  */
-export function GdsMapPinBadge({ accent, icon, label, filled = false, fillOpacity = 1, shade = 'base', size = 40 }: GdsMapPinBadgeProps) {
+export function GdsMapPinBadge({
+  accent,
+  icon,
+  label,
+  filled = false,
+  fillOpacity = 1,
+  shade = 'base',
+  size = 40,
+  emoji,
+  iconStyle,
+}: GdsMapPinBadgeProps) {
   const accentColor = gdsBadgeAccentShades[accent][shade];
   const inverseColor = 'var(--gds-text-on-inverse, var(--mantine-color-white))';
+  const resolvedIconStyle = useGdsBadgeIconStyle(iconStyle);
+  // The failsafe (issue #525): a marker with no `emoji` keeps its Tabler
+  // icon even when the ambient/overridden mode is `'emoji'`.
+  const useEmoji = resolvedIconStyle === 'emoji' && Boolean(emoji);
+
+  if (useEmoji && filled) {
+    gdsDevWarnOnce(
+      'GdsMapPinBadge:emoji-with-filled',
+      'GdsMapPinBadge received both an active `emoji` glyph and `filled` — emoji mode always fills the pin with its own fixed dark-neutral disc, so `filled`/`fillOpacity` have no effect while emoji is active.',
+    );
+  }
+
   // Filled mode: the icon must contrast with the pin's own fill, so it
   // switches to the inverse color — it never reuses `accentColor` once the
   // pin behind it is that same color. Outline mode: there is no fill to
-  // collide with, so pin and icon share the one accent color.
+  // collide with, so pin and icon share the one accent color. Emoji mode
+  // doesn't use this at all — the emoji glyph carries its own color.
   const iconColor = filled ? inverseColor : accentColor;
 
   // Externally-sourced icons (not a GdsIconKey) get their stroke forced to
@@ -156,16 +215,14 @@ export function GdsMapPinBadge({ accent, icon, label, filled = false, fillOpacit
       ? cloneElement(icon, { stroke: 1.75 })
       : icon;
 
+  const pinFill = useEmoji ? EMOJI_DISC_FILL : filled ? accentColor : 'none';
+  const pinFillOpacity = useEmoji ? 1 : filled ? fillOpacity : undefined;
+  const numericSize = typeof size === 'number' ? size : undefined;
+
   return (
     <GdsBadgeStack size={size} label={label}>
       <GdsBadgeStackLayer>
-        <GdsBadgeShapePin
-          size="100%"
-          stroke={1.75}
-          color={accentColor}
-          fill={filled ? accentColor : 'none'}
-          fillOpacity={filled ? fillOpacity : undefined}
-        />
+        <GdsBadgeShapePin size="100%" stroke={1.75} color={accentColor} fill={pinFill} fillOpacity={pinFillOpacity} />
       </GdsBadgeStackLayer>
       {/*
         A GdsBadgeStackLayer's `scale` prop applies via a CSS class reading
@@ -175,9 +232,21 @@ export function GdsMapPinBadge({ accent, icon, label, filled = false, fillOpacit
         directly in this transform string instead of left to the `scale`
         prop to add on top.
       */}
-      <GdsBadgeStackLayer style={{ transform: `${PIN_HEAD_CENTER_OFFSET} scale(${ICON_SCALE})`, color: iconColor }}>
-        {iconElement}
-      </GdsBadgeStackLayer>
+      {useEmoji ? (
+        <GdsBadgeStackLayer
+          style={{
+            transform: PIN_HEAD_CENTER_OFFSET,
+            fontSize: numericSize ? `${numericSize * 0.5}px` : '55%',
+            lineHeight: 1,
+          }}
+        >
+          <span aria-hidden="true">{emoji}</span>
+        </GdsBadgeStackLayer>
+      ) : (
+        <GdsBadgeStackLayer style={{ transform: `${PIN_HEAD_CENTER_OFFSET} scale(${ICON_SCALE})`, color: iconColor }}>
+          {iconElement}
+        </GdsBadgeStackLayer>
+      )}
     </GdsBadgeStack>
   );
 }

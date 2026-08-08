@@ -1,6 +1,6 @@
 {
   "name": "@sovereignsquad/gds-a11y",
-  "version": "4.1.8",
+  "version": "4.1.10",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
