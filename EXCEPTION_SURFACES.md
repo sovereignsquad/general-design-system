@@ -1,7 +1,7 @@
 # Exception Surfaces
 
 Status: Active SSOT
-Version: 4.1.6
+Version: 4.1.7
 Last updated: 2026-07-26
 
 This document defines which surfaces stay outside first-class GDS component ownership, how they must still integrate with the system, and how they must be documented through the canonical exception contract.
