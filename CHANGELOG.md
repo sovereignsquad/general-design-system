@@ -2,6 +2,107 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.5 - 2026-08-08 — Fix clipped select/input text, mobile side-margin waste in the shared section/card primitives, and verify:release preview-server flakiness (#513, #515)
+
+User-reported live bug on `/themes` at a narrow (390px) mobile viewport:
+the "Preset" dropdown's selected text rendered with its lower half clipped,
+and large side margins around the Theme Lab cards left little room for the
+actual controls. Root-caused and fixed at the shared-component level, not
+with a page-local CSS patch, so both fixes apply everywhere the underlying
+primitives are used.
+
+- **Clipped select/input text.** `packages/gds-theme/styles.css`'s #510
+  dark-mode-gap fix added `padding: 0.5rem ...` directly to
+  `.mantine-Input-input` / `.mantine-NativeSelect-input` /
+  `.mantine-Textarea-input` — but Mantine's own single-line inputs
+  vertically center text purely via a fixed `--input-height` and
+  `--input-line-height: var(--input-height) - 2px`, with **zero** vertical
+  padding of its own (all Mantine input padding is horizontal-only).
+  Stacking an extra 8px top/bottom padding on top of that fixed-height box
+  shrank the usable content area below the 34px line-height, clipping text.
+  Split the rule: Mantine-native classes now get color/background/border
+  only; the explicit padding/radius stays on the raw/bare-native-element
+  fallback selectors, which have none of Mantine's own sizing and genuinely
+  need them. Confirmed live: computed `padding` went from `8px 12px` (text
+  clipped) to `0px 34px 0px 12px` (horizontal-only, text fully legible),
+  with the line-height unchanged.
+- **Wasted mobile side margins.** `SectionPanel` (`packages/gds-core/src/SectionPanel.tsx`)
+  — the shared, governed wrapper behind `ReferenceSection` and used across
+  dashboards, detail pages, and settings surfaces system-wide — wrapped its
+  content in a `Paper` with a flat `p="lg"`. `ReferenceThemeExplorer`
+  (`packages/gds-core/src/ReferenceThemeExplorer.tsx`) then nested further
+  `Paper` cards with their own flat `p="lg"`/`p="md"` directly inside it,
+  stacking two (sometimes three) levels of full desktop-sized card padding
+  on a 390px viewport. Measured: the "Theme preset" card's content box was
+  252px wide out of 390px (64.6%) before the fix. `SectionPanel`'s padding
+  is now responsive (`p={{ base: 'xs', sm: 'sm', md: 'lg' }}`); all 12
+  `Paper` instances in `ReferenceThemeExplorer.tsx` (the Theme Lab grid,
+  live-preview surfaces, vibe gallery, vibe-contract swatches, proof cards,
+  unsupported-pattern cards) got the same treatment, so the whole page is
+  fixed consistently, not just the one card in the bug report. `radius`
+  drops one token (`xl`→`lg`, `lg`→`md`) rather than going responsive —
+  Mantine's `radius` prop is a single `MantineRadius`, not the
+  breakpoint-object `StyleProp` spacing props like `p` accept. Measured
+  after: 272px of 390px (69.7%). No hardcoded pixel values: every value is
+  a Mantine spacing/radius token, using the same responsive style-prop
+  pattern already established by `GdsContainer`'s own default padding.
+  Verified no desktop (1440px) regression via screenshot.
+- **`verify:release` runtime-gate flakiness fixed at its source (#515).**
+  `scripts/lib/browser-runtime.mjs`'s `startPreviewServer()` spawned the
+  playground preview server via `npm run preview`, which runs `vite` as a
+  grandchild process; each `verify-*-runtime.mjs` script cleaned it up with
+  an un-awaited `previewServer?.kill('SIGTERM')` on only the `npm` PID,
+  which does not reliably reach that grandchild. Confirmed live: a `vite
+  preview` process from a completed script was still alive and bound to
+  port 4173 several minutes later, letting a *later* script's own preview
+  server race against the stale one — producing intermittent failures on a
+  shifting set of unrelated routes/themes/viewports across consecutive
+  runs (never the same case twice, unlike a real content bug). Fixed by
+  spawning detached and killing the whole process group
+  (`process.kill(-pid, signal)`, escalating to `SIGKILL` after a 3s grace
+  period), awaiting the actual `exit` event before returning — mirroring
+  `disposeBrowser`'s existing wait-for-real-exit approach for the Chrome
+  side of the same file. All 5 call sites now `await` the kill.
+  `scripts/verify-theme-trust-runtime.mjs` also gets a scoped timeout
+  increase (`waitForReady` 12s→25s, inter-retry wait 600ms→2000ms): it's
+  the last of five Chrome-launching runtime gates in the full `verify:release`
+  chain, run only after two full workspace builds, lint, and the test suite,
+  and two independent single-browser-per-run architectures for it were
+  tried and reverted first — recycling the Chrome session every 4 cases,
+  then every case — both made failures *worse* (up to 13 of 22 cases,
+  spread across unrelated routes), confirming rapid browser process churn
+  is itself disruptive in this environment rather than a fix. The original
+  architecture passed reliably in isolation (22/22, twice); more time
+  margin at the point in the chain where cumulative load is highest was the
+  change that actually held.
+
+## 4.1.4 - 2026-08-08 — Badge icon composition docs: scope the closed-vocabulary rule to `icon`, document `GdsBadgeStack`'s open escape hatch (#497)
+
+Docs-only fix. `BADGE_SYSTEM.md`'s "Canonical icons in badges" bullet and
+`COMPONENTS_AND_PATTERNS.md`'s badge rule row both stated, without
+qualification, that badge icons always render through the governed
+`GdsIcons` dictionary — true for `StatusBadge`/`MeaningBadge`/`GdsBadge`'s
+closed `icon` prop, but silent about `GdsBadgeStackLayer`
+(`packages/gds-core/src/GdsBadgeStack.tsx`), whose `children: ReactNode` is
+untyped by design (`GdsIcon` withholds the `className`/`style`/`ref`
+composition surface a layering primitive needs), leaving no documented path
+for icons `GdsIcons` has no entry for (sports/hobbies/interest categories,
+the same gap `GdsMapPinBadge`'s own docs already cover for its `icon` prop).
+
+- **`docs/BADGE_SYSTEM.md`**: rescoped the "Canonical icons in badges"
+  bullet to `GdsBadge`/`StatusBadge`/`MeaningBadge`'s `icon` prop
+  specifically, and added a new "Composing icons `GdsIcons` doesn't have"
+  section documenting `GdsBadgeStack`/`GdsBadgeStackLayer` as the sanctioned
+  composition path — including `GdsBadgeStack`'s whole-stack `label` →
+  `role="img"` accessibility contract, and the real `gds-compliance`
+  `package-coverage-gap` exception schema
+  (`packages/gds-compliance/index.js`'s `EXCEPTION_REQUIRED_FIELDS` plus the
+  base `surface`/`reason`/`owner`/`reviewDate` fields every approved
+  exception requires) a consumer declares in `gds-adoption.json` to compose
+  an external `@tabler/icons-react` icon into a layer.
+- **`COMPONENTS_AND_PATTERNS.md`**: mirrored the same scoping and pointer in
+  the badges row of the core component contract table.
+
 ## 4.1.3 - 2026-08-07 — PageHeader title/action overlap and ActionBar wrapped-row alignment (#511)
 
 Found via user-reported screenshots on a narrow mobile viewport (title text

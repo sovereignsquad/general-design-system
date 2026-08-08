@@ -229,7 +229,7 @@ try {
   await client.close();
 } finally {
   await browserSession.close();
-  previewServer?.kill('SIGTERM');
+  await previewServer?.kill('SIGTERM');
 }
 
 if (failures.length) {
