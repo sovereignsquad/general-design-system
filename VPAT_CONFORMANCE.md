@@ -1,10 +1,10 @@
 # Accessibility Conformance Report (VPAT® 2.5) — General Design System
 
 Status: Active SSOT
-Version: 4.1.5
+Version: 4.1.6
 Last updated: 2026-07-26
 
-**Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `4.1.5`
+**Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `4.1.6`
 **Report Date:** 2026-07-25
 **Product Description:** A governed React + Mantine component and pattern library (theme, core components, admin scaffolds, accessibility CI helpers) consumed by product teams to build accessible application and public-site UIs.
 **Contact Information:** file an accessibility issue or question through the repository's feature/intake channel — the [`request-feature`](https://sovereignsquad.github.io/general-design-system/request-feature) route or the [GitHub issue board](PROJECT_BOARD.md).

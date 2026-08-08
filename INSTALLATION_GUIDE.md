@@ -1,8 +1,8 @@
 # Installation Guide
 
 Status: Active SSOT
-Version: 4.1.5
-Last updated: 2026-08-05
+Version: 4.1.6
+Last updated: 2026-08-08
 
 This guide is the canonical consumer setup path for the public umbrella package `@sovereignsquad/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
@@ -65,7 +65,7 @@ Use icons through the GDS-owned `GdsIcons` surface (`import { GdsIcons } from '@
 
 Release-line rule:
 
-- current stable package line: `4.1.5`
+- current stable package line: `4.1.6`
 - current major line: `3.0.x`
 - do not announce or ask clients to install a new version until `npm run verify:published` confirms availability on GitHub Packages
 
@@ -94,23 +94,23 @@ See [COMPATIBILITY_AND_RELEASES.md](COMPATIBILITY_AND_RELEASES.md) and [VERIFIED
 
 All commands below assume the `.npmrc` from "Single install surface" is already in place.
 
-Preferred `4.1.5` runtime package:
+Preferred `4.1.6` runtime package:
 
 ```bash
-npm install @sovereignsquad/gds@4.1.5
+npm install @sovereignsquad/gds@4.1.6
 ```
 
 Governance packages:
 
 ```bash
-npm install -D @sovereignsquad/gds-eslint-config@4.1.5 @sovereignsquad/gds-compliance@4.1.5 @sovereignsquad/gds-a11y@4.1.5
+npm install -D @sovereignsquad/gds-eslint-config@4.1.6 @sovereignsquad/gds-compliance@4.1.6 @sovereignsquad/gds-a11y@4.1.6
 ```
 
 Granular runtime packages when package separation is intentional:
 
 ```bash
-npm install @sovereignsquad/gds-theme@4.1.5 @sovereignsquad/gds-core@4.1.5 @sovereignsquad/gds-admin@4.1.5
-npm install -D @sovereignsquad/gds-eslint-config@4.1.5 @sovereignsquad/gds-compliance@4.1.5 @sovereignsquad/gds-a11y@4.1.5
+npm install @sovereignsquad/gds-theme@4.1.6 @sovereignsquad/gds-core@4.1.6 @sovereignsquad/gds-admin@4.1.6
+npm install -D @sovereignsquad/gds-eslint-config@4.1.6 @sovereignsquad/gds-compliance@4.1.6 @sovereignsquad/gds-a11y@4.1.6
 ```
 
 Required peers:
@@ -359,8 +359,56 @@ For **local development**, each developer uses their own classic PAT (`read:pack
 If your app currently installs `@sovereignsquad/gds-core@3.9.0` / `@sovereignsquad/gds-theme@3.9.0` (or the `@sovereignsquad/gds@3.9.0` umbrella) from **npmjs.com**, those listings are a frozen, deprecated snapshot that will not receive updates. Move to GitHub Packages:
 
 1. Add the `.npmrc` and token from [Single install surface](#single-install-surface).
-2. Switch to the recommended umbrella at the current version: `npm install @sovereignsquad/gds@4.1.5` (it re-exports `gds-core`, `gds-theme`, and `gds-admin`, so you depend on one package instead of several). If you prefer to keep the split packages, install `@sovereignsquad/gds-core@4.1.5` / `@sovereignsquad/gds-theme@4.1.5` instead — both resolve from GitHub Packages.
+2. Switch to the recommended umbrella at the current version: `npm install @sovereignsquad/gds@4.1.6` (it re-exports `gds-core`, `gds-theme`, and `gds-admin`, so you depend on one package instead of several). If you prefer to keep the split packages, install `@sovereignsquad/gds-core@4.1.6` / `@sovereignsquad/gds-theme@4.1.6` instead — both resolve from GitHub Packages.
 3. The exports the 3.9.0 line exposed remain available at 3.14.x (for example `OverlayManagerProvider`, `useOverlayManager`, `DiscoveryShell`, and `SidebarNavItem` from `@sovereignsquad/gds-core`), so import paths that used the split package names keep working; the umbrella re-exports them under `@sovereignsquad/gds` as well.
+
+#### Behavioral changes to budget for between 3.9.0 and the current line
+
+The registry move above is the only *install-path* change. Separately, real
+product behavior changed across the releases in between — each one is
+individually additive/backward-compatible on its own terms, but a consumer
+jumping straight from 3.9.0 to current will see all of them at once. None
+require a rewrite; each has a concrete, bounded action (or none):
+
+- **Mobile inputs render larger text, with no code change (3.11.0, #379/#380).**
+  `gdsTheme` now floors the effective font-size of every Mantine
+  `Input`-based control (`TextInput`, `Textarea`, `NativeSelect`, `Select`,
+  `PasswordInput`, `NumberInput`, `MultiSelect`, `Autocomplete`, `TagsInput`,
+  and `gds-admin`'s `AdminTextInput`/`AdminTextarea`/`AdminSelect`) to at
+  least 16px at the `xs`/`sm`/default sizes, to stop iOS Safari/Chrome's
+  forced page-zoom on input focus. Any `xs`/`sm`/default-size input goes
+  from 12–14px to 16px text purely from the version bump — a real visual
+  diff, not a regression. `md`/`lg`/`xl` sizes (already ≥16px) are
+  unchanged. See [`docs/PWA_VIEWPORT_POLICY.md`](docs/PWA_VIEWPORT_POLICY.md).
+  **Action:** none required; re-check any pixel-perfect input-height
+  screenshots/snapshot tests.
+- **`GdsPageTemplateAction.pending` renamed to `loading` (3.13.0, #405).**
+  Matches every other GDS action/button API. `pending` is still honored as
+  a backward-compatible alias (mapped to `loading`, with a one-time
+  dev-only deprecation warning) and will be removed in a future major.
+  **Action:** none required to keep working; rename `pending` → `loading`
+  at your own pace before the next major to avoid the removal later.
+- **`gds-theme`'s date-component stylesheet became opt-in (3.14.0, #433).**
+  `@sovereignsquad/gds-theme/styles.css` no longer unconditionally
+  `@import`s `@mantine/dates/styles.css`. If you render `GdsDateInput`,
+  `GdsDateTimeInput`, `GdsDateRangeInput`, or a `GdsSchemaForm` `date`
+  field, **action required:** add
+  `import '@sovereignsquad/gds-theme/dates.css';` alongside your existing
+  `styles.css` import, or those components render unstyled. Consumers who
+  render no date component need neither this import nor the
+  `@mantine/dates`/`dayjs` packages.
+- **The `4.0.0` major bump was a release-process artifact, not a breaking
+  API change.** A pre-release `3.15.0` (a subset of the badge-system epic)
+  had already been published to the registry the same day the epic's
+  remaining work landed; a published package version is immutable, so
+  shipping the rest of that work required a new version number, and the
+  next available one was a major. Every change actually shipped in `4.0.0`
+  is additive and backward compatible — budget it like any other minor,
+  not like a real breaking-change major.
+
+Consult `CHANGELOG.md` for the full release-by-release detail; the four
+items above are the ones with real user-visible or action-required impact
+between 3.9.0 and the current line.
 
 ## 7. Common mistakes
 
@@ -376,6 +424,6 @@ Do not:
 
 ## 8. Release-visibility artifacts (not an install path)
 
-Each `gds-v<VERSION>` tag (for example `gds-v4.1.5`) also gets a GitHub Release page with `.tgz` tarballs attached, generated by `.github/workflows/release-bundles.yml`. This exists for release-notes visibility and offline/audit purposes — it is **not** a documented or supported consumer install path. Install from GitHub Packages as described above.
+Each `gds-v<VERSION>` tag (for example `gds-v4.1.6`) also gets a GitHub Release page with `.tgz` tarballs attached, generated by `.github/workflows/release-bundles.yml`. This exists for release-notes visibility and offline/audit purposes — it is **not** a documented or supported consumer install path. Install from GitHub Packages as described above.
 
 See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the full publish/release process.
