@@ -1,8 +1,8 @@
 # Portfolio Adoption Matrix
 
 Status: Active SSOT
-Version: 4.1.6
-Last updated: 2026-07-26
+Version: 4.1.7
+Last updated: 2026-08-08
 
 This matrix gives the shared GDS a portfolio-level view of where each project stands, what kind of migration it needs, and what the next practical move should be.
 

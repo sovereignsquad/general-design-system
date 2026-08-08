@@ -1,8 +1,8 @@
 # Governance & Adoption
 
 Status: Active SSOT
-Version: 4.1.6
-Last updated: 2026-07-26
+Version: 4.1.7
+Last updated: 2026-08-08
 
 This document defines how products adopt the design system, enforce compliance, and migrate legacy UI. 
 

@@ -1,8 +1,8 @@
 # Contributing
 
 Status: Active
-Version: 4.1.6
-Last updated: 2026-07-31
+Version: 4.1.7
+Last updated: 2026-08-08
 
 This repository is shared design-system infrastructure.
 
