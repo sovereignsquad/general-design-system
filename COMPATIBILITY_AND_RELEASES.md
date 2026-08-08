@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 4.1.7
+Version: 4.1.8
 Last updated: 2026-08-08
 
 This document defines the supported package/runtime contract for the umbrella package `@sovereignsquad/gds` and the granular runtime packages `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.
@@ -49,29 +49,29 @@ GDS publishes current and future releases to GitHub Packages, the canonical regi
 
 Current live status:
 
-- published baseline (GitHub Packages): `4.1.7`
-- current repository line: `4.1.7`
+- published baseline (GitHub Packages): `4.1.8`
+- current repository line: `4.1.8`
 - current major line: `3.x`
 
 Consumer repos should install the latest published version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
 Authenticated release operators should use [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md); publishing itself runs only through `.github/workflows/publish-github-packages.yml` in CI, not from a maintainer's machine.
 
-For the current `4.1.7` line, the install contract is (requires the `.npmrc` block above):
+For the current `4.1.8` line, the install contract is (requires the `.npmrc` block above):
 
 ```bash
-npm install @sovereignsquad/gds@4.1.7
-npm install -D @sovereignsquad/gds-eslint-config@4.1.7 @sovereignsquad/gds-compliance@4.1.7
+npm install @sovereignsquad/gds@4.1.8
+npm install -D @sovereignsquad/gds-eslint-config@4.1.8 @sovereignsquad/gds-compliance@4.1.8
 ```
 
 Granular consumers should use the same version across every package:
 
 ```bash
-npm install @sovereignsquad/gds-theme@4.1.7 @sovereignsquad/gds-core@4.1.7 @sovereignsquad/gds-admin@4.1.7
-npm install -D @sovereignsquad/gds-eslint-config@4.1.7 @sovereignsquad/gds-compliance@4.1.7
+npm install @sovereignsquad/gds-theme@4.1.8 @sovereignsquad/gds-core@4.1.8 @sovereignsquad/gds-admin@4.1.8
+npm install -D @sovereignsquad/gds-eslint-config@4.1.8 @sovereignsquad/gds-compliance@4.1.8
 ```
 
-Do not mix pre-3.0 package lines with `4.1.7` packages in the same consumer dependency graph.
+Do not mix pre-3.0 package lines with `4.1.8` packages in the same consumer dependency graph.
 
 ### Release-visibility artifacts (not an install path)
 

@@ -1,8 +1,8 @@
 # Layout Primitives
 
 Status: Active SSOT
-Version: 4.1.7
-Last updated: 2026-07-26
+Version: 4.1.8
+Last updated: 2026-08-08
 
 GDS layout primitives are the approved composition layer for product pages, admin tools, docs, public surfaces, and data-heavy workflows. They exist so consumers do not create local `Stack`, `Grid`, `Container`, `Sidebar`, negative-margin, or inline-style layout systems.
 

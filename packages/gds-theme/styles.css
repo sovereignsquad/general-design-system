@@ -711,9 +711,15 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .gds-card {
 
 html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']),
 html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
+  /* Solid fill, not a primary->accent gradient: this rule paints every
+     filled-style button inside a vibe-gallery/vibe-contract/athlete-gold-
+     reference preview, and a governed brand theme's real Button (e.g.
+     createBrandTheme('class-usa')'s Mantine `primaryColor` filled button)
+     is a single solid color. A gradient here would show users a button
+     style the theme itself never actually produces. */
   color: #ffffff !important;
-  background: linear-gradient(135deg, var(--gds-vibe-primary), var(--gds-vibe-accent)) !important;
-  border-color: color-mix(in srgb, var(--gds-vibe-primary) 72%, var(--gds-vibe-accent)) !important;
+  background: var(--gds-vibe-primary) !important;
+  border-color: var(--gds-vibe-primary) !important;
 }
 
 html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red'],

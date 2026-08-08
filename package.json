@@ -72,7 +72,7 @@
     "typescript": "^5.4.5",
     "vitest": "^4.1.8"
   },
-  "version": "4.1.7",
+  "version": "4.1.8",
   "overrides": {
     "tsup": {
       "esbuild": "0.28.1"
