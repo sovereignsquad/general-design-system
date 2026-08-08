@@ -659,7 +659,15 @@ export function ReferenceThemeExplorer({
                   style={{
                     height: 56,
                     borderRadius: 16,
-                    background: vibe.hero,
+                    // Full-strength primary->accent swatch, not the diluted
+                    // `vibe.hero` atmospheric wash: this box's only job is to
+                    // preview the lane's actual colors, and `hero`'s ~12-16%
+                    // opacity (tuned for use as a background wash behind other
+                    // content, see the vibe-contract Paper below) reads as an
+                    // indistinct pastel blob rather than the real palette.
+                    // Same recipe already used for the identity dot above and
+                    // the CSS owned-contrast Button rule in styles.css.
+                    background: `linear-gradient(135deg, ${vibe.primary}, ${vibe.accent})`,
                     border: `1px solid ${vibe.borderLight}`,
                   }}
                 />

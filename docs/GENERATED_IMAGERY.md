@@ -1,8 +1,8 @@
 # Generated Imagery
 
 Status: Active SSOT
-Version: 4.1.7
-Last updated: 2026-08-07
+Version: 4.1.8
+Last updated: 2026-08-08
 
 A turnkey, theme-managed generated-imagery system (epic #503):
 deterministic, zero-network SVG+HTML card thumbnails and hero backdrops

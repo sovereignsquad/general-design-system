@@ -1,8 +1,8 @@
 # Guided Onboarding Tour
 
 Status: Active SSOT
-Version: 4.1.7
-Last updated: 2026-08-06
+Version: 4.1.8
+Last updated: 2026-08-08
 
 A governed, accessible **guided tour** (spotlight coach-marks): it dims the
 viewport with the `--gds-overlay-scrim` token, cuts a spotlight hole over the

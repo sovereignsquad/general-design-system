@@ -2,6 +2,43 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.8 - 2026-08-08 — Theme Lab vibe-gallery preview: real colors, no fabricated gradients (#522)
+
+Two rounds of user-reported live bugs on `/themes`, both about the vibe-
+gallery card previewing colors/styling that don't match what a theme
+actually produces:
+
+1. The Class USA vibe-gallery card's color-preview swatch didn't visually
+   read as connected to the lane's real colors, despite the underlying
+   values being correct (verified by pulling the deployed JS bundle:
+   `#ff6b35` present, the old `#ca8570` fully gone). Root cause:
+   `packages/gds-core/src/ReferenceThemeExplorer.tsx`'s swatch box rendered
+   `vibe.hero` — a `linear-gradient` tuned to ~12-16% opacity for use as a
+   background wash behind the vibe-contract panel's own grid of solid
+   swatches further down the page. Reused as the *only* color preview on
+   the compact gallery card, that same low-opacity gradient reads as an
+   indistinct pale blob rather than the lane's real colors, for every one
+   of the 25 vibe presets, not just Class USA. Fixed by rendering the swatch
+   at full strength — `linear-gradient(135deg, ${vibe.primary},
+   ${vibe.accent})`, an honest two-color brand-identity preview, matching
+   the same recipe already used by the small identity dot beside the lane
+   name. `vibe.hero`'s other use (the vibe-contract panel's own background,
+   sitting *behind* other solid swatches rather than acting as one) was
+   left untouched — appropriately subtle there.
+2. Investigating (1) surfaced a second, more serious problem: the "Preview
+   this vibe" button itself (and every other filled-style button rendered
+   inside a vibe-gallery/vibe-contract/athlete-gold-reference preview, via
+   a shared `styles.css` owned-contrast rule) was painted with a
+   `linear-gradient(135deg, var(--gds-vibe-primary), var(--gds-vibe-accent))`
+   — a gradient the underlying governed theme never actually specifies. A
+   real `createBrandTheme('class-usa')` Button, for example, is a single
+   solid navy fill; nothing in its definition produces a gradient. The
+   Theme Lab was misrepresenting what a button looks like under a theme
+   that already has its own solid-color rule, across all 25 lanes. Fixed by
+   changing that `styles.css` rule to a solid `var(--gds-vibe-primary)`
+   fill — matching what a real filled button on that theme actually
+   renders, everywhere the rule applies, not just Class USA.
+
 ## 4.1.7 - 2026-08-08 — Class USA accent/slate/info color refinement from Figma prototype (#521)
 
 Refined three of the Class USA brand theme's tokens against a ClassScout
