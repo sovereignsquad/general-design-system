@@ -14,3 +14,4 @@ GDS-only theme + the missing primitives. The tracking issue embeds the implement
 | ClassScout-Lovable-Reconciliation.md | Reconciliation notes |
 | ClassScout-UI-Kit.html | Rendered UI kit (visual reference) |
 | ClassScout-Mobile-Flows.html | Mobile flows (visual reference) |
+| ClassScout-Design-Tokens-Refinement-2026-08-08.md | v1.1 addendum — refines accent/slate/info tokens against a later Figma prototype (issue #521); v1.0 above stays the historical record |

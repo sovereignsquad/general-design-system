@@ -1699,7 +1699,7 @@
       },
       "accent": {
         "$type": "color",
-        "$value": "#ca8570",
+        "$value": "#ff6b35",
         "$description": "class-usa accent (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1711,7 +1711,7 @@
       },
       "glow": {
         "$type": "color",
-        "$value": "rgba(202, 133, 112, 0.2)",
+        "$value": "rgba(255, 107, 53, 0.2)",
         "$description": "class-usa glow (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1843,7 +1843,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#434c59",
+        "$value": "#5e6a86",
         "$description": "class-usa muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1867,7 +1867,7 @@
       },
       "gradient": {
         "$type": "com.sovereignsquad.gds.cssGradient",
-        "$value": "radial-gradient(circle at 16% 8%, rgba(202, 133, 112, 0.18), transparent 28%), radial-gradient(circle at 88% 18%, rgba(144, 162, 135, 0.16), transparent 30%), linear-gradient(135deg, #faf7f1, #f4eee2)",
+        "$value": "radial-gradient(circle at 16% 8%, rgba(255, 107, 53, 0.18), transparent 28%), radial-gradient(circle at 88% 18%, rgba(144, 162, 135, 0.16), transparent 30%), linear-gradient(135deg, #faf7f1, #f4eee2)",
         "$description": "class-usa gradient (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1880,7 +1880,7 @@
       },
       "hero": {
         "$type": "com.sovereignsquad.gds.cssGradient",
-        "$value": "linear-gradient(135deg, rgba(11, 34, 62, 0.12), rgba(202, 133, 112, 0.16))",
+        "$value": "linear-gradient(135deg, rgba(11, 34, 62, 0.12), rgba(255, 107, 53, 0.16))",
         "$description": "class-usa hero (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {

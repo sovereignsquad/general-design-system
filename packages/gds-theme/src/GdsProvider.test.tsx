@@ -223,7 +223,7 @@ describe('GdsProvider', () => {
 
     expect(screen.getByText('Class USA shell')).toBeInTheDocument();
     expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('#0b223e');
-    expect(document.documentElement.style.getPropertyValue('--gds-brand-accent-action')).toBe('#a85a44');
+    expect(document.documentElement.style.getPropertyValue('--gds-brand-accent-action')).toBe('#d63900');
 
     unmount();
     expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('');
