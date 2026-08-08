@@ -1,7 +1,7 @@
 # Generated Imagery
 
 Status: Active SSOT
-Version: 4.1.8
+Version: 4.1.10
 Last updated: 2026-08-08
 
 A turnkey, theme-managed generated-imagery system (epic #503):
@@ -113,6 +113,15 @@ normally sits beside a real card title), the root carries no `role`, but
 the badges stay individually accessible regardless. When given, the root
 renders `role="group"` (never `role="img"`, which would collapse the
 individually-meaningful badges into one opaque name).
+
+**Always Tabler icons, never emoji — by construction, not convention.**
+`GdsBadge`/`GdsMapPinBadge` support an emoji badge glyph mode (issue #525,
+see [`BADGE_SYSTEM.md`](BADGE_SYSTEM.md#badge-glyph-mode-tabler-icons-or-emoji-issue-525)).
+This component doesn't: `categories[].icon` stays `GdsIconKey | ReactNode`
+and there is no `emoji` field anywhere in its props, so a category can
+never fabricate a thumbnail/hero motif from an emoji glyph regardless of
+what badge glyph mode is active elsewhere on the page — the same category
+reads as an emoji badge and a Tabler-icon thumbnail at once, on purpose.
 
 ### Using it as the card-image placeholder
 

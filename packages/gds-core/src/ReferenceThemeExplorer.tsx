@@ -256,10 +256,15 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
     { id: 'habits', label: 'Habits', marker: '✓' },
   ];
 
+  // Gold Athlete is a governed brand (createBrandTheme('gold-athlete') sets
+  // flatSurfaces: true, no gradient/glow anywhere in its real definition),
+  // so this reference mockup uses the real flat canvas background instead of
+  // the generic vibe-atmosphere gradient — see the vibe-gallery card above
+  // for the same reasoning.
   const surfaceProps = getGdsOwnedContrastProps({
     role: 'athlete-gold-reference',
     tokens: createGdsOwnedContrastTokens(athleteGold, {
-      background: athleteGold.gradient,
+      background: athleteGold.flatSurfaces ? athleteGold.canvasDark : athleteGold.gradient,
       radius: 'var(--mantine-radius-xl)',
       backgroundColor: athleteGold.canvasDark,
       borderColor: athleteGold.borderDark,
@@ -287,8 +292,10 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
               display: 'grid',
               placeItems: 'center',
               color: athleteGold.canvasDark,
-              background: `linear-gradient(135deg, ${athleteGold.accent}, ${athleteGold.primary})`,
-              boxShadow: `0 18px 38px ${athleteGold.glow}`,
+              background: athleteGold.flatSurfaces
+                ? `linear-gradient(90deg, ${athleteGold.accent} 0%, ${athleteGold.accent} 50%, ${athleteGold.primary} 50%, ${athleteGold.primary} 100%)`
+                : `linear-gradient(135deg, ${athleteGold.accent}, ${athleteGold.primary})`,
+              boxShadow: athleteGold.flatSurfaces ? undefined : `0 18px 38px ${athleteGold.glow}`,
               fontFamily: 'Georgia, serif',
               fontSize: 28,
               fontWeight: 800,
@@ -349,7 +356,7 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
                       height: 10,
                       borderRadius: 999,
                       background: athleteGold.accent,
-                      boxShadow: `0 0 22px ${athleteGold.glow}`,
+                      boxShadow: athleteGold.flatSurfaces ? undefined : `0 0 22px ${athleteGold.glow}`,
                     }}
                   />
                 ) : null}
@@ -611,14 +618,24 @@ export function ReferenceThemeExplorer({
           {vibeCatalog.map((vibe) => {
             const lane = localizedThemeCatalog[vibe.id];
             const isSelected = vibe.id === preset;
+            // Governed brand lanes (Class USA, Gold Athlete) are backed by a
+            // real `createBrandTheme(...)` that sets `flatSurfaces: true` and
+            // never configures a gradient/glow/colored-shadow atmosphere —
+            // showing one here would preview a look the real theme doesn't
+            // have. Generic vibe lanes have no such contradicting real
+            // definition, so their atmosphere IS their real identity.
             const laneCardProps = getGdsOwnedContrastProps({
               role: 'vibe-gallery-card',
               tokens: createGdsOwnedContrastTokens(vibe, {
-                background: `linear-gradient(135deg, ${vibe.surfaceLight}, color-mix(in srgb, ${vibe.primary} 12%, ${vibe.surfaceLight})), ${vibe.gradient}`,
+                background: vibe.flatSurfaces
+                  ? vibe.surfaceLight
+                  : `linear-gradient(135deg, ${vibe.surfaceLight}, color-mix(in srgb, ${vibe.primary} 12%, ${vibe.surfaceLight})), ${vibe.gradient}`,
                 radius: 'var(--mantine-radius-lg)',
                 backgroundColor: vibe.surfaceLight,
                 borderColor: isSelected ? vibe.primary : vibe.borderLight,
-                boxShadow: isSelected ? `0 0 0 2px ${vibe.primary}, 0 18px 46px ${vibe.glow}` : undefined,
+                boxShadow: isSelected
+                  ? (vibe.flatSurfaces ? `0 0 0 2px ${vibe.primary}` : `0 0 0 2px ${vibe.primary}, 0 18px 46px ${vibe.glow}`)
+                  : undefined,
               }),
             });
 
@@ -641,8 +658,14 @@ export function ReferenceThemeExplorer({
                         width: 28,
                         height: 28,
                         borderRadius: 999,
-                        background: `linear-gradient(135deg, ${vibe.primary}, ${vibe.accent})`,
-                        boxShadow: `0 10px 28px ${vibe.glow}`,
+                        // Hard-edge split for flatSurfaces (governed brand)
+                        // lanes: two real solid colors, no invented blend
+                        // color and no colored glow, since the real theme
+                        // has neither.
+                        background: vibe.flatSurfaces
+                          ? `conic-gradient(${vibe.primary} 0deg 180deg, ${vibe.accent} 180deg 360deg)`
+                          : `linear-gradient(135deg, ${vibe.primary}, ${vibe.accent})`,
+                        boxShadow: vibe.flatSurfaces ? undefined : `0 10px 28px ${vibe.glow}`,
                         border: `1px solid ${vibe.borderLight}`,
                       }}
                     />
@@ -659,15 +682,22 @@ export function ReferenceThemeExplorer({
                   style={{
                     height: 56,
                     borderRadius: 16,
-                    // Full-strength primary->accent swatch, not the diluted
+                    // Real colors, at full strength, not the diluted
                     // `vibe.hero` atmospheric wash: this box's only job is to
                     // preview the lane's actual colors, and `hero`'s ~12-16%
                     // opacity (tuned for use as a background wash behind other
                     // content, see the vibe-contract Paper below) reads as an
                     // indistinct pastel blob rather than the real palette.
-                    // Same recipe already used for the identity dot above and
-                    // the CSS owned-contrast Button rule in styles.css.
-                    background: `linear-gradient(135deg, ${vibe.primary}, ${vibe.accent})`,
+                    // For flatSurfaces (governed brand) lanes this is a
+                    // hard-edge two-color split, not a blend: the real theme
+                    // (e.g. createBrandTheme('class-usa')) has exactly these
+                    // two solid colors and never blends them into each other,
+                    // so a blended gradient would invent a color the brand
+                    // doesn't have. Generic vibe lanes keep the smooth blend
+                    // since it's already part of their own real atmosphere.
+                    background: vibe.flatSurfaces
+                      ? `linear-gradient(90deg, ${vibe.primary} 0%, ${vibe.primary} 50%, ${vibe.accent} 50%, ${vibe.accent} 100%)`
+                      : `linear-gradient(135deg, ${vibe.primary}, ${vibe.accent})`,
                     border: `1px solid ${vibe.borderLight}`,
                   }}
                 />
@@ -711,7 +741,10 @@ export function ReferenceThemeExplorer({
           {...(selectedVibe ? getGdsOwnedContrastProps({
             role: 'vibe-contract',
             tokens: createGdsOwnedContrastTokens(selectedVibe, {
-              background: selectedVibe.hero,
+              // flatSurfaces (governed brand) lanes: flat real background,
+              // not the atmospheric hero wash — see the vibe-gallery card
+              // above for the same reasoning.
+              background: selectedVibe.flatSurfaces ? selectedVibe.surfaceLight : selectedVibe.hero,
               radius: 'var(--mantine-radius-xl)',
               backgroundColor: selectedVibe.surfaceLight,
             }),

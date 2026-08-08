@@ -52,6 +52,17 @@ export interface GdsVibeTheme {
   gradient: string;
   /** Hero/banner gradient. */
   hero: string;
+  /**
+   * True for a lane backed by a real `createBrandTheme(...)` brand (Class USA,
+   * Gold Athlete) whose own definition sets `flatSurfaces: true` and never
+   * configures a gradient, glow, or colored shadow anywhere. Consumers that
+   * preview this lane's atmosphere (gradient/glow fields above) must skip
+   * those fields when this is true — showing them would fabricate a visual
+   * treatment the real, governed brand doesn't have. Unset/false for the
+   * generic vibe lanes, where the gradient/glow atmosphere IS the lane's own
+   * real, intentional identity.
+   */
+  flatSurfaces?: boolean;
 }
 
 const neutralVibe: GdsVibeTheme = {
@@ -224,6 +235,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     mutedDark: '#c6ccd5',
     gradient: 'radial-gradient(circle at 16% 8%, rgba(255, 107, 53, 0.18), transparent 28%), radial-gradient(circle at 88% 18%, rgba(144, 162, 135, 0.16), transparent 30%), linear-gradient(135deg, #faf7f1, #f4eee2)',
     hero: 'linear-gradient(135deg, rgba(11, 34, 62, 0.12), rgba(255, 107, 53, 0.16))',
+    flatSurfaces: true,
   },
   'gold-athlete': {
     ...neutralVibe,
@@ -246,6 +258,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     mutedDark: '#d6c8a6',
     gradient: 'radial-gradient(circle at 14% 8%, rgba(240, 182, 66, 0.18), transparent 26%), radial-gradient(circle at 86% 18%, rgba(192, 138, 18, 0.16), transparent 30%), linear-gradient(135deg, #fbf7ee, #f5eeda)',
     hero: 'linear-gradient(135deg, rgba(18, 22, 28, 0.14), rgba(240, 182, 66, 0.2))',
+    flatSurfaces: true,
   },
   sunset: {
     ...neutralVibe,
@@ -837,10 +850,22 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
   const vibe = resolveGdsVibeTheme(id);
   const dark = colorScheme === 'dark';
 
+  // A flatSurfaces lane (Class USA, Gold Athlete) is backed by a real
+  // `createBrandTheme(...)` that never configures a gradient, glow, or
+  // colored shadow anywhere in its own definition. Every CSS rule below
+  // reads `--gds-vibe-glow`/`--gds-vibe-gradient` to paint atmospheric
+  // effects (page background wash, header/card/button glows) across the
+  // WHOLE site whenever that lane is the active theme, not just inside a
+  // Theme Lab preview — so neutralizing them here, once, at the source, is
+  // what keeps every one of those consumers honest instead of fabricating
+  // an atmosphere the real brand doesn't have.
+  const glow = vibe.flatSurfaces ? 'transparent' : vibe.glow;
+  const gradient = vibe.flatSurfaces ? 'none' : vibe.gradient;
+
   const variables = {
     '--gds-vibe-primary': vibe.primary,
     '--gds-vibe-accent': vibe.accent,
-    '--gds-vibe-glow': vibe.glow,
+    '--gds-vibe-glow': glow,
     '--gds-vibe-canvas': dark ? vibe.canvasDark : vibe.canvasLight,
     '--gds-vibe-shell': dark ? vibe.shellDark : vibe.shellLight,
     '--gds-vibe-surface': dark ? vibe.surfaceDark : vibe.surfaceLight,
@@ -848,8 +873,9 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
     '--gds-vibe-text': dark ? vibe.textDark : vibe.textLight,
     '--gds-vibe-muted': dark ? vibe.mutedDark : vibe.mutedLight,
     '--gds-vibe-focus': dark ? vibe.textDark : vibe.textLight,
-    '--gds-vibe-gradient': vibe.gradient,
+    '--gds-vibe-gradient': gradient,
     '--gds-vibe-hero': vibe.hero,
+    '--gds-vibe-atmosphere': vibe.flatSurfaces ? '0' : '1',
   };
 
   const brandSemanticCssVariables = resolveVibeSemanticCssVariables(id, vibe);

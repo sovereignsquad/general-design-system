@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
 import { Badge } from '@mantine/core';
 import type { BadgeProps } from '@mantine/core';
+import { gdsDevWarnOnce, useGdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
+import type { GdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
 import { GdsIcon } from './icons';
 import type { GdsIconKey } from './icons';
 import { GdsBadgeShapes } from './badge-shapes';
@@ -131,6 +133,61 @@ interface GdsBadgeBaseProps extends Omit<BadgeProps, 'color' | 'children' | 'var
    * are given).
    */
   shape?: GdsBadgeShapeName;
+  /**
+   * Emoji glyph rendered instead of `icon` when the effective badge glyph
+   * mode is `'emoji'` (issue #525) — see `iconStyle` and `GdsProvider`'s
+   * `defaultBadgeIconStyle`. Optional: a badge with no `emoji` simply keeps
+   * rendering its Tabler `icon` even in emoji mode — that fallback is the
+   * point, not a gap to close. Renders on a fixed neutral disc (never
+   * directly on the badge's own accent/tone color — emoji are OS-rendered
+   * color glyphs whose color can't be forced via CSS the way a Tabler
+   * `currentColor` icon can, so contrast against an arbitrary accent can't
+   * be guaranteed the same way), and is always `aria-hidden` — the
+   * required `label` carries meaning, exactly like `icon` today. Not
+   * currently composable with `shape`: a badge given both renders the
+   * emoji disc alone and ignores `shape`, with a dev-mode warning.
+   */
+  emoji?: string;
+  /**
+   * Per-instance override for the ambient badge glyph mode (issue #525).
+   * Defaults to whatever `GdsProvider`'s `defaultBadgeIconStyle` resolves
+   * to (itself defaulting to `'tabler'`, today's only behavior). Rarely
+   * needed — most consumers set the mode once on `GdsProvider` and let
+   * every badge follow it.
+   */
+  iconStyle?: GdsBadgeIconStyle;
+}
+
+/**
+ * Emoji badge glyph (issue #525): centered on a fixed dark-neutral disc,
+ * never directly on the badge's own accent/tone background. The disc uses
+ * the same fixed neutral-dark value `toneColors.neutral` already uses for
+ * its own foreground below (`var(--mantine-color-dark-7, #1f2937)`) — not a
+ * theme- or brand-specific color — so it reads consistently against every
+ * accent and every one of the 25 presets, the same way the curated accent
+ * palette itself stays fixed across presets.
+ */
+function GdsBadgeEmojiCoin({ emoji }: { emoji: string }) {
+  return (
+    <span
+      data-gds-badge-emoji-coin=""
+      aria-hidden="true"
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '1.35em',
+        height: '1.35em',
+        borderRadius: '50%',
+        background: 'var(--mantine-color-dark-7, #1f2937)',
+        fontSize: '0.75em',
+        lineHeight: 1,
+        flexShrink: 0,
+      }}
+    >
+      {emoji}
+    </span>
+  );
 }
 
 /**
@@ -155,10 +212,14 @@ export type GdsBadgeProps =
  * ```
  */
 export function GdsBadge(props: GdsBadgeProps) {
-  const { label, icon, shape, tone, accent, style, ...rest } = props as GdsBadgeBaseProps & {
+  const { label, icon, shape, tone, accent, emoji, iconStyle, style, ...rest } = props as GdsBadgeBaseProps & {
     tone?: GdsBadgeTone;
     accent?: GdsBadgeAccentName;
   };
+  // Hooks must run before the `label` early return below, so this stays
+  // unconditional even though its result is only used once we know we're
+  // actually rendering.
+  const resolvedIconStyle = useGdsBadgeIconStyle(iconStyle);
   if (!label) {
     return null;
   }
@@ -167,8 +228,21 @@ export function GdsBadge(props: GdsBadgeProps) {
     ? { bg: gdsBadgeAccentColors[accent], fg: '#ffffff' }
     : toneColors[tone ?? 'neutral'];
 
+  // The failsafe (issue #525): a badge with no `emoji` keeps its Tabler
+  // icon even when the ambient/overridden mode is `'emoji'` — this is the
+  // one branch that decides emoji-vs-Tabler for the whole component.
+  const useEmoji = resolvedIconStyle === 'emoji' && Boolean(emoji);
+
   let leading: ReactNode = null;
-  if (shape) {
+  if (useEmoji) {
+    if (shape) {
+      gdsDevWarnOnce(
+        'GdsBadge:emoji-with-shape',
+        'GdsBadge received both `shape` and an active `emoji` glyph — shape composition is not supported in emoji mode yet, so `shape` is ignored and the emoji renders on its own disc instead.',
+      );
+    }
+    leading = <GdsBadgeEmojiCoin emoji={emoji as string} />;
+  } else if (shape) {
     const Shape = GdsBadgeShapes[shape];
     leading = (
       <GdsBadgeStack size="1.1em">

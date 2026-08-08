@@ -2,6 +2,97 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.10 - 2026-08-08 — Badge glyph mode: emoji as an alternative to Tabler icons (#525)
+
+Client feedback: the badge system should support emoji as an alternative to
+Tabler icons, for different purposes (a more playful surface, say, versus a
+formal one). Two hard requirements from the client, refined across several
+rounds of clarification with a real reference screenshot (a sports-activity
+map using `GdsMapPinBadge`): switching to emoji is a whole-badge-system
+mode, not a one-badge-at-a-time opt-in, and a category with no emoji falls
+back to its Tabler icon automatically — never a visible gap. The mode must
+never reach `GdsGeneratedThumbnail`/`GdsGeneratedHero`, which always keep
+composing from Tabler icons.
+
+- Added `GdsIconStyleContext`/`useGdsBadgeIconStyle` (`packages/gds-theme`):
+  the ambient badge glyph mode (`'tabler'` default, `'emoji'` opt-in),
+  mirroring the existing `GdsI18nContext` precedent. `GdsProvider` gained
+  `defaultBadgeIconStyle` to set it app-wide.
+- `GdsBadge` and `GdsMapPinBadge` (`packages/gds-core`) both gained
+  `emoji`/`iconStyle` props. The failsafe is a plain data-presence check —
+  no `emoji` on a badge/pin means it keeps its Tabler `icon` even when the
+  mode is `'emoji'` — deliberately not a runtime "does this device render
+  this glyph" probe, which would be unreliable across browsers, untestable
+  in CI without flaking, and SSR-hostile.
+- Emoji renders on a fixed dark-neutral surface, never the badge's own
+  accent/tone color — emoji are OS-rendered color glyphs whose color can't
+  be forced via CSS the way a Tabler `currentColor` stroke icon can, so
+  contrast against an arbitrary accent can't be guaranteed the same way.
+  `GdsBadge` renders a small `var(--mantine-color-dark-7)` coin behind the
+  glyph; `GdsMapPinBadge` fills the whole pin with that color while the
+  ring/silhouette keeps `accent` — modeled directly on the client's
+  reference screenshot. `filled`/`shape` are ignored (with a dev-mode
+  warning) while emoji is active, since neither composes with it in v1.
+- New `packages/gds-core/src/category-registry.ts`: `GdsCategoryDefinition`
+  (`key`/`label`/`accent`/optional `shade`/required `icon`/optional
+  `emoji`) and a `resolveGdsCategoryBadgeIcon` resolver. No business
+  taxonomy shipped — categories are a consumer's own domain vocabulary, per
+  the same reasoning `GdsMapPinBadge`'s existing icon docs already give.
+  `icon` required + `emoji` optional is the structural guarantee behind
+  "emoji affects only the badge": the generated-imagery components have no
+  code path that reads `emoji` at all.
+- Playground: `/patterns/feedback` gained a live Tabler/emoji toggle
+  (`SportsEmojiModeDemo`) — a Soccer/Basketball/Baseball category set as
+  badges and map pins in both modes, beside `GdsGeneratedThumbnail`s for
+  the same categories that never change. `verify-forced-colors-runtime.mjs`
+  gained a required-component case for the emoji glyph disc.
+- Docs: `BADGE_SYSTEM.md` new "Badge glyph mode" section;
+  `GENERATED_IMAGERY.md` cross-reference explaining why that system never
+  reads emoji.
+
+## 4.1.9 - 2026-08-08 — Fabricated brand gradients/glows, site-wide, for governed flat-surface themes (#523)
+
+User feedback after 4.1.8/#522: the vibe-gallery card's identity dot and
+swatch box were still showing a blended gradient, and investigating why led
+to a much bigger finding than #522 actually fixed.
+
+#522 only fixed the fabricated gradient/glow where it was reported — the
+Theme Lab's owned-contrast preview surfaces. The same fabrication also
+exists, unfixed, in places that affect the **entire live site**, not a demo
+card, whenever Class USA or Gold Athlete is the actually-selected theme:
+`styles.css`'s site-wide (not owned-contrast-scoped) `.mantine-Button-root`
+and `.mantine-Checkbox-input:checked` rules painted a
+`primary->accent` gradient on every real button/checkbox on every page; the
+real page `body` background and its `::before` atmospheric wash apply a
+brand-colored radial-gradient unconditionally for any active theme; several
+`box-shadow` rules use a brand-colored glow. None of this is what the real,
+governed brand specifies — `createBrandTheme('class-usa')` and
+`createBrandTheme('gold-athlete')` (`packages/gds-theme/src/brand-tokens.ts`)
+both default `flatSurfaces: true` and never configure a gradient, glow, or
+colored shadow anywhere.
+
+- Added `flatSurfaces?: boolean` to `GdsVibeTheme` (`vibe-themes.ts`), set
+  `true` on the `class-usa`/`gold-athlete` entries — a real, data-level fact
+  about the system, not a component special-casing an id string.
+- `getGdsVibeThemeCssVariables` now neutralizes `--gds-vibe-glow` (→
+  `transparent`), `--gds-vibe-gradient` (→ `none`), and publishes a new
+  `--gds-vibe-atmosphere` (→ `0`) for `flatSurfaces` lanes — one source of
+  truth that every existing CSS consumer already reads, so the fix
+  propagates everywhere automatically instead of needing a rule-by-rule
+  patch across the stylesheet.
+- `body::before`'s atmospheric wash now respects `--gds-vibe-atmosphere`
+  (defaults to `1` for lanes that don't set it, so the other 23 vibe lanes
+  are unaffected).
+- The site-wide Button/Checkbox rules now use a solid `var(--gds-vibe-primary)`
+  fill for all 25 presets, not just the two flat lanes — none of the 25
+  shipped theme presets ever actually configure a gradient-variant control,
+  so a gradient there was never correct for any of them.
+- `ReferenceThemeExplorer.tsx`'s vibe-gallery card, vibe-contract panel, and
+  Athlete Gold reference mockup: swatch/identity-dot for `flatSurfaces`
+  lanes now render as a hard-edge two-color split (both real solid colors,
+  zero invented blend color) instead of a smooth gradient; backgrounds and
+  glow shadows are flat for those two lanes.
+
 ## 4.1.8 - 2026-08-08 — Theme Lab vibe-gallery preview: real colors, no fabricated gradients (#522)
 
 Two rounds of user-reported live bugs on `/themes`, both about the vibe-

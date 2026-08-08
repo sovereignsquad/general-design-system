@@ -1,7 +1,7 @@
 # Badge System
 
 Status: Active SSOT
-Version: 4.1.8
+Version: 4.1.10
 Last updated: 2026-08-08
 
 The unified, always-theme-aware GDS badge system (epic #484): one governed
@@ -338,3 +338,68 @@ family by shade. `GdsGeneratedThumbnail`/`GdsGeneratedHero` (epic #503) draw
 from that same table to compose card thumbnails and hero backdrops, so a
 category reads the same whether it's a map pin, a card motif, or a hero
 badge. See [`GENERATED_IMAGERY.md`](GENERATED_IMAGERY.md).
+
+## Badge glyph mode: Tabler icons or emoji (issue #525)
+
+A client asked for emoji as an alternative to Tabler icons in badges, for
+different purposes (a more playful surface, say, versus a formal one) —
+with two hard requirements: switching to emoji is a **whole-badge-system**
+choice, not a one-badge-at-a-time opt-in, and it must **never** reach
+`GdsGeneratedThumbnail`/`GdsGeneratedHero`, which keep composing their
+background motif and lead badge from Tabler icons regardless.
+
+```tsx
+import { GdsProvider } from '@sovereignsquad/gds-theme';
+import { GdsBadge, GdsMapPinBadge } from '@sovereignsquad/gds-core';
+
+// Set once, app-wide — every badge/pin whose category has an emoji renders
+// it; one with no emoji keeps its Tabler icon even in emoji mode.
+<GdsProvider defaultBadgeIconStyle="emoji">
+  <GdsBadge accent="terracotta" icon="Location" emoji="🏀" label="Basketball" />
+  <GdsMapPinBadge accent="terracotta" icon="Location" emoji="🏀" label="Pivot Point Basketball" />
+</GdsProvider>
+```
+
+- **Ambient by default, overridable per instance.** `GdsProvider`'s
+  `defaultBadgeIconStyle` (`'tabler'` default, unchanged behavior for every
+  existing consumer) sets the mode for every `GdsBadge`/`GdsMapPinBadge`
+  below it via `GdsIconStyleContext` — a consumer's own `iconStyle` prop on
+  either component overrides it locally for the rare exception.
+- **The failsafe is a plain data-presence check, not a runtime probe.** A
+  badge/pin with no `emoji` renders its Tabler `icon` even when the mode is
+  `'emoji'` — icon is the gap-filler, not the default. Deliberately not a
+  "does this device render this glyph" check: that's unreliable across
+  browsers, untestable in CI without flaking (Rule 1), and would break
+  `GdsGeneratedThumbnail`'s server/client determinism guarantee for a
+  component that never reads `emoji` in the first place.
+- **Emoji renders on a fixed dark-neutral disc, never the badge's own
+  accent/tone color.** Emoji are OS-rendered color glyphs — their color
+  can't be forced via CSS the way a Tabler `currentColor` stroke icon can,
+  so contrast against an arbitrary accent can't be guaranteed the same way.
+  `GdsBadge` renders a small `var(--mantine-color-dark-7, #1f2937)` coin
+  behind the glyph; `GdsMapPinBadge` fills the whole pin with that same
+  fixed color while the ring/silhouette keeps `accent` — modeled directly
+  on a client-provided reference (a sports-activity map using this
+  component). `filled`/`fillOpacity` have no effect while emoji is active
+  on `GdsMapPinBadge` (dev-mode warning if both are set); `shape` has no
+  effect while emoji is active on `GdsBadge` (same warning).
+- **Always `aria-hidden`.** The required `label` carries meaning, exactly
+  like `icon` today — emoji never becomes the only signal.
+- **Known, accepted limitation: emoji glyph shape varies by OS/vendor**
+  (Apple/Google/Microsoft/Samsung render the same codepoint differently).
+  Tabler icons are self-hosted SVG and don't have this problem — that's a
+  real tradeoff of choosing emoji, not something to fix here.
+- **`GdsCategoryDefinition`** (`category-registry.ts`) is the shared shape
+  behind a consumer's own category data: `key`, `label`, `accent`, optional
+  `shade`, **required** `icon`, **optional** `emoji`. GDS ships the type and
+  a `resolveGdsCategoryBadgeIcon` resolver only — no business taxonomy
+  (categories like "Soccer" are a consumer's own domain vocabulary, per the
+  same reasoning `GdsMapPinBadge`'s own icon docs already give). `icon`
+  being required and `emoji` optional is the structural guarantee behind
+  "emoji affects only the badge": `GdsGeneratedThumbnail`/`GdsGeneratedHero`
+  read only a category's `icon` field — they have no code path that reads
+  `emoji` at all.
+- **Live demo**: the badges pattern (`/patterns/feedback`) includes a
+  Tabler/emoji toggle (`SportsEmojiModeDemo`) showing a Soccer/Basketball/
+  Baseball category set as badges and map pins in both modes, next to
+  `GdsGeneratedThumbnail`s for the same categories that never change.

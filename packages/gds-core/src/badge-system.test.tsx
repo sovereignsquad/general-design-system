@@ -1,7 +1,8 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
+import { resetGdsDevWarnings } from '@sovereignsquad/gds-theme';
 import { pickGdsAutoForeground, getGdsContrastRatio } from '../../gds-theme/src/contrast';
 import { GdsBadgeStack, GdsBadgeStackLayer } from './GdsBadgeStack';
 import { GdsBadge, gdsBadgeAccentColors, gdsBadgeAccentShades } from './GdsBadge';
@@ -100,6 +101,68 @@ describe('GdsBadge (#489)', () => {
     const iconLayer = iconLayers[iconLayers.length - 1] as HTMLElement;
     expect(iconLayer.style.transform).toContain('scale(0.42)');
     expect(iconLayer.style.transform).toContain('translateY(-4.1667%)');
+  });
+
+  describe('emoji glyph mode (#525)', () => {
+    it('defaults to tabler with no GdsProvider mode set', () => {
+      renderWithGds(<GdsBadge accent="teal" icon="Habit" emoji="🏊" label="Swimming" />);
+      const badge = screen.getByText('Swimming').closest('[data-gds-badge]') as HTMLElement;
+      expect(badge.querySelector('[data-gds-icon="Habit"]')).not.toBeNull();
+      expect(badge.textContent).not.toContain('🏊');
+    });
+
+    it('renders the emoji, aria-hidden, when the ambient GdsProvider mode is emoji and the badge has one', () => {
+      renderWithGds(<GdsBadge accent="terracotta" icon="Location" emoji="🏀" label="Basketball" />, {
+        defaultBadgeIconStyle: 'emoji',
+      });
+      const badge = screen.getByText('Basketball').closest('[data-gds-badge]') as HTMLElement;
+      expect(badge.textContent).toContain('🏀');
+      expect(badge.querySelector('[data-gds-icon]')).toBeNull();
+      const emojiEl = badge.querySelector('[aria-hidden="true"]') as HTMLElement;
+      expect(emojiEl.textContent).toBe('🏀');
+    });
+
+    it('failsafe: falls back to the Tabler icon in emoji mode when the badge has no emoji', () => {
+      renderWithGds(<GdsBadge accent="forest" icon="Location" label="Trailhead" />, {
+        defaultBadgeIconStyle: 'emoji',
+      });
+      const badge = screen.getByText('Trailhead').closest('[data-gds-badge]') as HTMLElement;
+      expect(badge.querySelector('[data-gds-icon="Location"]')).not.toBeNull();
+    });
+
+    it('a per-instance iconStyle override wins over the ambient GdsProvider default', () => {
+      renderWithGds(<GdsBadge accent="terracotta" icon="Location" emoji="🏀" iconStyle="tabler" label="Basketball" />, {
+        defaultBadgeIconStyle: 'emoji',
+      });
+      const badge = screen.getByText('Basketball').closest('[data-gds-badge]') as HTMLElement;
+      expect(badge.querySelector('[data-gds-icon="Location"]')).not.toBeNull();
+      expect(badge.textContent).not.toContain('🏀');
+    });
+
+    describe('shape + emoji combination', () => {
+      let warnSpy: ReturnType<typeof vi.spyOn>;
+
+      beforeEach(() => {
+        resetGdsDevWarnings();
+        warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      });
+
+      afterEach(() => {
+        warnSpy.mockRestore();
+      });
+
+      it('ignores shape and renders the emoji disc, with a dev-mode warning', () => {
+        renderWithGds(
+          <GdsBadge accent="terracotta" shape="hexagon" icon="Location" emoji="🏀" label="Basketball" />,
+          { defaultBadgeIconStyle: 'emoji' },
+        );
+        const badge = screen.getByText('Basketball').closest('[data-gds-badge]') as HTMLElement;
+        expect(badge.textContent).toContain('🏀');
+        expect(badge.querySelector('[data-gds-badge-stack]')).toBeNull();
+        expect(warnSpy).toHaveBeenCalled();
+        expect(warnSpy.mock.calls.some((call) => /shape.*emoji|emoji.*shape/i.test(String(call[0])))).toBe(true);
+      });
+    });
   });
 });
 
@@ -230,6 +293,69 @@ describe('GdsMapPinBadge (#501)', () => {
     const { container: filledContainer } = renderWithGds(<GdsMapPinBadge accent="forest" shade="deepest" icon="Location" label="Trailhead" filled />);
     const filledPin = filledContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
     expect(filledPin.getAttribute('fill')).toBe(gdsBadgeAccentShades.forest.deepest);
+  });
+
+  describe('emoji glyph mode (#525)', () => {
+    it('defaults to tabler with no GdsProvider mode set', () => {
+      const { container } = renderWithGds(
+        <GdsMapPinBadge accent="terracotta" icon="Location" emoji="🏀" label="Pivot Point Basketball" />,
+      );
+      expect(container.querySelector('svg[data-gds-icon="Location"]')).not.toBeNull();
+      expect(container.textContent).not.toContain('🏀');
+    });
+
+    it('fills the pin with the fixed dark-neutral disc and keeps the ring in accent, while the emoji renders centered', () => {
+      const { container } = renderWithGds(
+        <GdsMapPinBadge accent="terracotta" icon="Location" emoji="🏀" label="Pivot Point Basketball" />,
+        { defaultBadgeIconStyle: 'emoji' },
+      );
+      const pin = container.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
+      expect(pin.getAttribute('fill')).toBe('var(--mantine-color-dark-7, #1f2937)');
+      expect(pin.getAttribute('stroke')).toBe(gdsBadgeAccentColors.terracotta);
+      expect(container.querySelector('svg[data-gds-icon]')).toBeNull();
+      const glyphLayer = Array.from(container.querySelectorAll('[data-gds-badge-stack-layer]')).at(-1) as HTMLElement;
+      expect(glyphLayer.textContent).toBe('🏀');
+    });
+
+    it('failsafe: falls back to the Tabler icon in emoji mode when the marker has no emoji', () => {
+      const { container } = renderWithGds(<GdsMapPinBadge accent="forest" icon="Location" label="Trailhead" />, {
+        defaultBadgeIconStyle: 'emoji',
+      });
+      expect(container.querySelector('svg[data-gds-icon="Location"]')).not.toBeNull();
+    });
+
+    it('is exactly two layers in emoji mode too — the pin and the glyph, no extra disc element', () => {
+      const { container } = renderWithGds(
+        <GdsMapPinBadge accent="ocean" icon="Location" emoji="🏊" label="Pool" />,
+        { defaultBadgeIconStyle: 'emoji' },
+      );
+      expect(container.querySelectorAll('[data-gds-badge-stack-layer]')).toHaveLength(2);
+    });
+
+    describe('filled + emoji combination', () => {
+      let warnSpy: ReturnType<typeof vi.spyOn>;
+
+      beforeEach(() => {
+        resetGdsDevWarnings();
+        warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      });
+
+      afterEach(() => {
+        warnSpy.mockRestore();
+      });
+
+      it('ignores filled/fillOpacity in emoji mode, with a dev-mode warning', () => {
+        const { container } = renderWithGds(
+          <GdsMapPinBadge accent="terracotta" icon="Location" emoji="🏀" label="Basketball" filled fillOpacity={0.5} />,
+          { defaultBadgeIconStyle: 'emoji' },
+        );
+        const pin = container.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
+        expect(pin.getAttribute('fill')).toBe('var(--mantine-color-dark-7, #1f2937)');
+        expect(pin.getAttribute('fill-opacity')).toBe('1');
+        expect(warnSpy).toHaveBeenCalled();
+        expect(warnSpy.mock.calls.some((call) => /emoji.*filled|filled.*emoji/i.test(String(call[0])))).toBe(true);
+      });
+    });
   });
 });
 

@@ -24,6 +24,7 @@ export * from './GdsBadgeStack';
 export * from './GdsBadge';
 export * from './GdsCountBadge';
 export * from './GdsMapPinBadge';
+export * from './category-registry';
 export * from './generated-art-engine';
 export * from './GdsGeneratedThumbnail';
 export * from './GdsGeneratedHero';

@@ -2,11 +2,11 @@
 
 ## What this is
 
-Use this for every product team migrating to the current stable `4.1.8` GDS adoption-platform release.
+Use this for every product team migrating to the current stable `4.1.10` GDS adoption-platform release.
 
-## Copy/paste message for 4.1.8 after publish verification
+## Copy/paste message for 4.1.10 after publish verification
 
-Team, we completed the GDS upgrade to the 4.1.8 adoption platform release.
+Team, we completed the GDS upgrade to the 4.1.10 adoption platform release.
 
 - GDS installs exclusively from GitHub Packages — if your `.npmrc` doesn't already have it, add:
   ```ini
@@ -15,13 +15,13 @@ Team, we completed the GDS upgrade to the 4.1.8 adoption platform release.
   ```
   (`GITHUB_TOKEN` is your own personal access token with `read:packages` scope — GitHub Packages requires authentication for every install, even public ones.)
 - Update dependencies:
-  - `@sovereignsquad/gds@4.1.8`
-  - `@sovereignsquad/gds-eslint-config@4.1.8` (dev)
-  - `@sovereignsquad/gds-compliance@4.1.8` (dev)
+  - `@sovereignsquad/gds@4.1.10`
+  - `@sovereignsquad/gds-eslint-config@4.1.10` (dev)
+  - `@sovereignsquad/gds-compliance@4.1.10` (dev)
 - If you use granular packages, keep every GDS package on the same version:
-  - `@sovereignsquad/gds-theme@4.1.8`
-  - `@sovereignsquad/gds-core@4.1.8`
-  - `@sovereignsquad/gds-admin@4.1.8`
+  - `@sovereignsquad/gds-theme@4.1.10`
+  - `@sovereignsquad/gds-core@4.1.10`
+  - `@sovereignsquad/gds-admin@4.1.10`
 - Install Mantine peers normally; do not force peer resolution.
 - Keep the App Router split:
   - `app/layout.tsx` owns `ColorSchemeScript`

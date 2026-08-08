@@ -219,7 +219,7 @@
   },
   "packages/gds-theme/dist/client.d.ts": {
     "@mantine/core": [
-      "MantineThemeOverride"
+      "*"
     ]
   },
   "packages/gds-theme/dist/server.d.ts": {

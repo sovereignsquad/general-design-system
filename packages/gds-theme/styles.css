@@ -129,6 +129,10 @@ html[data-gds-theme-preset] body::before {
     radial-gradient(circle at 8% 78%, color-mix(in srgb, var(--gds-vibe-primary) 24%, transparent), transparent 24rem),
     radial-gradient(circle at 92% 24%, color-mix(in srgb, var(--gds-vibe-accent) 22%, transparent), transparent 28rem),
     linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-primary) 8%, transparent), transparent 42%);
+  /* flatSurfaces lanes (Class USA, Gold Athlete) publish --gds-vibe-atmosphere:
+     0 — their real theme has no atmospheric background wash. Generic vibe
+     lanes don't set this variable, so they fall through to the default 1. */
+  opacity: var(--gds-vibe-atmosphere, 1);
 }
 
 /* High-contrast accessibility lane (#453): override the decorative vibe body
@@ -207,8 +211,13 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .gds-card {
 }
 
 html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
-  background: linear-gradient(135deg, var(--gds-vibe-primary), var(--gds-vibe-accent));
-  border-color: color-mix(in srgb, var(--gds-vibe-primary) 72%, var(--gds-vibe-accent));
+  /* Solid fill, not a primary->accent gradient: none of the 25 shipped theme
+     presets (theme-presets.ts) ever configure a `variant="gradient"` filled
+     button, so a gradient here would show every real button on the site a
+     style no theme actually produces — the same defect already fixed for
+     the narrower owned-contrast preview surfaces above. */
+  background: var(--gds-vibe-primary);
+  border-color: var(--gds-vibe-primary);
   color: white;
   box-shadow: 0 12px 34px color-mix(in srgb, var(--gds-vibe-glow) 58%, transparent);
 }
@@ -314,7 +323,9 @@ html[data-gds-theme-preset] .mantine-Checkbox-input {
 }
 
 html[data-gds-theme-preset] .mantine-Checkbox-input:checked {
-  background: linear-gradient(135deg, var(--gds-vibe-primary), var(--gds-vibe-accent));
+  /* Solid fill, not a gradient — same reasoning as the Button rule above: no
+     shipped theme preset configures a gradient checkbox fill. */
+  background: var(--gds-vibe-primary);
   border-color: var(--gds-vibe-primary);
 }
 

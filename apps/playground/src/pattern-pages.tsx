@@ -154,7 +154,8 @@ import {
 // consumers who don't use it never bundle it (see the comment in
 // packages/gds-core/src/rich-text-editor.ts).
 import { GdsRichTextEditor } from '@sovereignsquad/gds-core/rich-text-editor';
-import { VibeThemePicker, GdsVibeThemeScope, type GdsThemePresetId } from '@sovereignsquad/gds-theme';
+import { VibeThemePicker, GdsVibeThemeScope, GdsIconStyleContext, type GdsThemePresetId, type GdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
+import type { GdsCategoryDefinition } from '@sovereignsquad/gds-core';
 import {
   AdminSelect,
   AdminTextarea,
@@ -672,6 +673,91 @@ function BadgeMapDemo() {
           </GdsBox>
         )}
       />
+    </SectionPanel>
+  );
+}
+
+/**
+ * Sports category data for the emoji-badge-mode demo (issue 525) —
+ * a consumer's own domain vocabulary, not a GDS-owned enum (see
+ * `category-registry.ts`'s module docs). The three entries and their
+ * emoji/accent pairings are exactly what the client confirmed for this
+ * demo; `icon` uses existing `GdsIconKey` stand-ins (no sport-specific
+ * icon exists in the closed registry, and `apps/playground` doesn't carry
+ * the `strict.import.tabler-icons` exception other packages have, so this
+ * mirrors `GeneratedThumbnailDemo`'s own existing stand-in choices above
+ * rather than importing a Tabler sports icon directly here).
+ */
+const SPORTS_CATEGORIES: GdsCategoryDefinition[] = [
+  { key: 'soccer', label: 'Soccer', accent: 'forest', icon: 'Location', emoji: '⚽' },
+  { key: 'basketball', label: 'Basketball', accent: 'terracotta', icon: 'Habit', emoji: '🏀' },
+  { key: 'baseball', label: 'Baseball', accent: 'bronze', icon: 'Star', emoji: '⚾' },
+];
+
+function SportsEmojiModeDemo() {
+  // Defaults to emoji so the feature is visible on first paint (and so the
+  // forced-colors runtime gate, a static snapshot with no click simulation,
+  // actually exercises the new emoji-mode composition rather than only the
+  // unchanged tabler default).
+  const [mode, setMode] = useState<GdsBadgeIconStyle>('emoji');
+  return (
+    <SectionPanel
+      title="Badge glyph mode: Tabler or emoji (issue 525)"
+      description="A client asked for emoji as an alternative to Tabler icons in badges. The mode below is ambient — set once (here, scoped to just this demo section via GdsIconStyleContext; a real app sets it once on GdsProvider's defaultBadgeIconStyle) and every badge/pin whose category has an emoji switches to it. A category with no emoji keeps its Tabler icon even in emoji mode — that's the failsafe, not a gap. The generated thumbnail on the right never reads emoji at all: it keeps rendering from the same category's icon regardless of this toggle, by construction."
+    >
+      <PillBar<GdsBadgeIconStyle>
+        ariaLabel="Badge glyph mode"
+        value={mode}
+        onChange={setMode}
+        options={[
+          { value: 'tabler', label: 'Tabler icons' },
+          { value: 'emoji', label: 'Emoji' },
+        ]}
+      />
+      <GdsIconStyleContext.Provider value={{ badgeIconStyle: mode }}>
+        <GdsStack gap="md" mt="md">
+          <GdsInline gap="xs">
+            {SPORTS_CATEGORIES.map((category) => (
+              <GdsBadge key={category.key} accent={category.accent} icon={category.icon as never} emoji={category.emoji} label={category.label} />
+            ))}
+          </GdsInline>
+          <MapPanel
+            title="Sports activity map"
+            description="GdsMapPinBadge follows the same ambient mode — the ring stays the category's accent, the pin fills with a fixed dark-neutral disc in emoji mode (never the accent), and the emoji centers on it."
+            minHeight={140}
+            renderMap={() => (
+              <GdsBox pos="relative" w="100%" h="100%">
+                {SPORTS_CATEGORIES.map((category, index) => (
+                  <GdsBox key={category.key} pos="absolute" top={`${30 + index * 5}%`} left={`${22 + index * 26}%`}>
+                    <GdsMapPinBadge
+                      size={36}
+                      accent={category.accent}
+                      icon={category.icon as never}
+                      emoji={category.emoji}
+                      label={category.label}
+                    />
+                  </GdsBox>
+                ))}
+              </GdsBox>
+            )}
+          />
+          <GdsInline gap="md" align="start">
+            {SPORTS_CATEGORIES.map((category) => (
+              <GdsStack key={category.key} gap="xs" align="center">
+                <GdsBox w={160}>
+                  <GdsGeneratedThumbnail
+                    seed={`sports-demo-${category.key}`}
+                    categories={[{ key: category.key, label: category.label, icon: category.icon as never }]}
+                    paletteSource="category"
+                    category={category.accent}
+                  />
+                </GdsBox>
+                <BodyText>{category.label} — thumbnail stays Tabler</BodyText>
+              </GdsStack>
+            ))}
+          </GdsInline>
+        </GdsStack>
+      </GdsIconStyleContext.Provider>
     </SectionPanel>
   );
 }
@@ -2539,6 +2625,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <BadgeOverlayDemo />
           <br />
           <BadgeThemeMatrixDemo />
+          <br />
+          <SportsEmojiModeDemo />
         </div>
       );
     case 'modals':

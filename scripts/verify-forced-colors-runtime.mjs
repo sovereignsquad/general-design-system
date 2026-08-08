@@ -59,6 +59,11 @@ const badgeShapeComponents = [
   { selector: '[data-gds-count-badge-demo] [data-gds-count-badge]', label: 'GdsCountBadge numeric pill' },
   { selector: '[data-gds-removable-tag-demo] [data-gds-removable-tag]', label: 'GdsRemovableTag filter token' },
   { selector: '[data-gds-badge-stack] [data-gds-badge-stack-layer]', label: 'GdsBadgeStack composed layer' },
+  // Emoji badge glyph mode (issue #525): the SportsEmojiModeDemo defaults to
+  // emoji so this fixed dark-neutral disc — real text content, not a
+  // decorative background-image, so it's compatible with forced-colors —
+  // stays visible instead of vanishing with a flattened palette.
+  { selector: '[data-gds-badge-emoji-coin]', label: 'GdsBadge emoji glyph disc (issue #525)' },
 ];
 
 // Route coverage is driven off the pattern-catalog families that actually mount

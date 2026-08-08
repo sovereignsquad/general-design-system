@@ -1,7 +1,7 @@
 # Resource Manager
 
 Status: Active SSOT
-Version: 4.1.8
+Version: 4.1.10
 Last updated: 2026-08-08
 
 The GDS resource manager is the package-native workflow framework for admin CRUD resources. It composes list, detail, create, edit, delete, activate, archive, and copy-preview behavior through an adapter boundary while using GDS table, state, action, and accessibility primitives.
