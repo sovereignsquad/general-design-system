@@ -215,3 +215,31 @@ This rule sharpens Rule 1 (nothing broken ships) and Rule 4 (DoD) for the
 specific case of GDS-page bugs: the "requested behavior... demonstrably
 works" bar for a GDS-page fix is met only when the underlying shared
 component is fixed, not when the symptom on the page disappears.
+
+## 11. No assumptions, no guessing, no hallucinations (owner directive, 2026-08-08)
+
+This is a standalone, zero-tolerance rule, not a restatement of Rules 5/8 —
+those cover guessing about codebase facts before making a change; this one
+covers every output, in any form, at any point in a session:
+
+- **No assumptions.** Do not treat something as true because it would be
+  reasonable, typical, or consistent with a pattern seen elsewhere. If it
+  hasn't been read, run, or otherwise directly observed in this session, it
+  is not known — verify it first.
+- **No guessing.** Do not fill a gap — a color value, an icon, a prop shape,
+  a status, a number — with a plausible-sounding placeholder and present it
+  as real. If the real value is unknown, go find it (Read/Grep/Glob, run the
+  code, inspect the live output); if it genuinely cannot be found, say so
+  explicitly rather than substituting an invented stand-in.
+- **No hallucinations.** Never state a fact, cite a file/line, describe a
+  component's behavior, or claim a result (a test outcome, a CI status, a
+  visual appearance) that was not actually observed this session. Reporting
+  something unverified as verified is a defect, not a shortcut — say "I
+  haven't checked" instead.
+
+This applies uniformly to code, prose, chat responses, and any generated
+artifact/preview/mockup — a demo built to *represent* a real system must use
+that system's actual, source-verified values (colors, tokens, copy, icons),
+never an invented approximation, even when the artifact is not itself
+shipped code. When in doubt, investigate before answering; if investigation
+isn't possible, say so plainly instead of filling the gap.
