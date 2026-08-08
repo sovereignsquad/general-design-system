@@ -2,6 +2,37 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.6 - 2026-08-08 — 3.9.0→current migration note; fix self-contradictory major-version index (#514)
+
+Consumer-facing docs fix, prompted by real client feedback from four
+sibling apps (camera, messmass, fanmass, launchmass) still pinned to
+`3.9.0` and planning their upgrade. Investigating that feedback confirmed
+the underlying "nothing's been published since 3.9.0" claim was stale (the
+registry publish history was verified clean — see #515's own investigation
+for the evidence), but surfaced a real, separate gap: no single place told
+a 3.9.0 consumer what would actually look or behave differently after
+upgrading.
+
+- **`INSTALLATION_GUIDE.md`**: added a "Behavioral changes to budget for
+  between 3.9.0 and the current line" subsection under the existing
+  npmjs-migration section, consolidating the four changes with real
+  user-visible or action-required impact that were previously only
+  documented individually, scattered across their own `CHANGELOG.md`
+  entries: the mobile input-focus auto-zoom guard (3.11.0, `xs`/`sm`/
+  default-size inputs render measurably larger text with no code change),
+  `GdsPageTemplateAction.pending`→`loading` (3.13.0, backward-compatible
+  alias), `gds-theme`'s date-component stylesheet becoming opt-in (3.14.0,
+  requires adding `import '@sovereignsquad/gds-theme/dates.css'` for
+  consumers rendering date components), and a clarification that the
+  `4.0.0` major bump was a release-process artifact (a published `3.15.0`
+  being immutable forced the jump), not an intentional breaking API change.
+- **`docs/DOCUMENTATION_VERSIONING.md`**: fixed a self-contradictory version
+  index — it said "Current major — 3.x" while citing tag `gds-v4.1.5` (major
+  4) in the same line, and listed "Previous major — 2.x" as the archived
+  lane even though a real major bump to `4.0.0` shipped 2026-08-07. Now
+  correctly reads "Current major — 4.x" / "Previous major — 3.x (last
+  release `gds-v3.14.17`, confirmed against the actual tag list)".
+
 ## 4.1.5 - 2026-08-08 — Fix clipped select/input text, mobile side-margin waste in the shared section/card primitives, and verify:release preview-server flakiness (#513, #515)
 
 User-reported live bug on `/themes` at a narrow (390px) mobile viewport:

@@ -1,7 +1,7 @@
 # Safe Styling API
 
 Status: Active SSOT
-Version: 4.1.5
+Version: 4.1.6
 Last updated: 2026-07-26
 
 The safe styling API is the approved replacement for product-local inline styles and arbitrary CSS when a full component contract is not the right fit. It constrains common visual needs to GDS tokens and semantic enums.
