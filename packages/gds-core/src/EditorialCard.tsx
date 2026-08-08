@@ -76,8 +76,14 @@ function EditorialMediaFallback({ compact }: { compact: boolean }) {
           placeItems: 'center',
           width: '100%',
           height: '100%',
-          background: 'var(--mantine-color-gray-0)',
+          // `--mantine-color-gray-0` alone is a fixed near-white shade that
+          // doesn't invert with color scheme — it rendered as a stark white
+          // box on an otherwise dark card. `light-dark()` mirrors the same
+          // idiom `tonePalette.muted.background` above already uses for a
+          // color-scheme-aware neutral surface.
+          background: 'light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))',
           borderRadius: 'var(--mantine-radius-md)',
+          color: 'var(--mantine-color-dimmed)',
         }}
       >
         <GdsIcons.Gallery size={compact ? '1.5rem' : '2rem'} />

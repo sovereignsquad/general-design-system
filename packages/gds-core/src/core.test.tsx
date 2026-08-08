@@ -2317,6 +2317,13 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByText('2 pending')).toBeInTheDocument();
   });
 
+  it('renders its media fallback with a color-scheme-aware background, not a fixed light-only shade (regression: rendered as a stark white box on dark-mode cards)', () => {
+    const { container } = renderWithGds(<EditorialCard title="No media yet" />);
+    const fallback = container.querySelector('.mantine-AspectRatio-root > div') as HTMLElement;
+    expect(fallback.style.background).toContain('light-dark(');
+    expect(fallback.style.background).not.toBe('var(--mantine-color-gray-0)');
+  });
+
   it('renders media fields with upload, URL, preview, and recovery actions', async () => {
     const user = userEvent.setup();
     const onRemove = vi.fn();

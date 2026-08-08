@@ -135,6 +135,24 @@ html[data-gds-theme-preset] body::before {
   opacity: var(--gds-vibe-atmosphere, 1);
 }
 
+/*
+ * flatSurfaces lanes (Class USA, Gold Athlete): same gap as .mantine-AppShell-main
+ * below — the base body rule above reads --gds-vibe-gradient (which IS already
+ * neutralized to 'none' at the source for flatSurfaces lanes, see
+ * getGdsVibeThemeCssVariables) but ALSO layers a second, un-gated diagonal wash
+ * blending 8% of the brand primary into the canvas. `body` sits directly behind
+ * the fixed-height `.mantine-AppShell-main`, so this residual gradient is normally
+ * hidden — except during iOS Safari's elastic overscroll bounce, which reveals
+ * whatever is painted behind the viewport. Overriding to a flat canvas color
+ * (keeping the same `fixed` attachment so the override doesn't silently reset it
+ * via the `background` shorthand) closes that gap.
+ */
+html[data-gds-theme-preset='class-usa'] body,
+html[data-gds-theme-preset='gold-athlete'] body {
+  background: var(--gds-vibe-canvas) !important;
+  background-attachment: fixed !important;
+}
+
 /* High-contrast accessibility lane (#453): override the decorative vibe body
    treatment with a flat, pure canvas and suppress the tinted radial overlay, so
    the shell reads as a plain maximal-contrast surface in both schemes. */
@@ -168,6 +186,20 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-AppShell-
     linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-canvas) 94%, black), var(--gds-vibe-canvas));
 }
 
+/*
+ * flatSurfaces lanes (Class USA, Gold Athlete): the base .mantine-AppShell-main
+ * rule above was written before flatSurfaces existed and never checked it —
+ * unlike body::before (which does respect --gds-vibe-atmosphere), it kept
+ * painting the same decorative radial/linear wash on every preset, including
+ * the two whose real brand has no atmospheric background at all. Overriding
+ * with the flat solid canvas mirrors the explicit per-preset override pattern
+ * already used below for the richer vibe lanes, just for the opposite case.
+ */
+html[data-gds-theme-preset='class-usa'] .mantine-AppShell-main,
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-main {
+  background: var(--gds-vibe-canvas) !important;
+}
+
 html[data-gds-theme-preset] .mantine-AppShell-header,
 html[data-gds-theme-preset] .mantine-AppShell-navbar,
 html[data-gds-theme-preset] .mantine-AppShell-footer {
@@ -187,6 +219,20 @@ html[data-gds-theme-preset] .mantine-AppShell-navbar {
     linear-gradient(155deg, color-mix(in srgb, var(--gds-vibe-shell) 82%, var(--gds-vibe-primary) 10%), var(--gds-vibe-shell));
 }
 
+/* flatSurfaces lanes: same gap as .mantine-AppShell-main above — the shared
+   header/navbar/footer wash and this navbar-specific extra layer both
+   painted a gradient + glow shadow on every preset, Class USA and Gold
+   Athlete included, since neither ever checked --gds-vibe-atmosphere. */
+html[data-gds-theme-preset='class-usa'] .mantine-AppShell-header,
+html[data-gds-theme-preset='class-usa'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='class-usa'] .mantine-AppShell-footer,
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-header,
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-footer {
+  background: var(--gds-vibe-shell) !important;
+  box-shadow: none !important;
+}
+
 html[data-gds-theme-preset] .gds-paper,
 html[data-gds-theme-preset] .gds-card {
   --mantine-color-text: var(--gds-vibe-text);
@@ -196,6 +242,17 @@ html[data-gds-theme-preset] .gds-card {
     linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 94%, white), color-mix(in srgb, var(--gds-vibe-surface) 86%, var(--gds-vibe-primary) 7%));
   border-color: var(--gds-vibe-border);
   box-shadow: 0 18px 54px color-mix(in srgb, var(--gds-vibe-glow) 20%, transparent);
+}
+
+/* flatSurfaces lanes: same gap again — .gds-paper/.gds-card (used by cards
+   and panels across the whole site) painted the same kind of gradient +
+   glow on every preset. */
+html[data-gds-theme-preset='class-usa'] .gds-paper,
+html[data-gds-theme-preset='class-usa'] .gds-card,
+html[data-gds-theme-preset='gold-athlete'] .gds-paper,
+html[data-gds-theme-preset='gold-athlete'] .gds-card {
+  background: var(--gds-vibe-surface) !important;
+  box-shadow: none !important;
 }
 
 html[data-mantine-color-scheme='dark'][data-gds-theme-preset] body {
@@ -315,6 +372,14 @@ html[data-gds-theme-preset] .mantine-Popover-dropdown {
 
 html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-Popover-dropdown {
   background: linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%));
+}
+
+/* flatSurfaces lanes: same gap as .gds-paper/.gds-card above — the dark-mode
+   dropdown surface (Select/Combobox/DatePicker, portalled outside any
+   gds-paper/gds-card wrapper) painted the same unconditional gradient. */
+html[data-gds-theme-preset='class-usa'] .mantine-Popover-dropdown,
+html[data-gds-theme-preset='gold-athlete'] .mantine-Popover-dropdown {
+  background: var(--gds-vibe-control) !important;
 }
 
 html[data-gds-theme-preset] .mantine-Checkbox-input {
