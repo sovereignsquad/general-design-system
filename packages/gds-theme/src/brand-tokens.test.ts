@@ -36,8 +36,8 @@ describe('createBrandTheme', () => {
     expect(result.mantineTheme.other?.gdsBrandThemeId).toBe('class-usa');
     expect(result.cssVariables['--gds-brand-primary']).toBe('#0b223e');
     expect(result.cssVariables['--gds-brand-primary-pressed']).toBe('#07182c');
-    expect(result.cssVariables['--gds-brand-accent']).toBe('#ca8570');
-    expect(result.cssVariables['--gds-brand-accent-action']).toBe('#a85a44');
+    expect(result.cssVariables['--gds-brand-accent']).toBe('#ff6b35');
+    expect(result.cssVariables['--gds-brand-accent-action']).toBe('#d63900');
     expect(result.cssVariables['--gds-bg-card']).toBe('#ffffff');
     expect(result.cssVariables['--gds-border-card']).toBe('#eee7dd');
   });

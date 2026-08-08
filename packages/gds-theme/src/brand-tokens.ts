@@ -155,12 +155,19 @@ export class GdsBrandThemeError extends Error {
 
 const HEX_PATTERN = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 const REQUIRED_RAMPS: (keyof BrandColorRamps)[] = ['navy', 'terracotta', 'sage', 'cream', 'slate'];
+// Terracotta and slate steps were refined 2026-08-08 against a ClassScout Figma
+// prototype (issue #521): the anchor hue/lightness moved to match measured pixel
+// values, but only as far as each step still clears WCAG AA at its usage site
+// (see brand-tokens.test.ts and the assertContrast gate below) — see issue #521
+// for the full measured-vs-locked-SSOT delta table. Navy, sage, and cream were
+// re-checked against the same prototype and left unchanged (no material delta /
+// no evidence).
 const classUsaDefaultColorRamps: ClassUsaColorRamps = {
   navy: ['#e9eef6', '#cbd8ea', '#a6bbdb', '#7d9bc9', '#5e82bb', '#345a8c', '#0b223e', '#0a1d36', '#08192e', '#07182c'],
-  terracotta: ['#fbf2ee', '#f5ddd5', '#eac4b7', '#e1a892', '#d68d74', '#ca8570', '#a85a44', '#8f4a37', '#763c2c', '#5d2f22'],
+  terracotta: ['#fde9e2', '#fdcfbe', '#ffa98a', '#ff875c', '#ff713d', '#ff6b35', '#d63900', '#b53203', '#942b05', '#732407'],
   sage: ['#f0f3ee', '#dde3d7', '#c3cdb9', '#a9b89c', '#94a787', '#90a287', '#5c6e52', '#4a5942', '#3a4634', '#2b3427'],
   cream: ['#faf7f1', '#f4eee2', '#ece3d1', '#e3d6bd', '#d9c9a8', '#cdba92', '#bfad80', '#a8946a', '#8a7a57', '#6b5e44'],
-  slate: ['#f7f8fa', '#eceff3', '#d9dee7', '#bfc7d2', '#98a3b3', '#6f7a89', '#434c59', '#323a46', '#252b34', '#171c24'],
+  slate: ['#f7f8fa', '#ebedf2', '#d8dce6', '#bfc5d4', '#a0a8bb', '#808aa3', '#5e6a86', '#495369', '#363d4f', '#242a38'],
 };
 
 const classUsaDefaultFonts: BrandFonts = {
@@ -297,7 +304,7 @@ export function deriveBrandSemanticTokens(colors: BrandColorRamps): Record<Brand
 function deriveClassUsaSemanticTokens(ramps: ClassUsaColorRamps): Record<BrandSemanticRole, SemanticPair> {
   const navy = ramps.navy[6];
   const navyPressed = ramps.navy[9];
-  const terracotta = '#ca8570';
+  const terracotta = '#ff6b35';
   const sage = '#90a287';
   const cream = ramps.cream[0];
   const slate = ramps.slate[6];
@@ -328,7 +335,7 @@ function deriveClassUsaSemanticTokens(ramps: ClassUsaColorRamps): Record<BrandSe
     'state.success': { light: sage, dark: ramps.sage[3] },
     'state.warning': { light: '#b9770f', dark: '#e0a23c' },
     'state.danger': { light: '#b3261e', dark: '#f2786f' },
-    'state.info': { light: navy, dark: '#a6bbdb' },
+    'state.info': { light: '#1d6fa5', dark: '#51a8e1' },
     'badge.attention': { light: terracotta, dark: ramps.terracotta[3] },
     'badge.validation': { light: sage, dark: ramps.sage[3] },
     'badge.info': { light: '#f1ece4', dark: '#2b3427' },

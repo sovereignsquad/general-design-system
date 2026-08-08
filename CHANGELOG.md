@@ -2,6 +2,52 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.7 - 2026-08-08 — Class USA accent/slate/info color refinement from Figma prototype (#521)
+
+Refined three of the Class USA brand theme's tokens against a ClassScout
+mobile-app Figma prototype (fileKey `DHb3LghHT02dtcKlTsL3cX`), extracted
+empirically via the Figma MCP (`get_design_context`/`get_screenshot` on the
+Home/Search/Bookings/Saved/Profile screens — the file defines no Figma
+variables, so values were read from raw fills/text colors).
+
+- **Accent (terracotta ramp)**: re-anchored from the muted `#ca8570` to the
+  prototype's vivid coral `#ff6b35` (repeated on every CTA, badge,
+  notification dot, and the FAB). The interactive/`--gds-brand-accent-action`
+  step moved from `#a85a44` to `#d63900` — both ramp endpoints were rebuilt
+  in HSL space around the new hue so the AA-safe interactive step (4.72:1
+  white-on-fill, was 4.99:1) sits where the theme's own `assertContrast`
+  gate already expects it.
+- **Slate (secondary/meta text)**: re-anchored from `#434c59` (8.13:1 on
+  cream) toward the prototype's visibly lighter, cooler blue-grey. The
+  prototype's literal pixel value (`#6b7897`, 4.13:1 on cream) fails the
+  theme's own 4.5:1 AA gate, so the new anchor (`#5e6a86`, 5.06:1 on cream /
+  5.41:1 on white) keeps the same hue/saturation direction while staying
+  the lightest tone that still clears AA.
+- **New `state.info` role**: `#1d6fa5` light / `#51a8e1` dark, sourced from
+  the prototype's "Verified" badge — this role previously just reused navy.
+- Navy, sage, and cream were re-checked against the same prototype and left
+  unchanged (navy: `#0d2340` measured vs. `#0b223e` shipped, a sub-1%
+  difference within rendering noise; sage: no instance observed in the
+  sampled screens; cream: no direct pixel sample, visually consistent).
+- Updated in lockstep: `packages/gds-theme/src/brand-tokens.ts` (the public
+  `createBrandTheme('class-usa')` ramps/derivation) and
+  `packages/gds-theme/src/vibe-themes.ts` (the hand-authored `class-usa`
+  vibe entry + `classUsaSemanticCssVariables`, which mirror
+  `brand-tokens.ts`'s output by existing test contract — both were updated
+  together so they don't drift). `tokens/gds.tokens.json` regenerated.
+- Explicitly **not** changed, and documented as out of scope in issue #521:
+  typography (the prototype uses Plus Jakarta Sans/DM Serif Display, but
+  `brand-requests/class-usa/ClassScout-Design-Tokens-and-Components.md` §2
+  locks Bogart/Garet as "settled... this doc is the authority" — a font
+  swap needs an explicit brand decision, not a code-side guess), the
+  prototype's ~7-hue pastel category-icon tint system (a new token-role
+  surface, not a refinement of existing roles), and its elevation/shadow
+  treatment (the theme still defaults to `flatSurfaces: true`).
+- Added `brand-requests/class-usa/ClassScout-Design-Tokens-Refinement-2026-08-08.md`
+  recording this as a dated refinement layered on top of the locked v1.0
+  token doc, which stays as the historical record of what was originally
+  reconciled from the brand PDFs.
+
 ## 4.1.6 - 2026-08-08 — 3.9.0→current migration note; fix self-contradictory major-version index (#514)
 
 Consumer-facing docs fix, prompted by real client feedback from four
