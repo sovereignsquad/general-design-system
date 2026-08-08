@@ -1,8 +1,8 @@
 # Accessibility Conformance Report (VPAT® 2.5) — General Design System
 
 Status: Active SSOT
-Version: 4.1.6
-Last updated: 2026-07-26
+Version: 4.1.7
+Last updated: 2026-08-08
 
 **Name of Product/Version:** General Design System (GDS) — `@sovereignsquad/gds` and the granular `@sovereignsquad/gds-*` packages, release line `4.1.6`
 **Report Date:** 2026-07-25
