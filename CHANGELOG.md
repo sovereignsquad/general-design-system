@@ -2,6 +2,65 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 4.1.11 - 2026-08-08 — #523 was incomplete (#527); EditorialCard dark-mode fallback (#526)
+
+User report, direct inspection of the live site: gradient backgrounds and a
+mismatched header/"menu" bar under a flat-surface theme, plus a stark white
+box inside dark-mode cards, plus general readability complaints.
+
+**#527 — #523 only fixed part of the fabricated-gradient problem.** It
+patched `body::before` and the site-wide Button/Checkbox rules, but missed
+six other rules in `packages/gds-theme/styles.css` that paint the same
+kind of decorative gradient/glow unconditionally on every preset, including
+Class USA and Gold Athlete (`flatSurfaces: true`, no gradient/glow/colored
+shadow anywhere in their real brand definition):
+`body` itself (the base rule layers a second, un-gated diagonal wash under
+the already-neutralized `--gds-vibe-gradient`; invisible in normal layout
+since `.mantine-AppShell-main` sits on top, but exposed by iOS Safari's
+elastic overscroll bounce, which reveals whatever is painted behind the
+viewport — the likely source of the "gradient background" seen live on a
+mobile device), `.mantine-AppShell-main` (+dark variant),
+`.mantine-AppShell-header`/`.navbar`/`.footer` (+the navbar-specific extra
+layer), `.gds-paper`/`.gds-card` (+dark variant), and the dark-mode
+`.mantine-Popover-dropdown`. Added explicit `class-usa`/`gold-athlete`
+override rules for each, mirroring the exact pattern already used elsewhere
+in this file for the 12 "enhanced atmosphere" vibe presets — solid
+backgrounds, no box-shadow, `!important` to win regardless of specificity
+(the `body` override also pins `background-attachment: fixed !important`
+explicitly, since the `background` shorthand otherwise silently resets it
+to `scroll`). Verified live: computed styles on the header/main/card/body
+under Class USA report `backgroundImage: none` in both light and dark mode,
+not just visually inspected. Audited every remaining `gradient(...)` rule
+in the file referencing `--gds-vibe-primary/accent/shell/canvas/surface`
+against the full `flatSurfaces` preset list (`class-usa`, `gold-athlete` —
+confirmed via `theme-presets.ts`/`vibe-themes.ts`, no others exist) to
+confirm no further instances remain.
+
+**#526 — `EditorialMediaFallback`** (`packages/gds-core/src/EditorialCard.tsx`)
+hardcoded `background: 'var(--mantine-color-gray-0)'` — a fixed shade that
+doesn't invert with color scheme, unlike `tonePalette.muted.background` a
+few lines above in the same file, which already used `light-dark(...)`
+correctly. Fixed to `light-dark(var(--mantine-color-gray-0),
+var(--mantine-color-dark-6))`, matching that existing idiom, plus an
+explicit `color: var(--mantine-color-dimmed)` for the fallback icon.
+
+Both verified against the live deployment cross-checked byte-for-byte
+against the local build under test (content-hashed CSS/JS filenames matched
+exactly) before concluding the bugs were genuinely shipped, not stale-cache
+artifacts — headless Chrome cannot reach the public internet from this
+sandbox (confirmed via `ERR_CONNECTION_RESET`), so verification used `curl`
+plus direct computed-style inspection against a locally-served identical
+build instead of a live screenshot.
+
+**Note on `verify:release`:** the full chain (build/lint/541 tests/boundary/
+forced-colors/theme-trust/kanban-a11y/mantine-compat/component-catalog) is
+clean for this change. One unrelated Vite chunk-size warning
+(`vendor-gds-*.js` ~953 KB, over the 940 KB threshold) is present in the
+`apps/playground` build output; confirmed via a clean worktree build of the
+already-shipped `main` commit (`432293e`) that it predates this change and
+isn't caused by it. Tracked separately as #528 rather than bundled into this
+unrelated fix.
+
 ## 4.1.10 - 2026-08-08 — Badge glyph mode: emoji as an alternative to Tabler icons (#525)
 
 Client feedback: the badge system should support emoji as an alternative to
