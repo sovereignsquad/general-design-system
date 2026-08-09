@@ -36,11 +36,11 @@ export function GdsBreadcrumbs({ items, ariaLabel = 'Breadcrumb' }: GdsBreadcrum
       <Breadcrumbs>
         {items.map((item, index) =>
           item.href && index !== lastIndex ? (
-            <Anchor key={`${item.label}-${item.href}`} href={item.href}>
+            <Anchor key={`${index}-${item.label}`} href={item.href}>
               {item.label}
             </Anchor>
           ) : (
-            <Text key={item.label} aria-current={index === lastIndex ? 'page' : undefined}>
+            <Text key={`${index}-${item.label}`} aria-current={index === lastIndex ? 'page' : undefined}>
               {item.label}
             </Text>
           ),

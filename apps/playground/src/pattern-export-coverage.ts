@@ -320,7 +320,7 @@ export const patternExportCoverage: ExportCoverageEntry[] = [
   { packageName: '@sovereignsquad/gds-core', exportName: 'ReferenceLinkGrid', status: 'live-demo', registryId: 'reference-link-grid', rationale: 'Canonical reference link grid.' },
   { packageName: '@sovereignsquad/gds-core', exportName: 'ReferenceLocaleNotice', status: 'live-demo', registryId: 'reference-locale-notice', rationale: 'Canonical locale coverage disclosure.' },
   { packageName: '@sovereignsquad/gds-core', exportName: 'ReferenceSection', status: 'live-demo', registryId: 'reference-section', rationale: 'Canonical reference section.' },
-  { packageName: '@sovereignsquad/gds-core', exportName: 'ReferenceThemeExplorer', status: 'live-demo', registryId: 'reference-theme-explorer', rationale: 'Canonical theme explorer.' },
+  { packageName: '@sovereignsquad/gds-core', exportName: 'ReferenceThemeExplorer', status: 'live-demo', registryId: 'reference-theme-explorer', rationale: 'Canonical theme explorer, reached behind a dedicated @sovereignsquad/gds-core/reference-theme-explorer subpath (issue 532) so consumers who never render it don\'t bundle its ~112.7 kB.' },
   { packageName: '@sovereignsquad/gds-core', exportName: 'ReportingSection', status: 'live-demo', registryId: 'reporting-contracts', rationale: 'Canonical reporting composition for metrics, evidence, chart, and period controls.' },
   { packageName: '@sovereignsquad/gds-core', exportName: 'SectionPanel', status: 'live-demo', registryId: 'section-panels', rationale: 'Canonical section/panel surface.' },
   { packageName: '@sovereignsquad/gds-core', exportName: 'SemanticButton', status: 'live-demo', registryId: 'semantic-actions', rationale: 'Semantic button covered by semantic actions and CTA demos.' },

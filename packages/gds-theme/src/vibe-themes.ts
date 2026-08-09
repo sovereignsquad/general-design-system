@@ -92,9 +92,13 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   // Accessibility lane (#453): maximal-contrast, flat, undecorated. Pure
   // white/black canvases, black/white body text, near-pure dark-gray/light-gray
   // meta text (all AAA), and solid black/white borders. No gradients or glows —
-  // the atmosphere fields resolve to flat transparent so the shell reads as a
-  // plain high-contrast surface. Text/meta on canvas/surface clear WCAG AAA in
-  // both schemes (verified in verify:token-contrast-scoring / theme-accessibility).
+  // `flatSurfaces: true` neutralizes --gds-vibe-glow/--gds-vibe-gradient/
+  // --gds-vibe-atmosphere at the source (see getGdsVibeThemeCssVariables below),
+  // the same mechanism class-usa/gold-athlete rely on, so the shell reads as a
+  // plain high-contrast surface everywhere a component composes its own
+  // gradient/glow from those variables — not just the fields on this object.
+  // Text/meta on canvas/surface clear WCAG AAA in both schemes (verified in
+  // verify:token-contrast-scoring / theme-accessibility).
   'high-contrast': {
     id: 'high-contrast',
     label: 'High contrast',
@@ -115,6 +119,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     mutedDark: '#d6d6d6',
     gradient: 'linear-gradient(transparent, transparent)',
     hero: 'linear-gradient(transparent, transparent)',
+    flatSurfaces: true,
   },
   // Accessibility lane (#453): colorblind-safe brand palette drawn from the
   // Okabe-Ito qualitative set (Okabe & Ito, 2008) — the validated colors that

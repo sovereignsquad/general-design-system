@@ -334,10 +334,10 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
                   borderRadius: 18,
                   color: item.active ? athleteGold.accent : athleteGold.textDark,
                   background: item.active
-                    ? `linear-gradient(90deg, rgba(228, 166, 35, 0.18), rgba(255, 215, 106, 0.06))`
+                    ? `linear-gradient(90deg, color-mix(in srgb, ${athleteGold.accent} 18%, transparent), color-mix(in srgb, ${athleteGold.primary} 6%, transparent))`
                     : 'transparent',
                   border: item.active ? `1px solid ${athleteGold.borderDark}` : '1px solid transparent',
-                  boxShadow: item.active ? `0 18px 38px rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(255, 215, 106, 0.08)` : undefined,
+                  boxShadow: item.active ? `0 18px 38px ${athleteGold.glow}, inset 0 0 0 1px color-mix(in srgb, ${athleteGold.primary} 8%, transparent)` : undefined,
                 }}
               >
                 <Group gap="md" wrap="nowrap">

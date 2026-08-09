@@ -11,7 +11,11 @@ import {
   DocsPageShell,
   FeatureBand,
   FoodMenuSection,
+  GdsBox,
   GdsChart,
+  GdsCluster,
+  GdsGeneratedThumbnail,
+  GdsStack,
   ListingCard,
   MapPanel,
   MeaningBadge,
@@ -218,7 +222,7 @@ export function CardsPage() {
         />
       </ReferenceSection>
 
-        <ReferenceSection title="Map and media containment" description="Embeds and media should render inside the sanctioned GDS containment surfaces.">
+      <ReferenceSection title="Map and media containment" description="Embeds and media should render inside the sanctioned GDS containment surfaces.">
         <MapPanel
           title="Meetup route map"
           description="MapPanel keeps third-party embeds inside shared header chrome, loading, and failure behavior."
@@ -228,11 +232,16 @@ export function CardsPage() {
           title="Public media card"
           description="Media-led discovery surface for stories, bundles, guides, and catalog promotions."
           status="Published"
-          image={<div />}
+          image={(
+            <GdsGeneratedThumbnail
+              seed="media-card-demo"
+              categories={[{ key: 'media', label: 'Media', icon: 'Gallery' }]}
+            />
+          )}
         />
       </ReferenceSection>
 
-        <ReferenceSection title="Governed sharing" description="Sharing should use the canonical share-button group instead of local icon clusters.">
+      <ReferenceSection title="Governed sharing" description="Sharing should use the canonical share-button group instead of local icon clusters.">
         <ShareButtonGroup
           url="https://sovereignsquad.github.io/general-design-system/live-demos/surfaces"
           title="General Design System live demos"
@@ -411,7 +420,14 @@ export function LayoutsPage() {
           title="Product walkthrough"
           state="ready"
           statusMessage="Accessible playback surface with bounded description and media containment."
-          media={<div />}
+          media={(
+            <GdsBox w={320}>
+              <GdsGeneratedThumbnail
+                seed="playback-surface-demo"
+                categories={[{ key: 'playback', label: 'Playback', icon: 'Play' }]}
+              />
+            </GdsBox>
+          )}
         />
       </ReferenceSection>
 
@@ -428,16 +444,26 @@ export function LayoutsPage() {
 }
 
 export function VocabularyPage() {
-  const [feedback, setFeedback] = useState<'success' | 'error' | null>(null);
+  const [submitFeedback, setSubmitFeedback] = useState<'success' | 'error' | null>(null);
+  const [deleteFeedback, setDeleteFeedback] = useState<'success' | 'error' | null>(null);
   const [demoAction, setDemoAction] = useState<'save' | 'delete' | 'preview' | 'add'>('save');
   const [demoBrand, setDemoBrand] = useState<'primary' | 'secondary' | 'accent'>('primary');
   const [demoSize, setDemoSize] = useState<'sm' | 'md' | 'lg'>('md');
   const [demoMeaning, setDemoMeaning] = useState<'attention' | 'validation' | 'info' | 'urgency'>('attention');
   const [demoTone, setDemoTone] = useState<'positive' | 'negative' | 'neutral'>('positive');
 
-  const showFeedback = (next: 'success' | 'error') => {
-    setFeedback(next);
-    setTimeout(() => setFeedback(null), 1600);
+  // Two independent state slots (not one shared `feedback`): a shared slot let
+  // clicking Delete flash an error state on Submit too, since both buttons read
+  // the same value (regression, found in a full-site audit — one asymmetric
+  // mask on the Delete button hid Submit's own state from it, but nothing hid
+  // Delete's state from Submit).
+  const showSubmitFeedback = () => {
+    setSubmitFeedback('success');
+    setTimeout(() => setSubmitFeedback(null), 1600);
+  };
+  const showDeleteFeedback = () => {
+    setDeleteFeedback('error');
+    setTimeout(() => setDeleteFeedback(null), 1600);
   };
 
   return (
@@ -456,83 +482,86 @@ export function VocabularyPage() {
       </ReferenceSection>
 
       <ReferenceSection title="Feedback states" description="Interaction states remain visible and consistent without route-local button wrappers.">
-        <>
-          <SemanticButton action="submit" feedbackState={feedback} onClick={() => showFeedback('success')} />
-          <SemanticButton action="delete" feedbackState={feedback === 'success' ? null : feedback} onClick={() => showFeedback('error')} color="red" />
-        </>
+        <GdsCluster gap="sm">
+          <SemanticButton action="submit" feedbackState={submitFeedback} onClick={showSubmitFeedback} />
+          <SemanticButton action="delete" feedbackState={deleteFeedback} onClick={showDeleteFeedback} color="red" />
+        </GdsCluster>
       </ReferenceSection>
 
       <ReferenceSection title="Interactive controls" description="Storybook-parity: toggle the props to see the governed SemanticButton update live inside the catalog — no local wrapper, no external tool.">
-        <GdsSegmentedControl
-          ariaLabel="Action"
-          value={demoAction}
-          onChange={(next) => setDemoAction(next as 'save' | 'delete' | 'preview' | 'add')}
-          options={[
-            { value: 'save', label: 'Save' },
-            { value: 'delete', label: 'Delete' },
-            { value: 'preview', label: 'Preview' },
-            { value: 'add', label: 'Add' },
-          ]}
-        />
-        <br />
-        <GdsSegmentedControl
-          ariaLabel="Brand variant"
-          value={demoBrand}
-          onChange={(next) => setDemoBrand(next as 'primary' | 'secondary' | 'accent')}
-          options={[
-            { value: 'primary', label: 'Primary' },
-            { value: 'secondary', label: 'Secondary' },
-            { value: 'accent', label: 'Accent' },
-          ]}
-        />
-        <br />
-        <GdsSegmentedControl
-          ariaLabel="Size"
-          value={demoSize}
-          onChange={(next) => setDemoSize(next as 'sm' | 'md' | 'lg')}
-          options={[
-            { value: 'sm', label: 'Small' },
-            { value: 'md', label: 'Medium' },
-            { value: 'lg', label: 'Large' },
-          ]}
-        />
-        <br />
-        <SemanticButton action={demoAction} brandVariant={demoBrand} size={demoSize} />
-        <BodyText>{`<SemanticButton action="${demoAction}" brandVariant="${demoBrand}" size="${demoSize}" />`}</BodyText>
+        <GdsStack gap="sm">
+          <GdsSegmentedControl
+            ariaLabel="Action"
+            value={demoAction}
+            onChange={(next) => setDemoAction(next as 'save' | 'delete' | 'preview' | 'add')}
+            options={[
+              { value: 'save', label: 'Save' },
+              { value: 'delete', label: 'Delete' },
+              { value: 'preview', label: 'Preview' },
+              { value: 'add', label: 'Add' },
+            ]}
+          />
+          <GdsSegmentedControl
+            ariaLabel="Brand variant"
+            value={demoBrand}
+            onChange={(next) => setDemoBrand(next as 'primary' | 'secondary' | 'accent')}
+            options={[
+              { value: 'primary', label: 'Primary' },
+              { value: 'secondary', label: 'Secondary' },
+              { value: 'accent', label: 'Accent' },
+            ]}
+          />
+          <GdsSegmentedControl
+            ariaLabel="Size"
+            value={demoSize}
+            onChange={(next) => setDemoSize(next as 'sm' | 'md' | 'lg')}
+            options={[
+              { value: 'sm', label: 'Small' },
+              { value: 'md', label: 'Medium' },
+              { value: 'lg', label: 'Large' },
+            ]}
+          />
+          <SemanticButton action={demoAction} brandVariant={demoBrand} size={demoSize} />
+          <BodyText>{`<SemanticButton action="${demoAction}" brandVariant="${demoBrand}" size="${demoSize}" />`}</BodyText>
+        </GdsStack>
       </ReferenceSection>
 
       <ReferenceSection title="Interactive controls — MeaningBadge" description="Storybook-parity: switch the semantic variant to see the governed MeaningBadge re-map its background and foreground tokens live.">
-        <GdsSegmentedControl
-          ariaLabel="Meaning variant"
-          value={demoMeaning}
-          onChange={(next) => setDemoMeaning(next as 'attention' | 'validation' | 'info' | 'urgency')}
-          options={[
-            { value: 'attention', label: 'Attention' },
-            { value: 'validation', label: 'Validation' },
-            { value: 'info', label: 'Info' },
-            { value: 'urgency', label: 'Urgency' },
-          ]}
-        />
-        <br />
-        <MeaningBadge variant={demoMeaning} label={`${demoMeaning} status`} />
-        <MeaningBadge variant={demoMeaning} label={`${demoMeaning} status`} icon="Star" />
-        <BodyText>{`<MeaningBadge variant="${demoMeaning}" label="${demoMeaning} status" icon="Star" />`}</BodyText>
+        <GdsStack gap="sm">
+          <GdsSegmentedControl
+            ariaLabel="Meaning variant"
+            value={demoMeaning}
+            onChange={(next) => setDemoMeaning(next as 'attention' | 'validation' | 'info' | 'urgency')}
+            options={[
+              { value: 'attention', label: 'Attention' },
+              { value: 'validation', label: 'Validation' },
+              { value: 'info', label: 'Info' },
+              { value: 'urgency', label: 'Urgency' },
+            ]}
+          />
+          <GdsCluster gap="sm">
+            <MeaningBadge variant={demoMeaning} label={`${demoMeaning} status`} />
+            <MeaningBadge variant={demoMeaning} label={`${demoMeaning} status`} icon="Star" />
+          </GdsCluster>
+          <BodyText>{`<MeaningBadge variant="${demoMeaning}" label="${demoMeaning} status" icon="Star" />`}</BodyText>
+        </GdsStack>
       </ReferenceSection>
 
       <ReferenceSection title="Interactive controls — MetricCard" description="Storybook-parity: switch the trend tone to see the governed MetricCard re-map its trend badge across the positive, negative, and neutral data lanes.">
-        <GdsSegmentedControl
-          ariaLabel="Trend tone"
-          value={demoTone}
-          onChange={(next) => setDemoTone(next as 'positive' | 'negative' | 'neutral')}
-          options={[
-            { value: 'positive', label: 'Positive' },
-            { value: 'negative', label: 'Negative' },
-            { value: 'neutral', label: 'Neutral' },
-          ]}
-        />
-        <br />
-        <MetricCard label="Monthly active users" value="12,480" trend={{ label: '+8.2% vs last month', tone: demoTone }} />
-        <BodyText>{`<MetricCard label="Monthly active users" value="12,480" trend={{ label: '+8.2% vs last month', tone: "${demoTone}" }} />`}</BodyText>
+        <GdsStack gap="sm">
+          <GdsSegmentedControl
+            ariaLabel="Trend tone"
+            value={demoTone}
+            onChange={(next) => setDemoTone(next as 'positive' | 'negative' | 'neutral')}
+            options={[
+              { value: 'positive', label: 'Positive' },
+              { value: 'negative', label: 'Negative' },
+              { value: 'neutral', label: 'Neutral' },
+            ]}
+          />
+          <MetricCard label="Monthly active users" value="12,480" trend={{ label: '+8.2% vs last month', tone: demoTone }} />
+          <BodyText>{`<MetricCard label="Monthly active users" value="12,480" trend={{ label: '+8.2% vs last month', tone: "${demoTone}" }} />`}</BodyText>
+        </GdsStack>
       </ReferenceSection>
 
       <ReferenceSection title="Canonical social auth" description="Provider-based login belongs to the shared auth surface, not to custom stacks inside each product.">
@@ -588,7 +617,14 @@ export function PlaybackPage() {
           title="Product walkthrough"
           state="ready"
           statusMessage="Accessible playback surface with bounded media and clear next actions."
-          media={<div />}
+          media={(
+            <GdsBox w={320}>
+              <GdsGeneratedThumbnail
+                seed="playback-surfaces-demo"
+                categories={[{ key: 'playback', label: 'Playback', icon: 'Play' }]}
+              />
+            </GdsBox>
+          )}
         />
       </ReferenceSection>
 

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import type { MantineThemeOverride } from '@mantine/core';
-import { applyGdsFontLane, isGdsFontLaneId, type GdsFontLaneId } from './font-lanes';
+import { applyGdsFontLane, isGdsFontLaneId, resolveGdsFontLane, type GdsFontLaneId } from './font-lanes';
 import { getGdsThemePresets, resolveGdsThemePreset, type GdsThemePresetId } from './theme-presets';
 import { getGdsVibeThemeCssVariables } from './vibe-themes';
 
@@ -145,6 +145,46 @@ function resolveDocumentScheme(selection: GdsThemePresetSelection) {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
+const FONT_LANE_LINK_ID = 'gds-font-lane-stylesheet';
+/** The only lane whose font is loaded statically by `packages/gds-theme/styles.css`. */
+const STATICALLY_LOADED_LANE: GdsFontLaneId = 'inter';
+
+/**
+ * Ensures exactly one non-blocking `<link rel="stylesheet">` is present for
+ * the active font lane's web font, matching each lane's declared
+ * `loadStrategy: 'non-blocking-stylesheet'` (see font-lanes.ts) — added,
+ * swapped, or removed as the lane changes. The default `'inter'` lane is
+ * already loaded statically by the package stylesheet, so no duplicate link
+ * is created for it; lanes with no `cssImportUrl` (a `'system'` source) need
+ * no link at all.
+ */
+function applyFontLaneStylesheet(fontLaneId: GdsFontLaneId) {
+  const existing = document.getElementById(FONT_LANE_LINK_ID) as HTMLLinkElement | null;
+
+  if (fontLaneId === STATICALLY_LOADED_LANE) {
+    existing?.remove();
+    return;
+  }
+
+  if (existing?.getAttribute('data-gds-font-lane') === fontLaneId) {
+    return;
+  }
+
+  const lane = resolveGdsFontLane(fontLaneId);
+  if (!lane.cssImportUrl) {
+    existing?.remove();
+    return;
+  }
+
+  existing?.remove();
+  const link = document.createElement('link');
+  link.id = FONT_LANE_LINK_ID;
+  link.rel = 'stylesheet';
+  link.href = lane.cssImportUrl;
+  link.setAttribute('data-gds-font-lane', lane.id);
+  document.head.appendChild(link);
+}
+
 function applyDocumentRuntime(selection: GdsThemePresetSelection) {
   const documentScheme = resolveDocumentScheme(selection);
   const vibeVariables = getGdsVibeThemeCssVariables(selection.preset, documentScheme);
@@ -153,6 +193,7 @@ function applyDocumentRuntime(selection: GdsThemePresetSelection) {
   document.documentElement.setAttribute('data-gds-theme-preset', selection.preset);
   document.documentElement.setAttribute('data-gds-theme-runtime', selection.runtimeKey ?? `${selection.preset}-${selection.colorScheme}`);
   document.documentElement.setAttribute('data-gds-font-lane', selection.fontLane);
+  applyFontLaneStylesheet(selection.fontLane);
 
   Object.entries(vibeVariables).forEach(([property, value]) => {
     document.documentElement.style.setProperty(property, value);

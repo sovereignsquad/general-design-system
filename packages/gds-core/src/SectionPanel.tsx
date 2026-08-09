@@ -8,6 +8,8 @@ export type SectionPanelTone = 'default' | 'supporting' | 'warning' | 'critical'
 
 /** Props for the `SectionPanel` component. */
 export interface SectionPanelProps extends SurfacePresentationProps {
+  /** Small kicker label rendered above `title`, as its own element — never nested inside the heading. */
+  eyebrow?: ReactNode;
   title?: ReactNode;
   description?: ReactNode;
   /** Header action, aligned opposite the title. */
@@ -34,6 +36,7 @@ const toneBackgrounds: Record<SectionPanelTone, string> = {
  * surfaces — instead of ad-hoc card-plus-title markup.
  */
 export function SectionPanel({
+  eyebrow,
   title,
   description,
   action,
@@ -73,11 +76,16 @@ export function SectionPanel({
       style={{ background: toneBackgrounds[tone] }}
     >
       <Stack gap="md">
-        {(title || description || action) ? (
+        {(eyebrow || title || description || action) ? (
           <>
             <Group justify="space-between" align="flex-start" gap="md" wrap="wrap">
-              {(title || description) ? (
+              {(eyebrow || title || description) ? (
                 <Stack gap={4}>
+                  {eyebrow ? (
+                    <Text size="xs" fw={700} c="dimmed">
+                      {eyebrow}
+                    </Text>
+                  ) : null}
                   {title ? <Title order={3}>{title}</Title> : null}
                   {description ? (
                     <Text size="sm" c="dimmed">

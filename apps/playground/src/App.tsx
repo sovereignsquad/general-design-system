@@ -13,8 +13,10 @@ import {
   SidebarNavItem,
   StateBlock,
   ThemeToggle,
-  type ThemeExplorerSelection,
 } from '@sovereignsquad/gds-core';
+// See info-pages.tsx's import comment: ReferenceThemeExplorer (and its
+// ThemeExplorerSelection type) moved behind its own subpath (issue 532).
+import type { ThemeExplorerSelection } from '@sovereignsquad/gds-core/reference-theme-explorer';
 import {
   getLegacyRedirects,
   getPrimaryRoutes,
@@ -29,6 +31,7 @@ import {
   getSiteLocale,
   getSiteLocaleOptions,
   getSiteRouteLabel,
+  siteLocaleRegistry,
 } from './site-copy';
 
 const PatternsIndexPage = lazy(async () => {
@@ -167,7 +170,12 @@ function RouteFallback() {
 function PlaygroundContent() {
   const [locale, setLocale] = useState<string>(() => {
     const requestedLocale = new URLSearchParams(window.location.search).get('locale');
-    return requestedLocale && getSiteLocale(requestedLocale) ? requestedLocale : 'en';
+    // `getSiteLocale` always falls back to English internally, so it never
+    // returns falsy — this must check real registry membership, not truthiness
+    // (regression: an invalid `?locale=` value used to be stored as-is instead
+    // of falling back to 'en', corrupting state and misreporting locale in the
+    // notice banner it then spuriously triggered).
+    return requestedLocale && requestedLocale in siteLocaleRegistry ? requestedLocale : 'en';
   });
   const {
     selection: siteThemeSelection,

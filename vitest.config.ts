@@ -9,6 +9,7 @@ export default defineConfig({
       // Vite/Rollup alias matching checks entries in order and this one would
       // otherwise never be reached.
       '@sovereignsquad/gds-core/rich-text-editor': resolve(__dirname, 'packages/gds-core/src/rich-text-editor.ts'),
+      '@sovereignsquad/gds-core/reference-theme-explorer': resolve(__dirname, 'packages/gds-core/src/reference-theme-explorer.ts'),
       '@sovereignsquad/gds-theme': resolve(__dirname, 'packages/gds-theme/src/index.ts'),
       '@sovereignsquad/gds-core': resolve(__dirname, 'packages/gds-core/src/index.ts'),
       '@sovereignsquad/gds-admin': resolve(__dirname, 'packages/gds-admin/src/index.ts'),

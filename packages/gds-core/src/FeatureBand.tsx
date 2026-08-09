@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Box, Group, Paper, SimpleGrid, Skeleton, Stack, Text, ThemeIcon, Title } from '@mantine/core';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { EmptyState } from './EmptyState';
 import { GdsIcons } from './icons';
 
@@ -64,6 +65,8 @@ export function FeatureBand({
   emptyState,
   variant = 'default',
 }: FeatureBandProps) {
+  const { t } = useGdsTranslation();
+
   if (loading) {
     return <FeatureBandSkeleton columns={columns} bordered={bordered} variant={variant} />;
   }
@@ -73,14 +76,14 @@ export function FeatureBand({
       <>{emptyState}</>
     ) : (
       <EmptyState
-        title="No supporting details available"
-        description="Add shared feature-band items when this public surface needs trust, service, or location context."
+        title={t('gds.featureBand.emptyTitle', 'No supporting details available')}
+        description={t('gds.featureBand.emptyDescription', 'Add shared feature-band items when this public surface needs trust, service, or location context.')}
       />
     );
   }
 
   return (
-    <Box component="section" aria-label="Supporting features">
+    <Box component="section" aria-label={t('gds.featureBand.sectionLabel', 'Supporting features')}>
       <SimpleGrid cols={{ base: 1, sm: Math.min(columns, 2), lg: columns }} spacing="lg">
         {items.map((item, index) => (
           <Paper key={item.id} withBorder={bordered} radius="lg" p={variant === 'compact' ? 'md' : 'lg'}>
@@ -104,7 +107,7 @@ export function FeatureBand({
                 item.media
               ) : item.icon ? (
                 <Group>
-                  <ThemeIcon size="xl" radius="xl" variant="light" color="violet">
+                  <ThemeIcon size="xl" radius="xl" variant="light" color="violet" aria-hidden>
                     {item.icon}
                   </ThemeIcon>
                 </Group>

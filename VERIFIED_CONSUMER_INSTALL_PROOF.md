@@ -1,13 +1,13 @@
 # Verified Consumer Install Proof
 
 Status: Active SSOT
-Version: 4.1.11
+Version: 5.0.0
 Last updated: 2026-08-08
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
-Latest published GitHub Packages baseline validated by this proof: `4.1.11`
-Current repository line: `4.1.11`
+Latest published GitHub Packages baseline validated by this proof: `5.0.0`
+Current repository line: `5.0.0`
 Current major line: `3.0.x`
 
 ## Verified consumer baseline
@@ -110,18 +110,18 @@ All installs require the `.npmrc` scope mapping to GitHub Packages first:
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
-Canonical `4.1.11` end-state install source after the release gate opens:
+Canonical `5.0.0` end-state install source after the release gate opens:
 
 ```bash
-npm install @sovereignsquad/gds@4.1.11
-npm install -D @sovereignsquad/gds-eslint-config@4.1.11 @sovereignsquad/gds-compliance@4.1.11 @sovereignsquad/gds-a11y@4.1.11
+npm install @sovereignsquad/gds@5.0.0
+npm install -D @sovereignsquad/gds-eslint-config@5.0.0 @sovereignsquad/gds-compliance@5.0.0 @sovereignsquad/gds-a11y@5.0.0
 ```
 
 Granular package path:
 
 ```bash
-npm install @sovereignsquad/gds-theme@4.1.11 @sovereignsquad/gds-core@4.1.11 @sovereignsquad/gds-admin@4.1.11
-npm install -D @sovereignsquad/gds-eslint-config@4.1.11 @sovereignsquad/gds-compliance@4.1.11 @sovereignsquad/gds-a11y@4.1.11
+npm install @sovereignsquad/gds-theme@5.0.0 @sovereignsquad/gds-core@5.0.0 @sovereignsquad/gds-admin@5.0.0
+npm install -D @sovereignsquad/gds-eslint-config@5.0.0 @sovereignsquad/gds-compliance@5.0.0 @sovereignsquad/gds-a11y@5.0.0
 ```
 
 Release-visibility tarballs attached to the `gds-v<VERSION>` GitHub Release (see [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md)) are audit/offline artifacts, not a documented install path — do not use them in place of the GitHub Packages install above, and do not use sibling `file:` links in CI or Vercel flows.

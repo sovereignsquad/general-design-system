@@ -10,8 +10,8 @@ import {
   ru,
 } from '@sovereignsquad/gds-core';
 
-export const stableGdsVersion = '4.1.11';
-export const targetGdsVersion = '4.1.11';
+export const stableGdsVersion = '5.0.0';
+export const targetGdsVersion = '5.0.0';
 
 export const siteLocaleRegistry = {
   en: { label: 'English', messages: en },

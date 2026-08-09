@@ -2,6 +2,172 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 5.0.0 - 2026-08-09 — BREAKING: `ReferenceThemeExplorer` moved behind a dedicated subpath (#532)
+
+Owner asked to actually fix the `vendor-gds` bundle-size overage from #532
+rather than just re-baseline the ceiling — this is the real fix for the
+larger of the two root causes.
+
+`ReferenceThemeExplorer` was gds-core's single largest client-bundle module
+(`ReferenceThemeExplorer.tsx` + `.copy.ts`, ~112.7KB, bigger than the
+`GdsRichTextEditor` subtree that established this pattern), and every real
+consumer renders it on one or two specific routes, not universally. Moved
+it out of the main `.`/`./client` barrels into a dedicated
+`@sovereignsquad/gds-core/reference-theme-explorer` subpath, mirroring
+`rich-text-editor`'s proven split (561KB→217KB for `reference-vite`, which
+never imports it). **This is a breaking change**: `import {
+ReferenceThemeExplorer } from '@sovereignsquad/gds-core'` (or `./client`)
+no longer resolves it — see `DEPRECATIONS_AND_MIGRATIONS.md`'s new
+"Component-export relocations" section for the one-line migration.
+
+The playground renders `ReferenceThemeExplorer` on first paint of both `/`
+and `/themes`, so it was kept as a static, eager import (not lazy — that
+would add a loading-flash waterfall to the site's own landing page), just
+from the new subpath, with a dedicated higher-priority chunking rule in
+`vite.config.ts` so it lands in its own `vendor-gds-theme-explorer` chunk
+instead of fused into `vendor-gds`. Net effect on the playground's own
+build: `vendor-gds` dropped from 954KB to 665KB — comfortably under both
+the original 940KB ceiling and the 960KB one from the prior release,
+without raising anything further. Verified live: `ReferenceThemeExplorer`
+still renders correctly on both routes after the split.
+
+The other root cause identified in #532 (gds-core's 12 locale dictionaries,
+122.8KB, always bundled eagerly) is unresolved — it needs an async/Suspense
+redesign of `GdsI18nRuntime`'s currently-synchronous message-lookup API,
+which is a larger, separate piece of work, not folded into this release.
+
+## 4.1.15 - 2026-08-09 — Audited the vendor-gds bundle-size warning; re-baselined ceiling, filed real fixes (#532)
+
+Owner asked for the `vendor-gds` chunk-size warning to be genuinely fixed —
+"clean out the trash, the dead ends" — not silenced. Investigated before
+touching anything: built the last committed commit (`d627f83`) in an
+isolated worktree and confirmed the 954KB chunk was already 953.55KB there,
+over the `chunkSizeWarningLimit: 940` ceiling, *before* this session's work
+(this session's own ~85-file diff added 545 bytes total). Scanned every
+non-test source file in `gds-core`, `gds-theme`, `gds-admin` (200 files) for
+dead code: found none — every export is either imported in-repo or
+re-exported from a public barrel. The size is legitimately-earned showcase
+surface, not neglect.
+
+Re-baselined `apps/playground/vite.config.ts`'s `chunkSizeWarningLimit`
+940→960 (same documented pattern as its two prior re-baselines) to reflect
+that audited-clean reality. Filed #532 for the two real fixes the
+investigation surfaced, both genuine architecture changes rather than
+same-day patches: (1) subpath-extracting `ReferenceThemeExplorer` (112.7KB),
+`GdsSchemaForm`'s demo subtree (32.1KB), and `KanbanBoard`+`AdvancedDataTable`'s
+demo subtree (25.8KB) behind dedicated entry points, mirroring
+`rich-text-editor`'s proven ~184KB combined savings — but all three are
+currently exported from the main barrel, so this is a breaking change
+needing a major version; (2) lazy-loading gds-core's 12 locale message
+dictionaries (122.8KB, only 1 ever active per visitor) instead of eager
+bundling, which requires reworking `GdsI18nRuntime`'s currently-synchronous
+message-lookup API — also not a one-line fix.
+
+## 4.1.14 - 2026-08-09 — Bolder navy/orange brand presence on flatSurfaces buttons in light mode (#531)
+
+Owner directive: after confirming Class USA's navy-filled buttons are
+intentional, governed brand behavior (`createBrandTheme('class-usa')` sets
+`primaryColor: 'classUsaNavy'`), the owner asked for both of a flatSurfaces
+brand's colors (primary + accent) to read as more dominant on buttons in
+light mode — the prior treatment was "too faded... that was never the
+intention." `packages/gds-theme/styles.css`, scoped to
+`html[data-mantine-color-scheme='light']` + `[data-gds-theme-preset='class-usa']`/
+`='gold-athlete']`: filled/primary buttons gain a solid 2px accent-colored
+border (Class USA's terracotta, Gold Athlete's metallic gold) alongside
+their existing primary fill, and default/secondary buttons switch from the
+faint neutral-bordered/7%-tinted treatment to a full-strength primary
+border and text color. A first pass of this fix wasn't scoped to light
+mode and was caught, before shipping, regressing dark-mode default-button
+contrast to ~1.12:1 (`--gds-vibe-canvas`/`--gds-vibe-primary` are both
+near-black in dark mode) — rescoped to light mode only; dark mode keeps its
+pre-existing, already-verified contrast pairing.
+
+## 4.1.13 - 2026-08-09 — Full-site "not canonical" audit batch (#530)
+
+Owner demanded an exhaustive whole-site audit — every bug, not just colors,
+and every component the reference site is supposed to represent. Ran 6
+parallel deep-read audits (site shell/nav, `/patterns` content components,
+the entire `styles.css`, a hardcoded-style sweep across `gds-core`,
+`/live-demos/*`, and a fresh look at an earlier unresolved report) plus
+live browser verification of the strongest theoretical lead, which was
+ruled out (an unblurred `text-shadow` on MetricCard numerals — no visible
+doubling in either color scheme).
+
+**High** — `high-contrast`'s own doc comment says "No gradients or glows,"
+but it never set `flatSurfaces: true` like `class-usa`/`gold-athlete`, so
+the accessibility preset was hit by the same fabricated-gradient bug #527
+fixed for those two. Fixed at the source (`vibe-themes.ts`) and folded into
+the shared override blocks; also fixed a specificity/source-order bug where
+`high-contrast`'s own old `.mantine-AppShell-main` override was dead code.
+
+**Medium** — `ReferenceSection`/`SectionPanel` nested eyebrow/description/
+link *inside* the `<h3>` (invalid HTML, live on `/patterns`) — gave
+`SectionPanel` a real `eyebrow` slot and routed through its existing
+`description`/`action` slots instead. `ReferenceLinkGrid` used a different
+breakpoint (`xl`) than every sibling grid (`lg`), causing a visible
+column-count mismatch on `/patterns` itself. A shared `feedback` state in
+`showcase-pages.tsx` let clicking "Delete" flash an error state on the
+separate "Submit" button; split into independent state. Replaced raw
+`<br/>` spacing hacks with governed `GdsStack`/`GdsCluster`, and two empty
+`<div/>` media placeholders (collapsed to 0×0) with real
+`GdsGeneratedThumbnail`s. A locale validity check in `App.tsx` was
+always-truthy, so a malformed `?locale=` param corrupted state instead of
+falling back cleanly. The mobile-nav toggle's `aria-label` was hardcoded
+English despite 9 supported locales; localized, and fixed a latent
+duplicate-burger bug via a new `hideMobileNavigationToggle` prop on
+`DiscoveryShell`. Two bare `white`/`#ffffff` literals in `styles.css`
+replaced with `var(--mantine-color-white)`. Two hand-restated `rgba()`
+literals in `ReferenceThemeExplorer.tsx` (that would silently drift from
+the real theme values) replaced with `color-mix()`.
+
+**Low/latent** — `GdsBreadcrumbs` key-collision risk fixed; a dead
+`data-sticky-sidebar` attribute with zero consumers removed; `FeatureBand`
+`aria-hidden` inconsistency and untranslated default copy fixed.
+
+**Explicitly investigated and not changed**: `FeatureBand`'s `999px` pill
+radius is an established codebase convention, not an inconsistency;
+`ReferenceLinkGrid`'s Anchor color renders with full contrast despite an
+open question about which CSS rule wins; the text-shadow "doubling" theory
+did not reproduce live.
+
+A handful of lower-severity hardcoded-value findings (`MapPanel.tsx`,
+`MediaCard.tsx`, `GdsPageTemplates.tsx`, `GdsFormControls.tsx`,
+`BottomTabBar.tsx`, `GdsGeneratedThumbnail.tsx`, `MediaWithFallback.tsx`,
+`EditorialHero.tsx`, and a repo-wide eyebrow letter-spacing inconsistency)
+were deliberately deferred to a follow-up rather than expanding this batch
+further — none are visible defects that were reported.
+
+## 4.1.12 - 2026-08-08 — Font-lane loading now uses the governed non-blocking system (#529)
+
+Deep audit prompted by a user report of dim/hard-to-read text on `/patterns`
+(that specific symptom could not be reproduced against the shipped build —
+byte-for-byte identical to the live deployment, clean contrast in a real
+headless-browser repro in both color schemes). The audit surfaced a real,
+unrelated "not canonical" defect instead: `packages/gds-theme/styles.css` had
+a single blocking `@import` pulling **all 10 built-in font lanes**
+(`font-lanes.ts`) — ~46 font-file variants across Barlow, DM Sans, Instrument
+Serif, Inter, Manrope, Nunito, Plus Jakarta Sans, Source Serif 4, Space
+Grotesk, and Work Sans — on every page load, even though only **one** lane is
+ever active at a time (`useGdsThemePresetState`'s `fontLane` selection).
+
+`font-lanes.ts` already had a fully-designed governed system for this — each
+lane declares its own `cssImportUrl` and `loadStrategy:
+'non-blocking-stylesheet'`, and `getGdsFontLaneStylesheetUrls()` exists
+specifically for "governed non-blocking loading" — none of it was wired up.
+`styles.css` instead hand-duplicated the font URLs and loaded every lane
+unconditionally and render-blockingly, dead code sitting next to the real
+mechanism. On a slow/cellular connection this produces a pronounced flash of
+fallback-styled text while dozens of unused font files are still in flight
+ahead of the one actually needed.
+
+Fixed: `styles.css` now statically loads only the default `'inter'` lane.
+`theme-runtime.ts`'s `applyDocumentRuntime` (called by
+`useGdsThemePresetState`) manages a single non-blocking
+`<link id="gds-font-lane-stylesheet">` for the active lane, added/swapped/
+removed as the lane changes, using each lane's own governed `cssImportUrl`.
+Test coverage added to `GdsProvider.test.tsx`; `THEME_GOVERNANCE.md` updated
+to document the loading contract explicitly.
+
 ## 4.1.11 - 2026-08-08 — #523 was incomplete (#527); EditorialCard dark-mode fallback (#526)
 
 User report, direct inspection of the live site: gradient backgrounds and a

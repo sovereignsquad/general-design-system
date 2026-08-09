@@ -26,7 +26,7 @@ export function ReferenceLinkGrid({
   const { t } = useGdsTranslation();
 
   return (
-    <SimpleGrid cols={{ base: 1, sm: Math.min(columns, 2), xl: columns }} spacing="lg" miw={0}>
+    <SimpleGrid cols={{ base: 1, sm: Math.min(columns, 2), lg: columns }} spacing="lg" miw={0}>
       {items.map((item) => (
         <Paper key={item.id} withBorder radius="xl" p="lg" miw={0}>
           <Stack gap="md" miw={0}>

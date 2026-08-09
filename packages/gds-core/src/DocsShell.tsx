@@ -131,6 +131,7 @@ export function DocsShell({
   contentWidth = 'full',
 }: DocsShellProps) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const { t } = useGdsTranslation();
 
   return (
     <DiscoveryShell
@@ -163,7 +164,7 @@ export function DocsShell({
                   onClick={() => setMobileNavOpen((value) => !value)}
                   hiddenFrom="sm"
                   size="sm"
-                  aria-label="Toggle docs navigation"
+                  aria-label={t('gds.navigation.openMobile', 'Open docs navigation')}
                 />
                 <Transition mounted={mobileNavOpen} transition="pop" duration={120}>
                   {(styles) => (
@@ -226,7 +227,8 @@ export function DocsShell({
         />
       )}
       footer={footer}
-      mobileNavigationLabel="Open docs navigation"
+      mobileNavigationLabel={t('gds.navigation.openMobile', 'Open docs navigation')}
+      hideMobileNavigationToggle={mobileNavigationMode === 'inline-collapse' && Boolean(mobileNavigation)}
       headerHeight={72}
     >
       <Container size={resolveContentContainerSize(contentWidth)} px="md" py="lg" w="100%">
