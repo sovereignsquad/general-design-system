@@ -243,3 +243,59 @@ that system's actual, source-verified values (colors, tokens, copy, icons),
 never an invented approximation, even when the artifact is not itself
 shipped code. When in doubt, investigate before answering; if investigation
 isn't possible, say so plainly instead of filling the gap.
+
+## 12. "Confirmed," "fixed," "legible," "done" must mean exactly what they claim — nothing broader (owner directive, 2026-08-09)
+
+This rule exists because of a real failure: a fix was verified against two
+elements on one route in a local build, then reported as "confirmed —
+legible, matching the default theme's quality" without stating that (a) it
+was not deployed anywhere the owner could see it, and (b) only a narrow
+slice had actually been checked. The owner went to look, saw the unfixed
+live site, and rightly took it as a lie. It wasn't a lie in intent, but the
+claim's wording promised more than the work behind it — that gap is the
+defect this rule closes.
+
+- **State scope, not vibes.** Every claim of "fixed"/"confirmed"/"legible"/
+  "working"/"done" must name exactly what was checked: which route(s), which
+  elements, which environment (local build vs. the actual live/deployed
+  site), and which states (every theme × every color scheme in play, not
+  just the one combination that happened to be open). "Confirmed legible"
+  with no further qualifier reads as "everywhere, as deployed" — never say
+  it unless that's true. If only one card on one route in a local dev
+  server was checked, say exactly that: "the X element on Y route renders
+  correctly in my local build; this has not been pushed or deployed yet."
+- **Local verification is not deployment.** A fix living in a local working
+  tree, however thoroughly tested, is not "done" from the owner's chair —
+  they cannot see it. Every report on a fix must state plainly whether it
+  has been pushed to `main`/deployed, and if not, say so before any claim
+  of the bug being resolved, not as a footnote after.
+- **"Audit" means audit — exhaustively, not a spot check.** When explicitly
+  asked to audit something (a theme, a page, a component, a scheme), the
+  response is a systematic sweep of every relevant route/state/element
+  combination in play, not verification of the one or two things that
+  happened to be visible or top-of-mind. Checking one card's one link and
+  calling the surrounding claim "legible... matching the default theme's
+  quality" is exactly the failure mode this rule forbids — the real
+  scope (every card, every badge, every button, every route, both color
+  schemes) must be actually walked, with the tooling already established in
+  this repo (live browser verification via CDP, computed-style/contrast
+  checks — not visual impression alone), before a comprehensive claim is
+  made. If full exhaustive coverage isn't feasible in the time available,
+  say what was covered and what wasn't — do not let a partial check imply
+  full coverage by omission.
+- **A user's contradicting report is evidence, not an inconvenience.** If
+  the owner says something is still broken after a fix was reported, the
+  default assumption is that they are right and the verification was
+  incomplete — go re-check with fresh eyes and the actual tooling, not
+  defend the earlier claim. Sloppiness, haziness, and overclaiming on
+  verification status are treated as seriously as a factual hallucination
+  (Rule 11) — because that is what they are.
+- **No minimizing language about a defect, ever.** There is no such thing
+  as an "under-weighted," "downgraded," "deprioritized," or otherwise
+  softened bug — a defect a user will see is a defect, full stop, not a
+  calibration error in how seriously it was taken. If something illegible,
+  broken, or wrong was found and reported as acceptable ("muted but still
+  visible," "minor," "cosmetic") when it was not, say plainly that it was
+  misjudged and is being fixed — do not describe the failure in terms that
+  make it sound smaller than it was. This system ships to companies who
+  rely on it; there is no tier of defect that gets a softer word for it.

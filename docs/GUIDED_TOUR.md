@@ -1,7 +1,7 @@
 # Guided Onboarding Tour
 
 Status: Active SSOT
-Version: 5.0.0
+Version: 5.0.2
 Last updated: 2026-08-08
 
 A governed, accessible **guided tour** (spotlight coach-marks): it dims the

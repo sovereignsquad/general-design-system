@@ -1,7 +1,7 @@
 # Templates
 
 Status: Reference
-Version: 5.0.0
+Version: 5.0.2
 Last updated: 2026-08-08
 
 These starter templates are reference implementations for adopting projects.
