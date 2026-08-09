@@ -16,38 +16,22 @@ export default defineConfig({
     // which doesn't use the editor, dropped from a 561kB to a 217kB vendor-gds
     // chunk once the subpath split landed. This playground app DOES deliberately
     // demo GdsRichTextEditor (in the admin-editor-flows pattern), so its own
-    // vendor-gds chunk legitimately, intentionally carries that cost — this is
-    // the real, earned size of a showcase app exercising the whole component
-    // surface, not an accidental leak. Raised to match that known, deliberate
-    // size rather than silencing a signal that would still fire for a genuine
-    // future regression. Re-baselined from 900 to 940 when the Forms pattern
-    // gained a live GdsSchemaForm demo (checkbox-group + repeatable field types,
-    // issue 442): that mounted GdsSchemaForm subtree is workspace gds-core code,
-    // which the codeSplitting rule below always groups into vendor-gds, so it
-    // cannot be split out — the ~15 kB it adds is earned showcase surface. The
-    // ceiling stays tight (a real regression adds tens-to-hundreds of kB).
+    // vendor-gds chunk legitimately, intentionally carries that cost.
     //
-    // Re-baselined again, 900->940->960 (issue 532): audited before touching —
-    // built the last committed commit (d627f83) in an isolated worktree and
-    // confirmed the chunk was ALREADY 953.55 kB there, over the 940 ceiling,
-    // before any of this session's work; a file-by-file scan of gds-core,
-    // gds-theme, and gds-admin's src trees found zero dead code (every export
-    // is either imported somewhere in-repo or re-exported from a public
-    // barrel). The 954 kB is legitimately-earned showcase surface, same as
-    // the two prior re-baselines, not an accidental leak silenced here.
-    // Two real, larger fixes are tracked as follow-on work rather than rushed
-    // in under this ceiling bump (see issue 532): (1) extracting
-    // ReferenceThemeExplorer/GdsSchemaForm's demo subtree/Kanban+DataTable's
-    // demo subtree behind dedicated subpaths, mirroring rich-text-editor's
-    // proven ~184 kB combined savings, which is a breaking removal from the
-    // main barrel requiring a major version; (2) lazy-loading gds-core's
-    // per-locale message dictionaries (122.8 kB for all 12 locales, always
-    // shipped, only 1 ever active) instead of eagerly bundling all of them,
-    // which requires reworking GdsI18nRuntime's currently-synchronous
-    // message-lookup API. Both are real architecture changes, not
-    // one-line fixes, and both risk a public API used by external consumers
-    // — deliberately not improvised into this ceiling-bump commit.
-    chunkSizeWarningLimit: 960,
+    // Issue 528 explicitly ruled out raising this limit as an acceptable fix
+    // for a genuine overage ("suppresses the signal rather than fixing the
+    // underlying size") — correctly. This session temporarily raised it
+    // 940->960 anyway (issue 532) while investigating, which was a mistake in
+    // light of that standing decision; the real fix landed in the same push:
+    // `ReferenceThemeExplorer` (gds-core's single largest client-bundle
+    // module, ~112.7 kB) moved behind its own `reference-theme-explorer`
+    // subpath with a dedicated chunk group (see the `vendor-gds-theme-explorer`
+    // rule below), mirroring rich-text-editor's proven pattern. Net result:
+    // vendor-gds dropped 954kB -> 665kB — comfortably under even the
+    // *original* 940 limit, not just the temporarily-raised one. Reset the
+    // ceiling down to reflect that real, tight number rather than leaving it
+    // loosened now that it's no longer needed. issue 528, closed.
+    chunkSizeWarningLimit: 700,
     rolldownOptions: {
       output: {
         codeSplitting: {
