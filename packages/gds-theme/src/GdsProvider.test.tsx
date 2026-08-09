@@ -337,8 +337,21 @@ describe('GdsProvider', () => {
     expect(document.documentElement.style.getPropertyValue('--gds-vibe-accent')).toBe('#fb7185');
     expect(window.localStorage.getItem('gds-test-theme-runtime')).toContain('coral');
 
+    // Switching to a non-default font lane (#529) loads it via a governed,
+    // non-blocking <link> instead of the site-wide blocking @import that used
+    // to pull in every lane's fonts regardless of which one was selected.
+    const fontLink = document.getElementById('gds-font-lane-stylesheet');
+    expect(fontLink).toBeInstanceOf(HTMLLinkElement);
+    expect(fontLink).toHaveAttribute('rel', 'stylesheet');
+    expect(fontLink).toHaveAttribute('href', resolveGdsFontLane('space-grotesk').cssImportUrl);
+    expect(fontLink).toHaveAttribute('data-gds-font-lane', 'space-grotesk');
+
     await user.click(screen.getByRole('button', { name: 'Reset runtime' }));
 
     expect(screen.getByTestId('runtime-key')).toHaveTextContent('default-light-blue-true-false-inter');
+    // The default 'inter' lane is already loaded statically by the package
+    // stylesheet, so resetting back to it removes the dynamic link rather
+    // than swapping in a second, redundant one.
+    expect(document.getElementById('gds-font-lane-stylesheet')).toBeNull();
   });
 });

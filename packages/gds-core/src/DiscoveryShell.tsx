@@ -83,6 +83,8 @@ export interface DiscoveryShellProps {
   children: ReactNode;
   /** Accessible label for the mobile navigation toggle; defaults to "Toggle navigation". */
   mobileNavigationLabel?: string;
+  /** Hides this shell's own mobile navigation burger — for a caller (e.g. `DocsShell` in `inline-collapse` mode) that renders its own mobile toggle instead, so the two don't both render side by side. Defaults to false. */
+  hideMobileNavigationToggle?: boolean;
   defaultSidebarOpen?: boolean;
   sidebarStorageKey?: string;
   /** Controlled sidebar open state; when set, the shell defers to the caller instead of its own state. */
@@ -122,6 +124,7 @@ export function DiscoveryShell({
   footer,
   children,
   mobileNavigationLabel = 'Toggle navigation',
+  hideMobileNavigationToggle = false,
   defaultSidebarOpen = false,
   sidebarStorageKey,
   sidebarOpened,
@@ -163,13 +166,15 @@ export function DiscoveryShell({
     >
       <MantineAppShell.Header>
         <Group h="100%" px="md" gap="sm" wrap="nowrap">
-          <Burger
-            opened={opened}
-            onClick={toggle}
-            hiddenFrom={collapseBreakpoint}
-            size="sm"
-            aria-label={mobileNavigationLabel}
-          />
+          {hideMobileNavigationToggle ? null : (
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              hiddenFrom={collapseBreakpoint}
+              size="sm"
+              aria-label={mobileNavigationLabel}
+            />
+          )}
           {desktopCollapsible ? (
             <Burger
               opened={opened}
@@ -187,7 +192,6 @@ export function DiscoveryShell({
 
       <MantineAppShell.Navbar
         p="md"
-        data-sticky-sidebar={stickySidebar || undefined}
         data-gds-mobile-navbar-open={isMobile && opened ? 'true' : undefined}
         style={openMobileNavbarStyle}
         onClickCapture={(event) => {

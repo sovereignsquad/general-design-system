@@ -1,7 +1,7 @@
 # Deprecations & Migrations
 
 Status: Active SSOT  
-Version: 4.1.11
+Version: 5.0.0
 Last updated: 2026-08-08
 
 This document defines how `@sovereignsquad/gds-*` contracts are deprecated, replaced, and removed.
@@ -82,3 +82,23 @@ Beyond code contracts, a distribution channel can be deprecated.
 - `detectionRule`: a resolved `@sovereignsquad/*@3.9.0` from `registry.npmjs.org`
 - `migrationGuide`: [`INSTALLATION_GUIDE.md` → Migrating from the legacy npmjs 3.9.0 packages](INSTALLATION_GUIDE.md#migrating-from-the-legacy-npmjs-390-packages). The exports the `3.9.0` line exposed (e.g. `OverlayManagerProvider`, `useOverlayManager`, `DiscoveryShell`, `SidebarNavItem`) remain available at the current release
 - `riskLevel`: low (installs keep working during migration)
+
+## Component-export relocations
+
+Beyond deprecate-then-remove, a component can be *relocated* to a dedicated
+subpath while keeping its name and behavior unchanged — this is the pattern
+already used for `GdsRichTextEditor` (`@sovereignsquad/gds-core/rich-text-editor`)
+so bundlers that group a whole package by file path don't force its
+dependency cost onto consumers who never render it.
+
+### `ReferenceThemeExplorer` moved to a dedicated subpath (5.0.0)
+
+- `contract`: `ReferenceThemeExplorer` (and its `ThemeExplorerSelection`,
+  `ThemePresetId`, `ThemeSchemeId` types) importable from the main
+  `@sovereignsquad/gds-core` / `@sovereignsquad/gds-core/client` barrels
+- `replacement`: `import { ReferenceThemeExplorer } from '@sovereignsquad/gds-core/reference-theme-explorer'` — same component, same props, same behavior, new import path only
+- `deprecatedIn`: 5.0.0 (removed from the main barrel immediately — this is a relocation, not a grace-period deprecation, matching the `rich-text-editor` precedent)
+- `removalTarget`: 5.0.0 (already removed from the main barrel as of this release)
+- `detectionRule`: a build/type error on `import { ReferenceThemeExplorer } from '@sovereignsquad/gds-core'` (or `./client`) after upgrading to 5.0.0
+- `migrationGuide`: change the import source only — `import { ReferenceThemeExplorer } from '@sovereignsquad/gds-core/reference-theme-explorer'`. No prop or behavior changes. Rationale: it was gds-core's single largest client-bundle module (~112.7 kB) and every real consumer renders it on one or two specific routes, not universally — see issue #532
+- `riskLevel`: medium (a real breaking change for any consumer importing it from the main package path; caught and fixed with a single import-line change, not a rewrite)

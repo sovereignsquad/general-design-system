@@ -71,6 +71,7 @@ import { ShareButtonGroup } from './ShareButtonGroup';
 import { DiscoveryShell, useDiscoveryShellState } from './DiscoveryShell';
 import { SemanticButton } from './SemanticButton';
 import { SectionPanel } from './SectionPanel';
+import { ReferenceSection } from './ReferenceSection';
 import { SidebarNav, SidebarNavItem, SidebarNavSection } from './SidebarNav';
 import { SimpleDataTable } from './SimpleDataTable';
 import { SocialAuthButtons } from './SocialAuthButtons';
@@ -2322,6 +2323,22 @@ describe('@sovereignsquad/gds-core', () => {
     const fallback = container.querySelector('.mantine-AspectRatio-root > div') as HTMLElement;
     expect(fallback.style.background).toContain('light-dark(');
     expect(fallback.style.background).not.toBe('var(--mantine-color-gray-0)');
+  });
+
+  it('renders its heading as a real, non-nested heading element (regression: eyebrow/description were nested inside the <h3>, invalid HTML and a screen-reader misannouncement)', () => {
+    const { container } = renderWithGds(
+      <ReferenceSection eyebrow="Kicker" title="Section title" description="Section description." href="/more" linkLabel="Open section">
+        <span>Body</span>
+      </ReferenceSection>,
+    );
+
+    const heading = screen.getByRole('heading', { name: 'Section title', level: 3 });
+    expect(heading.textContent).toBe('Section title');
+    expect(heading.querySelector('p, div')).toBeNull();
+    expect(screen.getByText('Kicker').closest('h3')).toBeNull();
+    expect(screen.getByText('Section description.').closest('h3')).toBeNull();
+    expect(screen.getByRole('link', { name: 'Open section' }).closest('h3')).toBeNull();
+    expect(container.querySelector('.mantine-Divider-root')).toBeNull();
   });
 
   it('renders media fields with upload, URL, preview, and recovery actions', async () => {

@@ -10,12 +10,19 @@ import {
   PublicBrandFooter,
   ReferenceLinkGrid,
   ReferenceSection,
-  ReferenceThemeExplorer,
   SimpleDataTable,
   StateBlock,
   type GdsTourStep,
-  type ThemeExplorerSelection,
 } from '@sovereignsquad/gds-core';
+// Rendered on first paint of both the Overview (/) and Theme Lab (/themes)
+// routes, so it's imported eagerly, statically, from its own dedicated
+// subpath (issue 532) — never lazy-loaded (that would add a loading-flash
+// waterfall to the site's own landing page), but kept out of the main
+// barrel so reference-vite/reference-next/external consumers who never
+// render it don't pay its ~112 kB cost, and so the playground's own vite
+// config (see chunking rule in vite.config.ts) can give it a dedicated
+// chunk instead of fusing it into the single vendor-gds blob.
+import { ReferenceThemeExplorer, type ThemeExplorerSelection } from '@sovereignsquad/gds-core/reference-theme-explorer';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { SiteTourLauncher } from './SiteTourLauncher';
 import { apiReferenceEntries, apiReferencePackages, getApiReferenceEntries, getApiReferenceSummary } from './api-reference-registry';

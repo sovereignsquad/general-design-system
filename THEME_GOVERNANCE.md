@@ -1,7 +1,7 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 4.1.11
+Version: 5.0.0
 Last updated: 2026-08-08
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
@@ -268,6 +268,7 @@ const { selection, setPreset, setScheme, setFontLane, reset } = useGdsThemePrese
 Runtime rule:
 
 - `useGdsThemePresetState(...)` must set `data-gds-theme-preset`, `data-gds-theme-runtime`, `data-gds-font-lane`, `data-mantine-color-scheme`, and the `--gds-vibe-*` CSS variables on the document root.
+- `useGdsThemePresetState(...)` also loads the active font lane's web font: the default `'inter'` lane is loaded statically by `packages/gds-theme/styles.css`; every other lane is loaded on demand via a single non-blocking `<link id="gds-font-lane-stylesheet">`, added/swapped/removed as the lane changes (issue 529). The package stylesheet must never statically `@import` more than the default lane's font — that duplicates each lane's own governed `cssImportUrl` (font-lanes.ts) by hand and defeats every lane's declared `loadStrategy: 'non-blocking-stylesheet'`.
 - The official site must use the selected VibeTheme across the whole shell, not only inside the Theme Lab card.
 - VibeTheme visuals must be CSS-only: gradients, color-mix, surface variables, and component tokens are allowed; pixel/image backgrounds are not the default theme mechanism.
 - `cosmic` is the sanctioned high-saturation reference lane. If teams need a dramatic multicolour app vibe, start from `cosmic` instead of building route-local image or gradient systems.

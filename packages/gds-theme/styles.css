@@ -1,6 +1,18 @@
 @import '@mantine/core/styles.css';
 @import '@mantine/notifications/styles.css';
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap');
+/*
+ * Only the default font lane ('inter', see packages/gds-theme/src/font-lanes.ts)
+ * loads statically here — it's the only family the base theme ever renders
+ * before a consumer opts into font-lane switching. This used to @import all
+ * 10 built-in lanes' families (~46 font-file variants) unconditionally,
+ * duplicating font-lanes.ts's own per-lane `cssImportUrl` by hand and
+ * ignoring every lane's declared `loadStrategy: 'non-blocking-stylesheet'` —
+ * ALL of it blocking, for the 9 out of 10 families nobody was using. The
+ * other lanes now load on demand via a non-blocking <link> that
+ * `useGdsThemePresetState` manages when a consumer actually switches lanes
+ * (see applyDocumentRuntime in theme-runtime.ts).
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 .mantine-AppShell-navbar[data-gds-mobile-navbar-open='true'] {
   --app-shell-navbar-transform: translateX(0) !important;
@@ -148,24 +160,10 @@ html[data-gds-theme-preset] body::before {
  * via the `background` shorthand) closes that gap.
  */
 html[data-gds-theme-preset='class-usa'] body,
-html[data-gds-theme-preset='gold-athlete'] body {
+html[data-gds-theme-preset='gold-athlete'] body,
+html[data-gds-theme-preset='high-contrast'] body {
   background: var(--gds-vibe-canvas) !important;
   background-attachment: fixed !important;
-}
-
-/* High-contrast accessibility lane (#453): override the decorative vibe body
-   treatment with a flat, pure canvas and suppress the tinted radial overlay, so
-   the shell reads as a plain maximal-contrast surface in both schemes. */
-html[data-gds-theme-preset='high-contrast'] body {
-  background: var(--gds-vibe-canvas);
-}
-
-html[data-gds-theme-preset='high-contrast'] body::before {
-  display: none;
-}
-
-html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-main {
-  background: var(--gds-vibe-canvas);
 }
 
 html[data-gds-theme-preset] .mantine-AppShell-main {
@@ -187,16 +185,20 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-AppShell-
 }
 
 /*
- * flatSurfaces lanes (Class USA, Gold Athlete): the base .mantine-AppShell-main
- * rule above was written before flatSurfaces existed and never checked it —
- * unlike body::before (which does respect --gds-vibe-atmosphere), it kept
- * painting the same decorative radial/linear wash on every preset, including
- * the two whose real brand has no atmospheric background at all. Overriding
- * with the flat solid canvas mirrors the explicit per-preset override pattern
- * already used below for the richer vibe lanes, just for the opposite case.
+ * flatSurfaces lanes (Class USA, Gold Athlete, High Contrast): the base
+ * .mantine-AppShell-main rule above was written before flatSurfaces existed
+ * and never checked it — unlike body::before (which does respect
+ * --gds-vibe-atmosphere), it kept painting the same decorative radial/linear
+ * wash on every preset, including lanes whose real brand has no atmospheric
+ * background at all. Overriding with the flat solid canvas mirrors the
+ * explicit per-preset override pattern already used below for the richer
+ * vibe lanes, just for the opposite case. (High Contrast previously had its
+ * own narrower override here that lost the cascade to the dark-mode variant
+ * below it — folded into this shared block instead of trying to out-order it.)
  */
 html[data-gds-theme-preset='class-usa'] .mantine-AppShell-main,
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-main {
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-main,
+html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-main {
   background: var(--gds-vibe-canvas) !important;
 }
 
@@ -221,14 +223,18 @@ html[data-gds-theme-preset] .mantine-AppShell-navbar {
 
 /* flatSurfaces lanes: same gap as .mantine-AppShell-main above — the shared
    header/navbar/footer wash and this navbar-specific extra layer both
-   painted a gradient + glow shadow on every preset, Class USA and Gold
-   Athlete included, since neither ever checked --gds-vibe-atmosphere. */
+   painted a gradient + glow shadow on every preset, Class USA, Gold Athlete,
+   and High Contrast included, since none of them ever checked
+   --gds-vibe-atmosphere. */
 html[data-gds-theme-preset='class-usa'] .mantine-AppShell-header,
 html[data-gds-theme-preset='class-usa'] .mantine-AppShell-navbar,
 html[data-gds-theme-preset='class-usa'] .mantine-AppShell-footer,
 html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-header,
 html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-footer {
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-footer,
+html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-header,
+html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-navbar,
+html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-footer {
   background: var(--gds-vibe-shell) !important;
   box-shadow: none !important;
 }
@@ -250,7 +256,9 @@ html[data-gds-theme-preset] .gds-card {
 html[data-gds-theme-preset='class-usa'] .gds-paper,
 html[data-gds-theme-preset='class-usa'] .gds-card,
 html[data-gds-theme-preset='gold-athlete'] .gds-paper,
-html[data-gds-theme-preset='gold-athlete'] .gds-card {
+html[data-gds-theme-preset='gold-athlete'] .gds-card,
+html[data-gds-theme-preset='high-contrast'] .gds-paper,
+html[data-gds-theme-preset='high-contrast'] .gds-card {
   background: var(--gds-vibe-surface) !important;
   box-shadow: none !important;
 }
@@ -275,7 +283,7 @@ html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):n
      the narrower owned-contrast preview surfaces above. */
   background: var(--gds-vibe-primary);
   border-color: var(--gds-vibe-primary);
-  color: white;
+  color: var(--mantine-color-white);
   box-shadow: 0 12px 34px color-mix(in srgb, var(--gds-vibe-glow) 58%, transparent);
 }
 
@@ -297,6 +305,39 @@ html[data-gds-theme-preset] .mantine-Button-root[data-variant='default'] {
   color: var(--gds-vibe-control-text);
   background: var(--gds-vibe-control);
   border-color: var(--gds-vibe-border);
+}
+
+/*
+ * flatSurfaces lanes (Class USA, Gold Athlete) in LIGHT mode read as washed
+ * out on buttons: the generic rules above are correct in principle (solid
+ * primary fill, no fake gradient/glow) but leave the brand's SECOND color
+ * (accent — Class USA's terracotta, Gold Athlete's metallic gold) completely
+ * unused anywhere near a button, and the default/secondary button's border
+ * (`--gds-vibe-border`, a flat neutral like Class USA's `#eee7dd`) and
+ * background (`--gds-vibe-control`, only 7% primary blended into the
+ * surface) are both too faint to read as "on brand" (owner directive,
+ * 2026-08-09). Both colors are real, governed tokens already defined on the
+ * vibe (`--gds-vibe-primary`/`--gds-vibe-accent`) — this makes them visible:
+ * primary buttons get a solid accent-colored trim so both brand colors show
+ * together, and default/secondary buttons get a full-strength primary
+ * border instead of the faint neutral one, so they read as clearly on-brand
+ * rather than a generic gray outline button. Scoped to light mode only:
+ * in dark mode `--gds-vibe-canvas` and `--gds-vibe-primary` are both very
+ * dark navy/brown, so painting the default button's text/background from
+ * those same two tokens (as opposed to the dark-mode-tuned
+ * `--gds-vibe-control-text`/`--gds-vibe-control` pair the generic rule
+ * already uses) would collapse text-on-background contrast to ~1:1.
+ */
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']),
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
+  border: 2px solid var(--gds-vibe-accent) !important;
+}
+
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root[data-variant='default'],
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root[data-variant='default'] {
+  color: var(--gds-vibe-primary) !important;
+  background: var(--gds-vibe-canvas) !important;
+  border: 2px solid var(--gds-vibe-primary) !important;
 }
 
 /*
@@ -378,7 +419,8 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-Popover-d
    dropdown surface (Select/Combobox/DatePicker, portalled outside any
    gds-paper/gds-card wrapper) painted the same unconditional gradient. */
 html[data-gds-theme-preset='class-usa'] .mantine-Popover-dropdown,
-html[data-gds-theme-preset='gold-athlete'] .mantine-Popover-dropdown {
+html[data-gds-theme-preset='gold-athlete'] .mantine-Popover-dropdown,
+html[data-gds-theme-preset='high-contrast'] .mantine-Popover-dropdown {
   background: var(--gds-vibe-control) !important;
 }
 
@@ -793,7 +835,7 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:not([
      createBrandTheme('class-usa')'s Mantine `primaryColor` filled button)
      is a single solid color. A gradient here would show users a button
      style the theme itself never actually produces. */
-  color: #ffffff !important;
+  color: var(--mantine-color-white) !important;
   background: var(--gds-vibe-primary) !important;
   border-color: var(--gds-vibe-primary) !important;
 }
