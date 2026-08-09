@@ -2,6 +2,40 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 5.0.3 - 2026-08-09 — Document a governed import pathway for externally-produced designs (#535)
+
+Owner asked for GDS to be able to import externally-produced designs (Figma
+files, screenshots, AI design-tool output including Claude Design) under
+GDS's own limitations, discoverable from the repo. This ships the governed
+pathway as documentation and process, not new runtime code — no source or
+component behavior changed.
+
+- `THEME_GOVERNANCE.md`: new "Importing an externally-produced design"
+  section stating the one-directional rule — a source design may inform a
+  new theme lane's intent, but must never be consumed directly as CSS, an
+  image, or a copy-pasted color value; every value ships as a re-derived,
+  independently WCAG-AA-verified `GdsVibeTheme`/brand-token entry, same as
+  every other lane. Cites #533/#534 as the exact failure mode (an unverified
+  or reused dark-mode value) this process exists to prevent.
+- `CONTRIBUTING.md`: new "Importing an externally-designed theme" section —
+  the maintainer-facing, numbered mechanics (file the issue, extract intent
+  not values, map into the full `GdsVibeTheme` contract with independently
+  designed dark-mode values, verify WCAG AA from real computed styles,
+  register and run `verify:release` like any other lane, document and close
+  the issue) — matching the style of the existing "Adding a Component or
+  Pattern" section.
+- `TEMPLATES/GDS_THEME_CREATION_PROMPT.md`: added a new "If you're starting
+  from a source design" section covering how to responsibly handle a source
+  design as input (extract intent not values, design a genuine dark-mode
+  counterpart rather than deriving one mechanically, let accessibility win
+  over source fidelity, record provenance) — and updated the report-back
+  section to ask for the source's origin and any accessibility deviations.
+- `README.md`: added a discoverability link to the theme-creation prompt
+  and the new governance sections from the "Use with AI coding agents"
+  section, so the import pathway is findable from the repo's front page.
+
+Issue: #535 (closed by this commit).
+
 ## 5.0.2 - 2026-08-09 — Fix: Class USA/Gold Athlete status badges illegible in dark mode; 8-route audit; CLAUDE.md Rule 12
 
 Owner reported the 5.0.1 fix as still broken after checking the live site —

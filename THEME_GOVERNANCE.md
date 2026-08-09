@@ -1,8 +1,8 @@
 # Theme Governance
 
 Status: Active SSOT
-Version: 5.0.2
-Last updated: 2026-08-08
+Version: 5.0.3
+Last updated: 2026-08-09
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
 
@@ -282,6 +282,59 @@ Avoid:
 - using image backgrounds as the theme identity
 - changing only `primaryColor` while leaving shell, controls, cards, nav, focus, and page canvas visually neutral
 - consumer-owned `createTheme(...)`, `mergeMantineTheme(...)`, or `extendGdsTheme(...)` theme catalogs
+
+## Importing an externally-produced design (issue #535)
+
+A theme lane's source material — a Figma file, a screenshot, an AI design
+tool's output (Claude Design or otherwise), a brand guideline PDF — is
+allowed to originate outside this repository. What that source material is
+allowed to become is not: it must be re-derived into the same governed
+`GdsVibeTheme`/brand-token contract every other lane uses, never consumed
+directly as CSS, an image, or a copy-pasted color value.
+
+This is the same one-directional principle [`docs/FIGMA_UI_KIT.md`](docs/FIGMA_UI_KIT.md)
+already states for the opposite direction — "the code tokens and component
+contracts are authoritative... never the reverse" — and the same
+"borrowing" discipline [`PATTERN_SERVICE_MODEL.md`](PATTERN_SERVICE_MODEL.md)
+already requires when studying an external reference: "study the shape,
+rebuild as a governed contract" — not "copy the external artifact as
+product styling authority."
+
+Required process for any externally-sourced design:
+
+1. **Extract intent, not values.** Identify the palette (primary, accent,
+   any secondary hues), the light/dark surface treatment, and the overall
+   feel (flat/brand-serious vs. expressive/gradient-forward). Do not lift a
+   hex value straight from a screenshot or a Figma variable and drop it
+   into a token file unverified — every value that ships must be
+   deliberately chosen for both schemes, not "whatever the source file
+   happened to show in whichever mode it was captured in."
+2. **Map into the full `GdsVibeTheme` field list** (`packages/gds-theme/src/vibe-themes.ts`)
+   — every light/dark pair, not just the ones the source material made
+   obvious. A source design that only shows one color scheme does not
+   excuse skipping the other; the missing scheme must be deliberately
+   designed and contrast-checked, not derived by an unverified brightness
+   flip. This is not a hypothetical risk — issues #533/#534 were exactly
+   this failure mode (a dark-mode value silently inherited from a
+   light-mode source instead of being independently designed), shipped to
+   production before being caught.
+3. **Verify every pairing the new lane produces** against WCAG AA (4.5:1
+   normal text, 3:1 large text/UI components) in both schemes, from real
+   computed styles on the live pattern catalog — not visual impression of
+   the source material.
+4. **Register and verify exactly like any other lane** — add it to the
+   preset registry, add live Theme Lab coverage, add package tests, pass
+   `npm run verify:release`. An externally-sourced theme gets no exemption
+   from any rule in this document.
+5. **Trace it to a GitHub issue** and document the source (which design,
+   whose brand, what tool produced it) in the commit/PR — a future
+   maintainer needs to know a lane's provenance without guessing.
+
+The operational tool for this — a copy-pasteable prompt that walks a fresh
+Claude Code session through this exact process, including how to handle a
+source design as input — is [`TEMPLATES/GDS_THEME_CREATION_PROMPT.md`](TEMPLATES/GDS_THEME_CREATION_PROMPT.md).
+See `CONTRIBUTING.md`'s "Importing an externally-designed theme" section
+for the maintainer-facing walkthrough.
 
 ## 3.0.0 theme explorer proof contract
 
