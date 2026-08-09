@@ -1,0 +1,171 @@
+# GDS Theme-Creation Prompt (copy-paste into a new Claude session)
+
+Status: Active
+Last updated: 2026-08-09
+
+Reusable, self-contained brief for handing to a fresh Claude session (any
+surface — Claude Code, Claude for Design/Figma-integrated, or plain
+claude.ai) whose job is to prepare a new environment and create a new GDS
+theme lane. Copy everything in the fenced block below and paste it as the
+first message. It does not assume the receiving session has any prior
+context loaded.
+
+---
+
+```
+You are setting up to create a new theme lane for the General Design System
+(GDS) — a governed, cross-project Mantine-based component library owned by
+sovereignsquad. Read this whole brief before touching anything.
+
+## 1. What you're building
+
+A GDS "theme" is not just a color swap. It's a full VibeTheme contract: a
+named preset with light AND dark values for canvas/shell/surface/border/
+text/muted-text, a primary and accent color, a decorative glow/gradient/hero
+treatment (or an explicit opt-out if the brand is flat/undecorated), and —
+if it's a real branded product theme rather than a generic color lane — a
+full semantic-role token set (body text, card border, badges, states,
+prices, etc.) with light AND dark values for every one of them. Half of
+this system existed as a real bug until today: a theme that only defines
+light-mode values, or that reuses a single non-adapting color for both
+schemes, WILL render illegible in dark mode. This has already happened
+twice in production on this exact system (issues #533/#534) — do not repeat it.
+Every token you add needs a real, considered dark-mode value, not a copy of
+the light one.
+
+## 2. Where to look first (public, live reference — no auth needed)
+
+- Live Theme Lab (every shipped lane, switchable light/dark, right now):
+  https://sovereignsquad.github.io/general-design-system/themes
+- Pattern Catalog (what every lane needs to render correctly across):
+  https://sovereignsquad.github.io/general-design-system/patterns
+- Operations pattern family (buttons, forms, Kanban — the densest surface
+  for checking button/badge/input contrast in a candidate theme):
+  https://sovereignsquad.github.io/general-design-system/patterns/operations
+- Foundations pattern family (shells, cards, baseline controls):
+  https://sovereignsquad.github.io/general-design-system/patterns/foundations
+- Data pattern family (tables, badges, filters):
+  https://sovereignsquad.github.io/general-design-system/patterns/data
+- Live component demos (interactive, not just static docs):
+  https://sovereignsquad.github.io/general-design-system/live-demos
+- Full API reference:
+  https://sovereignsquad.github.io/general-design-system/api
+
+Open the Theme Lab first. Switch through the existing shipped lanes (the
+generic "vibe" lanes — sunset, oceanic, forest, ruby, amber, neon-night,
+skyline, aurora, coral, mint, orchid, royal, cosmic — and the real branded
+lanes — class-usa, gold-athlete, athlete-gold) in BOTH light and dark before
+designing anything new. Your new theme needs to sit comfortably alongside
+these, not clash with or duplicate one.
+
+## 3. Repository and environment setup
+
+- Repo: `sovereignsquad/general-design-system` (GitHub)
+- Clone/read access to that repo, on a branch — do not work directly on
+  `main`. If you don't have repo access yet, say so and stop; don't guess
+  at file contents from this prompt alone.
+- Read `CLAUDE.md` at the repo root in full before making any change — it
+  is the binding operating contract (zero-tolerance quality gate, no AI
+  attribution anywhere, issue-driven work, no hallucinated verification
+  claims — Rule 12 specifically requires you to state exactly what you
+  tested and where, local build vs. actually deployed, before calling
+  anything "done").
+- Read `HANDOVER.md` at the repo root for current project state and a full
+  environment-bootstrap brief (Node/npm versions, headless-Chrome/CDP setup
+  for live verification, the local static-serve pattern that exactly
+  mirrors the deployed site, GitHub access requirements).
+- Read `THEME_GOVERNANCE.md` in full — it is the authoritative rulebook for
+  what you're about to do. Sections that matter most for this task:
+  "CSS VibeThemes", "Dark-mode rule", "Theme trust hardening", "Approved
+  preset modes", "Runtime persistence contract".
+- Read `FOUNDATION.md` for the base accessibility/token rules that apply to
+  every surface regardless of theme.
+
+## 4. The exact files a new theme touches
+
+- `packages/gds-theme/src/vibe-themes.ts` — add a new entry to the vibe
+  registry. Every field on the `GdsVibeTheme` interface is required unless
+  explicitly marked optional:
+  `id`, `label`, `primary`, `accent`, `glow`, `canvasLight`, `canvasDark`,
+  `shellLight`, `shellDark`, `surfaceLight`, `surfaceDark`, `borderLight`,
+  `borderDark`, `textLight`, `textDark`, `mutedLight`, `mutedDark`,
+  `gradient`, `hero`, and optionally `flatSurfaces: true` if this is a real
+  branded product theme with no decorative gradient/glow/shadow anywhere in
+  its own identity (set this for a serious brand lane; leave it unset for
+  an expressive generic color lane where the gradient/glow IS the point).
+- `packages/gds-theme/src/theme-presets.ts` — add the new preset id to the
+  `GdsThemePresetId` union type, add a `themePresetCatalog` entry (id,
+  label, description, `runtimeLane: 'resolveGdsThemePreset(<id>)'`), and
+  wire `resolveGdsThemePreset` to resolve it.
+- If this is a real branded theme (not just a generic vibe color lane), it
+  also needs a `createBrandTheme('<id>', ...)` definition in
+  `packages/gds-theme/src/brand-tokens.ts`, including its own semantic-role
+  token table with EVERY token's light value AND its `-dark` sibling (see
+  `brandSemanticCssVariablesByPreset` in `vibe-themes.ts` for the exact key
+  list an existing branded lane like `class-usa`/`gold-athlete` defines —
+  copy that key list exactly, don't improvise a subset).
+- Every new hex/rgb color value must live in these token files — never
+  inline in a component or a route. `gds-compliance`'s own scanner will
+  flag a raw color literal anywhere in `apps/playground/src` outside a
+  theme/token file, and it also flags `#` followed by 3-8 hex-looking
+  characters even in a code COMMENT (e.g. writing "issue #532" trips it,
+  since "532" is valid hex) — write issue references as "issue 532", no
+  hash, anywhere in a scanned file.
+
+## 5. Non-negotiable rules for the new theme
+
+- Every light-mode token needs a real, separately-considered dark-mode
+  value — never assume one can be derived by just flipping brightness
+  without checking actual contrast.
+- Verify EVERY text/background pairing your new theme produces meets WCAG
+  AA (4.5:1 for normal text, 3:1 for large text / UI components) in BOTH
+  light and dark, computed from real rendered `getComputedStyle()` values
+  — not visual impression, not assumption. `HANDOVER.md` §6 has the exact
+  local-build + headless-Chrome verification pattern this repo uses.
+- No decorative gradient/glow/colored-shadow if `flatSurfaces: true` — the
+  shared CSS rules will neutralize it, but don't design against something
+  that will be removed.
+- No hardcoded values anywhere outside the token files (§4).
+- Test against the full pattern surface (§2's routes), not just the Theme
+  Lab card — a color that looks fine on one card can fail badly on a real
+  button, badge, or form control elsewhere. `verify:forced-colors-runtime`
+  and `verify:theme-trust-runtime` in `npm run verify:release` are the
+  automated backstops for this, but they don't replace looking at real
+  rendered routes yourself first.
+- Add live Theme Lab coverage and package tests for the new lane — a color
+  lane isn't done until it's selectable and verified in the same places
+  every other shipped lane is.
+- Traceable to a GitHub issue, per `CLAUDE.md` Rule 2 — file one (or ask
+  for the issue number) before or alongside implementation.
+- No AI/model/session attribution anywhere in the commit, PR, code, or docs
+  (`CLAUDE.md` Rule 9).
+- State exactly what you verified, where, before calling anything done —
+  local build vs. actually deployed, which routes, which schemes
+  (`CLAUDE.md` Rule 12). Do not claim the live site reflects your change
+  until you've confirmed it's actually been pushed and deployed.
+
+## 6. What to report back before implementing anything
+
+Before writing any code: name the brand/product this theme is for, its
+primary and accent color intent (with real hex values if known, or a
+description of the desired feel if not), whether it's a flat/undecorated
+brand theme or an expressive vibe lane, and which existing shipped lane (if
+any) it's closest to. Get that confirmed before touching `vibe-themes.ts` —
+guessing brand intent from a vague brief is exactly the kind of assumption
+this project's rules forbid.
+```
+
+---
+
+## Notes for whoever is pasting this
+
+- The bracketed public URLs above are all live, unauthenticated, and
+  confirmed working as of this writing — no login needed to view them.
+- If the target session has Figma access and there's a source design file
+  for the new brand, tell it explicitly and point it at that file — this
+  prompt doesn't assume Figma access either way, since it isn't always
+  available.
+- This file lives at `TEMPLATES/GDS_THEME_CREATION_PROMPT.md` so it can be
+  copied again later without regenerating it from scratch — update it in
+  place if the theme-creation process changes (new required token, a
+  renamed file, a new governance rule) rather than letting it drift stale.
