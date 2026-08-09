@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/classscout-design-system-c4c0d3d0-ee1a-4b25-81f5-615dff01c0d3/tokens/colors.css">
+<link rel="stylesheet" href="_ds/classscout-design-system-c4c0d3d0-ee1a-4b25-81f5-615dff01c0d3/tokens/typography.css">
+<link rel="stylesheet" href="_ds/classscout-design-system-c4c0d3d0-ee1a-4b25-81f5-615dff01c0d3/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/classscout-design-system-c4c0d3d0-ee1a-4b25-81f5-615dff01c0d3/tokens/effects.css">
+<link rel="stylesheet" href="_ds/classscout-design-system-c4c0d3d0-ee1a-4b25-81f5-615dff01c0d3/tokens/base.css">
+<link rel="stylesheet" href="_ds/classscout-design-system-c4c0d3d0-ee1a-4b25-81f5-615dff01c0d3/styles.css">
+<script src="_ds/classscout-design-system-c4c0d3d0-ee1a-4b25-81f5-615dff01c0d3/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+<style>
+body{margin:0;background:#faf7f1;}
+a{color:#C24A0A;text-decoration:none;}
+a:hover{color:#A33E07;}
+</style>
+</helmet>
+<template id="__bundler_thumbnail" data-bg-color="#faf7f1">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#faf7f1"></rect>
+    <path d="M542 566A160 160 0 1 1 780 566L661 700Z" fill="#A9CDB4" stroke="#0F2C4A" stroke-width="34" stroke-linejoin="round"></path>
+    <circle cx="661" cy="500" r="58" fill="#F5793B"></circle>
+    <rect x="300" y="180" width="600" height="34" rx="17" fill="#0F2C4A"></rect>
+    <rect x="380" y="248" width="440" height="22" rx="11" fill="#C6C9C4"></rect>
+  </svg>
+</template>
+<div style="background:#faf7f1;font-family:'Inter',ui-sans-serif,system-ui,Arial,sans-serif;color:#1F3A5C;padding:56px 48px 96px;display:flex;flex-direction:column;gap:64px;box-sizing:border-box">
+
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:840px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:34px;height:34px;border-radius:10px;background:#F5793B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="ti ti-sparkles"></i></div>
+      <span style="font-size:13px;font-weight:600;letter-spacing:.06em;color:#5B6573">CLASSSCOUT NYC · DESIGN SYSTEM</span>
+    </div>
+    <div style="font-family:'Playfair Display',Georgia,serif;font-size:54px;font-weight:700;color:#0F2C4A;letter-spacing:-0.01em;line-height:1.04">A parent planning layer, not a directory</div>
+    <div style="font-size:18px;line-height:1.6;text-wrap:pretty">ClassScout helps a parent in New York decide whether a class is worth a call. Most of them are on a phone, one-handed, with a child nearby. The system is built around that moment: warm paper, calm navy, one orange that means act, and a visible confidence layer on every listing so nobody has to guess what is known and what is estimated.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;padding-top:6px">
+      <span style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:7px 14px;font-size:14px;color:#1F3A5C">Mobile first</span>
+      <span style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:7px 14px;font-size:14px;color:#1F3A5C">Uncertainty stated, never hidden</span>
+      <span style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:7px 14px;font-size:14px;color:#1F3A5C">No listing photography</span>
+      <span style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:7px 14px;font-size:14px;color:#1F3A5C">Soft ground, saturated small elements</span>
+      <span style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:7px 14px;font-size:14px;color:#1F3A5C">Every surface survives a switched-off category</span>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Colour</div>
+      <div style="font-size:14px;color:#5B6573">Three systems that must not be confused</div>
+    </div>
+    <div style="font-size:16px;line-height:1.6;max-width:840px;text-wrap:pretty">The brand palette dresses chrome, type and controls. The activity accents identify one listing against its neighbour and carry no meaning beyond that. The semantic accents — green, amber, red — appear only where their meaning applies.</div>
+
+    <div style="font-size:15px;font-weight:600;color:#0F2C4A">Brand palette</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden"><div style="height:72px;background:#faf7f1;border-bottom:1px solid #E6E1D8"></div><div style="padding:14px 16px"><div style="font-size:15px;font-weight:600;color:#0F2C4A">Cream</div><div style="font-size:13px;color:#5B6573">#FAF7F1 · the page, the map canvas, the paper behind every generated image</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden"><div style="height:72px;background:#fff;border-bottom:1px solid #E6E1D8"></div><div style="padding:14px 16px"><div style="font-size:15px;font-weight:600;color:#0F2C4A">White</div><div style="font-size:13px;color:#5B6573">#FFFFFF · cards only. The page is never white</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden"><div style="height:72px;background:#0F2C4A"></div><div style="padding:14px 16px"><div style="font-size:15px;font-weight:600;color:#0F2C4A">Ink navy</div><div style="font-size:13px;color:#5B6573">#0F2C4A · headings, nav, pin silhouettes, inverse surfaces</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden"><div style="height:72px;background:#1F3A5C"></div><div style="padding:14px 16px"><div style="font-size:15px;font-weight:600;color:#0F2C4A">Body</div><div style="font-size:13px;color:#5B6573">#1F3A5C · running text, 9.9:1 on white</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden"><div style="height:72px;background:#5B6573"></div><div style="padding:14px 16px"><div style="font-size:15px;font-weight:600;color:#0F2C4A">Slate</div><div style="font-size:13px;color:#5B6573">#5B6573 · metadata and secondary text</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden"><div style="height:72px;background:#F5793B"></div><div style="padding:14px 16px"><div style="font-size:15px;font-weight:600;color:#0F2C4A">Brand orange</div><div style="font-size:13px;color:#5B6573">#F5793B · fills, marks, avatars, the selected pin. Never under text</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden"><div style="height:72px;background:#C24A0A;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:600">Aa 4.9:1</div><div style="padding:14px 16px"><div style="font-size:15px;font-weight:600;color:#0F2C4A">Action orange</div><div style="font-size:13px;color:#5B6573">#C24A0A · buttons, links, focus. The only colour that carries a label</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden"><div style="height:72px;background:#A33E07"></div><div style="padding:14px 16px"><div style="font-size:15px;font-weight:600;color:#0F2C4A">Action pressed</div><div style="font-size:13px;color:#5B6573">#A33E07</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden"><div style="height:72px;background:#E6E1D8"></div><div style="padding:14px 16px"><div style="font-size:15px;font-weight:600;color:#0F2C4A">Card border</div><div style="font-size:13px;color:#5B6573">#E6E1D8 · hairline on white</div></div></div>
+    </div>
+
+    <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:22px;font-size:15px;line-height:1.6;max-width:900px;text-wrap:pretty">The two oranges are one decision, not a gradient. #C24A0A clears AA against both cream and white and is the only orange permitted under a label; #F5793B is a fill and never sits beneath type. Widening the light one would fail contrast, so the dark scheme swaps roles rather than lightening.</div>
+
+    <div style="font-size:15px;font-weight:600;color:#0F2C4A;padding-top:8px">Semantic accents</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:20px;display:flex;gap:14px;align-items:flex-start"><div style="width:40px;height:40px;border-radius:10px;background:#4F8A5B;flex:none"></div><div><div style="font-size:15px;font-weight:600;color:#0F2C4A">Trust green · #4F8A5B</div><div style="font-size:14px;color:#5B6573;line-height:1.5">Source and freshness signals. Nothing else.</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:20px;display:flex;gap:14px;align-items:flex-start"><div style="width:40px;height:40px;border-radius:10px;background:#C78A2C;flex:none"></div><div><div style="font-size:15px;font-weight:600;color:#0F2C4A">Estimate amber · #C78A2C</div><div style="font-size:14px;color:#5B6573;line-height:1.5">Estimated prices and schedules, staleness, caution.</div></div></div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:20px;display:flex;gap:14px;align-items:flex-start"><div style="width:40px;height:40px;border-radius:10px;background:#B84A4A;flex:none"></div><div><div style="font-size:15px;font-weight:600;color:#0F2C4A">Error red · #B84A4A</div><div style="font-size:14px;color:#5B6573;line-height:1.5">Failures and destructive confirmation only.</div></div></div>
+    </div>
+
+    <div style="font-size:15px;font-weight:600;color:#0F2C4A;padding-top:8px">Activity accents</div>
+    <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+      <div style="font-size:15px;line-height:1.6;max-width:840px;text-wrap:pretty">Colour tells two adjacent listings apart. It does not say what an activity is — there are far more activities than colour slots, so any scheme that reads meaning into hue will be wrong the day a new activity is added. The glyph carries identity; the colour carries separation.</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="height:52px;border-radius:10px;background:#A9CDB4"></div><div style="font-size:13px;color:#5B6573">Forest · #A9CDB4</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="height:52px;border-radius:10px;background:#A7C9DE"></div><div style="font-size:13px;color:#5B6573">Ocean · #A7C9DE</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="height:52px;border-radius:10px;background:#E2C79B"></div><div style="font-size:13px;color:#5B6573">Bronze · #E2C79B</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="height:52px;border-radius:10px;background:#C6B6E0"></div><div style="font-size:13px;color:#5B6573">Grape · #C6B6E0</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="height:52px;border-radius:10px;background:#E9B4CD"></div><div style="font-size:13px;color:#5B6573">Magenta · #E9B4CD</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="height:52px;border-radius:10px;background:#B3BEE4"></div><div style="font-size:13px;color:#5B6573">Indigo · #B3BEE4</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="height:52px;border-radius:10px;background:#DCD7CD"></div><div style="font-size:13px;color:#5B6573">Neutral · #DCD7CD</div></div>
+      </div>
+      <div style="border-top:1px solid #E6E1D8;padding-top:14px;font-size:14px;line-height:1.55;color:#5B6573;text-wrap:pretty">Each family carries four steps between its tint and a shared floor, spaced proportionally so related activities stay distinct without spending a second family. The range is bounded at both ends: too pale and the fill stops separating from the page, too deep and the navy silhouette closes up.</div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Type</div>
+      <div style="font-size:14px;color:#5B6573">Playfair Display for headings · Inter for everything else</div>
+    </div>
+    <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:22px">
+      <div style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:baseline"><div style="font-size:13px;color:#5B6573">H1 · 44/52 · 700</div><div style="font-family:'Playfair Display',Georgia,serif;font-size:44px;font-weight:700;color:#0F2C4A;letter-spacing:-0.01em;line-height:1.05">Profile</div></div>
+      <div style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:baseline"><div style="font-size:13px;color:#5B6573">H2 · 30 · 700</div><div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Sarah Mitchell</div></div>
+      <div style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:baseline"><div style="font-size:13px;color:#5B6573">H3 · 22 · 600</div><div style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:600;color:#0F2C4A">Saturday drop-ins near Park Slope</div></div>
+      <div style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:baseline"><div style="font-size:13px;color:#5B6573">Card title · 20 · 600</div><div style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#0F2C4A">Little Kickers Brooklyn</div></div>
+      <div style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:baseline"><div style="font-size:13px;color:#5B6573">Row label · 18 · 600</div><div style="font-size:18px;font-weight:600;color:#0F2C4A">Child profiles</div></div>
+      <div style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:baseline"><div style="font-size:13px;color:#5B6573">Body · 16 · 400</div><div style="font-size:16px;line-height:1.55;max-width:560px;text-wrap:pretty">Soccer skills for ages 6–10 in Prospect Park, useful for kids who want to play before joining a league.</div></div>
+      <div style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:baseline"><div style="font-size:13px;color:#5B6573">Meta · 14 · 400</div><div style="font-size:14px;color:#5B6573">Last checked 2 Jul 2026 · Source: provider website</div></div>
+      <div style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:baseline"><div style="font-size:13px;color:#5B6573">Badge · 12 · 600</div><div style="font-size:12px;font-weight:600;color:#5B6573">Recently checked</div></div>
+      <div style="border-top:1px solid #E6E1D8;padding-top:18px;font-size:15px;line-height:1.6;max-width:840px;text-wrap:pretty">Both faces load as variable stacks so a licensed face can replace either without touching a component. Headings carry −0.01em tracking at large sizes. Sentence case everywhere, including section labels: "Family", not "FAMILY". Slide and screen text never drops below 14px; tap targets never below 44px.</div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Shape, depth, motion</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Radius</div>
+        <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:64px;height:48px;background:#F6F1EA;border:1px solid #E6E1D8;border-radius:8px"></div><div style="font-size:12px;color:#5B6573">8 · small</div></div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:64px;height:48px;background:#F6F1EA;border:1px solid #E6E1D8;border-radius:12px"></div><div style="font-size:12px;color:#5B6573">12 · control</div></div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:64px;height:48px;background:#F6F1EA;border:1px solid #E6E1D8;border-radius:16px"></div><div style="font-size:12px;color:#5B6573">16 · card</div></div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:64px;height:48px;background:#F6F1EA;border:1px solid #E6E1D8;border-radius:24px 24px 8px 8px"></div><div style="font-size:12px;color:#5B6573">24 · sheet</div></div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:64px;height:34px;background:#F6F1EA;border:1px solid #E6E1D8;border-radius:999px"></div><div style="font-size:12px;color:#5B6573">pill · chip</div></div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Elevation</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div style="width:110px;height:64px;background:#fff;border:1px solid #E6E1D8;border-radius:12px;box-shadow:0 1px 2px rgba(15,44,74,.04),0 8px 24px rgba(15,44,74,.06);display:flex;align-items:center;justify-content:center;font-size:13px;color:#5B6573">Card</div>
+          <div style="width:110px;height:64px;background:#fff;border:1px solid #E6E1D8;border-radius:12px;box-shadow:0 2px 6px rgba(15,44,74,.1),0 16px 40px rgba(15,44,74,.16);display:flex;align-items:center;justify-content:center;font-size:13px;color:#5B6573">Overlay</div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Two shadows exist. Cards use the soft one; overlays and the pin preview use the stronger. No inner shadows, no coloured shadows, no stacking of both.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Spacing &amp; motion</div>
+        <div style="font-size:14px;line-height:1.6">An 8px grid: 4, 8, 12, 16, 24, 32, 48, 64. Sibling groups lay out with flex or grid and a gap, never with per-element margins.</div>
+        <div style="font-size:14px;line-height:1.6">One curve, 200ms. Cards lift 2px on hover; there are no bounces, no parallax and no hover-only affordances. Everything is disabled under reduced motion.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Focus &amp; accessibility</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <div style="background:#C24A0A;color:#fff;font-size:15px;font-weight:600;padding:12px 22px;border-radius:12px;outline:2px solid #C24A0A;outline-offset:2px">Focused</div>
+          <div style="background:#fff;color:#0F2C4A;border:1px solid #E6E1D8;font-size:15px;font-weight:600;padding:12px 22px;border-radius:12px;outline:2px solid #C24A0A;outline-offset:2px">Focused</div>
+        </div>
+        <div style="font-size:14px;line-height:1.6">2px action-orange ring at 2px offset on every control. AA contrast throughout, 44px minimum targets, and no state signalled by colour alone — every badge, pin and status carries words.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Controls</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Buttons</div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+          <div style="background:#C24A0A;color:#fff;font-size:15px;font-weight:600;padding:12px 22px;border-radius:12px">Ask Scout</div>
+          <div style="background:#fff;color:#0F2C4A;border:1px solid #E6E1D8;font-size:15px;font-weight:600;padding:12px 22px;border-radius:12px">View details</div>
+          <div style="color:#C24A0A;font-size:15px;font-weight:600;padding:12px 8px">Report outdated</div>
+          <div style="background:#B84A4A;color:#fff;font-size:15px;font-weight:600;padding:12px 22px;border-radius:12px">Remove child</div>
+          <div style="background:#F1EFEA;color:#A3ABB5;font-size:15px;font-weight:600;padding:12px 22px;border-radius:12px">Unavailable</div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Primary, secondary, subtle, danger. One primary per screen; never two side by side. Submitting shows a loading state so a second tap cannot double-post.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Chips and removable tags</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <div style="background:#F6F1EA;color:#1F3A5C;font-size:14px;font-weight:500;padding:9px 16px;border-radius:999px">This weekend</div>
+          <div style="background:#FDEDE3;color:#A33E07;font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;border:1px solid #F5793B">Toddler drop-ins</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:#1F3A5C;border:1px solid #E6E1D8;font-size:14px;font-weight:500;padding:9px 12px 9px 16px;border-radius:999px">Free &amp; low-cost <i class="ti ti-x" style="font-size:15px;color:#5B6573"></i></div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Chips select scope and taxonomy. A removable tag is a real button whose whole surface removes the filter, with a spoken name of its own. Active filters are always visible and always removable.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Fields</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:14px;font-weight:600;color:#0F2C4A">Child's age</div>
+          <div style="font-size:13px;color:#5B6573">Used to filter listings. You can change it later.</div>
+          <div style="background:#fff;border:1px solid #E6E1D8;border-radius:12px;padding:13px 14px;font-size:15px;color:#1F3A5C;min-height:44px;box-sizing:border-box">7</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:14px;font-weight:600;color:#0F2C4A">Neighbourhood</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid #E6E1D8;border-radius:12px;padding:13px 14px;font-size:15px;color:#1F3A5C;min-height:44px;box-sizing:border-box">Park Slope <i class="ti ti-chevron-down" style="color:#5B6573"></i></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:14px;font-weight:600;color:#B84A4A">Email</div>
+          <div style="background:#fff;border:1px solid #B84A4A;border-radius:12px;padding:13px 14px;font-size:15px;color:#1F3A5C;min-height:44px;box-sizing:border-box">sarah.mitchell@</div>
+          <div style="font-size:13px;color:#B84A4A">Enter a full email address so the provider can reply.</div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Labels are always visible; detail goes on a description line rather than a long label. Errors sit under their own field. Never three inputs in a row on a phone.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Dropdowns are native</div>
+        <div style="font-size:15px;line-height:1.6;text-wrap:pretty">A select is a real select. A styled combobox on a phone puts a caret in the field and raises the keyboard over the options, so choosing one of four things starts by dismissing a keyboard nobody asked for. Native controls are familiar, handle long lists better, and cannot raise a keyboard at all.</div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Searchable selection for genuinely long lists is the exception and still uses the governed composition, never a bespoke menu.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Choice controls</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;background:#C24A0A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px"><i class="ti ti-check"></i></div><span style="font-size:15px">Send me a reminder the day before</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:999px;border:2px solid #C24A0A;display:flex;align-items:center;justify-content:center"><div style="width:10px;height:10px;border-radius:999px;background:#C24A0A"></div></div><span style="font-size:15px">Weekday afternoons</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:42px;height:24px;border-radius:999px;background:#C24A0A;display:flex;align-items:center;justify-content:flex-end;padding:2px;box-sizing:border-box"><div style="width:20px;height:20px;border-radius:999px;background:#fff"></div></div><span style="font-size:15px">Show only free activities</span></div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Checkbox is an independent opt-in, radio is mutually exclusive, and a switch takes effect immediately — so a switch never sits behind a save button.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Badges</div>
+      <div style="font-size:14px;color:#5B6573">A closed vocabulary</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Trust badges</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#EAF2EC;color:#4F8A5B;border:1px solid #4F8A5B;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600"><i class="ti ti-file-check"></i>Official source</span>
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#EAF2EC;color:#4F8A5B;border:1px solid #4F8A5B;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600">Public source</span>
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#EAF2EC;color:#4F8A5B;border:1px solid #4F8A5B;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600">Recently checked</span>
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#EAF2EC;color:#4F8A5B;border:1px solid #4F8A5B;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600"><i class="ti ti-shield-check"></i>Verified by provider</span>
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#F8EEDD;color:#C78A2C;border:1px solid #C78A2C;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600">Price estimate</span>
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#F8EEDD;color:#C78A2C;border:1px solid #C78A2C;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600">Schedule estimate</span>
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#F6F1EA;color:#5B6573;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600">Age not confirmed</span>
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#F7E6E6;color:#B84A4A;border:1px solid #B84A4A;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600">Reported outdated</span>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Eight labels, each with an operational definition. "Verified by provider" is narrow: the provider claimed the listing and confirmed its details. No numeric trust scores appear anywhere in the interface.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Counts and status</div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+          <div style="position:relative;width:44px;height:44px;border-radius:12px;border:1px solid #E6E1D8;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;color:#0F2C4A"><i class="ti ti-bell"></i><span style="position:absolute;top:-6px;right:-6px;background:#C24A0A;color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:2px 6px">3</span></div>
+          <span style="background:#F6F1EA;color:#5B6573;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600">BETA</span>
+          <span style="background:#EAF2EC;color:#4F8A5B;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600">Booked</span>
+          <span style="background:#F8EEDD;color:#C78A2C;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600">Waitlist</span>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">A count announces as "3 unread messages", in that order, and its live region stays mounted at zero so the first arrival is spoken. Colour is never the only signal — every badge carries its own words.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Rules that bind every badge</div>
+        <div style="font-size:14px;line-height:1.6">Colour comes from a closed set: a semantic tone or one activity accent, never a free value.</div>
+        <div style="font-size:14px;line-height:1.6">Labels are written by a person. "Football", never a glyph's export name.</div>
+        <div style="font-size:14px;line-height:1.6">Under forced colours every fill flattens to one system pair; the label and the stroke are what survive.</div>
+        <div style="font-size:14px;line-height:1.6">Eight accent categories at most on one surface, so a screen stays scannable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Iconography</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Every activity owns its glyph</div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:26px;color:#0F2C4A">
+          <i class="ti ti-ball-football"></i><i class="ti ti-swimming"></i><i class="ti ti-karate"></i><i class="ti ti-palette"></i><i class="ti ti-music"></i><i class="ti ti-microscope"></i><i class="ti ti-mask"></i><i class="ti ti-bike"></i><i class="ti ti-chess"></i>
+        </div>
+        <div style="font-size:14px;line-height:1.6;color:#5B6573">Outline icons at 2px, one shared registry, no exceptions and no generic fallback mark. Two activities may never share a glyph: a repeated glyph teaches a reader that the glyph means nothing.</div>
+        <div style="font-size:14px;line-height:1.6;color:#5B6573">Where no literal match exists, depict something real and specific — the equipment, the venue, the apparatus, the posture, the signature prop. Never invent a mark, and never borrow one another activity owns.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Emoji: the map pin, and nowhere else</div>
+        <div style="font-size:15px;line-height:1.6;text-wrap:pretty">A pin may carry an emoji for its activity. Cards, thumbnails, hero art, chips, headings, body copy, empty states, buttons and notifications never do.</div>
+        <div style="font-size:14px;line-height:1.6;color:#5B6573">An activity gets an emoji only where one honestly depicts it; otherwise the pin keeps its Tabler glyph. The emoji is drawn fully opaque, never recoloured, never dimmed, and always hidden from assistive technology — the pin's written name carries the meaning.</div>
+        <div style="font-size:14px;line-height:1.6;color:#5B6573">Emoji rendering varies by device, so support is measured rather than assumed and the glyph is the fallback whenever it is missing.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Imagery</div>
+      <div style="font-size:14px;color:#5B6573">Generated from the listing's own activities</div>
+    </div>
+    <div style="font-size:16px;line-height:1.6;max-width:860px;text-wrap:pretty">ClassScout shows no photographs of listings. Artwork is composed from the listing's own data, seeded by its id, so a card is complete in the first response with nothing to fetch and nothing to fail. A card never depends on a network image to be finished.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Card thumbnail</div>
+        <div style="position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/2;background:#D3DBD0;border:1px solid #E6E1D8">
+          <i class="ti ti-ball-football" style="position:absolute;right:-40px;bottom:-56px;font-size:260px;color:#1F5B3C;opacity:.18;transform:rotate(-12deg)"></i>
+          <div style="position:absolute;left:14px;bottom:14px;display:flex;gap:8px;align-items:center">
+            <span style="display:inline-flex;align-items:center;gap:6px;background:#1F5B3C;color:#fff;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600"><i class="ti ti-ball-football"></i>Soccer</span>
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:#1F5B3C;color:#fff;border-radius:999px;font-size:16px"><i class="ti ti-trophy"></i></span>
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:#1F5B3C;color:#fff;border-radius:999px;font-size:16px"><i class="ti ti-run"></i></span>
+          </div>
+        </div>
+        <div style="font-size:14px;line-height:1.55;color:#5B6573">A pastel ground — the accent at 18% into cream — with the activity's own glyph oversized to overflow two edges at 18% opacity. Angle, scale and position are seeded from the listing id, so a card composes once and keeps that composition forever.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Two layers, deliberately separate</div>
+        <div style="font-size:14px;line-height:1.6">The ground is decorative texture and may crop freely — losing an edge costs nothing.</div>
+        <div style="font-size:14px;line-height:1.6">The badges are real controls laid over it: up to three, bottom-left, the lead one named and the rest icon-only. Each filters the search by that activity and carries its own accessible name.</div>
+        <div style="font-size:14px;line-height:1.6">Badges are fully saturated because a ground at 18% cannot carry colour coding. Soft ground, saturated small elements — that relationship holds everywhere in the system.</div>
+        <div style="font-size:14px;line-height:1.6">Where a tile is too small for a pill to be legible, badges are suppressed and the surrounding copy names the activity instead.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">One accent, four strengths</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px">
+          <div style="display:flex;flex-direction:column;gap:8px"><div style="height:52px;border-radius:10px;background:#A9CDB4;border:1px solid #E6E1D8"></div><div style="font-size:13px;font-weight:600;color:#0F2C4A">Pin fill</div></div>
+          <div style="display:flex;flex-direction:column;gap:8px"><div style="height:52px;border-radius:10px;background:#D3DBD0;border:1px solid #E6E1D8"></div><div style="font-size:13px;font-weight:600;color:#0F2C4A">Card · 18%</div></div>
+          <div style="display:flex;flex-direction:column;gap:8px"><div style="height:52px;border-radius:10px;background:#DBE0D6;border:1px solid #E6E1D8"></div><div style="font-size:13px;font-weight:600;color:#0F2C4A">Hero · 14%</div></div>
+          <div style="display:flex;flex-direction:column;gap:8px"><div style="height:52px;border-radius:10px;background:#9DB8A6;border:1px solid #E6E1D8"></div><div style="font-size:13px;font-weight:600;color:#0F2C4A">Neighbourhood · 42%</div></div>
+        </div>
+        <div style="font-size:14px;line-height:1.55;color:#5B6573">A listing wears the same colour on its pin, its card and its hero, at the strength each surface can carry. Heroes are weaker because they are large; neighbourhood fills are heavier because they must be told apart across a whole borough over a basemap with its own colour.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Heroes</div>
+        <div style="position:relative;height:120px;border-radius:12px;overflow:hidden;background:#DBE0D6;border:1px solid #E6E1D8">
+          <i class="ti ti-ball-football" style="position:absolute;left:12%;top:14%;font-size:44px;color:#1F5B3C;opacity:.18"></i>
+          <i class="ti ti-swimming" style="position:absolute;left:44%;top:52%;font-size:32px;color:#1F5B3C;opacity:.12"></i>
+          <i class="ti ti-music" style="position:absolute;left:72%;top:20%;font-size:28px;color:#1F5B3C;opacity:.1"></i>
+          <i class="ti ti-palette" style="position:absolute;left:24%;top:64%;font-size:26px;color:#1F5B3C;opacity:.08"></i>
+        </div>
+        <div style="font-size:14px;line-height:1.55;color:#5B6573">Same system, weaker: a 14% wash and a tile field between 6% and 20% so the field reads as depth rather than a screen door. A page with no activity filter — the common case — uses a 5% neutral tint and takes its colour from the field and badges instead.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Map</div>
+      <div style="font-size:14px;color:#5B6573">One map surface serves every context</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px;align-items:start">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:18px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Pin anatomy</div>
+        <div style="display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap">
+          <div style="position:relative;width:64px;height:64px;flex:none"><svg viewBox="0 0 24 24" width="64" height="64" style="display:block;filter:drop-shadow(0 4px 8px rgba(15,44,74,.28))"><path d="M6.04 16.33A8 8 0 1 1 17.96 16.33L12 23Z" fill="#A9CDB4" stroke="#0F2C4A" stroke-width="1.75" stroke-linejoin="round"></path></svg><span style="position:absolute;left:50%;top:45.83%;transform:translate(-50%,-50%);font-size:29px;line-height:1">⚽</span></div>
+          <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:7px;font-size:14px;line-height:1.5">
+            <div>Two layers only — the pin and the glyph. No ring, no capsule.</div>
+            <div>The fill is the activity accent lightened toward the page; the silhouette is always ink navy.</div>
+            <div>The glyph sits at 0.46 of the marker, centred on the head circle's true centre — a unit above the path box's middle.</div>
+            <div>44px target, point anchored to the venue, white halo so a pin holds over dark parks and pale streets alike.</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid #E6E1D8;padding-top:14px;font-size:14px;line-height:1.55;color:#5B6573;text-wrap:pretty">Pins are drawn in the same render pass as the tiles, so they cannot drift from the streets beneath them during a pan. Every result is always its own pin.</div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:18px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">States</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:18px 12px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="height:66px;display:flex;align-items:center;justify-content:center"><div style="position:relative;width:46px;height:46px"><svg viewBox="0 0 24 24" width="46" height="46" style="display:block;filter:drop-shadow(0 3px 8px rgba(15,44,74,.24))"><path d="M6.04 16.33A8 8 0 1 1 17.96 16.33L12 23Z" fill="#A9CDB4" stroke="#0F2C4A" stroke-width="1.75" stroke-linejoin="round"></path></svg><span style="position:absolute;left:50%;top:45.83%;transform:translate(-50%,-50%);font-size:21px;line-height:1">⚽</span></div></div><div style="font-size:12px;color:#5B6573;text-align:center;line-height:1.35">Idle</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="height:66px;display:flex;align-items:center;justify-content:center"><div style="position:relative;width:46px;height:46px"><svg viewBox="0 0 24 24" width="46" height="46" style="display:block;filter:drop-shadow(0 5px 12px rgba(15,44,74,.3))"><path d="M6.04 16.33A8 8 0 1 1 17.96 16.33L12 23Z" fill="#A9CDB4" stroke="#245A8C" stroke-width="2.25" stroke-linejoin="round"></path></svg><span style="position:absolute;left:50%;top:45.83%;transform:translate(-50%,-50%);font-size:21px;line-height:1">⚽</span></div></div><div style="font-size:12px;color:#5B6573;text-align:center;line-height:1.35">Hovered from the list</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="height:66px;display:flex;align-items:center;justify-content:center"><div style="position:relative;width:62px;height:62px"><svg viewBox="0 0 24 24" width="62" height="62" style="display:block;filter:drop-shadow(0 6px 12px rgba(15,44,74,.34))"><path d="M6.04 16.33A8 8 0 1 1 17.96 16.33L12 23Z" fill="#F5793B" stroke="#0F2C4A" stroke-width="2.25" stroke-linejoin="round"></path></svg><span style="position:absolute;left:50%;top:45.83%;transform:translate(-50%,-50%);font-size:28px;line-height:1">⚽</span></div></div><div style="font-size:12px;color:#A33E07;font-weight:600;text-align:center;line-height:1.35">Selected</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="height:66px;display:flex;align-items:center;justify-content:center"><div style="position:relative;width:46px;height:46px"><svg viewBox="0 0 24 24" width="46" height="46" style="display:block;filter:drop-shadow(0 3px 8px rgba(15,44,74,.24))"><path d="M6.04 16.33A8 8 0 1 1 17.96 16.33L12 23Z" fill="#A7C9DE" stroke="#0F2C4A" stroke-width="1.75" stroke-linejoin="round"></path></svg><span style="position:absolute;left:50%;top:45.83%;transform:translate(-50%,-50%);font-size:21px;line-height:1">🏊</span><div style="position:absolute;top:0;right:-4px;width:22px;height:22px;border-radius:999px;background:#fff;border:1px solid #E6E1D8;color:#C24A0A;display:flex;align-items:center;justify-content:center;font-size:12px"><i class="ti ti-heart-filled"></i></div></div></div><div style="font-size:12px;color:#5B6573;text-align:center;line-height:1.35">Saved</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="height:66px;display:flex;align-items:center;justify-content:center"><div style="position:relative;width:46px;height:46px"><svg viewBox="0 0 24 24" width="46" height="46" style="display:block"><path d="M6.04 16.33A8 8 0 1 1 17.96 16.33L12 23Z" fill="#DCD7CD" stroke="#0F2C4A" stroke-width="1.75" stroke-linejoin="round" stroke-dasharray="3 2"></path></svg><span style="position:absolute;left:50%;top:45.83%;transform:translate(-50%,-50%);font-size:21px;line-height:1">🥋</span></div></div><div style="font-size:12px;color:#5B6573;text-align:center;line-height:1.35">Approximate area</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="height:66px;display:flex;align-items:center;justify-content:center"><div style="position:relative;width:46px;height:46px"><svg viewBox="0 0 24 24" width="46" height="46" style="display:block;filter:drop-shadow(0 3px 8px rgba(15,44,74,.24))"><path d="M6.04 16.33A8 8 0 1 1 17.96 16.33L12 23Z" fill="#DCD7CD" stroke="#0F2C4A" stroke-width="1.75" stroke-linejoin="round"></path></svg><i class="ti ti-map-pin" style="position:absolute;left:50%;top:45.83%;transform:translate(-50%,-50%);font-size:21px;color:#0F2C4A"></i></div></div><div style="font-size:12px;color:#5B6573;text-align:center;line-height:1.35">No emoji mapped</div></div>
+        </div>
+        <div style="border-top:1px solid #E6E1D8;padding-top:14px;font-size:14px;line-height:1.55;color:#5B6573;text-wrap:pretty">The fill belongs to the activity, so state is carried by the silhouette and scale: a lifted navy outline on hover from the list, brand orange and a size step when selected, a dashed outline where the location is approximate.</div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Category filter rail</div>
+        <div style="background:#faf7f1;border-radius:12px;padding:16px;display:flex;gap:10px;overflow:hidden">
+          <div style="display:flex;align-items:center;gap:8px;background:#0F2C4A;color:#fff;border-radius:999px;padding:11px 18px;font-size:15px;font-weight:600;flex:none"><i class="ti ti-check" style="font-size:17px"></i>All 214</div>
+          <div style="display:flex;align-items:center;gap:8px;background:#fff;color:#0F2C4A;border:1px solid #E6E1D8;border-radius:999px;padding:11px 18px;font-size:15px;font-weight:500;flex:none">Soccer <span style="color:#5B6573">29</span></div>
+          <div style="display:flex;align-items:center;gap:8px;background:#fff;color:#0F2C4A;border:1px solid #E6E1D8;border-radius:999px;padding:11px 18px;font-size:15px;font-weight:500;flex:none">Swimming <span style="color:#5B6573">23</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;font-size:14px;line-height:1.55">
+          <div>Horizontal scroll, "All" always first and always visible.</div>
+          <div>Counts are part of the label and follow the map bounds.</div>
+          <div>The rail insets the map's own bounds by its height, so it never covers a pin's target.</div>
+          <div>With one category live the rail holds two chips and still reads; with none, it is not rendered at all.</div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Basemap and neighbourhoods</div>
+        <div style="font-size:14px;line-height:1.6">The canvas and a wash over the basemap are both cream. Desaturation alone yields a grey map; the cream composite is what makes it read as ours.</div>
+        <div style="font-size:14px;line-height:1.6">Neighbourhood fills are categorical, not a measurement — the fill says which neighbourhood you are looking at and nothing more. Each is an accent at 42% into cream, painted at 55% opacity so streets stay legible, with a paper hairline between them.</div>
+        <div style="font-size:14px;line-height:1.6">Adjacent neighbourhoods never share a family, so two bordering areas cannot read as one region. Areas outside coverage take a faded paper wash.</div>
+        <div style="font-size:14px;line-height:1.6;color:#5B6573">Map pixels are not in the accessibility tree on any library. Anything that exists only on the map is unreachable for some readers, so the synced list beside it carries every result.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Pin preview card</div>
+        <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:18px;box-shadow:0 2px 6px rgba(15,44,74,.1),0 16px 40px rgba(15,44,74,.16);display:flex;flex-direction:column;gap:14px;position:relative;max-width:400px">
+          <div style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:999px;background:#fff;color:#0F2C4A;box-shadow:0 2px 6px rgba(15,44,74,.24);display:flex;align-items:center;justify-content:center;font-size:17px;z-index:2"><i class="ti ti-x"></i></div>
+          <div style="position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#D3DBD0">
+            <i class="ti ti-ball-football" style="position:absolute;right:-26px;bottom:-40px;font-size:190px;color:#1F5B3C;opacity:.18;transform:rotate(-12deg)"></i>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#0F2C4A;line-height:1.2">Brooklyn City F.C. Youth Camps</div>
+            <div style="font-size:14px;color:#5B6573">Soccer · Crown Heights</div>
+          </div>
+          <div style="font-size:15px;line-height:1.5;text-wrap:pretty">Holiday soccer camp for ages 5–12 in Crown Heights, useful for kids who want regular play before joining a league.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+            <span style="background:#F6F1EA;color:#1F3A5C;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:500">Ages 5–12</span>
+            <span style="display:inline-flex;align-items:center;gap:5px;background:#EAF2EC;color:#4F8A5B;border:1px solid #4F8A5B;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600"><i class="ti ti-file-check"></i>Official source</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;border-top:1px solid #EFEBE3;padding-top:12px">
+            <div style="font-size:16px;font-weight:600;color:#C78A2C">Estimated from $45 <span style="font-size:13px;font-weight:400;color:#5B6573">· confirm with provider</span></div>
+            <div style="font-size:13px;color:#5B6573">Last checked 2 Jul 2026 · Approximate area</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="flex:1;background:#C24A0A;color:#fff;font-size:15px;font-weight:600;padding:12px 18px;border-radius:12px;text-align:center">View provider</div>
+            <div style="width:48px;height:48px;border-radius:12px;border:1px solid #E6E1D8;background:#fff;color:#0F2C4A;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none"><i class="ti ti-heart"></i></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">What the preview must answer</div>
+        <div style="font-size:14px;line-height:1.6">Age, place, cost, source and freshness — the same contract every listing surface carries. A preview with no cost and no last-checked date asks the parent to tap through before they can judge anything.</div>
+        <div style="font-size:14px;line-height:1.6">The summary is one written sentence, 100 to 160 characters, in the house shape: format, age or interest, context, benefit. Never a provider's marketing text cut mid-word.</div>
+        <div style="font-size:14px;line-height:1.6">Save sits beside the primary action, because saving and opening are both jobs a parent has here.</div>
+        <div style="font-size:14px;line-height:1.6">The thumbnail keeps its ground and motif; badges are suppressed at this size and the copy names the activity instead.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Cards and rows</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:20px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Profile header and child chips</div>
+        <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:22px;box-shadow:0 1px 2px rgba(15,44,74,.04),0 8px 24px rgba(15,44,74,.06);display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <div style="width:64px;height:64px;border-radius:999px;background:#F5793B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700;flex:none">SM</div>
+            <div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+              <div style="font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;color:#0F2C4A;line-height:1.15">Sarah Mitchell</div>
+              <div style="font-size:14px;color:#5B6573;overflow:hidden;text-overflow:ellipsis">sarah.mitchell@gmail.com</div>
+            </div>
+            <div style="width:44px;height:44px;border-radius:999px;background:#F6F1EA;color:#0F2C4A;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none"><i class="ti ti-pencil"></i></div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px;border:1px solid #E6E1D8;background:#faf7f1;border-radius:999px;padding:7px 16px 7px 7px">
+              <div style="width:30px;height:30px;border-radius:999px;background:#EFEAFB;color:#6D4FBF;display:flex;align-items:center;justify-content:center;font-size:16px"><i class="ti ti-palette"></i></div>
+              <div style="font-size:15px;font-weight:600;color:#0F2C4A">Emma · 7</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;border:1px solid #E6E1D8;background:#faf7f1;border-radius:999px;padding:7px 16px 7px 7px">
+              <div style="width:30px;height:30px;border-radius:999px;background:#EAF2EC;color:#4F8A5B;display:flex;align-items:center;justify-content:center;font-size:16px"><i class="ti ti-ball-football"></i></div>
+              <div style="font-size:15px;font-weight:600;color:#0F2C4A">Noah · 10</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">A child chip pairs a name and age with an interest glyph in a tinted disc. The tint is decorative here and carries no trust meaning, so it stays inside the disc and never colours the chip.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">List rows</div>
+        <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(15,44,74,.04),0 8px 24px rgba(15,44,74,.06)">
+          <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid #EFEBE3">
+            <div style="width:44px;height:44px;border-radius:12px;background:#EFEAFB;color:#6D4FBF;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="ti ti-mood-kid"></i></div>
+            <div style="flex:1;font-size:18px;font-weight:600;color:#0F2C4A">Child profiles</div><div style="font-size:16px;color:#5B6573">2</div><i class="ti ti-chevron-right" style="font-size:20px;color:#A3ABB5"></i>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid #EFEBE3">
+            <div style="width:44px;height:44px;border-radius:12px;background:#E6EDF5;color:#0F2C4A;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="ti ti-layout-grid"></i></div>
+            <div style="flex:1;font-size:18px;font-weight:600;color:#0F2C4A">Parent dashboard</div><i class="ti ti-chevron-right" style="font-size:20px;color:#A3ABB5"></i>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid #EFEBE3">
+            <div style="width:44px;height:44px;border-radius:12px;background:#FDEDE3;color:#A33E07;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="ti ti-category"></i></div>
+            <div style="flex:1;font-size:18px;font-weight:600;color:#0F2C4A">Browse categories</div><i class="ti ti-chevron-right" style="font-size:20px;color:#A3ABB5"></i>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid #EFEBE3">
+            <div style="width:44px;height:44px;border-radius:12px;background:#EAF2EC;color:#4F8A5B;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="ti ti-credit-card"></i></div>
+            <div style="flex:1;font-size:18px;font-weight:600;color:#0F2C4A">Payments</div><i class="ti ti-chevron-right" style="font-size:20px;color:#A3ABB5"></i>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid #EFEBE3">
+            <div style="width:44px;height:44px;border-radius:12px;background:#F8EEDD;color:#C78A2C;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="ti ti-speakerphone"></i></div>
+            <div style="flex:1;font-size:18px;font-weight:600;color:#0F2C4A">For providers</div><i class="ti ti-chevron-right" style="font-size:20px;color:#A3ABB5"></i>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:16px 18px">
+            <div style="width:44px;height:44px;border-radius:12px;background:#F1EFEA;color:#5B6573;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="ti ti-heart"></i></div>
+            <div style="flex:1;font-size:18px;font-weight:600;color:#0F2C4A">Saved activities</div><div style="font-size:16px;color:#5B6573">2</div><i class="ti ti-chevron-right" style="font-size:20px;color:#A3ABB5"></i>
+          </div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Five destinations own a tile hue — child profiles violet, dashboard navy, categories orange, payments green, providers amber. Everything else takes the neutral tile, so colour still means something. A count appears only where one is true.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">States</div>
+      <div style="font-size:14px;color:#5B6573">Every surface defines all of them</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Loading</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="height:14px;border-radius:7px;background:#EFEBE3;width:70%"></div>
+          <div style="height:14px;border-radius:7px;background:#EFEBE3;width:90%"></div>
+          <div style="height:14px;border-radius:7px;background:#EFEBE3;width:45%"></div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Skeletons where the shape is known, and a sentence for anything slow: "Loading NYC family activities…". Never a bare spinner on a long wait.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Empty</div>
+        <div style="font-size:15px;line-height:1.5">No Saturday classes for a 7-year-old in Park Slope.</div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.5">Four listings match if you include Sunday, and eleven within a mile.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:2px">
+          <div style="background:#C24A0A;color:#fff;font-size:14px;font-weight:600;padding:10px 16px;border-radius:12px">Include Sunday</div>
+          <div style="background:#fff;color:#0F2C4A;border:1px solid #E6E1D8;font-size:14px;font-weight:600;padding:10px 16px;border-radius:12px">Ask Scout</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#B84A4A">Error</div>
+        <div style="font-size:15px;line-height:1.5">We couldn't reach the listings service.</div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.5">Your saved activities are still available offline, though schedules and prices may have changed.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:2px">
+          <div style="background:#C24A0A;color:#fff;font-size:14px;font-weight:600;padding:10px 16px;border-radius:12px">Try again</div>
+          <div style="background:#fff;color:#0F2C4A;border:1px solid #E6E1D8;font-size:14px;font-weight:600;padding:10px 16px;border-radius:12px">Open saved</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Not available here</div>
+        <div style="font-size:15px;line-height:1.5">Queens isn't covered yet.</div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.5">Where a borough, category or activity is switched off, the surface says so plainly and offers what is live — it never renders an empty grid or a dead filter.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Alerts and notices</div>
+        <div style="border:1px solid #C78A2C;background:#F8EEDD;border-radius:12px;padding:12px 14px;font-size:14px;color:#8a5f1c;line-height:1.5">This listing was last checked six months ago. Details may have changed — confirm with the provider.</div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">An alert explains what happened and what to do next. A critical failure never lives only in a transient toast.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Overlays</div>
+        <div style="font-size:14px;line-height:1.6">Modals are for confirmation, a focused edit, or a blocking decision. Focus is trapped, modals never stack, and on a phone they run near full width.</div>
+        <div style="font-size:14px;line-height:1.6">Drawers and bottom sheets carry filters and secondary panels, with explicit apply, reset and close.</div>
+        <div style="font-size:14px;line-height:1.6">Destructive confirmations restate the target by name: "Remove Noah's profile?", never "Are you sure?".</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Layout and navigation</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Bottom tab bar</div>
+        <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:12px 8px 14px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;color:#5B6573"><i class="ti ti-search" style="font-size:23px"></i><span style="font-size:11px;font-weight:500">Search</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;color:#5B6573"><i class="ti ti-calendar-clock" style="font-size:23px"></i><span style="font-size:11px;font-weight:500">This week</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;color:#5B6573"><i class="ti ti-heart" style="font-size:23px"></i><span style="font-size:11px;font-weight:500">Saved</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;color:#5B6573"><i class="ti ti-sparkles" style="font-size:23px"></i><span style="font-size:11px;font-weight:500">Scout</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;color:#A33E07"><i class="ti ti-user-circle" style="font-size:23px"></i><span style="font-size:11px;font-weight:600">Account</span></div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;line-height:1.55">Five destinations at most, icon and label together, and destinations only — never actions. A floating button that covers the last row of a list is not an acceptable home for a destination.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Breakpoints and grids</div>
+        <div style="font-size:14px;line-height:1.6">Cards step one column on a phone, two on a tablet, three on desktop, halving in split map and list mode.</div>
+        <div style="font-size:14px;line-height:1.6">Mobile is for finding fast, tablet for comparing, desktop for planning. The trust logic and hierarchy are identical everywhere; only density adapts.</div>
+        <div style="font-size:14px;line-height:1.6">Rotation and back-navigation preserve filters, scroll, the selected listing and the map bounds. A search is never reset by moving.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Page headers</div>
+        <div style="font-size:14px;line-height:1.6">A header answers three questions: where am I, what is this for, what can I do next. The page's primary action lives there.</div>
+        <div style="font-size:14px;line-height:1.6">Breadcrumbs on desktop detail pages; "Back to results" on mobile. View details and Save are never hidden in an overflow menu.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Tables and lists</div>
+        <div style="font-size:14px;line-height:1.6">A desktop table compressed onto a phone is not acceptable. Choose one: horizontal scroll, a card view, priority columns, or stacked rows.</div>
+        <div style="font-size:14px;line-height:1.6">A list card shows one visible primary action; the rest move to overflow. Adjacent icon-only clusters invite mis-taps and are avoided.</div>
+        <div style="font-size:14px;line-height:1.6">Filters sit next to the data they affect, and the toolbar order is stable: search, filter, sort, reset, create.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Scout</div>
+      <div style="font-size:14px;color:#5B6573">A guided assistant, not an authority</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="border-radius:24px;overflow:hidden;border:1px solid #E6E1D8">
+          <div style="background:linear-gradient(180deg,#123A5E 0%,#0F2C4A 100%);border-radius:24px 24px 0 0;padding:20px;display:flex;align-items:center;gap:14px">
+            <div style="width:52px;height:52px;border-radius:14px;background:#F5793B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;flex:none"><i class="ti ti-sparkles"></i></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="font-size:20px;font-weight:700;color:#fff">Scout AI</div>
+                <span style="font-size:11px;font-weight:600;color:#0F2C4A;background:#F4D6A0;border-radius:999px;padding:2px 8px">BETA</span>
+              </div>
+              <div style="font-size:14px;color:#C6D3E0">Guided help finding NYC activities</div>
+            </div>
+            <div style="width:40px;height:40px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none"><i class="ti ti-x"></i></div>
+          </div>
+          <div style="background:#faf7f1;padding:20px;display:flex;flex-direction:column;gap:14px">
+            <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:16px 18px;font-size:16px;line-height:1.5;text-wrap:pretty">Hi Sarah. Tell me the age, area, schedule and budget you have in mind, and I'll show activities that may fit. Please confirm final details with the provider.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <div style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;color:#1F3A5C">This weekend</div>
+              <div style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;color:#1F3A5C">Today after school</div>
+              <div style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;color:#1F3A5C">Free &amp; low-cost</div>
+            </div>
+            <div style="font-size:13px;color:#5B6573;display:flex;align-items:center;gap:6px"><i class="ti ti-shield-check"></i>Do not enter a child's full name.</div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="flex:1;background:#fff;border:1px solid #E6E1D8;border-radius:12px;padding:14px 16px;font-size:15px;color:#8A929C">Tell Scout what you're looking for</div>
+              <div style="width:48px;height:48px;border-radius:12px;background:#C24A0A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;flex:none"><i class="ti ti-arrow-up"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">How Scout speaks</div>
+        <div style="font-size:14px;line-height:1.6">It offers, it does not promise: "activities that may fit", always closing with confirmation by the provider. It never claims to know every class, and never says a listing is safe or guaranteed.</div>
+        <div style="font-size:14px;line-height:1.6">Beta is labelled and explained. The privacy line sits next to the input, not buried in settings.</div>
+        <div style="font-size:14px;line-height:1.6">Quick starts are parent-intent labels — "This weekend", "Free &amp; low-cost" — composed from live categories, so a switched-off category never appears as a suggestion.</div>
+        <div style="font-size:14px;line-height:1.6">The navy sheet is the one dark surface in the system, and only because Scout is a distinct mode. Nothing else inverts.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Words</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Voice</div>
+        <div style="font-size:14px;line-height:1.6">Calm, practical, local, adult to adult. Decision support, not marketing. Second person and direct: "Find trusted kids' activities across NYC."</div>
+        <div style="font-size:14px;line-height:1.6">One brand name everywhere: ClassScout NYC, or ClassScout in tight space. Never a variant.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Uncertainty is visible</div>
+        <div style="font-size:14px;line-height:1.6">Prices carry "estimated from" and "confirm with provider". Listings show their source and the date they were last checked. Past the freshness window they say details may have changed.</div>
+        <div style="font-size:14px;line-height:1.6">Unknowns are stated — "Age not confirmed", "Price unknown" — never quietly omitted.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Words we don't use</div>
+        <div style="font-size:14px;line-height:1.6">Guaranteed, safe, perfect match, best, trust us. "Verified" appears only as the defined provider badge.</div>
+        <div style="font-size:14px;line-height:1.6">Never an invented name for a concept with a standard one, and never an internal identifier on screen.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600;color:#0F2C4A">Composed, not hardcoded</div>
+        <div style="font-size:14px;line-height:1.6">A sentence never names a category, activity or neighbourhood that has been switched off, and degrades as its list shrinks to two, to one, to none.</div>
+        <div style="font-size:14px;line-height:1.6">Every slot that holds text must have an answer for the day there is nothing true to say in it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #E6E1D8;padding-bottom:12px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:#0F2C4A">Screens</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:36px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="width:390px;height:844px;border-radius:44px;background:#faf7f1;border:1px solid #E6E1D8;box-shadow:0 12px 40px rgba(15,44,74,.12);overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font-size:15px;font-weight:600;color:#0F2C4A"><span>9:41</span><span style="display:flex;gap:6px;font-size:15px"><i class="ti ti-antenna-bars-5"></i><i class="ti ti-wifi"></i><i class="ti ti-battery-3"></i></span></div>
+          <div style="padding:8px 22px 14px;font-family:'Playfair Display',Georgia,serif;font-size:40px;font-weight:700;color:#0F2C4A">Profile</div>
+          <div style="flex:1;overflow:hidden;padding:0 18px;display:flex;flex-direction:column;gap:22px">
+            <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:18px;box-shadow:0 1px 2px rgba(15,44,74,.04),0 8px 24px rgba(15,44,74,.06);display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;align-items:center;gap:14px">
+                <div style="width:58px;height:58px;border-radius:999px;background:#F5793B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;flex:none">SM</div>
+                <div style="display:flex;flex-direction:column;gap:1px;flex:1;min-width:0">
+                  <div style="font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;color:#0F2C4A;line-height:1.15">Sarah Mitchell</div>
+                  <div style="font-size:13px;color:#5B6573;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">sarah.mitchell@gmail.com</div>
+                </div>
+                <div style="width:44px;height:44px;border-radius:999px;background:#F6F1EA;color:#0F2C4A;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none"><i class="ti ti-pencil"></i></div>
+              </div>
+              <div style="display:flex;gap:10px">
+                <div style="flex:1;display:flex;align-items:center;gap:9px;border:1px solid #E6E1D8;background:#faf7f1;border-radius:999px;padding:6px 12px 6px 6px">
+                  <div style="width:28px;height:28px;border-radius:999px;background:#EFEAFB;color:#6D4FBF;display:flex;align-items:center;justify-content:center;font-size:15px"><i class="ti ti-palette"></i></div>
+                  <div style="font-size:14px;font-weight:600;color:#0F2C4A">Emma · 7</div>
+                </div>
+                <div style="flex:1;display:flex;align-items:center;gap:9px;border:1px solid #E6E1D8;background:#faf7f1;border-radius:999px;padding:6px 12px 6px 6px">
+                  <div style="width:28px;height:28px;border-radius:999px;background:#EAF2EC;color:#4F8A5B;display:flex;align-items:center;justify-content:center;font-size:15px"><i class="ti ti-ball-football"></i></div>
+                  <div style="font-size:14px;font-weight:600;color:#0F2C4A">Noah · 10</div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="font-size:15px;font-weight:600;color:#5B6573;padding-left:4px">Family</div>
+              <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden">
+                <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #EFEBE3">
+                  <div style="width:40px;height:40px;border-radius:12px;background:#EFEAFB;color:#6D4FBF;display:flex;align-items:center;justify-content:center;font-size:20px"><i class="ti ti-mood-kid"></i></div>
+                  <div style="flex:1;font-size:17px;font-weight:600;color:#0F2C4A">Child profiles</div>
+                  <div style="font-size:15px;color:#5B6573">2</div><i class="ti ti-chevron-right" style="font-size:18px;color:#A3ABB5"></i>
+                </div>
+                <div style="display:flex;align-items:center;gap:14px;padding:14px 16px">
+                  <div style="width:40px;height:40px;border-radius:12px;background:#E6EDF5;color:#0F2C4A;display:flex;align-items:center;justify-content:center;font-size:20px"><i class="ti ti-layout-grid"></i></div>
+                  <div style="flex:1;font-size:17px;font-weight:600;color:#0F2C4A">Parent dashboard</div>
+                  <i class="ti ti-chevron-right" style="font-size:18px;color:#A3ABB5"></i>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="font-size:15px;font-weight:600;color:#5B6573;padding-left:4px">Activity</div>
+              <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;overflow:hidden">
+                <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #EFEBE3">
+                  <div style="width:40px;height:40px;border-radius:12px;background:#F1EFEA;color:#5B6573;display:flex;align-items:center;justify-content:center;font-size:20px"><i class="ti ti-calendar-clock"></i></div>
+                  <div style="flex:1;font-size:17px;font-weight:600;color:#0F2C4A">My bookings</div>
+                  <div style="font-size:15px;color:#5B6573">2</div><i class="ti ti-chevron-right" style="font-size:18px;color:#A3ABB5"></i>
+                </div>
+                <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #EFEBE3">
+                  <div style="width:40px;height:40px;border-radius:12px;background:#F1EFEA;color:#5B6573;display:flex;align-items:center;justify-content:center;font-size:20px"><i class="ti ti-heart"></i></div>
+                  <div style="flex:1;font-size:17px;font-weight:600;color:#0F2C4A">Saved activities</div>
+                  <div style="font-size:15px;color:#5B6573">2</div><i class="ti ti-chevron-right" style="font-size:18px;color:#A3ABB5"></i>
+                </div>
+                <div style="display:flex;align-items:center;gap:14px;padding:14px 16px">
+                  <div style="width:40px;height:40px;border-radius:12px;background:#FDEDE3;color:#A33E07;display:flex;align-items:center;justify-content:center;font-size:20px"><i class="ti ti-category"></i></div>
+                  <div style="flex:1;font-size:17px;font-weight:600;color:#0F2C4A">Browse categories</div>
+                  <i class="ti ti-chevron-right" style="font-size:18px;color:#A3ABB5"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="background:#fff;border-top:1px solid #E6E1D8;padding:10px 8px 22px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:#5B6573"><i class="ti ti-search" style="font-size:22px"></i><span style="font-size:11px;font-weight:500">Search</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:#5B6573"><i class="ti ti-calendar-clock" style="font-size:22px"></i><span style="font-size:11px;font-weight:500">This week</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:#5B6573"><i class="ti ti-heart" style="font-size:22px"></i><span style="font-size:11px;font-weight:500">Saved</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:#5B6573"><i class="ti ti-sparkles" style="font-size:22px"></i><span style="font-size:11px;font-weight:500">Scout</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:#A33E07"><i class="ti ti-user-circle" style="font-size:22px"></i><span style="font-size:11px;font-weight:600">Account</span></div>
+          </div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;text-align:center">Profile</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="width:390px;height:844px;border-radius:44px;background:#faf7f1;border:1px solid #E6E1D8;box-shadow:0 12px 40px rgba(15,44,74,.12);overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font-size:15px;font-weight:600;color:#0F2C4A"><span>9:41</span><span style="display:flex;gap:6px;font-size:15px"><i class="ti ti-antenna-bars-5"></i><i class="ti ti-wifi"></i><i class="ti ti-battery-3"></i></span></div>
+          <div style="padding:8px 22px 12px;font-family:'Playfair Display',Georgia,serif;font-size:40px;font-weight:700;color:#0F2C4A">Profile</div>
+          <div style="flex:1;background:#faf7f1;border-radius:24px 24px 0 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 -12px 40px rgba(10,32,57,.28)">
+            <div style="background:linear-gradient(180deg,#123A5E 0%,#0F2C4A 100%);border-radius:24px 24px 0 0;padding:18px 18px 20px;display:flex;align-items:center;gap:13px">
+              <div style="width:50px;height:50px;border-radius:14px;background:#F5793B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:25px;flex:none"><i class="ti ti-sparkles"></i></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div style="font-size:19px;font-weight:700;color:#fff">Scout AI</div>
+                  <span style="font-size:11px;font-weight:600;color:#0F2C4A;background:#F4D6A0;border-radius:999px;padding:2px 8px">BETA</span>
+                </div>
+                <div style="font-size:13px;color:#C6D3E0">Guided help finding NYC activities</div>
+              </div>
+              <div style="width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none"><i class="ti ti-x"></i></div>
+            </div>
+            <div style="flex:1;padding:18px;display:flex;flex-direction:column;gap:14px;overflow:hidden">
+              <div style="background:#fff;border:1px solid #E6E1D8;border-radius:16px;padding:15px 17px;font-size:16px;line-height:1.5;box-shadow:0 1px 2px rgba(15,44,74,.04);text-wrap:pretty">Hi Sarah. Tell me the age, area, schedule and budget you have in mind, and I'll show activities that may fit. Please confirm final details with the provider.</div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="font-size:13px;font-weight:600;color:#5B6573">Start with</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px">
+                  <div style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:9px 14px;font-size:14px;font-weight:500;color:#1F3A5C">Saturday, ages 6–8</div>
+                  <div style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:9px 14px;font-size:14px;font-weight:500;color:#1F3A5C">Free &amp; low-cost</div>
+                  <div style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:9px 14px;font-size:14px;font-weight:500;color:#1F3A5C">Indoor, near Park Slope</div>
+                  <div style="background:#fff;border:1px solid #E6E1D8;border-radius:999px;padding:9px 14px;font-size:14px;font-weight:500;color:#1F3A5C">Birthday ideas</div>
+                </div>
+              </div>
+              <div style="flex:1"></div>
+              <div style="font-size:13px;color:#5B6573;display:flex;align-items:center;gap:6px"><i class="ti ti-shield-check"></i>Do not enter a child's full name.</div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="flex:1;background:#fff;border:1px solid #E6E1D8;border-radius:12px;padding:14px 16px;font-size:15px;color:#8A929C">Tell Scout what you're looking for</div>
+                <div style="width:48px;height:48px;border-radius:12px;background:#C24A0A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;flex:none"><i class="ti ti-arrow-up"></i></div>
+              </div>
+              <div style="height:14px"></div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:14px;color:#5B6573;text-align:center">Scout sheet</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}"></script>
+</body>
+</html>

@@ -28,18 +28,30 @@ describe('createBrandTheme', () => {
     expect(result.cssVariables['--gds-bg-page']).toBe('#faf7f1');
   });
 
-  it('creates the first-class Class USA theme from ramps and semantic roles', () => {
+  it('creates the first-class Class USA theme from ramps and semantic roles (v2 re-base, issue 536)', () => {
     const result = createBrandTheme('class-usa');
 
     expect(result.tokenGraph.themes).toEqual(['class-usa']);
     expect(result.mantineTheme.primaryColor).toBe('classUsaNavy');
     expect(result.mantineTheme.other?.gdsBrandThemeId).toBe('class-usa');
-    expect(result.cssVariables['--gds-brand-primary']).toBe('#0b223e');
-    expect(result.cssVariables['--gds-brand-primary-pressed']).toBe('#07182c');
-    expect(result.cssVariables['--gds-brand-accent']).toBe('#ff6b35');
-    expect(result.cssVariables['--gds-brand-accent-action']).toBe('#d63900');
+    expect(result.cssVariables['--gds-brand-primary']).toBe('#0f2c4a');
+    expect(result.cssVariables['--gds-brand-primary-pressed']).toBe('#071626');
+    expect(result.cssVariables['--gds-brand-accent']).toBe('#c24a0a');
+    expect(result.cssVariables['--gds-brand-accent-dark']).toBe('#f5793b');
+    expect(result.cssVariables['--gds-brand-accent-action']).toBe('#c24a0a');
     expect(result.cssVariables['--gds-bg-card']).toBe('#ffffff');
-    expect(result.cssVariables['--gds-border-card']).toBe('#eee7dd');
+    expect(result.cssVariables['--gds-border-card']).toBe('#e6e1d8');
+  });
+
+  it('renders Class USA CTAs in the action ramp, not navy chrome (v2 re-base, issue 536)', () => {
+    const result = createBrandTheme('class-usa');
+
+    expect((result.mantineTheme.components?.Button?.defaultProps as { color?: string } | undefined)?.color).toBe('classUsaAction');
+    expect(result.mantineTheme.colors?.classUsaAction?.[6]).toBe('#c24a0a');
+    expect(result.mantineTheme.colors?.classUsaBrand?.[5]).toBe('#f5793b');
+    expect(result.mantineTheme.colors?.classUsaTrust?.[6]).toBe('#4f8a5b');
+    // White CTA-label text against the action color the button actually renders.
+    expect(brandContrastRatio('#ffffff', result.cssVariables['--gds-brand-accent-action'])).toBeGreaterThanOrEqual(4.5);
   });
 
   it('creates the first-class Gold Athlete theme from ramps and semantic roles', () => {

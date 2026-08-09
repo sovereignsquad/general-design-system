@@ -2,7 +2,81 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## 5.0.3 - 2026-08-09 — Document a governed import pathway for externally-produced designs (#535)
+## 6.0.0 - 2026-08-09 — BREAKING: Re-base the class-usa brand lane onto the ClassScout v2 palette (#536)
+
+Owner supplied a full v2 design-system handoff for ClassScout NYC (README,
+design reference, and `class-usa-v2-token-spec.md`) and asked GDS to adopt
+it. Archived under `brand-requests/class-usa/`. Re-based `class-usa` in
+place — no deprecated names, values, or aliases retained.
+
+**Breaking change**: `ClassUsaColorRampName` renames from `'navy' |
+'terracotta' | 'sage' | 'cream' | 'slate'` to `'navy' | 'brand' | 'action' |
+'trust' | 'cream' | 'slate'` (five ramps → six); the Mantine `colors` keys
+rename to match (`classUsaBrand`/`classUsaAction`/`classUsaTrust` replace
+`classUsaTerracotta`/`classUsaSage`). Full old-to-new mapping in
+`DEPRECATIONS_AND_MIGRATIONS.md`'s new "Brand-lane token renames" section.
+
+- `packages/gds-theme/src/brand-tokens.ts`: six default ramps pasted from
+  the spec (the spec's own `action[2]` placeholder replaced with its
+  suggested `#e8a87c`); `deriveClassUsaSemanticTokens` rewritten to the
+  spec's 30-role semantic table, deriving from ramp anchors
+  (`navy[6]`/`navy[9]`/`action[6]`/`brand[5]`/`trust[6]`/`cream[0]`/`slate[6]`)
+  where the spec's value matches a ramp step; `Button.defaultProps.color` is
+  now `classUsaAction` (was implicit navy via `primaryColor`, which stays
+  `classUsaNavy` for chrome only); Button radius 12px; fonts Playfair
+  Display / Inter (Bogart/Garet, neither loadable from any font lane,
+  removed). The primary-button WCAG gate now checks white against
+  `brand.accent` (the color the button actually renders), not
+  `brand.primary` — it was silently checking the wrong color after the
+  color/font change.
+- `packages/gds-theme/src/vibe-themes.ts`: `class-usa`'s `GdsVibeTheme`
+  entry and `classUsaSemanticCssVariables` re-pasted from the same spec
+  table. `vibe.accent` (the single scheme-invariant field every other
+  vibe-level consumer reads) is deliberately anchored to the action ramp
+  (`#c24a0a`), not the brand ramp (`#f5793b`): computed white-label
+  contrast is 4.91:1 on `#c24a0a` and only 2.73:1 on `#f5793b` — the spec's
+  own text says action orange is "the only colour that carries a label" and
+  its own contrast table only certifies that one for text use. The full
+  light/dark split the spec actually wants lives in the scheme-aware
+  `--gds-*` semantic-role tokens instead. Dark canvas moved from a
+  navy-dark tint to neutral charcoal (`#14171c`) per the spec's explicit
+  ruling — navy is now reserved for accents and the inverse shell only.
+- `packages/gds-theme/styles.css`: the generic cross-theme rule that fills
+  every flatSurfaces button from `--gds-vibe-primary` (navy) was silently
+  overriding `Button.defaultProps.color` for every button on the site —
+  found live via CDP: CTAs rendered navy in both schemes despite the
+  Mantine-level color change. Added a class-usa-scoped override (Gold
+  Athlete untouched) painting the primary/filled button from
+  `--gds-vibe-accent` in both light and dark, so CTAs actually read as
+  action orange as the spec requires.
+- `packages/gds-theme/src/font-lanes.ts`: new `playfair-display` generic
+  font lane (display Playfair Display, body Inter).
+- Tests: 3 previously-pinned assertions across `brand-tokens.test.ts`,
+  `vibe-themes.test.ts`, `GdsProvider.test.tsx`, plus
+  `generated-art-engine.test.ts` (a cross-package consumer of the old
+  primary hex), updated to the new palette; added coverage for the new
+  ramp shape, the accent light/dark split, and the CTA color/radius.
+
+Verified live via CDP (local build, not yet deployed): primary button
+background/border/radius on `/patterns/operations` in both class-usa light
+(`#c24a0a`, 12px radius) and dark (`#c24a0a`, 12px radius) — before the
+`styles.css` fix both rendered navy `#0f2c4a`. Ran a programmatic WCAG
+contrast audit across 8 routes × 2 schemes; every finding was either (a) a
+false positive from the audit script's own inability to parse `color()`
+background values on the Theme Lab's isolated `[data-gds-owned-contrast]`
+preview cards, (b) a pre-existing, theme-agnostic Mantine-baseline color
+(red/blue/teal/gray) unrelated to class-usa, or (c) one real, pre-existing
+`ChoiceChip` selected-state defect (pairs `text.onInverse` with `support`,
+two roles never designed to pair) affecting both class-usa and gold-athlete
+— confirmed NOT a regression (old class-usa values computed 2.549:1
+light / 1.959:1 dark for this same pairing; the new palette computes
+3.837:1 / 1.89:1 — light improved, dark essentially unchanged) — filed
+separately as issue 537 rather than folded into this change, since the real
+fix is a component-level token-pairing decision, not a palette re-base.
+
+Issue: #536 (closed by this commit). Related: #533, #534 (the exact
+independently-authored-dark-mode-value discipline this re-base follows),
+#537 (filed, not fixed, confirmed not a regression).
 
 Owner asked for GDS to be able to import externally-produced designs (Figma
 files, screenshots, AI design-tool output including Claude Design) under

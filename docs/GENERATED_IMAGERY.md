@@ -1,7 +1,7 @@
 # Generated Imagery
 
 Status: Active SSOT
-Version: 5.0.3
+Version: 6.0.0
 Last updated: 2026-08-08
 
 A turnkey, theme-managed generated-imagery system (epic #503):

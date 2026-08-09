@@ -97,10 +97,22 @@ describe('vibe-theme semantic role tokens (badge-system foundation)', () => {
     const classUsaLight = getGdsVibeThemeCssVariables('class-usa', 'light');
     const goldAthleteLight = getGdsVibeThemeCssVariables('gold-athlete', 'light');
 
-    expect(classUsaLight['--gds-brand-primary']).toBe('#0b223e');
+    // class-usa v2 re-base (issue 536): navy anchor moved #0b223e -> #0f2c4a.
+    expect(classUsaLight['--gds-brand-primary']).toBe('#0f2c4a');
     expect(classUsaLight['--gds-state-danger']).toBe('#b3261e');
     expect(goldAthleteLight['--gds-brand-primary']).toBe('#12161c');
     expect(goldAthleteLight['--gds-state-danger']).toBe('#b3261e');
+  });
+
+  it('splits class-usa\'s accent light/dark by ramp anchor, not a reused value (v2 re-base, issue 536)', () => {
+    const classUsaLight = getGdsVibeThemeCssVariables('class-usa', 'light');
+    const classUsaDark = getGdsVibeThemeCssVariables('class-usa', 'dark');
+
+    expect(classUsaLight['--gds-accent']).toBe('#c24a0a');
+    expect(classUsaDark['--gds-accent']).toBe('#f5793b');
+    expect(classUsaLight['--gds-bg-canvas']).toBe('#faf7f1');
+    // Dark canvas is neutral charcoal, not a navy-dark tint.
+    expect(classUsaDark['--gds-bg-canvas']).toBe('#14171c');
   });
 
   it('derives a deterministic, complete variable set for a preset with no hand-authored one', () => {

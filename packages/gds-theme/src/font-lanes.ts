@@ -14,7 +14,8 @@ export type GdsFontLaneId =
   | 'dm-sans'
   | 'partner-discovery'
   | 'instrument-serif'
-  | 'source-serif';
+  | 'source-serif'
+  | 'playfair-display';
 
 /** Where a lane's fonts come from: a native system stack or a Google-Fonts-compatible web font. */
 export type GdsFontLaneSource = 'system' | 'google-fonts-compatible';
@@ -77,6 +78,8 @@ const lanes: readonly GdsFontLane[] = [
   lane({ id: 'partner-discovery', label: 'Partner Discovery', body: `Inter, ${sansFallback}`, heading: `Jost, ${sansFallback}`, fallbackStack: sansFallback, localeCoverage: broadLatinLocales, source: 'google-fonts-compatible', cssImportUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600;700&display=swap' }),
   lane({ id: 'instrument-serif', label: 'Instrument Serif', body: sansFallback, heading: `"Instrument Serif", ${serifFallback}`, fallbackStack: serifFallback, localeCoverage: broadLatinLocales, source: 'google-fonts-compatible', cssImportUrl: googleFontUrl('Instrument+Serif') }),
   lane({ id: 'source-serif', label: 'Source Serif', body: `"Source Serif 4", ${serifFallback}`, heading: `"Source Serif 4", ${serifFallback}`, fallbackStack: serifFallback, localeCoverage: broadUiLocales, source: 'google-fonts-compatible', cssImportUrl: googleFontUrl('Source+Serif+4') }),
+  // Class USA v2 re-base (issue 536): display Playfair Display, body Inter.
+  lane({ id: 'playfair-display', label: 'Playfair Display', body: sansFallback, heading: `"Playfair Display", ${serifFallback}`, fallbackStack: serifFallback, localeCoverage: broadLatinLocales, source: 'google-fonts-compatible', cssImportUrl: googleFontUrl('Playfair+Display') }),
 ] as const;
 
 /** Returns a copy of all built-in font lanes. */

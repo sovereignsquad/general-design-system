@@ -12,7 +12,7 @@ GDS publishes current and future releases to GitHub Packages (`https://npm.pkg.g
 ```
 
 ```bash
-npm install @sovereignsquad/gds@5.0.3
+npm install @sovereignsquad/gds@6.0.0
 ```
 
 ## Bootstrap
