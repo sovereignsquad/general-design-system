@@ -1,13 +1,13 @@
 # Verified Consumer Install Proof
 
 Status: Active SSOT
-Version: 5.0.2
+Version: 5.0.3
 Last updated: 2026-08-08
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
-Latest published GitHub Packages baseline validated by this proof: `5.0.2`
-Current repository line: `5.0.2`
+Latest published GitHub Packages baseline validated by this proof: `5.0.3`
+Current repository line: `5.0.3`
 Current major line: `3.0.x`
 
 ## Verified consumer baseline
@@ -110,18 +110,18 @@ All installs require the `.npmrc` scope mapping to GitHub Packages first:
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
-Canonical `5.0.2` end-state install source after the release gate opens:
+Canonical `5.0.3` end-state install source after the release gate opens:
 
 ```bash
-npm install @sovereignsquad/gds@5.0.2
-npm install -D @sovereignsquad/gds-eslint-config@5.0.2 @sovereignsquad/gds-compliance@5.0.2 @sovereignsquad/gds-a11y@5.0.2
+npm install @sovereignsquad/gds@5.0.3
+npm install -D @sovereignsquad/gds-eslint-config@5.0.3 @sovereignsquad/gds-compliance@5.0.3 @sovereignsquad/gds-a11y@5.0.3
 ```
 
 Granular package path:
 
 ```bash
-npm install @sovereignsquad/gds-theme@5.0.2 @sovereignsquad/gds-core@5.0.2 @sovereignsquad/gds-admin@5.0.2
-npm install -D @sovereignsquad/gds-eslint-config@5.0.2 @sovereignsquad/gds-compliance@5.0.2 @sovereignsquad/gds-a11y@5.0.2
+npm install @sovereignsquad/gds-theme@5.0.3 @sovereignsquad/gds-core@5.0.3 @sovereignsquad/gds-admin@5.0.3
+npm install -D @sovereignsquad/gds-eslint-config@5.0.3 @sovereignsquad/gds-compliance@5.0.3 @sovereignsquad/gds-a11y@5.0.3
 ```
 
 Release-visibility tarballs attached to the `gds-v<VERSION>` GitHub Release (see [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md)) are audit/offline artifacts, not a documented install path — do not use them in place of the GitHub Packages install above, and do not use sibling `file:` links in CI or Vercel flows.

@@ -1,8 +1,8 @@
 # General Design System
 
 Status: Active SSOT
-Version: 5.0.2
-Last updated: 2026-08-08
+Version: 5.0.3
+Last updated: 2026-08-09
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 
@@ -13,6 +13,7 @@ GDS is built to be consumed by AI coding agents, not just humans:
 - **Universal entry point:** [`llms.txt`](llms.txt) — the machine-readable index any LLM coding tool can read: what GDS is, install, the non-negotiable rules, packages, component families, and where to read more.
 - **Agent usage guide:** [`docs/AI_AGENT_GUIDE.md`](docs/AI_AGENT_GUIDE.md) — how an agent installs, wraps the app in `GdsProvider`, styles with props/tokens, and honors the GDS contracts.
 - **Drop-in repo rules:** [`TEMPLATES/AGENTS.md.template`](TEMPLATES/AGENTS.md.template) (the cross-tool `AGENTS.md` standard) — copy into a consuming repo as `AGENTS.md` so every agent session builds with GDS automatically.
+- **Creating a new GDS theme:** [`TEMPLATES/GDS_THEME_CREATION_PROMPT.md`](TEMPLATES/GDS_THEME_CREATION_PROMPT.md) — a copy-pasteable brief for any Claude session (Claude Code, Claude for Design, or plain claude.ai) to prepare a new environment and build a theme lane, including how to responsibly import an externally-produced design (a Figma file, a screenshot, Claude Design output) instead of copying it directly. See [`CONTRIBUTING.md`](CONTRIBUTING.md#importing-an-externally-designed-theme) and [`THEME_GOVERNANCE.md`](THEME_GOVERNANCE.md) for the governing rules.
 
 The quickest start for any agent: install `@sovereignsquad/gds`, wrap the app once in `GdsProvider`, and compose shipped components — never raw Mantine primitives or custom CSS.
 

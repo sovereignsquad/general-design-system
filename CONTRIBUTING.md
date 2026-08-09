@@ -1,8 +1,8 @@
 # Contributing
 
 Status: Active
-Version: 5.0.2
-Last updated: 2026-08-08
+Version: 5.0.3
+Last updated: 2026-08-09
 
 This repository is shared design-system infrastructure.
 
@@ -138,6 +138,67 @@ never be dismissed, which locks page scroll and traps focus behind it,
 blocking every other pattern on that page (GH-496). Give every overlay demo
 real `useState` open/close behavior with a trigger button, matching
 `OverlayAliasDemo` in `apps/playground/src/pattern-pages.tsx`.
+
+## Importing an externally-designed theme
+
+Source material for a new theme lane — a Figma file, a screenshot, an AI
+design tool's output (Claude Design or otherwise), a brand guideline PDF —
+is allowed to come from outside this repository. The theme that results
+from it is not allowed to be a copy of that source; it must become the same
+governed contract every other lane uses. This is the maintainer-facing
+walkthrough for that process; the conceptual rule lives in
+[`THEME_GOVERNANCE.md`](THEME_GOVERNANCE.md)'s "Importing an externally-produced
+design" section, and the copy-pasteable prompt that carries a fresh agent
+through the steps below is
+[`TEMPLATES/GDS_THEME_CREATION_PROMPT.md`](TEMPLATES/GDS_THEME_CREATION_PROMPT.md).
+
+1. **File the issue first.** Per Standing Rule 2, record the request as a
+   GitHub issue before implementation starts — name the brand/product, the
+   source material (link or description), and which existing shipped lane
+   (if any) it's closest to.
+
+2. **Read the source for intent, not values.** Note the palette relationships,
+   type feel, and overall mood the source communicates. Do not copy a hex
+   value, a spacing number, or a shadow definition straight out of a Figma
+   inspector, a screenshot's sampled pixel, or a generated design tool's CSS
+   output and drop it into a token file — every value that ships must be one
+   a human (or agent) chose and verified in this repo, not one lifted
+   unverified from elsewhere.
+
+3. **Map the intent into the full `GdsVibeTheme` contract**
+   (`packages/gds-theme/src/vibe-themes.ts`) — every field the interface
+   requires (`id`, `label`, `primary`, `accent`, `glow`, and the `Light`/`Dark`
+   pair for `canvas`, `shell`, `surface`, `border`, `text`, `muted`), plus
+   `gradient`/`hero`, plus `flatSurfaces: true` if it's a serious brand lane
+   with no decorative treatment. **The dark-mode value for every field is a
+   separate, considered design decision — never a reused or derived copy of
+   the light-mode value.** Issues #533 and #534 were both production
+   incidents caused by exactly that shortcut (a semantic token frozen at its
+   light-mode value bled into dark mode; a badge color-mix formula wasn't
+   scheme-aware) — do not repeat it. If this is a full branded product theme,
+   also add its `createBrandTheme('<id>', …)` semantic-role token table in
+   `packages/gds-theme/src/brand-tokens.ts`, copying the exact key list an
+   existing branded lane (e.g. `class-usa`) defines in
+   `brandSemanticCssVariablesByPreset` — don't improvise a subset.
+
+4. **Verify every pairing against WCAG AA** (4.5:1 normal text, 3:1 large
+   text/UI components) in both light and dark, from real
+   `getComputedStyle()` values on the live pattern catalog routes
+   (`/patterns`, `/patterns/operations`, `/patterns/foundations`,
+   `/patterns/data`) — not visual impression, not the Theme Lab preview card
+   alone. `HANDOVER.md`'s environment-bootstrap section has the
+   headless-Chrome/CDP pattern this repo uses for that check.
+
+5. **Register and verify like any other lane.** Add the preset id to
+   `packages/gds-theme/src/theme-presets.ts` (union type, catalog entry,
+   `resolveGdsThemePreset` wiring), add live Theme Lab coverage and package
+   tests, then run `npm run verify:release` clean — no exemption exists for
+   an externally-sourced lane; it passes the same gates every other theme
+   does.
+
+6. **Document and close the loop.** Add a `CHANGELOG.md` entry noting the
+   new lane and its source, per Standing Rule 3, and close the tracking
+   issue from Step 1 referencing the resolving commit.
 
 ## Comment & Documentation Conventions
 

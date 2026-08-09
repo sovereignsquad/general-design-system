@@ -33,7 +33,47 @@ twice in production on this exact system (issues #533/#534) — do not repeat it
 Every token you add needs a real, considered dark-mode value, not a copy of
 the light one.
 
-## 2. Where to look first (public, live reference — no auth needed)
+## 2. If you're starting from a source design (Figma, screenshot, AI tool output)
+
+Skip this section if you're designing a lane from scratch with no external
+reference. If you were handed a source — a Figma file, a screenshot, an
+export from an AI design tool (including Claude Design), or a brand
+guideline PDF — that source is allowed to shape this theme. It is not
+allowed to become this theme by direct copy. Read `CONTRIBUTING.md`'s
+"Importing an externally-designed theme" section and `THEME_GOVERNANCE.md`'s
+"Importing an externally-produced design" section in full before going
+further. Summary of what they require:
+
+- **Extract intent, not values.** Note the palette relationship (which color
+  reads as primary vs. accent vs. purely decorative), the type feel
+  (serif/sans, weight, formality), and the overall mood. Do not lift a hex
+  value straight out of a Figma inspector panel, a screenshot color-picker,
+  or an AI tool's generated CSS/JSON and paste it into a token file
+  unverified. Every value that ships is one you chose and verified against
+  WCAG AA in this repo — not one copied unmodified from somewhere else.
+- **The source almost never specifies a real dark mode.** Most brand decks,
+  marketing screenshots, and single-shot AI-generated mockups are light-only.
+  You are responsible for designing a genuine dark-mode counterpart for
+  every token — not deriving one mechanically (inverting lightness, running
+  it through a color-conversion function) without checking real contrast
+  afterward. This exact shortcut caused two production incidents in this
+  system (issues #533/#534): a semantic token frozen at its light-mode value
+  bled straight into dark mode, and a badge color-mix formula wasn't
+  scheme-aware. Treat every dark-mode value as its own design decision, not
+  a derivation.
+- **Accessibility wins over source fidelity.** If the source conflicts with
+  WCAG AA — its brand accent on its brand background fails 4.5:1 for body
+  text, say — adjust the value and note the deviation in your report-back
+  (Section 7). Never ship a pairing that fails contrast because "that's the
+  brand color in the source file."
+- **Record provenance.** Note the source's origin (a link, a filename, "PDF
+  attached to issue N") in the GitHub issue you file, so the lane's origin
+  is traceable later, not just its final token values.
+
+Everything below still applies in full — a source design informs what you
+report back in Section 7, it does not skip any step in Sections 3-6.
+
+## 3. Where to look first (public, live reference — no auth needed)
 
 - Live Theme Lab (every shipped lane, switchable light/dark, right now):
   https://sovereignsquad.github.io/general-design-system/themes
@@ -58,7 +98,7 @@ lanes — class-usa, gold-athlete, athlete-gold) in BOTH light and dark before
 designing anything new. Your new theme needs to sit comfortably alongside
 these, not clash with or duplicate one.
 
-## 3. Repository and environment setup
+## 4. Repository and environment setup
 
 - Repo: `sovereignsquad/general-design-system` (GitHub)
 - Clone/read access to that repo, on a branch — do not work directly on
@@ -81,7 +121,7 @@ these, not clash with or duplicate one.
 - Read `FOUNDATION.md` for the base accessibility/token rules that apply to
   every surface regardless of theme.
 
-## 4. The exact files a new theme touches
+## 5. The exact files a new theme touches
 
 - `packages/gds-theme/src/vibe-themes.ts` — add a new entry to the vibe
   registry. Every field on the `GdsVibeTheme` interface is required unless
@@ -112,7 +152,7 @@ these, not clash with or duplicate one.
   since "532" is valid hex) — write issue references as "issue 532", no
   hash, anywhere in a scanned file.
 
-## 5. Non-negotiable rules for the new theme
+## 6. Non-negotiable rules for the new theme
 
 - Every light-mode token needs a real, separately-considered dark-mode
   value — never assume one can be derived by just flipping brightness
@@ -125,8 +165,8 @@ these, not clash with or duplicate one.
 - No decorative gradient/glow/colored-shadow if `flatSurfaces: true` — the
   shared CSS rules will neutralize it, but don't design against something
   that will be removed.
-- No hardcoded values anywhere outside the token files (§4).
-- Test against the full pattern surface (§2's routes), not just the Theme
+- No hardcoded values anywhere outside the token files (§5).
+- Test against the full pattern surface (§3's routes), not just the Theme
   Lab card — a color that looks fine on one card can fail badly on a real
   button, badge, or form control elsewhere. `verify:forced-colors-runtime`
   and `verify:theme-trust-runtime` in `npm run verify:release` are the
@@ -144,13 +184,15 @@ these, not clash with or duplicate one.
   (`CLAUDE.md` Rule 12). Do not claim the live site reflects your change
   until you've confirmed it's actually been pushed and deployed.
 
-## 6. What to report back before implementing anything
+## 7. What to report back before implementing anything
 
 Before writing any code: name the brand/product this theme is for, its
 primary and accent color intent (with real hex values if known, or a
 description of the desired feel if not), whether it's a flat/undecorated
 brand theme or an expressive vibe lane, and which existing shipped lane (if
-any) it's closest to. Get that confirmed before touching `vibe-themes.ts` —
+any) it's closest to. If you're working from a source design (Section 2),
+also state the source's origin and any point where you deviated from it for
+accessibility reasons. Get that confirmed before touching `vibe-themes.ts` —
 guessing brand intent from a vague brief is exactly the kind of assumption
 this project's rules forbid.
 ```
@@ -161,10 +203,12 @@ this project's rules forbid.
 
 - The bracketed public URLs above are all live, unauthenticated, and
   confirmed working as of this writing — no login needed to view them.
-- If the target session has Figma access and there's a source design file
-  for the new brand, tell it explicitly and point it at that file — this
-  prompt doesn't assume Figma access either way, since it isn't always
-  available.
+- If there's a source design for the new brand — a Figma file, a screenshot,
+  an AI design tool export, a brand PDF — tell the target session explicitly
+  and point it at that source; Section 2 covers how it must handle that
+  input (extract intent, never copy raw values, design dark mode as its own
+  decision). This prompt doesn't assume any source exists, since one isn't
+  always available.
 - This file lives at `TEMPLATES/GDS_THEME_CREATION_PROMPT.md` so it can be
   copied again later without regenerating it from scratch — update it in
   place if the theme-creation process changes (new required token, a
