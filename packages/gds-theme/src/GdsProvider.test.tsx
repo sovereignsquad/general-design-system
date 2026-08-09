@@ -198,7 +198,8 @@ describe('GdsProvider', () => {
 
     const classUsaVibe = resolveGdsVibeTheme('class-usa');
     expect(classUsaVibe.label).toBe('Class USA');
-    expect(classUsaVibe.primary).toBe('#0b223e');
+    // v2 re-base (issue 536): navy anchor moved #0b223e -> #0f2c4a.
+    expect(classUsaVibe.primary).toBe('#0f2c4a');
     expect(resolveGdsThemePreset('class-usa').primaryColor).toBe('classUsaNavy');
 
     const goldAthleteVibe = resolveGdsVibeTheme('gold-athlete');
@@ -222,8 +223,9 @@ describe('GdsProvider', () => {
     );
 
     expect(screen.getByText('Class USA shell')).toBeInTheDocument();
-    expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('#0b223e');
-    expect(document.documentElement.style.getPropertyValue('--gds-brand-accent-action')).toBe('#d63900');
+    // v2 re-base (issue 536): navy anchor #0b223e -> #0f2c4a; action accent #d63900 -> #c24a0a.
+    expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('#0f2c4a');
+    expect(document.documentElement.style.getPropertyValue('--gds-brand-accent-action')).toBe('#c24a0a');
 
     unmount();
     expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('');
@@ -269,8 +271,9 @@ describe('GdsProvider', () => {
     // value baked in as an inline style, even in forced dark mode.
     const scope = container.querySelector('[style*="--gds-text-body"]') as HTMLElement | null;
     expect(scope).not.toBeNull();
-    expect(scope!.style.getPropertyValue('--gds-text-body')).toBe('#faf7f1');
-    expect(scope!.style.getPropertyValue('--gds-border-card')).toBe('#2d3b50');
+    // v2 re-base (issue 536): text.body dark #faf7f1 -> #f2ede4; border.card dark #2d3b50 -> #2c323b.
+    expect(scope!.style.getPropertyValue('--gds-text-body')).toBe('#f2ede4');
+    expect(scope!.style.getPropertyValue('--gds-border-card')).toBe('#2c323b');
   });
 
   it('keeps brand semantic-role tokens at their light-mode value when forceColorScheme is light (issue 533 regression guard)', () => {
@@ -286,8 +289,10 @@ describe('GdsProvider', () => {
 
     const scope = container.querySelector('[style*="--gds-text-body"]') as HTMLElement | null;
     expect(scope).not.toBeNull();
-    expect(scope!.style.getPropertyValue('--gds-text-body')).toBe('#0b223e');
-    expect(scope!.style.getPropertyValue('--gds-border-card')).toBe('#eee7dd');
+    // v2 re-base (issue 536): text.body light #0b223e -> #1f3a5c (no longer
+    // the same value as brand.primary/navy); border.card light #eee7dd -> #e6e1d8.
+    expect(scope!.style.getPropertyValue('--gds-text-body')).toBe('#1f3a5c');
+    expect(scope!.style.getPropertyValue('--gds-border-card')).toBe('#e6e1d8');
   });
 
   it('ships blocking-free theme accessibility checks for all public vibe lanes', () => {

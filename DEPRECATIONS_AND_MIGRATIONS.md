@@ -1,8 +1,8 @@
 # Deprecations & Migrations
 
 Status: Active SSOT  
-Version: 5.0.3
-Last updated: 2026-08-08
+Version: 6.0.0
+Last updated: 2026-08-09
 
 This document defines how `@sovereignsquad/gds-*` contracts are deprecated, replaced, and removed.
 
@@ -102,3 +102,15 @@ dependency cost onto consumers who never render it.
 - `detectionRule`: a build/type error on `import { ReferenceThemeExplorer } from '@sovereignsquad/gds-core'` (or `./client`) after upgrading to 5.0.0
 - `migrationGuide`: change the import source only — `import { ReferenceThemeExplorer } from '@sovereignsquad/gds-core/reference-theme-explorer'`. No prop or behavior changes. Rationale: it was gds-core's single largest client-bundle module (~112.7 kB) and every real consumer renders it on one or two specific routes, not universally — see issue #532
 - `riskLevel`: medium (a real breaking change for any consumer importing it from the main package path; caught and fixed with a single import-line change, not a rewrite)
+
+## Brand-lane token renames
+
+### `class-usa` re-based onto its v2 palette; `ClassUsaColorRampName` and `classUsa*` Mantine keys renamed (6.0.0)
+
+- `contract`: `ClassUsaColorRampName = 'navy' | 'terracotta' | 'sage' | 'cream' | 'slate'`; the corresponding Mantine `colors` keys `classUsaNavy`, `classUsaTerracotta`, `classUsaSage`, `classUsaCream`, `classUsaSlate`; and every color value `deriveClassUsaSemanticTokens`/`classUsaSemanticCssVariables` emitted from the old five-ramp palette (navy `#0b223e`, action-orange `#d63900`, badge/border/text values built from `terracotta`/`sage`)
+- `replacement`: six role-named ramps — `ClassUsaColorRampName = 'navy' | 'brand' | 'action' | 'trust' | 'cream' | 'slate'` — with matching Mantine keys `classUsaNavy`, `classUsaBrand`, `classUsaAction`, `classUsaTrust`, `classUsaCream`, `classUsaSlate`. No aliases retained for the old ramp names or values. `Button.defaultProps.color` is now `classUsaAction` (was implicitly navy via `primaryColor`); `primaryColor` itself stays `classUsaNavy` for chrome. Old-to-new anchor mapping: navy `#0b223e` → `#0f2c4a`; the single old accent (`#ff6b35` terracotta) splits into two brand-governed oranges — `#c24a0a` (action, the only one that carries text/a label — buttons, links, focus ring) and `#f5793b` (brand, fill-only decorative — never under text); `#90a287` (sage) → `#4f8a5b` (trust, source/freshness signal only)
+- `deprecatedIn`: 6.0.0 (renamed immediately — this is a palette re-base, not a grace-period deprecation)
+- `removalTarget`: 6.0.0 (already removed as of this release)
+- `detectionRule`: a build/type error on `colorRamps: { terracotta: ..., sage: ... }` passed to `createBrandTheme('class-usa', { colorRamps: {...} })`, or a Mantine `colors.classUsaTerracotta`/`colors.classUsaSage` reference, after upgrading to 6.0.0
+- `migrationGuide`: replace any `colorRamps` override keys `terracotta`/`sage` with `brand`/`action`/`trust` (see `brand-requests/class-usa/class-usa-v2-token-spec.md` for the full six-ramp default and the anchor-to-role mapping); replace any direct `classUsaTerracotta`/`classUsaSage` Mantine color references with `classUsaBrand`/`classUsaAction`/`classUsaTrust` as appropriate to the use (fill vs. label vs. source-signal); if you read `--gds-brand-primary`/`--gds-text-body`/`--gds-border-card` etc. directly, re-verify against the new hex values rather than assuming an unchanged palette. Rationale: the previous palette declared unloadable fonts (Bogart/Garet) and a single accent color reused for both label-bearing and fill-only roles across both color schemes, which is the exact failure mode behind issues #533/#534 — see issue 536
+- `riskLevel`: high (a real breaking change to a public type, five Mantine color keys, and every emitted class-usa hex value; any consumer styling directly against the old palette needs to re-verify, not just recompile)

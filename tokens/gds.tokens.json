@@ -1687,7 +1687,7 @@
       "$description": "GDS theme preset: class-usa",
       "primary": {
         "$type": "color",
-        "$value": "#0b223e",
+        "$value": "#0f2c4a",
         "$description": "class-usa primary (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1699,7 +1699,7 @@
       },
       "accent": {
         "$type": "color",
-        "$value": "#ff6b35",
+        "$value": "#c24a0a",
         "$description": "class-usa accent (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1711,7 +1711,7 @@
       },
       "glow": {
         "$type": "color",
-        "$value": "rgba(255, 107, 53, 0.2)",
+        "$value": "rgba(194, 74, 10, 0.2)",
         "$description": "class-usa glow (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1735,7 +1735,7 @@
       },
       "canvas-dark": {
         "$type": "color",
-        "$value": "#07182c",
+        "$value": "#14171c",
         "$description": "class-usa canvas-dark (dark mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1759,7 +1759,7 @@
       },
       "shell-dark": {
         "$type": "color",
-        "$value": "rgba(11, 34, 62, 0.9)",
+        "$value": "rgba(15, 44, 74, 0.9)",
         "$description": "class-usa shell-dark (dark mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1783,7 +1783,7 @@
       },
       "surface-dark": {
         "$type": "color",
-        "$value": "rgba(19, 36, 61, 0.9)",
+        "$value": "rgba(28, 32, 39, 0.9)",
         "$description": "class-usa surface-dark (dark mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1795,7 +1795,7 @@
       },
       "border-light": {
         "$type": "color",
-        "$value": "#eee7dd",
+        "$value": "#e6e1d8",
         "$description": "class-usa border-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1807,7 +1807,7 @@
       },
       "border-dark": {
         "$type": "color",
-        "$value": "#2d3b50",
+        "$value": "#2c323b",
         "$description": "class-usa border-dark (dark mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1819,7 +1819,7 @@
       },
       "text-light": {
         "$type": "color",
-        "$value": "#0b223e",
+        "$value": "#1f3a5c",
         "$description": "class-usa text-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1831,7 +1831,7 @@
       },
       "text-dark": {
         "$type": "color",
-        "$value": "#faf7f1",
+        "$value": "#f2ede4",
         "$description": "class-usa text-dark (dark mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1843,7 +1843,7 @@
       },
       "muted-light": {
         "$type": "color",
-        "$value": "#5e6a86",
+        "$value": "#5b6573",
         "$description": "class-usa muted-light (light mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1855,7 +1855,7 @@
       },
       "muted-dark": {
         "$type": "color",
-        "$value": "#c6ccd5",
+        "$value": "#b8bfc9",
         "$description": "class-usa muted-dark (dark mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1867,7 +1867,7 @@
       },
       "gradient": {
         "$type": "com.sovereignsquad.gds.cssGradient",
-        "$value": "radial-gradient(circle at 16% 8%, rgba(255, 107, 53, 0.18), transparent 28%), radial-gradient(circle at 88% 18%, rgba(144, 162, 135, 0.16), transparent 30%), linear-gradient(135deg, #faf7f1, #f4eee2)",
+        "$value": "radial-gradient(circle at 16% 8%, rgba(194, 74, 10, 0.18), transparent 28%), radial-gradient(circle at 88% 18%, rgba(79, 138, 91, 0.16), transparent 30%), linear-gradient(135deg, #faf7f1, #f4eee2)",
         "$description": "class-usa gradient (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -1880,7 +1880,7 @@
       },
       "hero": {
         "$type": "com.sovereignsquad.gds.cssGradient",
-        "$value": "linear-gradient(135deg, rgba(11, 34, 62, 0.12), rgba(255, 107, 53, 0.16))",
+        "$value": "linear-gradient(135deg, rgba(15, 44, 74, 0.12), rgba(194, 74, 10, 0.16))",
         "$description": "class-usa hero (shared mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {

@@ -72,8 +72,9 @@ describe('resolveGdsGeneratedPaletteHex (#504)', () => {
     expect(palette.source).toBe('theme');
     expect(palette.primary).toMatch(/^#[0-9a-f]{6}$/);
     expect(palette.accent).toMatch(/^#[0-9a-f]{6}$/);
-    // class-usa's real, hand-authored brand primary (verified against vibe-themes.ts's classUsaSemanticCssVariables).
-    expect(palette.primary).toBe('#0b223e');
+    // class-usa's real, hand-authored brand primary (verified against vibe-themes.ts's
+    // classUsaSemanticCssVariables; v2 re-base issue 536 moved the navy anchor #0b223e -> #0f2c4a).
+    expect(palette.primary).toBe('#0f2c4a');
   });
 
   it('resolves the default preset without requiring themePresetId to be class-usa specifically', () => {

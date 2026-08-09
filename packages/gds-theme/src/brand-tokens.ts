@@ -52,10 +52,10 @@ export type BrandColorRamp = readonly [
   string,
 ];
 
-/** Ramp key of the built-in Class USA brand palette. */
-export type ClassUsaColorRampName = 'navy' | 'terracotta' | 'sage' | 'cream' | 'slate';
+/** Ramp key of the built-in Class USA brand palette (v2 re-base, issue 536). */
+export type ClassUsaColorRampName = 'navy' | 'brand' | 'action' | 'trust' | 'cream' | 'slate';
 
-/** The five Class USA brand ramps keyed by name. */
+/** The six Class USA brand ramps keyed by name. */
 export type ClassUsaColorRamps = Record<ClassUsaColorRampName, BrandColorRamp>;
 
 /** Options for `createBrandTheme('class-usa', ...)`; every field is optional and falls back to the built-in Class USA defaults. */
@@ -155,24 +155,26 @@ export class GdsBrandThemeError extends Error {
 
 const HEX_PATTERN = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 const REQUIRED_RAMPS: (keyof BrandColorRamps)[] = ['navy', 'terracotta', 'sage', 'cream', 'slate'];
-// Terracotta and slate steps were refined 2026-08-08 against a ClassScout Figma
-// prototype (issue #521): the anchor hue/lightness moved to match measured pixel
-// values, but only as far as each step still clears WCAG AA at its usage site
-// (see brand-tokens.test.ts and the assertContrast gate below) — see issue #521
-// for the full measured-vs-locked-SSOT delta table. Navy, sage, and cream were
-// re-checked against the same prototype and left unchanged (no material delta /
-// no evidence).
+// v2 re-base (issue 536): six role-named ramps replace the retired five
+// (navy/terracotta/sage/cream/slate), against
+// `brand-requests/class-usa/class-usa-v2-token-spec.md`. `action[2]` was a
+// text placeholder in the handoff spec ("one step above is a placeholder and
+// must be replaced before build") — the spec's own suggested value
+// (`#e8a87c`) is used here. Every anchor step (navy[6], brand[5], action[6],
+// action[7]/pressed, trust[6], cream[0], slate[6]) matches the spec's
+// "Anchors" table exactly.
 const classUsaDefaultColorRamps: ClassUsaColorRamps = {
-  navy: ['#e9eef6', '#cbd8ea', '#a6bbdb', '#7d9bc9', '#5e82bb', '#345a8c', '#0b223e', '#0a1d36', '#08192e', '#07182c'],
-  terracotta: ['#fde9e2', '#fdcfbe', '#ffa98a', '#ff875c', '#ff713d', '#ff6b35', '#d63900', '#b53203', '#942b05', '#732407'],
-  sage: ['#f0f3ee', '#dde3d7', '#c3cdb9', '#a9b89c', '#94a787', '#90a287', '#5c6e52', '#4a5942', '#3a4634', '#2b3427'],
+  navy: ['#e9eef6', '#cdd8e6', '#a3b6cc', '#7691b0', '#4e6d92', '#2a4a70', '#0f2c4a', '#0c243d', '#0a1d31', '#071626'],
+  brand: ['#fdeee6', '#fbd8c6', '#f9bb9c', '#f79c70', '#f68a55', '#f5793b', '#e0641f', '#c25317', '#9e4312', '#7a330d'],
+  action: ['#fbe9df', '#f6cdb8', '#e8a87c', '#e08a52', '#d4691f', '#c85307', '#c24a0a', '#a33e07', '#843205', '#652604'],
+  trust: ['#eef5f0', '#d8e7dd', '#b6d2c0', '#92bca2', '#71a586', '#5a9370', '#4f8a5b', '#3f6f4a', '#31573a', '#24402b'],
   cream: ['#faf7f1', '#f4eee2', '#ece3d1', '#e3d6bd', '#d9c9a8', '#cdba92', '#bfad80', '#a8946a', '#8a7a57', '#6b5e44'],
-  slate: ['#f7f8fa', '#ebedf2', '#d8dce6', '#bfc5d4', '#a0a8bb', '#808aa3', '#5e6a86', '#495369', '#363d4f', '#242a38'],
+  slate: ['#f7f8fa', '#eceef2', '#d9dde4', '#c0c6d0', '#a2aab7', '#848d9c', '#5b6573', '#48505c', '#373d47', '#262b33'],
 };
 
 const classUsaDefaultFonts: BrandFonts = {
-  display: '"Bogart","Fraunces","Playfair Display"',
-  body: '"Garet","Outfit",ui-sans-serif',
+  display: '"Playfair Display",Georgia,serif',
+  body: 'Inter,system-ui,ui-sans-serif',
 };
 
 const goldAthleteDefaultColorRamps: GoldAthleteColorRamps = {
@@ -203,8 +205,9 @@ function assertColorRamp(name: string, ramp: readonly string[] | undefined): Gds
 function mergeClassUsaColorRamps(overrides: Partial<ClassUsaColorRamps> = {}): ClassUsaColorRamps {
   return {
     navy: overrides.navy ?? classUsaDefaultColorRamps.navy,
-    terracotta: overrides.terracotta ?? classUsaDefaultColorRamps.terracotta,
-    sage: overrides.sage ?? classUsaDefaultColorRamps.sage,
+    brand: overrides.brand ?? classUsaDefaultColorRamps.brand,
+    action: overrides.action ?? classUsaDefaultColorRamps.action,
+    trust: overrides.trust ?? classUsaDefaultColorRamps.trust,
     cream: overrides.cream ?? classUsaDefaultColorRamps.cream,
     slate: overrides.slate ?? classUsaDefaultColorRamps.slate,
   };
@@ -301,48 +304,58 @@ export function deriveBrandSemanticTokens(colors: BrandColorRamps): Record<Brand
   };
 }
 
+// v2 re-base (issue 536), values pasted from `class-usa-v2-token-spec.md`'s
+// "Semantic tokens" table. The light/dark split on `brand.accent`/`accent` is
+// the point of the whole re-base: `action[6]` (#c24a0a) carries text on warm
+// white/cream, `brand[5]` (#f5793b) carries it on the dark-mode charcoal
+// canvas — computed contrast in the spec's "Contrast, computed" table shows
+// neither clears WCAG AA in the other scheme, so this is NOT a
+// light-value-reused-in-dark shortcut (the exact failure mode behind issues
+// #533/#534) — every value below was independently authored per scheme.
 function deriveClassUsaSemanticTokens(ramps: ClassUsaColorRamps): Record<BrandSemanticRole, SemanticPair> {
   const navy = ramps.navy[6];
   const navyPressed = ramps.navy[9];
-  const terracotta = '#ff6b35';
-  const sage = '#90a287';
+  const actionLight = ramps.action[6];
+  const brandDark = ramps.brand[5];
+  const trustLight = ramps.trust[6];
   const cream = ramps.cream[0];
   const slate = ramps.slate[6];
   const white = '#ffffff';
-  const darkPage = '#07182c';
-  const darkSurface = '#13243d';
+  const textBody = '#1f3a5c';
+  const darkCanvas = '#14171c';
+  const darkSurface = '#1c2027';
 
   return {
-    'brand.primary': { light: navy, dark: cream },
+    'brand.primary': { light: navy, dark: '#f2ede4' },
     'brand.primaryPressed': { light: navyPressed, dark: navyPressed },
-    'brand.accent': { light: terracotta, dark: ramps.terracotta[3] },
-    accent: { light: terracotta, dark: ramps.terracotta[3] },
-    support: { light: sage, dark: ramps.sage[3] },
-    'bg.canvas': { light: cream, dark: darkPage },
+    'brand.accent': { light: actionLight, dark: brandDark },
+    accent: { light: actionLight, dark: brandDark },
+    support: { light: trustLight, dark: '#8fc2a0' },
+    'bg.canvas': { light: cream, dark: darkCanvas },
     'bg.card': { light: white, dark: darkSurface },
-    'bg.page': { light: cream, dark: darkPage },
+    'bg.page': { light: cream, dark: darkCanvas },
     'bg.surface': { light: white, dark: darkSurface },
     'bg.inverse': { light: navy, dark: navy },
-    'border.card': { light: '#eee7dd', dark: '#2d3b50' },
-    'text.body': { light: navy, dark: cream },
-    'text.meta': { light: slate, dark: '#c6ccd5' },
-    'text.primary': { light: navy, dark: cream },
-    'text.secondary': { light: slate, dark: '#c6ccd5' },
+    'border.card': { light: '#e6e1d8', dark: '#2c323b' },
+    'text.body': { light: textBody, dark: '#f2ede4' },
+    'text.meta': { light: slate, dark: '#b8bfc9' },
+    'text.primary': { light: textBody, dark: '#f2ede4' },
+    'text.secondary': { light: slate, dark: '#b8bfc9' },
     'text.onInverse': { light: cream, dark: cream },
     'nav.inactiveOnInverse': { light: 'rgba(250,247,241,0.72)', dark: 'rgba(250,247,241,0.72)' },
-    price: { light: terracotta, dark: ramps.terracotta[3] },
-    star: { light: terracotta, dark: ramps.terracotta[3] },
-    'state.success': { light: sage, dark: ramps.sage[3] },
-    'state.warning': { light: '#b9770f', dark: '#e0a23c' },
+    price: { light: '#c78a2c', dark: '#e0a23c' },
+    star: { light: actionLight, dark: brandDark },
+    'state.success': { light: trustLight, dark: '#8fc2a0' },
+    'state.warning': { light: '#c78a2c', dark: '#e0a23c' },
     'state.danger': { light: '#b3261e', dark: '#f2786f' },
-    'state.info': { light: '#1d6fa5', dark: '#51a8e1' },
-    'badge.attention': { light: terracotta, dark: ramps.terracotta[3] },
-    'badge.validation': { light: sage, dark: ramps.sage[3] },
-    'badge.info': { light: '#f1ece4', dark: '#2b3427' },
-    'badge.urgencyBg': { light: '#f5ddd5', dark: '#5d2f22' },
-    'focus.ring': { light: terracotta, dark: '#ffd7c8' },
-    'control.disabledBg': { light: '#e6e2da', dark: '#2d3440' },
-    'control.disabledText': { light: '#7a7280', dark: '#8d97a6' },
+    'state.info': { light: '#1d6fa5', dark: '#6fb6e8' },
+    'badge.attention': { light: actionLight, dark: brandDark },
+    'badge.validation': { light: trustLight, dark: '#8fc2a0' },
+    'badge.info': { light: '#f6f1ea', dark: '#232830' },
+    'badge.urgencyBg': { light: '#fdede3', dark: '#4a2410' },
+    'focus.ring': { light: actionLight, dark: brandDark },
+    'control.disabledBg': { light: '#f1efea', dark: '#2c323b' },
+    'control.disabledText': { light: '#7a7f88', dark: '#8a919c' },
   };
 }
 
@@ -632,7 +645,12 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
   };
   const tokens = deriveClassUsaSemanticTokens(ramps);
   const contrastFindings = assertContrast(tokens);
-  if (brandContrastRatio('#ffffff', tokens['brand.primary'].light) < 4.5) {
+  // `Button.defaultProps.color` is `classUsaAction` (v2 re-base, issue 536),
+  // so the primary-button contrast gate must check white against the accent
+  // (action) color the button actually renders, not `brand.primary` (navy,
+  // now used for chrome only) — matches the spec's own "primary-button gate"
+  // contrast entry: white on `action[6]` (#c24a0a) = 4.9:1.
+  if (brandContrastRatio('#ffffff', tokens['brand.accent'].light) < 4.5) {
     contrastFindings.push({
       severity: 'error',
       rule: 'token.invalid-color',
@@ -658,8 +676,8 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
   }
 
   const cssVariables = emitCssVariables(tokens);
-  cssVariables['--gds-brand-accent-action'] = ramps.terracotta[6];
-  cssVariables['--gds-brand-accent-action-dark'] = ramps.terracotta[3];
+  cssVariables['--gds-brand-accent-action'] = ramps.action[6];
+  cssVariables['--gds-brand-accent-action-dark'] = ramps.brand[5];
   const brandOverrides: MantineThemeOverride = {
     fontFamily: `${fonts.body}, system-ui, sans-serif`,
     headings: {
@@ -670,11 +688,16 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
         h3: { fontSize: '1.25rem', fontWeight: '700', lineHeight: '1.25' },
       },
     },
+    // v2 re-base (issue 536): `primaryColor` stays navy for chrome (nav,
+    // headings, inverse surfaces); `Button.defaultProps.color` below points
+    // at the action ramp instead, so CTAs read orange without changing what
+    // "primary" means for the rest of the theme.
     primaryColor: 'classUsaNavy',
     colors: {
       classUsaNavy: ramps.navy as unknown as MantineColorsTuple,
-      classUsaTerracotta: ramps.terracotta as unknown as MantineColorsTuple,
-      classUsaSage: ramps.sage as unknown as MantineColorsTuple,
+      classUsaBrand: ramps.brand as unknown as MantineColorsTuple,
+      classUsaAction: ramps.action as unknown as MantineColorsTuple,
+      classUsaTrust: ramps.trust as unknown as MantineColorsTuple,
       classUsaCream: ramps.cream as unknown as MantineColorsTuple,
       classUsaSlate: ramps.slate as unknown as MantineColorsTuple,
     },
@@ -684,7 +707,8 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
     components: {
       Button: {
         defaultProps: {
-          radius: 'xl',
+          color: 'classUsaAction',
+          radius: '0.75rem',
           fw: 700,
         },
         styles: {

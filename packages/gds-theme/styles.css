@@ -333,6 +333,25 @@ html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .m
   border: 2px solid var(--gds-vibe-accent) !important;
 }
 
+/*
+ * Class USA v2 re-base (issue 536): CTAs must read as the brand's action
+ * orange ("Action orange — Buttons, links, focus ring. The only colour that
+ * carries a label"), not the generic `--gds-vibe-primary` (navy) solid fill
+ * the rule above this section gives every other flatSurfaces theme — Gold
+ * Athlete is untouched, this selector only matches class-usa. Deliberately
+ * `--gds-vibe-accent` (the scheme-invariant `#c24a0a` anchor), not the
+ * scheme-split `--gds-brand-accent-action` semantic token: white label text
+ * on that token's dark-mode value (`#f5793b`) computes to only 2.73:1,
+ * failing WCAG AA, because `#f5793b` is the brand's fill-only decorative
+ * orange ("never under text" per the source spec) — `#c24a0a` is the one
+ * color the spec certifies for a label at 4.9:1, and that certification
+ * doesn't vary by scheme, so this button fill doesn't either.
+ */
+html[data-gds-theme-preset='class-usa'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
+  background: var(--gds-vibe-accent) !important;
+  border-color: var(--gds-vibe-accent) !important;
+}
+
 html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root[data-variant='default'],
 html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root[data-variant='default'] {
   color: var(--gds-vibe-primary) !important;
