@@ -352,6 +352,27 @@ html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone])
   border-color: color-mix(in srgb, var(--gds-vibe-primary) 28%, transparent);
 }
 
+/*
+ * The generic rule above reads fine in light mode (a primary-heavy text
+ * mix sits on a light canvas) but breaks for flatSurfaces navy/dark-brown
+ * primaries (Class USA, Gold Athlete) in DARK mode specifically: unlike
+ * `--gds-vibe-text`/`--gds-vibe-surface`, `--gds-vibe-primary` is a single
+ * fixed hex that does not adapt between schemes, so "76% dark navy" text
+ * on a "15% dark navy tint" background (itself sitting on an already-dark
+ * card) collapses to near-unreadable dark-on-dark — reported live as
+ * illegible "UNSAVED CHANGES"/badge text (issue 533). Uses `--gds-vibe-text`
+ * (already proven legible here — headings use the same token) for text,
+ * and the brand's accent color for a visible tinted background/border,
+ * matching the same governed-second-color pattern already used for
+ * buttons (issue 531).
+ */
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='class-usa'] .mantine-Badge-root:not([data-gds-badge-fixed-tone]),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='gold-athlete'] .mantine-Badge-root:not([data-gds-badge-fixed-tone]) {
+  color: var(--gds-vibe-text) !important;
+  background: color-mix(in srgb, var(--gds-vibe-accent) 28%, var(--gds-vibe-surface)) !important;
+  border-color: color-mix(in srgb, var(--gds-vibe-accent) 45%, transparent) !important;
+}
+
 html[data-gds-theme-preset] .mantine-Input-input,
 html[data-gds-theme-preset] .mantine-NativeSelect-input,
 html[data-gds-theme-preset] .mantine-Textarea-input {

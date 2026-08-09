@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo } from 'react';
 import type { MantineThemeOverride } from '@mantine/core';
-import { MantineProvider, DirectionProvider, Box } from '@mantine/core';
+import { MantineProvider, DirectionProvider, Box, useComputedColorScheme } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { gdsTheme } from './theme';
@@ -79,6 +79,64 @@ function getThemeOwnedCssVariables(theme: MantineThemeOverride): Record<string, 
 }
 
 /**
+ * Collapses a flat `{ '--gds-foo': lightValue, '--gds-foo-dark': darkValue }`
+ * pair (the shape `createBrandTheme`/`getThemeOwnedCssVariables` emit) onto a
+ * single active value per base property name, for the given resolved scheme.
+ *
+ * Fixes a real bug (issue 533): the theme object's own CSS variables were
+ * applied to `GdsProvider`'s wrapper as an inline style with BOTH the light
+ * and `-dark` variants set as literal, unrelated custom properties — nothing
+ * ever picked the dark one. Any CSS rule referencing the base name (e.g.
+ * `color: var(--gds-text-body)`) always got the light-mode value, baked in
+ * as an inline style that beats any external stylesheet rule — even when
+ * `defaultColorScheme="dark"` (or a live scheme toggle) was active. That was
+ * invisible for the default theme (its `other.gdsCssVariables` doesn't
+ * define these semantic-role tokens, so CSS's own `light-dark()` default in
+ * styles.css took over correctly) but broke every brand theme with a
+ * hand-authored dark variant — Class USA and Gold Athlete — producing
+ * near-invisible navy-on-navy / near-black-on-near-black text on cards,
+ * badges, and links in dark mode.
+ */
+function resolveSchemeCssVariables(variables: Record<string, string>, colorScheme: 'light' | 'dark'): Record<string, string> {
+  if (colorScheme !== 'dark') {
+    return variables;
+  }
+
+  const resolved: Record<string, string> = { ...variables };
+  Object.entries(variables).forEach(([property, value]) => {
+    if (property.endsWith('-dark')) {
+      resolved[property.slice(0, -'-dark'.length)] = value;
+    }
+  });
+  return resolved;
+}
+
+/**
+ * Renders the themed wrapper `Box` with `variables` resolved against the
+ * LIVE, reactive color scheme (via `useComputedColorScheme`, same hook
+ * `ThemeToggle` uses) — must be a separate component nested under
+ * `MantineProvider` so the hook has its context, and so it re-resolves
+ * whenever the scheme changes (a toggle click, not just a fresh page load).
+ */
+function GdsThemeVariablesScope({ variables, dir, children }: { variables: Record<string, string>; dir: 'ltr' | 'rtl'; children: React.ReactNode }) {
+  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
+  const resolvedVariables = useMemo(() => resolveSchemeCssVariables(variables, computedColorScheme), [variables, computedColorScheme]);
+
+  return (
+    <Box
+      dir={dir}
+      mih="100vh"
+      h="100%"
+      bg="var(--mantine-color-body)"
+      c="var(--mantine-color-text)"
+      style={{ ...resolvedVariables, transition: 'background-color 120ms ease, color 120ms ease' }}
+    >
+      {children}
+    </Box>
+  );
+}
+
+/**
  * GdsProvider is the single required root provider for any application
  * adopting the General Design System. It injects the strict Mantine theme.
  */
@@ -146,16 +204,9 @@ export function GdsProvider({
             <ModalsProvider>
               <OverlayAdapterProvider adapter={overlayAdapter}>
                 <Notifications />
-                <Box
-                  dir={dir}
-                  mih="100vh"
-                  h="100%"
-                  bg="var(--mantine-color-body)"
-                  c="var(--mantine-color-text)"
-                  style={{ ...themeCssVariables, transition: 'background-color 120ms ease, color 120ms ease' }}
-                >
+                <GdsThemeVariablesScope variables={themeCssVariables} dir={dir}>
                   {children}
-                </Box>
+                </GdsThemeVariablesScope>
               </OverlayAdapterProvider>
             </ModalsProvider>
           </MantineProvider>

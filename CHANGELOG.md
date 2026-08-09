@@ -2,6 +2,64 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 5.0.2 - 2026-08-09 — Fix: Class USA/Gold Athlete status badges illegible in dark mode; 8-route audit; CLAUDE.md Rule 12
+
+Owner reported the 5.0.1 fix as still broken after checking the live site —
+correctly, because it had not been pushed yet, and because a second,
+separate legibility bug remained: generic (non-fixed-tone) badges — e.g.
+"UNSAVED CHANGES"/"SAVED" status pills — used `color-mix(76% primary, 24%
+text)` for text on a `color-mix(15% primary, transparent)` background.
+That formula works in light mode (primary-heavy text on a light canvas) but
+collapses to near-unreadable dark-on-dark for Class USA/Gold Athlete in
+dark mode, since `--gds-vibe-primary` is a single fixed hex that doesn't
+adapt between schemes, unlike `--gds-vibe-text`/`--gds-vibe-surface`.
+
+`packages/gds-theme/styles.css`: added a dark-mode-scoped override for
+`class-usa`/`gold-athlete` using `--gds-vibe-text` (already proven legible)
+for badge text and an accent-tinted background/border, matching the same
+governed-second-color pattern already used for buttons (#531).
+
+Also ran a systematic, programmatic (WCAG contrast-ratio, not visual
+impression) audit across 8 routes (`/`, `/patterns`, `/patterns/operations`,
+`/patterns/data`, `/patterns/foundations`, `/themes`, `/live-demos`, `/api`)
+in Class USA dark mode per the owner's explicit demand for a real audit,
+not a spot check. Found and fixed the badge issue above; found and filed
+(did not fix here) a separate, pre-existing, universal issue affecting
+`[data-gds-badge-fixed-tone]` badges in dark mode across every theme,
+including default — see #534.
+
+Added CLAUDE.md Rule 12: verification claims ("confirmed"/"fixed"/
+"legible"/"done") must state exactly what was checked (route, element,
+environment — local build vs. deployed) and must not imply broader
+coverage than was actually verified; "audit" means an exhaustive sweep,
+not a spot check.
+
+## 5.0.1 - 2026-08-09 — Fix: Class USA/Gold Athlete dark mode had illegible navy-on-navy text (#533)
+
+Owner reported the live site: selecting Class USA + dark mode via Theme Lab
+rendered "Open section" links, badge text, and some headings in the same
+near-black navy as the card background. Traced through the live CSS
+cascade: `GdsProvider`'s own wrapper `Box` applied the theme object's
+`other.gdsCssVariables` (built by `createBrandTheme`) as an inline style
+containing both a token's light value AND its `-dark` variant as separate,
+unrelated custom properties (e.g. `--gds-text-body: '#0b223e'` alongside
+`--gds-text-body-dark: '#faf7f1'`) — nothing ever picked the dark one, and
+since inline styles beat any external stylesheet rule, every element inside
+that Box always got the frozen light-mode value regardless of the active
+color scheme. Invisible for the default theme (its `other.gdsCssVariables`
+doesn't define these semantic-role tokens at all, so CSS's own
+`light-dark()` default in styles.css correctly took over); broke every
+brand theme with a hand-authored dark variant — Class USA and Gold Athlete.
+
+`packages/gds-theme/src/GdsProvider.tsx`: extracted the wrapper into a new
+`GdsThemeVariablesScope` component that resolves each `{base, base-dark}`
+pair against the live, reactive scheme via Mantine's own
+`useComputedColorScheme()` (the same hook `ThemeToggle` already uses)
+before applying it as the inline style, instead of dumping the raw
+theme-object values unconditionally. Light mode is unaffected. Verified
+live (computed styles + screenshots, before/after, both presets, both
+schemes) and with two new unit tests in `GdsProvider.test.tsx`.
+
 ## 5.0.0 - 2026-08-09 — BREAKING: `ReferenceThemeExplorer` moved behind a dedicated subpath (#532)
 
 Owner asked to actually fix the `vendor-gds` bundle-size overage from #532

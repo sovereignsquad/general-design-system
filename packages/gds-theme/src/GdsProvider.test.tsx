@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { notifications } from '@mantine/notifications';
 import { openConfirmModal } from '@mantine/modals';
@@ -244,6 +244,50 @@ describe('GdsProvider', () => {
 
     unmount();
     expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('');
+  });
+
+  it('resolves brand semantic-role tokens (text-body, border-card) to their dark-mode value when forceColorScheme is dark (issue 533)', () => {
+    const classUsaTheme = createBrandTheme('class-usa').mantineTheme;
+
+    // Rendered without renderWithGds's own outer GdsProvider: this test
+    // targets exactly one theme/scheme pair, and a real consumer app only
+    // ever has one top-level GdsProvider — nesting a second, differently
+    // configured one here would test an unsupported configuration, not
+    // the real bug.
+    const { container } = render(
+      <GdsProvider theme={classUsaTheme} forceColorScheme="dark">
+        <div>Class USA dark shell</div>
+      </GdsProvider>,
+    );
+
+    expect(screen.getByText('Class USA dark shell')).toBeInTheDocument();
+
+    // Before the fix, the wrapper's inline style set BOTH the light and
+    // `-dark` variant as separate, unrelated custom properties — nothing
+    // ever picked the dark one, so any CSS rule reading the base name
+    // (e.g. `color: var(--gds-text-body)`) always got the light-mode
+    // value baked in as an inline style, even in forced dark mode.
+    const scope = container.querySelector('[style*="--gds-text-body"]') as HTMLElement | null;
+    expect(scope).not.toBeNull();
+    expect(scope!.style.getPropertyValue('--gds-text-body')).toBe('#faf7f1');
+    expect(scope!.style.getPropertyValue('--gds-border-card')).toBe('#2d3b50');
+  });
+
+  it('keeps brand semantic-role tokens at their light-mode value when forceColorScheme is light (issue 533 regression guard)', () => {
+    const classUsaTheme = createBrandTheme('class-usa').mantineTheme;
+
+    const { container } = render(
+      <GdsProvider theme={classUsaTheme} forceColorScheme="light">
+        <div>Class USA light shell</div>
+      </GdsProvider>,
+    );
+
+    expect(screen.getByText('Class USA light shell')).toBeInTheDocument();
+
+    const scope = container.querySelector('[style*="--gds-text-body"]') as HTMLElement | null;
+    expect(scope).not.toBeNull();
+    expect(scope!.style.getPropertyValue('--gds-text-body')).toBe('#0b223e');
+    expect(scope!.style.getPropertyValue('--gds-border-card')).toBe('#eee7dd');
   });
 
   it('ships blocking-free theme accessibility checks for all public vibe lanes', () => {
