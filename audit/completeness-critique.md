@@ -10,7 +10,9 @@ partial coverage is stated rather than implied complete by omission.
 on the reasoning that each mutant targets one specific claim the audit makes, so
 a survivor means that claim is unsupported.
 
-**Achieved: 85.7% (6/7) on the 7 mutants that ran. 5 of 12 mutants did not run.**
+**Achieved: 85.7% (6/7) on the static mutants, plus 100% (2/2) on the render mutants
+added by issue 579. 8 of 12 mutants now run; 3 remain (M8, M9, M10). The gate still
+requires 100% on all twelve, so it is still not met.**
 
 Therefore:
 
@@ -50,17 +52,31 @@ Consequences:
 
 | # | Targets | Reason |
 | --- | --- | --- |
-| M1 hardcode a radius equal to the default theme's value | Phase 1 | Requires a full playground rebuild between baseline and mutant run |
-| M2 hardcode a colour not in any token | Phase 1 | Same |
+| ~~M1~~ | Phase 1 | **RESOLVED (issue 579).** Implemented with a rebuild step in `scripts/audit/render-mutants.mjs` and **killed**. Its premise had to be corrected: the issue specified a *radius*, but GDS has no `--gds-radius-*` token yet (#555), so a hardcoded radius is `literal` under every theme and the discriminating test collapses. Retargeted to `--gds-support`, which genuinely differs per preset. |
+| ~~M2~~ | Phase 1 | **RESOLVED (issue 579).** Killed. |
 | M8 remove a `prefers-reduced-motion` guard | Phase 4a | Phase 4a was a manual source analysis, not an automated script, so there is nothing to mutate against |
 | M9 set a focus-ring width to 0 | Phase 3 | Phase 3 not implemented |
 | M10 break a component under one theme only | Phase 3 | Phase 3 not implemented |
 
-**M1 and M2 are the most consequential absences.** They are the only mutants that
-would validate Phase 1 — the phase that produced the headline 18.4% figure and
-findings F5–F9. **Phase 1 is therefore entirely unvalidated.** Its findings were
-each checked by hand, but the analysis that produced them has not been shown to
-detect a planted defect.
+**M1 and M2 were the most consequential absences, and are now resolved (issue 579).**
+Phase 1 is validated: both render mutants are killed, 2/2 = 100%.
+
+M1 is the one that matters. Planting the *default* theme's `--gds-support` value as a
+literal produced:
+
+```
+default/light         +0     planted value matched default's token -> classified `token`
+class-usa/light      +51
+gold-athlete/light   +45     same literal, no matching token -> classified `literal`
+high-contrast/light  +90
+```
+
+That asymmetry is the proof. A classifier that string-matched globally, or resolved
+against a single theme's map, would have raised `default` too. It did not — so
+per-theme provenance resolution is confirmed by measurement rather than by reading the
+code. `untraceableRenderRate` is consequently promoted from advisory to **blocking** in
+`audit/budgets.json`, and a `renderMutationScore` budget pins M1/M2 at 100%: Phase 1 is
+only trustworthy while they stay killed.
 
 ## Phases not run
 
@@ -100,7 +116,7 @@ detect a planted defect.
 ## What would have to happen for a clean result to mean anything
 
 1. Implement Phase 3 and report measured *t*-way coverage.
-2. Build M1/M2 with a rebuild step so Phase 1 is validated.
+2. ~~Build M1/M2 with a rebuild step so Phase 1 is validated.~~ **Done (issue 579).**
 3. Automate Phase 4a so M8 can run.
 4. Rewrite the `listed` obligation so it measures presence in a published
    inventory, then re-run M3.

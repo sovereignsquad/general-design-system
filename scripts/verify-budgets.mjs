@@ -67,6 +67,7 @@ function measure(key) {
     case 'englishLeakageWorstLocale':
       return read('dimensions.json')?.languageVariants.englishLeakage[0]?.rate;
     case 'gateMutationScore':     return read('mutation-score.json')?.mutationScore;
+    case 'renderMutationScore':   return read('render-mutation-score.json')?.renderMutationScore;
     default: fail(`Budget "${key}" has no measurement resolver.`); return undefined;
   }
 }
