@@ -1,11 +1,15 @@
 import type { GdsThemePresetId } from './theme-presets';
-import { getGdsVibeThemes, type GdsVibeTheme } from './vibe-themes';
+import { getGdsVibeThemes, getGdsVibeThemeCssVariables, type GdsVibeTheme } from './vibe-themes';
 import { contrastRatio, mixCssColors } from './color-math';
 
 /** Color scheme a contrast check is evaluated in. */
 export type GdsContrastMode = 'light' | 'dark';
 /** UI text or focus-indicator role whose foreground/background pair is contrast-checked. */
 export type GdsContrastRole =
+  // Issue 585 widened this: the semantic pairs added for F22 are named per pair, and a
+  // closed union could not express them — the same shape of limit that kept the semantic
+  // roles out of the token graph.
+  | (string & {})
   | 'page text'
   | 'surface text'
   | 'muted surface text'
@@ -178,6 +182,36 @@ function checkRole(
  * governed text/focus role against its WCAG minimum ratio, and returns the full
  * report (checks, findings, forced-color mappings, recommended runtime checks).
  */
+/**
+ * Semantic role pairs scored against WCAG minimums (issue 585, finding F22).
+ *
+ * The atmosphere checks below score `vibe.textLight` against `vibe.canvasLight` — the
+ * PALETTE fields. The values that actually paint a component are the derived `--gds-*`
+ * semantic roles, and nothing scored them. That is why `--gds-text-body` could be set to
+ * near-white on a light canvas and every contrast gate stayed green, and it is the same
+ * blind spot that let issue 537 ship a 1.89:1 ChoiceChip.
+ *
+ * Every pair below was measured across all 25 presets in both schemes before being made
+ * blocking: all 450 checks pass today, so this adds enforcement without changing any value.
+ *
+ * `--gds-border-card` on `--gds-bg-card` is deliberately NOT here. It measures below 3:1 in
+ * 47 of 50 cells, but WCAG 1.4.11 governs user-interface components and meaningful
+ * graphics — a decorative card boundary is neither. Enforcing 3:1 on it would invent a
+ * requirement and produce 47 findings that are not violations, which is how a gate teaches
+ * people to ignore it.
+ */
+const SEMANTIC_CONTRAST_PAIRS: { role: string; foreground: string; background: string; minimumRatio?: number }[] = [
+  { role: 'semantic body text on page', foreground: '--gds-text-body', background: '--gds-bg-page' },
+  { role: 'semantic body text on card', foreground: '--gds-text-body', background: '--gds-bg-card' },
+  { role: 'semantic meta text on card', foreground: '--gds-text-meta', background: '--gds-bg-card' },
+  { role: 'semantic primary text on surface', foreground: '--gds-text-primary', background: '--gds-bg-surface' },
+  { role: 'semantic secondary text on card', foreground: '--gds-text-secondary', background: '--gds-bg-card' },
+  { role: 'semantic text on inverse', foreground: '--gds-text-on-inverse', background: '--gds-bg-inverse' },
+  { role: 'semantic text on support', foreground: '--gds-text-on-support', background: '--gds-support' },
+  { role: 'semantic inactive nav on inverse', foreground: '--gds-nav-inactiveOnInverse', background: '--gds-bg-inverse' },
+  { role: 'semantic focus ring on page', foreground: '--gds-focus-ring', background: '--gds-bg-page', minimumRatio: MINIMUM_NON_TEXT_RATIO },
+];
+
 export function createGdsThemeAccessibilityReport(): GdsThemeAccessibilityReport {
   const checks: GdsContrastCheck[] = [];
   const findings: GdsContrastFinding[] = [];
@@ -194,7 +228,7 @@ export function createGdsThemeAccessibilityReport(): GdsThemeAccessibilityReport
         ? mixCssColors(vibe.accent, text, 0.56, canvas)
         : mixCssColors(vibe.primary, text, 0.56, canvas);
 
-      const roleChecks = [
+      const roleChecks: ReturnType<typeof checkRole>[] = [
         checkRole(vibe, mode, 'page text', text, canvas),
         checkRole(vibe, mode, 'surface text', text, surface),
         checkRole(vibe, mode, 'muted surface text', muted, surface),
@@ -202,6 +236,31 @@ export function createGdsThemeAccessibilityReport(): GdsThemeAccessibilityReport
         checkRole(vibe, mode, 'link text', link, canvas),
         checkRole(vibe, mode, 'focus indicator', text, canvas, MINIMUM_NON_TEXT_RATIO),
       ];
+
+      // Issue 585 / F22: score the roles that actually paint components, not only the
+      // atmosphere palette they were derived from.
+      const resolved = getGdsVibeThemeCssVariables(vibe.id, mode);
+      for (const pair of SEMANTIC_CONTRAST_PAIRS) {
+        const foreground = resolved[pair.foreground];
+        const background = resolved[pair.background];
+        // A missing role is a real problem, not a reason to skip: it means the pair this
+        // gate claims to cover is not being covered at all.
+        if (!foreground || !background) {
+          findings.push({
+            themeId: vibe.id,
+            mode,
+            role: pair.role as GdsContrastRole,
+            foreground: foreground ?? pair.foreground,
+            background: background ?? pair.background,
+            ratio: 0,
+            minimumRatio: pair.minimumRatio ?? MINIMUM_NORMAL_TEXT_RATIO,
+            severity: 'blocking',
+            message: `${vibe.id} ${mode} does not emit ${!foreground ? pair.foreground : pair.background}, so ${pair.role} cannot be verified.`,
+          });
+          continue;
+        }
+        roleChecks.push(checkRole(vibe, mode, pair.role as GdsContrastRole, foreground, background, pair.minimumRatio));
+      }
 
       for (const result of roleChecks) {
         if (result.check) {

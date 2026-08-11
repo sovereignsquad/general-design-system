@@ -103,13 +103,25 @@ export const GATE_MUTANTS = [
     ],
   },
   {
-    npmScript: 'verify:theme-tokens',
-    script: 'verify-theme-token-contract.mjs',
-    standalone: true,
+    // Issue 585 moved this mutant off verify:theme-tokens. That gate validates graph
+    // STRUCTURE, and a renamed role is still structurally valid, so it could never have
+    // detected this — it was a KNOWN_SURVIVOR against #585 for exactly that reason.
+    //
+    // Now that the published graph carries the semantic roles, renaming one makes the
+    // committed tokens/gds.tokens.json stale and the drift check fails. Measured, not
+    // assumed: with `--gds-support` renamed, verify:tokens-dtcg exits 1.
+    //
+    // Honest limit, stated because it matters: regenerating the artifact makes this pass
+    // again. For a RENAME that is acceptable governance — the contract change is visible in
+    // the diff and has to be committed deliberately. It would NOT be acceptable for a value
+    // regression, which is why the contrast case is covered by verify:theme-accessibility
+    // scoring the semantic roles directly rather than by this drift check.
+    npmScript: 'verify:tokens-dtcg',
+    script: null,
     mutants: [
       {
-        id: 'theme-tokens-detects-renamed-token',
-        claim: 'Detects a semantic token disappearing from the emitted set',
+        id: 'tokens-dtcg-detects-renamed-semantic-token',
+        claim: 'Detects a semantic token disappearing from the published graph',
         // Issue 554 moved deriveVibeSemanticCssVariables into semantic-token-source.ts.
         // The suite reported INVALID rather than silently passing, which is the anchor
         // check doing its job — a mutant whose anchor has drifted tests nothing.
@@ -119,6 +131,25 @@ export const GATE_MUTANTS = [
         // verify-theme-token-contract imports from packages/gds-theme/dist, so a source
         // mutation is invisible to it until rebuilt. Without this the mutant reported
         // SURVIVED and falsely accused a working gate.
+        requiresBuild: ['@sovereignsquad/gds-theme'],
+      },
+    ],
+  },
+  {
+    npmScript: 'verify:theme-tokens',
+    script: 'verify-theme-token-contract.mjs',
+    standalone: true,
+    mutants: [
+      {
+        id: 'theme-tokens-detects-unresolvable-token-value',
+        // Matched to what this gate actually asserts. Its previous mutant tested for a
+        // RENAME, which validateGdsTokenGraph cannot see because a renamed role is still
+        // structurally valid — it survived for a year and was excused as a KNOWN_SURVIVOR.
+        // A mutant should test the gate's real claim, not the claim one wishes it made.
+        claim: 'Detects a token whose value does not resolve to a static CSS colour',
+        file: 'packages/gds-theme/src/semantic-token-source.ts',
+        find: "    '--gds-support': supportLight,",
+        replace: "    '--gds-support': 'not-a-resolvable-color',",
         requiresBuild: ['@sovereignsquad/gds-theme'],
       },
     ],
@@ -158,6 +189,10 @@ export const GATE_MUTANTS = [
     mutants: [
       {
         id: 'theme-a11y-detects-contrast-regression',
+        // Was a KNOWN_SURVIVOR against #585: createGdsThemeAccessibilityReport scored the
+        // vibe ATMOSPHERE palette (vibe.textLight), never the derived --gds-* roles that
+        // paint components. Issue 585 added 450 semantic pair checks, so this now fails at
+        // 1.04:1 instead of passing silently.
         claim: 'Detects a semantic text colour dropping below its contrast floor',
         file: 'packages/gds-theme/src/semantic-token-source.ts',
         find: "    '--gds-text-body': vibe.textLight,",
@@ -309,16 +344,17 @@ export const GATE_MUTANTS = [
  * determine what a component looks like. Issue #585 closes it.
  */
 export const KNOWN_SURVIVORS = {
-  'theme-tokens-detects-renamed-token': {
-    issue: 585,
-    reason: 'validateGdsTokenGraph() validates the 17-role atmosphere palette; the 73 semantic --gds-* roles are outside the graph (F12).',
-    reviewBy: '2026-12-01',
-  },
-  'theme-a11y-detects-contrast-regression': {
-    issue: 585,
-    reason: 'createGdsThemeAccessibilityReport() scores vibe palette fields (role "page text" = vibe.textLight), not the derived --gds-* semantic roles (F12).',
-    reviewBy: '2026-12-01',
-  },
+  // Empty, and that is the point.
+  //
+  // Both entries lived here against issue #585, sharing one root cause (finding F12/F22):
+  // createGdsTokenGraph() and createGdsThemeAccessibilityReport() operated on the 17-role
+  // vibe atmosphere palette, so the 34 semantic --gds-* roles that actually paint
+  // components were outside both. A semantic token could be renamed, or dropped below its
+  // contrast floor, and verify:release stayed green.
+  //
+  // #585 published the semantic roles into the graph and added 450 semantic contrast pair
+  // checks. Both mutants are now KILLED by named gates, so neither has an excuse left.
+  // An entry added here in future needs an issue, a reason, and a review date.
 };
 
 /**

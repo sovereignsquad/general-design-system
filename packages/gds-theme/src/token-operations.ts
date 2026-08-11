@@ -1,5 +1,5 @@
 import type { GdsThemePresetId } from './theme-presets';
-import { getGdsVibeThemes, type GdsVibeTheme } from './vibe-themes';
+import { getGdsVibeThemes, getGdsVibeThemeCssVariables, type GdsVibeTheme } from './vibe-themes';
 
 /** Severity of a token validation finding. */
 export type GdsTokenSeverity = 'error' | 'warning';
@@ -12,8 +12,17 @@ export interface GdsTokenNode {
   id: string;
   /** Preset theme this token belongs to. */
   themeId: GdsThemePresetId;
-  /** Semantic role the token fills. */
+  /**
+   * Semantic role the token fills.
+   *
+   * Issue 585 widened this from a closed 17-member union to a string. The union WAS the
+   * mechanism of finding F12: the graph could not express a role it did not already name,
+   * so the 34 semantic roles that actually paint components had nowhere to go and the
+   * published token graph described a different, smaller system than the one GDS ships.
+   * The 17 atmosphere roles below remain, unchanged, as the vibe-palette lane.
+   */
   role:
+    | (string & {})
     | 'primary'
     | 'accent'
     | 'glow'
@@ -31,12 +40,22 @@ export interface GdsTokenNode {
     | 'muted-dark'
     | 'gradient'
     | 'hero';
-  /** CSS color or effect value. */
+  /** CSS color or effect value. For a `paired` node this is the LIGHT value. */
   value: string;
   /** Whether the value is a plain color or a composite effect (gradient/hero). */
   category: 'color' | 'effect';
-  /** Which color scheme the value applies to. */
-  mode: 'light' | 'dark' | 'shared';
+  /**
+   * Which color scheme the value applies to.
+   *
+   * `paired` (issue 585) carries both schemes in {@link GdsTokenNode.scheme} rather than
+   * encoding the scheme in the role name. A consumer can then tell which value applies in
+   * dark mode without parsing a `-dark` suffix, which was goal 3 of that issue.
+   */
+  mode: 'light' | 'dark' | 'shared' | 'paired';
+  /** Both scheme values, present only when `mode` is `paired`. */
+  scheme?: { light: string; dark: string };
+  /** Semantic lane: `atmosphere` is the vibe palette, `semantic` the roles that paint components. */
+  lane?: 'atmosphere' | 'semantic';
 }
 
 /** A snapshot of every theme's tokens: the canonical structure validated and diffed by GDS CI. */
@@ -181,10 +200,54 @@ function createThemeNodes(theme: GdsVibeTheme): GdsTokenNode[] {
   ];
 }
 
-/** Builds the token graph for every vibe theme (primary/accent/glow, canvas/shell/surface/border/text/muted light+dark, gradient, hero). */
+/**
+ * The semantic roles a preset resolves, as `paired` nodes carrying both schemes.
+ *
+ * Issue 585 / finding F12. The graph published 17 atmosphere roles while the tokens that
+ * actually paint components numbered 34, and the overlap was exactly one (`accent`). A
+ * design tool importing the graph received background colours and none of the roles that
+ * determine what a component looks like.
+ *
+ * Read from `getGdsVibeThemeCssVariables` — the SAME resolver the runtime applies to the
+ * document. A parallel traversal here would reintroduce precisely the dual-source failure
+ * that caused the 5.0.1 dark-mode defect and that issue 554 removed from this package.
+ */
+function createSemanticNodes(theme: GdsVibeTheme): GdsTokenNode[] {
+  const light = getGdsVibeThemeCssVariables(theme.id, 'light');
+  const dark = getGdsVibeThemeCssVariables(theme.id, 'dark');
+
+  return Object.keys(light)
+    // `--gds-vibe-*` is the atmosphere lane, already published by createThemeNodes; a
+    // `-dark` name is not an independent role, since the dark resolution collapses it onto
+    // its base name — taking both would double-count every role.
+    .filter((property) => !property.startsWith('--gds-vibe-') && !property.endsWith('-dark'))
+    .sort()
+    .map((property) => {
+      const role = property.replace(/^--gds-/, '');
+      return {
+        // Namespaced by lane: `accent` exists in both the atmosphere palette and the
+        // semantic set with DIFFERENT values (the atmosphere one is the raw preset hue,
+        // the semantic one is contrast-adjusted). That single collision is exactly the
+        // "overlap is exactly one" F12 measured, and it must not silently merge.
+        id: `${theme.id}.semantic.${role}`,
+        themeId: theme.id,
+        role,
+        value: light[property],
+        category: 'color' as const,
+        mode: 'paired' as const,
+        scheme: { light: light[property], dark: dark[property] ?? light[property] },
+        lane: 'semantic' as const,
+      };
+    });
+}
+
+/** Builds the token graph for every vibe theme: the 17 atmosphere roles plus every semantic role the preset resolves (issue 585). */
 export function createGdsTokenGraph(): GdsTokenGraph {
   const themes = getGdsVibeThemes();
-  const nodes = themes.flatMap(createThemeNodes);
+  const nodes = themes.flatMap((theme) => [
+    ...createThemeNodes(theme).map((node) => ({ ...node, lane: 'atmosphere' as const })),
+    ...createSemanticNodes(theme),
+  ]);
 
   return {
     generatedAt: new Date().toISOString(),
@@ -216,7 +279,10 @@ export function validateGdsTokenGraph(graph: GdsTokenGraph = createGdsTokenGraph
     }
     seen.add(node.id);
 
-    if (!COLOR_ROLES.has(node.role) && node.category === 'color') {
+    // Issue 585: COLOR_ROLES enumerates the 17 ATMOSPHERE roles. Applying it to the
+    // semantic lane would warn on all 850 legitimate semantic tokens — 825 warnings that
+    // say nothing, which is how a real warning gets missed.
+    if (node.lane !== 'semantic' && !COLOR_ROLES.has(node.role) && node.category === 'color') {
       findings.push({
         severity: 'warning',
         rule: 'token.unknown-role',
@@ -232,6 +298,29 @@ export function validateGdsTokenGraph(graph: GdsTokenGraph = createGdsTokenGraph
         tokenId: node.id,
         message: `Token "${node.id}" must resolve to a static CSS color, but received "${node.value}".`,
       });
+    }
+
+    if (node.mode === 'paired') {
+      // The whole point of the paired shape is that a consumer gets a dark value without
+      // parsing a name. A missing or unparseable one is an error, not a shrug.
+      for (const scheme of ['light', 'dark'] as const) {
+        const value = node.scheme?.[scheme];
+        if (!value) {
+          findings.push({
+            severity: 'error',
+            rule: scheme === 'dark' ? 'token.missing-dark-pair' : 'token.missing-light-pair',
+            tokenId: node.id,
+            message: `Paired token "${node.id}" is missing its ${scheme}-mode value.`,
+          });
+        } else if (node.category === 'color' && !COLOR_PATTERN.test(value.trim())) {
+          findings.push({
+            severity: 'error',
+            rule: 'token.invalid-color',
+            tokenId: node.id,
+            message: `Paired token "${node.id}" must resolve to a static CSS color in ${scheme} mode, but received "${value}".`,
+          });
+        }
+      }
     }
 
     const pairKey = `${node.themeId}:${node.role.replace(/-(light|dark)$/, '')}`;

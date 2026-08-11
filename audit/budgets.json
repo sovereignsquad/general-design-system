@@ -43,12 +43,13 @@
       "$comment": "READ THIS BEFORE TRUSTING THE ZERO. 0 does NOT mean 'no unreachable tokens exist' — 15 tokens are still referenced by nothing. It means 0 are UNCLASSIFIED. The gate's job is that no token can be declared without a written, dated disposition; it is not that every token renders. The classification counts (extensionPoints, pendingWireUp) are in the same artifact and are the numbers to read for remediation progress. Measurement also changed source here: the old value came from forward-trace.json#/rows[!demoed] (Phase 2 demo reachability, a different question) and is now the reachability census. Stated per the F24 rule."
     },
     "publishedGraphOverlap": {
-      "source": "forward-trace.json#/rows[variationsShown]",
+      "source": "published-graph.json#/overlap",
       "direction": "min",
-      "value": 1,
+      "value": 34,
       "unit": "count",
       "finding": "F12",
-      "justifiedBy": "audit Phase 2 - published DTCG roles vs runtime semantic roles overlap by exactly 1, commit cb36e5e"
+      "justifiedBy": "issue 585: all 34 runtime semantic roles are published, per theme, per scheme. Coverage 34/34 = 100%.",
+      "$comment": "Was 1 — the published graph and the runtime semantic set overlapped only on `accent`, so a design tool importing the graph received 17 atmosphere colours and none of the roles that determine what a component looks like. Direction is `min`, so this can only go up: dropping a semantic role from the published graph now fails the release."
     },
     "undeclaredMantineDependencies": {
       "source": "mantine-governance.json#/ungovernedCount",

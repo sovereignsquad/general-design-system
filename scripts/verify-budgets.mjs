@@ -55,7 +55,11 @@ function measure(key) {
       // Issue 586 repointed this from Phase 2 demo-reachability to the reachability census.
       // The value counts UNCLASSIFIED tokens, not dead ones — see the budget's $comment.
       return read('token-reachability.json')?.unreachableCount;
-    case 'publishedGraphOverlap': return read('forward-trace.json')?.rows.filter((r) => r.variationsShown).length;
+    case 'publishedGraphOverlap':
+      // Issue 585 repointed this from Phase 2 demo-variation counting to the published
+      // graph itself. See the budget's $comment: it was 1 because the graph and the
+      // runtime semantic set overlapped only on `accent`.
+      return read('published-graph.json')?.overlap;
     case 'undeclaredMantineDependencies':
       // Issue 589 repointed this from the Phase 4c CSS-declaration count to the census,
       // which measures whether gdsTheme actually dictates the value. See the $comment on
