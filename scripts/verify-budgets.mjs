@@ -54,7 +54,10 @@ function measure(key) {
     case 'unreachableTokens':     return read('forward-trace.json')?.rows.filter((r) => !r.demoed).length;
     case 'publishedGraphOverlap': return read('forward-trace.json')?.rows.filter((r) => r.variationsShown).length;
     case 'undeclaredMantineDependencies':
-      return read('dimensions.json')?.themeControl.mantineVarsGdsConsumesButNeverDeclares;
+      // Issue 589 repointed this from the Phase 4c CSS-declaration count to the census,
+      // which measures whether gdsTheme actually dictates the value. See the $comment on
+      // the budget entry — the two counts answer different questions.
+      return read('mantine-governance.json')?.ungovernedCount;
     case 'registryAtomsWithoutCoverage': {
       const reg = read('registry.json');
       if (!reg) return undefined;

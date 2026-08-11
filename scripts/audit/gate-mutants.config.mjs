@@ -220,6 +220,33 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:mantine-governance',
+    script: null,
+    mutants: [
+      {
+        id: 'mantine-governance-detects-new-ungoverned-variable',
+        claim: 'Detects a newly consumed --mantine-* variable that no GDS theme dictates',
+        file: 'packages/gds-core/src/GdsBadge.tsx',
+        // Must ADD a consumption, not swap one. A first attempt replaced gray-1 with
+        // pink-6 and the gate correctly stayed green: both are ungoverned, so the count
+        // did not move. The mutant has to increase the ungoverned set, not relabel it.
+        find: 'var(--mantine-color-gray-1, #f1f3f5)',
+        replace: 'var(--mantine-color-gray-1, var(--mantine-color-pink-6, #f1f3f5))',
+        once: true,
+      },
+      {
+        id: 'mantine-governance-detects-expired-delegation',
+        // A delegation that cannot expire becomes permanent by neglect, which is how 87
+        // ungoverned variables accumulated. This proves the expiry is load-bearing.
+        claim: 'Detects a delegation whose reviewBy date has passed',
+        file: 'scripts/mantine-governance.config.mjs',
+        find: "reviewBy: '2027-08-01',\n  },\n  '--mantine-z-index-modal'",
+        replace: "reviewBy: '2020-01-01',\n  },\n  '--mantine-z-index-modal'",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:obligation-coverage',
     script: null,
     mutants: [

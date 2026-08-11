@@ -87,6 +87,31 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Mantine dependency-boundary census (#589)**: added
+  `npm run verify:mantine-governance`, chained into `verify:release` after `build`, plus
+  `scripts/mantine-governance.config.mjs` as the delegation SSOT.
+
+  Of 92 consumed `--mantine-*` custom properties: **4 governed** by `gdsTheme`, **6
+  delegated** with a written reason and an expiry date, **1 dynamic** (a name built at
+  runtime, so not statically governable), **8 lane-only**, **73 ungoverned**.
+
+  **Governance is measured, not declared.** The gate compares GDS's theme against
+  Mantine's `DEFAULT_THEME` and counts a variable as governed only when GDS actually
+  changes the value. A hand-maintained roster of governed variables could claim authority
+  GDS does not have — the same dual-source pattern #554 removed from the theme package.
+
+  **New finding F28**: eight variables are governed by exactly one preset. `ChoiceChip`
+  consumes `--mantine-color-teal-6`, but a GDS teal ramp exists only in
+  `partnerDiscoveryThemePreset` — under the other seven lanes it renders Mantine's stock
+  teal. These change owner depending on the active theme, so reviewing one preset shows
+  governance and reviewing another shows a framework default.
+
+  **The budget's definition changed and says so.** `undeclaredMantineDependencies` moved
+  from the Phase 4c CSS-declaration count to the census; **87 -> 81 is not six variables
+  remediated** — nothing was declared and no rendered value changed. The old number asked
+  "is it written down?", the new one asks "does GDS dictate it?". Recorded in the budget
+  entry itself.
+
 - **`verify:gates` now runs after `build` (F27)**: it ran at step 2 of `verify:release`
   while `build` ran at step 5, so `verify:theme-tokens` and `verify:smoke-import-surface`
   — both of which read from `dist/` — were mutated on a tree that had no `dist/` on a

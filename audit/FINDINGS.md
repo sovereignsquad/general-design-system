@@ -795,3 +795,54 @@ genuine CI condition, not an approximation of it — which passes at 10/12 with 
 rebuild *during* the run. It did not address the gate needing a build to run *at all*. Two
 different dependencies on the build, one addressed and one not, and only the second is
 environment-dependent — which is precisely why it survived local verification.
+
+
+---
+
+## F28 — Components consume palettes only one preset governs
+
+Surfaced by the issue 589 census, which the issue itself did not anticipate.
+
+`ChoiceChip.tsx` renders `var(--mantine-color-teal-6)`. A GDS teal ramp exists — but only
+in `partnerDiscoveryThemePreset`. The default `gdsTheme` does not define `colors.teal`, so
+under the default lane and the six other lanes that variable resolves to **Mantine's stock
+teal**, not a GDS colour. Eight variables are in this state.
+
+This is not the same defect as "ungoverned". An ungoverned variable is consistently
+Mantine's everywhere; a lane-governed one **changes owner depending on which theme is
+active**. A reviewer looking at the partner-discovery lane sees a governed GDS teal and
+concludes the component is themed. It is, in exactly one of eight lanes.
+
+The census reports these separately (`lane-only`) but counts them toward the budget,
+because the condition F17 measured — the default lane does not dictate the value — holds
+for every one of them.
+
+**Why no existing gate saw it.** F6 established that untraceable values are theme-invariant
+and therefore invisible to single-theme review. This is the inverse and equally invisible:
+a value that IS theme-variant, but only across a boundary no gate crosses. Checking one
+preset shows governance; checking a different one shows a Mantine default; nothing compared
+the two.
+
+## The census's own definition change
+
+`undeclaredMantineDependencies` moved from `dimensions.json#/themeControl/mantineVarsGdsConsumesButNeverDeclares`
+to `mantine-governance.json#/ungovernedCount`, and **87 -> 81 is not six variables
+remediated**. Nothing was declared and no rendered value changed. The two numbers answer
+different questions:
+
+| | old (87) | new (81) |
+|---|---|---|
+| asks | is it DECLARED as a CSS custom property? | does `gdsTheme` DICTATE its value? |
+| measured against | text in `styles.css` | `gdsTheme` vs Mantine's `DEFAULT_THEME` |
+| delegations | not modelled | excluded, each with a reason and an expiry |
+
+The new definition is the one that matters, because a variable can be written down without
+being controlled — and it is the definition that distinguishes governance from paperwork.
+Recorded in the budget entry itself, per the F24 rule that a budget silently changing
+meaning is indistinguishable from one that was gamed.
+
+**Governance is measured, never listed.** The gate derives "governed" by comparing GDS's
+theme against Mantine's defaults rather than reading a hand-maintained roster. A roster
+could assert authority GDS does not have, which is the F1 dual-source pattern that issue
+554 removed from the theme package — there was no reason to reintroduce it in the tooling
+that polices the same boundary.
