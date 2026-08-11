@@ -313,3 +313,35 @@ defect this rule closes.
   misjudged and is being fixed — do not describe the failure in terms that
   make it sound smaller than it was. This system ships to companies who
   rely on it; there is no tier of defect that gets a softer word for it.
+
+## 13. Never push without a CI-equivalent local run, and never report done before CI is green (owner directive, 2026-08-11)
+
+This rule exists because of three consecutive red CI runs on `main` (#360, #361,
+and the run on `4830763`), each pushed after a local `npm run verify:release`
+that exited 0. "I tested locally" was true every time and worth nothing, because
+the local run was not equivalent to what CI does.
+
+- **A dirty working tree makes some checks structurally blind.** `verify:gates`
+  captures a baseline of already-modified files at start and only reports files
+  that become dirty *during* the suite. An artifact that was already uncommitted
+  before the run is invisible to it. CI checks out clean, so it sees what the
+  local run cannot. **Run the full chain on a clean tree** — commit or stash
+  first — not on the tree you have been editing.
+- **`git status --porcelain` must be empty after the chain.** A leaked artifact
+  is a CI failure and a local pass. Use `npm run preflight`, which enforces
+  clean-before, clean-after, and the full chain in one command. Running
+  `verify:release` alone does not satisfy this rule.
+- **Build artifacts must not be assumed.** A developer tree always has a `dist/`
+  from an earlier build; a CI checkout does not. Any gate reading `dist/` behaves
+  differently in the two environments (this is finding F27). When a change
+  touches the release chain's ordering or a gate that reads built output, delete
+  every `dist/` and run the chain from scratch.
+- **The push is not the finish line.** Rule 6 says the git push succeeding is
+  what "done" means for the *push operation*. It does not license reporting a
+  change as delivered while its CI run is unobserved. **Watch the `GDS Quality`
+  run to completion and report its actual conclusion.** Closing an issue or
+  claiming delivery with CI unchecked — or still in progress — is a Rule 12
+  scope-honesty violation: it claims more than the work behind it supports.
+- **A red run is fixed at the source, immediately, before any further work.**
+  Not batched, not deferred to the next commit, and never left on `main` while
+  moving to the next issue.
