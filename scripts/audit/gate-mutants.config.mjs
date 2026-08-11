@@ -171,6 +171,39 @@ export const GATE_MUTANTS = [
       },
     ],
   },
+  {
+    npmScript: 'verify:registry-drift',
+    script: null,
+    mutants: [
+      {
+        id: 'registry-drift-detects-stale-committed-registry',
+        claim: 'Detects the committed registry drifting from what source extraction produces',
+        file: 'audit/registry.json',
+        find: '"prop":',
+        replace: '"prop_MUTANT":',
+        once: true,
+      },
+    ],
+  },
+  {
+    npmScript: 'verify:obligation-coverage',
+    script: null,
+    mutants: [
+      {
+        id: 'obligation-detects-new-undocumented-prop',
+        // Proven as a negative control before being formalised: adding one undocumented
+        // prop moves gaps 410 -> 411 and trips both this gate and the budget gate.
+        claim: 'Detects a newly added prop that carries no JSDoc, without any manual registration',
+        file: 'packages/gds-core/src/MapPanel.tsx',
+        find: '  minHeight?: number | string;',
+        replace: '  minHeight?: number | string;\n  auditMutantUndocumented?: string;',
+        // The gate reads audit/registry.json, so the registry must be regenerated for the
+        // new prop to be visible — the same dist-staleness class as the theme-tokens
+        // mutant, in a different guise.
+        regenerate: ['registry'],
+      },
+    ],
+  },
 ];
 
 /**

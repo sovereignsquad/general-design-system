@@ -15,6 +15,7 @@
 
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { OBLIGATION_MODEL, COVERED_ELSEWHERE } from './audit/obligation-model.config.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const AUDIT_DIR = join(ROOT, 'audit');
@@ -57,9 +58,10 @@ function measure(key) {
     case 'registryAtomsWithoutCoverage': {
       const reg = read('registry.json');
       if (!reg) return undefined;
-      const COVERED = new Set(['token-declared', 'token-emitted', 'token-published', 'token-referenced',
-        'motion-token', 'motion-shipped', 'motion-keyframes', 'motion-reduced-guard', 'interaction-state',
-        'locale-pack-package', 'locale-pack-site', 'theme', 'route', 'pattern']);
+      // Derived from the obligation model rather than a second hardcoded list. A
+      // duplicated "what is covered" set is exactly the dual-source pattern that caused
+      // F1 and the 5.0.1 defect, and it would silently disagree the moment either moved.
+      const COVERED = new Set([...Object.keys(OBLIGATION_MODEL), ...Object.keys(COVERED_ELSEWHERE)]);
       return Object.entries(reg.counts).filter(([k]) => !COVERED.has(k)).reduce((n, [, v]) => n + v, 0);
     }
     case 'localesWithoutSitePack':
@@ -69,6 +71,7 @@ function measure(key) {
     case 'gateMutationScore':     return read('mutation-score.json')?.mutationScore;
     case 'renderMutationScore':   return read('render-mutation-score.json')?.renderMutationScore;
     case 'gateSuiteUnexplainedSurvivors': return read('gate-mutation-score.json')?.unexplainedSurvivors;
+    case 'obligationGaps':        return read('obligation-coverage.json')?.gapCount;
     default: fail(`Budget "${key}" has no measurement resolver.`); return undefined;
   }
 }

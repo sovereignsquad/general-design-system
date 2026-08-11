@@ -166,8 +166,38 @@ const EXPECTED_KINDS = [
 const missing = EXPECTED_KINDS.filter((k) => !byKind[k]);
 
 mkdirSync(join(ROOT, 'audit'), { recursive: true });
-writeFileSync(join(ROOT, 'audit/registry.json'),
-  JSON.stringify({ generatedAt: null, commit, counts: byKind, atoms }, null, 2));
+const outPath = join(ROOT, 'audit/registry.json');
+const payload = { generatedAt: null, commit, counts: byKind, atoms };
+
+// --check: drift-verify the committed registry instead of rewriting it, matching the
+// verify:tokens-dtcg pattern already in the release chain. `commit` is excluded from
+// the comparison: it changes every commit by construction, so including it would make
+// the registry appear to drift on every single run and train everyone to ignore it.
+const stable = (o) => JSON.stringify({ counts: o.counts, atoms: o.atoms }, null, 2);
+if (process.argv.includes('--check')) {
+  if (!existsSync(outPath)) {
+    console.error('FAIL audit/registry.json is missing. Run `npm run registry:build`.');
+    process.exit(1);
+  }
+  const committed = JSON.parse(readFileSync(outPath, 'utf8'));
+  if (stable(committed) !== stable(payload)) {
+    const a = Object.entries(committed.counts ?? {});
+    const b = Object.entries(payload.counts);
+    console.error('FAIL audit/registry.json has drifted from source. Run `npm run registry:build` and commit the result.');
+    for (const [kind, count] of b) {
+      const was = committed.counts?.[kind];
+      if (was !== count) console.error(`  ${kind}: committed ${was ?? 0} -> extracted ${count}`);
+    }
+    for (const [kind, count] of a) {
+      if (payload.counts[kind] === undefined) console.error(`  ${kind}: committed ${count} -> extracted 0 (kind disappeared)`);
+    }
+    process.exit(1);
+  }
+  console.log(`Registry drift check passed: ${atoms.length} atoms across ${Object.keys(byKind).length} kinds.`);
+  process.exit(0);
+}
+
+writeFileSync(outPath, JSON.stringify(payload, null, 2));
 
 console.log(`Phase 0 registry — commit ${commit.slice(0, 7)}`);
 for (const [k, v] of Object.entries(byKind).sort((a, b) => b[1] - a[1])) {

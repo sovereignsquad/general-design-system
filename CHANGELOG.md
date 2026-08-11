@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — Board governance and a cross-platform fix to the Kanban accessibility gate
+## Unreleased — Registry-derived obligation coverage, gate mutation testing, and board governance
 
 No package or component source changed; no version bump. Tooling, governance,
 and documentation only.
@@ -13,8 +13,8 @@ and documentation only.
   it does not detect that defect, and each mutant's `claim` string names precisely which
   assertion is thereby unsupported.
 
-  **6 mutants killed**, including one reproducing #516's exact false pass — which is why
-  #516 had to land first.
+  **8 of 10 mutants killed (80%)**, including one reproducing #516's exact false pass —
+  which is why #516 had to land first.
 
   **Two genuine survivors, and they are a real finding (F22).** `verify:theme-tokens`
   and `verify:theme-accessibility` both pass with a semantic token renamed, and with
@@ -27,6 +27,53 @@ and documentation only.
   stays green. This is F12's root cause reaching further than F12 reported, and it is the
   mechanism behind #537. Recorded as `KNOWN_SURVIVORS` against #585, dated, and reported
   every run.
+
+- **Registry-derived obligation coverage (#581)**: added
+  `npm run verify:obligation-coverage`, chained into `verify:release`. Obligations are
+  derived from `audit/registry.json` rather than a hand-maintained checklist, so a new
+  prop, variant or accent acquires its obligations **the moment it is added** — there is
+  no list to forget because there is no list. Props owe a JSDoc line, variants owe a
+  playground demonstration, accents owe contrast evidence; the obligations are
+  deliberately *not* uniform across kinds, and each kind's rationale is stored in
+  `scripts/audit/obligation-model.config.mjs` so the choice is reviewable rather than
+  folklore.
+
+  **Measured: 410 gaps** — 373 props with no JSDoc, 37 variants rendered by no demo.
+  Ratcheted via the new `obligationGaps` budget: existing debt never blocks work, adding
+  to it does.
+
+  **A measurement change is stated, not hidden.** `registryAtomsWithoutCoverage` drops
+  1,699 → 0 because it now measures a different thing (atoms with neither an obligation
+  model nor a recorded owner). The 1,699 did not evaporate — 410 carry real unmet
+  obligations under the new budget. `audit/budgets.json` records this in the entry
+  itself, because a budget that silently changes meaning is indistinguishable from one
+  that was gamed.
+
+- **Two defects found in the audit's own tooling while building the above** (F24, F25 in
+  `audit/FINDINGS.md`):
+
+  - **F24** — a first cut modelled `jsdoc` for the `export` kind and reported 3/497.
+    All **494** would have been false accusations: the registry records an export at its
+    *barrel* line, while the JSDoc lives on the declaration in the component's own file.
+    Caught only because 0.6% was implausible beside `verify:api-jsdoc-coverage` reporting
+    99.8% for the same surface. `export` is now recorded in `COVERED_ELSEWHERE` naming
+    the gate that actually owns it.
+
+  - **F25** — `verify:obligation-coverage` read the budget key that had just been
+    ratcheted to 0, so it failed on **every clean run**. It was invisible because the
+    mutation suite reported its mutant `KILLED`: the verdict is inverted, so a gate that
+    always fails "detects" everything and scores a perfect kill *precisely because it is
+    broken*. Fixed twice over — the gate reads the correct key and treats a *missing*
+    budget as a hard failure rather than `Infinity` (the #516 vacuous-pass shape), and
+    `verify:gates` now runs every gate **clean before mutating it**, marking its mutants
+    `INVALID / BASELINE BROKEN` if that run does not exit 0.
+
+    This is the exact mirror of the false-`SURVIVED` class `requiresBuild` fixed: both
+    come from interpreting a gate's exit code without first establishing what a clean
+    exit code is.
+
+  The gate suite also now snapshots and restores every `audit/*.json` artifact its child
+  gates write — F21 recurring in a harness written before that lesson landed.
 
   Coverage is enforced: a release-chain gate with neither mutants nor a **dated,
   reasoned** exemption fails the suite. 8 gates carry mutants, 15 are exempted with

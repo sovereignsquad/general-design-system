@@ -60,10 +60,10 @@
     "registryAtomsWithoutCoverage": {
       "source": "registry.json#/counts[uncovered kinds]",
       "direction": "max",
-      "value": 1699,
+      "value": 0,
       "unit": "count",
       "finding": "F18",
-      "justifiedBy": "audit Phase 4d - export 590, prop 1002, variant 97, accent 10, commit bed78c8"
+      "justifiedBy": "issue 581 - every registry kind is now either obligation-modelled or explicitly covered elsewhere with a named gate/phase. NOTE: the MEASUREMENT CHANGED. It previously counted atoms in kinds with no audit-phase coverage (1699); it now counts atoms in kinds with neither an obligation model nor a recorded owner (0). The 1699 did not vanish - 410 of those atoms have real unmet obligations and are tracked by the separate obligationGaps budget below."
     },
     "localesWithoutSitePack": {
       "source": "dimensions.json#/languageVariants/packageLocalesWithNoSitePack",
@@ -104,6 +104,14 @@
       "unit": "count",
       "finding": "issue 580",
       "justifiedBy": "issue 580 - every survivor must be either killed or filed with a dated issue"
+    },
+    "obligationGaps": {
+      "source": "obligation-coverage.json#/gapCount",
+      "direction": "max",
+      "value": 410,
+      "unit": "count",
+      "finding": "F18",
+      "justifiedBy": "issue 581 - 373 prop jsdoc gaps + 37 variant demo gaps, measured"
     }
   }
 }
