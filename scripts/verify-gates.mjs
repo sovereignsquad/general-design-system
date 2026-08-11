@@ -9,7 +9,7 @@
 //
 // Output: audit/gate-mutation-score.json
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { GATE_MUTANTS, EXEMPTIONS, KNOWN_SURVIVORS } from './audit/gate-mutants.config.mjs';
@@ -63,7 +63,15 @@ try {
 //
 // The generalisable rule, learned twice: ANY harness that runs a tool which writes
 // artifacts must treat those artifacts as state to restore, exactly like source.
-const ARTIFACTS = ['audit/registry.json', 'audit/obligation-coverage.json', 'audit/forward-trace.json', 'audit/dimensions.json'];
+// Enumerated, never listed. A hardcoded roster of artifacts to restore is a list that
+// must be remembered, and it was forgotten the very next time a gate was added: issue 589's
+// census writes audit/mantine-governance.json, which was absent here, leaked a mutant's
+// output, and turned CI red. That is the same failure as F21 and F25 for the third time,
+// and every recurrence has been a manual list drifting from reality — so the list is gone.
+// Any audit/*.json a child gate writes is now covered the moment it exists.
+const ARTIFACTS = readdirSync(join(ROOT, 'audit'))
+  .filter((f) => f.endsWith('.json'))
+  .map((f) => `audit/${f}`);
 const artifactSnapshots = Object.fromEntries(
   ARTIFACTS.filter((f) => existsSync(join(ROOT, f))).map((f) => [f, readFileSync(join(ROOT, f), 'utf8')]),
 );
