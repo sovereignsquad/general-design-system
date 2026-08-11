@@ -12,7 +12,7 @@ Environment: local build + deployed site `sovereignsquad.github.io/general-desig
 | --- | --- | --- |
 | 0 — Ground-truth registry | **Complete** | `audit/registry.json`, 2,829 atoms, all 16 expected kinds non-zero |
 | 1 — Backward trace | **Complete** (bounded scope, stated below) | `audit/backward-trace.json`, 40/40 cells |
-| 2 — Forward trace | **Not run** | — |
+| 2 — Forward trace | **Complete** | `audit/forward-trace.json`, 365 cells |
 | 3 — Combinatorial sweep | **Not run** | — |
 | 4a — Motion | **Complete** | this document, F1–F4 |
 | 4b — i18n | Not run | — |
@@ -164,7 +164,7 @@ Both the plan and the issue must be corrected.
 
 | # | Question | Status |
 | --- | --- | --- |
-| Q1 | Is the published DTCG graph materially incomplete? | **Open** — Phase 2 not run. Registry shows 425 published vs 374 `--gds-*` emitted in TS; the published set is the vibe atmosphere palette only. Suggestive, not concluded. |
+| Q1 | Is the published DTCG graph materially incomplete? | **Resolved — yes, severely.** The published graph (17 atmosphere roles) and the 73 semantic tokens that paint components overlap by exactly **1**. See F12. |
 | Q2 | Are `-dark` sibling keys residue? | **Open.** Phase 1 ran but did not target this; the `-dark` keys appear in every cell's token map and resolve, so they are not dangling (F10), but whether they are *needed* post-5.0.2 is unanswered. |
 | Q3 | Is the motion system unused? | **Resolved — no.** It is used; the stylesheet bypasses it. See F2, F4. |
 | Q4 | Does GDS govern any interaction micro-motion? | **Resolved — yes, but off-token.** 34/34 interactive elements transition at `0.14s ease`, ignoring the governed 120ms/cubic-bezier. See F2. |
@@ -291,3 +291,89 @@ Every `--gds-*` referenced in `styles.css` (28) resolves to a declaration —
 Recorded because the audit specifically suspected `--gds-focus-ring` of being
 referenced-but-never-declared, which would have meant its fallback always won.
 It is declared in the TS emitter path. The suspicion was wrong.
+
+
+---
+
+## Phase 2 — forward trace (Rule 2)
+
+`node scripts/audit/forward-trace.mjs` -> `audit/forward-trace.json`
+
+Token universe: **73** `--gds-*` tokens (34 `-dark` scheme siblings excluded as
+partners of their base, not independent tokens). **365 matrix cells**
+(73 x 5 obligations).
+
+| Obligation | Satisfied | Gap | Confidence |
+| --- | --- | --- | --- |
+| listed | 42/73 (58%) | 31 | high — direct lookup against the published graph + docs corpus |
+| demoed | 58/73 (79%) | 15 | high — direct `var()` reachability from shipped CSS/TS |
+| explained | 42/73 (58%) | 31 | medium — prose-window heuristic |
+| variationsShown | 1/73 (1%) | 72 | **LOW — proxy heuristic** |
+| useCase | 4/73 (5%) | 69 | **LOW — directive-phrase heuristic** |
+
+**Confidence is reported per obligation because two of the five are weak.** A
+false negative on `variationsShown` or `useCase` does **not** prove the site
+omits that variation or use case — it proves the heuristic could not find it.
+Those two numbers are directional, not conclusions.
+
+### F11 — zero tokens satisfy all five obligations
+
+**0 of 73.** Every token has at least one gap. Even discounting the two
+low-confidence obligations entirely, **31 tokens are undocumented anywhere** in
+the docs corpus or the published graph, and 15 are unreachable.
+
+### F12 — the published token graph and the tokens that paint the system are near-disjoint sets
+
+**Severity: high. This resolves Q1, and it is the sharpest result of Phase 2.**
+
+- Published DTCG graph: **17 roles** — `primary`, `accent`, `glow`,
+  `canvas-light/dark`, `shell-light/dark`, `surface-light/dark`,
+  `border-light/dark`, `text-light/dark`, `muted-light/dark`, `gradient`, `hero`.
+  These are the *vibe atmosphere palette*.
+- Tokens that actually paint components: **73** semantic roles — `--gds-bg-card`,
+  `--gds-text-body`, `--gds-border-card`, `--gds-badge-info`, and so on.
+- **Overlap: exactly 1** (`accent`).
+
+So `tokens/gds.tokens.json` — the artifact a design tool imports, and the one
+`verify:tokens-dtcg` drift-checks — describes 17 atmosphere colours and **72 of
+the 73 tokens that determine what a component actually looks like are absent
+from it.**
+
+The published graph is not a subset of the system. It is a different, much
+smaller thing wearing the system's name.
+
+### F13 — 15 declared tokens are unreachable
+
+Declared, but referenced by no shipped CSS rule or component style, so nothing
+can ever render them:
+
+```
+--gds-vibe-warning            --gds-badge-attention       --gds-bg-canvas
+--gds-vibe-success            --gds-badge-validation      --gds-bg-page
+--gds-vibe-hero               --gds-badge-info            --gds-brand-primary-pressed
+--gds-motion-duration-instant --gds-badge-urgencyBg       --gds-accent
+--gds-motion-ease-exit        --gds-nav-inactiveOnInverse --gds-tour-spotlight-padding
+```
+
+Note `--gds-badge-info`, `--gds-badge-attention`, `--gds-badge-validation` and
+`--gds-badge-urgencyBg` in that list — the badge tone tokens, unreachable, while
+issue #534 reports fixed-tone badges failing WCAG contrast in dark mode. Whether
+those are related is **not established** and must not be assumed; it is flagged
+for Phase 4d.
+
+### F14 — two more classifier defects, found and fixed
+
+**Severity: process.** Self-reported, consistent with F4.
+
+1. `--gds-foo` appeared in the first token universe. It is not a token — it comes
+   from a JSDoc example in `GdsProvider.tsx:82` illustrating the pair-collapsing
+   pattern. Comment stripping was added; the universe dropped 74 -> 73.
+2. `variationsShown` and `useCase` were initially reported as flat percentages.
+   Both rest on weak heuristics, and reporting 1% without that qualifier would
+   have implied a certainty the method does not support. Per-obligation
+   confidence is now emitted in the artifact itself.
+
+This is the third and fourth classifier defect the audit has found in its own
+tooling (see F4, and the two fixed during Phase 1). Every one was found by
+checking a suspicious result rather than accepting it — which is the behaviour
+Phase 5 exists to make systematic rather than lucky.

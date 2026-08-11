@@ -1,0 +1,1299 @@
+{
+  "tokenUniverse": 73,
+  "darkSiblingsExcluded": 33,
+  "cellsEvaluated": 365,
+  "obligationsSatisfied": {
+    "listed": 42,
+    "demoed": 58,
+    "explained": 42,
+    "variationsShown": 1,
+    "useCase": 4
+  },
+  "confidence": {
+    "listed": "high - direct lookup against the published DTCG graph and docs corpus",
+    "demoed": "high - direct var() reachability from shipped CSS/TS",
+    "explained": "medium - prose-window heuristic around the token name",
+    "variationsShown": "LOW - proxy heuristic; a false negative here does not prove the site omits the variation",
+    "useCase": "LOW - directive-phrase heuristic; same caveat"
+  },
+  "publishedRoleOverlap": null,
+  "tokensSatisfyingAll": 0,
+  "tokensWithGaps": 73,
+  "rows": [
+    {
+      "token": "--gds-vibe-warning",
+      "role": "vibe-warning",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-success",
+      "role": "vibe-success",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-hero",
+      "role": "vibe-hero",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-duration-instant",
+      "role": "motion-duration-instant",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-ease-exit",
+      "role": "motion-ease-exit",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-inactiveOnInverse",
+      "role": "nav-inactiveOnInverse",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-attention",
+      "role": "badge-attention",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-validation",
+      "role": "badge-validation",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-info",
+      "role": "badge-info",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-urgencyBg",
+      "role": "badge-urgencyBg",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-safe-area-inset-top",
+      "role": "safe-area-inset-top",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-safe-area-inset-right",
+      "role": "safe-area-inset-right",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-safe-area-inset-left",
+      "role": "safe-area-inset-left",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-shell",
+      "role": "vibe-shell",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-border",
+      "role": "vibe-border",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-focus",
+      "role": "vibe-focus",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-link",
+      "role": "vibe-link",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-danger",
+      "role": "vibe-danger",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-duration-fast",
+      "role": "motion-duration-fast",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-duration-base",
+      "role": "motion-duration-base",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-duration-slow",
+      "role": "motion-duration-slow",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-duration-slower",
+      "role": "motion-duration-slower",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-ease-standard",
+      "role": "motion-ease-standard",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-ease-entrance",
+      "role": "motion-ease-entrance",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-ease-emphasis",
+      "role": "motion-ease-emphasis",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-stack-size",
+      "role": "badge-stack-size",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-stack-layer-scale",
+      "role": "badge-stack-layer-scale",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-bg-info-tag",
+      "role": "bg-info-tag",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-tint",
+      "role": "brand-accent-tint",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-control-disabledBg",
+      "role": "control-disabledBg",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-control-disabledText",
+      "role": "control-disabledText",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-tour-spotlight-padding",
+      "role": "tour-spotlight-padding",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-bg-canvas",
+      "role": "bg-canvas",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-bg-page",
+      "role": "bg-page",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-primary-pressed",
+      "role": "brand-primary-pressed",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-overlay-surface",
+      "role": "overlay-surface",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-overlay-scrim",
+      "role": "overlay-scrim",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-tour-spotlight-radius",
+      "role": "tour-spotlight-radius",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-safe-area-inset-bottom",
+      "role": "safe-area-inset-bottom",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-glow",
+      "role": "vibe-glow",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-canvas",
+      "role": "vibe-canvas",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-muted",
+      "role": "vibe-muted",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-control",
+      "role": "vibe-control",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-control-text",
+      "role": "vibe-control-text",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-gradient",
+      "role": "vibe-gradient",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-bg-surface",
+      "role": "bg-surface",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-bg-card",
+      "role": "bg-card",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-bg-inverse",
+      "role": "bg-inverse",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-border-card",
+      "role": "border-card",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-text-body",
+      "role": "text-body",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-text-primary",
+      "role": "text-primary",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-text-meta",
+      "role": "text-meta",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-text-secondary",
+      "role": "text-secondary",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-text-on-inverse",
+      "role": "text-on-inverse",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-local-background",
+      "role": "local-background",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-local-radius",
+      "role": "local-radius",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-primary",
+      "role": "brand-primary",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent",
+      "role": "brand-accent",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-action",
+      "role": "brand-accent-action",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-accent",
+      "role": "accent",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-support",
+      "role": "support",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-price",
+      "role": "price",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-star",
+      "role": "star",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-success",
+      "role": "state-success",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-warning",
+      "role": "state-warning",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-danger",
+      "role": "state-danger",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-info",
+      "role": "state-info",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-focus-ring",
+      "role": "focus-ring",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-atmosphere",
+      "role": "vibe-atmosphere",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-primary",
+      "role": "vibe-primary",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-vibe-accent",
+      "role": "vibe-accent",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-vibe-surface",
+      "role": "vibe-surface",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-vibe-text",
+      "role": "vibe-text",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    }
+  ]
+}
