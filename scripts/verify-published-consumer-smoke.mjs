@@ -93,7 +93,12 @@ try {
   writeFileSync(
     join(workspaceRoot, 'index.tsx'),
     `import React from 'react';
-import { GdsProvider, ReferenceThemeExplorer, GdsDataTable, createGdsTableAdapter, GdsSchemaForm, jsonSchemaToGdsFormSchema } from '@sovereignsquad/gds/client';
+import { GdsProvider, GdsDataTable, createGdsTableAdapter, GdsSchemaForm, jsonSchemaToGdsFormSchema } from '@sovereignsquad/gds/client';
+// ReferenceThemeExplorer left the main barrel in 5.0.0's bundle-size split and now
+// resolves only from its dedicated subpath. Importing it from the barrel is what made
+// this gate fail on gds-v5.0.0, v5.0.2 and v6.0.0 while the packages published fine
+// (issue 553). verify:smoke-import-surface now catches this class before publish.
+import { ReferenceThemeExplorer } from '@sovereignsquad/gds-core/reference-theme-explorer';
 import { getGdsThemePresets, resolveGdsVibeTheme } from '@sovereignsquad/gds-theme';
 import { AccessSummary } from '@sovereignsquad/gds-core';
 import { AppShell } from '@sovereignsquad/gds-admin';

@@ -496,3 +496,45 @@ Two of three original survivors were harness defects, not analysis defects — a
 had they gone undiagnosed they would have understated the audit's real
 capability, while a defect in the opposite direction would have overstated it.
 This is the fifth and sixth defect the audit has found in its own tooling.
+
+
+---
+
+## F21 — the mutation harness left contaminated artifacts on disk
+
+**Severity: high (tooling). Self-reported. This is the seventh defect the audit has
+found in its own tooling.**
+
+`scripts/audit/mutate.mjs` restored mutated **source** correctly but not the
+**artifacts**. Each analysis run rewrites `audit/registry.json`,
+`audit/forward-trace.json` and `audit/dimensions.json`, so the last file written by a
+mutation run is a *mutant's* output, not the clean baseline.
+
+The committed `audit/forward-trace.json` was carrying `--gds-audit-mutant-token` —
+the M5 mutant's planted value.
+
+**How it was caught, and why that matters.** While transcribing initial values for
+`audit/budgets.json`, the numbers came out as:
+
+| Budget | Contaminated | Clean |
+| --- | --- | --- |
+| `tokensWithGaps` | 74 | **73** |
+| `unreachableTokens` | 16 | **15** |
+| `undeclaredMantineDependencies` | 88 | **87** |
+| `registryAtomsWithoutCoverage` | 1703 | **1699** |
+
+Each was inflated by exactly the mutants' planted atoms. They did not match the
+figures already published in this document, and that mismatch is the only reason it
+surfaced. **Had the transcription been done without cross-checking, every budget in
+the ratchet — the file the entire health-retention plan depends on — would have been
+seeded from poisoned data, permanently one unit too loose.**
+
+**Fix:** the harness now snapshots the clean artifacts before the first mutant,
+restores them in a `finally`-equivalent path plus SIGINT/SIGTERM handlers, and
+asserts no mutant marker survives the run. A surviving marker fails the harness.
+
+**The general lesson, which generalises past this harness:** a test tool that writes
+artifacts must treat those artifacts as state to restore, exactly like source. F20
+recorded that a mutation harness can be wrong in the direction that flatters the
+audit; F21 records that it can also silently corrupt the inputs of everything
+downstream of it.

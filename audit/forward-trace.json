@@ -1,7 +1,7 @@
 {
-  "tokenUniverse": 74,
+  "tokenUniverse": 73,
   "darkSiblingsExcluded": 33,
-  "cellsEvaluated": 370,
+  "cellsEvaluated": 365,
   "obligationsSatisfied": {
     "listed": 42,
     "demoed": 58,
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 0,
-  "tokensWithGaps": 74,
+  "tokensWithGaps": 73,
   "rows": [
     {
       "token": "--gds-vibe-warning",
@@ -84,25 +84,6 @@
       "declaredIn": [
         "styles.css",
         "ts-emitter"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-audit-mutant-token",
-      "role": "audit-mutant-token",
-      "declaredIn": [
-        "styles.css"
       ],
       "listed": false,
       "demoed": false,

@@ -8,14 +8,16 @@ These starter templates are reference implementations for adopting projects.
 
 They are not copy-paste mandates, but they define the expected shape of a GDS-governed implementation:
 
-- [theme.ts.template](TEMPLATES/theme.ts.template)
-- [providers.tsx.template](TEMPLATES/providers.tsx.template)
-- [next-app-layout.tsx.template](TEMPLATES/next-app-layout.tsx.template)
-- [vite-main.tsx.template](TEMPLATES/vite-main.tsx.template)
-- [AppButton.tsx.template](TEMPLATES/AppButton.tsx.template)
-- [AppPageHeader.tsx.template](TEMPLATES/AppPageHeader.tsx.template)
-- [AppShell.tsx.template](TEMPLATES/AppShell.tsx.template)
-- [gds-adoption.json.template](TEMPLATES/gds-adoption.json.template)
+- [theme.ts.template](theme.ts.template)
+- [providers.tsx.template](providers.tsx.template)
+- [next-app-layout.tsx.template](next-app-layout.tsx.template)
+- [vite-main.tsx.template](vite-main.tsx.template)
+- [AppButton.tsx.template](AppButton.tsx.template)
+- [AppPageHeader.tsx.template](AppPageHeader.tsx.template)
+- [AppShell.tsx.template](AppShell.tsx.template)
+- [gds-adoption.json.template](gds-adoption.json.template)
+- [AGENTS.md.template](AGENTS.md.template) — drop-in agent rules for a consuming repository
+- [GDS_THEME_CREATION_PROMPT.md](GDS_THEME_CREATION_PROMPT.md) — the operational prompt for authoring a new theme lane
 
 Use them to:
 

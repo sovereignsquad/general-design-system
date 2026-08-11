@@ -10,7 +10,7 @@
 //
 // Output: audit/mutation-score.json
 
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 
@@ -139,6 +139,20 @@ const NOT_RUN = [
   { id: 'M10', description: 'Break a component under one theme only', targets: 'Phase 3', reason: 'Phase 3 not implemented' },
 ];
 
+// The harness rewrites audit/*.json on every analysis run, so the LAST thing it
+// writes is a MUTANT's output, not the clean baseline. Left alone, the committed
+// artifacts carry planted defects — which is exactly the input a budget file would
+// be transcribed from. Snapshot the clean artifacts first, restore them at the end.
+const ARTIFACTS = ['audit/registry.json', 'audit/forward-trace.json', 'audit/dimensions.json'];
+const artifactSnapshots = Object.fromEntries(
+  ARTIFACTS.filter((f) => existsSync(join(ROOT, f))).map((f) => [f, readFileSync(join(ROOT, f), 'utf8')]),
+);
+const restoreArtifacts = () => {
+  for (const [f, content] of Object.entries(artifactSnapshots)) writeFileSync(join(ROOT, f), content);
+};
+process.once('SIGINT', () => { restoreArtifacts(); process.exit(130); });
+process.once('SIGTERM', () => { restoreArtifacts(); process.exit(143); });
+
 const results = [];
 for (const m of MUTANTS) {
   process.stdout.write(`  ${m.id} … `);
@@ -162,6 +176,16 @@ const report = {
 };
 
 mkdirSync(join(ROOT, 'audit'), { recursive: true });
+// Restore the clean artifacts BEFORE writing the score, so a mutant's output never
+// survives the run. Verified by asserting no mutant marker remains.
+restoreArtifacts();
+for (const f of ARTIFACTS) {
+  if (!existsSync(join(ROOT, f))) continue;
+  if (/audit-mutant|MUTANT/.test(readFileSync(join(ROOT, f), 'utf8'))) {
+    console.error(`FAIL: ${f} still carries a mutant marker after restore.`);
+    process.exit(1);
+  }
+}
 writeFileSync(join(ROOT, 'audit/mutation-score.json'), JSON.stringify(report, null, 2));
 
 console.log('');
