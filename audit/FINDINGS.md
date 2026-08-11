@@ -909,3 +909,83 @@ and `--gds-control-disabledText` are also camelCase but ARE consumed by `Semanti
 so the naming is not uniformly dead and a blanket kebab-casing would break them. The token
 baseline drops 4,210 -> 4,186 values, which is a deliberate removal of tokens nothing
 referenced.
+
+
+---
+
+## F12 / F22 resolved — the published graph now describes the system, and the contrast gate can see it
+
+**F12 restated from measurement.** The published graph carried 17 vibe atmosphere roles.
+The tokens that actually paint components number 34. The overlap was exactly one: `accent`.
+A design tool importing `tokens/gds.tokens.json` received background colours and none of the
+roles that determine what a component looks like.
+
+`createGdsTokenGraph()` now emits both lanes — 425 atmosphere nodes unchanged, plus 850
+semantic nodes (34 roles x 25 presets) read from `getGdsVibeThemeCssVariables`, the same
+resolver the runtime applies to the document. Overlap 1 -> 34, coverage 100%.
+
+**The `accent` collision made F12 literal.** Publishing both lanes produced 25 duplicate-id
+errors on `<preset>.accent`, because the atmosphere `accent` is the raw preset hue and the
+semantic one is contrast-adjusted — two different values under one name. That single clash
+IS "the overlap is exactly one", and it had to be namespaced rather than merged.
+
+### F22 was not closed by publishing the graph, and saying so matters
+
+The obvious conclusion — graph now contains semantic roles, therefore the gates see them —
+is wrong, and it was checked rather than assumed.
+
+| planted defect | verify:theme-tokens | verify:tokens-dtcg | verify:theme-accessibility |
+|---|---|---|---|
+| rename `--gds-support` | passes | **fails** | n/a |
+| `--gds-text-body` -> `#f5f5f5` | passes | fails, then **passes after regenerating** | **fails at 1.04:1** |
+
+`verify:theme-tokens` validates graph STRUCTURE, and a renamed role is still structurally
+valid — it could never have detected a rename, which is why that mutant survived for a year
+and was excused. Its mutant moved to `verify:tokens-dtcg`, which demonstrably detects it.
+
+**The drift check is not enough for a value regression**, and this was measured: plant the
+contrast defect, run `npm run tokens:dtcg` as anyone would, and the drift check goes green
+while a 1.04:1 body text ships. Drift detection catches *unregenerated* change, not *wrong*
+change.
+
+So the actual F22 fix is that `createGdsThemeAccessibilityReport()` now scores the semantic
+roles it never scored: 9 pair types across 25 presets x 2 schemes, 450 new checks, 300 ->
+750 total. Every pair was measured before being made blocking — all 450 pass today, so
+enforcement was added without changing a single value.
+
+**One pair was deliberately left out.** `--gds-border-card` on `--gds-bg-card` measures below
+3:1 in 47 of 50 cells. It is not included, because WCAG 1.4.11 governs user-interface
+components and meaningful graphics, and a decorative card boundary is neither. Enforcing it
+would invent a requirement and emit 47 findings that are not violations — which is precisely
+how a gate teaches people to ignore it.
+
+**`KNOWN_SURVIVORS` is now empty.** Both entries existed against this issue and shared one
+root cause; each is killed by a named gate. Gate mutation score 17/17.
+
+### The count in the issue does not match the code
+
+The issue states 73 semantic tokens. Measurement finds **51** semantic base names — 34
+per-preset plus 17 global — out of 70 base names and 104 distinct `--gds-*` declarations.
+The "19 vibe" figure matches exactly. The 73 counted a different universe (the forward
+trace's `var()` references across component sources, which include names never declared).
+
+Recorded rather than quietly adopting either number, because three different counts of "the
+semantic tokens" now exist and any future claim has to say which it means — the same
+discipline F24 forced on "the export surface".
+
+### Type inference refused to guess, and immediately caught something
+
+`inferDtcgType` throws on an unclassifiable value rather than assigning a plausible one,
+because a duration published as `$type: "color"` is worse than an omission — a consuming
+tool acts on it. It fired on the first run against `--gds-vibe-control`, a `color-mix()` over
+`var()` references, which resolves only in a browser. It is now typed
+`com.sovereignsquad.gds.cssComputed`; `env(safe-area-inset-*)` gets `cssEnv` for the same
+reason. Neither is called a colour it cannot be parsed as.
+
+The 35 global tokens are read from **plain `:root` declarations only**. The same tokens are
+re-declared under `@media (prefers-reduced-motion)` as `0ms`/`linear` and under forced-colors
+as `transparent`; publishing an override as the token's value would have been a
+straightforward lie about what the system renders by default.
+
+Published artifact grows 152,262 -> 620,330 bytes, which is the cost of the graph describing
+the system rather than a fraction of it.

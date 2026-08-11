@@ -87,6 +87,36 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **The published token graph now describes the system, and the contrast gate can see it
+  (#585)**: `tokens/gds.tokens.json` carried 17 vibe atmosphere roles while the tokens that
+  paint components number 34, and the overlap was exactly one (`accent`). A design tool
+  importing it received background colours and none of the roles that determine what a
+  component looks like.
+
+  `createGdsTokenGraph()` now emits 425 atmosphere nodes (unchanged) plus 850 semantic nodes
+  — 34 roles x 25 presets — read from the same resolver the runtime applies to the document.
+  Scheme is a first-class dimension: each semantic token carries `{ light, dark }` under
+  `$extensions`, with `$value` holding the light value so a tool that ignores extensions
+  still gets something correct. 35 theme-invariant tokens are published once in a `global`
+  group. Overlap ratchets **1 → 34 (100% coverage)**, measured by the generator rather than
+  transcribed.
+
+  **F22 is closed, and not by the graph alone.** Publishing the roles makes a *rename* fail
+  `verify:tokens-dtcg` — but regenerating the artifact makes it pass again, so drift-checking
+  is not sufficient for a *value* regression. That was measured, not assumed. The real fix is
+  that `createGdsThemeAccessibilityReport()` now scores the semantic roles it never scored:
+  450 new checks across 25 presets × 2 schemes (300 → 750). All pass today, so enforcement
+  was added without changing any value; with `--gds-text-body` planted at `#f5f5f5` the gate
+  blocks at 1.04:1 instead of passing silently.
+
+  `KNOWN_SURVIVORS` is now **empty** and the gate mutation score is **17/17**.
+
+  **No token value changed.** DTCG types are inferred, and an unclassifiable value throws
+  rather than shipping a guessed `$type` — which fired immediately on `--gds-vibe-control`, a
+  `color-mix()` over `var()` references, now typed `cssComputed` rather than being called a
+  colour it cannot be parsed as. Global tokens are read from plain `:root` only, never the
+  reduced-motion or forced-colors overrides. Artifact grows 152 KB → 620 KB.
+
 - **All 15 unreachable tokens classified, and a gate against new ones (#586)**: added
   `npm run verify:token-reachability` and `scripts/token-reachability.config.mjs`.
 

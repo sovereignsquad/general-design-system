@@ -325,8 +325,41 @@ describe('GdsProvider', () => {
     expect(validation.ok).toBe(true);
     expect(validation.errorCount).toBe(0);
     expect(graph.themeCount).toBe(getGdsVibeThemes().length);
-    expect(graph.tokenCount).toBe(graph.themeCount * 17);
+    // Issue 585. This asserted `themeCount * 17` — the 17 atmosphere roles — and that
+    // number WAS finding F12: the graph could only ever have described the vibe palette,
+    // and a test pinned to it would have failed the moment anyone published the roles that
+    // actually paint components. Both lanes are asserted separately so neither can silently
+    // vanish behind a single total.
+    const atmosphere = graph.nodes.filter((node) => node.lane === 'atmosphere');
+    const semantic = graph.nodes.filter((node) => node.lane === 'semantic');
+    expect(atmosphere).toHaveLength(graph.themeCount * 17);
+    expect(semantic.length).toBeGreaterThan(0);
+    expect(graph.tokenCount).toBe(atmosphere.length + semantic.length);
+
+    // Every preset must publish the SAME semantic role set; a preset quietly dropping a
+    // role is exactly the drift the published graph exists to make visible.
+    const rolesPerTheme = new Map<string, Set<string>>();
+    for (const node of semantic) {
+      const set = rolesPerTheme.get(node.themeId) ?? new Set<string>();
+      set.add(node.role);
+      rolesPerTheme.set(node.themeId, set);
+    }
+    const roleSetSizes = new Set([...rolesPerTheme.values()].map((set) => set.size));
+    expect(roleSetSizes.size).toBe(1);
+    expect(rolesPerTheme.size).toBe(graph.themeCount);
+
+    // Scheme is a first-class dimension, not a name suffix (issue 585 goal 3).
+    for (const node of semantic) {
+      expect(node.mode).toBe('paired');
+      expect(node.scheme?.light).toBeTruthy();
+      expect(node.scheme?.dark).toBeTruthy();
+      expect(node.role.endsWith('-dark')).toBe(false);
+    }
+
     expect(graph.nodes.some((node) => node.id === 'default.canvas-light')).toBe(true);
+    // The role that paints body copy must be IN the published graph — the single fact
+    // whose absence was F12.
+    expect(graph.nodes.some((node) => node.id === 'default.semantic.text-body')).toBe(true);
     expect(compatibility.compatibleThemeCount).toBe(compatibility.themeCount);
     expect(compatibility.themes.find((theme) => theme.themeId === 'dark-public')?.surfaces).toHaveLength(12);
 

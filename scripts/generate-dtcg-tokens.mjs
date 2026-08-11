@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createGdsTokenGraph } from '../packages/gds-theme/dist/index.mjs';
 
@@ -24,6 +24,66 @@ const GDS_EXT = 'com.sovereignsquad.gds';
 // and the raw CSS string — conformant tooling that only understands `color`
 // skips them; nothing is lost.
 const CSS_GRADIENT_TYPE = `${GDS_EXT}.cssGradient`;
+// `env(safe-area-inset-*)` is an environment function, not a static dimension. DTCG has no
+// type for it, and publishing it as `dimension` would be worse than omitting it — a
+// consuming tool would act on a value it cannot resolve. Same escape hatch as gradients.
+const CSS_ENV_TYPE = `${GDS_EXT}.cssEnv`;
+// A value built from `color-mix()` or `var()` references resolves only in a browser, against
+// whatever the referenced tokens hold at that moment. It is a real published token, but it is
+// not a static DTCG color and calling it one would hand a consuming tool a string it cannot
+// parse while telling it the string is a colour.
+const CSS_COMPUTED_TYPE = `${GDS_EXT}.cssComputed`;
+
+/**
+ * DTCG type for a value, or a thrown error.
+ *
+ * Issue 585 is explicit that a duration published as `$type: "color"` is worse than an
+ * omission, because a consuming tool acts on it. So an unclassifiable value fails
+ * generation; it is never given a plausible type.
+ */
+function inferDtcgType(id, value) {
+  const v = String(value).trim();
+  if (/^#[0-9a-fA-F]{3,8}$/.test(v) || /^(rgba?|hsla?)\([^)]*\)$/.test(v)) return 'color';
+  if (/^-?[\d.]+(px|rem|em)$/.test(v)) return 'dimension';
+  if (/^-?[\d.]+m?s$/.test(v)) return 'duration';
+  if (/^(cubic-bezier\([^)]*\)|linear|ease|ease-in|ease-out|ease-in-out|steps\([^)]*\))$/.test(v)) return 'cubicBezier';
+  if (/gradient\(/.test(v)) return CSS_GRADIENT_TYPE;
+  if (/^env\(/.test(v)) return CSS_ENV_TYPE;
+  if (/var\(|color-mix\(/.test(v)) return CSS_COMPUTED_TYPE;
+  if (/^(transparent|none|currentColor)$/.test(v)) return 'color';
+  throw new Error(`Cannot infer DTCG type for ${id}: "${v}". Add an explicit rule rather than shipping a guessed $type.`);
+}
+
+/**
+ * Theme-invariant `--gds-*` tokens declared once in `:root`.
+ *
+ * These render identically under every preset, so they have no place in a per-theme group,
+ * but they are published tokens a design tool needs (motion durations and easings, overlay
+ * scrims, safe-area insets, tour geometry).
+ *
+ * Only PLAIN top-level `:root` declarations are taken. The same tokens are re-declared
+ * under `@media (prefers-reduced-motion)` as `0ms`/`linear` and under forced-colors as
+ * `transparent`; publishing one of those overrides as the token's value would be a
+ * straightforward lie about what the system renders by default.
+ */
+function readRootGlobals(cssPath) {
+  const css = readFileSync(cssPath, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  const found = new Map();
+  const stack = [];
+  let buffer = '';
+  for (const ch of css) {
+    if (ch === '{') { stack.push(buffer.trim()); buffer = ''; }
+    else if (ch === '}') { stack.pop(); buffer = ''; }
+    else if (ch === ';') {
+      const m = /^(--gds-[a-zA-Z0-9-]+)\s*:\s*(.+)$/.exec(buffer.trim());
+      if (m && stack.length && stack[stack.length - 1] === ':root' && !stack.some((sel) => sel.startsWith('@'))) {
+        if (!found.has(m[1])) found.set(m[1], m[2].trim());
+      }
+      buffer = '';
+    } else buffer += ch;
+  }
+  return found;
+}
 
 function buildDtcgDocument() {
   const graph = createGdsTokenGraph();
@@ -37,6 +97,31 @@ function buildDtcgDocument() {
   for (const node of graph.nodes) {
     const group = byTheme.get(node.themeId) ?? {};
     const isColor = node.category === 'color';
+
+    if (node.lane === 'semantic') {
+      // Semantic roles live in their own group per theme. They are NOT merged in beside the
+      // atmosphere roles because `accent` exists in both with different values — the single
+      // overlap finding F12 measured — and merging would silently drop one of them.
+      const semantic = group.semantic ?? {
+        $description:
+          'Semantic role tokens: the values that actually paint GDS components. '
+          + 'Each carries both scheme values under $extensions; $value is the light one.',
+      };
+      semantic[node.role] = {
+        $type: inferDtcgType(node.id, node.scheme.light),
+        // Light stays in $value so a tool that ignores $extensions still receives something
+        // correct rather than nothing.
+        $value: node.scheme.light,
+        $description: `${node.themeId} semantic role "${node.role}" — the value GDS components render for this role.`,
+        $extensions: {
+          [GDS_EXT]: { role: node.role, lane: 'semantic', scheme: node.scheme },
+        },
+      };
+      group.semantic = semantic;
+      byTheme.set(node.themeId, group);
+      continue;
+    }
+
     group[node.role] = {
       $type: isColor ? 'color' : CSS_GRADIENT_TYPE,
       $value: node.value,
@@ -46,6 +131,7 @@ function buildDtcgDocument() {
           role: node.role,
           mode: node.mode,
           category: node.category,
+          lane: 'atmosphere',
           ...(isColor ? {} : { cssComposite: true }),
         },
       },
@@ -53,7 +139,28 @@ function buildDtcgDocument() {
     byTheme.set(node.themeId, group);
   }
 
-  const gds = {};
+  // Theme-invariant tokens, published once rather than repeated per preset.
+  const globals = {};
+  const perThemeRoles = new Set(graph.nodes.map((node) => `--gds-${node.role}`));
+  for (const [property, value] of [...readRootGlobals(resolve(root, 'packages/gds-theme/styles.css'))].sort()) {
+    if (perThemeRoles.has(property)) continue;
+    const role = property.replace(/^--gds-/, '');
+    globals[role] = {
+      $type: inferDtcgType(property, value),
+      $value: value,
+      $description: `Theme-invariant GDS token "${role}" — identical under every preset.`,
+      $extensions: { [GDS_EXT]: { role, lane: 'global', cssProperty: property } },
+    };
+  }
+
+  const gds = {
+    global: {
+      $description:
+        'Tokens that render identically under every preset (motion, overlay, safe-area, tour geometry). '
+        + 'Values are the plain :root declarations, not the reduced-motion or forced-colors overrides.',
+      ...globals,
+    },
+  };
   for (const themeId of graph.themes) {
     gds[themeId] = {
       $description: `GDS theme preset: ${themeId}`,
@@ -72,7 +179,12 @@ function buildDtcgDocument() {
         source: 'createGdsTokenGraph() from @sovereignsquad/gds-theme',
         themeCount: graph.themeCount,
         tokenCount: graph.tokenCount,
+        atmosphereTokenCount: graph.nodes.filter((n) => n.lane === 'atmosphere').length,
+        semanticTokenCount: graph.nodes.filter((n) => n.lane === 'semantic').length,
+        globalTokenCount: Object.keys(globals).length,
         cssGradientType: CSS_GRADIENT_TYPE,
+        cssEnvType: CSS_ENV_TYPE,
+        cssComputedType: CSS_COMPUTED_TYPE,
         note: 'Regenerated and drift-checked in CI (verify:tokens-dtcg). The code tokens remain the single source of truth.',
       },
     },
@@ -84,8 +196,35 @@ function serialize(document) {
   return `${JSON.stringify(document, null, 2)}\n`;
 }
 
+// Issue 585 measures its own result. `publishedGraphOverlap` ratchets on this, and a budget
+// whose number is transcribed by hand is a budget that can be wrong in the flattering
+// direction — finding F21's lesson.
+function writeOverlapMeasurement(document, graph) {
+  const runtimeSemanticRoles = new Set(graph.nodes.filter((n) => n.lane === 'semantic').map((n) => n.role));
+  const publishedRoles = new Set();
+  for (const [themeId, group] of Object.entries(document.gds)) {
+    if (themeId.startsWith('$') || themeId === 'global') continue;
+    for (const role of Object.keys(group.semantic ?? {})) {
+      if (!role.startsWith('$')) publishedRoles.add(role);
+    }
+  }
+  const overlap = [...publishedRoles].filter((role) => runtimeSemanticRoles.has(role));
+  mkdirSync(resolve(root, 'audit'), { recursive: true });
+  writeFileSync(resolve(root, 'audit/published-graph.json'), `${JSON.stringify({
+    runtimeSemanticRoles: runtimeSemanticRoles.size,
+    publishedSemanticRoles: publishedRoles.size,
+    overlap: overlap.length,
+    coverage: runtimeSemanticRoles.size ? Number(((overlap.length / runtimeSemanticRoles.size) * 100).toFixed(1)) : 0,
+    globalTokens: Object.keys(document.gds.global).filter((k) => !k.startsWith('$')).length,
+    totalTokens: graph.tokenCount,
+  }, null, 2)}\n`);
+  return overlap.length;
+}
+
 const isCheck = process.argv.includes('--check');
-const nextContent = serialize(buildDtcgDocument());
+const nextDocument = buildDtcgDocument();
+writeOverlapMeasurement(nextDocument, createGdsTokenGraph());
+const nextContent = serialize(nextDocument);
 
 if (isCheck) {
   let current;
