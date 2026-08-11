@@ -1,0 +1,68 @@
+{
+  "releaseChainGates": 22,
+  "gatesWithMutants": 8,
+  "gatesExempted": 15,
+  "mutantsRun": 8,
+  "killed": 6,
+  "gateMutationSuiteScore": 75,
+  "unexplainedSurvivors": 0,
+  "coverageFailures": [],
+  "results": [
+    {
+      "gate": "verify:budgets",
+      "mutantId": "budgets-detects-regression",
+      "claim": "Detects a measured value exceeding its budget",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:smoke-import-surface",
+      "mutantId": "smoke-detects-stale-import",
+      "claim": "Detects a fixture import resolved from an entrypoint that does not export it — the exact issue 553 defect",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:api-jsdoc-coverage",
+      "mutantId": "jsdoc-detects-undocumented-export",
+      "claim": "Reports true JSDoc coverage rather than a vacuous 0/0 = 100%",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:theme-tokens",
+      "mutantId": "theme-tokens-detects-renamed-token",
+      "claim": "Detects a semantic token disappearing from the emitted set",
+      "status": "SURVIVED",
+      "detail": "gate exited 0 — the claim below is UNSUPPORTED"
+    },
+    {
+      "gate": "verify:component-catalog-parity",
+      "mutantId": "catalog-detects-unregistered-component",
+      "claim": "Detects a public UI component that is neither registered nor exempted",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:vendor-pin",
+      "mutantId": "vendor-pin-detects-unpinned-version",
+      "claim": "Detects a governed vendor dependency drifting off its pinned version",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:theme-accessibility",
+      "mutantId": "theme-a11y-detects-contrast-regression",
+      "claim": "Detects a semantic text colour dropping below its contrast floor",
+      "status": "SURVIVED",
+      "detail": "gate exited 0 — the claim below is UNSUPPORTED"
+    },
+    {
+      "gate": "verify:tokens-dtcg",
+      "mutantId": "dtcg-detects-token-graph-drift",
+      "claim": "Detects the committed DTCG graph drifting from the source tokens",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    }
+  ]
+}

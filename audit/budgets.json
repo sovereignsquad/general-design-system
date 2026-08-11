@@ -96,6 +96,14 @@
       "unit": "%",
       "finding": "F5 (instrument validation)",
       "justifiedBy": "issue 579 - M1 and M2 both killed; Phase 1 is only trustworthy while these stay killed"
+    },
+    "gateSuiteUnexplainedSurvivors": {
+      "source": "gate-mutation-score.json#/unexplainedSurvivors",
+      "direction": "max",
+      "value": 0,
+      "unit": "count",
+      "finding": "issue 580",
+      "justifiedBy": "issue 580 - every survivor must be either killed or filed with a dated issue"
     }
   }
 }
