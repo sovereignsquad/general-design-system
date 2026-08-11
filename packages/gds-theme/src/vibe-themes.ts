@@ -1,5 +1,16 @@
 import type { GdsThemePresetId } from './theme-presets';
-import { ensureContrast, mixCssColors, parseCssColor, readableForeground } from './color-math';
+import { readableForeground } from './color-math';
+import {
+  classUsaDefaultColorRamps,
+  deriveVibeSemanticCssVariables,
+  emitClassUsaCssVariables,
+  emitGoldAthleteCssVariables,
+  goldAthleteDefaultColorRamps,
+} from './semantic-token-source';
+
+// Issue 554: re-exported, not defined here. The public surface is unchanged; the
+// definition moved so that every semantic-role value lives in one module.
+export { deriveVibeSemanticCssVariables };
 
 // This file intentionally maintains its own hand-authored color values rather
 // than deriving them from `theme-presets.ts`'s Mantine hue names (e.g.
@@ -547,287 +558,18 @@ export function resolveGdsVibeTheme(id: GdsThemePresetId) {
   return vibeThemes[id] ?? neutralVibe;
 }
 
-// v2 re-base (issue 536). Must stay byte-identical to
-// `deriveClassUsaSemanticTokens`'s output in `brand-tokens.ts` — both are
-// hand-authored from the same `class-usa-v2-token-spec.md` "Semantic tokens"
-// table so a consumer reading either layer sees the same brand.
-const classUsaSemanticCssVariables = {
-  '--gds-brand-primary': '#0f2c4a',
-  '--gds-brand-primary-dark': '#f2ede4',
-  '--gds-brand-primary-pressed': '#071626',
-  '--gds-brand-primary-pressed-dark': '#071626',
-  '--gds-brand-accent': '#c24a0a',
-  '--gds-brand-accent-dark': '#f5793b',
-  '--gds-brand-accent-action': '#c24a0a',
-  '--gds-brand-accent-action-dark': '#f5793b',
-  '--gds-accent': '#c24a0a',
-  '--gds-accent-dark': '#f5793b',
-  '--gds-support': '#4f8a5b',
-  '--gds-support-dark': '#8fc2a0',
-  '--gds-bg-canvas': '#faf7f1',
-  '--gds-bg-canvas-dark': '#14171c',
-  '--gds-bg-card': '#ffffff',
-  '--gds-bg-card-dark': '#1c2027',
-  '--gds-bg-page': '#faf7f1',
-  '--gds-bg-page-dark': '#14171c',
-  '--gds-bg-surface': '#ffffff',
-  '--gds-bg-surface-dark': '#1c2027',
-  '--gds-bg-inverse': '#0f2c4a',
-  '--gds-bg-inverse-dark': '#0f2c4a',
-  '--gds-border-card': '#e6e1d8',
-  '--gds-border-card-dark': '#2c323b',
-  '--gds-text-body': '#1f3a5c',
-  '--gds-text-body-dark': '#f2ede4',
-  '--gds-text-meta': '#5b6573',
-  '--gds-text-meta-dark': '#b8bfc9',
-  '--gds-text-primary': '#1f3a5c',
-  '--gds-text-primary-dark': '#f2ede4',
-  '--gds-text-secondary': '#5b6573',
-  '--gds-text-secondary-dark': '#b8bfc9',
-  '--gds-text-on-inverse': '#faf7f1',
-  '--gds-text-on-inverse-dark': '#faf7f1',
-  '--gds-nav-inactiveOnInverse': 'rgba(250,247,241,0.72)',
-  '--gds-nav-inactiveOnInverse-dark': 'rgba(250,247,241,0.72)',
-  '--gds-price': '#c78a2c',
-  '--gds-price-dark': '#e0a23c',
-  '--gds-star': '#c24a0a',
-  '--gds-star-dark': '#f5793b',
-  '--gds-state-success': '#4f8a5b',
-  '--gds-state-success-dark': '#8fc2a0',
-  '--gds-state-warning': '#c78a2c',
-  '--gds-state-warning-dark': '#e0a23c',
-  '--gds-state-danger': '#b3261e',
-  '--gds-state-danger-dark': '#f2786f',
-  '--gds-state-info': '#1d6fa5',
-  '--gds-state-info-dark': '#6fb6e8',
-  '--gds-badge-attention': '#c24a0a',
-  '--gds-badge-attention-dark': '#f5793b',
-  '--gds-badge-validation': '#4f8a5b',
-  '--gds-badge-validation-dark': '#8fc2a0',
-  '--gds-badge-info': '#f6f1ea',
-  '--gds-badge-info-dark': '#232830',
-  '--gds-badge-urgencyBg': '#fdede3',
-  '--gds-badge-urgencyBg-dark': '#4a2410',
-  '--gds-bg-info-tag': '#f6f1ea',
-  '--gds-bg-info-tag-dark': '#232830',
-  '--gds-brand-accent-tint': '#fdede3',
-  '--gds-brand-accent-tint-dark': '#4a2410',
-  '--gds-focus-ring': '#c24a0a',
-  '--gds-focus-ring-dark': '#f5793b',
-  '--gds-control-disabledBg': '#f1efea',
-  '--gds-control-disabledBg-dark': '#2c323b',
-  '--gds-control-disabledText': '#7a7f88',
-  '--gds-control-disabledText-dark': '#8a919c',
-};
-
-const goldAthleteSemanticCssVariables = {
-  '--gds-brand-primary': '#12161c',
-  '--gds-brand-primary-dark': '#fbf7ee',
-  '--gds-brand-primary-pressed': '#0a0d12',
-  '--gds-brand-primary-pressed-dark': '#0a0d12',
-  '--gds-brand-accent': '#c08a12',
-  '--gds-brand-accent-dark': '#e7bd5c',
-  '--gds-brand-accent-action': '#8a5a00',
-  '--gds-brand-accent-action-dark': '#e7bd5c',
-  '--gds-accent': '#c08a12',
-  '--gds-accent-dark': '#e7bd5c',
-  '--gds-support': '#b3261e',
-  '--gds-support-dark': '#e5776e',
-  '--gds-bg-canvas': '#fbf7ee',
-  '--gds-bg-canvas-dark': '#0a0d12',
-  '--gds-bg-card': '#ffffff',
-  '--gds-bg-card-dark': '#16191f',
-  '--gds-bg-page': '#fbf7ee',
-  '--gds-bg-page-dark': '#0a0d12',
-  '--gds-bg-surface': '#ffffff',
-  '--gds-bg-surface-dark': '#16191f',
-  '--gds-bg-inverse': '#12161c',
-  '--gds-bg-inverse-dark': '#12161c',
-  '--gds-border-card': '#ede2c6',
-  '--gds-border-card-dark': '#2b303a',
-  '--gds-text-body': '#12161c',
-  '--gds-text-body-dark': '#fbf7ee',
-  '--gds-text-meta': '#414b57',
-  '--gds-text-meta-dark': '#d6c8a6',
-  '--gds-text-primary': '#12161c',
-  '--gds-text-primary-dark': '#fbf7ee',
-  '--gds-text-secondary': '#414b57',
-  '--gds-text-secondary-dark': '#d6c8a6',
-  '--gds-text-on-inverse': '#fbf7ee',
-  '--gds-text-on-inverse-dark': '#fbf7ee',
-  '--gds-nav-inactiveOnInverse': 'rgba(251,247,238,0.72)',
-  '--gds-nav-inactiveOnInverse-dark': 'rgba(251,247,238,0.72)',
-  '--gds-price': '#8a5a00',
-  '--gds-price-dark': '#e7bd5c',
-  '--gds-star': '#8a5a00',
-  '--gds-star-dark': '#e7bd5c',
-  '--gds-state-success': '#3f6f2a',
-  '--gds-state-success-dark': '#8fc271',
-  '--gds-state-warning': '#8a5a00',
-  '--gds-state-warning-dark': '#e0a23c',
-  '--gds-state-danger': '#b3261e',
-  '--gds-state-danger-dark': '#f2786f',
-  '--gds-state-info': '#12161c',
-  '--gds-state-info-dark': '#aab1ba',
-  '--gds-badge-attention': '#c08a12',
-  '--gds-badge-attention-dark': '#e7bd5c',
-  '--gds-badge-validation': '#3f6f2a',
-  '--gds-badge-validation-dark': '#8fc271',
-  '--gds-badge-info': '#f5eeda',
-  '--gds-badge-info-dark': '#232830',
-  '--gds-badge-urgencyBg': '#f9cfcc',
-  '--gds-badge-urgencyBg-dark': '#54100c',
-  '--gds-bg-info-tag': '#f5eeda',
-  '--gds-bg-info-tag-dark': '#232830',
-  '--gds-brand-accent-tint': '#f9cfcc',
-  '--gds-brand-accent-tint-dark': '#54100c',
-  '--gds-focus-ring': '#8a5a00',
-  '--gds-focus-ring-dark': '#efd189',
-  '--gds-control-disabledBg': '#e7e2d5',
-  '--gds-control-disabledBg-dark': '#2b303a',
-  '--gds-control-disabledText': '#77746c',
-  '--gds-control-disabledText-dark': '#8a8f99',
-};
+// Issue 554. These two lanes' semantic values are GENERATED from the single source in
+// `semantic-token-source.ts` — the same table `createBrandTheme` emits from — so the two
+// paths cannot disagree. Previously both were hand-authored from the same spec document
+// and a comment here asked a human to keep them byte-identical. That instruction is what
+// `verify:token-single-source` now enforces mechanically instead.
+const classUsaSemanticCssVariables = emitClassUsaCssVariables(classUsaDefaultColorRamps);
+const goldAthleteSemanticCssVariables = emitGoldAthleteCssVariables(goldAthleteDefaultColorRamps);
 
 const brandSemanticCssVariablesByPreset: Partial<Record<GdsThemePresetId, Record<string, string>>> = {
   'class-usa': classUsaSemanticCssVariables,
   'gold-athlete': goldAthleteSemanticCssVariables,
 };
-
-// Fixed, non-preset-tinted anchors for the three "alarm" state colors. Verified
-// against the two hand-authored presets: `state-danger`/`state-danger-dark` and
-// `state-warning-dark` are byte-identical between `class-usa` and `gold-athlete`
-// (`#b3261e`/`#f2786f` and `#e0a23c` respectively) — i.e. those roles were never
-// preset-tinted to begin with, so the derivation below doesn't tint them either.
-const UNIVERSAL_SUCCESS = '#1f8a4c';
-const UNIVERSAL_WARNING = '#b45309';
-const UNIVERSAL_WARNING_DARK = '#e0a23c';
-const UNIVERSAL_DANGER = '#b3261e';
-const UNIVERSAL_DANGER_DARK = '#f2786f';
-
-/** Nudges `candidate` toward black/white (in sRGB, matching the runtime `color-mix(in srgb, ...)`) until it clears `minRatio` against `background`, or gives up after 16 steps. */
-function toRgba(hexOrRgb: string, alpha: number): string {
-  const parsed = parseCssColor(hexOrRgb);
-  if (!parsed) {
-    return hexOrRgb;
-  }
-  return `rgba(${Math.round(parsed.r)}, ${Math.round(parsed.g)}, ${Math.round(parsed.b)}, ${alpha})`;
-}
-
-/**
- * Derives the full `--gds-*` semantic role variable set (the same 33-role schema
- * hand-authored for `class-usa`/`gold-athlete` — see `classUsaSemanticCssVariables`)
- * for any vibe theme that doesn't define one of its own, so badges and other
- * semantic-role consumers get a real per-preset color everywhere instead of
- * falling through to the 12 generic `--gds-vibe-*` variables. Several roles reuse
- * an already-WCAG-safe vibe field directly (e.g. `brand-primary` = `textLight`,
- * confirmed identical to that role in both hand-authored presets); the rest are
- * mixed from the preset's own hue and pushed toward black/white with
- * {@link ensureContrast} until they clear WCAG AA/non-text-AA against their
- * background, rather than being hand-picked per preset.
- */
-export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<string, string> {
-  const accentLight = ensureContrast(vibe.accent, vibe.canvasLight, 3, false, vibe.canvasLight);
-  const accentDark = ensureContrast(mixCssColors(vibe.accent, '#ffffff', 0.75, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
-  const accentAction = ensureContrast(mixCssColors(vibe.accent, '#000000', 0.75, vibe.canvasLight), vibe.canvasLight, 4.5, false, vibe.canvasLight);
-
-  const successLight = ensureContrast(mixCssColors(UNIVERSAL_SUCCESS, vibe.primary, 0.75, vibe.canvasLight), vibe.canvasLight, 3, false, vibe.canvasLight);
-  const successDark = ensureContrast(mixCssColors(UNIVERSAL_SUCCESS, '#ffffff', 0.55, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
-  const warningLight = ensureContrast(mixCssColors(UNIVERSAL_WARNING, vibe.primary, 0.75, vibe.canvasLight), vibe.canvasLight, 3, false, vibe.canvasLight);
-  const infoDark = ensureContrast(mixCssColors(vibe.mutedDark, '#ffffff', 0.3, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
-
-  const bgCardDark = mixCssColors(vibe.canvasDark, '#ffffff', 0.88, vibe.canvasDark);
-  const navInactiveOnInverse = toRgba(vibe.textDark, 0.72);
-
-  const badgeInfoLight = mixCssColors(vibe.canvasLight, vibe.textLight, 0.92, vibe.canvasLight);
-  const badgeInfoDark = mixCssColors(vibe.canvasDark, vibe.textDark, 0.85, vibe.canvasDark);
-  const badgeUrgencyBgLight = mixCssColors('#ffffff', UNIVERSAL_DANGER, 0.85, vibe.canvasLight);
-  const badgeUrgencyBgDark = mixCssColors(vibe.canvasDark, UNIVERSAL_DANGER, 0.75, vibe.canvasDark);
-
-  const controlDisabledBgLight = mixCssColors(vibe.canvasLight, vibe.mutedLight, 0.85, vibe.canvasLight);
-  const controlDisabledBgDark = mixCssColors(vibe.canvasDark, vibe.mutedDark, 0.75, vibe.canvasDark);
-
-  const supportLight = mixCssColors(vibe.mutedLight, accentLight, 0.6, vibe.canvasLight);
-  const supportDark = mixCssColors(vibe.mutedDark, accentDark, 0.6, vibe.canvasDark);
-  // issue #537: `support` is a background the theme picks freely, so neither a light
-  // nor a dark foreground can be assumed across 25 presets x 2 schemes. Derive it.
-  // ChoiceChip previously paired `text.onInverse` with `support` - two roles never
-  // designed to meet - which passed here only because these lanes run through
-  // ensureContrast at all, and failed outright in the hand-authored brand lanes.
-  const textOnSupportLight = readableForeground(supportLight, 4.5, vibe.canvasLight);
-  const textOnSupportDark = readableForeground(supportDark, 4.5, vibe.canvasDark);
-
-  return {
-    '--gds-brand-primary': vibe.textLight,
-    '--gds-brand-primary-dark': vibe.textDark,
-    '--gds-brand-primary-pressed': vibe.canvasDark,
-    '--gds-brand-primary-pressed-dark': vibe.canvasDark,
-    '--gds-brand-accent': accentLight,
-    '--gds-brand-accent-dark': accentDark,
-    '--gds-brand-accent-action': accentAction,
-    '--gds-brand-accent-action-dark': accentAction,
-    '--gds-accent': accentLight,
-    '--gds-accent-dark': accentDark,
-    '--gds-support': supportLight,
-    '--gds-support-dark': supportDark,
-    '--gds-text-on-support': textOnSupportLight,
-    '--gds-text-on-support-dark': textOnSupportDark,
-    '--gds-bg-canvas': vibe.canvasLight,
-    '--gds-bg-canvas-dark': vibe.canvasDark,
-    '--gds-bg-card': '#ffffff',
-    '--gds-bg-card-dark': bgCardDark,
-    '--gds-bg-page': vibe.canvasLight,
-    '--gds-bg-page-dark': vibe.canvasDark,
-    '--gds-bg-surface': '#ffffff',
-    '--gds-bg-surface-dark': bgCardDark,
-    '--gds-bg-inverse': vibe.textLight,
-    '--gds-bg-inverse-dark': vibe.textLight,
-    '--gds-border-card': vibe.borderLight,
-    '--gds-border-card-dark': vibe.borderDark,
-    '--gds-text-body': vibe.textLight,
-    '--gds-text-body-dark': vibe.textDark,
-    '--gds-text-meta': vibe.mutedLight,
-    '--gds-text-meta-dark': vibe.mutedDark,
-    '--gds-text-primary': vibe.textLight,
-    '--gds-text-primary-dark': vibe.textDark,
-    '--gds-text-secondary': vibe.mutedLight,
-    '--gds-text-secondary-dark': vibe.mutedDark,
-    '--gds-text-on-inverse': vibe.textDark,
-    '--gds-text-on-inverse-dark': vibe.textDark,
-    '--gds-nav-inactiveOnInverse': navInactiveOnInverse,
-    '--gds-nav-inactiveOnInverse-dark': navInactiveOnInverse,
-    '--gds-price': accentLight,
-    '--gds-price-dark': accentDark,
-    '--gds-star': accentLight,
-    '--gds-star-dark': accentDark,
-    '--gds-state-success': successLight,
-    '--gds-state-success-dark': successDark,
-    '--gds-state-warning': warningLight,
-    '--gds-state-warning-dark': UNIVERSAL_WARNING_DARK,
-    '--gds-state-danger': UNIVERSAL_DANGER,
-    '--gds-state-danger-dark': UNIVERSAL_DANGER_DARK,
-    '--gds-state-info': vibe.textLight,
-    '--gds-state-info-dark': infoDark,
-    '--gds-badge-attention': accentLight,
-    '--gds-badge-attention-dark': accentDark,
-    '--gds-badge-validation': successLight,
-    '--gds-badge-validation-dark': successDark,
-    '--gds-badge-info': badgeInfoLight,
-    '--gds-badge-info-dark': badgeInfoDark,
-    '--gds-badge-urgencyBg': badgeUrgencyBgLight,
-    '--gds-badge-urgencyBg-dark': badgeUrgencyBgDark,
-    '--gds-bg-info-tag': badgeInfoLight,
-    '--gds-bg-info-tag-dark': badgeInfoDark,
-    '--gds-brand-accent-tint': badgeUrgencyBgLight,
-    '--gds-brand-accent-tint-dark': badgeUrgencyBgDark,
-    '--gds-focus-ring': accentAction,
-    '--gds-focus-ring-dark': accentDark,
-    '--gds-control-disabledBg': controlDisabledBgLight,
-    '--gds-control-disabledBg-dark': controlDisabledBgDark,
-    '--gds-control-disabledText': vibe.mutedLight,
-    '--gds-control-disabledText-dark': vibe.mutedDark,
-  };
-}
 
 const derivedSemanticCssVariablesCache = new Map<GdsThemePresetId, Record<string, string>>();
 

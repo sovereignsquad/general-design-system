@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — Registry-derived obligation coverage, gate mutation testing, and board governance
+## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
 No package or component source changed; no version bump. Tooling, governance,
 and documentation only.
@@ -27,6 +27,44 @@ and documentation only.
   stays green. This is F12's root cause reaching further than F12 reported, and it is the
   mechanism behind #537. Recorded as `KNOWN_SURVIVORS` against #585, dated, and reported
   every run.
+
+- **Semantic token values now have exactly one definition (#554)**: added
+  `packages/gds-theme/src/semantic-token-source.ts` and
+  `npm run verify:token-single-source`, chained into `verify:release` after `build`.
+
+  GDS's Core Principle 3 is "One Token Source". That promise was false inside the theme
+  package itself: `brand-tokens.ts` derived the Class USA and Gold Athlete semantic roles
+  as `role -> { light, dark }` pairs while `vibe-themes.ts` carried the same values a
+  second time as flat `--gds-*` records — with a comment asking a human to keep them
+  byte-identical. The cost had already been paid once, in the `GdsProvider` inline-style
+  token bug fixed in 5.0.1/5.0.2.
+
+  **There was a third copy, not two** (F26). `createBrandTheme` applied per-lane overrides
+  *after* calling the emitter, so `--gds-brand-accent-action` was unreachable through the
+  emitter. The first consolidation attempt therefore introduced a divergence in exactly
+  that role. Folded into lane emitters (`emitClassUsaCssVariables`,
+  `emitGoldAthleteCssVariables`) which are now the complete definition of a lane.
+
+  **Migration proof**: all 25 presets x 2 schemes plus both brand themes were snapshotted
+  from the pre-refactor build and compared after — **0 values changed, 0 tokens removed,
+  16 added**. The 16 are the camelCase aliases (`--gds-brand-primaryPressed`,
+  `--gds-text-onInverse`) that the provider path already emitted and the document path did
+  not; both paths now emit identical key sets. The snapshot is committed as a fixture and
+  a test fails on any future drift.
+
+  The gate asserts **both** structure (no parallel table outside the owning module) and
+  behaviour (both consumption paths resolve every shared role to the same value). Structure
+  alone would have missed the third copy, which was two assignment statements rather than
+  a table.
+
+  `vibe-themes.ts` cannot simply import `brand-tokens.ts` — that path closes a cycle
+  through `token-operations.ts`. The dependency-free module is what makes single-sourcing
+  reachable at all, not merely tidier.
+
+- **The two export-coverage gates now share one internal-exports list**: `verify:api-docs-coverage`
+  and `verify:pattern-export-coverage` each carried a hand-maintained copy of the same 23
+  names — the same dual-source pattern #554 exists to remove, sitting in the tooling that
+  polices it. Extracted to `scripts/config/internal-exports.config.mjs`.
 
 - **Registry-derived obligation coverage (#581)**: added
   `npm run verify:obligation-coverage`, chained into `verify:release`. Obligations are

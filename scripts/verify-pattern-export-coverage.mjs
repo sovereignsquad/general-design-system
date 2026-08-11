@@ -70,40 +70,8 @@ const packageSourceDirs = {
   '@sovereignsquad/gds-admin': resolve(root, 'packages/gds-admin/src'),
 };
 
-const ignoredExports = new Set([
-  'PROVIDER_IDENTITY_REGISTRY',
-  'ar',
-  'de',
-  'en',
-  'es',
-  'fr',
-  'gdsLocales',
-  'he',
-  'hu',
-  'it',
-  'ja',
-  'ko',
-  'ru',
-  'zh',
-  // packages/gds-theme/src/color-math.ts: pure internal sRGB color-math primitives
-  // shared between vibe-themes.ts and accessibility-report.ts. Not part of the
-  // package's public barrel (index.ts/client.ts/server.ts don't re-export them)
-  // and not a UI pattern, so there's no playground demo for them to cover.
-  'parseCssColor',
-  'blend',
-  'resolveOpaque',
-  'toRgbString',
-  'mixCssColors',
-  'luminance',
-  'contrastRatio',
-  // issue #537 promoted these two out of vibe-themes.ts so the hand-authored brand
-  // lanes could derive contrast-safe pairs the same way the generic lanes do, instead
-  // of hand-picking values. Same nature as the primitives above: internal, shared
-  // between vibe-themes.ts and brand-tokens.ts, absent from the public barrel, and not
-  // a UI pattern.
-  'ensureContrast',
-  'readableForeground',
-]);
+import { INTERNAL_EXPORTS as ignoredExports } from './config/internal-exports.config.mjs';
+
 
 const coveredByPackage = new Map();
 for (const entry of coverageEntries) {
