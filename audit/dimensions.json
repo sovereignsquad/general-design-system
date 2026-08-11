@@ -1,0 +1,347 @@
+{
+  "languageVariants": {
+    "packageLocales": [
+      "ar",
+      "de",
+      "en",
+      "es",
+      "fr",
+      "he",
+      "hu",
+      "it",
+      "ja",
+      "ko",
+      "ru",
+      "zh"
+    ],
+    "siteLocales": [
+      "ar",
+      "de",
+      "es",
+      "fr",
+      "he",
+      "hu",
+      "it",
+      "ru"
+    ],
+    "packageLocalesWithNoSitePack": [
+      "ja",
+      "ko",
+      "zh"
+    ],
+    "siteLocalesWithNoPackagePack": [],
+    "packageParity": [
+      {
+        "locale": "ar",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "de",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "en",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "es",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "fr",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "he",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "hu",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "it",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "ja",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "ko",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "ru",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "zh",
+        "keys": 188,
+        "missing": 0,
+        "extra": 0
+      }
+    ],
+    "siteParity": [
+      {
+        "locale": "ar",
+        "keys": 1249,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "de",
+        "keys": 1249,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "es",
+        "keys": 1249,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "fr",
+        "keys": 1249,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "he",
+        "keys": 1249,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "hu",
+        "keys": 1249,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "it",
+        "keys": 1249,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "ru",
+        "keys": 1249,
+        "missing": 0,
+        "extra": 0
+      }
+    ],
+    "englishLeakage": [
+      {
+        "corpus": "site",
+        "locale": "hu",
+        "total": 1249,
+        "untranslated": 47,
+        "rate": 3.8
+      },
+      {
+        "corpus": "site",
+        "locale": "de",
+        "total": 1249,
+        "untranslated": 43,
+        "rate": 3.4
+      },
+      {
+        "corpus": "site",
+        "locale": "he",
+        "total": 1249,
+        "untranslated": 41,
+        "rate": 3.3
+      },
+      {
+        "corpus": "package",
+        "locale": "de",
+        "total": 188,
+        "untranslated": 5,
+        "rate": 2.7
+      },
+      {
+        "corpus": "site",
+        "locale": "fr",
+        "total": 1249,
+        "untranslated": 31,
+        "rate": 2.5
+      },
+      {
+        "corpus": "package",
+        "locale": "fr",
+        "total": 188,
+        "untranslated": 4,
+        "rate": 2.1
+      },
+      {
+        "corpus": "site",
+        "locale": "it",
+        "total": 1249,
+        "untranslated": 20,
+        "rate": 1.6
+      },
+      {
+        "corpus": "site",
+        "locale": "ru",
+        "total": 1249,
+        "untranslated": 20,
+        "rate": 1.6
+      },
+      {
+        "corpus": "package",
+        "locale": "it",
+        "total": 188,
+        "untranslated": 3,
+        "rate": 1.6
+      },
+      {
+        "corpus": "site",
+        "locale": "ar",
+        "total": 1249,
+        "untranslated": 18,
+        "rate": 1.4
+      },
+      {
+        "corpus": "site",
+        "locale": "es",
+        "total": 1249,
+        "untranslated": 17,
+        "rate": 1.4
+      },
+      {
+        "corpus": "package",
+        "locale": "es",
+        "total": 188,
+        "untranslated": 1,
+        "rate": 0.5
+      },
+      {
+        "corpus": "package",
+        "locale": "zh",
+        "total": 188,
+        "untranslated": 1,
+        "rate": 0.5
+      },
+      {
+        "corpus": "package",
+        "locale": "ar",
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "package",
+        "locale": "he",
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "package",
+        "locale": "hu",
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "package",
+        "locale": "ja",
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "package",
+        "locale": "ko",
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "package",
+        "locale": "ru",
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
+      }
+    ],
+    "rtlLocales": [
+      "ar",
+      "he"
+    ]
+  },
+  "themeControl": {
+    "mantineVarsGdsDeclares": 5,
+    "mantineVarsGdsConsumes": 93,
+    "mantineVarsGdsConsumesButNeverDeclares": 88,
+    "mantineComponentsWithGdsDefaults": 20,
+    "mantineComponentsList": [
+      "sizes",
+      "Popover",
+      "Button",
+      "Card",
+      "Paper",
+      "Alert",
+      "Code",
+      "Input",
+      "TextInput",
+      "Table",
+      "Badge",
+      "AppShell",
+      "Card",
+      "Paper",
+      "Table",
+      "Card",
+      "Paper",
+      "sizes",
+      "Card",
+      "Paper"
+    ]
+  },
+  "underived": {
+    "registryKinds": 17,
+    "coveredKinds": 13,
+    "uncoveredKinds": [
+      {
+        "kind": "export",
+        "atoms": 590
+      },
+      {
+        "kind": "prop",
+        "atoms": 1003
+      },
+      {
+        "kind": "variant",
+        "atoms": 100
+      },
+      {
+        "kind": "accent",
+        "atoms": 10
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "mutantsRun": 7,
+  "killed": 6,
+  "survived": [
+    {
+      "id": "M3",
+      "description": "Remove a token from the published DTCG graph",
+      "targets": "Phase 2 (listed obligation)",
+      "how": "listed 42->42, variationsShown 1->1"
+    }
+  ],
+  "invalid": [],
+  "mutationScore": 85.7,
+  "notRun": [
+    {
+      "id": "M1",
+      "description": "Hardcode a radius equal to the default theme value",
+      "targets": "Phase 1",
+      "reason": "requires a playground rebuild between baseline and mutant"
+    },
+    {
+      "id": "M2",
+      "description": "Hardcode a colour not in any token",
+      "targets": "Phase 1",
+      "reason": "same"
+    },
+    {
+      "id": "M8",
+      "description": "Remove a prefers-reduced-motion guard",
+      "targets": "Phase 4a",
+      "reason": "Phase 4a was a manual analysis, not an automated script"
+    },
+    {
+      "id": "M9",
+      "description": "Set a focus-ring width to 0",
+      "targets": "Phase 3",
+      "reason": "Phase 3 not implemented"
+    },
+    {
+      "id": "M10",
+      "description": "Break a component under one theme only",
+      "targets": "Phase 3",
+      "reason": "Phase 3 not implemented"
+    }
+  ],
+  "results": [
+    {
+      "id": "M3",
+      "description": "Remove a token from the published DTCG graph",
+      "targets": "Phase 2 (listed obligation)",
+      "status": "SURVIVED",
+      "how": "listed 42->42, variationsShown 1->1"
+    },
+    {
+      "id": "M4",
+      "description": "Make a declared token unreachable (remove its only var() reference)",
+      "targets": "Phase 2 (demoed obligation)",
+      "status": "KILLED",
+      "how": "demoed 58->57"
+    },
+    {
+      "id": "M5",
+      "description": "Add a new undocumented token with no obligations met",
+      "targets": "Phase 0 (registry) + Phase 2 (gap detection)",
+      "status": "KILLED",
+      "how": "universe 73->74, tokensWithGaps 73->74"
+    },
+    {
+      "id": "M6",
+      "description": "Delete a locale key from one site pack",
+      "targets": "Phase 4b (key parity)",
+      "status": "KILLED",
+      "how": "de keys 1249->1249, missing 0->1249, extra 0->1249"
+    },
+    {
+      "id": "M7",
+      "description": "Replace a translated string with its English source",
+      "targets": "Phase 4b (English-leakage detection)",
+      "status": "KILLED",
+      "how": "es untranslated 17->18"
+    },
+    {
+      "id": "M11",
+      "description": "Introduce an undeclared Mantine variable dependency",
+      "targets": "Phase 4c (theme-control census)",
+      "status": "KILLED",
+      "how": "undeclared-consumed 87->88"
+    },
+    {
+      "id": "M12",
+      "description": "Add a component prop variant with no demo obligation",
+      "targets": "Phase 0 (registry variant extraction)",
+      "status": "KILLED",
+      "how": "variants 97->100, props 1002->1003"
+    }
+  ]
+}
