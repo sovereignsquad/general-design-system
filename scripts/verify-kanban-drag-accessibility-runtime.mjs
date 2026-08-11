@@ -122,8 +122,17 @@ try {
       // Chrome, independent of any real app behavior (verified against Chrome's actual
       // click-dispatch: Space reliably produces a click via CDP, Enter does not, on any
       // <button>). Space is an equally valid, standard way to activate a button.
-      await client.send('Input.dispatchKeyEvent', { type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32, nativeVirtualKeyCode: 32 });
-      await client.send('Input.dispatchKeyEvent', { type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32, nativeVirtualKeyCode: 32 });
+      //
+      // `text`/`unmodifiedText` are REQUIRED, not decorative — do not remove them.
+      // Without a character payload Chrome synthesizes no keypress event, so a
+      // <button> is never activated. The virtual key codes alone suffice on Linux
+      // (what CI runs) but not on macOS, where `nativeVirtualKeyCode: 32` is not
+      // Space at all — the native code there is 49. Supplying `text` makes the
+      // dispatch platform-independent; the key codes are kept so Linux/CI sees a
+      // superset of the event it saw before, not a different one.
+      const spaceKey = { key: ' ', code: 'Space', windowsVirtualKeyCode: 32, nativeVirtualKeyCode: 32, text: ' ', unmodifiedText: ' ' };
+      await client.send('Input.dispatchKeyEvent', { type: 'keyDown', ...spaceKey });
+      await client.send('Input.dispatchKeyEvent', { type: 'keyUp', ...spaceKey });
       await wait(300);
       const menuOpened = await evaluate(client, `!!document.querySelector('[role="menu"]') || !!document.querySelector('.mantine-Menu-dropdown')`);
       if (!menuOpened) {

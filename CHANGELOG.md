@@ -2,6 +2,39 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased — Board governance and a cross-platform fix to the Kanban accessibility gate
+
+No package or component source changed; no version bump. Tooling, governance,
+and documentation only.
+
+- **`scripts/verify-kanban-drag-accessibility-runtime.mjs` (#574)**: the gate's
+  synthetic Space keypress carried Windows-only virtual key codes and no
+  character payload, so Chrome synthesized no keypress event and never activated
+  the `<button>` on macOS. The gate reported `keyboard operability regression`
+  against a component that was working correctly, and `npm run verify:release`
+  could not complete on a macOS host. Added `text`/`unmodifiedText` while keeping
+  the existing key codes, so the event Linux/CI sees is a superset of what it saw
+  before. Verified: fails identically on Chrome 151 and Chrome for Testing 149
+  before the fix; passes on both after; a negative control dispatching `a`
+  instead of Space still fails the gate, so the assertion is not vacuous.
+  `KanbanBoard` was never at fault and is untouched.
+- **Board taxonomy (#573)**: added `area: map`, `area: imagery`, `area: motion`,
+  `area: governance`, `area: i18n`, `area: playground`, and `area: build` to
+  `scripts/board-labels.config.mjs`. The last four canonicalize labels that
+  already existed in malformed, unaudited form. All 46 open issues now carry
+  exactly one status label; `npm run audit:board:strict` reports 0 violations,
+  down from 25.
+- **`PROJECT_BOARD.md` and `CLAUDE.md` Rule 7**: both stated that no org-level
+  Projects v2 board exists. One does, and it is writable from environments whose
+  token carries the `project` scope. Both now record the dual-board model with an
+  explicit order of authority — the label board is portable and authoritative,
+  project 11 is a richer layer used when reachable — plus the
+  `Execution Sequence (HVB)` banding and how `status: blocked` maps onto the v2
+  columns.
+- **`HANDOVER.md` section 5**: runtime-gate triage now names a third outcome
+  besides flake and regression — a host mismatch — with the ordered checks that
+  distinguish it.
+
 ## 6.0.0 - 2026-08-09 — BREAKING: Re-base the class-usa brand lane onto the ClassScout v2 palette (#536)
 
 Owner supplied a full v2 design-system handoff for ClassScout NYC (README,
