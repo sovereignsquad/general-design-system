@@ -59,22 +59,34 @@ If your repo uses raw Mantine primitives alongside GDS (which violates GDS gover
 // No change needed
 ```
 
-### GitHub Actions matrix job (CI)
+### GitHub Actions matrix job (CI) — shipped
 
-To add Mantine 9 to the GDS CI matrix, extend `.github/workflows/gds-quality.yml`:
+Mantine 9 is **already in the CI matrix**. This section previously described it as
+pending work and named a workflow file that does not exist
+(`.github/workflows/gds-quality.yml`); the real file is
+[`.github/workflows/quality.yml`](../.github/workflows/quality.yml).
+
+The matrix runs today as:
 
 ```yaml
+# .github/workflows/quality.yml
+name: validate (mantine-${{ matrix.mantine-version }})
 strategy:
   matrix:
-    mantine: ['8', '9']
+    mantine-version: [7, 9]
 steps:
-  - name: Install Mantine ${{ matrix.mantine }}
-    run: npm install @mantine/core@^${{ matrix.mantine }} ...
-  - name: Verify compat
-    run: npm run verify:mantine
+  - name: Override to Mantine 9
+    if: matrix.mantine-version == 9
+    run: npm install --no-save @mantine/core@^9 @mantine/hooks@^9 ... react@^19 react-dom@^19
+  - name: Verify release alignment and quality gates
+    run: npm run verify:release
 ```
 
-This is tracked as part of GDS [issue #329](https://github.com/sovereignsquad/general-design-system/issues/329).
+Both legs run the full `verify:release` chain, not just `verify:mantine`, so Mantine 9
+compatibility is verified against every gate rather than a compatibility smoke alone.
+Confirmed green on `main`: run
+[31492464125](https://github.com/sovereignsquad/general-design-system/actions/runs/31492464125),
+jobs `validate (mantine-7)` and `validate (mantine-9)`.
 
 ## Summary
 

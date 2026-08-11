@@ -1,0 +1,95 @@
+{
+  "$comment": [
+    "Ratcheted quality budgets (issue 578). Enforced by `npm run verify:budgets`.",
+    "",
+    "RULES:",
+    "  1. CI fails when a measured value EXCEEDS its budget. Existing debt never blocks",
+    "     work; only adding to it does.",
+    "  2. CI also fails on UNCLAIMED SLACK - a value measurably better than its budget",
+    "     without the budget being lowered. Without this the ratchet stops ratcheting and",
+    "     the gate silently degrades into a no-op.",
+    "  3. Every change to a value REQUIRES `finding` and `justifiedBy` to be updated.",
+    "     A budget moved without a cited finding and commit is not reviewable.",
+    "",
+    "Every initial value was transcribed from a committed artifact under audit/, never",
+    "typed from memory. The first transcription attempt read contaminated artifacts left",
+    "behind by the mutation harness and produced 74/16/88/1703; the harness now restores",
+    "clean artifacts and asserts no mutant marker survives. These are the clean figures."
+  ],
+  "budgets": {
+    "untraceableRenderRate": {
+      "source": "backward-trace.json#/totalLiteralObservations,/totalObservations",
+      "direction": "max",
+      "value": 18.4,
+      "unit": "%",
+      "finding": "F5",
+      "justifiedBy": "audit Phase 1, 40/40 cells, commit 4b787f5",
+      "advisory": true,
+      "advisoryReason": "Phase 1 is not mutation-validated - M1/M2 did not run (issue 579). Ratcheting a number from an unverified instrument would manufacture confidence with no basis. Flip to blocking when 579 lands."
+    },
+    "tokensWithGaps": {
+      "source": "forward-trace.json#/tokensWithGaps",
+      "direction": "max",
+      "value": 73,
+      "unit": "count",
+      "finding": "F11",
+      "justifiedBy": "audit Phase 2, 365 matrix cells, commit cb36e5e"
+    },
+    "unreachableTokens": {
+      "source": "forward-trace.json#/rows[!demoed]",
+      "direction": "max",
+      "value": 15,
+      "unit": "count",
+      "finding": "F13",
+      "justifiedBy": "audit Phase 2, commit cb36e5e"
+    },
+    "publishedGraphOverlap": {
+      "source": "forward-trace.json#/rows[variationsShown]",
+      "direction": "min",
+      "value": 1,
+      "unit": "count",
+      "finding": "F12",
+      "justifiedBy": "audit Phase 2 - published DTCG roles vs runtime semantic roles overlap by exactly 1, commit cb36e5e"
+    },
+    "undeclaredMantineDependencies": {
+      "source": "dimensions.json#/themeControl/mantineVarsGdsConsumesButNeverDeclares",
+      "direction": "max",
+      "value": 87,
+      "unit": "count",
+      "finding": "F17",
+      "justifiedBy": "audit Phase 4c, commit bed78c8"
+    },
+    "registryAtomsWithoutCoverage": {
+      "source": "registry.json#/counts[uncovered kinds]",
+      "direction": "max",
+      "value": 1699,
+      "unit": "count",
+      "finding": "F18",
+      "justifiedBy": "audit Phase 4d - export 590, prop 1002, variant 97, accent 10, commit bed78c8"
+    },
+    "localesWithoutSitePack": {
+      "source": "dimensions.json#/languageVariants/packageLocalesWithNoSitePack",
+      "direction": "max",
+      "value": 3,
+      "unit": "count",
+      "finding": "F15",
+      "justifiedBy": "audit Phase 4b - ja, ko, zh, commit bed78c8"
+    },
+    "englishLeakageWorstLocale": {
+      "source": "dimensions.json#/languageVariants/englishLeakage/0/rate",
+      "direction": "max",
+      "value": 3.8,
+      "unit": "%",
+      "finding": "F16",
+      "justifiedBy": "audit Phase 4b - site/hu is the worst pack, commit bed78c8"
+    },
+    "gateMutationScore": {
+      "source": "mutation-score.json#/mutationScore",
+      "direction": "min",
+      "value": 85.7,
+      "unit": "%",
+      "finding": "F19/F20",
+      "justifiedBy": "audit Phase 5 - 6/7 killed, M3 survives, 5 not run, commit bed78c8"
+    }
+  }
+}

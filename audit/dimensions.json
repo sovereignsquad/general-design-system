@@ -296,8 +296,8 @@
   },
   "themeControl": {
     "mantineVarsGdsDeclares": 5,
-    "mantineVarsGdsConsumes": 93,
-    "mantineVarsGdsConsumesButNeverDeclares": 88,
+    "mantineVarsGdsConsumes": 92,
+    "mantineVarsGdsConsumesButNeverDeclares": 87,
     "mantineComponentsWithGdsDefaults": 20,
     "mantineComponentsList": [
       "sizes",
@@ -332,11 +332,11 @@
       },
       {
         "kind": "prop",
-        "atoms": 1003
+        "atoms": 1002
       },
       {
         "kind": "variant",
-        "atoms": 100
+        "atoms": 97
       },
       {
         "kind": "accent",
