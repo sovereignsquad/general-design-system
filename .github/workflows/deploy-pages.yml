@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
@@ -82,7 +82,7 @@ jobs:
         # Needed for scripts/verify-pages-deploy-smoke.mjs and its
         # scripts/lib/browser-runtime.mjs helper below — this job has no
         # repo checkout by default.
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Post-deploy smoke check
         # apps/playground is a pure client-side-rendered SPA (see
         # scripts/generate-playground-static-routes.mjs) — the raw served
