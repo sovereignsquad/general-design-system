@@ -87,6 +87,33 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **All 15 unreachable tokens classified, and a gate against new ones (#586)**: added
+  `npm run verify:token-reachability` and `scripts/token-reachability.config.mjs`.
+
+  14 are documented extension points — published roles a consumer application reads while
+  no GDS component does — each with evidence and an expiry date. 1 is a **pending wire-up**:
+  `--gds-tour-spotlight-padding` is declared beside `--gds-tour-spotlight-radius`, which is
+  consumed, while `GdsTour` sets the spotlight hole straight from the measured rect. Filed
+  as #591, because wiring it up widens the cut-out by 8px and a token that starts rendering
+  is a visible change to review, not cleanup to slip in.
+
+  **The badge question is answered from the code, not the coincidence.** `GdsBadge`'s tone
+  table reads `--gds-state-*` by design, as its own doc comment says, so the four dead
+  `--gds-badge-*` tokens are unrelated to #534. Two of them are not dead *values* though —
+  `badge.info` and `badge.urgencyBg` reach components under the alias names
+  `--gds-bg-info-tag` and `--gds-brand-accent-tint`. Only `--gds-badge-attention` and
+  `--gds-badge-validation` reach nothing at all.
+
+  **The budget's 0 means "unclassified", not "clean"** — fifteen tokens are still referenced
+  by nothing; none is now undocumented. Stated in the budget entry itself.
+
+- **Two redundant token spellings removed**: `--gds-brand-primaryPressed` and
+  `--gds-text-onInverse` were camelCase twins of aliases consumers actually read, emitted
+  because `cssVarName` leaves the camelCase segment intact. The #554 entry above recorded
+  them as "additive and harmless"; the reachability census found them as dead tokens, so
+  they are deleted at the emitter. `--gds-control-disabledBg`/`-disabledText` are also
+  camelCase but ARE consumed, so the naming is not uniformly dead and they stay.
+
 - **Mantine dependency-boundary census (#589)**: added
   `npm run verify:mantine-governance`, chained into `verify:release` after `build`, plus
   `scripts/mantine-governance.config.mjs` as the delegation SSOT.

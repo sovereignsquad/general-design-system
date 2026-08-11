@@ -846,3 +846,66 @@ theme against Mantine's defaults rather than reading a hand-maintained roster. A
 could assert authority GDS does not have, which is the F1 dual-source pattern that issue
 554 removed from the theme package — there was no reason to reintroduce it in the tooling
 that polices the same boundary.
+
+
+---
+
+## F13 resolved — all 15 unreachable tokens classified, and the badge question answered
+
+**The badge/#534 question, determined by reading the code rather than inferring it from the
+coincidence** (the issue made this non-optional, and the coincidence was suggestive).
+
+`GdsBadge`'s `toneColors` table reads `--gds-state-success`, `--gds-state-warning-dark`,
+`--gds-state-danger-dark`, `--gds-state-info-dark`, `--gds-bg-card`, `--gds-text-primary`
+and `--gds-border-card`. Its own doc comment states the design: *"Semantic tone: maps to the
+`--gds-state-*` role tokens."* It was never intended to read `--gds-badge-*`.
+
+**Outcome (a): the tone lane reads different tokens by design.** The four dead badge tokens
+are unrelated to #534. #534's mechanism is visible in the same table and is a separate
+defect: the tone lane uses `-dark` variants *unconditionally in both schemes*
+(`--gds-state-warning-dark` in light mode too), which is what `data-gds-badge-fixed-tone`
+marks. Nothing about wiring `--gds-badge-*` would address it.
+
+**But two of the four are not dead values.** `emitCssVariables` maps `badge.info` to
+`--gds-bg-info-tag` (referenced by 2 files) and `badge.urgencyBg` to
+`--gds-brand-accent-tint` (3 files). The roles render; only those spellings do not.
+`--gds-badge-attention` and `--gds-badge-validation` have no alias and no consumer — neither
+name nor value reaches anything. They are the weakest of the fifteen and carry the nearest
+review date.
+
+### Disposition
+
+14 extension points, each with evidence and an expiry, and 1 pending wire-up:
+`--gds-tour-spotlight-padding` is declared at `styles.css:41` beside
+`--gds-tour-spotlight-radius`, which IS consumed, while `GdsTour.client.tsx:411` sets the
+hole geometry straight from the measured rect with no inflation. That reads as an oversight,
+not an extension point — filed as **#591**, because wiring it up widens the spotlight cut-out
+by 8px on every side and a token that starts rendering is a visible change to be reviewed,
+not cleanup to be slipped in (issue 586 §13).
+
+Pending wire-ups are a separate bucket from extension points on purpose: an extension point
+is working as intended, a pending wire-up is broken and waiting on a decision. Collapsing
+them into one allowlist would let a defect hide inside a category that means "fine".
+
+### The budget's zero means "unclassified", not "clean"
+
+`unreachableTokens` ratchets 15 -> 0, and **0 does not mean no unreachable tokens exist** —
+fifteen tokens are still referenced by nothing. It means none is undocumented. The gate
+enforces that no token may be declared without a written, dated disposition; it does not
+enforce that every token renders. Recorded in the budget entry's own `$comment`, because a
+zero that reads as "solved" when it means "catalogued" is the same trap F24 named.
+
+### A cost from issue 554, paid here
+
+The census initially found **17**, not 15. The two extra were `--gds-brand-primaryPressed`
+and `--gds-text-onInverse` — camelCase twins that #554 added to the document path and that I
+recorded at the time as "additive and harmless". They were additive; they were not harmless.
+`cssVarName` leaves the camelCase segment intact when it replaces a role id's dot, so those
+roles were emitted twice, and the kebab spellings are the ones consumers read
+(`--gds-text-on-inverse` in 13 files, and `brand-tokens.test.ts` asserts exactly those).
+
+Deleted at the emitter rather than allowlisted. Only those two: `--gds-control-disabledBg`
+and `--gds-control-disabledText` are also camelCase but ARE consumed by `SemanticButton.tsx`,
+so the naming is not uniformly dead and a blanket kebab-casing would break them. The token
+baseline drops 4,210 -> 4,186 values, which is a deliberate removal of tokens nothing
+referenced.

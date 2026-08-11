@@ -246,6 +246,22 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
   vars['--gds-text-primary-dark'] = tokens['text.primary'].dark;
   vars['--gds-text-secondary'] = tokens['text.secondary'].light;
   vars['--gds-text-secondary-dark'] = tokens['text.secondary'].dark;
+  // Issue 586. `cssVarName` derives a name by replacing the dot in a role id, which leaves
+  // the camelCase segment intact — so `brand.primaryPressed` and `text.onInverse` were
+  // emitted BOTH as `--gds-brand-primaryPressed` and as the explicit kebab aliases below.
+  // The kebab spellings are what consumers read (`--gds-text-on-inverse` in 13 files, and
+  // brand-tokens.test.ts asserts exactly those); the camelCase twins were referenced by
+  // nothing and counted as unreachable tokens under F13.
+  //
+  // Deleted rather than left in place: a declared token with no rendering path still shows
+  // up in the docs and the published graph, telling a consumer it is available when nothing
+  // renders it. Only these two go — `--gds-control-disabledBg`/`-disabledText` are also
+  // camelCase but ARE consumed (SemanticButton.tsx), so the naming is not uniformly dead
+  // and a blanket kebab-casing would break them.
+  delete vars['--gds-brand-primaryPressed'];
+  delete vars['--gds-brand-primaryPressed-dark'];
+  delete vars['--gds-text-onInverse'];
+  delete vars['--gds-text-onInverse-dark'];
   vars['--gds-state-success'] = tokens['state.success'].light;
   vars['--gds-state-success-dark'] = tokens['state.success'].dark;
   return vars;

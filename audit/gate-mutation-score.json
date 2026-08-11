@@ -1,10 +1,10 @@
 {
-  "releaseChainGates": 26,
-  "gatesWithMutants": 12,
+  "releaseChainGates": 27,
+  "gatesWithMutants": 13,
   "gatesExempted": 15,
-  "mutantsRun": 14,
-  "killed": 12,
-  "gateMutationSuiteScore": 85.7,
+  "mutantsRun": 16,
+  "killed": 14,
+  "gateMutationSuiteScore": 87.5,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
   "results": [
@@ -82,6 +82,20 @@
       "gate": "verify:token-single-source",
       "mutantId": "single-source-detects-one-path-override",
       "claim": "Detects the two consumption paths resolving one role to different values",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:token-reachability",
+      "mutantId": "reachability-detects-newly-unreachable-token",
+      "claim": "Detects a declared token that no rule or component references",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:token-reachability",
+      "mutantId": "reachability-detects-expired-extension-point",
+      "claim": "Detects an extension-point allowlist entry whose reviewBy date has passed",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
