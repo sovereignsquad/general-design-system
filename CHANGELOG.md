@@ -7,6 +7,31 @@ All notable policy changes to the General Design System are recorded here.
 No package or component source changed; no version bump. Tooling, governance,
 and documentation only.
 
+- **`gds-a11y` JSDoc coverage gate was a false pass (#516)**: the gate reported
+  `gds-a11y: 0/0 public exports documented (100.0%)` while the package carried **17
+  undocumented exports**. Four parts:
+  - **Barrel detection is now by content, not filename.** The walker skipped anything
+    named `index.ts`/`client.ts`/`server.ts` as a presumed re-export barrel.
+    `packages/gds-a11y/src/index.ts` is that package's entire 368-line implementation
+    and was skipped purely because of its name.
+  - **All 17 exports documented**, written from the implementation. Notably
+    `applyGdsA11ySuppressions`: an **expired suppression does not suppress** — the
+    finding stays active and its message is annotated with the expiry date, so a lapsed
+    waiver surfaces rather than silently continuing to hide a defect. Previously
+    undocumented behaviour.
+  - **`0/0 = 100%` can no longer pass.** Every package in the list has public exports,
+    so measuring zero means extraction broke, not that the package is empty. It now
+    fails loudly. This is the generalisable half: the same vacuous pass would have
+    hidden the next package too.
+  - **`CONTRIBUTING.md` corrected.** It claimed enforcement by `eslint-plugin-jsdoc`'s
+    `require-jsdoc` in `@sovereignsquad/gds-eslint-config`. False on both counts — the
+    rule sits behind an `enforceExportedJsdoc` flag only ever set `true` in that
+    package's own unit test, and `npm run lint` targets `apps/playground` alone, which
+    would not cover the packages the exports live in even if it were wired. The doc now
+    names the real mechanism (`verify:api-jsdoc-coverage`) and records the correction.
+
+  Coverage after: gds-core 981/984, gds-admin 85/85, gds-theme 156/156,
+  gds-a11y 17/17 — overall 1239/1242 (99.8%).
 - **`ChoiceChip` selected state failed WCAG AA (#537)**: the selected chip paired
   `--gds-text-on-inverse` with `--gds-support` — two semantic roles never designed to
   meet. `text.onInverse` is built to sit on `bg.inverse`; it measured **1.89:1 in

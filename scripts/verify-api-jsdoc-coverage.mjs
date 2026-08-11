@@ -15,7 +15,32 @@ import { resolve, join } from 'node:path';
 
 const root = process.cwd();
 const packages = ['gds-core', 'gds-admin', 'gds-theme', 'gds-a11y'];
-const barrels = new Set(['index.ts', 'client.ts', 'server.ts']);
+const barrelNames = new Set(['index.ts', 'client.ts', 'server.ts']);
+
+/**
+ * A real re-export barrel contains only re-export statements. Excluding by FILENAME
+ * alone was the #516 defect: `packages/gds-a11y/src/index.ts` is that package's entire
+ * 368-line implementation - 17 exports, none documented - and was skipped purely
+ * because of what it is called. The package then measured 0/0 and reported 100%.
+ *
+ * Detect by CONTENT instead: a file is a barrel only if every non-trivial line is a
+ * re-export, an import, or a comment. An implementation file that happens to be named
+ * index.ts is measured like any other.
+ */
+function isReExportBarrel(source) {
+  const meaningful = source
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('//') && !line.startsWith('*') && !line.startsWith('/*'));
+  if (meaningful.length === 0) return true;
+  return meaningful.every((line) =>
+    /^export\s+\*\s+from\s+/.test(line)
+    || /^export\s+(?:type\s+)?\{[^}]*\}\s+from\s+/.test(line)
+    || /^export\s+(?:type\s+)?\{/.test(line)
+    || /^\}?\s*from\s+['"]/.test(line)
+    || /^import\s+/.test(line)
+    || /^[\w$,\s]+,?$/.test(line));
+}
 const EXPORT_RE = /^export (?:async function|function|interface|const|type|class|enum) (\w+)/;
 
 // Minimum documented fraction of public exports, per package and overall.
@@ -30,7 +55,9 @@ function walk(dir) {
     const st = statSync(path);
     if (st.isDirectory()) {
       out.push(...walk(path));
-    } else if ((path.endsWith('.ts') || path.endsWith('.tsx')) && !path.endsWith('.test.ts') && !path.endsWith('.test.tsx') && !barrels.has(entry)) {
+    } else if ((path.endsWith('.ts') || path.endsWith('.tsx')) && !path.endsWith('.test.ts') && !path.endsWith('.test.tsx')) {
+      // Barrel exclusion is by content, not filename (#516).
+      if (barrelNames.has(entry) && isReExportBarrel(readFileSync(path, 'utf8'))) continue;
       out.push(path);
     }
   }
@@ -67,7 +94,17 @@ for (const pkg of packages) {
   const { total, documented, undocumented } = measure(pkg);
   grandTotal += total;
   grandDocumented += documented;
-  const coverage = total === 0 ? 1 : documented / total;
+  // `total === 0 ? 1` was the second half of #516: a package with nothing measurable
+  // scored 100% and passed. gds-a11y reported "0/0 ... (100.0%)" for an unknown number
+  // of releases while carrying 17 undocumented exports. Every package in this list HAS
+  // public exports, so measuring zero means the walker is broken, not that the package
+  // is empty — and a broken measurement must fail loudly rather than score perfectly.
+  if (total === 0) {
+    failures.push(`${pkg} produced 0 measurable exports. Every package here has public exports, so this means extraction is broken — not that the package is empty. Refusing to score it as 100%.`);
+    console.log(`${pkg}: 0 measurable exports — FAIL (vacuous).`);
+    continue;
+  }
+  const coverage = documented / total;
   console.log(`${pkg}: ${documented}/${total} public exports documented (${(coverage * 100).toFixed(1)}%).`);
   if (coverage < MIN_COVERAGE) {
     failures.push(`${pkg} JSDoc coverage ${(coverage * 100).toFixed(1)}% is below the ${(MIN_COVERAGE * 100).toFixed(0)}% floor. Undocumented (${undocumented.length}): ${undocumented.slice(0, 20).join(', ')}${undocumented.length > 20 ? ', …' : ''}`);
