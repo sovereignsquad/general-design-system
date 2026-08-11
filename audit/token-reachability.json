@@ -1,0 +1,116 @@
+{
+  "declared": 104,
+  "referenced": 62,
+  "extensionPoints": 14,
+  "pendingWireUp": 1,
+  "unreachableCount": 0,
+  "budget": 0,
+  "rows": [
+    {
+      "token": "--gds-accent",
+      "classification": "extension-point",
+      "reason": "Published accent role. Components consume the scheme-resolved --gds-brand-accent-action and --gds-brand-accent-tint instead; --gds-accent is the un-specialised role a consumer reads when it wants the lane accent without GDS's action/tint semantics.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-badge-attention",
+      "classification": "extension-point",
+      "reason": "Weakest case of the fifteen, and recorded as such. Unlike badge.info/badge.urgencyBg it has no alias, so neither the name NOR the value reaches any component. Retained rather than removed because it is a member of the published BrandSemanticRole union returned by createBrandTheme(), so a consumer can be reading it today and removal is a breaking change requiring a deprecation cycle (issue 586 §6). Near-dated deliberately.",
+      "reviewBy": "2026-11-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-badge-info",
+      "classification": "extension-point",
+      "reason": "The ROLE is live, the name is the consumer-facing spelling: emitCssVariables maps badge.info to --gds-bg-info-tag, which is referenced by 2 files. The canonical --gds-badge-info carries the same value for consumers reading by role name.",
+      "reviewBy": "2027-02-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-badge-urgencyBg",
+      "classification": "extension-point",
+      "reason": "Same shape as --gds-badge-info: emitCssVariables maps badge.urgencyBg to --gds-brand-accent-tint, referenced by 3 files. The value renders; this spelling does not.",
+      "reviewBy": "2027-02-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-badge-validation",
+      "classification": "extension-point",
+      "reason": "No alias and no consumer, exactly as --gds-badge-attention. Same reasoning, same near date.",
+      "reviewBy": "2026-11-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-bg-canvas",
+      "classification": "extension-point",
+      "reason": "Canvas-surface counterpart to --gds-bg-page, same rationale and same emitter.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-bg-page",
+      "classification": "extension-point",
+      "reason": "Canonical page-surface role, emitted for all 25 presets by getGdsVibeThemeCssVariables. GDS components paint their own surfaces via --gds-bg-card/--gds-bg-surface, so nothing in-repo reads it; a consumer building a page shell around GDS reads exactly this.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-brand-primary-pressed",
+      "classification": "extension-point",
+      "reason": "Pressed-state brand colour. GDS's own buttons delegate pressed styling to Mantine's variant handling, so no GDS rule reads it; it exists for consumer-built controls that need the lane's pressed value.",
+      "reviewBy": "2027-02-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-motion-duration-instant",
+      "classification": "extension-point",
+      "reason": "Published motion scale step. styles.css declares the full duration ramp so the scale is complete and addressable; the `instant` step is not used by any current transition. Issue #584 governs motion wiring and will either consume it or retire it.",
+      "reviewBy": "2026-12-01",
+      "declaredIn": "packages/gds-theme/styles.css"
+    },
+    {
+      "token": "--gds-motion-ease-exit",
+      "classification": "extension-point",
+      "reason": "Published easing-scale step, unused by current transitions. Same disposition as --gds-motion-duration-instant, tracked by #584.",
+      "reviewBy": "2026-12-01",
+      "declaredIn": "packages/gds-theme/styles.css"
+    },
+    {
+      "token": "--gds-nav-inactiveOnInverse",
+      "classification": "extension-point",
+      "reason": "Inactive-item colour for navigation on an inverse surface. GDS's BottomTabBar computes its own inactive colour from --gds-text-on-inverse; this role is the published value for a consumer-built inverse nav.",
+      "reviewBy": "2027-02-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-tour-spotlight-padding",
+      "classification": "pending-wire-up",
+      "reason": "Declared at styles.css:41 immediately beside --gds-tour-spotlight-radius, which IS consumed by .gds-tour-spotlight__hole. GdsTour.client.tsx:411 sets the hole geometry directly from the measured rect with no inflation, so the padding is never applied. This reads as an oversight rather than a deliberate extension point.",
+      "issue": 591,
+      "reviewBy": "2026-12-01",
+      "declaredIn": "packages/gds-theme/styles.css"
+    },
+    {
+      "token": "--gds-vibe-hero",
+      "classification": "extension-point",
+      "reason": "Part of the --gds-vibe-* atmosphere palette applied to <html> by applyDocumentRuntime for every preset. The hero field is published so a consumer can paint its own hero band in the active lane; no GDS rule paints one.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-vibe-success",
+      "classification": "extension-point",
+      "reason": "Atmosphere-palette state colour, declared in styles.css alongside the rest of the vibe lane. GDS components read the semantic --gds-state-success instead; this is the atmosphere-lane value for consumers.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "packages/gds-theme/styles.css"
+    },
+    {
+      "token": "--gds-vibe-warning",
+      "classification": "extension-point",
+      "reason": "Atmosphere-palette state colour; see --gds-vibe-success.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "packages/gds-theme/styles.css"
+    }
+  ]
+}

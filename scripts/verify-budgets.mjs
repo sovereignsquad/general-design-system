@@ -51,7 +51,10 @@ function measure(key) {
       return a && +(a.totalLiteralObservations / a.totalObservations * 100).toFixed(1);
     }
     case 'tokensWithGaps':        return read('forward-trace.json')?.tokensWithGaps;
-    case 'unreachableTokens':     return read('forward-trace.json')?.rows.filter((r) => !r.demoed).length;
+    case 'unreachableTokens':
+      // Issue 586 repointed this from Phase 2 demo-reachability to the reachability census.
+      // The value counts UNCLASSIFIED tokens, not dead ones — see the budget's $comment.
+      return read('token-reachability.json')?.unreachableCount;
     case 'publishedGraphOverlap': return read('forward-trace.json')?.rows.filter((r) => r.variationsShown).length;
     case 'undeclaredMantineDependencies':
       // Issue 589 repointed this from the Phase 4c CSS-declaration count to the census,

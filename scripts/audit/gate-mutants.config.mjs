@@ -59,8 +59,14 @@ export const GATE_MUTANTS = [
         id: 'budgets-detects-regression',
         claim: 'Detects a measured value exceeding its budget',
         file: 'audit/budgets.json',
-        find: '"value": 15,',
-        replace: '"value": 5,',
+        // Anchored on renderMutationScore, which is a `min` budget already at its ceiling
+        // of 100 — the one value in the file that cannot ratchet further and so cannot
+        // silently invalidate this mutant. The previous anchor was `"value": 15,`
+        // (unreachableTokens), which issue 586 ratcheted to 0; the suite reported INVALID
+        // rather than passing, which is the anchor check doing its job.
+        find: '"value": 100,',
+        replace: '"value": 200,',
+        once: true,
       },
     ],
   },
@@ -216,6 +222,28 @@ export const GATE_MUTANTS = [
         find: '  const cssVariables = emitGoldAthleteCssVariables(ramps);',
         replace: "  const cssVariables = emitGoldAthleteCssVariables(ramps);\n  cssVariables['--gds-bg-card'] = '#ff0000';",
         requiresBuild: ['@sovereignsquad/gds-theme'],
+      },
+    ],
+  },
+  {
+    npmScript: 'verify:token-reachability',
+    script: null,
+    mutants: [
+      {
+        id: 'reachability-detects-newly-unreachable-token',
+        claim: 'Detects a declared token that no rule or component references',
+        file: 'packages/gds-theme/styles.css',
+        find: '  --gds-tour-spotlight-padding: 8px;',
+        replace: '  --gds-tour-spotlight-padding: 8px;\n  --gds-audit-mutant-orphan: 4px;',
+        once: true,
+      },
+      {
+        id: 'reachability-detects-expired-extension-point',
+        claim: 'Detects an extension-point allowlist entry whose reviewBy date has passed',
+        file: 'scripts/token-reachability.config.mjs',
+        find: "    reviewBy: '2027-08-01',\n  },\n  '--gds-bg-canvas'",
+        replace: "    reviewBy: '2020-01-01',\n  },\n  '--gds-bg-canvas'",
+        once: true,
       },
     ],
   },

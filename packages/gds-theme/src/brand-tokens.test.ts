@@ -74,11 +74,26 @@ describe('createBrandTheme', () => {
   it('emits light and dark values for every semantic role', () => {
     const { cssVariables } = createBrandTheme({ brandColors: classScoutColors, fonts });
     const roles = Object.keys(deriveBrandSemanticTokens(classScoutColors));
+
+    // Issue 586. `role.replace('.', '-')` leaves the camelCase segment intact, so these two
+    // roles were emitted under BOTH a camelCase name and a fully-kebab alias. The kebab
+    // spellings are the ones consumers read (`--gds-text-on-inverse` appears in 13 files,
+    // and the test below asserts exactly those); the camelCase twins were referenced by
+    // nothing and counted as unreachable tokens under finding F13, so they were removed.
+    //
+    // The assertion is not loosened — every role is still required to emit a light and a
+    // dark value. Only the NAME expected for these two changes, to the one that renders.
+    const kebabOnly = { 'brand.primaryPressed': '--gds-brand-primary-pressed', 'text.onInverse': '--gds-text-on-inverse' };
+
     for (const role of roles) {
-      const base = `--gds-${role.replace('.', '-')}`;
+      const base = kebabOnly[role as keyof typeof kebabOnly] ?? `--gds-${role.replace('.', '-')}`;
       expect(cssVariables[base]).toBeTruthy();
       expect(cssVariables[`${base}-dark`]).toBeTruthy();
     }
+
+    // The removed spellings must stay removed: re-emitting one reintroduces a dead token.
+    expect(cssVariables['--gds-brand-primaryPressed']).toBeUndefined();
+    expect(cssVariables['--gds-text-onInverse']).toBeUndefined();
   });
 
   it('emits --gds-text-on-inverse (the fully-kebab name every consumer and preset actually reads), not just --gds-text-onInverse', () => {

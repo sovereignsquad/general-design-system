@@ -34,12 +34,13 @@
       "justifiedBy": "audit Phase 2, 365 matrix cells, commit cb36e5e"
     },
     "unreachableTokens": {
-      "source": "forward-trace.json#/rows[!demoed]",
+      "source": "token-reachability.json#/unreachableCount",
       "direction": "max",
-      "value": 15,
+      "value": 0,
       "unit": "count",
       "finding": "F13",
-      "justifiedBy": "audit Phase 2, commit cb36e5e"
+      "justifiedBy": "issue 586: all 15 F13 tokens classified — 14 extension points with reasons and expiry dates, 1 pending wire-up tracked as issue 591. 0 remain unclassified.",
+      "$comment": "READ THIS BEFORE TRUSTING THE ZERO. 0 does NOT mean 'no unreachable tokens exist' — 15 tokens are still referenced by nothing. It means 0 are UNCLASSIFIED. The gate's job is that no token can be declared without a written, dated disposition; it is not that every token renders. The classification counts (extensionPoints, pendingWireUp) are in the same artifact and are the numbers to read for remediation progress. Measurement also changed source here: the old value came from forward-trace.json#/rows[!demoed] (Phase 2 demo reachability, a different question) and is now the reachability census. Stated per the F24 rule."
     },
     "publishedGraphOverlap": {
       "source": "forward-trace.json#/rows[variationsShown]",
