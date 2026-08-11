@@ -66,7 +66,7 @@ Ground truth, read from source and from the deployed site. Not estimated.
 | Package locale packs | 13 files (12 locales + index) | `packages/gds-core/src/locales/` |
 | Site phrase packs | 8 | `apps/playground/src/generated-site-phrases/` |
 | Site phrase keys per pack | 1,258 | same |
-| Motion tokens declared | 107 | `packages/gds-theme/src/motion.ts` |
+| Motion tokens declared | 5 durations + 5 easings + 7 presets | `packages/gds-theme/src/motion.ts` |
 | Transition/animation declarations shipped | 7 | `packages/gds-theme/styles.css` |
 | `@keyframes` blocks shipped | 0 | `packages/gds-theme/styles.css` |
 | `prefers-reduced-motion` blocks | 2 | `packages/gds-theme/styles.css` |
@@ -82,7 +82,7 @@ resolves it. None may be reported as a defect before that phase produces evidenc
 | --- | --- | --- |
 | Q1 | DTCG exposes 17 roles/theme; runtime emits 102 `--gds-*` properties. Is the published token graph materially incomplete for design-tool consumers? | 2 |
 | Q2 | `-dark`-suffixed sibling keys are still emitted (`--gds-accent-dark`, …). Is this correct post-5.0.2 resolution, or residue of the pattern HANDOVER §2 identifies as the illegibility bug? | 1 |
-| Q3 | 107 motion tokens declared vs. 7 transition declarations and 0 keyframes shipped. Is the motion system substantially unused? | 4 |
+| Q3 | Do the shipped transitions actually use the declared motion scale? | 4 |
 | Q4 | 2 `:hover` rules total. Does GDS govern any interaction micro-motion, or is all of it Mantine default? | 4 |
 | Q5 | 12 package locales vs. 8 site packs. Are `ja`, `ko`, `zh` unreachable on the site? | 4 |
 | Q6 | 345 Mantine properties render the site. How many are GDS-governed vs. framework default? | 1 |
@@ -407,7 +407,7 @@ Every `transition`, `animation`, `@keyframes`, and `transform` in shipped CSS an
 component source. For each: is it theme-driven or hardcoded? Does it honour
 `prefers-reduced-motion`? Is it reachable by keyboard focus as well as hover?
 
-Open question Q3 (107 tokens vs. 7 declarations) and Q4 (2 `:hover` rules) are
+Open question Q3 (does shipped motion use the scale) and Q4 (2 `:hover` rules) are
 resolved here. **The likely conclusion — that GDS governs almost no interaction
 motion and what exists is Mantine default — must be proven by enumeration, not
 asserted from these counts.**
