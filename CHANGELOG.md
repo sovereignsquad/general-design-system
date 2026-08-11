@@ -7,6 +7,32 @@ All notable policy changes to the General Design System are recorded here.
 No package or component source changed; no version bump. Tooling, governance,
 and documentation only.
 
+- **`ChoiceChip` selected state failed WCAG AA (#537)**: the selected chip paired
+  `--gds-text-on-inverse` with `--gds-support` — two semantic roles never designed to
+  meet. `text.onInverse` is built to sit on `bg.inverse`; it measured **1.89:1 in
+  class-usa dark** and 3.837:1 in class-usa light, against a 4.5:1 requirement. The 23
+  generic vibe lanes passed only by coincidence, because they run through
+  `ensureContrast`; the two hand-authored brand lanes bypass that path entirely.
+  Four changes, in the shared packages:
+  - `ensureContrast` promoted from private in `vibe-themes.ts` into shared
+    `color-math.ts`, plus a new `readableForeground`. Its being private is *why* the
+    brand lanes hand-authored instead of deriving.
+  - New `--gds-text-on-support`, derived per preset per scheme against `support` itself.
+  - `resolveVibeSemanticCssVariables` now treats a hand-authored table as an **override
+    layer, not a replacement**. It previously returned the table wholesale, so any role
+    it omitted simply vanished for the brand lanes — the structural root cause, and the
+    reason a role added in future can no longer silently disappear from those lanes.
+  - `assertContrast` in `brand-tokens.ts` now gates the pairing that actually renders,
+    in both schemes. Every prior contrast gate checked *designed* pairings, and this
+    pairing was never designed at all — which is how a 1.89:1 chip shipped green.
+
+  Verified across **all 25 presets × both schemes: 50 combinations, 0 below 4.5:1**.
+  class-usa light 3.837 → 5.12:1, class-usa dark 1.89 → 10.39:1, gold-athlete dark
+  2.73 → 7.2:1. Tightest in the system is now `skyline/light` at 4.51:1.
+  The fix *introduced* a 4.1:1 failure mid-way (the hand-authored `support` override
+  winning over a foreground derived against the derived `support`); roles derived from
+  another role are now recomputed after the override layer applies. Only exhaustive
+  checking surfaced it.
 - **CI action runtime (#575)**: all six workflows pinned `actions/checkout@v4`,
   which declares `using: node20`, so every run emitted a Node 20 deprecation
   annotation — a standing violation of Rule 1, which forbids any deprecation

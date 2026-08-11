@@ -132,3 +132,51 @@ export function contrastRatio(foreground: string, background: string, fallbackBa
   const dark = Math.min(luminance(foregroundColor), luminance(backgroundColor));
   return Number(((light + 0.05) / (dark + 0.05)).toFixed(2));
 }
+
+/**
+ * Nudges `candidate` toward white or black until it clears `minRatio` against
+ * `background`, or gives up after 16 steps and returns the best it reached.
+ *
+ * Promoted here from `vibe-themes.ts` (issue #537). It was private there, so the
+ * hand-authored brand lanes had no way to use it and derived their semantic pairs by
+ * hand instead — which is exactly how `text.onInverse` came to be paired with
+ * `support`, a role it was never designed to sit on, at 1.89:1 in class-usa dark.
+ * A single shared derivation is what stops the two lanes diverging again.
+ */
+export function ensureContrast(
+  candidate: string,
+  background: string,
+  minRatio: number,
+  towardWhite: boolean,
+  fallback: string,
+): string {
+  const step = towardWhite ? '#ffffff' : '#000000';
+  let color = candidate;
+  for (let i = 0; i < 16; i += 1) {
+    const ratio = contrastRatio(color, background, fallback);
+    if (ratio !== null && ratio >= minRatio) {
+      return color;
+    }
+    color = mixCssColors(color, step, 0.9, fallback);
+  }
+  return color;
+}
+
+/**
+ * Picks a readable foreground for `background` by trying white first, then black,
+ * then falling back to whichever reached the higher ratio. Used for roles that sit on
+ * a colour the theme chooses freely (e.g. `support`), where neither a light nor a dark
+ * foreground can be assumed correct across 25 presets and two schemes.
+ */
+export function readableForeground(background: string, minRatio: number, fallback: string): string {
+  const candidates = ['#ffffff', '#000000'];
+  let best = candidates[0];
+  let bestRatio = -1;
+  for (const candidate of candidates) {
+    const ratio = contrastRatio(candidate, background, fallback) ?? -1;
+    if (ratio >= minRatio) return candidate;
+    if (ratio > bestRatio) { bestRatio = ratio; best = candidate; }
+  }
+  // Neither pure white nor pure black cleared the bar — push the better one further.
+  return ensureContrast(best, background, minRatio, best === '#ffffff', fallback);
+}

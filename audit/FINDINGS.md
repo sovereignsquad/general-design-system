@@ -15,6 +15,7 @@ Environment: local build + deployed site `sovereignsquad.github.io/general-desig
 | 2 — Forward trace | **Complete** | `audit/forward-trace.json`, 365 cells |
 | 3 — Combinatorial sweep | **Not implemented** | — |
 | 4a — Motion | **Complete** | this document, F1–F4 |
+| Remediation | #553, #519, #520, #578, #537 shipped | commits 9c07819, and this one |
 | 4b — i18n | **Complete** (parity + leakage only) | `audit/dimensions.json` |
 | 4c — Theme control | **Complete** | `audit/dimensions.json` |
 | 4d — Underived | **Complete** | `audit/dimensions.json` |
