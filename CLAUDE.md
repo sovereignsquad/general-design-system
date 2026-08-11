@@ -118,22 +118,36 @@ follow-up, with a definitive root-cause verdict once the evidence supports
 one, not as an open-ended retry loop narrated turn-by-turn as if the push
 itself were still in progress.
 
-## 7. No GitHub Projects (v2) board API — the board is labels
+## 7. The label board is authoritative; the Projects v2 board is used when reachable (owner directive, 2026-08-11)
 
-This session's toolset has **no GitHub Projects (v2) board API**. The GitHub
-tools can create, label, close, and comment on **issues**, and manage
-**milestones** — but they cannot create a Projects v2 board, add cards/items to
-one, or set its status/column fields. Never claim a Projects v2 board was
-created or updated, and never attempt to write one.
-
-The GDS "project board" is therefore **GitHub Issues organized by labels** (see
+**The label board always works and is always the authority.** The GDS project
+board is, first and always, **GitHub Issues organized by labels** (see
 [`PROJECT_BOARD.md`](PROJECT_BOARD.md)): the `status:` / `priority:` / `area:`
-label taxonomy, plus a **tracking issue** and, where useful, a **milestone**.
-When asked to "add issues to the project board," deliver exactly that — file the
-issues, apply the board labels, group them under a tracking issue, and assign a
-milestone — and state plainly that this is the label-based board, not a
-Projects v2 board. Do not offer or imply a Projects v2 capability that does not
-exist in this session.
+taxonomy defined in `scripts/board-labels.config.mjs`, plus a **tracking issue**
+and, where useful, a **milestone**. It needs nothing but issue access, so it is
+writable in every environment. An issue's real status is its label.
+
+**The org Projects v2 board is not available in every environment — use it when
+it is.** The org-level board
+[`{GDS} - From IDEA to LIVE`](https://github.com/orgs/sovereignsquad/projects/11)
+(project 11) carries a `Status` column, an `Execution Sequence (HVB)` number, and
+a free-text `Dependency Signal` — sequencing and dependency information labels
+cannot express. Writing it requires a token with the `project` scope, which some
+sessions have and some do not. **Check first, then act on what is actually
+there:** if the scope is present, populate project 11 alongside the labels; if it
+is not, deliver the label board alone and say so plainly.
+
+**Never claim a board you did not write.** Do not report that project 11 was
+created or updated without having actually done it and verified the result, and
+do not offer a Projects v2 capability the current session cannot reach. Stating
+"this is the label-based board; project 11 was not reachable in this session" is
+always the correct answer when the scope is missing — a silent omission or an
+implied update is a Rule 12 violation.
+
+When asked to "add issues to the project board," deliver: the issues filed, the
+board labels applied, a tracking issue grouping them, a milestone assigned, and —
+where reachable — project 11 items with `Status`, `Execution Sequence (HVB)`, and
+`Dependency Signal` set.
 
 ## 8. No guessing on structural, architectural, or business-logic questions
 

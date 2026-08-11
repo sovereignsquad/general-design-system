@@ -43,6 +43,10 @@ export const AREA_LABELS = [
   { name: 'area: map', color: '1f6e8c', description: 'Map surfaces, basemap engine, pins, and geospatial contracts' },
   { name: 'area: imagery', color: 'b04a2f', description: 'Generated imagery, thumbnails, heroes, and asset governance' },
   { name: 'area: motion', color: 'a52a6c', description: 'Motion, animation, and interaction-reaction contracts' },
+  { name: 'area: governance', color: 'b60205', description: 'Policy, compliance, attribution, and repository governance' },
+  { name: 'area: i18n', color: 'd4c5f9', description: 'Localization, translation coverage, and message contracts' },
+  { name: 'area: playground', color: '1d76db', description: 'Reference site routes, demos, and pattern catalog surfaces' },
+  { name: 'area: build', color: '5b3374', description: 'Bundling, code splitting, chunk budgets, and build output' },
 ];
 
 /** Every governed board label, in a stable order. */

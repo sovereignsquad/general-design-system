@@ -1,14 +1,27 @@
 # Project Board
 
 Status: Active
-Last updated: 2026-08-06
+Last updated: 2026-08-11
 
-The GDS project board is **GitHub Issues filtered by labels** — not an external
-Projects v2 board. This is a deliberate simplification: every board operation
-(create a card, move a column, set priority) is just adding or changing a label,
-which the default `GITHUB_TOKEN` and the standard issue tools can do. There is no
-org-level Projects v2 board, no `GDS_PROJECT_TOKEN` PAT, and no GraphQL project
-API in the loop.
+GDS tracks work on **two boards, in a deliberate order of authority**.
+
+1. **The label board — always available, always authoritative.** GitHub Issues
+   filtered by `status:` / `priority:` / `area:` labels. Every board operation
+   (create a card, move a column, set priority) is just adding or changing a
+   label, which the default `GITHUB_TOKEN` and the standard issue tools can do.
+   It needs no PAT, no GraphQL project API, and no special scope, so it works in
+   every environment — including sandboxed agent sessions and CI runners that
+   have issue access and nothing more. **An issue's real status is its label.**
+
+2. **Org Projects v2 board — used when the environment provides it.** The
+   org-level board [`{GDS} - From IDEA to LIVE`](https://github.com/orgs/sovereignsquad/projects/11)
+   (project 11) carries three things labels cannot express: a `Status` column,
+   an `Execution Sequence (HVB)` number, and a free-text `Dependency Signal`.
+   Writing it requires a token with the `project` scope, which **is not present
+   in every environment** — so it is a richer view layered on top of the label
+   board, never a replacement for it. When the scope is available, keep it in
+   sync; when it is not, the label board alone is a complete and correct board,
+   and no session should claim to have updated project 11 without having done so.
 
 The label taxonomy is defined once in
 [`scripts/board-labels.config.mjs`](scripts/board-labels.config.mjs) and enforced
@@ -65,6 +78,27 @@ The board "columns" are just issue searches. Open these, or bookmark them:
 
 URL form (replace the query, keeping it URL-encoded):
 `https://github.com/sovereignsquad/general-design-system/issues?q=is%3Aissue+is%3Aopen+label%3A%22status%3A+in+progress%22`
+
+## Projects v2 fields — `Execution Sequence (HVB)`
+
+Project 11's `Execution Sequence (HVB)` field is a single global ordering across
+every tracked issue, banded so a number carries meaning on sight:
+
+| Band | Meaning |
+| --- | --- |
+| `0–20` | The active milestone, in dependency order. `0` is its tracking issue. |
+| `21–29` | Follow-on work gated on that milestone landing (re-based scope, superseded issues awaiting their replacement). |
+| `30–39` | Independent work with no blockers — pick up any time. |
+| `40–49` | Process and documentation backlog. |
+| `90+` | Blocked on something outside this repository (permissions, an unmade design decision, a third party). |
+
+`Dependency Signal` is free text and must name the actual blocker (`Blocked by
+#566`, `Superseded by #569 + #572`, `No blockers`) — never a bare "blocked".
+
+A `status: blocked` label has no matching Projects v2 column; those issues sit in
+**Backlog (SOONER)** (near-term, unblocks with the current milestone) or
+**Roadmap (LATER)** (externally blocked), with `Dependency Signal` carrying the
+reason. The label remains the authoritative statement that the issue is blocked.
 
 ## Tooling
 
