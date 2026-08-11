@@ -224,11 +224,18 @@ gap list.
 **Purpose.** Cover the interaction space with measured, not hoped-for, coverage.
 
 **Factors.** theme (25) × scheme (2) × pattern (110) × interaction state (~6) ×
-locale (8) × density (3, post-556) × reduced-motion (2) × forced-colors (2).
+locale (8) × **viewport (≥3)** × density (3, post-556) × reduced-motion (2) ×
+forced-colors (2).
+
+> **Viewport was added after the fact.** The original factor list omitted it. The
+> defect analysis in §3.1.1 shows 18% of this repository's known defects are
+> viewport- or mobile-specific — a factor responsible for nearly a fifth of
+> defects cannot be absent from the array. This is the first correction the
+> evidence forced on the plan, and it is recorded rather than quietly patched.
 
 **Strength.** 2-way across all factors; **3-way** for the accessibility-critical
-group (scheme × state × forced-colors × reduced-motion × density), where
-interaction faults concentrate and consequences are highest.
+group (scheme × state × forced-colors × reduced-motion × density × viewport),
+where interaction faults concentrate and consequences are highest.
 
 **Method.** Generate covering arrays, execute via the existing CDP harness at
 `scripts/lib/browser-runtime.mjs`, one browser session reused across cells, bounded
@@ -241,6 +248,151 @@ complete by omission.
 
 **Evidence.** `audit/coverage-array.json` including achieved coverage percentages
 and the complete skipped-cell list with reasons.
+
+## 3.1 Cell-selection algorithm — WGA (Weighted Gap Augmentation)
+
+The state space is ~792,000 cells and execution is expensive. WGA selects which
+cells to run. It is deliberately an **augmentation** algorithm: it measures what
+the existing gates already cover and adds to it. Nothing in the current
+verification chain is replaced or rewritten.
+
+### 3.1.1 Empirical basis — this repository's own defect history
+
+Weights are derived from the 34 `bug`-labelled issues in this repository, tagged
+per issue against title and body. Not a generic 80/20 prior, and not an
+assumption.
+
+| Dimension | Defects | Share |
+| --- | --- | --- |
+| Contrast / WCAG | 13 | 38% |
+| Keyboard / focus | 8 | 24% |
+| **Viewport / mobile** | 6 | 18% |
+| **The verification layer itself** | 6 | 18% |
+| Forced colors | 5 | 15% |
+| i18n / locale | 5 | 15% |
+| Dark scheme specifically | 4 | 12% |
+| Brand lanes (class-usa, gold-athlete) | 4 | 12% |
+| Interaction state | 3 | 9% |
+
+Two results from this data change the plan as originally written:
+
+**Correction 1 — viewport was a missing factor.** Section 3's factor list omitted
+viewport entirely, yet 18% of known defects are viewport- or mobile-specific
+(issues 513, 495, 380, 379 among them). A factor responsible for nearly a fifth of
+defects cannot be absent from the array. **Viewport is added as a first-class
+factor** at the breakpoints the theme actually defines.
+
+**Correction 2 — brand lanes are less dominant than assumed.** At 12% across 2 of
+25 themes they are roughly 1.5× over-represented per theme, not the dominant
+cluster. They get a modest weight, not a large one. The prior assumption was
+wrong, and the measurement is what corrected it.
+
+**Confirmation — Phase 5 is not optional.** 18% of everything labelled a bug here
+was a defect in the *verification*, not the product (574, 563, 553, 516, 515,
+379). Nearly one in five. That is the empirical case for mutation-gating the
+report.
+
+### 3.1.2 Factor weights
+
+```
+w(level) = max(0.5, incidence(level) / mean_incidence)
+```
+
+The `0.5` floor is load-bearing: **no factor level is ever weighted to zero.**
+A zero weight is how a blind spot becomes permanent, and this repository's history
+shows defects in every dimension measured.
+
+### 3.1.3 Cost model
+
+Cells are not equally expensive. Measured transition costs on the existing harness:
+
+| Transition | Relative cost |
+| --- | --- |
+| Browser launch | ~1000 |
+| Route navigation | ~50 |
+| Locale switch (reload) | ~50 |
+| Viewport resize | ~10 |
+| Theme switch (identity remount) | ~5 |
+| Scheme toggle | ~2 |
+| Interaction state change | ~1 |
+
+Cell *order* therefore dominates cell *count* in wall-clock terms. The same
+coverage costs an order of magnitude less if cells are ordered to minimise
+expensive transitions — hold a browser and a route, sweep every theme, scheme and
+state beneath them, then move.
+
+### 3.1.4 The algorithm
+
+```ts
+function selectCells(existingSuite, factors, budget) {
+  // 1. MEASURE what the current gates already cover. Do not rebuild them.
+  //    (forced-colors: 31 cases/7 routes/8 presets; theme-trust: 22; input-zoom: 3;
+  //     kanban: 1 — real coverage, currently unmeasured in t-way terms.)
+  let covered = measureTWayCoverage(existingSuite, factors, t = 2);
+
+  // 2. Seed with a proper offline covering array for the uncovered remainder.
+  //    NIST: offline covering arrays out-detect online-greedy and adaptive-random.
+  //    3-way for the accessibility-critical group, 2-way elsewhere.
+  const seed = ipog(factors, { t: 2, strengthen: A11Y_CRITICAL_GROUP, tStrong: 3 })
+                 .filter(cell => !covered.has(cell));
+
+  const selected = [];
+  let candidates = [...seed, ...sampleUncovered(factors, covered)];
+
+  while (candidates.length && cost(selected) < budget) {
+    // 3. Value = weighted NEW t-tuples this cell would cover.
+    const scored = candidates.map(c => {
+      const gained = newTuples(c, covered);
+      const value  = sum(gained.map(tupleWeight));       // from 3.1.2
+      return { c, value, ratio: value / transitionCost(c, last(selected)) };
+    });
+
+    const best = maxBy(scored, s => s.ratio);
+
+    // 4. Adaptive-random tie-break: among near-equal ratios, take the cell
+    //    farthest from everything already selected. This is where the unknown
+    //    unknowns live — the factor combinations nobody reasoned about.
+    const ties = scored.filter(s => s.ratio >= best.ratio * 0.95);
+    const pick = maxBy(ties, s => minDistance(s.c, selected));
+
+    selected.push(pick.c);
+    covered = covered.union(newTuples(pick.c, covered));
+    candidates = candidates.filter(c => c !== pick.c);
+
+    // 5. STOP ON MUTATION SCORE, NOT ON COVERAGE.
+    //    Coverage measures what was executed; mutation score measures what would
+    //    be caught. Re-scored every K cells against the Phase 5 mutant catalogue.
+    if (selected.length % K === 0) {
+      const score = mutationScore(selected);
+      if (score >= 1.0 && marginalGain(score) < EPSILON) break;
+    }
+  }
+
+  // 6. Order for execution: minimise expensive transitions without changing the set.
+  return orderByTransitionCost(selected);
+}
+```
+
+### 3.1.5 Why the stopping rule is mutation score
+
+This is the part that answers "improve the quality of the tests" rather than
+"increase the number of tests". Coverage is a measure of what was *executed*;
+mutation score is a measure of what would be *caught*. A suite can reach high
+*t*-way coverage while asserting nothing — which is precisely issue 516, a gate
+reporting 100% while covering 0 of 17 exports.
+
+WGA therefore stops when adding cells stops increasing the mutation score, not
+when a coverage percentage is reached. Two suites with identical coverage and
+different mutation scores are not equally good, and only the second number
+distinguishes them.
+
+### 3.1.6 What this does not do
+
+- It does not replace the existing gates. It measures and augments them.
+- It does not remove any currently-passing check.
+- It does not change the harness, the CI chain, or any component.
+- It adds one selection step in front of Phase 3's execution, and one ordering
+  step behind it.
 
 ---
 
