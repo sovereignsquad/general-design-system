@@ -1,0 +1,3722 @@
+{
+  "commit": "f5ee6bad957e8bbfc9947732b9cd2d374bcf2d16",
+  "plannedCells": 40,
+  "executedCells": 40,
+  "skippedCells": [],
+  "coverage": 1,
+  "totalObservations": 250398,
+  "totalLiteralObservations": 46062,
+  "distinctLiterals": 240,
+  "findings": [
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "html",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "body",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_89ab340.mantine-AppShell-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.2s",
+      "sel": "header.m_3b16f56b.mantine-AppShell-header",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "header.m_3b16f56b.mantine-AppShell-header",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_4081bf90.mantine-Group-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "strong",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "p.mantine-focus-auto.m_b6d8b162",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_46b77525.mantine-InputWrapper-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_6c018570.mantine-Input-wrapper",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.1s",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_82577fc2.mantine-Input-section",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "svg",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "path",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "button.mantine-focus-auto.mantine-active",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "sel": "button.mantine-focus-auto.mantine-active",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "button.mantine-focus-auto.mantine-active",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.15s, 0.1s",
+      "sel": "span.m_8d3afb97.mantine-ActionIcon-icon",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "span.m_8d3afb97.mantine-ActionIcon-icon",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.2s",
+      "sel": "nav.m_45252eee.mantine-AppShell-navbar",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "nav.m_45252eee.mantine-AppShell-navbar",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_d57069b5.mantine-ScrollArea-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_c0783ff9.mantine-ScrollArea-viewport",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_6d731127.mantine-Stack-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "sel": "a.mantine-focus-auto.m_f0824112",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "a.mantine-focus-auto.m_f0824112",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.15s",
+      "sel": "span.m_690090b5.mantine-NavLink-section",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "span.m_690090b5.mantine-NavLink-section",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_f07af9d2.mantine-NavLink-body",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "span.m_1f6ac4c4.mantine-NavLink-label",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-top",
+      "value": "2.4px",
+      "sel": "div.m_c44ba933.mantine-ScrollArea-scrollbar",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-left",
+      "value": "2.4px",
+      "sel": "div.m_c44ba933.mantine-ScrollArea-scrollbar",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.15s, 0.15s",
+      "sel": "div.m_c44ba933.mantine-ScrollArea-scrollbar",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_c44ba933.mantine-ScrollArea-scrollbar",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.15s",
+      "sel": "div.m_d8b5e363.mantine-ScrollArea-thumb",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_d8b5e363.mantine-ScrollArea-thumb",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-top",
+      "value": "88px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-left",
+      "value": "296px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.2s",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_7485cace.mantine-Container-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "article.m_6d731127.mantine-Stack-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "h1.m_8a5d1357.mantine-Title-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-top",
+      "value": "7.2px",
+      "sel": "button.gds-tour-launch",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-left",
+      "value": "14.4px",
+      "sel": "button.gds-tour-launch",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "row-gap",
+      "value": "6.4px",
+      "sel": "button.gds-tour-launch",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "column-gap",
+      "value": "6.4px",
+      "sel": "button.gds-tour-launch",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "button.gds-tour-launch",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "sel": "button.gds-tour-launch",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "button.gds-tour-launch",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "h3.m_8a5d1357.mantine-Title-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_2415a157.mantine-SimpleGrid-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "row-gap",
+      "value": "6px",
+      "sel": "div.m_6d731127.mantine-Stack-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "column-gap",
+      "value": "6px",
+      "sel": "div.m_6d731127.mantine-Stack-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "h4.m_8a5d1357.mantine-Title-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "sel": "a.mantine-focus-auto.m_849cf0da",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "a.mantine-focus-auto.m_849cf0da",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "section",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "div.m_7341320d.mantine-ThemeIcon-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_7341320d.mantine-ThemeIcon-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "p",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "sel": "a",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "a",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.gds-tour-spotlight",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.gds-tour-spotlight__blocker",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.22s, 0.22s, 0.22s, 0.22s",
+      "sel": "div.gds-tour-spotlight__hole",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.gds-tour-spotlight__hole",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "div.gds-tour-card",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.22s, 0.22s",
+      "sel": "div.gds-tour-card",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.gds-tour-card",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.24px",
+      "sel": "p.gds-tour-card__progress",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "p.gds-tour-card__progress",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "h2.gds-tour-card__title",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.gds-tour-card__body",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.gds-tour-card__actions",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-top",
+      "value": "6px",
+      "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "13px",
+      "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.gds-tour-card__nav",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-top",
+      "value": "6px",
+      "sel": "button.gds-tour-btn.gds-tour-btn--primary",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "13px",
+      "sel": "button.gds-tour-btn.gds-tour-btn--primary",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "button.gds-tour-btn.gds-tour-btn--primary",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "sel": "button.gds-tour-btn.gds-tour-btn--primary",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "button.gds-tour-btn.gds-tour-btn--primary",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "nav",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_8b3717df.mantine-Breadcrumbs-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_3b8f2208.mantine-Breadcrumbs-separator",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "p.mantine-focus-auto.m_f678d540",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "nav.m_6d731127.mantine-Stack-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-top",
+      "value": "76px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.15s, 0.1s",
+      "sel": "span.m_80f1301b.mantine-Button-inner",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "span.m_80f1301b.mantine-Button-inner",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "span.m_a74036a.mantine-Button-section",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "span.m_811560b9.mantine-Button-label",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "nav.m_4081bf90.mantine-Group-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-weight",
+      "value": "500",
+      "sel": "a.mantine-focus-auto.m_849cf0da",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_71ac47fc.mantine-AspectRatio-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "11px",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "11px",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-weight",
+      "value": "500",
+      "sel": "p.mantine-focus-auto.m_b6d8b162",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "h2.m_8a5d1357.mantine-Title-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_db6d6462.mantine-Progress-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.1s",
+      "sel": "div.m_2242eb65.mantine-Progress-section",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_2242eb65.mantine-Progress-section",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_410352e9.mantine-Grid-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_dee7bd2f.mantine-Grid-inner",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "div.m_96bdd299.mantine-Grid-col",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "label",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.1s",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-top",
+      "value": "5.5px",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.1s",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-weight",
+      "value": "500",
+      "sel": "label.mantine-focus-auto.m_b6d8b162",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "outline-width",
+      "value": "3px",
+      "sel": "label.mantine-focus-auto.m_b6d8b162",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "div.gds-paper.m_1b7284a3",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 8
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "div.gds-paper.gds-card",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 8
+    },
+    {
+      "prop": "box-shadow",
+      "value": "color(srgb 0 0 0 / 0) 0px 12px 34px 0px",
+      "sel": "button.mantine-focus-auto.mantine-active",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 6
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.25px",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 6
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.25px",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 6
+    },
+    {
+      "prop": "background-color",
+      "value": "rgba(0, 0, 0, 0.4)",
+      "sel": "div.m_d8b5e363.mantine-ScrollArea-thumb",
+      "themes": [
+        "default/light",
+        "class-usa/light",
+        "gold-athlete/light",
+        "dark-public/light",
+        "high-contrast/light"
+      ],
+      "themeCount": 5
+    },
+    {
+      "prop": "box-shadow",
+      "value": "rgba(2, 6, 23, 0.55) 0px 0px 0px 9999px",
+      "sel": "div.gds-tour-spotlight__hole",
+      "themes": [
+        "default/light",
+        "class-usa/light",
+        "gold-athlete/light",
+        "dark-public/light",
+        "high-contrast/light"
+      ],
+      "themeCount": 5
+    },
+    {
+      "prop": "background-color",
+      "value": "rgba(255, 255, 255, 0.4)",
+      "sel": "div.m_d8b5e363.mantine-ScrollArea-thumb",
+      "themes": [
+        "default/dark",
+        "class-usa/dark",
+        "gold-athlete/dark",
+        "dark-public/dark",
+        "high-contrast/dark"
+      ],
+      "themeCount": 5
+    },
+    {
+      "prop": "box-shadow",
+      "value": "rgba(0, 0, 0, 0.66) 0px 0px 0px 9999px",
+      "sel": "div.gds-tour-spotlight__hole",
+      "themes": [
+        "default/dark",
+        "class-usa/dark",
+        "gold-athlete/dark",
+        "dark-public/dark",
+        "high-contrast/dark"
+      ],
+      "themeCount": 5
+    },
+    {
+      "prop": "color",
+      "value": "rgb(0, 0, 0)",
+      "sel": "html",
+      "themes": [
+        "default/light",
+        "class-usa/light",
+        "gold-athlete/light",
+        "dark-public/light"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "border-top-color",
+      "value": "rgb(0, 0, 0)",
+      "sel": "html",
+      "themes": [
+        "default/light",
+        "class-usa/light",
+        "gold-athlete/light",
+        "dark-public/light"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "outline-color",
+      "value": "rgb(0, 0, 0)",
+      "sel": "html",
+      "themes": [
+        "default/light",
+        "class-usa/light",
+        "gold-athlete/light",
+        "dark-public/light"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "box-shadow",
+      "value": "color(srgb 0.486274 0.227451 0.929412 / 0.072) 0px 18px 60px 0px",
+      "sel": "header.m_3b16f56b.mantine-AppShell-header",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "box-shadow",
+      "value": "color(srgb 0.486274 0.227451 0.929412 / 0.072) 0px 18px 60px 0px",
+      "sel": "nav.m_45252eee.mantine-AppShell-navbar",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "box-shadow",
+      "value": "color(srgb 0.486274 0.227451 0.929412 / 0.04) 0px 18px 54px 0px",
+      "sel": "div.gds-paper.m_1b7284a3",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "font-weight",
+      "value": "600",
+      "sel": "button.gds-tour-launch",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "font-weight",
+      "value": "600",
+      "sel": "a.mantine-focus-auto.m_849cf0da",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "font-weight",
+      "value": "600",
+      "sel": "p.gds-tour-card__progress",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "font-weight",
+      "value": "600",
+      "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "font-weight",
+      "value": "600",
+      "sel": "button.gds-tour-btn.gds-tour-btn--primary",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "box-shadow",
+      "value": "color(srgb 0.486274 0.227451 0.929412 / 0.116) 0px 12px 34px 0px",
+      "sel": "button.mantine-focus-auto.mantine-active",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "box-shadow",
+      "value": "color(srgb 0.486274 0.227451 0.929412 / 0.04) 0px 18px 54px 0px",
+      "sel": "div.gds-paper.gds-card",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.44px",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.44px",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "font-weight",
+      "value": "600",
+      "sel": "p.mantine-focus-auto.m_b6d8b162",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "padding-top",
+      "value": "79.5354px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "default/light",
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 3
+    },
+    {
+      "prop": "padding-top",
+      "value": "79.53px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "class-usa/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 3
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.486274 0.227451 0.929412 / 0.15)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark"
+      ],
+      "themeCount": 2
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.486274 0.227451 0.929412 / 0.28)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark"
+      ],
+      "themeCount": 2
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.545098 0.360784 0.964706 / 0.15)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 2
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.545098 0.360784 0.964706 / 0.28)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/light",
+        "dark-public/dark"
+      ],
+      "themeCount": 2
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.0431373 0.239216 0.568627 / 0.15)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 2
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.0431373 0.239216 0.568627 / 0.28)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 2
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.817647 0.811373 0.791373)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.161176 0.193725 0.237255)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.890588 0.832941 0.698824)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.205882 0.204706 0.204706)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.904314 0.923922 0.956863)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "padding-top",
+      "value": "87.1504px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "padding-top",
+      "value": "87.1477px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "padding-top",
+      "value": "79.5434px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "padding-top",
+      "value": "79.5273px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.385569 0.195451 0.743059)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.385569 0.195451 0.743059)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.385569 0.195451 0.743059)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.385569 0.195451 0.743059)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.385569 0.195451 0.743059)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.60298 0.408157 0.943529)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.60298 0.408157 0.943529)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.60298 0.408157 0.943529)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.60298 0.408157 0.943529)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.60298 0.408157 0.943529)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.0738823 0.185725 0.307137)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.0588235 0.172549 0.290196 / 0.15)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.0588235 0.172549 0.290196 / 0.28)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.0738823 0.185725 0.307137)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.0738823 0.185725 0.307137)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.0738823 0.185725 0.307137)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.0738823 0.185725 0.307137)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.305922 0.17511 0.11868 / 0.929412)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.760784 0.290196 0.0392157 / 0.45)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.428235 0.288941 0.0263529)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.541176 0.352941 0 / 0.15)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.541176 0.352941 0 / 0.28)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.428235 0.288941 0.0263529)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.428235 0.288941 0.0263529)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.428235 0.288941 0.0263529)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.428235 0.288941 0.0263529)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.343827 0.283524 0.165659 / 0.929412)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.941177 0.713726 0.258824 / 0.45)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.430275 0.296784 0.769882)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.430275 0.296784 0.769882)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.430275 0.296784 0.769882)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.430275 0.296784 0.769882)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.430275 0.296784 0.769882)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.647686 0.50949 0.970353)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.647686 0.50949 0.970353)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.647686 0.50949 0.970353)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.647686 0.50949 0.970353)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.647686 0.50949 0.970353)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.0327843 0.181804 0.432157)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.0327843 0.181804 0.432157)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.0327843 0.181804 0.432157)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.0327843 0.181804 0.432157)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.0327843 0.181804 0.432157)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.272784 0.421804 0.672157)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.272784 0.421804 0.672157)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "color",
+      "value": "color(srgb 0.272784 0.421804 0.672157)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.272784 0.421804 0.672157)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "outline-color",
+      "value": "color(srgb 0.272784 0.421804 0.672157)",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.817647 0.811373 0.791373)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.817647 0.811373 0.791373)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.161176 0.193725 0.237255)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.161176 0.193725 0.237255)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.890588 0.832941 0.698824)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.890588 0.832941 0.698824)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.205882 0.204706 0.204706)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.205882 0.204706 0.204706)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.904314 0.923922 0.956863)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.904314 0.923922 0.956863)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    }
+  ],
+  "cells": [
+    {
+      "route": "/live-demos",
+      "preset": "default",
+      "scheme": "light",
+      "tokenCount": 1109,
+      "observed": 2086,
+      "literals": 398
+    },
+    {
+      "route": "/live-demos",
+      "preset": "default",
+      "scheme": "dark",
+      "tokenCount": 1109,
+      "observed": 2092,
+      "literals": 396
+    },
+    {
+      "route": "/live-demos",
+      "preset": "class-usa",
+      "scheme": "light",
+      "tokenCount": 1221,
+      "observed": 2085,
+      "literals": 395
+    },
+    {
+      "route": "/live-demos",
+      "preset": "class-usa",
+      "scheme": "dark",
+      "tokenCount": 1221,
+      "observed": 2091,
+      "literals": 393
+    },
+    {
+      "route": "/live-demos",
+      "preset": "gold-athlete",
+      "scheme": "light",
+      "tokenCount": 1203,
+      "observed": 2085,
+      "literals": 395
+    },
+    {
+      "route": "/live-demos",
+      "preset": "gold-athlete",
+      "scheme": "dark",
+      "tokenCount": 1203,
+      "observed": 2091,
+      "literals": 393
+    },
+    {
+      "route": "/live-demos",
+      "preset": "dark-public",
+      "scheme": "light",
+      "tokenCount": 1109,
+      "observed": 2096,
+      "literals": 398
+    },
+    {
+      "route": "/live-demos",
+      "preset": "dark-public",
+      "scheme": "dark",
+      "tokenCount": 1109,
+      "observed": 2102,
+      "literals": 396
+    },
+    {
+      "route": "/live-demos",
+      "preset": "high-contrast",
+      "scheme": "light",
+      "tokenCount": 1109,
+      "observed": 2085,
+      "literals": 371
+    },
+    {
+      "route": "/live-demos",
+      "preset": "high-contrast",
+      "scheme": "dark",
+      "tokenCount": 1109,
+      "observed": 2091,
+      "literals": 372
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "default",
+      "scheme": "light",
+      "tokenCount": 1126,
+      "observed": 11844,
+      "literals": 2224
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "default",
+      "scheme": "dark",
+      "tokenCount": 1126,
+      "observed": 11844,
+      "literals": 2213
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "class-usa",
+      "scheme": "light",
+      "tokenCount": 1238,
+      "observed": 11787,
+      "literals": 2131
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "class-usa",
+      "scheme": "dark",
+      "tokenCount": 1238,
+      "observed": 11808,
+      "literals": 2155
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "gold-athlete",
+      "scheme": "light",
+      "tokenCount": 1220,
+      "observed": 11793,
+      "literals": 2137
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "gold-athlete",
+      "scheme": "dark",
+      "tokenCount": 1220,
+      "observed": 11808,
+      "literals": 2155
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "dark-public",
+      "scheme": "light",
+      "tokenCount": 1126,
+      "observed": 11859,
+      "literals": 2224
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "dark-public",
+      "scheme": "dark",
+      "tokenCount": 1126,
+      "observed": 11865,
+      "literals": 2219
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "high-contrast",
+      "scheme": "light",
+      "tokenCount": 1126,
+      "observed": 11793,
+      "literals": 2086
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "high-contrast",
+      "scheme": "dark",
+      "tokenCount": 1126,
+      "observed": 11805,
+      "literals": 2089
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "default",
+      "scheme": "light",
+      "tokenCount": 1116,
+      "observed": 3030,
+      "literals": 611
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "default",
+      "scheme": "dark",
+      "tokenCount": 1116,
+      "observed": 3036,
+      "literals": 609
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "class-usa",
+      "scheme": "light",
+      "tokenCount": 1228,
+      "observed": 3023,
+      "literals": 602
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "class-usa",
+      "scheme": "dark",
+      "tokenCount": 1228,
+      "observed": 3029,
+      "literals": 569
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "gold-athlete",
+      "scheme": "light",
+      "tokenCount": 1210,
+      "observed": 3023,
+      "literals": 602
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "gold-athlete",
+      "scheme": "dark",
+      "tokenCount": 1210,
+      "observed": 3029,
+      "literals": 569
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "dark-public",
+      "scheme": "light",
+      "tokenCount": 1116,
+      "observed": 3032,
+      "literals": 611
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "dark-public",
+      "scheme": "dark",
+      "tokenCount": 1116,
+      "observed": 3038,
+      "literals": 609
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "high-contrast",
+      "scheme": "light",
+      "tokenCount": 1115,
+      "observed": 3023,
+      "literals": 586
+    },
+    {
+      "route": "/live-demos/surfaces",
+      "preset": "high-contrast",
+      "scheme": "dark",
+      "tokenCount": 1115,
+      "observed": 3029,
+      "literals": 587
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "default",
+      "scheme": "light",
+      "tokenCount": 1118,
+      "observed": 8114,
+      "literals": 1525
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "default",
+      "scheme": "dark",
+      "tokenCount": 1118,
+      "observed": 8120,
+      "literals": 1514
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "class-usa",
+      "scheme": "light",
+      "tokenCount": 1230,
+      "observed": 8077,
+      "literals": 1462
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "class-usa",
+      "scheme": "dark",
+      "tokenCount": 1230,
+      "observed": 8083,
+      "literals": 1395
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "gold-athlete",
+      "scheme": "light",
+      "tokenCount": 1212,
+      "observed": 8077,
+      "literals": 1462
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "gold-athlete",
+      "scheme": "dark",
+      "tokenCount": 1212,
+      "observed": 8083,
+      "literals": 1395
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "dark-public",
+      "scheme": "light",
+      "tokenCount": 1118,
+      "observed": 8138,
+      "literals": 1525
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "dark-public",
+      "scheme": "dark",
+      "tokenCount": 1118,
+      "observed": 8144,
+      "literals": 1514
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "high-contrast",
+      "scheme": "light",
+      "tokenCount": 1118,
+      "observed": 8077,
+      "literals": 1387
+    },
+    {
+      "route": "/patterns/operations",
+      "preset": "high-contrast",
+      "scheme": "dark",
+      "tokenCount": 1118,
+      "observed": 8083,
+      "literals": 1388
+    }
+  ]
+}
