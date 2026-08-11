@@ -50,12 +50,13 @@
       "justifiedBy": "audit Phase 2 - published DTCG roles vs runtime semantic roles overlap by exactly 1, commit cb36e5e"
     },
     "undeclaredMantineDependencies": {
-      "source": "dimensions.json#/themeControl/mantineVarsGdsConsumesButNeverDeclares",
+      "source": "mantine-governance.json#/ungovernedCount",
       "direction": "max",
-      "value": 87,
+      "value": 81,
       "unit": "count",
       "finding": "F17",
-      "justifiedBy": "audit Phase 4c, commit bed78c8"
+      "justifiedBy": "issue 589 census: 92 consumed, 4 governed by gdsTheme, 6 delegated with reasons, 1 dynamic, 8 lane-only, 73 ungoverned. Budget = 73 ungoverned + 8 lane-only.",
+      "$comment": "MEASUREMENT CHANGED in issue 589, stated rather than slipped in (the F24 lesson). The old value 87 came from dimensions.json#/themeControl/mantineVarsGdsConsumesButNeverDeclares and meant 'consumed but never DECLARED as a CSS custom property'. The new value means 'consumed but not DICTATED by the default gdsTheme', measured by comparing gdsTheme against Mantine's DEFAULT_THEME, with reasoned delegations excluded. 87 -> 81 is NOT 6 variables remediated: nothing was declared and no rendered value changed. The two counts answer different questions, and only the new one distinguishes a value GDS actually controls from one it merely writes down."
     },
     "registryAtomsWithoutCoverage": {
       "source": "registry.json#/counts[uncovered kinds]",

@@ -1,0 +1,935 @@
+{
+  "consumed": 92,
+  "governed": 4,
+  "delegated": 6,
+  "dynamic": 1,
+  "laneGoverned": 8,
+  "ungovernedCount": 81,
+  "budget": 81,
+  "rows": [
+    {
+      "variable": "--mantine-color-",
+      "classification": "dynamic",
+      "reason": "Constructed at runtime from `palette.accent` in EditorialCard.tsx:183; the reachable palette set is not statically knowable.",
+      "files": [
+        "packages/gds-core/src/EditorialCard.tsx",
+        "packages/gds-core/src/GdsPageTemplates.tsx",
+        "packages/gds-theme/src/theme-presets.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-color-black",
+      "classification": "governed",
+      "declaredIn": "gdsTheme.black",
+      "value": "#111827",
+      "files": [
+        "packages/gds-core/src/PartnerDiscovery.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-blue-0",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.blue.0 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/EditorialCard.tsx",
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-blue-2",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.blue.2 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-blue-4",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.blue.4 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-blue-5",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.blue.5 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/GdsDataTable.client.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-blue-7",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.blue.7 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/icons.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-color-blue-9",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.blue.9 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/EditorialCard.tsx",
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-body",
+      "classification": "delegated",
+      "reason": "Mantine's light-dark page-surface primitive, which its own components read to composite against. GDS declares it in packages/gds-theme/styles.css so the value is GDS's, but the VARIABLE stays Mantine's because redefining the contract would desynchronise Mantine's internal light-dark switching from the GDS surface.",
+      "reviewBy": "2027-02-01",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/BoundedPreviewSurface.tsx",
+        "packages/gds-core/src/EditorialCard.tsx",
+        "packages/gds-core/src/GdsPageTemplates.tsx",
+        "packages/gds-core/src/ListingCard.tsx",
+        "packages/gds-core/src/PublicShell.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SectionPanel.tsx",
+        "packages/gds-theme/src/GdsProvider.tsx",
+        "packages/gds-theme/src/theme.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-color-dark-4",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.dark.4 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/theme.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-color-dark-5",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.dark.5 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/PartnerDiscovery.tsx",
+        "packages/gds-theme/src/theme-presets.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-color-dark-6",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.dark.6 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/EditorialCard.tsx",
+        "packages/gds-core/src/MediaWithFallback.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-dark-7",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.dark.7 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/ChatSurface.tsx",
+        "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/EditorialCard.tsx",
+        "packages/gds-core/src/EditorialHero.tsx",
+        "packages/gds-core/src/GdsBadge.tsx",
+        "packages/gds-core/src/GdsMapPinBadge.tsx",
+        "packages/gds-core/src/MeaningBadge.tsx",
+        "packages/gds-core/src/PublicShell.tsx",
+        "packages/gds-core/src/SectionPanel.tsx",
+        "packages/gds-core/src/SemanticButton.tsx",
+        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/theme.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-color-dark-8",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.dark.8 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/PartnerDiscovery.tsx",
+        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/theme.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-color-dark-9",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.dark.9 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/PartnerDiscovery.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-default",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/EditorialHero.tsx",
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-default-border",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/ChatSurface.tsx",
+        "packages/gds-core/src/EditorialHero.tsx",
+        "packages/gds-core/src/GdsPageTemplates.tsx",
+        "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "packages/gds-core/src/ListingCard.tsx",
+        "packages/gds-core/src/PublicShell.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/StyleUtilities.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-default-hover",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/ListingCard.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-dimmed",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/EditorialCard.tsx",
+        "packages/gds-core/src/icons.ts",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-0",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.gray.0 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/EditorialCard.tsx",
+        "packages/gds-core/src/EditorialHero.tsx",
+        "packages/gds-core/src/PartnerDiscovery.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SectionPanel.tsx",
+        "packages/gds-theme/src/theme.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-1",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.gray.1 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/GdsBadge.tsx",
+        "packages/gds-core/src/GdsFormControls.tsx",
+        "packages/gds-core/src/MediaWithFallback.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-2",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.gray.2 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SemanticButton.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-3",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.gray.3 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/BottomTabBar.tsx",
+        "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/PartnerDiscovery.tsx",
+        "packages/gds-core/src/SemanticButton.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-theme/src/theme.ts",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-4",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.gray.4 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/GdsBadge.tsx",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-5",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.gray.5 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/ChatSurface.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-6",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.gray.6 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/BottomTabBar.tsx",
+        "packages/gds-core/src/SemanticButton.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-7",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.gray.7 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/GdsCountBadge.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-9",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.gray.9 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-gray-light",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/MediaPreviewCard.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-green-0",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.green.0 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-green-2",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.green.2 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-green-4",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.green.4 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-green-6",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.green.6 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-green-7",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.green.7 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/icons.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-color-green-9",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.green.9 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-lime-2",
+      "classification": "lane-governed",
+      "lanes": [
+        "partnerDiscoveryThemePreset"
+      ],
+      "why": "governed by partnerDiscoveryThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
+      "files": [
+        "packages/gds-core/src/PartnerDiscovery.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-orange-0",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.orange.0 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/EditorialCard.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-orange-5",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.orange.5 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/FitScoreChip.tsx",
+        "packages/gds-core/src/MeaningBadge.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-orange-7",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.orange.7 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/FitScoreChip.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-orange-9",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.orange.9 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/EditorialCard.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-red",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-red-0",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.red.0 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SectionPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-red-2",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.red.2 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-red-4",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.red.4 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-red-6",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.red.6 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-red-7",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.red.7 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/icons.ts",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-red-9",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.red.9 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SectionPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-red-filled",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-teal-0",
+      "classification": "lane-governed",
+      "lanes": [
+        "partnerDiscoveryThemePreset"
+      ],
+      "why": "governed by partnerDiscoveryThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
+      "files": [
+        "packages/gds-core/src/PartnerDiscovery.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-teal-2",
+      "classification": "lane-governed",
+      "lanes": [
+        "partnerDiscoveryThemePreset"
+      ],
+      "why": "governed by partnerDiscoveryThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
+      "files": [
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-teal-4",
+      "classification": "lane-governed",
+      "lanes": [
+        "partnerDiscoveryThemePreset"
+      ],
+      "why": "governed by partnerDiscoveryThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
+      "files": [
+        "packages/gds-core/src/PartnerDiscovery.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-teal-6",
+      "classification": "lane-governed",
+      "lanes": [
+        "partnerDiscoveryThemePreset"
+      ],
+      "why": "governed by partnerDiscoveryThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
+      "files": [
+        "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/FitScoreChip.tsx",
+        "packages/gds-core/src/MeaningBadge.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-teal-7",
+      "classification": "lane-governed",
+      "lanes": [
+        "partnerDiscoveryThemePreset"
+      ],
+      "why": "governed by partnerDiscoveryThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
+      "files": [
+        "packages/gds-core/src/PartnerDiscovery.tsx",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-teal-9",
+      "classification": "lane-governed",
+      "lanes": [
+        "partnerDiscoveryThemePreset"
+      ],
+      "why": "governed by partnerDiscoveryThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
+      "files": [
+        "packages/gds-core/src/PartnerDiscovery.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-text",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/PublicNav.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-theme/src/GdsProvider.tsx",
+        "packages/gds-theme/src/VibeThemePicker.client.tsx",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-violet-0",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.violet.0 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-violet-2",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.violet.2 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-violet-4",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.violet.4 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-violet-6",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.violet.6 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/BottomTabBar.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-violet-9",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.violet.9 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-violet-filled",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/EditorialHero.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-violet-light",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/FeatureBand.tsx",
+        "packages/gds-core/src/UploadDropzone.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-white",
+      "classification": "governed",
+      "declaredIn": "gdsTheme.white",
+      "value": "#ffffff",
+      "files": [
+        "packages/gds-core/src/BottomTabBar.tsx",
+        "packages/gds-core/src/ChatSurface.tsx",
+        "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/FitScoreChip.tsx",
+        "packages/gds-core/src/GdsGeneratedHero.tsx",
+        "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
+        "packages/gds-core/src/GdsMapPinBadge.tsx",
+        "packages/gds-core/src/MeaningBadge.tsx",
+        "packages/gds-core/src/MediaWithFallback.tsx",
+        "packages/gds-core/src/PartnerDiscovery.tsx",
+        "packages/gds-core/src/PublicShell.tsx",
+        "packages/gds-core/src/SemanticButton.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/theme.ts",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-yellow-0",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.yellow.0 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SectionPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-yellow-2",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.yellow.2 from Mantine's default",
+      "files": [
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-yellow-3",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.yellow.3 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-yellow-5",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.yellow.5 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-yellow-7",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.yellow.7 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/SemanticCharts.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-color-yellow-8",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.yellow.8 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/icons.ts",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-color-yellow-9",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.yellow.9 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SectionPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-font-family-monospace",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.fontFamilyMonospace from Mantine's default",
+      "files": [
+        "packages/gds-core/src/StyleUtilities.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-font-size-sm",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.fontSizes.sm from Mantine's default",
+      "files": [
+        "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "packages/gds-theme/src/theme.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-primary-color-contrast",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-primary-color-filled",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/GdsFormControls.tsx",
+        "packages/gds-core/src/ListingCard.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SemanticButton.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-core/src/StyleUtilities.tsx",
+        "packages/gds-core/src/icons.ts",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-primary-color-light",
+      "classification": "ungoverned",
+      "why": "no GDS theme field maps to this variable",
+      "files": [
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-radius-lg",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.radius.lg from Mantine's default",
+      "files": [
+        "packages/gds-core/src/PublicShell.tsx",
+        "packages/gds-core/src/ReferenceThemeExplorer.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/UploadDropzone.tsx",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-radius-md",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.radius.md from Mantine's default",
+      "files": [
+        "packages/gds-core/src/EditorialCard.tsx",
+        "packages/gds-core/src/EditorialHero.tsx",
+        "packages/gds-core/src/GdsGeneratedHero.tsx",
+        "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
+        "packages/gds-core/src/GdsPageTemplates.tsx",
+        "packages/gds-core/src/MediaWithFallback.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-radius-sm",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.radius.sm from Mantine's default",
+      "files": [
+        "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-radius-xl",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.radius.xl from Mantine's default",
+      "files": [
+        "packages/gds-core/src/EditorialHero.tsx",
+        "packages/gds-core/src/ReferenceThemeExplorer.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-shadow-lg",
+      "classification": "governed",
+      "declaredIn": "gdsTheme.shadows.lg",
+      "value": "0 16px 40px rgba(15, 23, 42, 0.12)",
+      "files": [
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-shadow-md",
+      "classification": "governed",
+      "declaredIn": "gdsTheme.shadows.md",
+      "value": "0 8px 24px rgba(15, 23, 42, 0.08)",
+      "files": [
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-shadow-sm",
+      "classification": "lane-governed",
+      "lanes": [
+        "gdsFlatSurfaceTheme",
+        "gdsEditorialPublicTheme",
+        "classUsaThemePreset",
+        "goldAthleteThemePreset"
+      ],
+      "why": "governed by gdsFlatSurfaceTheme, gdsEditorialPublicTheme, classUsaThemePreset, goldAthleteThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
+      "files": [
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-spacing-lg",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.spacing.lg from Mantine's default",
+      "files": [
+        "packages/gds-admin/src/EditorScaffold.tsx",
+        "packages/gds-core/src/EditorialHero.tsx",
+        "packages/gds-core/src/LayoutPrimitives.tsx",
+        "packages/gds-core/src/PublicBrandFooter.tsx",
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-spacing-md",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.spacing.md from Mantine's default",
+      "files": [
+        "packages/gds-core/src/GdsPageTemplates.tsx",
+        "packages/gds-core/src/LayoutPrimitives.tsx",
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-spacing-sm",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.spacing.sm from Mantine's default",
+      "files": [
+        "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "packages/gds-core/src/LayoutPrimitives.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-spacing-xl",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.spacing.xl from Mantine's default",
+      "files": [
+        "packages/gds-core/src/EditorialHero.tsx",
+        "packages/gds-core/src/LayoutPrimitives.tsx",
+        "packages/gds-core/src/PublicBrandFooter.tsx",
+        "packages/gds-core/src/PublicShell.tsx",
+        "packages/gds-core/src/SafeStyles.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-spacing-xs",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.spacing.xs from Mantine's default",
+      "files": [
+        "packages/gds-core/src/DocsShell.tsx",
+        "packages/gds-core/src/LayoutPrimitives.tsx",
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SemanticCharts.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-z-index-app",
+      "classification": "delegated",
+      "reason": "GDS publishes stacking tiers by name (`gdsZIndexToken`) that resolve to Mantine's own z-index scale, deliberately, so there is one stacking authority rather than two. A GDS scale would have to be kept numerically consistent with Mantine's portals, and any drift renders a GDS overlay behind a Mantine modal. Documented at packages/gds-theme/src/z-index.ts.",
+      "reviewBy": "2027-08-01",
+      "files": [
+        "packages/gds-theme/src/z-index.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-z-index-max",
+      "classification": "delegated",
+      "reason": "See --mantine-z-index-app: one stacking authority, not two.",
+      "reviewBy": "2027-08-01",
+      "files": [
+        "packages/gds-theme/src/z-index.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-z-index-modal",
+      "classification": "delegated",
+      "reason": "See --mantine-z-index-app: one stacking authority, not two.",
+      "reviewBy": "2027-08-01",
+      "files": [
+        "packages/gds-theme/src/z-index.ts"
+      ]
+    },
+    {
+      "variable": "--mantine-z-index-overlay",
+      "classification": "delegated",
+      "reason": "See --mantine-z-index-app: one stacking authority, not two.",
+      "reviewBy": "2027-08-01",
+      "files": [
+        "packages/gds-theme/src/z-index.ts",
+        "packages/gds-theme/styles.css"
+      ]
+    },
+    {
+      "variable": "--mantine-z-index-popover",
+      "classification": "delegated",
+      "reason": "See --mantine-z-index-app: one stacking authority, not two.",
+      "reviewBy": "2027-08-01",
+      "files": [
+        "packages/gds-theme/src/z-index.ts"
+      ]
+    }
+  ]
+}
