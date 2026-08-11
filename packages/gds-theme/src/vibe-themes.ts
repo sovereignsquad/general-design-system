@@ -1,5 +1,5 @@
 import type { GdsThemePresetId } from './theme-presets';
-import { contrastRatio, mixCssColors, parseCssColor } from './color-math';
+import { ensureContrast, mixCssColors, parseCssColor, readableForeground } from './color-math';
 
 // This file intentionally maintains its own hand-authored color values rather
 // than deriving them from `theme-presets.ts`'s Mantine hue names (e.g.
@@ -706,19 +706,6 @@ const UNIVERSAL_DANGER = '#b3261e';
 const UNIVERSAL_DANGER_DARK = '#f2786f';
 
 /** Nudges `candidate` toward black/white (in sRGB, matching the runtime `color-mix(in srgb, ...)`) until it clears `minRatio` against `background`, or gives up after 16 steps. */
-function ensureContrast(candidate: string, background: string, minRatio: number, towardWhite: boolean, fallback: string): string {
-  const step = towardWhite ? '#ffffff' : '#000000';
-  let color = candidate;
-  for (let i = 0; i < 16; i += 1) {
-    const ratio = contrastRatio(color, background, fallback);
-    if (ratio !== null && ratio >= minRatio) {
-      return color;
-    }
-    color = mixCssColors(color, step, 0.9, fallback);
-  }
-  return color;
-}
-
 function toRgba(hexOrRgb: string, alpha: number): string {
   const parsed = parseCssColor(hexOrRgb);
   if (!parsed) {
@@ -762,6 +749,13 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
 
   const supportLight = mixCssColors(vibe.mutedLight, accentLight, 0.6, vibe.canvasLight);
   const supportDark = mixCssColors(vibe.mutedDark, accentDark, 0.6, vibe.canvasDark);
+  // issue #537: `support` is a background the theme picks freely, so neither a light
+  // nor a dark foreground can be assumed across 25 presets x 2 schemes. Derive it.
+  // ChoiceChip previously paired `text.onInverse` with `support` - two roles never
+  // designed to meet - which passed here only because these lanes run through
+  // ensureContrast at all, and failed outright in the hand-authored brand lanes.
+  const textOnSupportLight = readableForeground(supportLight, 4.5, vibe.canvasLight);
+  const textOnSupportDark = readableForeground(supportDark, 4.5, vibe.canvasDark);
 
   return {
     '--gds-brand-primary': vibe.textLight,
@@ -776,6 +770,8 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
     '--gds-accent-dark': accentDark,
     '--gds-support': supportLight,
     '--gds-support-dark': supportDark,
+    '--gds-text-on-support': textOnSupportLight,
+    '--gds-text-on-support-dark': textOnSupportDark,
     '--gds-bg-canvas': vibe.canvasLight,
     '--gds-bg-canvas-dark': vibe.canvasDark,
     '--gds-bg-card': '#ffffff',
@@ -838,7 +834,30 @@ const derivedSemanticCssVariablesCache = new Map<GdsThemePresetId, Record<string
 function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeTheme): Record<string, string> {
   const handAuthored = brandSemanticCssVariablesByPreset[id];
   if (handAuthored) {
-    return handAuthored;
+    // The hand-authored table OVERRIDES derivation; it does not REPLACE it (issue #537).
+    //
+    // Returning it wholesale meant any role it happened not to list simply vanished for
+    // the brand lanes, while every generic lane had one. That is precisely how
+    // `--gds-text-on-support` came to be absent here and present everywhere else, and
+    // why ChoiceChip reached for `text.onInverse` - a role designed for a different
+    // background - and rendered at 1.89:1 in class-usa dark.
+    //
+    // Deriving first and layering the hand-authored values on top preserves every
+    // deliberate brand decision while making an omission fall back to a
+    // contrast-derived default rather than to nothing. It also means a role added in
+    // future cannot silently disappear from these two lanes.
+    const merged = { ...deriveVibeSemanticCssVariables(vibe), ...handAuthored };
+
+    // Roles DERIVED FROM another role must be recomputed after the override layer is
+    // applied, or the pair is mismatched: the derived foreground was computed against
+    // the derived `support`, while the hand-authored `support` is what actually wins.
+    // That mismatch measured 4.1:1 for class-usa light - a real failure introduced by
+    // the fix itself, caught only because every preset x scheme pair is verified rather
+    // than sampled.
+    merged['--gds-text-on-support'] = readableForeground(merged['--gds-support'], 4.5, merged['--gds-bg-page'] ?? vibe.canvasLight);
+    merged['--gds-text-on-support-dark'] = readableForeground(merged['--gds-support-dark'], 4.5, merged['--gds-bg-page-dark'] ?? vibe.canvasDark);
+
+    return merged;
   }
 
   const cached = derivedSemanticCssVariablesCache.get(id);

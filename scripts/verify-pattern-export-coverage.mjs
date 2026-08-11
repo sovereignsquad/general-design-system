@@ -96,6 +96,13 @@ const ignoredExports = new Set([
   'mixCssColors',
   'luminance',
   'contrastRatio',
+  // issue #537 promoted these two out of vibe-themes.ts so the hand-authored brand
+  // lanes could derive contrast-safe pairs the same way the generic lanes do, instead
+  // of hand-picking values. Same nature as the primitives above: internal, shared
+  // between vibe-themes.ts and brand-tokens.ts, absent from the public barrel, and not
+  // a UI pattern.
+  'ensureContrast',
+  'readableForeground',
 ]);
 
 const coveredByPackage = new Map();

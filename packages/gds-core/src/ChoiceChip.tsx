@@ -270,7 +270,12 @@ export function SoftChipGroup<T extends string = string>({
           onChange={onChange}
           size="micro"
           activeStyle={{
-            color: 'var(--gds-text-on-inverse, var(--mantine-color-white))',
+            // issue #537: pairs with `support`'s own derived foreground. It previously
+            // used `text.onInverse`, a role designed to sit on `bg.inverse` - an
+            // unrelated background - which measured 1.89:1 in class-usa dark against a
+            // 4.5:1 requirement. `--gds-text-on-support` is derived per preset per
+            // scheme, so the pairing is contrast-correct by construction.
+            color: 'var(--gds-text-on-support, var(--gds-text-on-inverse, var(--mantine-color-white)))',
             background: 'var(--gds-support, var(--mantine-color-teal-6))',
           }}
           inactiveStyle={{

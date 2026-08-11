@@ -1,5 +1,6 @@
 import { mergeThemeOverrides, type MantineColorsTuple, type MantineTheme, type MantineThemeOverride } from '@mantine/core';
 import { createPublicBrandTheme } from './theme';
+import { readableForeground } from './color-math';
 import {
   validateGdsTokenGraph,
   type GdsTokenGraph,
@@ -421,6 +422,13 @@ function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>): Reco
   vars['--gds-brand-primary-pressed-dark'] = tokens['brand.primaryPressed'].dark;
   vars['--gds-text-on-inverse'] = tokens['text.onInverse'].light;
   vars['--gds-text-on-inverse-dark'] = tokens['text.onInverse'].dark;
+  // issue #537: DERIVED, never hand-authored. These two lanes bypassed the vibe lanes'
+  // ensureContrast derivation, so `support` had no foreground role designed to sit on
+  // it and ChoiceChip reached for `text.onInverse` instead - 1.89:1 in class-usa dark
+  // against a 4.5:1 requirement. Deriving it here means a new brand lane cannot
+  // reintroduce the defect by forgetting to pick a value.
+  vars['--gds-text-on-support'] = readableForeground(tokens['support'].light, 4.5, tokens['bg.page'].light);
+  vars['--gds-text-on-support-dark'] = readableForeground(tokens['support'].dark, 4.5, tokens['bg.page'].dark);
   vars['--gds-brand-accent-action'] = tokens['brand.accent'].light;
   vars['--gds-brand-accent-action-dark'] = tokens['brand.accent'].dark;
   vars['--gds-brand-accent-tint'] = tokens['badge.urgencyBg'].light;
@@ -537,6 +545,12 @@ function assertContrast(tokens: Record<BrandSemanticRole, SemanticPair>): GdsTok
     { foreground: tokens['text.primary'].light, background: tokens['bg.surface'].light, min: 4.5, label: 'text.primary on bg.surface' },
     { foreground: tokens['text.onInverse'].light, background: tokens['bg.inverse'].light, min: 4.5, label: 'text.onInverse on bg.inverse' },
     { foreground: tokens['text.secondary'].light, background: tokens['bg.page'].light, min: 4.5, label: 'text.secondary on bg.page' },
+    // issue #537: gate the pairing that RENDERS, in both schemes. The absence of this
+    // requirement is why a 1.89:1 selected chip shipped while every existing contrast
+    // gate stayed green - they all checked designed pairings, and this pairing was
+    // never designed at all.
+    { foreground: readableForeground(tokens['support'].light, 4.5, tokens['bg.page'].light), background: tokens['support'].light, min: 4.5, label: 'text.onSupport on support (light)' },
+    { foreground: readableForeground(tokens['support'].dark, 4.5, tokens['bg.page'].dark), background: tokens['support'].dark, min: 4.5, label: 'text.onSupport on support (dark)' },
   ];
   const findings: GdsTokenValidationFinding[] = [];
   for (const req of requirements) {

@@ -130,4 +130,42 @@ describe('vibe-theme semantic role tokens (badge-system foundation)', () => {
     expect(derived['--gds-state-danger-dark']).toBe('#f2786f');
     expect(derived['--gds-state-warning-dark']).toBe('#e0a23c');
   });
+
+  it('pairs --gds-text-on-support with --gds-support at WCAG AA for every preset and scheme (issue #537)', () => {
+    // The regression this guards: ChoiceChip's selected state paired
+    // `--gds-text-on-inverse` (designed to sit on `bg.inverse`) with `--gds-support`,
+    // two roles never designed to meet. It measured 1.89:1 in class-usa dark against a
+    // 4.5:1 requirement and passed every existing gate, because every existing gate
+    // checked DESIGNED pairings and this pairing was never designed at all.
+    //
+    // Asserting all 25 presets x both schemes rather than sampling is deliberate: the
+    // fix itself introduced a 4.1:1 failure in class-usa light (the hand-authored
+    // `support` override winning over a foreground derived against the derived
+    // `support`), and only exhaustive checking surfaced it.
+    const presetIds = getGdsThemePresets().map((preset) => preset.id);
+    expect(presetIds.length).toBeGreaterThan(0);
+
+    const failures: string[] = [];
+    for (const id of presetIds) {
+      for (const scheme of ['light', 'dark'] as const) {
+        const vars = getGdsVibeThemeCssVariables(id, scheme);
+        const background = vars['--gds-support'];
+        const foreground = vars['--gds-text-on-support'];
+
+        // A missing token is a failure, not a skip: the brand lanes previously omitted
+        // this role entirely, which is how the defect reached production.
+        if (!background || !foreground) {
+          failures.push(`${id}/${scheme}: missing token (support=${background}, on-support=${foreground})`);
+          continue;
+        }
+
+        const result = checkGdsContrast(foreground, background, { level: 'AA', size: 'normal' });
+        if (!result.passes) {
+          failures.push(`${id}/${scheme}: ${foreground} on ${background} = ${result.ratio}:1`);
+        }
+      }
+    }
+
+    expect(failures).toEqual([]);
+  });
 });
