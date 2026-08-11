@@ -7,6 +7,35 @@ All notable policy changes to the General Design System are recorded here.
 No package or component source changed; no version bump. Tooling, governance,
 and documentation only.
 
+- **The verification gates are now mutation-tested themselves (#580)**: added
+  `npm run verify:gates`, chained into `verify:release`. The verdict is **inverted** —
+  under a planted defect a correct gate must FAIL; a gate that still exits 0 has proven
+  it does not detect that defect, and each mutant's `claim` string names precisely which
+  assertion is thereby unsupported.
+
+  **6 mutants killed**, including one reproducing #516's exact false pass — which is why
+  #516 had to land first.
+
+  **Two genuine survivors, and they are a real finding (F22).** `verify:theme-tokens`
+  and `verify:theme-accessibility` both pass with a semantic token renamed, and with
+  `--gds-text-body` set to near-white on a light canvas. Verified as gate weaknesses
+  rather than bad mutants: `validateGdsTokenGraph()` validates 425 tokens = 17 roles ×
+  25 themes (the vibe atmosphere palette), and the accessibility report scores
+  `vibe.textLight` directly, not the derived `--gds-*` roles. **The 73 semantic tokens
+  that determine what a component looks like are outside both gates' scope** — so a
+  semantic token can be renamed or dropped below its contrast floor and `verify:release`
+  stays green. This is F12's root cause reaching further than F12 reported, and it is the
+  mechanism behind #537. Recorded as `KNOWN_SURVIVORS` against #585, dated, and reported
+  every run.
+
+  Coverage is enforced: a release-chain gate with neither mutants nor a **dated,
+  reasoned** exemption fails the suite. 8 gates carry mutants, 15 are exempted with
+  written reasons and review dates — including `verify:gates` itself, whose exemption
+  states plainly that the gate verifying gates is currently unverified.
+
+  Three defects in the suite's own first run were self-corrected (F23): a mutant that
+  falsely accused a working gate by not rebuilding first, a clean-tree check that flagged
+  its own untracked files, and a summary that printed `0 survived` when two had.
 - **Phase 1 of the audit is now validated by measurement (#579)**: added
   `scripts/audit/render-mutants.mjs`, which rebuilds the workspace between baseline and
   mutant so a render-time analysis can be mutation-tested at all. **Both mutants

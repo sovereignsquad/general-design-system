@@ -539,3 +539,71 @@ artifacts must treat those artifacts as state to restore, exactly like source. F
 recorded that a mutation harness can be wrong in the direction that flatters the
 audit; F21 records that it can also silently corrupt the inputs of everything
 downstream of it.
+
+
+---
+
+## F22 — two release-chain gates are blind to the 73 semantic tokens
+
+**Severity: high.** Found by the gate mutation suite (#580) on its first real run.
+This is F12's root cause reaching further than F12 reported.
+
+`verify:theme-tokens` and `verify:theme-accessibility` both **exit 0 under a planted
+defect**:
+
+| Mutant | Planted | Gate verdict |
+| --- | --- | --- |
+| Rename `--gds-support` to `--gds-support-RENAMED` in the derived semantic set | a semantic token vanishes | **passes** |
+| Set `--gds-text-body` to `#f5f5f5` (near-white on a light canvas) | a text role fails contrast | **passes** |
+
+Both were rebuilt before the gate ran, so this is not the dist-staleness artefact that
+made the first attempt a false accusation — the gates genuinely do not see it.
+
+**Cause, verified rather than inferred:**
+
+- `validateGdsTokenGraph()` validates a graph of **425 tokens = 17 roles × 25 themes** —
+  the vibe *atmosphere* palette. Probing it for a semantic role returns nothing.
+- `createGdsThemeAccessibilityReport()` scores entries like
+  `{ role: "page text", foreground: "#111827", background: "#f8fafc", ratio: 16.96 }`.
+  `#111827` is `vibe.textLight`, read directly from the palette — not the derived
+  `--gds-text-body`.
+
+So the 73 semantic `--gds-*` roles that actually determine what a component looks like
+are **outside the scope of both gates**.
+
+**Why this matters more than F12 as originally written.** F12 reported that the
+published DTCG graph and the runtime semantic roles overlap by exactly 1, framed as an
+incompleteness problem for external design tools. It is also a **verification blind
+spot inside the release chain**: a semantic token can be renamed, broken, or dropped to
+a failing contrast ratio and `verify:release` stays green.
+
+It is worth noting that #537 was exactly this class of defect — a semantic pairing
+rendering at 1.89:1 while every contrast gate passed — and F22 explains the mechanism
+rather than just the instance.
+
+**Status:** recorded as `KNOWN_SURVIVORS` in `scripts/audit/gate-mutants.config.mjs`,
+attributed to **#585**, review by 2026-12-01, and reported on every suite run. The suite
+passes with them present because they are filed and dated — **not because they are
+fixed**, and its summary says so in those words.
+
+## F23 — three defects in the gate suite's own first run, self-corrected
+
+**Severity: process.** Consistent with F4, F14, F19, F20, F21.
+
+1. **A false accusation.** The `verify:theme-tokens` mutant initially survived because
+   that gate imports from `dist/` and a source mutation never reached it. Reporting it
+   would have blamed a working gate for a defect in the mutant. Fixed with a
+   `requiresBuild` step; it then survived legitimately, for the reason in F22.
+2. **A crying-wolf clean-tree check.** It compared against absolute cleanliness and
+   flagged the suite's own new untracked files as leaked mutations. Now compared against
+   a baseline captured before the run.
+3. **The suite's own summary overclaimed.** It printed `0 survived` when two mutants had
+   survived and were merely *known*. A summary that rounds a recorded weakness down to
+   zero converts a known-failing state into an unknown-failing one. Now reports
+   `6 killed, 2 KNOWN survivors tracked to an open issue, 0 unexplained`, with an
+   explicit note that the pass reflects filing, not fixing.
+
+That is nine defects the audit and its tooling have found in themselves. Every one was
+caught by checking a result that looked wrong rather than accepting it — which is
+precisely the behaviour #580 exists to make systematic instead of dependent on someone
+being suspicious on the day.
