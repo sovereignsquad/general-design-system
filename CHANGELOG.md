@@ -87,6 +87,17 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **`verify:gates` now runs after `build` (F27)**: it ran at step 2 of `verify:release`
+  while `build` ran at step 5, so `verify:theme-tokens` and `verify:smoke-import-surface`
+  — both of which read from `dist/` — were mutated on a tree that had no `dist/` on a
+  clean CI checkout. They exited non-zero before any mutation was applied, which the
+  inverted verdict scored as `KILLED`. **CI had been counting two mutants it never
+  tested.** Invisible locally, where a leftover `dist/` always exists.
+
+  Found by the F25 baseline assertion on its first CI run, the same day it landed.
+  Verified by deleting every `dist/` in the workspace and running the full chain from
+  scratch — the genuine CI condition rather than an approximation.
+
 - **Two defects found in the audit's own tooling while building the above** (F24, F25 in
   `audit/FINDINGS.md`):
 

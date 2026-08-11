@@ -757,3 +757,41 @@ the gate suite. This is the same class again, in a hand-run verification step: *
 artifact regenerated after the change it is supposed to predate proves nothing.** The
 generalisable rule is now stated in three findings, so it is worth saying plainly: a
 baseline is only evidence if the code that produced it is the code being replaced.
+
+
+---
+
+## F27 — `verify:gates` ran before `build`, so two gates were scored on a tree with no `dist/`
+
+**Severity:** high — it means the gate suite has been reporting **false kills in CI**, and
+the local run could not see it.
+
+`verify:release` ran `verify:gates` at step 2 and `build` at step 5. Two of the mutated
+gates read from `dist/`:
+
+- `verify:theme-tokens` imports `packages/gds-theme/dist`
+- `verify:smoke-import-surface` resolves fixture imports against built `.d.ts` barrels
+
+On a clean CI checkout there is no `dist/`, so both exit non-zero **before any mutation is
+applied**. Under the inverted verdict that non-zero reads as "the gate detected the planted
+defect", so both were scored `KILLED` — for the same reason F25 described, in a different
+trigger. CI has been counting two mutants it never actually tested.
+
+**Locally it was invisible.** A developer machine always has a `dist/` left over from an
+earlier build, so the baseline passed and the mutants ran for real. The defect existed only
+in the environment nobody reads the mutation table from.
+
+**Caught by the F25 baseline assertion on its first CI run.** The commit that added
+"assert each gate passes clean before mutating it" failed CI immediately, reporting
+`BASELINE BROKEN: verify:theme-tokens exits 1 with no mutation applied`. The assertion
+found a real defect the same day it landed, in the environment it was written for.
+
+**Fixed** by moving `verify:gates` to run immediately after `build`. Verified by deleting
+every `dist/` directory in the workspace and running the full chain from scratch — the
+genuine CI condition, not an approximation of it — which passes at 10/12 with no
+`BASELINE BROKEN`.
+
+**Why this was not caught before:** `requiresBuild` (F20) solved staleness for mutants that
+rebuild *during* the run. It did not address the gate needing a build to run *at all*. Two
+different dependencies on the build, one addressed and one not, and only the second is
+environment-dependent — which is precisely why it survived local verification.
