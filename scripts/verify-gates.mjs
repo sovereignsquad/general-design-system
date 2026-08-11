@@ -9,7 +9,7 @@
 //
 // Output: audit/gate-mutation-score.json
 
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { GATE_MUTANTS, EXEMPTIONS, KNOWN_SURVIVORS } from './audit/gate-mutants.config.mjs';
@@ -55,9 +55,25 @@ try {
   baselineTree = execFileSync('git', ['status', '--porcelain', '--', 'packages', 'scripts', 'audit', 'apps'], { cwd: ROOT }).toString().trim();
 } catch { /* git unavailable; reported at the end */ }
 
+// F21, recurring. The audit harness was fixed to restore generated artifacts; this
+// suite was not, and it has the same problem for the same reason: gates WRITE artifacts
+// when they run, so a gate executed under a mutation leaves a mutant-derived artifact on
+// disk. Here it left obligation-coverage.json at 411 gaps instead of 410, and the very
+// next budget check failed against the audit's own leftovers.
+//
+// The generalisable rule, learned twice: ANY harness that runs a tool which writes
+// artifacts must treat those artifacts as state to restore, exactly like source.
+const ARTIFACTS = ['audit/registry.json', 'audit/obligation-coverage.json', 'audit/forward-trace.json', 'audit/dimensions.json'];
+const artifactSnapshots = Object.fromEntries(
+  ARTIFACTS.filter((f) => existsSync(join(ROOT, f))).map((f) => [f, readFileSync(join(ROOT, f), 'utf8')]),
+);
+const restoreArtifacts = () => {
+  for (const [f, content] of Object.entries(artifactSnapshots)) writeFileSync(join(ROOT, f), content);
+};
+
 const results = [];
 const snapshots = new Map();
-const restoreAll = () => { for (const [f, c] of snapshots) writeFileSync(f, c); };
+const restoreAll = () => { for (const [f, c] of snapshots) writeFileSync(f, c); restoreArtifacts(); };
 process.once('SIGINT', () => { restoreAll(); process.exit(130); });
 process.once('SIGTERM', () => { restoreAll(); process.exit(143); });
 
@@ -80,6 +96,19 @@ function runGate(entry) {
   }
 }
 
+// Finding F25. The inverted verdict is only meaningful against a gate that PASSES clean:
+// if a gate fails unconditionally, every mutant reports KILLED and the suite certifies a
+// broken gate as working. That is exactly what happened — verify:obligation-coverage read
+// a budget key ratcheted to 0, failed on every run, and scored a false kill.
+//
+// This is the mirror of the false-SURVIVOR class `requiresBuild` fixed. Both come from
+// the same omission: running a gate without establishing what its result MEANS.
+const baselineExit = new Map();
+const gateBaseline = (entry) => {
+  if (!baselineExit.has(entry.npmScript)) baselineExit.set(entry.npmScript, runGate(entry));
+  return baselineExit.get(entry.npmScript);
+};
+
 console.log('Gate mutation suite (issue 580)\n');
 
 for (const entry of GATE_MUTANTS) {
@@ -91,6 +120,13 @@ for (const entry of GATE_MUTANTS) {
     let detail = '';
 
     try {
+      const clean = gateBaseline(entry);
+      if (clean !== 0) {
+        throw new Error(
+          `BASELINE BROKEN: ${entry.npmScript} exits ${clean ?? 'TIMEOUT'} with no mutation applied. `
+          + 'Every mutant would report KILLED for the wrong reason. Fix the gate first.',
+        );
+      }
       if (!original.includes(mutant.find)) throw new Error(`anchor not found: ${mutant.find.slice(0, 60)}`);
       let mutated = mutant.once
         ? original.replace(mutant.find, mutant.replace)
@@ -106,6 +142,11 @@ for (const entry of GATE_MUTANTS) {
       // is rebuilt. Skipping this step makes such a mutant report SURVIVED and falsely
       // accuse a working gate — the same class as F20.
       if (mutant.requiresBuild) rebuild(mutant.requiresBuild);
+      // Some gates read a generated artifact rather than source, so the artifact must be
+      // regenerated for the mutation to be visible. Same class as requiresBuild.
+      if (mutant.regenerate?.includes('registry')) {
+        execFileSync('node', [join(ROOT, 'scripts/audit/extract-registry.mjs')], { cwd: ROOT, stdio: 'pipe' });
+      }
       const exit = runGate(entry);
       if (exit === null) {
         detail = `gate timed out after ${TIMEOUT_MS}ms`;
@@ -121,6 +162,9 @@ for (const entry of GATE_MUTANTS) {
       if (mutant.requiresBuild) {
         try { rebuild(mutant.requiresBuild); } catch { /* reported by the clean-tree check */ }
       }
+      if (mutant.regenerate?.includes('registry')) {
+        try { execFileSync('node', [join(ROOT, 'scripts/audit/extract-registry.mjs')], { cwd: ROOT, stdio: 'pipe' }); } catch { /* clean-tree check reports */ }
+      }
       snapshots.delete(path);
     }
 
@@ -129,6 +173,10 @@ for (const entry of GATE_MUTANTS) {
     results.push({ gate: entry.npmScript, mutantId: mutant.id, claim: mutant.claim, status, detail });
   }
 }
+
+// Restore artifacts BEFORE the clean-tree check and before the score is written, so no
+// mutant-derived artifact survives the run.
+restoreArtifacts();
 
 // ── Clean-tree assertion: a leaked mutation ships broken source ──────────────
 let treeDirty = null;

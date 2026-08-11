@@ -607,3 +607,95 @@ That is nine defects the audit and its tooling have found in themselves. Every o
 caught by checking a result that looked wrong rather than accepting it — which is
 precisely the behaviour #580 exists to make systematic instead of dependent on someone
 being suspicious on the day.
+
+
+---
+
+## F24 — F18 overstated the uncovered surface, and the fix nearly made 494 false accusations
+
+**Severity: process.** Self-reported, correcting an earlier finding in this document.
+
+**F18 said** 1,699 of 2,829 atoms (60%) had "no obligation coverage at all", listing
+`export` (590), `prop` (1,002), `variant` (97), `accent` (10).
+
+**That was true of audit-phase coverage and false of gate coverage.** `export` was
+already covered: `verify:api-jsdoc-coverage` measures exactly that surface, at the
+declaration site, and reports **99.8% across 1,242 declarations**. F18 counted a kind as
+uncovered because no *audit phase* touched it, without checking whether an existing gate
+already did.
+
+**The near-miss.** Issue 581's first implementation modelled a `jsdoc` obligation on
+`export` anyway and reported **3/497 — 494 gaps**. Every one was false. The registry
+records an export at its **barrel** line (`packages/gds/src/index.ts:3`, a re-export
+statement); the JSDoc lives on the declaration in the component's own file. The
+predicate was reading the wrong file entirely.
+
+It was caught only because 0.6% was implausible next to a gate that had just reported
+99.8% for the same surface — the same cross-check that caught F21.
+
+**Corrected position:** `export` is recorded in `COVERED_ELSEWHERE` with the owning gate
+named. The real uncovered surface is **410 atoms**: 373 props without a JSDoc line and
+37 variants demonstrated by no playground demo. Both now ratcheted via the
+`obligationGaps` budget.
+
+**A measurement change is recorded explicitly.** `registryAtomsWithoutCoverage` drops
+1,699 → 0, but it now measures something different: atoms in kinds with *neither an
+obligation model nor a recorded owner*. The 1,699 did not evaporate — 410 of them carry
+real unmet obligations and are tracked by the new budget. `audit/budgets.json` states
+this in the entry itself, because a budget that silently changes meaning is
+indistinguishable from a budget that was gamed.
+
+**The generalisable lesson**, and it applies to the whole audit: *"no phase covered it"
+is not the same as "nothing covers it."* Three counts of the export surface now exist —
+590 (registry barrel entries), 518 (api-docs registry), 1,242 (api-jsdoc declarations) —
+measuring genuinely different things under the same word. Any future claim about "the
+public export surface" has to say which one it means.
+
+---
+
+## F25 — A gate that always fails scores a perfect mutation kill
+
+**Severity:** high — this defect class certifies broken verification as working.
+
+`verify:obligation-coverage` read its ceiling from `budgets.registryAtomsWithoutCoverage`.
+The same change set had just ratcheted that budget to **0**, because the measurement moved
+to the new `obligationGaps` key (see F24). So the gate compared 410 gaps against a budget
+of 0 and **exited non-zero on every clean run**, including runs with nothing wrong.
+
+It stayed invisible for the worst possible reason: **the gate mutation suite reported its
+mutant `KILLED`.** The suite's verdict is inverted — non-zero exit under a planted defect
+means the gate detected it. A gate that fails unconditionally therefore "detects"
+everything. It scored a perfect kill precisely because it was broken.
+
+Two independent fixes, because there were two defects:
+
+1. **The wrong key** — the gate now reads `obligationGaps`, and a *missing* budget entry
+   is a hard failure rather than `Infinity`. Defaulting an absent budget to `Infinity`
+   passes vacuously, which is the issue #516 failure mode verbatim.
+2. **The missing baseline** — `verify-gates.mjs` now runs every gate **clean, once,
+   before applying any mutation**, and marks its mutants `INVALID` with `BASELINE BROKEN`
+   if that clean run does not exit 0.
+
+**This is the exact mirror of the false-`SURVIVED` class.** `requiresBuild` (F20) fixed
+mutants that reported SURVIVED because the gate could not see the mutation. F25 is
+mutants reporting KILLED because the gate could not see *anything*. Both come from the
+same omission: **running a gate without first establishing what its result means.** An
+inverted verdict is only interpretable against a known-passing baseline, and the suite
+never established one.
+
+**Negative control, run before the fix was accepted:** `obligationGaps` was temporarily
+set to 0, reproducing the broken state. The suite exited 1 and reported
+`obligation-detects-new-undocumented-prop INVALID — BASELINE BROKEN: verify:obligation-coverage
+exits 1 with no mutation applied`. Restored, the clean suite scores 8/10 with the mutant
+genuinely `KILLED`.
+
+**Also fixed in the same pass — F21 recurring.** The gate suite restored mutated *source*
+but not the *artifacts* its child gates write. The obligation mutant left
+`audit/obligation-coverage.json` at 411 gaps, which tripped the budget gate on the next
+run against the audit's own leftovers. `mutate.mjs` was fixed for this class already; the
+newer suite was written without the lesson. It now snapshots and restores every audit
+artifact its children write.
+
+**The generalisable rule, now learned twice:** any harness that runs a tool which writes
+artifacts must treat those artifacts as state to restore, exactly like source — and any
+harness that interprets an exit code must first establish what a clean exit code is.

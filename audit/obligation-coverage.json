@@ -1,0 +1,5763 @@
+{
+  "evaluated": 1047,
+  "gapCount": 410,
+  "excludedCount": 62,
+  "byKind": {
+    "prop": {
+      "evaluated": 940,
+      "gaps": 373
+    },
+    "variant": {
+      "evaluated": 97,
+      "gaps": 37
+    },
+    "accent": {
+      "evaluated": 10,
+      "gaps": 0
+    }
+  },
+  "unmodelled": [],
+  "budget": 410,
+  "gaps": [
+    {
+      "atom": "ContentOpsSectionProps.tone=critical",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-admin/src/ContentOpsSection.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'critical' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "PageHeaderProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-admin/src/PageHeader.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "WorkspaceHeaderProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-admin/src/WorkspaceHeader.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AISearchCardProps.disabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/AISearchCard.tsx",
+        "line": 17
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AccentPanelProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/AccentPanel.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AccessSummaryProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/AccessSummary.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AccessSummaryProps.roles",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/AccessSummary.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AccessSummaryProps.scope",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/AccessSummary.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AccessSummaryProps.state=allowed",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/AccessSummary.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'allowed' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "AccessSummaryProps.state=forbidden",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/AccessSummary.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'forbidden' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "AccessSummaryProps.state=expired",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/AccessSummary.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'expired' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "AccessSummaryProps.owner",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/AccessSummary.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AccessSummaryProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/AccessSummary.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ArticleShellProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ArticleShell.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AuthShellProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/AuthShell.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AuthShellProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/AuthShell.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AuthShellProps.intent=account-linking",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/AuthShell.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'account-linking' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "AuthShellProps.intent=guest-entry",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/AuthShell.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'guest-entry' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "BottomTabBarProps.items",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BottomTabBar.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.eyebrow",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.resultCount",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.resultLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.activeFilters",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.scopeOptions",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.scopeLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.locationControls",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.primaryControls",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.sortControl",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.mobileFilters",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.filterDrawer",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.loading",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.loadingTitle",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.loadingDescription",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.error",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.errorTitle",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.errorAction",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.empty",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.emptyTitle",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.emptyDescription",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BrowseSurfaceProps.emptyAction",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/BrowseSurface.tsx",
+        "line": 23
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChartTokenPanelProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChartTokenPanel.tsx",
+        "line": 24
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChartTokenPanelProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChartTokenPanel.tsx",
+        "line": 24
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.messages",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.onSend",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.inputDisabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.placeholder",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.emptyState",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.errorBanner",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.userLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.assistantLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.sendLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.onRetry",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ChatThreadProps.retryLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ChatSurface.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ConfirmDialogProps.opened",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ConfirmDialog.tsx",
+        "line": 7
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ConfirmDialogProps.onClose",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ConfirmDialog.tsx",
+        "line": 7
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ConfirmDialogProps.onConfirm",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ConfirmDialog.tsx",
+        "line": 7
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ConfirmDialogProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ConfirmDialog.tsx",
+        "line": 7
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ConsumerSectionProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ConsumerSection.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ConsumerSectionProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ConsumerSection.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ConsumerSectionProps.tone=supporting",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/ConsumerSection.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'supporting' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "CreatorThemeBoundaryProps.policy",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/CreatorTheme.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "CreatorThemeBoundaryProps.requiredVisibleSelectors",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/CreatorTheme.tsx",
+        "line": 31
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "CtaButtonGroupProps.primary",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/CtaButtonGroup.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DetailProfileShellProps.mode=page",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/DetailProfileShell.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'page' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "DetailProfileShellProps.hero",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DetailProfileShell.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DetailProfileShellProps.actions",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DetailProfileShell.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DiscoveryShellProps.header",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DiscoveryShell.tsx",
+        "line": 79
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DiscoveryShellProps.sidebar",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DiscoveryShell.tsx",
+        "line": 79
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DiscoveryShellProps.footer",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DiscoveryShell.tsx",
+        "line": 79
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DiscoveryShellProps.defaultSidebarOpen",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DiscoveryShell.tsx",
+        "line": 79
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DiscoveryShellProps.sidebarStorageKey",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DiscoveryShell.tsx",
+        "line": 79
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DiscoveryShellProps.onSidebarOpenedChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DiscoveryShell.tsx",
+        "line": 79
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DocsCodeBlockProps.code",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DocsCodeBlock.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DocsCodeBlockProps.language",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DocsCodeBlock.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DocsCodeBlockProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DocsCodeBlock.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DocsPageShellProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DocsPageShell.tsx",
+        "line": 9
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DocsShellProps.brand",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DocsShell.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DocsShellProps.actions",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DocsShell.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "DocsShellProps.footer",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/DocsShell.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialCardProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/EditorialCard.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialCardProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/EditorialCard.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialCardProps.tone=warm",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/EditorialCard.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'warm' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialCardProps.tone=muted",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/EditorialCard.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'muted' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialHeroProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/EditorialHero.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialHeroProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/EditorialHero.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialHeroProps.mediaPosition=right",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/EditorialHero.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'right' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialHeroProps.mediaPosition=left",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/EditorialHero.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'left' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialHeroProps.mediaFade=soft-start",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/EditorialHero.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'soft-start' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialHeroProps.mediaFade=background-blend",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/EditorialHero.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'background-blend' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialHeroProps.mediaFade=background-match",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/EditorialHero.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'background-match' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialHeroProps.mediaFade=mask-soft-edge",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/EditorialHero.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'mask-soft-edge' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "EditorialHeroProps.surfaceVariant=flat-public",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/EditorialHero.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'flat-public' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "EmptyStateProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/EmptyState.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "EmptyStateProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/EmptyState.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "EvidencePanelProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/EvidencePanel.tsx",
+        "line": 15
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "EvidencePanelProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/EvidencePanel.tsx",
+        "line": 15
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "EvidencePanelProps.details",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/EvidencePanel.tsx",
+        "line": 15
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FeatureBandProps.items",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FeatureBand.tsx",
+        "line": 22
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FeatureBandProps.variant=process",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/FeatureBand.tsx",
+        "line": 22
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'process' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "GdsConfirmProviderProps.onConfirmationEvent",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FeedbackRuntime.client.tsx",
+        "line": 92
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FilterDrawerProps.opened",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FilterDrawer.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FilterDrawerProps.onClose",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FilterDrawer.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FilterDrawerProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FilterDrawer.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FilterDrawerProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FilterDrawer.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FilterDrawerProps.closeAction",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FilterDrawer.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FoodMenuSectionProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FoodMenuSection.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FoodMenuSectionProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FoodMenuSection.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FoodMenuSectionProps.eyebrow",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FoodMenuSection.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FoodMenuSectionProps.categories",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FoodMenuSection.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FoodMenuSectionProps.sectionNote",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FoodMenuSection.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FoodMenuSectionProps.action",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FoodMenuSection.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FoodMenuSectionProps.columns",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/FoodMenuSection.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GameBoardTileProps.matched",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GameBoardTile.tsx",
+        "line": 9
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GameBoardTileProps.disabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GameBoardTile.tsx",
+        "line": 9
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsAssetPreviewCardProps.asset",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsAssetManager.client.tsx",
+        "line": 103
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsAssetPreviewCardProps.aspectRatio",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsAssetManager.client.tsx",
+        "line": 103
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsAssetPreviewCardProps.actions",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsAssetManager.client.tsx",
+        "line": 103
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsBadgeStackProps.size",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsBadgeStack.tsx",
+        "line": 24
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsBreadcrumbsProps.items",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsBreadcrumbs.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsChartProps.type",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsChart.tsx",
+        "line": 203
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsChartProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsChart.tsx",
+        "line": 203
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsChartProps.data",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsChart.tsx",
+        "line": 203
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsChartProps.config",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsChart.tsx",
+        "line": 203
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsDateInputBaseProps.label",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsDateInput.client.tsx",
+        "line": 73
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsDateInputBaseProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsDateInput.client.tsx",
+        "line": 73
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsDateInputBaseProps.placeholder",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsDateInput.client.tsx",
+        "line": 73
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsDateInputBaseProps.disabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsDateInput.client.tsx",
+        "line": 73
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsDateInputBaseProps.required",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsDateInput.client.tsx",
+        "line": 73
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsDateInputBaseProps.error",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsDateInput.client.tsx",
+        "line": 73
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsDateInputBaseProps.name",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsDateInput.client.tsx",
+        "line": 73
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsDateInputBaseProps.minDate",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsDateInput.client.tsx",
+        "line": 73
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsDateInputBaseProps.maxDate",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsDateInput.client.tsx",
+        "line": 73
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSliderProps.label",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 84
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSliderProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 84
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSliderProps.value",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 84
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSliderProps.onChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 84
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSliderProps.disabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 84
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSliderProps.marks",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 84
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsWizardStepperProps.steps",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 163
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsWizardStepperProps.onStepChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 163
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsWizardStepperProps.onBack",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 163
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsWizardStepperProps.backLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 163
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsWizardStepperProps.saveNextLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 163
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsWizardStepperProps.loading",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 163
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsWizardStepperProps.ariaLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsFormControls.tsx",
+        "line": 163
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsGeneratedThumbnailProps.categories",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
+        "line": 78
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsMapPinBadgeProps.size",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
+        "line": 74
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsPageTemplateBaseProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsPageTemplates.tsx",
+        "line": 93
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsPageTemplateBaseProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsPageTemplates.tsx",
+        "line": 93
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsPageTemplateBaseProps.actions",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsPageTemplates.tsx",
+        "line": 93
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsPageTemplateBaseProps.retryLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsPageTemplates.tsx",
+        "line": 93
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsRichTextEditorProps.label",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsRichTextEditorProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsRichTextEditorProps.placeholder",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsRichTextEditorProps.readOnly",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsRichTextEditorProps.minHeight",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.label",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.field",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.value",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.describedBy",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.invalid",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.required",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.accept",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.multiple",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.maxFileSizeBytes",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.maxFileSizeLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.actionLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.policyText",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.state",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.progressValue",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.uploadAdapter",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.onUploadEvent",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "FileUploadFieldProps.onChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/GdsSchemaForm.client.tsx",
+        "line": 420
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.href",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.image",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.imageAlt",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.mediaRatio",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.metadata",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.featured",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.sponsoredDisclosure",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.price",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.rating",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.ratingLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.primaryAction",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.saveAction",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.saved",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.shareAction",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.compact",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.size",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.density",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.variant",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.interactiveMode",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.revealContent",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.onSurfaceActivate",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ListingCardProps.defaultFlipped",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingCard.tsx",
+        "line": 30
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ActiveFilterChipsProps.filters",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingPrimitives.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ResultSummaryProps.resultCount",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingPrimitives.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ResultSummaryProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingPrimitives.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "SortMenuProps.value",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingPrimitives.tsx",
+        "line": 35
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "SortMenuProps.options",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingPrimitives.tsx",
+        "line": 35
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "SortMenuProps.onChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingPrimitives.tsx",
+        "line": 35
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "BulkActionsBarProps.selectedCount",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ListingPrimitives.tsx",
+        "line": 44
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MapPanelProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MapPanel.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MapPanelProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MapPanel.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MapPanelProps.loading",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MapPanel.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaCardProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaCard.tsx",
+        "line": 13
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaCardProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaCard.tsx",
+        "line": 13
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaCardProps.actions",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaCard.tsx",
+        "line": 13
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaCardProps.size",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaCard.tsx",
+        "line": 13
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaCardProps.density",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaCard.tsx",
+        "line": 13
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaCardProps.variant",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaCard.tsx",
+        "line": 13
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaFieldProps.label",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaField.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaFieldProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaField.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaFieldProps.helpText",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaField.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaFieldProps.error",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaField.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaFieldProps.mode",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaField.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaFieldProps.mode=stacked",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/MediaField.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'stacked' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "MediaFieldProps.mode=split",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/MediaField.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'split' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "MediaPreviewCardProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaPreviewCard.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaPreviewCardProps.caption",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaPreviewCard.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaPreviewCardProps.fit",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaPreviewCard.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaPreviewCardProps.aspectRatio",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaPreviewCard.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaPreviewCardProps.metadata",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaPreviewCard.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MediaWithFallbackProps.src",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MediaWithFallback.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MetricCardProps.label",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MetricCard.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MetricCardProps.value",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MetricCard.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MetricCardProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MetricCard.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MetricCardProps.icon",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MetricCard.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "MetricCardProps.footer",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/MetricCard.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "InlineAlertProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/Notifications.tsx",
+        "line": 93
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "InlineAlertProps.message",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/Notifications.tsx",
+        "line": 93
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "InlineAlertProps.status",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/Notifications.tsx",
+        "line": 93
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "NumberStepperProps.value",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/NumberStepper.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "NumberStepperProps.disabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/NumberStepper.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PageHeaderProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PageHeader.tsx",
+        "line": 8
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapAdapterProps.places",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 89
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapAdapterProps.activePlaceId",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 89
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapAdapterProps.onPinSelect",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 89
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapAdapterProps.onViewportChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 89
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryShellProps.logo",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 268
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryShellProps.navItems",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 268
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AmenityChipGridProps.amenities",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 352
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "AmenityChipGridProps.onToggle",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 352
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.value",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.amenities",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.labels",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.onQueryChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.onAmenityToggle",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.onPriceToggle",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.onOpen",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.onClose",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.onReset",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.onApply",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerDiscoveryFiltersProps.onEvent",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 403
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceResultCardProps.place",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 546
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceResultCardProps.onSelect",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 546
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceResultCardProps.onEvent",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 546
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapPinProps.label",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 611
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapPinProps.active",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 611
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapPinProps.onSelect",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 611
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapControlsProps.onZoomIn",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 644
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapControlsProps.onZoomOut",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 644
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapListShellProps.places",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 673
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapListShellProps.filters",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 673
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapListShellProps.activePlaceId",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 673
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapListShellProps.loading",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 673
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapListShellProps.error",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 673
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapListShellProps.onRetry",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 673
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapListShellProps.onActivePlaceChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 673
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapListShellProps.amenityLabels",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 673
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerMapListShellProps.onEvent",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 673
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceDetailTemplateProps.place",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 799
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceDetailTemplateProps.backHref",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 799
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceDetailTemplateProps.labels",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 799
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceDetailTemplateProps.shareState=copying",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 799
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'copying' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceDetailTemplateProps.shareState=copied",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 799
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'copied' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceDetailTemplateProps.shareState=failed",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 799
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'failed' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceDetailTemplateProps.onShare",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 799
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerPlaceDetailTemplateProps.onEvent",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 799
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerNewsletterCaptureProps.opened",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 924
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerNewsletterCaptureProps.labels",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 924
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerNewsletterCaptureProps.email",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 924
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerNewsletterCaptureProps.onEmailChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 924
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerNewsletterCaptureProps.onSubmit",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 924
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerNewsletterCaptureProps.onDismiss",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 924
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PartnerNewsletterCaptureProps.onEvent",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PartnerDiscovery.tsx",
+        "line": 924
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PeriodSelectorProps.label",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PeriodSelector.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PeriodSelectorProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PeriodSelector.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PeriodSelectorProps.value",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PeriodSelector.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PeriodSelectorProps.options",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PeriodSelector.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PeriodSelectorProps.onChange",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PeriodSelector.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PeriodSelectorProps.helperText",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PeriodSelector.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PeriodSelectorProps.error",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PeriodSelector.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PeriodSelectorProps.disabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PeriodSelector.tsx",
+        "line": 14
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaceholderPanelProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaceholderPanel.tsx",
+        "line": 6
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaceholderPanelProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaceholderPanel.tsx",
+        "line": 6
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackControlsProps.state",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackControls.client.tsx",
+        "line": 11
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackControlsProps.onPlayPause",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackControls.client.tsx",
+        "line": 11
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackControlsProps.onNext",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackControls.client.tsx",
+        "line": 11
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackControlsProps.onPrevious",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackControls.client.tsx",
+        "line": 11
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackControlsProps.reducedMotion",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackControls.client.tsx",
+        "line": 11
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackSurfaceProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackSurface.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackSurfaceProps.state",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackSurface.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackSurfaceProps.statusMessage",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackSurface.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackSurfaceProps.mode=fullscreen",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackSurface.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'fullscreen' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackSurfaceProps.mode=embedded",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackSurface.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'embedded' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "PlaybackSurfaceProps.mode=kiosk",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/PlaybackSurface.tsx",
+        "line": 10
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'kiosk' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "ProductCardProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProductCard.tsx",
+        "line": 22
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProductCardProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProductCard.tsx",
+        "line": 22
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProductCardProps.footer",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProductCard.tsx",
+        "line": 22
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProgressCardProps.label",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProgressCard.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProgressCardProps.value",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProgressCard.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProgressCardProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProgressCard.tsx",
+        "line": 5
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.provider",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.error",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.onClick",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.disabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.loading",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.fullWidth",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.size",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.variant",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.ariaLabel",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonProps.describedBy",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 60
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonGroupProps.providers",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 85
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ProviderIdentityButtonGroupProps.layout=stack",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/ProviderIdentityButtons.tsx",
+        "line": 85
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'stack' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "PublicBrandFooterProps.brandTitle",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicBrandFooter.tsx",
+        "line": 17
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicBrandFooterProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicBrandFooter.tsx",
+        "line": 17
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicBrandFooterProps.actions",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicBrandFooter.tsx",
+        "line": 17
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicBrandFooterProps.layoutVariant",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicBrandFooter.tsx",
+        "line": 17
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicBrandFooterProps.classNames",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicBrandFooter.tsx",
+        "line": 17
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicCaptureFlowProps.actions",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicCaptureFlow.tsx",
+        "line": 13
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFlowShellProps.stage",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFlowShell.tsx",
+        "line": 41
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.imageAlt",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.price",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.priceNote",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.state",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.helperText",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.markers",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.metadata",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.secondaryAction",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.mediaRatio",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.size",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.density",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.variant",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicFoodCardProps.disabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicFoodCard.tsx",
+        "line": 28
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicNavProps.items",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicNav.tsx",
+        "line": 18
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.imageAlt",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.price",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.metadata",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.compact",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.size",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.density",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.variant",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicProductCardProps.disabled",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicProductCard.tsx",
+        "line": 19
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.brand",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.activeNavId",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.actions",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.footer",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.mobileNavigation",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.headerBordered",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.compact",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.headerVariant",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.mobileNavigationMode",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "PublicShellProps.classNames",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/PublicShell.tsx",
+        "line": 34
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ReferenceLinkGridProps.items",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ReferenceLinkGrid.tsx",
+        "line": 16
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ReferenceLinkGridProps.columns",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ReferenceLinkGrid.tsx",
+        "line": 16
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ReportingSectionProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ReportingSection.tsx",
+        "line": 22
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ReportingSectionProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ReportingSection.tsx",
+        "line": 22
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ReportingSectionProps.state",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ReportingSection.tsx",
+        "line": 22
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.background",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.border",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.radius",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.shadow",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.shadow=raised",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'raised' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.overflow",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.aspectRatio",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.aspectRatio=square",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'square' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.aspectRatio=video",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'video' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.aspectRatio=photo",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'photo' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.aspectRatio=wide",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'wide' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.aspectRatio=portrait",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'portrait' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.focusRing=inset",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'inset' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "GdsSafeStyleProps.forcedColors=preserve",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/SafeStyles.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'preserve' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "SemanticChartFrameProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SemanticCharts.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "SemanticChartFrameProps.summary",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SemanticCharts.tsx",
+        "line": 25
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ShareButtonGroupProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ShareButtonGroup.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ShareButtonGroupProps.text",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ShareButtonGroup.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "ShareButtonGroupProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/ShareButtonGroup.tsx",
+        "line": 21
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "SocialAuthButtonsProps.providers",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SocialAuthButtons.tsx",
+        "line": 42
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "SocialAuthButtonsProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/SocialAuthButtons.tsx",
+        "line": 42
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "SocialAuthButtonsProps.layout=stack",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/SocialAuthButtons.tsx",
+        "line": 42
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'stack' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "StatsSectionProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/StatsSection.tsx",
+        "line": 7
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "StatsSectionProps.loading",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/StatsSection.tsx",
+        "line": 7
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsTelemetryProviderProps.sink",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/Telemetry.client.tsx",
+        "line": 158
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsTelemetryProviderProps.adapter",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/Telemetry.client.tsx",
+        "line": 158
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsTelemetryProviderProps.sampleRate",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/Telemetry.client.tsx",
+        "line": 158
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsTelemetryProviderProps.payloadPolicy",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/Telemetry.client.tsx",
+        "line": 158
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "GdsTelemetryProviderProps.onAdapterError",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/Telemetry.client.tsx",
+        "line": 158
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "UploadDropzoneProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/UploadDropzone.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "UploadDropzoneProps.description",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/UploadDropzone.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "UploadDropzoneProps.mode=panel",
+      "kind": "variant",
+      "source": {
+        "file": "packages/gds-core/src/UploadDropzone.tsx",
+        "line": 20
+      },
+      "unmet": [
+        {
+          "obligation": "variationShown",
+          "why": "literal 'panel' is rendered by no playground demo"
+        }
+      ]
+    }
+  ]
+}
