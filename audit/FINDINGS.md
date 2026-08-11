@@ -13,17 +13,24 @@ Environment: local build + deployed site `sovereignsquad.github.io/general-desig
 | 0 — Ground-truth registry | **Complete** | `audit/registry.json`, 2,829 atoms, all 16 expected kinds non-zero |
 | 1 — Backward trace | **Complete** (bounded scope, stated below) | `audit/backward-trace.json`, 40/40 cells |
 | 2 — Forward trace | **Complete** | `audit/forward-trace.json`, 365 cells |
-| 3 — Combinatorial sweep | **Not run** | — |
+| 3 — Combinatorial sweep | **Not implemented** | — |
 | 4a — Motion | **Complete** | this document, F1–F4 |
-| 4b — i18n | Not run | — |
-| 4c — Theme control | Not run | — |
-| 4d — Underived | Not run | — |
-| 5 — Mutation | **Not run** | — |
-| 6 — Completeness critic | Not run | — |
+| 4b — i18n | **Complete** (parity + leakage only) | `audit/dimensions.json` |
+| 4c — Theme control | **Complete** | `audit/dimensions.json` |
+| 4d — Underived | **Complete** | `audit/dimensions.json` |
+| 5 — Mutation | **Run — FAILED its own gate** | `audit/mutation-score.json`, 85.7% vs 100% required |
+| 6 — Completeness critic | **Complete** | `audit/completeness-critique.md` |
 
-**No clean result is claimed for any un-run phase.** Per the plan's own gate,
-Phase 5 has not run, so these findings are unvalidated by mutation testing: they
-are defects I found, not evidence that the audit finds all defects.
+> ## VERDICT: the audit does not pass its own gate
+>
+> Phase 5 required **100% on M1-M12**. Achieved **85.7% (6/7 run), 5 not run**.
+>
+> The defects below are individually verified. **No claim of completeness is
+> supported.** "18.4% untraceable" is what the audit found, not the true figure.
+> "0/73 tokens satisfy all five" is a floor. And crucially, **Phase 1 is entirely
+> unvalidated** - M1 and M2, the only mutants that would test it, did not run.
+>
+> See `audit/completeness-critique.md` for the full list of what was not covered.
 
 **Phase 1 scope is bounded and stated.** 4 routes x 5 presets x 2 schemes = 40
 cells, 100% executed, 0 skipped. That is 5 of 25 presets and 4 of 24 routes — a
@@ -377,3 +384,115 @@ This is the third and fourth classifier defect the audit has found in its own
 tooling (see F4, and the two fixed during Phase 1). Every one was found by
 checking a suspicious result rather than accepting it — which is the behaviour
 Phase 5 exists to make systematic rather than lucky.
+
+
+---
+
+## Phase 4b — language variants (Q5)
+
+### F15 — three package locales have no site pack
+
+**Resolves Q5 — yes.** `ja`, `ko`, `zh` ship as `gds-core` locale packs but have
+no `generated-site-phrases` pack. The packages support Japanese, Korean and
+Chinese; **the reference site cannot render in them.**
+
+Key parity is otherwise clean: zero missing and zero extra keys across all 12
+package packs and all 8 site packs.
+
+### F16 — English leakage is wider than issue #517 records
+
+Values identical to their English source:
+
+| Corpus / locale | Untranslated | Rate |
+| --- | --- | --- |
+| site / **hu** | 47 / 1249 | **3.8%** |
+| site / **de** | 43 / 1249 | **3.4%** |
+| site / he | 41 / 1249 | 3.3% |
+| package / de | 5 / 188 | 2.7% |
+| site / fr | 31 / 1249 | 2.5% |
+| package / fr | 4 / 188 | 2.1% |
+| site / it, site / ru | 20 / 1249 | 1.6% |
+| site / ar | 18 / 1249 | 1.4% |
+| site / es | 17 / 1249 | 1.4% |
+| package / es, package / zh | 1 / 188 | 0.5% |
+
+Issue **#517 names `ar`, `he`, `zh`**. The two worst offenders are **`hu` and
+`de`**, which #517 does not mention, and `ar` is mid-table. #517's scope is
+incomplete and should be widened.
+
+**Not covered:** RTL rendering and pseudo-localization, both named in the plan.
+This sub-phase measured key parity and leakage only.
+
+## Phase 4c — theme control (Q6)
+
+### F17 — GDS consumes 92 Mantine variables and declares 5
+
+**Resolves Q6.**
+
+| | |
+| --- | --- |
+| `--mantine-*` GDS declares | **5** |
+| `--mantine-*` GDS consumes | **92** |
+| **Consumed but never declared by GDS** | **87** |
+| Mantine components with GDS defaults | 20 |
+
+87 framework values are load-bearing in GDS's own stylesheet without GDS ever
+setting them. Combined with F6 (untraceable values are theme-invariant), this is
+the mechanism: the ungoverned 18.4% is largely Mantine defaults flowing through
+because GDS never overrode them.
+
+## Phase 4d — underived dimensions
+
+### F18 — 60% of the registry has no phase coverage
+
+| Kind | Atoms | Covered by |
+| --- | --- | --- |
+| `export` | 590 | **nothing** |
+| `prop` | 1,002 | **nothing** |
+| `variant` | 97 | **nothing** |
+| `accent` | 10 | **nothing** |
+
+**1,699 of 2,829 atoms — 60% — were never evaluated against any obligation.**
+This is the audit's own largest gap and is stated here rather than left implicit.
+
+## Phase 5 — mutation (the gate)
+
+**6/7 killed = 85.7%. Required: 100%. GATE FAILED.**
+
+| Mutant | Targets | Result |
+| --- | --- | --- |
+| M3 remove a token from the published DTCG graph | Phase 2 `listed` | **SURVIVED** |
+| M4 make a declared token unreachable | Phase 2 `demoed` | killed |
+| M5 add an undocumented token | Phase 0 + 2 | killed |
+| M6 delete a locale key | Phase 4b parity | killed |
+| M7 replace a translation with English | Phase 4b leakage | killed |
+| M11 add an undeclared Mantine dependency | Phase 4c | killed |
+| M12 add a prop variant | Phase 0 | killed |
+| M1, M2, M8, M9, M10 | Phases 1, 3, 4a | **NOT RUN** |
+
+### F19 — M3's survival invalidates the reported `listed` figure
+
+Not a coding bug. `listed` resolves as `publishedRoles.has(role) ||
+docBlob.includes(name)`, and because the published roles and the `--gds-*`
+universe are near-disjoint (F12), the first clause almost never decides. So
+`listed` measures **"the name appears in some markdown file"**, not "present in a
+published inventory".
+
+**The reported 42/73 (58%) overstates the obligation.** Under the stricter
+reading it is closer to 1/73. F12 itself is unaffected — it was derived by direct
+set comparison, and M3's survival is further evidence *for* it.
+
+### F20 — two mutants were themselves defective and had to be fixed
+
+M4 replaced only the first of two `var(--gds-focus-ring,` references, leaving the
+token reachable — it read as an analysis survivor when it was a weak mutant. M7
+mutated both sides of a locale entry to *different* strings, so it could never
+create the key-equals-value condition leakage detection looks for.
+
+Both were fixed and both then killed. Score moved 57.1% → 71.4% → 85.7%.
+
+**A mutation harness can be wrong in the direction that flatters the audit.**
+Two of three original survivors were harness defects, not analysis defects — and
+had they gone undiagnosed they would have understated the audit's real
+capability, while a defect in the opposite direction would have overstated it.
+This is the fifth and sixth defect the audit has found in its own tooling.
