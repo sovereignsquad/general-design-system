@@ -104,7 +104,10 @@ export const GATE_MUTANTS = [
       {
         id: 'theme-tokens-detects-renamed-token',
         claim: 'Detects a semantic token disappearing from the emitted set',
-        file: 'packages/gds-theme/src/vibe-themes.ts',
+        // Issue 554 moved deriveVibeSemanticCssVariables into semantic-token-source.ts.
+        // The suite reported INVALID rather than silently passing, which is the anchor
+        // check doing its job — a mutant whose anchor has drifted tests nothing.
+        file: 'packages/gds-theme/src/semantic-token-source.ts',
         find: "    '--gds-support': supportLight,",
         replace: "    '--gds-support-RENAMED': supportLight,",
         // verify-theme-token-contract imports from packages/gds-theme/dist, so a source
@@ -150,7 +153,7 @@ export const GATE_MUTANTS = [
       {
         id: 'theme-a11y-detects-contrast-regression',
         claim: 'Detects a semantic text colour dropping below its contrast floor',
-        file: 'packages/gds-theme/src/vibe-themes.ts',
+        file: 'packages/gds-theme/src/semantic-token-source.ts',
         find: "    '--gds-text-body': vibe.textLight,",
         replace: "    '--gds-text-body': '#f5f5f5',",
         requiresBuild: ['@sovereignsquad/gds-theme'],
@@ -182,6 +185,37 @@ export const GATE_MUTANTS = [
         find: '"prop":',
         replace: '"prop_MUTANT":',
         once: true,
+      },
+    ],
+  },
+  {
+    npmScript: 'verify:token-single-source',
+    script: null,
+    mutants: [
+      {
+        id: 'single-source-detects-parallel-table',
+        claim: 'Detects a semantic-role table re-declared outside semantic-token-source.ts',
+        file: 'packages/gds-theme/src/vibe-themes.ts',
+        find: 'const brandSemanticCssVariablesByPreset',
+        replace:
+          "const auditMutantTable = {\n  '--gds-brand-primary': '#123456',\n"
+          + "  '--gds-bg-card': '#654321',\n  '--gds-text-body': '#abcdef',\n};\n\n"
+          + 'const brandSemanticCssVariablesByPreset',
+        once: true,
+      },
+      {
+        id: 'single-source-detects-one-path-override',
+        // Reproduces the ACTUAL historical defect: `createBrandTheme` overrode a role
+        // after calling the emitter, so the provider path and the document path painted
+        // different values with no duplicated table anywhere for a structural scan to
+        // find. A first attempt mutated the single source instead and the gate correctly
+        // stayed green — editing the one source changes both paths together, which is
+        // the property being bought. Only a ONE-PATH override is a real divergence.
+        claim: 'Detects the two consumption paths resolving one role to different values',
+        file: 'packages/gds-theme/src/brand-tokens.ts',
+        find: '  const cssVariables = emitGoldAthleteCssVariables(ramps);',
+        replace: "  const cssVariables = emitGoldAthleteCssVariables(ramps);\n  cssVariables['--gds-bg-card'] = '#ff0000';",
+        requiresBuild: ['@sovereignsquad/gds-theme'],
       },
     ],
   },

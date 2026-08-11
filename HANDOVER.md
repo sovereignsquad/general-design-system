@@ -140,13 +140,18 @@ touching anything theme-related:
    `GdsThemeVariablesScope` in that file and its test coverage in
    `GdsProvider.test.tsx`.
 
-**The trap for next time**: these two systems have **duplicate,
-hand-maintained token data** for the same semantic concepts —
-`vibe-themes.ts`'s `resolveVibeSemanticCssVariables`/
-`brandSemanticCssVariablesByPreset` vs. `brand-tokens.ts`'s own token
-tables — kept in sync by hand, not by a single source of truth. If you add
-or change a brand token, check both files. This duplication itself is
-worth a future cleanup issue (not filed yet — consider filing it).
+**Resolved in #554.** These two systems used to carry **duplicate,
+hand-maintained token data** for the same semantic concepts, kept in sync by
+hand. They no longer do: every semantic-role value is defined once, in
+`packages/gds-theme/src/semantic-token-source.ts`, and both
+`vibe-themes.ts` and `brand-tokens.ts` read from it. `verify:token-single-source`
+fails if a parallel table reappears **or** if the two consumption paths resolve
+one role to two values.
+
+If you add or change a semantic role, edit that one module. Note that
+`vibe-themes.ts` cannot import `brand-tokens.ts` — that path closes a cycle
+through `token-operations.ts` — which is why the single source is a separate,
+dependency-free module rather than one of the two files absorbing the other.
 
 ### The subpath-extraction pattern (bundle-size discipline)
 
@@ -205,8 +210,6 @@ resolving commit (Rule 2) and update this table in the same change.
 
 ### Things noticed but not yet filed as issues (worth doing so before acting on them)
 
-- The dual semantic-token-data duplication between `vibe-themes.ts` and
-  `brand-tokens.ts` described in §2 — real maintenance risk, not filed.
 - `apps/playground`'s `audit:board` step always soft-warns in this sandbox
   (no `gh` CLI / no `GITHUB_TOKEN` shell access here) — this is
   by-design (the script itself is written to soft-warn and exit 0 rather

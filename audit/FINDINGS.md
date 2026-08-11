@@ -699,3 +699,61 @@ artifact its children write.
 **The generalisable rule, now learned twice:** any harness that runs a tool which writes
 artifacts must treat those artifacts as state to restore, exactly like source — and any
 harness that interprets an exit code must first establish what a clean exit code is.
+
+
+---
+
+## F26 — A third copy of semantic-role data, outside the emitter
+
+**Severity:** medium — no defect shipped, but the trap fired within minutes of anyone
+reusing the emitter, which is what issue 554 asked to be done.
+
+Issue 554 described two hand-synced semantic-token tables. There were **three**. Beyond
+the tables, `createBrandTheme` applied per-lane overrides *after* calling the emitter, in
+its own function body:
+
+```ts
+const cssVariables = emitCssVariables(tokens);
+cssVariables['--gds-brand-accent-action'] = ramps.gold[6];   // gold-athlete
+cssVariables['--gds-brand-accent-action-dark'] = ramps.gold[3];
+```
+
+Nothing had drifted yet — both paths resolved `--gds-brand-accent-action` to `#8a5a00`
+before the refactor. But the value was not reachable through the emitter, so the first
+consolidation attempt (`vibe-themes.ts` calling `emitCssVariables(derive…)`) produced
+`#c08a12` for the document path while the provider path kept `#8a5a00`. **The refactor
+that was supposed to remove divergence introduced one**, in the exact role the hidden
+override covered.
+
+Fixed by folding the overrides into lane emitters — `emitClassUsaCssVariables` and
+`emitGoldAthleteCssVariables` — which are now the complete definition of a lane's
+variables. A caller cannot forget the overrides because there is nothing left to remember.
+
+**A structural scan alone would have missed this.** No duplicated *table* existed; the
+third copy was two assignment statements. That is why `verify:token-single-source` asserts
+behaviour (both paths resolve every shared role identically) as well as structure. The
+mutant that proves it plants a one-path override, reproducing this shape exactly.
+
+**A negative control that failed to fail, and why it was right to.** The first attempt at
+that mutant edited the *single source* and the gate stayed green. That is not a gate
+weakness — editing one source changes both paths together, which is the entire property
+being bought. Only a one-path override is a real divergence, and the mutant was rewritten
+to plant one.
+
+### The measurement error inside this finding — F21 for the third time
+
+The migration proof compares post-refactor output against a baseline captured from the
+pre-refactor build. The first run reported `0 changed, 0 removed, 0 added` — a perfect
+result, and false. The snapshot had been regenerated **after** the rebuild, so it compared
+the new build against itself.
+
+It was caught only because `0 added` contradicted a `+4` key delta measured minutes
+earlier. The honest comparison, from a baseline rebuilt out of a `git stash` of the
+refactor, reported `0 changed, 0 removed, 16 added` — and surfaced the
+`--gds-brand-accent-action` regression above, which the vacuous run had hidden completely.
+
+F21 was "the mutation harness leaves contaminated artifacts". F25 was the same class in
+the gate suite. This is the same class again, in a hand-run verification step: **an
+artifact regenerated after the change it is supposed to predate proves nothing.** The
+generalisable rule is now stated in three findings, so it is worth saying plainly: a
+baseline is only evidence if the code that produced it is the code being replaced.
