@@ -218,9 +218,19 @@ through the steps below is
   utility functions — must carry a JSDoc comment explaining what it does and
   when to use it (one paragraph is enough; see `GdsBreadcrumbs.tsx` or
   `GdsDensity.tsx` for the target style). Internal helpers, `.test.tsx`
-  files, and demo/story code are exempt. This is enforced by
-  `eslint-plugin-jsdoc`'s `require-jsdoc` rule, scoped to exported
-  declarations only, in `@sovereignsquad/gds-eslint-config`.
+  files, and demo/story code are exempt.
+
+  **Enforced by `npm run verify:api-jsdoc-coverage`** (in the `verify:release`
+  chain), which measures every top-level export across `gds-core`, `gds-admin`,
+  `gds-theme` and `gds-a11y` and fails below a 95% floor per package.
+
+  This paragraph previously claimed enforcement by `eslint-plugin-jsdoc`'s
+  `require-jsdoc` rule in `@sovereignsquad/gds-eslint-config`. That was not
+  true and is corrected here (issue 516): the rule exists but is gated behind
+  an `enforceExportedJsdoc` option that is only ever passed `true` inside that
+  package's own unit test, and `npm run lint` targets `apps/playground` alone —
+  which would not cover the packages the exports live in even if it were wired.
+  The Node coverage gate is the real mechanism.
 - **File-header comments are not required.** This codebase has never
   consistently used them (many long-standing files, e.g. `Typography.tsx`,
   have none) and retrofitting one everywhere would be pure diff churn with

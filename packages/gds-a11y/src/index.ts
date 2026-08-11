@@ -1,6 +1,23 @@
+/**
+ * axe-core severity band for a finding, ordered `minor < moderate < serious < critical`.
+ * {@link GdsA11yTestConfig.severityThreshold} filters on this ordering, so a threshold
+ * of `serious` reports serious and critical only.
+ */
 export type GdsA11ySeverity = 'minor' | 'moderate' | 'serious' | 'critical';
+/**
+ * Outcome of a check. `suppressed` means a finding matched a live
+ * {@link GdsA11ySuppression}; `incomplete` means axe could not reach a verdict and the
+ * result must not be read as a pass.
+ */
 export type GdsA11yStatus = 'pass' | 'warning' | 'failure' | 'suppressed' | 'incomplete';
 
+/**
+ * A dated, owned waiver for one finding. Requires `reason`, `owner`, `expiresAt` and
+ * `replacementPath` so a suppression is a tracked decision rather than a silent mute.
+ *
+ * Matching is by `id`, narrowed further by `route` and `selector` when those are set.
+ * **An expired suppression does not suppress** — see {@link applyGdsA11ySuppressions}.
+ */
 export interface GdsA11ySuppression {
   id: string;
   selector?: string;
@@ -11,6 +28,11 @@ export interface GdsA11ySuppression {
   replacementPath: string;
 }
 
+/**
+ * A single accessibility finding. `status` deliberately excludes `'pass'`: a finding
+ * only exists when something needs attention, so a passing check produces no finding
+ * rather than a finding marked pass.
+ */
 export interface GdsA11yFinding {
   id: string;
   route: string;
@@ -24,6 +46,10 @@ export interface GdsA11yFinding {
   suppression?: GdsA11ySuppression;
 }
 
+/**
+ * Result of a tab-order assertion: the selectors expected in order against those
+ * actually reached by tabbing, plus any findings the mismatch produced.
+ */
 export interface GdsKeyboardPath {
   route: string;
   expectedSelectors: string[];
@@ -32,6 +58,10 @@ export interface GdsKeyboardPath {
   findings: GdsA11yFinding[];
 }
 
+/**
+ * Result of a contrast sweep for one route, recording the minimum ratio enforced so a
+ * report states the bar it was measured against rather than leaving it implied.
+ */
 export interface GdsContrastGate {
   route: string;
   minimumRatio: number;
@@ -39,6 +69,12 @@ export interface GdsContrastGate {
   findings: GdsA11yFinding[];
 }
 
+/**
+ * Full accessibility result for one route: findings, plus the optional keyboard and
+ * contrast sub-results, plus the `metadata` recording the timeout, retry count and how
+ * many findings were suppressed — so a clean report can be distinguished from a report
+ * that was clean because everything in it was waived.
+ */
 export interface GdsA11yReport {
   route: string;
   status: GdsA11yStatus;
@@ -53,6 +89,10 @@ export interface GdsA11yReport {
   };
 }
 
+/**
+ * Input for a route's accessibility run. Defaults: `timeoutMs` 15000, `retries` 1,
+ * `severityThreshold` `'serious'`, `contrastMinimumRatio` 4.5 (WCAG AA normal text).
+ */
 export interface GdsA11yTestConfig {
   route: string;
   timeoutMs?: number;
@@ -63,6 +103,12 @@ export interface GdsA11yTestConfig {
   contrastMinimumRatio?: number;
 }
 
+/**
+ * Structural subset of Playwright's `Page` this package needs. Declared structurally
+ * rather than importing Playwright so `@sovereignsquad/gds-a11y` carries no runtime
+ * dependency on a test framework and can be driven by any page-like object exposing
+ * `evaluate`.
+ */
 export interface GdsPlaywrightLikePage {
   url?: () => string;
   goto?: (url: string, options?: Record<string, unknown>) => Promise<unknown>;
@@ -102,6 +148,19 @@ function appliesSuppression(finding: GdsA11yFinding, suppression: GdsA11ySuppres
   return true;
 }
 
+/**
+ * Applies suppressions to findings, matching by `id` and narrowing on `route` and
+ * `selector` when the suppression sets them.
+ *
+ * **An expired suppression does not suppress.** The finding stays active and its
+ * message is annotated with the expiry date, so a lapsed waiver surfaces as a visible
+ * failure instead of silently continuing to hide a real defect.
+ *
+ * @param findings Findings to filter.
+ * @param suppressions Waivers to apply. Defaults to none.
+ * @param now Clock injection point for deterministic tests. Defaults to the real date.
+ * @returns A new array; inputs are not mutated.
+ */
 export function applyGdsA11ySuppressions(
   findings: GdsA11yFinding[],
   suppressions: GdsA11ySuppression[] = [],
@@ -125,6 +184,13 @@ export function applyGdsA11ySuppressions(
   });
 }
 
+/**
+ * Assembles a {@link GdsA11yReport} from already-collected findings and optional
+ * keyboard/contrast results, deriving the overall `status` and the suppressed count.
+ *
+ * Pure and side-effect free — it performs no scanning. Use it to build a report from
+ * results gathered elsewhere; use {@link createGdsA11yTest} to run the checks.
+ */
 export function createGdsA11yReport({
   route,
   timeoutMs = 15000,
@@ -161,6 +227,14 @@ export function createGdsA11yReport({
   };
 }
 
+/**
+ * Runs an axe-core scan in the page and returns findings at or above
+ * `config.severityThreshold` (default `'serious'`).
+ *
+ * Requires axe-core to be present in the page. Results axe reports as incomplete are
+ * surfaced with status `'incomplete'` rather than dropped, because an unreached verdict
+ * is not a pass.
+ */
 export async function runGdsAxeScan(
   page: GdsPlaywrightLikePage,
   config: GdsA11yTestConfig,
@@ -203,6 +277,13 @@ export async function runGdsAxeScan(
   return applyGdsA11ySuppressions(findings, config.suppressions);
 }
 
+/**
+ * Tabs through the page and compares the focus sequence against `expectedSelectors`,
+ * returning the expected and actual orders plus findings for any divergence.
+ *
+ * Asserts order, not merely reachability: an element that is focusable but reached at
+ * the wrong point is a finding, since focus order is itself a WCAG 2.4.3 requirement.
+ */
 export async function expectGdsTabOrder(
   page: GdsPlaywrightLikePage,
   expectedSelectors: string[],
@@ -248,6 +329,11 @@ export async function expectGdsTabOrder(
   };
 }
 
+/**
+ * Verifies focus stays within `containerSelector` while it is open — the containment
+ * required of modals and drawers by WCAG 2.1.2 — and that focus can still leave by the
+ * dismissal path, so a correct trap is distinguished from a keyboard trap.
+ */
 export async function expectGdsFocusTrap(
   page: GdsPlaywrightLikePage,
   containerSelector: string,
@@ -288,6 +374,11 @@ export async function expectGdsFocusTrap(
   };
 }
 
+/**
+ * Measures text contrast across the route against `config.contrastMinimumRatio`
+ * (default 4.5, WCAG AA for normal text) and returns a {@link GdsContrastGate}
+ * recording the bar enforced alongside the failures found.
+ */
 export async function runGdsContrastGate(
   page: GdsPlaywrightLikePage,
   config: GdsA11yTestConfig,
@@ -328,6 +419,15 @@ export async function runGdsContrastGate(
   };
 }
 
+/**
+ * Runs the full accessibility suite for one route — navigation, axe scan, and the
+ * optional tab-order and contrast checks — and returns the assembled
+ * {@link GdsA11yReport}.
+ *
+ * Navigates only when the page exposes `goto`, waiting for `domcontentloaded` and then
+ * best-effort `networkidle`; a `networkidle` timeout is tolerated rather than failing
+ * the run, since a page with long-polling never reaches it.
+ */
 export async function createGdsA11yTest(
   page: GdsPlaywrightLikePage,
   config: GdsA11yTestConfig,
@@ -352,6 +452,12 @@ export async function createGdsA11yTest(
   });
 }
 
+/**
+ * Renders a {@link GdsA11yReport} as plain text for CI logs.
+ *
+ * Includes the suppressed count on its own line so a report is never read as clean when
+ * findings were waived rather than fixed.
+ */
 export function formatGdsA11yReport(report: GdsA11yReport) {
   const lines = [
     `GDS accessibility report: ${report.status}`,
