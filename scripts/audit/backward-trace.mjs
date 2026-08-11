@@ -21,11 +21,13 @@ const ROOT = new URL('../..', import.meta.url).pathname;
 const baseUrl = process.env.GDS_AUDIT_BASE_URL ?? 'http://127.0.0.1:4173/general-design-system';
 const ownsPreviewServer = !process.env.GDS_AUDIT_BASE_URL;
 
-const ROUTES = ['/live-demos', '/patterns/foundations', '/live-demos/surfaces', '/patterns/operations'];
+// Overridable so the mutation harness (#579) can run a reduced cell set: one route is
+// enough to observe a per-theme delta, at roughly a quarter of the cost.
+const ROUTES = (process.env.GDS_AUDIT_ROUTES ?? '/live-demos,/patterns/foundations,/live-demos/surfaces,/patterns/operations').split(',');
 // Weighted by §3.1.1 defect history: brand lanes over-represented, dark scheme
 // specific defects real, high-contrast/colorblind lanes are the a11y edge.
-const PRESETS = ['default', 'class-usa', 'gold-athlete', 'dark-public', 'high-contrast'];
-const SCHEMES = ['light', 'dark'];
+const PRESETS = (process.env.GDS_AUDIT_PRESETS ?? 'default,class-usa,gold-athlete,dark-public,high-contrast').split(',');
+const SCHEMES = (process.env.GDS_AUDIT_SCHEMES ?? 'light,dark').split(',');
 
 // Properties where a token match is MEANINGFUL. Deliberately excluded, with reasons,
 // so the exclusion is a stated decision rather than a silent gap:
@@ -192,10 +194,15 @@ async function run() {
     distinctLiterals: findings.length,
     findings: findings.slice(0, 500),
     cells: cells.map(({ literalSample, ...rest }) => rest),
+    literalsByPreset: cells.reduce((acc, c) => {
+      acc[`${c.preset}/${c.scheme}`] = (acc[`${c.preset}/${c.scheme}`] ?? 0) + c.literals;
+      return acc;
+    }, {}),
   };
 
   mkdirSync(join(ROOT, 'audit'), { recursive: true });
-  writeFileSync(join(ROOT, 'audit/backward-trace.json'), JSON.stringify(report, null, 2));
+  const outPath = process.env.GDS_AUDIT_OUT ?? 'audit/backward-trace.json';
+  writeFileSync(join(ROOT, outPath), JSON.stringify(report, null, 2));
 
   console.log(`\nPhase 1 backward trace`);
   console.log(`  cells: ${executed}/${planned}  coverage ${(report.coverage * 100).toFixed(1)}%`);

@@ -7,6 +7,34 @@ All notable policy changes to the General Design System are recorded here.
 No package or component source changed; no version bump. Tooling, governance,
 and documentation only.
 
+- **Phase 1 of the audit is now validated by measurement (#579)**: added
+  `scripts/audit/render-mutants.mjs`, which rebuilds the workspace between baseline and
+  mutant so a render-time analysis can be mutation-tested at all. **Both mutants
+  killed, 2/2 = 100%.**
+
+  M1 is the result that matters. Planting the *default* theme's `--gds-support` value
+  as a literal produced `default/light +0` while `class-usa +51`, `gold-athlete +45`
+  and `high-contrast +90` — the same literal classified `token` under the theme whose
+  map contains it and `literal` under the three that do not. A classifier that
+  string-matched globally would have raised `default` too; it did not, so per-theme
+  provenance resolution is confirmed by measurement rather than by reading the code.
+
+  **#579's own premise had to be corrected.** It specified planting a *radius* equal to
+  the default theme's value — but GDS has no `--gds-radius-*` token at all (that is
+  #555), so a hardcoded radius is `literal` under every theme, the count rises
+  everywhere including `default`, and the discriminating test collapses into M2.
+  Retargeted to `--gds-support`, which genuinely differs per preset. The injection site
+  also moved: `MapPanel`'s `borderRadius: 12` sits on an iframe that only renders when
+  an `iframeSrc` is supplied, so the anchor existed but never rendered.
+
+  Consequently `untraceableRenderRate` is **promoted from advisory to blocking**, and a
+  new `renderMutationScore` budget pins M1/M2 at 100% — Phase 1 stays trustworthy only
+  while they stay killed. The "Phase 1 is entirely unvalidated" caveats are withdrawn
+  from `docs/HEALTH_RETENTION_PLAN.md` and `audit/completeness-critique.md`.
+
+  The overall audit verdict is **unchanged**: 8 of 12 mutants now run, 3 remain
+  (M8, M9, M10), and the gate requires 100% on all twelve. Two more passing is progress,
+  not a pass.
 - **`gds-a11y` JSDoc coverage gate was a false pass (#516)**: the gate reported
   `gds-a11y: 0/0 public exports documented (100.0%)` while the package carried **17
   undocumented exports**. Four parts:

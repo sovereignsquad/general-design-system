@@ -1,0 +1,33 @@
+{
+  "mutantsRun": 2,
+  "killed": 2,
+  "renderMutationScore": 100,
+  "results": [
+    {
+      "id": "M1",
+      "description": "Plant a colour equal to the DEFAULT theme's --gds-support as a literal",
+      "targets": "Phase 1 per-theme provenance resolution",
+      "status": "KILLED",
+      "how": "untraceable rose under all non-default presets and stayed flat under default — per-theme resolution confirmed (planted rgb(62, 129, 152))",
+      "delta": {
+        "default/light": 0,
+        "class-usa/light": 51,
+        "gold-athlete/light": 45,
+        "high-contrast/light": 90
+      }
+    },
+    {
+      "id": "M2",
+      "description": "Plant a colour present in no theme token map",
+      "targets": "Phase 1 literal detection",
+      "status": "KILLED",
+      "how": "untraceable rose under all 4 preset/scheme cells (planted rgb(255, 0, 255))",
+      "delta": {
+        "default/light": 45,
+        "class-usa/light": 51,
+        "gold-athlete/light": 45,
+        "high-contrast/light": 90
+      }
+    }
+  ]
+}

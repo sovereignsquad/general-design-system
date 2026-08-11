@@ -143,10 +143,10 @@ That keeps PR feedback fast while making regression visible within a day.
 - **It cannot detect what the extractor cannot see.** Dynamically constructed
   values, consumer overrides, and runtime-composed styles remain invisible to
   static extraction. F13's "unreachable" tokens carry exactly this caveat.
-- **It does not validate Phase 1.** Until M1/M2 exist, the backward trace itself
-  is unmutated, so its budget is a number produced by an unverified instrument.
-  Building those two mutants is a prerequisite for trusting
-  `untraceableRenderRate` as a ratchet at all.
+- ~~**It does not validate Phase 1.**~~ **Resolved (issue 579).** M1 and M2 are
+  implemented with a rebuild step and both killed, so `untraceableRenderRate` is now a
+  blocking ratchet rather than advisory, and a `renderMutationScore` budget keeps it
+  that way.
 - **It is not a conformance statement.** It prevents regression from a measured
   baseline. The baseline is currently 18.4% untraceable and 60% of the registry
   uncovered — holding that line is not the same as being healthy.

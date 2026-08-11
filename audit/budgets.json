@@ -23,9 +23,7 @@
       "value": 18.4,
       "unit": "%",
       "finding": "F5",
-      "justifiedBy": "audit Phase 1, 40/40 cells, commit 4b787f5",
-      "advisory": true,
-      "advisoryReason": "Phase 1 is not mutation-validated - M1/M2 did not run (issue 579). Ratcheting a number from an unverified instrument would manufacture confidence with no basis. Flip to blocking when 579 lands."
+      "justifiedBy": "audit Phase 1, 40/40 cells, commit 4b787f5; PROMOTED to blocking by issue 579 - render mutants M1/M2 both killed, 2/2 = 100%"
     },
     "tokensWithGaps": {
       "source": "forward-trace.json#/tokensWithGaps",
@@ -90,6 +88,14 @@
       "unit": "%",
       "finding": "F19/F20",
       "justifiedBy": "audit Phase 5 - 6/7 killed, M3 survives, 5 not run, commit bed78c8"
+    },
+    "renderMutationScore": {
+      "source": "render-mutation-score.json#/renderMutationScore",
+      "direction": "min",
+      "value": 100,
+      "unit": "%",
+      "finding": "F5 (instrument validation)",
+      "justifiedBy": "issue 579 - M1 and M2 both killed; Phase 1 is only trustworthy while these stay killed"
     }
   }
 }
