@@ -40,6 +40,9 @@ export const AREA_LABELS = [
   { name: 'area: tooling', color: 'bfdadc', description: 'Build, release, CI, and verification scripts' },
   { name: 'area: a11y', color: 'd4c5f9', description: 'Accessibility behavior and evidence' },
   { name: 'area: onboarding', color: 'c2e0c6', description: 'Guided tours, coach-marks, and first-run onboarding' },
+  { name: 'area: map', color: '1f6e8c', description: 'Map surfaces, basemap engine, pins, and geospatial contracts' },
+  { name: 'area: imagery', color: 'b04a2f', description: 'Generated imagery, thumbnails, heroes, and asset governance' },
+  { name: 'area: motion', color: 'a52a6c', description: 'Motion, animation, and interaction-reaction contracts' },
 ];
 
 /** Every governed board label, in a stable order. */

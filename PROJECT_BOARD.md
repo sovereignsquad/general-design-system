@@ -43,8 +43,9 @@ Optional, at most one per issue: `priority: p0` (urgent — do next),
 
 Optional, one or more per issue, to group work by subsystem:
 `area: kanban`, `area: theme`, `area: forms`, `area: admin`, `area: docs`,
-`area: tooling`, `area: a11y`, `area: onboarding`. Extend the set by editing the
-config and running `npm run board:labels`.
+`area: tooling`, `area: a11y`, `area: onboarding`, `area: map`, `area: imagery`,
+`area: motion`. Extend the set by editing the config and running
+`npm run board:labels`.
 
 ## Type labels
 
