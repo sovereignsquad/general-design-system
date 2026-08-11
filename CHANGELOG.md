@@ -7,6 +7,18 @@ All notable policy changes to the General Design System are recorded here.
 No package or component source changed; no version bump. Tooling, governance,
 and documentation only.
 
+- **CI action runtime (#575)**: all six workflows pinned `actions/checkout@v4`,
+  which declares `using: node20`, so every run emitted a Node 20 deprecation
+  annotation — a standing violation of Rule 1, which forbids any deprecation
+  warning reaching `main`. Bumped to `@v5` in all seven usages
+  (`quality.yml`, `deploy-pages.yml` ×2, `publish-github-packages.yml`,
+  `auto-tag-release.yml`, `release-bundles.yml`, `board-sync.yml`).
+  `v5` chosen deliberately over `v6`/`v7`: `v5.0.0`'s only change is the
+  node20 → node24 runtime move, whereas `v6` changes credential persistence — on
+  a path where `auto-tag-release.yml` pushes a tag — and `v7` changes fork-PR
+  checkout semantics. A deprecation fix should carry no behavioural delta. Every
+  other action was already Node 24-based (`setup-node@v6`, `configure-pages@v5`,
+  `upload-pages-artifact@v3`, `deploy-pages@v4`, `upload-artifact@v4`).
 - **`scripts/verify-kanban-drag-accessibility-runtime.mjs` (#574)**: the gate's
   synthetic Space keypress carried Windows-only virtual key codes and no
   character payload, so Chrome synthesized no keypress event and never activated
