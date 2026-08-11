@@ -283,6 +283,26 @@ assume it's a real regression and don't assume it's a flake either —
 either way. This happened twice this session; both times it was a genuine
 flake, confirmed by isolated re-run, never assumed.
 
+**There is a third possibility besides "flake" and "regression": a host
+mismatch.** A `*-runtime` gate can fail deterministically on your machine and
+pass in CI because the gate itself is platform-specific, not because anything
+is broken. Verified case: `verify:kanban-drag-accessibility-runtime` reported
+`keyboard operability regression` on every macOS run while `GDS Quality` stayed
+green on the same commit, because its synthetic Space keypress carried
+Windows-only virtual key codes and no `text` payload — correct on Linux, inert
+on macOS (issue 574). `KanbanBoard` was fine the whole time.
+
+So when a runtime gate fails, work through all three in order:
+
+1. **Re-run it in isolation.** Still fails deterministically? Not contention.
+2. **Try a second browser build** (e.g. a Chrome for Testing binary from the
+   Playwright cache alongside your system Chrome). Fails on both? Not a
+   browser-version artifact.
+3. **Check whether CI is green on the same commit, and whether your change even
+   touches the relevant source** (`git diff origin/main --stat`). Green CI plus
+   a diff containing no package source means the gate, not the product, is what
+   differs — look at the script before you look at the component.
+
 ---
 
 ## 6. Detailed prompt: bootstrapping a new agent/environment to maintain and develop GDS
