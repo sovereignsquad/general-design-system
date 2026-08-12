@@ -1,11 +1,27 @@
 import { DEFAULT_THEME, createTheme, mergeMantineTheme, mergeThemeOverrides, type MantineTheme, type MantineThemeOverride } from '@mantine/core';
 import { getGdsMotionPreset } from './motion';
+import { GDS_DEFAULT_SHAPE_AXIS } from './axes';
 
 const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
   primaryColor: 'violet',
   fontFamily: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
   fontSmoothing: true,
   defaultRadius: 'md',
+  // Issue 555. Mantine's radius scale is fed FROM the shape axis, so `radius="md"` on any
+  // component (146 such references across the packages) and every
+  // `var(--mantine-radius-*)` resolve through the same declaration as `--gds-radius-*`.
+  // Without this the axis would be a parallel scale that only new code consults, which is
+  // the dual-source shape issue 554 spent a whole change set removing.
+  //
+  // `none` and `pill` are intentionally absent: Mantine's scale has no such keys, and
+  // inventing them here would put values in a map Mantine will never read.
+  radius: {
+    xs: GDS_DEFAULT_SHAPE_AXIS.scale.xs,
+    sm: GDS_DEFAULT_SHAPE_AXIS.scale.sm,
+    md: GDS_DEFAULT_SHAPE_AXIS.scale.md,
+    lg: GDS_DEFAULT_SHAPE_AXIS.scale.lg,
+    xl: GDS_DEFAULT_SHAPE_AXIS.scale.xl,
+  },
   black: '#111827',
   white: '#ffffff',
   headings: {

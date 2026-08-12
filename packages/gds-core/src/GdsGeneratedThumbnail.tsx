@@ -250,7 +250,7 @@ export function GdsGeneratedThumbnail({
             alignItems: 'center',
             gap: '0.35em',
             padding: '0.3em 0.65em 0.3em 0.45em',
-            borderRadius: 999,
+            borderRadius: 'var(--gds-radius-pill)',
             background: pillBg,
             color: inverseColor,
             fontSize: '13px',

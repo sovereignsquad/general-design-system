@@ -18,6 +18,88 @@
  * is.
  */
 export const EXTENSION_POINTS = {
+  // ── Shape axis (issue 555) ──
+  // A role token is emitted for EVERY role in EVERY preset, deliberately: a component
+  // reading --gds-radius-pin must never land on an undefined variable because one preset
+  // stayed silent. That guarantee means most roles are declared before anything consumes
+  // them — they are the axis's published surface, which is what an extension point is.
+  '--gds-radius-card': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-panel': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-surface': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-button': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-input': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-chip': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-badge': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-pin': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-modal': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-drawer': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-sheet': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-avatar': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-thumbnail': {
+    reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-none': {
+    reason: 'Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-xs': {
+    reason: 'Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-sm': {
+    reason: 'Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-md': {
+    reason: 'Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-lg': {
+    reason: 'Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-radius-xl': {
+    reason: 'Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.',
+    reviewBy: '2027-08-01',
+  },
+
   // ── Surface and colour roles a consumer application builds its own shell on ──
   '--gds-bg-page': {
     reason:

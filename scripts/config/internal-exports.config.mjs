@@ -13,6 +13,10 @@
 // package lands here even though no consumer can reach it.
 
 export const INTERNAL_EXPORTS = new Set([
+  // Issue 555. The axis aggregator is cross-MODULE, not cross-package: vibe-themes.ts and
+  // semantic-token-source.ts both call it so the two consumption paths emit one key set.
+  // Absent from index/client/server, so no consumer can reach it.
+  'resolveGdsAxisTokens',
   'classUsaDefaultColorRamps',
   'goldAthleteDefaultColorRamps',
   'cssVarName',

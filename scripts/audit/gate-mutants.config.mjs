@@ -261,6 +261,30 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:shape-token-adoption',
+    script: null,
+    mutants: [
+      {
+        id: 'shape-detects-hardcoded-radius',
+        claim: 'Detects a component hardcoding a corner radius instead of reading the shape axis',
+        file: 'packages/gds-core/src/MapPanel.tsx',
+        find: "borderRadius: 'var(--gds-radius-image)' }",
+        replace: 'borderRadius: 12 }',
+        once: true,
+      },
+      {
+        id: 'shape-detects-undeclared-radius-token',
+        // A reference to a token the axis does not define renders as nothing at all — the
+        // silent-nothing failure mode, which looks like a design choice rather than a bug.
+        claim: 'Detects a var(--gds-radius-*) reference to a step or role the axis does not declare',
+        file: 'packages/gds-core/src/MapPanel.tsx',
+        find: "borderRadius: 'var(--gds-radius-image)' }",
+        replace: "borderRadius: 'var(--gds-radius-nonexistent)' }",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:motion-scale',
     script: null,
     mutants: [
