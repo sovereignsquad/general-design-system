@@ -87,6 +87,38 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Accessibility floor: minimums no theme may cross (#559)**: added
+  `npm run verify:a11y-floor`, chained into `verify:release`, plus a generated
+  `docs/ACCESSIBILITY_FLOOR.md`.
+
+  The six axes gave themes real control over shape, density, type, elevation, motion and
+  reaction. Every one of those is a lever that can be pulled into an accessibility regression
+  while looking like a design decision. This is the contract naming which pulls are not
+  available: 7 rules × 25 presets × 2 schemes, each rule citing its WCAG criterion and naming
+  the axis field to change.
+
+  **There is no warning tier.** A floor breach fails the build. A warning would make the floor
+  advisory, and an advisory floor is not a floor.
+
+  **Contrast is enforced but not reimplemented.** `createGdsThemeAccessibilityReport()` already
+  scores every colour pair across every preset and scheme; the floor adopts its blocking
+  findings. A second contrast implementation could disagree with the first, and two
+  accessibility verdicts on one pair is worse than one.
+
+  **The documentation is generated from the rules.** A floor described differently from how it
+  is checked is a floor nobody can rely on, so the gate fails if the doc and the rule set
+  disagree.
+
+  **The gate proves its own rules are live before trusting a clean run.** Zero violations is
+  both the result we want and what a floor checking nothing reports — the count alone cannot
+  tell them apart, which is finding F19's failure mode. So it first feeds the floor a
+  deliberately non-compliant theme and asserts every rule fires; if that canary comes back
+  clean, the gate fails rather than reporting a green it cannot justify.
+
+  Rules needing real rendered geometry are deliberately absent — they belong to the runtime
+  harness. A rule that cannot be evaluated is worse than a missing rule, because it looks like
+  coverage.
+
 - **Motion and reaction axes (#558)**: axes five and six — the theme now controls timing,
   interaction feedback and focus-ring geometry. `--gds-reaction-{hover,active,pressed}` plus
   resolved `-lift`/`-scale` values, `--gds-focus-ring-{width,offset,style,color}`,

@@ -261,6 +261,36 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:a11y-floor',
+    script: null,
+    mutants: [
+      {
+        id: 'a11y-floor-detects-thin-focus-ring',
+        claim: 'Detects a theme thinning the focus ring below the 2px floor',
+        file: 'packages/gds-theme/src/axes.ts',
+        find: "  width: '2px',",
+        replace: "  width: '1px',",
+        once: true,
+        requiresBuild: ['@sovereignsquad/gds-theme'],
+      },
+      {
+        id: 'a11y-floor-detects-a-floor-that-checks-nothing',
+        // A floor evaluating no rules reports zero violations, which is exactly what a
+        // compliant system reports. The count alone cannot tell those apart — finding F19's
+        // failure mode — so the gate proves the rules are live against a canary first. This
+        // mutant makes evaluation return nothing; without the canary it would SURVIVE.
+        claim: 'Detects a floor that evaluates nothing and reports a vacuous pass',
+        file: 'packages/gds-theme/src/accessibility-floor.ts',
+        find: '  return gdsAccessibilityFloorRules.flatMap((rule) => rule.evaluate(ctx));',
+        // Keeps ctx and the rule set referenced so the mutant COMPILES — a mutant that only
+        // breaks the build tests tsc, not the gate.
+        replace: '  return gdsAccessibilityFloorRules.flatMap((rule) => (ctx ? [] : rule.evaluate(ctx)));',
+        once: true,
+        requiresBuild: ['@sovereignsquad/gds-theme'],
+      },
+    ],
+  },
+  {
     npmScript: 'verify:density-token-adoption',
     script: null,
     mutants: [
