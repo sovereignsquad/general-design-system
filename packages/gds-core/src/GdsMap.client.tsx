@@ -8,8 +8,8 @@
 // identified — the CSS cascade cannot fix it, and without an explicit destroy/re-init keyed on
 // theme identity a theme switch leaves the map rendering the previous theme.
 
-import { useEffect, useId, useRef, useState } from 'react';
-import { Box, Stack, Text } from '@mantine/core';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { Box, Group, Stack, Text, UnstyledButton } from '@mantine/core';
 import { computeGdsThemeIdentity, resolveGdsAccentTokens, type GdsAccentName, type GdsThemePresetId } from '@sovereignsquad/gds-theme';
 import type { GdsBadgeAccentShade } from './GdsBadge';
 import { GDS_OSM_TILE_SOURCE, assertGdsTileSource, type GdsMapTileSource } from './map-tile-policy';
@@ -83,6 +83,15 @@ export interface GdsMapProps {
   height?: string;
   /** Tile source. Defaults to OpenStreetMap; any replacement must carry its own attribution. */
   tileSource?: GdsMapTileSource;
+  /**
+   * Where the text-equivalent marker list sits relative to the map (issue 568).
+   *
+   * PLACEMENT is configurable; PRESENCE is not. There is deliberately no value that removes
+   * the list: a prop that hid it would make conformance a consumer choice, and the list is the
+   * conformance path for a raster map — tile imagery is decorative by nature and cannot be
+   * described.
+   */
+  listPlacement?: 'below' | 'above';
 }
 
 const DEFAULT_VIEWPORT: GdsMapViewport = { center: { lat: 51.505, lng: -0.09 }, zoom: 13 };
@@ -102,7 +111,7 @@ export function GdsMap({
   markers, viewport, defaultViewport, fitBounds, minZoom = 3, maxZoom = 18, maxBounds,
   onViewportChange, onMarkerSelect, selectedMarkerId, interactive = true,
   preset = 'default', colorScheme = 'light', label, onStateChange, height = '420px',
-  tileSource = GDS_OSM_TILE_SOURCE,
+  tileSource = GDS_OSM_TILE_SOURCE, listPlacement = 'below',
 }: GdsMapProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const engineRef = useRef<unknown>(null);
@@ -161,7 +170,7 @@ export function GdsMap({
         // no calls, and has no way to tell a broken map from an inert API.
         const accentTokens = resolveGdsAccentTokens(undefined, colorScheme, preset);
         const layer = (L as typeof import('leaflet')).layerGroup().addTo(map as never);
-        for (const marker of markers) {
+        for (const marker of orderedMarkers) {
           const shade = marker.shade ?? 'base';
           const colour = accentTokens[`--gds-accent-${marker.accent}-${shade}`] ?? 'currentColor';
           const icon = (L as typeof import('leaflet')).divIcon({
@@ -217,8 +226,75 @@ export function GdsMap({
     // imperatively, so a changed marker set has to be re-placed rather than re-rendered.
   }, [themeIdentity, interactive, minZoom, maxZoom, markers, selectedMarkerId, colorScheme, preset]);
 
+  // ONE ordering, used by the map and the list alike. Sorted by label rather than left in
+  // insertion order: a list whose sequence is "whatever the API returned" is not navigable,
+  // and a keyboard user traversing it has no way to know where they are.
+  const orderedMarkers = useMemo(
+    () => [...markers].sort((a, b) => a.label.localeCompare(b.label)),
+    [markers],
+  );
+
+  // Announcements are throttled and coalesced. Continuous panning fires `moveend` repeatedly,
+  // and an unthrottled live region turns that into a screen reader reading coordinates over
+  // and over — which is worse than silence, because the user cannot escape it.
+  const [announcement, setAnnouncement] = useState('');
+  const announceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const announce = useCallback((message: string) => {
+    if (announceTimer.current) clearTimeout(announceTimer.current);
+    announceTimer.current = setTimeout(() => setAnnouncement(message), 600);
+  }, []);
+  useEffect(() => () => { if (announceTimer.current) clearTimeout(announceTimer.current); }, []);
+
+  useEffect(() => {
+    // Informative rather than a coordinate readout: "12 places in view" is what a user needs.
+    announce(`${orderedMarkers.length} ${orderedMarkers.length === 1 ? 'place' : 'places'} in view.`);
+  }, [orderedMarkers.length, announce]);
+
+  const list = (
+    <Stack gap="4xs" component="section" aria-label={`${label} — list view`}>
+      <Text size="sm" fw={600}>{label} — list view</Text>
+      {orderedMarkers.length === 0 ? (
+        <Text size="sm" c="dimmed">No places in view.</Text>
+      ) : (
+        <Stack gap={2} component="ul" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+          {orderedMarkers.map((marker) => (
+            <li key={marker.id}>
+              <UnstyledButton
+                onClick={() => {
+                  onMarkerSelect?.(marker.id);
+                  announce(`${marker.label} selected.`);
+                }}
+                aria-pressed={selectedMarkerId === marker.id}
+                data-gds-map-list-item={marker.id}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  padding: 'var(--gds-space-2xs) var(--gds-space-xs)',
+                  borderRadius: 'var(--gds-radius-chip)',
+                  // A visible border rather than only a background tint: under forced colors a
+                  // background is replaced by the system palette and selection would vanish,
+                  // which is exactly the state a keyboard user most needs to see.
+                  border: `var(--gds-focus-ring-width) ${selectedMarkerId === marker.id ? 'solid' : 'dashed'} ${selectedMarkerId === marker.id ? 'var(--gds-focus-ring-color)' : 'transparent'}`,
+                  background: selectedMarkerId === marker.id ? 'var(--gds-badge-soft-info)' : 'transparent',
+                  color: selectedMarkerId === marker.id ? 'var(--gds-badge-soft-info-fg)' : 'var(--gds-text-body)',
+                }}
+              >
+                <Group gap="2xs" wrap="nowrap">
+                  <Text size="sm">{marker.label}</Text>
+                  {marker.approximate ? <Text size="xs" c="dimmed">(approximate location)</Text> : null}
+                  {selectedMarkerId === marker.id ? <Text size="xs" c="dimmed">— selected</Text> : null}
+                </Group>
+              </UnstyledButton>
+            </li>
+          ))}
+        </Stack>
+      )}
+    </Stack>
+  );
+
   return (
     <Stack gap="xs">
+      {listPlacement === 'above' ? list : null}
       <Box
         ref={containerRef}
         role="region"
@@ -251,6 +327,19 @@ export function GdsMap({
         control was disabled precisely so the credit does not live inside third-party chrome a
         consumer might restyle or remove.
       */}
+      {listPlacement === 'below' ? list : null}
+      {/*
+        A single polite live region. Selection and count changes both route through it, so a
+        screen reader gets one coherent stream rather than two competing ones.
+      */}
+      <Text
+        data-gds-map-announcer=""
+        role="status"
+        aria-live="polite"
+        style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap' }}
+      >
+        {announcement}
+      </Text>
       <Text size="xs" c="dimmed" data-gds-map-attribution="">
         <a href={tileSource.attributionHref} target="_blank" rel="noreferrer noopener">{tileSource.attributionText}</a>
       </Text>

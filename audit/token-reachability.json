@@ -1,7 +1,7 @@
 {
   "declared": 279,
-  "referenced": 82,
-  "extensionPoints": 153,
+  "referenced": 88,
+  "extensionPoints": 147,
   "pendingWireUp": 1,
   "unreachableCount": 0,
   "budget": 0,
@@ -392,20 +392,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-badge-soft-info",
-      "classification": "extension-point",
-      "reason": "Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-badge-soft-info-fg",
-      "classification": "extension-point",
-      "reason": "Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-badge-soft-neutral",
       "classification": "extension-point",
       "reason": "Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.",
@@ -616,13 +602,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-focus-ring-color",
-      "classification": "extension-point",
-      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-focus-ring-offset",
       "classification": "extension-point",
       "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
@@ -631,13 +610,6 @@
     },
     {
       "token": "--gds-focus-ring-style",
-      "classification": "extension-point",
-      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-focus-ring-width",
       "classification": "extension-point",
       "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
       "reviewBy": "2027-08-01",
@@ -819,13 +791,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-radius-chip",
-      "classification": "extension-point",
-      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-radius-drawer",
       "classification": "extension-point",
       "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
@@ -967,13 +932,6 @@
     },
     {
       "token": "--gds-space-2xl",
-      "classification": "extension-point",
-      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-space-2xs",
       "classification": "extension-point",
       "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
       "reviewBy": "2027-08-01",

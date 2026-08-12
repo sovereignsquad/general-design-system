@@ -68,6 +68,13 @@ const SATISFIES = {
     const member = atom.name.split('.').pop();
     const start = Math.max(0, atom.source.line - 1);
     for (let i = start; i < Math.min(lines.length, start + 400); i += 1) {
+      // Skip comment lines. The predicate matched INSIDE a JSDoc block — the text
+      // "Marker size (width = height)" satisfies `size\s*[:(<]` — then checked the line above
+      // it, found no `*/`, and reported a documented prop as undocumented. That is finding
+      // F24's shape exactly: a predicate pointed at the wrong line producing a false
+      // accusation, and it is the second time this gate has done it.
+      const trimmed = lines[i].trim();
+      if (trimmed.startsWith('*') || trimmed.startsWith('//') || trimmed.startsWith('/*')) continue;
       if (!new RegExp(`(^|\\s)${member.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\??\\s*[:(<]`).test(lines[i])) continue;
       const prev = (lines[i - 1] ?? '').trim();
       return { met: prev.endsWith('*/'), why: prev.endsWith('*/') ? '' : 'no JSDoc block above the declaration' };

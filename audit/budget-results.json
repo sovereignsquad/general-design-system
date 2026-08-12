@@ -122,8 +122,8 @@
     },
     {
       "key": "obligationGaps",
-      "measured": 409,
-      "value": 409,
+      "measured": 404,
+      "value": 404,
       "direction": "max",
       "unit": "count",
       "finding": "F18",
