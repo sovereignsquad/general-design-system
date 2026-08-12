@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "af28d9427ba3ad13fef1462e1921a7b675bc0d49",
+  "commit": "996c0ba91363db6db5af5ebe518147fbab7410ba",
   "counts": {
     "token-published": 485,
     "token-declared": 56,
@@ -6523,7 +6523,7 @@
       "name": "--gds-brand-primary",
       "source": {
         "file": "packages/gds-core/src/generated-art-engine.ts",
-        "line": 160
+        "line": 206
       }
     },
     {
@@ -6532,7 +6532,7 @@
       "name": "--gds-brand-accent",
       "source": {
         "file": "packages/gds-core/src/generated-art-engine.ts",
-        "line": 161
+        "line": 207
       }
     },
     {
@@ -23746,7 +23746,7 @@
       "name": "GdsMapPinBadgeProps.accent",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "type": "GdsBadgeAccentName"
     },
@@ -23756,7 +23756,7 @@
       "name": "GdsMapPinBadgeProps.icon",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "type": "GdsIconKey | ReactNode"
     },
@@ -23766,7 +23766,7 @@
       "name": "GdsMapPinBadgeProps.label",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "type": "string"
     },
@@ -23776,7 +23776,7 @@
       "name": "GdsMapPinBadgeProps.filled",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "type": "boolean"
     },
@@ -23786,7 +23786,7 @@
       "name": "GdsMapPinBadgeProps.fillOpacity",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "type": "number"
     },
@@ -23796,7 +23796,7 @@
       "name": "GdsMapPinBadgeProps.shade",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "type": "GdsBadgeAccentShade"
     },
@@ -23806,7 +23806,7 @@
       "name": "GdsMapPinBadgeProps.size",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "type": "number | string"
     },
@@ -23816,7 +23816,7 @@
       "name": "GdsMapPinBadgeProps.emoji",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "type": "string"
     },
@@ -23826,7 +23826,7 @@
       "name": "GdsMapPinBadgeProps.iconStyle",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "type": "GdsBadgeIconStyle"
     },
@@ -31490,8 +31490,8 @@
       "kind": "accent",
       "name": "plum",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#7c3a6e"
     },
@@ -31500,8 +31500,8 @@
       "kind": "accent",
       "name": "indigo",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#3f4d9e"
     },
@@ -31510,8 +31510,8 @@
       "kind": "accent",
       "name": "ocean",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#1f6e8c"
     },
@@ -31520,8 +31520,8 @@
       "kind": "accent",
       "name": "teal",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#0f766e"
     },
@@ -31530,8 +31530,8 @@
       "kind": "accent",
       "name": "forest",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#2f6b3a"
     },
@@ -31540,8 +31540,8 @@
       "kind": "accent",
       "name": "bronze",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#8a5a00"
     },
@@ -31550,8 +31550,8 @@
       "kind": "accent",
       "name": "terracotta",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#b04a2f"
     },
@@ -31560,8 +31560,8 @@
       "kind": "accent",
       "name": "magenta",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#a52a6c"
     },
@@ -31570,8 +31570,8 @@
       "kind": "accent",
       "name": "slate",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#52606d"
     },
@@ -31580,8 +31580,8 @@
       "kind": "accent",
       "name": "grape",
       "source": {
-        "file": "packages/gds-core/src/GdsBadge.tsx",
-        "line": 70
+        "file": "packages/gds-theme/src/accent-axis.ts",
+        "line": 126
       },
       "value": "#5b3374"
     }

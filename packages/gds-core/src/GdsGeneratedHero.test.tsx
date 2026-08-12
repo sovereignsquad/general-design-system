@@ -97,11 +97,11 @@ describe('GdsGeneratedHero (#506)', () => {
     expect(svg.querySelectorAll('rect').length).toBe(3);
   });
 
-  it('category mode resolves the gradient to the literal shaded accent hex, same as GdsGeneratedThumbnail', () => {
+  it('category mode resolves the gradient to the accent TOKEN, so a category follows the theme (issue 594), same as GdsGeneratedThumbnail', () => {
     const { container } = renderWithGds(
       <GdsGeneratedHero seed="loc-1" label="Riverdale" paletteSource="category" category="magenta" shade="deeper" />,
     );
     const firstStop = container.querySelector('stop');
-    expect(firstStop?.getAttribute('stop-color')).toBe(gdsBadgeAccentShades.magenta.deeper);
+    expect(firstStop?.getAttribute('stop-color')).toBe(`var(--gds-accent-magenta-deeper, ${gdsBadgeAccentShades.magenta.deeper})`);
   });
 });

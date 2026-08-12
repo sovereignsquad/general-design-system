@@ -33,7 +33,7 @@ export const SHAPE_ALLOWLIST = {
     reason: 'Circular active/notification indicator in the tab bar.',
     reviewBy: '2027-08-01',
   },
-  'packages/gds-core/src/GdsBadge.tsx:181': {
+  'packages/gds-core/src/GdsBadge.tsx:173': {
     category: 'circle',
     reason: 'Circular count disc inside a badge; the surrounding badge itself is token-governed.',
     reviewBy: '2027-08-01',

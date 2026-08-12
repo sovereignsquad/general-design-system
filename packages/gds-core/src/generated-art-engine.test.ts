@@ -46,14 +46,31 @@ describe('gdsGeneratedPaletteCssRefs (#504)', () => {
     expect(palette.accent).toMatch(/^var\(--gds-brand-accent, #[0-9a-f]{6}\)$/);
   });
 
-  it('category mode resolves the literal shaded accent for both primary and accent', () => {
+  it('category mode references the accent token so a category follows the theme', () => {
+    // Issue 594. This asserted a literal, and the reason was sound at the time: accents were
+    // fixed sRGB with no variable to reference. The accent axis makes that false — the
+    // live-DOM path now emits a token with the axis-derived value as its fallback.
     const palette = gdsGeneratedPaletteCssRefs({ paletteSource: 'category', category: 'forest', shade: 'deep' });
-    expect(palette).toEqual({ primary: gdsBadgeAccentShades.forest.deep, accent: gdsBadgeAccentShades.forest.deep, source: 'category' });
+    const expected = `var(--gds-accent-forest-deep, ${gdsBadgeAccentShades.forest.deep})`;
+    expect(palette).toEqual({ primary: expected, accent: expected, source: 'category' });
   });
 
   it('category mode defaults shade to base', () => {
     const palette = gdsGeneratedPaletteCssRefs({ paletteSource: 'category', category: 'ocean' });
-    expect(palette.primary).toBe(gdsBadgeAccentShades.ocean.base);
+    expect(palette.primary).toBe(`var(--gds-accent-ocean-base, ${gdsBadgeAccentShades.ocean.base})`);
+  });
+
+  it('the non-DOM path still resolves to a literal, because var() does not resolve outside a browser', () => {
+    // The distinction this whole slice exists for: a var() in an OG image or an email
+    // silently produces an unpainted shape rather than an error.
+    const hex = resolveGdsGeneratedPaletteHex({ paletteSource: 'category', category: 'forest', shade: 'deep' });
+    expect(hex.primary).toMatch(/^#[0-9a-f]{6}$/i);
+    expect(hex.primary).toBe(gdsBadgeAccentShades.forest.deep);
+  });
+
+  it('the non-DOM path resolves a category against the requested preset', () => {
+    const themed = resolveGdsGeneratedPaletteHex({ paletteSource: 'category', category: 'plum', shade: 'deep', themePresetId: 'editorial' });
+    expect(themed.primary).toMatch(/^#[0-9a-f]{6}$/i);
   });
 
   it('category mode throws a clear error when category is omitted', () => {

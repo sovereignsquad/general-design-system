@@ -73,12 +73,12 @@ describe('GdsGeneratedThumbnail (#505)', () => {
     expect(firstStop?.getAttribute('stop-color')).toMatch(/^var\(--gds-brand-primary, #[0-9a-f]{6}\)$/);
   });
 
-  it('category mode resolves the gradient to the literal shaded accent hex', () => {
+  it('category mode resolves the gradient to the accent TOKEN, so a category follows the theme (issue 594)', () => {
     const { container } = renderWithGds(
       <GdsGeneratedThumbnail seed="listing-1" categories={CATEGORIES} paletteSource="category" category="forest" shade="deep" />,
     );
     const firstStop = container.querySelector('stop');
-    expect(firstStop?.getAttribute('stop-color')).toBe(gdsBadgeAccentShades.forest.deep);
+    expect(firstStop?.getAttribute('stop-color')).toBe(`var(--gds-accent-forest-deep, ${gdsBadgeAccentShades.forest.deep})`);
   });
 
   it('an explicit colors override wins over paletteSource', () => {

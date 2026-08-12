@@ -37,7 +37,7 @@ describe('buildGdsThumbnailSvg (#508)', () => {
     );
   });
 
-  it('category mode resolves the gradient to the literal shaded accent hex', () => {
+  it('category mode resolves the gradient to the accent TOKEN, so a category follows the theme (issue 594)', () => {
     const svg = buildGdsThumbnailSvg({ seed: 'listing-1', categories: CATEGORIES, paletteSource: 'category', category: 'forest', shade: 'deep', label: 'x' });
     expect(svg).toContain(`stop-color="${gdsBadgeAccentShades.forest.deep}"`);
   });

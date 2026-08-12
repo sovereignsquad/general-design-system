@@ -2096,7 +2096,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 74
+        "line": 76
       },
       "unmet": [
         {

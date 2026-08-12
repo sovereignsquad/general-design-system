@@ -1,4 +1,7 @@
-import { gdsBadgeAccentShades } from './GdsBadge';
+import { resolveGdsAccentTokens } from '@sovereignsquad/gds-theme';
+
+/** Axis-derived defaults, for the paths where a CSS variable cannot resolve. */
+const gdsResolvedAccentFallback = resolveGdsAccentTokens(undefined, 'light');
 import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
 import { getGdsVibeThemeCssVariables, resolveGdsVibeTheme } from '@sovereignsquad/gds-theme';
 import type { GdsThemePresetId } from '@sovereignsquad/gds-theme';
@@ -81,11 +84,54 @@ export interface GdsGeneratedPalette extends GdsGeneratedPaletteColors {
 
 const DEFAULT_VIBE = resolveGdsVibeTheme('default');
 
-function resolveCategoryColor(options: GdsGeneratedPaletteOptions): string {
+/**
+ * The category accent as a CSS VARIABLE REFERENCE, for live-DOM rendering.
+ *
+ * Issue 594. This used to return a fixed hex, and the reason was sound at the time: accents
+ * were "deliberately theme-independent fixed sRGB — there is no variable to reference". The
+ * accent axis makes that premise false, so a category surface now follows the active theme.
+ */
+function resolveCategoryColorToken(options: GdsGeneratedPaletteOptions): string {
   if (!options.category) {
     throw new Error("gds-core generated-art-engine: paletteSource 'category' requires a `category` option (a GdsBadgeAccentName).");
   }
-  return gdsBadgeAccentShades[options.category][options.shade ?? 'base'];
+  // Issue 594. This returned a fixed hex because the comment below was true: accents were
+  // "deliberately theme-independent fixed sRGB — there is no variable to reference". The
+  // accent axis makes that premise false, so the live-DOM path now references the token and
+  // follows the theme. `resolveGdsGeneratedPaletteHex` still resolves to a literal, because
+  // CSS variables genuinely do not resolve outside a browser — that distinction is real and
+  // is why this is the one consumer that needs both forms.
+  const shade = options.shade ?? 'base';
+  return `var(--gds-accent-${options.category}-${shade}, ${gdsResolvedAccentFallback[`--gds-accent-${options.category}-${shade}`]})`;
+}
+
+/**
+ * The category accent as a RESOLVED LITERAL, for rendering with no browser.
+ *
+ * OG images, share cards and email are composed outside a document, where a CSS custom
+ * property resolves to nothing at all — a `var()` here would silently produce an unpainted
+ * shape rather than an error. This is the one consumer that genuinely needs both forms, and
+ * it is why the migration was split from the token layer.
+ *
+ * When a preset is supplied the accent is resolved FOR THAT PRESET, so a themed share image
+ * carries the theme's accents rather than the default lane's.
+ */
+function resolveCategoryColorHex(options: ResolveGdsGeneratedPaletteHexOptions): string {
+  if (!options.category) {
+    throw new Error("gds-core generated-art-engine: paletteSource 'category' requires a `category` option (a GdsBadgeAccentName).");
+  }
+  const shade = options.shade ?? 'base';
+  const tokens = options.themePresetId
+    ? getGdsVibeThemeCssVariables(options.themePresetId, options.colorScheme ?? 'light')
+    : gdsResolvedAccentFallback;
+  const resolved = tokens[`--gds-accent-${options.category}-${shade}`];
+  if (!resolved) {
+    throw new Error(
+      `gds-core generated-art-engine: no resolved value for --gds-accent-${options.category}-${shade}. `
+      + 'A missing accent token must fail here rather than emit an unpainted shape.',
+    );
+  }
+  return resolved;
 }
 
 /**
@@ -110,7 +156,7 @@ export function gdsGeneratedPaletteCssRefs(options: GdsGeneratedPaletteOptions =
   }
   const source = options.paletteSource ?? 'theme';
   if (source === 'category') {
-    const color = resolveCategoryColor(options);
+    const color = resolveCategoryColorToken(options);
     return { primary: color, accent: color, source: 'category' };
   }
   return {
@@ -147,7 +193,7 @@ export function resolveGdsGeneratedPaletteHex(options: ResolveGdsGeneratedPalett
   }
   const source = options.paletteSource ?? 'theme';
   if (source === 'category') {
-    const color = resolveCategoryColor(options);
+    const color = resolveCategoryColorHex(options);
     return { primary: color, accent: color, source: 'category' };
   }
   if (!options.themePresetId) {
