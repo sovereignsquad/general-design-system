@@ -2153,11 +2153,22 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'media-fields':
       return (
         <div>
+          {/*
+            Issue 563. These previews were raw img tags pointing at a third-party stock-photo
+            service, on the page that demonstrates the design system. Every image the
+            reference site renders now comes from the generated-imagery system — deterministic,
+            zero-network, and theme-following, none of which a hosted photo is.
+          */}
           <MediaField
             label="Hero image"
             description="Use the media-field contract for upload, URL entry, preview, status, and recovery."
             value="https://cdn.example.com/hero.jpg"
-            preview={<img alt="Hero preview" src="https://picsum.photos/id/1015/640/360" />}
+            preview={(
+              <GdsGeneratedThumbnail
+                seed="media-field-hero"
+                categories={[{ key: 'hero', label: 'Hero image', icon: 'Gallery' }]}
+              />
+            )}
             uploadControl={<button type="button">Upload image</button>}
             urlInput={<input aria-label="Image URL" defaultValue="https://cdn.example.com/hero.jpg" />}
             helpText="Prefer authored media with descriptive alt text."
@@ -2175,7 +2186,12 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             label="Locked campaign logo"
             description="Readonly mode keeps preview and policy context visible while suppressing edit controls."
             value="https://cdn.example.com/logo.png"
-            preview={<img alt="Campaign logo preview" src="https://picsum.photos/id/1025/640/360" />}
+            preview={(
+              <GdsGeneratedThumbnail
+                seed="media-field-campaign-logo"
+                categories={[{ key: 'logo', label: 'Campaign logo', icon: 'Gallery' }]}
+              />
+            )}
             policyText="This asset is controlled by the brand system owner."
             acceptedTypes="PNG"
             maxSize="2 MB max"

@@ -87,6 +87,27 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Generated imagery only (#563, #564)**: the reference site no longer renders a single
+  third-party image, and `npm run verify:generated-imagery-only` fails the build if one
+  returns.
+
+  **Measured first**: the surface was two `picsum.photos` photos in the media-field demo — the
+  page that demonstrates the design system was illustrating it with hosted stock photography.
+  Both now render through `GdsGeneratedThumbnail`. A hosted photo breaks three properties the
+  rest of the system guarantees at once: it needs the network, it does not follow the theme,
+  and it is not deterministic.
+
+  **Two false-positive classes were removed rather than allowlisted.** RFC 2606 reserves
+  `example.com` for documentation and it resolves to nothing, so a demo showing "here is a URL
+  a user pasted" is text in a form field, not an image — four permanent allowlist entries for a
+  case that cannot load a pixel would be an allowlist people stop reading. And the CSS `url()`
+  rule was narrowed to image resources after it caught the Google Fonts `@import`: a font, not
+  an image, governed by the font-lane system instead.
+
+  **That second false positive was masking a negative control** — the gate was failing for the
+  wrong reason, so its real coverage went unmeasured. A gate that fails is not the same as a
+  gate that works.
+
 - **Theme coverage matrix (#562)**: `npm run verify:theme-coverage-matrix` renders the site
   under a covering design and checks that each tracked property **resolves from a governed
   token**, per preset and per scheme.
