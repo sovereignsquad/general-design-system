@@ -609,6 +609,17 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'ReferenceThemeExplorer',
   },
   {
+    id: 'accent-contrast-matrix',
+    title: 'Accent Contrast Matrix',
+    docSection: 'Core Component Contracts',
+    family: 'public',
+    section: 'Public Shells & Docs',
+    coverageStatus: 'live-demo',
+    summary: 'Live accent contrast matrix showing every accent, shade and mode against its measured ratio and required threshold.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsAccentContrastMatrix',
+  },
+  {
     id: 'reference-site-shell',
     title: 'Reference Site Shell',
     docSection: 'Core Component Contracts',

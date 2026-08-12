@@ -49,7 +49,7 @@ export const SHAPE_ALLOWLIST = {
     reviewBy: '2027-08-01',
   },
 
-  'packages/gds-core/src/ReferenceThemeExplorer.tsx:334': {
+  'packages/gds-core/src/ReferenceThemeExplorer.tsx:335': {
     category: 'debt',
     reason:
       'Theme Lab preview chrome at 18px, which is not on the scale (nearest step lg = 16px). '
@@ -59,7 +59,7 @@ export const SHAPE_ALLOWLIST = {
       + 'place to take one.',
     reviewBy: '2026-12-01',
   },
-  'packages/gds-core/src/ReferenceThemeExplorer.tsx:768': {
+  'packages/gds-core/src/ReferenceThemeExplorer.tsx:769': {
     category: 'debt',
     reason: 'Theme Lab colour-swatch chrome at 12px, between md (8px) and lg (16px). Same reasoning as line 334: a visible change, so a decision rather than a sweep.',
     reviewBy: '2026-12-01',
