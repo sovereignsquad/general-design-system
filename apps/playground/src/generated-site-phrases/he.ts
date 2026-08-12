@@ -767,6 +767,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Pickup window closes at 18:00.": "חלון האיסוף נסגר בשעה 18:00.",
   "Pickup window: Saturday 09:00-12:00": "חלון איסוף: שבת 09:00-12:00",
   "Pie chart": "תרשים עוגה",
+  "Pin anatomy, the solved centre and icon-scale bound surfaced from source, all three composition modes, and a live accent-by-shade contrast matrix.": "אנטומיית סיכות, המרכז הפתיר וסולם האייקונים הכרוך על פני השטח, כל שלושת מצבי הקומפוזיציה, ומטריצת ניגודיות חיה של מבטא אחר גוונים.",
+  "Pin System": "מערכת פינים",
   "Placeholder and coming-soon surfaces must stay honest, visibly non-live, and free of fabricated data.": "משטחי מציין מיקום ומשטחים בקרוב חייבים להישאר כנים, בלתי חיים בעליל וללא נתונים מפוברקים.",
   "Placeholder Panels": "לוחות מציין מקום",
   "Playback & Capture": "השמעה וצילום",

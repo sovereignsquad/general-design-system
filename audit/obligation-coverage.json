@@ -1,14 +1,14 @@
 {
-  "evaluated": 1081,
+  "evaluated": 1086,
   "gapCount": 404,
   "excludedCount": 67,
   "byKind": {
     "prop": {
-      "evaluated": 968,
+      "evaluated": 971,
       "gaps": 366
     },
     "variant": {
-      "evaluated": 103,
+      "evaluated": 105,
       "gaps": 38
     },
     "accent": {

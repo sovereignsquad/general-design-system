@@ -767,6 +767,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Pickup window closes at 18:00.": "Окно самовывоза закрывается в 18:00.",
   "Pickup window: Saturday 09:00-12:00": "Окно самовывоза: суббота 09:00-12:00.",
   "Pie chart": "Круговая диаграмма",
+  "Pin anatomy, the solved centre and icon-scale bound surfaced from source, all three composition modes, and a live accent-by-shade contrast matrix.": "Анатомия булавки, решенный центр и привязка масштаба значков, полученные из исходного кода, все три режима композиции и живая контрастная матрица с отдельными оттенками.",
+  "Pin System": "Система контактов",
   "Placeholder and coming-soon surfaces must stay honest, visibly non-live, and free of fabricated data.": "Заполнители и поверхности, которые появятся в ближайшее время, должны оставаться честными, визуально неживыми и свободными от сфабрикованных данных.",
   "Placeholder Panels": "Панели-заполнители",
   "Playback & Capture": "Воспроизведение и захват",

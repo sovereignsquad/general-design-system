@@ -609,6 +609,17 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'ReferenceThemeExplorer',
   },
   {
+    id: 'pin-system',
+    title: 'Pin System',
+    docSection: 'Core Component Contracts',
+    family: 'public',
+    section: 'Public Shells & Docs',
+    coverageStatus: 'live-demo',
+    summary: 'Pin anatomy, the solved centre and icon-scale bound surfaced from source, all three composition modes, and a live accent-by-shade contrast matrix.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsPinSystemReference',
+  },
+  {
     id: 'gds-map',
     title: 'Map Surface',
     docSection: 'Core Component Contracts',

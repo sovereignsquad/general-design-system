@@ -767,6 +767,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Pickup window closes at 18:00.": "نافذة الالتقاط تغلق الساعة 18:00.",
   "Pickup window: Saturday 09:00-12:00": "فترة الاستلام: السبت 09:00-12:00",
   "Pie chart": "مخطط دائري",
+  "Pin anatomy, the solved centre and icon-scale bound surfaced from source, all three composition modes, and a live accent-by-shade contrast matrix.": "ظهر تشريح الدبوس والمركز الذي تم حله ومقياس الأيقونة من المصدر، وجميع أوضاع التركيب الثلاثة، ومصفوفة تباين حية لكل تمييز بظل.",
+  "Pin System": "نظام الدبوس",
   "Placeholder and coming-soon surfaces must stay honest, visibly non-live, and free of fabricated data.": "يجب أن تظل العناصر النائبة والأسطح القادمة قريبًا صادقة وغير حية بشكل واضح وخالية من البيانات الملفقة.",
   "Placeholder Panels": "لوحات العناصر النائبة",
   "Playback & Capture": "التشغيل والتقاط",
