@@ -50,11 +50,23 @@ interface BadgeColors {
   border?: string;
 }
 
+/**
+ * Tone colours, as COMPUTED pairs (issue 595).
+ *
+ * This table previously paired a fixed white foreground with a variable background, and read
+ * `-dark` for three tones while `success` read the light one. Measured: with white text,
+ * `--gds-state-success` fails 4.5:1 in 9 of 25 presets in LIGHT mode (class-usa 4.10, sunset
+ * 4.40). The inconsistency is why it survived — three tones were pinned dark and one was not.
+ *
+ * Both halves of each pair now come from the theme, derived against each other per preset and
+ * per scheme, so the badge follows the scheme AND the contrast is guaranteed rather than
+ * assumed. Same fix as issue 537's `--gds-text-on-support`.
+ */
 const toneColors: Record<GdsBadgeTone, BadgeColors> = {
-  success: { bg: 'var(--gds-state-success, #157a52)', fg: 'var(--gds-text-on-inverse, #ffffff)' },
-  warning: { bg: 'var(--gds-state-warning-dark, #7a5b00)', fg: 'var(--gds-text-on-inverse, #ffffff)' },
-  danger: { bg: 'var(--gds-state-danger-dark, #8c2f39)', fg: 'var(--gds-text-on-inverse, #ffffff)' },
-  info: { bg: 'var(--gds-state-info-dark, #1f4a8a)', fg: 'var(--gds-text-on-inverse, #ffffff)' },
+  success: { bg: 'var(--gds-badge-solid-success)', fg: 'var(--gds-badge-solid-success-fg)' },
+  warning: { bg: 'var(--gds-badge-solid-warning)', fg: 'var(--gds-badge-solid-warning-fg)' },
+  danger: { bg: 'var(--gds-badge-solid-danger)', fg: 'var(--gds-badge-solid-danger-fg)' },
+  info: { bg: 'var(--gds-badge-solid-info)', fg: 'var(--gds-badge-solid-info-fg)' },
   neutral: {
     bg: 'var(--gds-bg-card, var(--mantine-color-gray-1, #f1f3f5))',
     fg: 'var(--gds-text-primary, var(--mantine-color-dark-7, #1f2937))',

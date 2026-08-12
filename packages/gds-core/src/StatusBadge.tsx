@@ -40,13 +40,6 @@ export interface CountBadgeProps extends Omit<BadgeProps, 'color' | 'children'> 
   srLabel?: string;
 }
 
-const statusColorMap: Record<StatusVariant, string> = {
-  success: 'green',
-  warning: 'yellow',
-  danger: 'red',
-  info: 'blue',
-  neutral: 'gray',
-};
 
 const labelTagColorMap: Record<LabelTagTone, string> = {
   neutral: 'gray',
@@ -73,10 +66,19 @@ export function StatusBadge({ status, withIcon, children, ...props }: StatusBadg
   return (
     <Badge
       data-gds-badge-fixed-tone="true"
-      color={statusColorMap[status]}
-      variant="light"
+      variant="filled"
       leftSection={iconKey ? <GdsIcon icon={iconKey} size="xs" /> : undefined}
       {...props}
+      // Issue 595 / #534. This rendered Mantine's `variant="light"` — pastel text on a
+      // low-alpha tint of the same hue — which measured 1.81:1 and 2.55:1 in dark mode. GDS
+      // never controlled that pair, because it came from Mantine's variant rather than a GDS
+      // token, and an rgba tint's contrast cannot be computed at all. The soft lane mixes the
+      // state colour against a real surface and derives the foreground against the result.
+      style={{
+        background: `var(--gds-badge-soft-${status})`,
+        color: `var(--gds-badge-soft-${status}-fg)`,
+        ...(props.style as React.CSSProperties | undefined),
+      }}
     >
       {children}
     </Badge>

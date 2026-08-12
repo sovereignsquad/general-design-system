@@ -21,7 +21,7 @@
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/GdsBadge.tsx:173",
+      "at": "packages/gds-core/src/GdsBadge.tsx:185",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"

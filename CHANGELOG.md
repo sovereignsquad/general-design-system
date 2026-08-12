@@ -87,6 +87,31 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Scheme-aware badge tones, resolving #534 (#595)**: badge tone colours are now **computed
+  pairs** — background and foreground derived against each other, per preset, per scheme.
+
+  **#534's actual mechanism was not what the follow-up issues assumed**, and the record is
+  corrected. It is not the `-dark` pinning in `toneColors`; it is `StatusBadge` rendering
+  Mantine's `variant="light"` — pastel text on a low-alpha tint of the same hue — measuring
+  **1.81:1** and **2.55:1** in dark mode. GDS never controlled that pair because it came from
+  a Mantine variant rather than a GDS token, and **an rgba tint's contrast cannot be computed
+  at all**, which is precisely how it shipped unnoticed.
+
+  **A second, separate defect was found while verifying the first.** `toneColors.success` read
+  `--gds-state-success` while the other three tones read their `-dark` variants. Paired with a
+  fixed white foreground it fails 4.5:1 in **9 of 25 presets in light mode** (class-usa 4.10,
+  sunset 4.40) — shipping today. The inconsistency is why it survived: three tones were pinned
+  dark and one was not.
+
+  Both have the same root cause and the same fix, the one #537 established for `support`:
+  **never pair a fixed foreground with a variable background.** The soft lane mixes the state
+  colour against a real surface — producing an opaque colour whose contrast *can* be measured,
+  unlike an alpha tint — and derives the foreground against the result.
+
+  **500 pairs verified** (25 presets × 2 schemes × 2 lanes × 5 tones), 0 failures, and a new
+  accessibility-floor rule keeps it that way. A status badge is often the only signal that
+  something needs attention, so an illegible one is a functional failure, not a cosmetic one.
+
 - **Accent axis — components migrated (#594)**: `GdsBadge`, `GdsMapPinBadge` and the
   generated-art engine now read `--gds-accent-*` instead of a module constant, so a category
   colour follows the active theme.

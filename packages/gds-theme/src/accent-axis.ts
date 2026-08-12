@@ -85,10 +85,13 @@ export interface GdsAccentContrastResult {
   enforced: boolean;
 }
 
+/** The ten accent slots, in palette order. Closed set; slot count is a separate decision. */
 export const GDS_ACCENT_NAMES: GdsAccentName[] = [
   'plum', 'indigo', 'ocean', 'teal', 'forest', 'bronze', 'terracotta', 'magenta', 'slate', 'grape',
 ];
+/** Every shade step, lightest first. Derivation is darker-only, so this order is the ramp. */
 export const GDS_ACCENT_SHADES: GdsAccentShade[] = ['base', 'deep', 'deeper', 'deepest'];
+/** Every presentation mode an accent can take; each carries a different contrast obligation. */
 export const GDS_ACCENT_MODES: GdsAccentMode[] = ['outline', 'filled', 'emoji'];
 
 /**
