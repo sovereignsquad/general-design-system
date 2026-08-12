@@ -18,6 +18,42 @@
  * is.
  */
 export const EXTENSION_POINTS = {
+  // ── Typography and elevation axes (issue 557) ──
+  '--gds-font-size-2xs': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
+  '--gds-font-size-xs': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
+  '--gds-font-size-sm': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
+  '--gds-font-size-md': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
+  '--gds-font-size-lg': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
+  '--gds-font-size-xl': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
+  '--gds-font-size-2xl': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
+  '--gds-font-size-3xl': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
+  '--gds-font-size-4xl': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
+  '--gds-line-height-md': { reason: 'Typography-axis line height (issue 557), unitless, published per step a theme declares.', reviewBy: '2027-08-01' },
+  '--gds-line-height-lg': { reason: 'Typography-axis line height (issue 557), unitless, published per step a theme declares.', reviewBy: '2027-08-01' },
+  '--gds-line-height-xl': { reason: 'Typography-axis line height (issue 557), unitless, published per step a theme declares.', reviewBy: '2027-08-01' },
+  '--gds-line-height-2xl': { reason: 'Typography-axis line height (issue 557), unitless, published per step a theme declares.', reviewBy: '2027-08-01' },
+  '--gds-line-height-3xl': { reason: 'Typography-axis line height (issue 557), unitless, published per step a theme declares.', reviewBy: '2027-08-01' },
+  '--gds-line-height-4xl': { reason: 'Typography-axis line height (issue 557), unitless, published per step a theme declares.', reviewBy: '2027-08-01' },
+  '--gds-weight-regular': { reason: 'Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.', reviewBy: '2027-08-01' },
+  '--gds-weight-medium': { reason: 'Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.', reviewBy: '2027-08-01' },
+  '--gds-weight-semibold': { reason: 'Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.', reviewBy: '2027-08-01' },
+  '--gds-weight-bold': { reason: 'Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.', reviewBy: '2027-08-01' },
+  '--gds-font-lane-display': { reason: 'Typography-axis font-lane assignment (issue 557). Names the registered lane for the role.', reviewBy: '2027-08-01' },
+  '--gds-font-lane-body': { reason: 'Typography-axis font-lane assignment (issue 557). Names the registered lane for the role.', reviewBy: '2027-08-01' },
+  '--gds-font-lane-mono': { reason: 'Typography-axis font-lane assignment (issue 557). Names the registered lane for the role.', reviewBy: '2027-08-01' },
+  '--gds-elevation-0': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-1': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-2': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-3': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-4': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-card': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-panel': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-modal': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-drawer': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-sheet': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-menu': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+  '--gds-elevation-tooltip': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
+
   // ── Density axis (issue 556) ──
   // Same reasoning as the shape roles below: every step and size is emitted for every preset
   // so a consumer or a future component can read it. The axis guarantees presence, not

@@ -3,7 +3,9 @@ import { DEFAULT_THEME } from '@mantine/core';
 import {
   GDS_CONTROL_HEIGHT_EXCEPTIONS, GDS_CONTROL_SIZES, GDS_DEFAULT_DENSITY_AXIS,
   GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_ROLES, GDS_RADIUS_STEPS, GDS_SPACE_STEPS, GdsAxisError,
-  gdsRadius, resolveGdsDensityTokens, resolveGdsShapeTokens, validateGdsShapeAxis,
+  GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_ELEVATION_ROLES,
+  gdsRadius, resolveGdsDensityTokens, resolveGdsElevationTokens, resolveGdsShapeTokens,
+  resolveGdsTypographyTokens, validateGdsShapeAxis,
 } from './axes';
 import { gdsTheme } from './theme';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
@@ -120,5 +122,62 @@ describe('density axis (issue 556)', () => {
     expect(spacious['--gds-space-md']).toContain('var(--mantine-scale)');
     expect(spacious['--gds-space-md']).toContain('1.25');
     expect(spacious['--gds-density']).toBe('spacious');
+  });
+});
+
+describe('typography and elevation axes (issue 557)', () => {
+  it('carries Mantine\'s font sizes as overrides rather than deriving them', () => {
+    // Mantine's ramp is NOT a clean modular scale — 0.875->1 is x1.1429 while 1->1.125 is
+    // x1.1250. Any single ratio would round its way to different numbers and change every
+    // piece of text on the site, so those five steps are overrides and the ratio governs
+    // only the steps Mantine has no equivalent for.
+    const tokens = resolveGdsTypographyTokens();
+    for (const step of ['xs', 'sm', 'md', 'lg', 'xl'] as const) {
+      expect(tokens[`--gds-font-size-${step}`]).toBe(DEFAULT_THEME.fontSizes[step]);
+    }
+    expect(tokens['--gds-font-size-3xl']).toMatch(/^calc\(1rem \* [\d.]+\)$/);
+  });
+
+  it('does not collide with the semantic text-COLOUR namespace', () => {
+    // `--gds-text-*` already means a colour role. One prefix meaning both a colour and a size
+    // would leave a reader unable to tell which `--gds-text-lg` is, and the token graph's
+    // category inference keys off exactly that prefix.
+    const vars = getGdsVibeThemeCssVariables('default', 'light');
+    expect(vars['--gds-font-size-lg']).toBeTruthy();
+    expect(vars['--gds-text-lg']).toBeUndefined();
+    expect(vars['--gds-text-body']).toBeTruthy();
+  });
+
+  it('rejects weights that do not ascend', () => {
+    expect(() => resolveGdsTypographyTokens(
+      { ...GDS_DEFAULT_TYPOGRAPHY_AXIS, weights: { regular: 400, medium: 400, semibold: 600, bold: 700 } },
+      'probe',
+    )).toThrow(/is not heavier than the previous step/);
+  });
+
+  it('rejects a ratio that is not a scale, and an unregistered font lane', () => {
+    expect(() => resolveGdsTypographyTokens({ ...GDS_DEFAULT_TYPOGRAPHY_AXIS, scale: { base: '1rem', ratio: 3 } }, 'probe'))
+      .toThrow(/must be between 1.0 and 2.0/);
+    expect(() => resolveGdsTypographyTokens(
+      { ...GDS_DEFAULT_TYPOGRAPHY_AXIS, lanes: { display: 'no-such-lane', body: 'inter', mono: 'inter' } },
+      'probe',
+      ['inter'],
+    )).toThrow(/is not registered/);
+  });
+
+  it('rejects an elevation scale that decreases', () => {
+    // A modal flatter than the card behind it reads as a rendering bug, not a design.
+    expect(() => resolveGdsElevationTokens(
+      { ...GDS_DEFAULT_ELEVATION_AXIS, steps: { ...GDS_DEFAULT_ELEVATION_AXIS.steps, 3: { kind: 'none' } } },
+      'probe',
+    )).toThrow(/is "none" after a raised step/);
+  });
+
+  it('emits every elevation step and role, resolving roles through the step scale', () => {
+    const tokens = resolveGdsElevationTokens();
+    expect(tokens['--gds-elevation-0']).toBe('none');
+    expect(tokens['--gds-elevation-modal']).toBe(tokens['--gds-elevation-3']);
+    expect(tokens['--gds-elevation-card']).toBe(tokens['--gds-elevation-1']);
+    for (const role of GDS_ELEVATION_ROLES) expect(tokens[`--gds-elevation-${role}`]).toBeTruthy();
   });
 });

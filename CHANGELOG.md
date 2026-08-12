@@ -87,6 +87,32 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Typography and elevation axes (#557)**: axes three and four. Typography emits
+  `--gds-font-size-*`, `--gds-weight-*`, `--gds-line-height-*`, `--gds-tracking-*` and
+  `--gds-font-lane-*`; elevation emits `--gds-elevation-0…4` plus seven surface roles.
+
+  **The type scale carries Mantine's sizes as overrides rather than deriving them.** Mantine's
+  ramp is not a clean modular scale — `0.875 → 1` is ×1.1429 while `1 → 1.125` is ×1.1250 — so
+  any single ratio would round its way to different numbers and change every piece of text on
+  the site. The ratio governs only the steps Mantine has no equivalent for (`2xs`, `2xl`,
+  `3xl`, `4xl`).
+
+  **A namespace collision was caught before it shipped.** Size steps are `--gds-font-size-*`,
+  **not** `--gds-text-*` — the latter is already the semantic *colour* namespace
+  (`--gds-text-body`, `--gds-text-primary`). One prefix meaning both a colour and a size would
+  leave a reader unable to tell which `--gds-text-lg` is, and the token graph's category
+  inference keys off exactly that prefix.
+
+  Invariants are the ones a theme can plausibly get wrong: weights must **ascend** (a
+  `semibold` lighter than `medium` renders as broken text, not as a style), the ratio must be
+  a real ratio, every lane must name a **registered** font lane (an unregistered one falls
+  back to the browser default, which reads as the theme failing to load), and elevation must
+  **not decrease** (a modal flatter than the card behind it reads as a rendering bug).
+
+  The DTCG generator gained `number`, `cssShadow` and `cssKeyword` types, and now treats any
+  `calc()` as computed — a derived step like `calc(1rem * 1.4238)` is no more a static
+  `dimension` than one referencing `var(--mantine-scale)`.
+
 - **Density axis: spacing, control heights, and a hit-target floor (#556)**: the second axis
   through the #555 mechanism. 10 spacing steps + 5 control heights + a density mode, emitted
   as `--gds-space-*`, `--gds-control-height-*` and `--gds-density`.

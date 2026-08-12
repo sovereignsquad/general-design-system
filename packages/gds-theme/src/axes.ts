@@ -63,6 +63,42 @@ export interface GdsDensityAxis {
   factors?: { compact: number; spacious: number };
 }
 
+/** Font lane roles a theme assigns. */
+export type GdsFontLaneRole = 'display' | 'body' | 'mono';
+
+/** Text size steps. */
+export type GdsTextSizeStep = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+
+/** Named font weights. */
+export type GdsWeightName = 'regular' | 'medium' | 'semibold' | 'bold';
+
+/** A theme's typographic decisions. */
+export interface GdsTypographyAxis {
+  /** Registered font-lane id per role. */
+  lanes: Record<GdsFontLaneRole, string>;
+  /** Modular scale. Steps are DERIVED from base and ratio unless overridden. */
+  scale: { base: string; ratio: number; overrides?: Partial<Record<GdsTextSizeStep, string>> };
+  weights: Record<GdsWeightName, number>;
+  lineHeights?: Partial<Record<GdsTextSizeStep, number>>;
+  tracking?: Partial<Record<GdsTextSizeStep, string>>;
+}
+
+/** Elevation steps, flat to highest. */
+export type GdsElevationStep = 0 | 1 | 2 | 3 | 4;
+
+/** How a step expresses elevation: nothing, a border, or a shadow. */
+export type GdsElevationValue = { kind: 'none' } | { kind: 'border'; value: string } | { kind: 'shadow'; value: string };
+
+/** Surface families that may pin a specific elevation step. */
+export type GdsElevationRole = 'card' | 'panel' | 'modal' | 'drawer' | 'sheet' | 'menu' | 'tooltip';
+
+/** A theme's elevation decisions. */
+export interface GdsElevationAxis {
+  steps: Record<GdsElevationStep, GdsElevationValue>;
+  defaultStep?: GdsElevationStep;
+  roles?: Partial<Record<GdsElevationRole, GdsElevationStep>>;
+}
+
 /**
  * The generic axis container on a theme.
  *
@@ -72,6 +108,8 @@ export interface GdsDensityAxis {
 export interface GdsThemeAxes {
   shape?: GdsShapeAxis;
   density?: GdsDensityAxis;
+  type?: GdsTypographyAxis;
+  elevation?: GdsElevationAxis;
   // type?: GdsTypographyAxis;      -> issue #557
   // motion?: GdsMotionAxis;        -> issue #558
   // elevation?: GdsElevationAxis;  -> follow-up
@@ -173,6 +211,59 @@ export const GDS_DEFAULT_DENSITY_AXIS: GdsDensityAxis = {
   controlHeights: { xs: '32px', sm: '36px', md: '44px', lg: '52px', xl: '60px' },
   mode: 'comfortable',
   factors: { compact: 0.75, spacious: 1.25 },
+};
+
+/** Every text size step, smallest first. */
+export const GDS_TEXT_STEPS: GdsTextSizeStep[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+/** Every named weight, lightest first. */
+export const GDS_WEIGHT_NAMES: GdsWeightName[] = ['regular', 'medium', 'semibold', 'bold'];
+/** Every elevation step, flattest first. */
+export const GDS_ELEVATION_STEPS: GdsElevationStep[] = [0, 1, 2, 3, 4];
+/** Every elevation role. */
+export const GDS_ELEVATION_ROLES: GdsElevationRole[] = ['card', 'panel', 'modal', 'drawer', 'sheet', 'menu', 'tooltip'];
+
+/**
+ * The default typography axis.
+ *
+ * `xs`-`xl` are Mantine's `DEFAULT_THEME.fontSizes` verbatim, carried as OVERRIDES rather
+ * than derived. Mantine's ramp is not a clean modular scale — 0.875->1 is x1.1429 while
+ * 1->1.125 is x1.1250 — so any single ratio would round its way to different numbers and
+ * change every piece of text on the site. The ratio governs the steps Mantine has no
+ * equivalent for (`2xs`, `2xl`, `3xl`, `4xl`), which are additions nothing consumed before.
+ */
+export const GDS_DEFAULT_TYPOGRAPHY_AXIS: GdsTypographyAxis = {
+  lanes: { display: 'inter', body: 'inter', mono: 'inter' },
+  scale: {
+    base: '1rem',
+    ratio: 1.125,
+    overrides: {
+      xs: 'calc(0.75rem * var(--mantine-scale))',
+      sm: 'calc(0.875rem * var(--mantine-scale))',
+      md: 'calc(1rem * var(--mantine-scale))',
+      lg: 'calc(1.125rem * var(--mantine-scale))',
+      xl: 'calc(1.25rem * var(--mantine-scale))',
+    },
+  },
+  weights: { regular: 400, medium: 500, semibold: 600, bold: 700 },
+  lineHeights: { md: 1.55, lg: 1.45, xl: 1.35, '2xl': 1.25, '3xl': 1.2, '4xl': 1.15 },
+};
+
+/**
+ * The default elevation axis, captured from what the theme already ships.
+ *
+ * Step 2 and 3 are GDS's own `shadows.md`/`shadows.lg` from theme.ts; 1 and 4 are Mantine's
+ * `xs`/`xl`. Step 0 is `none`, which is what `flatSurfaces` presets render today.
+ */
+export const GDS_DEFAULT_ELEVATION_AXIS: GdsElevationAxis = {
+  steps: {
+    0: { kind: 'none' },
+    1: { kind: 'shadow', value: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)' },
+    2: { kind: 'shadow', value: '0 8px 24px rgba(15, 23, 42, 0.08)' },
+    3: { kind: 'shadow', value: '0 16px 40px rgba(15, 23, 42, 0.12)' },
+    4: { kind: 'shadow', value: '0 24px 56px rgba(15, 23, 42, 0.16)' },
+  },
+  defaultStep: 1,
+  roles: { card: 1, panel: 1, modal: 3, drawer: 3, sheet: 3, menu: 2, tooltip: 2 },
 };
 
 /** Thrown when a theme declares an axis value the contract cannot accept. */
@@ -359,6 +450,123 @@ export function gdsSpace(step: GdsSpaceStep): string {
 }
 
 /**
+ * Validates and resolves the typography axis.
+ *
+ * The invariants are the ones a theme can plausibly get wrong: weights must ascend (a
+ * `semibold` lighter than `medium` produces text that looks broken rather than styled), the
+ * ratio must be a real ratio, and every lane must name a registered font lane — a typo there
+ * silently falls back to the browser default, which reads as "the theme didn't load".
+ */
+// NOTE ON NAMING. Size steps are `--gds-font-size-*`, NOT `--gds-text-*`. The latter is
+// already the semantic COLOUR namespace (`--gds-text-body`, `--gds-text-primary`,
+// `--gds-text-on-inverse`), and reusing it would make one prefix mean two unrelated things —
+// a reader seeing `--gds-text-lg` would have no way to know whether it is a colour or a size,
+// and the token graph's category inference keys off exactly that prefix.
+export function resolveGdsTypographyTokens(
+  axis: GdsTypographyAxis = GDS_DEFAULT_TYPOGRAPHY_AXIS,
+  themeId = 'theme',
+  knownLaneIds?: readonly string[],
+): Record<string, string> {
+  const merged: GdsTypographyAxis = {
+    ...GDS_DEFAULT_TYPOGRAPHY_AXIS,
+    ...axis,
+    lanes: { ...GDS_DEFAULT_TYPOGRAPHY_AXIS.lanes, ...(axis.lanes ?? {}) },
+    scale: { ...GDS_DEFAULT_TYPOGRAPHY_AXIS.scale, ...(axis.scale ?? {}) },
+    weights: { ...GDS_DEFAULT_TYPOGRAPHY_AXIS.weights, ...(axis.weights ?? {}) },
+    lineHeights: { ...GDS_DEFAULT_TYPOGRAPHY_AXIS.lineHeights, ...(axis.lineHeights ?? {}) },
+    tracking: { ...(GDS_DEFAULT_TYPOGRAPHY_AXIS.tracking ?? {}), ...(axis.tracking ?? {}) },
+  };
+
+  const { ratio } = merged.scale;
+  if (!Number.isFinite(ratio) || ratio < 1 || ratio > 2) {
+    throw new GdsAxisError(`${themeId}: type ratio is ${ratio}; it must be between 1.0 and 2.0. Outside that a "scale" is not a scale.`);
+  }
+  let previous = -Infinity;
+  for (const name of GDS_WEIGHT_NAMES) {
+    const w = merged.weights[name];
+    if (!Number.isFinite(w) || w < 100 || w > 900) throw new GdsAxisError(`${themeId}: weight "${name}" is ${w}; CSS weights run 100-900.`);
+    if (w <= previous) {
+      throw new GdsAxisError(`${themeId}: weight "${name}" (${w}) is not heavier than the previous step. A scale that does not ascend renders as broken text rather than as a style.`);
+    }
+    previous = w;
+  }
+  for (const [step, lh] of Object.entries(merged.lineHeights ?? {})) {
+    if (!Number.isFinite(lh) || lh < 1 || lh > 2.5) throw new GdsAxisError(`${themeId}: line height for "${step}" is ${lh}; it must be between 1.0 and 2.5.`);
+  }
+  if (knownLaneIds) {
+    for (const [role, laneId] of Object.entries(merged.lanes)) {
+      if (!knownLaneIds.includes(laneId)) {
+        throw new GdsAxisError(`${themeId}: font lane "${laneId}" for role "${role}" is not registered. An unregistered lane falls back to the browser default, which reads as the theme failing to load.`);
+      }
+    }
+  }
+
+  const tokens: Record<string, string> = {};
+  const mdIndex = GDS_TEXT_STEPS.indexOf('md');
+  GDS_TEXT_STEPS.forEach((step, i) => {
+    const override = merged.scale.overrides?.[step];
+    // Derived steps are computed from the base by the ratio; overridden steps are taken
+    // verbatim, which is how Mantine's non-uniform ramp survives intact.
+    tokens[`--gds-font-size-${step}`] = override
+      ?? `calc(${merged.scale.base} * ${Number(Math.pow(ratio, i - mdIndex).toFixed(4))})`;
+    const lh = merged.lineHeights?.[step];
+    if (lh !== undefined) tokens[`--gds-line-height-${step}`] = String(lh);
+    const tr = merged.tracking?.[step];
+    if (tr !== undefined) tokens[`--gds-tracking-${step}`] = tr;
+  });
+  for (const name of GDS_WEIGHT_NAMES) tokens[`--gds-weight-${name}`] = String(merged.weights[name]);
+  for (const role of ['display', 'body', 'mono'] as GdsFontLaneRole[]) tokens[`--gds-font-lane-${role}`] = merged.lanes[role];
+  return tokens;
+}
+
+/**
+ * Validates and resolves the elevation axis.
+ *
+ * Steps must not decrease in visual weight: an elevation scale where step 3 is flatter than
+ * step 2 gives a modal that looks closer to the page than the card behind it, which reads as
+ * a rendering bug rather than a design.
+ */
+export function resolveGdsElevationTokens(axis: GdsElevationAxis = GDS_DEFAULT_ELEVATION_AXIS, themeId = 'theme'): Record<string, string> {
+  const merged: GdsElevationAxis = {
+    ...GDS_DEFAULT_ELEVATION_AXIS,
+    ...axis,
+    steps: { ...GDS_DEFAULT_ELEVATION_AXIS.steps, ...(axis.steps ?? {}) },
+    roles: { ...GDS_DEFAULT_ELEVATION_AXIS.roles, ...(axis.roles ?? {}) },
+  };
+
+  const render = (v: GdsElevationValue): string => {
+    if (v.kind === 'none') return 'none';
+    if (!v.value?.trim()) throw new GdsAxisError(`${themeId}: elevation value of kind "${v.kind}" has no value.`);
+    return v.value;
+  };
+
+  let seenNonNone = false;
+  for (const step of GDS_ELEVATION_STEPS) {
+    const value = merged.steps[step];
+    if (!value) throw new GdsAxisError(`${themeId}: elevation axis is missing step ${step}.`);
+    if (value.kind === 'none' && seenNonNone) {
+      throw new GdsAxisError(
+        `${themeId}: elevation step ${step} is "none" after a raised step. Elevation must not decrease — a modal flatter than the card behind it reads as a rendering bug.`,
+      );
+    }
+    if (value.kind !== 'none') seenNonNone = true;
+  }
+
+  const tokens: Record<string, string> = {};
+  for (const step of GDS_ELEVATION_STEPS) tokens[`--gds-elevation-${step}`] = render(merged.steps[step]);
+  const fallback = merged.defaultStep ?? 1;
+  for (const role of GDS_ELEVATION_ROLES) {
+    tokens[`--gds-elevation-${role}`] = render(merged.steps[merged.roles?.[role] ?? fallback]);
+  }
+  return tokens;
+}
+
+/** The `var()` reference for an elevation role — never a resolved shadow. */
+export function gdsElevation(role: GdsElevationRole | GdsElevationStep): string {
+  return `var(--gds-elevation-${role})`;
+}
+
+/**
  * All axis tokens for a theme's axis declarations.
  *
  * The single place a new axis is wired in. Kept separate from the shape resolver so the next
@@ -368,6 +576,8 @@ export function resolveGdsAxisTokens(axes: GdsThemeAxes | undefined, themeId: Gd
   return {
     ...resolveGdsShapeTokens(axes?.shape ?? GDS_DEFAULT_SHAPE_AXIS, String(themeId)),
     ...resolveGdsDensityTokens(axes?.density ?? GDS_DEFAULT_DENSITY_AXIS, String(themeId)),
+    ...resolveGdsTypographyTokens(axes?.type ?? GDS_DEFAULT_TYPOGRAPHY_AXIS, String(themeId)),
+    ...resolveGdsElevationTokens(axes?.elevation ?? GDS_DEFAULT_ELEVATION_AXIS, String(themeId)),
   };
 }
 
