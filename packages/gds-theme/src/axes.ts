@@ -14,6 +14,7 @@
 // `resolveAxisTokens` — not new plumbing.
 
 import type { GdsThemePresetId } from './theme-presets';
+import { resolveGdsAccentTokens, type GdsAccentAxis } from './accent-axis';
 
 /** Canonical radius steps. Fixed key set — a theme sets values, it never adds keys. */
 export type GdsRadiusStep = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'pill';
@@ -158,6 +159,7 @@ export interface GdsThemeAxes {
   elevation?: GdsElevationAxis;
   motion?: GdsMotionAxis;
   reaction?: GdsReactionAxis;
+  accent?: GdsAccentAxis;
   // type?: GdsTypographyAxis;      -> issue #557
   // motion?: GdsMotionAxis;        -> issue #558
   // elevation?: GdsElevationAxis;  -> follow-up
@@ -731,7 +733,11 @@ export function resolveGdsReactionTokens(axis: GdsReactionAxis = GDS_DEFAULT_REA
  * The single place a new axis is wired in. Kept separate from the shape resolver so the next
  * axis does not have to touch shape code to exist.
  */
-export function resolveGdsAxisTokens(axes: GdsThemeAxes | undefined, themeId: GdsThemePresetId | string = 'theme'): Record<string, string> {
+export function resolveGdsAxisTokens(
+  axes: GdsThemeAxes | undefined,
+  themeId: GdsThemePresetId | string = 'theme',
+  scheme: 'light' | 'dark' = 'light',
+): Record<string, string> {
   return {
     ...resolveGdsShapeTokens(axes?.shape ?? GDS_DEFAULT_SHAPE_AXIS, String(themeId)),
     ...resolveGdsDensityTokens(axes?.density ?? GDS_DEFAULT_DENSITY_AXIS, String(themeId)),
@@ -741,6 +747,9 @@ export function resolveGdsAxisTokens(axes: GdsThemeAxes | undefined, themeId: Gd
     // Motion last and conditional: it OVERRIDES the generated global scale, so a preset that
     // declares nothing must emit nothing rather than restating the default 25 times.
     ...resolveGdsMotionTokens(axes?.motion, String(themeId)),
+    // Accents are the one axis that resolves per SCHEME: a theme may declare a distinct dark
+    // base, and the frozen palette existed precisely to avoid having to check that.
+    ...resolveGdsAccentTokens(axes?.accent, scheme, themeId),
   };
 }
 

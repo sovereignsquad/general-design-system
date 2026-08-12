@@ -1,7 +1,7 @@
 {
-  "declared": 189,
+  "declared": 239,
   "referenced": 70,
-  "extensionPoints": 94,
+  "extensionPoints": 144,
   "pendingWireUp": 1,
   "unreachableCount": 0,
   "budget": 0,
@@ -10,6 +10,356 @@
       "token": "--gds-accent",
       "classification": "extension-point",
       "reason": "Published accent role. Components consume the scheme-resolved --gds-brand-accent-action and --gds-brand-accent-tint instead; --gds-accent is the un-specialised role a consumer reads when it wants the lane accent without GDS's action/tint semantics.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-bronze-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-bronze-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-bronze-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-bronze-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-bronze-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-forest-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-forest-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-forest-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-forest-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-forest-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-grape-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-grape-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-grape-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-grape-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-grape-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-indigo-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-indigo-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-indigo-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-indigo-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-indigo-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-magenta-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-magenta-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-magenta-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-magenta-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-magenta-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-ocean-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-ocean-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-ocean-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-ocean-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-ocean-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-plum-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-plum-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-plum-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-plum-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-plum-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-slate-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-slate-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-slate-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-slate-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-slate-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-teal-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-teal-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-teal-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-teal-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-teal-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-terracotta-base",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-terracotta-deep",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-terracotta-deeper",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-terracotta-deepest",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-accent-terracotta-on",
+      "classification": "extension-point",
+      "reason": "Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.",
       "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
