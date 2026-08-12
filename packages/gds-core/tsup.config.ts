@@ -1,7 +1,8 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/index.ts', 'src/client.ts', 'src/server.ts', 'src/rich-text-editor.ts', 'src/reference-theme-explorer.ts'],
+  entry: [
+    'src/map.ts','src/index.ts', 'src/client.ts', 'src/server.ts', 'src/rich-text-editor.ts', 'src/reference-theme-explorer.ts'],
   format: ['cjs', 'esm'],
   dts: true,
   clean: true,

@@ -1,3 +1,4 @@
+import { GdsMap } from '@sovereignsquad/gds-core/map';
 import { useEffect, useState } from 'react';
 import {
   AccessSummary,
@@ -647,32 +648,49 @@ function BadgeButtonAnchorDemo() {
   );
 }
 
-const MAP_PIN_MARKERS: Array<{ id: string; left: string; top: string; accent: keyof typeof gdsBadgeAccentColors; icon: 'Location' | 'Habit' | 'Message' | 'Verify'; label: string }> = [
-  { id: 'pool', left: '28%', top: '38%', accent: 'ocean', icon: 'Location', label: 'Community pool' },
-  { id: 'studio', left: '58%', top: '24%', accent: 'teal', icon: 'Habit', label: 'Dance studio' },
-  { id: 'hall', left: '72%', top: '62%', accent: 'grape', icon: 'Message', label: 'Riverside hall' },
-  { id: 'center', left: '42%', top: '70%', accent: 'forest', icon: 'Verify', label: 'Certified center' },
+const MAP_PIN_MARKERS: Array<{
+  id: string;
+  position: { lat: number; lng: number };
+  accent: keyof typeof gdsBadgeAccentColors;
+  icon: 'Location' | 'Habit' | 'Message' | 'Verify';
+  label: string;
+}> = [
+  // Real coordinates, because the map is now a real map. These replaced `left`/`top`
+  // percentages — positions on a drawing rather than places on the earth.
+  { id: 'pool', position: { lat: 51.5079, lng: -0.0877 }, accent: 'ocean', icon: 'Location', label: 'Community pool' },
+  { id: 'studio', position: { lat: 51.5133, lng: -0.0886 }, accent: 'teal', icon: 'Habit', label: 'Dance studio' },
+  { id: 'hall', position: { lat: 51.5031, lng: -0.1195 }, accent: 'grape', icon: 'Message', label: 'Riverside hall' },
+  { id: 'center', position: { lat: 51.5014, lng: -0.0993 }, accent: 'forest', icon: 'Verify', label: 'Certified center' },
 ];
 
 function BadgeMapDemo() {
   return (
     <SectionPanel title="Badges on a map" description="Map markers use GdsMapPinBadge — a governed pin marker, correct by construction, so consumers never hand-tune the centering/stroke/contrast constants themselves.">
+      {/*
+        Issue 566. This rendered a SCHEMATIC — absolutely-positioned pins on an empty box,
+        captioned "swap renderMap for a real map integration in a consuming app". A design
+        system demonstrating a map capability with a drawing of a map is not demonstrating the
+        capability. MapPanel keeps its governed chrome; renderMap now returns a real map.
+      */}
       <MapPanel
         title="Nearby activities"
-        description="Schematic marker layout — swap renderMap for a real map integration in a consuming app."
-        minHeight={260}
+        description="Real OpenStreetMap tiles via GdsMap. Tiles, markers and the ODbL credit are all governed, and switching the theme above re-initialises the map because Leaflet holds imperative DOM the CSS cascade cannot reach."
+        minHeight={320}
         renderMap={() => (
-          <GdsBox pos="relative" w="100%" h="100%">
-            {MAP_PIN_MARKERS.map((pin) => (
-              <GdsBox key={pin.id} pos="absolute" top={pin.top} left={pin.left}>
-                <GdsStack gap="xs" align="center">
-                  <GdsMapPinBadge size={36} accent={pin.accent} icon={pin.icon} label={pin.label} filled />
-                </GdsStack>
-              </GdsBox>
-            ))}
-          </GdsBox>
+          <GdsMap
+            label="Nearby activities"
+            height="320px"
+            markers={MAP_PIN_MARKERS.map((pin) => ({
+              id: pin.id,
+              position: pin.position,
+              accent: pin.accent,
+              label: pin.label,
+            }))}
+            defaultViewport={{ center: { lat: 51.5074, lng: -0.0965 }, zoom: 13 }}
+          />
         )}
       />
+
     </SectionPanel>
   );
 }

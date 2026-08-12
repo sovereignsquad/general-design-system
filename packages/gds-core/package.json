@@ -39,6 +39,11 @@
       "types": "./dist/reference-theme-explorer.d.ts",
       "import": "./dist/reference-theme-explorer.mjs",
       "require": "./dist/reference-theme-explorer.js"
+    },
+    "./map": {
+      "types": "./dist/map.d.ts",
+      "import": "./dist/map.mjs",
+      "require": "./dist/map.js"
     }
   },
   "files": [
@@ -64,6 +69,7 @@
     "@mantine/hooks": "^7.9.0",
     "@sovereignsquad/gds-theme": "6.0.0",
     "@tabler/icons-react": "^3.5.0",
+    "@types/leaflet": "^1.9.20",
     "dayjs": "^1.11.13",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
@@ -76,6 +82,7 @@
     "@tiptap/core": "^3.28.0",
     "@tiptap/pm": "^3.28.0",
     "@tiptap/react": "^3.28.0",
-    "@tiptap/starter-kit": "^3.28.0"
+    "@tiptap/starter-kit": "^3.28.0",
+    "leaflet": "1.9.4"
   }
 }

@@ -40,6 +40,15 @@ export const OBLIGATION_MODEL = {
       + 'overriding a fixed semantic colour) were both undemonstrated variant states.',
     exclude: [
       { pattern: '=(true|false)$', reason: 'Boolean discriminants are not a visual variation set.' },
+      {
+        // Issue 566 surfaced this: `onViewportChange?: (v, reason: 'user' | 'programmatic')`
+        // has its union literals extracted as "variants", and the gate then demanded a
+        // playground demo rendering the string 'user'. A callback parameter is not a visual
+        // variation — there is nothing to show. Demanding a demo for one teaches people that
+        // the variant obligation is noise, which is how a real undemonstrated state slips past.
+        pattern: '\\.on[A-Z]\\w*=',
+        reason: 'Union literals in a callback signature are argument values, not rendered variations; there is no demo that could satisfy them.',
+      },
     ],
   },
   accent: {
