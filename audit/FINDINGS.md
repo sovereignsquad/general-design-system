@@ -989,3 +989,72 @@ straightforward lie about what the system renders by default.
 
 Published artifact grows 152,262 -> 620,330 bytes, which is the cost of the graph describing
 the system rather than a fraction of it.
+
+
+---
+
+## F1 / F2 / F9 resolved — motion is single-sourced and every shipped transition is on the scale
+
+**The owner's report was that button micro-animations appear absent. The measured reality
+was worse than absence: they existed and ignored the governed curve.** 34 interactive
+elements computed to `0.14s`/`ease` while `--gds-motion-duration-fast` resolved to `.12s`
+and `--gds-motion-ease-standard` to `cubic-bezier(.2, 0, 0, 1)` on the same page. Live,
+correct, ignored — which is worse than missing, because every doc and every gate said motion
+was governed.
+
+### F1, and the decision the issue demanded
+
+The issue required a choice: call the emitter and delete the static block, or delete the
+emitter and keep the block — **not both**. Both options were wrong, and the reason is a fact
+neither the issue nor the finding recorded:
+`apps/playground/src/pattern-export-coverage.ts:30` documents
+`createGdsMotionCssVariables` as a deliberate consumer-facing support API — *"lets consumers
+apply the shipped motion token contract without local timing maps."* It is not dead code, so
+deleting it is a breaking change to a documented API; and the stylesheet must keep working
+for consumers who import CSS without ever calling JS, so deleting the block is worse.
+
+What was actually duplicated is neither the emitter nor the block — it is **the nine
+values**, hand-typed a second time into `styles.css`. The emitter already derives from
+`gdsMotionDurations`/`gdsMotionEasings`; the stylesheet did not. So the stylesheet blocks are
+now generated from those constants between markers and drift-checked, exactly as the registry
+and DTCG artifacts are. Both consumers survive; the second copy of the data does not.
+
+The reduced-motion block is generated from the *same emitter* under its `no-motion` policy,
+so the two can no longer disagree about what "reduced" means. It previously omitted
+`--gds-motion-duration-instant`; the generated block includes it at 0ms, which changes no
+rendered value.
+
+### F2 / F9 — the substitution, and the perceived change stated
+
+| site | before | after | perceived |
+|---|---|---|---|
+| links, buttons (`styles.css`) | `140ms ease` x5 | `fast` + `standard` | **140ms -> 120ms**, and the governed curve replaces browser `ease` |
+| tour spotlight + card | `220ms ease` x6 | `slow` + `standard` | **220ms -> 240ms**, plus the curve |
+| ListingCard, GdsProvider, VibeThemePicker | `120ms ease` x2 each | `fast` + `standard` | duration unchanged; easing only |
+
+**Reduced-motion behaviour is provably unchanged.** The link/button transitions are
+neutralised by the existing `a, button, [data-gds-motion] { transition: none !important }`
+rule, and the tour pair by its own `@media (prefers-reduced-motion: reduce)` block at
+`styles.css:1330`. Both were read before substituting, not assumed from F3's summary.
+
+### What the gate found that the issue did not predict
+
+`ChatSurface.tsx:137` declares `animation: gds-chat-typing 1s infinite`. **`@keyframes
+gds-chat-typing` is defined nowhere. GDS ships zero `@keyframes` — none, in any file.** The
+typing indicator is three static dots.
+
+This is the other half of the owner's original report: transitions existed with the wrong
+curve, and the one keyframe animation animates nothing at all.
+
+Two defects in it, and the second is an accessibility one: if the animation *worked*, it
+would not respect `prefers-reduced-motion`, because the dots are plain `Box` elements
+carrying none of `a`/`button`/`[data-gds-motion]` — an infinite automatic animation running
+for a user who asked for stillness. Filed as **#592**; #584 §6 excludes adding keyframes, so
+it is allowlisted with that reasoning rather than mechanically mapped to a step, which would
+have been meaningless work on a dead reference.
+
+**A whole registry kind has been sitting at zero unremarked.** `motion-keyframes` has an
+extractor (`extract-registry.mjs:115`) but is absent from `EXPECTED_KINDS`, so the "a kind
+resolving to zero means extraction is broken, not absent" guard never fired for it. The guard
+exists precisely for this and could not see it, because the list it guards is hand-maintained
+— the same shape of defect as F25 and the leaked-artifact recurrences.

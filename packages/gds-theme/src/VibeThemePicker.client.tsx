@@ -63,7 +63,7 @@ export function VibeThemePicker({ value, onChange, label = 'Choose theme' }: Vib
                 cursor: 'pointer',
                 outline: 'none',
                 boxShadow: selected ? `0 0 0 3px ${vars['--gds-vibe-glow']}` : undefined,
-                transition: 'box-shadow 120ms ease, border-width 120ms ease',
+                transition: 'box-shadow var(--gds-motion-duration-fast) var(--gds-motion-ease-standard), border-width var(--gds-motion-duration-fast) var(--gds-motion-ease-standard)',
               }}
               onFocus={(e) => {
                 (e.currentTarget as HTMLButtonElement).style.outline = `2px solid ${vars['--gds-vibe-primary']}`;

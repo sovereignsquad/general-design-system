@@ -129,7 +129,7 @@ function GdsThemeVariablesScope({ variables, dir, children }: { variables: Recor
       h="100%"
       bg="var(--mantine-color-body)"
       c="var(--mantine-color-text)"
-      style={{ ...resolvedVariables, transition: 'background-color 120ms ease, color 120ms ease' }}
+      style={{ ...resolvedVariables, transition: 'background-color var(--gds-motion-duration-fast) var(--gds-motion-ease-standard), color var(--gds-motion-duration-fast) var(--gds-motion-ease-standard)' }}
     >
       {children}
     </Box>

@@ -1,9 +1,9 @@
 {
-  "releaseChainGates": 27,
-  "gatesWithMutants": 14,
+  "releaseChainGates": 29,
+  "gatesWithMutants": 16,
   "gatesExempted": 15,
-  "mutantsRun": 17,
-  "killed": 17,
+  "mutantsRun": 19,
+  "killed": 19,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -89,6 +89,20 @@
       "gate": "verify:token-single-source",
       "mutantId": "single-source-detects-one-path-override",
       "claim": "Detects the two consumption paths resolving one role to different values",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:motion-scale",
+      "mutantId": "motion-scale-detects-offscale-literal",
+      "claim": "Detects a shipped transition reintroducing a literal duration or easing",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:motion-css",
+      "mutantId": "motion-css-detects-hand-edited-scale",
+      "claim": "Detects the stylesheet motion scale drifting from motion.ts",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
