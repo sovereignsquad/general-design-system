@@ -107,6 +107,13 @@ and documentation only.
   `16px`. That measures formats, not provenance. The oracle is now resolved **in the browser**
   through a probe element, and the real figure is **34%**.
 
+  **It is deliberately NOT in the per-push chain.** Adding it there was tried and measured:
+  a CI run passed 39 minutes against a ~7 minute baseline, because the sweep runs on both
+  Mantine legs. It runs on demand via `npm run verify:theme-coverage-matrix`, and
+  `verify:budgets` still guards the committed measurement — so a regression fails the build
+  without every push paying for a browser sweep. A gate slow enough to make people avoid
+  pushing is a gate that gets removed.
+
   **The sweep is not yet reproducible**, which §5 requires: three consecutive runs on one
   commit measured 33.94/33.95/33.96% with element counts of 28,128–28,242, because render
   timing changes how much of a route is present when it samples.
