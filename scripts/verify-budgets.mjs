@@ -13,7 +13,7 @@
 // into meaninglessness as the system improves around it, and the gate degrades into a
 // no-op — the issue-516 failure mode expressed as numbers rather than coverage.
 
-import { readFileSync, existsSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { OBLIGATION_MODEL, COVERED_ELSEWHERE } from './audit/obligation-model.config.mjs';
 
@@ -116,6 +116,23 @@ for (const [key, b] of Object.entries(budgets)) {
 }
 
 const pad = (s, n) => String(s).padEnd(n);
+// Issue 582. The PR budget report renders from this artifact rather than re-measuring, so
+// the comment and the gate can never disagree about what the numbers are — a second
+// resolver would be the dual-source pattern that produced F1 and the 5.0.1 defect.
+mkdirSync(join(ROOT, 'audit'), { recursive: true });
+writeFileSync(join(ROOT, 'audit/budget-results.json'), `${JSON.stringify({
+  rows: results.map((r) => ({
+    key: r.key,
+    measured: r.measured,
+    value: r.value,
+    direction: r.direction,
+    unit: r.unit,
+    finding: r.finding,
+    advisory: r.advisory ?? false,
+    status: r.status,
+  })),
+}, null, 2)}\n`);
+
 console.log('Quality budgets\n');
 console.log(`  ${pad('BUDGET', 32)}${pad('MEASURED', 10)}${pad('LIMIT', 10)}${pad('DELTA', 9)}${pad('STATUS', 17)}FINDING`);
 for (const r of results) {

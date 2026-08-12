@@ -45,3 +45,83 @@ jobs:
 
       - name: Verify release alignment and quality gates
         run: npm run verify:release
+
+      # Issue 582. One matrix leg is enough: the budgets measure the repository, not the
+      # Mantine version, so uploading from both would race to overwrite the same artifact
+      # with identical content.
+      - name: Upload budget measurements
+        if: always() && matrix.mantine-version == 7
+        uses: actions/upload-artifact@v4
+        with:
+          name: budget-results
+          path: audit/budget-results.json
+          if-no-files-found: warn
+          retention-days: 30
+
+  # Issue 582 — surface budget deltas at review time, where the decision is made.
+  #
+  # Deliberately a SEPARATE job that never fails the build. #578's gate is what enforces
+  # correctness; a broken comment must not block a correct PR, and a comment that can fail
+  # the build is a comment people will want removed.
+  budget-report:
+    name: budget report
+    if: github.event_name == 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Download this PR's measurements
+        uses: actions/download-artifact@v4
+        with:
+          name: budget-results
+          path: audit
+
+      - name: Download the base branch's measurements
+        id: base
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/base
+          # Most recent SUCCESSFUL run on the base branch. A failed run's numbers are not a
+          # baseline — comparing against them would report improvements that are really the
+          # absence of a measurement.
+          RUN_ID=$(gh run list --workflow "GDS Quality" --branch "${{ github.base_ref }}" \
+            --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
+          if [ -z "$RUN_ID" ]; then
+            echo "no successful base run found" >&2
+            exit 1
+          fi
+          gh run download "$RUN_ID" --name budget-results --dir /tmp/base
+
+      - name: Render and post the budget comment
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if [ -f /tmp/base/budget-results.json ]; then
+            node scripts/report-budgets.mjs --base /tmp/base --format=markdown > /tmp/comment.md
+          else
+            node scripts/report-budgets.mjs --format=markdown > /tmp/comment.md
+          fi
+          # Update in place via the marker so a 30-push PR carries one comment, not thirty.
+          ID=$(gh api "repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" \
+            --jq '.[] | select(.body | startswith("<!-- gds-budget-report -->")) | .id' | head -1)
+          if [ -n "$ID" ]; then
+            gh api --method PATCH "repos/${{ github.repository }}/issues/comments/$ID" -F body=@/tmp/comment.md
+          else
+            gh api --method POST "repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" -F body=@/tmp/comment.md
+          fi

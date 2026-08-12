@@ -1,0 +1,124 @@
+{
+  "rows": [
+    {
+      "key": "untraceableRenderRate",
+      "measured": 18.4,
+      "value": 18.4,
+      "direction": "max",
+      "unit": "%",
+      "finding": "F5",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "tokensWithGaps",
+      "measured": 73,
+      "value": 73,
+      "direction": "max",
+      "unit": "count",
+      "finding": "F11",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "unreachableTokens",
+      "measured": 0,
+      "value": 0,
+      "direction": "max",
+      "unit": "count",
+      "finding": "F13",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "publishedGraphOverlap",
+      "measured": 34,
+      "value": 34,
+      "direction": "min",
+      "unit": "count",
+      "finding": "F12",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "undeclaredMantineDependencies",
+      "measured": 81,
+      "value": 81,
+      "direction": "max",
+      "unit": "count",
+      "finding": "F17",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "registryAtomsWithoutCoverage",
+      "measured": 0,
+      "value": 0,
+      "direction": "max",
+      "unit": "count",
+      "finding": "F18",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "localesWithoutSitePack",
+      "measured": 3,
+      "value": 3,
+      "direction": "max",
+      "unit": "count",
+      "finding": "F15",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "englishLeakageWorstLocale",
+      "measured": 3.8,
+      "value": 3.8,
+      "direction": "max",
+      "unit": "%",
+      "finding": "F16",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "gateMutationScore",
+      "measured": 85.7,
+      "value": 85.7,
+      "direction": "min",
+      "unit": "%",
+      "finding": "F19/F20",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "renderMutationScore",
+      "measured": 100,
+      "value": 100,
+      "direction": "min",
+      "unit": "%",
+      "finding": "F5 (instrument validation)",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "gateSuiteUnexplainedSurvivors",
+      "measured": 0,
+      "value": 0,
+      "direction": "max",
+      "unit": "count",
+      "finding": "issue 580",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
+      "key": "obligationGaps",
+      "measured": 410,
+      "value": 410,
+      "direction": "max",
+      "unit": "count",
+      "finding": "F18",
+      "advisory": false,
+      "status": "OK"
+    }
+  ]
+}
