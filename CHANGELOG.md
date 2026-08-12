@@ -87,6 +87,33 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Motion is single-sourced and every shipped transition is on the scale (#584)**: added
+  `npm run tokens:motion-css` (generator), `verify:motion-css` (drift) and
+  `verify:motion-scale`, all chained into `verify:release`.
+
+  The reported symptom was that button micro-animations looked absent. The measured reality
+  was that they existed and bypassed the governed curve — 34 interactive elements computing
+  to `0.14s`/`ease` while `--gds-motion-duration-fast` resolved to `.12s` on the same page.
+
+  **The F1 decision, and why both of the issue's options were wrong.**
+  `createGdsMotionCssVariables` is a documented consumer-facing support API, so deleting it
+  breaks a published contract; and the stylesheet must work for consumers who never call JS,
+  so deleting the static block is worse. What was duplicated is the nine **values**, typed a
+  second time into `styles.css`. Those blocks are now generated from
+  `gdsMotionDurations`/`gdsMotionEasings` and drift-checked — including the reduced-motion
+  block, generated from the same emitter under its `no-motion` policy so the two cannot
+  disagree about what "reduced" means.
+
+  **Perceived timing changes, stated for review rather than slipped in**: links and buttons
+  move `140ms → 120ms`, the tour spotlight `220ms → 240ms`, and everything gains the governed
+  `cubic-bezier(0.2, 0, 0, 1)` in place of browser `ease`. Reduced-motion behaviour is
+  provably unchanged — both guard rules were read before substituting.
+
+  **New finding, #592**: `ChatSurface` declares `animation: gds-chat-typing 1s infinite` and
+  **`@keyframes gds-chat-typing` is defined nowhere — GDS ships zero `@keyframes`**. The
+  typing indicator is three static dots. Were it working it would also ignore
+  `prefers-reduced-motion`, since the dots carry none of the guarded selectors.
+
 - **The published token graph now describes the system, and the contrast gate can see it
   (#585)**: `tokens/gds.tokens.json` carried 17 vibe atmosphere roles while the tokens that
   paint components number 34, and the overlap was exactly one (`accent`). A design tool

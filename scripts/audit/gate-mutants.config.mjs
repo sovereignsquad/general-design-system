@@ -261,6 +261,37 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:motion-scale',
+    script: null,
+    mutants: [
+      {
+        id: 'motion-scale-detects-offscale-literal',
+        claim: 'Detects a shipped transition reintroducing a literal duration or easing',
+        file: 'packages/gds-theme/styles.css',
+        find: '  transition: top var(--gds-motion-duration-slow) var(--gds-motion-ease-standard), left var(--gds-motion-duration-slow) var(--gds-motion-ease-standard);',
+        replace: '  transition: top 200ms ease, left 200ms ease;',
+        once: true,
+      },
+    ],
+  },
+  {
+    npmScript: 'verify:motion-css',
+    script: null,
+    mutants: [
+      {
+        id: 'motion-css-detects-hand-edited-scale',
+        // The nine values were hand-typed into styles.css a second time, which is the
+        // duplication HANDOVER.md §2 blames for the 5.0.1 dark-mode defect. This proves the
+        // generated block cannot be edited away from motion.ts without the release failing.
+        claim: 'Detects the stylesheet motion scale drifting from motion.ts',
+        file: 'packages/gds-theme/styles.css',
+        find: '  --gds-motion-duration-fast: 120ms;',
+        replace: '  --gds-motion-duration-fast: 137ms;',
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:token-reachability',
     script: null,
     mutants: [

@@ -268,7 +268,7 @@ export function ListingCard({
       style={{
         background: 'var(--gds-bg-card, var(--gds-vibe-surface, var(--mantine-color-body)))',
         borderColor: 'var(--gds-border-card, var(--gds-vibe-border, var(--mantine-color-default-border)))',
-        ...(isInteractive ? { cursor: 'pointer', transition: 'transform 120ms ease, box-shadow 120ms ease' } : {}),
+        ...(isInteractive ? { cursor: 'pointer', transition: 'transform var(--gds-motion-duration-fast) var(--gds-motion-ease-standard), box-shadow var(--gds-motion-duration-fast) var(--gds-motion-ease-standard)' } : {}),
       }}
       {...interactiveProps}
     >
