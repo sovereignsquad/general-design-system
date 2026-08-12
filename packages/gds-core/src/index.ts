@@ -23,6 +23,7 @@ export * from './badge-shapes';
 export * from './GdsBadgeStack';
 export * from './GdsBadge';
 export * from './GdsAccentContrastMatrix';
+export * from './GdsPinSystemReference';
 export * from './GdsCountBadge';
 export * from './GdsMapPinBadge';
 export * from './category-registry';

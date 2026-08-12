@@ -133,7 +133,14 @@ export interface GdsMapPinBadgeProps {
 const isIconKey = (icon: GdsIconKey | ReactNode): icon is GdsIconKey => typeof icon === 'string';
 
 /** The pin head circle's own center, solved from its path's arc geometry — see the module docs. */
-const PIN_HEAD_CENTER_OFFSET = 'translateY(-4.1667%)';
+/**
+ * The solved centring offset, exported so documentation can SURFACE it rather than retype it.
+ *
+ * Issue 571. A copied constant drifts the first time the source changes — which is the exact
+ * failure the pin component exists to prevent, reappearing in its own documentation.
+ */
+export const GDS_PIN_HEAD_CENTER_OFFSET = 'translateY(-4.1667%)';
+const PIN_HEAD_CENTER_OFFSET = GDS_PIN_HEAD_CENTER_OFFSET;
 
 /**
  * Icon fills the pin head directly — there is no ring capsule to share the
@@ -144,7 +151,14 @@ const PIN_HEAD_CENTER_OFFSET = 'translateY(-4.1667%)';
  * by overlaying the pin head's own solved-center circle on the rendered
  * icon and checking the widest icons in practice, not just centered ones.
  */
-const ICON_SCALE = 0.46;
+/**
+ * Icon scale bound, exported for the same reason as the centring offset.
+ *
+ * Bounded empirically: the widest shipped glyphs — `IconMasksTheater`'s side-by-side masks and
+ * `IconBike`'s separated wheels — render past the solved circle above roughly `0.48`.
+ */
+export const GDS_PIN_ICON_SCALE = 0.46;
+const ICON_SCALE = GDS_PIN_ICON_SCALE;
 
 /**
  * Fixed dark-neutral fill for the emoji-mode pin disc (issue #525) — the

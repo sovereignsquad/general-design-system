@@ -1,4 +1,5 @@
 import { GdsMap } from '@sovereignsquad/gds-core/map';
+import { GdsPinSystemReference } from '@sovereignsquad/gds-core';
 import { useEffect, useState } from 'react';
 import {
   AccessSummary,
@@ -672,6 +673,13 @@ function BadgeMapDemo() {
         system demonstrating a map capability with a drawing of a map is not demonstrating the
         capability. MapPanel keeps its governed chrome; renderMap now returns a real map.
       */}
+      {/*
+        Issue 571. The pin's rationale — the solved centre, the icon-scale bound, why the ring
+        layer was removed, why shades only darken — lived ONLY as source comments. A consumer
+        never reads those, so they keep hand-composing pins incorrectly, which is the exact
+        failure the component was built to prevent.
+      */}
+      <GdsPinSystemReference />
       <MapPanel
         title="Nearby activities"
         description="Real OpenStreetMap tiles via GdsMap. Tiles, markers and the ODbL credit are all governed, and switching the theme above re-initialises the map because Leaflet holds imperative DOM the CSS cascade cannot reach."

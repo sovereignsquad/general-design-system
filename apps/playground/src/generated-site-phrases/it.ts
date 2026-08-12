@@ -767,6 +767,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Pickup window closes at 18:00.": "La finestra di ritiro chiude alle 18:00.",
   "Pickup window: Saturday 09:00-12:00": "Finestra di ritiro: sabato 09:00-12:00",
   "Pie chart": "Grafico a torta",
+  "Pin anatomy, the solved centre and icon-scale bound surfaced from source, all three composition modes, and a live accent-by-shade contrast matrix.": "L'anatomia del perno, il centro risolto e il limite della scala dell'icona sono emersi dalla fonte, tutte e tre le modalità di composizione e una matrice di contrasto dal vivo accento per ombra.",
+  "Pin System": "Sistema di perni",
   "Placeholder and coming-soon surfaces must stay honest, visibly non-live, and free of fabricated data.": "I segnaposto e le superfici future devono rimanere onesti, visibilmente non attivi e privi di dati falsificati.",
   "Placeholder Panels": "Pannelli segnaposto",
   "Playback & Capture": "Riproduzione e acquisizione",

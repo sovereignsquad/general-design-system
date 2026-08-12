@@ -767,6 +767,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Pickup window closes at 18:00.": "Az átvételi ablak 18:00-kor zár.",
   "Pickup window: Saturday 09:00-12:00": "Átvétel: szombat 09:00-12:00",
   "Pie chart": "Kördiagram",
+  "Pin anatomy, the solved centre and icon-scale bound surfaced from source, all three composition modes, and a live accent-by-shade contrast matrix.": "Pin anatómia, a megoldott középpont és az ikonskálás kötés a forrásból felszínre került, mindhárom kompozíciós mód, és élő hangsúlyos kontrasztmátrix.",
+  "Pin System": "Pin rendszer",
   "Placeholder and coming-soon surfaces must stay honest, visibly non-live, and free of fabricated data.": "A helyőrző és a hamarosan megjelenő felületeknek becsületesnek, láthatóan nem élőnek és fiktív adatoktól mentesnek kell maradniuk.",
   "Placeholder Panels": "Helyőrző panelek",
   "Playback & Capture": "Lejátszás és rögzítés",
