@@ -87,6 +87,30 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Motion and reaction axes (#558)**: axes five and six — the theme now controls timing,
+  interaction feedback and focus-ring geometry. `--gds-reaction-{hover,active,pressed}` plus
+  resolved `-lift`/`-scale` values, `--gds-focus-ring-{width,offset,style,color}`,
+  `--gds-transition-scope`, and per-preset `--gds-motion-*` overrides.
+
+  **Motion emits nothing unless a preset overrides it.** The global scale in `styles.css` is
+  generated from `motion.ts` (#584) and *is* the default; restating it per preset would
+  duplicate it 25 times and stop the generated stylesheet being the source.
+
+  **Shipped names are honoured over the issue's.** The spec says `normal`/`enter`/`emphasized`;
+  the shipped tokens are `base`/`entrance`/`emphasis`. Renaming would break every consumer of
+  `--gds-motion-duration-base` and re-fork the scale #584 had just unified — the axis exists
+  to let a theme change these *values*, not their names.
+
+  **There is deliberately no way to ignore a user's reduced-motion preference.** A theme may
+  make motion calmer than the user asked for; it may never make it louder, so no such value
+  exists in the type.
+
+  The focus ring is validated hardest, because it is the one piece of feedback a keyboard user
+  cannot do without: at least 2px, a style from a closed set, and a colour **role** rather than
+  a literal — a literal cannot follow the theme, and cannot be contrast-checked against the
+  surface it lands on. Intensity resolves to concrete values so components never branch on the
+  keyword, and `none` means none rather than a small nudge.
+
 - **Typography and elevation axes (#557)**: axes three and four. Typography emits
   `--gds-font-size-*`, `--gds-weight-*`, `--gds-line-height-*`, `--gds-tracking-*` and
   `--gds-font-lane-*`; elevation emits `--gds-elevation-0…4` plus seven surface roles.

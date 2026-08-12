@@ -49,7 +49,7 @@ export interface GdsTokenNode {
    * colour, which held only while the theme could express nothing but colour — the exact
    * limitation the axis mechanism removes. A radius validated as a colour fails as one.
    */
-  category: 'color' | 'effect' | 'dimension' | 'keyword' | 'number';
+  category: 'color' | 'effect' | 'dimension' | 'keyword' | 'number' | 'duration';
   /**
    * Which color scheme the value applies to.
    *
@@ -238,8 +238,17 @@ function inferNodeCategory(role: string): GdsTokenNode['category'] {
   // nobody declared would be validated as a colour and fail as one, loudly, rather than
   // shipping unvalidated.
   if (/^(radius|space|control-height|font-size)-/.test(role)) return 'dimension';
+  if (/^focus-ring-(width|offset)$/.test(role)) return 'dimension';
+  if (/^reaction-\w+-lift$/.test(role)) return 'dimension';
   if (/^(weight|line-height)-/.test(role)) return 'number';
+  if (/^reaction-\w+-scale$/.test(role)) return 'number';
   if (/^(density|font-lane-|tracking-)/.test(role)) return 'keyword';
+  if (/^focus-ring-style$/.test(role) || /^transition-scope$/.test(role)) return 'keyword';
+  if (/^reaction-(hover|active|pressed)$/.test(role)) return 'keyword';
+  if (/^motion-policy$/.test(role)) return 'keyword';
+  if (/^focus-ring-color$/.test(role)) return 'effect';
+  if (/^motion-duration-/.test(role)) return 'duration';
+  if (/^motion-ease-/.test(role)) return 'effect';
   if (/^elevation-/.test(role)) return 'effect';
   return 'color';
 }

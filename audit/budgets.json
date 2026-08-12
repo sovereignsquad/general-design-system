@@ -45,10 +45,10 @@
     "publishedGraphOverlap": {
       "source": "published-graph.json#/overlap",
       "direction": "min",
-      "value": 105,
+      "value": 119,
       "unit": "count",
       "finding": "F12",
-      "justifiedBy": "issue 557: the typography and elevation axes add 34 roles. Issue 556: the density axis adds 16 --gds-space-*/--gds-control-height-*/--gds-density roles. Issue 555: the shape axis adds 21 --gds-radius-* roles (7 steps + 14 semantic roles) to the 34 from issue 585. All 55 runtime semantic roles are published per theme per scheme; coverage 55/55 = 100%.",
+      "justifiedBy": "issue 558: the reaction axis adds 14 roles. Issue 557: the typography and elevation axes add 34 roles. Issue 556: the density axis adds 16 --gds-space-*/--gds-control-height-*/--gds-density roles. Issue 555: the shape axis adds 21 --gds-radius-* roles (7 steps + 14 semantic roles) to the 34 from issue 585. All 55 runtime semantic roles are published per theme per scheme; coverage 55/55 = 100%.",
       "$comment": "Was 1 — the published graph and the runtime semantic set overlapped only on `accent`, so a design tool importing the graph received 17 atmosphere colours and none of the roles that determine what a component looks like. Direction is `min`, so this can only go up: dropping a semantic role from the published graph now fails the release."
     },
     "undeclaredMantineDependencies": {

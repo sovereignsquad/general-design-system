@@ -18,6 +18,22 @@
  * is.
  */
 export const EXTENSION_POINTS = {
+  // ── Motion and reaction axes (issue 558) ──
+  '--gds-focus-ring-width': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-focus-ring-offset': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-focus-ring-style': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-focus-ring-color': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-transition-scope': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-reaction-hover': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-reaction-hover-lift': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-reaction-hover-scale': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-reaction-active': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-reaction-active-lift': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-reaction-active-scale': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-reaction-pressed': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-reaction-pressed-lift': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+  '--gds-reaction-pressed-scale': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
+
   // ── Typography and elevation axes (issue 557) ──
   '--gds-font-size-2xs': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
   '--gds-font-size-xs': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },

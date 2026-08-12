@@ -12,6 +12,8 @@ export { gdsTheme, gdsDarkPublicTheme, gdsFlatSurfaceTheme, gdsEditorialPublicTh
 export { getGdsThemePresets, resolveGdsThemePreset, partnerDiscoveryThemePreset, classUsaThemePreset, goldAthleteThemePreset } from './theme-presets';
 export type { GdsThemePreset, GdsThemePresetId } from './theme-presets';
 export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES } from './axes';
+export { resolveGdsMotionTokens, resolveGdsReactionTokens, GDS_DEFAULT_REACTION_AXIS, GDS_DEFAULT_FOCUS_RING } from './axes';
+export type { GdsMotionAxis, GdsReactionAxis, GdsReactionIntensity, GdsFocusRingSpec } from './axes';
 export { gdsElevation, resolveGdsTypographyTokens, resolveGdsElevationTokens, GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_TEXT_STEPS, GDS_WEIGHT_NAMES, GDS_ELEVATION_STEPS, GDS_ELEVATION_ROLES } from './axes';
 export type { GdsTypographyAxis, GdsElevationAxis, GdsTextSizeStep, GdsWeightName, GdsFontLaneRole, GdsElevationStep, GdsElevationValue, GdsElevationRole } from './axes';
 export { gdsSpace, resolveGdsDensityTokens, validateGdsDensityAxis, GDS_DEFAULT_DENSITY_AXIS, GDS_SPACE_STEPS, GDS_CONTROL_SIZES, GDS_MIN_TARGET_PX, GDS_CONTROL_HEIGHT_EXCEPTIONS } from './axes';
