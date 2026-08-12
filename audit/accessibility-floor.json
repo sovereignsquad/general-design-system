@@ -1,0 +1,50 @@
+{
+  "presetsChecked": 50,
+  "rulesEvaluated": 7,
+  "violationCount": 0,
+  "rules": [
+    {
+      "id": "focus-ring-min-width",
+      "axis": "reaction",
+      "wcag": "2.4.11 Focus Appearance (AA)",
+      "rationale": "Below 2px a focus ring is not reliably visible, and a keyboard user has no other indication of where they are."
+    },
+    {
+      "id": "focus-ring-is-not-removed",
+      "axis": "reaction",
+      "wcag": "2.4.7 Focus Visible (AA)",
+      "rationale": "A theme must not be able to erase focus indication by setting the ring to none or transparent."
+    },
+    {
+      "id": "control-height-min-target",
+      "axis": "density",
+      "wcag": "2.5.5 Target Size (AAA) / 2.5.8 Target Size Minimum (AA)",
+      "rationale": "A primary control smaller than 44px is unpleasant to hit on a phone and fails the stricter target-size guidance GDS holds itself to."
+    },
+    {
+      "id": "body-line-height-min",
+      "axis": "type",
+      "wcag": "1.4.12 Text Spacing (AA)",
+      "rationale": "Body text below 1.5 line-height is materially harder to read for users with dyslexia or low vision."
+    },
+    {
+      "id": "motion-duration-bounded",
+      "axis": "motion",
+      "wcag": "2.2.2 Pause, Stop, Hide (A)",
+      "rationale": "A transition longer than two seconds is an animation the user cannot skip."
+    },
+    {
+      "id": "reduced-motion-not-overridden",
+      "axis": "motion",
+      "wcag": "2.3.3 Animation from Interactions (AAA)",
+      "rationale": "A theme may make motion calmer than the user asked for; it may never make it louder."
+    },
+    {
+      "id": "disabled-control-still-distinguishable",
+      "axis": "color",
+      "wcag": "1.4.1 Use of Color (A)",
+      "rationale": "A disabled control whose text and background are the same value is invisible rather than merely muted."
+    }
+  ],
+  "violations": []
+}

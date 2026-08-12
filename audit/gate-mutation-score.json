@@ -1,9 +1,9 @@
 {
-  "releaseChainGates": 31,
-  "gatesWithMutants": 18,
+  "releaseChainGates": 32,
+  "gatesWithMutants": 19,
   "gatesExempted": 15,
-  "mutantsRun": 22,
-  "killed": 22,
+  "mutantsRun": 24,
+  "killed": 24,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -89,6 +89,20 @@
       "gate": "verify:token-single-source",
       "mutantId": "single-source-detects-one-path-override",
       "claim": "Detects the two consumption paths resolving one role to different values",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:a11y-floor",
+      "mutantId": "a11y-floor-detects-thin-focus-ring",
+      "claim": "Detects a theme thinning the focus ring below the 2px floor",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:a11y-floor",
+      "mutantId": "a11y-floor-detects-a-floor-that-checks-nothing",
+      "claim": "Detects a floor that evaluates nothing and reports a vacuous pass",
       "status": "KILLED",
       "detail": "gate exited 1"
     },

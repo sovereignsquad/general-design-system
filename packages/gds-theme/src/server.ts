@@ -4,6 +4,8 @@ export type { GdsThemePreset, GdsThemePresetId } from './theme-presets';
 export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIdsByScript, getGdsLocaleMetadata, isGdsRtlLocale } from './i18n';
 export type { GdsI18nContextValue, GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './i18n';
 export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES } from './axes';
+export { gdsAccessibilityFloorRules, validateGdsAccessibilityFloor, auditGdsAccessibilityFloor, describeGdsAccessibilityFloor } from './accessibility-floor';
+export type { GdsFloorRule, GdsFloorViolation, GdsFloorContext, GdsFloorSeverity } from './accessibility-floor';
 export { resolveGdsMotionTokens, resolveGdsReactionTokens, GDS_DEFAULT_REACTION_AXIS, GDS_DEFAULT_FOCUS_RING } from './axes';
 export type { GdsMotionAxis, GdsReactionAxis, GdsReactionIntensity, GdsFocusRingSpec } from './axes';
 export { gdsElevation, resolveGdsTypographyTokens, resolveGdsElevationTokens, GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_TEXT_STEPS, GDS_WEIGHT_NAMES, GDS_ELEVATION_STEPS, GDS_ELEVATION_ROLES } from './axes';
