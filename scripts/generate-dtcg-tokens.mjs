@@ -37,6 +37,10 @@ const CSS_COMPUTED_TYPE = `${GDS_EXT}.cssComputed`;
 // for "one of a closed set of names", and calling it a string would tell a design tool it can
 // be edited freely when it cannot.
 const CSS_KEYWORD_TYPE = `${GDS_EXT}.cssKeyword`;
+// DTCG's own `shadow` type is a structured object (offsetX/offsetY/blur/spread/color). GDS
+// publishes the raw CSS string, which supports multi-layer shadows the structured form
+// cannot express, so it carries a namespaced type rather than claiming conformance.
+const CSS_SHADOW_TYPE = `${GDS_EXT}.cssShadow`;
 
 /**
  * DTCG type for a value, or a thrown error.
@@ -54,9 +58,23 @@ function inferDtcgType(id, value) {
   if (/^(cubic-bezier\([^)]*\)|linear|ease|ease-in|ease-out|ease-in-out|steps\([^)]*\))$/.test(v)) return 'cubicBezier';
   if (/gradient\(/.test(v)) return CSS_GRADIENT_TYPE;
   if (/^env\(/.test(v)) return CSS_ENV_TYPE;
-  if (/var\(|color-mix\(/.test(v)) return CSS_COMPUTED_TYPE;
+  // Any calc() is computed, whether or not it references a var(). DTCG's `dimension` expects
+  // a resolvable value, and a derived modular-scale step like calc(1rem * 1.4238) is no more
+  // a static dimension than calc(0.5rem * var(--mantine-scale)) is.
+  if (/^calc\(|var\(|color-mix\(/.test(v)) return CSS_COMPUTED_TYPE;
   if (/^(transparent|none|currentColor)$/.test(v)) return 'color';
   if (/^(compact|comfortable|spacious)$/.test(v)) return CSS_KEYWORD_TYPE;
+  // A box-shadow list. DTCG's `shadow` type is a structured object; GDS publishes the raw
+  // CSS string, so it carries the namespaced type rather than claiming conformance it does
+  // not have — same decision as gradients.
+  // A length plus a colour, with the gradient case already returned above: that is a shadow
+  // list. A first attempt anchored on the leading offset and missed every value starting with
+  // a bare `0` — which is most of them.
+  if (/\d(px|rem|em)/.test(v) && /(rgba?\(|#[0-9a-fA-F]{3,8})/.test(v)) return CSS_SHADOW_TYPE;
+  // A unitless number: font weights (400) and line heights (1.55).
+  if (/^\d+(\.\d+)?$/.test(v)) return 'number';
+  // A registered font-lane id.
+  if (/^[a-z][a-z0-9-]*$/.test(v)) return CSS_KEYWORD_TYPE;
   throw new Error(`Cannot infer DTCG type for ${id}: "${v}". Add an explicit rule rather than shipping a guessed $type.`);
 }
 
@@ -192,6 +210,7 @@ function buildDtcgDocument() {
         cssEnvType: CSS_ENV_TYPE,
         cssComputedType: CSS_COMPUTED_TYPE,
         cssKeywordType: CSS_KEYWORD_TYPE,
+        cssShadowType: CSS_SHADOW_TYPE,
         note: 'Regenerated and drift-checked in CI (verify:tokens-dtcg). The code tokens remain the single source of truth.',
       },
     },

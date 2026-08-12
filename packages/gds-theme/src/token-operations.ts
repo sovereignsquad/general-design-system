@@ -49,7 +49,7 @@ export interface GdsTokenNode {
    * colour, which held only while the theme could express nothing but colour — the exact
    * limitation the axis mechanism removes. A radius validated as a colour fails as one.
    */
-  category: 'color' | 'effect' | 'dimension' | 'keyword';
+  category: 'color' | 'effect' | 'dimension' | 'keyword' | 'number';
   /**
    * Which color scheme the value applies to.
    *
@@ -237,8 +237,10 @@ function inferNodeCategory(role: string): GdsTokenNode['category'] {
   // and a new axis must be added HERE, which is the intended coupling: a token whose category
   // nobody declared would be validated as a colour and fail as one, loudly, rather than
   // shipping unvalidated.
-  if (/^(radius|space|control-height)-/.test(role)) return 'dimension';
-  if (role === 'density') return 'keyword';
+  if (/^(radius|space|control-height|font-size)-/.test(role)) return 'dimension';
+  if (/^(weight|line-height)-/.test(role)) return 'number';
+  if (/^(density|font-lane-|tracking-)/.test(role)) return 'keyword';
+  if (/^elevation-/.test(role)) return 'effect';
   return 'color';
 }
 
