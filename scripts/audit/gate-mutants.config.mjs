@@ -261,6 +261,24 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:theme-identity',
+    script: null,
+    mutants: [
+      {
+        id: 'identity-detects-collapsed-identity',
+        // If the identity stops reading the resolved tokens, every theme collides and a
+        // switch silently stops remounting — which looks exactly like "the theme
+        // half-applied", the report this issue came from.
+        claim: 'Detects an identity that no longer distinguishes themes',
+        file: 'packages/gds-theme/src/theme-identity.ts',
+        find: '  return `${preset}:${colorScheme}:${fnv1a(parts.join(\';\'))}`;',
+        replace: '  return `constant:${fnv1a(\'\')}`;',
+        once: true,
+        requiresBuild: ['@sovereignsquad/gds-theme'],
+      },
+    ],
+  },
+  {
     npmScript: 'verify:accent-contrast',
     script: null,
     mutants: [

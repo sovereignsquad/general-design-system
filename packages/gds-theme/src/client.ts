@@ -2,6 +2,10 @@ export { gdsTheme, gdsDarkPublicTheme, gdsFlatSurfaceTheme, gdsEditorialPublicTh
 export { getGdsThemePresets, resolveGdsThemePreset, classUsaThemePreset, goldAthleteThemePreset } from './theme-presets';
 export type { GdsThemePreset, GdsThemePresetId } from './theme-presets';
 export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES } from './axes';
+export { GdsThemeBoundary } from './GdsThemeBoundary';
+export type { GdsThemeBoundaryProps } from './GdsThemeBoundary';
+export { computeGdsThemeIdentity, gdsThemeIdentityChanged } from './theme-identity';
+export type { GdsThemeIdentity, GdsThemeApplicationMode, GdsThemeIdentityInput } from './theme-identity';
 export { resolveGdsAccentTokens, evaluateGdsAccentContrast, deriveGdsAccentShades, GdsAccentError, GDS_DEFAULT_ACCENT_AXIS, GDS_ACCENT_NAMES, GDS_ACCENT_SHADES, GDS_ACCENT_MODES, GDS_DEFAULT_SHADE_FACTORS, GDS_ACCENT_EMOJI_DISC, GDS_ACCENT_MODE_ENFORCEMENT } from './accent-axis';
 export type { GdsAccentAxis, GdsAccentRamp, GdsAccentName, GdsAccentShade, GdsAccentMode, GdsAccentContrastResult } from './accent-axis';
 export { gdsAccessibilityFloorRules, validateGdsAccessibilityFloor, auditGdsAccessibilityFloor, describeGdsAccessibilityFloor } from './accessibility-floor';

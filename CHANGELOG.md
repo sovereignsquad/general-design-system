@@ -87,6 +87,40 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Total theme re-application (#561)**: `GdsProvider` gains `themeApplicationMode`
+  (`remount` | `reload` | `cascade-only`), `reloadOnThemeChange`, and
+  `onBeforeThemeApply`/`onAfterThemeApply`. The themed subtree is keyed on a **theme
+  identity**, so a switch re-creates the components holding values the cascade cannot reach.
+
+  **Why the cascade is not enough.** `var()` values update on a switch by themselves. What
+  does not: a value read with `getComputedStyle` at mount and put in state, a `useMemo` whose
+  deps omit the theme, SVG or canvas painted once from resolved colours, and third-party
+  surfaces initialised with a theme snapshot — which will include the map engine.
+
+  **The identity hashes the RESOLVED tokens, not the declaration.** Two declarations that
+  render identically produce the same identity and therefore no remount — repainting the world
+  to arrive at the same pixels is cost without benefit. Conversely a theme changing only its
+  radius scale *does* change identity, because every axis is in the resolved set. Keying on
+  `preset + scheme` would miss exactly that.
+
+  **The provider does NOT remount its whole subtree, and that was measured rather than
+  assumed.** Keying everything under `GdsProvider` was tried first: it destroys the state of
+  any theme control living inside the provider — the normal arrangement — and broke three of
+  the playground's own runtime tests by resetting the very picker used to change the theme. A
+  default that resets the control you just used is a defect, not a guarantee. Total
+  re-application is opt-in per subtree via the new **`GdsThemeBoundary`**, placed around the
+  surfaces that actually hold theme-derived state outside the cascade.
+
+  **The reload escape hatch is deliberate**, and it is the owner's own requirement: for a
+  surface that cannot be made to re-read a theme, a reload is the only honest way to guarantee
+  full application. Better an explicit reload than a page silently rendering half the previous
+  theme.
+
+  `verify:theme-identity` proves all 50 preset/scheme identities are distinct and stable — a
+  collision would mean a switch that does not remount. The **runtime stale-value detector
+  needs a browser and is filed separately** rather than stubbed: a rule that cannot be
+  evaluated looks like coverage.
+
 - **Theme Lab live accent contrast matrix (#596)**: `GdsAccentContrastMatrix` renders every
   accent × shade × mode for the selected preset and scheme, with its **measured ratio and
   required threshold** — never a bare "fails". A theme author sees which combinations pass
