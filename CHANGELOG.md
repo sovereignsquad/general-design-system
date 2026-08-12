@@ -87,6 +87,30 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Quality budgets are reported on every pull request (#582)**: added
+  `npm run budgets:report` and a `budget-report` job in `.github/workflows/quality.yml`.
+  `verify:budgets` now writes `audit/budget-results.json`, and the report renders from that
+  artifact rather than re-measuring — a second resolver could disagree with the gate, and a
+  report that contradicts the gate is worse than no report.
+
+  Each budget shows measured, base, delta and direction. A `max` budget rising is a
+  regression; a `min` budget rising is an improvement — inverting that would tell a reviewer
+  the opposite of the truth about their own change, so it is unit-tested. The comment is
+  updated in place via a marker, so a 30-push PR carries one comment rather than thirty.
+
+  The job **cannot fail the build**. #578's gate enforces correctness; a broken comment must
+  not block a correct PR, and a comment that can fail a build is one people will want
+  removed.
+
+  **Scope of verification, stated:** the report script, the delta rules and the workflow YAML
+  are verified locally (5 unit tests; a synthetic base exercising regression, improvement and
+  missing-artifact paths). The **PR-comment path itself is unverified** — it runs only on
+  `pull_request`, and this repository pushes directly to `main`, so it will first execute on
+  whichever PR is opened next.
+
+  `scripts/**/*.test.mjs` is now in the vitest include. Nothing under `scripts/` could be
+  tested before, which is why 45 verification gates had no unit coverage.
+
 - **Motion is single-sourced and every shipped transition is on the scale (#584)**: added
   `npm run tokens:motion-css` (generator), `verify:motion-css` (drift) and
   `verify:motion-scale`, all chained into `verify:release`.

@@ -24,6 +24,11 @@ export default defineConfig({
     css: false,
     testTimeout: 15000,
     include: [
+      // Issue 582. Verification scripts carry real branching — the budget report's
+      // direction rule inverts for `min` budgets, and getting it backwards would tell a
+      // reviewer the opposite of the truth about their own change. Until now nothing under
+      // scripts/ could be tested at all, which is why 45 gates had no unit coverage.
+      'scripts/**/*.test.mjs',
       'apps/*/src/*.test.ts',
       'apps/*/src/*.test.tsx',
       'apps/*/src/*.test.js',

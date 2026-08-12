@@ -58,6 +58,7 @@
     "verify:published:consumer": "node scripts/verify-published-consumer-smoke.mjs",
     "board:sync-release": "node scripts/sync-release-board.mjs",
     "verify:smoke-import-surface": "node scripts/verify-smoke-import-surface.mjs",
+    "budgets:report": "node scripts/report-budgets.mjs",
     "verify:budgets": "node scripts/verify-budgets.mjs",
     "audit:refresh": "node scripts/audit/extract-registry.mjs && node scripts/audit/forward-trace.mjs && node scripts/audit/dimensions.mjs",
     "verify:gates": "node scripts/verify-gates.mjs",
