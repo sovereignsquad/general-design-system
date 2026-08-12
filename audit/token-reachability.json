@@ -1,7 +1,7 @@
 {
-  "declared": 175,
+  "declared": 189,
   "referenced": 70,
-  "extensionPoints": 80,
+  "extensionPoints": 94,
   "pendingWireUp": 1,
   "unreachableCount": 0,
   "budget": 0,
@@ -185,6 +185,34 @@
       "token": "--gds-elevation-tooltip",
       "classification": "extension-point",
       "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-focus-ring-color",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-focus-ring-offset",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-focus-ring-style",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-focus-ring-width",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
       "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
@@ -462,6 +490,69 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
+      "token": "--gds-reaction-active",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-reaction-active-lift",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-reaction-active-scale",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-reaction-hover",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-reaction-hover-lift",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-reaction-hover-scale",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-reaction-pressed",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-reaction-pressed-lift",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-reaction-pressed-scale",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
       "token": "--gds-space-2xl",
       "classification": "extension-point",
       "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
@@ -524,6 +615,13 @@
       "issue": 591,
       "reviewBy": "2026-12-01",
       "declaredIn": "packages/gds-theme/styles.css"
+    },
+    {
+      "token": "--gds-transition-scope",
+      "classification": "extension-point",
+      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
       "token": "--gds-vibe-hero",

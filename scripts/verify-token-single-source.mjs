@@ -37,10 +37,23 @@ try {
 // `--gds-*` prefix rule falsely accused both. Deriving the set means a role added
 // tomorrow is in scope automatically, and a namespace that is not a semantic role never
 // is.
+// Axis namespaces have their OWN owner (axes.ts) and their own adoption gates
+// (verify:shape-token-adoption, verify:density-token-adoption). Policing them here would
+// accuse axes.ts of duplicating the colour source it has nothing to do with — while still
+// leaving a real colour table hidden in axes.ts undetected, because the check would have
+// been about the file rather than the namespace.
+const AXIS_PREFIXES = [
+  '--gds-radius-', '--gds-space-', '--gds-control-height-', '--gds-density',
+  '--gds-font-size-', '--gds-line-height-', '--gds-weight-', '--gds-tracking-', '--gds-font-lane-',
+  '--gds-elevation-', '--gds-reaction-', '--gds-focus-ring-w', '--gds-focus-ring-o',
+  '--gds-focus-ring-s', '--gds-focus-ring-c', '--gds-transition-scope', '--gds-motion-',
+];
+const isAxisToken = (name) => AXIS_PREFIXES.some((p) => name.startsWith(p));
+
 const SEMANTIC_ROLES = new Set([
   ...Object.keys(mod.createBrandTheme('class-usa').mantineTheme.other.gdsCssVariables),
   ...Object.keys(mod.getGdsVibeThemeCssVariables('aurora', 'light')).filter((k) => !k.startsWith('--gds-vibe-')),
-]);
+].filter((name) => !isAxisToken(name)));
 if (SEMANTIC_ROLES.size < 50) {
   console.error(`FAIL only ${SEMANTIC_ROLES.size} semantic roles resolved; the scan would be vacuous.`);
   process.exit(1);

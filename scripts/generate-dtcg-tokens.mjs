@@ -75,6 +75,10 @@ function inferDtcgType(id, value) {
   if (/^\d+(\.\d+)?$/.test(v)) return 'number';
   // A registered font-lane id.
   if (/^[a-z][a-z0-9-]*$/.test(v)) return CSS_KEYWORD_TYPE;
+  // A comma-separated keyword list, e.g. the transition scope.
+  if (/^[a-z][a-z0-9-]*(,\s*[a-z][a-z0-9-]*)+$/.test(v)) return CSS_KEYWORD_TYPE;
+  // A bare unitless multiplier, e.g. a reaction scale of `1`.
+  if (/^-?\d+(\.\d+)?$/.test(v)) return 'number';
   throw new Error(`Cannot infer DTCG type for ${id}: "${v}". Add an explicit rule rather than shipping a guessed $type.`);
 }
 

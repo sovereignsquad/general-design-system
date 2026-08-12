@@ -5,7 +5,7 @@ import {
   GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_ROLES, GDS_RADIUS_STEPS, GDS_SPACE_STEPS, GdsAxisError,
   GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_ELEVATION_ROLES,
   gdsRadius, resolveGdsDensityTokens, resolveGdsElevationTokens, resolveGdsShapeTokens,
-  resolveGdsTypographyTokens, validateGdsShapeAxis,
+  resolveGdsTypographyTokens, resolveGdsMotionTokens, resolveGdsReactionTokens, validateGdsShapeAxis,
 } from './axes';
 import { gdsTheme } from './theme';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
@@ -179,5 +179,48 @@ describe('typography and elevation axes (issue 557)', () => {
     expect(tokens['--gds-elevation-modal']).toBe(tokens['--gds-elevation-3']);
     expect(tokens['--gds-elevation-card']).toBe(tokens['--gds-elevation-1']);
     for (const role of GDS_ELEVATION_ROLES) expect(tokens[`--gds-elevation-${role}`]).toBeTruthy();
+  });
+});
+
+describe('motion and reaction axes (issue 558)', () => {
+  it('emits nothing when a preset declares no motion override', () => {
+    // The global scale in styles.css is generated from motion.ts (issue 584) and IS the
+    // default. Emitting the full scale per preset would restate it 25 times and stop the
+    // generated stylesheet being the source of truth.
+    expect(resolveGdsMotionTokens(undefined, 'probe')).toEqual({});
+    const vars = getGdsVibeThemeCssVariables('default', 'light');
+    expect(Object.keys(vars).filter((k) => k.startsWith('--gds-motion-'))).toHaveLength(0);
+  });
+
+  it('lets a theme override only the tokens it names', () => {
+    expect(resolveGdsMotionTokens({ durations: { fast: 80 }, easings: { standard: 'linear' } }, 'probe'))
+      .toEqual({ '--gds-motion-duration-fast': '80ms', '--gds-motion-ease-standard': 'linear' });
+  });
+
+  it('rejects motion values a theme could plausibly get wrong', () => {
+    expect(() => resolveGdsMotionTokens({ durations: { fast: 5000 } }, 'probe')).toThrow(/between 0 and 2000/);
+    expect(() => resolveGdsMotionTokens({ easings: { standard: 'swooshy' } }, 'probe')).toThrow(/not a CSS timing function/);
+  });
+
+  it('offers no way to ignore the user\'s reduced-motion preference', () => {
+    // A theme may make motion calmer than the user asked for. It may never make it louder,
+    // so no value meaning "never reduce" exists in the type at all.
+    const policies: Array<NonNullable<Parameters<typeof resolveGdsMotionTokens>[0]>['reducedMotionPolicy']> = ['system', 'reduce', 'no-motion'];
+    expect(policies).not.toContain('never-reduce');
+  });
+
+  it('enforces the focus ring, which a keyboard user cannot do without', () => {
+    expect(() => resolveGdsReactionTokens({ focusRing: { width: '1px' } }, 'probe')).toThrow(/at least 2px/);
+    expect(() => resolveGdsReactionTokens({ focusRing: { colorRole: '#ff0000' } }, 'probe')).toThrow(/a literal colour/);
+    expect(() => resolveGdsReactionTokens({ focusRing: { style: 'wavy' as never } }, 'probe')).toThrow(/not solid, dashed or double/);
+  });
+
+  it('resolves intensity to concrete values, with none meaning none', () => {
+    // A theme asking for no reaction and getting a 1px nudge reads as a bug.
+    const quiet = resolveGdsReactionTokens({ hover: 'none' }, 'probe');
+    expect(quiet['--gds-reaction-hover-lift']).toBe('0');
+    expect(quiet['--gds-reaction-hover-scale']).toBe('1');
+    const loud = resolveGdsReactionTokens({ hover: 'pronounced' }, 'probe');
+    expect(loud['--gds-reaction-hover-lift']).toBe('-4px');
   });
 });

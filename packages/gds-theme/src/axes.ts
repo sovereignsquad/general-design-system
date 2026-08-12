@@ -100,6 +100,52 @@ export interface GdsElevationAxis {
 }
 
 /**
+ * A theme's motion decisions: partial overrides of the shipped scale.
+ *
+ * NAMING. The issue specifies `normal`/`enter`/`emphasized`; the SHIPPED tokens are
+ * `base`/`entrance`/`emphasis` (`motion.ts`, single-sourced by issue 584). The shipped names
+ * are used here. Renaming them would break every consumer of `--gds-motion-duration-base`
+ * and re-fork the scale issue 584 had just unified — the axis exists to let a theme change
+ * these VALUES, not their names.
+ */
+export interface GdsMotionAxis {
+  /** Millisecond overrides, keyed by shipped duration token. */
+  durations?: Partial<Record<'instant' | 'fast' | 'base' | 'slow' | 'slower', number>>;
+  /** CSS timing-function overrides, keyed by shipped easing token. */
+  easings?: Partial<Record<'standard' | 'entrance' | 'exit' | 'emphasis' | 'linear', string>>;
+  /**
+   * `system` honours the OS setting; `reduce`/`no-motion` force reduction.
+   *
+   * There is deliberately NO value meaning "ignore the user's reduced-motion preference".
+   * A theme may make motion calmer than the user asked for; it may never make it louder.
+   */
+  reducedMotionPolicy?: 'system' | 'reduce' | 'no-motion';
+}
+
+/** How strongly a surface responds to interaction. */
+export type GdsReactionIntensity = 'none' | 'subtle' | 'standard' | 'pronounced';
+
+/** Focus-ring geometry and colour role. */
+export interface GdsFocusRingSpec {
+  /** CSS length, validated >= 2px. */
+  width: string;
+  offset: string;
+  style: 'solid' | 'dashed' | 'double';
+  /** A semantic colour ROLE name, never a literal — resolved against the token set. */
+  colorRole: string;
+}
+
+/** A theme's interaction-feedback decisions. */
+export interface GdsReactionAxis {
+  hover?: GdsReactionIntensity;
+  active?: GdsReactionIntensity;
+  pressed?: GdsReactionIntensity;
+  focusRing?: Partial<GdsFocusRingSpec>;
+  /** Which properties may transition. Restricting scope is a performance and a11y lever. */
+  transitionScope?: Array<'color' | 'background' | 'border' | 'shadow' | 'transform' | 'opacity'>;
+}
+
+/**
  * The generic axis container on a theme.
  *
  * Each later axis adds one optional key here and one branch in `resolveAxisTokens`. Nothing
@@ -110,6 +156,8 @@ export interface GdsThemeAxes {
   density?: GdsDensityAxis;
   type?: GdsTypographyAxis;
   elevation?: GdsElevationAxis;
+  motion?: GdsMotionAxis;
+  reaction?: GdsReactionAxis;
   // type?: GdsTypographyAxis;      -> issue #557
   // motion?: GdsMotionAxis;        -> issue #558
   // elevation?: GdsElevationAxis;  -> follow-up
@@ -567,6 +615,117 @@ export function gdsElevation(role: GdsElevationRole | GdsElevationStep): string 
 }
 
 /**
+ * Reaction intensity expressed as concrete, governed values.
+ *
+ * Components read the resolved tokens rather than branching on the keyword, so a theme
+ * changing intensity does not require every component to know what "subtle" means. `none` is
+ * genuinely none — not a small value — because a theme asking for no reaction and getting a
+ * 1px nudge is the kind of thing that reads as a bug.
+ */
+const REACTION_VALUES: Record<GdsReactionIntensity, { lift: string; scale: string }> = {
+  none: { lift: '0', scale: '1' },
+  subtle: { lift: '-1px', scale: '1.01' },
+  standard: { lift: '-2px', scale: '1.02' },
+  pronounced: { lift: '-4px', scale: '1.04' },
+};
+
+/** The default focus ring: 2px is the floor, not a preference. */
+export const GDS_DEFAULT_FOCUS_RING: GdsFocusRingSpec = {
+  width: '2px',
+  offset: '2px',
+  style: 'solid',
+  colorRole: 'focus-ring',
+};
+
+/** The default reaction axis, matching what components render today. */
+export const GDS_DEFAULT_REACTION_AXIS: GdsReactionAxis = {
+  hover: 'standard',
+  active: 'subtle',
+  pressed: 'subtle',
+  focusRing: GDS_DEFAULT_FOCUS_RING,
+  transitionScope: ['color', 'background', 'border', 'shadow', 'transform'],
+};
+
+/**
+ * Resolves the motion axis into `--gds-motion-*` overrides for this preset.
+ *
+ * Only DECLARED overrides are emitted. The global scale in `styles.css` is generated from
+ * `motion.ts` (issue 584) and remains the default; a preset that declares nothing emits
+ * nothing here and inherits it. Emitting the full scale per preset would duplicate the
+ * global block 25 times and make the generated stylesheet no longer the source of the
+ * default.
+ */
+export function resolveGdsMotionTokens(axis: GdsMotionAxis | undefined, themeId = 'theme'): Record<string, string> {
+  if (!axis) return {};
+  const tokens: Record<string, string> = {};
+
+  for (const [name, ms] of Object.entries(axis.durations ?? {})) {
+    if (!Number.isFinite(ms) || ms < 0 || ms > 2000) {
+      throw new GdsAxisError(`${themeId}: motion duration "${name}" is ${ms}ms; it must be between 0 and 2000. Beyond that a transition is an animation the user cannot skip.`);
+    }
+    tokens[`--gds-motion-duration-${name}`] = `${ms}ms`;
+  }
+  for (const [name, easing] of Object.entries(axis.easings ?? {})) {
+    if (!/^(cubic-bezier\([^)]*\)|linear|ease|ease-in|ease-out|ease-in-out|steps\([^)]*\))$/.test(String(easing).trim())) {
+      throw new GdsAxisError(`${themeId}: motion easing "${name}" is "${easing}", which is not a CSS timing function.`);
+    }
+    tokens[`--gds-motion-ease-${name}`] = String(easing);
+  }
+  if (axis.reducedMotionPolicy) tokens['--gds-motion-policy'] = axis.reducedMotionPolicy;
+  return tokens;
+}
+
+/**
+ * Resolves the reaction axis into interaction-feedback tokens.
+ *
+ * The focus ring is validated hard, because it is the one piece of interaction feedback a
+ * keyboard user cannot do without: below 2px it is not reliably visible, and a colour given
+ * as a literal cannot be checked for contrast against the surface it lands on.
+ */
+export function resolveGdsReactionTokens(axis: GdsReactionAxis = GDS_DEFAULT_REACTION_AXIS, themeId = 'theme'): Record<string, string> {
+  const merged: GdsReactionAxis = {
+    ...GDS_DEFAULT_REACTION_AXIS,
+    ...axis,
+    focusRing: { ...GDS_DEFAULT_FOCUS_RING, ...(axis.focusRing ?? {}) },
+    transitionScope: axis.transitionScope ?? GDS_DEFAULT_REACTION_AXIS.transitionScope,
+  };
+
+  const ring = merged.focusRing as GdsFocusRingSpec;
+  const widthPx = /^(\d*\.?\d+)px$/.exec(String(ring.width).trim());
+  if (!widthPx || parseFloat(widthPx[1]) < 2) {
+    throw new GdsAxisError(
+      `${themeId}: focus-ring width is "${ring.width}". It must be at least 2px — below that the ring is not reliably visible, `
+      + 'and a keyboard user has no other indication of where they are.',
+    );
+  }
+  if (!['solid', 'dashed', 'double'].includes(ring.style)) {
+    throw new GdsAxisError(`${themeId}: focus-ring style "${ring.style}" is not solid, dashed or double.`);
+  }
+  if (/^#|^rgb|^hsl/.test(String(ring.colorRole).trim())) {
+    throw new GdsAxisError(
+      `${themeId}: focus-ring colorRole is "${ring.colorRole}", a literal colour. It must be a ROLE name so the ring follows the theme `
+      + 'and its contrast can be checked against the surface it lands on.',
+    );
+  }
+
+  const tokens: Record<string, string> = {
+    '--gds-focus-ring-width': ring.width,
+    '--gds-focus-ring-offset': ring.offset,
+    '--gds-focus-ring-style': ring.style,
+    '--gds-focus-ring-color': `var(--gds-${ring.colorRole})`,
+    '--gds-transition-scope': (merged.transitionScope ?? []).join(', ') || 'none',
+  };
+  for (const state of ['hover', 'active', 'pressed'] as const) {
+    const intensity = merged[state] ?? 'standard';
+    if (!REACTION_VALUES[intensity]) throw new GdsAxisError(`${themeId}: reaction intensity "${intensity}" for "${state}" is not none/subtle/standard/pronounced.`);
+    tokens[`--gds-reaction-${state}`] = intensity;
+    tokens[`--gds-reaction-${state}-lift`] = REACTION_VALUES[intensity].lift;
+    tokens[`--gds-reaction-${state}-scale`] = REACTION_VALUES[intensity].scale;
+  }
+  return tokens;
+}
+
+/**
  * All axis tokens for a theme's axis declarations.
  *
  * The single place a new axis is wired in. Kept separate from the shape resolver so the next
@@ -578,6 +737,10 @@ export function resolveGdsAxisTokens(axes: GdsThemeAxes | undefined, themeId: Gd
     ...resolveGdsDensityTokens(axes?.density ?? GDS_DEFAULT_DENSITY_AXIS, String(themeId)),
     ...resolveGdsTypographyTokens(axes?.type ?? GDS_DEFAULT_TYPOGRAPHY_AXIS, String(themeId)),
     ...resolveGdsElevationTokens(axes?.elevation ?? GDS_DEFAULT_ELEVATION_AXIS, String(themeId)),
+    ...resolveGdsReactionTokens(axes?.reaction ?? GDS_DEFAULT_REACTION_AXIS, String(themeId)),
+    // Motion last and conditional: it OVERRIDES the generated global scale, so a preset that
+    // declares nothing must emit nothing rather than restating the default 25 times.
+    ...resolveGdsMotionTokens(axes?.motion, String(themeId)),
   };
 }
 
