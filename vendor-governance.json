@@ -15,8 +15,14 @@
     "react-dom": "^18.2.0 || ^19.0.0"
   },
   "candidate": "^9.0.0",
-  "ciMatrix": ["mantine-7", "mantine-9"],
+  "ciMatrix": [
+    "mantine-7",
+    "mantine-9"
+  ],
   "lastReviewed": "2026-06-23",
   "rollbackRef": "main",
-  "notes": "Engine stays a peer for single-instance safety. A candidate major is smoke-tested by the CI matrix before adoption; adoption changes only adapter/seam files behind GDS's owned public contract."
+  "notes": "Engine stays a peer for single-instance safety. A candidate major is smoke-tested by the CI matrix before adoption; adoption changes only adapter/seam files behind GDS's owned public contract.",
+  "mapEngine": "leaflet",
+  "mapRange": "1.9.4",
+  "$mapComment": "Issue 566. Leaflet, not MapLibre GL JS: ~40KB minified against several hundred, no WebGL requirement (which matters for forced-colors and low-end devices), and raster tiles are sufficient because vector-tile styling is out of scope. MapLibre would be right if themed vector basemaps were required. Recorded so a future reversal is a decision rather than a rediscovery. Pinned EXACTLY rather than by range: a map engine renders third-party tiles and holds imperative DOM, so a silent minor bump is not something to find out about from a broken map."
 }

@@ -47,6 +47,19 @@ const PATTERNS = [
  */
 const RESERVED_EXAMPLE_HOST = /https?:\/\/([a-z0-9-]+\.)*example\.(com|net|org)\b/i;
 
+/**
+ * A slippy-map tile TEMPLATE, identified structurally by its `{z}/{x}/{y}` placeholders.
+ *
+ * Map tiles are the map itself, not decorative imagery — no thumbnail generator can produce
+ * the surface of the earth, and issue 563's requirement is about images the page displays
+ * rather than the geographic data a map renders. The signature is deliberately structural: a
+ * stock photo URL cannot accidentally match it, so this is an exclusion that cannot widen.
+ *
+ * Tile sources have their own governance (issue 567): a source cannot be constructed without
+ * the attribution its licence requires, which is a stricter contract than this gate applies.
+ */
+const TILE_TEMPLATE = /\{z\}|\{x\}|\{y\}/;
+
 const files = [...walk(join(ROOT, 'packages')), ...walk(join(ROOT, 'apps/playground/src'))];
 if (!files.length) fail('No source files scanned; the gate cannot pass vacuously.');
 
@@ -67,6 +80,7 @@ for (const file of files) {
       const match = re.exec(line);
       if (!match) continue;
       if (RESERVED_EXAMPLE_HOST.test(match[0])) continue;
+      if (TILE_TEMPLATE.test(match[0])) continue;
       const at = `${rel}:${i + 1}`;
       const entry = IMAGERY_ALLOWLIST[at];
       if (entry) {

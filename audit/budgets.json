@@ -120,7 +120,7 @@
     "obligationGaps": {
       "source": "obligation-coverage.json#/gapCount",
       "direction": "max",
-      "value": 410,
+      "value": 409,
       "unit": "count",
       "finding": "F18",
       "justifiedBy": "issue 581 - 373 prop jsdoc gaps + 37 variant demo gaps, measured"

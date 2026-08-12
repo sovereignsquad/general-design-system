@@ -1,7 +1,7 @@
 {
   "declared": 279,
-  "referenced": 79,
-  "extensionPoints": 156,
+  "referenced": 82,
+  "extensionPoints": 153,
   "pendingWireUp": 1,
   "unreachableCount": 0,
   "budget": 0,
@@ -546,13 +546,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-elevation-1",
-      "classification": "extension-point",
-      "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-elevation-2",
       "classification": "extension-point",
       "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
@@ -864,20 +857,6 @@
       "token": "--gds-radius-none",
       "classification": "extension-point",
       "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-radius-panel",
-      "classification": "extension-point",
-      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-radius-pin",
-      "classification": "extension-point",
-      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
       "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },

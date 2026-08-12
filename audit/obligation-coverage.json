@@ -1,15 +1,15 @@
 {
-  "evaluated": 1061,
-  "gapCount": 410,
-  "excludedCount": 63,
+  "evaluated": 1078,
+  "gapCount": 409,
+  "excludedCount": 67,
   "byKind": {
     "prop": {
-      "evaluated": 950,
+      "evaluated": 967,
       "gaps": 373
     },
     "variant": {
       "evaluated": 101,
-      "gaps": 37
+      "gaps": 36
     },
     "accent": {
       "evaluated": 10,
@@ -17,7 +17,7 @@
     }
   },
   "unmodelled": [],
-  "budget": 410,
+  "budget": 409,
   "gaps": [
     {
       "atom": "ContentOpsSectionProps.tone=critical",
@@ -1248,20 +1248,6 @@
         {
           "obligation": "variationShown",
           "why": "literal 'right' is rendered by no playground demo"
-        }
-      ]
-    },
-    {
-      "atom": "EditorialHeroProps.mediaPosition=left",
-      "kind": "variant",
-      "source": {
-        "file": "packages/gds-core/src/EditorialHero.tsx",
-        "line": 25
-      },
-      "unmet": [
-        {
-          "obligation": "variationShown",
-          "why": "literal 'left' is rendered by no playground demo"
         }
       ]
     },

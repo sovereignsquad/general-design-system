@@ -87,6 +87,40 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Governed map surface on OpenStreetMap (#566, #567)**: `@sovereignsquad/gds-core/map`
+  exports `GdsMap` — Leaflet-backed, real OSM raster tiles, on a dedicated subpath so consumers
+  who never render a map do not pay for a browser-only 40KB engine.
+
+  **Leaflet, not MapLibre**, and the reasoning is recorded in `vendor-governance.json` so a
+  future reversal is a decision rather than a rediscovery: no WebGL requirement (which matters
+  for forced-colors and low-end devices), and raster tiles suffice because vector-tile styling
+  is out of scope. It is pinned **exactly**, not by range — a map engine renders third-party
+  tiles and holds imperative DOM, so a silent minor bump is not something to learn about from a
+  broken map.
+
+  **The tile source and its attribution are one object.** OSM data is ODbL-licensed and the
+  credit is a licence condition, not a styling preference — so `GdsMapTileSource` cannot be
+  constructed without one, `assertGdsTileSource` throws rather than falling back to a default
+  (silently substituting a different map would be worse than failing), and the shared source is
+  frozen so nobody can strip the credit off it for every map at once. Leaflet's own attribution
+  control is disabled and the credit renders as GDS UI, so it does not live inside third-party
+  chrome a consumer might restyle away.
+
+  **The map re-initialises on theme identity**, which is exactly the case #561 was built for:
+  Leaflet reads resolved colours when it constructs its panes, so no CSS variable change ever
+  reaches them. Without an explicit destroy and re-init, a theme switch leaves a map painted in
+  the previous theme.
+
+  Marker labels are **required and consumer-supplied** — never derived from an icon's import
+  name, because "IconMapPin2" is not what a screen-reader user needs to hear, and a marker whose
+  only identity is its colour does not exist for them. State is announced rather than only
+  styled, and a failure to load says so instead of leaving an empty box that reads as "nothing
+  here".
+
+  The imagery gate now excludes slippy-map **tile templates** by their structural `{z}/{x}/{y}`
+  signature: map tiles are the map itself, and no thumbnail generator can produce the surface of
+  the earth. A stock-photo URL cannot match that signature, so the exclusion cannot widen.
+
 - **Generated imagery only (#563, #564)**: the reference site no longer renders a single
   third-party image, and `npm run verify:generated-imagery-only` fails the build if one
   returns.

@@ -27,6 +27,14 @@ for (const pkg of GDS_PACKAGES) {
       failures.push(`${pkg}: ${enginePkg} peer range "${range}" != governed pinnedRange "${manifest.pinnedRange}".`);
     }
   }
+  // Issue 566: the map engine is pinned exactly, not by range. A map renders third-party
+  // tiles and holds imperative DOM; a silent minor bump is not something to discover from a
+  // broken map on a consumer's site.
+  const deps = { ...(m.dependencies ?? {}) };
+  if (manifest.mapEngine && deps[manifest.mapEngine] && deps[manifest.mapEngine] !== manifest.mapRange) {
+    failures.push(`${pkg}: ${manifest.mapEngine} "${deps[manifest.mapEngine]}" != governed mapRange "${manifest.mapRange}".`);
+  }
+
   if (peers[manifest.iconEngine] && peers[manifest.iconEngine] !== manifest.iconRange) {
     failures.push(`${pkg}: ${manifest.iconEngine} peer range "${peers[manifest.iconEngine]}" != governed iconRange "${manifest.iconRange}".`);
   }
