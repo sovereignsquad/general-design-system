@@ -44,6 +44,7 @@ const CSS_COMPUTED_TYPE = `${GDS_EXT}.cssComputed`;
 function inferDtcgType(id, value) {
   const v = String(value).trim();
   if (/^#[0-9a-fA-F]{3,8}$/.test(v) || /^(rgba?|hsla?)\([^)]*\)$/.test(v)) return 'color';
+  if (/^0$/.test(v)) return 'dimension';
   if (/^-?[\d.]+(px|rem|em)$/.test(v)) return 'dimension';
   if (/^-?[\d.]+m?s$/.test(v)) return 'duration';
   if (/^(cubic-bezier\([^)]*\)|linear|ease|ease-in|ease-out|ease-in-out|steps\([^)]*\))$/.test(v)) return 'cubicBezier';

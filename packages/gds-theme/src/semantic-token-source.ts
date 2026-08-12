@@ -16,6 +16,7 @@
 // single-sourcing reachable at all, not merely tidier.
 
 import { ensureContrast, mixCssColors, parseCssColor, readableForeground } from './color-math';
+import { resolveGdsAxisTokens } from './axes';
 // Type-only, so this is erased at compile time and creates no runtime cycle. The generic
 // lanes derive their roles FROM the atmosphere palette, so the shape has to be visible
 // here; the values still live in vibe-themes.ts.
@@ -278,7 +279,10 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
 
 /** Complete `--gds-*` variable set for the Class USA lane. */
 export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<string, string> {
-  const vars = emitCssVariables(deriveClassUsaSemanticTokens(ramps));
+  // Issue 555: axis tokens are part of a lane's complete variable set. Emitting them only on
+  // the document path would leave the two consumption paths with different key sets — the
+  // exact divergence verify:token-single-source was built to catch.
+  const vars = { ...resolveGdsAxisTokens(undefined, 'class-usa'), ...emitCssVariables(deriveClassUsaSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.action[6];
   vars['--gds-brand-accent-action-dark'] = ramps.brand[5];
   return vars;
@@ -286,7 +290,7 @@ export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<stri
 
 /** Complete `--gds-*` variable set for the Gold Athlete lane. */
 export function emitGoldAthleteCssVariables(ramps: GoldAthleteColorRamps): Record<string, string> {
-  const vars = emitCssVariables(deriveGoldAthleteSemanticTokens(ramps));
+  const vars = { ...resolveGdsAxisTokens(undefined, 'gold-athlete'), ...emitCssVariables(deriveGoldAthleteSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.gold[6];
   vars['--gds-brand-accent-action-dark'] = ramps.gold[3];
   return vars;

@@ -288,7 +288,7 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
             style={{
               width: 64,
               height: 64,
-              borderRadius: 999,
+              borderRadius: 'var(--gds-radius-pill)',
               display: 'grid',
               placeItems: 'center',
               color: athleteGold.canvasDark,
@@ -354,7 +354,7 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
                     style={{
                       width: 10,
                       height: 10,
-                      borderRadius: 999,
+                      borderRadius: 'var(--gds-radius-pill)',
                       background: athleteGold.accent,
                       boxShadow: athleteGold.flatSurfaces ? undefined : `0 0 22px ${athleteGold.glow}`,
                     }}
@@ -657,7 +657,7 @@ export function ReferenceThemeExplorer({
                       style={{
                         width: 28,
                         height: 28,
-                        borderRadius: 999,
+                        borderRadius: 'var(--gds-radius-pill)',
                         // Hard-edge split for flatSurfaces (governed brand)
                         // lanes: two real solid colors, no invented blend
                         // color and no colored glow, since the real theme
@@ -681,7 +681,7 @@ export function ReferenceThemeExplorer({
                   aria-hidden="true"
                   style={{
                     height: 56,
-                    borderRadius: 16,
+                    borderRadius: 'var(--gds-radius-lg)',
                     // Real colors, at full strength, not the diluted
                     // `vibe.hero` atmospheric wash: this box's only job is to
                     // preview the lane's actual colors, and `hero`'s ~12-16%

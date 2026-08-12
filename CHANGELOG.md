@@ -87,6 +87,35 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Theme axes, and the shape axis as the first one (#555)**: a theme can now declare
+  non-colour design decisions. `packages/gds-theme/src/axes.ts` adds a typed axis mechanism;
+  the shape axis delivers a 7-step radius scale plus 14 semantic roles (`card`, `button`,
+  `pin`, `thumbnail`, …), emitted as `--gds-radius-*` per preset and published in the DTCG
+  graph. `verify:shape-token-adoption` is chained into `verify:release`.
+
+  **The scale feeds Mantine's `theme.radius`**, so the 130 `radius="md"`-style props and 16
+  `var(--mantine-radius-*)` references already in the codebase became axis-governed with
+  **zero component edits**. Migrating 146 call sites by hand would have been the obvious
+  reading of "components read radius from tokens" and the wrong one — it would have left the
+  axis as a parallel scale that only new code consults, which is the dual-source shape #554
+  spent a change set removing.
+
+  **Zero visual regression, verified**: 0 token values changed, 0 removed, 1,050 added
+  (21 tokens × 25 presets × 2 schemes). The defaults are Mantine's own values **captured
+  verbatim, including `calc(… * var(--mantine-scale))`** — writing a tidier `0.5rem` would
+  have silently dropped the scale factor, a real rendering change disguised as cleanup.
+
+  15 hardcoded `borderRadius` literals were found. 7 migrated to tokens; 8 allowlisted in two
+  clearly separated categories — **6 `circle`** (`50%` is a shape, not a radius step; feeding
+  it through the scale would turn avatars and status dots into rounded squares under any
+  small-radius theme) and **2 `debt`** (Theme Lab chrome at 18px and 12px, off-scale, whose
+  migration would visibly reshape the page that demonstrates theming — a design review, not a
+  sweep, and near-dated accordingly).
+
+  Axes validate at **theme-construction time**, not render time: a bad radius found while
+  rendering is a visual defect someone has to notice; found while building the theme it is an
+  error naming the offending key.
+
 - **Quality budgets are reported on every pull request (#582)**: added
   `npm run budgets:report` and a `budget-report` job in `.github/workflows/quality.yml`.
   `verify:budgets` now writes `audit/budget-results.json`, and the report renders from that

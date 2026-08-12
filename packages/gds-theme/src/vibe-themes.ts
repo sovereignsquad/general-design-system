@@ -1,4 +1,5 @@
 import type { GdsThemePresetId } from './theme-presets';
+import { resolveGdsAxisTokens, type GdsThemeAxes } from './axes';
 import { readableForeground } from './color-math';
 import {
   classUsaDefaultColorRamps,
@@ -73,6 +74,12 @@ export interface GdsVibeTheme {
    * generic vibe lanes, where the gradient/glow atmosphere IS the lane's own
    * real, intentional identity.
    */
+  /**
+   * Non-colour design decisions (issue 555): shape today, density/typography/motion to
+   * follow. Optional — a preset that declares nothing gets the captured defaults, which
+   * reproduce today's geometry exactly.
+   */
+  axes?: GdsThemeAxes;
   flatSurfaces?: boolean;
 }
 
@@ -661,6 +668,9 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
   };
 
   const brandSemanticCssVariables = resolveVibeSemanticCssVariables(id, vibe);
+  // Issue 555: axis tokens are scheme-independent — a corner radius does not change between
+  // light and dark — so they are merged in once rather than resolved per scheme.
+  const axisVariables = resolveGdsAxisTokens(vibe.axes, id);
 
   const semanticVariables: Record<string, string> = { ...brandSemanticCssVariables };
   if (dark) {
@@ -671,5 +681,5 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
     });
   }
 
-  return { ...variables, ...semanticVariables };
+  return { ...variables, ...axisVariables, ...semanticVariables };
 }

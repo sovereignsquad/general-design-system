@@ -96,7 +96,7 @@ export function FeatureBand({
                     px="sm"
                     py={6}
                     style={{
-                      borderRadius: '999px',
+                      borderRadius: 'var(--gds-radius-pill)',
                       background: 'var(--mantine-color-violet-light)',
                     }}
                   >

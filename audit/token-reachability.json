@@ -1,7 +1,7 @@
 {
-  "declared": 104,
-  "referenced": 62,
-  "extensionPoints": 14,
+  "declared": 125,
+  "referenced": 66,
+  "extensionPoints": 32,
   "pendingWireUp": 1,
   "unreachableCount": 0,
   "budget": 0,
@@ -81,6 +81,132 @@
       "classification": "extension-point",
       "reason": "Inactive-item colour for navigation on an inverse surface. GDS's BottomTabBar computes its own inactive colour from --gds-text-on-inverse; this role is the published value for a consumer-built inverse nav.",
       "reviewBy": "2027-02-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-avatar",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-badge",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-button",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-card",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-chip",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-drawer",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-input",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-md",
+      "classification": "extension-point",
+      "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-modal",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-none",
+      "classification": "extension-point",
+      "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-panel",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-pin",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-sheet",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-sm",
+      "classification": "extension-point",
+      "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-surface",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-thumbnail",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-xl",
+      "classification": "extension-point",
+      "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-xs",
+      "classification": "extension-point",
+      "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
+      "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {

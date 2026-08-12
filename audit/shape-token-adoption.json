@@ -1,0 +1,61 @@
+{
+  "declarationsScanned": 32,
+  "adopted": 23,
+  "allowlisted": 8,
+  "violationCount": 0,
+  "byCategory": {
+    "circle": 6,
+    "debt": 2
+  },
+  "allowed": [
+    {
+      "at": "packages/gds-core/src/BottomTabBar.tsx:130",
+      "value": "'50%'",
+      "category": "circle",
+      "reviewBy": "2027-08-01"
+    },
+    {
+      "at": "packages/gds-core/src/ChatSurface.tsx:135",
+      "value": "'50%'",
+      "category": "circle",
+      "reviewBy": "2027-08-01"
+    },
+    {
+      "at": "packages/gds-core/src/GdsBadge.tsx:181",
+      "value": "'50%'",
+      "category": "circle",
+      "reviewBy": "2027-08-01"
+    },
+    {
+      "at": "packages/gds-core/src/GdsGeneratedHero.tsx:403",
+      "value": "'50%'",
+      "category": "circle",
+      "reviewBy": "2027-08-01"
+    },
+    {
+      "at": "packages/gds-core/src/GdsGeneratedThumbnail.tsx:281",
+      "value": "'50%'",
+      "category": "circle",
+      "reviewBy": "2027-08-01"
+    },
+    {
+      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:334",
+      "value": "18",
+      "category": "debt",
+      "reviewBy": "2026-12-01"
+    },
+    {
+      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:768",
+      "value": "12",
+      "category": "debt",
+      "reviewBy": "2026-12-01"
+    },
+    {
+      "at": "packages/gds-theme/src/VibeThemePicker.client.tsx:58",
+      "value": "'50%'",
+      "category": "circle",
+      "reviewBy": "2027-08-01"
+    }
+  ],
+  "violations": []
+}

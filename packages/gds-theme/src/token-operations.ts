@@ -42,8 +42,14 @@ export interface GdsTokenNode {
     | 'hero';
   /** CSS color or effect value. For a `paired` node this is the LIGHT value. */
   value: string;
-  /** Whether the value is a plain color or a composite effect (gradient/hero). */
-  category: 'color' | 'effect';
+  /**
+   * What kind of value this is.
+   *
+   * Issue 555 added `dimension`. The graph previously assumed every semantic token was a
+   * colour, which held only while the theme could express nothing but colour — the exact
+   * limitation the axis mechanism removes. A radius validated as a colour fails as one.
+   */
+  category: 'color' | 'effect' | 'dimension';
   /**
    * Which color scheme the value applies to.
    *
@@ -212,6 +218,25 @@ function createThemeNodes(theme: GdsVibeTheme): GdsTokenNode[] {
  * document. A parallel traversal here would reintroduce precisely the dual-source failure
  * that caused the 5.0.1 dark-mode defect and that issue 554 removed from this package.
  */
+/**
+ * Classifies a resolved token value.
+ *
+ * Deliberately conservative: anything that is not recognisably a colour or a length is an
+ * `effect`, never a guessed colour. Mis-typing a token as a colour makes the validator
+ * demand a colour and report a false error; mis-typing a colour as an effect makes it skip a
+ * real one. `effect` is the safer default because it is the one that does not fabricate a
+ * finding.
+ */
+function inferNodeCategory(role: string): GdsTokenNode['category'] {
+  // Issue 555. A first cut classified by VALUE, and it silently weakened the gate: any
+  // unparseable string became an 'effect' and escaped colour validation entirely, so
+  // `--gds-support: not-a-resolvable-color` stopped being an error. The gate mutation suite
+  // caught it as a SURVIVED mutant. Classifying by role name keeps the value as the thing
+  // being judged rather than the thing doing the judging.
+  if (/^radius-/.test(role)) return 'dimension';
+  return 'color';
+}
+
 function createSemanticNodes(theme: GdsVibeTheme): GdsTokenNode[] {
   const light = getGdsVibeThemeCssVariables(theme.id, 'light');
   const dark = getGdsVibeThemeCssVariables(theme.id, 'dark');
@@ -233,7 +258,7 @@ function createSemanticNodes(theme: GdsVibeTheme): GdsTokenNode[] {
         themeId: theme.id,
         role,
         value: light[property],
-        category: 'color' as const,
+        category: inferNodeCategory(role),
         mode: 'paired' as const,
         scheme: { light: light[property], dark: dark[property] ?? light[property] },
         lane: 'semantic' as const,
