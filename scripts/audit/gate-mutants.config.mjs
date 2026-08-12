@@ -261,6 +261,20 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:generated-imagery-only',
+    script: null,
+    mutants: [
+      {
+        id: 'imagery-detects-external-image',
+        claim: 'Detects an image the site renders from a third-party host',
+        file: 'apps/playground/src/pattern-pages.tsx',
+        find: '            preview={(',
+        replace: '            preview={<img alt="x" src="https://picsum.photos/id/1/64/64" />}\n            unusedPreview={(',
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:theme-identity',
     script: null,
     mutants: [

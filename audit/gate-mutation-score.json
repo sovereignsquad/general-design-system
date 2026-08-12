@@ -1,9 +1,9 @@
 {
-  "releaseChainGates": 34,
-  "gatesWithMutants": 21,
+  "releaseChainGates": 35,
+  "gatesWithMutants": 22,
   "gatesExempted": 15,
-  "mutantsRun": 27,
-  "killed": 27,
+  "mutantsRun": 28,
+  "killed": 28,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -89,6 +89,13 @@
       "gate": "verify:token-single-source",
       "mutantId": "single-source-detects-one-path-override",
       "claim": "Detects the two consumption paths resolving one role to different values",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:generated-imagery-only",
+      "mutantId": "imagery-detects-external-image",
+      "claim": "Detects an image the site renders from a third-party host",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
