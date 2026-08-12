@@ -33,6 +33,10 @@ const CSS_ENV_TYPE = `${GDS_EXT}.cssEnv`;
 // not a static DTCG color and calling it one would hand a consuming tool a string it cannot
 // parse while telling it the string is a colour.
 const CSS_COMPUTED_TYPE = `${GDS_EXT}.cssComputed`;
+// A mode keyword (`comfortable`) is not a colour, a length or a duration. DTCG has no type
+// for "one of a closed set of names", and calling it a string would tell a design tool it can
+// be edited freely when it cannot.
+const CSS_KEYWORD_TYPE = `${GDS_EXT}.cssKeyword`;
 
 /**
  * DTCG type for a value, or a thrown error.
@@ -52,6 +56,7 @@ function inferDtcgType(id, value) {
   if (/^env\(/.test(v)) return CSS_ENV_TYPE;
   if (/var\(|color-mix\(/.test(v)) return CSS_COMPUTED_TYPE;
   if (/^(transparent|none|currentColor)$/.test(v)) return 'color';
+  if (/^(compact|comfortable|spacious)$/.test(v)) return CSS_KEYWORD_TYPE;
   throw new Error(`Cannot infer DTCG type for ${id}: "${v}". Add an explicit rule rather than shipping a guessed $type.`);
 }
 
@@ -186,6 +191,7 @@ function buildDtcgDocument() {
         cssGradientType: CSS_GRADIENT_TYPE,
         cssEnvType: CSS_ENV_TYPE,
         cssComputedType: CSS_COMPUTED_TYPE,
+        cssKeywordType: CSS_KEYWORD_TYPE,
         note: 'Regenerated and drift-checked in CI (verify:tokens-dtcg). The code tokens remain the single source of truth.',
       },
     },

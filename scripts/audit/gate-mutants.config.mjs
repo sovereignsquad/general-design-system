@@ -261,6 +261,20 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:density-token-adoption',
+    script: null,
+    mutants: [
+      {
+        id: 'density-detects-hardcoded-spacing',
+        claim: 'Detects a component hardcoding spacing instead of reading the density axis',
+        file: 'packages/gds-core/src/EditorialHero.tsx',
+        find: "padding: 'var(--gds-space-xs) var(--gds-space-md)'",
+        replace: "padding: '0.625rem 1rem'",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:shape-token-adoption',
     script: null,
     mutants: [

@@ -18,6 +18,75 @@
  * is.
  */
 export const EXTENSION_POINTS = {
+  // ── Density axis (issue 556) ──
+  // Same reasoning as the shape roles below: every step and size is emitted for every preset
+  // so a consumer or a future component can read it. The axis guarantees presence, not
+  // consumption.
+  '--gds-space-none': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-space-3xs': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-space-2xs': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-space-xs': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-space-sm': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-space-md': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-space-lg': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-space-xl': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-space-2xl': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-space-3xl': {
+    reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-control-height-xs': {
+    reason: 'Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-control-height-sm': {
+    reason: 'Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-control-height-md': {
+    reason: 'Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-control-height-lg': {
+    reason: 'Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-control-height-xl': {
+    reason: 'Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.',
+    reviewBy: '2027-08-01',
+  },
+  '--gds-density': {
+    reason: 'Density-axis mode keyword (issue 556). Exposed so CSS and consumers can branch on the active density without re-deriving it from spacing values.',
+    reviewBy: '2027-08-01',
+  },
+
   // ── Shape axis (issue 555) ──
   // A role token is emitted for EVERY role in EVERY preset, deliberately: a component
   // reading --gds-radius-pin must never land on an undefined variable because one preset

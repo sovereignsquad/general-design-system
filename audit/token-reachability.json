@@ -1,7 +1,7 @@
 {
-  "declared": 125,
-  "referenced": 66,
-  "extensionPoints": 32,
+  "declared": 141,
+  "referenced": 69,
+  "extensionPoints": 46,
   "pendingWireUp": 1,
   "unreachableCount": 0,
   "budget": 0,
@@ -60,6 +60,48 @@
       "classification": "extension-point",
       "reason": "Pressed-state brand colour. GDS's own buttons delegate pressed styling to Mantine's variant handling, so no GDS rule reads it; it exists for consumer-built controls that need the lane's pressed value.",
       "reviewBy": "2027-02-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-control-height-lg",
+      "classification": "extension-point",
+      "reason": "Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-control-height-md",
+      "classification": "extension-point",
+      "reason": "Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-control-height-sm",
+      "classification": "extension-point",
+      "reason": "Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-control-height-xl",
+      "classification": "extension-point",
+      "reason": "Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-control-height-xs",
+      "classification": "extension-point",
+      "reason": "Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-density",
+      "classification": "extension-point",
+      "reason": "Density-axis mode keyword (issue 556). Exposed so CSS and consumers can branch on the active density without re-deriving it from spacing values.",
+      "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
@@ -206,6 +248,62 @@
       "token": "--gds-radius-xs",
       "classification": "extension-point",
       "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-space-2xl",
+      "classification": "extension-point",
+      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-space-2xs",
+      "classification": "extension-point",
+      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-space-3xl",
+      "classification": "extension-point",
+      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-space-3xs",
+      "classification": "extension-point",
+      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-space-lg",
+      "classification": "extension-point",
+      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-space-none",
+      "classification": "extension-point",
+      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-space-sm",
+      "classification": "extension-point",
+      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-space-xl",
+      "classification": "extension-point",
+      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
       "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },

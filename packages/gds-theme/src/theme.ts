@@ -1,6 +1,6 @@
 import { DEFAULT_THEME, createTheme, mergeMantineTheme, mergeThemeOverrides, type MantineTheme, type MantineThemeOverride } from '@mantine/core';
 import { getGdsMotionPreset } from './motion';
-import { GDS_DEFAULT_SHAPE_AXIS } from './axes';
+import { GDS_DEFAULT_DENSITY_AXIS, GDS_DEFAULT_SHAPE_AXIS } from './axes';
 
 const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
   primaryColor: 'violet',
@@ -15,6 +15,17 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
   //
   // `none` and `pill` are intentionally absent: Mantine's scale has no such keys, and
   // inventing them here would put values in a map Mantine will never read.
+  // Issue 556: Mantine's spacing scale is fed from the density axis for the same reason the
+  // radius scale is fed from the shape axis — otherwise `p="md"` and `--mantine-spacing-md`
+  // would resolve through a different declaration than `--gds-space-md`, and the axis would
+  // be a parallel scale rather than the source.
+  spacing: {
+    xs: GDS_DEFAULT_DENSITY_AXIS.scale.xs,
+    sm: GDS_DEFAULT_DENSITY_AXIS.scale.sm,
+    md: GDS_DEFAULT_DENSITY_AXIS.scale.md,
+    lg: GDS_DEFAULT_DENSITY_AXIS.scale.lg,
+    xl: GDS_DEFAULT_DENSITY_AXIS.scale.xl,
+  },
   radius: {
     xs: GDS_DEFAULT_SHAPE_AXIS.scale.xs,
     sm: GDS_DEFAULT_SHAPE_AXIS.scale.sm,
