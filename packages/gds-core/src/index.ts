@@ -22,6 +22,7 @@ export * from './icons';
 export * from './badge-shapes';
 export * from './GdsBadgeStack';
 export * from './GdsBadge';
+export * from './GdsAccentContrastMatrix';
 export * from './GdsCountBadge';
 export * from './GdsMapPinBadge';
 export * from './category-registry';

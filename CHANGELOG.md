@@ -87,6 +87,25 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Theme Lab live accent contrast matrix (#596)**: `GdsAccentContrastMatrix` renders every
+  accent × shade × mode for the selected preset and scheme, with its **measured ratio and
+  required threshold** — never a bare "fails". A theme author sees which combinations pass
+  before shipping rather than after a failed build.
+
+  **It reads the same evaluator the gate does.** A second computation could disagree with
+  `verify:accent-contrast`, and a UI that contradicts the build is worse than no UI.
+
+  **The matrix clears the floor it reports on.** State is carried by icon and numeric ratio,
+  not colour — a component reporting on accessibility that failed 1.4.1 itself would be worse
+  than not shipping it. The table is captioned, so a screen-reader user knows what 120 numbers
+  mean before reading them, and accents are row headers rather than plain cells.
+
+  Under `auto` colour scheme it renders **both** tables: `auto` means "follow the OS", so a
+  single table would show one scheme's numbers while the reader might be looking at the other.
+
+  Modes the gate does not enforce are shown and marked, with the reason — hiding them would
+  make the matrix look like it covers less than it does. Copy added in all 8 locales.
+
 - **Scheme-aware badge tones, resolving #534 (#595)**: badge tone colours are now **computed
   pairs** — background and foreground derived against each other, per preset, per scheme.
 

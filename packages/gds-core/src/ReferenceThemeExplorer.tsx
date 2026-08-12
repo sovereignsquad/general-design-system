@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { GdsAccentContrastMatrix } from './GdsAccentContrastMatrix';
 import {
   Badge,
   Box,
@@ -899,6 +900,22 @@ export function ReferenceThemeExplorer({
             </Paper>
           </SimpleGrid>
         </Stack>
+      </ReferenceSection>
+
+      {/*
+        Issue 596. The matrix reads the SAME evaluator `verify:accent-contrast` uses, and is
+        wired to the explorer's own preset/scheme state — so a theme author changes the lane
+        above and sees the contrast consequence immediately, rather than after a failed build.
+      */}
+      <ReferenceSection title={copy.accentContrastTitle} description={copy.accentContrastDescription}>
+        {/*
+          `auto` means "follow the OS", so a single table would show one scheme's numbers
+          while the reader might be looking at the other. Both are rendered instead — the
+          caption on each states which scheme it measured, so nothing is implied.
+        */}
+        {(colorScheme === 'auto' ? (['light', 'dark'] as const) : ([colorScheme] as const)).map((scheme) => (
+          <GdsAccentContrastMatrix key={scheme} preset={preset} colorScheme={scheme} />
+        ))}
       </ReferenceSection>
     </Stack>
   );
