@@ -9,3 +9,7 @@ dist
 .next/
 *.tsbuildinfo
 .npmrc
+
+# Issue 562: the coverage-matrix findings list varies with render timing (issue 599).
+# The stable measurement is committed; this diagnostic detail is not.
+audit/theme-coverage-matrix.findings.json

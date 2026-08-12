@@ -46,6 +46,11 @@ function measure(key) {
   };
 
   switch (key) {
+    case 'themeMatrixUntraceableRate':
+      // Issue 562. Deliberately a SEPARATE key from untraceableRenderRate: same word, wider
+      // lens, different number. Reusing the name would make the two look comparable, which is
+      // the trap finding F24 named.
+      return read('theme-coverage-matrix.json')?.untraceableRate;
     case 'untraceableRenderRate': {
       const a = read('backward-trace.json');
       return a && +(a.totalLiteralObservations / a.totalObservations * 100).toFixed(1);

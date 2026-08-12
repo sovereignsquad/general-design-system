@@ -1,6 +1,16 @@
 {
   "rows": [
     {
+      "key": "themeMatrixUntraceableRate",
+      "measured": 34,
+      "value": 34,
+      "direction": "max",
+      "unit": "%",
+      "finding": "F5 (issue 562)",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
       "key": "untraceableRenderRate",
       "measured": 18.4,
       "value": 18.4,
