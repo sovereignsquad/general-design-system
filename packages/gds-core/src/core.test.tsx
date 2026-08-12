@@ -3047,12 +3047,19 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(ornamentalEyebrow.getAttribute('style') ?? '').toContain('letter-spacing');
   });
 
-  it('renders status badges with a light semantic variant', () => {
+  it('renders status badges from the governed soft tone pair, not Mantine\'s light variant', () => {
+    // Issue 595 / #534. This asserted `variant="light"` — Mantine's pastel-on-tint pattern,
+    // which measured 1.81:1 and 2.55:1 in dark mode. GDS never controlled that pair, and an
+    // rgba tint's contrast cannot be computed at all. The tone now comes from tokens whose
+    // foreground is derived against the background it lands on.
     renderWithGds(<StatusBadge status="warning">Needs review</StatusBadge>);
 
     const badge = screen.getByText('Needs review');
     expect(badge).toBeInTheDocument();
-    expect(badge.closest('[data-variant="light"]')).toBeInTheDocument();
+    const root = badge.closest('[data-gds-badge-fixed-tone]') as HTMLElement;
+    expect(root).toBeInTheDocument();
+    expect(root.style.background).toContain('--gds-badge-soft-warning');
+    expect(root.style.color).toContain('--gds-badge-soft-warning-fg');
   });
 
   it('marks StatusBadge and LabelTag as fixed-tone so theme presets cannot repaint their semantic color', () => {

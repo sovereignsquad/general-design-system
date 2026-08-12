@@ -1,6 +1,6 @@
 {
   "presetsChecked": 50,
-  "rulesEvaluated": 7,
+  "rulesEvaluated": 8,
   "violationCount": 0,
   "rules": [
     {
@@ -38,6 +38,12 @@
       "axis": "motion",
       "wcag": "2.3.3 Animation from Interactions (AAA)",
       "rationale": "A theme may make motion calmer than the user asked for; it may never make it louder."
+    },
+    {
+      "id": "badge-tone-pairs-legible",
+      "axis": "color",
+      "wcag": "1.4.3 Contrast (Minimum) (AA)",
+      "rationale": "A status badge is often the only signal that something needs attention, so an illegible one is a functional failure rather than a cosmetic one."
     },
     {
       "id": "disabled-control-still-distinguishable",

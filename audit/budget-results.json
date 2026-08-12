@@ -32,8 +32,8 @@
     },
     {
       "key": "publishedGraphOverlap",
-      "measured": 169,
-      "value": 169,
+      "measured": 189,
+      "value": 189,
       "direction": "min",
       "unit": "count",
       "finding": "F12",

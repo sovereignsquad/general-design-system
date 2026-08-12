@@ -37,6 +37,8 @@ const canaryTokens = {
   '--gds-motion-policy': 'never-reduce',
   '--gds-control-disabledText': '#cccccc',
   '--gds-control-disabledBg': '#cccccc',
+  '--gds-badge-soft-info': '#ffffff',
+  '--gds-badge-soft-info-fg': '#fefefe',
 };
 const canary = validateGdsAccessibilityFloor({ presetId: 'canary', scheme: 'light', tokens: canaryTokens });
 const canaryRules = new Set(canary.map((v) => v.ruleId));

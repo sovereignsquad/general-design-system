@@ -15,6 +15,7 @@
 // with the first, and two accessibility verdicts on one pair is worse than one.
 
 import { createGdsThemeAccessibilityReport } from './accessibility-report';
+import { contrastRatio } from './color-math';
 import {
   GDS_CONTROL_HEIGHT_EXCEPTIONS,
   GDS_CONTROL_SIZES,
@@ -162,6 +163,32 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
       if (['system', 'reduce', 'no-motion'].includes(policy)) return [];
       return [violation(ctx, this, policy, 'system | reduce | no-motion',
         'Remove the policy override; there is no value that ignores a reduced-motion preference.')];
+    },
+  },
+  {
+    id: 'badge-tone-pairs-legible',
+    axis: 'color',
+    wcag: '1.4.3 Contrast (Minimum) (AA)',
+    rationale: 'A status badge is often the only signal that something needs attention, so an illegible one is a functional failure rather than a cosmetic one.',
+    evaluate(ctx) {
+      const out: GdsFloorViolation[] = [];
+      for (const lane of ['soft', 'solid'] as const) {
+        for (const tone of ['success', 'warning', 'danger', 'info', 'neutral'] as const) {
+          const bg = ctx.tokens[`--gds-badge-${lane}-${tone}`];
+          const fg = ctx.tokens[`--gds-badge-${lane}-${tone}-fg`];
+          if (!bg || !fg) {
+            out.push(violation(ctx, this, `${lane}-${tone} missing`, 'both halves emitted',
+              'Emit the pair from emitBadgeToneCssVariables; a half-emitted pair renders an unverifiable badge.'));
+            continue;
+          }
+          const ratio = contrastRatio(fg, bg, bg);
+          if (ratio === null || ratio < 4.5) {
+            out.push(violation(ctx, this, `${lane}-${tone} = ${ratio ?? 'unresolvable'}:1`, '>= 4.5:1',
+              'The foreground is derived against the background; if this fails, the derivation or the state colour changed.'));
+          }
+        }
+      }
+      return out;
     },
   },
   {

@@ -265,6 +265,9 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
   delete vars['--gds-text-onInverse-dark'];
   vars['--gds-state-success'] = tokens['state.success'].light;
   vars['--gds-state-success-dark'] = tokens['state.success'].dark;
+  // Issue 595: badge tone pairs are derived from the state colours above, so they cannot
+  // disagree with them and no lane can forget to emit them.
+  Object.assign(vars, emitBadgeToneCssVariables(vars));
   return vars;
 }
 
@@ -360,7 +363,7 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
   const textOnSupportLight = readableForeground(supportLight, 4.5, vibe.canvasLight);
   const textOnSupportDark = readableForeground(supportDark, 4.5, vibe.canvasDark);
 
-  return {
+  const derived: Record<string, string> = {
     '--gds-brand-primary': vibe.textLight,
     '--gds-brand-primary-dark': vibe.textDark,
     '--gds-brand-primary-pressed': vibe.canvasDark,
@@ -430,4 +433,68 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
     '--gds-control-disabledText': vibe.mutedLight,
     '--gds-control-disabledText-dark': vibe.mutedDark,
   };
+  // Issue 595: badge tone pairs are derived from the state colours above, so they cannot
+  // disagree with them and no lane can forget to emit them.
+  Object.assign(derived, emitBadgeToneCssVariables(derived));
+  return derived;
+}
+
+
+/**
+ * Badge tone pairs with COMPUTED foregrounds (issue 595, resolving #534).
+ *
+ * Two distinct defects, both measured before this was written:
+ *
+ * 1. #534 — `StatusBadge` renders Mantine's `variant="light"`: pastel text on a low-alpha
+ *    tint of the same hue. Swept in dark mode it measures 1.81:1 and 2.55:1, well under any
+ *    threshold. GDS never controlled that pair, because it came from Mantine's variant rather
+ *    than from a GDS token.
+ *
+ * 2. Found while verifying the first — `toneColors.success` reads `--gds-state-success` while
+ *    the other three tones read their `-dark` variants. With a fixed white foreground it
+ *    fails 4.5:1 in 9 of 25 presets in LIGHT mode (class-usa 4.10, sunset 4.40). That is a
+ *    shipped defect, not a theoretical one, and the inconsistency is why it survived: three
+ *    tones were pinned dark and one was not.
+ *
+ * The fix for both is the same and it is the pattern issue 537 established for `support`:
+ * never pair a fixed foreground with a variable background. The foreground is DERIVED against
+ * the background it actually lands on, per preset, per scheme.
+ */
+const BADGE_TONES = ['success', 'warning', 'danger', 'info'] as const;
+
+export function emitBadgeToneCssVariables(base: Record<string, string>): Record<string, string> {
+  const vars: Record<string, string> = {};
+  const page = base['--gds-bg-page'] ?? '#ffffff';
+  const card = base['--gds-bg-card'] ?? page;
+  const pageDark = base['--gds-bg-page-dark'] ?? '#000000';
+  const cardDark = base['--gds-bg-card-dark'] ?? pageDark;
+
+  for (const tone of BADGE_TONES) {
+    for (const [suffix, surface] of [['', card], ['-dark', cardDark]] as const) {
+      const solid = base[`--gds-state-${tone}${suffix}`];
+      if (!solid) continue;
+
+      // SOLID lane: the badge is filled with the state colour.
+      vars[`--gds-badge-solid-${tone}${suffix}`] = solid;
+      vars[`--gds-badge-solid-${tone}-fg${suffix}`] = readableForeground(solid, 4.5, surface);
+
+      // SOFT lane: a tint of the state colour over the card surface, which is what
+      // `variant="light"` was approximating without any contrast guarantee. Mixing against a
+      // real surface rather than using alpha means the result is an opaque colour whose
+      // contrast can actually be computed — an rgba tint cannot be, which is precisely how
+      // 1.81:1 shipped unnoticed.
+      const tint = mixCssColors(solid, surface, 0.16, surface);
+      vars[`--gds-badge-soft-${tone}${suffix}`] = tint;
+      vars[`--gds-badge-soft-${tone}-fg${suffix}`] = readableForeground(tint, 4.5, surface);
+    }
+  }
+
+  // NEUTRAL is not a state colour; it is the card surface itself with a governed border.
+  for (const [suffix, surface] of [['', card], ['-dark', cardDark]] as const) {
+    vars[`--gds-badge-soft-neutral${suffix}`] = surface;
+    vars[`--gds-badge-soft-neutral-fg${suffix}`] = readableForeground(surface, 4.5, surface);
+    vars[`--gds-badge-solid-neutral${suffix}`] = surface;
+    vars[`--gds-badge-solid-neutral-fg${suffix}`] = readableForeground(surface, 4.5, surface);
+  }
+  return vars;
 }
