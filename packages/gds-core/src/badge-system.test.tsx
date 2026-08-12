@@ -221,13 +221,15 @@ describe('GdsMapPinBadge (#501)', () => {
     );
     const outlinePin = outlineContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
     expect(outlinePin.getAttribute('fill')).toBe('none');
-    expect(outlinePin.getAttribute('stroke')).toBe(gdsBadgeAccentColors.teal);
+    // Issue 594: the pin references the accent token so it follows the theme; the
+    // axis-derived value rides along as the fallback.
+    expect(outlinePin.getAttribute('stroke')).toBe(`var(--gds-accent-teal-base, ${gdsBadgeAccentColors.teal})`);
 
     const { container: filledContainer } = renderWithGds(
       <GdsMapPinBadge accent="teal" icon="Habit" label="Swimming" filled />,
     );
     const filledPin = filledContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
-    expect(filledPin.getAttribute('fill')).toBe(gdsBadgeAccentColors.teal);
+    expect(filledPin.getAttribute('fill')).toBe(`var(--gds-accent-teal-base, ${gdsBadgeAccentColors.teal})`);
   });
 
   it('the icon is never the same color as the pin fill: accent color in outline mode, inverse color once filled', () => {
@@ -244,7 +246,7 @@ describe('GdsMapPinBadge (#501)', () => {
       <GdsMapPinBadge accent="teal" icon="Habit" label="Swimming" />,
     );
     const outlineIconLayer = Array.from(outlineContainer.querySelectorAll('[data-gds-badge-stack-layer]')).at(-1) as HTMLElement;
-    expect(outlineIconLayer.style.color).toBe(cssColor(gdsBadgeAccentColors.teal));
+    expect(outlineIconLayer.style.color).toBe(`var(--gds-accent-teal-base, ${gdsBadgeAccentColors.teal})`);
 
     const { container: filledContainer } = renderWithGds(
       <GdsMapPinBadge accent="teal" icon="Habit" label="Swimming" filled />,
@@ -252,7 +254,7 @@ describe('GdsMapPinBadge (#501)', () => {
     const filledPin = filledContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
     const filledIconLayer = Array.from(filledContainer.querySelectorAll('[data-gds-badge-stack-layer]')).at(-1) as HTMLElement;
     expect(filledIconLayer.style.color).not.toBe(filledPin.getAttribute('fill'));
-    expect(filledIconLayer.style.color).not.toBe(cssColor(gdsBadgeAccentColors.teal));
+    expect(filledIconLayer.style.color).not.toBe(`var(--gds-accent-teal-base, ${gdsBadgeAccentColors.teal})`);
   });
 
   it('fillOpacity applies to the pin fill only, in filled mode; the icon layer never carries fill-opacity', () => {
@@ -282,17 +284,17 @@ describe('GdsMapPinBadge (#501)', () => {
   it('shade (#502) darkens accent for both the pin and outline-mode icon; defaults to base (unchanged from omitting the prop)', () => {
     const { container: baseContainer } = renderWithGds(<GdsMapPinBadge accent="forest" icon="Location" label="Trailhead" />);
     const basePin = baseContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
-    expect(basePin.getAttribute('stroke')).toBe(gdsBadgeAccentShades.forest.base);
-    expect(basePin.getAttribute('stroke')).toBe(gdsBadgeAccentColors.forest);
+    expect(basePin.getAttribute('stroke')).toBe(`var(--gds-accent-forest-base, ${gdsBadgeAccentShades.forest.base})`);
+    expect(basePin.getAttribute('stroke')).toBe(`var(--gds-accent-forest-base, ${gdsBadgeAccentColors.forest})`);
 
     const { container: deeperContainer } = renderWithGds(<GdsMapPinBadge accent="forest" shade="deeper" icon="Location" label="Trailhead" />);
     const deeperPin = deeperContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
-    expect(deeperPin.getAttribute('stroke')).toBe(gdsBadgeAccentShades.forest.deeper);
-    expect(deeperPin.getAttribute('stroke')).not.toBe(gdsBadgeAccentColors.forest);
+    expect(deeperPin.getAttribute('stroke')).toBe(`var(--gds-accent-forest-deeper, ${gdsBadgeAccentShades.forest.deeper})`);
+    expect(deeperPin.getAttribute('stroke')).not.toBe(`var(--gds-accent-forest-base, ${gdsBadgeAccentColors.forest})`);
 
     const { container: filledContainer } = renderWithGds(<GdsMapPinBadge accent="forest" shade="deepest" icon="Location" label="Trailhead" filled />);
     const filledPin = filledContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
-    expect(filledPin.getAttribute('fill')).toBe(gdsBadgeAccentShades.forest.deepest);
+    expect(filledPin.getAttribute('fill')).toBe(`var(--gds-accent-forest-deepest, ${gdsBadgeAccentShades.forest.deepest})`);
   });
 
   describe('emoji glyph mode (#525)', () => {
@@ -311,7 +313,7 @@ describe('GdsMapPinBadge (#501)', () => {
       );
       const pin = container.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
       expect(pin.getAttribute('fill')).toBe('var(--mantine-color-dark-7, #1f2937)');
-      expect(pin.getAttribute('stroke')).toBe(gdsBadgeAccentColors.terracotta);
+      expect(pin.getAttribute('stroke')).toBe(`var(--gds-accent-terracotta-base, ${gdsBadgeAccentColors.terracotta})`);
       expect(container.querySelector('svg[data-gds-icon]')).toBeNull();
       const glyphLayer = Array.from(container.querySelectorAll('[data-gds-badge-stack-layer]')).at(-1) as HTMLElement;
       expect(glyphLayer.textContent).toBe('🏀');

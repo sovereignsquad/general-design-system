@@ -87,6 +87,31 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Accent axis — components migrated (#594)**: `GdsBadge`, `GdsMapPinBadge` and the
+  generated-art engine now read `--gds-accent-*` instead of a module constant, so a category
+  colour follows the active theme.
+
+  **The two hand-authored tables in `gds-core` are gone.** `gdsBadgeAccentColors` (10 values)
+  and `gdsBadgeAccentShades` (40) are now *derived* from the axis and marked `@deprecated`;
+  they survive only as `var()` fallbacks and for non-DOM rendering. Nothing is typed by hand,
+  including the fallbacks — a hand-written fallback is a second definition that drifts the
+  moment the axis changes.
+
+  **The resolved-value split that made this its own slice.** `generated-art-engine` composes
+  OG images, share cards and email *outside a document*, where a CSS custom property resolves
+  to nothing — a `var()` there produces an unpainted shape rather than an error. It now has
+  two resolvers: `resolveCategoryColorToken` for the live DOM and `resolveCategoryColorHex`
+  for everything else, the latter resolving against the requested preset so a themed share
+  image carries that theme's accents. Every other consumer wants the reference; this one
+  needs both, which is why it could not be folded into #593.
+
+  The file's own comment justified the old behaviour — *"deliberately theme-independent fixed
+  sRGB, there is no variable to reference"*. That premise was true when written and the accent
+  axis makes it false; the comment is replaced rather than left to mislead.
+
+  Nine test assertions pinned the literal values. They were updated to assert the **new
+  contract** — token in the DOM, literal outside it — not loosened.
+
 - **Accent axis — token layer (#593, split from #560)**: the last frozen surface in GDS is
   now theme-controlled. `--gds-accent-<name>-<shade>` for 10 accents × 4 shades × 25 presets
   × 2 schemes, with `npm run verify:accent-contrast` chained into `verify:release`.

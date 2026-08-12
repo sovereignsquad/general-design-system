@@ -146,10 +146,16 @@ for (const [dir, kind] of [
   const vf = join(ROOT, 'packages/gds-theme/src/vibe-themes.ts');
   const src = readFileSync(vf, 'utf8');
   for (const m of src.matchAll(/^\s{2,4}id: '([^']+)'/gm)) add('theme', m[1], vf, lineOf(src, m.index));
-  const bf = join(ROOT, 'packages/gds-core/src/GdsBadge.tsx');
-  const b = readFileSync(bf, 'utf8');
-  const table = b.match(/gdsBadgeAccentColors[^=]*=\s*\{([\s\S]*?)\}/);
-  if (table) for (const m of table[1].matchAll(/(\w+):\s*'(#[0-9a-fA-F]{3,8})'/g)) add('accent', m[1], bf, lineOf(b, table.index), { value: m[2] });
+  // Issue 594 moved the accent definitions out of GdsBadge. This read a literal hex table
+  // there; that table is now DERIVED from the axis, so the extractor read a computed
+  // expression and found nothing. The kind fell to zero and the EXPECTED_KINDS guard caught
+  // it — which is the guard working, and the reason accents are read from their source now.
+  const af = join(ROOT, 'packages/gds-theme/src/accent-axis.ts');
+  const a = readFileSync(af, 'utf8');
+  const ramps = a.match(/GDS_DEFAULT_ACCENT_AXIS[^=]*=\s*\{[\s\S]*?ramps:\s*\{([\s\S]*?)\n  \},/);
+  if (ramps) for (const m of ramps[1].matchAll(/(\w+):\s*\{\s*base:\s*'(#[0-9a-fA-F]{3,8})'/g)) {
+    add('accent', m[1], af, lineOf(a, ramps.index), { value: m[2] });
+  }
 }
 
 // ── emit ────────────────────────────────────────────────────────────────────

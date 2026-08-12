@@ -6,7 +6,9 @@ import { GdsBadgeStack, GdsBadgeStackLayer } from './GdsBadgeStack';
 import { GdsBadgeShapePin } from './badge-shapes';
 import { GdsIcon } from './icons';
 import type { GdsIconKey } from './icons';
-import { gdsBadgeAccentShades } from './GdsBadge';
+import { resolveGdsAccentTokens } from '@sovereignsquad/gds-theme';
+
+const gdsResolvedAccentFallback = resolveGdsAccentTokens(undefined, 'light');
 import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
 
 /**
@@ -185,7 +187,10 @@ export function GdsMapPinBadge({
   emoji,
   iconStyle,
 }: GdsMapPinBadgeProps) {
-  const accentColor = gdsBadgeAccentShades[accent][shade];
+  // Issue 594: reference the token so a pin follows the active theme, with the axis-derived
+  // value as the fallback. The fallback is computed from the same source, never typed here —
+  // a hand-written fallback is a second definition that drifts the moment the axis changes.
+  const accentColor = `var(--gds-accent-${accent}-${shade}, ${gdsResolvedAccentFallback[`--gds-accent-${accent}-${shade}`]})`;
   const inverseColor = 'var(--gds-text-on-inverse, var(--mantine-color-white))';
   const resolvedIconStyle = useGdsBadgeIconStyle(iconStyle);
   // The failsafe (issue #525): a marker with no `emoji` keeps its Tabler

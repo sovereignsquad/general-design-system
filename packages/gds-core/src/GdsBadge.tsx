@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Badge } from '@mantine/core';
 import type { BadgeProps } from '@mantine/core';
-import { gdsDevWarnOnce, useGdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
+import { GDS_ACCENT_NAMES, GDS_ACCENT_SHADES, gdsDevWarnOnce, resolveGdsAccentTokens, useGdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
 import type { GdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
 import { GdsIcon } from './icons';
 import type { GdsIconKey } from './icons';
@@ -67,60 +67,52 @@ const toneColors: Record<GdsBadgeTone, BadgeColors> = {
  * ≥ 4.5:1 (WCAG AA normal) in badge tests via `pickGdsAutoForeground` — do
  * not edit a hex without the test confirming the pair still passes.
  */
-export const gdsBadgeAccentColors: Record<GdsBadgeAccentName, string> = {
-  plum: '#7c3a6e',
-  indigo: '#3f4d9e',
-  ocean: '#1f6e8c',
-  teal: '#0f766e',
-  forest: '#2f6b3a',
-  bronze: '#8a5a00',
-  terracotta: '#b04a2f',
-  magenta: '#a52a6c',
-  slate: '#52606d',
-  grape: '#5b3374',
-};
-
 /**
- * A within-accent differentiation step for {@link GdsMapPinBadge}'s `shade`
- * prop (issue #502): related sub-categories that should read as "the same
- * accent family" (e.g. several sports) but still be individually
- * distinguishable, without spending a second accent slot on each one.
+ * A within-accent differentiation step for {@link GdsMapPinBadge}'s `shade` prop (issue 502):
+ * related sub-categories that should read as "the same accent family" but stay individually
+ * distinguishable, without spending a second accent slot on each.
  *
- * **Darker-only, on purpose.** Sweeping lightness deltas across all 10
- * accents against the white icon color `GdsMapPinBadge` uses in filled mode
- * shows that lightening any accent — even slightly — drops some of them
- * below the 4.5:1 WCAG AA bar the base palette already guarantees (`teal`
- * fails first, at only +4 lightness; `ocean`/`bronze`/`forest`/`terracotta`
- * follow shortly after). Darkening has generous headroom for all 10, so
- * that's the only direction this axis offers.
+ * **Darker-only, on purpose.** Lightening any accent — even slightly — drops some below the
+ * 4.5:1 bar the palette guarantees (`teal` fails first, at only +4 lightness). The accent axis
+ * enforces that direction now; this type is the vocabulary for it.
  */
 export type GdsBadgeAccentShade = 'base' | 'deep' | 'deeper' | 'deepest';
 
 /**
- * Precomputed, contrast-verified shade steps for every accent (issue #502).
- * Each accent's four levels are spaced by interpolating *proportionally*
- * from that accent's own base lightness down to a shared lightness floor
- * (12%) — not a fixed absolute lightness delta. A fixed delta reaches the
- * floor at different levels for different accents (e.g. `teal`, which
- * starts darker than most), producing near-duplicate `deeper`/`deepest`
- * colors for exactly those accents; proportional spacing keeps all four
- * steps visually distinct for every accent. Every one of the 40 resulting
- * colors is verified ≥ 4.5:1 against white in badge tests (the same bar
- * `gdsBadgeAccentColors` itself is held to) — do not edit a hex without the
- * test confirming the pair still passes.
+ * Resolved default accent values, DERIVED from the accent axis (issue 594).
+ *
+ * These were two hand-authored tables — 10 base colours and 40 shades — living here as
+ * "fixed sRGB, independent of theme". They are now computed from
+ * `GDS_DEFAULT_ACCENT_AXIS`'s ten base colours by the axis's own derivation, so there is one
+ * definition of what `plum` means and it is not in this file.
+ *
+ * They exist at all only as FALLBACKS for `var(--gds-accent-*)` and for non-DOM rendering,
+ * where CSS custom properties do not resolve. Every value here comes from the axis; nothing
+ * is typed by hand.
  */
-export const gdsBadgeAccentShades: Record<GdsBadgeAccentName, Record<GdsBadgeAccentShade, string>> = {
-  plum: { base: '#7c3a6e', deep: '#612d56', deeper: '#45203d', deepest: '#2a1425' },
-  indigo: { base: '#3f4d9e', deep: '#303a78', deeper: '#212852', deepest: '#11152c' },
-  ocean: { base: '#1f6e8c', deep: '#18566e', deeper: '#123f50', deepest: '#0b2732' },
-  teal: { base: '#0f766e', deep: '#0c615a', deeper: '#0a4c46', deepest: '#073633' },
-  forest: { base: '#2f6b3a', deep: '#26562e', deeper: '#1c4023', deepest: '#132b17' },
-  bronze: { base: '#8a5a00', deep: '#704900', deeper: '#573900', deepest: '#3d2800' },
-  terracotta: { base: '#b04a2f', deep: '#853824', deeper: '#5b2618', deepest: '#30140d' },
-  magenta: { base: '#a52a6c', deep: '#7e2053', deeper: '#581639', deepest: '#310c20' },
-  slate: { base: '#52606d', deep: '#3f4a54', deeper: '#2d353c', deepest: '#1a1f23' },
-  grape: { base: '#5b3374', deep: '#48285c', deeper: '#351d43', deepest: '#21132b' },
-};
+const gdsResolvedAccentTokens = resolveGdsAccentTokens(undefined, 'light');
+
+const accentToken = (accent: GdsBadgeAccentName, shade: GdsBadgeAccentShade = 'base') =>
+  `var(--gds-accent-${accent}-${shade}, ${gdsResolvedAccentTokens[`--gds-accent-${accent}-${shade}`]})`;
+
+/**
+ * @deprecated Derived from the accent axis; read `var(--gds-accent-<name>-base)` instead so
+ * the value follows the active theme. Removed in 8.0.0.
+ */
+export const gdsBadgeAccentColors: Record<GdsBadgeAccentName, string> = Object.fromEntries(
+  GDS_ACCENT_NAMES.map((name) => [name, gdsResolvedAccentTokens[`--gds-accent-${name}-base`]]),
+) as Record<GdsBadgeAccentName, string>;
+
+/**
+ * @deprecated Derived from the accent axis; read `var(--gds-accent-<name>-<shade>)` instead.
+ * Removed in 8.0.0.
+ */
+export const gdsBadgeAccentShades: Record<GdsBadgeAccentName, Record<GdsBadgeAccentShade, string>> = Object.fromEntries(
+  GDS_ACCENT_NAMES.map((name) => [
+    name,
+    Object.fromEntries(GDS_ACCENT_SHADES.map((shade) => [shade, gdsResolvedAccentTokens[`--gds-accent-${name}-${shade}`]])),
+  ]),
+) as Record<GdsBadgeAccentName, Record<GdsBadgeAccentShade, string>>;
 
 interface GdsBadgeBaseProps extends Omit<BadgeProps, 'color' | 'children' | 'variant' | 'leftSection'> {
   /** Badge text — the meaning carrier. Required: color is never the only signal. */
@@ -225,7 +217,7 @@ export function GdsBadge(props: GdsBadgeProps) {
   }
 
   const colors: BadgeColors = accent
-    ? { bg: gdsBadgeAccentColors[accent], fg: '#ffffff' }
+    ? { bg: accentToken(accent), fg: `var(--gds-accent-${accent}-on, #ffffff)` }
     : toneColors[tone ?? 'neutral'];
 
   // The failsafe (issue #525): a badge with no `emoji` keeps its Tabler
