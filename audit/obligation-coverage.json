@@ -1,15 +1,15 @@
 {
-  "evaluated": 1078,
-  "gapCount": 409,
+  "evaluated": 1081,
+  "gapCount": 404,
   "excludedCount": 67,
   "byKind": {
     "prop": {
-      "evaluated": 967,
-      "gaps": 373
+      "evaluated": 968,
+      "gaps": 366
     },
     "variant": {
-      "evaluated": 101,
-      "gaps": 36
+      "evaluated": 103,
+      "gaps": 38
     },
     "accent": {
       "evaluated": 10,
@@ -17,7 +17,7 @@
     }
   },
   "unmodelled": [],
-  "budget": 409,
+  "budget": 404,
   "gaps": [
     {
       "atom": "ContentOpsSectionProps.tone=critical",
@@ -30,34 +30,6 @@
         {
           "obligation": "variationShown",
           "why": "literal 'critical' is rendered by no playground demo"
-        }
-      ]
-    },
-    {
-      "atom": "PageHeaderProps.title",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-admin/src/PageHeader.tsx",
-        "line": 20
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "WorkspaceHeaderProps.title",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-admin/src/WorkspaceHeader.tsx",
-        "line": 5
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
         }
       ]
     },
@@ -1602,20 +1574,6 @@
       ]
     },
     {
-      "atom": "GameBoardTileProps.matched",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/GameBoardTile.tsx",
-        "line": 9
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
       "atom": "GameBoardTileProps.disabled",
       "kind": "prop",
       "source": {
@@ -1663,20 +1621,6 @@
       "source": {
         "file": "packages/gds-core/src/GdsAssetManager.client.tsx",
         "line": 103
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "GdsBadgeStackProps.size",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/GdsBadgeStack.tsx",
-        "line": 24
       },
       "unmet": [
         {
@@ -2064,30 +2008,30 @@
       ]
     },
     {
-      "atom": "GdsGeneratedThumbnailProps.categories",
-      "kind": "prop",
+      "atom": "GdsMapProps.listPlacement=below",
+      "kind": "variant",
       "source": {
-        "file": "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
-        "line": 78
+        "file": "packages/gds-core/src/GdsMap.client.tsx",
+        "line": 48
       },
       "unmet": [
         {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
+          "obligation": "variationShown",
+          "why": "literal 'below' is rendered by no playground demo"
         }
       ]
     },
     {
-      "atom": "GdsMapPinBadgeProps.size",
-      "kind": "prop",
+      "atom": "GdsMapProps.listPlacement=above",
+      "kind": "variant",
       "source": {
-        "file": "packages/gds-core/src/GdsMapPinBadge.tsx",
-        "line": 76
+        "file": "packages/gds-core/src/GdsMap.client.tsx",
+        "line": 48
       },
       "unmet": [
         {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
+          "obligation": "variationShown",
+          "why": "literal 'above' is rendered by no playground demo"
         }
       ]
     },
@@ -3059,20 +3003,6 @@
     },
     {
       "atom": "MediaFieldProps.error",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/MediaField.tsx",
-        "line": 21
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "MediaFieldProps.mode",
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/MediaField.tsx",

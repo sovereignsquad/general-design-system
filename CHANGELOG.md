@@ -87,6 +87,33 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Map accessibility surface (#568)**: `GdsMap` renders a text-equivalent marker list, a
+  throttled live region, and selection state exposed to assistive technology.
+
+  **The list is not optional and not opt-out.** `listPlacement` moves it; nothing removes it. A
+  prop that hid it would make conformance a consumer choice — and for a raster map the list *is*
+  the conformance path, because tile imagery is decorative by nature and cannot be described.
+
+  **One ordering, shared by map and list**, sorted by label rather than left in insertion order:
+  a list sequenced by "whatever the API returned" is not navigable, and a keyboard user
+  traversing it cannot tell where they are.
+
+  **Announcements are throttled and coalesced.** Continuous panning fires `moveend` repeatedly,
+  and an unthrottled live region turns that into a screen reader reading coordinates over and
+  over — worse than silence, because the user cannot escape it. What it says is informative
+  rather than a coordinate readout: *"12 places in view"*.
+
+  Selection is carried by `aria-pressed` and a **border**, not only a background tint — under
+  forced colors a background is replaced by the system palette and selection would vanish,
+  which is the state a keyboard user most needs to see. An approximate position says so rather
+  than implying precision.
+
+  **Conformance claim, scoped per Rule 12**: keyboard operability of the list, selection
+  exposure, ordering stability, live-region politeness, and the empty state are covered by
+  automated tests. **Not covered**: real screen-reader output, forced-colors rendering in a
+  browser, and Leaflet's own keyboard panning — those need the runtime harness and are stated
+  as gaps rather than implied by the tests that do pass.
+
 - **Governed map surface on OpenStreetMap (#566, #567)**: `@sovereignsquad/gds-core/map`
   exports `GdsMap` — Leaflet-backed, real OSM raster tiles, on a dedicated subpath so consumers
   who never render a map do not pay for a browser-only 40KB engine.
