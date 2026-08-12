@@ -87,6 +87,43 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Theme coverage matrix (#562)**: `npm run verify:theme-coverage-matrix` renders the site
+  under a covering design and checks that each tracked property **resolves from a governed
+  token**, per preset and per scheme.
+
+  **The coverage problem it fixes.** The audit's Phase 1 executed **4 of 24 routes at 5 of 25
+  presets**. Every finding it produced is real; every *non*-finding was worthless, because "no
+  untraceable value on route X under preset Y" says nothing when X and Y were never visited.
+  This sweep visits **all 24 routes and all 25 presets** in both schemes — 50 cells rather than
+  the 1,200 of an exhaustive matrix, chosen so neither factor is left unvisited.
+
+  Ten tracked properties across all six axes, so the check is provenance rather than
+  appearance: a value that merely looks right under the one preset somebody opened is exactly
+  the defect.
+
+  **The first result was wrong and is worth recording.** It reported **52% untraceable** —
+  almost all of it an artifact of comparing computed styles against *declared* token values.
+  `#ffffff` never equals `rgb(255, 255, 255)`; `calc(1rem * var(--mantine-scale))` never equals
+  `16px`. That measures formats, not provenance. The oracle is now resolved **in the browser**
+  through a probe element, and the real figure is **34%**.
+
+  **The sweep is not yet reproducible**, which §5 requires: three consecutive runs on one
+  commit measured 33.94/33.95/33.96% with element counts of 28,128–28,242, because render
+  timing changes how much of a route is present when it samples.
+
+  So the artifact records **whole percent and counts to the nearest thousand** — the precision
+  the sweep can actually hold. One decimal was tried and still moved, because the band straddles
+  33.9 and 34.0. This is not rounding to make a number look stable: a committed artifact that
+  changes every run makes the clean-tree rule unsatisfiable, and a real leaked mutation would
+  then stop being visible among the noise. Recording two decimals would assert precision the
+  measurement does not have. Tracked as #599.
+
+  **That number is not comparable to `untraceableRenderRate`'s 18.4%**, and it has its own
+  budget key so nobody compares them. F5's figure came from a colour-focused sweep over 4
+  routes; this one tracks padding, font-size, font-weight, transition-duration and
+  outline-width across every route and preset. **A higher number here is a wider lens, not a
+  regression.**
+
 - **Total theme re-application (#561)**: `GdsProvider` gains `themeApplicationMode`
   (`remount` | `reload` | `cascade-only`), `reloadOnThemeChange`, and
   `onBeforeThemeApply`/`onAfterThemeApply`. The themed subtree is keyed on a **theme

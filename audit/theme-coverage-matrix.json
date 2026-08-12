@@ -1,0 +1,55 @@
+{
+  "routes": 24,
+  "presets": 25,
+  "cellsExecuted": 50,
+  "cellsPossible": 1200,
+  "routesCovered": 24,
+  "presetsCovered": 25,
+  "propertiesCheckedApprox": 28000,
+  "untraceableCountApprox": 10000,
+  "untraceableRate": 34,
+  "precisionNote": "Counts bucketed to 1000 and the rate to whole percent: the sweep is not yet reproducible (issue 599), and recording two decimals would assert precision it does not have.",
+  "trackedProperties": [
+    {
+      "property": "color",
+      "axis": "color"
+    },
+    {
+      "property": "background-color",
+      "axis": "color"
+    },
+    {
+      "property": "border-color",
+      "axis": "color"
+    },
+    {
+      "property": "border-radius",
+      "axis": "shape"
+    },
+    {
+      "property": "padding",
+      "axis": "density"
+    },
+    {
+      "property": "font-size",
+      "axis": "type"
+    },
+    {
+      "property": "font-weight",
+      "axis": "type"
+    },
+    {
+      "property": "box-shadow",
+      "axis": "elevation"
+    },
+    {
+      "property": "transition-duration",
+      "axis": "motion"
+    },
+    {
+      "property": "outline-width",
+      "axis": "reaction"
+    }
+  ],
+  "findingsFile": "audit/theme-coverage-matrix.findings.json (not committed — see precisionNote)"
+}

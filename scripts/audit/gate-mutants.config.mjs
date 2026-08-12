@@ -30,6 +30,7 @@ export const EXEMPTIONS = {
   'verify:theme-trust-runtime': { reason: 'Browser-driven; see above.', reviewBy: '2026-12-01' },
   'verify:input-zoom-guard-runtime': { reason: 'Browser-driven; see above.', reviewBy: '2026-12-01' },
   'verify:kanban-drag-accessibility-runtime': { reason: 'Browser-driven; see above.', reviewBy: '2026-12-01' },
+  'verify:theme-coverage-matrix': { reason: 'Browser-driven CDP sweep over 50 route x preset x scheme cells; needs the rebuild-aware harness pattern from issue 579, same as the other runtime gates. Tracked, not waived.', reviewBy: '2026-12-01' },
   'verify:references': { reason: 'Aggregate of 25 sub-gates; mutants belong on the individual scripts rather than the aggregate. Tracked.', reviewBy: '2026-12-01' },
   // These read from dist/, so a source mutation is invisible to them without a rebuild.
   // Solvable exactly as verify:theme-tokens now is (requiresBuild), but each needs its

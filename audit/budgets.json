@@ -17,6 +17,15 @@
     "clean artifacts and asserts no mutant marker survives. These are the clean figures."
   ],
   "budgets": {
+    "themeMatrixUntraceableRate": {
+      "source": "theme-coverage-matrix.json#/untraceableRate",
+      "direction": "max",
+      "value": 34,
+      "unit": "%",
+      "finding": "F5 (issue 562)",
+      "justifiedBy": "issue 562: first covering sweep — 50 cells over ALL 24 routes and ALL 25 presets in both schemes, ~28200 properties checked. Budget set at 34 to sit just above the measured ceiling; see $comment for the variance band.",
+      "$comment": "NOT the same measurement as untraceableRenderRate (18.4%), and must never be compared to it. That figure came from the audit's Phase 1 colour-focused sweep over 4 routes x 5 presets. This one tracks ten properties across six axes (including padding, font-size, font-weight, transition-duration and outline-width) over every route and every preset. A higher number here is a wider lens, not a regression. A first run reported 52% because it compared computed values against DECLARED token values — `#ffffff` never equals `rgb(255, 255, 255)` — so the oracle is now resolved in the browser. NOT YET DETERMINISTIC, which issue 562 section 5 requires: three consecutive runs measured 33.94, 33.95 and 33.96 percent with element counts of 28128-28242, because render timing changes how much of a route is present when the sweep samples it. The budget sits at 34 to sit above that band rather than pretending the band does not exist; tightening it depends on making the sweep reproducible, tracked separately."
+    },
     "untraceableRenderRate": {
       "source": "backward-trace.json#/totalLiteralObservations,/totalObservations",
       "direction": "max",
