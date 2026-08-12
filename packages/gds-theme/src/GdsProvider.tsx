@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import type { MantineThemeOverride } from '@mantine/core';
 import { MantineProvider, DirectionProvider, Box, useComputedColorScheme } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { gdsTheme } from './theme';
+import { computeGdsThemeIdentity, gdsThemeIdentityChanged, type GdsThemeApplicationMode, type GdsThemeIdentity } from './theme-identity';
 import { GdsI18nContext, isGdsRtlLocale } from './i18n';
 import { GdsIconStyleContext, type GdsBadgeIconStyle } from './icon-style';
 import { OverlayAdapterProvider, mantineOverlayAdapter, type OverlayAdapter } from './overlay-adapter';
@@ -44,6 +45,18 @@ export interface GdsProviderProps {
    * locally via their own `iconStyle` prop.
    */
   defaultBadgeIconStyle?: GdsBadgeIconStyle;
+  /**
+   * How a theme change is applied (issue 561). Defaults to `remount`: the themed subtree is
+   * keyed on the theme identity, so values read OUTSIDE the CSS cascade are re-created rather
+   * than left holding the previous theme.
+   */
+  themeApplicationMode?: GdsThemeApplicationMode;
+  /** Convenience alias for `themeApplicationMode: 'reload'`. */
+  reloadOnThemeChange?: boolean;
+  /** Called BEFORE re-application, so a consumer can persist state that would not survive it. */
+  onBeforeThemeApply?: (next: GdsThemeIdentity, previous: GdsThemeIdentity) => void;
+  /** Called after re-application completes. */
+  onAfterThemeApply?: (identity: GdsThemeIdentity) => void;
 }
 
 type GdsMantineColorScheme = 'light' | 'dark' | 'auto';
@@ -152,7 +165,44 @@ export function GdsProvider({
   applyDocumentColorScheme = true,
   overlayAdapter = mantineOverlayAdapter,
   defaultBadgeIconStyle = 'tabler',
+  themeApplicationMode = 'remount',
+  reloadOnThemeChange = false,
+  onBeforeThemeApply,
+  onAfterThemeApply,
 }: GdsProviderProps) {
+  // Issue 561. One identity over every themed input, hashed from the RESOLVED tokens so two
+  // declarations that render identically do not remount, and a change to any axis — shape,
+  // density, type, elevation, motion, reaction, accent — does.
+  const themeIdentity = useMemo(
+    () => computeGdsThemeIdentity({
+      preset: (theme as { other?: { gdsPresetId?: string } }).other?.gdsPresetId ?? 'default',
+      colorScheme: resolveDocumentColorScheme(forceColorScheme ?? defaultColorScheme),
+    }),
+    [theme, forceColorScheme, defaultColorScheme],
+  );
+  const mode: GdsThemeApplicationMode = reloadOnThemeChange ? 'reload' : themeApplicationMode;
+  const previousIdentity = useRef<string | undefined>(undefined);
+
+  useEffect(() => {
+    const previous = previousIdentity.current;
+    previousIdentity.current = themeIdentity;
+    if (!gdsThemeIdentityChanged(previous, themeIdentity)) return;
+
+    // The consumer gets a chance to persist anything a re-application would drop, BEFORE it
+    // happens. Firing this after the fact would be useless for exactly the state it exists
+    // to protect.
+    onBeforeThemeApply?.(themeIdentity, previous as string);
+
+    if (mode === 'reload' && typeof window !== 'undefined') {
+      // The blunt instrument, and deliberately available: for a surface that cannot be made
+      // to re-read a theme — a third-party canvas, an embedded engine — a reload is the only
+      // honest way to guarantee full application. Better an explicit reload than a page that
+      // silently renders half of the previous theme.
+      window.location.reload();
+      return;
+    }
+    onAfterThemeApply?.(themeIdentity);
+  }, [themeIdentity, mode, onBeforeThemeApply, onAfterThemeApply]);
   const isRtl = isGdsRtlLocale(locale);
   const dir = isRtl ? 'rtl' : 'ltr';
   const themeCssVariables = useMemo(() => getThemeOwnedCssVariables(theme), [theme]);
@@ -190,6 +240,16 @@ export function GdsProvider({
   return (
     <DirectionProvider initialDirection={dir}>
       <GdsI18nContext.Provider value={{ locale, messages }}>
+        {/*
+          Issue 561. The remount deliberately does NOT wrap the whole provider subtree.
+          Measured: keying everything under GdsProvider destroys the state of any theme
+          control living inside it — which is the normal arrangement, and broke three of the
+          playground's own runtime tests. A default that resets the picker you just used is a
+          defect, not a guarantee.
+
+          Total re-application is opt-in per subtree via `GdsThemeBoundary`, and `reload`
+          remains available when even that is not enough.
+        */}
         <GdsIconStyleContext.Provider value={{ badgeIconStyle: defaultBadgeIconStyle }}>
           <MantineProvider
             theme={theme}
