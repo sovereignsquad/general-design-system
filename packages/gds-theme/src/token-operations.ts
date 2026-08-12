@@ -249,6 +249,7 @@ function inferNodeCategory(role: string): GdsTokenNode['category'] {
   if (/^focus-ring-color$/.test(role)) return 'effect';
   if (/^motion-duration-/.test(role)) return 'duration';
   if (/^motion-ease-/.test(role)) return 'effect';
+  if (/^accent-\w+-(base|deep|deeper|deepest|on)$/.test(role)) return 'color';
   if (/^elevation-/.test(role)) return 'effect';
   return 'color';
 }

@@ -87,6 +87,34 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Accent axis — token layer (#593, split from #560)**: the last frozen surface in GDS is
+  now theme-controlled. `--gds-accent-<name>-<shade>` for 10 accents × 4 shades × 25 presets
+  × 2 schemes, with `npm run verify:accent-contrast` chained into `verify:release`.
+
+  **No hand-authored values.** A theme declares ten **base** colours; every shade is derived.
+  An earlier cut of this change carried all 40 shade values explicitly to reproduce the
+  hand-tuned table byte-for-byte — that was the wrong trade and it was removed. What must be
+  preserved is the **guarantee** (white text stays legible on every accent and shade), not the
+  specific hexes somebody once picked.
+
+  **The cost, stated:** 28 of 40 shade values changed, by at most 14/255 per channel. **The
+  guarantee did not** — all 2,000 enforced combinations pass. It is now *computed* rather
+  than *asserted*, which is the entire reason the palette was frozen in the first place.
+
+  **Enforcement is scoped to what actually renders**, established by reading the components.
+  A first pass enforced all three modes and reported 3,000 failures of 6,000 — every one an
+  artifact of the model. `GdsBadge` renders accents **filled only**; no component draws an
+  accent as text on a page, and the emoji disc is `aria-hidden` decoration whose meaning is
+  carried by the required label. Those two modes are measured and reported but not enforced,
+  each with its reason, because gating a mode that does not render is how a gate teaches
+  people to ignore it.
+
+  Derivation is darker-only (lightening breaks the filled-mode guarantee — the source records
+  `teal` failing at +4 lightness), factors must strictly decrease, neighbouring shades must be
+  perceptibly apart, and a declared ramp **replaces** rather than merges over the default —
+  merging would let a new base silently keep the old base's shades, which is defect #537 in
+  another namespace.
+
 - **Accessibility floor: minimums no theme may cross (#559)**: added
   `npm run verify:a11y-floor`, chained into `verify:release`, plus a generated
   `docs/ACCESSIBILITY_FLOOR.md`.

@@ -261,6 +261,32 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:accent-contrast',
+    script: null,
+    mutants: [
+      {
+        id: 'accent-detects-illegible-base',
+        claim: 'Detects an accent whose filled mode cannot carry its white foreground',
+        file: 'packages/gds-theme/src/accent-axis.ts',
+        find: "    plum: { base: '#7c3a6e' },",
+        replace: "    plum: { base: '#e8d5e2' },",
+        once: true,
+        requiresBuild: ['@sovereignsquad/gds-theme'],
+      },
+      {
+        id: 'accent-detects-a-sweep-that-measures-nothing',
+        // Zero violations is also what a gate measuring nothing reports. Narrowing the sweep
+        // to a single accent must fail on the length assertion, not pass quietly.
+        claim: 'Detects a shortened sweep rather than accepting it as clean',
+        file: 'packages/gds-theme/src/accent-axis.ts',
+        find: "export const GDS_ACCENT_SHADES: GdsAccentShade[] = ['base', 'deep', 'deeper', 'deepest'];",
+        replace: "export const GDS_ACCENT_SHADES: GdsAccentShade[] = ['base'];",
+        once: true,
+        requiresBuild: ['@sovereignsquad/gds-theme'],
+      },
+    ],
+  },
+  {
     npmScript: 'verify:a11y-floor',
     script: null,
     mutants: [

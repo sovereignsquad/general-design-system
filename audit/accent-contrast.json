@@ -1,0 +1,21 @@
+{
+  "presets": 25,
+  "evaluated": 6000,
+  "enforced": 2000,
+  "violationCount": 0,
+  "modeEnforcement": {
+    "filled": {
+      "enforced": true,
+      "reason": "GdsBadge renders white text on the accent; this is the guarantee the frozen palette bought."
+    },
+    "outline": {
+      "enforced": false,
+      "reason": "No component renders an accent as text on the page today. Measured so a future outline mode starts with data rather than a surprise."
+    },
+    "emoji": {
+      "enforced": false,
+      "reason": "The disc is aria-hidden decoration and the label carries the meaning; WCAG 1.4.11 does not cover it. The pair that would matter (glyph vs disc) is uncomputable for OS-rendered emoji."
+    }
+  },
+  "violations": []
+}

@@ -1,9 +1,9 @@
 {
-  "releaseChainGates": 32,
-  "gatesWithMutants": 19,
+  "releaseChainGates": 33,
+  "gatesWithMutants": 20,
   "gatesExempted": 15,
-  "mutantsRun": 24,
-  "killed": 24,
+  "mutantsRun": 26,
+  "killed": 26,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -89,6 +89,20 @@
       "gate": "verify:token-single-source",
       "mutantId": "single-source-detects-one-path-override",
       "claim": "Detects the two consumption paths resolving one role to different values",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:accent-contrast",
+      "mutantId": "accent-detects-illegible-base",
+      "claim": "Detects an accent whose filled mode cannot carry its white foreground",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:accent-contrast",
+      "mutantId": "accent-detects-a-sweep-that-measures-nothing",
+      "claim": "Detects a shortened sweep rather than accepting it as clean",
       "status": "KILLED",
       "detail": "gate exited 1"
     },

@@ -670,7 +670,7 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
   const brandSemanticCssVariables = resolveVibeSemanticCssVariables(id, vibe);
   // Issue 555: axis tokens are scheme-independent — a corner radius does not change between
   // light and dark — so they are merged in once rather than resolved per scheme.
-  const axisVariables = resolveGdsAxisTokens(vibe.axes, id);
+  const axisVariables = resolveGdsAxisTokens(vibe.axes, id, colorScheme);
 
   const semanticVariables: Record<string, string> = { ...brandSemanticCssVariables };
   if (dark) {
