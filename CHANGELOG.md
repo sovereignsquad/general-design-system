@@ -87,6 +87,28 @@ and documentation only.
   itself, because a budget that silently changes meaning is indistinguishable from one
   that was gamed.
 
+- **Density axis: spacing, control heights, and a hit-target floor (#556)**: the second axis
+  through the #555 mechanism. 10 spacing steps + 5 control heights + a density mode, emitted
+  as `--gds-space-*`, `--gds-control-height-*` and `--gds-density`.
+
+  Mantine's `theme.spacing` is fed from the axis, as `theme.radius` is from the shape axis,
+  so every `p="md"` and `var(--mantine-spacing-*)` already in the codebase resolves through
+  one declaration. `xs`–`xl` are Mantine's values verbatim; `none`, `3xs`, `2xs`, `2xl`, `3xl`
+  and all control heights are additions nothing consumed before.
+
+  **The 44px target floor is enforced, and it found a design contradiction.** A control
+  *declared* below 44px is a build error. But *scaling* is clamped, not rejected — 44px under
+  `compact` ×0.75 is 33px, so throwing would have made the floor quietly ban an entire density
+  mode instead of protecting it. Spacing tightens; hit targets hold their line. `xs`/`sm` scale
+  freely because their recorded exception is precisely the statement that they are not primary
+  hit targets.
+
+  `verify:density-token-adoption` treats `0` as a reset rather than a spacing decision, and
+  `em` values as font-relative by intent. Of 47 spacing declarations: 10 token-governed, 2
+  migrated on exact matches (`0.625rem` = `xs`, `1rem` = `md`), 5 allowlisted with reasons —
+  `0.5rem` genuinely falls between `2xs` and `xs`, so migrating it is a visible change and a
+  decision rather than a sweep.
+
 - **Theme axes, and the shape axis as the first one (#555)**: a theme can now declare
   non-colour design decisions. `packages/gds-theme/src/axes.ts` adds a typed axis mechanism;
   the shape axis delivers a 7-step radius scale plus 14 semantic roles (`card`, `button`,

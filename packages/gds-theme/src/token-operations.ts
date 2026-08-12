@@ -49,7 +49,7 @@ export interface GdsTokenNode {
    * colour, which held only while the theme could express nothing but colour — the exact
    * limitation the axis mechanism removes. A radius validated as a colour fails as one.
    */
-  category: 'color' | 'effect' | 'dimension';
+  category: 'color' | 'effect' | 'dimension' | 'keyword';
   /**
    * Which color scheme the value applies to.
    *
@@ -233,7 +233,12 @@ function inferNodeCategory(role: string): GdsTokenNode['category'] {
   // `--gds-support: not-a-resolvable-color` stopped being an error. The gate mutation suite
   // caught it as a SURVIVED mutant. Classifying by role name keeps the value as the thing
   // being judged rather than the thing doing the judging.
-  if (/^radius-/.test(role)) return 'dimension';
+  // Issue 556 extended this. Each axis owns a token prefix, so the prefix is the category —
+  // and a new axis must be added HERE, which is the intended coupling: a token whose category
+  // nobody declared would be validated as a colour and fail as one, loudly, rather than
+  // shipping unvalidated.
+  if (/^(radius|space|control-height)-/.test(role)) return 'dimension';
+  if (role === 'density') return 'keyword';
   return 'color';
 }
 

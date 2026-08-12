@@ -42,6 +42,27 @@ export interface GdsShapeAxis {
   defaultStep?: GdsRadiusStep;
 }
 
+/** Spacing steps. Fixed key set — a theme sets values, never keys. */
+export type GdsSpaceStep = 'none' | '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+
+/** Control size names, matching Mantine's size vocabulary. */
+export type GdsControlSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+/** How tightly a theme packs its layout. */
+export type GdsDensityMode = 'compact' | 'comfortable' | 'spacious';
+
+/** A theme's spacing and control-sizing decisions. */
+export interface GdsDensityAxis {
+  /** Base spacing scale at `comfortable`. */
+  scale: Record<GdsSpaceStep, string>;
+  /** Control heights at `comfortable`. */
+  controlHeights: Record<GdsControlSize, string>;
+  /** Resolved density. Defaults to `comfortable`. */
+  mode?: GdsDensityMode;
+  /** Multipliers applied to the scale when `mode` is not `comfortable`. */
+  factors?: { compact: number; spacious: number };
+}
+
 /**
  * The generic axis container on a theme.
  *
@@ -50,7 +71,7 @@ export interface GdsShapeAxis {
  */
 export interface GdsThemeAxes {
   shape?: GdsShapeAxis;
-  // density?: GdsDensityAxis;      -> issue #556
+  density?: GdsDensityAxis;
   // type?: GdsTypographyAxis;      -> issue #557
   // motion?: GdsMotionAxis;        -> issue #558
   // elevation?: GdsElevationAxis;  -> follow-up
@@ -94,6 +115,64 @@ export const GDS_DEFAULT_SHAPE_AXIS: GdsShapeAxis = {
     pill: '9999px',
   },
   defaultStep: 'md',
+};
+
+/** Every spacing step, tightest first. Fixed key set; a theme sets values, not keys. */
+export const GDS_SPACE_STEPS: GdsSpaceStep[] = ['none', '3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'];
+/** Every control size name, matching Mantine's size vocabulary so the two never disagree. */
+export const GDS_CONTROL_SIZES: GdsControlSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
+
+/**
+ * WCAG 2.2 Target Size (Minimum), 2.5.8: 24x24 CSS px. GDS holds a stricter 44px line,
+ * which is the AAA 2.5.5 figure and the one both Apple and Google publish, because a control
+ * that merely satisfies the minimum is still unpleasant to hit on a phone.
+ *
+ * Sizes below this are permitted only with a recorded exception — see
+ * {@link GDS_CONTROL_HEIGHT_EXCEPTIONS}.
+ */
+export const GDS_MIN_TARGET_PX = 44;
+
+/**
+ * Control sizes deliberately below the target floor.
+ *
+ * `xs` and `sm` exist for dense tabular and toolbar contexts where a 44px row would make a
+ * data table unusable. WCAG 2.5.8 exempts controls in a sentence or block of text and
+ * inline targets, and a dense grid is the practical equivalent — but the exception is
+ * recorded here rather than assumed, so it can be argued with.
+ */
+export const GDS_CONTROL_HEIGHT_EXCEPTIONS: Partial<Record<GdsControlSize, string>> = {
+  xs: 'Dense tabular and toolbar controls; a 44px row makes a data grid unusable. Pair with a larger hit area via padding where the control stands alone.',
+  sm: 'Compact forms and secondary toolbars. Same reasoning as xs, one step less dense.',
+};
+
+/**
+ * The default density axis.
+ *
+ * `xs`-`xl` spacing is Mantine's `DEFAULT_THEME.spacing` verbatim, `var(--mantine-scale)`
+ * included, for the reason the shape axis states: flattening to plain rem silently drops the
+ * scale factor.
+ *
+ * `none`, `3xs`, `2xs`, `2xl` and `3xl` are ADDITIONS — Mantine has no equivalent. They
+ * extend the existing ramp rather than restating it, and nothing consumes them yet, so they
+ * carry no regression risk. Control heights are likewise new: no GDS or Mantine theme field
+ * declared them before, so these tokens are additive by construction.
+ */
+export const GDS_DEFAULT_DENSITY_AXIS: GdsDensityAxis = {
+  scale: {
+    none: '0',
+    '3xs': 'calc(0.125rem * var(--mantine-scale))',
+    '2xs': 'calc(0.25rem * var(--mantine-scale))',
+    xs: 'calc(0.625rem * var(--mantine-scale))',
+    sm: 'calc(0.75rem * var(--mantine-scale))',
+    md: 'calc(1rem * var(--mantine-scale))',
+    lg: 'calc(1.25rem * var(--mantine-scale))',
+    xl: 'calc(2rem * var(--mantine-scale))',
+    '2xl': 'calc(3rem * var(--mantine-scale))',
+    '3xl': 'calc(4rem * var(--mantine-scale))',
+  },
+  controlHeights: { xs: '32px', sm: '36px', md: '44px', lg: '52px', xl: '60px' },
+  mode: 'comfortable',
+  factors: { compact: 0.75, spacious: 1.25 },
 };
 
 /** Thrown when a theme declares an axis value the contract cannot accept. */
@@ -177,13 +256,119 @@ export function resolveGdsShapeTokens(axis: GdsShapeAxis = GDS_DEFAULT_SHAPE_AXI
 }
 
 /**
+ * Validates a density axis at theme-construction time.
+ *
+ * The control-height floor is checked on the RESOLVED value, after the density factor has
+ * been applied — a 44px control under `compact` x0.75 is 33px, and checking the declared
+ * value instead of the rendered one would let the floor pass while the button shrank.
+ */
+export function validateGdsDensityAxis(axis: GdsDensityAxis, themeId = 'theme'): void {
+  for (const step of GDS_SPACE_STEPS) {
+    const value = axis.scale?.[step];
+    if (value === undefined) throw new GdsAxisError(`${themeId}: density axis is missing the "${step}" step.`);
+    if (!LENGTH.test(String(value).trim())) {
+      throw new GdsAxisError(`${themeId}: space step "${step}" is "${value}", which is not a CSS length, calc() or var().`);
+    }
+  }
+  for (const size of GDS_CONTROL_SIZES) {
+    const value = axis.controlHeights?.[size];
+    if (value === undefined) throw new GdsAxisError(`${themeId}: density axis is missing the "${size}" control height.`);
+    if (!LENGTH.test(String(value).trim())) {
+      throw new GdsAxisError(`${themeId}: control height "${size}" is "${value}", which is not a CSS length.`);
+    }
+  }
+  const factors = axis.factors ?? GDS_DEFAULT_DENSITY_AXIS.factors!;
+  for (const [name, f] of Object.entries(factors)) {
+    if (!Number.isFinite(f) || f < 0.5 || f > 2) {
+      throw new GdsAxisError(`${themeId}: density factor "${name}" is ${f}; it must be between 0.5 and 2. Outside that range a theme is not adjusting density, it is redesigning the layout.`);
+    }
+  }
+  if (axis.mode && !['compact', 'comfortable', 'spacious'].includes(axis.mode)) {
+    throw new GdsAxisError(`${themeId}: density mode "${axis.mode}" is not one of compact/comfortable/spacious.`);
+  }
+}
+
+/** Scales a CSS length by a factor, preserving `calc()` and unit forms. */
+function scaleLength(value: string, factor: number): string {
+  const v = String(value).trim();
+  if (factor === 1 || v === '0') return v;
+  const plain = /^(-?\d*\.?\d+)(px|rem|em)$/.exec(v);
+  if (plain) return `${Number((parseFloat(plain[1]) * factor).toFixed(4))}${plain[2]}`;
+  // A calc() or var() cannot be multiplied numerically here without losing what it refers
+  // to, so it is wrapped rather than flattened — the browser resolves it correctly and the
+  // reference survives.
+  return `calc(${v} * ${factor})`;
+}
+
+/**
+ * Resolves a density axis into `--gds-space-*`, `--gds-control-height-*` and `--gds-density`.
+ *
+ * The a11y floor is enforced on the RESOLVED height, and a control below it must be listed
+ * in {@link GDS_CONTROL_HEIGHT_EXCEPTIONS} — an unrecorded shrink is a build error, because
+ * a theme quietly making every button 33px tall is a serious accessibility regression that
+ * looks, in a diff, like a tasteful density tweak.
+ */
+export function resolveGdsDensityTokens(axis: GdsDensityAxis = GDS_DEFAULT_DENSITY_AXIS, themeId = 'theme'): Record<string, string> {
+  const merged: GdsDensityAxis = {
+    ...GDS_DEFAULT_DENSITY_AXIS,
+    ...axis,
+    scale: { ...GDS_DEFAULT_DENSITY_AXIS.scale, ...(axis.scale ?? {}) },
+    controlHeights: { ...GDS_DEFAULT_DENSITY_AXIS.controlHeights, ...(axis.controlHeights ?? {}) },
+    factors: { ...GDS_DEFAULT_DENSITY_AXIS.factors!, ...(axis.factors ?? {}) },
+  };
+  validateGdsDensityAxis(merged, themeId);
+
+  const mode = merged.mode ?? 'comfortable';
+  const factor = mode === 'comfortable' ? 1 : merged.factors![mode];
+
+  const tokens: Record<string, string> = { '--gds-density': mode };
+  for (const step of GDS_SPACE_STEPS) {
+    tokens[`--gds-space-${step}`] = scaleLength(merged.scale[step], factor);
+  }
+  for (const size of GDS_CONTROL_SIZES) {
+    const declared = merged.controlHeights[size];
+    const declaredPx = /^(-?\d*\.?\d+)px$/.exec(String(declared).trim());
+    const exempt = Boolean(GDS_CONTROL_HEIGHT_EXCEPTIONS[size]);
+
+    // A theme DECLARING an inaccessible control is an error: it is stating an intent the
+    // floor forbids.
+    if (declaredPx && parseFloat(declaredPx[1]) < GDS_MIN_TARGET_PX && !exempt) {
+      throw new GdsAxisError(
+        `${themeId}: control height "${size}" is declared as ${declared}, below the ${GDS_MIN_TARGET_PX}px target floor, `
+        + 'and has no recorded exception. Raise it, or record why this control may be smaller.',
+      );
+    }
+
+    // Density SCALING is different, and is clamped rather than rejected. Throwing here would
+    // make `compact` unusable with any accessible control set — 44px x 0.75 is 33px — so the
+    // floor would have quietly banned a whole density mode instead of protecting it. Spacing
+    // tightens; hit targets hold their line. Sizes with a recorded exception scale freely,
+    // because their exception is the statement that they are not primary hit targets.
+    const scaled = scaleLength(declared, factor);
+    const scaledPx = /^(-?\d*\.?\d+)px$/.exec(scaled.trim());
+    tokens[`--gds-control-height-${size}`] = (!exempt && scaledPx && parseFloat(scaledPx[1]) < GDS_MIN_TARGET_PX)
+      ? `${GDS_MIN_TARGET_PX}px`
+      : scaled;
+  }
+  return tokens;
+}
+
+/** The `var()` reference for a spacing step — never a resolved literal. */
+export function gdsSpace(step: GdsSpaceStep): string {
+  return `var(--gds-space-${step})`;
+}
+
+/**
  * All axis tokens for a theme's axis declarations.
  *
  * The single place a new axis is wired in. Kept separate from the shape resolver so the next
  * axis does not have to touch shape code to exist.
  */
 export function resolveGdsAxisTokens(axes: GdsThemeAxes | undefined, themeId: GdsThemePresetId | string = 'theme'): Record<string, string> {
-  return { ...resolveGdsShapeTokens(axes?.shape ?? GDS_DEFAULT_SHAPE_AXIS, String(themeId)) };
+  return {
+    ...resolveGdsShapeTokens(axes?.shape ?? GDS_DEFAULT_SHAPE_AXIS, String(themeId)),
+    ...resolveGdsDensityTokens(axes?.density ?? GDS_DEFAULT_DENSITY_AXIS, String(themeId)),
+  };
 }
 
 /**

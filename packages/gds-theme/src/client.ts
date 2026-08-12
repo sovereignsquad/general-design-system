@@ -2,7 +2,9 @@ export { gdsTheme, gdsDarkPublicTheme, gdsFlatSurfaceTheme, gdsEditorialPublicTh
 export { getGdsThemePresets, resolveGdsThemePreset, classUsaThemePreset, goldAthleteThemePreset } from './theme-presets';
 export type { GdsThemePreset, GdsThemePresetId } from './theme-presets';
 export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES } from './axes';
+export { gdsSpace, resolveGdsDensityTokens, validateGdsDensityAxis, GDS_DEFAULT_DENSITY_AXIS, GDS_SPACE_STEPS, GDS_CONTROL_SIZES, GDS_MIN_TARGET_PX, GDS_CONTROL_HEIGHT_EXCEPTIONS } from './axes';
 export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResolvedShapeTokens } from './axes';
+export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
 export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, deriveVibeSemanticCssVariables } from './vibe-themes';
 export type { GdsVibeTheme } from './vibe-themes';
 export { VibeThemePicker } from './VibeThemePicker.client';

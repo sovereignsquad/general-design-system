@@ -1,7 +1,8 @@
 'use client';
 
 import { createContext, useContext, type ReactNode } from 'react';
-import { resolveGdsCardContract, type GdsCardContractOptions, type GdsCardDensity, type GdsCardResolvedContract } from './CardContracts';
+import { resolveGdsCardContract, type GdsCardContractOptions, type GdsCardResolvedContract } from './CardContracts';
+import type { GdsDensityMode as GdsThemeDensityMode } from '@sovereignsquad/gds-theme';
 
 /**
  * Global density-mode theme primitive (previously only scattered per-component
@@ -16,14 +17,20 @@ import { resolveGdsCardContract, type GdsCardContractOptions, type GdsCardDensit
  * or the provided `useGdsCardContract()` wrapper, documented in
  * COMPONENTS_AND_PATTERNS.md as the extension pattern for new call sites.
  */
-export type GdsDensityMode = GdsCardDensity;
+// Issue 556. The theme owns this type now. It was `= GdsCardDensity`, an identical union
+// declared independently in CardContracts — two definitions of one concept that happened to
+// agree, which is the F1 pattern and would have diverged the first time either gained a
+// fourth mode. gds-core depends on gds-theme, so the theme is the correct owner: the axis
+// DECLARES a theme's density, this context OVERRIDES it for a subtree, and both now speak
+// the same type.
+export type { GdsDensityMode } from '@sovereignsquad/gds-theme';
 
-const GdsDensityContext = createContext<GdsDensityMode>('comfortable');
+const GdsDensityContext = createContext<GdsThemeDensityMode>('comfortable');
 
 /** Props for {@link GdsDensityProvider}. */
 export interface GdsDensityProviderProps {
   /** Ambient density mode applied to the subtree. */
-  density: GdsDensityMode;
+  density: GdsThemeDensityMode;
   children: ReactNode;
 }
 
@@ -33,7 +40,7 @@ export function GdsDensityProvider({ density, children }: GdsDensityProviderProp
 }
 
 /** Reads the ambient density mode set by the nearest `GdsDensityProvider` (defaults to `'comfortable'` outside one). */
-export function useGdsDensity(): GdsDensityMode {
+export function useGdsDensity(): GdsThemeDensityMode {
   return useContext(GdsDensityContext);
 }
 
