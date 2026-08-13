@@ -1006,16 +1006,22 @@ function BadgeOverlayDemo() {
 
 function BadgeThemeMatrixDemo() {
   const [preset, setPreset] = useState<GdsThemePresetId>('default');
+  // The description and labels below used to say warning/danger/info were all "fixed".
+  // Measured across the 25 presets, only danger is: warning has 23 distinct light values and
+  // info has 8 in each scheme, because info in light IS the preset's own text colour. A panel
+  // that teaches a rule two of its own examples break is worse than no panel — it is why a
+  // reader stops trusting the section. The copy states the actual rule, which is deliberately
+  // not uniform (see the UNIVERSAL_* anchors in semantic-token-source.ts).
   return (
-    <SectionPanel title="Badges across themes" description="Semantic tone maps to the --gds-state-* role tokens: success genuinely shifts per preset (WCAG-derived), while warning/danger/info intentionally read the same fixed value in every preset for consistent urgency signaling. The accent palette never changes — it is a fixed category vocabulary, independent of theme. Switch the preset below to compare live.">
+    <SectionPanel title="Badges across themes" description="Semantic tone maps to the --gds-state-* role tokens, and the rule is deliberately not uniform. Danger is an anchor: one value in every preset, in both schemes — an alarm colour that moves is not an alarm. Warning is anchored in dark and tinted in light (the anchor mixed with the preset's own hue, then pushed until it clears 3:1). Success is tinted in both. Info is not an alarm colour at all: in light it IS the preset's own text colour, which is why it moves the most. The accent palette never changes as you switch presets — it is a fixed category vocabulary, so a category means the same thing in every theme. That is a deliberate contract, not a gap: a preset MAY declare its own accents, and the contrast gate then verifies that palette rather than the shared one. Switch the preset below and watch which ones actually move.">
       <VibeThemePicker value={preset} onChange={setPreset} label="Preview preset" />
       <GdsVibeThemeScope presetId={preset} scheme="light">
         <GdsInline gap="sm">
-          <GdsBadge tone="success" icon="Success" label="Success — shifts per preset" />
-          <GdsBadge tone="warning" icon="Warning" label="Warning — fixed" />
-          <GdsBadge tone="danger" icon="Danger" label="Danger — fixed" />
-          <GdsBadge tone="info" icon="Info" label="Info — fixed" />
-          <GdsBadge accent="teal" icon="Habit" label="Accent — always fixed" />
+          <GdsBadge tone="success" icon="Success" label="Success — tinted per preset" />
+          <GdsBadge tone="warning" icon="Warning" label="Warning — anchored in dark, tinted in light" />
+          <GdsBadge tone="danger" icon="Danger" label="Danger — anchored in both schemes" />
+          <GdsBadge tone="info" icon="Info" label="Info — follows the preset text colour" />
+          <GdsBadge accent="teal" icon="Habit" label="Accent — fixed category vocabulary" />
         </GdsInline>
       </GdsVibeThemeScope>
     </SectionPanel>

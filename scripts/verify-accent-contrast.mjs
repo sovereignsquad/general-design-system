@@ -38,11 +38,24 @@ if (!canary.length) {
   process.exit(1);
 }
 
+// A preset MAY declare its own accent palette (`axes.accent`) — the vibe resolver has passed
+// `vibe.axes` through since the axis landed. This loop used to pass `undefined`, i.e. it
+// checked the DEFAULT palette 25 times over. No preset overrides today, so the numbers were
+// right; the check was not. The first preset to declare its own accents would have had its
+// real colours go unverified while the gate reported a clean sweep of colours nothing renders.
+//
+// The contract this enforces (owner directive, 2026-08-13): accents are a FIXED category
+// vocabulary by default, so a category means the same thing across every theme — and a preset
+// that deliberately overrides them is verified here rather than trusted.
 const results = [];
-for (const { id } of presets) {
+let presetsWithOwnAccents = 0;
+for (const preset of presets) {
+  const id = preset.id;
+  const axis = preset.axes?.accent;
+  if (axis) presetsWithOwnAccents += 1;
   const light = getGdsVibeThemeCssVariables(id, 'light');
   const dark = getGdsVibeThemeCssVariables(id, 'dark');
-  for (const r of evaluateGdsAccentContrast(undefined, { light: light['--gds-bg-page'], dark: dark['--gds-bg-page'] }, id)) {
+  for (const r of evaluateGdsAccentContrast(axis, { light: light['--gds-bg-page'], dark: dark['--gds-bg-page'] }, id)) {
     results.push({ presetId: id, ...r });
   }
 }
@@ -72,6 +85,7 @@ const violations = enforced.filter((r) => !r.passes);
 mkdirSync(join(ROOT, 'audit'), { recursive: true });
 writeFileSync(join(ROOT, 'audit/accent-contrast.json'), `${JSON.stringify({
   presets: presets.length,
+  presetsWithOwnAccents,
   evaluated: results.length,
   enforced: enforced.length,
   violationCount: violations.length,

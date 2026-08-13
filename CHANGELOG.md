@@ -4,6 +4,39 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The accent contract, and a panel that taught a rule its own examples broke
+
+Raised from the live site: category badges, pins and generated thumbnails look identical in
+every theme. **Measured: all 50 preset x scheme combinations resolve byte-identical accent
+palettes.** That half is deliberate and now stated as a contract — accents are a fixed category
+vocabulary, so a category means the same thing in every theme.
+
+**A preset may override them, and that override is now verified.** `verify-accent-contrast`
+passed `undefined` for the axis: it checked the DEFAULT palette 25 times over. No preset
+overrides today, so the numbers were right and the check was not — the first preset to declare
+its own accents would have had its real colours go unverified while the gate reported a clean
+sweep of colours nothing renders. It now resolves each preset's own axis and reports how many
+declare one. Demonstrated: a plausible brand override (`#f5e663` for `forest`) raises **6
+enforced violations at 1.28:1**, where the shared vocabulary raises none.
+
+**The same panel was teaching something false.** It labelled three badges FIXED. Measured
+across the presets, only danger is:
+
+| Label shown | Reality |
+| --- | --- |
+| `WARNING — FIXED` | 23 distinct values in light |
+| `INFO — FIXED` | 8 distinct values in each scheme |
+| `DANGER — FIXED` | genuinely fixed |
+| `SUCCESS — SHIFTS` | genuinely shifts |
+
+Investigated before rewriting either half, rather than blessing a drift by editing the docs
+around it. The implementation is deliberate and reasoned in source: `danger` and
+`warning-dark` are fixed "alarm anchors" — an alarm colour that moves is not an alarm —
+verified byte-identical across the two hand-authored presets. `warning` in light is the anchor
+mixed with the preset's own hue and pushed to 3:1. `info` in light **is the preset's own text
+colour**, which is why it moves the most. So the copy was the wrong half, and it now states
+the actual rule.
+
 ### The gate suite could shrink to nothing with every budget green (#601, #602)
 
 Split out of #590, which had stalled repeatedly. Not because it was large — because it bundled
