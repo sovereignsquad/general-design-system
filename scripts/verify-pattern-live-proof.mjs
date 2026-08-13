@@ -8,13 +8,23 @@
 //
 // A pattern proves itself one of two ways, and this gate accepts either:
 //   1. `renderEntryDemo()` has a `case '<id>':` — a purpose-built proof, or
-//   2. a playground page source references one of the entry's `sourceComponent`
-//      identifiers — the entry is proven inside a larger composed surface
-//      (`gds-map`, `pin-system` and `maturity-capabilities` are proven this way).
+//   2. `PatternEntryCard` special-cases the id (`entry.id === '<id>'`) and renders it
+//      itself, which `partner-discovery-system` does.
 //
-// Absence of BOTH means the reader is shown the fallback sentence under a `live-proof`
-// badge. That is the only condition this gate fails on, so it cannot cry wolf about
-// entries that are proven through a mechanism it does not model.
+// Absence of both means the reader is shown the fallback sentence under a `live-proof`
+// badge.
+//
+// FIRST VERSION OF THIS GATE WAS TOO LOOSE, and the deployed site is what caught it. It
+// also accepted "some playground page references one of the entry's sourceComponent
+// identifiers", reasoning that such an entry must be proven inside a larger surface. That
+// is not the same question. `GdsPinSystemReference` and `GdsMap` were rendered inside
+// `BadgeMapDemo` — which serves the `badges` entry — so the components appeared on the page
+// while the `pin-system` and `gds-map` cards showed the fallback, and this gate passed them.
+// `maturity-capabilities` was worse: its functions are referenced from info-pages.tsx, a
+// different route entirely.
+//
+// The lesson is the one in HANDOVER section 3: proximity is not proof. The rule now asks
+// where the proof is ATTRIBUTED, not merely whether the identifier occurs somewhere.
 //
 // NOT checked here, deliberately: that `coverageStatus` is DERIVED rather than written.
 // All 113 entries carry the same value, so a correct claim is still an unverified one.
@@ -30,23 +40,14 @@ const registryPath = join(playgroundSrc, 'pattern-registry.ts');
 
 const registrySource = readFileSync(registryPath, 'utf8');
 
-// Page sources only: `.tsx` excluding tests. A `.ts` registry mentioning a component
-// name is metadata about the claim, not evidence for it — counting those would let an
-// entry prove itself by naming itself, which is exactly the circularity that shipped.
+// The catalog pages only. Proof has to be attributed to the entry by the component that
+// renders entry cards, so this reads where that dispatch lives rather than the whole app.
 const pageFiles = readdirSync(playgroundSrc)
   .filter((file) => file.endsWith('.tsx') && !file.includes('.test.'));
 const pageSource = pageFiles.map((file) => readFileSync(join(playgroundSrc, file), 'utf8')).join('\n');
 
 const demoCases = new Set([...pageSource.matchAll(/case '([^']+)':/g)].map((match) => match[1]));
-
-/** Splits a `sourceComponent` string into identifiers, dropping prose in parentheses. */
-function parseSourceComponents(raw) {
-  return raw
-    .replace(/\([^)]*\)/g, ' ')
-    .split(/[,/]/)
-    .map((part) => part.trim())
-    .filter((part) => /^[A-Za-z_$][\w$]*$/.test(part));
-}
+const specialCased = new Set([...pageSource.matchAll(/entry\.id === '([^']+)'/g)].map((match) => match[1]));
 
 const entries = [];
 for (const block of registrySource.matchAll(/\n {2}\{\n([\s\S]*?)\n {2}\},/g)) {
@@ -73,16 +74,12 @@ if (demoCases.size === 0) {
 
 for (const entry of entries) {
   if (entry.coverageStatus !== 'live-proof') continue;
-  if (demoCases.has(entry.id)) continue;
+  if (demoCases.has(entry.id) || specialCased.has(entry.id)) continue;
 
-  const components = entry.sourceComponent ? parseSourceComponents(entry.sourceComponent) : [];
-  const rendered = components.filter((name) => new RegExp(`\\b${name}\\b`).test(pageSource));
-  if (rendered.length > 0) continue;
-
-  const named = components.length > 0 ? components.join(', ') : '(no sourceComponent declared)';
   failures.push(
-    `${entry.id} claims coverageStatus 'live-proof' but renders nothing: no case '${entry.id}': in renderEntryDemo(), `
-    + `and no playground page references ${named}. Readers see the "No interactive demo renders here" fallback under a live-proof claim.`,
+    `${entry.id} claims coverageStatus 'live-proof' but its card renders nothing: no case '${entry.id}': in `
+    + `renderEntryDemo() and no entry.id === '${entry.id}' branch in PatternEntryCard. Readers see the `
+    + '"No interactive demo renders here" fallback under a live-proof claim. Render it, or state the weaker status.',
   );
 }
 

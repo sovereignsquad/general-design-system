@@ -35,12 +35,27 @@ viewport frame GDS does not have. Per Rule 15 the absence is stated rather than 
 capability is #609. Its three `BOTTOM_TAB_*` export-coverage entries moved to `support-api` to
 match. This is also the first entry to use a second `coverageStatus` value at all.
 
-New gate `verify:pattern-live-proof`: a `live-proof` entry must have a demo case **or** render
-one of its declared `sourceComponent` identifiers. It refuses to pass vacuously if it parses
-zero entries or zero cases, and it counts only `.tsx` page sources — a registry naming a
-component is metadata about the claim, not evidence for it, and counting it would let an entry
-prove itself by naming itself. Its mutant promotes the one honest `static-reference` back to
+New gate `verify:pattern-live-proof`: a `live-proof` entry must be rendered by a `case` in
+`renderEntryDemo()` or an explicit `PatternEntryCard` branch. It refuses to pass vacuously if it
+parses zero entries or zero cases. Its mutant promotes the one honest `static-reference` back to
 `live-proof`; the gate must refuse it.
+
+**The first version of that gate was too loose, and the deployed site is what caught it.** It
+also accepted "some playground page references one of the entry's `sourceComponent`
+identifiers", on the reasoning that such an entry must be proven inside a larger surface. That
+is a different question, and three more entries were passing on it:
+
+- `GdsPinSystemReference` and `GdsMap` were rendered inside `BadgeMapDemo`, which serves the
+  `badges` entry — so the components appeared on `/patterns/public` while the **`pin-system`
+  and `gds-map` cards showed the fallback**;
+- `maturity-capabilities` referenced its functions from `info-pages.tsx`, a different route
+  entirely.
+
+Checking the deployed page found three "No interactive demo renders here" panels where the gate
+reported clean. Proximity is not proof — the rule now asks where a proof is *attributed*, not
+whether an identifier occurs somewhere. The two map demos were extracted so each entry renders
+its own, `maturity-capabilities` gained a demo derived from `getGdsMaturitySummary()`, and the
+loose disjunct is gone. **All 112 live-proof entries now render on their own card.**
 
 Filed #608 for what this does **not** fix: `coverageStatus` is still written rather than derived
 (Rule 14). The gate closes the false-positive direction only — a correct claim is still an
