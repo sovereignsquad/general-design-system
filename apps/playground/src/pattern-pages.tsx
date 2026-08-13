@@ -7,6 +7,8 @@ import {
   // "No interactive demo renders here" fallback under a live-proof claim.
   AISearchCard,
   ChatThread,
+  getGdsMaturitySummary,
+  getGdsRecommendedMaturityCapabilities,
   GdsAccentContrastMatrix,
   MediaWithFallback,
   NumberStepper,
@@ -692,27 +694,41 @@ function BadgeMapDemo() {
         never reads those, so they keep hand-composing pins incorrectly, which is the exact
         failure the component was built to prevent.
       */}
-      <GdsPinSystemReference />
-      <MapPanel
-        title="Nearby activities"
-        description="Real OpenStreetMap tiles via GdsMap. Tiles, markers and the ODbL credit are all governed, and switching the theme above re-initialises the map because Leaflet holds imperative DOM the CSS cascade cannot reach."
-        minHeight={320}
-        renderMap={() => (
-          <GdsMap
-            label="Nearby activities"
-            height="320px"
-            markers={MAP_PIN_MARKERS.map((pin) => ({
-              id: pin.id,
-              position: pin.position,
-              accent: pin.accent,
-              label: pin.label,
-            }))}
-            defaultViewport={{ center: { lat: 51.5074, lng: -0.0965 }, zoom: 13 }}
-          />
-        )}
-      />
-
+      <PinSystemDemo />
+      <MapSurfaceDemo />
     </SectionPanel>
+  );
+}
+
+// Issue 600, second pass. These were inlined in BadgeMapDemo, which serves the `badges`
+// entry. The components therefore rendered on the page, but NOT on the `pin-system` and
+// `gds-map` cards — those two showed the "No interactive demo renders here" fallback while
+// claiming live-proof. Extracted so each entry proves itself, and composed back into
+// BadgeMapDemo so the badge story is unchanged.
+function PinSystemDemo() {
+  return <GdsPinSystemReference />;
+}
+
+function MapSurfaceDemo() {
+  return (
+    <MapPanel
+      title="Nearby activities"
+      description="Real OpenStreetMap tiles via GdsMap. Tiles, markers and the ODbL credit are all governed, and switching the theme above re-initialises the map because Leaflet holds imperative DOM the CSS cascade cannot reach."
+      minHeight={320}
+      renderMap={() => (
+        <GdsMap
+          label="Nearby activities"
+          height="320px"
+          markers={MAP_PIN_MARKERS.map((pin) => ({
+            id: pin.id,
+            position: pin.position,
+            accent: pin.accent,
+            label: pin.label,
+          }))}
+          defaultViewport={{ center: { lat: 51.5074, lng: -0.0965 }, zoom: 13 }}
+        />
+      )}
+    />
   );
 }
 
@@ -1641,6 +1657,31 @@ function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
   );
 }
 
+function MaturityCapabilitiesDemo() {
+  const summary = getGdsMaturitySummary();
+  const capabilities = getGdsRecommendedMaturityCapabilities();
+
+  return (
+    <SectionPanel
+      title="Maturity capabilities"
+      description="The recommended delivery capability groups, read from the shipped registry rather than restated here. Every row carries the issue that backs it, so a roadmap claim on this site is traceable to work that exists."
+    >
+      <GdsStack gap="xs">
+        <MetadataText>
+          {`${summary.total} capability groups: ${summary['production-ready']} production-ready, ${summary['adoption-tooling']} adoption tooling, ${summary['operational-contract']} operational contract.`}
+        </MetadataText>
+        {capabilities.map((capability) => (
+          <GdsInline key={capability.id} gap="sm" align="center">
+            <StatusBadge status={capability.status === 'production-ready' ? 'success' : 'info'}>{capability.status}</StatusBadge>
+            <InlineText>{capability.title}</InlineText>
+            <MetadataText>{`#${capability.issueNumber} • ${capability.packageLanes.join(', ')}`}</MetadataText>
+          </GdsInline>
+        ))}
+      </GdsStack>
+    </SectionPanel>
+  );
+}
+
 function AccentContrastMatrixDemo() {
   const [preset, setPreset] = useState<GdsThemePresetId>('default');
 
@@ -1662,7 +1703,7 @@ function SearchableSelectDemo() {
   return (
     <SectionPanel
       title="Searchable select"
-      description="A combobox that filters as you type, groups its options, and clears back to an empty value. Keyboard alone drives it: type to filter, Up/Down to move, Enter to commit, Escape to dismiss. The listbox and the active option are wired through aria-activedescendant, so the choice is announced without moving focus off the input."
+      description="A combobox that filters as you type, groups its options under headings, and clears back to a null value rather than an empty string. Keyboard alone drives it: type to filter, Up/Down to move, Enter to commit, Escape to dismiss. The control announces its popup relationship through aria-haspopup, and it can load its options asynchronously with its own loading, empty and error states."
     >
       <SearchableSelect
         value={value}
@@ -3024,6 +3065,12 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           iconOnly={[{ action: 'help' }]}
         />
       );
+    case 'maturity-capabilities':
+      return <MaturityCapabilitiesDemo />;
+    case 'pin-system':
+      return <PinSystemDemo />;
+    case 'gds-map':
+      return <MapSurfaceDemo />;
     case 'accent-contrast-matrix':
       return <AccentContrastMatrixDemo />;
     case 'searchable-select':
