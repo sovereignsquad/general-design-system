@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "0e07a763cb9e6914c0db387069c49c5262499539",
+  "commit": "ee4cc1a818e043a853281415abeb2d77b9f382af",
   "counts": {
     "token-published": 486,
     "token-declared": 57,
@@ -31189,7 +31189,7 @@
         "file": "apps/playground/src/generated-site-phrases/ar.ts",
         "line": 1
       },
-      "keyCount": 1254
+      "keyCount": 1255
     },
     {
       "id": "locale-pack-site:de#3054",
@@ -31199,7 +31199,7 @@
         "file": "apps/playground/src/generated-site-phrases/de.ts",
         "line": 1
       },
-      "keyCount": 1254
+      "keyCount": 1255
     },
     {
       "id": "locale-pack-site:es#3055",
@@ -31209,7 +31209,7 @@
         "file": "apps/playground/src/generated-site-phrases/es.ts",
         "line": 1
       },
-      "keyCount": 1254
+      "keyCount": 1255
     },
     {
       "id": "locale-pack-site:fr#3056",
@@ -31219,7 +31219,7 @@
         "file": "apps/playground/src/generated-site-phrases/fr.ts",
         "line": 1
       },
-      "keyCount": 1254
+      "keyCount": 1255
     },
     {
       "id": "locale-pack-site:he#3057",
@@ -31229,7 +31229,7 @@
         "file": "apps/playground/src/generated-site-phrases/he.ts",
         "line": 1
       },
-      "keyCount": 1254
+      "keyCount": 1255
     },
     {
       "id": "locale-pack-site:hu#3058",
@@ -31239,7 +31239,7 @@
         "file": "apps/playground/src/generated-site-phrases/hu.ts",
         "line": 1
       },
-      "keyCount": 1254
+      "keyCount": 1255
     },
     {
       "id": "locale-pack-site:it#3059",
@@ -31249,7 +31249,7 @@
         "file": "apps/playground/src/generated-site-phrases/it.ts",
         "line": 1
       },
-      "keyCount": 1254
+      "keyCount": 1255
     },
     {
       "id": "locale-pack-site:ru#3060",
@@ -31259,7 +31259,7 @@
         "file": "apps/playground/src/generated-site-phrases/ru.ts",
         "line": 1
       },
-      "keyCount": 1254
+      "keyCount": 1255
     },
     {
       "id": "route:/#3061",
