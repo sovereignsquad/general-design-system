@@ -82,7 +82,7 @@
     "verify:pattern-coverage": "node scripts/generate-pattern-coverage.mjs --check",
     "verify:i18n-leakage": "node scripts/verify-i18n-leakage.mjs",
     "verify:font-lane-coverage": "npm run build --workspace=@sovereignsquad/gds-theme && node scripts/verify-font-lane-coverage.mjs",
-    "artifacts:refresh": "npm run tokens:motion-css && npm run tokens:component-census && npm run tokens:pattern-coverage && npm run tokens:dtcg && node scripts/audit/snapshot-token-baseline.mjs && node scripts/generate-site-phrase-translations.mjs && npm run registry:build"
+    "artifacts:refresh": "npm run tokens:motion-css && npm run tokens:component-census && npm run tokens:pattern-coverage && npm run tokens:dtcg && node scripts/audit/snapshot-token-baseline.mjs && node scripts/generate-site-phrase-translations.mjs && npm run registry:build && node scripts/audit/forward-trace.mjs && node scripts/audit/dimensions.mjs"
   },
   "optionalDependencies": {
     "@rolldown/binding-darwin-arm64": "1.0.2",
