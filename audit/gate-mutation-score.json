@@ -2,8 +2,8 @@
   "releaseChainGates": 39,
   "gatesWithMutants": 25,
   "gatesExempted": 16,
-  "mutantsRun": 32,
-  "killed": 32,
+  "mutantsRun": 33,
+  "killed": 33,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -187,6 +187,13 @@
       "gate": "verify:component-census",
       "mutantId": "census-detects-stale-published-count",
       "claim": "Detects a published component count that no longer matches the packages",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:site-claims",
+      "mutantId": "site-claims-detects-demo-word",
+      "claim": "Detects the reference site calling one of its proof surfaces a demo",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
