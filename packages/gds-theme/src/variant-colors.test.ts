@@ -67,7 +67,8 @@ describe('derived badge foregrounds (issue 597)', () => {
     '--gds-badge-solid-info', '--gds-badge-solid-neutral',
     '--gds-badge-soft-success', '--gds-badge-soft-warning', '--gds-badge-soft-danger',
     '--gds-badge-soft-info', '--gds-badge-soft-neutral',
-    '--gds-brand-accent', '--gds-brand-accent-action', '--gds-bg-info-tag', '--gds-brand-accent-tint',
+    '--gds-brand-primary', '--gds-brand-accent', '--gds-brand-accent-action',
+    '--gds-bg-info-tag', '--gds-brand-accent-tint',
   ];
 
   it('clears 4.5:1 for every fill in every preset and scheme', () => {

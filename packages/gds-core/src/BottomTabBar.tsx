@@ -133,7 +133,8 @@ export function BottomTabBar({
                   alignItems: 'center',
                   justifyContent: 'center',
                   background: 'var(--gds-brand-accent, var(--mantine-color-violet-6))',
-                  color: 'var(--gds-text-on-inverse, var(--mantine-color-white))',
+                  // Issue 597: 1.22:1 against the athlete-gold dark accent.
+                  color: 'var(--gds-brand-accent-fg, var(--gds-text-on-inverse, var(--mantine-color-white)))',
                   boxShadow: '0 6px 16px rgba(11, 34, 62, 0.25)',
                 }}
               >

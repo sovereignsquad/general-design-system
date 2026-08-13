@@ -447,6 +447,24 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:component-color-pairs',
+    script: null,
+    mutants: [
+      {
+        id: 'component-pairs-detects-fixed-foreground-on-themeable-fill',
+        claim: 'Detects a component pairing a themeable fill with a foreground not derived against it',
+        // Reverting BottomTabBar to the pre-597 pairing: `--gds-text-on-inverse` is derived to
+        // sit on `--gds-bg-inverse`, so against the athlete-gold dark accent it is 1.22:1.
+        // This gate is static — no browser, no build — so unlike the runtime gates it can carry
+        // a real mutant instead of a dated exemption.
+        file: 'packages/gds-core/src/BottomTabBar.tsx',
+        find: "color: 'var(--gds-brand-accent-fg, var(--gds-text-on-inverse, var(--mantine-color-white)))',",
+        replace: "color: 'var(--gds-text-on-inverse, var(--mantine-color-white))',",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:mantine-governance',
     script: null,
     mutants: [
