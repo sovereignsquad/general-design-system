@@ -1,14 +1,12 @@
 {
   "releaseChainGates": 39,
-  "gatesWithMutants": 24,
+  "gatesWithMutants": 25,
   "gatesExempted": 16,
-  "mutantsRun": 30,
-  "killed": 30,
+  "mutantsRun": 31,
+  "killed": 31,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
-  "coverageFailures": [
-    "verify:component-census is in verify:release but has neither mutants nor an exemption."
-  ],
+  "coverageFailures": [],
   "results": [
     {
       "gate": "verify:budgets",
@@ -182,6 +180,13 @@
       "gate": "verify:token-reachability",
       "mutantId": "reachability-detects-expired-extension-point",
       "claim": "Detects an extension-point allowlist entry whose reviewBy date has passed",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:component-census",
+      "mutantId": "census-detects-stale-published-count",
+      "claim": "Detects a published component count that no longer matches the packages",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
