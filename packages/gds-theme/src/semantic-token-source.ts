@@ -506,7 +506,7 @@ export function emitBadgeToneCssVariables(base: Record<string, string>): Record<
   // surface, not for a brand colour the theme picks freely. It measured 3.44:1. A fixed
   // foreground on a themeable fill is the same defect wherever it appears, so the fix is the
   // same: derive it against the fill.
-  for (const fill of ['--gds-brand-accent', '--gds-brand-accent-action', '--gds-bg-info-tag', '--gds-brand-accent-tint']) {
+  for (const fill of ['--gds-brand-primary', '--gds-brand-accent', '--gds-brand-accent-action', '--gds-bg-info-tag', '--gds-brand-accent-tint']) {
     for (const [suffix, surface] of [['', card], ['-dark', cardDark]]) {
       const value = base[`${fill}${suffix}`] ?? base[fill];
       if (!value) continue;

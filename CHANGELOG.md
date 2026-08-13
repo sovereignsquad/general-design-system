@@ -51,6 +51,39 @@ Six root causes, all fixed in the shared system rather than at any call site:
   `--gds-bg-info-tag-fg`, `--gds-brand-accent-tint-fg` (+ `-dark`), and
   `--gds-badge-solid-neutral` redefined from the card surface to a real neutral fill.
 
+### The same defect outside badges, found by generalising the check (#597)
+
+The badge work found one mistake four times: a themeable fill paired with a FIXED foreground.
+`--gds-text-on-inverse` is derived to sit on `--gds-bg-inverse` and on nothing else. The
+runtime badge gate cannot see these outside badges; the token gates cannot see them either,
+because the pair is never *declared* — a component composes it at the point of use out of two
+tokens that were never meant to meet.
+
+New gate `npm run verify:component-color-pairs`, chained into `verify:release`: it reads every
+style object in `packages/` that sets both a background and a text colour, resolves both
+through `var()` fallbacks, and measures the pair across all 25 presets x 2 schemes. Static —
+no browser, no build — so it carries a real mutant rather than a dated exemption.
+
+It found five latent defects on first run, all now fixed:
+
+| Component | Pairing | Worst |
+| --- | --- | --- |
+| `SemanticButton` (primary) | `text-on-inverse` on `brand-primary` | **1.00:1** — the same colour, default/dark |
+| `ChoiceChip` (active) | `text-on-inverse` on `brand-primary` | **1.00:1** |
+| `BottomTabBar` (emphasized) | `text-on-inverse` on `brand-accent` | 1.22:1, athlete-gold/dark |
+| `ListingCard` (tint pill) | `brand-accent-action` on `brand-accent-tint` | 1.60:1, high-contrast/dark |
+| `SemanticButton` (accent) | `text-on-inverse` on `brand-accent-action` | 1.66:1, gold-athlete/dark |
+
+**Scope, stated precisely:** these are latent, not currently visible. A live sweep of all 24
+pattern routes in both schemes found **zero** rendered elements whose text matched their
+background — the playground does not exercise these combinations today. They are public
+component API, so a consumer reaches them before we would.
+
+`--gds-brand-primary-fg` joins the derived foregrounds. One pair is **reported, not enforced**:
+disabled control text measures 3.50:1 in class-usa light, and WCAG 1.4.3 exempts text in an
+inactive component. The gate prints it with its ratio every run rather than dropping it —
+an exemption nobody can see is indistinguishable from a gap nobody noticed.
+
 **Visible change, stated rather than slipped in:** badge text is neutral instead of
 hue-tinted, and `LabelTag` renders on a soft tint instead of a transparent background. The
 tint still carries the preset's identity. Token baseline delta: 400 additions, 200 changes,

@@ -234,7 +234,10 @@ export function PillBar<T extends string = string>({
           onChange={onChange}
           size="macro"
           activeStyle={{
-            color: 'var(--gds-text-on-inverse, var(--mantine-color-white))',
+            // Issue 597, the same pairing #537 fixed for `support` one chip further down:
+            // `text.onInverse` sits on `bg.inverse`, not on the brand primary. Measured
+            // 1.00:1 in default dark — the same colour twice.
+            color: 'var(--gds-brand-primary-fg, var(--gds-text-on-inverse, var(--mantine-color-white)))',
             background: 'var(--gds-brand-primary, var(--gds-vibe-primary, var(--mantine-primary-color-filled)))',
           }}
           inactiveStyle={{

@@ -119,7 +119,9 @@ function ListingAffordance({ affordance }: { affordance: ListingCardAffordance }
   const label = affordance.ariaLabel ?? getSemanticActionLabel(affordance.action);
   const activeStyle = affordance.active
     ? {
-        color: 'var(--gds-brand-accent-action, var(--gds-brand-accent, var(--gds-vibe-accent, var(--mantine-primary-color-filled))))',
+        // Issue 597: an accent ON its own tint is 1.60:1 in high-contrast dark. The tint's
+        // derived foreground is the pairing that holds across presets.
+        color: 'var(--gds-brand-accent-tint-fg, var(--gds-brand-accent-action, var(--gds-vibe-accent, var(--mantine-primary-color-filled))))',
         background: 'var(--gds-brand-accent-tint, var(--mantine-color-default-hover))',
       }
     : undefined;
