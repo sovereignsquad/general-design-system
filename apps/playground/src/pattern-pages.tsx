@@ -127,6 +127,7 @@ import {
   GdsCountBadge,
   GdsRemovableTag,
   GdsMapPinBadge,
+  GdsSavedIndicator,
   GdsGeneratedThumbnail,
   GdsGeneratedHero,
   gdsBadgeAccentColors,
@@ -1078,6 +1079,38 @@ function channelSummary(): string {
   return 'Online orders account for %online% percent of visible orders; in-store orders account for %instore% percent.'
     .replace(/%online%/, String(CHANNEL_SHARES[0].share))
     .replace(/%instore%/, String(CHANNEL_SHARES[1].share));
+}
+
+function SavedIndicatorDemo() {
+  const [saved, setSaved] = useState(false);
+  return (
+    <SectionPanel
+      title="Saved indicator"
+      description="One governed toggle in two geometries: the corner form composes onto a map pin, the button form sits in a preview card's action row. Both are the same labelled button with aria-pressed — never a decorative heart — and both take their size from the control scale, so a compact theme moves them with everything else. The accessible name states the action available; aria-pressed carries the state, so neither is announced twice."
+    >
+      <GdsInline gap="lg" align="center">
+        <GdsSavedIndicator
+          saved={saved}
+          onSaveChange={setSaved}
+          saveLabel="Save Riverside Swim Club"
+          unsaveLabel="Remove Riverside Swim Club from saved"
+        />
+        <InlineText>{saved ? 'Saved' : 'Not saved'}</InlineText>
+        {/* The corner form needs a positioned parent — it anchors to the caller's box, not to
+            an offset baked into the primitive. */}
+        <GdsBox style={{ position: 'relative', display: 'inline-flex' }}>
+          <GdsMapPinBadge accent="ocean" icon="Location" label="Riverside Swim Club" size={56} filled />
+          <GdsSavedIndicator
+            mode="corner"
+            saved={saved}
+            onSaveChange={setSaved}
+            saveLabel="Save Riverside Swim Club"
+            unsaveLabel="Remove Riverside Swim Club from saved"
+          />
+        </GdsBox>
+      </GdsInline>
+    </SectionPanel>
+  );
 }
 
 function BadgeThemeMatrixDemo() {
@@ -2774,6 +2807,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <BadgeProfileClusterDemo />
           <br />
           <BadgeOverlayDemo />
+          <br />
+          <SavedIndicatorDemo />
           <br />
           <BadgeThemeMatrixDemo />
           <br />
