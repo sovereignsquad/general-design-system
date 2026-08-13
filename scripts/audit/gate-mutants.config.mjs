@@ -509,17 +509,19 @@ export const GATE_MUTANTS = [
       {
         id: 'live-proof-detects-unproven-claim',
         claim: 'Detects a pattern claiming live-proof coverage that nothing on the site renders',
-        // Anchored on the DEFINITION of a status, not on a count or a line number, per the
-        // trap that made an earlier census mutant go INVALID the moment the system grew.
+        // RE-ANCHORED (issue 609). This used to flip the one honestly-`static-reference` entry
+        // to `live-proof`. Issue 609 built the frame that entry was waiting for, so it became a
+        // real live proof and the anchor vanished — the suite reported INVALID rather than
+        // passing, which is the anchor check doing its job, and is the same trap that voided an
+        // earlier census mutant. A status that is *supposed* to change as the system improves
+        // is a bad anchor.
         //
-        // `bottom-tab-navigation` is the one entry that is honestly `static-reference`: it is
-        // viewport-fixed and mobile-only, so it cannot be proven without the frame issue 609
-        // tracks, and no page references BottomTabBar. Promoting it back to `live-proof` is
-        // therefore exactly the #600 defect — a public claim with nothing behind it — and a
-        // correct gate must refuse it.
-        file: 'apps/playground/src/pattern-registry.ts',
-        find: "    coverageStatus: 'static-reference',",
-        replace: "    coverageStatus: 'live-proof',",
+        // Anchored instead on a demo CASE LABEL, which is the definition the gate reads: rename
+        // it and `searchable-select` claims a live proof whose card renders the "No interactive
+        // demo renders here" fallback — exactly the #600 defect.
+        file: 'apps/playground/src/pattern-pages.tsx',
+        find: "    case 'searchable-select':",
+        replace: "    case 'searchable-select-renamed':",
         once: true,
       },
     ],

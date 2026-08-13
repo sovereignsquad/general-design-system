@@ -1,10 +1,10 @@
 {
-  "evaluated": 1094,
+  "evaluated": 1097,
   "gapCount": 404,
-  "excludedCount": 67,
+  "excludedCount": 68,
   "byKind": {
     "prop": {
-      "evaluated": 979,
+      "evaluated": 982,
       "gaps": 366
     },
     "variant": {
@@ -248,7 +248,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 20
+        "line": 21
       },
       "unmet": [
         {

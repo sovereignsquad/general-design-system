@@ -9,7 +9,7 @@
   },
   "allowed": [
     {
-      "at": "packages/gds-core/src/BottomTabBar.tsx:130",
+      "at": "packages/gds-core/src/BottomTabBar.tsx:142",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
