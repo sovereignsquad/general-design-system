@@ -19,7 +19,12 @@ const requiredPrimaryLabels = [
   "label: 'Coverage'",
   "label: 'Themes'",
   "label: 'Governance'",
-  "label: 'Live Demos'",
+  // Issue 613. This required the literal label "Live Demos" — so the gate meant to protect
+  // the site's trustworthiness was PINNING the Rule 15 violation in place. #606 renamed the
+  // route to /live-proofs and could not rename the label without this failing, which is very
+  // likely why the label was left behind. Same shape as the docs-governance gate in #518:
+  // a check that mandates a claim rather than checking one.
+  "label: 'Live Proofs'",
   "label: 'Request a Feature'",
 ];
 
