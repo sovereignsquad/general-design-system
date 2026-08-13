@@ -6,6 +6,10 @@ import {
   // claiming `live-proof` while no page imported them, so readers reached the
   // "No interactive demo renders here" fallback under a live-proof claim.
   AISearchCard,
+  BottomTabBar,
+  BOTTOM_TAB_MAX_ITEMS,
+  BOTTOM_TAB_HEIGHT,
+  GdsViewportFrame,
   ChatThread,
   getGdsMaturitySummary,
   getGdsRecommendedMaturityCapabilities,
@@ -1657,6 +1661,34 @@ function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
   );
 }
 
+function BottomTabNavigationDemo() {
+  const [activeId, setActiveId] = useState('browse');
+  const items = [
+    { id: 'browse', label: 'Browse', href: '#browse', icon: <GdsIcon icon="Search" /> },
+    { id: 'saved', label: 'Saved', href: '#saved', icon: <GdsIcon icon="Favorite" /> },
+    { id: 'book', label: 'Book', href: '#book', icon: <GdsIcon icon="Calendar" /> },
+    { id: 'inbox', label: 'Inbox', href: '#inbox', icon: <GdsIcon icon="Inbox" /> },
+    { id: 'profile', label: 'Profile', href: '#profile', icon: <GdsIcon icon="Profile" /> },
+  ];
+
+  return (
+    <SectionPanel
+      title="Bottom tab navigation"
+      description="A viewport-fixed, mobile-only surface, shown inside a bounded frame that acts as its viewport. The frame is a shipped primitive, not page scaffolding: it establishes a containing block so the bar pins to the frame instead of the window, and publishes its width class so the bar's breakpoint gate resolves against the frame. Outside a frame the bar behaves exactly as before. The active tab carries aria-current, and each destination is a real link rather than a button styled as one."
+    >
+      <GdsViewportFrame width="compact" label="Compact width — the class this surface is built for">
+        <GdsStack gap="sm">
+          <BodyText>Content scrolls behind the bar; the bar stays pinned to the frame.</BodyText>
+          <BottomTabBar items={items} activeId={activeId} onNavItemSelect={setActiveId} ariaLabel="Example primary navigation" />
+        </GdsStack>
+      </GdsViewportFrame>
+      <MetadataText>
+        {`Selected: ${activeId}. The bar accepts at most ${BOTTOM_TAB_MAX_ITEMS} items — it throws rather than silently dropping one — and reserves ${BOTTOM_TAB_HEIGHT}px plus the safe-area inset, which is the padding a scrolling surface owes it.`}
+      </MetadataText>
+    </SectionPanel>
+  );
+}
+
 function MaturityCapabilitiesDemo() {
   const summary = getGdsMaturitySummary();
   const capabilities = getGdsRecommendedMaturityCapabilities();
@@ -3065,6 +3097,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           iconOnly={[{ action: 'help' }]}
         />
       );
+    case 'bottom-tab-navigation':
+      return <BottomTabNavigationDemo />;
     case 'maturity-capabilities':
       return <MaturityCapabilitiesDemo />;
     case 'pin-system':

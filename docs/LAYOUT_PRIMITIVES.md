@@ -103,6 +103,45 @@ Empty state:
 </GdsContainer>
 ```
 
+## Bounded viewport frame (`GdsViewportFrame`)
+
+Some surfaces position against the **viewport** rather than their parent, and some gate
+themselves on a **viewport breakpoint**. `BottomTabBar` does both — `position: fixed` plus
+`hiddenFrom="sm"` — which made it impossible to show inside a page: at desktop widths it
+rendered nothing, and at mobile widths it pinned itself to the window and read as the page's
+own navigation rather than as an example.
+
+`GdsViewportFrame` bounds the notion of "viewport" so such a surface can be embedded:
+
+```tsx
+<GdsViewportFrame width="compact" label="Compact width">
+  <BottomTabBar items={items} activeId={activeId} />
+</GdsViewportFrame>
+```
+
+Two mechanisms, because the two problems are different:
+
+| Problem | Mechanism |
+| --- | --- |
+| A `position: fixed` child escapes to the window | `contain: layout paint` makes the frame a **containing block** for fixed descendants. `overflow: hidden` alone does not. |
+| A breakpoint gate reads the viewport | A media query cannot resolve against an element, so the frame **publishes its width class through context**; `useGdsViewportFrame()` lets a gated component read it. |
+
+`useGdsViewportFrame()` returns `null` outside a frame, so components keep their viewport
+behaviour by default — wrapping something in a frame is opt-in and cannot change how it renders
+anywhere else.
+
+**Width classes** map to the governed breakpoint scale: `compact` (below `sm`, so mobile-only
+surfaces resolve as mobile), `medium`, `expanded`. A surface that is mobile-only renders nothing
+in a `medium` or `expanded` frame — the same answer the viewport query would give.
+
+**Container queries** were the alternative for the second problem. They solve it cleanly but
+would require rewriting every gated component against `@container`, changing behaviour for
+consumers who are not inside a frame — a much larger blast radius for the same result.
+
+Use it for embedded previews, kiosk panes, split views and documentation of viewport-relative
+surfaces. It is **not** a device mock: it carries no chrome, notch or status bar, because it
+bounds layout rather than illustrating a phone.
+
 ## Replacement Matrix
 
 | Local pattern | GDS replacement |

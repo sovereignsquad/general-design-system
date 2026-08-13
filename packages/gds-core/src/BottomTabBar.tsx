@@ -1,5 +1,6 @@
 import { Anchor, Box, Stack, Text } from '@mantine/core';
 import { gdsZIndexToken } from '@sovereignsquad/gds-theme';
+import { useGdsViewportFrame } from './GdsViewportFrame';
 import type { PublicNavItem } from './PublicNav';
 
 /**
@@ -54,7 +55,13 @@ export function BottomTabBar({
   ariaLabel = 'Primary',
   className,
 }: BottomTabBarProps) {
+  const frame = useGdsViewportFrame();
   const cap = Math.min(Math.max(1, maxItems), BOTTOM_TAB_MAX_ITEMS);
+
+  // A frame presenting a wider class is the same answer the viewport query would give.
+  if (frame && frame.width !== 'compact') {
+    return null;
+  }
 
   if (items.length > cap) {
     throw new Error(`BottomTabBar supports at most ${cap} items, received ${items.length}.`);
@@ -71,7 +78,12 @@ export function BottomTabBar({
     <Box
       component="nav"
       aria-label={ariaLabel}
-      hiddenFrom="sm"
+      // Issue 609. `hiddenFrom` gates on the VIEWPORT, so inside a bounded frame this bar would
+      // vanish on a desktop page even though the frame is presenting a compact width. A media
+      // query cannot be made to resolve against an element, so the frame publishes its width
+      // class through context and this reads it. Outside a frame `frame` is null and the
+      // viewport gate applies exactly as before — nothing changes for existing consumers.
+      hiddenFrom={frame ? undefined : 'sm'}
       className={className}
       style={{
         position: 'fixed',

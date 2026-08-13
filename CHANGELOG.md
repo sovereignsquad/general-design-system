@@ -4,6 +4,36 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### `GdsViewportFrame`: the capability that was missing, built (#609)
+
+#600 could not live-prove `bottom-tab-navigation` and **said so** rather than staging it —
+`BottomTabBar` is `position: fixed` and `hiddenFrom="sm"`, so on a documentation page it either
+rendered nothing or pinned itself over the site's own navigation. Rule 15: *the missing
+capability IS the finding.* The finding is now a shipped primitive, and the entry is a real live
+proof again.
+
+The frame solves two different problems with two different mechanisms, because no single trick
+covers both:
+
+- **A fixed child escaping to the window** — `contain: layout paint` makes the frame a
+  *containing block* for `position: fixed` descendants. `overflow: hidden` alone does not.
+- **A breakpoint gate reading the viewport** — a media query cannot be made to resolve against
+  an element, so the frame publishes its width class through context and the gated component
+  reads it. `useGdsViewportFrame()` returns `null` outside a frame, so **wrapping something in a
+  frame is opt-in and changes nothing for existing consumers.**
+
+Container queries were the alternative for the second problem. They solve it cleanly but would
+require rewriting every gated component against `@container`, changing behaviour for consumers
+who are not inside a frame — a much larger blast radius for the same result.
+
+Verified in real Chrome at **1280×900**, not jsdom: the bar renders (it would have been hidden),
+358px wide inside a 360px frame, pinned to the frame with `escapedToWindowBottom: false`. A
+mobile-only surface still renders nothing in a `medium` or `expanded` frame — the same answer
+the viewport query gives.
+
+This generalises beyond documentation: embedded previews, kiosk panes and split views all need a
+bounded viewport, and every consumer was previously left to solve it locally.
+
 ### The theme coverage matrix is reproducible (#599)
 
 #562 §5 required "the same commit produces the same result set". It did not: three runs

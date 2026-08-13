@@ -43,6 +43,7 @@ export * from './AccentPanel';
 export * from './SectionPanel';
 export * from './BrowseSurface';
 export * from './BoundedPreviewSurface';
+export * from './GdsViewportFrame';
 export * from './OwnedContrastSurface';
 export * from './SurfacePresentation';
 
