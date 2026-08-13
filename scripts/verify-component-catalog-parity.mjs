@@ -24,6 +24,7 @@
  */
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
+import { collectPublicComponents } from './lib/component-census.mjs';
 
 const root = process.cwd();
 const registryPath = resolve(root, 'apps/playground/src/pattern-registry.ts');
@@ -46,89 +47,12 @@ function walk(dir) {
 
 // --- Reused helper: public runtime exports of a single source file ---
 // (from verify-pattern-export-coverage.mjs collectPublicRuntimeExports, applied per-file)
-function collectRuntimeExports(file) {
-  const names = new Set();
-  const source = readFileSync(file, 'utf8');
-  for (const match of source.matchAll(/export\s+(?:function|const|class)\s+([A-Za-z0-9_]+)/g)) {
-    names.add(match[1]);
-  }
-  return names;
-}
-
-// Resolve a module specifier reachable from a package entrypoint to a concrete
-// source file, so we only scan what is genuinely re-exported through the public
-// index/client/server barrels — not internal-only or `.test` files.
-function resolveModule(fromFile, spec) {
-  const base = resolve(dirname(fromFile), spec);
-  const candidates = [
-    `${base}.tsx`,
-    `${base}.ts`,
-    join(base, 'index.tsx'),
-    join(base, 'index.ts'),
-  ];
-  return candidates.find((candidate) => existsSync(candidate));
-}
-
-// Follow `export * from './X'` / `export { ... } from './X'` re-exports from the
-// package's public entrypoints (index/client/server) and collect every public
-// runtime export name they expose. Returns the union across the given entrypoints.
-function collectPublicComponentExports(entrypoints) {
-  const names = new Set();
-  const visited = new Set();
-
-  function visitFile(file) {
-    if (!file || visited.has(file)) return;
-    visited.add(file);
-
-    // Direct runtime exports declared in this file.
-    for (const name of collectRuntimeExports(file)) {
-      names.add(name);
-    }
-
-    // Follow re-export barrels.
-    const source = readFileSync(file, 'utf8');
-    for (const match of source.matchAll(/export\s+(?:\*|\{[^}]*\})\s+from\s+['"]([^'"]+)['"]/g)) {
-      const spec = match[1];
-      if (!spec.startsWith('.')) continue; // external re-exports are not GDS components
-      const resolved = resolveModule(file, spec);
-      if (resolved) visitFile(resolved);
-    }
-  }
-
-  for (const entrypoint of entrypoints) {
-    if (existsSync(entrypoint)) visitFile(entrypoint);
-  }
-
-  return names;
-}
-
-// A "UI component" name: PascalCase (starts uppercase, has a lowercase letter),
-// excluding hooks (use*). Type-only exports never appear here because we only
-// scan runtime `export function|const|class` declarations.
-function isComponentName(name) {
-  return /^[A-Z]/.test(name) && /[a-z]/.test(name) && !/^use[A-Z]/.test(name);
-}
-
 // --- Collect public component exports from both packages ---
-const packageEntrypoints = {
-  '@sovereignsquad/gds-core': [
-    resolve(root, 'packages/gds-core/src/index.ts'),
-    resolve(root, 'packages/gds-core/src/client.ts'),
-    resolve(root, 'packages/gds-core/src/server.ts'),
-  ],
-  '@sovereignsquad/gds-admin': [
-    resolve(root, 'packages/gds-admin/src/index.ts'),
-    resolve(root, 'packages/gds-admin/src/client.ts'),
-    resolve(root, 'packages/gds-admin/src/server.ts'),
-  ],
-};
 
-const exportedComponents = new Set();
-for (const entrypoints of Object.values(packageEntrypoints)) {
-  for (const name of collectPublicComponentExports(entrypoints)) {
-    if (isComponentName(name)) exportedComponents.add(name);
-  }
-}
+// Issue 605: one definition of "a GDS component", shared with the generator that publishes
+// the count to the reference site. The site used to state a hardcoded "250+"; copying this
+// logic to derive it would have created one fact with two implementations, free to drift.
+const exportedComponents = collectPublicComponents();
 
 // --- Collect sourceComponent names referenced by the pattern registry ---
 // (mirrors the sourceComponent parsing in verify-pattern-export-coverage.mjs)
