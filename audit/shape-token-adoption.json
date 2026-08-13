@@ -15,7 +15,7 @@
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/ChatSurface.tsx:135",
+      "at": "packages/gds-core/src/ChatSurface.tsx:141",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
