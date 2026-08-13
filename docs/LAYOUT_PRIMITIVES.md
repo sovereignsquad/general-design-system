@@ -124,19 +124,22 @@ Two mechanisms, because the two problems are different:
 | Problem | Mechanism |
 | --- | --- |
 | A `position: fixed` child escapes to the window | `contain: layout paint` makes the frame a **containing block** for fixed descendants. `overflow: hidden` alone does not. |
-| A breakpoint gate reads the viewport | A media query cannot resolve against an element, so the frame **publishes its width class through context**; `useGdsViewportFrame()` lets a gated component read it. |
+| A breakpoint gate reads the viewport | A media query cannot resolve against an element, so the frame **publishes its width class as `data-gds-viewport-frame`**, and the governed stylesheet resolves `data-gds-viewport-gated` against it. |
 
-`useGdsViewportFrame()` returns `null` outside a frame, so components keep their viewport
-behaviour by default — wrapping something in a frame is opt-in and cannot change how it renders
-anywhere else.
+Outside a frame the gate is the same media query as before, so wrapping something in a frame is
+opt-in and cannot change how it renders anywhere else. Both mechanisms are **CSS**, which is
+deliberate: a React context read cleaner in TSX and was the first design, but reading it would
+have made every gated component a client component — and `BottomTabBar` is exported from the
+server entrypoint. `check-export-contract` refused it, and the design changed rather than the
+boundary. Requires `@sovereignsquad/gds-theme/styles.css`, which consumers already import once.
 
 **Width classes** map to the governed breakpoint scale: `compact` (below `sm`, so mobile-only
 surfaces resolve as mobile), `medium`, `expanded`. A surface that is mobile-only renders nothing
 in a `medium` or `expanded` frame — the same answer the viewport query would give.
 
-**Container queries** were the alternative for the second problem. They solve it cleanly but
-would require rewriting every gated component against `@container`, changing behaviour for
-consumers who are not inside a frame — a much larger blast radius for the same result.
+**Container queries** were the other candidate. They solve the second problem cleanly but would
+require rewriting every gated component against `@container`, changing behaviour for consumers
+who are not inside a frame — a much larger blast radius for the same result.
 
 Use it for embedded previews, kiosk panes, split views and documentation of viewport-relative
 surfaces. It is **not** a device mock: it carries no chrome, notch or status bar, because it

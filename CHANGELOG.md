@@ -26,10 +26,27 @@ Container queries were the alternative for the second problem. They solve it cle
 require rewriting every gated component against `@container`, changing behaviour for consumers
 who are not inside a frame — a much larger blast radius for the same result.
 
-Verified in real Chrome at **1280×900**, not jsdom: the bar renders (it would have been hidden),
-358px wide inside a 360px frame, pinned to the frame with `escapedToWindowBottom: false`. A
-mobile-only surface still renders nothing in a `medium` or `expanded` frame — the same answer
-the viewport query gives.
+**Both mechanisms are CSS**, and that was forced rather than chosen. The first design published
+the frame width through React context. `check-export-contract` refused it: reading a context
+would make every gated component a client component, and `BottomTabBar` is exported from the
+**server** entrypoint. A capability for embedding surfaces should not push its subjects out of
+the server lane, so the design changed rather than the boundary.
+
+**A regression this nearly shipped, caught by measuring the real component.** The first
+verification probed a synthetic `<div>` and reported the gate working. `BottomTabBar` set
+`display: 'flex'` as an *inline* style, which beats any stylesheet rule — so the media query
+hiding it above `sm` could never win, and **the bar would have appeared on every desktop page
+for every existing consumer.** `display` now belongs to the stylesheet; the inline style keeps
+only appearance.
+
+Verified in real Chrome, not jsdom, across the full matrix:
+
+| | outside a frame | inside a compact frame |
+| --- | --- | --- |
+| **1280×900** | `display: none` — unchanged | `display: flex`, pinned to the frame |
+| **390×800** | `display: flex` — unchanged | `display: flex`, pinned to the frame |
+
+The bar measures 358px inside a 360px frame with `escapedToWindowBottom: false`.
 
 This generalises beyond documentation: embedded previews, kiosk panes and split views all need a
 bounded viewport, and every consumer was previously left to solve it locally.

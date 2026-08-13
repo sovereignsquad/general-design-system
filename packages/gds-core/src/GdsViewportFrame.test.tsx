@@ -1,12 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import { GdsViewportFrame, useGdsViewportFrame } from './GdsViewportFrame';
+import { screen } from '@testing-library/react';
+import { GdsViewportFrame } from './GdsViewportFrame';
 import { BottomTabBar } from './BottomTabBar';
 import { renderWithGds } from '../../../test-utils/render';
-
-function FrameProbe() {
-  const frame = useGdsViewportFrame();
-  return <span data-testid="probe">{frame ? frame.width : 'no-frame'}</span>;
-}
 
 const items = [
   { id: 'browse', label: 'Browse', href: '#browse' },
@@ -14,42 +9,41 @@ const items = [
 ];
 
 describe('GdsViewportFrame (issue 609)', () => {
-  it('publishes its width class to descendants', () => {
-    renderWithGds(
+  // The frame publishes its width as data so the cascade can resolve a gate against it. A
+  // React context would read cleaner here and was the first design; it would also have made
+  // every gated component a client component, and BottomTabBar is exported from the server
+  // entrypoint. These attributes ARE the contract, so they are what the test asserts.
+  it('publishes its width class as data', () => {
+    const { container } = renderWithGds(
       <GdsViewportFrame width="medium">
-        <FrameProbe />
+        <span>content</span>
       </GdsViewportFrame>,
     );
 
-    expect(screen.getByTestId('probe').textContent).toBe('medium');
+    expect(container.querySelector('[data-gds-viewport-frame="medium"]')).toBeTruthy();
   });
 
-  // The hook must be null outside a frame, or wrapping something in a frame would change how
-  // every other consumer renders it. Opt-in is the whole safety property.
-  it('reports no frame when there is none', () => {
-    render(<FrameProbe />);
-    expect(screen.getByTestId('probe').textContent).toBe('no-frame');
+  it('establishes a containing block for position: fixed descendants', () => {
+    const { container } = renderWithGds(
+      <GdsViewportFrame width="compact">
+        <span>content</span>
+      </GdsViewportFrame>,
+    );
+
+    // `contain: layout paint` is the mechanism; `overflow: hidden` alone does not create a
+    // containing block, so a fixed child would still escape to the window.
+    const frame = container.querySelector('[data-gds-viewport-frame="compact"]');
+    expect((frame as HTMLElement).style.contain).toBe('layout paint');
   });
 
-  it('renders a viewport-fixed surface inside a compact frame', () => {
+  it('renders a gated surface inside the frame and marks its gate', () => {
     renderWithGds(
       <GdsViewportFrame width="compact">
         <BottomTabBar items={items} activeId="browse" ariaLabel="Framed navigation" />
       </GdsViewportFrame>,
     );
 
-    expect(screen.getByLabelText('Framed navigation')).toBeTruthy();
-  });
-
-  // A frame wider than the surface's breakpoint is the same answer the viewport query gives:
-  // the surface is mobile-only, so it does not belong at that width.
-  it('hides a mobile-only surface when the frame is not compact', () => {
-    renderWithGds(
-      <GdsViewportFrame width="expanded">
-        <BottomTabBar items={items} activeId="browse" ariaLabel="Framed navigation" />
-      </GdsViewportFrame>,
-    );
-
-    expect(screen.queryByLabelText('Framed navigation')).toBeNull();
+    const nav = screen.getByLabelText('Framed navigation');
+    expect(nav.getAttribute('data-gds-viewport-gated')).toBe('sm');
   });
 });

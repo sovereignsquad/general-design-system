@@ -1413,3 +1413,40 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
   outline: 2px solid var(--gds-focus-ring, var(--mantine-primary-color-filled, #1d4ed8));
   outline-offset: 2px;
 }
+
+/*
+ * Issue 609 — viewport-gated surfaces inside a bounded frame.
+ *
+ * A surface such as `BottomTabBar` is mobile-only. Expressing that as Mantine's `hiddenFrom`
+ * gates on the VIEWPORT, which made the surface impossible to show inside a page: on a desktop
+ * page it rendered nothing, and there is no media query that can be made to consult an element
+ * instead of the window.
+ *
+ * The gate is therefore declared as data and resolved by the cascade. Default behaviour is the
+ * same media query as before, so nothing changes for a consumer who never uses a frame. Inside
+ * `GdsViewportFrame` the frame's own width class decides instead, which is what lets a
+ * viewport-fixed mobile surface be documented, embedded in a panel, or shown in a kiosk pane.
+ *
+ * A React context would have read cleaner in TSX and was the first design. It would also have
+ * made every gated component a client component, and `BottomTabBar` is exported from the server
+ * entrypoint — so the gate stays in CSS and the component stays server-renderable.
+ */
+[data-gds-viewport-gated='sm'] {
+  display: flex;
+}
+
+@media (min-width: 48em) {
+  [data-gds-viewport-gated='sm'] {
+    display: none;
+  }
+}
+
+/* An enclosing frame overrides the viewport, in both directions. */
+[data-gds-viewport-frame='compact'] [data-gds-viewport-gated='sm'] {
+  display: flex;
+}
+
+[data-gds-viewport-frame='medium'] [data-gds-viewport-gated='sm'],
+[data-gds-viewport-frame='expanded'] [data-gds-viewport-gated='sm'] {
+  display: none;
+}

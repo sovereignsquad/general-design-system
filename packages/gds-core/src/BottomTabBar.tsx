@@ -1,6 +1,5 @@
 import { Anchor, Box, Stack, Text } from '@mantine/core';
 import { gdsZIndexToken } from '@sovereignsquad/gds-theme';
-import { useGdsViewportFrame } from './GdsViewportFrame';
 import type { PublicNavItem } from './PublicNav';
 
 /**
@@ -41,7 +40,7 @@ function resolveActiveId(items: PublicNavItem[], activeId?: string): string | un
 }
 
 /**
- * Fixed, mobile-only (`hiddenFrom="sm"`) bottom tab navigation rendered from
+ * Fixed, mobile-only (`data-gds-viewport-gated="sm"`) bottom tab navigation rendered from
  * `PublicNavItem[]`. Theme-tokened and safe-area aware, with an optional raised
  * accent center action. Throws if given more than `maxItems` (capped at
  * {@link BOTTOM_TAB_MAX_ITEMS}); renders nothing when there are no items.
@@ -55,13 +54,7 @@ export function BottomTabBar({
   ariaLabel = 'Primary',
   className,
 }: BottomTabBarProps) {
-  const frame = useGdsViewportFrame();
   const cap = Math.min(Math.max(1, maxItems), BOTTOM_TAB_MAX_ITEMS);
-
-  // A frame presenting a wider class is the same answer the viewport query would give.
-  if (frame && frame.width !== 'compact') {
-    return null;
-  }
 
   if (items.length > cap) {
     throw new Error(`BottomTabBar supports at most ${cap} items, received ${items.length}.`);
@@ -78,19 +71,28 @@ export function BottomTabBar({
     <Box
       component="nav"
       aria-label={ariaLabel}
-      // Issue 609. `hiddenFrom` gates on the VIEWPORT, so inside a bounded frame this bar would
-      // vanish on a desktop page even though the frame is presenting a compact width. A media
-      // query cannot be made to resolve against an element, so the frame publishes its width
-      // class through context and this reads it. Outside a frame `frame` is null and the
-      // viewport gate applies exactly as before — nothing changes for existing consumers.
-      hiddenFrom={frame ? undefined : 'sm'}
+      // Issue 609. `hiddenFrom` gates on the VIEWPORT, so inside a bounded frame this bar
+      // vanished on a desktop page even though the frame was presenting a compact width. The
+      // gate is now declared as data rather than as a Mantine media prop, and the governed
+      // stylesheet resolves it against an enclosing `data-gds-viewport-frame` when there is
+      // one. Outside a frame the rule is the same media query as before, so nothing changes
+      // for existing consumers — and this stays a plain attribute, so the component remains
+      // server-renderable. Reading a React context here would have forced it out of the
+      // server entrypoint, which `check-export-contract` refused.
+      data-gds-viewport-gated="sm"
       className={className}
       style={{
         position: 'fixed',
         insetInline: 0,
         bottom: 0,
         zIndex: gdsZIndexToken.app,
-        display: 'flex',
+        // `display` is deliberately NOT set here (issue 609). An inline style beats any
+        // stylesheet rule, so declaring `display: 'flex'` inline made the governed gate
+        // unenforceable: the media query that hides this bar above `sm` could never win, and
+        // the bar would have appeared on every desktop page. The stylesheet owns `display` --
+        // `flex` when it should show, `none` when it should not -- and this only styles the
+        // bar's appearance. Verified in Chrome at 1280px: outside a frame the bar computes
+        // `display: none`; inside a compact frame it computes `flex`.
         justifyContent: 'space-around',
         alignItems: 'stretch',
         height: `calc(${BOTTOM_TAB_HEIGHT}px + env(safe-area-inset-bottom, 0px))`,
