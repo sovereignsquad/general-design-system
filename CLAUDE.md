@@ -352,6 +352,43 @@ wrong one shipped.
   source and the history, establish the intent, then fix the half that is
   actually wrong — and say which it was.
 
+## 15. The reference site is documentation with proofs — never a demo, never staged (owner directive, 2026-08-13)
+
+The word "demo" invites treating the site as a sandbox where a shortcut is
+acceptable. It is not one. Every element on it is the shipped system rendering
+itself, which is why Rule 10 forbids page-local fixes there. Language matters
+here because it drives behaviour: an agent that believes it is building "its
+demo" reaches for a wrapper, an inline style, or a hand-composed approximation.
+An agent documenting a system with proofs cannot, because the proof would then
+be of something the consumer cannot obtain.
+
+**When a proof needs a capability GDS does not have, the missing capability IS
+the finding.** In priority order:
+
+1. **Build it in the system, then document through it.** Real example: proving
+   the saved-indicator's corner form needed a positioned wrapper. The reflex was
+   an inline `style` on the page; `verify-playground-gds-only` refused it. The
+   wrapper was not missing from the page — it was missing from the primitive,
+   which pushed layout onto every consumer. Adding an `anchor` prop fixed the
+   component, and the page then documented the real thing with nothing local to
+   it. The gate caught a DESIGN FLAW, not a lint violation.
+2. **If it cannot be built now, state the absence.** The page says plainly what
+   is not covered yet, and an issue carries it. An honest gap is documentation;
+   a workaround that looks like the system is a lie about the system.
+3. **Never stage it.** No page-local styling, no fake data presented as real, no
+   hand-composed approximation of a component that does not exist. A proof built
+   from something a consumer cannot obtain proves nothing, and it is
+   indistinguishable from a working feature until someone tries to use it.
+
+The test: **if documenting something honestly requires a workaround, the system
+is incomplete.** The workaround is not the solution; it is where the
+incompleteness surfaced.
+
+This also applies to how the work is described. Nothing on that site belongs to
+whoever built it — not "my demo", not "my page". It is the system's
+documentation, and the standard for it is a client's trust, not an author's
+satisfaction.
+
 ## 13. Never push without a CI-equivalent local run, and never report done before CI is green (owner directive, 2026-08-11)
 
 This rule exists because of three consecutive red CI runs on `main` (#360, #361,

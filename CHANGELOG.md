@@ -4,6 +4,29 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The reference site is documentation with proofs, not demos (CLAUDE.md Rule 15)
+
+Owner correction, and the language was the smaller half of it. Describing the reference site as
+"my demo" is wrong twice: nothing on it belongs to whoever built it, and calling it a demo
+invites treating it as a sandbox where a shortcut is acceptable.
+
+That is not a style point — it drives behaviour, and it did in this session. Proving the
+saved-indicator's corner form needed a positioned wrapper, the reflex was an inline `style` on
+the page. `verify-playground-gds-only` refused it. **The wrapper was not missing from the page;
+it was missing from the primitive**, which had been pushing layout onto every consumer. The
+gate caught a design flaw, not a lint violation.
+
+Rule 15 states the approach for when a proof needs a capability GDS does not have: build it in
+the system and document through it; if it cannot be built now, state the absence plainly and
+carry it in an issue; never stage it. **If documenting something honestly requires a
+workaround, the system is incomplete** — the workaround is only where the incompleteness
+surfaced.
+
+Filed #606: the site currently calls its own proof surfaces "demos" on reader-visible
+surfaces — a nav card and badge in 9 locales, and the public `/live-demos` route — plus 114
+internal `coverageStatus: 'live-demo'` uses. The term, the URL (outward-facing, needs
+redirects) and the enum are decisions for the owner rather than a unilateral rename.
+
 ### GdsSavedIndicator: one save toggle, not two (#546)
 
 The map spec puts a saved heart in two places — a pin's upper-right corner and the preview
