@@ -116,6 +116,27 @@ export function useHasSeenTour(tourId: string): boolean {
   return seen;
 }
 
+/**
+ * The spotlight's default padding, read from its governed token (issue 591).
+ *
+ * `--gds-tour-spotlight-padding` was declared beside `--gds-tour-spotlight-radius` and read by
+ * nothing, while this component inflated the hole by a hardcoded `8` — the same number the
+ * token declares. The token was not a missing feature, as the report assumed from the CSS
+ * side; it was a governed value the component kept a private copy of. Reading it changes no
+ * pixels today, and makes a theme that retunes the token actually take effect.
+ *
+ * Falls back to 8 when the stylesheet is absent (a consumer importing the component without
+ * `styles.css`) — the same number the private copy used.
+ */
+function readSpotlightPadding(): number {
+  if (typeof window === 'undefined') return 8;
+  const declared = getComputedStyle(document.documentElement)
+    .getPropertyValue('--gds-tour-spotlight-padding')
+    .trim();
+  const parsed = Number.parseFloat(declared);
+  return Number.isFinite(parsed) ? parsed : 8;
+}
+
 function resolveTargetElement(target: GdsTourStep['target']): HTMLElement | null {
   if (typeof window === 'undefined') return null;
   if (typeof target === 'string') {
@@ -294,7 +315,7 @@ export function GdsTourProvider({ children }: GdsTourProviderProps) {
       }
       targetElRef.current = el;
       el.setAttribute('data-gds-tour-active-target', activeStep.id);
-      const pad = activeStep.spotlightPadding ?? 8;
+      const pad = activeStep.spotlightPadding ?? readSpotlightPadding();
       const b = el.getBoundingClientRect();
       const nextRect: Rect = {
         top: b.top - pad,

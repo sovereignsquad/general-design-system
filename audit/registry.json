@@ -1,16 +1,17 @@
 {
   "generatedAt": null,
-  "commit": "28a4384cb48a25e3ae28d9590906672e58eb1813",
+  "commit": "6cb3a9d681e9f5d65a0b9aa8fb8c3ed20e4f1ecf",
   "counts": {
     "token-published": 485,
-    "token-declared": 56,
+    "token-declared": 57,
     "token-referenced": 56,
-    "token-emitted": 415,
+    "token-emitted": 414,
     "export": 832,
     "prop": 1034,
     "variant": 109,
-    "motion-token": 10,
-    "motion-shipped": 6,
+    "motion-token": 11,
+    "motion-shipped": 8,
+    "motion-keyframes": 1,
     "motion-reduced-guard": 2,
     "interaction-state": 26,
     "locale-pack-package": 12,
@@ -5753,115 +5754,124 @@
       }
     },
     {
-      "id": "token-declared:--gds-motion-ease-standard#529",
+      "id": "token-declared:--gds-motion-duration-ambient#529",
       "kind": "token-declared",
-      "name": "--gds-motion-ease-standard",
+      "name": "--gds-motion-duration-ambient",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 119
       }
     },
     {
-      "id": "token-declared:--gds-motion-ease-entrance#530",
+      "id": "token-declared:--gds-motion-ease-standard#530",
       "kind": "token-declared",
-      "name": "--gds-motion-ease-entrance",
+      "name": "--gds-motion-ease-standard",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 120
       }
     },
     {
-      "id": "token-declared:--gds-motion-ease-exit#531",
+      "id": "token-declared:--gds-motion-ease-entrance#531",
       "kind": "token-declared",
-      "name": "--gds-motion-ease-exit",
+      "name": "--gds-motion-ease-entrance",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 121
       }
     },
     {
-      "id": "token-declared:--gds-motion-ease-emphasis#532",
+      "id": "token-declared:--gds-motion-ease-exit#532",
       "kind": "token-declared",
-      "name": "--gds-motion-ease-emphasis",
+      "name": "--gds-motion-ease-exit",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 122
       }
     },
     {
-      "id": "token-declared:--mantine-color-text#533",
+      "id": "token-declared:--gds-motion-ease-emphasis#533",
       "kind": "token-declared",
-      "name": "--mantine-color-text",
+      "name": "--gds-motion-ease-emphasis",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 127
+        "line": 123
       }
     },
     {
-      "id": "token-declared:--mantine-color-dimmed#534",
+      "id": "token-declared:--mantine-color-text#534",
       "kind": "token-declared",
-      "name": "--mantine-color-dimmed",
+      "name": "--mantine-color-text",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 128
       }
     },
     {
-      "id": "token-declared:--gds-vibe-atmosphere#535",
+      "id": "token-declared:--mantine-color-dimmed#535",
+      "kind": "token-declared",
+      "name": "--mantine-color-dimmed",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 129
+      }
+    },
+    {
+      "id": "token-declared:--gds-vibe-atmosphere#536",
       "kind": "token-declared",
       "name": "--gds-vibe-atmosphere",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 146
+        "line": 147
       }
     },
     {
-      "id": "token-declared:--button-bg#536",
+      "id": "token-declared:--button-bg#537",
       "kind": "token-declared",
       "name": "--button-bg",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 280
+        "line": 281
       }
     },
     {
-      "id": "token-declared:--input-line-height#537",
+      "id": "token-declared:--input-line-height#538",
       "kind": "token-declared",
       "name": "--input-line-height",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 419
+        "line": 420
       }
     },
     {
-      "id": "token-declared:--text-color#538",
+      "id": "token-declared:--text-color#539",
       "kind": "token-declared",
       "name": "--text-color",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 551
+        "line": 552
       }
     },
     {
-      "id": "token-declared:--mantine-color-body#539",
+      "id": "token-declared:--mantine-color-body#540",
       "kind": "token-declared",
       "name": "--mantine-color-body",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 959
+        "line": 960
       }
     },
     {
-      "id": "token-declared:--ghost#540",
+      "id": "token-declared:--ghost#541",
       "kind": "token-declared",
       "name": "--ghost",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1283
+        "line": 1306
       }
     },
     {
-      "id": "token-referenced:--mantine-color-dark-6#541",
+      "id": "token-referenced:--mantine-color-dark-6#542",
       "kind": "token-referenced",
       "name": "--mantine-color-dark-6",
       "source": {
@@ -5870,7 +5880,7 @@
       }
     },
     {
-      "id": "token-referenced:--gds-overlay-surface#542",
+      "id": "token-referenced:--gds-overlay-surface#543",
       "kind": "token-referenced",
       "name": "--gds-overlay-surface",
       "source": {
@@ -5879,7 +5889,7 @@
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-text#543",
+      "id": "token-referenced:--gds-vibe-text#544",
       "kind": "token-referenced",
       "name": "--gds-vibe-text",
       "source": {
@@ -5888,7 +5898,7 @@
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-primary#544",
+      "id": "token-referenced:--gds-vibe-primary#545",
       "kind": "token-referenced",
       "name": "--gds-vibe-primary",
       "source": {
@@ -5897,7 +5907,7 @@
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-surface#545",
+      "id": "token-referenced:--gds-vibe-surface#546",
       "kind": "token-referenced",
       "name": "--gds-vibe-surface",
       "source": {
@@ -5906,7 +5916,7 @@
       }
     },
     {
-      "id": "token-referenced:--mantine-color-red-7#546",
+      "id": "token-referenced:--mantine-color-red-7#547",
       "kind": "token-referenced",
       "name": "--mantine-color-red-7",
       "source": {
@@ -5915,7 +5925,7 @@
       }
     },
     {
-      "id": "token-referenced:--mantine-color-red-2#547",
+      "id": "token-referenced:--mantine-color-red-2#548",
       "kind": "token-referenced",
       "name": "--mantine-color-red-2",
       "source": {
@@ -5924,7 +5934,7 @@
       }
     },
     {
-      "id": "token-referenced:--mantine-color-yellow-8#548",
+      "id": "token-referenced:--mantine-color-yellow-8#549",
       "kind": "token-referenced",
       "name": "--mantine-color-yellow-8",
       "source": {
@@ -5933,7 +5943,7 @@
       }
     },
     {
-      "id": "token-referenced:--mantine-color-yellow-2#549",
+      "id": "token-referenced:--mantine-color-yellow-2#550",
       "kind": "token-referenced",
       "name": "--mantine-color-yellow-2",
       "source": {
@@ -5942,7 +5952,7 @@
       }
     },
     {
-      "id": "token-referenced:--mantine-color-teal-7#550",
+      "id": "token-referenced:--mantine-color-teal-7#551",
       "kind": "token-referenced",
       "name": "--mantine-color-teal-7",
       "source": {
@@ -5951,7 +5961,7 @@
       }
     },
     {
-      "id": "token-referenced:--mantine-color-teal-2#551",
+      "id": "token-referenced:--mantine-color-teal-2#552",
       "kind": "token-referenced",
       "name": "--mantine-color-teal-2",
       "source": {
@@ -5960,7 +5970,7 @@
       }
     },
     {
-      "id": "token-referenced:--gds-#552",
+      "id": "token-referenced:--gds-#553",
       "kind": "token-referenced",
       "name": "--gds-",
       "source": {
@@ -5969,403 +5979,403 @@
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-muted#553",
+      "id": "token-referenced:--gds-vibe-muted#554",
       "kind": "token-referenced",
       "name": "--gds-vibe-muted",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 128
+        "line": 129
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-gradient#554",
+      "id": "token-referenced:--gds-vibe-gradient#555",
       "kind": "token-referenced",
       "name": "--gds-vibe-gradient",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 131
-      }
-    },
-    {
-      "id": "token-referenced:--gds-vibe-canvas#555",
-      "kind": "token-referenced",
-      "name": "--gds-vibe-canvas",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 132
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-accent#556",
+      "id": "token-referenced:--gds-vibe-canvas#556",
+      "kind": "token-referenced",
+      "name": "--gds-vibe-canvas",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 133
+      }
+    },
+    {
+      "id": "token-referenced:--gds-vibe-accent#557",
       "kind": "token-referenced",
       "name": "--gds-vibe-accent",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 144
+        "line": 145
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-atmosphere#557",
+      "id": "token-referenced:--gds-vibe-atmosphere#558",
       "kind": "token-referenced",
       "name": "--gds-vibe-atmosphere",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 149
+        "line": 150
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-shell#558",
+      "id": "token-referenced:--gds-vibe-shell#559",
       "kind": "token-referenced",
       "name": "--gds-vibe-shell",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 214
-      }
-    },
-    {
-      "id": "token-referenced:--gds-vibe-border#559",
-      "kind": "token-referenced",
-      "name": "--gds-vibe-border",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 215
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-glow#560",
+      "id": "token-referenced:--gds-vibe-border#560",
+      "kind": "token-referenced",
+      "name": "--gds-vibe-border",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 216
+      }
+    },
+    {
+      "id": "token-referenced:--gds-vibe-glow#561",
       "kind": "token-referenced",
       "name": "--gds-vibe-glow",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 217
+        "line": 218
       }
     },
     {
-      "id": "token-referenced:--mantine-color-red#561",
+      "id": "token-referenced:--mantine-color-red#562",
       "kind": "token-referenced",
       "name": "--mantine-color-red",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 280
+        "line": 281
       }
     },
     {
-      "id": "token-referenced:--mantine-color-white#562",
+      "id": "token-referenced:--mantine-color-white#563",
       "kind": "token-referenced",
       "name": "--mantine-color-white",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 288
+        "line": 289
       }
     },
     {
-      "id": "token-referenced:--mantine-color-red-filled#563",
+      "id": "token-referenced:--mantine-color-red-filled#564",
       "kind": "token-referenced",
       "name": "--mantine-color-red-filled",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 300
+        "line": 301
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-control-text#564",
+      "id": "token-referenced:--gds-vibe-control-text#565",
       "kind": "token-referenced",
       "name": "--gds-vibe-control-text",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 307
-      }
-    },
-    {
-      "id": "token-referenced:--gds-vibe-control#565",
-      "kind": "token-referenced",
-      "name": "--gds-vibe-control",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 308
       }
     },
     {
-      "id": "token-referenced:--gds-text-body#566",
+      "id": "token-referenced:--gds-vibe-control#566",
       "kind": "token-referenced",
-      "name": "--gds-text-body",
+      "name": "--gds-vibe-control",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 390
+        "line": 309
       }
     },
     {
-      "id": "token-referenced:--gds-bg-card#567",
+      "id": "token-referenced:--gds-text-body#567",
       "kind": "token-referenced",
-      "name": "--gds-bg-card",
+      "name": "--gds-text-body",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 391
       }
     },
     {
-      "id": "token-referenced:--input-height#568",
+      "id": "token-referenced:--gds-bg-card#568",
+      "kind": "token-referenced",
+      "name": "--gds-bg-card",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 392
+      }
+    },
+    {
+      "id": "token-referenced:--input-height#569",
       "kind": "token-referenced",
       "name": "--input-height",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 419
+        "line": 420
       }
     },
     {
-      "id": "token-referenced:--mantine-radius-sm#569",
+      "id": "token-referenced:--mantine-radius-sm#570",
       "kind": "token-referenced",
       "name": "--mantine-radius-sm",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 434
-      }
-    },
-    {
-      "id": "token-referenced:--mantine-spacing-sm#570",
-      "kind": "token-referenced",
-      "name": "--mantine-spacing-sm",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 435
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-focus#571",
+      "id": "token-referenced:--mantine-spacing-sm#571",
+      "kind": "token-referenced",
+      "name": "--mantine-spacing-sm",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 436
+      }
+    },
+    {
+      "id": "token-referenced:--gds-vibe-focus#572",
       "kind": "token-referenced",
       "name": "--gds-vibe-focus",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 446
+        "line": 447
       }
     },
     {
-      "id": "token-referenced:--gds-motion-duration-fast#572",
+      "id": "token-referenced:--gds-motion-duration-fast#573",
       "kind": "token-referenced",
       "name": "--gds-motion-duration-fast",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 489
+        "line": 490
       }
     },
     {
-      "id": "token-referenced:--gds-motion-ease-standard#573",
+      "id": "token-referenced:--gds-motion-ease-standard#574",
       "kind": "token-referenced",
       "name": "--gds-motion-ease-standard",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 489
+        "line": 490
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-link#574",
+      "id": "token-referenced:--gds-vibe-link#575",
       "kind": "token-referenced",
       "name": "--gds-vibe-link",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 493
+        "line": 494
       }
     },
     {
-      "id": "token-referenced:--mantine-color-dimmed#575",
+      "id": "token-referenced:--mantine-color-dimmed#576",
       "kind": "token-referenced",
       "name": "--mantine-color-dimmed",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 547
+        "line": 548
       }
     },
     {
-      "id": "token-referenced:--gds-vibe-danger#576",
+      "id": "token-referenced:--gds-vibe-danger#577",
       "kind": "token-referenced",
       "name": "--gds-vibe-danger",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 554
+        "line": 555
       }
     },
     {
-      "id": "token-referenced:--gds-local-background#577",
+      "id": "token-referenced:--gds-local-background#578",
       "kind": "token-referenced",
       "name": "--gds-local-background",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 834
+        "line": 835
       }
     },
     {
-      "id": "token-referenced:--gds-local-radius#578",
+      "id": "token-referenced:--gds-local-radius#579",
       "kind": "token-referenced",
       "name": "--gds-local-radius",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 836
+        "line": 837
       }
     },
     {
-      "id": "token-referenced:--mantine-radius-lg#579",
+      "id": "token-referenced:--mantine-radius-lg#580",
       "kind": "token-referenced",
       "name": "--mantine-radius-lg",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 836
+        "line": 837
       }
     },
     {
-      "id": "token-referenced:--mantine-z-index-overlay#580",
+      "id": "token-referenced:--mantine-z-index-overlay#581",
       "kind": "token-referenced",
       "name": "--mantine-z-index-overlay",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1200
+        "line": 1223
       }
     },
     {
-      "id": "token-referenced:--gds-tour-spotlight-radius#581",
+      "id": "token-referenced:--gds-tour-spotlight-radius#582",
       "kind": "token-referenced",
       "name": "--gds-tour-spotlight-radius",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1205
-      }
-    },
-    {
-      "id": "token-referenced:--gds-overlay-scrim#582",
-      "kind": "token-referenced",
-      "name": "--gds-overlay-scrim",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1206
-      }
-    },
-    {
-      "id": "token-referenced:--gds-motion-duration-slow#583",
-      "kind": "token-referenced",
-      "name": "--gds-motion-duration-slow",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1207
-      }
-    },
-    {
-      "id": "token-referenced:--mantine-radius-md#584",
-      "kind": "token-referenced",
-      "name": "--mantine-radius-md",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 1228
       }
     },
     {
-      "id": "token-referenced:--mantine-color-text#585",
+      "id": "token-referenced:--gds-overlay-scrim#583",
       "kind": "token-referenced",
-      "name": "--mantine-color-text",
+      "name": "--gds-overlay-scrim",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1229
+      }
+    },
+    {
+      "id": "token-referenced:--gds-motion-duration-slow#584",
+      "kind": "token-referenced",
+      "name": "--gds-motion-duration-slow",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 1230
       }
     },
     {
-      "id": "token-referenced:--gds-border-card#586",
+      "id": "token-referenced:--mantine-radius-md#585",
+      "kind": "token-referenced",
+      "name": "--mantine-radius-md",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1251
+      }
+    },
+    {
+      "id": "token-referenced:--mantine-color-text#586",
+      "kind": "token-referenced",
+      "name": "--mantine-color-text",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1253
+      }
+    },
+    {
+      "id": "token-referenced:--gds-border-card#587",
       "kind": "token-referenced",
       "name": "--gds-border-card",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1231
+        "line": 1254
       }
     },
     {
-      "id": "token-referenced:--mantine-color-gray-3#587",
+      "id": "token-referenced:--mantine-color-gray-3#588",
       "kind": "token-referenced",
       "name": "--mantine-color-gray-3",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1231
+        "line": 1254
       }
     },
     {
-      "id": "token-referenced:--mantine-shadow-lg#588",
+      "id": "token-referenced:--mantine-shadow-lg#589",
       "kind": "token-referenced",
       "name": "--mantine-shadow-lg",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1232
+        "line": 1255
       }
     },
     {
-      "id": "token-referenced:--gds-text-meta#589",
+      "id": "token-referenced:--gds-text-meta#590",
       "kind": "token-referenced",
       "name": "--gds-text-meta",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1239
+        "line": 1262
       }
     },
     {
-      "id": "token-referenced:--gds-focus-ring#590",
+      "id": "token-referenced:--gds-focus-ring#591",
       "kind": "token-referenced",
       "name": "--gds-focus-ring",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1277
+        "line": 1300
       }
     },
     {
-      "id": "token-referenced:--mantine-primary-color-filled#591",
+      "id": "token-referenced:--mantine-primary-color-filled#592",
       "kind": "token-referenced",
       "name": "--mantine-primary-color-filled",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1277
+        "line": 1300
       }
     },
     {
-      "id": "token-referenced:--mantine-color-gray-4#592",
+      "id": "token-referenced:--mantine-color-gray-4#593",
       "kind": "token-referenced",
       "name": "--mantine-color-gray-4",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1287
+        "line": 1310
       }
     },
     {
-      "id": "token-referenced:--mantine-primary-color-contrast#593",
+      "id": "token-referenced:--mantine-primary-color-contrast#594",
       "kind": "token-referenced",
       "name": "--mantine-primary-color-contrast",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1291
+        "line": 1314
       }
     },
     {
-      "id": "token-referenced:--gds-badge-stack-size#594",
+      "id": "token-referenced:--gds-badge-stack-size#595",
       "kind": "token-referenced",
       "name": "--gds-badge-stack-size",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1304
+        "line": 1327
       }
     },
     {
-      "id": "token-referenced:--gds-badge-stack-layer-scale#595",
+      "id": "token-referenced:--gds-badge-stack-layer-scale#596",
       "kind": "token-referenced",
       "name": "--gds-badge-stack-layer-scale",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1315
+        "line": 1338
       }
     },
     {
-      "id": "token-referenced:--gds-bg-surface#596",
+      "id": "token-referenced:--gds-bg-surface#597",
       "kind": "token-referenced",
       "name": "--gds-bg-surface",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1383
+        "line": 1406
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-support#597",
+      "id": "token-emitted:--gds-text-on-support#598",
       "kind": "token-emitted",
       "name": "--gds-text-on-support",
       "source": {
@@ -6374,21 +6384,12 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-inverse#598",
+      "id": "token-emitted:--gds-text-on-inverse#599",
       "kind": "token-emitted",
       "name": "--gds-text-on-inverse",
       "source": {
         "file": "packages/gds-core/src/FitScoreChip.tsx",
         "line": 39
-      }
-    },
-    {
-      "id": "token-emitted:--gds-bg-page#599",
-      "kind": "token-emitted",
-      "name": "--gds-bg-page",
-      "source": {
-        "file": "packages/gds-core/src/GdsAccentContrastMatrix.test.tsx",
-        "line": 12
       }
     },
     {
@@ -6406,7 +6407,7 @@
       "name": "--gds-bg-page",
       "source": {
         "file": "packages/gds-core/src/GdsAccentContrastMatrix.test.tsx",
-        "line": 24
+        "line": 12
       }
     },
     {
@@ -6423,8 +6424,8 @@
       "kind": "token-emitted",
       "name": "--gds-bg-page",
       "source": {
-        "file": "packages/gds-core/src/GdsAccentContrastMatrix.tsx",
-        "line": 65
+        "file": "packages/gds-core/src/GdsAccentContrastMatrix.test.tsx",
+        "line": 24
       }
     },
     {
@@ -6437,7 +6438,16 @@
       }
     },
     {
-      "id": "token-emitted:--gds-state-success#605",
+      "id": "token-emitted:--gds-bg-page#605",
+      "kind": "token-emitted",
+      "name": "--gds-bg-page",
+      "source": {
+        "file": "packages/gds-core/src/GdsAccentContrastMatrix.tsx",
+        "line": 65
+      }
+    },
+    {
+      "id": "token-emitted:--gds-state-success#606",
       "kind": "token-emitted",
       "name": "--gds-state-success",
       "source": {
@@ -6446,7 +6456,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-support#606",
+      "id": "token-emitted:--gds-text-on-support#607",
       "kind": "token-emitted",
       "name": "--gds-text-on-support",
       "source": {
@@ -6455,7 +6465,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-badge-stack-corner-scale#607",
+      "id": "token-emitted:--gds-badge-stack-corner-scale#608",
       "kind": "token-emitted",
       "name": "--gds-badge-stack-corner-scale",
       "source": {
@@ -6464,7 +6474,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-badge-stack-size#608",
+      "id": "token-emitted:--gds-badge-stack-size#609",
       "kind": "token-emitted",
       "name": "--gds-badge-stack-size",
       "source": {
@@ -6473,7 +6483,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-badge-stack-layer-scale#609",
+      "id": "token-emitted:--gds-badge-stack-layer-scale#610",
       "kind": "token-emitted",
       "name": "--gds-badge-stack-layer-scale",
       "source": {
@@ -6482,7 +6492,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-state-danger-dark#610",
+      "id": "token-emitted:--gds-state-danger-dark#611",
       "kind": "token-emitted",
       "name": "--gds-state-danger-dark",
       "source": {
@@ -6491,7 +6501,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-state-info-dark#611",
+      "id": "token-emitted:--gds-state-info-dark#612",
       "kind": "token-emitted",
       "name": "--gds-state-info-dark",
       "source": {
@@ -6500,7 +6510,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-primary#612",
+      "id": "token-emitted:--gds-vibe-primary#613",
       "kind": "token-emitted",
       "name": "--gds-vibe-primary",
       "source": {
@@ -6509,7 +6519,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#613",
+      "id": "token-emitted:--gds-brand-primary#614",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -6518,7 +6528,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-accent-ocean-base#614",
+      "id": "token-emitted:--gds-accent-ocean-base#615",
       "kind": "token-emitted",
       "name": "--gds-accent-ocean-base",
       "source": {
@@ -6527,7 +6537,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-card#615",
+      "id": "token-emitted:--gds-bg-card#616",
       "kind": "token-emitted",
       "name": "--gds-bg-card",
       "source": {
@@ -6536,16 +6546,70 @@
       }
     },
     {
-      "id": "token-emitted:--gds-overlay-scrim#616",
+      "id": "token-emitted:--gds-tour-spotlight-padding#617",
+      "kind": "token-emitted",
+      "name": "--gds-tour-spotlight-padding",
+      "source": {
+        "file": "packages/gds-core/src/GdsTour.client.tsx",
+        "line": 122
+      }
+    },
+    {
+      "id": "token-emitted:--gds-tour-spotlight-radius#618",
+      "kind": "token-emitted",
+      "name": "--gds-tour-spotlight-radius",
+      "source": {
+        "file": "packages/gds-core/src/GdsTour.client.tsx",
+        "line": 122
+      }
+    },
+    {
+      "id": "token-emitted:--gds-tour-spotlight-padding#619",
+      "kind": "token-emitted",
+      "name": "--gds-tour-spotlight-padding",
+      "source": {
+        "file": "packages/gds-core/src/GdsTour.client.tsx",
+        "line": 134
+      }
+    },
+    {
+      "id": "token-emitted:--gds-overlay-scrim#620",
       "kind": "token-emitted",
       "name": "--gds-overlay-scrim",
       "source": {
         "file": "packages/gds-core/src/GdsTour.client.tsx",
-        "line": 185
+        "line": 206
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-inverse#617",
+      "id": "token-emitted:--gds-tour-spotlight-padding#621",
+      "kind": "token-emitted",
+      "name": "--gds-tour-spotlight-padding",
+      "source": {
+        "file": "packages/gds-core/src/GdsTour.test.tsx",
+        "line": 223
+      }
+    },
+    {
+      "id": "token-emitted:--gds-tour-spotlight-padding#622",
+      "kind": "token-emitted",
+      "name": "--gds-tour-spotlight-padding",
+      "source": {
+        "file": "packages/gds-core/src/GdsTour.test.tsx",
+        "line": 230
+      }
+    },
+    {
+      "id": "token-emitted:--gds-tour-spotlight-padding#623",
+      "kind": "token-emitted",
+      "name": "--gds-tour-spotlight-padding",
+      "source": {
+        "file": "packages/gds-core/src/GdsTour.test.tsx",
+        "line": 258
+      }
+    },
+    {
+      "id": "token-emitted:--gds-text-on-inverse#624",
       "kind": "token-emitted",
       "name": "--gds-text-on-inverse",
       "source": {
@@ -6554,7 +6618,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-primary#618",
+      "id": "token-emitted:--gds-text-primary#625",
       "kind": "token-emitted",
       "name": "--gds-text-primary",
       "source": {
@@ -6563,7 +6627,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-local-background#619",
+      "id": "token-emitted:--gds-local-background#626",
       "kind": "token-emitted",
       "name": "--gds-local-background",
       "source": {
@@ -6572,7 +6636,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-local-radius#620",
+      "id": "token-emitted:--gds-local-radius#627",
       "kind": "token-emitted",
       "name": "--gds-local-radius",
       "source": {
@@ -6581,7 +6645,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-primary#621",
+      "id": "token-emitted:--gds-vibe-primary#628",
       "kind": "token-emitted",
       "name": "--gds-vibe-primary",
       "source": {
@@ -6590,7 +6654,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-accent#622",
+      "id": "token-emitted:--gds-vibe-accent#629",
       "kind": "token-emitted",
       "name": "--gds-vibe-accent",
       "source": {
@@ -6599,7 +6663,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-surface#623",
+      "id": "token-emitted:--gds-vibe-surface#630",
       "kind": "token-emitted",
       "name": "--gds-vibe-surface",
       "source": {
@@ -6608,7 +6672,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-border#624",
+      "id": "token-emitted:--gds-vibe-border#631",
       "kind": "token-emitted",
       "name": "--gds-vibe-border",
       "source": {
@@ -6617,7 +6681,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-text#625",
+      "id": "token-emitted:--gds-vibe-text#632",
       "kind": "token-emitted",
       "name": "--gds-vibe-text",
       "source": {
@@ -6626,7 +6690,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-muted#626",
+      "id": "token-emitted:--gds-vibe-muted#633",
       "kind": "token-emitted",
       "name": "--gds-vibe-muted",
       "source": {
@@ -6635,7 +6699,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-link#627",
+      "id": "token-emitted:--gds-vibe-link#634",
       "kind": "token-emitted",
       "name": "--gds-vibe-link",
       "source": {
@@ -6644,7 +6708,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-control#628",
+      "id": "token-emitted:--gds-vibe-control#635",
       "kind": "token-emitted",
       "name": "--gds-vibe-control",
       "source": {
@@ -6653,7 +6717,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-control-text#629",
+      "id": "token-emitted:--gds-vibe-control-text#636",
       "kind": "token-emitted",
       "name": "--gds-vibe-control-text",
       "source": {
@@ -6662,7 +6726,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-inverse#630",
+      "id": "token-emitted:--gds-text-on-inverse#637",
       "kind": "token-emitted",
       "name": "--gds-text-on-inverse",
       "source": {
@@ -6671,7 +6735,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-inverse#631",
+      "id": "token-emitted:--gds-bg-inverse#638",
       "kind": "token-emitted",
       "name": "--gds-bg-inverse",
       "source": {
@@ -6680,7 +6744,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#632",
+      "id": "token-emitted:--gds-brand-primary#639",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -6689,7 +6753,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-badge-soft-warning#633",
+      "id": "token-emitted:--gds-badge-soft-warning#640",
       "kind": "token-emitted",
       "name": "--gds-badge-soft-warning",
       "source": {
@@ -6698,7 +6762,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-badge-soft-warning-fg#634",
+      "id": "token-emitted:--gds-badge-soft-warning-fg#641",
       "kind": "token-emitted",
       "name": "--gds-badge-soft-warning-fg",
       "source": {
@@ -6707,7 +6771,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#635",
+      "id": "token-emitted:--gds-brand-primary#642",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -6716,7 +6780,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent#636",
+      "id": "token-emitted:--gds-brand-accent#643",
       "kind": "token-emitted",
       "name": "--gds-brand-accent",
       "source": {
@@ -6725,7 +6789,25 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-duration-base#637",
+      "id": "token-emitted:--gds-motion-duration-ambient#644",
+      "kind": "token-emitted",
+      "name": "--gds-motion-duration-ambient",
+      "source": {
+        "file": "packages/gds-core/src/streaming-indicator.test.tsx",
+        "line": 37
+      }
+    },
+    {
+      "id": "token-emitted:--gds-motion-duration-ambient#645",
+      "kind": "token-emitted",
+      "name": "--gds-motion-duration-ambient",
+      "source": {
+        "file": "packages/gds-core/src/streaming-indicator.test.tsx",
+        "line": 39
+      }
+    },
+    {
+      "id": "token-emitted:--gds-motion-duration-base#646",
       "kind": "token-emitted",
       "name": "--gds-motion-duration-base",
       "source": {
@@ -6734,7 +6816,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-ease-standard#638",
+      "id": "token-emitted:--gds-motion-ease-standard#647",
       "kind": "token-emitted",
       "name": "--gds-motion-ease-standard",
       "source": {
@@ -6743,7 +6825,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#639",
+      "id": "token-emitted:--gds-brand-primary#648",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -6752,7 +6834,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent-action#640",
+      "id": "token-emitted:--gds-brand-accent-action#649",
       "kind": "token-emitted",
       "name": "--gds-brand-accent-action",
       "source": {
@@ -6761,7 +6843,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#641",
+      "id": "token-emitted:--gds-brand-primary#650",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -6770,7 +6852,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#642",
+      "id": "token-emitted:--gds-brand-primary#651",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -6779,7 +6861,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent-action#643",
+      "id": "token-emitted:--gds-brand-accent-action#652",
       "kind": "token-emitted",
       "name": "--gds-brand-accent-action",
       "source": {
@@ -6788,7 +6870,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#644",
+      "id": "token-emitted:--gds-brand-primary#653",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -6797,7 +6879,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-body#645",
+      "id": "token-emitted:--gds-text-body#654",
       "kind": "token-emitted",
       "name": "--gds-text-body",
       "source": {
@@ -6806,7 +6888,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-body#646",
+      "id": "token-emitted:--gds-text-body#655",
       "kind": "token-emitted",
       "name": "--gds-text-body",
       "source": {
@@ -6815,7 +6897,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-border-card#647",
+      "id": "token-emitted:--gds-border-card#656",
       "kind": "token-emitted",
       "name": "--gds-border-card",
       "source": {
@@ -6824,7 +6906,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-body#648",
+      "id": "token-emitted:--gds-text-body#657",
       "kind": "token-emitted",
       "name": "--gds-text-body",
       "source": {
@@ -6833,7 +6915,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-body#649",
+      "id": "token-emitted:--gds-text-body#658",
       "kind": "token-emitted",
       "name": "--gds-text-body",
       "source": {
@@ -6842,7 +6924,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-border-card#650",
+      "id": "token-emitted:--gds-border-card#659",
       "kind": "token-emitted",
       "name": "--gds-border-card",
       "source": {
@@ -6851,7 +6933,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-primary#651",
+      "id": "token-emitted:--gds-vibe-primary#660",
       "kind": "token-emitted",
       "name": "--gds-vibe-primary",
       "source": {
@@ -6860,7 +6942,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-accent#652",
+      "id": "token-emitted:--gds-vibe-accent#661",
       "kind": "token-emitted",
       "name": "--gds-vibe-accent",
       "source": {
@@ -6869,7 +6951,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-foo#653",
+      "id": "token-emitted:--gds-foo#662",
       "kind": "token-emitted",
       "name": "--gds-foo",
       "source": {
@@ -6878,7 +6960,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-foo-dark#654",
+      "id": "token-emitted:--gds-foo-dark#663",
       "kind": "token-emitted",
       "name": "--gds-foo-dark",
       "source": {
@@ -6887,7 +6969,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-text#655",
+      "id": "token-emitted:--gds-vibe-text#664",
       "kind": "token-emitted",
       "name": "--gds-vibe-text",
       "source": {
@@ -6896,7 +6978,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-border#656",
+      "id": "token-emitted:--gds-vibe-border#665",
       "kind": "token-emitted",
       "name": "--gds-vibe-border",
       "source": {
@@ -6905,7 +6987,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-hero#657",
+      "id": "token-emitted:--gds-vibe-hero#666",
       "kind": "token-emitted",
       "name": "--gds-vibe-hero",
       "source": {
@@ -6914,7 +6996,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-glow#658",
+      "id": "token-emitted:--gds-vibe-glow#667",
       "kind": "token-emitted",
       "name": "--gds-vibe-glow",
       "source": {
@@ -6923,7 +7005,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-primary#659",
+      "id": "token-emitted:--gds-vibe-primary#668",
       "kind": "token-emitted",
       "name": "--gds-vibe-primary",
       "source": {
@@ -6932,7 +7014,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-primary#660",
+      "id": "token-emitted:--gds-vibe-primary#669",
       "kind": "token-emitted",
       "name": "--gds-vibe-primary",
       "source": {
@@ -6941,7 +7023,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-vibe-primary#661",
+      "id": "token-emitted:--gds-vibe-primary#670",
       "kind": "token-emitted",
       "name": "--gds-vibe-primary",
       "source": {
@@ -6950,7 +7032,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-state-warning-dark#662",
+      "id": "token-emitted:--gds-state-warning-dark#671",
       "kind": "token-emitted",
       "name": "--gds-state-warning-dark",
       "source": {
@@ -6959,7 +7041,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-state-danger-dark#663",
+      "id": "token-emitted:--gds-state-danger-dark#672",
       "kind": "token-emitted",
       "name": "--gds-state-danger-dark",
       "source": {
@@ -6968,7 +7050,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-state-success#664",
+      "id": "token-emitted:--gds-state-success#673",
       "kind": "token-emitted",
       "name": "--gds-state-success",
       "source": {
@@ -6977,7 +7059,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-accent-plum-base#665",
+      "id": "token-emitted:--gds-accent-plum-base#674",
       "kind": "token-emitted",
       "name": "--gds-accent-plum-base",
       "source": {
@@ -6986,7 +7068,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-accent-plum-deep#666",
+      "id": "token-emitted:--gds-accent-plum-deep#675",
       "kind": "token-emitted",
       "name": "--gds-accent-plum-deep",
       "source": {
@@ -6995,7 +7077,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-page#667",
+      "id": "token-emitted:--gds-bg-page#676",
       "kind": "token-emitted",
       "name": "--gds-bg-page",
       "source": {
@@ -7004,7 +7086,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-page#668",
+      "id": "token-emitted:--gds-bg-page#677",
       "kind": "token-emitted",
       "name": "--gds-bg-page",
       "source": {
@@ -7013,7 +7095,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-width#669",
+      "id": "token-emitted:--gds-focus-ring-width#678",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-width",
       "source": {
@@ -7022,7 +7104,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-width#670",
+      "id": "token-emitted:--gds-focus-ring-width#679",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-width",
       "source": {
@@ -7031,7 +7113,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-style#671",
+      "id": "token-emitted:--gds-focus-ring-style#680",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-style",
       "source": {
@@ -7040,7 +7122,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-color#672",
+      "id": "token-emitted:--gds-focus-ring-color#681",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-color",
       "source": {
@@ -7049,7 +7131,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-control-height-md#673",
+      "id": "token-emitted:--gds-control-height-md#682",
       "kind": "token-emitted",
       "name": "--gds-control-height-md",
       "source": {
@@ -7058,7 +7140,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-line-height-md#674",
+      "id": "token-emitted:--gds-line-height-md#683",
       "kind": "token-emitted",
       "name": "--gds-line-height-md",
       "source": {
@@ -7067,7 +7149,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-duration-slow#675",
+      "id": "token-emitted:--gds-motion-duration-slow#684",
       "kind": "token-emitted",
       "name": "--gds-motion-duration-slow",
       "source": {
@@ -7076,7 +7158,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-policy#676",
+      "id": "token-emitted:--gds-motion-policy#685",
       "kind": "token-emitted",
       "name": "--gds-motion-policy",
       "source": {
@@ -7085,7 +7167,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-control-disabledText#677",
+      "id": "token-emitted:--gds-control-disabledText#686",
       "kind": "token-emitted",
       "name": "--gds-control-disabledText",
       "source": {
@@ -7094,7 +7176,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-control-disabledBg#678",
+      "id": "token-emitted:--gds-control-disabledBg#687",
       "kind": "token-emitted",
       "name": "--gds-control-disabledBg",
       "source": {
@@ -7103,7 +7185,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-width#679",
+      "id": "token-emitted:--gds-focus-ring-width#688",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-width",
       "source": {
@@ -7112,7 +7194,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-line-height-md#680",
+      "id": "token-emitted:--gds-line-height-md#689",
       "kind": "token-emitted",
       "name": "--gds-line-height-md",
       "source": {
@@ -7121,7 +7203,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-width#681",
+      "id": "token-emitted:--gds-focus-ring-width#690",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-width",
       "source": {
@@ -7130,7 +7212,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-style#682",
+      "id": "token-emitted:--gds-focus-ring-style#691",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-style",
       "source": {
@@ -7139,7 +7221,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-color#683",
+      "id": "token-emitted:--gds-focus-ring-color#692",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-color",
       "source": {
@@ -7148,7 +7230,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-line-height-md#684",
+      "id": "token-emitted:--gds-line-height-md#693",
       "kind": "token-emitted",
       "name": "--gds-line-height-md",
       "source": {
@@ -7157,7 +7239,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-duration-#685",
+      "id": "token-emitted:--gds-motion-duration-#694",
       "kind": "token-emitted",
       "name": "--gds-motion-duration-",
       "source": {
@@ -7166,7 +7248,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-duration-#686",
+      "id": "token-emitted:--gds-motion-duration-#695",
       "kind": "token-emitted",
       "name": "--gds-motion-duration-",
       "source": {
@@ -7175,7 +7257,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-policy#687",
+      "id": "token-emitted:--gds-motion-policy#696",
       "kind": "token-emitted",
       "name": "--gds-motion-policy",
       "source": {
@@ -7184,7 +7266,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-control-disabledText#688",
+      "id": "token-emitted:--gds-control-disabledText#697",
       "kind": "token-emitted",
       "name": "--gds-control-disabledText",
       "source": {
@@ -7193,7 +7275,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-control-disabledBg#689",
+      "id": "token-emitted:--gds-control-disabledBg#698",
       "kind": "token-emitted",
       "name": "--gds-control-disabledBg",
       "source": {
@@ -7202,7 +7284,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-body#690",
+      "id": "token-emitted:--gds-text-body#699",
       "kind": "token-emitted",
       "name": "--gds-text-body",
       "source": {
@@ -7211,7 +7293,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-border-card#691",
+      "id": "token-emitted:--gds-border-card#700",
       "kind": "token-emitted",
       "name": "--gds-border-card",
       "source": {
@@ -7220,7 +7302,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-card#692",
+      "id": "token-emitted:--gds-bg-card#701",
       "kind": "token-emitted",
       "name": "--gds-bg-card",
       "source": {
@@ -7229,7 +7311,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-body#693",
+      "id": "token-emitted:--gds-text-body#702",
       "kind": "token-emitted",
       "name": "--gds-text-body",
       "source": {
@@ -7238,7 +7320,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-page#694",
+      "id": "token-emitted:--gds-bg-page#703",
       "kind": "token-emitted",
       "name": "--gds-bg-page",
       "source": {
@@ -7247,7 +7329,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-body#695",
+      "id": "token-emitted:--gds-text-body#704",
       "kind": "token-emitted",
       "name": "--gds-text-body",
       "source": {
@@ -7256,7 +7338,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-card#696",
+      "id": "token-emitted:--gds-bg-card#705",
       "kind": "token-emitted",
       "name": "--gds-bg-card",
       "source": {
@@ -7265,7 +7347,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-meta#697",
+      "id": "token-emitted:--gds-text-meta#706",
       "kind": "token-emitted",
       "name": "--gds-text-meta",
       "source": {
@@ -7274,7 +7356,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-card#698",
+      "id": "token-emitted:--gds-bg-card#707",
       "kind": "token-emitted",
       "name": "--gds-bg-card",
       "source": {
@@ -7283,7 +7365,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-primary#699",
+      "id": "token-emitted:--gds-text-primary#708",
       "kind": "token-emitted",
       "name": "--gds-text-primary",
       "source": {
@@ -7292,7 +7374,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-surface#700",
+      "id": "token-emitted:--gds-bg-surface#709",
       "kind": "token-emitted",
       "name": "--gds-bg-surface",
       "source": {
@@ -7301,7 +7383,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-secondary#701",
+      "id": "token-emitted:--gds-text-secondary#710",
       "kind": "token-emitted",
       "name": "--gds-text-secondary",
       "source": {
@@ -7310,7 +7392,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-card#702",
+      "id": "token-emitted:--gds-bg-card#711",
       "kind": "token-emitted",
       "name": "--gds-bg-card",
       "source": {
@@ -7319,7 +7401,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-inverse#703",
+      "id": "token-emitted:--gds-text-on-inverse#712",
       "kind": "token-emitted",
       "name": "--gds-text-on-inverse",
       "source": {
@@ -7328,7 +7410,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-inverse#704",
+      "id": "token-emitted:--gds-bg-inverse#713",
       "kind": "token-emitted",
       "name": "--gds-bg-inverse",
       "source": {
@@ -7337,7 +7419,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-support#705",
+      "id": "token-emitted:--gds-text-on-support#714",
       "kind": "token-emitted",
       "name": "--gds-text-on-support",
       "source": {
@@ -7346,7 +7428,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-support#706",
+      "id": "token-emitted:--gds-support#715",
       "kind": "token-emitted",
       "name": "--gds-support",
       "source": {
@@ -7355,7 +7437,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-nav-inactiveOnInverse#707",
+      "id": "token-emitted:--gds-nav-inactiveOnInverse#716",
       "kind": "token-emitted",
       "name": "--gds-nav-inactiveOnInverse",
       "source": {
@@ -7364,7 +7446,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-inverse#708",
+      "id": "token-emitted:--gds-bg-inverse#717",
       "kind": "token-emitted",
       "name": "--gds-bg-inverse",
       "source": {
@@ -7373,7 +7455,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring#709",
+      "id": "token-emitted:--gds-focus-ring#718",
       "kind": "token-emitted",
       "name": "--gds-focus-ring",
       "source": {
@@ -7382,7 +7464,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-page#710",
+      "id": "token-emitted:--gds-bg-page#719",
       "kind": "token-emitted",
       "name": "--gds-bg-page",
       "source": {
@@ -7391,7 +7473,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-radius-card#711",
+      "id": "token-emitted:--gds-radius-card#720",
       "kind": "token-emitted",
       "name": "--gds-radius-card",
       "source": {
@@ -7400,7 +7482,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-radius-pin#712",
+      "id": "token-emitted:--gds-radius-pin#721",
       "kind": "token-emitted",
       "name": "--gds-radius-pin",
       "source": {
@@ -7409,7 +7491,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-radius-button#713",
+      "id": "token-emitted:--gds-radius-button#722",
       "kind": "token-emitted",
       "name": "--gds-radius-button",
       "source": {
@@ -7418,7 +7500,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-radius-card#714",
+      "id": "token-emitted:--gds-radius-card#723",
       "kind": "token-emitted",
       "name": "--gds-radius-card",
       "source": {
@@ -7427,7 +7509,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-radius-button#715",
+      "id": "token-emitted:--gds-radius-button#724",
       "kind": "token-emitted",
       "name": "--gds-radius-button",
       "source": {
@@ -7436,7 +7518,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-radius-pill#716",
+      "id": "token-emitted:--gds-radius-pill#725",
       "kind": "token-emitted",
       "name": "--gds-radius-pill",
       "source": {
@@ -7445,7 +7527,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-density#717",
+      "id": "token-emitted:--gds-density#726",
       "kind": "token-emitted",
       "name": "--gds-density",
       "source": {
@@ -7454,7 +7536,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-control-height-md#718",
+      "id": "token-emitted:--gds-control-height-md#727",
       "kind": "token-emitted",
       "name": "--gds-control-height-md",
       "source": {
@@ -7463,7 +7545,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-space-md#719",
+      "id": "token-emitted:--gds-space-md#728",
       "kind": "token-emitted",
       "name": "--gds-space-md",
       "source": {
@@ -7472,7 +7554,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-control-height-xs#720",
+      "id": "token-emitted:--gds-control-height-xs#729",
       "kind": "token-emitted",
       "name": "--gds-control-height-xs",
       "source": {
@@ -7481,7 +7563,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-space-md#721",
+      "id": "token-emitted:--gds-space-md#730",
       "kind": "token-emitted",
       "name": "--gds-space-md",
       "source": {
@@ -7490,7 +7572,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-space-md#722",
+      "id": "token-emitted:--gds-space-md#731",
       "kind": "token-emitted",
       "name": "--gds-space-md",
       "source": {
@@ -7499,7 +7581,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-density#723",
+      "id": "token-emitted:--gds-density#732",
       "kind": "token-emitted",
       "name": "--gds-density",
       "source": {
@@ -7508,7 +7590,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-font-size-3xl#724",
+      "id": "token-emitted:--gds-font-size-3xl#733",
       "kind": "token-emitted",
       "name": "--gds-font-size-3xl",
       "source": {
@@ -7517,7 +7599,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-lg#725",
+      "id": "token-emitted:--gds-text-lg#734",
       "kind": "token-emitted",
       "name": "--gds-text-lg",
       "source": {
@@ -7526,7 +7608,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-font-size-lg#726",
+      "id": "token-emitted:--gds-font-size-lg#735",
       "kind": "token-emitted",
       "name": "--gds-font-size-lg",
       "source": {
@@ -7535,7 +7617,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-lg#727",
+      "id": "token-emitted:--gds-text-lg#736",
       "kind": "token-emitted",
       "name": "--gds-text-lg",
       "source": {
@@ -7544,7 +7626,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-body#728",
+      "id": "token-emitted:--gds-text-body#737",
       "kind": "token-emitted",
       "name": "--gds-text-body",
       "source": {
@@ -7553,7 +7635,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-elevation-0#729",
+      "id": "token-emitted:--gds-elevation-0#738",
       "kind": "token-emitted",
       "name": "--gds-elevation-0",
       "source": {
@@ -7562,7 +7644,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-elevation-modal#730",
+      "id": "token-emitted:--gds-elevation-modal#739",
       "kind": "token-emitted",
       "name": "--gds-elevation-modal",
       "source": {
@@ -7571,7 +7653,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-elevation-3#731",
+      "id": "token-emitted:--gds-elevation-3#740",
       "kind": "token-emitted",
       "name": "--gds-elevation-3",
       "source": {
@@ -7580,7 +7662,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-elevation-card#732",
+      "id": "token-emitted:--gds-elevation-card#741",
       "kind": "token-emitted",
       "name": "--gds-elevation-card",
       "source": {
@@ -7589,7 +7671,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-elevation-1#733",
+      "id": "token-emitted:--gds-elevation-1#742",
       "kind": "token-emitted",
       "name": "--gds-elevation-1",
       "source": {
@@ -7598,7 +7680,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-#734",
+      "id": "token-emitted:--gds-motion-#743",
       "kind": "token-emitted",
       "name": "--gds-motion-",
       "source": {
@@ -7607,7 +7689,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-duration-fast#735",
+      "id": "token-emitted:--gds-motion-duration-fast#744",
       "kind": "token-emitted",
       "name": "--gds-motion-duration-fast",
       "source": {
@@ -7616,7 +7698,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-ease-standard#736",
+      "id": "token-emitted:--gds-motion-ease-standard#745",
       "kind": "token-emitted",
       "name": "--gds-motion-ease-standard",
       "source": {
@@ -7625,7 +7707,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-reaction-hover-lift#737",
+      "id": "token-emitted:--gds-reaction-hover-lift#746",
       "kind": "token-emitted",
       "name": "--gds-reaction-hover-lift",
       "source": {
@@ -7634,7 +7716,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-reaction-hover-scale#738",
+      "id": "token-emitted:--gds-reaction-hover-scale#747",
       "kind": "token-emitted",
       "name": "--gds-reaction-hover-scale",
       "source": {
@@ -7643,7 +7725,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-reaction-hover-lift#739",
+      "id": "token-emitted:--gds-reaction-hover-lift#748",
       "kind": "token-emitted",
       "name": "--gds-reaction-hover-lift",
       "source": {
@@ -7652,7 +7734,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-duration-base#740",
+      "id": "token-emitted:--gds-motion-duration-base#749",
       "kind": "token-emitted",
       "name": "--gds-motion-duration-base",
       "source": {
@@ -7661,7 +7743,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-radius-pin#741",
+      "id": "token-emitted:--gds-radius-pin#750",
       "kind": "token-emitted",
       "name": "--gds-radius-pin",
       "source": {
@@ -7670,7 +7752,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-density#742",
+      "id": "token-emitted:--gds-density#751",
       "kind": "token-emitted",
       "name": "--gds-density",
       "source": {
@@ -7679,7 +7761,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-density#743",
+      "id": "token-emitted:--gds-density#752",
       "kind": "token-emitted",
       "name": "--gds-density",
       "source": {
@@ -7688,7 +7770,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-body#744",
+      "id": "token-emitted:--gds-text-body#753",
       "kind": "token-emitted",
       "name": "--gds-text-body",
       "source": {
@@ -7697,7 +7779,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-primary#745",
+      "id": "token-emitted:--gds-text-primary#754",
       "kind": "token-emitted",
       "name": "--gds-text-primary",
       "source": {
@@ -7706,7 +7788,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-inverse#746",
+      "id": "token-emitted:--gds-text-on-inverse#755",
       "kind": "token-emitted",
       "name": "--gds-text-on-inverse",
       "source": {
@@ -7715,7 +7797,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-lg#747",
+      "id": "token-emitted:--gds-text-lg#756",
       "kind": "token-emitted",
       "name": "--gds-text-lg",
       "source": {
@@ -7724,7 +7806,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-motion-policy#748",
+      "id": "token-emitted:--gds-motion-policy#757",
       "kind": "token-emitted",
       "name": "--gds-motion-policy",
       "source": {
@@ -7733,7 +7815,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-width#749",
+      "id": "token-emitted:--gds-focus-ring-width#758",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-width",
       "source": {
@@ -7742,7 +7824,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-offset#750",
+      "id": "token-emitted:--gds-focus-ring-offset#759",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-offset",
       "source": {
@@ -7751,7 +7833,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-style#751",
+      "id": "token-emitted:--gds-focus-ring-style#760",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-style",
       "source": {
@@ -7760,7 +7842,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-focus-ring-color#752",
+      "id": "token-emitted:--gds-focus-ring-color#761",
       "kind": "token-emitted",
       "name": "--gds-focus-ring-color",
       "source": {
@@ -7769,7 +7851,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-transition-scope#753",
+      "id": "token-emitted:--gds-transition-scope#762",
       "kind": "token-emitted",
       "name": "--gds-transition-scope",
       "source": {
@@ -7778,7 +7860,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#754",
+      "id": "token-emitted:--gds-brand-primary#763",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -7787,7 +7869,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent#755",
+      "id": "token-emitted:--gds-brand-accent#764",
       "kind": "token-emitted",
       "name": "--gds-brand-accent",
       "source": {
@@ -7796,7 +7878,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-page#756",
+      "id": "token-emitted:--gds-bg-page#765",
       "kind": "token-emitted",
       "name": "--gds-bg-page",
       "source": {
@@ -7805,7 +7887,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#757",
+      "id": "token-emitted:--gds-brand-primary#766",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -7814,7 +7896,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary-pressed#758",
+      "id": "token-emitted:--gds-brand-primary-pressed#767",
       "kind": "token-emitted",
       "name": "--gds-brand-primary-pressed",
       "source": {
@@ -7823,7 +7905,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent#759",
+      "id": "token-emitted:--gds-brand-accent#768",
       "kind": "token-emitted",
       "name": "--gds-brand-accent",
       "source": {
@@ -7832,7 +7914,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent-dark#760",
+      "id": "token-emitted:--gds-brand-accent-dark#769",
       "kind": "token-emitted",
       "name": "--gds-brand-accent-dark",
       "source": {
@@ -7841,7 +7923,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent-action#761",
+      "id": "token-emitted:--gds-brand-accent-action#770",
       "kind": "token-emitted",
       "name": "--gds-brand-accent-action",
       "source": {
@@ -7850,7 +7932,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-card#762",
+      "id": "token-emitted:--gds-bg-card#771",
       "kind": "token-emitted",
       "name": "--gds-bg-card",
       "source": {
@@ -7859,7 +7941,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-border-card#763",
+      "id": "token-emitted:--gds-border-card#772",
       "kind": "token-emitted",
       "name": "--gds-border-card",
       "source": {
@@ -7868,7 +7950,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent-action#764",
+      "id": "token-emitted:--gds-brand-accent-action#773",
       "kind": "token-emitted",
       "name": "--gds-brand-accent-action",
       "source": {
@@ -7877,7 +7959,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary#765",
+      "id": "token-emitted:--gds-brand-primary#774",
       "kind": "token-emitted",
       "name": "--gds-brand-primary",
       "source": {
@@ -7886,7 +7968,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary-pressed#766",
+      "id": "token-emitted:--gds-brand-primary-pressed#775",
       "kind": "token-emitted",
       "name": "--gds-brand-primary-pressed",
       "source": {
@@ -7895,7 +7977,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent#767",
+      "id": "token-emitted:--gds-brand-accent#776",
       "kind": "token-emitted",
       "name": "--gds-brand-accent",
       "source": {
@@ -7904,7 +7986,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent-action#768",
+      "id": "token-emitted:--gds-brand-accent-action#777",
       "kind": "token-emitted",
       "name": "--gds-brand-accent-action",
       "source": {
@@ -7913,7 +7995,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-card#769",
+      "id": "token-emitted:--gds-bg-card#778",
       "kind": "token-emitted",
       "name": "--gds-bg-card",
       "source": {
@@ -7922,7 +8004,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-border-card#770",
+      "id": "token-emitted:--gds-border-card#779",
       "kind": "token-emitted",
       "name": "--gds-border-card",
       "source": {
@@ -7931,7 +8013,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-accent-action#771",
+      "id": "token-emitted:--gds-brand-accent-action#780",
       "kind": "token-emitted",
       "name": "--gds-brand-accent-action",
       "source": {
@@ -7940,7 +8022,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-primary#772",
+      "id": "token-emitted:--gds-text-primary#781",
       "kind": "token-emitted",
       "name": "--gds-text-primary",
       "source": {
@@ -7949,7 +8031,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-bg-page#773",
+      "id": "token-emitted:--gds-bg-page#782",
       "kind": "token-emitted",
       "name": "--gds-bg-page",
       "source": {
@@ -7958,7 +8040,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-inverse#774",
+      "id": "token-emitted:--gds-text-on-inverse#783",
       "kind": "token-emitted",
       "name": "--gds-text-on-inverse",
       "source": {
@@ -7967,7 +8049,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primary-pressed#775",
+      "id": "token-emitted:--gds-brand-primary-pressed#784",
       "kind": "token-emitted",
       "name": "--gds-brand-primary-pressed",
       "source": {
@@ -7976,7 +8058,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-inverse#776",
+      "id": "token-emitted:--gds-text-on-inverse#785",
       "kind": "token-emitted",
       "name": "--gds-text-on-inverse",
       "source": {
@@ -7985,7 +8067,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-brand-primaryPressed#777",
+      "id": "token-emitted:--gds-brand-primaryPressed#786",
       "kind": "token-emitted",
       "name": "--gds-brand-primaryPressed",
       "source": {
@@ -7994,7 +8076,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-onInverse#778",
+      "id": "token-emitted:--gds-text-onInverse#787",
       "kind": "token-emitted",
       "name": "--gds-text-onInverse",
       "source": {
@@ -8003,7 +8085,7 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-inverse#779",
+      "id": "token-emitted:--gds-text-on-inverse#788",
       "kind": "token-emitted",
       "name": "--gds-text-on-inverse",
       "source": {
@@ -8012,93 +8094,12 @@
       }
     },
     {
-      "id": "token-emitted:--gds-text-on-inverse-dark#780",
+      "id": "token-emitted:--gds-text-on-inverse-dark#789",
       "kind": "token-emitted",
       "name": "--gds-text-on-inverse-dark",
       "source": {
         "file": "packages/gds-theme/src/brand-tokens.test.ts",
         "line": 103
-      }
-    },
-    {
-      "id": "token-emitted:--gds-motion-duration-instant#781",
-      "kind": "token-emitted",
-      "name": "--gds-motion-duration-instant",
-      "source": {
-        "file": "packages/gds-theme/src/motion.ts",
-        "line": 177
-      }
-    },
-    {
-      "id": "token-emitted:--gds-motion-duration-fast#782",
-      "kind": "token-emitted",
-      "name": "--gds-motion-duration-fast",
-      "source": {
-        "file": "packages/gds-theme/src/motion.ts",
-        "line": 178
-      }
-    },
-    {
-      "id": "token-emitted:--gds-motion-duration-base#783",
-      "kind": "token-emitted",
-      "name": "--gds-motion-duration-base",
-      "source": {
-        "file": "packages/gds-theme/src/motion.ts",
-        "line": 179
-      }
-    },
-    {
-      "id": "token-emitted:--gds-motion-duration-slow#784",
-      "kind": "token-emitted",
-      "name": "--gds-motion-duration-slow",
-      "source": {
-        "file": "packages/gds-theme/src/motion.ts",
-        "line": 180
-      }
-    },
-    {
-      "id": "token-emitted:--gds-motion-duration-slower#785",
-      "kind": "token-emitted",
-      "name": "--gds-motion-duration-slower",
-      "source": {
-        "file": "packages/gds-theme/src/motion.ts",
-        "line": 181
-      }
-    },
-    {
-      "id": "token-emitted:--gds-motion-ease-standard#786",
-      "kind": "token-emitted",
-      "name": "--gds-motion-ease-standard",
-      "source": {
-        "file": "packages/gds-theme/src/motion.ts",
-        "line": 182
-      }
-    },
-    {
-      "id": "token-emitted:--gds-motion-ease-entrance#787",
-      "kind": "token-emitted",
-      "name": "--gds-motion-ease-entrance",
-      "source": {
-        "file": "packages/gds-theme/src/motion.ts",
-        "line": 183
-      }
-    },
-    {
-      "id": "token-emitted:--gds-motion-ease-exit#788",
-      "kind": "token-emitted",
-      "name": "--gds-motion-ease-exit",
-      "source": {
-        "file": "packages/gds-theme/src/motion.ts",
-        "line": 184
-      }
-    },
-    {
-      "id": "token-emitted:--gds-motion-ease-emphasis#789",
-      "kind": "token-emitted",
-      "name": "--gds-motion-ease-emphasis",
-      "source": {
-        "file": "packages/gds-theme/src/motion.ts",
-        "line": 185
       }
     },
     {
@@ -25212,7 +25213,7 @@
       "name": "GdsTourProviderProps.children",
       "source": {
         "file": "packages/gds-core/src/GdsTour.client.tsx",
-        "line": 177
+        "line": 198
       },
       "type": "ReactNode"
     },
@@ -30618,93 +30619,93 @@
       }
     },
     {
-      "id": "motion-token:standard#2992",
+      "id": "motion-token:ambient#2992",
+      "kind": "motion-token",
+      "name": "ambient",
+      "source": {
+        "file": "packages/gds-theme/src/motion.ts",
+        "line": 64
+      }
+    },
+    {
+      "id": "motion-token:standard#2993",
       "kind": "motion-token",
       "name": "standard",
       "source": {
         "file": "packages/gds-theme/src/motion.ts",
-        "line": 56
+        "line": 69
       }
     },
     {
-      "id": "motion-token:entrance#2993",
+      "id": "motion-token:entrance#2994",
       "kind": "motion-token",
       "name": "entrance",
       "source": {
         "file": "packages/gds-theme/src/motion.ts",
-        "line": 57
+        "line": 70
       }
     },
     {
-      "id": "motion-token:exit#2994",
+      "id": "motion-token:exit#2995",
       "kind": "motion-token",
       "name": "exit",
       "source": {
         "file": "packages/gds-theme/src/motion.ts",
-        "line": 58
+        "line": 71
       }
     },
     {
-      "id": "motion-token:emphasis#2995",
+      "id": "motion-token:emphasis#2996",
       "kind": "motion-token",
       "name": "emphasis",
       "source": {
         "file": "packages/gds-theme/src/motion.ts",
-        "line": 59
+        "line": 72
       }
     },
     {
-      "id": "motion-token:linear#2996",
+      "id": "motion-token:linear#2997",
       "kind": "motion-token",
       "name": "linear",
       "source": {
         "file": "packages/gds-theme/src/motion.ts",
-        "line": 60
+        "line": 73
       }
     },
     {
-      "id": "motion-shipped:transition#2997",
+      "id": "motion-shipped:transition#2998",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 489
+        "line": 490
       }
     },
     {
-      "id": "motion-shipped:animation#2998",
+      "id": "motion-shipped:animation#2999",
       "kind": "motion-shipped",
       "name": "animation",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1116
+        "line": 1102
       }
     },
     {
-      "id": "motion-shipped:transition#2999",
+      "id": "motion-shipped:animation#3000",
       "kind": "motion-shipped",
-      "name": "transition",
+      "name": "animation",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1117
+        "line": 1113
       }
     },
     {
-      "id": "motion-shipped:transition#3000",
+      "id": "motion-shipped:animation#3001",
       "kind": "motion-shipped",
-      "name": "transition",
+      "name": "animation",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1207
-      }
-    },
-    {
-      "id": "motion-shipped:transition#3001",
-      "kind": "motion-shipped",
-      "name": "transition",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1233
+        "line": 1139
       }
     },
     {
@@ -30713,61 +30714,61 @@
       "name": "transition",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1352
+        "line": 1140
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#3003",
+      "id": "motion-shipped:transition#3003",
+      "kind": "motion-shipped",
+      "name": "transition",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1230
+      }
+    },
+    {
+      "id": "motion-shipped:transition#3004",
+      "kind": "motion-shipped",
+      "name": "transition",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1256
+      }
+    },
+    {
+      "id": "motion-shipped:transition#3005",
+      "kind": "motion-shipped",
+      "name": "transition",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1375
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-chat-typing#3006",
+      "kind": "motion-keyframes",
+      "name": "gds-chat-typing",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1115
+      }
+    },
+    {
+      "id": "motion-reduced-guard:prefers-reduced-motion#3007",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1098
+        "line": 1120
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#3004",
+      "id": "motion-reduced-guard:prefers-reduced-motion#3008",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1349
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3005",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 497
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3006",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 499
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3007",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 501
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3008",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 503
+        "line": 1372
       }
     },
     {
@@ -30776,7 +30777,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 505
+        "line": 498
       }
     },
     {
@@ -30785,7 +30786,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 507
+        "line": 500
       }
     },
     {
@@ -30794,7 +30795,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 509
+        "line": 502
       }
     },
     {
@@ -30803,7 +30804,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 511
+        "line": 504
       }
     },
     {
@@ -30812,7 +30813,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 513
+        "line": 506
       }
     },
     {
@@ -30821,7 +30822,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1002
+        "line": 508
       }
     },
     {
@@ -30830,7 +30831,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1004
+        "line": 510
       }
     },
     {
@@ -30839,7 +30840,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1006
+        "line": 512
       }
     },
     {
@@ -30848,7 +30849,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1008
+        "line": 514
       }
     },
     {
@@ -30857,7 +30858,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1010
+        "line": 1003
       }
     },
     {
@@ -30866,7 +30867,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1012
+        "line": 1005
       }
     },
     {
@@ -30875,7 +30876,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1014
+        "line": 1007
       }
     },
     {
@@ -30884,7 +30885,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1016
+        "line": 1009
       }
     },
     {
@@ -30893,29 +30894,56 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1018
+        "line": 1011
       }
     },
     {
-      "id": "interaction-state:disabled#3023",
+      "id": "interaction-state:focus-visible#3023",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1013
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3024",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1015
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3025",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1017
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3026",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1019
+      }
+    },
+    {
+      "id": "interaction-state:disabled#3027",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1055
+        "line": 1056
       }
     },
     {
-      "id": "interaction-state:disabled#3024",
-      "kind": "interaction-state",
-      "name": "disabled",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1057
-      }
-    },
-    {
-      "id": "interaction-state:disabled#3025",
+      "id": "interaction-state:disabled#3028",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -30924,7 +30952,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#3026",
+      "id": "interaction-state:disabled#3029",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -30933,43 +30961,52 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3027",
+      "id": "interaction-state:disabled#3030",
+      "kind": "interaction-state",
+      "name": "disabled",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1060
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3031",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1276
+        "line": 1299
       }
     },
     {
-      "id": "interaction-state:hover#3028",
+      "id": "interaction-state:hover#3032",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1283
+        "line": 1306
       }
     },
     {
-      "id": "interaction-state:hover#3029",
+      "id": "interaction-state:hover#3033",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1386
+        "line": 1409
       }
     },
     {
-      "id": "interaction-state:focus-visible#3030",
+      "id": "interaction-state:focus-visible#3034",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1389
+        "line": 1412
       }
     },
     {
-      "id": "locale-pack-package:ar#3031",
+      "id": "locale-pack-package:ar#3035",
       "kind": "locale-pack-package",
       "name": "ar",
       "source": {
@@ -30979,7 +31016,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:de#3032",
+      "id": "locale-pack-package:de#3036",
       "kind": "locale-pack-package",
       "name": "de",
       "source": {
@@ -30989,7 +31026,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:en#3033",
+      "id": "locale-pack-package:en#3037",
       "kind": "locale-pack-package",
       "name": "en",
       "source": {
@@ -30999,7 +31036,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:es#3034",
+      "id": "locale-pack-package:es#3038",
       "kind": "locale-pack-package",
       "name": "es",
       "source": {
@@ -31009,7 +31046,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:fr#3035",
+      "id": "locale-pack-package:fr#3039",
       "kind": "locale-pack-package",
       "name": "fr",
       "source": {
@@ -31019,7 +31056,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:he#3036",
+      "id": "locale-pack-package:he#3040",
       "kind": "locale-pack-package",
       "name": "he",
       "source": {
@@ -31029,7 +31066,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:hu#3037",
+      "id": "locale-pack-package:hu#3041",
       "kind": "locale-pack-package",
       "name": "hu",
       "source": {
@@ -31039,7 +31076,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:it#3038",
+      "id": "locale-pack-package:it#3042",
       "kind": "locale-pack-package",
       "name": "it",
       "source": {
@@ -31049,7 +31086,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:ja#3039",
+      "id": "locale-pack-package:ja#3043",
       "kind": "locale-pack-package",
       "name": "ja",
       "source": {
@@ -31059,7 +31096,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:ko#3040",
+      "id": "locale-pack-package:ko#3044",
       "kind": "locale-pack-package",
       "name": "ko",
       "source": {
@@ -31069,7 +31106,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:ru#3041",
+      "id": "locale-pack-package:ru#3045",
       "kind": "locale-pack-package",
       "name": "ru",
       "source": {
@@ -31079,7 +31116,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-package:zh#3042",
+      "id": "locale-pack-package:zh#3046",
       "kind": "locale-pack-package",
       "name": "zh",
       "source": {
@@ -31089,7 +31126,7 @@
       "keyCount": 188
     },
     {
-      "id": "locale-pack-site:ar#3043",
+      "id": "locale-pack-site:ar#3047",
       "kind": "locale-pack-site",
       "name": "ar",
       "source": {
@@ -31099,7 +31136,7 @@
       "keyCount": 1254
     },
     {
-      "id": "locale-pack-site:de#3044",
+      "id": "locale-pack-site:de#3048",
       "kind": "locale-pack-site",
       "name": "de",
       "source": {
@@ -31109,7 +31146,7 @@
       "keyCount": 1254
     },
     {
-      "id": "locale-pack-site:es#3045",
+      "id": "locale-pack-site:es#3049",
       "kind": "locale-pack-site",
       "name": "es",
       "source": {
@@ -31119,7 +31156,7 @@
       "keyCount": 1254
     },
     {
-      "id": "locale-pack-site:fr#3046",
+      "id": "locale-pack-site:fr#3050",
       "kind": "locale-pack-site",
       "name": "fr",
       "source": {
@@ -31129,7 +31166,7 @@
       "keyCount": 1254
     },
     {
-      "id": "locale-pack-site:he#3047",
+      "id": "locale-pack-site:he#3051",
       "kind": "locale-pack-site",
       "name": "he",
       "source": {
@@ -31139,7 +31176,7 @@
       "keyCount": 1254
     },
     {
-      "id": "locale-pack-site:hu#3048",
+      "id": "locale-pack-site:hu#3052",
       "kind": "locale-pack-site",
       "name": "hu",
       "source": {
@@ -31149,7 +31186,7 @@
       "keyCount": 1254
     },
     {
-      "id": "locale-pack-site:it#3049",
+      "id": "locale-pack-site:it#3053",
       "kind": "locale-pack-site",
       "name": "it",
       "source": {
@@ -31159,7 +31196,7 @@
       "keyCount": 1254
     },
     {
-      "id": "locale-pack-site:ru#3050",
+      "id": "locale-pack-site:ru#3054",
       "kind": "locale-pack-site",
       "name": "ru",
       "source": {
@@ -31169,7 +31206,7 @@
       "keyCount": 1254
     },
     {
-      "id": "route:/#3051",
+      "id": "route:/#3055",
       "kind": "route",
       "name": "/",
       "source": {
@@ -31178,7 +31215,7 @@
       }
     },
     {
-      "id": "route:/patterns#3052",
+      "id": "route:/patterns#3056",
       "kind": "route",
       "name": "/patterns",
       "source": {
@@ -31187,7 +31224,7 @@
       }
     },
     {
-      "id": "route:/patterns/foundations#3053",
+      "id": "route:/patterns/foundations#3057",
       "kind": "route",
       "name": "/patterns/foundations",
       "source": {
@@ -31196,7 +31233,7 @@
       }
     },
     {
-      "id": "route:/patterns/public#3054",
+      "id": "route:/patterns/public#3058",
       "kind": "route",
       "name": "/patterns/public",
       "source": {
@@ -31205,7 +31242,7 @@
       }
     },
     {
-      "id": "route:/patterns/operations#3055",
+      "id": "route:/patterns/operations#3059",
       "kind": "route",
       "name": "/patterns/operations",
       "source": {
@@ -31214,7 +31251,7 @@
       }
     },
     {
-      "id": "route:/patterns/data#3056",
+      "id": "route:/patterns/data#3060",
       "kind": "route",
       "name": "/patterns/data",
       "source": {
@@ -31223,7 +31260,7 @@
       }
     },
     {
-      "id": "route:/patterns/access#3057",
+      "id": "route:/patterns/access#3061",
       "kind": "route",
       "name": "/patterns/access",
       "source": {
@@ -31232,7 +31269,7 @@
       }
     },
     {
-      "id": "route:/patterns/feedback#3058",
+      "id": "route:/patterns/feedback#3062",
       "kind": "route",
       "name": "/patterns/feedback",
       "source": {
@@ -31241,7 +31278,7 @@
       }
     },
     {
-      "id": "route:/coverage#3059",
+      "id": "route:/coverage#3063",
       "kind": "route",
       "name": "/coverage",
       "source": {
@@ -31250,7 +31287,7 @@
       }
     },
     {
-      "id": "route:/api#3060",
+      "id": "route:/api#3064",
       "kind": "route",
       "name": "/api",
       "source": {
@@ -31259,7 +31296,7 @@
       }
     },
     {
-      "id": "route:/maturity#3061",
+      "id": "route:/maturity#3065",
       "kind": "route",
       "name": "/maturity",
       "source": {
@@ -31268,7 +31305,7 @@
       }
     },
     {
-      "id": "route:/use-cases#3062",
+      "id": "route:/use-cases#3066",
       "kind": "route",
       "name": "/use-cases",
       "source": {
@@ -31277,7 +31314,7 @@
       }
     },
     {
-      "id": "route:/install#3063",
+      "id": "route:/install#3067",
       "kind": "route",
       "name": "/install",
       "source": {
@@ -31286,7 +31323,7 @@
       }
     },
     {
-      "id": "route:/governance#3064",
+      "id": "route:/governance#3068",
       "kind": "route",
       "name": "/governance",
       "source": {
@@ -31295,7 +31332,7 @@
       }
     },
     {
-      "id": "route:/themes#3065",
+      "id": "route:/themes#3069",
       "kind": "route",
       "name": "/themes",
       "source": {
@@ -31304,7 +31341,7 @@
       }
     },
     {
-      "id": "route:/live-demos#3066",
+      "id": "route:/live-demos#3070",
       "kind": "route",
       "name": "/live-demos",
       "source": {
@@ -31313,7 +31350,7 @@
       }
     },
     {
-      "id": "route:/live-demos/surfaces#3067",
+      "id": "route:/live-demos/surfaces#3071",
       "kind": "route",
       "name": "/live-demos/surfaces",
       "source": {
@@ -31322,7 +31359,7 @@
       }
     },
     {
-      "id": "route:/live-demos/layouts#3068",
+      "id": "route:/live-demos/layouts#3072",
       "kind": "route",
       "name": "/live-demos/layouts",
       "source": {
@@ -31331,7 +31368,7 @@
       }
     },
     {
-      "id": "route:/live-demos/semantics#3069",
+      "id": "route:/live-demos/semantics#3073",
       "kind": "route",
       "name": "/live-demos/semantics",
       "source": {
@@ -31340,7 +31377,7 @@
       }
     },
     {
-      "id": "route:/live-demos/food#3070",
+      "id": "route:/live-demos/food#3074",
       "kind": "route",
       "name": "/live-demos/food",
       "source": {
@@ -31349,7 +31386,7 @@
       }
     },
     {
-      "id": "route:/live-demos/playback#3071",
+      "id": "route:/live-demos/playback#3075",
       "kind": "route",
       "name": "/live-demos/playback",
       "source": {
@@ -31358,7 +31395,7 @@
       }
     },
     {
-      "id": "route:/live-demos/analytics#3072",
+      "id": "route:/live-demos/analytics#3076",
       "kind": "route",
       "name": "/live-demos/analytics",
       "source": {
@@ -31367,7 +31404,7 @@
       }
     },
     {
-      "id": "route:/request-feature#3073",
+      "id": "route:/request-feature#3077",
       "kind": "route",
       "name": "/request-feature",
       "source": {
@@ -31376,7 +31413,7 @@
       }
     },
     {
-      "id": "route:/ai#3074",
+      "id": "route:/ai#3078",
       "kind": "route",
       "name": "/ai",
       "source": {
@@ -31385,7 +31422,7 @@
       }
     },
     {
-      "id": "pattern:stable-shell#3075",
+      "id": "pattern:stable-shell#3079",
       "kind": "pattern",
       "name": "stable-shell",
       "source": {
@@ -31394,7 +31431,7 @@
       }
     },
     {
-      "id": "pattern:primary-navigation#3076",
+      "id": "pattern:primary-navigation#3080",
       "kind": "pattern",
       "name": "primary-navigation",
       "source": {
@@ -31403,7 +31440,7 @@
       }
     },
     {
-      "id": "pattern:mobile-navigation#3077",
+      "id": "pattern:mobile-navigation#3081",
       "kind": "pattern",
       "name": "mobile-navigation",
       "source": {
@@ -31412,7 +31449,7 @@
       }
     },
     {
-      "id": "pattern:page-headers#3078",
+      "id": "pattern:page-headers#3082",
       "kind": "pattern",
       "name": "page-headers",
       "source": {
@@ -31421,7 +31458,7 @@
       }
     },
     {
-      "id": "pattern:theme-toggle#3079",
+      "id": "pattern:theme-toggle#3083",
       "kind": "pattern",
       "name": "theme-toggle",
       "source": {
@@ -31430,7 +31467,7 @@
       }
     },
     {
-      "id": "pattern:form-field#3080",
+      "id": "pattern:form-field#3084",
       "kind": "pattern",
       "name": "form-field",
       "source": {
@@ -31439,7 +31476,7 @@
       }
     },
     {
-      "id": "pattern:game-board-tile#3081",
+      "id": "pattern:game-board-tile#3085",
       "kind": "pattern",
       "name": "game-board-tile",
       "source": {
@@ -31448,7 +31485,7 @@
       }
     },
     {
-      "id": "pattern:shell-contracts#3082",
+      "id": "pattern:shell-contracts#3086",
       "kind": "pattern",
       "name": "shell-contracts",
       "source": {
@@ -31457,7 +31494,7 @@
       }
     },
     {
-      "id": "pattern:discovery-shell#3083",
+      "id": "pattern:discovery-shell#3087",
       "kind": "pattern",
       "name": "discovery-shell",
       "source": {
@@ -31466,7 +31503,7 @@
       }
     },
     {
-      "id": "pattern:sidebar-navigation#3084",
+      "id": "pattern:sidebar-navigation#3088",
       "kind": "pattern",
       "name": "sidebar-navigation",
       "source": {
@@ -31475,7 +31512,7 @@
       }
     },
     {
-      "id": "pattern:dashboards#3085",
+      "id": "pattern:dashboards#3089",
       "kind": "pattern",
       "name": "dashboards",
       "source": {
@@ -31484,7 +31521,7 @@
       }
     },
     {
-      "id": "pattern:forms#3086",
+      "id": "pattern:forms#3090",
       "kind": "pattern",
       "name": "forms",
       "source": {
@@ -31493,7 +31530,7 @@
       }
     },
     {
-      "id": "pattern:admin-editor-flows#3087",
+      "id": "pattern:admin-editor-flows#3091",
       "kind": "pattern",
       "name": "admin-editor-flows",
       "source": {
@@ -31502,7 +31539,7 @@
       }
     },
     {
-      "id": "pattern:search-filters-lists#3088",
+      "id": "pattern:search-filters-lists#3092",
       "kind": "pattern",
       "name": "search-filters-lists",
       "source": {
@@ -31511,7 +31548,7 @@
       }
     },
     {
-      "id": "pattern:destructive-actions#3089",
+      "id": "pattern:destructive-actions#3093",
       "kind": "pattern",
       "name": "destructive-actions",
       "source": {
@@ -31520,7 +31557,7 @@
       }
     },
     {
-      "id": "pattern:pattern-service-reuse#3090",
+      "id": "pattern:pattern-service-reuse#3094",
       "kind": "pattern",
       "name": "pattern-service-reuse",
       "source": {
@@ -31529,7 +31566,7 @@
       }
     },
     {
-      "id": "pattern:maturity-capabilities#3091",
+      "id": "pattern:maturity-capabilities#3095",
       "kind": "pattern",
       "name": "maturity-capabilities",
       "source": {
@@ -31538,7 +31575,7 @@
       }
     },
     {
-      "id": "pattern:semantic-actions#3092",
+      "id": "pattern:semantic-actions#3096",
       "kind": "pattern",
       "name": "semantic-actions",
       "source": {
@@ -31547,7 +31584,7 @@
       }
     },
     {
-      "id": "pattern:detail-surfaces#3093",
+      "id": "pattern:detail-surfaces#3097",
       "kind": "pattern",
       "name": "detail-surfaces",
       "source": {
@@ -31556,7 +31593,7 @@
       }
     },
     {
-      "id": "pattern:embed-surfaces#3094",
+      "id": "pattern:embed-surfaces#3098",
       "kind": "pattern",
       "name": "embed-surfaces",
       "source": {
@@ -31565,7 +31602,7 @@
       }
     },
     {
-      "id": "pattern:buttons#3095",
+      "id": "pattern:buttons#3099",
       "kind": "pattern",
       "name": "buttons",
       "source": {
@@ -31574,7 +31611,7 @@
       }
     },
     {
-      "id": "pattern:choice-chips#3096",
+      "id": "pattern:choice-chips#3100",
       "kind": "pattern",
       "name": "choice-chips",
       "source": {
@@ -31583,7 +31620,7 @@
       }
     },
     {
-      "id": "pattern:icon-buttons#3097",
+      "id": "pattern:icon-buttons#3101",
       "kind": "pattern",
       "name": "icon-buttons",
       "source": {
@@ -31592,7 +31629,7 @@
       }
     },
     {
-      "id": "pattern:inputs#3098",
+      "id": "pattern:inputs#3102",
       "kind": "pattern",
       "name": "inputs",
       "source": {
@@ -31601,7 +31638,7 @@
       }
     },
     {
-      "id": "pattern:selects-combobox#3099",
+      "id": "pattern:selects-combobox#3103",
       "kind": "pattern",
       "name": "selects-combobox",
       "source": {
@@ -31610,7 +31647,7 @@
       }
     },
     {
-      "id": "pattern:checkboxes-radios#3100",
+      "id": "pattern:checkboxes-radios#3104",
       "kind": "pattern",
       "name": "checkboxes-radios",
       "source": {
@@ -31619,7 +31656,7 @@
       }
     },
     {
-      "id": "pattern:product-cards#3101",
+      "id": "pattern:product-cards#3105",
       "kind": "pattern",
       "name": "product-cards",
       "source": {
@@ -31628,7 +31665,7 @@
       }
     },
     {
-      "id": "pattern:public-product-cards#3102",
+      "id": "pattern:public-product-cards#3106",
       "kind": "pattern",
       "name": "public-product-cards",
       "source": {
@@ -31637,7 +31674,7 @@
       }
     },
     {
-      "id": "pattern:media-card#3103",
+      "id": "pattern:media-card#3107",
       "kind": "pattern",
       "name": "media-card",
       "source": {
@@ -31646,7 +31683,7 @@
       }
     },
     {
-      "id": "pattern:accent-panels#3104",
+      "id": "pattern:accent-panels#3108",
       "kind": "pattern",
       "name": "accent-panels",
       "source": {
@@ -31655,7 +31692,7 @@
       }
     },
     {
-      "id": "pattern:metric-cards#3105",
+      "id": "pattern:metric-cards#3109",
       "kind": "pattern",
       "name": "metric-cards",
       "source": {
@@ -31664,7 +31701,7 @@
       }
     },
     {
-      "id": "pattern:data-toolbars#3106",
+      "id": "pattern:data-toolbars#3110",
       "kind": "pattern",
       "name": "data-toolbars",
       "source": {
@@ -31673,7 +31710,7 @@
       }
     },
     {
-      "id": "pattern:state-blocks#3107",
+      "id": "pattern:state-blocks#3111",
       "kind": "pattern",
       "name": "state-blocks",
       "source": {
@@ -31682,7 +31719,7 @@
       }
     },
     {
-      "id": "pattern:surface-presentation#3108",
+      "id": "pattern:surface-presentation#3112",
       "kind": "pattern",
       "name": "surface-presentation",
       "source": {
@@ -31691,7 +31728,7 @@
       }
     },
     {
-      "id": "pattern:action-bar#3109",
+      "id": "pattern:action-bar#3113",
       "kind": "pattern",
       "name": "action-bar",
       "source": {
@@ -31700,7 +31737,7 @@
       }
     },
     {
-      "id": "pattern:listing-card#3110",
+      "id": "pattern:listing-card#3114",
       "kind": "pattern",
       "name": "listing-card",
       "source": {
@@ -31709,7 +31746,7 @@
       }
     },
     {
-      "id": "pattern:share-button-group#3111",
+      "id": "pattern:share-button-group#3115",
       "kind": "pattern",
       "name": "share-button-group",
       "source": {
@@ -31718,7 +31755,7 @@
       }
     },
     {
-      "id": "pattern:public-food-card#3112",
+      "id": "pattern:public-food-card#3116",
       "kind": "pattern",
       "name": "public-food-card",
       "source": {
@@ -31727,7 +31764,7 @@
       }
     },
     {
-      "id": "pattern:food-menu-section#3113",
+      "id": "pattern:food-menu-section#3117",
       "kind": "pattern",
       "name": "food-menu-section",
       "source": {
@@ -31736,7 +31773,7 @@
       }
     },
     {
-      "id": "pattern:map-panel#3114",
+      "id": "pattern:map-panel#3118",
       "kind": "pattern",
       "name": "map-panel",
       "source": {
@@ -31745,7 +31782,7 @@
       }
     },
     {
-      "id": "pattern:detail-profile-shell#3115",
+      "id": "pattern:detail-profile-shell#3119",
       "kind": "pattern",
       "name": "detail-profile-shell",
       "source": {
@@ -31754,7 +31791,7 @@
       }
     },
     {
-      "id": "pattern:public-flow-shell#3116",
+      "id": "pattern:public-flow-shell#3120",
       "kind": "pattern",
       "name": "public-flow-shell",
       "source": {
@@ -31763,7 +31800,7 @@
       }
     },
     {
-      "id": "pattern:playback-surface#3117",
+      "id": "pattern:playback-surface#3121",
       "kind": "pattern",
       "name": "playback-surface",
       "source": {
@@ -31772,7 +31809,7 @@
       }
     },
     {
-      "id": "pattern:public-shells#3118",
+      "id": "pattern:public-shells#3122",
       "kind": "pattern",
       "name": "public-shells",
       "source": {
@@ -31781,7 +31818,7 @@
       }
     },
     {
-      "id": "pattern:public-nav#3119",
+      "id": "pattern:public-nav#3123",
       "kind": "pattern",
       "name": "public-nav",
       "source": {
@@ -31790,7 +31827,7 @@
       }
     },
     {
-      "id": "pattern:auth-shells#3120",
+      "id": "pattern:auth-shells#3124",
       "kind": "pattern",
       "name": "auth-shells",
       "source": {
@@ -31799,7 +31836,7 @@
       }
     },
     {
-      "id": "pattern:social-auth-buttons#3121",
+      "id": "pattern:social-auth-buttons#3125",
       "kind": "pattern",
       "name": "social-auth-buttons",
       "source": {
@@ -31808,7 +31845,7 @@
       }
     },
     {
-      "id": "pattern:provider-identity-buttons#3122",
+      "id": "pattern:provider-identity-buttons#3126",
       "kind": "pattern",
       "name": "provider-identity-buttons",
       "source": {
@@ -31817,7 +31854,7 @@
       }
     },
     {
-      "id": "pattern:article-shells#3123",
+      "id": "pattern:article-shells#3127",
       "kind": "pattern",
       "name": "article-shells",
       "source": {
@@ -31826,7 +31863,7 @@
       }
     },
     {
-      "id": "pattern:docs-page-shell#3124",
+      "id": "pattern:docs-page-shell#3128",
       "kind": "pattern",
       "name": "docs-page-shell",
       "source": {
@@ -31835,7 +31872,7 @@
       }
     },
     {
-      "id": "pattern:docs-shell#3125",
+      "id": "pattern:docs-shell#3129",
       "kind": "pattern",
       "name": "docs-shell",
       "source": {
@@ -31844,7 +31881,7 @@
       }
     },
     {
-      "id": "pattern:reference-section#3126",
+      "id": "pattern:reference-section#3130",
       "kind": "pattern",
       "name": "reference-section",
       "source": {
@@ -31853,7 +31890,7 @@
       }
     },
     {
-      "id": "pattern:reference-link-grid#3127",
+      "id": "pattern:reference-link-grid#3131",
       "kind": "pattern",
       "name": "reference-link-grid",
       "source": {
@@ -31862,7 +31899,7 @@
       }
     },
     {
-      "id": "pattern:reference-locale-notice#3128",
+      "id": "pattern:reference-locale-notice#3132",
       "kind": "pattern",
       "name": "reference-locale-notice",
       "source": {
@@ -31871,7 +31908,7 @@
       }
     },
     {
-      "id": "pattern:reference-theme-explorer#3129",
+      "id": "pattern:reference-theme-explorer#3133",
       "kind": "pattern",
       "name": "reference-theme-explorer",
       "source": {
@@ -31880,7 +31917,7 @@
       }
     },
     {
-      "id": "pattern:pin-system#3130",
+      "id": "pattern:pin-system#3134",
       "kind": "pattern",
       "name": "pin-system",
       "source": {
@@ -31889,7 +31926,7 @@
       }
     },
     {
-      "id": "pattern:gds-map#3131",
+      "id": "pattern:gds-map#3135",
       "kind": "pattern",
       "name": "gds-map",
       "source": {
@@ -31898,7 +31935,7 @@
       }
     },
     {
-      "id": "pattern:accent-contrast-matrix#3132",
+      "id": "pattern:accent-contrast-matrix#3136",
       "kind": "pattern",
       "name": "accent-contrast-matrix",
       "source": {
@@ -31907,7 +31944,7 @@
       }
     },
     {
-      "id": "pattern:reference-site-shell#3133",
+      "id": "pattern:reference-site-shell#3137",
       "kind": "pattern",
       "name": "reference-site-shell",
       "source": {
@@ -31916,7 +31953,7 @@
       }
     },
     {
-      "id": "pattern:editorial-hero#3134",
+      "id": "pattern:editorial-hero#3138",
       "kind": "pattern",
       "name": "editorial-hero",
       "source": {
@@ -31925,7 +31962,7 @@
       }
     },
     {
-      "id": "pattern:feature-band#3135",
+      "id": "pattern:feature-band#3139",
       "kind": "pattern",
       "name": "feature-band",
       "source": {
@@ -31934,7 +31971,7 @@
       }
     },
     {
-      "id": "pattern:browse-surface#3136",
+      "id": "pattern:browse-surface#3140",
       "kind": "pattern",
       "name": "browse-surface",
       "source": {
@@ -31943,7 +31980,7 @@
       }
     },
     {
-      "id": "pattern:editorial-cards#3137",
+      "id": "pattern:editorial-cards#3141",
       "kind": "pattern",
       "name": "editorial-cards",
       "source": {
@@ -31952,7 +31989,7 @@
       }
     },
     {
-      "id": "pattern:generated-imagery#3138",
+      "id": "pattern:generated-imagery#3142",
       "kind": "pattern",
       "name": "generated-imagery",
       "source": {
@@ -31961,7 +31998,7 @@
       }
     },
     {
-      "id": "pattern:consumer-sections#3139",
+      "id": "pattern:consumer-sections#3143",
       "kind": "pattern",
       "name": "consumer-sections",
       "source": {
@@ -31970,7 +32007,7 @@
       }
     },
     {
-      "id": "pattern:consumer-dashboard-grid#3140",
+      "id": "pattern:consumer-dashboard-grid#3144",
       "kind": "pattern",
       "name": "consumer-dashboard-grid",
       "source": {
@@ -31979,7 +32016,7 @@
       }
     },
     {
-      "id": "pattern:media-fields#3141",
+      "id": "pattern:media-fields#3145",
       "kind": "pattern",
       "name": "media-fields",
       "source": {
@@ -31988,7 +32025,7 @@
       }
     },
     {
-      "id": "pattern:content-operations-editor#3142",
+      "id": "pattern:content-operations-editor#3146",
       "kind": "pattern",
       "name": "content-operations-editor",
       "source": {
@@ -31997,7 +32034,7 @@
       }
     },
     {
-      "id": "pattern:admin-app-shell#3143",
+      "id": "pattern:admin-app-shell#3147",
       "kind": "pattern",
       "name": "admin-app-shell",
       "source": {
@@ -32006,7 +32043,7 @@
       }
     },
     {
-      "id": "pattern:editor-scaffold#3144",
+      "id": "pattern:editor-scaffold#3148",
       "kind": "pattern",
       "name": "editor-scaffold",
       "source": {
@@ -32015,7 +32052,7 @@
       }
     },
     {
-      "id": "pattern:kanban-board#3145",
+      "id": "pattern:kanban-board#3149",
       "kind": "pattern",
       "name": "kanban-board",
       "source": {
@@ -32024,7 +32061,7 @@
       }
     },
     {
-      "id": "pattern:form-section#3146",
+      "id": "pattern:form-section#3150",
       "kind": "pattern",
       "name": "form-section",
       "source": {
@@ -32033,7 +32070,7 @@
       }
     },
     {
-      "id": "pattern:workspace-header#3147",
+      "id": "pattern:workspace-header#3151",
       "kind": "pattern",
       "name": "workspace-header",
       "source": {
@@ -32042,7 +32079,7 @@
       }
     },
     {
-      "id": "pattern:section-panels#3148",
+      "id": "pattern:section-panels#3152",
       "kind": "pattern",
       "name": "section-panels",
       "source": {
@@ -32051,7 +32088,7 @@
       }
     },
     {
-      "id": "pattern:public-brand-footer#3149",
+      "id": "pattern:public-brand-footer#3153",
       "kind": "pattern",
       "name": "public-brand-footer",
       "source": {
@@ -32060,7 +32097,7 @@
       }
     },
     {
-      "id": "pattern:public-site-footer#3150",
+      "id": "pattern:public-site-footer#3154",
       "kind": "pattern",
       "name": "public-site-footer",
       "source": {
@@ -32069,7 +32106,7 @@
       }
     },
     {
-      "id": "pattern:filter-drawer#3151",
+      "id": "pattern:filter-drawer#3155",
       "kind": "pattern",
       "name": "filter-drawer",
       "source": {
@@ -32078,7 +32115,7 @@
       }
     },
     {
-      "id": "pattern:docs-code-blocks#3152",
+      "id": "pattern:docs-code-blocks#3156",
       "kind": "pattern",
       "name": "docs-code-blocks",
       "source": {
@@ -32087,7 +32124,7 @@
       }
     },
     {
-      "id": "pattern:cta-button-groups#3153",
+      "id": "pattern:cta-button-groups#3157",
       "kind": "pattern",
       "name": "cta-button-groups",
       "source": {
@@ -32096,7 +32133,7 @@
       }
     },
     {
-      "id": "pattern:upload-surfaces#3154",
+      "id": "pattern:upload-surfaces#3158",
       "kind": "pattern",
       "name": "upload-surfaces",
       "source": {
@@ -32105,7 +32142,7 @@
       }
     },
     {
-      "id": "pattern:access-summaries#3155",
+      "id": "pattern:access-summaries#3159",
       "kind": "pattern",
       "name": "access-summaries",
       "source": {
@@ -32114,7 +32151,7 @@
       }
     },
     {
-      "id": "pattern:access-recovery-panels#3156",
+      "id": "pattern:access-recovery-panels#3160",
       "kind": "pattern",
       "name": "access-recovery-panels",
       "source": {
@@ -32123,7 +32160,7 @@
       }
     },
     {
-      "id": "pattern:access-gates#3157",
+      "id": "pattern:access-gates#3161",
       "kind": "pattern",
       "name": "access-gates",
       "source": {
@@ -32132,7 +32169,7 @@
       }
     },
     {
-      "id": "pattern:placeholder-panels#3158",
+      "id": "pattern:placeholder-panels#3162",
       "kind": "pattern",
       "name": "placeholder-panels",
       "source": {
@@ -32141,7 +32178,7 @@
       }
     },
     {
-      "id": "pattern:simple-data-tables#3159",
+      "id": "pattern:simple-data-tables#3163",
       "kind": "pattern",
       "name": "simple-data-tables",
       "source": {
@@ -32150,7 +32187,7 @@
       }
     },
     {
-      "id": "pattern:admin-data-table#3160",
+      "id": "pattern:admin-data-table#3164",
       "kind": "pattern",
       "name": "admin-data-table",
       "source": {
@@ -32159,7 +32196,7 @@
       }
     },
     {
-      "id": "pattern:responsive-data-view#3161",
+      "id": "pattern:responsive-data-view#3165",
       "kind": "pattern",
       "name": "responsive-data-view",
       "source": {
@@ -32168,7 +32205,7 @@
       }
     },
     {
-      "id": "pattern:stats-strip#3162",
+      "id": "pattern:stats-strip#3166",
       "kind": "pattern",
       "name": "stats-strip",
       "source": {
@@ -32177,7 +32214,7 @@
       }
     },
     {
-      "id": "pattern:info-card#3163",
+      "id": "pattern:info-card#3167",
       "kind": "pattern",
       "name": "info-card",
       "source": {
@@ -32186,7 +32223,7 @@
       }
     },
     {
-      "id": "pattern:semantic-nav-link#3164",
+      "id": "pattern:semantic-nav-link#3168",
       "kind": "pattern",
       "name": "semantic-nav-link",
       "source": {
@@ -32195,7 +32232,7 @@
       }
     },
     {
-      "id": "pattern:empty-state#3165",
+      "id": "pattern:empty-state#3169",
       "kind": "pattern",
       "name": "empty-state",
       "source": {
@@ -32204,7 +32241,7 @@
       }
     },
     {
-      "id": "pattern:stats-sections#3166",
+      "id": "pattern:stats-sections#3170",
       "kind": "pattern",
       "name": "stats-sections",
       "source": {
@@ -32213,7 +32250,7 @@
       }
     },
     {
-      "id": "pattern:reporting-contracts#3167",
+      "id": "pattern:reporting-contracts#3171",
       "kind": "pattern",
       "name": "reporting-contracts",
       "source": {
@@ -32222,7 +32259,7 @@
       }
     },
     {
-      "id": "pattern:alerts#3168",
+      "id": "pattern:alerts#3172",
       "kind": "pattern",
       "name": "alerts",
       "source": {
@@ -32231,7 +32268,7 @@
       }
     },
     {
-      "id": "pattern:loaders-skeletons#3169",
+      "id": "pattern:loaders-skeletons#3173",
       "kind": "pattern",
       "name": "loaders-skeletons",
       "source": {
@@ -32240,7 +32277,7 @@
       }
     },
     {
-      "id": "pattern:notifications#3170",
+      "id": "pattern:notifications#3174",
       "kind": "pattern",
       "name": "notifications",
       "source": {
@@ -32249,7 +32286,7 @@
       }
     },
     {
-      "id": "pattern:badges#3171",
+      "id": "pattern:badges#3175",
       "kind": "pattern",
       "name": "badges",
       "source": {
@@ -32258,7 +32295,7 @@
       }
     },
     {
-      "id": "pattern:modals#3172",
+      "id": "pattern:modals#3176",
       "kind": "pattern",
       "name": "modals",
       "source": {
@@ -32267,7 +32304,7 @@
       }
     },
     {
-      "id": "pattern:drawers#3173",
+      "id": "pattern:drawers#3177",
       "kind": "pattern",
       "name": "drawers",
       "source": {
@@ -32276,7 +32313,7 @@
       }
     },
     {
-      "id": "pattern:small-screen-priority#3174",
+      "id": "pattern:small-screen-priority#3178",
       "kind": "pattern",
       "name": "small-screen-priority",
       "source": {
@@ -32285,7 +32322,7 @@
       }
     },
     {
-      "id": "pattern:table-responsive-strategies#3175",
+      "id": "pattern:table-responsive-strategies#3179",
       "kind": "pattern",
       "name": "table-responsive-strategies",
       "source": {
@@ -32294,7 +32331,7 @@
       }
     },
     {
-      "id": "pattern:mobile-action-density#3176",
+      "id": "pattern:mobile-action-density#3180",
       "kind": "pattern",
       "name": "mobile-action-density",
       "source": {
@@ -32303,7 +32340,7 @@
       }
     },
     {
-      "id": "pattern:searchable-selection#3177",
+      "id": "pattern:searchable-selection#3181",
       "kind": "pattern",
       "name": "searchable-selection",
       "source": {
@@ -32312,7 +32349,7 @@
       }
     },
     {
-      "id": "pattern:vocabulary-extension-lane#3178",
+      "id": "pattern:vocabulary-extension-lane#3182",
       "kind": "pattern",
       "name": "vocabulary-extension-lane",
       "source": {
@@ -32321,7 +32358,7 @@
       }
     },
     {
-      "id": "pattern:partner-discovery-system#3179",
+      "id": "pattern:partner-discovery-system#3183",
       "kind": "pattern",
       "name": "partner-discovery-system",
       "source": {
@@ -32330,7 +32367,7 @@
       }
     },
     {
-      "id": "pattern:bottom-tab-navigation#3180",
+      "id": "pattern:bottom-tab-navigation#3184",
       "kind": "pattern",
       "name": "bottom-tab-navigation",
       "source": {
@@ -32339,7 +32376,7 @@
       }
     },
     {
-      "id": "pattern:searchable-select#3181",
+      "id": "pattern:searchable-select#3185",
       "kind": "pattern",
       "name": "searchable-select",
       "source": {
@@ -32348,7 +32385,7 @@
       }
     },
     {
-      "id": "pattern:fit-score-chip#3182",
+      "id": "pattern:fit-score-chip#3186",
       "kind": "pattern",
       "name": "fit-score-chip",
       "source": {
@@ -32357,7 +32394,7 @@
       }
     },
     {
-      "id": "pattern:conversation-surface#3183",
+      "id": "pattern:conversation-surface#3187",
       "kind": "pattern",
       "name": "conversation-surface",
       "source": {
@@ -32366,7 +32403,7 @@
       }
     },
     {
-      "id": "pattern:meaning-badge#3184",
+      "id": "pattern:meaning-badge#3188",
       "kind": "pattern",
       "name": "meaning-badge",
       "source": {
@@ -32375,7 +32412,7 @@
       }
     },
     {
-      "id": "pattern:media-with-fallback#3185",
+      "id": "pattern:media-with-fallback#3189",
       "kind": "pattern",
       "name": "media-with-fallback",
       "source": {
@@ -32384,7 +32421,7 @@
       }
     },
     {
-      "id": "pattern:number-stepper#3186",
+      "id": "pattern:number-stepper#3190",
       "kind": "pattern",
       "name": "number-stepper",
       "source": {
@@ -32393,7 +32430,7 @@
       }
     },
     {
-      "id": "pattern:ai-search-card#3187",
+      "id": "pattern:ai-search-card#3191",
       "kind": "pattern",
       "name": "ai-search-card",
       "source": {
@@ -32402,7 +32439,7 @@
       }
     },
     {
-      "id": "theme:default#3188",
+      "id": "theme:default#3192",
       "kind": "theme",
       "name": "default",
       "source": {
@@ -32411,7 +32448,7 @@
       }
     },
     {
-      "id": "theme:high-contrast#3189",
+      "id": "theme:high-contrast#3193",
       "kind": "theme",
       "name": "high-contrast",
       "source": {
@@ -32420,7 +32457,7 @@
       }
     },
     {
-      "id": "theme:colorblind-safe#3190",
+      "id": "theme:colorblind-safe#3194",
       "kind": "theme",
       "name": "colorblind-safe",
       "source": {
@@ -32429,7 +32466,7 @@
       }
     },
     {
-      "id": "theme:dark-public#3191",
+      "id": "theme:dark-public#3195",
       "kind": "theme",
       "name": "dark-public",
       "source": {
@@ -32438,7 +32475,7 @@
       }
     },
     {
-      "id": "theme:flat-surface#3192",
+      "id": "theme:flat-surface#3196",
       "kind": "theme",
       "name": "flat-surface",
       "source": {
@@ -32447,7 +32484,7 @@
       }
     },
     {
-      "id": "theme:editorial#3193",
+      "id": "theme:editorial#3197",
       "kind": "theme",
       "name": "editorial",
       "source": {
@@ -32456,7 +32493,7 @@
       }
     },
     {
-      "id": "theme:brand#3194",
+      "id": "theme:brand#3198",
       "kind": "theme",
       "name": "brand",
       "source": {
@@ -32465,7 +32502,7 @@
       }
     },
     {
-      "id": "theme:partner-discovery#3195",
+      "id": "theme:partner-discovery#3199",
       "kind": "theme",
       "name": "partner-discovery",
       "source": {
@@ -32474,7 +32511,7 @@
       }
     },
     {
-      "id": "theme:class-usa#3196",
+      "id": "theme:class-usa#3200",
       "kind": "theme",
       "name": "class-usa",
       "source": {
@@ -32483,7 +32520,7 @@
       }
     },
     {
-      "id": "theme:gold-athlete#3197",
+      "id": "theme:gold-athlete#3201",
       "kind": "theme",
       "name": "gold-athlete",
       "source": {
@@ -32492,7 +32529,7 @@
       }
     },
     {
-      "id": "theme:sunset#3198",
+      "id": "theme:sunset#3202",
       "kind": "theme",
       "name": "sunset",
       "source": {
@@ -32501,7 +32538,7 @@
       }
     },
     {
-      "id": "theme:oceanic#3199",
+      "id": "theme:oceanic#3203",
       "kind": "theme",
       "name": "oceanic",
       "source": {
@@ -32510,7 +32547,7 @@
       }
     },
     {
-      "id": "theme:forest#3200",
+      "id": "theme:forest#3204",
       "kind": "theme",
       "name": "forest",
       "source": {
@@ -32519,7 +32556,7 @@
       }
     },
     {
-      "id": "theme:ruby#3201",
+      "id": "theme:ruby#3205",
       "kind": "theme",
       "name": "ruby",
       "source": {
@@ -32528,7 +32565,7 @@
       }
     },
     {
-      "id": "theme:amber#3202",
+      "id": "theme:amber#3206",
       "kind": "theme",
       "name": "amber",
       "source": {
@@ -32537,7 +32574,7 @@
       }
     },
     {
-      "id": "theme:neon-night#3203",
+      "id": "theme:neon-night#3207",
       "kind": "theme",
       "name": "neon-night",
       "source": {
@@ -32546,7 +32583,7 @@
       }
     },
     {
-      "id": "theme:skyline#3204",
+      "id": "theme:skyline#3208",
       "kind": "theme",
       "name": "skyline",
       "source": {
@@ -32555,7 +32592,7 @@
       }
     },
     {
-      "id": "theme:aurora#3205",
+      "id": "theme:aurora#3209",
       "kind": "theme",
       "name": "aurora",
       "source": {
@@ -32564,7 +32601,7 @@
       }
     },
     {
-      "id": "theme:coral#3206",
+      "id": "theme:coral#3210",
       "kind": "theme",
       "name": "coral",
       "source": {
@@ -32573,7 +32610,7 @@
       }
     },
     {
-      "id": "theme:mint#3207",
+      "id": "theme:mint#3211",
       "kind": "theme",
       "name": "mint",
       "source": {
@@ -32582,7 +32619,7 @@
       }
     },
     {
-      "id": "theme:orchid#3208",
+      "id": "theme:orchid#3212",
       "kind": "theme",
       "name": "orchid",
       "source": {
@@ -32591,7 +32628,7 @@
       }
     },
     {
-      "id": "theme:royal#3209",
+      "id": "theme:royal#3213",
       "kind": "theme",
       "name": "royal",
       "source": {
@@ -32600,7 +32637,7 @@
       }
     },
     {
-      "id": "theme:warm#3210",
+      "id": "theme:warm#3214",
       "kind": "theme",
       "name": "warm",
       "source": {
@@ -32609,7 +32646,7 @@
       }
     },
     {
-      "id": "theme:athlete-gold#3211",
+      "id": "theme:athlete-gold#3215",
       "kind": "theme",
       "name": "athlete-gold",
       "source": {
@@ -32618,7 +32655,7 @@
       }
     },
     {
-      "id": "theme:cosmic#3212",
+      "id": "theme:cosmic#3216",
       "kind": "theme",
       "name": "cosmic",
       "source": {
@@ -32627,7 +32664,7 @@
       }
     },
     {
-      "id": "accent:plum#3213",
+      "id": "accent:plum#3217",
       "kind": "accent",
       "name": "plum",
       "source": {
@@ -32637,7 +32674,7 @@
       "value": "#7c3a6e"
     },
     {
-      "id": "accent:indigo#3214",
+      "id": "accent:indigo#3218",
       "kind": "accent",
       "name": "indigo",
       "source": {
@@ -32647,7 +32684,7 @@
       "value": "#3f4d9e"
     },
     {
-      "id": "accent:ocean#3215",
+      "id": "accent:ocean#3219",
       "kind": "accent",
       "name": "ocean",
       "source": {
@@ -32657,7 +32694,7 @@
       "value": "#1f6e8c"
     },
     {
-      "id": "accent:teal#3216",
+      "id": "accent:teal#3220",
       "kind": "accent",
       "name": "teal",
       "source": {
@@ -32667,7 +32704,7 @@
       "value": "#0f766e"
     },
     {
-      "id": "accent:forest#3217",
+      "id": "accent:forest#3221",
       "kind": "accent",
       "name": "forest",
       "source": {
@@ -32677,7 +32714,7 @@
       "value": "#2f6b3a"
     },
     {
-      "id": "accent:bronze#3218",
+      "id": "accent:bronze#3222",
       "kind": "accent",
       "name": "bronze",
       "source": {
@@ -32687,7 +32724,7 @@
       "value": "#8a5a00"
     },
     {
-      "id": "accent:terracotta#3219",
+      "id": "accent:terracotta#3223",
       "kind": "accent",
       "name": "terracotta",
       "source": {
@@ -32697,7 +32734,7 @@
       "value": "#b04a2f"
     },
     {
-      "id": "accent:magenta#3220",
+      "id": "accent:magenta#3224",
       "kind": "accent",
       "name": "magenta",
       "source": {
@@ -32707,7 +32744,7 @@
       "value": "#a52a6c"
     },
     {
-      "id": "accent:slate#3221",
+      "id": "accent:slate#3225",
       "kind": "accent",
       "name": "slate",
       "source": {
@@ -32717,7 +32754,7 @@
       "value": "#52606d"
     },
     {
-      "id": "accent:grape#3222",
+      "id": "accent:grape#3226",
       "kind": "accent",
       "name": "grape",
       "source": {

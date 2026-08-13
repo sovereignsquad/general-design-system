@@ -121,9 +121,15 @@ export function ChatMessage({
 export function StreamingIndicator({ label = 'Assistant is typing' }: { label?: string }) {
   return (
     <Group gap={6} aria-label={label}>
-      <Box className="gds-chat-typing-dot" style={dotStyle(0)} />
-      <Box className="gds-chat-typing-dot" style={dotStyle(1)} />
-      <Box className="gds-chat-typing-dot" style={dotStyle(2)} />
+      {/*
+        `data-gds-motion` is what makes the loop reducible: the governed rule in styles.css
+        neutralises `animation` for anything carrying it. Without the attribute these plain
+        `Box` elements would keep pulsing for a user who asked for reduced motion — WCAG 2.2.2,
+        for content that moves automatically and cannot be paused.
+      */}
+      <Box className="gds-chat-typing-dot" data-gds-motion style={dotStyle(0)} />
+      <Box className="gds-chat-typing-dot" data-gds-motion style={dotStyle(1)} />
+      <Box className="gds-chat-typing-dot" data-gds-motion style={dotStyle(2)} />
     </Group>
   );
 }
@@ -134,8 +140,13 @@ function dotStyle(index: number): React.CSSProperties {
     height: 6,
     borderRadius: '50%',
     background: 'var(--gds-text-secondary, var(--mantine-color-gray-5))',
-    animation: 'gds-chat-typing 1s infinite',
-    animationDelay: `${index * 0.15}s`,
+    // Issue 592. The `1s` was ungoverned AND animated keyframes that did not exist. The
+    // duration is now the `ambient` step — added to the scale deliberately, because every
+    // other step is a transition duration and the longest, 360ms, loops frantically.
+    animation: 'gds-chat-typing var(--gds-motion-duration-ambient, 1000ms) infinite',
+    // The stagger is a fraction of the same token rather than a second hardcoded number, so
+    // the three dots stay in phase with each other if the step is ever retuned.
+    animationDelay: `calc(var(--gds-motion-duration-ambient, 1000ms) * ${index * 0.15})`,
   };
 }
 

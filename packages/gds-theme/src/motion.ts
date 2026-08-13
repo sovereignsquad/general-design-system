@@ -1,5 +1,5 @@
 /** Named motion duration token (maps to a millisecond value in `gdsMotionDurations`). */
-export type GdsMotionDurationToken = 'instant' | 'fast' | 'base' | 'slow' | 'slower';
+export type GdsMotionDurationToken = 'instant' | 'fast' | 'base' | 'slow' | 'slower' | 'ambient';
 /** Named motion easing token (maps to a `cubic-bezier(...)` in `gdsMotionEasings`). */
 export type GdsMotionEasingToken = 'standard' | 'entrance' | 'exit' | 'emphasis' | 'linear';
 /** Identifier of a governed motion preset (one per interaction surface). */
@@ -49,6 +49,19 @@ export const gdsMotionDurations: Record<GdsMotionDurationToken, number> = {
   base: 180,
   slow: 240,
   slower: 360,
+  /**
+   * Looping ambient motion — a typing indicator, a pulse, a breathing dot.
+   *
+   * Issue 592. Deliberately added rather than mapped: every step above is a TRANSITION
+   * duration, the time a state change takes, and the longest of them is 360ms. A loop that
+   * repeats every 360ms reads as frantic rather than as "working". Mapping the chat
+   * indicator's 1s onto the nearest existing step would have been a mechanical answer to a
+   * question about a different kind of motion.
+   *
+   * It lives on the same scale so it inherits the machinery: the generated CSS variable, the
+   * DTCG export, and — the part that matters — the reduced-motion override that zeroes it.
+   */
+  ambient: 1000,
 };
 
 /** Motion easing tokens mapped to their CSS timing-function values. */
@@ -172,16 +185,20 @@ export function getGdsMotionPreset(id: GdsMotionPresetId, policy: GdsReducedMoti
 
 /** Builds the `--gds-motion-duration-*` / `--gds-motion-ease-*` CSS variable map; under `'no-motion'` durations collapse to 0 and easings to linear. */
 export function createGdsMotionCssVariables(policy: GdsReducedMotionPolicy = 'system') {
+  // Issue 592. This used to hand-list every token, which made `gdsMotionDurations` the
+  // "source of truth" in the comment and a DUPLICATE in fact: adding `ambient` to the record
+  // emitted nothing, and nothing failed — the new step simply did not exist in CSS. Deriving
+  // the variables from the records means a step cannot be added to one and forgotten in the
+  // other, which is the same single-source rule the token work already applies everywhere else.
   const noMotion = policy === 'no-motion';
-  return {
-    '--gds-motion-duration-instant': `${noMotion ? 0 : gdsMotionDurations.instant}ms`,
-    '--gds-motion-duration-fast': `${noMotion ? 0 : gdsMotionDurations.fast}ms`,
-    '--gds-motion-duration-base': `${noMotion ? 0 : gdsMotionDurations.base}ms`,
-    '--gds-motion-duration-slow': `${noMotion ? 0 : gdsMotionDurations.slow}ms`,
-    '--gds-motion-duration-slower': `${noMotion ? 0 : gdsMotionDurations.slower}ms`,
-    '--gds-motion-ease-standard': noMotion ? gdsMotionEasings.linear : gdsMotionEasings.standard,
-    '--gds-motion-ease-entrance': noMotion ? gdsMotionEasings.linear : gdsMotionEasings.entrance,
-    '--gds-motion-ease-exit': noMotion ? gdsMotionEasings.linear : gdsMotionEasings.exit,
-    '--gds-motion-ease-emphasis': noMotion ? gdsMotionEasings.linear : gdsMotionEasings.emphasis,
-  } as const;
+  const vars: Record<string, string> = {};
+  for (const [name, ms] of Object.entries(gdsMotionDurations)) {
+    vars[`--gds-motion-duration-${name}`] = `${noMotion ? 0 : ms}ms`;
+  }
+  for (const [name, value] of Object.entries(gdsMotionEasings)) {
+    // `linear` is the reduced-motion REPLACEMENT, not a curve any component asks for by name.
+    if (name === 'linear') continue;
+    vars[`--gds-motion-ease-${name}`] = noMotion ? gdsMotionEasings.linear : value;
+  }
+  return vars;
 }
