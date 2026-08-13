@@ -17,7 +17,7 @@
       "reviewBy": "2026-12-01"
     },
     {
-      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:324",
+      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:316",
       "value": "12",
       "reason": "Theme Lab preview chrome at 12px, between 2xs and xs. Same category as the two shape debt entries in shape-token-adoption.config.mjs: migrating visibly reshapes the page that demonstrates theming, so it is a review rather than a sweep.",
       "reviewBy": "2026-12-01"
