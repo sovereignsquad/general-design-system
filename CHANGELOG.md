@@ -4,6 +4,31 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The theme coverage matrix is reproducible (#599)
+
+#562 §5 required "the same commit produces the same result set". It did not: three runs
+measured 33.94 / 33.95 / 33.96 percent with element counts of 28,242 / 28,128 / 28,238. The rate
+band was small, but the **~114-element spread** meant the sweep sampled a different amount of
+each route depending on render timing, so a genuine 0.05pp regression was indistinguishable
+from noise — and the budget sat at 34 to clear a band nobody could tighten.
+
+The cause was a fixed `wait(350)`: a guess about how long React, lazy routes and web fonts take,
+and a different guess on a loaded runner. It now **waits for a settled DOM** — node count
+unchanged across two consecutive polls — which replaces the guess with the condition it was
+standing in for. A cell that never settles is reported rather than silently sampled mid-render.
+
+**Three consecutive runs on one commit now produce identical results: 28,203 properties checked,
+9,313 untraceable, 0 unsettled cells.** Budget tightened **34 → 33.02**, the measured value, with
+the headroom removed.
+
+The artifact records exact counts again. It had been deliberately bucketing to the nearest
+thousand and rounding to whole percent — the honest response to variance at the time, and no
+longer needed now that the precision is real.
+
+**Stated rather than implied:** 36 cells hit the 400-element sample cap, so those routes are
+sampled rather than swept exhaustively. `cellsTruncatedAtSampleCap` reports it on every run,
+because a coverage number that hides truncation reads as more coverage than it has.
+
 ### The site still called its proof surfaces "Live Demos" — in English (#613, #610)
 
 #606 renamed the route to `/live-proofs` and **never renamed the label**. `site-routes.ts`

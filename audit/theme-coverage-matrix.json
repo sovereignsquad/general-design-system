@@ -5,10 +5,12 @@
   "cellsPossible": 1200,
   "routesCovered": 24,
   "presetsCovered": 25,
-  "propertiesCheckedApprox": 28000,
-  "untraceableCountApprox": 10000,
-  "untraceableRate": 34,
-  "precisionNote": "Counts bucketed to 1000 and the rate to whole percent: the sweep is not yet reproducible (issue 599), and recording two decimals would assert precision it does not have.",
+  "propertiesChecked": 28203,
+  "untraceableCount": 9313,
+  "untraceableRate": 33.02,
+  "cellsUnsettled": 0,
+  "cellsTruncatedAtSampleCap": 36,
+  "sampleCapPerCell": 400,
   "trackedProperties": [
     {
       "property": "color",

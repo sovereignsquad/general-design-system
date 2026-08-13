@@ -2,8 +2,8 @@
   "rows": [
     {
       "key": "themeMatrixUntraceableRate",
-      "measured": 34,
-      "value": 34,
+      "measured": 33.02,
+      "value": 33.02,
       "direction": "max",
       "unit": "%",
       "finding": "F5 (issue 562)",
@@ -112,13 +112,13 @@
     },
     {
       "key": "gateSuiteMutationScore",
-      "measured": 50,
+      "measured": 100,
       "value": 100,
       "direction": "min",
       "unit": "%",
       "finding": "issue 602",
       "advisory": false,
-      "status": "EXCEEDED"
+      "status": "OK"
     },
     {
       "key": "gateSuiteUnexplainedSurvivors",
