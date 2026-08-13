@@ -8,6 +8,7 @@ npm run verify:i18n-route-coverage
 npm run verify:i18n-message-parity
 npm run verify:i18n-package-copy
 npm run verify:pattern-live-proof
+npm run verify:i18n-leakage
 npm run verify:references
 npm run verify:release
 npm run verify:accessibility-evidence

@@ -107,49 +107,49 @@
     "siteParity": [
       {
         "locale": "ar",
-        "keys": 1249,
+        "keys": 1293,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "de",
-        "keys": 1249,
+        "keys": 1293,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "es",
-        "keys": 1249,
+        "keys": 1293,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "fr",
-        "keys": 1249,
+        "keys": 1293,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "he",
-        "keys": 1249,
+        "keys": 1293,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "hu",
-        "keys": 1249,
+        "keys": 1293,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "it",
-        "keys": 1249,
+        "keys": 1293,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ru",
-        "keys": 1249,
+        "keys": 1293,
         "missing": 0,
         "extra": 0
       }
@@ -157,98 +157,84 @@
     "englishLeakage": [
       {
         "corpus": "site",
-        "locale": "hu",
-        "total": 1249,
-        "untranslated": 47,
-        "rate": 3.8
-      },
-      {
-        "corpus": "site",
-        "locale": "de",
-        "total": 1249,
-        "untranslated": 43,
-        "rate": 3.4
-      },
-      {
-        "corpus": "site",
         "locale": "he",
-        "total": 1249,
-        "untranslated": 41,
-        "rate": 3.3
+        "total": 1293,
+        "untranslated": 7,
+        "rate": 0.54
       },
       {
-        "corpus": "package",
+        "corpus": "site",
         "locale": "de",
-        "total": 188,
-        "untranslated": 5,
-        "rate": 2.7
+        "total": 1293,
+        "untranslated": 2,
+        "rate": 0.15
+      },
+      {
+        "corpus": "site",
+        "locale": "ar",
+        "total": 1293,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "site",
+        "locale": "es",
+        "total": 1293,
+        "untranslated": 0,
+        "rate": 0
       },
       {
         "corpus": "site",
         "locale": "fr",
-        "total": 1249,
-        "untranslated": 31,
-        "rate": 2.5
+        "total": 1293,
+        "untranslated": 0,
+        "rate": 0
       },
       {
-        "corpus": "package",
-        "locale": "fr",
-        "total": 188,
-        "untranslated": 4,
-        "rate": 2.1
+        "corpus": "site",
+        "locale": "hu",
+        "total": 1293,
+        "untranslated": 0,
+        "rate": 0
       },
       {
         "corpus": "site",
         "locale": "it",
-        "total": 1249,
-        "untranslated": 20,
-        "rate": 1.6
+        "total": 1293,
+        "untranslated": 0,
+        "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ru",
-        "total": 1249,
-        "untranslated": 20,
-        "rate": 1.6
+        "total": 1293,
+        "untranslated": 0,
+        "rate": 0
       },
       {
         "corpus": "package",
-        "locale": "it",
-        "total": 188,
-        "untranslated": 3,
-        "rate": 1.6
-      },
-      {
-        "corpus": "site",
         "locale": "ar",
-        "total": 1249,
-        "untranslated": 18,
-        "rate": 1.4
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
       },
       {
-        "corpus": "site",
-        "locale": "es",
-        "total": 1249,
-        "untranslated": 17,
-        "rate": 1.4
+        "corpus": "package",
+        "locale": "de",
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
       },
       {
         "corpus": "package",
         "locale": "es",
         "total": 188,
-        "untranslated": 1,
-        "rate": 0.5
+        "untranslated": 0,
+        "rate": 0
       },
       {
         "corpus": "package",
-        "locale": "zh",
-        "total": 188,
-        "untranslated": 1,
-        "rate": 0.5
-      },
-      {
-        "corpus": "package",
-        "locale": "ar",
+        "locale": "fr",
         "total": 188,
         "untranslated": 0,
         "rate": 0
@@ -263,6 +249,13 @@
       {
         "corpus": "package",
         "locale": "hu",
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "package",
+        "locale": "it",
         "total": 188,
         "untranslated": 0,
         "rate": 0
@@ -284,6 +277,13 @@
       {
         "corpus": "package",
         "locale": "ru",
+        "total": 188,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "package",
+        "locale": "zh",
         "total": 188,
         "untranslated": 0,
         "rate": 0
@@ -323,20 +323,20 @@
     ]
   },
   "underived": {
-    "registryKinds": 17,
-    "coveredKinds": 13,
+    "registryKinds": 18,
+    "coveredKinds": 14,
     "uncoveredKinds": [
       {
         "kind": "export",
-        "atoms": 590
+        "atoms": 832
       },
       {
         "kind": "prop",
-        "atoms": 1002
+        "atoms": 1042
       },
       {
         "kind": "variant",
-        "atoms": 97
+        "atoms": 109
       },
       {
         "kind": "accent",

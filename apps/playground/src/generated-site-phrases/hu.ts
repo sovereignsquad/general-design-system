@@ -38,7 +38,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Accessibility evidence": "A hozzáférhetőség bizonyítékai",
   "Accessibility evidence contract": "Hozzáférhetőségi bizonyítási szerződés",
   "Accessibility evidence rules": "Hozzáférhetőségi bizonyítékok szabályai",
-  "Accessibility is enforced": "Accessibility is enforced",
+  "Accessibility is enforced": "Az akadálymentesítés érvényesül",
   "Accessibility statements must resolve to a concrete registry record with keyboard, focus, and screen-reader behavior instead of narrative marketing copy.": "A kisegítő lehetőségekről szóló nyilatkozatoknak konkrét nyilvántartási rekordot kell létrehozniuk billentyűzettel, fókusszal és képernyőolvasó viselkedéssel a narratív marketingmásolat helyett.",
   "Accessible playback surface with bounded description and media containment.": "Hozzáférhető lejátszási felület korlátos leírással és médiatárolóval.",
   "Accessible playback surface with bounded media and clear next actions.": "Hozzáférhető lejátszási felület korlátos médiával és egyértelmű következő műveletekkel.",

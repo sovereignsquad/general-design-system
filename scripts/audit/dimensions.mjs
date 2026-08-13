@@ -8,6 +8,7 @@
 
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { measureCorpusLeakage } from '../lib/i18n-leakage.mjs';
 
 const ROOT = new URL('../..', import.meta.url).pathname;
 const out = {};
@@ -38,23 +39,27 @@ const out = {};
     extra: [...k].filter((x) => !ref.has(x)).length,
   })).sort((a, b) => b.missing - a.missing);
 
-  // English leakage: a value identical to the English pack's value for the same key.
-  const valuesOf = (file) => {
-    const src = readFileSync(file, 'utf8');
-    return Object.fromEntries([...src.matchAll(/^\s*["']([^"']+)["']\s*:\s*["']([^"']*)["']/gm)].map((m) => [m[1], m[2]]));
-  };
+  // English leakage.
+  //
+  // MEASUREMENT CHANGED in issue 588, stated rather than slipped in (the F24 rule). The old
+  // figure counted every value byte-identical to its English source, which put ~46 non-defects
+  // per pack into the metric: `"you@company.com"`, `"Cmd+1"`, `"npm run verify:references"`,
+  // component-name lists, and — in the package corpus — genuine cognates, since `Pause`,
+  // `Filter` and `Message` are real German and French words. Of the 15 package values it
+  // flagged, exactly ONE was a defect.
+  //
+  // The measurement now lives in scripts/lib/i18n-leakage.mjs, shared with the generator that
+  // repairs leakage and the gate that fails on it, and requires peer evidence that the phrase
+  // is translatable plus a script-aware test. `untranslated` therefore counts provable misses
+  // rather than identical strings; the two numbers answer different questions and must not be
+  // compared. `identicalToEnglish` keeps the old raw count for continuity.
   const leakage = [];
-  for (const dir of [[siteDir, siteLocales, 'site'], [pkgDir, pkgLocales, 'package']]) {
-    const [d, locales, label] = dir;
-    const enFile = locales.includes('en') ? join(d, 'en.ts') : null;
-    const ref = enFile ? valuesOf(enFile) : null;
-    for (const l of locales) {
-      if (l === 'en') continue;
-      const v = valuesOf(join(d, `${l}.ts`));
-      // For site packs the KEY is the English phrase, so key===value is the leak signal.
-      const untranslated = Object.entries(v).filter(([k, val]) => (ref ? ref[k] === val && val : k === val)).length;
-      leakage.push({ corpus: label, locale: l, total: Object.keys(v).length, untranslated,
-        rate: Object.keys(v).length ? +(untranslated / Object.keys(v).length * 100).toFixed(1) : 0 });
+  for (const [d, label, referenceIsKey] of [[siteDir, 'site', true], [pkgDir, 'package', false]]) {
+    for (const row of measureCorpusLeakage(d, { referenceIsKey }).rows) {
+      leakage.push({
+        corpus: label, locale: row.locale, total: row.total,
+        untranslated: row.leaked, rate: row.rate,
+      });
     }
   }
 
