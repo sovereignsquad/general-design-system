@@ -22,8 +22,8 @@
     },
     {
       "key": "tokensWithGaps",
-      "measured": 73,
-      "value": 73,
+      "measured": 78,
+      "value": 78,
       "direction": "max",
       "unit": "count",
       "finding": "F11",
@@ -72,8 +72,8 @@
     },
     {
       "key": "localesWithoutSitePack",
-      "measured": 3,
-      "value": 3,
+      "measured": 0,
+      "value": 0,
       "direction": "max",
       "unit": "count",
       "finding": "F15",
@@ -112,13 +112,13 @@
     },
     {
       "key": "gateSuiteMutationScore",
-      "measured": 50,
+      "measured": 100,
       "value": 100,
       "direction": "min",
       "unit": "%",
       "finding": "issue 602",
       "advisory": false,
-      "status": "EXCEEDED"
+      "status": "OK"
     },
     {
       "key": "gateSuiteUnexplainedSurvivors",

@@ -3,8 +3,12 @@ import { createElement } from 'react';
 import App from './App';
 import { getFullCopyLocalesForRoute, hasFullRouteLocalization } from './locale-coverage';
 import { translateSiteDom } from './site-phrase-translation';
+import { siteLocaleRegistry } from './site-copy';
 
-const allLocaleIds = ['en', 'de', 'fr', 'it', 'es', 'ru', 'he', 'ar', 'hu'];
+// Derived from the registry, not listed. A written list made this test assert the locale set
+// of the day it was written: adding `ja`, `ko` and `zh` (issue 587) failed it for being right.
+// A test that has to be edited whenever the system grows is testing the editor, not the system.
+const allLocaleIds = Object.keys(siteLocaleRegistry);
 
 describe('playground route locale coverage', () => {
   it('allows full-copy locales on every public route', () => {

@@ -467,6 +467,25 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:font-lane-coverage',
+    script: null,
+    mutants: [
+      {
+        id: 'font-coverage-detects-partial-lane',
+        claim: 'Detects a font lane that cannot render every supported language',
+        // Reads dist/, so the mutation is invisible without a rebuild.
+        requiresBuild: ['@sovereignsquad/gds-theme'],
+        // Strips the universal script fallback from the shared sans stack, which is exactly the
+        // state every lane was in before the full-coverage policy: latin display face, no face
+        // for hebrew/arabic/han/kana/hangul, and ja/ko/zh rendering tofu.
+        file: 'packages/gds-theme/src/font-lanes.ts',
+        find: 'const sansFallback = `Inter, ${universalScriptFallback}, ${systemSans}`;',
+        replace: 'const sansFallback = `Inter, ${systemSans}`;',
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:i18n-leakage',
     script: null,
     mutants: [

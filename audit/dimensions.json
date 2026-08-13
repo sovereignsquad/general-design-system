@@ -22,13 +22,12 @@
       "he",
       "hu",
       "it",
-      "ru"
-    ],
-    "packageLocalesWithNoSitePack": [
       "ja",
       "ko",
+      "ru",
       "zh"
     ],
+    "packageLocalesWithNoSitePack": [],
     "siteLocalesWithNoPackagePack": [],
     "packageParity": [
       {
@@ -148,7 +147,25 @@
         "extra": 0
       },
       {
+        "locale": "ja",
+        "keys": 1293,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "ko",
+        "keys": 1293,
+        "missing": 0,
+        "extra": 0
+      },
+      {
         "locale": "ru",
+        "keys": 1293,
+        "missing": 0,
+        "extra": 0
+      },
+      {
+        "locale": "zh",
         "keys": 1293,
         "missing": 0,
         "extra": 0
@@ -206,7 +223,28 @@
       },
       {
         "corpus": "site",
+        "locale": "ja",
+        "total": 1293,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "site",
+        "locale": "ko",
+        "total": 1293,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "site",
         "locale": "ru",
+        "total": 1293,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "site",
+        "locale": "zh",
         "total": 1293,
         "untranslated": 0,
         "rate": 0
@@ -328,7 +366,7 @@
     "uncoveredKinds": [
       {
         "kind": "export",
-        "atoms": 832
+        "atoms": 834
       },
       {
         "kind": "prop",

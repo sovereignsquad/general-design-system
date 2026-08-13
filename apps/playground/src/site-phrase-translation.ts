@@ -14,6 +14,9 @@ const localeLoaders: Partial<Record<SiteLocaleId, () => Promise<{ generatedSiteP
   he: () => import('./generated-site-phrases/he'),
   ar: () => import('./generated-site-phrases/ar'),
   hu: () => import('./generated-site-phrases/hu'),
+  ja: () => import('./generated-site-phrases/ja'),
+  ko: () => import('./generated-site-phrases/ko'),
+  zh: () => import('./generated-site-phrases/zh'),
 };
 
 const phraseIndexCache = new Map<string, Map<string, string>>();

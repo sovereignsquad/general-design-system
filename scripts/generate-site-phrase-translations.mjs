@@ -17,7 +17,11 @@ const targetFiles = [
   'apps/playground/src/site-routes.ts',
 ];
 
-const localeIds = ['de', 'fr', 'it', 'es', 'ru', 'he', 'ar', 'hu'];
+// Issue 587: ja/ko/zh added. gds-core shipped package packs for all three while the site had
+// none, so the reference site could not render in Japanese, Korean or Chinese even though the
+// packages a visitor would install support their language. Google Translate uses `zh` for
+// Simplified Chinese, matching the `zh` package pack.
+const localeIds = ['de', 'fr', 'it', 'es', 'ru', 'he', 'ar', 'hu', 'ja', 'ko', 'zh'];
 const outDir = resolve(root, 'apps/playground/src/generated-site-phrases');
 
 function extractPhrases(source) {

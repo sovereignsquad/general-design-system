@@ -122,6 +122,52 @@ type ExperienceOverrideContract = {
 
 This is a governance contract first. Products still own storage and moderation, but they may not use that as justification for replacing GDS-owned application structure.
 
+## Font lanes must cover every supported language (owner directive, 2026-08-13)
+
+**Only a font stack that supports 100% of the languages GDS ships may be a font lane. There is
+no partial lane, and no lane may be added that covers "most" scripts.**
+
+### Why this is absolute
+
+Font lanes used to declare `localeCoverage` of latin, or latin plus cyrillic. Eleven of the
+twelve did. That meant **choosing a font silently chose which languages the product could
+display** — and nothing said so at the point of choice. `ja`, `ko` and `zh` had no lane at all:
+the packages shipped locale packs for all three while no lane's fonts contained a single one of
+their glyphs, so a reader would have seen tofu boxes on a page GDS had already declared
+localised.
+
+A lane that covers some languages is a **detour** in the Rule 10 sense. It does not remove the
+problem, it relocates it: every consuming app has to rediscover which font can render its own
+users' language, and solve it locally, forever. The system is the correct place to solve it
+once.
+
+### The contract
+
+- Every lane's stack ends with the **universal script fallback** — one Noto family per script
+  in the locale catalog (`Noto Sans`, `Noto Sans Hebrew`, `Noto Sans Arabic`, `Noto Sans SC`,
+  `Noto Sans JP`, `Noto Sans KR`). The lane's own display face still leads, so Latin text keeps
+  the lane's character; the browser only reaches a Noto entry for glyphs the display face
+  lacks.
+- Every lane declares `localeCoverage` of the **entire** locale catalog. A lane that cannot is
+  not a lane.
+- The script list is **derived** from `gdsLocaleMetadata` via `getGdsLocaleScripts()`, never
+  written out. Adding a locale in a new script makes the font map incomplete and **fails the
+  build** rather than shipping a lane that cannot draw it.
+- Fonts load from `fonts.googleapis.com` only, always with `display=swap`.
+
+### Enforcement
+
+`npm run verify:font-lane-coverage`, in the release chain. It derives both sides from the same
+catalog, so it cannot be satisfied by writing a list.
+
+**What it does not prove, stated plainly:** it verifies structure — that each script has a
+declared family, that each lane's stack names it, that coverage is the whole catalog, and that
+loading is from the approved host with `swap`. It does not read the font binaries, so it cannot
+detect a family mapped to a script whose glyphs it does not contain. That mapping is small,
+lives in one place, and every entry is commented; proving real glyph coverage would require
+reading each family's `unicode-range` from the font service live, which is the kind of
+network-dependent assertion already exempted elsewhere in the chain.
+
 ## Dark-mode rule
 
 - a product may default to dark when that is part of its deliberate shell identity

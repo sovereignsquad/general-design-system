@@ -1,6 +1,6 @@
 import type { MantineThemeOverride } from '@mantine/core';
 import { mergeThemeOverrides } from '@mantine/core';
-import { getGdsLocaleIdsByScript } from './i18n';
+import { getGdsLocaleIds, getGdsLocaleScripts, type GdsLocaleScript } from './i18n';
 
 /** Identifier of a built-in GDS font lane (a paired body/heading font stack). */
 export type GdsFontLaneId =
@@ -15,7 +15,8 @@ export type GdsFontLaneId =
   | 'partner-discovery'
   | 'instrument-serif'
   | 'source-serif'
-  | 'playfair-display';
+  | 'playfair-display'
+  | 'noto-sans-universal';
 
 /** Where a lane's fonts come from: a native system stack or a Google-Fonts-compatible web font. */
 export type GdsFontLaneSource = 'system' | 'google-fonts-compatible';
@@ -47,14 +48,70 @@ export interface GdsFontLane {
   cssImportUrl?: string;
 }
 
-const sansFallback = 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-const serifFallback = 'Georgia, "Times New Roman", serif';
-const monoFallback = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
-const broadLatinLocales = getGdsLocaleIdsByScript(['latin']);
-const broadUiLocales = getGdsLocaleIdsByScript(['latin', 'cyrillic']);
+/**
+ * ─────────────────────────────────────────────────────────────────────────────
+ * FULL-COVERAGE FONT POLICY (owner directive, 2026-08-13)
+ * ─────────────────────────────────────────────────────────────────────────────
+ *
+ * **A font lane must render every language GDS supports. There is no partial lane.**
+ *
+ * Before this, eleven of twelve lanes declared `localeCoverage` of latin (+cyrillic) only, so
+ * picking a lane silently decided which languages the product could display. `ja`, `ko` and
+ * `zh` had no lane at all — the packages shipped those locales while no font could draw them,
+ * and a reader would have got tofu boxes. A lane that covers some languages is a detour: it
+ * pushes "which font can show my users' language" onto every consumer, one app at a time.
+ *
+ * Every lane therefore ends in `universalScriptFallback`, which names a Noto family for each
+ * script in the catalog. A lane's own display face still leads the stack, so Latin text keeps
+ * its character; the browser only reaches the Noto entries for glyphs the display face lacks.
+ *
+ * NOTHING HERE IS COPIED. The script list comes from `getGdsLocaleScripts()`, so adding a
+ * locale in a new script makes `SCRIPT_FONTS` incomplete and fails the build rather than
+ * silently shipping a lane that cannot draw it. `verify:font-lane-coverage` enforces the
+ * policy against the same catalog.
+ */
+const SCRIPT_FONTS: Record<GdsLocaleScript, string> = {
+  latin: 'Noto Sans',
+  cyrillic: 'Noto Sans',
+  hebrew: 'Noto Sans Hebrew',
+  arabic: 'Noto Sans Arabic',
+  // Han is drawn differently in Japanese and Simplified Chinese, so one family cannot serve
+  // both. Listing JP before SC matches the catalog order and keeps each locale's own face.
+  han: 'Noto Sans SC',
+  kana: 'Noto Sans JP',
+  hangul: 'Noto Sans KR',
+};
+
+/** Distinct Noto families needed to cover every supported script, in catalog order. */
+const universalFamilies = [...new Set(getGdsLocaleScripts().map((script) => {
+  const family = SCRIPT_FONTS[script];
+  if (!family) {
+    throw new Error(`No font family declared for script "${script}" — a lane cannot cover every supported locale.`);
+  }
+  return family;
+}))];
+
+/** Appended to every lane so no supported language can fall through to tofu. */
+const universalScriptFallback = universalFamilies.map((family) => `"${family}"`).join(', ');
+
+const systemSans = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+const sansFallback = `Inter, ${universalScriptFallback}, ${systemSans}`;
+const serifFallback = `Georgia, "Times New Roman", ${universalScriptFallback}, serif`;
+const monoFallback = `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, ${universalScriptFallback}, monospace`;
+
+// Every lane covers every locale now, so both sets resolve to the full catalog. They are kept
+// as named bindings because the lane table reads by intent, and derived rather than written so
+// they cannot drift from the catalog.
+const broadLatinLocales = getGdsLocaleIds();
+const broadUiLocales = getGdsLocaleIds();
+
+/** The Noto families every lane depends on, requested alongside the lane's own face. */
+const universalFamilyParams = universalFamilies
+  .map((family) => `family=${family.replace(/ /g, '+')}:wght@400;500;600;700`)
+  .join('&');
 
 function googleFontUrl(family: string) {
-  return `https://fonts.googleapis.com/css2?family=${family}:wght@400;500;600;700;800&display=swap`;
+  return `https://fonts.googleapis.com/css2?family=${family}:wght@400;500;600;700;800&${universalFamilyParams}&display=swap`;
 }
 
 function lane(input: Omit<GdsFontLane, 'fontDisplay' | 'loadStrategy' | 'mono'> & { mono?: string }): GdsFontLane {
@@ -80,6 +137,20 @@ const lanes: readonly GdsFontLane[] = [
   lane({ id: 'source-serif', label: 'Source Serif', body: `"Source Serif 4", ${serifFallback}`, heading: `"Source Serif 4", ${serifFallback}`, fallbackStack: serifFallback, localeCoverage: broadUiLocales, source: 'google-fonts-compatible', cssImportUrl: googleFontUrl('Source+Serif+4') }),
   // Class USA v2 re-base (issue 536): display Playfair Display, body Inter.
   lane({ id: 'playfair-display', label: 'Playfair Display', body: sansFallback, heading: `"Playfair Display", ${serifFallback}`, fallbackStack: serifFallback, localeCoverage: broadLatinLocales, source: 'google-fonts-compatible', cssImportUrl: googleFontUrl('Playfair+Display') }),
+  // Issue 587. A lane that leads with the universal families themselves, for products whose
+  // primary audience reads a non-Latin script and who want that face to set the tone rather
+  // than sit in the fallback position. Every other lane also covers these languages now — this
+  // one just puts them first.
+  lane({
+    id: 'noto-sans-universal',
+    label: 'Noto Sans Universal',
+    body: `${universalScriptFallback}, ${systemSans}`,
+    heading: `${universalScriptFallback}, ${systemSans}`,
+    fallbackStack: systemSans,
+    localeCoverage: getGdsLocaleIds(),
+    source: 'google-fonts-compatible',
+    cssImportUrl: `https://fonts.googleapis.com/css2?${universalFamilyParams}&display=swap`,
+  }),
 ] as const;
 
 /** Returns a copy of all built-in font lanes. */

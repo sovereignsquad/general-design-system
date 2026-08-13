@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const root = process.cwd();
@@ -13,6 +13,41 @@ const localeCoverageSource = readFileSync(localeCoveragePath, 'utf8');
 const siteRoutesSource = readFileSync(siteRoutesPath, 'utf8');
 
 const failures = [];
+
+// Issue 587 — package/site locale parity.
+//
+// Locale coverage was verified WITHIN the package corpus and WITHIN the site corpus, never
+// BETWEEN them, so a language the packages supported and the site did not passed every gate.
+// `ja`, `ko` and `zh` sat in that gap: gds-core shipped all three message packs while the
+// reference site — the artifact an adopting team evaluates — had no phrase pack for any of
+// them and could only render English. The capability existed and was invisible.
+{
+  const packageLocales = readdirSync(resolve(root, 'packages/gds-core/src/locales'))
+    .filter((file) => file.endsWith('.ts') && file !== 'index.ts')
+    .map((file) => file.replace('.ts', ''));
+  const sitePackLocales = readdirSync(resolve(root, 'apps/playground/src/generated-site-phrases'))
+    .filter((file) => file.endsWith('.ts'))
+    .map((file) => file.replace('.ts', ''));
+
+  if (packageLocales.length === 0 || sitePackLocales.length === 0) {
+    failures.push('Locale parity: read 0 packs from one of the corpora — refusing to pass vacuously.');
+  }
+
+  // `en` needs no site phrase pack: the site's phrase maps are keyed BY the English phrase.
+  for (const locale of packageLocales) {
+    if (locale === 'en' || sitePackLocales.includes(locale)) continue;
+    failures.push(
+      `Package locale "${locale}" has no site phrase pack. The packages advertise this language `
+      + 'while the reference site cannot render it — add it to scripts/generate-site-phrase-translations.mjs.',
+    );
+  }
+
+  for (const locale of sitePackLocales) {
+    if (packageLocales.includes(locale)) continue;
+    failures.push(`Site phrase pack "${locale}" has no package locale pack backing it.`);
+  }
+}
+
 const localizedRouteCoverage = manifest.compliance?.localizedRouteCoverage;
 const expectedLocaleIds = new Set();
 const routeCoverageFromManifest = new Map();
