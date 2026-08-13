@@ -9,12 +9,12 @@ engineer with **no memory of the sessions that produced this state**.
 
 ## 1. Where we are, in one paragraph
 
-`main` is at **`eba6589`**, version **6.0.0**, working tree **clean**, and **CI
+`main` is at **`ab39afb`**, version **6.0.0**, working tree **clean**, and **CI
 is green** on both workflows (`GDS Quality`, `Deploy GDS Playground to GitHub
 Pages`). The site is deployed at
 <https://sovereignsquad.github.io/general-design-system/>. The release chain is
-**42 steps**; the gate mutation suite runs **34 mutants with 0 survivors**. There
-are **37 open issues** and nothing is blocked except #512 (needs repo
+**43 steps**; the gate mutation suite runs **38 mutants with 0 survivors**. There
+are **34 open issues** and nothing is blocked except #512 (needs repo
 permissions the agent does not have).
 
 ---
@@ -104,6 +104,13 @@ cannot answer, it is not a gate.
 | **#606** | "demos" → "live proofs", everywhere a reader can see it |
 | **#600** | Seven patterns claimed `live-proof` while their cards printed "No interactive demo renders here". The test that should have caught it asserted `every(entry => 'live-proof')` — the claim restated as a test |
 | **#607** | The #606 rename was a substring replacement: "demonstrations" → **"proofnstrations"**, live on `/patterns` and translated into all 8 locale packs |
+| **#517 / #588** | Four i18n gates were green while English paragraphs sat mid-page in `he`/`ar`. All four check KEY parity; none ever read a VALUE. The generator never retried a value left in English, so leakage could only accumulate |
+| **#518** | `changedTitle` said 6.0.0 above a description of the 3.14 line, in 9 locales — and a gate REQUIRED the stale sentence |
+| **#587** | The site could not render `ja`/`ko`/`zh` though the packages shipped them. Exposed a latent crash that blanked the home route in any locale without explorer copy |
+| **#599** | The theme matrix was not reproducible; a fixed `wait(350)` sampled whatever had rendered |
+| **#608** | `coverageStatus` was written, not derived — 113 entries, one value |
+| **#609** | No bounded viewport frame existed, so viewport-fixed surfaces could not be proven |
+| **#610 / #613** | The site still said **"Live Demos"** in ENGLISH; `verify-website-trust` was *requiring* that literal label |
 
 ### New gates (all in `verify:release`, all with mutants or dated exemptions)
 
@@ -113,7 +120,9 @@ cannot answer, it is not a gate.
 | `verify:component-color-pairs` | a component pairs a themeable fill with a foreground not derived against it |
 | `verify:site-claims` | an absolute on a visible surface has no registered evidence; a **number is typed into prose**; a proof surface is called a "demo" |
 | `verify:component-census` | the component count the site quotes is stale |
-| `verify:pattern-live-proof` | a pattern claims `live-proof` and its own card renders nothing |
+| `verify:pattern-coverage` | a demo is removed without the derived coverage being regenerated |
+| `verify:i18n-leakage` | a pack ships English where a translation belongs (peer evidence + script) |
+| `verify:font-lane-coverage` | a font lane cannot render every supported language |
 
 ### New rules in CLAUDE.md
 
@@ -184,12 +193,31 @@ npm run verify:release       # the chain alone (preflight wraps it)
 
 ## 7. Open work, graded honestly
 
-### Real defects (4)
+### Real defects
 
 - **#604** — CI can go red for reasons outside the repo (see traps above).
-- **#599** — the theme coverage matrix is not reproducible run-to-run.
-- **#517 / #518 / #587 / #588** — i18n: English leaking in `ar/he/zh`, stale
-  "what changed" copy since 3.14, and ja/ko/zh site packs missing.
+- **#612** — the nine `tokensWithGaps` tokens are recorded, not classified. The
+  *drift* half is fixed: the audit traces now regenerate every cycle.
+- **#611** — 7 Hebrew phrases machine translation cannot resolve. Needs a human
+  translator; inventing them would violate Rule 11.
+- **#614** — the shape/density allowlists pin by `file:line`, so an unrelated
+  edit fails the build. Cost **four** preflight cycles in one session.
+- **#615** — `gds-compliance` reads `#600` in a comment as a hex colour.
+
+### Two lessons worth more than the fixes
+
+- **A probe that is not the real component is not a verification.** The first
+  `GdsViewportFrame` check used a synthetic `<div>` and reported the gate
+  working. `BottomTabBar` set `display: 'flex'` **inline**, which beats any
+  stylesheet rule — the bar would have appeared on every desktop page for every
+  consumer. The synthetic probe lacked the one property that made the real one
+  fail.
+- **A gate can hold a defect in place.** `verify-website-trust` *required* the
+  literal label `'Live Demos'`, so #606 could not have renamed it without
+  failing the check — which is very likely why the label survived. The same
+  shape as #518, where a gate required the stale sentence. When a rename is
+  blocked by a gate, ask whether the gate is asserting the claim rather than
+  checking it.
 
 ### The largest block: the map system (#544 tracker)
 
@@ -213,17 +241,11 @@ behaviour *under failure* rather than rendering:
   **#569** themed basemap, **#570** offline/blocked-tile degradation,
   **#572** `docs/MAP_SYSTEM.md` as SSOT.
 
-### Opened by the #600 work, all scoped and none blocking
+### Opened by this session, all scoped and none blocking
 
-- **#608** — `coverageStatus` is still **written, not derived** (Rule 14). All
-  113 entries carried the same value; one does not any more, but a correct claim
-  is still an unverified one. Needs a ruling before restructuring a 103-case
-  switch.
-- **#609** — GDS has **no bounded viewport preview frame**, so a `position: fixed`
-  or breakpoint-gated surface cannot be live-proven on the site. This is why
-  `bottom-tab-navigation` is honestly `static-reference` rather than staged.
-- **#610** — nothing checks that site copy is composed of **real words**; a
-  substring rename reached all 8 locale packs before a human saw it.
+- **#611** Hebrew phrases needing a human translator · **#612** the nine token
+  gaps · **#614** allowlists pinned by `file:line` · **#615** the raw-colour
+  rule reads `#600` in a comment as a hex literal.
 
 ### Everything else
 
