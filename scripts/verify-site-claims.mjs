@@ -10,7 +10,7 @@
 
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { REGISTERED_CLAIMS, REGISTERED_NUMERIC_CLAIMS, SITE_CLAIM_SOURCES, ABSOLUTE_PATTERN, NUMERIC_PROSE, DERIVED_PLACEHOLDER } from './site-claims.config.mjs';
+import { REGISTERED_CLAIMS, REGISTERED_NUMERIC_CLAIMS, SITE_CLAIM_SOURCES, ABSOLUTE_PATTERN, NUMERIC_PROSE, DERIVED_PLACEHOLDER, RETIRED_VOCABULARY } from './site-claims.config.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const fail = (msg) => { console.error(`FAIL ${msg}`); process.exit(1); };
@@ -34,7 +34,10 @@ for (const rel of SITE_CLAIM_SOURCES) {
   source.split('\n').forEach((line, index) => {
     // Comments explain the code; they are not shown to a reader of the site.
     if (/^\s*(\/\/|\*|\/\*)/.test(line)) return;
-    for (const match of line.matchAll(/(["'])((?:(?!\1)[^\\]|\\.){12,300})\1/g)) {
+    // Floor lowered from 12 to 4 (issue 613) so short VISIBLE strings — nav labels, button
+    // text, badges — are collected at all. Slugs and identifiers are excluded by shape on the
+    // next line, which is the right discriminator; length never was.
+    for (const match of line.matchAll(/(["'])((?:(?!\1)[^\\]|\\.){4,300})\1/g)) {
       const text = match[2].replace(/\\'/g, "'").replace(/\\"/g, '"').trim();
       if (/^[a-z0-9_.\-/]+$/i.test(text)) continue;
       if (!visibleStrings.has(text)) visibleStrings.set(text, `${rel}:${index + 1}`);
@@ -80,11 +83,35 @@ for (const [text, where] of found) {
 // what happened when a positioned wrapper was nearly staged with an inline style instead of
 // being built into the primitive that was missing it.
 //
-// Short strings are exempt: `id: 'demos'` is an internal identifier a reader never sees.
+// Issue 613. This used to skip anything under 12 characters, reasoning that short strings are
+// internal identifiers. `label: 'Live Demos'` is TEN characters — the primary nav label, the
+// most-read copy on the site — and the outer capture regex required 12 too, so the string was
+// never even collected. The exemption was inverted for exactly the case that matters: a nav
+// label is short BECAUSE it is visible.
+//
+// Length is not what separates an identifier from copy. Shape is: `demo-surfaces` and
+// `live-demos` are slugs, and those are already dropped by the identifier test during
+// collection. Anything that survives that test and reads as words is copy, at any length.
 for (const [text, where] of visibleStrings) {
-  if (text.length < 12) continue;
   if (!/\bdemos?\b/i.test(text)) continue;
   problems.push(`${where}\n    CALLS A PROOF A DEMO: "${text.slice(0, 120)}"\n    The reference site is documentation with proofs (Rule 15). "Demo" invites staging; say what the surface actually is.`);
+}
+
+// Issue 610 — a malformed rename, caught by its signature rather than by knowing the word.
+for (const [text, where] of visibleStrings) {
+  for (const rename of RETIRED_VOCABULARY) {
+    const allowed = new Set(rename.derived.map((word) => word.toLowerCase()));
+    for (const match of text.matchAll(new RegExp(`\\b${rename.to}[a-z]*`, 'gi'))) {
+      const word = match[0].toLowerCase();
+      if (allowed.has(word)) continue;
+      problems.push(
+        `${where}\n    MALFORMED RENAME: "${word}" in "${text.slice(0, 90)}"\n    `
+        + `"${rename.to}" fused to the tail of another word — the signature of a substring `
+        + `replacement of "${rename.from}". #606 turned "demonstrations" into "proofnstrations" `
+        + 'this way and it reached all eight locale packs. Rename on word boundaries.',
+      );
+    }
+  }
 }
 
 for (const [text, where] of numeric) {

@@ -111,7 +111,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
   {
     id: 'live-proofs',
     path: '/live-proofs',
-    label: 'Live Demos',
+    label: 'Live Proofs',
     action: 'preview',
     audienceIntent: 'live-proofs',
     navGroup: 'primary',

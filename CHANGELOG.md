@@ -4,6 +4,34 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The site still called its proof surfaces "Live Demos" — in English (#613, #610)
+
+#606 renamed the route to `/live-proofs` and **never renamed the label**. `site-routes.ts`
+shipped `label: 'Live Demos'`, `showcase-pages.tsx` titled the page "Live Demos", and all
+eleven locales faithfully translated that — `ライブデモ`, `라이브 데모`, `现场演示`. The primary
+navigation, the most-read copy on the site, contradicted Rule 15 in every language for months.
+
+The filed issue blamed machine translation. **It was wrong**: the translations were correct
+renderings of an English source nobody had fixed. Investigating which half was wrong before
+editing either (Rule 14) is what turned a terminology-glossary project into a two-line rename.
+
+**Two reasons `verify:site-claims` missed it**, and both are now closed:
+
+- `site-routes.ts` and `site-copy.ts` **were not scanned at all** — the files holding every
+  navigation label.
+- `'Live Demos'` is **ten characters**, and the gate skipped anything under twelve as "an
+  internal identifier". The capture regex required twelve too, so the string was never even
+  collected. The exemption was inverted for exactly the case that matters: **a nav label is
+  short because it is visible.** Length never separated identifiers from copy — shape does, and
+  slugs like `demo-surfaces` were already excluded by shape.
+
+Widening the sweep immediately found a second instance the same day, in `showcase-pages.tsx`.
+
+**#610** adds the other half: a substring rename is now caught by its *signature*. `RETIRED_VOCABULARY`
+declares `demo → proof` with the legitimate derived forms, and any word beginning with `proof`
+that is not one of them is flagged — which is precisely what `proofnstrations` was. Both defects
+are now mutants, so the gate is verified against the exact artifacts that shipped.
+
 ### A font lane must render every language GDS ships (owner directive, 2026-08-13)
 
 **Only a font stack that supports 100% of the supported languages may be a font lane.** Eleven

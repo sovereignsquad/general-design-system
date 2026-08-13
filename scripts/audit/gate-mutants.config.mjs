@@ -541,6 +541,27 @@ export const GATE_MUTANTS = [
         once: true,
       },
       {
+        id: 'site-claims-detects-malformed-rename',
+        claim: 'Detects a substring rename that fused a replacement term onto another word',
+        // The exact artifact #606 shipped: "demonstrations" -> "proofnstrations", live on
+        // /patterns and translated into all eight locale packs before a human read it.
+        file: 'apps/playground/src/pattern-pages.tsx',
+        find: "{ id: 'live', title: 'Live proofs',",
+        replace: "{ id: 'live', title: 'Live proofnstrations',",
+        once: true,
+      },
+      {
+        id: 'site-claims-detects-short-visible-demo-label',
+        claim: 'Detects a SHORT visible label calling a proof surface a demo',
+        // `label: 'Live Demos'` is ten characters. The gate used to skip anything under twelve
+        // as an identifier, and the capture regex required twelve too, so the primary nav label
+        // was never even collected — it shipped that way for months after #606.
+        file: 'apps/playground/src/site-routes.ts',
+        find: "    label: 'Live Proofs',",
+        replace: "    label: 'Live Demos',",
+        once: true,
+      },
+      {
         id: 'site-claims-detects-hardcoded-number',
         claim: 'Detects a number typed into visible prose instead of interpolated from its source',
         // "250+ components" was exactly this: true when written, drifting from then on.

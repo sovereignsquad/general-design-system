@@ -95,7 +95,7 @@ describe('playground theme explorer and live proofs hub', () => {
   it('frames the live proofs section as the official runtime showcase', () => {
     renderWithGds(<LiveProofsPage />);
 
-    expect(screen.getByText('Live Demos')).toBeTruthy();
+    expect(screen.getByText('Live Proofs')).toBeTruthy();
     expect(screen.getByText(/public runtime showcase/i)).toBeTruthy();
     expect(screen.getAllByRole('link', { name: 'Open section' }).length).toBeGreaterThan(0);
     expect(screen.getByText('Discovery & Cards')).toBeTruthy();

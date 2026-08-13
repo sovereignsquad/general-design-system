@@ -28,7 +28,7 @@ describe('public site routes', () => {
       'Coverage',
       'Themes',
       'Governance',
-      'Live Demos',
+      'Live Proofs',
       'Request a Feature',
       'Use with AI',
     ]);

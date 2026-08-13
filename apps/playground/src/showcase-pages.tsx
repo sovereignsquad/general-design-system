@@ -55,7 +55,7 @@ function DemoFooter() {
 export function LiveProofsPage() {
   return (
     <DocsPageShell
-      title="Live Demos"
+      title="Live Proofs"
       eyebrow="Official runtime proof"
       lead="This section is the public runtime showcase for shipped GDS surfaces. Use it to inspect real compositions and interaction contracts before building locally."
     >
