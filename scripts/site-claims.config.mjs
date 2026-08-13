@@ -93,15 +93,16 @@ export const REGISTERED_CLAIMS = {
     // when that content is the fallback — so the no-layout-shift half was unevidenced.
     note: 'Asserts the same reserved ratio in the image, missing-src and errored-image states.',
   },
-  'Governed, accessible React components, design tokens, and runtime systems — composed in every product, never reinvented.': {
-    evidence: 'gate',
-    ref: 'verify:references -> verify-playground-gds-only.mjs',
-    // This sentence used to open with a hardcoded "250+". True today (289 public UI
-    // components) but written rather than computed, and this slot cannot derive: the tour body
-    // must stay a string literal or the phrase extractor cannot translate it for eight
-    // locales. Under Rule 14 an unverifiable claim does not get a softer version — it stops
-    // existing. The derived counts live on /api and /coverage.
-    note: '"never reinvented" is what the GDS-only gate enforces: a playground-local reimplementation of a shipped primitive fails it.',
+  '%count% governed, accessible React components, design tokens, and runtime systems — composed in every product, never reinvented.': {
+    evidence: 'derived',
+    ref: 'apps/playground/src/generated-component-census.ts (verify:component-census) + verify-playground-gds-only.mjs for "never reinvented"',
+    // Was a hardcoded "250+". The first fix DELETED the number, on the grounds that this slot
+    // cannot use a template literal without dropping the sentence from all eight locales. That
+    // was solving the wrong problem: the owner's standing requirement is no hardcoded values,
+    // and "the page cannot compute it here" is a constraint to solve, not a licence to remove
+    // information. A `%count%` placeholder survives extraction and translation, and the number
+    // lands after translation from the same census the parity gate enforces against.
+    note: 'The count is generated from collectPublicComponents(), the function verify-component-catalog-parity checks against, so page and gate cannot disagree. "never reinvented" is what the GDS-only gate enforces.',
   },
   'One value in every preset, in both schemes.': {
     evidence: 'derived',
