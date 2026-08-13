@@ -1,5 +1,6 @@
 {
   "presets": 25,
+  "presetsWithOwnAccents": 0,
   "evaluated": 6000,
   "enforced": 2000,
   "violationCount": 0,
