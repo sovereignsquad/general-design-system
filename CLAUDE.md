@@ -365,6 +365,11 @@ the local run was not equivalent to what CI does.
   before the run is invisible to it. CI checks out clean, so it sees what the
   local run cannot. **Run the full chain on a clean tree** — commit or stash
   first — not on the tree you have been editing.
+- **Regenerate artifacts with `npm run artifacts:refresh`, never by hand.** The generated
+  artifacts have a dependency ORDER: the atom registry indexes the other generated files, so
+  rebuilding it before regenerating tokens, the component census or the phrase packs leaves it
+  stale and `verify:registry-drift` fails in CI after a local pass. This cost three
+  preflight cycles before the ordering was written down instead of remembered.
 - **`git status --porcelain` must be empty after the chain.** A leaked artifact
   is a CI failure and a local pass. Use `npm run preflight`, which enforces
   clean-before, clean-after, and the full chain in one command. Running
