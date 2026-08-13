@@ -17,6 +17,12 @@
 //              carries a `reviewBy` so it is re-examined rather than accumulating forever.
 
 export const SITE_CLAIM_SOURCES = [
+  // Issue 613. `site-routes.ts` and `site-copy.ts` were NOT scanned, and they hold the primary
+  // navigation labels — the most-read copy on the site. The `/live-proofs` route shipped with
+  // `label: 'Live Demos'` in English and a "demo" rendering in all eleven locales, months after
+  // #606 renamed the surfaces, because no sweep ever read the file it lives in.
+  'apps/playground/src/site-routes.ts',
+  'apps/playground/src/site-copy.ts',
   'apps/playground/src/info-pages.tsx',
   'apps/playground/src/page-copy.ts',
   'apps/playground/src/pattern-pages.tsx',
@@ -128,3 +134,25 @@ export const REGISTERED_CLAIMS = {
     note: 'Retrospective prose about why the GDS-only gate exists; the gate is the evidence.',
   },
 };
+
+/**
+ * Issue 610 — retired vocabulary, and the malformed words a careless rename makes of it.
+ *
+ * #606 replaced "demo" with "proof" as a SUBSTRING, which turned "demonstrations" into
+ * "proofnstrations". That shipped to the live site, was extracted into the phrase corpus, and
+ * was then translated into all eight locale packs — German rendered it "Live-Proofnstrationen"
+ * to readers. A bad rename does not stay in the file it was applied to.
+ *
+ * Detecting the failure MODE rather than the word: a substring rename leaves a signature — the
+ * replacement term fused to the tail of the word it replaced part of. So any word beginning
+ * with a replacement term that is not a real derived form of it is the artifact of one.
+ * `derived` lists the legitimate forms; anything else starting with `to` is a defect.
+ */
+export const RETIRED_VOCABULARY = [
+  {
+    from: 'demo',
+    to: 'proof',
+    derived: ['proof', 'proofs', 'proofed', 'proofing', 'proofread', 'proofreader'],
+    reason: 'Rule 15: the reference site is documentation with proofs. "Demo" invites staging.',
+  },
+];
