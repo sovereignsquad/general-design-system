@@ -91,7 +91,7 @@
       "status": "OK"
     },
     {
-      "key": "gateMutationScore",
+      "key": "phase5MutationScore",
       "measured": 85.7,
       "value": 85.7,
       "direction": "min",
@@ -109,6 +109,16 @@
       "finding": "F5 (instrument validation)",
       "advisory": false,
       "status": "OK"
+    },
+    {
+      "key": "gateSuiteMutationScore",
+      "measured": 50,
+      "value": 100,
+      "direction": "min",
+      "unit": "%",
+      "finding": "issue 602",
+      "advisory": false,
+      "status": "EXCEEDED"
     },
     {
       "key": "gateSuiteUnexplainedSurvivors",

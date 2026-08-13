@@ -83,8 +83,15 @@ function measure(key) {
       return read('dimensions.json')?.languageVariants.packageLocalesWithNoSitePack.length;
     case 'englishLeakageWorstLocale':
       return read('dimensions.json')?.languageVariants.englishLeakage[0]?.rate;
-    case 'gateMutationScore':     return read('mutation-score.json')?.mutationScore;
+    // Issue 601. This case was named `gateMutationScore` and returned the PHASE 5 RENDER
+    // mutants. The name read like the gate suite's score and pointed somewhere else, which is
+    // how a figure gets transcribed into a claim it does not support.
+    case 'phase5MutationScore':   return read('mutation-score.json')?.mutationScore;
     case 'renderMutationScore':   return read('render-mutation-score.json')?.renderMutationScore;
+    // Issue 602. The gate suite's own score had NO floor. `gateSuiteUnexplainedSurvivors`
+    // below does not supply one: deleting a mutant lowers coverage without raising survivors,
+    // because a mutant that no longer exists survives nothing.
+    case 'gateSuiteMutationScore': return read('gate-mutation-score.json')?.gateMutationSuiteScore;
     case 'gateSuiteUnexplainedSurvivors': return read('gate-mutation-score.json')?.unexplainedSurvivors;
     case 'obligationGaps':        return read('obligation-coverage.json')?.gapCount;
     default: fail(`Budget "${key}" has no measurement resolver.`); return undefined;

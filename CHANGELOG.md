@@ -4,6 +4,34 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The gate suite could shrink to nothing with every budget green (#601, #602)
+
+Split out of #590, which had stalled repeatedly. Not because it was large — because it bundled
+a 15-minute rename and a 15-minute ratchet with an open-ended design question and a
+**self-referential** mutant (the suite would have had to mutate its own mutant list mid-run).
+The two cheap fixes that close the real risk were hostage to the two hard ones. Split into
+#601/#602/#603; the first two are here.
+
+**#601 — a budget key named something it did not measure.** `gateMutationScore` read
+`mutation-score.json#/mutationScore`: the Phase 5 *render* mutants. It read like the gate
+suite's score and pointed elsewhere — F24's trap, one word with three referents. Renamed to
+`phase5MutationScore`.
+
+**#602 — the gate suite had no floor on its own coverage.** Only `gateSuiteUnexplainedSurvivors`
+was ratcheted, and that is not a floor: **deleting a mutant lowers coverage without raising
+survivors**, because a mutant that no longer exists survives nothing. The suite that verifies
+every other gate was the one gate whose coverage could silently shrink.
+
+New `gateSuiteMutationScore` budget, seeded at the measured 100% (29 of 29). Demonstrated both
+ways rather than asserted: with three mutants simulated as deleted,
+`gateSuiteUnexplainedSurvivors` still reports **OK** while the new budget blocks at 89.7%.
+That contrast is the issue, reproduced.
+
+The proof is a test that runs `verify-budgets` for real against a temporarily-lowered artifact
+— not a re-implementation of its arithmetic, which would pass in exactly the cases where the
+arithmetic is wrong. #590 asked for a suite mutant instead; that recurses, and a direct
+negative control proves the same property without it.
+
 ### The one animation GDS shipped animated nothing (#592)
 
 `ChatSurface`'s typing indicator declared `animation: gds-chat-typing 1s infinite`. **The repo
