@@ -2,6 +2,16 @@ import { GdsMap } from '@sovereignsquad/gds-core/map';
 import { GdsPinSystemReference } from '@sovereignsquad/gds-core';
 import { useEffect, useMemo, useState } from 'react';
 import {
+  // Issue 600: these seven were named as `sourceComponent` evidence by registry entries
+  // claiming `live-proof` while no page imported them, so readers reached the
+  // "No interactive demo renders here" fallback under a live-proof claim.
+  AISearchCard,
+  ChatThread,
+  GdsAccentContrastMatrix,
+  MediaWithFallback,
+  NumberStepper,
+  SearchableSelect,
+  type ChatMessageModel,
   AccessSummary,
   AccessRecoveryPanel,
   ActionBar,
@@ -1631,6 +1641,134 @@ function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
   );
 }
 
+function AccentContrastMatrixDemo() {
+  const [preset, setPreset] = useState<GdsThemePresetId>('default');
+
+  return (
+    <SectionPanel
+      title="Accent contrast matrix"
+      description="Every accent, shade and mode for one preset, each with its measured ratio and the threshold it has to clear. The figures are produced by evaluateGdsAccentContrast() — the same function verify:accent-contrast runs in CI — so this panel cannot disagree with the build that gates it. Modes the gate does not enforce are shown as measured-only rather than hidden, because a theme author wants those numbers too."
+    >
+      <VibeThemePicker value={preset} onChange={setPreset} label="Measured preset" />
+      <GdsAccentContrastMatrix preset={preset} colorScheme="light" title="Light scheme" />
+      <GdsAccentContrastMatrix preset={preset} colorScheme="dark" title="Dark scheme" />
+    </SectionPanel>
+  );
+}
+
+function SearchableSelectDemo() {
+  const [value, setValue] = useState<string | null>('riverside');
+
+  return (
+    <SectionPanel
+      title="Searchable select"
+      description="A combobox that filters as you type, groups its options, and clears back to an empty value. Keyboard alone drives it: type to filter, Up/Down to move, Enter to commit, Escape to dismiss. The listbox and the active option are wired through aria-activedescendant, so the choice is announced without moving focus off the input."
+    >
+      <SearchableSelect
+        value={value}
+        onChange={setValue}
+        ariaLabel="Find a swim club"
+        placeholder="Search clubs…"
+        clearable
+        options={[
+          { value: 'riverside', label: 'Riverside Swim Club', group: 'Nearby' },
+          { value: 'lakeside', label: 'Lakeside Aquatic Centre', group: 'Nearby' },
+          { value: 'northgate', label: 'Northgate Pool', group: 'Nearby' },
+          { value: 'harbour', label: 'Harbour Masters', group: 'Further out' },
+          { value: 'summit', label: 'Summit Leisure', group: 'Further out', disabled: true },
+        ]}
+      />
+      <MetadataText>{value ? `Selected value: ${value}` : 'No selection — the clearable control returns null, not an empty string.'}</MetadataText>
+    </SectionPanel>
+  );
+}
+
+function ConversationSurfaceDemo() {
+  const [messages, setMessages] = useState<ChatMessageModel[]>([
+    { id: 'm1', role: 'user', content: 'Which clubs run a beginner lane on weekday evenings?' },
+    { id: 'm2', role: 'assistant', content: 'Riverside and Northgate both run beginner lanes on weekday evenings.' },
+  ]);
+
+  // The component owns rendering; transport and persistence belong to the caller by
+  // contract, so this caller appends locally and nothing pretends to be a real assistant.
+  const send = (text: string) => {
+    setMessages((current) => [...current, { id: `m${current.length + 1}`, role: 'user', content: text }]);
+  };
+
+  return (
+    <SectionPanel
+      title="Conversation surface"
+      description="An auto-scrolling thread that stays pinned to the newest message unless the reader has scrolled away, role-styled bubbles for user and assistant, and an input that sends on Enter and inserts a newline on Shift+Enter. The thread is an ARIA live region, so arriving replies are announced. The second thread is the same component with streaming set, which is what reveals the typing indicator."
+    >
+      <ChatThread messages={messages} onSend={send} placeholder="Ask about a club…" />
+      <ChatThread
+        messages={[{ id: 's1', role: 'user', content: 'Do any of them offer a family rate?' }]}
+        streaming
+        onSend={send}
+        placeholder="Input is disabled while the assistant streams"
+      />
+    </SectionPanel>
+  );
+}
+
+function MediaWithFallbackDemo() {
+  return (
+    <SectionPanel
+      title="Media with fallback"
+      description="The box reserves its aspect ratio before anything loads, so a missing or failed image degrades in place rather than resizing the frame around it. The right-hand frame points at a path that does not resolve: it shows the branded fallback at the same size, in the same position."
+    >
+      <GdsInline gap="lg" align="start">
+        <MediaWithFallback alt="No source supplied — the branded fallback stands in at the reserved ratio." ratio={16 / 9} fallbackLabel="No image supplied" />
+        <MediaWithFallback
+          src="/general-design-system/deliberately-unresolvable.png"
+          alt="A source that cannot resolve — the fallback replaces it without changing the reserved box."
+          ratio={16 / 9}
+          fallbackLabel="Image unavailable"
+        />
+      </GdsInline>
+    </SectionPanel>
+  );
+}
+
+// Single source for the bound: the control's `max` and the sentence beside it must not be
+// able to disagree, which they could the moment one of them is edited alone.
+const LANE_PLACES = 8;
+
+function NumberStepperDemo() {
+  const [quantity, setQuantity] = useState(2);
+
+  return (
+    <SectionPanel
+      title="Number stepper"
+      description="A bounded quantity control with spinbutton semantics: it exposes its current, minimum and maximum values to assistive technology, clamps rather than accepting an out-of-range entry, and moves in whole steps from the keyboard. The increment and decrement controls carry their own accessible names instead of relying on the glyph."
+    >
+      <GdsInline gap="lg" align="center">
+        <NumberStepper value={quantity} onChange={setQuantity} min={1} max={LANE_PLACES} ariaLabel="Lane places" />
+        <InlineText>{`${quantity} of ${LANE_PLACES} places`}</InlineText>
+      </GdsInline>
+      <MetadataText>Bounds are enforced by the component: the controls disable at the ends rather than letting the value leave the range.</MetadataText>
+    </SectionPanel>
+  );
+}
+
+function AISearchCardDemo() {
+  const [submitted, setSubmitted] = useState<string | null>(null);
+
+  return (
+    <SectionPanel
+      title="AI search card"
+      description="The governed entry point into an assistant surface: a labelled search field, a BETA meaning badge that stays distinct from system status badges, and prompt chips that fill the query. Submitting hands the raw text to the caller — the card routes intent and owns none of the answering."
+    >
+      <AISearchCard
+        onSubmit={setSubmitted}
+        placeholder="Ask about clubs, lanes or timetables"
+        prompts={['Beginner lanes near me', 'Weekend family sessions', 'Clubs with a warm pool']}
+      />
+      <MetadataText>{submitted ? `Last query handed to the caller: ${submitted}` : 'Submit a query or pick a prompt — the card reports the text and does nothing else with it.'}</MetadataText>
+    </SectionPanel>
+  );
+}
+
 function renderEntryDemo(entry: PatternRegistryEntry) {
   const vocab = createGdsVocabularyPack('camera', {
     urgent: {
@@ -2886,7 +3024,22 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           iconOnly={[{ action: 'help' }]}
         />
       );
+    case 'accent-contrast-matrix':
+      return <AccentContrastMatrixDemo />;
+    case 'searchable-select':
+      return <SearchableSelectDemo />;
+    case 'conversation-surface':
+      return <ConversationSurfaceDemo />;
+    case 'media-with-fallback':
+      return <MediaWithFallbackDemo />;
+    case 'number-stepper':
+      return <NumberStepperDemo />;
+    case 'ai-search-card':
+      return <AISearchCardDemo />;
     default:
+      // Reaching this branch is not a neutral outcome: it prints "no proof here" under
+      // whatever the registry claims. `verify:pattern-live-proof` fails the build if an
+      // entry claiming `live-proof` lands here, so the two can no longer disagree.
       return (
         <SectionPanel title="Live reference note" description="This documented pattern is represented through the shared component family.">
           <p>No interactive demo renders here — this pattern is implemented through the exports and coverage details listed above.</p>
@@ -2946,7 +3099,7 @@ export function PatternsIndexPage() {
         <FeatureBand
           columns={3}
           items={[
-            { id: 'live', title: 'Live proofnstrations', description: 'Documented patterns should be represented by shipped package surfaces or bounded examples.' },
+            { id: 'live', title: 'Live proofs', description: 'Documented patterns should be represented by shipped package surfaces or bounded examples.' },
             { id: 'traceable', title: 'Traceable to SSOT', description: 'Each entry keeps its section, family, route, and summary aligned with the canonical markdown inventory.' },
             { id: 'governed', title: 'No local authority', description: 'When the site needs a reusable surface, it belongs in GDS rather than in the app layer.' },
           ]}

@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "f1bf06fed5db5d5199eb28dee0abd36566af5d86",
+  "commit": "cc85a2704b2712f95b39e3bc15a9ad43c3510f4a",
   "counts": {
     "token-published": 486,
     "token-declared": 57,
@@ -31269,7 +31269,7 @@
         "file": "apps/playground/src/generated-site-phrases/ar.ts",
         "line": 1
       },
-      "keyCount": 1260
+      "keyCount": 1291
     },
     {
       "id": "locale-pack-site:de#3062",
@@ -31279,7 +31279,7 @@
         "file": "apps/playground/src/generated-site-phrases/de.ts",
         "line": 1
       },
-      "keyCount": 1260
+      "keyCount": 1291
     },
     {
       "id": "locale-pack-site:es#3063",
@@ -31289,7 +31289,7 @@
         "file": "apps/playground/src/generated-site-phrases/es.ts",
         "line": 1
       },
-      "keyCount": 1260
+      "keyCount": 1291
     },
     {
       "id": "locale-pack-site:fr#3064",
@@ -31299,7 +31299,7 @@
         "file": "apps/playground/src/generated-site-phrases/fr.ts",
         "line": 1
       },
-      "keyCount": 1260
+      "keyCount": 1291
     },
     {
       "id": "locale-pack-site:he#3065",
@@ -31309,7 +31309,7 @@
         "file": "apps/playground/src/generated-site-phrases/he.ts",
         "line": 1
       },
-      "keyCount": 1260
+      "keyCount": 1291
     },
     {
       "id": "locale-pack-site:hu#3066",
@@ -31319,7 +31319,7 @@
         "file": "apps/playground/src/generated-site-phrases/hu.ts",
         "line": 1
       },
-      "keyCount": 1260
+      "keyCount": 1291
     },
     {
       "id": "locale-pack-site:it#3067",
@@ -31329,7 +31329,7 @@
         "file": "apps/playground/src/generated-site-phrases/it.ts",
         "line": 1
       },
-      "keyCount": 1260
+      "keyCount": 1291
     },
     {
       "id": "locale-pack-site:ru#3068",
@@ -31339,7 +31339,7 @@
         "file": "apps/playground/src/generated-site-phrases/ru.ts",
         "line": 1
       },
-      "keyCount": 1260
+      "keyCount": 1291
     },
     {
       "id": "route:/#3069",
@@ -32517,7 +32517,7 @@
       "name": "searchable-select",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1163
+        "line": 1168
       }
     },
     {
@@ -32526,7 +32526,7 @@
       "name": "fit-score-chip",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1174
+        "line": 1179
       }
     },
     {
@@ -32535,7 +32535,7 @@
       "name": "conversation-surface",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1185
+        "line": 1190
       }
     },
     {
@@ -32544,7 +32544,7 @@
       "name": "meaning-badge",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1196
+        "line": 1201
       }
     },
     {
@@ -32553,7 +32553,7 @@
       "name": "media-with-fallback",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1207
+        "line": 1212
       }
     },
     {
@@ -32562,7 +32562,7 @@
       "name": "number-stepper",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1218
+        "line": 1223
       }
     },
     {
@@ -32571,7 +32571,7 @@
       "name": "ai-search-card",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1229
+        "line": 1234
       }
     },
     {

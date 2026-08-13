@@ -467,6 +467,28 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:pattern-live-proof',
+    script: null,
+    mutants: [
+      {
+        id: 'live-proof-detects-unproven-claim',
+        claim: 'Detects a pattern claiming live-proof coverage that nothing on the site renders',
+        // Anchored on the DEFINITION of a status, not on a count or a line number, per the
+        // trap that made an earlier census mutant go INVALID the moment the system grew.
+        //
+        // `bottom-tab-navigation` is the one entry that is honestly `static-reference`: it is
+        // viewport-fixed and mobile-only, so it cannot be proven without the frame issue 609
+        // tracks, and no page references BottomTabBar. Promoting it back to `live-proof` is
+        // therefore exactly the #600 defect — a public claim with nothing behind it — and a
+        // correct gate must refuse it.
+        file: 'apps/playground/src/pattern-registry.ts',
+        find: "    coverageStatus: 'static-reference',",
+        replace: "    coverageStatus: 'live-proof',",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:site-claims',
     script: null,
     mutants: [

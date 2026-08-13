@@ -4,6 +4,53 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### A pattern may not claim a live proof it does not render (#600, #607, #608, #609)
+
+The pattern catalog told the public, on `/coverage`, that **113 patterns are rendered in
+interactive routes**. Seven were not. Those seven reached the `default:` branch of
+`renderEntryDemo()`, which prints "No interactive demo renders here" — so the page contradicted
+its own registry, per entry, in public.
+
+The reason it survived is the part worth keeping. `pattern-registry.test.tsx` asserted:
+
+```ts
+expect(patternRegistry.every((entry) => entry.coverageStatus === 'live-proof')).toBe(true);
+```
+
+That is not a check. It is the claim restated as a test, and it *required* the very uniformity
+that made the field meaningless — all 113 entries carried the same value, so no entry could be
+observed to be wrong. A test that mandates a claim will pass for exactly as long as the claim is
+written down, which is the failure shape the gate-mutation work exists to find.
+
+**Six of the seven are now proven for real** — the accent contrast matrix (whose figures come
+from `evaluateGdsAccentContrast()`, the same function `verify:accent-contrast` runs in CI),
+the searchable select, the conversation surface, media-with-fallback, the number stepper, and
+the AI search card.
+
+**The seventh was not staged.** `BottomTabBar` renders `position: fixed` and `hiddenFrom="sm"`,
+so on a documentation page it shows nothing at desktop widths and pins itself over the page at
+mobile widths, reading as the site's own navigation. Proving it honestly needs a bounded
+viewport frame GDS does not have. Per Rule 15 the absence is stated rather than worked around:
+`bottom-tab-navigation` is now `static-reference`, says on the page why, and the missing
+capability is #609. Its three `BOTTOM_TAB_*` export-coverage entries moved to `support-api` to
+match. This is also the first entry to use a second `coverageStatus` value at all.
+
+New gate `verify:pattern-live-proof`: a `live-proof` entry must have a demo case **or** render
+one of its declared `sourceComponent` identifiers. It refuses to pass vacuously if it parses
+zero entries or zero cases, and it counts only `.tsx` page sources — a registry naming a
+component is metadata about the claim, not evidence for it, and counting it would let an entry
+prove itself by naming itself. Its mutant promotes the one honest `static-reference` back to
+`live-proof`; the gate must refuse it.
+
+Filed #608 for what this does **not** fix: `coverageStatus` is still written rather than derived
+(Rule 14). The gate closes the false-positive direction only — a correct claim is still an
+unverified one, and three of the four enum values remain unreachable. Deliberately not bundled,
+per the #590 lesson.
+
+Also fixed (#607): the #606 rename was applied as a substring replacement and turned
+"demonstrations" into **"proofnstrations"**, live in a heading on `/patterns`, in
+`apps/playground/README.md`, and translated into all 8 site locale packs.
+
 ### The reference site is documentation with proofs, not demos (CLAUDE.md Rule 15)
 
 Owner correction, and the language was the smaller half of it. Describing the reference site as
