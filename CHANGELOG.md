@@ -20,8 +20,11 @@ geometries.
 - Size comes from `--gds-control-height-*`, not the spec's literal 48px. `md` is the 44px step
   and it moves with the density axis; `corner` takes the `sm` step — a smaller STEP, not a
   magic number, and still a real tap target rather than an icon-sized hit area.
-- The corner form anchors to the **caller's** positioned box. One offset baked into the
-  primitive would make it wrong everywhere except the surface it was first drawn against.
+- The corner form takes its `anchor` as a prop and composes through the governed badge stack,
+  following `GdsCountBadge`'s existing convention. The first version made the caller supply a
+  positioned wrapper — and the playground's GDS-only gate refused the inline style that
+  required, which was the correct answer: **a primitive that needs styling wrapped around it to
+  work is an unfinished primitive.**
 
 Shipped with the full checklist rather than a component alone: export-coverage entry,
 pattern-registry `sourceComponent`, `COMPONENTS_AND_PATTERNS.md` contract, 6 tests, and a real

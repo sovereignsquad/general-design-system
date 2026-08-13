@@ -1,4 +1,6 @@
-import { ActionIcon, Box } from '@mantine/core';
+import { ActionIcon } from '@mantine/core';
+import { GdsBadgeStack, GdsBadgeStackLayer } from './GdsBadgeStack';
+import type { ReactNode } from 'react';
 import { GdsIcon } from './icons';
 
 /**
@@ -32,6 +34,18 @@ export interface GdsSavedIndicatorProps {
   mode?: GdsSavedIndicatorMode;
   /** Disables the control. */
   disabled?: boolean;
+  /**
+   * Element the corner form anchors to — a pin, a card, a thumbnail.
+   *
+   * Required by `mode="corner"`. The first version made the CALLER supply a positioned
+   * wrapper, which pushed layout styling onto every consumer and was caught by the
+   * playground's GDS-only gate: a primitive that needs an inline `style` around it to work is
+   * an unfinished primitive. This follows `GdsCountBadge`'s existing `anchor` convention
+   * rather than inventing a second one.
+   */
+  anchor?: ReactNode;
+  /** Size of the anchored composition. Defaults to `'2.5em'`. */
+  anchorSize?: string | number;
 }
 
 /**
@@ -57,7 +71,7 @@ export interface GdsSavedIndicatorProps {
  * ```
  */
 export function GdsSavedIndicator({
-  saved, saveLabel, unsaveLabel, onSaveChange, mode = 'button', disabled,
+  saved, saveLabel, unsaveLabel, onSaveChange, mode = 'button', disabled, anchor, anchorSize = '2.5em',
 }: GdsSavedIndicatorProps) {
   // The control scale, not the spec's literal 48px: `md` is the 44px step and it moves with the
   // density axis, so a compact theme keeps a coherent control size instead of one button
@@ -81,14 +95,15 @@ export function GdsSavedIndicator({
     </ActionIcon>
   );
 
-  if (mode !== 'corner') return control;
+  if (mode !== 'corner' || !anchor) return control;
 
-  // Positioned against the CALLER's relative box rather than by a fixed offset baked in here: a
-  // pin, a card and a thumbnail have different corners, and one offset would make this
-  // primitive wrong everywhere except the surface it was first drawn against.
+  // Composed through the governed badge stack, which already owns corner geometry — rather
+  // than a bespoke absolute offset here, which would be a second corner model to keep in step
+  // with the first.
   return (
-    <Box style={{ position: 'absolute', top: 0, right: 0, transform: 'translate(35%, -35%)' }}>
-      {control}
-    </Box>
+    <GdsBadgeStack size={anchorSize} label={saved ? unsaveLabel : saveLabel}>
+      <GdsBadgeStackLayer cutout="top-end">{anchor}</GdsBadgeStackLayer>
+      <GdsBadgeStackLayer corner="top-end" scale={0.45}>{control}</GdsBadgeStackLayer>
+    </GdsBadgeStack>
   );
 }
