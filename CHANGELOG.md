@@ -4,6 +4,42 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Approved or non-existent: every claim on the reference site now carries its evidence (#605)
+
+Owner directive, 2026-08-13: *"We can have either Approved or Non-existing cases, especially on
+visible surfaces."* A guarantee on the reference site is a promise GDS makes to a client, and
+there is no third state where a promise is merely plausible.
+
+New gate `npm run verify:site-claims`, chained into `verify:release`. It scans the six
+visible-surface sources for absolutes — "every preset", "always", "never", "identical",
+"guaranteed", "100%" — and fails on any that is not registered with the evidence that supports
+it. Four evidence kinds: **derived** (the page computes it), **gate**, **test**, or
+**contract** (a convention with no mechanical check, which must carry a `reviewBy` so it cannot
+become permanent by neglect). It also fails on a registered claim the site no longer states, so
+the registry describes the site as it is.
+
+**14 absolute claims found: 2 derived, 7 gated, 2 tested, 3 conventions.**
+
+**Three of the claims had no evidence, and I had assumed they did.** Checking each reference
+rather than trusting it is what caught them — the same defect one level up:
+
+- *"One GdsProvider at the app root — never nest a second one."* Nothing checked that the site
+  obeys its own rule. Added to `verify-playground-shell-contract`, negative control run both
+  ways. A nested provider re-declares the theme, so identity, scheme and the governed variant
+  lane stop agreeing between subtrees — the class of bug #597 traced.
+- *"the pin fills with a fixed dark-neutral disc in emoji mode (never the accent)."* The
+  existing emoji test asserted the glyph renders and shape is ignored — not that the fill is
+  neutral. Now asserted, including that the ring keeps the accent.
+- *"a failed image never collapses a card or shifts layout."* The tests covered which content
+  renders, not that the box keeps its height when that content is the fallback. Now asserted
+  across the image, missing-src and errored states.
+
+One claim was **removed rather than evidenced**: the home tour opened with "250+ governed,
+accessible React components". True today (289) but written rather than computed, and that slot
+cannot derive one — the tour body must stay a string literal or the phrase extractor cannot
+translate it for the eight locales. Under Rule 14 an unverifiable claim does not get a softer
+version; it stops existing. The derived counts live on /api and /coverage.
+
 ### Documentation is now derived, not described (CLAUDE.md Rule 14)
 
 Owner directive after finding the badge panel wrong on the live site: **documentation must be

@@ -656,7 +656,13 @@ export function OverviewPage({
       id: 'home-what',
       target: whatRef,
       title: 'What GDS gives you',
-      body: '250+ governed, accessible React components, design tokens, and runtime systems — composed in every product, never reinvented.',
+      // The '250+' that used to open this sentence was a hardcoded number nothing checked.
+      // It happened to be true (289 public UI components today), but a written count drifts and
+      // this slot cannot derive one: the tour body must stay a string literal or the phrase
+      // extractor cannot translate it for the eight locales. Under Rule 14 an unverifiable
+      // claim does not get a softer version — it stops existing. The real, derived counts live
+      // on /api and /coverage, which compute them from the registry.
+      body: 'Governed, accessible React components, design tokens, and runtime systems — composed in every product, never reinvented.',
       placement: 'top',
     },
     {

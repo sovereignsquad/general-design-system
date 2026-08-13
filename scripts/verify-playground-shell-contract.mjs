@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const root = process.cwd();
@@ -39,6 +39,27 @@ if (manifest.requiredContracts?.includes('ReferenceSiteShell')) {
 
 if (!manifest.compliance?.approvedShellPrimitives?.includes('DocsShell')) {
   failures.push('apps/playground/gds-adoption.json must declare DocsShell in compliance.approvedShellPrimitives.');
+}
+
+// Issue 605. The site tells consumers "One GdsProvider at the app root — never nest a second
+// one". Nothing checked that the site itself obeys it, so the rule was advice the reference
+// implementation could quietly break. A nested provider is not a cosmetic mistake: the inner
+// one re-declares the theme, so theme identity, colour scheme and the governed variant lane
+// stop agreeing between subtrees — the class of bug issue 597 traced.
+{
+  const providerSources = ['apps/playground/src/App.tsx', 'apps/playground/src/main.tsx'];
+  let mounts = 0;
+  for (const rel of providerSources) {
+    const file = resolve(root, rel);
+    if (!existsSync(file)) {
+      failures.push(`${rel} is missing; the single-provider check would silently pass.`);
+      continue;
+    }
+    // Opening tags only: the closing tag and the import are not mounts.
+    mounts += (readFileSync(file, 'utf8').match(/<GdsProvider(?=[\s>])/g) ?? []).length;
+  }
+  if (mounts === 0) failures.push('No <GdsProvider> mount found in the playground; the site cannot demonstrate the rule it states.');
+  if (mounts > 1) failures.push(`Found ${mounts} <GdsProvider> mounts in the playground. The site states "never nest a second one" — it has to obey that itself.`);
 }
 
 if (failures.length > 0) {
