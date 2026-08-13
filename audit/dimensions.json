@@ -106,67 +106,67 @@
     "siteParity": [
       {
         "locale": "ar",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "de",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "es",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "fr",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "he",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "hu",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "it",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ja",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ko",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ru",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "zh",
-        "keys": 1293,
+        "keys": 1297,
         "missing": 0,
         "extra": 0
       }
@@ -175,77 +175,77 @@
       {
         "corpus": "site",
         "locale": "he",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 7,
         "rate": 0.54
       },
       {
         "corpus": "site",
         "locale": "de",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 2,
         "rate": 0.15
       },
       {
         "corpus": "site",
         "locale": "ar",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "es",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "fr",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "hu",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "it",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ja",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ko",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ru",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "zh",
-        "total": 1293,
+        "total": 1297,
         "untranslated": 0,
         "rate": 0
       },
@@ -370,7 +370,7 @@
       },
       {
         "kind": "prop",
-        "atoms": 1042
+        "atoms": 1046
       },
       {
         "kind": "variant",

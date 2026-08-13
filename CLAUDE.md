@@ -406,7 +406,10 @@ the local run was not equivalent to what CI does.
   artifacts have a dependency ORDER: the atom registry indexes the other generated files, so
   rebuilding it before regenerating tokens, the component census or the phrase packs leaves it
   stale and `verify:registry-drift` fails in CI after a local pass. This cost three
-  preflight cycles before the ordering was written down instead of remembered.
+  preflight cycles before the ordering was written down instead of remembered. The audit
+  traces run **after** the registry, because `dimensions.mjs` reads `registry.json`
+  (issue 612 folded them in — they were previously only in `audit:refresh`, which nothing
+  ran per push, so `dimensions.json` sat stale at 1293 phrase keys while the packs held 1297).
 - **`git status --porcelain` must be empty after the chain.** A leaked artifact
   is a CI failure and a local pass. Use `npm run preflight`, which enforces
   clean-before, clean-after, and the full chain in one command. Running
