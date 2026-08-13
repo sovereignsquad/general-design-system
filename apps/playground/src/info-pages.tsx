@@ -780,7 +780,7 @@ export function CoveragePage() {
     <DocsPageShell
       title="Coverage Matrix"
       eyebrow="Pattern parity status"
-      lead="This page is the runtime parity matrix between COMPONENTS_AND_PATTERNS.md and the official proof routes. Use it to see what is shipped, where it is shown, and what remains blocked."
+      lead="This page is the runtime parity matrix between COMPONENTS_AND_PATTERNS.md and the official proof routes. Every status here is derived from what the catalog actually renders, not recorded by hand."
     >
       <SiteTourLauncher
         tourId="gds-coverage"
@@ -793,13 +793,11 @@ export function CoveragePage() {
       <div data-gds-tour-target="coverage-summary">
       <ReferenceSection title="Coverage summary" description="Status counts are generated from the shared pattern registry used by the docs routes.">
         <FeatureBand
-          columns={4}
+          columns={2}
           variant="compact"
           items={[
             { id: 'live-proof', title: 'Live proof', description: `${statusCounts['live-proof'] ?? 0} patterns are rendered in interactive routes.` },
-            { id: 'static-reference', title: 'Static reference', description: `${statusCounts['static-reference'] ?? 0} patterns are documented without live runtime demos.` },
-            { id: 'pending-primitive', title: 'Pending primitive', description: `${statusCounts['pending-primitive'] ?? 0} patterns still need package-level primitives.` },
-            { id: 'blocked', title: 'Blocked', description: `${statusCounts.blocked ?? 0} patterns are blocked by known constraints or dependencies.` },
+            { id: 'static-reference', title: 'Static reference', description: `${statusCounts['static-reference'] ?? 0} patterns are documented without a live runtime proof.` },
           ]}
         />
       </ReferenceSection>

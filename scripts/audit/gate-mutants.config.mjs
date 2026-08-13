@@ -503,12 +503,12 @@ export const GATE_MUTANTS = [
     ],
   },
   {
-    npmScript: 'verify:pattern-live-proof',
+    npmScript: 'verify:pattern-coverage',
     script: null,
     mutants: [
       {
-        id: 'live-proof-detects-unproven-claim',
-        claim: 'Detects a pattern claiming live-proof coverage that nothing on the site renders',
+        id: 'pattern-coverage-detects-stale-derivation',
+        claim: 'Detects a demo removed without the derived coverage being regenerated',
         // RE-ANCHORED (issue 609). This used to flip the one honestly-`static-reference` entry
         // to `live-proof`. Issue 609 built the frame that entry was waiting for, so it became a
         // real live proof and the anchor vanished — the suite reported INVALID rather than
