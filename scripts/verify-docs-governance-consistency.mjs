@@ -106,8 +106,19 @@ if (implementationPlan.includes('Current stable baseline: 2.6.7')) {
   failures.push('GDS_3_0_IMPLEMENTATION_PLAN.md still references a pre-release stable baseline.');
 }
 
-if (!siteCopy.includes('Dependency governance is now explicit')) {
-  failures.push('Governance page copy does not describe the current dependency-governance release.');
+// Issue 518. This used to require the literal sentence "Dependency governance is now
+// explicit" and called it "describes the current release". It could not tell whether the copy
+// was current — it only checked that one sentence had not been deleted, and that is exactly
+// how the page rotted half-correctly: the sentence had to stay, so it stayed, while the rest
+// of `changedDescription` went on describing the 3.14 line for five releases under a heading
+// reading "What changed in 6.0.0".
+//
+// It also asserted a RELEASE claim ("now") about a STANDING rule. Dependency governance is
+// not something one version introduced; it is a policy the site should state permanently. The
+// statement moved to `requireDescription`, which carries no version, and the assertion moved
+// with it. A claim that cannot go stale is better than a gate watching one that can.
+if (!siteCopy.includes('Dependency governance is explicit')) {
+  failures.push('Governance page copy no longer states the standing dependency-governance rule.');
 }
 
 if (siteCopy.includes('What changed in 3.4.14') && siteCopy.includes('Theme ownership now includes full CSS VibeThemes')) {

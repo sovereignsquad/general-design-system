@@ -112,13 +112,13 @@
     },
     {
       "key": "gateSuiteMutationScore",
-      "measured": 100,
+      "measured": 50,
       "value": 100,
       "direction": "min",
       "unit": "%",
       "finding": "issue 602",
       "advisory": false,
-      "status": "OK"
+      "status": "EXCEEDED"
     },
     {
       "key": "gateSuiteUnexplainedSurvivors",
