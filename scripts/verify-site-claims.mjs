@@ -10,7 +10,7 @@
 
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { REGISTERED_CLAIMS, SITE_CLAIM_SOURCES, ABSOLUTE_PATTERN } from './site-claims.config.mjs';
+import { REGISTERED_CLAIMS, REGISTERED_NUMERIC_CLAIMS, SITE_CLAIM_SOURCES, ABSOLUTE_PATTERN, NUMERIC_PROSE, DERIVED_PLACEHOLDER } from './site-claims.config.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const fail = (msg) => { console.error(`FAIL ${msg}`); process.exit(1); };
@@ -24,6 +24,7 @@ if (!SITE_CLAIM_SOURCES.length) fail('No claim sources configured.');
 const today = new Date(process.env.GDS_CLAIMS_TODAY ?? Date.now());
 const problems = [];
 const found = new Map();
+const numeric = new Map();
 
 for (const rel of SITE_CLAIM_SOURCES) {
   const path = join(ROOT, rel);
@@ -34,8 +35,13 @@ for (const rel of SITE_CLAIM_SOURCES) {
     if (/^\s*(\/\/|\*|\/\*)/.test(line)) return;
     for (const match of line.matchAll(/(["'])((?:(?!\1)[^\\]|\\.){40,300})\1/g)) {
       const text = match[2].replace(/\\'/g, "'").replace(/\\"/g, '"').trim();
-      if (!ABSOLUTE_PATTERN.test(text)) continue;
       if (/^[a-z0-9_.\-/]+$/i.test(text)) continue;
+      // A number typed into prose is a claim; a number interpolated through a %placeholder%
+      // is derived by construction, which is the whole point of the placeholder.
+      if (NUMERIC_PROSE.test(text) && !DERIVED_PLACEHOLDER.test(text) && !numeric.has(text)) {
+        numeric.set(text, `${rel}:${index + 1}`);
+      }
+      if (!ABSOLUTE_PATTERN.test(text)) continue;
       if (!found.has(text)) found.set(text, `${rel}:${index + 1}`);
     }
   });
@@ -64,6 +70,11 @@ for (const [text, where] of found) {
   }
 }
 
+for (const [text, where] of numeric) {
+  if (REGISTERED_NUMERIC_CLAIMS[text]) continue;
+  problems.push(`${where}\n    HARDCODED NUMBER: "${text.slice(0, 150)}"\n    Interpolate it from its source through a %placeholder%, or register it in REGISTERED_NUMERIC_CLAIMS with what makes it true. A written number drifts — "250+ components" did.`);
+}
+
 // A registered claim that no longer appears is stale bookkeeping, and it hides the fact that
 // nobody re-reads this file.
 for (const text of Object.keys(REGISTERED_CLAIMS)) {
@@ -79,6 +90,7 @@ for (const text of found.keys()) {
 console.log('Site claims (issue 605 / Rule 14)\n');
 console.log(`  sources scanned     ${String(SITE_CLAIM_SOURCES.length).padStart(4)}`);
 console.log(`  absolute claims     ${String(found.size).padStart(4)}`);
+console.log(`  hardcoded numbers   ${String(numeric.size).padStart(4)}  (interpolated ones are derived by construction)`);
 for (const [kind, n] of Object.entries(byKind).sort()) console.log(`    ${kind.padEnd(16)}${String(n).padStart(4)}`);
 
 if (problems.length) {

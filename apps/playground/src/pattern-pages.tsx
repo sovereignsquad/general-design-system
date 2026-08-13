@@ -1047,6 +1047,39 @@ const BADGE_TONES = [
   { tone: 'info', icon: 'Info', label: 'Info' },
 ] as const;
 
+/**
+ * The one place the analytics demo's numbers live.
+ *
+ * Issue 605. The chart's text summary, its legend and its table fallback each carried their
+ * own copy. The summary is what assistive tech announces in place of the picture, so a drift
+ * between them is an accessibility defect, not a typo — and the demo teaches consumers how to
+ * build an accessible chart, so it has to model the thing it teaches.
+ */
+const CHANNEL_SHARES = [
+  { label: 'Online', share: 62, token: 'primary' as const },
+  { label: 'In-store', share: 38, token: 'info' as const },
+];
+
+/** Shares must describe the whole, or the summary misleads about what the chart shows. */
+if (CHANNEL_SHARES.reduce((sum, c) => sum + c.share, 0) !== 100) {
+  throw new Error('CHANNEL_SHARES must total 100; the chart summary claims to account for all visible orders.');
+}
+
+const EVIDENCE_SOURCES = { covered: 18, total: 20 };
+
+/**
+ * Builds the chart's text equivalent from the same data the table renders.
+ *
+ * `%online%`/`%instore%` rather than a template literal: the site's phrase extractor only
+ * collects string LITERALS, so a template would drop this sentence from all eight locales.
+ * The placeholders survive translation and the numbers land afterwards.
+ */
+function channelSummary(): string {
+  return 'Online orders account for %online% percent of visible orders; in-store orders account for %instore% percent.'
+    .replace(/%online%/, String(CHANNEL_SHARES[0].share))
+    .replace(/%instore%/, String(CHANNEL_SHARES[1].share));
+}
+
 function BadgeThemeMatrixDemo() {
   const [preset, setPreset] = useState<GdsThemePresetId>('default');
   const measured = useMemo(
@@ -2550,23 +2583,39 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           metrics={(
             <div>
               <MetricCard label="Orders" value="1,240" description="Visible aggregate." trend={{ label: '+8%', tone: 'positive' }} />
-              <ProgressCard label="Evidence coverage" value="18 / 20" progress={90} progressLabel="Reporting sources" />
+              {/*
+                `progress` is computed from the fraction rather than written beside it. It read
+                `value="18 / 20" progress={90}` — two copies of one fact, and the bar is what a
+                sighted reader believes while the text is what a screen reader announces. The
+                two must not be able to disagree.
+              */}
+              <ProgressCard
+                label="Evidence coverage"
+                value={`${EVIDENCE_SOURCES.covered} / ${EVIDENCE_SOURCES.total}`}
+                progress={Math.round((EVIDENCE_SOURCES.covered / EVIDENCE_SOURCES.total) * 100)}
+                progressLabel="Reporting sources"
+              />
             </div>
           )}
           chart={(
             <ChartTokenPanel
               title="Orders by channel"
               description="Chart wrappers must provide text summaries, tokenized legends, and table fallback."
-              summary="Online orders account for 62 percent of visible orders; in-store orders account for 38 percent."
+              /*
+                The summary is the chart's TEXT EQUIVALENT — what a screen-reader user is given
+                instead of the picture. It used to state 62/38 in prose while the table
+                fallback stated 62/38 again in its own literals: one fact, three copies, and
+                nothing to stop them drifting apart. A text equivalent that disagrees with the
+                data is worse than none, because it is trusted.
+                Both are now built from CHANNEL_SHARES.
+              */
+              summary={channelSummary()}
               state="permission-limited"
-              legend={[
-                { label: 'Online', token: getGdsSeriesColor('primary') },
-                { label: 'In-store', token: getGdsSeriesColor('info') },
-              ]}
+              legend={CHANNEL_SHARES.map((c) => ({ label: c.label, token: getGdsSeriesColor(c.token) }))}
               tableFallback={(
                 <SimpleDataTable
                   columns={[{ key: 'channel', header: 'Channel' }, { key: 'share', header: 'Share' }]}
-                  rows={[{ channel: 'Online', share: '62%' }, { channel: 'In-store', share: '38%' }]}
+                  rows={CHANNEL_SHARES.map((c) => ({ channel: c.label, share: `${c.share}%` }))}
                 />
               )}
             />

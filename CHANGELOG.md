@@ -4,6 +4,41 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### No hardcoded values, gated (#605)
+
+Owner correction: I described "250+" as hardcoded and then **removed** it. The standing
+requirement is no hardcoded values — "the page cannot compute it in this slot" is a constraint
+to solve, not a licence to delete information from the site.
+
+**The count is now derived.** `collectPublicComponents()` moved into
+`scripts/lib/component-census.mjs`, imported by **both** `verify-component-catalog-parity` and
+a new generator. Copying it would have made one fact with two implementations, free to drift.
+The page quotes **289 because that is what the gate enforces**; a mutant publishing a stale
+count (289 → 250) fails the build.
+
+The translation blocker was shallow once examined: the phrase extractor sees only string
+literals and rejects braces, so `{count}` was out — but `%count%` survives extraction, is
+translated with the placeholder intact (German keeps `%count%`), and the number lands
+afterwards. All eight locales keep the sentence.
+
+**Then the same sweep across every visible surface.** Two more instances, both of them one
+fact stored twice:
+
+- The analytics chart's `summary` — the **text equivalent a screen-reader user is given
+  instead of the picture** — stated 62/38 in prose while the table fallback stated 62/38 in
+  its own literals. A text equivalent that disagrees with its data is worse than none, because
+  it is trusted. Both now build from one `CHANNEL_SHARES`, which also asserts the shares total
+  100.
+- `value="18 / 20"` sat beside `progress={90}` — the bar a sighted reader believes and the
+  text a screen reader announces, free to disagree. The percentage is computed from the
+  fraction.
+
+`verify:site-claims` now fails on **any number typed into visible prose**. A sentence that
+interpolates through a `%placeholder%` is derived by construction and needs no registration; a
+written one must be registered with what makes it true, or must not exist. Currently **zero**
+registered exceptions — and the negative control was run both ways, because a gate reporting
+zero is what a broken gate reports.
+
 ### Approved or non-existent: every claim on the reference site now carries its evidence (#605)
 
 Owner directive, 2026-08-13: *"We can have either Approved or Non-existing cases, especially on

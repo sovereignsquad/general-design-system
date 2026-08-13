@@ -28,6 +28,19 @@ export const SITE_CLAIM_SOURCES = [
 // Words that turn a description into a promise.
 export const ABSOLUTE_PATTERN = /\b(every preset|all 25|in every theme|always|never|identical|no exception|guarantee[ds]?|100%|the same (?:value|colour|color) in every)\b/i;
 
+// A number in prose is a claim about the system too — "250+ components" was one, and it
+// drifted for as long as nothing compared it to reality. A sentence that INTERPOLATES its
+// number (via a %placeholder%) is derived by construction and needs no registration; a
+// sentence with the number typed into it must be registered here or must not exist.
+export const NUMERIC_PROSE = /(?<![\w#.\-])(\d{2,4})(?:\+|\s?%)?\s+(?=[a-z])|\b(\d{2,4})\+/;
+export const DERIVED_PLACEHOLDER = /%[a-z]+%/i;
+
+/** Prose numbers that are written rather than interpolated, with what makes each one true. */
+export const REGISTERED_NUMERIC_CLAIMS = {
+  // Intentionally empty: every prose number on a visible surface is currently interpolated
+  // from its source. An entry here is an exception that has to argue for itself.
+};
+
 export const REGISTERED_CLAIMS = {
   'Focus never depends on hover-only reveal.': {
     evidence: 'gate',
