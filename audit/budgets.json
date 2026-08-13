@@ -93,13 +93,13 @@
       "finding": "F16",
       "justifiedBy": "audit Phase 4b - site/hu is the worst pack, commit bed78c8"
     },
-    "gateMutationScore": {
+    "phase5MutationScore": {
       "source": "mutation-score.json#/mutationScore",
       "direction": "min",
       "value": 85.7,
       "unit": "%",
       "finding": "F19/F20",
-      "justifiedBy": "audit Phase 5 - 6/7 killed, M3 survives, 5 not run, commit bed78c8"
+      "justifiedBy": "Issue 601: renamed from `gateMutationScore`, which read like the GATE SUITE's score and pointed at the Phase 5 render mutants. One word, three referents \u2014 the trap F24 named. audit Phase 5 - 6/7 killed, M3 survives, 5 not run, commit bed78c8"
     },
     "renderMutationScore": {
       "source": "render-mutation-score.json#/renderMutationScore",
@@ -108,6 +108,14 @@
       "unit": "%",
       "finding": "F5 (instrument validation)",
       "justifiedBy": "issue 579 - M1 and M2 both killed; Phase 1 is only trustworthy while these stay killed"
+    },
+    "gateSuiteMutationScore": {
+      "source": "gate-mutation-score.json#/gateMutationSuiteScore",
+      "direction": "min",
+      "value": 100,
+      "unit": "%",
+      "finding": "issue 602",
+      "justifiedBy": "The gate suite that verifies every OTHER gate was the one gate whose coverage could silently shrink: only `gateSuiteUnexplainedSurvivors` was ratcheted, and deleting a mutant does not raise it \u2014 a deleted mutant survives nothing, so the count stays 0 while coverage drops. Seeded at the measured 100% (29 of 29 killed) on 2026-08-13."
     },
     "gateSuiteUnexplainedSurvivors": {
       "source": "gate-mutation-score.json#/unexplainedSurvivors",
