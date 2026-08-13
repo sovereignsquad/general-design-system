@@ -9,12 +9,12 @@ engineer with **no memory of the sessions that produced this state**.
 
 ## 1. Where we are, in one paragraph
 
-`main` is at **`fdcc759`**, version **6.0.0**, working tree **clean**, and **CI
+`main` is at **`eba6589`**, version **6.0.0**, working tree **clean**, and **CI
 is green** on both workflows (`GDS Quality`, `Deploy GDS Playground to GitHub
 Pages`). The site is deployed at
 <https://sovereignsquad.github.io/general-design-system/>. The release chain is
-**41 steps**; the gate mutation suite runs **33 mutants with 0 survivors**. There
-are **36 open issues** and nothing is blocked except #512 (needs repo
+**42 steps**; the gate mutation suite runs **34 mutants with 0 survivors**. There
+are **37 open issues** and nothing is blocked except #512 (needs repo
 permissions the agent does not have).
 
 ---
@@ -69,6 +69,22 @@ Every significant defect closed in this session had that shape:
 When you find a gate that passes, ask what it would take for it to fail. If you
 cannot answer, it is not a gate.
 
+**Two sharper forms of this, both found in the #600 work:**
+
+- **A test can assert the claim instead of checking it.**
+  `pattern-registry.test.tsx` asserted `every(entry => coverageStatus ===
+  'live-proof')`. That passes for exactly as long as the claim is written down,
+  and it *required* the uniformity that made the field meaningless — 113 entries,
+  one value, so no entry could be observed to be wrong. If a test would still
+  pass with the system deleted and the constant left behind, it is not a test.
+- **A gate can ask a nearby question instead of the real one.** The first version
+  of `verify:pattern-live-proof` accepted "some page references this entry's
+  component", reasoning that the entry must therefore be proven somewhere. Three
+  entries passed on it while their own cards printed the fallback, because the
+  components rendered under a *different* entry's card. **Proximity is not proof.**
+  The deployed site caught it; the gate did not. When writing a gate, state the
+  question it actually asks and check that it is the question you meant.
+
 ---
 
 ## 4. What shipped in this session (all deployed, all CI-green)
@@ -86,6 +102,8 @@ cannot answer, it is not a gate.
 | **#605** | Every claim on the reference site now carries its evidence |
 | **#546** | `GdsSavedIndicator` — one save toggle, not two |
 | **#606** | "demos" → "live proofs", everywhere a reader can see it |
+| **#600** | Seven patterns claimed `live-proof` while their cards printed "No interactive demo renders here". The test that should have caught it asserted `every(entry => 'live-proof')` — the claim restated as a test |
+| **#607** | The #606 rename was a substring replacement: "demonstrations" → **"proofnstrations"**, live on `/patterns` and translated into all 8 locale packs |
 
 ### New gates (all in `verify:release`, all with mutants or dated exemptions)
 
@@ -95,6 +113,7 @@ cannot answer, it is not a gate.
 | `verify:component-color-pairs` | a component pairs a themeable fill with a foreground not derived against it |
 | `verify:site-claims` | an absolute on a visible surface has no registered evidence; a **number is typed into prose**; a proof surface is called a "demo" |
 | `verify:component-census` | the component count the site quotes is stale |
+| `verify:pattern-live-proof` | a pattern claims `live-proof` and its own card renders nothing |
 
 ### New rules in CLAUDE.md
 
@@ -165,12 +184,8 @@ npm run verify:release       # the chain alone (preflight wraps it)
 
 ## 7. Open work, graded honestly
 
-### Real defects (5)
+### Real defects (4)
 
-- **#600** — `pattern-registry` claims `coverageStatus: 'live-proof'` for the
-  conversation surface, and **no route renders it**. Found while verifying #592;
-  it is why that fix had to be verified by injecting markup rather than against
-  the real component.
 - **#604** — CI can go red for reasons outside the repo (see traps above).
 - **#599** — the theme coverage matrix is not reproducible run-to-run.
 - **#517 / #518 / #587 / #588** — i18n: English leaking in `ar/he/zh`, stale
@@ -197,6 +212,18 @@ behaviour *under failure* rather than rendering:
   **#550** neighborhood-fill recipe + no-clustering architecture rules,
   **#569** themed basemap, **#570** offline/blocked-tile degradation,
   **#572** `docs/MAP_SYSTEM.md` as SSOT.
+
+### Opened by the #600 work, all scoped and none blocking
+
+- **#608** — `coverageStatus` is still **written, not derived** (Rule 14). All
+  113 entries carried the same value; one does not any more, but a correct claim
+  is still an unverified one. Needs a ruling before restructuring a 103-case
+  switch.
+- **#609** — GDS has **no bounded viewport preview frame**, so a `position: fixed`
+  or breakpoint-gated surface cannot be live-proven on the site. This is why
+  `bottom-tab-navigation` is honestly `static-reference` rather than staged.
+- **#610** — nothing checks that site copy is composed of **real words**; a
+  substring rename reached all 8 locale packs before a human saw it.
 
 ### Everything else
 
