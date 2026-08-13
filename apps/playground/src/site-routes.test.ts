@@ -44,14 +44,14 @@ describe('public site routes', () => {
     expect(getSiteRouteLabel(maturity!.id, getRouteLabel(maturity!), 'ar')).toBe('النضج');
   });
 
-  it('groups live-demo routes into secondary navigation', () => {
-    expect(getSecondaryRoutes('live-demos').map((route) => `${route.label}:${route.path}`)).toEqual([
-      'Discovery & Cards:/live-demos/surfaces',
-      'Shells & Layouts:/live-demos/layouts',
-      'Actions & Auth:/live-demos/semantics',
-      'Food & Menus:/live-demos/food',
-      'Playback & Capture:/live-demos/playback',
-      'Analytics & Data:/live-demos/analytics',
+  it('groups live-proof routes into secondary navigation', () => {
+    expect(getSecondaryRoutes('live-proofs').map((route) => `${route.label}:${route.path}`)).toEqual([
+      'Discovery & Cards:/live-proofs/surfaces',
+      'Shells & Layouts:/live-proofs/layouts',
+      'Actions & Auth:/live-proofs/semantics',
+      'Food & Menus:/live-proofs/food',
+      'Playback & Capture:/live-proofs/playback',
+      'Analytics & Data:/live-proofs/analytics',
     ]);
   });
 
@@ -59,22 +59,22 @@ describe('public site routes', () => {
     expect(getLegacyRedirects()).toEqual([
       { legacyPath: '/tokens', to: '/themes' },
       { legacyPath: '/rulebook', to: '/governance' },
-      { legacyPath: '/cards', to: '/live-demos/surfaces' },
-      { legacyPath: '/layouts', to: '/live-demos/layouts' },
-      { legacyPath: '/vocabulary', to: '/live-demos/semantics' },
-      { legacyPath: '/analytics', to: '/live-demos/analytics' },
+      { legacyPath: '/cards', to: '/live-proofs/surfaces' },
+      { legacyPath: '/layouts', to: '/live-proofs/layouts' },
+      { legacyPath: '/vocabulary', to: '/live-proofs/semantics' },
+      { legacyPath: '/analytics', to: '/live-proofs/analytics' },
     ]);
   });
 
   it('treats nested pattern and demo routes as active under their parent nav item', () => {
     const patternsRoute = publicSiteRoutes.find((route) => route.id === 'patterns');
-    const demosRoute = publicSiteRoutes.find((route) => route.id === 'live-demos');
+    const demosRoute = publicSiteRoutes.find((route) => route.id === 'live-proofs');
 
     expect(patternsRoute).toBeTruthy();
     expect(demosRoute).toBeTruthy();
 
     expect(isRouteActive('/patterns/public', patternsRoute!)).toBe(true);
-    expect(isRouteActive('/live-demos/layouts', demosRoute!)).toBe(true);
+    expect(isRouteActive('/live-proofs/layouts', demosRoute!)).toBe(true);
     expect(isRouteActive('/themes', demosRoute!)).toBe(false);
   });
 });

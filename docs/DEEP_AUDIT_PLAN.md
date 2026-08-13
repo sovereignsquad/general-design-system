@@ -17,7 +17,7 @@ Both come from the owner and are absolute.
 1. **Nothing but GDS tokens may render on the reference site.** Any value that
    cannot be traced back to a governed token is a finding — regardless of whether
    it looks correct.
-2. **No GDS token may be absent from the lists, the live demos, the explanations,
+2. **No GDS token may be absent from the lists, the live proofs, the explanations,
    the variation displays, or the use cases.** Any token missing any of those five
    is a finding — regardless of whether the token itself works.
 
@@ -56,9 +56,9 @@ Ground truth, read from source and from the deployed site. Not estimated.
 | Theme presets | 25 | `tokens/gds.tokens.json` |
 | Color schemes | 2 | light / dark |
 | DTCG published tokens | 425 (17 roles × 25 themes) | `tokens/gds.tokens.json` |
-| `--gds-*` properties at runtime | 102 (19 vibe + 83 semantic-role) | measured, deployed `/live-demos` |
-| `--mantine-*` properties at runtime | 345 | measured, deployed `/live-demos` |
-| Total custom properties on one page | 1,077 | measured, deployed `/live-demos` |
+| `--gds-*` properties at runtime | 102 (19 vibe + 83 semantic-role) | measured, deployed `/live-proofs` |
+| `--mantine-*` properties at runtime | 345 | measured, deployed `/live-proofs` |
+| Total custom properties on one page | 1,077 | measured, deployed `/live-proofs` |
 | Public exports | 214 (core 131, theme 44, admin 18, a11y 17, umbrella 4) | package `index.ts` files |
 | Public UI components | 287 (154 registered, 133 exempted) | `verify:component-catalog-parity` |
 | Pattern registry entries | 110 | `apps/playground/src/pattern-registry.ts` |
@@ -174,7 +174,7 @@ theme's own resolved token map*:
 map, not by string-matching. A hardcoded `8px` that coincidentally equals the
 default theme's radius passes under `default` and fails under the other 24. Only
 per-theme resolution catches it — and that case is known to exist here: the
-`/live-demos` page renders 32px / 16px / 8px / 4px radii from four uncoordinated
+`/live-proofs` page renders 32px / 16px / 8px / 4px radii from four uncoordinated
 decision points, on Mantine's untouched doubling scale, with **no `--gds-radius-*`
 token existing at all**.
 
@@ -201,7 +201,7 @@ each atom of every other kind:
 | Obligation | Satisfied when |
 | --- | --- |
 | **Listed** | Appears in a published, machine-readable inventory (token graph, API reference) |
-| **Demoed live** | Rendered by at least one live demo on the reference site, in a state a visitor can actually observe |
+| **Demoed live** | Rendered by at least one live proof on the reference site, in a state a visitor can actually observe |
 | **Explained** | Carries prose stating what it is *and why it exists* — a name is not an explanation |
 | **Variations shown** | Its range is displayed: every step of a scale, every theme's value, both schemes |
 | **Use case given** | At least one concrete "use this when…" statement |
@@ -448,7 +448,7 @@ detect real defects. This is the direct countermeasure to issue 516.
 | M1 | Hardcode a radius equal to the default theme's value | 1 |
 | M2 | Hardcode a color not in any token | 1 |
 | M3 | Remove a token from the published graph | 2 |
-| M4 | Remove a token's live demo | 2 |
+| M4 | Remove a token's live proof | 2 |
 | M5 | Remove a token's explanation prose | 2 |
 | M6 | Delete a locale key from one pack | 4b |
 | M7 | Replace a translated string with English | 4b |

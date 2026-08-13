@@ -780,13 +780,13 @@ export function CoveragePage() {
     <DocsPageShell
       title="Coverage Matrix"
       eyebrow="Pattern parity status"
-      lead="This page is the runtime parity matrix between COMPONENTS_AND_PATTERNS.md and the official demo routes. Use it to see what is shipped, where it is shown, and what remains blocked."
+      lead="This page is the runtime parity matrix between COMPONENTS_AND_PATTERNS.md and the official proof routes. Use it to see what is shipped, where it is shown, and what remains blocked."
     >
       <SiteTourLauncher
         tourId="gds-coverage"
         autoStart
         steps={[
-          { id: 'coverage-summary', target: 'coverage-summary', title: 'See what is shipped', body: 'This status band summarizes how many patterns are live demos, static references, or still pending — generated from the shared pattern registry.', placement: 'bottom' },
+          { id: 'coverage-summary', target: 'coverage-summary', title: 'See what is shipped', body: 'This status band summarizes how many patterns are live proofs, static references, or still pending — generated from the shared pattern registry.', placement: 'bottom' },
           { id: 'coverage-evidence', target: 'coverage-evidence', title: 'Accessibility evidence', body: 'Every stable pattern publishes keyboard, focus, WCAG, screen-reader, and AT/browser evidence — visible here, not buried in release notes.', placement: 'top' },
         ]}
       />
@@ -796,7 +796,7 @@ export function CoveragePage() {
           columns={4}
           variant="compact"
           items={[
-            { id: 'live-demo', title: 'Live demo', description: `${statusCounts['live-demo'] ?? 0} patterns are rendered in interactive routes.` },
+            { id: 'live-proof', title: 'Live proof', description: `${statusCounts['live-proof'] ?? 0} patterns are rendered in interactive routes.` },
             { id: 'static-reference', title: 'Static reference', description: `${statusCounts['static-reference'] ?? 0} patterns are documented without live runtime demos.` },
             { id: 'pending-primitive', title: 'Pending primitive', description: `${statusCounts['pending-primitive'] ?? 0} patterns still need package-level primitives.` },
             { id: 'blocked', title: 'Blocked', description: `${statusCounts.blocked ?? 0} patterns are blocked by known constraints or dependencies.` },
@@ -874,7 +874,7 @@ export function ApiReferencePage() {
         tourId="gds-api"
         autoStart
         steps={[
-          { id: 'api-summary', target: 'api-summary', title: 'The public API at a glance', body: 'Every documented export is counted here by lane — live-demo evidence, support contracts, canonical stability, and dependency-governed boundaries.', placement: 'bottom' },
+          { id: 'api-summary', target: 'api-summary', title: 'The public API at a glance', body: 'Every documented export is counted here by lane — live-proof evidence, support contracts, canonical stability, and dependency-governed boundaries.', placement: 'bottom' },
           { id: 'api-table', target: 'api-table', title: 'Search the full export table', body: 'Each row is one public entry with its package, kind, runtime lane, docs status, stability, dependency boundary, and exact import path.', placement: 'top' },
         ]}
       />
@@ -885,7 +885,7 @@ export function ApiReferencePage() {
           variant="compact"
           items={[
             { id: 'exports', title: 'Exports', description: `${apiReferenceEntries.length} public API entries are documented.` },
-            { id: 'live', title: 'Live demo', description: `${summary['live-demo'] ?? 0} entries have live route evidence.` },
+            { id: 'live', title: 'Live proof', description: `${summary['live-proof'] ?? 0} entries have live route evidence.` },
             { id: 'support', title: 'Support API', description: `${summary['support-api'] ?? 0} entries are documented support contracts.` },
             { id: 'canonical', title: 'Canonical', description: `${summary.canonical ?? 0} entries are stable GDS contracts.` },
             { id: 'boundary', title: 'Dependency-governed', description: `${(summary['mantine-backed'] ?? 0) + (summary['tabler-backed'] ?? 0)} entries expose governed implementation boundaries.` },
@@ -1154,19 +1154,19 @@ export function InstallPage() {
               id: 'shell',
               title: 'DiscoveryShell and navigation',
               description: 'Use shipped shell contracts instead of local AppShell wrappers.',
-              href: '/general-design-system/live-demos/layouts',
+              href: '/general-design-system/live-proofs/layouts',
             },
             {
               id: 'cards',
               title: 'Listing, food, map, and share surfaces',
               description: 'Use the public discovery and listing contracts before creating custom cards.',
-              href: '/general-design-system/live-demos/surfaces',
+              href: '/general-design-system/live-proofs/surfaces',
             },
             {
               id: 'actions',
               title: 'Semantic actions and auth',
               description: 'Use ActionBar, SemanticButton, provider identity actions, and ShareButtonGroup as the governed interaction path.',
-              href: '/general-design-system/live-demos/semantics',
+              href: '/general-design-system/live-proofs/semantics',
             },
           ]}
         />
@@ -1285,14 +1285,14 @@ export function RulebookPage() {
             {
               id: 'patterns',
               title: 'Pattern catalog',
-              description: 'The catalog should show shipped components and contracts through package-owned framing, not local demo scaffolding.',
+              description: 'The catalog should show shipped components and contracts through package-owned framing, not local scaffolding.',
               href: '/general-design-system/patterns',
             },
             {
               id: 'demos',
-              title: 'Live demos',
+              title: 'Live proofs',
               description: 'The runtime showcase should present real shipped surfaces, not fake nested apps or decorative wrappers.',
-              href: '/general-design-system/live-demos',
+              href: '/general-design-system/live-proofs',
             },
           ]}
         />

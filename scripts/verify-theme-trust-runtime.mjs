@@ -9,7 +9,7 @@ import {
 
 const baseUrl = process.env.GDS_THEME_TRUST_BASE_URL ?? process.env.GDS_A11Y_BASE_URL ?? 'http://127.0.0.1:4173/general-design-system';
 const ownsPreviewServer = !process.env.GDS_THEME_TRUST_BASE_URL && !process.env.GDS_A11Y_BASE_URL;
-const themeRoutes = ['/themes', '/patterns/public', '/live-demos/layouts'];
+const themeRoutes = ['/themes', '/patterns/public', '/live-proofs/layouts'];
 const localizedHeaderRoutes = ['/?locale=ru', '/?locale=de', '/?locale=he', '/?locale=ar'];
 const themeCases = [
   { preset: 'default', scheme: 'light' },
@@ -142,7 +142,7 @@ async function verifyRouteCase(client, route, testCase, viewport) {
       }
     }
 
-    if (location.pathname.endsWith('/patterns/public') || location.pathname.endsWith('/live-demos/layouts')) {
+    if (location.pathname.endsWith('/patterns/public') || location.pathname.endsWith('/live-proofs/layouts')) {
       if (!document.querySelector('[data-gds-bounded-preview-surface]')) {
         failures.push('Preview-heavy routes must keep live shells inside bounded preview surfaces.');
       }

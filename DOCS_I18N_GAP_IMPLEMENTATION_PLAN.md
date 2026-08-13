@@ -36,7 +36,7 @@ Representative docs gaps:
 The site has these strengths:
 
 - Install and governance pages are current for `3.3.0`.
-- Pattern catalog and live demos exist.
+- Pattern catalog and live proofs exist.
 - Pattern export coverage checks exist.
 - The site is a strict GDS consumer.
 
@@ -46,7 +46,7 @@ Remaining gaps:
 - No prop/type tables for every exported component.
 - No “developer task” navigation such as “I need an admin CRUD form”, “I need a confirmation”, “I need a public capture flow”.
 - Product-owner guidance is scattered across pattern docs instead of summarized by business problem and adoption decision.
-- Live demos do not cover every export directly; many entries are only `support-api`.
+- Live proofs do not cover every export directly; many entries are only `support-api`.
 - Export coverage proves every export is acknowledged, but not that every export has enough docs.
 
 ### i18n Gaps
@@ -63,8 +63,8 @@ Everything else falls back to English-only:
 - `/coverage`
 - `/patterns`
 - `/patterns/*`
-- `/live-demos`
-- `/live-demos/*`
+- `/live-proofs`
+- `/live-proofs/*`
 - `/request-feature`
 
 Package-level hard-coded copy still exists in components and helpers, including:
@@ -191,7 +191,7 @@ Each use case must answer:
 
 Current `support-api` entries are acceptable for pure helpers, but user-facing components need visible examples.
 
-Upgrade live demos for:
+Upgrade live proofs for:
 
 - `GdsConfirmProvider` / `useGdsConfirm`
 - `GdsToastProvider` / `useGdsToasts`
@@ -230,7 +230,7 @@ Suggested structure:
 - `apps/playground/src/copy/themes.ts`
 - `apps/playground/src/copy/coverage.ts`
 - `apps/playground/src/copy/patterns.ts`
-- `apps/playground/src/copy/live-demos.ts`
+- `apps/playground/src/copy/live-proofs.ts`
 - `apps/playground/src/copy/request-feature.ts`
 - `apps/playground/src/copy/api.ts`
 - `apps/playground/src/copy/use-cases.ts`
@@ -268,8 +268,8 @@ Expand `localizedRouteCoverage` to all public routes only after translations exi
 - `/coverage`
 - `/patterns`
 - `/patterns/*`
-- `/live-demos`
-- `/live-demos/*`
+- `/live-proofs`
+- `/live-proofs/*`
 - `/request-feature`
 - `/api`
 - `/api/*`
@@ -332,7 +332,7 @@ Deliverables:
 Acceptance criteria:
 
 - product owner can identify which GDS contracts apply to a planned feature
-- developer can move from use case to API docs and live demo
+- developer can move from use case to API docs and live proof
 
 ### Phase 4: Package i18n Hardening
 
@@ -353,7 +353,7 @@ Acceptance criteria:
 Deliverables:
 
 - Localized copy modules for every public route.
-- Full translations for `/coverage`, `/patterns`, `/patterns/*`, `/live-demos`, `/live-demos/*`, `/request-feature`, `/api`, and `/use-cases`.
+- Full translations for `/coverage`, `/patterns`, `/patterns/*`, `/live-proofs`, `/live-proofs/*`, `/request-feature`, `/api`, and `/use-cases`.
 - Expanded `localizedRouteCoverage`.
 
 Acceptance criteria:
@@ -372,7 +372,7 @@ Deliverables:
 
 Acceptance criteria:
 
-- every user-facing component has at least one live demo or documented composed example
+- every user-facing component has at least one live proof or documented composed example
 - every support-only helper explains where it appears and when to use it
 
 ### Phase 7: Enforce and Release
@@ -401,7 +401,7 @@ Acceptance criteria:
 6. Product Docs: use-case decision guide route
 7. i18n: route copy module architecture
 8. i18n: package message ID contract
-9. i18n: translate coverage/pattern/live-demo routes
+9. i18n: translate coverage/pattern/live-proof routes
 10. i18n: translate API and use-case routes
 11. Demos: fill live examples for user-facing support-only exports
 12. CI: docs depth and i18n release gates
@@ -413,7 +413,7 @@ Acceptance criteria:
 3. Route copy architecture third.
 4. Package message IDs fourth.
 5. Translate route batches fifth.
-6. Live demo completion sixth.
+6. Live proof completion sixth.
 7. Enforce CI and publish last.
 
 ## Risks
@@ -421,7 +421,7 @@ Acceptance criteria:
 - Translation quality can degrade if machine-generated without review.
 - API docs may become stale unless generated coverage is enforced.
 - Full localization expands maintenance cost; route copy modules must be structured before translation work begins.
-- Some support APIs should not become noisy live demos; they need clear “support API” documentation instead.
+- Some support APIs should not become noisy live proofs; they need clear “support API” documentation instead.
 
 ## Definition of Done
 

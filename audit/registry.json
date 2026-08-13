@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "41c0bce084617b54d5a2f4a63472077a128bcf87",
+  "commit": "4971575554fdf6139d5e8cd22c476075dcfe2edf",
   "counts": {
     "token-published": 486,
     "token-declared": 57,
@@ -31477,63 +31477,63 @@
       }
     },
     {
-      "id": "route:/live-demos#3084",
+      "id": "route:/live-proofs#3084",
       "kind": "route",
-      "name": "/live-demos",
+      "name": "/live-proofs",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 342
       }
     },
     {
-      "id": "route:/live-demos/surfaces#3085",
+      "id": "route:/live-proofs/surfaces#3085",
       "kind": "route",
-      "name": "/live-demos/surfaces",
+      "name": "/live-proofs/surfaces",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 343
       }
     },
     {
-      "id": "route:/live-demos/layouts#3086",
+      "id": "route:/live-proofs/layouts#3086",
       "kind": "route",
-      "name": "/live-demos/layouts",
+      "name": "/live-proofs/layouts",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 344
       }
     },
     {
-      "id": "route:/live-demos/semantics#3087",
+      "id": "route:/live-proofs/semantics#3087",
       "kind": "route",
-      "name": "/live-demos/semantics",
+      "name": "/live-proofs/semantics",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 345
       }
     },
     {
-      "id": "route:/live-demos/food#3088",
+      "id": "route:/live-proofs/food#3088",
       "kind": "route",
-      "name": "/live-demos/food",
+      "name": "/live-proofs/food",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 346
       }
     },
     {
-      "id": "route:/live-demos/playback#3089",
+      "id": "route:/live-proofs/playback#3089",
       "kind": "route",
-      "name": "/live-demos/playback",
+      "name": "/live-proofs/playback",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 347
       }
     },
     {
-      "id": "route:/live-demos/analytics#3090",
+      "id": "route:/live-proofs/analytics#3090",
       "kind": "route",
-      "name": "/live-demos/analytics",
+      "name": "/live-proofs/analytics",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 348

@@ -253,7 +253,7 @@ for (const proof of requiredRuntimeHookTestProof) {
 
 const requiredRuntimeRegressionProof = [
   'persists selected theme and font lane across direct route loads',
-  '/general-design-system/live-demos/surfaces',
+  '/general-design-system/live-proofs/surfaces',
   'oceanic',
   'space-grotesk',
   'gds-reference-theme-selection',

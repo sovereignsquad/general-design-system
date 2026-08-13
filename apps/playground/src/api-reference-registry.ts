@@ -44,7 +44,7 @@ export const apiReferenceEntries: ApiReferenceEntry[] = patternExportCoverage.ma
   contract: buildContract(entry.packageName, entry.exportName),
   accessibility: buildAccessibility(entry.exportName, entry.status),
   states: inferStates(entry.exportName, entry.status),
-  testing: `Covered by pattern export coverage and ${entry.status === 'live-demo' ? 'live route rendering' : 'API contract verification'}.`,
+  testing: `Covered by pattern export coverage and ${entry.status === 'live-proof' ? 'live route rendering' : 'API contract verification'}.`,
   docsPath: `/patterns/${entry.registryId}`,
 }));
 

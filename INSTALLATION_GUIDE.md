@@ -76,7 +76,7 @@ Public install and reference routes:
 - live themes page: `https://sovereignsquad.github.io/general-design-system/themes`
 - live pattern catalog: `https://sovereignsquad.github.io/general-design-system/patterns`
 - live coverage matrix: `https://sovereignsquad.github.io/general-design-system/coverage`
-- live demos page: `https://sovereignsquad.github.io/general-design-system/live-demos`
+- live proofs page: `https://sovereignsquad.github.io/general-design-system/live-proofs`
 - feature request intake: `https://sovereignsquad.github.io/general-design-system/request-feature`
 
 ## 1. Supported consumer baseline
@@ -282,7 +282,7 @@ For repos targeting true GDS-only enforcement:
 }
 ```
 
-The official GitHub Pages site in `apps/playground` follows this same direction. Treat it as the public proof that docs, pattern catalogs, theme exploration, and live demos can be shipped through GDS-owned contracts instead of local Mantine-heavy composition.
+The official GitHub Pages site in `apps/playground` follows this same direction. Treat it as the public proof that docs, pattern catalogs, theme exploration, and live proofs can be shipped through GDS-owned contracts instead of local Mantine-heavy composition.
 
 For theme-governance enforcement, add explicit theme ownership paths once the repo is ready:
 

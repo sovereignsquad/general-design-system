@@ -4,7 +4,7 @@
 
 1. Install the package lane shown on `/install`.
 2. Open `/api` to confirm the export, import path, runtime lane, and state contract.
-3. Open `/patterns` or `/live-demos` to inspect the implementation pattern.
+3. Open `/patterns` or `/live-proofs` to inspect the implementation pattern.
 4. Add or update `gds-adoption.json`.
 5. Run:
 

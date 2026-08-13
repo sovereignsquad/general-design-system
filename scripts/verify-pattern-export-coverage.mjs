@@ -96,10 +96,10 @@ for (const entry of coverageEntries) {
     continue;
   }
 
-  if (entry.status === 'live-demo') {
+  if (entry.status === 'live-proof') {
     const status = registryStatus.get(entry.registryId);
-    if (status !== 'live-demo') {
-      failures.push(`${entry.packageName} ${entry.exportName} requires live-demo coverage, but ${entry.registryId} is ${status ?? 'unknown'}.`);
+    if (status !== 'live-proof') {
+      failures.push(`${entry.packageName} ${entry.exportName} requires live-proof coverage, but ${entry.registryId} is ${status ?? 'unknown'}.`);
     }
 
     const sourceComponent = registrySourceComponents.get(entry.registryId);

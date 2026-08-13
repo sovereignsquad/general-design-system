@@ -399,7 +399,7 @@ import { GdsBadge, GdsMapPinBadge } from '@sovereignsquad/gds-core';
   "emoji affects only the badge": `GdsGeneratedThumbnail`/`GdsGeneratedHero`
   read only a category's `icon` field — they have no code path that reads
   `emoji` at all.
-- **Live demo**: the badges pattern (`/patterns/feedback`) includes a
+- **Live proof**: the badges pattern (`/patterns/feedback`) includes a
   Tabler/emoji toggle (`SportsEmojiModeDemo`) showing a Soccer/Basketball/
   Baseball category set as badges and map pins in both modes, next to
   `GdsGeneratedThumbnail`s for the same categories that never change.

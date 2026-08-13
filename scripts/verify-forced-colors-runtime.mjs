@@ -71,9 +71,9 @@ const badgeShapeComponents = [
 // Forms), which the old 4-route list never visited.
 const routeConfigs = [
   { route: '/themes', cases: baseCases, components: [] },
-  { route: '/live-demos/layouts', cases: baseCases, components: [] },
-  { route: '/live-demos/analytics', cases: baseCases, components: [] },
-  { route: '/live-demos/semantics', cases: baseCases, components: [] },
+  { route: '/live-proofs/layouts', cases: baseCases, components: [] },
+  { route: '/live-proofs/analytics', cases: baseCases, components: [] },
+  { route: '/live-proofs/semantics', cases: baseCases, components: [] },
   { route: '/patterns/operations', cases: widenedCases, components: kanbanComponents },
   { route: '/patterns/foundations', cases: widenedCases, components: formComponents },
   { route: '/patterns/feedback', cases: baseCases, components: badgeShapeComponents },

@@ -471,6 +471,18 @@ export const GATE_MUTANTS = [
     script: null,
     mutants: [
       {
+        id: 'site-claims-detects-demo-word',
+        claim: 'Detects the reference site calling one of its proof surfaces a demo',
+        // The word is not a style preference. It invites treating the page as a sandbox where
+        // a shortcut is acceptable, which is exactly what nearly happened when a positioned
+        // wrapper was about to be staged with an inline style rather than built into the
+        // primitive that was missing it (Rule 15).
+        file: 'apps/playground/src/showcase-pages.tsx',
+        find: 'How to read these proofs',
+        replace: 'How to read these demos',
+        once: true,
+      },
+      {
         id: 'site-claims-detects-hardcoded-number',
         claim: 'Detects a number typed into visible prose instead of interpolated from its source',
         // "250+ components" was exactly this: true when written, drifting from then on.
