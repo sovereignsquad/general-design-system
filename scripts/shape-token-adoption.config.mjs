@@ -28,7 +28,7 @@ export const SHAPE_ALLOWLIST = {
     reason: 'Circular badge on a generated thumbnail. Same reasoning as ChatSurface: a circle is a shape, not a step.',
     reviewBy: '2027-08-01',
   },
-  'packages/gds-core/src/BottomTabBar.tsx:142': {
+  'packages/gds-core/src/BottomTabBar.tsx:144': {
     category: 'circle',
     reason: 'Circular active/notification indicator in the tab bar.',
     reviewBy: '2027-08-01',
