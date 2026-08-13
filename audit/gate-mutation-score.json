@@ -2,8 +2,8 @@
   "releaseChainGates": 39,
   "gatesWithMutants": 25,
   "gatesExempted": 16,
-  "mutantsRun": 32,
-  "killed": 32,
+  "mutantsRun": 31,
+  "killed": 31,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -187,8 +187,8 @@
       "gate": "verify:component-census",
       "mutantId": "census-detects-stale-published-count",
       "claim": "Detects a published component count that no longer matches the packages",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "anchor not found: export const GDS_PUBLIC_COMPONENT_COUNT = 289;"
     },
     {
       "gate": "verify:site-claims",

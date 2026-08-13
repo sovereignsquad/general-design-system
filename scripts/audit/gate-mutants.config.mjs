@@ -453,11 +453,15 @@ export const GATE_MUTANTS = [
       {
         id: 'census-detects-stale-published-count',
         claim: 'Detects a published component count that no longer matches the packages',
-        // The number the site quotes going stale is the whole failure mode: "250+" was true
-        // when written and drifted unnoticed for as long as nothing compared it to reality.
-        file: 'apps/playground/src/generated-component-census.ts',
-        find: 'export const GDS_PUBLIC_COMPONENT_COUNT = 289;',
-        replace: 'export const GDS_PUBLIC_COMPONENT_COUNT = 250;',
+        // Mutates the DEFINITION of a component, not the published number. The first version
+        // of this mutant pinned `= 289;` and went INVALID the moment a component was added —
+        // a mutant anchored to a legitimately-changing value is a maintenance trap that reads
+        // as a broken gate. Narrowing the census makes the committed file stale whatever the
+        // count happens to be, which is the failure mode: "250+" was true when written and
+        // drifted from then on because nothing compared it to reality.
+        file: 'scripts/lib/component-census.mjs',
+        find: "  return /^[A-Z]/.test(name) && /[a-z]/.test(name) && !/^use[A-Z]/.test(name);",
+        replace: "  return /^[A-Z]/.test(name) && /[a-z]/.test(name) && !/^use[A-Z]/.test(name) && !name.startsWith('Gds');",
         once: true,
       },
     ],
