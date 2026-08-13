@@ -5,9 +5,9 @@
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
       "themeCount": 25,
-      "tokenCount": 5150,
+      "tokenCount": 5250,
       "atmosphereTokenCount": 425,
-      "semanticTokenCount": 4725,
+      "semanticTokenCount": 4825,
       "globalTokenCount": 35,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
@@ -1675,30 +1675,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "default semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(44, 51, 68)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "default semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -1838,6 +1838,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "default semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -1928,6 +1943,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "default semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "default semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -1939,6 +1984,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(56, 27, 39)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "default semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -4739,30 +4799,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#3a3a3a",
           "$description": "high-contrast semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(31, 31, 31)"
+                "light": "#3a3a3a",
+                "dark": "#d6d6d6"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "high-contrast semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -4902,6 +4962,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "high-contrast semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#000000",
@@ -4992,6 +5067,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "high-contrast semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "high-contrast semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -5003,6 +5108,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(45, 10, 8)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "high-contrast semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -7803,30 +7923,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#475569",
           "$description": "colorblind-safe semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(39, 48, 59)"
+                "light": "#475569",
+                "dark": "#c3ccd6"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "colorblind-safe semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -7966,6 +8086,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "colorblind-safe semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#12181f",
@@ -8056,6 +8191,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "colorblind-safe semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "colorblind-safe semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -8067,6 +8232,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(52, 25, 32)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "colorblind-safe semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -10867,30 +11047,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#5f6d82",
           "$description": "dark-public semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(35, 38, 50)"
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "dark-public semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -11030,6 +11210,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "dark-public semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -11120,6 +11315,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "dark-public semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "dark-public semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -11131,6 +11356,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(49, 16, 24)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "dark-public semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -13931,30 +14171,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "flat-surface semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(46, 52, 65)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "flat-surface semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -14094,6 +14334,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "flat-surface semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -14184,6 +14439,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "flat-surface semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "flat-surface semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -14195,6 +14480,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(58, 28, 37)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "flat-surface semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -16995,30 +17295,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#5f6d82",
           "$description": "editorial semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(55, 53, 51)"
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "editorial semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -17158,6 +17458,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "editorial semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -17248,6 +17563,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "editorial semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "editorial semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -17259,6 +17604,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(66, 28, 25)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "editorial semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -20059,30 +20419,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "brand semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(44, 51, 68)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "brand semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -20222,6 +20582,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "brand semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -20312,6 +20687,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "brand semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "brand semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -20323,6 +20728,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(56, 27, 39)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "brand semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -23123,30 +23543,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#333333",
           "$description": "partner-discovery semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(37, 48, 46)"
+                "light": "#333333",
+                "dark": "#c9d8d3"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "partner-discovery semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -23286,6 +23706,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "partner-discovery semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#010800",
@@ -23376,6 +23811,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "partner-discovery semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "partner-discovery semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -23387,6 +23852,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(50, 25, 20)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "partner-discovery semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -26187,30 +26667,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#5b6573",
           "$description": "class-usa semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "#1c2027"
+                "light": "#5b6573",
+                "dark": "#b8bfc9"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "class-usa semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -26350,6 +26830,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "class-usa semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#0f2c4a",
@@ -26440,6 +26935,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "class-usa semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "class-usa semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "#fdede3",
@@ -26451,6 +26976,21 @@
               "scheme": {
                 "light": "#fdede3",
                 "dark": "#4a2410"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "class-usa semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -29251,30 +29791,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#414b57",
           "$description": "gold-athlete semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "#16191f"
+                "light": "#414b57",
+                "dark": "#d6c8a6"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "gold-athlete semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -29414,6 +29954,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "gold-athlete semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#12161c",
@@ -29504,6 +30059,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "gold-athlete semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "gold-athlete semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "#f9cfcc",
@@ -29515,6 +30100,21 @@
               "scheme": {
                 "light": "#f9cfcc",
                 "dark": "#54100c"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "gold-athlete semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -32315,30 +32915,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#5f6d82",
           "$description": "sunset semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(60, 46, 36)"
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "sunset semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -32478,6 +33078,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "sunset semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -32568,6 +33183,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "sunset semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "sunset semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -32579,6 +33224,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(70, 22, 12)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "sunset semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -35379,30 +36039,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "oceanic semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(34, 47, 58)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "oceanic semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -35542,6 +36202,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "oceanic semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -35632,6 +36307,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "oceanic semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "oceanic semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -35643,6 +36348,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(48, 24, 31)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "oceanic semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -38443,30 +39163,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "forest semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(36, 52, 42)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "forest semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -38606,6 +39326,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "forest semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -38696,6 +39431,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "forest semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "forest semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -38707,6 +39472,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(49, 28, 17)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "forest semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -41507,30 +42287,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#5f6d82",
           "$description": "ruby semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(61, 35, 41)"
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "ruby semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -41670,6 +42450,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "ruby semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -41760,6 +42555,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "ruby semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "ruby semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -41771,6 +42596,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(70, 13, 17)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "ruby semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -44571,30 +45411,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "amber semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(58, 50, 34)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "amber semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -44734,6 +45574,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "amber semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -44824,6 +45679,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "amber semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "amber semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -44835,6 +45720,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(68, 26, 11)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "amber semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -47635,30 +48535,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "neon-night semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(33, 37, 46)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "neon-night semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -47798,6 +48698,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "neon-night semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -47888,6 +48803,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "neon-night semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "neon-night semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -47899,6 +48844,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(47, 15, 21)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "neon-night semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -50699,30 +51659,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#5f6d82",
           "$description": "skyline semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(40, 45, 64)"
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "skyline semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -50862,6 +51822,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "skyline semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -50952,6 +51927,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "skyline semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "skyline semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -50963,6 +51968,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(53, 22, 36)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "skyline semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -53763,30 +54783,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "aurora semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(34, 60, 58)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "aurora semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -53926,6 +54946,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "aurora semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -54016,6 +55051,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "aurora semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "aurora semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -54027,6 +55092,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(48, 34, 31)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "aurora semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -56827,30 +57907,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#5f6d82",
           "$description": "coral semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(63, 45, 60)"
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "coral semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -56990,6 +58070,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "coral semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -57080,6 +58175,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "coral semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "coral semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -57091,6 +58216,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(73, 22, 32)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "coral semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -59891,30 +61031,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "mint semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(33, 55, 50)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "mint semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -60054,6 +61194,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "mint semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -60144,6 +61299,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "mint semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "mint semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -60155,6 +61340,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(47, 31, 24)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "mint semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -62955,30 +64155,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#5f6d82",
           "$description": "orchid semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(56, 40, 72)"
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "orchid semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -63118,6 +64318,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "orchid semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -63208,6 +64423,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "orchid semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "orchid semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -63219,6 +64464,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(67, 18, 43)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "orchid semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -66019,30 +67279,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#5f6d82",
           "$description": "royal semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(45, 39, 70)"
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "royal semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -66182,6 +67442,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "royal semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -66272,6 +67547,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "royal semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "royal semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -66283,6 +67588,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(57, 17, 41)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "royal semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -69083,30 +70403,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#64748b",
           "$description": "warm semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(55, 45, 35)"
+                "light": "#64748b",
+                "dark": "#cbd5e1"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "warm semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -69246,6 +70566,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "warm semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#111827",
@@ -69336,6 +70671,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "warm semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "warm semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -69347,6 +70712,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(66, 22, 11)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "warm semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -72147,30 +73527,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#58442a",
           "$description": "athlete-gold semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(33, 38, 44)"
+                "light": "#58442a",
+                "dark": "#d8c8a8"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "athlete-gold semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -72310,6 +73690,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "athlete-gold semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#17130a",
@@ -72400,6 +73795,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "athlete-gold semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "athlete-gold semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -72411,6 +73836,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(47, 16, 19)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "athlete-gold semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
@@ -75211,30 +76651,30 @@
         },
         "badge-solid-neutral": {
           "$type": "color",
-          "$value": "#ffffff",
+          "$value": "#4f4476",
           "$description": "cosmic semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral",
               "lane": "semantic",
               "scheme": {
-                "light": "#ffffff",
-                "dark": "rgb(33, 31, 52)"
+                "light": "#4f4476",
+                "dark": "rgba(235, 238, 255, 0.78)"
               }
             }
           }
         },
         "badge-solid-neutral-fg": {
           "$type": "color",
-          "$value": "#000000",
+          "$value": "#ffffff",
           "$description": "cosmic semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "badge-solid-neutral-fg",
               "lane": "semantic",
               "scheme": {
-                "light": "#000000",
-                "dark": "#ffffff"
+                "light": "#ffffff",
+                "dark": "#000000"
               }
             }
           }
@@ -75374,6 +76814,21 @@
             }
           }
         },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "cosmic semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "bg-inverse": {
           "$type": "color",
           "$value": "#170f35",
@@ -75464,6 +76919,36 @@
             }
           }
         },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "cosmic semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "cosmic semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "brand-accent-tint": {
           "$type": "color",
           "$value": "rgb(244, 222, 221)",
@@ -75475,6 +76960,21 @@
               "scheme": {
                 "light": "rgb(244, 222, 221)",
                 "dark": "rgb(47, 10, 26)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "cosmic semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
               }
             }
           }
