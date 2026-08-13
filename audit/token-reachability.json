@@ -1,8 +1,8 @@
 {
-  "declared": 289,
-  "referenced": 93,
+  "declared": 290,
+  "referenced": 95,
   "extensionPoints": 145,
-  "pendingWireUp": 1,
+  "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
   "rows": [
@@ -964,14 +964,6 @@
       "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
       "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-tour-spotlight-padding",
-      "classification": "pending-wire-up",
-      "reason": "Declared at styles.css:41 immediately beside --gds-tour-spotlight-radius, which IS consumed by .gds-tour-spotlight__hole. GdsTour.client.tsx:411 sets the hole geometry directly from the measured rect with no inflation, so the padding is never applied. This reads as an oversight rather than a deliberate extension point.",
-      "issue": 591,
-      "reviewBy": "2026-12-01",
-      "declaredIn": "packages/gds-theme/styles.css"
     },
     {
       "token": "--gds-transition-scope",

@@ -166,7 +166,7 @@ for (const a of atoms) byKind[a.kind] = (byKind[a.kind] ?? 0) + 1;
 // A kind resolving to zero means extraction is broken, not that the system lacks it.
 const EXPECTED_KINDS = [
   'token-published', 'token-declared', 'token-referenced', 'token-emitted', 'export', 'prop',
-  'variant', 'motion-token', 'motion-shipped', 'interaction-state', 'locale-pack-package',
+  'variant', 'motion-token', 'motion-shipped', 'motion-keyframes', 'interaction-state', 'locale-pack-package',
   'locale-pack-site', 'route', 'pattern', 'theme', 'accent',
 ];
 const missing = EXPECTED_KINDS.filter((k) => !byKind[k]);

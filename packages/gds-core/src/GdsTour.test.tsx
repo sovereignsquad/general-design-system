@@ -214,4 +214,66 @@ describe('GdsTour', () => {
     const seen = renderHook(() => useHasSeenTour('already-seen'));
     await waitFor(() => expect(seen.result.current).toBe(true));
   });
+
+  describe('spotlight padding (issue 591)', () => {
+    // jsdom's 0-rects are an advantage here: with a zero-sized target, the hole's geometry IS
+    // the padding — top/left are -pad and width/height are 2*pad — so the value in use can be
+    // read off the inline style exactly.
+    afterEach(() => {
+      document.documentElement.style.removeProperty('--gds-tour-spotlight-padding');
+    });
+
+    it('takes the padding from its governed token, not a private copy of the number', async () => {
+      // The defect: the component inflated by a hardcoded 8 while
+      // `--gds-tour-spotlight-padding: 8px` sat in styles.css read by nothing. Identical
+      // pixels, so nothing looked wrong — and a theme retuning the token changed nothing.
+      document.documentElement.style.setProperty('--gds-tour-spotlight-padding', '20px');
+      renderWithGds(<GdsTourProvider><Harness /></GdsTourProvider>);
+      await userEvent.click(screen.getByText('Alpha'));
+
+      await screen.findByRole('dialog');
+      const hole = await waitFor(() => {
+        const el = document.querySelector('.gds-tour-spotlight__hole') as HTMLElement | null;
+        expect(el).toBeTruthy();
+        return el as HTMLElement;
+      });
+      expect(hole.style.top).toBe('-20px');
+      expect(hole.style.left).toBe('-20px');
+      expect(hole.style.width).toBe('40px');
+    });
+
+    it('falls back to 8 when the stylesheet is absent', async () => {
+      // A consumer importing the component without styles.css must not get a zero-padding
+      // spotlight — the radius would then be invisible behind the elevated target.
+      renderWithGds(<GdsTourProvider><Harness /></GdsTourProvider>);
+      await userEvent.click(screen.getByText('Alpha'));
+
+      await screen.findByRole('dialog');
+      const hole = await waitFor(() => document.querySelector('.gds-tour-spotlight__hole') as HTMLElement);
+      expect(hole.style.top).toBe('-8px');
+      expect(hole.style.width).toBe('16px');
+    });
+
+    it('still lets a step override the padding explicitly', async () => {
+      document.documentElement.style.setProperty('--gds-tour-spotlight-padding', '20px');
+      function Override() {
+        const tour = useGdsTour();
+        return (
+          <button
+            type="button"
+            data-gds-tour-target="solo"
+            onClick={() => tour.start('override', [{ id: 's', target: 'solo', title: 'T', body: 'B', spotlightPadding: 3 }])}
+          >
+            Solo
+          </button>
+        );
+      }
+      renderWithGds(<GdsTourProvider><Override /></GdsTourProvider>);
+      await userEvent.click(screen.getByText('Solo'));
+
+      await screen.findByRole('dialog');
+      const hole = await waitFor(() => document.querySelector('.gds-tour-spotlight__hole') as HTMLElement);
+      expect(hole.style.top).toBe('-3px');
+    });
+  });
 });

@@ -1,6 +1,6 @@
 {
   "declarationsScanned": 31,
-  "allowlisted": 1,
+  "allowlisted": 0,
   "violationCount": 0,
   "scale": {
     "durations": {
@@ -8,7 +8,8 @@
       "fast": 120,
       "base": 180,
       "slow": 240,
-      "slower": 360
+      "slower": 360,
+      "ambient": 1000
     },
     "easings": {
       "standard": "cubic-bezier(0.2, 0, 0, 1)",
@@ -18,15 +19,6 @@
       "linear": "linear"
     }
   },
-  "allowed": [
-    {
-      "at": "packages/gds-core/src/ChatSurface.tsx:137",
-      "reason": "Issue 592. This is `animation: gds-chat-typing 1s infinite`, and `@keyframes gds-chat-typing` is defined NOWHERE — GDS ships zero @keyframes, so the declaration animates nothing and the indicator renders three static dots. Mapping 1s to the nearest step (360ms) would be meaningless work on a dead reference, and #584 §6 excludes adding keyframes. Allowlisted until #592 decides whether to define the animation (with a scale value and a reduced-motion guard) or delete the declaration.",
-      "reviewBy": "2026-12-01",
-      "values": [
-        "1s"
-      ]
-    }
-  ],
+  "allowed": [],
   "violations": []
 }

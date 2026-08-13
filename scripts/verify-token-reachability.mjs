@@ -62,6 +62,14 @@ for (const file of [...walk(join(ROOT, 'packages')), ...walk(join(ROOT, 'apps/pl
   for (const m of text.matchAll(/var\(\s*(--gds-[a-zA-Z0-9-]+)/g)) {
     if (!referenced.has(m[1])) referenced.set(m[1], relative(ROOT, file));
   }
+  // A component that reads a custom property through the CSSOM is consuming it just as
+  // genuinely as a `var()` in a stylesheet — `GdsTour` reads its spotlight padding this way
+  // because the value has to become a number before it can inflate a measured rect (issue
+  // 591). Counting only `var()` would report a live token as orphaned, and the pressure that
+  // creates is to allowlist a false orphan or contort the component into a CSS-only shape.
+  for (const m of text.matchAll(/getPropertyValue\(\s*['"`](--gds-[a-zA-Z0-9-]+)/g)) {
+    if (!referenced.has(m[1])) referenced.set(m[1], relative(ROOT, file));
+  }
 }
 if (!referenced.size) fail('No var(--gds-*) references found. Extraction is broken.');
 

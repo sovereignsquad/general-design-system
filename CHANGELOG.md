@@ -4,6 +4,48 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The one animation GDS shipped animated nothing (#592)
+
+`ChatSurface`'s typing indicator declared `animation: gds-chat-typing 1s infinite`. **The repo
+contained zero `@keyframes`.** Three static dots, shipping as a "streaming indicator" — a
+reference to nothing, which looks exactly like a static-by-design decision until you check.
+
+- `@keyframes gds-chat-typing` is now defined in `styles.css`, opacity-only so a loop that runs
+  for the length of every response stays off the paint path.
+- The dots carry `data-gds-motion`, so the existing governed rule neutralises them — no new
+  media query. **Verified live: 1 running animation normally, 0 under
+  `prefers-reduced-motion`,** with `animation-name` computing to `none`. Without that
+  attribute a working infinite animation would have kept running for a user who asked for
+  less — WCAG 2.2.2.
+- New `ambient: 1000ms` step on the motion scale, added deliberately rather than mapped: every
+  other step is a *transition* duration and the longest is 360ms, which loops frantically. The
+  dot stagger is a fraction of the same token instead of a second hardcoded number.
+
+**`createGdsMotionCssVariables` now derives its output from `gdsMotionDurations`/`gdsMotionEasings`
+instead of hand-listing them.** That duplication is why adding `ambient` to the record emitted
+no CSS and nothing failed — the scale was called the source of truth and was in fact a copy.
+
+`motion-keyframes` is now in the registry's `EXPECTED_KINDS`, so a kind sitting at zero fails
+extraction instead of passing unremarked, which is how this survived.
+
+### A governed token the component kept a private copy of (#591)
+
+`--gds-tour-spotlight-padding` was declared and read by nothing. The report inferred from the
+CSS that the spotlight hole took the target rect with no inflation — **that was wrong about the
+mechanism, and the difference matters.** `GdsTour.client.tsx` already inflated the rect, by a
+hardcoded `8`: the same number the token declares. So the token was not an unimplemented
+feature, it was a governed value with a private copy beside it, and a theme retuning the token
+changed nothing.
+
+Reading the token changes **no pixels** — which is why this needed no design review under #586
+§13, unlike the visible change the report anticipated. Verified live: horizontal inflation is
+exactly the token's 8px on both sides, with the 12px radius applied.
+
+`verify:token-reachability` now counts `getPropertyValue('--gds-*')` as a reference. Reading a
+custom property through the CSSOM is a real consumption — the tour must turn it into a number
+before it can inflate a measured rect — and a gate blind to that reports a live token as
+orphaned, which pressures toward a false allowlist entry or a contorted CSS-only component.
+
 ### Badge contrast is now measurable, and it is measured (#597)
 
 **The defect was not low contrast. It was unmeasurable contrast.** Mantine's

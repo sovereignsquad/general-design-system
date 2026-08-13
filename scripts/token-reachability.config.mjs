@@ -397,13 +397,10 @@ export const EXTENSION_POINTS = {
  * governance sweep (issue 586 §13).
  */
 export const PENDING_WIRE_UP = {
-  '--gds-tour-spotlight-padding': {
-    reason:
-      'Declared at styles.css:41 immediately beside --gds-tour-spotlight-radius, which IS consumed '
-      + 'by .gds-tour-spotlight__hole. GdsTour.client.tsx:411 sets the hole geometry directly from '
-      + 'the measured rect with no inflation, so the padding is never applied. This reads as an '
-      + 'oversight rather than a deliberate extension point.',
-    issue: 591,
-    reviewBy: '2026-12-01',
-  },
+  // Issue 591 resolved: `--gds-tour-spotlight-padding` is now read by
+  // `readSpotlightPadding()` in GdsTour.client.tsx. The entry above described the hole as
+  // taking the measured rect "with no inflation" — that was wrong about the mechanism. The
+  // inflation was already there; it used a hardcoded `8`, the same number the token declares.
+  // So the fix changed no pixels, which is why it did not need the design review §13 requires
+  // for a token that starts rendering.
 };
