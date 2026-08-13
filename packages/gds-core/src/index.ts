@@ -31,6 +31,7 @@ export * from './generated-art-engine';
 export * from './GdsGeneratedThumbnail';
 export * from './GdsGeneratedHero';
 export * from './GdsRemovableTag';
+export * from './GdsSavedIndicator';
 export * from './GdsDensity';
 export * from './CardContracts';
 

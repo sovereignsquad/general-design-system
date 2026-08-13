@@ -4,6 +4,29 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### GdsSavedIndicator: one save toggle, not two (#546)
+
+The map spec puts a saved heart in two places — a pin's upper-right corner and the preview
+card's action row. Building it twice is how the two drift apart, so it ships once, in two
+geometries.
+
+- A `button` with `aria-pressed`, **never a decorative heart**. The accessible name states the
+  ACTION available while `aria-pressed` carries the state, so neither is announced twice and
+  they cannot contradict each other.
+- `saveLabel`/`unsaveLabel` are **consumer-supplied and required**, the rule `GdsMapPinBadge`'s
+  `label` already follows: GDS ships no English default, because a default is the string that
+  survives into a localized product. They name the item as well as the action — a page of pins
+  otherwise announces "Save" a dozen times with nothing to tell them apart.
+- Size comes from `--gds-control-height-*`, not the spec's literal 48px. `md` is the 44px step
+  and it moves with the density axis; `corner` takes the `sm` step — a smaller STEP, not a
+  magic number, and still a real tap target rather than an icon-sized hit area.
+- The corner form anchors to the **caller's** positioned box. One offset baked into the
+  primitive would make it wrong everywhere except the surface it was first drawn against.
+
+Shipped with the full checklist rather than a component alone: export-coverage entry,
+pattern-registry `sourceComponent`, `COMPONENTS_AND_PATTERNS.md` contract, 6 tests, and a real
+live demo — because `coverageStatus: 'live-demo'` is a claim, which is the defect #600 records.
+
 ### No hardcoded values, gated (#605)
 
 Owner correction: I described "250+" as hardcoded and then **removed** it. The standing
