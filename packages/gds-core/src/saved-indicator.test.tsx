@@ -37,7 +37,7 @@ describe('GdsSavedIndicator (issue 546)', () => {
   it('stays a real tap target in corner mode', () => {
     // The corner form is a smaller STEP on the governed control scale, not an icon-sized hit
     // area — a control a user can see is a control a user will try to press.
-    renderWithGds(<GdsSavedIndicator mode="corner" saved={false} {...labels} />);
+    renderWithGds(<GdsSavedIndicator mode="corner" saved={false} anchor={<span>pin</span>} {...labels} />);
     const button = screen.getByRole('button');
     expect(button.getAttribute('data-gds-saved-indicator')).toBe('corner');
     expect(button.style.width).toBe('var(--gds-control-height-sm)');
@@ -50,6 +50,22 @@ describe('GdsSavedIndicator (issue 546)', () => {
     const button = screen.getByRole('button');
     expect(button.style.width).toBe('var(--gds-control-height-md)');
     expect(button.style.height).toBe('var(--gds-control-height-md)');
+  });
+
+  it('composes through the governed badge stack rather than a bespoke offset', () => {
+    // A primitive that needs the consumer to wrap it in `position: relative` is unfinished —
+    // the playground's GDS-only gate caught exactly that, by refusing the inline style the
+    // first version required.
+    const { container } = renderWithGds(
+      <GdsSavedIndicator mode="corner" saved={false} anchor={<span>pin</span>} {...labels} />,
+    );
+    expect(container.querySelector('[data-gds-badge-stack]')).toBeTruthy();
+    expect(screen.getByText('pin')).toBeInTheDocument();
+  });
+
+  it('falls back to the plain control when corner mode has no anchor', () => {
+    renderWithGds(<GdsSavedIndicator mode="corner" saved={false} {...labels} />);
+    expect(screen.getByRole('button', { name: labels.saveLabel })).toBeTruthy();
   });
 
   it('does not fire when disabled', async () => {

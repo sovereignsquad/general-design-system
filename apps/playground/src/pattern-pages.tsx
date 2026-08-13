@@ -1096,18 +1096,16 @@ function SavedIndicatorDemo() {
           unsaveLabel="Remove Riverside Swim Club from saved"
         />
         <InlineText>{saved ? 'Saved' : 'Not saved'}</InlineText>
-        {/* The corner form needs a positioned parent — it anchors to the caller's box, not to
-            an offset baked into the primitive. */}
-        <GdsBox style={{ position: 'relative', display: 'inline-flex' }}>
-          <GdsMapPinBadge accent="ocean" icon="Location" label="Riverside Swim Club" size={56} filled />
-          <GdsSavedIndicator
-            mode="corner"
-            saved={saved}
-            onSaveChange={setSaved}
-            saveLabel="Save Riverside Swim Club"
-            unsaveLabel="Remove Riverside Swim Club from saved"
-          />
-        </GdsBox>
+        {/* The corner form takes its anchor as a prop and composes through the governed badge
+            stack — no positioned wrapper for the consumer to get right. */}
+        <GdsSavedIndicator
+          mode="corner"
+          saved={saved}
+          onSaveChange={setSaved}
+          saveLabel="Save Riverside Swim Club"
+          unsaveLabel="Remove Riverside Swim Club from saved"
+          anchor={<GdsMapPinBadge accent="ocean" icon="Location" label="Riverside Swim Club" size={56} filled />}
+        />
       </GdsInline>
     </SectionPanel>
   );
