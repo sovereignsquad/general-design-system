@@ -467,6 +467,15 @@ export const GATE_MUTANTS = [
     script: null,
     mutants: [
       {
+        id: 'site-claims-detects-hardcoded-number',
+        claim: 'Detects a number typed into visible prose instead of interpolated from its source',
+        // "250+ components" was exactly this: true when written, drifting from then on.
+        file: 'apps/playground/src/pattern-pages.tsx',
+        find: "'Online orders account for %online% percent of visible orders; in-store orders account for %instore% percent.'",
+        replace: "'Online orders account for 62 percent of visible orders; in-store orders account for 38 percent.'",
+        once: true,
+      },
+      {
         id: 'site-claims-detects-unevidenced-claim',
         claim: 'Detects an absolute claim on the reference site with no registered evidence',
         // Removing a registration leaves the sentence on the site with nothing behind it —

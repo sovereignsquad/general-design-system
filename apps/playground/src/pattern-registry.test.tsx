@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { GDS_ACCENT_NAMES, GDS_ACCENT_SHADES } from '@sovereignsquad/gds-theme';
 import { screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
 import { PatternFamilyPage, PatternsIndexPage } from './pattern-pages';
@@ -95,5 +98,18 @@ describe('playground pattern registry', () => {
     expect(screen.getAllByLabelText('Preview color scheme').length).toBeGreaterThan(0);
     expect(screen.getByRole('link', { name: 'Open theme governance' })).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Open exception-surface rules' })).toBeTruthy();
+  });
+});
+
+describe('numbers quoted in coverage metadata match the system (issue 605)', () => {
+  // Not rendered to visitors, so not a promise to a client — but a number written by hand
+  // drifts exactly the way "250+" did, and the next reader trusts it. Cheap to verify, so
+  // there is no reason for it to be unverified.
+  it('the accent census in the export-coverage rationale matches the constants', () => {
+    const source = readFileSync(resolve(process.cwd(), 'apps/playground/src/pattern-export-coverage.ts'), 'utf8');
+    const match = /(\d+)\s+accents\s+x\s+(\d+)\s+darker-only levels/.exec(source);
+    expect(match, 'the accent census sentence must still be present to be checked').toBeTruthy();
+    expect(Number(match![1])).toBe(GDS_ACCENT_NAMES.length);
+    expect(Number(match![2])).toBe(GDS_ACCENT_SHADES.length);
   });
 });
