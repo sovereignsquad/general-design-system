@@ -1154,15 +1154,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Application Shell & Navigation',
     family: 'public',
     section: 'Shell & Navigation Guidance',
-    // Issue 600: honestly `static-reference`, not `live-proof`. BottomTabBar renders
-    // `position: fixed` and `hiddenFrom="sm"`, so on this documentation page it would either
-    // show nothing at desktop widths or pin itself over the page at mobile widths, reading as
-    // the site's own navigation. Proving it needs a bounded viewport preview frame that GDS
-    // does not have (issue 609). Rule 15: state the absence rather than stage the proof.
-    coverageStatus: 'static-reference',
-    summary: 'Mobile-first persistent bottom tab bar driven by nav items, with safe-area insets, an active token, and an optional raised center action. Not live-proven on this site yet: it is a viewport-fixed, mobile-only surface, and GDS has no bounded viewport frame to render one inside without it behaving as the page’s own navigation.',
+    // Was `static-reference` under #600: BottomTabBar is `position: fixed` and `hiddenFrom="sm"`,
+    // so it could not be shown on a documentation page without either rendering nothing or
+    // pinning itself over the site's own navigation. Rule 15 says the missing capability IS the
+    // finding, so the frame was built (#609) rather than the proof staged, and this is a real
+    // live proof again — rendered inside GdsViewportFrame, which is a shipped primitive any
+    // consumer can obtain.
+    coverageStatus: 'live-proof',
+    summary: 'Mobile-first persistent bottom tab bar driven by nav items, with safe-area insets, an active token, and an optional raised center action.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'BottomTabBar, BOTTOM_TAB_MAX_ITEMS, BOTTOM_TAB_HEIGHT',
+    sourceComponent: 'BottomTabBar, BOTTOM_TAB_MAX_ITEMS, BOTTOM_TAB_HEIGHT, GdsViewportFrame',
   },
   {
     id: 'searchable-select',
