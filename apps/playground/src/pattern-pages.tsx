@@ -1304,7 +1304,7 @@ function AccessGatePlaygroundDemo() {
         state: 'unlocking' as const,
         reason: baseContract.reason ?? 'login-required',
         title: 'Signing in',
-        description: 'Authenticating your demo identity and role to unlock premium content.',
+        description: 'Authenticating your sample identity and role to unlock premium content.',
       }
     : baseContract;
 
@@ -1650,7 +1650,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             sidebar={(
               <SidebarNav ariaLabel="Reference navigation">
                 <SidebarNavSection label="Primary">
-                  <SidebarNavItem action="dashboard" href="/general-design-system/live-demos/surfaces" active />
+                  <SidebarNavItem action="dashboard" href="/general-design-system/live-proofs/surfaces" active />
                   <SidebarNavItem action="settings" href="/general-design-system/patterns" />
                 </SidebarNavSection>
               </SidebarNav>
@@ -1872,7 +1872,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Map containment"
           description="Shared map/iframe contract keeps embed behavior explicit."
           loading={false}
-          empty="No map source configured for this demo."
+          empty="No map source configured for this proof."
         />
       );
     case 'buttons':
@@ -1921,7 +1921,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             size="lg"
             density="comfortable"
             metadata={[{ label: 'Contract', value: 'GDS-owned' }]}
-            primaryAction={<a href="/general-design-system/live-demos/surfaces">Open</a>}
+            primaryAction={<a href="/general-design-system/live-proofs/surfaces">Open</a>}
           />
         </ConsumerDashboardGrid>
       );
@@ -1936,7 +1936,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           metadata={[{ label: 'Scope', value: 'UI primitives' }]}
           interactiveMode="surface-button"
           onSurfaceActivate={() => {}}
-          primaryAction={<a href="/general-design-system/live-demos/surfaces">Buy</a>}
+          primaryAction={<a href="/general-design-system/live-proofs/surfaces">Buy</a>}
         />
       );
     case 'media-card':
@@ -2018,7 +2018,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             { id: 'featured', label: 'Featured', tone: 'positive' },
             { id: 'hot', label: 'Limited batch', tone: 'warning' },
           ]}
-          primaryAction={<a href="/general-design-system/live-demos/food">Reserve pickup</a>}
+          primaryAction={<a href="/general-design-system/live-proofs/food">Reserve pickup</a>}
         />
       );
     case 'food-menu-section':
@@ -2037,7 +2037,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
                   description: 'Shared food-card contract.',
                   state: 'available',
                   price: '€12.50',
-                  primaryAction: <a href="/general-design-system/live-demos/surfaces">Reserve</a>,
+                  primaryAction: <a href="/general-design-system/live-proofs/surfaces">Reserve</a>,
                 },
               ],
             },
@@ -2553,14 +2553,14 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return (
         <ResponsiveDataView
           data={[
-            { id: '1', surface: 'ListingCard', state: 'Live demo' },
-            { id: '2', surface: 'MapPanel', state: 'Live demo' },
+            { id: '1', surface: 'ListingCard', state: 'Live proof' },
+            { id: '2', surface: 'MapPanel', state: 'Live proof' },
           ]}
           columns={[
             { key: 'surface', label: 'Surface' },
             { key: 'state', label: 'State' },
           ]}
-          activeFilters={[{ label: 'Live demo', onRemove: () => {} }]}
+          activeFilters={[{ label: 'Live proof', onRemove: () => {} }]}
           renderCard={(item) => (
             <SectionPanel title={String(item.surface)} description={String(item.state)}>
               <p>Card fallback is owned by the consumer slot, not the responsive contract.</p>
@@ -2946,7 +2946,7 @@ export function PatternsIndexPage() {
         <FeatureBand
           columns={3}
           items={[
-            { id: 'live', title: 'Live demonstrations', description: 'Documented patterns should be represented by shipped package surfaces or bounded examples.' },
+            { id: 'live', title: 'Live proofnstrations', description: 'Documented patterns should be represented by shipped package surfaces or bounded examples.' },
             { id: 'traceable', title: 'Traceable to SSOT', description: 'Each entry keeps its section, family, route, and summary aligned with the canonical markdown inventory.' },
             { id: 'governed', title: 'No local authority', description: 'When the site needs a reusable surface, it belongs in GDS rather than in the app layer.' },
           ]}
@@ -2974,7 +2974,7 @@ export function PatternFamilyPage({ family }: { family: PatternFamily }) {
     >
       <ReferenceSection
         title="How to use this family"
-        description="Use docs routes for policy and usage guidance, then validate behavior against live demos where interaction/runtimes are relevant."
+        description="Use docs routes for policy and usage guidance, then validate behavior against live proofs where interaction/runtimes are relevant."
       >
         <ReferenceLinkGrid
           columns={3}
@@ -2994,8 +2994,8 @@ export function PatternFamilyPage({ family }: { family: PatternFamily }) {
             {
               id: 'live-runtime-proof',
               title: 'Live runtime proof',
-              description: 'Use live demo routes to verify runtime behavior, not just static documentation copy.',
-              href: '/general-design-system/live-demos',
+              description: 'Use live proof routes to verify runtime behavior, not just static documentation copy.',
+              href: '/general-design-system/live-proofs',
             },
           ]}
         />

@@ -1,7 +1,7 @@
 const referenceThemeExplorerCopy = {
   en: {
     themeLabTitle: 'Theme Lab',
-    themeLabDescription: 'Test the actual shipped GDS theme presets, color-scheme behavior, and the governed brand-theme generator. This page is part of the live demo, not a separate styling experiment.',
+    themeLabDescription: 'Test the actual shipped GDS theme presets, color-scheme behavior, and the governed brand-theme generator. This page is part of the live proof, not a separate styling experiment.',
     themePresetTitle: 'Theme preset',
     presetLabel: 'Preset',
     previewColorSchemeLabel: 'Preview color scheme',

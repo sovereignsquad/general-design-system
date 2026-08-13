@@ -2,7 +2,7 @@ import { getSiteCopy, stableGdsVersion, targetGdsVersion } from './site-copy';
 
 export const siteFooterCopy = {
     en: {
-      description: `The official GDS website and live demo. Every public route on this site exists to help teams understand what is shipped, how to install it, and which contracts they should adopt instead of building locally. Live version: ${stableGdsVersion}.`,
+      description: `The official GDS website and live proof. Every public route on this site exists to help teams understand what is shipped, how to install it, and which contracts they should adopt instead of building locally. Live version: ${stableGdsVersion}.`,
       install: 'Install GDS',
       legal: `Open source. Public npm packages. Governed adoption path. Live version ${stableGdsVersion}.`,
       links: [
@@ -13,7 +13,7 @@ export const siteFooterCopy = {
       ],
     },
     de: {
-      description: `Die offizielle GDS-Website und Live-Demo. Jede öffentliche Route hilft Teams zu verstehen, was ausgeliefert ist, wie es installiert wird und welche Contracts statt lokaler Lösungen übernommen werden sollen. Live-Version: ${stableGdsVersion}.`,
+      description: `Die offizielle GDS-Website und Live-Proof. Jede öffentliche Route hilft Teams zu verstehen, was ausgeliefert ist, wie es installiert wird und welche Contracts statt lokaler Lösungen übernommen werden sollen. Live-Version: ${stableGdsVersion}.`,
       install: 'GDS installieren',
       legal: `Open Source. Öffentliche npm-Pakete. Gesteuerter Adoptionspfad. Live-Version ${stableGdsVersion}.`,
       links: [
@@ -24,7 +24,7 @@ export const siteFooterCopy = {
       ],
     },
     fr: {
-      description: `Le site GDS officiel et sa démo live. Chaque route publique aide les équipes à comprendre ce qui est livré, comment l’installer et quels contrats adopter plutôt que construire localement. Version live : ${stableGdsVersion}.`,
+      description: `Le site GDS officiel et sa preuve en direct. Chaque route publique aide les équipes à comprendre ce qui est livré, comment l’installer et quels contrats adopter plutôt que construire localement. Version live : ${stableGdsVersion}.`,
       install: 'Installer GDS',
       legal: `Open source. Packages npm publics. Parcours d’adoption gouverné. Version live ${stableGdsVersion}.`,
       links: [
@@ -35,7 +35,7 @@ export const siteFooterCopy = {
       ],
     },
     it: {
-      description: `Il sito GDS ufficiale e la demo live. Ogni route pubblica aiuta i team a capire cosa è rilasciato, come installarlo e quali contratti adottare invece di costruire localmente. Versione live: ${stableGdsVersion}.`,
+      description: `Il sito GDS ufficiale e la prova dal vivo. Ogni route pubblica aiuta i team a capire cosa è rilasciato, come installarlo e quali contratti adottare invece di costruire localmente. Versione live: ${stableGdsVersion}.`,
       install: 'Installa GDS',
       legal: `Open source. Pacchetti npm pubblici. Percorso di adozione governato. Versione live ${stableGdsVersion}.`,
       links: [
@@ -46,7 +46,7 @@ export const siteFooterCopy = {
       ],
     },
     es: {
-      description: `El sitio web oficial de GDS y la demo en vivo. Cada ruta pública ayuda a los equipos a entender qué se ha publicado, cómo instalarlo y qué contratos deben adoptar en lugar de construir localmente. Versión en vivo: ${stableGdsVersion}.`,
+      description: `El sitio web oficial de GDS y la prueba en vivo. Cada ruta pública ayuda a los equipos a entender qué se ha publicado, cómo instalarlo y qué contratos deben adoptar en lugar de construir localmente. Versión en vivo: ${stableGdsVersion}.`,
       install: 'Instalar GDS',
       legal: `Código abierto. Paquetes npm públicos. Ruta de adopción gobernada. Versión en vivo ${stableGdsVersion}.`,
       links: [
@@ -57,7 +57,7 @@ export const siteFooterCopy = {
       ],
     },
     ru: {
-      description: `Официальный сайт GDS и live-демо. Каждая публичная route помогает понять, что поставлено, как установить систему и какие контракты внедрять вместо локальной разработки. Live-версия: ${stableGdsVersion}.`,
+      description: `Официальный сайт GDS и живые доказательства. Каждая публичная route помогает понять, что поставлено, как установить систему и какие контракты внедрять вместо локальной разработки. Live-версия: ${stableGdsVersion}.`,
       install: 'Установить GDS',
       legal: `Open source. Публичные npm-пакеты. Управляемый путь внедрения. Live-версия ${stableGdsVersion}.`,
       links: [
@@ -79,7 +79,7 @@ export const siteFooterCopy = {
       ],
     },
     ar: {
-      description: `موقع GDS الرسمي والعرض الحي. كل route عامة تساعد الفرق على فهم ما تم تسليمه وكيفية تثبيته وأي عقود يجب اعتمادها بدلا من البناء محليا. الإصدار الحي: ${stableGdsVersion}.`,
+      description: `موقع GDS الرسمي والبراهين الحية. كل route عامة تساعد الفرق على فهم ما تم تسليمه وكيفية تثبيته وأي عقود يجب اعتمادها بدلا من البناء محليا. الإصدار الحي: ${stableGdsVersion}.`,
       install: 'تثبيت GDS',
       legal: `مفتوح المصدر. حزم npm عامة. مسار اعتماد محكوم. الإصدار الحي ${stableGdsVersion}.`,
       links: [
@@ -105,9 +105,9 @@ export const siteFooterCopy = {
 export const overviewCopy = {
     en: {
       title: 'General Design System',
-      eyebrow: 'Official reference and live demo',
+      eyebrow: 'Official reference and live proof',
       lead: 'One place to understand, install, test, and trust GDS. This website is both the public product site and the live runtime proof of the shipped design system.',
-      meta: ['Open source', 'npm-ready', 'Live demos', `Live version ${stableGdsVersion}`],
+      meta: ['Open source', 'npm-ready', 'Live proofs', `Live version ${stableGdsVersion}`],
       whatTitle: 'What GDS is',
       whatDescription: 'GDS is a governed design-system platform for products that want predictable UI contracts, shared runtime behavior, and a clear path away from local wrappers and UI drift.',
       whyTitle: 'Why GDS is useful',
@@ -119,7 +119,7 @@ export const overviewCopy = {
       whatItems: [
         { id: 'what', title: 'Reusable runtime contracts', description: 'Shells, cards, action systems, auth, embeds, feedback, and detail surfaces ship as canonical primitives.' },
         { id: 'why', title: 'A faster path to consistency', description: 'Teams adopt shipped contracts instead of recreating layout, button, and card patterns from scratch.' },
-        { id: 'proof', title: 'This site is the live demo', description: 'Visitors can inspect the actual shipped theme lanes, public patterns, and application surfaces directly on this website.' },
+        { id: 'proof', title: 'This site is the live proof', description: 'Visitors can inspect the actual shipped theme lanes, public patterns, and application surfaces directly on this website.' },
       ],
       whyItems: [
         { id: 'predictable', title: 'Predictable delivery', description: 'Stable contracts reduce clarification overhead and keep implementation decisions reviewable.' },
@@ -132,15 +132,15 @@ export const overviewCopy = {
         { id: 'coverage', title: 'Open coverage matrix', description: 'Track component and pattern parity between documentation and live runtime routes.', href: '/general-design-system/coverage', badge: 'Parity matrix' },
         { id: 'themes', title: 'Explore themes', description: 'Test the shipped presets and the governed brand-theme generator in the live theme lab.', href: '/general-design-system/themes', badge: 'Theme explorer' },
         { id: 'install', title: 'Install GDS', description: 'Copy the npm commands, provider setup, and verification contract used by real adopters.', href: '/general-design-system/install', badge: 'npm' },
-        { id: 'demos', title: 'Open live demos', description: 'Inspect runtime surfaces for shells, cards, auth, actions, food, playback, and analytics.', href: '/general-design-system/live-demos', badge: 'Live demos' },
+        { id: 'demos', title: 'Open live proofs', description: 'Inspect runtime surfaces for shells, cards, auth, actions, food, playback, and analytics.', href: '/general-design-system/live-proofs', badge: 'Live proofs' },
         { id: 'governance', title: 'Read governance', description: 'Understand strict mode, approved exceptions, and the rule that reusable needs belong in GDS rather than local app code.', href: '/general-design-system/governance', badge: 'Rulebook' },
     ],
   },
   de: {
       title: 'General Design System',
-      eyebrow: 'Offizielle Referenz und Live-Demo',
+      eyebrow: 'Offizielle Referenz und Live-Proof',
       lead: 'Ein zentraler Ort, um GDS zu verstehen, zu installieren, zu testen und zu vertrauen. Diese Website ist sowohl die öffentliche Produktseite als auch der Live-Runtime-Beweis des ausgelieferten Design-Systems.',
-      meta: ['Open Source', 'npm-bereit', 'Live-Demos', `Live-Version ${stableGdsVersion}`],
+      meta: ['Open Source', 'npm-bereit', 'Live-Beweise', `Live-Version ${stableGdsVersion}`],
       whatTitle: 'Was GDS ist',
       whatDescription: 'GDS ist eine gesteuerte Design-System-Plattform für Produkte, die vorhersagbare UI-Verträge, gemeinsames Runtime-Verhalten und einen klaren Weg weg von lokalen Wrappern und UI-Drift benötigen.',
       whyTitle: 'Warum GDS nützlich ist',
@@ -152,7 +152,7 @@ export const overviewCopy = {
       whatItems: [
         { id: 'what', title: 'Wiederverwendbare Runtime-Contracts', description: 'Shells, Karten, Aktionssysteme, Auth, Embeds, Feedback und Detailflächen werden als kanonische Primitives ausgeliefert.' },
         { id: 'why', title: 'Schneller zu Konsistenz', description: 'Teams übernehmen ausgelieferte Contracts statt Layout-, Button- und Kartenmuster lokal neu zu bauen.' },
-        { id: 'proof', title: 'Diese Seite ist die Live-Demo', description: 'Besucher können die real ausgelieferten Theme-Lanes, öffentlichen Patterns und App-Flächen direkt hier prüfen.' },
+        { id: 'proof', title: 'Diese Seite ist die Live-Proof', description: 'Besucher können die real ausgelieferten Theme-Lanes, öffentlichen Patterns und App-Flächen direkt hier prüfen.' },
       ],
       whyItems: [
         { id: 'predictable', title: 'Planbare Lieferung', description: 'Stabile Contracts senken Abstimmungsaufwand und halten Entscheidungen überprüfbar.' },
@@ -165,15 +165,15 @@ export const overviewCopy = {
         { id: 'coverage', title: 'Coverage-Matrix öffnen', description: 'Verfolge die Parität von Komponenten und Patterns zwischen Doku und Live-Routen.', href: '/general-design-system/coverage', badge: 'Paritätsmatrix' },
         { id: 'themes', title: 'Themes erkunden', description: 'Teste ausgelieferte Presets und den gesteuerten Brand-Theme-Generator im Live-Lab.', href: '/general-design-system/themes', badge: 'Theme-Explorer' },
         { id: 'install', title: 'GDS installieren', description: 'Übernimm npm-Befehle, Provider-Setup und Verifikationsvertrag aus realen Adopter-Pfaden.', href: '/general-design-system/install', badge: 'npm' },
-        { id: 'demos', title: 'Live-Demos öffnen', description: 'Prüfe Runtime-Flächen für Shells, Karten, Auth, Aktionen, Food, Playback und Analytics.', href: '/general-design-system/live-demos', badge: 'Live-Demos' },
+        { id: 'demos', title: 'Live-Proofs öffnen', description: 'Prüfe Runtime-Flächen für Shells, Karten, Auth, Aktionen, Food, Playback und Analytics.', href: '/general-design-system/live-proofs', badge: 'Live-Beweise' },
         { id: 'governance', title: 'Governance lesen', description: 'Verstehe Strict Mode, freigegebene Ausnahmen und die Regel, dass Wiederverwendbares in GDS gehört.', href: '/general-design-system/governance', badge: 'Regelwerk' },
       ],
     },
   es: {
     title: 'General Design System',
-    eyebrow: 'Referencia oficial y demo en vivo',
+    eyebrow: 'Referencia oficial y prueba en vivo',
     lead: 'Un solo lugar para entender, instalar, probar y confiar en GDS. Este sitio web es tanto el sitio de producto público como la prueba de runtime en vivo del sistema de diseño publicado.',
-    meta: ['Código abierto', 'listo para npm', 'Demos en vivo', `Versión en vivo ${stableGdsVersion}`],
+    meta: ['Código abierto', 'listo para npm', 'Pruebas en vivo', `Versión en vivo ${stableGdsVersion}`],
     whatTitle: 'Qué es GDS',
     whatDescription: 'GDS es una plataforma de diseño gobernada para productos que quieren contratos UI predecibles, comportamiento de runtime compartido y un camino claro fuera de wrappers locales y deriva de la UI.',
     whyTitle: 'Por qué GDS es útil',
@@ -185,7 +185,7 @@ export const overviewCopy = {
     whatItems: [
       { id: 'what', title: 'Contratos de runtime reutilizables', description: 'Shells, tarjetas, sistemas de acción, auth, embeds, feedback y superficies de detalle se envían como primitivas canónicas.' },
       { id: 'why', title: 'Un camino más rápido hacia la consistencia', description: 'Los equipos adoptan contratos publicados en lugar de recrear localmente patrones de layout, botones y tarjetas.' },
-      { id: 'proof', title: 'Este sitio es la demo en vivo', description: 'Los visitantes pueden inspeccionar directamente aquí los theme lanes publicados, los patrones públicos y las superficies de aplicación reales.' },
+      { id: 'proof', title: 'Este sitio es la prueba en vivo', description: 'Los visitantes pueden inspeccionar directamente aquí los theme lanes publicados, los patrones públicos y las superficies de aplicación reales.' },
     ],
     whyItems: [
       { id: 'predictable', title: 'Entrega predecible', description: 'Los contratos estables reducen el costo de clarificación y mantienen revisables las decisiones de implementación.' },
@@ -198,15 +198,15 @@ export const overviewCopy = {
       { id: 'coverage', title: 'Matriz de cobertura abierta', description: 'Sigue la paridad entre componentes/patrones en documentación y rutas runtime en vivo.', href: '/general-design-system/coverage', badge: 'Matriz de paridad' },
       { id: 'themes', title: 'Explorar temas', description: 'Prueba los presets publicados y el generador de brand-theme gobernado en el laboratorio de temas.', href: '/general-design-system/themes', badge: 'Explorador de temas' },
       { id: 'install', title: 'Instalar GDS', description: 'Copia los comandos npm, la configuración del provider y el contrato de verificación usado por adoptantes reales.', href: '/general-design-system/install', badge: 'npm' },
-      { id: 'demos', title: 'Abrir demos en vivo', description: 'Inspecciona superficies de runtime para shells, tarjetas, auth, acciones, food, playback y analytics.', href: '/general-design-system/live-demos', badge: 'Demos en vivo' },
+      { id: 'demos', title: 'Abrir pruebas en vivo', description: 'Inspecciona superficies de runtime para shells, tarjetas, auth, acciones, food, playback y analytics.', href: '/general-design-system/live-proofs', badge: 'Pruebas en vivo' },
       { id: 'governance', title: 'Leer gobernanza', description: 'Comprende el modo estricto, excepciones aprobadas y la regla de que las necesidades reutilizables pertenezcan a GDS en lugar de al código local.', href: '/general-design-system/governance', badge: 'Libro de reglas' },
     ],
   },
   fr: {
       title: 'General Design System',
-      eyebrow: 'Référence officielle et démo live',
+      eyebrow: 'Référence officielle et preuve en direct',
       lead: 'Un seul endroit pour comprendre, installer, tester et fiabiliser GDS. Ce site est à la fois la vitrine publique et la preuve runtime du design system livré.',
-      meta: ['Open source', 'prêt pour npm', 'Démos live', `Version live ${stableGdsVersion}`],
+      meta: ['Open source', 'prêt pour npm', 'Preuves en direct', `Version live ${stableGdsVersion}`],
       whatTitle: 'Ce qu’est GDS',
       whatDescription: 'GDS est une plateforme de design system gouvernée pour les produits qui veulent des contrats UI prévisibles, un comportement runtime partagé et une sortie claire des wrappers locaux.',
       whyTitle: 'Pourquoi GDS est utile',
@@ -218,7 +218,7 @@ export const overviewCopy = {
       whatItems: [
         { id: 'what', title: 'Contrats runtime réutilisables', description: 'Shells, cartes, systèmes d’action, auth, embeds, feedback et surfaces détail sont livrés comme primitives canoniques.' },
         { id: 'why', title: 'Un chemin plus rapide vers la cohérence', description: 'Les équipes adoptent les contrats livrés au lieu de recréer localement layouts, boutons et cartes.' },
-        { id: 'proof', title: 'Ce site est la démo live', description: 'Les visiteurs peuvent inspecter ici les lanes de thème, patterns publics et surfaces applicatives réellement livrés.' },
+        { id: 'proof', title: 'Ce site est la preuve en direct', description: 'Les visiteurs peuvent inspecter ici les lanes de thème, patterns publics et surfaces applicatives réellement livrés.' },
       ],
       whyItems: [
         { id: 'predictable', title: 'Livraison prévisible', description: 'Des contrats stables réduisent le coût de clarification et gardent les décisions auditables.' },
@@ -231,15 +231,15 @@ export const overviewCopy = {
         { id: 'coverage', title: 'Ouvrir la matrice de couverture', description: 'Suivez la parité composants/patterns entre documentation et routes runtime.', href: '/general-design-system/coverage', badge: 'Matrice de parité' },
         { id: 'themes', title: 'Explorer les thèmes', description: 'Testez les presets livrés et le générateur de thème de marque gouverné dans le labo live.', href: '/general-design-system/themes', badge: 'Explorateur de thèmes' },
         { id: 'install', title: 'Installer GDS', description: 'Copiez les commandes npm, le setup provider et le contrat de vérification utilisés par les adopteurs réels.', href: '/general-design-system/install', badge: 'npm' },
-        { id: 'demos', title: 'Ouvrir les démos live', description: 'Inspectez les surfaces runtime pour shells, cartes, auth, actions, food, playback et analytics.', href: '/general-design-system/live-demos', badge: 'Démos live' },
+        { id: 'demos', title: 'Ouvrir les épreuves en direct', description: 'Inspectez les surfaces runtime pour shells, cartes, auth, actions, food, playback et analytics.', href: '/general-design-system/live-proofs', badge: 'Preuves en direct' },
         { id: 'governance', title: 'Lire la gouvernance', description: 'Comprenez le mode strict, les exceptions approuvées et la règle qui impose les besoins réutilisables dans GDS.', href: '/general-design-system/governance', badge: 'Règles' },
       ],
     },
     it: {
       title: 'General Design System',
-      eyebrow: 'Riferimento ufficiale e demo live',
+      eyebrow: 'Riferimento ufficiale e prova dal vivo',
       lead: 'Un unico posto per capire, installare, testare e fidarsi di GDS. Questo sito è sia prodotto pubblico sia prova runtime del design system rilasciato.',
-      meta: ['Codice aperto', 'pronto per npm', 'Demo live', `Versione live ${stableGdsVersion}`],
+      meta: ['Codice aperto', 'pronto per npm', 'Prove dal vivo', `Versione live ${stableGdsVersion}`],
       whatTitle: 'Cos’è GDS',
       whatDescription: 'GDS è una piattaforma di design system governata per prodotti che vogliono contratti UI prevedibili e comportamento runtime condiviso.',
       whyTitle: 'Perché GDS è utile',
@@ -251,7 +251,7 @@ export const overviewCopy = {
       whatItems: [
         { id: 'what', title: 'Contratti runtime riutilizzabili', description: 'Shell, card, sistemi di azione, auth, embed, feedback e superfici di dettaglio vengono rilasciati come primitive canoniche.' },
         { id: 'why', title: 'Coerenza più veloce', description: 'I team adottano contratti già rilasciati invece di ricreare localmente layout, pulsanti e card.' },
-        { id: 'proof', title: 'Questo sito è la demo live', description: 'I visitatori possono ispezionare qui theme lane, pattern pubblici e superfici applicative realmente rilasciate.' },
+        { id: 'proof', title: 'Questo sito è la prova dal vivo', description: 'I visitatori possono ispezionare qui theme lane, pattern pubblici e superfici applicative realmente rilasciate.' },
       ],
       whyItems: [
         { id: 'predictable', title: 'Delivery prevedibile', description: 'Contratti stabili riducono il lavoro di chiarimento e rendono verificabili le decisioni implementative.' },
@@ -264,15 +264,15 @@ export const overviewCopy = {
         { id: 'coverage', title: 'Apri matrice copertura', description: 'Controlla la parità tra documentazione e route runtime live.', href: '/general-design-system/coverage', badge: 'Matrice parità' },
         { id: 'themes', title: 'Esplora i temi', description: 'Testa preset rilasciati e generatore brand-theme governato nel laboratorio live.', href: '/general-design-system/themes', badge: 'Theme explorer' },
         { id: 'install', title: 'Installa GDS', description: 'Copia comandi npm, setup provider e contratto di verifica usati da adopter reali.', href: '/general-design-system/install', badge: 'npm' },
-        { id: 'demos', title: 'Apri demo live', description: 'Ispeziona superfici runtime per shell, card, auth, azioni, food, playback e analytics.', href: '/general-design-system/live-demos', badge: 'Demo live' },
+        { id: 'demos', title: 'Apri prove dal vivo', description: 'Ispeziona superfici runtime per shell, card, auth, azioni, food, playback e analytics.', href: '/general-design-system/live-proofs', badge: 'Prove dal vivo' },
         { id: 'governance', title: 'Leggi governance', description: 'Comprendi strict mode, eccezioni approvate e la regola che i bisogni riutilizzabili appartengono a GDS.', href: '/general-design-system/governance', badge: 'Regole' },
       ],
     },
     ru: {
       title: 'General Design System',
-      eyebrow: 'Официальный референс и live-демо',
+      eyebrow: 'Официальный референс и живые доказательства',
       lead: 'Единая точка, чтобы понять, установить, протестировать и доверять GDS. Этот сайт одновременно публичный продукт и runtime-доказательство поставляемой системы.',
-      meta: ['Открытый код', 'готово для npm', 'Live-демо', `Live-версия ${stableGdsVersion}`],
+      meta: ['Открытый код', 'готово для npm', 'Живые доказательства', `Live-версия ${stableGdsVersion}`],
       whatTitle: 'Что такое GDS',
       whatDescription: 'GDS — управляемая дизайн-системная платформа для предсказуемых UI-контрактов и общего runtime-поведения.',
       whyTitle: 'Почему GDS полезен',
@@ -284,7 +284,7 @@ export const overviewCopy = {
       whatItems: [
         { id: 'what', title: 'Переиспользуемые runtime-контракты', description: 'Shell, карточки, системы действий, auth, embed, feedback и detail-поверхности поставляются как канонические примитивы.' },
         { id: 'why', title: 'Быстрый путь к согласованности', description: 'Команды внедряют готовые контракты вместо локального пересоздания layout, кнопок и карточек.' },
-        { id: 'proof', title: 'Этот сайт — live-демо', description: 'Посетители могут проверить реальные theme lanes, публичные паттерны и application surfaces прямо на этом сайте.' },
+        { id: 'proof', title: 'Этот сайт — живые доказательства', description: 'Посетители могут проверить реальные theme lanes, публичные паттерны и application surfaces прямо на этом сайте.' },
       ],
       whyItems: [
         { id: 'predictable', title: 'Предсказуемая поставка', description: 'Стабильные контракты уменьшают уточнения и делают технические решения проверяемыми.' },
@@ -297,7 +297,7 @@ export const overviewCopy = {
         { id: 'coverage', title: 'Открыть матрицу покрытия', description: 'Проверяйте паритет компонентов и паттернов между документацией и live runtime route.', href: '/general-design-system/coverage', badge: 'Матрица паритета' },
         { id: 'themes', title: 'Открыть темы', description: 'Тестируйте поставленные presets и управляемый brand-theme generator в live theme lab.', href: '/general-design-system/themes', badge: 'Theme explorer' },
         { id: 'install', title: 'Установить GDS', description: 'Скопируйте npm-команды, provider setup и verification contract из реальных adoption paths.', href: '/general-design-system/install', badge: 'npm' },
-        { id: 'demos', title: 'Открыть live-демо', description: 'Проверяйте runtime-поверхности для shell, карточек, auth, действий, food, playback и analytics.', href: '/general-design-system/live-demos', badge: 'Live-демо' },
+        { id: 'demos', title: 'Открыть живые доказательства', description: 'Проверяйте runtime-поверхности для shell, карточек, auth, действий, food, playback и analytics.', href: '/general-design-system/live-proofs', badge: 'Живые доказательства' },
         { id: 'governance', title: 'Читать governance', description: 'Изучите strict mode, утвержденные исключения и правило: переиспользуемые потребности принадлежат GDS.', href: '/general-design-system/governance', badge: 'Правила' },
       ],
     },
@@ -330,7 +330,7 @@ export const overviewCopy = {
         { id: 'coverage', title: 'פתיחת מטריצת כיסוי', description: 'עקבו אחרי תאימות רכיבים ותבניות בין התיעוד למסלולי runtime חיים.', href: '/general-design-system/coverage', badge: 'מטריצת תאימות' },
         { id: 'themes', title: 'חקר ערכות עיצוב', description: 'בדקו presets שפורסמו ואת מחולל ה-brand-theme המנוהל במעבדה החיה.', href: '/general-design-system/themes', badge: 'Theme explorer' },
         { id: 'install', title: 'התקנת GDS', description: 'העתיקו פקודות npm, provider setup וחוזה אימות שמשמשים מאמצים אמיתיים.', href: '/general-design-system/install', badge: 'npm' },
-        { id: 'demos', title: 'פתיחת דמואים חיים', description: 'בדקו משטחי runtime עבור shells, כרטיסים, auth, פעולות, food, playback ו-analytics.', href: '/general-design-system/live-demos', badge: 'דמואים חיים' },
+        { id: 'demos', title: 'פתיחת דמואים חיים', description: 'בדקו משטחי runtime עבור shells, כרטיסים, auth, פעולות, food, playback ו-analytics.', href: '/general-design-system/live-proofs', badge: 'דמואים חיים' },
         { id: 'governance', title: 'קריאת governance', description: 'הבינו strict mode, חריגות מאושרות והכלל שצרכים לשימוש חוזר שייכים ל-GDS.', href: '/general-design-system/governance', badge: 'כללים' },
       ],
     },
@@ -350,7 +350,7 @@ export const overviewCopy = {
       whatItems: [
         { id: 'what', title: 'عقود تشغيل قابلة لإعادة الاستخدام', description: 'تصل shells والبطاقات وأنظمة الإجراءات وauth وembeds وfeedback وأسطح detail كبدائيات Canonical.' },
         { id: 'why', title: 'طريق أسرع إلى الاتساق', description: 'تعتمد الفرق العقود المنشورة بدلا من إعادة بناء layouts والأزرار والبطاقات محليا.' },
-        { id: 'proof', title: 'هذا الموقع هو العرض الحي', description: 'يمكن للزوار فحص theme lanes والأنماط العامة وأسطح التطبيق المنشورة فعليا داخل هذا الموقع.' },
+        { id: 'proof', title: 'هذا الموقع هو البراهين الحية', description: 'يمكن للزوار فحص theme lanes والأنماط العامة وأسطح التطبيق المنشورة فعليا داخل هذا الموقع.' },
       ],
       whyItems: [
         { id: 'predictable', title: 'تسليم قابل للتوقع', description: 'العقود المستقرة تقلل الحاجة للتوضيح وتجعل قرارات التنفيذ قابلة للمراجعة.' },
@@ -363,7 +363,7 @@ export const overviewCopy = {
         { id: 'coverage', title: 'فتح مصفوفة التغطية', description: 'تتبع توافق المكونات والأنماط بين التوثيق ومسارات runtime الحية.', href: '/general-design-system/coverage', badge: 'مصفوفة التوافق' },
         { id: 'themes', title: 'استكشاف الثيمات', description: 'اختبر presets المنشورة ومولد brand-theme المحكوم داخل المختبر الحي.', href: '/general-design-system/themes', badge: 'مستكشف الثيمات' },
         { id: 'install', title: 'تثبيت GDS', description: 'انسخ أوامر npm وإعداد provider وعقد التحقق المستخدم في مسارات اعتماد حقيقية.', href: '/general-design-system/install', badge: 'npm' },
-        { id: 'demos', title: 'فتح العروض الحية', description: 'افحص أسطح runtime للـ shells والبطاقات وauth والإجراءات وfood وplayback وanalytics.', href: '/general-design-system/live-demos', badge: 'عروض حية' },
+        { id: 'demos', title: 'فتح العروض الحية', description: 'افحص أسطح runtime للـ shells والبطاقات وauth والإجراءات وfood وplayback وanalytics.', href: '/general-design-system/live-proofs', badge: 'عروض حية' },
         { id: 'governance', title: 'قراءة الحوكمة', description: 'افهم strict mode والاستثناءات المعتمدة والقاعدة التي تجعل الاحتياجات القابلة لإعادة الاستخدام جزءا من GDS.', href: '/general-design-system/governance', badge: 'القواعد' },
       ],
     },
@@ -396,7 +396,7 @@ export const overviewCopy = {
         { id: 'coverage', title: 'Coverage matrix megnyitása', description: 'Kövesd a komponens és pattern paritást a dokumentáció és live runtime route-ok között.', href: '/general-design-system/coverage', badge: 'Paritás matrix' },
         { id: 'themes', title: 'Témák felfedezése', description: 'Teszteld a kiadott preseteket és a governed brand-theme generátort az élő theme laborban.', href: '/general-design-system/themes', badge: 'Theme explorer' },
         { id: 'install', title: 'GDS telepítése', description: 'Másold a valódi adoptáló útvonalak npm parancsait, provider setupját és verification contractját.', href: '/general-design-system/install', badge: 'npm' },
-        { id: 'demos', title: 'Élő demók megnyitása', description: 'Ellenőrizd a shell, card, auth, action, food, playback és analytics runtime felületeket.', href: '/general-design-system/live-demos', badge: 'Élő demók' },
+        { id: 'demos', title: 'Élő demók megnyitása', description: 'Ellenőrizd a shell, card, auth, action, food, playback és analytics runtime felületeket.', href: '/general-design-system/live-proofs', badge: 'Élő demók' },
         { id: 'governance', title: 'Governance olvasása', description: 'Értsd meg a strict mode-ot, approved exceptionöket és a szabályt, hogy az újrahasználható igények a GDS-be tartoznak.', href: '/general-design-system/governance', badge: 'Szabályzat' },
       ],
     },
@@ -693,7 +693,7 @@ export const installCopy = {
       viteBootstrapTitle: 'Vite / SPA bootstrap',
       scopedPreviewProviderTitle: 'Scoped preview provider',
       adoptSectionTitle: '4. Adopt the shipped contracts',
-      adoptSectionDescription: 'Use the live demo and pattern catalog before inventing product-local wrappers.',
+      adoptSectionDescription: 'Use the live proof and pattern catalog before inventing product-local wrappers.',
       enforceSectionTitle: '5. Enforce the adoption contract',
       enforceSectionDescription: 'Treat your app as a real consumer with manifest-driven compliance.',
       strictManifestTitle: 'Strict adoption manifest',
@@ -728,7 +728,7 @@ export const installCopy = {
       viteBootstrapTitle: 'Vite / SPA Bootstrap',
       scopedPreviewProviderTitle: 'Provider für begrenzte Vorschau',
       adoptSectionTitle: '4. Ausgelieferte Contracts übernehmen',
-      adoptSectionDescription: 'Nutzt Live-Demos und Pattern-Katalog, bevor ihr lokale Wrapper erfindet.',
+      adoptSectionDescription: 'Nutzt Live-Proofs und Pattern-Katalog, bevor ihr lokale Wrapper erfindet.',
       enforceSectionTitle: '5. Adoptionsvertrag erzwingen',
       enforceSectionDescription: 'Behandle eure App als echten Consumer mit manifest-gesteuerter Compliance.',
       strictManifestTitle: 'Striktes Adoptions-Manifest',
@@ -763,7 +763,7 @@ export const installCopy = {
       viteBootstrapTitle: 'Bootstrap Vite / SPA',
       scopedPreviewProviderTitle: 'Provider de prévisualisation isolée',
       adoptSectionTitle: '4. Adopter les contrats livrés',
-      adoptSectionDescription: 'Utilisez la démo live et le catalogue de patterns avant d’inventer des wrappers locaux.',
+      adoptSectionDescription: 'Utilisez la preuve en direct et le catalogue de patterns avant d’inventer des wrappers locaux.',
       enforceSectionTitle: '5. Appliquer le contrat d’adoption',
       enforceSectionDescription: 'Traitez votre application comme un vrai consumer avec une conformité pilotée par manifeste.',
       strictManifestTitle: 'Manifeste d’adoption strict',
@@ -798,7 +798,7 @@ export const installCopy = {
       viteBootstrapTitle: 'Bootstrap Vite / SPA',
       scopedPreviewProviderTitle: 'Provider per preview isolata',
       adoptSectionTitle: '4. Adotta i contratti rilasciati',
-      adoptSectionDescription: 'Usa live demo e catalogo pattern prima di introdurre wrapper locali.',
+      adoptSectionDescription: 'Usa live proof e catalogo pattern prima di introdurre wrapper locali.',
       enforceSectionTitle: '5. Applica il contratto di adozione',
       enforceSectionDescription: 'Tratta la tua app come consumer reale con compliance guidata da manifest.',
       strictManifestTitle: 'Manifest di adozione strict',
@@ -833,7 +833,7 @@ export const installCopy = {
       viteBootstrapTitle: 'Bootstrap Vite / SPA',
       scopedPreviewProviderTitle: 'Provider de vista previa aislada',
       adoptSectionTitle: '4. Adoptar los contratos entregados',
-      adoptSectionDescription: 'Usa la demo en vivo y el catálogo de patrones antes de inventar wrappers locales.',
+      adoptSectionDescription: 'Usa la prueba en vivo y el catálogo de patrones antes de inventar wrappers locales.',
       enforceSectionTitle: '5. Aplicar el contrato de adopción',
       enforceSectionDescription: 'Trata tu app como un consumidor real con cumplimiento guiado por manifiesto.',
       strictManifestTitle: 'Manifiesto de adopción estricto',
@@ -868,7 +868,7 @@ export const installCopy = {
       viteBootstrapTitle: 'Bootstrap Vite / SPA',
       scopedPreviewProviderTitle: 'Provider изолированного preview',
       adoptSectionTitle: '4. Примите поставляемые контракты',
-      adoptSectionDescription: 'Используйте live demo и каталог паттернов до создания локальных оберток.',
+      adoptSectionDescription: 'Используйте live proof и каталог паттернов до создания локальных оберток.',
       enforceSectionTitle: '5. Включите контракт внедрения',
       enforceSectionDescription: 'Считайте приложение реальным consumer с manifest-driven compliance.',
       strictManifestTitle: 'Строгий манифест внедрения',
@@ -938,7 +938,7 @@ export const installCopy = {
       viteBootstrapTitle: 'Bootstrap Vite / SPA',
       scopedPreviewProviderTitle: 'مزود معاينة معزول',
       adoptSectionTitle: '4. اعتماد العقود المُصدَّرة',
-      adoptSectionDescription: 'استخدم العرض الحي وكتالوج الأنماط قبل اختراع أغلفة محلية.',
+      adoptSectionDescription: 'استخدم البراهين الحية وكتالوج الأنماط قبل اختراع أغلفة محلية.',
       enforceSectionTitle: '5. فرض عقد الاعتماد',
       enforceSectionDescription: 'تعامل مع تطبيقك كمستهلك حقيقي مع امتثال مدفوع بالـ manifest.',
       strictManifestTitle: 'Manifest اعتماد صارم',

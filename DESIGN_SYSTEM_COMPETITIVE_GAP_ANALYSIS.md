@@ -72,7 +72,7 @@ implementation.
    #389): `GdsDateInput`/`GdsDateTimeInput`/`GdsDateRangeInput` wrap
    `@mantine/dates` behind a fully GDS-owned prop contract (no vendor type
    leakage — see `verify-public-types-boundary.mjs`), now backing
-   `GdsSchemaForm`'s `date` field type and live-demoed in the Forms pattern.
+   `GdsSchemaForm`'s `date` field type and live-proofed in the Forms pattern.
 2. **Standalone `Breadcrumbs` component.** ~~Currently folded only into
    `PageHeader`/`WorkspaceHeader`/`DocsPageShell` — no independently
    exported, reusable primitive.~~ **Resolved** (issue #390): `GdsBreadcrumbs`

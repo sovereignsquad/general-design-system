@@ -1,6 +1,6 @@
 # General Design System Reference Site
 
-The `playground` app is the canonical public website for General Design System documentation, patterns, and live demonstration. It is intentionally built as a strict GDS consumer and is the visual proof that the contracts in this repository can be consumed directly.
+The `playground` app is the canonical public website for General Design System documentation, patterns, and live proofnstration. It is intentionally built as a strict GDS consumer and is the visual proof that the contracts in this repository can be consumed directly.
 
 ## What this site publishes
 
@@ -9,7 +9,7 @@ The `playground` app is the canonical public website for General Design System d
 - `/governance` — rules for GDS adoption and local exceptions
 - `/themes` — theme explorer and lane comparison (legacy `/tokens`)
 - `/patterns` — pattern catalog and family routes
-- `/live-demos` and family routes for shipped runtime proofs
+- `/live-proofs` and family routes for shipped runtime proofs
 - `/request-feature` — canonical request intake for new primitives or policy updates
 
 Every major section uses package-owned primitives from `@sovereignsquad/gds`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.

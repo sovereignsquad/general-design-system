@@ -106,7 +106,7 @@ Package verification:
 
 ## Documentation And Demo
 
-- Live demo: `https://sovereignsquad.github.io/general-design-system/patterns/access#access-gates`
-- The access-gate live demo now includes a built-in `Click to login` control for a quick locked/unlocked comparison on the same page.
+- Live proof: `https://sovereignsquad.github.io/general-design-system/patterns/access#access-gates`
+- The access-gate live proof now includes a built-in `Click to login` control for a quick locked/unlocked comparison on the same page.
 - API coverage: `GdsAccessGate`, state/reason registries, action sorting, contract validation, access resolver, adapter resolver, and event helpers are covered by the pattern export registry.
 - Related primitives: `AccessSummary`, `AccessRecoveryPanel`, `AuthShell`, `ProviderIdentityButtonGroup`, and `GdsTelemetryProvider`.

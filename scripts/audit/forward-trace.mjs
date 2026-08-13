@@ -1,6 +1,6 @@
 // Phase 2 of docs/DEEP_AUDIT_PLAN.md — forward trace.
 //
-// Rule 2: no GDS token may be absent from the lists, the live demos, the
+// Rule 2: no GDS token may be absent from the lists, the live proofs, the
 // explanations, the variation displays, or the use cases. A token missing any of
 // the five is a gap finding (DO-178C forward traceability) regardless of whether
 // the token itself works.

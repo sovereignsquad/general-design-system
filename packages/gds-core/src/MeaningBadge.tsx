@@ -37,7 +37,7 @@ interface MeaningTokens {
 /*
  * Issue 597. Every variant here paired a themeable fill with a fixed foreground —
  * `--gds-text-on-inverse` for the two brand fills, `--gds-text-primary` for the two tints.
- * Measured live on /patterns/public and /live-demos/semantics, `attention` rendered #f8fafc on
+ * Measured live on /patterns/public and /live-proofs/semantics, `attention` rendered #f8fafc on
  * #0594ac: 3.44:1. The other three were not verified as safe; they were simply never measured,
  * which is not the same thing.
  *

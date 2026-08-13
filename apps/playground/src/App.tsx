@@ -84,9 +84,9 @@ const PlaybackPage = lazy(async () => {
   return { default: module.PlaybackPage };
 });
 
-const LiveDemosPage = lazy(async () => {
+const LiveProofsPage = lazy(async () => {
   const module = await import('./showcase-pages');
-  return { default: module.LiveDemosPage };
+  return { default: module.LiveProofsPage };
 });
 
 const LayoutsPage = lazy(async () => {
@@ -193,7 +193,7 @@ function PlaygroundContent() {
   }, [setSiteThemeSelection]);
 
   const primaryRoutes = getPrimaryRoutes();
-  const demoRoutes = getSecondaryRoutes('live-demos');
+  const demoRoutes = getSecondaryRoutes('live-proofs');
 
   const primaryNavigation = primaryRoutes.map((route) => (
     <SidebarNavItem
@@ -206,7 +206,7 @@ function PlaygroundContent() {
     />
   ));
 
-  const secondaryNavigation = location.pathname.startsWith('/live-demos')
+  const secondaryNavigation = location.pathname.startsWith('/live-proofs')
     ? demoRoutes.map((route) => (
         <SidebarNavItem
           key={route.id}
@@ -339,13 +339,13 @@ function PlaygroundContent() {
               </Suspense>
             )}
           />
-          <Route path="/live-demos" element={<Suspense fallback={<RouteFallback />}><LiveDemosPage /></Suspense>} />
-          <Route path="/live-demos/surfaces" element={<Suspense fallback={<RouteFallback />}><CardsPage /></Suspense>} />
-          <Route path="/live-demos/layouts" element={<Suspense fallback={<RouteFallback />}><LayoutsPage /></Suspense>} />
-          <Route path="/live-demos/semantics" element={<Suspense fallback={<RouteFallback />}><VocabularyPage /></Suspense>} />
-          <Route path="/live-demos/food" element={<Suspense fallback={<RouteFallback />}><FoodMenuPage /></Suspense>} />
-          <Route path="/live-demos/playback" element={<Suspense fallback={<RouteFallback />}><PlaybackPage /></Suspense>} />
-          <Route path="/live-demos/analytics" element={<Suspense fallback={<RouteFallback />}><AnalyticsPage /></Suspense>} />
+          <Route path="/live-proofs" element={<Suspense fallback={<RouteFallback />}><LiveProofsPage /></Suspense>} />
+          <Route path="/live-proofs/surfaces" element={<Suspense fallback={<RouteFallback />}><CardsPage /></Suspense>} />
+          <Route path="/live-proofs/layouts" element={<Suspense fallback={<RouteFallback />}><LayoutsPage /></Suspense>} />
+          <Route path="/live-proofs/semantics" element={<Suspense fallback={<RouteFallback />}><VocabularyPage /></Suspense>} />
+          <Route path="/live-proofs/food" element={<Suspense fallback={<RouteFallback />}><FoodMenuPage /></Suspense>} />
+          <Route path="/live-proofs/playback" element={<Suspense fallback={<RouteFallback />}><PlaybackPage /></Suspense>} />
+          <Route path="/live-proofs/analytics" element={<Suspense fallback={<RouteFallback />}><AnalyticsPage /></Suspense>} />
           <Route path="/request-feature" element={<Suspense fallback={<RouteFallback />}><RequestFeaturePage /></Suspense>} />
           <Route path="/ai" element={<Suspense fallback={<RouteFallback />}><AiPage /></Suspense>} />
           {getLegacyRedirects().map((redirect) => (

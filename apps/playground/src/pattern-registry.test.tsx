@@ -23,8 +23,8 @@ describe('playground pattern registry', () => {
     }
   });
 
-  it('keeps the public catalog fully represented as live demos', () => {
-    expect(patternRegistry.every((entry) => entry.coverageStatus === 'live-demo')).toBe(true);
+  it('keeps the public catalog fully represented as live proofs', () => {
+    expect(patternRegistry.every((entry) => entry.coverageStatus === 'live-proof')).toBe(true);
   });
 
   it('keeps canonical docs and reference-site primitives represented', () => {

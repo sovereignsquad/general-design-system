@@ -188,7 +188,7 @@ history rewrites; don't do it silently just because this policy exists.
 
 ## 10. Fixes on the GDS page are always system-level — no detours (owner directive, 2026-08-08)
 
-`apps/playground` (the GDS website: patterns, live demos, Theme Lab, and
+`apps/playground` (the GDS website: patterns, live proofs, Theme Lab, and
 every other route users see) is not just documentation — it is a **live
 demonstration of the system itself**. Anything wrong there is, by
 construction, wrong in the shared system, because the playground is

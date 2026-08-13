@@ -87,7 +87,7 @@ report back in Section 7, it does not skip any step in Sections 3-6.
 - Data pattern family (tables, badges, filters):
   https://sovereignsquad.github.io/general-design-system/patterns/data
 - Live component demos (interactive, not just static docs):
-  https://sovereignsquad.github.io/general-design-system/live-demos
+  https://sovereignsquad.github.io/general-design-system/live-proofs
 - Full API reference:
   https://sovereignsquad.github.io/general-design-system/api
 

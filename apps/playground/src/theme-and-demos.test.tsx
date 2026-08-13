@@ -5,12 +5,12 @@ import {
   CardsPage,
   FoodMenuPage,
   LayoutsPage,
-  LiveDemosPage,
+  LiveProofsPage,
   PlaybackPage,
   VocabularyPage,
 } from './showcase-pages';
 
-describe('playground theme explorer and live demos hub', () => {
+describe('playground theme explorer and live proofs hub', () => {
   it('lets visitors switch theme presets and compare a second shipped lane', () => {
     renderWithGds(<TokensPage />);
 
@@ -92,8 +92,8 @@ describe('playground theme explorer and live demos hub', () => {
     expect((screen.getByLabelText('Preset') as HTMLSelectElement).value).toBe('cosmic');
   });
 
-  it('frames the live demos section as the official runtime showcase', () => {
-    renderWithGds(<LiveDemosPage />);
+  it('frames the live proofs section as the official runtime showcase', () => {
+    renderWithGds(<LiveProofsPage />);
 
     expect(screen.getByText('Live Demos')).toBeTruthy();
     expect(screen.getByText(/public runtime showcase/i)).toBeTruthy();

@@ -419,7 +419,7 @@ const {
 
 Review checklist for runtime-theme work:
 
-- Can a visitor choose `Oceanic wave`, switch to dark mode, choose `Space Grotesk`, then open `/live-demos/surfaces` directly without losing the runtime?
+- Can a visitor choose `Oceanic wave`, switch to dark mode, choose `Space Grotesk`, then open `/live-proofs/surfaces` directly without losing the runtime?
 - Do direct links and static-host fallback pages serve the same persisted runtime as normal internal navigation?
 - Are font files or imports available for every advertised font lane?
 - Does `createGdsTokenGraph()` still expose a complete light/dark token pair for every shipped lane?

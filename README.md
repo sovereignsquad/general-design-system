@@ -86,7 +86,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Data Table Engine**: [docs/DATA_TABLE_ENGINE.md](docs/DATA_TABLE_ENGINE.md) — Headless and visual table APIs for local/remote data, sorting, filtering, pagination, selection, export requests, mobile cards, state recovery, and virtualized windows.
 - **Resource Manager**: [docs/RESOURCE_MANAGER.md](docs/RESOURCE_MANAGER.md) — CRUD/list/detail/edit/delete/activate/archive/copy-preview workflow framework with typed adapters, permissions, destructive confirmation boundaries, and metadata-only events.
 - **Asset Manager**: [docs/ASSET_MANAGER.md](docs/ASSET_MANAGER.md) — Upload queue, validation, progress, retry, preview cards, thumbnails, display modes, alt/caption metadata policy, and failed asset recovery.
-- **Access Gate and Paywall Runtime**: [docs/ACCESS_GATE.md](docs/ACCESS_GATE.md) — Canonical teaser/paywall contract, auth adapter boundary, protected-content non-rendering policy, metadata-only events, retries, rollback, testing, and live-demo route.
+- **Access Gate and Paywall Runtime**: [docs/ACCESS_GATE.md](docs/ACCESS_GATE.md) — Canonical teaser/paywall contract, auth adapter boundary, protected-content non-rendering policy, metadata-only events, retries, rollback, testing, and live-proof route.
 - **Task Patterns**: [docs/TASK_PATTERNS.md](docs/TASK_PATTERNS.md) — Structured best-practice workflow contracts for create resource, review submission, bulk approve, failed upload recovery, copy public link, publish toggle, and destructive confirmation tasks.
 - **Production Page Templates**: [docs/PAGE_TEMPLATES.md](docs/PAGE_TEMPLATES.md) — Package-native admin dashboard, settings, resource manager, CRUD editor, analytics, public event, error page, and empty-state page templates with typed slots, required states, accessibility, telemetry events, and rollback guidance.
 - **Theme Governance**: [THEME_GOVERNANCE.md](THEME_GOVERNANCE.md) — Brand extension, dark-mode defaults, white-label, flat-surface, and tenant-theme rules.
@@ -122,7 +122,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Dependency-Governed Public API**: API reference entries classify each export as `canonical`, `support-api`, `compatibility`, or `internal-risk`, and mark whether the implementation boundary is `gds-contract`, `mantine-backed`, `tabler-backed`, or `tooling`.
 - **Operator Editing Primitives**: `ContentOpsEditor`, `ContentOpsSection`, `ContentOpsActionBar`, `AppShell`, `ResponsiveDataView`, and `PageHeader` from `@sovereignsquad/gds-admin` — canonical scaffolds for multi-section content/settings operations, authenticated shell framing, and operational registry/detail workflows.
 - **Reference Consumers**: `apps/reference-vite` and `apps/reference-next` — verified fixture apps that exercise the canonical package-consumption path.
-- **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, governance guidance, theme explorer, live demos, and the pattern catalog.
+- **Docs Site Source**: `apps/playground` — the GitHub Pages source app that publishes the install guide, governance guidance, theme explorer, live proofs, and the pattern catalog.
 - **Reference-Site Primitives**: `ReferenceSection`, `ReferenceLinkGrid`, `ReferenceLocaleNotice`, `ReferenceThemeExplorer`, `DocsShell`, and `DocsHeaderActionSelect` — canonical GDS-owned primitives for reference/docs surfaces without site-local pseudo-components, including bounded localized header actions.
 - **Project Board**: [PROJECT_BOARD.md](PROJECT_BOARD.md) — the label-based issue board (GitHub Issues grouped by `status:` labels; no external Projects v2 board), its taxonomy, saved-search views, and tooling.
 - **Board Sync Checklist**: [docs/BOARD_SYNC_CHECKLIST.md](docs/BOARD_SYNC_CHECKLIST.md) — required consistency pass between implementation, docs, and issue-board state before release and after major delivery waves.
@@ -143,14 +143,14 @@ The GitHub Pages site is the public runtime reference for this repository:
 - API reference: `https://sovereignsquad.github.io/general-design-system/api`
 - Maturity capabilities: `https://sovereignsquad.github.io/general-design-system/maturity`
 - Product use cases: `https://sovereignsquad.github.io/general-design-system/use-cases`
-- Live demos: `https://sovereignsquad.github.io/general-design-system/live-demos`
+- Live proofs: `https://sovereignsquad.github.io/general-design-system/live-proofs`
 - Demo route families:
-- `.../live-demos/surfaces`
-- `.../live-demos/layouts`
-- `.../live-demos/semantics`
-- `.../live-demos/food`
-- `.../live-demos/playback`
-- `.../live-demos/analytics`
+- `.../live-proofs/surfaces`
+- `.../live-proofs/layouts`
+- `.../live-proofs/semantics`
+- `.../live-proofs/food`
+- `.../live-proofs/playback`
+- `.../live-proofs/analytics`
 - Pattern family routes:
 - `.../patterns/foundations`
 - `.../patterns/public`
@@ -244,7 +244,7 @@ Required repository behavior:
 - `gds-compliance adoption-report --manifest ./gds-adoption.json --format md` — emits the governed adoption score and remediation summary for a consumer repository
 - `gds-compliance expire-check --manifest ./gds-adoption.json` — fails when dependency-boundary exceptions are past `removeBy` with `enforcementMode: "error"`
 - `npm run verify:api-docs-coverage` — validates the registry-backed public API documentation contract for shipped runtime exports
-- `npm run verify:access-gate` — validates the access-gate docs, exports, live demo registry, privacy policy, and non-rendering tests for paywall/protected-content boundaries
+- `npm run verify:access-gate` — validates the access-gate docs, exports, live proof registry, privacy policy, and non-rendering tests for paywall/protected-content boundaries
 - `npm run verify:i18n-route-coverage` — validates localized route declarations and route-copy implementation markers
 - `npm run verify:i18n-message-parity` — validates package locale pack key parity
 - `npm run verify:i18n-package-copy` — blocks native dialog prompt copy in packages

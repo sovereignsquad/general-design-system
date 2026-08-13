@@ -101,7 +101,7 @@ checks, in the order you'll do them. Worked example: a `StatusPill` in
    (`{ packageName, exportName, status, registryId, rationale }`). **Any**
    exported `function`/`const`/`class` in package `src/` must have a coverage
    entry, or `verify:pattern-export-coverage` and `verify:api-docs-coverage`
-   fail. Use `status: 'support-api'` for non-visual helpers (skips the live-demo
+   fail. Use `status: 'support-api'` for non-visual helpers (skips the live-proof
    evidence requirement); `registryId` must be a real `id` in `pattern-registry.ts`.
 
 5. **Internationalize every string.** No user-facing English literal goes in a

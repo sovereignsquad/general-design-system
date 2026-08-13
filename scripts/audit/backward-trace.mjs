@@ -23,7 +23,7 @@ const ownsPreviewServer = !process.env.GDS_AUDIT_BASE_URL;
 
 // Overridable so the mutation harness (#579) can run a reduced cell set: one route is
 // enough to observe a per-theme delta, at roughly a quarter of the cost.
-const ROUTES = (process.env.GDS_AUDIT_ROUTES ?? '/live-demos,/patterns/foundations,/live-demos/surfaces,/patterns/operations').split(',');
+const ROUTES = (process.env.GDS_AUDIT_ROUTES ?? '/live-proofs,/patterns/foundations,/live-proofs/surfaces,/patterns/operations').split(',');
 // Weighted by §3.1.1 defect history: brand lanes over-represented, dark scheme
 // specific defects real, high-contrast/colorblind lanes are the a11y edge.
 const PRESETS = (process.env.GDS_AUDIT_PRESETS ?? 'default,class-usa,gold-athlete,dark-public,high-contrast').split(',');

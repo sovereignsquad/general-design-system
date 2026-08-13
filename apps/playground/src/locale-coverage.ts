@@ -45,7 +45,7 @@ export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
     fullCopyLocales: allSiteLocaleIds,
   },
   {
-    routePrefix: '/live-demos',
+    routePrefix: '/live-proofs',
     fullCopyLocales: allSiteLocaleIds,
   },
   {

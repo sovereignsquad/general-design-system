@@ -52,7 +52,7 @@ function DemoFooter() {
   );
 }
 
-export function LiveDemosPage() {
+export function LiveProofsPage() {
   return (
     <DocsPageShell
       title="Live Demos"
@@ -60,17 +60,17 @@ export function LiveDemosPage() {
       lead="This section is the public runtime showcase for shipped GDS surfaces. Use it to inspect real compositions and interaction contracts before building locally."
     >
       <SiteTourLauncher
-        tourId="gds-live-demos"
+        tourId="gds-live-proofs"
         autoStart
         steps={[
-          { id: 'live-demos-families', target: 'live-demos-families', title: 'Open a live demo family', body: 'Demos are grouped by purpose — discovery cards, shells, actions/auth, food, playback, analytics. Open the lane you are about to build.', placement: 'bottom' },
-          { id: 'live-demos-howto', target: 'live-demos-howto', title: 'These are shipped contracts', body: 'Every demo renders the real published primitives — not marketing art or local sandboxes — so each one doubles as a migration target.', placement: 'top' },
+          { id: 'live-proofs-families', target: 'live-proofs-families', title: 'Open a live proof family', body: 'Proofs are grouped by purpose — discovery cards, shells, actions/auth, food, playback, analytics. Open the lane you are about to build.', placement: 'bottom' },
+          { id: 'live-proofs-howto', target: 'live-proofs-howto', title: 'These are shipped contracts', body: 'Every proof renders the real published primitives — not marketing art or local sandboxes — so each one doubles as a migration target.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="live-demos-families">
+      <div data-gds-tour-target="live-proofs-families">
       <ReferenceSection
-        title="Open a live demo family"
-        description="The demos are separated by purpose so visitors can inspect the exact runtime lane they care about."
+        title="Open a live proof family"
+        description="The proofs are separated by purpose so visitors can inspect the exact runtime lane they care about."
       >
         <ReferenceLinkGrid
           items={[
@@ -78,46 +78,46 @@ export function LiveDemosPage() {
               id: 'surfaces',
               title: 'Discovery & Cards',
               description: 'Listing, media, map, menu, and share surfaces for public and discovery-heavy products.',
-              href: '/general-design-system/live-demos/surfaces',
+              href: '/general-design-system/live-proofs/surfaces',
             },
             {
               id: 'layouts',
               title: 'Shells & Layouts',
               description: 'DiscoveryShell, detail shells, and bounded public flows with governed layout rhythm.',
-              href: '/general-design-system/live-demos/layouts',
+              href: '/general-design-system/live-proofs/layouts',
             },
             {
               id: 'semantics',
               title: 'Actions & Auth',
               description: 'Semantic actions, social auth, share buttons, and governed interaction states.',
-              href: '/general-design-system/live-demos/semantics',
+              href: '/general-design-system/live-proofs/semantics',
             },
             {
               id: 'food',
               title: 'Food & Menus',
               description: 'Public food and menu contracts with availability, helper states, and grouped item behavior.',
-              href: '/general-design-system/live-demos/food',
+              href: '/general-design-system/live-proofs/food',
             },
             {
               id: 'playback',
               title: 'Playback & Capture',
               description: 'Playback surfaces and controlled capture/review flows without introducing app-local hardware UI.',
-              href: '/general-design-system/live-demos/playback',
+              href: '/general-design-system/live-proofs/playback',
             },
             {
               id: 'analytics',
               title: 'Analytics & Data',
               description: 'Metrics, data views, and operational summaries for analytics-oriented workflows.',
-              href: '/general-design-system/live-demos/analytics',
+              href: '/general-design-system/live-proofs/analytics',
             },
           ]}
         />
       </ReferenceSection>
       </div>
 
-      <div data-gds-tour-target="live-demos-howto">
+      <div data-gds-tour-target="live-proofs-howto">
       <ReferenceSection
-        title="How to read these demos"
+        title="How to read these proofs"
         description="These are live examples built from shipped GDS packages. They are not mock marketing art and they are not local component sandboxes."
       >
         <FeatureBand
@@ -126,7 +126,7 @@ export function LiveDemosPage() {
             {
               id: 'shipped',
               title: 'Shipped contracts only',
-              description: 'The live demo routes should show the actual primitives we publish, not custom website-only replacements.',
+              description: 'The live proof routes should show the actual primitives we publish, not custom website-only replacements.',
             },
             {
               id: 'bounded',
@@ -136,7 +136,7 @@ export function LiveDemosPage() {
             {
               id: 'migration',
               title: 'Migration target',
-              description: 'Each demo is also a migration target for teams currently using local wrappers and bespoke UI.',
+              description: 'Each proof is also a migration target for teams currently using local wrappers and bespoke UI.',
             },
           ]}
         />
@@ -152,7 +152,7 @@ export function CardsPage() {
   return (
     <DocsPageShell
       title="Discovery & Cards"
-      eyebrow="Live demo family"
+      eyebrow="Live proof family"
       lead="Public discovery surfaces should converge on shared cards, menus, map containment, and governed share affordances."
     >
       <ReferenceSection
@@ -172,7 +172,7 @@ export function CardsPage() {
           ]}
           saveAction={{ action: 'save' }}
           shareAction={{ action: 'refer' }}
-          primaryAction={<a href="/general-design-system/live-demos/surfaces">Open listing</a>}
+          primaryAction={<a href="/general-design-system/live-proofs/surfaces">Open listing</a>}
         />
       </ReferenceSection>
 
@@ -189,7 +189,7 @@ export function CardsPage() {
             { id: 'featured', label: 'Featured', tone: 'positive' },
             { id: 'hot', label: 'Limited batch', tone: 'warning' },
           ]}
-          primaryAction={<a href="/general-design-system/live-demos/surfaces">Reserve pickup</a>}
+          primaryAction={<a href="/general-design-system/live-proofs/surfaces">Reserve pickup</a>}
         />
         <FoodMenuSection
           title="Weekly menu"
@@ -206,7 +206,7 @@ export function CardsPage() {
                   state: 'available',
                   price: '€12.50',
                   description: 'Roasted vegetables, herbed rice, and citrus yogurt.',
-                  primaryAction: <a href="/general-design-system/live-demos/surfaces">Add to order</a>,
+                  primaryAction: <a href="/general-design-system/live-proofs/surfaces">Add to order</a>,
                 },
                 {
                   id: 'dish-2',
@@ -214,7 +214,7 @@ export function CardsPage() {
                   state: 'limited',
                   price: '€10.90',
                   description: 'Tahini slaw, pickled onions, and flatbread.',
-                  primaryAction: <a href="/general-design-system/live-demos/surfaces">Add to order</a>,
+                  primaryAction: <a href="/general-design-system/live-proofs/surfaces">Add to order</a>,
                 },
               ],
             },
@@ -243,8 +243,8 @@ export function CardsPage() {
 
       <ReferenceSection title="Governed sharing" description="Sharing should use the canonical share-button group instead of local icon clusters.">
         <ShareButtonGroup
-          url="https://sovereignsquad.github.io/general-design-system/live-demos/surfaces"
-          title="General Design System live demos"
+          url="https://sovereignsquad.github.io/general-design-system/live-proofs/surfaces"
+          title="General Design System live proofs"
           text="Inspect the shipped discovery and card surfaces."
           channels={['copy', 'mail', 'linkedin', 'whatsapp']}
         />
@@ -259,7 +259,7 @@ export function FoodMenuPage() {
   return (
     <DocsPageShell
       title="Food & Menu"
-      eyebrow="Live demo family"
+      eyebrow="Live proof family"
       lead="Food and menu contracts are first-class discovery surfaces. They should follow the same card, helper, and action rules as any other canonical listing."
     >
       <ReferenceSection
@@ -278,7 +278,7 @@ export function FoodMenuPage() {
             { id: 'featured', label: 'Featured', tone: 'positive' },
             { id: 'hot', label: 'Limited batch', tone: 'warning' },
           ]}
-          primaryAction={<a href="/general-design-system/live-demos/food">Reserve pickup</a>}
+          primaryAction={<a href="/general-design-system/live-proofs/food">Reserve pickup</a>}
         />
       </ReferenceSection>
       <ReferenceSection
@@ -300,7 +300,7 @@ export function FoodMenuPage() {
                   state: 'available',
                   price: '€12.50',
                   description: 'Roasted vegetables, herbed rice, and citrus yogurt.',
-                  primaryAction: <a href="/general-design-system/live-demos/food">Add to order</a>,
+                  primaryAction: <a href="/general-design-system/live-proofs/food">Add to order</a>,
                 },
                 {
                   id: 'dish-2',
@@ -308,7 +308,7 @@ export function FoodMenuPage() {
                   state: 'limited',
                   price: '€10.90',
                   description: 'Tahini slaw, pickled onions, and flatbread.',
-                  primaryAction: <a href="/general-design-system/live-demos/food">Add to order</a>,
+                  primaryAction: <a href="/general-design-system/live-proofs/food">Add to order</a>,
                 },
               ],
             },
@@ -324,7 +324,7 @@ export function LayoutsPage() {
   return (
     <DocsPageShell
       title="Shells & Layouts"
-      eyebrow="Live demo family"
+      eyebrow="Live proof family"
       lead="Application shells, detail shells, and staged public flows should converge on shared structure instead of page-local layout contracts."
     >
       <ReferenceSection
@@ -337,9 +337,9 @@ export function LayoutsPage() {
             sidebar={(
               <SidebarNav ariaLabel="Catalog navigation">
                 <SidebarNavSection label="Primary">
-                  <SidebarNavItem action="dashboard" href="/general-design-system/live-demos/layouts" active />
+                  <SidebarNavItem action="dashboard" href="/general-design-system/live-proofs/layouts" active />
                   <SidebarNavItem action="calendar" href="/general-design-system/patterns/foundations" />
-                  <SidebarNavItem action="analytics" href="/general-design-system/live-demos/analytics" />
+                  <SidebarNavItem action="analytics" href="/general-design-system/live-proofs/analytics" />
                 </SidebarNavSection>
                 <SidebarNavSection label="Account" pushToBottom>
                   <SidebarNavItem action="settings" href="/general-design-system/governance" />
@@ -469,7 +469,7 @@ export function VocabularyPage() {
   return (
     <DocsPageShell
       title="Actions & Auth"
-      eyebrow="Live demo family"
+      eyebrow="Live proof family"
       lead="Semantic actions and canonical auth/share surfaces exist so products do not need local wrappers for buttons, login providers, or social distribution."
     >
       <ReferenceSection title="Semantic action system" description="Use semantic actions instead of free-form button stacks wherever the intent is already known.">
@@ -589,8 +589,8 @@ export function VocabularyPage() {
 
       <ReferenceSection title="Share buttons" description="Use the canonical share-button group instead of per-product icon clusters.">
         <ShareButtonGroup
-          url="https://sovereignsquad.github.io/general-design-system/live-demos/semantics"
-          title="GDS actions and auth live demo"
+          url="https://sovereignsquad.github.io/general-design-system/live-proofs/semantics"
+          title="GDS actions and auth live proof"
           text="Inspect semantic actions and canonical social-auth surfaces."
           channels={['native', 'copy', 'mail', 'x']}
           compact
@@ -606,7 +606,7 @@ export function PlaybackPage() {
   return (
     <DocsPageShell
       title="Playback & Capture"
-      eyebrow="Live demo family"
+      eyebrow="Live proof family"
       lead="Playback and capture flows should use shared shells and staging semantics rather than product-local hardware scaffolding."
     >
       <ReferenceSection
@@ -662,15 +662,15 @@ export function PlaybackPage() {
 
 export function AnalyticsPage() {
   const rows = [
-    { id: '1', surface: 'DiscoveryShell', coverage: 'Live demo', status: 'Adopted' },
-    { id: '2', surface: 'ListingCard', coverage: 'Live demo', status: 'Adopted' },
-    { id: '3', surface: 'MapPanel', coverage: 'Live demo', status: 'Adopted' },
+    { id: '1', surface: 'DiscoveryShell', coverage: 'Live proof', status: 'Adopted' },
+    { id: '2', surface: 'ListingCard', coverage: 'Live proof', status: 'Adopted' },
+    { id: '3', surface: 'MapPanel', coverage: 'Live proof', status: 'Adopted' },
   ];
 
   return (
     <DocsPageShell
       title="Analytics & Data"
-      eyebrow="Live demo family"
+      eyebrow="Live proof family"
       lead="Operational metrics, shared data views, and threshold-aware analytics should use the canonical GDS surfaces rather than local reporting wrappers."
     >
       <ReferenceSection title="Metric and progress surfaces" description="Shared metrics should remain readable, threshold-aware, and consistent across products.">

@@ -34,11 +34,11 @@ if (!appSource.includes('getAppShellCopy') || !siteCopySource.includes('Only rou
 }
 
 if (!showcaseSource.includes('public runtime showcase')) {
-  failures.push('Live demos page must explicitly frame itself as public runtime showcase.');
+  failures.push('Live proofs page must explicitly frame itself as public runtime showcase.');
 }
 
 if (!infoPagesSource.includes('overviewCopy') || !siteCopySource.includes('This website is both the public product site and the live runtime proof')) {
-  failures.push('Overview page must keep explicit live-demo framing in the site-copy contract.');
+  failures.push('Overview page must keep explicit live-proof framing in the site-copy contract.');
 }
 
 if (!infoPagesSource.includes('<ReferenceThemeExplorer')) {

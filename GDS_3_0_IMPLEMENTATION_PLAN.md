@@ -66,7 +66,7 @@ Historical “not allowed before Wave 10” policy:
 
 ### 1. Reference Site Completeness
 
-Build the public reference site into the complete live demo for GDS.
+Build the public reference site into the complete live proof for GDS.
 
 Required functions:
 
@@ -261,7 +261,7 @@ Deliverables:
 - `npm run verify:release` passes.
 - `npm run audit:board:strict` passes.
 - All packages are published at `3.0.0`.
-- GitHub Pages presents the `3.0.0` docs and live demo.
+- GitHub Pages presents the `3.0.0` docs and live proof.
 
 ## Verification Commands
 
@@ -294,7 +294,7 @@ Use this checklist at the end of each wave and before Wave 10 starts.
 
 - [ ] Each completed issue has code, docs, test, or verification evidence.
 - [ ] Reference-site changes use GDS primitives only.
-- [ ] Component/pattern claims match package exports and live demos.
+- [ ] Component/pattern claims match package exports and live proofs.
 - [ ] Accessibility requirements are represented in docs, demos, or tests.
 - [ ] Theme-governance claims match compliance behavior.
 

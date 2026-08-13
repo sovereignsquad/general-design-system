@@ -25,6 +25,7 @@ const today = new Date(process.env.GDS_CLAIMS_TODAY ?? Date.now());
 const problems = [];
 const found = new Map();
 const numeric = new Map();
+const visibleStrings = new Map();
 
 for (const rel of SITE_CLAIM_SOURCES) {
   const path = join(ROOT, rel);
@@ -33,9 +34,12 @@ for (const rel of SITE_CLAIM_SOURCES) {
   source.split('\n').forEach((line, index) => {
     // Comments explain the code; they are not shown to a reader of the site.
     if (/^\s*(\/\/|\*|\/\*)/.test(line)) return;
-    for (const match of line.matchAll(/(["'])((?:(?!\1)[^\\]|\\.){40,300})\1/g)) {
+    for (const match of line.matchAll(/(["'])((?:(?!\1)[^\\]|\\.){12,300})\1/g)) {
       const text = match[2].replace(/\\'/g, "'").replace(/\\"/g, '"').trim();
       if (/^[a-z0-9_.\-/]+$/i.test(text)) continue;
+      if (!visibleStrings.has(text)) visibleStrings.set(text, `${rel}:${index + 1}`);
+      // Claims are assertions about the SYSTEM; short UI strings are sample content.
+      if (text.length < 40) continue;
       // A number typed into prose is a claim; a number interpolated through a %placeholder%
       // is derived by construction, which is the whole point of the placeholder.
       if (NUMERIC_PROSE.test(text) && !DERIVED_PLACEHOLDER.test(text) && !numeric.has(text)) {
@@ -68,6 +72,19 @@ for (const [text, where] of found) {
     if (!entry.reviewBy) problems.push(`${where}\n    A "contract" claim needs a reviewBy date; one that cannot expire becomes permanent by neglect.`);
     else if (new Date(entry.reviewBy) < today) problems.push(`${where}\n    Contract claim passed its reviewBy (${entry.reviewBy}). Re-examine whether it can be gated now, or restate it.`);
   }
+}
+
+// Issue 606 / Rule 15. The site used to call its own proof surfaces "demos" — in a nav card,
+// a badge across nine locales, and a public route. The word is not a style preference: it
+// invites treating the page as a sandbox where a shortcut is acceptable, and that is exactly
+// what happened when a positioned wrapper was nearly staged with an inline style instead of
+// being built into the primitive that was missing it.
+//
+// Short strings are exempt: `id: 'demos'` is an internal identifier a reader never sees.
+for (const [text, where] of visibleStrings) {
+  if (text.length < 12) continue;
+  if (!/\bdemos?\b/i.test(text)) continue;
+  problems.push(`${where}\n    CALLS A PROOF A DEMO: "${text.slice(0, 120)}"\n    The reference site is documentation with proofs (Rule 15). "Demo" invites staging; say what the surface actually is.`);
 }
 
 for (const [text, where] of numeric) {

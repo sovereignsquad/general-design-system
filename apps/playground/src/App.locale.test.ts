@@ -31,7 +31,7 @@ describe('playground route locale coverage', () => {
     expect(getFullCopyLocalesForRoute('/patterns')).toEqual(allLocaleIds);
     expect(getFullCopyLocalesForRoute('/governance')).toEqual(allLocaleIds);
     expect(getFullCopyLocalesForRoute('/themes')).toEqual(allLocaleIds);
-    expect(getFullCopyLocalesForRoute('/live-demos')).toEqual(allLocaleIds);
+    expect(getFullCopyLocalesForRoute('/live-proofs')).toEqual(allLocaleIds);
     expect(getFullCopyLocalesForRoute('/request-feature')).toEqual(allLocaleIds);
     expect(getFullCopyLocalesForRoute('/patterns/public')).toEqual(allLocaleIds);
   });

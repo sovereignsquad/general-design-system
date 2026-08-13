@@ -4,7 +4,7 @@ const [{ accessibilityEvidenceEntries, accessibilityEvidenceSummary }, { pattern
   import('@sovereignsquad/gds-core'),
 ]);
 
-const stableEntries = patternRegistry.filter((entry) => entry.coverageStatus === 'live-demo' || entry.coverageStatus === 'static-reference');
+const stableEntries = patternRegistry.filter((entry) => entry.coverageStatus === 'live-proof' || entry.coverageStatus === 'static-reference');
 const evidenceIds = new Set(accessibilityEvidenceEntries.map((entry) => entry.id));
 const failures = [];
 

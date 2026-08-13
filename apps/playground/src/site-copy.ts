@@ -142,7 +142,7 @@ const siteRouteLabels = {
     ar: 'الحوكمة',
     hu: 'Governance',
   },
-  'live-demos': {
+  'live-proofs': {
     en: 'Live Demos',
     de: 'Live-Demos',
     fr: 'Démos live',
@@ -249,8 +249,8 @@ const headerContextCopy = {
     ar: 'موقع GDS الرسمي والتوثيق والقواعد والثيمات وإثبات التشغيل',
     hu: 'Hivatalos GDS weboldal, dokumentáció, szabályok, témák és runtime bizonyíték',
   },
-  liveDemos: {
-    en: 'Official GDS site and live demo hub',
+  liveProofs: {
+    en: 'Official GDS site and live proof hub',
     de: 'Offizielle GDS-Website und Live-Demo-Hub',
     fr: 'Site GDS officiel et hub de démos live',
     it: 'Sito GDS ufficiale e hub demo live',
@@ -274,8 +274,8 @@ const headerContextCopy = {
 } as const;
 
 export function getSiteHeaderContext(pathname: string, locale: string) {
-  if (pathname.startsWith('/live-demos')) {
-    return getSiteCopy(headerContextCopy.liveDemos, locale);
+  if (pathname.startsWith('/live-proofs')) {
+    return getSiteCopy(headerContextCopy.liveProofs, locale);
   }
 
   if (pathname.startsWith('/request-feature')) {

@@ -155,7 +155,7 @@ describe('playground app runtime theme flow', () => {
     );
 
     firstRender.unmount();
-    window.history.pushState({}, '', '/general-design-system/live-demos/surfaces');
+    window.history.pushState({}, '', '/general-design-system/live-proofs/surfaces');
 
     render(<App />);
 
