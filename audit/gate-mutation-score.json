@@ -1,9 +1,9 @@
 {
-  "releaseChainGates": 39,
-  "gatesWithMutants": 25,
+  "releaseChainGates": 40,
+  "gatesWithMutants": 26,
   "gatesExempted": 16,
-  "mutantsRun": 33,
-  "killed": 33,
+  "mutantsRun": 34,
+  "killed": 34,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -187,6 +187,13 @@
       "gate": "verify:component-census",
       "mutantId": "census-detects-stale-published-count",
       "claim": "Detects a published component count that no longer matches the packages",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:pattern-live-proof",
+      "mutantId": "live-proof-detects-unproven-claim",
+      "claim": "Detects a pattern claiming live-proof coverage that nothing on the site renders",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
