@@ -34,6 +34,23 @@ export function isGdsRtlLocale(locale: string) {
   return getGdsLocaleMetadata(locale).direction === 'rtl';
 }
 
+/** Every locale id GDS supports. */
+export function getGdsLocaleIds() {
+  return Object.keys(gdsLocaleMetadata) as GdsLocaleId[];
+}
+
+/**
+ * Every script GDS must be able to render, derived from the locale catalog.
+ *
+ * Exported so nothing downstream writes its own list. A font lane that hard-coded
+ * `['latin', 'cyrillic']` would keep passing its own check on the day a locale in a new
+ * script is added, which is exactly how `ja`/`ko`/`zh` ended up with no lane that could
+ * render them (issue 587).
+ */
+export function getGdsLocaleScripts() {
+  return [...new Set(Object.values(gdsLocaleMetadata).map((metadata) => metadata.script))] as GdsLocaleScript[];
+}
+
 /** Returns the ids of all supported locales whose script is in `scripts`. */
 export function getGdsLocaleIdsByScript(scripts: GdsLocaleScript[]) {
   return Object.entries(gdsLocaleMetadata)

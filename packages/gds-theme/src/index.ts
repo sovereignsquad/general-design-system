@@ -59,7 +59,7 @@ export { OverlayAdapterProvider, useOverlayAdapter, mantineOverlayAdapter, defau
 export type { OverlayAdapter, GdsOverlayConfig, GdsOverlayPlacement, GdsOverlayRole, GdsOverlayDismissReason } from './overlay-adapter';
 
 // ── Internationalization ──
-export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIdsByScript, getGdsLocaleMetadata, isGdsRtlLocale, useGdsTranslation } from './i18n';
+export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIds, getGdsLocaleIdsByScript, getGdsLocaleMetadata, getGdsLocaleScripts, isGdsRtlLocale, useGdsTranslation } from './i18n';
 export type { GdsI18nContextValue, GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './i18n';
 
 // ── Badge icon style (issue #525) ──

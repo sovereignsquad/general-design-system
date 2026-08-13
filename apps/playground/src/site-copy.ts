@@ -7,7 +7,10 @@ import {
   he,
   hu,
   it,
+  ja,
+  ko,
   ru,
+  zh,
 } from '@sovereignsquad/gds-core';
 
 export const stableGdsVersion = '6.0.0';
@@ -23,6 +26,13 @@ export const siteLocaleRegistry = {
   he: { label: 'עברית', messages: he },
   ar: { label: 'العربية', messages: ar },
   hu: { label: 'Magyar', messages: hu },
+  // Issue 587. gds-core shipped these three package packs while the site had no phrase pack
+  // for any of them, so the reference site could not render in Japanese, Korean or Chinese
+  // even though the packages a visitor would install support their language. Each label is
+  // written in its own script, per the issue's UX goal.
+  ja: { label: '日本語', messages: ja },
+  ko: { label: '한국어', messages: ko },
+  zh: { label: '简体中文', messages: zh },
 } as const;
 
 export type SiteLocaleId = keyof typeof siteLocaleRegistry;
@@ -53,6 +63,9 @@ const siteRouteLabels = {
     he: 'מה זה GDS',
     ar: 'ما هو GDS',
     hu: 'Mi a GDS',
+    zh: '什么是GDS',
+    ko: 'GDS란?',
+    ja: 'GDSとは',
   },
   install: {
     en: 'Install',
@@ -64,6 +77,9 @@ const siteRouteLabels = {
     he: 'התקנה',
     ar: 'التثبيت',
     hu: 'Telepítés',
+    zh: '安装',
+    ko: '설치하다',
+    ja: 'インストール',
   },
   patterns: {
     en: 'Patterns',
@@ -75,6 +91,9 @@ const siteRouteLabels = {
     he: 'תבניות',
     ar: 'الأنماط',
     hu: 'Minták',
+    zh: '图案',
+    ko: '패턴',
+    ja: 'パターン',
   },
   api: {
     en: 'API',
@@ -86,6 +105,9 @@ const siteRouteLabels = {
     he: 'API',
     ar: 'API',
     hu: 'API',
+    zh: '应用程序编程接口',
+    ko: 'API',
+    ja: 'API',
   },
   maturity: {
     en: 'Maturity',
@@ -97,6 +119,9 @@ const siteRouteLabels = {
     he: 'בשלות',
     ar: 'النضج',
     hu: 'Érettség',
+    zh: '到期',
+    ko: '성숙함',
+    ja: '成熟',
   },
   'use-cases': {
     en: 'Use Cases',
@@ -108,6 +133,9 @@ const siteRouteLabels = {
     he: 'שימושים',
     ar: 'حالات الاستخدام',
     hu: 'Use case-ek',
+    zh: '使用案例',
+    ko: '사용 사례',
+    ja: '使用例',
   },
   coverage: {
     en: 'Coverage',
@@ -119,6 +147,9 @@ const siteRouteLabels = {
     he: 'כיסוי',
     ar: 'التغطية',
     hu: 'Lefedettség',
+    zh: '覆盖范围',
+    ko: '적용 범위',
+    ja: 'カバレッジ',
   },
   themes: {
     en: 'Themes',
@@ -130,6 +161,9 @@ const siteRouteLabels = {
     he: 'ערכות עיצוב',
     ar: 'الثيمات',
     hu: 'Témák',
+    zh: '主题',
+    ko: '테마',
+    ja: 'テーマ',
   },
   governance: {
     en: 'Governance',
@@ -141,6 +175,9 @@ const siteRouteLabels = {
     he: 'ממשל',
     ar: 'الحوكمة',
     hu: 'Governance',
+    zh: '治理',
+    ko: '통치',
+    ja: 'ガバナンス',
   },
   'live-proofs': {
     en: 'Live Demos',
@@ -152,6 +189,9 @@ const siteRouteLabels = {
     he: 'דמואים חיים',
     ar: 'عروض حية',
     hu: 'Élő demók',
+    zh: '现场演示',
+    ko: '라이브 데모',
+    ja: 'ライブデモ',
   },
   'request-feature': {
     en: 'Request a Feature',
@@ -163,6 +203,9 @@ const siteRouteLabels = {
     he: 'בקשת יכולת',
     ar: 'طلب ميزة',
     hu: 'Feature kérése',
+    zh: '请求功能',
+    ko: '기능 요청',
+    ja: '機能をリクエストする',
   },
   'demo-surfaces': {
     en: 'Discovery & Cards',
@@ -174,6 +217,9 @@ const siteRouteLabels = {
     he: 'גילוי וכרטיסים',
     ar: 'الاكتشاف والبطاقات',
     hu: 'Felfedezés és kártyák',
+    zh: '探索与卡片',
+    ko: '발견 및 카드',
+    ja: 'ディスカバリーとカード',
   },
   'demo-layouts': {
     en: 'Shells & Layouts',
@@ -185,6 +231,9 @@ const siteRouteLabels = {
     he: 'מעטפות ופריסות',
     ar: 'الأغلفة والتخطيطات',
     hu: 'Shell-ek és elrendezések',
+    zh: '外壳和布局',
+    ko: '쉘 및 레이아웃',
+    ja: 'シェルとレイアウト',
   },
   'demo-semantics': {
     en: 'Actions & Auth',
@@ -196,6 +245,9 @@ const siteRouteLabels = {
     he: 'פעולות ואימות',
     ar: 'الإجراءات والمصادقة',
     hu: 'Műveletek és auth',
+    zh: '操作和授权',
+    ko: '작업 및 인증',
+    ja: 'アクションと認証',
   },
   'demo-food': {
     en: 'Food & Menus',
@@ -207,6 +259,9 @@ const siteRouteLabels = {
     he: 'אוכל ותפריטים',
     ar: 'الطعام والقوائم',
     hu: 'Ételek és menük',
+    zh: '食物和菜单',
+    ko: '음식 및 메뉴',
+    ja: '食事とメニュー',
   },
   'demo-playback': {
     en: 'Playback & Capture',
@@ -218,6 +273,9 @@ const siteRouteLabels = {
     he: 'ניגון ולכידה',
     ar: 'التشغيل والالتقاط',
     hu: 'Lejátszás és rögzítés',
+    zh: '回放和捕捉',
+    ko: '재생 및 캡처',
+    ja: '再生とキャプチャ',
   },
   'demo-analytics': {
     en: 'Analytics & Data',
@@ -229,6 +287,9 @@ const siteRouteLabels = {
     he: 'אנליטיקה ונתונים',
     ar: 'التحليلات والبيانات',
     hu: 'Analitika és adatok',
+    zh: '分析与数据',
+    ko: '분석 및 데이터',
+    ja: '分析とデータ',
   },
 } as const;
 
@@ -248,6 +309,9 @@ const headerContextCopy = {
     he: 'אתר GDS רשמי, תיעוד, כללים, ערכות עיצוב והוכחת runtime',
     ar: 'موقع GDS الرسمي والتوثيق والقواعد والثيمات وإثبات التشغيل',
     hu: 'Hivatalos GDS weboldal, dokumentáció, szabályok, témák és runtime bizonyíték',
+    zh: 'GDS 官方网站、文档、规则、主题和运行时证明',
+    ko: '공식 GDS 웹사이트, 문서, 규칙, 테마 및 런타임 증명',
+    ja: '公式 GDS Web サイト、ドキュメント、ルール、テーマ、および実行時の証明',
   },
   liveProofs: {
     en: 'Official GDS site and live proof hub',
@@ -259,6 +323,9 @@ const headerContextCopy = {
     he: 'אתר GDS רשמי ומרכז דמואים חיים',
     ar: 'موقع GDS الرسمي ومركز العروض الحية',
     hu: 'Hivatalos GDS oldal és élő demó központ',
+    zh: '官方 GDS 网站和现场验证中心',
+    ko: '공식 GDS 사이트 및 라이브 증명 허브',
+    ja: '公式 GDS サイトとライブプルーフハブ',
   },
   featureRequest: {
     en: 'Official GDS feature request intake',
@@ -270,6 +337,9 @@ const headerContextCopy = {
     he: 'ערוץ רשמי לבקשות יכולת GDS',
     ar: 'قناة طلب ميزات GDS الرسمية',
     hu: 'Hivatalos GDS feature kérési csatorna',
+    zh: '官方 GDS 功能请求受理',
+    ko: '공식 GDS 기능 요청 접수',
+    ja: '公式 GDS 機能リクエストの受付',
   },
 } as const;
 
@@ -348,6 +418,27 @@ export const appShellCopy = {
     localeFallbackDetail: 'A közös GDS szókészlet a kiválasztott nyelvvel vált. Teljes fordított szöveg csak a hivatalos coverage contractban felsorolt útvonalakon érhető el. {localeLabel} a teljes copy-lefedettségű útvonalakon marad elérhető.',
     routeFallbackTitle: 'Referencia útvonal betöltése',
     routeFallbackDescription: 'A hivatalos GDS weboldal betölti a következő élő példát.',
+  },
+    zh: {
+    localeSelectLabel: '选择站点区域设置',
+    localeFallbackLabel: '仅英语',
+    localeFallbackDetail: '与所选区域设置共享的 GDS 词汇切换。仅在官方报道合同中列为完全本地化的航线才会提供完整的翻译副本。 {localeLabel} 在具有完整副本覆盖的路线上仍然可用。',
+    routeFallbackTitle: '加载参考路线',
+    routeFallbackDescription: 'GDS 官方网站正在加载下一个实例。',
+  },
+    ko: {
+    localeSelectLabel: '사이트 로케일 선택',
+    localeFallbackLabel: '영어로만 제공',
+    localeFallbackDetail: '선택한 로케일과 공유 GDS 어휘 스위치. 공식 적용 범위 계약에 완전히 현지화된 것으로 나열된 노선만 완전한 번역본을 배송합니다. 전체 사본이 적용되는 경로에서는 {localeLabel}을 계속 사용할 수 있습니다.',
+    routeFallbackTitle: '참조 경로 로드 중',
+    routeFallbackDescription: '공식 GDS 웹사이트에서 다음 라이브 예제를 로드 중입니다.',
+  },
+    ja: {
+    localeSelectLabel: 'サイトロケールの選択',
+    localeFallbackLabel: '英語のみ',
+    localeFallbackDetail: '共有 GDS 語彙は、選択したロケールに応じて切り替わります。公式補償契約に完全にローカライズされていると記載されているルートのみが、完全な翻訳版を出荷します。 {localeLabel} は、フルコピー カバレッジのルートで引き続き使用できます。',
+    routeFallbackTitle: '参照ルートの読み込み',
+    routeFallbackDescription: 'GDS の公式 Web サイトには、次のライブ サンプルがロードされています。',
   },
 } as const;
 

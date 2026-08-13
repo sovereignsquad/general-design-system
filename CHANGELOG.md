@@ -4,6 +4,54 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### A font lane must render every language GDS ships (owner directive, 2026-08-13)
+
+**Only a font stack that supports 100% of the supported languages may be a font lane.** Eleven
+of twelve lanes declared coverage of latin, or latin plus cyrillic. That meant **choosing a
+font silently chose which languages the product could display**, and nothing said so at the
+point of choice. `ja`, `ko` and `zh` had no lane at all: the packages shipped locale packs for
+all three while no lane's fonts contained one of their glyphs.
+
+A partial lane is a **detour** in the Rule 10 sense — it does not remove the problem, it
+relocates it onto every consuming app, which then rediscovers it one product at a time.
+
+Every lane now ends in a universal script fallback naming one Noto family per script in the
+catalog, so the lane's own display face still leads for Latin text and the browser only reaches
+a Noto entry for glyphs that face lacks. **Nothing is copied**: the script list comes from
+`getGdsLocaleScripts()`, newly exported from the same `gdsLocaleMetadata` that defines the
+locales, so adding a locale in a new script makes the font map incomplete and fails the build
+rather than shipping a lane that cannot draw it.
+
+New gate `verify:font-lane-coverage`, in the release chain, with a mutant that strips the
+fallback. Documented in THEME_GOVERNANCE.md — including **what the gate cannot prove**: it
+verifies structure, not font binaries, so a family mapped to a script whose glyphs it lacks
+would still pass. Proving real glyph coverage means reading `unicode-range` from the font
+service live, the same network dependency already exempted for `audit:dependencies`.
+
+### The site can now render in Japanese, Korean and Chinese (#587)
+
+`gds-core` shipped locale packs for `ja`, `ko` and `zh` while the reference site had a phrase
+pack for none of them. A prospective adopter in those markets evaluated an English-only site
+while the packages they would install supported their language — **the capability existed and
+was invisible.**
+
+Locale coverage was verified *within* the package corpus and *within* the site corpus, never
+*between* them, so the gap passed every gate. `verify:locale-coverage` now asserts parity
+across the two, and `localesWithoutSitePack` is ratcheted 3 → 0.
+
+Both halves are generated, not hand-authored. The 1,302 site phrases came from the existing
+generator. The per-locale blocks in `page-copy.ts` and `site-copy.ts` needed a new one
+(`generate-page-copy-locales.mjs`) because the runtime phrase overlay deliberately skips text
+inside `a`, `button` and `label` — which is most of what those maps hold — so a locale without
+its own blocks would have rendered Japanese body copy under English navigation.
+
+That generator finds locale maps **structurally** (an object whose keys are all locale ids and
+which has an `en`). Two earlier attempts are worth recording because both failed quietly: one
+tested for `ObjectExpression` when every map is written `} as const` and found **one map out of
+nine**; the next only looked at exported declarations and missed the maps nested inside
+`headerContextCopy`. Both now fail loudly instead — the guard compares what was found against
+the blocks actually present in the file.
+
 ### Untranslated English: fixed at the source, then gated (#517, #588, #611)
 
 Four i18n gates were green while full English paragraphs sat mid-page in Hebrew and Arabic.

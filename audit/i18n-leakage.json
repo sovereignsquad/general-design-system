@@ -69,7 +69,31 @@
         "leakedKeys": []
       },
       {
+        "locale": "ja",
+        "total": 1293,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "ko",
+        "total": 1293,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
         "locale": "ru",
+        "total": 1293,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "zh",
         "total": 1293,
         "leaked": 0,
         "rate": 0,
