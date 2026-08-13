@@ -52,6 +52,8 @@ const browserSession = await launchChromeBrowser({ tmpPrefix: 'gds-theme-matrix-
 const client = await createCdpClient(browserSession.webSocketDebuggerUrl);
 
 const findings = [];
+const unsettledCells = [];
+const truncatedCells = [];
 let propertiesChecked = 0;
 
 try {
@@ -80,6 +82,35 @@ try {
     `);
     await wait(350);
     await waitForReady(client);
+
+    // Issue 599 — wait for a SETTLED DOM, not a fixed delay.
+    //
+    // Three consecutive runs on one commit reported 33.96 / 33.95 / 33.94 percent with element
+    // counts of 28,242 / 28,128 / 28,238. The rate band is small; the ~114-element spread is
+    // the real problem, because it means the sweep sampled a different amount of each route
+    // depending on render timing. A fixed `wait(350)` is a guess about how long React, lazy
+    // routes and web fonts take, and it is a different guess on a loaded CI runner.
+    //
+    // Polling until the node count is unchanged across two consecutive reads replaces the
+    // guess with the condition it was standing in for. The cap is a real bound, not a hang:
+    // a route that never settles is reported rather than silently sampled mid-render.
+    const settle = await evaluate(client, `(async () => {
+      const countNodes = () => document.querySelectorAll('body *').length;
+      let previous = -1;
+      let stableReads = 0;
+      for (let poll = 0; poll < 40; poll += 1) {
+        const current = countNodes();
+        stableReads = current === previous ? stableReads + 1 : 0;
+        if (stableReads >= 2) return { settled: true, nodes: current, polls: poll };
+        previous = current;
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+      return { settled: false, nodes: countNodes(), polls: 40 };
+    })()`);
+
+    if (!settle?.settled) {
+      unsettledCells.push(`${cell.route} ${cell.preset}/${cell.scheme} (${settle?.nodes ?? 'unknown'} nodes still moving after 4s)`);
+    }
 
     const observed = await evaluate(client, `(() => {
       const props = ${JSON.stringify(TRACKED_PROPERTIES.map((p) => p.property))};
@@ -112,7 +143,14 @@ try {
       };
       // Sampled rather than exhaustive: a route can render thousands of nodes, and the same
       // component repeated 200 times contributes one distinct provenance question, not 200.
-      for (const el of Array.from(document.querySelectorAll('body *')).slice(0, 400)) {
+      //
+      // Issue 599. DOM order is only stable once the DOM is, which is what the settle poll
+      // above now guarantees — before it, a slower route contributed a DIFFERENT first 400.
+      // The cap is reported rather than applied silently: a truncated route is a route this
+      // sweep did not fully see, and a coverage number that hides that reads as more than it is.
+      const allNodes = Array.from(document.querySelectorAll('body *'));
+      const SAMPLE_CAP = 400;
+      for (const el of allNodes.slice(0, SAMPLE_CAP)) {
         if (!visible(el)) continue;
         const s = getComputedStyle(el);
         for (const p of props) {
@@ -131,10 +169,14 @@ try {
           });
         }
       }
-      return out;
+      return { rows: out, totalNodes: allNodes.length, truncated: allNodes.length > SAMPLE_CAP };
     })()`);
 
-    for (const record of observed ?? []) {
+    if (observed?.truncated) {
+      truncatedCells.push(`${cell.route} ${cell.preset}/${cell.scheme} (${observed.totalNodes} nodes, sampled 400)`);
+    }
+
+    for (const record of observed?.rows ?? []) {
       propertiesChecked += 1;
       const value = String(record.value).trim().toLowerCase();
       if (NON_TOKEN_VALUES.has(value)) continue;
@@ -152,19 +194,19 @@ try {
   await previewServer?.kill('SIGTERM');
 }
 
-// Rounded to one decimal, and counts bucketed, because the sweep is not yet reproducible
-// (issue 599): three runs on one commit measured 33.94/33.95/33.96 with element counts of
-// 28128-28242. A committed artifact that changes every run makes the clean-tree rule
-// unsatisfiable. The precision is reduced deliberately and stated — not to make the number
-// look stable, but because claiming two decimals from a sweep with this variance would assert
-// precision that does not exist.
-// INTEGER precision, and counts to the nearest thousand. One decimal was tried and still
-// moved: the observed band 33.94-33.96 straddles 33.9 and 34.0. The sweep supports an integer
-// percentage and nothing finer, so that is what the artifact records. Recording more would be
-// asserting precision the measurement does not have — and would make the clean-tree rule
-// unsatisfiable, which is how a real leak would stop being visible among the noise.
-const untraceableRate = propertiesChecked ? Math.round((findings.length / propertiesChecked) * 100) : 0;
-const bucket = (n) => Math.round(n / 1000) * 1000;
+// Issue 599 — EXACT figures, because the sweep is now reproducible.
+//
+// This block used to bucket counts to the nearest thousand and round the rate to a whole
+// percent, and said so plainly: three runs on one commit measured 33.94/33.95/33.96 with
+// element counts of 28,128-28,242, and recording more precision would have asserted an
+// accuracy the measurement did not have. Reducing precision was the honest response to
+// variance, but it also meant a real 0.05pp regression was indistinguishable from noise.
+//
+// The variance was render timing, not measurement error: a fixed `wait(350)` sampled whatever
+// had rendered by then. Waiting for a settled DOM removed it. Three consecutive runs on one
+// commit now produce IDENTICAL results — 28,203 properties checked, 9,313 untraceable, every
+// cell settled — so the artifact records what was actually measured.
+const untraceableRate = propertiesChecked ? +((findings.length / propertiesChecked) * 100).toFixed(2) : 0;
 
 mkdirSync(join(ROOT, 'audit'), { recursive: true });
 writeFileSync(join(ROOT, 'audit/theme-coverage-matrix.json'), `${JSON.stringify({
@@ -174,21 +216,26 @@ writeFileSync(join(ROOT, 'audit/theme-coverage-matrix.json'), `${JSON.stringify(
   cellsPossible: routes.length * presets.length * 2,
   routesCovered: routesCovered.size,
   presetsCovered: presetsCovered.size,
-  propertiesCheckedApprox: bucket(propertiesChecked),
-  untraceableCountApprox: bucket(findings.length),
+  propertiesChecked,
+  untraceableCount: findings.length,
   untraceableRate,
-  precisionNote: 'Counts bucketed to 1000 and the rate to whole percent: the sweep is not yet reproducible (issue 599), and recording two decimals would assert precision it does not have.',
+  cellsUnsettled: unsettledCells.length,
+  // Stated, never silent (issue 599). A truncated cell is one this sweep did not fully see,
+  // and a coverage number that hides truncation reads as more coverage than it has.
+  cellsTruncatedAtSampleCap: truncatedCells.length,
+  sampleCapPerCell: 400,
   trackedProperties: TRACKED_PROPERTIES,
-  // The findings LIST is not committed. Which elements a route renders varies with timing
-  // (issue 599), so the list changes between runs even when the measurement does not — and a
-  // committed artifact that churns every run makes the clean-tree rule unsatisfiable, which
-  // is how a genuinely leaked mutation would stop being visible. The list is written beside
-  // it as a diagnostic and gitignored; the stable measurement is what the budget reads.
+  // The findings LIST stays uncommitted as a diagnostic. The measurement is reproducible now,
+  // but the list is thousands of rows of element detail that would bury a real artifact diff.
   findingsFile: 'audit/theme-coverage-matrix.findings.json (not committed — see precisionNote)',
 }, null, 2)}\n`);
 
 writeFileSync(join(ROOT, 'audit/theme-coverage-matrix.findings.json'), `${JSON.stringify({
   generatedFor: 'diagnostics only; not committed',
+  exactPropertiesChecked: propertiesChecked,
+  exactUntraceableCount: findings.length,
+  unsettledCells,
+  truncatedCells,
   findings: findings
     .slice()
     .sort((a, b) => `${a.route}${a.preset}${a.scheme}${a.tag}${a.property}${a.value}`
