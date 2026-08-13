@@ -1,6 +1,6 @@
 import { GdsMap } from '@sovereignsquad/gds-core/map';
 import { GdsPinSystemReference } from '@sovereignsquad/gds-core';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   AccessSummary,
   AccessRecoveryPanel,
@@ -137,6 +137,8 @@ import {
   MeaningBadge,
   FitScoreChip,
   BodyText,
+  InlineText,
+  MetadataText,
   SimpleDataTable,
   UploadDropzone,
   CommandRegistryProvider,
@@ -156,7 +158,7 @@ import {
 // consumers who don't use it never bundle it (see the comment in
 // packages/gds-core/src/rich-text-editor.ts).
 import { GdsRichTextEditor } from '@sovereignsquad/gds-core/rich-text-editor';
-import { VibeThemePicker, GdsVibeThemeScope, GdsIconStyleContext, type GdsThemePresetId, type GdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
+import { VibeThemePicker, GdsVibeThemeScope, GdsIconStyleContext, getGdsVibeThemes, getGdsVibeThemeCssVariables, type GdsThemePresetId, type GdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
 import type { GdsCategoryDefinition } from '@sovereignsquad/gds-core';
 import {
   AdminSelect,
@@ -1004,25 +1006,77 @@ function BadgeOverlayDemo() {
   );
 }
 
+/**
+ * How a state tone behaves across presets, MEASURED rather than described.
+ *
+ * This panel previously stated the rule in prose and got it wrong: it labelled warning, danger
+ * and info all "fixed" when only danger is. Correcting the sentence would have left the same
+ * defect in place — a sentence can drift from the tokens again the moment either changes, and
+ * nothing would notice.
+ *
+ * So the claim is derived from the same resolver the contrast gate reads. If `warning` is ever
+ * pinned, or `info` stops following the preset's text colour, this page says so on the next
+ * render without anyone remembering to edit it. The phrases are literals so the site's phrase
+ * extractor still finds and translates them; only the CHOICE between them is computed.
+ */
+const TONE_BEHAVIOUR_PHRASE = {
+  anchoredBoth: 'One value in every preset, in both schemes.',
+  anchoredDark: 'Anchored in dark; tinted per preset in light.',
+  anchoredLight: 'Anchored in light; tinted per preset in dark.',
+  tinted: 'Tinted per preset in both schemes.',
+} as const;
+
+function measureToneBehaviour(tone: 'success' | 'warning' | 'danger' | 'info') {
+  const presets = getGdsVibeThemes();
+  const distinct = (scheme: 'light' | 'dark') => new Set(
+    presets.map((p) => getGdsVibeThemeCssVariables(p.id, scheme)[`--gds-state-${tone}`]),
+  ).size;
+  const light = distinct('light');
+  const dark = distinct('dark');
+  const key = light === 1 && dark === 1 ? 'anchoredBoth'
+    : dark === 1 ? 'anchoredDark'
+      : light === 1 ? 'anchoredLight'
+        : 'tinted';
+  return { phrase: TONE_BEHAVIOUR_PHRASE[key], light, dark, presets: presets.length };
+}
+
+const BADGE_TONES = [
+  { tone: 'success', icon: 'Success', label: 'Success' },
+  { tone: 'warning', icon: 'Warning', label: 'Warning' },
+  { tone: 'danger', icon: 'Danger', label: 'Danger' },
+  { tone: 'info', icon: 'Info', label: 'Info' },
+] as const;
+
 function BadgeThemeMatrixDemo() {
   const [preset, setPreset] = useState<GdsThemePresetId>('default');
-  // The description and labels below used to say warning/danger/info were all "fixed".
-  // Measured across the 25 presets, only danger is: warning has 23 distinct light values and
-  // info has 8 in each scheme, because info in light IS the preset's own text colour. A panel
-  // that teaches a rule two of its own examples break is worse than no panel — it is why a
-  // reader stops trusting the section. The copy states the actual rule, which is deliberately
-  // not uniform (see the UNIVERSAL_* anchors in semantic-token-source.ts).
+  const measured = useMemo(
+    () => BADGE_TONES.map((tone) => ({ ...tone, ...measureToneBehaviour(tone.tone) })),
+    [],
+  );
+
   return (
-    <SectionPanel title="Badges across themes" description="Semantic tone maps to the --gds-state-* role tokens, and the rule is deliberately not uniform. Danger is an anchor: one value in every preset, in both schemes — an alarm colour that moves is not an alarm. Warning is anchored in dark and tinted in light (the anchor mixed with the preset's own hue, then pushed until it clears 3:1). Success is tinted in both. Info is not an alarm colour at all: in light it IS the preset's own text colour, which is why it moves the most. The accent palette never changes as you switch presets — it is a fixed category vocabulary, so a category means the same thing in every theme. That is a deliberate contract, not a gap: a preset MAY declare its own accents, and the contrast gate then verifies that palette rather than the shared one. Switch the preset below and watch which ones actually move.">
+    <SectionPanel
+      title="Badges across themes"
+      description="Semantic tone maps to the --gds-state-* role tokens, and the rule is deliberately not uniform: an alarm colour that moves is not an alarm, so danger is anchored, while tones that carry no urgency are tinted with the preset's own hue. Every figure below is counted from the resolved tokens at render time rather than written down, so this panel cannot fall out of step with the system it documents. The accent palette is separate: it never changes as you switch presets, because a category means the same thing in every theme. That is a contract, not a gap — a preset MAY declare its own accents, and the contrast gate then verifies that palette rather than the shared one."
+    >
       <VibeThemePicker value={preset} onChange={setPreset} label="Preview preset" />
       <GdsVibeThemeScope presetId={preset} scheme="light">
-        <GdsInline gap="sm">
-          <GdsBadge tone="success" icon="Success" label="Success — tinted per preset" />
-          <GdsBadge tone="warning" icon="Warning" label="Warning — anchored in dark, tinted in light" />
-          <GdsBadge tone="danger" icon="Danger" label="Danger — anchored in both schemes" />
-          <GdsBadge tone="info" icon="Info" label="Info — follows the preset text colour" />
-          <GdsBadge accent="teal" icon="Habit" label="Accent — fixed category vocabulary" />
-        </GdsInline>
+        <GdsStack gap="xs">
+          {measured.map((m) => (
+            <GdsInline key={m.tone} gap="sm" align="center">
+              <GdsBadge tone={m.tone} icon={m.icon} label={m.label} />
+              <InlineText>{m.phrase}</InlineText>
+              {/* Counted live: the number IS the evidence for the phrase beside it. */}
+              <MetadataText>
+                {`${m.light} / ${m.dark} distinct values across ${m.presets} presets (light / dark)`}
+              </MetadataText>
+            </GdsInline>
+          ))}
+          <GdsInline gap="sm" align="center">
+            <GdsBadge accent="teal" icon="Habit" label="Accent" />
+            <InlineText>A fixed category vocabulary, identical in every preset and scheme.</InlineText>
+          </GdsInline>
+        </GdsStack>
       </GdsVibeThemeScope>
     </SectionPanel>
   );

@@ -4,6 +4,32 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Documentation is now derived, not described (CLAUDE.md Rule 14)
+
+Owner directive after finding the badge panel wrong on the live site: **documentation must be
+a single source of truth with the system, and the reference site is the product.** GDS cannot
+ask a client to trust a design system whose own site misstates its behaviour.
+
+Correcting the sentence was not a fix — a sentence drifts from the tokens the moment either
+changes, and nothing notices, which is exactly how the wrong one shipped. So the panel now
+**counts distinct token values at render time** and picks its wording from that measurement.
+If `warning` is ever pinned, or `info` stops following the preset's text colour, the page says
+so on the next render with nobody editing it.
+
+The phrases stay string literals so the site's phrase extractor still translates them; only
+the *choice* between them is computed. A test recomputes the counts independently and asserts
+the page agrees, so page and tokens cannot disagree without failing the build.
+
+**CLAUDE.md Rule 14** codifies it: a checkable claim must be computed rather than written;
+prose that cannot be derived must be gated or must say plainly that it is convention rather
+than guarantee; a defect in what the page *claims* carries the same severity as a defect in
+what the system *does*; and when docs and behaviour disagree, establish which half is wrong
+before editing either — rewriting docs to match behaviour blesses a drift, pinning behaviour
+to match stale docs breaks working code.
+
+Issue #605 tracks the sweep of the remaining 9 checkable absolutes found across the reference
+site, including a gate so the sweep cannot decay.
+
 ### The accent contract, and a panel that taught a rule its own examples broke
 
 Raised from the live site: category badges, pins and generated thumbnails look identical in

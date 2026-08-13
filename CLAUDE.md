@@ -314,6 +314,44 @@ defect this rule closes.
   make it sound smaller than it was. This system ships to companies who
   rely on it; there is no tier of defect that gets a softer word for it.
 
+## 14. Documentation must be DERIVED from the system, not describe it (owner directive, 2026-08-13)
+
+This rule exists because of a real failure the owner found by looking at the live
+site. The "Badges across themes" panel stated in prose that `warning`, `danger`
+and `info` all read the same fixed value in every preset. Measured across the 25
+presets, only `danger` does: `warning` has 23 distinct light values, and `info`
+in light **is the preset's own text colour**. The page was teaching a rule that
+two of its own examples broke, and it had shipped that way.
+
+Correcting the sentence would not have been a fix. A sentence drifts from the
+tokens the moment either changes, and nothing notices — which is exactly how the
+wrong one shipped.
+
+- **A checkable claim must be computed, not written.** If a statement in the
+  documentation — page copy, a label, a table, a README line — asserts something
+  the system can be asked (a token value, a count, a contrast ratio, a
+  threshold, which presets do what), it must be **derived at render or build
+  time from the same source the system uses**. Never retyped from a measurement
+  taken once. `GdsPinSystemReference` is the pattern: every number on it is
+  surfaced from a source export or computed live, and a copied constant would
+  drift the first time the source changed.
+- **Prose that cannot be derived must be gated or dated.** Some claims are
+  genuine design contracts, not measurements ("badges never appear inside a
+  toast body"). Those are legitimate prose — but they must be enforced by a gate
+  where enforceable, and where they are not, they must say so rather than
+  implying a guarantee nothing checks.
+- **The documentation page IS the product.** GDS cannot ask a client to trust a
+  design system whose own reference site misstates its behaviour. A defect in
+  what the page *claims* is the same severity as a defect in what the system
+  *does* — it is not a docs nit, and it is never "just copy". Rule 10 already
+  says a fix on the GDS page is a system-level fix; this rule says the same
+  about the page's assertions.
+- **When docs and behaviour disagree, investigate which half is wrong before
+  editing either.** Rewriting the docs to match current behaviour blesses a
+  drift; pinning behaviour to match stale docs breaks working code. Read the
+  source and the history, establish the intent, then fix the half that is
+  actually wrong — and say which it was.
+
 ## 13. Never push without a CI-equivalent local run, and never report done before CI is green (owner directive, 2026-08-11)
 
 This rule exists because of three consecutive red CI runs on `main` (#360, #361,
