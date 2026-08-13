@@ -2,8 +2,8 @@
   "releaseChainGates": 36,
   "gatesWithMutants": 22,
   "gatesExempted": 16,
-  "mutantsRun": 27,
-  "killed": 27,
+  "mutantsRun": 28,
+  "killed": 28,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -12,8 +12,8 @@
       "gate": "verify:budgets",
       "mutantId": "budgets-detects-regression",
       "claim": "Detects a measured value exceeding its budget",
-      "status": "INVALID",
-      "detail": "BASELINE BROKEN: verify:budgets exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first."
+      "status": "KILLED",
+      "detail": "gate exited 1"
     },
     {
       "gate": "verify:smoke-import-surface",

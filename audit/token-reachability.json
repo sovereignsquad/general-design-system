@@ -1,7 +1,7 @@
 {
-  "declared": 279,
-  "referenced": 88,
-  "extensionPoints": 147,
+  "declared": 287,
+  "referenced": 92,
+  "extensionPoints": 145,
   "pendingWireUp": 1,
   "unreachableCount": 0,
   "budget": 0,
@@ -428,20 +428,6 @@
     },
     {
       "token": "--gds-badge-soft-warning-fg",
-      "classification": "extension-point",
-      "reason": "Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-badge-solid-neutral",
-      "classification": "extension-point",
-      "reason": "Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-badge-solid-neutral-fg",
       "classification": "extension-point",
       "reason": "Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.",
       "reviewBy": "2027-08-01",
