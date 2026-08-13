@@ -467,6 +467,23 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:i18n-leakage',
+    script: null,
+    mutants: [
+      {
+        id: 'leakage-detects-untranslated-value',
+        claim: 'Detects a locale pack shipping English where a translation belongs',
+        // Anchored on the exact defect issue 517 reported: zh's `trendingUp` sat in English
+        // beside a correctly translated `trendingDown`. Chinese shares no cognates with
+        // English, so this can never be a false positive the way a German `Pause` would be.
+        file: 'packages/gds-core/src/locales/zh.ts',
+        find: "'gds.action.trendingUp': '趋势上升',",
+        replace: "'gds.action.trendingUp': 'Trending Up',",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:pattern-live-proof',
     script: null,
     mutants: [

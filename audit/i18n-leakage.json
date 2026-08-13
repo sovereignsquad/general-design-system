@@ -1,0 +1,172 @@
+{
+  "generatedAt": "2026-08-13T18:53:05.000Z",
+  "corpora": {
+    "site": [
+      {
+        "locale": "he",
+        "total": 1293,
+        "leaked": 7,
+        "rate": 0.54,
+        "budget": 7,
+        "leakedKeys": [
+          "Admin AppShell",
+          "Auth Shells",
+          "Docs Code Blocks",
+          "Docs Shell",
+          "Fit Score Chip",
+          "Partner LLC ©2026",
+          "Reference Link Grid"
+        ]
+      },
+      {
+        "locale": "de",
+        "total": 1293,
+        "leaked": 2,
+        "rate": 0.15,
+        "budget": 2,
+        "leakedKeys": [
+          "Overlay stack governance",
+          "Product owner, design lead, frontend lead"
+        ]
+      },
+      {
+        "locale": "ar",
+        "total": 1293,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "es",
+        "total": 1293,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "fr",
+        "total": 1293,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "hu",
+        "total": 1293,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "it",
+        "total": 1293,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "ru",
+        "total": 1293,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      }
+    ],
+    "package": [
+      {
+        "locale": "ar",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "de",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "es",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "fr",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "he",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "hu",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "it",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "ja",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "ko",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "ru",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "zh",
+        "total": 188,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      }
+    ]
+  }
+}

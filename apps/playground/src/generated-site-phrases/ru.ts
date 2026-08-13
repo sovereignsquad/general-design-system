@@ -929,7 +929,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Remove asset": "Удалить объект",
   "Remove file": "Удалить файл",
   "Remove filter: Ages 6-8": "Удалить фильтр: Возраст 6–8 лет",
-  "Remove filter: Music": "Remove filter: Music",
+  "Remove filter: Music": "Удалить фильтр: Музыка",
   "Remove filter: Weekends": "Удалить фильтр: Выходные",
   "Remove member": "Удалить участника",
   "Remove Riverside Swim Club from saved": "Удалить Riverside Swim Club из сохраненных",

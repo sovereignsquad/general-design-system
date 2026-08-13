@@ -1,8 +1,9 @@
-import { writeFileSync, readFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'node:fs';
 import { request } from 'node:https';
 import { resolve } from 'node:path';
 import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
+import { measureCorpusLeakage } from './lib/i18n-leakage.mjs';
 
 const traverse = traverseModule.default ?? traverseModule;
 
@@ -100,18 +101,52 @@ const existingByLocale = Object.fromEntries(localeIds.map((locale) => [locale, p
 const generated = Object.fromEntries(localeIds.map((locale) => [locale, {}]));
 const translationJobs = [];
 
+// Issue 588. A previously-stored value used to be kept whenever it was non-empty, which is
+// why leakage ACCUMULATED: a phrase left in English is non-empty, so it was never retried,
+// and it survived every regeneration for as long as the file existed. `hu` had reached 50
+// such phrases and `de` 44.
+//
+// A stored value is now retried when it is identical to its English source AND some other
+// locale translated that same phrase — peer evidence that the phrase is translatable, so
+// this locale missed it. Values identical in every locale (component-name lists such as
+// "SidebarNav / SidebarNavSection / SidebarNavItem") are left alone, because nothing shows
+// they can be translated. See scripts/lib/i18n-leakage.mjs for why the rule is peer evidence
+// rather than an enumerated allowlist.
+//
+// Self-healing rather than one-off: if a translation request fails, `translate()` falls back
+// to the English text, which is exactly the condition this retest detects, so the next run
+// picks it up instead of freezing the failure into the artifact.
+// The retry set is the gate's own measurement, called on the packs as they stand, so the
+// generator repairs exactly what `verify:i18n-leakage` fails on. Two separate notions of
+// "untranslated" would drift apart and leave the build unfixable by its own generator.
+const leakedByLocale = Object.fromEntries(localeIds.map((locale) => [locale, new Set()]));
+if (existsSync(outDir)) {
+  for (const row of measureCorpusLeakage(outDir, { referenceIsKey: true }).rows) {
+    if (leakedByLocale[row.locale]) leakedByLocale[row.locale] = new Set(row.leakedKeys);
+  }
+}
+
+let retried = 0;
 for (const en of sortedPhrases) {
   for (const locale of localeIds) {
     const existingTranslation = existingByLocale[locale][en];
-    if (typeof existingTranslation === 'string' && existingTranslation.trim().length > 0) {
+    const isStored = typeof existingTranslation === 'string' && existingTranslation.trim().length > 0;
+    const leaked = isStored && leakedByLocale[locale].has(en);
+
+    if (isStored && !leaked) {
       generated[locale][en] = existingTranslation;
       continue;
     }
 
+    if (leaked) retried += 1;
     translationJobs.push(async () => {
       generated[locale][en] = await translate(en, locale);
     });
   }
+}
+
+if (retried > 0) {
+  console.log(`Retrying ${retried} peer-evidenced untranslated value(s) (issue 588).`);
 }
 
 async function runBounded(jobs, concurrency = 24) {

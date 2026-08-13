@@ -62,7 +62,7 @@ export const zh = {
   'gds.action.message': '信息',
   'gds.action.mail': '邮件',
   'gds.action.refresh': '刷新',
-  'gds.action.trendingUp': 'Trending Up',
+  'gds.action.trendingUp': '趋势上升',
   'gds.action.trendingDown': '趋势下降',
   'gds.action.currency': '货币',
   'gds.action.grid': '网格',

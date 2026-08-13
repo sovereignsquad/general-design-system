@@ -4,6 +4,60 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Untranslated English: fixed at the source, then gated (#517, #588, #611)
+
+Four i18n gates were green while full English paragraphs sat mid-page in Hebrew and Arabic.
+They all check **key parity** — that a pack carries the right keys — and none of them ever
+looked at a **value**. A pack could carry every key and translate none of them and the build
+stayed green.
+
+**The root cause was in the generator, not the packs.** It kept any stored value that was
+non-empty, and a phrase left in English is non-empty — so a missed translation was *never
+retried* and survived every regeneration for as long as the file existed. Leakage could only
+accumulate. It now retries any value its own leak measurement flags, so a failed translation
+request repairs itself on the next run instead of freezing into the artifact. That alone fixed
+every English sentence #517 reported, including the `.npmrc` install paragraph in `he` and the
+badge-shape paragraph in `ar`.
+
+`zh`'s `gds.action.trendingUp` sat in English beside a correctly translated
+`gds.action.trendingDown`; it is now `趋势上升`, taken from the same endpoint the generator uses.
+
+**Detecting leakage without a hand-maintained allowlist.** A value identical to English is not
+automatically wrong — `"GdsAccessGate / resolveGdsAccessState"` must stay identical everywhere.
+Two derived signals separate the cases, and both were chosen from measured data rather than
+imagined:
+
+- **Peer evidence** — if another locale rendered this phrase differently, the phrase is
+  translatable, so a pack that left it in English has missed it. This is the reasoning #517
+  used by hand ("all 7 other non-English locales translated these correctly"), computed.
+  Compared on **letters only**: Arabic renders a component list with Arabic commas, which
+  differs byte-wise while translating nothing.
+- **Script**, read from `gdsLocaleMetadata` rather than retyped — a Latin-script language
+  legitimately shares words with English, so `Pause`, `Filter` and `Message` are real German
+  and French words, not defects. A non-Latin pack shares none.
+
+That matters concretely: the naive "identical to English" count flagged **15** package values,
+of which exactly **one** was a real defect. The measurement change is stated in
+`audit/budgets.json`, and `englishLeakageWorstLocale` moved 3.8 → 0.54 — **not an improvement
+of that size**, because the two numbers answer different questions.
+
+New gate `verify:i18n-leakage`, in the release chain, with a mutant that restores the `zh`
+defect. What remains is recorded with reasons rather than hidden: **7 Hebrew phrases the
+translate endpoint cannot resolve** (verified — all seven return byte-identical English;
+#611 carries them, since writing them by hand would be inventing translations under Rule 11)
+and 2 German loanword phrases where the machine output differs only in capitalisation.
+
+### "What changed in 6.0.0" described the 3.14 line, in all 9 locales (#518)
+
+`changedTitle` was find-and-replaced on every version bump while `changedDescription` was not
+touched since 2026-07-23, so every visitor read a heading claiming the current version above a
+list of months-old features.
+
+Rewriting the summary would have bought one release. The description now states that the
+changelog is the authoritative record and that this page deliberately does not restate it —
+**a claim that cannot go stale, because it makes no per-version assertion.** Rule 14: prose
+that cannot be derived should not pretend to be current.
+
 ### A pattern may not claim a live proof it does not render (#600, #607, #608, #609)
 
 The pattern catalog told the public, on `/coverage`, that **113 patterns are rendered in

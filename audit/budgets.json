@@ -88,10 +88,11 @@
     "englishLeakageWorstLocale": {
       "source": "dimensions.json#/languageVariants/englishLeakage/0/rate",
       "direction": "max",
-      "value": 3.8,
+      "value": 0.54,
       "unit": "%",
       "finding": "F16",
-      "justifiedBy": "audit Phase 4b - site/hu is the worst pack, commit bed78c8"
+      "justifiedBy": "issue 588: site/he is now the worst pack at 7/1293. Two changes, and the second is a MEASUREMENT CHANGE that must not be read as a 3.8 -> 0.54 improvement. (1) The generator kept any non-empty stored value, so a phrase left in English was never retried and leakage ACCUMULATED; it now retries every leaked value on each run, which fixed every English sentence issue 517 reported. (2) The metric changed - see the $comment.",
+      "$comment": "MEASUREMENT CHANGED, stated per the F24 rule. The old 3.8% counted every value byte-identical to its English source. That put ~46 non-defects per pack into the number: emails, `Cmd+1`, `npm run verify:references`, component-name lists, and in the package corpus genuine cognates - `Pause`, `Filter` and `Message` are real German and French words. Of 15 package values it flagged, ONE was a real defect. The metric now requires peer evidence that the phrase is translatable (another locale rendered it differently, compared on letters only so an Arabic comma is not mistaken for a translation) plus a script-aware test: any English left in a non-Latin pack is a miss, while a Latin pack is only flagged for prose. The two numbers answer different questions and must never be compared. Remaining: 7 in site/he that machine translation cannot resolve (issue 611) and 2 German loanword phrases, both recorded with reasons in scripts/i18n-leakage.config.mjs."
     },
     "phase5MutationScore": {
       "source": "mutation-score.json#/mutationScore",
