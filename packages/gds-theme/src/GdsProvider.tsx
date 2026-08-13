@@ -5,7 +5,7 @@ import type { MantineThemeOverride } from '@mantine/core';
 import { MantineProvider, DirectionProvider, Box, useComputedColorScheme } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
-import { gdsTheme } from './theme';
+import { gdsTheme, withGdsGovernedVariants } from './theme';
 import { computeGdsThemeIdentity, gdsThemeIdentityChanged, type GdsThemeApplicationMode, type GdsThemeIdentity } from './theme-identity';
 import { GdsI18nContext, isGdsRtlLocale } from './i18n';
 import { GdsIconStyleContext, type GdsBadgeIconStyle } from './icon-style';
@@ -252,7 +252,9 @@ export function GdsProvider({
         */}
         <GdsIconStyleContext.Provider value={{ badgeIconStyle: defaultBadgeIconStyle }}>
           <MantineProvider
-            theme={theme}
+            /* Issue 597: the light variant is governed here, not at the theme object, because a
+               caller-supplied theme would otherwise drop the guarantee silently. */
+            theme={withGdsGovernedVariants(theme)}
             withCssVariables
             withGlobalClasses
             colorSchemeManager={colorSchemeManager}

@@ -368,32 +368,38 @@ html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .m
  * all to the same brand color, defeating the semantic meaning they exist to carry.
  */
 html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone]) {
-  color: color-mix(in srgb, var(--gds-vibe-primary) 76%, var(--gds-vibe-text));
-  background: color-mix(in srgb, var(--gds-vibe-primary) 15%, transparent);
-  border-color: color-mix(in srgb, var(--gds-vibe-primary) 28%, transparent);
+  /*
+   * Issue 597. This rule used to mix the tint against `transparent` and the text against the
+   * vibe primary. Both halves were defects, and the transparent one was the worse:
+   *
+   * - A translucent background has NO CONTRAST RATIO OF ITS OWN. Every contrast sweep in this
+   *   system therefore walked past these badges without measuring them — 344 of them, across
+   *   every route. Zero findings from a check that cannot see its subject reads exactly like a
+   *   clean bill of health, which is why this survived so long.
+   * - The hue-mixed foreground measured 2.25:1 at worst (class-usa, dark) across the 25
+   *   presets. That is issue 534, which was reported as two badges and was in fact every badge
+   *   the rule touched.
+   *
+   * Mixing against `--gds-bg-card` makes the pair OPAQUE and therefore measurable, and the
+   * governed body text makes it legible: 8.63:1 at worst across 25 presets x 2 schemes,
+   * verified by verify:badge-contrast against the rendered page rather than asserted here.
+   *
+   * VISIBLE CHANGE, stated rather than slipped in: badge text is neutral instead of
+   * primary-tinted. The tint still carries the preset's identity.
+   */
+  color: var(--gds-text-body);
+  background: color-mix(in srgb, var(--gds-vibe-primary) 15%, var(--gds-bg-card));
+  border-color: color-mix(in srgb, var(--gds-vibe-primary) 28%, var(--gds-bg-card));
 }
 
 /*
- * The generic rule above reads fine in light mode (a primary-heavy text
- * mix sits on a light canvas) but breaks for flatSurfaces navy/dark-brown
- * primaries (Class USA, Gold Athlete) in DARK mode specifically: unlike
- * `--gds-vibe-text`/`--gds-vibe-surface`, `--gds-vibe-primary` is a single
- * fixed hex that does not adapt between schemes, so "76% dark navy" text
- * on a "15% dark navy tint" background (itself sitting on an already-dark
- * card) collapses to near-unreadable dark-on-dark — reported live as
- * illegible "UNSAVED CHANGES"/badge text (issue 533). Uses `--gds-vibe-text`
- * (already proven legible here — headings use the same token) for text,
- * and the brand's accent color for a visible tinted background/border,
- * matching the same governed-second-color pattern already used for
- * buttons (issue 531).
+ * The Class USA / Gold Athlete dark-mode special case that used to live here (issue 533) is
+ * gone, not moved. It existed because the general rule above mixed its tint against
+ * `transparent`, so a fixed dark navy primary landed dark-on-dark. The general rule now mixes
+ * against `--gds-bg-card` and uses the governed body text, which measures 8.63:1 at worst
+ * across every preset INCLUDING those two — so the override, and its two `!important`
+ * declarations, no longer have anything to correct.
  */
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='class-usa'] .mantine-Badge-root:not([data-gds-badge-fixed-tone]),
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='gold-athlete'] .mantine-Badge-root:not([data-gds-badge-fixed-tone]) {
-  color: var(--gds-vibe-text) !important;
-  background: color-mix(in srgb, var(--gds-vibe-accent) 28%, var(--gds-vibe-surface)) !important;
-  border-color: color-mix(in srgb, var(--gds-vibe-accent) 45%, transparent) !important;
-}
-
 html[data-gds-theme-preset] .mantine-Input-input,
 html[data-gds-theme-preset] .mantine-NativeSelect-input,
 html[data-gds-theme-preset] .mantine-Textarea-input {
@@ -909,11 +915,24 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .gds-code {
   border-color: var(--gds-vibe-border) !important;
 }
 
+/*
+ * Issue 597, second instance of the same defect. This rule mixed its tint against
+ * `--gds-vibe-surface`, which is TRANSLUCENT in most presets (`rgba(255,255,255,0.9)` in
+ * default light, `rgba(30,41,59,0.82)` in default dark) — so the badge inherited that alpha
+ * and its contrast could not be computed either. The 76% hue-mixed foreground is the same
+ * unmeasurable pairing the general rule above just lost.
+ *
+ * `--gds-bg-card` is opaque in every preset and is what these surfaces sit on, so it is the
+ * base. The foreground stays `--gds-vibe-text` rather than `--gds-text-body`: inside an owned-
+ * contrast surface that token is republished as the surface's OWN text colour, which is the
+ * whole point of the owned-contrast contract — a swatch showing a dark theme must not borrow
+ * the page's light-mode body text.
+ */
 html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Badge-root,
 html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
-  color: color-mix(in srgb, var(--gds-vibe-primary) 76%, var(--gds-vibe-text)) !important;
-  background: color-mix(in srgb, var(--gds-vibe-primary) 14%, var(--gds-vibe-surface)) !important;
-  border-color: color-mix(in srgb, var(--gds-vibe-primary) 28%, transparent) !important;
+  color: var(--gds-vibe-text) !important;
+  background: color-mix(in srgb, var(--gds-vibe-primary) 14%, var(--gds-bg-card)) !important;
+  border-color: color-mix(in srgb, var(--gds-vibe-primary) 28%, var(--gds-bg-card)) !important;
 }
 
 @media (max-width: 768px) {

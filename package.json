@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "preflight": "node scripts/preflight.mjs",
-    "verify:release": "node scripts/check-release-alignment.mjs && npm run verify:budgets && npm run verify:registry-drift && npm run verify:obligation-coverage && npm run build && npm run verify:gates && node scripts/check-export-contract.mjs && npm run verify:smoke-import-surface && npm run verify:boundary && npm run verify:token-single-source && npm run verify:mantine-governance && npm run verify:token-reachability && npm run verify:motion-css && npm run verify:motion-scale && npm run verify:shape-token-adoption && npm run verify:density-token-adoption && npm run verify:a11y-floor && npm run verify:accent-contrast && npm run verify:theme-identity && npm run verify:generated-imagery-only && npm run verify:vendor-pin && npm run lint && npm run test:run && npm run verify:references && npm run verify:a11y-package && npm run verify:theme-accessibility && npm run verify:theme-tokens && npm run verify:tokens-dtcg && npm run verify:token-contrast-scoring && npm run verify:forced-colors-runtime && npm run verify:theme-trust-runtime && npm run verify:input-zoom-guard-runtime && npm run verify:kanban-drag-accessibility-runtime && npm run audit:dependencies && npm run audit:board && npm run verify:mantine && npm run verify:component-catalog-parity",
+    "verify:release": "node scripts/check-release-alignment.mjs && npm run verify:budgets && npm run verify:registry-drift && npm run verify:obligation-coverage && npm run build && npm run verify:gates && node scripts/check-export-contract.mjs && npm run verify:smoke-import-surface && npm run verify:boundary && npm run verify:token-single-source && npm run verify:mantine-governance && npm run verify:token-reachability && npm run verify:motion-css && npm run verify:motion-scale && npm run verify:shape-token-adoption && npm run verify:density-token-adoption && npm run verify:a11y-floor && npm run verify:accent-contrast && npm run verify:theme-identity && npm run verify:generated-imagery-only && npm run verify:vendor-pin && npm run lint && npm run test:run && npm run verify:references && npm run verify:a11y-package && npm run verify:theme-accessibility && npm run verify:theme-tokens && npm run verify:tokens-dtcg && npm run verify:token-contrast-scoring && npm run verify:badge-contrast && npm run verify:forced-colors-runtime && npm run verify:theme-trust-runtime && npm run verify:input-zoom-guard-runtime && npm run verify:kanban-drag-accessibility-runtime && npm run audit:dependencies && npm run audit:board && npm run verify:mantine && npm run verify:component-catalog-parity",
     "build": "npm run build --workspace=@sovereignsquad/gds-theme && npm run build --workspace=@sovereignsquad/gds-core && npm run build --workspace=@sovereignsquad/gds-admin && npm run build --workspace=@sovereignsquad/gds-a11y && npm run build --workspace=@sovereignsquad/gds && npm run build --workspace=playground && npm run build --workspace=reference-vite && npm run build --workspace=reference-next",
     "dev": "npm run dev --workspace=apps/playground",
     "lint": "npm run lint --workspace=apps/playground",
@@ -72,7 +72,8 @@
     "verify:gates": "node scripts/verify-gates.mjs",
     "registry:build": "node scripts/audit/extract-registry.mjs",
     "verify:registry-drift": "node scripts/audit/extract-registry.mjs --check",
-    "verify:obligation-coverage": "node scripts/verify-obligation-coverage.mjs"
+    "verify:obligation-coverage": "node scripts/verify-obligation-coverage.mjs",
+    "verify:badge-contrast": "node scripts/verify-badge-contrast-runtime.mjs"
   },
   "optionalDependencies": {
     "@rolldown/binding-darwin-arm64": "1.0.2",

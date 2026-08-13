@@ -288,6 +288,12 @@ export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<stri
   const vars = { ...resolveGdsAxisTokens(undefined, 'class-usa'), ...emitCssVariables(deriveClassUsaSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.action[6];
   vars['--gds-brand-accent-action-dark'] = ramps.brand[5];
+  // Issue 597. These overrides land AFTER `emitCssVariables` has already derived the badge
+  // foregrounds, so a foreground computed against the pre-override fill is a STALE PAIR — the
+  // same "one role, two answers depending on the path" shape as #554 above. Measured: gold
+  // athlete light emitted #000000 for a #8a5a00 fill (3.54:1) when white would have given
+  // 5.93:1. Re-deriving is idempotent, and it cannot fall out of step with an override again.
+  Object.assign(vars, emitBadgeToneCssVariables(vars));
   return vars;
 }
 
@@ -296,6 +302,12 @@ export function emitGoldAthleteCssVariables(ramps: GoldAthleteColorRamps): Recor
   const vars = { ...resolveGdsAxisTokens(undefined, 'gold-athlete'), ...emitCssVariables(deriveGoldAthleteSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.gold[6];
   vars['--gds-brand-accent-action-dark'] = ramps.gold[3];
+  // Issue 597. These overrides land AFTER `emitCssVariables` has already derived the badge
+  // foregrounds, so a foreground computed against the pre-override fill is a STALE PAIR — the
+  // same "one role, two answers depending on the path" shape as #554 above. Measured: gold
+  // athlete light emitted #000000 for a #8a5a00 fill (3.54:1) when white would have given
+  // 5.93:1. Re-deriving is idempotent, and it cannot fall out of step with an override again.
+  Object.assign(vars, emitBadgeToneCssVariables(vars));
   return vars;
 }
 
@@ -489,12 +501,31 @@ export function emitBadgeToneCssVariables(base: Record<string, string>): Record<
     }
   }
 
+  // BRAND FILLS used as badge backgrounds get a derived foreground too. `FitScoreChip` paired
+  // `--gds-brand-accent` with `--gds-text-on-inverse` — a near-white meant for the INVERSE
+  // surface, not for a brand colour the theme picks freely. It measured 3.44:1. A fixed
+  // foreground on a themeable fill is the same defect wherever it appears, so the fix is the
+  // same: derive it against the fill.
+  for (const fill of ['--gds-brand-accent', '--gds-brand-accent-action', '--gds-bg-info-tag', '--gds-brand-accent-tint']) {
+    for (const [suffix, surface] of [['', card], ['-dark', cardDark]]) {
+      const value = base[`${fill}${suffix}`] ?? base[fill];
+      if (!value) continue;
+      vars[`${fill}-fg${suffix}`] = readableForeground(value, 4.5, surface);
+    }
+  }
+
   // NEUTRAL is not a state colour; it is the card surface itself with a governed border.
   for (const [suffix, surface] of [['', card], ['-dark', cardDark]] as const) {
     vars[`--gds-badge-soft-neutral${suffix}`] = surface;
     vars[`--gds-badge-soft-neutral-fg${suffix}`] = readableForeground(surface, 4.5, surface);
-    vars[`--gds-badge-solid-neutral${suffix}`] = surface;
-    vars[`--gds-badge-solid-neutral-fg${suffix}`] = readableForeground(surface, 4.5, surface);
+    // SOLID neutral is a real neutral FILL, not the card surface: its consumer is the count
+    // badge, a pill that has to read as an object sitting on the card rather than a hole in
+    // it. Its foreground is derived like every other tone — `GdsCountBadge` previously paired
+    // white with `--gds-state-info-dark`, assuming the name meant a dark colour. It resolves
+    // to rgb(239, 242, 246). That badge shipped at 1.07:1.
+    const neutralFill = base[`--gds-text-meta${suffix}`] ?? base['--gds-text-meta'] ?? surface;
+    vars[`--gds-badge-solid-neutral${suffix}`] = neutralFill;
+    vars[`--gds-badge-solid-neutral-fg${suffix}`] = readableForeground(neutralFill, 4.5, surface);
   }
   return vars;
 }

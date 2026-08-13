@@ -61,13 +61,21 @@ export type GdsCountBadgeProps =
       showZero?: never;
     });
 
+/*
+ * Issue 597. These used to be `--gds-state-danger-dark` etc. paired with a fixed near-white
+ * foreground — a pairing that assumed the `-dark` suffix named a DARK COLOUR. It does not: it
+ * names the dark-SCHEME value, and `--gds-state-info-dark` resolves to rgb(239, 242, 246).
+ * The measured result on /patterns/feedback was 1.07:1 — white on white — and it had been
+ * shipping, because a fixed foreground on a themeable background cannot be verified by
+ * inspection.
+ *
+ * The `--gds-badge-solid-*` pairs are DERIVED per preset and per scheme against the surface
+ * they land on, so the foreground cannot fall out of step with the fill.
+ */
 const toneColor: Record<GdsCountBadgeTone, { bg: string; fg: string }> = {
-  danger: { bg: 'var(--gds-state-danger-dark, #8c2f39)', fg: 'var(--gds-text-on-inverse, #ffffff)' },
-  info: { bg: 'var(--gds-state-info-dark, #1f4a8a)', fg: 'var(--gds-text-on-inverse, #ffffff)' },
-  neutral: {
-    bg: 'var(--gds-text-meta, var(--mantine-color-gray-7, #495057))',
-    fg: 'var(--gds-text-on-inverse, #ffffff)',
-  },
+  danger: { bg: 'var(--gds-badge-solid-danger)', fg: 'var(--gds-badge-solid-danger-fg)' },
+  info: { bg: 'var(--gds-badge-solid-info)', fg: 'var(--gds-badge-solid-info-fg)' },
+  neutral: { bg: 'var(--gds-badge-solid-neutral)', fg: 'var(--gds-badge-solid-neutral-fg)' },
 };
 
 /**

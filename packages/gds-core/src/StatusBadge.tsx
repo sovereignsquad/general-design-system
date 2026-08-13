@@ -41,13 +41,6 @@ export interface CountBadgeProps extends Omit<BadgeProps, 'color' | 'children'> 
 }
 
 
-const labelTagColorMap: Record<LabelTagTone, string> = {
-  neutral: 'gray',
-  info: 'blue',
-  warning: 'yellow',
-  success: 'green',
-};
-
 const statusIconMap: Partial<Record<StatusVariant, GdsIconKey>> = {
   success: 'Success',
   warning: 'Warning',
@@ -85,10 +78,28 @@ export function StatusBadge({ status, withIcon, children, ...props }: StatusBadg
   );
 }
 
-/** Outline badge that renders `label` in a fixed color chosen by its semantic `tone`. */
+/**
+ * Outline badge that renders `label` in a governed color chosen by its semantic `tone`.
+ *
+ * Issue 597: this used to render a raw Mantine palette colour as text on a TRANSPARENT
+ * background, so what it landed on was whatever the consumer put behind it. Measured live it
+ * was 1.86:1 for `warning` and 3.32:1 for `neutral`. It now uses the same derived soft pair as
+ * `StatusBadge`, which is opaque and therefore measurable; the outline reads as the
+ * foreground colour so the shape survives.
+ */
 export function LabelTag({ tone = 'neutral', label, ...props }: LabelTagProps) {
   return (
-    <Badge data-gds-badge-fixed-tone="true" color={labelTagColorMap[tone]} variant="outline" {...props}>
+    <Badge
+      data-gds-badge-fixed-tone="true"
+      variant="outline"
+      {...props}
+      style={{
+        background: `var(--gds-badge-soft-${tone})`,
+        color: `var(--gds-badge-soft-${tone}-fg)`,
+        borderColor: `var(--gds-badge-soft-${tone}-fg)`,
+        ...(props.style as React.CSSProperties | undefined),
+      }}
+    >
       {label}
     </Badge>
   );

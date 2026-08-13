@@ -4,6 +4,59 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Badge contrast is now measurable, and it is measured (#597)
+
+**The defect was not low contrast. It was unmeasurable contrast.** Mantine's
+`variant="light"` paints a low-alpha tint, and GDS's own badge rule mixed its tint against
+`transparent` — a translucent background has no contrast ratio of its own. Every contrast
+sweep in this system therefore walked past **344 badges** without measuring them. Zero
+findings from a check that cannot see its subject reads exactly like a clean bill of health,
+which is how #534 shipped as "two badges in dark mode" when it was every badge the rule
+touched, at **2.25:1** worst case across the 25 presets.
+
+New gate `npm run verify:badge-contrast`, chained into `verify:release`. It sweeps every
+pattern route in both schemes and fails on **two** conditions, the first mattering more:
+
+1. **Uncomputable** — a partially transparent badge background, whose legibility depends on
+   whatever surface it is dropped onto, so no token-level guarantee can exist.
+2. **Below 4.5:1** — the pair resolves opaquely but fails WCAG 1.4.3.
+
+It also fails if it finds no badges at all: zero findings from a broken selector is
+indistinguishable from a clean system, which is the failure this gate exists to end.
+
+**Measured on the rendered page: 544 badges across 48 route x scheme combinations — 0
+uncomputable, 0 below 4.5:1.** The gate's negative control is not hypothetical; during
+development it reported 344 uncomputable and then 26 low-contrast pairs, each of which was a
+real shipped defect traced to source.
+
+Six root causes, all fixed in the shared system rather than at any call site:
+
+- `packages/gds-theme/styles.css` — the preset badge rule mixed against `transparent` and
+  used a 76% hue-mixed foreground. Now mixes against `--gds-bg-card` with `--gds-text-body`:
+  **8.63:1** worst case across 25 presets x 2 schemes.
+- `packages/gds-theme/styles.css` — the owned-contrast badge rule had the same shape, mixing
+  against `--gds-vibe-surface`, which is translucent in most presets.
+- The Class USA / Gold Athlete dark-mode badge override (#533) is **deleted**, not moved: it
+  existed to correct the general rule's transparent mix, which no longer happens. Two
+  `!important` declarations went with it.
+- `GdsProvider` now applies the governed `light` variant to whatever theme it is handed. A
+  guarantee a caller can drop by passing a different theme object is not a guarantee — and
+  `resolveGdsThemePreset` does not descend from `gdsTheme`, so it was being dropped.
+- `GdsCountBadge`, `FitScoreChip`, `MeaningBadge`, `LabelTag` — each paired a themeable fill
+  with a FIXED foreground. `GdsCountBadge` used `--gds-state-info-dark` assuming the suffix
+  named a dark colour; it names the dark-SCHEME value and resolves to `rgb(239, 242, 246)`.
+  That badge rendered white on white at **1.07:1**. All four now use foregrounds derived
+  against the fill they actually land on.
+- New derived tokens `--gds-brand-accent-fg`, `--gds-brand-accent-action-fg`,
+  `--gds-bg-info-tag-fg`, `--gds-brand-accent-tint-fg` (+ `-dark`), and
+  `--gds-badge-solid-neutral` redefined from the card surface to a real neutral fill.
+
+**Visible change, stated rather than slipped in:** badge text is neutral instead of
+hue-tinted, and `LabelTag` renders on a soft tint instead of a transparent background. The
+tint still carries the preset's identity. Token baseline delta: 400 additions, 200 changes,
+0 removals — the new foregrounds and the redefined neutral, nothing else.
+
+
 No package or component source changed; no version bump. Tooling, governance,
 and documentation only.
 
