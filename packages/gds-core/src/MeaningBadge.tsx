@@ -34,22 +34,33 @@ interface MeaningTokens {
   fg: string;
 }
 
+/*
+ * Issue 597. Every variant here paired a themeable fill with a fixed foreground —
+ * `--gds-text-on-inverse` for the two brand fills, `--gds-text-primary` for the two tints.
+ * Measured live on /patterns/public and /live-demos/semantics, `attention` rendered #f8fafc on
+ * #0594ac: 3.44:1. The other three were not verified as safe; they were simply never measured,
+ * which is not the same thing.
+ *
+ * Each fill now carries a foreground DERIVED against it, per preset and per scheme. The
+ * literal fallbacks stay so a consumer on an older token set still renders something legible
+ * rather than transparent text.
+ */
 const meaningTokens: Record<MeaningVariant, MeaningTokens> = {
   attention: {
     bg: 'var(--gds-brand-accent, var(--mantine-color-orange-5))',
-    fg: 'var(--gds-text-on-inverse, var(--mantine-color-white))',
+    fg: 'var(--gds-brand-accent-fg, var(--gds-text-on-inverse, var(--mantine-color-white)))',
   },
   validation: {
-    bg: 'var(--gds-state-success, var(--mantine-color-teal-6))',
-    fg: 'var(--gds-text-on-inverse, var(--mantine-color-white))',
+    bg: 'var(--gds-badge-solid-success, var(--gds-state-success, var(--mantine-color-teal-6)))',
+    fg: 'var(--gds-badge-solid-success-fg, var(--gds-text-on-inverse, var(--mantine-color-white)))',
   },
   info: {
     bg: 'var(--gds-bg-info-tag, #f1ece4)',
-    fg: 'var(--gds-text-primary, var(--mantine-color-dark-7))',
+    fg: 'var(--gds-bg-info-tag-fg, var(--gds-text-primary, var(--mantine-color-dark-7)))',
   },
   urgency: {
     bg: 'var(--gds-brand-accent-tint, #f3ded5)',
-    fg: 'var(--gds-text-primary, var(--mantine-color-dark-7))',
+    fg: 'var(--gds-brand-accent-tint-fg, var(--gds-text-primary, var(--mantine-color-dark-7)))',
   },
 };
 

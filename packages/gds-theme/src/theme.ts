@@ -1,4 +1,7 @@
-import { DEFAULT_THEME, createTheme, mergeMantineTheme, mergeThemeOverrides, type MantineTheme, type MantineThemeOverride } from '@mantine/core';
+import {
+  DEFAULT_THEME, createTheme, defaultVariantColorsResolver, mergeMantineTheme, mergeThemeOverrides,
+  type MantineTheme, type MantineThemeOverride, type VariantColorsResolver,
+} from '@mantine/core';
 import { getGdsMotionPreset } from './motion';
 import { GDS_DEFAULT_DENSITY_AXIS, GDS_DEFAULT_SHAPE_AXIS } from './axes';
 
@@ -7,6 +10,38 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
   fontFamily: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
   fontSmoothing: true,
   defaultRadius: 'md',
+  /**
+   * Issue 597. Mantine's `light` variant pairs pastel text with a LOW-ALPHA TINT of the same
+   * hue. #534 measured two of those at 1.81:1 and 2.55:1 in dark mode — but the deeper problem
+   * is that a translucent background makes the pair **uncomputable**: no gate could measure it
+   * even if it tried, so 83 badges were invisible to every contrast sweep in the system. They
+   * were not passing; they could not be evaluated.
+   *
+   * This governs the pair at the theme level, so all 83 call sites are fixed without touching
+   * one of them — the alternative was editing 83 places and hoping the 84th remembers.
+   *
+   * The tint is composed with `color-mix` against a real surface, producing an OPAQUE colour
+   * whose contrast can actually be measured. The foreground is the governed body text rather
+   * than a shade of the hue: shade 9 was measured first and fails on orange (3.91:1) and green
+   * (4.03:1), so keeping the tinted text could not guarantee legibility. The neutral pairing
+   * measures **9.14:1 at worst** across all 25 presets x 2 schemes x 14 Mantine colours.
+   *
+   * VISIBLE CHANGE, stated rather than slipped in: light-variant badge text is now neutral
+   * instead of hue-tinted. The tint itself still carries the colour.
+   */
+  variantColorResolver: ((input) => {
+    const base = defaultVariantColorsResolver(input);
+    if (input.variant !== 'light' || !input.color) return base;
+    const tint = (shade: number, weight: string) =>
+      `color-mix(in srgb, var(--mantine-color-${input.color}-${shade}) ${weight}, var(--gds-bg-card))`;
+    return {
+      ...base,
+      background: `light-dark(${tint(6, '10%')}, ${tint(8, '15%')})`,
+      hover: `light-dark(${tint(6, '16%')}, ${tint(8, '22%')})`,
+      color: 'var(--gds-text-body)',
+      border: base.border,
+    };
+  }) satisfies VariantColorsResolver,
   // Issue 555. Mantine's radius scale is fed FROM the shape axis, so `radius="md"` on any
   // component (146 such references across the packages) and every
   // `var(--mantine-radius-*)` resolve through the same declaration as `--gds-radius-*`.
@@ -321,4 +356,30 @@ export function withGdsMotion(overrides: MantineThemeOverride = {}) {
       overrides,
     ),
   );
+}
+
+/**
+ * Wraps a theme so its `light` variant is governed, whatever the theme is.
+ *
+ * Putting the resolver on `gdsTheme` alone was not enough, and the runtime gate is what caught
+ * it: `GdsProvider` accepts any `MantineThemeOverride`, and a preset built by
+ * `resolveGdsThemePreset` does not descend from `gdsTheme` — so the governed lane was dropped
+ * on every route the playground renders, which is every route a consumer copies from.
+ *
+ * A guarantee that a caller can drop by passing a different object is not a guarantee. This is
+ * applied inside the provider so no theme can opt out of it by accident.
+ *
+ * A consumer's own resolver is still honoured for every other variant; only `light` is forced,
+ * because that is the lane with no measurable contrast.
+ */
+export function withGdsGovernedVariants(theme: MantineThemeOverride): MantineThemeOverride {
+  const inherited = theme.variantColorResolver;
+  return {
+    ...theme,
+    variantColorResolver: (input) => (
+      input.variant === 'light'
+        ? gdsTheme.variantColorResolver(input)
+        : (inherited ?? defaultVariantColorsResolver)(input)
+    ),
+  };
 }

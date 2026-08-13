@@ -35,10 +35,17 @@ function bandForScore(value: number): ScoreBand {
   return 'partial';
 }
 
-const bandColor: Record<ScoreBand, string> = {
-  great: 'var(--gds-state-success, var(--mantine-color-teal-6))',
-  good: 'var(--gds-brand-accent, var(--mantine-color-orange-5))',
-  partial: 'var(--gds-brand-accent-action, var(--mantine-color-orange-7))',
+/*
+ * Issue 597. Each band paired a themeable fill with `--gds-text-on-inverse` — a foreground
+ * derived for the INVERSE surface, not for whatever colour the theme gives the fill. Measured
+ * live on /patterns/public, the `good` band rendered #f8fafc on #0594ac: 3.44:1.
+ *
+ * The foreground is now derived against the fill it actually lands on, per preset and scheme.
+ */
+const bandColor: Record<ScoreBand, { bg: string; fg: string }> = {
+  great: { bg: 'var(--gds-badge-solid-success)', fg: 'var(--gds-badge-solid-success-fg)' },
+  good: { bg: 'var(--gds-brand-accent)', fg: 'var(--gds-brand-accent-fg)' },
+  partial: { bg: 'var(--gds-brand-accent-action)', fg: 'var(--gds-brand-accent-action-fg)' },
 };
 
 const bandLabel: Record<ScoreBand, string> = {
@@ -73,7 +80,7 @@ export function FitScoreChip({ value, label, dimensions, size = 'md', style, ...
       aria-label={accessibleLabel}
       tabIndex={hasTooltip ? 0 : undefined}
       {...props}
-      style={{ backgroundColor: bandColor[band], color: 'var(--gds-text-on-inverse, var(--mantine-color-white))', ...style }}
+      style={{ backgroundColor: bandColor[band].bg, color: bandColor[band].fg, ...style }}
     >
       {display}
     </Badge>
