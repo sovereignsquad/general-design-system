@@ -23,8 +23,30 @@ describe('playground pattern registry', () => {
     }
   });
 
-  it('keeps the public catalog fully represented as live proofs', () => {
-    expect(patternRegistry.every((entry) => entry.coverageStatus === 'live-proof')).toBe(true);
+  // Issue 600. This previously asserted that EVERY entry was 'live-proof', which is not a
+  // check — it is the claim itself, restated as a test. It passed while seven entries
+  // rendered the "No interactive demo renders here" fallback, because nothing compared the
+  // status to what the page actually showed. Requiring the claim is how the claim went wrong.
+  //
+  // What replaces it is the property the status is supposed to mean. `verify:pattern-live-proof`
+  // enforces the same rule over the source at build time; this keeps it true of the runtime
+  // registry as well, and fails if a status is invented that neither gate models.
+  it('only claims live-proof for patterns the catalog actually renders', () => {
+    const demoCases = new Set(
+      [...readFileSync(resolve(process.cwd(), 'apps/playground/src/pattern-pages.tsx'), 'utf8')
+        .matchAll(/case '([^']+)':/g)].map((match) => match[1]),
+    );
+
+    const unproven = patternRegistry
+      .filter((entry) => entry.coverageStatus === 'live-proof')
+      .filter((entry) => !demoCases.has(entry.id) && !entry.sourceComponent)
+      .map((entry) => entry.id);
+
+    expect(unproven).toEqual([]);
+    expect(patternRegistry.some((entry) => entry.coverageStatus === 'live-proof')).toBe(true);
+    for (const entry of patternRegistry) {
+      expect(['live-proof', 'static-reference', 'pending-primitive', 'blocked']).toContain(entry.coverageStatus);
+    }
   });
 
   it('keeps canonical docs and reference-site primitives represented', () => {

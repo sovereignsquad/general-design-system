@@ -1,6 +1,6 @@
 # General Design System Reference Site
 
-The `playground` app is the canonical public website for General Design System documentation, patterns, and live proofnstration. It is intentionally built as a strict GDS consumer and is the visual proof that the contracts in this repository can be consumed directly.
+The `playground` app is the canonical public website for General Design System documentation, patterns, and live proofs. It is intentionally built as a strict GDS consumer and is the visual proof that the contracts in this repository can be consumed directly.
 
 ## What this site publishes
 
