@@ -233,3 +233,34 @@ describe('ListingCard composition (#320)', () => {
     ).toThrow();
   });
 });
+
+describe('MediaWithFallback reserves its box (issue 605)', () => {
+  // The reference site states that a failed image "never collapses a card or shifts layout".
+  // Nothing asserted it: the existing tests covered WHICH content renders, not that the box
+  // keeps its height when that content is the fallback. A claim on the site with no evidence
+  // behind it is exactly what the claims gate now forbids.
+  it('keeps an aspect-ratio box in both states, so the fallback occupies the image’s space', () => {
+    const { container: withImage } = renderWithGds(
+      <MediaWithFallback src="https://example.com/a.jpg" alt="Provider" ratio={16 / 9} />,
+    );
+    const imageBox = withImage.querySelector('.mantine-AspectRatio-root');
+    expect(imageBox).toBeTruthy();
+
+    const { container: withFallback } = renderWithGds(
+      <MediaWithFallback alt="Bright Kids" fallbackLabel="Bright Kids" ratio={16 / 9} />,
+    );
+    const fallbackBox = withFallback.querySelector('.mantine-AspectRatio-root');
+    expect(fallbackBox).toBeTruthy();
+
+    // Same reserved ratio in both states — that is what stops the collapse the site promises.
+    const ratioOf = (el: Element | null) => getComputedStyle(el as HTMLElement).getPropertyValue('--ar-ratio').trim();
+    expect(ratioOf(fallbackBox)).toBe(ratioOf(imageBox));
+  });
+
+  it('still reserves the box after the image errors', () => {
+    const { container } = renderWithGds(<MediaWithFallback src="broken" alt="X" fallbackLabel="Foo Bar" />);
+    fireEvent.error(screen.getByAltText('X'));
+    expect(screen.getByText('FB')).toBeInTheDocument();
+    expect(container.querySelector('.mantine-AspectRatio-root')).toBeTruthy();
+  });
+});

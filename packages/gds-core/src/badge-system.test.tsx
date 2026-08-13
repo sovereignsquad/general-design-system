@@ -430,3 +430,31 @@ describe('#493 regressions', () => {
     expect(screen.getByRole('radio', { name: 'Alpha' })).toHaveAttribute('aria-checked', 'true');
   });
 });
+
+describe('emoji-mode pin disc is never the accent (issue 605)', () => {
+  // The reference site states that in emoji mode "the pin fills with a fixed dark-neutral disc
+  // (never the accent)". The existing emoji test asserted the glyph renders and shape is
+  // ignored — not that the fill is neutral. The claim had no evidence, which is the state the
+  // claims gate now forbids: an OS-rendered emoji has colours GDS cannot control, so its
+  // legibility must not depend on the active accent.
+  it('fills the disc with the fixed neutral, not the category accent', () => {
+    const { container } = renderWithGds(
+      <GdsMapPinBadge accent="terracotta" icon="Location" emoji="🏀" label="Basketball" iconStyle="emoji" />,
+    );
+    const filled = [...container.querySelectorAll('*')]
+      .map((el) => el.getAttribute('fill') ?? '')
+      .filter(Boolean);
+    // The neutral disc is present...
+    expect(filled.some((f) => /dark-7|#1f2937/.test(f))).toBe(true);
+    // ...and no filled shape carries the accent token, which is what "never the accent" means.
+    expect(filled.some((f) => /--gds-accent-terracotta/.test(f))).toBe(false);
+  });
+
+  it('keeps the ring on the accent, so the category is still readable', () => {
+    const { container } = renderWithGds(
+      <GdsMapPinBadge accent="terracotta" icon="Location" emoji="🏀" label="Basketball" iconStyle="emoji" />,
+    );
+    const strokes = [...container.querySelectorAll('*')].map((el) => el.getAttribute('stroke') ?? '').filter(Boolean);
+    expect(strokes.some((s) => /--gds-accent-terracotta/.test(s))).toBe(true);
+  });
+});

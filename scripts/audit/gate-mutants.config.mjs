@@ -447,6 +447,22 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:site-claims',
+    script: null,
+    mutants: [
+      {
+        id: 'site-claims-detects-unevidenced-claim',
+        claim: 'Detects an absolute claim on the reference site with no registered evidence',
+        // Removing a registration leaves the sentence on the site with nothing behind it —
+        // the exact state that let the badge panel assert a false rule for as long as it did.
+        file: 'scripts/site-claims.config.mjs',
+        find: "  'Focus never depends on hover-only reveal.': {",
+        replace: "  'Focus never depends on hover-only reveal. (mutant: registration removed)': {",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:component-color-pairs',
     script: null,
     mutants: [
