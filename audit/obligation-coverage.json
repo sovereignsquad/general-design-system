@@ -248,7 +248,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 21
+        "line": 20
       },
       "unmet": [
         {
