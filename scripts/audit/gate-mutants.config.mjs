@@ -447,6 +447,22 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:component-census',
+    script: null,
+    mutants: [
+      {
+        id: 'census-detects-stale-published-count',
+        claim: 'Detects a published component count that no longer matches the packages',
+        // The number the site quotes going stale is the whole failure mode: "250+" was true
+        // when written and drifted unnoticed for as long as nothing compared it to reality.
+        file: 'apps/playground/src/generated-component-census.ts',
+        find: 'export const GDS_PUBLIC_COMPONENT_COUNT = 289;',
+        replace: 'export const GDS_PUBLIC_COMPONENT_COUNT = 250;',
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:site-claims',
     script: null,
     mutants: [
