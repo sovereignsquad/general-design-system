@@ -144,7 +144,12 @@ try {
   }
 } finally {
   await disposeBrowser(browserSession.browser, browserSession.userDataDir);
-  if (previewServer?.close) await previewServer.close();
+  // `kill`, not `close`: the handle from startPreviewServer has no `close`, so an optional
+  // call to it is a SILENT NO-OP that leaks the server. It then holds port 4173, and the next
+  // runtime gate — which spawns with --strictPort — waits on that port forever. Observed:
+  // a preflight run that sat on verify:forced-colors-runtime indefinitely, and, earlier, a
+  // gate run served by a stale build that reported 344 already-fixed failures.
+  await previewServer?.kill('SIGTERM');
 }
 
 // Rounded to one decimal, and counts bucketed, because the sweep is not yet reproducible
