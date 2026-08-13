@@ -30,6 +30,13 @@ export const EXEMPTIONS = {
   'verify:theme-trust-runtime': { reason: 'Browser-driven; see above.', reviewBy: '2026-12-01' },
   'verify:input-zoom-guard-runtime': { reason: 'Browser-driven; see above.', reviewBy: '2026-12-01' },
   'verify:kanban-drag-accessibility-runtime': { reason: 'Browser-driven; see above.', reviewBy: '2026-12-01' },
+  // Same browser-driven category. Worth stating what stands in for a mutant meanwhile:
+  // this gate's negative control was OBSERVED, not assumed — during issue 597 it reported
+  // 344 uncomputable pairs and then 26 below 4.5:1, each traced to a real shipped defect,
+  // before reaching 0. A gate that has failed loudly on real defects has demonstrated it
+  // detects them; that is evidence a planted mutant would only repeat, not evidence this
+  // exemption can outlive its date.
+  'verify:badge-contrast': { reason: 'Browser-driven; needs the rebuild-aware harness pattern from issue 579. Its negative control was observed live on real defects (344 uncomputable, then 26 low pairs) rather than planted. Tracked, not waived.', reviewBy: '2026-12-01' },
   'verify:references': { reason: 'Aggregate of 25 sub-gates; mutants belong on the individual scripts rather than the aggregate. Tracked.', reviewBy: '2026-12-01' },
   // These read from dist/, so a source mutation is invisible to them without a rebuild.
   // Solvable exactly as verify:theme-tokens now is (requiresBuild), but each needs its

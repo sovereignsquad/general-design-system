@@ -1,11 +1,11 @@
 {
-  "consumed": 94,
+  "consumed": 93,
   "governed": 4,
   "delegated": 7,
   "dynamic": 2,
   "laneGoverned": 8,
-  "ungovernedCount": 81,
-  "budget": 81,
+  "ungovernedCount": 80,
+  "budget": 80,
   "rows": [
     {
       "variable": "--mantine-color-",
@@ -14,7 +14,8 @@
       "files": [
         "packages/gds-core/src/EditorialCard.tsx",
         "packages/gds-core/src/GdsPageTemplates.tsx",
-        "packages/gds-theme/src/theme-presets.ts"
+        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/theme.ts"
       ]
     },
     {
@@ -289,8 +290,7 @@
       "why": "GDS does not change gdsTheme.colors.gray.7 from Mantine's default",
       "files": [
         "packages/gds-core/src/AccentPanel.tsx",
-        "packages/gds-core/src/ChoiceChip.tsx",
-        "packages/gds-core/src/GdsCountBadge.tsx"
+        "packages/gds-core/src/ChoiceChip.tsx"
       ]
     },
     {
@@ -384,16 +384,7 @@
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.colors.orange.5 from Mantine's default",
       "files": [
-        "packages/gds-core/src/FitScoreChip.tsx",
         "packages/gds-core/src/MeaningBadge.tsx"
-      ]
-    },
-    {
-      "variable": "--mantine-color-orange-7",
-      "classification": "ungoverned",
-      "why": "GDS does not change gdsTheme.colors.orange.7 from Mantine's default",
-      "files": [
-        "packages/gds-core/src/FitScoreChip.tsx"
       ]
     },
     {
@@ -517,7 +508,6 @@
       "why": "governed by partnerDiscoveryThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
       "files": [
         "packages/gds-core/src/ChoiceChip.tsx",
-        "packages/gds-core/src/FitScoreChip.tsx",
         "packages/gds-core/src/MeaningBadge.tsx"
       ]
     },
@@ -622,7 +612,6 @@
         "packages/gds-core/src/BottomTabBar.tsx",
         "packages/gds-core/src/ChatSurface.tsx",
         "packages/gds-core/src/ChoiceChip.tsx",
-        "packages/gds-core/src/FitScoreChip.tsx",
         "packages/gds-core/src/GdsGeneratedHero.tsx",
         "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
         "packages/gds-core/src/GdsMapPinBadge.tsx",

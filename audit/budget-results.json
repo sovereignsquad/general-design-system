@@ -42,7 +42,7 @@
     },
     {
       "key": "publishedGraphOverlap",
-      "measured": 189,
+      "measured": 193,
       "value": 189,
       "direction": "min",
       "unit": "count",
@@ -52,8 +52,8 @@
     },
     {
       "key": "undeclaredMantineDependencies",
-      "measured": 81,
-      "value": 81,
+      "measured": 80,
+      "value": 80,
       "direction": "max",
       "unit": "count",
       "finding": "F17",
