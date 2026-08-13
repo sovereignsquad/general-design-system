@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "aaf3838ec1b895b3fe639c9533aabd613d1d8e1b",
+  "commit": "843d82b62f2e067b1d93d6e1f44e3ac2ab0b6807",
   "counts": {
     "token-published": 486,
     "token-declared": 57,
@@ -21204,7 +21204,7 @@
       "name": "BottomTabBarProps.items",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 21
+        "line": 20
       },
       "type": "PublicNavItem[]"
     },
@@ -21214,7 +21214,7 @@
       "name": "BottomTabBarProps.activeId",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 21
+        "line": 20
       },
       "type": "string"
     },
@@ -21224,7 +21224,7 @@
       "name": "BottomTabBarProps.emphasizedItemId",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 21
+        "line": 20
       },
       "type": "string"
     },
@@ -21234,7 +21234,7 @@
       "name": "BottomTabBarProps.maxItems",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 21
+        "line": 20
       },
       "type": "number"
     },
@@ -21244,7 +21244,7 @@
       "name": "BottomTabBarProps.onNavItemSelect",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 21
+        "line": 20
       },
       "type": "(id: string) => void"
     },
@@ -21254,7 +21254,7 @@
       "name": "BottomTabBarProps.ariaLabel",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 21
+        "line": 20
       },
       "type": "string"
     },
@@ -21264,7 +21264,7 @@
       "name": "BottomTabBarProps.className",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 21
+        "line": 20
       },
       "type": "string"
     },
@@ -25381,7 +25381,7 @@
       "name": "GdsViewportFrameProps.width",
       "source": {
         "file": "packages/gds-core/src/GdsViewportFrame.tsx",
-        "line": 62
+        "line": 45
       },
       "type": "GdsViewportFrameWidth"
     },
@@ -25391,7 +25391,7 @@
       "name": "GdsViewportFrameProps.height",
       "source": {
         "file": "packages/gds-core/src/GdsViewportFrame.tsx",
-        "line": 62
+        "line": 45
       },
       "type": "string"
     },
@@ -25401,7 +25401,7 @@
       "name": "GdsViewportFrameProps.label",
       "source": {
         "file": "packages/gds-core/src/GdsViewportFrame.tsx",
-        "line": 62
+        "line": 45
       },
       "type": "string"
     },
@@ -25411,7 +25411,7 @@
       "name": "GdsViewportFrameProps.children",
       "source": {
         "file": "packages/gds-core/src/GdsViewportFrame.tsx",
-        "line": 62
+        "line": 45
       },
       "type": "ReactNode"
     },
