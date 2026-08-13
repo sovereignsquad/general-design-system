@@ -25,7 +25,10 @@ const corpora = [
 ];
 
 const failures = [];
-const report = { generatedAt: new Date().toISOString().replace(/\.\d+Z$/, '.000Z'), corpora: {} };
+// No timestamp. This gate WRITES its artifact on every run, so a clock in the output would
+// leave the tree dirty after every chain and fail `preflight`'s clean-after check forever —
+// the artifact has to be a pure function of the packs it measured.
+const report = { corpora: {} };
 
 for (const corpus of corpora) {
   const { rows } = measureCorpusLeakage(corpus.dir, { referenceIsKey: corpus.referenceIsKey });
