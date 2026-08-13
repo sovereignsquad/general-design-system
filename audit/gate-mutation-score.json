@@ -1,12 +1,14 @@
 {
-  "releaseChainGates": 38,
+  "releaseChainGates": 39,
   "gatesWithMutants": 24,
   "gatesExempted": 16,
   "mutantsRun": 30,
   "killed": 30,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
-  "coverageFailures": [],
+  "coverageFailures": [
+    "verify:component-census is in verify:release but has neither mutants nor an exemption."
+  ],
   "results": [
     {
       "gate": "verify:budgets",
