@@ -8,7 +8,7 @@
       "tokenCount": 5275,
       "atmosphereTokenCount": 425,
       "semanticTokenCount": 4850,
-      "globalTokenCount": 35,
+      "globalTokenCount": 36,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
       "cssComputedType": "com.sovereignsquad.gds.cssComputed",
@@ -20,6 +20,18 @@
   "gds": {
     "global": {
       "$description": "Tokens that render identically under every preset (motion, overlay, safe-area, tour geometry). Values are the plain :root declarations, not the reduced-motion or forced-colors overrides.",
+      "motion-duration-ambient": {
+        "$type": "duration",
+        "$value": "1000ms",
+        "$description": "Theme-invariant GDS token \"motion-duration-ambient\" — identical under every preset.",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "motion-duration-ambient",
+            "lane": "global",
+            "cssProperty": "--gds-motion-duration-ambient"
+          }
+        }
+      },
       "motion-duration-base": {
         "$type": "duration",
         "$value": "180ms",

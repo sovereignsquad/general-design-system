@@ -18,7 +18,7 @@
  * allowlist becomes permanent.
  */
 export const SHAPE_ALLOWLIST = {
-  'packages/gds-core/src/ChatSurface.tsx:135': {
+  'packages/gds-core/src/ChatSurface.tsx:141': {
     category: 'circle',
     reason: 'Typing-indicator dot. 50% is a circle primitive; a radius step would make it a rounded square under any theme with a small scale.',
     reviewBy: '2027-08-01',
