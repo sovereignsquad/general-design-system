@@ -1154,10 +1154,10 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Application Shell & Navigation',
     family: 'public',
     section: 'Shell & Navigation Guidance',
-    // Was `static-reference` under #600: BottomTabBar is `position: fixed` and `hiddenFrom="sm"`,
+    // Was `static-reference` under issue 600: BottomTabBar is `position: fixed` and `hiddenFrom="sm"`,
     // so it could not be shown on a documentation page without either rendering nothing or
     // pinning itself over the site's own navigation. Rule 15 says the missing capability IS the
-    // finding, so the frame was built (#609) rather than the proof staged, and this is a real
+    // finding, so the frame was built (issue 609) rather than the proof staged, and this is a real
     // live proof again — rendered inside GdsViewportFrame, which is a shipped primitive any
     // consumer can obtain.
     coverageStatus: 'live-proof',
