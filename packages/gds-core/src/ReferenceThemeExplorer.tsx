@@ -104,65 +104,57 @@ type ExplorerCopy = Omit<typeof referenceThemeExplorerCopy.en, 'presetLabels' | 
   presetSummaries: Partial<Record<ThemePresetId, string>>;
 };
 const fallbackExplorerCopy: ExplorerCopy = referenceThemeExplorerCopy.en;
-const fallbackExplorerLocale = Object.keys(referenceThemeExplorerCopy)[0] ?? 'en';
-
-function hasCompleteCopyValue(referenceValue: unknown, candidateValue: unknown): boolean {
-  if (Array.isArray(referenceValue)) {
-    return Array.isArray(candidateValue) && referenceValue.every((_, index) => candidateValue[index] !== undefined);
-  }
-
-  if (referenceValue && typeof referenceValue === 'object') {
-    if (!candidateValue || typeof candidateValue !== 'object' || Array.isArray(candidateValue)) {
-      return false;
-    }
-
-    return Object.keys(referenceValue).every((key) =>
-      hasCompleteCopyValue(
-        (referenceValue as Record<string, unknown>)[key],
-        (candidateValue as Record<string, unknown>)[key]
-      )
-    );
-  }
-
-  return candidateValue !== undefined;
-}
-
-function hasCompleteExplorerCopy(copy: Partial<ExplorerCopy>): copy is ExplorerCopy {
-  return hasCompleteCopyValue(fallbackExplorerCopy, copy);
-}
-
 function resolveExplorerCopy(locale: string): ExplorerCopy {
   const localeBaseCopy = (referenceThemeExplorerCopy[locale as keyof typeof referenceThemeExplorerCopy] ?? {}) as Partial<ExplorerCopy>;
   const localeOverrideCopy = (referenceThemeExplorerCopyOverrides as Record<string, Partial<ExplorerCopy>>)[locale] ?? {};
+  // English first, so every field exists no matter what the locale supplies.
+  //
+  // Issue 587. This used to layer the locale over `{}` and then return early:
+  //
+  //     if (locale !== fallbackExplorerLocale && Object.keys(mergedCopy).length > 0)
+  //
+  // `mergedCopy` ALWAYS has at least four keys, because the literal below unconditionally
+  // sets `schemes`, `schemeDescriptions`, `presetLabels` and `presetSummaries` — spreading
+  // `undefined` yields `{}`, not absence. So that condition was true for every non-English
+  // locale, the completeness check underneath it could never run, and `as ExplorerCopy`
+  // asserted a shape the object did not have.
+  //
+  // Nothing surfaced while every supported locale happened to have full copy. Adding `ja`,
+  // `ko` and `zh` produced an object with four empty maps and no `tokenLabels`, and the first
+  // `copy.tokenLabels[0]` took the whole page down — the reference site's own home route,
+  // blank, in three languages.
+  //
+  // Falling back PER FIELD rather than all-or-nothing: a locale that translates most of the
+  // explorer keeps its translations and shows English only where it has none, instead of
+  // reverting the entire component to English over one missing string.
   const mergedCopy = {
+    ...fallbackExplorerCopy,
     ...localeBaseCopy,
     ...localeOverrideCopy,
     schemes: {
+      ...fallbackExplorerCopy.schemes,
       ...localeBaseCopy.schemes,
       ...localeOverrideCopy.schemes,
     },
     schemeDescriptions: {
+      ...fallbackExplorerCopy.schemeDescriptions,
       ...localeBaseCopy.schemeDescriptions,
       ...localeOverrideCopy.schemeDescriptions,
     },
     presetLabels: {
+      ...fallbackExplorerCopy.presetLabels,
       ...localeBaseCopy.presetLabels,
       ...localeOverrideCopy.presetLabels,
     },
     presetSummaries: {
+      ...fallbackExplorerCopy.presetSummaries,
       ...localeBaseCopy.presetSummaries,
       ...localeOverrideCopy.presetSummaries,
     },
-  } as Partial<ExplorerCopy>;
+  } as ExplorerCopy;
 
-  if (locale !== fallbackExplorerLocale && Object.keys(mergedCopy).length > 0) {
-    return mergedCopy as ExplorerCopy;
-  }
-
-  if (!hasCompleteExplorerCopy(mergedCopy)) {
-    return fallbackExplorerCopy;
-  }
-
+  // Completeness is now guaranteed by construction rather than checked afterwards, which is
+  // why the previous checker is gone: it was unreachable for every locale that needed it.
   return mergedCopy;
 }
 

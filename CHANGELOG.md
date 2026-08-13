@@ -28,6 +28,28 @@ verifies structure, not font binaries, so a family mapped to a script whose glyp
 would still pass. Proving real glyph coverage means reading `unicode-range` from the font
 service live, the same network dependency already exempted for `audit:dependencies`.
 
+### ReferenceThemeExplorer took the home route down in any locale it had no copy for (#587)
+
+Adding the three locales exposed a latent crash in `gds-core`, not in the app. `resolveExplorerCopy`
+layered the locale over `{}` and returned early on `Object.keys(mergedCopy).length > 0` — but the
+object literal **unconditionally** sets `schemes`, `schemeDescriptions`, `presetLabels` and
+`presetSummaries`, and spreading `undefined` yields `{}` rather than absence. That condition was
+therefore true for **every non-English locale**, the completeness check beneath it was unreachable,
+and `as ExplorerCopy` asserted a shape the object did not have.
+
+Nothing surfaced while every supported locale happened to have full explorer copy. `ja`/`ko`/`zh`
+produced an object with four empty maps and no `tokenLabels`, and the first `copy.tokenLabels[0]`
+**blanked the reference site's home route** — white page, in three languages.
+
+Copy now falls back **per field** over English, so a locale that translates most of the explorer
+keeps its translations and shows English only where it has none, instead of reverting the whole
+component over one missing string. The 27 lines of unreachable completeness checking are deleted
+rather than left looking like a safeguard. `ja`, `ko` and `zh` explorer copy is generated, so the
+fallback is a safety net rather than the shipped state.
+
+Verified in a real browser against the built bundle, not jsdom — **the jsdom suite passed the whole
+time.** It renders the route without the code-split explorer chunk that actually crashed.
+
 ### The site can now render in Japanese, Korean and Chinese (#587)
 
 `gds-core` shipped locale packs for `ja`, `ko` and `zh` while the reference site had a phrase
