@@ -4,6 +4,40 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### `coverageStatus` is derived, not written (#608)
+
+All 113 registry entries carried the same hand-typed `'live-proof'`. **A field with one observed
+value cannot be observed to be wrong** — which is how seven entries claimed a live proof while
+their cards rendered "No interactive demo renders here" (#600).
+
+`verify:pattern-live-proof` closed the false-positive direction: nothing could *claim* a proof
+without one. It did not make the claim derived, and a correct claim is still an unverified one.
+
+Whether a pattern has a live proof is something the system can be asked — does `renderEntryDemo()`
+have a case for this id, or does `PatternEntryCard` special-case it. That is now computed into
+`generated-pattern-coverage.ts` and read by the registry, so **removing a demo demotes its entry
+automatically** and `/coverage` tells the truth without anyone remembering to edit it (Rule 14).
+A generated file rather than a runtime computation because `pattern-pages.tsx` imports the
+registry, so the registry cannot import the pages back — the same reason
+`generated-component-census.ts` exists, with the same `--check` drift guard.
+
+**`verify:pattern-live-proof` was deleted, not kept alongside.** With the status derived,
+`live-proof` *means* "has a case", so the gate could never fail — and a gate that cannot fail is
+the exact thing this codebase treats as a defect. `verify:pattern-coverage` replaces it: the
+remaining risk is a stale generated artifact, which is what the drift check catches. Its mutant
+moved across unchanged — removing a demo without regenerating still fails.
+
+**`pending-primitive` and `blocked` were removed from the union** rather than left declared. They
+had never been used once across 113 entries, and an enum member nothing can produce is not a
+state the system has. Keeping them left `/coverage` rendering "0 patterns are blocked" forever,
+which reads as a measurement and was not one.
+
+Two consumers broke and both failed loudly rather than silently: the export-coverage gate parsed
+`coverageStatus` out of the registry source and reported all 113 as `unknown`, and the
+accessibility-evidence script could not resolve the new import under Node's type-stripping. The
+first now derives the status the same way; the second needed an explicit `.ts` specifier, which
+the playground tsconfig already permits.
+
 ### `GdsViewportFrame`: the capability that was missing, built (#609)
 
 #600 could not live-prove `bottom-tab-navigation` and **said so** rather than staging it —
