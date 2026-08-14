@@ -195,14 +195,24 @@ npm run verify:release       # the chain alone (preflight wraps it)
 
 ### Real defects
 
-- **#604** — CI can go red for reasons outside the repo (see traps above).
-- **#612** — the nine `tokensWithGaps` tokens are recorded, not classified. The
-  *drift* half is fixed: the audit traces now regenerate every cycle.
+All of the session-stream defects are now CLOSED, CI-green on `main`
+(`bd9fb34`, `e150bde`, `3076754`): #604 (install failures now retry and are
+classified by name, never readable as a compat result), #612 (the nine gaps are
+classified with verified reasons and review dates in
+`scripts/audit/forward-trace.config.mjs`; they still count in the ratchet),
+#614 (allowlists re-keyed by declaration text; stale entries fail the gate),
+#615 (comments are lexed out before every gds-compliance source scanner),
+#617 (69 component defaults through the locale catalogue; 12 packs at 258 keys;
+source→pack parity gate), #619 (`verify:viewport-reachability-runtime`, 24
+routes at a true 390px; found and fixed two real long-token overflow defects at
+token level in gds-theme), and #606's missing half (the `/live-demos` URL
+rename had shipped **without redirects** — the whole legacy family now
+redirects, pinned by `site-routes.test.ts`).
+
+Still open:
+
 - **#611** — 7 Hebrew phrases machine translation cannot resolve. Needs a human
-  translator; inventing them would violate Rule 11.
-- **#614** — the shape/density allowlists pin by `file:line`, so an unrelated
-  edit fails the build. Cost **four** preflight cycles in one session.
-- **#615** — `gds-compliance` reads `#600` in a comment as a hex colour.
+  translator; inventing them would violate Rule 11. Genuinely blocked.
 
 ### Two lessons worth more than the fixes
 
@@ -241,17 +251,23 @@ behaviour *under failure* rather than rendering:
   **#569** themed basemap, **#570** offline/blocked-tile degradation,
   **#572** `docs/MAP_SYSTEM.md` as SSOT.
 
-### Opened by this session, all scoped and none blocking
+### Lessons this closing pass added (same shape as the two above)
 
-- **#611** Hebrew phrases needing a human translator · **#612** the nine token
-  gaps · **#614** allowlists pinned by `file:line` · **#615** the raw-colour
-  rule reads `#600` in a comment as a hex literal.
+- **Anchoring a mutant on visible copy means anchoring on something the product
+  may rename.** M7's anchor "Live Demos" was invalidated by #606's rename, and
+  the first re-anchor *ran but survived* — a two-word phrase fails the leakage
+  measure's own `isProse` rule, so the planted leak was excluded by design, not
+  missed. The INVALID/SURVIVED statuses existing at all are the protection.
+- **A rename is not shipped until the old name still works.** #606's URL rename
+  went out without redirects — the exact break its own checklist forbade — and
+  was only caught by re-walking the checklist while closing the issue.
 
 ### Everything else
 
 Design-intake contract (#538–#543), imagery expansion (#565), health trackers
-(#576, #577, #583, #603), theme details (#551, #552), docs epic (#498), bundle
-splitting (#532), attribution cleanup (#512, blocked on permissions).
+(#576, #577, #583 — #603 is closed: three instruments, now named so), theme
+details (#551, #552, #598), docs epic (#498), bundle splitting (#532),
+attribution cleanup (#512, blocked on permissions).
 
 ---
 
