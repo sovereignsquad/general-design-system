@@ -4,6 +4,29 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The language selector only ever worked once (#616)
+
+Reported from a phone: the selector read **Français** over a **fully Korean** page. Switching to
+Hebrew or Hungarian changed the selector and one button, and left the rest Korean.
+
+`translateSiteDom` rewrote each text node **in place**, destroying the English the phrase index
+is keyed by. So the pass worked exactly once. On the second switch it looked up the *previous
+language's* text in the new locale's English-keyed map, matched nothing, and left everything
+alone. The only strings that changed were the handful React re-renders from `page-copy` — which
+is why a single button read "Enregistrer" on an otherwise Korean page.
+
+Switching **back to English** was broken in the same way and for the same reason: the pass
+returned early for `en`, so it never put back what an earlier locale had overwritten.
+
+Every node's English source is now remembered in a `WeakMap`, and each pass translates from that
+rather than from whatever the last pass left behind. English restores instead of returning early.
+
+Verified in Chrome by switching **ko → fr → ko → ru → en → he**, counting script characters at
+each step: 3,864 hangul → 3 → 3,864 → 11,939 cyrillic → English restored → 7,099 Hebrew. Every
+switch fully replaces the previous language, including switching back to a locale already used.
+
+No reload is needed — the fix removes the reason one would have been.
+
 ### `coverageStatus` is derived, not written (#608)
 
 All 113 registry entries carried the same hand-typed `'live-proof'`. **A field with one observed

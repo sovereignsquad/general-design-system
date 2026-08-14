@@ -222,10 +222,9 @@ function PlaygroundContent() {
   const headerContext = getSiteHeaderContext(location.pathname, effectiveLocale);
 
   useEffect(() => {
-    if (effectiveLocale === 'en') {
-      return undefined;
-    }
-
+    // English is NOT skipped. Switching back to English has to put back what an earlier locale
+    // overwrote; returning early here is what left the page in the previous language. The pass
+    // is cheap for English — it loads no phrase chunk and only restores nodes it had rewritten.
     const root = document.getElementById('root');
     if (!root) {
       return undefined;
