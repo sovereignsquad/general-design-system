@@ -57,23 +57,48 @@ describe('playground route locale coverage', () => {
     expect(Array.from(localeSelect.options).map((option) => option.value)).toEqual(allLocaleIds);
   });
 
-  it('does not rewrite interactive control text with generated phrase translation', async () => {
+  // CONTRACT CHANGED, issue 617. This used to assert that `button`, `label` and `a` text was
+  // NEVER rewritten, on the principle that interactive labels are owned by the localized copy
+  // maps and the message catalogue rather than by the phrase overlay.
+  //
+  // That principle is sound and the copy layer does own most of them — but measured on the
+  // Korean site, 25 link texts and 8 button texts were still rendering in ENGLISH, because the
+  // copy layer did not in fact cover them. The rule was protecting an ownership boundary that
+  // left readers looking at English navigation.
+  //
+  // What must stay verbatim is narrower and concrete: CODE (a snippet is not prose) and FORM
+  // CONTROL VALUES (a `<select>`'s options include the locale names themselves, which stay in
+  // their own language by design). That is what this now asserts.
+  it('translates link and button copy but never code or form control values', async () => {
     const root = document.createElement('div');
-    const nodes = ['button', 'label', 'a', 'p'].map((tagName) => {
+    const make = (tagName: string) => {
       const element = document.createElement(tagName);
       element.textContent = 'Accent band';
-      if (tagName === 'a') {
-        element.setAttribute('href', '/general-design-system/patterns');
-      }
       root.appendChild(element);
       return element;
-    });
+    };
+
+    const paragraph = make('p');
+    const anchor = make('a');
+    const button = make('button');
+    const label = make('label');
+    const code = make('code');
+    const select = document.createElement('select');
+    const option = document.createElement('option');
+    option.textContent = 'Accent band';
+    select.appendChild(option);
+    root.appendChild(select);
 
     await translateSiteDom(root, 'fr');
 
-    expect(nodes[0].textContent).toBe('Accent band');
-    expect(nodes[1].textContent).toBe('Accent band');
-    expect(nodes[2].textContent).toBe('Accent band');
-    expect(nodes[3].textContent).toBe("Bande d'accent");
+    const french = "Bande d'accent";
+    expect(paragraph.textContent).toBe(french);
+    expect(anchor.textContent).toBe(french);
+    expect(button.textContent).toBe(french);
+    expect(label.textContent).toBe(french);
+
+    // Verbatim: translating either would break something a reader depends on.
+    expect(code.textContent).toBe('Accent band');
+    expect(option.textContent).toBe('Accent band');
   });
 });

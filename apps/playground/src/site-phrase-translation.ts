@@ -68,9 +68,23 @@ export async function translateSitePhrase(value: string, locale: string) {
   return translateWithIndex(value, index);
 }
 
+/**
+ * Elements whose text must stay verbatim.
+ *
+ * Issue 617. This used to skip `a`, `button`, `label`, `[role="button"]`, `[role="link"]` and
+ * `[role="menuitem"]` as well, which meant **navigation links and button labels never
+ * translated** — 39 of the 395 English strings measured on the Korean site were inside them.
+ * Those are ordinary copy and a reader expects them in their own language.
+ *
+ * What genuinely must not be translated is CODE (a snippet is not prose), FORM CONTROL VALUES
+ * (a `<select>`'s options include the locale names themselves, which stay in their own
+ * language by design), and script/style contents.
+ */
+const VERBATIM_ELEMENTS = 'code, pre, kbd, samp, script, style, input, textarea, select, option';
+
 function shouldSkipNode(node: Node) {
   const parent = node.parentElement;
-  return Boolean(parent?.closest('a, button, code, input, label, option, pre, script, select, style, textarea, [role="button"], [role="link"], [role="menuitem"]'));
+  return Boolean(parent?.closest(VERBATIM_ELEMENTS));
 }
 
 /**
@@ -123,7 +137,7 @@ function translateTextNode(node: Text, index: Map<string, string>, restore: bool
 }
 
 function translateElementAttributes(element: Element, index: Map<string, string>, restore: boolean) {
-  if (element.closest('a, button, code, input, label, option, pre, script, select, style, textarea, [role="button"], [role="link"], [role="menuitem"]')) {
+  if (element.closest(VERBATIM_ELEMENTS)) {
     return;
   }
 
