@@ -48,6 +48,23 @@ export const REGISTERED_NUMERIC_CLAIMS = {
 };
 
 export const REGISTERED_CLAIMS = {
+  // Issue 619 — the rebuilt badge introduction. Each section states what it demonstrates, so
+  // each of those statements now needs its evidence like any other claim on this site.
+  'The same five states with the governed icon ahead of the label. The icon is decorative — it is the second cue, never the only one.': {
+    evidence: 'test',
+    ref: 'packages/gds-core/src/core.test.tsx (status badges without withIcon render no [data-gds-icon]; the label is always present)',
+    note: 'The icon is opt-in and additive: a badge renders its meaning as text with or without it, so colour and glyph are never the only carrier (WCAG 1.4.1).',
+  },
+  'A count caps rather than growing without bound, and announces its real value to assistive technology so the capped form is never the whole story. This one caps at %cap%.': {
+    evidence: 'test',
+    ref: 'packages/gds-core/src/core.test.tsx (renders count badges and label tags with governed semantics)',
+    note: 'Asserts the visible text caps to "99+" while the accessible name carries the real count — exactly the two halves this sentence claims.',
+  },
+  'An accent names a category and means the same thing in every theme, which is why it does not shift with the preset the way a tone does.': {
+    evidence: 'gate',
+    ref: 'verify:accent-contrast',
+    note: 'The accent palette is fixed by default across all 25 presets; a preset MAY override it, and the gate then measures that preset\'s own palette rather than the shared one. The invariant the sentence states — an accent is stable where a tone is tinted — is what that gate enforces.',
+  },
   'Focus never depends on hover-only reveal.': {
     evidence: 'gate',
     ref: 'verify:accessibility-evidence',

@@ -1673,6 +1673,147 @@ function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
   );
 }
 
+/**
+ * Issue 619. This was a bare `<div>` of every badge in the system separated by `<br />`: ten
+ * undifferentiated rows, no headings, nothing saying what distinguished one from the next — and
+ * on a phone the rows were clipped with badges unreachable off the edge.
+ *
+ * Rebuilt as documentation. Each section states what it demonstrates, and every row is a
+ * `GdsInline`, which wraps by default — that is the governed answer to "n items of unknown
+ * width in a viewport of unknown size", and it is why none of these can clip again.
+ */
+function BadgeSection({ title, description, children }: { title: string; description: string; children: React.ReactNode }) {
+  return (
+    <GdsStack gap="xs">
+      <BodyText><strong>{title}</strong></BodyText>
+      <MetadataText>{description}</MetadataText>
+      <GdsInline gap="sm" align="center">{children}</GdsInline>
+    </GdsStack>
+  );
+}
+
+// The cap the demo renders AND the number the sentence beside it quotes, so the two cannot
+// disagree. A written "99+" is exactly the drift `verify:site-claims` exists to stop.
+const BADGE_COUNT_CAP = 99;
+const BADGE_COUNT_COPY = 'A count caps rather than growing without bound, and announces its real value to assistive technology so the capped form is never the whole story. This one caps at %cap%.'
+  .replace(/%cap%/, String(BADGE_COUNT_CAP));
+
+function BadgeVocabularyDemo() {
+  return (
+    <GdsStack gap="lg">
+      <BadgeSection
+        title="Status"
+        description="System state, not editorial emphasis. The label carries the meaning; colour repeats it, so a reader who cannot see the colour loses nothing."
+      >
+        <StatusBadge status="success">Published</StatusBadge>
+        <StatusBadge status="warning">Needs review</StatusBadge>
+        <StatusBadge status="danger">Blocked</StatusBadge>
+        <StatusBadge status="info">Info</StatusBadge>
+        <StatusBadge status="neutral">Draft</StatusBadge>
+      </BadgeSection>
+
+      <BadgeSection
+        title="Status with its canonical icon"
+        description="The same five states with the governed icon ahead of the label. The icon is decorative — it is the second cue, never the only one."
+      >
+        <StatusBadge status="success" withIcon>Published</StatusBadge>
+        <StatusBadge status="warning" withIcon>Needs review</StatusBadge>
+        <StatusBadge status="danger" withIcon>Blocked</StatusBadge>
+        <StatusBadge status="info" withIcon>Info</StatusBadge>
+      </BadgeSection>
+
+      <BadgeSection
+        title="Label tags"
+        description="Neutral classification rather than state: a tag says what something is, a status says how it is doing."
+      >
+        <LabelTag label="Food" tone="info" />
+        <LabelTag label="Community" tone="neutral" />
+        <LabelTag label="Priority" tone="warning" />
+      </BadgeSection>
+
+      <BadgeSection
+        title="Counts"
+        description={BADGE_COUNT_COPY}
+      >
+        <CountBadge value={12} />
+        <CountBadge value={126} cap={BADGE_COUNT_CAP} srLabel="More than ninety nine updates" />
+      </BadgeSection>
+
+      <BadgeSection
+        title="Shape vocabulary"
+        description="Six silhouettes drawn on the Tabler geometry, so a composed mark sits beside the icon set instead of next to it."
+      >
+        <span data-gds-badge-shapes>
+          <GdsBadgeShapeCircle size={40} stroke={1.75} aria-hidden="true" />
+          <GdsBadgeShapeSquircle size={40} stroke={1.75} aria-hidden="true" />
+          <GdsBadgeShapeHexagon size={40} stroke={1.75} aria-hidden="true" />
+          <GdsBadgeShapeShield size={40} stroke={1.75} aria-hidden="true" />
+          <GdsBadgeShapeRosette size={40} stroke={1.75} aria-hidden="true" />
+          <GdsBadgeShapePin size={40} stroke={1.75} aria-hidden="true" />
+        </span>
+      </BadgeSection>
+
+      <BadgeSection
+        title="Composed badge — semantic tone"
+        description="GdsBadge takes a tone when it reports system state, and resolves its own colour pair against the surface it sits on."
+      >
+        <GdsBadge tone="success" icon="Success" label="Published" />
+        <GdsBadge tone="warning" icon="Warning" label="Needs review" />
+        <GdsBadge tone="danger" icon="Danger" label="Blocked" />
+        <GdsBadge tone="info" icon="Info" label="Heads up" />
+        <GdsBadge tone="neutral" label="Draft" />
+      </BadgeSection>
+
+      <BadgeSection
+        title="Composed badge — category accent"
+        description="An accent names a category and means the same thing in every theme, which is why it does not shift with the preset the way a tone does."
+      >
+        <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Swimming" />
+        <GdsBadge accent="grape" shape="circle" icon="Message" label="Choir" />
+        <GdsBadge accent="forest" shape="shield" icon="Verify" label="Certified" />
+        <GdsBadge accent="terracotta" shape="pin" icon="Location" label="Nearby" />
+      </BadgeSection>
+
+      <BadgeSection
+        title="Count badge, standalone and anchored"
+        description="The same count either stands alone or anchors to an icon's corner through the badge stack — the anchor stays the accessible target."
+      >
+        <span data-gds-count-badge-demo>
+          <GdsCountBadge value={7} label="notifications" />
+          <GdsCountBadge value={126} cap={99} label="unread messages" tone="info" />
+          <GdsCountBadge dot label="new activity" tone="danger" anchor={<GdsIcon icon="Notifications" size="lg" />} />
+          <GdsCountBadge value={3} label="drafts" tone="neutral" anchor={<GdsIcon icon="Inbox" size="lg" />} />
+        </span>
+      </BadgeSection>
+
+      <BadgeSection
+        title="Removable tags"
+        description="A filter a reader can take off. The remove control names the filter it removes, so it is unambiguous out of context."
+      >
+        <span data-gds-removable-tag-demo>
+          <GdsRemovableTag label="Music" removeLabel="Remove filter: Music" onRemove={() => {}} />
+          <GdsRemovableTag label="Ages 6-8" tone="info" removeLabel="Remove filter: Ages 6-8" onRemove={() => {}} />
+          <GdsRemovableTag label="Weekends" tone="success" removeLabel="Remove filter: Weekends" onRemove={() => {}} />
+        </span>
+      </BadgeSection>
+
+      {/*
+        The composed proofs the original wall ended with, kept intact and now clearly separated
+        from the vocabulary above: those sections name the parts, these show them working
+        together on real surfaces.
+      */}
+      <BadgeCardCompositionDemo />
+      <BadgeButtonAnchorDemo />
+      <BadgeMapDemo />
+      <BadgeProfileClusterDemo />
+      <BadgeOverlayDemo />
+      <SportsEmojiModeDemo />
+      <SavedIndicatorDemo />
+      <BadgeThemeMatrixDemo />
+    </GdsStack>
+  );
+}
+
 function LoadersSkeletonsDemo() {
   const items = [
     { id: 'trust', title: 'Verified hosts', description: 'Every listing carries a checked identity before it is shown.' },
@@ -2980,88 +3121,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         </div>
       );
     case 'badges':
-      return (
-        <div>
-          <StatusBadge status="success">Published</StatusBadge>
-          <StatusBadge status="warning">Needs review</StatusBadge>
-          <StatusBadge status="danger">Blocked</StatusBadge>
-          <StatusBadge status="info">Info</StatusBadge>
-          <StatusBadge status="neutral">Draft</StatusBadge>
-          <br />
-          <StatusBadge status="success" withIcon>Published</StatusBadge>
-          <StatusBadge status="warning" withIcon>Needs review</StatusBadge>
-          <StatusBadge status="danger" withIcon>Blocked</StatusBadge>
-          <StatusBadge status="info" withIcon>Info</StatusBadge>
-          <br />
-          <LabelTag label="Food" tone="info" />
-          <LabelTag label="Community" tone="neutral" />
-          <LabelTag label="Priority" tone="warning" />
-          <br />
-          <CountBadge value={12} />
-          <CountBadge value={126} cap={99} srLabel="More than ninety nine updates" />
-          <br />
-          <span data-gds-badge-shapes>
-            <GdsBadgeShapeCircle size={40} stroke={1.75} aria-hidden="true" />
-            <GdsBadgeShapeSquircle size={40} stroke={1.75} aria-hidden="true" />
-            <GdsBadgeShapeHexagon size={40} stroke={1.75} aria-hidden="true" />
-            <GdsBadgeShapeShield size={40} stroke={1.75} aria-hidden="true" />
-            <GdsBadgeShapeRosette size={40} stroke={1.75} aria-hidden="true" />
-            <GdsBadgeShapePin size={40} stroke={1.75} aria-hidden="true" />
-          </span>
-          <br />
-          <GdsBadge tone="success" icon="Success" label="Published" />
-          <GdsBadge tone="warning" icon="Warning" label="Needs review" />
-          <GdsBadge tone="danger" icon="Danger" label="Blocked" />
-          <GdsBadge tone="info" icon="Info" label="Heads up" />
-          <GdsBadge tone="neutral" label="Draft" />
-          <br />
-          <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Swimming" />
-          <GdsBadge accent="grape" shape="circle" icon="Message" label="Choir" />
-          <GdsBadge accent="forest" shape="shield" icon="Verify" label="Certified" />
-          <GdsBadge accent="terracotta" shape="pin" icon="Location" label="Nearby" />
-          <br />
-          <span data-gds-count-badge-demo>
-            <GdsCountBadge value={7} label="notifications" />
-            <GdsCountBadge value={126} cap={99} label="unread messages" tone="info" />
-            <GdsCountBadge dot label="new activity" tone="danger" anchor={<GdsIcon icon="Notifications" size="lg" />} />
-            <GdsCountBadge value={3} label="drafts" tone="neutral" anchor={<GdsIcon icon="Inbox" size="lg" />} />
-          </span>
-          <br />
-          <span data-gds-removable-tag-demo>
-            <GdsRemovableTag label="Music" removeLabel="Remove filter: Music" onRemove={() => {}} />
-            <GdsRemovableTag label="Ages 6-8" tone="info" removeLabel="Remove filter: Ages 6-8" onRemove={() => {}} />
-            <GdsRemovableTag label="Weekends" tone="success" removeLabel="Remove filter: Weekends" onRemove={() => {}} />
-          </span>
-          <br />
-          <GdsBadgeStack size={44} label="Certified — verification mark">
-            <GdsBadgeStackLayer cutout="top-end">
-              <GdsBadgeShapeShield size="100%" stroke={1.75} />
-            </GdsBadgeStackLayer>
-            <GdsBadgeStackLayer scale={0.5}>
-              <GdsIcon icon="Success" size="100%" />
-            </GdsBadgeStackLayer>
-            <GdsBadgeStackLayer corner="top-end" scale={0.4}>
-              <GdsBadgeShapeCircle size="100%" stroke={1.75} />
-            </GdsBadgeStackLayer>
-          </GdsBadgeStack>
-          <br />
-          <BadgeCardCompositionDemo />
-          <br />
-          <BadgeButtonAnchorDemo />
-          <br />
-          <BadgeMapDemo />
-          <br />
-          <BadgeProfileClusterDemo />
-          <br />
-          <BadgeOverlayDemo />
-          <br />
-          <SavedIndicatorDemo />
-          <br />
-          <BadgeThemeMatrixDemo />
-          <br />
-          <SportsEmojiModeDemo />
-        </div>
-      );
+      return <BadgeVocabularyDemo />;
     case 'modals':
       return (
         <div>
