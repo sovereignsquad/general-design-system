@@ -126,6 +126,15 @@ function collectStrings(node, out = [], parentKey = null) {
 
   for (const [key, value] of Object.entries(node)) {
     if (key === 'loc' || key === 'leadingComments' || key === 'trailingComments') continue;
+
+    // NEVER descend into an object property's KEY. A quoted key is an identifier the code looks
+    // itself up by, not copy: translating `'dark-public'` to `'어둠의 대중'` ("darkness of the
+    // masses") silently broke every `presetSummaries['dark-public']` lookup, so `ko`, `ja` and
+    // `zh` fell back to English for those entries. The page still rendered — the per-field
+    // fallback added in issue 587 saw to that — which is exactly why it went unnoticed: the
+    // data was corrupt and nothing crashed.
+    if (node.type === 'ObjectProperty' && key === 'key') continue;
+
     if (Array.isArray(value)) {
       for (const child of value) collectStrings(child, out, parentKey);
     } else if (value && typeof value === 'object' && value.type) {

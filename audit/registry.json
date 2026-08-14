@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "ed051671de243c0b4e0d459c78b3eb06ab8643b6",
+  "commit": "43618f30c74eec8ab8b178003622aac89090df5b",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -31423,7 +31423,7 @@
         "file": "apps/playground/src/generated-site-phrases/ar.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:de#3078",
@@ -31433,7 +31433,7 @@
         "file": "apps/playground/src/generated-site-phrases/de.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:es#3079",
@@ -31443,7 +31443,7 @@
         "file": "apps/playground/src/generated-site-phrases/es.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:fr#3080",
@@ -31453,7 +31453,7 @@
         "file": "apps/playground/src/generated-site-phrases/fr.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:he#3081",
@@ -31463,7 +31463,7 @@
         "file": "apps/playground/src/generated-site-phrases/he.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:hu#3082",
@@ -31473,7 +31473,7 @@
         "file": "apps/playground/src/generated-site-phrases/hu.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:it#3083",
@@ -31483,7 +31483,7 @@
         "file": "apps/playground/src/generated-site-phrases/it.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:ja#3084",
@@ -31493,7 +31493,7 @@
         "file": "apps/playground/src/generated-site-phrases/ja.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:ko#3085",
@@ -31503,7 +31503,7 @@
         "file": "apps/playground/src/generated-site-phrases/ko.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:ru#3086",
@@ -31513,7 +31513,7 @@
         "file": "apps/playground/src/generated-site-phrases/ru.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "locale-pack-site:zh#3087",
@@ -31523,7 +31523,7 @@
         "file": "apps/playground/src/generated-site-phrases/zh.ts",
         "line": 1
       },
-      "keyCount": 1951
+      "keyCount": 1964
     },
     {
       "id": "route:/#3088",
