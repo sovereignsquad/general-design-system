@@ -4,6 +4,23 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The stale-theme-value detector exists, and it caught its own planted defect (#598)
+
+`verify:stale-theme-values-runtime` closes what #561 deliberately left open: the theme identity
+proves the remount *key* is sound, not that the remount *empties* every themed value. The
+definition that makes the detector honest: after switching in place (through the Theme Lab's own
+native selects, the path a user takes), every watched element-property must equal what a **fresh
+load of the target theme** renders — ground truth with no hand-written expectations, and anything
+that legitimately doesn't vary by theme is identical in both snapshots, so it cannot
+false-positive. ~16,400 element-properties compared, including SVG paint-server references
+(resolved to their content, because React `useId` names differ per load) and image sources.
+Switch latency measured (84ms) against a stated 3000ms budget; keyboard focus and scroll position
+verified to survive the remount. Proven by a planted module-scope cached `getComputedStyle`
+value — the exact memoised-without-theme-deps failure the issue names: the detector reported it
+as a single precise `StaleValueReport` and went green on revert. Two of its own defects were
+found and fixed en route: a 600-element snapshot cap that silently excluded the plant, and a
+regex whose escapes a template literal consumed before the page parsed them.
+
 ### GdsMapPinBadge carries the full state contract (#545)
 
 `state?: 'idle' | 'hovered' | 'selected' | 'approximate'`, governed by the source spec's own

@@ -27,6 +27,7 @@
     "verify:kanban-drag-accessibility-runtime": "node scripts/verify-kanban-drag-accessibility-runtime.mjs",
     "verify:focus-ring-runtime": "node scripts/verify-focus-ring-runtime.mjs",
     "verify:viewport-reachability-runtime": "node scripts/verify-viewport-reachability-runtime.mjs",
+    "verify:stale-theme-values-runtime": "node scripts/verify-stale-theme-values-runtime.mjs",
     "verify:theme-trust-runtime": "node scripts/verify-theme-trust-runtime.mjs",
     "verify:accessibility-runtime": "node scripts/verify-accessibility-runtime.mjs",
     "verify:a11y-package": "npm run build --workspace=@sovereignsquad/gds-a11y && npm run test:run -- packages/gds-a11y/src/index.test.ts && node scripts/verify-a11y-package.mjs",
