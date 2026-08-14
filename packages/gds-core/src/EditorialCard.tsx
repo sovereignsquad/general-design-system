@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import { Anchor, AspectRatio, Badge, Box, Card, Group, Stack, Text, Title } from '@mantine/core';
-import { GdsIcons } from './icons';
+import { Anchor, Badge, Card, Group, Stack, Text, Title } from '@mantine/core';
+import { GdsGeneratedThumbnail } from './GdsGeneratedThumbnail';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
 /** Visual variant of an editorial card: standard, featured, or a base GDS card variant. */
@@ -67,28 +67,25 @@ const tonePalette = {
   },
 } as const;
 
-function EditorialMediaFallback({ compact }: { compact: boolean }) {
+/**
+ * Owner directive, 2026-08-14: **GDS uses the generated thumbnail everywhere.**
+ *
+ * A grey box with a generic photo glyph is the universal broken-image picture: it tells a
+ * reader that something failed, when in fact no image was ever supplied. `GdsGeneratedThumbnail`
+ * paints deterministic branded art from the card's own identity instead — same seed, same
+ * composition, themed by the active preset, no network and no asset pipeline.
+ *
+ * `badges="none"`: the card prints its title directly beneath this, so a badge repeating it
+ * would duplicate the text on screen and in the accessibility tree.
+ */
+function EditorialMediaFallback({ compact, seed, label }: { compact: boolean; seed: string; label: string }) {
   return (
-    <AspectRatio ratio={compact ? 16 / 10 : 4 / 3}>
-      <Box
-        style={{
-          display: 'grid',
-          placeItems: 'center',
-          width: '100%',
-          height: '100%',
-          // `--mantine-color-gray-0` alone is a fixed near-white shade that
-          // doesn't invert with color scheme — it rendered as a stark white
-          // box on an otherwise dark card. `light-dark()` mirrors the same
-          // idiom `tonePalette.muted.background` above already uses for a
-          // color-scheme-aware neutral surface.
-          background: 'light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))',
-          borderRadius: 'var(--mantine-radius-md)',
-          color: 'var(--mantine-color-dimmed)',
-        }}
-      >
-        <GdsIcons.Gallery size={compact ? '1.5rem' : '2rem'} />
-      </Box>
-    </AspectRatio>
+    <GdsGeneratedThumbnail
+      seed={seed}
+      categories={[{ key: 'editorial', label, icon: 'Gallery' }]}
+      aspectRatio={compact ? '16:9' : '4:3'}
+      badges="none"
+    />
   );
 }
 
@@ -140,7 +137,7 @@ export function EditorialCard({
         cursor: href || onClick ? 'pointer' : 'default',
       }}
     >
-      <Card.Section className={classNames?.media}>{media ?? <EditorialMediaFallback compact={compact} />}</Card.Section>
+      <Card.Section className={classNames?.media}>{media ?? <EditorialMediaFallback compact={compact} seed={mediaAlt ?? (typeof title === 'string' ? title : 'gds-editorial')} label={typeof title === 'string' ? title : (mediaAlt ?? 'Editorial')} />}</Card.Section>
 
       <Stack gap={contract.gap} p={contract.padding} className={classNames?.body}>
         <Group justify="space-between" align="flex-start" gap="sm" wrap="wrap">

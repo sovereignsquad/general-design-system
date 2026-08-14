@@ -2318,11 +2318,18 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByText('2 pending')).toBeInTheDocument();
   });
 
-  it('renders its media fallback with a color-scheme-aware background, not a fixed light-only shade (regression: rendered as a stark white box on dark-mode cards)', () => {
+  // The regression this guards is unchanged — a media fallback must never be a fixed light-only
+  // shade, which rendered as a stark white box on dark-mode cards. What satisfies it changed:
+  // the fallback is now a generated thumbnail (owner directive, 2026-08-14) painted from
+  // `var(--gds-brand-*)`, which the theme redefines per scheme. That is a STRONGER guarantee
+  // than the `light-dark()` pair it replaced — the colour follows the whole theme, not just the
+  // scheme — so the assertion moves to the property rather than the old implementation.
+  it('renders its media fallback from theme variables, never a fixed light-only shade (regression: stark white box on dark-mode cards)', () => {
     const { container } = renderWithGds(<EditorialCard title="No media yet" />);
-    const fallback = container.querySelector('.mantine-AspectRatio-root > div') as HTMLElement;
-    expect(fallback.style.background).toContain('light-dark(');
-    expect(fallback.style.background).not.toBe('var(--mantine-color-gray-0)');
+    const thumbnail = container.querySelector('[data-gds-generated-thumbnail]');
+    expect(thumbnail).toBeTruthy();
+    expect(container.innerHTML).toContain('var(--gds-brand-primary');
+    expect(container.innerHTML).not.toContain('var(--mantine-color-gray-0)');
   });
 
   it('renders its heading as a real, non-nested heading element (regression: eyebrow/description were nested inside the <h3>, invalid HTML and a screen-reader misannouncement)', () => {
@@ -3562,8 +3569,13 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     expect(document.querySelectorAll('.mantine-Skeleton-root').length).toBeGreaterThan(0);
 
-    rerender(<PublicProductCard title="Seasonal plate" />);
-    expect(screen.getByLabelText('No product image available')).toBeInTheDocument();
+    // A card with no image now shows generated art rather than a grey box with a photo glyph.
+    // The glyph was the universal broken-image picture: it told a reader something had FAILED,
+    // when in fact nothing had been supplied.
+    const { container } = renderWithGds(<PublicProductCard title="Seasonal plate" />);
+    expect(container.querySelector('[data-gds-generated-thumbnail]')).toBeTruthy();
+    expect(screen.queryByLabelText('No product image available')).toBeNull();
+    void rerender;
   });
 
   it('applies gds form reducer transitions and blocking summary output', async () => {

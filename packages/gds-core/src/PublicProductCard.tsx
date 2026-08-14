@@ -1,7 +1,7 @@
 import type { ReactElement, ReactNode } from 'react';
 import { cloneElement, isValidElement } from 'react';
-import { AspectRatio, Badge, Card, Group, Skeleton, Stack, Text, ThemeIcon, Title } from '@mantine/core';
-import { GdsIcons } from './icons';
+import { AspectRatio, Badge, Card, Group, Skeleton, Stack, Text, Title } from '@mantine/core';
+import { GdsGeneratedThumbnail } from './GdsGeneratedThumbnail';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardInteractiveMode, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
 /** Availability state driving the product card's status badge and action gating. */
@@ -71,19 +71,25 @@ function enhanceAction(action: ReactNode, disabled: boolean) {
   });
 }
 
-function ImageFallback({ compact }: { compact: boolean }) {
+/**
+ * Owner directive, 2026-08-14: **GDS uses the generated thumbnail everywhere.**
+ *
+ * A grey box with a generic photo glyph is the universal broken-image picture: it tells a
+ * reader that something failed, when in fact no image was ever supplied. `GdsGeneratedThumbnail`
+ * paints deterministic branded art from the card's own identity instead — same seed, same
+ * composition, themed by the active preset, no network and no asset pipeline.
+ *
+ * `badges="none"`: the card prints its title directly beneath this, so a badge repeating it
+ * would duplicate the text on screen and in the accessibility tree.
+ */
+function ImageFallback({ compact, seed, label }: { compact: boolean; seed: string; label: string }) {
   return (
-    <AspectRatio ratio={compact ? 16 / 9 : 4 / 3}>
-      <ThemeIcon
-        size="100%"
-        radius="md"
-        variant="light"
-        color="gray"
-        aria-label="No product image available"
-      >
-        <GdsIcons.Gallery size={compact ? '1.5rem' : '2rem'} />
-      </ThemeIcon>
-    </AspectRatio>
+    <GdsGeneratedThumbnail
+      seed={seed}
+      categories={[{ key: 'product', label, icon: 'Gallery' }]}
+      aspectRatio={compact ? '16:9' : '4:3'}
+      badges="none"
+    />
   );
 }
 
@@ -165,7 +171,7 @@ export function PublicProductCard({
   return (
     <Card withBorder radius="lg" padding={contract.padding} {...contract.dataAttributes} {...interactiveProps}>
       <Stack gap={contract.gap}>
-        {image ?? <ImageFallback compact={compact} />}
+        {image ?? <ImageFallback compact={compact} seed={typeof title === 'string' ? title : 'gds-product'} label={typeof title === 'string' ? title : 'Product'} />}
 
         <Group justify="space-between" align="flex-start" wrap="nowrap" gap="sm">
           <Stack gap={4} style={{ minWidth: 0, flex: 1 }}>
