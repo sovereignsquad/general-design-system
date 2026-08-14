@@ -1,21 +1,24 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
+import { TARGET_FILES as targetFiles, extractPhrases } from './lib/site-phrases.mjs';
 
 const traverse = traverseModule.default ?? traverseModule;
 const root = process.cwd();
-const targetFiles = [
-  'apps/playground/src/info-pages.tsx',
-  'apps/playground/src/showcase-pages.tsx',
-  'apps/playground/src/pattern-pages.tsx',
-  'apps/playground/src/pattern-registry.ts',
-  'apps/playground/src/product-use-cases.ts',
-  'apps/playground/src/site-routes.ts',
-];
-const localeIds = ['de', 'fr', 'it', 'es', 'ru', 'he', 'ar', 'hu'];
 const generatedDir = resolve(root, 'apps/playground/src/generated-site-phrases');
 const failures = [];
+
+// Derived from the packs on disk, not listed. A written list of eight silently stopped
+// checking `ja`, `ko` and `zh` the moment issue 587 added them — three packs shipped
+// unverified, and the gate reported success over the eight it still knew about.
+const localeIds = readdirSync(generatedDir)
+  .filter((file) => file.endsWith('.ts'))
+  .map((file) => file.replace('.ts', ''))
+  .sort();
+if (localeIds.length === 0) {
+  failures.push('No generated site phrase packs found — refusing to pass vacuously.');
+}
 
 function shouldInclude(value) {
   if (!/[A-Za-z][a-z]/.test(value)) return false;
@@ -28,26 +31,6 @@ function shouldInclude(value) {
   return true;
 }
 
-function extractPhrases(source) {
-  const phrases = new Set();
-  const ast = parse(source, { sourceType: 'module', plugins: ['typescript', 'jsx'] });
-
-  function add(value) {
-    const phrase = value.replace(/\s+/g, ' ').trim();
-    if (shouldInclude(phrase)) phrases.add(phrase);
-  }
-
-  traverse(ast, {
-    StringLiteral(path) {
-      add(path.node.value);
-    },
-    JSXText(path) {
-      add(path.node.value);
-    },
-  });
-
-  return phrases;
-}
 
 function readLocaleMap(locale) {
   const path = resolve(generatedDir, `${locale}.ts`);
