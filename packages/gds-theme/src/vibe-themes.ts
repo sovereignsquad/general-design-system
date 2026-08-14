@@ -664,6 +664,27 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
     '--gds-vibe-focus': dark ? vibe.textDark : vibe.textLight,
     '--gds-vibe-gradient': gradient,
     '--gds-vibe-hero': vibe.hero,
+    // Issue 618 — the preset's atmosphere at SMALL-SURFACE scale.
+    //
+    // `--gds-vibe-hero` is composed for a full-width band. Reused as a 40px fill its 135° ramp
+    // stops being a wash and becomes a hard diagonal: `gold-athlete`'s hero is imperceptible
+    // across a hero band and reads as a metallic split inside a swatch. That is a SCALE
+    // mismatch, and it had no token to fix it with — anything needing the atmosphere small (a
+    // swatch, a chip, a legend dot, a preview tile, a consumer's own theme picker) had to
+    // borrow the hero and inherit its geometry.
+    //
+    // Scale-independent by construction: a radial from the centre reads the same at 40px and at
+    // 400px, because there is no axis along which a small box can crop the ramp differently.
+    // DERIVED from the same `primary`/`accent` the rest of the vibe is built from, and mixed
+    // against the scheme's own surface, so it cannot drift from the preset and needs no
+    // per-preset authoring — all 25 get it, in both schemes, for free.
+    //
+    // A `flatSurfaces` brand lane has no atmosphere by definition, so it gets an honest flat
+    // tint rather than a gradient GDS invented for it — the same reasoning that neutralises
+    // `glow` and `gradient` above.
+    '--gds-vibe-swatch': vibe.flatSurfaces
+      ? `color-mix(in srgb, ${vibe.primary} 18%, ${dark ? vibe.surfaceDark : vibe.surfaceLight})`
+      : `radial-gradient(circle at 50% 50%, color-mix(in srgb, ${vibe.accent} 34%, ${dark ? vibe.surfaceDark : vibe.surfaceLight}) 0%, color-mix(in srgb, ${vibe.primary} 22%, ${dark ? vibe.surfaceDark : vibe.surfaceLight}) 100%)`,
     '--gds-vibe-atmosphere': vibe.flatSurfaces ? '0' : '1',
   };
 

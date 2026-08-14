@@ -103,6 +103,29 @@ Empty state:
 </GdsContainer>
 ```
 
+## A row of *n* items that must never break (issue 619)
+
+The commonest way a governed surface breaks on a phone is a row of items whose count and widths
+are not known in advance — badges, chips, filters, actions. GDS has **two** answers, and the
+whole rule is choosing between them:
+
+| The row should… | Use | Why |
+| --- | --- | --- |
+| **Wrap** onto more lines | `GdsInline` (`wrap` defaults to `'wrap'`) | Everything stays visible at any width. This is the default choice. |
+| **Scroll** sideways as one rail | a container with `overflow-x: auto` wrapping a `nowrap` row — what `PillBar` / `SoftChipGroup` / `FilterChipGroup` already do | Keeps a single visual line where order matters, and the content is still *reachable* because the rail scrolls. |
+
+**There is no third option, and a raw `<div>` is not one of them.** The badge introduction was
+built as a plain `<div>` with `<br />` separators — neither wrapping nor scrollable — which is
+why badges were cut off the edge with no way to reach them. Measured at 390px before the fix:
+badges sitting outside the viewport inside a container that could not scroll.
+
+The distinction that matters is **reachable**, not *tight*: a chip at `right: 425` on a 390px
+viewport is fine when its rail scrolls and broken when it does not. Any check for this must ask
+whether the overflowing box is scrollable, or it will report every deliberate rail as a defect.
+
+Both answers are token-driven: spacing comes from the density axis via `gap`, so a compact theme
+tightens the row with everything else and no surface does its own arithmetic.
+
 ## Bounded viewport frame (`GdsViewportFrame`)
 
 Some surfaces position against the **viewport** rather than their parent, and some gate

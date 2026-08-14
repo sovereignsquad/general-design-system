@@ -1,7 +1,7 @@
 {
-  "tokenUniverse": 82,
+  "tokenUniverse": 83,
   "darkSiblingsExcluded": 34,
-  "cellsEvaluated": 410,
+  "cellsEvaluated": 415,
   "obligationsSatisfied": {
     "listed": 71,
     "demoed": 62,
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 4,
-  "tokensWithGaps": 78,
+  "tokensWithGaps": 79,
   "rows": [
     {
       "token": "--gds-focus-ring-offset",
@@ -118,6 +118,25 @@
     {
       "token": "--gds-identity-unresolved",
       "role": "identity-unresolved",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-swatch",
+      "role": "vibe-swatch",
       "declaredIn": [
         "ts-emitter"
       ],

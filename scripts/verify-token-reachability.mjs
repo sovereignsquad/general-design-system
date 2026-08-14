@@ -70,6 +70,17 @@ for (const file of [...walk(join(ROOT, 'packages')), ...walk(join(ROOT, 'apps/pl
   for (const m of text.matchAll(/getPropertyValue\(\s*['"`](--gds-[a-zA-Z0-9-]+)/g)) {
     if (!referenced.has(m[1])) referenced.set(m[1], relative(ROOT, file));
   }
+  // Issue 618. A component that renders a preview for a preset OTHER than the active one cannot
+  // read the ambient `var(--gds-*)`: it asks `getGdsVibeThemeCssVariables(preset, scheme)` for
+  // that preset's values and indexes the returned record. `VibeThemePicker` does exactly this
+  // for all 25 swatches.
+  //
+  // That is a real consumption path, and this gate was blind to it — `--gds-vibe-hero` only
+  // ever passed because styles.css happens to reference it too, so the blindness stayed hidden
+  // until a token was consumed ONLY through the record.
+  for (const m of text.matchAll(/\[\s*['"`](--gds-[a-zA-Z0-9-]+)['"`]\s*\]/g)) {
+    if (!referenced.has(m[1])) referenced.set(m[1], relative(ROOT, file));
+  }
 }
 if (!referenced.size) fail('No var(--gds-*) references found. Extraction is broken.');
 

@@ -106,67 +106,67 @@
     "siteParity": [
       {
         "locale": "ar",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "de",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "es",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "fr",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "he",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "hu",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "it",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ja",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ko",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ru",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "zh",
-        "keys": 1935,
+        "keys": 1950,
         "missing": 0,
         "extra": 0
       }
@@ -175,77 +175,77 @@
       {
         "corpus": "site",
         "locale": "he",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 7,
         "rate": 0.36
       },
       {
         "corpus": "site",
         "locale": "de",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 3,
-        "rate": 0.16
+        "rate": 0.15
       },
       {
         "corpus": "site",
         "locale": "ar",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "es",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "fr",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "hu",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "it",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ja",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ko",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ru",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "zh",
-        "total": 1935,
+        "total": 1950,
         "untranslated": 0,
         "rate": 0
       },

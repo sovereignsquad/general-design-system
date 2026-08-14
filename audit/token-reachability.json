@@ -1,7 +1,7 @@
 {
-  "declared": 290,
-  "referenced": 96,
-  "extensionPoints": 145,
+  "declared": 291,
+  "referenced": 119,
+  "extensionPoints": 141,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -455,20 +455,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-bg-page",
-      "classification": "extension-point",
-      "reason": "Canonical page-surface role, emitted for all 25 presets by getGdsVibeThemeCssVariables. GDS components paint their own surfaces via --gds-bg-card/--gds-bg-surface, so nothing in-repo reads it; a consumer building a page shell around GDS reads exactly this.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-brand-primary-pressed",
-      "classification": "extension-point",
-      "reason": "Pressed-state brand colour. GDS's own buttons delegate pressed styling to Mantine's variant handling, so no GDS rule reads it; it exists for consumer-built controls that need the lane's pressed value.",
-      "reviewBy": "2027-02-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-control-height-lg",
       "classification": "extension-point",
       "reason": "Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.",
@@ -595,13 +581,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-focus-ring-style",
-      "classification": "extension-point",
-      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-font-lane-body",
       "classification": "extension-point",
       "reason": "Typography-axis font-lane assignment (issue 557). Names the registered lane for the role.",
@@ -708,13 +687,6 @@
     },
     {
       "token": "--gds-line-height-lg",
-      "classification": "extension-point",
-      "reason": "Typography-axis line height (issue 557), unitless, published per step a theme declares.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-line-height-md",
       "classification": "extension-point",
       "reason": "Typography-axis line height (issue 557), unitless, published per step a theme declares.",
       "reviewBy": "2027-08-01",

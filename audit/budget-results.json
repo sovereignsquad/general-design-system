@@ -22,13 +22,13 @@
     },
     {
       "key": "tokensWithGaps",
-      "measured": 78,
+      "measured": 79,
       "value": 78,
       "direction": "max",
       "unit": "count",
       "finding": "F11",
       "advisory": false,
-      "status": "OK"
+      "status": "EXCEEDED"
     },
     {
       "key": "unreachableTokens",
