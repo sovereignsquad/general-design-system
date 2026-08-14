@@ -11,7 +11,7 @@ a full-width band; painted into a 40px circle its 135° ramp stops being a wash 
 diagonal. That is why 23 presets looked like soft tints and the two gold lanes read as a metallic
 split — they simply have the highest-contrast heroes.
 
-New `--gds-vibe-swatch`: a radial from the centre, so it reads identically at 40px and 400px
+New `--gds-vibe-swatch`. Use it for any small surface previewing a theme — a swatch, a legend dot, a chip, a preview tile. It is a radial from the centre, so it reads identically at 40px and 400px
 because no axis lets a small box crop it differently. **Derived** from the same `primary`/`accent`
 the rest of the vibe is built from and mixed against the scheme's own surface, so all 25 presets
 carry it in both schemes with no per-preset authoring and no way to drift. A `flatSurfaces` brand

@@ -7,7 +7,7 @@
     "demoed": 63,
     "explained": 54,
     "variationsShown": 38,
-    "useCase": 6
+    "useCase": 8
   },
   "confidence": {
     "listed": "high - direct lookup against the published DTCG graph and docs corpus",
@@ -17,8 +17,8 @@
     "useCase": "LOW - directive-phrase heuristic; same caveat"
   },
   "publishedRoleOverlap": null,
-  "tokensSatisfyingAll": 4,
-  "tokensWithGaps": 79,
+  "tokensSatisfyingAll": 5,
+  "tokensWithGaps": 78,
   "rows": [
     {
       "token": "--gds-focus-ring-offset",
@@ -541,23 +541,6 @@
       "useCase": false,
       "gaps": [
         "explained",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-vibe-hero",
-      "role": "vibe-hero",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": true,
-      "useCase": false,
-      "gaps": [
-        "demoed",
         "useCase"
       ]
     },
@@ -1287,26 +1270,26 @@
       ]
     },
     {
+      "token": "--gds-vibe-hero",
+      "role": "vibe-hero",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": [
+        "demoed"
+      ]
+    },
+    {
       "token": "--gds-motion-duration-fast",
       "role": "motion-duration-fast",
       "declaredIn": [
         "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": true,
-      "useCase": false,
-      "gaps": [
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-vibe-swatch",
-      "role": "vibe-swatch",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,
@@ -1379,6 +1362,20 @@
       "role": "motion-duration-base",
       "declaredIn": [
         "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-vibe-swatch",
+      "role": "vibe-swatch",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,
