@@ -22,13 +22,13 @@
     },
     {
       "key": "tokensWithGaps",
-      "measured": 79,
+      "measured": 78,
       "value": 78,
       "direction": "max",
       "unit": "count",
       "finding": "F11",
       "advisory": false,
-      "status": "EXCEEDED"
+      "status": "OK"
     },
     {
       "key": "unreachableTokens",
@@ -112,13 +112,13 @@
     },
     {
       "key": "gateSuiteMutationScore",
-      "measured": 100,
+      "measured": 50,
       "value": 100,
       "direction": "min",
       "unit": "%",
       "finding": "issue 602",
       "advisory": false,
-      "status": "OK"
+      "status": "EXCEEDED"
     },
     {
       "key": "gateSuiteUnexplainedSurvivors",
