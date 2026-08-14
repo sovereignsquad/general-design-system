@@ -129,6 +129,50 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Client Upgrade Prompt**: [CLIENT_UPGRADE_PROMPT.md](CLIENT_UPGRADE_PROMPT.md) — copy/paste checklist and communication template for consumer teams.
 - **Projects**: `PROJECTS/` — Product-specific migration plans and adoption strategies.
 
+## Where the language files are
+
+Every user-visible string on the reference site comes from one of **three** sources. If wording
+is wrong in a language, this table says which file to edit.
+
+| What | File(s) | Authored by | Locales |
+| --- | --- | --- | --- |
+| **Package messages** — semantic labels GDS components resolve through `getGdsMessages(locale)` / `t(...)` | `packages/gds-core/src/locales/<locale>.ts` | **Hand-written.** Edit directly. | 12: `ar de en es fr he hu it ja ko ru zh` |
+| **Site phrase packs** — every other visible string, matched by its English text at runtime | `apps/playground/src/generated-site-phrases/<locale>.ts` | **Generated.** See below. | 11 (English is the key, so it has no pack) |
+| **Structured page copy** — per-locale blocks for page titles, leads, nav labels and link lists | `apps/playground/src/page-copy.ts`, `apps/playground/src/site-copy.ts`, `packages/gds-core/src/ReferenceThemeExplorer.copy.ts` | **Generated**, then editable in place. | 12 |
+
+### Fixing a wrong translation
+
+**Package messages** and **structured page copy** are ordinary source. Edit the value for the
+locale and commit — nothing regenerates them unless you ask it to.
+
+**Site phrase packs are regenerated**, so an edit there is overwritten on the next
+`npm run artifacts:refresh`. The generator keeps any existing non-empty value, with **one
+exception**: a value identical to its English source is retried when another locale translated
+the same phrase (issue 588), because that is the signature of a missed translation. So a
+deliberate "this term stays in English" needs to be recorded, not just typed.
+
+### Where the phrase packs come from
+
+`scripts/generate-site-phrase-translations.mjs` extracts every string literal from a fixed list
+of source files at the top of that script — the playground's pages plus the GDS files that own
+user-visible copy (theme presets, component defaults, the Theme Lab) — and translates each one.
+**If a string renders in English on a translated page, the usual cause is that its source file
+is not in that list.**
+
+Machine translation is the current source and **the wording has not been reviewed by a human**.
+Two known limits, both measured rather than assumed:
+
+- **Single words are unreliable**, because one word carries no context. Measured on Korean:
+  `Browse` → 먹다 ("to eat"), `About` → the preposition, `Adoption` → adopting a child. Ordinary
+  capitalised words are still included; bare lowercase tokens, acronyms and identifier shapes
+  (`GdsBadge`, `partner-discovery`) are deliberately excluded.
+- **API value names stay in English on purpose.** A contrast matrix listing `plum`, `outline` or
+  `deepest` is naming values a consumer types in code; translating them would make the page
+  disagree with the API.
+
+`npm run verify:i18n-leakage` fails when a pack ships English where a translation belongs, using
+peer evidence (another locale translated the same phrase) and the locale's script.
+
 ## Public Site Contract
 
 The GitHub Pages site is the public runtime reference for this repository:

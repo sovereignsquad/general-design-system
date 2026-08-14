@@ -21,7 +21,10 @@ export const LEAKAGE_BUDGETS = {
     // hyphenation of the same words, not a different phrase. The detector compares letters
     // only, so orthography does not clear the flag, and it should not: the rule stays honest
     // about what it can and cannot tell apart rather than being loosened to hide two cases.
-    de: 2,
+    // Issue 617 added "Layout schema JSON" to the corpus when the theme and component copy
+    // sources were included; German renders it with the same words. Same category as the two
+    // below, which are English loanwords German uses verbatim.
+    de: 3,
   },
   package: {},
 };

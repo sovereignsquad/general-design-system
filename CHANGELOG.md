@@ -4,6 +4,41 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Copy GDS owns is now localised too, and the language files are documented (#617)
+
+With the selector fixed (#616), what remained was copy that **never entered the corpus at all**.
+Measured on the Korean site across five routes: **395 distinct English strings**, from three
+separate causes rather than the one the issue assumed.
+
+- **The extractor read only the playground's own pages.** Copy GDS itself owns — a component's
+  default prop, a theme preset's label and description, the Theme Lab's mock — was never offered
+  for translation. Those files are now sources.
+- **Single-token strings were dropped as identifiers**, so `Choir` and `Saved` rendered in
+  English while the two-word `Verified host` beside them translated. Ordinary capitalised words
+  are now included; identifier *shapes* (`GdsBadge`, `partner-discovery`), bare lowercase keys
+  and acronyms stay out.
+- **The overlay skipped `a`, `button` and `label`.** The principle was sound — interactive
+  labels belong to the copy layer — but it left **25 link texts and 8 button texts in English**,
+  because the copy layer did not in fact cover them. The verbatim list is now narrow and
+  concrete: code and form-control values.
+
+**395 → 201.** The remainder is dominated by things that *should* stay English: API value names
+rendered as data (`plum`, `outline`, `deepest` — a contrast matrix naming values a consumer types
+in code) and strings computed at render time, which no static corpus can match.
+
+**Two traps caught by measuring rather than assuming.** Adding the theme files pulled in their
+**CSS values** — `rgba(...)`, `0 6px 16px …`, `1 1 320px` — as if they were copy: 800-odd junk
+entries, a wasted translation request each, and a leakage metric that counted them as
+untranslated English (`ko` jumped to 112). And `rel="noreferrer noopener"` came in as a phrase.
+Both are now filtered by shape, which brought leakage back to **7 in `he` and 3 in `de`** — the
+known tracked cases.
+
+**README now documents where every language file lives** — package messages
+(`packages/gds-core/src/locales/`), generated site phrase packs, and structured page copy —
+which are hand-written, which are regenerated, and how to correct wording. It states plainly
+that the wording is machine-generated and unreviewed, with the two measured limits: single words
+are unreliable without context, and API value names stay English on purpose.
+
 ### The language selector only ever worked once (#616)
 
 Reported from a phone: the selector read **Français** over a **fully Korean** page. Switching to
