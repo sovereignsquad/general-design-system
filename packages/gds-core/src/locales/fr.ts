@@ -259,4 +259,10 @@ export const fr = {
   'gds.stateBlock.description': "Ajoutez les données requises avant que cette vue puisse afficher un résultat fiable.",
   'gds.uploadDropzone.actionLabel': "Choisir des fichiers",
   'gds.gdsMapFilterRail.allLabel': "Tous",
+  'gds.gdsMap.offlineTitle': "Les images de la carte sont désactivées",
+  'gds.gdsMap.offlineDescription': "Cet environnement ne charge pas les tuiles de carte. Chaque lieu apparaît toujours comme un marqueur et dans la liste.",
+  'gds.gdsMap.tilesFailedTitle': "Les images de la carte n'ont pas pu être chargées",
+  'gds.gdsMap.tilesFailedOffline': "Vous semblez être hors ligne. Chaque lieu apparaît toujours comme un marqueur et dans la liste.",
+  'gds.gdsMap.tilesFailedIndeterminate': "L'hôte de la tuile n'a pas pu être atteint : le navigateur ne peut pas dire si la cause est le réseau, une politique de sécurité du contenu ou l'hôte lui-même. Chaque lieu apparaît toujours comme un marqueur et dans la liste.",
+  'gds.gdsMap.tilesRetryLabel': "Essayez à nouveau de charger les images",
 };

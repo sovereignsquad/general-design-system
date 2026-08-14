@@ -259,4 +259,10 @@ export const hu = {
   'gds.stateBlock.description': "Adja hozzá a szükséges adatokat, mielőtt ez a nézet megbízható eredményt mutatna.",
   'gds.uploadDropzone.actionLabel': "Válasszon fájlokat",
   'gds.gdsMapFilterRail.allLabel': "Minden",
+  'gds.gdsMap.offlineTitle': "A térképképek ki vannak kapcsolva",
+  'gds.gdsMap.offlineDescription': "Ez a környezet nem tölti be a térképcsempéket. Minden hely továbbra is megjelenik jelölőként és a listában.",
+  'gds.gdsMap.tilesFailedTitle': "A térképképeket nem sikerült betölteni",
+  'gds.gdsMap.tilesFailedOffline': "Úgy tűnik, offline vagy. Minden hely továbbra is megjelenik jelölőként és a listában.",
+  'gds.gdsMap.tilesFailedIndeterminate': "A csempe gazdagépe nem érhető el – a böngésző nem tudja megállapítani, hogy az ok a hálózat, a tartalombiztonsági szabályzat vagy maga a gazdagép. Minden hely továbbra is megjelenik jelölőként és a listában.",
+  'gds.gdsMap.tilesRetryLabel': "Próbálja újra betölteni a képeket",
 };

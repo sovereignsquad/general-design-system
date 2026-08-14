@@ -4,6 +4,23 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The map degrades honestly when tiles cannot load (#570)
+
+`GdsMap` now detects total tile failure — `GDS_TILE_FAILURE_THRESHOLD` consecutive errors with
+zero successful loads; partial flake keeps its mostly-working imagery — and renders a
+`StateBlock` banner **beside** the map, never in place of it: markers, the text-equivalent
+list and the ODbL credit need no tiles and keep working, and "no tiles" is never allowed to
+read as "no places". Classification is honest by construction (`classifyGdsTileFailure`): a
+cross-origin `<img>` error exposes no cause except being offline, so the copy says "offline"
+only when the browser says so and otherwise states the cause is indeterminate, naming the
+candidates (network, CSP, the host) rather than guessing one. Retry is bounded and jittered
+(two auto-attempts, then a labelled manual control) so GDS never becomes load generation for a
+host already in trouble. The `offline` prop declares tile-less environments as the *intended*
+state — the layer is never requested, and the notice speaks in empty-state voice. Six new
+catalogue keys in all 12 packs. Verified live with the tile host blocked at the network layer
+in a real browser: banner and retry render, the list still carries every place, the credit
+still shows.
+
 ### The area-fill recipe, and two handoff rules codified as standing requirements (#550, #541, #542)
 
 `getGdsMapAreaFill(accentColor, canvasColor)` ships from `gds-theme` beside the color-math

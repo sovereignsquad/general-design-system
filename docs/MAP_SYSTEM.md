@@ -161,15 +161,40 @@ states"): curated accents, darker-only shades, and the issue-545 state contract 
 composition (`GdsSavedIndicator mode="corner"`), not a pin state, because a pin can be saved
 while hovered and saving is a user action with its own labelled control.
 
-## 8. Degradation model
+## 8. Degradation model (issue 570, shipped)
 
-What exists today: `MapPanel`'s loading/empty/error `StateBlock`s, `assertGdsTileSource`
-failing loudly on an invalid source, and the map.css guard (§3).
+The map is the first GDS surface whose imagery depends on a third-party fetch, and every map
+library's default failure is an unexplained grey grid. `GdsMap` replaces that with a governed
+state built on two facts:
 
-**Not built yet:** governed offline and blocked-tile degradation — detecting tile fetch
-failure (offline, CSP, ad-blocker) and preserving the CONTENT via the list view rather than
-showing a broken grid — is issue **570**. Until it lands, a product whose tiles fail shows the
-tiles' failure, not a governed state; that absence is recorded here rather than papered over.
+- **Total failure only degrades the surface.** `GDS_TILE_FAILURE_THRESHOLD` consecutive tile
+  errors with **zero** successful loads flips the state; a flaky host dropping some tiles
+  keeps its mostly-working map, because replacing working imagery with an error is worse than
+  the flake.
+- **Classification is honest** (`classifyGdsTileFailure`): a cross-origin `<img>` error
+  carries no status, so the browser cannot distinguish network, CSP, a missing identification
+  header, or a downed host — the only exposed cause is being offline. The copy says "offline"
+  when `navigator.onLine` says so, and otherwise says plainly that the cause is
+  indeterminate, naming the candidates rather than guessing one (Rule 11 as a component
+  contract).
+
+The degraded state is a `StateBlock` banner **beside** the map, never a replacement for it:
+markers, fills, the list and the ODbL credit need no tiles and keep working, and "no tiles"
+must never read as "no places" — the count line keeps telling the truth about content. Retry
+is bounded (`GDS_TILE_RETRY_DELAYS_MS`: two jittered auto-attempts, so a client fleet does not
+re-hit a struggling host in lockstep) plus a labelled manual control.
+
+**`offline` prop:** a consumer in an air-gapped or restricted-network environment declares it,
+the tile layer is never requested at all, and the notice renders in empty-state voice — the
+degraded presentation as the *intended* state, not a permanent error about a fetch that was
+never going to happen. Offline tile packs and service-worker tile caching remain out of scope
+(licensed, infrastructure-shaped); a consumer-supplied local `tileSource` is the supported
+boundary.
+
+Verified live, not assumed: with the tile host blocked at the network layer in a real
+browser, the banner and retry render while the list still carries every place and the credit
+still shows. Also standing: `MapPanel`'s state blocks, `assertGdsTileSource` failing loudly,
+and the map.css guard (§3).
 
 ## 9. The rail and the preview card
 
@@ -202,7 +227,6 @@ own card.
 | Issue | What it adds |
 | --- | --- |
 | **569** | Themed basemap presentation beyond the wash |
-| **570** | Offline / blocked-tile degradation |
 
 When one lands, its architectural content moves here — this file is the destination the
 programme's issues nominate, and a section that still says "not built yet" after its issue

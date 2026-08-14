@@ -259,4 +259,10 @@ export const zh = {
   'gds.stateBlock.description': "添加所需的数据后，此视图才能显示可靠的结果。",
   'gds.uploadDropzone.actionLabel': "选择文件",
   'gds.gdsMapFilterRail.allLabel': "全部",
+  'gds.gdsMap.offlineTitle': "地图图像已关闭",
+  'gds.gdsMap.offlineDescription': "此环境不加载地图图块。每个地点仍然显示为标记并出现在列表中。",
+  'gds.gdsMap.tilesFailedTitle': "无法加载地图图像",
+  'gds.gdsMap.tilesFailedOffline': "您似乎处于离线状态。每个地点仍然显示为标记并出现在列表中。",
+  'gds.gdsMap.tilesFailedIndeterminate': "无法访问磁贴主机 - 浏览器无法判断原因是网络、内容安全策略还是主机本身。每个地点仍然显示为标记并出现在列表中。",
+  'gds.gdsMap.tilesRetryLabel': "尝试再次加载图像",
 };

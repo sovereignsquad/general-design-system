@@ -259,4 +259,10 @@ export const ar = {
   'gds.stateBlock.description': "قم بإضافة البيانات المطلوبة قبل أن يتمكن هذا العرض من إظهار نتيجة موثوقة.",
   'gds.uploadDropzone.actionLabel': "اختر الملفات",
   'gds.gdsMapFilterRail.allLabel': "الجميع",
+  'gds.gdsMap.offlineTitle': "صور الخريطة معطلة",
+  'gds.gdsMap.offlineDescription': "لا تقوم هذه البيئة بتحميل مربعات الخريطة. لا يزال كل مكان يظهر كعلامة وفي القائمة.",
+  'gds.gdsMap.tilesFailedTitle': "تعذر تحميل صور الخريطة",
+  'gds.gdsMap.tilesFailedOffline': "يبدو أنك غير متصل. لا يزال كل مكان يظهر كعلامة وفي القائمة.",
+  'gds.gdsMap.tilesFailedIndeterminate': "تعذر الوصول إلى مضيف التجانب — لا يمكن للمتصفح معرفة ما إذا كان السبب هو الشبكة، أو سياسة أمان المحتوى، أو المضيف نفسه. لا يزال كل مكان يظهر كعلامة وفي القائمة.",
+  'gds.gdsMap.tilesRetryLabel': "حاول تحميل الصور مرة أخرى",
 };
