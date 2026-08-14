@@ -44,13 +44,14 @@
       "types": "./dist/map.d.ts",
       "import": "./dist/map.mjs",
       "require": "./dist/map.js"
-    }
+    },
+    "./map.css": "./dist/map.css"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && node scripts/copy-map-css.mjs",
     "dev": "tsup --watch"
   },
   "peerDependencies": {

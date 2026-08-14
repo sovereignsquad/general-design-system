@@ -161,6 +161,22 @@ export const GDS_PIN_ICON_SCALE = 0.46;
 const ICON_SCALE = GDS_PIN_ICON_SCALE;
 
 /**
+ * Emoji scale bound, reported 2026-08-14: the emoji overflowed the pin head, leaving barely any
+ * of the dark-neutral disc visible and touching the accent ring — so the composition the docs
+ * describe ("the pin fills with a fixed dark-neutral disc, and the emoji centres on it") was not
+ * what the page showed.
+ *
+ * It was a bare `0.5`, set independently of the icon bound beside it, which is how the two drifted.
+ * Derived from `GDS_PIN_ICON_SCALE` instead, so tightening the head can only move both together.
+ *
+ * The factor is not cosmetic. A Tabler glyph sits inside a 24px viewBox with ~2px of padding, so
+ * it paints roughly 0.83 of the box it is scaled to. An emoji paints nearly its whole em. Setting
+ * both to the same number therefore renders the emoji visibly larger; `0.9` brings the painted
+ * areas to about the same width, which is what makes the disc read as a disc.
+ */
+export const GDS_PIN_EMOJI_SCALE = GDS_PIN_ICON_SCALE * 0.9;
+
+/**
  * Fixed dark-neutral fill for the emoji-mode pin disc (issue #525) — the
  * same value `GdsBadge`'s own emoji coin and `toneColors.neutral` (in
  * `GdsBadge.tsx`) already use. Fixed, not theme- or brand-specific, so
@@ -255,7 +271,7 @@ export function GdsMapPinBadge({
         <GdsBadgeStackLayer
           style={{
             transform: PIN_HEAD_CENTER_OFFSET,
-            fontSize: numericSize ? `${numericSize * 0.5}px` : '55%',
+            fontSize: numericSize ? `${numericSize * GDS_PIN_EMOJI_SCALE}px` : `${GDS_PIN_EMOJI_SCALE * 100}%`,
             lineHeight: 1,
           }}
         >

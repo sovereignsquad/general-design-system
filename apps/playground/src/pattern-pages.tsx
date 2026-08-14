@@ -1661,6 +1661,32 @@ function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
   );
 }
 
+function LoadersSkeletonsDemo() {
+  const items = [
+    { id: 'trust', title: 'Verified hosts', description: 'Every listing carries a checked identity before it is shown.' },
+    { id: 'service', title: 'Local support', description: 'A named contact per area rather than a shared inbox.' },
+    { id: 'place', title: 'Nearby first', description: 'Results are ordered by travel time, not by paid placement.' },
+  ];
+
+  return (
+    <SectionPanel
+      title="Loading skeletons"
+      description="A skeleton reserves the shape of the content that is coming, so the layout does not jump when it arrives. Shown beside the resolved band it is standing in for — on its own it is indistinguishable from a surface that failed to load, which is exactly how it read before."
+    >
+      <GdsStack gap="lg">
+        <GdsStack gap="xs">
+          <MetadataText>Loading</MetadataText>
+          <FeatureBand loading columns={3} items={[]} />
+        </GdsStack>
+        <GdsStack gap="xs">
+          <MetadataText>Resolved — same columns, same heights</MetadataText>
+          <FeatureBand columns={3} items={items} />
+        </GdsStack>
+      </GdsStack>
+    </SectionPanel>
+  );
+}
+
 function BottomTabNavigationDemo() {
   const [activeId, setActiveId] = useState('browse');
   const items = [
@@ -2883,7 +2909,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'alerts':
       return <TelemetryDemo />;
     case 'loaders-skeletons':
-      return <FeatureBand loading columns={3} items={[]} />;
+      return <LoadersSkeletonsDemo />;
     case 'public-flow-shell':
       return (
         <PublicFlowShell
