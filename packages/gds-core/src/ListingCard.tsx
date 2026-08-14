@@ -1,6 +1,7 @@
 import { useState, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
-import { ActionIcon, AspectRatio, Badge, Card, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
+import { ActionIcon, Badge, Card, Group, Stack, Text, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
+import { GdsGeneratedThumbnail } from './GdsGeneratedThumbnail';
 import { GdsVocabulary, getSemanticActionLabel, type SemanticAction } from './vocabulary';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardInteractiveMode, type GdsCardSize, type GdsCardVariant } from './CardContracts';
 
@@ -33,6 +34,13 @@ export interface ListingCardProps {
   description?: ReactNode;
   image?: ReactNode;
   imageAlt?: string;
+  /**
+   * Stable identity seeding the generated thumbnail shown when no `image` is supplied — same
+   * seed, same composition, every render. Defaults to `href`, then `imageAlt`, then the title
+   * when it is a plain string. Supply it explicitly when a listing's title or URL can change
+   * while the listing itself does not, so its art stays put.
+   */
+  mediaSeed?: string;
   mediaRatio?: ListingCardMediaRatio;
   metadata?: ListingMetadataRow[];
   featured?: boolean;
@@ -62,11 +70,6 @@ export interface ListingCardProps {
   defaultFlipped?: boolean;
 }
 
-const ratioMap: Record<ListingCardMediaRatio, number> = {
-  '1:1': 1,
-  '4:3': 4 / 3,
-  '16:9': 16 / 9,
-};
 
 const toneColorMap: Record<NonNullable<ListingMetadataRow['tone']>, string | undefined> = {
   default: undefined,
@@ -97,19 +100,38 @@ function isNestedInteractiveTarget(eventTarget: EventTarget | null, currentTarge
   return Boolean(nestedInteractive && nestedInteractive !== currentTarget);
 }
 
-function ListingImageFallback({ mediaRatio }: { mediaRatio: ListingCardMediaRatio }) {
+/**
+ * Owner directive, 2026-08-14: **GDS uses the generated thumbnail everywhere.**
+ *
+ * This used to render a grey box with a generic photo glyph — the universal "broken image"
+ * picture, which tells a reader that something failed rather than that no image was supplied.
+ * On a card that never had one, that is a lie about the state of the system.
+ *
+ * `GdsGeneratedThumbnail` produces deterministic branded art from the listing's own identity:
+ * same seed, same composition, every render, themed by the active preset. A card without a
+ * photo now looks finished rather than broken, and it needs no network, no asset pipeline and
+ * no consumer-supplied placeholder.
+ */
+function ListingImageFallback({
+  mediaRatio,
+  seed,
+  title,
+}: {
+  mediaRatio: ListingCardMediaRatio;
+  seed: string;
+  title: string;
+}) {
   return (
-    <AspectRatio ratio={ratioMap[mediaRatio]}>
-      <ThemeIcon
-        size="100%"
-        radius="md"
-        variant="light"
-        color="gray"
-        aria-label="No listing image available"
-      >
-        <GdsIcons.Gallery size="2rem" />
-      </ThemeIcon>
-    </AspectRatio>
+    <GdsGeneratedThumbnail
+      seed={seed}
+      // The card's own title is the category label: inventing a taxonomy the consumer did not
+      // supply would put words on their card that they never wrote.
+      categories={[{ key: 'listing', label: title, icon: 'Gallery' }]}
+      // Motif only: the card prints the title immediately beneath this, so a badge repeating it
+      // duplicates the text on screen and in the accessibility tree.
+      badges="none"
+      aspectRatio={mediaRatio === '1:1' ? '1:1' : mediaRatio === '16:9' ? '16:9' : '4:3'}
+    />
   );
 }
 
@@ -171,6 +193,8 @@ export function ListingCard({
   href,
   description,
   image,
+  imageAlt,
+  mediaSeed,
   mediaRatio = '4:3',
   metadata = [],
   featured = false,
@@ -279,7 +303,13 @@ export function ListingCard({
           revealContent
         ) : (
           <>
-            {image ?? <ListingImageFallback mediaRatio={mediaRatio} />}
+            {image ?? (
+              <ListingImageFallback
+                mediaRatio={mediaRatio}
+                seed={mediaSeed ?? href ?? imageAlt ?? (typeof title === 'string' ? title : 'gds-listing')}
+                title={typeof title === 'string' ? title : (imageAlt ?? 'Listing')}
+              />
+            )}
 
             {(featured || sponsoredDisclosure) ? (
               <Group justify="space-between" gap="sm" wrap="wrap">

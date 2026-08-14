@@ -92,6 +92,17 @@ export interface GdsGeneratedThumbnailProps {
   aspectRatio?: GdsGeneratedThumbnailAspectRatio;
   /** Maximum badges shown (1 lead + up to `maxBadges - 1` secondary). Defaults to `3`. */
   maxBadges?: number;
+  /**
+   * `'ranked'` (default) renders the category badges over the motif. `'none'` renders the motif
+   * alone.
+   *
+   * Motif-only exists for the case where the thumbnail is a **fallback image** rather than a
+   * summary: `ListingCard` shows one when a listing has no photo, and the card already prints
+   * the title directly beneath it. Repeating it in a badge duplicated the text on screen and in
+   * the accessibility tree — `getByText` started matching two nodes, which is the machine
+   * noticing what a reader would have seen.
+   */
+  badges?: 'ranked' | 'none';
   /** Opacity of the background icon motif (0-1). Defaults to `0.14`. */
   motifOpacity?: number;
   /**
@@ -172,6 +183,7 @@ export function GdsGeneratedThumbnail({
   colors,
   aspectRatio = '3:2',
   maxBadges = 3,
+  badges = 'ranked',
   motifOpacity = 0.14,
   label,
   className,
@@ -232,6 +244,7 @@ export function GdsGeneratedThumbnail({
         </g>
       </svg>
 
+{badges === 'none' ? null : (
       <div
         style={{
           position: 'absolute',
@@ -292,6 +305,7 @@ export function GdsGeneratedThumbnail({
           </span>
         ))}
       </div>
+      )}
     </div>
   );
 }

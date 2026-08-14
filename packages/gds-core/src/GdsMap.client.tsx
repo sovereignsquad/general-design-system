@@ -126,6 +126,8 @@ export function GdsMap({
     let disposed = false;
     let map: { remove: () => void } | null = null;
 
+    let resizeObserver: ResizeObserver | undefined;
+
     (async () => {
       try {
         // Imported dynamically so the module never loads during SSR, where `window` is absent
@@ -199,6 +201,27 @@ export function GdsMap({
             .fitBounds([[fitBounds.south, fitBounds.west], [fitBounds.north, fitBounds.east]]);
         }
 
+        // Leaflet measures the container ONCE, at init, and lays tiles out against that
+        // measurement. Anything that changes the container afterwards — a lazily-rendered
+        // route settling, a webfont landing, a card reflowing, an accordion opening — leaves
+        // the tiles positioned for a size the container no longer has. The symptom is exactly
+        // what was reported: tiles in disjoint fragments with blank gaps, on a map that never
+        // "loads properly" no matter how long you wait, because nothing is still loading.
+        //
+        // `invalidateSize()` re-measures and re-lays. Once immediately after init for the case
+        // where the container was still settling, then on every subsequent resize.
+        const engine = map as unknown as { invalidateSize: (opts?: { animate?: boolean }) => void };
+        const revalidate = () => { try { engine.invalidateSize({ animate: false }); } catch { /* torn down */ } };
+        revalidate();
+        // A frame later as well: a container inside a freshly-mounted flex/grid parent is
+        // frequently still zero-height on the tick the map is created.
+        requestAnimationFrame(revalidate);
+
+        if (typeof ResizeObserver !== 'undefined' && containerRef.current) {
+          resizeObserver = new ResizeObserver(revalidate);
+          resizeObserver.observe(containerRef.current);
+        }
+
         if (!disposed) {
           setState('ready');
           onStateChange?.('ready');
@@ -215,6 +238,7 @@ export function GdsMap({
 
     return () => {
       disposed = true;
+      resizeObserver?.disconnect();
       // Explicit destroy: Leaflet keeps document-level listeners and a tile cache, and a
       // remount without this leaks both. The re-init on theme identity depends on it running.
       try { map?.remove(); } catch { /* already torn down */ }
