@@ -4,6 +4,46 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The focus ring no longer waits for JavaScript (#552)
+
+`styles.css` gated its governed focus rules on `html[data-gds-theme-preset]` — an attribute set
+client-side, post-mount. No server-rendered or pre-hydration paint can carry it, so a keyboard
+user tabbing before JS mounted got no governed focus indicator at all. Verified structurally and
+live. Every `--gds-vibe-*` token the rule reads has always had a `:root` default in the same
+file, so the gate was an authoring artifact, not a dependency: the focus rules (main and
+forced-colors variants) are now **unconditional** — an accessibility floor applies from first
+paint; cosmetic rules stay gated. `.mantine-NavLink-root` and `.mantine-Tabs-tab` are named in
+the selector list (verified: they render as `<a>`/`<button>` and were element-covered, but the
+list is read as the coverage contract and Mantine may change the rendered element). New gate:
+`verify:focus-ring-runtime` renders a no-JS fixture linking only the published stylesheet, tabs
+through native controls plus both Mantine classes via real CDP key events, and asserts the 2px
+solid ring computes — mutation-tested by re-gating one selector group. One shared stylesheet
+serves every brand lane, so the fix covers `class-usa`, `gold-athlete`, and `brand` at once.
+
+### class-usa owns its radius scale instead of borrowing Mantine's (#551)
+
+`createBrandTheme('class-usa')` shipped `defaultRadius: 'lg'` against Mantine's *stock* scale,
+so Card's 16px was a coincidence (stock `lg` happens to be 1rem), Badge's "pill" was a 32px
+accident, and the handoff's 8/12/16/24/pill scale existed nowhere. The theme now owns
+`radius: { xs 8, sm 12, md 16, lg 24, xl pill }`, so the named steps *mean* the handoff tiers:
+Button moves from a hardcoded `0.75rem` to `sm` (same pixels, now scale-derived), Card/Paper to
+`md`, Badge's `xl` becomes genuinely pill. A consumer with no overrides now gets the handoff
+geometry. Tier expectations pinned in `brand-tokens.test.ts`; `gold-athlete`/`brand` untouched.
+
+### The literal-values allowlist is documented positively (#543)
+
+`COMPLIANCE_TOOLKIT.md` now names the five places a literal value is *allowed* — theme/token
+sources, the GDS packages themselves (governed by their own gates, not consumer rules),
+generated SVG output, map paint, and the PWA manifest — each with the reason its output has no
+stylesheet or theme in scope, cross-checked against what `gds-compliance` actually enforces.
+
+### The seven Hebrew phrases are translated (#611)
+
+Owner-approved. Register matched to the peer locales' descriptive renderings; like all locale
+copy they await the later human review pass. Hebrew leakage drops to zero and the
+`englishLeakageWorstLocale` budget ratchets 0.36% → 0.15% (now German's three verbatim
+loanword phrases).
+
 ### Compliance rules no longer read comments as code (#615)
 
 Two releases went red on rule matches inside comments: `#600` — a GitHub issue reference — read

@@ -33,6 +33,17 @@ describe('createBrandTheme', () => {
 
     expect(result.tokenGraph.themes).toEqual(['class-usa']);
     expect(result.mantineTheme.primaryColor).toBe('classUsaNavy');
+
+    // Issue 551 — the theme owns the handoff's radius scale (8/12/16/24/pill); the named steps
+    // mean the handoff tiers, so a consumer with no overrides gets the handoff geometry.
+    expect(result.mantineTheme.radius).toEqual({
+      xs: '0.5rem', sm: '0.75rem', md: '1rem', lg: '1.5rem', xl: '624.9375rem',
+    });
+    expect(result.mantineTheme.defaultRadius).toBe('md');
+    expect(result.mantineTheme.components?.Button?.defaultProps?.radius).toBe('sm');
+    expect(result.mantineTheme.components?.Card?.defaultProps?.radius).toBe('md');
+    expect(result.mantineTheme.components?.Paper?.defaultProps?.radius).toBe('md');
+    expect(result.mantineTheme.components?.Badge?.defaultProps?.radius).toBe('xl');
     expect(result.mantineTheme.other?.gdsBrandThemeId).toBe('class-usa');
     expect(result.cssVariables['--gds-brand-primary']).toBe('#0f2c4a');
     expect(result.cssVariables['--gds-brand-primary-pressed']).toBe('#071626');

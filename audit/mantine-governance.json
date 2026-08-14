@@ -3,7 +3,7 @@
   "governed": 4,
   "delegated": 7,
   "dynamic": 2,
-  "laneGoverned": 8,
+  "laneGoverned": 12,
   "ungovernedCount": 80,
   "budget": 80,
   "rows": [
@@ -745,8 +745,11 @@
     },
     {
       "variable": "--mantine-radius-lg",
-      "classification": "ungoverned",
-      "why": "GDS does not change gdsTheme.radius.lg from Mantine's default",
+      "classification": "lane-governed",
+      "lanes": [
+        "classUsaThemePreset"
+      ],
+      "why": "governed by classUsaThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
       "files": [
         "packages/gds-core/src/PublicShell.tsx",
         "packages/gds-core/src/ReferenceThemeExplorer.tsx",
@@ -757,8 +760,11 @@
     },
     {
       "variable": "--mantine-radius-md",
-      "classification": "ungoverned",
-      "why": "GDS does not change gdsTheme.radius.md from Mantine's default",
+      "classification": "lane-governed",
+      "lanes": [
+        "classUsaThemePreset"
+      ],
+      "why": "governed by classUsaThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
       "files": [
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/GdsGeneratedHero.tsx",
@@ -771,8 +777,11 @@
     },
     {
       "variable": "--mantine-radius-sm",
-      "classification": "ungoverned",
-      "why": "GDS does not change gdsTheme.radius.sm from Mantine's default",
+      "classification": "lane-governed",
+      "lanes": [
+        "classUsaThemePreset"
+      ],
+      "why": "governed by classUsaThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
       "files": [
         "packages/gds-core/src/GdsRichTextEditor.client.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
@@ -782,8 +791,11 @@
     },
     {
       "variable": "--mantine-radius-xl",
-      "classification": "ungoverned",
-      "why": "GDS does not change gdsTheme.radius.xl from Mantine's default",
+      "classification": "lane-governed",
+      "lanes": [
+        "classUsaThemePreset"
+      ],
+      "why": "governed by classUsaThemePreset but not by the default gdsTheme; renders Mantine's default under every other lane",
       "files": [
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/ReferenceThemeExplorer.tsx",

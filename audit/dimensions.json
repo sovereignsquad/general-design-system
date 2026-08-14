@@ -174,13 +174,6 @@
     "englishLeakage": [
       {
         "corpus": "site",
-        "locale": "he",
-        "total": 1964,
-        "untranslated": 7,
-        "rate": 0.36
-      },
-      {
-        "corpus": "site",
         "locale": "de",
         "total": 1964,
         "untranslated": 3,
@@ -203,6 +196,13 @@
       {
         "corpus": "site",
         "locale": "fr",
+        "total": 1964,
+        "untranslated": 0,
+        "rate": 0
+      },
+      {
+        "corpus": "site",
+        "locale": "he",
         "total": 1964,
         "untranslated": 0,
         "rate": 0

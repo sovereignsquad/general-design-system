@@ -82,8 +82,8 @@
     },
     {
       "key": "englishLeakageWorstLocale",
-      "measured": 0.36,
-      "value": 0.36,
+      "measured": 0.15,
+      "value": 0.15,
       "direction": "max",
       "unit": "%",
       "finding": "F16",

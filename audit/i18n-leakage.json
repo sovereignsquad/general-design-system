@@ -2,22 +2,6 @@
   "corpora": {
     "site": [
       {
-        "locale": "he",
-        "total": 1964,
-        "leaked": 7,
-        "rate": 0.36,
-        "budget": 7,
-        "leakedKeys": [
-          "Admin AppShell",
-          "Auth Shells",
-          "Docs Code Blocks",
-          "Docs Shell",
-          "Fit Score Chip",
-          "Partner LLC ©2026",
-          "Reference Link Grid"
-        ]
-      },
-      {
         "locale": "de",
         "total": 1964,
         "leaked": 3,
@@ -47,6 +31,14 @@
       },
       {
         "locale": "fr",
+        "total": 1964,
+        "leaked": 0,
+        "rate": 0,
+        "budget": 0,
+        "leakedKeys": []
+      },
+      {
+        "locale": "he",
         "total": 1964,
         "leaked": 0,
         "rate": 0,

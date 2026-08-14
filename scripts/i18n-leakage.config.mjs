@@ -7,13 +7,10 @@
 
 export const LEAKAGE_BUDGETS = {
   site: {
-    // Machine translation cannot resolve these. Verified 2026-08-13 against the same
-    // translate endpoint the generator uses: "Docs Code Blocks", "Reference Link Grid",
-    // "Docs Shell", "Auth Shells", "Admin AppShell", "Fit Score Chip" and "Partner LLC ©2026"
-    // all come back byte-identical for Hebrew. Seven other locales translated them, which is
-    // why they are flagged and why the flag is correct — but clearing them needs a human
-    // Hebrew translator, and inventing the strings would violate Rule 11. Tracked as #611.
-    he: 7,
+    // Issue 611 CLOSED 2026-08-14: the seven phrases the translate endpoint returned
+    // byte-identical for Hebrew now carry owner-approved translations (register matched to the
+    // peer locales' descriptive renderings). Like every other locale value they are pending the
+    // later human copy-review pass; unlike before, they are no longer provable misses.
     // German technical prose that is genuinely built from English loanwords:
     // "Overlay stack governance" and "Product owner, design lead, frontend lead". Verified
     // 2026-08-13 against the translate endpoint, which returns "Overlay-Stack-Governance" and
