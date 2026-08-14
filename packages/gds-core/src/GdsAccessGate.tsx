@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 import { useEffect, useId } from 'react';
 import { Badge, Box, Button, Card, Group, Skeleton, Stack, Text, Title } from '@mantine/core';
-import { gdsDevWarnOnce } from '@sovereignsquad/gds-theme';
+import { gdsDevWarnOnce , useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { AccessRecoveryPanel } from './AccessRecoveryPanel';
 import { StateBlock } from './StateBlock';
 import {
@@ -113,7 +113,7 @@ export function GdsAccessGate({
   description,
   actions = [],
   entitlementLabel,
-  teaserLabel = 'Preview',
+  teaserLabel: teaserLabelProp,
   protectedContentPolicy = state === 'unlocked' ? undefined : 'never-render-while-locked',
   preview,
   protectedContent,
@@ -122,6 +122,9 @@ export function GdsAccessGate({
   onAction,
   onEvent,
 }: GdsAccessGateProps) {
+  const { t } = useGdsTranslation();
+  const teaserLabel = teaserLabelProp ?? t('gds.gdsAccessGate.teaserLabel', "Preview");
+
   const headingId = useId();
   const sortedActions = sortGdsAccessGateActions(actions);
   const unlocked = state === 'unlocked';

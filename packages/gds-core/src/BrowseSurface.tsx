@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Badge, Box, Button, Group, Paper, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { GdsRemovableTag } from './GdsRemovableTag';
 import { DataToolbar, type DataToolbarProps } from './DataToolbar';
@@ -63,10 +64,10 @@ export function BrowseSurface({
   title,
   description,
   resultCount,
-  resultLabel = 'results',
+  resultLabel: resultLabelProp,
   activeFilters = [],
   scopeOptions = [],
-  scopeLabel = 'Scope',
+  scopeLabel: scopeLabelProp,
   locationControls,
   primaryControls,
   toolbar,
@@ -75,16 +76,25 @@ export function BrowseSurface({
   filterDrawer,
   content,
   loading = false,
-  loadingTitle = 'Loading results',
-  loadingDescription = 'The browse surface is still synchronizing.',
+  loadingTitle: loadingTitleProp,
+  loadingDescription: loadingDescriptionProp,
   error,
-  errorTitle = 'Unable to load results',
+  errorTitle: errorTitleProp,
   errorAction,
   empty = false,
-  emptyTitle = 'No matching results',
-  emptyDescription = 'Try adjusting your filters or broadening the current scope.',
+  emptyTitle: emptyTitleProp,
+  emptyDescription: emptyDescriptionProp,
   emptyAction,
 }: BrowseSurfaceProps) {
+  const { t } = useGdsTranslation();
+  const resultLabel = resultLabelProp ?? t('gds.browseSurface.resultLabel', "results");
+  const scopeLabel = scopeLabelProp ?? t('gds.browseSurface.scopeLabel', "Scope");
+  const loadingTitle = loadingTitleProp ?? t('gds.browseSurface.loadingTitle', "Loading results");
+  const loadingDescription = loadingDescriptionProp ?? t('gds.browseSurface.loadingDescription', "The browse surface is still synchronizing.");
+  const errorTitle = errorTitleProp ?? t('gds.browseSurface.errorTitle', "Unable to load results");
+  const emptyTitle = emptyTitleProp ?? t('gds.browseSurface.emptyTitle', "No matching results");
+  const emptyDescription = emptyDescriptionProp ?? t('gds.browseSurface.emptyDescription', "Try adjusting your filters or broadening the current scope.");
+
   const toolbarFilters = activeFilters.map((filter) => ({
     label: typeof filter.label === 'string' ? filter.label : `Filter ${filter.id}`,
     onRemove: filter.onRemove,

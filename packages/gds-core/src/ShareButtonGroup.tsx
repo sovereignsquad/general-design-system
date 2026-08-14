@@ -1,4 +1,5 @@
 'use client';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 import { useState } from 'react';
 import type { ReactNode } from 'react';
@@ -109,9 +110,12 @@ export function ShareButtonGroup({
   text,
   channels = ['native', 'copy', 'mail'],
   compact = false,
-  label = 'Share this',
+  label: labelProp,
   description,
 }: ShareButtonGroupProps) {
+  const { t } = useGdsTranslation();
+  const label = labelProp ?? t('gds.shareButtonGroup.label', "Share this");
+
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const hrefs = encodeShare(url, title, text);

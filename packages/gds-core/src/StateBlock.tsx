@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Loader, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
 import {
@@ -110,13 +111,17 @@ export interface MissingDataPromptProps extends Omit<StateBlockProps, 'variant' 
 
 /** A `not-enough-data` {@link StateBlock} preset that lists the missing fields and prompts the user to supply them. */
 export function MissingDataPrompt({
-  title = 'Missing data',
-  description = 'Add the required data before this view can show a reliable result.',
+  title: titleProp,
+  description: descriptionProp,
   missingFields = [],
   action,
   compact = true,
   ...props
 }: MissingDataPromptProps) {
+  const { t } = useGdsTranslation();
+  const title = titleProp ?? t('gds.stateBlock.title', "Missing data");
+  const description = descriptionProp ?? t('gds.stateBlock.description', "Add the required data before this view can show a reliable result.");
+
   const details = missingFields.length ? (
     <Stack gap={4}>
       {description ? <Text c="dimmed">{description}</Text> : null}

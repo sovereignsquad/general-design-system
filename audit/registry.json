@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "43618f30c74eec8ab8b178003622aac89090df5b",
+  "commit": "4553e39409155e667a2969bb11b5a74d24b3ad95",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -6562,7 +6562,7 @@
       "name": "--gds-vibe-primary",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 69
+        "line": 70
       }
     },
     {
@@ -6571,7 +6571,7 @@
       "name": "--gds-brand-primary",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 70
+        "line": 71
       }
     },
     {
@@ -20617,7 +20617,7 @@
       "name": "AISearchCardProps.onSubmit",
       "source": {
         "file": "packages/gds-core/src/AISearchCard.tsx",
-        "line": 17
+        "line": 18
       },
       "type": "(query: string) => void"
     },
@@ -20627,7 +20627,7 @@
       "name": "AISearchCardProps.prompts",
       "source": {
         "file": "packages/gds-core/src/AISearchCard.tsx",
-        "line": 17
+        "line": 18
       },
       "type": "string[]"
     },
@@ -20637,7 +20637,7 @@
       "name": "AISearchCardProps.onPromptSelect",
       "source": {
         "file": "packages/gds-core/src/AISearchCard.tsx",
-        "line": 17
+        "line": 18
       },
       "type": "(prompt: string) => void"
     },
@@ -20647,7 +20647,7 @@
       "name": "AISearchCardProps.placeholder",
       "source": {
         "file": "packages/gds-core/src/AISearchCard.tsx",
-        "line": 17
+        "line": 18
       },
       "type": "string"
     },
@@ -20657,7 +20657,7 @@
       "name": "AISearchCardProps.betaLabel",
       "source": {
         "file": "packages/gds-core/src/AISearchCard.tsx",
-        "line": 17
+        "line": 18
       },
       "type": "string"
     },
@@ -20667,7 +20667,7 @@
       "name": "AISearchCardProps.ariaLabel",
       "source": {
         "file": "packages/gds-core/src/AISearchCard.tsx",
-        "line": 17
+        "line": 18
       },
       "type": "string"
     },
@@ -20677,7 +20677,7 @@
       "name": "AISearchCardProps.disabled",
       "source": {
         "file": "packages/gds-core/src/AISearchCard.tsx",
-        "line": 17
+        "line": 18
       },
       "type": "boolean"
     },
@@ -21092,7 +21092,7 @@
       "name": "AuthShellProps.title",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "string"
     },
@@ -21102,7 +21102,7 @@
       "name": "AuthShellProps.description",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21112,7 +21112,7 @@
       "name": "AuthShellProps.intent",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "'sign-in' | 'sign-up' | 'account-linking' | 'guest-entry'"
     },
@@ -21122,7 +21122,7 @@
       "name": "AuthShellProps.intent=sign-in",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       }
     },
     {
@@ -21131,7 +21131,7 @@
       "name": "AuthShellProps.intent=sign-up",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       }
     },
     {
@@ -21140,7 +21140,7 @@
       "name": "AuthShellProps.intent=account-linking",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       }
     },
     {
@@ -21149,7 +21149,7 @@
       "name": "AuthShellProps.intent=guest-entry",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       }
     },
     {
@@ -21158,7 +21158,7 @@
       "name": "AuthShellProps.brand",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21168,7 +21168,7 @@
       "name": "AuthShellProps.headerActions",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21178,7 +21178,7 @@
       "name": "AuthShellProps.footer",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21188,7 +21188,7 @@
       "name": "AuthShellProps.helper",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21198,7 +21198,7 @@
       "name": "AuthShellProps.error",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21208,7 +21208,7 @@
       "name": "AuthShellProps.guestAction",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21218,7 +21218,7 @@
       "name": "AuthShellProps.supportAction",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21228,7 +21228,7 @@
       "name": "AuthShellProps.socialAuth",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21238,7 +21238,7 @@
       "name": "AuthShellProps.dividerLabel",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21248,7 +21248,7 @@
       "name": "AuthShellProps.children",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 5
+        "line": 6
       },
       "type": "ReactNode"
     },
@@ -21358,7 +21358,7 @@
       "name": "BrowseSurfaceProps.eyebrow",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21368,7 +21368,7 @@
       "name": "BrowseSurfaceProps.title",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21378,7 +21378,7 @@
       "name": "BrowseSurfaceProps.description",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21388,7 +21388,7 @@
       "name": "BrowseSurfaceProps.resultCount",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "number"
     },
@@ -21398,7 +21398,7 @@
       "name": "BrowseSurfaceProps.resultLabel",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21408,7 +21408,7 @@
       "name": "BrowseSurfaceProps.activeFilters",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "BrowseSurfaceFilterChip[]"
     },
@@ -21418,7 +21418,7 @@
       "name": "BrowseSurfaceProps.scopeOptions",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "BrowseSurfaceScopeOption[]"
     },
@@ -21428,7 +21428,7 @@
       "name": "BrowseSurfaceProps.scopeLabel",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21438,7 +21438,7 @@
       "name": "BrowseSurfaceProps.locationControls",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21448,7 +21448,7 @@
       "name": "BrowseSurfaceProps.primaryControls",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21458,7 +21458,7 @@
       "name": "BrowseSurfaceProps.toolbar",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "Omit<DataToolbarProps, 'activeFilters'> & {"
     },
@@ -21468,7 +21468,7 @@
       "name": "BrowseSurfaceProps.sortControl",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21478,7 +21478,7 @@
       "name": "BrowseSurfaceProps.mobileFilters",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21488,7 +21488,7 @@
       "name": "BrowseSurfaceProps.filterDrawer",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21498,7 +21498,7 @@
       "name": "BrowseSurfaceProps.content",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21508,7 +21508,7 @@
       "name": "BrowseSurfaceProps.loading",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "boolean"
     },
@@ -21518,7 +21518,7 @@
       "name": "BrowseSurfaceProps.loadingTitle",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "string"
     },
@@ -21528,7 +21528,7 @@
       "name": "BrowseSurfaceProps.loadingDescription",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21538,7 +21538,7 @@
       "name": "BrowseSurfaceProps.error",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21548,7 +21548,7 @@
       "name": "BrowseSurfaceProps.errorTitle",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "string"
     },
@@ -21558,7 +21558,7 @@
       "name": "BrowseSurfaceProps.errorAction",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21568,7 +21568,7 @@
       "name": "BrowseSurfaceProps.empty",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "boolean"
     },
@@ -21578,7 +21578,7 @@
       "name": "BrowseSurfaceProps.emptyTitle",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "string"
     },
@@ -21588,7 +21588,7 @@
       "name": "BrowseSurfaceProps.emptyDescription",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21598,7 +21598,7 @@
       "name": "BrowseSurfaceProps.emptyAction",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 23
+        "line": 24
       },
       "type": "ReactNode"
     },
@@ -21688,7 +21688,7 @@
       "name": "ChatThreadProps.messages",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ChatMessageModel[]"
     },
@@ -21698,7 +21698,7 @@
       "name": "ChatThreadProps.streaming",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "boolean"
     },
@@ -21708,7 +21708,7 @@
       "name": "ChatThreadProps.onSend",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "(text: string) => void"
     },
@@ -21718,7 +21718,7 @@
       "name": "ChatThreadProps.inputDisabled",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "boolean"
     },
@@ -21728,7 +21728,7 @@
       "name": "ChatThreadProps.placeholder",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -21738,7 +21738,7 @@
       "name": "ChatThreadProps.emptyState",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -21748,7 +21748,7 @@
       "name": "ChatThreadProps.errorBanner",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -21758,7 +21758,7 @@
       "name": "ChatThreadProps.maxEmbeddedCards",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "number"
     },
@@ -21768,7 +21768,7 @@
       "name": "ChatThreadProps.userLabel",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -21778,7 +21778,7 @@
       "name": "ChatThreadProps.assistantLabel",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -21788,7 +21788,7 @@
       "name": "ChatThreadProps.sendLabel",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -21798,7 +21798,7 @@
       "name": "ChatThreadProps.onRetry",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "(messageId: string) => void"
     },
@@ -21808,7 +21808,7 @@
       "name": "ChatThreadProps.retryLabel",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -22270,7 +22270,7 @@
       "name": "DiscoveryShellProps.header",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "ReactNode"
     },
@@ -22280,7 +22280,7 @@
       "name": "DiscoveryShellProps.sidebar",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "ReactNode"
     },
@@ -22290,7 +22290,7 @@
       "name": "DiscoveryShellProps.footer",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "ReactNode"
     },
@@ -22300,7 +22300,7 @@
       "name": "DiscoveryShellProps.children",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "ReactNode"
     },
@@ -22310,7 +22310,7 @@
       "name": "DiscoveryShellProps.mobileNavigationLabel",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "string"
     },
@@ -22320,7 +22320,7 @@
       "name": "DiscoveryShellProps.hideMobileNavigationToggle",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "boolean"
     },
@@ -22330,7 +22330,7 @@
       "name": "DiscoveryShellProps.defaultSidebarOpen",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "boolean"
     },
@@ -22340,7 +22340,7 @@
       "name": "DiscoveryShellProps.sidebarStorageKey",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "string"
     },
@@ -22350,7 +22350,7 @@
       "name": "DiscoveryShellProps.sidebarOpened",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "boolean"
     },
@@ -22360,7 +22360,7 @@
       "name": "DiscoveryShellProps.onSidebarOpenedChange",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "(opened: boolean) => void"
     },
@@ -22370,7 +22370,7 @@
       "name": "DiscoveryShellProps.stickySidebar",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "boolean"
     },
@@ -22380,7 +22380,7 @@
       "name": "DiscoveryShellProps.desktopCollapsible",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "boolean"
     },
@@ -22390,7 +22390,7 @@
       "name": "DiscoveryShellProps.desktopNavigationLabel",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "string"
     },
@@ -22400,7 +22400,7 @@
       "name": "DiscoveryShellProps.sidebarWidth",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "number | string"
     },
@@ -22410,7 +22410,7 @@
       "name": "DiscoveryShellProps.headerHeight",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "number | string"
     },
@@ -22420,7 +22420,7 @@
       "name": "DiscoveryShellProps.shellPadding",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "MantineSpacing | number"
     },
@@ -22430,7 +22430,7 @@
       "name": "DiscoveryShellProps.collapseBreakpoint",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "MantineBreakpoint"
     },
@@ -22440,7 +22440,7 @@
       "name": "DiscoveryShellProps.closeMobileNavigationOnItemSelect",
       "source": {
         "file": "packages/gds-core/src/DiscoveryShell.tsx",
-        "line": 79
+        "line": 80
       },
       "type": "boolean"
     },
@@ -22733,7 +22733,7 @@
       "name": "EditorialCardProps.media",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "ReactNode"
     },
@@ -22743,7 +22743,7 @@
       "name": "EditorialCardProps.mediaAlt",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "string"
     },
@@ -22753,7 +22753,7 @@
       "name": "EditorialCardProps.eyebrow",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "ReactNode"
     },
@@ -22763,7 +22763,7 @@
       "name": "EditorialCardProps.badge",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "ReactNode"
     },
@@ -22773,7 +22773,7 @@
       "name": "EditorialCardProps.title",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "ReactNode"
     },
@@ -22783,7 +22783,7 @@
       "name": "EditorialCardProps.description",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "ReactNode"
     },
@@ -22793,7 +22793,7 @@
       "name": "EditorialCardProps.meta",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "ReactNode"
     },
@@ -22803,7 +22803,7 @@
       "name": "EditorialCardProps.ctaLabel",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "ReactNode"
     },
@@ -22813,7 +22813,7 @@
       "name": "EditorialCardProps.href",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "string"
     },
@@ -22823,7 +22823,7 @@
       "name": "EditorialCardProps.onClick",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "() => void"
     },
@@ -22833,7 +22833,7 @@
       "name": "EditorialCardProps.tone",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "'default' | 'warm' | 'cool' | 'muted'"
     },
@@ -22843,7 +22843,7 @@
       "name": "EditorialCardProps.tone=default",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       }
     },
     {
@@ -22852,7 +22852,7 @@
       "name": "EditorialCardProps.tone=warm",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       }
     },
     {
@@ -22861,7 +22861,7 @@
       "name": "EditorialCardProps.tone=cool",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       }
     },
     {
@@ -22870,7 +22870,7 @@
       "name": "EditorialCardProps.tone=muted",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       }
     },
     {
@@ -22879,7 +22879,7 @@
       "name": "EditorialCardProps.variant",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "EditorialCardVariant"
     },
@@ -22889,7 +22889,7 @@
       "name": "EditorialCardProps.size",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "GdsCardSize"
     },
@@ -22899,7 +22899,7 @@
       "name": "EditorialCardProps.density",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "GdsCardDensity"
     },
@@ -22909,7 +22909,7 @@
       "name": "EditorialCardProps.classNames",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "{"
     },
@@ -23923,7 +23923,7 @@
       "name": "GdsBreadcrumbsProps.items",
       "source": {
         "file": "packages/gds-core/src/GdsBreadcrumbs.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "GdsBreadcrumbItem[]"
     },
@@ -23933,7 +23933,7 @@
       "name": "GdsBreadcrumbsProps.ariaLabel",
       "source": {
         "file": "packages/gds-core/src/GdsBreadcrumbs.tsx",
-        "line": 10
+        "line": 11
       },
       "type": "string"
     },
@@ -24183,7 +24183,7 @@
       "name": "GdsSliderProps.label",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "ReactNode"
     },
@@ -24193,7 +24193,7 @@
       "name": "GdsSliderProps.description",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "ReactNode"
     },
@@ -24203,7 +24203,7 @@
       "name": "GdsSliderProps.value",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "number"
     },
@@ -24213,7 +24213,7 @@
       "name": "GdsSliderProps.onChange",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "(value: number) => void"
     },
@@ -24223,7 +24223,7 @@
       "name": "GdsSliderProps.min",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "number"
     },
@@ -24233,7 +24233,7 @@
       "name": "GdsSliderProps.max",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "number"
     },
@@ -24243,7 +24243,7 @@
       "name": "GdsSliderProps.step",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "number"
     },
@@ -24253,7 +24253,7 @@
       "name": "GdsSliderProps.disabled",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "boolean"
     },
@@ -24263,7 +24263,7 @@
       "name": "GdsSliderProps.ariaLabel",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "string"
     },
@@ -24273,7 +24273,7 @@
       "name": "GdsSliderProps.marks",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 84
+        "line": 85
       },
       "type": "{ value: number"
     },
@@ -24283,7 +24283,7 @@
       "name": "GdsWizardStepperProps.steps",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "GdsWizardStep[]"
     },
@@ -24293,7 +24293,7 @@
       "name": "GdsWizardStepperProps.activeStep",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "number"
     },
@@ -24303,7 +24303,7 @@
       "name": "GdsWizardStepperProps.onStepChange",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "(stepIndex: number) => void"
     },
@@ -24313,7 +24313,7 @@
       "name": "GdsWizardStepperProps.onBack",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "() => void"
     },
@@ -24323,7 +24323,7 @@
       "name": "GdsWizardStepperProps.onSaveNext",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "() => void | Promise<void>"
     },
@@ -24333,7 +24333,7 @@
       "name": "GdsWizardStepperProps.backLabel",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "string"
     },
@@ -24343,7 +24343,7 @@
       "name": "GdsWizardStepperProps.saveNextLabel",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "string"
     },
@@ -24353,7 +24353,7 @@
       "name": "GdsWizardStepperProps.finishLabel",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "string"
     },
@@ -24363,7 +24363,7 @@
       "name": "GdsWizardStepperProps.loading",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "boolean"
     },
@@ -24373,7 +24373,7 @@
       "name": "GdsWizardStepperProps.ariaLabel",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 163
+        "line": 164
       },
       "type": "string"
     },
@@ -25503,7 +25503,7 @@
       "name": "GdsLayoutTemplatePreviewProps.templates",
       "source": {
         "file": "packages/gds-core/src/LayoutTemplatePreview.client.tsx",
-        "line": 15
+        "line": 16
       },
       "type": "GdsLayoutTemplate[]"
     },
@@ -25513,7 +25513,7 @@
       "name": "GdsLayoutTemplatePreviewProps.initialTemplateId",
       "source": {
         "file": "packages/gds-core/src/LayoutTemplatePreview.client.tsx",
-        "line": 15
+        "line": 16
       },
       "type": "string"
     },
@@ -25523,7 +25523,7 @@
       "name": "GdsLayoutTemplatePreviewProps.title",
       "source": {
         "file": "packages/gds-core/src/LayoutTemplatePreview.client.tsx",
-        "line": 15
+        "line": 16
       },
       "type": "string"
     },
@@ -25533,7 +25533,7 @@
       "name": "GdsLayoutTemplatePreviewProps.description",
       "source": {
         "file": "packages/gds-core/src/LayoutTemplatePreview.client.tsx",
-        "line": 15
+        "line": 16
       },
       "type": "string"
     },
@@ -25543,7 +25543,7 @@
       "name": "ListingCardProps.title",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25553,7 +25553,7 @@
       "name": "ListingCardProps.href",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -25563,7 +25563,7 @@
       "name": "ListingCardProps.description",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25573,7 +25573,7 @@
       "name": "ListingCardProps.image",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25583,7 +25583,7 @@
       "name": "ListingCardProps.imageAlt",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -25593,7 +25593,7 @@
       "name": "ListingCardProps.mediaSeed",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -25603,7 +25603,7 @@
       "name": "ListingCardProps.mediaRatio",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ListingCardMediaRatio"
     },
@@ -25613,7 +25613,7 @@
       "name": "ListingCardProps.metadata",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ListingMetadataRow[]"
     },
@@ -25623,7 +25623,7 @@
       "name": "ListingCardProps.featured",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "boolean"
     },
@@ -25633,7 +25633,7 @@
       "name": "ListingCardProps.sponsoredDisclosure",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25643,7 +25643,7 @@
       "name": "ListingCardProps.price",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25653,7 +25653,7 @@
       "name": "ListingCardProps.rating",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25663,7 +25663,7 @@
       "name": "ListingCardProps.ratingLabel",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -25673,7 +25673,7 @@
       "name": "ListingCardProps.primaryAction",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25683,7 +25683,7 @@
       "name": "ListingCardProps.reason",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25693,7 +25693,7 @@
       "name": "ListingCardProps.reasonLabel",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "string"
     },
@@ -25703,7 +25703,7 @@
       "name": "ListingCardProps.score",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25713,7 +25713,7 @@
       "name": "ListingCardProps.actions",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode[]"
     },
@@ -25723,7 +25723,7 @@
       "name": "ListingCardProps.saveAction",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ListingCardAffordance"
     },
@@ -25733,7 +25733,7 @@
       "name": "ListingCardProps.saved",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "boolean"
     },
@@ -25743,7 +25743,7 @@
       "name": "ListingCardProps.shareAction",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ListingCardAffordance"
     },
@@ -25753,7 +25753,7 @@
       "name": "ListingCardProps.compact",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "boolean"
     },
@@ -25763,7 +25763,7 @@
       "name": "ListingCardProps.size",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "GdsCardSize"
     },
@@ -25773,7 +25773,7 @@
       "name": "ListingCardProps.density",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "GdsCardDensity"
     },
@@ -25783,7 +25783,7 @@
       "name": "ListingCardProps.variant",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "GdsCardVariant"
     },
@@ -25793,7 +25793,7 @@
       "name": "ListingCardProps.interactiveMode",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "GdsCardInteractiveMode"
     },
@@ -25803,7 +25803,7 @@
       "name": "ListingCardProps.revealContent",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -25813,7 +25813,7 @@
       "name": "ListingCardProps.onSurfaceActivate",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "() => void"
     },
@@ -25823,7 +25823,7 @@
       "name": "ListingCardProps.defaultFlipped",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "boolean"
     },
@@ -25833,7 +25833,7 @@
       "name": "ActiveFilterChipsProps.filters",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "ListingFilterChip[]"
     },
@@ -25843,7 +25843,7 @@
       "name": "ActiveFilterChipsProps.emptyLabel",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "ReactNode"
     },
@@ -25853,7 +25853,7 @@
       "name": "ResultSummaryProps.resultCount",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "number"
     },
@@ -25863,7 +25863,7 @@
       "name": "ResultSummaryProps.noun",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "string"
     },
@@ -25873,7 +25873,7 @@
       "name": "ResultSummaryProps.description",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "ReactNode"
     },
@@ -25883,7 +25883,7 @@
       "name": "SortMenuProps.value",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 35
+        "line": 36
       },
       "type": "string"
     },
@@ -25893,7 +25893,7 @@
       "name": "SortMenuProps.options",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 35
+        "line": 36
       },
       "type": "SortOption[]"
     },
@@ -25903,7 +25903,7 @@
       "name": "SortMenuProps.onChange",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 35
+        "line": 36
       },
       "type": "(value: string) => void"
     },
@@ -25913,7 +25913,7 @@
       "name": "SortMenuProps.label",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 35
+        "line": 36
       },
       "type": "string"
     },
@@ -25923,7 +25923,7 @@
       "name": "BulkActionsBarProps.selectedCount",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 44
+        "line": 45
       },
       "type": "number"
     },
@@ -25933,7 +25933,7 @@
       "name": "BulkActionsBarProps.actions",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 44
+        "line": 45
       },
       "type": "ReactNode"
     },
@@ -25943,7 +25943,7 @@
       "name": "BulkActionsBarProps.clearAction",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 44
+        "line": 45
       },
       "type": "ReactNode"
     },
@@ -26641,7 +26641,7 @@
       "name": "GdsNotificationProviderProps.children",
       "source": {
         "file": "packages/gds-core/src/Notifications.client.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "ReactNode"
     },
@@ -26651,7 +26651,7 @@
       "name": "GdsNotificationProviderProps.disabled",
       "source": {
         "file": "packages/gds-core/src/Notifications.client.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "boolean"
     },
@@ -26661,7 +26661,7 @@
       "name": "GdsNotificationProviderProps.defaultPolicy",
       "source": {
         "file": "packages/gds-core/src/Notifications.client.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "GdsNotificationPolicy"
     },
@@ -26671,7 +26671,7 @@
       "name": "GdsNotificationProviderProps.onAuditEvent",
       "source": {
         "file": "packages/gds-core/src/Notifications.client.tsx",
-        "line": 31
+        "line": 32
       },
       "type": "(event: GdsNotificationAuditEvent) => void"
     },
@@ -26681,7 +26681,7 @@
       "name": "InlineAlertProps.title",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 93
+        "line": 94
       },
       "type": "string"
     },
@@ -26691,7 +26691,7 @@
       "name": "InlineAlertProps.message",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 93
+        "line": 94
       },
       "type": "ReactNode"
     },
@@ -26701,7 +26701,7 @@
       "name": "InlineAlertProps.severity",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 93
+        "line": 94
       },
       "type": "GdsNotificationSeverity"
     },
@@ -26711,7 +26711,7 @@
       "name": "InlineAlertProps.status",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 93
+        "line": 94
       },
       "type": "GdsNotificationStatus"
     },
@@ -26721,7 +26721,7 @@
       "name": "InlineAlertProps.action",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 93
+        "line": 94
       },
       "type": "ReactNode"
     },
@@ -26731,7 +26731,7 @@
       "name": "NumberStepperProps.value",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "number"
     },
@@ -26741,7 +26741,7 @@
       "name": "NumberStepperProps.onChange",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "(value: number) => void"
     },
@@ -26751,7 +26751,7 @@
       "name": "NumberStepperProps.min",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "number"
     },
@@ -26761,7 +26761,7 @@
       "name": "NumberStepperProps.max",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "number"
     },
@@ -26771,7 +26771,7 @@
       "name": "NumberStepperProps.step",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "number"
     },
@@ -26781,7 +26781,7 @@
       "name": "NumberStepperProps.disabled",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "boolean"
     },
@@ -26791,7 +26791,7 @@
       "name": "NumberStepperProps.ariaLabel",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "string"
     },
@@ -26801,7 +26801,7 @@
       "name": "NumberStepperProps.decrementLabel",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "string"
     },
@@ -26811,7 +26811,7 @@
       "name": "NumberStepperProps.incrementLabel",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 14
+        "line": 15
       },
       "type": "string"
     },
@@ -26931,7 +26931,7 @@
       "name": "PartnerMapAdapterProps.places",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 89
+        "line": 90
       },
       "type": "PartnerPlaceResult[]"
     },
@@ -26941,7 +26941,7 @@
       "name": "PartnerMapAdapterProps.activePlaceId",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 89
+        "line": 90
       },
       "type": "string"
     },
@@ -26951,7 +26951,7 @@
       "name": "PartnerMapAdapterProps.onPinSelect",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 89
+        "line": 90
       },
       "type": "(placeId: string) => void"
     },
@@ -26961,7 +26961,7 @@
       "name": "PartnerMapAdapterProps.onViewportChange",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 89
+        "line": 90
       },
       "type": "(viewport: PartnerMapViewport) => void"
     },
@@ -26971,7 +26971,7 @@
       "name": "PartnerDiscoveryShellProps.logo",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 268
+        "line": 269
       },
       "type": "ReactNode"
     },
@@ -26981,7 +26981,7 @@
       "name": "PartnerDiscoveryShellProps.navItems",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 268
+        "line": 269
       },
       "type": "PartnerNavItem[]"
     },
@@ -26991,7 +26991,7 @@
       "name": "PartnerDiscoveryShellProps.footer",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 268
+        "line": 269
       },
       "type": "{"
     },
@@ -27001,7 +27001,7 @@
       "name": "PartnerDiscoveryShellProps.children",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 268
+        "line": 269
       },
       "type": "ReactNode"
     },
@@ -27011,7 +27011,7 @@
       "name": "AmenityChipGridProps.amenities",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 352
+        "line": 353
       },
       "type": "PartnerAmenityOption[]"
     },
@@ -27021,7 +27021,7 @@
       "name": "AmenityChipGridProps.selected",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 352
+        "line": 353
       },
       "type": "string[]"
     },
@@ -27031,7 +27031,7 @@
       "name": "AmenityChipGridProps.onToggle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 352
+        "line": 353
       },
       "type": "(amenityId: string) => void"
     },
@@ -27041,7 +27041,7 @@
       "name": "PartnerDiscoveryFiltersProps.value",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "PartnerDiscoveryFilterState"
     },
@@ -27051,7 +27051,7 @@
       "name": "PartnerDiscoveryFiltersProps.amenities",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "PartnerAmenityOption[]"
     },
@@ -27061,7 +27061,7 @@
       "name": "PartnerDiscoveryFiltersProps.labels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "PartnerDiscoveryFilterLabels"
     },
@@ -27071,7 +27071,7 @@
       "name": "PartnerDiscoveryFiltersProps.prices",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "PartnerPriceLevel[]"
     },
@@ -27081,7 +27081,7 @@
       "name": "PartnerDiscoveryFiltersProps.opened",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "boolean"
     },
@@ -27091,7 +27091,7 @@
       "name": "PartnerDiscoveryFiltersProps.loading",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "boolean"
     },
@@ -27101,7 +27101,7 @@
       "name": "PartnerDiscoveryFiltersProps.onQueryChange",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "(query: string) => void"
     },
@@ -27111,7 +27111,7 @@
       "name": "PartnerDiscoveryFiltersProps.onAmenityToggle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "(amenityId: string) => void"
     },
@@ -27121,7 +27121,7 @@
       "name": "PartnerDiscoveryFiltersProps.onPriceToggle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "(price: PartnerPriceLevel) => void"
     },
@@ -27131,7 +27131,7 @@
       "name": "PartnerDiscoveryFiltersProps.onOpen",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "() => void"
     },
@@ -27141,7 +27141,7 @@
       "name": "PartnerDiscoveryFiltersProps.onClose",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "() => void"
     },
@@ -27151,7 +27151,7 @@
       "name": "PartnerDiscoveryFiltersProps.onReset",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "() => void"
     },
@@ -27161,7 +27161,7 @@
       "name": "PartnerDiscoveryFiltersProps.onApply",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "() => void"
     },
@@ -27171,7 +27171,7 @@
       "name": "PartnerDiscoveryFiltersProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 403
+        "line": 404
       },
       "type": "PartnerDiscoveryEventHandler"
     },
@@ -27181,7 +27181,7 @@
       "name": "PartnerPlaceResultCardProps.place",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 546
+        "line": 547
       },
       "type": "PartnerPlaceResult"
     },
@@ -27191,7 +27191,7 @@
       "name": "PartnerPlaceResultCardProps.amenityLabels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 546
+        "line": 547
       },
       "type": "Record<string, string>"
     },
@@ -27201,7 +27201,7 @@
       "name": "PartnerPlaceResultCardProps.active",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 546
+        "line": 547
       },
       "type": "boolean"
     },
@@ -27211,7 +27211,7 @@
       "name": "PartnerPlaceResultCardProps.detailLabel",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 546
+        "line": 547
       },
       "type": "ReactNode"
     },
@@ -27221,7 +27221,7 @@
       "name": "PartnerPlaceResultCardProps.onSelect",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 546
+        "line": 547
       },
       "type": "(placeId: string) => void"
     },
@@ -27231,7 +27231,7 @@
       "name": "PartnerPlaceResultCardProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 546
+        "line": 547
       },
       "type": "PartnerDiscoveryEventHandler"
     },
@@ -27241,7 +27241,7 @@
       "name": "PartnerMapPinProps.label",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 611
+        "line": 615
       },
       "type": "string"
     },
@@ -27251,7 +27251,7 @@
       "name": "PartnerMapPinProps.active",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 611
+        "line": 615
       },
       "type": "boolean"
     },
@@ -27261,7 +27261,7 @@
       "name": "PartnerMapPinProps.onSelect",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 611
+        "line": 615
       },
       "type": "() => void"
     },
@@ -27271,7 +27271,7 @@
       "name": "PartnerMapControlsProps.onZoomIn",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 644
+        "line": 648
       },
       "type": "() => void"
     },
@@ -27281,7 +27281,7 @@
       "name": "PartnerMapControlsProps.onZoomOut",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 644
+        "line": 648
       },
       "type": "() => void"
     },
@@ -27291,7 +27291,7 @@
       "name": "PartnerMapControlsProps.zoomInLabel",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 644
+        "line": 648
       },
       "type": "string"
     },
@@ -27301,7 +27301,7 @@
       "name": "PartnerMapControlsProps.zoomOutLabel",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 644
+        "line": 648
       },
       "type": "string"
     },
@@ -27311,7 +27311,7 @@
       "name": "PartnerMapListShellProps.places",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "PartnerPlaceResult[]"
     },
@@ -27321,7 +27321,7 @@
       "name": "PartnerMapListShellProps.filters",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "PartnerDiscoveryFilterState"
     },
@@ -27331,7 +27331,7 @@
       "name": "PartnerMapListShellProps.activePlaceId",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "string"
     },
@@ -27341,7 +27341,7 @@
       "name": "PartnerMapListShellProps.loading",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "boolean"
     },
@@ -27351,7 +27351,7 @@
       "name": "PartnerMapListShellProps.error",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "ReactNode"
     },
@@ -27361,7 +27361,7 @@
       "name": "PartnerMapListShellProps.empty",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "ReactNode"
     },
@@ -27371,7 +27371,7 @@
       "name": "PartnerMapListShellProps.onRetry",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "() => void"
     },
@@ -27381,7 +27381,7 @@
       "name": "PartnerMapListShellProps.onActivePlaceChange",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "(placeId: string) => void"
     },
@@ -27391,7 +27391,7 @@
       "name": "PartnerMapListShellProps.mapAdapter",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "(props: PartnerMapAdapterProps) => ReactNode"
     },
@@ -27401,7 +27401,7 @@
       "name": "PartnerMapListShellProps.amenityLabels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "Record<string, string>"
     },
@@ -27411,7 +27411,7 @@
       "name": "PartnerMapListShellProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 673
+        "line": 681
       },
       "type": "PartnerDiscoveryEventHandler"
     },
@@ -27421,7 +27421,7 @@
       "name": "PartnerPlaceDetailTemplateProps.place",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       },
       "type": "PartnerPlaceDetail"
     },
@@ -27431,7 +27431,7 @@
       "name": "PartnerPlaceDetailTemplateProps.backHref",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       },
       "type": "string"
     },
@@ -27441,7 +27441,7 @@
       "name": "PartnerPlaceDetailTemplateProps.labels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       },
       "type": "PartnerPlaceDetailLabels"
     },
@@ -27451,7 +27451,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       },
       "type": "'idle' | 'copying' | 'copied' | 'failed'"
     },
@@ -27461,7 +27461,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState=idle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       }
     },
     {
@@ -27470,7 +27470,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState=copying",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       }
     },
     {
@@ -27479,7 +27479,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState=copied",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       }
     },
     {
@@ -27488,7 +27488,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState=failed",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       }
     },
     {
@@ -27497,7 +27497,7 @@
       "name": "PartnerPlaceDetailTemplateProps.onShare",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       },
       "type": "(url: string) => void"
     },
@@ -27507,7 +27507,7 @@
       "name": "PartnerPlaceDetailTemplateProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 799
+        "line": 807
       },
       "type": "PartnerDiscoveryEventHandler"
     },
@@ -27517,7 +27517,7 @@
       "name": "PartnerNewsletterCaptureProps.opened",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       },
       "type": "boolean"
     },
@@ -27527,7 +27527,7 @@
       "name": "PartnerNewsletterCaptureProps.labels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       },
       "type": "PartnerNewsletterLabels"
     },
@@ -27537,7 +27537,7 @@
       "name": "PartnerNewsletterCaptureProps.visual",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       },
       "type": "ReactNode"
     },
@@ -27547,7 +27547,7 @@
       "name": "PartnerNewsletterCaptureProps.email",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       },
       "type": "string"
     },
@@ -27557,7 +27557,7 @@
       "name": "PartnerNewsletterCaptureProps.state",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       },
       "type": "'idle' | 'submitting' | 'success' | 'error'"
     },
@@ -27567,7 +27567,7 @@
       "name": "PartnerNewsletterCaptureProps.state=idle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       }
     },
     {
@@ -27576,7 +27576,7 @@
       "name": "PartnerNewsletterCaptureProps.state=submitting",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       }
     },
     {
@@ -27585,7 +27585,7 @@
       "name": "PartnerNewsletterCaptureProps.state=success",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       }
     },
     {
@@ -27594,7 +27594,7 @@
       "name": "PartnerNewsletterCaptureProps.state=error",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       }
     },
     {
@@ -27603,7 +27603,7 @@
       "name": "PartnerNewsletterCaptureProps.onEmailChange",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       },
       "type": "(email: string) => void"
     },
@@ -27613,7 +27613,7 @@
       "name": "PartnerNewsletterCaptureProps.onSubmit",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       },
       "type": "() => void"
     },
@@ -27623,7 +27623,7 @@
       "name": "PartnerNewsletterCaptureProps.onDismiss",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       },
       "type": "() => void"
     },
@@ -27633,7 +27633,7 @@
       "name": "PartnerNewsletterCaptureProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 924
+        "line": 932
       },
       "type": "PartnerDiscoveryEventHandler"
     },
@@ -29868,7 +29868,7 @@
       "name": "ShareButtonGroupProps.url",
       "source": {
         "file": "packages/gds-core/src/ShareButtonGroup.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "string"
     },
@@ -29878,7 +29878,7 @@
       "name": "ShareButtonGroupProps.title",
       "source": {
         "file": "packages/gds-core/src/ShareButtonGroup.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "string"
     },
@@ -29888,7 +29888,7 @@
       "name": "ShareButtonGroupProps.text",
       "source": {
         "file": "packages/gds-core/src/ShareButtonGroup.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "string"
     },
@@ -29898,7 +29898,7 @@
       "name": "ShareButtonGroupProps.channels",
       "source": {
         "file": "packages/gds-core/src/ShareButtonGroup.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "ShareChannel[]"
     },
@@ -29908,7 +29908,7 @@
       "name": "ShareButtonGroupProps.compact",
       "source": {
         "file": "packages/gds-core/src/ShareButtonGroup.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "boolean"
     },
@@ -29918,7 +29918,7 @@
       "name": "ShareButtonGroupProps.label",
       "source": {
         "file": "packages/gds-core/src/ShareButtonGroup.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "ReactNode"
     },
@@ -29928,7 +29928,7 @@
       "name": "ShareButtonGroupProps.description",
       "source": {
         "file": "packages/gds-core/src/ShareButtonGroup.tsx",
-        "line": 21
+        "line": 22
       },
       "type": "ReactNode"
     },
@@ -29998,7 +29998,7 @@
       "name": "SocialAuthButtonsProps.providers",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 42
+        "line": 43
       },
       "type": "SocialAuthProviderOption[]"
     },
@@ -30008,7 +30008,7 @@
       "name": "SocialAuthButtonsProps.title",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 42
+        "line": 43
       },
       "type": "ReactNode"
     },
@@ -30018,7 +30018,7 @@
       "name": "SocialAuthButtonsProps.description",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 42
+        "line": 43
       },
       "type": "ReactNode"
     },
@@ -30028,7 +30028,7 @@
       "name": "SocialAuthButtonsProps.layout",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 42
+        "line": 43
       },
       "type": "'stack' | 'grid'"
     },
@@ -30038,7 +30038,7 @@
       "name": "SocialAuthButtonsProps.layout=stack",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 42
+        "line": 43
       }
     },
     {
@@ -30047,7 +30047,7 @@
       "name": "SocialAuthButtonsProps.layout=grid",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 42
+        "line": 43
       }
     },
     {
@@ -30056,7 +30056,7 @@
       "name": "SocialAuthButtonsProps.compact",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 42
+        "line": 43
       },
       "type": "boolean"
     },
@@ -30300,7 +30300,7 @@
       "name": "UploadDropzoneProps.title",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30310,7 +30310,7 @@
       "name": "UploadDropzoneProps.description",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30320,7 +30320,7 @@
       "name": "UploadDropzoneProps.onFilesSelected",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "(files: File[]) => void"
     },
@@ -30330,7 +30330,7 @@
       "name": "UploadDropzoneProps.accept",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30340,7 +30340,7 @@
       "name": "UploadDropzoneProps.acceptedTypesLabel",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30350,7 +30350,7 @@
       "name": "UploadDropzoneProps.maxSizeLabel",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30360,7 +30360,7 @@
       "name": "UploadDropzoneProps.multiple",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "boolean"
     },
@@ -30370,7 +30370,7 @@
       "name": "UploadDropzoneProps.actionLabel",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30380,7 +30380,7 @@
       "name": "UploadDropzoneProps.mode",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "'panel' | 'inline'"
     },
@@ -30390,7 +30390,7 @@
       "name": "UploadDropzoneProps.mode=panel",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       }
     },
     {
@@ -30399,7 +30399,7 @@
       "name": "UploadDropzoneProps.mode=inline",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       }
     },
     {
@@ -30408,7 +30408,7 @@
       "name": "UploadDropzoneProps.state",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "UploadDropzoneState"
     },
@@ -30418,7 +30418,7 @@
       "name": "UploadDropzoneProps.selectedFiles",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string[]"
     },
@@ -30428,7 +30428,7 @@
       "name": "UploadDropzoneProps.error",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30438,7 +30438,7 @@
       "name": "UploadDropzoneProps.policyText",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30448,7 +30448,7 @@
       "name": "UploadDropzoneProps.progressValue",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "number"
     },
@@ -30458,7 +30458,7 @@
       "name": "UploadDropzoneProps.inputId",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30468,7 +30468,7 @@
       "name": "UploadDropzoneProps.describedBy",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "string"
     },
@@ -30478,7 +30478,7 @@
       "name": "UploadDropzoneProps.invalid",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "boolean"
     },
@@ -30488,7 +30488,7 @@
       "name": "UploadDropzoneProps.required",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "boolean"
     },
@@ -30498,7 +30498,7 @@
       "name": "UploadDropzoneProps.retryAction",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "ReactNode"
     },
@@ -30508,7 +30508,7 @@
       "name": "UploadDropzoneProps.removeAction",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "ReactNode"
     },
@@ -30518,7 +30518,7 @@
       "name": "UploadDropzoneProps.readonly",
       "source": {
         "file": "packages/gds-core/src/UploadDropzone.tsx",
-        "line": 20
+        "line": 21
       },
       "type": "boolean"
     },
@@ -31303,7 +31303,7 @@
         "file": "packages/gds-core/src/locales/ar.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:de#3066",
@@ -31313,7 +31313,7 @@
         "file": "packages/gds-core/src/locales/de.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:en#3067",
@@ -31323,7 +31323,7 @@
         "file": "packages/gds-core/src/locales/en.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:es#3068",
@@ -31333,7 +31333,7 @@
         "file": "packages/gds-core/src/locales/es.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:fr#3069",
@@ -31343,7 +31343,7 @@
         "file": "packages/gds-core/src/locales/fr.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:he#3070",
@@ -31353,7 +31353,7 @@
         "file": "packages/gds-core/src/locales/he.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:hu#3071",
@@ -31363,7 +31363,7 @@
         "file": "packages/gds-core/src/locales/hu.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:it#3072",
@@ -31373,7 +31373,7 @@
         "file": "packages/gds-core/src/locales/it.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:ja#3073",
@@ -31383,7 +31383,7 @@
         "file": "packages/gds-core/src/locales/ja.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:ko#3074",
@@ -31393,7 +31393,7 @@
         "file": "packages/gds-core/src/locales/ko.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:ru#3075",
@@ -31403,7 +31403,7 @@
         "file": "packages/gds-core/src/locales/ru.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-package:zh#3076",
@@ -31413,7 +31413,7 @@
         "file": "packages/gds-core/src/locales/zh.ts",
         "line": 1
       },
-      "keyCount": 188
+      "keyCount": 258
     },
     {
       "id": "locale-pack-site:ar#3077",

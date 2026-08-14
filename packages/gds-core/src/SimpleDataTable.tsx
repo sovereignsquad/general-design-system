@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { ScrollArea, Table } from '@mantine/core';
 import { StateBlock } from './StateBlock';
 
@@ -32,10 +33,14 @@ export function SimpleDataTable<T extends Record<string, unknown>>({
   rows,
   loading = false,
   error = null,
-  emptyTitle = 'No data available',
-  emptyDescription = 'There is no live data to show yet.',
+  emptyTitle: emptyTitleProp,
+  emptyDescription: emptyDescriptionProp,
   getRowKey,
 }: SimpleDataTableProps<T>) {
+  const { t } = useGdsTranslation();
+  const emptyTitle = emptyTitleProp ?? t('gds.simpleDataTable.emptyTitle', "No data available");
+  const emptyDescription = emptyDescriptionProp ?? t('gds.simpleDataTable.emptyDescription', "There is no live data to show yet.");
+
   if (error) {
     return <StateBlock variant="error" title="Unable to load data" description={error} compact />;
   }

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Divider, Group, Stack, Text } from '@mantine/core';
 import { GdsIcons } from './icons';
 import {
@@ -53,11 +54,14 @@ export interface SocialAuthButtonsProps {
 /** Governed provider sign-in block: a titled, divider-separated set of identity-provider buttons built on `ProviderIdentityButtonGroup`. Renders nothing when `providers` is empty. */
 export function SocialAuthButtons({
   providers,
-  title = 'Continue with a trusted provider',
+  title: titleProp,
   description,
   layout = 'stack',
   compact = false,
 }: SocialAuthButtonsProps) {
+  const { t } = useGdsTranslation();
+  const title = titleProp ?? t('gds.socialAuthButtons.title', "Continue with a trusted provider");
+
   if (!providers.length) {
     return null;
   }

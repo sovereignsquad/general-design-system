@@ -1,4 +1,5 @@
 'use client';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
@@ -422,12 +423,17 @@ export function GdsDataTable<T extends Record<string, unknown>>({
   onExport,
   timeoutMs,
   virtualizedRowLimit,
-  caption = 'Data table',
+  caption: captionProp,
   summary,
-  exportLabel = 'Export',
-  retryLabel = 'Retry',
+  exportLabel: exportLabelProp,
+  retryLabel: retryLabelProp,
   mobileCards = true,
 }: GdsDataTableProps<T>) {
+  const { t } = useGdsTranslation();
+  const caption = captionProp ?? t('gds.gdsDataTable.caption', "Data table");
+  const exportLabel = exportLabelProp ?? t('gds.gdsDataTable.exportLabel', "Export");
+  const retryLabel = retryLabelProp ?? t('gds.gdsDataTable.retryLabel', "Retry");
+
   const table = useGdsDataTable({ columns, rowId, adapter, initialQuery, onEvent, onExport, timeoutMs, virtualizedRowLimit });
   const visibleColumns = columns.filter((column) => !column.hidden);
   const pageCount = Math.max(1, Math.ceil(table.total / table.query.pageSize));

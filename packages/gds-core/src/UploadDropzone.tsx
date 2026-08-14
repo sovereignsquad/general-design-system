@@ -1,4 +1,5 @@
 'use client';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 import { useRef, useState, type ReactNode } from 'react';
 import { Badge, Box, Button, Group, Progress, Stack, Text } from '@mantine/core';
@@ -74,7 +75,7 @@ export function UploadDropzone({
   acceptedTypesLabel,
   maxSizeLabel,
   multiple = true,
-  actionLabel = 'Choose files',
+  actionLabel: actionLabelProp,
   mode = 'panel',
   state = 'idle',
   selectedFiles = [],
@@ -89,6 +90,9 @@ export function UploadDropzone({
   removeAction,
   readonly = false,
 }: UploadDropzoneProps) {
+  const { t } = useGdsTranslation();
+  const actionLabel = actionLabelProp ?? t('gds.uploadDropzone.actionLabel', "Choose files");
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
   const UploadIcon = GdsIcons.Upload;

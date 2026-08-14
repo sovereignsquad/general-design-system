@@ -4,6 +4,41 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Components themselves are now translatable, not just the site documenting them (#617)
+
+The reference site's phrase overlay rewrites the rendered DOM, so the site looked fully localized
+while a consumer who installs `@sovereignsquad/gds-core` and sets a locale still got English empty
+states, retry buttons and error titles. **69 default-prop literals across 30 components** now
+resolve through `getGdsMessages` — the parameter keeps its English fallback at the call site, so
+behaviour for `en` and for hosts passing explicit props is unchanged — and all 12 locale packs
+grew from 188 to 258 keys, machine-translated pending the later human review pass.
+
+**Four ids were already silently English in every locale.** `gds.navigation.openMobile` and three
+`gds.featureBand.*` ids existed at `t()` call sites but in no pack, so every locale rendered their
+English fallback, permanently. The parity gate could never catch this: it compared the packs to
+each other, and a key missing from all twelve is invisible to that comparison.
+`verify:i18n-message-parity` now also checks **source → pack** — every `t('id', 'English')` in
+`gds-core` must have its id in the packs with matching English text. Both new checks are
+mutation-tested: the missing-everywhere case and the drifted-English case each fail the gate.
+
+The packs are now **derived, not hand-maintained** (Rule 14):
+`scripts/generate-component-message-packs.mjs` reads the call sites and appends what is missing —
+byte-for-byte append, never a rewrite, so a corrected translation and the exact text of existing
+lines both survive every run. Wired into `artifacts:refresh` before the phrase generator. The
+translate helper moved to `scripts/lib/translate.mjs`, shared with the site-phrase generator so
+the two cannot drift apart on endpoint or locale list.
+
+### The shape allowlist no longer breaks when unrelated lines move (#614)
+
+`verify:shape-token-adoption`'s allowlist was keyed by `file:line`, chosen so an entry would stop
+matching when its line moved and force a re-examination. Observed across its life: it fired seven
+times, every one an edit inserting lines above an untouched declaration, every one resolved by
+retyping the number — it never once caught a changed declaration. Re-keyed by the file plus the
+declaration's own source text: the identical declaration moving stays covered, a **different**
+declaration in the same place is refused (verified by substituting `'7px'` for an allowlisted
+`'50%'` — the gate reports both the new violation and the now-stale entry), and an entry matching
+no declaration at all now fails the gate, which the line key could not check.
+
 ### Translated object keys, and prose dropped for being long (#617)
 
 Two defects found by asking why specific sentences were still English on the Korean site.

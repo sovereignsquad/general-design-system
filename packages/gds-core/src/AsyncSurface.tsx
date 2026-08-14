@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { StateBlock } from './StateBlock';
 import type { StateBlockVariant } from './StateBlock';
 import type { SurfacePresentationProps } from './SurfacePresentation';
@@ -88,14 +89,14 @@ export function AsyncSurface({
   state,
   successContent,
   idleContent,
-  loadingTitle = 'Loading',
-  loadingDescription = 'This surface is still synchronizing.',
-  emptyTitle = 'No results',
-  emptyDescription = 'No data is available for this surface yet.',
-  errorTitle = 'Unable to load',
-  errorDescription = 'Something went wrong while preparing this surface.',
-  refreshingTitle = 'Refreshing',
-  refreshingDescription = 'The latest data is being fetched.',
+  loadingTitle: loadingTitleProp,
+  loadingDescription: loadingDescriptionProp,
+  emptyTitle: emptyTitleProp,
+  emptyDescription: emptyDescriptionProp,
+  errorTitle: errorTitleProp,
+  errorDescription: errorDescriptionProp,
+  refreshingTitle: refreshingTitleProp,
+  refreshingDescription: refreshingDescriptionProp,
   onRetry,
   retryAction,
   compact = false,
@@ -104,6 +105,16 @@ export function AsyncSurface({
   contentAlign,
   contentJustify,
 }: AsyncSurfaceProps) {
+  const { t } = useGdsTranslation();
+  const loadingTitle = loadingTitleProp ?? t('gds.asyncSurface.loadingTitle', "Loading");
+  const loadingDescription = loadingDescriptionProp ?? t('gds.asyncSurface.loadingDescription', "This surface is still synchronizing.");
+  const emptyTitle = emptyTitleProp ?? t('gds.asyncSurface.emptyTitle', "No results");
+  const emptyDescription = emptyDescriptionProp ?? t('gds.asyncSurface.emptyDescription', "No data is available for this surface yet.");
+  const errorTitle = errorTitleProp ?? t('gds.asyncSurface.errorTitle', "Unable to load");
+  const errorDescription = errorDescriptionProp ?? t('gds.asyncSurface.errorDescription', "Something went wrong while preparing this surface.");
+  const refreshingTitle = refreshingTitleProp ?? t('gds.asyncSurface.refreshingTitle', "Refreshing");
+  const refreshingDescription = refreshingDescriptionProp ?? t('gds.asyncSurface.refreshingDescription', "The latest data is being fetched.");
+
   const fallbackRetryAction = retryAction ?? getRetryAction(onRetry);
 
   if (state === 'success') {

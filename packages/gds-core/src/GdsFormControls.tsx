@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Box, Button, Group, Progress, SegmentedControl, Slider, Stack, Text, Title } from '@mantine/core';
 import { FormField } from './FormField';
 
@@ -187,12 +188,18 @@ export function GdsWizardStepper({
   onStepChange,
   onBack,
   onSaveNext,
-  backLabel = 'Back',
-  saveNextLabel = 'Save & Next',
-  finishLabel = 'Finish',
+  backLabel: backLabelProp,
+  saveNextLabel: saveNextLabelProp,
+  finishLabel: finishLabelProp,
   loading = false,
-  ariaLabel = 'Progress',
+  ariaLabel: ariaLabelProp,
 }: GdsWizardStepperProps) {
+  const { t } = useGdsTranslation();
+  const backLabel = backLabelProp ?? t('gds.gdsFormControls.backLabel', "Back");
+  const saveNextLabel = saveNextLabelProp ?? t('gds.gdsFormControls.saveNextLabel', "Save & Next");
+  const finishLabel = finishLabelProp ?? t('gds.gdsFormControls.finishLabel', "Finish");
+  const ariaLabel = ariaLabelProp ?? t('gds.gdsFormControls.ariaLabel', "Progress");
+
   const safeIndex = Math.min(Math.max(activeStep, 0), Math.max(steps.length - 1, 0));
   const current = steps[safeIndex];
   const progress = steps.length <= 1 ? 100 : ((safeIndex + 1) / steps.length) * 100;

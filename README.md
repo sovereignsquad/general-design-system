@@ -134,16 +134,47 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 Every user-visible string on the reference site comes from one of **three** sources. If wording
 is wrong in a language, this table says which file to edit.
 
+Only the first row travels with the packages. The site's phrase overlay translates the rendered
+DOM, which is why the reference site can look fully localized while a consumer who installs
+`@sovereignsquad/gds-core` sees English — **what a consumer gets is the package messages and
+nothing else** (issue 617).
+
 | What | File(s) | Authored by | Locales |
 | --- | --- | --- | --- |
-| **Package messages** — semantic labels GDS components resolve through `getGdsMessages(locale)` / `t(...)` | `packages/gds-core/src/locales/<locale>.ts` | **Hand-written.** Edit directly. | 12: `ar de en es fr he hu it ja ko ru zh` |
+| **Package messages** — semantic labels GDS components resolve through `getGdsMessages(locale)` / `t(...)`. **The only localization consumers of the packages receive.** | `packages/gds-core/src/locales/<locale>.ts` | **Edit directly**; new keys are appended by a generator that never overwrites an existing value. See below. | 12: `ar de en es fr he hu it ja ko ru zh` |
 | **Site phrase packs** — every other visible string, matched by its English text at runtime | `apps/playground/src/generated-site-phrases/<locale>.ts` | **Generated.** See below. | 11 (English is the key, so it has no pack) |
 | **Structured page copy** — per-locale blocks for page titles, leads, nav labels and link lists | `apps/playground/src/page-copy.ts`, `apps/playground/src/site-copy.ts`, `packages/gds-core/src/ReferenceThemeExplorer.copy.ts` | **Generated**, then editable in place. | 12 |
 
 ### Fixing a wrong translation
 
 **Package messages** and **structured page copy** are ordinary source. Edit the value for the
-locale and commit — nothing regenerates them unless you ask it to.
+locale and commit — nothing rewrites a value that is already there.
+
+### Where the package messages come from
+
+A component's user-visible default is written once, at the call site, and the packs are derived
+from it:
+
+```tsx
+export function AsyncSurface({ emptyTitle: emptyTitleProp, … }) {
+  const { t } = useGdsTranslation();
+  const emptyTitle = emptyTitleProp ?? t('gds.asyncSurface.emptyTitle', 'No results');
+```
+
+`node scripts/generate-component-message-packs.mjs` reads every `t('id', 'English')` call in
+`packages/gds-core/src` and appends whatever is missing to all 12 packs, machine-translating the
+non-English ones. It **never overwrites an existing value**, so a corrected translation survives
+every later run — which is what makes "edit directly" safe.
+
+`npm run verify:i18n-message-parity` then holds three properties: the packs cover the same keys as
+each other, every `t()` id in the components exists in the packs, and each pack's English matches
+the fallback at its call site. The middle one is the load-bearing addition. A pack-vs-pack check
+passes happily when an id is missing from *all* twelve packs, and that component then renders its
+English fallback in every language, permanently and silently — four ids were in exactly that state
+when the check was added (`gds.navigation.openMobile` and three `gds.featureBand.*`).
+
+As with the site phrases, **the wording is machine translation and has not been reviewed by a
+human.** The same single-word limits below apply, and for the same reason.
 
 **Site phrase packs are regenerated**, so an edit there is overwritten on the next
 `npm run artifacts:refresh`. The generator keeps any existing non-empty value, with **one
@@ -290,7 +321,7 @@ Required repository behavior:
 - `npm run verify:api-docs-coverage` — validates the registry-backed public API documentation contract for shipped runtime exports
 - `npm run verify:access-gate` — validates the access-gate docs, exports, live proof registry, privacy policy, and non-rendering tests for paywall/protected-content boundaries
 - `npm run verify:i18n-route-coverage` — validates localized route declarations and route-copy implementation markers
-- `npm run verify:i18n-message-parity` — validates package locale pack key parity
+- `npm run verify:i18n-message-parity` — validates package locale pack key parity, that every `t()` id in `gds-core` source is defined in the packs, and that each pack's English matches the fallback at its call site
 - `npm run verify:i18n-package-copy` — blocks native dialog prompt copy in packages
 - `npm run board:labels` — idempotently provisions the issue-board label taxonomy (colors + descriptions) from `scripts/board-labels.config.mjs`; uses the default `GITHUB_TOKEN` (no PAT)
 - `npm run audit:board` — audits the label-based issue board ([PROJECT_BOARD.md](PROJECT_BOARD.md)): reports each open issue's `status:` column and any open issue missing/duplicating one

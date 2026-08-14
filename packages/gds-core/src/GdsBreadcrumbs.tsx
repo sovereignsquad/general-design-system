@@ -1,4 +1,5 @@
 import { Anchor, Breadcrumbs, Text } from '@mantine/core';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 /** A single breadcrumb entry: a label and an optional link target. */
 export interface GdsBreadcrumbItem {
@@ -24,7 +25,10 @@ export interface GdsBreadcrumbsProps {
  * regardless of whether it carries an `href`, matching standard breadcrumb
  * accessibility practice (the current page is never a link to itself).
  */
-export function GdsBreadcrumbs({ items, ariaLabel = 'Breadcrumb' }: GdsBreadcrumbsProps) {
+export function GdsBreadcrumbs({ items, ariaLabel: ariaLabelProp }: GdsBreadcrumbsProps) {
+  const { t } = useGdsTranslation();
+  const ariaLabel = ariaLabelProp ?? t('gds.gdsBreadcrumbs.ariaLabel', "Breadcrumb");
+
   if (items.length === 0) {
     return null;
   }

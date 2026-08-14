@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Alert, Badge, Box, Card, Container, Divider, Group, Stack, Text, Title } from '@mantine/core';
 
 /** Props for {@link AuthShell}. */
@@ -47,9 +48,12 @@ export function AuthShell({
   guestAction,
   supportAction,
   socialAuth,
-  dividerLabel = 'Or continue with your account',
+  dividerLabel: dividerLabelProp,
   children,
 }: AuthShellProps) {
+  const { t } = useGdsTranslation();
+  const dividerLabel = dividerLabelProp ?? t('gds.authShell.dividerLabel', "Or continue with your account");
+
   return (
     <Box py={{ base: 'xl', md: '4rem' }}>
       <Container size="xs">

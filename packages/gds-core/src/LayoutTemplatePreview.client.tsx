@@ -1,4 +1,5 @@
 'use client';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 import { useMemo, useState } from 'react';
 import { Alert, Button, Group, NativeSelect, Stack, Text, Textarea } from '@mantine/core';
@@ -39,9 +40,13 @@ function parseSchema(schemaText: string): LayoutSchema {
 export function GdsLayoutTemplatePreview({
   templates = getGdsLayoutTemplates(),
   initialTemplateId,
-  title = 'Template cookbook',
-  description = 'Pick a template, edit JSON, then apply to preview live diagnostics and rendered layout.',
+  title: titleProp,
+  description: descriptionProp,
 }: GdsLayoutTemplatePreviewProps) {
+  const { t } = useGdsTranslation();
+  const title = titleProp ?? t('gds.layoutTemplatePreview.title', "Template cookbook");
+  const description = descriptionProp ?? t('gds.layoutTemplatePreview.description', "Pick a template, edit JSON, then apply to preview live diagnostics and rendered layout.");
+
   const initialTemplate = templates.find((template) => template.id === initialTemplateId) ?? templates[0];
   const initialText = initialTemplate ? templateText(initialTemplate) : '{\n  "version": "1",\n  "blocks": []\n}';
   const [selectedTemplateId, setSelectedTemplateId] = useState(initialTemplate?.id ?? '');

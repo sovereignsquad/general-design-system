@@ -1,4 +1,5 @@
 import { useState, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { ActionIcon, Badge, Card, Group, Stack, Text, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
 import { GdsGeneratedThumbnail } from './GdsGeneratedThumbnail';
@@ -201,10 +202,10 @@ export function ListingCard({
   sponsoredDisclosure,
   price,
   rating,
-  ratingLabel = 'Rating',
+  ratingLabel: ratingLabelProp,
   primaryAction,
   reason,
-  reasonLabel = 'Why this fits',
+  reasonLabel: reasonLabelProp,
   score,
   actions,
   saveAction,
@@ -219,6 +220,10 @@ export function ListingCard({
   onSurfaceActivate,
   defaultFlipped = false,
 }: ListingCardProps) {
+  const { t } = useGdsTranslation();
+  const ratingLabel = ratingLabelProp ?? t('gds.listingCard.ratingLabel', "Rating");
+  const reasonLabel = reasonLabelProp ?? t('gds.listingCard.reasonLabel', "Why this fits");
+
   const [flipped, setFlipped] = useState(defaultFlipped);
   const resolvedActions = resolveCardActions(actions);
   const contract = resolveGdsCardContract({ compact, size, density, variant });

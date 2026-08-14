@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Badge, Button, Group, Select, Stack, Text } from '@mantine/core';
 import { GdsRemovableTag } from './GdsRemovableTag';
 
@@ -52,8 +53,11 @@ export interface BulkActionsBarProps {
 /** Renders active filter chips (each optionally removable), or a dimmed empty label when there are none. */
 export function ActiveFilterChips({
   filters,
-  emptyLabel = 'No active filters.',
+  emptyLabel: emptyLabelProp,
 }: ActiveFilterChipsProps) {
+  const { t } = useGdsTranslation();
+  const emptyLabel = emptyLabelProp ?? t('gds.listingPrimitives.emptyLabel', "No active filters.");
+
   if (!filters.length) {
     return <Text size="sm" c="dimmed">{emptyLabel}</Text>;
   }
@@ -97,8 +101,11 @@ export function SortMenu({
   value,
   options,
   onChange,
-  label = 'Sort',
+  label: labelProp,
 }: SortMenuProps) {
+  const { t } = useGdsTranslation();
+  const label = labelProp ?? t('gds.listingPrimitives.label', "Sort");
+
   return (
     <Select
       aria-label={label}

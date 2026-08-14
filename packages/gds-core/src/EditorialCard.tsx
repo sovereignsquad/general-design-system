@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Anchor, Badge, Card, Group, Stack, Text, Title } from '@mantine/core';
 import { GdsGeneratedThumbnail } from './GdsGeneratedThumbnail';
 import { resolveGdsCardContract, type GdsCardDensity, type GdsCardSize, type GdsCardVariant } from './CardContracts';
@@ -102,7 +103,7 @@ export function EditorialCard({
   title,
   description,
   meta,
-  ctaLabel = 'Explore',
+  ctaLabel: ctaLabelProp,
   href,
   onClick,
   tone = 'default',
@@ -111,6 +112,9 @@ export function EditorialCard({
   density = 'comfortable',
   classNames,
 }: EditorialCardProps) {
+  const { t } = useGdsTranslation();
+  const ctaLabel = ctaLabelProp ?? t('gds.editorialCard.ctaLabel', "Explore");
+
   const compact = variant === 'compact';
   const featured = variant === 'featured';
   const contractVariant: GdsCardVariant = variant === 'standard' || variant === 'featured' ? 'default' : variant;

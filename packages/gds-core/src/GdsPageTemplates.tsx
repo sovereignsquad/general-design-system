@@ -1,6 +1,6 @@
 import type { Key, ReactNode } from 'react';
 import { Badge, Card, Divider, Group, List, SimpleGrid, Stack, Text, Title } from '@mantine/core';
-import { gdsDevWarnOnce } from '@sovereignsquad/gds-theme';
+import { gdsDevWarnOnce , useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { AsyncSurface, type AsyncSurfaceState } from './AsyncSurface';
 import { GdsBox, GdsGrid, GdsStack } from './LayoutPrimitives';
 import { MetricCard, type MetricCardProps } from './MetricCard';
@@ -530,13 +530,16 @@ function TemplateStateGate({
   state = 'ready',
   successContent,
   onRetry,
-  retryLabel = 'Retry',
+  retryLabel: retryLabelProp,
 }: {
   state?: GdsPageTemplateState;
   successContent: ReactNode;
   onRetry?: () => void;
   retryLabel?: string;
 }) {
+  const { t } = useGdsTranslation();
+  const retryLabel = retryLabelProp ?? t('gds.gdsPageTemplates.retryLabel', "Retry");
+
   const retryAction = onRetry ? <button type="button" onClick={onRetry}>{retryLabel}</button> : undefined;
   return (
     <AsyncSurface
@@ -768,10 +771,13 @@ export function GdsErrorPageTemplate({
   description,
   recovery,
   onRetry,
-  retryLabel = 'Retry',
+  retryLabel: retryLabelProp,
   actions,
   ...props
 }: GdsErrorPageTemplateProps) {
+  const { t } = useGdsTranslation();
+  const retryLabel = retryLabelProp ?? t('gds.gdsPageTemplates.retryLabel', "Retry");
+
   const resolvedTitle = title || stateTitle(state);
   const resolvedDescription = description || stateDescription(state);
   return (

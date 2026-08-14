@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { ActionIcon, Card, Group, Stack, TextInput } from '@mantine/core';
 import { ChoiceChip } from './ChoiceChip';
 import { MeaningBadge } from './MeaningBadge';
@@ -35,11 +36,16 @@ export function AISearchCard({
   onSubmit,
   prompts = [],
   onPromptSelect,
-  placeholder = 'Ask anything…',
-  betaLabel = 'BETA',
-  ariaLabel = 'AI search',
+  placeholder: placeholderProp,
+  betaLabel: betaLabelProp,
+  ariaLabel: ariaLabelProp,
   disabled = false,
 }: AISearchCardProps) {
+  const { t } = useGdsTranslation();
+  const placeholder = placeholderProp ?? t('gds.aiSearchCard.placeholder', "Ask anything…");
+  const betaLabel = betaLabelProp ?? t('gds.aiSearchCard.betaLabel', "BETA");
+  const ariaLabel = ariaLabelProp ?? t('gds.aiSearchCard.ariaLabel', "AI search");
+
   const [query, setQuery] = useState('');
 
   const submit = (text: string) => {
