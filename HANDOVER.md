@@ -229,7 +229,22 @@ Still open:
   blocked by a gate, ask whether the gate is asserting the claim rather than
   checking it.
 
-### The largest block: the map system (#544 tracker)
+### The largest block: the map system (#544 tracker) — NOW COMPLETE
+
+**Closing pass 3 (2026-08-15):** the ENTIRE map programme is delivered and closed: #544
+(tracker), #545, #546, #547 (filter rail), #548 (preview card), #549, #550 (area-fill recipe +
+architecture rules), #569 (theme-scaled geometry — density-derived pins measured live), #570
+(tiles-unavailable degradation — honest offline/indeterminate classification, bounded jittered
+retry, `offline` prop, live-verified with the tile host blocked), #572. Also closed: #541 and
+#542 (fixed-count and states contracts codified as standing requirements in
+COMPONENTS_AND_PATTERNS.md §5 and CONTRIBUTING step 7). `docs/MAP_SYSTEM.md` §10 records the
+programme as complete. The live composition — rail filtering real markers, pin selection
+opening the preview card, wash over real OSM tiles — is deployed on the gds-map proof.
+Machine-wide credential rules now apply (see /Users/Shared/Projects working rules): every
+commit gets a credential-pattern scan of the staged diff before it lands — this pass's
+commits all did.
+
+(Historical notes below predate the completion and are kept for the decisions they record.)
 
 **Update, closing pass 2 (2026-08-14 evening):** #545 (pin state contract), #549 (basemap
 wash) and #572 (`docs/MAP_SYSTEM.md` as SSOT) are now CLOSED and deployed. #611 closed on the
