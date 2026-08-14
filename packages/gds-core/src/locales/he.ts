@@ -259,4 +259,10 @@ export const he = {
   'gds.stateBlock.description': "הוסף את הנתונים הדרושים לפני שתצוגה זו תוכל להציג תוצאה אמינה.",
   'gds.uploadDropzone.actionLabel': "בחר קבצים",
   'gds.gdsMapFilterRail.allLabel': "כֹּל",
+  'gds.gdsMap.offlineTitle': "תמונות מפה כבויות",
+  'gds.gdsMap.offlineDescription': "סביבה זו אינה טוענת אריחי מפה. כל מקום עדיין מופיע כסמן וברשימה.",
+  'gds.gdsMap.tilesFailedTitle': "לא ניתן לטעון תמונות מפה",
+  'gds.gdsMap.tilesFailedOffline': "נראה שאתה במצב לא מקוון. כל מקום עדיין מופיע כסמן וברשימה.",
+  'gds.gdsMap.tilesFailedIndeterminate': "לא ניתן היה להגיע למארח האריחים - הדפדפן לא יכול לדעת אם הסיבה היא הרשת, מדיניות אבטחת תוכן או המארח עצמו. כל מקום עדיין מופיע כסמן וברשימה.",
+  'gds.gdsMap.tilesRetryLabel': "נסה לטעון שוב תמונות",
 };

@@ -259,4 +259,10 @@ export const de = {
   'gds.stateBlock.description': "Fügen Sie die erforderlichen Daten hinzu, bevor diese Ansicht ein zuverlässiges Ergebnis anzeigen kann.",
   'gds.uploadDropzone.actionLabel': "Wählen Sie Dateien aus",
   'gds.gdsMapFilterRail.allLabel': "Alle",
+  'gds.gdsMap.offlineTitle': "Kartenbilder sind deaktiviert",
+  'gds.gdsMap.offlineDescription': "In dieser Umgebung werden keine Kartenkacheln geladen. Jeder Ort erscheint weiterhin als Markierung und in der Liste.",
+  'gds.gdsMap.tilesFailedTitle': "Kartenbilder konnten nicht geladen werden",
+  'gds.gdsMap.tilesFailedOffline': "Sie scheinen offline zu sein. Jeder Ort erscheint weiterhin als Markierung und in der Liste.",
+  'gds.gdsMap.tilesFailedIndeterminate': "Der Kachelhost konnte nicht erreicht werden – der Browser kann nicht erkennen, ob die Ursache im Netzwerk, einer Inhaltssicherheitsrichtlinie oder dem Host selbst liegt. Jeder Ort erscheint weiterhin als Markierung und in der Liste.",
+  'gds.gdsMap.tilesRetryLabel': "Versuchen Sie erneut, Bilder zu laden",
 };

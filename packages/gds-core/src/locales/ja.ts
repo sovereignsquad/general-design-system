@@ -259,4 +259,10 @@ export const ja = {
   'gds.stateBlock.description': "このビューで信頼できる結果が表示される前に、必要なデータを追加してください。",
   'gds.uploadDropzone.actionLabel': "ファイルの選択",
   'gds.gdsMapFilterRail.allLabel': "全て",
+  'gds.gdsMap.offlineTitle': "地図画像がオフになっています",
+  'gds.gdsMap.offlineDescription': "この環境ではマップ タイルは読み込まれません。すべての場所がマーカーとしてリストに表示されます。",
+  'gds.gdsMap.tilesFailedTitle': "地図画像を読み込めませんでした",
+  'gds.gdsMap.tilesFailedOffline': "オフラインのようです。すべての場所がマーカーとしてリストに表示されます。",
+  'gds.gdsMap.tilesFailedIndeterminate': "タイル ホストに到達できませんでした。ブラウザーは、原因がネットワークなのか、コンテンツ セキュリティ ポリシーなのか、それともホスト自体なのかを判断できません。すべての場所がマーカーとしてリストに表示されます。",
+  'gds.gdsMap.tilesRetryLabel': "画像を再度ロードしてみてください",
 };

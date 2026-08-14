@@ -1,10 +1,10 @@
 {
-  "evaluated": 1127,
+  "evaluated": 1128,
   "gapCount": 404,
   "excludedCount": 69,
   "byKind": {
     "prop": {
-      "evaluated": 1010,
+      "evaluated": 1011,
       "gaps": 366
     },
     "variant": {
@@ -2012,7 +2012,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/GdsMap.client.tsx",
-        "line": 48
+        "line": 49
       },
       "unmet": [
         {
@@ -2026,7 +2026,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/GdsMap.client.tsx",
-        "line": 48
+        "line": 49
       },
       "unmet": [
         {

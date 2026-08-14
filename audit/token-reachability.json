@@ -1,7 +1,7 @@
 {
   "declared": 291,
-  "referenced": 100,
-  "extensionPoints": 142,
+  "referenced": 101,
+  "extensionPoints": 141,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -925,13 +925,6 @@
     },
     {
       "token": "--gds-space-none",
-      "classification": "extension-point",
-      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-space-sm",
       "classification": "extension-point",
       "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
       "reviewBy": "2027-08-01",

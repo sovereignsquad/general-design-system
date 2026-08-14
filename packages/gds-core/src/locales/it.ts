@@ -259,4 +259,10 @@ export const it = {
   'gds.stateBlock.description': "Aggiungi i dati richiesti prima che questa visualizzazione possa mostrare un risultato affidabile.",
   'gds.uploadDropzone.actionLabel': "Scegli i file",
   'gds.gdsMapFilterRail.allLabel': "Tutto",
+  'gds.gdsMap.offlineTitle': "Le immagini della mappa sono disattivate",
+  'gds.gdsMap.offlineDescription': "Questo ambiente non carica i riquadri della mappa. Ogni luogo appare ancora come indicatore e nell'elenco.",
+  'gds.gdsMap.tilesFailedTitle': "Impossibile caricare le immagini della mappa",
+  'gds.gdsMap.tilesFailedOffline': "Sembra che tu sia offline. Ogni luogo appare ancora come indicatore e nell'elenco.",
+  'gds.gdsMap.tilesFailedIndeterminate': "Impossibile raggiungere l'host del riquadro: il browser non è in grado di stabilire se la causa è la rete, una policy di sicurezza del contenuto o l'host stesso. Ogni luogo appare ancora come indicatore e nell'elenco.",
+  'gds.gdsMap.tilesRetryLabel': "Prova a caricare di nuovo le immagini",
 };

@@ -10,9 +10,10 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Box, Group, Stack, Text, UnstyledButton } from '@mantine/core';
-import { computeGdsThemeIdentity, resolveGdsAccentTokens, type GdsAccentName, type GdsThemePresetId } from '@sovereignsquad/gds-theme';
+import { useGdsTranslation, computeGdsThemeIdentity, resolveGdsAccentTokens, type GdsAccentName, type GdsThemePresetId } from '@sovereignsquad/gds-theme';
 import type { GdsBadgeAccentShade } from './GdsBadge';
 import { GDS_OSM_TILE_SOURCE, assertGdsTileSource, type GdsMapTileSource } from './map-tile-policy';
+import { StateBlock } from './StateBlock';
 
 /** A geographic point. */
 export interface GdsLatLng { lat: number; lng: number }
@@ -92,7 +93,38 @@ export interface GdsMapProps {
    * described.
    */
   listPlacement?: 'below' | 'above';
+  /**
+   * The consumer will never have tile access (air-gapped or restricted network, issue 570).
+   * The map renders markers, fills and the text-equivalent list on a plain governed surface
+   * with a matter-of-fact notice — the degraded presentation as the INTENDED state, not a
+   * permanent error message about a fetch that was never going to happen.
+   */
+  offline?: boolean;
 }
+
+/**
+ * Issue 570 — classify a total tile failure, HONESTLY.
+ *
+ * A tile is an <img> from another origin: the error event carries no status, so the browser
+ * hides whether the cause was the network, a content-security policy, a missing identification
+ * header, or the host being down. The only cause the browser does expose is the machine being
+ * offline. Everything else is reported as exactly what it is — indistinguishable — rather than
+ * a plausible guess (Rule 11; the issue's own constraint).
+ */
+export function classifyGdsTileFailure(onLine: boolean): 'offline' | 'indeterminate' {
+  return onLine ? 'indeterminate' : 'offline';
+}
+
+/**
+ * Total failure means NOTHING loaded: this many consecutive errors with zero successful tile
+ * loads. Partial tile errors (a flaky host dropping some tiles) do not degrade the surface —
+ * the map still shows imagery, and replacing a mostly-working map with an error would be worse
+ * than the failure.
+ */
+export const GDS_TILE_FAILURE_THRESHOLD = 4;
+
+/** Bounded auto-retry delays (ms), jittered ±25% at use. Two attempts, then only manual retry. */
+export const GDS_TILE_RETRY_DELAYS_MS = [4000, 12000];
 
 const DEFAULT_VIEWPORT: GdsMapViewport = { center: { lat: 51.505, lng: -0.09 }, zoom: 13 };
 
@@ -111,12 +143,28 @@ export function GdsMap({
   markers, viewport, defaultViewport, fitBounds, minZoom = 3, maxZoom = 18, maxBounds,
   onViewportChange, onMarkerSelect, selectedMarkerId, interactive = true,
   preset = 'default', colorScheme = 'light', label, onStateChange, height = '420px',
-  tileSource = GDS_OSM_TILE_SOURCE, listPlacement = 'below',
+  tileSource = GDS_OSM_TILE_SOURCE, listPlacement = 'below', offline = false,
 }: GdsMapProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const engineRef = useRef<unknown>(null);
   const [state, setState] = useState<GdsMapState>('initializing');
   const regionId = useId();
+  const { t } = useGdsTranslation();
+
+  // Issue 570 — tiles-unavailable degradation. Counters live in a ref (an error per tile per
+  // pan would thrash state); the boolean is state because the degraded surface renders.
+  const [tilesFailed, setTilesFailed] = useState(false);
+  const tileHealthRef = useRef({ loads: 0, errors: 0, autoRetries: 0 });
+  const tileLayerRef = useRef<{ redraw: () => void } | null>(null);
+  const retryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const retryTiles = useCallback(() => {
+    tileHealthRef.current.loads = 0;
+    tileHealthRef.current.errors = 0;
+    setTilesFailed(false);
+    tileLayerRef.current?.redraw();
+  }, []);
+  useEffect(() => () => { if (retryTimerRef.current) clearTimeout(retryTimerRef.current); }, []);
 
   // The theme identity is what forces a full re-init. Leaflet reads resolved values when it
   // constructs its panes; nothing about a CSS variable change reaches back into them.
@@ -160,12 +208,45 @@ export function GdsMap({
         // rendered at all, because the credit is an ODbL licence condition rather than a
         // design choice.
         const source = assertGdsTileSource(tileSource);
-        (L as typeof import('leaflet')).tileLayer(source.url, {
-          maxZoom: Math.min(maxZoom, source.maxZoom),
-          // Leaflet's own attribution control is disabled; the credit is rendered as GDS UI
-          // below so it cannot be hidden by a consumer restyling Leaflet's chrome.
-          attribution: '',
-        }).addTo(map as never);
+        // Offline mode skips the tile layer entirely: the degraded presentation is the
+        // intended state, and requesting tiles that can never arrive would make GDS a
+        // load-generation problem for nothing (issue 570).
+        if (!offline) {
+          const tiles = (L as typeof import('leaflet')).tileLayer(source.url, {
+            maxZoom: Math.min(maxZoom, source.maxZoom),
+            // Leaflet's own attribution control is disabled; the credit is rendered as GDS UI
+            // below so it cannot be hidden by a consumer restyling Leaflet's chrome.
+            attribution: '',
+          }).addTo(map as never);
+          tileLayerRef.current = tiles as unknown as { redraw: () => void };
+          // Total failure only: consecutive errors with zero loads. A host dropping some
+          // tiles keeps its mostly-working map — see GDS_TILE_FAILURE_THRESHOLD's docs.
+          tiles.on('tileload', () => {
+            tileHealthRef.current.loads += 1;
+            if (tileHealthRef.current.errors > 0) tileHealthRef.current.errors = 0;
+            setTilesFailed(false);
+          });
+          tiles.on('tileerror', () => {
+            const health = tileHealthRef.current;
+            health.errors += 1;
+            if (health.loads === 0 && health.errors >= GDS_TILE_FAILURE_THRESHOLD) {
+              setTilesFailed(true);
+              // Bounded, jittered auto-retry — two attempts, then only the manual control.
+              // Jitter so a fleet of clients does not re-hit a struggling host in lockstep.
+              if (health.autoRetries < GDS_TILE_RETRY_DELAYS_MS.length && !retryTimerRef.current) {
+                const base = GDS_TILE_RETRY_DELAYS_MS[health.autoRetries];
+                health.autoRetries += 1;
+                retryTimerRef.current = setTimeout(() => {
+                  retryTimerRef.current = null;
+                  tileHealthRef.current.loads = 0;
+                  tileHealthRef.current.errors = 0;
+                  setTilesFailed(false);
+                  tileLayerRef.current?.redraw();
+                }, base + (Math.random() - 0.5) * base * 0.5);
+              }
+            }
+          });
+        }
 
         // Markers, viewport reporting and selection — wired, not declared. A prop that
         // silently does nothing is worse than an absent one: a consumer wires a handler, sees
@@ -335,6 +416,48 @@ export function GdsMap({
           border: '1px solid var(--gds-border-card)',
         }}
       />
+      {/*
+        Issue 570 — tiles unavailable. A banner BESIDE the map, never a replacement for it:
+        markers, fills and the list need no tiles and stay fully functional, and "no tiles" must
+        never read as "no places" — the message is about imagery, the count line right below
+        keeps telling the truth about content. `offline` is the intended state and says so in
+        empty-state voice; a detected failure is an error with a retry, and its copy names only
+        what the browser actually exposes (offline vs indeterminate — see classifyGdsTileFailure).
+      */}
+      {offline ? (
+        <StateBlock
+          variant="empty"
+          compact
+          title={t('gds.gdsMap.offlineTitle', 'Map imagery is off')}
+          description={t('gds.gdsMap.offlineDescription', 'This environment does not load map tiles. Every place still appears as a marker and in the list.')}
+        />
+      ) : tilesFailed ? (
+        <StateBlock
+          variant="error"
+          compact
+          title={t('gds.gdsMap.tilesFailedTitle', 'Map imagery could not be loaded')}
+          description={
+            classifyGdsTileFailure(typeof navigator === 'undefined' ? true : navigator.onLine) === 'offline'
+              ? t('gds.gdsMap.tilesFailedOffline', 'You appear to be offline. Every place still appears as a marker and in the list.')
+              : t('gds.gdsMap.tilesFailedIndeterminate', 'The tile host could not be reached — the browser cannot tell whether the cause is the network, a content security policy, or the host itself. Every place still appears as a marker and in the list.')
+          }
+          action={(
+            <UnstyledButton
+              type="button"
+              data-gds-map-tile-retry
+              onClick={retryTiles}
+              style={{
+                padding: 'var(--gds-space-2xs) var(--gds-space-sm)',
+                borderRadius: 'var(--gds-radius-chip)',
+                border: '1px solid var(--gds-border-card)',
+                color: 'var(--gds-text-body)',
+              }}
+            >
+              {t('gds.gdsMap.tilesRetryLabel', 'Try loading imagery again')}
+            </UnstyledButton>
+          )}
+        />
+      ) : null}
       {/* The state is announced, not merely styled: a sighted user sees an empty box while a
           screen-reader user gets nothing at all unless it is said. */}
       <Text id={`${regionId}-state`} size="sm" c="dimmed" role="status" aria-live="polite">

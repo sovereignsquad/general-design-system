@@ -259,4 +259,10 @@ export const es = {
   'gds.stateBlock.description': "Agregue los datos requeridos antes de que esta vista pueda mostrar un resultado confiable.",
   'gds.uploadDropzone.actionLabel': "Elige archivos",
   'gds.gdsMapFilterRail.allLabel': "Todo",
+  'gds.gdsMap.offlineTitle': "Las imágenes del mapa están desactivadas",
+  'gds.gdsMap.offlineDescription': "Este entorno no carga mosaicos de mapas. Cada lugar todavía aparece como un marcador y en la lista.",
+  'gds.gdsMap.tilesFailedTitle': "No se pudieron cargar las imágenes del mapa",
+  'gds.gdsMap.tilesFailedOffline': "Parece que estás desconectado. Cada lugar todavía aparece como un marcador y en la lista.",
+  'gds.gdsMap.tilesFailedIndeterminate': "No se pudo acceder al host del mosaico: el navegador no puede determinar si la causa es la red, una política de seguridad de contenido o el host mismo. Cada lugar todavía aparece como un marcador y en la lista.",
+  'gds.gdsMap.tilesRetryLabel': "Intente cargar imágenes nuevamente",
 };

@@ -259,4 +259,10 @@ export const en = {
   'gds.stateBlock.description': "Add the required data before this view can show a reliable result.",
   'gds.uploadDropzone.actionLabel': "Choose files",
   'gds.gdsMapFilterRail.allLabel': "All",
+  'gds.gdsMap.offlineTitle': "Map imagery is off",
+  'gds.gdsMap.offlineDescription': "This environment does not load map tiles. Every place still appears as a marker and in the list.",
+  'gds.gdsMap.tilesFailedTitle': "Map imagery could not be loaded",
+  'gds.gdsMap.tilesFailedOffline': "You appear to be offline. Every place still appears as a marker and in the list.",
+  'gds.gdsMap.tilesFailedIndeterminate': "The tile host could not be reached — the browser cannot tell whether the cause is the network, a content security policy, or the host itself. Every place still appears as a marker and in the list.",
+  'gds.gdsMap.tilesRetryLabel': "Try loading imagery again",
 };

@@ -259,4 +259,10 @@ export const ko = {
   'gds.stateBlock.description': "이 보기가 신뢰할 수 있는 결과를 표시하려면 필요한 데이터를 추가하세요.",
   'gds.uploadDropzone.actionLabel': "파일 선택",
   'gds.gdsMapFilterRail.allLabel': "모두",
+  'gds.gdsMap.offlineTitle': "지도 이미지가 꺼져 있습니다",
+  'gds.gdsMap.offlineDescription': "이 환경은 지도 타일을 로드하지 않습니다. 모든 장소는 여전히 마커로 표시되고 목록에 나타납니다.",
+  'gds.gdsMap.tilesFailedTitle': "지도 이미지를 로드할 수 없습니다.",
+  'gds.gdsMap.tilesFailedOffline': "오프라인 상태인 것 같습니다. 모든 장소는 여전히 마커로 표시되고 목록에 나타납니다.",
+  'gds.gdsMap.tilesFailedIndeterminate': "타일 ​​호스트에 연결할 수 없습니다. 브라우저는 원인이 네트워크인지, 콘텐츠 보안 정책인지, 호스트 자체인지 알 수 없습니다. 모든 장소는 여전히 마커로 표시되고 목록에 나타납니다.",
+  'gds.gdsMap.tilesRetryLabel': "이미지를 다시 로드해 보세요.",
 };
