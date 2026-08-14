@@ -128,9 +128,59 @@ export interface GdsMapPinBadgeProps {
    * to (itself defaulting to `'tabler'`, today's only behavior).
    */
   iconStyle?: GdsBadgeIconStyle;
+  /**
+   * Interaction/confidence state of the marker (issue #545). The governing rule, from the
+   * source spec and enforced by test: **the fill belongs to the activity — state is carried by
+   * silhouette and scale**, so no state ever repaints the category's own hue.
+   *
+   * - `'idle'` (default): exactly today's rendering.
+   * - `'hovered'`: the pin's stroke steps up to `2.25` and darkens ONE step down the same
+   *   accent's own shade ladder (`base → deep → deeper → deepest`, saturating at `deepest`).
+   *   The source spec's fixed navy hover (`#245A8C`) was rejected as brand-hardcoded: a
+   *   cross-theme primitive darkens the accent it already has — same family, existing
+   *   WCAG-verified steps, no new token to document and govern.
+   * - `'selected'`: the whole marker scales up one step (`1.15`) around the TAIL TIP
+   *   (`transform-origin: 50% 100%`), so the geographic point the pin anchors does not move,
+   *   with the same `2.25` stroke. The source spec's `#F5793B` selected fill was rejected for
+   *   violating the spec's own stated principle — a repainted fill makes "selected" read as a
+   *   different category everywhere the accent means something.
+   * - `'approximate'`: the stroke goes DASHED in the fixed dark-neutral (the same neutral the
+   *   emoji disc uses), replacing the solid accent stroke per the spec — location uncertainty
+   *   is a property of the silhouette. The icon keeps the accent, so the category stays
+   *   readable; a `filled` pin keeps its accent fill for the same reason.
+   *
+   * `saved` is NOT a state here: a pin can be saved while hovered or selected, and saving is a
+   * user action with its own governed control — compose
+   * `<GdsSavedIndicator mode="corner" anchor={<GdsMapPinBadge …/>} />`, which issue #546 built
+   * for exactly this.
+   */
+  state?: GdsMapPinState;
 }
 
+/** Interaction/confidence states of {@link GdsMapPinBadge} — see the `state` prop. */
+export type GdsMapPinState = 'idle' | 'hovered' | 'selected' | 'approximate';
+
 const isIconKey = (icon: GdsIconKey | ReactNode): icon is GdsIconKey => typeof icon === 'string';
+
+/** One step down the accent shade ladder, saturating at `deepest` — used by the hovered state. */
+const DEEPER_SHADE: Record<GdsBadgeAccentShade, GdsBadgeAccentShade> = {
+  base: 'deep', deep: 'deeper', deeper: 'deepest', deepest: 'deepest',
+};
+
+/**
+ * Stroke weight for the emphasised states, from the source spec's `2.25`. Idle keeps `1.75` —
+ * the constant the whole component exists to hold steady.
+ */
+const EMPHASIS_STROKE = 2.25;
+
+/** Selected-state scale step. Applied around the tail tip so the anchored map point holds still. */
+export const GDS_PIN_SELECTED_SCALE = 1.15;
+
+/**
+ * Dash pattern for the approximate-location stroke, in the pin path's own 24-unit space —
+ * sized against the head's radius-8 arc so the dashes read as segments rather than dots.
+ */
+const APPROXIMATE_DASH = '3 2.5';
 
 /** The pin head circle's own center, solved from its path's arc geometry — see the module docs. */
 /**
@@ -216,11 +266,16 @@ export function GdsMapPinBadge({
   size = 40,
   emoji,
   iconStyle,
+  state = 'idle',
 }: GdsMapPinBadgeProps) {
   // Issue 594: reference the token so a pin follows the active theme, with the axis-derived
   // value as the fallback. The fallback is computed from the same source, never typed here —
   // a hand-written fallback is a second definition that drifts the moment the axis changes.
   const accentColor = `var(--gds-accent-${accent}-${shade}, ${gdsResolvedAccentFallback[`--gds-accent-${accent}-${shade}`]})`;
+  // Hovered darkens the STROKE one step down the same accent's ladder — the fill and icon keep
+  // `accentColor` untouched, which is what keeps the category hue meaning one thing (issue 545).
+  const hoverStrokeShade = DEEPER_SHADE[shade];
+  const hoverStrokeColor = `var(--gds-accent-${accent}-${hoverStrokeShade}, ${gdsResolvedAccentFallback[`--gds-accent-${accent}-${hoverStrokeShade}`]})`;
   const inverseColor = 'var(--gds-text-on-inverse, var(--mantine-color-white))';
   const resolvedIconStyle = useGdsBadgeIconStyle(iconStyle);
   // The failsafe (issue #525): a marker with no `emoji` keeps its Tabler
@@ -254,10 +309,22 @@ export function GdsMapPinBadge({
   const pinFillOpacity = useEmoji ? 1 : filled ? fillOpacity : undefined;
   const numericSize = typeof size === 'number' ? size : undefined;
 
+  // State resolves to silhouette properties only — never to the fill or the icon color.
+  const pinStroke = state === 'hovered' || state === 'selected' ? EMPHASIS_STROKE : 1.75;
+  const pinStrokeColor = state === 'hovered' ? hoverStrokeColor
+    : state === 'approximate' ? EMOJI_DISC_FILL
+    : accentColor;
+  const pinDash = state === 'approximate' ? APPROXIMATE_DASH : undefined;
+  // Scaling around the tail tip keeps the anchored map coordinate exactly where it was — a
+  // center-origin scale would drift the point the pin exists to mark.
+  const stackStyle = state === 'selected'
+    ? { transform: `scale(${GDS_PIN_SELECTED_SCALE})`, transformOrigin: '50% 100%' }
+    : undefined;
+
   return (
-    <GdsBadgeStack size={size} label={label}>
+    <GdsBadgeStack size={size} label={label} style={stackStyle}>
       <GdsBadgeStackLayer>
-        <GdsBadgeShapePin size="100%" stroke={1.75} color={accentColor} fill={pinFill} fillOpacity={pinFillOpacity} />
+        <GdsBadgeShapePin size="100%" stroke={pinStroke} color={pinStrokeColor} fill={pinFill} fillOpacity={pinFillOpacity} strokeDasharray={pinDash} />
       </GdsBadgeStackLayer>
       {/*
         A GdsBadgeStackLayer's `scale` prop applies via a CSS class reading

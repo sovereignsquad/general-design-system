@@ -5,7 +5,7 @@ import {
   resolveGdsAccentTokens, type GdsAccentName, type GdsThemePresetId,
 } from '@sovereignsquad/gds-theme';
 import { GdsBadge } from './GdsBadge';
-import { GDS_PIN_HEAD_CENTER_OFFSET, GDS_PIN_ICON_SCALE, GdsMapPinBadge } from './GdsMapPinBadge';
+import { GDS_PIN_HEAD_CENTER_OFFSET, GDS_PIN_ICON_SCALE, GDS_PIN_SELECTED_SCALE, GdsMapPinBadge } from './GdsMapPinBadge';
 
 /** Props for {@link GdsPinSystemReference}. */
 export interface GdsPinSystemReferenceProps {
@@ -65,6 +65,29 @@ export function GdsPinSystemReference({
           Outline: pin and icon share the accent. Filled: solid accent with an inverse icon that never
           reuses the accent. Emoji: a fixed dark-neutral disc with an accent ring — OS-rendered glyphs
           have colours GDS cannot control, so their legibility must not depend on the active accent.
+        </Text>
+      </Stack>
+
+      <Stack gap="2xs">
+        <Text fw={700}>States — silhouette and scale, never the hue</Text>
+        <Text size="sm">
+          The governing rule (issue 545): the fill belongs to the activity, so state is carried by
+          silhouette and scale. Hover darkens the <em>stroke</em> one step down the same accent&rsquo;s
+          own ladder at weight 2.25; selection scales the whole marker by {GDS_PIN_SELECTED_SCALE}{' '}
+          around the tail tip, so the anchored map point does not move; approximate location swaps the
+          solid accent stroke for a dashed neutral one while the icon keeps the accent. No state ever
+          repaints the category&rsquo;s own colour — a test enforces it.
+        </Text>
+        <Group gap="lg" align="flex-end">
+          <GdsMapPinBadge accent="forest" icon="Location" label="Idle" size={56} filled />
+          <GdsMapPinBadge accent="forest" icon="Location" label="Hovered" size={56} filled state="hovered" />
+          <GdsMapPinBadge accent="forest" icon="Location" label="Selected" size={56} filled state="selected" />
+          <GdsMapPinBadge accent="forest" icon="Location" label="Approximate location" size={56} state="approximate" />
+        </Group>
+        <Text size="sm" c="dimmed">
+          Saved is not a state: it is a user action with its own governed control, composed as{' '}
+          <Code>{'<GdsSavedIndicator mode="corner" anchor={<GdsMapPinBadge …/>} />'}</Code> — a pin can
+          be saved while hovered or selected.
         </Text>
       </Stack>
 
