@@ -1,5 +1,5 @@
 import { Anchor, Box, Stack, Text } from '@mantine/core';
-import { gdsZIndexToken } from '@sovereignsquad/gds-theme';
+import { gdsZIndexToken , useGdsTranslation } from '@sovereignsquad/gds-theme';
 import type { PublicNavItem } from './PublicNav';
 
 /**
@@ -51,9 +51,12 @@ export function BottomTabBar({
   emphasizedItemId,
   maxItems = BOTTOM_TAB_MAX_ITEMS,
   onNavItemSelect,
-  ariaLabel = 'Primary',
+  ariaLabel: ariaLabelProp,
   className,
 }: BottomTabBarProps) {
+  const { t } = useGdsTranslation();
+  const ariaLabel = ariaLabelProp ?? t('gds.bottomTabBar.ariaLabel', "Primary");
+
   const cap = Math.min(Math.max(1, maxItems), BOTTOM_TAB_MAX_ITEMS);
 
   if (items.length > cap) {

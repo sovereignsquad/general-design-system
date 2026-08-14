@@ -1,4 +1,5 @@
 'use client';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 import { useEffect, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
@@ -123,7 +124,7 @@ export function DiscoveryShell({
   sidebar,
   footer,
   children,
-  mobileNavigationLabel = 'Toggle navigation',
+  mobileNavigationLabel: mobileNavigationLabelProp,
   hideMobileNavigationToggle = false,
   defaultSidebarOpen = false,
   sidebarStorageKey,
@@ -131,13 +132,17 @@ export function DiscoveryShell({
   onSidebarOpenedChange,
   stickySidebar = true,
   desktopCollapsible = false,
-  desktopNavigationLabel = 'Toggle sidebar',
+  desktopNavigationLabel: desktopNavigationLabelProp,
   sidebarWidth = 280,
   headerHeight = 60,
   shellPadding = 'md',
   collapseBreakpoint = 'sm',
   closeMobileNavigationOnItemSelect = true,
 }: DiscoveryShellProps) {
+  const { t } = useGdsTranslation();
+  const mobileNavigationLabel = mobileNavigationLabelProp ?? t('gds.discoveryShell.mobileNavigationLabel', "Toggle navigation");
+  const desktopNavigationLabel = desktopNavigationLabelProp ?? t('gds.discoveryShell.desktopNavigationLabel', "Toggle sidebar");
+
   const isMobile = useMediaQuery(`(max-width: ${gdsBreakpointByAlias[collapseBreakpoint as keyof typeof gdsBreakpointByAlias]})`);
   const shellState = useDiscoveryShellState({ defaultSidebarOpen, sidebarStorageKey, onSidebarOpenedChange });
   const opened = sidebarOpened ?? shellState.opened;

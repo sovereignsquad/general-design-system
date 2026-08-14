@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Combobox, Group, InputBase, Loader, Text, useCombobox } from '@mantine/core';
 import { GdsIcons } from './icons';
 
@@ -86,11 +87,16 @@ export function SearchableSelect<T extends string = string>({
   clearable = false,
   disabled = false,
   debounceMs = 250,
-  noResultsLabel = 'No results found',
-  errorLabel = 'Could not load options',
-  retryLabel = 'Retry',
+  noResultsLabel: noResultsLabelProp,
+  errorLabel: errorLabelProp,
+  retryLabel: retryLabelProp,
   ariaLabel,
 }: SearchableSelectProps<T>) {
+  const { t } = useGdsTranslation();
+  const noResultsLabel = noResultsLabelProp ?? t('gds.searchableSelect.noResultsLabel', "No results found");
+  const errorLabel = errorLabelProp ?? t('gds.searchableSelect.errorLabel', "Could not load options");
+  const retryLabel = retryLabelProp ?? t('gds.searchableSelect.retryLabel', "Retry");
+
   const combobox = useCombobox({ onDropdownClose: () => combobox.resetSelectedOption() });
   const [query, setQuery] = useState('');
   const [asyncOptions, setAsyncOptions] = useState<ComboboxOption<T>[]>([]);

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Alert, Badge, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import type { StateBlockVariant } from './StateBlock';
 import { GdsIcons } from './icons';
@@ -224,8 +225,8 @@ export function NotificationCenterView({
   onClear,
   onAction,
   onRetry,
-  title = 'Notifications',
-  emptyMessage = 'No active notifications.',
+  title: titleProp,
+  emptyMessage: emptyMessageProp,
 }: {
   notifications: GdsNotificationMessage[];
   onDismiss?: (id: string) => void;
@@ -235,6 +236,10 @@ export function NotificationCenterView({
   title?: ReactNode;
   emptyMessage?: ReactNode;
 }) {
+  const { t } = useGdsTranslation();
+  const title = titleProp ?? t('gds.notifications.title', "Notifications");
+  const emptyMessage = emptyMessageProp ?? t('gds.notifications.emptyMessage', "No active notifications.");
+
   const visibleNotifications = notifications.filter((item) => item.persistence !== 'announcement-only' && !item.announcementOnly);
 
   return (

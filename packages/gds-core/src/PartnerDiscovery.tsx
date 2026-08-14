@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import {
   Anchor,
   Badge,
@@ -560,10 +561,13 @@ export function PartnerPlaceResultCard({
   place,
   amenityLabels = {},
   active = false,
-  detailLabel = 'See details',
+  detailLabel: detailLabelProp,
   onSelect,
   onEvent,
 }: PartnerPlaceResultCardProps) {
+  const { t } = useGdsTranslation();
+  const detailLabel = detailLabelProp ?? t('gds.partnerDiscovery.detailLabel', "See details");
+
   return (
     <Card
       component="article"
@@ -654,9 +658,13 @@ export interface PartnerMapControlsProps {
 export function PartnerMapControls({
   onZoomIn,
   onZoomOut,
-  zoomInLabel = 'Zoom in',
-  zoomOutLabel = 'Zoom out',
+  zoomInLabel: zoomInLabelProp,
+  zoomOutLabel: zoomOutLabelProp,
 }: PartnerMapControlsProps) {
+  const { t } = useGdsTranslation();
+  const zoomInLabel = zoomInLabelProp ?? t('gds.partnerDiscovery.zoomInLabel', "Zoom in");
+  const zoomOutLabel = zoomOutLabelProp ?? t('gds.partnerDiscovery.zoomOutLabel', "Zoom out");
+
   return (
     <Group gap="xs">
       <Button type="button" variant="default" aria-label={zoomInLabel} onClick={onZoomIn} w={32} h={32} p={0}>

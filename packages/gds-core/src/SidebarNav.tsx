@@ -44,7 +44,10 @@ export interface SidebarNavItemProps extends Omit<NavLinkProps, 'label' | 'leftS
 }
 
 /** Full-height sidebar navigation landmark that stacks its sections inside a labeled `<nav>`. */
-export function SidebarNav({ children, ariaLabel = 'Primary navigation', gap = 'md' }: SidebarNavProps) {
+export function SidebarNav({ children, ariaLabel: ariaLabelProp, gap = 'md' }: SidebarNavProps) {
+  const { t } = useGdsTranslation();
+  const ariaLabel = ariaLabelProp ?? t('gds.sidebarNav.ariaLabel', "Primary navigation");
+
   return (
     <Stack component="nav" aria-label={ariaLabel} gap={gap} h="100%">
       {children}

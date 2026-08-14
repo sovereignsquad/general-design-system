@@ -9,13 +9,13 @@
   },
   "allowed": [
     {
-      "at": "packages/gds-core/src/BottomTabBar.tsx:144",
+      "at": "packages/gds-core/src/BottomTabBar.tsx:147",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/ChatSurface.tsx:141",
+      "at": "packages/gds-core/src/ChatSurface.tsx:150",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"

@@ -1,4 +1,5 @@
 import { ActionIcon, Group, Text } from '@mantine/core';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { GdsIcons } from './icons';
 
 /**
@@ -44,9 +45,13 @@ export function NumberStepper({
   step = 1,
   disabled = false,
   ariaLabel,
-  decrementLabel = 'Decrease',
-  incrementLabel = 'Increase',
+  decrementLabel: decrementLabelProp,
+  incrementLabel: incrementLabelProp,
 }: NumberStepperProps) {
+  const { t } = useGdsTranslation();
+  const decrementLabel = decrementLabelProp ?? t('gds.numberStepper.decrementLabel', "Decrease");
+  const incrementLabel = incrementLabelProp ?? t('gds.numberStepper.incrementLabel', "Increase");
+
   const clamp = (next: number) => Math.min(max, Math.max(min, next));
   const snap = (next: number) => {
     const snapped = Math.round((next - min) / step) * step + min;

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { ActionIcon, Box, Group, Paper, Stack, Text, Textarea } from '@mantine/core';
 import { GdsIcons } from './icons';
 
@@ -52,10 +53,10 @@ const PIN_THRESHOLD_PX = 48;
 export function ChatMessage({
   message,
   maxEmbeddedCards = 5,
-  userLabel = 'You',
-  assistantLabel = 'Assistant',
+  userLabel: userLabelProp,
+  assistantLabel: assistantLabelProp,
   onRetry,
-  retryLabel = 'Retry',
+  retryLabel: retryLabelProp,
 }: {
   message: ChatMessageModel;
   maxEmbeddedCards?: number;
@@ -64,6 +65,11 @@ export function ChatMessage({
   onRetry?: (messageId: string) => void;
   retryLabel?: string;
 }) {
+  const { t } = useGdsTranslation();
+  const userLabel = userLabelProp ?? t('gds.chatSurface.userLabel', "You");
+  const assistantLabel = assistantLabelProp ?? t('gds.chatSurface.assistantLabel', "Assistant");
+  const retryLabel = retryLabelProp ?? t('gds.chatSurface.retryLabel', "Retry");
+
   const isUser = message.role === 'user';
   const roleLabel = isUser ? userLabel : assistantLabel;
   const cards = message.cards ?? [];
@@ -118,7 +124,10 @@ export function ChatMessage({
 }
 
 /** Animated three-dot indicator shown while the assistant is typing. */
-export function StreamingIndicator({ label = 'Assistant is typing' }: { label?: string }) {
+export function StreamingIndicator({ label: labelProp }: { label?: string }) {
+  const { t } = useGdsTranslation();
+  const label = labelProp ?? t('gds.chatSurface.label', "Assistant is typing");
+
   return (
     <Group gap={6} aria-label={label}>
       {/*
@@ -154,14 +163,18 @@ function dotStyle(index: number): React.CSSProperties {
 export function ChatInput({
   onSend,
   disabled = false,
-  placeholder = 'Message…',
-  sendLabel = 'Send',
+  placeholder: placeholderProp,
+  sendLabel: sendLabelProp,
 }: {
   onSend: (text: string) => void;
   disabled?: boolean;
   placeholder?: string;
   sendLabel?: string;
 }) {
+  const { t } = useGdsTranslation();
+  const placeholder = placeholderProp ?? t('gds.chatSurface.placeholder', "Message…");
+  const sendLabel = sendLabelProp ?? t('gds.chatSurface.sendLabel', "Send");
+
   const [value, setValue] = useState('');
 
   const submit = () => {

@@ -869,9 +869,11 @@ export function GdsSchemaForm<TValues extends Record<string, unknown> = Record<s
   renderers = {},
   uploadAdapter,
   onEvent,
-  submitLabel = 'Submit',
+  submitLabel: submitLabelProp,
 }: GdsSchemaFormProps<TValues>) {
   const { t } = useGdsTranslation();
+  const submitLabel = submitLabelProp ?? t('gds.gdsSchemaForm.submitLabel', "Submit");
+
   const initialValues = useMemo(() => getInitialValues(schema), [schema]);
   const form = useGdsFormOrchestration({
     initialValues,

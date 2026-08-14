@@ -1,10 +1,10 @@
 import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'node:fs';
-import { request } from 'node:https';
 import { resolve } from 'node:path';
 import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
 import { measureCorpusLeakage } from './lib/i18n-leakage.mjs';
 import { TARGET_FILES, extractPhrases } from './lib/site-phrases.mjs';
+import { translate, TRANSLATION_LOCALES } from './lib/translate.mjs';
 
 const traverse = traverseModule.default ?? traverseModule;
 
@@ -13,9 +13,10 @@ const targetFiles = TARGET_FILES;
 
 // Issue 587: ja/ko/zh added. gds-core shipped package packs for all three while the site had
 // none, so the reference site could not render in Japanese, Korean or Chinese even though the
-// packages a visitor would install support their language. Google Translate uses `zh` for
-// Simplified Chinese, matching the `zh` package pack.
-const localeIds = ['de', 'fr', 'it', 'es', 'ru', 'he', 'ar', 'hu', 'ja', 'ko', 'zh'];
+// packages a visitor would install support their language. The list moved to lib/translate.mjs
+// when issue 617 gave it a second consumer — the site and the package packs must cover the same
+// locales, and two copies of the list are two things that can drift apart.
+const localeIds = TRANSLATION_LOCALES;
 const outDir = resolve(root, 'apps/playground/src/generated-site-phrases');
 
 
@@ -30,31 +31,6 @@ function parseExistingLocale(locale) {
   }
 }
 
-function translate(text, locale) {
-  return new Promise((resolveTranslation) => {
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${locale}&dt=t&q=${encodeURIComponent(text)}`;
-    const req = request(url, (response) => {
-      let body = '';
-      response.setEncoding('utf8');
-      response.on('data', (chunk) => { body += chunk; });
-      response.on('end', () => {
-        try {
-          const parsed = JSON.parse(body);
-          const translated = parsed?.[0]?.map((entry) => entry?.[0] ?? '').join('');
-          resolveTranslation(translated || text);
-        } catch {
-          resolveTranslation(text);
-        }
-      });
-    });
-    req.setTimeout(8000, () => {
-      req.destroy();
-      resolveTranslation(text);
-    });
-    req.on('error', () => resolveTranslation(text));
-    req.end();
-  });
-}
 
 const phrases = new Set();
 for (const relativePath of targetFiles) {

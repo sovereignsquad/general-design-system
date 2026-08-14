@@ -1,4 +1,5 @@
 'use client';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -245,12 +246,16 @@ export function useGdsNotifications() {
 
 /** Renders the current notifications from context as a dismissible, retryable list with a clear-all control. */
 export function NotificationCenter({
-  title = 'Notifications',
-  emptyMessage = 'No active notifications.',
+  title: titleProp,
+  emptyMessage: emptyMessageProp,
 }: {
   title?: ReactNode;
   emptyMessage?: ReactNode;
 }) {
+  const { t } = useGdsTranslation();
+  const title = titleProp ?? t('gds.notifications.title', "Notifications");
+  const emptyMessage = emptyMessageProp ?? t('gds.notifications.emptyMessage', "No active notifications.");
+
   const {
     notifications,
     dismissNotification,

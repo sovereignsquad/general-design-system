@@ -48,7 +48,11 @@ Flow:
 
 1. Route coverage declares which public routes are full-copy localized.
 2. The playground locale switch only exposes full-copy locales for the active route.
-3. Package message parity keeps every locale pack aligned with English baseline keys.
+3. Package message parity keeps every locale pack aligned with English baseline keys, **and keeps
+   the packs aligned with the components**: every `t('id', 'English')` call site in
+   `packages/gds-core/src` must have its id defined in the packs, with matching English. An id
+   absent from all twelve packs renders its English fallback in every locale and is invisible to a
+   pack-vs-pack comparison, so the source direction is checked separately (issue 617).
 4. Release gates fail on missing route declarations, missing message keys, or native dialog copy in packages.
 
 ## Maturity Registry LLD

@@ -1,4 +1,5 @@
 'use client';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 import { createContext, useCallback, useContext, useMemo, useReducer, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -390,7 +391,10 @@ export function useGdsFormSnapshot() {
 }
 
 /** Renders a red `Alert` listing the snapshot's blocking issues as in-page anchor links to each field; renders nothing when there are none. */
-export function FormErrorSummary({ title = 'Please review the following issues.' }: { title?: ReactNode }) {
+export function FormErrorSummary({ title: titleProp }: { title?: ReactNode }) {
+  const { t } = useGdsTranslation();
+  const title = titleProp ?? t('gds.gdsForm.title', "Please review the following issues.");
+
   const snapshot = useGdsFormSnapshot();
   const blocking = snapshot.issues.filter((issue) => issue.severity === 'blocking');
   if (blocking.length === 0) {

@@ -29,6 +29,7 @@ const walk = (dir, out = []) => {
 
 const violations = [];
 const allowed = [];
+const matchedKeys = new Set();
 const adopted = [];
 let scanned = 0;
 
@@ -55,11 +56,24 @@ for (const file of walk(join(ROOT, 'packages'))) {
       // A variable or expression is not a literal; the gate cannot judge it statically.
       if (!/^['"]?[\d.]/.test(value)) continue;
 
-      const entry = SHAPE_ALLOWLIST[at];
+      // Keyed by the declaration's own TEXT, not by `file:line` — issue 614.
+      //
+      // The line-number key was chosen so an entry would stop matching if the line moved, forcing
+      // a re-examination. In practice it never bought that: it fired seven times on edits that
+      // inserted lines ABOVE an untouched declaration, and each one was resolved by retyping the
+      // number. A check whose only observed outcome is a mechanical repin is not protecting
+      // anything, and it taxes every unrelated change to the file.
+      //
+      // The text key keeps the property the line number was there for. A different declaration
+      // landing where this one used to be reads differently, so it is NOT excused — which was the
+      // actual concern. Only the identical declaration, moved, stays covered.
+      const key = `${rel}::${line.trim()}`;
+      const entry = SHAPE_ALLOWLIST[key];
       if (entry) {
-        if (!entry.reason?.trim()) fail(`Shape allowlist entry ${at} has no reason.`);
-        if (!entry.reviewBy) fail(`Shape allowlist entry ${at} has no reviewBy.`);
-        if (Date.parse(entry.reviewBy) < Date.now()) fail(`Shape allowlist entry ${at} expired ${entry.reviewBy}.`);
+        matchedKeys.add(key);
+        if (!entry.reason?.trim()) fail(`Shape allowlist entry ${key} has no reason.`);
+        if (!entry.reviewBy) fail(`Shape allowlist entry ${key} has no reviewBy.`);
+        if (Date.parse(entry.reviewBy) < Date.now()) fail(`Shape allowlist entry ${key} expired ${entry.reviewBy}.`);
         allowed.push({ at, value, category: entry.category, reviewBy: entry.reviewBy });
         continue;
       }
@@ -69,6 +83,13 @@ for (const file of walk(join(ROOT, 'packages'))) {
 }
 
 if (!scanned) fail('No borderRadius declarations found. Extraction is broken, not the system shapeless.');
+
+// An entry that matches nothing is an excuse for code that no longer exists. Under the old
+// line-number key this could not be checked — a stale entry and a moved line looked identical.
+//
+// Collected rather than exited on, because substituting one radius for another produces BOTH a
+// stale entry and a new violation, and the violation is the more useful half of that report.
+const unused = Object.keys(SHAPE_ALLOWLIST).filter((k) => !matchedKeys.has(k));
 
 mkdirSync(join(ROOT, 'audit'), { recursive: true });
 writeFileSync(join(ROOT, 'audit/shape-token-adoption.json'), `${JSON.stringify({
@@ -87,10 +108,13 @@ console.log(`  token-governed             ${String(adopted.length).padStart(4)}`
 console.log(`  allowlisted                ${String(allowed.length).padStart(4)}   ${JSON.stringify(allowed.reduce((a, x) => ({ ...a, [x.category]: (a[x.category] ?? 0) + 1 }), {}))}`);
 console.log(`  violations                 ${String(violations.length).padStart(4)}`);
 
-if (violations.length) {
+if (violations.length || unused.length) {
   console.error('');
   for (const v of violations) console.error(`FAIL ${v.at} — borderRadius: ${v.value}\n     ${v.why}`);
-  console.error(`\n${violations.length} hardcoded radius value(s).`);
+  for (const k of unused) {
+    console.error(`FAIL ${k}\n     allowlist entry matches no declaration — the code it excused is gone. Delete the entry.`);
+  }
+  console.error(`\n${violations.length} hardcoded radius value(s), ${unused.length} stale allowlist entr(ies).`);
   process.exit(1);
 }
 console.log('\nEvery borderRadius is token-governed or allowlisted with a reason.');

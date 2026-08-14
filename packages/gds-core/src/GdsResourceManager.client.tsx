@@ -1,4 +1,5 @@
 'use client';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -311,12 +312,15 @@ export function GdsResourceManager<T extends GdsResourceRecord>({
   description,
   adapter,
   columns,
-  emptyLabel = 'No resources available',
+  emptyLabel: emptyLabelProp,
   renderDetail,
   onEvent,
   timeoutMs,
   confirmAction,
 }: GdsResourceManagerProps<T>) {
+  const { t } = useGdsTranslation();
+  const emptyLabel = emptyLabelProp ?? t('gds.gdsResourceManager.emptyLabel', "No resources available");
+
   const manager = useGdsResourceManager({ adapter, onEvent, timeoutMs, confirmAction });
   const tableColumns = useMemo<GdsTableColumn<T>[]>(() => columns ?? [
     { key: 'title' as keyof T & string, label: 'Title', sortable: true, filterable: true, mobilePriority: 1 },
