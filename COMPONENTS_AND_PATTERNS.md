@@ -150,6 +150,8 @@ The official website must also consume these contracts directly. `apps/playgroun
 - **Small-Screen Priority**: 1. Next action -> 2. Urgent exception -> 3. Recent work -> 4. Analytics.
 - **Table Responsive Strategies**: "Desktop table compressed onto mobile" is unacceptable. Must choose: horizontal scroll, list/card view, priority columns, or stacked rows.
 - **Mobile Action Density**: List cards should have *one* visible primary action (others in overflow). Avoid adjacent icon-only clusters to prevent accidental taps. Touch targets must remain comfortable.
+- **No composition may depend on a fixed count** (issue 541): anything built around six category tiles, five nav items, or a four-up grid is wrong for a real operator on a real day. Every grid, rail, and sentence must hold at full count, at half, and at one — and say something true at zero. New patterns demonstrate and test the zero/one/full counts (see `CONTRIBUTING.md`, "Adding a Component or Pattern", step 7); the row-of-unknown-items layout rules live in `docs/LAYOUT_PRIMITIVES.md` ("A row of *n* items that must never break").
+- **The states contract** (issue 542): every data-rendering pattern defines loading, empty, error, and success explicitly — through the governed `AsyncSurface`/`StateBlock` vocabulary — and states when *unavailable* (operator-toggled-off) does not apply and why. An empty state says what happened and what to do next; an error state names a human cause and offers a retry. See `CONTRIBUTING.md` step 7 for the shipping requirement.
 
 ## 6. Required Reusable Pattern Families
 
