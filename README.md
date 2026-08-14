@@ -321,6 +321,7 @@ Required repository behavior:
 - `npm run verify:api-docs-coverage` — validates the registry-backed public API documentation contract for shipped runtime exports
 - `npm run verify:access-gate` — validates the access-gate docs, exports, live proof registry, privacy policy, and non-rendering tests for paywall/protected-content boundaries
 - `npm run verify:i18n-route-coverage` — validates localized route declarations and route-copy implementation markers
+- `npm run verify:viewport-reachability-runtime` — sweeps every declared route in headless Chrome at a true 390px and fails when content is unreachable: clipped by an overflow-hidden ancestor or inflating the page's scroll width, with working rails, off-canvas panels, `aria-hidden` subtrees, and `alt=""` images correctly not counted
 - `npm run verify:i18n-message-parity` — validates package locale pack key parity, that every `t()` id in `gds-core` source is defined in the packs, and that each pack's English matches the fallback at its call site
 - `npm run verify:i18n-package-copy` — blocks native dialog prompt copy in packages
 - `npm run board:labels` — idempotently provisions the issue-board label taxonomy (colors + descriptions) from `scripts/board-labels.config.mjs`; uses the default `GITHUB_TOKEN` (no PAT)
