@@ -2,8 +2,8 @@
   "releaseChainGates": 42,
   "gatesWithMutants": 28,
   "gatesExempted": 16,
-  "mutantsRun": 38,
-  "killed": 38,
+  "mutantsRun": 35,
+  "killed": 35,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -138,22 +138,22 @@
       "gate": "verify:density-token-adoption",
       "mutantId": "density-detects-hardcoded-spacing",
       "claim": "Detects a component hardcoding spacing instead of reading the density axis",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:density-token-adoption exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first."
     },
     {
       "gate": "verify:shape-token-adoption",
       "mutantId": "shape-detects-hardcoded-radius",
       "claim": "Detects a component hardcoding a corner radius instead of reading the shape axis",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:shape-token-adoption exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first."
     },
     {
       "gate": "verify:shape-token-adoption",
       "mutantId": "shape-detects-undeclared-radius-token",
       "claim": "Detects a var(--gds-radius-*) reference to a step or role the axis does not declare",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:shape-token-adoption exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first."
     },
     {
       "gate": "verify:motion-scale",
