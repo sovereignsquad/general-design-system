@@ -142,7 +142,9 @@ const DEFAULT_VIEWPORT: GdsMapViewport = { center: { lat: 51.505, lng: -0.09 }, 
 export function GdsMap({
   markers, viewport, defaultViewport, fitBounds, minZoom = 3, maxZoom = 18, maxBounds,
   onViewportChange, onMarkerSelect, selectedMarkerId, interactive = true,
-  preset = 'default', colorScheme = 'light', label, onStateChange, height = '420px',
+  // Issue 569: rem-based via the same scale factor the axes use, never a fixed pixel count —
+  // a consumer raising --mantine-scale raises the map with everything else.
+  preset = 'default', colorScheme = 'light', label, onStateChange, height = 'calc(26.25rem * var(--mantine-scale, 1))',
   tileSource = GDS_OSM_TILE_SOURCE, listPlacement = 'below', offline = false,
 }: GdsMapProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -260,7 +262,12 @@ export function GdsMap({
             className: 'gds-map-pin',
             // `aria-hidden` on the glyph and the accessible name on the marker itself: the
             // shape carries no meaning a screen reader can use, the label does.
-            html: `<span aria-hidden="true" style="display:block;width:18px;height:18px;border-radius:var(--gds-radius-pin, 50%);background:${colour};border:2px solid var(--gds-bg-card);box-shadow:var(--gds-elevation-1);${marker.approximate ? 'opacity:0.65;border-style:dashed;' : ''}"></span>`,
+            // Issue 569 — the dot is DENSITY-SCALED, not a fixed 18px: 1.5× the sm space step
+            // (0.75rem × 1.5 = 18px at default density), so a compact theme tightens pins with
+            // everything else. The 2px halo stays literal as map paint (the documented
+            // literal-values category): it is a hairline against the card background inside an
+            // engine-injected string, not page layout.
+            html: `<span aria-hidden="true" style="display:block;width:calc(var(--gds-space-sm, 0.75rem) * 1.5);height:calc(var(--gds-space-sm, 0.75rem) * 1.5);border-radius:var(--gds-radius-pin, 50%);background:${colour};border:2px solid var(--gds-bg-card);box-shadow:var(--gds-elevation-1);${marker.approximate ? 'opacity:0.65;border-style:dashed;' : ''}"></span>`,
             iconSize: [18, 18],
           });
           const placed = (L as typeof import('leaflet'))

@@ -4,6 +4,17 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The map's geometry is theme-scaled; the themed-basemap issue completes (#569)
+
+The wash (#549) and the area-fill recipe (#550) were the colour halves; this closes the
+geometry half. Pin dots now derive from the density axis — 1.5 × the `sm` space step, 18px at
+default density and measured live shrinking to 12px under a compact step — instead of a fixed
+18px, and the default map/panel heights are rem-based through the same `--mantine-scale`
+factor the axes use. No map-specific colour, radius, spacing, or duration constant exists;
+the one deliberate literal is the pin dot's 2px halo, which is map paint per the documented
+literal-values allowlist. The map participates in the theme coverage matrix by construction —
+the matrix sweeps every declared route and the map's proof route is one of them.
+
 ### The map degrades honestly when tiles cannot load (#570)
 
 `GdsMap` now detects total tile failure — `GDS_TILE_FAILURE_THRESHOLD` consecutive errors with

@@ -809,6 +809,8 @@
       "reason": "Mantine's global scale factor, which every one of its own size calculations multiplies through. Issue 555 made GDS consume it deliberately: the shape axis captures Mantine's radius values VERBATIM as `calc(0.125rem * var(--mantine-scale))` rather than flattening them to plain rem, because flattening would silently drop the factor and change what renders at non-default scales. GDS declaring its own value would fight Mantine's sizing system across every component, not just the ones GDS styles.",
       "reviewBy": "2027-08-01",
       "files": [
+        "packages/gds-core/src/GdsMap.client.tsx",
+        "packages/gds-core/src/MapPanel.tsx",
         "packages/gds-theme/src/axes.ts"
       ]
     },

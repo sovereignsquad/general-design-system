@@ -117,9 +117,15 @@ share an accent family" needs the actual adjacency graph, which only the product
 supplies the ten-family palette discipline; assigning families so neighbours differ is a
 graph-colouring decision the utility cannot see.
 
-**Not built yet:** deeper themed basemap presentation — theme-scaled map chrome — is issue
-**569**. The wash and the area-fill recipe are the shipped first layers of that story, not the
-whole of it.
+**Theme-scaled geometry** (issue 569, shipped): the map introduces no map-specific constant.
+Pin dots derive from the density axis (1.5 × the `sm` space step — 18px at default density,
+measured live shrinking to 12px under a compact step), container radius and elevation come
+from their axes, Leaflet's own chrome is disabled in favour of GDS UI, and the default
+heights are rem-based through the same `--mantine-scale` factor the axes use, so raising the
+scale raises the map with everything else. The one deliberate literal is the pin dot's 2px
+halo — map paint per the documented literal-values allowlist, a hairline inside an
+engine-injected string. The map participates in the theme coverage matrix by construction:
+the matrix sweeps every declared route, and the map's proof route is one of them.
 
 ## 6. Accessibility architecture, and why there is no clustering
 
@@ -222,12 +228,11 @@ Both are proven on the reference site's gds-map demo as one composition over one
 the rail's counts come from the markers the map renders, and selecting a pin opens that pin's
 own card.
 
-## 10. The rest of the programme
+## 10. Programme status
 
-| Issue | What it adds |
-| --- | --- |
-| **569** | Themed basemap presentation beyond the wash |
-
-When one lands, its architectural content moves here — this file is the destination the
-programme's issues nominate, and a section that still says "not built yet" after its issue
-closes is a defect in this document.
+Every issue the map programme nominated this document for has landed and moved its content
+here: the wash and SSOT (#549/#572), the pin states (#545), the saved indicator (#546), the
+rail and preview card (#547/#548), the area-fill recipe and architecture rules (#550), the
+degradation model (#570), and themed geometry (#569). The standing rule remains: any future
+map issue lands its architectural content in this file, and a "not built yet" section
+outliving its issue is a defect in this document.
