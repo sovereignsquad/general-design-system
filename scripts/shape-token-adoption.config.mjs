@@ -23,7 +23,7 @@ export const SHAPE_ALLOWLIST = {
     reason: 'Typing-indicator dot. 50% is a circle primitive; a radius step would make it a rounded square under any theme with a small scale.',
     reviewBy: '2027-08-01',
   },
-  'packages/gds-core/src/GdsGeneratedThumbnail.tsx:281': {
+  'packages/gds-core/src/GdsGeneratedThumbnail.tsx:294': {
     category: 'circle',
     reason: 'Circular badge on a generated thumbnail. Same reasoning as ChatSurface: a circle is a shape, not a step.',
     reviewBy: '2027-08-01',

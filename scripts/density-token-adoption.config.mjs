@@ -2,7 +2,7 @@
 //
 // Keyed by `file:line` so an entry stops matching when the line moves.
 export const DENSITY_ALLOWLIST = {
-  'packages/gds-core/src/GdsGeneratedThumbnail.tsx:240': {
+  'packages/gds-core/src/GdsGeneratedThumbnail.tsx:253': {
     reason:
       'Pixel geometry inside a GENERATED image, not page layout. The thumbnail composes a '
       + 'fixed-dimension raster whose internal padding is part of the image design; scaling it '
