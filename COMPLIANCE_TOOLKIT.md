@@ -51,6 +51,38 @@ Exit behavior:
 - `strict.inline-style` for inline `style={{ ... }}` drift outside approved scopes
 - `strict.local-gds-adapter` for undeclared local `components/gds/*` adapters
 
+## Where a literal value is allowed to live
+
+The rules above are prohibitions, and a prohibition alone teaches nothing about the places a
+plain hex or pixel value is *correct*. Those places are narrow, named, and each has a reason —
+this list is the positive half of the contract, and it matches what the scanner actually
+enforces (verified against `packages/gds-compliance/index.js`, issue 543):
+
+1. **Theme and token sources** — any path matching `theme/` or `tokens/`, plus whatever a
+   consumer declares in `compliance.themeOwnershipPaths` in its `gds-adoption.json`. This is
+   the *authority*: the place literals are turned into tokens. `packages/gds-theme`'s ramps and
+   vibe definitions are the canonical example.
+2. **The GDS packages themselves** (`packages/gds-core|admin|theme`) for the strict raw-colour
+   rule — the packages are what the rules route consumers *toward*, so scanning them with
+   consumer rules would be a category error. Inside the packages the shape/radius gates
+   (`verify:shape-token-adoption`) and the theme-governance gates apply instead; "unscanned by
+   consumer compliance" does not mean ungoverned.
+3. **Generated SVG output** (`generated-art-svg.ts`, `generated-art-engine.ts`, the generated
+   thumbnail/hero palettes): an SVG data URI has no stylesheet and no theme in scope by the
+   time it is a string, so its palette is *derived from tokens at build time* and emitted as
+   literal hex — see `resolveGdsGeneratedPaletteHex`, whose darkening step is real RGB
+   arithmetic on the resolved value.
+4. **Map paint** (`GdsMapPinBadge`, `GdsPinSystemReference`): pin silhouettes are SVG paths
+   painted outside any stylesheet, same reasoning as 3. The values are resolved from the badge
+   token system, not invented per pin.
+5. **The PWA manifest** (`packages/gds-theme/src/pwa.ts`): `manifest.json` fields
+   (`theme_color`, `background_color`) are consumed by the platform, not by CSS — there is no
+   `var()` to read. The generator resolves them from the active theme at build time.
+
+Everything else reads tokens. If a sixth category ever seems necessary, the burden is on the
+new case to show its output genuinely has no stylesheet and no theme in scope — "the token was
+inconvenient here" does not qualify. Comments are not code and are never scanned (issue 615).
+
 ## Manifest configuration
 
 Optional compliance extensions live in `gds-adoption.json`:

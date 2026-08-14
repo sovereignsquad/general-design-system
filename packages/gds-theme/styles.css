@@ -494,24 +494,44 @@ html[data-gds-theme-preset] a {
   color: var(--gds-vibe-link);
 }
 
-html[data-gds-theme-preset] a:focus,
-html[data-gds-theme-preset] a:focus-visible,
-html[data-gds-theme-preset] button:focus,
-html[data-gds-theme-preset] button:focus-visible,
-html[data-gds-theme-preset] input:focus,
-html[data-gds-theme-preset] input:focus-visible,
-html[data-gds-theme-preset] select:focus,
-html[data-gds-theme-preset] select:focus-visible,
-html[data-gds-theme-preset] textarea:focus,
-html[data-gds-theme-preset] textarea:focus-visible,
-html[data-gds-theme-preset] [tabindex]:focus,
-html[data-gds-theme-preset] [tabindex]:focus-visible,
-html[data-gds-theme-preset] [data-gds-copy-action]:focus,
-html[data-gds-theme-preset] [data-gds-copy-action]:focus-visible,
-html[data-gds-theme-preset] .mantine-ActionIcon-root:focus,
-html[data-gds-theme-preset] .mantine-ActionIcon-root:focus-visible,
-html[data-gds-theme-preset] .mantine-Button-root:focus,
-html[data-gds-theme-preset] .mantine-Button-root:focus-visible {
+/*
+ * Issue 552 — the focus ring is an accessibility floor, so it is NOT gated on
+ * html[data-gds-theme-preset]. That attribute is set client-side, post-mount, by
+ * applyDocumentRuntime(); no server-rendered or pre-hydration paint can carry it, so gating
+ * this rule on it (as it originally was) meant a keyboard user tabbing before JS mounted got
+ * no governed focus indicator at all. Every --gds-vibe-* token this rule reads has a :root
+ * default in this file, so the rule resolves correctly from the very first paint; once a
+ * preset is applied, the same custom property simply re-resolves to the preset's value.
+ * Cosmetic rules stay gated — a flash of default theming is tolerable, a missing focus ring
+ * is not.
+ *
+ * .mantine-NavLink-root and .mantine-Tabs-tab render as <a>/<button> today and are therefore
+ * already covered by the element selectors; they are named explicitly because a consumer audit
+ * (classscout) reads this list as the coverage contract, and because Mantine is free to change
+ * the rendered element under a polymorphic component without notice.
+ */
+a:focus,
+a:focus-visible,
+button:focus,
+button:focus-visible,
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+[tabindex]:focus,
+[tabindex]:focus-visible,
+[data-gds-copy-action]:focus,
+[data-gds-copy-action]:focus-visible,
+.mantine-ActionIcon-root:focus,
+.mantine-ActionIcon-root:focus-visible,
+.mantine-Button-root:focus,
+.mantine-Button-root:focus-visible,
+.mantine-NavLink-root:focus,
+.mantine-NavLink-root:focus-visible,
+.mantine-Tabs-tab:focus,
+.mantine-Tabs-tab:focus-visible {
   outline: 2px solid var(--gds-vibe-focus) !important;
   outline-offset: 2px !important;
 }
@@ -1016,24 +1036,29 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
     color: LinkText !important;
   }
 
-  html[data-gds-theme-preset] a:focus,
-  html[data-gds-theme-preset] a:focus-visible,
-  html[data-gds-theme-preset] button:focus,
-  html[data-gds-theme-preset] button:focus-visible,
-  html[data-gds-theme-preset] input:focus,
-  html[data-gds-theme-preset] input:focus-visible,
-  html[data-gds-theme-preset] select:focus,
-  html[data-gds-theme-preset] select:focus-visible,
-  html[data-gds-theme-preset] textarea:focus,
-  html[data-gds-theme-preset] textarea:focus-visible,
-  html[data-gds-theme-preset] [tabindex]:focus,
-  html[data-gds-theme-preset] [tabindex]:focus-visible,
-  html[data-gds-theme-preset] [data-gds-copy-action]:focus,
-  html[data-gds-theme-preset] [data-gds-copy-action]:focus-visible,
-  html[data-gds-theme-preset] .mantine-ActionIcon-root:focus,
-  html[data-gds-theme-preset] .mantine-ActionIcon-root:focus-visible,
-  html[data-gds-theme-preset] .mantine-Button-root:focus,
-  html[data-gds-theme-preset] .mantine-Button-root:focus-visible {
+  /* Un-gated for the same issue-552 reason as the main focus block above. */
+  a:focus,
+  a:focus-visible,
+  button:focus,
+  button:focus-visible,
+  input:focus,
+  input:focus-visible,
+  select:focus,
+  select:focus-visible,
+  textarea:focus,
+  textarea:focus-visible,
+  [tabindex]:focus,
+  [tabindex]:focus-visible,
+  [data-gds-copy-action]:focus,
+  [data-gds-copy-action]:focus-visible,
+  .mantine-ActionIcon-root:focus,
+  .mantine-ActionIcon-root:focus-visible,
+  .mantine-Button-root:focus,
+  .mantine-Button-root:focus-visible,
+  .mantine-NavLink-root:focus,
+  .mantine-NavLink-root:focus-visible,
+  .mantine-Tabs-tab:focus,
+  .mantine-Tabs-tab:focus-visible {
     outline-color: Highlight !important;
     outline-style: solid !important;
     outline-width: 2px !important;

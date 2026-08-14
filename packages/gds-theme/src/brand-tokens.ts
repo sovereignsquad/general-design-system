@@ -511,14 +511,28 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       classUsaCream: ramps.cream as unknown as MantineColorsTuple,
       classUsaSlate: ramps.slate as unknown as MantineColorsTuple,
     },
-    defaultRadius: 'lg',
+    // Issue 551 — the handoff's OWN radius scale (8 / 12 / 16 / 24 / pill), encoded on the
+    // theme rather than inherited from Mantine's stock scale. Before this, Card's 'lg'
+    // happened to equal the handoff's 16px only because Mantine's stock lg is 1rem — a
+    // coincidence, not a contract — and Badge's 'xl' was a 32px accident where the handoff
+    // says pill. With the scale owned here, the named steps MEAN the handoff tiers:
+    // xs 8 (tight chrome), sm 12 (controls), md 16 (cards), lg 24 (large panels), xl pill.
+    radius: {
+      xs: '0.5rem',
+      sm: '0.75rem',
+      md: '1rem',
+      lg: '1.5rem',
+      xl: '624.9375rem',
+    },
+    defaultRadius: 'md',
     black: tokens['brand.primaryPressed'].light,
     white: tokens['bg.card'].light,
     components: {
       Button: {
         defaultProps: {
           color: 'classUsaAction',
-          radius: '0.75rem',
+          // The controls tier of the scale above — no longer a literal that can drift from it.
+          radius: 'sm',
           fw: 700,
         },
         styles: {
@@ -529,7 +543,7 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       },
       Card: {
         defaultProps: {
-          radius: 'lg',
+          radius: 'md',
           withBorder: true,
           shadow: 'sm',
         },
@@ -543,7 +557,7 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       },
       Paper: {
         defaultProps: {
-          radius: 'lg',
+          radius: 'md',
           withBorder: true,
         },
         styles: {

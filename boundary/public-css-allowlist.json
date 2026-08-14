@@ -21,6 +21,7 @@
     ".mantine-Menu-item",
     ".mantine-MultiSelect-dropdown",
     ".mantine-NativeSelect-input",
+    ".mantine-NavLink-root",
     ".mantine-Popover-dropdown",
     ".mantine-Radio-label",
     ".mantine-SegmentedControl-control",
