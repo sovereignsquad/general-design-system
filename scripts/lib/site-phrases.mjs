@@ -113,7 +113,15 @@ export function extractPhrases(source) {
     // rendered in English on an otherwise translated page.
     if (isSingleToken && !/^[A-Z][a-z]{2,}$/.test(token)) return;
     if (/^(?:id|title|status|draft|published|row-\d+)$/i.test(value.trim())) return;
-    if (value.length > 240) return;
+    // Raised from 240 (issue 617). Long descriptive paragraphs — the sentences that explain
+    // what a proof demonstrates — were silently dropped and rendered in English on an otherwise
+    // translated page. 34 strings were being excluded on length alone.
+    //
+    // 240 was conservative rather than required: the translate endpoint is a GET, so there IS a
+    // URL-length ceiling, but it was measured rather than guessed — 286, 573 and 1,144-character
+    // strings all round-trip correctly. 900 leaves real headroom under that while covering every
+    // paragraph the site actually writes.
+    if (value.length > 900) return;
     phrases.add(value.trim());
   }
 

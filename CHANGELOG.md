@@ -4,6 +4,33 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Translated object keys, and prose dropped for being long (#617)
+
+Two defects found by asking why specific sentences were still English on the Korean site.
+
+**The page-copy generator translated object KEYS.** In `ReferenceThemeExplorer.copy.ts` the key
+`'dark-public'` had become `'어둠의 대중'` — "darkness of the masses" — so every
+`presetSummaries['dark-public']` lookup missed and `ko`/`ja`/`zh` fell back to English for those
+entries. **24 keys were corrupted this way.** The page still rendered, because the per-field
+fallback added in #587 caught it, and that is exactly why it went unnoticed: the data was wrong
+and nothing crashed. A quoted key is an identifier the code looks itself up by, never copy — the
+generator no longer descends into an `ObjectProperty`'s key, and the three affected blocks were
+removed and regenerated. Keys intact, values translated: `dark-public` now reads
+`어두운 공개 테마` / `ダークなパブリックテーマ` / `深色公共主题`.
+
+**Long prose was silently dropped.** The extractor rejected any string over **240 characters**,
+so the descriptive paragraphs that explain what a proof demonstrates never entered the corpus —
+34 strings excluded on length alone. That limit was conservative rather than required: the
+endpoint is a GET, so a ceiling exists, but it was *measured* rather than guessed — 286, 573 and
+1,144-character strings all round-trip correctly. Raised to 900, which leaves real headroom while
+covering every paragraph the site writes.
+
+English on the Korean site is now **188** distinct strings, from 395 when this started. What
+remains is dominated by API value names rendered as data — a contrast matrix listing `plum`,
+`outline`, `deepest` names values a consumer types in code, and translating them would make the
+page disagree with the API — and by strings composed at render time, which no static corpus can
+match.
+
 ### Atmosphere has a scale, and the page can no longer style around GDS (#618, #619)
 
 **#618 — the swatch gradient, fixed at token level** as ruled. `--gds-vibe-hero` is composed for
