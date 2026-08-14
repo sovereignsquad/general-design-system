@@ -123,6 +123,23 @@ The distinction that matters is **reachable**, not *tight*: a chip at `right: 42
 viewport is fine when its rail scrolls and broken when it does not. Any check for this must ask
 whether the overflowing box is scrollable, or it will report every deliberate rail as a defect.
 
+**The check exists: `npm run verify:viewport-reachability-runtime`.** It sweeps every declared
+route in headless Chrome at a true 390px (device emulation — headless Chrome silently refuses
+window widths under ~500px) and fails when a content element is beyond the viewport edge with
+nothing able to bring it into view. Its verdicts encode this section's rule plus two more
+reachability forms established by measurement: an element inside a working `overflow-x` rail is
+a **rail** (fine); one inside an ancestor a transform has parked entirely outside the current
+clip region is **off-canvas** chrome, revealed by interaction, like `AppShell`'s collapsed
+mobile navbar (fine); one clipped by an `overflow: hidden` ancestor or inflating the document's
+scroll width is **broken**. `aria-hidden` subtrees and `alt=""` images are not content and are
+never counted. A first detector skipped these questions and reported 34 false positives —
+slider tracks, parked drawers, deliberate rails — and was discarded rather than shipped.
+
+The gate found two real system defects on its first honest run, both fixed at token level in
+`gds-theme` (`overflow-wrap: anywhere` on governed text, so a single unbreakable token — an
+email address, a long compound — can no longer inflate a column past the viewport), which is
+the issue 619 pattern: the missing capability is the finding.
+
 Both answers are token-driven: spacing comes from the density axis via `gap`, so a compact theme
 tightens the row with everything else and no surface does its own arithmetic.
 

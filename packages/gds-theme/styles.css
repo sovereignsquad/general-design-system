@@ -529,6 +529,23 @@ html[data-gds-theme-preset] .mantine-InputWrapper-label {
   color: var(--gds-vibe-muted);
 }
 
+/*
+ * Issue 619 — long-token safety, systemwide.
+ *
+ * A single unbreakable token (an email address, a long compound like "discoverability", a URL)
+ * inflates its box's min-content width past a phone viewport, and everything above it either
+ * clips it or starts panning the page sideways. Found live by the viewport-reachability gate:
+ * an email in an H4 pushed a 272px card to 524px on /request-feature, and one long word kept a
+ * pattern title's column from shrinking on /patterns/public. `anywhere` (unlike `break-word`)
+ * lets the min-content contribution shrink, so flex columns can actually narrow; it breaks
+ * inside a token only when no whole-token wrap fits, so ordinary prose renders unchanged.
+ */
+html[data-gds-theme-preset] .mantine-Text-root,
+html[data-gds-theme-preset] .mantine-Title-root,
+html[data-gds-theme-preset] .mantine-Anchor-root {
+  overflow-wrap: anywhere;
+}
+
 html[data-gds-theme-preset] .mantine-Text-root,
 html[data-gds-theme-preset] .mantine-Title-root,
 html[data-gds-theme-preset] .mantine-List-root,

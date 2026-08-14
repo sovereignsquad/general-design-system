@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "4553e39409155e667a2969bb11b5a74d24b3ad95",
+  "commit": "e33ba70ee515f4f46485f38391514732180994ab",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -5860,7 +5860,7 @@
       "name": "--text-color",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 552
+        "line": 569
       }
     },
     {
@@ -5869,7 +5869,7 @@
       "name": "--mantine-color-body",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 960
+        "line": 977
       }
     },
     {
@@ -5878,7 +5878,7 @@
       "name": "--ghost",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1306
+        "line": 1323
       }
     },
     {
@@ -5887,7 +5887,7 @@
       "name": "--gds-vibe-swatch",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1471
+        "line": 1488
       }
     },
     {
@@ -6202,7 +6202,7 @@
       "name": "--mantine-color-dimmed",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 548
+        "line": 565
       }
     },
     {
@@ -6211,7 +6211,7 @@
       "name": "--gds-vibe-danger",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 555
+        "line": 572
       }
     },
     {
@@ -6220,7 +6220,7 @@
       "name": "--gds-local-background",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 835
+        "line": 852
       }
     },
     {
@@ -6229,7 +6229,7 @@
       "name": "--gds-local-radius",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 837
+        "line": 854
       }
     },
     {
@@ -6238,7 +6238,7 @@
       "name": "--mantine-radius-lg",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 837
+        "line": 854
       }
     },
     {
@@ -6247,7 +6247,7 @@
       "name": "--mantine-z-index-overlay",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1223
+        "line": 1240
       }
     },
     {
@@ -6256,7 +6256,7 @@
       "name": "--gds-tour-spotlight-radius",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1228
+        "line": 1245
       }
     },
     {
@@ -6265,7 +6265,7 @@
       "name": "--gds-overlay-scrim",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1229
+        "line": 1246
       }
     },
     {
@@ -6274,7 +6274,7 @@
       "name": "--gds-motion-duration-slow",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1230
+        "line": 1247
       }
     },
     {
@@ -6283,7 +6283,7 @@
       "name": "--mantine-radius-md",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1251
+        "line": 1268
       }
     },
     {
@@ -6292,7 +6292,7 @@
       "name": "--mantine-color-text",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1253
+        "line": 1270
       }
     },
     {
@@ -6301,7 +6301,7 @@
       "name": "--gds-border-card",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1254
+        "line": 1271
       }
     },
     {
@@ -6310,7 +6310,7 @@
       "name": "--mantine-color-gray-3",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1254
+        "line": 1271
       }
     },
     {
@@ -6319,7 +6319,7 @@
       "name": "--mantine-shadow-lg",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1255
+        "line": 1272
       }
     },
     {
@@ -6328,7 +6328,7 @@
       "name": "--gds-text-meta",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1262
+        "line": 1279
       }
     },
     {
@@ -6337,7 +6337,7 @@
       "name": "--gds-focus-ring",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1300
+        "line": 1317
       }
     },
     {
@@ -6346,7 +6346,7 @@
       "name": "--mantine-primary-color-filled",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1300
+        "line": 1317
       }
     },
     {
@@ -6355,7 +6355,7 @@
       "name": "--mantine-color-gray-4",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1310
+        "line": 1327
       }
     },
     {
@@ -6364,7 +6364,7 @@
       "name": "--mantine-primary-color-contrast",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1314
+        "line": 1331
       }
     },
     {
@@ -6373,7 +6373,7 @@
       "name": "--gds-badge-stack-size",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1327
+        "line": 1344
       }
     },
     {
@@ -6382,7 +6382,7 @@
       "name": "--gds-badge-stack-layer-scale",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1338
+        "line": 1355
       }
     },
     {
@@ -6391,7 +6391,7 @@
       "name": "--gds-bg-surface",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1406
+        "line": 1423
       }
     },
     {
@@ -6400,7 +6400,7 @@
       "name": "--gds-control-height-sm",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1487
+        "line": 1504
       }
     },
     {
@@ -6409,7 +6409,7 @@
       "name": "--gds-radius-pill",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1489
+        "line": 1506
       }
     },
     {
@@ -6418,7 +6418,7 @@
       "name": "--gds-vibe-swatch",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1491
+        "line": 1508
       }
     },
     {
@@ -30977,7 +30977,7 @@
       "name": "animation",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1102
+        "line": 1119
       }
     },
     {
@@ -30986,7 +30986,7 @@
       "name": "animation",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1113
+        "line": 1130
       }
     },
     {
@@ -30995,7 +30995,7 @@
       "name": "animation",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1139
+        "line": 1156
       }
     },
     {
@@ -31004,7 +31004,7 @@
       "name": "transition",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1140
+        "line": 1157
       }
     },
     {
@@ -31013,7 +31013,7 @@
       "name": "transition",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1230
+        "line": 1247
       }
     },
     {
@@ -31022,7 +31022,7 @@
       "name": "transition",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1256
+        "line": 1273
       }
     },
     {
@@ -31031,7 +31031,7 @@
       "name": "transition",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1375
+        "line": 1392
       }
     },
     {
@@ -31040,7 +31040,7 @@
       "name": "gds-chat-typing",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1115
+        "line": 1132
       }
     },
     {
@@ -31049,7 +31049,7 @@
       "name": "prefers-reduced-motion",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1120
+        "line": 1137
       }
     },
     {
@@ -31058,7 +31058,7 @@
       "name": "prefers-reduced-motion",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1372
+        "line": 1389
       }
     },
     {
@@ -31148,7 +31148,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1003
+        "line": 1020
       }
     },
     {
@@ -31157,7 +31157,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1005
+        "line": 1022
       }
     },
     {
@@ -31166,7 +31166,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1007
+        "line": 1024
       }
     },
     {
@@ -31175,7 +31175,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1009
+        "line": 1026
       }
     },
     {
@@ -31184,7 +31184,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1011
+        "line": 1028
       }
     },
     {
@@ -31193,7 +31193,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1013
+        "line": 1030
       }
     },
     {
@@ -31202,7 +31202,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1015
+        "line": 1032
       }
     },
     {
@@ -31211,7 +31211,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1017
+        "line": 1034
       }
     },
     {
@@ -31220,7 +31220,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1019
+        "line": 1036
       }
     },
     {
@@ -31229,7 +31229,7 @@
       "name": "disabled",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1056
+        "line": 1073
       }
     },
     {
@@ -31238,7 +31238,7 @@
       "name": "disabled",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1058
+        "line": 1075
       }
     },
     {
@@ -31247,7 +31247,7 @@
       "name": "disabled",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1059
+        "line": 1076
       }
     },
     {
@@ -31256,7 +31256,7 @@
       "name": "disabled",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1060
+        "line": 1077
       }
     },
     {
@@ -31265,7 +31265,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1299
+        "line": 1316
       }
     },
     {
@@ -31274,7 +31274,7 @@
       "name": "hover",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1306
+        "line": 1323
       }
     },
     {
@@ -31283,7 +31283,7 @@
       "name": "hover",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1409
+        "line": 1426
       }
     },
     {
@@ -31292,7 +31292,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1412
+        "line": 1429
       }
     },
     {

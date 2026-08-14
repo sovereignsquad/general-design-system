@@ -4,6 +4,27 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The viewport-reachability gate ships, and it found real defects on its first run (#619)
+
+The follow-up #619 owed: a gate that fails when a governed surface makes content unreachable at
+phone width. `verify:viewport-reachability-runtime` sweeps all 24 declared routes in headless
+Chrome at a true 390px (CDP device emulation — headless Chrome silently refuses window widths
+under ~500px, so `--window-size` alone audits a page no phone shows). The rule that makes it
+honest, per element beyond the viewport edge: inside a working `overflow-x` rail → reachable;
+inside an ancestor a transform parks entirely outside the current clip region (AppShell's
+collapsed mobile navbar, including one nested in a `BoundedPreviewSurface`) → off-canvas,
+reachable by interaction; clipped by `overflow: hidden` or inflating the document scroll width →
+**broken**. `aria-hidden` subtrees and `alt=""` images are never content. The discarded first
+detector's 34 false positives all fall into the categories above.
+
+**First honest run found two real system defects**, both the same root cause: a single
+unbreakable token (an email address in an `h4` pushed a 272px card to 524px on
+`/request-feature`; one long compound kept a pattern title's column from shrinking on
+`/patterns/public`). Fixed at token level in `gds-theme`'s stylesheet — `overflow-wrap: anywhere`
+on governed text and anchors — so min-content widths can shrink and no consumer solves this
+per surface. Gate mutation-tested end to end: removing the stylesheet rule and rebuilding makes
+the gate fail on exactly those routes; restoring it makes all 24 pass.
+
 ### Components themselves are now translatable, not just the site documenting them (#617)
 
 The reference site's phrase overlay rewrites the rendered DOM, so the site looked fully localized
