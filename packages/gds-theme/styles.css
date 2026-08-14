@@ -1450,3 +1450,43 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
 [data-gds-viewport-frame='expanded'] [data-gds-viewport-gated='sm'] {
   display: none;
 }
+
+/*
+ * Issue 618 — preset atmosphere at small-surface scale.
+ *
+ * `--gds-vibe-hero` is composed for a full-width band. Painted into a 40px circle its 135deg
+ * ramp stops being a wash and becomes a hard diagonal, which is why the gold presets read as a
+ * metallic split in the Theme Lab swatch grid while every other preset looked like a soft tint.
+ *
+ * `--gds-vibe-swatch` is the same atmosphere composed for a small box: a radial from the centre,
+ * so it reads identically at 40px and at 400px because no axis lets a small box crop the ramp
+ * differently. Emitted per preset and per scheme by `getGdsVibeThemeCssVariables()`; the default
+ * below is the base lane's, so a consumer who renders a swatch before selecting a preset still
+ * gets a governed value rather than a transparent box.
+ *
+ * Use `[data-gds-theme-swatch]` for any small surface previewing a theme — a swatch, a legend
+ * dot, a chip, a preview tile — instead of reaching for the hero.
+ */
+:root {
+  --gds-vibe-swatch: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--gds-vibe-accent, #06b6d4) 34%, var(--gds-vibe-surface, #ffffff)) 0%,
+    color-mix(in srgb, var(--gds-vibe-primary, #7c3aed) 22%, var(--gds-vibe-surface, #ffffff)) 100%
+  );
+}
+
+[data-gds-theme-swatch] {
+  /*
+   * A COMPLETE surface, not just a background. A consumer previewing a theme should need one
+   * attribute, not an attribute plus their own width, height and radius — the moment they have
+   * to supply those, every product invents a slightly different swatch and the "governed" part
+   * is only the colour. Sized from the governed scales so a compact theme moves it along with
+   * everything else.
+   */
+  display: inline-block;
+  inline-size: var(--gds-control-height-sm, 2rem);
+  block-size: var(--gds-control-height-sm, 2rem);
+  border-radius: var(--gds-radius-pill, 999px);
+  border: 1px solid var(--gds-border-card, var(--gds-vibe-border));
+  background: var(--gds-vibe-swatch);
+}

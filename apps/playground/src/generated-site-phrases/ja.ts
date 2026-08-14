@@ -169,6 +169,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Athlete Gold reference surface": "アスリートゴールド基準面",
   "Athlete IQ": "アスリートIQ",
   "Athlete metrics compared against the squad benchmark.": "選手の指標をチームのベンチマークと比較します。",
+  "Atmosphere tokens": "大気トークン",
   "Attention": "注意",
   "Audience": "観客",
   "Aurora teal": "オーロラティール",

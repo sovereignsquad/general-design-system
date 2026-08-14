@@ -169,6 +169,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Athlete Gold reference surface": "Superficie de referencia Athlete Gold",
   "Athlete IQ": "coeficiente intelectual del atleta",
   "Athlete metrics compared against the squad benchmark.": "Métricas de los atletas comparadas con el punto de referencia del equipo.",
+  "Atmosphere tokens": "Fichas de atmósfera",
   "Attention": "Atención",
   "Audience": "Audiencia",
   "Aurora teal": "aurora verde azulada",

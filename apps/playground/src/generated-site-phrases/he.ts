@@ -169,6 +169,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Athlete Gold reference surface": "משטח התייחסות לספורטאי זהב",
   "Athlete IQ": "ספורטאי IQ",
   "Athlete metrics compared against the squad benchmark.": "מדדי ספורטאים בהשוואה למדד הסגל.",
+  "Atmosphere tokens": "אסימוני אווירה",
   "Attention": "תְשׁוּמַת לֵב",
   "Audience": "קהל",
   "Aurora teal": "אורורה צהבהב",

@@ -4,6 +4,50 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Atmosphere has a scale, and the page can no longer style around GDS (#618, #619)
+
+**#618 — the swatch gradient, fixed at token level** as ruled. `--gds-vibe-hero` is composed for
+a full-width band; painted into a 40px circle its 135° ramp stops being a wash and becomes a hard
+diagonal. That is why 23 presets looked like soft tints and the two gold lanes read as a metallic
+split — they simply have the highest-contrast heroes.
+
+New `--gds-vibe-swatch`: a radial from the centre, so it reads identically at 40px and 400px
+because no axis lets a small box crop it differently. **Derived** from the same `primary`/`accent`
+the rest of the vibe is built from and mixed against the scheme's own surface, so all 25 presets
+carry it in both schemes with no per-preset authoring and no way to drift. A `flatSurfaces` brand
+lane gets an honest flat tint rather than an atmosphere GDS invented for it.
+
+`[data-gds-theme-swatch]` is a **complete** surface — size, radius and border from the governed
+scales, not just a background. A consumer needing one attribute rather than an attribute plus
+their own dimensions is the difference between a governed swatch and a governed colour.
+
+That exposed a blind spot in `verify:token-reachability`: it knew `var(--gds-*)` and
+`getPropertyValue()`, but not a **record lookup**. A component previewing a preset other than the
+active one indexes `getGdsVibeThemeCssVariables()`'s result — the ambient `var()` describes only
+the active theme. `--gds-vibe-hero` had passed solely because `styles.css` references it too, so
+the blindness stayed hidden until a token was consumed *only* through the record. **The mutation
+suite then caught my fix twice** for being too broad: matching every file made the token emitters'
+own indexing count as consumption, and matching every `--gds-*` in components still let an expired
+extension point look referenced. Scoped to `--gds-vibe-*` in components.
+
+**#619 — the badge introduction.** It was a raw `<div>` with `<br />` separators: neither wrapping
+nor scrollable, so badges were cut off with no way to reach them. Rebuilt as documentation — every
+row is a `GdsInline`, and each section states what it demonstrates.
+
+Established rather than assumed, as the decision required: **GDS already had both answers** — 
+`GdsInline`, which wraps by default, and an `overflow-x` rail with a `nowrap` row, which the chip
+groups already use. The introduction used neither. Documented in LAYOUT_PRIMITIVES.md, including
+that any check for this must ask whether the overflowing box *scrolls*, or it reports every
+deliberate rail as a defect. Measured at 390px: of 28 badges, the one outside the viewport is
+inside a scrollable rail — reachable, not broken.
+
+**The page can no longer style around GDS.** `verify:playground-gds-only` read **4 files** and
+checked **2 things**; the playground has 17 source files, so 13 were ungoverned and the property
+held by luck. It now reads every hand-written source file and checks six leak forms — inline
+styles, raw Mantine imports, unsanctioned stylesheets, CSS modules, `<style>` elements and
+CSS-in-JS — with **0 violations**, and comments excluded so it cannot repeat the #615 false
+positive. Verified by planting an inline style in a previously ungoverned file.
+
 ### The map never loaded, and five cards showed a broken-image glyph
 
 Reported from a phone with screenshots.

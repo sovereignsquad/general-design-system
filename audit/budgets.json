@@ -37,10 +37,10 @@
     "tokensWithGaps": {
       "source": "forward-trace.json#/tokensWithGaps",
       "direction": "max",
-      "value": 79,
+      "value": 78,
       "unit": "count",
       "finding": "F11",
-      "justifiedBy": "issue 618: +1 for --gds-vibe-swatch, the new small-surface atmosphere token. It is WIRED (VibeThemePicker consumes it for all 25 presets) but not yet documented on the token reference surface, so it carries the listed/demoed/explained/variationsShown/useCase obligations unmet. Debt written down at the moment it was created, not discovered later. Tracked in issue 618.",
+      "justifiedBy": "issue 618: back to 78. --gds-vibe-swatch was documented rather than left as debt -- THEME_GOVERNANCE.md explains the two atmosphere scales and when to use each, styles.css declares a default and a [data-gds-theme-swatch] surface that references it, and the tokens page lists it. All five obligations (listed/demoed/explained/variationsShown/useCase) are met, so the new token cost nothing.",
       "$comment": "Issue 612 RESOLVED for the drift half: forward-trace.mjs and dimensions.mjs now run inside artifacts:refresh, so this artifact is regenerated every cycle instead of only when someone remembered to run audit:refresh. The caveat this comment used to carry - that the true gap was this figure OR MORE - no longer applies. Proof the drift was real: the committed dimensions.json recorded 1293 site phrase keys while the packs held 1297. STILL OPEN in 612: the 9 gaps themselves (focus-ring x4, density, identity-unresolved, motion-duration-ambient, transition-scope, text-on-support) are recorded, not closed or classified."
     },
     "unreachableTokens": {
