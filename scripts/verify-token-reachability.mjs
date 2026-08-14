@@ -78,8 +78,25 @@ for (const file of [...walk(join(ROOT, 'packages')), ...walk(join(ROOT, 'apps/pl
   // That is a real consumption path, and this gate was blind to it — `--gds-vibe-hero` only
   // ever passed because styles.css happens to reference it too, so the blindness stayed hidden
   // until a token was consumed ONLY through the record.
-  for (const m of text.matchAll(/\[\s*['"`](--gds-[a-zA-Z0-9-]+)['"`]\s*\]/g)) {
-    if (!referenced.has(m[1])) referenced.set(m[1], relative(ROOT, file));
+  //
+  // NARROWED to `.tsx` component files. A first cut matched every file and made the gate far
+  // weaker than intended: the token EMITTERS index the same record when they build it, so
+  // `variables['--gds-x'] = …` counted as consumption and almost every token looked reached.
+  // The gate-mutation suite caught it immediately — the expired-extension-point mutant SURVIVED,
+  // because an expired entry was now "referenced" by the code that declares it. Consumption
+  // means a component rendering with it, so only components are read for this form.
+  // Scoped to `--gds-vibe-*` in components. Two narrowings, each forced by the mutation suite:
+  //   1. Every file — the token EMITTERS index the same record while building it, so
+  //      `variables['--gds-x'] = …` counted as consumption and nearly every token looked reached.
+  //   2. Every `--gds-*` in components — still too broad; an expired extension point in another
+  //      namespace was matched by an unrelated component lookup and the mutant SURVIVED again.
+  // The record-consumption path is specific: `getGdsVibeThemeCssVariables()` returns vibe tokens
+  // and a preview component indexes them for a preset that is not the active one. That is the
+  // only case CSS cannot express, so it is the only case this form covers.
+  if (file.endsWith('.tsx')) {
+    for (const m of text.matchAll(/\[\s*['"`](--gds-vibe-[a-zA-Z0-9-]+)['"`]\s*\]/g)) {
+      if (!referenced.has(m[1])) referenced.set(m[1], relative(ROOT, file));
+    }
   }
 }
 if (!referenced.size) fail('No var(--gds-*) references found. Extraction is broken.');
