@@ -36,6 +36,24 @@ function extractPhrases(source) {
     if (value.includes('\n')) return;
     if (/[{}[\]`]|=>|;\s*$|^\s*,/.test(value)) return;
     if (/^(?:@|\.\/|\/|https?:|mailto:)/.test(value)) return;
+    // Single-token strings are excluded, and issue 617 is the reason to LEAVE them excluded.
+    //
+    // It looks like a bug: "Choir" and "Saved" render in English on an otherwise Korean page
+    // because of this line, while the two-word "Verified host" beside them translates. Widening
+    // it to accept capitalised words was tried and MEASURED — 226 new entries — and roughly a
+    // quarter came back confidently wrong, because a single word carries no context for a
+    // machine translator to disambiguate:
+    //
+    //   Browse    -> 먹다        ("to eat" — grazing, not the nav action)
+    //   About     -> 에 대한      (the preposition, not the page)
+    //   Adoption  -> 양자        (adopting a child)
+    //   Back      -> 뒤쪽에      (positional "at the back", not the action)
+    //   Amenities -> 예의        ("manners")
+    //
+    // Replacing an English fragment with confidently wrong Korean is worse than leaving it in
+    // English: the reader can see the first and cannot see the second. One-word UI vocabulary
+    // belongs in the REVIEWED message catalogue (`getGdsMessages`, 188 keys x 12 locales),
+    // where a human chose the term — not in a machine-translated phrase corpus. Issue 617.
     if (/^[a-z0-9_.:/#?=&${}\-[\]\s]+$/i.test(value) && !/\s/.test(value.trim())) return;
     if (/^(?:id|title|status|draft|published|row-\d+)$/i.test(value.trim())) return;
     if (value.length > 240) return;
