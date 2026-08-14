@@ -121,7 +121,6 @@
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.colors.dark.6 from Mantine's default",
       "files": [
-        "packages/gds-core/src/EditorialCard.tsx",
         "packages/gds-core/src/MediaWithFallback.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-theme/styles.css"
@@ -202,7 +201,6 @@
       "classification": "ungoverned",
       "why": "no GDS theme field maps to this variable",
       "files": [
-        "packages/gds-core/src/EditorialCard.tsx",
         "packages/gds-core/src/icons.ts",
         "packages/gds-theme/styles.css"
       ]
@@ -762,7 +760,6 @@
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.radius.md from Mantine's default",
       "files": [
-        "packages/gds-core/src/EditorialCard.tsx",
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/GdsGeneratedHero.tsx",
         "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
