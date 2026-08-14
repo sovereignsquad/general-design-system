@@ -258,4 +258,5 @@ export const he = {
   'gds.stateBlock.title': "חסרים נתונים",
   'gds.stateBlock.description': "הוסף את הנתונים הדרושים לפני שתצוגה זו תוכל להציג תוצאה אמינה.",
   'gds.uploadDropzone.actionLabel': "בחר קבצים",
+  'gds.gdsMapFilterRail.allLabel': "כֹּל",
 };

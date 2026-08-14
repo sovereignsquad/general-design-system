@@ -258,4 +258,5 @@ export const hu = {
   'gds.stateBlock.title': "Hiányzó adatok",
   'gds.stateBlock.description': "Adja hozzá a szükséges adatokat, mielőtt ez a nézet megbízható eredményt mutatna.",
   'gds.uploadDropzone.actionLabel': "Válasszon fájlokat",
+  'gds.gdsMapFilterRail.allLabel': "Minden",
 };

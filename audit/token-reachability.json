@@ -1,7 +1,7 @@
 {
   "declared": 291,
-  "referenced": 99,
-  "extensionPoints": 143,
+  "referenced": 100,
+  "extensionPoints": 142,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -554,13 +554,6 @@
     },
     {
       "token": "--gds-elevation-panel",
-      "classification": "extension-point",
-      "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-elevation-sheet",
       "classification": "extension-point",
       "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
       "reviewBy": "2027-08-01",

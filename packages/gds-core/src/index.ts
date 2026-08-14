@@ -175,6 +175,8 @@ export * from './PublicFlowShell';
 export * from './PublicCaptureFlow';
 export * from './MapPanel';
 export * from './GdsMapBasemapWash';
+export * from './GdsMapFilterRail';
+export * from './GdsMapPinPreviewCard';
 
 // ── Partner surfaces ──
 export * from './PartnerDiscovery';

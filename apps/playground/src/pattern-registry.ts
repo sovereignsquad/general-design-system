@@ -583,7 +583,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Public Shells & Docs',
     summary: 'Governed map surface on Leaflet with OpenStreetMap raster tiles, an inseparable ODbL credit, and a labelled announced region.',
     importPath: '@sovereignsquad/gds-core/map',
-    sourceComponent: 'GdsMap, GdsMapBasemapWash',
+    sourceComponent: 'GdsMap, GdsMapBasemapWash, GdsMapFilterRail, GdsMapPinPreviewCard',
   },
   {
     id: 'accent-contrast-matrix',

@@ -258,4 +258,5 @@ export const ko = {
   'gds.stateBlock.title': "누락된 데이터",
   'gds.stateBlock.description': "이 보기가 신뢰할 수 있는 결과를 표시하려면 필요한 데이터를 추가하세요.",
   'gds.uploadDropzone.actionLabel': "파일 선택",
+  'gds.gdsMapFilterRail.allLabel': "모두",
 };

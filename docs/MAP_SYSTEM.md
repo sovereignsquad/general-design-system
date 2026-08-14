@@ -151,13 +151,37 @@ failure (offline, CSP, ad-blocker) and preserving the CONTENT via the list view 
 showing a broken grid — is issue **570**. Until it lands, a product whose tiles fail shows the
 tiles' failure, not a governed state; that absence is recorded here rather than papered over.
 
-## 9. The rest of the programme
+## 9. The rail and the preview card
+
+**`GdsMapFilterRail`** (issue 547, shipped): horizontally scrolling filter pills composed on
+`PillBar` — which already owns the scrollable roving-tabindex radiogroup and the
+contrast-correct selected treatment — plus the rail contract: an "All" pseudo-option always
+first (consumers speak `null`, never a sentinel), counts rendered into labels when supplied
+(the "All" total only when *every* option carries a count — a partial sum reads as a total and
+is not one), and a ResizeObserver-backed `onHeightChange` so the consumer insets the map
+viewport by the rail's real height — the half of the spec that needs rail/map coordination.
+Counts are the consumer's and are expected to follow the map bounds; recomputing them is data
+logic (§1).
+
+**`GdsMapPinPreviewCard`** (issue 548, shipped): what opens when a pin is tapped. Composed,
+not built — the generated-imagery thumbnail with `badges="none"` (at this tile size badge
+pills keep their real type size and become clutter; the activity is named in text on the meta
+line), `GdsSavedIndicator` beside the primary action, `MeaningBadge` for trust, and the
+elevation axis's `sheet` role for the surface shadow. Every field has a defined absent
+treatment: no categories → no media region, no trust badge → row omitted (the absence of a
+claim is not a claim), no price and no last-checked → no estimate block, `loading` → a
+same-shape skeleton. Control labels are consumer-supplied and required — the same
+no-shipped-English rule the pin's `label` follows.
+
+Both are proven on the reference site's gds-map demo as one composition over one data set:
+the rail's counts come from the markers the map renders, and selecting a pin opens that pin's
+own card.
+
+## 10. The rest of the programme
 
 | Issue | What it adds |
 | --- | --- |
-| **547** | `GdsMapFilterRail` — the scrolling filter pills over the map |
-| **548** | `GdsMapPinPreviewCard` — the tap-a-pin preview card |
-| **550** | Neighborhood-fill colour recipe + no-clustering architecture notes |
+| **550** | Neighborhood-fill colour recipe + no-clustering architecture notes (partly §6) |
 | **569** | Themed basemap presentation beyond the wash |
 | **570** | Offline / blocked-tile degradation |
 

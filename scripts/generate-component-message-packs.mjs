@@ -91,14 +91,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     process.exit(1);
   }
 
-  const english = readPack('en');
-  const missing = [...defaults].filter(([id]) => !english.entries.has(id));
-  console.log(`${defaults.size} message ids in source; ${missing.length} missing from the packs.`);
+  console.log(`${defaults.size} message ids in source.`);
 
+  // Per LOCALE, against every source id — never against en's pack. A first version computed
+  // one "missing" list from en, so a run that appended en but failed one locale's translate
+  // call left that locale short FOREVER: the next run saw en complete and appended nothing.
+  // zh was in exactly that state when the parity gate caught it.
   for (const locale of ['en', ...TRANSLATION_LOCALES]) {
     const pack = readPack(locale);
     const additions = [];
-    for (const [id, text] of missing) {
+    for (const [id, text] of defaults) {
       if (pack.entries.has(id)) continue;
       additions.push([id, locale === 'en' ? text : await translate(text, locale)]);
     }

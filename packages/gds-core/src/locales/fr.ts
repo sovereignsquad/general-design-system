@@ -258,4 +258,5 @@ export const fr = {
   'gds.stateBlock.title': "Données manquantes",
   'gds.stateBlock.description': "Ajoutez les données requises avant que cette vue puisse afficher un résultat fiable.",
   'gds.uploadDropzone.actionLabel': "Choisir des fichiers",
+  'gds.gdsMapFilterRail.allLabel': "Tous",
 };

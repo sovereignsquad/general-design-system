@@ -258,4 +258,5 @@ export const ar = {
   'gds.stateBlock.title': "بيانات مفقودة",
   'gds.stateBlock.description': "قم بإضافة البيانات المطلوبة قبل أن يتمكن هذا العرض من إظهار نتيجة موثوقة.",
   'gds.uploadDropzone.actionLabel': "اختر الملفات",
+  'gds.gdsMapFilterRail.allLabel': "الجميع",
 };
