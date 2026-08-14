@@ -8,7 +8,16 @@
 // re-run, and the mutant is KILLED if the analysis result changes in the expected
 // direction. The original file is always restored.
 //
-// Output: audit/mutation-score.json
+// Output: audit/static-analysis-mutation-score.json
+//
+// THREE mutation-score artifacts exist and measure three different instruments (issue 603):
+//   static-analysis-mutation-score.json — this file: mutants against the audit's STATIC analyses
+//     (registry extraction, forward trace), re-run in place with no rebuild.
+//   render-mutation-score.json — mutants that require a REBUILD and headless Chrome, validating
+//     the render-time backward trace (scripts/audit/render-mutants.mjs).
+//   gate-mutation-score.json — mutants against the RELEASE-CHAIN GATES (scripts/verify-gates.mjs).
+// They are not the same measurement recorded twice; this one was renamed from the generic
+// mutation-score.json, whose name claimed the whole subject while covering a third of it.
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -97,7 +106,14 @@ const MUTANTS = [
     file: 'apps/playground/src/generated-site-phrases/es.ts', analysis: 'dimensions',
     // A site pack maps English phrase -> translation, so the leak signal is key === value.
     // The previous mutant changed both sides to DIFFERENT strings and could never trip it.
-    find: '"Live Demos": "Demostraciones en vivo"', replace: '"Live Demos": "Live Demos"',
+    // Re-anchored twice, both times instructive. The original anchor "Live Demos" was renamed
+    // by issue 606, silently invalidating the mutant — INVALID was only noticed when the
+    // artifact was regenerated for issue 603. The first replacement, "Live proofs", RAN but
+    // SURVIVED: at two words it fails the measure's isProse rule (>= 3 words, one lowercase),
+    // so the planted leak was excluded by design, not missed. The anchor must be a phrase the
+    // measure actually counts — prose with peer evidence — and there is still no rename-proof
+    // choice, so the INVALID/SURVIVED statuses existing at all are the protection.
+    find: '"Badges across themes": "Insignias por temas"', replace: '"Badges across themes": "Badges across themes"',
     detect: (b, m) => {
       const be = b.languageVariants.englishLeakage.find((x) => x.corpus === 'site' && x.locale === 'es');
       const me = m.languageVariants.englishLeakage.find((x) => x.corpus === 'site' && x.locale === 'es');
@@ -186,7 +202,7 @@ for (const f of ARTIFACTS) {
     process.exit(1);
   }
 }
-writeFileSync(join(ROOT, 'audit/mutation-score.json'), JSON.stringify(report, null, 2));
+writeFileSync(join(ROOT, 'audit/static-analysis-mutation-score.json'), JSON.stringify(report, null, 2));
 
 console.log('');
 console.log(`Phase 5 mutation score: ${killed.length}/${applicable.length} = ${report.mutationScore}%`);

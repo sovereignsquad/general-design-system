@@ -4,6 +4,47 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Compliance rules no longer read comments as code (#615)
+
+Two releases went red on rule matches inside comments: `#600` — a GitHub issue reference — read
+as a three-digit hex by the raw-colour rule, and "`<select>`'s options" in a comment read as a
+native control. `gds-compliance` now lexes comments out (a real string-aware state machine, not
+a regex — `https://` inside a string must survive) before any of its six source scanners run;
+the markdown documentation scanner is untouched. Regression test added and mutation-checked:
+neutering the stripper fails the suite. Decision recorded: `packages/**` stays outside consumer
+compliance scanning because the packages are the colour/control *authority* the rules exist to
+route consumers toward — scanning the authority with consumer rules is a category error.
+
+### The Mantine compat gate now separates install failures from compatibility results (#604)
+
+`verify-mantine8-compat` re-resolves a full dependency tree from the registry by design ("a
+fresh consumer install works"), which let a registry hiccup (`ETARGET` on a version that
+existed) read as a red compatibility result on `main`. Installs now retry twice with backoff,
+and a failure that survives is reported as `DEPENDENCY INSTALL FAILED … NOT a Mantine
+compatibility result — the compatibility check never ran`. Demonstrated with an unresolvable
+pin: three attempts, then the classified message. The build step — the actual compatibility
+check — is unchanged and still fails on real incompatibility.
+
+### Three mutation-score artifacts, three different instruments — now named so (#603)
+
+`mutation-score.json` measured mutants against the audit's *static analyses* while its name
+claimed the whole subject; renamed to `static-analysis-mutation-score.json`, with the
+three-instrument map recorded in `scripts/audit/mutate.mjs`. Regenerating it surfaced that
+mutant M7's anchor — the phrase "Live Demos" — had been silently invalidated by #606's rename,
+and the first re-anchor ("Live proofs", two words) *ran but survived* because the leakage
+measure's own `isProse` rule excludes sub-three-word phrases by design. Re-anchored on counted
+prose; KILLED again, score back at 85.7%, both lessons written at the mutant.
+
+### The nine forward-trace gaps are classified, and the /live-demos URLs redirect (#612, #606)
+
+Each of #612's nine token gaps now carries a verified reason and a review date in
+`scripts/audit/forward-trace.config.mjs` — classified means *explained, not excused*: they still
+count in `tokensWithGaps`, the ratchet still only moves by closing one, and an expired or stale
+classification is dropped at trace time. And closing #606 surfaced that the `/live-demos` →
+`/live-proofs` rename had shipped **without redirects** — exactly what the issue said must not
+happen. The whole legacy family now redirects (verified live: `/live-demos`,
+`/live-demos/analytics`, `/live-demos/food` all land on their renamed counterparts).
+
 ### The viewport-reachability gate ships, and it found real defects on its first run (#619)
 
 The follow-up #619 owed: a gate that fails when a governed surface makes content unreachable at

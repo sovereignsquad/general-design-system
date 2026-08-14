@@ -132,7 +132,32 @@ try {
       ),
     );
 
-    execFileSync('npm', ['install'], { cwd: appDir, stdio: 'inherit' });
+    // Issue 604 — the install and the compat check are DIFFERENT failure classes and must never
+    // read as each other. This install re-resolves a full transitive tree from the registry
+    // (deliberately: the point is "a fresh consumer install works"), which means it can fail on
+    // registry state alone — run 31689858068 went red on ETARGET for @tiptap/pm@3.30.1, a
+    // version that existed, on a commit whose re-run passed. A retry with backoff absorbs that
+    // class; a failure that survives the retries is reported as an INSTALL failure by name, so
+    // it can never be waved through as (or mistaken for) a Mantine incompatibility — the
+    // wave-through habit being the expensive half of a known-flaky gate.
+    let installed = false;
+    for (let attempt = 1; attempt <= 3 && !installed; attempt += 1) {
+      try {
+        execFileSync('npm', ['install', '--no-audit', '--no-fund'], { cwd: appDir, stdio: 'inherit' });
+        installed = true;
+      } catch (error) {
+        if (attempt === 3) {
+          console.error(
+            `${matrix.label}: DEPENDENCY INSTALL FAILED after ${attempt} attempts. This is a registry/`
+            + 'network resolution failure, NOT a Mantine compatibility result — the compatibility '
+            + 'check never ran. Retry the job before investigating this repository.',
+          );
+          throw error;
+        }
+        console.warn(`${matrix.label}: install attempt ${attempt} failed; retrying in ${attempt * 15}s.`);
+        execFileSync('sleep', [String(attempt * 15)]);
+      }
+    }
     execFileSync('npm', ['run', 'build'], { cwd: appDir, stdio: 'inherit' });
     console.log(`${matrix.label} compatibility smoke passed.`);
   }

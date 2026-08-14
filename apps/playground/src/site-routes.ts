@@ -116,6 +116,10 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'live-proofs',
     navGroup: 'primary',
     activePrefixes: ['/live-proofs'],
+    // Issue 606 renamed the public /live-demos URL family; these keep every pre-rename link
+    // working. The rename shipped without them, which broke exactly what the issue said must
+    // not break — found while closing it.
+    legacyPaths: ['/live-demos'],
   },
   {
     id: 'request-feature',
@@ -143,7 +147,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'live-proofs',
     navGroup: 'secondary',
     activePrefixes: ['/live-proofs/surfaces'],
-    legacyPaths: ['/cards'],
+    legacyPaths: ['/cards', '/live-demos/surfaces'],
   },
   {
     id: 'demo-layouts',
@@ -153,7 +157,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'live-proofs',
     navGroup: 'secondary',
     activePrefixes: ['/live-proofs/layouts'],
-    legacyPaths: ['/layouts'],
+    legacyPaths: ['/layouts', '/live-demos/layouts'],
   },
   {
     id: 'demo-semantics',
@@ -163,7 +167,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'live-proofs',
     navGroup: 'secondary',
     activePrefixes: ['/live-proofs/semantics'],
-    legacyPaths: ['/vocabulary'],
+    legacyPaths: ['/vocabulary', '/live-demos/semantics'],
   },
   {
     id: 'demo-food',
@@ -173,6 +177,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'live-proofs',
     navGroup: 'secondary',
     activePrefixes: ['/live-proofs/food'],
+    legacyPaths: ['/live-demos/food'],
   },
   {
     id: 'demo-playback',
@@ -182,6 +187,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'live-proofs',
     navGroup: 'secondary',
     activePrefixes: ['/live-proofs/playback'],
+    legacyPaths: ['/live-demos/playback'],
   },
   {
     id: 'demo-analytics',
@@ -191,7 +197,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'live-proofs',
     navGroup: 'secondary',
     activePrefixes: ['/live-proofs/analytics'],
-    legacyPaths: ['/analytics'],
+    legacyPaths: ['/analytics', '/live-demos/analytics'],
   },
 ];
 

@@ -19,7 +19,7 @@ Environment: local build + deployed site `sovereignsquad.github.io/general-desig
 | 4b — i18n | **Complete** (parity + leakage only) | `audit/dimensions.json` |
 | 4c — Theme control | **Complete** | `audit/dimensions.json` |
 | 4d — Underived | **Complete** | `audit/dimensions.json` |
-| 5 — Mutation | **Run — FAILED its own gate** | `audit/mutation-score.json`, 85.7% vs 100% required |
+| 5 — Mutation | **Run — FAILED its own gate** | `audit/static-analysis-mutation-score.json`, 85.7% vs 100% required |
 | 6 — Completeness critic | **Complete** | `audit/completeness-critique.md` |
 
 > ## VERDICT: the audit does not pass its own gate
