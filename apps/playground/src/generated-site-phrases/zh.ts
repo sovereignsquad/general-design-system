@@ -193,6 +193,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Badges in overlays": "叠加中的徽章",
   "Badges on a map": "地图上的徽章",
   "Badges on cards": "卡片上的徽章",
+  "badges=\"none\" — the fallback-image case": "badges=\"none\" — the fallback-image case",
   "Balanced, neutral baseline lane.": "平衡、中立的基线车道。",
   "Balanced, protein-forward dish with transparent prep and pickup expectations.": "均衡的蛋白质前菜，具有透明的准备和取货预期。",
   "Bar chart": "条形图",

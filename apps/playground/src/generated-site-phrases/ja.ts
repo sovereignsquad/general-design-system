@@ -193,6 +193,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Badges in overlays": "オーバーレイのバッジ",
   "Badges on a map": "地図上のバッジ",
   "Badges on cards": "カードのバッジ",
+  "badges=\"none\" — the fallback-image case": "Badges=\"none\" — フォールバック画像のケース",
   "Balanced, neutral baseline lane.": "バランスの取れたニュートラルなベースラインレーン。",
   "Balanced, protein-forward dish with transparent prep and pickup expectations.": "準備と摂取の期待が明確な、バランスのとれたタンパク質重視の料理。",
   "Bar chart": "棒グラフ",
