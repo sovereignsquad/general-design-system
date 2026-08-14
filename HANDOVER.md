@@ -231,6 +231,16 @@ Still open:
 
 ### The largest block: the map system (#544 tracker)
 
+**Update, closing pass 2 (2026-08-14 evening):** #545 (pin state contract), #549 (basemap
+wash) and #572 (`docs/MAP_SYSTEM.md` as SSOT) are now CLOSED and deployed. #611 closed on the
+owner's approval. Also closed this pass: #552 (focus ring un-gated from hydration + a no-JS
+fixture gate), #551 (class-usa owns its radius scale), #543 (positive literal-values
+allowlist), #598 (stale-theme-value detector, planted-mutant proven). What remains of the map
+programme is #547 (filter rail), #548 (pin preview card), #550 (fill recipe + no-clustering
+notes — the notes are now partly in MAP_SYSTEM.md §6), #569 (themed basemap beyond the wash),
+#570 (offline/blocked-tile degradation). MAP_SYSTEM.md states each absence and must be updated
+as each lands — a "not built yet" section outliving its issue is a defect in that document.
+
 `GdsMap` (Leaflet + real OSM tiles), the tile-source contract, keyboard and
 text-equivalent access, and `GdsPinSystemReference` have **shipped**, exported
 from the **`@sovereignsquad/gds-core/map` subpath** (not the root index —
