@@ -30,7 +30,7 @@ export interface MapPanelProps {
    * never in the accessibility tree. See `docs/MAP_SYSTEM.md` §6 (issue 550).
    */
   renderMap?: () => ReactNode;
-  /** Minimum height of the custom map body. Defaults to `320`. */
+  /** Minimum height of the custom map body. Defaults to a scale-aware 20rem (issue 569). */
   minHeight?: number | string;
 }
 
@@ -46,7 +46,7 @@ export function MapPanel({
   iframeSrc,
   iframeSandbox = 'allow-scripts allow-same-origin allow-popups',
   renderMap,
-  minHeight = 320,
+  minHeight = 'calc(20rem * var(--mantine-scale, 1))',
 }: MapPanelProps) {
   let body: ReactNode;
 
