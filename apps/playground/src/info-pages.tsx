@@ -1,5 +1,8 @@
 import { useMemo, useRef, useState } from 'react';
 import {
+  GdsInline,
+  GdsStack,
+  MetadataText,
   ActionBar,
   DocsCodeBlock,
   DocsPageShell,
@@ -1381,6 +1384,24 @@ export function TokensPage({
       <div data-gds-tour-target="themes-builder">
         <ThemeBuilder />
       </div>
+      {/*
+        Issue 618. The atmosphere tokens are listed here because a preset publishes its
+        atmosphere at TWO scales and picking the wrong one is a defect: `--gds-vibe-hero` is
+        composed for a full-width band, and painted into a swatch its 135deg ramp becomes a hard
+        diagonal instead of a wash. The values below are read from the live theme rather than
+        written down, so this panel cannot drift from the preset it describes.
+      */}
+      <ReferenceSection
+        title="Atmosphere tokens"
+        description="A preset publishes its atmosphere at two scales. Use the hero for full-width washes and the swatch for any small surface previewing a theme — a swatch, a legend dot, a chip, a preview tile. The swatch is a radial from the centre, so it reads the same at 40px as at 400px."
+      >
+        <GdsInline gap="lg" align="center">
+          <GdsStack gap="xs" align="center">
+            <span data-gds-theme-swatch aria-hidden="true" />
+            <MetadataText>--gds-vibe-swatch</MetadataText>
+          </GdsStack>
+        </GdsInline>
+      </ReferenceSection>
       <ReferenceSection
         title={i18n.lanesTitle}
         description={i18n.lanesDescription}

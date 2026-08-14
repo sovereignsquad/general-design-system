@@ -122,6 +122,50 @@ type ExperienceOverrideContract = {
 
 This is a governance contract first. Products still own storage and moderation, but they may not use that as justification for replacing GDS-owned application structure.
 
+## Atmosphere has a scale (owner directive, 2026-08-14)
+
+A preset's atmosphere is published at **two** scales, and using the wrong one is a defect rather
+than a preference.
+
+| Token | Composed for | Use it for |
+| --- | --- | --- |
+| `--gds-vibe-hero` | a full-width band | page washes, hero sections, anything hundreds of pixels wide |
+| `--gds-vibe-swatch` | a small box | swatches, legend dots, chips, preview tiles — any surface previewing a theme at small size |
+
+### Why the second one exists
+
+`--gds-vibe-hero` is a `linear-gradient(135deg, …)`. Across a hero band that ramp is a
+barely-perceptible wash. Painted into a 40px circle the same ramp becomes a **hard diagonal**,
+because a small box crops a long gradient rather than sampling it. The Theme Lab swatch grid
+showed this exactly: 23 presets looked like soft tints and the two gold lanes — whose heroes have
+the most contrast in the catalogue — read as a metallic split.
+
+That is a **scale mismatch**, not a colour problem, and before this token there was nothing else
+to reach for: any small surface wanting the atmosphere had to borrow the hero and inherit its
+geometry.
+
+`--gds-vibe-swatch` is a **radial from the centre**, which reads identically at 40px and at
+400px because there is no axis along which a small box can crop it differently. It is **derived**
+from the same `primary`/`accent` the rest of the vibe is built from, mixed against the scheme's
+own surface — so all 25 presets carry it in both schemes with no per-preset authoring and no way
+for it to drift from the preset it describes.
+
+A `flatSurfaces` brand lane (Class USA, Gold Athlete) has no atmosphere by definition, so it gets
+an honest flat tint rather than a gradient GDS invented for it — the same reasoning that
+neutralises `glow` and `gradient` for those lanes.
+
+### Consuming it
+
+Apply `[data-gds-theme-swatch]` and the governed value is used for you:
+
+```html
+<span data-gds-theme-swatch></span>
+```
+
+Or read the token directly. A component previewing a preset **other** than the active one asks
+`getGdsVibeThemeCssVariables(preset, scheme)` for that preset's values, which is what
+`VibeThemePicker` does for all 25 swatches — the ambient `var()` describes the active theme only.
+
 ## Font lanes must cover every supported language (owner directive, 2026-08-13)
 
 **Only a font stack that supports 100% of the languages GDS ships may be a font lane. There is

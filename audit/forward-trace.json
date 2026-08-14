@@ -3,10 +3,10 @@
   "darkSiblingsExcluded": 34,
   "cellsEvaluated": 415,
   "obligationsSatisfied": {
-    "listed": 71,
-    "demoed": 62,
-    "explained": 52,
-    "variationsShown": 37,
+    "listed": 72,
+    "demoed": 63,
+    "explained": 54,
+    "variationsShown": 38,
     "useCase": 6
   },
   "confidence": {
@@ -135,25 +135,6 @@
       ]
     },
     {
-      "token": "--gds-vibe-swatch",
-      "role": "vibe-swatch",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-badge-stack-size",
       "role": "badge-stack-size",
       "declaredIn": [
@@ -265,24 +246,6 @@
       "role": "vibe-success",
       "declaredIn": [
         "styles.css"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": true,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "explained",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-vibe-hero",
-      "role": "vibe-hero",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
       ],
       "listed": true,
       "demoed": false,
@@ -578,6 +541,23 @@
       "useCase": false,
       "gaps": [
         "explained",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-hero",
+      "role": "vibe-hero",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "demoed",
         "useCase"
       ]
     },
@@ -1311,6 +1291,22 @@
       "role": "motion-duration-fast",
       "declaredIn": [
         "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-swatch",
+      "role": "vibe-swatch",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,

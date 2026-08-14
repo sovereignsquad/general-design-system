@@ -169,6 +169,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Athlete Gold reference surface": "Athlete Gold referencia felület",
   "Athlete IQ": "Sportoló IQ",
   "Athlete metrics compared against the squad benchmark.": "A sportolók mutatói a csapat benchmarkhoz képest.",
+  "Atmosphere tokens": "Atmoszféra jelzők",
   "Attention": "Figyelem",
   "Audience": "Közönség",
   "Aurora teal": "Aurora kékeszöld",

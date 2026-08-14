@@ -169,6 +169,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Athlete Gold reference surface": "运动员金参考面",
   "Athlete IQ": "运动员智商",
   "Athlete metrics compared against the squad benchmark.": "运动员指标与球队基准进行比较。",
+  "Atmosphere tokens": "气氛代币",
   "Attention": "注意力",
   "Audience": "观众",
   "Aurora teal": "极光青色",
