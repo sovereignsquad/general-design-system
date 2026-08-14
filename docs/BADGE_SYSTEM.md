@@ -139,6 +139,37 @@ separated wheels) render past that circle's own boundary above roughly
 on the widest icons actually shipped here and confirming they stay inside
 it, not by centering only round/symmetric icons and assuming the rest fit.
 
+### Marker states: silhouette and scale, never the hue (issue 545)
+
+The state contract's governing rule, inherited from the source spec and enforced by test
+(`GdsMapPinBadge.state.test.tsx`): **the fill belongs to the activity — state is carried by
+silhouette and scale.** A pin's accent means the same category in the synced list, the badges,
+and the map; a state that repainted it would make "selected" read as a different category.
+
+```tsx
+<GdsMapPinBadge accent="forest" icon="Location" label="Idle" filled />
+<GdsMapPinBadge accent="forest" icon="Location" label="Hovered" filled state="hovered" />
+<GdsMapPinBadge accent="forest" icon="Location" label="Selected" filled state="selected" />
+<GdsMapPinBadge accent="forest" icon="Location" label="Approximate" state="approximate" />
+```
+
+- `'hovered'` — stroke steps to `2.25` and darkens **one step down the same accent's shade
+  ladder** (saturating at `deepest`). The spec's fixed navy hover was rejected as
+  brand-hardcoded: a cross-theme primitive darkens the accent it already has, on the existing
+  WCAG-verified steps, with no new token to govern.
+- `'selected'` — the marker scales by `GDS_PIN_SELECTED_SCALE` around the **tail tip**
+  (`transform-origin: 50% 100%`), so the anchored geographic point does not move, with the same
+  `2.25` stroke. The spec's orange selected *fill* was rejected for violating the spec's own
+  principle above.
+- `'approximate'` — the solid accent stroke becomes a **dashed neutral** one (the same fixed
+  dark-neutral the emoji disc uses); the icon keeps the accent, so the category stays readable
+  while the silhouette carries the uncertainty.
+- **Saved is not a state.** A pin can be saved *while* hovered or selected, and saving is a
+  user action with its own governed, labelled control:
+  `<GdsSavedIndicator mode="corner" anchor={<GdsMapPinBadge …/>} />` (issue 546).
+- **No emoji mapped is not a state either** — it is the existing issue-525 fallback: a marker
+  whose glyph mode is `'emoji'` but which has no `emoji` prop keeps rendering its Tabler icon.
+
 ### Within-accent differentiation: `shade`, not transparency
 
 `accent` is coarse by design — 10 slots for top-level categories, so a map

@@ -4,6 +4,22 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### GdsMapPinBadge carries the full state contract (#545)
+
+`state?: 'idle' | 'hovered' | 'selected' | 'approximate'`, governed by the source spec's own
+principle, now enforced by test: **the fill belongs to the activity — state is carried by
+silhouette and scale**, so no state ever repaints the category's hue. Hover widens the stroke
+to 2.25 and darkens it one step down the *same accent's* shade ladder (the spec's fixed navy
+was rejected as brand-hardcoded; the ladder's steps are already WCAG-verified and need no new
+token). Selected scales the marker by 1.15 **around the tail tip**, so the anchored geographic
+point holds still (a center-origin scale would drift the point the pin exists to mark). 
+Approximate swaps the solid accent stroke for a dashed neutral while the icon keeps the accent.
+Saved is deliberately NOT a state — it composes `GdsSavedIndicator mode="corner"` (issue 546),
+because a pin can be saved while hovered. `GdsBadgeShapePin` needed no change: Tabler's
+component forwards `strokeDasharray`, verified by test rather than assumed. Documented in
+`docs/BADGE_SYSTEM.md` and proven live in `GdsPinSystemReference`'s new states row, with the
+selected-scale constant surfaced from the export rather than retyped.
+
 ### The focus ring no longer waits for JavaScript (#552)
 
 `styles.css` gated its governed focus rules on `html[data-gds-theme-preset]` — an attribute set
