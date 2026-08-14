@@ -59,10 +59,19 @@ describe('public site routes', () => {
     expect(getLegacyRedirects()).toEqual([
       { legacyPath: '/tokens', to: '/themes' },
       { legacyPath: '/rulebook', to: '/governance' },
+      // Issue 606: the public /live-demos family was renamed to /live-proofs, and the rename
+      // initially shipped WITHOUT these redirects — the exact break the issue forbade.
+      { legacyPath: '/live-demos', to: '/live-proofs' },
       { legacyPath: '/cards', to: '/live-proofs/surfaces' },
+      { legacyPath: '/live-demos/surfaces', to: '/live-proofs/surfaces' },
       { legacyPath: '/layouts', to: '/live-proofs/layouts' },
+      { legacyPath: '/live-demos/layouts', to: '/live-proofs/layouts' },
       { legacyPath: '/vocabulary', to: '/live-proofs/semantics' },
+      { legacyPath: '/live-demos/semantics', to: '/live-proofs/semantics' },
+      { legacyPath: '/live-demos/food', to: '/live-proofs/food' },
+      { legacyPath: '/live-demos/playback', to: '/live-proofs/playback' },
       { legacyPath: '/analytics', to: '/live-proofs/analytics' },
+      { legacyPath: '/live-demos/analytics', to: '/live-proofs/analytics' },
     ]);
   });
 

@@ -41,7 +41,7 @@
       "unit": "count",
       "finding": "F11",
       "justifiedBy": "issue 618: back to 78. --gds-vibe-swatch was documented rather than left as debt -- THEME_GOVERNANCE.md explains the two atmosphere scales and when to use each, styles.css declares a default and a [data-gds-theme-swatch] surface that references it, and the tokens page lists it. All five obligations (listed/demoed/explained/variationsShown/useCase) are met, so the new token cost nothing.",
-      "$comment": "Issue 612 RESOLVED for the drift half: forward-trace.mjs and dimensions.mjs now run inside artifacts:refresh, so this artifact is regenerated every cycle instead of only when someone remembered to run audit:refresh. The caveat this comment used to carry - that the true gap was this figure OR MORE - no longer applies. Proof the drift was real: the committed dimensions.json recorded 1293 site phrase keys while the packs held 1297. STILL OPEN in 612: the 9 gaps themselves (focus-ring x4, density, identity-unresolved, motion-duration-ambient, transition-scope, text-on-support) are recorded, not closed or classified."
+      "$comment": "Issue 612 RESOLVED for the drift half: forward-trace.mjs and dimensions.mjs now run inside artifacts:refresh, so this artifact is regenerated every cycle instead of only when someone remembered to run audit:refresh. The caveat this comment used to carry - that the true gap was this figure OR MORE - no longer applies. Proof the drift was real: the committed dimensions.json recorded 1293 site phrase keys while the packs held 1297. 612 CLOSED: the 9 gaps (focus-ring x4, density, identity-unresolved, motion-duration-ambient, transition-scope, text-on-support) are classified in scripts/audit/forward-trace.config.mjs with verified reasons and review dates (2026-11-01). Classified means explained, not excused - they still count here, and this ratchet only moves down by actually closing one."
     },
     "unreachableTokens": {
       "source": "token-reachability.json#/unreachableCount",
@@ -96,7 +96,7 @@
       "$comment": "MEASUREMENT CHANGED, stated per the F24 rule. The old 3.8% counted every value byte-identical to its English source. That put ~46 non-defects per pack into the number: emails, `Cmd+1`, `npm run verify:references`, component-name lists, and in the package corpus genuine cognates - `Pause`, `Filter` and `Message` are real German and French words. Of 15 package values it flagged, ONE was a real defect. The metric now requires peer evidence that the phrase is translatable (another locale rendered it differently, compared on letters only so an Arabic comma is not mistaken for a translation) plus a script-aware test: any English left in a non-Latin pack is a miss, while a Latin pack is only flagged for prose. The two numbers answer different questions and must never be compared. Remaining: 7 in site/he that machine translation cannot resolve (issue 611) and 2 German loanword phrases, both recorded with reasons in scripts/i18n-leakage.config.mjs."
     },
     "phase5MutationScore": {
-      "source": "mutation-score.json#/mutationScore",
+      "source": "static-analysis-mutation-score.json#/mutationScore",
       "direction": "min",
       "value": 85.7,
       "unit": "%",

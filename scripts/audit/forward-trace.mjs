@@ -9,6 +9,7 @@
 
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { GAP_CLASSIFICATIONS } from './forward-trace.config.mjs';
 
 const ROOT = new URL('../..', import.meta.url).pathname;
 
@@ -104,13 +105,25 @@ for (const [name, meta] of tokens) {
     return /use (this|it|when)|used for|use to|apply (this|it|when)|for the |reserved for/.test(window);
   })();
 
+  const gaps = [
+    !listedSimple && 'listed', !demoed && 'demoed', !explained && 'explained',
+    !variationsShown && 'variationsShown', !useCase && 'useCase',
+  ].filter(Boolean);
+
+  // Classified means EXPLAINED, not excused (issue 612): the row still counts as a gap
+  // everywhere gaps are counted. An expired classification is dropped so a stale reason
+  // cannot keep standing in for a look nobody has taken; a classification on a token whose
+  // gaps have since closed would be equally stale and is dropped the same way.
+  const classification = GAP_CLASSIFICATIONS[name];
+  const classified = classification && gaps.length > 0 && Date.parse(classification.reviewBy) >= Date.now()
+    ? { reason: classification.reason, reviewBy: classification.reviewBy }
+    : undefined;
+
   rows.push({
     token: name, role, declaredIn: [...new Set(meta.declaredIn)],
     listed: listedSimple, demoed, explained, variationsShown, useCase,
-    gaps: [
-      !listedSimple && 'listed', !demoed && 'demoed', !explained && 'explained',
-      !variationsShown && 'variationsShown', !useCase && 'useCase',
-    ].filter(Boolean),
+    gaps,
+    ...(classified ? { classification: classified } : {}),
   });
 }
 
@@ -134,6 +147,9 @@ const report = {
   publishedRoleOverlap: null,
   tokensSatisfyingAll: complete.length,
   tokensWithGaps: rows.length - complete.length,
+  gapsClassified: rows.filter((r) => r.classification).length,
+  classificationsExpiredOrStale: Object.keys(GAP_CLASSIFICATIONS)
+    .filter((t) => !rows.some((r) => r.token === t && r.classification)),
   rows: rows.sort((a, b) => b.gaps.length - a.gaps.length),
 };
 

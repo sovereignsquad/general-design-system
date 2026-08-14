@@ -466,7 +466,7 @@ the audit is not fit to report until the corresponding phase is fixed. Additiona
 randomly generated mutants are scored separately and reported, with a target of
 ≥ 90%.
 
-**Evidence.** `audit/mutation-score.json` — per-mutant kill/survive, and for each
+**Evidence.** `audit/static-analysis-mutation-score.json` — per-mutant kill/survive, and for each
 survivor the phase that should have caught it.
 
 ---
@@ -499,7 +499,7 @@ complete by omission.
 | `audit/forward-trace.json` | The 5-obligation matrix |
 | `audit/coverage-array.json` | Achieved *t*-way coverage + skipped cells |
 | `audit/dimensions.json` | Motion, i18n, theme-control, underived sweeps |
-| `audit/mutation-score.json` | Proof the audit detects defects |
+| `audit/static-analysis-mutation-score.json` | Proof the audit detects defects |
 | `audit/completeness-critique.md` | What the audit did not cover |
 | `audit/FINDINGS.md` | Ranked findings, each with file, line, evidence, and fix |
 

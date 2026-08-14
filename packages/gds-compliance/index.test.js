@@ -950,4 +950,45 @@ describe('@sovereignsquad/gds-compliance strict mode', () => {
     expect(markdown).toContain('# GDS Adoption Report');
     expect(markdown).toContain('Top remediation steps');
   });
+
+  // Issue 615 — two releases went red on rule matches INSIDE COMMENTS: `#600` (an issue
+  // reference) read as a three-digit hex by the raw-colour rule, and "`<select>`'s options" in a
+  // comment read as a native control. Comments are not code; only code is scanned.
+  it('ignores rule-shaped text inside comments while still failing on the same shape in code', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '2.6.7',
+        productArchetype: 'admin',
+        requiredContracts: [],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-05-27',
+        compliance: { strictMode: true },
+      }, null, 2),
+      'src/commented.tsx': `
+        // Was static-reference under #600: the frame was built (#609) rather than staged.
+        /* A <select>'s options include the locale names; <button> markup is shown for contrast. */
+        // background: rgba(0, 0, 0, 0.4) was the old treatment before tokens.
+        export function Commented() {
+          const docsUrl = 'https://example.com/#section'; // a URL fragment, not a colour
+          return <div>{docsUrl}</div>;
+        }
+      `,
+      'src/violating.tsx': `
+        export function Violating() {
+          return <div style={{ background: '#600' }}><select><option>en</option></select></div>;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const byFile = (name) => report.findings.filter((f) => f.file.includes(name)).map((f) => f.rule);
+
+    expect(byFile('commented.tsx')).toEqual([]);
+    expect(byFile('violating.tsx')).toContain('strict.raw-color');
+    expect(byFile('violating.tsx')).toContain('strict.raw-control');
+  });
 });

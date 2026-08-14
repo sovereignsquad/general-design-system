@@ -611,9 +611,56 @@ function isForbiddenImport(source, allowedImports, forbiddenImports) {
   });
 }
 
+
+// Issue 615 — comments are not code, so no content rule may match inside one.
+//
+// Two releases went red on exactly this: `#600` in a comment (a GitHub issue reference) matched
+// the raw-colour pattern as a three-digit hex, and "`<select>`'s options" in a comment matched
+// the raw-control pattern as a native element. A hex in a comment ships nothing and renders
+// nothing; it is colour authority to no one. The same holds for every content rule here.
+//
+// A real lexer state machine rather than a regex, because a regex cannot tell `https://` inside
+// a string from the start of a line comment — stripping that would blind the import rules to
+// half their inputs. String and template-literal CONTENTS are preserved verbatim; comment bodies
+// are replaced with spaces so line numbers and match offsets stay meaningful.
+function stripComments(source) {
+  let out = '';
+  let i = 0;
+  let state = 'code'; // code | line | block | single | double | template
+  while (i < source.length) {
+    const ch = source[i];
+    const next = source[i + 1];
+    if (state === 'code') {
+      if (ch === '/' && next === '/') { state = 'line'; out += '  '; i += 2; continue; }
+      if (ch === '/' && next === '*') { state = 'block'; out += '  '; i += 2; continue; }
+      if (ch === "'") state = 'single';
+      else if (ch === '"') state = 'double';
+      else if (ch === '`') state = 'template';
+      out += ch; i += 1; continue;
+    }
+    if (state === 'line') {
+      if (ch === '\n') { state = 'code'; out += ch; } else out += ' ';
+      i += 1; continue;
+    }
+    if (state === 'block') {
+      if (ch === '*' && next === '/') { state = 'code'; out += '  '; i += 2; continue; }
+      out += ch === '\n' ? ch : ' '; i += 1; continue;
+    }
+    // Inside a string: escapes never end it, and only its own quote does. Template literals are
+    // treated as one span — an expression hole can contain nested comments, but a comment inside
+    // a hole is rare enough that keeping it beats mis-lexing nested backticks.
+    if (ch === '\\') { out += ch + (next ?? ''); i += 2; continue; }
+    if ((state === 'single' && ch === "'") || (state === 'double' && ch === '"') || (state === 'template' && ch === '`')) {
+      state = 'code';
+    }
+    out += ch; i += 1; continue;
+  }
+  return out;
+}
+
 function scanSourceFile(filePath, allowedImports, forbiddenImports) {
   const findings = [];
-  const content = readFileSync(filePath, 'utf8');
+  const content = stripComments(readFileSync(filePath, 'utf8'));
 
   if (!/(?:^|\/)(?:theme|tokens)\//.test(filePath) && RAW_COLOR_PATTERN.test(content)) {
     findings.push({
@@ -755,7 +802,7 @@ function runStrictCompliance({ manifest, manifestRoot, sourceFiles }) {
   }
 
   for (const filePath of sourceFiles) {
-    const content = readFileSync(filePath, 'utf8');
+    const content = stripComments(readFileSync(filePath, 'utf8'));
 
     if (/AppShell\s+as\s+MantineAppShell|<MantineAppShell\b|from\s+['"]@mantine\/core['"][\s\S]{0,120}AppShell/.test(content)) {
       findings.push({
@@ -939,7 +986,7 @@ function scanStrictConsumerViolations({ manifest, sourceFiles, manifestRoot }) {
 
   for (const filePath of sourceFiles) {
     const relativePath = normalizePath(filePath).replace(`${normalizedRoot}/`, '');
-    const content = readFileSync(filePath, 'utf8');
+    const content = stripComments(readFileSync(filePath, 'utf8'));
     const inGdsPackage = /(^|\/)packages\/gds-(?:core|admin|theme)\//.test(relativePath);
     const inDocumentation = /\.(md|mdx)$/.test(relativePath) || /(^|\/)docs\//.test(relativePath);
     const themeOwnedPath = isStrictThemeOwnedPath(relativePath, manifest);
@@ -1127,7 +1174,7 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
   const sourceRoot = normalizePath(manifestRoot).replace(/\/$/, '');
 
   for (const filePath of sourceFiles) {
-    const content = readFileSync(filePath, 'utf8');
+    const content = stripComments(readFileSync(filePath, 'utf8'));
     const relativePath = normalizePath(filePath).replace(`${sourceRoot}/`, '');
 
     if (!/(?:SocialAuthButtons|ProviderIdentityButton|ProviderIdentityButtonGroup)/.test(content) && (/\bSocialAuth\b/i.test(content) || providerTextRegex.test(content))) {
@@ -1215,7 +1262,7 @@ function scanThemeGovernance({ manifestRoot, manifest, sourceFiles }) {
   const normalizedRoot = normalizePath(manifestRoot).replace(/\/$/, '');
 
   for (const filePath of themeFiles) {
-    const content = readFileSync(filePath, 'utf8');
+    const content = stripComments(readFileSync(filePath, 'utf8'));
     const relativePath = normalizePath(filePath).replace(`${normalizedRoot}/`, '');
 
     if (isCoveredByApprovedException(relativePath, manifest.approvedExceptions ?? [])) {
@@ -1335,7 +1382,7 @@ export function runComplianceCheck({ manifestPath, currentDate }) {
         continue;
       }
 
-      const content = readFileSync(filePath, 'utf8');
+      const content = stripComments(readFileSync(filePath, 'utf8'));
       if (/className\s*=\s*["'`][^"'`]*(?:bg-|text-|border-|rounded-|shadow-|grid |flex |px-|py-|mx-|my-)/.test(content)) {
         findings.push({
           rule: 'protected-surface-utility-drift',

@@ -86,7 +86,7 @@ function measure(key) {
     // Issue 601. This case was named `gateMutationScore` and returned the PHASE 5 RENDER
     // mutants. The name read like the gate suite's score and pointed somewhere else, which is
     // how a figure gets transcribed into a claim it does not support.
-    case 'phase5MutationScore':   return read('mutation-score.json')?.mutationScore;
+    case 'phase5MutationScore':   return read('static-analysis-mutation-score.json')?.mutationScore;
     case 'renderMutationScore':   return read('render-mutation-score.json')?.renderMutationScore;
     // Issue 602. The gate suite's own score had NO floor. `gateSuiteUnexplainedSurvivors`
     // below does not supply one: deleting a mutant lowers coverage without raising survivors,
