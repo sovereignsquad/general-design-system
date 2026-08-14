@@ -142,6 +142,7 @@ import {
   GdsBadgeStackLayer,
   GdsCountBadge,
   GdsRemovableTag,
+  GdsMapBasemapWash,
   GdsMapPinBadge,
   GdsSavedIndicator,
   GdsGeneratedThumbnail,
@@ -717,20 +718,22 @@ function MapSurfaceDemo() {
   return (
     <MapPanel
       title="Nearby activities"
-      description="Real OpenStreetMap tiles via GdsMap. Tiles, markers and the ODbL credit are all governed, and switching the theme above re-initialises the map because Leaflet holds imperative DOM the CSS cascade cannot reach."
+      description="Real OpenStreetMap tiles via GdsMap, composed under GdsMapBasemapWash — the tiles desaturate and take a tint of the active theme's canvas colour, so the basemap reads as part of the page rather than a foreign surface. Tiles, markers and the ODbL credit are all governed, and switching the theme above re-initialises the map because Leaflet holds imperative DOM the CSS cascade cannot reach."
       minHeight={320}
       renderMap={() => (
-        <GdsMap
-          label="Nearby activities"
-          height="320px"
-          markers={MAP_PIN_MARKERS.map((pin) => ({
-            id: pin.id,
-            position: pin.position,
-            accent: pin.accent,
-            label: pin.label,
-          }))}
-          defaultViewport={{ center: { lat: 51.5074, lng: -0.0965 }, zoom: 13 }}
-        />
+        <GdsMapBasemapWash>
+          <GdsMap
+            label="Nearby activities"
+            height="320px"
+            markers={MAP_PIN_MARKERS.map((pin) => ({
+              id: pin.id,
+              position: pin.position,
+              accent: pin.accent,
+              label: pin.label,
+            }))}
+            defaultViewport={{ center: { lat: 51.5074, lng: -0.0965 }, zoom: 13 }}
+          />
+        </GdsMapBasemapWash>
       )}
     />
   );

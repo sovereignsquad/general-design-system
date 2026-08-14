@@ -174,6 +174,7 @@ export * from './ChatSurface';
 export * from './PublicFlowShell';
 export * from './PublicCaptureFlow';
 export * from './MapPanel';
+export * from './GdsMapBasemapWash';
 
 // ── Partner surfaces ──
 export * from './PartnerDiscovery';

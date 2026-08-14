@@ -4,6 +4,24 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The basemap wash ships, and the map system has its SSOT (#549, #572)
+
+`GdsMapBasemapWash` makes consumer-rendered tiles read as part of the themed page: one layer
+combining `backdrop-filter: saturate(…)` with a tint of the **active theme's** canvas colour —
+because, per the recorded rationale, desaturation alone yields a grey map. No literal colour
+exists in the component; a cream theme washes cream, a dark theme washes dark, and the var
+stays live so a theme switch re-resolves it (the #598 detector's territory). It ships as a
+wrapping composer (the #546 anchor lesson — no positioned wrapper pushed onto consumers), is
+`pointer-events: none` and `aria-hidden`, sits below Leaflet's overlay panes so markers render
+un-washed, and renders nothing without children — so a `MapPanel` state block structurally
+cannot be washed. Four tests; proven live on the gds-map demo over real OSM tiles.
+
+`docs/MAP_SYSTEM.md` now exists as the map programme's SSOT: the GDS-vs-product ownership
+boundary, the layer model, the Leaflet-not-MapLibre record, the ODbL/tile-host obligations a
+consumer inherits, the accessibility architecture with the no-clustering decision preserved,
+and the degradation model — with the not-yet-built parts (#547, #548, #550, #569, #570) stated
+as absences that become defects in the document itself once their issues close.
+
 ### The stale-theme-value detector exists, and it caught its own planted defect (#598)
 
 `verify:stale-theme-values-runtime` closes what #561 deliberately left open: the theme identity

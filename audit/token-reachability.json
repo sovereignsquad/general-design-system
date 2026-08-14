@@ -1,7 +1,7 @@
 {
   "declared": 291,
-  "referenced": 98,
-  "extensionPoints": 144,
+  "referenced": 99,
+  "extensionPoints": 143,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -445,13 +445,6 @@
       "classification": "extension-point",
       "reason": "No alias and no consumer, exactly as --gds-badge-attention. Same reasoning, same near date.",
       "reviewBy": "2026-11-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-bg-canvas",
-      "classification": "extension-point",
-      "reason": "Canvas-surface counterpart to --gds-bg-page, same rationale and same emitter.",
-      "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
