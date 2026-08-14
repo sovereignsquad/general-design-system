@@ -67,7 +67,7 @@ describe('playground route locale coverage', () => {
   // left readers looking at English navigation.
   //
   // What must stay verbatim is narrower and concrete: CODE (a snippet is not prose) and FORM
-  // CONTROL VALUES (a `<select>`'s options include the locale names themselves, which stay in
+  // CONTROL VALUES (a select element's options include the locale names themselves, which stay in
   // their own language by design). That is what this now asserts.
   it('translates link and button copy but never code or form control values', async () => {
     const root = document.createElement('div');

@@ -77,7 +77,7 @@ export async function translateSitePhrase(value: string, locale: string) {
  * Those are ordinary copy and a reader expects them in their own language.
  *
  * What genuinely must not be translated is CODE (a snippet is not prose), FORM CONTROL VALUES
- * (a `<select>`'s options include the locale names themselves, which stay in their own
+ * (a select element's options include the locale names themselves, which stay in their own
  * language by design), and script/style contents.
  */
 const VERBATIM_ELEMENTS = 'code, pre, kbd, samp, script, style, input, textarea, select, option';
