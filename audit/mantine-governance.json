@@ -818,6 +818,7 @@
       "declaredIn": "gdsTheme.shadows.lg",
       "value": "0 16px 40px rgba(15, 23, 42, 0.12)",
       "files": [
+        "packages/gds-core/src/GdsMapPinPreviewCard.tsx",
         "packages/gds-theme/styles.css"
       ]
     },
@@ -895,6 +896,7 @@
       "why": "GDS does not change gdsTheme.spacing.xs from Mantine's default",
       "files": [
         "packages/gds-core/src/DocsShell.tsx",
+        "packages/gds-core/src/GdsMapPinPreviewCard.tsx",
         "packages/gds-core/src/LayoutPrimitives.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SemanticCharts.tsx"

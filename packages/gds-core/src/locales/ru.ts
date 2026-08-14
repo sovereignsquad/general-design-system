@@ -258,4 +258,5 @@ export const ru = {
   'gds.stateBlock.title': "Отсутствующие данные",
   'gds.stateBlock.description': "Добавьте необходимые данные, прежде чем это представление сможет показать надежный результат.",
   'gds.uploadDropzone.actionLabel': "Выберите файлы",
+  'gds.gdsMapFilterRail.allLabel': "Все",
 };

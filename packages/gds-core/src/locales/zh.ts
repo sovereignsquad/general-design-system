@@ -258,4 +258,5 @@ export const zh = {
   'gds.stateBlock.title': "缺失数据",
   'gds.stateBlock.description': "添加所需的数据后，此视图才能显示可靠的结果。",
   'gds.uploadDropzone.actionLabel': "选择文件",
+  'gds.gdsMapFilterRail.allLabel': "全部",
 };

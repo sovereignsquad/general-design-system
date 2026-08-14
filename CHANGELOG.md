@@ -4,6 +4,30 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The map filter rail and the pin preview card ship (#547, #548)
+
+`GdsMapFilterRail`: composed on `PillBar` (which already owns the scrollable roving-tabindex
+radiogroup and contrast-correct selected treatment) plus the rail contract — "All" always
+first with consumers speaking `null`, counts rendered into labels, the "All" total only when
+every option carries a count (a partial sum reads as a total and is not one), a check glyph on
+the selected pill, and ResizeObserver-backed `onHeightChange` so the map insets its viewport by
+the rail's real height. The "All" default routes through the message catalogue (all 12 packs).
+Shipping its key exposed a real generator bug: the pack generator computed "missing" against
+`en` only, so a partially-applied earlier run had left `zh` and `ko` short forever — now
+per-locale, and the parity gate is what caught it.
+
+`GdsMapPinPreviewCard`: composed from the generated-imagery system (`badges="none"` — at this
+tile size badge pills become clutter, the activity is named in text), `GdsSavedIndicator`,
+`MeaningBadge`, and the elevation axis's `sheet` role. Every field has a defined absent
+treatment (no categories → no media region; no trust badge → row omitted — the absence of a
+claim is not a claim; `loading` → a same-shape skeleton), and control labels are
+consumer-supplied and required, per the no-shipped-English rule.
+
+Proven as ONE composition on the gds-map demo: the rail filters the same markers the map
+renders, its counts computed from that data, and selecting a real pin opens that pin's card
+with save/close wired live. `docs/MAP_SYSTEM.md` §9 now documents both, per its own rule that
+a "not built yet" section outliving its issue is a defect in the document.
+
 ### The basemap wash ships, and the map system has its SSOT (#549, #572)
 
 `GdsMapBasemapWash` makes consumer-rendered tiles read as part of the themed page: one layer

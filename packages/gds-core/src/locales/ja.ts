@@ -258,4 +258,5 @@ export const ja = {
   'gds.stateBlock.title': "データが欠落しています",
   'gds.stateBlock.description': "このビューで信頼できる結果が表示される前に、必要なデータを追加してください。",
   'gds.uploadDropzone.actionLabel': "ファイルの選択",
+  'gds.gdsMapFilterRail.allLabel': "全て",
 };

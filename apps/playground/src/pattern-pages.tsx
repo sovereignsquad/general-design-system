@@ -143,7 +143,9 @@ import {
   GdsCountBadge,
   GdsRemovableTag,
   GdsMapBasemapWash,
+  GdsMapFilterRail,
   GdsMapPinBadge,
+  GdsMapPinPreviewCard,
   GdsSavedIndicator,
   GdsGeneratedThumbnail,
   GdsGeneratedHero,
@@ -684,6 +686,20 @@ const MAP_PIN_MARKERS: Array<{
   { id: 'center', position: { lat: 51.5014, lng: -0.0993 }, accent: 'forest', icon: 'Verify', label: 'Certified center' },
 ];
 
+// Issue 547/548 — the activity each marker belongs to (drives the filter rail) and the fields
+// the preview card renders when its pin is selected. Same ids as MAP_PIN_MARKERS: one entity,
+// two views, which is the point of the composition.
+const MAP_PIN_DETAILS: Record<string, {
+  activity: string; activityId: string; neighbourhood: string; summary: string;
+  ageRange: string; priceEstimate?: string; lastChecked?: string;
+  verified?: boolean; categoryIcon: 'Location' | 'Habit' | 'Message' | 'Verify';
+}> = {
+  pool: { activity: 'Swimming', activityId: 'swimming', neighbourhood: 'Bankside', summary: 'Heated pools with beginner lanes and family sessions.', ageRange: '6-12', priceEstimate: '~\u00a340 / month', lastChecked: 'Checked last week', categoryIcon: 'Location' },
+  studio: { activity: 'Dance', activityId: 'dance', neighbourhood: 'Barbican', summary: 'Ballet and street classes with end-of-term showcases.', ageRange: '5-16', priceEstimate: '~\u00a355 / term', lastChecked: 'Checked this month', categoryIcon: 'Habit' },
+  hall: { activity: 'Music', activityId: 'music', neighbourhood: 'South Bank', summary: 'Choir and ensemble sessions in a riverside hall.', ageRange: '8-18', categoryIcon: 'Message' },
+  center: { activity: 'Swimming', activityId: 'swimming', neighbourhood: 'Borough', summary: 'Certified coaching centre with assessment-based groups.', ageRange: '6-14', priceEstimate: '~\u00a348 / month', lastChecked: 'Checked last week', verified: true, categoryIcon: 'Verify' },
+};
+
 function BadgeMapDemo() {
   return (
     <SectionPanel title="Badges on a map" description="Map markers use GdsMapPinBadge — a governed pin marker, correct by construction, so consumers never hand-tune the centering/stroke/contrast constants themselves.">
@@ -715,25 +731,78 @@ function PinSystemDemo() {
 }
 
 function MapSurfaceDemo() {
+  // Issues 547/548 — the rail and the preview card compose with the SAME markers the map
+  // renders: the rail's counts are computed from the data it filters, the selected pin's card
+  // shows that pin's own fields. One entity, three governed views — nothing staged.
+  const [activityFilter, setActivityFilter] = useState<string | null>(null);
+  const [selectedPinId, setSelectedPinId] = useState<string | undefined>(undefined);
+  const [savedPins, setSavedPins] = useState<Record<string, boolean>>({});
+
+  const visibleMarkers = MAP_PIN_MARKERS.filter(
+    (pin) => activityFilter === null || MAP_PIN_DETAILS[pin.id].activityId === activityFilter,
+  );
+  const activities = [...new Set(MAP_PIN_MARKERS.map((pin) => MAP_PIN_DETAILS[pin.id].activityId))];
+  const railOptions = activities.map((activityId) => ({
+    id: activityId,
+    label: MAP_PIN_DETAILS[MAP_PIN_MARKERS.find((pin) => MAP_PIN_DETAILS[pin.id].activityId === activityId)!.id].activity,
+    count: MAP_PIN_MARKERS.filter((pin) => MAP_PIN_DETAILS[pin.id].activityId === activityId).length,
+  }));
+  const selectedPin = visibleMarkers.find((pin) => pin.id === selectedPinId);
+  const selectedDetail = selectedPin ? MAP_PIN_DETAILS[selectedPin.id] : undefined;
+
   return (
     <MapPanel
       title="Nearby activities"
-      description="Real OpenStreetMap tiles via GdsMap, composed under GdsMapBasemapWash — the tiles desaturate and take a tint of the active theme's canvas colour, so the basemap reads as part of the page rather than a foreign surface. Tiles, markers and the ODbL credit are all governed, and switching the theme above re-initialises the map because Leaflet holds imperative DOM the CSS cascade cannot reach."
+      description="Real OpenStreetMap tiles via GdsMap, composed under GdsMapBasemapWash — the tiles desaturate and take a tint of the active theme's canvas colour, so the basemap reads as part of the page rather than a foreign surface. The filter rail's counts come from the same markers the map renders, and selecting a pin opens its preview card. Tiles, markers and the ODbL credit are all governed, and switching the theme above re-initialises the map because Leaflet holds imperative DOM the CSS cascade cannot reach."
       minHeight={320}
       renderMap={() => (
-        <GdsMapBasemapWash>
-          <GdsMap
-            label="Nearby activities"
-            height="320px"
-            markers={MAP_PIN_MARKERS.map((pin) => ({
-              id: pin.id,
-              position: pin.position,
-              accent: pin.accent,
-              label: pin.label,
-            }))}
-            defaultViewport={{ center: { lat: 51.5074, lng: -0.0965 }, zoom: 13 }}
+        <GdsStack gap="sm">
+          <GdsMapFilterRail
+            ariaLabel="Filter places by activity"
+            options={railOptions}
+            value={activityFilter}
+            onChange={(next) => {
+              setActivityFilter(next);
+              setSelectedPinId(undefined);
+            }}
           />
-        </GdsMapBasemapWash>
+          <GdsMapBasemapWash>
+            <GdsMap
+              label="Nearby activities"
+              height="320px"
+              markers={visibleMarkers.map((pin) => ({
+                id: pin.id,
+                position: pin.position,
+                accent: pin.accent,
+                label: pin.label,
+              }))}
+              selectedMarkerId={selectedPinId}
+              onMarkerSelect={(markerId) => setSelectedPinId((current) => (current === markerId ? undefined : markerId))}
+              defaultViewport={{ center: { lat: 51.5074, lng: -0.0965 }, zoom: 13 }}
+            />
+          </GdsMapBasemapWash>
+          {selectedPin && selectedDetail ? (
+            <GdsMapPinPreviewCard
+              title={selectedPin.label}
+              activity={selectedDetail.activity}
+              neighbourhood={selectedDetail.neighbourhood}
+              summary={selectedDetail.summary}
+              ageRange={selectedDetail.ageRange}
+              trust={selectedDetail.verified ? { variant: 'validation', label: 'Verified provider' } : undefined}
+              priceEstimate={selectedDetail.priceEstimate}
+              lastChecked={selectedDetail.lastChecked}
+              thumbnailSeed={selectedPin.id}
+              categories={[{ key: selectedDetail.activityId, label: selectedDetail.activity, icon: selectedDetail.categoryIcon }]}
+              primaryAction={<SemanticButton action="preview" fullWidth>View provider</SemanticButton>}
+              saved={Boolean(savedPins[selectedPin.id])}
+              saveLabel={`Save ${selectedPin.label}`}
+              unsaveLabel={`Remove ${selectedPin.label} from saved`}
+              onSaveChange={(next) => setSavedPins((current) => ({ ...current, [selectedPin.id]: next }))}
+              onClose={() => setSelectedPinId(undefined)}
+              closeLabel={`Close ${selectedPin.label} preview`}
+            />
+          ) : null}
+        </GdsStack>
       )}
     />
   );
