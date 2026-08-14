@@ -193,6 +193,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Badges in overlays": "Jelvények fedvényekben",
   "Badges on a map": "Jelvények a térképen",
   "Badges on cards": "Jelvények a kártyákon",
+  "badges=\"none\" — the fallback-image case": "badges=\"none\" — a backback-image eset",
   "Balanced, neutral baseline lane.": "Kiegyensúlyozott, semleges alapsáv.",
   "Balanced, protein-forward dish with transparent prep and pickup expectations.": "Kiegyensúlyozott, fehérje-előre tál átlátszó előkészítési és felvételi elvárásokkal.",
   "Bar chart": "Oszlopdiagram",

@@ -193,6 +193,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Badges in overlays": "شارات في التراكبات",
   "Badges on a map": "شارات على الخريطة",
   "Badges on cards": "شارات على البطاقات",
+  "badges=\"none\" — the fallback-image case": "شارات = \"لا شيء\" - حالة الصورة الاحتياطية",
   "Balanced, neutral baseline lane.": "حارة أساسية متوازنة ومحايدة.",
   "Balanced, protein-forward dish with transparent prep and pickup expectations.": "طبق متوازن ومزود بالبروتين مع توقعات شفافة للإعداد والالتقاط.",
   "Bar chart": "مخطط شريطي",

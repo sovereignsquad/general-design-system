@@ -193,6 +193,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Badges in overlays": "Abzeichen in Overlays",
   "Badges on a map": "Abzeichen auf einer Karte",
   "Badges on cards": "Abzeichen auf Karten",
+  "badges=\"none\" — the fallback-image case": "Badges=\"none\" – der Fallback-Image-Fall",
   "Balanced, neutral baseline lane.": "Ausgewogene, neutrale Grundlinie.",
   "Balanced, protein-forward dish with transparent prep and pickup expectations.": "Ausgewogenes, proteinreiches Gericht mit transparenten Zubereitungs- und Abholerwartungen.",
   "Bar chart": "Balkendiagramm",

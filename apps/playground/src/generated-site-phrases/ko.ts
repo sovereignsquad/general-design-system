@@ -193,6 +193,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Badges in overlays": "오버레이의 배지",
   "Badges on a map": "지도의 배지",
   "Badges on cards": "카드에 배지",
+  "badges=\"none\" — the fallback-image case": "Badges=\"none\" — 대체 이미지 사례",
   "Balanced, neutral baseline lane.": "균형 잡힌 중립 기준선 차선.",
   "Balanced, protein-forward dish with transparent prep and pickup expectations.": "투명한 준비와 픽업을 기대하는 균형 잡힌 단백질 중심 요리입니다.",
   "Bar chart": "막대 차트",
