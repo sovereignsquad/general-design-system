@@ -4,6 +4,46 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The map never loaded, and five cards showed a broken-image glyph
+
+Reported from a phone with screenshots.
+
+**The map had never worked.** `leaflet.css` was imported nowhere — not in the packages, not in
+the playground. Leaflet's tile layout *is* CSS: `.leaflet-tile` is `position: absolute`, placed
+by transform. Without it the tiles load, are the right images, and fall into normal document
+flow with blank gaps between them. Measured: tiles computing `position: static`, **47% of the
+container covered**. It reads as "never loaded", and waiting does not help because nothing is
+still loading.
+
+GDS owns the map contract, so GDS ships the stylesheet behind its own specifier —
+`@sovereignsquad/gds-core/map.css`, copied from Leaflet at build with a guard that refuses to
+write a file missing the tile rules. **100% coverage, tiles absolutely positioned.** `GdsMap`
+also calls `invalidateSize()` on init and on resize, which is independently right for containers
+that settle late.
+
+**Generated thumbnails everywhere** (owner directive). Five card families — `ListingCard`,
+`EditorialCard`, `EditorialHero`, `PublicProductCard`, `PublicFoodCard` — rendered a grey box
+with a generic photo glyph when no image was supplied. That glyph is the universal *broken
+image* picture: it tells a reader something **failed**, when in fact nothing was ever supplied.
+They now paint `GdsGeneratedThumbnail` — deterministic branded art from the card's own identity,
+no network, no asset pipeline, coloured from `var(--gds-brand-*)` so it follows the theme in
+both schemes.
+
+That surfaced a real duplication: the thumbnail's lead badge repeated the card title, which the
+card prints directly beneath it — twice on screen and twice in the accessibility tree, caught by
+`getByText` matching two nodes. `GdsGeneratedThumbnail` gains `badges="none"` for the
+fallback-image case.
+
+**Pin emoji overflowed the head**, leaving almost none of the dark disc visible, so the
+composition the docs describe was not what the page showed. It was a bare `0.5`, set
+independently of the icon bound beside it. Now derived from `GDS_PIN_ICON_SCALE` — a Tabler glyph
+paints ~0.83 of its viewBox, an emoji nearly its whole em, so the same number renders the emoji
+visibly larger.
+
+**The skeleton band read as broken** because a permanently-loading band with nothing beside it
+is indistinguishable from a surface that failed. It now sits next to the resolved band it stands
+in for, labelled.
+
 ### Copy GDS owns is now localised too, and the language files are documented (#617)
 
 With the selector fixed (#616), what remained was copy that **never entered the corpus at all**.

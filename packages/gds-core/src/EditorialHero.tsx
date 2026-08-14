@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
-import { Anchor, AspectRatio, Box, Grid, Group, Paper, Skeleton, Stack, Text, ThemeIcon, Title } from '@mantine/core';
+import { Anchor, AspectRatio, Box, Grid, Group, Paper, Skeleton, Stack, Text, Title } from '@mantine/core';
 import { AccentPanel } from './AccentPanel';
 import { CtaButtonGroup } from './CtaButtonGroup';
-import { GdsIcons } from './icons';
+import { GdsGeneratedThumbnail } from './GdsGeneratedThumbnail';
 
 /** A call-to-action rendered in the hero; links when `href` is set, otherwise a button. First action defaults to primary. */
 export type EditorialHeroAction = {
@@ -169,19 +169,19 @@ function LoadingHero({ compact }: { compact: boolean }) {
   );
 }
 
-function MediaFallback() {
+/**
+ * Owner directive, 2026-08-14: GDS uses the generated thumbnail everywhere. A grey box with a
+ * generic photo glyph reads as a failure; generated art reads as a hero without a photo yet.
+ * `badges="none"` because the hero prints its own title beside this.
+ */
+function MediaFallback({ seed, label }: { seed: string; label: string }) {
   return (
-    <AspectRatio ratio={16 / 11}>
-      <ThemeIcon
-        size="100%"
-        radius="lg"
-        color="gray"
-        variant="light"
-        aria-label="Hero media is unavailable"
-      >
-        <GdsIcons.Gallery size="2.5rem" />
-      </ThemeIcon>
-    </AspectRatio>
+    <GdsGeneratedThumbnail
+      seed={seed}
+      categories={[{ key: 'hero', label, icon: 'Gallery' }]}
+      aspectRatio="16:9"
+      badges="none"
+    />
   );
 }
 
@@ -225,7 +225,7 @@ function MediaFrame({
       }}
       aria-label={mediaAlt}
     >
-      {media ?? <MediaFallback />}
+      {media ?? <MediaFallback seed={mediaAlt ?? 'gds-hero'} label={mediaAlt ?? 'Hero'} />}
       {media && overlayBackground ? (
         <Box
           aria-hidden
