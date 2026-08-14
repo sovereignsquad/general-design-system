@@ -37,6 +37,8 @@ export type { GdsVibeThemeScopeProps } from './VibeThemeScope';
 // ── Accessibility & contrast reporting ──
 export { createGdsThemeAccessibilityReport, validateGdsThemeAccessibility } from './accessibility-report';
 export type { GdsAccessibilityFindingSeverity, GdsContrastCheck, GdsContrastFinding, GdsContrastMode, GdsContrastRole, GdsForcedColorRole, GdsThemeAccessibilityReport } from './accessibility-report';
+export { getGdsMapAreaFill, GDS_MAP_AREA_FILL_ACCENT_WEIGHT, GDS_MAP_AREA_FILL_OPACITY } from './map-area-fill';
+export type { GdsMapAreaFill } from './map-area-fill';
 export { getGdsContrastRatio, checkGdsContrast, pickGdsAutoForeground } from './contrast';
 export type { GdsContrastLevel, GdsContrastResult, GdsContrastTextSize, GdsAutoForegroundOptions } from './contrast';
 

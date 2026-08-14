@@ -21,7 +21,14 @@ export interface MapPanelProps {
   iframeSrc?: string;
   /** iframe sandbox permissions. Defaults to `allow-scripts allow-same-origin allow-popups`. */
   iframeSandbox?: string;
-  /** Custom map renderer; takes precedence over `iframeSrc`. */
+  /**
+   * Custom map renderer; takes precedence over `iframeSrc`.
+   *
+   * A `renderMap` integration inherits the map system's required architecture — every result
+   * as its own mark in the tiles' render pass (no clustering, no DOM markers racing the
+   * canvas) and a synced list carrying everything the map shows, because canvas pixels are
+   * never in the accessibility tree. See `docs/MAP_SYSTEM.md` §6 (issue 550).
+   */
   renderMap?: () => ReactNode;
   /** Minimum height of the custom map body. Defaults to `320`. */
   minHeight?: number | string;

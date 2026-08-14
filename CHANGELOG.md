@@ -4,6 +4,28 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The area-fill recipe, and two handoff rules codified as standing requirements (#550, #541, #542)
+
+`getGdsMapAreaFill(accentColor, canvasColor)` ships from `gds-theme` beside the color-math
+utilities: the governed neighborhood-fill recipe — accent mixed into the **active theme's**
+canvas at an exported weight, painted at an exported opacity, with a canvas-coloured hairline
+so boundaries read as paper. Categorical always, never a measurement scale. Painting polygons
+stays the consumer's map library; the colour is governed. The adjacency constraint ("adjacent
+areas never share a family") is documented as the consumer's — it needs the adjacency graph
+only the product holds. The no-clustering/no-DOM-markers rule and the synced-list requirement
+are now stated as REQUIRED architecture in `docs/MAP_SYSTEM.md` §6 and cross-referenced from
+`MapPanel.renderMap`'s own JSDoc; mechanical enforcement was evaluated and rejected as
+fragile-by-construction, which the issue named as an acceptable outcome.
+
+Two ClassScout handoff rules become standing GDS requirements: **no composition may depend on
+a fixed count** (#541 — zero/one/full demonstrated and tested, with `GdsMapFilterRail`'s tests
+as the model) and **the states contract** (#542 — loading/empty/error/success defined through
+the governed `AsyncSurface`/`StateBlock` vocabulary, unavailable explicitly waived when it
+does not apply). Both live in `COMPONENTS_AND_PATTERNS.md` §5 and in `CONTRIBUTING.md`'s
+"Adding a Component or Pattern" step 7, with the mechanical-check evaluations recorded: the
+fixed-count checker would misfire constantly, and a registry state-coverage field would be a
+hand-maintained claim of exactly the kind Rule 14 forbids — deferred until derivable.
+
 ### The map filter rail and the pin preview card ship (#547, #548)
 
 `GdsMapFilterRail`: composed on `PillBar` (which already owns the scrollable roving-tabindex

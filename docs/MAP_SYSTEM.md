@@ -106,9 +106,20 @@ exports; consult them there rather than here. The layer is `pointer-events: none
 `aria-hidden`, sits above tiles but below Leaflet's overlay panes, so markers and popups render
 un-washed.
 
-**Not built yet:** deeper themed basemap presentation — theme-scaled map chrome and area-fill
-recipes — is issue **569**; the neighborhood-fill colour-recipe utility is issue **550**. The
-wash is the shipped first layer of that story, not the whole of it.
+**Area fills** (issue 550, shipped): `getGdsMapAreaFill(accentColor, canvasColor)` from
+`@sovereignsquad/gds-theme` computes the governed neighborhood-fill recipe — the accent mixed
+into the **active theme's** canvas at the exported weight, painted at the exported opacity,
+with a canvas-coloured hairline between areas so boundaries read as paper. Categorical always,
+never a measurement scale: an area fill that encodes intensity is a choropleth, a different
+chart with different obligations. Painting the polygons is the consumer's map library; the
+colour is this recipe. **The adjacency constraint is the consumer's**: "adjacent areas never
+share an accent family" needs the actual adjacency graph, which only the product holds — GDS
+supplies the ten-family palette discipline; assigning families so neighbours differ is a
+graph-colouring decision the utility cannot see.
+
+**Not built yet:** deeper themed basemap presentation — theme-scaled map chrome — is issue
+**569**. The wash and the area-fill recipe are the shipped first layers of that story, not the
+whole of it.
 
 ## 6. Accessibility architecture, and why there is no clustering
 
@@ -126,12 +137,21 @@ that **the map is never the only way to read the data**:
   the required contract (`accessibility-evidence-registry.ts:108`): an iframe map has no
   governed text equivalent of its own.
 
-**No clustering** is a decision, not a gap (source spec, preserved): every result is its own
-pin, drawn in the same render pass as the tiles so it cannot drift during a pan. Clustering
-would also make the announced counts and the list equivalence lie — a cluster of 12 is one
-focus stop for what the list presents as twelve rows. If a product has too many pins to render
-individually, the governed answer is filtering the data, not hiding results inside a numbered
-circle.
+**No clustering, no DOM markers racing the canvas** is a decision, not a gap (source spec,
+preserved; issue 550): every result renders as its own mark, in the same render pass as the
+tiles, so it cannot visually drift during a pan — a separately-positioned DOM element racing
+the map's own repaint is exactly the drift the rule exists to prevent. Clustering would also
+make the announced counts and the list equivalence lie — a cluster of 12 is one focus stop for
+what the list presents as twelve rows. If a product has too many pins to render individually,
+the governed answer is filtering the data, not hiding results inside a numbered circle.
+
+These two rules are **required architecture for any `renderMap` integration**, not advice —
+`MapPanel`'s own JSDoc points here so a consumer meets them without having to find this
+document separately. Mechanical enforcement was evaluated and rejected as infeasible without
+fragility: a lint rule cannot see whether a map library clusters, and flagging `MapPanel`
+usages "with no adjacent list sibling" would misfire on every legitimate composition —
+documentation plus the accessibility-evidence registry's existing embedded-provider guidance
+is the honest enforcement level (issue 550's own acceptable outcome).
 
 ## 7. Pins
 
@@ -181,7 +201,6 @@ own card.
 
 | Issue | What it adds |
 | --- | --- |
-| **550** | Neighborhood-fill colour recipe + no-clustering architecture notes (partly §6) |
 | **569** | Themed basemap presentation beyond the wash |
 | **570** | Offline / blocked-tile degradation |
 

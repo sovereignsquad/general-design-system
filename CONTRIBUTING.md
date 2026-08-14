@@ -127,6 +127,34 @@ checks, in the order you'll do them. Worked example: a `StatusPill` in
    chain (pattern-catalog-coverage, pattern-export-coverage, api-docs-coverage,
    locale-coverage, i18n-message-parity, owned-contrast, and more).
 
+   Two standing sub-requirements, both from real failures the rules exist to prevent:
+
+   - **No fixed counts (issue 541).** Any component or pattern rendering a
+     variable-length collection — tiles, nav items, filter rails, badge groups —
+     must be tested and demonstrated at **zero, one, and a representative full
+     count**, not just the happy-path count its first demo happened to use, and
+     must say something true at zero. `GdsMapFilterRail`'s tests are the model:
+     an empty options array is a test case, not an assumption. This is checked
+     by review rather than mechanically — a checker that flags "a demo whose
+     data is one hardcoded array" cannot tell a fixture from a fixed-count
+     assumption without understanding the component, so it would misfire
+     constantly (evaluated under issue 541; documentation-and-test is the
+     honest enforcement level).
+   - **The states contract (issue 542).** Any pattern that renders data (not a
+     pure primitive) must define and demo its **loading, empty, error, and
+     success** states before shipping — an empty state says what happened and
+     what to do next, an error state names a human cause and offers a retry —
+     and must state explicitly when **unavailable** (operator-toggled-off) does
+     not apply and why. `AsyncSurface`/`StateBlock` are the governed vocabulary
+     for these states; `GdsMapPinPreviewCard` is the model for per-field absent
+     treatments (every optional field has a defined absence, and the loading
+     skeleton has the same shape as the loaded card). Whether state-demo
+     coverage becomes a registry-tracked field was evaluated under issue 542
+     and deferred: the registry records what IS proven (`coverageStatus` is
+     derived from the demos, issue 609), and a per-state boolean would be a
+     hand-maintained claim of exactly the kind Rule 14 forbids — if it becomes
+     derivable from the demos themselves, it can land then.
+
 8. **Document it.** Add the component's contract to
    `COMPONENTS_AND_PATTERNS.md` (and any deeper `docs/*.md` reference), and a
    `CHANGELOG.md` entry — per Standing Rule 3, docs ship in the same change set.
