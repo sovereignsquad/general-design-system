@@ -4,6 +4,20 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The untraceability instrument accused inert values — corrected, every number re-measured (#625)
+
+The covering array's first element-level look found the top "literal" at the worst cell was
+`outline-width: 3px` on 1,838 elements — the UA default (`medium`) on elements whose
+`outline-style` is `none`, a value that paints nothing. Both classifier copies (the shared
+render capture and the theme-coverage-matrix's own sweep) counted it as an untraceable design
+value. Corrected in both — the two must classify identically — and every affected number
+re-measured in full, never adjusted: whole-space mean 18.6% → **7.8%** (591 cells re-run),
+Phase 1 18.4% → **7.2%** (more than half the historic F5 headline was the defect), theme
+matrix 33.02% → **26.7%**. Budgets ratcheted to the corrected baselines with the reasoning
+recorded. This is the §3.1.1 verification-layer defect class — 18% of this repository's
+historic bugs — caught by the instrument's own first honest cross-examination. #625 now
+carries the true remaining coordinates.
+
 ### Render coverage is a measured number: the covering array runs the whole space (#583)
 
 Phase 3 of the deep audit exists: `audit:render-coverage`. An 8-factor model derived from the

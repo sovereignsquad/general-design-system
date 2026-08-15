@@ -20,19 +20,19 @@
     "themeMatrixUntraceableRate": {
       "source": "theme-coverage-matrix.json#/untraceableRate",
       "direction": "max",
-      "value": 33.02,
+      "value": 26.7,
       "unit": "%",
       "finding": "F5 (issue 562)",
-      "justifiedBy": "issue 599: the sweep is now REPRODUCIBLE. It waits for a settled DOM (node count unchanged across two consecutive polls) instead of a fixed wait(350), which is what the variance was: a guess about render timing that sampled whatever had rendered by then. Three consecutive runs on one commit now produce identical results - 28203 properties checked, 9313 untraceable, 0 unsettled cells. Budget tightened 34 -> 33.02, the measured value, with the variance headroom removed. Still NOT in the per-push chain (the sweep takes ~4 minutes); it runs via npm run verify:theme-coverage-matrix and this budget guards the committed measurement.",
+      "justifiedBy": "issue 625: the classifier counted INERT outline values - the UA default outline-width (medium -> 3px) on every unfocused element whose outline-style is none, a value that paints nothing. Both classifier copies (the shared render capture and this sweep) now skip outline props while outline-style is none, and the measured rate fell 33.02 -> 26.7 (25639 properties, 6845 untraceable). More than a sixth of the historic figure was instrument noise, found by the covering array's first element-level look. Prior reproducibility work (issue 599) unchanged.",
       "$comment": "The old headroom is gone. This sat at 34 to clear an observed 33.94-33.96 band with element counts varying by ~114 between runs, which meant a genuine 0.05pp regression was indistinguishable from noise. The band was render timing, not measurement error. The artifact now records exact counts rather than bucketing them to the nearest thousand, because reproducibility is what makes that precision honest. KNOWN LIMIT, stated rather than implied: 36 of the cells hit the 400-element sample cap, so those routes are sampled rather than swept exhaustively - the true rate could differ on the unsampled remainder. cellsTruncatedAtSampleCap in the artifact reports it every run."
     },
     "untraceableRenderRate": {
       "source": "backward-trace.json#/totalLiteralObservations,/totalObservations",
       "direction": "max",
-      "value": 18.4,
+      "value": 7.2,
       "unit": "%",
       "finding": "F5",
-      "justifiedBy": "audit Phase 1, 40/40 cells, commit 4b787f5; PROMOTED to blocking by issue 579 - render mutants M1/M2 both killed, 2/2 = 100%"
+      "justifiedBy": "issue 625: the inert-outline instrument defect removed (see themeMatrixUntraceableRate). Phase 1 re-run on the corrected classifier: 13803/192394 = 7.2%. MORE THAN HALF of the historic 18.4% was the UA default outline-width counted as a design literal. The full 591-cell covering array (issue 583) measures 7.8% over the whole space, so the 40-cell slice remains a fair estimator. Render mutants M1/M2 remain the validity proof of the instrument."
     },
     "tokensWithGaps": {
       "source": "forward-trace.json#/tokensWithGaps",

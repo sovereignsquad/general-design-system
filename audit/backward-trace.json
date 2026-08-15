@@ -1,71 +1,17 @@
 {
-  "commit": "f5ee6bad957e8bbfc9947732b9cd2d374bcf2d16",
+  "commit": null,
   "plannedCells": 40,
   "executedCells": 40,
   "skippedCells": [],
   "coverage": 1,
-  "totalObservations": 250398,
-  "totalLiteralObservations": 46062,
+  "totalObservations": 192394,
+  "totalLiteralObservations": 13803,
   "distinctLiterals": 240,
   "findings": [
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "html",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "body",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "div",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_89ab340.mantine-AppShell-root",
       "themes": [
         "default/light",
         "default/dark",
@@ -84,114 +30,6 @@
       "prop": "transition-duration",
       "value": "0.2s",
       "sel": "header.m_3b16f56b.mantine-AppShell-header",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "header.m_3b16f56b.mantine-AppShell-header",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_4081bf90.mantine-Group-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "strong",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "p.mantine-focus-auto.m_b6d8b162",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_46b77525.mantine-InputWrapper-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_6c018570.mantine-Input-wrapper",
       "themes": [
         "default/light",
         "default/dark",
@@ -243,78 +81,6 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_82577fc2.mantine-Input-section",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "svg",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "path",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
       "prop": "border-top-width",
       "value": "1px",
       "sel": "button.mantine-focus-auto.mantine-active",
@@ -333,26 +99,8 @@
       "themeCount": 10
     },
     {
-      "prop": "transition-duration",
-      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
-      "sel": "button.mantine-focus-auto.mantine-active",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "button.mantine-focus-auto.mantine-active",
       "themes": [
         "default/light",
@@ -387,24 +135,6 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "span.m_8d3afb97.mantine-ActionIcon-icon",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
       "prop": "transition-duration",
       "value": "0.2s",
       "sel": "nav.m_45252eee.mantine-AppShell-navbar",
@@ -423,98 +153,8 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "nav.m_45252eee.mantine-AppShell-navbar",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_d57069b5.mantine-ScrollArea-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_c0783ff9.mantine-ScrollArea-viewport",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_6d731127.mantine-Stack-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "transition-duration",
-      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
-      "sel": "a.mantine-focus-auto.m_f0824112",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "a.mantine-focus-auto.m_f0824112",
       "themes": [
         "default/light",
@@ -534,60 +174,6 @@
       "prop": "transition-duration",
       "value": "0.15s",
       "sel": "span.m_690090b5.mantine-NavLink-section",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "span.m_690090b5.mantine-NavLink-section",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_f07af9d2.mantine-NavLink-body",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "span.m_1f6ac4c4.mantine-NavLink-label",
       "themes": [
         "default/light",
         "default/dark",
@@ -657,44 +243,8 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_c44ba933.mantine-ScrollArea-scrollbar",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
       "prop": "transition-duration",
       "value": "0.15s",
-      "sel": "div.m_d8b5e363.mantine-ScrollArea-thumb",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
       "sel": "div.m_d8b5e363.mantine-ScrollArea-thumb",
       "themes": [
         "default/light",
@@ -750,78 +300,6 @@
       "prop": "transition-duration",
       "value": "0.2s",
       "sel": "main.m_8983817.mantine-AppShell-main",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "main.m_8983817.mantine-AppShell-main",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_7485cace.mantine-Container-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "article.m_6d731127.mantine-Stack-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "h1.m_8a5d1357.mantine-Title-root",
       "themes": [
         "default/light",
         "default/dark",
@@ -927,63 +405,9 @@
       "themeCount": 10
     },
     {
-      "prop": "transition-duration",
-      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "button.gds-tour-launch",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "button.gds-tour-launch",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "h3.m_8a5d1357.mantine-Title-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_2415a157.mantine-SimpleGrid-root",
       "themes": [
         "default/light",
         "default/dark",
@@ -1035,63 +459,9 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "h4.m_8a5d1357.mantine-Title-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "transition-duration",
-      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "a.mantine-focus-auto.m_849cf0da",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "a.mantine-focus-auto.m_849cf0da",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "section",
       "themes": [
         "default/light",
         "default/dark",
@@ -1125,44 +495,8 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_7341320d.mantine-ThemeIcon-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "p",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "transition-duration",
-      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "a",
       "themes": [
         "default/light",
@@ -1179,80 +513,8 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "a",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.gds-tour-spotlight",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.gds-tour-spotlight__blocker",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "transition-duration",
-      "value": "0.22s, 0.22s, 0.22s, 0.22s",
-      "sel": "div.gds-tour-spotlight__hole",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "div.gds-tour-spotlight__hole",
       "themes": [
         "default/light",
@@ -1287,26 +549,8 @@
       "themeCount": 10
     },
     {
-      "prop": "transition-duration",
-      "value": "0.22s, 0.22s",
-      "sel": "div.gds-tour-card",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "div.gds-tour-card",
       "themes": [
         "default/light",
@@ -1341,78 +585,6 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "p.gds-tour-card__progress",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "h2.gds-tour-card__title",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.gds-tour-card__body",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.gds-tour-card__actions",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
       "prop": "padding-top",
       "value": "6px",
       "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
@@ -1467,45 +639,9 @@
       "themeCount": 10
     },
     {
-      "prop": "transition-duration",
-      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.gds-tour-card__nav",
       "themes": [
         "default/light",
         "default/dark",
@@ -1575,117 +711,9 @@
       "themeCount": 10
     },
     {
-      "prop": "transition-duration",
-      "value": "0.14s, 0.14s, 0.14s, 0.14s, 0.14s",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
       "sel": "button.gds-tour-btn.gds-tour-btn--primary",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "button.gds-tour-btn.gds-tour-btn--primary",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "nav",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_8b3717df.mantine-Breadcrumbs-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_3b8f2208.mantine-Breadcrumbs-separator",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "p.mantine-focus-auto.m_f678d540",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "nav.m_6d731127.mantine-Stack-root",
       "themes": [
         "default/light",
         "default/dark",
@@ -1737,135 +765,9 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "span.m_80f1301b.mantine-Button-inner",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "span.m_a74036a.mantine-Button-section",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "span.m_811560b9.mantine-Button-label",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "nav.m_4081bf90.mantine-Group-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "font-weight",
-      "value": "500",
-      "sel": "a.mantine-focus-auto.m_849cf0da",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_71ac47fc.mantine-AspectRatio-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "font-size",
-      "value": "11px",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
       "prop": "border-top-width",
       "value": "1px",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "sel": "input",
       "themes": [
         "default/light",
         "default/dark",
@@ -1881,9 +783,9 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "prop": "transition-duration",
+      "value": "0.2s",
+      "sel": "span.m_9e182ccd.mantine-SegmentedControl-indicator",
       "themes": [
         "default/light",
         "default/dark",
@@ -1899,9 +801,9 @@
       "themeCount": 10
     },
     {
-      "prop": "font-size",
-      "value": "11px",
-      "sel": "span.m_5add502a.mantine-Badge-label",
+      "prop": "transition-duration",
+      "value": "0.2s",
+      "sel": "div.m_69686b9b.mantine-SegmentedControl-control",
       "themes": [
         "default/light",
         "default/dark",
@@ -1917,9 +819,9 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "span.m_5add502a.mantine-Badge-label",
+      "prop": "padding-top",
+      "value": "5px",
+      "sel": "label.m_1738fcb2.mantine-SegmentedControl-label",
       "themes": [
         "default/light",
         "default/dark",
@@ -1935,9 +837,9 @@
       "themeCount": 10
     },
     {
-      "prop": "font-weight",
-      "value": "500",
-      "sel": "p.mantine-focus-auto.m_b6d8b162",
+      "prop": "transition-duration",
+      "value": "0.2s",
+      "sel": "label.m_1738fcb2.mantine-SegmentedControl-label",
       "themes": [
         "default/light",
         "default/dark",
@@ -1953,9 +855,9 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "h2.m_8a5d1357.mantine-Title-root",
+      "prop": "transition-duration",
+      "value": "0.1s, 0.1s",
+      "sel": "div.mantine-focus-auto.m_c9a9a60a",
       "themes": [
         "default/light",
         "default/dark",
@@ -1971,9 +873,63 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_db6d6462.mantine-Progress-root",
+      "prop": "border-top-left-radius",
+      "value": "1000px",
+      "sel": "div.m_dd33bc19.mantine-Slider-mark",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-right-radius",
+      "value": "1000px",
+      "sel": "div.m_dd33bc19.mantine-Slider-mark",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-bottom-right-radius",
+      "value": "1000px",
+      "sel": "div.m_dd33bc19.mantine-Slider-mark",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-bottom-left-radius",
+      "value": "1000px",
+      "sel": "div.m_dd33bc19.mantine-Slider-mark",
       "themes": [
         "default/light",
         "default/dark",
@@ -2007,81 +963,9 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_2242eb65.mantine-Progress-section",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_410352e9.mantine-Grid-root",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_dee7bd2f.mantine-Grid-inner",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "div.m_96bdd299.mantine-Grid-col",
-      "themes": [
-        "default/light",
-        "default/dark",
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark",
-        "dark-public/light",
-        "dark-public/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 10
-    },
-    {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "label",
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
+      "sel": "button.mantine-focus-auto.m_77c9d27d",
       "themes": [
         "default/light",
         "default/dark",
@@ -2133,9 +1017,387 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "prop": "padding-top",
+      "value": "5.5px",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
+      "sel": "button.mantine-focus-auto.m_87cf2631",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-duration",
+      "value": "0.25s, 0.25s, 0.25s",
+      "sel": "div.gds-paper.m_1b7284a3",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "13px",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "13px",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "11px",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "11px",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "select",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "11px",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-top",
+      "value": "3.9px",
+      "sel": "span",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "padding-left",
+      "value": "5.85px",
+      "sel": "span",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "row-gap",
+      "value": "4.55px",
+      "sel": "span",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "column-gap",
+      "value": "4.55px",
+      "sel": "span",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "13px",
+      "sel": "span",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "13px",
+      "sel": "svg",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "font-size",
+      "value": "13px",
+      "sel": "path",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
+      "sel": "a.mantine-focus-auto.mantine-active",
       "themes": [
         "default/light",
         "default/dark",
@@ -2205,9 +1467,9 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "div",
       "themes": [
         "default/light",
         "default/dark",
@@ -2223,9 +1485,9 @@
       "themeCount": 10
     },
     {
-      "prop": "font-weight",
-      "value": "500",
-      "sel": "label.mantine-focus-auto.m_b6d8b162",
+      "prop": "padding-top",
+      "value": "1px",
+      "sel": "button",
       "themes": [
         "default/light",
         "default/dark",
@@ -2241,9 +1503,45 @@
       "themeCount": 10
     },
     {
-      "prop": "outline-width",
-      "value": "3px",
-      "sel": "label.mantine-focus-auto.m_b6d8b162",
+      "prop": "padding-left",
+      "value": "6px",
+      "sel": "button",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
+      "sel": "button",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 10
+    },
+    {
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1)",
+      "sel": "svg",
       "themes": [
         "default/light",
         "default/dark",
@@ -2277,6 +1575,22 @@
     {
       "prop": "border-top-width",
       "value": "1px",
+      "sel": "button.mantine-focus-auto.m_77c9d27d",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "class-usa/dark",
+        "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 8
+    },
+    {
+      "prop": "border-top-width",
+      "value": "1px",
       "sel": "div.gds-paper.gds-card",
       "themes": [
         "default/light",
@@ -2291,18 +1605,20 @@
       "themeCount": 8
     },
     {
-      "prop": "box-shadow",
-      "value": "color(srgb 0 0 0 / 0) 0px 12px 34px 0px",
-      "sel": "button.mantine-focus-auto.mantine-active",
+      "prop": "border-top-width",
+      "value": "1px",
+      "sel": "a.mantine-focus-auto.mantine-active",
       "themes": [
-        "class-usa/light",
+        "default/light",
+        "default/dark",
         "class-usa/dark",
-        "gold-athlete/light",
         "gold-athlete/dark",
+        "dark-public/light",
+        "dark-public/dark",
         "high-contrast/light",
         "high-contrast/dark"
       ],
-      "themeCount": 6
+      "themeCount": 8
     },
     {
       "prop": "letter-spacing",
@@ -2333,9 +1649,78 @@
       "themeCount": 6
     },
     {
+      "prop": "letter-spacing",
+      "value": "0.25px",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light",
+        "default/dark",
+        "dark-public/light",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 6
+    },
+    {
+      "prop": "box-shadow",
+      "value": "color(srgb 0 0 0 / 0) 0px 12px 34px 0px",
+      "sel": "button.mantine-focus-auto.mantine-active",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 6
+    },
+    {
+      "prop": "transition-timing-function",
+      "value": "linear",
+      "sel": "div.gds-paper.m_1b7284a3",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 6
+    },
+    {
+      "prop": "padding-left",
+      "value": "9.33333px",
+      "sel": "button.mantine-focus-auto.mantine-active",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 6
+    },
+    {
       "prop": "background-color",
       "value": "rgba(0, 0, 0, 0.4)",
       "sel": "div.m_d8b5e363.mantine-ScrollArea-thumb",
+      "themes": [
+        "default/light",
+        "class-usa/light",
+        "gold-athlete/light",
+        "dark-public/light",
+        "high-contrast/light"
+      ],
+      "themeCount": 5
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.952549 0.955686 0.958824)",
+      "sel": "div.m_7341320d.mantine-ThemeIcon-root",
       "themes": [
         "default/light",
         "class-usa/light",
@@ -2385,40 +1770,43 @@
       "themeCount": 5
     },
     {
-      "prop": "color",
-      "value": "rgb(0, 0, 0)",
-      "sel": "html",
+      "prop": "padding-top",
+      "value": "79.53px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
       "themes": [
-        "default/light",
-        "class-usa/light",
-        "gold-athlete/light",
-        "dark-public/light"
+        "class-usa/dark",
+        "gold-athlete/dark",
+        "dark-public/dark",
+        "high-contrast/light",
+        "high-contrast/dark"
       ],
-      "themeCount": 4
+      "themeCount": 5
     },
     {
-      "prop": "border-top-color",
-      "value": "rgb(0, 0, 0)",
-      "sel": "html",
+      "prop": "background-color",
+      "value": "rgb(239, 239, 239)",
+      "sel": "button",
       "themes": [
         "default/light",
         "class-usa/light",
         "gold-athlete/light",
-        "dark-public/light"
+        "dark-public/light",
+        "high-contrast/light"
       ],
-      "themeCount": 4
+      "themeCount": 5
     },
     {
-      "prop": "outline-color",
-      "value": "rgb(0, 0, 0)",
-      "sel": "html",
+      "prop": "background-color",
+      "value": "rgb(107, 107, 107)",
+      "sel": "button",
       "themes": [
-        "default/light",
-        "class-usa/light",
-        "gold-athlete/light",
-        "dark-public/light"
+        "default/dark",
+        "class-usa/dark",
+        "gold-athlete/dark",
+        "dark-public/dark",
+        "high-contrast/dark"
       ],
-      "themeCount": 4
+      "themeCount": 5
     },
     {
       "prop": "box-shadow",
@@ -2457,66 +1845,6 @@
       "themeCount": 4
     },
     {
-      "prop": "font-weight",
-      "value": "600",
-      "sel": "button.gds-tour-launch",
-      "themes": [
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark"
-      ],
-      "themeCount": 4
-    },
-    {
-      "prop": "font-weight",
-      "value": "600",
-      "sel": "a.mantine-focus-auto.m_849cf0da",
-      "themes": [
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark"
-      ],
-      "themeCount": 4
-    },
-    {
-      "prop": "font-weight",
-      "value": "600",
-      "sel": "p.gds-tour-card__progress",
-      "themes": [
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark"
-      ],
-      "themeCount": 4
-    },
-    {
-      "prop": "font-weight",
-      "value": "600",
-      "sel": "button.gds-tour-btn.gds-tour-btn--ghost",
-      "themes": [
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark"
-      ],
-      "themeCount": 4
-    },
-    {
-      "prop": "font-weight",
-      "value": "600",
-      "sel": "button.gds-tour-btn.gds-tour-btn--primary",
-      "themes": [
-        "class-usa/light",
-        "class-usa/dark",
-        "gold-athlete/light",
-        "gold-athlete/dark"
-      ],
-      "themeCount": 4
-    },
-    {
       "prop": "box-shadow",
       "value": "color(srgb 0.486274 0.227451 0.929412 / 0.116) 0px 12px 34px 0px",
       "sel": "button.mantine-focus-auto.mantine-active",
@@ -2525,6 +1853,90 @@
         "default/dark",
         "dark-public/light",
         "dark-public/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.4px",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.4px",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.4px",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.52px",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.52px",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.44px",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
+      ],
+      "themeCount": 4
+    },
+    {
+      "prop": "letter-spacing",
+      "value": "0.44px",
+      "sel": "span.m_5add502a.mantine-Badge-label",
+      "themes": [
+        "class-usa/light",
+        "class-usa/dark",
+        "gold-athlete/light",
+        "gold-athlete/dark"
       ],
       "themeCount": 4
     },
@@ -2553,115 +1965,187 @@
       "themeCount": 4
     },
     {
-      "prop": "letter-spacing",
-      "value": "0.44px",
-      "sel": "span.m_5add502a.mantine-Badge-label",
+      "prop": "padding-top",
+      "value": "1.6px",
+      "sel": "div.m_c44ba933.mantine-ScrollArea-scrollbar",
       "themes": [
         "class-usa/light",
-        "class-usa/dark",
         "gold-athlete/light",
-        "gold-athlete/dark"
+        "high-contrast/light",
+        "high-contrast/dark"
       ],
       "themeCount": 4
     },
     {
-      "prop": "font-weight",
-      "value": "600",
-      "sel": "p.mantine-focus-auto.m_b6d8b162",
+      "prop": "padding-left",
+      "value": "1.6px",
+      "sel": "div.m_c44ba933.mantine-ScrollArea-scrollbar",
       "themes": [
         "class-usa/light",
-        "class-usa/dark",
         "gold-athlete/light",
-        "gold-athlete/dark"
+        "high-contrast/light",
+        "high-contrast/dark"
       ],
       "themeCount": 4
+    },
+    {
+      "prop": "transition-timing-function",
+      "value": "cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)",
+      "sel": "a.m_f678d540.mantine-Breadcrumbs-breadcrumb",
+      "themes": [
+        "high-contrast/light",
+        "high-contrast/dark"
+      ],
+      "themeCount": 2
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.177255 0.204118 0.264314)",
+      "sel": "div.m_7341320d.mantine-ThemeIcon-root",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.817647 0.811373 0.791373)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.161176 0.193725 0.237255)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.123922 0.140784 0.167647)",
+      "sel": "div.m_7341320d.mantine-ThemeIcon-root",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.890588 0.832941 0.698824)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.205882 0.204706 0.204706)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.103922 0.117451 0.14098)",
+      "sel": "div.m_7341320d.mantine-ThemeIcon-root",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.147255 0.160784 0.204314)",
+      "sel": "div.m_7341320d.mantine-ThemeIcon-root",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.904314 0.923922 0.956863)",
+      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.133922 0.137451 0.14098)",
+      "sel": "div.m_7341320d.mantine-ThemeIcon-root",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
     },
     {
       "prop": "padding-top",
       "value": "79.5354px",
       "sel": "main.m_8983817.mantine-AppShell-main",
       "themes": [
-        "default/light",
-        "dark-public/light",
-        "dark-public/dark"
+        "default/light"
       ],
-      "themeCount": 3
-    },
-    {
-      "prop": "padding-top",
-      "value": "79.53px",
-      "sel": "main.m_8983817.mantine-AppShell-main",
-      "themes": [
-        "class-usa/dark",
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 3
-    },
-    {
-      "prop": "background-color",
-      "value": "color(srgb 0.486274 0.227451 0.929412 / 0.15)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "default/light",
-        "default/dark"
-      ],
-      "themeCount": 2
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.486274 0.227451 0.929412 / 0.28)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "default/light",
-        "default/dark"
-      ],
-      "themeCount": 2
-    },
-    {
-      "prop": "background-color",
-      "value": "color(srgb 0.545098 0.360784 0.964706 / 0.15)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "dark-public/light",
-        "dark-public/dark"
-      ],
-      "themeCount": 2
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.545098 0.360784 0.964706 / 0.28)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "dark-public/light",
-        "dark-public/dark"
-      ],
-      "themeCount": 2
-    },
-    {
-      "prop": "background-color",
-      "value": "color(srgb 0.0431373 0.239216 0.568627 / 0.15)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 2
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.0431373 0.239216 0.568627 / 0.28)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "high-contrast/light",
-        "high-contrast/dark"
-      ],
-      "themeCount": 2
+      "themeCount": 1
     },
     {
       "prop": "border-top-color",
       "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "sel": "input",
       "themes": [
         "default/light"
       ],
@@ -2669,8 +2153,71 @@
     },
     {
       "prop": "border-top-color",
-      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.922941 0.884118 0.989412)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.856157 0.783686 0.980235)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.922941 0.884118 0.989412)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.856157 0.783686 0.980235)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
+      "sel": "select",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "padding-top",
+      "value": "81.0861px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
       "themes": [
         "default/dark"
       ],
@@ -2678,8 +2225,152 @@
     },
     {
       "prop": "border-top-color",
+      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
+      "sel": "input",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.219608 0.204118 0.366078)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.260392 0.207686 0.452235)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.219608 0.204118 0.366078)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.260392 0.207686 0.452235)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
+      "sel": "select",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "padding-top",
+      "value": "83.0979px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
       "value": "color(srgb 0.817647 0.811373 0.791373)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "sel": "input",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.817647 0.811373 0.791373)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.817647 0.811373 0.791373)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.858824 0.875882 0.893529)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.736471 0.768314 0.801255)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.858824 0.875882 0.893529)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.736471 0.768314 0.801255)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.817647 0.811373 0.791373)",
+      "sel": "select",
       "themes": [
         "class-usa/light"
       ],
@@ -2688,7 +2379,7 @@
     {
       "prop": "border-top-color",
       "value": "color(srgb 0.161176 0.193725 0.237255)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "sel": "input",
       "themes": [
         "class-usa/dark"
       ],
@@ -2696,8 +2387,143 @@
     },
     {
       "prop": "border-top-color",
+      "value": "color(srgb 0.161176 0.193725 0.237255)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.161176 0.193725 0.237255)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.102157 0.132549 0.173529)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.0955294 0.138667 0.191373)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.102157 0.132549 0.173529)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.0955294 0.138667 0.191373)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.161176 0.193725 0.237255)",
+      "sel": "select",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "padding-top",
+      "value": "79.5381px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
       "value": "color(srgb 0.890588 0.832941 0.698824)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "sel": "input",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.890588 0.832941 0.698824)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.890588 0.832941 0.698824)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.931176 0.902941 0.85)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.871529 0.818824 0.72)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.931176 0.902941 0.85)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.871529 0.818824 0.72)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.890588 0.832941 0.698824)",
+      "sel": "select",
       "themes": [
         "gold-athlete/light"
       ],
@@ -2706,7 +2532,7 @@
     {
       "prop": "border-top-color",
       "value": "color(srgb 0.205882 0.204706 0.204706)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "sel": "input",
       "themes": [
         "gold-athlete/dark"
       ],
@@ -2714,8 +2540,143 @@
     },
     {
       "prop": "border-top-color",
+      "value": "color(srgb 0.205882 0.204706 0.204706)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.205882 0.204706 0.204706)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.15451 0.136275 0.103333)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.213647 0.169412 0.0875294)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.15451 0.136275 0.103333)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.213647 0.169412 0.0875294)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.205882 0.204706 0.204706)",
+      "sel": "select",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "padding-top",
+      "value": "78.369px",
+      "sel": "main.m_8983817.mantine-AppShell-main",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
       "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "sel": "input",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.931765 0.904118 0.994706)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.872627 0.82102 0.990118)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.931765 0.904118 0.994706)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.872627 0.82102 0.990118)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
+      "sel": "select",
       "themes": [
         "dark-public/light"
       ],
@@ -2724,7 +2685,70 @@
     {
       "prop": "border-top-color",
       "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "sel": "input",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.198431 0.180784 0.311373)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.251451 0.208314 0.411294)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.198431 0.180784 0.311373)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.251451 0.208314 0.411294)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
+      "sel": "select",
       "themes": [
         "dark-public/dark"
       ],
@@ -2733,7 +2757,70 @@
     {
       "prop": "border-top-color",
       "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "sel": "input",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
+      "sel": "input.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.856471 0.885882 0.935294)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.732078 0.78698 0.879216)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.856471 0.885882 0.935294)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.732078 0.78698 0.879216)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
+      "sel": "select",
       "themes": [
         "high-contrast/light"
       ],
@@ -2742,639 +2829,9 @@
     {
       "prop": "border-top-color",
       "value": "color(srgb 0.904314 0.923922 0.956863)",
-      "sel": "select.m_8fb7ebe7.mantine-Input-input",
+      "sel": "input",
       "themes": [
         "high-contrast/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "padding-top",
-      "value": "87.1504px",
-      "sel": "main.m_8983817.mantine-AppShell-main",
-      "themes": [
-        "default/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "padding-top",
-      "value": "87.1477px",
-      "sel": "main.m_8983817.mantine-AppShell-main",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "padding-top",
-      "value": "79.5434px",
-      "sel": "main.m_8983817.mantine-AppShell-main",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "padding-top",
-      "value": "79.5273px",
-      "sel": "main.m_8983817.mantine-AppShell-main",
-      "themes": [
-        "gold-athlete/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.385569 0.195451 0.743059)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "default/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.385569 0.195451 0.743059)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "default/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.385569 0.195451 0.743059)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "default/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.385569 0.195451 0.743059)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "default/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.385569 0.195451 0.743059)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "default/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.60298 0.408157 0.943529)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "default/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.60298 0.408157 0.943529)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "default/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.60298 0.408157 0.943529)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "default/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.60298 0.408157 0.943529)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "default/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.60298 0.408157 0.943529)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "default/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.0738823 0.185725 0.307137)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "background-color",
-      "value": "color(srgb 0.0588235 0.172549 0.290196 / 0.15)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.0588235 0.172549 0.290196 / 0.28)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.0738823 0.185725 0.307137)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.0738823 0.185725 0.307137)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.0738823 0.185725 0.307137)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.0738823 0.185725 0.307137)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "background-color",
-      "value": "color(srgb 0.305922 0.17511 0.11868 / 0.929412)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "class-usa/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.760784 0.290196 0.0392157 / 0.45)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "class-usa/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.428235 0.288941 0.0263529)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "background-color",
-      "value": "color(srgb 0.541176 0.352941 0 / 0.15)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.541176 0.352941 0 / 0.28)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.428235 0.288941 0.0263529)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.428235 0.288941 0.0263529)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.428235 0.288941 0.0263529)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.428235 0.288941 0.0263529)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "background-color",
-      "value": "color(srgb 0.343827 0.283524 0.165659 / 0.929412)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "gold-athlete/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.941177 0.713726 0.258824 / 0.45)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "gold-athlete/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.430275 0.296784 0.769882)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "dark-public/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.430275 0.296784 0.769882)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "dark-public/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.430275 0.296784 0.769882)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "dark-public/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.430275 0.296784 0.769882)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "dark-public/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.430275 0.296784 0.769882)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "dark-public/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.647686 0.50949 0.970353)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "dark-public/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.647686 0.50949 0.970353)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "dark-public/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.647686 0.50949 0.970353)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "dark-public/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.647686 0.50949 0.970353)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "dark-public/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.647686 0.50949 0.970353)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "dark-public/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.0327843 0.181804 0.432157)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "high-contrast/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.0327843 0.181804 0.432157)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "high-contrast/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.0327843 0.181804 0.432157)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "high-contrast/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.0327843 0.181804 0.432157)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "high-contrast/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.0327843 0.181804 0.432157)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "high-contrast/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.272784 0.421804 0.672157)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "high-contrast/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.272784 0.421804 0.672157)",
-      "sel": "div.m_347db0ec.mantine-Badge-root",
-      "themes": [
-        "high-contrast/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "color",
-      "value": "color(srgb 0.272784 0.421804 0.672157)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "high-contrast/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.272784 0.421804 0.672157)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "high-contrast/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "outline-color",
-      "value": "color(srgb 0.272784 0.421804 0.672157)",
-      "sel": "span.m_5add502a.mantine-Badge-label",
-      "themes": [
-        "high-contrast/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "default/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "default/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "default/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "default/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.817647 0.811373 0.791373)",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.817647 0.811373 0.791373)",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "class-usa/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.161176 0.193725 0.237255)",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "class-usa/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.161176 0.193725 0.237255)",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "class-usa/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.890588 0.832941 0.698824)",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.890588 0.832941 0.698824)",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "gold-athlete/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.205882 0.204706 0.204706)",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "gold-athlete/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.205882 0.204706 0.204706)",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "gold-athlete/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "dark-public/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "dark-public/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "dark-public/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "dark-public/dark"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
-      "sel": "input.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "high-contrast/light"
-      ],
-      "themeCount": 1
-    },
-    {
-      "prop": "border-top-color",
-      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
-      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
-      "themes": [
-        "high-contrast/light"
       ],
       "themeCount": 1
     },
@@ -3384,6 +2841,231 @@
       "sel": "input.m_8fb7ebe7.mantine-Input-input",
       "themes": [
         "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.904314 0.923922 0.956863)",
+      "sel": "button.m_6fa5e2aa.m_8fb7ebe7",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.109804 0.139216 0.188627)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.0996078 0.15451 0.246745)",
+      "sel": "div.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.109804 0.139216 0.188627)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.0996078 0.15451 0.246745)",
+      "sel": "button.m_347db0ec.mantine-Badge-root",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.904314 0.923922 0.956863)",
+      "sel": "select",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.00588235 0.174118 0.202353)",
+      "sel": "span",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.08 0.235294 0.262353)",
+      "sel": "span",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.228235 0.0870588 0.0117647)",
+      "sel": "span",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.288235 0.142353 0.0694118)",
+      "sel": "span",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.225882 0.162353 0.0211765)",
+      "sel": "span",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.271765 0.222353 0.108235)",
+      "sel": "span",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.0294118 0.181176 0.204706)",
+      "sel": "span",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.104706 0.261176 0.284706)",
+      "sel": "span",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.143529 0.0364706 0.190588)",
+      "sel": "span",
+      "themes": [
+        "high-contrast/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "background-color",
+      "value": "color(srgb 0.182353 0.102353 0.217647)",
+      "sel": "span",
+      "themes": [
+        "high-contrast/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.486275 0.227451 0.929412 / 0.297647)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.606804 0.454494 0.965851 / 0.350588)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "default/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.817647 0.811373 0.791373)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.161176 0.193725 0.237255)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "class-usa/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.890588 0.832941 0.698824)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.205882 0.204706 0.204706)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "gold-athlete/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.506037 0.272247 0.941269 / 0.297647)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/light"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.623582 0.492525 0.975918 / 0.350588)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "dark-public/dark"
+      ],
+      "themeCount": 1
+    },
+    {
+      "prop": "border-top-color",
+      "value": "color(srgb 0.00431373 0.0239216 0.0568627)",
+      "sel": "textarea.m_8fb7ebe7.mantine-Input-input",
+      "themes": [
+        "high-contrast/light"
       ],
       "themeCount": 1
     },
@@ -3399,324 +3081,336 @@
   ],
   "cells": [
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "default",
       "scheme": "light",
-      "tokenCount": 1109,
-      "observed": 2086,
-      "literals": 398
+      "tokenCount": 1298,
+      "observed": 1531,
+      "literals": 127
     },
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "default",
       "scheme": "dark",
-      "tokenCount": 1109,
-      "observed": 2092,
-      "literals": 396
+      "tokenCount": 1298,
+      "observed": 1535,
+      "literals": 127
     },
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "class-usa",
       "scheme": "light",
-      "tokenCount": 1221,
-      "observed": 2085,
-      "literals": 395
+      "tokenCount": 1406,
+      "observed": 1530,
+      "literals": 114
     },
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "class-usa",
       "scheme": "dark",
-      "tokenCount": 1221,
-      "observed": 2091,
-      "literals": 393
+      "tokenCount": 1406,
+      "observed": 1534,
+      "literals": 114
     },
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "gold-athlete",
       "scheme": "light",
-      "tokenCount": 1203,
-      "observed": 2085,
-      "literals": 395
+      "tokenCount": 1388,
+      "observed": 1530,
+      "literals": 114
     },
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "gold-athlete",
       "scheme": "dark",
-      "tokenCount": 1203,
-      "observed": 2091,
-      "literals": 393
+      "tokenCount": 1388,
+      "observed": 1534,
+      "literals": 114
     },
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "dark-public",
       "scheme": "light",
-      "tokenCount": 1109,
-      "observed": 2096,
-      "literals": 398
+      "tokenCount": 1298,
+      "observed": 1541,
+      "literals": 127
     },
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "dark-public",
       "scheme": "dark",
-      "tokenCount": 1109,
-      "observed": 2102,
-      "literals": 396
+      "tokenCount": 1298,
+      "observed": 1545,
+      "literals": 127
     },
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "high-contrast",
       "scheme": "light",
-      "tokenCount": 1109,
-      "observed": 2085,
-      "literals": 371
+      "tokenCount": 1298,
+      "observed": 1530,
+      "literals": 103
     },
     {
-      "route": "/live-demos",
+      "route": "/live-proofs",
       "preset": "high-contrast",
       "scheme": "dark",
-      "tokenCount": 1109,
-      "observed": 2091,
-      "literals": 372
+      "tokenCount": 1298,
+      "observed": 1534,
+      "literals": 103
     },
     {
       "route": "/patterns/foundations",
       "preset": "default",
       "scheme": "light",
-      "tokenCount": 1126,
-      "observed": 11844,
-      "literals": 2224
+      "tokenCount": 1315,
+      "observed": 9192,
+      "literals": 731
     },
     {
       "route": "/patterns/foundations",
       "preset": "default",
       "scheme": "dark",
-      "tokenCount": 1126,
-      "observed": 11844,
-      "literals": 2213
+      "tokenCount": 1315,
+      "observed": 9194,
+      "literals": 733
     },
     {
       "route": "/patterns/foundations",
       "preset": "class-usa",
       "scheme": "light",
-      "tokenCount": 1238,
-      "observed": 11787,
-      "literals": 2131
+      "tokenCount": 1423,
+      "observed": 9141,
+      "literals": 620
     },
     {
       "route": "/patterns/foundations",
       "preset": "class-usa",
       "scheme": "dark",
-      "tokenCount": 1238,
-      "observed": 11808,
-      "literals": 2155
-    },
-    {
-      "route": "/patterns/foundations",
-      "preset": "gold-athlete",
-      "scheme": "light",
-      "tokenCount": 1220,
-      "observed": 11793,
-      "literals": 2137
+      "tokenCount": 1423,
+      "observed": 9149,
+      "literals": 663
     },
     {
       "route": "/patterns/foundations",
       "preset": "gold-athlete",
+      "scheme": "light",
+      "tokenCount": 1405,
+      "observed": 9141,
+      "literals": 620
+    },
+    {
+      "route": "/patterns/foundations",
+      "preset": "gold-athlete",
       "scheme": "dark",
-      "tokenCount": 1220,
-      "observed": 11808,
-      "literals": 2155
+      "tokenCount": 1405,
+      "observed": 9149,
+      "literals": 663
     },
     {
       "route": "/patterns/foundations",
       "preset": "dark-public",
       "scheme": "light",
-      "tokenCount": 1126,
-      "observed": 11859,
-      "literals": 2224
+      "tokenCount": 1315,
+      "observed": 9207,
+      "literals": 731
     },
     {
       "route": "/patterns/foundations",
       "preset": "dark-public",
       "scheme": "dark",
-      "tokenCount": 1126,
-      "observed": 11865,
-      "literals": 2219
+      "tokenCount": 1315,
+      "observed": 9209,
+      "literals": 733
     },
     {
       "route": "/patterns/foundations",
       "preset": "high-contrast",
       "scheme": "light",
-      "tokenCount": 1126,
-      "observed": 11793,
-      "literals": 2086
-    },
-    {
-      "route": "/patterns/foundations",
-      "preset": "high-contrast",
-      "scheme": "dark",
-      "tokenCount": 1126,
-      "observed": 11805,
-      "literals": 2089
-    },
-    {
-      "route": "/live-demos/surfaces",
-      "preset": "default",
-      "scheme": "light",
-      "tokenCount": 1116,
-      "observed": 3030,
-      "literals": 611
-    },
-    {
-      "route": "/live-demos/surfaces",
-      "preset": "default",
-      "scheme": "dark",
-      "tokenCount": 1116,
-      "observed": 3036,
-      "literals": 609
-    },
-    {
-      "route": "/live-demos/surfaces",
-      "preset": "class-usa",
-      "scheme": "light",
-      "tokenCount": 1228,
-      "observed": 3023,
+      "tokenCount": 1315,
+      "observed": 9141,
       "literals": 602
     },
     {
-      "route": "/live-demos/surfaces",
+      "route": "/patterns/foundations",
+      "preset": "high-contrast",
+      "scheme": "dark",
+      "tokenCount": 1315,
+      "observed": 9149,
+      "literals": 603
+    },
+    {
+      "route": "/live-proofs/surfaces",
+      "preset": "default",
+      "scheme": "light",
+      "tokenCount": 1305,
+      "observed": 2268,
+      "literals": 164
+    },
+    {
+      "route": "/live-proofs/surfaces",
+      "preset": "default",
+      "scheme": "dark",
+      "tokenCount": 1305,
+      "observed": 2272,
+      "literals": 164
+    },
+    {
+      "route": "/live-proofs/surfaces",
+      "preset": "class-usa",
+      "scheme": "light",
+      "tokenCount": 1413,
+      "observed": 2261,
+      "literals": 148
+    },
+    {
+      "route": "/live-proofs/surfaces",
       "preset": "class-usa",
       "scheme": "dark",
-      "tokenCount": 1228,
-      "observed": 3029,
-      "literals": 569
+      "tokenCount": 1413,
+      "observed": 2265,
+      "literals": 152
     },
     {
-      "route": "/live-demos/surfaces",
+      "route": "/live-proofs/surfaces",
       "preset": "gold-athlete",
       "scheme": "light",
-      "tokenCount": 1210,
-      "observed": 3023,
-      "literals": 602
+      "tokenCount": 1395,
+      "observed": 2261,
+      "literals": 148
     },
     {
-      "route": "/live-demos/surfaces",
+      "route": "/live-proofs/surfaces",
       "preset": "gold-athlete",
       "scheme": "dark",
-      "tokenCount": 1210,
-      "observed": 3029,
-      "literals": 569
+      "tokenCount": 1395,
+      "observed": 2265,
+      "literals": 152
     },
     {
-      "route": "/live-demos/surfaces",
+      "route": "/live-proofs/surfaces",
       "preset": "dark-public",
       "scheme": "light",
-      "tokenCount": 1116,
-      "observed": 3032,
-      "literals": 611
+      "tokenCount": 1305,
+      "observed": 2270,
+      "literals": 164
     },
     {
-      "route": "/live-demos/surfaces",
+      "route": "/live-proofs/surfaces",
       "preset": "dark-public",
       "scheme": "dark",
-      "tokenCount": 1116,
-      "observed": 3038,
-      "literals": 609
+      "tokenCount": 1305,
+      "observed": 2274,
+      "literals": 164
     },
     {
-      "route": "/live-demos/surfaces",
+      "route": "/live-proofs/surfaces",
       "preset": "high-contrast",
       "scheme": "light",
-      "tokenCount": 1115,
-      "observed": 3023,
-      "literals": 586
+      "tokenCount": 1304,
+      "observed": 2261,
+      "literals": 142
     },
     {
-      "route": "/live-demos/surfaces",
+      "route": "/live-proofs/surfaces",
       "preset": "high-contrast",
       "scheme": "dark",
-      "tokenCount": 1115,
-      "observed": 3029,
-      "literals": 587
+      "tokenCount": 1304,
+      "observed": 2265,
+      "literals": 142
     },
     {
       "route": "/patterns/operations",
       "preset": "default",
       "scheme": "light",
-      "tokenCount": 1118,
-      "observed": 8114,
-      "literals": 1525
+      "tokenCount": 1307,
+      "observed": 6287,
+      "literals": 495
     },
     {
       "route": "/patterns/operations",
       "preset": "default",
       "scheme": "dark",
-      "tokenCount": 1118,
-      "observed": 8120,
-      "literals": 1514
+      "tokenCount": 1307,
+      "observed": 6291,
+      "literals": 495
     },
     {
       "route": "/patterns/operations",
       "preset": "class-usa",
       "scheme": "light",
-      "tokenCount": 1230,
-      "observed": 8077,
-      "literals": 1462
+      "tokenCount": 1415,
+      "observed": 6250,
+      "literals": 409
     },
     {
       "route": "/patterns/operations",
       "preset": "class-usa",
       "scheme": "dark",
-      "tokenCount": 1230,
-      "observed": 8083,
-      "literals": 1395
+      "tokenCount": 1415,
+      "observed": 6254,
+      "literals": 429
     },
     {
       "route": "/patterns/operations",
       "preset": "gold-athlete",
       "scheme": "light",
-      "tokenCount": 1212,
-      "observed": 8077,
-      "literals": 1462
+      "tokenCount": 1397,
+      "observed": 6250,
+      "literals": 409
     },
     {
       "route": "/patterns/operations",
       "preset": "gold-athlete",
       "scheme": "dark",
-      "tokenCount": 1212,
-      "observed": 8083,
-      "literals": 1395
+      "tokenCount": 1397,
+      "observed": 6254,
+      "literals": 429
     },
     {
       "route": "/patterns/operations",
       "preset": "dark-public",
       "scheme": "light",
-      "tokenCount": 1118,
-      "observed": 8138,
-      "literals": 1525
+      "tokenCount": 1307,
+      "observed": 6311,
+      "literals": 495
     },
     {
       "route": "/patterns/operations",
       "preset": "dark-public",
       "scheme": "dark",
-      "tokenCount": 1118,
-      "observed": 8144,
-      "literals": 1514
+      "tokenCount": 1307,
+      "observed": 6315,
+      "literals": 495
     },
     {
       "route": "/patterns/operations",
       "preset": "high-contrast",
       "scheme": "light",
-      "tokenCount": 1118,
-      "observed": 8077,
-      "literals": 1387
+      "tokenCount": 1307,
+      "observed": 6250,
+      "literals": 369
     },
     {
       "route": "/patterns/operations",
       "preset": "high-contrast",
       "scheme": "dark",
-      "tokenCount": 1118,
-      "observed": 8083,
-      "literals": 1388
+      "tokenCount": 1307,
+      "observed": 6254,
+      "literals": 369
     }
-  ]
+  ],
+  "literalsByPreset": {
+    "default/light": 1517,
+    "default/dark": 1519,
+    "class-usa/light": 1291,
+    "class-usa/dark": 1358,
+    "gold-athlete/light": 1291,
+    "gold-athlete/dark": 1358,
+    "dark-public/light": 1517,
+    "dark-public/dark": 1519,
+    "high-contrast/light": 1216,
+    "high-contrast/dark": 1217
+  }
 }

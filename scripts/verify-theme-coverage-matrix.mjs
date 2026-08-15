@@ -156,6 +156,11 @@ try {
         for (const p of props) {
           const value = s.getPropertyValue(p);
           if (!value) continue;
+          // Inert-outline rule, identical to the shared render classifier (issue 625): the UA
+          // default outline-width ('medium' -> 3px) sits on every unfocused element painting
+          // nothing while outline-style is none — counting it accuses a value that does not
+          // render. Two classifiers must agree, or the same page gets two different verdicts.
+          if ((p === 'outline-width' || p === 'outline-color') && s.getPropertyValue('outline-style') === 'none') continue;
           const key = el.tagName + '|' + (el.className && el.className.toString().slice(0, 40)) + '|' + p + '|' + value;
           if (seen.has(key)) continue;
           seen.add(key);

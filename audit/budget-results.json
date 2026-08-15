@@ -2,8 +2,8 @@
   "rows": [
     {
       "key": "themeMatrixUntraceableRate",
-      "measured": 33.02,
-      "value": 33.02,
+      "measured": 26.7,
+      "value": 26.7,
       "direction": "max",
       "unit": "%",
       "finding": "F5 (issue 562)",
@@ -12,8 +12,8 @@
     },
     {
       "key": "untraceableRenderRate",
-      "measured": 18.4,
-      "value": 18.4,
+      "measured": 7.2,
+      "value": 7.2,
       "direction": "max",
       "unit": "%",
       "finding": "F5",
