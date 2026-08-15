@@ -249,6 +249,20 @@ complete by omission.
 **Evidence.** `audit/coverage-array.json` including achieved coverage percentages
 and the complete skipped-cell list with reasons.
 
+> **Status (issue 583, 2026-08-15): IMPLEMENTED.** `scripts/audit/factor-model.config.mjs`
+> (8 factors, levels derived from the system, §3.1.1 weights with the 0.5 floor),
+> `scripts/audit/covering-array.mjs` (deterministic IPOG, 2-way everywhere + 3-way for the
+> a11y-critical group), `scripts/audit/wga-select.mjs` (existing-gate coverage measured first,
+> greedy weighted-gain-per-cost, deterministic max-distance tie-break, §3.1.3 transition-cost
+> ordering), `scripts/audit/render-coverage.mjs` (execution with the Phase-1 classifier reused
+> verbatim; skipped cells fail the phase; achieved per-group coverage in
+> `audit/coverage-array.json`). Deviations from the sketch below, recorded rather than hidden:
+> the mutation-score stopping rule (§3.1.4 step 5) is not implemented — the full array runs to
+> completion, so no budget-stopping decision arises; and the classifier's element sweep is
+> CHUNKED in transport on heavy pages, because the monolithic sweep reproducibly crashed the
+> renderer on `/api` — a page Phase 1's four routes never visited, found by this array on its
+> first runs.
+
 ## 3.1 Cell-selection algorithm — WGA (Weighted Gap Augmentation)
 
 The state space is ~792,000 cells and execution is expensive. WGA selects which

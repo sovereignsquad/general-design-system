@@ -1,0 +1,172 @@
+// The Phase-1 render classifier, shared verbatim (issue 583's architecture note: the
+// covering-array runner changes WHICH cells run and in what order, never what a cell
+// measures). Extracted from backward-trace.mjs when the runner became its second consumer —
+// two copies of a classifier are two classifiers.
+
+const TRACKED = [
+  'border-top-left-radius', 'border-top-right-radius', 'border-bottom-right-radius', 'border-bottom-left-radius',
+  'padding-top', 'padding-left', 'row-gap', 'column-gap',
+  'font-size', 'font-weight', 'letter-spacing',
+  'color', 'background-color', 'border-top-color', 'border-top-width',
+  'box-shadow', 'transition-duration', 'transition-timing-function',
+  'outline-width', 'outline-color',
+];
+
+const absoluteUrlFor = (baseUrl, route) => `${baseUrl}${route}`;
+
+/** Captures the theme's resolved token map + every element's tracked properties. */
+const CAPTURE = `(() => {
+  // 1. Resolve every custom property to COMPUTED form via a probe element, so
+  //    '#7c3aed' and 'rgb(124, 58, 237)' compare equal, and '2rem' and '32px' do.
+  const names = new Set();
+  for (const sheet of document.styleSheets) {
+    let rules; try { rules = sheet.cssRules } catch { continue }
+    const walk = rs => { for (const r of rs) { if (r.style) for (const p of r.style) if (p.startsWith('--')) names.add(p); if (r.cssRules) walk(r.cssRules); } };
+    walk(rules);
+  }
+  const inline = el => { if (el) for (const p of el.style) if (p.startsWith('--')) names.add(p); };
+  inline(document.documentElement); inline(document.body);
+  document.querySelectorAll('[style*="--"]').forEach(inline);
+
+  const probe = document.createElement('div');
+  probe.style.position = 'absolute'; probe.style.visibility = 'hidden';
+  document.body.appendChild(probe);
+
+  const tokenIndex = {};   // computedValue -> [tokenName]
+  const tokenValues = {};  // tokenName -> computedValue
+  // Probe EVERY category a token could belong to. A token only indexes into the
+  // categories where it actually resolves, so a colour token never pollutes the
+  // duration index and vice versa.
+  const PROBES = [
+    ['color', 'color'], ['paddingTop', 'paddingTop'], ['transitionDuration', 'transitionDuration'],
+    ['transitionTimingFunction', 'transitionTimingFunction'], ['boxShadow', 'boxShadow'],
+    ['fontWeight', 'fontWeight'], ['letterSpacing', 'letterSpacing'], ['borderTopWidth', 'borderTopWidth'],
+  ];
+  const INERT = new Set(['0px', 'rgba(0, 0, 0, 0)', 'none', 'normal', '0s', 'auto', '400', '']);
+  for (const name of names) {
+    const declared = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    const cands = [declared];
+    for (const [set, read] of PROBES) {
+      probe.style[set] = '';
+      probe.style[set] = 'var(' + name + ')';
+      const got = getComputedStyle(probe)[read];
+      probe.style[set] = '';
+      if (got) cands.push(String(got).trim());
+    }
+    for (const cand of cands) {
+      if (!cand || INERT.has(cand)) continue;
+      (tokenIndex[cand] ||= []).push(name);
+    }
+    tokenValues[name] = declared;
+  }
+  probe.remove();
+
+  // 2. Sweep every visible element.
+  const TRACKED = ${JSON.stringify(TRACKED)};
+  const UA_DEFAULTS = new Set(['0px','normal','none','auto','rgba(0, 0, 0, 0)','0s','currentcolor','medium','400','0s, 0s','0px 0px 0px 0px']);
+  const observations = [];
+  const els = [...document.querySelectorAll('*')];
+  for (const el of els) {
+    const cs = getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.width < 2 || rect.height < 2) continue;
+    if (cs.visibility === 'hidden' || cs.display === 'none') continue;
+    for (const prop of TRACKED) {
+      const value = cs.getPropertyValue(prop);
+      if (!value) continue;
+      if (UA_DEFAULTS.has(value.trim().toLowerCase())) continue;
+      // Multi-value shorthands compute as comma lists ('0.12s, 0.12s'). Match each
+      // part: a value is token-derived only if EVERY part resolves to a token.
+      const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
+        ? value.split(',').map(x => x.trim()).filter(Boolean)
+        : [value.trim()];
+      const partHits = parts.map(p => tokenIndex[p]);
+      const hit = partHits.every(Boolean) ? partHits[0] : undefined;
+      observations.push({
+        prop,
+        value: value.trim(),
+        provenance: hit ? 'token' : 'literal',
+        token: hit ? hit[0] : undefined,
+        sel: el.tagName.toLowerCase() + (typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\\s+/).slice(0,2).join('.') : ''),
+      });
+    }
+  }
+  return { tokenCount: Object.keys(tokenValues).length, observations };
+})()`;
+
+
+
+/**
+ * Chunked execution of the SAME classifier, for pages whose full sweep kills the renderer.
+ *
+ * Found by the covering array (issue 583): `/api` — excluded from Phase 1's four routes — dies
+ * under the monolithic CAPTURE regardless of theme, locale, or emulation; the tab OOMs holding
+ * every element's observations at once. The prep step builds the token index exactly as
+ * CAPTURE does and parks it on the page; each sweep call then classifies one element slice
+ * with the same TRACKED list, the same UA-defaults filter, and the same provenance rule, so a
+ * chunked capture and a monolithic capture measure identically — only the transport differs.
+ */
+export const CAPTURE_PREP = `(() => {
+  const names = new Set();
+  for (const sheet of document.styleSheets) {
+    let rules; try { rules = sheet.cssRules } catch { continue }
+    const walk = rs => { for (const r of rs) { if (r.style) for (const p of r.style) if (p.startsWith('--')) names.add(p); if (r.cssRules) walk(r.cssRules); } };
+    walk(rules);
+  }
+  const inline = el => { if (el) for (const p of el.style) if (p.startsWith('--')) names.add(p); };
+  inline(document.documentElement); inline(document.body);
+  document.querySelectorAll('[style*="--"]').forEach(inline);
+  const probe = document.createElement('div');
+  probe.style.position = 'absolute'; probe.style.visibility = 'hidden';
+  document.body.appendChild(probe);
+  const tokenIndex = {}; const tokenValues = {};
+  const PROBES = [
+    ['color', 'color'], ['paddingTop', 'paddingTop'], ['transitionDuration', 'transitionDuration'],
+    ['transitionTimingFunction', 'transitionTimingFunction'], ['boxShadow', 'boxShadow'],
+    ['fontWeight', 'fontWeight'], ['letterSpacing', 'letterSpacing'], ['borderTopWidth', 'borderTopWidth'],
+  ];
+  const INERT = new Set(['0px', 'rgba(0, 0, 0, 0)', 'none', 'normal', '0s', 'auto', '400', '']);
+  for (const name of names) {
+    const declared = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    const cands = [declared];
+    for (const [set, read] of PROBES) {
+      probe.style[set] = ''; probe.style[set] = 'var(' + name + ')';
+      const got = getComputedStyle(probe)[read]; probe.style[set] = '';
+      if (got) cands.push(String(got).trim());
+    }
+    for (const cand of cands) { if (!cand || INERT.has(cand)) continue; (tokenIndex[cand] ||= []).push(name); }
+    tokenValues[name] = declared;
+  }
+  probe.remove();
+  window.__gdsAuditTokenIndex = tokenIndex;
+  window.__gdsAuditEls = document.querySelectorAll('*').length;
+  return { tokenCount: Object.keys(tokenValues).length, elements: window.__gdsAuditEls };
+})()`;
+
+export const captureSweepChunk = (start, end) => `(() => {
+  const tokenIndex = window.__gdsAuditTokenIndex || {};
+  const TRACKED = ${JSON.stringify(TRACKED)};
+  const UA_DEFAULTS = new Set(['0px','normal','none','auto','rgba(0, 0, 0, 0)','0s','currentcolor','medium','400','0s, 0s','0px 0px 0px 0px']);
+  let total = 0; let literal = 0;
+  const els = [...document.querySelectorAll('*')].slice(${start}, ${end});
+  for (const el of els) {
+    const cs = getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.width < 2 || rect.height < 2) continue;
+    if (cs.visibility === 'hidden' || cs.display === 'none') continue;
+    for (const prop of TRACKED) {
+      const value = cs.getPropertyValue(prop);
+      if (!value) continue;
+      if (UA_DEFAULTS.has(value.trim().toLowerCase())) continue;
+      const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
+        ? value.split(',').map(x => x.trim()).filter(Boolean)
+        : [value.trim()];
+      const partHits = parts.map(p => tokenIndex[p]);
+      const hit = partHits.every(Boolean) ? partHits[0] : undefined;
+      total += 1; if (!hit) literal += 1;
+    }
+  }
+  return { total, literal };
+})()`;
+
+export { TRACKED, CAPTURE, absoluteUrlFor };
