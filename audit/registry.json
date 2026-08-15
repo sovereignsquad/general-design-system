@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "8abe0c4a981a3c068d27083b24f82819b2af17ed",
+  "commit": "771c79cfbd9351fba8c86d0e7a00eb91a16143ee",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -16,7 +16,7 @@
     "interaction-state": 30,
     "locale-pack-package": 12,
     "locale-pack-site": 11,
-    "route": 24,
+    "route": 25,
     "pattern": 114,
     "theme": 25,
     "accent": 10
@@ -32126,7 +32126,7 @@
         "file": "apps/playground/src/generated-site-phrases/ar.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:de#3149",
@@ -32136,7 +32136,7 @@
         "file": "apps/playground/src/generated-site-phrases/de.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:es#3150",
@@ -32146,7 +32146,7 @@
         "file": "apps/playground/src/generated-site-phrases/es.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:fr#3151",
@@ -32156,7 +32156,7 @@
         "file": "apps/playground/src/generated-site-phrases/fr.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:he#3152",
@@ -32166,7 +32166,7 @@
         "file": "apps/playground/src/generated-site-phrases/he.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:hu#3153",
@@ -32176,7 +32176,7 @@
         "file": "apps/playground/src/generated-site-phrases/hu.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:it#3154",
@@ -32186,7 +32186,7 @@
         "file": "apps/playground/src/generated-site-phrases/it.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:ja#3155",
@@ -32196,7 +32196,7 @@
         "file": "apps/playground/src/generated-site-phrases/ja.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:ko#3156",
@@ -32206,7 +32206,7 @@
         "file": "apps/playground/src/generated-site-phrases/ko.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:ru#3157",
@@ -32216,7 +32216,7 @@
         "file": "apps/playground/src/generated-site-phrases/ru.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "locale-pack-site:zh#3158",
@@ -32226,7 +32226,7 @@
         "file": "apps/playground/src/generated-site-phrases/zh.ts",
         "line": 1
       },
-      "keyCount": 2002
+      "keyCount": 2003
     },
     {
       "id": "route:/#3159",
@@ -32234,7 +32234,7 @@
       "name": "/",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 281
+        "line": 285
       }
     },
     {
@@ -32243,7 +32243,7 @@
       "name": "/patterns",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 292
+        "line": 296
       }
     },
     {
@@ -32252,7 +32252,7 @@
       "name": "/patterns/foundations",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 293
+        "line": 297
       }
     },
     {
@@ -32261,7 +32261,7 @@
       "name": "/patterns/public",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 294
+        "line": 298
       }
     },
     {
@@ -32270,7 +32270,7 @@
       "name": "/patterns/operations",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 295
+        "line": 299
       }
     },
     {
@@ -32279,7 +32279,7 @@
       "name": "/patterns/data",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 296
+        "line": 300
       }
     },
     {
@@ -32288,7 +32288,7 @@
       "name": "/patterns/access",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 297
+        "line": 301
       }
     },
     {
@@ -32297,155 +32297,164 @@
       "name": "/patterns/feedback",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 298
-      }
-    },
-    {
-      "id": "route:/coverage#3167",
-      "kind": "route",
-      "name": "/coverage",
-      "source": {
-        "file": "apps/playground/src/App.tsx",
-        "line": 299
-      }
-    },
-    {
-      "id": "route:/api#3168",
-      "kind": "route",
-      "name": "/api",
-      "source": {
-        "file": "apps/playground/src/App.tsx",
-        "line": 300
-      }
-    },
-    {
-      "id": "route:/maturity#3169",
-      "kind": "route",
-      "name": "/maturity",
-      "source": {
-        "file": "apps/playground/src/App.tsx",
-        "line": 301
-      }
-    },
-    {
-      "id": "route:/use-cases#3170",
-      "kind": "route",
-      "name": "/use-cases",
-      "source": {
-        "file": "apps/playground/src/App.tsx",
         "line": 302
       }
     },
     {
-      "id": "route:/install#3171",
+      "id": "route:/components#3167",
       "kind": "route",
-      "name": "/install",
+      "name": "/components",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 303
       }
     },
     {
-      "id": "route:/governance#3172",
+      "id": "route:/coverage#3168",
       "kind": "route",
-      "name": "/governance",
+      "name": "/coverage",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 304
       }
     },
     {
-      "id": "route:/themes#3173",
+      "id": "route:/api#3169",
       "kind": "route",
-      "name": "/themes",
+      "name": "/api",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 305
       }
     },
     {
-      "id": "route:/live-proofs#3174",
+      "id": "route:/maturity#3170",
+      "kind": "route",
+      "name": "/maturity",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 306
+      }
+    },
+    {
+      "id": "route:/use-cases#3171",
+      "kind": "route",
+      "name": "/use-cases",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 307
+      }
+    },
+    {
+      "id": "route:/install#3172",
+      "kind": "route",
+      "name": "/install",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 308
+      }
+    },
+    {
+      "id": "route:/governance#3173",
+      "kind": "route",
+      "name": "/governance",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 309
+      }
+    },
+    {
+      "id": "route:/themes#3174",
+      "kind": "route",
+      "name": "/themes",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 310
+      }
+    },
+    {
+      "id": "route:/live-proofs#3175",
       "kind": "route",
       "name": "/live-proofs",
-      "source": {
-        "file": "apps/playground/src/App.tsx",
-        "line": 316
-      }
-    },
-    {
-      "id": "route:/live-proofs/surfaces#3175",
-      "kind": "route",
-      "name": "/live-proofs/surfaces",
-      "source": {
-        "file": "apps/playground/src/App.tsx",
-        "line": 317
-      }
-    },
-    {
-      "id": "route:/live-proofs/layouts#3176",
-      "kind": "route",
-      "name": "/live-proofs/layouts",
-      "source": {
-        "file": "apps/playground/src/App.tsx",
-        "line": 318
-      }
-    },
-    {
-      "id": "route:/live-proofs/semantics#3177",
-      "kind": "route",
-      "name": "/live-proofs/semantics",
-      "source": {
-        "file": "apps/playground/src/App.tsx",
-        "line": 319
-      }
-    },
-    {
-      "id": "route:/live-proofs/food#3178",
-      "kind": "route",
-      "name": "/live-proofs/food",
-      "source": {
-        "file": "apps/playground/src/App.tsx",
-        "line": 320
-      }
-    },
-    {
-      "id": "route:/live-proofs/playback#3179",
-      "kind": "route",
-      "name": "/live-proofs/playback",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 321
       }
     },
     {
-      "id": "route:/live-proofs/analytics#3180",
+      "id": "route:/live-proofs/surfaces#3176",
       "kind": "route",
-      "name": "/live-proofs/analytics",
+      "name": "/live-proofs/surfaces",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 322
       }
     },
     {
-      "id": "route:/request-feature#3181",
+      "id": "route:/live-proofs/layouts#3177",
       "kind": "route",
-      "name": "/request-feature",
+      "name": "/live-proofs/layouts",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 323
       }
     },
     {
-      "id": "route:/ai#3182",
+      "id": "route:/live-proofs/semantics#3178",
       "kind": "route",
-      "name": "/ai",
+      "name": "/live-proofs/semantics",
       "source": {
         "file": "apps/playground/src/App.tsx",
         "line": 324
       }
     },
     {
-      "id": "pattern:stable-shell#3183",
+      "id": "route:/live-proofs/food#3179",
+      "kind": "route",
+      "name": "/live-proofs/food",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 325
+      }
+    },
+    {
+      "id": "route:/live-proofs/playback#3180",
+      "kind": "route",
+      "name": "/live-proofs/playback",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 326
+      }
+    },
+    {
+      "id": "route:/live-proofs/analytics#3181",
+      "kind": "route",
+      "name": "/live-proofs/analytics",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 327
+      }
+    },
+    {
+      "id": "route:/request-feature#3182",
+      "kind": "route",
+      "name": "/request-feature",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 328
+      }
+    },
+    {
+      "id": "route:/ai#3183",
+      "kind": "route",
+      "name": "/ai",
+      "source": {
+        "file": "apps/playground/src/App.tsx",
+        "line": 329
+      }
+    },
+    {
+      "id": "pattern:stable-shell#3184",
       "kind": "pattern",
       "name": "stable-shell",
       "source": {
@@ -32454,7 +32463,7 @@
       }
     },
     {
-      "id": "pattern:primary-navigation#3184",
+      "id": "pattern:primary-navigation#3185",
       "kind": "pattern",
       "name": "primary-navigation",
       "source": {
@@ -32463,7 +32472,7 @@
       }
     },
     {
-      "id": "pattern:mobile-navigation#3185",
+      "id": "pattern:mobile-navigation#3186",
       "kind": "pattern",
       "name": "mobile-navigation",
       "source": {
@@ -32472,7 +32481,7 @@
       }
     },
     {
-      "id": "pattern:page-headers#3186",
+      "id": "pattern:page-headers#3187",
       "kind": "pattern",
       "name": "page-headers",
       "source": {
@@ -32481,7 +32490,7 @@
       }
     },
     {
-      "id": "pattern:theme-toggle#3187",
+      "id": "pattern:theme-toggle#3188",
       "kind": "pattern",
       "name": "theme-toggle",
       "source": {
@@ -32490,7 +32499,7 @@
       }
     },
     {
-      "id": "pattern:form-field#3188",
+      "id": "pattern:form-field#3189",
       "kind": "pattern",
       "name": "form-field",
       "source": {
@@ -32499,7 +32508,7 @@
       }
     },
     {
-      "id": "pattern:game-board-tile#3189",
+      "id": "pattern:game-board-tile#3190",
       "kind": "pattern",
       "name": "game-board-tile",
       "source": {
@@ -32508,7 +32517,7 @@
       }
     },
     {
-      "id": "pattern:shell-contracts#3190",
+      "id": "pattern:shell-contracts#3191",
       "kind": "pattern",
       "name": "shell-contracts",
       "source": {
@@ -32517,7 +32526,7 @@
       }
     },
     {
-      "id": "pattern:discovery-shell#3191",
+      "id": "pattern:discovery-shell#3192",
       "kind": "pattern",
       "name": "discovery-shell",
       "source": {
@@ -32526,7 +32535,7 @@
       }
     },
     {
-      "id": "pattern:sidebar-navigation#3192",
+      "id": "pattern:sidebar-navigation#3193",
       "kind": "pattern",
       "name": "sidebar-navigation",
       "source": {
@@ -32535,7 +32544,7 @@
       }
     },
     {
-      "id": "pattern:dashboards#3193",
+      "id": "pattern:dashboards#3194",
       "kind": "pattern",
       "name": "dashboards",
       "source": {
@@ -32544,7 +32553,7 @@
       }
     },
     {
-      "id": "pattern:forms#3194",
+      "id": "pattern:forms#3195",
       "kind": "pattern",
       "name": "forms",
       "source": {
@@ -32553,7 +32562,7 @@
       }
     },
     {
-      "id": "pattern:admin-editor-flows#3195",
+      "id": "pattern:admin-editor-flows#3196",
       "kind": "pattern",
       "name": "admin-editor-flows",
       "source": {
@@ -32562,7 +32571,7 @@
       }
     },
     {
-      "id": "pattern:search-filters-lists#3196",
+      "id": "pattern:search-filters-lists#3197",
       "kind": "pattern",
       "name": "search-filters-lists",
       "source": {
@@ -32571,7 +32580,7 @@
       }
     },
     {
-      "id": "pattern:destructive-actions#3197",
+      "id": "pattern:destructive-actions#3198",
       "kind": "pattern",
       "name": "destructive-actions",
       "source": {
@@ -32580,7 +32589,7 @@
       }
     },
     {
-      "id": "pattern:pattern-service-reuse#3198",
+      "id": "pattern:pattern-service-reuse#3199",
       "kind": "pattern",
       "name": "pattern-service-reuse",
       "source": {
@@ -32589,7 +32598,7 @@
       }
     },
     {
-      "id": "pattern:maturity-capabilities#3199",
+      "id": "pattern:maturity-capabilities#3200",
       "kind": "pattern",
       "name": "maturity-capabilities",
       "source": {
@@ -32598,7 +32607,7 @@
       }
     },
     {
-      "id": "pattern:semantic-actions#3200",
+      "id": "pattern:semantic-actions#3201",
       "kind": "pattern",
       "name": "semantic-actions",
       "source": {
@@ -32607,7 +32616,7 @@
       }
     },
     {
-      "id": "pattern:detail-surfaces#3201",
+      "id": "pattern:detail-surfaces#3202",
       "kind": "pattern",
       "name": "detail-surfaces",
       "source": {
@@ -32616,7 +32625,7 @@
       }
     },
     {
-      "id": "pattern:embed-surfaces#3202",
+      "id": "pattern:embed-surfaces#3203",
       "kind": "pattern",
       "name": "embed-surfaces",
       "source": {
@@ -32625,7 +32634,7 @@
       }
     },
     {
-      "id": "pattern:buttons#3203",
+      "id": "pattern:buttons#3204",
       "kind": "pattern",
       "name": "buttons",
       "source": {
@@ -32634,7 +32643,7 @@
       }
     },
     {
-      "id": "pattern:choice-chips#3204",
+      "id": "pattern:choice-chips#3205",
       "kind": "pattern",
       "name": "choice-chips",
       "source": {
@@ -32643,7 +32652,7 @@
       }
     },
     {
-      "id": "pattern:icon-buttons#3205",
+      "id": "pattern:icon-buttons#3206",
       "kind": "pattern",
       "name": "icon-buttons",
       "source": {
@@ -32652,7 +32661,7 @@
       }
     },
     {
-      "id": "pattern:inputs#3206",
+      "id": "pattern:inputs#3207",
       "kind": "pattern",
       "name": "inputs",
       "source": {
@@ -32661,7 +32670,7 @@
       }
     },
     {
-      "id": "pattern:selects-combobox#3207",
+      "id": "pattern:selects-combobox#3208",
       "kind": "pattern",
       "name": "selects-combobox",
       "source": {
@@ -32670,7 +32679,7 @@
       }
     },
     {
-      "id": "pattern:checkboxes-radios#3208",
+      "id": "pattern:checkboxes-radios#3209",
       "kind": "pattern",
       "name": "checkboxes-radios",
       "source": {
@@ -32679,7 +32688,7 @@
       }
     },
     {
-      "id": "pattern:product-cards#3209",
+      "id": "pattern:product-cards#3210",
       "kind": "pattern",
       "name": "product-cards",
       "source": {
@@ -32688,7 +32697,7 @@
       }
     },
     {
-      "id": "pattern:public-product-cards#3210",
+      "id": "pattern:public-product-cards#3211",
       "kind": "pattern",
       "name": "public-product-cards",
       "source": {
@@ -32697,7 +32706,7 @@
       }
     },
     {
-      "id": "pattern:media-card#3211",
+      "id": "pattern:media-card#3212",
       "kind": "pattern",
       "name": "media-card",
       "source": {
@@ -32706,7 +32715,7 @@
       }
     },
     {
-      "id": "pattern:accent-panels#3212",
+      "id": "pattern:accent-panels#3213",
       "kind": "pattern",
       "name": "accent-panels",
       "source": {
@@ -32715,7 +32724,7 @@
       }
     },
     {
-      "id": "pattern:metric-cards#3213",
+      "id": "pattern:metric-cards#3214",
       "kind": "pattern",
       "name": "metric-cards",
       "source": {
@@ -32724,7 +32733,7 @@
       }
     },
     {
-      "id": "pattern:data-toolbars#3214",
+      "id": "pattern:data-toolbars#3215",
       "kind": "pattern",
       "name": "data-toolbars",
       "source": {
@@ -32733,7 +32742,7 @@
       }
     },
     {
-      "id": "pattern:state-blocks#3215",
+      "id": "pattern:state-blocks#3216",
       "kind": "pattern",
       "name": "state-blocks",
       "source": {
@@ -32742,7 +32751,7 @@
       }
     },
     {
-      "id": "pattern:surface-presentation#3216",
+      "id": "pattern:surface-presentation#3217",
       "kind": "pattern",
       "name": "surface-presentation",
       "source": {
@@ -32751,7 +32760,7 @@
       }
     },
     {
-      "id": "pattern:action-bar#3217",
+      "id": "pattern:action-bar#3218",
       "kind": "pattern",
       "name": "action-bar",
       "source": {
@@ -32760,7 +32769,7 @@
       }
     },
     {
-      "id": "pattern:listing-card#3218",
+      "id": "pattern:listing-card#3219",
       "kind": "pattern",
       "name": "listing-card",
       "source": {
@@ -32769,7 +32778,7 @@
       }
     },
     {
-      "id": "pattern:share-button-group#3219",
+      "id": "pattern:share-button-group#3220",
       "kind": "pattern",
       "name": "share-button-group",
       "source": {
@@ -32778,7 +32787,7 @@
       }
     },
     {
-      "id": "pattern:public-food-card#3220",
+      "id": "pattern:public-food-card#3221",
       "kind": "pattern",
       "name": "public-food-card",
       "source": {
@@ -32787,7 +32796,7 @@
       }
     },
     {
-      "id": "pattern:food-menu-section#3221",
+      "id": "pattern:food-menu-section#3222",
       "kind": "pattern",
       "name": "food-menu-section",
       "source": {
@@ -32796,7 +32805,7 @@
       }
     },
     {
-      "id": "pattern:map-panel#3222",
+      "id": "pattern:map-panel#3223",
       "kind": "pattern",
       "name": "map-panel",
       "source": {
@@ -32805,7 +32814,7 @@
       }
     },
     {
-      "id": "pattern:detail-profile-shell#3223",
+      "id": "pattern:detail-profile-shell#3224",
       "kind": "pattern",
       "name": "detail-profile-shell",
       "source": {
@@ -32814,7 +32823,7 @@
       }
     },
     {
-      "id": "pattern:public-flow-shell#3224",
+      "id": "pattern:public-flow-shell#3225",
       "kind": "pattern",
       "name": "public-flow-shell",
       "source": {
@@ -32823,7 +32832,7 @@
       }
     },
     {
-      "id": "pattern:playback-surface#3225",
+      "id": "pattern:playback-surface#3226",
       "kind": "pattern",
       "name": "playback-surface",
       "source": {
@@ -32832,7 +32841,7 @@
       }
     },
     {
-      "id": "pattern:public-shells#3226",
+      "id": "pattern:public-shells#3227",
       "kind": "pattern",
       "name": "public-shells",
       "source": {
@@ -32841,7 +32850,7 @@
       }
     },
     {
-      "id": "pattern:public-nav#3227",
+      "id": "pattern:public-nav#3228",
       "kind": "pattern",
       "name": "public-nav",
       "source": {
@@ -32850,7 +32859,7 @@
       }
     },
     {
-      "id": "pattern:auth-shells#3228",
+      "id": "pattern:auth-shells#3229",
       "kind": "pattern",
       "name": "auth-shells",
       "source": {
@@ -32859,7 +32868,7 @@
       }
     },
     {
-      "id": "pattern:social-auth-buttons#3229",
+      "id": "pattern:social-auth-buttons#3230",
       "kind": "pattern",
       "name": "social-auth-buttons",
       "source": {
@@ -32868,7 +32877,7 @@
       }
     },
     {
-      "id": "pattern:provider-identity-buttons#3230",
+      "id": "pattern:provider-identity-buttons#3231",
       "kind": "pattern",
       "name": "provider-identity-buttons",
       "source": {
@@ -32877,7 +32886,7 @@
       }
     },
     {
-      "id": "pattern:article-shells#3231",
+      "id": "pattern:article-shells#3232",
       "kind": "pattern",
       "name": "article-shells",
       "source": {
@@ -32886,7 +32895,7 @@
       }
     },
     {
-      "id": "pattern:docs-page-shell#3232",
+      "id": "pattern:docs-page-shell#3233",
       "kind": "pattern",
       "name": "docs-page-shell",
       "source": {
@@ -32895,7 +32904,7 @@
       }
     },
     {
-      "id": "pattern:docs-shell#3233",
+      "id": "pattern:docs-shell#3234",
       "kind": "pattern",
       "name": "docs-shell",
       "source": {
@@ -32904,7 +32913,7 @@
       }
     },
     {
-      "id": "pattern:reference-section#3234",
+      "id": "pattern:reference-section#3235",
       "kind": "pattern",
       "name": "reference-section",
       "source": {
@@ -32913,7 +32922,7 @@
       }
     },
     {
-      "id": "pattern:reference-link-grid#3235",
+      "id": "pattern:reference-link-grid#3236",
       "kind": "pattern",
       "name": "reference-link-grid",
       "source": {
@@ -32922,7 +32931,7 @@
       }
     },
     {
-      "id": "pattern:reference-locale-notice#3236",
+      "id": "pattern:reference-locale-notice#3237",
       "kind": "pattern",
       "name": "reference-locale-notice",
       "source": {
@@ -32931,7 +32940,7 @@
       }
     },
     {
-      "id": "pattern:reference-theme-explorer#3237",
+      "id": "pattern:reference-theme-explorer#3238",
       "kind": "pattern",
       "name": "reference-theme-explorer",
       "source": {
@@ -32940,7 +32949,7 @@
       }
     },
     {
-      "id": "pattern:pin-system#3238",
+      "id": "pattern:pin-system#3239",
       "kind": "pattern",
       "name": "pin-system",
       "source": {
@@ -32949,7 +32958,7 @@
       }
     },
     {
-      "id": "pattern:gds-map#3239",
+      "id": "pattern:gds-map#3240",
       "kind": "pattern",
       "name": "gds-map",
       "source": {
@@ -32958,7 +32967,7 @@
       }
     },
     {
-      "id": "pattern:accent-contrast-matrix#3240",
+      "id": "pattern:accent-contrast-matrix#3241",
       "kind": "pattern",
       "name": "accent-contrast-matrix",
       "source": {
@@ -32967,7 +32976,7 @@
       }
     },
     {
-      "id": "pattern:reference-site-shell#3241",
+      "id": "pattern:reference-site-shell#3242",
       "kind": "pattern",
       "name": "reference-site-shell",
       "source": {
@@ -32976,7 +32985,7 @@
       }
     },
     {
-      "id": "pattern:editorial-hero#3242",
+      "id": "pattern:editorial-hero#3243",
       "kind": "pattern",
       "name": "editorial-hero",
       "source": {
@@ -32985,7 +32994,7 @@
       }
     },
     {
-      "id": "pattern:feature-band#3243",
+      "id": "pattern:feature-band#3244",
       "kind": "pattern",
       "name": "feature-band",
       "source": {
@@ -32994,7 +33003,7 @@
       }
     },
     {
-      "id": "pattern:browse-surface#3244",
+      "id": "pattern:browse-surface#3245",
       "kind": "pattern",
       "name": "browse-surface",
       "source": {
@@ -33003,7 +33012,7 @@
       }
     },
     {
-      "id": "pattern:editorial-cards#3245",
+      "id": "pattern:editorial-cards#3246",
       "kind": "pattern",
       "name": "editorial-cards",
       "source": {
@@ -33012,7 +33021,7 @@
       }
     },
     {
-      "id": "pattern:generated-imagery#3246",
+      "id": "pattern:generated-imagery#3247",
       "kind": "pattern",
       "name": "generated-imagery",
       "source": {
@@ -33021,7 +33030,7 @@
       }
     },
     {
-      "id": "pattern:consumer-sections#3247",
+      "id": "pattern:consumer-sections#3248",
       "kind": "pattern",
       "name": "consumer-sections",
       "source": {
@@ -33030,7 +33039,7 @@
       }
     },
     {
-      "id": "pattern:consumer-dashboard-grid#3248",
+      "id": "pattern:consumer-dashboard-grid#3249",
       "kind": "pattern",
       "name": "consumer-dashboard-grid",
       "source": {
@@ -33039,7 +33048,7 @@
       }
     },
     {
-      "id": "pattern:media-fields#3249",
+      "id": "pattern:media-fields#3250",
       "kind": "pattern",
       "name": "media-fields",
       "source": {
@@ -33048,7 +33057,7 @@
       }
     },
     {
-      "id": "pattern:content-operations-editor#3250",
+      "id": "pattern:content-operations-editor#3251",
       "kind": "pattern",
       "name": "content-operations-editor",
       "source": {
@@ -33057,7 +33066,7 @@
       }
     },
     {
-      "id": "pattern:admin-app-shell#3251",
+      "id": "pattern:admin-app-shell#3252",
       "kind": "pattern",
       "name": "admin-app-shell",
       "source": {
@@ -33066,7 +33075,7 @@
       }
     },
     {
-      "id": "pattern:editor-scaffold#3252",
+      "id": "pattern:editor-scaffold#3253",
       "kind": "pattern",
       "name": "editor-scaffold",
       "source": {
@@ -33075,7 +33084,7 @@
       }
     },
     {
-      "id": "pattern:kanban-board#3253",
+      "id": "pattern:kanban-board#3254",
       "kind": "pattern",
       "name": "kanban-board",
       "source": {
@@ -33084,7 +33093,7 @@
       }
     },
     {
-      "id": "pattern:form-section#3254",
+      "id": "pattern:form-section#3255",
       "kind": "pattern",
       "name": "form-section",
       "source": {
@@ -33093,7 +33102,7 @@
       }
     },
     {
-      "id": "pattern:workspace-header#3255",
+      "id": "pattern:workspace-header#3256",
       "kind": "pattern",
       "name": "workspace-header",
       "source": {
@@ -33102,7 +33111,7 @@
       }
     },
     {
-      "id": "pattern:section-panels#3256",
+      "id": "pattern:section-panels#3257",
       "kind": "pattern",
       "name": "section-panels",
       "source": {
@@ -33111,7 +33120,7 @@
       }
     },
     {
-      "id": "pattern:public-brand-footer#3257",
+      "id": "pattern:public-brand-footer#3258",
       "kind": "pattern",
       "name": "public-brand-footer",
       "source": {
@@ -33120,7 +33129,7 @@
       }
     },
     {
-      "id": "pattern:public-site-footer#3258",
+      "id": "pattern:public-site-footer#3259",
       "kind": "pattern",
       "name": "public-site-footer",
       "source": {
@@ -33129,7 +33138,7 @@
       }
     },
     {
-      "id": "pattern:filter-drawer#3259",
+      "id": "pattern:filter-drawer#3260",
       "kind": "pattern",
       "name": "filter-drawer",
       "source": {
@@ -33138,7 +33147,7 @@
       }
     },
     {
-      "id": "pattern:docs-code-blocks#3260",
+      "id": "pattern:docs-code-blocks#3261",
       "kind": "pattern",
       "name": "docs-code-blocks",
       "source": {
@@ -33147,7 +33156,7 @@
       }
     },
     {
-      "id": "pattern:cta-button-groups#3261",
+      "id": "pattern:cta-button-groups#3262",
       "kind": "pattern",
       "name": "cta-button-groups",
       "source": {
@@ -33156,7 +33165,7 @@
       }
     },
     {
-      "id": "pattern:upload-surfaces#3262",
+      "id": "pattern:upload-surfaces#3263",
       "kind": "pattern",
       "name": "upload-surfaces",
       "source": {
@@ -33165,7 +33174,7 @@
       }
     },
     {
-      "id": "pattern:access-summaries#3263",
+      "id": "pattern:access-summaries#3264",
       "kind": "pattern",
       "name": "access-summaries",
       "source": {
@@ -33174,7 +33183,7 @@
       }
     },
     {
-      "id": "pattern:access-recovery-panels#3264",
+      "id": "pattern:access-recovery-panels#3265",
       "kind": "pattern",
       "name": "access-recovery-panels",
       "source": {
@@ -33183,7 +33192,7 @@
       }
     },
     {
-      "id": "pattern:access-gates#3265",
+      "id": "pattern:access-gates#3266",
       "kind": "pattern",
       "name": "access-gates",
       "source": {
@@ -33192,7 +33201,7 @@
       }
     },
     {
-      "id": "pattern:placeholder-panels#3266",
+      "id": "pattern:placeholder-panels#3267",
       "kind": "pattern",
       "name": "placeholder-panels",
       "source": {
@@ -33201,7 +33210,7 @@
       }
     },
     {
-      "id": "pattern:simple-data-tables#3267",
+      "id": "pattern:simple-data-tables#3268",
       "kind": "pattern",
       "name": "simple-data-tables",
       "source": {
@@ -33210,7 +33219,7 @@
       }
     },
     {
-      "id": "pattern:admin-data-table#3268",
+      "id": "pattern:admin-data-table#3269",
       "kind": "pattern",
       "name": "admin-data-table",
       "source": {
@@ -33219,7 +33228,7 @@
       }
     },
     {
-      "id": "pattern:responsive-data-view#3269",
+      "id": "pattern:responsive-data-view#3270",
       "kind": "pattern",
       "name": "responsive-data-view",
       "source": {
@@ -33228,7 +33237,7 @@
       }
     },
     {
-      "id": "pattern:stats-strip#3270",
+      "id": "pattern:stats-strip#3271",
       "kind": "pattern",
       "name": "stats-strip",
       "source": {
@@ -33237,7 +33246,7 @@
       }
     },
     {
-      "id": "pattern:info-card#3271",
+      "id": "pattern:info-card#3272",
       "kind": "pattern",
       "name": "info-card",
       "source": {
@@ -33246,7 +33255,7 @@
       }
     },
     {
-      "id": "pattern:semantic-nav-link#3272",
+      "id": "pattern:semantic-nav-link#3273",
       "kind": "pattern",
       "name": "semantic-nav-link",
       "source": {
@@ -33255,7 +33264,7 @@
       }
     },
     {
-      "id": "pattern:empty-state#3273",
+      "id": "pattern:empty-state#3274",
       "kind": "pattern",
       "name": "empty-state",
       "source": {
@@ -33264,7 +33273,7 @@
       }
     },
     {
-      "id": "pattern:stats-sections#3274",
+      "id": "pattern:stats-sections#3275",
       "kind": "pattern",
       "name": "stats-sections",
       "source": {
@@ -33273,7 +33282,7 @@
       }
     },
     {
-      "id": "pattern:reporting-contracts#3275",
+      "id": "pattern:reporting-contracts#3276",
       "kind": "pattern",
       "name": "reporting-contracts",
       "source": {
@@ -33282,7 +33291,7 @@
       }
     },
     {
-      "id": "pattern:alerts#3276",
+      "id": "pattern:alerts#3277",
       "kind": "pattern",
       "name": "alerts",
       "source": {
@@ -33291,7 +33300,7 @@
       }
     },
     {
-      "id": "pattern:loaders-skeletons#3277",
+      "id": "pattern:loaders-skeletons#3278",
       "kind": "pattern",
       "name": "loaders-skeletons",
       "source": {
@@ -33300,7 +33309,7 @@
       }
     },
     {
-      "id": "pattern:notifications#3278",
+      "id": "pattern:notifications#3279",
       "kind": "pattern",
       "name": "notifications",
       "source": {
@@ -33309,7 +33318,7 @@
       }
     },
     {
-      "id": "pattern:motion-system#3279",
+      "id": "pattern:motion-system#3280",
       "kind": "pattern",
       "name": "motion-system",
       "source": {
@@ -33318,7 +33327,7 @@
       }
     },
     {
-      "id": "pattern:badges#3280",
+      "id": "pattern:badges#3281",
       "kind": "pattern",
       "name": "badges",
       "source": {
@@ -33327,7 +33336,7 @@
       }
     },
     {
-      "id": "pattern:modals#3281",
+      "id": "pattern:modals#3282",
       "kind": "pattern",
       "name": "modals",
       "source": {
@@ -33336,7 +33345,7 @@
       }
     },
     {
-      "id": "pattern:drawers#3282",
+      "id": "pattern:drawers#3283",
       "kind": "pattern",
       "name": "drawers",
       "source": {
@@ -33345,7 +33354,7 @@
       }
     },
     {
-      "id": "pattern:small-screen-priority#3283",
+      "id": "pattern:small-screen-priority#3284",
       "kind": "pattern",
       "name": "small-screen-priority",
       "source": {
@@ -33354,7 +33363,7 @@
       }
     },
     {
-      "id": "pattern:table-responsive-strategies#3284",
+      "id": "pattern:table-responsive-strategies#3285",
       "kind": "pattern",
       "name": "table-responsive-strategies",
       "source": {
@@ -33363,7 +33372,7 @@
       }
     },
     {
-      "id": "pattern:mobile-action-density#3285",
+      "id": "pattern:mobile-action-density#3286",
       "kind": "pattern",
       "name": "mobile-action-density",
       "source": {
@@ -33372,7 +33381,7 @@
       }
     },
     {
-      "id": "pattern:searchable-selection#3286",
+      "id": "pattern:searchable-selection#3287",
       "kind": "pattern",
       "name": "searchable-selection",
       "source": {
@@ -33381,7 +33390,7 @@
       }
     },
     {
-      "id": "pattern:vocabulary-extension-lane#3287",
+      "id": "pattern:vocabulary-extension-lane#3288",
       "kind": "pattern",
       "name": "vocabulary-extension-lane",
       "source": {
@@ -33390,7 +33399,7 @@
       }
     },
     {
-      "id": "pattern:partner-discovery-system#3288",
+      "id": "pattern:partner-discovery-system#3289",
       "kind": "pattern",
       "name": "partner-discovery-system",
       "source": {
@@ -33399,7 +33408,7 @@
       }
     },
     {
-      "id": "pattern:bottom-tab-navigation#3289",
+      "id": "pattern:bottom-tab-navigation#3290",
       "kind": "pattern",
       "name": "bottom-tab-navigation",
       "source": {
@@ -33408,7 +33417,7 @@
       }
     },
     {
-      "id": "pattern:searchable-select#3290",
+      "id": "pattern:searchable-select#3291",
       "kind": "pattern",
       "name": "searchable-select",
       "source": {
@@ -33417,7 +33426,7 @@
       }
     },
     {
-      "id": "pattern:fit-score-chip#3291",
+      "id": "pattern:fit-score-chip#3292",
       "kind": "pattern",
       "name": "fit-score-chip",
       "source": {
@@ -33426,7 +33435,7 @@
       }
     },
     {
-      "id": "pattern:conversation-surface#3292",
+      "id": "pattern:conversation-surface#3293",
       "kind": "pattern",
       "name": "conversation-surface",
       "source": {
@@ -33435,7 +33444,7 @@
       }
     },
     {
-      "id": "pattern:meaning-badge#3293",
+      "id": "pattern:meaning-badge#3294",
       "kind": "pattern",
       "name": "meaning-badge",
       "source": {
@@ -33444,7 +33453,7 @@
       }
     },
     {
-      "id": "pattern:media-with-fallback#3294",
+      "id": "pattern:media-with-fallback#3295",
       "kind": "pattern",
       "name": "media-with-fallback",
       "source": {
@@ -33453,7 +33462,7 @@
       }
     },
     {
-      "id": "pattern:number-stepper#3295",
+      "id": "pattern:number-stepper#3296",
       "kind": "pattern",
       "name": "number-stepper",
       "source": {
@@ -33462,7 +33471,7 @@
       }
     },
     {
-      "id": "pattern:ai-search-card#3296",
+      "id": "pattern:ai-search-card#3297",
       "kind": "pattern",
       "name": "ai-search-card",
       "source": {
@@ -33471,7 +33480,7 @@
       }
     },
     {
-      "id": "theme:default#3297",
+      "id": "theme:default#3298",
       "kind": "theme",
       "name": "default",
       "source": {
@@ -33480,7 +33489,7 @@
       }
     },
     {
-      "id": "theme:high-contrast#3298",
+      "id": "theme:high-contrast#3299",
       "kind": "theme",
       "name": "high-contrast",
       "source": {
@@ -33489,7 +33498,7 @@
       }
     },
     {
-      "id": "theme:colorblind-safe#3299",
+      "id": "theme:colorblind-safe#3300",
       "kind": "theme",
       "name": "colorblind-safe",
       "source": {
@@ -33498,7 +33507,7 @@
       }
     },
     {
-      "id": "theme:dark-public#3300",
+      "id": "theme:dark-public#3301",
       "kind": "theme",
       "name": "dark-public",
       "source": {
@@ -33507,7 +33516,7 @@
       }
     },
     {
-      "id": "theme:flat-surface#3301",
+      "id": "theme:flat-surface#3302",
       "kind": "theme",
       "name": "flat-surface",
       "source": {
@@ -33516,7 +33525,7 @@
       }
     },
     {
-      "id": "theme:editorial#3302",
+      "id": "theme:editorial#3303",
       "kind": "theme",
       "name": "editorial",
       "source": {
@@ -33525,7 +33534,7 @@
       }
     },
     {
-      "id": "theme:brand#3303",
+      "id": "theme:brand#3304",
       "kind": "theme",
       "name": "brand",
       "source": {
@@ -33534,7 +33543,7 @@
       }
     },
     {
-      "id": "theme:partner-discovery#3304",
+      "id": "theme:partner-discovery#3305",
       "kind": "theme",
       "name": "partner-discovery",
       "source": {
@@ -33543,7 +33552,7 @@
       }
     },
     {
-      "id": "theme:class-usa#3305",
+      "id": "theme:class-usa#3306",
       "kind": "theme",
       "name": "class-usa",
       "source": {
@@ -33552,7 +33561,7 @@
       }
     },
     {
-      "id": "theme:gold-athlete#3306",
+      "id": "theme:gold-athlete#3307",
       "kind": "theme",
       "name": "gold-athlete",
       "source": {
@@ -33561,7 +33570,7 @@
       }
     },
     {
-      "id": "theme:sunset#3307",
+      "id": "theme:sunset#3308",
       "kind": "theme",
       "name": "sunset",
       "source": {
@@ -33570,7 +33579,7 @@
       }
     },
     {
-      "id": "theme:oceanic#3308",
+      "id": "theme:oceanic#3309",
       "kind": "theme",
       "name": "oceanic",
       "source": {
@@ -33579,7 +33588,7 @@
       }
     },
     {
-      "id": "theme:forest#3309",
+      "id": "theme:forest#3310",
       "kind": "theme",
       "name": "forest",
       "source": {
@@ -33588,7 +33597,7 @@
       }
     },
     {
-      "id": "theme:ruby#3310",
+      "id": "theme:ruby#3311",
       "kind": "theme",
       "name": "ruby",
       "source": {
@@ -33597,7 +33606,7 @@
       }
     },
     {
-      "id": "theme:amber#3311",
+      "id": "theme:amber#3312",
       "kind": "theme",
       "name": "amber",
       "source": {
@@ -33606,7 +33615,7 @@
       }
     },
     {
-      "id": "theme:neon-night#3312",
+      "id": "theme:neon-night#3313",
       "kind": "theme",
       "name": "neon-night",
       "source": {
@@ -33615,7 +33624,7 @@
       }
     },
     {
-      "id": "theme:skyline#3313",
+      "id": "theme:skyline#3314",
       "kind": "theme",
       "name": "skyline",
       "source": {
@@ -33624,7 +33633,7 @@
       }
     },
     {
-      "id": "theme:aurora#3314",
+      "id": "theme:aurora#3315",
       "kind": "theme",
       "name": "aurora",
       "source": {
@@ -33633,7 +33642,7 @@
       }
     },
     {
-      "id": "theme:coral#3315",
+      "id": "theme:coral#3316",
       "kind": "theme",
       "name": "coral",
       "source": {
@@ -33642,7 +33651,7 @@
       }
     },
     {
-      "id": "theme:mint#3316",
+      "id": "theme:mint#3317",
       "kind": "theme",
       "name": "mint",
       "source": {
@@ -33651,7 +33660,7 @@
       }
     },
     {
-      "id": "theme:orchid#3317",
+      "id": "theme:orchid#3318",
       "kind": "theme",
       "name": "orchid",
       "source": {
@@ -33660,7 +33669,7 @@
       }
     },
     {
-      "id": "theme:royal#3318",
+      "id": "theme:royal#3319",
       "kind": "theme",
       "name": "royal",
       "source": {
@@ -33669,7 +33678,7 @@
       }
     },
     {
-      "id": "theme:warm#3319",
+      "id": "theme:warm#3320",
       "kind": "theme",
       "name": "warm",
       "source": {
@@ -33678,7 +33687,7 @@
       }
     },
     {
-      "id": "theme:athlete-gold#3320",
+      "id": "theme:athlete-gold#3321",
       "kind": "theme",
       "name": "athlete-gold",
       "source": {
@@ -33687,7 +33696,7 @@
       }
     },
     {
-      "id": "theme:cosmic#3321",
+      "id": "theme:cosmic#3322",
       "kind": "theme",
       "name": "cosmic",
       "source": {
@@ -33696,7 +33705,7 @@
       }
     },
     {
-      "id": "accent:plum#3322",
+      "id": "accent:plum#3323",
       "kind": "accent",
       "name": "plum",
       "source": {
@@ -33706,7 +33715,7 @@
       "value": "#7c3a6e"
     },
     {
-      "id": "accent:indigo#3323",
+      "id": "accent:indigo#3324",
       "kind": "accent",
       "name": "indigo",
       "source": {
@@ -33716,7 +33725,7 @@
       "value": "#3f4d9e"
     },
     {
-      "id": "accent:ocean#3324",
+      "id": "accent:ocean#3325",
       "kind": "accent",
       "name": "ocean",
       "source": {
@@ -33726,7 +33735,7 @@
       "value": "#1f6e8c"
     },
     {
-      "id": "accent:teal#3325",
+      "id": "accent:teal#3326",
       "kind": "accent",
       "name": "teal",
       "source": {
@@ -33736,7 +33745,7 @@
       "value": "#0f766e"
     },
     {
-      "id": "accent:forest#3326",
+      "id": "accent:forest#3327",
       "kind": "accent",
       "name": "forest",
       "source": {
@@ -33746,7 +33755,7 @@
       "value": "#2f6b3a"
     },
     {
-      "id": "accent:bronze#3327",
+      "id": "accent:bronze#3328",
       "kind": "accent",
       "name": "bronze",
       "source": {
@@ -33756,7 +33765,7 @@
       "value": "#8a5a00"
     },
     {
-      "id": "accent:terracotta#3328",
+      "id": "accent:terracotta#3329",
       "kind": "accent",
       "name": "terracotta",
       "source": {
@@ -33766,7 +33775,7 @@
       "value": "#b04a2f"
     },
     {
-      "id": "accent:magenta#3329",
+      "id": "accent:magenta#3330",
       "kind": "accent",
       "name": "magenta",
       "source": {
@@ -33776,7 +33785,7 @@
       "value": "#a52a6c"
     },
     {
-      "id": "accent:slate#3330",
+      "id": "accent:slate#3331",
       "kind": "accent",
       "name": "slate",
       "source": {
@@ -33786,7 +33795,7 @@
       "value": "#52606d"
     },
     {
-      "id": "accent:grape#3331",
+      "id": "accent:grape#3332",
       "kind": "accent",
       "name": "grape",
       "source": {

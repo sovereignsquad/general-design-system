@@ -46,6 +46,8 @@ describe('playground app runtime theme flow', () => {
     expect((presetSelect as HTMLSelectElement).value).toBe('brand');
   });
 
+  // The suite grew this cycle (motion reference, index page, consolidated foundations);
+  // this full-app flow outgrew the 15s default under whole-suite contention.
   it('keeps brand-theme-generator selections stable across multiple option changes', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');
 
@@ -89,7 +91,7 @@ describe('playground app runtime theme flow', () => {
     expect((editorialCheckbox as HTMLInputElement).checked).toBe(true);
     expect((compareCheckbox as HTMLInputElement).checked).toBe(true);
     expect((comparisonPresetSelect as HTMLSelectElement).value).toBe('dark-public');
-  });
+  }, 30000);
 
   it('keeps formerly dark-forward presets responsive to the requested app runtime scheme', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');

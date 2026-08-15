@@ -25,7 +25,9 @@ describe('useGdsAmbientTheme (#621)', () => {
       await new Promise((resolve) => setTimeout(resolve, 0));
     });
     expect(screen.getByTestId('ambient').textContent).toBe('dark-public/dark');
+    // REMOVE, never set: leaving an attribute behind pollutes every later test that reads
+    // the document's theme state (caught as two unrelated suites failing only in the full run).
     document.documentElement.removeAttribute('data-gds-theme-preset');
-    document.documentElement.setAttribute('data-mantine-color-scheme', 'light');
+    document.documentElement.removeAttribute('data-mantine-color-scheme');
   });
 });

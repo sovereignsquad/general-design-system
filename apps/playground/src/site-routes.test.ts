@@ -25,6 +25,8 @@ describe('public site routes', () => {
       'API',
       'Maturity',
       'Use Cases',
+      // Issue 626 Phase 2 — the complete element list joins the primary navigation.
+      'Components',
       'Coverage',
       'Themes',
       'Governance',

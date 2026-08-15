@@ -95,6 +95,8 @@ describe('playground pattern registry', () => {
     expect(screen.getByRole('button', { name: 'Submit intake' })).toBeTruthy();
   });
 
+  // Issue 626 consolidated badges, imagery and motion onto the foundations page by design;
+  // rendering all six families in jsdom under full-suite contention outgrew the 15s default.
   it('renders every family route with headings and navigable demo links', () => {
     const families = ['foundations', 'public', 'operations', 'data', 'access', 'feedback'] as const;
 
@@ -108,7 +110,7 @@ describe('playground pattern registry', () => {
       expect(screen.getByText('Live runtime proof')).toBeTruthy();
       unmount();
     }
-  });
+  }, 30000);
 
   it('renders the interactive tokens theme lab', () => {
     renderWithGds(<TokensPage />);

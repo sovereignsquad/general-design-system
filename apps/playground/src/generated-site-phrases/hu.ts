@@ -377,6 +377,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Complete two more sessions to unlock the Certified Coach badge.": "Végezzen még két munkamenetet a Certified Coach jelvény feloldásához.",
   "Compliance is stronger": "A megfelelés erősebb",
   "Compliance question": "Megfelelőségi kérdés",
+  "Components": "Alkatrészek",
   "Compose shipped GDS components — import from @sovereignsquad/gds": "Szállított GDS-összetevők összeállítása – importálás a @sovereignsquad/gds webhelyről",
   "Composed badge — category accent": "Komponált jelvény — kategória akcentus",
   "Composed badge — semantic tone": "Komponált jelvény — szemantikai tónus",

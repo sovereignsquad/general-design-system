@@ -235,6 +235,23 @@
         ]
       },
       {
+        "routePrefix": "/components",
+        "fullCopyLocales": [
+          "en",
+          "de",
+          "fr",
+          "it",
+          "es",
+          "ru",
+          "he",
+          "ar",
+          "hu",
+          "ja",
+          "ko",
+          "zh"
+        ]
+      },
+      {
         "routePrefix": "/coverage",
         "fullCopyLocales": [
           "en",

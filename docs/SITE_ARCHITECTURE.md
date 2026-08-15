@@ -46,9 +46,19 @@ vocabulary appeared on no page at all.
   axis — every value read from the exports consumers import, reduced motion honoured by the
   tokens themselves. Before this entry, none of it appeared anywhere.
 
-## Phases 2–4 (tracked on issue 626)
+## Phase 2 — delivered
 
-2. The Components A–Z index derived from the census, with the one-canonical-page gate.
+**`/components` is the complete element list**, in the primary navigation: all 297 public
+components, derived from the same census the parity gate reads — 165 registered components
+linking to their canonical catalog home, 132 reviewed helpers stating in full view why they
+have no page of their own. Filterable by name, section, or reason. The claim is gate-held:
+`verify:component-catalog-parity` now also fails on index drift, so the page structurally
+cannot omit — a hand-maintained list hides its first omission; this one cannot. (Closing the
+loop surfaced one stale record: `GdsSchemaForm` was simultaneously registered and exempted;
+the dead exemption is removed.)
+
+## Phases 3–4 (tracked on issue 626)
+
 3. Nav-level regrouping into the four areas, with legacy redirects for every moved URL — a
    rename is not shipped until the old name still works (the #606 lesson).
 4. Per-component canonical pages to the full template: purpose, when-to-use, all variants and

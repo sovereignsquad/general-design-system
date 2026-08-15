@@ -15,6 +15,7 @@ const staticRoutes = [
   '/patterns/access',
   '/patterns/feedback',
   '/coverage',
+  '/components',
   '/api',
   '/maturity',
   '/use-cases',

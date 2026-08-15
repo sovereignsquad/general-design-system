@@ -4,6 +4,19 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The complete element list exists, and it cannot omit (#626 Phase 2)
+
+`/components`, in the primary navigation: every public component the packages export — all
+297 — derived from the same census the release gates read (Rule 14). Registered components
+(165) link to their canonical catalog home; reviewed helpers (132) state their exemption
+reason in full view, so even the decision to not give something a page is visible. Filterable
+by name, section, or reason. The completeness claim is held by a gate:
+`verify:component-catalog-parity` now also fails on index drift, and the generator itself
+fails on any component that is neither registered nor exempted. Closing the loop surfaced one
+stale record — `GdsSchemaForm` was simultaneously registered and exempted; the dead exemption
+is removed and the gate and index now agree exactly (165/132). New route wired through the
+full obligations: locale coverage declarations, static routes, nav entry.
+
 ### The site's structure starts its rebuild: one home per capability, and motion is no longer hidden (#626 Phase 1)
 
 Owner directive: the structure grew by accretion — the badge system filed under "Messaging
