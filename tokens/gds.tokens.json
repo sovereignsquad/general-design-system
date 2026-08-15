@@ -5,9 +5,9 @@
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
       "themeCount": 25,
-      "tokenCount": 5275,
+      "tokenCount": 5350,
       "atmosphereTokenCount": 425,
-      "semanticTokenCount": 4850,
+      "semanticTokenCount": 4925,
       "globalTokenCount": 36,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
@@ -3185,6 +3185,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "default semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "default semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "default semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -6320,6 +6365,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "high-contrast semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "high-contrast semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "high-contrast semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -9463,6 +9553,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "colorblind-safe semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "colorblind-safe semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "colorblind-safe semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -12598,6 +12733,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "dark-public semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "dark-public semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "dark-public semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -15741,6 +15921,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "flat-surface semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "flat-surface semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "flat-surface semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -18876,6 +19101,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "editorial semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "editorial semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "editorial semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -22019,6 +22289,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "brand semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "brand semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "brand semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -25154,6 +25469,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "partner-discovery semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "partner-discovery semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "partner-discovery semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -28297,6 +28657,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "class-usa semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "class-usa semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "class-usa semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -31432,6 +31837,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "gold-athlete semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "gold-athlete semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "gold-athlete semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -34575,6 +35025,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "sunset semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "sunset semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "sunset semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -37710,6 +38205,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "oceanic semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "oceanic semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "oceanic semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -40853,6 +41393,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "forest semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "forest semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "forest semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -43988,6 +44573,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "ruby semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "ruby semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "ruby semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -47131,6 +47761,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "amber semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "amber semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "amber semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -50266,6 +50941,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "neon-night semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "neon-night semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "neon-night semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -53409,6 +54129,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "skyline semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "skyline semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "skyline semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -56544,6 +57309,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "aurora semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "aurora semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "aurora semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -59687,6 +60497,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "coral semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "coral semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "coral semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -62822,6 +63677,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "mint semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "mint semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "mint semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -65965,6 +66865,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "orchid semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "orchid semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "orchid semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -69100,6 +70045,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "royal semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "royal semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "royal semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }
@@ -72243,6 +73233,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "warm semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "warm semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "warm semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -75382,6 +76417,51 @@
             }
           }
         },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "athlete-gold semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "athlete-gold semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "athlete-gold semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
         "space-2xl": {
           "$type": "com.sovereignsquad.gds.cssComputed",
           "$value": "calc(3rem * var(--mantine-scale))",
@@ -78517,6 +79597,51 @@
               "scheme": {
                 "light": "1.01",
                 "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "cosmic semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "cosmic semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "cosmic semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
               }
             }
           }

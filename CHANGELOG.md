@@ -4,6 +4,24 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### A new, small shell-height token set closes PublicShell's last two header literals (#625)
+
+`PublicShell`'s three header heights (64/72/88px) were bare numbers; `compact` (64) already
+matched `--gds-space-3xl` by coincidence, but `default` (72) and `branded-quiet` (88) never
+landed close enough to any existing spacing step to round onto without a visible resize —
+that would have been a new design decision disguised as a token swap, not a fix. Recommended
+against inventing a value; on approval, added a small, fixed (not per-theme — nothing
+currently varies these per brand) `--gds-shell-height-*` token set instead
+(`resolveGdsShellHeightTokens`, `gds-theme/axes.ts`), formalizing the shipped 64/72/88 values
+exactly as they render today, wired in at `resolveGdsAxisTokens` — the file's own documented
+single place a new axis is added. Surfaced a real coupling in the process: the token-graph
+validator classifies every token by its role prefix (`inferNodeCategory`), and an
+unrecognized prefix silently defaults to `'color'` — which then fails the color-pattern check
+against a plain `'72px'` value. The graph-validation test caught it immediately; the prefix
+is now registered alongside `radius`/`space`/`control-height`/`font-size`. Verified live:
+each token resolves to its exact intended pixel value, and the audit's `padding-top: 88px`
+finding is gone. `untraceableRenderRate`: 7.428% → 7.418%.
+
 ### #627 closed to 91%: a parenthesis-blind comma split, the last two known contributors fixed, two real GDS literals tokenized (#625, #627)
 
 The single largest remaining fix: a naive `value.split(',')` shredded any multi-value
