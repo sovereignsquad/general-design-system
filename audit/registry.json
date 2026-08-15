@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "572a1d9420a5749d561a5604f6c294dd0dff699b",
+  "commit": "8abe0c4a981a3c068d27083b24f82819b2af17ed",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -17,7 +17,7 @@
     "locale-pack-package": 12,
     "locale-pack-site": 11,
     "route": 24,
-    "pattern": 113,
+    "pattern": 114,
     "theme": 25,
     "accent": 10
   },
@@ -32126,7 +32126,7 @@
         "file": "apps/playground/src/generated-site-phrases/ar.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:de#3149",
@@ -32136,7 +32136,7 @@
         "file": "apps/playground/src/generated-site-phrases/de.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:es#3150",
@@ -32146,7 +32146,7 @@
         "file": "apps/playground/src/generated-site-phrases/es.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:fr#3151",
@@ -32156,7 +32156,7 @@
         "file": "apps/playground/src/generated-site-phrases/fr.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:he#3152",
@@ -32166,7 +32166,7 @@
         "file": "apps/playground/src/generated-site-phrases/he.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:hu#3153",
@@ -32176,7 +32176,7 @@
         "file": "apps/playground/src/generated-site-phrases/hu.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:it#3154",
@@ -32186,7 +32186,7 @@
         "file": "apps/playground/src/generated-site-phrases/it.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:ja#3155",
@@ -32196,7 +32196,7 @@
         "file": "apps/playground/src/generated-site-phrases/ja.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:ko#3156",
@@ -32206,7 +32206,7 @@
         "file": "apps/playground/src/generated-site-phrases/ko.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:ru#3157",
@@ -32216,7 +32216,7 @@
         "file": "apps/playground/src/generated-site-phrases/ru.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "locale-pack-site:zh#3158",
@@ -32226,7 +32226,7 @@
         "file": "apps/playground/src/generated-site-phrases/zh.ts",
         "line": 1
       },
-      "keyCount": 1998
+      "keyCount": 2002
     },
     {
       "id": "route:/#3159",
@@ -33309,160 +33309,169 @@
       }
     },
     {
-      "id": "pattern:badges#3279",
+      "id": "pattern:motion-system#3279",
       "kind": "pattern",
-      "name": "badges",
+      "name": "motion-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 977
       }
     },
     {
-      "id": "pattern:modals#3280",
+      "id": "pattern:badges#3280",
       "kind": "pattern",
-      "name": "modals",
+      "name": "badges",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 987
       }
     },
     {
-      "id": "pattern:drawers#3281",
+      "id": "pattern:modals#3281",
       "kind": "pattern",
-      "name": "drawers",
+      "name": "modals",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 997
       }
     },
     {
-      "id": "pattern:small-screen-priority#3282",
+      "id": "pattern:drawers#3282",
       "kind": "pattern",
-      "name": "small-screen-priority",
+      "name": "drawers",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1007
       }
     },
     {
-      "id": "pattern:table-responsive-strategies#3283",
+      "id": "pattern:small-screen-priority#3283",
+      "kind": "pattern",
+      "name": "small-screen-priority",
+      "source": {
+        "file": "apps/playground/src/pattern-registry.ts",
+        "line": 1017
+      }
+    },
+    {
+      "id": "pattern:table-responsive-strategies#3284",
       "kind": "pattern",
       "name": "table-responsive-strategies",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1015
+        "line": 1025
       }
     },
     {
-      "id": "pattern:mobile-action-density#3284",
+      "id": "pattern:mobile-action-density#3285",
       "kind": "pattern",
       "name": "mobile-action-density",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1023
+        "line": 1033
       }
     },
     {
-      "id": "pattern:searchable-selection#3285",
+      "id": "pattern:searchable-selection#3286",
       "kind": "pattern",
       "name": "searchable-selection",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1031
+        "line": 1041
       }
     },
     {
-      "id": "pattern:vocabulary-extension-lane#3286",
+      "id": "pattern:vocabulary-extension-lane#3287",
       "kind": "pattern",
       "name": "vocabulary-extension-lane",
-      "source": {
-        "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1039
-      }
-    },
-    {
-      "id": "pattern:partner-discovery-system#3287",
-      "kind": "pattern",
-      "name": "partner-discovery-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1049
       }
     },
     {
-      "id": "pattern:bottom-tab-navigation#3288",
+      "id": "pattern:partner-discovery-system#3288",
       "kind": "pattern",
-      "name": "bottom-tab-navigation",
+      "name": "partner-discovery-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1059
       }
     },
     {
-      "id": "pattern:searchable-select#3289",
+      "id": "pattern:bottom-tab-navigation#3289",
       "kind": "pattern",
-      "name": "searchable-select",
+      "name": "bottom-tab-navigation",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1069
       }
     },
     {
-      "id": "pattern:fit-score-chip#3290",
+      "id": "pattern:searchable-select#3290",
       "kind": "pattern",
-      "name": "fit-score-chip",
+      "name": "searchable-select",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1079
       }
     },
     {
-      "id": "pattern:conversation-surface#3291",
+      "id": "pattern:fit-score-chip#3291",
       "kind": "pattern",
-      "name": "conversation-surface",
+      "name": "fit-score-chip",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1089
       }
     },
     {
-      "id": "pattern:meaning-badge#3292",
+      "id": "pattern:conversation-surface#3292",
       "kind": "pattern",
-      "name": "meaning-badge",
+      "name": "conversation-surface",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1099
       }
     },
     {
-      "id": "pattern:media-with-fallback#3293",
+      "id": "pattern:meaning-badge#3293",
       "kind": "pattern",
-      "name": "media-with-fallback",
+      "name": "meaning-badge",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1109
       }
     },
     {
-      "id": "pattern:number-stepper#3294",
+      "id": "pattern:media-with-fallback#3294",
       "kind": "pattern",
-      "name": "number-stepper",
+      "name": "media-with-fallback",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1119
       }
     },
     {
-      "id": "pattern:ai-search-card#3295",
+      "id": "pattern:number-stepper#3295",
       "kind": "pattern",
-      "name": "ai-search-card",
+      "name": "number-stepper",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1129
       }
     },
     {
-      "id": "theme:default#3296",
+      "id": "pattern:ai-search-card#3296",
+      "kind": "pattern",
+      "name": "ai-search-card",
+      "source": {
+        "file": "apps/playground/src/pattern-registry.ts",
+        "line": 1139
+      }
+    },
+    {
+      "id": "theme:default#3297",
       "kind": "theme",
       "name": "default",
       "source": {
@@ -33471,7 +33480,7 @@
       }
     },
     {
-      "id": "theme:high-contrast#3297",
+      "id": "theme:high-contrast#3298",
       "kind": "theme",
       "name": "high-contrast",
       "source": {
@@ -33480,7 +33489,7 @@
       }
     },
     {
-      "id": "theme:colorblind-safe#3298",
+      "id": "theme:colorblind-safe#3299",
       "kind": "theme",
       "name": "colorblind-safe",
       "source": {
@@ -33489,7 +33498,7 @@
       }
     },
     {
-      "id": "theme:dark-public#3299",
+      "id": "theme:dark-public#3300",
       "kind": "theme",
       "name": "dark-public",
       "source": {
@@ -33498,7 +33507,7 @@
       }
     },
     {
-      "id": "theme:flat-surface#3300",
+      "id": "theme:flat-surface#3301",
       "kind": "theme",
       "name": "flat-surface",
       "source": {
@@ -33507,7 +33516,7 @@
       }
     },
     {
-      "id": "theme:editorial#3301",
+      "id": "theme:editorial#3302",
       "kind": "theme",
       "name": "editorial",
       "source": {
@@ -33516,7 +33525,7 @@
       }
     },
     {
-      "id": "theme:brand#3302",
+      "id": "theme:brand#3303",
       "kind": "theme",
       "name": "brand",
       "source": {
@@ -33525,7 +33534,7 @@
       }
     },
     {
-      "id": "theme:partner-discovery#3303",
+      "id": "theme:partner-discovery#3304",
       "kind": "theme",
       "name": "partner-discovery",
       "source": {
@@ -33534,7 +33543,7 @@
       }
     },
     {
-      "id": "theme:class-usa#3304",
+      "id": "theme:class-usa#3305",
       "kind": "theme",
       "name": "class-usa",
       "source": {
@@ -33543,7 +33552,7 @@
       }
     },
     {
-      "id": "theme:gold-athlete#3305",
+      "id": "theme:gold-athlete#3306",
       "kind": "theme",
       "name": "gold-athlete",
       "source": {
@@ -33552,7 +33561,7 @@
       }
     },
     {
-      "id": "theme:sunset#3306",
+      "id": "theme:sunset#3307",
       "kind": "theme",
       "name": "sunset",
       "source": {
@@ -33561,7 +33570,7 @@
       }
     },
     {
-      "id": "theme:oceanic#3307",
+      "id": "theme:oceanic#3308",
       "kind": "theme",
       "name": "oceanic",
       "source": {
@@ -33570,7 +33579,7 @@
       }
     },
     {
-      "id": "theme:forest#3308",
+      "id": "theme:forest#3309",
       "kind": "theme",
       "name": "forest",
       "source": {
@@ -33579,7 +33588,7 @@
       }
     },
     {
-      "id": "theme:ruby#3309",
+      "id": "theme:ruby#3310",
       "kind": "theme",
       "name": "ruby",
       "source": {
@@ -33588,7 +33597,7 @@
       }
     },
     {
-      "id": "theme:amber#3310",
+      "id": "theme:amber#3311",
       "kind": "theme",
       "name": "amber",
       "source": {
@@ -33597,7 +33606,7 @@
       }
     },
     {
-      "id": "theme:neon-night#3311",
+      "id": "theme:neon-night#3312",
       "kind": "theme",
       "name": "neon-night",
       "source": {
@@ -33606,7 +33615,7 @@
       }
     },
     {
-      "id": "theme:skyline#3312",
+      "id": "theme:skyline#3313",
       "kind": "theme",
       "name": "skyline",
       "source": {
@@ -33615,7 +33624,7 @@
       }
     },
     {
-      "id": "theme:aurora#3313",
+      "id": "theme:aurora#3314",
       "kind": "theme",
       "name": "aurora",
       "source": {
@@ -33624,7 +33633,7 @@
       }
     },
     {
-      "id": "theme:coral#3314",
+      "id": "theme:coral#3315",
       "kind": "theme",
       "name": "coral",
       "source": {
@@ -33633,7 +33642,7 @@
       }
     },
     {
-      "id": "theme:mint#3315",
+      "id": "theme:mint#3316",
       "kind": "theme",
       "name": "mint",
       "source": {
@@ -33642,7 +33651,7 @@
       }
     },
     {
-      "id": "theme:orchid#3316",
+      "id": "theme:orchid#3317",
       "kind": "theme",
       "name": "orchid",
       "source": {
@@ -33651,7 +33660,7 @@
       }
     },
     {
-      "id": "theme:royal#3317",
+      "id": "theme:royal#3318",
       "kind": "theme",
       "name": "royal",
       "source": {
@@ -33660,7 +33669,7 @@
       }
     },
     {
-      "id": "theme:warm#3318",
+      "id": "theme:warm#3319",
       "kind": "theme",
       "name": "warm",
       "source": {
@@ -33669,7 +33678,7 @@
       }
     },
     {
-      "id": "theme:athlete-gold#3319",
+      "id": "theme:athlete-gold#3320",
       "kind": "theme",
       "name": "athlete-gold",
       "source": {
@@ -33678,7 +33687,7 @@
       }
     },
     {
-      "id": "theme:cosmic#3320",
+      "id": "theme:cosmic#3321",
       "kind": "theme",
       "name": "cosmic",
       "source": {
@@ -33687,7 +33696,7 @@
       }
     },
     {
-      "id": "accent:plum#3321",
+      "id": "accent:plum#3322",
       "kind": "accent",
       "name": "plum",
       "source": {
@@ -33697,7 +33706,7 @@
       "value": "#7c3a6e"
     },
     {
-      "id": "accent:indigo#3322",
+      "id": "accent:indigo#3323",
       "kind": "accent",
       "name": "indigo",
       "source": {
@@ -33707,7 +33716,7 @@
       "value": "#3f4d9e"
     },
     {
-      "id": "accent:ocean#3323",
+      "id": "accent:ocean#3324",
       "kind": "accent",
       "name": "ocean",
       "source": {
@@ -33717,7 +33726,7 @@
       "value": "#1f6e8c"
     },
     {
-      "id": "accent:teal#3324",
+      "id": "accent:teal#3325",
       "kind": "accent",
       "name": "teal",
       "source": {
@@ -33727,7 +33736,7 @@
       "value": "#0f766e"
     },
     {
-      "id": "accent:forest#3325",
+      "id": "accent:forest#3326",
       "kind": "accent",
       "name": "forest",
       "source": {
@@ -33737,7 +33746,7 @@
       "value": "#2f6b3a"
     },
     {
-      "id": "accent:bronze#3326",
+      "id": "accent:bronze#3327",
       "kind": "accent",
       "name": "bronze",
       "source": {
@@ -33747,7 +33756,7 @@
       "value": "#8a5a00"
     },
     {
-      "id": "accent:terracotta#3327",
+      "id": "accent:terracotta#3328",
       "kind": "accent",
       "name": "terracotta",
       "source": {
@@ -33757,7 +33766,7 @@
       "value": "#b04a2f"
     },
     {
-      "id": "accent:magenta#3328",
+      "id": "accent:magenta#3329",
       "kind": "accent",
       "name": "magenta",
       "source": {
@@ -33767,7 +33776,7 @@
       "value": "#a52a6c"
     },
     {
-      "id": "accent:slate#3329",
+      "id": "accent:slate#3330",
       "kind": "accent",
       "name": "slate",
       "source": {
@@ -33777,7 +33786,7 @@
       "value": "#52606d"
     },
     {
-      "id": "accent:grape#3330",
+      "id": "accent:grape#3331",
       "kind": "accent",
       "name": "grape",
       "source": {

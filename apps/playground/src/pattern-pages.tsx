@@ -1,5 +1,5 @@
 import { GdsMap } from '@sovereignsquad/gds-core/map';
-import { GdsPinSystemReference } from '@sovereignsquad/gds-core';
+import { GdsPinSystemReference, GdsMotionSystemReference } from '@sovereignsquad/gds-core';
 import { useEffect, useMemo, useState } from 'react';
 import {
   // Issue 600: these seven were named as `sourceComponent` evidence by registry entries
@@ -3331,6 +3331,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <MaturityCapabilitiesDemo />;
     case 'pin-system':
       return <PinSystemDemo />;
+    case 'motion-system':
+      return <GdsMotionSystemReference />;
     case 'gds-map':
       return <MapSurfaceDemo />;
     case 'accent-contrast-matrix':

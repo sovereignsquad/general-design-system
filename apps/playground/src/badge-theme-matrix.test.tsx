@@ -22,7 +22,9 @@ function distinctValues(tone: string, scheme: 'light' | 'dark') {
 function renderBadgeMatrix() {
   // Rendered through the real family page rather than the demo in isolation: the panel has to
   // be reachable where a reader actually meets it, not merely constructible.
-  render(<GdsProvider><PatternFamilyPage family="feedback" /></GdsProvider>);
+  // Issue 626 moved the badge system to its unified foundations home ("Badges & Indicators");
+  // the panel must be found where readers now find it.
+  render(<GdsProvider><PatternFamilyPage family="foundations" /></GdsProvider>);
 }
 
 describe('Badges across themes panel is derived, not described', () => {

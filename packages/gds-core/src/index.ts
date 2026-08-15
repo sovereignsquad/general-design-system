@@ -181,6 +181,7 @@ export * from './GdsGeneratedAvatar';
 export * from './GdsGeneratedMark';
 export * from './dom-phrase-translation';
 export * from './useGdsDomPhraseTranslation.client';
+export * from './GdsMotionSystemReference';
 
 // ── Partner surfaces ──
 export * from './PartnerDiscovery';
