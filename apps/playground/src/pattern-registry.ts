@@ -653,7 +653,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Editorial & Brand Storytelling',
     summary: 'Card thumbnails and hero backdrops composed as deterministic, zero-network SVG+HTML from a listing\'s own category data — theme-managed by default (epic 503), so any consumer gets on-brand generated art with no image hosting.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'GdsGeneratedThumbnail / GdsGeneratedHero',
+    sourceComponent: 'GdsGeneratedThumbnail / GdsGeneratedHero / GdsGeneratedAvatar / GdsGeneratedMark',
   },
   {
     id: 'consumer-sections',

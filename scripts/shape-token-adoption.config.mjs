@@ -25,6 +25,11 @@
  * allowlist becomes permanent.
  */
 export const SHAPE_ALLOWLIST = {
+  "packages/gds-core/src/GdsGeneratedAvatar.tsx::style={{ display: 'inline-block', width: size, height: size, borderRadius: '50%', overflow: 'hidden', ...style }}": {
+    category: 'circle',
+    reason: 'Identity avatar. 50% is a circle primitive; a radius step would turn every avatar into a rounded square under a small-radius theme — the same reasoning as the typing-indicator dot.',
+    reviewBy: '2027-08-01',
+  },
   "packages/gds-core/src/ChatSurface.tsx::borderRadius: '50%',": {
     category: 'circle',
     reason: 'Typing-indicator dot. 50% is a circle primitive; a radius step would make it a rounded square under any theme with a small scale.',

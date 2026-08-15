@@ -177,6 +177,8 @@ export * from './MapPanel';
 export * from './GdsMapBasemapWash';
 export * from './GdsMapFilterRail';
 export * from './GdsMapPinPreviewCard';
+export * from './GdsGeneratedAvatar';
+export * from './GdsGeneratedMark';
 
 // ── Partner surfaces ──
 export * from './PartnerDiscovery';
