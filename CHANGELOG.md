@@ -2,7 +2,9 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
+## Unreleased
+
+## 6.1.0 - 2026-08-16 — One semantic token source, obligation coverage, and gate mutation testing
 
 ### A new, small shell-height token set closes PublicShell's last two header literals (#625)
 
