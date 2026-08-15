@@ -138,6 +138,10 @@ try {
           ['color', 'color'], ['padding-top', 'paddingTop'], ['border-top-width', 'borderTopWidth'], ['font-size', 'fontSize'],
           ['font-weight', 'fontWeight'], ['box-shadow', 'boxShadow'], ['transition-duration', 'transitionDuration'],
           ['transition-timing-function', 'transitionTimingFunction'], ['letter-spacing', 'letterSpacing'],
+          // TRACKED_PROPERTIES also checks border-radius, sharing no value space with any
+          // probe above (same gap class, found while extending render-capture.mjs's own
+          // probe set for the same reason).
+          ['border-radius', 'borderRadius'],
         ]) {
           probe.style.setProperty(cssProp, 'var(' + name + ')');
           const resolved = getComputedStyle(probe)[read];

@@ -4,7 +4,26 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
-### A second untraceability instrument defect, in the matrix gate's own oracle (#625)
+### Three more oracle gaps closed; the badge cluster traced to a probing-methodology limit, not a design gap (#625, #627)
+
+Investigating #627's stale render-rate finding surfaced that the shared render classifier —
+already treated as the complete reference the theme-matrix oracle was brought up to parity
+with — had the same gap class itself: `TRACKED` checks font-size and all four border-radius
+corners and both gap axes, but `PROBES` had no matching entry for any of them. Added
+`fontSize`/`borderTopLeftRadius`/`rowGap` (one length probe per value-space category, mirrored
+into `verify-theme-coverage-matrix.mjs`'s own oracle for `border-radius`). Real but small effect
+on Phase 1 (28972 → 28959 literal observations) — most of it doesn't touch this gap.
+
+That small effect matters more than its size: it confirms the DOMINANT untraceable cluster
+(Badge `font-size`/`letter-spacing`, ~90 theme-hits) is NOT this bug. Traced to source: Mantine
+declares `--badge-fz-{xs..xl}` inside the `.mantine-Badge-root` rule itself, not at `:root` —
+a real, well-organized token, just one a generic `document.body`-appended probe element can
+never see, because the custom property was never set in any of the probe's actual ancestors.
+The classifier's probing methodology — resolve every token from a context-free div — is
+structurally blind to any Mantine custom property scoped to a component class rather than the
+root. Recorded on #627 rather than worked around: fixing it means probing from within a real
+rendered instance of each context, which is a different, larger change than a probe-list
+addition.
 
 The whole-space and Phase 1 numbers were corrected in the prior entry; the theme-coverage-matrix
 gate itself still wasn't measuring cleanly. It tracks ten properties — color, background-color,
