@@ -4,6 +4,30 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### A second untraceability instrument defect, in the matrix gate's own oracle (#625)
+
+The whole-space and Phase 1 numbers were corrected in the prior entry; the theme-coverage-matrix
+gate itself still wasn't measuring cleanly. It tracks ten properties — color, background-color,
+border-color, border-radius, padding, font-size, font-weight, box-shadow, transition-duration,
+outline-width — but its token oracle only ever resolved a value through four of them: color,
+padding-top, border-top-width, font-size. A token expressed only as a font-weight, a box-shadow,
+or a transition-duration shared no value space with any of those four and could never appear in
+the oracle, so every element rendering one — even correctly, from a real token — was misclassified
+untraceable. Brought to parity with the shared render classifier's already-complete probe set.
+Separately, Mantine's `ScrollArea` ships its own static scrollbar padding and transition in
+`ScrollArea.css`, untouched by any GDS theme override; both classifiers now exempt it by selector
+(`mantine-ScrollArea-scrollbar`/`-thumb`) rather than inventing a token for browser-chrome geometry
+that was never a design decision. Measured on the same 52-cell sweep, same tree: **26.83% →
+15.67%**. `themeMatrixUntraceableRate` ratcheted with the full count and reasoning in
+`audit/budgets.json`'s `justifiedBy`. A pre-existing, unrelated test-isolation leak was found and
+fixed in the same pass: issue 602's gate-suite mutation-floor test restored the artifact it
+deliberately mutates but not the report file `verify-budgets.mjs` writes as a side effect, leaving
+a full `npm run preflight` run reporting a dirty tree after a clean test pass. Fixed by backing up
+and restoring both. A newly-found, separately-scoped signal filed as #627: the Phase 1
+`untraceableRenderRate` budget (7.2%) reads stale against a fresh 40-cell re-run (~9.86%,
+observation count and literal count both up since the last correction, literals disproportionately
+so) — not touched here, pending its own investigation into what's newly untokenized.
+
 ### The four-area navigation lands, and every component is one click away (#626 Phases 3–4)
 
 The primary navigation is now the reading-order story: What Is GDS · Install · **Foundations ·
