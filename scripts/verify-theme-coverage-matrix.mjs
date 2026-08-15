@@ -123,9 +123,22 @@ try {
       probe.style.position = 'absolute';
       probe.style.visibility = 'hidden';
       document.body.appendChild(probe);
+      // This oracle tracked color/padding-top/border-top-width/font-size only, while the
+      // properties above it (TRACKED_PROPERTIES) also include font-weight, box-shadow and
+      // transition-duration — none of which share a value space with the four probed
+      // properties. A token whose only expression is a weight, a shadow or a duration could
+      // never appear here, so every element rendering it was misclassified untraceable
+      // regardless of whether it actually came from a token. Brought to parity with the
+      // shared render classifier's probe set (render-capture.mjs), which already covers
+      // these categories (issue 625 — a second instance of the same instrument-gap class as
+      // the outline-width fix: the classifier was wrong, not the rendered page).
       const oracle = new Set();
       for (const name of tokenNames) {
-        for (const [cssProp, read] of [['color', 'color'], ['padding-top', 'paddingTop'], ['border-top-width', 'borderTopWidth'], ['font-size', 'fontSize']]) {
+        for (const [cssProp, read] of [
+          ['color', 'color'], ['padding-top', 'paddingTop'], ['border-top-width', 'borderTopWidth'], ['font-size', 'fontSize'],
+          ['font-weight', 'fontWeight'], ['box-shadow', 'boxShadow'], ['transition-duration', 'transitionDuration'],
+          ['transition-timing-function', 'transitionTimingFunction'], ['letter-spacing', 'letterSpacing'],
+        ]) {
           probe.style.setProperty(cssProp, 'var(' + name + ')');
           const resolved = getComputedStyle(probe)[read];
           if (resolved) oracle.add(String(resolved).trim().toLowerCase());
@@ -161,6 +174,14 @@ try {
           // nothing while outline-style is none — counting it accuses a value that does not
           // render. Two classifiers must agree, or the same page gets two different verdicts.
           if ((p === 'outline-width' || p === 'outline-color') && s.getPropertyValue('outline-style') === 'none') continue;
+          // Same Mantine ScrollArea internal-geometry exemption as the shared render
+          // classifier (issue 625): 'padding: calc(--scrollarea-scrollbar-size / 5)' and the
+          // 150ms scrollbar transition are literals in Mantine's own shipped ScrollArea.css,
+          // untouched by any GDS theme override, so there is no token to trace them to.
+          if (
+            (p === 'padding' || p === 'transition-duration')
+            && el.className && /\\bmantine-ScrollArea-(scrollbar|thumb)\\b/.test(el.className.toString())
+          ) continue;
           const key = el.tagName + '|' + (el.className && el.className.toString().slice(0, 40)) + '|' + p + '|' + value;
           if (seen.has(key)) continue;
           seen.add(key);

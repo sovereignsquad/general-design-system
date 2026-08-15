@@ -80,6 +80,17 @@ const CAPTURE = `(() => {
       // counting it accused 1,800+ elements per page of an untraceable design value that does
       // not exist (issue 625's first-cell analysis — the verification-layer defect class, again).
       if ((prop === 'outline-width' || prop === 'outline-color') && cs.getPropertyValue('outline-style') === 'none') continue;
+      // Mantine's ScrollArea ships its own static scrollbar geometry/transition in
+      // ScrollArea.css ('padding: calc(--scrollarea-scrollbar-size / 5)', 'transition:
+      // ... 150ms ease') as a literal in Mantine's shipped stylesheet — GDS's theme has no
+      // ScrollArea component override at all, so there is no token for these to trace to,
+      // and none should be invented: this is browser-chrome geometry, not a design decision
+      // (issue 625). Scoped to the two ScrollArea internal classes, not a blanket exemption
+      // for padding/transition anywhere else.
+      if (
+        (prop === 'padding-top' || prop === 'padding-left' || prop === 'transition-duration' || prop === 'transition-timing-function')
+        && typeof el.className === 'string' && /\\bmantine-ScrollArea-(scrollbar|thumb)\\b/.test(el.className)
+      ) continue;
       // Multi-value shorthands compute as comma lists ('0.12s, 0.12s'). Match each
       // part: a value is token-derived only if EVERY part resolves to a token.
       const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
@@ -165,6 +176,11 @@ export const captureSweepChunk = (start, end) => `(() => {
       if (UA_DEFAULTS.has(value.trim().toLowerCase())) continue;
       // Same inert-outline rule as CAPTURE — the two forms must classify identically.
       if ((prop === 'outline-width' || prop === 'outline-color') && cs.getPropertyValue('outline-style') === 'none') continue;
+      // Same Mantine ScrollArea internal-geometry exemption as CAPTURE (issue 625) — see there.
+      if (
+        (prop === 'padding-top' || prop === 'padding-left' || prop === 'transition-duration' || prop === 'transition-timing-function')
+        && typeof el.className === 'string' && /\\bmantine-ScrollArea-(scrollbar|thumb)\\b/.test(el.className)
+      ) continue;
       const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
         ? value.split(',').map(x => x.trim()).filter(Boolean)
         : [value.trim()];
