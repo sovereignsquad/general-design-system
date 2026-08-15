@@ -13,7 +13,7 @@
     {
       "key": "untraceableRenderRate",
       "measured": 7.4,
-      "value": 7.428,
+      "value": 7.418,
       "direction": "max",
       "unit": "%",
       "finding": "F5",
@@ -42,7 +42,7 @@
     },
     {
       "key": "publishedGraphOverlap",
-      "measured": 194,
+      "measured": 197,
       "value": 189,
       "direction": "min",
       "unit": "count",
