@@ -1298,7 +1298,7 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
   transition: top var(--gds-motion-duration-slow) var(--gds-motion-ease-standard), left var(--gds-motion-duration-slow) var(--gds-motion-ease-standard);
 }
 .gds-tour-card__progress {
-  font-size: 0.75rem;
+  font-size: var(--gds-font-size-xs, 0.75rem);
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--gds-text-meta, var(--mantine-color-dimmed, #64748b));
@@ -1320,19 +1320,19 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: var(--gds-space-xs, 0.625rem);
 }
 .gds-tour-card__nav {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--gds-space-xs, 0.625rem);
 }
 .gds-tour-btn {
   appearance: none;
   cursor: pointer;
   font: inherit;
-  font-size: 0.8125rem;
+  font-size: var(--gds-font-size-xs, 0.75rem);
   font-weight: 600;
-  padding: 0.375rem 0.75rem;
+  padding: var(--gds-space-2xs, 0.25rem) var(--gds-space-sm, 0.75rem);
   border-radius: var(--mantine-radius-sm, 8px);
   border: 1px solid transparent;
   background: transparent;
@@ -1441,8 +1441,8 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
   font-size: 0.875rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.9rem;
+  gap: var(--gds-space-2xs, 0.25rem);
+  padding: var(--gds-space-xs, 0.625rem) var(--gds-space-md, 1rem);
   border-radius: var(--mantine-radius-sm, 8px);
   border: 1px solid var(--gds-border-card, var(--mantine-color-gray-4, #ced4da));
   background: var(--gds-bg-surface, var(--gds-overlay-surface, #ffffff));

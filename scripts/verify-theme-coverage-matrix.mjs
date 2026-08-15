@@ -162,6 +162,14 @@ try {
           probe.style.removeProperty(cssProp);
         }
       }
+      // Same Mantine hairline-border-formula recognition as the shared render classifier
+      // (issue 625) — see there.
+      probe.style.borderTopStyle = 'solid';
+      probe.style.borderTopWidth = 'calc(0.0625rem * var(--mantine-scale))';
+      const hairline = getComputedStyle(probe).borderTopWidth;
+      probe.style.borderTopWidth = '';
+      probe.style.borderTopStyle = '';
+      if (hairline) oracle.add(normColor(hairline.trim()).toLowerCase());
       probe.remove();
 
       const out = [];
