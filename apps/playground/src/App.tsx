@@ -115,6 +115,10 @@ const InstallPage = lazy(async () => {
   return { default: module.InstallPage };
 });
 
+const SystemsPage = lazy(async () => {
+  const module = await import('./systems-page');
+  return { default: module.SystemsPage };
+});
 const ComponentsIndexPage = lazy(async () => {
   const module = await import('./components-index-page');
   return { default: module.ComponentsIndexPage };
@@ -294,13 +298,15 @@ function PlaygroundContent() {
             )}
           />
           <Route path="/patterns" element={<Suspense fallback={<RouteFallback />}><PatternsIndexPage /></Suspense>} />
-          <Route path="/patterns/foundations" element={<Suspense fallback={<RouteFallback />}><FoundationsPatternPage /></Suspense>} />
+          {/* Issue 626 Phase 3: foundations is a top-level area; its old catalog URL redirects via getLegacyRedirects. */}
+          <Route path="/foundations" element={<Suspense fallback={<RouteFallback />}><FoundationsPatternPage /></Suspense>} />
           <Route path="/patterns/public" element={<Suspense fallback={<RouteFallback />}><PublicPatternPage /></Suspense>} />
           <Route path="/patterns/operations" element={<Suspense fallback={<RouteFallback />}><OperationsPatternPage /></Suspense>} />
           <Route path="/patterns/data" element={<Suspense fallback={<RouteFallback />}><DataPatternPage /></Suspense>} />
           <Route path="/patterns/access" element={<Suspense fallback={<RouteFallback />}><AccessPatternPage /></Suspense>} />
           <Route path="/patterns/feedback" element={<Suspense fallback={<RouteFallback />}><FeedbackPatternPage /></Suspense>} />
           <Route path="/components" element={<Suspense fallback={<RouteFallback />}><ComponentsIndexPage /></Suspense>} />
+          <Route path="/systems" element={<Suspense fallback={<RouteFallback />}><SystemsPage /></Suspense>} />
           <Route path="/coverage" element={<Suspense fallback={<RouteFallback />}><CoveragePage /></Suspense>} />
           <Route path="/api" element={<Suspense fallback={<RouteFallback />}><ApiReferencePage /></Suspense>} />
           <Route path="/maturity" element={<Suspense fallback={<RouteFallback />}><MaturityPage /></Suspense>} />

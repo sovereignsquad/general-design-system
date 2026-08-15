@@ -3370,7 +3370,9 @@ function PatternEntryCard({ entry }: { entry: PatternRegistryEntry }) {
   }
 
   return (
-    <SectionPanel title={entry.title} description={entry.summary}>
+    // Issue 626 Phase 4 — every entry is deep-linkable: /patterns/<family>#entry-<id> lands
+    // exactly here, which is what lets the /components index link a component's true home.
+    <SectionPanel id={`entry-${entry.id}`} title={entry.title} description={entry.summary}>
       <CoverageText entry={entry} />
       {renderEntryDemo(entry)}
     </SectionPanel>

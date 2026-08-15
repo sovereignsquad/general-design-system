@@ -5,6 +5,9 @@ export type PublicAudienceIntent =
   | 'install'
   | 'coverage'
   | 'components'
+  | 'foundations'
+  | 'systems'
+  | 'resources'
   | 'api'
   | 'maturity'
   | 'use-cases'
@@ -45,6 +48,27 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     activePrefixes: ['/install'],
   },
   {
+    id: 'foundations',
+    path: '/foundations',
+    label: 'Foundations',
+    action: 'start',
+    audienceIntent: 'foundations',
+    navGroup: 'primary',
+    activePrefixes: ['/foundations'],
+    // Issue 626 Phase 3: the foundations family is a top-level area; its catalog URL keeps
+    // working forever via the redirect mechanism.
+    legacyPaths: ['/patterns/foundations'],
+  },
+  {
+    id: 'components',
+    path: '/components',
+    label: 'Components',
+    action: 'grid',
+    audienceIntent: 'components',
+    navGroup: 'primary',
+    activePrefixes: ['/components'],
+  },
+  {
     id: 'patterns',
     path: '/patterns',
     label: 'Patterns',
@@ -52,6 +76,15 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'patterns',
     navGroup: 'primary',
     activePrefixes: ['/patterns'],
+  },
+  {
+    id: 'systems',
+    path: '/systems',
+    label: 'Systems',
+    action: 'preview',
+    audienceIntent: 'systems',
+    navGroup: 'primary',
+    activePrefixes: ['/systems'],
   },
   {
     id: 'api',
@@ -67,8 +100,8 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     path: '/maturity',
     label: 'Maturity',
     action: 'verify',
-    audienceIntent: 'maturity',
-    navGroup: 'primary',
+    audienceIntent: 'resources',
+    navGroup: 'secondary',
     activePrefixes: ['/maturity'],
   },
   {
@@ -76,26 +109,17 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     path: '/use-cases',
     label: 'Use Cases',
     action: 'list',
-    audienceIntent: 'use-cases',
-    navGroup: 'primary',
+    audienceIntent: 'resources',
+    navGroup: 'secondary',
     activePrefixes: ['/use-cases'],
-  },
-  {
-    id: 'components',
-    path: '/components',
-    label: 'Components',
-    action: 'grid',
-    audienceIntent: 'components',
-    navGroup: 'primary',
-    activePrefixes: ['/components'],
   },
   {
     id: 'coverage',
     path: '/coverage',
     label: 'Coverage',
     action: 'analytics',
-    audienceIntent: 'coverage',
-    navGroup: 'primary',
+    audienceIntent: 'resources',
+    navGroup: 'secondary',
     activePrefixes: ['/coverage'],
   },
   {
@@ -123,8 +147,8 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     path: '/live-proofs',
     label: 'Live Proofs',
     action: 'preview',
-    audienceIntent: 'live-proofs',
-    navGroup: 'primary',
+    audienceIntent: 'resources',
+    navGroup: 'secondary',
     activePrefixes: ['/live-proofs'],
     // Issue 606 renamed the public /live-demos URL family; these keep every pre-rename link
     // working. The rename shipped without them, which broke exactly what the issue said must
@@ -136,8 +160,8 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     path: '/request-feature',
     label: 'Request a Feature',
     action: 'submit',
-    audienceIntent: 'feature-request',
-    navGroup: 'primary',
+    audienceIntent: 'resources',
+    navGroup: 'secondary',
     activePrefixes: ['/request-feature'],
   },
   {
@@ -145,8 +169,8 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     path: '/ai',
     label: 'Use with AI',
     action: 'settings',
-    audienceIntent: 'install',
-    navGroup: 'primary',
+    audienceIntent: 'resources',
+    navGroup: 'secondary',
     activePrefixes: ['/ai'],
   },
   {

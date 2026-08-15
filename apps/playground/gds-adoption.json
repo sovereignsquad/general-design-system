@@ -235,6 +235,40 @@
         ]
       },
       {
+        "routePrefix": "/foundations",
+        "fullCopyLocales": [
+          "en",
+          "de",
+          "fr",
+          "it",
+          "es",
+          "ru",
+          "he",
+          "ar",
+          "hu",
+          "ja",
+          "ko",
+          "zh"
+        ]
+      },
+      {
+        "routePrefix": "/systems",
+        "fullCopyLocales": [
+          "en",
+          "de",
+          "fr",
+          "it",
+          "es",
+          "ru",
+          "he",
+          "ar",
+          "hu",
+          "ja",
+          "ko",
+          "zh"
+        ]
+      },
+      {
         "routePrefix": "/components",
         "fullCopyLocales": [
           "en",

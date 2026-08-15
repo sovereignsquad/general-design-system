@@ -1,0 +1,43 @@
+import { DocsPageShell, ReferenceLinkGrid, ReferenceSection } from '@sovereignsquad/gds-core';
+
+/**
+ * Issue 626 Phase 3 — the Systems area: GDS's deep dives, and the resources that left the
+ * primary navigation. Every page demoted from primary is linked here (and from the home
+ * page's own cards), so the regroup hides nothing — the IA rule is one canonical home, not
+ * fewer doors.
+ */
+export function SystemsPage() {
+  return (
+    <DocsPageShell
+      title="Systems"
+      lead="The capabilities that make GDS more than a component list — each one documentation with live proofs, governed end to end, and available to any consumer of the packages."
+    >
+      <ReferenceSection title="The systems" description="Deep dives, each proven on the pages it links.">
+        <ReferenceLinkGrid
+          columns={3}
+          items={[
+            { id: 'theming', title: 'Theming & the Theme Lab', description: '25 presets, both schemes, the axes that drive every token, and the live lab to try them.', href: '/general-design-system/themes' },
+            { id: 'badge-system', title: 'Badge system', description: 'Accents, shapes, counts, tags, meaning — one governed vocabulary with contrast measured live.', href: '/general-design-system/foundations#entry-badges' },
+            { id: 'generated-imagery', title: 'Generated imagery', description: 'Thumbnails, heroes, avatars and marks — deterministic, theme-aware, no photo pipeline.', href: '/general-design-system/foundations#entry-generated-imagery' },
+            { id: 'motion-system', title: 'Motion & micro-interactions', description: 'Six durations, five easings, seven presets, and the reaction axis — live on hover.', href: '/general-design-system/foundations#entry-motion-system' },
+            { id: 'map-system', title: 'Map system', description: 'Real OpenStreetMap tiles, governed pins with states, on-map previews, honest degradation.', href: '/general-design-system/patterns/public#entry-gds-map' },
+            { id: 'i18n', title: 'Internationalisation', description: 'Twelve locale packs, the DOM translation engine, and the runtime formatting bridge.', href: '/general-design-system/api' },
+          ]}
+        />
+      </ReferenceSection>
+      <ReferenceSection title="Resources" description="Adoption, evidence, and intake — everything that used to crowd the primary navigation, one click away.">
+        <ReferenceLinkGrid
+          columns={3}
+          items={[
+            { id: 'live-proofs', title: 'Live proofs', description: 'The runtime proof routes: surfaces, layouts, semantics, food, playback, analytics.', href: '/general-design-system/live-proofs' },
+            { id: 'coverage', title: 'Coverage', description: 'Route-level parity of documented patterns versus live runtime representation.', href: '/general-design-system/coverage' },
+            { id: 'maturity', title: 'Maturity', description: 'The recommended high-value capability groups with delivery value per group.', href: '/general-design-system/maturity' },
+            { id: 'use-cases', title: 'Use cases', description: 'Product-owner adoption guide for choosing GDS package lanes.', href: '/general-design-system/use-cases' },
+            { id: 'request-feature', title: 'Request a feature', description: 'Canonical intake for capability requests, governance questions, and missing contracts.', href: '/general-design-system/request-feature' },
+            { id: 'use-with-ai', title: 'Use with AI', description: 'How AI coding agents consume GDS: the machine-readable entry points and the drop-in rules.', href: '/general-design-system/ai' },
+          ]}
+        />
+      </ReferenceSection>
+    </DocsPageShell>
+  );
+}

@@ -41,6 +41,14 @@ export const localizedRouteCoverage: LocalizedRouteCoverageRule[] = [
     fullCopyLocales: allSiteLocaleIds,
   },
   {
+    routePrefix: '/foundations',
+    fullCopyLocales: allSiteLocaleIds,
+  },
+  {
+    routePrefix: '/systems',
+    fullCopyLocales: allSiteLocaleIds,
+  },
+  {
     routePrefix: '/governance',
     fullCopyLocales: allSiteLocaleIds,
   },

@@ -5,4 +5,4 @@
 // Regenerate with `npm run tokens:component-census`; `--check` fails on drift.
 
 /** Public UI components exported by the GDS packages. */
-export const GDS_PUBLIC_COMPONENT_COUNT = 297;
+export const GDS_PUBLIC_COMPONENT_COUNT = 298;

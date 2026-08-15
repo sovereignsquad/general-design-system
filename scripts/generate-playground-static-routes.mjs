@@ -8,7 +8,6 @@ const indexPath = join(distRoot, 'index.html');
 
 const staticRoutes = [
   '/patterns',
-  '/patterns/foundations',
   '/patterns/public',
   '/patterns/operations',
   '/patterns/data',
@@ -16,6 +15,8 @@ const staticRoutes = [
   '/patterns/feedback',
   '/coverage',
   '/components',
+  '/foundations',
+  '/systems',
   '/api',
   '/maturity',
   '/use-cases',

@@ -1762,6 +1762,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Switch presets, color scheme, and brand color live. What you pick here is the same token contract your app ships.": "实时切换预设、配色方案和品牌颜色。您在这里选择的是您的应用程序发布的相同代币合约。",
   "Sync stakeholders": "同步利益相关者",
   "System state, not editorial emphasis. The label carries the meaning; colour repeats it, so a reader who cannot see the colour loses nothing.": "系统状态，而不是编辑重点。标签带有含义；颜色会重复它，因此看不到颜色的读者不会失去任何东西。",
+  "Systems": "系统",
   "table fallback": "表回退",
   "table headers": "表格标题",
   "Table Responsive Strategies": "表响应策略",

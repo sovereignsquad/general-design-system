@@ -1762,6 +1762,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Switch presets, color scheme, and brand color live. What you pick here is the same token contract your app ships.": "قم بتبديل الإعدادات المسبقة ونظام الألوان ولون العلامة التجارية مباشرة. ما تختاره هنا هو نفس العقد المميز الذي يشحن تطبيقك.",
   "Sync stakeholders": "مزامنة أصحاب المصلحة",
   "System state, not editorial emphasis. The label carries the meaning; colour repeats it, so a reader who cannot see the colour loses nothing.": "حالة النظام، وليس التركيز التحريري. التسمية تحمل المعنى؛ اللون يكرره، لذا فالقارئ الذي لا يستطيع رؤية اللون لا يخسر شيئًا.",
+  "Systems": "الأنظمة",
   "table fallback": "احتياطي الجدول",
   "table headers": "رؤوس الجدول",
   "Table Responsive Strategies": "استراتيجيات الاستجابة للجدول",

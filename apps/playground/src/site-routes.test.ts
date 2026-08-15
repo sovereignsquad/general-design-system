@@ -18,21 +18,18 @@ describe('public site routes', () => {
   });
 
   it('defines a clean primary navigation contract', () => {
+    // Issue 626 Phase 3 — the four content areas lead; resources moved to /systems (every
+    // demoted page stays routed and linked there, plus the legacy redirects).
     expect(getPrimaryRoutes().map((route) => route.label)).toEqual([
       'What Is GDS',
       'Install',
-      'Patterns',
-      'API',
-      'Maturity',
-      'Use Cases',
-      // Issue 626 Phase 2 — the complete element list joins the primary navigation.
+      'Foundations',
       'Components',
-      'Coverage',
+      'Patterns',
+      'Systems',
+      'API',
       'Themes',
       'Governance',
-      'Live Proofs',
-      'Request a Feature',
-      'Use with AI',
     ]);
   });
 
@@ -59,6 +56,8 @@ describe('public site routes', () => {
 
   it('maps legacy showcase routes to explicit replacements', () => {
     expect(getLegacyRedirects()).toEqual([
+      // Issue 626 Phase 3: foundations elevated to a top-level area; its catalog URL redirects.
+      { legacyPath: '/patterns/foundations', to: '/foundations' },
       { legacyPath: '/tokens', to: '/themes' },
       { legacyPath: '/rulebook', to: '/governance' },
       // Issue 606: the public /live-demos family was renamed to /live-proofs, and the rename
