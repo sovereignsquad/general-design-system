@@ -1,7 +1,7 @@
 # Pattern Service Model
 
 Status: Active SSOT
-Version: 6.0.0
+Version: 6.1.0
 Last updated: 2026-08-08
 
 This document defines how shared UI patterns are discovered, evaluated, promoted, implemented, and enforced across projects. It exists so product teams can borrow proven Mantine-native ideas without creating a second design system, local visual drift, or page-specific UI inventions.
