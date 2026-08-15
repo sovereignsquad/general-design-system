@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "ac813ef546f23af78d17dd5a27500e3e719db07d",
+  "commit": "312dafa72153e0d2517657a1c8d6bdd485fec063",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -32234,7 +32234,7 @@
       "name": "/",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 306
+        "line": 281
       }
     },
     {
@@ -32243,7 +32243,7 @@
       "name": "/patterns",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 317
+        "line": 292
       }
     },
     {
@@ -32252,7 +32252,7 @@
       "name": "/patterns/foundations",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 318
+        "line": 293
       }
     },
     {
@@ -32261,7 +32261,7 @@
       "name": "/patterns/public",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 319
+        "line": 294
       }
     },
     {
@@ -32270,7 +32270,7 @@
       "name": "/patterns/operations",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 320
+        "line": 295
       }
     },
     {
@@ -32279,7 +32279,7 @@
       "name": "/patterns/data",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 321
+        "line": 296
       }
     },
     {
@@ -32288,7 +32288,7 @@
       "name": "/patterns/access",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 322
+        "line": 297
       }
     },
     {
@@ -32297,7 +32297,7 @@
       "name": "/patterns/feedback",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 323
+        "line": 298
       }
     },
     {
@@ -32306,7 +32306,7 @@
       "name": "/coverage",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 324
+        "line": 299
       }
     },
     {
@@ -32315,7 +32315,7 @@
       "name": "/api",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 325
+        "line": 300
       }
     },
     {
@@ -32324,7 +32324,7 @@
       "name": "/maturity",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 326
+        "line": 301
       }
     },
     {
@@ -32333,7 +32333,7 @@
       "name": "/use-cases",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 327
+        "line": 302
       }
     },
     {
@@ -32342,7 +32342,7 @@
       "name": "/install",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 328
+        "line": 303
       }
     },
     {
@@ -32351,7 +32351,7 @@
       "name": "/governance",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 329
+        "line": 304
       }
     },
     {
@@ -32360,7 +32360,7 @@
       "name": "/themes",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 330
+        "line": 305
       }
     },
     {
@@ -32369,7 +32369,7 @@
       "name": "/live-proofs",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 341
+        "line": 316
       }
     },
     {
@@ -32378,7 +32378,7 @@
       "name": "/live-proofs/surfaces",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 342
+        "line": 317
       }
     },
     {
@@ -32387,7 +32387,7 @@
       "name": "/live-proofs/layouts",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 343
+        "line": 318
       }
     },
     {
@@ -32396,7 +32396,7 @@
       "name": "/live-proofs/semantics",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 344
+        "line": 319
       }
     },
     {
@@ -32405,7 +32405,7 @@
       "name": "/live-proofs/food",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 345
+        "line": 320
       }
     },
     {
@@ -32414,7 +32414,7 @@
       "name": "/live-proofs/playback",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 346
+        "line": 321
       }
     },
     {
@@ -32423,7 +32423,7 @@
       "name": "/live-proofs/analytics",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 347
+        "line": 322
       }
     },
     {
@@ -32432,7 +32432,7 @@
       "name": "/request-feature",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 348
+        "line": 323
       }
     },
     {
@@ -32441,7 +32441,7 @@
       "name": "/ai",
       "source": {
         "file": "apps/playground/src/App.tsx",
-        "line": 349
+        "line": 324
       }
     },
     {

@@ -142,7 +142,7 @@ nothing else** (issue 617).
 | What | File(s) | Authored by | Locales |
 | --- | --- | --- | --- |
 | **Package messages** — semantic labels GDS components resolve through `getGdsMessages(locale)` / `t(...)`. **The only localization consumers of the packages receive.** | `packages/gds-core/src/locales/<locale>.ts` | **Edit directly**; new keys are appended by a generator that never overwrites an existing value. See below. | 12: `ar de en es fr he hu it ja ko ru zh` |
-| **Site phrase packs** — every other visible string, matched by its English text at runtime | `apps/playground/src/generated-site-phrases/<locale>.ts` | **Generated.** See below. | 11 (English is the key, so it has no pack) |
+| **Site phrase packs** — every other visible string, matched by its English text at runtime through the **GDS engine** (`translateGdsDom`/`useGdsDomPhraseTranslation` in gds-core, Rule 16 — the site supplies only these packs and their loader) | `apps/playground/src/generated-site-phrases/<locale>.ts` | **Generated.** See below. | 11 (English is the key, so it has no pack) |
 | **Structured page copy** — per-locale blocks for page titles, leads, nav labels and link lists | `apps/playground/src/page-copy.ts`, `apps/playground/src/site-copy.ts`, `packages/gds-core/src/ReferenceThemeExplorer.copy.ts` | **Generated**, then editable in place. | 12 |
 
 ### Fixing a wrong translation

@@ -4,6 +4,20 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Rule 16: everything visible on the site is a GDS capability — the overlay engine moves in (#624)
+
+Owner directive, recorded as CLAUDE.md Rule 16: no visible behavior on the reference site may
+be produced by page-local implementation — the page composes what the packages export and
+supplies only data. First application: the DOM phrase-translation engine (visible on every
+localized page) moves from the playground into gds-core as `translateGdsDom` +
+`useGdsDomPhraseTranslation`, carrying everything the site's defects taught it — per-node
+original-text memory, app-update discrimination, verbatim protection with translating nav
+labels — parameterised by a phrase-index loader, so the DICTIONARY stays consumer data. The
+site keeps its generated packs and a loader; a consumer can now obtain the same behaviour by
+installing the package and supplying theirs. The sweep for other page-implemented visible
+mechanisms found none: `SiteTourLauncher`, `ThemeBuilder`, and the route fallback are pure
+compositions of GDS exports over site data, which is the model.
+
 ### The phrase overlay no longer freezes dynamic text, and the map preview adapts to phones
 
 Two defects from an owner phone screenshot, both fixed at the source:
