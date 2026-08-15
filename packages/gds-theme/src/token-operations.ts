@@ -237,7 +237,7 @@ function inferNodeCategory(role: string): GdsTokenNode['category'] {
   // and a new axis must be added HERE, which is the intended coupling: a token whose category
   // nobody declared would be validated as a colour and fail as one, loudly, rather than
   // shipping unvalidated.
-  if (/^(radius|space|control-height|font-size)-/.test(role)) return 'dimension';
+  if (/^(radius|space|control-height|font-size|shell-height)-/.test(role)) return 'dimension';
   if (/^focus-ring-(width|offset)$/.test(role)) return 'dimension';
   if (/^reaction-\w+-lift$/.test(role)) return 'dimension';
   if (/^(weight|line-height)-/.test(role)) return 'number';

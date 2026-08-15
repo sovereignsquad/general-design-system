@@ -500,6 +500,32 @@ export function gdsSpace(step: GdsSpaceStep): string {
 }
 
 /**
+ * Shell/region heights (public-shell header variants) — fixed, not themed: unlike density and
+ * control-height, nothing currently varies these per brand, so this is a plain constant set,
+ * not a full axis with per-theme override and validation built for a need that does not exist
+ * yet. Named and emitted as CSS custom properties anyway, because the alternative was three
+ * bare pixel numbers living only inside `PublicShell`'s own ternary with no shared, traceable
+ * source (issue 625: `compact` already matched `--gds-space-3xl` by coincidence; `default` and
+ * `branded-quiet` matched nothing, and rounding them onto an existing spacing step would have
+ * been a real, silent visual resize — these values are the shipped design, formalized exactly
+ * as-is, not redesigned).
+ */
+export const GDS_SHELL_HEIGHTS: Record<string, number> = {
+  'header-compact': 64,
+  'header-default': 72,
+  'header-branded-quiet': 88,
+};
+
+/** Resolves {@link GDS_SHELL_HEIGHTS} into `--gds-shell-height-*` custom properties. */
+export function resolveGdsShellHeightTokens(): Record<string, string> {
+  const tokens: Record<string, string> = {};
+  for (const [key, px] of Object.entries(GDS_SHELL_HEIGHTS)) {
+    tokens[`--gds-shell-height-${key}`] = `${px}px`;
+  }
+  return tokens;
+}
+
+/**
  * Validates and resolves the typography axis.
  *
  * The invariants are the ones a theme can plausibly get wrong: weights must ascend (a
@@ -741,6 +767,8 @@ export function resolveGdsAxisTokens(
   return {
     ...resolveGdsShapeTokens(axes?.shape ?? GDS_DEFAULT_SHAPE_AXIS, String(themeId)),
     ...resolveGdsDensityTokens(axes?.density ?? GDS_DEFAULT_DENSITY_AXIS, String(themeId)),
+    // Fixed, not per-theme — see resolveGdsShellHeightTokens.
+    ...resolveGdsShellHeightTokens(),
     ...resolveGdsTypographyTokens(axes?.type ?? GDS_DEFAULT_TYPOGRAPHY_AXIS, String(themeId)),
     ...resolveGdsElevationTokens(axes?.elevation ?? GDS_DEFAULT_ELEVATION_AXIS, String(themeId)),
     ...resolveGdsReactionTokens(axes?.reaction ?? GDS_DEFAULT_REACTION_AXIS, String(themeId)),

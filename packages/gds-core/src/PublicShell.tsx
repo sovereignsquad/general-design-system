@@ -136,12 +136,12 @@ export function PublicShell({
 }: PublicShellProps) {
   const resolvedNavigation = navigation ?? (navItems ? <PublicNav items={navItems} activeId={activeNavId} /> : null);
   const containerSize = maxContentWidth ?? (compact ? 'md' : 'lg');
-  // 'compact' (64) is the only one of the three that lands exactly on an existing GDS space
-  // step (--gds-space-3xl = 4rem = 64px), so only it is tokenized here. The other two (72,
-  // 88) don't land close enough to any existing step to swap in without a visible resize —
-  // that is a new value, not a rounding, and stays a bare number pending a design decision
-  // (issue 625).
-  const headerHeight = headerVariant === 'compact' ? 'var(--gds-space-3xl, 4rem)' : headerVariant === 'branded-quiet' ? 88 : 72;
+  // The shipped values (64/72/88), formalized as governed --gds-shell-height-* tokens
+  // (issue 625) instead of bare numbers — see resolveGdsShellHeightTokens in gds-theme.
+  const headerHeight =
+    headerVariant === 'compact' ? 'var(--gds-shell-height-header-compact, 64px)'
+      : headerVariant === 'branded-quiet' ? 'var(--gds-shell-height-header-branded-quiet, 88px)'
+        : 'var(--gds-shell-height-header-default, 72px)';
   const mainPadding = headerVariant === 'compact' ? 'lg' : 'xl';
   const usesBottomTabNavigation = mobileNavigationMode === 'bottom-tab' && Boolean(navItems?.length);
   const usesInlineMobileNavigation =
