@@ -41,6 +41,16 @@ const CAPTURE = `(() => {
     ['color', 'color'], ['paddingTop', 'paddingTop'], ['transitionDuration', 'transitionDuration'],
     ['transitionTimingFunction', 'transitionTimingFunction'], ['boxShadow', 'boxShadow'],
     ['fontWeight', 'fontWeight'], ['letterSpacing', 'letterSpacing'], ['borderTopWidth', 'borderTopWidth'],
+    // TRACKED below also checks font-size, the four border-*-radius corners, and
+    // row-gap/column-gap, none of which shared a value space with any probe above — a
+    // font-size-only token, a radius-only token, or a gap-only token could never appear in
+    // the index (issue 625/627: the same instrument-gap class as the theme-matrix oracle,
+    // found in this "already-complete" classifier while investigating why #627's Phase 1
+    // re-run ran hot). borderTopLeftRadius and rowGap stand in for all four radius corners
+    // and both gap axes: the match is on the resolved VALUE string, not the property name,
+    // so one length-valued probe per category covers every property that shares its value
+    // space.
+    ['fontSize', 'fontSize'], ['borderTopLeftRadius', 'borderTopLeftRadius'], ['rowGap', 'rowGap'],
   ];
   const INERT = new Set(['0px', 'rgba(0, 0, 0, 0)', 'none', 'normal', '0s', 'auto', '400', '']);
   for (const name of names) {
@@ -140,6 +150,16 @@ export const CAPTURE_PREP = `(() => {
     ['color', 'color'], ['paddingTop', 'paddingTop'], ['transitionDuration', 'transitionDuration'],
     ['transitionTimingFunction', 'transitionTimingFunction'], ['boxShadow', 'boxShadow'],
     ['fontWeight', 'fontWeight'], ['letterSpacing', 'letterSpacing'], ['borderTopWidth', 'borderTopWidth'],
+    // TRACKED below also checks font-size, the four border-*-radius corners, and
+    // row-gap/column-gap, none of which shared a value space with any probe above — a
+    // font-size-only token, a radius-only token, or a gap-only token could never appear in
+    // the index (issue 625/627: the same instrument-gap class as the theme-matrix oracle,
+    // found in this "already-complete" classifier while investigating why #627's Phase 1
+    // re-run ran hot). borderTopLeftRadius and rowGap stand in for all four radius corners
+    // and both gap axes: the match is on the resolved VALUE string, not the property name,
+    // so one length-valued probe per category covers every property that shares its value
+    // space.
+    ['fontSize', 'fontSize'], ['borderTopLeftRadius', 'borderTopLeftRadius'], ['rowGap', 'rowGap'],
   ];
   const INERT = new Set(['0px', 'rgba(0, 0, 0, 0)', 'none', 'normal', '0s', 'auto', '400', '']);
   for (const name of names) {
