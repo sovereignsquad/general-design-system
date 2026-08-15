@@ -10,10 +10,14 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Box, Group, Stack, Text, UnstyledButton } from '@mantine/core';
-import { useGdsTranslation, computeGdsThemeIdentity, resolveGdsAccentTokens, type GdsAccentName, type GdsThemePresetId } from '@sovereignsquad/gds-theme';
+import { useGdsTranslation, useGdsAmbientTheme, computeGdsThemeIdentity, resolveGdsAccentTokens, type GdsAccentName, type GdsThemePresetId } from '@sovereignsquad/gds-theme';
 import type { GdsBadgeAccentShade } from './GdsBadge';
 import { GDS_OSM_TILE_SOURCE, assertGdsTileSource, type GdsMapTileSource } from './map-tile-policy';
 import { StateBlock } from './StateBlock';
+import { createPortal } from 'react-dom';
+import type { ReactNode } from 'react';
+import { GDS_PIN_SILHOUETTE_PATH } from './badge-shapes';
+import { GDS_PIN_EMPHASIS_STROKE, GDS_PIN_APPROXIMATE_DASH, GDS_PIN_SELECTED_SCALE } from './GdsMapPinBadge';
 
 /** A geographic point. */
 export interface GdsLatLng { lat: number; lng: number }
@@ -94,6 +98,13 @@ export interface GdsMapProps {
    */
   listPlacement?: 'below' | 'above';
   /**
+   * On-map preview content for a selected marker (issue 620). When supplied, activating a
+   * marker opens a Leaflet popup anchored at the pin, and this renders the popup's content —
+   * typically a `GdsMapPinPreviewCard`. Rendered through a React portal, so it is real GDS
+   * UI with live tokens, not engine markup.
+   */
+  renderMarkerPreview?: (markerId: string) => ReactNode;
+  /**
    * The consumer will never have tile access (air-gapped or restricted network, issue 570).
    * The map renders markers, fills and the text-equivalent list on a plain governed surface
    * with a matter-of-fact notice — the degraded presentation as the INTENDED state, not a
@@ -144,8 +155,9 @@ export function GdsMap({
   onViewportChange, onMarkerSelect, selectedMarkerId, interactive = true,
   // Issue 569: rem-based via the same scale factor the axes use, never a fixed pixel count —
   // a consumer raising --mantine-scale raises the map with everything else.
-  preset = 'default', colorScheme = 'light', label, onStateChange, height = 'calc(26.25rem * var(--mantine-scale, 1))',
+  preset, colorScheme, label, onStateChange, height = 'calc(26.25rem * var(--mantine-scale, 1))',
   tileSource = GDS_OSM_TILE_SOURCE, listPlacement = 'below', offline = false,
+  renderMarkerPreview,
 }: GdsMapProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const engineRef = useRef<unknown>(null);
@@ -153,12 +165,25 @@ export function GdsMap({
   const regionId = useId();
   const { t } = useGdsTranslation();
 
+  // Issue 621 — the map BAKES resolved values into engine-injected markup, so it must know the
+  // active theme. Before this, `preset`/`colorScheme` defaulted to 'default'/'light' and every
+  // consumer that did not thread the theme through — including the reference site — rendered
+  // marker colours off-theme and never re-initialised on a switch. Ambient by default; the
+  // props still override for deliberate composition (a per-preset reference table).
+  const ambient = useGdsAmbientTheme();
+  const activePreset = preset ?? ambient.preset;
+  const activeScheme = colorScheme ?? ambient.colorScheme;
+
   // Issue 570 — tiles-unavailable degradation. Counters live in a ref (an error per tile per
   // pan would thrash state); the boolean is state because the degraded surface renders.
   const [tilesFailed, setTilesFailed] = useState(false);
   const tileHealthRef = useRef({ loads: 0, errors: 0, autoRetries: 0 });
   const tileLayerRef = useRef<{ redraw: () => void } | null>(null);
   const retryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Issue 620 — the popup portal. Leaflet owns the popup's DOM lifecycle; React owns its
+  // content. The host div is created per marker at init and portalled into while open.
+  const popupHostsRef = useRef(new Map<string, HTMLElement>());
+  const [openPopupMarkerId, setOpenPopupMarkerId] = useState<string | null>(null);
 
   const retryTiles = useCallback(() => {
     tileHealthRef.current.loads = 0;
@@ -170,11 +195,13 @@ export function GdsMap({
 
   // The theme identity is what forces a full re-init. Leaflet reads resolved values when it
   // constructs its panes; nothing about a CSS variable change reaches back into them.
-  const themeIdentity = computeGdsThemeIdentity({ preset, colorScheme });
+  const themeIdentity = computeGdsThemeIdentity({ preset: activePreset, colorScheme: activeScheme });
 
   useEffect(() => {
     let disposed = false;
     let map: { remove: () => void } | null = null;
+    popupHostsRef.current.clear();
+    setOpenPopupMarkerId(null);
 
     let resizeObserver: ResizeObserver | undefined;
 
@@ -253,27 +280,62 @@ export function GdsMap({
         // Markers, viewport reporting and selection — wired, not declared. A prop that
         // silently does nothing is worse than an absent one: a consumer wires a handler, sees
         // no calls, and has no way to tell a broken map from an inert API.
-        const accentTokens = resolveGdsAccentTokens(undefined, colorScheme, preset);
+        //
+        // Issue 620 — the marker IS the governed pin. The map used to draw plain circles, so
+        // the pin vocabulary (its silhouette, its #545 states) never reached the one surface
+        // it was designed for. The marker is now an engine-injected SVG built from
+        // GDS_PIN_SILHOUETTE_PATH — the same path GdsBadgeShapePin renders — with LIVE var()
+        // colour references (this is DOM, so the cascade re-resolves them on a theme switch
+        // without waiting for the identity remount), the accent-axis fallback resolved from
+        // the ambient theme, and the #545 contract applied on-map: selected scales around the
+        // TAIL TIP with the emphasis stroke, approximate renders the dashed neutral stroke.
+        // Size stays density-scaled (issue 569): the pin box is 2.5× the sm space step —
+        // 30px at default density — anchored at the tail tip, which is the geographic point.
+        const accentTokens = resolveGdsAccentTokens(undefined, activeScheme, activePreset);
         const layer = (L as typeof import('leaflet')).layerGroup().addTo(map as never);
+        const placedById = new Map<string, { openPopup: () => void }>();
         for (const marker of orderedMarkers) {
           const shade = marker.shade ?? 'base';
-          const colour = accentTokens[`--gds-accent-${marker.accent}-${shade}`] ?? 'currentColor';
+          const accentVar = `var(--gds-accent-${marker.accent}-${shade}, ${accentTokens[`--gds-accent-${marker.accent}-${shade}`] ?? 'currentColor'})`;
+          const selected = marker.id === selectedMarkerId;
+          const stroke = selected ? GDS_PIN_EMPHASIS_STROKE : 1.75;
+          const dash = marker.approximate ? ` stroke-dasharray="${GDS_PIN_APPROXIMATE_DASH}"` : '';
+          const strokeColour = marker.approximate ? 'var(--mantine-color-dark-7, #1f2937)' : accentVar;
+          const scale = selected ? ` transform:scale(${GDS_PIN_SELECTED_SCALE}); transform-origin:50% 100%;` : '';
           const icon = (L as typeof import('leaflet')).divIcon({
             className: 'gds-map-pin',
             // `aria-hidden` on the glyph and the accessible name on the marker itself: the
             // shape carries no meaning a screen reader can use, the label does.
-            // Issue 569 — the dot is DENSITY-SCALED, not a fixed 18px: 1.5× the sm space step
-            // (0.75rem × 1.5 = 18px at default density), so a compact theme tightens pins with
-            // everything else. The 2px halo stays literal as map paint (the documented
-            // literal-values category): it is a hairline against the card background inside an
-            // engine-injected string, not page layout.
-            html: `<span aria-hidden="true" style="display:block;width:calc(var(--gds-space-sm, 0.75rem) * 1.5);height:calc(var(--gds-space-sm, 0.75rem) * 1.5);border-radius:var(--gds-radius-pin, 50%);background:${colour};border:2px solid var(--gds-bg-card);box-shadow:var(--gds-elevation-1);${marker.approximate ? 'opacity:0.65;border-style:dashed;' : ''}"></span>`,
-            iconSize: [18, 18],
+            html: `<svg aria-hidden="true" viewBox="0 0 24 24" style="display:block;width:calc(var(--gds-space-sm, 0.75rem) * 2.5);height:calc(var(--gds-space-sm, 0.75rem) * 2.5);filter:drop-shadow(var(--gds-elevation-1, 0 1px 2px rgba(0,0,0,0.2)));${scale}"><path d="${GDS_PIN_SILHOUETTE_PATH}" fill="${accentVar}" stroke="${strokeColour}" stroke-width="${stroke}"${dash} stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="11" r="3" fill="var(--gds-text-on-inverse, var(--mantine-color-white, #ffffff))"/></svg>`,
+            iconSize: [30, 30],
+            // The tail tip (12, 21.4 of 24) is the geographic point — anchoring at the box
+            // centre would place every pin ~9px north of where it claims to be.
+            iconAnchor: [15, 27],
+            popupAnchor: [0, -28],
           });
           const placed = (L as typeof import('leaflet'))
             .marker([marker.position.lat, marker.position.lng], { icon, title: marker.label, alt: marker.label, keyboard: interactive })
             .addTo(layer);
           if (onMarkerSelect) placed.on('click', () => onMarkerSelect(marker.id));
+          // Issue 620 — the on-map preview. When the consumer supplies renderMarkerPreview,
+          // selection opens a Leaflet popup whose content is a GDS-rendered portal host.
+          if (renderMarkerPreview) {
+            const host = document.createElement('div');
+            host.setAttribute('data-gds-map-popup-host', marker.id);
+            placed.bindPopup(host, { closeButton: false, maxWidth: 380, className: 'gds-map-popup' });
+            placed.on('popupopen', () => setOpenPopupMarkerId(marker.id));
+            placed.on('popupclose', () => setOpenPopupMarkerId((current) => (current === marker.id ? null : current)));
+            popupHostsRef.current.set(marker.id, host);
+            placedById.set(marker.id, placed as unknown as { openPopup: () => void });
+          }
+        }
+
+        // Selecting a marker re-initialises the map (selection is part of the identity — the
+        // emphasis stroke is baked into the marker markup), which would destroy a popup the
+        // click just opened. Re-opening it for the selected marker after init is what makes
+        // tap → preview deterministic instead of a one-frame flicker.
+        if (selectedMarkerId && renderMarkerPreview) {
+          placedById.get(selectedMarkerId)?.openPopup();
         }
 
         if (onViewportChange) {
@@ -336,7 +398,10 @@ export function GdsMap({
     // map rather than leave it painted in the previous theme.
     // markers/handlers are intentionally in the dependency list: Leaflet places them
     // imperatively, so a changed marker set has to be re-placed rather than re-rendered.
-  }, [themeIdentity, interactive, minZoom, maxZoom, markers, selectedMarkerId, colorScheme, preset]);
+  // renderMarkerPreview is deliberately NOT a dependency: consumers pass inline closures whose
+  // identity changes every render, and the map re-initialising per parent render would destroy
+  // panning state constantly. The portal reads the latest closure at render time regardless.
+  }, [themeIdentity, interactive, minZoom, maxZoom, markers, selectedMarkerId, activeScheme, activePreset, offline]);
 
   // ONE ordering, used by the map and the list alike. Sorted by label rather than left in
   // insertion order: a list whose sequence is "whatever the API returned" is not navigable,
@@ -494,6 +559,10 @@ export function GdsMap({
       >
         {announcement}
       </Text>
+      {/* Issue 620 — the popup's content is real React, portalled into Leaflet's popup DOM. */}
+      {renderMarkerPreview && openPopupMarkerId && popupHostsRef.current.get(openPopupMarkerId)
+        ? createPortal(renderMarkerPreview(openPopupMarkerId), popupHostsRef.current.get(openPopupMarkerId) as HTMLElement)
+        : null}
       <Text size="xs" c="dimmed" data-gds-map-attribution="">
         <a href={tileSource.attributionHref} target="_blank" rel="noreferrer noopener">{tileSource.attributionText}</a>
       </Text>

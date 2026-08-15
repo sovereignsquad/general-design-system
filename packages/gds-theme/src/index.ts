@@ -51,7 +51,8 @@ export { getGdsFontLanes, resolveGdsFontLane, applyGdsFontLane, getGdsFontLaneSt
 export type { GdsFontLane, GdsFontLaneId, GdsFontLaneLoadStrategy, GdsFontLaneSource } from './font-lanes';
 
 // ── Theme-preset runtime state ──
-export { createGdsThemePresetSelection, useGdsThemePresetState } from './theme-runtime';
+export { createGdsThemePresetSelection, useGdsThemePresetState, useGdsAmbientTheme } from './theme-runtime';
+export type { GdsAmbientTheme } from './theme-runtime';
 export type { GdsStoredThemePresetState, GdsThemePresetSelection, GdsThemeScheme, UseGdsThemePresetStateOptions, UseGdsThemePresetStateResult } from './theme-runtime';
 
 // ── Provider & overlay adapter ──

@@ -4,6 +4,34 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The map's markers are the governed pin, themed live, with the preview on the map (#620, #621, #622, #623)
+
+Owner report from the live site, all four halves verified in source before fixing:
+
+**The map drew plain dots** — the pin vocabulary and its #545 states never reached the one
+surface they were designed for. The marker is now an engine-injected SVG built from
+`GDS_PIN_SILHOUETTE_PATH` (the same path `GdsBadgeShapePin` renders — exported so the two
+cannot drift), with live `var()` colour references, the selected state's tail-tip scale and
+emphasis stroke on-map, the approximate state's dashed neutral, density-scaled size, and the
+tail tip as the geographic anchor. Selecting a pin now opens the preview ON the map: a Leaflet
+popup hosting `GdsMapPinPreviewCard` through a React portal, re-opened deterministically across
+the selection-triggered re-init (which had been destroying it — caught live). Verified in a
+real browser: governed path, live-var fill, popup with the card inside, 2.25 selected stroke.
+
+**Baked-value components ignored the active theme** — `GdsMap` and `GdsPinSystemReference`
+defaulted `preset`/`colorScheme` to `'default'/'light'`, and the reference site passed neither,
+so marker colours never followed a theme switch. New `useGdsAmbientTheme` reads and observes
+the attributes the runtime already writes to `<html>`; both components default to it. The
+in-DOM generated imagery needed nothing — verified it already reads live `var()` refs; only
+the data-URI export path bakes hex, correctly, and must name its theme.
+
+**Demos read as a sports product** — the emoji-mode categories, thumbnail badges, and the map's
+own data now span four domains (swimming, dance, music, cooking; painting, choir, gardening),
+because a proof where every pin is a sport reads as a sports-app component, not a general one.
+
+**Aspect ratios were a claim without a proof** — all four ratios in the thumbnail vocabulary
+now render on the generated-imagery entry; the hero proofs already existed on that entry.
+
 ### The design-intake contract is codified (#538, #539, #540)
 
 `TEMPLATES/DESIGN_HANDOFF_TEMPLATE.md` codifies the structure of the handoff that set the bar
