@@ -16,6 +16,13 @@ import { join } from 'node:path';
 const ROOT = process.cwd();
 const ARTIFACT = join(ROOT, 'audit/gate-mutation-score.json');
 const BACKUP = join(ROOT, 'audit/.gate-mutation-score.test-backup.json');
+// verify-budgets.mjs writes this REPORT as a side effect of every run, including the runs
+// below that feed it a deliberately-mutated gate-mutation-score.json. Restoring only the
+// input artifact left this output artifact holding the last mutated run's numbers (found:
+// a preflight run reported gateSuiteMutationScore 50% here after this suite passed clean,
+// because nothing had put the real 100% report back).
+const RESULTS = join(ROOT, 'audit/budget-results.json');
+const RESULTS_BACKUP = join(ROOT, 'audit/.budget-results.test-backup.json');
 
 function runBudgets() {
   try {
@@ -34,6 +41,10 @@ afterEach(() => {
     copyFileSync(BACKUP, ARTIFACT);
     unlinkSync(BACKUP);
   }
+  if (existsSync(RESULTS_BACKUP)) {
+    copyFileSync(RESULTS_BACKUP, RESULTS);
+    unlinkSync(RESULTS_BACKUP);
+  }
 });
 
 describe('gate-suite mutation floor (issue 602)', () => {
@@ -43,6 +54,7 @@ describe('gate-suite mutation floor (issue 602)', () => {
 
   it('blocks when the gate suite loses coverage, with survivors still at zero', () => {
     copyFileSync(ARTIFACT, BACKUP);
+    if (existsSync(RESULTS)) copyFileSync(RESULTS, RESULTS_BACKUP);
     const artifact = JSON.parse(readFileSync(ARTIFACT, 'utf8'));
     // Exactly the shape of a deleted mutant: fewer killed, score down, survivors untouched.
     writeFileSync(ARTIFACT, `${JSON.stringify({
@@ -58,6 +70,7 @@ describe('gate-suite mutation floor (issue 602)', () => {
 
   it('names the artifact it read, so a failure can be traced without guessing', () => {
     copyFileSync(ARTIFACT, BACKUP);
+    if (existsSync(RESULTS)) copyFileSync(RESULTS, RESULTS_BACKUP);
     const artifact = JSON.parse(readFileSync(ARTIFACT, 'utf8'));
     writeFileSync(ARTIFACT, `${JSON.stringify({ ...artifact, gateMutationSuiteScore: 50 }, null, 2)}\n`);
 
