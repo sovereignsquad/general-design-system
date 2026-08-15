@@ -4,6 +4,30 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The generated-imagery system covers identity: avatars, marks, and the site's own assets (#565)
+
+Two new shapes on the shared engine, closing the gaps that would have forced allowlist growth
+the moment an imagery-exclusivity gate lands:
+
+- **`GdsGeneratedAvatar`** — a deterministic identity mark from a person's name: initials on
+  the house gradient (legible at 24px, no wrong-gender or wrong-skin-tone guesses, no photo
+  pipeline, no third-party avatar service seeing your users), with a seeded gradient ANGLE so
+  two people with the same initials still differ — geometry varies, hue never does, because
+  hue belongs to the theme. `role="img"` named by the person; the initials are aria-hidden.
+- **`GdsGeneratedMark`** — the compact logo-shaped composition for app tiles, brand squares
+  and workspace switchers: the gradient with one motif rendered prominently at a bounded
+  seeded tilt. Decorative by default; a named image only when it stands alone.
+
+And the reference site now practices the rule on itself: the favicon was a hand-authored SVG
+with a hardcoded `#863bff` — the exact exception the rule cannot afford — and is now GENERATED
+from the default theme's resolved palette, alongside a 1200×630 og:image card composed from
+the same palette and the system's own pin silhouette (rasterised via the wasm renderer;
+deliberately geometry-only, since rasterised text needs a bundled font while every crawler
+renders og:title as text beside the image anyway). Both regenerate deterministically in
+`artifacts:refresh`, so drift is a clean-tree failure. Five tests; proofs on the
+generated-imagery entry. Rasterised social output beyond the OG card (full favicon .ico
+matrix, per-page cards) remains open scope on #565's epic if ever needed.
+
 ### The map's markers are the governed pin, themed live, with the preview on the map (#620, #621, #622, #623)
 
 Owner report from the live site, all four halves verified in source before fixing:

@@ -1,10 +1,10 @@
 {
-  "declarationsScanned": 34,
-  "adopted": 25,
-  "allowlisted": 8,
+  "declarationsScanned": 36,
+  "adopted": 26,
+  "allowlisted": 9,
   "violationCount": 0,
   "byCategory": {
-    "circle": 6,
+    "circle": 7,
     "debt": 2
   },
   "allowed": [
@@ -22,6 +22,12 @@
     },
     {
       "at": "packages/gds-core/src/GdsBadge.tsx:185",
+      "value": "'50%'",
+      "category": "circle",
+      "reviewBy": "2027-08-01"
+    },
+    {
+      "at": "packages/gds-core/src/GdsGeneratedAvatar.tsx:102",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"

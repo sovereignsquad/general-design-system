@@ -1,6 +1,6 @@
 {
-  "consumed": 93,
-  "governed": 4,
+  "consumed": 94,
+  "governed": 5,
   "delegated": 7,
   "dynamic": 2,
   "laneGoverned": 12,
@@ -611,7 +611,9 @@
         "packages/gds-core/src/BottomTabBar.tsx",
         "packages/gds-core/src/ChatSurface.tsx",
         "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/GdsGeneratedAvatar.tsx",
         "packages/gds-core/src/GdsGeneratedHero.tsx",
+        "packages/gds-core/src/GdsGeneratedMark.tsx",
         "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
         "packages/gds-core/src/GdsMap.client.tsx",
         "packages/gds-core/src/GdsMapPinBadge.tsx",
@@ -686,6 +688,15 @@
         "packages/gds-core/src/AccentPanel.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SectionPanel.tsx"
+      ]
+    },
+    {
+      "variable": "--mantine-font-family",
+      "classification": "governed",
+      "declaredIn": "gdsTheme.fontFamily",
+      "value": "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
+      "files": [
+        "packages/gds-core/src/GdsGeneratedAvatar.tsx"
       ]
     },
     {
@@ -770,6 +781,7 @@
       "files": [
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/GdsGeneratedHero.tsx",
+        "packages/gds-core/src/GdsGeneratedMark.tsx",
         "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
         "packages/gds-core/src/GdsPageTemplates.tsx",
         "packages/gds-core/src/MediaWithFallback.tsx",
