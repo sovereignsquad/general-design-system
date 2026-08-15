@@ -4,6 +4,39 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### #627 closed to 91%: a parenthesis-blind comma split, the last two known contributors fixed, two real GDS literals tokenized (#625, #627)
+
+The single largest remaining fix: a naive `value.split(',')` shredded any multi-value
+`transition-timing-function` containing 2+ comma-separated `cubic-bezier()` functions
+mid-parenthesis — `'cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)'` (two transitioned
+properties sharing one easing, completely ordinary) became eight fragments like
+`'cubic-bezier(0.2'`, none of which could ever match a token. Replaced with a
+paren-depth-aware split in both the monolithic and chunked render classifiers.
+
+Both classifiers also now resolve Mantine's `border-top-width: calc(0.0625rem *
+var(--mantine-scale))` formula directly and index the result, rather than leaving it
+permanently untraceable because it combines a literal with a variable instead of referencing
+one custom property — recognizing the same resolvable Mantine constant everywhere it appears
+(`Input`, active buttons, `ThemeIcon`, ...) instead of enumerating selectors. Required setting
+`border-top-style` on the probe first: a UA reports width as 0 with no style set, the same
+outline-width lesson applied a second time.
+
+Two real, GDS-owned literals fixed at the source, not the classifier: `.gds-tour-launch`,
+`.gds-tour-btn`, and `.gds-tour-card__actions`/`__nav` (`packages/gds-theme/styles.css`) now
+reference `--gds-space-*`/`--gds-font-size-*` tokens instead of bare rem values — rounded to
+the nearest existing step where no exact match existed, a small deliberate visual change,
+verified live rather than assumed. `PublicShell`'s `headerVariant='compact'` (64px) now
+references `--gds-space-3xl`, the only one of its three header heights landing exactly on an
+existing step with zero visual change; the other two (72px, 88px) don't round without a
+visible resize and stay bare numbers pending an owner decision on new token values.
+
+Combined result on the same 40-cell Phase 1 slice #627 flagged: **9.857% → 7.428%**, closing
+91% of the regression. `untraceableRenderRate` ratcheted to the honest current number.
+Understood, not closed: `.gds-tour-card__progress`'s `letter-spacing: 0.02em` has no GDS
+tracking-token axis to reference at all, and several Mantine components (`SegmentedControl`,
+`Button`) declare component-scoped custom properties or plain literal transitions invisible
+to a document-body probe — the same limitation already diagnosed for Badge's font-size.
+
 ### The color-mix() serialization gap fixed; the two remaining known contributors traced precisely (#625)
 
 Chrome serializes a resolved CSS `color-mix()` as `color(srgb r g b / a)` — 0-1 float

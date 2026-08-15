@@ -46,6 +46,18 @@ const CAPTURE = `(() => {
     const a = halves[1] === undefined ? 1 : parseFloat(halves[1]);
     return a === 1 ? 'rgb(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ')' : 'rgba(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ', ' + a + ')';
   });
+  // A comma inside cubic-bezier(...) is an argument separator, not a value-list separator —
+  // see the identical note on this function in CAPTURE_PREP.
+  const splitTopLevel = s => {
+    const out = []; let depth = 0; let cur = '';
+    for (const ch of s) {
+      if (ch === '(') depth++;
+      else if (ch === ')') depth--;
+      if (ch === ',' && depth === 0) { out.push(cur); cur = ''; } else cur += ch;
+    }
+    out.push(cur);
+    return out;
+  };
 
   const tokenIndex = {};   // computedValue -> [tokenName]
   const tokenValues = {};  // tokenName -> computedValue
@@ -85,6 +97,22 @@ const CAPTURE = `(() => {
     }
     tokenValues[name] = declared;
   }
+  // Mantine declares border-top-width on many of its own components (Input, active
+  // buttons, ThemeIcon, ...) as 'calc(0.0625rem * var(--mantine-scale))' — a real,
+  // scale-aware Mantine constant, but a calc() combining a literal with a variable rather
+  // than a single custom-property reference, so no per-name probe above can ever land on
+  // it (issue 625's first known contributor). GDS declares no border-width override for
+  // any of these — resolving the SAME formula the browser resolves recognizes it as the
+  // Mantine constant it is, rather than either inventing a GDS token for a value that was
+  // never a GDS decision, or leaving every hairline border in the codebase flagged.
+  if (tokenValues['--mantine-scale'] !== undefined) {
+    probe.style.borderTopStyle = 'solid';
+    probe.style.borderTopWidth = 'calc(0.0625rem * var(--mantine-scale))';
+    const hairline = getComputedStyle(probe).borderTopWidth;
+    probe.style.borderTopWidth = '';
+    probe.style.borderTopStyle = '';
+    if (hairline) (tokenIndex[normColor(hairline)] ||= []).push('--mantine-scale (hairline border formula)');
+  }
   probe.remove();
 
   // 2. Sweep every visible element.
@@ -120,7 +148,7 @@ const CAPTURE = `(() => {
       // Multi-value shorthands compute as comma lists ('0.12s, 0.12s'). Match each
       // part: a value is token-derived only if EVERY part resolves to a token.
       const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
-        ? value.split(',').map(x => x.trim()).filter(Boolean)
+        ? splitTopLevel(value).map(x => x.trim()).filter(Boolean)
         : [value.trim()];
       const partHits = parts.map(p => tokenIndex[normColor(p)]);
       const hit = partHits.every(Boolean) ? partHits[0] : undefined;
@@ -172,6 +200,23 @@ export const CAPTURE_PREP = `(() => {
     return a === 1 ? 'rgb(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ')' : 'rgba(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ', ' + a + ')';
   });
   window.__gdsAuditNormColor = normColor;
+  // A comma inside cubic-bezier(...) is an argument separator, not a value-list separator —
+  // 'cubic-bezier(0.2, 0, 0, 1), cubic-bezier(0.2, 0, 0, 1)' (two transitioned properties
+  // sharing one easing) is TWO values, but a naive value.split(',') shredded it into eight
+  // fragments mid-parenthesis, none of which could ever match a token (issue 625/627 — the
+  // single largest remaining untraceable cluster, ~190 theme-hits, was this). Split only on
+  // commas at paren depth 0.
+  const splitTopLevel = s => {
+    const out = []; let depth = 0; let cur = '';
+    for (const ch of s) {
+      if (ch === '(') depth++;
+      else if (ch === ')') depth--;
+      if (ch === ',' && depth === 0) { out.push(cur); cur = ''; } else cur += ch;
+    }
+    out.push(cur);
+    return out;
+  };
+  window.__gdsAuditSplitTopLevel = splitTopLevel;
   const tokenIndex = {}; const tokenValues = {};
   const PROBES = [
     ['color', 'color'], ['paddingTop', 'paddingTop'], ['transitionDuration', 'transitionDuration'],
@@ -204,6 +249,15 @@ export const CAPTURE_PREP = `(() => {
     }
     tokenValues[name] = declared;
   }
+  // Same Mantine hairline-border-formula recognition as CAPTURE (issue 625) — see there.
+  if (tokenValues['--mantine-scale'] !== undefined) {
+    probe.style.borderTopStyle = 'solid';
+    probe.style.borderTopWidth = 'calc(0.0625rem * var(--mantine-scale))';
+    const hairline = getComputedStyle(probe).borderTopWidth;
+    probe.style.borderTopWidth = '';
+    probe.style.borderTopStyle = '';
+    if (hairline) (tokenIndex[normColor(hairline)] ||= []).push('--mantine-scale (hairline border formula)');
+  }
   probe.remove();
   window.__gdsAuditTokenIndex = tokenIndex;
   window.__gdsAuditEls = document.querySelectorAll('*').length;
@@ -213,6 +267,7 @@ export const CAPTURE_PREP = `(() => {
 export const captureSweepChunk = (start, end) => `(() => {
   const tokenIndex = window.__gdsAuditTokenIndex || {};
   const normColor = window.__gdsAuditNormColor || (s => s);
+  const splitTopLevel = window.__gdsAuditSplitTopLevel || (s => s.split(','));
   const TRACKED = ${JSON.stringify(TRACKED)};
   const UA_DEFAULTS = new Set(['0px','normal','none','auto','rgba(0, 0, 0, 0)','0s','currentcolor','medium','400','0s, 0s','0px 0px 0px 0px']);
   let total = 0; let literal = 0;
@@ -234,7 +289,7 @@ export const captureSweepChunk = (start, end) => `(() => {
         && typeof el.className === 'string' && /\\bmantine-ScrollArea-(scrollbar|thumb)\\b/.test(el.className)
       ) continue;
       const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
-        ? value.split(',').map(x => x.trim()).filter(Boolean)
+        ? splitTopLevel(value).map(x => x.trim()).filter(Boolean)
         : [value.trim()];
       const partHits = parts.map(p => tokenIndex[normColor(p)]);
       const hit = partHits.every(Boolean) ? partHits[0] : undefined;
