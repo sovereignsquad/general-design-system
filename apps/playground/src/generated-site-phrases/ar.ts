@@ -377,6 +377,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Complete two more sessions to unlock the Certified Coach badge.": "أكمل جلستين أخريين لفتح شارة المدرب المعتمد.",
   "Compliance is stronger": "الامتثال أقوى",
   "Compliance question": "سؤال الامتثال",
+  "Components": "عناصر",
   "Compose shipped GDS components — import from @sovereignsquad/gds": "إنشاء مكونات GDS المشحونة - الاستيراد من @sovereignsquad/gds",
   "Composed badge — category accent": "شارة مؤلفة - لهجة الفئة",
   "Composed badge — semantic tone": "شارة مؤلفة - نغمة دلالية",

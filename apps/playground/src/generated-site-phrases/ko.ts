@@ -377,6 +377,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Complete two more sessions to unlock the Certified Coach badge.": "인증 코치 배지를 잠금 해제하려면 두 개의 세션을 더 완료하세요.",
   "Compliance is stronger": "규정 준수가 더욱 강력해졌습니다.",
   "Compliance question": "규정 준수 질문",
+  "Components": "구성요소",
   "Compose shipped GDS components — import from @sovereignsquad/gds": "배송된 GDS 구성 요소 작성 - @sovereignsquad/gds에서 가져오기",
   "Composed badge — category accent": "작성된 배지 — 카테고리 악센트",
   "Composed badge — semantic tone": "구성된 배지 - 의미론적 어조",

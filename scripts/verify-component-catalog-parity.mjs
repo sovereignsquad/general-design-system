@@ -24,6 +24,7 @@
  */
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { collectPublicComponents } from './lib/component-census.mjs';
 
 const root = process.cwd();
@@ -114,6 +115,16 @@ if (unregistered.length) {
   console.error('     which drives per-theme/forced-colors verification, i18n routing, and a11y evidence). Preferred for UI patterns.');
   console.error('  2. Add it to boundary/component-catalog-exemptions.json with a short reason (for genuinely non-catalog exports:');
   console.error('     layout primitives, typography, providers/context, formatters, templates, Admin*/Partner* sub-parts, icons, utilities).');
+  process.exit(1);
+}
+
+// Issue 626 Phase 2 — the complete element list on /components derives from this same
+// census; a drifted generated-component-index.ts means the page lies about completeness.
+try {
+  execFileSync('node', ['scripts/generate-component-index.mjs', '--check'], { cwd: root, stdio: 'pipe' });
+} catch (error) {
+  console.error(String(error.stdout ?? '') + String(error.stderr ?? ''));
+  console.error('Component-index drift: run `node scripts/generate-component-index.mjs` and commit.');
   process.exit(1);
 }
 

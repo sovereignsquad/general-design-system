@@ -4,6 +4,7 @@ export type PublicAudienceIntent =
   | 'overview'
   | 'install'
   | 'coverage'
+  | 'components'
   | 'api'
   | 'maturity'
   | 'use-cases'
@@ -78,6 +79,15 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'use-cases',
     navGroup: 'primary',
     activePrefixes: ['/use-cases'],
+  },
+  {
+    id: 'components',
+    path: '/components',
+    label: 'Components',
+    action: 'grid',
+    audienceIntent: 'components',
+    navGroup: 'primary',
+    activePrefixes: ['/components'],
   },
   {
     id: 'coverage',

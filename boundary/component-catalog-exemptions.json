@@ -90,7 +90,6 @@
     "GdsDrawer": "Overlay alias (OverlayManager) — same overlay pattern registered via FilterDrawer / GdsSidePanel on the drawers row.",
     "GdsSheet": "Overlay alias (OverlayManager) — bottom-sheet alias of the registered drawers overlay pattern.",
     "GdsDataTable": "Client-runtime composite (GdsDataTable.client) — data-grid whose canonical pattern is registered via AdvancedDataTable / DataTable.",
-    "GdsSchemaForm": "Client-runtime composite (GdsSchemaForm.client) — schema-driven form whose canonical pattern is registered via useGdsForm.",
     "GdsResourceManager": "Client-runtime composite (GdsResourceManager.client) — CRUD manager scaffold, not a standalone catalog pattern.",
     "GdsAssetManager": "Client-runtime composite (GdsAssetManager.client) — asset manager scaffold, not a standalone catalog pattern.",
     "GdsAssetPreviewCard": "Sub-part of GdsAssetManager — asset preview cell, not a standalone catalog pattern.",
