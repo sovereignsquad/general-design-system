@@ -13,8 +13,8 @@ import {
   zh,
 } from '@sovereignsquad/gds-core';
 
-export const stableGdsVersion = '6.0.0';
-export const targetGdsVersion = '6.0.0';
+export const stableGdsVersion = '6.1.0';
+export const targetGdsVersion = '6.1.0';
 
 export const siteLocaleRegistry = {
   en: { label: 'English', messages: en },
