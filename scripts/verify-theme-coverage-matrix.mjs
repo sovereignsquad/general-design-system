@@ -123,6 +123,19 @@ try {
       probe.style.position = 'absolute';
       probe.style.visibility = 'hidden';
       document.body.appendChild(probe);
+      // A resolved CSS color-mix() (GDS uses it directly across AccentPanel, ChoiceChip,
+      // EditorialCard, GdsGeneratedHero, not just its own JS math helper) serializes in
+      // Chrome as 'color(srgb r g b / a)' with 0-1 float components, never as rgb()/rgba() —
+      // even when the token it resolved through declares a plain hex/rgb value. String
+      // equality then never matches the two forms of the same color (issue 625's third known
+      // contributor; same normalization already shipped in verify-badge-contrast-runtime.mjs
+      // and in the shared render classifier for the identical reason).
+      const normColor = (s) => (s || '').replace(/color\\(srgb\\s+([^)]+)\\)/g, (_, inner) => {
+        const halves = inner.split('/');
+        const chan = halves[0].trim().split(/\\s+/).map((v) => Math.round(parseFloat(v) * 255));
+        const a = halves[1] === undefined ? 1 : parseFloat(halves[1]);
+        return a === 1 ? 'rgb(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ')' : 'rgba(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ', ' + a + ')';
+      });
       // This oracle tracked color/padding-top/border-top-width/font-size only, while the
       // properties above it (TRACKED_PROPERTIES) also include font-weight, box-shadow and
       // transition-duration — none of which share a value space with the four probed
@@ -145,7 +158,7 @@ try {
         ]) {
           probe.style.setProperty(cssProp, 'var(' + name + ')');
           const resolved = getComputedStyle(probe)[read];
-          if (resolved) oracle.add(String(resolved).trim().toLowerCase());
+          if (resolved) oracle.add(normColor(String(resolved).trim()).toLowerCase());
           probe.style.removeProperty(cssProp);
         }
       }
@@ -195,7 +208,7 @@ try {
             property: p,
             value: value.trim(),
             // Provenance decided IN the page, against browser-resolved token values.
-            traceable: oracle.has(value.trim().toLowerCase()),
+            traceable: oracle.has(normColor(value.trim()).toLowerCase()),
           });
         }
       }

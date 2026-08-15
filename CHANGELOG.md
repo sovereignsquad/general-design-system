@@ -4,6 +4,27 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The color-mix() serialization gap fixed; the two remaining known contributors traced precisely (#625)
+
+Chrome serializes a resolved CSS `color-mix()` as `color(srgb r g b / a)` — 0-1 float
+components — never as `rgb()`/`rgba()`, even when the token it resolved through declares a
+plain hex value. String-equality comparison never matched the two forms of the same color.
+GDS uses literal `color-mix(in srgb, ...)` directly across `AccentPanel`, `ChoiceChip`,
+`EditorialCard`, `EditorialHero`, and `GdsGeneratedHero` — not just its own JS math helper —
+so this was real, and the identical fix had already shipped once before for the same reason
+in `verify-badge-contrast-runtime.mjs`. Applied to both classifiers.
+
+The two remaining known contributors from #625's original correction are now precisely
+diagnosed rather than vague: Mantine's `border-top-width: 1px` on `Input`/active-button
+elements is `calc(0.0625rem * var(--mantine-scale))` in Mantine's own CSS — a real,
+scale-aware expression no probe can trace because it combines a literal with a variable
+rather than referencing one custom property; GDS has no override for it and this reads as
+accepted Mantine baseline geometry, not a gap. `.gds-tour-launch` (`packages/gds-theme/styles.css`)
+declares `gap: 0.4rem` and `padding: 0.45rem 0.9rem` as bare literals — genuinely
+untokenized, confirmed live — but no existing `--gds-space-*` step lands close enough to
+swap in without visibly resizing the control, so picking one is an owner decision, not a
+same-day classifier fix. Both recorded on #625 with exact file/line detail.
+
 ### Three more oracle gaps closed; the badge cluster traced to a probing-methodology limit, not a design gap (#625, #627)
 
 Investigating #627's stale render-rate finding surfaced that the shared render classifier —

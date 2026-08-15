@@ -32,6 +32,21 @@ const CAPTURE = `(() => {
   probe.style.position = 'absolute'; probe.style.visibility = 'hidden';
   document.body.appendChild(probe);
 
+  // A resolved CSS color-mix() (GDS uses it directly, not just its own JS math helper — see
+  // AccentPanel, ChoiceChip, EditorialCard, GdsGeneratedHero) serializes in Chrome as
+  // 'color(srgb r g b / a)' with 0-1 float components, never as rgb()/rgba() — even when the
+  // token it resolved through declares a plain hex/rgb value. String equality then never
+  // matches the two forms of the same color (issue 625's third known contributor). Same
+  // normalization already shipped in verify-badge-contrast-runtime.mjs for the identical
+  // reason; applied here to both the probed token candidates and the observed values so
+  // either side landing in either format still compares equal.
+  const normColor = s => (s || '').replace(/color\\(srgb\\s+([^)]+)\\)/g, (_, inner) => {
+    const halves = inner.split('/');
+    const chan = halves[0].trim().split(/\\s+/).map(v => Math.round(parseFloat(v) * 255));
+    const a = halves[1] === undefined ? 1 : parseFloat(halves[1]);
+    return a === 1 ? 'rgb(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ')' : 'rgba(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ', ' + a + ')';
+  });
+
   const tokenIndex = {};   // computedValue -> [tokenName]
   const tokenValues = {};  // tokenName -> computedValue
   // Probe EVERY category a token could belong to. A token only indexes into the
@@ -64,8 +79,9 @@ const CAPTURE = `(() => {
       if (got) cands.push(String(got).trim());
     }
     for (const cand of cands) {
-      if (!cand || INERT.has(cand)) continue;
-      (tokenIndex[cand] ||= []).push(name);
+      const normCand = normColor(cand);
+      if (!normCand || INERT.has(normCand)) continue;
+      (tokenIndex[normCand] ||= []).push(name);
     }
     tokenValues[name] = declared;
   }
@@ -106,7 +122,7 @@ const CAPTURE = `(() => {
       const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
         ? value.split(',').map(x => x.trim()).filter(Boolean)
         : [value.trim()];
-      const partHits = parts.map(p => tokenIndex[p]);
+      const partHits = parts.map(p => tokenIndex[normColor(p)]);
       const hit = partHits.every(Boolean) ? partHits[0] : undefined;
       observations.push({
         prop,
@@ -145,6 +161,17 @@ export const CAPTURE_PREP = `(() => {
   const probe = document.createElement('div');
   probe.style.position = 'absolute'; probe.style.visibility = 'hidden';
   document.body.appendChild(probe);
+  // Same color-mix() serialization fix as CAPTURE (issue 625) — see there. Stashed on
+  // window so captureSweepChunk, a separate evaluate() call with its own fresh scope, can
+  // reuse the identical function rather than a second hand-copied definition drifting from
+  // this one.
+  const normColor = s => (s || '').replace(/color\\(srgb\\s+([^)]+)\\)/g, (_, inner) => {
+    const halves = inner.split('/');
+    const chan = halves[0].trim().split(/\\s+/).map(v => Math.round(parseFloat(v) * 255));
+    const a = halves[1] === undefined ? 1 : parseFloat(halves[1]);
+    return a === 1 ? 'rgb(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ')' : 'rgba(' + chan[0] + ', ' + chan[1] + ', ' + chan[2] + ', ' + a + ')';
+  });
+  window.__gdsAuditNormColor = normColor;
   const tokenIndex = {}; const tokenValues = {};
   const PROBES = [
     ['color', 'color'], ['paddingTop', 'paddingTop'], ['transitionDuration', 'transitionDuration'],
@@ -170,7 +197,11 @@ export const CAPTURE_PREP = `(() => {
       const got = getComputedStyle(probe)[read]; probe.style[set] = '';
       if (got) cands.push(String(got).trim());
     }
-    for (const cand of cands) { if (!cand || INERT.has(cand)) continue; (tokenIndex[cand] ||= []).push(name); }
+    for (const cand of cands) {
+      const normCand = normColor(cand);
+      if (!normCand || INERT.has(normCand)) continue;
+      (tokenIndex[normCand] ||= []).push(name);
+    }
     tokenValues[name] = declared;
   }
   probe.remove();
@@ -181,6 +212,7 @@ export const CAPTURE_PREP = `(() => {
 
 export const captureSweepChunk = (start, end) => `(() => {
   const tokenIndex = window.__gdsAuditTokenIndex || {};
+  const normColor = window.__gdsAuditNormColor || (s => s);
   const TRACKED = ${JSON.stringify(TRACKED)};
   const UA_DEFAULTS = new Set(['0px','normal','none','auto','rgba(0, 0, 0, 0)','0s','currentcolor','medium','400','0s, 0s','0px 0px 0px 0px']);
   let total = 0; let literal = 0;
@@ -204,7 +236,7 @@ export const captureSweepChunk = (start, end) => `(() => {
       const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
         ? value.split(',').map(x => x.trim()).filter(Boolean)
         : [value.trim()];
-      const partHits = parts.map(p => tokenIndex[p]);
+      const partHits = parts.map(p => tokenIndex[normColor(p)]);
       const hit = partHits.every(Boolean) ? partHits[0] : undefined;
       total += 1; if (!hit) literal += 1;
     }
