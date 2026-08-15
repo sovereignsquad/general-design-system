@@ -82,7 +82,7 @@ only trustworthy while they stay killed.
 
 | Phase | State | What is consequently unknown |
 | --- | --- | --- |
-| 3 — Combinatorial sweep | **Not implemented** | No measured *t*-way coverage exists. The WGA algorithm in plan §3.1 was designed but never executed. Phase 1's 40 cells are a hand-picked slice, not a covering array. |
+| 3 — Combinatorial sweep | **Implemented (issue 583)** | `audit:render-coverage`: an 8-factor model derived from the system (25 themes × 24 routes × 12 locales × 3 theme-defined viewports × scheme/motion/forced-colors/state), a deterministic IPOG array (603 rows, 100% pairwise, 44/44 a11y triples), WGA selection measuring the existing gates first (12 rows dropped as already covered), transition-cost ordering, and the Phase-1 classifier reused verbatim. Achieved *t*-way coverage is computed per factor group in `audit/coverage-array.json`; skipped cells fail the phase. |
 
 ## Coverage gaps inside the phases that did run
 

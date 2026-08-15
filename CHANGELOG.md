@@ -4,6 +4,30 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### Render coverage is a measured number: the covering array runs the whole space (#583)
+
+Phase 3 of the deep audit exists: `audit:render-coverage`. An 8-factor model derived from the
+system (25 themes × 24 routes × 12 locales × 3 theme-defined viewports × scheme, reduced-motion,
+forced-colors, interaction state — viewport first-class per §3.1.1's 18% defect share), a
+deterministic IPOG array (603 rows; same model, byte-identical array), WGA selection that
+measures the existing runtime gates FIRST (202 tuples; 12 rows dropped as already covered —
+augmentation, not replacement), §3.1.3 transition-cost ordering, and the Phase-1 classifier
+reused verbatim. **First full run: 591/591 cells executed, 0 skipped, 460 seconds — 100%
+pairwise coverage on every factor group and 100% a11y-critical 3-way triples**, written to
+`audit/coverage-array.json` with per-cell results. Mean untraceable across the whole space:
+18.6% — Phase 1's hand-picked 18.4% is now a validated estimate rather than a hope, and
+"clean" is finally distinguishable from "unvisited".
+
+Building it surfaced and fixed three real tooling blind spots: CDP commands stranded forever
+when their execution context died (the shared client now rejects all pending calls on socket
+close), `client.close()` hung on an already-closed socket (now resolves immediately), and the
+monolithic capture reproducibly crashed the renderer on `/api` — a page Phase 1 never visited —
+now executed in chunked transport with identical classifier semantics. Its first measured
+finding — brand lanes on `/` and `/themes` at phone width ~9 points above the untraceable
+mean — is filed as #625 with exact coordinates. The §3.1.4 mutation-score stopping rule is not
+implemented (the full array runs to completion, so no budget decision arises) — recorded in
+the plan, not omitted.
+
 ### Rule 16: everything visible on the site is a GDS capability — the overlay engine moves in (#624)
 
 Owner directive, recorded as CLAUDE.md Rule 16: no visible behavior on the reference site may

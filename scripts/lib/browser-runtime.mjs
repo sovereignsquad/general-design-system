@@ -141,6 +141,14 @@ export function createCdpClient(webSocketDebuggerUrl) {
     }
   });
 
+  // A dying socket must fail its callers, not strand them: commands whose reply never comes
+  // (context destroyed mid-command, browser crash) otherwise hang their awaiter forever —
+  // observed as the render-coverage runner frozen at one cell with the process alive (#583).
+  socket.addEventListener('close', () => {
+    for (const { reject } of pending.values()) reject(new Error('DevTools socket closed before the command completed.'));
+    pending.clear();
+  });
+
   return new Promise((resolve, reject) => {
     socket.addEventListener('open', () => {
       resolve({
@@ -154,7 +162,10 @@ export function createCdpClient(webSocketDebuggerUrl) {
         close() {
           // Wait for the socket to actually close, matching disposeBrowser's
           // philosophy of not returning until cleanup has genuinely finished.
+          // An ALREADY-closed socket resolves immediately: its 'close' event has fired and
+          // will not fire again, and waiting for it hung the #583 runner's crash recovery.
           return new Promise((closed) => {
+            if (socket.readyState === WebSocket.CLOSED) { closed(); return; }
             socket.addEventListener('close', () => closed(), { once: true });
             socket.close();
           });

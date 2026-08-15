@@ -26,6 +26,7 @@
     "verify:input-zoom-guard-runtime": "node scripts/verify-input-zoom-guard-runtime.mjs",
     "verify:kanban-drag-accessibility-runtime": "node scripts/verify-kanban-drag-accessibility-runtime.mjs",
     "verify:focus-ring-runtime": "node scripts/verify-focus-ring-runtime.mjs",
+    "audit:render-coverage": "node scripts/audit/render-coverage.mjs",
     "verify:viewport-reachability-runtime": "node scripts/verify-viewport-reachability-runtime.mjs",
     "verify:stale-theme-values-runtime": "node scripts/verify-stale-theme-values-runtime.mjs",
     "verify:theme-trust-runtime": "node scripts/verify-theme-trust-runtime.mjs",
