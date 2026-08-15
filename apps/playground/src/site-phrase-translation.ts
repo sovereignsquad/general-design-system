@@ -103,15 +103,32 @@ function shouldSkipNode(node: Node) {
  */
 const originalText = new WeakMap<Text, string>();
 const originalAttributes = new WeakMap<Element, Map<string, string>>();
+/**
+ * What THIS overlay last wrote into each node — the discriminator between "our own write" and
+ * "the app updated this text" (owner report, via the map's state line: React moved it from
+ * "is loading" to "4 markers", the observer fired, and the overlay wrote the REMEMBERED first
+ * value back — freezing every dynamically-updating text on the site at its first-seen value,
+ * in every locale including English). When the current value is neither the remembered
+ * English nor what we last wrote, the app authored it: it becomes the NEW remembered English
+ * and is translated from there, never reverted.
+ */
+const lastWrittenText = new WeakMap<Text, string>();
+const lastWrittenAttributes = new WeakMap<Element, Map<string, string>>();
 
 function translateTextNode(node: Text, index: Map<string, string>, restore: boolean) {
   if (shouldSkipNode(node)) {
     return;
   }
 
-  // First sighting records the English; later passes always start from it.
-  const original = originalText.get(node) ?? node.nodeValue ?? '';
-  if (!originalText.has(node)) {
+  const current = node.nodeValue ?? '';
+  // First sighting records the English; later passes start from it — unless the app has
+  // updated the node since our last write, in which case the new value IS the new English.
+  let original = originalText.get(node);
+  if (original === undefined) {
+    original = current;
+    originalText.set(node, original);
+  } else if (current !== (lastWrittenText.get(node) ?? original)) {
+    original = current;
     originalText.set(node, original);
   }
 
@@ -122,18 +139,12 @@ function translateTextNode(node: Text, index: Map<string, string>, restore: bool
 
   // Switching back to English restores the source rather than leaving the previous locale's
   // text in place — the same defect in the other direction, and just as visible.
-  if (restore) {
-    if (node.nodeValue !== original) {
-      node.nodeValue = original;
-    }
-    return;
-  }
-
-  const translated = translateWithIndex(normalized, index);
+  const translated = restore ? normalized : translateWithIndex(normalized, index);
   const next = translated === normalized ? original : original.replace(normalized, translated);
   if (node.nodeValue !== next) {
     node.nodeValue = next;
   }
+  lastWrittenText.set(node, next);
 }
 
 function translateElementAttributes(element: Element, index: Map<string, string>, restore: boolean) {
@@ -148,12 +159,21 @@ function translateElementAttributes(element: Element, index: Map<string, string>
     originals = new Map();
     originalAttributes.set(element, originals);
   }
+  let written = lastWrittenAttributes.get(element);
+  if (!written) {
+    written = new Map();
+    lastWrittenAttributes.set(element, written);
+  }
 
   for (const attribute of translatableAttributes) {
     const current = element.getAttribute(attribute);
     if (current === null) continue;
 
+    // Same app-update rule as text nodes: an aria-label the app swaps (a save toggle naming
+    // its next action) must not be reverted to its first-seen value.
     if (!originals.has(attribute)) {
+      originals.set(attribute, current);
+    } else if (current !== (written.get(attribute) ?? originals.get(attribute))) {
       originals.set(attribute, current);
     }
     const original = originals.get(attribute) as string;
@@ -162,6 +182,7 @@ function translateElementAttributes(element: Element, index: Map<string, string>
     if (element.getAttribute(attribute) !== next) {
       element.setAttribute(attribute, next);
     }
+    written.set(attribute, next);
   }
 }
 

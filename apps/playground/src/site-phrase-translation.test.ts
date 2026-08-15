@@ -55,4 +55,44 @@ describe('translateSiteDom', () => {
 
     expect(paragraph.textContent).toBe(once);
   });
+
+  // Owner report via the map's state line: React moved a status from "is loading" to
+  // "4 markers", the mutation observer re-ran the pass, and the overlay wrote its REMEMBERED
+  // first value back — freezing every dynamically-updating text at first sight, in every
+  // locale including English. An app-authored update must become the new remembered English.
+  it('never reverts text the app itself updated after the first pass', async () => {
+    const host = mount('<p>Nearby activities is loading.</p>');
+    const paragraph = host.querySelector('p') as HTMLParagraphElement;
+
+    await translateSiteDom(host, 'en');
+    // The app updates the node — exactly what React does when state changes.
+    (paragraph.firstChild as Text).nodeValue = 'Nearby activities: 4 markers.';
+    await translateSiteDom(host, 'en');
+    expect(paragraph.textContent).toBe('Nearby activities: 4 markers.');
+  });
+
+  it('translates an app-updated value from ITS text, not from the stale first sighting', async () => {
+    const host = mount('<p>Accent band</p>');
+    const paragraph = host.querySelector('p') as HTMLParagraphElement;
+
+    await translateSiteDom(host, 'de');
+    const staleGerman = paragraph.textContent;
+    // The app replaces the text while German is active (React renders English source copy).
+    (paragraph.firstChild as Text).nodeValue = 'Accent panel';
+    await translateSiteDom(host, 'de');
+    // Whatever German renders now, it must not be the old phrase's translation frozen in place.
+    expect(paragraph.textContent).not.toBe(staleGerman);
+  });
+
+  it('never reverts an aria-label the app swapped — a save toggle names its NEXT action', async () => {
+    // A plain div carries the aria-label: the rule under test is attribute MEMORY, not the
+    // element type, and a real control here would trip the raw-control compliance rule.
+    const host = mount('<div aria-label="Save Riverside pool"></div>');
+    const control = host.querySelector('div[aria-label]') as HTMLElement;
+
+    await translateSiteDom(host, 'en');
+    control.setAttribute('aria-label', 'Remove Riverside pool from saved');
+    await translateSiteDom(host, 'en');
+    expect(control.getAttribute('aria-label')).toBe('Remove Riverside pool from saved');
+  });
 });
