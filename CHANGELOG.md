@@ -4,6 +4,28 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The phrase overlay no longer freezes dynamic text, and the map preview adapts to phones
+
+Two defects from an owner phone screenshot, both fixed at the source:
+
+**The site's phrase overlay was clobbering every dynamically-updated text.** Its mutation
+observer re-ran the pass on any DOM change, and the pass wrote each node's REMEMBERED
+first-seen value back — so any text React updated later (the map's "is loading" → "4 markers"
+status, any live count, any swapped aria-label) froze at its first value, in every locale
+including English. The overlay now tracks what IT last wrote per node: a current value that is
+neither the remembered English nor the overlay's own write is app-authored, becomes the new
+remembered English, and is translated from there — never reverted. Three regression tests,
+including the aria-label swap case (a save toggle naming its next action).
+
+**The on-map preview clipped to a sliver on phones.** Measured: the card is 597px tall against
+a 320px map in a 208px column — a pin-anchored balloon can never fit, and Leaflet clips what
+does not. Two fixes: the popup host now declares its real footprint before Leaflet's
+measurement (an empty host measured 51px and locked it), and **the preview adapts** — below
+480px of container width it docks to the map surface (full-width, height-capped, scrollable);
+above, the balloon renders height-capped, opened only after the container re-measure so
+auto-pan aims at true geometry. Verified live at both widths: docked-in-bounds-and-scrollable
+on mobile, balloon-with-card on desktop.
+
 ### The generated-imagery system covers identity: avatars, marks, and the site's own assets (#565)
 
 Two new shapes on the shared engine, closing the gaps that would have forced allowlist growth

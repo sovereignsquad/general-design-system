@@ -168,9 +168,14 @@ markup is DOM, so the cascade re-resolves on a theme switch without waiting for 
 remount), the #545 contract applied on-map (selected scales around the tail tip at the
 emphasis stroke; approximate renders the dashed neutral), density-scaled size, and the tail
 tip as the anchor so the pin points at the coordinate it claims. Selecting a marker with
-`renderMarkerPreview` supplied opens a Leaflet popup hosting real GDS UI through a React
-portal — typically `GdsMapPinPreviewCard` — re-opened deterministically across the
-selection-triggered re-init.
+`renderMarkerPreview` supplied opens the preview as real GDS UI through a React portal —
+typically `GdsMapPinPreviewCard` — re-opened deterministically across the selection-triggered
+re-init. **The preview adapts to the container** (owner report, phone screenshot): a preview
+card is taller than a phone-sized map, so a pin-anchored balloon can never fit there — Leaflet
+clips it to a sliver. Below 480px of container width the preview DOCKS to the map surface
+instead (full-width, height-capped at 85%, scrollable — the reachability rule); at or above it,
+the balloon renders, height-capped and opened only after the container re-measure so auto-pan
+aims at true geometry.
 
 **The ambient theme** (issue 621): the map bakes resolved values, so it must know the active
 theme. `useGdsAmbientTheme` reads the attributes the runtime writes to `<html>` (observed

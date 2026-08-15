@@ -184,6 +184,12 @@ export function GdsMap({
   // content. The host div is created per marker at init and portalled into while open.
   const popupHostsRef = useRef(new Map<string, HTMLElement>());
   const [openPopupMarkerId, setOpenPopupMarkerId] = useState<string | null>(null);
+  // Issue 620, mobile follow-up (owner screenshot): a preview card is TALLER than a phone-sized
+  // map and wider than its column, so a pin-anchored balloon can never fit — Leaflet clips it
+  // to a sliver. Below this container width the preview DOCKS to the map surface instead: the
+  // standard mobile map pattern, full-width, height-capped, scrollable (the reachability rule —
+  // content that may overflow must scroll). The balloon remains for containers that can hold it.
+  const [dockPreview, setDockPreview] = useState(false);
 
   const retryTiles = useCallback(() => {
     tileHealthRef.current.loads = 0;
@@ -322,7 +328,14 @@ export function GdsMap({
           if (renderMarkerPreview) {
             const host = document.createElement('div');
             host.setAttribute('data-gds-map-popup-host', marker.id);
-            placed.bindPopup(host, { closeButton: false, maxWidth: 380, className: 'gds-map-popup' });
+            // Leaflet measures the popup content the moment it opens — BEFORE React has
+            // portalled the card in — and locks the measured width as an inline style. An
+            // empty host measured 51px, and the card then rendered into a sliver (owner
+            // screenshot, mobile). The host declares its width up front, viewport-capped, so
+            // the measurement is of the real footprint. 18rem floor keeps the card readable;
+            // 76vw cap keeps the popup inside a phone viewport with Leaflet's own padding.
+            host.style.width = 'clamp(15rem, 18rem, 76vw)';
+            placed.bindPopup(host, { closeButton: false, minWidth: 200, maxWidth: 380, maxHeight: 300, className: 'gds-map-popup' });
             placed.on('popupopen', () => setOpenPopupMarkerId(marker.id));
             placed.on('popupclose', () => setOpenPopupMarkerId((current) => (current === marker.id ? null : current)));
             popupHostsRef.current.set(marker.id, host);
@@ -330,13 +343,7 @@ export function GdsMap({
           }
         }
 
-        // Selecting a marker re-initialises the map (selection is part of the identity — the
-        // emphasis stroke is baked into the marker markup), which would destroy a popup the
-        // click just opened. Re-opening it for the selected marker after init is what makes
-        // tap → preview deterministic instead of a one-frame flicker.
-        if (selectedMarkerId && renderMarkerPreview) {
-          placedById.get(selectedMarkerId)?.openPopup();
-        }
+
 
         if (onViewportChange) {
           (map as unknown as { on: (e: string, f: () => void) => void }).on('moveend', () => {
@@ -367,8 +374,27 @@ export function GdsMap({
         // frequently still zero-height on the tick the map is created.
         requestAnimationFrame(revalidate);
 
+        // Selecting a marker re-initialises the map (selection is part of the identity — the
+        // emphasis stroke is baked into the marker markup), which would destroy a popup the
+        // click just opened. Re-opened AFTER the size revalidation, a frame later: opening
+        // against the pre-measure geometry made Leaflet's auto-pan aim at a container size
+        // the map no longer had, leaving the popup hanging off the phone viewport (owner
+        // screenshot). autoPan needs true dimensions to bring the card fully into view.
+        if (selectedMarkerId && renderMarkerPreview) {
+          requestAnimationFrame(() => {
+            if (disposed) return;
+            const width = containerRef.current?.getBoundingClientRect().width ?? 0;
+            // Docked containers never open the balloon — the docked overlay renders instead.
+            if (width >= 480) placedById.get(selectedMarkerId)?.openPopup();
+          });
+        }
+
+        const measureDock = () => {
+          if (containerRef.current) setDockPreview(containerRef.current.getBoundingClientRect().width < 480);
+        };
+        measureDock();
         if (typeof ResizeObserver !== 'undefined' && containerRef.current) {
-          resizeObserver = new ResizeObserver(revalidate);
+          resizeObserver = new ResizeObserver(() => { revalidate(); measureDock(); });
           resizeObserver.observe(containerRef.current);
         }
 
@@ -472,22 +498,41 @@ export function GdsMap({
   return (
     <Stack gap="xs">
       {listPlacement === 'above' ? list : null}
-      <Box
-        ref={containerRef}
-        role="region"
-        aria-label={label}
-        aria-describedby={`${regionId}-state`}
-        data-gds-map=""
-        data-gds-map-state={state}
-        data-gds-theme-identity={themeIdentity}
-        style={{
-          height,
-          borderRadius: 'var(--gds-radius-panel)',
-          overflow: 'hidden',
-          background: 'var(--gds-bg-surface)',
-          border: '1px solid var(--gds-border-card)',
-        }}
-      />
+      <Box style={{ position: 'relative' }}>
+        <Box
+          ref={containerRef}
+          role="region"
+          aria-label={label}
+          aria-describedby={`${regionId}-state`}
+          data-gds-map=""
+          data-gds-map-state={state}
+          data-gds-theme-identity={themeIdentity}
+          style={{
+            height,
+            borderRadius: 'var(--gds-radius-panel)',
+            overflow: 'hidden',
+            background: 'var(--gds-bg-surface)',
+            border: '1px solid var(--gds-border-card)',
+          }}
+        />
+        {dockPreview && renderMarkerPreview && selectedMarkerId ? (
+          <Box
+            data-gds-map-preview-dock=""
+            style={{
+              position: 'absolute',
+              left: 'var(--gds-space-2xs)',
+              right: 'var(--gds-space-2xs)',
+              bottom: 'var(--gds-space-2xs)',
+              maxHeight: '85%',
+              overflowY: 'auto',
+              zIndex: 700,
+              borderRadius: 'var(--gds-radius-panel)',
+            }}
+          >
+            {renderMarkerPreview(selectedMarkerId)}
+          </Box>
+        ) : null}
+      </Box>
       {/*
         Issue 570 — tiles unavailable. A banner BESIDE the map, never a replacement for it:
         markers, fills and the list need no tiles and stay fully functional, and "no tiles" must
