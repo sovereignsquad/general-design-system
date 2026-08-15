@@ -389,6 +389,21 @@ whoever built it — not "my demo", not "my page". It is the system's
 documentation, and the standard for it is a client's trust, not an author's
 satisfaction.
 
+## 16. Everything visible on the reference site is implemented in the GDS packages (owner directive, 2026-08-15)
+
+Rule 10 forbids page-local FIXES; this rule goes further: **no visible behavior on the
+reference site may be produced by page-local implementation at all.** The page composes what
+the packages export — components, mechanisms, lifecycles — and supplies only data (copy,
+routes, registries, phrase packs, marker sets). If a visible capability exists only as
+playground code, that is a missing GDS capability (Rule 15's shape): promote the mechanism
+into the packages and leave the data behind.
+
+The first application: the site's DOM phrase-translation overlay — visible on every localized
+page — was implemented in `apps/playground` and is now `translateGdsDom` /
+`useGdsDomPhraseTranslation` in gds-core (issue 624), with the site keeping only its generated
+packs and their loader. When auditing compliance with this rule, the test is: could a consumer
+obtain this visible behavior by installing the packages? If not, it moves.
+
 ## 13. Never push without a CI-equivalent local run, and never report done before CI is green (owner directive, 2026-08-11)
 
 This rule exists because of three consecutive red CI runs on `main` (#360, #361,

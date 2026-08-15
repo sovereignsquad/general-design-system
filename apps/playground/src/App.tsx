@@ -1,11 +1,12 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useState } from 'react';
+import { loadSitePhraseIndex } from './site-phrase-translation';
 import { BrowserRouter as Router, Link, Navigate, Route, Routes, useLocation } from 'react-router';
 import {
   GdsProvider,
   useGdsTranslation,
   useGdsThemePresetState,
 } from '@sovereignsquad/gds-theme';
-import {
+import { useGdsDomPhraseTranslation,
   DocsHeaderActionSelect,
   DocsShell,
   GdsTourProvider,
@@ -221,40 +222,14 @@ function PlaygroundContent() {
 
   const headerContext = getSiteHeaderContext(location.pathname, effectiveLocale);
 
-  useEffect(() => {
-    // English is NOT skipped. Switching back to English has to put back what an earlier locale
-    // overwrote; returning early here is what left the page in the previous language. The pass
-    // is cheap for English — it loads no phrase chunk and only restores nodes it had rewritten.
-    const root = document.getElementById('root');
-    if (!root) {
-      return undefined;
-    }
-
-    let cancelled = false;
-    let observer: MutationObserver | undefined;
-
-    // Dynamically imported: the generated phrase dictionary behind this module
-    // is large and only ever needed once a visitor picks a non-English locale.
-    // translateSiteDom is itself async — it loads only the requested locale's
-    // phrase chunk (not all of them) before it starts rewriting text.
-    import('./site-phrase-translation').then(({ translateSiteDom }) => {
-      if (cancelled) {
-        return;
-      }
-
-      translateSiteDom(root, effectiveLocale).catch(() => {});
-
-      observer = new MutationObserver(() => {
-        translateSiteDom(root, effectiveLocale).catch(() => {});
-      });
-      observer.observe(root, { childList: true, subtree: true, characterData: true });
-    });
-
-    return () => {
-      cancelled = true;
-      observer?.disconnect();
-    };
-  }, [effectiveLocale, location.pathname]);
+  // Issue 624 (owner directive): the translation overlay is a GDS capability — the engine and
+  // observer lifecycle live in gds-core; this site supplies only its phrase packs' loader.
+  useGdsDomPhraseTranslation({
+    root: typeof document === 'undefined' ? null : document.getElementById('root'),
+    locale: effectiveLocale,
+    loadIndex: loadSitePhraseIndex,
+    routeKey: location.pathname,
+  });
 
   const headerActions = (
     <>

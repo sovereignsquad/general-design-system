@@ -179,6 +179,8 @@ export * from './GdsMapFilterRail';
 export * from './GdsMapPinPreviewCard';
 export * from './GdsGeneratedAvatar';
 export * from './GdsGeneratedMark';
+export * from './dom-phrase-translation';
+export * from './useGdsDomPhraseTranslation.client';
 
 // ── Partner surfaces ──
 export * from './PartnerDiscovery';
