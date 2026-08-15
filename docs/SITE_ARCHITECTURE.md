@@ -57,9 +57,25 @@ cannot omit — a hand-maintained list hides its first omission; this one cannot
 loop surfaced one stale record: `GdsSchemaForm` was simultaneously registered and exempted;
 the dead exemption is removed.)
 
-## Phases 3–4 (tracked on issue 626)
+## Phase 3 — delivered
 
-3. Nav-level regrouping into the four areas, with legacy redirects for every moved URL — a
-   rename is not shipped until the old name still works (the #606 lesson).
-4. Per-component canonical pages to the full template: purpose, when-to-use, all variants and
-   states, use cases.
+The primary navigation is the four content areas plus the core pages, in reading order:
+**What Is GDS · Install · Foundations · Components · Patterns · Systems · API · Themes ·
+Governance.** `/foundations` is a top-level area (its old catalog URL `/patterns/foundations`
+redirects forever), and **`/systems`** is the umbrella for the deep dives — theming, badge
+system, generated imagery, motion, map system, i18n — plus a Resources grid carrying every
+page that left the primary navigation (Live Proofs, Coverage, Maturity, Use Cases, Request a
+Feature, Use with AI). The regroup hides nothing: one canonical home, not fewer doors. Demoted
+pages share the `resources` intent so no children sub-nav is polluted.
+
+## Phase 4 — delivered at the structural level
+
+Every registry entry is **deep-linkable** (`/patterns/<family>#entry-<id>`, and
+`/foundations#entry-<id>` for the foundations area), and the `/components` index links each of
+the 165 registered components straight to its exact home — not just its family page — through
+the new governed `GdsInlineLink` (which exists because the GDS-only site literally had no
+inline-anchor primitive; the missing capability was the finding, again). The canonical-page
+template each entry already follows: title, summary as when-to-use, live demos as
+variants/states, coverage text as evidence. Deepening individual entries' use-case prose is
+continuous editorial work under the standing rules, not a phase with an end state — any entry
+found wanting files as its own issue.

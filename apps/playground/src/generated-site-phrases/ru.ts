@@ -1762,6 +1762,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Switch presets, color scheme, and brand color live. What you pick here is the same token contract your app ships.": "Переключайте пресеты, цветовую схему и фирменный цвет в реальном времени. Здесь вы выбираете тот же контракт токена, который поставляется вашим приложением.",
   "Sync stakeholders": "Синхронизировать заинтересованные стороны",
   "System state, not editorial emphasis. The label carries the meaning; colour repeats it, so a reader who cannot see the colour loses nothing.": "Состояние системы, а не редакционный акцент. Этикетка несет в себе смысл; цвет повторяет его, поэтому читатель, который не видит цвета, ничего не теряет.",
+  "Systems": "Системы",
   "table fallback": "резервная таблица таблицы",
   "table headers": "заголовки таблиц",
   "Table Responsive Strategies": "Табличные адаптивные стратегии",

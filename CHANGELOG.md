@@ -4,6 +4,19 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The four-area navigation lands, and every component is one click away (#626 Phases 3–4)
+
+The primary navigation is now the reading-order story: What Is GDS · Install · **Foundations ·
+Components · Patterns · Systems** · API · Themes · Governance. `/foundations` is a top-level
+area with its old catalog URL redirecting forever; **`/systems`** umbrellas the deep dives
+(theming, badges, imagery, motion, maps, i18n) plus a Resources grid carrying every page that
+left the primary nav — one canonical home, not fewer doors. Every registry entry is now
+deep-linkable (`#entry-<id>`), and `/components` links each of the 165 registered components
+straight to its exact home through the new governed `GdsInlineLink` — which exists because the
+GDS-only site had no inline-anchor primitive at all (Rule 15, again). Contract tests updated
+deliberately (nav order, redirects incl. the elevated foundations URL); everything verified
+live: the redirect lands, the anchors resolve, the 165 deep links render.
+
 ### The complete element list exists, and it cannot omit (#626 Phase 2)
 
 `/components`, in the primary navigation: every public component the packages export — all

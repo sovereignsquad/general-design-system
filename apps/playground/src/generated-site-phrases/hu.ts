@@ -1762,6 +1762,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Switch presets, color scheme, and brand color live. What you pick here is the same token contract your app ships.": "Váltsa az előre beállított értékeket, a színsémát és a márkaszínt élőben. Itt ugyanazt a token szerződést választja, amelyet az alkalmazás szállít.",
   "Sync stakeholders": "Az érintettek szinkronizálása",
   "System state, not editorial emphasis. The label carries the meaning; colour repeats it, so a reader who cannot see the colour loses nothing.": "A rendszer állapota, nem a szerkesztői hangsúly. A címke a jelentést hordozza; a szín megismétli, így az olvasó, aki nem látja a színt, semmit sem veszít.",
+  "Systems": "Rendszerek",
   "table fallback": "táblázat visszaesése",
   "table headers": "táblázat fejlécek",
   "Table Responsive Strategies": "Táblázat érzékeny stratégiák",

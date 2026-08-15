@@ -3,6 +3,7 @@ import { AdminTextInput } from '@sovereignsquad/gds-admin';
 import {
   BodyText,
   DocsPageShell,
+  GdsInlineLink,
   InlineText,
   MetadataText,
   ReferenceLinkGrid,
@@ -85,7 +86,11 @@ export function ComponentsIndexPage() {
               key: 'home',
               header: 'Home',
               render: (row) => (row.home
-                ? <InlineText>{`${row.home.section} (${row.home.family})`}</InlineText>
+                ? (
+                  <GdsInlineLink href={`/general-design-system/patterns/${row.home.family}#entry-${row.home.id}`}>
+                    {`${row.home.section} (${row.home.family})`}
+                  </GdsInlineLink>
+                )
                 : <MetadataText>composition helper</MetadataText>),
             },
             {

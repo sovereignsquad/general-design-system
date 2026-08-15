@@ -1113,6 +1113,11 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Layout primitive (inline row) — composed into registered patterns."
   },
   {
+    "name": "GdsInlineLink",
+    "status": "exempt",
+    "reason": "Inline text-link atom (governed Anchor) — composed into registered patterns and reference pages, not itself a catalog pattern; the typography-atom precedent."
+  },
+  {
     "name": "GdsLayoutTemplatePreview",
     "status": "exempt",
     "reason": "Catalog/preview component (LayoutTemplatePreview) — template preview host, not a catalog pattern."

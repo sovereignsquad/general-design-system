@@ -1762,6 +1762,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Switch presets, color scheme, and brand color live. What you pick here is the same token contract your app ships.": "Wechseln Sie live zwischen Voreinstellungen, Farbschemata und Markenfarben. Was Sie hier auswählen, ist derselbe Token-Vertrag, den Ihre App ausliefert.",
   "Sync stakeholders": "Stakeholder synchronisieren",
   "System state, not editorial emphasis. The label carries the meaning; colour repeats it, so a reader who cannot see the colour loses nothing.": "Systemstatus, nicht redaktioneller Schwerpunkt. Das Etikett trägt die Bedeutung; Farbe wiederholt sie, sodass ein Leser, der die Farbe nicht sehen kann, nichts verliert.",
+  "Systems": "Systeme",
   "table fallback": "Tisch-Fallback",
   "table headers": "Tabellenüberschriften",
   "Table Responsive Strategies": "Tabellenreaktionsstrategien",
