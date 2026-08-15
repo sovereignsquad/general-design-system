@@ -4,6 +4,23 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The site's structure starts its rebuild: one home per capability, and motion is no longer hidden (#626 Phase 1)
+
+Owner directive: the structure grew by accretion — the badge system filed under "Messaging
+Primitives" with its own vocabulary split across three families, generated imagery buried in
+"Editorial & Brand Storytelling", the map system under "Public Shells & Docs", and a shipped
+motion vocabulary (six durations, five easings, seven presets, the reaction axis) appearing on
+**no page at all**. `docs/SITE_ARCHITECTURE.md` is now the IA's SSOT — every placement carries
+its why, and the standing rules are: one canonical home per capability, section names mean
+what a reader expects, nothing shipped is invisible, structure is site data while capability
+is GDS. Phase 1 delivers: Badges & Indicators unified under foundations, Generated Imagery
+and the Map System re-homed as coherent sections, feedback meaning feedback again — and
+**`GdsMotionSystemReference`** (gds-core, Rule 16), surfacing the entire motion system live
+from the exports consumers import, hover-driven preset specimens included, with reduced
+motion honoured by the tokens and the visit's actual mode stated. Phases 2–4 (the census-held
+complete element list, nav regrouping with legacy redirects, per-component canonical pages)
+are tracked on #626.
+
 ### The untraceability instrument accused inert values — corrected, every number re-measured (#625)
 
 The covering array's first element-level look found the top "literal" at the worst cell was

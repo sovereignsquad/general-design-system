@@ -76,7 +76,9 @@ const routeConfigs = [
   { route: '/live-proofs/semantics', cases: baseCases, components: [] },
   { route: '/patterns/operations', cases: widenedCases, components: kanbanComponents },
   { route: '/patterns/foundations', cases: widenedCases, components: formComponents },
-  { route: '/patterns/feedback', cases: baseCases, components: badgeShapeComponents },
+  // Issue 626 moved the badge system to its unified foundations home; the forced-colors
+  // sweep follows the content, not the old filing.
+  { route: '/patterns/foundations', cases: baseCases, components: badgeShapeComponents },
 ];
 
 async function launchBrowser() {

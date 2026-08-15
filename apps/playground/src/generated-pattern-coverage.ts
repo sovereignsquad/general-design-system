@@ -69,6 +69,7 @@ export const provenPatternIds: readonly string[] = [
   "mobile-action-density",
   "mobile-navigation",
   "modals",
+  "motion-system",
   "notifications",
   "number-stepper",
   "page-headers",
