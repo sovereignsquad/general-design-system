@@ -179,6 +179,11 @@ walkthrough for that process; the conceptual rule lives in
 design" section, and the copy-pasteable prompt that carries a fresh agent
 through the steps below is
 [`TEMPLATES/GDS_THEME_CREATION_PROMPT.md`](TEMPLATES/GDS_THEME_CREATION_PROMPT.md).
+The structure the incoming handoff itself should follow — fidelity statement,
+role-and-rationale token tables, the states contract, content rules, the
+literal-values allowlist, and a closing "open items, don't guess" list — is
+[`TEMPLATES/DESIGN_HANDOFF_TEMPLATE.md`](TEMPLATES/DESIGN_HANDOFF_TEMPLATE.md)
+(issue 539), codified from the ClassScout v2 handoff that set the bar.
 
 1. **File the issue first.** Per Standing Rule 2, record the request as a
    GitHub issue before implementation starts — name the brand/product, the

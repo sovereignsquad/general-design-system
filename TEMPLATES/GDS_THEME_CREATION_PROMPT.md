@@ -186,15 +186,36 @@ these, not clash with or duplicate one.
 
 ## 7. What to report back before implementing anything
 
-Before writing any code: name the brand/product this theme is for, its
-primary and accent color intent (with real hex values if known, or a
-description of the desired feel if not), whether it's a flat/undecorated
-brand theme or an expressive vibe lane, and which existing shipped lane (if
-any) it's closest to. If you're working from a source design (Section 2),
-also state the source's origin and any point where you deviated from it for
-accessibility reasons. Get that confirmed before touching `vibe-themes.ts` —
-guessing brand intent from a vague brief is exactly the kind of assumption
-this project's rules forbid.
+Before writing any code, report the full structured brief (issue 540 — this
+is the operational half of `TEMPLATES/DESIGN_HANDOFF_TEMPLATE.md`: putting
+the questions here is what makes them actually get asked):
+
+1. **Identity**: the brand/product this theme is for; its primary and accent
+   color intent (real hex values if known, or the desired feel if not);
+   whether it's a flat/undecorated brand theme or an expressive vibe lane;
+   and which existing shipped lane (if any) it's closest to.
+2. **Fidelity and scope, one line**: what in the source material is binding
+   and what is indicative (e.g. "colours and states exact; layout
+   proportions indicative — recompose on GDS's own grid").
+3. **States contract**: whether any surface in this lane needs
+   loading/empty/error/unavailable/success treatments beyond GDS's own
+   component defaults — and for each, the content direction, not just the
+   look.
+4. **Content rules**: brand-specific vocabulary constraints (forbidden
+   words, tone) not already covered by GDS's i18n/copy governance.
+5. **Count-driven compositions**: whether anything in this lane looks like a
+   fixed grid/rail/list — and if so, confirmation it has been designed to
+   hold at full, half, one, and zero, not just the common case (the
+   standing rule from issue 541).
+6. **Provenance**: the source material's origin, tool, and licence — per
+   Section 2 and `THEME_GOVERNANCE.md`'s importing section (stated there;
+   cross-reference rather than restate) — plus any point where you deviated
+   from the source for accessibility reasons.
+
+Get that confirmed before touching `vibe-themes.ts` — guessing brand intent
+from a vague brief is exactly the kind of assumption this project's rules
+forbid, and items 2-5 are precisely the ones that get guessed when only
+colours are asked for.
 ```
 
 ---
