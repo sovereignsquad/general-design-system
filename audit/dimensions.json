@@ -106,67 +106,67 @@
     "siteParity": [
       {
         "locale": "ar",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "de",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "es",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "fr",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "he",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "hu",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "it",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ja",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ko",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ru",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "zh",
-        "keys": 1990,
+        "keys": 1994,
         "missing": 0,
         "extra": 0
       }
@@ -175,77 +175,77 @@
       {
         "corpus": "site",
         "locale": "de",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 3,
         "rate": 0.15
       },
       {
         "corpus": "site",
         "locale": "ar",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "es",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "fr",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "he",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "hu",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "it",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ja",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ko",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ru",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "zh",
-        "total": 1990,
+        "total": 1994,
         "untranslated": 0,
         "rate": 0
       },
@@ -366,11 +366,11 @@
     "uncoveredKinds": [
       {
         "kind": "export",
-        "atoms": 838
+        "atoms": 842
       },
       {
         "kind": "prop",
-        "atoms": 1076
+        "atoms": 1077
       },
       {
         "kind": "variant",

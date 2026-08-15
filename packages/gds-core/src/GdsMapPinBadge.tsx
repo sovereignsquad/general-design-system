@@ -169,9 +169,10 @@ const DEEPER_SHADE: Record<GdsBadgeAccentShade, GdsBadgeAccentShade> = {
 
 /**
  * Stroke weight for the emphasised states, from the source spec's `2.25`. Idle keeps `1.75` —
- * the constant the whole component exists to hold steady.
+ * the constant the whole component exists to hold steady. Exported for the map's marker
+ * renderer (issue 620), which cannot compose this component and must not restate its contract.
  */
-const EMPHASIS_STROKE = 2.25;
+export const GDS_PIN_EMPHASIS_STROKE = 2.25;
 
 /** Selected-state scale step. Applied around the tail tip so the anchored map point holds still. */
 export const GDS_PIN_SELECTED_SCALE = 1.15;
@@ -179,8 +180,9 @@ export const GDS_PIN_SELECTED_SCALE = 1.15;
 /**
  * Dash pattern for the approximate-location stroke, in the pin path's own 24-unit space —
  * sized against the head's radius-8 arc so the dashes read as segments rather than dots.
+ * Exported for the map's marker renderer, same reason as the emphasis stroke.
  */
-const APPROXIMATE_DASH = '3 2.5';
+export const GDS_PIN_APPROXIMATE_DASH = '3 2.5';
 
 /** The pin head circle's own center, solved from its path's arc geometry — see the module docs. */
 /**
@@ -310,11 +312,11 @@ export function GdsMapPinBadge({
   const numericSize = typeof size === 'number' ? size : undefined;
 
   // State resolves to silhouette properties only — never to the fill or the icon color.
-  const pinStroke = state === 'hovered' || state === 'selected' ? EMPHASIS_STROKE : 1.75;
+  const pinStroke = state === 'hovered' || state === 'selected' ? GDS_PIN_EMPHASIS_STROKE : 1.75;
   const pinStrokeColor = state === 'hovered' ? hoverStrokeColor
     : state === 'approximate' ? EMOJI_DISC_FILL
     : accentColor;
-  const pinDash = state === 'approximate' ? APPROXIMATE_DASH : undefined;
+  const pinDash = state === 'approximate' ? GDS_PIN_APPROXIMATE_DASH : undefined;
   // Scaling around the tail tip keeps the anchored map coordinate exactly where it was — a
   // center-origin scale would drift the point the pin exists to mark.
   const stackStyle = state === 'selected'

@@ -31,7 +31,8 @@ export { createGdsTokenDiff, createGdsTokenGraph, createGdsThemeCompatibilityRep
 export type { GdsThemeCompatibilityReport, GdsThemeCompatibilityResult, GdsThemeCompatibilitySurface, GdsTokenDiffChangeType, GdsTokenDiffEntry, GdsTokenDiffReport, GdsTokenGraph, GdsTokenNode, GdsTokenSeverity, GdsTokenValidationFinding, GdsTokenValidationReport } from './token-operations';
 export { getGdsFontLanes, resolveGdsFontLane, applyGdsFontLane, getGdsFontLaneStylesheetUrls, isGdsFontLaneId } from './font-lanes';
 export type { GdsFontLane, GdsFontLaneId, GdsFontLaneLoadStrategy, GdsFontLaneSource } from './font-lanes';
-export { createGdsThemePresetSelection, useGdsThemePresetState } from './theme-runtime';
+export { createGdsThemePresetSelection, useGdsThemePresetState, useGdsAmbientTheme } from './theme-runtime';
+export type { GdsAmbientTheme } from './theme-runtime';
 export type { GdsStoredThemePresetState, GdsThemePresetSelection, GdsThemeScheme, UseGdsThemePresetStateOptions, UseGdsThemePresetStateResult } from './theme-runtime';
 export { GdsProvider } from './GdsProvider';
 export type { GdsProviderProps } from './GdsProvider';

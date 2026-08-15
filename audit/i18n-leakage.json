@@ -3,7 +3,7 @@
     "site": [
       {
         "locale": "de",
-        "total": 1990,
+        "total": 1994,
         "leaked": 3,
         "rate": 0.15,
         "budget": 3,
@@ -15,7 +15,7 @@
       },
       {
         "locale": "ar",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,
@@ -23,7 +23,7 @@
       },
       {
         "locale": "es",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,
@@ -31,7 +31,7 @@
       },
       {
         "locale": "fr",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,
@@ -39,7 +39,7 @@
       },
       {
         "locale": "he",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,
@@ -47,7 +47,7 @@
       },
       {
         "locale": "hu",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,
@@ -55,7 +55,7 @@
       },
       {
         "locale": "it",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,
@@ -63,7 +63,7 @@
       },
       {
         "locale": "ja",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,
@@ -71,7 +71,7 @@
       },
       {
         "locale": "ko",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,
@@ -79,7 +79,7 @@
       },
       {
         "locale": "ru",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,
@@ -87,7 +87,7 @@
       },
       {
         "locale": "zh",
-        "total": 1990,
+        "total": 1994,
         "leaked": 0,
         "rate": 0,
         "budget": 0,

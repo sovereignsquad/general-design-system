@@ -3,6 +3,7 @@ import { Code, Group, Stack, Table, Text } from '@mantine/core';
 import {
   GDS_ACCENT_SHADES, getGdsContrastRatio, getGdsVibeThemeCssVariables,
   resolveGdsAccentTokens, type GdsAccentName, type GdsThemePresetId,
+  useGdsAmbientTheme,
 } from '@sovereignsquad/gds-theme';
 import { GdsBadge } from './GdsBadge';
 import { GDS_PIN_HEAD_CENTER_OFFSET, GDS_PIN_ICON_SCALE, GDS_PIN_SELECTED_SCALE, GdsMapPinBadge } from './GdsMapPinBadge';
@@ -32,11 +33,16 @@ const DEFAULT_ACCENTS: GdsAccentName[] = ['ocean', 'teal', 'grape', 'forest'];
  * failure inside the documentation meant to cure it.
  */
 export function GdsPinSystemReference({
-  preset = 'default', colorScheme = 'light', accents = DEFAULT_ACCENTS,
+  preset, colorScheme, accents = DEFAULT_ACCENTS,
 }: GdsPinSystemReferenceProps) {
+  // Issue 621: the reference's measured tables follow the ACTIVE theme by default, so the page
+  // documents what the visitor is looking at; explicit props remain for per-preset composition.
+  const ambient = useGdsAmbientTheme();
+  const activePreset = preset ?? ambient.preset;
+  const activeScheme = colorScheme ?? ambient.colorScheme;
   const rows = useMemo(() => {
-    const tokens = resolveGdsAccentTokens(undefined, colorScheme, preset);
-    const surface = getGdsVibeThemeCssVariables(preset as GdsThemePresetId, colorScheme)['--gds-bg-card'];
+    const tokens = resolveGdsAccentTokens(undefined, activeScheme, activePreset);
+    const surface = getGdsVibeThemeCssVariables(activePreset as GdsThemePresetId, activeScheme)['--gds-bg-card'];
     return accents.flatMap((accent) => GDS_ACCENT_SHADES.map((shade) => {
       const value = tokens[`--gds-accent-${accent}-${shade}`];
       // Filled mode is the guarantee that matters: white icon on the accent. Measured live
@@ -46,7 +52,7 @@ export function GdsPinSystemReference({
       const outline = getGdsContrastRatio(value, surface);
       return { accent, shade, value, filled, outline };
     }));
-  }, [accents, colorScheme, preset]);
+  }, [accents, activeScheme, activePreset]);
 
   return (
     <Stack gap="md">
@@ -117,7 +123,7 @@ export function GdsPinSystemReference({
         <Table.ScrollContainer minWidth={520}>
           <Table striped withTableBorder>
             <Table.Caption>
-              Contrast for {preset} in {colorScheme} mode, computed from resolved tokens — not written down.
+              Contrast for {activePreset} in {activeScheme} mode, computed from resolved tokens — not written down.
             </Table.Caption>
             <Table.Thead>
               <Table.Tr>

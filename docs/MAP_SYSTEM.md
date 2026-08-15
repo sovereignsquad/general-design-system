@@ -161,6 +161,23 @@ is the honest enforcement level (issue 550's own acceptable outcome).
 
 ## 7. Pins
 
+**The marker on the map IS the governed pin** (issue 620, after an owner report that the map
+drew plain dots): the engine-injected marker is an SVG built from `GDS_PIN_SILHOUETTE_PATH` —
+the same path `GdsBadgeShapePin` renders — with **live `var()` colour references** (marker
+markup is DOM, so the cascade re-resolves on a theme switch without waiting for the identity
+remount), the #545 contract applied on-map (selected scales around the tail tip at the
+emphasis stroke; approximate renders the dashed neutral), density-scaled size, and the tail
+tip as the anchor so the pin points at the coordinate it claims. Selecting a marker with
+`renderMarkerPreview` supplied opens a Leaflet popup hosting real GDS UI through a React
+portal — typically `GdsMapPinPreviewCard` — re-opened deterministically across the
+selection-triggered re-init.
+
+**The ambient theme** (issue 621): the map bakes resolved values, so it must know the active
+theme. `useGdsAmbientTheme` reads the attributes the runtime writes to `<html>` (observed
+live), and `GdsMap`/`GdsPinSystemReference` default to it — props still override for
+deliberate per-preset composition. Before this, both defaulted to `'default'/'light'` and the
+reference site itself rendered them off-theme.
+
 The pin vocabulary is `GdsMapPinBadge` (see `docs/BADGE_SYSTEM.md`, "Map markers" and "Marker
 states"): curated accents, darker-only shades, and the issue-545 state contract governed by
 **the fill belongs to the activity — state is carried by silhouette and scale**. Saved is a

@@ -694,10 +694,12 @@ const MAP_PIN_DETAILS: Record<string, {
   ageRange: string; priceEstimate?: string; lastChecked?: string;
   verified?: boolean; categoryIcon: 'Location' | 'Habit' | 'Message' | 'Verify';
 }> = {
+  // Issue 622 — four DIFFERENT domains on one map, deliberately: the pin system is a general
+  // capability, and a proof where every pin is a sport reads as a sports-app component.
   pool: { activity: 'Swimming', activityId: 'swimming', neighbourhood: 'Bankside', summary: 'Heated pools with beginner lanes and family sessions.', ageRange: '6-12', priceEstimate: '~\u00a340 / month', lastChecked: 'Checked last week', categoryIcon: 'Location' },
   studio: { activity: 'Dance', activityId: 'dance', neighbourhood: 'Barbican', summary: 'Ballet and street classes with end-of-term showcases.', ageRange: '5-16', priceEstimate: '~\u00a355 / term', lastChecked: 'Checked this month', categoryIcon: 'Habit' },
   hall: { activity: 'Music', activityId: 'music', neighbourhood: 'South Bank', summary: 'Choir and ensemble sessions in a riverside hall.', ageRange: '8-18', categoryIcon: 'Message' },
-  center: { activity: 'Swimming', activityId: 'swimming', neighbourhood: 'Borough', summary: 'Certified coaching centre with assessment-based groups.', ageRange: '6-14', priceEstimate: '~\u00a348 / month', lastChecked: 'Checked last week', verified: true, categoryIcon: 'Verify' },
+  center: { activity: 'Cooking', activityId: 'cooking', neighbourhood: 'Borough', summary: 'Certified kitchen classes with seasonal, market-led menus.', ageRange: '10-16', priceEstimate: '~\u00a348 / month', lastChecked: 'Checked last week', verified: true, categoryIcon: 'Verify' },
 };
 
 function BadgeMapDemo() {
@@ -747,8 +749,6 @@ function MapSurfaceDemo() {
     label: MAP_PIN_DETAILS[MAP_PIN_MARKERS.find((pin) => MAP_PIN_DETAILS[pin.id].activityId === activityId)!.id].activity,
     count: MAP_PIN_MARKERS.filter((pin) => MAP_PIN_DETAILS[pin.id].activityId === activityId).length,
   }));
-  const selectedPin = visibleMarkers.find((pin) => pin.id === selectedPinId);
-  const selectedDetail = selectedPin ? MAP_PIN_DETAILS[selectedPin.id] : undefined;
 
   return (
     <MapPanel
@@ -779,29 +779,34 @@ function MapSurfaceDemo() {
               selectedMarkerId={selectedPinId}
               onMarkerSelect={(markerId) => setSelectedPinId((current) => (current === markerId ? undefined : markerId))}
               defaultViewport={{ center: { lat: 51.5074, lng: -0.0965 }, zoom: 13 }}
+              renderMarkerPreview={(markerId) => {
+                const pin = MAP_PIN_MARKERS.find((entry) => entry.id === markerId);
+                const detail = MAP_PIN_DETAILS[markerId];
+                if (!pin || !detail) return null;
+                return (
+                  <GdsMapPinPreviewCard
+                    title={pin.label}
+                    activity={detail.activity}
+                    neighbourhood={detail.neighbourhood}
+                    summary={detail.summary}
+                    ageRange={detail.ageRange}
+                    trust={detail.verified ? { variant: 'validation', label: 'Verified provider' } : undefined}
+                    priceEstimate={detail.priceEstimate}
+                    lastChecked={detail.lastChecked}
+                    thumbnailSeed={pin.id}
+                    categories={[{ key: detail.activityId, label: detail.activity, icon: detail.categoryIcon }]}
+                    primaryAction={<SemanticButton action="preview" fullWidth>View provider</SemanticButton>}
+                    saved={Boolean(savedPins[pin.id])}
+                    saveLabel={`Save ${pin.label}`}
+                    unsaveLabel={`Remove ${pin.label} from saved`}
+                    onSaveChange={(next) => setSavedPins((current) => ({ ...current, [pin.id]: next }))}
+                    onClose={() => setSelectedPinId(undefined)}
+                    closeLabel={`Close ${pin.label} preview`}
+                  />
+                );
+              }}
             />
           </GdsMapBasemapWash>
-          {selectedPin && selectedDetail ? (
-            <GdsMapPinPreviewCard
-              title={selectedPin.label}
-              activity={selectedDetail.activity}
-              neighbourhood={selectedDetail.neighbourhood}
-              summary={selectedDetail.summary}
-              ageRange={selectedDetail.ageRange}
-              trust={selectedDetail.verified ? { variant: 'validation', label: 'Verified provider' } : undefined}
-              priceEstimate={selectedDetail.priceEstimate}
-              lastChecked={selectedDetail.lastChecked}
-              thumbnailSeed={selectedPin.id}
-              categories={[{ key: selectedDetail.activityId, label: selectedDetail.activity, icon: selectedDetail.categoryIcon }]}
-              primaryAction={<SemanticButton action="preview" fullWidth>View provider</SemanticButton>}
-              saved={Boolean(savedPins[selectedPin.id])}
-              saveLabel={`Save ${selectedPin.label}`}
-              unsaveLabel={`Remove ${selectedPin.label} from saved`}
-              onSaveChange={(next) => setSavedPins((current) => ({ ...current, [selectedPin.id]: next }))}
-              onClose={() => setSelectedPinId(undefined)}
-              closeLabel={`Close ${selectedPin.label} preview`}
-            />
-          ) : null}
         </GdsStack>
       )}
     />
@@ -819,13 +824,15 @@ function MapSurfaceDemo() {
  * mirrors `GeneratedThumbnailDemo`'s own existing stand-in choices above
  * rather than importing a Tabler sports icon directly here).
  */
-const SPORTS_CATEGORIES: GdsCategoryDefinition[] = [
+const EMOJI_MODE_CATEGORIES: GdsCategoryDefinition[] = [
+  // Issue 622 — three DIFFERENT domains, deliberately: the emoji mode is a general badge
+  // capability, and a proof where every category is a sport reads as a sports-app feature.
   { key: 'soccer', label: 'Soccer', accent: 'forest', icon: 'Location', emoji: '⚽' },
-  { key: 'basketball', label: 'Basketball', accent: 'terracotta', icon: 'Habit', emoji: '🏀' },
-  { key: 'baseball', label: 'Baseball', accent: 'bronze', icon: 'Star', emoji: '⚾' },
+  { key: 'painting', label: 'Painting', accent: 'terracotta', icon: 'Gallery', emoji: '🎨' },
+  { key: 'cooking', label: 'Cooking', accent: 'bronze', icon: 'Star', emoji: '🍜' },
 ];
 
-function SportsEmojiModeDemo() {
+function EmojiModeDemo() {
   // Defaults to emoji so the feature is visible on first paint (and so the
   // forced-colors runtime gate, a static snapshot with no click simulation,
   // actually exercises the new emoji-mode composition rather than only the
@@ -848,17 +855,17 @@ function SportsEmojiModeDemo() {
       <GdsIconStyleContext.Provider value={{ badgeIconStyle: mode }}>
         <GdsStack gap="md" mt="md">
           <GdsInline gap="xs">
-            {SPORTS_CATEGORIES.map((category) => (
+            {EMOJI_MODE_CATEGORIES.map((category) => (
               <GdsBadge key={category.key} accent={category.accent} icon={category.icon as never} emoji={category.emoji} label={category.label} />
             ))}
           </GdsInline>
           <MapPanel
-            title="Sports activity map"
+            title="Activity map"
             description="GdsMapPinBadge follows the same ambient mode — the ring stays the category's accent, the pin fills with a fixed dark-neutral disc in emoji mode (never the accent), and the emoji centers on it."
             minHeight={140}
             renderMap={() => (
               <GdsBox pos="relative" w="100%" h="100%">
-                {SPORTS_CATEGORIES.map((category, index) => (
+                {EMOJI_MODE_CATEGORIES.map((category, index) => (
                   <GdsBox key={category.key} pos="absolute" top={`${30 + index * 5}%`} left={`${22 + index * 26}%`}>
                     <GdsMapPinBadge
                       size={36}
@@ -873,7 +880,7 @@ function SportsEmojiModeDemo() {
             )}
           />
           <GdsInline gap="md" align="start">
-            {SPORTS_CATEGORIES.map((category) => (
+            {EMOJI_MODE_CATEGORIES.map((category) => (
               <GdsStack key={category.key} gap="xs" align="center">
                 <GdsBox w={160}>
                   <GdsGeneratedThumbnail
@@ -907,8 +914,8 @@ function GeneratedThumbnailDemo() {
               badges="ranked"
               categories={[
                 { key: 'soccer', label: 'Soccer', icon: 'Location' },
-                { key: 'basketball', label: 'Basketball', icon: 'Habit' },
-                { key: 'gymnastics', label: 'Gymnastics', icon: 'Trophy' },
+                { key: 'painting', label: 'Painting', icon: 'Gallery' },
+                { key: 'choir', label: 'Choir', icon: 'Message' },
               ]}
             />
           </GdsBox>
@@ -950,6 +957,29 @@ function GeneratedThumbnailDemo() {
           <MetadataText>badges=&quot;none&quot; — the fallback-image case</MetadataText>
         </GdsStack>
       </GdsInline>
+      <GdsStack gap="xs" mt="md">
+        <BodyText>Every aspect ratio in the vocabulary (issue 623):</BodyText>
+        <BodyText>
+          The ratio is part of the governed contract — a consumer picks from the closed union, and
+          the motif recomposes for the geometry rather than stretching. All four render here so
+          none of them is a claim without a proof.
+        </BodyText>
+        <GdsInline gap="md" align="start">
+          {(['3:2', '16:9', '4:3', '1:1'] as const).map((ratio) => (
+            <GdsStack key={ratio} gap="xs" align="center">
+              <GdsBox w={ratio === '1:1' ? 160 : 220}>
+                <GdsGeneratedThumbnail
+                  seed={`ratio-proof-${ratio}`}
+                  aspectRatio={ratio}
+                  badges="none"
+                  categories={[{ key: 'gardening', label: 'Gardening', icon: 'Habit' }]}
+                />
+              </GdsBox>
+              <MetadataText>{ratio}</MetadataText>
+            </GdsStack>
+          ))}
+        </GdsInline>
+      </GdsStack>
     </SectionPanel>
   );
 }
@@ -1879,7 +1909,7 @@ function BadgeVocabularyDemo() {
       <BadgeMapDemo />
       <BadgeProfileClusterDemo />
       <BadgeOverlayDemo />
-      <SportsEmojiModeDemo />
+      <EmojiModeDemo />
       <SavedIndicatorDemo />
       <BadgeThemeMatrixDemo />
     </GdsStack>

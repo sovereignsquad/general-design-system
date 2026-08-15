@@ -1,7 +1,7 @@
 {
   "declared": 291,
-  "referenced": 101,
-  "extensionPoints": 141,
+  "referenced": 100,
+  "extensionPoints": 142,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -787,6 +787,13 @@
       "token": "--gds-radius-none",
       "classification": "extension-point",
       "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
+      "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-radius-pin",
+      "classification": "extension-point",
+      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
       "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },

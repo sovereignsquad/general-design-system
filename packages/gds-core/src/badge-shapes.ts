@@ -42,8 +42,16 @@ const rosetteNode: IconNode = [
 // dropped so the balloon head can host a composed icon instead. When
 // composing, center the inner icon in the head (around y≈10.3 of the 24-unit
 // canvas), not the geometric middle — the tail stays clear.
+/**
+ * The pin balloon's path data, exported as the single source for every renderer that cannot
+ * compose the React component — issue 620's map markers build an engine-injected SVG string
+ * from exactly this path, so the marker on the map and `GdsBadgeShapePin` cannot drift apart.
+ * 24-unit canvas, head is an arc of radius 8 centred at (12, 11).
+ */
+export const GDS_PIN_SILHOUETTE_PATH = 'M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0';
+
 const pinNode: IconNode = [
-  ['path', { d: 'M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0', key: 'svg-0' }],
+  ['path', { d: GDS_PIN_SILHOUETTE_PATH, key: 'svg-0' }],
 ];
 
 /** Circle badge silhouette (Tabler `IconCircle` geometry). The neutral member of the set — suggested default for count badges and generic interests. */

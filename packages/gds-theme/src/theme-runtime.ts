@@ -202,6 +202,60 @@ function applyDocumentRuntime(selection: GdsThemePresetSelection) {
   return documentScheme;
 }
 
+
+/** What {@link useGdsAmbientTheme} resolves: the preset and scheme the document is actually themed by. */
+export interface GdsAmbientTheme {
+  preset: string;
+  colorScheme: 'light' | 'dark';
+}
+
+/**
+ * Issue 621 — the ambient theme, for components that must BAKE resolved values.
+ *
+ * Most components never need this: they read `var(--gds-*)` and the cascade re-resolves them on
+ * a theme switch for free. But a component whose output leaves the cascade — engine-injected
+ * markup (Leaflet markers), SVG data URIs (generated imagery) — has to resolve concrete values,
+ * and to resolve them it must know WHICH theme is active. Before this hook, those components
+ * took `preset`/`colorScheme` props defaulting to `'default'`/`'light'`, and every consumer that
+ * did not thread the active theme through — including the reference site itself — rendered them
+ * off-theme, permanently. The owner saw exactly that on the live map.
+ *
+ * The source of truth is the pair of attributes the runtime already writes to `<html>`
+ * (`data-gds-theme-preset`, `data-mantine-color-scheme`) — not a new context, because the
+ * attributes are set by whichever provider owns theming and are equally readable under any of
+ * them. A MutationObserver keeps the value live, so a baked-value component keyed on it
+ * re-renders (and re-bakes) on a theme switch. Before hydration this returns default/light,
+ * which is exactly what the pre-hydration paint shows.
+ */
+function readAmbientTheme(): GdsAmbientTheme {
+  if (typeof document === 'undefined') return { preset: 'default', colorScheme: 'light' };
+  const html = document.documentElement;
+  return {
+    preset: html.getAttribute('data-gds-theme-preset') ?? 'default',
+    colorScheme: html.getAttribute('data-mantine-color-scheme') === 'dark' ? 'dark' : 'light',
+  };
+}
+
+export function useGdsAmbientTheme(): GdsAmbientTheme {
+  const [ambient, setAmbient] = useState<GdsAmbientTheme>(readAmbientTheme);
+
+  useEffect(() => {
+    const update = () => {
+      const next = readAmbientTheme();
+      setAmbient((current) => (current.preset === next.preset && current.colorScheme === next.colorScheme ? current : next));
+    };
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-gds-theme-preset', 'data-mantine-color-scheme'],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  return ambient;
+}
+
 /**
  * Client hook managing theme-preset selection: hydrates from localStorage,
  * persists changes, and (when `applyToDocument`) writes the scheme/preset/font
