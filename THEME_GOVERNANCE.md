@@ -382,6 +382,13 @@ allowed to become is not: it must be re-derived into the same governed
 `GdsVibeTheme`/brand-token contract every other lane uses, never consumed
 directly as CSS, an image, or a copy-pasted color value.
 
+The concrete shape an incoming handoff should take is
+[`TEMPLATES/DESIGN_HANDOFF_TEMPLATE.md`](TEMPLATES/DESIGN_HANDOFF_TEMPLATE.md) (issue 539) —
+the fill-in structure codified from the ClassScout v2 handoff, whose defining property is that
+an implementer never has to guess: every rule carries its rationale, ambiguities are named in
+an "open items" list rather than left to be discovered, and the states/content/count contracts
+arrive as requirements rather than afterthoughts.
+
 This is the same one-directional principle [`docs/FIGMA_UI_KIT.md`](docs/FIGMA_UI_KIT.md)
 already states for the opposite direction — "the code tokens and component
 contracts are authoritative... never the reverse" — and the same

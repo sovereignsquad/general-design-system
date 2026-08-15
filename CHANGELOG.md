@@ -4,6 +4,24 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — One semantic token source, obligation coverage, and gate mutation testing
 
+### The design-intake contract is codified (#538, #539, #540)
+
+`TEMPLATES/DESIGN_HANDOFF_TEMPLATE.md` codifies the structure of the handoff that set the bar
+(ClassScout v2): fidelity stated per category, token tables carrying role AND rationale with
+computed contrast inline, exclusivity annotations, accessibility in the same tables as the
+spec, the states contract with content guidance, content rules with the degrade-to-zero
+requirement, the no-fixed-counts confirmation, the literal-values allowlist, and a closing
+"open items, don't guess" list — every micro-example quoted from the real handoff, none
+invented. The defining property, stated as the template's own test: an implementer never has
+to guess. Referenced from CONTRIBUTING's importing walkthrough and THEME_GOVERNANCE's
+importing section, which previously described the shape only in the abstract.
+
+`GDS_THEME_CREATION_PROMPT.md` §7 grows from four questions to the full structured brief —
+fidelity line, states contract, content rules, count-driven compositions, provenance — because
+the prompt is what a fresh agent actually runs, and putting the questions there is what makes
+them get asked. This closes the #538 tracker: its other three children (#541, #542, #543)
+landed earlier this cycle.
+
 ### The map's geometry is theme-scaled; the themed-basemap issue completes (#569)
 
 The wash (#549) and the area-fill recipe (#550) were the colour halves; this closes the
