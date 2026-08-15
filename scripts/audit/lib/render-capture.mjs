@@ -75,6 +75,11 @@ const CAPTURE = `(() => {
       const value = cs.getPropertyValue(prop);
       if (!value) continue;
       if (UA_DEFAULTS.has(value.trim().toLowerCase())) continue;
+      // outline-width/-color are INERT while outline-style is none: the UA default width
+      // ('medium', computing to 3px) sits on every unfocused element painting nothing, and
+      // counting it accused 1,800+ elements per page of an untraceable design value that does
+      // not exist (issue 625's first-cell analysis — the verification-layer defect class, again).
+      if ((prop === 'outline-width' || prop === 'outline-color') && cs.getPropertyValue('outline-style') === 'none') continue;
       // Multi-value shorthands compute as comma lists ('0.12s, 0.12s'). Match each
       // part: a value is token-derived only if EVERY part resolves to a token.
       const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
@@ -158,6 +163,8 @@ export const captureSweepChunk = (start, end) => `(() => {
       const value = cs.getPropertyValue(prop);
       if (!value) continue;
       if (UA_DEFAULTS.has(value.trim().toLowerCase())) continue;
+      // Same inert-outline rule as CAPTURE — the two forms must classify identically.
+      if ((prop === 'outline-width' || prop === 'outline-color') && cs.getPropertyValue('outline-style') === 'none') continue;
       const parts = value.trim().includes(',') && /^[^(]*$|s,|ease|cubic/.test(value)
         ? value.split(',').map(x => x.trim()).filter(Boolean)
         : [value.trim()];
