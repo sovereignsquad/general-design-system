@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { gdsBadgeAccentShades } from './GdsBadge';
 import { GdsGeneratedHero } from './GdsGeneratedHero';
@@ -103,5 +104,18 @@ describe('GdsGeneratedHero (#506)', () => {
     );
     const firstStop = container.querySelector('stop');
     expect(firstStop?.getAttribute('stop-color')).toBe(`var(--gds-accent-magenta-deeper, ${gdsBadgeAccentShades.magenta.deeper})`);
+  });
+
+  it('a badge with onSelect renders as a real button and fires with the category key; without it, badges stay static', async () => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+    const badges = [{ ...BADGES[0], onSelect }, BADGES[1]];
+    renderWithGds(<GdsGeneratedHero seed="loc-1" label="Riverdale" badges={badges} />);
+
+    const button = screen.getByRole('button', { name: 'Soccer' });
+    await user.click(button);
+    expect(onSelect).toHaveBeenCalledWith('soccer');
+
+    expect(screen.getByRole('img', { name: 'Basketball' })).toBeTruthy();
   });
 });

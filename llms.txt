@@ -59,7 +59,7 @@ export default function App() {
 
 - Layout: `GdsBox`, `GdsStack`, `GdsInline`, `GdsCluster`, `GdsGrid`, `GdsColumnGrid`/`GdsColumnGridItem` (named 12-column track-span grid), `GdsSplit`, `GdsSidebar`, `GdsContainer`, `GdsBleed`
 - Shells: `AppShell`, `PublicShell`, `AuthShell`, `ArticleShell`, `DiscoveryShell`, `WorkspaceHeader`, `PageHeader`, `GdsBreadcrumbs`
-- Cards/surfaces: `MetricCard`, `ProgressCard`, `ProductCard`, `EditorialCard`, `EditorialHero`, `InfoCard`, `SectionPanel`, `AccentPanel`, `StatsStrip`
+- Cards/surfaces: `MetricCard`, `ProgressCard`, `GdsMeter` (static score/measurement, `role="meter"` — not a progress bar), `ProductCard`, `EditorialCard`, `EditorialHero`, `InfoCard`, `SectionPanel`, `AccentPanel`, `StatsStrip`
 - Forms: `GdsForm`, `GdsSchemaForm` (schema-driven; field types include `checkbox-group` grouped multi-select and `repeatable` "add another row of N fields", alongside text/select/date/file-upload/…), `FormField`, `FormSection`, `Select`, `TextInput`, `Switch`, `Radio`, `GdsDateInput`, `GdsDateTimeInput`, `GdsDateRangeInput` (date components need the opt-in `@sovereignsquad/gds-theme/dates.css` import + `@mantine/dates`/`dayjs`), `GdsRichTextEditor` (import from `@sovereignsquad/gds-core/rich-text-editor`, not the main entry — its Tiptap dependency is deliberately opt-in)
 - Data: `GdsDataTable`/`DataTable` (via `createGdsTableAdapter`), `SimpleDataTable`, `Table`, `GdsBarChart`, `GdsLineChart`
 - Feedback/overlay: `EmptyState`, `StateBlock`, `GdsNotificationProvider`+`GdsNotificationCenter`, `GdsModal`, `GdsDrawer`, `ConfirmDialog`, `CommandPalette`
@@ -71,7 +71,7 @@ export default function App() {
 
 - Agent usage guide: docs/AI_AGENT_GUIDE.md
 - Guided onboarding tour: docs/GUIDED_TOUR.md
-- Badge system (GdsBadge, GdsCountBadge, GdsRemovableTag, shapes, stack): docs/BADGE_SYSTEM.md
+- Badge system (GdsBadge, GdsCountBadge, GdsRemovableTag, GdsIconBadge, shapes, stack): docs/BADGE_SYSTEM.md
 - Foundation & rules: FOUNDATION.md
 - Components & patterns: COMPONENTS_AND_PATTERNS.md
 - Installation: INSTALLATION_GUIDE.md

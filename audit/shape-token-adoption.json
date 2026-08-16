@@ -1,15 +1,15 @@
 {
-  "declarationsScanned": 40,
+  "declarationsScanned": 41,
   "adopted": 29,
-  "allowlisted": 9,
+  "allowlisted": 10,
   "violationCount": 0,
   "byCategory": {
-    "circle": 7,
+    "circle": 8,
     "debt": 2
   },
   "allowed": [
     {
-      "at": "packages/gds-core/src/BottomTabBar.tsx:134",
+      "at": "packages/gds-core/src/BottomTabBar.tsx:148",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
@@ -33,13 +33,19 @@
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/GdsGeneratedHero.tsx:403",
+      "at": "packages/gds-core/src/GdsGeneratedHero.tsx:414",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/GdsGeneratedThumbnail.tsx:294",
+      "at": "packages/gds-core/src/GdsGeneratedThumbnail.tsx:316",
+      "value": "'50%'",
+      "category": "circle",
+      "reviewBy": "2027-08-01"
+    },
+    {
+      "at": "packages/gds-core/src/GdsIconBadge.tsx:69",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"

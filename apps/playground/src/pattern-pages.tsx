@@ -104,6 +104,7 @@ import {
   PeriodSelector,
   PlaceholderPanel,
   ProgressCard,
+  GdsMeter,
   ProductCard,
   PublicBrandFooter,
   PublicFlowShell,
@@ -139,6 +140,7 @@ import {
   GdsBadgeStackLayer,
   GdsCountBadge,
   GdsRemovableTag,
+  GdsIconBadge,
   GdsGeneratedAvatar,
   GdsGeneratedMark,
   GdsMapBasemapWash,
@@ -860,6 +862,7 @@ function EmojiModeDemo() {
 }
 
 function GeneratedThumbnailDemo() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   return (
     <SectionPanel
       title="Generated card thumbnails"
@@ -914,6 +917,23 @@ function GeneratedThumbnailDemo() {
             />
           </GdsBox>
           <MetadataText>badges=&quot;none&quot; — the fallback-image case</MetadataText>
+        </GdsStack>
+
+        <GdsStack gap="xs" align="center">
+          <GdsBox w={220}>
+            <GdsGeneratedThumbnail
+              seed="demo-listing-interactive"
+              categories={[
+                { key: 'soccer', label: 'Soccer', icon: 'Location', onSelect: setSelectedCategory },
+                { key: 'painting', label: 'Painting', icon: 'Gallery', onSelect: setSelectedCategory },
+              ]}
+              tintWithBackground="var(--gds-bg-canvas)"
+              mixRatio={0.65}
+            />
+          </GdsBox>
+          <MetadataText>
+            {selectedCategory ? `Selected: ${selectedCategory}` : 'Tap a badge — onSelect + tintWithBackground'}
+          </MetadataText>
         </GdsStack>
       </GdsInline>
       <GdsStack gap="xs" mt="md">
@@ -1860,6 +1880,18 @@ function BadgeVocabularyDemo() {
           <GdsRemovableTag label="Music" removeLabel="Remove filter: Music" onRemove={() => {}} />
           <GdsRemovableTag label="Ages 6-8" tone="info" removeLabel="Remove filter: Ages 6-8" onRemove={() => {}} />
           <GdsRemovableTag label="Weekends" tone="success" removeLabel="Remove filter: Weekends" onRemove={() => {}} />
+          <GdsRemovableTag label="Archived" removeLabel="Remove filter: Archived" onRemove={() => {}} disabled />
+        </span>
+      </BadgeSection>
+
+      <BadgeSection
+        title="Icon-only category marks"
+        description="A flat accent disc with no text, for a category already named by adjacent content — a legend, a caption, an aria-labelled group. Decorative by default; pass label when it stands alone."
+      >
+        <span data-gds-icon-badge-demo style={{ display: 'inline-flex', gap: 8, alignItems: 'center' }}>
+          <GdsIconBadge accent="teal" icon="Habit" label="Fitness" />
+          <GdsIconBadge accent="ocean" shade="deep" icon="Location" label="Nearby" />
+          <GdsIconBadge accent="terracotta" icon="Calendar" label="Scheduled" />
         </span>
       </BadgeSection>
 
@@ -1908,6 +1940,7 @@ function LoadersSkeletonsDemo() {
 
 function BottomTabNavigationDemo() {
   const [activeId, setActiveId] = useState('browse');
+  const [sheetOpenFor, setSheetOpenFor] = useState<string | null>(null);
   const items = [
     { id: 'browse', label: 'Browse', href: '#browse', icon: <GdsIcon icon="Search" /> },
     { id: 'saved', label: 'Saved', href: '#saved', icon: <GdsIcon icon="Favorite" /> },
@@ -1930,6 +1963,50 @@ function BottomTabNavigationDemo() {
       <MetadataText>
         {`Selected: ${activeId}. The bar accepts at most ${BOTTOM_TAB_MAX_ITEMS} items — it throws rather than silently dropping one — and reserves ${BOTTOM_TAB_HEIGHT}px plus the safe-area inset, which is the padding a scrolling surface owes it.`}
       </MetadataText>
+
+      <GdsViewportFrame width="compact" label="renderItem — one item opens a sheet instead of navigating">
+        <GdsStack gap="sm">
+          <BodyText>
+            {sheetOpenFor ? `Sheet open for: ${sheetOpenFor}` : 'No sheet open.'}
+          </BodyText>
+          <BottomTabBar
+            items={items}
+            activeId={activeId}
+            ariaLabel="Example primary navigation with a custom item"
+            renderItem={(item, active) => (
+              item.id === 'inbox' ? (
+                <button
+                  type="button"
+                  onClick={() => setSheetOpenFor(item.label)}
+                  style={{
+                    flex: 1, minWidth: 44, minHeight: 44, display: 'flex',
+                    flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                    gap: 2, background: 'none', border: 'none', cursor: 'pointer',
+                    color: active ? 'var(--gds-brand-accent, var(--mantine-color-violet-6))' : 'var(--gds-text-secondary, var(--mantine-color-gray-6))',
+                  }}
+                >
+                  {item.icon}
+                  {item.label}
+                </button>
+              ) : (
+                <a
+                  href={item.href}
+                  onClick={(event) => { event.preventDefault(); setActiveId(item.id); }}
+                  style={{
+                    flex: 1, minWidth: 44, minHeight: 44, display: 'flex',
+                    flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                    gap: 2, textDecoration: 'none',
+                    color: active ? 'var(--gds-brand-accent, var(--mantine-color-violet-6))' : 'var(--gds-text-secondary, var(--mantine-color-gray-6))',
+                  }}
+                >
+                  {item.icon}
+                  {item.label}
+                </a>
+              )
+            )}
+          />
+        </GdsStack>
+      </GdsViewportFrame>
     </SectionPanel>
   );
 }
@@ -2416,6 +2493,10 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         <div>
           <MetricCard label="Coverage" value="100%" description="Live catalog coverage." trend={{ tone: 'positive', label: '+2%' }} />
           <ProgressCard label="Adoption" value="18 apps" progress={86} progressLabel="Connected teams" />
+          <GdsStack gap={4}>
+            <MetadataText>Fit score — a static measurement, role=&quot;meter&quot; not role=&quot;progressbar&quot;</MetadataText>
+            <GdsMeter value={72} label="Fit score" />
+          </GdsStack>
         </div>
       );
     case 'data-toolbars':

@@ -49,6 +49,22 @@ export function GdsShapeElevationSystemReference() {
             ))}
           </Table.Tbody>
         </Table>
+        {(() => {
+          const values = GDS_RADIUS_ROLES.map((role) => shapeTokens[`--gds-radius-${role}`]);
+          const distinctCount = new Set(values).size;
+          return (
+            <Text size="sm" c="dimmed">
+              {distinctCount === 1
+                ? `All ${GDS_RADIUS_ROLES.length} roles above resolve to the same value here: this axis declares no per-role overrides, so every role falls back to the default step.`
+                : `${distinctCount} distinct value(s) across ${GDS_RADIUS_ROLES.length} roles.`}
+              {' '}A theme's Mantine <Code>theme.radius</Code> scale (used by Mantine components
+              directly, e.g. <Code>radius=&quot;md&quot;</Code>) is a separate mechanism from this
+              axis and is not required to share its values — a brand handoff can specify its own
+              <Code>theme.radius</Code> steps independent of how many of these roles it
+              differentiates.
+            </Text>
+          );
+        })()}
       </Stack>
 
       <Stack gap="2xs">

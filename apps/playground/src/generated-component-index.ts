@@ -1113,6 +1113,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Icon surface (GDS-owned icon component) — icon rendering primitive, not a catalog pattern."
   },
   {
+    "name": "GdsIconBadge",
+    "status": "registered",
+    "home": {
+      "id": "badges",
+      "family": "systems",
+      "section": "Badges & Indicators"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsIcons",
     "status": "exempt",
     "reason": "Icon surface (GDS-owned icon registry) — icon set, not a catalog pattern."
@@ -1218,6 +1228,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "name": "GdsMediaFrame",
     "status": "exempt",
     "reason": "Layout primitive (aspect-ratio media frame) — composed into registered patterns."
+  },
+  {
+    "name": "GdsMeter",
+    "status": "registered",
+    "home": {
+      "id": "metric-cards",
+      "family": "operations",
+      "section": "Dashboard & Panel Surfaces"
+    },
+    "alsoAppearsIn": []
   },
   {
     "name": "GdsModal",

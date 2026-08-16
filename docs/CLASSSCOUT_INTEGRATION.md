@@ -66,6 +66,15 @@ The theme emits semantic variables including `--gds-brand-primary`, `--gds-brand
 
 To override the locked ramps, pass 10-step tuples under `colorRamps`. The composer validates ramp length, hex format, token graph shape, and AA text/surface contrast.
 
+**Two separate radius scales, by design, not a bug to reconcile.** GDS's own shape axis
+(`GDS_DEFAULT_SHAPE_AXIS`, `--gds-radius-*`) is a different scale from `createBrandTheme`'s
+Mantine `theme.radius` override — Class USA's handoff specifies its own `theme.radius` steps
+independently of GDS's shape axis, and neither is derived from the other. The shape axis's 14
+semantic radius roles (`card`, `modal`, `chip`, etc.) fall back to one default step when a
+theme declares no per-role overrides, which Class USA currently doesn't — see the live,
+computed proof (how many of the 14 roles currently share a value) on the reference site's
+Foundations → Shape & Elevation page.
+
 ## 3.8.0 replacement surfaces
 
 Use these primitives to delete app-local ClassScout forks:
@@ -132,6 +141,8 @@ import { IconHome, IconSearch, IconPlus, IconMessage } from '@tabler/icons-react
 ```
 
 Max 5 items. The `emphasizedItemId` renders the raised center-action button. `hiddenFrom="sm"` — the bar is invisible on desktop.
+
+`renderItem?: (item, active, emphasized) => ReactNode` overrides rendering for every item (mirrors `PublicNav`'s `renderLink`), for cases like opening a sheet instead of navigating. A custom render is responsible for reproducing the 44x44 min hit target and `flex: 1` sizing, and — if overriding the emphasized item — its raised-button layout.
 
 ---
 
@@ -348,6 +359,28 @@ import { AISearchCard } from '@sovereignsquad/gds-core';
 ```
 
 `onSubmit` fires on Enter or the search button. `onPromptSelect` lets you intercept chip taps separately (defaults to `onSubmit`).
+
+---
+
+## B11 — Static score/measurement (`GdsMeter`)
+
+#638 · `@sovereignsquad/gds-core`
+
+For a static score or measurement — not an operation in flight. `Progress`/`ProgressCard`
+render `role="progressbar"`; passing `role="meter"` to them is a no-op (Mantine's top-level
+`Progress` hardcodes `progressbar` on the element that carries ARIA semantics and does not
+expose a way to override it). `GdsMeter` is built on Mantine's lower-level compound API
+instead, so it carries a real `role="meter"`:
+
+```tsx
+import { GdsMeter } from '@sovereignsquad/gds-core';
+
+<GdsMeter value={72} max={100} label="Fit score" />
+```
+
+`min`/`max` default to `0`/`100` but aren't required to be a percentage — `role="meter"`
+doesn't need one — so a 1–5 rating or any other bounded range works directly:
+`<GdsMeter value={3} min={1} max={5} label="Rating" valueText="3 out of 5 stars" />`.
 
 ---
 

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Anchor, Box, Stack, Text } from '@mantine/core';
 import { gdsZIndexToken , useGdsTranslation } from '@sovereignsquad/gds-theme';
 import type { PublicNavItem } from './PublicNav';
@@ -28,6 +29,14 @@ export interface BottomTabBarProps {
   /** Accessible name for the `<nav>`. Defaults to `'Primary'`. */
   ariaLabel?: string;
   className?: string;
+  /**
+   * Overrides rendering for one item; receives the item, its active state, and whether
+   * it's the emphasized (raised center) item. A custom render is responsible for
+   * reproducing the 44x44 min hit target and `flex: 1` sizing, and — if overriding the
+   * emphasized item — its raised-button layout, since none of that comes for free once
+   * the default `<Anchor>` is bypassed.
+   */
+  renderItem?: (item: PublicNavItem, active: boolean, emphasized: boolean) => ReactNode;
 }
 
 function resolveActiveId(items: PublicNavItem[], activeId?: string): string | undefined {
@@ -51,6 +60,7 @@ export function BottomTabBar({
   onNavItemSelect,
   ariaLabel: ariaLabelProp,
   className,
+  renderItem,
 }: BottomTabBarProps) {
   const { t } = useGdsTranslation();
   const ariaLabel = ariaLabelProp ?? t('gds.bottomTabBar.ariaLabel', "Primary");
@@ -97,6 +107,10 @@ export function BottomTabBar({
         const color = active
           ? 'var(--gds-brand-accent, var(--mantine-color-violet-6))'
           : 'var(--gds-text-secondary, var(--mantine-color-gray-6))';
+
+        if (renderItem) {
+          return <span key={item.id}>{renderItem(item, active, emphasized)}</span>;
+        }
 
         return (
           <Anchor

@@ -41,6 +41,8 @@ export interface GdsGeneratedHeroBadge {
   key: string;
   label: string;
   icon: GdsIconKey | ReactNode;
+  /** When given, this badge renders as a real button (native focus/click/keyboard) instead of static content, and fires with the category's `key` on activation. */
+  onSelect?: (key: string) => void;
 }
 
 /** A consumer-supplied region for the `region-mosaic` background strategy — normalized fractions of the hero's own box, so GDS never needs real geo math or projection logic. */
@@ -93,6 +95,10 @@ export interface GdsGeneratedHeroProps {
   shade?: GdsBadgeAccentShade;
   /** Explicit palette override — wins over `paletteSource` entirely when given. */
   colors?: GdsGeneratedPaletteColors;
+  /** CSS color/var reference to tint the resolved palette toward. Requires `mixRatio`. */
+  tintWithBackground?: string;
+  /** Weight of the original palette color, `0`–`1`. Required when `tintWithBackground` is given. */
+  mixRatio?: number;
   /** Defaults to `'wash'`. */
   background?: GdsGeneratedHeroBackground;
   /** Up to 6 ranked badges; index 0 gets the large slot, 1-2 the medium slots, 3-5 the small slots. Extra entries beyond 6 are ignored. */
@@ -335,6 +341,8 @@ export function GdsGeneratedHero({
   category,
   shade,
   colors,
+  tintWithBackground,
+  mixRatio,
   background = 'wash',
   badges = [],
   aspectRatio = '21:9',
@@ -344,8 +352,8 @@ export function GdsGeneratedHero({
 }: GdsGeneratedHeroProps) {
   const gradientId = useId();
   const palette = useMemo(
-    () => gdsGeneratedPaletteCssRefs({ paletteSource, category, shade, colors }),
-    [paletteSource, category, shade, colors],
+    () => gdsGeneratedPaletteCssRefs({ paletteSource, category, shade, colors, tintWithBackground, mixRatio }),
+    [paletteSource, category, shade, colors, tintWithBackground, mixRatio],
   );
   const { width: viewBoxWidth, height: viewBoxHeight } = ASPECT_RATIO_VIEWBOX[aspectRatio];
   const placedBadges = useMemo(() => placeBadges(badges, seed), [badges, seed]);
@@ -383,13 +391,16 @@ export function GdsGeneratedHero({
 
       {placedBadges.map(({ badge, size, x, y, jitterDeg }) => {
         const boxSize = viewBoxHeight * SLOT_SIZE_FACTOR[size];
+        const BadgeTag = badge.onSelect ? 'button' : 'span';
         return (
-          <span
+          <BadgeTag
             key={badge.key}
             data-gds-generated-hero-badge={size}
-            role="img"
+            type={badge.onSelect ? 'button' : undefined}
+            onClick={badge.onSelect ? () => badge.onSelect?.(badge.key) : undefined}
+            role={badge.onSelect ? undefined : 'img'}
             aria-label={badge.label}
-            title={badge.label}
+            title={badge.onSelect ? undefined : badge.label}
             style={{
               position: 'absolute',
               insetInlineStart: `${x * 100}%`,
@@ -405,12 +416,16 @@ export function GdsGeneratedHero({
               color: inverseColor,
               opacity: SLOT_OPACITY[size],
               boxShadow: `0 2px 10px ${darkSurface(palette.primary)}`,
+              border: 'none',
+              padding: 0,
+              font: badge.onSelect ? 'inherit' : undefined,
+              cursor: badge.onSelect ? 'pointer' : undefined,
             }}
           >
             <span aria-hidden="true" style={{ width: '55%', height: '55%', display: 'inline-flex' }}>
               {renderIcon(badge.icon)}
             </span>
-          </span>
+          </BadgeTag>
         );
       })}
     </div>

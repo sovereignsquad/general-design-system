@@ -78,6 +78,23 @@ describe('gdsGeneratedPaletteCssRefs (#504)', () => {
     const palette = gdsGeneratedPaletteCssRefs({ paletteSource: 'category', colors: { primary: '#123456', accent: '#abcdef' } });
     expect(palette).toEqual({ primary: '#123456', accent: '#abcdef', source: 'override' });
   });
+
+  it('tintWithBackground + mixRatio wraps each resolved color in color-mix()', () => {
+    const palette = gdsGeneratedPaletteCssRefs({
+      paletteSource: 'category', category: 'forest', shade: 'deep',
+      tintWithBackground: 'var(--gds-bg-canvas)', mixRatio: 0.6,
+    });
+    const expected = `color-mix(in srgb, var(--gds-accent-forest-deep, ${gdsBadgeAccentShades.forest.deep}) 60%, var(--gds-bg-canvas))`;
+    expect(palette).toEqual({ primary: expected, accent: expected, source: 'category' });
+  });
+
+  it('an explicit colors override is used exactly as supplied, ignoring tintWithBackground/mixRatio', () => {
+    const palette = gdsGeneratedPaletteCssRefs({
+      colors: { primary: '#123456', accent: '#abcdef' },
+      tintWithBackground: 'var(--gds-bg-canvas)', mixRatio: 0.5,
+    });
+    expect(palette).toEqual({ primary: '#123456', accent: '#abcdef', source: 'override' });
+  });
 });
 
 describe('resolveGdsGeneratedPaletteHex (#504)', () => {
@@ -107,5 +124,15 @@ describe('resolveGdsGeneratedPaletteHex (#504)', () => {
   it('an explicit colors override still wins even with theme mode and no themePresetId', () => {
     const palette = resolveGdsGeneratedPaletteHex({ colors: { primary: '#111111', accent: '#222222' } });
     expect(palette).toEqual({ primary: '#111111', accent: '#222222', source: 'override' });
+  });
+
+  it('tintWithBackground + mixRatio mixes the literal hex via mixCssColors', () => {
+    const untinted = resolveGdsGeneratedPaletteHex({ paletteSource: 'category', category: 'forest', shade: 'deep' });
+    const tinted = resolveGdsGeneratedPaletteHex({
+      paletteSource: 'category', category: 'forest', shade: 'deep',
+      tintWithBackground: '#ffffff', mixRatio: 0.5,
+    });
+    expect(tinted.primary).toMatch(/^rgb\(/);
+    expect(tinted.primary).not.toBe(untinted.primary);
   });
 });

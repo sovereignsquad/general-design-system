@@ -39,6 +39,11 @@ export const SHAPE_ALLOWLIST = {
     reason: 'Circular decorative element in generated hero imagery.',
     reviewBy: '2027-08-01',
   },
+  "packages/gds-core/src/GdsIconBadge.tsx::borderRadius: '50%',": {
+    category: 'circle',
+    reason: 'Icon-only categorical-accent disc. Same reasoning as GdsGeneratedAvatar/ChatSurface: a circle is a shape, not a step.',
+    reviewBy: '2027-08-01',
+  },
   "packages/gds-theme/src/VibeThemePicker.client.tsx::borderRadius: '50%',": {
     category: 'circle',
     reason: 'Circular colour swatch in the theme picker. A swatch is a colour sample; rounding it by the active theme would make the control restyle itself while being used to choose that theme.',

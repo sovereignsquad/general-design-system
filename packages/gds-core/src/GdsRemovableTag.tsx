@@ -32,6 +32,8 @@ export interface GdsRemovableTagProps extends Omit<BadgeProps, 'color' | 'childr
   removeLabel: string;
   /** Semantic tone; defaults to `neutral`. */
   tone?: GdsRemovableTagTone;
+  /** Suppresses `onRemove` and renders an inert, dimmed state. Defaults to `false`. */
+  disabled?: boolean;
 }
 
 const toneColorMap: Record<GdsRemovableTagTone, string> = {
@@ -50,7 +52,9 @@ const toneColorMap: Record<GdsRemovableTagTone, string> = {
  * <GdsRemovableTag label="Music" removeLabel="Remove filter: Music" onRemove={() => clear('music')} />
  * ```
  */
-export function GdsRemovableTag({ label, onRemove, removeLabel, tone = 'neutral', ...props }: GdsRemovableTagProps) {
+export function GdsRemovableTag({
+  label, onRemove, removeLabel, tone = 'neutral', disabled = false, ...props
+}: GdsRemovableTagProps) {
   return (
     <Badge
       component="button"
@@ -60,9 +64,11 @@ export function GdsRemovableTag({ label, onRemove, removeLabel, tone = 'neutral'
       color={toneColorMap[tone]}
       variant="light"
       aria-label={removeLabel}
-      onClick={onRemove}
+      aria-disabled={disabled || undefined}
+      disabled={disabled}
+      onClick={disabled ? undefined : onRemove}
       rightSection={<GdsIcon icon="Close" size="xs" />}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.55 : 1 }}
       {...props}
     >
       {label}
