@@ -96,7 +96,7 @@ export function PageHeader({
             {overflowActions.length ? (
               <Menu shadow="md" width={220} withinPortal>
                 <Menu.Target>
-                  <ActionIcon variant="default" size="lg" aria-label="More actions">
+                  <ActionIcon variant="default" size="xl" aria-label="More actions">
                     <GdsIcons.Menu size="1rem" />
                   </ActionIcon>
                 </Menu.Target>

@@ -155,7 +155,7 @@ function ListingAffordance({ affordance }: { affordance: ListingCardAffordance }
         component="a"
         href={affordance.href}
         variant="subtle"
-        size="lg"
+        size="xl"
         aria-label={label}
         data-gds-active={affordance.active ? 'true' : undefined}
         style={activeStyle}
@@ -169,7 +169,7 @@ function ListingAffordance({ affordance }: { affordance: ListingCardAffordance }
   return (
     <ActionIcon
       variant="subtle"
-      size="lg"
+      size="xl"
       aria-label={label}
       onClick={affordance.onClick}
       data-gds-active={affordance.active ? 'true' : undefined}

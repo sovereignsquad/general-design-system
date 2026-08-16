@@ -1,0 +1,4009 @@
+{
+  "minTargetPx": 44,
+  "routesSwept": 26,
+  "routesSkipped": [],
+  "totalUnexemptViolations": 791,
+  "findings": [
+    {
+      "route": "/",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Preset",
+      "w": 342,
+      "h": 36
+    },
+    {
+      "route": "/",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Preview color scheme",
+      "w": 342,
+      "h": 36
+    },
+    {
+      "route": "/",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Webfont lane",
+      "w": 342,
+      "h": 36
+    },
+    {
+      "route": "/",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Brand primary color",
+      "w": 342,
+      "h": 36
+    },
+    {
+      "route": "/",
+      "tag": "input",
+      "cls": "mantine-focus-auto m_26063560 mantine-Checkbox-input",
+      "label": "",
+      "w": 20,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "input",
+      "cls": "mantine-focus-auto m_26063560 mantine-Checkbox-input",
+      "label": "",
+      "w": 20,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "input",
+      "cls": "mantine-focus-auto m_26063560 mantine-Checkbox-input",
+      "label": "Compare against a second shipped preset",
+      "w": 20,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Comparison preset",
+      "w": 342,
+      "h": 36
+    },
+    {
+      "route": "/",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
+      "label": "Reference input",
+      "w": 331,
+      "h": 36
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Browse patterns",
+      "w": 124,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open coverage matrix",
+      "w": 167,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Explore themes",
+      "w": 117,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install GDS",
+      "w": 83,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open live proofs",
+      "w": 124,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Read governance",
+      "w": 133,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Browse patterns",
+      "w": 124,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Explore themes",
+      "w": 117,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Read governance",
+      "w": 133,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Request a feature",
+      "w": 133,
+      "h": 20
+    },
+    {
+      "route": "/",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--ghost",
+      "label": "Skip",
+      "w": 51,
+      "h": 29
+    },
+    {
+      "route": "/",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--primary",
+      "label": "Next",
+      "w": 53,
+      "h": 29
+    },
+    {
+      "route": "/patterns",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Foundations",
+      "w": 93,
+      "h": 20
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Public, Editorial, & Docs",
+      "w": 179,
+      "h": 20
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Operations",
+      "w": 83,
+      "h": 20
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Data & Search",
+      "w": 107,
+      "h": 20
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Access & Recovery",
+      "w": 146,
+      "h": 20
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Feedback & Messaging",
+      "w": 176,
+      "h": 20
+    },
+    {
+      "route": "/patterns",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--ghost",
+      "label": "Skip",
+      "w": 51,
+      "h": 29
+    },
+    {
+      "route": "/patterns",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--primary",
+      "label": "Next",
+      "w": 53,
+      "h": 29
+    },
+    {
+      "route": "/foundations",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_f678d540 mantine-Breadcrumbs",
+      "label": "Patterns",
+      "w": 63,
+      "h": 16
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install path",
+      "w": 82,
+      "h": 20
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Governance rules",
+      "w": 134,
+      "h": 20
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Live runtime proof",
+      "w": 138,
+      "h": 20
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Dashboard",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Settings",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Overview",
+      "w": 73,
+      "h": 25
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Patterns",
+      "w": 66,
+      "h": 25
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install",
+      "w": 45,
+      "h": 25
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Dashboard",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Settings",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "",
+      "label": "Canonical field",
+      "w": 788,
+      "h": 43
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-DateInput-input",
+      "label": "",
+      "w": 746,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_6fa5e2aa m_8fb7ebe7 mantine-Input-input mantine-DateTimePi",
+      "label": "24/07/2026 09:00",
+      "w": 746,
+      "h": 38
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_6fa5e2aa m_8fb7ebe7 mantine-Input-input mantine-DatePicker",
+      "label": "July 24, 2026 – August 7, 2026",
+      "w": 746,
+      "h": 38
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "All",
+      "w": 72,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Active",
+      "w": 76,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Archived",
+      "w": 96,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Legacy",
+      "w": 80,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "All",
+      "w": 44,
+      "h": 28
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Active",
+      "w": 65,
+      "h": 28
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Archived",
+      "w": 82,
+      "h": 28
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Legacy",
+      "w": 68,
+      "h": 28
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "All",
+      "w": 44,
+      "h": 28
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Active",
+      "w": 65,
+      "h": 28
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Archived",
+      "w": 82,
+      "h": 28
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Legacy",
+      "w": 68,
+      "h": 28
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Settings",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Search",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Help",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "",
+      "label": "Title",
+      "w": 746,
+      "h": 43
+    },
+    {
+      "route": "/foundations",
+      "tag": "select",
+      "cls": "",
+      "label": "Status",
+      "w": 746,
+      "h": 40
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "",
+      "label": "Title",
+      "w": 746,
+      "h": 43
+    },
+    {
+      "route": "/foundations",
+      "tag": "select",
+      "cls": "",
+      "label": "Status",
+      "w": 746,
+      "h": 40
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "",
+      "label": "Title",
+      "w": 746,
+      "h": 43
+    },
+    {
+      "route": "/foundations",
+      "tag": "select",
+      "cls": "",
+      "label": "Status",
+      "w": 746,
+      "h": 40
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Dashboard",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Settings",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Dashboard",
+      "w": 788,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Profile",
+      "w": 788,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "List",
+      "w": 788,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Notifications",
+      "w": 788,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Settings",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Dashboard",
+      "w": 788,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Settings",
+      "w": 788,
+      "h": 41
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "",
+      "label": "Title",
+      "w": 746,
+      "h": 43
+    },
+    {
+      "route": "/foundations",
+      "tag": "select",
+      "cls": "",
+      "label": "Status",
+      "w": 746,
+      "h": 40
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-DateInput-input",
+      "label": "",
+      "w": 746,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_6fa5e2aa m_8fb7ebe7 mantine-Input-input mantine-DateTimePi",
+      "label": "24/07/2026 09:00",
+      "w": 746,
+      "h": 38
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_6fa5e2aa m_8fb7ebe7 mantine-Input-input mantine-DatePicker",
+      "label": "July 24, 2026 – August 7, 2026",
+      "w": 746,
+      "h": 38
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "",
+      "label": "Project name",
+      "w": 786,
+      "h": 43
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "mantine-focus-auto m_26063560 mantine-Checkbox-input",
+      "label": "Email",
+      "w": 20,
+      "h": 20
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "mantine-focus-auto m_26063560 mantine-Checkbox-input",
+      "label": "SMS",
+      "w": 20,
+      "h": 20
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "mantine-focus-auto m_26063560 mantine-Checkbox-input",
+      "label": "In-app",
+      "w": 20,
+      "h": 20
+    },
+    {
+      "route": "/foundations",
+      "tag": "input",
+      "cls": "",
+      "label": "Full name",
+      "w": 760,
+      "h": 43
+    },
+    {
+      "route": "/foundations",
+      "tag": "select",
+      "cls": "",
+      "label": "Role",
+      "w": 760,
+      "h": 40
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Settings",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Help",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open",
+      "w": 41,
+      "h": 25
+    },
+    {
+      "route": "/foundations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open",
+      "w": 41,
+      "h": 25
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Remove filter: Music",
+      "w": 79,
+      "h": 20
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Remove filter: Ages 6-8",
+      "w": 95,
+      "h": 20
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Remove filter: Weekends",
+      "w": 106,
+      "h": 20
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "",
+      "label": "Notifications",
+      "w": 44,
+      "h": 34
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "",
+      "label": "Save this listing",
+      "w": 44,
+      "h": 34
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "All · 4",
+      "w": 89,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Swimming · 1",
+      "w": 118,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Dance · 1",
+      "w": 90,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Music · 1",
+      "w": 88,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Cooking · 1",
+      "w": 107,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "div",
+      "cls": "leaflet-marker-icon gds-map-pin leaflet-zoom-animated leafle",
+      "label": "",
+      "w": 30,
+      "h": 30
+    },
+    {
+      "route": "/foundations",
+      "tag": "div",
+      "cls": "leaflet-marker-icon gds-map-pin leaflet-zoom-animated leafle",
+      "label": "",
+      "w": 30,
+      "h": 30
+    },
+    {
+      "route": "/foundations",
+      "tag": "div",
+      "cls": "leaflet-marker-icon gds-map-pin leaflet-zoom-animated leafle",
+      "label": "",
+      "w": 30,
+      "h": 30
+    },
+    {
+      "route": "/foundations",
+      "tag": "div",
+      "cls": "leaflet-marker-icon gds-map-pin leaflet-zoom-animated leafle",
+      "label": "",
+      "w": 30,
+      "h": 30
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_87cf2631 mantine-UnstyledButton-root",
+      "label": "Certified center",
+      "w": 704,
+      "h": 32
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_87cf2631 mantine-UnstyledButton-root",
+      "label": "Community pool",
+      "w": 704,
+      "h": 32
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_87cf2631 mantine-UnstyledButton-root",
+      "label": "Dance studio",
+      "w": 704,
+      "h": 32
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_87cf2631 mantine-UnstyledButton-root",
+      "label": "Riverside hall",
+      "w": 704,
+      "h": 32
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "",
+      "label": "View achievement",
+      "w": 154,
+      "h": 31
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Tabler icons",
+      "w": 123,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Emoji",
+      "w": 72,
+      "h": 36
+    },
+    {
+      "route": "/foundations",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Save Riverside Swim Club",
+      "w": 16,
+      "h": 16
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_f678d540 mantine-Breadcrumbs",
+      "label": "Patterns",
+      "w": 63,
+      "h": 16
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install path",
+      "w": 82,
+      "h": 20
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Governance rules",
+      "w": 134,
+      "h": 20
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Live runtime proof",
+      "w": 138,
+      "h": 20
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Buy",
+      "w": 29,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Preview",
+      "w": 28,
+      "h": 28
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open",
+      "w": 41,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Reserve pickup",
+      "w": 117,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Reserve",
+      "w": 61,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "input",
+      "cls": "",
+      "label": "Search discoverables",
+      "w": 213,
+      "h": 43
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "",
+      "label": "Create",
+      "w": 66,
+      "h": 31
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "All · 4",
+      "w": 89,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Swimming · 1",
+      "w": 118,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Dance · 1",
+      "w": 90,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Music · 1",
+      "w": 88,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Cooking · 1",
+      "w": 107,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "div",
+      "cls": "leaflet-marker-icon gds-map-pin leaflet-zoom-animated leafle",
+      "label": "",
+      "w": 30,
+      "h": 30
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "div",
+      "cls": "leaflet-marker-icon gds-map-pin leaflet-zoom-animated leafle",
+      "label": "",
+      "w": 30,
+      "h": 30
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "div",
+      "cls": "leaflet-marker-icon gds-map-pin leaflet-zoom-animated leafle",
+      "label": "",
+      "w": 30,
+      "h": 30
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "div",
+      "cls": "leaflet-marker-icon gds-map-pin leaflet-zoom-animated leafle",
+      "label": "",
+      "w": 30,
+      "h": 30
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_87cf2631 mantine-UnstyledButton-root",
+      "label": "Certified center",
+      "w": 746,
+      "h": 32
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_87cf2631 mantine-UnstyledButton-root",
+      "label": "Community pool",
+      "w": 746,
+      "h": 32
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_87cf2631 mantine-UnstyledButton-root",
+      "label": "Dance studio",
+      "w": 746,
+      "h": 32
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_87cf2631 mantine-UnstyledButton-root",
+      "label": "Riverside hall",
+      "w": 746,
+      "h": 32
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Overview",
+      "w": 75,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Docs",
+      "w": 39,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "",
+      "label": "Sign in",
+      "w": 67,
+      "h": 31
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Overview",
+      "w": 73,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install",
+      "w": 45,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_f678d540 mantine-Breadcrumbs",
+      "label": "Docs",
+      "w": 39,
+      "h": 16
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Home",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Theme",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install Guide",
+      "w": 93,
+      "h": 20
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 342,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Governance",
+      "w": 92,
+      "h": 20
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 342,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open theme runtime",
+      "w": 155,
+      "h": 20
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 342,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Home",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Grid",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "",
+      "label": "Contact",
+      "w": 75,
+      "h": 31
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "",
+      "label": "Save",
+      "w": 53,
+      "h": 31
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "",
+      "label": "Cancel",
+      "w": 68,
+      "h": 31
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "",
+      "label": "Learn more",
+      "w": 102,
+      "h": 31
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
+      "label": "Search places",
+      "w": 590,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Green Cafe",
+      "w": 361,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Park Tacos",
+      "w": 361,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
+      "label": "",
+      "w": 790,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Best family-friendly cafes",
+      "w": 790,
+      "h": 25
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "textarea",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-Textarea-input",
+      "label": "Ask about a club…",
+      "w": 702,
+      "h": 38
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_8d3f4000 mantine-ActionIcon-root m_87cf",
+      "label": "Send",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "textarea",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-Textarea-input",
+      "label": "Input is disabled while the assistant streams",
+      "w": 702,
+      "h": 38
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_8d3f4000 mantine-ActionIcon-root m_87cf",
+      "label": "Send",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
+      "label": "Ask about clubs, lanes or timetables",
+      "w": 660,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "mantine-focus-auto m_8d3f4000 mantine-ActionIcon-root m_87cf",
+      "label": "Search",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "button",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-InputBase-input",
+      "label": "Find a swim club",
+      "w": 746,
+      "h": 36
+    },
+    {
+      "route": "/patterns/public",
+      "tag": "svg",
+      "cls": "[object SVGAnimatedString]",
+      "label": "Clear selection",
+      "w": 14,
+      "h": 14
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_f678d540 mantine-Breadcrumbs",
+      "label": "Patterns",
+      "w": 63,
+      "h": 16
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install path",
+      "w": 82,
+      "h": 20
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Governance rules",
+      "w": 134,
+      "h": 20
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Live runtime proof",
+      "w": 138,
+      "h": 20
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-Select-input",
+      "label": "Visibility",
+      "w": 411,
+      "h": 30
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
+      "label": "Slug",
+      "w": 411,
+      "h": 36
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "button",
+      "cls": "",
+      "label": "Upload image",
+      "w": 746,
+      "h": 31
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "input",
+      "cls": "",
+      "label": "Image URL",
+      "w": 746,
+      "h": 43
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "button",
+      "cls": "",
+      "label": "Replace",
+      "w": 77,
+      "h": 31
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "button",
+      "cls": "",
+      "label": "Retry",
+      "w": 56,
+      "h": 31
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "input",
+      "cls": "",
+      "label": "Content title",
+      "w": 478,
+      "h": 43
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Dashboard",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Settings",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "input",
+      "cls": "",
+      "label": "Name",
+      "w": 453,
+      "h": 43
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "select",
+      "cls": "",
+      "label": "Visibility",
+      "w": 788,
+      "h": 40
+    },
+    {
+      "route": "/patterns/operations",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Patterns",
+      "w": 63,
+      "h": 25
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_f678d540 mantine-Breadcrumbs",
+      "label": "Patterns",
+      "w": 63,
+      "h": 16
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install path",
+      "w": 82,
+      "h": 20
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Governance rules",
+      "w": 134,
+      "h": 20
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Live runtime proof",
+      "w": 138,
+      "h": 20
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "input",
+      "cls": "",
+      "label": "Search dataset",
+      "w": 213,
+      "h": 43
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Toggle published",
+      "w": 146,
+      "h": 31
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-Select-input",
+      "label": "Sort by",
+      "w": 220,
+      "h": 36
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Reset",
+      "w": 58,
+      "h": 31
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Create",
+      "w": 66,
+      "h": 31
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Select row-1",
+      "w": 110,
+      "h": 31
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Sort by Surface",
+      "w": 70,
+      "h": 28
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Sort by Status",
+      "w": 60,
+      "h": 28
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "input",
+      "cls": "mantine-focus-auto m_26063560 mantine-Checkbox-input",
+      "label": "Select row 1",
+      "w": 20,
+      "h": 20
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "input",
+      "cls": "mantine-focus-auto m_26063560 mantine-Checkbox-input",
+      "label": "Select row 2",
+      "w": 20,
+      "h": 20
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Remove Live proof filter",
+      "w": 108,
+      "h": 20
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "select",
+      "cls": "",
+      "label": "Reporting period",
+      "w": 746,
+      "h": 40
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Refresh evidence",
+      "w": 704,
+      "h": 31
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "input",
+      "cls": "",
+      "label": "Search selection",
+      "w": 213,
+      "h": 43
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "input",
+      "cls": "",
+      "label": "Filter selection",
+      "w": 213,
+      "h": 43
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Sort",
+      "w": 47,
+      "h": 31
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Reset",
+      "w": 58,
+      "h": 31
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "",
+      "label": "Create",
+      "w": 66,
+      "h": 31
+    },
+    {
+      "route": "/patterns/data",
+      "tag": "button",
+      "cls": "m_347db0ec mantine-Badge-root",
+      "label": "Remove Selected filter",
+      "w": 100,
+      "h": 20
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_f678d540 mantine-Breadcrumbs",
+      "label": "Patterns",
+      "w": 63,
+      "h": 16
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install path",
+      "w": 82,
+      "h": 20
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Governance rules",
+      "w": 134,
+      "h": 20
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Live runtime proof",
+      "w": 138,
+      "h": 20
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Share",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Copy link",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Email",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Close",
+      "w": 43,
+      "h": 25
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "",
+      "label": "Continue as guest",
+      "w": 153,
+      "h": 31
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "",
+      "label": "Contact support",
+      "w": 139,
+      "h": 31
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "",
+      "label": "Retry upload",
+      "w": 112,
+      "h": 31
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "",
+      "label": "Remove asset",
+      "w": 122,
+      "h": 31
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "",
+      "label": "Choose another file",
+      "w": 164,
+      "h": 31
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "",
+      "label": "Remove file",
+      "w": 104,
+      "h": 31
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "",
+      "label": "Click to login",
+      "w": 114,
+      "h": 31
+    },
+    {
+      "route": "/patterns/access",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_220c80f2 m_606cb269 mant",
+      "label": "",
+      "w": 28,
+      "h": 28
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_f678d540 mantine-Breadcrumbs",
+      "label": "Patterns",
+      "w": 63,
+      "h": 16
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Install path",
+      "w": 82,
+      "h": 20
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Governance rules",
+      "w": 134,
+      "h": 20
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Live runtime proof",
+      "w": 138,
+      "h": 20
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Emit event",
+      "w": 95,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Register dialog",
+      "w": 128,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Register drawer",
+      "w": 135,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Unregister drawer",
+      "w": 152,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Open dialog",
+      "w": 107,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Open side panel",
+      "w": 139,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Register commands",
+      "w": 166,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Open command palette",
+      "w": 193,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Open dialog",
+      "w": 107,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "",
+      "label": "Open side panel",
+      "w": 139,
+      "h": 31
+    },
+    {
+      "route": "/patterns/feedback",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "More actions",
+      "w": 34,
+      "h": 34
+    },
+    {
+      "route": "/components",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Search & Data Views",
+      "w": 157,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Badges & Indicators",
+      "w": 151,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Public Product Surfaces",
+      "w": 182,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Workflow Guidance",
+      "w": 148,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Public Shells & Docs",
+      "w": 154,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Overlays & Feedback",
+      "w": 160,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Auth, Share, & Access",
+      "w": 168,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Discovery & Listing",
+      "w": 145,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Controls & Inputs",
+      "w": 129,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Editing & Content Ops",
+      "w": 166,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Editorial & Brand Storytelling",
+      "w": 215,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Layout Contracts",
+      "w": 129,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Dashboard & Panel Surfaces",
+      "w": 216,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Generated Imagery",
+      "w": 145,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Map System",
+      "w": 94,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Shell & Navigation Guidance",
+      "w": 213,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Workflow Guidance",
+      "w": 148,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Shell & Navigation Guidance",
+      "w": 213,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Forms & Inputs",
+      "w": 113,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Cards & Metrics",
+      "w": 121,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Motion & Micro-interactions",
+      "w": 210,
+      "h": 20
+    },
+    {
+      "route": "/components",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/components",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
+      "label": "Filter",
+      "w": 830,
+      "h": 36
+    },
+    {
+      "route": "/systems",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Theming & the Theme Lab",
+      "w": 199,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Badge system",
+      "w": 107,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Generated imagery",
+      "w": 145,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Motion & micro-interactions",
+      "w": 210,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Map system",
+      "w": 92,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Internationalisation",
+      "w": 143,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Live proofs",
+      "w": 84,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Coverage",
+      "w": 73,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Maturity",
+      "w": 63,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Use cases",
+      "w": 79,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Request a feature",
+      "w": 133,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Use with AI",
+      "w": 86,
+      "h": 20
+    },
+    {
+      "route": "/systems",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 221,
+      "h": 25
+    },
+    {
+      "route": "/coverage",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Browse patterns",
+      "w": 124,
+      "h": 20
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Explore themes",
+      "w": 117,
+      "h": 20
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Read governance",
+      "w": 133,
+      "h": 20
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Request a feature",
+      "w": 133,
+      "h": 20
+    },
+    {
+      "route": "/coverage",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/coverage",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--ghost",
+      "label": "Skip",
+      "w": 51,
+      "h": 29
+    },
+    {
+      "route": "/coverage",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--primary",
+      "label": "Next",
+      "w": 53,
+      "h": 29
+    },
+    {
+      "route": "/api",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "@sovereignsquad/gds-theme",
+      "w": 224,
+      "h": 20
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 363,
+      "h": 25
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "@sovereignsquad/gds-core",
+      "w": 211,
+      "h": 20
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 363,
+      "h": 25
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "@sovereignsquad/gds-admin",
+      "w": 223,
+      "h": 20
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 363,
+      "h": 25
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "@sovereignsquad/gds",
+      "w": 170,
+      "h": 20
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 363,
+      "h": 25
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Browse patterns",
+      "w": 124,
+      "h": 20
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Explore themes",
+      "w": 117,
+      "h": 20
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Read governance",
+      "w": 133,
+      "h": 20
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Request a feature",
+      "w": 133,
+      "h": 20
+    },
+    {
+      "route": "/api",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open section",
+      "w": 146,
+      "h": 25
+    },
+    {
+      "route": "/api",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--ghost",
+      "label": "Skip",
+      "w": 51,
+      "h": 29
+    },
+    {
+      "route": "/api",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--primary",
+      "label": "Next",
+      "w": 53,
+      "h": 29
+    },
+    {
+      "route": "/maturity",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "What Is GDS",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Install",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Foundations",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Components",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Patterns",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Systems",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "API",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Themes",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_f0824112 mantine-NavLink-root m_87cf263",
+      "label": "Governance",
+      "w": 247,
+      "h": 41
+    },
+    {
+      "route": "/maturity",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Browse patterns",
+      "w": 124,
+      "h": 20
+    }
+  ],
+  "findingsTruncated": true
+}
