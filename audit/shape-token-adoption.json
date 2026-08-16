@@ -9,13 +9,13 @@
   },
   "allowed": [
     {
-      "at": "packages/gds-core/src/BottomTabBar.tsx:147",
+      "at": "packages/gds-core/src/BottomTabBar.tsx:134",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/ChatSurface.tsx:150",
+      "at": "packages/gds-core/src/ChatSurface.tsx:143",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
@@ -27,7 +27,7 @@
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/GdsGeneratedAvatar.tsx:102",
+      "at": "packages/gds-core/src/GdsGeneratedAvatar.tsx:84",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
@@ -45,13 +45,13 @@
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:327",
+      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:305",
       "value": "18",
       "category": "debt",
       "reviewBy": "2026-12-01"
     },
     {
-      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:761",
+      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:713",
       "value": "12",
       "category": "debt",
       "reviewBy": "2026-12-01"
