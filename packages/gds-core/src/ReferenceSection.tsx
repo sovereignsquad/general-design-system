@@ -19,6 +19,8 @@ export interface ReferenceSectionProps {
   linkLabel?: ReactNode;
   /** Visual tone of the underlying `SectionPanel`. */
   tone?: SectionPanelTone;
+  /** Optional anchor id, forwarded to `SectionPanel`, so in-page links can jump straight here. */
+  id?: string;
   /** Section body content. */
   children: ReactNode;
 }
@@ -36,12 +38,14 @@ export function ReferenceSection({
   href,
   linkLabel,
   tone = 'default',
+  id,
   children,
 }: ReferenceSectionProps) {
   const { t } = useGdsTranslation();
 
   return (
     <SectionPanel
+      id={id}
       tone={tone}
       eyebrow={eyebrow}
       title={title}

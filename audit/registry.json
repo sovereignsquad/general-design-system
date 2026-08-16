@@ -1,13 +1,13 @@
 {
   "generatedAt": null,
-  "commit": "2b04ef5613c57affd9f4c9b72cf0e6a2e6517594",
+  "commit": "b4287de9c1ffe6c00aa882963dd577ecba20d3c9",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
     "token-referenced": 64,
     "token-emitted": 433,
     "export": 848,
-    "prop": 1100,
+    "prop": 1101,
     "variant": 111,
     "motion-token": 11,
     "motion-shipped": 8,
@@ -30302,7 +30302,17 @@
       "type": "SectionPanelTone"
     },
     {
-      "id": "prop:ReferenceSectionProps.children#2958",
+      "id": "prop:ReferenceSectionProps.id#2958",
+      "kind": "prop",
+      "name": "ReferenceSectionProps.id",
+      "source": {
+        "file": "packages/gds-core/src/ReferenceSection.tsx",
+        "line": 7
+      },
+      "type": "string"
+    },
+    {
+      "id": "prop:ReferenceSectionProps.children#2959",
       "kind": "prop",
       "name": "ReferenceSectionProps.children",
       "source": {
@@ -30312,7 +30322,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.title#2959",
+      "id": "prop:ReportingSectionProps.title#2960",
       "kind": "prop",
       "name": "ReportingSectionProps.title",
       "source": {
@@ -30322,7 +30332,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.description#2960",
+      "id": "prop:ReportingSectionProps.description#2961",
       "kind": "prop",
       "name": "ReportingSectionProps.description",
       "source": {
@@ -30332,7 +30342,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.state#2961",
+      "id": "prop:ReportingSectionProps.state#2962",
       "kind": "prop",
       "name": "ReportingSectionProps.state",
       "source": {
@@ -30342,7 +30352,7 @@
       "type": "ReportingSectionState"
     },
     {
-      "id": "prop:ReportingSectionProps.periodControl#2962",
+      "id": "prop:ReportingSectionProps.periodControl#2963",
       "kind": "prop",
       "name": "ReportingSectionProps.periodControl",
       "source": {
@@ -30352,7 +30362,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.evidence#2963",
+      "id": "prop:ReportingSectionProps.evidence#2964",
       "kind": "prop",
       "name": "ReportingSectionProps.evidence",
       "source": {
@@ -30362,7 +30372,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.metrics#2964",
+      "id": "prop:ReportingSectionProps.metrics#2965",
       "kind": "prop",
       "name": "ReportingSectionProps.metrics",
       "source": {
@@ -30372,7 +30382,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.chart#2965",
+      "id": "prop:ReportingSectionProps.chart#2966",
       "kind": "prop",
       "name": "ReportingSectionProps.chart",
       "source": {
@@ -30382,7 +30392,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.table#2966",
+      "id": "prop:ReportingSectionProps.table#2967",
       "kind": "prop",
       "name": "ReportingSectionProps.table",
       "source": {
@@ -30392,7 +30402,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.action#2967",
+      "id": "prop:ReportingSectionProps.action#2968",
       "kind": "prop",
       "name": "ReportingSectionProps.action",
       "source": {
@@ -30402,7 +30412,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.stateMessage#2968",
+      "id": "prop:ReportingSectionProps.stateMessage#2969",
       "kind": "prop",
       "name": "ReportingSectionProps.stateMessage",
       "source": {
@@ -30412,7 +30422,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ReportingSectionProps.retryAction#2969",
+      "id": "prop:ReportingSectionProps.retryAction#2970",
       "kind": "prop",
       "name": "ReportingSectionProps.retryAction",
       "source": {
@@ -30422,7 +30432,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:GdsSafeStyleProps.background#2970",
+      "id": "prop:GdsSafeStyleProps.background#2971",
       "kind": "prop",
       "name": "GdsSafeStyleProps.background",
       "source": {
@@ -30432,7 +30442,7 @@
       "type": "GdsSemanticBackground"
     },
     {
-      "id": "prop:GdsSafeStyleProps.border#2971",
+      "id": "prop:GdsSafeStyleProps.border#2972",
       "kind": "prop",
       "name": "GdsSafeStyleProps.border",
       "source": {
@@ -30442,7 +30452,7 @@
       "type": "GdsBorderRole"
     },
     {
-      "id": "prop:GdsSafeStyleProps.radius#2972",
+      "id": "prop:GdsSafeStyleProps.radius#2973",
       "kind": "prop",
       "name": "GdsSafeStyleProps.radius",
       "source": {
@@ -30452,7 +30462,7 @@
       "type": "GdsRadiusToken"
     },
     {
-      "id": "prop:GdsSafeStyleProps.shadow#2973",
+      "id": "prop:GdsSafeStyleProps.shadow#2974",
       "kind": "prop",
       "name": "GdsSafeStyleProps.shadow",
       "source": {
@@ -30462,7 +30472,7 @@
       "type": "'none' | 'subtle' | 'raised'"
     },
     {
-      "id": "variant:GdsSafeStyleProps.shadow=none#2974",
+      "id": "variant:GdsSafeStyleProps.shadow=none#2975",
       "kind": "variant",
       "name": "GdsSafeStyleProps.shadow=none",
       "source": {
@@ -30471,7 +30481,7 @@
       }
     },
     {
-      "id": "variant:GdsSafeStyleProps.shadow=subtle#2975",
+      "id": "variant:GdsSafeStyleProps.shadow=subtle#2976",
       "kind": "variant",
       "name": "GdsSafeStyleProps.shadow=subtle",
       "source": {
@@ -30480,7 +30490,7 @@
       }
     },
     {
-      "id": "variant:GdsSafeStyleProps.shadow=raised#2976",
+      "id": "variant:GdsSafeStyleProps.shadow=raised#2977",
       "kind": "variant",
       "name": "GdsSafeStyleProps.shadow=raised",
       "source": {
@@ -30489,7 +30499,7 @@
       }
     },
     {
-      "id": "prop:GdsSafeStyleProps.overflow#2977",
+      "id": "prop:GdsSafeStyleProps.overflow#2978",
       "kind": "prop",
       "name": "GdsSafeStyleProps.overflow",
       "source": {
@@ -30499,7 +30509,7 @@
       "type": "GdsOverflowPolicy"
     },
     {
-      "id": "prop:GdsSafeStyleProps.mediaFit#2978",
+      "id": "prop:GdsSafeStyleProps.mediaFit#2979",
       "kind": "prop",
       "name": "GdsSafeStyleProps.mediaFit",
       "source": {
@@ -30509,7 +30519,7 @@
       "type": "GdsMediaFit"
     },
     {
-      "id": "prop:GdsSafeStyleProps.aspectRatio#2979",
+      "id": "prop:GdsSafeStyleProps.aspectRatio#2980",
       "kind": "prop",
       "name": "GdsSafeStyleProps.aspectRatio",
       "source": {
@@ -30519,7 +30529,7 @@
       "type": "'square' | 'video' | 'photo' | 'wide' | 'portrait'"
     },
     {
-      "id": "variant:GdsSafeStyleProps.aspectRatio=square#2980",
+      "id": "variant:GdsSafeStyleProps.aspectRatio=square#2981",
       "kind": "variant",
       "name": "GdsSafeStyleProps.aspectRatio=square",
       "source": {
@@ -30528,7 +30538,7 @@
       }
     },
     {
-      "id": "variant:GdsSafeStyleProps.aspectRatio=video#2981",
+      "id": "variant:GdsSafeStyleProps.aspectRatio=video#2982",
       "kind": "variant",
       "name": "GdsSafeStyleProps.aspectRatio=video",
       "source": {
@@ -30537,7 +30547,7 @@
       }
     },
     {
-      "id": "variant:GdsSafeStyleProps.aspectRatio=photo#2982",
+      "id": "variant:GdsSafeStyleProps.aspectRatio=photo#2983",
       "kind": "variant",
       "name": "GdsSafeStyleProps.aspectRatio=photo",
       "source": {
@@ -30546,7 +30556,7 @@
       }
     },
     {
-      "id": "variant:GdsSafeStyleProps.aspectRatio=wide#2983",
+      "id": "variant:GdsSafeStyleProps.aspectRatio=wide#2984",
       "kind": "variant",
       "name": "GdsSafeStyleProps.aspectRatio=wide",
       "source": {
@@ -30555,7 +30565,7 @@
       }
     },
     {
-      "id": "variant:GdsSafeStyleProps.aspectRatio=portrait#2984",
+      "id": "variant:GdsSafeStyleProps.aspectRatio=portrait#2985",
       "kind": "variant",
       "name": "GdsSafeStyleProps.aspectRatio=portrait",
       "source": {
@@ -30564,7 +30574,7 @@
       }
     },
     {
-      "id": "prop:GdsSafeStyleProps.inset#2985",
+      "id": "prop:GdsSafeStyleProps.inset#2986",
       "kind": "prop",
       "name": "GdsSafeStyleProps.inset",
       "source": {
@@ -30574,7 +30584,7 @@
       "type": "GdsLayoutToken"
     },
     {
-      "id": "prop:GdsSafeStyleProps.visibility#2986",
+      "id": "prop:GdsSafeStyleProps.visibility#2987",
       "kind": "prop",
       "name": "GdsSafeStyleProps.visibility",
       "source": {
@@ -30584,7 +30594,7 @@
       "type": "GdsResponsiveValue<GdsVisibilityValue>"
     },
     {
-      "id": "prop:GdsSafeStyleProps.focusRing#2987",
+      "id": "prop:GdsSafeStyleProps.focusRing#2988",
       "kind": "prop",
       "name": "GdsSafeStyleProps.focusRing",
       "source": {
@@ -30594,7 +30604,7 @@
       "type": "'default' | 'inset'"
     },
     {
-      "id": "variant:GdsSafeStyleProps.focusRing=default#2988",
+      "id": "variant:GdsSafeStyleProps.focusRing=default#2989",
       "kind": "variant",
       "name": "GdsSafeStyleProps.focusRing=default",
       "source": {
@@ -30603,7 +30613,7 @@
       }
     },
     {
-      "id": "variant:GdsSafeStyleProps.focusRing=inset#2989",
+      "id": "variant:GdsSafeStyleProps.focusRing=inset#2990",
       "kind": "variant",
       "name": "GdsSafeStyleProps.focusRing=inset",
       "source": {
@@ -30612,7 +30622,7 @@
       }
     },
     {
-      "id": "prop:GdsSafeStyleProps.forcedColors#2990",
+      "id": "prop:GdsSafeStyleProps.forcedColors#2991",
       "kind": "prop",
       "name": "GdsSafeStyleProps.forcedColors",
       "source": {
@@ -30622,7 +30632,7 @@
       "type": "'auto' | 'preserve'"
     },
     {
-      "id": "variant:GdsSafeStyleProps.forcedColors=auto#2991",
+      "id": "variant:GdsSafeStyleProps.forcedColors=auto#2992",
       "kind": "variant",
       "name": "GdsSafeStyleProps.forcedColors=auto",
       "source": {
@@ -30631,7 +30641,7 @@
       }
     },
     {
-      "id": "variant:GdsSafeStyleProps.forcedColors=preserve#2992",
+      "id": "variant:GdsSafeStyleProps.forcedColors=preserve#2993",
       "kind": "variant",
       "name": "GdsSafeStyleProps.forcedColors=preserve",
       "source": {
@@ -30640,7 +30650,7 @@
       }
     },
     {
-      "id": "prop:SemanticChartFrameProps.title#2993",
+      "id": "prop:SemanticChartFrameProps.title#2994",
       "kind": "prop",
       "name": "SemanticChartFrameProps.title",
       "source": {
@@ -30650,7 +30660,7 @@
       "type": "string"
     },
     {
-      "id": "prop:SemanticChartFrameProps.summary#2994",
+      "id": "prop:SemanticChartFrameProps.summary#2995",
       "kind": "prop",
       "name": "SemanticChartFrameProps.summary",
       "source": {
@@ -30660,7 +30670,7 @@
       "type": "string"
     },
     {
-      "id": "prop:SemanticChartFrameProps.children#2995",
+      "id": "prop:SemanticChartFrameProps.children#2996",
       "kind": "prop",
       "name": "SemanticChartFrameProps.children",
       "source": {
@@ -30670,7 +30680,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:SemanticChartFrameProps.labelledBy#2996",
+      "id": "prop:SemanticChartFrameProps.labelledBy#2997",
       "kind": "prop",
       "name": "SemanticChartFrameProps.labelledBy",
       "source": {
@@ -30680,7 +30690,7 @@
       "type": "string"
     },
     {
-      "id": "prop:SemanticChartFrameProps.describedBy#2997",
+      "id": "prop:SemanticChartFrameProps.describedBy#2998",
       "kind": "prop",
       "name": "SemanticChartFrameProps.describedBy",
       "source": {
@@ -30690,7 +30700,7 @@
       "type": "string"
     },
     {
-      "id": "prop:ShareButtonGroupProps.url#2998",
+      "id": "prop:ShareButtonGroupProps.url#2999",
       "kind": "prop",
       "name": "ShareButtonGroupProps.url",
       "source": {
@@ -30700,7 +30710,7 @@
       "type": "string"
     },
     {
-      "id": "prop:ShareButtonGroupProps.title#2999",
+      "id": "prop:ShareButtonGroupProps.title#3000",
       "kind": "prop",
       "name": "ShareButtonGroupProps.title",
       "source": {
@@ -30710,7 +30720,7 @@
       "type": "string"
     },
     {
-      "id": "prop:ShareButtonGroupProps.text#3000",
+      "id": "prop:ShareButtonGroupProps.text#3001",
       "kind": "prop",
       "name": "ShareButtonGroupProps.text",
       "source": {
@@ -30720,7 +30730,7 @@
       "type": "string"
     },
     {
-      "id": "prop:ShareButtonGroupProps.channels#3001",
+      "id": "prop:ShareButtonGroupProps.channels#3002",
       "kind": "prop",
       "name": "ShareButtonGroupProps.channels",
       "source": {
@@ -30730,7 +30740,7 @@
       "type": "ShareChannel[]"
     },
     {
-      "id": "prop:ShareButtonGroupProps.compact#3002",
+      "id": "prop:ShareButtonGroupProps.compact#3003",
       "kind": "prop",
       "name": "ShareButtonGroupProps.compact",
       "source": {
@@ -30740,7 +30750,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:ShareButtonGroupProps.label#3003",
+      "id": "prop:ShareButtonGroupProps.label#3004",
       "kind": "prop",
       "name": "ShareButtonGroupProps.label",
       "source": {
@@ -30750,7 +30760,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:ShareButtonGroupProps.description#3004",
+      "id": "prop:ShareButtonGroupProps.description#3005",
       "kind": "prop",
       "name": "ShareButtonGroupProps.description",
       "source": {
@@ -30760,7 +30770,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:SidebarNavProps.children#3005",
+      "id": "prop:SidebarNavProps.children#3006",
       "kind": "prop",
       "name": "SidebarNavProps.children",
       "source": {
@@ -30770,7 +30780,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:SidebarNavProps.ariaLabel#3006",
+      "id": "prop:SidebarNavProps.ariaLabel#3007",
       "kind": "prop",
       "name": "SidebarNavProps.ariaLabel",
       "source": {
@@ -30780,7 +30790,7 @@
       "type": "string"
     },
     {
-      "id": "prop:SidebarNavProps.gap#3007",
+      "id": "prop:SidebarNavProps.gap#3008",
       "kind": "prop",
       "name": "SidebarNavProps.gap",
       "source": {
@@ -30790,7 +30800,7 @@
       "type": "string | number"
     },
     {
-      "id": "prop:SidebarNavSectionProps.label#3008",
+      "id": "prop:SidebarNavSectionProps.label#3009",
       "kind": "prop",
       "name": "SidebarNavSectionProps.label",
       "source": {
@@ -30800,7 +30810,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:SidebarNavSectionProps.children#3009",
+      "id": "prop:SidebarNavSectionProps.children#3010",
       "kind": "prop",
       "name": "SidebarNavSectionProps.children",
       "source": {
@@ -30810,7 +30820,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:SidebarNavSectionProps.pushToBottom#3010",
+      "id": "prop:SidebarNavSectionProps.pushToBottom#3011",
       "kind": "prop",
       "name": "SidebarNavSectionProps.pushToBottom",
       "source": {
@@ -30820,7 +30830,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:SocialAuthButtonsProps.providers#3011",
+      "id": "prop:SocialAuthButtonsProps.providers#3012",
       "kind": "prop",
       "name": "SocialAuthButtonsProps.providers",
       "source": {
@@ -30830,7 +30840,7 @@
       "type": "SocialAuthProviderOption[]"
     },
     {
-      "id": "prop:SocialAuthButtonsProps.title#3012",
+      "id": "prop:SocialAuthButtonsProps.title#3013",
       "kind": "prop",
       "name": "SocialAuthButtonsProps.title",
       "source": {
@@ -30840,7 +30850,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:SocialAuthButtonsProps.description#3013",
+      "id": "prop:SocialAuthButtonsProps.description#3014",
       "kind": "prop",
       "name": "SocialAuthButtonsProps.description",
       "source": {
@@ -30850,7 +30860,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:SocialAuthButtonsProps.layout#3014",
+      "id": "prop:SocialAuthButtonsProps.layout#3015",
       "kind": "prop",
       "name": "SocialAuthButtonsProps.layout",
       "source": {
@@ -30860,7 +30870,7 @@
       "type": "'stack' | 'grid'"
     },
     {
-      "id": "variant:SocialAuthButtonsProps.layout=stack#3015",
+      "id": "variant:SocialAuthButtonsProps.layout=stack#3016",
       "kind": "variant",
       "name": "SocialAuthButtonsProps.layout=stack",
       "source": {
@@ -30869,7 +30879,7 @@
       }
     },
     {
-      "id": "variant:SocialAuthButtonsProps.layout=grid#3016",
+      "id": "variant:SocialAuthButtonsProps.layout=grid#3017",
       "kind": "variant",
       "name": "SocialAuthButtonsProps.layout=grid",
       "source": {
@@ -30878,7 +30888,7 @@
       }
     },
     {
-      "id": "prop:SocialAuthButtonsProps.compact#3017",
+      "id": "prop:SocialAuthButtonsProps.compact#3018",
       "kind": "prop",
       "name": "SocialAuthButtonsProps.compact",
       "source": {
@@ -30888,7 +30898,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:StatsSectionProps.title#3018",
+      "id": "prop:StatsSectionProps.title#3019",
       "kind": "prop",
       "name": "StatsSectionProps.title",
       "source": {
@@ -30898,7 +30908,7 @@
       "type": "string"
     },
     {
-      "id": "prop:StatsSectionProps.loading#3019",
+      "id": "prop:StatsSectionProps.loading#3020",
       "kind": "prop",
       "name": "StatsSectionProps.loading",
       "source": {
@@ -30908,7 +30918,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:StatsSectionProps.error#3020",
+      "id": "prop:StatsSectionProps.error#3021",
       "kind": "prop",
       "name": "StatsSectionProps.error",
       "source": {
@@ -30918,7 +30928,7 @@
       "type": "string | null"
     },
     {
-      "id": "prop:StatsSectionProps.belowThreshold#3021",
+      "id": "prop:StatsSectionProps.belowThreshold#3022",
       "kind": "prop",
       "name": "StatsSectionProps.belowThreshold",
       "source": {
@@ -30928,7 +30938,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:StatsSectionProps.thresholdMessage#3022",
+      "id": "prop:StatsSectionProps.thresholdMessage#3023",
       "kind": "prop",
       "name": "StatsSectionProps.thresholdMessage",
       "source": {
@@ -30938,7 +30948,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:StatsSectionProps.children#3023",
+      "id": "prop:StatsSectionProps.children#3024",
       "kind": "prop",
       "name": "StatsSectionProps.children",
       "source": {
@@ -30948,7 +30958,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:StatsSectionProps.placeholder#3024",
+      "id": "prop:StatsSectionProps.placeholder#3025",
       "kind": "prop",
       "name": "StatsSectionProps.placeholder",
       "source": {
@@ -30958,7 +30968,7 @@
       "type": "Omit<PlaceholderPanelProps, 'mode'>"
     },
     {
-      "id": "prop:GdsTelemetryProviderProps.children#3025",
+      "id": "prop:GdsTelemetryProviderProps.children#3026",
       "kind": "prop",
       "name": "GdsTelemetryProviderProps.children",
       "source": {
@@ -30968,7 +30978,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:GdsTelemetryProviderProps.sink#3026",
+      "id": "prop:GdsTelemetryProviderProps.sink#3027",
       "kind": "prop",
       "name": "GdsTelemetryProviderProps.sink",
       "source": {
@@ -30978,7 +30988,7 @@
       "type": "GdsTelemetrySink"
     },
     {
-      "id": "prop:GdsTelemetryProviderProps.adapter#3027",
+      "id": "prop:GdsTelemetryProviderProps.adapter#3028",
       "kind": "prop",
       "name": "GdsTelemetryProviderProps.adapter",
       "source": {
@@ -30988,7 +30998,7 @@
       "type": "GdsTelemetryAdapter"
     },
     {
-      "id": "prop:GdsTelemetryProviderProps.sampleRate#3028",
+      "id": "prop:GdsTelemetryProviderProps.sampleRate#3029",
       "kind": "prop",
       "name": "GdsTelemetryProviderProps.sampleRate",
       "source": {
@@ -30998,7 +31008,7 @@
       "type": "number"
     },
     {
-      "id": "prop:GdsTelemetryProviderProps.payloadPolicy#3029",
+      "id": "prop:GdsTelemetryProviderProps.payloadPolicy#3030",
       "kind": "prop",
       "name": "GdsTelemetryProviderProps.payloadPolicy",
       "source": {
@@ -31008,7 +31018,7 @@
       "type": "GdsEventPayloadPolicy"
     },
     {
-      "id": "prop:GdsTelemetryProviderProps.onAdapterError#3030",
+      "id": "prop:GdsTelemetryProviderProps.onAdapterError#3031",
       "kind": "prop",
       "name": "GdsTelemetryProviderProps.onAdapterError",
       "source": {
@@ -31018,7 +31028,7 @@
       "type": "(error: unknown, event: GdsOperationalEvent) => void"
     },
     {
-      "id": "prop:ThemeToggleProps.size#3031",
+      "id": "prop:ThemeToggleProps.size#3032",
       "kind": "prop",
       "name": "ThemeToggleProps.size",
       "source": {
@@ -31028,7 +31038,7 @@
       "type": "'sm' | 'md' | 'lg' | 'xl'"
     },
     {
-      "id": "variant:ThemeToggleProps.size=sm#3032",
+      "id": "variant:ThemeToggleProps.size=sm#3033",
       "kind": "variant",
       "name": "ThemeToggleProps.size=sm",
       "source": {
@@ -31037,7 +31047,7 @@
       }
     },
     {
-      "id": "variant:ThemeToggleProps.size=md#3033",
+      "id": "variant:ThemeToggleProps.size=md#3034",
       "kind": "variant",
       "name": "ThemeToggleProps.size=md",
       "source": {
@@ -31046,7 +31056,7 @@
       }
     },
     {
-      "id": "variant:ThemeToggleProps.size=lg#3034",
+      "id": "variant:ThemeToggleProps.size=lg#3035",
       "kind": "variant",
       "name": "ThemeToggleProps.size=lg",
       "source": {
@@ -31055,7 +31065,7 @@
       }
     },
     {
-      "id": "variant:ThemeToggleProps.size=xl#3035",
+      "id": "variant:ThemeToggleProps.size=xl#3036",
       "kind": "variant",
       "name": "ThemeToggleProps.size=xl",
       "source": {
@@ -31064,7 +31074,7 @@
       }
     },
     {
-      "id": "prop:ThemeToggleProps.onColorSchemeChange#3036",
+      "id": "prop:ThemeToggleProps.onColorSchemeChange#3037",
       "kind": "prop",
       "name": "ThemeToggleProps.onColorSchemeChange",
       "source": {
@@ -31074,7 +31084,7 @@
       "type": "(nextScheme: 'light' | 'dark') => void"
     },
     {
-      "id": "variant:ThemeToggleProps.onColorSchemeChange=light#3037",
+      "id": "variant:ThemeToggleProps.onColorSchemeChange=light#3038",
       "kind": "variant",
       "name": "ThemeToggleProps.onColorSchemeChange=light",
       "source": {
@@ -31083,7 +31093,7 @@
       }
     },
     {
-      "id": "variant:ThemeToggleProps.onColorSchemeChange=dark#3038",
+      "id": "variant:ThemeToggleProps.onColorSchemeChange=dark#3039",
       "kind": "variant",
       "name": "ThemeToggleProps.onColorSchemeChange=dark",
       "source": {
@@ -31092,7 +31102,7 @@
       }
     },
     {
-      "id": "prop:GdsTypographyProps.children#3039",
+      "id": "prop:GdsTypographyProps.children#3040",
       "kind": "prop",
       "name": "GdsTypographyProps.children",
       "source": {
@@ -31102,7 +31112,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:GdsTypographyProps.id#3040",
+      "id": "prop:GdsTypographyProps.id#3041",
       "kind": "prop",
       "name": "GdsTypographyProps.id",
       "source": {
@@ -31112,7 +31122,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsTypographyProps.className#3041",
+      "id": "prop:GdsTypographyProps.className#3042",
       "kind": "prop",
       "name": "GdsTypographyProps.className",
       "source": {
@@ -31122,7 +31132,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.title#3042",
+      "id": "prop:UploadDropzoneProps.title#3043",
       "kind": "prop",
       "name": "UploadDropzoneProps.title",
       "source": {
@@ -31132,7 +31142,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.description#3043",
+      "id": "prop:UploadDropzoneProps.description#3044",
       "kind": "prop",
       "name": "UploadDropzoneProps.description",
       "source": {
@@ -31142,7 +31152,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.onFilesSelected#3044",
+      "id": "prop:UploadDropzoneProps.onFilesSelected#3045",
       "kind": "prop",
       "name": "UploadDropzoneProps.onFilesSelected",
       "source": {
@@ -31152,7 +31162,7 @@
       "type": "(files: File[]) => void"
     },
     {
-      "id": "prop:UploadDropzoneProps.accept#3045",
+      "id": "prop:UploadDropzoneProps.accept#3046",
       "kind": "prop",
       "name": "UploadDropzoneProps.accept",
       "source": {
@@ -31162,7 +31172,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.acceptedTypesLabel#3046",
+      "id": "prop:UploadDropzoneProps.acceptedTypesLabel#3047",
       "kind": "prop",
       "name": "UploadDropzoneProps.acceptedTypesLabel",
       "source": {
@@ -31172,7 +31182,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.maxSizeLabel#3047",
+      "id": "prop:UploadDropzoneProps.maxSizeLabel#3048",
       "kind": "prop",
       "name": "UploadDropzoneProps.maxSizeLabel",
       "source": {
@@ -31182,7 +31192,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.multiple#3048",
+      "id": "prop:UploadDropzoneProps.multiple#3049",
       "kind": "prop",
       "name": "UploadDropzoneProps.multiple",
       "source": {
@@ -31192,7 +31202,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:UploadDropzoneProps.actionLabel#3049",
+      "id": "prop:UploadDropzoneProps.actionLabel#3050",
       "kind": "prop",
       "name": "UploadDropzoneProps.actionLabel",
       "source": {
@@ -31202,7 +31212,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.mode#3050",
+      "id": "prop:UploadDropzoneProps.mode#3051",
       "kind": "prop",
       "name": "UploadDropzoneProps.mode",
       "source": {
@@ -31212,7 +31222,7 @@
       "type": "'panel' | 'inline'"
     },
     {
-      "id": "variant:UploadDropzoneProps.mode=panel#3051",
+      "id": "variant:UploadDropzoneProps.mode=panel#3052",
       "kind": "variant",
       "name": "UploadDropzoneProps.mode=panel",
       "source": {
@@ -31221,7 +31231,7 @@
       }
     },
     {
-      "id": "variant:UploadDropzoneProps.mode=inline#3052",
+      "id": "variant:UploadDropzoneProps.mode=inline#3053",
       "kind": "variant",
       "name": "UploadDropzoneProps.mode=inline",
       "source": {
@@ -31230,7 +31240,7 @@
       }
     },
     {
-      "id": "prop:UploadDropzoneProps.state#3053",
+      "id": "prop:UploadDropzoneProps.state#3054",
       "kind": "prop",
       "name": "UploadDropzoneProps.state",
       "source": {
@@ -31240,7 +31250,7 @@
       "type": "UploadDropzoneState"
     },
     {
-      "id": "prop:UploadDropzoneProps.selectedFiles#3054",
+      "id": "prop:UploadDropzoneProps.selectedFiles#3055",
       "kind": "prop",
       "name": "UploadDropzoneProps.selectedFiles",
       "source": {
@@ -31250,7 +31260,7 @@
       "type": "string[]"
     },
     {
-      "id": "prop:UploadDropzoneProps.error#3055",
+      "id": "prop:UploadDropzoneProps.error#3056",
       "kind": "prop",
       "name": "UploadDropzoneProps.error",
       "source": {
@@ -31260,7 +31270,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.policyText#3056",
+      "id": "prop:UploadDropzoneProps.policyText#3057",
       "kind": "prop",
       "name": "UploadDropzoneProps.policyText",
       "source": {
@@ -31270,7 +31280,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.progressValue#3057",
+      "id": "prop:UploadDropzoneProps.progressValue#3058",
       "kind": "prop",
       "name": "UploadDropzoneProps.progressValue",
       "source": {
@@ -31280,7 +31290,7 @@
       "type": "number"
     },
     {
-      "id": "prop:UploadDropzoneProps.inputId#3058",
+      "id": "prop:UploadDropzoneProps.inputId#3059",
       "kind": "prop",
       "name": "UploadDropzoneProps.inputId",
       "source": {
@@ -31290,7 +31300,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.describedBy#3059",
+      "id": "prop:UploadDropzoneProps.describedBy#3060",
       "kind": "prop",
       "name": "UploadDropzoneProps.describedBy",
       "source": {
@@ -31300,7 +31310,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.invalid#3060",
+      "id": "prop:UploadDropzoneProps.invalid#3061",
       "kind": "prop",
       "name": "UploadDropzoneProps.invalid",
       "source": {
@@ -31310,7 +31320,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:UploadDropzoneProps.required#3061",
+      "id": "prop:UploadDropzoneProps.required#3062",
       "kind": "prop",
       "name": "UploadDropzoneProps.required",
       "source": {
@@ -31320,7 +31330,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:UploadDropzoneProps.retryAction#3062",
+      "id": "prop:UploadDropzoneProps.retryAction#3063",
       "kind": "prop",
       "name": "UploadDropzoneProps.retryAction",
       "source": {
@@ -31330,7 +31340,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:UploadDropzoneProps.removeAction#3063",
+      "id": "prop:UploadDropzoneProps.removeAction#3064",
       "kind": "prop",
       "name": "UploadDropzoneProps.removeAction",
       "source": {
@@ -31340,7 +31350,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:UploadDropzoneProps.readonly#3064",
+      "id": "prop:UploadDropzoneProps.readonly#3065",
       "kind": "prop",
       "name": "UploadDropzoneProps.readonly",
       "source": {
@@ -31350,7 +31360,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:GdsProviderProps.children#3065",
+      "id": "prop:GdsProviderProps.children#3066",
       "kind": "prop",
       "name": "GdsProviderProps.children",
       "source": {
@@ -31360,7 +31370,7 @@
       "type": "React.ReactNode"
     },
     {
-      "id": "prop:GdsProviderProps.locale#3066",
+      "id": "prop:GdsProviderProps.locale#3067",
       "kind": "prop",
       "name": "GdsProviderProps.locale",
       "source": {
@@ -31370,7 +31380,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsProviderProps.messages#3067",
+      "id": "prop:GdsProviderProps.messages#3068",
       "kind": "prop",
       "name": "GdsProviderProps.messages",
       "source": {
@@ -31380,7 +31390,7 @@
       "type": "Record<string, string>"
     },
     {
-      "id": "prop:GdsProviderProps.theme#3068",
+      "id": "prop:GdsProviderProps.theme#3069",
       "kind": "prop",
       "name": "GdsProviderProps.theme",
       "source": {
@@ -31390,7 +31400,7 @@
       "type": "MantineThemeOverride"
     },
     {
-      "id": "prop:GdsProviderProps.defaultColorScheme#3069",
+      "id": "prop:GdsProviderProps.defaultColorScheme#3070",
       "kind": "prop",
       "name": "GdsProviderProps.defaultColorScheme",
       "source": {
@@ -31400,7 +31410,7 @@
       "type": "'light' | 'dark' | 'auto'"
     },
     {
-      "id": "variant:GdsProviderProps.defaultColorScheme=light#3070",
+      "id": "variant:GdsProviderProps.defaultColorScheme=light#3071",
       "kind": "variant",
       "name": "GdsProviderProps.defaultColorScheme=light",
       "source": {
@@ -31409,7 +31419,7 @@
       }
     },
     {
-      "id": "variant:GdsProviderProps.defaultColorScheme=dark#3071",
+      "id": "variant:GdsProviderProps.defaultColorScheme=dark#3072",
       "kind": "variant",
       "name": "GdsProviderProps.defaultColorScheme=dark",
       "source": {
@@ -31418,7 +31428,7 @@
       }
     },
     {
-      "id": "variant:GdsProviderProps.defaultColorScheme=auto#3072",
+      "id": "variant:GdsProviderProps.defaultColorScheme=auto#3073",
       "kind": "variant",
       "name": "GdsProviderProps.defaultColorScheme=auto",
       "source": {
@@ -31427,7 +31437,7 @@
       }
     },
     {
-      "id": "prop:GdsProviderProps.forceColorScheme#3073",
+      "id": "prop:GdsProviderProps.forceColorScheme#3074",
       "kind": "prop",
       "name": "GdsProviderProps.forceColorScheme",
       "source": {
@@ -31437,7 +31447,7 @@
       "type": "'light' | 'dark'"
     },
     {
-      "id": "variant:GdsProviderProps.forceColorScheme=light#3074",
+      "id": "variant:GdsProviderProps.forceColorScheme=light#3075",
       "kind": "variant",
       "name": "GdsProviderProps.forceColorScheme=light",
       "source": {
@@ -31446,7 +31456,7 @@
       }
     },
     {
-      "id": "variant:GdsProviderProps.forceColorScheme=dark#3075",
+      "id": "variant:GdsProviderProps.forceColorScheme=dark#3076",
       "kind": "variant",
       "name": "GdsProviderProps.forceColorScheme=dark",
       "source": {
@@ -31455,7 +31465,7 @@
       }
     },
     {
-      "id": "prop:GdsProviderProps.colorSchemeRootElement#3076",
+      "id": "prop:GdsProviderProps.colorSchemeRootElement#3077",
       "kind": "prop",
       "name": "GdsProviderProps.colorSchemeRootElement",
       "source": {
@@ -31465,7 +31475,7 @@
       "type": "() => HTMLElement | undefined"
     },
     {
-      "id": "prop:GdsProviderProps.cssVariablesSelector#3077",
+      "id": "prop:GdsProviderProps.cssVariablesSelector#3078",
       "kind": "prop",
       "name": "GdsProviderProps.cssVariablesSelector",
       "source": {
@@ -31475,7 +31485,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsProviderProps.applyDocumentColorScheme#3078",
+      "id": "prop:GdsProviderProps.applyDocumentColorScheme#3079",
       "kind": "prop",
       "name": "GdsProviderProps.applyDocumentColorScheme",
       "source": {
@@ -31485,7 +31495,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:GdsProviderProps.overlayAdapter#3079",
+      "id": "prop:GdsProviderProps.overlayAdapter#3080",
       "kind": "prop",
       "name": "GdsProviderProps.overlayAdapter",
       "source": {
@@ -31495,7 +31505,7 @@
       "type": "OverlayAdapter"
     },
     {
-      "id": "prop:GdsProviderProps.defaultBadgeIconStyle#3080",
+      "id": "prop:GdsProviderProps.defaultBadgeIconStyle#3081",
       "kind": "prop",
       "name": "GdsProviderProps.defaultBadgeIconStyle",
       "source": {
@@ -31505,7 +31515,7 @@
       "type": "GdsBadgeIconStyle"
     },
     {
-      "id": "prop:GdsProviderProps.themeApplicationMode#3081",
+      "id": "prop:GdsProviderProps.themeApplicationMode#3082",
       "kind": "prop",
       "name": "GdsProviderProps.themeApplicationMode",
       "source": {
@@ -31515,7 +31525,7 @@
       "type": "GdsThemeApplicationMode"
     },
     {
-      "id": "prop:GdsProviderProps.reloadOnThemeChange#3082",
+      "id": "prop:GdsProviderProps.reloadOnThemeChange#3083",
       "kind": "prop",
       "name": "GdsProviderProps.reloadOnThemeChange",
       "source": {
@@ -31525,7 +31535,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:GdsProviderProps.onBeforeThemeApply#3083",
+      "id": "prop:GdsProviderProps.onBeforeThemeApply#3084",
       "kind": "prop",
       "name": "GdsProviderProps.onBeforeThemeApply",
       "source": {
@@ -31535,7 +31545,7 @@
       "type": "(next: GdsThemeIdentity, previous: GdsThemeIdentity) => void"
     },
     {
-      "id": "prop:GdsProviderProps.onAfterThemeApply#3084",
+      "id": "prop:GdsProviderProps.onAfterThemeApply#3085",
       "kind": "prop",
       "name": "GdsProviderProps.onAfterThemeApply",
       "source": {
@@ -31545,7 +31555,7 @@
       "type": "(identity: GdsThemeIdentity) => void"
     },
     {
-      "id": "prop:GdsThemeBoundaryProps.preset#3085",
+      "id": "prop:GdsThemeBoundaryProps.preset#3086",
       "kind": "prop",
       "name": "GdsThemeBoundaryProps.preset",
       "source": {
@@ -31555,7 +31565,7 @@
       "type": "GdsThemePresetId | string"
     },
     {
-      "id": "prop:GdsThemeBoundaryProps.colorScheme#3086",
+      "id": "prop:GdsThemeBoundaryProps.colorScheme#3087",
       "kind": "prop",
       "name": "GdsThemeBoundaryProps.colorScheme",
       "source": {
@@ -31565,7 +31575,7 @@
       "type": "'light' | 'dark'"
     },
     {
-      "id": "variant:GdsThemeBoundaryProps.colorScheme=light#3087",
+      "id": "variant:GdsThemeBoundaryProps.colorScheme=light#3088",
       "kind": "variant",
       "name": "GdsThemeBoundaryProps.colorScheme=light",
       "source": {
@@ -31574,7 +31584,7 @@
       }
     },
     {
-      "id": "variant:GdsThemeBoundaryProps.colorScheme=dark#3088",
+      "id": "variant:GdsThemeBoundaryProps.colorScheme=dark#3089",
       "kind": "variant",
       "name": "GdsThemeBoundaryProps.colorScheme=dark",
       "source": {
@@ -31583,7 +31593,7 @@
       }
     },
     {
-      "id": "prop:GdsThemeBoundaryProps.extra#3089",
+      "id": "prop:GdsThemeBoundaryProps.extra#3090",
       "kind": "prop",
       "name": "GdsThemeBoundaryProps.extra",
       "source": {
@@ -31593,7 +31603,7 @@
       "type": "Record<string, string | number | boolean | undefined>"
     },
     {
-      "id": "prop:GdsThemeBoundaryProps.children#3090",
+      "id": "prop:GdsThemeBoundaryProps.children#3091",
       "kind": "prop",
       "name": "GdsThemeBoundaryProps.children",
       "source": {
@@ -31603,7 +31613,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:VibeThemePickerProps.value#3091",
+      "id": "prop:VibeThemePickerProps.value#3092",
       "kind": "prop",
       "name": "VibeThemePickerProps.value",
       "source": {
@@ -31613,7 +31623,7 @@
       "type": "GdsThemePresetId"
     },
     {
-      "id": "prop:VibeThemePickerProps.onChange#3092",
+      "id": "prop:VibeThemePickerProps.onChange#3093",
       "kind": "prop",
       "name": "VibeThemePickerProps.onChange",
       "source": {
@@ -31623,7 +31633,7 @@
       "type": "(id: GdsThemePresetId) => void"
     },
     {
-      "id": "prop:VibeThemePickerProps.label#3093",
+      "id": "prop:VibeThemePickerProps.label#3094",
       "kind": "prop",
       "name": "VibeThemePickerProps.label",
       "source": {
@@ -31633,7 +31643,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsVibeThemeScopeProps.presetId#3094",
+      "id": "prop:GdsVibeThemeScopeProps.presetId#3095",
       "kind": "prop",
       "name": "GdsVibeThemeScopeProps.presetId",
       "source": {
@@ -31643,7 +31653,7 @@
       "type": "GdsThemePresetId"
     },
     {
-      "id": "prop:GdsVibeThemeScopeProps.scheme#3095",
+      "id": "prop:GdsVibeThemeScopeProps.scheme#3096",
       "kind": "prop",
       "name": "GdsVibeThemeScopeProps.scheme",
       "source": {
@@ -31653,7 +31663,7 @@
       "type": "'light' | 'dark'"
     },
     {
-      "id": "variant:GdsVibeThemeScopeProps.scheme=light#3096",
+      "id": "variant:GdsVibeThemeScopeProps.scheme=light#3097",
       "kind": "variant",
       "name": "GdsVibeThemeScopeProps.scheme=light",
       "source": {
@@ -31662,7 +31672,7 @@
       }
     },
     {
-      "id": "variant:GdsVibeThemeScopeProps.scheme=dark#3097",
+      "id": "variant:GdsVibeThemeScopeProps.scheme=dark#3098",
       "kind": "variant",
       "name": "GdsVibeThemeScopeProps.scheme=dark",
       "source": {
@@ -31671,7 +31681,7 @@
       }
     },
     {
-      "id": "prop:GdsVibeThemeScopeProps.children#3098",
+      "id": "prop:GdsVibeThemeScopeProps.children#3099",
       "kind": "prop",
       "name": "GdsVibeThemeScopeProps.children",
       "source": {
@@ -31681,7 +31691,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:GdsVibeThemeScopeProps.className#3099",
+      "id": "prop:GdsVibeThemeScopeProps.className#3100",
       "kind": "prop",
       "name": "GdsVibeThemeScopeProps.className",
       "source": {
@@ -31691,7 +31701,7 @@
       "type": "string"
     },
     {
-      "id": "motion-token:instant#3100",
+      "id": "motion-token:instant#3101",
       "kind": "motion-token",
       "name": "instant",
       "source": {
@@ -31700,7 +31710,7 @@
       }
     },
     {
-      "id": "motion-token:fast#3101",
+      "id": "motion-token:fast#3102",
       "kind": "motion-token",
       "name": "fast",
       "source": {
@@ -31709,7 +31719,7 @@
       }
     },
     {
-      "id": "motion-token:base#3102",
+      "id": "motion-token:base#3103",
       "kind": "motion-token",
       "name": "base",
       "source": {
@@ -31718,7 +31728,7 @@
       }
     },
     {
-      "id": "motion-token:slow#3103",
+      "id": "motion-token:slow#3104",
       "kind": "motion-token",
       "name": "slow",
       "source": {
@@ -31727,7 +31737,7 @@
       }
     },
     {
-      "id": "motion-token:slower#3104",
+      "id": "motion-token:slower#3105",
       "kind": "motion-token",
       "name": "slower",
       "source": {
@@ -31736,7 +31746,7 @@
       }
     },
     {
-      "id": "motion-token:ambient#3105",
+      "id": "motion-token:ambient#3106",
       "kind": "motion-token",
       "name": "ambient",
       "source": {
@@ -31745,7 +31755,7 @@
       }
     },
     {
-      "id": "motion-token:standard#3106",
+      "id": "motion-token:standard#3107",
       "kind": "motion-token",
       "name": "standard",
       "source": {
@@ -31754,7 +31764,7 @@
       }
     },
     {
-      "id": "motion-token:entrance#3107",
+      "id": "motion-token:entrance#3108",
       "kind": "motion-token",
       "name": "entrance",
       "source": {
@@ -31763,7 +31773,7 @@
       }
     },
     {
-      "id": "motion-token:exit#3108",
+      "id": "motion-token:exit#3109",
       "kind": "motion-token",
       "name": "exit",
       "source": {
@@ -31772,7 +31782,7 @@
       }
     },
     {
-      "id": "motion-token:emphasis#3109",
+      "id": "motion-token:emphasis#3110",
       "kind": "motion-token",
       "name": "emphasis",
       "source": {
@@ -31781,7 +31791,7 @@
       }
     },
     {
-      "id": "motion-token:linear#3110",
+      "id": "motion-token:linear#3111",
       "kind": "motion-token",
       "name": "linear",
       "source": {
@@ -31790,7 +31800,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3111",
+      "id": "motion-shipped:transition#3112",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -31799,7 +31809,7 @@
       }
     },
     {
-      "id": "motion-shipped:animation#3112",
+      "id": "motion-shipped:animation#3113",
       "kind": "motion-shipped",
       "name": "animation",
       "source": {
@@ -31808,7 +31818,7 @@
       }
     },
     {
-      "id": "motion-shipped:animation#3113",
+      "id": "motion-shipped:animation#3114",
       "kind": "motion-shipped",
       "name": "animation",
       "source": {
@@ -31817,7 +31827,7 @@
       }
     },
     {
-      "id": "motion-shipped:animation#3114",
+      "id": "motion-shipped:animation#3115",
       "kind": "motion-shipped",
       "name": "animation",
       "source": {
@@ -31826,7 +31836,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3115",
+      "id": "motion-shipped:transition#3116",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -31835,7 +31845,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3116",
+      "id": "motion-shipped:transition#3117",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -31844,7 +31854,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3117",
+      "id": "motion-shipped:transition#3118",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -31853,7 +31863,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3118",
+      "id": "motion-shipped:transition#3119",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -31862,7 +31872,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-chat-typing#3119",
+      "id": "motion-keyframes:gds-chat-typing#3120",
       "kind": "motion-keyframes",
       "name": "gds-chat-typing",
       "source": {
@@ -31871,7 +31881,7 @@
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#3120",
+      "id": "motion-reduced-guard:prefers-reduced-motion#3121",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
@@ -31880,7 +31890,7 @@
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#3121",
+      "id": "motion-reduced-guard:prefers-reduced-motion#3122",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
@@ -31889,7 +31899,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3122",
+      "id": "interaction-state:focus-visible#3123",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31898,7 +31908,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3123",
+      "id": "interaction-state:focus-visible#3124",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31907,7 +31917,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3124",
+      "id": "interaction-state:focus-visible#3125",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31916,7 +31926,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3125",
+      "id": "interaction-state:focus-visible#3126",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31925,7 +31935,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3126",
+      "id": "interaction-state:focus-visible#3127",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31934,7 +31944,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3127",
+      "id": "interaction-state:focus-visible#3128",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31943,7 +31953,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3128",
+      "id": "interaction-state:focus-visible#3129",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31952,7 +31962,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3129",
+      "id": "interaction-state:focus-visible#3130",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31961,7 +31971,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3130",
+      "id": "interaction-state:focus-visible#3131",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31970,7 +31980,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3131",
+      "id": "interaction-state:focus-visible#3132",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31979,7 +31989,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3132",
+      "id": "interaction-state:focus-visible#3133",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31988,7 +31998,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3133",
+      "id": "interaction-state:focus-visible#3134",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -31997,7 +32007,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3134",
+      "id": "interaction-state:focus-visible#3135",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32006,7 +32016,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3135",
+      "id": "interaction-state:focus-visible#3136",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32015,7 +32025,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3136",
+      "id": "interaction-state:focus-visible#3137",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32024,7 +32034,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3137",
+      "id": "interaction-state:focus-visible#3138",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32033,7 +32043,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3138",
+      "id": "interaction-state:focus-visible#3139",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32042,7 +32052,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3139",
+      "id": "interaction-state:focus-visible#3140",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32051,7 +32061,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3140",
+      "id": "interaction-state:focus-visible#3141",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32060,7 +32070,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3141",
+      "id": "interaction-state:focus-visible#3142",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32069,7 +32079,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3142",
+      "id": "interaction-state:focus-visible#3143",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32078,7 +32088,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3143",
+      "id": "interaction-state:focus-visible#3144",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32087,7 +32097,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#3144",
+      "id": "interaction-state:disabled#3145",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -32096,7 +32106,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#3145",
+      "id": "interaction-state:disabled#3146",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -32105,7 +32115,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#3146",
+      "id": "interaction-state:disabled#3147",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -32114,7 +32124,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#3147",
+      "id": "interaction-state:disabled#3148",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -32123,7 +32133,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3148",
+      "id": "interaction-state:focus-visible#3149",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32132,7 +32142,7 @@
       }
     },
     {
-      "id": "interaction-state:hover#3149",
+      "id": "interaction-state:hover#3150",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
@@ -32141,7 +32151,7 @@
       }
     },
     {
-      "id": "interaction-state:hover#3150",
+      "id": "interaction-state:hover#3151",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
@@ -32150,7 +32160,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3151",
+      "id": "interaction-state:focus-visible#3152",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -32159,7 +32169,7 @@
       }
     },
     {
-      "id": "locale-pack-package:ar#3152",
+      "id": "locale-pack-package:ar#3153",
       "kind": "locale-pack-package",
       "name": "ar",
       "source": {
@@ -32169,7 +32179,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:de#3153",
+      "id": "locale-pack-package:de#3154",
       "kind": "locale-pack-package",
       "name": "de",
       "source": {
@@ -32179,7 +32189,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:en#3154",
+      "id": "locale-pack-package:en#3155",
       "kind": "locale-pack-package",
       "name": "en",
       "source": {
@@ -32189,7 +32199,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:es#3155",
+      "id": "locale-pack-package:es#3156",
       "kind": "locale-pack-package",
       "name": "es",
       "source": {
@@ -32199,7 +32209,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:fr#3156",
+      "id": "locale-pack-package:fr#3157",
       "kind": "locale-pack-package",
       "name": "fr",
       "source": {
@@ -32209,7 +32219,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:he#3157",
+      "id": "locale-pack-package:he#3158",
       "kind": "locale-pack-package",
       "name": "he",
       "source": {
@@ -32219,7 +32229,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:hu#3158",
+      "id": "locale-pack-package:hu#3159",
       "kind": "locale-pack-package",
       "name": "hu",
       "source": {
@@ -32229,7 +32239,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:it#3159",
+      "id": "locale-pack-package:it#3160",
       "kind": "locale-pack-package",
       "name": "it",
       "source": {
@@ -32239,7 +32249,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:ja#3160",
+      "id": "locale-pack-package:ja#3161",
       "kind": "locale-pack-package",
       "name": "ja",
       "source": {
@@ -32249,7 +32259,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:ko#3161",
+      "id": "locale-pack-package:ko#3162",
       "kind": "locale-pack-package",
       "name": "ko",
       "source": {
@@ -32259,7 +32269,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:ru#3162",
+      "id": "locale-pack-package:ru#3163",
       "kind": "locale-pack-package",
       "name": "ru",
       "source": {
@@ -32269,7 +32279,7 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-package:zh#3163",
+      "id": "locale-pack-package:zh#3164",
       "kind": "locale-pack-package",
       "name": "zh",
       "source": {
@@ -32279,117 +32289,117 @@
       "keyCount": 265
     },
     {
-      "id": "locale-pack-site:ar#3164",
+      "id": "locale-pack-site:ar#3165",
       "kind": "locale-pack-site",
       "name": "ar",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/ar.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:de#3165",
+      "id": "locale-pack-site:de#3166",
       "kind": "locale-pack-site",
       "name": "de",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/de.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:es#3166",
+      "id": "locale-pack-site:es#3167",
       "kind": "locale-pack-site",
       "name": "es",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/es.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:fr#3167",
+      "id": "locale-pack-site:fr#3168",
       "kind": "locale-pack-site",
       "name": "fr",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/fr.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:he#3168",
+      "id": "locale-pack-site:he#3169",
       "kind": "locale-pack-site",
       "name": "he",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/he.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:hu#3169",
+      "id": "locale-pack-site:hu#3170",
       "kind": "locale-pack-site",
       "name": "hu",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/hu.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:it#3170",
+      "id": "locale-pack-site:it#3171",
       "kind": "locale-pack-site",
       "name": "it",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/it.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:ja#3171",
+      "id": "locale-pack-site:ja#3172",
       "kind": "locale-pack-site",
       "name": "ja",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/ja.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:ko#3172",
+      "id": "locale-pack-site:ko#3173",
       "kind": "locale-pack-site",
       "name": "ko",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/ko.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:ru#3173",
+      "id": "locale-pack-site:ru#3174",
       "kind": "locale-pack-site",
       "name": "ru",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/ru.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "locale-pack-site:zh#3174",
+      "id": "locale-pack-site:zh#3175",
       "kind": "locale-pack-site",
       "name": "zh",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/zh.ts",
         "line": 1
       },
-      "keyCount": 2004
+      "keyCount": 2008
     },
     {
-      "id": "route:/#3175",
+      "id": "route:/#3176",
       "kind": "route",
       "name": "/",
       "source": {
@@ -32398,7 +32408,7 @@
       }
     },
     {
-      "id": "route:/patterns#3176",
+      "id": "route:/patterns#3177",
       "kind": "route",
       "name": "/patterns",
       "source": {
@@ -32407,7 +32417,7 @@
       }
     },
     {
-      "id": "route:/foundations#3177",
+      "id": "route:/foundations#3178",
       "kind": "route",
       "name": "/foundations",
       "source": {
@@ -32416,7 +32426,7 @@
       }
     },
     {
-      "id": "route:/patterns/public#3178",
+      "id": "route:/patterns/public#3179",
       "kind": "route",
       "name": "/patterns/public",
       "source": {
@@ -32425,7 +32435,7 @@
       }
     },
     {
-      "id": "route:/patterns/operations#3179",
+      "id": "route:/patterns/operations#3180",
       "kind": "route",
       "name": "/patterns/operations",
       "source": {
@@ -32434,7 +32444,7 @@
       }
     },
     {
-      "id": "route:/patterns/data#3180",
+      "id": "route:/patterns/data#3181",
       "kind": "route",
       "name": "/patterns/data",
       "source": {
@@ -32443,7 +32453,7 @@
       }
     },
     {
-      "id": "route:/patterns/access#3181",
+      "id": "route:/patterns/access#3182",
       "kind": "route",
       "name": "/patterns/access",
       "source": {
@@ -32452,7 +32462,7 @@
       }
     },
     {
-      "id": "route:/patterns/feedback#3182",
+      "id": "route:/patterns/feedback#3183",
       "kind": "route",
       "name": "/patterns/feedback",
       "source": {
@@ -32461,7 +32471,7 @@
       }
     },
     {
-      "id": "route:/components#3183",
+      "id": "route:/components#3184",
       "kind": "route",
       "name": "/components",
       "source": {
@@ -32470,7 +32480,7 @@
       }
     },
     {
-      "id": "route:/systems#3184",
+      "id": "route:/systems#3185",
       "kind": "route",
       "name": "/systems",
       "source": {
@@ -32479,7 +32489,7 @@
       }
     },
     {
-      "id": "route:/coverage#3185",
+      "id": "route:/coverage#3186",
       "kind": "route",
       "name": "/coverage",
       "source": {
@@ -32488,7 +32498,7 @@
       }
     },
     {
-      "id": "route:/api#3186",
+      "id": "route:/api#3187",
       "kind": "route",
       "name": "/api",
       "source": {
@@ -32497,7 +32507,7 @@
       }
     },
     {
-      "id": "route:/maturity#3187",
+      "id": "route:/maturity#3188",
       "kind": "route",
       "name": "/maturity",
       "source": {
@@ -32506,7 +32516,7 @@
       }
     },
     {
-      "id": "route:/use-cases#3188",
+      "id": "route:/use-cases#3189",
       "kind": "route",
       "name": "/use-cases",
       "source": {
@@ -32515,7 +32525,7 @@
       }
     },
     {
-      "id": "route:/install#3189",
+      "id": "route:/install#3190",
       "kind": "route",
       "name": "/install",
       "source": {
@@ -32524,7 +32534,7 @@
       }
     },
     {
-      "id": "route:/governance#3190",
+      "id": "route:/governance#3191",
       "kind": "route",
       "name": "/governance",
       "source": {
@@ -32533,7 +32543,7 @@
       }
     },
     {
-      "id": "route:/themes#3191",
+      "id": "route:/themes#3192",
       "kind": "route",
       "name": "/themes",
       "source": {
@@ -32542,7 +32552,7 @@
       }
     },
     {
-      "id": "route:/live-proofs#3192",
+      "id": "route:/live-proofs#3193",
       "kind": "route",
       "name": "/live-proofs",
       "source": {
@@ -32551,7 +32561,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/surfaces#3193",
+      "id": "route:/live-proofs/surfaces#3194",
       "kind": "route",
       "name": "/live-proofs/surfaces",
       "source": {
@@ -32560,7 +32570,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/layouts#3194",
+      "id": "route:/live-proofs/layouts#3195",
       "kind": "route",
       "name": "/live-proofs/layouts",
       "source": {
@@ -32569,7 +32579,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/semantics#3195",
+      "id": "route:/live-proofs/semantics#3196",
       "kind": "route",
       "name": "/live-proofs/semantics",
       "source": {
@@ -32578,7 +32588,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/food#3196",
+      "id": "route:/live-proofs/food#3197",
       "kind": "route",
       "name": "/live-proofs/food",
       "source": {
@@ -32587,7 +32597,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/playback#3197",
+      "id": "route:/live-proofs/playback#3198",
       "kind": "route",
       "name": "/live-proofs/playback",
       "source": {
@@ -32596,7 +32606,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/analytics#3198",
+      "id": "route:/live-proofs/analytics#3199",
       "kind": "route",
       "name": "/live-proofs/analytics",
       "source": {
@@ -32605,7 +32615,7 @@
       }
     },
     {
-      "id": "route:/request-feature#3199",
+      "id": "route:/request-feature#3200",
       "kind": "route",
       "name": "/request-feature",
       "source": {
@@ -32614,7 +32624,7 @@
       }
     },
     {
-      "id": "route:/ai#3200",
+      "id": "route:/ai#3201",
       "kind": "route",
       "name": "/ai",
       "source": {
@@ -32623,7 +32633,7 @@
       }
     },
     {
-      "id": "pattern:stable-shell#3201",
+      "id": "pattern:stable-shell#3202",
       "kind": "pattern",
       "name": "stable-shell",
       "source": {
@@ -32632,7 +32642,7 @@
       }
     },
     {
-      "id": "pattern:primary-navigation#3202",
+      "id": "pattern:primary-navigation#3203",
       "kind": "pattern",
       "name": "primary-navigation",
       "source": {
@@ -32641,7 +32651,7 @@
       }
     },
     {
-      "id": "pattern:mobile-navigation#3203",
+      "id": "pattern:mobile-navigation#3204",
       "kind": "pattern",
       "name": "mobile-navigation",
       "source": {
@@ -32650,7 +32660,7 @@
       }
     },
     {
-      "id": "pattern:page-headers#3204",
+      "id": "pattern:page-headers#3205",
       "kind": "pattern",
       "name": "page-headers",
       "source": {
@@ -32659,7 +32669,7 @@
       }
     },
     {
-      "id": "pattern:theme-toggle#3205",
+      "id": "pattern:theme-toggle#3206",
       "kind": "pattern",
       "name": "theme-toggle",
       "source": {
@@ -32668,7 +32678,7 @@
       }
     },
     {
-      "id": "pattern:form-field#3206",
+      "id": "pattern:form-field#3207",
       "kind": "pattern",
       "name": "form-field",
       "source": {
@@ -32677,7 +32687,7 @@
       }
     },
     {
-      "id": "pattern:game-board-tile#3207",
+      "id": "pattern:game-board-tile#3208",
       "kind": "pattern",
       "name": "game-board-tile",
       "source": {
@@ -32686,7 +32696,7 @@
       }
     },
     {
-      "id": "pattern:shell-contracts#3208",
+      "id": "pattern:shell-contracts#3209",
       "kind": "pattern",
       "name": "shell-contracts",
       "source": {
@@ -32695,7 +32705,7 @@
       }
     },
     {
-      "id": "pattern:discovery-shell#3209",
+      "id": "pattern:discovery-shell#3210",
       "kind": "pattern",
       "name": "discovery-shell",
       "source": {
@@ -32704,7 +32714,7 @@
       }
     },
     {
-      "id": "pattern:sidebar-navigation#3210",
+      "id": "pattern:sidebar-navigation#3211",
       "kind": "pattern",
       "name": "sidebar-navigation",
       "source": {
@@ -32713,7 +32723,7 @@
       }
     },
     {
-      "id": "pattern:dashboards#3211",
+      "id": "pattern:dashboards#3212",
       "kind": "pattern",
       "name": "dashboards",
       "source": {
@@ -32722,7 +32732,7 @@
       }
     },
     {
-      "id": "pattern:forms#3212",
+      "id": "pattern:forms#3213",
       "kind": "pattern",
       "name": "forms",
       "source": {
@@ -32731,7 +32741,7 @@
       }
     },
     {
-      "id": "pattern:admin-editor-flows#3213",
+      "id": "pattern:admin-editor-flows#3214",
       "kind": "pattern",
       "name": "admin-editor-flows",
       "source": {
@@ -32740,7 +32750,7 @@
       }
     },
     {
-      "id": "pattern:search-filters-lists#3214",
+      "id": "pattern:search-filters-lists#3215",
       "kind": "pattern",
       "name": "search-filters-lists",
       "source": {
@@ -32749,7 +32759,7 @@
       }
     },
     {
-      "id": "pattern:destructive-actions#3215",
+      "id": "pattern:destructive-actions#3216",
       "kind": "pattern",
       "name": "destructive-actions",
       "source": {
@@ -32758,7 +32768,7 @@
       }
     },
     {
-      "id": "pattern:pattern-service-reuse#3216",
+      "id": "pattern:pattern-service-reuse#3217",
       "kind": "pattern",
       "name": "pattern-service-reuse",
       "source": {
@@ -32767,7 +32777,7 @@
       }
     },
     {
-      "id": "pattern:maturity-capabilities#3217",
+      "id": "pattern:maturity-capabilities#3218",
       "kind": "pattern",
       "name": "maturity-capabilities",
       "source": {
@@ -32776,7 +32786,7 @@
       }
     },
     {
-      "id": "pattern:semantic-actions#3218",
+      "id": "pattern:semantic-actions#3219",
       "kind": "pattern",
       "name": "semantic-actions",
       "source": {
@@ -32785,7 +32795,7 @@
       }
     },
     {
-      "id": "pattern:detail-surfaces#3219",
+      "id": "pattern:detail-surfaces#3220",
       "kind": "pattern",
       "name": "detail-surfaces",
       "source": {
@@ -32794,7 +32804,7 @@
       }
     },
     {
-      "id": "pattern:embed-surfaces#3220",
+      "id": "pattern:embed-surfaces#3221",
       "kind": "pattern",
       "name": "embed-surfaces",
       "source": {
@@ -32803,7 +32813,7 @@
       }
     },
     {
-      "id": "pattern:buttons#3221",
+      "id": "pattern:buttons#3222",
       "kind": "pattern",
       "name": "buttons",
       "source": {
@@ -32812,7 +32822,7 @@
       }
     },
     {
-      "id": "pattern:choice-chips#3222",
+      "id": "pattern:choice-chips#3223",
       "kind": "pattern",
       "name": "choice-chips",
       "source": {
@@ -32821,7 +32831,7 @@
       }
     },
     {
-      "id": "pattern:icon-buttons#3223",
+      "id": "pattern:icon-buttons#3224",
       "kind": "pattern",
       "name": "icon-buttons",
       "source": {
@@ -32830,7 +32840,7 @@
       }
     },
     {
-      "id": "pattern:inputs#3224",
+      "id": "pattern:inputs#3225",
       "kind": "pattern",
       "name": "inputs",
       "source": {
@@ -32839,7 +32849,7 @@
       }
     },
     {
-      "id": "pattern:selects-combobox#3225",
+      "id": "pattern:selects-combobox#3226",
       "kind": "pattern",
       "name": "selects-combobox",
       "source": {
@@ -32848,7 +32858,7 @@
       }
     },
     {
-      "id": "pattern:checkboxes-radios#3226",
+      "id": "pattern:checkboxes-radios#3227",
       "kind": "pattern",
       "name": "checkboxes-radios",
       "source": {
@@ -32857,7 +32867,7 @@
       }
     },
     {
-      "id": "pattern:product-cards#3227",
+      "id": "pattern:product-cards#3228",
       "kind": "pattern",
       "name": "product-cards",
       "source": {
@@ -32866,7 +32876,7 @@
       }
     },
     {
-      "id": "pattern:public-product-cards#3228",
+      "id": "pattern:public-product-cards#3229",
       "kind": "pattern",
       "name": "public-product-cards",
       "source": {
@@ -32875,7 +32885,7 @@
       }
     },
     {
-      "id": "pattern:media-card#3229",
+      "id": "pattern:media-card#3230",
       "kind": "pattern",
       "name": "media-card",
       "source": {
@@ -32884,7 +32894,7 @@
       }
     },
     {
-      "id": "pattern:accent-panels#3230",
+      "id": "pattern:accent-panels#3231",
       "kind": "pattern",
       "name": "accent-panels",
       "source": {
@@ -32893,7 +32903,7 @@
       }
     },
     {
-      "id": "pattern:metric-cards#3231",
+      "id": "pattern:metric-cards#3232",
       "kind": "pattern",
       "name": "metric-cards",
       "source": {
@@ -32902,7 +32912,7 @@
       }
     },
     {
-      "id": "pattern:data-toolbars#3232",
+      "id": "pattern:data-toolbars#3233",
       "kind": "pattern",
       "name": "data-toolbars",
       "source": {
@@ -32911,7 +32921,7 @@
       }
     },
     {
-      "id": "pattern:state-blocks#3233",
+      "id": "pattern:state-blocks#3234",
       "kind": "pattern",
       "name": "state-blocks",
       "source": {
@@ -32920,7 +32930,7 @@
       }
     },
     {
-      "id": "pattern:surface-presentation#3234",
+      "id": "pattern:surface-presentation#3235",
       "kind": "pattern",
       "name": "surface-presentation",
       "source": {
@@ -32929,7 +32939,7 @@
       }
     },
     {
-      "id": "pattern:action-bar#3235",
+      "id": "pattern:action-bar#3236",
       "kind": "pattern",
       "name": "action-bar",
       "source": {
@@ -32938,7 +32948,7 @@
       }
     },
     {
-      "id": "pattern:listing-card#3236",
+      "id": "pattern:listing-card#3237",
       "kind": "pattern",
       "name": "listing-card",
       "source": {
@@ -32947,7 +32957,7 @@
       }
     },
     {
-      "id": "pattern:share-button-group#3237",
+      "id": "pattern:share-button-group#3238",
       "kind": "pattern",
       "name": "share-button-group",
       "source": {
@@ -32956,7 +32966,7 @@
       }
     },
     {
-      "id": "pattern:public-food-card#3238",
+      "id": "pattern:public-food-card#3239",
       "kind": "pattern",
       "name": "public-food-card",
       "source": {
@@ -32965,7 +32975,7 @@
       }
     },
     {
-      "id": "pattern:food-menu-section#3239",
+      "id": "pattern:food-menu-section#3240",
       "kind": "pattern",
       "name": "food-menu-section",
       "source": {
@@ -32974,7 +32984,7 @@
       }
     },
     {
-      "id": "pattern:map-panel#3240",
+      "id": "pattern:map-panel#3241",
       "kind": "pattern",
       "name": "map-panel",
       "source": {
@@ -32983,7 +32993,7 @@
       }
     },
     {
-      "id": "pattern:detail-profile-shell#3241",
+      "id": "pattern:detail-profile-shell#3242",
       "kind": "pattern",
       "name": "detail-profile-shell",
       "source": {
@@ -32992,7 +33002,7 @@
       }
     },
     {
-      "id": "pattern:public-flow-shell#3242",
+      "id": "pattern:public-flow-shell#3243",
       "kind": "pattern",
       "name": "public-flow-shell",
       "source": {
@@ -33001,7 +33011,7 @@
       }
     },
     {
-      "id": "pattern:playback-surface#3243",
+      "id": "pattern:playback-surface#3244",
       "kind": "pattern",
       "name": "playback-surface",
       "source": {
@@ -33010,7 +33020,7 @@
       }
     },
     {
-      "id": "pattern:public-shells#3244",
+      "id": "pattern:public-shells#3245",
       "kind": "pattern",
       "name": "public-shells",
       "source": {
@@ -33019,7 +33029,7 @@
       }
     },
     {
-      "id": "pattern:public-nav#3245",
+      "id": "pattern:public-nav#3246",
       "kind": "pattern",
       "name": "public-nav",
       "source": {
@@ -33028,7 +33038,7 @@
       }
     },
     {
-      "id": "pattern:auth-shells#3246",
+      "id": "pattern:auth-shells#3247",
       "kind": "pattern",
       "name": "auth-shells",
       "source": {
@@ -33037,7 +33047,7 @@
       }
     },
     {
-      "id": "pattern:social-auth-buttons#3247",
+      "id": "pattern:social-auth-buttons#3248",
       "kind": "pattern",
       "name": "social-auth-buttons",
       "source": {
@@ -33046,7 +33056,7 @@
       }
     },
     {
-      "id": "pattern:provider-identity-buttons#3248",
+      "id": "pattern:provider-identity-buttons#3249",
       "kind": "pattern",
       "name": "provider-identity-buttons",
       "source": {
@@ -33055,7 +33065,7 @@
       }
     },
     {
-      "id": "pattern:article-shells#3249",
+      "id": "pattern:article-shells#3250",
       "kind": "pattern",
       "name": "article-shells",
       "source": {
@@ -33064,7 +33074,7 @@
       }
     },
     {
-      "id": "pattern:docs-page-shell#3250",
+      "id": "pattern:docs-page-shell#3251",
       "kind": "pattern",
       "name": "docs-page-shell",
       "source": {
@@ -33073,7 +33083,7 @@
       }
     },
     {
-      "id": "pattern:docs-shell#3251",
+      "id": "pattern:docs-shell#3252",
       "kind": "pattern",
       "name": "docs-shell",
       "source": {
@@ -33082,7 +33092,7 @@
       }
     },
     {
-      "id": "pattern:reference-section#3252",
+      "id": "pattern:reference-section#3253",
       "kind": "pattern",
       "name": "reference-section",
       "source": {
@@ -33091,7 +33101,7 @@
       }
     },
     {
-      "id": "pattern:reference-link-grid#3253",
+      "id": "pattern:reference-link-grid#3254",
       "kind": "pattern",
       "name": "reference-link-grid",
       "source": {
@@ -33100,7 +33110,7 @@
       }
     },
     {
-      "id": "pattern:reference-locale-notice#3254",
+      "id": "pattern:reference-locale-notice#3255",
       "kind": "pattern",
       "name": "reference-locale-notice",
       "source": {
@@ -33109,7 +33119,7 @@
       }
     },
     {
-      "id": "pattern:reference-theme-explorer#3255",
+      "id": "pattern:reference-theme-explorer#3256",
       "kind": "pattern",
       "name": "reference-theme-explorer",
       "source": {
@@ -33118,7 +33128,7 @@
       }
     },
     {
-      "id": "pattern:pin-system#3256",
+      "id": "pattern:pin-system#3257",
       "kind": "pattern",
       "name": "pin-system",
       "source": {
@@ -33127,7 +33137,7 @@
       }
     },
     {
-      "id": "pattern:gds-map#3257",
+      "id": "pattern:gds-map#3258",
       "kind": "pattern",
       "name": "gds-map",
       "source": {
@@ -33136,7 +33146,7 @@
       }
     },
     {
-      "id": "pattern:accent-contrast-matrix#3258",
+      "id": "pattern:accent-contrast-matrix#3259",
       "kind": "pattern",
       "name": "accent-contrast-matrix",
       "source": {
@@ -33145,7 +33155,7 @@
       }
     },
     {
-      "id": "pattern:reference-site-shell#3259",
+      "id": "pattern:reference-site-shell#3260",
       "kind": "pattern",
       "name": "reference-site-shell",
       "source": {
@@ -33154,7 +33164,7 @@
       }
     },
     {
-      "id": "pattern:editorial-hero#3260",
+      "id": "pattern:editorial-hero#3261",
       "kind": "pattern",
       "name": "editorial-hero",
       "source": {
@@ -33163,7 +33173,7 @@
       }
     },
     {
-      "id": "pattern:feature-band#3261",
+      "id": "pattern:feature-band#3262",
       "kind": "pattern",
       "name": "feature-band",
       "source": {
@@ -33172,7 +33182,7 @@
       }
     },
     {
-      "id": "pattern:browse-surface#3262",
+      "id": "pattern:browse-surface#3263",
       "kind": "pattern",
       "name": "browse-surface",
       "source": {
@@ -33181,7 +33191,7 @@
       }
     },
     {
-      "id": "pattern:editorial-cards#3263",
+      "id": "pattern:editorial-cards#3264",
       "kind": "pattern",
       "name": "editorial-cards",
       "source": {
@@ -33190,7 +33200,7 @@
       }
     },
     {
-      "id": "pattern:generated-imagery#3264",
+      "id": "pattern:generated-imagery#3265",
       "kind": "pattern",
       "name": "generated-imagery",
       "source": {
@@ -33199,7 +33209,7 @@
       }
     },
     {
-      "id": "pattern:consumer-sections#3265",
+      "id": "pattern:consumer-sections#3266",
       "kind": "pattern",
       "name": "consumer-sections",
       "source": {
@@ -33208,7 +33218,7 @@
       }
     },
     {
-      "id": "pattern:consumer-dashboard-grid#3266",
+      "id": "pattern:consumer-dashboard-grid#3267",
       "kind": "pattern",
       "name": "consumer-dashboard-grid",
       "source": {
@@ -33217,7 +33227,7 @@
       }
     },
     {
-      "id": "pattern:media-fields#3267",
+      "id": "pattern:media-fields#3268",
       "kind": "pattern",
       "name": "media-fields",
       "source": {
@@ -33226,7 +33236,7 @@
       }
     },
     {
-      "id": "pattern:content-operations-editor#3268",
+      "id": "pattern:content-operations-editor#3269",
       "kind": "pattern",
       "name": "content-operations-editor",
       "source": {
@@ -33235,7 +33245,7 @@
       }
     },
     {
-      "id": "pattern:admin-app-shell#3269",
+      "id": "pattern:admin-app-shell#3270",
       "kind": "pattern",
       "name": "admin-app-shell",
       "source": {
@@ -33244,7 +33254,7 @@
       }
     },
     {
-      "id": "pattern:editor-scaffold#3270",
+      "id": "pattern:editor-scaffold#3271",
       "kind": "pattern",
       "name": "editor-scaffold",
       "source": {
@@ -33253,7 +33263,7 @@
       }
     },
     {
-      "id": "pattern:kanban-board#3271",
+      "id": "pattern:kanban-board#3272",
       "kind": "pattern",
       "name": "kanban-board",
       "source": {
@@ -33262,7 +33272,7 @@
       }
     },
     {
-      "id": "pattern:form-section#3272",
+      "id": "pattern:form-section#3273",
       "kind": "pattern",
       "name": "form-section",
       "source": {
@@ -33271,7 +33281,7 @@
       }
     },
     {
-      "id": "pattern:workspace-header#3273",
+      "id": "pattern:workspace-header#3274",
       "kind": "pattern",
       "name": "workspace-header",
       "source": {
@@ -33280,7 +33290,7 @@
       }
     },
     {
-      "id": "pattern:section-panels#3274",
+      "id": "pattern:section-panels#3275",
       "kind": "pattern",
       "name": "section-panels",
       "source": {
@@ -33289,7 +33299,7 @@
       }
     },
     {
-      "id": "pattern:public-brand-footer#3275",
+      "id": "pattern:public-brand-footer#3276",
       "kind": "pattern",
       "name": "public-brand-footer",
       "source": {
@@ -33298,7 +33308,7 @@
       }
     },
     {
-      "id": "pattern:public-site-footer#3276",
+      "id": "pattern:public-site-footer#3277",
       "kind": "pattern",
       "name": "public-site-footer",
       "source": {
@@ -33307,7 +33317,7 @@
       }
     },
     {
-      "id": "pattern:filter-drawer#3277",
+      "id": "pattern:filter-drawer#3278",
       "kind": "pattern",
       "name": "filter-drawer",
       "source": {
@@ -33316,7 +33326,7 @@
       }
     },
     {
-      "id": "pattern:docs-code-blocks#3278",
+      "id": "pattern:docs-code-blocks#3279",
       "kind": "pattern",
       "name": "docs-code-blocks",
       "source": {
@@ -33325,7 +33335,7 @@
       }
     },
     {
-      "id": "pattern:cta-button-groups#3279",
+      "id": "pattern:cta-button-groups#3280",
       "kind": "pattern",
       "name": "cta-button-groups",
       "source": {
@@ -33334,7 +33344,7 @@
       }
     },
     {
-      "id": "pattern:upload-surfaces#3280",
+      "id": "pattern:upload-surfaces#3281",
       "kind": "pattern",
       "name": "upload-surfaces",
       "source": {
@@ -33343,7 +33353,7 @@
       }
     },
     {
-      "id": "pattern:access-summaries#3281",
+      "id": "pattern:access-summaries#3282",
       "kind": "pattern",
       "name": "access-summaries",
       "source": {
@@ -33352,7 +33362,7 @@
       }
     },
     {
-      "id": "pattern:access-recovery-panels#3282",
+      "id": "pattern:access-recovery-panels#3283",
       "kind": "pattern",
       "name": "access-recovery-panels",
       "source": {
@@ -33361,7 +33371,7 @@
       }
     },
     {
-      "id": "pattern:access-gates#3283",
+      "id": "pattern:access-gates#3284",
       "kind": "pattern",
       "name": "access-gates",
       "source": {
@@ -33370,7 +33380,7 @@
       }
     },
     {
-      "id": "pattern:placeholder-panels#3284",
+      "id": "pattern:placeholder-panels#3285",
       "kind": "pattern",
       "name": "placeholder-panels",
       "source": {
@@ -33379,7 +33389,7 @@
       }
     },
     {
-      "id": "pattern:simple-data-tables#3285",
+      "id": "pattern:simple-data-tables#3286",
       "kind": "pattern",
       "name": "simple-data-tables",
       "source": {
@@ -33388,7 +33398,7 @@
       }
     },
     {
-      "id": "pattern:admin-data-table#3286",
+      "id": "pattern:admin-data-table#3287",
       "kind": "pattern",
       "name": "admin-data-table",
       "source": {
@@ -33397,7 +33407,7 @@
       }
     },
     {
-      "id": "pattern:responsive-data-view#3287",
+      "id": "pattern:responsive-data-view#3288",
       "kind": "pattern",
       "name": "responsive-data-view",
       "source": {
@@ -33406,7 +33416,7 @@
       }
     },
     {
-      "id": "pattern:stats-strip#3288",
+      "id": "pattern:stats-strip#3289",
       "kind": "pattern",
       "name": "stats-strip",
       "source": {
@@ -33415,7 +33425,7 @@
       }
     },
     {
-      "id": "pattern:info-card#3289",
+      "id": "pattern:info-card#3290",
       "kind": "pattern",
       "name": "info-card",
       "source": {
@@ -33424,7 +33434,7 @@
       }
     },
     {
-      "id": "pattern:semantic-nav-link#3290",
+      "id": "pattern:semantic-nav-link#3291",
       "kind": "pattern",
       "name": "semantic-nav-link",
       "source": {
@@ -33433,7 +33443,7 @@
       }
     },
     {
-      "id": "pattern:empty-state#3291",
+      "id": "pattern:empty-state#3292",
       "kind": "pattern",
       "name": "empty-state",
       "source": {
@@ -33442,7 +33452,7 @@
       }
     },
     {
-      "id": "pattern:stats-sections#3292",
+      "id": "pattern:stats-sections#3293",
       "kind": "pattern",
       "name": "stats-sections",
       "source": {
@@ -33451,7 +33461,7 @@
       }
     },
     {
-      "id": "pattern:reporting-contracts#3293",
+      "id": "pattern:reporting-contracts#3294",
       "kind": "pattern",
       "name": "reporting-contracts",
       "source": {
@@ -33460,7 +33470,7 @@
       }
     },
     {
-      "id": "pattern:alerts#3294",
+      "id": "pattern:alerts#3295",
       "kind": "pattern",
       "name": "alerts",
       "source": {
@@ -33469,7 +33479,7 @@
       }
     },
     {
-      "id": "pattern:loaders-skeletons#3295",
+      "id": "pattern:loaders-skeletons#3296",
       "kind": "pattern",
       "name": "loaders-skeletons",
       "source": {
@@ -33478,7 +33488,7 @@
       }
     },
     {
-      "id": "pattern:notifications#3296",
+      "id": "pattern:notifications#3297",
       "kind": "pattern",
       "name": "notifications",
       "source": {
@@ -33487,7 +33497,7 @@
       }
     },
     {
-      "id": "pattern:motion-system#3297",
+      "id": "pattern:motion-system#3298",
       "kind": "pattern",
       "name": "motion-system",
       "source": {
@@ -33496,7 +33506,7 @@
       }
     },
     {
-      "id": "pattern:badges#3298",
+      "id": "pattern:badges#3299",
       "kind": "pattern",
       "name": "badges",
       "source": {
@@ -33505,7 +33515,7 @@
       }
     },
     {
-      "id": "pattern:modals#3299",
+      "id": "pattern:modals#3300",
       "kind": "pattern",
       "name": "modals",
       "source": {
@@ -33514,7 +33524,7 @@
       }
     },
     {
-      "id": "pattern:drawers#3300",
+      "id": "pattern:drawers#3301",
       "kind": "pattern",
       "name": "drawers",
       "source": {
@@ -33523,7 +33533,7 @@
       }
     },
     {
-      "id": "pattern:small-screen-priority#3301",
+      "id": "pattern:small-screen-priority#3302",
       "kind": "pattern",
       "name": "small-screen-priority",
       "source": {
@@ -33532,7 +33542,7 @@
       }
     },
     {
-      "id": "pattern:table-responsive-strategies#3302",
+      "id": "pattern:table-responsive-strategies#3303",
       "kind": "pattern",
       "name": "table-responsive-strategies",
       "source": {
@@ -33541,7 +33551,7 @@
       }
     },
     {
-      "id": "pattern:mobile-action-density#3303",
+      "id": "pattern:mobile-action-density#3304",
       "kind": "pattern",
       "name": "mobile-action-density",
       "source": {
@@ -33550,7 +33560,7 @@
       }
     },
     {
-      "id": "pattern:searchable-selection#3304",
+      "id": "pattern:searchable-selection#3305",
       "kind": "pattern",
       "name": "searchable-selection",
       "source": {
@@ -33559,7 +33569,7 @@
       }
     },
     {
-      "id": "pattern:vocabulary-extension-lane#3305",
+      "id": "pattern:vocabulary-extension-lane#3306",
       "kind": "pattern",
       "name": "vocabulary-extension-lane",
       "source": {
@@ -33568,7 +33578,7 @@
       }
     },
     {
-      "id": "pattern:partner-discovery-system#3306",
+      "id": "pattern:partner-discovery-system#3307",
       "kind": "pattern",
       "name": "partner-discovery-system",
       "source": {
@@ -33577,7 +33587,7 @@
       }
     },
     {
-      "id": "pattern:bottom-tab-navigation#3307",
+      "id": "pattern:bottom-tab-navigation#3308",
       "kind": "pattern",
       "name": "bottom-tab-navigation",
       "source": {
@@ -33586,7 +33596,7 @@
       }
     },
     {
-      "id": "pattern:searchable-select#3308",
+      "id": "pattern:searchable-select#3309",
       "kind": "pattern",
       "name": "searchable-select",
       "source": {
@@ -33595,7 +33605,7 @@
       }
     },
     {
-      "id": "pattern:fit-score-chip#3309",
+      "id": "pattern:fit-score-chip#3310",
       "kind": "pattern",
       "name": "fit-score-chip",
       "source": {
@@ -33604,7 +33614,7 @@
       }
     },
     {
-      "id": "pattern:conversation-surface#3310",
+      "id": "pattern:conversation-surface#3311",
       "kind": "pattern",
       "name": "conversation-surface",
       "source": {
@@ -33613,7 +33623,7 @@
       }
     },
     {
-      "id": "pattern:meaning-badge#3311",
+      "id": "pattern:meaning-badge#3312",
       "kind": "pattern",
       "name": "meaning-badge",
       "source": {
@@ -33622,7 +33632,7 @@
       }
     },
     {
-      "id": "pattern:media-with-fallback#3312",
+      "id": "pattern:media-with-fallback#3313",
       "kind": "pattern",
       "name": "media-with-fallback",
       "source": {
@@ -33631,7 +33641,7 @@
       }
     },
     {
-      "id": "pattern:number-stepper#3313",
+      "id": "pattern:number-stepper#3314",
       "kind": "pattern",
       "name": "number-stepper",
       "source": {
@@ -33640,7 +33650,7 @@
       }
     },
     {
-      "id": "pattern:ai-search-card#3314",
+      "id": "pattern:ai-search-card#3315",
       "kind": "pattern",
       "name": "ai-search-card",
       "source": {
@@ -33649,7 +33659,7 @@
       }
     },
     {
-      "id": "theme:default#3315",
+      "id": "theme:default#3316",
       "kind": "theme",
       "name": "default",
       "source": {
@@ -33658,7 +33668,7 @@
       }
     },
     {
-      "id": "theme:high-contrast#3316",
+      "id": "theme:high-contrast#3317",
       "kind": "theme",
       "name": "high-contrast",
       "source": {
@@ -33667,7 +33677,7 @@
       }
     },
     {
-      "id": "theme:colorblind-safe#3317",
+      "id": "theme:colorblind-safe#3318",
       "kind": "theme",
       "name": "colorblind-safe",
       "source": {
@@ -33676,7 +33686,7 @@
       }
     },
     {
-      "id": "theme:dark-public#3318",
+      "id": "theme:dark-public#3319",
       "kind": "theme",
       "name": "dark-public",
       "source": {
@@ -33685,7 +33695,7 @@
       }
     },
     {
-      "id": "theme:flat-surface#3319",
+      "id": "theme:flat-surface#3320",
       "kind": "theme",
       "name": "flat-surface",
       "source": {
@@ -33694,7 +33704,7 @@
       }
     },
     {
-      "id": "theme:editorial#3320",
+      "id": "theme:editorial#3321",
       "kind": "theme",
       "name": "editorial",
       "source": {
@@ -33703,7 +33713,7 @@
       }
     },
     {
-      "id": "theme:brand#3321",
+      "id": "theme:brand#3322",
       "kind": "theme",
       "name": "brand",
       "source": {
@@ -33712,7 +33722,7 @@
       }
     },
     {
-      "id": "theme:partner-discovery#3322",
+      "id": "theme:partner-discovery#3323",
       "kind": "theme",
       "name": "partner-discovery",
       "source": {
@@ -33721,7 +33731,7 @@
       }
     },
     {
-      "id": "theme:class-usa#3323",
+      "id": "theme:class-usa#3324",
       "kind": "theme",
       "name": "class-usa",
       "source": {
@@ -33730,7 +33740,7 @@
       }
     },
     {
-      "id": "theme:gold-athlete#3324",
+      "id": "theme:gold-athlete#3325",
       "kind": "theme",
       "name": "gold-athlete",
       "source": {
@@ -33739,7 +33749,7 @@
       }
     },
     {
-      "id": "theme:sunset#3325",
+      "id": "theme:sunset#3326",
       "kind": "theme",
       "name": "sunset",
       "source": {
@@ -33748,7 +33758,7 @@
       }
     },
     {
-      "id": "theme:oceanic#3326",
+      "id": "theme:oceanic#3327",
       "kind": "theme",
       "name": "oceanic",
       "source": {
@@ -33757,7 +33767,7 @@
       }
     },
     {
-      "id": "theme:forest#3327",
+      "id": "theme:forest#3328",
       "kind": "theme",
       "name": "forest",
       "source": {
@@ -33766,7 +33776,7 @@
       }
     },
     {
-      "id": "theme:ruby#3328",
+      "id": "theme:ruby#3329",
       "kind": "theme",
       "name": "ruby",
       "source": {
@@ -33775,7 +33785,7 @@
       }
     },
     {
-      "id": "theme:amber#3329",
+      "id": "theme:amber#3330",
       "kind": "theme",
       "name": "amber",
       "source": {
@@ -33784,7 +33794,7 @@
       }
     },
     {
-      "id": "theme:neon-night#3330",
+      "id": "theme:neon-night#3331",
       "kind": "theme",
       "name": "neon-night",
       "source": {
@@ -33793,7 +33803,7 @@
       }
     },
     {
-      "id": "theme:skyline#3331",
+      "id": "theme:skyline#3332",
       "kind": "theme",
       "name": "skyline",
       "source": {
@@ -33802,7 +33812,7 @@
       }
     },
     {
-      "id": "theme:aurora#3332",
+      "id": "theme:aurora#3333",
       "kind": "theme",
       "name": "aurora",
       "source": {
@@ -33811,7 +33821,7 @@
       }
     },
     {
-      "id": "theme:coral#3333",
+      "id": "theme:coral#3334",
       "kind": "theme",
       "name": "coral",
       "source": {
@@ -33820,7 +33830,7 @@
       }
     },
     {
-      "id": "theme:mint#3334",
+      "id": "theme:mint#3335",
       "kind": "theme",
       "name": "mint",
       "source": {
@@ -33829,7 +33839,7 @@
       }
     },
     {
-      "id": "theme:orchid#3335",
+      "id": "theme:orchid#3336",
       "kind": "theme",
       "name": "orchid",
       "source": {
@@ -33838,7 +33848,7 @@
       }
     },
     {
-      "id": "theme:royal#3336",
+      "id": "theme:royal#3337",
       "kind": "theme",
       "name": "royal",
       "source": {
@@ -33847,7 +33857,7 @@
       }
     },
     {
-      "id": "theme:warm#3337",
+      "id": "theme:warm#3338",
       "kind": "theme",
       "name": "warm",
       "source": {
@@ -33856,7 +33866,7 @@
       }
     },
     {
-      "id": "theme:athlete-gold#3338",
+      "id": "theme:athlete-gold#3339",
       "kind": "theme",
       "name": "athlete-gold",
       "source": {
@@ -33865,7 +33875,7 @@
       }
     },
     {
-      "id": "theme:cosmic#3339",
+      "id": "theme:cosmic#3340",
       "kind": "theme",
       "name": "cosmic",
       "source": {
@@ -33874,7 +33884,7 @@
       }
     },
     {
-      "id": "accent:plum#3340",
+      "id": "accent:plum#3341",
       "kind": "accent",
       "name": "plum",
       "source": {
@@ -33884,7 +33894,7 @@
       "value": "#7c3a6e"
     },
     {
-      "id": "accent:indigo#3341",
+      "id": "accent:indigo#3342",
       "kind": "accent",
       "name": "indigo",
       "source": {
@@ -33894,7 +33904,7 @@
       "value": "#3f4d9e"
     },
     {
-      "id": "accent:ocean#3342",
+      "id": "accent:ocean#3343",
       "kind": "accent",
       "name": "ocean",
       "source": {
@@ -33904,7 +33914,7 @@
       "value": "#1f6e8c"
     },
     {
-      "id": "accent:teal#3343",
+      "id": "accent:teal#3344",
       "kind": "accent",
       "name": "teal",
       "source": {
@@ -33914,7 +33924,7 @@
       "value": "#0f766e"
     },
     {
-      "id": "accent:forest#3344",
+      "id": "accent:forest#3345",
       "kind": "accent",
       "name": "forest",
       "source": {
@@ -33924,7 +33934,7 @@
       "value": "#2f6b3a"
     },
     {
-      "id": "accent:bronze#3345",
+      "id": "accent:bronze#3346",
       "kind": "accent",
       "name": "bronze",
       "source": {
@@ -33934,7 +33944,7 @@
       "value": "#8a5a00"
     },
     {
-      "id": "accent:terracotta#3346",
+      "id": "accent:terracotta#3347",
       "kind": "accent",
       "name": "terracotta",
       "source": {
@@ -33944,7 +33954,7 @@
       "value": "#b04a2f"
     },
     {
-      "id": "accent:magenta#3347",
+      "id": "accent:magenta#3348",
       "kind": "accent",
       "name": "magenta",
       "source": {
@@ -33954,7 +33964,7 @@
       "value": "#a52a6c"
     },
     {
-      "id": "accent:slate#3348",
+      "id": "accent:slate#3349",
       "kind": "accent",
       "name": "slate",
       "source": {
@@ -33964,7 +33974,7 @@
       "value": "#52606d"
     },
     {
-      "id": "accent:grape#3349",
+      "id": "accent:grape#3350",
       "kind": "accent",
       "name": "grape",
       "source": {

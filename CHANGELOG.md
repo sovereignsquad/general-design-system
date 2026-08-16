@@ -4,6 +4,37 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Fix a decoy section name and give every family page a filter and jump-to-section grid (#631)
+
+A reader looking for the `SemanticButton`/`ActionBar` click-feedback micro-interaction couldn't
+find it: `/foundations` has a section titled "Motion & Micro-interactions" that turned out to
+hold only `GdsMotionSystemReference`, a token reference table (durations/easings/presets) with
+zero buttons — while the actual button system lived under a section called "Workflow Guidance,"
+giving no hint it existed. A direct violation of `docs/SITE_ARCHITECTURE.md`'s own "section
+names mean what a reader expects" rule, reinforced a second time by matching copy on `/systems`.
+
+Fixed as data, not a page patch. `motion-system`'s section is renamed **Motion Tokens**, with
+its summary now pointing to Semantic Actions, and `semantic-actions`'s summary now states it
+carries the micro-interaction feedback — both entries are reachable by the same search term now.
+`systems-page.tsx`'s matching card is corrected to match.
+
+The deeper problem — `/foundations` alone renders 30 entries across 8 sections as one
+undifferentiated scroll, and `PatternFamilyPage` is shared by six routes holding 114 registry
+entries total — is fixed once, at the shared component, the way `/components` already solved it
+in issue 626 Phase 2: a live text filter (title/section/summary/sourceComponent) plus a "Jump to
+section" anchor grid, ported onto `PatternFamilyPage` rather than reinvented. `ReferenceSection`
+gained an optional `id` prop, forwarded to `SectionPanel`'s existing one, so section headings
+became anchor targets — the same mechanism `PatternEntryCard` already used per-entry, extended
+one level up rather than duplicated.
+
+**Deliberately not fixed here, filed as issue 632 instead:** `/foundations`'s actual 8 sections
+don't match `docs/SITE_ARCHITECTURE.md`'s own "Target shape" table (which defines Foundations as
+color/typography/spacing/shape/motion/icons/a11y axes), nor the live page's own `familyMeta`
+description ("Shells, controls, cards, and baseline workflow rules") — three different claims
+about the same page. That's a real re-categorization decision, not a navigation-polish fix, and
+forcing it through here would repeat the exact mistake this repository already declined to make
+once this cycle in the #628 typography-outlier round.
+
 ### Gating proportions, not just token provenance: a live UX audit closes real gaps and adds two measurement gates (#628)
 
 A live-rendered audit of a single ListingCard example ("Danube Sunset Run") turned into a
