@@ -67,18 +67,20 @@ const badgeShapeComponents = [
 ];
 
 // Route coverage is driven off the pattern-catalog families that actually mount
-// the new components (`/patterns/operations` = Kanban, `/patterns/foundations` =
-// Forms), which the old 4-route list never visited.
+// the new components (`/patterns/operations` = Kanban and, since issue 632/633,
+// Forms too; `/systems` = the badge system), which the old 4-route list never visited.
 const routeConfigs = [
   { route: '/themes', cases: baseCases, components: [] },
   { route: '/live-proofs/layouts', cases: baseCases, components: [] },
   { route: '/live-proofs/analytics', cases: baseCases, components: [] },
   { route: '/live-proofs/semantics', cases: baseCases, components: [] },
   { route: '/patterns/operations', cases: widenedCases, components: kanbanComponents },
-  { route: '/patterns/foundations', cases: widenedCases, components: formComponents },
-  // Issue 626 moved the badge system to its unified foundations home; the forced-colors
-  // sweep follows the content, not the old filing.
-  { route: '/patterns/foundations', cases: baseCases, components: badgeShapeComponents },
+  // Issue 632/633 rebuilt Foundations to hold only the 7 design axes; Forms moved to
+  // operations's existing Workflow Guidance section.
+  { route: '/patterns/operations', cases: widenedCases, components: formComponents },
+  // Issue 632/633 moved the badge system again, from foundations to the new systems
+  // family; the forced-colors sweep follows the content, not the old filing.
+  { route: '/systems', cases: baseCases, components: badgeShapeComponents },
 ];
 
 async function launchBrowser() {
