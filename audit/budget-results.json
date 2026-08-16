@@ -21,6 +21,16 @@
       "status": "OK"
     },
     {
+      "key": "touchTargetFloorViolations",
+      "measured": 791,
+      "value": 791,
+      "direction": "max",
+      "unit": "count",
+      "finding": "issue 628",
+      "advisory": false,
+      "status": "OK"
+    },
+    {
       "key": "tokensWithGaps",
       "measured": 78,
       "value": 78,

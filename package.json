@@ -25,6 +25,7 @@
     "verify:forced-colors-runtime": "node scripts/verify-forced-colors-runtime.mjs",
     "verify:input-zoom-guard-runtime": "node scripts/verify-input-zoom-guard-runtime.mjs",
     "verify:kanban-drag-accessibility-runtime": "node scripts/verify-kanban-drag-accessibility-runtime.mjs",
+    "verify:touch-target-floor-runtime": "node scripts/verify-touch-target-floor-runtime.mjs",
     "verify:focus-ring-runtime": "node scripts/verify-focus-ring-runtime.mjs",
     "audit:render-coverage": "node scripts/audit/render-coverage.mjs",
     "verify:viewport-reachability-runtime": "node scripts/verify-viewport-reachability-runtime.mjs",

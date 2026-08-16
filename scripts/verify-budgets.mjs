@@ -46,6 +46,10 @@ function measure(key) {
   };
 
   switch (key) {
+    case 'touchTargetFloorViolations':
+      // Issue 628. Written by verify-touch-target-floor-runtime.mjs, a measuring gate (not
+      // hard-fail) — this budget is what actually enforces the ratchet.
+      return read('touch-target-floor.json')?.totalUnexemptViolations;
     case 'themeMatrixUntraceableRate':
       // Issue 562. Deliberately a SEPARATE key from untraceableRenderRate: same word, wider
       // lens, different number. Reusing the name would make the two look comparable, which is
