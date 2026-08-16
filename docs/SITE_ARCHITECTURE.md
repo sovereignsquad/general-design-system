@@ -144,3 +144,13 @@ until Phases 7-11 land** (five new axis reference pages — typography, density 
 token infrastructure, so each is a from-scratch build following the `GdsMotionSystemReference`/
 `GdsPinSystemReference` template: every value surfaced live from the real export a consumer
 would import, never a hand-typed swatch. Tracked as issue 632's remaining sub-issues.
+
+## Phase 7 — Shape & Elevation axis reference (issue 634)
+
+`GdsShapeElevationSystemReference` (`packages/gds-core`) surfaces both axes issue 555 already
+shipped as real, validated token infrastructure — `GDS_RADIUS_STEPS`/`GDS_RADIUS_ROLES` via
+`resolveGdsShapeTokens()`, `GDS_ELEVATION_STEPS`/`GDS_ELEVATION_ROLES` via
+`resolveGdsElevationTokens()` — with zero prior live page. Every swatch value is read from
+those resolvers at render time, cross-checked live against the actual computed
+`--gds-radius-card`/etc. custom properties a real page renders, not retyped. New
+`foundations`-family registry entry `shape-elevation`, live-proof.

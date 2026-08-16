@@ -1605,6 +1605,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Settings template": "Modèle de paramètres",
   "Shade": "Ombre",
   "Shades darken only. Lightening breaks the filled-mode white-on-accent guarantee —": "Les nuances s'assombrissent seulement. L'éclaircissement brise la garantie du blanc sur accent en mode rempli -",
+  "Shape & Elevation": "Forme et élévation",
+  "Shape & Elevation Tokens": "Jetons de forme et d'élévation",
   "Shape vocabulary": "Vocabulaire des formes",
   "Share": "Partager",
   "Share Button Group": "Groupe de boutons Partager",

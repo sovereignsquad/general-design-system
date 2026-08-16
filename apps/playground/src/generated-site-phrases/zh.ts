@@ -1605,6 +1605,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Settings template": "设置模板",
   "Shade": "遮荫",
   "Shades darken only. Lightening breaks the filled-mode white-on-accent guarantee —": "阴影仅变暗。闪电打破了填充模式的白色强调保证 -",
+  "Shape & Elevation": "形状和高度",
+  "Shape & Elevation Tokens": "形状和高度标记",
   "Shape vocabulary": "形状词汇",
   "Share": "分享",
   "Share Button Group": "分享按钮组",

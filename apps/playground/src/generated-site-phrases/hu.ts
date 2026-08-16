@@ -1605,6 +1605,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Settings template": "Beállítások sablon",
   "Shade": "Árnyék",
   "Shades darken only. Lightening breaks the filled-mode white-on-accent guarantee —": "Az árnyalatok csak sötétednek. A világosítás megszakítja a kitöltött módban a hangsúlyos fehérség garanciáját –",
+  "Shape & Elevation": "Alak és magasság",
+  "Shape & Elevation Tokens": "Alak- és magasságjelzők",
   "Shape vocabulary": "Alakítsd a szókincset",
   "Share": "Részesedés",
   "Share Button Group": "Megosztás gombcsoport",

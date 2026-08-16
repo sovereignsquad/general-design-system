@@ -1605,6 +1605,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Settings template": "설정 템플릿",
   "Shade": "그늘",
   "Shades darken only. Lightening breaks the filled-mode white-on-accent guarantee —": "음영만 어두워집니다. 번개는 채워진 모드의 흰색 강조 보장을 깨뜨립니다.",
+  "Shape & Elevation": "모양 및 고도",
+  "Shape & Elevation Tokens": "모양 및 고도 토큰",
   "Shape vocabulary": "모양 어휘",
   "Share": "공유하다",
   "Share Button Group": "공유 버튼 그룹",

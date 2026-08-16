@@ -1605,6 +1605,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Settings template": "תבנית הגדרות",
   "Shade": "צֵל",
   "Shades darken only. Lightening breaks the filled-mode white-on-accent guarantee —": "גוונים מתכהים בלבד. ברק שובר את ערבות הלבן-על-מבטא במצב מלא -",
+  "Shape & Elevation": "צורה וגובה",
+  "Shape & Elevation Tokens": "אסימוני צורה וגובה",
   "Shape vocabulary": "צור אוצר מילים",
   "Share": "לַחֲלוֹק",
   "Share Button Group": "קבוצת כפתורי שתף",

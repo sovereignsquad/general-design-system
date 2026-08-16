@@ -1360,6 +1360,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Page template (GdsPageTemplates) — full-page scaffold."
   },
   {
+    "name": "GdsShapeElevationSystemReference",
+    "status": "registered",
+    "home": {
+      "id": "shape-elevation",
+      "family": "foundations",
+      "section": "Shape & Elevation"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsSheet",
     "status": "exempt",
     "reason": "Overlay alias (OverlayManager) — bottom-sheet alias of the registered drawers overlay pattern."
