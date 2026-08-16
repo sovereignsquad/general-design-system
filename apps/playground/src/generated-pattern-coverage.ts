@@ -118,6 +118,7 @@ export const provenPatternIds: readonly string[] = [
   "surface-presentation",
   "table-responsive-strategies",
   "theme-toggle",
+  "typography",
   "upload-surfaces",
   "vocabulary-extension-lane",
   "workspace-header"

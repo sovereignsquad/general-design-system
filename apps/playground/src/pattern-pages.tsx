@@ -1,5 +1,5 @@
 import { GdsMap } from '@sovereignsquad/gds-core/map';
-import { GdsPinSystemReference, GdsMotionSystemReference, GdsShapeElevationSystemReference, GdsDensitySpacingSystemReference, GdsIconSystemReference, GdsInlineLink } from '@sovereignsquad/gds-core';
+import { GdsPinSystemReference, GdsMotionSystemReference, GdsShapeElevationSystemReference, GdsDensitySpacingSystemReference, GdsIconSystemReference, GdsTypographySystemReference, GdsInlineLink } from '@sovereignsquad/gds-core';
 import { useEffect, useMemo, useState } from 'react';
 import {
   // Issue 600: these seven were named as `sourceComponent` evidence by registry entries
@@ -3347,6 +3347,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <GdsDensitySpacingSystemReference />;
     case 'icon-system':
       return <GdsIconSystemReference />;
+    case 'typography':
+      return <GdsTypographySystemReference />;
     case 'gds-map':
       return <MapSurfaceDemo />;
     case 'accent-contrast-matrix':

@@ -1895,6 +1895,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Tue": "kedd",
   "Two locations are missing from this period. The visible aggregate remains usable but must be disclosed.": "Ebből az időszakból két helyszín hiányzik. A látható aggregátum használható marad, de közzé kell tenni.",
   "TWO PILLARS": "KÉT OSZLOP",
+  "Typography": "Tipográfia",
+  "Typography Tokens": "Tipográfiai tokenek",
   "UI primitives": "UI primitívek",
   "Unable to load": "Nem lehet betölteni",
   "Unable to load data": "Nem sikerült betölteni az adatokat",

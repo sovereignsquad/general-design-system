@@ -175,3 +175,16 @@ via `getGdsIconKeys()`/`getGdsIconMetadata()` (140 icons, 10 categories, counted
 icon renders through the real `GdsIcon` component, and the decorative-vs-informative
 accessibility contract is demonstrated live (aria-hidden vs aria-label), not just described.
 New `foundations`-family registry entry `icon-system`, live-proof.
+
+## Phase 10 — Typography axis reference (issue 637)
+
+`GdsTypographySystemReference` (`packages/gds-core`) surfaces `GDS_TEXT_STEPS`/
+`GDS_WEIGHT_NAMES` via `resolveGdsTypographyTokens()` — the nine-step modular scale, the
+four-weight ascending scale, and the three font-lane roles, all validated at construction
+since issue 555, with no live page until now. This corrects an earlier finding in this epic's
+own research that claimed typography had no existing export — it did, same as shape/
+elevation/density; the earlier pass searched for a dedicated page/demo and found none, not for
+the underlying axis. Each size specimen renders AT its own resolved size rather than merely
+stating it, live-verified against the actual computed font-size of the "lg" specimen (`18px`,
+matching `calc(1.125rem * var(--mantine-scale))` exactly). New `foundations`-family registry
+entry `typography`, live-proof.

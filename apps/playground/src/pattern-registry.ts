@@ -1016,6 +1016,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'GdsIconSystemReference',
   },
   {
+    id: 'typography',
+    title: 'Typography Tokens',
+    docSection: 'Core Component Contracts',
+    family: 'foundations',
+    section: 'Typography',
+    summary: 'A modular text-size scale, an ascending weight scale validated at construction, and the display/body/mono font-lane roles a theme assigns — every specimen rendered at its own resolved size, live from resolveGdsTypographyTokens().',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsTypographySystemReference',
+  },
+  {
     id: 'badges',
     title: 'Badges',
     docSection: 'Feedback & Messaging',

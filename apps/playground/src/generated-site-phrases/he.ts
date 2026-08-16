@@ -1895,6 +1895,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Tue": "יום שלישי",
   "Two locations are missing from this period. The visible aggregate remains usable but must be disclosed.": "מתקופה זו חסרים שני מקומות. המצרף הגלוי נשאר שמיש אך יש לחשוף אותו.",
   "TWO PILLARS": "שני עמודים",
+  "Typography": "טיפוגרפיה",
+  "Typography Tokens": "אסימוני טיפוגרפיה",
   "UI primitives": "פרימיטיבים של ממשק המשתמש",
   "Unable to load": "לא ניתן לטעון",
   "Unable to load data": "לא ניתן לטעון נתונים",

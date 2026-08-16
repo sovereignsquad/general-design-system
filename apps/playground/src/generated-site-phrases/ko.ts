@@ -1895,6 +1895,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Tue": "화",
   "Two locations are missing from this period. The visible aggregate remains usable but must be disclosed.": "이 기간에는 두 곳의 위치가 누락되었습니다. 표시되는 집계는 계속 사용할 수 있지만 공개해야 합니다.",
   "TWO PILLARS": "두 개의 기둥",
+  "Typography": "타이포그래피",
+  "Typography Tokens": "타이포그래피 토큰",
   "UI primitives": "UI 프리미티브",
   "Unable to load": "로드할 수 없습니다.",
   "Unable to load data": "데이터를 로드할 수 없습니다.",
