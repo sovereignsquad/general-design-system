@@ -730,6 +730,7 @@
       "why": "no GDS theme field maps to this variable",
       "files": [
         "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/GdsDensitySpacingSystemReference.tsx",
         "packages/gds-core/src/GdsFormControls.tsx",
         "packages/gds-core/src/ListingCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",

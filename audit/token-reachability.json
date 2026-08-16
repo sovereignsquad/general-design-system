@@ -1,7 +1,7 @@
 {
   "declared": 294,
-  "referenced": 104,
-  "extensionPoints": 141,
+  "referenced": 105,
+  "extensionPoints": 140,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -820,13 +820,6 @@
     },
     {
       "token": "--gds-radius-xl",
-      "classification": "extension-point",
-      "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-radius-xs",
       "classification": "extension-point",
       "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
       "reviewBy": "2027-08-01",
