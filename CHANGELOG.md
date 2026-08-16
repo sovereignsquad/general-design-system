@@ -4,90 +4,25 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
-### Typography axis reference — the fourth of five missing Foundations pages (#632, #637, Phase 5)
+### Rebuild Foundations to the 7 axes (#632, #633-#637)
 
-`GdsTypographySystemReference` (`packages/gds-core`) is new: the nine-step modular text-size
-scale, the four-weight ascending scale (validated at construction — a weight order that
-doesn't ascend is rejected before it can render as broken text), and the three font-lane roles
-have shipped as a real, validated axis since issue 555. This corrects an earlier finding in
-this epic's own research that claimed typography had no existing export — it did; the earlier
-pass searched for a dedicated demo page and found none, not for the underlying token
-infrastructure. Each size specimen renders AT its own resolved size, live-verified against the
-actual computed font-size of the "lg" specimen (`18px`, matching the resolver's output
-exactly). New `foundations`-family registry entry `typography`.
+`/foundations` previously held 30 entries unrelated to `docs/SITE_ARCHITECTURE.md`'s own
+"Target shape" table (7 axes: colour/theming, typography, density & spacing, shape &
+elevation, motion, icons, accessibility). Fixed:
 
-One axis remains: a compact colour/theming entry linking out to the full `/themes` Theme Lab.
+- `PatternFamily` gains `components` and `systems`, each hosted at its existing top-level
+  route (same `legacyPaths` redirect mechanism `/foundations` already used). 25 entries moved
+  to where they fit: 4 to `systems` (badges, fit-score-chip, meaning-badge, generated-imagery),
+  19 to `components` (Controls & Inputs, Shell & Navigation), 5 to `operations`'s Workflow
+  Guidance, 1 to `public`'s Discovery & Listing.
+- `/components` and `/systems` became real hosting pages via a shared `FamilyEntryBrowser`
+  (extracted from `PatternFamilyPage`).
+- Four new `foundations` registry entries, each backed by a new `packages/gds-core` reference
+  component reading live from its axis's resolver rather than a hand-typed value:
+  `GdsShapeElevationSystemReference`, `GdsDensitySpacingSystemReference`,
+  `GdsIconSystemReference`, `GdsTypographySystemReference`.
 
-### Icons axis reference — the third of five missing Foundations pages (#632, #636, Phase 4)
-
-`GdsIconSystemReference` (`packages/gds-core`) is new: the whole 140-icon dictionary across 10
-semantic categories, walked live via `getGdsIconKeys()`/`getGdsIconMetadata()` and rendered
-through the real `GdsIcon` component — `GdsIcon`'s own doc comment says consumers must use it
-instead of importing Tabler directly, and until now there was no page where that rule was
-checkable. The decorative-vs-informative accessibility contract is demonstrated live
-(aria-hidden vs aria-label), not just described. The registry summary deliberately states no
-icon count in prose — the count is computed at render time, so it cannot drift. New
-`foundations`-family registry entry `icon-system`.
-
-Two axes remain: typography, and a compact colour/theming entry linking out to the full
-`/themes` Theme Lab.
-
-### Density & Spacing axis reference — the second of five missing Foundations pages (#632, #635, Phase 3)
-
-`GdsDensitySpacingSystemReference` (`packages/gds-core`) is new: the 10-step spacing scale and
-5 control-height sizes have shipped as a real, validated axis since issue 555, with zero live
-page until now. The reference states the accessibility-floor guarantee plainly and shows it
-holding — every control height reads `GDS_MIN_TARGET_PX` (44px) unless the size carries a
-recorded exception — live-verified against the actual computed `--gds-control-height-md` a
-real page renders (`44px`, matching exactly). New `foundations`-family registry entry
-`density-spacing`.
-
-Three axes remain: icons, typography, and a compact colour/theming entry linking out to the
-full `/themes` Theme Lab.
-
-### Shape & Elevation axis reference — the first of five missing Foundations pages (#632, #634, Phase 2)
-
-`GdsShapeElevationSystemReference` (`packages/gds-core`) is new: both the radius axis (7 steps,
-14 named roles — card, button, pin, modal…) and the elevation axis (5 steps, 7 roles) have
-shipped as real, validated token infrastructure since issue 555, with zero live page a reader
-could find until now. Every swatch reads from `resolveGdsShapeTokens()`/
-`resolveGdsElevationTokens()` at render time — live-verified against the actual computed
-`--gds-radius-card` custom property a real page renders (`8px`, matching the reference exactly),
-not retyped from the source. New `foundations`-family registry entry `shape-elevation`.
-
-Four axes remain: density & spacing, icons, typography, and a compact colour/theming entry
-linking out to the full `/themes` Theme Lab.
-
-### Rebuild Foundations to the 7 axes; Components and Systems become real hosting pages (#632, #633, Phase 1)
-
-Issue #631's fix left a real question open: does `/foundations`'s actual 8 sections (30 entries
-— shells, controls, cards, workflow rules, badges, imagery) match `docs/SITE_ARCHITECTURE.md`'s
-own "Target shape" table, which defines Foundations as exactly 7 axes (colour/theming,
-typography, density & spacing, shape & elevation, motion & micro-interactions, icons,
-accessibility)? Investigated and decided: rebuild Foundations to hold strictly the 7 axes, and
-turn `/components` into the real hosting page the SSOT's own definition already called for
-("each with one canonical page") — the largest single change this repository's site has made
-since the #626 IA rebuild.
-
-`PatternFamily` gains two members, `components` and `systems`, each hosted at its existing
-top-level route via the same `legacyPaths` redirect mechanism `/foundations` already
-established. `PatternFamilyPage`'s filter-plus-jump-to-section rendering (built for #631) is
-now `FamilyEntryBrowser`, shared by `PatternFamilyPage`, `ComponentsIndexPage`, and
-`SystemsPage` — no page needs a fake `familyMeta` entry just to host its own family's content.
-
-25 entries moved to where they actually fit: 4 to `systems` (badges, fit-score-chip,
-meaning-badge, generated-imagery — matching the SSOT's Systems row exactly), 19 to `components`
-across two new sections (Controls & Inputs, Shell & Navigation — content that had no home
-anywhere else, since no other family had a real section for either), 5 to `operations`'s
-existing Workflow Guidance section (forms, action-bar, pattern-service-reuse,
-maturity-capabilities, vocabulary-extension-lane), and 1 to `public`'s Discovery & Listing
-(product-cards). `motion-system` is the only entry that stayed in `foundations`.
-
-**Foundations reads sparse now — stated plainly, not hidden.** Five of the seven axes
-(typography, density & spacing, shape & elevation, icons, accessibility) have zero existing
-live reference page today, only scattered token infrastructure; building each properly, one at
-a time, following the `GdsMotionSystemReference`/`GdsPinSystemReference` template, is the
-committed next phase of issue #632, not deferred indefinitely.
+Remaining: a compact colour/theming entry linking to `/themes`, and Phase 6 (accessibility).
 
 ### Fix a decoy section name and give every family page a filter and jump-to-section grid (#631)
 

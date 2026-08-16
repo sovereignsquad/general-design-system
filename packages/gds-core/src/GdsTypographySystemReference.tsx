@@ -3,20 +3,7 @@ import {
   GDS_TEXT_STEPS, GDS_WEIGHT_NAMES, resolveGdsTypographyTokens,
 } from '@sovereignsquad/gds-theme';
 
-/**
- * Issue 632/633 — the typography axis, surfaced.
- *
- * `GDS_TEXT_STEPS`/`GDS_WEIGHT_NAMES` and `resolveGdsTypographyTokens()` have existed as a
- * real, validated axis since issue 555: nine text-size steps on a modular scale (base × ratio,
- * with Mantine-matching overrides for `xs`-`xl`), four weights that must ascend, and per-step
- * line-height/tracking/font-lane assignments — with zero live page. The type ratio itself is
- * validated at construction (1.0–2.0), and a weight scale that does not ascend is rejected
- * before it can render as broken text.
- *
- * Rule 14 throughout: every size, weight, and line height below reads from
- * `resolveGdsTypographyTokens()` at render time — the same resolver a theme calls — and each
- * specimen is rendered AT that resolved size, not merely labelled with it.
- */
+/** Reference for the typography axis: sizes, weights, and font lanes read from resolveGdsTypographyTokens(). */
 export function GdsTypographySystemReference() {
   const tokens = resolveGdsTypographyTokens();
 

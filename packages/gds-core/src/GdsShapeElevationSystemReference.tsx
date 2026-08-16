@@ -4,20 +4,7 @@ import {
   GDS_ELEVATION_STEPS, GDS_ELEVATION_ROLES, resolveGdsElevationTokens,
 } from '@sovereignsquad/gds-theme';
 
-/**
- * Issue 632/633 — the shape and elevation axes, surfaced.
- *
- * Both scales (`GDS_RADIUS_STEPS`/`GDS_RADIUS_ROLES`, `GDS_ELEVATION_STEPS`/
- * `GDS_ELEVATION_ROLES`) and their resolvers have existed as real, validated axis exports
- * since issue 555 — component source asks for a role ("card", "button", "pin"), never a raw
- * step, so a theme can soften cards without touching buttons. Until this reference existed,
- * neither scale appeared on any page a reader could find.
- *
- * Rule 14 throughout: every swatch and every value below reads from `resolveGdsShapeTokens()`/
- * `resolveGdsElevationTokens()`, the same functions a theme's own token pipeline calls — never
- * retyped. A swatch's own padding uses Mantine's governed `p` scale rather than an invented
- * pixel size, so nothing here needed a magic number to exist.
- */
+/** Reference for the shape and elevation axes: every step/role read from resolveGdsShapeTokens()/resolveGdsElevationTokens(). */
 export function GdsShapeElevationSystemReference() {
   const shapeTokens = resolveGdsShapeTokens();
   const elevationTokens = resolveGdsElevationTokens();
