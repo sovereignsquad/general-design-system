@@ -4,6 +4,37 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Rebuild Foundations to the 7 axes; Components and Systems become real hosting pages (#632, #633, Phase 1)
+
+Issue #631's fix left a real question open: does `/foundations`'s actual 8 sections (30 entries
+— shells, controls, cards, workflow rules, badges, imagery) match `docs/SITE_ARCHITECTURE.md`'s
+own "Target shape" table, which defines Foundations as exactly 7 axes (colour/theming,
+typography, density & spacing, shape & elevation, motion & micro-interactions, icons,
+accessibility)? Investigated and decided: rebuild Foundations to hold strictly the 7 axes, and
+turn `/components` into the real hosting page the SSOT's own definition already called for
+("each with one canonical page") — the largest single change this repository's site has made
+since the #626 IA rebuild.
+
+`PatternFamily` gains two members, `components` and `systems`, each hosted at its existing
+top-level route via the same `legacyPaths` redirect mechanism `/foundations` already
+established. `PatternFamilyPage`'s filter-plus-jump-to-section rendering (built for #631) is
+now `FamilyEntryBrowser`, shared by `PatternFamilyPage`, `ComponentsIndexPage`, and
+`SystemsPage` — no page needs a fake `familyMeta` entry just to host its own family's content.
+
+25 entries moved to where they actually fit: 4 to `systems` (badges, fit-score-chip,
+meaning-badge, generated-imagery — matching the SSOT's Systems row exactly), 19 to `components`
+across two new sections (Controls & Inputs, Shell & Navigation — content that had no home
+anywhere else, since no other family had a real section for either), 5 to `operations`'s
+existing Workflow Guidance section (forms, action-bar, pattern-service-reuse,
+maturity-capabilities, vocabulary-extension-lane), and 1 to `public`'s Discovery & Listing
+(product-cards). `motion-system` is the only entry that stayed in `foundations`.
+
+**Foundations reads sparse now — stated plainly, not hidden.** Five of the seven axes
+(typography, density & spacing, shape & elevation, icons, accessibility) have zero existing
+live reference page today, only scattered token infrastructure; building each properly, one at
+a time, following the `GdsMotionSystemReference`/`GdsPinSystemReference` template, is the
+committed next phase of issue #632, not deferred indefinitely.
+
 ### Fix a decoy section name and give every family page a filter and jump-to-section grid (#631)
 
 A reader looking for the `SemanticButton`/`ActionBar` click-feedback micro-interaction couldn't

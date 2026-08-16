@@ -23,8 +23,9 @@ function renderBadgeMatrix() {
   // Rendered through the real family page rather than the demo in isolation: the panel has to
   // be reachable where a reader actually meets it, not merely constructible.
   // Issue 626 moved the badge system to its unified foundations home ("Badges & Indicators");
-  // the panel must be found where readers now find it.
-  render(<GdsProvider><PatternFamilyPage family="foundations" /></GdsProvider>);
+  // issue 632/633 moved it again, to the new systems family, when Foundations was rebuilt to
+  // hold only the 7 design axes. The panel must be found where readers now find it.
+  render(<GdsProvider><PatternFamilyPage family="systems" /></GdsProvider>);
 }
 
 describe('Badges across themes panel is derived, not described', () => {

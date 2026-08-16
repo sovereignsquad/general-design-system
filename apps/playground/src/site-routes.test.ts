@@ -58,6 +58,10 @@ describe('public site routes', () => {
     expect(getLegacyRedirects()).toEqual([
       // Issue 626 Phase 3: foundations elevated to a top-level area; its catalog URL redirects.
       { legacyPath: '/patterns/foundations', to: '/foundations' },
+      // Issue 632/633: components and systems became pattern-registry families too, hosted at
+      // their existing top-level routes — same redirect treatment as foundations.
+      { legacyPath: '/patterns/components', to: '/components' },
+      { legacyPath: '/patterns/systems', to: '/systems' },
       { legacyPath: '/tokens', to: '/themes' },
       { legacyPath: '/rulebook', to: '/governance' },
       // Issue 606: the public /live-demos family was renamed to /live-proofs, and the rename
