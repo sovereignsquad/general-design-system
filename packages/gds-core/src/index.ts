@@ -184,6 +184,7 @@ export * from './useGdsDomPhraseTranslation.client';
 export * from './GdsMotionSystemReference';
 export * from './GdsShapeElevationSystemReference';
 export * from './GdsDensitySpacingSystemReference';
+export * from './GdsIconSystemReference';
 export * from './GdsInlineLink';
 
 // ── Partner surfaces ──
