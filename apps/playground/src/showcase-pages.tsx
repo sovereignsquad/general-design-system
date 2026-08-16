@@ -15,6 +15,7 @@ import {
   GdsChart,
   GdsCluster,
   GdsGeneratedThumbnail,
+  GdsInlineLink,
   GdsStack,
   ListingCard,
   MapPanel,
@@ -47,7 +48,7 @@ const catalogEntryCount = patternRegistry.length;
 function DemoFooter() {
   return (
     <p>
-      Need something missing? <a href="mailto:moldovancsaba+general.design.system@gmail.com">Request a feature</a>.
+      Need something missing? <GdsInlineLink href="mailto:moldovancsaba+general.design.system@gmail.com">Request a feature</GdsInlineLink>.
     </p>
   );
 }
@@ -172,7 +173,7 @@ export function CardsPage() {
           ]}
           saveAction={{ action: 'save' }}
           shareAction={{ action: 'refer' }}
-          primaryAction={<a href="/general-design-system/live-proofs/surfaces">Open listing</a>}
+          primaryAction={<GdsInlineLink href="/general-design-system/live-proofs/surfaces">Open listing</GdsInlineLink>}
         />
       </ReferenceSection>
 
@@ -189,7 +190,7 @@ export function CardsPage() {
             { id: 'featured', label: 'Featured', tone: 'positive' },
             { id: 'hot', label: 'Limited batch', tone: 'warning' },
           ]}
-          primaryAction={<a href="/general-design-system/live-proofs/surfaces">Reserve pickup</a>}
+          primaryAction={<GdsInlineLink href="/general-design-system/live-proofs/surfaces">Reserve pickup</GdsInlineLink>}
         />
         <FoodMenuSection
           title="Weekly menu"
@@ -206,7 +207,7 @@ export function CardsPage() {
                   state: 'available',
                   price: '€12.50',
                   description: 'Roasted vegetables, herbed rice, and citrus yogurt.',
-                  primaryAction: <a href="/general-design-system/live-proofs/surfaces">Add to order</a>,
+                  primaryAction: <GdsInlineLink href="/general-design-system/live-proofs/surfaces">Add to order</GdsInlineLink>,
                 },
                 {
                   id: 'dish-2',
@@ -214,7 +215,7 @@ export function CardsPage() {
                   state: 'limited',
                   price: '€10.90',
                   description: 'Tahini slaw, pickled onions, and flatbread.',
-                  primaryAction: <a href="/general-design-system/live-proofs/surfaces">Add to order</a>,
+                  primaryAction: <GdsInlineLink href="/general-design-system/live-proofs/surfaces">Add to order</GdsInlineLink>,
                 },
               ],
             },
@@ -278,7 +279,7 @@ export function FoodMenuPage() {
             { id: 'featured', label: 'Featured', tone: 'positive' },
             { id: 'hot', label: 'Limited batch', tone: 'warning' },
           ]}
-          primaryAction={<a href="/general-design-system/live-proofs/food">Reserve pickup</a>}
+          primaryAction={<GdsInlineLink href="/general-design-system/live-proofs/food">Reserve pickup</GdsInlineLink>}
         />
       </ReferenceSection>
       <ReferenceSection
@@ -300,7 +301,7 @@ export function FoodMenuPage() {
                   state: 'available',
                   price: '€12.50',
                   description: 'Roasted vegetables, herbed rice, and citrus yogurt.',
-                  primaryAction: <a href="/general-design-system/live-proofs/food">Add to order</a>,
+                  primaryAction: <GdsInlineLink href="/general-design-system/live-proofs/food">Add to order</GdsInlineLink>,
                 },
                 {
                   id: 'dish-2',
@@ -308,7 +309,7 @@ export function FoodMenuPage() {
                   state: 'limited',
                   price: '€10.90',
                   description: 'Tahini slaw, pickled onions, and flatbread.',
-                  primaryAction: <a href="/general-design-system/live-proofs/food">Add to order</a>,
+                  primaryAction: <GdsInlineLink href="/general-design-system/live-proofs/food">Add to order</GdsInlineLink>,
                 },
               ],
             },

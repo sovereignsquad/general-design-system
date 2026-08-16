@@ -1517,6 +1517,43 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
   );
 }
 
+/*
+ * Issue 628 — GDS holds a 44px touch-target floor (GDS_MIN_TARGET_PX), but Mantine's default
+ * Checkbox control box is 20px. GDS_CONTROL_HEIGHT_EXCEPTIONS' own text calls for "a larger
+ * hit area via padding where the control stands alone" rather than growing the visible
+ * control — this is that padding, as an invisible pseudo-element rather than real padding, so
+ * it does not push sibling content. Only applied to a genuinely isolated control (a table's
+ * own select-all checkbox in its own header cell); NOT applied to controls packed into a tight
+ * toolbar row, where the expanded hit area of adjacent controls could overlap each other.
+ */
+.gds-touch-target-pad-checkbox {
+  position: relative;
+}
+.gds-touch-target-pad-checkbox::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+}
+
+/*
+ * Issue 628 — VibeThemePicker's swatches are a deliberate, compact 32px circle (issue 618) so
+ * ~26 theme options browse as one grid rather than a page-length list; growing the visible
+ * circle to 44px would nearly double that grid's footprint. Same invisible-padding technique
+ * as the checkbox above, sized for a 32px control (6px each side). Known, accepted tradeoff:
+ * the swatch grid's 0.5rem gap is narrower than 2x the inset, so adjacent swatches' padded hit
+ * areas can overlap by a few px at the boundary — accepted because a mis-click here only
+ * previews the wrong theme for a moment (correct by clicking again), unlike a destructive or
+ * hard-to-undo action, and a wider gap would visibly change the grid's density.
+ */
+.gds-touch-target-pad-swatch {
+  position: relative;
+}
+.gds-touch-target-pad-swatch::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+}
+
 [data-gds-theme-swatch] {
   /*
    * A COMPLETE surface, not just a background. A consumer previewing a theme should need one

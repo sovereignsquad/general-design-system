@@ -159,6 +159,8 @@ export function AdvancedDataTable<T extends Record<string, unknown>>({
             <Table.Tr>
               <Table.Th>
                 <Checkbox
+                  className="gds-touch-target-pad-checkbox"
+                  data-gds-target-exception="isolated-control-padded"
                   aria-label="Select all rows"
                   checked={allSelected}
                   indeterminate={!allSelected && selection.length > 0}

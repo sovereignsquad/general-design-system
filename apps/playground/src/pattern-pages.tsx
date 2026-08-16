@@ -1,5 +1,5 @@
 import { GdsMap } from '@sovereignsquad/gds-core/map';
-import { GdsPinSystemReference, GdsMotionSystemReference } from '@sovereignsquad/gds-core';
+import { GdsPinSystemReference, GdsMotionSystemReference, GdsInlineLink } from '@sovereignsquad/gds-core';
 import { useEffect, useMemo, useState } from 'react';
 import {
   // Issue 600: these seven were named as `sourceComponent` evidence by registry entries
@@ -2416,7 +2416,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             density="spacious"
             variant="media-left"
             metadata={[{ label: 'Price', value: '€39' }]}
-            primaryAction={<a href="/general-design-system/patterns/public">Open</a>}
+            primaryAction={<GdsInlineLink href="/general-design-system/patterns/public">Open</GdsInlineLink>}
             secondaryActions={[
               { label: 'Save', href: '/general-design-system/patterns' },
               { label: 'Share', href: '/general-design-system/patterns' },
@@ -2439,7 +2439,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             size="lg"
             density="comfortable"
             metadata={[{ label: 'Contract', value: 'GDS-owned' }]}
-            primaryAction={<a href="/general-design-system/live-proofs/surfaces">Open</a>}
+            primaryAction={<GdsInlineLink href="/general-design-system/live-proofs/surfaces">Open</GdsInlineLink>}
           />
         </ConsumerDashboardGrid>
       );
@@ -2454,7 +2454,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           metadata={[{ label: 'Scope', value: 'UI primitives' }]}
           interactiveMode="surface-button"
           onSurfaceActivate={() => {}}
-          primaryAction={<a href="/general-design-system/live-proofs/surfaces">Buy</a>}
+          primaryAction={<GdsInlineLink href="/general-design-system/live-proofs/surfaces">Buy</GdsInlineLink>}
         />
       );
     case 'media-card':
@@ -2512,7 +2512,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             { id: 'date', label: 'Date', value: 'June 14' },
             { id: 'location', label: 'Location', value: 'Budapest' },
           ]}
-          primaryAction={<a href="/general-design-system/patterns">Open</a>}
+          primaryAction={<GdsInlineLink href="/general-design-system/patterns">Open</GdsInlineLink>}
           saveAction={{ action: 'save' }}
           shareAction={{ action: 'refer' }}
           size="lg"
@@ -2536,7 +2536,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             { id: 'featured', label: 'Featured', tone: 'positive' },
             { id: 'hot', label: 'Limited batch', tone: 'warning' },
           ]}
-          primaryAction={<a href="/general-design-system/live-proofs/food">Reserve pickup</a>}
+          primaryAction={<GdsInlineLink href="/general-design-system/live-proofs/food">Reserve pickup</GdsInlineLink>}
         />
       );
     case 'food-menu-section':
@@ -2555,7 +2555,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
                   description: 'Shared food-card contract.',
                   state: 'available',
                   price: '€12.50',
-                  primaryAction: <a href="/general-design-system/live-proofs/surfaces">Reserve</a>,
+                  primaryAction: <GdsInlineLink href="/general-design-system/live-proofs/surfaces">Reserve</GdsInlineLink>,
                 },
               ],
             },
@@ -2583,7 +2583,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             activeNavId="overview"
             actions={<button type="button">Sign in</button>}
             mobileNavigationMode="inline-collapse"
-            mobileNavigation={<a href="/general-design-system/patterns">Patterns</a>}
+            mobileNavigation={<GdsInlineLink href="/general-design-system/patterns">Patterns</GdsInlineLink>}
             footer={<PublicBrandFooter brandTitle="GDS" description="Canonical public shell." />}
             maxContentWidth="lg"
           >
@@ -2921,7 +2921,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'workspace-header':
       return (
         <WorkspaceHeader
-          breadcrumbs={[<a href="/general-design-system/patterns" key="patterns">Patterns</a>, <span key="operations">Operations</span>]}
+          breadcrumbs={[<GdsInlineLink href="/general-design-system/patterns" key="patterns">Patterns</GdsInlineLink>, <span key="operations">Operations</span>]}
           eyebrow="Workspace"
           title="Operations workspace"
           description="Governed workspace context and action placement."
@@ -3207,7 +3207,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             ],
           }}
           eyebrow="Flow Experience"
-          exitAction={<a href="/general-design-system/patterns">Close</a>}
+          exitAction={<GdsInlineLink href="/general-design-system/patterns">Close</GdsInlineLink>}
         />
       );
     case 'notifications':

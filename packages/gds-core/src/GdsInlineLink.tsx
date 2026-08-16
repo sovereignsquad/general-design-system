@@ -17,16 +17,19 @@ export interface GdsInlineLinkProps {
   children: ReactNode;
   /** Open in a new tab (external references). Adds the safe rel automatically. */
   external?: boolean;
+  /** Accessible name, when the visible text alone doesn't describe the destination. */
+  ariaLabel?: string;
 }
 
 /** Governed inline anchor — see the module docs for why this exists. */
-export function GdsInlineLink({ href, children, external }: GdsInlineLinkProps) {
+export function GdsInlineLink({ href, children, external, ariaLabel }: GdsInlineLinkProps) {
   return (
     <Anchor
       href={href}
       data-gds-inline-link=""
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer noopener' : undefined}
+      aria-label={ariaLabel}
     >
       {children}
     </Anchor>

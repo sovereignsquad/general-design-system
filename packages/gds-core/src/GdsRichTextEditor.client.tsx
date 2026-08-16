@@ -158,6 +158,7 @@ export function GdsRichTextEditor({
                 aria-pressed={action.isActive}
                 variant={action.isActive ? 'filled' : 'default'}
                 size="sm"
+                data-gds-target-exception="dense-toolbar"
                 onClick={action.run}
               >
                 <GdsIcon name={action.icon} size="xs" decorative />

@@ -108,6 +108,7 @@ export function NumberStepper({
     >
       <ActionIcon
         variant="default"
+        size="xl"
         aria-label={decrementLabel}
         disabled={disabled || atMin}
         onClick={() => commit(current - step)}
@@ -119,6 +120,7 @@ export function NumberStepper({
       </Text>
       <ActionIcon
         variant="default"
+        size="xl"
         aria-label={incrementLabel}
         disabled={disabled || atMax}
         onClick={() => commit(current + step)}

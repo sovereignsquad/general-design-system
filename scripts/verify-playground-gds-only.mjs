@@ -69,6 +69,16 @@ const CHECKS = [
     test: (line) => /\bstyled\.[a-z]|\bstyled\(|\bcss`/.test(line),
     message: 'uses a CSS-in-JS construct. GDS ships the styling; the page consumes it.',
   },
+  {
+    // A bare <a> renders with the browser's UA-default underline/link color, invisible to
+    // every theme — found on the site's own primary CTAs ("Install GDS", "Request a
+    // feature") via a live-rendered audit. GdsInlineLink exists precisely so the page never
+    // needs one (issue 628). The character class after `a` excludes <article>, <aside>,
+    // <Anchor>, <GdsInlineLink> (case-sensitive; none of those have a whitespace/`/`/`>`
+    // character in that position), so this does not need a separate allowlist.
+    test: (line) => /<a[\s/>]/.test(line),
+    message: 'renders a bare <a> tag. Use GdsInlineLink instead — an unstyled anchor ignores the theme entirely.',
+  },
 ];
 
 const failures = [];
