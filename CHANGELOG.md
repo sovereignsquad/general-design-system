@@ -4,6 +4,58 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Gating proportions, not just token provenance: a live UX audit closes real gaps and adds two measurement gates (#628)
+
+A live-rendered audit of a single ListingCard example ("Danube Sunset Run") turned into a
+site-wide sweep across all 26 reference-site routes, because every gate this repo runs proves
+a value traces to a token — none of them ever checked whether a rendered target meets a size
+floor, whether an element has any governed styling at all, or how many typographic treatments
+one component uses. `CardContracts.ts` computed a resolved `minTouchTarget` per card and
+nothing read it.
+
+**Ungoverned anchors — closed completely.** All 17 bare `<a>` tags site-wide, live-traced to
+source (not guessed): `SiteFooter`'s "Install GDS" (8 routes), `DemoFooter`'s "Request a
+feature" (7 routes), and scattered `primaryAction`/`exitAction`/breadcrumb props, now render
+through `GdsInlineLink` — which gained an optional `ariaLabel` prop for the one call site that
+needed a dynamic accessible name. `verify-playground-gds-only.mjs` gained a 7th check
+detecting any future bare anchor; verified live (planted one, confirmed the gate caught it at
+the exact file:line, reverted). `bare<a>` now measures 0 across every route.
+
+**Touch targets — the real ones fixed at the root, a real gate built to hold the line.** Six
+genuinely unjustified controls (no recorded rationale, not in a dense context) now meet GDS's
+44px floor directly: `DocsCodeBlock`'s copy button, `NumberStepper`'s +/- controls,
+`ProductCard`'s overflow menu, `gds-admin`'s `PageHeader` overflow menu, `ListingCard`'s
+save/share affordances (the exact card this investigation started from), and `ThemeToggle`'s
+default size (was Mantine's unreviewed 28px, rendered on every route via the site header).
+`KanbanBoard`'s and `GdsRichTextEditor`'s dense-toolbar controls got a
+`data-gds-target-exception` marker instead of resizing — their rows are packed tightly enough
+that padding out the hit area risked adjacent controls overlapping, which
+`GDS_CONTROL_HEIGHT_EXCEPTIONS`' own "where the control stands alone" caveat anticipates.
+`AdvancedDataTable`'s isolated checkbox and `VibeThemePicker`'s 32px swatch grid (the single
+highest-leverage fix — one component behind 50 of the original 146 findings) both got a real
+44px hit area via a new invisible-padding CSS technique that doesn't grow the visible control.
+
+New `verify-touch-target-floor-runtime.mjs` sweeps all 26 routes and measures every
+interactive element against `GDS_MIN_TARGET_PX`, recognizing three real exemptions (WCAG
+2.5.8 inline links, documented Mantine xs/sm control heights, the new marker attribute).
+Deliberately *not* wired as a hard-fail chain member: it found 791 real remaining violations,
+dominated by the site's own `NavLink` component (~250 instances, filed as #629 — fixing it
+means visibly growing the whole navigation's row height, a decision this pass shouldn't make
+unilaterally). It measures and writes `audit/touch-target-floor.json`; a new
+`touchTargetFloorViolations` budget entry is what enforces the ratchet, same pattern as
+`themeMatrixUntraceableRate`.
+
+**Typography stratification — investigated, not gated, and said so.** Traced the four "worst
+offender" containers a preliminary audit flagged and found three of four aren't sprawl
+defects on inspection: a deliberate bespoke brand-mockup preview, a real shell component with
+six earned typographic roles, and a documentation section correctly showing four different
+chip-group variants together (which a Paper/Card-based container heuristic can't distinguish
+from one overloaded card). Mechanically collapsing these to hit a target number would have
+been exactly the kind of metric-gaming this repository's own audit work has spent this cycle
+fixing. Filed as #630 instead: a typography-stratification gate needs a real single-card
+container boundary before it can measure anything honestly, and today's heuristic (any
+Paper/Card ancestor) isn't one. No gate shipped on a boundary already known to be wrong.
+
 ## 6.1.0 - 2026-08-16 — One semantic token source, obligation coverage, and gate mutation testing
 
 ### A new, small shell-height token set closes PublicShell's last two header literals (#625)
