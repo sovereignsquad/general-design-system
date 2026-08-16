@@ -192,6 +192,7 @@ export function KanbanCard<
               variant="subtle"
               color="gray"
               size="sm"
+              data-gds-target-exception="dense-toolbar"
               aria-label={dragHandleLabel}
               ref={sortable.setActivatorNodeRef}
               style={{ cursor: 'grab', touchAction: 'none', flexShrink: 0 }}
@@ -224,7 +225,7 @@ export function KanbanCard<
           {onMoveItem && moveTargets.length > 0 ? (
             <Menu withinPortal position="bottom-end" shadow="md">
               <Menu.Target>
-                <ActionIcon variant="subtle" color="gray" size="sm" aria-label={moveLabel}>
+                <ActionIcon variant="subtle" color="gray" size="sm" data-gds-target-exception="dense-toolbar" aria-label={moveLabel}>
                   {moveMenuIcon ?? <GdsIcon icon="More" decorative />}
                 </ActionIcon>
               </Menu.Target>
@@ -390,6 +391,7 @@ export function KanbanColumn<
                 variant="subtle"
                 color="gray"
                 size="sm"
+                data-gds-target-exception="dense-toolbar"
                 aria-label={toggleLabel}
                 aria-expanded={!resolvedCollapsed}
                 aria-controls={bodyId}

@@ -14,6 +14,7 @@ import { useGdsTranslation, useGdsAmbientTheme, computeGdsThemeIdentity, resolve
 import type { GdsBadgeAccentShade } from './GdsBadge';
 import { GDS_OSM_TILE_SOURCE, assertGdsTileSource, type GdsMapTileSource } from './map-tile-policy';
 import { StateBlock } from './StateBlock';
+import { GdsInlineLink } from './GdsInlineLink';
 import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
 import { GDS_PIN_SILHOUETTE_PATH } from './badge-shapes';
@@ -609,7 +610,7 @@ export function GdsMap({
         ? createPortal(renderMarkerPreview(openPopupMarkerId), popupHostsRef.current.get(openPopupMarkerId) as HTMLElement)
         : null}
       <Text size="xs" c="dimmed" data-gds-map-attribution="">
-        <a href={tileSource.attributionHref} target="_blank" rel="noreferrer noopener">{tileSource.attributionText}</a>
+        <GdsInlineLink href={tileSource.attributionHref} external>{tileSource.attributionText}</GdsInlineLink>
       </Text>
     </Stack>
   );

@@ -96,7 +96,7 @@ export function ProductCard({
             {secondaryActions.length ? (
               <Menu position="bottom-end" withinPortal>
                 <Menu.Target>
-                  <ActionIcon variant="subtle" aria-label="More actions">
+                  <ActionIcon variant="subtle" size="xl" aria-label="More actions">
                     <MoreIcon size="1rem" />
                   </ActionIcon>
                 </Menu.Target>

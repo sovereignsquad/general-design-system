@@ -8,6 +8,7 @@ import {
   DocsPageShell,
   FeatureBand,
   FormField,
+  GdsInlineLink,
   getGdsMaturitySummary,
   getGdsRecommendedMaturityCapabilities,
   PublicBrandFooter,
@@ -277,7 +278,7 @@ function SiteFooter() {
       brandTitle="General Design System"
       description={i18n.description}
       actions={(
-        <a href="/general-design-system/install">{i18n.install}</a>
+        <GdsInlineLink href="/general-design-system/install">{i18n.install}</GdsInlineLink>
       )}
       secondary={(
         <ReferenceLinkGrid
@@ -639,7 +640,7 @@ export function RequestFeaturePage() {
       </ReferenceSection>
 
       <ReferenceSection title="Need to send directly" description={`Send urgent requests to ${featureRequestRecipient}.`}>
-        <a href={mailtoUrl} aria-label={`Open prefilled feature request email to ${featureRequestRecipient}`}>Open prefilled email</a>
+        <GdsInlineLink href={mailtoUrl} ariaLabel={`Open prefilled feature request email to ${featureRequestRecipient}`}>Open prefilled email</GdsInlineLink>
       </ReferenceSection>
     </DocsPageShell>
   );
