@@ -55,6 +55,14 @@ export const REGISTERED_CLAIMS = {
     ref: 'packages/gds-core/src/core.test.tsx (status badges without withIcon render no [data-gds-icon]; the label is always present)',
     note: 'The icon is opt-in and additive: a badge renders its meaning as text with or without it, so colour and glyph are never the only carrier (WCAG 1.4.1).',
   },
+  // Issue 632/633 — accessibility-evidence-registry.ts's systems-family announcement text.
+  // Same underlying fact as the badge-introduction claim above, stated for the systems
+  // family's a11y evidence rather than the badge page itself.
+  'badge meaning never relies on colour alone — shape and text carry the same signal': {
+    evidence: 'test',
+    ref: 'packages/gds-core/src/core.test.tsx (status badges without withIcon render no [data-gds-icon]; the label is always present)',
+    note: 'Same fact as the badge introduction claim above: a badge renders its meaning as text with or without the icon, so colour and glyph are never the only carrier (WCAG 1.4.1).',
+  },
   'A count caps rather than growing without bound, and announces its real value to assistive technology so the capped form is never the whole story. This one caps at %cap%.': {
     evidence: 'test',
     ref: 'packages/gds-core/src/core.test.tsx (renders count badges and label tags with governed semantics)',
