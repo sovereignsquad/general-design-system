@@ -4,18 +4,7 @@ import {
   resolveGdsDensityTokens,
 } from '@sovereignsquad/gds-theme';
 
-/**
- * Issue 632/633 — the density and spacing axis, surfaced.
- *
- * `GDS_SPACE_STEPS`/`GDS_CONTROL_SIZES` and `resolveGdsDensityTokens()` have existed as a
- * real, validated axis since issue 555: a comfortable/compact/spacious mode scales the whole
- * spacing ramp by one factor, while every control height holds its line at the accessibility
- * floor (`GDS_MIN_TARGET_PX`) unless it carries a recorded exception. Until this reference
- * existed, none of it appeared on any page.
- *
- * Rule 14 throughout: every value below reads from `resolveGdsDensityTokens()` at the default
- * (comfortable) mode — the same function a theme's density mode calls — never retyped.
- */
+/** Reference for the density/spacing axis: spacing steps and control heights read from resolveGdsDensityTokens(). */
 export function GdsDensitySpacingSystemReference() {
   const tokens = resolveGdsDensityTokens();
 

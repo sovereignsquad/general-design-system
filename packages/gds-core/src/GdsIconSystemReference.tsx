@@ -6,19 +6,7 @@ const CATEGORIES: GdsIconCategory[] = [
 ];
 const TONES: GdsIconTone[] = ['default', 'primary', 'success', 'warning', 'danger', 'info', 'muted'];
 
-/**
- * Issue 632/633 — the icon system, surfaced.
- *
- * `GdsIcons`/`getGdsIconKeys()`/`getGdsIconMetadata()` govern every icon a consumer may use —
- * a stroke-SVG dictionary, ten semantic categories, and the decorative-vs-informative
- * accessibility contract — with no reference page a reader could find until now. Consumers
- * "must use `GdsIcon` instead of importing tabler icons directly" (the component's own doc
- * comment); this page is where that rule becomes checkable.
- *
- * Rule 14 throughout: the dictionary is walked live via `getGdsIconKeys()`, every icon renders
- * through the real `GdsIcon` component (not a re-implementation), and tone colours read from
- * `gdsIconToneColor`. Nothing here is a hand-picked sample.
- */
+/** Reference for the icon system: dictionary, categories, tones, and the decorative/informative contract. */
 export function GdsIconSystemReference() {
   const keys = getGdsIconKeys();
   const byCategory = CATEGORIES.map((category) => ({
