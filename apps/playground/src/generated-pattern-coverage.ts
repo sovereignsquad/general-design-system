@@ -102,6 +102,7 @@ export const provenPatternIds: readonly string[] = [
   "selects-combobox",
   "semantic-actions",
   "semantic-nav-link",
+  "shape-elevation",
   "share-button-group",
   "shell-contracts",
   "sidebar-navigation",

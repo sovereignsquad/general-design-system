@@ -4,6 +4,19 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Shape & Elevation axis reference — the first of five missing Foundations pages (#632, #634, Phase 2)
+
+`GdsShapeElevationSystemReference` (`packages/gds-core`) is new: both the radius axis (7 steps,
+14 named roles — card, button, pin, modal…) and the elevation axis (5 steps, 7 roles) have
+shipped as real, validated token infrastructure since issue 555, with zero live page a reader
+could find until now. Every swatch reads from `resolveGdsShapeTokens()`/
+`resolveGdsElevationTokens()` at render time — live-verified against the actual computed
+`--gds-radius-card` custom property a real page renders (`8px`, matching the reference exactly),
+not retyped from the source. New `foundations`-family registry entry `shape-elevation`.
+
+Four axes remain: density & spacing, icons, typography, and a compact colour/theming entry
+linking out to the full `/themes` Theme Lab.
+
 ### Rebuild Foundations to the 7 axes; Components and Systems become real hosting pages (#632, #633, Phase 1)
 
 Issue #631's fix left a real question open: does `/foundations`'s actual 8 sections (30 entries

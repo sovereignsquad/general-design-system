@@ -986,6 +986,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'GdsMotionSystemReference',
   },
   {
+    id: 'shape-elevation',
+    title: 'Shape & Elevation Tokens',
+    docSection: 'Core Component Contracts',
+    family: 'foundations',
+    section: 'Shape & Elevation',
+    summary: 'Seven radius steps and five elevation steps, each with named semantic roles (card, button, pin, modal, tooltip…) so component source asks for a role, never a raw step — every value surfaced live from resolveGdsShapeTokens() and resolveGdsElevationTokens(), the same resolvers a theme’s own token pipeline calls.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsShapeElevationSystemReference',
+  },
+  {
     id: 'badges',
     title: 'Badges',
     docSection: 'Feedback & Messaging',

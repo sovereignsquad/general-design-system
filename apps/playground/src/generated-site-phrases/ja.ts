@@ -1605,6 +1605,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Settings template": "設定テンプレート",
   "Shade": "シェード",
   "Shades darken only. Lightening breaks the filled-mode white-on-accent guarantee —": "色合いだけが暗くなります。ライトニングにより、塗りつぶしモードでのアクセント上の白の保証が破られます —",
+  "Shape & Elevation": "形状と高さ",
+  "Shape & Elevation Tokens": "形状と標高トークン",
   "Shape vocabulary": "形状語彙",
   "Share": "共有",
   "Share Button Group": "共有ボタングループ",

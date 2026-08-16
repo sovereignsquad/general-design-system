@@ -182,6 +182,7 @@ export * from './GdsGeneratedMark';
 export * from './dom-phrase-translation';
 export * from './useGdsDomPhraseTranslation.client';
 export * from './GdsMotionSystemReference';
+export * from './GdsShapeElevationSystemReference';
 export * from './GdsInlineLink';
 
 // ── Partner surfaces ──
