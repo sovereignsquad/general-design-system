@@ -16,8 +16,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "accent-panels",
-      "family": "foundations",
-      "section": "Cards & Metrics"
+      "family": "components",
+      "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []
   },
@@ -46,8 +46,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "semantic-actions",
-      "family": "foundations",
-      "section": "Workflow Guidance"
+      "family": "components",
+      "section": "Controls & Inputs"
     },
     "alsoAppearsIn": [
       "action-bar"
@@ -188,8 +188,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "discovery-shell",
-      "family": "foundations",
-      "section": "Layout Contracts"
+      "family": "components",
+      "section": "Shell & Navigation"
     },
     "alsoAppearsIn": [
       "admin-app-shell"
@@ -327,7 +327,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "buttons",
-      "family": "foundations",
+      "family": "components",
       "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []
@@ -417,7 +417,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -479,8 +479,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "shell-contracts",
-      "family": "foundations",
-      "section": "Shell & Navigation Guidance"
+      "family": "components",
+      "section": "Shell & Navigation"
     },
     "alsoAppearsIn": [
       "discovery-shell"
@@ -516,8 +516,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "shell-contracts",
-      "family": "foundations",
-      "section": "Shell & Navigation Guidance"
+      "family": "components",
+      "section": "Shell & Navigation"
     },
     "alsoAppearsIn": [
       "docs-shell"
@@ -593,7 +593,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "buttons",
-      "family": "foundations",
+      "family": "components",
       "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []
@@ -615,7 +615,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "fit-score-chip",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -650,7 +650,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "form-field",
-      "family": "foundations",
+      "family": "components",
       "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []
@@ -670,7 +670,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "game-board-tile",
-      "family": "foundations",
+      "family": "components",
       "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []
@@ -730,7 +730,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": [
@@ -742,7 +742,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -752,7 +752,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -762,7 +762,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -772,7 +772,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -787,7 +787,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -797,7 +797,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -807,7 +807,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -817,7 +817,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -922,7 +922,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -1047,7 +1047,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "generated-imagery",
-      "family": "foundations",
+      "family": "systems",
       "section": "Generated Imagery"
     },
     "alsoAppearsIn": []
@@ -1057,7 +1057,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "generated-imagery",
-      "family": "foundations",
+      "family": "systems",
       "section": "Generated Imagery"
     },
     "alsoAppearsIn": []
@@ -1067,7 +1067,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "generated-imagery",
-      "family": "foundations",
+      "family": "systems",
       "section": "Generated Imagery"
     },
     "alsoAppearsIn": []
@@ -1077,7 +1077,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "generated-imagery",
-      "family": "foundations",
+      "family": "systems",
       "section": "Generated Imagery"
     },
     "alsoAppearsIn": []
@@ -1167,7 +1167,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": [
@@ -1294,7 +1294,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -1329,7 +1329,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -1541,7 +1541,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -1598,7 +1598,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "meaning-badge",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -1718,8 +1718,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "stable-shell",
-      "family": "foundations",
-      "section": "Shell & Navigation Guidance"
+      "family": "components",
+      "section": "Shell & Navigation"
     },
     "alsoAppearsIn": []
   },
@@ -1873,7 +1873,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "buttons",
-      "family": "foundations",
+      "family": "components",
       "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []
@@ -1913,7 +1913,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "icon-buttons",
-      "family": "foundations",
+      "family": "components",
       "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []
@@ -2148,8 +2148,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "semantic-actions",
-      "family": "foundations",
-      "section": "Workflow Guidance"
+      "family": "components",
+      "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []
   },
@@ -2168,8 +2168,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "semantic-nav-link",
-      "family": "foundations",
-      "section": "Layout Contracts"
+      "family": "components",
+      "section": "Shell & Navigation"
     },
     "alsoAppearsIn": []
   },
@@ -2188,8 +2188,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "sidebar-navigation",
-      "family": "foundations",
-      "section": "Layout Contracts"
+      "family": "components",
+      "section": "Shell & Navigation"
     },
     "alsoAppearsIn": []
   },
@@ -2198,8 +2198,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "sidebar-navigation",
-      "family": "foundations",
-      "section": "Layout Contracts"
+      "family": "components",
+      "section": "Shell & Navigation"
     },
     "alsoAppearsIn": []
   },
@@ -2208,8 +2208,8 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "sidebar-navigation",
-      "family": "foundations",
-      "section": "Layout Contracts"
+      "family": "components",
+      "section": "Shell & Navigation"
     },
     "alsoAppearsIn": []
   },
@@ -2238,7 +2238,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "buttons",
-      "family": "foundations",
+      "family": "components",
       "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []
@@ -2288,7 +2288,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "badges",
-      "family": "foundations",
+      "family": "systems",
       "section": "Badges & Indicators"
     },
     "alsoAppearsIn": []
@@ -2308,7 +2308,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "theme-toggle",
-      "family": "foundations",
+      "family": "components",
       "section": "Controls & Inputs"
     },
     "alsoAppearsIn": []

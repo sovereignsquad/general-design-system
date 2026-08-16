@@ -1543,7 +1543,15 @@ function AccessGatePlaygroundDemo() {
 const familyMeta: Record<PatternFamily, { title: string; description: string }> = {
   foundations: {
     title: 'Foundations',
-    description: 'Shells, controls, cards, and baseline workflow rules used across every adopting product.',
+    description: 'The axes every component and pattern in this system builds on: colour and theming, typography, density and spacing, shape and elevation, motion and micro-interactions, icons, and accessibility.',
+  },
+  components: {
+    title: 'Components',
+    description: 'The controls, inputs, and shell/navigation primitives every product assembles pages from — one canonical page per piece.',
+  },
+  systems: {
+    title: 'Systems',
+    description: 'The doc-with-proof deep dives: badge system and generated imagery, hosted here; theming, map system, and i18n stay one click away on their own pages.',
   },
   public: {
     title: 'Public, Editorial, & Docs',
@@ -3427,9 +3435,13 @@ function sectionSlug(section: string) {
   return `section-${section.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
 }
 
-export function PatternFamilyPage({ family }: { family: PatternFamily }) {
-  const meta = familyMeta[family];
-  const entries = getFamilyEntries(family);
+/**
+ * Filter + jump-to-section + grouped-sections rendering for a set of registry entries.
+ * Shared by any page that hosts a family's entries directly — `PatternFamilyPage`,
+ * `ComponentsIndexPage`, and `SystemsPage` — so the same find-it-fast behavior applies
+ * everywhere entries are actually rendered, not just where `familyMeta` happens to exist.
+ */
+export function FamilyEntryBrowser({ entries }: { entries: PatternRegistryEntry[] }) {
   const [query, setQuery] = useState('');
   const filteredEntries = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -3442,6 +3454,54 @@ export function PatternFamilyPage({ family }: { family: PatternFamily }) {
   }, [entries, query]);
   const groupedEntries = groupEntries(entries);
   const groupedFilteredEntries = groupEntries(filteredEntries);
+
+  return (
+    <>
+      <ReferenceSection
+        title="Jump to section"
+        description="Every section here, largest first — click through, or filter below to search across all of them."
+      >
+        <ReferenceLinkGrid
+          columns={3}
+          items={Object.entries(groupedEntries)
+            .sort(([, a], [, b]) => b.length - a.length)
+            .map(([section, sectionEntries]) => ({
+              id: sectionSlug(section),
+              title: section,
+              description: `${sectionEntries.length} documented pattern${sectionEntries.length === 1 ? '' : 's'}.`,
+              href: `#${sectionSlug(section)}`,
+            }))}
+        />
+        <AdminTextInput
+          name="pattern-family-filter"
+          label="Filter"
+          placeholder="e.g. button, motion, checkbox…"
+          value={query}
+          onChange={setQuery}
+        />
+        <BodyText>
+          Showing {filteredEntries.length} of {entries.length}.
+        </BodyText>
+      </ReferenceSection>
+      {Object.entries(groupedFilteredEntries).map(([section, sectionEntries]) => (
+        <ReferenceSection
+          key={section}
+          id={sectionSlug(section)}
+          title={section}
+          description={`${sectionEntries.length} documented pattern${sectionEntries.length === 1 ? '' : 's'} in this section.`}
+        >
+          {sectionEntries.map((entry) => (
+            <PatternEntryCard key={entry.id} entry={entry} />
+          ))}
+        </ReferenceSection>
+      ))}
+    </>
+  );
+}
+
+export function PatternFamilyPage({ family }: { family: PatternFamily }) {
+  const meta = familyMeta[family];
+  const entries = getFamilyEntries(family);
 
   return (
     <DocsPageShell
@@ -3481,44 +3541,7 @@ export function PatternFamilyPage({ family }: { family: PatternFamily }) {
           ]}
         />
       </ReferenceSection>
-      <ReferenceSection
-        title="Jump to section"
-        description="Every section in this family, largest first — click through, or filter below to search across all of them."
-      >
-        <ReferenceLinkGrid
-          columns={3}
-          items={Object.entries(groupedEntries)
-            .sort(([, a], [, b]) => b.length - a.length)
-            .map(([section, sectionEntries]) => ({
-              id: sectionSlug(section),
-              title: section,
-              description: `${sectionEntries.length} documented pattern${sectionEntries.length === 1 ? '' : 's'}.`,
-              href: `#${sectionSlug(section)}`,
-            }))}
-        />
-        <AdminTextInput
-          name="pattern-family-filter"
-          label="Filter"
-          placeholder="e.g. button, motion, checkbox…"
-          value={query}
-          onChange={setQuery}
-        />
-        <BodyText>
-          Showing {filteredEntries.length} of {entries.length}.
-        </BodyText>
-      </ReferenceSection>
-      {Object.entries(groupedFilteredEntries).map(([section, sectionEntries]) => (
-        <ReferenceSection
-          key={section}
-          id={sectionSlug(section)}
-          title={section}
-          description={`${sectionEntries.length} documented pattern${sectionEntries.length === 1 ? '' : 's'} in this section.`}
-        >
-          {sectionEntries.map((entry) => (
-            <PatternEntryCard key={entry.id} entry={entry} />
-          ))}
-        </ReferenceSection>
-      ))}
+      <FamilyEntryBrowser entries={entries} />
     </DocsPageShell>
   );
 }

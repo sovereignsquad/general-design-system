@@ -1,4 +1,6 @@
 import { DocsPageShell, ReferenceLinkGrid, ReferenceSection } from '@sovereignsquad/gds-core';
+import { getFamilyEntries } from './pattern-registry';
+import { FamilyEntryBrowser } from './pattern-pages';
 
 /**
  * Issue 626 Phase 3 — the Systems area: GDS's deep dives, and the resources that left the
@@ -7,6 +9,7 @@ import { DocsPageShell, ReferenceLinkGrid, ReferenceSection } from '@sovereignsq
  * fewer doors.
  */
 export function SystemsPage() {
+  const systemsFamilyEntries = getFamilyEntries('systems');
   return (
     <DocsPageShell
       title="Systems"
@@ -17,14 +20,15 @@ export function SystemsPage() {
           columns={3}
           items={[
             { id: 'theming', title: 'Theming & the Theme Lab', description: '25 presets, both schemes, the axes that drive every token, and the live lab to try them.', href: '/general-design-system/themes' },
-            { id: 'badge-system', title: 'Badge system', description: 'Accents, shapes, counts, tags, meaning — one governed vocabulary with contrast measured live.', href: '/general-design-system/foundations#entry-badges' },
-            { id: 'generated-imagery', title: 'Generated imagery', description: 'Thumbnails, heroes, avatars and marks — deterministic, theme-aware, no photo pipeline.', href: '/general-design-system/foundations#entry-generated-imagery' },
+            { id: 'badge-system', title: 'Badge system', description: 'Accents, shapes, counts, tags, meaning — one governed vocabulary with contrast measured live.', href: '#entry-badges' },
+            { id: 'generated-imagery', title: 'Generated imagery', description: 'Thumbnails, heroes, avatars and marks — deterministic, theme-aware, no photo pipeline.', href: '#entry-generated-imagery' },
             { id: 'motion-system', title: 'Motion tokens', description: 'Six durations, five easings, seven presets, and the reaction axis — live on hover. For interactive button feedback, see Semantic Actions.', href: '/general-design-system/foundations#entry-motion-system' },
             { id: 'map-system', title: 'Map system', description: 'Real OpenStreetMap tiles, governed pins with states, on-map previews, honest degradation.', href: '/general-design-system/patterns/public#entry-gds-map' },
             { id: 'i18n', title: 'Internationalisation', description: 'Twelve locale packs, the DOM translation engine, and the runtime formatting bridge.', href: '/general-design-system/api' },
           ]}
         />
       </ReferenceSection>
+      <FamilyEntryBrowser entries={systemsFamilyEntries} />
       <ReferenceSection title="Resources" description="Adoption, evidence, and intake — everything that used to crowd the primary navigation, one click away.">
         <ReferenceLinkGrid
           columns={3}

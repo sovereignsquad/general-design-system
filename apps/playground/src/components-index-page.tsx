@@ -12,6 +12,8 @@ import {
 } from '@sovereignsquad/gds-core';
 import { gdsComponentIndex } from './generated-component-index';
 import type { GdsComponentIndexRow } from './generated-component-index';
+import { getFamilyEntries } from './pattern-registry';
+import { FamilyEntryBrowser } from './pattern-pages';
 
 /**
  * Issue 626 Phase 2 — the complete element list, on one page, composed exclusively from GDS
@@ -24,6 +26,7 @@ import type { GdsComponentIndexRow } from './generated-component-index';
  * invisible — including the decision that a helper does not get a page of its own.
  */
 export function ComponentsIndexPage() {
+  const componentsFamilyEntries = getFamilyEntries('components');
   const [query, setQuery] = useState('');
   const rows = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -54,6 +57,7 @@ export function ComponentsIndexPage() {
       title="Components — the complete element list"
       lead={`Every public component the packages export, derived from the same census the release gates read — ${gdsComponentIndex.length} components: ${registered} with a canonical catalog home, ${exempt} reviewed helpers that compose into them. A hand-maintained list hides its first omission; this one cannot omit.`}
     >
+      <FamilyEntryBrowser entries={componentsFamilyEntries} />
       <ReferenceSection title="Browse by home" description="Every canonical home a component links to, largest first.">
         <ReferenceLinkGrid
           columns={3}

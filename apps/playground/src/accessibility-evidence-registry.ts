@@ -12,6 +12,8 @@ const stableStatuses = new Set(['live-proof', 'static-reference']);
 
 const familyOwner: Record<PatternFamily, string> = {
   foundations: 'GDS foundations',
+  components: 'GDS components',
+  systems: 'GDS systems',
   public: 'GDS public surfaces',
   operations: 'GDS operations',
   data: 'GDS data surfaces',
@@ -21,10 +23,22 @@ const familyOwner: Record<PatternFamily, string> = {
 
 const familyKeyboard: Record<PatternFamily, GdsAccessibilityEvidence['keyboard']> = {
   foundations: {
+    tabSequence: 'Tab and Shift+Tab move between the toggles and controls each axis reference exposes (e.g. the colour-scheme switch, the icon-style toggle); static scale swatches are not part of the tab sequence.',
+    activation: 'Enter and Space trigger the focused reference control without requiring pointer-only affordances.',
+    escapeBehavior: 'Escape closes any temporary tooltip or popover a reference control exposes when present.',
+    shortcuts: ['Focus indicators remain visible in light, dark, and forced-colors modes across every axis reference.'],
+  },
+  components: {
     tabSequence: 'Tab and Shift+Tab move between shell actions, governed controls, and visible navigation targets in a deterministic order.',
     activation: 'Enter and Space trigger the focused control without requiring pointer-only affordances.',
     escapeBehavior: 'Escape closes governed drawers, menus, and temporary shells when they are present.',
     shortcuts: ['Arrow keys move inside roving or grouped controls where the pattern exposes them.', 'Home and End preserve native browser behavior.'],
+  },
+  systems: {
+    tabSequence: 'Tab and Shift+Tab move through any interactive badge action (e.g. a removable tag\'s dismiss control); decorative marks and generated imagery are not part of the tab sequence.',
+    activation: 'Enter and Space trigger the focused interactive badge action; static badges and generated imagery are non-interactive by design.',
+    escapeBehavior: 'Escape closes any temporary tooltip a badge exposes (e.g. the Fit Score Chip\'s accessible tooltip) when present.',
+    shortcuts: ['Focus indicators remain visible in light, dark, and forced-colors modes.'],
   },
   public: {
     tabSequence: 'Tab and Shift+Tab move through discovery actions, navigation, share controls, and visible calls to action without dead ends.',
@@ -60,8 +74,16 @@ const familyKeyboard: Record<PatternFamily, GdsAccessibilityEvidence['keyboard']
 
 const familyScreenReader = {
   foundations: {
+    semantics: ['labeled scale values (duration, radius, spacing, size)', 'named toggle controls', 'heading structure per axis'],
+    announcements: ['every value on an axis reference is exposed as readable text, not colour or position alone', 'reduced-motion and forced-colors states remain programmatic, not visual-only'],
+  },
+  components: {
     semantics: ['header', 'navigation', 'main landmarks', 'named buttons and links'],
     announcements: ['active route and current state copy are exposed as text, not color only', 'expanded and collapsed navigation state remains programmatic'],
+  },
+  systems: {
+    semantics: ['badge and status roles where relevant', 'named removable-tag controls', 'alt/fallback text for generated imagery'],
+    announcements: ['badge meaning never relies on colour alone — shape and text carry the same signal', 'generated imagery falls back to descriptive alt text when decorative art cannot render'],
   },
   public: {
     semantics: ['article, section, and list semantics', 'named links and buttons', 'media alt/fallback content where relevant'],
@@ -86,7 +108,9 @@ const familyScreenReader = {
 } as const satisfies Record<PatternFamily, { semantics: string[]; announcements: string[] }>;
 
 const familyRecovery: Record<PatternFamily, string> = {
-  foundations: 'If shell behavior regresses, pin the previous package version and keep route-local wrappers deleted until the package contract is corrected.',
+  foundations: 'If an axis reference regresses, pin the previous package version and keep the reference page reading from the same governed export until the contract is corrected.',
+  components: 'If a component or shell behavior regresses, pin the previous package version and keep route-local wrappers deleted until the package contract is corrected.',
+  systems: 'If a badge or generated-imagery regression ships, fall back to the previous stable badge/imagery lane and keep the shape-plus-colour dual-signal contract until the patch lands.',
   public: 'If a public surface exposes an assistive-technology regression, remove the affected affordance from the product lane and fall back to the shipped simpler surface.',
   operations: 'If an operational pattern regresses, keep mutation paths on the previous package version and use the documented error/empty contract until the patch lands.',
   data: 'If keyboard or semantic data behavior regresses, fall back to the shipped simple table or filter lane before introducing local wrappers.',

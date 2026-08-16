@@ -67,6 +67,9 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'components',
     navGroup: 'primary',
     activePrefixes: ['/components'],
+    // Issue 632/633: 'components' is now also a pattern-registry family (its own top-level
+    // area, same treatment as 'foundations'), so its catalog URL redirects forever too.
+    legacyPaths: ['/patterns/components'],
   },
   {
     id: 'patterns',
@@ -85,6 +88,9 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'systems',
     navGroup: 'primary',
     activePrefixes: ['/systems'],
+    // Issue 632/633: 'systems' is now also a pattern-registry family (its own top-level area,
+    // same treatment as 'foundations'), so its catalog URL redirects forever too.
+    legacyPaths: ['/patterns/systems'],
   },
   {
     id: 'api',

@@ -6,6 +6,8 @@ import { renderWithGds } from '../../../test-utils/render';
 import { PatternFamilyPage, PatternsIndexPage } from './pattern-pages';
 import { patternRegistry } from './pattern-registry';
 import { TokensPage } from './info-pages';
+import { ComponentsIndexPage } from './components-index-page';
+import { SystemsPage } from './systems-page';
 
 describe('playground pattern registry', () => {
   it('keeps ids and anchors unique', () => {
@@ -83,7 +85,9 @@ describe('playground pattern registry', () => {
   });
 
   it('mounts the live GdsSchemaForm demo (checkbox-group + repeatable) in the Forms entry', () => {
-    renderWithGds(<PatternFamilyPage family="foundations" />);
+    // Issue 632/633: Forms moved from foundations to operations when Foundations was rebuilt
+    // to hold only the 7 design axes.
+    renderWithGds(<PatternFamilyPage family="operations" />);
 
     // Schema-generated form title + field labels (checkbox-group and repeatable)
     expect(screen.getByText('Project intake')).toBeTruthy();
@@ -111,6 +115,24 @@ describe('playground pattern registry', () => {
       unmount();
     }
   }, 30000);
+
+  // Issue 632/633: /components and /systems became real hosting pages for their own
+  // pattern-registry families (they don't route through PatternFamilyPage — they compose
+  // FamilyEntryBrowser directly alongside their own bespoke header content), so they need
+  // their own render check rather than joining the PatternFamilyPage loop above.
+  it('renders the components and systems hosting sections with headings and navigable demo links', () => {
+    renderWithGds(<ComponentsIndexPage />);
+    expect(screen.getAllByRole('heading').length).toBeGreaterThan(3);
+    expect(screen.getAllByRole('link').length).toBeGreaterThan(0);
+    expect(screen.getByText('Jump to section')).toBeTruthy();
+    expect(screen.getByText('Buttons')).toBeTruthy();
+
+    const { unmount } = renderWithGds(<SystemsPage />);
+    expect(screen.getAllByRole('heading').length).toBeGreaterThan(3);
+    expect(screen.getAllByRole('link').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Badges').length).toBeGreaterThan(0);
+    unmount();
+  });
 
   it('renders the interactive tokens theme lab', () => {
     renderWithGds(<TokensPage />);

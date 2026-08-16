@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "b4287de9c1ffe6c00aa882963dd577ecba20d3c9",
+  "commit": "9ba612ef9f90bda0c90270454daf41ab84da3c3a",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -32296,7 +32296,7 @@
         "file": "apps/playground/src/generated-site-phrases/ar.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:de#3166",
@@ -32306,7 +32306,7 @@
         "file": "apps/playground/src/generated-site-phrases/de.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:es#3167",
@@ -32316,7 +32316,7 @@
         "file": "apps/playground/src/generated-site-phrases/es.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:fr#3168",
@@ -32326,7 +32326,7 @@
         "file": "apps/playground/src/generated-site-phrases/fr.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:he#3169",
@@ -32336,7 +32336,7 @@
         "file": "apps/playground/src/generated-site-phrases/he.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:hu#3170",
@@ -32346,7 +32346,7 @@
         "file": "apps/playground/src/generated-site-phrases/hu.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:it#3171",
@@ -32356,7 +32356,7 @@
         "file": "apps/playground/src/generated-site-phrases/it.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:ja#3172",
@@ -32366,7 +32366,7 @@
         "file": "apps/playground/src/generated-site-phrases/ja.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:ko#3173",
@@ -32376,7 +32376,7 @@
         "file": "apps/playground/src/generated-site-phrases/ko.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:ru#3174",
@@ -32386,7 +32386,7 @@
         "file": "apps/playground/src/generated-site-phrases/ru.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "locale-pack-site:zh#3175",
@@ -32396,7 +32396,7 @@
         "file": "apps/playground/src/generated-site-phrases/zh.ts",
         "line": 1
       },
-      "keyCount": 2008
+      "keyCount": 2009
     },
     {
       "id": "route:/#3176",
@@ -32638,7 +32638,7 @@
       "name": "stable-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 45
+        "line": 47
       }
     },
     {
@@ -32647,7 +32647,7 @@
       "name": "primary-navigation",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 53
+        "line": 55
       }
     },
     {
@@ -32656,7 +32656,7 @@
       "name": "mobile-navigation",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 61
+        "line": 63
       }
     },
     {
@@ -32665,7 +32665,7 @@
       "name": "page-headers",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 69
+        "line": 71
       }
     },
     {
@@ -32674,7 +32674,7 @@
       "name": "theme-toggle",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 79
+        "line": 81
       }
     },
     {
@@ -32683,7 +32683,7 @@
       "name": "form-field",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 89
+        "line": 91
       }
     },
     {
@@ -32692,7 +32692,7 @@
       "name": "game-board-tile",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 99
+        "line": 101
       }
     },
     {
@@ -32701,7 +32701,7 @@
       "name": "shell-contracts",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 109
+        "line": 111
       }
     },
     {
@@ -32710,7 +32710,7 @@
       "name": "discovery-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 119
+        "line": 121
       }
     },
     {
@@ -32719,7 +32719,7 @@
       "name": "sidebar-navigation",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 129
+        "line": 131
       }
     },
     {
@@ -32728,7 +32728,7 @@
       "name": "dashboards",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 139
+        "line": 141
       }
     },
     {
@@ -32737,7 +32737,7 @@
       "name": "forms",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 147
+        "line": 149
       }
     },
     {
@@ -32746,7 +32746,7 @@
       "name": "admin-editor-flows",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 157
+        "line": 159
       }
     },
     {
@@ -32755,7 +32755,7 @@
       "name": "search-filters-lists",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 165
+        "line": 167
       }
     },
     {
@@ -32764,7 +32764,7 @@
       "name": "destructive-actions",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 173
+        "line": 175
       }
     },
     {
@@ -32773,7 +32773,7 @@
       "name": "pattern-service-reuse",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 181
+        "line": 183
       }
     },
     {
@@ -32782,7 +32782,7 @@
       "name": "maturity-capabilities",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 189
+        "line": 191
       }
     },
     {
@@ -32791,7 +32791,7 @@
       "name": "semantic-actions",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 199
+        "line": 201
       }
     },
     {
@@ -32800,7 +32800,7 @@
       "name": "detail-surfaces",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 209
+        "line": 211
       }
     },
     {
@@ -32809,7 +32809,7 @@
       "name": "embed-surfaces",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 219
+        "line": 221
       }
     },
     {
@@ -32818,7 +32818,7 @@
       "name": "buttons",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 229
+        "line": 231
       }
     },
     {
@@ -32827,7 +32827,7 @@
       "name": "choice-chips",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 237
+        "line": 239
       }
     },
     {
@@ -32836,7 +32836,7 @@
       "name": "icon-buttons",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 247
+        "line": 249
       }
     },
     {
@@ -32845,7 +32845,7 @@
       "name": "inputs",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 255
+        "line": 257
       }
     },
     {
@@ -32854,7 +32854,7 @@
       "name": "selects-combobox",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 263
+        "line": 265
       }
     },
     {
@@ -32863,7 +32863,7 @@
       "name": "checkboxes-radios",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 271
+        "line": 273
       }
     },
     {
@@ -32872,7 +32872,7 @@
       "name": "product-cards",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 279
+        "line": 281
       }
     },
     {
@@ -32881,7 +32881,7 @@
       "name": "public-product-cards",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 289
+        "line": 291
       }
     },
     {
@@ -32890,7 +32890,7 @@
       "name": "media-card",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 299
+        "line": 301
       }
     },
     {
@@ -32899,7 +32899,7 @@
       "name": "accent-panels",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 309
+        "line": 311
       }
     },
     {
@@ -32908,7 +32908,7 @@
       "name": "metric-cards",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 319
+        "line": 321
       }
     },
     {
@@ -32917,7 +32917,7 @@
       "name": "data-toolbars",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 329
+        "line": 331
       }
     },
     {
@@ -32926,7 +32926,7 @@
       "name": "state-blocks",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 339
+        "line": 341
       }
     },
     {
@@ -32935,7 +32935,7 @@
       "name": "surface-presentation",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 349
+        "line": 351
       }
     },
     {
@@ -32944,7 +32944,7 @@
       "name": "action-bar",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 359
+        "line": 361
       }
     },
     {
@@ -32953,7 +32953,7 @@
       "name": "listing-card",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 369
+        "line": 371
       }
     },
     {
@@ -32962,7 +32962,7 @@
       "name": "share-button-group",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 379
+        "line": 381
       }
     },
     {
@@ -32971,7 +32971,7 @@
       "name": "public-food-card",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 389
+        "line": 391
       }
     },
     {
@@ -32980,7 +32980,7 @@
       "name": "food-menu-section",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 399
+        "line": 401
       }
     },
     {
@@ -32989,7 +32989,7 @@
       "name": "map-panel",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 409
+        "line": 411
       }
     },
     {
@@ -32998,7 +32998,7 @@
       "name": "detail-profile-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 419
+        "line": 421
       }
     },
     {
@@ -33007,7 +33007,7 @@
       "name": "public-flow-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 429
+        "line": 431
       }
     },
     {
@@ -33016,7 +33016,7 @@
       "name": "playback-surface",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 439
+        "line": 441
       }
     },
     {
@@ -33025,7 +33025,7 @@
       "name": "public-shells",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 449
+        "line": 451
       }
     },
     {
@@ -33034,7 +33034,7 @@
       "name": "public-nav",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 459
+        "line": 461
       }
     },
     {
@@ -33043,7 +33043,7 @@
       "name": "auth-shells",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 469
+        "line": 471
       }
     },
     {
@@ -33052,7 +33052,7 @@
       "name": "social-auth-buttons",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 479
+        "line": 481
       }
     },
     {
@@ -33061,7 +33061,7 @@
       "name": "provider-identity-buttons",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 489
+        "line": 491
       }
     },
     {
@@ -33070,7 +33070,7 @@
       "name": "article-shells",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 499
+        "line": 501
       }
     },
     {
@@ -33079,7 +33079,7 @@
       "name": "docs-page-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 509
+        "line": 511
       }
     },
     {
@@ -33088,7 +33088,7 @@
       "name": "docs-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 519
+        "line": 521
       }
     },
     {
@@ -33097,7 +33097,7 @@
       "name": "reference-section",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 529
+        "line": 531
       }
     },
     {
@@ -33106,7 +33106,7 @@
       "name": "reference-link-grid",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 539
+        "line": 541
       }
     },
     {
@@ -33115,7 +33115,7 @@
       "name": "reference-locale-notice",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 549
+        "line": 551
       }
     },
     {
@@ -33124,7 +33124,7 @@
       "name": "reference-theme-explorer",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 559
+        "line": 561
       }
     },
     {
@@ -33133,7 +33133,7 @@
       "name": "pin-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 569
+        "line": 571
       }
     },
     {
@@ -33142,7 +33142,7 @@
       "name": "gds-map",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 579
+        "line": 581
       }
     },
     {
@@ -33151,7 +33151,7 @@
       "name": "accent-contrast-matrix",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 589
+        "line": 591
       }
     },
     {
@@ -33160,7 +33160,7 @@
       "name": "reference-site-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 599
+        "line": 601
       }
     },
     {
@@ -33169,7 +33169,7 @@
       "name": "editorial-hero",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 609
+        "line": 611
       }
     },
     {
@@ -33178,7 +33178,7 @@
       "name": "feature-band",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 619
+        "line": 621
       }
     },
     {
@@ -33187,7 +33187,7 @@
       "name": "browse-surface",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 629
+        "line": 631
       }
     },
     {
@@ -33196,7 +33196,7 @@
       "name": "editorial-cards",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 639
+        "line": 641
       }
     },
     {
@@ -33205,7 +33205,7 @@
       "name": "generated-imagery",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 649
+        "line": 651
       }
     },
     {
@@ -33214,7 +33214,7 @@
       "name": "consumer-sections",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 659
+        "line": 661
       }
     },
     {
@@ -33223,7 +33223,7 @@
       "name": "consumer-dashboard-grid",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 669
+        "line": 671
       }
     },
     {
@@ -33232,7 +33232,7 @@
       "name": "media-fields",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 679
+        "line": 681
       }
     },
     {
@@ -33241,7 +33241,7 @@
       "name": "content-operations-editor",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 689
+        "line": 691
       }
     },
     {
@@ -33250,7 +33250,7 @@
       "name": "admin-app-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 699
+        "line": 701
       }
     },
     {
@@ -33259,7 +33259,7 @@
       "name": "editor-scaffold",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 709
+        "line": 711
       }
     },
     {
@@ -33268,7 +33268,7 @@
       "name": "kanban-board",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 719
+        "line": 721
       }
     },
     {
@@ -33277,7 +33277,7 @@
       "name": "form-section",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 729
+        "line": 731
       }
     },
     {
@@ -33286,7 +33286,7 @@
       "name": "workspace-header",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 739
+        "line": 741
       }
     },
     {
@@ -33295,7 +33295,7 @@
       "name": "section-panels",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 749
+        "line": 751
       }
     },
     {
@@ -33304,7 +33304,7 @@
       "name": "public-brand-footer",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 759
+        "line": 761
       }
     },
     {
@@ -33313,7 +33313,7 @@
       "name": "public-site-footer",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 769
+        "line": 771
       }
     },
     {
@@ -33322,7 +33322,7 @@
       "name": "filter-drawer",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 779
+        "line": 781
       }
     },
     {
@@ -33331,7 +33331,7 @@
       "name": "docs-code-blocks",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 789
+        "line": 791
       }
     },
     {
@@ -33340,7 +33340,7 @@
       "name": "cta-button-groups",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 799
+        "line": 801
       }
     },
     {
@@ -33349,7 +33349,7 @@
       "name": "upload-surfaces",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 809
+        "line": 811
       }
     },
     {
@@ -33358,7 +33358,7 @@
       "name": "access-summaries",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 819
+        "line": 821
       }
     },
     {
@@ -33367,7 +33367,7 @@
       "name": "access-recovery-panels",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 829
+        "line": 831
       }
     },
     {
@@ -33376,7 +33376,7 @@
       "name": "access-gates",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 839
+        "line": 841
       }
     },
     {
@@ -33385,7 +33385,7 @@
       "name": "placeholder-panels",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 849
+        "line": 851
       }
     },
     {
@@ -33394,7 +33394,7 @@
       "name": "simple-data-tables",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 859
+        "line": 861
       }
     },
     {
@@ -33403,7 +33403,7 @@
       "name": "admin-data-table",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 869
+        "line": 871
       }
     },
     {
@@ -33412,7 +33412,7 @@
       "name": "responsive-data-view",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 879
+        "line": 881
       }
     },
     {
@@ -33421,7 +33421,7 @@
       "name": "stats-strip",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 889
+        "line": 891
       }
     },
     {
@@ -33430,7 +33430,7 @@
       "name": "info-card",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 899
+        "line": 901
       }
     },
     {
@@ -33439,7 +33439,7 @@
       "name": "semantic-nav-link",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 909
+        "line": 911
       }
     },
     {
@@ -33448,7 +33448,7 @@
       "name": "empty-state",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 919
+        "line": 921
       }
     },
     {
@@ -33457,7 +33457,7 @@
       "name": "stats-sections",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 929
+        "line": 931
       }
     },
     {
@@ -33466,7 +33466,7 @@
       "name": "reporting-contracts",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 939
+        "line": 941
       }
     },
     {
@@ -33475,7 +33475,7 @@
       "name": "alerts",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 949
+        "line": 951
       }
     },
     {
@@ -33484,7 +33484,7 @@
       "name": "loaders-skeletons",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 959
+        "line": 961
       }
     },
     {
@@ -33493,7 +33493,7 @@
       "name": "notifications",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 967
+        "line": 969
       }
     },
     {
@@ -33502,7 +33502,7 @@
       "name": "motion-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 977
+        "line": 979
       }
     },
     {
@@ -33511,7 +33511,7 @@
       "name": "badges",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 987
+        "line": 989
       }
     },
     {
@@ -33520,7 +33520,7 @@
       "name": "modals",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 997
+        "line": 999
       }
     },
     {
@@ -33529,7 +33529,7 @@
       "name": "drawers",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1007
+        "line": 1009
       }
     },
     {
@@ -33538,7 +33538,7 @@
       "name": "small-screen-priority",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1017
+        "line": 1019
       }
     },
     {
@@ -33547,7 +33547,7 @@
       "name": "table-responsive-strategies",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1025
+        "line": 1027
       }
     },
     {
@@ -33556,7 +33556,7 @@
       "name": "mobile-action-density",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1033
+        "line": 1035
       }
     },
     {
@@ -33565,7 +33565,7 @@
       "name": "searchable-selection",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1041
+        "line": 1043
       }
     },
     {
@@ -33574,7 +33574,7 @@
       "name": "vocabulary-extension-lane",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1049
+        "line": 1051
       }
     },
     {
@@ -33583,7 +33583,7 @@
       "name": "partner-discovery-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1059
+        "line": 1061
       }
     },
     {
@@ -33592,7 +33592,7 @@
       "name": "bottom-tab-navigation",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1069
+        "line": 1071
       }
     },
     {
@@ -33601,7 +33601,7 @@
       "name": "searchable-select",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1079
+        "line": 1081
       }
     },
     {
@@ -33610,7 +33610,7 @@
       "name": "fit-score-chip",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1089
+        "line": 1091
       }
     },
     {
@@ -33619,7 +33619,7 @@
       "name": "conversation-surface",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1099
+        "line": 1101
       }
     },
     {
@@ -33628,7 +33628,7 @@
       "name": "meaning-badge",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1109
+        "line": 1111
       }
     },
     {
@@ -33637,7 +33637,7 @@
       "name": "media-with-fallback",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1119
+        "line": 1121
       }
     },
     {
@@ -33646,7 +33646,7 @@
       "name": "number-stepper",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1129
+        "line": 1131
       }
     },
     {
@@ -33655,7 +33655,7 @@
       "name": "ai-search-card",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1139
+        "line": 1141
       }
     },
     {

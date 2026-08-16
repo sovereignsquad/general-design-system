@@ -109,3 +109,38 @@ separately claims "badge system, generated imagery" as `/systems` content, which
 Badges & Indicators and Generated Imagery are filed on the wrong page by this table's own
 definition. That is a real re-categorization decision, not a findability fix, and stays open
 until made deliberately.
+
+## Phase 6 — Foundations rebuilt to the 7 axes; Components and Systems become real hosting pages (issue 632/633, in progress)
+
+The re-categorization Phase 5 deliberately left open is now decided: **Foundations holds
+strictly the 7 axes**, matching this document's own "Target shape" table for the first time
+since it was written. `PatternFamily` gained two new members, `components` and `systems`, each
+hosted at its existing top-level route (`/components`, `/patterns/components` redirects
+forever, same mechanism as `/foundations`/`/patterns/foundations`; same for `/systems`).
+`PatternFamilyPage`'s filter-plus-jump-to-section rendering (Phase 5) was factored into a
+standalone `FamilyEntryBrowser`, so `ComponentsIndexPage` and `SystemsPage` compose it directly
+alongside their own bespoke header content instead of needing a fake `familyMeta` entry.
+
+25 entries moved, mechanically, entry by entry:
+- **4 → `systems`** (badges, fit-score-chip, meaning-badge, generated-imagery) — matches this
+  table's Systems row exactly.
+- **19 → `components`**, two sections (Controls & Inputs: theme-toggle, form-field,
+  game-board-tile, buttons, choice-chips, icon-buttons, inputs, selects-combobox,
+  checkboxes-radios, semantic-actions, accent-panels; Shell & Navigation: stable-shell,
+  primary-navigation, mobile-navigation, page-headers, shell-contracts, discovery-shell,
+  sidebar-navigation, semantic-nav-link) — the "what is this piece" content this table's
+  Components row calls for, previously homeless because no other family had a real Controls &
+  Inputs or Shell & Navigation section.
+- **5 → `operations`**, Workflow Guidance (forms, action-bar, pattern-service-reuse,
+  maturity-capabilities, vocabulary-extension-lane) — an exact existing section-name match,
+  no invented category.
+- **1 → `public`**, Discovery & Listing (product-cards) — next to the existing
+  `public-product-cards` entry.
+
+`motion-system` (Motion Tokens) is the only entry that stayed. **Foundations will read sparse
+until Phases 7-11 land** (five new axis reference pages — typography, density & spacing, shape
+& elevation, icons, accessibility, plus a compact colour/theming entry linking out to the full
+`/themes` Theme Lab) — five of the seven axes have zero existing live page today, only scattered
+token infrastructure, so each is a from-scratch build following the `GdsMotionSystemReference`/
+`GdsPinSystemReference` template: every value surfaced live from the real export a consumer
+would import, never a hand-typed swatch. Tracked as issue 632's remaining sub-issues.
