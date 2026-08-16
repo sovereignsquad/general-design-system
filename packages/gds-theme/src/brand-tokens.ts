@@ -1,8 +1,8 @@
 import { mergeThemeOverrides, type MantineColorsTuple, type MantineTheme, type MantineThemeOverride } from '@mantine/core';
 import { createPublicBrandTheme } from './theme';
 import { readableForeground } from './color-math';
-// Issue 554: these are DEFINED in semantic-token-source.ts, which is the only place
-// semantic-role values exist. Re-exported below so the public API is unchanged.
+// Defined in semantic-token-source.ts, the only place semantic-role values exist.
+// Re-exported below so the public API is unchanged.
 import {
   deriveClassUsaSemanticTokens,
   deriveGoldAthleteSemanticTokens,
@@ -36,7 +36,7 @@ import {
 } from './token-operations';
 
 /**
- * Governed brand-theme entry point (gap B2 / issue #316).
+ * Governed brand-theme entry point.
  *
  * Consumers pass five brand color ramps and two font families and receive a
  * fully tokened Mantine theme, a brand-named semantic CSS-variable map, and a
@@ -343,10 +343,7 @@ function assertContrast(tokens: Record<BrandSemanticRole, SemanticPair>): GdsTok
     { foreground: tokens['text.primary'].light, background: tokens['bg.surface'].light, min: 4.5, label: 'text.primary on bg.surface' },
     { foreground: tokens['text.onInverse'].light, background: tokens['bg.inverse'].light, min: 4.5, label: 'text.onInverse on bg.inverse' },
     { foreground: tokens['text.secondary'].light, background: tokens['bg.page'].light, min: 4.5, label: 'text.secondary on bg.page' },
-    // issue #537: gate the pairing that RENDERS, in both schemes. The absence of this
-    // requirement is why a 1.89:1 selected chip shipped while every existing contrast
-    // gate stayed green - they all checked designed pairings, and this pairing was
-    // never designed at all.
+    // Gates the pairing that actually renders, in both schemes — not just designed pairings.
     { foreground: readableForeground(tokens['support'].light, 4.5, tokens['bg.page'].light), background: tokens['support'].light, min: 4.5, label: 'text.onSupport on support (light)' },
     { foreground: readableForeground(tokens['support'].dark, 4.5, tokens['bg.page'].dark), background: tokens['support'].dark, min: 4.5, label: 'text.onSupport on support (dark)' },
   ];
@@ -457,11 +454,9 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
   };
   const tokens = deriveClassUsaSemanticTokens(ramps);
   const contrastFindings = assertContrast(tokens);
-  // `Button.defaultProps.color` is `classUsaAction` (v2 re-base, issue 536),
-  // so the primary-button contrast gate must check white against the accent
-  // (action) color the button actually renders, not `brand.primary` (navy,
-  // now used for chrome only) — matches the spec's own "primary-button gate"
-  // contrast entry: white on `action[6]` (#c24a0a) = 4.9:1.
+  // `Button.defaultProps.color` is `classUsaAction`, so the primary-button contrast gate
+  // must check white against the accent (action) color the button actually renders, not
+  // `brand.primary` (navy, used for chrome only). White on `action[6]` (#c24a0a) = 4.9:1.
   if (brandContrastRatio('#ffffff', tokens['brand.accent'].light) < 4.5) {
     contrastFindings.push({
       severity: 'error',
@@ -498,10 +493,9 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
         h3: { fontSize: '1.25rem', fontWeight: '700', lineHeight: '1.25' },
       },
     },
-    // v2 re-base (issue 536): `primaryColor` stays navy for chrome (nav,
-    // headings, inverse surfaces); `Button.defaultProps.color` below points
-    // at the action ramp instead, so CTAs read orange without changing what
-    // "primary" means for the rest of the theme.
+    // `primaryColor` stays navy for chrome (nav, headings, inverse surfaces);
+    // `Button.defaultProps.color` below points at the action ramp instead, so CTAs read
+    // orange without changing what "primary" means for the rest of the theme.
     primaryColor: 'classUsaNavy',
     colors: {
       classUsaNavy: ramps.navy as unknown as MantineColorsTuple,
@@ -511,11 +505,8 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       classUsaCream: ramps.cream as unknown as MantineColorsTuple,
       classUsaSlate: ramps.slate as unknown as MantineColorsTuple,
     },
-    // Issue 551 — the handoff's OWN radius scale (8 / 12 / 16 / 24 / pill), encoded on the
-    // theme rather than inherited from Mantine's stock scale. Before this, Card's 'lg'
-    // happened to equal the handoff's 16px only because Mantine's stock lg is 1rem — a
-    // coincidence, not a contract — and Badge's 'xl' was a 32px accident where the handoff
-    // says pill. With the scale owned here, the named steps MEAN the handoff tiers:
+    // The handoff's own radius scale (8 / 12 / 16 / 24 / pill), encoded here rather than
+    // inherited from Mantine's stock scale, so the named steps mean the handoff tiers:
     // xs 8 (tight chrome), sm 12 (controls), md 16 (cards), lg 24 (large panels), xl pill.
     radius: {
       xs: '0.5rem',

@@ -132,14 +132,10 @@ try {
       ),
     );
 
-    // Issue 604 — the install and the compat check are DIFFERENT failure classes and must never
-    // read as each other. This install re-resolves a full transitive tree from the registry
-    // (deliberately: the point is "a fresh consumer install works"), which means it can fail on
-    // registry state alone — run 31689858068 went red on ETARGET for @tiptap/pm@3.30.1, a
-    // version that existed, on a commit whose re-run passed. A retry with backoff absorbs that
-    // class; a failure that survives the retries is reported as an INSTALL failure by name, so
-    // it can never be waved through as (or mistaken for) a Mantine incompatibility — the
-    // wave-through habit being the expensive half of a known-flaky gate.
+    // Install and compat check are different failure classes. This install re-resolves the
+    // full tree from the registry, so it can fail on registry state alone; retried with
+    // backoff, and a failure that survives is reported as an install failure, not a Mantine
+    // incompatibility.
     let installed = false;
     for (let attempt = 1; attempt <= 3 && !installed; attempt += 1) {
       try {

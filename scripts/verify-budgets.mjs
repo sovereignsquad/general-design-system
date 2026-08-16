@@ -1,17 +1,9 @@
-// Issue 578 — ratcheted quality budgets.
-//
-// Compares measured values in audit/*.json against the committed expectations in
-// audit/budgets.json. This gate MEASURES NOTHING itself; the audit scripts measure,
-// this compares. Its whole purpose is to give the repository a memory: without it,
-// nothing anywhere records "18.4% today", so 19% tomorrow is invisible.
+// Ratcheted quality budgets: compares measured values in audit/*.json against the committed
+// expectations in audit/budgets.json. This gate does not measure anything itself.
 //
 // Two failure modes, both blocking:
 //   EXCEEDED        a value got worse than its budget
 //   UNCLAIMED_SLACK a value got measurably better and the budget was not lowered
-//
-// The second is what keeps the ratchet ratcheting. Without it a budget set once drifts
-// into meaninglessness as the system improves around it, and the gate degrades into a
-// no-op — the issue-516 failure mode expressed as numbers rather than coverage.
 
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -47,13 +39,11 @@ function measure(key) {
 
   switch (key) {
     case 'touchTargetFloorViolations':
-      // Issue 628. Written by verify-touch-target-floor-runtime.mjs, a measuring gate (not
-      // hard-fail) — this budget is what actually enforces the ratchet.
+      // Written by verify-touch-target-floor-runtime.mjs, a measuring gate (not hard-fail);
+      // this budget enforces the ratchet.
       return read('touch-target-floor.json')?.totalUnexemptViolations;
     case 'themeMatrixUntraceableRate':
-      // Issue 562. Deliberately a SEPARATE key from untraceableRenderRate: same word, wider
-      // lens, different number. Reusing the name would make the two look comparable, which is
-      // the trap finding F24 named.
+      // Deliberately a separate key from untraceableRenderRate: same word, wider lens, different number.
       return read('theme-coverage-matrix.json')?.untraceableRate;
     case 'untraceableRenderRate': {
       const a = read('backward-trace.json');
@@ -61,25 +51,18 @@ function measure(key) {
     }
     case 'tokensWithGaps':        return read('forward-trace.json')?.tokensWithGaps;
     case 'unreachableTokens':
-      // Issue 586 repointed this from Phase 2 demo-reachability to the reachability census.
-      // The value counts UNCLASSIFIED tokens, not dead ones — see the budget's $comment.
+      // Counts unclassified tokens, not dead ones — see the budget's $comment.
       return read('token-reachability.json')?.unreachableCount;
     case 'publishedGraphOverlap':
-      // Issue 585 repointed this from Phase 2 demo-variation counting to the published
-      // graph itself. See the budget's $comment: it was 1 because the graph and the
-      // runtime semantic set overlapped only on `accent`.
+      // See the budget's $comment for what "overlap" measures here.
       return read('published-graph.json')?.overlap;
     case 'undeclaredMantineDependencies':
-      // Issue 589 repointed this from the Phase 4c CSS-declaration count to the census,
-      // which measures whether gdsTheme actually dictates the value. See the $comment on
-      // the budget entry — the two counts answer different questions.
+      // Measures whether gdsTheme actually dictates the value; see the $comment on the budget entry.
       return read('mantine-governance.json')?.ungovernedCount;
     case 'registryAtomsWithoutCoverage': {
       const reg = read('registry.json');
       if (!reg) return undefined;
-      // Derived from the obligation model rather than a second hardcoded list. A
-      // duplicated "what is covered" set is exactly the dual-source pattern that caused
-      // F1 and the 5.0.1 defect, and it would silently disagree the moment either moved.
+      // Derived from the obligation model rather than a second hardcoded list, so the two cannot disagree.
       const COVERED = new Set([...Object.keys(OBLIGATION_MODEL), ...Object.keys(COVERED_ELSEWHERE)]);
       return Object.entries(reg.counts).filter(([k]) => !COVERED.has(k)).reduce((n, [, v]) => n + v, 0);
     }
@@ -87,14 +70,11 @@ function measure(key) {
       return read('dimensions.json')?.languageVariants.packageLocalesWithNoSitePack.length;
     case 'englishLeakageWorstLocale':
       return read('dimensions.json')?.languageVariants.englishLeakage[0]?.rate;
-    // Issue 601. This case was named `gateMutationScore` and returned the PHASE 5 RENDER
-    // mutants. The name read like the gate suite's score and pointed somewhere else, which is
-    // how a figure gets transcribed into a claim it does not support.
+    // Not to be confused with gateSuiteMutationScore below — different mutant sets.
     case 'phase5MutationScore':   return read('static-analysis-mutation-score.json')?.mutationScore;
     case 'renderMutationScore':   return read('render-mutation-score.json')?.renderMutationScore;
-    // Issue 602. The gate suite's own score had NO floor. `gateSuiteUnexplainedSurvivors`
-    // below does not supply one: deleting a mutant lowers coverage without raising survivors,
-    // because a mutant that no longer exists survives nothing.
+    // gateSuiteUnexplainedSurvivors below is not a floor: deleting a mutant lowers coverage
+    // without raising survivors.
     case 'gateSuiteMutationScore': return read('gate-mutation-score.json')?.gateMutationSuiteScore;
     case 'gateSuiteUnexplainedSurvivors': return read('gate-mutation-score.json')?.unexplainedSurvivors;
     case 'obligationGaps':        return read('obligation-coverage.json')?.gapCount;
@@ -132,9 +112,8 @@ for (const [key, b] of Object.entries(budgets)) {
 }
 
 const pad = (s, n) => String(s).padEnd(n);
-// Issue 582. The PR budget report renders from this artifact rather than re-measuring, so
-// the comment and the gate can never disagree about what the numbers are — a second
-// resolver would be the dual-source pattern that produced F1 and the 5.0.1 defect.
+// The PR budget report renders from this artifact rather than re-measuring, so it can never
+// disagree with the gate.
 mkdirSync(join(ROOT, 'audit'), { recursive: true });
 writeFileSync(join(ROOT, 'audit/budget-results.json'), `${JSON.stringify({
   rows: results.map((r) => ({

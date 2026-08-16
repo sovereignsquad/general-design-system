@@ -1,14 +1,7 @@
-// Issue 588 — fail when a locale pack ships English where a translation belongs.
+// Fails when a locale pack ships English where a translation belongs — other i18n gates
+// check key parity only, not values.
 //
-// Every existing i18n gate checks KEY PARITY: verify:site-phrase-translations,
-// verify:i18n-message-parity and verify:i18n-package-copy all confirm that a pack has the
-// right keys. None of them looks at the VALUES, so a pack could carry every key and translate
-// none of them and the build stayed green. Issue 517 found full English paragraphs sitting
-// mid-page in Hebrew and Arabic that way — the most visible failure a localised product has,
-// shipped, with four gates reporting clean.
-//
-// The detection rule lives in scripts/lib/i18n-leakage.mjs and is shared with the generator,
-// so the tool that repairs leakage and the gate that fails on it cannot disagree.
+// Detection rule lives in scripts/lib/i18n-leakage.mjs, shared with the generator.
 //
 // Output: audit/i18n-leakage.json
 
@@ -25,9 +18,8 @@ const corpora = [
 ];
 
 const failures = [];
-// No timestamp. This gate WRITES its artifact on every run, so a clock in the output would
-// leave the tree dirty after every chain and fail `preflight`'s clean-after check forever —
-// the artifact has to be a pure function of the packs it measured.
+// No timestamp: the artifact must be a pure function of the packs it measured, or the tree
+// stays dirty after every run.
 const report = { corpora: {} };
 
 for (const corpus of corpora) {
@@ -61,8 +53,7 @@ for (const corpus of corpora) {
         + `Examples: ${row.leakedKeys.slice(0, 4).map((key) => JSON.stringify(key)).join(', ')}`,
       );
     } else if (row.leaked < budget) {
-      // Unclaimed slack. Without this the ratchet stops ratcheting and the budget silently
-      // becomes a number nobody has to meet.
+      // Unclaimed slack: without this the budget silently becomes a number nobody has to meet.
       failures.push(
         `${corpus.id}/${row.locale}: ${row.leaked} untranslated, better than its budget of ${budget}. `
         + 'Lower the budget in scripts/i18n-leakage.config.mjs to claim the improvement.',

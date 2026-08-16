@@ -1,19 +1,11 @@
-// Issue 552 — the governed focus ring must exist BEFORE hydration.
+// The governed focus ring must exist before hydration — before applyDocumentRuntime() sets
+// data-gds-theme-preset client-side.
 //
-// styles.css originally gated its focus-visible rule on html[data-gds-theme-preset], an
-// attribute only applyDocumentRuntime() sets, client-side, post-mount. No server-rendered or
-// pre-hydration paint can carry it, so a keyboard user tabbing before JS mounted got no
-// governed focus indicator at all — and a consumer relying on the rule would not add their own.
+// Fixture: plain HTML linking only the published stylesheet, no data-gds-theme-preset, no JS.
+// Tabs through a native a/button/input and the two Mantine classes in the coverage contract
+// (.mantine-NavLink-root, .mantine-Tabs-tab), asserting each computes the governed 2px solid outline.
 //
-// This gate renders a fixture that simulates exactly that state: a plain HTML page linking
-// ONLY the published stylesheet, with NO data-gds-theme-preset attribute and no JS. It tabs
-// through a native <a>, <button>, <input>, and the two Mantine classes a consumer audit named
-// as the coverage contract (.mantine-NavLink-root, .mantine-Tabs-tab), asserting each focused
-// element computes the governed 2px solid outline. Every token the rule reads has a :root
-// default in the same stylesheet, so this must hold with zero runtime.
-//
-// Keyboard focus via CDP Input events, not element.focus() — :focus-visible only reliably
-// matches for keyboard interaction, and keyboard is the path the ring exists for.
+// Keyboard focus via CDP Input events, not element.focus() — :focus-visible only matches keyboard interaction.
 
 import { writeFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';

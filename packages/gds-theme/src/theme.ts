@@ -11,23 +11,18 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
   fontSmoothing: true,
   defaultRadius: 'md',
   /**
-   * Issue 597. Mantine's `light` variant pairs pastel text with a LOW-ALPHA TINT of the same
-   * hue. #534 measured two of those at 1.81:1 and 2.55:1 in dark mode — but the deeper problem
-   * is that a translucent background makes the pair **uncomputable**: no gate could measure it
-   * even if it tried, so 83 badges were invisible to every contrast sweep in the system. They
-   * were not passing; they could not be evaluated.
+   * Mantine's `light` variant pairs pastel text with a low-alpha tint of the same hue. A
+   * translucent background makes contrast uncomputable, so this governs the pair at the
+   * theme level rather than per call site.
    *
-   * This governs the pair at the theme level, so all 83 call sites are fixed without touching
-   * one of them — the alternative was editing 83 places and hoping the 84th remembers.
+   * The tint is composed with `color-mix` against a real surface, producing an opaque colour
+   * whose contrast can be measured. The foreground is the governed body text rather than a
+   * shade of the hue, since a fixed shade fails on some hues (below 4.5:1 on orange/green).
+   * The neutral pairing measures 9.14:1 at worst across all 25 presets x 2 schemes x 14
+   * Mantine colours.
    *
-   * The tint is composed with `color-mix` against a real surface, producing an OPAQUE colour
-   * whose contrast can actually be measured. The foreground is the governed body text rather
-   * than a shade of the hue: shade 9 was measured first and fails on orange (3.91:1) and green
-   * (4.03:1), so keeping the tinted text could not guarantee legibility. The neutral pairing
-   * measures **9.14:1 at worst** across all 25 presets x 2 schemes x 14 Mantine colours.
-   *
-   * VISIBLE CHANGE, stated rather than slipped in: light-variant badge text is now neutral
-   * instead of hue-tinted. The tint itself still carries the colour.
+   * Visible change: light-variant badge text is neutral instead of hue-tinted. The tint
+   * itself still carries the colour.
    */
   variantColorResolver: ((input) => {
     const base = defaultVariantColorsResolver(input);
@@ -42,18 +37,16 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
       border: base.border,
     };
   }) satisfies VariantColorsResolver,
-  // Issue 555. Mantine's radius scale is fed FROM the shape axis, so `radius="md"` on any
-  // component (146 such references across the packages) and every
-  // `var(--mantine-radius-*)` resolve through the same declaration as `--gds-radius-*`.
-  // Without this the axis would be a parallel scale that only new code consults, which is
-  // the dual-source shape issue 554 spent a whole change set removing.
+  // Mantine's radius scale is fed from the shape axis, so `radius="md"` on any component
+  // (146 such references) and every `var(--mantine-radius-*)` resolve through the same
+  // declaration as `--gds-radius-*`. Without this the axis would be a parallel scale only
+  // new code consults.
   //
-  // `none` and `pill` are intentionally absent: Mantine's scale has no such keys, and
-  // inventing them here would put values in a map Mantine will never read.
-  // Issue 556: Mantine's spacing scale is fed from the density axis for the same reason the
-  // radius scale is fed from the shape axis — otherwise `p="md"` and `--mantine-spacing-md`
-  // would resolve through a different declaration than `--gds-space-md`, and the axis would
-  // be a parallel scale rather than the source.
+  // `none` and `pill` are intentionally absent: Mantine's scale has no such keys.
+  //
+  // Mantine's spacing scale is fed from the density axis for the same reason: otherwise
+  // `p="md"` and `--mantine-spacing-md` would resolve through a different declaration than
+  // `--gds-space-md`.
   spacing: {
     xs: GDS_DEFAULT_DENSITY_AXIS.scale.xs,
     sm: GDS_DEFAULT_DENSITY_AXIS.scale.sm,
@@ -78,17 +71,12 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
       h3: { fontSize: '1.25rem', fontWeight: '600' },
     },
   },
-  // Overlay elevation scale (issue #395). GDS's "no decorative shadow
-  // layering" policy (FOUNDATION.md) applies to cards/surfaces, not
-  // overlays — FOUNDATION.md explicitly says "Overlays may use elevation."
-  // `xs`/`sm` were previously unset (silently falling through to Mantine's
-  // own defaults, with `sm` already carrying real meaning: Card's own
-  // `shadow: 'sm'` default below depends on it, so it's deliberately left
-  // alone here to avoid changing Card's established appearance). `md`/`lg`
-  // give overlay-tier components (Popover and everything built on it —
-  // Menu, HoverCard, Select/Combobox/MultiSelect/Autocomplete dropdowns) an
-  // explicit, documented elevation instead of an undocumented Mantine
-  // default or ad hoc per-component value.
+  // Overlay elevation scale. GDS's "no decorative shadow layering" policy applies to
+  // cards/surfaces, not overlays — FOUNDATION.md: "Overlays may use elevation."
+  // `xs`/`sm` stay unset (falling through to Mantine's defaults; `sm` is left alone since
+  // Card's own `shadow: 'sm'` default depends on it). `md`/`lg` give overlay-tier
+  // components (Popover, Menu, HoverCard, Select/Combobox/MultiSelect/Autocomplete
+  // dropdowns) an explicit, documented elevation.
   shadows: {
     md: '0 8px 24px rgba(15, 23, 42, 0.08)',
     lg: '0 16px 40px rgba(15, 23, 42, 0.12)',
@@ -107,9 +95,9 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
       },
     },
     Card: {
-      // GDS-owned styling hook (issue #345): theme classNames land `gds-card` on
-      // every Card root, so the theme CSS keys on a GDS class instead of the
-      // vendor-internal `.mantine-Card-root`. Survives preset theme merging.
+      // GDS-owned styling hook: theme classNames land `gds-card` on every Card root, so
+      // the theme CSS keys on a GDS class instead of the vendor-internal
+      // `.mantine-Card-root`. Survives preset theme merging.
       classNames: { root: 'gds-card' },
       defaultProps: {
         radius: 'lg',
@@ -135,17 +123,13 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
     Code: {
       classNames: { root: 'gds-code' },
     },
-    // Mobile input-focus auto-zoom guard (dev-reported gap): iOS Safari/Chrome force-zoom
-    // the page when a focused input's computed font-size is under 16px. Mantine's `xs`/`sm`
-    // sizes (and the implicit `sm` default) render at 12-14px. `Input.vars` is the same
-    // CSS-custom-property channel Mantine's own built-in resolver uses to set `--input-fz`,
-    // so this wins with no specificity contest and no `!important` — unlike a bare
-    // `input, select, textarea { font-size: 16px }` consumer rule, which always loses to
-    // Mantine's generated class selector regardless of stylesheet order. `md`/`lg`/`xl`
-    // already render >=16px and are left untouched (returning `undefined` here falls
-    // through to Mantine's own default). Applies to every Input-based control (TextInput,
-    // Textarea, NativeSelect, Select, PasswordInput, NumberInput, MultiSelect, Autocomplete,
-    // TagsInput) since they all resolve `--input-fz` through this shared `Input` theme key.
+    // Mobile input-focus auto-zoom guard: iOS Safari/Chrome force-zoom the page when a
+    // focused input's computed font-size is under 16px. Mantine's `xs`/`sm` sizes render at
+    // 12-14px. `Input.vars` is the same CSS-custom-property channel Mantine's built-in
+    // resolver uses to set `--input-fz`, so this wins with no specificity contest — a bare
+    // `input, select, textarea { font-size: 16px }` rule always loses to Mantine's generated
+    // class selector. `md`/`lg`/`xl` already render >=16px and are left untouched. Applies to
+    // every Input-based control since they all resolve `--input-fz` through this shared key.
     Input: {
       vars: (_theme: unknown, props: { size?: string }) => ({
         wrapper: {
@@ -361,16 +345,13 @@ export function withGdsMotion(overrides: MantineThemeOverride = {}) {
 /**
  * Wraps a theme so its `light` variant is governed, whatever the theme is.
  *
- * Putting the resolver on `gdsTheme` alone was not enough, and the runtime gate is what caught
- * it: `GdsProvider` accepts any `MantineThemeOverride`, and a preset built by
- * `resolveGdsThemePreset` does not descend from `gdsTheme` — so the governed lane was dropped
- * on every route the playground renders, which is every route a consumer copies from.
+ * Putting the resolver on `gdsTheme` alone is not enough: `GdsProvider` accepts any
+ * `MantineThemeOverride`, and a preset built by `resolveGdsThemePreset` does not descend
+ * from `gdsTheme`, so the governed lane would be dropped on any route using a preset.
+ * Applied inside the provider so no theme can opt out of it by accident.
  *
- * A guarantee that a caller can drop by passing a different object is not a guarantee. This is
- * applied inside the provider so no theme can opt out of it by accident.
- *
- * A consumer's own resolver is still honoured for every other variant; only `light` is forced,
- * because that is the lane with no measurable contrast.
+ * A consumer's own resolver is still honoured for every other variant; only `light` is
+ * forced, since that is the lane with no measurable contrast.
  */
 export function withGdsGovernedVariants(theme: MantineThemeOverride): MantineThemeOverride {
   const inherited = theme.variantColorResolver;

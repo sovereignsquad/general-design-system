@@ -1,11 +1,5 @@
-// Phase 0 of docs/DEEP_AUDIT_PLAN.md — ground-truth registry.
-//
-// Derives the audit's checklist from the codebase so that no human list is
-// required and nothing can be forgotten. If it exists in source, it enters the
-// audit automatically. This is the mechanism that makes the plan's no-assuming
-// rule mechanically true rather than a promise.
-//
-// Output: audit/registry.json  (schema: AuditRegistry in the plan, §Phase 0)
+// Derives the audit registry from the codebase; nothing is hand-listed.
+// Output: audit/registry.json
 
 import { readFileSync, readdirSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -146,10 +140,7 @@ for (const [dir, kind] of [
   const vf = join(ROOT, 'packages/gds-theme/src/vibe-themes.ts');
   const src = readFileSync(vf, 'utf8');
   for (const m of src.matchAll(/^\s{2,4}id: '([^']+)'/gm)) add('theme', m[1], vf, lineOf(src, m.index));
-  // Issue 594 moved the accent definitions out of GdsBadge. This read a literal hex table
-  // there; that table is now DERIVED from the axis, so the extractor read a computed
-  // expression and found nothing. The kind fell to zero and the EXPECTED_KINDS guard caught
-  // it — which is the guard working, and the reason accents are read from their source now.
+  // Accent hex values are computed in accent-axis.ts, not a literal table.
   const af = join(ROOT, 'packages/gds-theme/src/accent-axis.ts');
   const a = readFileSync(af, 'utf8');
   const ramps = a.match(/GDS_DEFAULT_ACCENT_AXIS[^=]*=\s*\{[\s\S]*?ramps:\s*\{([\s\S]*?)\n  \},/);
@@ -163,7 +154,7 @@ const commit = execSync('git rev-parse HEAD', { cwd: ROOT }).toString().trim();
 const byKind = {};
 for (const a of atoms) byKind[a.kind] = (byKind[a.kind] ?? 0) + 1;
 
-// A kind resolving to zero means extraction is broken, not that the system lacks it.
+// A kind resolving to zero indicates broken extraction.
 const EXPECTED_KINDS = [
   'token-published', 'token-declared', 'token-referenced', 'token-emitted', 'export', 'prop',
   'variant', 'motion-token', 'motion-shipped', 'motion-keyframes', 'interaction-state', 'locale-pack-package',
@@ -175,10 +166,8 @@ mkdirSync(join(ROOT, 'audit'), { recursive: true });
 const outPath = join(ROOT, 'audit/registry.json');
 const payload = { generatedAt: null, commit, counts: byKind, atoms };
 
-// --check: drift-verify the committed registry instead of rewriting it, matching the
-// verify:tokens-dtcg pattern already in the release chain. `commit` is excluded from
-// the comparison: it changes every commit by construction, so including it would make
-// the registry appear to drift on every single run and train everyone to ignore it.
+// --check: drift-verify the committed registry instead of rewriting it.
+// `commit` is excluded from the comparison since it changes on every commit.
 const stable = (o) => JSON.stringify({ counts: o.counts, atoms: o.atoms }, null, 2);
 if (process.argv.includes('--check')) {
   if (!existsSync(outPath)) {

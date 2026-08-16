@@ -1,7 +1,6 @@
-// Issue 583 — deterministic IPOG-style covering-array generation (DEEP_AUDIT_PLAN §3.1.4
-// step 2). 2-way across all factors; 3-way within the accessibility-critical group. No
-// randomness anywhere: the same factor model produces byte-identical arrays, which is what
-// makes coverage comparable between runs.
+// Deterministic IPOG-style covering-array generation. 2-way across all factors; 3-way
+// within the accessibility-critical group. No randomness: the same factor model
+// produces byte-identical arrays.
 
 /** Every t-sized factor-index combination. */
 function combinations(indices, t) {
@@ -43,11 +42,9 @@ export function rowTuples(factors, row, factorIdxSets) {
 /**
  * IPOG: seed with the full cross of the two widest factors, extend one factor at a time
  * choosing, per row, the level covering the most new pairs (first-index tie-break), then
- * vertically extend for any pair no assignment reached. Afterwards, strengthen the a11y group
- * to t=3 by vertical extension of missing triples (rows outside the group take each factor's
- * first level, so the extension stays deterministic and minimal-effort rather than minimal-size
- * — an honest trade recorded here: minimal-size vertical extension is NP-hard and buys nothing
- * for an audit that runs offline).
+ * vertically extend for any pair no assignment reached. Afterwards, strengthen the a11y
+ * group to t=3 by vertical extension of missing triples (rows outside the group take
+ * each factor's first level; extension is minimal-effort, not minimal-size).
  */
 export function generateCoveringArray(factors, a11yGroup) {
   const byWidth = [...factors.keys()].sort((a, b) => factors[b].levels.length - factors[a].levels.length);

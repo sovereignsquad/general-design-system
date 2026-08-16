@@ -1,26 +1,12 @@
-// Full-coverage font policy (owner directive, 2026-08-13) — every font lane must be able to
-// render every language GDS supports.
+// Policy: every font lane must render every language GDS supports.
 //
-// WHY THIS IS A GATE AND NOT A REVIEW NOTE. Eleven of twelve lanes used to declare coverage of
-// latin (+cyrillic) only, so choosing a lane silently chose which languages a product could
-// display, and `ja`/`ko`/`zh` had no lane at all — the packages shipped those locales while no
-// lane's fonts contained their glyphs. Nothing objected, because nothing compared the lane
-// table to the locale catalog. A partial lane is a detour: it moves "which font can show my
-// users' language" out of the system and onto every consumer, one app at a time.
+// Locales come from `gdsLocaleMetadata` and coverage from the built lane table — both derived,
+// not hand-written lists.
 //
-// Both sides are DERIVED. Locales come from `gdsLocaleMetadata` and coverage from the built
-// lane table, so this cannot be satisfied by writing a list — adding a locale in a new script
-// fails the build until a lane can actually draw it.
-//
-// WHAT THIS GATE CANNOT PROVE, stated rather than implied. It verifies STRUCTURE: that every
-// script has a declared family, that every lane's stack names that family, that declared
-// coverage is the whole catalog, and that fonts load from the approved host with `swap`. It
-// does NOT verify that the named font file actually contains the script's glyphs — pointing
-// `hangul` at `"Noto Sans"` still passes, because the string is present in the stack. Proving
-// real glyph coverage means reading each family's `unicode-range` from the font service, which
-// is a live-network assertion of the kind already exempted for `audit:dependencies`. The
-// mapping is small, reviewed in one place, and each entry names why it exists; that is the
-// current control, and this comment is here so nobody reads a green run as more than it is.
+// This verifies structure only: that every script has a declared family, every lane's stack
+// names that family, declared coverage is the whole catalog, and fonts load from the approved
+// host with `swap`. It does not verify the named font file actually contains the script's
+// glyphs — that would require reading each family's `unicode-range` from the font service.
 
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';

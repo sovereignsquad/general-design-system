@@ -1,13 +1,8 @@
-// Issue 589 — Mantine dependency-boundary census.
+// Mantine dependency-boundary census: classifies every consumed `--mantine-*` custom property
+// as governed, delegated or ungoverned, and fails when ungoverned exceeds its budget.
 //
-// Classifies every consumed `--mantine-*` custom property as governed, delegated or
-// ungoverned, and fails when the ungoverned count exceeds its ratcheted budget.
-//
-// "Governed" is MEASURED, not declared. The gate resolves each variable to the theme
-// field Mantine emits it from and compares GDS's theme against Mantine's `DEFAULT_THEME`.
-// A variable counts as governed only when GDS actually changes the value. Listing governed
-// variables by hand would let the list claim authority GDS does not have — a second source
-// of truth about the first, which is the F1 pattern issue 554 was filed to remove.
+// "Governed" is measured, not declared: the gate resolves each variable to the theme field
+// Mantine emits it from and compares GDS's theme against Mantine's `DEFAULT_THEME`.
 //
 // Output: audit/mantine-governance.json
 
@@ -23,11 +18,8 @@ const themeModule = await import(join(ROOT, 'packages/gds-theme/dist/index.js'))
 const gds = themeModule.gdsTheme;
 if (!gds) fail('Could not load gdsTheme from packages/gds-theme/dist — run `npm run build` first.');
 
-// Governance is not one question but two: does the DEFAULT lane dictate this value, and
-// does ANY lane dictate it? A variable governed only in one preset still renders Mantine's
-// default everywhere else — which is finding F6's mechanism stated per-variable rather
-// than as an aggregate. `ChoiceChip` consuming `--mantine-color-teal-6` while only
-// `partnerDiscoveryThemePreset` defines a teal ramp is exactly that shape.
+// Two questions: does the default lane dictate this value, and does any lane dictate it? A
+// variable governed only in one preset still renders Mantine's default everywhere else.
 const LANES = [
   'gdsDarkPublicTheme', 'gdsFlatSurfaceTheme', 'gdsEditorialPublicTheme',
   'partnerDiscoveryThemePreset', 'classUsaThemePreset', 'goldAthleteThemePreset',
@@ -145,16 +137,14 @@ for (const [variable, files] of [...consumed].sort()) {
   rows.push({
     variable,
     classification: 'ungoverned',
-    // Stating WHY it is ungoverned turns the list into remediation work rather than a
-    // number: "GDS does not set gdsTheme.spacing.md" names the fix.
+    // Stated as why, not just a count, so the row names its own fix.
     why: mapped ? `GDS does not change gdsTheme.${mapped.path} from Mantine's default` : 'no GDS theme field maps to this variable',
     files: where,
   });
 }
 
 const by = (c) => rows.filter((r) => r.classification === c);
-// lane-governed counts as ungoverned for the budget: the default lane does not dictate it,
-// which is the condition F17 measured. Reported separately so the remediation is visible.
+// lane-governed counts as ungoverned for the budget; reported separately so remediation is visible.
 const ungoverned = [...by('ungoverned'), ...by('lane-governed')];
 
 const budgets = JSON.parse(readFileSync(join(ROOT, 'audit/budgets.json'), 'utf8')).budgets;

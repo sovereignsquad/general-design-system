@@ -1,14 +1,8 @@
-// Issue 567 — the tile source and its attribution, as one inseparable object.
+// Tile source and its attribution as one object: OpenStreetMap data is ODbL-licensed and
+// requires credit, so the URL cannot be obtained without the attribution text.
 //
-// OpenStreetMap data is published under the Open Database Licence. Rendering its tiles without
-// the credit is a licence violation, not a styling preference — so the source and the
-// attribution are ONE value here. There is deliberately no way to obtain the URL without also
-// obtaining the text that must accompany it.
-//
-// The OSM Foundation's tile usage policy also requires a valid identifying User-Agent/Referer
-// and forbids heavy bulk use; a product with real traffic is expected to move to its own tile
-// host. That is why the source is configurable rather than hardcoded — but any replacement
-// must carry its own attribution, which the type makes unavoidable.
+// OSM's tile usage policy also requires an identifying User-Agent/Referer and forbids heavy
+// bulk use; configurable so a consumer can move to their own tile host.
 
 /** A tile source and the credit that must be displayed wherever it renders. */
 export interface GdsMapTileSource {
@@ -23,10 +17,8 @@ export interface GdsMapTileSource {
 }
 
 /**
- * The default source: OpenStreetMap's standard raster tiles.
- *
- * Frozen so a consumer cannot mutate the attribution off the shared object and silently strip
- * the credit from every map in the application.
+ * Default source: OpenStreetMap's standard raster tiles. Frozen so the attribution cannot be
+ * mutated off the shared object.
  */
 export const GDS_OSM_TILE_SOURCE: GdsMapTileSource = Object.freeze({
   url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -44,11 +36,7 @@ export class GdsTileAttributionError extends Error {
 }
 
 /**
- * Validates a tile source before it is used.
- *
- * Throws rather than falling back to the default: silently substituting a different map than
- * the one a consumer configured would be a worse outcome than a loud failure, and an empty
- * attribution is the one case where rendering anything at all is the wrong answer.
+ * Validates a tile source before use. Throws rather than falling back to the default.
  */
 export function assertGdsTileSource(source: GdsMapTileSource): GdsMapTileSource {
   if (!source?.url?.trim()) throw new GdsTileAttributionError('Tile source has no URL.');

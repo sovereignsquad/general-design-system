@@ -21,22 +21,14 @@ export interface GdsPinSystemReferenceProps {
 const DEFAULT_ACCENTS: GdsAccentName[] = ['ocean', 'teal', 'grape', 'forest'];
 
 /**
- * The pin system explained: anatomy, composition modes, and a measured accent × shade matrix.
+ * The pin system: anatomy, composition modes, and a measured accent × shade matrix.
  *
- * Issue 571. The pin's design rationale — the solved centre, the icon-scale bound, why the
- * ring layer was removed, why shades only darken — existed **only as source comments**. A
- * consumer never encounters those, so they keep hand-composing pins incorrectly, which is the
- * exact failure the component was built to prevent.
- *
- * Every number here is **surfaced from the source or computed live**. Nothing is retyped: a
- * copied constant drifts the first time the source changes, which would reproduce that same
- * failure inside the documentation meant to cure it.
+ * All numbers are surfaced from source or computed live, never retyped.
  */
 export function GdsPinSystemReference({
   preset, colorScheme, accents = DEFAULT_ACCENTS,
 }: GdsPinSystemReferenceProps) {
-  // Issue 621: the reference's measured tables follow the ACTIVE theme by default, so the page
-  // documents what the visitor is looking at; explicit props remain for per-preset composition.
+  // Defaults to the active theme; explicit props override for per-preset composition.
   const ambient = useGdsAmbientTheme();
   const activePreset = preset ?? ambient.preset;
   const activeScheme = colorScheme ?? ambient.colorScheme;
@@ -45,9 +37,7 @@ export function GdsPinSystemReference({
     const surface = getGdsVibeThemeCssVariables(activePreset as GdsThemePresetId, activeScheme)['--gds-bg-card'];
     return accents.flatMap((accent) => GDS_ACCENT_SHADES.map((shade) => {
       const value = tokens[`--gds-accent-${accent}-${shade}`];
-      // Filled mode is the guarantee that matters: white icon on the accent. Measured live
-      // against the same resolver the release gate uses, so this table cannot disagree with
-      // the build.
+      // Filled mode: white icon on accent, measured with the release-gate resolver.
       const filled = getGdsContrastRatio('#ffffff', value);
       const outline = getGdsContrastRatio(value, surface);
       return { accent, shade, value, filled, outline };
@@ -103,7 +93,7 @@ export function GdsPinSystemReference({
           The icon is centred on the pin&rsquo;s own circle, whose centre sits one unit above the box
           centre in the 24-unit path space — so the offset is exactly <Code>-1/24</Code>:
         </Text>
-        {/* Surfaced from the source. Retyping it is what this page exists to prevent. */}
+        {/* Value read from source, not retyped. */}
         <Code block>{`transform: ${GDS_PIN_HEAD_CENTER_OFFSET} scale(${GDS_PIN_ICON_SCALE})`}</Code>
         <Text size="sm" c="dimmed">
           The rule is &ldquo;centre on the pin&rsquo;s circle&rdquo;, not a number tuned until it looked
@@ -140,7 +130,7 @@ export function GdsPinSystemReference({
                   <Table.Th scope="row">{row.accent}</Table.Th>
                   <Table.Td>{row.shade}</Table.Td>
                   <Table.Td><GdsMapPinBadge accent={row.accent} shade={row.shade} icon="Location" label={`${row.accent} ${row.shade}`} filled /></Table.Td>
-                  {/* Ratio AND threshold, with a text verdict — never colour alone. */}
+                  {/* Ratio and threshold shown as text, not color alone. */}
                   <Table.Td>
                     <GdsBadge
                       tone={(row.filled ?? 0) >= 4.5 ? 'success' : 'danger'}

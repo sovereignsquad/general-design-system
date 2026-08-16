@@ -4,14 +4,11 @@ import type { SiteLocaleId } from './site-copy';
 type PhraseMap = Record<string, string>;
 
 /**
- * Issue 624 (owner directive): the translation ENGINE lives in GDS
- * (`translateGdsDom`/`useGdsDomPhraseTranslation` in gds-core) — every visible mechanism on
- * this site is part of the system. What stays here is the site's DATA half: the generated
- * phrase packs and their code-split loaders.
+ * Translation engine lives in gds-core (`translateGdsDom`/`useGdsDomPhraseTranslation`).
+ * This file holds only the generated phrase packs and their loaders.
  *
- * Each loader is its own static dynamic-import() call (not a template-literal path) so
- * bundlers can code-split every locale into its own chunk — a visitor only ever downloads the
- * one language they actually picked.
+ * Each loader is a static dynamic-import() call, not a template-literal path, so
+ * each locale code-splits into its own chunk.
  */
 const localeLoaders: Partial<Record<SiteLocaleId, () => Promise<{ generatedSitePhrases: PhraseMap }>>> = {
   de: () => import('./generated-site-phrases/de'),

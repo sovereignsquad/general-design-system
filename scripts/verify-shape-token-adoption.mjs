@@ -1,9 +1,4 @@
-// Issue 555 — no component may hardcode a corner radius.
-//
-// The shape axis only means something if components actually read it. A governed scale that
-// nothing consumes is the same failure as F2's motion tokens: live, correct, and ignored,
-// while every doc claims the system is theme-controlled.
-//
+// Checks that no component hardcodes a corner radius; borderRadius must reference the shape axis.
 // Output: audit/shape-token-adoption.json
 
 import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -56,17 +51,7 @@ for (const file of walk(join(ROOT, 'packages'))) {
       // A variable or expression is not a literal; the gate cannot judge it statically.
       if (!/^['"]?[\d.]/.test(value)) continue;
 
-      // Keyed by the declaration's own TEXT, not by `file:line` — issue 614.
-      //
-      // The line-number key was chosen so an entry would stop matching if the line moved, forcing
-      // a re-examination. In practice it never bought that: it fired seven times on edits that
-      // inserted lines ABOVE an untouched declaration, and each one was resolved by retyping the
-      // number. A check whose only observed outcome is a mechanical repin is not protecting
-      // anything, and it taxes every unrelated change to the file.
-      //
-      // The text key keeps the property the line number was there for. A different declaration
-      // landing where this one used to be reads differently, so it is NOT excused — which was the
-      // actual concern. Only the identical declaration, moved, stays covered.
+      // Keyed by the declaration's own text, not by file:line, so moving the line doesn't drop coverage.
       const key = `${rel}::${line.trim()}`;
       const entry = SHAPE_ALLOWLIST[key];
       if (entry) {
@@ -84,11 +69,7 @@ for (const file of walk(join(ROOT, 'packages'))) {
 
 if (!scanned) fail('No borderRadius declarations found. Extraction is broken, not the system shapeless.');
 
-// An entry that matches nothing is an excuse for code that no longer exists. Under the old
-// line-number key this could not be checked — a stale entry and a moved line looked identical.
-//
-// Collected rather than exited on, because substituting one radius for another produces BOTH a
-// stale entry and a new violation, and the violation is the more useful half of that report.
+// Unused allowlist entries (matching no declaration) are collected, not exited on immediately.
 const unused = Object.keys(SHAPE_ALLOWLIST).filter((k) => !matchedKeys.has(k));
 
 mkdirSync(join(ROOT, 'audit'), { recursive: true });

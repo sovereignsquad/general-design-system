@@ -14,13 +14,8 @@ const siteRoutesSource = readFileSync(siteRoutesPath, 'utf8');
 
 const failures = [];
 
-// Issue 587 — package/site locale parity.
-//
-// Locale coverage was verified WITHIN the package corpus and WITHIN the site corpus, never
-// BETWEEN them, so a language the packages supported and the site did not passed every gate.
-// `ja`, `ko` and `zh` sat in that gap: gds-core shipped all three message packs while the
-// reference site — the artifact an adopting team evaluates — had no phrase pack for any of
-// them and could only render English. The capability existed and was invisible.
+// Package/site locale parity: a language the packages support but the site does not would
+// otherwise pass every within-corpus gate.
 {
   const packageLocales = readdirSync(resolve(root, 'packages/gds-core/src/locales'))
     .filter((file) => file.endsWith('.ts') && file !== 'index.ts')

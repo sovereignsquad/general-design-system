@@ -61,9 +61,8 @@ export function VibeThemePicker({ value, onChange, label = 'Choose theme' }: Vib
                 border: selected
                   ? `3px solid ${vars['--gds-vibe-text']}`
                   : `2px solid ${vars['--gds-vibe-border']}`,
-                // Issue 618: the small-surface atmosphere token, not the page-scale hero wash.
-                // A 32px circle filled with a 135deg hero ramp shows a hard diagonal instead of
-                // the atmosphere -- the swatch stopped previewing the thing it names.
+                // Small-surface atmosphere token, not the page-scale hero wash: the hero ramp
+                // shows a hard diagonal at 32px instead of the atmosphere.
                 background: vars['--gds-vibe-swatch'],
                 cursor: 'pointer',
                 outline: 'none',

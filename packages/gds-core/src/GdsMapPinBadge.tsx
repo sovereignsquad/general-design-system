@@ -12,64 +12,20 @@ const gdsResolvedAccentFallback = resolveGdsAccentTokens(undefined, 'light');
 import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
 
 /**
- * GdsMapPinBadge (issue #501): a category-colored map-pin marker with a
- * centered icon, correct by construction. Ships because consumers repeatedly
- * hand-composed `GdsBadgeShapePin` + an externally-sourced icon (categories
- * like sports/hobbies/interests have no `GdsIcons` equivalent, so external
- * sourcing is the sanctioned path) and got the centering, stroke weight, and
- * accessible label wrong every time — there was a set of constants to match,
- * not a component to use. This locks those constants in.
+ * Category-colored map-pin marker: pin shape + centered icon, exactly two layers (no
+ * ring/capsule).
  *
- * **Exactly two layers: the pin shape, and the icon. No ring/capsule.** An
- * earlier revision of this component added a ring capsule behind the icon to
- * guarantee contrast in filled mode. That was the wrong fix: in filled mode
- * the opaque ring disc ate most of the icon's own size; in outline mode
- * (ring drawn unfilled) it added a second visible circle with no contrast
- * benefit at all. The actual defect it was covering for — the icon
- * disappearing into a same-color fill — is fixed directly instead: the icon
- * always renders in a color that contrasts with the pin's fill (see
- * `iconColor` below), never the ring's former job of providing that
- * contrast via a background disc. With the ring gone, the icon is sized to
- * `0.46` of the stack box (up from `0.42`) so it fills more of the head than
- * before — but not the ring's old `0.62` footprint: the pin head is a
- * *circle*, and wide-content icons (a soccer ball is round and forgiving,
- * but `IconMasksTheater`'s two side-by-side masks or `IconBike`'s two
- * separated wheels are not) render past that circle's own boundary above
- * roughly `0.48`, verified against the widest icons actually shipped here,
- * not just centered ones.
+ * - Centering offset `translateY(-4.1667%)`: derived from the pin head's solved arc center
+ *   `(12, 11)` in its 24-unit path space, vs the path box's own center `(12, 12)`.
+ * - Pin and icon share `stroke={1.75}`.
+ * - Icon color never equals the pin fill: outline mode both render `accent`; filled mode the
+ *   icon uses inverse (white-on-dark), always fully opaque regardless of `fillOpacity`.
+ * - `shade` darkens one accent by a fixed step (`deep`/`deeper`/`deepest`) for related
+ *   sub-categories. Darker-only: lightening breaks filled-mode icon contrast for some accents
+ *   (e.g. teal fails at +4 lightness).
  *
- * - **Centering: `translateY(-4.1667%)`, not eyeballed.** `GdsBadgeShapePin`'s
- *   head is a true circle (its path is an SVG arc of radius 8), and that
- *   arc's own center — solved with the standard SVG endpoint-to-center arc
- *   formula, not approximated — sits at `(12, 11)` in the pin's 24-unit path
- *   space, one unit above the path box's own center `(12, 12)`. `-1/24 =
- *   -4.1667%` is the exact, derived offset — the rule is "center on the
- *   pin's own circle," not a value tuned until it looked right.
- * - **Matching `stroke={1.75}`** across both the pin and the icon.
- * - **The icon is never the same color as the pin's fill.** Outline mode
- *   (default): pin and icon both render in the `accent` color — there is no
- *   fill to collide with, so a single shared color reads as one mark.
- *   Filled mode: the pin fills solid `accent` (optionally at `fillOpacity`
- *   below full), and the icon switches to an inverse (white-on-dark)
- *   color — never `accent` — so it stays legible against its own
- *   background at any fill opacity. `fillOpacity` only ever touches the
- *   pin's fill; the icon layer always renders fully opaque.
- * - **`shade` differentiates within one accent, darker-only** (issue #502).
- *   `accent` alone is coarse — 10 slots for top-level categories. When
- *   several related sub-categories (e.g. different sports) should read as
- *   one family, `shade: 'deep' | 'deeper' | 'deepest'` darkens `accent` by
- *   one of three precomputed, WCAG-verified steps (see
- *   {@link GdsBadgeAccentShade}) instead of spending a second accent on
- *   each one. Lightening isn't offered: it silently breaks the filled-mode
- *   icon's white-on-`accent` contrast guarantee for several accents (`teal`
- *   fails at only +4 lightness) — darkening has headroom for all 10.
- *
- * Note the pin's tail hides more than a third of that circle below the arc's
- * chord, so the visible dome's own midpoint sits above this point — the
- * circle's true center is not the same thing as "the middle of what's
- * visibly rendered." This component centers on the circle itself, per its
- * own governing rule; centering on the visible dome instead is a distinct,
- * deliberate alternative, not an error in this one.
+ * The pin's true circle center sits above the visible dome's midpoint (the tail hides part of
+ * the circle below its chord); centering targets the circle, not the visible dome.
  */
 
 /** Props for {@link GdsMapPinBadge}. */
@@ -78,12 +34,7 @@ export interface GdsMapPinBadgeProps {
   accent: GdsBadgeAccentName;
   /** A canonical `GdsIcons` key, or any externally-sourced icon element (outline style, matching stroke recommended). */
   icon: GdsIconKey | ReactNode;
-  /**
-   * Accessible name for the marker (e.g. "Riverside Field — soccer"). Always
-   * consumer-supplied — never derive this from an icon library's own import
-   * or display name (e.g. Tabler's `IconBallFootball` displays as
-   * `"BallFootball"`, not a real category label).
-   */
+  /** Accessible name (e.g. "Riverside Field — soccer"). Never derive from an icon library's import name. */
   label: string;
   /**
    * Solid pin + inverse (white-on-dark) icon, for real basemap imagery.
@@ -98,61 +49,34 @@ export interface GdsMapPinBadgeProps {
    */
   fillOpacity?: number;
   /**
-   * Darkens `accent` by one of three fixed, contrast-verified steps —
-   * `'deep' | 'deeper' | 'deepest'` — so several related sub-categories
-   * (e.g. different sports) can read as one accent family while staying
-   * individually distinguishable, without spending a second accent slot on
-   * each one. Defaults to `'base'` (the plain `accent` color, unchanged).
-   * Darker-only: see {@link GdsBadgeAccentShade} for why lightening isn't
-   * offered. `shade` combines with `filled`/`fillOpacity` normally — the
-   * shaded color is just what `accent` resolves to underneath.
+   * Darkens `accent` by a fixed step (`'deep' | 'deeper' | 'deepest'`) for related
+   * sub-categories. Defaults to `'base'`. Darker-only — see {@link GdsBadgeAccentShade}.
    */
   shade?: GdsBadgeAccentShade;
   /** Marker size (width = height). Defaults to `40`. */
   size?: number | string;
   /**
-   * Emoji glyph rendered instead of `icon` when the effective badge glyph
-   * mode is `'emoji'` (issue #525) — see `iconStyle` and `GdsProvider`'s
-   * `defaultBadgeIconStyle`. Optional: a marker with no `emoji` simply
-   * keeps rendering its Tabler `icon` even in emoji mode. In emoji mode the
-   * pin fills with a fixed dark-neutral disc (never the accent color, and
-   * never governed by `filled`/`fillOpacity` — both are ignored, with a
-   * dev-mode warning, since emoji legibility needs a fixed neutral behind
-   * it rather than an arbitrary accent) while the ring/silhouette keeps
-   * `accent`, matching the client-provided reference composition.
+   * Emoji glyph shown instead of `icon` when the effective badge glyph mode is `'emoji'`.
+   * Optional: a marker with no `emoji` keeps its Tabler `icon` even in emoji mode. In emoji
+   * mode the pin fills with a fixed dark-neutral disc, ignoring `filled`/`fillOpacity` (with a
+   * dev-mode warning); the ring/silhouette keeps `accent`.
    */
   emoji?: string;
-  /**
-   * Per-instance override for the ambient badge glyph mode (issue #525).
-   * Defaults to whatever `GdsProvider`'s `defaultBadgeIconStyle` resolves
-   * to (itself defaulting to `'tabler'`, today's only behavior).
-   */
+  /** Per-instance override for the ambient badge glyph mode. Defaults to `GdsProvider`'s `defaultBadgeIconStyle` (`'tabler'`). */
   iconStyle?: GdsBadgeIconStyle;
   /**
-   * Interaction/confidence state of the marker (issue #545). The governing rule, from the
-   * source spec and enforced by test: **the fill belongs to the activity — state is carried by
-   * silhouette and scale**, so no state ever repaints the category's own hue.
+   * Interaction/confidence state of the marker. State is carried by silhouette and scale only,
+   * never by repainting the category's own hue.
    *
-   * - `'idle'` (default): exactly today's rendering.
-   * - `'hovered'`: the pin's stroke steps up to `2.25` and darkens ONE step down the same
-   *   accent's own shade ladder (`base → deep → deeper → deepest`, saturating at `deepest`).
-   *   The source spec's fixed navy hover (`#245A8C`) was rejected as brand-hardcoded: a
-   *   cross-theme primitive darkens the accent it already has — same family, existing
-   *   WCAG-verified steps, no new token to document and govern.
-   * - `'selected'`: the whole marker scales up one step (`1.15`) around the TAIL TIP
-   *   (`transform-origin: 50% 100%`), so the geographic point the pin anchors does not move,
-   *   with the same `2.25` stroke. The source spec's `#F5793B` selected fill was rejected for
-   *   violating the spec's own stated principle — a repainted fill makes "selected" read as a
-   *   different category everywhere the accent means something.
-   * - `'approximate'`: the stroke goes DASHED in the fixed dark-neutral (the same neutral the
-   *   emoji disc uses), replacing the solid accent stroke per the spec — location uncertainty
-   *   is a property of the silhouette. The icon keeps the accent, so the category stays
-   *   readable; a `filled` pin keeps its accent fill for the same reason.
+   * - `'idle'` (default).
+   * - `'hovered'`: stroke steps to `2.25`, darkens one step down the accent's shade ladder
+   *   (`base → deep → deeper → deepest`, saturating at `deepest`).
+   * - `'selected'`: marker scales `1.15` around the tail tip (`transform-origin: 50% 100%`),
+   *   same `2.25` stroke.
+   * - `'approximate'`: stroke goes dashed in the fixed dark-neutral, replacing the solid
+   *   accent stroke; the icon keeps `accent`.
    *
-   * `saved` is NOT a state here: a pin can be saved while hovered or selected, and saving is a
-   * user action with its own governed control — compose
-   * `<GdsSavedIndicator mode="corner" anchor={<GdsMapPinBadge …/>} />`, which issue #546 built
-   * for exactly this.
+   * `saved` is not a state here — compose `<GdsSavedIndicator mode="corner" anchor={<GdsMapPinBadge …/>} />`.
    */
   state?: GdsMapPinState;
 }
@@ -167,87 +91,38 @@ const DEEPER_SHADE: Record<GdsBadgeAccentShade, GdsBadgeAccentShade> = {
   base: 'deep', deep: 'deeper', deeper: 'deepest', deepest: 'deepest',
 };
 
-/**
- * Stroke weight for the emphasised states, from the source spec's `2.25`. Idle keeps `1.75` —
- * the constant the whole component exists to hold steady. Exported for the map's marker
- * renderer (issue 620), which cannot compose this component and must not restate its contract.
- */
+/** Stroke weight for hovered/selected states. Idle keeps 1.75. Exported for the map's marker renderer, which can't compose this component. */
 export const GDS_PIN_EMPHASIS_STROKE = 2.25;
 
 /** Selected-state scale step. Applied around the tail tip so the anchored map point holds still. */
 export const GDS_PIN_SELECTED_SCALE = 1.15;
 
-/**
- * Dash pattern for the approximate-location stroke, in the pin path's own 24-unit space —
- * sized against the head's radius-8 arc so the dashes read as segments rather than dots.
- * Exported for the map's marker renderer, same reason as the emphasis stroke.
- */
+/** Dash pattern for the approximate-location stroke, in the pin's 24-unit path space. Exported for the map's marker renderer. */
 export const GDS_PIN_APPROXIMATE_DASH = '3 2.5';
 
-/** The pin head circle's own center, solved from its path's arc geometry — see the module docs. */
-/**
- * The solved centring offset, exported so documentation can SURFACE it rather than retype it.
- *
- * Issue 571. A copied constant drifts the first time the source changes — which is the exact
- * failure the pin component exists to prevent, reappearing in its own documentation.
- */
+/** Solved pin-head centring offset. Exported so documentation reads it directly, not retyped. */
 export const GDS_PIN_HEAD_CENTER_OFFSET = 'translateY(-4.1667%)';
 const PIN_HEAD_CENTER_OFFSET = GDS_PIN_HEAD_CENTER_OFFSET;
 
-/**
- * Icon fills the pin head directly — there is no ring capsule to share the
- * space with. `0.46`, not the `0.62` the removed ring capsule used to
- * occupy: the pin head is a *circle*, and wide-content icons (e.g.
- * `IconMasksTheater`, `IconBike`, whose glyphs run close to their own
- * viewBox edges) render past that circle's boundary above `~0.48`, verified
- * by overlaying the pin head's own solved-center circle on the rendered
- * icon and checking the widest icons in practice, not just centered ones.
- */
-/**
- * Icon scale bound, exported for the same reason as the centring offset.
- *
- * Bounded empirically: the widest shipped glyphs — `IconMasksTheater`'s side-by-side masks and
- * `IconBike`'s separated wheels — render past the solved circle above roughly `0.48`.
- */
+/** Icon scale bound: widest shipped glyphs (e.g. IconMasksTheater, IconBike) overflow the pin's circle above ~0.48. */
 export const GDS_PIN_ICON_SCALE = 0.46;
 const ICON_SCALE = GDS_PIN_ICON_SCALE;
 
 /**
- * Emoji scale bound, reported 2026-08-14: the emoji overflowed the pin head, leaving barely any
- * of the dark-neutral disc visible and touching the accent ring — so the composition the docs
- * describe ("the pin fills with a fixed dark-neutral disc, and the emoji centres on it") was not
- * what the page showed.
- *
- * It was a bare `0.5`, set independently of the icon bound beside it, which is how the two drifted.
- * Derived from `GDS_PIN_ICON_SCALE` instead, so tightening the head can only move both together.
- *
- * The factor is not cosmetic. A Tabler glyph sits inside a 24px viewBox with ~2px of padding, so
- * it paints roughly 0.83 of the box it is scaled to. An emoji paints nearly its whole em. Setting
- * both to the same number therefore renders the emoji visibly larger; `0.9` brings the painted
- * areas to about the same width, which is what makes the disc read as a disc.
+ * Emoji scale, derived from `GDS_PIN_ICON_SCALE` rather than set independently, so both move
+ * together. 0.9 factor: a Tabler glyph paints ~0.83 of its box, an emoji paints nearly its
+ * whole em, so equal scale would render the emoji visibly larger.
  */
 export const GDS_PIN_EMOJI_SCALE = GDS_PIN_ICON_SCALE * 0.9;
 
-/**
- * Fixed dark-neutral fill for the emoji-mode pin disc (issue #525) — the
- * same value `GdsBadge`'s own emoji coin and `toneColors.neutral` (in
- * `GdsBadge.tsx`) already use. Fixed, not theme- or brand-specific, so
- * emoji legibility doesn't depend on which of the 25 presets or 10 accents
- * is active — the same reasoning `GdsBadge`'s emoji coin documents.
- */
+/** Fixed dark-neutral fill for the emoji-mode disc, same value as `GdsBadge`'s emoji coin. Not theme-derived. */
 const EMOJI_DISC_FILL = 'var(--mantine-color-dark-7, #1f2937)';
 
 /**
- * Category-colored map-pin marker: a pin outline and a centered icon in one
- * curated `accent` color, exactly two layers. See the module docs for why
- * this exists instead of hand-composing `GdsBadgeShapePin` + an icon, and
- * why there is no ring/capsule option.
+ * Category-colored map-pin marker: pin outline + centered icon in one `accent` color.
  *
- * `emoji`/`iconStyle` (issue #525) add a third pin composition alongside
- * outline/filled: the ring stays `accent`, but the pin fills with a fixed
- * dark-neutral disc (`EMOJI_DISC_FILL`) and the emoji renders centered on
- * it, ignoring `filled`/`fillOpacity` — modeled directly on a client-
- * provided reference (a sports-activity map using this component).
+ * `emoji`/`iconStyle` add a third composition alongside outline/filled: ring stays `accent`,
+ * pin fills with a fixed dark-neutral disc, emoji centers on it, ignoring `filled`/`fillOpacity`.
  *
  * @example
  * ```tsx
@@ -270,18 +145,14 @@ export function GdsMapPinBadge({
   iconStyle,
   state = 'idle',
 }: GdsMapPinBadgeProps) {
-  // Issue 594: reference the token so a pin follows the active theme, with the axis-derived
-  // value as the fallback. The fallback is computed from the same source, never typed here —
-  // a hand-written fallback is a second definition that drifts the moment the axis changes.
+  // Token reference with axis-derived fallback, never hand-typed (would drift from the axis).
   const accentColor = `var(--gds-accent-${accent}-${shade}, ${gdsResolvedAccentFallback[`--gds-accent-${accent}-${shade}`]})`;
-  // Hovered darkens the STROKE one step down the same accent's ladder — the fill and icon keep
-  // `accentColor` untouched, which is what keeps the category hue meaning one thing (issue 545).
+  // Hovered darkens the stroke only; fill and icon keep accentColor untouched.
   const hoverStrokeShade = DEEPER_SHADE[shade];
   const hoverStrokeColor = `var(--gds-accent-${accent}-${hoverStrokeShade}, ${gdsResolvedAccentFallback[`--gds-accent-${accent}-${hoverStrokeShade}`]})`;
   const inverseColor = 'var(--gds-text-on-inverse, var(--mantine-color-white))';
   const resolvedIconStyle = useGdsBadgeIconStyle(iconStyle);
-  // The failsafe (issue #525): a marker with no `emoji` keeps its Tabler
-  // icon even when the ambient/overridden mode is `'emoji'`.
+  // A marker with no emoji keeps its Tabler icon even in emoji mode.
   const useEmoji = resolvedIconStyle === 'emoji' && Boolean(emoji);
 
   if (useEmoji && filled) {
@@ -291,16 +162,10 @@ export function GdsMapPinBadge({
     );
   }
 
-  // Filled mode: the icon must contrast with the pin's own fill, so it
-  // switches to the inverse color — it never reuses `accentColor` once the
-  // pin behind it is that same color. Outline mode: there is no fill to
-  // collide with, so pin and icon share the one accent color. Emoji mode
-  // doesn't use this at all — the emoji glyph carries its own color.
+  // Filled mode: icon uses inverse color to contrast the pin's fill. Outline mode: both share accentColor.
   const iconColor = filled ? inverseColor : accentColor;
 
-  // Externally-sourced icons (not a GdsIconKey) get their stroke forced to
-  // match the pin, regardless of what the consumer's element passed — this
-  // is the exact mismatch that kept recurring by hand.
+  // Externally-sourced icons get their stroke forced to match the pin, overriding whatever the consumer passed.
   const iconElement = isIconKey(icon)
     ? <GdsIcon icon={icon} size="100%" tone="default" />
     : isValidElement<{ stroke?: number }>(icon)
@@ -317,8 +182,7 @@ export function GdsMapPinBadge({
     : state === 'approximate' ? EMOJI_DISC_FILL
     : accentColor;
   const pinDash = state === 'approximate' ? GDS_PIN_APPROXIMATE_DASH : undefined;
-  // Scaling around the tail tip keeps the anchored map coordinate exactly where it was — a
-  // center-origin scale would drift the point the pin exists to mark.
+  // Scale origin is the tail tip so the anchored coordinate doesn't drift.
   const stackStyle = state === 'selected'
     ? { transform: `scale(${GDS_PIN_SELECTED_SCALE})`, transformOrigin: '50% 100%' }
     : undefined;
@@ -328,14 +192,7 @@ export function GdsMapPinBadge({
       <GdsBadgeStackLayer>
         <GdsBadgeShapePin size="100%" stroke={pinStroke} color={pinStrokeColor} fill={pinFill} fillOpacity={pinFillOpacity} strokeDasharray={pinDash} />
       </GdsBadgeStackLayer>
-      {/*
-        A GdsBadgeStackLayer's `scale` prop applies via a CSS class reading
-        --gds-badge-stack-layer-scale; supplying our own `style.transform`
-        (needed for the vertical offset) takes cascade priority over that
-        class rule and would silently drop the scale, so it's included
-        directly in this transform string instead of left to the `scale`
-        prop to add on top.
-      */}
+      {/* scale included directly in the transform string: style.transform overrides the scale prop's CSS class. */}
       {useEmoji ? (
         <GdsBadgeStackLayer
           style={{

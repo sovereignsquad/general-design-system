@@ -1,15 +1,7 @@
-// Issue 579 — render-capable mutants M1 and M2.
+// Render-capable mutants M1 and M2.
 //
-// Phase 1 (backward trace) produced the audit's headline figure — 18.4% of rendered
-// values untraceable — and findings F5-F9. It has never been shown to detect a planted
-// defect, because the existing harness applies a text edit and immediately re-runs an
-// analysis, which is correct for static analyses and useless for a render-time one:
 // backward-trace reads the BUILT playground, so a source mutation has no effect until
-// the workspace is rebuilt.
-//
-// These two mutants add that build step. Until they pass, `untraceableRenderRate` in
-// audit/budgets.json stays advisory, because ratcheting a number from an unvalidated
-// instrument manufactures confidence with no basis.
+// the workspace is rebuilt. These two mutants add that build step before tracing.
 //
 // Run:  CHROME_PATH=... node scripts/audit/render-mutants.mjs
 
@@ -53,18 +45,10 @@ const REBUILD_CHAIN = ['@sovereignsquad/gds-theme', '@sovereignsquad/gds-core', 
 /**
  * M1 — the coincidence case.
  *
- * NOTE ON A CORRECTED PREMISE: issue 579 specified planting a *radius* equal to the
- * default theme's value. That cannot discriminate, because GDS has no `--gds-radius-*`
- * token at all yet (that is #555's work), so a hardcoded radius is `literal` under
- * every theme and the count rises everywhere including `default` — the test collapses.
- *
- * `--gds-support` is used instead: it genuinely differs per preset
- * (default `rgb(62, 129, 152)`, class-usa `#4f8a5b`, gold-athlete `#b3261e`,
- * high-contrast `rgb(84, 47, 100)`). Planting the DEFAULT theme's value as a literal
- * must therefore classify as `token` under `default` and `literal` under the other
- * three. A classifier that string-matched one theme's map, or matched values globally,
- * would raise the count under `default` too — and that asymmetry is the only observable
- * difference between a correct per-theme resolver and a naive one.
+ * `--gds-support` differs per preset (default `rgb(62, 129, 152)`, class-usa `#4f8a5b`,
+ * gold-athlete `#b3261e`, high-contrast `rgb(84, 47, 100)`). Planting the DEFAULT
+ * theme's value as a literal must classify as `token` under `default` and `literal`
+ * under the other three.
  */
 const M1 = {
   id: 'M1',
@@ -132,8 +116,7 @@ function deltaByPreset(base, mut) {
 async function run() {
   const results = [];
   let restoreAll = () => {};
-  // A leaked mutation ships an ungoverned literal into the design system. Guard it
-  // twice: signal handlers AND a finally block.
+  // Restore on both signal handlers and the finally block.
   process.once('SIGINT', () => { restoreAll(); process.exit(130); });
   process.once('SIGTERM', () => { restoreAll(); process.exit(143); });
 
@@ -150,7 +133,7 @@ async function run() {
     try {
       const spec = await mutant.build();
       if (!original.includes(spec.find)) throw new Error(`anchor not found: ${spec.find}`);
-      // A no-op mutation reads as a survivor. Assert the plant actually changes something.
+      // Rejects a no-op mutation, which would read as a survivor.
       if (spec.replace === spec.find) throw new Error('planted value equals original — mutant is a no-op');
 
       process.stdout.write(`  ${mutant.id} baseline … `);
@@ -161,7 +144,7 @@ async function run() {
       writeFileSync(path, original.split(spec.find).join(spec.replace));
       rebuild(REBUILD_CHAIN);
 
-      // A stale build reads as an analysis failure. Confirm the plant reached the bundle.
+      // Confirms the plant reached the built bundle.
       const built = readFileSync(join(ROOT, 'packages/gds-core/dist/index.js'), 'utf8');
       if (!built.includes(spec.planted) && !built.includes('#ff00ff')) {
         throw new Error('planted value did not reach the built output — rebuild incomplete');
@@ -174,7 +157,7 @@ async function run() {
       how = v.how;
       delta = v.delta;
     } catch (error) {
-      // A mutant that could not run has NOT demonstrated detection. Never count it killed.
+      // A mutant that could not run is never counted as killed.
       how = String(error.message ?? error).slice(0, 200);
     } finally {
       writeFileSync(path, original);

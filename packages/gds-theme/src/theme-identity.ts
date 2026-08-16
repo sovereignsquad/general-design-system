@@ -1,20 +1,15 @@
-// Issue 561 — one identity for a theme, covering every themed input.
+// One identity for a theme, covering every themed input.
 //
-// CSS custom properties update on a switch by themselves; that is the cascade working. The
-// gap is everything OUTSIDE the cascade: values read with `getComputedStyle` at mount and put
-// in state, values captured in a `useMemo` whose deps omit the theme, SVG and canvas painted
-// once from resolved colours, and third-party surfaces initialised with a theme snapshot —
-// which will include the map engine.
+// CSS custom properties update on a switch by themselves via the cascade. The gap is
+// everything outside it: values read with `getComputedStyle` at mount, values captured in a
+// `useMemo` whose deps omit the theme, SVG/canvas painted once from resolved colours, and
+// third-party surfaces initialised with a theme snapshot. These need a value that changes
+// whenever any themed input changes, so a subtree can be keyed on it and re-created wholesale.
 //
-// Those cannot be fixed one at a time. They need a value that changes whenever ANY themed
-// input changes, so a subtree can be keyed on it and re-created wholesale.
-//
-// The identity hashes the RESOLVED TOKENS, not the declaration. Two declarations that resolve
-// identically produce the same identity and therefore no remount — a remount that repaints
-// the world to arrive at the same pixels is a cost with no benefit. Conversely a theme that
-// changes only, say, its radius scale still changes identity, because the shape axis is in
-// the resolved set. Keying on preset id and scheme alone would miss exactly that, which is
-// why this exists at all rather than `key={preset + scheme}`.
+// The identity hashes the resolved tokens, not the declaration: two declarations that resolve
+// identically produce the same identity and no remount, while a theme that changes only its
+// radius scale still changes identity, since the shape axis is in the resolved set. Keying on
+// preset id and scheme alone (`key={preset + scheme}`) would miss that.
 
 import { getGdsVibeThemeCssVariables } from './vibe-themes';
 import type { GdsThemePresetId } from './theme-presets';
@@ -34,11 +29,9 @@ export type GdsThemeApplicationMode = 'remount' | 'reload' | 'cascade-only';
 /**
  * FNV-1a, 32-bit.
  *
- * Deliberately not a cryptographic hash: this is a cache key, not a security boundary, and
- * `crypto.subtle` is async and unavailable in every rendering context GDS supports (SSR,
- * workers, non-secure origins). A collision here causes a missed remount, so the input is the
- * full resolved token set rather than a summary — the cheap way to make collisions matter
- * less is to hash more, not to hash harder.
+ * Not a cryptographic hash: this is a cache key, and `crypto.subtle` is async and unavailable
+ * in every rendering context GDS supports (SSR, workers, non-secure origins). A collision
+ * causes a missed remount, so the input is the full resolved token set rather than a summary.
  */
 function fnv1a(input: string): string {
   let hash = 0x811c9dc5;
@@ -68,10 +61,9 @@ export function computeGdsThemeIdentity({ preset, colorScheme, extra }: GdsTheme
   try {
     resolved = getGdsVibeThemeCssVariables(preset as GdsThemePresetId, colorScheme);
   } catch {
-    // An unknown preset must still produce a STABLE, DISTINCT identity rather than throwing
-    // during render. Throwing here would turn a bad preset id into a blank page; a distinct
-    // identity turns it into a wrong-but-visible theme, which is the failure a developer can
-    // actually see and fix.
+    // An unknown preset must still produce a stable, distinct identity rather than throwing
+    // during render — a distinct identity renders a wrong-but-visible theme instead of a
+    // blank page.
     resolved = { '--gds-identity-unresolved': String(preset) };
   }
 
@@ -85,7 +77,7 @@ export function computeGdsThemeIdentity({ preset, colorScheme, extra }: GdsTheme
 }
 
 /**
- * True when two identities differ, i.e. a re-application is actually needed.
+ * True when two identities differ, i.e. a re-application is needed.
  *
  * A named helper rather than `!==` at call sites, so the meaning of "changed" lives in one
  * place if the identity ever gains structure.

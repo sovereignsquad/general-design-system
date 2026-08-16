@@ -1,12 +1,6 @@
 /**
- * Vendor version governance gate (issue #348).
- *
- * `vendor-governance.json` is the single source of truth for the GDS-owned engine
- * version. This gate asserts every GDS package's declared engine/platform peer
- * ranges match the manifest, so the adopted vendor version is governed and
- * coherent — not drifting per-package. An engine upgrade is a deliberate edit to
- * the manifest plus the package peer ranges, verified by the boundary suite and
- * the CI matrix (see docs/VENDOR_UPGRADE_RUNBOOK.md). Rollback is reverting both.
+ * Checks every GDS package's declared engine/platform peer ranges match
+ * vendor-governance.json, the single source of truth for the pinned versions.
  */
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -27,9 +21,7 @@ for (const pkg of GDS_PACKAGES) {
       failures.push(`${pkg}: ${enginePkg} peer range "${range}" != governed pinnedRange "${manifest.pinnedRange}".`);
     }
   }
-  // Issue 566: the map engine is pinned exactly, not by range. A map renders third-party
-  // tiles and holds imperative DOM; a silent minor bump is not something to discover from a
-  // broken map on a consumer's site.
+  // Map engine is pinned exactly, not by range.
   const deps = { ...(m.dependencies ?? {}) };
   if (manifest.mapEngine && deps[manifest.mapEngine] && deps[manifest.mapEngine] !== manifest.mapRange) {
     failures.push(`${pkg}: ${manifest.mapEngine} "${deps[manifest.mapEngine]}" != governed mapRange "${manifest.mapRange}".`);
@@ -45,8 +37,6 @@ for (const pkg of GDS_PACKAGES) {
   }
 }
 
-// Sanity: the candidate must be satisfiable by the pinned range surface (it is a
-// subset the matrix smoke-tests). A non-string candidate is a malformed manifest.
 if (typeof manifest.candidate !== 'string' || !manifest.candidate) {
   failures.push('vendor-governance.json: "candidate" must be a non-empty version range.');
 }

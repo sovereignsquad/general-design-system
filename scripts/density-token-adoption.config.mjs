@@ -1,4 +1,4 @@
-// Issue 556 — spacing literals not governed by the density axis.
+// Spacing literals not governed by the density axis.
 //
 // Keyed by `file:line` so an entry stops matching when the line moves.
 export const DENSITY_ALLOWLIST = {

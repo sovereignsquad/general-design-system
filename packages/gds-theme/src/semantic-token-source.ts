@@ -1,19 +1,11 @@
-// Issue 554 — the single authoritative source for semantic-role token values.
+// The single authoritative source for semantic-role token values.
 //
-// GDS's Core Principle 3 is "One Token Source" (FOUNDATION.md). That promise was false
-// inside the theme package itself: `brand-tokens.ts` derived the Class USA and Gold
-// Athlete semantic roles as `role -> { light, dark }` pairs, while `vibe-themes.ts`
-// carried the SAME values a second time as flat `--gds-*` records, kept in step by human
-// discipline alone. The cost was already paid once — the GdsProvider inline-style token
-// bug fixed in 5.0.1/5.0.2 existed because the two paths resolve differently.
+// Both `brand-tokens.ts` and `vibe-themes.ts` consume these values from here, so there is
+// no second table to drift from; `verify:token-single-source` fails if one reappears.
 //
-// This module owns those values now. Both consumers import from here, so there is no
-// second table to drift from; `verify:token-single-source` fails if one reappears.
-//
-// It deliberately depends on NOTHING but `color-math`. `vibe-themes.ts` cannot import
-// `brand-tokens.ts` directly — that path runs brand-tokens -> token-operations ->
-// vibe-themes and closes a cycle. The dependency-free extraction is what makes
-// single-sourcing reachable at all, not merely tidier.
+// Depends on nothing but `color-math`. `vibe-themes.ts` cannot import `brand-tokens.ts`
+// directly — that path runs brand-tokens -> token-operations -> vibe-themes and closes a
+// cycle. The dependency-free extraction is what makes single-sourcing possible.
 
 import { ensureContrast, mixCssColors, parseCssColor, readableForeground } from './color-math';
 import { resolveGdsAxisTokens } from './axes';
@@ -36,7 +28,7 @@ export type BrandColorRamp = readonly [
   string,
 ];
 
-/** Ramp key of the built-in Class USA brand palette (v2 re-base, issue 536). */
+/** Ramp key of the built-in Class USA brand palette (v2 re-base). */
 export type ClassUsaColorRampName = 'navy' | 'brand' | 'action' | 'trust' | 'cream' | 'slate';
 
 /** The six Class USA brand ramps keyed by name. */
@@ -81,14 +73,10 @@ export type BrandSemanticRole =
   | 'control.disabledBg'
   | 'control.disabledText';
 
-// v2 re-base (issue 536): six role-named ramps replace the retired five
-// (navy/terracotta/sage/cream/slate), against
-// `brand-requests/class-usa/class-usa-v2-token-spec.md`. `action[2]` was a
-// text placeholder in the handoff spec ("one step above is a placeholder and
-// must be replaced before build") — the spec's own suggested value
-// (`#e8a87c`) is used here. Every anchor step (navy[6], brand[5], action[6],
-// action[7]/pressed, trust[6], cream[0], slate[6]) matches the spec's
-// "Anchors" table exactly.
+// v2 re-base: six role-named ramps replace the retired five (navy/terracotta/sage/cream/
+// slate), against `brand-requests/class-usa/class-usa-v2-token-spec.md`. `action[2]` was a
+// placeholder in the handoff spec; the spec's own suggested value (`#e8a87c`) is used here.
+// Every anchor step matches the spec's "Anchors" table exactly.
 export const classUsaDefaultColorRamps: ClassUsaColorRamps = {
   navy: ['#e9eef6', '#cdd8e6', '#a3b6cc', '#7691b0', '#4e6d92', '#2a4a70', '#0f2c4a', '#0c243d', '#0a1d31', '#071626'],
   brand: ['#fdeee6', '#fbd8c6', '#f9bb9c', '#f79c70', '#f68a55', '#f5793b', '#e0641f', '#c25317', '#9e4312', '#7a330d'],
@@ -111,14 +99,11 @@ export interface SemanticPair {
   dark: string;
 }
 
-// v2 re-base (issue 536), values pasted from `class-usa-v2-token-spec.md`'s
-// "Semantic tokens" table. The light/dark split on `brand.accent`/`accent` is
-// the point of the whole re-base: `action[6]` (#c24a0a) carries text on warm
-// white/cream, `brand[5]` (#f5793b) carries it on the dark-mode charcoal
-// canvas — computed contrast in the spec's "Contrast, computed" table shows
-// neither clears WCAG AA in the other scheme, so this is NOT a
-// light-value-reused-in-dark shortcut (the exact failure mode behind issues
-// #533/#534) — every value below was independently authored per scheme.
+// v2 re-base, values from `class-usa-v2-token-spec.md`'s "Semantic tokens" table. The
+// light/dark split on `brand.accent`/`accent`: `action[6]` (#c24a0a) carries text on warm
+// white/cream, `brand[5]` (#f5793b) carries it on the dark-mode charcoal canvas — neither
+// clears WCAG AA in the other scheme, so every value below is independently authored per
+// scheme, not a light value reused in dark.
 export function deriveClassUsaSemanticTokens(ramps: ClassUsaColorRamps): Record<BrandSemanticRole, SemanticPair> {
   const navy = ramps.navy[6];
   const navyPressed = ramps.navy[9];
@@ -228,11 +213,9 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
   vars['--gds-brand-primary-pressed-dark'] = tokens['brand.primaryPressed'].dark;
   vars['--gds-text-on-inverse'] = tokens['text.onInverse'].light;
   vars['--gds-text-on-inverse-dark'] = tokens['text.onInverse'].dark;
-  // issue #537: DERIVED, never hand-authored. These two lanes bypassed the vibe lanes'
-  // ensureContrast derivation, so `support` had no foreground role designed to sit on
-  // it and ChoiceChip reached for `text.onInverse` instead - 1.89:1 in class-usa dark
-  // against a 4.5:1 requirement. Deriving it here means a new brand lane cannot
-  // reintroduce the defect by forgetting to pick a value.
+  // Derived, never hand-authored: these two lanes bypassed the vibe lanes' ensureContrast
+  // derivation, so `support` had no foreground role designed to sit on it. Deriving here
+  // means a new brand lane cannot reintroduce the defect by forgetting to pick a value.
   vars['--gds-text-on-support'] = readableForeground(tokens['support'].light, 4.5, tokens['bg.page'].light);
   vars['--gds-text-on-support-dark'] = readableForeground(tokens['support'].dark, 4.5, tokens['bg.page'].dark);
   vars['--gds-brand-accent-action'] = tokens['brand.accent'].light;
@@ -247,52 +230,43 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
   vars['--gds-text-primary-dark'] = tokens['text.primary'].dark;
   vars['--gds-text-secondary'] = tokens['text.secondary'].light;
   vars['--gds-text-secondary-dark'] = tokens['text.secondary'].dark;
-  // Issue 586. `cssVarName` derives a name by replacing the dot in a role id, which leaves
-  // the camelCase segment intact — so `brand.primaryPressed` and `text.onInverse` were
-  // emitted BOTH as `--gds-brand-primaryPressed` and as the explicit kebab aliases below.
-  // The kebab spellings are what consumers read (`--gds-text-on-inverse` in 13 files, and
-  // brand-tokens.test.ts asserts exactly those); the camelCase twins were referenced by
-  // nothing and counted as unreachable tokens under F13.
+  // `cssVarName` derives a name by replacing the dot in a role id, leaving the camelCase
+  // segment intact — so `brand.primaryPressed` and `text.onInverse` were emitted both as
+  // `--gds-brand-primaryPressed` and as the kebab aliases below. The kebab spellings are
+  // what consumers read; the camelCase twins were referenced by nothing.
   //
-  // Deleted rather than left in place: a declared token with no rendering path still shows
-  // up in the docs and the published graph, telling a consumer it is available when nothing
-  // renders it. Only these two go — `--gds-control-disabledBg`/`-disabledText` are also
-  // camelCase but ARE consumed (SemanticButton.tsx), so the naming is not uniformly dead
-  // and a blanket kebab-casing would break them.
+  // Deleted rather than left in place, since an unreferenced token still shows up in the
+  // docs and published graph as if it were available. `--gds-control-disabledBg`/
+  // `-disabledText` stay camelCase because they are consumed (SemanticButton.tsx).
   delete vars['--gds-brand-primaryPressed'];
   delete vars['--gds-brand-primaryPressed-dark'];
   delete vars['--gds-text-onInverse'];
   delete vars['--gds-text-onInverse-dark'];
   vars['--gds-state-success'] = tokens['state.success'].light;
   vars['--gds-state-success-dark'] = tokens['state.success'].dark;
-  // Issue 595: badge tone pairs are derived from the state colours above, so they cannot
-  // disagree with them and no lane can forget to emit them.
+  // Badge tone pairs are derived from the state colours above, so they cannot disagree
+  // with them and no lane can forget to emit them.
   Object.assign(vars, emitBadgeToneCssVariables(vars));
   return vars;
 }
 
-// Issue 554. `createBrandTheme` applied these two overrides AFTER calling the emitter,
-// per lane, in its own function body — a THIRD copy of semantic-role data beyond the two
-// the issue described. It is why `--gds-brand-accent-action` resolved to gold[6] through
-// the provider path and to the vibe-derived value through the document path: the same
-// role, two answers, depending on which path painted it.
+// `createBrandTheme` previously applied these two overrides after calling the emitter, in
+// its own function body — a third copy of semantic-role data, so `--gds-brand-accent-action`
+// could resolve differently depending on which path painted it.
 //
-// The lane emitters below are the whole definition of a lane's CSS variables. A caller
-// cannot forget the overrides because there is nothing left to remember.
+// The lane emitters below are the whole definition of a lane's CSS variables, so a caller
+// cannot forget the overrides.
 
 /** Complete `--gds-*` variable set for the Class USA lane. */
 export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<string, string> {
-  // Issue 555: axis tokens are part of a lane's complete variable set. Emitting them only on
-  // the document path would leave the two consumption paths with different key sets — the
-  // exact divergence verify:token-single-source was built to catch.
+  // Axis tokens are part of a lane's complete variable set. Emitting them only on the
+  // document path would leave the two consumption paths with different key sets.
   const vars = { ...resolveGdsAxisTokens(undefined, 'class-usa'), ...emitCssVariables(deriveClassUsaSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.action[6];
   vars['--gds-brand-accent-action-dark'] = ramps.brand[5];
-  // Issue 597. These overrides land AFTER `emitCssVariables` has already derived the badge
-  // foregrounds, so a foreground computed against the pre-override fill is a STALE PAIR — the
-  // same "one role, two answers depending on the path" shape as #554 above. Measured: gold
-  // athlete light emitted #000000 for a #8a5a00 fill (3.54:1) when white would have given
-  // 5.93:1. Re-deriving is idempotent, and it cannot fall out of step with an override again.
+  // These overrides land after `emitCssVariables` already derived the badge foregrounds, so
+  // a foreground computed against the pre-override fill is stale. Re-deriving is idempotent
+  // and cannot fall out of step with an override again.
   Object.assign(vars, emitBadgeToneCssVariables(vars));
   return vars;
 }
@@ -302,11 +276,9 @@ export function emitGoldAthleteCssVariables(ramps: GoldAthleteColorRamps): Recor
   const vars = { ...resolveGdsAxisTokens(undefined, 'gold-athlete'), ...emitCssVariables(deriveGoldAthleteSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.gold[6];
   vars['--gds-brand-accent-action-dark'] = ramps.gold[3];
-  // Issue 597. These overrides land AFTER `emitCssVariables` has already derived the badge
-  // foregrounds, so a foreground computed against the pre-override fill is a STALE PAIR — the
-  // same "one role, two answers depending on the path" shape as #554 above. Measured: gold
-  // athlete light emitted #000000 for a #8a5a00 fill (3.54:1) when white would have given
-  // 5.93:1. Re-deriving is idempotent, and it cannot fall out of step with an override again.
+  // These overrides land after `emitCssVariables` already derived the badge foregrounds, so
+  // a foreground computed against the pre-override fill is stale. Re-deriving is idempotent
+  // and cannot fall out of step with an override again.
   Object.assign(vars, emitBadgeToneCssVariables(vars));
   return vars;
 }
@@ -334,15 +306,12 @@ function toRgba(hexOrRgb: string, alpha: number): string {
 
 /**
  * Derives the full `--gds-*` semantic role variable set (the same 33-role schema
- * hand-authored for `class-usa`/`gold-athlete` — see `classUsaSemanticCssVariables`)
- * for any vibe theme that doesn't define one of its own, so badges and other
- * semantic-role consumers get a real per-preset color everywhere instead of
- * falling through to the 12 generic `--gds-vibe-*` variables. Several roles reuse
- * an already-WCAG-safe vibe field directly (e.g. `brand-primary` = `textLight`,
- * confirmed identical to that role in both hand-authored presets); the rest are
- * mixed from the preset's own hue and pushed toward black/white with
- * {@link ensureContrast} until they clear WCAG AA/non-text-AA against their
- * background, rather than being hand-picked per preset.
+ * hand-authored for `class-usa`/`gold-athlete`) for any vibe theme that doesn't define one
+ * of its own, so badges and other semantic-role consumers get a real per-preset color
+ * everywhere instead of falling through to the 12 generic `--gds-vibe-*` variables. Several
+ * roles reuse an already-WCAG-safe vibe field directly (e.g. `brand-primary` = `textLight`);
+ * the rest are mixed from the preset's own hue and pushed toward black/white with
+ * {@link ensureContrast} until they clear WCAG AA/non-text-AA against their background.
  */
 export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<string, string> {
   const accentLight = ensureContrast(vibe.accent, vibe.canvasLight, 3, false, vibe.canvasLight);
@@ -367,11 +336,8 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
 
   const supportLight = mixCssColors(vibe.mutedLight, accentLight, 0.6, vibe.canvasLight);
   const supportDark = mixCssColors(vibe.mutedDark, accentDark, 0.6, vibe.canvasDark);
-  // issue #537: `support` is a background the theme picks freely, so neither a light
-  // nor a dark foreground can be assumed across 25 presets x 2 schemes. Derive it.
-  // ChoiceChip previously paired `text.onInverse` with `support` - two roles never
-  // designed to meet - which passed here only because these lanes run through
-  // ensureContrast at all, and failed outright in the hand-authored brand lanes.
+  // `support` is a background the theme picks freely, so neither a light nor a dark
+  // foreground can be assumed across 25 presets x 2 schemes; derive it.
   const textOnSupportLight = readableForeground(supportLight, 4.5, vibe.canvasLight);
   const textOnSupportDark = readableForeground(supportDark, 4.5, vibe.canvasDark);
 
@@ -445,32 +411,18 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
     '--gds-control-disabledText': vibe.mutedLight,
     '--gds-control-disabledText-dark': vibe.mutedDark,
   };
-  // Issue 595: badge tone pairs are derived from the state colours above, so they cannot
-  // disagree with them and no lane can forget to emit them.
+  // Badge tone pairs are derived from the state colours above, so they cannot disagree
+  // with them and no lane can forget to emit them.
   Object.assign(derived, emitBadgeToneCssVariables(derived));
   return derived;
 }
 
 
 /**
- * Badge tone pairs with COMPUTED foregrounds (issue 595, resolving #534).
+ * Badge tone pairs with computed foregrounds.
  *
- * Two distinct defects, both measured before this was written:
- *
- * 1. #534 — `StatusBadge` renders Mantine's `variant="light"`: pastel text on a low-alpha
- *    tint of the same hue. Swept in dark mode it measures 1.81:1 and 2.55:1, well under any
- *    threshold. GDS never controlled that pair, because it came from Mantine's variant rather
- *    than from a GDS token.
- *
- * 2. Found while verifying the first — `toneColors.success` reads `--gds-state-success` while
- *    the other three tones read their `-dark` variants. With a fixed white foreground it
- *    fails 4.5:1 in 9 of 25 presets in LIGHT mode (class-usa 4.10, sunset 4.40). That is a
- *    shipped defect, not a theoretical one, and the inconsistency is why it survived: three
- *    tones were pinned dark and one was not.
- *
- * The fix for both is the same and it is the pattern issue 537 established for `support`:
- * never pair a fixed foreground with a variable background. The foreground is DERIVED against
- * the background it actually lands on, per preset, per scheme.
+ * A fixed foreground must never pair with a variable background. The foreground is derived
+ * against the background it actually lands on, per preset, per scheme.
  */
 const BADGE_TONES = ['success', 'warning', 'danger', 'info'] as const;
 
@@ -490,22 +442,17 @@ export function emitBadgeToneCssVariables(base: Record<string, string>): Record<
       vars[`--gds-badge-solid-${tone}${suffix}`] = solid;
       vars[`--gds-badge-solid-${tone}-fg${suffix}`] = readableForeground(solid, 4.5, surface);
 
-      // SOFT lane: a tint of the state colour over the card surface, which is what
-      // `variant="light"` was approximating without any contrast guarantee. Mixing against a
-      // real surface rather than using alpha means the result is an opaque colour whose
-      // contrast can actually be computed — an rgba tint cannot be, which is precisely how
-      // 1.81:1 shipped unnoticed.
+      // SOFT lane: a tint of the state colour over the card surface. Mixing against a real
+      // surface rather than using alpha produces an opaque colour whose contrast can
+      // actually be computed — an rgba tint cannot be.
       const tint = mixCssColors(solid, surface, 0.16, surface);
       vars[`--gds-badge-soft-${tone}${suffix}`] = tint;
       vars[`--gds-badge-soft-${tone}-fg${suffix}`] = readableForeground(tint, 4.5, surface);
     }
   }
 
-  // BRAND FILLS used as badge backgrounds get a derived foreground too. `FitScoreChip` paired
-  // `--gds-brand-accent` with `--gds-text-on-inverse` — a near-white meant for the INVERSE
-  // surface, not for a brand colour the theme picks freely. It measured 3.44:1. A fixed
-  // foreground on a themeable fill is the same defect wherever it appears, so the fix is the
-  // same: derive it against the fill.
+  // Brand fills used as badge backgrounds get a derived foreground too — a fixed foreground
+  // on a themeable fill is the same defect wherever it appears.
   for (const fill of ['--gds-brand-primary', '--gds-brand-accent', '--gds-brand-accent-action', '--gds-bg-info-tag', '--gds-brand-accent-tint']) {
     for (const [suffix, surface] of [['', card], ['-dark', cardDark]]) {
       const value = base[`${fill}${suffix}`] ?? base[fill];
@@ -518,11 +465,9 @@ export function emitBadgeToneCssVariables(base: Record<string, string>): Record<
   for (const [suffix, surface] of [['', card], ['-dark', cardDark]] as const) {
     vars[`--gds-badge-soft-neutral${suffix}`] = surface;
     vars[`--gds-badge-soft-neutral-fg${suffix}`] = readableForeground(surface, 4.5, surface);
-    // SOLID neutral is a real neutral FILL, not the card surface: its consumer is the count
-    // badge, a pill that has to read as an object sitting on the card rather than a hole in
-    // it. Its foreground is derived like every other tone — `GdsCountBadge` previously paired
-    // white with `--gds-state-info-dark`, assuming the name meant a dark colour. It resolves
-    // to rgb(239, 242, 246). That badge shipped at 1.07:1.
+    // SOLID neutral is a real neutral fill, not the card surface — its consumer is the count
+    // badge, which must read as an object sitting on the card. Its foreground is derived
+    // like every other tone.
     const neutralFill = base[`--gds-text-meta${suffix}`] ?? base['--gds-text-meta'] ?? surface;
     vars[`--gds-badge-solid-neutral${suffix}`] = neutralFill;
     vars[`--gds-badge-solid-neutral-fg${suffix}`] = readableForeground(neutralFill, 4.5, surface);

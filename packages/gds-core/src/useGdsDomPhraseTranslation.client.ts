@@ -17,10 +17,8 @@ export interface UseGdsDomPhraseTranslationOptions {
 }
 
 /**
- * Issue 624 — the overlay lifecycle that used to live in the reference site's App shell:
- * one initial pass, then a MutationObserver keeping later-mounted and app-updated nodes in
- * the active locale. The engine's own-write memory is what makes observing `characterData`
- * safe — without it this exact loop froze every live status at its first value.
+ * One initial translation pass, then a MutationObserver keeps later-mounted and app-updated
+ * nodes in the active locale.
  */
 export function useGdsDomPhraseTranslation({ root, locale, loadIndex, routeKey }: UseGdsDomPhraseTranslationOptions) {
   useEffect(() => {

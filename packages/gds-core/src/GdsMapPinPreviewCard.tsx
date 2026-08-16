@@ -8,25 +8,13 @@ import type { MeaningVariant } from './MeaningBadge';
 import { GdsBadge } from './GdsBadge';
 
 /**
- * Issue 548 — the governed pin preview card: what opens when a map pin is tapped.
+ * Governed pin preview card. Composes GdsGeneratedThumbnail (badges="none"), GdsSavedIndicator,
+ * and MeaningBadge; radius/shadow use the `sheet` elevation role.
  *
- * Composed, not built: the thumbnail is the generated-imagery system (`badges="none"` at this
- * tile size, per the source spec's own note that badge pills keep their real type size and
- * become clutter — the activity is named in TEXT instead, on the meta line), saving is
- * `GdsSavedIndicator` (issue 546, the control this card was one of the two homes for), the
- * trust marker is a `MeaningBadge`, and the surface radius/shadow come from the theme scale
- * and the elevation axis (`sheet` role — this card floats over map content the way a sheet
- * floats over a page), never from the spec's literal pixel values.
+ * Absent-field behavior: no thumbnail categories -> no media region; no trust -> row omitted;
+ * no price and no lastChecked -> estimate block omitted; loading -> skeleton with same regions.
  *
- * EVERY FIELD HAS A DEFINED ABSENT TREATMENT (the states-contract principle):
- * - no thumbnail categories → no media region at all, never a broken or placeholder image;
- * - no trust badge → the row is omitted — the absence of a claim is not a claim;
- * - no price and no last-checked line → the estimate block is omitted; either alone renders;
- * - `loading` → a skeleton with the same regions, so the card does not jump when data lands.
- *
- * Labels are consumer-supplied and required where a control needs a name (`closeLabel`,
- * the saved-indicator labels) — the same no-shipped-English rule `GdsMapPinBadge.label`
- * follows: GDS must not ship copy that survives into a localised product.
+ * Labels (closeLabel, save/unsave labels) are consumer-supplied; no default English ships.
  */
 
 /** Props for {@link GdsMapPinPreviewCard}. */

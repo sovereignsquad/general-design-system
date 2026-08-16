@@ -2,8 +2,6 @@ import { Badge, Tooltip } from '@mantine/core';
 import type { BadgeProps } from '@mantine/core';
 
 /**
- * FitScoreChip (gap B5 / issue #319).
- *
  * Compact match-quality pill. Takes a `value` (0–100) and/or `label`, colors on
  * a deterministic sage -> terracotta band scale from brand tokens, and exposes
  * an accessible tooltip listing the matched dimensions. Meaning is always
@@ -35,13 +33,7 @@ function bandForScore(value: number): ScoreBand {
   return 'partial';
 }
 
-/*
- * Issue 597. Each band paired a themeable fill with `--gds-text-on-inverse` — a foreground
- * derived for the INVERSE surface, not for whatever colour the theme gives the fill. Measured
- * live on /patterns/public, the `good` band rendered #f8fafc on #0594ac: 3.44:1.
- *
- * The foreground is now derived against the fill it actually lands on, per preset and scheme.
- */
+// Foreground derived against the actual fill per preset/scheme, not a fixed inverse color.
 const bandColor: Record<ScoreBand, { bg: string; fg: string }> = {
   great: { bg: 'var(--gds-badge-solid-success)', fg: 'var(--gds-badge-solid-success-fg)' },
   good: { bg: 'var(--gds-brand-accent)', fg: 'var(--gds-brand-accent-fg)' },

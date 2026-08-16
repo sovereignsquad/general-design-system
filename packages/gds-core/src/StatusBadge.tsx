@@ -62,11 +62,8 @@ export function StatusBadge({ status, withIcon, children, ...props }: StatusBadg
       variant="filled"
       leftSection={iconKey ? <GdsIcon icon={iconKey} size="xs" /> : undefined}
       {...props}
-      // Issue 595 / #534. This rendered Mantine's `variant="light"` — pastel text on a
-      // low-alpha tint of the same hue — which measured 1.81:1 and 2.55:1 in dark mode. GDS
-      // never controlled that pair, because it came from Mantine's variant rather than a GDS
-      // token, and an rgba tint's contrast cannot be computed at all. The soft lane mixes the
-      // state colour against a real surface and derives the foreground against the result.
+      // Mantine's variant="light" (pastel on low-alpha tint) measured 1.81:1 / 2.55:1 in dark
+      // mode. This mixes the state color against a real surface and derives the foreground.
       style={{
         background: `var(--gds-badge-soft-${status})`,
         color: `var(--gds-badge-soft-${status}-fg)`,
@@ -81,11 +78,8 @@ export function StatusBadge({ status, withIcon, children, ...props }: StatusBadg
 /**
  * Outline badge that renders `label` in a governed color chosen by its semantic `tone`.
  *
- * Issue 597: this used to render a raw Mantine palette colour as text on a TRANSPARENT
- * background, so what it landed on was whatever the consumer put behind it. Measured live it
- * was 1.86:1 for `warning` and 3.32:1 for `neutral`. It now uses the same derived soft pair as
- * `StatusBadge`, which is opaque and therefore measurable; the outline reads as the
- * foreground colour so the shape survives.
+ * Uses the same derived soft pair as `StatusBadge` (opaque, measurable) rather than a raw
+ * palette color on a transparent background.
  */
 export function LabelTag({ tone = 'neutral', label, ...props }: LabelTagProps) {
   return (

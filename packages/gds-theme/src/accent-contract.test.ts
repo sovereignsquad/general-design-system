@@ -3,17 +3,9 @@ import {
   evaluateGdsAccentContrast, getGdsVibeThemes, getGdsVibeThemeCssVariables, resolveGdsAccentTokens,
 } from './index';
 
-/*
- * The accent contract (owner directive, 2026-08-13), after the owner noticed on the live site
- * that category badges, pins and thumbnails look identical in every theme:
- *
- *   Accents are a FIXED category vocabulary by default — a category means the same thing
- *   across every theme — and a preset MAY override them, in which case the contrast gate
- *   verifies the override rather than trusting it.
- *
- * Both halves are asserted here. "Fixed" that is merely true today is not a contract, and
- * "overridable" that nothing verifies is how an illegible brand palette ships.
- */
+// Accents are a fixed category vocabulary by default — a category means the same thing
+// across every theme. A preset may override them, in which case the contrast gate verifies
+// the override rather than trusting it. Both halves are asserted here.
 describe('accent contract', () => {
   it('is a fixed vocabulary: every preset and scheme resolves identical accents', () => {
     const palettes = new Map<string, string[]>();
@@ -44,8 +36,7 @@ describe('accent contract', () => {
   });
 
   it('verifies an override instead of trusting it', () => {
-    // A pale yellow is a plausible brand choice for a category and an illegible one under the
-    // white icon filled mode enforces. The gate must fail on it.
+    // Pale yellow is illegible under the white-icon filled mode the gate enforces.
     const page = getGdsVibeThemeCssVariables('default', 'light')['--gds-bg-page'];
     const pageDark = getGdsVibeThemeCssVariables('default', 'dark')['--gds-bg-page'];
     const backgrounds = { light: page, dark: pageDark };

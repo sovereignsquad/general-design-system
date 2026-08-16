@@ -41,11 +41,8 @@ if (!manifest.compliance?.approvedShellPrimitives?.includes('DocsShell')) {
   failures.push('apps/playground/gds-adoption.json must declare DocsShell in compliance.approvedShellPrimitives.');
 }
 
-// Issue 605. The site tells consumers "One GdsProvider at the app root — never nest a second
-// one". Nothing checked that the site itself obeys it, so the rule was advice the reference
-// implementation could quietly break. A nested provider is not a cosmetic mistake: the inner
-// one re-declares the theme, so theme identity, colour scheme and the governed variant lane
-// stop agreeing between subtrees — the class of bug issue 597 traced.
+// Checks for exactly one <GdsProvider> mount. A nested provider re-declares the theme,
+// so theme identity, color scheme, and the governed variant lane can disagree between subtrees.
 {
   const providerSources = ['apps/playground/src/App.tsx', 'apps/playground/src/main.tsx'];
   let mounts = 0;

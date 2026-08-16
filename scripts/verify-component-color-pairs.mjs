@@ -1,18 +1,9 @@
-// Issue 597, generalised. A component that sets BOTH a background and a text colour has
-// declared a contrast pair, whether or not anyone measured it.
+// A component that sets both a background and a text colour has declared a contrast pair.
+// This reads the pairing from component source and measures it against every preset — the
+// runtime badge gate and the token gates cannot see it, since it is composed at the point of
+// use rather than declared anywhere.
 //
-// The badge work found the same mistake four times in four components: a themeable fill
-// paired with a FIXED foreground, usually `--gds-text-on-inverse` — a role derived to sit on
-// `--gds-bg-inverse` and on nothing else. Measured across the presets, `--gds-text-on-inverse`
-// on `--gds-brand-primary` is 1.00:1 in default dark: the same colour, twice.
-//
-// The runtime badge gate cannot see these, because they are not badges. The token gates cannot
-// see them either, because the pair is not DECLARED anywhere — it is composed by a component
-// at the point of use, out of two tokens that were never meant to meet. That gap is what this
-// closes: the pairing is read from the component source and measured against every preset.
-//
-// It is deliberately static. No browser, no build, no preview server — so it can run early and
-// cheaply, and so it cannot be defeated by a route simply not rendering the component today.
+// Static: no browser, no build, no preview server.
 
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -63,8 +54,7 @@ for (const file of walk(join(ROOT, 'packages'))) {
     const fg = FG.exec(body)?.[1];
     if (!bg || !fg) continue;
     if (/transparent|none|inherit|currentcolor/i.test(bg)) continue;
-    // A pair built from a template hole (`var(--gds-badge-soft-${tone})`) is resolved per
-    // tone below rather than skipped: skipping is how the tone lanes would go unmeasured.
+    // A template-hole pair (`var(--gds-badge-soft-${tone})`) is resolved per tone below, not skipped.
     pairs.push({ file: relative(ROOT, file), bg, fg });
   }
 }
@@ -84,8 +74,7 @@ for (const pair of pairs) {
       const vars = getGdsVibeThemeCssVariables(preset, scheme);
       for (const bgValue of expand(pair.bg)) {
         for (const fgValue of expand(pair.fg)) {
-          // Only compare a tone against its own lane; success-bg vs danger-fg is a pair no
-          // component ever renders, and reporting it would bury the real findings.
+          // Compare only within the same tone lane; cross-tone pairs never render.
           const bgTone = TEMPLATE_TONES.find((t) => bgValue.includes(t));
           const fgTone = TEMPLATE_TONES.find((t) => fgValue.includes(t));
           if (pair.bg.includes('${') && pair.fg.includes('${') && bgTone !== fgTone) continue;
@@ -107,11 +96,8 @@ for (const pair of pairs) {
 
 if (!measured) fail('Pairs were found but none could be resolved to colours. The resolver is broken, not the system clean.');
 
-// WCAG 1.4.3 exempts "text that is part of an inactive user interface component" from the
-// contrast minimum. A disabled control's label is exactly that, so gating it would be
-// inventing a requirement the standard does not make. It is REPORTED with its measured ratio
-// rather than dropped: an exemption nobody can see is indistinguishable from a gap nobody
-// noticed, which is the failure this whole issue is about.
+// WCAG 1.4.3 exempts inactive-component text from the contrast minimum. Disabled-control
+// pairs are reported with their measured ratio rather than dropped.
 const inactive = (f) => /disabled/i.test(`${f.bgToken}${f.fgToken}`);
 const reported = findings.filter(inactive);
 const enforced = findings.filter((f) => !inactive(f));

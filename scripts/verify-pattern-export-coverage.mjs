@@ -12,11 +12,7 @@ const registryIds = new Set([...registrySource.matchAll(/id:\s*'([^']+)'/g)].map
 const registryStatus = new Map();
 const registrySourceComponents = new Map();
 
-// Issue 608. `coverageStatus` is no longer written in the registry — it is DERIVED from the
-// generated proven-pattern list, so an entry cannot claim a proof the catalog does not render.
-// This gate therefore derives it the same way rather than reading a field that no longer
-// exists; parsing for it silently produced "unknown" for all 113 entries, which this gate
-// reported as a failure rather than passing over — the guard working.
+// Status is derived from the generated proven-pattern list, not read as a registry field.
 const provenSource = readFileSync(resolve(root, 'apps/playground/src/generated-pattern-coverage.ts'), 'utf8');
 const provenIds = new Set([...provenSource.matchAll(/"([^"]+)"/g)].map((match) => match[1]));
 if (provenIds.size === 0) {

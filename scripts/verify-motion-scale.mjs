@@ -1,15 +1,5 @@
-// Issue 584 — every shipped transition and animation uses the governed motion scale.
-//
-// Findings F2 and F9. The owner reported that button micro-animations looked absent. The
-// measured reality was that they existed and bypassed the governed curve: 34 interactive
-// elements computed to `0.14s`/`ease` while `--gds-motion-duration-fast` resolved to `.12s`
-// and `--gds-motion-ease-standard` to `cubic-bezier(.2, 0, 0, 1)` on the same page. The
-// tokens were live, correct, and ignored — which is worse than missing, because every gate
-// and every doc said motion was governed.
-//
-// The scale itself is generated from motion.ts (see generate-motion-css.mjs); this gate
-// covers the other half: that shipped rules actually reference it.
-//
+// Checks that shipped transition/animation declarations reference the governed motion scale.
+// Scale itself is generated from motion.ts (see generate-motion-css.mjs).
 // Output: audit/motion-scale.json
 
 import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -19,8 +9,7 @@ import { MOTION_ALLOWLIST } from './motion-scale.config.mjs';
 const ROOT = new URL('..', import.meta.url).pathname;
 const fail = (msg) => { console.error(`FAIL ${msg}`); process.exit(1); };
 
-// The declared scale, read from the built package rather than restated here — a second copy
-// of the nine values is the very duplication issue 584 exists to remove.
+// Read from the built package, not restated here.
 const { gdsMotionDurations, gdsMotionEasings } = await import(join(ROOT, 'packages/gds-theme/dist/index.js'));
 if (!gdsMotionDurations) fail('Could not load gdsMotionDurations from packages/gds-theme/dist — run `npm run build` first.');
 
@@ -49,8 +38,7 @@ for (const file of [...walk(join(ROOT, 'packages')), ...walk(join(ROOT, 'apps/pl
   const lines = readFileSync(file, 'utf8').split('\n');
 
   lines.forEach((line, i) => {
-    // Declarations only. A duration inside a keyframe body or a comment is not a shipped
-    // transition, and flagging it would be noise that teaches people to skip the gate.
+    // Declarations only; skips keyframe bodies and comments.
     if (!/(transition|animation)[A-Za-z-]*\s*:/.test(line)) return;
     if (line.trim().startsWith('//') || line.trim().startsWith('*')) return;
     scanned += 1;
@@ -59,9 +47,7 @@ for (const file of [...walk(join(ROOT, 'packages')), ...walk(join(ROOT, 'apps/pl
     const entry = MOTION_ALLOWLIST[at];
 
     const bad = [];
-    // Strip var(...) first: `var(--gds-motion-duration-fast)` must not be read as a literal,
-    // and the scale declaration lines themselves are `--gds-motion-*: 120ms` which are the
-    // SOURCE, not a use.
+    // Strip var(...) and scale declaration lines (`--gds-motion-*: 120ms`) before matching literals.
     const stripped = line.replace(/var\([^)]*\)/g, 'VAR').replace(/--gds-motion-[a-z-]+\s*:\s*[^;]+;?/g, '');
     for (const [, value] of stripped.matchAll(DURATION)) {
       if (!SCALE_MS.has(value)) bad.push({ kind: 'literal-duration', value, suggestion: nearestStep(value) });

@@ -1,26 +1,14 @@
-// Issue 617 — route a component's DEFAULT COPY through the locale catalogue.
+// Routes a component's default copy through the locale catalogue (`getGdsMessages`).
 //
-// GDS components default their user-visible strings to English literals:
-//
-//   export function AsyncSurface({ emptyTitle = 'No results', … })
-//
-// The reference site hides this, because its phrase overlay rewrites the rendered DOM. A
-// CONSUMER gets none of that: they install the package, set a locale, and their empty states,
-// retry buttons and error titles are still English. So the site is translated while GDS is not.
-//
-// `getGdsMessages` already exists — 188 keys across 12 locales — and eight components already
-// resolve through it. This codemod moves the rest onto the same path.
-//
-// THE TRANSFORM, and why this shape:
+// Transform:
 //
 //   emptyTitle = 'No results',                    ->  emptyTitle: emptyTitleProp,
 //   …                                             ->  const emptyTitle = emptyTitleProp
 //                                                        ?? t('gds.asyncSurface.emptyTitle', 'No results');
 //
-// Shadowing the parameter name means every existing use of `emptyTitle` in the body keeps
-// working untouched. Rewriting the use sites instead would be a far larger and riskier diff for
-// no benefit. The English literal stays as the fallback argument, so a missing key renders the
-// same text it does today rather than a key id.
+// Shadowing the parameter name keeps existing uses of `emptyTitle` in the body working
+// unchanged. The English literal stays as the fallback argument, so a missing key
+// renders the same text as today rather than a key id.
 //
 // Run: node scripts/codemods/localize-component-defaults.mjs [--check] <file...>
 
@@ -31,18 +19,11 @@ const args = process.argv.slice(2);
 const check = args.includes('--check');
 const files = args.filter((a) => !a.startsWith('--'));
 
-// COPY IS DECIDED BY THE PROP NAME, not by the shape of the value.
-//
-// A first cut classified by value and was wrong in both directions: it skipped `'Loading'` and
-// `'Refreshing'` — real copy — because they look exactly like the icon keys `'Gallery'` and
-// `'Notifications'`. No amount of pattern-matching on the string separates those, because there
-// is nothing to separate: they are the same shape carrying different meanings.
-//
-// The prop name is unambiguous. `emptyTitle`, `retryLabel` and `placeholder` name text a reader
-// sees; `icon`, `variant` and `presentation` never do.
+// Copy is classified by prop name, not value shape: `emptyTitle`, `retryLabel`,
+// `placeholder` name text a reader sees; `icon`, `variant`, `presentation` never do.
 const COPY_PROP = /(?:label|title|description|placeholder|text|message|caption|hint|summary|announcement)$/i;
 
-// …but a copy-named prop can still hold a CSS value or a format token, so the value is checked too.
+// A copy-named prop can still hold a CSS value or format token, so the value is checked too.
 const NOT_COPY_VALUE = [
   /^(?:clamp|calc|var|min|max|rgba?|hsla?)\(/,
   /\d\s*(?:rem|px|em|%|vw|vh|ch|fr)\b/,
@@ -57,10 +38,7 @@ function isCopy(propName, value) {
 
 /**
  * `AsyncSurface.tsx` -> `asyncSurface`; `GdsDataTable.client.tsx` -> `gdsDataTable`;
- * `AISearchCard.tsx` -> `aiSearchCard`.
- *
- * The leading-acronym case matters: a naive first-character lowercase produces `aISearchCard`,
- * which is the sort of key nobody wants to type into a translation file.
+ * `AISearchCard.tsx` -> `aiSearchCard` (leading-acronym case handled explicitly).
  */
 function namespaceFor(file) {
   const base = file.split('/').pop().replace(/\.client\.tsx$|\.tsx$/, '');
@@ -98,9 +76,7 @@ for (const file of files) {
       if (!isCopy(name, text)) continue;
 
       const id = `gds.${ns}.${name}`;
-      // Two components in one file can share a prop name. Same text is harmless — they mean the
-      // same thing and should share a key. DIFFERENT text under one key is a real collision: one
-      // component would silently render the other's copy.
+      // Same text under one key is fine; different text is a collision.
       if (catalogue.has(id) && catalogue.get(id) !== text) {
         console.error(`COLLISION ${id}: ${JSON.stringify(catalogue.get(id))} vs ${JSON.stringify(text)}`);
         process.exitCode = 1;
@@ -113,16 +89,11 @@ for (const file of files) {
 
     if (resolved.length === 0) continue;
 
-    // Per FUNCTION, not per file. A first cut tested the whole file, so a component in a file
-    // where some OTHER function already called the hook got its `t(...)` calls without a `t` —
-    // `SidebarNav` failed to compile for exactly that reason.
+    // Checked per function, not per file: another function in the same file may already call the hook.
     const bodyText = source.slice(decl.body.start, decl.body.end);
     const existingHook = /const\s*\{[^}]*\bt\b[^}]*\}\s*=\s*useGdsTranslation\(\);/.exec(bodyText);
     const needsHook = !existingHook;
-    // Where the resolved consts go. Body start is right only when this codemod adds the hook
-    // itself. When the component ALREADY calls it, that call can sit anywhere in the body, and
-    // going in above it puts a use of `t` before its declaration — `GdsSchemaForm` failed to
-    // compile for exactly that reason. Land after the existing call instead.
+    // If the hook call already exists, insert after it, not at body start, to avoid using `t` before its declaration.
     const bodyStart = existingHook
       ? decl.body.start + existingHook.index + existingHook[0].length
       : decl.body.start + 1;

@@ -1,18 +1,12 @@
-// Issue 587 — generate the per-locale blocks in a site copy file (page-copy.ts, site-copy.ts).
+// Generates per-locale blocks in a site copy file (page-copy.ts, site-copy.ts).
 //
-// `page-copy.ts` holds one hand-authored block per locale for each copy map. The runtime
-// phrase overlay cannot cover it: `translateSiteDom` deliberately skips text inside `a`,
-// `button`, `label`, `option` and friends, which is most of what these maps contain — nav
-// titles, link descriptions and CTA labels. A locale without its own block would therefore
-// render Japanese body copy with English navigation, so the blocks are real, not a fallback.
+// `translateSiteDom` skips text inside `a`, `button`, `label`, `option` and similar — most of
+// what these maps contain — so each locale needs its own real block, not a runtime overlay.
 //
-// Translations come from the SAME endpoint `generate-site-phrase-translations.mjs` uses, so
-// provenance is identical to the other ~1,300 site phrases rather than invented (Rule 11).
+// Translations come from the same endpoint `generate-site-phrase-translations.mjs` uses.
 //
-// Formatting is preserved by splicing text rather than re-printing the file: the `en` block's
-// exact source is copied, and only the string values inside it are substituted, back to front
-// so earlier offsets stay valid. Re-printing with @babel/generator would rewrite all 1,400
-// lines and bury the actual change.
+// Formatting is preserved by splicing the `en` block's exact source and substituting only the
+// string values, back to front so earlier offsets stay valid.
 //
 // Usage: node scripts/generate-page-copy-locales.mjs <file> <locale> [<locale> ...]
 
@@ -31,8 +25,7 @@ if (!relativeFile || targetLocales.length === 0) {
 
 const filePath = resolve(root, relativeFile);
 
-// Values that are identifiers or routes, never prose. Translating an `href` would break every
-// link on the page, and an `id` is matched against code.
+// Identifier/route values, never prose — translating href/id would break links and lookups.
 const NON_PROSE_KEYS = new Set(['id', 'href', 'to', 'key', 'icon', 'action', 'variant', 'tone', 'color']);
 
 function translate(text, locale) {
@@ -60,21 +53,17 @@ function translate(text, locale) {
 const source = readFileSync(filePath, 'utf8');
 const ast = parse(source, { sourceType: 'module', plugins: ['typescript'] });
 
-// Every locale id the catalog knows, read from gds-theme rather than written here — the same
-// single source the font policy and the leakage detector use.
+// Locale ids read from gds-theme (same source the font policy and leakage detector use).
 const localeCatalog = new Set(
   [...readFileSync(resolve(root, 'packages/gds-theme/src/i18n.ts'), 'utf8')
     .matchAll(/^\s{2}(\w+):\s*\{[^}]*script:\s*'[^']+'/gm)].map((match) => match[1]),
 );
 
 /**
- * Every object literal that IS a locale map: it has an `en` property and every one of its keys
- * is a known locale id.
+ * A locale map: has an `en` property and every key is a known locale id.
  *
- * Structural rather than by name or nesting depth. `page-copy.ts` holds maps at the top level,
- * but `site-copy.ts` nests them a level down inside `headerContextCopy`, and a first version
- * that only looked at exported declarations missed those entirely — the build caught it, which
- * is the only reason it is not still missing.
+ * Matched structurally, not by name or nesting depth — `page-copy.ts` holds maps at the top
+ * level; `site-copy.ts` nests them inside `headerContextCopy`.
  */
 function findCopyMaps() {
   const maps = [];
@@ -127,12 +116,7 @@ function collectStrings(node, out = [], parentKey = null) {
   for (const [key, value] of Object.entries(node)) {
     if (key === 'loc' || key === 'leadingComments' || key === 'trailingComments') continue;
 
-    // NEVER descend into an object property's KEY. A quoted key is an identifier the code looks
-    // itself up by, not copy: translating `'dark-public'` to `'어둠의 대중'` ("darkness of the
-    // masses") silently broke every `presetSummaries['dark-public']` lookup, so `ko`, `ja` and
-    // `zh` fell back to English for those entries. The page still rendered — the per-field
-    // fallback added in issue 587 saw to that — which is exactly why it went unnoticed: the
-    // data was corrupt and nothing crashed.
+    // Never descend into an object property's key — it's an identifier the code looks up by, not copy.
     if (node.type === 'ObjectProperty' && key === 'key') continue;
 
     if (Array.isArray(value)) {
@@ -148,11 +132,7 @@ function collectStrings(node, out = [], parentKey = null) {
 }
 
 const maps = findCopyMaps();
-// Not just "> 0". Finding one map out of eight is the failure this guard exists for, and a
-// zero-check would have passed it. The count is asserted against the exports actually present.
-// Every block that already carries the full existing locale set must be found. If the file has
-// blocks with (say) `hu` and this run found fewer, the walk missed some and a partial write
-// would leave the file type-broken in a way that is tedious to unpick.
+// Asserted against the actual 'hu' block count, not just > 0 — catches a partial walk before it writes a partial file.
 const huBlocks = [...source.matchAll(/^\s*hu: [{']/gm)].length;
 if (maps.length < huBlocks) {
   console.error(`Parsed ${maps.length} locale maps but the file has ${huBlocks} blocks reaching 'hu' — refusing to write a partial result.`);
@@ -194,9 +174,8 @@ let output = source;
 // Back to front across the whole file so every recorded offset stays valid.
 const insertions = [];
 
-// A map that already carries a target locale is skipped, not an error: `siteLocaleRegistry` is
-// structurally a locale map and is maintained by hand, so a run that adds locales to the copy
-// maps around it must leave it alone rather than duplicating its keys.
+// A map that already has the target locale is skipped, not an error — `siteLocaleRegistry` is
+// a hand-maintained locale map that must be left alone.
 for (const locale of targetLocales) {
   const translations = await translateAll(locale);
   for (const map of maps) {

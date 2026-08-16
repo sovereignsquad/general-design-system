@@ -1,11 +1,10 @@
-// Issue 583 — WGA (Weighted Gap Augmentation) selection and ordering, DEEP_AUDIT_PLAN §3.1.4.
+// WGA (Weighted Gap Augmentation) selection and ordering.
 //
-// Augmentation, not replacement: it MEASURES what the existing runtime gates already cover,
-// drops covering-array rows every one of whose pairs those gates already exercise, then orders
-// the remainder greedily by weighted-new-tuples per unit transition cost with the plan's
-// adaptive-random tie-break made deterministic (max Hamming distance from the selected set,
-// first-index ties). Sampling is never used: every uncovered tuple stays in the plan, per the
-// issue's own constraint that runtime is mitigated by ordering and sharding, never coverage.
+// Measures what the existing runtime gates already cover, drops covering-array rows
+// whose pairs those gates already exercise, then orders the remainder greedily by
+// weighted-new-tuples per unit transition cost, with ties broken by max Hamming
+// distance from the selected set (first-index on further ties). No sampling: every
+// uncovered tuple stays in the plan.
 
 import { rowTuples } from './covering-array.mjs';
 import { TRANSITION_COSTS, PAGE_FACTORS } from './factor-model.config.mjs';
@@ -16,7 +15,7 @@ const pairIdxSets = (factors) => {
   return sets;
 };
 
-/** Weighted value of a tuple: the plan's tupleWeight — product of its levels' weights. */
+/** Weighted value of a tuple: product of its levels' weights. */
 function tupleWeight(factors, key) {
   let weight = 1;
   for (const part of key.split('|')) {
@@ -27,7 +26,7 @@ function tupleWeight(factors, key) {
   return weight;
 }
 
-/** §3.1.3: what moving from one cell to the next costs under the load-based mechanism. */
+/** What moving from one cell to the next costs under the load-based mechanism. */
 export function transitionCost(previous, next) {
   if (!previous) return TRANSITION_COSTS.load;
   if (PAGE_FACTORS.some((f) => previous[f] !== next[f])) return TRANSITION_COSTS.load;
@@ -73,9 +72,8 @@ export function selectAndOrder(factors, arrayRows, existingSuite) {
     remaining = remaining.filter((s) => s !== pick.c);
   }
 
-  // Final execution order: group by page (route+locale+theme+scheme costs a load), pages in
-  // first-selection order, cheap factors swept within a page. The set is unchanged — §3.1.4
-  // step 6 orders, it never trims.
+  // Execution order: group by page (route+locale+theme+scheme costs a load), pages in
+  // first-selection order, cheap factors swept within a page. Ordering only, no trimming.
   const pageKey = (row) => PAGE_FACTORS.map((f) => row[f]).join('|');
   const pageOrder = [];
   const byPage = new Map();

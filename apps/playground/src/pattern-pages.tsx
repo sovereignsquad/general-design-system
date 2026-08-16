@@ -2,9 +2,6 @@ import { GdsMap } from '@sovereignsquad/gds-core/map';
 import { GdsPinSystemReference, GdsMotionSystemReference, GdsShapeElevationSystemReference, GdsDensitySpacingSystemReference, GdsIconSystemReference, GdsTypographySystemReference, GdsInlineLink } from '@sovereignsquad/gds-core';
 import { useEffect, useMemo, useState } from 'react';
 import {
-  // Issue 600: these seven were named as `sourceComponent` evidence by registry entries
-  // claiming `live-proof` while no page imported them, so readers reached the
-  // "No interactive demo renders here" fallback under a live-proof claim.
   AISearchCard,
   BottomTabBar,
   BOTTOM_TAB_MAX_ITEMS,
@@ -175,10 +172,7 @@ import {
   GdsSchemaForm,
   type GdsFormSchema,
 } from '@sovereignsquad/gds-core';
-// Dedicated subpath import: GdsRichTextEditor's Tiptap/ProseMirror engine is
-// deliberately excluded from the main '@sovereignsquad/gds-core' barrel so
-// consumers who don't use it never bundle it (see the comment in
-// packages/gds-core/src/rich-text-editor.ts).
+// Excluded from the main barrel so consumers who don't use it don't bundle it.
 import { GdsRichTextEditor } from '@sovereignsquad/gds-core/rich-text-editor';
 import { VibeThemePicker, GdsVibeThemeScope, GdsIconStyleContext, getGdsVibeThemes, getGdsVibeThemeCssVariables, type GdsThemePresetId, type GdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
 import type { GdsCategoryDefinition } from '@sovereignsquad/gds-core';
@@ -440,12 +434,7 @@ function AdminEditorFlowsDemo() {
       sections={(
         <>
         <ContentOpsSection id="visibility" title="Visibility" description="Use shared sections and form contracts.">
-          {/*
-           * size="xs"/"sm" (and the implicit default) all exercise the mobile
-           * input-focus auto-zoom guard (gdsTheme's Input.vars) — these are the
-           * exact AdminForms wrapper components a consuming app reported the
-           * gap against, not just raw Mantine controls.
-           */}
+          {/* size="xs"/"sm"/default all exercise the mobile input-focus auto-zoom guard (gdsTheme's Input.vars). */}
           <AdminSelect
             name="visibility"
             label="Visibility"
@@ -680,24 +669,20 @@ const MAP_PIN_MARKERS: Array<{
   icon: 'Location' | 'Habit' | 'Message' | 'Verify';
   label: string;
 }> = [
-  // Real coordinates, because the map is now a real map. These replaced `left`/`top`
-  // percentages — positions on a drawing rather than places on the earth.
   { id: 'pool', position: { lat: 51.5079, lng: -0.0877 }, accent: 'ocean', icon: 'Location', label: 'Community pool' },
   { id: 'studio', position: { lat: 51.5133, lng: -0.0886 }, accent: 'teal', icon: 'Habit', label: 'Dance studio' },
   { id: 'hall', position: { lat: 51.5031, lng: -0.1195 }, accent: 'grape', icon: 'Message', label: 'Riverside hall' },
   { id: 'center', position: { lat: 51.5014, lng: -0.0993 }, accent: 'forest', icon: 'Verify', label: 'Certified center' },
 ];
 
-// Issue 547/548 — the activity each marker belongs to (drives the filter rail) and the fields
-// the preview card renders when its pin is selected. Same ids as MAP_PIN_MARKERS: one entity,
-// two views, which is the point of the composition.
+// Keyed by the same ids as MAP_PIN_MARKERS: activity drives the filter rail, the rest
+// renders in the preview card when that pin is selected.
 const MAP_PIN_DETAILS: Record<string, {
   activity: string; activityId: string; neighbourhood: string; summary: string;
   ageRange: string; priceEstimate?: string; lastChecked?: string;
   verified?: boolean; categoryIcon: 'Location' | 'Habit' | 'Message' | 'Verify';
 }> = {
-  // Issue 622 — four DIFFERENT domains on one map, deliberately: the pin system is a general
-  // capability, and a proof where every pin is a sport reads as a sports-app component.
+  // Four different domains, deliberately: the pin system is domain-agnostic.
   pool: { activity: 'Swimming', activityId: 'swimming', neighbourhood: 'Bankside', summary: 'Heated pools with beginner lanes and family sessions.', ageRange: '6-12', priceEstimate: '~\u00a340 / month', lastChecked: 'Checked last week', categoryIcon: 'Location' },
   studio: { activity: 'Dance', activityId: 'dance', neighbourhood: 'Barbican', summary: 'Ballet and street classes with end-of-term showcases.', ageRange: '5-16', priceEstimate: '~\u00a355 / term', lastChecked: 'Checked this month', categoryIcon: 'Habit' },
   hall: { activity: 'Music', activityId: 'music', neighbourhood: 'South Bank', summary: 'Choir and ensemble sessions in a riverside hall.', ageRange: '8-18', categoryIcon: 'Message' },
@@ -707,37 +692,19 @@ const MAP_PIN_DETAILS: Record<string, {
 function BadgeMapDemo() {
   return (
     <SectionPanel title="Badges on a map" description="Map markers use GdsMapPinBadge — a governed pin marker, correct by construction, so consumers never hand-tune the centering/stroke/contrast constants themselves.">
-      {/*
-        Issue 566. This rendered a SCHEMATIC — absolutely-positioned pins on an empty box,
-        captioned "swap renderMap for a real map integration in a consuming app". A design
-        system demonstrating a map capability with a drawing of a map is not demonstrating the
-        capability. MapPanel keeps its governed chrome; renderMap now returns a real map.
-      */}
-      {/*
-        Issue 571. The pin's rationale — the solved centre, the icon-scale bound, why the ring
-        layer was removed, why shades only darken — lived ONLY as source comments. A consumer
-        never reads those, so they keep hand-composing pins incorrectly, which is the exact
-        failure the component was built to prevent.
-      */}
       <PinSystemDemo />
       <MapSurfaceDemo />
     </SectionPanel>
   );
 }
 
-// Issue 600, second pass. These were inlined in BadgeMapDemo, which serves the `badges`
-// entry. The components therefore rendered on the page, but NOT on the `pin-system` and
-// `gds-map` cards — those two showed the "No interactive demo renders here" fallback while
-// claiming live-proof. Extracted so each entry proves itself, and composed back into
-// BadgeMapDemo so the badge story is unchanged.
+// Extracted so the pin-system and gds-map entries each prove themselves independently.
 function PinSystemDemo() {
   return <GdsPinSystemReference />;
 }
 
 function MapSurfaceDemo() {
-  // Issues 547/548 — the rail and the preview card compose with the SAME markers the map
-  // renders: the rail's counts are computed from the data it filters, the selected pin's card
-  // shows that pin's own fields. One entity, three governed views — nothing staged.
+  // Rail counts and preview card both derive from the same markers the map renders.
   const [activityFilter, setActivityFilter] = useState<string | null>(null);
   const [selectedPinId, setSelectedPinId] = useState<string | undefined>(undefined);
   const [savedPins, setSavedPins] = useState<Record<string, boolean>>({});
@@ -816,33 +783,23 @@ function MapSurfaceDemo() {
 }
 
 /**
- * Sports category data for the emoji-badge-mode demo (issue 525) —
- * a consumer's own domain vocabulary, not a GDS-owned enum (see
- * `category-registry.ts`'s module docs). The three entries and their
- * emoji/accent pairings are exactly what the client confirmed for this
- * demo; `icon` uses existing `GdsIconKey` stand-ins (no sport-specific
- * icon exists in the closed registry, and `apps/playground` doesn't carry
- * the `strict.import.tabler-icons` exception other packages have, so this
- * mirrors `GeneratedThumbnailDemo`'s own existing stand-in choices above
- * rather than importing a Tabler sports icon directly here).
+ * Consumer-domain vocabulary, not a GDS-owned enum. `icon` uses existing GdsIconKey
+ * stand-ins — no sport-specific icon exists in the closed registry.
  */
 const EMOJI_MODE_CATEGORIES: GdsCategoryDefinition[] = [
-  // Issue 622 — three DIFFERENT domains, deliberately: the emoji mode is a general badge
-  // capability, and a proof where every category is a sport reads as a sports-app feature.
+  // Three different domains, deliberately: emoji mode is not sport-specific.
   { key: 'soccer', label: 'Soccer', accent: 'forest', icon: 'Location', emoji: '⚽' },
   { key: 'painting', label: 'Painting', accent: 'terracotta', icon: 'Gallery', emoji: '🎨' },
   { key: 'cooking', label: 'Cooking', accent: 'bronze', icon: 'Star', emoji: '🍜' },
 ];
 
 function EmojiModeDemo() {
-  // Defaults to emoji so the feature is visible on first paint (and so the
-  // forced-colors runtime gate, a static snapshot with no click simulation,
-  // actually exercises the new emoji-mode composition rather than only the
-  // unchanged tabler default).
+  // Defaults to emoji: the forced-colors runtime gate is a static snapshot with no click
+  // simulation, so it only ever sees whatever mode is default.
   const [mode, setMode] = useState<GdsBadgeIconStyle>('emoji');
   return (
     <SectionPanel
-      title="Badge glyph mode: Tabler or emoji (issue 525)"
+      title="Badge glyph mode: Tabler or emoji"
       description="A client asked for emoji as an alternative to Tabler icons in badges. The mode below is ambient — set once (here, scoped to just this demo section via GdsIconStyleContext; a real app sets it once on GdsProvider's defaultBadgeIconStyle) and every badge/pin whose category has an emoji switches to it. A category with no emoji keeps its Tabler icon even in emoji mode — that's the failsafe, not a gap. The generated thumbnail on the right never reads emoji at all: it keeps rendering from the same category's icon regardless of this toggle, by construction."
     >
       <PillBar<GdsBadgeIconStyle>
@@ -960,7 +917,7 @@ function GeneratedThumbnailDemo() {
         </GdsStack>
       </GdsInline>
       <GdsStack gap="xs" mt="md">
-        <BodyText>Every aspect ratio in the vocabulary (issue 623):</BodyText>
+        <BodyText>Every aspect ratio in the vocabulary:</BodyText>
         <BodyText>
           The ratio is part of the governed contract — a consumer picks from the closed union, and
           the motif recomposes for the geometry rather than stretching. All four render here so
@@ -989,7 +946,7 @@ function GeneratedThumbnailDemo() {
 function GeneratedIdentityDemo() {
   return (
     <SectionPanel
-      title="Generated identity: avatars and marks (issue 565)"
+      title="Generated identity: avatars and marks"
       description="The identity shapes of the generated-imagery system. GdsGeneratedAvatar renders a deterministic mark from a person's name — initials on the house gradient, with a seeded gradient angle so two people with the same initials still differ; no photos, no third-party avatar service. GdsGeneratedMark fills logo-shaped slots: the gradient with one motif rendered prominently, seeded tilt for per-entity distinction. Both follow the active theme via live token references, like every generated surface."
     >
       <GdsInline gap="md" align="center">
@@ -1178,17 +1135,9 @@ function BadgeOverlayDemo() {
 }
 
 /**
- * How a state tone behaves across presets, MEASURED rather than described.
- *
- * This panel previously stated the rule in prose and got it wrong: it labelled warning, danger
- * and info all "fixed" when only danger is. Correcting the sentence would have left the same
- * defect in place — a sentence can drift from the tokens again the moment either changes, and
- * nothing would notice.
- *
- * So the claim is derived from the same resolver the contrast gate reads. If `warning` is ever
- * pinned, or `info` stops following the preset's text colour, this page says so on the next
- * render without anyone remembering to edit it. The phrases are literals so the site's phrase
- * extractor still finds and translates them; only the CHOICE between them is computed.
+ * How a state tone behaves across presets, measured rather than described: derived from
+ * the same resolver the contrast gate reads. Phrases stay literals for the extractor;
+ * only the choice between them is computed.
  */
 const TONE_BEHAVIOUR_PHRASE = {
   anchoredBoth: 'One value in every preset, in both schemes.',
@@ -1219,12 +1168,9 @@ const BADGE_TONES = [
 ] as const;
 
 /**
- * The one place the analytics demo's numbers live.
- *
- * Issue 605. The chart's text summary, its legend and its table fallback each carried their
- * own copy. The summary is what assistive tech announces in place of the picture, so a drift
- * between them is an accessibility defect, not a typo — and the demo teaches consumers how to
- * build an accessible chart, so it has to model the thing it teaches.
+ * The one place the analytics demo's numbers live — chart summary, legend, and table
+ * fallback all read from here. A drift between them is an accessibility defect: the
+ * summary is what assistive tech announces in place of the picture.
  */
 const CHANNEL_SHARES = [
   { label: 'Online', share: 62, token: 'primary' as const },
@@ -1241,9 +1187,8 @@ const EVIDENCE_SOURCES = { covered: 18, total: 20 };
 /**
  * Builds the chart's text equivalent from the same data the table renders.
  *
- * `%online%`/`%instore%` rather than a template literal: the site's phrase extractor only
- * collects string LITERALS, so a template would drop this sentence from all eight locales.
- * The placeholders survive translation and the numbers land afterwards.
+ * Uses `%online%`/`%instore%`, not a template literal — the phrase extractor only
+ * collects string literals.
  */
 function channelSummary(): string {
   return 'Online orders account for %online% percent of visible orders; in-store orders account for %instore% percent.'
@@ -1575,16 +1520,13 @@ const familyMeta: Record<PatternFamily, { title: string; description: string }> 
   },
 };
 
-// Governed "Load more" verb for the per-column footer, registered as a
-// vocabulary pack so the footer button is a themed, contrast-checked
-// SemanticButton (not a raw control) — see issue 441 / renderColumnFooter.
+// Registered as a vocabulary pack so the footer button is a themed SemanticButton, not a raw control.
 const KANBAN_LOAD_MORE_VOCAB = createGdsVocabularyPack('board', {
   loadMore: { defaultMessage: 'Load more', icon: GdsIcons.List },
 });
 
-// The demo columns carry a client-side `backlog` (the not-yet-loaded page) so
-// the "Load more" footer has real rows to reveal; `totalCount` is the server
-// total the header badge reports, independent of how many are currently loaded.
+// `backlog` is the not-yet-loaded page for the "Load more" footer; `totalCount`
+// is the server total the header badge reports.
 type KanbanDemoColumn = KanbanColumnData & { backlog: KanbanColumnData['items'] };
 
 function KanbanBoardDemo() {
@@ -1704,10 +1646,7 @@ function KanbanBoardDemo() {
   );
 }
 
-// Live GdsSchemaForm demo (issue 442): a schema-generated form that mounts the new
-// `checkbox-group` (grouped multi-select) and `repeatable` (add-another-row)
-// field types in the public catalog, so they fall under the catalog-driven
-// contrast/forced-colors/a11y gates instead of escaping all of them.
+// Exercises the checkbox-group and repeatable field types under the catalog's a11y/contrast gates.
 const schemaFormDemoSchema: GdsFormSchema = {
   id: 'demo-intake',
   title: 'Project intake',
@@ -1809,15 +1748,7 @@ function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
   );
 }
 
-/**
- * Issue 619. This was a bare `<div>` of every badge in the system separated by `<br />`: ten
- * undifferentiated rows, no headings, nothing saying what distinguished one from the next — and
- * on a phone the rows were clipped with badges unreachable off the edge.
- *
- * Rebuilt as documentation. Each section states what it demonstrates, and every row is a
- * `GdsInline`, which wraps by default — that is the governed answer to "n items of unknown
- * width in a viewport of unknown size", and it is why none of these can clip again.
- */
+/** Each row is a GdsInline, which wraps by default, so it never clips on narrow viewports. */
 function BadgeSection({ title, description, children }: { title: string; description: string; children: React.ReactNode }) {
   return (
     <GdsStack gap="xs">
@@ -1828,8 +1759,7 @@ function BadgeSection({ title, description, children }: { title: string; descrip
   );
 }
 
-// The cap the demo renders AND the number the sentence beside it quotes, so the two cannot
-// disagree. A written "99+" is exactly the drift `verify:site-claims` exists to stop.
+// Single source: the cap the demo renders and the number the sentence beside it quotes.
 const BADGE_COUNT_CAP = 99;
 const BADGE_COUNT_COPY = 'A count caps rather than growing without bound, and announces its real value to assistive technology so the capped form is never the whole story. This one caps at %cap%.'
   .replace(/%cap%/, String(BADGE_COUNT_CAP));
@@ -2077,8 +2007,7 @@ function ConversationSurfaceDemo() {
     { id: 'm2', role: 'assistant', content: 'Riverside and Northgate both run beginner lanes on weekday evenings.' },
   ]);
 
-  // The component owns rendering; transport and persistence belong to the caller by
-  // contract, so this caller appends locally and nothing pretends to be a real assistant.
+  // Transport and persistence belong to the caller; this appends locally only.
   const send = (text: string) => {
     setMessages((current) => [...current, { id: `m${current.length + 1}`, role: 'user', content: text }]);
   };
@@ -2118,8 +2047,7 @@ function MediaWithFallbackDemo() {
   );
 }
 
-// Single source for the bound: the control's `max` and the sentence beside it must not be
-// able to disagree, which they could the moment one of them is edited alone.
+// Single source for the bound: the control's `max` and the sentence beside it.
 const LANE_PLACES = 8;
 
 function NumberStepperDemo() {
@@ -2831,12 +2759,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'media-fields':
       return (
         <div>
-          {/*
-            Issue 563. These previews were raw img tags pointing at a third-party stock-photo
-            service, on the page that demonstrates the design system. Every image the
-            reference site renders now comes from the generated-imagery system — deterministic,
-            zero-network, and theme-following, none of which a hosted photo is.
-          */}
+          {/* Preview uses the generated-imagery system: deterministic, zero-network, theme-following. */}
           <MediaField
             label="Hero image"
             description="Use the media-field contract for upload, URL entry, preview, status, and recovery."
@@ -3364,9 +3287,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'ai-search-card':
       return <AISearchCardDemo />;
     default:
-      // Reaching this branch is not a neutral outcome: it prints "no proof here" under
-      // whatever the registry claims. `verify:pattern-live-proof` fails the build if an
-      // entry claiming `live-proof` lands here, so the two can no longer disagree.
+      // verify:pattern-live-proof fails the build if a live-proof entry lands here.
       return (
         <SectionPanel title="Live reference note" description="This documented pattern is represented through the shared component family.">
           <p>No interactive demo renders here — this pattern is implemented through the exports and coverage details listed above.</p>
@@ -3386,8 +3307,7 @@ function PatternEntryCard({ entry }: { entry: PatternRegistryEntry }) {
   }
 
   return (
-    // Issue 626 Phase 4 — every entry is deep-linkable: /patterns/<family>#entry-<id> lands
-    // exactly here, which is what lets the /components index link a component's true home.
+    // id enables deep links: /patterns/<family>#entry-<id>.
     <SectionPanel id={`entry-${entry.id}`} title={entry.title} description={entry.summary}>
       <CoverageText entry={entry} />
       {renderEntryDemo(entry)}
@@ -3445,9 +3365,7 @@ function sectionSlug(section: string) {
 
 /**
  * Filter + jump-to-section + grouped-sections rendering for a set of registry entries.
- * Shared by any page that hosts a family's entries directly — `PatternFamilyPage`,
- * `ComponentsIndexPage`, and `SystemsPage` — so the same find-it-fast behavior applies
- * everywhere entries are actually rendered, not just where `familyMeta` happens to exist.
+ * Shared by PatternFamilyPage, ComponentsIndexPage, and SystemsPage.
  */
 export function FamilyEntryBrowser({ entries }: { entries: PatternRegistryEntry[] }) {
   const [query, setQuery] = useState('');

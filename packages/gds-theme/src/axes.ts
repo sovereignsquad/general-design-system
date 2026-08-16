@@ -1,17 +1,8 @@
-// Issue 555 — the theme-axis mechanism, and the shape axis as its first instance.
+// The theme-axis mechanism: a theme controls not just colours but sizing, shapes, margins,
+// motion and reactions, through one mechanism rather than ad hoc fields per concern.
 //
-// The owner requirement is that a theme controls "not only colours but sizing, shapes,
-// margins, and animations, reactions, everything". That is not reachable by adding fields
-// ad hoc: six more axes follow this one (density, typography, elevation, motion, reaction),
-// and each would otherwise bring its own plumbing, its own emitter and its own gate.
-//
-// `GdsVibeTheme.flatSurfaces` is the existing precedent for a non-colour theme decision, and
-// it shows the problem exactly — a boolean special case rather than an axis, invisible to
-// the token graph and unverifiable.
-//
-// The mechanism is deliberately small: an axis is a validated value object plus a token
-// namespace. Adding the next axis is a type, a default, a validator and an entry in
-// `resolveAxisTokens` — not new plumbing.
+// An axis is a validated value object plus a token namespace. Adding an axis is a type, a
+// default, a validator and an entry in `resolveAxisTokens`.
 
 import type { GdsThemePresetId } from './theme-presets';
 import { resolveGdsAccentTokens, type GdsAccentAxis } from './accent-axis';
@@ -22,9 +13,8 @@ export type GdsRadiusStep = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'pill';
 /**
  * Semantic surface families that may override the step scale.
  *
- * A role exists so a theme can say "cards are softer than inputs" without a component
- * knowing which step that means — which is the whole point of the axis. Component source
- * asks for `card`, not for `lg`.
+ * Lets a theme say "cards are softer than inputs" without a component knowing which step
+ * that means; component source asks for `card`, not `lg`.
  */
 export type GdsRadiusRole =
   | 'card' | 'panel' | 'surface'
@@ -103,11 +93,9 @@ export interface GdsElevationAxis {
 /**
  * A theme's motion decisions: partial overrides of the shipped scale.
  *
- * NAMING. The issue specifies `normal`/`enter`/`emphasized`; the SHIPPED tokens are
- * `base`/`entrance`/`emphasis` (`motion.ts`, single-sourced by issue 584). The shipped names
- * are used here. Renaming them would break every consumer of `--gds-motion-duration-base`
- * and re-fork the scale issue 584 had just unified — the axis exists to let a theme change
- * these VALUES, not their names.
+ * Uses the shipped token names (`base`/`entrance`/`emphasis` in `motion.ts`), not
+ * `normal`/`enter`/`emphasized`. Renaming would break every consumer of
+ * `--gds-motion-duration-base`; the axis changes these values, not their names.
  */
 export interface GdsMotionAxis {
   /** Millisecond overrides, keyed by shipped duration token. */
@@ -149,8 +137,8 @@ export interface GdsReactionAxis {
 /**
  * The generic axis container on a theme.
  *
- * Each later axis adds one optional key here and one branch in `resolveAxisTokens`. Nothing
- * else in the theme pipeline changes, which is the property this issue exists to establish.
+ * Each axis adds one optional key here and one branch in `resolveAxisTokens`; nothing else
+ * in the theme pipeline changes.
  */
 export interface GdsThemeAxes {
   shape?: GdsShapeAxis;
@@ -160,10 +148,6 @@ export interface GdsThemeAxes {
   motion?: GdsMotionAxis;
   reaction?: GdsReactionAxis;
   accent?: GdsAccentAxis;
-  // type?: GdsTypographyAxis;      -> issue #557
-  // motion?: GdsMotionAxis;        -> issue #558
-  // elevation?: GdsElevationAxis;  -> follow-up
-  // reaction?: GdsReactionAxis;    -> follow-up
 }
 
 /** Emitted shape tokens: one per step, one per role. */
@@ -181,16 +165,14 @@ export const GDS_RADIUS_ROLES: GdsRadiusRole[] = [
 ];
 
 /**
- * The default shape axis, CAPTURED rather than invented.
+ * The default shape axis.
  *
- * `xs`–`xl` are Mantine's `DEFAULT_THEME.radius` values verbatim, including the
- * `calc(... * var(--mantine-scale))` wrapper. Substituting a plain `0.5rem` would look
- * equivalent and would silently drop Mantine's scale factor, which is a real rendering
- * change dressed as a tidy-up — the zero-visual-regression requirement is about what
- * renders, not about what reads cleanly.
+ * `xs`-`xl` are Mantine's `DEFAULT_THEME.radius` values verbatim, including the
+ * `calc(... * var(--mantine-scale))` wrapper — substituting a plain rem value would drop
+ * Mantine's scale factor.
  *
- * `none` and `pill` have no Mantine equivalent and are additions: `none` is the explicit
- * square corner, `pill` the fully-rounded end used by chips and avatars.
+ * `none` and `pill` have no Mantine equivalent: `none` is an explicit square corner, `pill`
+ * the fully-rounded end used by chips and avatars.
  */
 export const GDS_DEFAULT_SHAPE_AXIS: GdsShapeAxis = {
   scale: {
@@ -211,9 +193,8 @@ export const GDS_SPACE_STEPS: GdsSpaceStep[] = ['none', '3xs', '2xs', 'xs', 'sm'
 export const GDS_CONTROL_SIZES: GdsControlSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 /**
- * WCAG 2.2 Target Size (Minimum), 2.5.8: 24x24 CSS px. GDS holds a stricter 44px line,
- * which is the AAA 2.5.5 figure and the one both Apple and Google publish, because a control
- * that merely satisfies the minimum is still unpleasant to hit on a phone.
+ * WCAG 2.2 Target Size (Minimum), 2.5.8: 24x24 CSS px. GDS holds the stricter AAA 2.5.5
+ * figure of 44px instead (also published by Apple and Google).
  *
  * Sizes below this are permitted only with a recorded exception — see
  * {@link GDS_CONTROL_HEIGHT_EXCEPTIONS}.
@@ -224,9 +205,8 @@ export const GDS_MIN_TARGET_PX = 44;
  * Control sizes deliberately below the target floor.
  *
  * `xs` and `sm` exist for dense tabular and toolbar contexts where a 44px row would make a
- * data table unusable. WCAG 2.5.8 exempts controls in a sentence or block of text and
- * inline targets, and a dense grid is the practical equivalent — but the exception is
- * recorded here rather than assumed, so it can be argued with.
+ * data table unusable. WCAG 2.5.8 exempts inline targets; a dense grid is the practical
+ * equivalent, recorded here rather than assumed.
  */
 export const GDS_CONTROL_HEIGHT_EXCEPTIONS: Partial<Record<GdsControlSize, string>> = {
   xs: 'Dense tabular and toolbar controls; a 44px row makes a data grid unusable. Pair with a larger hit area via padding where the control stands alone.',
@@ -237,13 +217,10 @@ export const GDS_CONTROL_HEIGHT_EXCEPTIONS: Partial<Record<GdsControlSize, strin
  * The default density axis.
  *
  * `xs`-`xl` spacing is Mantine's `DEFAULT_THEME.spacing` verbatim, `var(--mantine-scale)`
- * included, for the reason the shape axis states: flattening to plain rem silently drops the
- * scale factor.
+ * included — flattening to plain rem would drop the scale factor.
  *
- * `none`, `3xs`, `2xs`, `2xl` and `3xl` are ADDITIONS — Mantine has no equivalent. They
- * extend the existing ramp rather than restating it, and nothing consumes them yet, so they
- * carry no regression risk. Control heights are likewise new: no GDS or Mantine theme field
- * declared them before, so these tokens are additive by construction.
+ * `none`, `3xs`, `2xs`, `2xl` and `3xl` are additions with no Mantine equivalent. Control
+ * heights are also new: no prior GDS or Mantine theme field declared them.
  */
 export const GDS_DEFAULT_DENSITY_AXIS: GdsDensityAxis = {
   scale: {
@@ -275,11 +252,10 @@ export const GDS_ELEVATION_ROLES: GdsElevationRole[] = ['card', 'panel', 'modal'
 /**
  * The default typography axis.
  *
- * `xs`-`xl` are Mantine's `DEFAULT_THEME.fontSizes` verbatim, carried as OVERRIDES rather
- * than derived. Mantine's ramp is not a clean modular scale — 0.875->1 is x1.1429 while
- * 1->1.125 is x1.1250 — so any single ratio would round its way to different numbers and
- * change every piece of text on the site. The ratio governs the steps Mantine has no
- * equivalent for (`2xs`, `2xl`, `3xl`, `4xl`), which are additions nothing consumed before.
+ * `xs`-`xl` are Mantine's `DEFAULT_THEME.fontSizes` verbatim, carried as overrides rather
+ * than derived: Mantine's ramp is not a uniform ratio (0.875->1 is x1.1429, 1->1.125 is
+ * x1.1250), so a single ratio would round to different numbers. The ratio governs only the
+ * steps Mantine has no equivalent for (`2xs`, `2xl`, `3xl`, `4xl`).
  */
 export const GDS_DEFAULT_TYPOGRAPHY_AXIS: GdsTypographyAxis = {
   lanes: { display: 'inter', body: 'inter', mono: 'inter' },
@@ -324,17 +300,13 @@ export class GdsAxisError extends Error {
   }
 }
 
-// A CSS length, a percentage, a `calc()`, or `0`. Deliberately not permissive: an axis that
-// accepts anything emits anything, and the failure then surfaces as a silently unrounded
-// corner in one preset rather than as a build error.
+// A CSS length, a percentage, a `calc()`, or `0`. Not permissive: a loose pattern would let
+// a bad value surface as a silently wrong corner instead of a build error.
 const LENGTH = /^(0|(-?\d*\.?\d+)(px|rem|em|%|vh|vw|ch|ex)|calc\(.+\)|var\(--[a-zA-Z0-9-]+(,.*)?\))$/;
 
 /**
- * Validates a shape axis at theme-construction time.
- *
- * Construction time, not render time, and that is the point: a bad radius discovered while
- * rendering is a visual defect someone has to notice, whereas a bad radius discovered while
- * building the theme is an error with the offending key in it.
+ * Validates a shape axis at theme-construction time, not render time: a bad radius fails
+ * the build with the offending key, instead of shipping as a silent visual defect.
  */
 export function validateGdsShapeAxis(axis: GdsShapeAxis, themeId = 'theme'): void {
   for (const step of GDS_RADIUS_STEPS) {
@@ -365,10 +337,9 @@ export function validateGdsShapeAxis(axis: GdsShapeAxis, themeId = 'theme'): voi
 /**
  * Resolves a shape axis into `--gds-radius-*` custom properties.
  *
- * Emits every step and every role, always. A role that a theme did not override still gets a
- * token, resolved from `defaultStep` — so a component consuming `--gds-radius-pin` cannot
- * land on an undefined variable just because one preset stayed silent about pins. That is
- * the failure mode issue 537 shipped, in a different namespace.
+ * Emits every step and every role, always. A role a theme did not override still gets a
+ * token, resolved from `defaultStep`, so a consumer of `--gds-radius-pin` never lands on an
+ * undefined variable.
  */
 export function resolveGdsShapeTokens(axis: GdsShapeAxis = GDS_DEFAULT_SHAPE_AXIS, themeId = 'theme'): GdsResolvedShapeTokens {
   const merged: GdsShapeAxis = {
@@ -399,9 +370,9 @@ export function resolveGdsShapeTokens(axis: GdsShapeAxis = GDS_DEFAULT_SHAPE_AXI
 /**
  * Validates a density axis at theme-construction time.
  *
- * The control-height floor is checked on the RESOLVED value, after the density factor has
- * been applied — a 44px control under `compact` x0.75 is 33px, and checking the declared
- * value instead of the rendered one would let the floor pass while the button shrank.
+ * The control-height floor is checked on the resolved value, after the density factor is
+ * applied — a 44px control under `compact` x0.75 is 33px, so checking the declared value
+ * would let the floor pass while the button shrank.
  */
 export function validateGdsDensityAxis(axis: GdsDensityAxis, themeId = 'theme'): void {
   for (const step of GDS_SPACE_STEPS) {
@@ -435,19 +406,16 @@ function scaleLength(value: string, factor: number): string {
   if (factor === 1 || v === '0') return v;
   const plain = /^(-?\d*\.?\d+)(px|rem|em)$/.exec(v);
   if (plain) return `${Number((parseFloat(plain[1]) * factor).toFixed(4))}${plain[2]}`;
-  // A calc() or var() cannot be multiplied numerically here without losing what it refers
-  // to, so it is wrapped rather than flattened — the browser resolves it correctly and the
-  // reference survives.
+  // A calc() or var() cannot be multiplied numerically without losing its reference, so it
+  // is wrapped rather than flattened; the browser resolves it.
   return `calc(${v} * ${factor})`;
 }
 
 /**
  * Resolves a density axis into `--gds-space-*`, `--gds-control-height-*` and `--gds-density`.
  *
- * The a11y floor is enforced on the RESOLVED height, and a control below it must be listed
- * in {@link GDS_CONTROL_HEIGHT_EXCEPTIONS} — an unrecorded shrink is a build error, because
- * a theme quietly making every button 33px tall is a serious accessibility regression that
- * looks, in a diff, like a tasteful density tweak.
+ * The a11y floor is enforced on the resolved height; a control below it must be listed in
+ * {@link GDS_CONTROL_HEIGHT_EXCEPTIONS} or it is a build error.
  */
 export function resolveGdsDensityTokens(axis: GdsDensityAxis = GDS_DEFAULT_DENSITY_AXIS, themeId = 'theme'): Record<string, string> {
   const merged: GdsDensityAxis = {
@@ -480,11 +448,9 @@ export function resolveGdsDensityTokens(axis: GdsDensityAxis = GDS_DEFAULT_DENSI
       );
     }
 
-    // Density SCALING is different, and is clamped rather than rejected. Throwing here would
-    // make `compact` unusable with any accessible control set — 44px x 0.75 is 33px — so the
-    // floor would have quietly banned a whole density mode instead of protecting it. Spacing
-    // tightens; hit targets hold their line. Sizes with a recorded exception scale freely,
-    // because their exception is the statement that they are not primary hit targets.
+    // Density scaling is clamped rather than rejected: throwing here would make `compact`
+    // unusable with any accessible control set (44px x 0.75 is 33px). Spacing tightens; hit
+    // targets hold their line. Sizes with a recorded exception scale freely.
     const scaled = scaleLength(declared, factor);
     const scaledPx = /^(-?\d*\.?\d+)px$/.exec(scaled.trim());
     tokens[`--gds-control-height-${size}`] = (!exempt && scaledPx && parseFloat(scaledPx[1]) < GDS_MIN_TARGET_PX)
@@ -500,15 +466,12 @@ export function gdsSpace(step: GdsSpaceStep): string {
 }
 
 /**
- * Shell/region heights (public-shell header variants) — fixed, not themed: unlike density and
- * control-height, nothing currently varies these per brand, so this is a plain constant set,
- * not a full axis with per-theme override and validation built for a need that does not exist
- * yet. Named and emitted as CSS custom properties anyway, because the alternative was three
- * bare pixel numbers living only inside `PublicShell`'s own ternary with no shared, traceable
- * source (issue 625: `compact` already matched `--gds-space-3xl` by coincidence; `default` and
- * `branded-quiet` matched nothing, and rounding them onto an existing spacing step would have
- * been a real, silent visual resize — these values are the shipped design, formalized exactly
- * as-is, not redesigned).
+ * Shell/region heights (public-shell header variants) — fixed, not themed: nothing currently
+ * varies these per brand, so this is a plain constant set rather than a full axis.
+ *
+ * Named and emitted as CSS custom properties rather than left as bare numbers inside
+ * `PublicShell`'s ternary. These are the shipped values as-is, not rounded onto an existing
+ * spacing step (`compact` coincidentally matches `--gds-space-3xl`; the others do not).
  */
 export const GDS_SHELL_HEIGHTS: Record<string, number> = {
   'header-compact': 64,
@@ -528,16 +491,13 @@ export function resolveGdsShellHeightTokens(): Record<string, string> {
 /**
  * Validates and resolves the typography axis.
  *
- * The invariants are the ones a theme can plausibly get wrong: weights must ascend (a
- * `semibold` lighter than `medium` produces text that looks broken rather than styled), the
- * ratio must be a real ratio, and every lane must name a registered font lane — a typo there
- * silently falls back to the browser default, which reads as "the theme didn't load".
+ * Weights must ascend (a lighter `semibold` than `medium` looks broken, not styled), the
+ * ratio must be a real ratio, and every lane must name a registered font lane — an
+ * unregistered lane silently falls back to the browser default.
  */
-// NOTE ON NAMING. Size steps are `--gds-font-size-*`, NOT `--gds-text-*`. The latter is
-// already the semantic COLOUR namespace (`--gds-text-body`, `--gds-text-primary`,
-// `--gds-text-on-inverse`), and reusing it would make one prefix mean two unrelated things —
-// a reader seeing `--gds-text-lg` would have no way to know whether it is a colour or a size,
-// and the token graph's category inference keys off exactly that prefix.
+// Size steps are `--gds-font-size-*`, not `--gds-text-*` — the latter is already the
+// semantic colour namespace (`--gds-text-body`, `--gds-text-primary`), and the token graph's
+// category inference keys off this prefix.
 export function resolveGdsTypographyTokens(
   axis: GdsTypographyAxis = GDS_DEFAULT_TYPOGRAPHY_AXIS,
   themeId = 'theme',
@@ -598,9 +558,8 @@ export function resolveGdsTypographyTokens(
 /**
  * Validates and resolves the elevation axis.
  *
- * Steps must not decrease in visual weight: an elevation scale where step 3 is flatter than
- * step 2 gives a modal that looks closer to the page than the card behind it, which reads as
- * a rendering bug rather than a design.
+ * Steps must not decrease in visual weight: a modal flatter than the card behind it reads
+ * as a rendering bug, not a design choice.
  */
 export function resolveGdsElevationTokens(axis: GdsElevationAxis = GDS_DEFAULT_ELEVATION_AXIS, themeId = 'theme'): Record<string, string> {
   const merged: GdsElevationAxis = {
@@ -645,10 +604,8 @@ export function gdsElevation(role: GdsElevationRole | GdsElevationStep): string 
 /**
  * Reaction intensity expressed as concrete, governed values.
  *
- * Components read the resolved tokens rather than branching on the keyword, so a theme
- * changing intensity does not require every component to know what "subtle" means. `none` is
- * genuinely none — not a small value — because a theme asking for no reaction and getting a
- * 1px nudge is the kind of thing that reads as a bug.
+ * Components read the resolved tokens rather than branching on the keyword. `none` is
+ * genuinely none, not a small value — a theme asking for no reaction gets none.
  */
 const REACTION_VALUES: Record<GdsReactionIntensity, { lift: string; scale: string }> = {
   none: { lift: '0', scale: '1' },
@@ -677,11 +634,9 @@ export const GDS_DEFAULT_REACTION_AXIS: GdsReactionAxis = {
 /**
  * Resolves the motion axis into `--gds-motion-*` overrides for this preset.
  *
- * Only DECLARED overrides are emitted. The global scale in `styles.css` is generated from
- * `motion.ts` (issue 584) and remains the default; a preset that declares nothing emits
- * nothing here and inherits it. Emitting the full scale per preset would duplicate the
- * global block 25 times and make the generated stylesheet no longer the source of the
- * default.
+ * Only declared overrides are emitted. The global scale in `styles.css`, generated from
+ * `motion.ts`, remains the default; a preset that declares nothing inherits it rather than
+ * duplicating the global block 25 times.
  */
 export function resolveGdsMotionTokens(axis: GdsMotionAxis | undefined, themeId = 'theme'): Record<string, string> {
   if (!axis) return {};
@@ -772,11 +727,11 @@ export function resolveGdsAxisTokens(
     ...resolveGdsTypographyTokens(axes?.type ?? GDS_DEFAULT_TYPOGRAPHY_AXIS, String(themeId)),
     ...resolveGdsElevationTokens(axes?.elevation ?? GDS_DEFAULT_ELEVATION_AXIS, String(themeId)),
     ...resolveGdsReactionTokens(axes?.reaction ?? GDS_DEFAULT_REACTION_AXIS, String(themeId)),
-    // Motion last and conditional: it OVERRIDES the generated global scale, so a preset that
+    // Motion last and conditional: it overrides the generated global scale, so a preset that
     // declares nothing must emit nothing rather than restating the default 25 times.
     ...resolveGdsMotionTokens(axes?.motion, String(themeId)),
-    // Accents are the one axis that resolves per SCHEME: a theme may declare a distinct dark
-    // base, and the frozen palette existed precisely to avoid having to check that.
+    // Accents are the one axis that resolves per scheme: a theme may declare a distinct
+    // dark base.
     ...resolveGdsAccentTokens(axes?.accent, scheme, themeId),
   };
 }
@@ -784,9 +739,9 @@ export function resolveGdsAxisTokens(
 /**
  * The `var()` reference for a radius role — never a resolved literal.
  *
- * Returning the reference rather than the value is what keeps a component theme-reactive: a
- * literal captured at render time freezes the geometry of whichever theme happened to be
- * active, which is exactly the class of bug that makes a theme switch look half-applied.
+ * Returning the reference keeps a component theme-reactive: a literal captured at render
+ * time freezes the geometry of whichever theme was active, so a later switch looks
+ * half-applied.
  */
 export function gdsRadius(role: GdsRadiusRole | GdsRadiusStep): string {
   return `var(--gds-radius-${role})`;

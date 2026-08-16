@@ -1,15 +1,11 @@
-// Issue 562 — what the coverage matrix tracks, and how its cells are chosen.
+// What the coverage matrix tracks, and how its cells are chosen.
 //
-// The properties below are the rendered consequences of the six axes. A component that
-// "honors the theme" means precisely that these resolve from governed tokens rather than
-// happening to look right under the one preset somebody checked.
+// Properties are the rendered consequences of the six axes: a component "honors the theme"
+// when these resolve from governed tokens, not by looking right under one preset.
 
 /**
- * Tracked properties, one per axis where possible.
- *
- * Deliberately not "every CSS property": a matrix that reports on 300 properties per element
- * is a matrix nobody reads, and most of them are layout consequences rather than theme
- * decisions. These are the ones an axis actually sets.
+ * Tracked properties, one per axis where possible. Not every CSS property — only the ones
+ * each axis actually sets.
  */
 export const TRACKED_PROPERTIES = [
   { property: 'color', axis: 'color' },
@@ -25,11 +21,7 @@ export const TRACKED_PROPERTIES = [
 ];
 
 /**
- * Values that are governed without being a token.
- *
- * A resolved `0px` did not come from a token and does not need to: it is the absence of a
- * value. Treating these as violations would bury the real findings under thousands of zeros —
- * the failure mode that makes a gate unreadable and therefore ignored.
+ * Values that are governed without being a token — the absence of a value (e.g. resolved 0px).
  */
 export const NON_TOKEN_VALUES = new Set([
   '0px', '0', 'none', 'auto', 'normal', 'transparent', 'currentcolor',
@@ -37,20 +29,9 @@ export const NON_TOKEN_VALUES = new Set([
 ]);
 
 /**
- * Cell selection.
- *
- * The audit's Phase 1 executed 4 of 24 routes at 5 of 25 presets — which means every Phase 1
- * *non*-finding was worthless, because "no problem found on route X under preset Y" says
- * nothing when X and Y were never visited.
- *
- * This sweep is a covering design over (route x preset): every route appears at least once and
- * every preset appears at least once, in both schemes. That is 2 x max(routes, presets) cells
- * rather than the 1,200 of an exhaustive matrix, and unlike a hand-picked slice it leaves no
- * route and no preset unvisited.
- *
- * Exhaustive t-way coverage over the full factor space is issue #583's covering array. This
- * gate reports its ACHIEVED coverage as a number so the difference is visible rather than
- * implied.
+ * Cell selection: a covering design over (route x preset). Every route appears at least once
+ * and every preset appears at least once, in both schemes — 2 x max(routes, presets) cells
+ * rather than the full route x preset matrix.
  */
 export function buildCoveringCells(routes, presets) {
   const cells = [];

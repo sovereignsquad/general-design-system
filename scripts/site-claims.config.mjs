@@ -1,12 +1,7 @@
-// Issue 605 / CLAUDE.md Rule 14 — the reference site's absolute claims and their evidence.
+// The reference site's absolute claims and their evidence.
 //
-// Owner directive, 2026-08-13: "We can have either Approved or Non-existing cases, especially
-// on visible surfaces." A sentence on the reference site that asserts a guarantee is a promise
-// GDS makes to a client. There is no third state where a promise is merely plausible.
-//
-// So every absolute on a visible surface must appear here with the evidence that supports it,
-// and the gate fails on any that does not. Adding a new one is deliberately not free: you have
-// to name what makes it true, or not write it.
+// Every absolute claim on a visible surface must appear here with the evidence that supports
+// it, and the gate fails on any that does not.
 //
 // `evidence` kinds:
 //   derived  — the page COMPUTES it at render time; the claim cannot drift from the system
@@ -17,10 +12,7 @@
 //              carries a `reviewBy` so it is re-examined rather than accumulating forever.
 
 export const SITE_CLAIM_SOURCES = [
-  // Issue 613. `site-routes.ts` and `site-copy.ts` were NOT scanned, and they hold the primary
-  // navigation labels — the most-read copy on the site. The `/live-proofs` route shipped with
-  // `label: 'Live Demos'` in English and a "demo" rendering in all eleven locales, months after
-  // #606 renamed the surfaces, because no sweep ever read the file it lives in.
+  // Includes site-routes.ts and site-copy.ts: primary navigation labels, easy to miss in a sweep.
   'apps/playground/src/site-routes.ts',
   'apps/playground/src/site-copy.ts',
   'apps/playground/src/info-pages.tsx',
@@ -34,30 +26,23 @@ export const SITE_CLAIM_SOURCES = [
 // Words that turn a description into a promise.
 export const ABSOLUTE_PATTERN = /\b(every preset|all 25|in every theme|always|never|identical|no exception|guarantee[ds]?|100%|the same (?:value|colour|color) in every)\b/i;
 
-// A number in prose is a claim about the system too — "250+ components" was one, and it
-// drifted for as long as nothing compared it to reality. A sentence that INTERPOLATES its
-// number (via a %placeholder%) is derived by construction and needs no registration; a
+// A sentence that interpolates its number (via a %placeholder%) needs no registration; a
 // sentence with the number typed into it must be registered here or must not exist.
 export const NUMERIC_PROSE = /(?<![\w#.\-])(\d{2,4})(?:\+|\s?%)?\s+(?=[a-z])|\b(\d{2,4})\+/;
 export const DERIVED_PLACEHOLDER = /%[a-z]+%/i;
 
 /** Prose numbers that are written rather than interpolated, with what makes each one true. */
 export const REGISTERED_NUMERIC_CLAIMS = {
-  // Intentionally empty: every prose number on a visible surface is currently interpolated
-  // from its source. An entry here is an exception that has to argue for itself.
+  // Empty: every prose number on a visible surface is currently interpolated from its source.
 };
 
 export const REGISTERED_CLAIMS = {
-  // Issue 619 — the rebuilt badge introduction. Each section states what it demonstrates, so
-  // each of those statements now needs its evidence like any other claim on this site.
   'The same five states with the governed icon ahead of the label. The icon is decorative — it is the second cue, never the only one.': {
     evidence: 'test',
     ref: 'packages/gds-core/src/core.test.tsx (status badges without withIcon render no [data-gds-icon]; the label is always present)',
     note: 'The icon is opt-in and additive: a badge renders its meaning as text with or without it, so colour and glyph are never the only carrier (WCAG 1.4.1).',
   },
-  // Issue 632/633 — accessibility-evidence-registry.ts's systems-family announcement text.
-  // Same underlying fact as the badge-introduction claim above, stated for the systems
-  // family's a11y evidence rather than the badge page itself.
+  // Same fact as the badge-introduction claim above, restated for accessibility-evidence-registry.ts.
   'badge meaning never relies on colour alone — shape and text carry the same signal': {
     evidence: 'test',
     ref: 'packages/gds-core/src/core.test.tsx (status badges without withIcon render no [data-gds-icon]; the label is always present)',
@@ -81,10 +66,7 @@ export const REGISTERED_CLAIMS = {
   'One GdsProvider at the app root — never nest a second one': {
     evidence: 'gate',
     ref: 'verify:references -> verify-playground-shell-contract.mjs (single-provider check)',
-    // First registered against this gate on the assumption it already checked. It did not —
-    // the check was added for issue 605, and its negative control was run both ways. A nested
-    // provider re-declares the theme, so identity, scheme and the governed variant lane stop
-    // agreeing between subtrees: the class of bug issue 597 traced.
+    // A nested provider re-declares the theme, so identity, scheme, and the variant lane can disagree between subtrees.
     note: 'The gate counts <GdsProvider> mounts in the playground and fails on a second one, so the site obeys the rule it states.',
   },
   'Gate private content with GdsAccessGate protectedContentPolicy="never-render-while-locked"': {
@@ -105,9 +87,7 @@ export const REGISTERED_CLAIMS = {
   "GdsMapPinBadge follows the same ambient mode — the ring stays the category's accent, the pin fills with a fixed dark-neutral disc in emoji mode (never the accent), and the emoji centers on it.": {
     evidence: 'test',
     ref: 'packages/gds-core/src/badge-system.test.tsx (emoji-mode pin disc is never the accent)',
-    // The existing emoji test asserted the glyph renders and shape is ignored — NOT that the
-    // fill is neutral. The claim had no evidence until issue 605 added it. An OS-rendered
-    // emoji has colours GDS cannot control, so its legibility must not depend on the accent.
+    // OS-rendered emoji has colours GDS cannot control, so legibility must not depend on the accent.
     note: 'Asserts a neutral fill is present and no filled shape carries the accent token, plus that the ring keeps the accent.',
   },
   'Multiple badges read left-to-right in a wrapping row beside identity — never stacked on the avatar, which the GdsBadgeStack corner model reserves for a single verification mark.': {
@@ -133,19 +113,13 @@ export const REGISTERED_CLAIMS = {
   'Image primitive with a branded fallback and reserved aspect-ratio box so a failed image never collapses a card or shifts layout.': {
     evidence: 'test',
     ref: 'packages/gds-core/src/classscout-components.test.tsx (MediaWithFallback reserves its box)',
-    // The pre-existing tests covered WHICH content renders, not that the box keeps its height
-    // when that content is the fallback — so the no-layout-shift half was unevidenced.
+    // Covers box height too, not just which content renders.
     note: 'Asserts the same reserved ratio in the image, missing-src and errored-image states.',
   },
   '%count% governed, accessible React components, design tokens, and runtime systems — composed in every product, never reinvented.': {
     evidence: 'derived',
     ref: 'apps/playground/src/generated-component-census.ts (verify:component-census) + verify-playground-gds-only.mjs for "never reinvented"',
-    // Was a hardcoded "250+". The first fix DELETED the number, on the grounds that this slot
-    // cannot use a template literal without dropping the sentence from all eight locales. That
-    // was solving the wrong problem: the owner's standing requirement is no hardcoded values,
-    // and "the page cannot compute it here" is a constraint to solve, not a licence to remove
-    // information. A `%count%` placeholder survives extraction and translation, and the number
-    // lands after translation from the same census the parity gate enforces against.
+    // %count% placeholder survives extraction and translation; filled from the same census the parity gate checks.
     note: 'The count is generated from collectPublicComponents(), the function verify-component-catalog-parity checks against, so page and gate cannot disagree. "never reinvented" is what the GDS-only gate enforces.',
   },
   'One value in every preset, in both schemes.': {
@@ -161,17 +135,11 @@ export const REGISTERED_CLAIMS = {
 };
 
 /**
- * Issue 610 — retired vocabulary, and the malformed words a careless rename makes of it.
+ * Retired vocabulary, and the malformed words a substring rename makes of it.
  *
- * #606 replaced "demo" with "proof" as a SUBSTRING, which turned "demonstrations" into
- * "proofnstrations". That shipped to the live site, was extracted into the phrase corpus, and
- * was then translated into all eight locale packs — German rendered it "Live-Proofnstrationen"
- * to readers. A bad rename does not stay in the file it was applied to.
- *
- * Detecting the failure MODE rather than the word: a substring rename leaves a signature — the
- * replacement term fused to the tail of the word it replaced part of. So any word beginning
- * with a replacement term that is not a real derived form of it is the artifact of one.
- * `derived` lists the legitimate forms; anything else starting with `to` is a defect.
+ * A substring rename leaves a signature: the replacement term fused to the tail of the word
+ * it replaced part of. `derived` lists the legitimate forms; anything else starting with `to`
+ * is a defect.
  */
 export const RETIRED_VOCABULARY = [
   {

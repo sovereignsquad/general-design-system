@@ -1,17 +1,9 @@
-// Issue 605 — publishes the public-component count to the reference site.
+// Publishes the public-component count to the reference site.
 //
-// The site stated "250+ governed, accessible React components". True at the time (289) and
-// written by hand, so it drifts silently in both directions: it understates the system today,
-// and becomes a false promise the moment the count drops. Under Rule 14 a checkable claim is
-// computed, not written — and the fix for "the page cannot compute it at runtime" is to give
-// the page the number, not to delete the sentence.
+// Count comes from `collectPublicComponents()`, the same function
+// `verify-component-catalog-parity` uses, so the page and the gate cannot disagree.
 //
-// The count comes from `collectPublicComponents()`, the SAME function
-// `verify-component-catalog-parity` enforces against, so the number on the page and the number
-// the gate checks cannot disagree.
-//
-// `--check` fails when the committed file is stale, exactly as `verify:motion-css` does for
-// the motion scale.
+// `--check` fails when the committed file is stale.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';

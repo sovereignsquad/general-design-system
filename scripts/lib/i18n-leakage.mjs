@@ -1,37 +1,15 @@
-// Issue 588 — one implementation of "this value was never actually translated",
-// shared by the generator that repairs leakage and the gate that fails on it.
+// One implementation of "this value was never actually translated", shared by the
+// generator that repairs leakage and the gate that fails on it.
 //
-// Two implementations of the same measurement would eventually disagree, and a gate that
-// contradicts the tool it polices is worse than no gate (the reasoning already recorded for
-// GdsAccentContrastMatrix, which reads the same evaluator verify:accent-contrast runs).
-//
-// DETECTION IS BY PEER EVIDENCE, NOT BY A HAND-MAINTAINED ALLOWLIST.
-//
-// A value identical to its English source is not automatically a defect: `"GdsAccessGate /
-// resolveGdsAccessState"` is a list of code identifiers and must stay identical in every
-// language. Measured across the site corpus, 79 distinct phrases are identical somewhere and
-// only 6 are identical in ALL eight locales — and those six are exactly the component-name
-// lists. The signal separating the two cases is already in the data:
-//
-//   **if another locale translated this same phrase, the phrase is translatable, so a locale
-//   that left it in English has missed it.**
-//
-// That is the reasoning issue 517 used by hand ("all 7 other non-English locales translated
-// these correctly — he.ts is the sole outlier"), computed instead of argued. It needs no
-// allowlist to maintain, invents no judgement about what "should" be translatable, and it
-// cannot drift the way an enumerated exemption list does (Rule 14).
-//
-// The cost is stated rather than hidden: a phrase NO locale translated is invisible to this
-// rule. If all twelve packs miss the same string, nothing here objects. That is a real blind
-// spot, and it is the price of not hand-maintaining ~46 exemptions per corpus.
+// Detection is by peer evidence, not a hand-maintained allowlist: if another locale
+// translated a phrase, the phrase is translatable, and a locale that left it in English
+// missed it. A phrase no locale translated is invisible to this rule.
 
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 /**
- * Script per locale, mirrored from `gdsLocaleMetadata` in packages/gds-theme/src/i18n.ts.
- * Read from source at load time rather than copied, so a new locale cannot be added to the
- * system without this rule seeing it (Rule 14 — derived, not retyped).
+ * Script per locale, read at load time from `gdsLocaleMetadata` in packages/gds-theme/src/i18n.ts.
  */
 export function readLocaleScripts(root = process.cwd()) {
   const source = readFileSync(join(root, 'packages/gds-theme/src/i18n.ts'), 'utf8');
@@ -45,11 +23,6 @@ export function readLocaleScripts(root = process.cwd()) {
 /**
  * Content that is legitimately identical in every language: code identifiers and identifier
  * lists, package/CLI commands, emails and URLs, keyboard shortcuts, and byte sizes.
- *
- * Every pattern here was derived from the measured residue rather than imagined. `"you@
- * company.com"`, `"Cmd+1"`, `"npm run verify:references"` and `"ChatThread, ChatMessage,
- * ChatInput, StreamingIndicator"` are not translation failures, and counting them would put
- * ~40 non-problems per pack in front of a reader looking for the real ones.
  */
 export function isUntranslatableToken(value) {
   const text = value.trim();
@@ -72,14 +45,8 @@ export function isProse(value) {
 }
 
 /**
- * Letters and digits only, lowercased.
- *
- * Peer evidence has to be evidence of TRANSLATION, and a first version counted any
- * difference at all. Arabic renders `"ChatThread, ChatMessage, ChatInput"` with Arabic commas
- * — `"ChatThread، ChatMessage، ChatInput"` — which differs byte-wise while translating
- * nothing. That made every component-name list look translatable and put a dozen of them on
- * the leak list for other locales. Comparing letters alone removes punctuation, spacing and
- * casing from the question.
+ * Letters and digits only, lowercased. Strips punctuation/spacing/casing so e.g. Arabic
+ * comma substitution doesn't register as a translation.
  */
 function normalize(value) {
   return value.replace(/[^\p{L}\p{N}]+/gu, '').toLowerCase();
@@ -133,12 +100,8 @@ export function measureCorpusLeakage(dir, { referenceIsKey }) {
     }
   }
 
-  // A Latin-script language legitimately shares words with English — `Pause`, `Filter` and
-  // `Message` are real German and French words, and the package packs are full of them. A
-  // non-Latin-script language shares none, so ANY English phrase left in `zh`/`he`/`ar`/`ru`/
-  // `ja`/`ko` is a miss. Measured: the peer rule alone flagged 15 package values, of which
-  // exactly one — `zh`'s `"Trending Up"` — was a real defect. Splitting by script is what
-  // separates the defect from the fourteen cognates.
+  // Latin-script languages legitimately share cognate words with English; non-Latin-script
+  // languages share none, so any English phrase left there is a miss.
   const scripts = readLocaleScripts();
 
   const rows = Object.entries(packs).map(([locale, values]) => {

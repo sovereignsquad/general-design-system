@@ -102,16 +102,8 @@ function isNestedInteractiveTarget(eventTarget: EventTarget | null, currentTarge
 }
 
 /**
- * Owner directive, 2026-08-14: **GDS uses the generated thumbnail everywhere.**
- *
- * This used to render a grey box with a generic photo glyph — the universal "broken image"
- * picture, which tells a reader that something failed rather than that no image was supplied.
- * On a card that never had one, that is a lie about the state of the system.
- *
- * `GdsGeneratedThumbnail` produces deterministic branded art from the listing's own identity:
- * same seed, same composition, every render, themed by the active preset. A card without a
- * photo now looks finished rather than broken, and it needs no network, no asset pipeline and
- * no consumer-supplied placeholder.
+ * Fallback when no image is supplied: deterministic branded art from the listing's identity
+ * (same seed, same composition every render), themed by the active preset.
  */
 function ListingImageFallback({
   mediaRatio,
@@ -125,11 +117,9 @@ function ListingImageFallback({
   return (
     <GdsGeneratedThumbnail
       seed={seed}
-      // The card's own title is the category label: inventing a taxonomy the consumer did not
-      // supply would put words on their card that they never wrote.
+      // Title used as the category label; no invented taxonomy.
       categories={[{ key: 'listing', label: title, icon: 'Gallery' }]}
-      // Motif only: the card prints the title immediately beneath this, so a badge repeating it
-      // duplicates the text on screen and in the accessibility tree.
+      // Title already renders below; avoids duplicate text.
       badges="none"
       aspectRatio={mediaRatio === '1:1' ? '1:1' : mediaRatio === '16:9' ? '16:9' : '4:3'}
     />
@@ -142,8 +132,7 @@ function ListingAffordance({ affordance }: { affordance: ListingCardAffordance }
   const label = affordance.ariaLabel ?? getSemanticActionLabel(affordance.action);
   const activeStyle = affordance.active
     ? {
-        // Issue 597: an accent ON its own tint is 1.60:1 in high-contrast dark. The tint's
-        // derived foreground is the pairing that holds across presets.
+        // Accent on its own tint is 1.60:1 in high-contrast dark; use the tint's derived foreground.
         color: 'var(--gds-brand-accent-tint-fg, var(--gds-brand-accent-action, var(--gds-vibe-accent, var(--mantine-primary-color-filled))))',
         background: 'var(--gds-brand-accent-tint, var(--mantine-color-default-hover))',
       }

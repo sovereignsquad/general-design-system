@@ -1,14 +1,9 @@
-// Issue 583 — Phase 3 execution: run the WGA-ordered covering array and report ACHIEVED
-// t-way coverage as a measured number (DEEP_AUDIT_PLAN §3). The Phase-1 classifier is reused
-// verbatim from lib/render-capture.mjs — this phase changes which cells run and in what order,
-// never what a cell measures.
+// Runs the WGA-ordered covering array and reports achieved t-way coverage. Reuses the
+// classifier from lib/render-capture.mjs verbatim; only cell selection/order changes.
 //
-// Honesty constraints from the issue, enforced here:
-// - Skipped cells FAIL the phase and are listed individually — absence of a result is never
-//   silently folded into coverage.
-// - GDS_COVERAGE_LIMIT exists for smoke-testing the harness only; a limited run reports
-//   partial: true, marks every unexecuted cell as skipped, and exits nonzero. Sampling is not
-//   a runtime mitigation.
+// Skipped cells fail the phase and are listed individually.
+// GDS_COVERAGE_LIMIT is for harness smoke-testing only: a limited run reports
+// partial: true, marks unexecuted cells as skipped, and exits nonzero.
 //
 // Run: node scripts/audit/render-coverage.mjs      Output: audit/coverage-array.json
 
@@ -42,9 +37,8 @@ const executed = [];
 const skipped = [];
 const pageKey = (row) => PAGE_FACTORS.map((f) => row[f]).join('|');
 
-// Any CDP operation that outlives this deadline is a dead cell, not a wait: a command whose
-// execution context was destroyed never gets a reply, and one stranded await would otherwise
-// freeze the whole sweep (observed live before this guard existed).
+// A command whose execution context was destroyed never gets a reply; without a deadline
+// one stranded await freezes the whole sweep.
 const OP_TIMEOUT_MS = 30000;
 const withDeadline = (promise, what) => Promise.race([
   promise,
@@ -57,10 +51,7 @@ try {
   let currentViewport = null;
   let currentMedia = null;
 
-  // A renderer that dies mid-sweep must cost ONE cell, never the run: a dead tab leaves the
-  // browser socket open while every command to it waits out its deadline. After any cell
-  // failure the harness relaunches the browser outright — a couple of seconds, rare, and it
-  // restores single-cell isolation (the issue's own flake-diagnosis requirement).
+  // Relaunches the browser after any cell failure so a dead renderer costs one cell, not the run.
   const hardRecover = async () => {
     try { await client.close(); } catch { /* already gone */ }
     try { await session.close(); } catch { /* already gone */ }
@@ -103,10 +94,7 @@ try {
         await withDeadline(client.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 }), 'input');
       }
 
-      // Chunked execution of the Phase-1 classifier: identical TRACKED list, UA-defaults
-      // filter, and provenance rule — only the transport is batched, because the monolithic
-      // sweep reproducibly killed the renderer on /api (three different theme/locale/emulation
-      // combos, one common factor: the page). Found by this array; Phase 1 never ran /api.
+      // Chunked to avoid killing the renderer on /api; classifier logic is unchanged, only the transport is batched.
       const prep = await withDeadline(evaluate(client, CAPTURE_PREP), 'capture-prep');
       let observations = 0;
       let literal = 0;

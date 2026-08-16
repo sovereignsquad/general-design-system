@@ -4,8 +4,6 @@ import { ActionIcon, Box, Group, Paper, Stack, Text, Textarea } from '@mantine/c
 import { GdsIcons } from './icons';
 
 /**
- * Conversation surface (gap B3 / issue #321).
- *
  * `ChatThread` renders an auto-scrolling (pin-aware) message list as an ARIA
  * live region; `ChatMessage` renders role-styled bubbles (user = inverse/navy,
  * assistant = surface/white) with a slot to embed result cards; a streaming
@@ -130,12 +128,7 @@ export function StreamingIndicator({ label: labelProp }: { label?: string }) {
 
   return (
     <Group gap={6} aria-label={label}>
-      {/*
-        `data-gds-motion` is what makes the loop reducible: the governed rule in styles.css
-        neutralises `animation` for anything carrying it. Without the attribute these plain
-        `Box` elements would keep pulsing for a user who asked for reduced motion — WCAG 2.2.2,
-        for content that moves automatically and cannot be paused.
-      */}
+      {/* data-gds-motion lets styles.css disable animation under prefers-reduced-motion (WCAG 2.2.2). */}
       <Box className="gds-chat-typing-dot" data-gds-motion style={dotStyle(0)} />
       <Box className="gds-chat-typing-dot" data-gds-motion style={dotStyle(1)} />
       <Box className="gds-chat-typing-dot" data-gds-motion style={dotStyle(2)} />
@@ -149,12 +142,9 @@ function dotStyle(index: number): React.CSSProperties {
     height: 6,
     borderRadius: '50%',
     background: 'var(--gds-text-secondary, var(--mantine-color-gray-5))',
-    // Issue 592. The `1s` was ungoverned AND animated keyframes that did not exist. The
-    // duration is now the `ambient` step — added to the scale deliberately, because every
-    // other step is a transition duration and the longest, 360ms, loops frantically.
+    // Duration uses the ambient motion token, not a hardcoded value.
     animation: 'gds-chat-typing var(--gds-motion-duration-ambient, 1000ms) infinite',
-    // The stagger is a fraction of the same token rather than a second hardcoded number, so
-    // the three dots stay in phase with each other if the step is ever retuned.
+    // Stagger is a fraction of the same token, so the dots stay in phase if it's retuned.
     animationDelay: `calc(var(--gds-motion-duration-ambient, 1000ms) * ${index * 0.15})`,
   };
 }

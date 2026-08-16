@@ -1,24 +1,16 @@
-// Issue 586 — disposition of every `--gds-*` token with no in-repo consumer.
+// Disposition of every `--gds-*` token with no in-repo consumer. Each entry needs a reason and a reviewBy expiry.
 //
-// Finding F13 listed 15. Each is classified here from evidence, with a reason and an
-// expiry, because an allowlist that cannot expire becomes permanent by neglect — which is
-// how a dead token survives long enough to be documented as a feature.
-//
-// Static reachability cannot prove the absence of a dynamic reference, and these are
-// published CSS custom properties that a consumer application can read directly. So the
-// default disposition is `extension-point`, not removal: removing a token a consumer may
-// already be reading is a breaking change requiring a deprecation cycle (issue §6).
-// `remove` is reserved for tokens no consumer can plausibly hold.
+// These are published CSS custom properties a consumer app can read directly, so the
+// default disposition is `extension-point`, not removal. `remove` is only for tokens no
+// consumer can plausibly hold.
 
 /**
  * Tokens deliberately declared without an in-repo consumer.
  *
- * `reason` must be EVIDENCE, not intent — what was read, and where. "Probably used by
- * consumers" is not a reason; "the same value reaches components via `--gds-bg-info-tag`"
- * is.
+ * `reason` must state evidence — what was read, and where — not an assumption of use.
  */
 export const EXTENSION_POINTS = {
-  // ── Badge tone pairs (issue 595) ──
+  // ── Badge tone pairs ──
   '--gds-badge-soft-success': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
   '--gds-badge-soft-success-fg': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
   '--gds-badge-soft-warning': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
@@ -40,7 +32,7 @@ export const EXTENSION_POINTS = {
   '--gds-badge-solid-neutral': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
   '--gds-badge-solid-neutral-fg': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
 
-  // ── Accent axis (issue 593) ──
+  // ── Accent axis ──
   '--gds-accent-plum-base': { reason: 'Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.', reviewBy: '2027-08-01' },
   '--gds-accent-plum-deep': { reason: 'Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.', reviewBy: '2027-08-01' },
   '--gds-accent-plum-deeper': { reason: 'Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.', reviewBy: '2027-08-01' },
@@ -92,7 +84,7 @@ export const EXTENSION_POINTS = {
   '--gds-accent-grape-deepest': { reason: 'Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.', reviewBy: '2027-08-01' },
   '--gds-accent-grape-on': { reason: 'Accent-axis token (issue 593). Every accent and shade is emitted for every preset so a category surface reads its colour from the theme; verify:accent-contrast proves the filled-mode guarantee.', reviewBy: '2027-08-01' },
 
-  // ── Motion and reaction axes (issue 558) ──
+  // ── Motion and reaction axes ──
   '--gds-focus-ring-width': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
   '--gds-focus-ring-offset': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
   '--gds-focus-ring-style': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
@@ -108,7 +100,7 @@ export const EXTENSION_POINTS = {
   '--gds-reaction-pressed-lift': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
   '--gds-reaction-pressed-scale': { reason: 'Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.', reviewBy: '2027-08-01' },
 
-  // ── Typography and elevation axes (issue 557) ──
+  // ── Typography and elevation axes ──
   '--gds-font-size-2xs': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
   '--gds-font-size-xs': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
   '--gds-font-size-sm': { reason: 'Typography-axis size step (issue 557). Derived from base x ratio unless overridden; published so a consumer can size text on the governed scale.', reviewBy: '2027-08-01' },
@@ -144,10 +136,8 @@ export const EXTENSION_POINTS = {
   '--gds-elevation-menu': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
   '--gds-elevation-tooltip': { reason: 'Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.', reviewBy: '2027-08-01' },
 
-  // ── Density axis (issue 556) ──
-  // Same reasoning as the shape roles below: every step and size is emitted for every preset
-  // so a consumer or a future component can read it. The axis guarantees presence, not
-  // consumption.
+  // ── Density axis ──
+  // Every step and size is emitted for every preset; the axis guarantees presence, not consumption.
   '--gds-space-none': {
     reason: 'Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.',
     reviewBy: '2027-08-01',
@@ -213,11 +203,8 @@ export const EXTENSION_POINTS = {
     reviewBy: '2027-08-01',
   },
 
-  // ── Shape axis (issue 555) ──
-  // A role token is emitted for EVERY role in EVERY preset, deliberately: a component
-  // reading --gds-radius-pin must never land on an undefined variable because one preset
-  // stayed silent. That guarantee means most roles are declared before anything consumes
-  // them — they are the axis's published surface, which is what an extension point is.
+  // ── Shape axis ──
+  // A role token is emitted for every role in every preset, so a component reading it never lands on an undefined variable.
   '--gds-radius-card': {
     reason: 'Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.',
     reviewBy: '2027-08-01',
@@ -359,7 +346,7 @@ export const EXTENSION_POINTS = {
     reviewBy: '2026-12-01',
   },
 
-  // ── Badge roles — investigated against #534, see below ──
+  // ── Badge roles ──
   '--gds-badge-info': {
     reason:
       'The ROLE is live, the name is the consumer-facing spelling: emitCssVariables maps '
@@ -389,18 +376,8 @@ export const EXTENSION_POINTS = {
 };
 
 /**
- * Tokens that SHOULD be consumed and are not — a defect, not an extension point.
+ * Tokens that should be consumed and are not — a defect, not an extension point.
  *
- * Kept separate from EXTENSION_POINTS so the two are not conflated: an extension point is
- * working as intended, a pending wire-up is broken and waiting on review. Wiring one up
- * changes rendering, so it goes through design review rather than landing inside a
- * governance sweep (issue 586 §13).
+ * Wiring one up changes rendering, so it requires design review, not a governance sweep.
  */
-export const PENDING_WIRE_UP = {
-  // Issue 591 resolved: `--gds-tour-spotlight-padding` is now read by
-  // `readSpotlightPadding()` in GdsTour.client.tsx. The entry above described the hole as
-  // taking the measured rect "with no inflation" — that was wrong about the mechanism. The
-  // inflation was already there; it used a hardcoded `8`, the same number the token declares.
-  // So the fix changed no pixels, which is why it did not need the design review §13 requires
-  // for a token that starts rendering.
-};
+export const PENDING_WIRE_UP = {};

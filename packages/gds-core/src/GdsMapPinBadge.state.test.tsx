@@ -2,10 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { renderWithGds } from '../../../test-utils/render';
 import { GdsMapPinBadge, GDS_PIN_SELECTED_SCALE } from './GdsMapPinBadge';
 
-// Issue 545 — the state contract's governing rule, AS A TEST: the fill belongs to the
-// activity, state is carried by silhouette and scale. If a state ever repaints the accent
-// fill or the icon's accent, the category would read differently on hover/select than it
-// does in the synced list beside the map — these tests are what keeps that impossible.
+// Invariant: fill encodes the activity/category; state (hover/select/approximate) is
+// carried only by silhouette and scale, never by repainting the accent fill.
 describe('GdsMapPinBadge state contract', () => {
   const pinOf = (ui: React.ReactElement) => {
     const { container } = renderWithGds(ui);

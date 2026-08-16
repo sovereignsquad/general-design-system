@@ -15,11 +15,9 @@ export interface GdsTokenNode {
   /**
    * Semantic role the token fills.
    *
-   * Issue 585 widened this from a closed 17-member union to a string. The union WAS the
-   * mechanism of finding F12: the graph could not express a role it did not already name,
-   * so the 34 semantic roles that actually paint components had nowhere to go and the
-   * published token graph described a different, smaller system than the one GDS ships.
-   * The 17 atmosphere roles below remain, unchanged, as the vibe-palette lane.
+   * Widened from a closed 17-member union to a string: a closed union could not express a
+   * role it did not already name, so the 34 semantic roles that actually paint components
+   * had nowhere to go. The 17 atmosphere roles below remain as the vibe-palette lane.
    */
   role:
     | (string & {})
@@ -45,17 +43,17 @@ export interface GdsTokenNode {
   /**
    * What kind of value this is.
    *
-   * Issue 555 added `dimension`. The graph previously assumed every semantic token was a
-   * colour, which held only while the theme could express nothing but colour — the exact
-   * limitation the axis mechanism removes. A radius validated as a colour fails as one.
+   * `dimension` was added because the graph previously assumed every semantic token was a
+   * colour, which held only while the theme could express nothing but colour. A radius
+   * validated as a colour fails as one.
    */
   category: 'color' | 'effect' | 'dimension' | 'keyword' | 'number' | 'duration';
   /**
    * Which color scheme the value applies to.
    *
-   * `paired` (issue 585) carries both schemes in {@link GdsTokenNode.scheme} rather than
-   * encoding the scheme in the role name. A consumer can then tell which value applies in
-   * dark mode without parsing a `-dark` suffix, which was goal 3 of that issue.
+   * `paired` carries both schemes in {@link GdsTokenNode.scheme} rather than encoding the
+   * scheme in the role name, so a consumer can tell which value applies in dark mode
+   * without parsing a `-dark` suffix.
    */
   mode: 'light' | 'dark' | 'shared' | 'paired';
   /** Both scheme values, present only when `mode` is `paired`. */
@@ -209,34 +207,31 @@ function createThemeNodes(theme: GdsVibeTheme): GdsTokenNode[] {
 /**
  * The semantic roles a preset resolves, as `paired` nodes carrying both schemes.
  *
- * Issue 585 / finding F12. The graph published 17 atmosphere roles while the tokens that
- * actually paint components numbered 34, and the overlap was exactly one (`accent`). A
- * design tool importing the graph received background colours and none of the roles that
- * determine what a component looks like.
+ * The graph previously published 17 atmosphere roles while the tokens that actually paint
+ * components numbered 34, with an overlap of exactly one (`accent`). A design tool
+ * importing the graph received background colours and none of the roles that determine
+ * what a component looks like.
  *
- * Read from `getGdsVibeThemeCssVariables` — the SAME resolver the runtime applies to the
- * document. A parallel traversal here would reintroduce precisely the dual-source failure
- * that caused the 5.0.1 dark-mode defect and that issue 554 removed from this package.
+ * Read from `getGdsVibeThemeCssVariables` — the same resolver the runtime applies to the
+ * document. A parallel traversal here would reintroduce a dual-source failure.
  */
 /**
  * Classifies a resolved token value.
  *
- * Deliberately conservative: anything that is not recognisably a colour or a length is an
- * `effect`, never a guessed colour. Mis-typing a token as a colour makes the validator
- * demand a colour and report a false error; mis-typing a colour as an effect makes it skip a
- * real one. `effect` is the safer default because it is the one that does not fabricate a
- * finding.
+ * Conservative: anything not recognisably a colour or a length is an `effect`, never a
+ * guessed colour. Mis-typing a token as a colour makes the validator demand a colour and
+ * report a false error; mis-typing a colour as an effect skips a real one. `effect` is the
+ * safer default since it does not fabricate a finding.
  */
 function inferNodeCategory(role: string): GdsTokenNode['category'] {
-  // Issue 555. A first cut classified by VALUE, and it silently weakened the gate: any
-  // unparseable string became an 'effect' and escaped colour validation entirely, so
-  // `--gds-support: not-a-resolvable-color` stopped being an error. The gate mutation suite
-  // caught it as a SURVIVED mutant. Classifying by role name keeps the value as the thing
-  // being judged rather than the thing doing the judging.
-  // Issue 556 extended this. Each axis owns a token prefix, so the prefix is the category —
-  // and a new axis must be added HERE, which is the intended coupling: a token whose category
-  // nobody declared would be validated as a colour and fail as one, loudly, rather than
-  // shipping unvalidated.
+  // Classifying by VALUE would silently weaken the gate: any unparseable string becomes an
+  // 'effect' and escapes colour validation, so `--gds-support: not-a-resolvable-color`
+  // stops being an error. Classifying by role name keeps the value as the thing being
+  // judged rather than the thing doing the judging.
+  //
+  // Each axis owns a token prefix, so the prefix is the category — a new axis must add a
+  // branch here, or its tokens validate as colour and fail loudly rather than shipping
+  // unvalidated.
   if (/^(radius|space|control-height|font-size|shell-height)-/.test(role)) return 'dimension';
   if (/^focus-ring-(width|offset)$/.test(role)) return 'dimension';
   if (/^reaction-\w+-lift$/.test(role)) return 'dimension';
@@ -269,9 +264,8 @@ function createSemanticNodes(theme: GdsVibeTheme): GdsTokenNode[] {
       const role = property.replace(/^--gds-/, '');
       return {
         // Namespaced by lane: `accent` exists in both the atmosphere palette and the
-        // semantic set with DIFFERENT values (the atmosphere one is the raw preset hue,
-        // the semantic one is contrast-adjusted). That single collision is exactly the
-        // "overlap is exactly one" F12 measured, and it must not silently merge.
+        // semantic set with different values (raw preset hue vs. contrast-adjusted), and
+        // must not silently merge.
         id: `${theme.id}.semantic.${role}`,
         themeId: theme.id,
         role,
@@ -284,7 +278,7 @@ function createSemanticNodes(theme: GdsVibeTheme): GdsTokenNode[] {
     });
 }
 
-/** Builds the token graph for every vibe theme: the 17 atmosphere roles plus every semantic role the preset resolves (issue 585). */
+/** Builds the token graph for every vibe theme: the 17 atmosphere roles plus every semantic role the preset resolves. */
 export function createGdsTokenGraph(): GdsTokenGraph {
   const themes = getGdsVibeThemes();
   const nodes = themes.flatMap((theme) => [
@@ -322,9 +316,8 @@ export function validateGdsTokenGraph(graph: GdsTokenGraph = createGdsTokenGraph
     }
     seen.add(node.id);
 
-    // Issue 585: COLOR_ROLES enumerates the 17 ATMOSPHERE roles. Applying it to the
-    // semantic lane would warn on all 850 legitimate semantic tokens — 825 warnings that
-    // say nothing, which is how a real warning gets missed.
+    // COLOR_ROLES enumerates the 17 atmosphere roles. Applying it to the semantic lane
+    // would warn on every legitimate semantic token.
     if (node.lane !== 'semantic' && !COLOR_ROLES.has(node.role) && node.category === 'color') {
       findings.push({
         severity: 'warning',

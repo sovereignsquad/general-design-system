@@ -29,11 +29,8 @@ const brandButtonStyles: Record<NonNullable<SemanticButtonProps['brandVariant']>
   primary: {
     background: 'var(--gds-brand-primary, var(--gds-vibe-primary, var(--mantine-primary-color-filled)))',
     borderColor: 'var(--gds-brand-primary, var(--gds-vibe-primary, var(--mantine-primary-color-filled)))',
-    // Issue 597. `--gds-text-on-inverse` is derived to sit on `--gds-bg-inverse` and on
-    // nothing else. Against `--gds-brand-primary` it is 1.00:1 in the default dark preset —
-    // literally the same colour, #f8fafc on #f8fafc. No route renders that combination today,
-    // so it was latent rather than visible; it is public API, so a consumer reaches it before
-    // we do.
+    // --gds-text-on-inverse is derived against --gds-bg-inverse only; against
+    // --gds-brand-primary it is 1.00:1 in the default dark preset (identical color).
     color: 'var(--gds-brand-primary-fg, var(--gds-text-on-inverse, var(--mantine-color-white)))',
   },
   secondary: {
@@ -44,7 +41,7 @@ const brandButtonStyles: Record<NonNullable<SemanticButtonProps['brandVariant']>
   accent: {
     background: 'var(--gds-brand-accent-action, var(--gds-brand-accent, var(--gds-vibe-accent, var(--mantine-primary-color-filled))))',
     borderColor: 'var(--gds-brand-accent-action, var(--gds-brand-accent, var(--gds-vibe-accent, var(--mantine-primary-color-filled))))',
-    // 1.66:1 against the gold-athlete dark accent, for the same reason as `primary` above.
+    // 1.66:1 against the gold-athlete dark accent.
     color: 'var(--gds-brand-accent-action-fg, var(--gds-text-on-inverse, var(--mantine-color-white)))',
   },
   disabled: {

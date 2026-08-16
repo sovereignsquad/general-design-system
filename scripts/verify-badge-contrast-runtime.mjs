@@ -1,24 +1,14 @@
-// Issue 597 — a badge pair whose contrast CANNOT BE COMPUTED is a build failure.
+// A badge pair whose contrast cannot be computed is a build failure.
 //
-// #534 measured two light-variant badges at 1.81:1 and 2.55:1. The deeper defect is not those
-// two numbers: it is that Mantine's `light` variant paints a LOW-ALPHA tint, and a translucent
-// background has no contrast ratio of its own. Every contrast sweep in this system therefore
-// walked past 83 badges without measuring them. They were not passing. They were INVISIBLE —
-// and zero findings from a check that cannot see its subject reads exactly like a clean bill.
-//
-// So this gate fails on two distinct conditions, and the first one matters more:
+// This gate fails on two distinct conditions:
 //
 //   1. UNCOMPUTABLE — the badge's own background is partially transparent, so its legibility
 //      depends on whatever it happens to be dropped onto. No token-level guarantee can exist.
 //   2. TOO LOW — the pair resolves opaquely but measures under 4.5:1.
 //
-// Condition 1 is the one that was silently true before the variant resolver in gds-theme
-// governed the `light` lane into an opaque `color-mix`.
-//
-// Scope, stated rather than implied: every pattern route, both schemes, at the default preset.
-// Preset-independence is covered numerically instead — packages/gds-theme/src/variant-colors
-// .test.ts sweeps all 25 presets x 2 schemes x 14 Mantine colours and reports the worst case.
-// Doing that here would mean 1,200 navigations for a property that does not vary by route.
+// Scope: every pattern route, both schemes, at the default preset. Preset-independence is
+// covered numerically instead — packages/gds-theme/src/variant-colors.test.ts sweeps all 25
+// presets x 2 schemes x 14 Mantine colours and reports the worst case.
 
 import { join } from 'node:path';
 import {
@@ -54,10 +44,7 @@ try {
 
       const found = await evaluate(client, `(() => {
         // Chrome reports a resolved color-mix() as \`color(srgb r g b / a)\` with 0-1 components,
-        // not as rgb(). Parsing only rgb() made every governed badge look UNPARSEABLE — the
-        // gate reported 344 failures on a page that had just been fixed. A contrast gate that
-        // cannot read the format its own fix produces is worse than no gate: it fails loudly
-        // in the one state it was built to bless.
+        // not rgb().
         const rgba = (s) => {
           const c = /color\\(srgb\\s+([^)]+)\\)/.exec(s || '');
           if (c) {
@@ -95,9 +82,8 @@ try {
           const fg = rgba(s.color);
           if (!own || !fg) { out.push({ reason: 'unparseable', text: el.textContent.trim().slice(0, 40), bg: s.backgroundColor, fg: s.color }); continue; }
 
-          // A fully transparent own background is fine: the badge inherits an ancestor surface,
-          // and compositing up the chain resolves it deterministically. A PARTIALLY transparent
-          // one is the defect — the result depends on the drop target, so no guarantee exists.
+          // A fully transparent background inherits an ancestor surface and resolves deterministically.
+          // A partially transparent one depends on the drop target, so no guarantee exists.
           if (own.a > 0 && own.a < 1) {
             out.push({ reason: 'translucent', text: el.textContent.trim().slice(0, 40), bg: s.backgroundColor, fg: s.color, alpha: own.a });
             continue;
@@ -125,8 +111,7 @@ try {
       for (const badge of found ?? []) {
         badgesSeen += 1;
         if (badge.reason === 'measured') {
-          // 4.5:1 flat. Badge text is small and often the only carrier of a status, so the
-          // large-text exemption does not apply to it.
+          // 4.5:1 flat; the large-text exemption does not apply to badge text.
           if (badge.ratio < 4.5) tooLow.push({ route, scheme, ...badge });
         } else {
           uncomputable.push({ route, scheme, ...badge });
@@ -136,11 +121,8 @@ try {
   }
 } finally {
   await disposeBrowser(session.browser, session.userDataDir);
-  // `kill`, not `close`: the handle from startPreviewServer has no `close`, so an optional
-  // call to it is a SILENT NO-OP that leaks the server. It then holds port 4173, and the next
-  // runtime gate — which spawns with --strictPort — waits on that port forever. Observed:
-  // a preflight run that sat on verify:forced-colors-runtime indefinitely, and, earlier, a
-  // gate run served by a stale build that reported 344 already-fixed failures.
+  // `kill`, not `close`: the handle from startPreviewServer has no `close`; an optional call
+  // is a silent no-op that leaks the server and blocks the next --strictPort gate on the port.
   await previewServer?.kill('SIGTERM');
 }
 
@@ -150,9 +132,7 @@ console.log(`  badges measured     ${String(badgesSeen).padStart(5)}`);
 console.log(`  uncomputable        ${String(uncomputable.length).padStart(5)}`);
 console.log(`  below 4.5:1         ${String(tooLow.length).padStart(5)}`);
 
-// Zero badges is what a broken selector reports, and it is indistinguishable from a clean
-// system. The system renders badges on many routes, so seeing none means this gate stopped
-// looking — the exact failure it was written to end.
+// Zero badges found means the selector broke, not that the system has none.
 if (!badgesSeen) fail('No badges were found across any route. The selector no longer matches; this gate is measuring nothing.');
 
 const show = (list, label) => {

@@ -1,8 +1,4 @@
-// Issue 593 — the computed contrast guarantee that replaces the frozen accent palette.
-//
-// `gdsBadgeAccentColors` was frozen precisely so nobody had to verify 10 accents x 4 shades x
-// 3 modes x 2 schemes x 25 presets. The axis un-freezes it, so that verification now has to
-// exist — this is it.
+// Computed contrast guarantee for the accent axis (replaces the frozen accent palette).
 //
 // Output: audit/accent-contrast.json
 
@@ -24,9 +20,7 @@ const presets = getGdsVibeThemes();
 if (!presets.length) { console.error('FAIL no presets found; the gate cannot pass vacuously.'); process.exit(1); }
 if (!GDS_ACCENT_NAMES.length) { console.error('FAIL no accents declared; refusing to pass.'); process.exit(1); }
 
-// CANARY. Zero failures is the result we want and also what a gate measuring nothing reports.
-// An accent that cannot possibly pass filled mode must come back failing; if it does not, the
-// clean result below means nothing. Same reasoning as verify:a11y-floor.
+// Canary: an accent that cannot pass filled-mode contrast must fail here, or the sweep below proves nothing.
 const canary = evaluateGdsAccentContrast(
   { ramps: { plum: { base: '#fefefe' } } },          // near-white: white-on-white in filled mode
   { light: '#ffffff', dark: '#000000' },
@@ -38,15 +32,10 @@ if (!canary.length) {
   process.exit(1);
 }
 
-// A preset MAY declare its own accent palette (`axes.accent`) — the vibe resolver has passed
-// `vibe.axes` through since the axis landed. This loop used to pass `undefined`, i.e. it
-// checked the DEFAULT palette 25 times over. No preset overrides today, so the numbers were
-// right; the check was not. The first preset to declare its own accents would have had its
-// real colours go unverified while the gate reported a clean sweep of colours nothing renders.
+// A preset may declare its own accent palette via `axes.accent`, so each preset is checked
+// individually rather than against the default palette once.
 //
-// The contract this enforces (owner directive, 2026-08-13): accents are a FIXED category
-// vocabulary by default, so a category means the same thing across every theme — and a preset
-// that deliberately overrides them is verified here rather than trusted.
+// Accents are a fixed category vocabulary by default; a preset that overrides them is verified here, not trusted.
 const results = [];
 let presetsWithOwnAccents = 0;
 for (const preset of presets) {
@@ -60,13 +49,8 @@ for (const preset of presets) {
   }
 }
 
-// The CONTRACT, stated here independently of the constants being checked.
-//
-// A first version computed the expected count from GDS_ACCENT_SHADES.length itself, which is
-// vacuous: shrink the shade set and the expectation shrinks with it, so the assertion can
-// never fail. The mutation suite proved it — the shortened-sweep mutant passed. This is
-// finding F19's shape (a metric derived from the thing it measures), and the fix is to state
-// the published contract as literals the source cannot move.
+// Expected counts are literals, not derived from the constants being checked, so shrinking an
+// axis cannot silently shrink the expectation with it.
 const CONTRACT = { accents: 10, shades: 4, modes: 3, schemes: 2 };
 if (GDS_ACCENT_NAMES.length !== CONTRACT.accents || GDS_ACCENT_SHADES.length !== CONTRACT.shades || GDS_ACCENT_MODES.length !== CONTRACT.modes) {
   console.error(`FAIL the accent contract changed: ${GDS_ACCENT_NAMES.length} accents x ${GDS_ACCENT_SHADES.length} shades x ${GDS_ACCENT_MODES.length} modes,`);

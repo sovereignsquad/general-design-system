@@ -31,23 +31,21 @@ export interface GdsProviderProps {
   /** When `true` (default), sets `data-mantine-color-scheme` on the document root. */
   applyDocumentColorScheme?: boolean;
   /**
-   * Overlay engine adapter (issue #349). Defaults to the Mantine-backed adapter.
+   * Overlay engine adapter. Defaults to the Mantine-backed adapter.
    * Provide a custom adapter to swap the overlay engine without changing any
    * consumer code or component API.
    */
   overlayAdapter?: OverlayAdapter;
   /**
-   * Ambient badge glyph mode for `GdsBadge`/`GdsMapPinBadge` (issue #525).
-   * Defaults to `'tabler'` — every existing consumer's current behavior,
-   * unchanged. Set to `'emoji'` to switch every badge whose category has
-   * an emoji to render it, with badges lacking one falling back to their
-   * Tabler icon automatically. Individual badges can still override this
-   * locally via their own `iconStyle` prop.
+   * Ambient badge glyph mode for `GdsBadge`/`GdsMapPinBadge`.
+   * Defaults to `'tabler'`. Set to `'emoji'` to render an emoji icon for
+   * badge categories that have one; categories without one fall back to
+   * their Tabler icon. Individual badges can override via `iconStyle`.
    */
   defaultBadgeIconStyle?: GdsBadgeIconStyle;
   /**
-   * How a theme change is applied (issue 561). Defaults to `remount`: the themed subtree is
-   * keyed on the theme identity, so values read OUTSIDE the CSS cascade are re-created rather
+   * How a theme change is applied. Defaults to `remount`: the themed subtree is
+   * keyed on the theme identity, so values read outside the CSS cascade are re-created rather
    * than left holding the previous theme.
    */
   themeApplicationMode?: GdsThemeApplicationMode;
@@ -96,19 +94,10 @@ function getThemeOwnedCssVariables(theme: MantineThemeOverride): Record<string, 
  * pair (the shape `createBrandTheme`/`getThemeOwnedCssVariables` emit) onto a
  * single active value per base property name, for the given resolved scheme.
  *
- * Fixes a real bug (issue 533): the theme object's own CSS variables were
- * applied to `GdsProvider`'s wrapper as an inline style with BOTH the light
- * and `-dark` variants set as literal, unrelated custom properties — nothing
- * ever picked the dark one. Any CSS rule referencing the base name (e.g.
- * `color: var(--gds-text-body)`) always got the light-mode value, baked in
- * as an inline style that beats any external stylesheet rule — even when
- * `defaultColorScheme="dark"` (or a live scheme toggle) was active. That was
- * invisible for the default theme (its `other.gdsCssVariables` doesn't
- * define these semantic-role tokens, so CSS's own `light-dark()` default in
- * styles.css took over correctly) but broke every brand theme with a
- * hand-authored dark variant — Class USA and Gold Athlete — producing
- * near-invisible navy-on-navy / near-black-on-near-black text on cards,
- * badges, and links in dark mode.
+ * Without this, both variants are set as literal inline-style properties and
+ * neither shadows the other, so a rule reading the base name (e.g.
+ * `color: var(--gds-text-body)`) always gets the light value regardless of
+ * the active color scheme.
  */
 function resolveSchemeCssVariables(variables: Record<string, string>, colorScheme: 'light' | 'dark'): Record<string, string> {
   if (colorScheme !== 'dark') {
@@ -126,10 +115,8 @@ function resolveSchemeCssVariables(variables: Record<string, string>, colorSchem
 
 /**
  * Renders the themed wrapper `Box` with `variables` resolved against the
- * LIVE, reactive color scheme (via `useComputedColorScheme`, same hook
- * `ThemeToggle` uses) — must be a separate component nested under
- * `MantineProvider` so the hook has its context, and so it re-resolves
- * whenever the scheme changes (a toggle click, not just a fresh page load).
+ * live color scheme via `useComputedColorScheme`. Must be nested under
+ * `MantineProvider` for the hook's context, so it re-resolves on scheme change.
  */
 function GdsThemeVariablesScope({ variables, dir, children }: { variables: Record<string, string>; dir: 'ltr' | 'rtl'; children: React.ReactNode }) {
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
@@ -170,9 +157,8 @@ export function GdsProvider({
   onBeforeThemeApply,
   onAfterThemeApply,
 }: GdsProviderProps) {
-  // Issue 561. One identity over every themed input, hashed from the RESOLVED tokens so two
-  // declarations that render identically do not remount, and a change to any axis — shape,
-  // density, type, elevation, motion, reaction, accent — does.
+  // One identity over every themed input, hashed from the resolved tokens: two declarations
+  // that render identically do not remount; a change to any axis does.
   const themeIdentity = useMemo(
     () => computeGdsThemeIdentity({
       preset: (theme as { other?: { gdsPresetId?: string } }).other?.gdsPresetId ?? 'default',
@@ -188,16 +174,12 @@ export function GdsProvider({
     previousIdentity.current = themeIdentity;
     if (!gdsThemeIdentityChanged(previous, themeIdentity)) return;
 
-    // The consumer gets a chance to persist anything a re-application would drop, BEFORE it
-    // happens. Firing this after the fact would be useless for exactly the state it exists
-    // to protect.
+    // Runs before re-application so the consumer can persist state that would not survive it.
     onBeforeThemeApply?.(themeIdentity, previous as string);
 
     if (mode === 'reload' && typeof window !== 'undefined') {
-      // The blunt instrument, and deliberately available: for a surface that cannot be made
-      // to re-read a theme — a third-party canvas, an embedded engine — a reload is the only
-      // honest way to guarantee full application. Better an explicit reload than a page that
-      // silently renders half of the previous theme.
+      // Full reload: the only way to guarantee application on a surface that cannot re-read
+      // a theme (third-party canvas, embedded engine).
       window.location.reload();
       return;
     }
@@ -241,19 +223,15 @@ export function GdsProvider({
     <DirectionProvider initialDirection={dir}>
       <GdsI18nContext.Provider value={{ locale, messages }}>
         {/*
-          Issue 561. The remount deliberately does NOT wrap the whole provider subtree.
-          Measured: keying everything under GdsProvider destroys the state of any theme
-          control living inside it — which is the normal arrangement, and broke three of the
-          playground's own runtime tests. A default that resets the picker you just used is a
-          defect, not a guarantee.
-
-          Total re-application is opt-in per subtree via `GdsThemeBoundary`, and `reload`
-          remains available when even that is not enough.
+          The remount does not wrap the whole provider subtree — keying everything under
+          GdsProvider would reset the state of any theme control inside it. Full
+          re-application is opt-in per subtree via `GdsThemeBoundary`; `reload` remains
+          available when that is not enough.
         */}
         <GdsIconStyleContext.Provider value={{ badgeIconStyle: defaultBadgeIconStyle }}>
           <MantineProvider
-            /* Issue 597: the light variant is governed here, not at the theme object, because a
-               caller-supplied theme would otherwise drop the guarantee silently. */
+            /* Light variant governed here, not on the theme object — a caller-supplied
+               theme would otherwise drop it silently. */
             theme={withGdsGovernedVariants(theme)}
             withCssVariables
             withGlobalClasses

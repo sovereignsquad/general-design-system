@@ -52,14 +52,12 @@ export const gdsMotionDurations: Record<GdsMotionDurationToken, number> = {
   /**
    * Looping ambient motion — a typing indicator, a pulse, a breathing dot.
    *
-   * Issue 592. Deliberately added rather than mapped: every step above is a TRANSITION
-   * duration, the time a state change takes, and the longest of them is 360ms. A loop that
-   * repeats every 360ms reads as frantic rather than as "working". Mapping the chat
-   * indicator's 1s onto the nearest existing step would have been a mechanical answer to a
-   * question about a different kind of motion.
+   * A separate value, not mapped onto an existing step: every step above is a transition
+   * duration (state-change time), the longest being 360ms — a loop repeating that fast reads
+   * as frantic rather than "working".
    *
-   * It lives on the same scale so it inherits the machinery: the generated CSS variable, the
-   * DTCG export, and — the part that matters — the reduced-motion override that zeroes it.
+   * Lives on the same scale so it inherits the generated CSS variable, the DTCG export, and
+   * the reduced-motion override that zeroes it.
    */
   ambient: 1000,
 };
@@ -185,11 +183,8 @@ export function getGdsMotionPreset(id: GdsMotionPresetId, policy: GdsReducedMoti
 
 /** Builds the `--gds-motion-duration-*` / `--gds-motion-ease-*` CSS variable map; under `'no-motion'` durations collapse to 0 and easings to linear. */
 export function createGdsMotionCssVariables(policy: GdsReducedMotionPolicy = 'system') {
-  // Issue 592. This used to hand-list every token, which made `gdsMotionDurations` the
-  // "source of truth" in the comment and a DUPLICATE in fact: adding `ambient` to the record
-  // emitted nothing, and nothing failed — the new step simply did not exist in CSS. Deriving
-  // the variables from the records means a step cannot be added to one and forgotten in the
-  // other, which is the same single-source rule the token work already applies everywhere else.
+  // Derived from the records rather than hand-listed, so a step cannot be added to one and
+  // forgotten in the other.
   const noMotion = policy === 'no-motion';
   const vars: Record<string, string> = {};
   for (const [name, ms] of Object.entries(gdsMotionDurations)) {

@@ -1,12 +1,11 @@
-// Issue 583 — the declarative factor model for render-coverage (DEEP_AUDIT_PLAN §3/§3.1).
+// Declarative factor model for render-coverage.
 //
-// Every factor's LEVELS are derived from the system at load — presets from the theme package,
-// routes from the app's declarations, viewports from the theme's own breakpoints, locales from
-// the shipped phrase packs. A hand-listed level set is a level set that silently drifts.
+// Every factor's LEVELS are derived from the system at load — presets from the theme
+// package, routes from the app's declarations, viewports from the theme's own
+// breakpoints, locales from the shipped phrase packs.
 //
-// WEIGHTS are §3.1.1's measured defect incidences over the repository's 34 bug-labelled
-// issues — not a generic prior. w(level) = max(0.5, incidence / mean_incidence); the 0.5 floor
-// is load-bearing: a zero weight is how a blind spot becomes permanent.
+// WEIGHTS are measured defect incidences over 34 bug-labelled issues.
+// w(level) = max(0.5, incidence / mean_incidence); 0.5 is a floor so no level reaches zero.
 
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -19,15 +18,14 @@ const presetIds = theme.getGdsThemePresets().map((preset) => preset.id);
 const localeIds = ['en', ...readdirSync(join(ROOT, 'apps/playground/src/generated-site-phrases'))
   .filter((name) => /^[a-z]{2}\.ts$/.test(name)).map((name) => name.replace('.ts', '')).sort()];
 
-// The theme's own breakpoints (em → px at 16px root), per the issue's constraint: viewports are
-// what the theme DEFINES, never an invented set. xs / md / xl span phone, mid, and wide.
+// The theme's own breakpoints (em -> px at 16px root). xs / md / xl span phone, mid, and wide.
 const bp = theme.gdsTheme.breakpoints;
 const em = (value) => Math.round(parseFloat(value) * 16);
 const viewports = [em(bp.xs), em(bp.md), em(bp.xl)];
 
 /**
- * §3.1.1 incidences (defects per dimension over 34 bug-labelled issues). Mean of the measured
- * rows ≈ 17.9; weights below are incidence/mean floored at 0.5.
+ * Defect incidences per dimension over 34 bug-labelled issues. Mean ≈ 17.9;
+ * weights below are incidence/mean floored at 0.5.
  */
 const W = (incidence) => Math.max(0.5, incidence / 17.9);
 
@@ -42,22 +40,21 @@ export const FACTORS = [
   { name: 'state', levels: ['base', 'focus-visible'], weight: (level) => (level === 'focus-visible' ? W(9) : 0.5) },
 ];
 
-/** The accessibility-critical group carries 3-way strength (§3.1.4 step 2). */
+/** The accessibility-critical group carries 3-way strength. */
 export const A11Y_CRITICAL_GROUP = ['scheme', 'viewport', 'forcedColors', 'reducedMotion'];
 
 /**
- * §3.1.3 transition costs, measured on the existing harness. Under the execution mechanism
- * (theme/scheme/locale apply at load), any change to route, locale, theme or scheme is a page
- * load; viewport and media emulation are pre-navigation CDP calls; state is an input dispatch.
+ * Transition costs, measured on the existing harness. A change to route, locale, theme
+ * or scheme is a page load; viewport and media emulation are pre-navigation CDP calls;
+ * state is an input dispatch.
  */
 export const TRANSITION_COSTS = { load: 50, viewport: 10, state: 1, media: 2 };
 export const PAGE_FACTORS = ['route', 'locale', 'theme', 'scheme'];
 
 /**
- * What the EXISTING runtime gates already cover, in factor terms (§3.1.4 step 1 — WGA
- * augments, never rebuilds). Transcribed from each gate's own case list; unlisted factors run
- * at those gates' fixed values (desktop viewport, en, base state, no forced media) and are
- * recorded as such rather than credited.
+ * What the existing runtime gates already cover, in factor terms. Transcribed from each
+ * gate's own case list; unlisted factors run at those gates' fixed values (desktop
+ * viewport, en, base state, no forced media).
  */
 export const EXISTING_SUITE = [
   // scripts/verify-forced-colors-runtime.mjs — its routes × presets under forced-colors:active.

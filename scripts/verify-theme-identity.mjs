@@ -1,10 +1,5 @@
-// Issue 561 — every shipped theme has a distinct, stable identity.
-//
-// The identity is what a themed subtree is keyed on, so a collision is not a cosmetic problem:
-// two themes sharing one identity means switching between them does NOT remount, and every
-// value read outside the CSS cascade keeps rendering the previous theme. That failure looks
-// exactly like "the theme half-applied", which is the report this whole issue came from.
-//
+// Checks every shipped theme has a distinct, stable identity. The identity keys the themed
+// subtree remount; a collision means switching between two themes does not remount.
 // Output: audit/theme-identity.json
 
 import { writeFileSync, mkdirSync } from 'node:fs';
@@ -21,8 +16,7 @@ if (!computeGdsThemeIdentity) {
 const presets = getGdsVibeThemes();
 if (!presets.length) { console.error('FAIL no presets found; the gate cannot pass vacuously.'); process.exit(1); }
 
-// CANARY. Zero collisions is also what a gate comparing nothing reports. Two inputs that MUST
-// collide are checked first, so a clean sweep below means something.
+// Canary: check two inputs that must (not) collide before trusting a clean sweep.
 const same = computeGdsThemeIdentity({ preset: 'default', colorScheme: 'light' });
 const sameAgain = computeGdsThemeIdentity({ preset: 'default', colorScheme: 'light' });
 if (same !== sameAgain) {

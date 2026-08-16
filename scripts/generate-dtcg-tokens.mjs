@@ -2,52 +2,35 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createGdsTokenGraph } from '../packages/gds-theme/dist/index.mjs';
 
-// W3C DTCG token export (issue #452).
+// W3C DTCG token export.
 //
-// The code tokens stay authoritative: this transforms the graph produced by
-// `createGdsTokenGraph()` (the same source the theme-token contract and the
-// `gds-theme-tokens` CLI use) into a W3C Design Tokens Community Group (DTCG)
-// document that Figma variables, Style Dictionary v4, and other platform
-// tooling can consume. It is generated, never hand-edited — `--check` fails the
-// release if the committed artifact drifts from the source tokens.
+// Transforms the graph from `createGdsTokenGraph()` (same source as the theme-token contract
+// and the `gds-theme-tokens` CLI) into a DTCG document. Generated; `--check` fails the release
+// if the committed artifact drifts.
 //
-// Output is fully deterministic (no timestamps, stable key ordering) so the CI
-// regeneration check is stable.
+// Output is fully deterministic: no timestamps, stable key ordering.
 
 const root = process.cwd();
 const outputPath = resolve(root, 'tokens/gds.tokens.json');
 const GDS_EXT = 'com.sovereignsquad.gds';
 
-// Color-category tokens map to the strict DTCG `color` type. Effect-category
-// tokens (CSS gradients/hero backgrounds) are composite CSS values with no
-// strict DTCG color representation, so they carry a GDS-namespaced custom type
-// and the raw CSS string — conformant tooling that only understands `color`
-// skips them; nothing is lost.
+// Effect-category tokens (CSS gradients/hero backgrounds) have no strict DTCG color
+// representation, so they carry a GDS-namespaced custom type and the raw CSS string.
 const CSS_GRADIENT_TYPE = `${GDS_EXT}.cssGradient`;
-// `env(safe-area-inset-*)` is an environment function, not a static dimension. DTCG has no
-// type for it, and publishing it as `dimension` would be worse than omitting it — a
-// consuming tool would act on a value it cannot resolve. Same escape hatch as gradients.
+// `env(safe-area-inset-*)` is an environment function, not a static dimension; DTCG has no type for it.
 const CSS_ENV_TYPE = `${GDS_EXT}.cssEnv`;
-// A value built from `color-mix()` or `var()` references resolves only in a browser, against
-// whatever the referenced tokens hold at that moment. It is a real published token, but it is
-// not a static DTCG color and calling it one would hand a consuming tool a string it cannot
-// parse while telling it the string is a colour.
+// `color-mix()`/`var()` values resolve only in a browser, so they are not a static DTCG color.
 const CSS_COMPUTED_TYPE = `${GDS_EXT}.cssComputed`;
-// A mode keyword (`comfortable`) is not a colour, a length or a duration. DTCG has no type
-// for "one of a closed set of names", and calling it a string would tell a design tool it can
-// be edited freely when it cannot.
+// A mode keyword (`comfortable`) is one of a closed set of names, not a colour/length/duration.
 const CSS_KEYWORD_TYPE = `${GDS_EXT}.cssKeyword`;
-// DTCG's own `shadow` type is a structured object (offsetX/offsetY/blur/spread/color). GDS
-// publishes the raw CSS string, which supports multi-layer shadows the structured form
-// cannot express, so it carries a namespaced type rather than claiming conformance.
+// GDS publishes the raw box-shadow CSS string rather than DTCG's structured shadow object,
+// since the string supports multi-layer shadows the structured form cannot express.
 const CSS_SHADOW_TYPE = `${GDS_EXT}.cssShadow`;
 
 /**
  * DTCG type for a value, or a thrown error.
  *
- * Issue 585 is explicit that a duration published as `$type: "color"` is worse than an
- * omission, because a consuming tool acts on it. So an unclassifiable value fails
- * generation; it is never given a plausible type.
+ * An unclassifiable value fails generation rather than being given a plausible type.
  */
 function inferDtcgType(id, value) {
   const v = String(value).trim();
@@ -58,18 +41,12 @@ function inferDtcgType(id, value) {
   if (/^(cubic-bezier\([^)]*\)|linear|ease|ease-in|ease-out|ease-in-out|steps\([^)]*\))$/.test(v)) return 'cubicBezier';
   if (/gradient\(/.test(v)) return CSS_GRADIENT_TYPE;
   if (/^env\(/.test(v)) return CSS_ENV_TYPE;
-  // Any calc() is computed, whether or not it references a var(). DTCG's `dimension` expects
-  // a resolvable value, and a derived modular-scale step like calc(1rem * 1.4238) is no more
-  // a static dimension than calc(0.5rem * var(--mantine-scale)) is.
+  // Any calc() is computed, whether or not it references a var() — a derived modular-scale
+  // step is no more a static dimension than one referencing --mantine-scale is.
   if (/^calc\(|var\(|color-mix\(/.test(v)) return CSS_COMPUTED_TYPE;
   if (/^(transparent|none|currentColor)$/.test(v)) return 'color';
   if (/^(compact|comfortable|spacious)$/.test(v)) return CSS_KEYWORD_TYPE;
-  // A box-shadow list. DTCG's `shadow` type is a structured object; GDS publishes the raw
-  // CSS string, so it carries the namespaced type rather than claiming conformance it does
-  // not have — same decision as gradients.
-  // A length plus a colour, with the gradient case already returned above: that is a shadow
-  // list. A first attempt anchored on the leading offset and missed every value starting with
-  // a bare `0` — which is most of them.
+  // A length plus a colour, with the gradient case already returned above: a shadow list.
   if (/\d(px|rem|em)/.test(v) && /(rgba?\(|#[0-9a-fA-F]{3,8})/.test(v)) return CSS_SHADOW_TYPE;
   // A unitless number: font weights (400) and line heights (1.55).
   if (/^\d+(\.\d+)?$/.test(v)) return 'number';
@@ -83,16 +60,11 @@ function inferDtcgType(id, value) {
 }
 
 /**
- * Theme-invariant `--gds-*` tokens declared once in `:root`.
+ * Theme-invariant `--gds-*` tokens declared once in `:root` (motion durations/easings,
+ * overlay scrims, safe-area insets, tour geometry).
  *
- * These render identically under every preset, so they have no place in a per-theme group,
- * but they are published tokens a design tool needs (motion durations and easings, overlay
- * scrims, safe-area insets, tour geometry).
- *
- * Only PLAIN top-level `:root` declarations are taken. The same tokens are re-declared
- * under `@media (prefers-reduced-motion)` as `0ms`/`linear` and under forced-colors as
- * `transparent`; publishing one of those overrides as the token's value would be a
- * straightforward lie about what the system renders by default.
+ * Only plain top-level `:root` declarations are taken — not the `@media
+ * (prefers-reduced-motion)` or forced-colors re-declarations of the same tokens.
  */
 function readRootGlobals(cssPath) {
   const css = readFileSync(cssPath, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
@@ -127,9 +99,8 @@ function buildDtcgDocument() {
     const isColor = node.category === 'color';
 
     if (node.lane === 'semantic') {
-      // Semantic roles live in their own group per theme. They are NOT merged in beside the
-      // atmosphere roles because `accent` exists in both with different values — the single
-      // overlap finding F12 measured — and merging would silently drop one of them.
+      // Semantic roles are kept in their own group per theme: `accent` exists in both semantic
+      // and atmosphere with different values, and merging would drop one.
       const semantic = group.semantic ?? {
         $description:
           'Semantic role tokens: the values that actually paint GDS components. '
@@ -137,8 +108,7 @@ function buildDtcgDocument() {
       };
       semantic[node.role] = {
         $type: inferDtcgType(node.id, node.scheme.light),
-        // Light stays in $value so a tool that ignores $extensions still receives something
-        // correct rather than nothing.
+        // $value holds the light scheme so a tool that ignores $extensions still gets a valid value.
         $value: node.scheme.light,
         $description: `${node.themeId} semantic role "${node.role}" — the value GDS components render for this role.`,
         $extensions: {
@@ -226,9 +196,7 @@ function serialize(document) {
   return `${JSON.stringify(document, null, 2)}\n`;
 }
 
-// Issue 585 measures its own result. `publishedGraphOverlap` ratchets on this, and a budget
-// whose number is transcribed by hand is a budget that can be wrong in the flattering
-// direction — finding F21's lesson.
+// `publishedGraphOverlap` ratchets on this value; it is computed here, not hand-transcribed.
 function writeOverlapMeasurement(document, graph) {
   const runtimeSemanticRoles = new Set(graph.nodes.filter((n) => n.lane === 'semantic').map((n) => n.role));
   const publishedRoles = new Set();

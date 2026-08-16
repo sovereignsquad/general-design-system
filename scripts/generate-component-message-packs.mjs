@@ -1,17 +1,8 @@
-// Issue 617 — keep the 12 gds-core locale packs in step with the `t()` calls in the components.
+// Regenerates the gds-core locale packs from `t()` calls in packages/gds-core/src.
 //
-// The packs are DERIVED FROM THE CALL SITES, not maintained by hand (Rule 14). Every
-// `t('gds.x.y', 'Default')` in `packages/gds-core/src` is the single source of truth for both the
-// key and its English text; this script reads them and writes what is missing into each pack.
-// A hand-maintained pack drifts the moment a component changes its wording, and nothing notices —
-// the component keeps rendering its inline fallback while the pack serves the old string to every
-// other locale.
+// Existing entries are never overwritten.
 //
-// Existing entries are never overwritten. Once a locale has a translation, it is that locale's,
-// and re-running must not silently replace a corrected string with a fresh machine guess.
-//
-// The non-English text is MACHINE TRANSLATION. Human review is a separate later pass and this
-// script does not claim to have done it.
+// Non-English text is machine translation, not reviewed.
 //
 // Run: node scripts/generate-component-message-packs.mjs
 
@@ -46,8 +37,7 @@ export function collectMessageDefaults() {
         if (args[0].type !== 'StringLiteral' || args[1].type !== 'StringLiteral') return;
 
         const [id, text] = [args[0].value, args[1].value];
-        // One id, two different English texts means one of the call sites renders copy the packs
-        // will never serve. That is a source defect, not something to resolve by picking a winner.
+        // Two different English texts for one id is a conflict, not resolved by picking one.
         if (found.has(id) && found.get(id) !== text) {
           conflicts.push(`${id}: ${JSON.stringify(found.get(id))} vs ${JSON.stringify(text)} (${name})`);
         }
@@ -69,12 +59,8 @@ function readPack(locale) {
 }
 
 /**
- * APPEND, never re-serialize.
- *
- * Rewriting the whole object from a parsed map is the obvious implementation and it renormalized
- * every existing entry's quoting — a 2850-line diff for 70 new strings, and it broke a gate
- * mutant that anchors on the literal text of a pack line. Existing lines are left byte-for-byte
- * as they are; new ones go in before the closing brace.
+ * Appends new entries; never re-serializes the whole object. Existing lines are left
+ * byte-for-byte; new ones go in before the closing brace.
  */
 function appendEntries(source, additions) {
   const lines = additions.map(([id, text]) => `  '${id}': ${JSON.stringify(text)},`);
@@ -93,10 +79,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
   console.log(`${defaults.size} message ids in source.`);
 
-  // Per LOCALE, against every source id — never against en's pack. A first version computed
-  // one "missing" list from en, so a run that appended en but failed one locale's translate
-  // call left that locale short FOREVER: the next run saw en complete and appended nothing.
-  // zh was in exactly that state when the parity gate caught it.
+  // Missing entries computed per locale against every source id, not from en's pack, so a
+  // failed translate call for one locale isn't masked by en being complete.
   for (const locale of ['en', ...TRANSLATION_LOCALES]) {
     const pack = readPack(locale);
     const additions = [];

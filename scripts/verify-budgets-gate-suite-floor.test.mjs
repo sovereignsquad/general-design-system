@@ -1,12 +1,9 @@
-// Issue 602. The gate suite that verifies every OTHER gate had no floor on its own coverage.
-//
-// `gateSuiteUnexplainedSurvivors` reads like that floor and is not one: deleting a mutant
-// lowers coverage WITHOUT raising survivors, because a mutant that no longer exists survives
-// nothing. So the suite could shrink toward zero mutants with every budget still green.
+// `gateSuiteUnexplainedSurvivors` does not floor gate-suite coverage: deleting a mutant
+// lowers coverage without raising survivors, since a mutant that no longer exists survives
+// nothing. `gateMutationSuiteScore` is the budget that actually catches that.
 //
 // These tests run `verify-budgets` for real against a temporarily-lowered artifact, rather
-// than asserting on a re-implementation of its arithmetic. A test that recomputes the rule it
-// is checking passes in exactly the cases where the rule itself is wrong.
+// than reimplementing its arithmetic, which would pass even if the rule itself were wrong.
 
 import { describe, expect, it, afterEach } from 'vitest';
 import { execFileSync } from 'node:child_process';
@@ -16,11 +13,9 @@ import { join } from 'node:path';
 const ROOT = process.cwd();
 const ARTIFACT = join(ROOT, 'audit/gate-mutation-score.json');
 const BACKUP = join(ROOT, 'audit/.gate-mutation-score.test-backup.json');
-// verify-budgets.mjs writes this REPORT as a side effect of every run, including the runs
-// below that feed it a deliberately-mutated gate-mutation-score.json. Restoring only the
-// input artifact left this output artifact holding the last mutated run's numbers (found:
-// a preflight run reported gateSuiteMutationScore 50% here after this suite passed clean,
-// because nothing had put the real 100% report back).
+// verify-budgets.mjs writes this report as a side effect of every run, including the runs
+// below that feed it a deliberately-mutated gate-mutation-score.json, so it must be
+// restored too or a later run reports stale mutated numbers.
 const RESULTS = join(ROOT, 'audit/budget-results.json');
 const RESULTS_BACKUP = join(ROOT, 'audit/.budget-results.test-backup.json');
 
@@ -33,9 +28,8 @@ function runBudgets() {
   }
 }
 
-// Restoring in afterEach as well as inline: a failed assertion throws past the inline restore,
-// and leaving a mutated artifact behind would fail preflight's clean-after check with a
-// mystery diff rather than a test failure.
+// Also restored in afterEach: a failed assertion throws past the inline restore, and a
+// leftover mutated artifact would fail preflight's clean-after check instead.
 afterEach(() => {
   if (existsSync(BACKUP)) {
     copyFileSync(BACKUP, ARTIFACT);
@@ -64,7 +58,7 @@ describe('gate-suite mutation floor (issue 602)', () => {
     const { exitCode, output } = runBudgets();
     expect(exitCode).toBe(1);
     expect(output).toContain('gateSuiteMutationScore');
-    // The point of the issue: the budget that was already there does NOT see this.
+    // The pre-existing survivors budget does not see this regression.
     expect(output).toMatch(/gateSuiteUnexplainedSurvivors\s+0\s+<=\s+0\s+0\s+OK/);
   });
 

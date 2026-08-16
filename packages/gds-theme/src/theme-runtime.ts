@@ -210,22 +210,18 @@ export interface GdsAmbientTheme {
 }
 
 /**
- * Issue 621 — the ambient theme, for components that must BAKE resolved values.
+ * The ambient theme, for components that must bake resolved values.
  *
- * Most components never need this: they read `var(--gds-*)` and the cascade re-resolves them on
- * a theme switch for free. But a component whose output leaves the cascade — engine-injected
- * markup (Leaflet markers), SVG data URIs (generated imagery) — has to resolve concrete values,
- * and to resolve them it must know WHICH theme is active. Before this hook, those components
- * took `preset`/`colorScheme` props defaulting to `'default'`/`'light'`, and every consumer that
- * did not thread the active theme through — including the reference site itself — rendered them
- * off-theme, permanently. The owner saw exactly that on the live map.
+ * Most components read `var(--gds-*)` and the cascade re-resolves them on a theme switch for
+ * free. A component whose output leaves the cascade — engine-injected markup (Leaflet
+ * markers), SVG data URIs — must resolve concrete values, which requires knowing which theme
+ * is active.
  *
- * The source of truth is the pair of attributes the runtime already writes to `<html>`
- * (`data-gds-theme-preset`, `data-mantine-color-scheme`) — not a new context, because the
- * attributes are set by whichever provider owns theming and are equally readable under any of
- * them. A MutationObserver keeps the value live, so a baked-value component keyed on it
- * re-renders (and re-bakes) on a theme switch. Before hydration this returns default/light,
- * which is exactly what the pre-hydration paint shows.
+ * Source of truth is the pair of attributes the runtime writes to `<html>`
+ * (`data-gds-theme-preset`, `data-mantine-color-scheme`), readable under any provider that
+ * owns theming. A MutationObserver keeps the value live, so a baked-value component keyed on
+ * it re-renders on a theme switch. Before hydration this returns default/light, matching the
+ * pre-hydration paint.
  */
 function readAmbientTheme(): GdsAmbientTheme {
   if (typeof document === 'undefined') return { preset: 'default', colorScheme: 'light' };

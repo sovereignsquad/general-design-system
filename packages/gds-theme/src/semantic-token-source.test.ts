@@ -3,15 +3,9 @@ import baseline from './__snapshots__/token-baseline.json';
 import { createBrandTheme } from './brand-tokens';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
 
-/**
- * Issue 554. These guard the property the consolidation bought: a semantic role has one
- * definition, so the two consumption paths cannot disagree.
- *
- * The previous guard in `vibe-themes.test.ts` only asserted that the preset *id sets*
- * matched across files. It could not have caught a value diverging between the two
- * tables, which is the defect that actually shipped.
- */
-describe('semantic token single source (issue 554)', () => {
+// Guards that a semantic role has one definition, so the brand-theme and vibe-theme
+// consumption paths cannot disagree in value, not just in which preset ids they cover.
+describe('semantic token single source', () => {
   const LANES = ['class-usa', 'gold-athlete'] as const;
 
   it.each(LANES)('%s resolves every shared role identically through both paths', (lane) => {
@@ -45,9 +39,8 @@ describe('semantic token single source (issue 554)', () => {
   });
 
   it('reproduces the committed token baseline for every preset and scheme', () => {
-    // A frozen fixture of all 25 presets x 2 schemes. Any token value change anywhere in
-    // the theme package surfaces here as an explicit diff that has to be re-committed on
-    // purpose, rather than riding along unnoticed inside a refactor.
+    // Frozen fixture of all 25 presets x 2 schemes; any token value change must be
+    // re-committed to the baseline explicitly.
     const snapshot: Record<string, Record<string, string>> = {};
     for (const { id } of getGdsVibeThemes()) {
       for (const scheme of ['light', 'dark'] as const) {

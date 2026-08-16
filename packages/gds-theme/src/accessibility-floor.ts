@@ -1,18 +1,9 @@
-// Issue 559 — the accessibility floor: minimums no theme may cross.
+// The accessibility floor: minimums no theme may cross. The axes let a theme control shape,
+// density, type, elevation, motion and reaction; this is the contract for which values are
+// not available. No warning tier — a floor breach fails the build.
 //
-// The axes (issues 555-558) let a theme control shape, density, type, elevation, motion and
-// reaction. That freedom is the point, and it is also the risk: a theme can now make controls
-// smaller, text tighter, motion longer and focus rings thinner, and every one of those is a
-// plausible-looking design decision that lands as an accessibility regression.
-//
-// This is the contract that says which of those moves are not available. There is deliberately
-// NO warning tier — a floor breach fails the build. A warning would make the floor advisory,
-// and an advisory floor is not a floor.
-//
-// It does NOT reimplement contrast. `createGdsThemeAccessibilityReport()` already scores
-// colour pairs across every preset and scheme (extended for the semantic roles in issue 585);
-// the floor calls it and adopts its findings. A second contrast implementation could disagree
-// with the first, and two accessibility verdicts on one pair is worse than one.
+// Does not reimplement contrast. `createGdsThemeAccessibilityReport()` already scores colour
+// pairs across every preset and scheme; the floor calls it and adopts its findings.
 
 import { createGdsThemeAccessibilityReport } from './accessibility-report';
 import { contrastRatio } from './color-math';
@@ -73,10 +64,8 @@ const violation = (
 /**
  * The floor.
  *
- * Every rule is checkable from resolved tokens alone, which is what lets the gate run over all
- * 25 presets in both schemes without a browser. Rules needing real geometry belong to the
- * runtime harness, not here — a rule that cannot be evaluated is worse than a missing rule,
- * because it looks like coverage.
+ * Every rule is checkable from resolved tokens alone, so the gate runs over all 25 presets in
+ * both schemes without a browser. Rules needing real geometry belong to the runtime harness.
  */
 export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
   {
@@ -116,7 +105,7 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     evaluate(ctx) {
       const out: GdsFloorViolation[] = [];
       for (const size of GDS_CONTROL_SIZES) {
-        if (GDS_CONTROL_HEIGHT_EXCEPTIONS[size]) continue;   // recorded exception, argued in the axis
+        if (GDS_CONTROL_HEIGHT_EXCEPTIONS[size]) continue;   // recorded exception
         const height = px(ctx.tokens[`--gds-control-height-${size}`]);
         if (height === null || height >= GDS_MIN_TARGET_PX) continue;
         out.push(violation(ctx, this, `${size} = ${height}px`, `>= ${GDS_MIN_TARGET_PX}px`,
@@ -231,9 +220,8 @@ export function auditGdsAccessibilityFloor(): {
     }
   }
 
-  // Contrast is NOT recomputed here. The report already scores every colour pair across every
-  // preset and scheme; a second implementation could disagree with the first, and two
-  // accessibility verdicts on one pair is worse than one.
+  // Contrast is not recomputed here; the report already scores every colour pair across
+  // every preset and scheme.
   for (const finding of createGdsThemeAccessibilityReport().findings) {
     if (finding.severity !== 'blocking') continue;
     violations.push({

@@ -1,11 +1,5 @@
-// The public-component census — ONE definition of "a GDS component", shared.
-//
-// Issue 605. `verify-component-catalog-parity` owned this logic privately, and the reference
-// site stated the resulting number as a hardcoded "250+". Copying the logic to derive the
-// number for the site would have created the same defect the token work keeps finding: one
-// fact, two implementations, free to drift apart. The gate and the site now read the same
-// function, so the number on the page is the number the gate enforces — by construction, not
-// by anyone remembering to update a sentence.
+// The public-component census — one definition of "a GDS component", shared between
+// verify-component-catalog-parity and the reference site's displayed count.
 
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';

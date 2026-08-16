@@ -8,31 +8,14 @@ import type { GdsGeneratedPaletteColors, GdsGeneratedPaletteSource } from './gen
 import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
 
 /**
- * Issue 565 — the identity shape of the generated-imagery system.
- *
- * "All imagery through the generated system" only holds if the system can produce every shape a
- * product needs, and identity imagery is the single most common place a product reaches for an
- * uploaded photo or a third-party avatar service instead. This is the governed alternative: a
- * deterministic, theme-aware identity mark from a name — same name, same mark, every render, no
- * network, no photo pipeline, no third-party service seeing your users.
- *
- * Composition: the house gradient (same palette contract as the thumbnail — `paletteSource:
- * 'theme'` follows the active theme via live var() refs), the person's INITIALS as the mark,
- * and a seeded rotation of the gradient so two people with the same initials still read as two
- * people. Initials, not a face and not a generic silhouette: a letterform is legible at 24px,
- * carries no wrong-gender/wrong-skin-tone guesses, and is what products converge on anyway.
- *
- * Accessibility: `role="img"` named by the person's name. The initials are aria-hidden — they
- * are a rendering of the name, not information beyond it.
+ * Deterministic identity mark: gradient (theme palette) + initials, seeded rotation so
+ * same-initial people still differ. role="img" named by the person's name; initials are
+ * aria-hidden.
  */
 
 /** Props for {@link GdsGeneratedAvatar}. */
 export interface GdsGeneratedAvatarProps {
-  /**
-   * The person's display name. REQUIRED and consumer-supplied — it names the image for a screen
-   * reader and derives the initials. The no-shipped-English rule's sibling: GDS must never
-   * invent an identity label.
-   */
+  /** Display name. Required — names the image for screen readers and derives the initials. */
   name: string;
   /**
    * Stable identity seeding the gradient variation. Defaults to `name`; supply it explicitly
@@ -85,8 +68,7 @@ export function GdsGeneratedAvatar({
     [paletteSource, category, shade, colors],
   );
   const identity = seed ?? name;
-  // The seeded variation lives in the gradient ANGLE: hue belongs to the theme (identity must
-  // not defeat theming), so what distinguishes two same-initial people is geometry.
+  // Seed varies the gradient angle only; hue stays theme-controlled.
   const angle = useMemo(() => Math.round(gdsSeededRandom(identity)() * 360), [identity]);
   const initials = gdsAvatarInitials(name);
   const rad = (angle * Math.PI) / 180;

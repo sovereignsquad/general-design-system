@@ -198,7 +198,6 @@ describe('GdsProvider', () => {
 
     const classUsaVibe = resolveGdsVibeTheme('class-usa');
     expect(classUsaVibe.label).toBe('Class USA');
-    // v2 re-base (issue 536): navy anchor moved #0b223e -> #0f2c4a.
     expect(classUsaVibe.primary).toBe('#0f2c4a');
     expect(resolveGdsThemePreset('class-usa').primaryColor).toBe('classUsaNavy');
 
@@ -223,7 +222,6 @@ describe('GdsProvider', () => {
     );
 
     expect(screen.getByText('Class USA shell')).toBeInTheDocument();
-    // v2 re-base (issue 536): navy anchor #0b223e -> #0f2c4a; action accent #d63900 -> #c24a0a.
     expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('#0f2c4a');
     expect(document.documentElement.style.getPropertyValue('--gds-brand-accent-action')).toBe('#c24a0a');
 
@@ -251,11 +249,8 @@ describe('GdsProvider', () => {
   it('resolves brand semantic-role tokens (text-body, border-card) to their dark-mode value when forceColorScheme is dark (issue 533)', () => {
     const classUsaTheme = createBrandTheme('class-usa').mantineTheme;
 
-    // Rendered without renderWithGds's own outer GdsProvider: this test
-    // targets exactly one theme/scheme pair, and a real consumer app only
-    // ever has one top-level GdsProvider — nesting a second, differently
-    // configured one here would test an unsupported configuration, not
-    // the real bug.
+    // Uses render(), not renderWithGds's outer GdsProvider: a nested second GdsProvider
+    // with different config is an unsupported configuration, not the scenario under test.
     const { container } = render(
       <GdsProvider theme={classUsaTheme} forceColorScheme="dark">
         <div>Class USA dark shell</div>
@@ -264,14 +259,11 @@ describe('GdsProvider', () => {
 
     expect(screen.getByText('Class USA dark shell')).toBeInTheDocument();
 
-    // Before the fix, the wrapper's inline style set BOTH the light and
-    // `-dark` variant as separate, unrelated custom properties — nothing
-    // ever picked the dark one, so any CSS rule reading the base name
-    // (e.g. `color: var(--gds-text-body)`) always got the light-mode
-    // value baked in as an inline style, even in forced dark mode.
+    // Regression: the wrapper's inline style must resolve the base custom property
+    // (`--gds-text-body`) to the dark value in forced dark mode, not leave it holding the
+    // light-mode value while a separate, unread `-dark` variant sits beside it.
     const scope = container.querySelector('[style*="--gds-text-body"]') as HTMLElement | null;
     expect(scope).not.toBeNull();
-    // v2 re-base (issue 536): text.body dark #faf7f1 -> #f2ede4; border.card dark #2d3b50 -> #2c323b.
     expect(scope!.style.getPropertyValue('--gds-text-body')).toBe('#f2ede4');
     expect(scope!.style.getPropertyValue('--gds-border-card')).toBe('#2c323b');
   });
@@ -289,8 +281,7 @@ describe('GdsProvider', () => {
 
     const scope = container.querySelector('[style*="--gds-text-body"]') as HTMLElement | null;
     expect(scope).not.toBeNull();
-    // v2 re-base (issue 536): text.body light #0b223e -> #1f3a5c (no longer
-    // the same value as brand.primary/navy); border.card light #eee7dd -> #e6e1d8.
+    // text.body is no longer the same value as brand.primary/navy.
     expect(scope!.style.getPropertyValue('--gds-text-body')).toBe('#1f3a5c');
     expect(scope!.style.getPropertyValue('--gds-border-card')).toBe('#e6e1d8');
   });
@@ -325,19 +316,15 @@ describe('GdsProvider', () => {
     expect(validation.ok).toBe(true);
     expect(validation.errorCount).toBe(0);
     expect(graph.themeCount).toBe(getGdsVibeThemes().length);
-    // Issue 585. This asserted `themeCount * 17` — the 17 atmosphere roles — and that
-    // number WAS finding F12: the graph could only ever have described the vibe palette,
-    // and a test pinned to it would have failed the moment anyone published the roles that
-    // actually paint components. Both lanes are asserted separately so neither can silently
-    // vanish behind a single total.
+    // Atmosphere and semantic lanes are asserted separately (not as a single combined
+    // total) so neither can silently vanish behind the other.
     const atmosphere = graph.nodes.filter((node) => node.lane === 'atmosphere');
     const semantic = graph.nodes.filter((node) => node.lane === 'semantic');
     expect(atmosphere).toHaveLength(graph.themeCount * 17);
     expect(semantic.length).toBeGreaterThan(0);
     expect(graph.tokenCount).toBe(atmosphere.length + semantic.length);
 
-    // Every preset must publish the SAME semantic role set; a preset quietly dropping a
-    // role is exactly the drift the published graph exists to make visible.
+    // Every preset must publish the same semantic role set.
     const rolesPerTheme = new Map<string, Set<string>>();
     for (const node of semantic) {
       const set = rolesPerTheme.get(node.themeId) ?? new Set<string>();
@@ -348,7 +335,7 @@ describe('GdsProvider', () => {
     expect(roleSetSizes.size).toBe(1);
     expect(rolesPerTheme.size).toBe(graph.themeCount);
 
-    // Scheme is a first-class dimension, not a name suffix (issue 585 goal 3).
+    // Scheme is a first-class dimension, not a name suffix.
     for (const node of semantic) {
       expect(node.mode).toBe('paired');
       expect(node.scheme?.light).toBeTruthy();
@@ -357,8 +344,7 @@ describe('GdsProvider', () => {
     }
 
     expect(graph.nodes.some((node) => node.id === 'default.canvas-light')).toBe(true);
-    // The role that paints body copy must be IN the published graph — the single fact
-    // whose absence was F12.
+    // The role that paints body copy must be in the published graph.
     expect(graph.nodes.some((node) => node.id === 'default.semantic.text-body')).toBe(true);
     expect(compatibility.compatibleThemeCount).toBe(compatibility.themeCount);
     expect(compatibility.themes.find((theme) => theme.themeId === 'dark-public')?.surfaces).toHaveLength(12);
@@ -419,9 +405,7 @@ describe('GdsProvider', () => {
     expect(document.documentElement.style.getPropertyValue('--gds-vibe-accent')).toBe('#fb7185');
     expect(window.localStorage.getItem('gds-test-theme-runtime')).toContain('coral');
 
-    // Switching to a non-default font lane (#529) loads it via a governed,
-    // non-blocking <link> instead of the site-wide blocking @import that used
-    // to pull in every lane's fonts regardless of which one was selected.
+    // A non-default font lane loads via a non-blocking <link>, not a blocking @import.
     const fontLink = document.getElementById('gds-font-lane-stylesheet');
     expect(fontLink).toBeInstanceOf(HTMLLinkElement);
     expect(fontLink).toHaveAttribute('rel', 'stylesheet');
@@ -431,9 +415,8 @@ describe('GdsProvider', () => {
     await user.click(screen.getByRole('button', { name: 'Reset runtime' }));
 
     expect(screen.getByTestId('runtime-key')).toHaveTextContent('default-light-blue-true-false-inter');
-    // The default 'inter' lane is already loaded statically by the package
-    // stylesheet, so resetting back to it removes the dynamic link rather
-    // than swapping in a second, redundant one.
+    // 'inter' is already loaded statically by the package stylesheet, so resetting to it
+    // removes the dynamic link rather than adding a redundant second one.
     expect(document.getElementById('gds-font-lane-stylesheet')).toBeNull();
   });
 });
