@@ -1895,6 +1895,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Tue": "الثلاثاء",
   "Two locations are missing from this period. The visible aggregate remains usable but must be disclosed.": "موقعان مفقودان من هذه الفترة. يظل المجموع المرئي قابلاً للاستخدام ولكن يجب الكشف عنه.",
   "TWO PILLARS": "ركيزتان",
+  "Typography": "الطباعة",
+  "Typography Tokens": "رموز الطباعة",
   "UI primitives": "البدائيات واجهة المستخدم",
   "Unable to load": "غير قادر على التحميل",
   "Unable to load data": "غير قادر على تحميل البيانات",

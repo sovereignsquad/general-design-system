@@ -4,6 +4,20 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Typography axis reference — the fourth of five missing Foundations pages (#632, #637, Phase 5)
+
+`GdsTypographySystemReference` (`packages/gds-core`) is new: the nine-step modular text-size
+scale, the four-weight ascending scale (validated at construction — a weight order that
+doesn't ascend is rejected before it can render as broken text), and the three font-lane roles
+have shipped as a real, validated axis since issue 555. This corrects an earlier finding in
+this epic's own research that claimed typography had no existing export — it did; the earlier
+pass searched for a dedicated demo page and found none, not for the underlying token
+infrastructure. Each size specimen renders AT its own resolved size, live-verified against the
+actual computed font-size of the "lg" specimen (`18px`, matching the resolver's output
+exactly). New `foundations`-family registry entry `typography`.
+
+One axis remains: a compact colour/theming entry linking out to the full `/themes` Theme Lab.
+
 ### Icons axis reference — the third of five missing Foundations pages (#632, #636, Phase 4)
 
 `GdsIconSystemReference` (`packages/gds-core`) is new: the whole 140-icon dictionary across 10

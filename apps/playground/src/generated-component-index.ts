@@ -1480,6 +1480,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Provider/context (guided-tour runtime) — non-visual controller; renders the spotlight/step-card overlay imperatively via useGdsTour, covered as support-api."
   },
   {
+    "name": "GdsTypographySystemReference",
+    "status": "registered",
+    "home": {
+      "id": "typography",
+      "family": "foundations",
+      "section": "Typography"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsValidationSummary",
     "status": "registered",
     "home": {
