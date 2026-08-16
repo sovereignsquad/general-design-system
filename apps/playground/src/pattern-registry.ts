@@ -996,6 +996,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'GdsShapeElevationSystemReference',
   },
   {
+    id: 'density-spacing',
+    title: 'Density & Spacing Tokens',
+    docSection: 'Core Component Contracts',
+    family: 'foundations',
+    section: 'Density & Spacing',
+    summary: 'Ten spacing steps and five control-height sizes, scaled together by one comfortable/compact/spacious density factor — control heights hold the 44px accessibility floor unless a size carries a recorded exception, even under a tightened density. Surfaced live from resolveGdsDensityTokens().',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsDensitySpacingSystemReference',
+  },
+  {
     id: 'badges',
     title: 'Badges',
     docSection: 'Feedback & Messaging',

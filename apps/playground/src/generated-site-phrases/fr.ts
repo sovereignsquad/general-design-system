@@ -478,6 +478,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Delete this pattern": "Supprimer ce modèle",
   "Delivery maturity at a glance": "Aperçu de la maturité de livraison",
   "Dense contract for tighter lists without local CSS.": "Contrat dense pour des listes plus serrées sans CSS local.",
+  "Density & Spacing": "Densité et espacement",
+  "Density & Spacing Tokens": "Jetons de densité et d'espacement",
   "Dependency governance changed": "La gouvernance des dépendances a changé",
   "Dependency policy": "Politique de dépendance",
   "Describe the missing primitive or behavior.": "Décrivez la primitive ou le comportement manquant.",

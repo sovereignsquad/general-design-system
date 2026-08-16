@@ -478,6 +478,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Delete this pattern": "删除该图案",
   "Delivery maturity at a glance": "交付成熟度一目了然",
   "Dense contract for tighter lists without local CSS.": "没有本地 CSS 的更紧凑列表的密集合同。",
+  "Density & Spacing": "密度和间距",
+  "Density & Spacing Tokens": "密度和间距标记",
   "Dependency governance changed": "依赖治理发生了变化",
   "Dependency policy": "依赖政策",
   "Describe the missing primitive or behavior.": "描述缺失的原语或行为。",

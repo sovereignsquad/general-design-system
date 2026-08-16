@@ -478,6 +478,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Delete this pattern": "Törölje ezt a mintát",
   "Delivery maturity at a glance": "Szállítási érettség egy pillantással",
   "Dense contract for tighter lists without local CSS.": "Sűrű szerződés a szűkebb listákhoz helyi CSS nélkül.",
+  "Density & Spacing": "Sűrűség és térköz",
+  "Density & Spacing Tokens": "Sűrűség és térköz tokenek",
   "Dependency governance changed": "A függőségi irányítás megváltozott",
   "Dependency policy": "Függőségi politika",
   "Describe the missing primitive or behavior.": "Ismertesse a hiányzó primitívet vagy viselkedést!",
