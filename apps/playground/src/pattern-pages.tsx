@@ -1888,11 +1888,11 @@ function BadgeVocabularyDemo() {
         title="Icon-only category marks"
         description="A flat accent disc with no text, for a category already named by adjacent content — a legend, a caption, an aria-labelled group. Decorative by default; pass label when it stands alone."
       >
-        <span data-gds-icon-badge-demo style={{ display: 'inline-flex', gap: 8, alignItems: 'center' }}>
+        <GdsInline gap="sm" align="center">
           <GdsIconBadge accent="teal" icon="Habit" label="Fitness" />
           <GdsIconBadge accent="ocean" shade="deep" icon="Location" label="Nearby" />
           <GdsIconBadge accent="terracotta" icon="Calendar" label="Scheduled" />
-        </span>
+        </GdsInline>
       </BadgeSection>
 
       {/*
@@ -1975,33 +1975,31 @@ function BottomTabNavigationDemo() {
             ariaLabel="Example primary navigation with a custom item"
             renderItem={(item, active) => (
               item.id === 'inbox' ? (
-                <button
+                <GdsStack
+                  component="button"
                   type="button"
                   onClick={() => setSheetOpenFor(item.label)}
-                  style={{
-                    flex: 1, minWidth: 44, minHeight: 44, display: 'flex',
-                    flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                    gap: 2, background: 'none', border: 'none', cursor: 'pointer',
-                    color: active ? 'var(--gds-brand-accent, var(--mantine-color-violet-6))' : 'var(--gds-text-secondary, var(--mantine-color-gray-6))',
-                  }}
+                  gap="none"
+                  align="center"
+                  justify="center"
+                  padding="xs"
                 >
                   {item.icon}
-                  {item.label}
-                </button>
+                  <MetadataText>{active ? `${item.label} (active)` : item.label}</MetadataText>
+                </GdsStack>
               ) : (
-                <a
+                <GdsStack
+                  component="a"
                   href={item.href}
                   onClick={(event) => { event.preventDefault(); setActiveId(item.id); }}
-                  style={{
-                    flex: 1, minWidth: 44, minHeight: 44, display: 'flex',
-                    flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                    gap: 2, textDecoration: 'none',
-                    color: active ? 'var(--gds-brand-accent, var(--mantine-color-violet-6))' : 'var(--gds-text-secondary, var(--mantine-color-gray-6))',
-                  }}
+                  gap="none"
+                  align="center"
+                  justify="center"
+                  padding="xs"
                 >
                   {item.icon}
-                  {item.label}
-                </a>
+                  <MetadataText>{active ? `${item.label} (active)` : item.label}</MetadataText>
+                </GdsStack>
               )
             )}
           />

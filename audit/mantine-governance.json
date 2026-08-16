@@ -278,6 +278,7 @@
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.colors.gray.6 from Mantine's default",
       "files": [
+        "apps/playground/src/pattern-pages.tsx",
         "packages/gds-core/src/BottomTabBar.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/SemanticCharts.tsx"
@@ -574,6 +575,7 @@
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.colors.violet.6 from Mantine's default",
       "files": [
+        "apps/playground/src/pattern-pages.tsx",
         "packages/gds-core/src/BottomTabBar.tsx"
       ]
     },
