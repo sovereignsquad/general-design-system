@@ -16,6 +16,7 @@ export * from './SafeStyles';
 export * from './EmptyState';
 export * from './MetricCard';
 export * from './ProgressCard';
+export * from './GdsMeter';
 export * from './ReferenceLocaleNotice';
 export * from './ReferenceLinkGrid';
 export * from './ReferenceSection';

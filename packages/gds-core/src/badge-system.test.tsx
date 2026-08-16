@@ -375,6 +375,19 @@ describe('GdsRemovableTag (#491)', () => {
     expect(onRemove).toHaveBeenCalledTimes(2);
   });
 
+  it('disabled suppresses onRemove and renders an inert, aria-disabled button', async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+    renderWithGds(
+      <GdsRemovableTag label="Music" removeLabel="Remove filter: Music" onRemove={onRemove} disabled />,
+    );
+    const button = screen.getByRole('button', { name: 'Remove filter: Music' });
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute('aria-disabled', 'true');
+    await user.click(button);
+    expect(onRemove).not.toHaveBeenCalled();
+  });
+
   it('is adopted by DataToolbar for removable active filters (consolidation)', () => {
     renderWithGds(
       <DataToolbar searchLabel="Search" activeFilters={[{ label: 'Music', onRemove: () => {} }, { label: 'Static' }]} />,

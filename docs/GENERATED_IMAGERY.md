@@ -81,6 +81,32 @@ consumer's own custom `createBrandTheme(...)` brand resolved outside a live
 DOM (see `resolveGdsGeneratedPaletteHex`, and #508 for the OG-image use
 case that actually needs it).
 
+### Tinting the palette toward a background
+
+`tintWithBackground` + `mixRatio` mix the resolved palette toward another
+color — e.g. matching a card's surrounding surface rather than the raw
+brand hue:
+
+```tsx
+<GdsGeneratedThumbnail
+  seed={listing.id}
+  categories={categories}
+  tintWithBackground="var(--gds-bg-canvas)"
+  mixRatio={0.6}
+/>
+```
+
+`mixRatio` is the weight of the original palette color (`0`–`1`); the rest
+comes from `tintWithBackground`. On the live-DOM component (`theme` or
+`category` mode) this composes with `color-mix()`, resolved natively by the
+browser, so `tintWithBackground` must be a CSS color or `var()` reference.
+On `resolveGdsGeneratedPaletteHex` (no live DOM — OG images, email) it mixes
+via `mixCssColors` instead, so `tintWithBackground` must be a literal hex.
+Both share the same option shape; only the resolution mechanism differs,
+matching the theme/hex split the rest of this module already has. Does not
+apply when `colors` is given — an explicit override is used exactly as
+supplied.
+
 ## `GdsGeneratedThumbnail`
 
 ```tsx
@@ -113,6 +139,12 @@ normally sits beside a real card title), the root carries no `role`, but
 the badges stay individually accessible regardless. When given, the root
 renders `role="group"` (never `role="img"`, which would collapse the
 individually-meaningful badges into one opaque name).
+
+Any category with an `onSelect: (key) => void` renders as a real `<button>`
+instead of static content, firing on click with that category's `key`
+(e.g. to filter a results list by the tapped category) — categories without
+it stay static, so a mix of clickable and static badges in the same list is
+supported directly.
 
 **Always Tabler icons, never emoji — by construction, not convention.**
 `GdsBadge`/`GdsMapPinBadge` support an emoji badge glyph mode (issue #525,
@@ -169,6 +201,10 @@ or their own copy); `GdsGeneratedHero` supplies `position: absolute; inset:
 0` art to sit behind it. `label` is **required** here, unlike the
 thumbnail's optional one: a hero backdrop is never used without adjacent
 context, so there's no decorative-only default.
+
+Same as `GdsGeneratedThumbnail`: a badge with `onSelect: (key) => void`
+renders as a real `<button>` and fires on click; badges without it stay
+static (`role="img"`, decorative-icon semantics).
 
 ### Background strategies
 

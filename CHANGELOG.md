@@ -4,6 +4,26 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### ClassScout upstream asks: BottomTabBar renderItem, tag disabled, icon badge, Meter, imagery tint (#638)
+
+Five small package changes plus a documentation fix, from ClassScout's own gap-request audit:
+
+- `BottomTabBarProps.renderItem?: (item, active, emphasized) => ReactNode` — per-item render
+  override, mirroring `PublicNav`'s existing `renderLink`.
+- `GdsRemovableTagProps.disabled?: boolean` — native `disabled` + `aria-disabled`, matching the
+  existing convention on other native-button GDS components.
+- `GdsIconBadge` (new): icon-only categorical-accent disc, decorative by default. A separate
+  narrow component, not an extension of `GdsBadge`, which deliberately requires `label`.
+- `GdsMeter` (new): a static score/measurement with real `role="meter"` semantics, built on
+  Mantine's low-level `Progress.Root`/`Progress.Section` compound API — the top-level `Progress`
+  component silently drops a passed `role`.
+- `GdsGeneratedThumbnail`/`GdsGeneratedHero`: `tintWithBackground`/`mixRatio` mix the resolved
+  palette toward another color (`color-mix()` live-DOM, `mixCssColors` for the literal-hex
+  path); category badges gain `onSelect`, rendering as a real `<button>` when given.
+- `GdsShapeElevationSystemReference` now computes and states how many of the 14 radius roles
+  currently share a value, and documents that a theme's Mantine `theme.radius` is a separate
+  mechanism from GDS's own shape axis — the two scales are not required to align.
+
 ### Rebuild Foundations to the 7 axes (#632, #633-#637)
 
 `/foundations` previously held 30 entries unrelated to `docs/SITE_ARCHITECTURE.md`'s own

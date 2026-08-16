@@ -1,4 +1,4 @@
-import { resolveGdsAccentTokens } from '@sovereignsquad/gds-theme';
+import { mixCssColors, resolveGdsAccentTokens } from '@sovereignsquad/gds-theme';
 
 /** Axis-derived defaults, for the paths where a CSS variable cannot resolve. */
 const gdsResolvedAccentFallback = resolveGdsAccentTokens(undefined, 'light');
@@ -75,6 +75,16 @@ export interface GdsGeneratedPaletteOptions {
    * record of a consumer's own brand values to look up outside a live DOM.
    */
   colors?: GdsGeneratedPaletteColors;
+  /**
+   * Background to tint the resolved palette toward. On {@link gdsGeneratedPaletteCssRefs}
+   * (live DOM) this must be a CSS color/var reference, mixed via `color-mix()`; on
+   * {@link resolveGdsGeneratedPaletteHex} (no live DOM) it must be a literal hex, mixed via
+   * `mixCssColors`. Requires `mixRatio`. Does not apply when `colors` is given — an explicit
+   * override is used exactly as supplied.
+   */
+  tintWithBackground?: string;
+  /** Weight of the original palette color, `0`–`1`. Required when `tintWithBackground` is given. */
+  mixRatio?: number;
 }
 
 /** A resolved palette plus which strategy actually produced it. */
@@ -150,18 +160,25 @@ function resolveCategoryColorHex(options: ResolveGdsGeneratedPaletteHexOptions):
  * {@link resolveGdsGeneratedPaletteHex} instead — CSS variables don't resolve
  * outside a browser.
  */
+function applyCssTint(color: string, options: GdsGeneratedPaletteOptions): string {
+  if (!options.tintWithBackground || options.mixRatio === undefined) {
+    return color;
+  }
+  return `color-mix(in srgb, ${color} ${Math.round(options.mixRatio * 100)}%, ${options.tintWithBackground})`;
+}
+
 export function gdsGeneratedPaletteCssRefs(options: GdsGeneratedPaletteOptions = {}): GdsGeneratedPalette {
   if (options.colors) {
     return { ...options.colors, source: 'override' };
   }
   const source = options.paletteSource ?? 'theme';
   if (source === 'category') {
-    const color = resolveCategoryColorToken(options);
+    const color = applyCssTint(resolveCategoryColorToken(options), options);
     return { primary: color, accent: color, source: 'category' };
   }
   return {
-    primary: `var(--gds-brand-primary, ${DEFAULT_VIBE.primary})`,
-    accent: `var(--gds-brand-accent, ${DEFAULT_VIBE.accent})`,
+    primary: applyCssTint(`var(--gds-brand-primary, ${DEFAULT_VIBE.primary})`, options),
+    accent: applyCssTint(`var(--gds-brand-accent, ${DEFAULT_VIBE.accent})`, options),
     source: 'theme',
   };
 }
@@ -187,13 +204,20 @@ export interface ResolveGdsGeneratedPaletteHexOptions extends GdsGeneratedPalett
  * guess when neither is given, since guessing a consumer's brand color
  * wrong is worse than a clear error at build time.
  */
+function applyHexTint(color: string, options: ResolveGdsGeneratedPaletteHexOptions): string {
+  if (!options.tintWithBackground || options.mixRatio === undefined) {
+    return color;
+  }
+  return mixCssColors(color, options.tintWithBackground, options.mixRatio, '#ffffff');
+}
+
 export function resolveGdsGeneratedPaletteHex(options: ResolveGdsGeneratedPaletteHexOptions = {}): GdsGeneratedPalette {
   if (options.colors) {
     return { ...options.colors, source: 'override' };
   }
   const source = options.paletteSource ?? 'theme';
   if (source === 'category') {
-    const color = resolveCategoryColorHex(options);
+    const color = applyHexTint(resolveCategoryColorHex(options), options);
     return { primary: color, accent: color, source: 'category' };
   }
   if (!options.themePresetId) {
@@ -203,8 +227,8 @@ export function resolveGdsGeneratedPaletteHex(options: ResolveGdsGeneratedPalett
   }
   const variables = getGdsVibeThemeCssVariables(options.themePresetId, options.colorScheme ?? 'light');
   return {
-    primary: variables['--gds-brand-primary'] ?? DEFAULT_VIBE.primary,
-    accent: variables['--gds-brand-accent'] ?? DEFAULT_VIBE.accent,
+    primary: applyHexTint(variables['--gds-brand-primary'] ?? DEFAULT_VIBE.primary, options),
+    accent: applyHexTint(variables['--gds-brand-accent'] ?? DEFAULT_VIBE.accent, options),
     source: 'theme',
   };
 }

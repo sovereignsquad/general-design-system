@@ -40,6 +40,30 @@ describe('BottomTabBar (#317)', () => {
     renderWithGds(<BottomTabBar items={items} activeId="scout" />);
     expect(screen.getByRole('navigation', { name: 'Primary' })).toHaveStyle({ zIndex: 'var(--mantine-z-index-app)' });
   });
+
+  it('renderItem overrides one item, receiving its active and emphasized state, and skips the default anchor', async () => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+    renderWithGds(
+      <BottomTabBar
+        items={items}
+        activeId="scout"
+        emphasizedItemId="scout"
+        renderItem={(item, active, emphasized) => (
+          <button
+            type="button"
+            onClick={() => onSelect(item.id, active, emphasized)}
+          >
+            {`custom:${item.label}`}
+          </button>
+        )}
+      />,
+    );
+    expect(screen.queryByText('Home')).toBeNull();
+    const customButton = screen.getByRole('button', { name: 'custom:Scout' });
+    await user.click(customButton);
+    expect(onSelect).toHaveBeenCalledWith('scout', true, true);
+  });
 });
 
 describe('FitScoreChip (#319)', () => {

@@ -62,6 +62,8 @@ export interface GdsGeneratedThumbnailCategory {
   label: string;
   /** A canonical `GdsIcons` key, or any externally-sourced icon element. */
   icon: GdsIconKey | ReactNode;
+  /** When given, this badge renders as a real button (native focus/click/keyboard) instead of static content, and fires with the category's `key` on activation. */
+  onSelect?: (key: string) => void;
 }
 
 /** Supported card aspect ratios. */
@@ -88,6 +90,10 @@ export interface GdsGeneratedThumbnailProps {
   shade?: GdsBadgeAccentShade;
   /** Explicit palette override — wins over `paletteSource` entirely when given. */
   colors?: GdsGeneratedPaletteColors;
+  /** CSS color/var reference to tint the resolved palette toward. Requires `mixRatio`. */
+  tintWithBackground?: string;
+  /** Weight of the original palette color, `0`–`1`. Required when `tintWithBackground` is given. */
+  mixRatio?: number;
   /** Defaults to `'3:2'`. */
   aspectRatio?: GdsGeneratedThumbnailAspectRatio;
   /** Maximum badges shown (1 lead + up to `maxBadges - 1` secondary). Defaults to `3`. */
@@ -181,6 +187,8 @@ export function GdsGeneratedThumbnail({
   category,
   shade,
   colors,
+  tintWithBackground,
+  mixRatio,
   aspectRatio = '3:2',
   maxBadges = 3,
   badges = 'ranked',
@@ -195,8 +203,8 @@ export function GdsGeneratedThumbnail({
 
   const gradientId = useId();
   const palette = useMemo(
-    () => gdsGeneratedPaletteCssRefs({ paletteSource, category, shade, colors }),
-    [paletteSource, category, shade, colors],
+    () => gdsGeneratedPaletteCssRefs({ paletteSource, category, shade, colors, tintWithBackground, mixRatio }),
+    [paletteSource, category, shade, colors, tintWithBackground, mixRatio],
   );
   const { width: viewBoxWidth, height: viewBoxHeight } = ASPECT_RATIO_VIEWBOX[aspectRatio];
   const motif = useMemo(() => computeMotifTransform(seed, viewBoxWidth, viewBoxHeight), [seed, viewBoxWidth, viewBoxHeight]);
@@ -256,54 +264,71 @@ export function GdsGeneratedThumbnail({
           background: `linear-gradient(to top, ${darkSurface(palette.primary)} 0%, transparent 100%)`,
         }}
       >
-        <span
-          data-gds-generated-thumbnail-badge="lead"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.35em',
-            padding: '0.3em 0.65em 0.3em 0.45em',
-            borderRadius: 'var(--gds-radius-pill)',
-            background: pillBg,
-            color: inverseColor,
-            fontSize: '13px',
-            fontWeight: 600,
-            lineHeight: 1.2,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          <span aria-hidden="true" style={{ width: '1.1em', height: '1.1em', display: 'inline-flex' }}>
-            {renderIcon(lead.icon, '100%')}
-          </span>
-          {lead.label}
-        </span>
-        {secondary.map((entry, index) => (
-          <span
-            key={entry.key}
-            data-gds-generated-thumbnail-badge="secondary"
-            role="img"
-            aria-label={entry.label}
-            title={entry.label}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '1.9em',
-              height: '1.9em',
-              marginInlineStart: index === 0 ? '-0.3em' : '-0.5em',
-              borderRadius: '50%',
-              background: pillBg,
-              color: inverseColor,
-              border: '2px solid ' + darkSurface(palette.primary),
-              opacity: 1 - index * 0.12,
-              flexShrink: 0,
-            }}
-          >
-            <span aria-hidden="true" style={{ width: '1em', height: '1em', display: 'inline-flex' }}>
-              {renderIcon(entry.icon, '100%')}
-            </span>
-          </span>
-        ))}
+        {(() => {
+          const LeadTag = lead.onSelect ? 'button' : 'span';
+          return (
+            <LeadTag
+              data-gds-generated-thumbnail-badge="lead"
+              type={lead.onSelect ? 'button' : undefined}
+              onClick={lead.onSelect ? () => lead.onSelect?.(lead.key) : undefined}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35em',
+                padding: '0.3em 0.65em 0.3em 0.45em',
+                borderRadius: 'var(--gds-radius-pill)',
+                background: pillBg,
+                color: inverseColor,
+                fontSize: '13px',
+                fontWeight: 600,
+                lineHeight: 1.2,
+                whiteSpace: 'nowrap',
+                border: 'none',
+                font: lead.onSelect ? 'inherit' : undefined,
+                cursor: lead.onSelect ? 'pointer' : undefined,
+              }}
+            >
+              <span aria-hidden="true" style={{ width: '1.1em', height: '1.1em', display: 'inline-flex' }}>
+                {renderIcon(lead.icon, '100%')}
+              </span>
+              {lead.label}
+            </LeadTag>
+          );
+        })()}
+        {secondary.map((entry, index) => {
+          const SecondaryTag = entry.onSelect ? 'button' : 'span';
+          return (
+            <SecondaryTag
+              key={entry.key}
+              data-gds-generated-thumbnail-badge="secondary"
+              type={entry.onSelect ? 'button' : undefined}
+              onClick={entry.onSelect ? () => entry.onSelect?.(entry.key) : undefined}
+              role={entry.onSelect ? undefined : 'img'}
+              aria-label={entry.label}
+              title={entry.onSelect ? undefined : entry.label}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '1.9em',
+                height: '1.9em',
+                marginInlineStart: index === 0 ? '-0.3em' : '-0.5em',
+                borderRadius: '50%',
+                background: pillBg,
+                color: inverseColor,
+                border: '2px solid ' + darkSurface(palette.primary),
+                opacity: 1 - index * 0.12,
+                flexShrink: 0,
+                font: entry.onSelect ? 'inherit' : undefined,
+                cursor: entry.onSelect ? 'pointer' : undefined,
+              }}
+            >
+              <span aria-hidden="true" style={{ width: '1em', height: '1em', display: 'inline-flex' }}>
+                {renderIcon(entry.icon, '100%')}
+              </span>
+            </SecondaryTag>
+          );
+        })}
       </div>
       )}
     </div>

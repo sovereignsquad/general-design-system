@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { gdsBadgeAccentShades } from './GdsBadge';
 import { GdsGeneratedThumbnail } from './GdsGeneratedThumbnail';
@@ -93,5 +94,39 @@ describe('GdsGeneratedThumbnail (#505)', () => {
     const { container } = renderWithGds(<GdsGeneratedThumbnail seed="listing-1" categories={CATEGORIES} />);
     const leadBadge = container.querySelector('[data-gds-generated-thumbnail-badge="lead"]') as HTMLElement;
     expect(leadBadge.style.background).toMatch(/^color-mix\(in srgb, .+ 30%, black\)$/);
+  });
+
+  it('tintWithBackground + mixRatio mixes the theme-mode gradient color via color-mix, in live-DOM mode', () => {
+    const { container } = renderWithGds(
+      <GdsGeneratedThumbnail
+        seed="listing-1"
+        categories={CATEGORIES}
+        tintWithBackground="var(--gds-bg-canvas)"
+        mixRatio={0.6}
+      />,
+    );
+    const firstStop = container.querySelector('stop');
+    expect(firstStop?.getAttribute('stop-color')).toMatch(/^color-mix\(in srgb, var\(--gds-brand-primary, #[0-9a-f]{6}\) 60%, var\(--gds-bg-canvas\)\)$/);
+  });
+
+  it('a badge with onSelect renders as a real button and fires with the category key; without it, badges stay static', async () => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+    const categories = [
+      { ...CATEGORIES[0], onSelect },
+      { ...CATEGORIES[1], onSelect },
+      CATEGORIES[2],
+    ];
+    renderWithGds(<GdsGeneratedThumbnail seed="listing-1" categories={categories} />);
+
+    const leadButton = screen.getByRole('button', { name: /Soccer/ });
+    await user.click(leadButton);
+    expect(onSelect).toHaveBeenCalledWith('soccer');
+
+    const secondaryButton = screen.getByRole('button', { name: 'Basketball' });
+    await user.click(secondaryButton);
+    expect(onSelect).toHaveBeenCalledWith('basketball');
+
+    expect(screen.getByRole('img', { name: 'Gymnastics' })).toBeTruthy();
   });
 });

@@ -311,9 +311,9 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Core Component Contracts',
     family: 'operations',
     section: 'Dashboard & Panel Surfaces',
-    summary: 'Metric and progress cards expose value hierarchy, trend semantics, and mobile-safe prioritization.',
+    summary: 'Metric and progress cards expose value hierarchy, trend semantics, and mobile-safe prioritization. GdsMeter renders a static score with real role="meter" semantics, distinct from a progress bar.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'MetricCard / ProgressCard',
+    sourceComponent: 'MetricCard / ProgressCard / GdsMeter',
   },
   {
     id: 'data-toolbars',
@@ -1021,7 +1021,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Badges & Indicators',
     summary: 'Badges are compact state cues and must not rely on color only. The shape vocabulary renders Tabler-geometry silhouettes for composed badge marks.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'StatusBadge / CountBadge / LabelTag / GdsBadgeShapeCircle / GdsBadgeShapeSquircle / GdsBadgeShapeHexagon / GdsBadgeShapeShield / GdsBadgeShapeRosette / GdsBadgeShapePin / GdsBadge / GdsBadgeStack / GdsBadgeStackLayer / GdsCountBadge / GdsRemovableTag / GdsVibeThemeScope / GdsMapPinBadge / GdsIconStyleContext (SportsEmojiModeDemo scopes the badge glyph mode directly; useGdsBadgeIconStyle is exercised internally by GdsBadge/GdsMapPinBadge whenever that demo renders) / GdsSavedIndicator',
+    sourceComponent: 'StatusBadge / CountBadge / LabelTag / GdsBadgeShapeCircle / GdsBadgeShapeSquircle / GdsBadgeShapeHexagon / GdsBadgeShapeShield / GdsBadgeShapeRosette / GdsBadgeShapePin / GdsBadge / GdsBadgeStack / GdsBadgeStackLayer / GdsCountBadge / GdsRemovableTag / GdsIconBadge / GdsVibeThemeScope / GdsMapPinBadge / GdsIconStyleContext (SportsEmojiModeDemo scopes the badge glyph mode directly; useGdsBadgeIconStyle is exercised internally by GdsBadge/GdsMapPinBadge whenever that demo renders) / GdsSavedIndicator',
   },
   {
     id: 'modals',
