@@ -1,12 +1,5 @@
-// Issue 612 — classification of known forward-trace gaps.
-//
-// A gap here is CLASSIFIED, not excused: it stays in `tokensWithGaps`, the budget still counts
-// it, and the ratchet still only moves down by closing it. What a classification adds is the
-// reason the gap is open and a date by which that reason must be re-examined — the same shape
-// token-reachability.config.mjs uses for extension points. An expired entry is dropped at
-// trace time, so a stale reason cannot keep explaining a gap nobody has looked at.
-//
-// Every reason below was verified against source when written, and cites where.
+// Classification of known forward-trace gaps. A classified gap still counts against the
+// budget; it adds only a reason and a `reviewBy` date. Expired entries drop at trace time.
 
 export const GAP_CLASSIFICATIONS = {
   '--gds-focus-ring-offset': {

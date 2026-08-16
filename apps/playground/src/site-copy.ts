@@ -26,10 +26,6 @@ export const siteLocaleRegistry = {
   he: { label: 'עברית', messages: he },
   ar: { label: 'العربية', messages: ar },
   hu: { label: 'Magyar', messages: hu },
-  // Issue 587. gds-core shipped these three package packs while the site had no phrase pack
-  // for any of them, so the reference site could not render in Japanese, Korean or Chinese
-  // even though the packages a visitor would install support their language. Each label is
-  // written in its own script, per the issue's UX goal.
   ja: { label: '日本語', messages: ja },
   ko: { label: '한국어', messages: ko },
   zh: { label: '简体中文', messages: zh },

@@ -16,14 +16,8 @@ import { getFamilyEntries } from './pattern-registry';
 import { FamilyEntryBrowser } from './pattern-pages';
 
 /**
- * Issue 626 Phase 2 — the complete element list, on one page, composed exclusively from GDS
- * exports (the strict compliance gate refused this page's first draft for a raw Mantine table
- * and imports — correctly; the reference site takes no styling authority of its own).
- *
- * Every public component the packages export appears here, DERIVED from the census the parity
- * gate reads (Rule 14): a registered component names its canonical home (the grid below links
- * every home); an exempt one states its reviewed reason in full view. Nothing shipped is
- * invisible — including the decision that a helper does not get a page of its own.
+ * Composed exclusively from GDS exports; no raw Mantine table or styling of its own.
+ * Rows are derived from the same census the parity gate reads, not hand-maintained.
  */
 export function ComponentsIndexPage() {
   const componentsFamilyEntries = getFamilyEntries('components');

@@ -69,15 +69,8 @@ const tonePalette = {
 } as const;
 
 /**
- * Owner directive, 2026-08-14: **GDS uses the generated thumbnail everywhere.**
- *
- * A grey box with a generic photo glyph is the universal broken-image picture: it tells a
- * reader that something failed, when in fact no image was ever supplied. `GdsGeneratedThumbnail`
- * paints deterministic branded art from the card's own identity instead — same seed, same
- * composition, themed by the active preset, no network and no asset pipeline.
- *
- * `badges="none"`: the card prints its title directly beneath this, so a badge repeating it
- * would duplicate the text on screen and in the accessibility tree.
+ * Fallback media: deterministic generated thumbnail, seeded from the card's identity.
+ * badges="none" avoids duplicating the title the card prints beneath it.
  */
 function EditorialMediaFallback({ compact, seed, label }: { compact: boolean; seed: string; label: string }) {
   return (

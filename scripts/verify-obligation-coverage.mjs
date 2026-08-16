@@ -1,12 +1,5 @@
-// Issue 581 — registry-derived obligation coverage.
-//
-// Checks every atom in audit/registry.json against the obligations its kind carries, so
-// a newly added export, prop, variant or accent acquires obligations automatically with
-// no manual registration step.
-//
-// Ratcheted, not absolute: existing debt (F18: 1,699 atoms) never blocks work — only
-// adding to it does.
-//
+// Checks every atom in audit/registry.json against the obligations its kind carries.
+// Ratcheted: existing debt never blocks work, only new gaps do.
 // Output: audit/obligation-coverage.json
 
 import { readFileSync, existsSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
@@ -23,7 +16,7 @@ const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
 if (!Object.keys(OBLIGATION_MODEL).length) fail('Empty obligation model — refusing to pass vacuously.');
 if (!registry.atoms?.length) fail('Registry has no atoms — extraction is broken, not the system empty.');
 
-// ── Corpora, built ONCE. 2,845 atoms x naive per-atom file reads is pathological. ──
+// ── Corpora, built once and cached ──
 const sourceCache = new Map();
 const readSource = (file) => {
   if (!sourceCache.has(file)) {
@@ -62,17 +55,11 @@ const SATISFIES = {
   jsdoc(atom) {
     const lines = readSource(atom.source.file);
     if (!lines) return { met: false, why: 'source file unreadable' };
-    // The registry records the interface's line for props; scan a small window for the
-    // member itself rather than assuming an exact line, since the extractor stores the
-    // interface start.
+    // Registry line is the interface start, not the member; scan a window.
     const member = atom.name.split('.').pop();
     const start = Math.max(0, atom.source.line - 1);
     for (let i = start; i < Math.min(lines.length, start + 400); i += 1) {
-      // Skip comment lines. The predicate matched INSIDE a JSDoc block — the text
-      // "Marker size (width = height)" satisfies `size\s*[:(<]` — then checked the line above
-      // it, found no `*/`, and reported a documented prop as undocumented. That is finding
-      // F24's shape exactly: a predicate pointed at the wrong line producing a false
-      // accusation, and it is the second time this gate has done it.
+      // Skip comment lines to avoid matching inside the JSDoc block itself.
       const trimmed = lines[i].trim();
       if (trimmed.startsWith('*') || trimmed.startsWith('//') || trimmed.startsWith('/*')) continue;
       if (!new RegExp(`(^|\\s)${member.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\??\\s*[:(<]`).test(lines[i])) continue;
@@ -118,7 +105,7 @@ for (const atom of registry.atoms) {
   const unmet = [];
   for (const ob of spec.obligations) {
     const predicate = SATISFIES[ob];
-    // An obligation with no predicate is a gap in THIS gate; count it, never pass it.
+    // No predicate implemented: counts as a gap, not a pass.
     if (!predicate) { unmet.push({ obligation: ob, why: 'no predicate implemented — counted as a gap, not a pass' }); continue; }
     const r = predicate(atom);
     if (!r.met) unmet.push({ obligation: ob, why: r.why });
@@ -129,19 +116,13 @@ for (const atom of registry.atoms) {
   }
 }
 
-// Kinds present in the registry that this gate does not model — reported in its own
-// output so the gate's coverage gap is visible where the gate runs, not only in an issue.
+// Kinds present in the registry that this gate does not model.
 const unmodelled = Object.keys(registry.counts)
   .filter((k) => !OBLIGATION_MODEL[k] && !COVERED_ELSEWHERE[k])
   .map((k) => ({ kind: k, atoms: registry.counts[k] }));
 
 const budgets = JSON.parse(readFileSync(join(ROOT, 'audit/budgets.json'), 'utf8')).budgets;
-// Finding F25. This read `registryAtomsWithoutCoverage`, which the same change set had
-// just ratcheted to 0 because the measurement moved here — so the gate compared 410 gaps
-// against a budget of 0 and failed on every clean run. It was invisible because the gate
-// mutation suite reported its mutant KILLED: a gate that ALWAYS fails "detects" every
-// planted defect. Reading a budget that does not exist must also be loud, not Infinity,
-// which would pass vacuously — the failure mode issue 516 shipped.
+// A missing budget must fail loudly, not default to Infinity (would pass vacuously).
 const budgetEntry = budgets.obligationGaps;
 if (!budgetEntry) fail('audit/budgets.json has no `obligationGaps` budget. Refusing to pass without one.');
 const budget = budgetEntry.value;

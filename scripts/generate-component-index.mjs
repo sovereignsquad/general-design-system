@@ -1,17 +1,8 @@
-// Issue 626 Phase 2 — the COMPLETE element list, derived (Rule 14), never curated.
+// Derives the complete element list from the component census, pattern registry, and reviewed
+// exemption allowlist. Every census component appears: registered ones link to their home,
+// exempt ones show their reason.
 //
-// The owner's requirement verbatim: "a complete element list with all examples and use cases;
-// nothing the system can do may be hidden." A hand-maintained index is a hidden-component
-// generator: the first component someone forgets to add is invisible again. So the index is
-// DERIVED from the same census the parity gate reads — every public PascalCase component
-// export across the packages — joined with the pattern registry (which entry is each
-// component's canonical home) and the reviewed exemption allowlist (why a helper has no page
-// of its own). Every one of the census's components appears: registered ones link to their
-// home; exempt ones state their reason in full view. Nothing is invisible, including the
-// decision to not give something a page.
-//
-// Output: apps/playground/src/generated-component-index.ts (committed; drift fails the
-// clean-tree preflight and the parity gate's own --check).
+// Output: apps/playground/src/generated-component-index.ts (committed; --check fails on drift).
 //
 // Run: node scripts/generate-component-index.mjs [--check]
 
@@ -46,8 +37,7 @@ const exemptions = JSON.parse(readFileSync(exemptionsPath, 'utf8')).exemptions ?
 const rows = census.map((name) => {
   const registered = homes.get(name) ?? [];
   if (registered.length > 0) {
-    // The FIRST registering entry is the canonical home; further entries are compositions
-    // that also exercise it. One canonical page each — the Phase 2 gate's claim.
+    // First registering entry is the canonical home; the rest are compositions that also exercise it.
     const [home, ...also] = registered;
     return { name, status: 'registered', home, alsoAppearsIn: also.map((entry) => entry.id) };
   }
@@ -59,8 +49,7 @@ const rows = census.map((name) => {
 
 const unaccounted = rows.filter((row) => row.status === 'unaccounted');
 if (unaccounted.length > 0) {
-  // The parity gate fails these too; failing here as well keeps the generator honest when
-  // run standalone.
+  // Parity gate also fails on these; failing here too catches a standalone run.
   console.error(`Component index: ${unaccounted.length} component(s) neither registered nor exempted:`);
   for (const row of unaccounted) console.error(`- ${row.name}`);
   process.exit(1);

@@ -7,21 +7,12 @@ import type { GdsSelectionOption } from './ChoiceChip';
 import { GdsIcon } from './icons';
 
 /**
- * Issue 547 — the governed map filter rail.
+ * Filter rail: horizontally scrolling pills above the map. "All" always renders first; counts
+ * are part of the label and reflect the current map bounds; the selected pill fills with the
+ * primary colour and a check; the rail reports its height so the map can inset its viewport.
  *
- * The source spec: horizontally scrolling pills above the map; "All" always first and always
- * visible; counts are part of each pill's label and follow the current map bounds; the
- * selected pill fills with the primary colour and a check; the map insets its own viewport by
- * the rail's height so the rail never covers a pin's target.
- *
- * Composed on `PillBar`, not hand-rolled: PillBar already owns the scrollable roving-tabindex
- * radiogroup, the brand-filled selected treatment, and the contrast-correct token pairings
- * (issues 493/597). What this component adds is the rail CONTRACT: the "All" pseudo-option,
- * the count-in-label convention, and the height report the map insets by.
- *
- * COUNTS ARE THE CONSUMER'S, and they are expected to be dynamic. The rail renders whatever
- * counts it is given; recomputing them per map-bounds change is data logic GDS cannot own
- * (§1 of docs/MAP_SYSTEM.md — what the map is *of* belongs to the product).
+ * Composed on `PillBar`. Counts are consumer-supplied and dynamic — recomputing them per
+ * map-bounds change is data logic this component does not own.
  */
 
 /** One filter in the rail. `count` is optional — a rail before data arrives renders labels alone. */
@@ -44,18 +35,11 @@ export interface GdsMapFilterRailProps {
   ariaLabel: string;
   /** Label for the always-first "All" option. Defaults through the message catalogue. */
   allLabel?: string;
-  /**
-   * Reports the rail's rendered height in px (ResizeObserver-backed), so the consumer insets
-   * the map viewport by it — the half of the spec that needs rail/map coordination. Fires on
-   * mount and whenever wrapping or font loading changes the height.
-   */
+  /** Reports rendered height in px (ResizeObserver), so the consumer insets the map viewport. Fires on mount and on height changes. */
   onHeightChange?: (heightPx: number) => void;
 }
 
-/**
- * The "All" pseudo-option's value inside the underlying radiogroup. Internal: consumers speak
- * `null`, never this sentinel — it exists because a radiogroup option must carry a string.
- */
+/** Internal sentinel for "All" in the radiogroup; consumers use `null`. */
 const ALL_VALUE = '__gds-map-filter-all__';
 
 const withCount = (label: ReactNode, count: number | undefined) =>
@@ -109,8 +93,7 @@ export function GdsMapFilterRail({
     selectedValue === id ? <Group gap={4} wrap="nowrap" component="span">{check}{label}</Group> : label;
 
   const railOptions: GdsSelectionOption<string>[] = [
-    // "All" is always first and always rendered, regardless of the options array — including
-    // when it is empty. A rail with zero filters is still a rail.
+    // "All" always renders first, even with zero options.
     { value: ALL_VALUE, label: decorated(ALL_VALUE, withCount(allLabel, total)) },
     ...options.map((option) => ({
       value: option.id,

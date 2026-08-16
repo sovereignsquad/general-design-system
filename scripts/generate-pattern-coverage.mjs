@@ -1,21 +1,8 @@
-// Issue 608 — derive `coverageStatus` instead of writing it.
+// Derives `coverageStatus` instead of hand-typing it, from whether `renderEntryDemo()` has a
+// case for the pattern id or `PatternEntryCard` special-cases it.
 //
-// All 113 registry entries carried the same hand-typed value. A field with one observed value
-// cannot be observed to be wrong, which is how seven entries claimed a live proof while their
-// cards rendered "No interactive demo renders here" (issue 600).
-//
-// `verify:pattern-live-proof` closed the false-positive direction: nothing can now CLAIM a live
-// proof without one. It does not make the claim derived — a correct claim is still an authored
-// one, and the three other enum values remained unreachable because nobody ever typed them.
-//
-// This closes the rest. Whether a pattern has a live proof is something the system can be
-// asked — does `renderEntryDemo()` have a case for this id, or does `PatternEntryCard`
-// special-case it — so it is computed here and read by the registry rather than maintained by
-// hand (Rule 14: a checkable claim is computed, never retyped).
-//
-// Why a GENERATED FILE rather than computing it in the registry at runtime: `pattern-pages.tsx`
-// imports `pattern-registry.ts`, so the registry cannot import the pages back without a cycle.
-// The same reason `generated-component-census.ts` exists, and the same `--check` drift guard.
+// Generated file rather than computed at runtime in the registry: `pattern-pages.tsx` imports
+// `pattern-registry.ts`, so the registry cannot import the pages back without a cycle.
 //
 // Run by `npm run artifacts:refresh`; drift-checked by `npm run verify:pattern-coverage`.
 

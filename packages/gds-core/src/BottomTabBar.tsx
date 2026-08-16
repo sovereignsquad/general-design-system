@@ -3,8 +3,6 @@ import { gdsZIndexToken , useGdsTranslation } from '@sovereignsquad/gds-theme';
 import type { PublicNavItem } from './PublicNav';
 
 /**
- * BottomTabBar (gap B1 / issue #317).
- *
  * Fixed, mobile-only bottom tab navigation rendered from `PublicNavItem[]`.
  * Theme-tokened (active = brand accent, inactive = secondary text, surface =
  * white), safe-area aware, with an optional raised center action. Used by
@@ -74,14 +72,8 @@ export function BottomTabBar({
     <Box
       component="nav"
       aria-label={ariaLabel}
-      // Issue 609. `hiddenFrom` gates on the VIEWPORT, so inside a bounded frame this bar
-      // vanished on a desktop page even though the frame was presenting a compact width. The
-      // gate is now declared as data rather than as a Mantine media prop, and the governed
-      // stylesheet resolves it against an enclosing `data-gds-viewport-frame` when there is
-      // one. Outside a frame the rule is the same media query as before, so nothing changes
-      // for existing consumers — and this stays a plain attribute, so the component remains
-      // server-renderable. Reading a React context here would have forced it out of the
-      // server entrypoint, which `check-export-contract` refused.
+      // Resolved by the stylesheet against an enclosing data-gds-viewport-frame, if any.
+      // Plain attribute, not a React context read, keeps this component server-renderable.
       data-gds-viewport-gated="sm"
       className={className}
       style={{
@@ -89,13 +81,8 @@ export function BottomTabBar({
         insetInline: 0,
         bottom: 0,
         zIndex: gdsZIndexToken.app,
-        // `display` is deliberately NOT set here (issue 609). An inline style beats any
-        // stylesheet rule, so declaring `display: 'flex'` inline made the governed gate
-        // unenforceable: the media query that hides this bar above `sm` could never win, and
-        // the bar would have appeared on every desktop page. The stylesheet owns `display` --
-        // `flex` when it should show, `none` when it should not -- and this only styles the
-        // bar's appearance. Verified in Chrome at 1280px: outside a frame the bar computes
-        // `display: none`; inside a compact frame it computes `flex`.
+        // display intentionally omitted: the stylesheet controls flex/none via the viewport
+        // gate; an inline value here would always win over that media query.
         justifyContent: 'space-around',
         alignItems: 'stretch',
         height: `calc(${BOTTOM_TAB_HEIGHT}px + env(safe-area-inset-bottom, 0px))`,
@@ -150,7 +137,6 @@ export function BottomTabBar({
                   alignItems: 'center',
                   justifyContent: 'center',
                   background: 'var(--gds-brand-accent, var(--mantine-color-violet-6))',
-                  // Issue 597: 1.22:1 against the athlete-gold dark accent.
                   color: 'var(--gds-brand-accent-fg, var(--gds-text-on-inverse, var(--mantine-color-white)))',
                   boxShadow: '0 6px 16px rgba(11, 34, 62, 0.25)',
                 }}

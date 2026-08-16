@@ -25,14 +25,9 @@ describe('playground pattern registry', () => {
     }
   });
 
-  // Issue 600. This previously asserted that EVERY entry was 'live-proof', which is not a
-  // check — it is the claim itself, restated as a test. It passed while seven entries
-  // rendered the "No interactive demo renders here" fallback, because nothing compared the
-  // status to what the page actually showed. Requiring the claim is how the claim went wrong.
-  //
-  // What replaces it is the property the status is supposed to mean. `verify:pattern-live-proof`
-  // enforces the same rule over the source at build time; this keeps it true of the runtime
-  // registry as well, and fails if a status is invented that neither gate models.
+  // A 'live-proof' status must correspond to an actual case in pattern-pages.tsx or a
+  // sourceComponent; otherwise the status can be wrong while every entry still says
+  // 'live-proof'. `verify:pattern-live-proof` enforces the same rule at build time.
   it('only claims live-proof for patterns the catalog actually renders', () => {
     const demoCases = new Set(
       [...readFileSync(resolve(process.cwd(), 'apps/playground/src/pattern-pages.tsx'), 'utf8')
@@ -85,8 +80,6 @@ describe('playground pattern registry', () => {
   });
 
   it('mounts the live GdsSchemaForm demo (checkbox-group + repeatable) in the Forms entry', () => {
-    // Issue 632/633: Forms moved from foundations to operations when Foundations was rebuilt
-    // to hold only the 7 design axes.
     renderWithGds(<PatternFamilyPage family="operations" />);
 
     // Schema-generated form title + field labels (checkbox-group and repeatable)
@@ -99,8 +92,7 @@ describe('playground pattern registry', () => {
     expect(screen.getByRole('button', { name: 'Submit intake' })).toBeTruthy();
   });
 
-  // Issue 626 consolidated badges, imagery and motion onto the foundations page by design;
-  // rendering all six families in jsdom under full-suite contention outgrew the 15s default.
+  // Rendering all six families in jsdom under full-suite contention exceeds the 15s default.
   it('renders every family route with headings and navigable demo links', () => {
     const families = ['foundations', 'public', 'operations', 'data', 'access', 'feedback'] as const;
 
@@ -116,10 +108,9 @@ describe('playground pattern registry', () => {
     }
   }, 30000);
 
-  // Issue 632/633: /components and /systems became real hosting pages for their own
-  // pattern-registry families (they don't route through PatternFamilyPage — they compose
-  // FamilyEntryBrowser directly alongside their own bespoke header content), so they need
-  // their own render check rather than joining the PatternFamilyPage loop above.
+  // /components and /systems don't route through PatternFamilyPage — they compose
+  // FamilyEntryBrowser directly with their own header content — so they need their own
+  // render check rather than joining the PatternFamilyPage loop above.
   it('renders the components and systems hosting sections with headings and navigable demo links', () => {
     renderWithGds(<ComponentsIndexPage />);
     expect(screen.getAllByRole('heading').length).toBeGreaterThan(3);
@@ -147,10 +138,7 @@ describe('playground pattern registry', () => {
   });
 });
 
-describe('numbers quoted in coverage metadata match the system (issue 605)', () => {
-  // Not rendered to visitors, so not a promise to a client — but a number written by hand
-  // drifts exactly the way "250+" did, and the next reader trusts it. Cheap to verify, so
-  // there is no reason for it to be unverified.
+describe('numbers quoted in coverage metadata match the system', () => {
   it('the accent census in the export-coverage rationale matches the constants', () => {
     const source = readFileSync(resolve(process.cwd(), 'apps/playground/src/pattern-export-coverage.ts'), 'utf8');
     const match = /(\d+)\s+accents\s+x\s+(\d+)\s+darker-only levels/.exec(source);

@@ -1,14 +1,6 @@
-// Issue 582 — render the quality-budget table with deltas against a base.
+// Renders the quality-budget table with deltas against a base run.
 //
-// #578 made regression detectable. This makes it SEEN. A CI step that fails gets noticed; a
-// step that passes while a number drifts 18.4 -> 18.39 every release does not, and after ten
-// releases nobody can say when it moved. `docs/HEALTH_RETENTION_PLAN.md` mechanism 4 exists
-// because a snapshot gate cannot see slow multi-release drift, and because the person best
-// placed to ask "why did this move?" is the reviewer, at review time.
-//
-// Reads `audit/budget-results.json`, written by verify-budgets.mjs. It does NOT re-measure:
-// a second resolver could disagree with the gate, and a report that contradicts the gate is
-// worse than no report.
+// Reads `audit/budget-results.json`, written by verify-budgets.mjs. Does not re-measure.
 //
 // Usage:
 //   node scripts/report-budgets.mjs                      # local table, no comparison
@@ -35,10 +27,7 @@ const readResults = (dir) => {
 };
 
 /**
- * A budget moved in the bad direction, or it did not.
- *
- * No weighting, no ranking. Scoring budgets by "importance" invites ignoring the
- * low-ranked ones, which is precisely how drift accumulates unnoticed.
+ * A budget moved in the bad direction, or it did not. No weighting or ranking between budgets.
  */
 export function computeDeltas(headRows, baseRows) {
   return headRows.map((h) => {
@@ -56,9 +45,7 @@ export function computeDeltas(headRows, baseRows) {
 }
 
 /**
- * `computeDeltas` is imported by tests, so the CLI body must not run on import — reading an
- * artifact and calling process.exit at module scope made this file untestable, which is how
- * a script with real branching ends up with no coverage at all.
+ * `computeDeltas` is imported by tests, so the CLI body must not run on import.
  */
 function main() {
   const head = readResults(join(ROOT, 'audit'));

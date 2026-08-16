@@ -169,11 +169,7 @@ function LoadingHero({ compact }: { compact: boolean }) {
   );
 }
 
-/**
- * Owner directive, 2026-08-14: GDS uses the generated thumbnail everywhere. A grey box with a
- * generic photo glyph reads as a failure; generated art reads as a hero without a photo yet.
- * `badges="none"` because the hero prints its own title beside this.
- */
+/** Fallback media: generated thumbnail. badges="none" because the hero prints its own title beside this. */
 function MediaFallback({ seed, label }: { seed: string; label: string }) {
   return (
     <GdsGeneratedThumbnail

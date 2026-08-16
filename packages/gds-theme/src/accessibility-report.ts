@@ -6,9 +6,8 @@ import { contrastRatio, mixCssColors } from './color-math';
 export type GdsContrastMode = 'light' | 'dark';
 /** UI text or focus-indicator role whose foreground/background pair is contrast-checked. */
 export type GdsContrastRole =
-  // Issue 585 widened this: the semantic pairs added for F22 are named per pair, and a
-  // closed union could not express them — the same shape of limit that kept the semantic
-  // roles out of the token graph.
+  // Widened to a string: the semantic pairs are named per pair, and a closed union could
+  // not express them.
   | (string & {})
   | 'page text'
   | 'surface text'
@@ -183,22 +182,18 @@ function checkRole(
  * report (checks, findings, forced-color mappings, recommended runtime checks).
  */
 /**
- * Semantic role pairs scored against WCAG minimums (issue 585, finding F22).
+ * Semantic role pairs scored against WCAG minimums.
  *
- * The atmosphere checks below score `vibe.textLight` against `vibe.canvasLight` — the
- * PALETTE fields. The values that actually paint a component are the derived `--gds-*`
- * semantic roles, and nothing scored them. That is why `--gds-text-body` could be set to
- * near-white on a light canvas and every contrast gate stayed green, and it is the same
- * blind spot that let issue 537 ship a 1.89:1 ChoiceChip.
+ * The atmosphere checks above score the palette fields (`vibe.textLight` on
+ * `vibe.canvasLight`), not the derived `--gds-*` semantic roles that actually paint
+ * components — those were previously unscored.
  *
- * Every pair below was measured across all 25 presets in both schemes before being made
- * blocking: all 450 checks pass today, so this adds enforcement without changing any value.
+ * Measured across all 25 presets in both schemes before being made blocking; all 450 checks
+ * pass today.
  *
- * `--gds-border-card` on `--gds-bg-card` is deliberately NOT here. It measures below 3:1 in
- * 47 of 50 cells, but WCAG 1.4.11 governs user-interface components and meaningful
- * graphics — a decorative card boundary is neither. Enforcing 3:1 on it would invent a
- * requirement and produce 47 findings that are not violations, which is how a gate teaches
- * people to ignore it.
+ * `--gds-border-card` on `--gds-bg-card` is deliberately not here: it measures below 3:1 in
+ * 47 of 50 cells, but WCAG 1.4.11 governs UI components and meaningful graphics, and a
+ * decorative card boundary is neither.
  */
 const SEMANTIC_CONTRAST_PAIRS: { role: string; foreground: string; background: string; minimumRatio?: number }[] = [
   { role: 'semantic body text on page', foreground: '--gds-text-body', background: '--gds-bg-page' },
@@ -237,14 +232,13 @@ export function createGdsThemeAccessibilityReport(): GdsThemeAccessibilityReport
         checkRole(vibe, mode, 'focus indicator', text, canvas, MINIMUM_NON_TEXT_RATIO),
       ];
 
-      // Issue 585 / F22: score the roles that actually paint components, not only the
-      // atmosphere palette they were derived from.
+      // Score the roles that actually paint components, not only the atmosphere palette
+      // they were derived from.
       const resolved = getGdsVibeThemeCssVariables(vibe.id, mode);
       for (const pair of SEMANTIC_CONTRAST_PAIRS) {
         const foreground = resolved[pair.foreground];
         const background = resolved[pair.background];
-        // A missing role is a real problem, not a reason to skip: it means the pair this
-        // gate claims to cover is not being covered at all.
+        // A missing role means the pair this gate claims to cover isn't covered at all.
         if (!foreground || !background) {
           findings.push({
             themeId: vibe.id,

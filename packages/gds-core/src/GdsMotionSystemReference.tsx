@@ -8,20 +8,12 @@ import {
 } from '@sovereignsquad/gds-theme';
 
 /**
- * Issue 626 — the motion system, SURFACED.
+ * Motion system reference: six durations, five easings, seven presets, and the reaction axis
+ * (hover/active/pressed + focus ring + transitioned-property scope).
  *
- * The system ships six governed durations, five easings, seven named presets and a reaction
- * axis (hover/active/pressed treatments + the focus ring + the transitioned-property scope) —
- * and, until this reference existed, not one of them appeared on any page. A capability a
- * reader cannot find is a capability the product does not have (the owner's exact charge:
- * "if we have generated customised animated micro feedbacks, why do you hide it?").
- *
- * Rule 14 throughout: every number and string below is read from the same exports consumers
- * import — `gdsMotionDurations`, `gdsMotionEasings`, `gdsMotionPresets`,
- * `GDS_DEFAULT_REACTION_AXIS` — never retyped. The interactive proofs are live: hover and
- * press the specimens and you are exercising the same tokens `withGdsMotion` wires into the
- * theme. Reduced motion is honoured by the tokens themselves; the banner below says which
- * mode this visit is actually in rather than describing both hypothetically.
+ * Values are read live from gdsMotionDurations/gdsMotionEasings/gdsMotionPresets/
+ * GDS_DEFAULT_REACTION_AXIS, never retyped. Specimens use the same tokens withGdsMotion wires
+ * into the theme.
  */
 export function GdsMotionSystemReference() {
   const reducedMotion = useGdsReducedMotion();

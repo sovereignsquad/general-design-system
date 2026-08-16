@@ -122,37 +122,25 @@ type ExperienceOverrideContract = {
 
 This is a governance contract first. Products still own storage and moderation, but they may not use that as justification for replacing GDS-owned application structure.
 
-## Atmosphere has a scale (owner directive, 2026-08-14)
+## Atmosphere has a scale
 
-A preset's atmosphere is published at **two** scales, and using the wrong one is a defect rather
-than a preference.
+A preset's atmosphere is published at **two** scales; using the wrong one is a defect.
 
 | Token | Composed for | Use it for |
 | --- | --- | --- |
 | `--gds-vibe-hero` | a full-width band | page washes, hero sections, anything hundreds of pixels wide |
 | `--gds-vibe-swatch` | a small box | swatches, legend dots, chips, preview tiles — any surface previewing a theme at small size |
 
-### Why the second one exists
+`--gds-vibe-hero` is a `linear-gradient(135deg, …)` — a barely-perceptible wash across a hero
+band, but a hard diagonal when cropped into a small box (a long gradient sampled through a
+small window, not a scale-independent ramp). `--gds-vibe-swatch` is a radial from the centre,
+which reads identically at any size since there's no axis for a small box to crop differently.
+It's derived from the same `primary`/`accent` the vibe is built from, mixed against the
+scheme's own surface, so it can't drift from the preset it describes.
 
-`--gds-vibe-hero` is a `linear-gradient(135deg, …)`. Across a hero band that ramp is a
-barely-perceptible wash. Painted into a 40px circle the same ramp becomes a **hard diagonal**,
-because a small box crops a long gradient rather than sampling it. The Theme Lab swatch grid
-showed this exactly: 23 presets looked like soft tints and the two gold lanes — whose heroes have
-the most contrast in the catalogue — read as a metallic split.
-
-That is a **scale mismatch**, not a colour problem, and before this token there was nothing else
-to reach for: any small surface wanting the atmosphere had to borrow the hero and inherit its
-geometry.
-
-`--gds-vibe-swatch` is a **radial from the centre**, which reads identically at 40px and at
-400px because there is no axis along which a small box can crop it differently. It is **derived**
-from the same `primary`/`accent` the rest of the vibe is built from, mixed against the scheme's
-own surface — so all 25 presets carry it in both schemes with no per-preset authoring and no way
-for it to drift from the preset it describes.
-
-A `flatSurfaces` brand lane (Class USA, Gold Athlete) has no atmosphere by definition, so it gets
-an honest flat tint rather than a gradient GDS invented for it — the same reasoning that
-neutralises `glow` and `gradient` for those lanes.
+A `flatSurfaces` brand lane (Class USA, Gold Athlete) has no atmosphere by definition and gets
+a flat tint instead of an invented gradient — same reasoning that neutralises `glow` and
+`gradient` for those lanes.
 
 ### Consuming it
 
@@ -166,24 +154,12 @@ Or read the token directly. A component previewing a preset **other** than the a
 `getGdsVibeThemeCssVariables(preset, scheme)` for that preset's values, which is what
 `VibeThemePicker` does for all 25 swatches — the ambient `var()` describes the active theme only.
 
-## Font lanes must cover every supported language (owner directive, 2026-08-13)
+## Font lanes must cover every supported language
 
-**Only a font stack that supports 100% of the languages GDS ships may be a font lane. There is
-no partial lane, and no lane may be added that covers "most" scripts.**
-
-### Why this is absolute
-
-Font lanes used to declare `localeCoverage` of latin, or latin plus cyrillic. Eleven of the
-twelve did. That meant **choosing a font silently chose which languages the product could
-display** — and nothing said so at the point of choice. `ja`, `ko` and `zh` had no lane at all:
-the packages shipped locale packs for all three while no lane's fonts contained a single one of
-their glyphs, so a reader would have seen tofu boxes on a page GDS had already declared
-localised.
-
-A lane that covers some languages is a **detour** in the Rule 10 sense. It does not remove the
-problem, it relocates it: every consuming app has to rediscover which font can render its own
-users' language, and solve it locally, forever. The system is the correct place to solve it
-once.
+Only a font stack that supports 100% of the languages GDS ships may be a font lane — no
+partial lane, no lane covering "most" scripts. A lane that covers some languages silently
+determines which languages a product can display, with nothing said at the point of choice —
+and pushes every consuming app to rediscover and solve that locally.
 
 ### The contract
 

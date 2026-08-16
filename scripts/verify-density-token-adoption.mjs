@@ -1,13 +1,8 @@
-// Issue 556 — spacing decisions come from the density axis, not from literals.
+// Spacing decisions come from the density axis, not from literals.
 //
-// A governed spacing scale that components ignore is the F2 failure in another namespace:
-// live, correct tokens with every rule reaching past them.
-//
-// Two things are deliberately NOT violations:
-//   `0`  — a reset is the absence of spacing, not a spacing decision. Routing it through a
-//          token would mean `--gds-space-none`, which reads worse and governs nothing.
-//   `em` — a value that scales with its own font size is doing something the step scale
-//          cannot express, and is usually correct inside generated imagery.
+// Two things are deliberately not violations:
+//   `0`  — a reset is the absence of spacing, not a spacing decision.
+//   `em` — scales with its own font size, which the step scale cannot express.
 //
 // Output: audit/density-token-adoption.json
 

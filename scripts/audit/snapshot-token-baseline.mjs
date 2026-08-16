@@ -1,9 +1,5 @@
-// Issue 554, Phase 1 — ground truth captured from the CURRENT implementation.
-//
-// The consolidation's success criterion is that nothing moves: every semantic token
-// value rendered today must be byte-identical afterwards. That claim is only checkable
-// against a snapshot taken BEFORE the refactor, from the shipped build, so this runs
-// first and its output is committed as evidence.
+// Snapshot of every semantic token value from the shipped build, taken before the refactor.
+// Committed as the baseline that post-refactor output must match byte-identically.
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 const ROOT = new URL('../..', import.meta.url).pathname;

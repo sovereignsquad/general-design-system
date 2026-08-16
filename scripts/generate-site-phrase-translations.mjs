@@ -11,11 +11,7 @@ const traverse = traverseModule.default ?? traverseModule;
 const root = process.cwd();
 const targetFiles = TARGET_FILES;
 
-// Issue 587: ja/ko/zh added. gds-core shipped package packs for all three while the site had
-// none, so the reference site could not render in Japanese, Korean or Chinese even though the
-// packages a visitor would install support their language. The list moved to lib/translate.mjs
-// when issue 617 gave it a second consumer — the site and the package packs must cover the same
-// locales, and two copies of the list are two things that can drift apart.
+// Locale list lives in lib/translate.mjs: the site and the package packs must cover the same locales.
 const localeIds = TRANSLATION_LOCALES;
 const outDir = resolve(root, 'apps/playground/src/generated-site-phrases');
 
@@ -45,24 +41,11 @@ const existingByLocale = Object.fromEntries(localeIds.map((locale) => [locale, p
 const generated = Object.fromEntries(localeIds.map((locale) => [locale, {}]));
 const translationJobs = [];
 
-// Issue 588. A previously-stored value used to be kept whenever it was non-empty, which is
-// why leakage ACCUMULATED: a phrase left in English is non-empty, so it was never retried,
-// and it survived every regeneration for as long as the file existed. `hu` had reached 50
-// such phrases and `de` 44.
+// A stored value is retried when it equals its English source AND another locale translated
+// the same phrase — peer evidence the phrase is translatable. Values identical across every
+// locale (e.g. component-name lists) are left alone.
 //
-// A stored value is now retried when it is identical to its English source AND some other
-// locale translated that same phrase — peer evidence that the phrase is translatable, so
-// this locale missed it. Values identical in every locale (component-name lists such as
-// "SidebarNav / SidebarNavSection / SidebarNavItem") are left alone, because nothing shows
-// they can be translated. See scripts/lib/i18n-leakage.mjs for why the rule is peer evidence
-// rather than an enumerated allowlist.
-//
-// Self-healing rather than one-off: if a translation request fails, `translate()` falls back
-// to the English text, which is exactly the condition this retest detects, so the next run
-// picks it up instead of freezing the failure into the artifact.
-// The retry set is the gate's own measurement, called on the packs as they stand, so the
-// generator repairs exactly what `verify:i18n-leakage` fails on. Two separate notions of
-// "untranslated" would drift apart and leave the build unfixable by its own generator.
+// Retry set comes from `measureCorpusLeakage()`, the same measurement `verify:i18n-leakage` uses.
 const leakedByLocale = Object.fromEntries(localeIds.map((locale) => [locale, new Set()]));
 if (existsSync(outDir)) {
   for (const row of measureCorpusLeakage(outDir, { referenceIsKey: true }).rows) {

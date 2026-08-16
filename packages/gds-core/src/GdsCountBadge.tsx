@@ -4,16 +4,11 @@ import type { BadgeProps } from '@mantine/core';
 import { GdsBadgeStack, GdsBadgeStackLayer } from './GdsBadgeStack';
 
 /**
- * GdsCountBadge (issue #490, part of epic #484): numeric/dot badge,
- * optionally anchored to a parent element's corner via the `GdsBadgeStack`
- * layering model.
+ * Numeric/dot badge, optionally anchored to a parent's corner via `GdsBadgeStack`.
  *
- * Announcement design: `role="status"` only announces *changes* to elements
- * already in the DOM — a badge conditionally mounted when `count > 0` never
- * announces its first appearance. So the live region here is **always
- * mounted**: at zero (without `showZero`) the visual pill hides but the
- * `role="status"` wrapper stays, and later count changes announce. Announced
- * word order is "{count} {label}" ("99+ notifications"), never the reverse.
+ * role="status" only announces changes to elements already in the DOM, so the live region
+ * always mounts; at zero (without `showZero`) only the visual pill hides. Announced order:
+ * "{count} {label}".
  */
 
 /** Semantic tone for the count pill; a closed union, no free color. */
@@ -61,17 +56,7 @@ export type GdsCountBadgeProps =
       showZero?: never;
     });
 
-/*
- * Issue 597. These used to be `--gds-state-danger-dark` etc. paired with a fixed near-white
- * foreground — a pairing that assumed the `-dark` suffix named a DARK COLOUR. It does not: it
- * names the dark-SCHEME value, and `--gds-state-info-dark` resolves to rgb(239, 242, 246).
- * The measured result on /patterns/feedback was 1.07:1 — white on white — and it had been
- * shipping, because a fixed foreground on a themeable background cannot be verified by
- * inspection.
- *
- * The `--gds-badge-solid-*` pairs are DERIVED per preset and per scheme against the surface
- * they land on, so the foreground cannot fall out of step with the fill.
- */
+// --gds-badge-solid-* pairs are derived per preset/scheme against the fill they land on.
 const toneColor: Record<GdsCountBadgeTone, { bg: string; fg: string }> = {
   danger: { bg: 'var(--gds-badge-solid-danger)', fg: 'var(--gds-badge-solid-danger-fg)' },
   info: { bg: 'var(--gds-badge-solid-info)', fg: 'var(--gds-badge-solid-info-fg)' },
@@ -119,8 +104,7 @@ export function GdsCountBadge(props: GdsCountBadgeProps) {
     </Badge>
   ) : null;
 
-  // The live region always mounts; its text — not the decorative pill — is
-  // what assistive tech hears, in "{count} {label}" order.
+  // Live region always mounts; its text, not the decorative pill, is what AT hears.
   const liveRegion = (
     <span role="status">
       <VisuallyHidden>{visible ? announcement : ''}</VisuallyHidden>

@@ -1,13 +1,5 @@
-// Issue 586 — no `--gds-*` token may be declared without a rendering path.
-//
-// Finding F13. A declared-but-unreachable token is not merely dead weight: it appears in
-// the docs and in the published DTCG graph, so a consumer or a design tool believes it is
-// available when nothing renders it. The system's advertised surface exceeds its real one.
-//
-// Declared tokens are MEASURED from what the theme actually emits, never listed by hand —
-// same principle as the Mantine census (issue 589) and for the same reason: a hand-written
-// roster is a second source of truth that can claim a token exists when it does not.
-//
+// Checks that no `--gds-*` token is declared without a rendering path.
+// Declared tokens are measured from what the theme actually emits, never listed by hand.
 // Output: audit/token-reachability.json
 
 import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -38,8 +30,7 @@ for (const lane of ['class-usa', 'gold-athlete']) {
 }
 
 const stylesPath = join(ROOT, 'packages/gds-theme/styles.css');
-// Comments are stripped first: a token named only inside a comment is not declared, and
-// counting one would understate the finding by inventing a declaration.
+// Comments stripped first: a token named only in a comment is not declared.
 const styles = readFileSync(stylesPath, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
 for (const m of styles.matchAll(/(--gds-[a-zA-Z0-9-]+)\s*:/g)) declare(m[1], 'packages/gds-theme/styles.css');
 
@@ -62,37 +53,14 @@ for (const file of [...walk(join(ROOT, 'packages')), ...walk(join(ROOT, 'apps/pl
   for (const m of text.matchAll(/var\(\s*(--gds-[a-zA-Z0-9-]+)/g)) {
     if (!referenced.has(m[1])) referenced.set(m[1], relative(ROOT, file));
   }
-  // A component that reads a custom property through the CSSOM is consuming it just as
-  // genuinely as a `var()` in a stylesheet — `GdsTour` reads its spotlight padding this way
-  // because the value has to become a number before it can inflate a measured rect (issue
-  // 591). Counting only `var()` would report a live token as orphaned, and the pressure that
-  // creates is to allowlist a false orphan or contort the component into a CSS-only shape.
+  // Reading a custom property via the CSSOM counts as consumption too, not just var().
   for (const m of text.matchAll(/getPropertyValue\(\s*['"`](--gds-[a-zA-Z0-9-]+)/g)) {
     if (!referenced.has(m[1])) referenced.set(m[1], relative(ROOT, file));
   }
-  // Issue 618. A component that renders a preview for a preset OTHER than the active one cannot
-  // read the ambient `var(--gds-*)`: it asks `getGdsVibeThemeCssVariables(preset, scheme)` for
-  // that preset's values and indexes the returned record. `VibeThemePicker` does exactly this
-  // for all 25 swatches.
-  //
-  // That is a real consumption path, and this gate was blind to it — `--gds-vibe-hero` only
-  // ever passed because styles.css happens to reference it too, so the blindness stayed hidden
-  // until a token was consumed ONLY through the record.
-  //
-  // NARROWED to `.tsx` component files. A first cut matched every file and made the gate far
-  // weaker than intended: the token EMITTERS index the same record when they build it, so
-  // `variables['--gds-x'] = …` counted as consumption and almost every token looked reached.
-  // The gate-mutation suite caught it immediately — the expired-extension-point mutant SURVIVED,
-  // because an expired entry was now "referenced" by the code that declares it. Consumption
-  // means a component rendering with it, so only components are read for this form.
-  // Scoped to `--gds-vibe-*` in components. Two narrowings, each forced by the mutation suite:
-  //   1. Every file — the token EMITTERS index the same record while building it, so
-  //      `variables['--gds-x'] = …` counted as consumption and nearly every token looked reached.
-  //   2. Every `--gds-*` in components — still too broad; an expired extension point in another
-  //      namespace was matched by an unrelated component lookup and the mutant SURVIVED again.
-  // The record-consumption path is specific: `getGdsVibeThemeCssVariables()` returns vibe tokens
-  // and a preview component indexes them for a preset that is not the active one. That is the
-  // only case CSS cannot express, so it is the only case this form covers.
+  // A preview component (e.g. VibeThemePicker) can index a non-active preset's token record
+  // directly via getGdsVibeThemeCssVariables() instead of the ambient var(--gds-*). Scoped to
+  // .tsx component files and --gds-vibe-* only, so token emitters building the same record
+  // aren't themselves counted as consumers.
   if (file.endsWith('.tsx')) {
     for (const m of text.matchAll(/\[\s*['"`](--gds-vibe-[a-zA-Z0-9-]+)['"`]\s*\]/g)) {
       if (!referenced.has(m[1])) referenced.set(m[1], relative(ROOT, file));
@@ -102,17 +70,14 @@ for (const file of [...walk(join(ROOT, 'packages')), ...walk(join(ROOT, 'apps/pl
 if (!referenced.size) fail('No var(--gds-*) references found. Extraction is broken.');
 
 // ── Unreachable ─────────────────────────────────────────────────────────────
-// A `-dark` sibling is not an independent token: the document path collapses it onto the
-// base name in dark mode, so it renders through its base's reference. Counting them would
-// roughly double the finding with entries that are reachable by construction.
+// A `-dark` sibling collapses onto its base name in dark mode; not counted separately.
 const isDarkSibling = (t) => t.endsWith('-dark') && declared.has(t.replace(/-dark$/, ''));
 
 const rows = [];
 for (const [token, where] of [...declared].sort()) {
   if (referenced.has(token) || isDarkSibling(token)) continue;
 
-  // A pending wire-up is a DEFECT waiting on review, not a working extension point. Kept
-  // in its own bucket so the two are never conflated in the count or the report.
+  // A pending wire-up is a defect awaiting review, kept separate from extension points.
   const pending = PENDING_WIRE_UP[token];
   if (pending) {
     if (!pending.issue) fail(`Pending wire-up ${token} has no tracking issue; it would be indistinguishable from an oversight.`);

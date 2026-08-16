@@ -1,11 +1,6 @@
-// Issue 559 — minimums no theme may cross, checked across every preset and scheme.
+// Accessibility minimums no theme may cross, checked across every preset and scheme.
 //
-// The axes gave themes real control over shape, density, type, motion and reaction. Every one
-// of those is a lever that can be pulled into an accessibility regression while looking like a
-// design decision. This is the contract that says which pulls are not available.
-//
-// There is no warning tier: a floor breach fails the build. A warning would make the floor
-// advisory, and an advisory floor is not a floor.
+// No warning tier: a floor breach fails the build.
 //
 // Output: audit/accessibility-floor.json
 
@@ -21,11 +16,8 @@ if (!auditGdsAccessibilityFloor) {
   process.exit(1);
 }
 
-// CANARY. Zero violations is the result we want and also what a floor that checks nothing
-// reports. The gate cannot tell those apart from the count alone — that is finding F19's
-// failure mode exactly — so it first feeds the floor a context that breaches every rule and
-// asserts it comes back dirty. If the canary passes clean, the floor is not working and the
-// green result below would have been meaningless.
+// Canary: feeds the floor a context that breaches every rule and asserts it comes back dirty,
+// or a clean run below would be meaningless.
 const { validateGdsAccessibilityFloor, getGdsVibeThemeCssVariables } = await import(join(ROOT, 'packages/gds-theme/dist/index.js'));
 const canaryTokens = {
   ...getGdsVibeThemeCssVariables('default', 'light'),
@@ -76,8 +68,7 @@ if (violations.length) {
   process.exit(1);
 }
 
-// The docs must state the same rules the gate enforces; a floor described differently from
-// how it is checked is a floor nobody can rely on.
+// Docs must match the rule set the gate enforces.
 const doc = join(ROOT, 'docs/ACCESSIBILITY_FLOOR.md');
 const expected = describeGdsAccessibilityFloor();
 try {

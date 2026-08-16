@@ -1,16 +1,5 @@
-// The reference site alters no styling of its own — owner directive, 2026-08-14.
-//
-// Rule 10 makes a defect on the GDS page a defect in the shared system, and that only holds if
-// the page has no way to paint around one. The moment a route can add an inline style, a local
-// stylesheet or a raw Mantine import, a bug there can be "fixed" locally while the shared
-// component stays broken for every consumer. This gate is what makes the page an honest witness.
-//
-// WHY IT WAS WIDENED. It read FOUR files and checked TWO things. The playground has 17 source
-// files, so the other 13 were ungoverned — the property held there by luck rather than by rule.
-// Measured when widening: zero violations across all of them, so this records a state the page
-// had already reached rather than demanding new work.
-//
-// Each leak form is a separate check, so a failure names the mechanism and not just the file.
+// Checks that the reference site adds no styling of its own (inline styles, local stylesheets,
+// raw Mantine imports, CSS-in-JS). Scans every hand-written playground source file.
 
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
@@ -18,8 +7,7 @@ import { resolve, join } from 'node:path';
 const root = process.cwd();
 const srcDir = resolve(root, 'apps/playground/src');
 
-// Every hand-written source file. Generated phrase packs are excluded: they are data, carry no
-// markup, and are rewritten wholesale by a generator.
+// Excludes generated phrase packs (data, no markup).
 const files = readdirSync(srcDir)
   .filter((name) => name.endsWith('.tsx') || name.endsWith('.ts'))
   .filter((name) => !name.includes('.test.'))
@@ -31,8 +19,7 @@ if (files.length === 0) {
   process.exit(1);
 }
 
-// The stylesheets GDS itself publishes. Importing one of these IS the governed path; importing
-// anything else is the page inventing its own design authority.
+// Stylesheets GDS itself publishes; only these may be imported.
 const SANCTIONED_STYLESHEETS = [
   '@sovereignsquad/gds-theme/styles.css',
   '@sovereignsquad/gds-theme/dates.css',
@@ -41,8 +28,7 @@ const SANCTIONED_STYLESHEETS = [
 
 const CHECKS = [
   {
-    // Real import statements only. `info-pages.tsx` embeds Mantine imports inside code samples
-    // that teach a consumer what to write — documentation about an import is not an import.
+    // Real import statements only; excludes code samples embedded in docs.
     test: (line) => /^\s*import\b[^'"]*from\s+['"]@mantine\//.test(line),
     message: 'imports from @mantine/* directly. Compose GDS exports instead; a raw Mantine import lets the page style around a GDS component rather than fix it.',
   },
@@ -70,12 +56,7 @@ const CHECKS = [
     message: 'uses a CSS-in-JS construct. GDS ships the styling; the page consumes it.',
   },
   {
-    // A bare <a> renders with the browser's UA-default underline/link color, invisible to
-    // every theme — found on the site's own primary CTAs ("Install GDS", "Request a
-    // feature") via a live-rendered audit. GdsInlineLink exists precisely so the page never
-    // needs one (issue 628). The character class after `a` excludes <article>, <aside>,
-    // <Anchor>, <GdsInlineLink> (case-sensitive; none of those have a whitespace/`/`/`>`
-    // character in that position), so this does not need a separate allowlist.
+    // Character class after `a` excludes <article>, <aside>, <Anchor>, <GdsInlineLink> (case-sensitive).
     test: (line) => /<a[\s/>]/.test(line),
     message: 'renders a bare <a> tag. Use GdsInlineLink instead — an unstyled anchor ignores the theme entirely.',
   },
@@ -86,8 +67,7 @@ const failures = [];
 for (const name of files) {
   const source = readFileSync(join(srcDir, name), 'utf8');
   source.split('\n').forEach((line, index) => {
-    // Comments explain code; they are not code. This is the same false positive that failed a
-    // release when a compliance rule read `<select>` inside a comment (issue 615).
+    // Skip comment lines.
     if (/^\s*(\/\/|\*|\/\*)/.test(line)) return;
     for (const check of CHECKS) {
       if (check.test(line)) {

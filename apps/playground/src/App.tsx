@@ -15,8 +15,7 @@ import { useGdsDomPhraseTranslation,
   StateBlock,
   ThemeToggle,
 } from '@sovereignsquad/gds-core';
-// See info-pages.tsx's import comment: ReferenceThemeExplorer (and its
-// ThemeExplorerSelection type) moved behind its own subpath (issue 532).
+// ThemeExplorerSelection ships from the reference-theme-explorer subpath, not the main barrel.
 import type { ThemeExplorerSelection } from '@sovereignsquad/gds-core/reference-theme-explorer';
 import {
   getLegacyRedirects,
@@ -179,11 +178,8 @@ function RouteFallback() {
 function PlaygroundContent() {
   const [locale, setLocale] = useState<string>(() => {
     const requestedLocale = new URLSearchParams(window.location.search).get('locale');
-    // `getSiteLocale` always falls back to English internally, so it never
-    // returns falsy — this must check real registry membership, not truthiness
-    // (regression: an invalid `?locale=` value used to be stored as-is instead
-    // of falling back to 'en', corrupting state and misreporting locale in the
-    // notice banner it then spuriously triggered).
+    // Must check registry membership, not truthiness: getSiteLocale always falls back
+    // internally, so a truthy but invalid locale would never be caught here.
     return requestedLocale && requestedLocale in siteLocaleRegistry ? requestedLocale : 'en';
   });
   const {
@@ -230,8 +226,7 @@ function PlaygroundContent() {
 
   const headerContext = getSiteHeaderContext(location.pathname, effectiveLocale);
 
-  // Issue 624 (owner directive): the translation overlay is a GDS capability — the engine and
-  // observer lifecycle live in gds-core; this site supplies only its phrase packs' loader.
+  // Engine and observer lifecycle live in gds-core; this site supplies only the phrase-pack loader.
   useGdsDomPhraseTranslation({
     root: typeof document === 'undefined' ? null : document.getElementById('root'),
     locale: effectiveLocale,
@@ -298,7 +293,7 @@ function PlaygroundContent() {
             )}
           />
           <Route path="/patterns" element={<Suspense fallback={<RouteFallback />}><PatternsIndexPage /></Suspense>} />
-          {/* Issue 626 Phase 3: foundations is a top-level area; its old catalog URL redirects via getLegacyRedirects. */}
+          {/* Old catalog URL for foundations redirects via getLegacyRedirects. */}
           <Route path="/foundations" element={<Suspense fallback={<RouteFallback />}><FoundationsPatternPage /></Suspense>} />
           <Route path="/patterns/public" element={<Suspense fallback={<RouteFallback />}><PublicPatternPage /></Suspense>} />
           <Route path="/patterns/operations" element={<Suspense fallback={<RouteFallback />}><OperationsPatternPage /></Suspense>} />

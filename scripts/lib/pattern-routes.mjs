@@ -1,8 +1,4 @@
-// Issue 562 — the route set the coverage matrix sweeps, read from the app rather than listed.
-//
-// A hand-maintained route list is a list that goes stale the moment a route is added, and the
-// matrix would then report a clean sweep of a page set that no longer matches the site. Read
-// from App.tsx, which is where routes are actually declared.
+// The route set the coverage matrix sweeps, read from App.tsx rather than hand-listed.
 
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';

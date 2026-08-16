@@ -724,9 +724,8 @@ describe('@sovereignsquad/gds-core', () => {
 
     expect(screen.getByLabelText('Overflow list')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
-    // FloatingActionPlacement is page-level fixed chrome, not an overlay — it must use
-    // GDS's published z-index authority (gdsZIndexToken.app) rather than an ad hoc
-    // number, so it can never silently drift out of sync with modals/popovers (#391).
+    // Must use the published z-index token (gdsZIndexToken.app), not an ad hoc number, to
+    // stay in sync with modals/popovers.
     expect(screen.getByRole('button', { name: 'Save' }).parentElement).toHaveStyle({ zIndex: 'var(--mantine-z-index-app)' });
     expect(screen.getByText('123')).toHaveStyle({ fontVariantNumeric: 'tabular-nums' });
     expect(screen.getByText('Hidden caption')).toHaveStyle({ position: 'absolute' });
@@ -858,7 +857,6 @@ describe('@sovereignsquad/gds-core', () => {
 
     expect(getGdsIconKeys()).toContain('Delete');
     expect(gdsIconRegistry.Delete.category).toBe('action');
-    // Icon catalog expansion (issue #397): rich-text-editor + commerce/security/navigation icons.
     expect(gdsIconRegistry.Bold.category).toBe('content');
     expect(gdsIconRegistry.Cart.category).toBe('commerce');
     expect(gdsIconRegistry.Lock.category).toBe('security');
@@ -2318,12 +2316,9 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByText('2 pending')).toBeInTheDocument();
   });
 
-  // The regression this guards is unchanged — a media fallback must never be a fixed light-only
-  // shade, which rendered as a stark white box on dark-mode cards. What satisfies it changed:
-  // the fallback is now a generated thumbnail (owner directive, 2026-08-14) painted from
-  // `var(--gds-brand-*)`, which the theme redefines per scheme. That is a STRONGER guarantee
-  // than the `light-dark()` pair it replaced — the colour follows the whole theme, not just the
-  // scheme — so the assertion moves to the property rather than the old implementation.
+  // Media fallback must never be a fixed light-only shade — that rendered as a stark white
+  // box on dark-mode cards. The fallback is a generated thumbnail painted from
+  // `var(--gds-brand-*)`, which the theme redefines per scheme.
   it('renders its media fallback from theme variables, never a fixed light-only shade (regression: stark white box on dark-mode cards)', () => {
     const { container } = renderWithGds(<EditorialCard title="No media yet" />);
     const thumbnail = container.querySelector('[data-gds-generated-thumbnail]');
@@ -3055,9 +3050,8 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
   });
 
   it('renders status badges from the governed soft tone pair, not Mantine\'s light variant', () => {
-    // Issue 595 / #534. This asserted `variant="light"` — Mantine's pastel-on-tint pattern,
-    // which measured 1.81:1 and 2.55:1 in dark mode. GDS never controlled that pair, and an
-    // rgba tint's contrast cannot be computed at all. The tone now comes from tokens whose
+    // Mantine's variant="light" pastel-on-tint pair measured 1.81:1 and 2.55:1 in dark mode
+    // and its rgba tint's contrast cannot be computed. Tone must come from tokens whose
     // foreground is derived against the background it lands on.
     renderWithGds(<StatusBadge status="warning">Needs review</StatusBadge>);
 
@@ -3088,7 +3082,6 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     const icon = badge.querySelector('[data-gds-icon]');
     expect(icon).not.toBeNull();
     expect(icon).toHaveAttribute('data-gds-icon', 'Success');
-    // Decorative: the label carries the meaning, the icon must stay hidden from AT.
     expect(icon).toHaveAttribute('aria-hidden', 'true');
   });
 
@@ -3168,15 +3161,14 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
   it('themes control cards globally (not via bespoke owned-contrast) and marks the active preset', () => {
     const { container } = renderWithGds(<ReferenceThemeExplorer />);
 
-    // Issue #461: the primary Theme Lab control/result cards must NOT carry a
-    // bespoke owned-contrast surface — that forced a dark `surfaceDark` gradient
-    // onto them, painting dark boxes on a light page. They now re-theme globally
-    // like any `.gds-paper`, so the retired `theme-lab-controls` role is gone.
+    // The Theme Lab control/result cards must not carry a bespoke owned-contrast surface
+    // (that forced a dark gradient onto them on a light page); they re-theme globally like
+    // any `.gds-paper`, so `theme-lab-controls` must not appear.
     expect(container.querySelectorAll('[data-gds-owned-contrast="theme-lab-controls"]').length).toBe(0);
     expect(container.querySelector('[data-gds-local-contrast="theme-lab-controls"]')).toBeNull();
 
-    // Owned contrast stays reserved for the intentional vibe *swatch* surfaces
-    // whose job is to preview a specific vibe atmosphere, not match the page.
+    // Owned contrast stays reserved for the vibe *swatch* surfaces that preview a specific
+    // vibe atmosphere rather than matching the page.
     expect(container.querySelectorAll('[data-gds-owned-contrast="vibe-gallery-card"]').length).toBeGreaterThan(12);
     expect(container.querySelector('[data-gds-owned-contrast="vibe-contract"]')).toBeInTheDocument();
     expect(container.querySelector('[data-gds-owned-contrast="athlete-gold-reference"]')).toBeInTheDocument();
@@ -3186,8 +3178,6 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(firstVibeCard?.getAttribute('style')).toContain('background-image: var(--gds-local-background)');
     expect(firstVibeCard?.getAttribute('data-gds-local-contrast')).toBe('vibe-gallery-card');
 
-    // The currently-applied preset is clearly labelled "Selected" in the control
-    // panel (one badge on the preset picker, one on the selection summary).
     const activeMarkers = container.querySelectorAll('[data-gds-theme-lab-active]');
     expect(activeMarkers.length).toBe(2);
     expect([...activeMarkers].some((element) => element.textContent?.includes('Selected'))).toBe(true);
@@ -3569,9 +3559,7 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     expect(document.querySelectorAll('.mantine-Skeleton-root').length).toBeGreaterThan(0);
 
-    // A card with no image now shows generated art rather than a grey box with a photo glyph.
-    // The glyph was the universal broken-image picture: it told a reader something had FAILED,
-    // when in fact nothing had been supplied.
+    // A card with no image shows generated art, not the broken-image placeholder glyph.
     const { container } = renderWithGds(<PublicProductCard title="Seasonal plate" />);
     expect(container.querySelector('[data-gds-generated-thumbnail]')).toBeTruthy();
     expect(screen.queryByLabelText('No product image available')).toBeNull();
@@ -3760,7 +3748,7 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getByText('Generated from contract.')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Name' })).toHaveAttribute('aria-describedby', 'name-description name-error');
     // renderDefaultField's raw native fallback carries no Mantine class/--input-fz, so it
-    // needs its own mobile input-focus auto-zoom guard (issue #380).
+    // needs its own mobile input-focus auto-zoom guard.
     expect(screen.getByRole('textbox', { name: 'Name' })).toHaveStyle({ fontSize: 'max(1rem, 1em)' });
     expect(screen.getByRole('combobox', { name: 'Role' })).toHaveStyle({ fontSize: 'max(1rem, 1em)' });
     expect(screen.getByRole('textbox', { name: 'Files' })).toBeInTheDocument();

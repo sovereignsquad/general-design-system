@@ -136,8 +136,8 @@ Suppressions require explicit metadata (`reason`, `owner`, `expiresAt`, `replace
 
 Carried from the accessibility-evidence registry (limitations stay visible with an owner and recovery path):
 
-- **Third-party embed surfaces** (e.g. `MapPanel`): the GDS containment shell is governed, but iframe/vendor internals may not expose the same semantics. Recovery: prefer package-owned fallback states/text summaries; track any suppression with an expiry. (Issue 267.)
-- **Searchable selection (recipe lane):** keyboard and naming are governed, but the interaction still depends on a documented Mantine recipe path rather than a promoted dedicated GDS export. Recovery: promote the package-native contract before broadening adoption. (Issue 268.)
+- **Third-party embed surfaces** (e.g. `MapPanel`): the GDS containment shell is governed, but iframe/vendor internals may not expose the same semantics. Recovery: prefer package-owned fallback states/text summaries; track any suppression with an expiry.
+- **Searchable selection (recipe lane):** keyboard and naming are governed, but the interaction still depends on a documented Mantine recipe path rather than a promoted dedicated GDS export. Recovery: promote the package-native contract before broadening adoption.
 
 ## Template — documenting a new component's accessibility
 

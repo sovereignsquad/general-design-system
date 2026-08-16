@@ -9,20 +9,16 @@ import {
   goldAthleteDefaultColorRamps,
 } from './semantic-token-source';
 
-// Issue 554: re-exported, not defined here. The public surface is unchanged; the
-// definition moved so that every semantic-role value lives in one module.
+// Re-exported, not defined here. The public surface is unchanged; the definition moved so
+// that every semantic-role value lives in one module.
 export { deriveVibeSemanticCssVariables };
 
-// This file intentionally maintains its own hand-authored color values rather
-// than deriving them from `theme-presets.ts`'s Mantine hue names (e.g.
-// `createVibrantPresetTheme('orange')`): the two systems draw from genuinely
-// different color sources by design (Mantine's functional color ramp vs. a
-// bespoke, more saturated "vibe" atmosphere palette), so forcing one to derive
-// from the other would be a real visual-design decision, not a mechanical
-// refactor, and isn't safe to make unilaterally. `vibe-themes.test.ts` guards
-// the drift risk that IS safe to eliminate mechanically: every preset id in
-// `theme-presets.ts`'s catalog must have a matching entry here, and vice
-// versa, so adding a new preset to one file without the other fails CI.
+// This file maintains its own hand-authored color values rather than deriving them from
+// `theme-presets.ts`'s Mantine hue names: the two systems draw from different color sources
+// by design (Mantine's functional color ramp vs. a bespoke, saturated "vibe" atmosphere
+// palette), so deriving one from the other would be a visual-design decision, not a
+// mechanical refactor. `vibe-themes.test.ts` guards the drift that is mechanical: every
+// preset id in `theme-presets.ts`'s catalog must have a matching entry here and vice versa.
 
 /** The saturated "vibe" atmosphere palette for one preset: brand hues plus light/dark surface, text, and decorative effect colors. */
 export interface GdsVibeTheme {
@@ -65,19 +61,15 @@ export interface GdsVibeTheme {
   /** Hero/banner gradient. */
   hero: string;
   /**
-   * True for a lane backed by a real `createBrandTheme(...)` brand (Class USA,
-   * Gold Athlete) whose own definition sets `flatSurfaces: true` and never
-   * configures a gradient, glow, or colored shadow anywhere. Consumers that
-   * preview this lane's atmosphere (gradient/glow fields above) must skip
-   * those fields when this is true — showing them would fabricate a visual
-   * treatment the real, governed brand doesn't have. Unset/false for the
-   * generic vibe lanes, where the gradient/glow atmosphere IS the lane's own
-   * real, intentional identity.
+   * True for a lane backed by a real `createBrandTheme(...)` brand (Class USA, Gold
+   * Athlete), whose own definition sets `flatSurfaces: true` and never configures a
+   * gradient, glow, or colored shadow. Consumers previewing this lane's atmosphere
+   * (gradient/glow fields above) must skip those fields when true. Unset/false for the
+   * generic vibe lanes, where the gradient/glow atmosphere is the lane's own identity.
    */
   /**
-   * Non-colour design decisions (issue 555): shape today, density/typography/motion to
-   * follow. Optional — a preset that declares nothing gets the captured defaults, which
-   * reproduce today's geometry exactly.
+   * Non-colour design decisions: shape, density, typography, motion. Optional — a preset
+   * that declares nothing gets the captured defaults, reproducing today's geometry exactly.
    */
   axes?: GdsThemeAxes;
   flatSurfaces?: boolean;
@@ -107,16 +99,13 @@ const neutralVibe: GdsVibeTheme = {
 
 const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   default: neutralVibe,
-  // Accessibility lane (#453): maximal-contrast, flat, undecorated. Pure
-  // white/black canvases, black/white body text, near-pure dark-gray/light-gray
-  // meta text (all AAA), and solid black/white borders. No gradients or glows —
-  // `flatSurfaces: true` neutralizes --gds-vibe-glow/--gds-vibe-gradient/
-  // --gds-vibe-atmosphere at the source (see getGdsVibeThemeCssVariables below),
-  // the same mechanism class-usa/gold-athlete rely on, so the shell reads as a
-  // plain high-contrast surface everywhere a component composes its own
-  // gradient/glow from those variables — not just the fields on this object.
-  // Text/meta on canvas/surface clear WCAG AAA in both schemes (verified in
-  // verify:token-contrast-scoring / theme-accessibility).
+  // Accessibility lane: maximal-contrast, flat, undecorated. Pure white/black canvases,
+  // black/white body text, near-pure dark-gray/light-gray meta text (all AAA), and solid
+  // black/white borders. No gradients or glows — `flatSurfaces: true` neutralizes
+  // --gds-vibe-glow/--gds-vibe-gradient/--gds-vibe-atmosphere at the source (see
+  // getGdsVibeThemeCssVariables below), so the shell reads as a plain high-contrast surface
+  // everywhere a component composes its own gradient/glow from those variables. Text/meta
+  // on canvas/surface clear WCAG AAA in both schemes.
   'high-contrast': {
     id: 'high-contrast',
     label: 'High contrast',
@@ -139,14 +128,11 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     hero: 'linear-gradient(transparent, transparent)',
     flatSurfaces: true,
   },
-  // Accessibility lane (#453): colorblind-safe brand palette drawn from the
-  // Okabe-Ito qualitative set (Okabe & Ito, 2008) — the validated colors that
-  // stay distinguishable across deuteranopia, protanopia, and tritanopia.
-  // `primary` = Okabe-Ito blue (#0072b2), `accent` = Okabe-Ito vermillion
-  // (#d55e00): the classic CVD-safe categorical pairing. Text/meta stay dark on
-  // light (AA/AAA). GDS never signals state by hue alone (MeaningBadge et al.
-  // carry a label + icon per WCAG 1.4.1), so this lane targets the brand/
-  // categorical palette rather than the state colors.
+  // Accessibility lane: colorblind-safe brand palette drawn from the Okabe-Ito qualitative
+  // set — colors distinguishable across deuteranopia, protanopia, and tritanopia. `primary`
+  // = Okabe-Ito blue (#0072b2), `accent` = Okabe-Ito vermillion (#d55e00). Text/meta stay
+  // dark on light (AA/AAA). GDS never signals state by hue alone (MeaningBadge et al. carry
+  // a label + icon), so this lane targets the brand/categorical palette, not state colors.
   'colorblind-safe': {
     id: 'colorblind-safe',
     label: 'Colorblind safe',
@@ -241,22 +227,18 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     ...neutralVibe,
     id: 'class-usa',
     label: 'Class USA',
-    // v2 re-base (issue 536). `accent` stays the single-scheme-invariant
-    // `GdsVibeTheme` field it's always been, so it's anchored to `action[6]`
-    // (#c24a0a) — the ONE of the two new oranges that clears WCAG non-text
-    // contrast (3:1) in both its actual consumers here: the light-mode
-    // button border trim (styles.css) and, blended, the dark-mode badge
-    // tint. `brand[5]` (#f5793b) was verified NOT to (2.56:1/2.73:1 on
-    // cream/white) — using it here would silently fail the light-mode
-    // border. The full light/dark accent split the spec actually wants
-    // lives in the scheme-aware `--gds-*` semantic-role tokens below
-    // (`classUsaSemanticCssVariables`), not in this single-value field.
+    // v2 re-base. `accent` stays the single-scheme-invariant `GdsVibeTheme` field, anchored
+    // to `action[6]` (#c24a0a): the one of the two new oranges that clears WCAG non-text
+    // contrast (3:1) in its actual consumers (light-mode button border trim, blended
+    // dark-mode badge tint). `brand[5]` (#f5793b) does not (2.56:1/2.73:1 on cream/white).
+    // The full light/dark accent split lives in the scheme-aware `--gds-*` semantic-role
+    // tokens below (`classUsaSemanticCssVariables`), not in this single-value field.
     primary: '#0f2c4a',
     accent: '#c24a0a',
     glow: 'rgba(194, 74, 10, 0.2)',
     canvasLight: '#faf7f1',
-    // Dark canvas is neutral charcoal, not a navy-dark tint (v2 re-base
-    // ruling): navy is reserved for accents and the inverse shell only.
+    // Dark canvas is neutral charcoal, not a navy-dark tint: navy is reserved for accents
+    // and the inverse shell only.
     canvasDark: '#14171c',
     shellLight: 'rgba(255, 255, 255, 0.9)',
     shellDark: 'rgba(15, 44, 74, 0.9)',
@@ -565,11 +547,9 @@ export function resolveGdsVibeTheme(id: GdsThemePresetId) {
   return vibeThemes[id] ?? neutralVibe;
 }
 
-// Issue 554. These two lanes' semantic values are GENERATED from the single source in
+// These two lanes' semantic values are generated from the single source in
 // `semantic-token-source.ts` — the same table `createBrandTheme` emits from — so the two
-// paths cannot disagree. Previously both were hand-authored from the same spec document
-// and a comment here asked a human to keep them byte-identical. That instruction is what
-// `verify:token-single-source` now enforces mechanically instead.
+// paths cannot disagree. `verify:token-single-source` enforces this mechanically.
 const classUsaSemanticCssVariables = emitClassUsaCssVariables(classUsaDefaultColorRamps);
 const goldAthleteSemanticCssVariables = emitGoldAthleteCssVariables(goldAthleteDefaultColorRamps);
 
@@ -583,26 +563,19 @@ const derivedSemanticCssVariablesCache = new Map<GdsThemePresetId, Record<string
 function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeTheme): Record<string, string> {
   const handAuthored = brandSemanticCssVariablesByPreset[id];
   if (handAuthored) {
-    // The hand-authored table OVERRIDES derivation; it does not REPLACE it (issue #537).
-    //
-    // Returning it wholesale meant any role it happened not to list simply vanished for
-    // the brand lanes, while every generic lane had one. That is precisely how
-    // `--gds-text-on-support` came to be absent here and present everywhere else, and
-    // why ChoiceChip reached for `text.onInverse` - a role designed for a different
-    // background - and rendered at 1.89:1 in class-usa dark.
+    // The hand-authored table overrides derivation; it does not replace it. Returning it
+    // wholesale would mean any role it doesn't list simply vanishes for the brand lanes,
+    // while every generic lane has one.
     //
     // Deriving first and layering the hand-authored values on top preserves every
-    // deliberate brand decision while making an omission fall back to a
-    // contrast-derived default rather than to nothing. It also means a role added in
-    // future cannot silently disappear from these two lanes.
+    // deliberate brand decision while making an omission fall back to a contrast-derived
+    // default rather than to nothing, and means a future role cannot silently disappear
+    // from these two lanes.
     const merged = { ...deriveVibeSemanticCssVariables(vibe), ...handAuthored };
 
-    // Roles DERIVED FROM another role must be recomputed after the override layer is
-    // applied, or the pair is mismatched: the derived foreground was computed against
-    // the derived `support`, while the hand-authored `support` is what actually wins.
-    // That mismatch measured 4.1:1 for class-usa light - a real failure introduced by
-    // the fix itself, caught only because every preset x scheme pair is verified rather
-    // than sampled.
+    // Roles derived from another role must be recomputed after the override layer is
+    // applied, or the pair is mismatched: the derived foreground was computed against the
+    // derived `support`, while the hand-authored `support` is what actually wins.
     merged['--gds-text-on-support'] = readableForeground(merged['--gds-support'], 4.5, merged['--gds-bg-page'] ?? vibe.canvasLight);
     merged['--gds-text-on-support-dark'] = readableForeground(merged['--gds-support-dark'], 4.5, merged['--gds-bg-page-dark'] ?? vibe.canvasDark);
 
@@ -626,28 +599,20 @@ function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeThem
  * {@link deriveVibeSemanticCssVariables} for every other preset), with `-dark`
  * values collapsed onto their base names in dark mode.
  *
- * Return type is explicitly `Record<string, string>`, not the narrower
- * object-literal shape TS would otherwise infer from the `--gds-vibe-*`
- * properties alone: the semantic role set (`--gds-brand-primary`,
- * `--gds-state-success`, etc.) is merged in via `...semanticVariables` below
- * and is real at runtime, but a plain object-literal return type doesn't
- * carry that merge across a package's compiled `.d.ts` boundary. Annotating
- * the true shape here (rather than each caller re-deriving or casting
- * around the gap) is the fix at the source.
+ * Return type is explicitly `Record<string, string>`, not the narrower object-literal
+ * shape TS would otherwise infer: the semantic role set is merged in via
+ * `...semanticVariables` below and is real at runtime, but a plain object-literal return
+ * type would not carry that merge across a package's compiled `.d.ts` boundary.
  */
 export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: 'light' | 'dark'): Record<string, string> {
   const vibe = resolveGdsVibeTheme(id);
   const dark = colorScheme === 'dark';
 
-  // A flatSurfaces lane (Class USA, Gold Athlete) is backed by a real
-  // `createBrandTheme(...)` that never configures a gradient, glow, or
-  // colored shadow anywhere in its own definition. Every CSS rule below
-  // reads `--gds-vibe-glow`/`--gds-vibe-gradient` to paint atmospheric
-  // effects (page background wash, header/card/button glows) across the
-  // WHOLE site whenever that lane is the active theme, not just inside a
-  // Theme Lab preview — so neutralizing them here, once, at the source, is
-  // what keeps every one of those consumers honest instead of fabricating
-  // an atmosphere the real brand doesn't have.
+  // A flatSurfaces lane (Class USA, Gold Athlete) is backed by a real `createBrandTheme(...)`
+  // that never configures a gradient, glow, or colored shadow. Every CSS rule below reads
+  // `--gds-vibe-glow`/`--gds-vibe-gradient` to paint atmospheric effects across the whole
+  // site when that lane is active, so neutralizing them here, once, at the source keeps
+  // every consumer from fabricating an atmosphere the real brand doesn't have.
   const glow = vibe.flatSurfaces ? 'transparent' : vibe.glow;
   const gradient = vibe.flatSurfaces ? 'none' : vibe.gradient;
 
@@ -664,24 +629,16 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
     '--gds-vibe-focus': dark ? vibe.textDark : vibe.textLight,
     '--gds-vibe-gradient': gradient,
     '--gds-vibe-hero': vibe.hero,
-    // Issue 618 — the preset's atmosphere at SMALL-SURFACE scale.
+    // The preset's atmosphere at small-surface scale.
     //
-    // `--gds-vibe-hero` is composed for a full-width band. Reused as a 40px fill its 135° ramp
-    // stops being a wash and becomes a hard diagonal: `gold-athlete`'s hero is imperceptible
-    // across a hero band and reads as a metallic split inside a swatch. That is a SCALE
-    // mismatch, and it had no token to fix it with — anything needing the atmosphere small (a
-    // swatch, a chip, a legend dot, a preview tile, a consumer's own theme picker) had to
-    // borrow the hero and inherit its geometry.
-    //
-    // Scale-independent by construction: a radial from the centre reads the same at 40px and at
-    // 400px, because there is no axis along which a small box can crop the ramp differently.
-    // DERIVED from the same `primary`/`accent` the rest of the vibe is built from, and mixed
-    // against the scheme's own surface, so it cannot drift from the preset and needs no
-    // per-preset authoring — all 25 get it, in both schemes, for free.
+    // `--gds-vibe-hero` is composed for a full-width band; reused as a 40px fill, its 135°
+    // ramp becomes a hard diagonal instead of a wash. Scale-independent by construction: a
+    // radial from the centre reads the same at 40px and 400px. Derived from the same
+    // `primary`/`accent` the rest of the vibe is built from, mixed against the scheme's own
+    // surface, so it cannot drift from the preset.
     //
     // A `flatSurfaces` brand lane has no atmosphere by definition, so it gets an honest flat
-    // tint rather than a gradient GDS invented for it — the same reasoning that neutralises
-    // `glow` and `gradient` above.
+    // tint rather than an invented gradient — the same reasoning as `glow`/`gradient` above.
     '--gds-vibe-swatch': vibe.flatSurfaces
       ? `color-mix(in srgb, ${vibe.primary} 18%, ${dark ? vibe.surfaceDark : vibe.surfaceLight})`
       : `radial-gradient(circle at 50% 50%, color-mix(in srgb, ${vibe.accent} 34%, ${dark ? vibe.surfaceDark : vibe.surfaceLight}) 0%, color-mix(in srgb, ${vibe.primary} 22%, ${dark ? vibe.surfaceDark : vibe.surfaceLight}) 100%)`,
@@ -689,8 +646,8 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
   };
 
   const brandSemanticCssVariables = resolveVibeSemanticCssVariables(id, vibe);
-  // Issue 555: axis tokens are scheme-independent — a corner radius does not change between
-  // light and dark — so they are merged in once rather than resolved per scheme.
+  // Axis tokens are scheme-independent — a corner radius does not change between light and
+  // dark — so they are merged in once rather than resolved per scheme.
   const axisVariables = resolveGdsAxisTokens(vibe.axes, id, colorScheme);
 
   const semanticVariables: Record<string, string> = { ...brandSemanticCssVariables };

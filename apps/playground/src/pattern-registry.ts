@@ -1,15 +1,6 @@
 import { provenPatternIds } from './generated-pattern-coverage.ts';
 
-/**
- * Issue 608. Two values, both DERIVED — see the mapping at the bottom of this file.
- *
- * `pending-primitive` and `blocked` were removed rather than left declared. They had never been
- * used once across 113 entries, and an enum member nothing can produce is not a state the system
- * has; it is a state someone imagined. Keeping them would leave `/coverage` rendering "0
- * patterns are blocked" forever, which reads as a measurement and is not one. A pattern whose
- * primitive does not exist yet simply has no demo, so it derives to `static-reference` — the
- * honest description of what a reader sees.
- */
+/** Derived, not authored — see the mapping at the bottom of this file. */
 export type PatternCoverageStatus = 'live-proof' | 'static-reference';
 
 export type PatternFamily =
@@ -36,10 +27,7 @@ export interface PatternRegistryEntry {
   sourceComponent?: string;
 }
 
-// Issue 608. `coverageStatus` is deliberately absent from the AUTHORED shape: it is derived
-// below from what the catalog actually renders, so an entry cannot claim a proof it does not
-// have. All 113 entries previously carried the same hand-typed 'live-proof', which is a field
-// that cannot be observed to be wrong — and seven of them were.
+// coverageStatus is derived below, not authored, so an entry can't claim a proof it lacks.
 type RawPatternRegistryEntry = Omit<PatternRegistryEntry, 'route' | 'anchor' | 'coverageStatus'>;
 
 const rawPatternRegistry: RawPatternRegistryEntry[] = [
@@ -1195,10 +1183,7 @@ export const patternRegistry: PatternRegistryEntry[] = rawPatternRegistry.map((e
   ...entry,
   route: `/patterns/${entry.family}`,
   anchor: entry.id,
-  // Computed from what the catalog renders, never written. `provenPatternIds` is generated from
-  // `pattern-pages.tsx` — a `case` in `renderEntryDemo()` or an explicit `PatternEntryCard`
-  // branch — so removing a demo demotes its entry automatically and `/coverage` tells the truth
-  // without anyone remembering to edit it (Rule 14).
+  // provenPatternIds is generated from pattern-pages.tsx's renderEntryDemo() cases.
   coverageStatus: provenIds.has(entry.id) ? 'live-proof' : 'static-reference',
 }));
 

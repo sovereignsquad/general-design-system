@@ -1,12 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { computeDeltas } from '../report-budgets.mjs';
 
-/**
- * Issue 582. The direction rule is the whole report: a `max` budget going up is a
- * regression, a `min` budget going up is an improvement, and getting that backwards would
- * tell a reviewer the opposite of the truth about their own change.
- */
-describe('budget delta classification (issue 582)', () => {
+// A `max` budget rising is a regression; a `min` budget rising is an improvement. Getting
+// the direction backwards reports the opposite of the truth about a change.
+describe('budget delta classification', () => {
   const row = (over) => ({ key: 'k', measured: 0, value: 100, direction: 'max', unit: 'count', finding: 'F1', advisory: false, status: 'OK', ...over });
 
   it('flags a max budget rising as REGRESSED and falling as improved', () => {
@@ -25,8 +22,7 @@ describe('budget delta classification (issue 582)', () => {
   });
 
   it('never treats a missing measurement as a pass', () => {
-    // An absent artifact silently disabling a budget is the failure mode #578 was built
-    // against; the report must not reintroduce it by rendering a blank as "fine".
+    // An absent artifact must not silently disable a budget by rendering a blank as "fine".
     expect(computeDeltas([row({ measured: null })], [row({ measured: 10 })])[0].status).toBe('head-unavailable');
     expect(computeDeltas([row({ measured: 10 })], [row({ measured: null })])[0].status).toBe('base-unavailable');
     expect(computeDeltas([row({ measured: 10 })], null)[0].status).toBe('no-base');

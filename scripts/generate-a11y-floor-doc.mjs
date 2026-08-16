@@ -1,4 +1,4 @@
-// Issue 559 — the floor documentation is generated from the rules, never written beside them.
+// Generates docs/ACCESSIBILITY_FLOOR.md from the rule source; not hand-edited.
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 const ROOT = new URL('..', import.meta.url).pathname;

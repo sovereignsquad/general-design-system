@@ -104,10 +104,8 @@ function SelectionScroller<T extends string>({
   onChange: (value: T) => void;
   children: ReactNode;
 }) {
-  // Roving-tabindex radiogroup contract (#493): arrows move selection AND
-  // focus among enabled radios (wrapping), Home/End jump to the ends. The
-  // radios themselves carry tabIndex 0 only on the selected (or first
-  // enabled) option — one tab stop per group.
+  // Roving tabindex: arrows move selection/focus among enabled radios (wrapping);
+  // Home/End jump to the ends. One tab stop per group.
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const forward = event.key === 'ArrowRight' || event.key === 'ArrowDown';
     const backward = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
@@ -234,9 +232,7 @@ export function PillBar<T extends string = string>({
           onChange={onChange}
           size="macro"
           activeStyle={{
-            // Issue 597, the same pairing #537 fixed for `support` one chip further down:
-            // `text.onInverse` sits on `bg.inverse`, not on the brand primary. Measured
-            // 1.00:1 in default dark — the same colour twice.
+            // text-on-inverse targets bg-inverse, not brand-primary; measured 1.00:1 in default dark.
             color: 'var(--gds-brand-primary-fg, var(--gds-text-on-inverse, var(--mantine-color-white)))',
             background: 'var(--gds-brand-primary, var(--gds-vibe-primary, var(--mantine-primary-color-filled)))',
           }}
@@ -273,11 +269,7 @@ export function SoftChipGroup<T extends string = string>({
           onChange={onChange}
           size="micro"
           activeStyle={{
-            // issue #537: pairs with `support`'s own derived foreground. It previously
-            // used `text.onInverse`, a role designed to sit on `bg.inverse` - an
-            // unrelated background - which measured 1.89:1 in class-usa dark against a
-            // 4.5:1 requirement. `--gds-text-on-support` is derived per preset per
-            // scheme, so the pairing is contrast-correct by construction.
+            // --gds-text-on-support is derived per preset/scheme against the support fill.
             color: 'var(--gds-text-on-support, var(--gds-text-on-inverse, var(--mantine-color-white)))',
             background: 'var(--gds-support, var(--mantine-color-teal-6))',
           }}

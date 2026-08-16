@@ -2,12 +2,7 @@ import { DocsPageShell, ReferenceLinkGrid, ReferenceSection } from '@sovereignsq
 import { getFamilyEntries } from './pattern-registry';
 import { FamilyEntryBrowser } from './pattern-pages';
 
-/**
- * Issue 626 Phase 3 — the Systems area: GDS's deep dives, and the resources that left the
- * primary navigation. Every page demoted from primary is linked here (and from the home
- * page's own cards), so the regroup hides nothing — the IA rule is one canonical home, not
- * fewer doors.
- */
+/** Deep dives plus resources demoted from primary navigation; each keeps one canonical link here. */
 export function SystemsPage() {
   const systemsFamilyEntries = getFamilyEntries('systems');
   return (

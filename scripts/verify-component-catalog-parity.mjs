@@ -1,16 +1,13 @@
 /**
- * Component → pattern-registry parity gate (issue #368).
+ * Component → pattern-registry parity gate.
  *
- * FAILS CI if a public PascalCase UI component exported from
+ * Fails CI if a public PascalCase UI component exported from
  * `@sovereignsquad/gds-core` or `@sovereignsquad/gds-admin` is neither
  * registered in the pattern registry (as a `sourceComponent`) nor recorded
  * in the committed exemption allowlist (`boundary/component-catalog-exemptions.json`).
  *
- * This is the structural guarantee that every consumer-facing UI component is
- * demonstrated in GDS's own catalog — registration is what drives catalog render,
- * per-theme/forced-colors verification, i18n routing, and a11y evidence. Export
- * coverage alone is not enough: the 17 lane components shipped export-covered but
- * never rendered/evidenced. This gate closes that gap.
+ * Registration drives catalog render, per-theme/forced-colors verification, i18n
+ * routing, and a11y evidence; export coverage alone does not guarantee any of that.
  *
  * Non-catalog exports (layout primitives, typography, providers/context,
  * formatters, templates/catalog helpers, Admin/Partner sub-parts, icons,
@@ -50,9 +47,7 @@ function walk(dir) {
 // (from verify-pattern-export-coverage.mjs collectPublicRuntimeExports, applied per-file)
 // --- Collect public component exports from both packages ---
 
-// Issue 605: one definition of "a GDS component", shared with the generator that publishes
-// the count to the reference site. The site used to state a hardcoded "250+"; copying this
-// logic to derive it would have created one fact with two implementations, free to drift.
+// Shared with the generator that publishes the component count to the reference site.
 const exportedComponents = collectPublicComponents();
 
 // --- Collect sourceComponent names referenced by the pattern registry ---
@@ -118,8 +113,8 @@ if (unregistered.length) {
   process.exit(1);
 }
 
-// Issue 626 Phase 2 — the complete element list on /components derives from this same
-// census; a drifted generated-component-index.ts means the page lies about completeness.
+// The element list on /components derives from this same census; a drifted
+// generated-component-index.ts means the page misstates completeness.
 try {
   execFileSync('node', ['scripts/generate-component-index.mjs', '--check'], { cwd: root, stdio: 'pipe' });
 } catch (error) {

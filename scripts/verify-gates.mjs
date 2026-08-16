@@ -1,11 +1,7 @@
-// Issue 580 — mutation-test the verification gates themselves.
+// Mutation-tests the verification gates themselves.
 //
-// INVERTED VERDICT: under a planted defect a correct gate must FAIL. A gate that still
-// exits 0 has proven it does not detect that defect, and the mutant's `claim` names
-// exactly which assertion is thereby unsupported.
-//
-// This is the only mechanism that would have caught issue 516 — a gate reporting 100%
-// while covering 0 of 17 exports, green and wrong for an unknown number of releases.
+// Inverted verdict: under a planted defect a correct gate must fail. A gate that still exits
+// 0 has proven it does not detect that defect; the mutant's `claim` names the unsupported assertion.
 //
 // Output: audit/gate-mutation-score.json
 
@@ -47,28 +43,15 @@ for (const gate of chain) {
 }
 
 // ── Baseline tree state ─────────────────────────────────────────────────────
-// Compared against, rather than requiring absolute cleanliness: untracked files that
-// existed before the suite ran are not leaked mutations, and treating them as such
-// would make the check cry wolf until people stopped reading it.
+// Compared against a baseline, not absolute cleanliness: pre-existing untracked files are not leaked mutations.
 let baselineTree = '';
 try {
   baselineTree = execFileSync('git', ['status', '--porcelain', '--', 'packages', 'scripts', 'audit', 'apps'], { cwd: ROOT }).toString().trim();
 } catch { /* git unavailable; reported at the end */ }
 
-// F21, recurring. The audit harness was fixed to restore generated artifacts; this
-// suite was not, and it has the same problem for the same reason: gates WRITE artifacts
-// when they run, so a gate executed under a mutation leaves a mutant-derived artifact on
-// disk. Here it left obligation-coverage.json at 411 gaps instead of 410, and the very
-// next budget check failed against the audit's own leftovers.
-//
-// The generalisable rule, learned twice: ANY harness that runs a tool which writes
-// artifacts must treat those artifacts as state to restore, exactly like source.
-// Enumerated, never listed. A hardcoded roster of artifacts to restore is a list that
-// must be remembered, and it was forgotten the very next time a gate was added: issue 589's
-// census writes audit/mantine-governance.json, which was absent here, leaked a mutant's
-// output, and turned CI red. That is the same failure as F21 and F25 for the third time,
-// and every recurrence has been a manual list drifting from reality — so the list is gone.
-// Any audit/*.json a child gate writes is now covered the moment it exists.
+// Any audit/*.json a child gate writes must be treated as state to restore, like source.
+// Discovered dynamically rather than hardcoded, so a newly added gate's artifact is covered
+// automatically.
 const ARTIFACTS = readdirSync(join(ROOT, 'audit'))
   .filter((f) => f.endsWith('.json'))
   .map((f) => `audit/${f}`);
@@ -104,13 +87,8 @@ function runGate(entry) {
   }
 }
 
-// Finding F25. The inverted verdict is only meaningful against a gate that PASSES clean:
-// if a gate fails unconditionally, every mutant reports KILLED and the suite certifies a
-// broken gate as working. That is exactly what happened — verify:obligation-coverage read
-// a budget key ratcheted to 0, failed on every run, and scored a false kill.
-//
-// This is the mirror of the false-SURVIVOR class `requiresBuild` fixed. Both come from
-// the same omission: running a gate without establishing what its result MEANS.
+// The inverted verdict is only meaningful against a gate that passes clean: a gate that
+// fails unconditionally reports every mutant KILLED regardless of the mutation.
 const baselineExit = new Map();
 const gateBaseline = (entry) => {
   if (!baselineExit.has(entry.npmScript)) baselineExit.set(entry.npmScript, runGate(entry));
@@ -146,9 +124,7 @@ for (const entry of GATE_MUTANTS) {
       if (mutated === original) throw new Error('mutation is a no-op');
 
       writeFileSync(path, mutated);
-      // Gates that import from dist/ are blind to a source mutation until the workspace
-      // is rebuilt. Skipping this step makes such a mutant report SURVIVED and falsely
-      // accuse a working gate — the same class as F20.
+      // Gates that import from dist/ are blind to a source mutation until the workspace is rebuilt.
       if (mutant.requiresBuild) rebuild(mutant.requiresBuild);
       // Some gates read a generated artifact rather than source, so the artifact must be
       // regenerated for the mutation to be visible. Same class as requiresBuild.
@@ -247,9 +223,7 @@ if (problems.length) {
 }
 
 console.log(`  coverage: every release-chain gate has mutants or a live exemption.`);
-// Never report "0 survived" when survivors exist and are merely known. A summary that
-// rounds a recorded weakness down to zero is how a known-failing state becomes an
-// unknown-failing one.
+// Never report "0 survived" when survivors exist and are merely known.
 const knownCount = survived.length;
 console.log(
   `\nGate mutation suite passed: ${killed.length} killed, `

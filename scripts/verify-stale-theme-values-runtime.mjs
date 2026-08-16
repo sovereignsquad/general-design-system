@@ -1,24 +1,8 @@
-// Issue 598 — no stale value may survive a theme switch.
-//
-// #561 delivered the theme IDENTITY and the remount key; verify:theme-identity proves the key
-// is distinct and stable for all 50 preset/scheme pairs. It cannot prove the remount actually
-// EMPTIES every themed value: a value read via getComputedStyle at mount, memoised at module
-// scope without the theme in its deps, or painted once into SVG/canvas survives any cascade
-// change invisibly. Only a browser can see those.
-//
-// THE DEFINITION OF STALE, and why it is honest: after switching in place from theme A to
-// theme B, every watched element/property must equal what a FRESH LOAD of theme B renders.
-// The fresh load is ground truth — no hand-written expectations to drift, and anything that
-// legitimately does not vary by theme is identical in both snapshots, so it cannot false-
-// positive. The diff includes SVG image sources (the generated-thumbnail surface) and
-// background-image (gradients), the two channels a cascade change cannot reach.
-//
-// Also verified, per the issue's own list: switch latency against a stated budget, and that
-// keyboard focus and scroll position survive the remount — a keyboard user must not be
-// dropped to the top of the document because the theme changed.
-//
-// Switch path: the Theme Lab's own native <select> controls, driven with real value+change
-// events — the path a user takes, not a synthetic runtime call.
+// Checks that switching themes in place matches a fresh load of the target theme: no stale
+// computed style, SVG image source, or background-image value survives the remount.
+// Also checks switch latency against a budget, and that keyboard focus and scroll position
+// survive the remount.
+// Switch path: the Theme Lab's own native <select> controls, driven with real value+change events.
 
 import {
   createCdpClient,
@@ -33,16 +17,10 @@ const baseUrl = process.env.GDS_A11Y_BASE_URL ?? 'http://127.0.0.1:4173/general-
 const ownsPreviewServer = !process.env.GDS_A11Y_BASE_URL;
 const ROUTE = '/themes';
 const FROM = { preset: 'default', scheme: 'light' };
-// dark-public: flat surfaces, no animated gradient backdrop — deliberate. The cosmic preset
-// animates its backdrop, which would diff nondeterministically; this gate is about staleness,
-// not animation, and a flaky gate gets ignored.
+// dark-public has no animated gradient backdrop; an animated preset would diff nondeterministically.
 const TO = { preset: 'dark-public', scheme: 'dark' };
 
-/**
- * Switch latency budget. Measured on this machine when the gate was written: ~320ms from
- * change event to both identity attributes applied. 3000ms is the budget, not the target —
- * it absorbs CI load while still catching a switch that re-renders the world more than once.
- */
+/** Switch latency budget in ms; absorbs CI load while catching a multi-render switch. */
 const LATENCY_BUDGET_MS = 3000;
 
 const WATCHED_PROPERTIES = [
@@ -61,13 +39,9 @@ const SNAPSHOT_FN = `(() => {
     return parts.join('>');
   };
   const snapshot = {};
-  // EVERY visible element, no cap. A first version capped at the first 600 in document order,
-  // and the planted stale mutant sat past the cap — the detector reported clean while a
-  // staleness was on the page. A silent cap reads as full coverage; this page is ~2k visible
-  // elements and reading them all costs well under a second.
+  // Every visible element, no cap.
   for (const el of document.body.querySelectorAll('*')) {
-    // The switch controls themselves are excluded: the trial snapshot holds focus on them by
-    // design, and a :focus style difference there is the mechanism, not a staleness.
+    // Switch controls excluded: they hold focus by design, and :focus style differs there.
     if (el.tagName === 'SELECT' || el.closest('label')?.querySelector('select')) continue;
     const rect = el.getBoundingClientRect();
     if (rect.width === 0 || rect.height === 0) continue;
@@ -75,12 +49,8 @@ const SNAPSHOT_FN = `(() => {
     const props = {};
     for (const p of ${JSON.stringify(WATCHED_PROPERTIES)}) {
       let v = cs.getPropertyValue(p);
-      // A url(#id) paint reference names a React useId, which is random per page load — two
-      // identical gradients get different names on different loads. Compare the CONTENT the id
-      // points at (ids stripped), not the name: a genuinely stale paint server still differs,
-      // and an identical one no longer false-positives.
-      // String ops, not a regex: this code lives inside a template literal, which consumes
-      // regex escapes before the page parses them — the first version's pattern never matched.
+      // url(#id) names a React useId, random per load; compare the referenced content, not the id.
+      // String ops, not regex: this code lives inside a template literal that consumes regex escapes.
       if (v.includes('url("#')) {
         const id = v.split('url("#')[1].split('"')[0];
         const target = document.getElementById(id);

@@ -1,15 +1,7 @@
-// Issue 628 — GDS holds a 44px touch-target floor (GDS_MIN_TARGET_PX, packages/gds-theme/src/
-// axes.ts) with recorded exceptions for xs/sm dense-toolbar controls (GDS_CONTROL_HEIGHT_
-// EXCEPTIONS). Nothing measured what actually renders against that floor: CardContracts.ts
-// even computes a resolved minTouchTarget per card and nothing reads it.
-//
-// This is a MEASURING gate, not a hard-fail one — same shape as verify-theme-coverage-matrix.mjs.
-// A live sweep found real, non-zero violations (drag handles, checkboxes, map pins); wiring
-// this in as a zero-tolerance chain member would immediately break the build over debt that
-// needs paying down incrementally, not a same-day rewrite. It writes audit/touch-target-floor.json;
-// npm run verify:budgets (already in verify:release) enforces the ratcheted threshold against
-// the committed artifact, exactly like themeMatrixUntraceableRate/untraceableRenderRate.
-//
+// Measures interactive elements against the 44px touch-target floor (GDS_MIN_TARGET_PX,
+// packages/gds-theme/src/axes.ts), with recorded exceptions for xs/sm dense-toolbar controls
+// (GDS_CONTROL_HEIGHT_EXCEPTIONS). Measuring gate, not hard-fail; npm run verify:budgets
+// enforces the ratcheted threshold against the committed artifact.
 // Output: audit/touch-target-floor.json
 
 import { writeFileSync, mkdirSync } from 'node:fs';
@@ -57,9 +49,8 @@ const MEASURE = (minTarget) => `(() => {
       && getComputedStyle(el).display.startsWith('inline');
     if (inlineInText) continue;
 
-    // A recorded, deliberate exception: either this exact control opted out with a reason
-    // (data-gds-target-exception, issue 628), or it's a Mantine control at a documented xs/sm
-    // size step (GDS_CONTROL_HEIGHT_EXCEPTIONS).
+    // Exempt if this control opted out (data-gds-target-exception) or is a Mantine control
+    // at a documented xs/sm size step (GDS_CONTROL_HEIGHT_EXCEPTIONS).
     const exceptionMarker = el.getAttribute('data-gds-target-exception');
     const mantineSize = el.getAttribute('data-size');
     if (exceptionMarker) continue;

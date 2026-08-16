@@ -34,8 +34,7 @@ describe('createBrandTheme', () => {
     expect(result.tokenGraph.themes).toEqual(['class-usa']);
     expect(result.mantineTheme.primaryColor).toBe('classUsaNavy');
 
-    // Issue 551 — the theme owns the handoff's radius scale (8/12/16/24/pill); the named steps
-    // mean the handoff tiers, so a consumer with no overrides gets the handoff geometry.
+    // Named radius steps map to the handoff's 8/12/16/24/pill scale.
     expect(result.mantineTheme.radius).toEqual({
       xs: '0.5rem', sm: '0.75rem', md: '1rem', lg: '1.5rem', xl: '624.9375rem',
     });
@@ -86,14 +85,8 @@ describe('createBrandTheme', () => {
     const { cssVariables } = createBrandTheme({ brandColors: classScoutColors, fonts });
     const roles = Object.keys(deriveBrandSemanticTokens(classScoutColors));
 
-    // Issue 586. `role.replace('.', '-')` leaves the camelCase segment intact, so these two
-    // roles were emitted under BOTH a camelCase name and a fully-kebab alias. The kebab
-    // spellings are the ones consumers read (`--gds-text-on-inverse` appears in 13 files,
-    // and the test below asserts exactly those); the camelCase twins were referenced by
-    // nothing and counted as unreachable tokens under finding F13, so they were removed.
-    //
-    // The assertion is not loosened — every role is still required to emit a light and a
-    // dark value. Only the NAME expected for these two changes, to the one that renders.
+    // `role.replace('.', '-')` leaves the camelCase segment intact for these two roles, so
+    // they must resolve to their fully-kebab alias, the spelling consumers actually read.
     const kebabOnly = { 'brand.primaryPressed': '--gds-brand-primary-pressed', 'text.onInverse': '--gds-text-on-inverse' };
 
     for (const role of roles) {

@@ -107,26 +107,8 @@ const fallbackExplorerCopy: ExplorerCopy = referenceThemeExplorerCopy.en;
 function resolveExplorerCopy(locale: string): ExplorerCopy {
   const localeBaseCopy = (referenceThemeExplorerCopy[locale as keyof typeof referenceThemeExplorerCopy] ?? {}) as Partial<ExplorerCopy>;
   const localeOverrideCopy = (referenceThemeExplorerCopyOverrides as Record<string, Partial<ExplorerCopy>>)[locale] ?? {};
-  // English first, so every field exists no matter what the locale supplies.
-  //
-  // Issue 587. This used to layer the locale over `{}` and then return early:
-  //
-  //     if (locale !== fallbackExplorerLocale && Object.keys(mergedCopy).length > 0)
-  //
-  // `mergedCopy` ALWAYS has at least four keys, because the literal below unconditionally
-  // sets `schemes`, `schemeDescriptions`, `presetLabels` and `presetSummaries` — spreading
-  // `undefined` yields `{}`, not absence. So that condition was true for every non-English
-  // locale, the completeness check underneath it could never run, and `as ExplorerCopy`
-  // asserted a shape the object did not have.
-  //
-  // Nothing surfaced while every supported locale happened to have full copy. Adding `ja`,
-  // `ko` and `zh` produced an object with four empty maps and no `tokenLabels`, and the first
-  // `copy.tokenLabels[0]` took the whole page down — the reference site's own home route,
-  // blank, in three languages.
-  //
-  // Falling back PER FIELD rather than all-or-nothing: a locale that translates most of the
-  // explorer keeps its translations and shows English only where it has none, instead of
-  // reverting the entire component to English over one missing string.
+  // English first, so every field exists no matter what the locale supplies. Falls back
+  // per-field rather than all-or-nothing.
   const mergedCopy = {
     ...fallbackExplorerCopy,
     ...localeBaseCopy,
@@ -153,8 +135,7 @@ function resolveExplorerCopy(locale: string): ExplorerCopy {
     },
   } as ExplorerCopy;
 
-  // Completeness is now guaranteed by construction rather than checked afterwards, which is
-  // why the previous checker is gone: it was unreachable for every locale that needed it.
+  // Completeness is guaranteed by construction, not checked afterwards.
   return mergedCopy;
 }
 
@@ -249,11 +230,8 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
     { id: 'habits', label: 'Habits', marker: '✓' },
   ];
 
-  // Gold Athlete is a governed brand (createBrandTheme('gold-athlete') sets
-  // flatSurfaces: true, no gradient/glow anywhere in its real definition),
-  // so this reference mockup uses the real flat canvas background instead of
-  // the generic vibe-atmosphere gradient — see the vibe-gallery card above
-  // for the same reasoning.
+  // Gold Athlete (createBrandTheme('gold-athlete')) has flatSurfaces: true and no
+  // gradient/glow, so this uses the flat canvas background, not the vibe-atmosphere gradient.
   const surfaceProps = getGdsOwnedContrastProps({
     role: 'athlete-gold-reference',
     tokens: createGdsOwnedContrastTokens(athleteGold, {
@@ -425,17 +403,10 @@ export function ReferenceThemeExplorer({
   const comparisonPreviewKey = `${comparisonPreset}-${effectiveComparisonScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
   const previewRootId = `gds-theme-preview-${previewKey}`;
   const comparisonPreviewRootId = `gds-theme-preview-${comparisonPreviewKey}`;
-  // The Theme Lab control/result cards are deliberately NOT wrapped in an
-  // owned-contrast surface. When a preset is active the whole page (and every
-  // `.gds-paper`/`.gds-card`) re-themes globally via
-  // `html[data-gds-theme-preset] .gds-paper` in styles.css, so these cards
-  // re-theme their own background AND text exactly like any built-in theme —
-  // readable in light and dark across every preset. A local owned-contrast
-  // override here (issue #461) forced a `surfaceDark` gradient onto the cards,
-  // painting dark boxes on a light page ("ruins the page"). Owned contrast
-  // stays reserved for the intentional vibe *swatch* surfaces below (the
-  // gallery, the VibeTheme contract, and the Athlete Gold reference), whose job
-  // is to preview a specific vibe atmosphere rather than match the page.
+  // Theme Lab control/result cards are not wrapped in an owned-contrast surface: when a preset
+  // is active, `html[data-gds-theme-preset] .gds-paper` in styles.css re-themes them globally.
+  // Owned contrast is reserved for the vibe swatch surfaces below (gallery, VibeTheme
+  // contract, Athlete Gold reference), which preview a specific vibe atmosphere.
   const selectedVibe = vibeCatalogById[preset];
 
   useEffect(() => {
@@ -611,12 +582,8 @@ export function ReferenceThemeExplorer({
           {vibeCatalog.map((vibe) => {
             const lane = localizedThemeCatalog[vibe.id];
             const isSelected = vibe.id === preset;
-            // Governed brand lanes (Class USA, Gold Athlete) are backed by a
-            // real `createBrandTheme(...)` that sets `flatSurfaces: true` and
-            // never configures a gradient/glow/colored-shadow atmosphere —
-            // showing one here would preview a look the real theme doesn't
-            // have. Generic vibe lanes have no such contradicting real
-            // definition, so their atmosphere IS their real identity.
+            // Governed brand lanes (Class USA, Gold Athlete) use createBrandTheme(...) with
+            // flatSurfaces: true and no gradient/glow/colored-shadow atmosphere.
             const laneCardProps = getGdsOwnedContrastProps({
               role: 'vibe-gallery-card',
               tokens: createGdsOwnedContrastTokens(vibe, {
@@ -651,10 +618,7 @@ export function ReferenceThemeExplorer({
                         width: 28,
                         height: 28,
                         borderRadius: 'var(--gds-radius-pill)',
-                        // Hard-edge split for flatSurfaces (governed brand)
-                        // lanes: two real solid colors, no invented blend
-                        // color and no colored glow, since the real theme
-                        // has neither.
+                        // flatSurfaces lanes: hard-edge split of two solid colors, no blend.
                         background: vibe.flatSurfaces
                           ? `conic-gradient(${vibe.primary} 0deg 180deg, ${vibe.accent} 180deg 360deg)`
                           : `linear-gradient(135deg, ${vibe.primary}, ${vibe.accent})`,
@@ -675,19 +639,9 @@ export function ReferenceThemeExplorer({
                   style={{
                     height: 56,
                     borderRadius: 'var(--gds-radius-lg)',
-                    // Real colors, at full strength, not the diluted
-                    // `vibe.hero` atmospheric wash: this box's only job is to
-                    // preview the lane's actual colors, and `hero`'s ~12-16%
-                    // opacity (tuned for use as a background wash behind other
-                    // content, see the vibe-contract Paper below) reads as an
-                    // indistinct pastel blob rather than the real palette.
-                    // For flatSurfaces (governed brand) lanes this is a
-                    // hard-edge two-color split, not a blend: the real theme
-                    // (e.g. createBrandTheme('class-usa')) has exactly these
-                    // two solid colors and never blends them into each other,
-                    // so a blended gradient would invent a color the brand
-                    // doesn't have. Generic vibe lanes keep the smooth blend
-                    // since it's already part of their own real atmosphere.
+                    // Full-strength colors, not the ~12-16% opacity `vibe.hero` wash.
+                    // flatSurfaces lanes (e.g. createBrandTheme('class-usa')): hard-edge
+                    // two-color split, not a blend.
                     background: vibe.flatSurfaces
                       ? `linear-gradient(90deg, ${vibe.primary} 0%, ${vibe.primary} 50%, ${vibe.accent} 50%, ${vibe.accent} 100%)`
                       : `linear-gradient(135deg, ${vibe.primary}, ${vibe.accent})`,
@@ -734,9 +688,7 @@ export function ReferenceThemeExplorer({
           {...(selectedVibe ? getGdsOwnedContrastProps({
             role: 'vibe-contract',
             tokens: createGdsOwnedContrastTokens(selectedVibe, {
-              // flatSurfaces (governed brand) lanes: flat real background,
-              // not the atmospheric hero wash — see the vibe-gallery card
-              // above for the same reasoning.
+              // flatSurfaces lanes: flat background, not the atmospheric hero wash.
               background: selectedVibe.flatSurfaces ? selectedVibe.surfaceLight : selectedVibe.hero,
               radius: 'var(--mantine-radius-xl)',
               backgroundColor: selectedVibe.surfaceLight,
@@ -894,17 +846,9 @@ export function ReferenceThemeExplorer({
         </Stack>
       </ReferenceSection>
 
-      {/*
-        Issue 596. The matrix reads the SAME evaluator `verify:accent-contrast` uses, and is
-        wired to the explorer's own preset/scheme state — so a theme author changes the lane
-        above and sees the contrast consequence immediately, rather than after a failed build.
-      */}
+      {/* Matrix reads the same evaluator verify:accent-contrast uses, wired to preset/scheme state. */}
       <ReferenceSection title={copy.accentContrastTitle} description={copy.accentContrastDescription}>
-        {/*
-          `auto` means "follow the OS", so a single table would show one scheme's numbers
-          while the reader might be looking at the other. Both are rendered instead — the
-          caption on each states which scheme it measured, so nothing is implied.
-        */}
+        {/* `auto` follows the OS; both light and dark tables render, each captioned with its scheme. */}
         {(colorScheme === 'auto' ? (['light', 'dark'] as const) : ([colorScheme] as const)).map((scheme) => (
           <GdsAccentContrastMatrix key={scheme} preset={preset} colorScheme={scheme} />
         ))}

@@ -88,15 +88,10 @@ function enhanceAction(action: ReactNode, disabled: boolean) {
 }
 
 /**
- * Owner directive, 2026-08-14: **GDS uses the generated thumbnail everywhere.**
+ * Fallback when no image is supplied: deterministic branded art from the card's identity
+ * (same seed, same composition every render), themed by the active preset.
  *
- * A grey box with a generic photo glyph is the universal broken-image picture: it tells a
- * reader that something failed, when in fact no image was ever supplied. `GdsGeneratedThumbnail`
- * paints deterministic branded art from the card's own identity instead — same seed, same
- * composition, themed by the active preset, no network and no asset pipeline.
- *
- * `badges="none"`: the card prints its title directly beneath this, so a badge repeating it
- * would duplicate the text on screen and in the accessibility tree.
+ * badges="none": title renders directly below, avoids duplicate text.
  */
 function FoodImageFallback({ mediaRatio, seed, label }: { mediaRatio: FoodCardMediaRatio; seed: string; label: string }) {
   return (

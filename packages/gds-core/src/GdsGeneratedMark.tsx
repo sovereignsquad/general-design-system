@@ -7,16 +7,8 @@ import { GdsIcon } from './icons';
 import type { GdsIconKey } from './icons';
 
 /**
- * Issue 565 — the compact square/logo shape of the generated-imagery system.
- *
- * A logo slot (an app tile, a nav brand square, an integration list, a workspace switcher) is
- * the second place products reach outside the system for an uploaded asset. The mark is the
- * governed alternative: the house gradient with ONE icon motif rendered prominently — unlike
- * the thumbnail's decorative low-opacity wash, a mark's motif IS the mark, so it renders at
- * full strength, centred, with a seeded rotation for per-entity distinction.
- *
- * Decorative by default (`aria-hidden`) because a mark almost always sits beside the name it
- * stands for; pass `label` when it stands alone.
+ * Compact square/logo mark: house gradient with one icon motif, full strength, centred,
+ * seeded rotation. Decorative by default (aria-hidden); pass `label` when it stands alone.
  */
 
 /** Props for {@link GdsGeneratedMark}. */
@@ -60,8 +52,7 @@ export function GdsGeneratedMark({
     () => gdsGeneratedPaletteCssRefs({ paletteSource, category, shade, colors }),
     [paletteSource, category, shade, colors],
   );
-  // Rotation only, and gently: a logo slot is small, and a motif tilted past ~20° reads as an
-  // error rather than an identity. Hue stays the theme's, same rule as the avatar.
+  // Tilt range ±20°; hue stays theme-controlled.
   const tilt = useMemo(() => Math.round((gdsSeededRandom(seed)() - 0.5) * 40), [seed]);
 
   return (

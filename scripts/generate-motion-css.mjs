@@ -1,17 +1,8 @@
-// Issue 584 / finding F1 — one source of truth for the nine motion values.
+// Single source of truth for the nine motion values: `gdsMotionDurations` / `gdsMotionEasings`
+// in packages/gds-theme/src/motion.ts.
 //
-// `gdsMotionDurations` / `gdsMotionEasings` in packages/gds-theme/src/motion.ts are the
-// source. `createGdsMotionCssVariables()` already derives from them and is a documented
-// consumer-facing support API (apps/playground/src/pattern-export-coverage.ts:30) — so the
-// F1 decision is NOT "delete one of the two". The emitter stays; what was duplicated is the
-// nine values, hand-typed a second time into styles.css and kept in step by nothing.
-//
-// HANDOVER.md §2 records that exactly this pattern — the same values maintained in two
-// places by hand — produced the 5.0.1/5.0.2 dark-mode illegibility defect. Issue 554 removed
-// it from the semantic tokens; this removes it from motion.
-//
-// The stylesheet blocks are now generated between markers and drift-checked, matching the
-// registry and DTCG artifacts.
+// Regenerates the styles.css blocks between markers via `createGdsMotionCssVariables()`;
+// drift-checked against motion.ts.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -42,10 +33,8 @@ function replaceBlock(css, start, end, body) {
 
 const current = readFileSync(stylesPath, 'utf8');
 let next = replaceBlock(current, START, END, render(createGdsMotionCssVariables('system'), '  '));
-// The reduced-motion override is the SAME emitter under its no-motion policy, so the two can
-// no longer disagree about what "reduced" means. Previously this block omitted
-// `--gds-motion-duration-instant`; the emitter includes it (already 0ms), so the generated
-// block is complete without changing any rendered value.
+// Reduced-motion block uses the same emitter under its no-motion policy, so it cannot
+// diverge from the normal block's definition of "reduced".
 next = replaceBlock(next, REDUCED_START, REDUCED_END, render(createGdsMotionCssVariables('no-motion'), '    '));
 
 if (process.argv.includes('--check')) {

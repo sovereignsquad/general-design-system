@@ -221,8 +221,8 @@ describe('GdsMapPinBadge (#501)', () => {
     );
     const outlinePin = outlineContainer.querySelector('svg.tabler-icon-gds-badge-shape-pin') as SVGElement;
     expect(outlinePin.getAttribute('fill')).toBe('none');
-    // Issue 594: the pin references the accent token so it follows the theme; the
-    // axis-derived value rides along as the fallback.
+    // Pin references the accent token so it follows the theme; the axis-derived value is
+    // the CSS var() fallback.
     expect(outlinePin.getAttribute('stroke')).toBe(`var(--gds-accent-teal-base, ${gdsBadgeAccentColors.teal})`);
 
     const { container: filledContainer } = renderWithGds(
@@ -431,12 +431,9 @@ describe('#493 regressions', () => {
   });
 });
 
-describe('emoji-mode pin disc is never the accent (issue 605)', () => {
-  // The reference site states that in emoji mode "the pin fills with a fixed dark-neutral disc
-  // (never the accent)". The existing emoji test asserted the glyph renders and shape is
-  // ignored — not that the fill is neutral. The claim had no evidence, which is the state the
-  // claims gate now forbids: an OS-rendered emoji has colours GDS cannot control, so its
-  // legibility must not depend on the active accent.
+describe('emoji-mode pin disc is never the accent', () => {
+  // An OS-rendered emoji has colors GDS cannot control, so its legibility must not depend
+  // on the active accent: the disc behind it is a fixed dark-neutral, never the accent.
   it('fills the disc with the fixed neutral, not the category accent', () => {
     const { container } = renderWithGds(
       <GdsMapPinBadge accent="terracotta" icon="Location" emoji="🏀" label="Basketball" iconStyle="emoji" />,
@@ -444,9 +441,7 @@ describe('emoji-mode pin disc is never the accent (issue 605)', () => {
     const filled = [...container.querySelectorAll('*')]
       .map((el) => el.getAttribute('fill') ?? '')
       .filter(Boolean);
-    // The neutral disc is present...
     expect(filled.some((f) => /dark-7|#1f2937/.test(f))).toBe(true);
-    // ...and no filled shape carries the accent token, which is what "never the accent" means.
     expect(filled.some((f) => /--gds-accent-terracotta/.test(f))).toBe(false);
   });
 

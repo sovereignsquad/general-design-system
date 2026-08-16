@@ -1,10 +1,9 @@
 export * from '@sovereignsquad/gds-theme/client';
 export * from '@sovereignsquad/gds-core/client';
-// Issue 556. Both packages surface `GdsDensityMode` — gds-theme declares it (the axis) and
-// gds-core re-exports it (the subtree override context). It is ONE type, but two star
-// exports of the same name are ambiguous to TypeScript regardless, so the owner is named
-// explicitly here rather than dropping it from one barrel and breaking whichever import
-// path consumers happen to use.
+// Both packages surface `GdsDensityMode` — gds-theme declares it (the axis) and gds-core
+// re-exports it (the subtree override context). One type, but two star exports of the same
+// name are ambiguous to TypeScript, so it's named explicitly here rather than dropped from
+// one barrel.
 export type { GdsDensityMode } from '@sovereignsquad/gds-theme/client';
 export {
   AppShell,

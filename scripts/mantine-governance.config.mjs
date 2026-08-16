@@ -1,24 +1,14 @@
-// Issue 589 — SSOT for Mantine dependency-boundary classification.
+// SSOT for Mantine dependency-boundary classification.
 //
-// FOUNDATION.md §2 makes the GDS theme the authority over "color palettes, typography
-// scales, spacing, radii, breakpoints, and component defaults". Measurement showed GDS
-// consumes 92 `--mantine-*` custom properties and dictates a small fraction of them, so
-// the majority of what the reference site renders comes from Mantine defaults rather than
-// governed GDS decisions. Finding F6 is why that matters: those values are theme-INVARIANT
-// — they render identically under all 25 presets, so no single-theme review could see them.
-//
-// Only DELEGATIONS are listed here. "Governed" is measured, never declared: the gate
-// compares GDS's theme against Mantine's `DEFAULT_THEME` and treats a variable as governed
-// only when GDS actually changes the value. A hand-maintained list of governed variables
-// would be a second source of truth that can claim governance GDS does not have — which is
-// the F1 dual-source pattern, and the whole reason issue 554 existed.
+// Only delegations are listed here. "Governed" is measured, not declared: the gate compares
+// GDS's theme against Mantine's `DEFAULT_THEME` and treats a variable as governed only when
+// GDS actually changes the value.
 
 /**
- * Variables Mantine deliberately owns. Each needs a reason that says why Mantine is the
- * RIGHT owner — not merely that GDS has not got round to it. An unreasoned delegation is
- * indistinguishable from an oversight, which is how 87 accumulated in the first place.
+ * Variables Mantine deliberately owns. Each reason must justify Mantine as the right owner,
+ * not just that GDS hasn't gotten to it yet.
  *
- * `reviewBy` is mandatory: a delegation that cannot expire becomes permanent by neglect.
+ * `reviewBy` is mandatory.
  */
 export const DELEGATED = {
   '--mantine-z-index-app': {
@@ -56,13 +46,8 @@ export const DELEGATED = {
 };
 
 /**
- * Variables whose names are built at runtime and therefore cannot be statically governed.
- *
- * `EditorialCard.tsx:183` renders `var(--mantine-color-${palette.accent}-7)`, so the
- * extractor sees a truncated `--mantine-color-` that resolves to nothing. This is a real
- * governance hole, not a scanner artifact: the set of palettes that expression can reach
- * is not knowable from the call site, so no census can state which ramps the component
- * depends on. Tracked as its own finding rather than silently dropped.
+ * Variable names built at runtime (e.g. `var(--mantine-color-${palette.accent}-7)` in
+ * `EditorialCard.tsx:183`), so the reachable set cannot be statically determined or governed.
  */
 export const DYNAMIC_REFERENCES = {
   '--mantine-radius-': {

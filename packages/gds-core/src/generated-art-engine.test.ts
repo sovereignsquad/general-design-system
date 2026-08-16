@@ -47,9 +47,7 @@ describe('gdsGeneratedPaletteCssRefs (#504)', () => {
   });
 
   it('category mode references the accent token so a category follows the theme', () => {
-    // Issue 594. This asserted a literal, and the reason was sound at the time: accents were
-    // fixed sRGB with no variable to reference. The accent axis makes that false — the
-    // live-DOM path now emits a token with the axis-derived value as its fallback.
+    // The live-DOM path emits a token with the axis-derived value as its var() fallback.
     const palette = gdsGeneratedPaletteCssRefs({ paletteSource: 'category', category: 'forest', shade: 'deep' });
     const expected = `var(--gds-accent-forest-deep, ${gdsBadgeAccentShades.forest.deep})`;
     expect(palette).toEqual({ primary: expected, accent: expected, source: 'category' });
@@ -61,8 +59,7 @@ describe('gdsGeneratedPaletteCssRefs (#504)', () => {
   });
 
   it('the non-DOM path still resolves to a literal, because var() does not resolve outside a browser', () => {
-    // The distinction this whole slice exists for: a var() in an OG image or an email
-    // silently produces an unpainted shape rather than an error.
+    // A var() in an OG image or an email silently produces an unpainted shape, not an error.
     const hex = resolveGdsGeneratedPaletteHex({ paletteSource: 'category', category: 'forest', shade: 'deep' });
     expect(hex.primary).toMatch(/^#[0-9a-f]{6}$/i);
     expect(hex.primary).toBe(gdsBadgeAccentShades.forest.deep);
@@ -89,8 +86,7 @@ describe('resolveGdsGeneratedPaletteHex (#504)', () => {
     expect(palette.source).toBe('theme');
     expect(palette.primary).toMatch(/^#[0-9a-f]{6}$/);
     expect(palette.accent).toMatch(/^#[0-9a-f]{6}$/);
-    // class-usa's real, hand-authored brand primary (verified against vibe-themes.ts's
-    // classUsaSemanticCssVariables; v2 re-base issue 536 moved the navy anchor #0b223e -> #0f2c4a).
+    // class-usa's hand-authored brand primary, per vibe-themes.ts's classUsaSemanticCssVariables.
     expect(palette.primary).toBe('#0f2c4a');
   });
 

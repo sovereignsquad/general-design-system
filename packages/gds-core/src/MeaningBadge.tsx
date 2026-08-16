@@ -5,11 +5,8 @@ import { GdsIcon, isGdsIconKey } from './icons';
 import type { GdsIconKey } from './icons';
 
 /**
- * MeaningBadge (gap B7 / issue #322).
- *
- * Editorial/brand meaning labels, intentionally distinct from `StatusBadge`
- * (which carries system status). Variants map to brand tokens; meaning is always
- * conveyed by the label text, never color alone.
+ * Editorial/brand meaning labels, distinct from `StatusBadge` (system status). Variants map
+ * to brand tokens; meaning is conveyed by label text, never color alone.
  */
 
 /** Editorial/brand meaning conveyed by a {@link MeaningBadge}. */
@@ -35,15 +32,8 @@ interface MeaningTokens {
 }
 
 /*
- * Issue 597. Every variant here paired a themeable fill with a fixed foreground —
- * `--gds-text-on-inverse` for the two brand fills, `--gds-text-primary` for the two tints.
- * Measured live on /patterns/public and /live-proofs/semantics, `attention` rendered #f8fafc on
- * #0594ac: 3.44:1. The other three were not verified as safe; they were simply never measured,
- * which is not the same thing.
- *
- * Each fill now carries a foreground DERIVED against it, per preset and per scheme. The
- * literal fallbacks stay so a consumer on an older token set still renders something legible
- * rather than transparent text.
+ * Foreground is derived per preset and scheme for each fill. Literal fallbacks remain for
+ * consumers on older token sets.
  */
 const meaningTokens: Record<MeaningVariant, MeaningTokens> = {
   attention: {

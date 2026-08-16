@@ -1,17 +1,8 @@
-// Issue 554 — proves semantic-role token values have exactly one definition.
-//
-// Two independent assertions, because the duplication can return in two different shapes
-// and catching only one would leave the promise half-enforced:
-//
-//   1. STRUCTURAL — no file other than semantic-token-source.ts may declare an object
-//      literal that looks like a semantic-role table. This stops a second table being
-//      pasted back in.
-//   2. BEHAVIOURAL — the two consumption paths (document-level `--gds-*` application and
-//      the provider's inline-style application) must resolve every shared role to the
-//      same value. This stops the paths drifting through a route the structural scan
-//      cannot see — exactly how `--gds-brand-accent-action` came to have two answers:
-//      `createBrandTheme` overrode it AFTER calling the emitter, so no duplicated *table*
-//      existed at all and a structural scan alone would have passed it.
+// Checks semantic-role token values have exactly one definition, two ways:
+//   1. Structural — no file other than semantic-token-source.ts may declare an object
+//      literal that looks like a semantic-role table.
+//   2. Behavioural — the document-level `--gds-*` path and the provider's inline-style path
+//      must resolve every shared role to the same value.
 
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -31,17 +22,9 @@ try {
   process.exit(1);
 }
 
-// The semantic-role NAME SET, taken from what the single source actually emits rather
-// than from a prefix rule. `--gds-motion-*` (issue 584's axis) and `--gds-vibe-*` (the
-// atmosphere palette) are separate namespaces with their own owners, and a naive
-// `--gds-*` prefix rule falsely accused both. Deriving the set means a role added
-// tomorrow is in scope automatically, and a namespace that is not a semantic role never
-// is.
-// Axis namespaces have their OWN owner (axes.ts) and their own adoption gates
-// (verify:shape-token-adoption, verify:density-token-adoption). Policing them here would
-// accuse axes.ts of duplicating the colour source it has nothing to do with — while still
-// leaving a real colour table hidden in axes.ts undetected, because the check would have
-// been about the file rather than the namespace.
+// Role set is derived from what the single source actually emits, not a `--gds-*` prefix
+// rule, which would wrongly include `--gds-motion-*` and `--gds-vibe-*` namespaces.
+// Axis namespaces (radius, space, etc.) have their own owner (axes.ts) and adoption gates.
 const AXIS_PREFIXES = [
   '--gds-radius-', '--gds-space-', '--gds-control-height-', '--gds-density',
   '--gds-font-size-', '--gds-line-height-', '--gds-weight-', '--gds-tracking-', '--gds-font-lane-',
@@ -60,9 +43,8 @@ if (SEMANTIC_ROLES.size < 50) {
 }
 
 // ── 1. Structural: no parallel table ─────────────────────────────────────────
-// A "parallel table" is an object literal carrying >= 3 distinct semantic-role keys.
-// Three rather than one, because a component legitimately sets one or two variables
-// inline; three keyed role values in one literal is a table, not an inline style.
+// A "parallel table" is an object literal carrying >= 3 distinct semantic-role keys
+// (a component legitimately sets one or two variables inline).
 const TABLE_THRESHOLD = 3;
 
 for (const file of readdirSync(SRC).filter((f) => f.endsWith('.ts') && !f.includes('.test.'))) {
@@ -122,7 +104,6 @@ for (const lane of LANES) {
   }
 }
 
-// A comparison that compared nothing passes vacuously — the issue 516 failure mode.
 if (compared === 0) failures.push('No roles were compared. The behavioural check is not running.');
 
 if (failures.length) {

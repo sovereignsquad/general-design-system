@@ -1,28 +1,12 @@
-// Issue 555 — radius literals that are not yet (or not meaningfully) token-governed.
+// Radius literals that are not yet (or not meaningfully) token-governed.
 //
-// Keyed by the file plus the declaration's own source text (issue 614).
-//
-// `file:line` was tried first, to make an entry stop matching when the line moved. Every observed
-// instance of that firing — seven of them — was an edit that inserted lines ABOVE an untouched
-// declaration, resolved by retyping the number. It never once caught a changed declaration.
-//
-// The text key keeps the property the line number was for: a DIFFERENT declaration landing in the
-// same place reads differently and is not excused. Only the identical declaration, moved, stays
-// covered. An entry matching no declaration now fails the gate, which the line key could not
-// check — a stale entry and a moved line were indistinguishable.
+// Keyed by the file plus the declaration's own source text, not `file:line` — a line-number
+// key stops matching on any edit above it, not just on the declaration itself changing.
 
 /**
- * Two distinct categories live here and they must not be conflated.
- *
- * `circle` entries are a principled exception: `50%` is a SHAPE, not a radius step. Feeding
- * it through the step scale would turn every avatar and status dot into a rounded square the
- * moment a theme set a small radius, which is not "theme control" — it is the theme breaking
- * a primitive it does not know it owns. A future `circle` treatment could govern these; the
- * step scale cannot.
- *
- * `debt` entries are ordinary hardcoding with no principle behind them. They carry a near
- * review date because they are debt, not design, and pretending otherwise is how an
- * allowlist becomes permanent.
+ * Two categories: `circle` entries are 50% radii, a shape rather than a radius step — the
+ * step scale would turn them into rounded squares under a small-radius theme.
+ * `debt` entries are ordinary hardcoding with a near `reviewBy`.
  */
 export const SHAPE_ALLOWLIST = {
   "packages/gds-core/src/GdsGeneratedAvatar.tsx::style={{ display: 'inline-block', width: size, height: size, borderRadius: '50%', overflow: 'hidden', ...style }}": {

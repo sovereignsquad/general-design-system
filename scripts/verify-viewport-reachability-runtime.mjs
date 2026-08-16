@@ -1,32 +1,15 @@
-// Issue 619 — no route may make content UNREACHABLE at phone width.
-//
-// The badge introduction shipped with rows clipped mid-word at the edge of a 390px screen. The
-// fix restated the system's two governed answers (wrap via GdsInline, scroll via a nowrap rail),
-// but nothing DETECTS the failure, so it recurs the next time a surface uses neither and is only
-// caught by someone looking at a phone.
-//
-// THE RULE THAT MAKES THIS GATE HONEST: an element beyond the viewport edge is not a defect —
-// it is a defect only if nothing can bring it into view. A first detector skipped that question
-// and reported 34 "unreachable" elements: slider tracks, off-canvas chrome, deliberately
-// scrollable rails. A gate that cries wolf gets deleted or ignored, which is worse than no gate.
-// So, per element that extends past the viewport:
+// Checks that no route makes content unreachable at 390px viewport width. An element beyond
+// the viewport edge is a defect only if nothing can bring it into view:
 //
 //   1. An ancestor with `overflow-x: auto|scroll` that actually scrolls (scrollWidth >
-//      clientWidth) makes it a RAIL — reachable by design, not broken.
-//   2. An ancestor with `overflow-x: hidden|clip` CLIPS it. That is broken only when the element
-//      carries reader content (text, image, control). A decorative gradient bleeding out of a
-//      hero exists to be cropped; the word "BLOCKED" does not.
-//   3. An ancestor a CSS transform has moved ENTIRELY off the viewport is OFF-CANVAS CHROME —
-//      Mantine's AppShell parks the collapsed mobile navbar at translateX(-100%), and the burger
-//      brings it back. Measured, not assumed: every element of it sits at -390..0, whole. That
-//      is a different situation from a box that is on screen and cutting words off at its edge.
-//   4. No such ancestor means the overflow reaches the document, the page pans sideways, and
-//      the shell contract (README: no horizontal overflow in any locale) says it must not.
+//      clientWidth) makes it a rail — reachable by design.
+//   2. An ancestor with `overflow-x: hidden|clip` clips it. Broken only if the element carries
+//      reader content (text, image, control); decorative elements may be cropped.
+//   3. An ancestor a CSS transform has moved entirely off the viewport is off-canvas chrome
+//      (e.g. Mantine AppShell's collapsed mobile navbar), reachable via its trigger.
+//   4. Otherwise the overflow reaches the document and the page pans sideways — not allowed.
 //
-// Elements that are aria-hidden, inert, invisible, or boxless (`<style>`, display:none) are not
-// content and are never counted — that is where most of the 34 false positives came from.
-//
-// Sweeps every declared route at 390px, the width the defect shipped at.
+// Elements that are aria-hidden, inert, invisible, or boxless are not counted as content.
 
 import {
   createCdpClient,
@@ -54,24 +37,17 @@ const AUDIT_EXPRESSION = `(() => {
     return style.visibility === 'hidden' || style.display === 'none';
   };
 
-  // Reader content only. A layout wrapper wider than the viewport is not itself the defect —
-  // its clipped text is — and counting wrappers reports every failure several times over
-  // without naming the words a reader loses.
+  // Reader content only; a wrapping layout element is not itself the defect.
   const isContent = (el) => {
-    // alt="" is the author's own declaration that an image carries no information — the ARIA
-    // decorative contract. GdsGeneratedThumbnail composes crops out of exactly such images, and
-    // cropping a decoration is presentation, not loss.
+    // alt="" declares an image decorative (ARIA contract); cropping it is not a loss.
     if (el.tagName === 'IMG') return el.getAttribute('alt') !== '';
     if (['SVG', 'VIDEO', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'A'].includes(el.tagName)) return true;
     return [...el.childNodes].some((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim().length > 0);
   };
 
   const verdictFor = (el) => {
-    // The region the element would have to appear inside to be seen: the viewport, narrowed by
-    // each clipping ancestor passed on the way up. Off-canvas must be judged against THIS, not
-    // the raw viewport — a demo AppShell inside a BoundedPreviewSurface parks its collapsed
-    // navbar outside the FRAME while still overlapping the viewport, and it is exactly as
-    // reachable (tap its burger) as the page-level one.
+    // Region the element must appear inside to be seen: viewport narrowed by each clipping
+    // ancestor. Off-canvas is judged against this region, not the raw viewport.
     let clipLeft = 0;
     let clipRight = vw;
     let clipped = false;
@@ -141,8 +117,7 @@ let sweptRoutes = 0;
 
 try {
   const client = await createCdpClient(browserSession.webSocketDebuggerUrl);
-  // Headless Chrome refuses window widths under ~500px, so --window-size alone silently audits
-  // a wider page than any phone shows. Device emulation is what actually pins 390.
+  // Headless Chrome refuses window widths under ~500px; device emulation pins 390.
   await client.send('Emulation.setDeviceMetricsOverride', {
     width: VIEWPORT_WIDTH, height: 844, deviceScaleFactor: 2, mobile: true,
   });

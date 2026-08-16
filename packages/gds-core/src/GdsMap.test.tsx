@@ -16,19 +16,15 @@ describe('GdsMap (issues 566, 567)', () => {
   });
 
   it('announces its state instead of only styling it', () => {
-    // A sighted user sees an empty box while it loads; a screen-reader user gets nothing at
-    // all unless it is said.
-    // Issue 568 added a second polite region (the announcer), so this targets the state line
-    // specifically rather than "the status role" — which is now ambiguous, and ambiguity here
-    // would make the test pass on whichever one it happened to find.
+    // Two polite live regions exist (state line and announcer); query by id="-state" to
+    // avoid matching the wrong one.
     const { container } = renderWithGds(<GdsMap markers={MARKERS} label="Venues" />);
     const status = container.querySelector('[id$="-state"]') as HTMLElement;
     expect(status.textContent).toMatch(/Venues (is loading|could not be loaded|: \d+ marker)/);
   });
 
   it('always renders the ODbL credit', () => {
-    // Not optional and not configurable away: OpenStreetMap data is licensed on condition of
-    // attribution, so the credit renders whenever a map does.
+    // OpenStreetMap's license requires attribution; the credit is not configurable away.
     const { container } = renderWithGds(<GdsMap markers={MARKERS} label="Venues" />);
     const credit = container.querySelector('[data-gds-map-attribution] a') as HTMLAnchorElement;
     expect(credit).toBeInTheDocument();
@@ -37,8 +33,8 @@ describe('GdsMap (issues 566, 567)', () => {
   });
 
   it('carries the theme identity, so a switch rebuilds it', () => {
-    // Leaflet reads resolved colours when it constructs its panes; nothing about a CSS
-    // variable change reaches back into them, which is why the identity drives a re-init.
+    // Leaflet reads resolved colors at pane construction; a CSS variable change alone
+    // doesn't reach it, so the theme identity attribute must drive a re-init.
     const { container } = renderWithGds(<GdsMap markers={MARKERS} label="Venues" preset="editorial" colorScheme="dark" />);
     const region = container.querySelector('[data-gds-map]') as HTMLElement;
     expect(region.getAttribute('data-gds-theme-identity'))
@@ -46,24 +42,22 @@ describe('GdsMap (issues 566, 567)', () => {
   });
 
   it('does not throw when the engine cannot initialise', () => {
-    // jsdom has no layout, so Leaflet fails here — which is the error path, and it must be a
-    // reported state rather than an exception that takes the page down.
+    // jsdom has no layout, so Leaflet fails to initialise here; that failure must surface
+    // as reported state, not an exception.
     const onStateChange = vi.fn();
     expect(() => renderWithGds(<GdsMap markers={MARKERS} label="Venues" onStateChange={onStateChange} />)).not.toThrow();
   });
 
   it('requires an accessible name for every marker at the type level', () => {
-    // Compile-time, but asserted here so the intent is visible: a marker whose only identity
-    // is its colour does not exist for a screen-reader user.
+    // label is required at the type level; checked here too for visibility.
     for (const marker of MARKERS) expect(marker.label.length).toBeGreaterThan(0);
   });
 });
 
 describe('GdsMap accessibility surface (issue 568)', () => {
   it('always renders the text-equivalent list — there is no prop that removes it', () => {
-    // Presence is not configurable. A prop that hid the list would make conformance a consumer
-    // choice, and for a raster map the list IS the conformance path: tile imagery is
-    // decorative by nature and cannot be described.
+    // Not configurable: tile imagery is decorative and cannot be described, so the list is
+    // the accessibility conformance path.
     renderWithGds(<GdsMap markers={MARKERS} label="Venues" />);
     expect(screen.getByRole('region', { name: 'Venues — list view' })).toBeInTheDocument();
     for (const marker of MARKERS) {
@@ -72,8 +66,7 @@ describe('GdsMap accessibility surface (issue 568)', () => {
   });
 
   it('drives the list from the same markers as the map, in a stable meaningful order', () => {
-    // Sorted by label, not insertion order. A list sequenced by "whatever the API returned" is
-    // not navigable — a keyboard user traversing it cannot tell where they are.
+    // Sorted by label, not insertion order, so keyboard traversal order is predictable.
     renderWithGds(<GdsMap markers={MARKERS} label="Venues" />);
     const items = screen.getAllByRole('button').map((b) => b.textContent ?? '');
     const sorted = [...items].sort((a, b) => a.localeCompare(b));
@@ -100,8 +93,8 @@ describe('GdsMap accessibility surface (issue 568)', () => {
   });
 
   it('has a polite live region rather than announcing on every frame', () => {
-    // Continuous panning fires moveend repeatedly; an unthrottled region reads coordinates
-    // over and over, which is worse than silence because the user cannot escape it.
+    // moveend fires repeatedly while panning; the region is throttled to avoid repeated
+    // announcements.
     const { container } = renderWithGds(<GdsMap markers={MARKERS} label="Venues" />);
     const announcer = container.querySelector('[data-gds-map-announcer]') as HTMLElement;
     expect(announcer).toBeInTheDocument();

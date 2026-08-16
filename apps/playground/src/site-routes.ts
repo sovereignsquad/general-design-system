@@ -55,8 +55,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'foundations',
     navGroup: 'primary',
     activePrefixes: ['/foundations'],
-    // Issue 626 Phase 3: the foundations family is a top-level area; its catalog URL keeps
-    // working forever via the redirect mechanism.
     legacyPaths: ['/patterns/foundations'],
   },
   {
@@ -67,8 +65,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'components',
     navGroup: 'primary',
     activePrefixes: ['/components'],
-    // Issue 632/633: 'components' is now also a pattern-registry family (its own top-level
-    // area, same treatment as 'foundations'), so its catalog URL redirects forever too.
     legacyPaths: ['/patterns/components'],
   },
   {
@@ -88,8 +84,6 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'systems',
     navGroup: 'primary',
     activePrefixes: ['/systems'],
-    // Issue 632/633: 'systems' is now also a pattern-registry family (its own top-level area,
-    // same treatment as 'foundations'), so its catalog URL redirects forever too.
     legacyPaths: ['/patterns/systems'],
   },
   {
@@ -156,9 +150,7 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     audienceIntent: 'resources',
     navGroup: 'secondary',
     activePrefixes: ['/live-proofs'],
-    // Issue 606 renamed the public /live-demos URL family; these keep every pre-rename link
-    // working. The rename shipped without them, which broke exactly what the issue said must
-    // not break — found while closing it.
+    // Legacy /live-demos family, kept for pre-rename links.
     legacyPaths: ['/live-demos'],
   },
   {
