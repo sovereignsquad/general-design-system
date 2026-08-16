@@ -2493,7 +2493,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         <div>
           <MetricCard label="Coverage" value="100%" description="Live catalog coverage." trend={{ tone: 'positive', label: '+2%' }} />
           <ProgressCard label="Adoption" value="18 apps" progress={86} progressLabel="Connected teams" />
-          <GdsStack gap={4}>
+          <GdsStack gap="2xs">
             <MetadataText>Fit score — a static measurement, role=&quot;meter&quot; not role=&quot;progressbar&quot;</MetadataText>
             <GdsMeter value={72} label="Fit score" />
           </GdsStack>
