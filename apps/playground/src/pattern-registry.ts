@@ -1006,6 +1006,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'GdsDensitySpacingSystemReference',
   },
   {
+    id: 'icon-system',
+    title: 'Icon System',
+    docSection: 'Core Component Contracts',
+    family: 'foundations',
+    section: 'Icons',
+    summary: 'The whole governed icon dictionary, its semantic categories, colour tones, and the decorative-vs-informative accessibility contract — every icon rendered through GdsIcon rather than a direct Tabler import, walked live from getGdsIconKeys()/getGdsIconMetadata() (counts shown below are computed at render time, not typed here).',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsIconSystemReference',
+  },
+  {
     id: 'badges',
     title: 'Badges',
     docSection: 'Feedback & Messaging',

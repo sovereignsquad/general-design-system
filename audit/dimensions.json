@@ -106,67 +106,67 @@
     "siteParity": [
       {
         "locale": "ar",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "de",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "es",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "fr",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "he",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "hu",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "it",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ja",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ko",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ru",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "zh",
-        "keys": 2013,
+        "keys": 2015,
         "missing": 0,
         "extra": 0
       }
@@ -175,77 +175,77 @@
       {
         "corpus": "site",
         "locale": "de",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 3,
         "rate": 0.15
       },
       {
         "corpus": "site",
         "locale": "ar",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "es",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "fr",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "he",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "hu",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "it",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ja",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ko",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ru",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "zh",
-        "total": 2013,
+        "total": 2015,
         "untranslated": 0,
         "rate": 0
       },

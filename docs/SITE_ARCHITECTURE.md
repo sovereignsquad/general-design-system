@@ -164,3 +164,14 @@ plainly and shows it holding: every control height reads `GDS_MIN_TARGET_PX` unl
 carries a recorded exception (`GDS_CONTROL_HEIGHT_EXCEPTIONS`), live-verified against the
 actual computed `--gds-control-height-md` a real page renders (`44px`, matching the reference
 exactly). New `foundations`-family registry entry `density-spacing`, live-proof.
+
+## Phase 9 — Icons axis reference (issue 636)
+
+`GdsIconSystemReference` (`packages/gds-core`) surfaces the whole icon dictionary — `GdsIcon`'s
+own doc comment says consumers "must use `GdsIcon` instead of importing tabler icons directly",
+and until this reference existed there was no page where that rule was checkable. Walked live
+via `getGdsIconKeys()`/`getGdsIconMetadata()` (140 icons, 10 categories, counted at render time
+— the registry summary deliberately states no number in prose, so nothing can drift), every
+icon renders through the real `GdsIcon` component, and the decorative-vs-informative
+accessibility contract is demonstrated live (aria-hidden vs aria-label), not just described.
+New `foundations`-family registry entry `icon-system`, live-proof.

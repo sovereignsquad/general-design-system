@@ -55,6 +55,7 @@ export const provenPatternIds: readonly string[] = [
   "gds-map",
   "generated-imagery",
   "icon-buttons",
+  "icon-system",
   "info-card",
   "inputs",
   "kanban-board",

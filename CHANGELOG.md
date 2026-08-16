@@ -4,6 +4,20 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Icons axis reference — the third of five missing Foundations pages (#632, #636, Phase 4)
+
+`GdsIconSystemReference` (`packages/gds-core`) is new: the whole 140-icon dictionary across 10
+semantic categories, walked live via `getGdsIconKeys()`/`getGdsIconMetadata()` and rendered
+through the real `GdsIcon` component — `GdsIcon`'s own doc comment says consumers must use it
+instead of importing Tabler directly, and until now there was no page where that rule was
+checkable. The decorative-vs-informative accessibility contract is demonstrated live
+(aria-hidden vs aria-label), not just described. The registry summary deliberately states no
+icon count in prose — the count is computed at render time, so it cannot drift. New
+`foundations`-family registry entry `icon-system`.
+
+Two axes remain: typography, and a compact colour/theming entry linking out to the full
+`/themes` Theme Lab.
+
 ### Density & Spacing axis reference — the second of five missing Foundations pages (#632, #635, Phase 3)
 
 `GdsDensitySpacingSystemReference` (`packages/gds-core`) is new: the 10-step spacing scale and

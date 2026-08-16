@@ -1118,6 +1118,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Icon surface (GDS-owned icon registry) — icon set, not a catalog pattern."
   },
   {
+    "name": "GdsIconSystemReference",
+    "status": "registered",
+    "home": {
+      "id": "icon-system",
+      "family": "foundations",
+      "section": "Icons"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsInline",
     "status": "exempt",
     "reason": "Layout primitive (inline row) — composed into registered patterns."
