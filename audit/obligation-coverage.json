@@ -248,7 +248,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 20
+        "line": 18
       },
       "unmet": [
         {
@@ -612,7 +612,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -626,7 +626,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -640,7 +640,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -654,7 +654,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -668,7 +668,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -682,7 +682,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -696,7 +696,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -710,7 +710,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -724,7 +724,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -738,7 +738,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -752,7 +752,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 32
+        "line": 30
       },
       "unmet": [
         {
@@ -2012,7 +2012,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/GdsMap.client.tsx",
-        "line": 54
+        "line": 44
       },
       "unmet": [
         {
@@ -2026,7 +2026,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/GdsMap.client.tsx",
-        "line": 54
+        "line": 44
       },
       "unmet": [
         {
