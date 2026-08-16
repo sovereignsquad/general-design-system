@@ -2688,6 +2688,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           description="Hero surface with media and action controls."
           actions={[{ label: 'Get started', href: '/general-design-system/patterns' }]}
           media={<div />}
+          mediaPosition="left"
         />
       );
     case 'feature-band':
