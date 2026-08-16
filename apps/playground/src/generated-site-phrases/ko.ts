@@ -478,6 +478,8 @@ export const generatedSitePhrases: Record<string, string> = {
   "Delete this pattern": "이 패턴 삭제",
   "Delivery maturity at a glance": "배송 성숙도 한눈에 보기",
   "Dense contract for tighter lists without local CSS.": "로컬 CSS 없이 더 엄격한 목록을 위한 밀집된 계약입니다.",
+  "Density & Spacing": "밀도 및 간격",
+  "Density & Spacing Tokens": "밀도 및 간격 토큰",
   "Dependency governance changed": "종속성 거버넌스가 변경됨",
   "Dependency policy": "종속성 정책",
   "Describe the missing primitive or behavior.": "누락된 기본 요소 또는 동작을 설명합니다.",

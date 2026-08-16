@@ -30,6 +30,7 @@ export const provenPatternIds: readonly string[] = [
   "cta-button-groups",
   "dashboards",
   "data-toolbars",
+  "density-spacing",
   "destructive-actions",
   "detail-profile-shell",
   "detail-surfaces",

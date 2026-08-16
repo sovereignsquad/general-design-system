@@ -154,3 +154,13 @@ shipped as real, validated token infrastructure — `GDS_RADIUS_STEPS`/`GDS_RADI
 those resolvers at render time, cross-checked live against the actual computed
 `--gds-radius-card`/etc. custom properties a real page renders, not retyped. New
 `foundations`-family registry entry `shape-elevation`, live-proof.
+
+## Phase 8 — Density & Spacing axis reference (issue 635)
+
+`GdsDensitySpacingSystemReference` (`packages/gds-core`) surfaces `GDS_SPACE_STEPS`/
+`GDS_CONTROL_SIZES` via `resolveGdsDensityTokens()` — another axis issue 555 shipped as real
+infrastructure with no live page. The reference states the accessibility-floor guarantee
+plainly and shows it holding: every control height reads `GDS_MIN_TARGET_PX` unless the size
+carries a recorded exception (`GDS_CONTROL_HEIGHT_EXCEPTIONS`), live-verified against the
+actual computed `--gds-control-height-md` a real page renders (`44px`, matching the reference
+exactly). New `foundations`-family registry entry `density-spacing`, live-proof.

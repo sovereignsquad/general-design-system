@@ -973,6 +973,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Provider/context (global density mode) — non-visual; density-aware cards are registered via ProductCard."
   },
   {
+    "name": "GdsDensitySpacingSystemReference",
+    "status": "registered",
+    "home": {
+      "id": "density-spacing",
+      "family": "foundations",
+      "section": "Density & Spacing"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsDesignHandoffCatalog",
     "status": "exempt",
     "reason": "Catalog component (GdsDesignHandoff) — design-handoff index, not a catalog pattern."

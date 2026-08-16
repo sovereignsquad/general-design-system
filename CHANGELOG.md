@@ -4,6 +4,19 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Density & Spacing axis reference — the second of five missing Foundations pages (#632, #635, Phase 3)
+
+`GdsDensitySpacingSystemReference` (`packages/gds-core`) is new: the 10-step spacing scale and
+5 control-height sizes have shipped as a real, validated axis since issue 555, with zero live
+page until now. The reference states the accessibility-floor guarantee plainly and shows it
+holding — every control height reads `GDS_MIN_TARGET_PX` (44px) unless the size carries a
+recorded exception — live-verified against the actual computed `--gds-control-height-md` a
+real page renders (`44px`, matching exactly). New `foundations`-family registry entry
+`density-spacing`.
+
+Three axes remain: icons, typography, and a compact colour/theming entry linking out to the
+full `/themes` Theme Lab.
+
 ### Shape & Elevation axis reference — the first of five missing Foundations pages (#632, #634, Phase 2)
 
 `GdsShapeElevationSystemReference` (`packages/gds-core`) is new: both the radius axis (7 steps,
