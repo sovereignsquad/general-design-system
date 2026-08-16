@@ -1975,31 +1975,16 @@ function BottomTabNavigationDemo() {
             ariaLabel="Example primary navigation with a custom item"
             renderItem={(item, active) => (
               item.id === 'inbox' ? (
-                <GdsStack
-                  component="button"
-                  type="button"
-                  onClick={() => setSheetOpenFor(item.label)}
-                  gap="none"
-                  align="center"
-                  justify="center"
-                  padding="xs"
-                >
-                  {item.icon}
-                  <MetadataText>{active ? `${item.label} (active)` : item.label}</MetadataText>
-                </GdsStack>
+                <button type="button" onClick={() => setSheetOpenFor(item.label)}>
+                  <GdsStack gap="none" align="center" justify="center">
+                    {item.icon}
+                    <MetadataText>{active ? `${item.label} (active)` : item.label}</MetadataText>
+                  </GdsStack>
+                </button>
               ) : (
-                <GdsStack
-                  component="a"
-                  href={item.href}
-                  onClick={(event) => { event.preventDefault(); setActiveId(item.id); }}
-                  gap="none"
-                  align="center"
-                  justify="center"
-                  padding="xs"
-                >
-                  {item.icon}
-                  <MetadataText>{active ? `${item.label} (active)` : item.label}</MetadataText>
-                </GdsStack>
+                <GdsInlineLink href={item.href}>
+                  {active ? `${item.label} (active)` : item.label}
+                </GdsInlineLink>
               )
             )}
           />
