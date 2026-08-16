@@ -57,7 +57,7 @@
       "reviewBy": "2026-12-01"
     },
     {
-      "at": "packages/gds-theme/src/VibeThemePicker.client.tsx:58",
+      "at": "packages/gds-theme/src/VibeThemePicker.client.tsx:60",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
