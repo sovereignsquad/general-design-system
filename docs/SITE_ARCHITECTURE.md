@@ -79,3 +79,33 @@ template each entry already follows: title, summary as when-to-use, live demos a
 variants/states, coverage text as evidence. Deepening individual entries' use-case prose is
 continuous editorial work under the standing rules, not a phase with an end state — any entry
 found wanting files as its own issue.
+
+## Phase 5 — delivered (issue 631)
+
+A reader could not find `semantic-actions` (`ActionBar`/`SemanticButton`'s click-feedback
+micro-interaction) because it lives under a section literally called "Workflow Guidance," while
+a section called "Motion & Micro-interactions" existed and held only `GdsMotionSystemReference`
+— a token reference table (durations/easings/presets), zero buttons. A direct violation of this
+document's own rule 2. Fixed at the data layer, not a page-local patch:
+
+- `motion-system`'s section is renamed **Motion Tokens** (accurate to its content), with its
+  summary now pointing to Semantic Actions for interactive feedback, and `semantic-actions`'s
+  summary now states it carries the click micro-interaction — closing the loop both ways and
+  making both entries reachable by the same search term.
+- `PatternFamilyPage` (shared by all six family routes, 114 registry entries total: foundations
+  30, public 35, operations 15, feedback 12, access 11, data 11) gained the filter-plus-browse
+  pattern `/components` already proved in Phase 2: a live text filter over title/section/
+  summary/sourceComponent, and a "Jump to section" anchor grid. `ReferenceSection` gained an
+  optional `id` prop (forwarded to `SectionPanel`'s existing one) so section headings are
+  anchor-targets, the same mechanism `PatternEntryCard` already used per-entry.
+
+**Not resolved by this phase, tracked separately (issue 632):** `/foundations`'s actual 8
+sections (Shell & Navigation Guidance, Controls & Inputs, Layout Contracts, Workflow Guidance,
+Cards & Metrics, Generated Imagery, Motion Tokens, Badges & Indicators) do not match this
+document's own "Target shape" table above, which defines Foundations as the color/typography/
+spacing/shape/motion/icons/a11y axes — nor do they match the live page's own `familyMeta`
+description ("Shells, controls, cards, and baseline workflow rules"). The Systems row above
+separately claims "badge system, generated imagery" as `/systems` content, which would mean
+Badges & Indicators and Generated Imagery are filed on the wrong page by this table's own
+definition. That is a real re-categorization decision, not a findability fix, and stays open
+until made deliberately.

@@ -3423,10 +3423,25 @@ export function PatternsIndexPage() {
   );
 }
 
+function sectionSlug(section: string) {
+  return `section-${section.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
+}
+
 export function PatternFamilyPage({ family }: { family: PatternFamily }) {
   const meta = familyMeta[family];
   const entries = getFamilyEntries(family);
+  const [query, setQuery] = useState('');
+  const filteredEntries = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return entries;
+    return entries.filter((entry) =>
+      entry.title.toLowerCase().includes(needle)
+      || entry.section.toLowerCase().includes(needle)
+      || entry.summary.toLowerCase().includes(needle)
+      || entry.sourceComponent?.toLowerCase().includes(needle));
+  }, [entries, query]);
   const groupedEntries = groupEntries(entries);
+  const groupedFilteredEntries = groupEntries(filteredEntries);
 
   return (
     <DocsPageShell
@@ -3466,9 +3481,36 @@ export function PatternFamilyPage({ family }: { family: PatternFamily }) {
           ]}
         />
       </ReferenceSection>
-      {Object.entries(groupedEntries).map(([section, sectionEntries]) => (
+      <ReferenceSection
+        title="Jump to section"
+        description="Every section in this family, largest first — click through, or filter below to search across all of them."
+      >
+        <ReferenceLinkGrid
+          columns={3}
+          items={Object.entries(groupedEntries)
+            .sort(([, a], [, b]) => b.length - a.length)
+            .map(([section, sectionEntries]) => ({
+              id: sectionSlug(section),
+              title: section,
+              description: `${sectionEntries.length} documented pattern${sectionEntries.length === 1 ? '' : 's'}.`,
+              href: `#${sectionSlug(section)}`,
+            }))}
+        />
+        <AdminTextInput
+          name="pattern-family-filter"
+          label="Filter"
+          placeholder="e.g. button, motion, checkbox…"
+          value={query}
+          onChange={setQuery}
+        />
+        <BodyText>
+          Showing {filteredEntries.length} of {entries.length}.
+        </BodyText>
+      </ReferenceSection>
+      {Object.entries(groupedFilteredEntries).map(([section, sectionEntries]) => (
         <ReferenceSection
           key={section}
+          id={sectionSlug(section)}
           title={section}
           description={`${sectionEntries.length} documented pattern${sectionEntries.length === 1 ? '' : 's'} in this section.`}
         >

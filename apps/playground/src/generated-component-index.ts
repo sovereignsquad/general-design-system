@@ -1210,7 +1210,7 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "home": {
       "id": "motion-system",
       "family": "foundations",
-      "section": "Motion & Micro-interactions"
+      "section": "Motion Tokens"
     },
     "alsoAppearsIn": []
   },
