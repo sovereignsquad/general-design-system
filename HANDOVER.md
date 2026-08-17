@@ -1,26 +1,35 @@
 # HANDOVER
 
-**Written 2026-08-16. Supersedes every earlier handover.**
+**Written 2026-08-16, refreshed 2026-08-17 (§1/§6/§7 only — see note below).
+Supersedes every earlier handover.**
 
 Read this top to bottom before touching anything. It is written for an agent with
 **no memory of the session that produced this state**.
+
+> **2026-08-17 refresh note**: this file went stale after ~1 day — it still
+> described a not-yet-confirmed, not-yet-bumped `5190fc7`/6.1.0 as current
+> state. What actually happened since: CI on `5190fc7` **did** come back
+> green, the version was bumped to **6.2.0** and released (§6 is now DONE,
+> not open), and the issue count moved 11→12 (one new: #641, flaky
+> playground tests). §1/§6/§7 below are corrected to match. §2–§5 and §8–§10
+> (owner rules, the 2026-08-16 session narrative, gate-failure lessons,
+> working conventions, standard of proof) are **not** re-verified in this
+> pass — they're durable process knowledge, not perishable state, but treat
+> anything inside them that reads as "current state" (e.g. §5's messmass
+> GitHub-Packages blocker) as unconfirmed since 2026-08-16.
 
 ---
 
 ## 1. Where we are, in one paragraph
 
-`main` is at **`5190fc7`**, version **6.1.0** (unbumped since 6.1.0 shipped
-earlier this session), working tree **clean**, pushed. CI (`GDS Quality`,
-`Deploy GDS Playground to GitHub Pages`) was **triggered on this push and its
-result is NOT YET CONFIRMED** — the local full-chain `npm run preflight` run
-was interrupted mid-run by explicit user instruction ("Stop full preflight
-again") before it could complete on this exact commit; every gate that failed
-during earlier partial runs was individually re-verified and fixed (see §4),
-but no single uninterrupted `npm run preflight` finished green on `5190fc7`
-itself. **Checking CI's actual conclusion on `5190fc7` is the first thing the
-next agent should do.** There are **11 open issues** (down from 34 in the
-previous handover). A user request to **publish a new npm version of GDS is
-still open and not started** — see §6, which documents the exact mechanism.
+`main` is at **`26aac86`**, version **6.2.0**, working tree clean, pushed.
+CI is confirmed green on this exact commit — all three workflows (`GDS Auto
+Tag Release`, `GDS Quality`, `Deploy GDS Playground to GitHub Pages`)
+completed successfully on 2026-08-17T12:32:57Z. **6.2.0 is published to
+GitHub Packages** — `GDS Publish` (`gds-v6.2.0`, workflow_dispatch) completed
+successfully in 10m6s at 2026-08-17T12:33:10Z, so the open "publish a new GDS
+version" request from §6 is **done**, not open — see the update at the top of
+§6. There are **12 open issues** (see refreshed table, §7).
 
 ---
 
@@ -421,10 +430,28 @@ different project's problem, not this repo's.
 
 ---
 
-## 6. Open request: publish a new GDS version — NOT DONE, mechanism documented
+## 6. Publish a new GDS version — DONE (2026-08-17)
 
-The owner asked mid-session: *"When it is done, publish the new version of
-gds."* This has **not been executed**. What was established:
+**Update, 2026-08-17: this happened.** `VERSION` and all 7 workspace
+`package.json`s were bumped to **6.2.0** (commits `15959db` "Release 6.2.0"
+and `26aac86` "Align every version reference to 6.2.0", the latter fixing two
+version-string gates the release commit itself had missed — see
+`CHANGELOG.md`'s `## 6.2.0` entry for the shipped content: five backward-
+compatible package additions plus the Foundations rebuild). The push to
+`main` fired `auto-tag-release.yml`, which tagged `gds-v6.2.0` and dispatched
+`publish-github-packages.yml`, which **completed successfully**
+(`GDS Publish`, run `32030416629`, 10m6s, 2026-08-17T12:33:10Z) — confirmed
+via `gh run list --workflow=publish-github-packages.yml`, not assumed. All 7
+`@sovereignsquad/*` packages are published at 6.2.0 on `npm.pkg.github.com`.
+
+The mechanism below is left as-written (accurate, and useful for the *next*
+version cut) — only the "not done" framing above it was wrong as of this
+refresh.
+
+The owner asked mid-session (2026-08-16): *"When it is done, publish the new
+version of gds."* At the time of the original write-up this had **not been
+executed**; it has been since. What was established about the mechanism
+(still accurate):
 
 **The actual publish mechanism (verified by reading the workflow files
 directly, not assumed):**
@@ -484,23 +511,26 @@ a version bump on top of an unconfirmed base.
 
 ---
 
-## 7. Remaining open issues (11, as of this write-up — re-check before trusting)
+## 7. Remaining open issues (12, refreshed 2026-08-17 via `gh issue list` — re-check before trusting)
 
 | Issue | State |
 | --- | --- |
-| #498 | Epic: designer usage-pattern docs for every component. `status: backlog`. |
-| #512 | Ref-level AI attribution cleanup (19 tags + 1 branch). `status: blocked` on permissions — see §3c. |
-| #532 | vendor-gds bundle code-splitting (~307KB). `status: blocked` on a design decision. |
-| #573 | Tracking: GDS 7.0.0 — total theme control, generated-imagery exclusivity, real map system. `priority: p0`, `status: ready`. Large. |
-| #576 | Tracking: deep audit — bidirectional token traceability, combinatorial coverage, mutation-verified. `priority: p0`, `status: ready`. Large. |
-| #577 | Tracking: health retention — ratchets, self-verifying gates, registry-derived completeness. `priority: p0`, `status: ready`. Large. |
-| #625 | Tokens: brand-lane home/themes routes ~9pts above the untraceable mean at phone width (found by a covering array). |
-| #627 | `untraceableRenderRate` budget (7.2%) is stale — fresh measurement is ~9.86% on the same slice. `priority: p1`, `status: backlog`. |
-| #629 | NavLink components render below the 44px touch-target floor site-wide (247×41 / 221×25). `priority: p2`, `status: backlog`, `area: a11y`. |
+| #641 | **New since the 2026-08-16 write-up.** Playground runtime test suite is flaky under load, so a real failure is easy to dismiss as noise. `area: tooling`, `priority: p1`, `status: backlog`. |
+| #632 | Foundations content-vs-spec decision. `status: in progress` — see §3b, genuinely incomplete (2 sub-entries missing). Still open as of 2026-08-17. |
 | #630 | Typography stratification measurement needs a real single-card container boundary before it can gate anything. `priority: p2`, `status: backlog`. |
-| #632 | Foundations content-vs-spec decision. `status: in progress` — see §3b, genuinely incomplete (2 sub-entries missing). |
+| #629 | NavLink components render below the 44px touch-target floor site-wide (247×41 / 221×25). `priority: p2`, `status: backlog`, `area: a11y`. |
+| #627 | `untraceableRenderRate` budget (7.2%) is stale — fresh measurement is ~9.86% on the same slice. `priority: p1`, `status: backlog`. |
+| #625 | Tokens: brand-lane home/themes routes ~9pts above the untraceable mean at phone width (found by a covering array). `priority: p2`. |
+| #577 | Tracking: health retention — ratchets, self-verifying gates, registry-derived completeness. `priority: p0`, `status: ready`. Large. |
+| #576 | Tracking: deep audit — bidirectional token traceability, combinatorial coverage, mutation-verified. `priority: p0`, `status: ready`. Large. |
+| #573 | Tracking: GDS 7.0.0 — total theme control, generated-imagery exclusivity, real map system. `priority: p0`, `status: ready`. Large. |
+| #532 | vendor-gds bundle code-splitting (~307KB). `status: blocked` on a design decision. |
+| #512 | Ref-level AI attribution cleanup (19 tags + 1 branch). `status: blocked` on permissions — see §3c. |
+| #498 | Epic: designer usage-pattern docs for every component. `status: backlog`. |
 
-Closed this session: #631, #633, #634, #635, #636, #637, #638, #639, #640.
+Closed 2026-08-16 session: #631, #633, #634, #635, #636, #637, #638, #639, #640.
+No closures observed between 2026-08-16 and this 2026-08-17 refresh besides
+those already reflected above.
 
 ---
 
