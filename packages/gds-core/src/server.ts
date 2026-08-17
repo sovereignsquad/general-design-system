@@ -17,6 +17,7 @@ export * from './EmptyState';
 export * from './MetricCard';
 export * from './ProgressCard';
 export * from './GdsMeter';
+export * from './GdsRatingDisplay';
 export * from './ReferenceLocaleNotice';
 export * from './ReferenceLinkGrid';
 export * from './ReferenceSection';

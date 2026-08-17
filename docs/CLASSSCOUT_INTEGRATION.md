@@ -1,10 +1,10 @@
 # ClassScout / Class USA Integration Guide
 
-GDS 4.0.0 delivers the first-class `Class USA` theme and the missing ClassScout primitives required to ship on pure GDS with no app-level forks, raw design values, or app-local chart/control shims.
+GDS 4.0.0 delivered the first-class `Class USA` theme and the missing ClassScout primitives required to ship on pure GDS with no app-level forks, raw design values, or app-local chart/control shims. The current stable line is **6.2.0**; see B11–B14 below for what shipped since 4.0.0.
 
 ## Install
 
-GDS publishes current and future releases to GitHub Packages (`https://npm.pkg.github.com`); a frozen, deprecated `3.9.0` snapshot also remains on npmjs.com (use GitHub Packages for new installs). Add to `.npmrc` first (every install authenticates, even for public packages):
+GDS publishes current and future releases to GitHub Packages (`https://npm.pkg.github.com`); a frozen, deprecated `3.9.0` snapshot also remains on npmjs.com (use GitHub Packages for new installs). These packages are **private** to the `sovereignsquad` org — your token needs `read:packages` scope and org read access (request access from the GDS maintainers if you don't have it). Add to `.npmrc` first:
 
 ```ini
 @sovereignsquad:registry=https://npm.pkg.github.com
@@ -12,7 +12,7 @@ GDS publishes current and future releases to GitHub Packages (`https://npm.pkg.g
 ```
 
 ```bash
-npm install @sovereignsquad/gds@6.0.0
+npm install @sovereignsquad/gds@6.2.0
 ```
 
 ## Bootstrap
@@ -381,6 +381,127 @@ import { GdsMeter } from '@sovereignsquad/gds-core';
 `min`/`max` default to `0`/`100` but aren't required to be a percentage — `role="meter"`
 doesn't need one — so a 1–5 rating or any other bounded range works directly:
 `<GdsMeter value={3} min={1} max={5} label="Rating" valueText="3 out of 5 stars" />`.
+
+---
+
+## B12 — Icon-only category mark (`GdsIconBadge`)
+
+#638 · `@sovereignsquad/gds-core`
+
+For a category marker where the label is redundant or carried by adjacent content — a
+legend, a caption, an `aria-labelled` group. `GdsBadge` deliberately requires `label`
+(meaning never lives in color alone); `GdsIconBadge` is the separate, narrow component for
+the already-labelled-elsewhere case, not an escape hatch on `GdsBadge` itself.
+
+```tsx
+import { GdsIconBadge } from '@sovereignsquad/gds-core';
+
+<GdsIconBadge accent="teal" icon="Habit" label="Fitness" />
+<GdsIconBadge accent="ocean" shade="deep" icon="Location" />
+```
+
+Decorative (`aria-hidden`) by default; pass `label` when the badge stands alone with no
+adjacent text naming the category.
+
+---
+
+## B13 — Disabling a removable tag (`GdsRemovableTag.disabled`)
+
+#638 · `@sovereignsquad/gds-core`
+
+For a filter pill where removal must be suppressed mid-request (e.g. `ScoutAssistantView`'s
+active-filter row while a search is in flight):
+
+```tsx
+<GdsRemovableTag label="Ages 6-8" removeLabel="Remove filter: Ages 6-8" onRemove={() => {}} disabled />
+```
+
+Native `disabled` + `aria-disabled`, matching the same convention already used elsewhere on
+GDS's native-button components (`ChoiceChip`'s `SelectionBadge`).
+
+---
+
+## B14 — Generated-imagery tint and interactive category badges
+
+#638 · `@sovereignsquad/gds-core`
+
+`GdsGeneratedThumbnailProps`/`GdsGeneratedHeroProps` gained `tintWithBackground`/`mixRatio`
+to mix the resolved palette toward another color — `color-mix()` on the live-DOM path,
+`mixCssColors` (now exported from `gds-theme`'s root entrypoint) on the literal-hex path
+used for OG images/email with no DOM. Does not apply when an explicit `colors` override is
+given.
+
+```tsx
+<GdsGeneratedThumbnail category="hiking" tintWithBackground="var(--gds-bg-surface)" mixRatio={0.7} />
+```
+
+Category badges on both components also gained `onSelect?: (key: string) => void` — when
+set, a badge renders as a real `<button>` and fires on click with the category's key,
+instead of static decorative content.
+
+---
+
+## B15 — Read-only rating display (`GdsRatingDisplay`)
+
+#642 · `@sovereignsquad/gds-core`
+
+For a display-only rating (a star glyph plus `4.5/5` and a review count on a card or
+detail page) — `GdsRatingScale` is a `GdsSlider` preset for *choosing* a rating, the wrong
+tool for showing one that's already fixed.
+
+```tsx
+import { GdsRatingDisplay } from '@sovereignsquad/gds-core';
+
+<GdsRatingDisplay value={4.5} count={128} />
+```
+
+Filled/half/empty glyphs, colored from the same `--gds-star` token this app already uses
+directly. One accessible name (e.g. "4.5 out of 5 stars, 128 ratings") rather than one
+announced per star; `max` (default `5`) and `label` are available for a non-5-point scale
+or a fully custom accessible name.
+
+---
+
+## B16 — Compact status strip (`BannerNotice variant="compact"`)
+
+#642 · `@sovereignsquad/gds-core`
+
+For a one-line, centered, page-level status line with no heading — `BannerNotice`'s default
+`panel` variant requires `title` and renders a title+message block, the wrong shape for
+something like a preview-mode indicator.
+
+```tsx
+<BannerNotice variant="compact" severity="info" message="Preview mode — changes are not saved." />
+```
+
+No `title`/`eyebrow`/status badge in this variant; severity still drives the message color
+and the live-region role (`alert` for `error`, `status` otherwise).
+
+---
+
+## B17 — Narrow aside layout token (`GdsSidebar sidebarWidth="aside"`)
+
+#642 · `@sovereignsquad/gds-core`
+
+`GdsLayoutSize` gained an `'aside'` step (`18rem` / 288px) between the spacing-scale tokens
+and `'content'` (42rem) — for a filter rail or detail-page aside narrower than any existing
+named content width.
+
+```tsx
+<GdsSidebar sidebarWidth="aside" side="end"><FilterRail /><Results /></GdsSidebar>
+```
+
+---
+
+## B18 — Raw token scale vs. Mantine-rendered scale (item 8, closed)
+
+`THEME_GOVERNANCE.md`'s "Raw `--gds-*` custom properties vs. the Mantine-rendered scale"
+section is the governance answer to this: the raw `--gds-radius-*` custom properties are
+the public design-intent scale, `mantineTheme.radius` is a separate brand-remapped
+rendering scale Mantine components consume directly, and the two are not required to
+align — by design, not oversight. The same split applies to `resolveGdsTypographyTokens()`'s
+`tracking` output, which `createBrandTheme`'s `cssVariables` does not include; a consumer
+who wants it applied to the document wires it themselves.
 
 ---
 

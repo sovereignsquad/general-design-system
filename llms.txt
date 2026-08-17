@@ -71,7 +71,7 @@ export default function App() {
 
 - Agent usage guide: docs/AI_AGENT_GUIDE.md
 - Guided onboarding tour: docs/GUIDED_TOUR.md
-- Badge system (GdsBadge, GdsCountBadge, GdsRemovableTag, GdsIconBadge, shapes, stack): docs/BADGE_SYSTEM.md
+- Badge system (GdsBadge, GdsCountBadge, GdsRemovableTag, GdsIconBadge, GdsRatingDisplay, shapes, stack): docs/BADGE_SYSTEM.md
 - Foundation & rules: FOUNDATION.md
 - Components & patterns: COMPONENTS_AND_PATTERNS.md
 - Installation: INSTALLATION_GUIDE.md

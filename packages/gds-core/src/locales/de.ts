@@ -265,4 +265,6 @@ export const de = {
   'gds.gdsMap.tilesFailedOffline': "Sie scheinen offline zu sein. Jeder Ort erscheint weiterhin als Markierung und in der Liste.",
   'gds.gdsMap.tilesFailedIndeterminate': "Der Kachelhost konnte nicht erreicht werden – der Browser kann nicht erkennen, ob die Ursache im Netzwerk, einer Inhaltssicherheitsrichtlinie oder dem Host selbst liegt. Jeder Ort erscheint weiterhin als Markierung und in der Liste.",
   'gds.gdsMap.tilesRetryLabel': "Versuchen Sie erneut, Bilder zu laden",
+  'gds.ratingDisplay.labelWithCount': "{value} von {max} Sternen, {count} Bewertungen",
+  'gds.ratingDisplay.label': "{value} von {max} Sternen",
 };

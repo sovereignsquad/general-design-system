@@ -265,4 +265,6 @@ export const he = {
   'gds.gdsMap.tilesFailedOffline': "נראה שאתה במצב לא מקוון. כל מקום עדיין מופיע כסמן וברשימה.",
   'gds.gdsMap.tilesFailedIndeterminate': "לא ניתן היה להגיע למארח האריחים - הדפדפן לא יכול לדעת אם הסיבה היא הרשת, מדיניות אבטחת תוכן או המארח עצמו. כל מקום עדיין מופיע כסמן וברשימה.",
   'gds.gdsMap.tilesRetryLabel': "נסה לטעון שוב תמונות",
+  'gds.ratingDisplay.labelWithCount': "{value} מתוך {max} כוכבים, {count} דירוגים",
+  'gds.ratingDisplay.label': "{value} מתוך {max} כוכבים",
 };

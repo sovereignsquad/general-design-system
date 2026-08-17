@@ -265,4 +265,6 @@ export const ru = {
   'gds.gdsMap.tilesFailedOffline': "Похоже, вы не в сети. Каждое место по-прежнему отображается в виде маркера и в списке.",
   'gds.gdsMap.tilesFailedIndeterminate': "Не удалось связаться с хостом тайла — браузер не может определить, является ли причина сетью, политикой безопасности контента или самим хостом. Каждое место по-прежнему отображается в виде маркера и в списке.",
   'gds.gdsMap.tilesRetryLabel': "Попробуйте загрузить изображения еще раз.",
+  'gds.ratingDisplay.labelWithCount': "{value} из {max} звезд, оценок: {count}",
+  'gds.ratingDisplay.label': "{value} из {max} звезд",
 };

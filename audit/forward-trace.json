@@ -6,8 +6,8 @@
     "listed": 72,
     "demoed": 64,
     "explained": 54,
-    "variationsShown": 39,
-    "useCase": 8
+    "variationsShown": 40,
+    "useCase": 9
   },
   "confidence": {
     "listed": "high - direct lookup against the published DTCG graph and docs corpus",
@@ -553,23 +553,6 @@
       ]
     },
     {
-      "token": "--gds-bg-surface",
-      "role": "bg-surface",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-bg-card",
       "role": "bg-card",
       "declaredIn": [
@@ -954,22 +937,6 @@
       ]
     },
     {
-      "token": "--gds-star",
-      "role": "star",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-state-success",
       "role": "state-success",
       "declaredIn": [
@@ -1318,6 +1285,22 @@
       ]
     },
     {
+      "token": "--gds-bg-surface",
+      "role": "bg-surface",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
       "token": "--gds-motion-duration-fast",
       "role": "motion-duration-fast",
       "declaredIn": [
@@ -1350,6 +1333,21 @@
         "reason": "Derived readable foreground (semantic-token-source.ts computes it against --gds-support at 4.5:1; accessibility-report.ts audits the pair). Only variationsShown is open, and that obligation is itself a LOW-confidence proxy heuristic per the trace's own confidence block.",
         "reviewBy": "2026-11-01"
       }
+    },
+    {
+      "token": "--gds-star",
+      "role": "star",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
     },
     {
       "token": "--gds-vibe-primary",

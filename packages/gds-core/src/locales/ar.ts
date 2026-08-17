@@ -265,4 +265,6 @@ export const ar = {
   'gds.gdsMap.tilesFailedOffline': "يبدو أنك غير متصل. لا يزال كل مكان يظهر كعلامة وفي القائمة.",
   'gds.gdsMap.tilesFailedIndeterminate': "تعذر الوصول إلى مضيف التجانب — لا يمكن للمتصفح معرفة ما إذا كان السبب هو الشبكة، أو سياسة أمان المحتوى، أو المضيف نفسه. لا يزال كل مكان يظهر كعلامة وفي القائمة.",
   'gds.gdsMap.tilesRetryLabel': "حاول تحميل الصور مرة أخرى",
+  'gds.ratingDisplay.labelWithCount': "{value} من أصل {max} من النجوم، و{count} من التقييمات",
+  'gds.ratingDisplay.label': "{value} من أصل {max} من النجوم",
 };

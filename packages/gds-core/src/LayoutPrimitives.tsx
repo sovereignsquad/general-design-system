@@ -6,8 +6,8 @@ import type { BoxProps } from '@mantine/core';
 export type GdsLayoutBreakpoint = 'base' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 /** Spacing-scale token for gap/padding/margin. `0`/`none` is zero; `xs`–`xl` map to Mantine spacing vars; `2xl` is 1.5× `xl`. */
 export type GdsLayoutToken = 0 | 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-/** Width/size token: the spacing tokens plus named content widths (`content`, `narrow`, `page`, `wide`) and `full` (100%). */
-export type GdsLayoutSize = Exclude<GdsLayoutToken, 0> | 'content' | 'narrow' | 'page' | 'wide' | 'full';
+/** Width/size token: the spacing tokens plus named content widths (`aside`, `content`, `narrow`, `page`, `wide`) and `full` (100%). */
+export type GdsLayoutSize = Exclude<GdsLayoutToken, 0> | 'aside' | 'content' | 'narrow' | 'page' | 'wide' | 'full';
 /** Either a single value applied at all breakpoints, or a partial per-breakpoint map. */
 export type GdsResponsiveValue<T> = T | Partial<Record<GdsLayoutBreakpoint, T>>;
 /** Cross-axis (`align-items`) alignment keyword. */
@@ -150,6 +150,7 @@ const sizeTokenMap: Record<GdsLayoutSize, string> = {
   lg: 'var(--mantine-spacing-lg)',
   xl: 'var(--mantine-spacing-xl)',
   '2xl': 'calc(var(--mantine-spacing-xl) * 1.5)',
+  aside: '18rem',
   content: '42rem',
   narrow: '56rem',
   page: '72rem',

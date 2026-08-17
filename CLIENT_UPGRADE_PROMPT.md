@@ -13,7 +13,7 @@ Team, we completed the GDS upgrade to the 6.2.0 adoption platform release.
   @sovereignsquad:registry=https://npm.pkg.github.com
   //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
   ```
-  (`GITHUB_TOKEN` is your own personal access token with `read:packages` scope — GitHub Packages requires authentication for every install, even public ones.)
+  (`GITHUB_TOKEN` is your own personal access token with `read:packages` scope. These packages are private to the `sovereignsquad` org, so the token also needs org read access — request it from the GDS maintainers if you don't have it.)
 - Update dependencies:
   - `@sovereignsquad/gds@6.2.0`
   - `@sovereignsquad/gds-eslint-config@6.2.0` (dev)

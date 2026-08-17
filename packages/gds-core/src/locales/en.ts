@@ -265,4 +265,6 @@ export const en = {
   'gds.gdsMap.tilesFailedOffline': "You appear to be offline. Every place still appears as a marker and in the list.",
   'gds.gdsMap.tilesFailedIndeterminate': "The tile host could not be reached — the browser cannot tell whether the cause is the network, a content security policy, or the host itself. Every place still appears as a marker and in the list.",
   'gds.gdsMap.tilesRetryLabel': "Try loading imagery again",
+  'gds.ratingDisplay.labelWithCount': "{value} out of {max} stars, {count} ratings",
+  'gds.ratingDisplay.label': "{value} out of {max} stars",
 };

@@ -141,6 +141,7 @@ import {
   GdsCountBadge,
   GdsRemovableTag,
   GdsIconBadge,
+  GdsRatingDisplay,
   GdsGeneratedAvatar,
   GdsGeneratedMark,
   GdsMapBasemapWash,
@@ -1892,6 +1893,17 @@ function BadgeVocabularyDemo() {
           <GdsIconBadge accent="teal" icon="Habit" label="Fitness" />
           <GdsIconBadge accent="ocean" shade="deep" icon="Location" label="Nearby" />
           <GdsIconBadge accent="terracotta" icon="Calendar" label="Scheduled" />
+        </GdsInline>
+      </BadgeSection>
+
+      <BadgeSection
+        title="Rating display"
+        description="Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the input equivalent; this component never accepts one."
+      >
+        <GdsInline gap="lg" align="center">
+          <GdsRatingDisplay value={4.5} count={128} />
+          <GdsRatingDisplay value={3} max={5} />
+          <GdsRatingDisplay value={5} count={2041} />
         </GdsInline>
       </BadgeSection>
 
