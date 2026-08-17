@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased
+## 6.2.0 - 2026-08-17 — ClassScout upstream asks, and Foundations rebuilt to the 7 axes (#632, #633-#638)
 
 ### ClassScout upstream asks: BottomTabBar renderItem, tag disabled, icon badge, Meter, imagery tint (#638)
 

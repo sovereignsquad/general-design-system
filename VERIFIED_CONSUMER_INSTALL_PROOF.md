@@ -1,7 +1,7 @@
 # Verified Consumer Install Proof
 
 Status: Active SSOT
-Version: 6.1.0
+Version: 6.2.0
 Last updated: 2026-08-08
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.

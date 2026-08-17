@@ -1,7 +1,7 @@
 # Documentation Versioning
 
 Status: Active SSOT
-Version: 6.1.0
+Version: 6.2.0
 Last updated: 2026-08-16
 
 Peers (Chakra, Primer, …) keep prior-major documentation live so consumers pinned to an older major aren't stranded on docs that describe a newer API. GDS meets the same need (issue #454) — but because **GDS documentation lives in-repo as versioned Markdown**, every published release is already a complete, immutable documentation snapshot. This document is the decided scheme for reading docs at a specific version.

@@ -1,10 +1,10 @@
 {
-  "gdsVersion": "6.1.0",
+  "gdsVersion": "6.2.0",
   "typescript": {
     "packagesBuild": "5.9.x",
     "referenceApps": "6.0.x",
     "available": "7.0.x",
-    "notes": "Intentional cross-major lane. Published packages are typechecked and their .d.ts emitted under the root workspace TypeScript 5.9.x line (peer floor 5.4.5); the private reference apps run TypeScript 6.0.x. A package-build TS major bump (to 6.x/7.x) is treated as its own dedicated verification pass, not a routine dependency bump — see DEPENDENCY_AUDIT.md."
+    "notes": "Intentional cross-major lane. Published packages are typechecked and their .d.ts emitted under the root workspace TypeScript 5.9.x line (peer floor 5.4.5); the private reference apps run TypeScript 6.0.x. A package-build TS major bump (to 6.x/7.x) is treated as its own dedicated verification pass, not a routine dependency bump \u2014 see DEPENDENCY_AUDIT.md."
   },
   "supportedLines": [
     {
