@@ -6,7 +6,7 @@
     "listed": 72,
     "demoed": 64,
     "explained": 54,
-    "variationsShown": 41,
+    "variationsShown": 39,
     "useCase": 8
   },
   "confidence": {
@@ -672,6 +672,23 @@
       ]
     },
     {
+      "token": "--gds-text-secondary",
+      "role": "text-secondary",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-text-on-inverse",
       "role": "text-on-inverse",
       "declaredIn": [
@@ -843,6 +860,22 @@
     {
       "token": "--gds-brand-primary",
       "role": "brand-primary",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent",
+      "role": "brand-accent",
       "declaredIn": [
         "ts-emitter"
       ],
@@ -1285,41 +1318,10 @@
       ]
     },
     {
-      "token": "--gds-text-secondary",
-      "role": "text-secondary",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": true,
-      "useCase": false,
-      "gaps": [
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-motion-duration-fast",
       "role": "motion-duration-fast",
       "declaredIn": [
         "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": true,
-      "useCase": false,
-      "gaps": [
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-brand-accent",
-      "role": "brand-accent",
-      "declaredIn": [
-        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,

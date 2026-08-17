@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 6.1.0
+Version: 6.2.0
 Last updated: 2026-08-09
 
 This document defines the supported package/runtime contract for the umbrella package `@sovereignsquad/gds` and the granular runtime packages `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.
