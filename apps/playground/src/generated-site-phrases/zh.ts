@@ -1397,7 +1397,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Read by": "阅读者",
   "Read more": "阅读更多",
   "Read strict adoption and theme-ownership requirements.": "阅读严格的采用和主题所有权要求。",
-  "Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the input equivalent; this component never accepts one.": "只读值加比例、填充/半/空字形、一个可访问的名称来说明该值而不是 N 颗星图像。 GdsRatingScale 是等效输入；该组件从不接受。",
+  "Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the separate input equivalent, for choosing a rating rather than showing one.": "只读值加比例、填充/半/空字形、一个可访问的名称来说明该值而不是 N 颗星图像。 GdsRatingScale 是单独的输入等效项，用于选择评级而不是显示评级。",
   "Readiness": "准备状态",
   "Readiness gauge": "准备状态表",
   "Readiness score": "准备度分数",

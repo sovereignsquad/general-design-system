@@ -1397,7 +1397,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Read by": "読む人",
   "Read more": "続きを読む",
   "Read strict adoption and theme-ownership requirements.": "厳密な採用要件とテーマ所有要件をお読みください。",
-  "Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the input equivalent; this component never accepts one.": "読み取り専用の値とスケール、塗りつぶされた/半分/空のグリフ、N スター イメージではなく値を示す 1 つのアクセス可能な名前。 GdsRatingScale は入力に相当します。このコンポーネントは決して受け入れません。",
+  "Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the separate input equivalent, for choosing a rating rather than showing one.": "読み取り専用の値とスケール、塗りつぶされた/半分/空のグリフ、N スター イメージではなく値を示す 1 つのアクセス可能な名前。 GdsRatingScale は、評価を表示するのではなく選択するための別の入力に相当します。",
   "Readiness": "準備完了",
   "Readiness gauge": "準備ゲージ",
   "Readiness score": "レディネススコア",

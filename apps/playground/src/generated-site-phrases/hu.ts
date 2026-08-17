@@ -1397,7 +1397,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Read by": "Olvasta",
   "Read more": "Olvass tovább",
   "Read strict adoption and theme-ownership requirements.": "Olvassa el a szigorú elfogadási és tématulajdonosi követelményeket.",
-  "Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the input equivalent; this component never accepts one.": "Csak olvasható érték plusz skála, kitöltött/félig/üres karakterjelek, egy elérhető név, amely az értéket jelzi N csillagkép helyett. A GdsRatingScale a bemeneti megfelelője; ez a komponens soha nem fogad el egyet sem.",
+  "Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the separate input equivalent, for choosing a rating rather than showing one.": "Csak olvasható érték plusz skála, kitöltött/félig/üres karakterjelek, egy elérhető név, amely az értéket jelzi N csillagkép helyett. A GdsRatingScale a külön bemeneti megfelelője az értékelés kiválasztásához, nem pedig annak megjelenítéséhez.",
   "Readiness": "Készenlét",
   "Readiness gauge": "Készenléti mérő",
   "Readiness score": "Készenléti pontszám",
