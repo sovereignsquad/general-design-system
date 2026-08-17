@@ -262,6 +262,7 @@
       "files": [
         "packages/gds-core/src/AccentPanel.tsx",
         "packages/gds-core/src/GdsBadge.tsx",
+        "packages/gds-core/src/GdsRatingDisplay.tsx",
         "packages/gds-theme/styles.css"
       ]
     },
@@ -732,6 +733,7 @@
         "packages/gds-core/src/ChoiceChip.tsx",
         "packages/gds-core/src/GdsDensitySpacingSystemReference.tsx",
         "packages/gds-core/src/GdsFormControls.tsx",
+        "packages/gds-core/src/GdsRatingDisplay.tsx",
         "packages/gds-core/src/ListingCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SemanticButton.tsx",

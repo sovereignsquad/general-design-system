@@ -1397,7 +1397,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Read by": "Leer por",
   "Read more": "Leer más",
   "Read strict adoption and theme-ownership requirements.": "Lea los requisitos estrictos de adopción y propiedad del tema.",
-  "Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the input equivalent; this component never accepts one.": "Valor de solo lectura más escala, glifos llenos/medio/vacíos, un nombre accesible que indica el valor en lugar de N imágenes de estrellas. GdsRatingScale es el equivalente de entrada; este componente nunca acepta uno.",
+  "Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the separate input equivalent, for choosing a rating rather than showing one.": "Valor de solo lectura más escala, glifos llenos/medio/vacíos, un nombre accesible que indica el valor en lugar de N imágenes de estrellas. GdsRatingScale es el equivalente de entrada independiente, para elegir una calificación en lugar de mostrarla.",
   "Readiness": "Preparación",
   "Readiness gauge": "indicador de preparación",
   "Readiness score": "Puntuación de preparación",
