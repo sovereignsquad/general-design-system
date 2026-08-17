@@ -1,7 +1,7 @@
 {
   "name": "reference-next",
   "private": true,
-  "version": "6.2.0",
+  "version": "6.3.0",
   "scripts": {
     "build": "tsc --noEmit",
     "build:app-router": "next build",
@@ -10,8 +10,8 @@
   "dependencies": {
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
-    "@sovereignsquad/gds-core": "6.2.0",
-    "@sovereignsquad/gds-theme": "6.2.0",
+    "@sovereignsquad/gds-core": "6.3.0",
+    "@sovereignsquad/gds-theme": "6.3.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },

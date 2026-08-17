@@ -111,7 +111,7 @@
     "typescript": "^5.4.5",
     "vitest": "^4.1.8"
   },
-  "version": "6.2.0",
+  "version": "6.3.0",
   "overrides": {
     "tsup": {
       "esbuild": "0.28.1"
