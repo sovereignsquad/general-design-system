@@ -49,29 +49,29 @@ GDS publishes current and future releases to GitHub Packages, the canonical regi
 
 Current live status:
 
-- published baseline (GitHub Packages): `6.1.0`
-- current repository line: `6.1.0`
+- published baseline (GitHub Packages): `6.2.0`
+- current repository line: `6.2.0`
 - current major line: `6.x`
 
 Consumer repos should install the latest published version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
 Authenticated release operators should use [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md); publishing itself runs only through `.github/workflows/publish-github-packages.yml` in CI, not from a maintainer's machine.
 
-For the current `6.1.0` line, the install contract is (requires the `.npmrc` block above):
+For the current `6.2.0` line, the install contract is (requires the `.npmrc` block above):
 
 ```bash
-npm install @sovereignsquad/gds@6.1.0
-npm install -D @sovereignsquad/gds-eslint-config@6.1.0 @sovereignsquad/gds-compliance@6.1.0
+npm install @sovereignsquad/gds@6.2.0
+npm install -D @sovereignsquad/gds-eslint-config@6.2.0 @sovereignsquad/gds-compliance@6.2.0
 ```
 
 Granular consumers should use the same version across every package:
 
 ```bash
-npm install @sovereignsquad/gds-theme@6.1.0 @sovereignsquad/gds-core@6.1.0 @sovereignsquad/gds-admin@6.1.0
-npm install -D @sovereignsquad/gds-eslint-config@6.1.0 @sovereignsquad/gds-compliance@6.1.0
+npm install @sovereignsquad/gds-theme@6.2.0 @sovereignsquad/gds-core@6.2.0 @sovereignsquad/gds-admin@6.2.0
+npm install -D @sovereignsquad/gds-eslint-config@6.2.0 @sovereignsquad/gds-compliance@6.2.0
 ```
 
-Do not mix pre-3.0 package lines with `6.1.0` packages in the same consumer dependency graph.
+Do not mix pre-3.0 package lines with `6.2.0` packages in the same consumer dependency graph.
 
 ### Release-visibility artifacts (not an install path)
 
