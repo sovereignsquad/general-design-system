@@ -2,8 +2,8 @@
   "releaseChainGates": 42,
   "gatesWithMutants": 28,
   "gatesExempted": 16,
-  "mutantsRun": 38,
-  "killed": 38,
+  "mutantsRun": 33,
+  "killed": 33,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -215,36 +215,36 @@
       "gate": "verify:site-claims",
       "mutantId": "site-claims-detects-demo-word",
       "claim": "Detects the reference site calling one of its proof surfaces a demo",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:site-claims exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first."
     },
     {
       "gate": "verify:site-claims",
       "mutantId": "site-claims-detects-malformed-rename",
       "claim": "Detects a substring rename that fused a replacement term onto another word",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:site-claims exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first."
     },
     {
       "gate": "verify:site-claims",
       "mutantId": "site-claims-detects-short-visible-demo-label",
       "claim": "Detects a SHORT visible label calling a proof surface a demo",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:site-claims exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first."
     },
     {
       "gate": "verify:site-claims",
       "mutantId": "site-claims-detects-hardcoded-number",
       "claim": "Detects a number typed into visible prose instead of interpolated from its source",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:site-claims exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first."
     },
     {
       "gate": "verify:site-claims",
       "mutantId": "site-claims-detects-unevidenced-claim",
       "claim": "Detects an absolute claim on the reference site with no registered evidence",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:site-claims exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first."
     },
     {
       "gate": "verify:component-color-pairs",

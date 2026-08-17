@@ -1898,7 +1898,7 @@ function BadgeVocabularyDemo() {
 
       <BadgeSection
         title="Rating display"
-        description="Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the input equivalent; this component never accepts one."
+        description="Read-only value plus scale, filled/half/empty glyphs, one accessible name stating the value rather than N star images. GdsRatingScale is the separate input equivalent, for choosing a rating rather than showing one."
       >
         <GdsInline gap="lg" align="center">
           <GdsRatingDisplay value={4.5} count={128} />
