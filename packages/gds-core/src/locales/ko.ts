@@ -265,4 +265,6 @@ export const ko = {
   'gds.gdsMap.tilesFailedOffline': "오프라인 상태인 것 같습니다. 모든 장소는 여전히 마커로 표시되고 목록에 나타납니다.",
   'gds.gdsMap.tilesFailedIndeterminate': "타일 ​​호스트에 연결할 수 없습니다. 브라우저는 원인이 네트워크인지, 콘텐츠 보안 정책인지, 호스트 자체인지 알 수 없습니다. 모든 장소는 여전히 마커로 표시되고 목록에 나타납니다.",
   'gds.gdsMap.tilesRetryLabel': "이미지를 다시 로드해 보세요.",
+  'gds.ratingDisplay.labelWithCount': "별 {max}개 중 {value}개, 평점 {count}개",
+  'gds.ratingDisplay.label': "별 {max}개 중 {value}개",
 };

@@ -265,4 +265,6 @@ export const es = {
   'gds.gdsMap.tilesFailedOffline': "Parece que estás desconectado. Cada lugar todavía aparece como un marcador y en la lista.",
   'gds.gdsMap.tilesFailedIndeterminate': "No se pudo acceder al host del mosaico: el navegador no puede determinar si la causa es la red, una política de seguridad de contenido o el host mismo. Cada lugar todavía aparece como un marcador y en la lista.",
   'gds.gdsMap.tilesRetryLabel': "Intente cargar imágenes nuevamente",
+  'gds.ratingDisplay.labelWithCount': "{value} de {max} estrellas, {count} calificaciones",
+  'gds.ratingDisplay.label': "{valor} de {max} estrellas",
 };

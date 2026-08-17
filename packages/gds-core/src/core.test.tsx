@@ -744,6 +744,7 @@ describe('@sovereignsquad/gds-core', () => {
       justifyContent: 'space-between',
       minWidth: 0,
     });
+    expect(resolveGdsLayoutStyle({ maxWidth: 'aside' })).toMatchObject({ maxWidth: '18rem' });
 
     renderWithGds(
       <>
@@ -754,6 +755,7 @@ describe('@sovereignsquad/gds-core', () => {
         <GdsGrid aria-label="Responsive grid" columns={{ base: 1, md: 3 }}><div>Grid item</div></GdsGrid>
         <GdsSplit aria-label="Split layout" ratio="2:1"><div>Primary</div><div>Secondary</div></GdsSplit>
         <GdsSidebar aria-label="Sidebar layout" side="end" sidebarWidth="narrow"><aside>Sidebar</aside><main>Main</main></GdsSidebar>
+        <GdsSidebar aria-label="Narrow aside layout" sidebarWidth="aside"><aside>Filters</aside><main>Results</main></GdsSidebar>
         <GdsContainer component="main" aria-label="Page container" size={{ base: 'full', lg: 'wide' }}>Container</GdsContainer>
       </>,
     );
@@ -765,6 +767,7 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByLabelText('Responsive grid')).toHaveStyle({ display: 'grid' });
     expect(screen.getByLabelText('Split layout')).toHaveStyle({ gridTemplateColumns: 'minmax(0, 1fr)' });
     expect(screen.getByLabelText('Sidebar layout')).toHaveTextContent('Sidebar');
+    expect(screen.getByLabelText('Narrow aside layout')).toHaveTextContent('Filters');
     expect(screen.getByRole('main', { name: 'Page container' })).toHaveStyle({ width: '100%' });
     expect(document.querySelectorAll('style[data-gds-layout]').length).toBeGreaterThan(0);
   });
@@ -2451,6 +2454,16 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByText('Partner sync delayed')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Dismiss' }));
     expect(screen.queryByText('Partner sync delayed')).not.toBeInTheDocument();
+  });
+
+  it('renders a one-line compact BannerNotice with no title (#642)', () => {
+    renderWithGds(
+      <BannerNotice variant="compact" severity="info" message="Preview mode — changes are not saved." />,
+    );
+
+    expect(screen.queryByRole('heading')).not.toBeInTheDocument();
+    const strip = screen.getByRole('status');
+    expect(strip).toHaveTextContent('Preview mode — changes are not saved.');
   });
 
   it('governs notification dedupe, updates, audit events, and announcement-only output', async () => {

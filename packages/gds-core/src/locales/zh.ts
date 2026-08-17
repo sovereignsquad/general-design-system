@@ -265,4 +265,6 @@ export const zh = {
   'gds.gdsMap.tilesFailedOffline': "您似乎处于离线状态。每个地点仍然显示为标记并出现在列表中。",
   'gds.gdsMap.tilesFailedIndeterminate': "无法访问磁贴主机 - 浏览器无法判断原因是网络、内容安全策略还是主机本身。每个地点仍然显示为标记并出现在列表中。",
   'gds.gdsMap.tilesRetryLabel': "尝试再次加载图像",
+  'gds.ratingDisplay.labelWithCount': "{value} 颗星（共 {max} 颗星），评分为 {count} 颗",
+  'gds.ratingDisplay.label': "{value} 颗星（共 {max} 颗）",
 };

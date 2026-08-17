@@ -294,6 +294,36 @@ FOUNDATION.md's "no decorative shadow layering" policy governs cards and surface
 
 `GdsDensityProvider`/`useGdsDensity` (`@sovereignsquad/gds-core`) publish a global density-mode axis (`compact`/`comfortable`/`spacious`) that a product can set once at the app or section level, rather than relying only on each component's own scattered local density prop (`AdvancedDataTable`'s density state, `CardContracts`'s `density` prop). This is new and purely additive: existing components' own defaults and props are unchanged. New density-aware call sites should read `useGdsDensity()` (or use `useGdsCardContract()`, the density-aware wrapper around `resolveGdsCardContract`) as the extension pattern, falling back to the ambient value only when no explicit `density` prop is passed — an explicit prop always wins.
 
+## Raw `--gds-*` custom properties vs. the Mantine-rendered scale (issue #642)
+
+A brand theme built with `createBrandTheme(...)` exposes the same design decision through
+**two intentionally different scales**, not one value in two formats:
+
+- **The raw `--gds-*` custom properties** (`cssVariables`, e.g. `--gds-radius-xs/sm/md/lg`)
+  are the **public, consumer-facing design-intent scale** — documented in
+  `DESIGN_TOKENS_DTCG.md`/`docs/SAFE_STYLING.md`, meant to be read directly in plain CSS or
+  via `var()`, and the values this repository treats as governed.
+- **The `mantineTheme` object's own scales** (`theme.radius`, `theme.fontSizes`, etc.) are a
+  **separate, brand-remapped rendering scale** that Mantine components consume directly
+  (`radius="md"`) and that a brand handoff may set independently of the raw axis. This is
+  not a bug or a pending reconciliation — a theme is free to render at different steps than
+  its own raw scale states, the same way a design system's spacing tokens and its grid
+  columns are related but not identical.
+
+A consumer who wires the raw custom properties onto the document for use in plain CSS gets
+different values than what GDS's own Mantine components render on the same page **by
+design**. `GdsShapeElevationSystemReference` computes and states live how many of the 14
+semantic radius roles a given theme actually differentiates, rather than asserting a fixed
+number — read that page, not this paragraph, for a theme's current state.
+
+**Typography tracking follows the same split, with one real gap.** `GdsTypographyAxis`
+supports a `tracking` map, and `resolveGdsTypographyTokens()` emits `--gds-tracking-*` from
+it — but `createBrandTheme(...)`'s own `cssVariables` output does not include this map's
+result, unlike the radius/color roles above. A theme that wants tracking applied to the
+document must call `resolveGdsTypographyTokens()` itself and merge the result. Whether a
+given brand lane (e.g. `class-usa`) *should* populate a tracking scale by default is a
+brand-design decision left to that theme, not a system default every lane must set.
+
 ## CSS VibeThemes
 
 GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.

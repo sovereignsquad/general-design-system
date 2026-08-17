@@ -102,9 +102,17 @@ export interface InlineAlertProps {
 }
 
 /** Props for the `BannerNotice` component. */
-export interface BannerNoticeProps extends InlineAlertProps {
-  /** Optional leading badge label shown before the severity badge. */
+export interface BannerNoticeProps extends Omit<InlineAlertProps, 'title'> {
+  /** Optional leading badge label shown before the severity badge. Ignored in the `compact` variant. */
   eyebrow?: ReactNode;
+  /** Panel title. Required in the default `panel` variant; omit for `compact`. */
+  title?: string;
+  /**
+   * `panel` (default): bordered card with title, optional eyebrow/status badge, and
+   * message. `compact`: a one-line centered status strip with no title, for a page-level
+   * status line that doesn't warrant a heading (issue #642).
+   */
+  variant?: 'panel' | 'compact';
 }
 
 const notificationColorMap: Record<GdsNotificationSeverity, string> = {
@@ -187,14 +195,41 @@ export function InlineAlert({
   );
 }
 
-/** Prominent bordered banner notice with an optional eyebrow badge, severity badge, title, and action, for page- or section-level messages. */
+/**
+ * Bordered banner notice, `panel` (default) or `compact`. `panel` shows an optional
+ * eyebrow badge, a severity badge, a title, and the message, for page- or
+ * section-level messages. `compact` is a one-line centered status strip with no
+ * title/eyebrow/badge, for a status line that doesn't warrant a heading.
+ */
 export function BannerNotice({
   eyebrow,
   title,
   message,
   severity = 'info',
   action,
+  variant = 'panel',
 }: BannerNoticeProps) {
+  const livePolicy = getGdsNotificationLivePolicy({ severity });
+
+  if (variant === 'compact') {
+    return (
+      <Paper withBorder radius="lg" p="xs">
+        <Group
+          justify="center"
+          align="center"
+          gap="xs"
+          wrap="nowrap"
+          role={severity === 'error' ? 'alert' : 'status'}
+          aria-live={livePolicy === 'off' ? undefined : livePolicy}
+          aria-atomic="true"
+        >
+          <Text size="sm" fw={500} c={notificationColorMap[severity]} ta="center">{message}</Text>
+          {action}
+        </Group>
+      </Paper>
+    );
+  }
+
   return (
     <Paper withBorder radius="lg" p="md">
       <Stack gap="xs">

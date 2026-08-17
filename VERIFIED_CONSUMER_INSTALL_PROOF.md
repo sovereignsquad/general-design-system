@@ -8,7 +8,7 @@ This document records the current proof points for the direct package-consumptio
 
 Latest published GitHub Packages baseline validated by this proof: `6.2.0`
 Current repository line: `6.2.0`
-Current major line: `3.0.x`
+Current major line: `6.x`
 
 ## Verified consumer baseline
 

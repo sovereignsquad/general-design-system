@@ -1315,6 +1315,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "GdsRatingDisplay",
+    "status": "registered",
+    "home": {
+      "id": "badges",
+      "family": "systems",
+      "section": "Badges & Indicators"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsRatingScale",
     "status": "registered",
     "home": {

@@ -265,4 +265,6 @@ export const fr = {
   'gds.gdsMap.tilesFailedOffline': "Vous semblez être hors ligne. Chaque lieu apparaît toujours comme un marqueur et dans la liste.",
   'gds.gdsMap.tilesFailedIndeterminate': "L'hôte de la tuile n'a pas pu être atteint : le navigateur ne peut pas dire si la cause est le réseau, une politique de sécurité du contenu ou l'hôte lui-même. Chaque lieu apparaît toujours comme un marqueur et dans la liste.",
   'gds.gdsMap.tilesRetryLabel': "Essayez à nouveau de charger les images",
+  'gds.ratingDisplay.labelWithCount': "{value} sur {max} étoiles, {count} notes",
+  'gds.ratingDisplay.label': "{value} sur {max} étoiles",
 };

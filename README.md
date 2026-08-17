@@ -289,7 +289,7 @@ Current and future GDS releases publish to **GitHub Packages** (`https://npm.pkg
 npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
 ```
 
-`${GITHUB_TOKEN}` is your own GitHub personal access token with `read:packages` scope, exported in your shell (or provided by CI). GitHub Packages authenticates every install — including public packages — so a token is needed here even though the packages are public. If your organization enforces SAML SSO, authorize the token for the `sovereignsquad` org first. See [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) for full setup and `401` troubleshooting.
+`${GITHUB_TOKEN}` is your own GitHub personal access token with `read:packages` scope, exported in your shell (or provided by CI). These packages are currently **private** to the `sovereignsquad` org on GitHub Packages, so the token also needs read access to the org — a token from outside the org, or without org access, gets a `401` even with `read:packages` set. If your organization enforces SAML SSO, authorize the token for the `sovereignsquad` org first. See [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) for full setup and `401` troubleshooting.
 
 ### Release-visibility artifacts (not an install path)
 

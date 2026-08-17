@@ -265,4 +265,6 @@ export const hu = {
   'gds.gdsMap.tilesFailedOffline': "Úgy tűnik, offline vagy. Minden hely továbbra is megjelenik jelölőként és a listában.",
   'gds.gdsMap.tilesFailedIndeterminate': "A csempe gazdagépe nem érhető el – a böngésző nem tudja megállapítani, hogy az ok a hálózat, a tartalombiztonsági szabályzat vagy maga a gazdagép. Minden hely továbbra is megjelenik jelölőként és a listában.",
   'gds.gdsMap.tilesRetryLabel': "Próbálja újra betölteni a képeket",
+  'gds.ratingDisplay.labelWithCount': "{value}/{max} csillag, {count} értékelés",
+  'gds.ratingDisplay.label': "{value}/{max} csillag",
 };

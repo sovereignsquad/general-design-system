@@ -20,6 +20,7 @@ per-preset escape hatches.
 | `GdsBadgeShapes` (`GdsBadgeShape*`) | Six silhouettes from Tabler's own geometry | Hand-drawn SVG |
 | `GdsMapPinBadge` | Category-colored map-pin marker, pin + icon only, correct by construction (issue #501) | A build-it-yourself pin composition, a ring/capsule layer |
 | `GdsIconBadge` | Icon-only categorical-accent disc, no text — decorative by default, a named image when `label` is given | Carries meaning through color alone with no adjacent label anywhere |
+| `GdsRatingDisplay` | Read-only value/scale indicator, filled/half/empty glyphs, one accessible name for the whole rating | Accept input — that's `GdsRatingScale` |
 
 Legacy `StatusBadge`/`LabelTag`/`CountBadge`/`MeaningBadge`/`FitScoreChip`
 remain supported; new work should prefer the components above. Migrating the
@@ -56,7 +57,7 @@ exclusive at the type level, no free color strings. Guidance: 8 or fewer
 accent categories per surface.
 
 ```tsx
-import { GdsBadge, GdsCountBadge, GdsRemovableTag, GdsIconBadge } from '@sovereignsquad/gds-core';
+import { GdsBadge, GdsCountBadge, GdsRemovableTag, GdsIconBadge, GdsRatingDisplay } from '@sovereignsquad/gds-core';
 
 <GdsBadge tone="success" icon="Success" label="Published" />
 <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Swimming" />
@@ -64,6 +65,7 @@ import { GdsBadge, GdsCountBadge, GdsRemovableTag, GdsIconBadge } from '@soverei
 <GdsCountBadge dot label="new activity" anchor={<GdsIcon icon="Notifications" size="lg" />} />
 <GdsRemovableTag label="Music" removeLabel="Remove filter: Music" onRemove={clear} />
 <GdsIconBadge accent="teal" icon="Habit" label="Fitness" />
+<GdsRatingDisplay value={4.5} count={128} />
 ```
 
 ## Hard rules

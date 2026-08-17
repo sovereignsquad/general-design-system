@@ -26,6 +26,7 @@ export * from './ActionBar';
 export * from './MetricCard';
 export * from './ProgressCard';
 export * from './GdsMeter';
+export * from './GdsRatingDisplay';
 export * from './ConsumerSection';
 export * from './ConsumerDashboardGrid';
 export * from './GameBoardTile';

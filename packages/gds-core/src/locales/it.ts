@@ -265,4 +265,6 @@ export const it = {
   'gds.gdsMap.tilesFailedOffline': "Sembra che tu sia offline. Ogni luogo appare ancora come indicatore e nell'elenco.",
   'gds.gdsMap.tilesFailedIndeterminate': "Impossibile raggiungere l'host del riquadro: il browser non è in grado di stabilire se la causa è la rete, una policy di sicurezza del contenuto o l'host stesso. Ogni luogo appare ancora come indicatore e nell'elenco.",
   'gds.gdsMap.tilesRetryLabel': "Prova a caricare di nuovo le immagini",
+  'gds.ratingDisplay.labelWithCount': "{value} su {max} stelle, {count} valutazioni",
+  'gds.ratingDisplay.label': "{value} su {max} stelle",
 };

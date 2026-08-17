@@ -16,13 +16,13 @@ GDS publishes current and future releases to GitHub Packages' npm-compatible reg
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
-`GITHUB_TOKEN` is your own personal access token (a classic PAT with `read:packages` scope is sufficient) or your CI's provisioned token — not a GDS-owned secret. GitHub Packages authenticates every install, including of public packages, so a token is needed even though the packages are public. Export the token in your shell (or CI secret store) as `GITHUB_TOKEN` before running any command below; the `.npmrc` above expands `${GITHUB_TOKEN}` from that environment variable. If it is unset or empty, installs fail with `401 unauthenticated`. See [Troubleshooting `401`/`403` on install](#troubleshooting-401403-on-install) for the full checklist, including SAML-SSO token authorization.
+`GITHUB_TOKEN` is your own personal access token (a classic PAT with `read:packages` scope is sufficient) or your CI's provisioned token — not a GDS-owned secret. GitHub Packages authenticates every install, and these packages are currently **private** to the `sovereignsquad` org, so a token needs both the `read:packages` scope and read access to the org — a token from an account outside the org gets a `401` even with the scope set. Export the token in your shell (or CI secret store) as `GITHUB_TOKEN` before running any command below; the `.npmrc` above expands `${GITHUB_TOKEN}` from that environment variable. If it is unset or empty, installs fail with `401 unauthenticated`. See [Troubleshooting `401`/`403` on install](#troubleshooting-401403-on-install) for the full checklist, including SAML-SSO token authorization.
 
 ### Getting a `read:packages` token
 
-The GDS packages are published **public**, so there is nothing to request from the GDS maintainers and no org invitation involved — each consumer creates their own free token from their own GitHub account, and any authenticated GitHub account can read the packages. (The only hard requirement of this registry is that the consumer *has* a GitHub account.)
+The GDS packages are **private** to the `sovereignsquad` GitHub org. Before generating a token, get read access to the org (or to the specific `@sovereignsquad/*` packages) from the GDS maintainers — a token from an account with no org access will `401` regardless of scope.
 
-**Classic PAT — the simplest path for installing:**
+**Classic PAT — the simplest path for installing, once you have org access:**
 
 1. GitHub → your avatar (top-right) → **Settings** → **Developer settings** (bottom of the left sidebar) → **Personal access tokens → Tokens (classic)**.
 2. **Generate new token (classic)**, give it a name (e.g. "GDS install") and an expiry.
@@ -66,7 +66,7 @@ Use icons through the GDS-owned `GdsIcons` surface (`import { GdsIcons } from '@
 Release-line rule:
 
 - current stable package line: `6.2.0`
-- current major line: `3.0.x`
+- current major line: `6.x`
 - do not announce or ask clients to install a new version until `npm run verify:published` confirms availability on GitHub Packages
 
 Public install and reference routes:
@@ -414,7 +414,7 @@ between 3.9.0 and the current line.
 
 Do not:
 
-- assume GitHub Packages allows anonymous installs — every install needs the `.npmrc` token, even for public packages
+- assume GitHub Packages allows anonymous installs — every install needs the `.npmrc` token, and these packages are private, so the token also needs org read access
 - use sibling `file:` links in CI or hosted builds
 - keep a second active token or primitive system alive
 - invent local shell, card, or action wrappers when the canonical GDS primitive already exists

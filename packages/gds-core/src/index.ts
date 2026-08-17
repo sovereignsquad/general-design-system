@@ -181,6 +181,7 @@ export * from './GdsGeneratedAvatar';
 export * from './GdsGeneratedMark';
 export * from './GdsIconBadge';
 export * from './GdsMeter';
+export * from './GdsRatingDisplay';
 export * from './dom-phrase-translation';
 export * from './useGdsDomPhraseTranslation.client';
 export * from './GdsMotionSystemReference';

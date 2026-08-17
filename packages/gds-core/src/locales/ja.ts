@@ -265,4 +265,6 @@ export const ja = {
   'gds.gdsMap.tilesFailedOffline': "オフラインのようです。すべての場所がマーカーとしてリストに表示されます。",
   'gds.gdsMap.tilesFailedIndeterminate': "タイル ホストに到達できませんでした。ブラウザーは、原因がネットワークなのか、コンテンツ セキュリティ ポリシーなのか、それともホスト自体なのかを判断できません。すべての場所がマーカーとしてリストに表示されます。",
   'gds.gdsMap.tilesRetryLabel': "画像を再度ロードしてみてください",
+  'gds.ratingDisplay.labelWithCount': "{max} 個の星のうち {value}、評価は {count} 個です",
+  'gds.ratingDisplay.label': "{max} つ星中 {value}",
 };

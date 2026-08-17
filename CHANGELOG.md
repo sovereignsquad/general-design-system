@@ -2,6 +2,50 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased — ClassScout remaining gap-request items (#642)
+
+### Read-only rating display: `GdsRatingDisplay` (item 11, #642)
+
+For a display-only rating (a star glyph plus a value and review count) — `GdsRatingScale`
+is a `GdsSlider` preset for *choosing* a rating, the wrong tool for showing a fixed one.
+`GdsRatingDisplay` takes `value`/`max`/`count`, renders filled/half/empty glyphs colored
+from the existing `--gds-star` token, and exposes one accessible name for the whole rating
+rather than one per star. New `StarFilled` icon key added to the governed icon dictionary
+to support the filled glyph.
+
+### Compact `BannerNotice` variant and a narrow aside layout token (#642)
+
+- `BannerNoticeProps.variant?: 'panel' | 'compact'` — `compact` is a one-line centered
+  status strip with no title/eyebrow/badge, for a page-level status line that doesn't
+  warrant a heading. `title` is now optional (required only for the default `panel`
+  variant).
+- `GdsLayoutSize` gained an `'aside'` step (`18rem`), between the spacing-scale tokens and
+  `'content'` (42rem), for a filter rail or detail-page aside narrower than any existing
+  named content width. Available on `GdsSidebar.sidebarWidth` and everywhere else
+  `GdsLayoutSize` is accepted (`maxWidth`, `minColumnWidth`, `size`).
+
+### Raw token scale vs. Mantine-rendered scale, documented (item 8, #642)
+
+`THEME_GOVERNANCE.md` now states plainly that a brand theme's raw `--gds-*` custom
+properties (the public design-intent scale) and its `mantineTheme` object's own scales
+(`theme.radius`, `theme.fontSizes`) are two intentionally different, independently-set
+scales — not a bug, not pending reconciliation. Also documents that
+`resolveGdsTypographyTokens()`'s `tracking` output is not included in `createBrandTheme`'s
+`cssVariables`, so a consumer wanting it applied to the document wires it themselves.
+Doc-only; no code change.
+
+### Stale consumer-facing docs corrected
+
+- `README.md`, `INSTALLATION_GUIDE.md`, `CLIENT_UPGRADE_PROMPT.md`: corrected the claim
+  that GitHub Packages installs work "even though the packages are public" — all seven
+  `@sovereignsquad/*` packages are currently private to the `sovereignsquad` org, so a
+  consumer token needs org read access in addition to `read:packages` scope.
+- `INSTALLATION_GUIDE.md`, `VERIFIED_CONSUMER_INSTALL_PROOF.md`: corrected a stale "current
+  major line: 3.0.x" to `6.x`, matching `COMPATIBILITY_AND_RELEASES.md`'s SSOT value.
+- `docs/CLASSSCOUT_INTEGRATION.md`: bumped the intro/install pin from 4.0.0/6.0.0 to 6.2.0;
+  added B12 (`GdsIconBadge`), B13 (`GdsRemovableTag.disabled`), and B14 (generated-imagery
+  tint/`onSelect`) — three 6.2.0 additions (#638) that had no integration-guide section.
+
 ## 6.2.0 - 2026-08-17 — ClassScout upstream asks, and Foundations rebuilt to the 7 axes (#632, #633-#638)
 
 ### ClassScout upstream asks: BottomTabBar renderItem, tag disabled, icon badge, Meter, imagery tint (#638)
