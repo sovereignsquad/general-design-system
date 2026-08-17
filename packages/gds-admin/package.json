@@ -1,6 +1,6 @@
 {
   "name": "@sovereignsquad/gds-admin",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -41,8 +41,8 @@
   "peerDependencies": {
     "@mantine/core": "^7.9.0 || ^8.3.0 || ^9.0.0",
     "@mantine/hooks": "^7.9.0 || ^8.3.0 || ^9.0.0",
-    "@sovereignsquad/gds-core": "6.2.0",
-    "@sovereignsquad/gds-theme": "6.2.0",
+    "@sovereignsquad/gds-core": "6.3.0",
+    "@sovereignsquad/gds-theme": "6.3.0",
     "@tabler/icons-react": "^3.5.0",
     "react": "^18.2.0 || ^19.0.0",
     "react-dom": "^18.2.0 || ^19.0.0"
@@ -50,14 +50,14 @@
   "devDependencies": {
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
-    "@sovereignsquad/gds-core": "6.2.0",
-    "@sovereignsquad/gds-theme": "6.2.0",
+    "@sovereignsquad/gds-core": "6.3.0",
+    "@sovereignsquad/gds-theme": "6.3.0",
     "@tabler/icons-react": "^3.5.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
   "dependencies": {
-    "@sovereignsquad/gds-core": "6.2.0",
-    "@sovereignsquad/gds-theme": "6.2.0"
+    "@sovereignsquad/gds-core": "6.3.0",
+    "@sovereignsquad/gds-theme": "6.3.0"
   }
 }

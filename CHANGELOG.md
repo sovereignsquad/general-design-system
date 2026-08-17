@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — ClassScout remaining gap-request items (#642)
+## 6.3.0 - 2026-08-17 — ClassScout remaining gap-request items (#642)
 
 ### Read-only rating display: `GdsRatingDisplay` (item 11, #642)
 
