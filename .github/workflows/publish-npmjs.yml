@@ -1,0 +1,64 @@
+name: GDS Publish (npmjs.com)
+
+# Publishes all seven GDS packages to the public npmjs.com registry —
+# npm's own registry supports fully anonymous `npm install`, unlike GitHub
+# Packages, which requires an authenticated read:packages token for every
+# install regardless of package visibility (a GitHub platform limitation,
+# not a GDS choice). This is the only real path to a zero-token consumer
+# install.
+#
+# Requires an `NPM_TOKEN` repository secret: an npmjs.com "Automation" access
+# token for the account that owns the @sovereignsquad scope. Until that
+# secret exists this workflow fails cleanly at the publish step with an auth
+# error — dispatch it manually to confirm before wiring it into
+# auto-tag-release.yml's automatic per-release dispatch list.
+#
+# GitHub Packages (publish-github-packages.yml) remains the canonical,
+# audit-friendly registry; this is a second, additive distribution channel,
+# not a replacement.
+
+on:
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  GDS_NPM_REGISTRY: https://registry.npmjs.org
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+          scope: "@sovereignsquad"
+
+      - name: Install dependencies
+        run: npm ci --omit=optional
+
+      - name: Install Linux native build bindings
+        run: npm install --no-save @rollup/rollup-linux-x64-gnu @rolldown/binding-linux-x64-gnu
+
+      - name: Verify release quality gates
+        run: npm run verify:release
+
+      - name: Publish packages to npmjs.com
+        run: npm run publish:npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify registry publication
+        run: npm run verify:published
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GDS_REGISTRY_RETRIES: 15
+          GDS_REGISTRY_DELAY_MS: 10000

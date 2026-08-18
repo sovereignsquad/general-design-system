@@ -1,18 +1,20 @@
 name: GDS Publish
 
-# Canonical publish workflow: publishes all seven GDS packages to GitHub
-# Packages' npm-compatible registry (npm.pkg.github.com), authenticated with
-# the workflow run's own ambient GITHUB_TOKEN (scoped by the `packages: write`
-# permission below) — no separate npm.com account or token ever required.
-# GitHub Packages is the sole canonical distribution channel for GDS; there is
-# no parallel npmjs.com publish workflow.
+# Publishes all seven GDS packages to GitHub Packages' npm-compatible
+# registry (npm.pkg.github.com), authenticated with the workflow run's own
+# ambient GITHUB_TOKEN (scoped by the `packages: write` permission below) —
+# no separate npm.com account or token ever required for this channel.
+#
+# GitHub Packages requires an authenticated read:packages token for every
+# install regardless of package visibility (a platform limitation, not a GDS
+# choice) — see publish-npmjs.yml for the zero-token public npmjs.com
+# channel. Both are canonical; this one is the audit-friendly default tied
+# 1:1 to the GitHub org.
 #
 # Consumers install by adding to their .npmrc:
 #   @sovereignsquad:registry=https://npm.pkg.github.com
 # and authenticating with a personal access token that has at least
-# `read:packages` scope (GitHub Packages requires authentication for every
-# install, even for public packages). See RELEASE_PUBLISH.md and
-# INSTALLATION_GUIDE.md.
+# `read:packages` scope. See RELEASE_PUBLISH.md and INSTALLATION_GUIDE.md.
 
 on:
   workflow_dispatch:
