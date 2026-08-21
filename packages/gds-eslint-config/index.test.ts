@@ -149,6 +149,8 @@ describe('no-accent-as-background against real monorepo source (issue #647)', ()
     ...collectSourceFiles(resolve(root, 'apps/playground/src')),
   ];
 
+  // Linting every real .ts/.tsx file in gds-core/gds-admin/playground exceeds the 15s
+  // default under full-suite contention (same class of slowness as pattern-registry.test.tsx).
   it('flags exactly the known deliberate accent-as-background usage without an exception', () => {
     const findings = lintFiles(sourceFiles, { accentBackgroundVariables: ACCENT_BACKGROUND_VARIABLES });
     const files = new Set(findings.map((f) => f.file.split('/').pop()));
@@ -159,7 +161,7 @@ describe('no-accent-as-background against real monorepo source (issue #647)', ()
     // accent token, not a violation of 60-30-10's scarcity intent -- confirmed by
     // reading each definition site (issue #647). Documented, reviewed exceptions below.
     expect(files).toEqual(new Set(['BottomTabBar.tsx', 'FitScoreChip.tsx', 'MeaningBadge.tsx', 'SemanticButton.tsx']));
-  });
+  }, 30000);
 
   it('produces zero findings once the reviewed exceptions are declared', () => {
     const findings = lintFiles(sourceFiles, {
@@ -170,7 +172,7 @@ describe('no-accent-as-background against real monorepo source (issue #647)', ()
       allowedAccentBackgrounds: ['--gds-brand-accent', '--gds-state-success'],
     });
     expect(findings).toEqual([]);
-  });
+  }, 30000);
 });
 
 describe('createGdsConfig enforceExportedJsdoc opt-in', () => {
