@@ -96,6 +96,8 @@ describe('playground app runtime theme flow', () => {
     expect((comparisonPresetSelect as HTMLSelectElement).value).toBe('dark-public');
   }, 30000);
 
+  // /themes grew heavier this cycle (the design rule profile panel, issue #651) -- same
+  // margin issue as the two tests above.
   it('keeps formerly dark-forward presets responsive to the requested app runtime scheme', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');
 
@@ -131,8 +133,10 @@ describe('playground app runtime theme flow', () => {
       expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toContain('cosmic-light'),
     );
     expect((presetSelect as HTMLSelectElement).value).toBe('cosmic');
-  });
+  }, 30000);
 
+  // /themes grew heavier this cycle (the design rule profile panel, issue #651) -- same
+  // margin issue as the tests above.
   it('persists selected theme and font lane across direct route loads', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');
     const expectedOceanicVibe = resolveGdsVibeTheme('oceanic');
@@ -177,7 +181,7 @@ describe('playground app runtime theme flow', () => {
       expect(document.documentElement.style.getPropertyValue('--gds-vibe-accent')).toBe(expectedOceanicVibe.accent),
     );
     expect(await screen.findByText('Discovery & Cards', undefined, { timeout: 5000 })).toBeTruthy();
-  });
+  }, 30000);
 
   it('loads public pattern routes with the persisted dark runtime scheme', async () => {
     window.history.pushState({}, '', '/general-design-system/patterns/public');

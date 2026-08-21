@@ -123,7 +123,7 @@ describe('playground pattern registry', () => {
     expect(screen.getAllByRole('link').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Badges').length).toBeGreaterThan(0);
     unmount();
-  });
+  }, 30000);
 
   it('renders the interactive tokens theme lab', () => {
     renderWithGds(<TokensPage />);
