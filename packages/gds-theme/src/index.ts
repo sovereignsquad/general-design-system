@@ -31,6 +31,7 @@ export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } fro
 // ── Design rule profile (issue #643) ──
 export { validateGdsDesignRuleProfile, GDS_DEFAULT_DESIGN_RULE_PROFILE } from './axes';
 export type { GdsDesignRuleProfile, GdsColorProportionRule, GdsColorProportionClassification, GdsColorHarmony, GdsTypeScaleRatio, GdsContrastTarget } from './axes';
+export { DOMINANT_ROLES, SECONDARY_ROLES, ACCENT_ROLES, colorProportionClassificationByPreset, resolveGdsColorProportionProfile } from './color-proportion-classification';
 export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, deriveVibeSemanticCssVariables } from './vibe-themes';
 export type { GdsVibeTheme } from './vibe-themes';
 export { VibeThemePicker } from './VibeThemePicker.client';
