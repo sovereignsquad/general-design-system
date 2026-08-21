@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "ac3edf4ff861b850ebbc39338c0b9831c164b181",
+  "commit": "301e141c8f1539f3465f63ed59a7097f6a63e581",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -6976,7 +6976,7 @@
       "name": "--gds-brand-accent",
       "source": {
         "file": "packages/gds-eslint-config/index.test.ts",
-        "line": 170
+        "line": 172
       }
     },
     {
@@ -6985,7 +6985,7 @@
       "name": "--gds-state-success",
       "source": {
         "file": "packages/gds-eslint-config/index.test.ts",
-        "line": 170
+        "line": 172
       }
     },
     {
