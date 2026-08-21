@@ -1,6 +1,12 @@
 import { mergeThemeOverrides, type MantineColorsTuple, type MantineTheme, type MantineThemeOverride } from '@mantine/core';
 import { createPublicBrandTheme } from './theme';
-import { readableForeground } from './color-math';
+import { parseCssColor, readableForeground, toRgbString } from './color-math';
+import { validateGdsDesignRuleProfile, GDS_DEFAULT_DESIGN_RULE_PROFILE, type GdsDesignRuleProfile } from './axes';
+import { ACCENT_ROLES, resolveGdsColorProportionProfile } from './color-proportion-classification';
+import { resolveGdsColorHarmonyProfile } from './color-harmony-classification';
+import { resolveGdsTypeScaleProfile } from './type-scale-profile';
+import { gdsDevWarnOnce } from './dev-warnings';
+import type { GdsThemePresetId } from './theme-presets';
 // Defined in semantic-token-source.ts, the only place semantic-role values exist.
 // Re-exported below so the public API is unchanged.
 import {
@@ -76,6 +82,12 @@ export interface CreateClassUsaBrandThemeOptions {
   flatSurfaces?: boolean;
   /** Discouraged escape hatch merged last; governed roles still win over collisions. */
   overrides?: MantineThemeOverride;
+  /**
+   * Design-rule profile (issue #643/#648). Defaults to the computed profile for
+   * `'class-usa'` (color-proportion classification, color harmony, and type-scale ratio
+   * all resolved from the theme's actual, ramp-resolved colors) when omitted.
+   */
+  designRuleProfile?: GdsDesignRuleProfile;
 }
 
 /** Options for `createBrandTheme('gold-athlete', ...)`; every field is optional and falls back to the built-in Gold Athlete defaults. */
@@ -88,6 +100,12 @@ export interface CreateGoldAthleteBrandThemeOptions {
   flatSurfaces?: boolean;
   /** Discouraged escape hatch merged last; governed roles still win over collisions. */
   overrides?: MantineThemeOverride;
+  /**
+   * Design-rule profile (issue #643/#648). Defaults to the computed profile for
+   * `'gold-athlete'` (color-proportion classification, color harmony, and type-scale ratio
+   * all resolved from the theme's actual, ramp-resolved colors) when omitted.
+   */
+  designRuleProfile?: GdsDesignRuleProfile;
 }
 
 /** Options for the legacy `createBrandTheme(options)` entry point (five ramps plus two fonts). */
@@ -100,6 +118,12 @@ export interface CreateBrandThemeOptions {
   flatSurfaces?: boolean;
   /** Discouraged escape hatch; governed roles always win over collisions. */
   overrides?: MantineThemeOverride;
+  /**
+   * Design-rule profile (issue #643/#648). A custom brand has no preset identity to
+   * resolve a computed profile from, so this defaults to `GDS_DEFAULT_DESIGN_RULE_PROFILE`
+   * (no proportion rule declared) rather than fabricating one.
+   */
+  designRuleProfile?: GdsDesignRuleProfile;
 }
 
 /** Result of `createBrandTheme(...)`: the Mantine theme plus its governed token outputs. */
@@ -110,6 +134,8 @@ export interface BrandThemeResult {
   cssVariables: Record<string, string>;
   /** Validated token graph (themeId `brand`) for snapshotting and diffing. */
   tokenGraph: GdsTokenGraph;
+  /** The design-rule profile actually applied (explicit `designRuleProfile`, or the computed default; issue #648). */
+  designRuleProfile: GdsDesignRuleProfile;
 }
 
 /** Error thrown when brand theme input, WCAG contrast, or token-graph validation fails; carries the collected findings. */
@@ -363,6 +389,95 @@ function assertContrast(tokens: Record<BrandSemanticRole, SemanticPair>): GdsTok
 }
 
 /**
+ * Resolves the design-rule profile a `createBrandTheme` call actually applies (issue
+ * #648): an explicit `designRuleProfile` (validated via {@link validateGdsDesignRuleProfile},
+ * throwing on the first violation found); otherwise the computed profile for a named
+ * preset (`'class-usa'`/`'gold-athlete'`, issues #644/#645/#646); otherwise
+ * `GDS_DEFAULT_DESIGN_RULE_PROFILE` for a custom brand, which has no preset identity to
+ * compute a profile from.
+ */
+function resolveEffectiveDesignRuleProfile(
+  presetId: Extract<GdsThemePresetId, 'class-usa' | 'gold-athlete'> | null,
+  explicit: GdsDesignRuleProfile | undefined,
+): GdsDesignRuleProfile {
+  if (explicit) {
+    validateGdsDesignRuleProfile(explicit, presetId ?? 'custom-brand');
+    return explicit;
+  }
+  if (presetId) {
+    return {
+      colorProportion: resolveGdsColorProportionProfile(presetId),
+      colorHarmony: resolveGdsColorHarmonyProfile(presetId),
+      typeScale: resolveGdsTypeScaleProfile(presetId),
+      contrastTarget: 'AA',
+    };
+  }
+  return GDS_DEFAULT_DESIGN_RULE_PROFILE;
+}
+
+const BACKGROUND_KEY_PATTERN = /^(?:background|backgroundColor|bg)$/;
+
+/** Normalizes a `#hex`/`rgb()`/`rgba()` literal to a canonical `rgb()`/`rgba()` string, for comparison across mixed hex/rgb sources. */
+function normalizeColorLiteral(value: string): string {
+  const parsed = parseCssColor(value);
+  return parsed ? toRgbString(parsed) : value;
+}
+
+/** Recursively collects every string value keyed `background`/`backgroundColor`/`bg` anywhere in `node` (issue #648). */
+function collectBackgroundValues(node: unknown, out: string[]): void {
+  if (!node || typeof node !== 'object') return;
+  for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
+    if (typeof value === 'string' && BACKGROUND_KEY_PATTERN.test(key)) {
+      out.push(value);
+    } else if (value && typeof value === 'object') {
+      collectBackgroundValues(value, out);
+    }
+  }
+}
+
+/**
+ * Warns (never throws — issue #648, a caller mistake worth surfacing, not a hard
+ * failure) when `overrides` sets a `background`/`backgroundColor`/`bg` key anywhere to a
+ * value matching one of this theme's accent-classed colors (issue #644's `ACCENT_ROLES`,
+ * resolved from THIS theme's actual, ramp-resolved tokens — never the preset's stale
+ * defaults). Skipped entirely when the effective profile declares no proportion rule
+ * (`colorProportion.rule !== '60-30-10'`) — an explicit opt-out is respected, not overridden.
+ */
+function checkOverridesAgainstDesignRuleProfile(
+  overrides: MantineThemeOverride | undefined,
+  profile: GdsDesignRuleProfile,
+  accentColorValues: Set<string>,
+): void {
+  if (!overrides || profile.colorProportion.rule !== '60-30-10') return;
+  const values: string[] = [];
+  collectBackgroundValues(overrides, values);
+  for (const value of values) {
+    if (accentColorValues.has(normalizeColorLiteral(value))) {
+      gdsDevWarnOnce(
+        'createBrandTheme:accent-as-background',
+        `createBrandTheme's "overrides" sets a background-relevant value to an accent-classed color (${value}). `
+        + 'Accent tokens are classified scarce under the 60-30-10 design rule profile (issue #644) and should not '
+        + 'be used as a background fill. This override will still be shown as a warning here even though governed '
+        + "roles win over the collision at render time -- the caller's intent was still a design-rule violation.",
+      );
+      return;
+    }
+  }
+}
+
+/** Builds the set of this theme's actual, ramp-resolved accent-classed color values (both schemes, normalized), for {@link checkOverridesAgainstDesignRuleProfile}. */
+function collectAccentColorValues(tokens: Record<BrandSemanticRole, SemanticPair>): Set<string> {
+  const values = new Set<string>();
+  for (const role of ACCENT_ROLES) {
+    const pair = tokens[role];
+    if (!pair) continue;
+    values.add(normalizeColorLiteral(pair.light));
+    values.add(normalizeColorLiteral(pair.dark));
+  }
+  return values;
+}
+
+/**
  * Builds a governed brand theme and returns its Mantine theme, semantic
  * CSS-variable map, and validated token graph. Throws `GdsBrandThemeError` when
  * input, WCAG contrast, or token-graph validation fails.
@@ -438,7 +553,10 @@ function createLegacyBrandTheme(opts: CreateBrandThemeOptions): BrandThemeResult
     overrides: mergeThemeOverrides(brandOverrides, opts.overrides ?? {}),
   });
 
-  return { mantineTheme, cssVariables, tokenGraph };
+  const designRuleProfile = resolveEffectiveDesignRuleProfile(null, opts.designRuleProfile);
+  checkOverridesAgainstDesignRuleProfile(opts.overrides, designRuleProfile, collectAccentColorValues(tokens));
+
+  return { mantineTheme, cssVariables, tokenGraph, designRuleProfile };
 }
 
 function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {}): BrandThemeResult {
@@ -608,7 +726,10 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
     overrides: mergeThemeOverrides(brandOverrides, options.overrides ?? {}),
   });
 
-  return { mantineTheme, cssVariables, tokenGraph };
+  const designRuleProfile = resolveEffectiveDesignRuleProfile('class-usa', options.designRuleProfile);
+  checkOverridesAgainstDesignRuleProfile(options.overrides, designRuleProfile, collectAccentColorValues(tokens));
+
+  return { mantineTheme, cssVariables, tokenGraph, designRuleProfile };
 }
 
 function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions = {}): BrandThemeResult {
@@ -759,5 +880,8 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
     overrides: mergeThemeOverrides(brandOverrides, options.overrides ?? {}),
   });
 
-  return { mantineTheme, cssVariables, tokenGraph };
+  const designRuleProfile = resolveEffectiveDesignRuleProfile('gold-athlete', options.designRuleProfile);
+  checkOverridesAgainstDesignRuleProfile(options.overrides, designRuleProfile, collectAccentColorValues(tokens));
+
+  return { mantineTheme, cssVariables, tokenGraph, designRuleProfile };
 }

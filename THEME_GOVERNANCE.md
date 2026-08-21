@@ -411,6 +411,27 @@ token, not a scarcity violation.
 This is source-level enforcement only; it has no visibility into rendered pixel area on a
 page. That measurement is separate, sequenced work (issue #649/#650).
 
+### Consumer application (issue #648)
+
+`createBrandTheme`'s three overloads (`'class-usa'`, `'gold-athlete'`, and the generic
+five-ramp entry point) all accept an optional `designRuleProfile`, defaulting to the
+computed profile for a named preset (issues #644/#645/#646) or
+`GDS_DEFAULT_DESIGN_RULE_PROFILE` for a custom brand with no preset identity to compute
+from — and return it on `BrandThemeResult.designRuleProfile`, so a caller (or #652's
+compliance CLI) can inspect what was actually applied. This is the first point in this
+milestone where a real consumer sees a concrete effect: see `docs/CLASSSCOUT_INTEGRATION.md`
+for the full example.
+
+`createBrandTheme` also carries the one runtime accent-as-background check GDS can make
+with genuine visibility into a caller's literal color intent: its `overrides` escape hatch
+is a plain object at call time (unlike arbitrary consumer CSS, which #647's static lint
+rule handles instead). A `background`/`backgroundColor`/`bg` key anywhere in `overrides`
+set to a color matching one of the theme's own accent-classed tokens fires a dev-only
+`gdsDevWarnOnce`, once per call — a warning, never a thrown error, since the existing
+"governed roles always win over collisions" precedence already prevents the override from
+taking visible effect; this only makes the caller's mistaken intent visible. Passing
+`designRuleProfile: GDS_DEFAULT_DESIGN_RULE_PROFILE` explicitly opts out and suppresses it.
+
 ### Rendered color-proportion sampling (issue #649)
 
 Every measurement above is a claim about *intended* token usage. `npm run

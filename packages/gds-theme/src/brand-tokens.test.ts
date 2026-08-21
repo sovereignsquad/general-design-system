@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   brandContrastRatio,
   createBrandTheme,
@@ -7,6 +7,8 @@ import {
   type BrandColorRamps,
   type BrandFonts,
 } from './brand-tokens';
+import { GDS_DEFAULT_DESIGN_RULE_PROFILE, GdsAxisError } from './axes';
+import { resetGdsDevWarnings } from './dev-warnings';
 
 const classScoutColors: BrandColorRamps = {
   navy: '#0b223e',
@@ -137,6 +139,75 @@ describe('createBrandTheme', () => {
     expect(() =>
       createBrandTheme({ brandColors: { ...classScoutColors, cream: '#0b223e' }, fonts }),
     ).toThrow(GdsBrandThemeError);
+  });
+});
+
+describe('createBrandTheme designRuleProfile (issue #648)', () => {
+  beforeEach(() => resetGdsDevWarnings());
+
+  it('defaults to the computed 60-30-10 profile for a named preset', () => {
+    const result = createBrandTheme('class-usa');
+    expect(result.designRuleProfile.colorProportion.rule).toBe('60-30-10');
+  });
+
+  it('defaults to GDS_DEFAULT_DESIGN_RULE_PROFILE for a custom brand (no preset identity)', () => {
+    const result = createBrandTheme({ brandColors: classScoutColors, fonts });
+    expect(result.designRuleProfile).toEqual(GDS_DEFAULT_DESIGN_RULE_PROFILE);
+  });
+
+  it('respects an explicit designRuleProfile', () => {
+    const result = createBrandTheme('gold-athlete', { designRuleProfile: GDS_DEFAULT_DESIGN_RULE_PROFILE });
+    expect(result.designRuleProfile).toEqual(GDS_DEFAULT_DESIGN_RULE_PROFILE);
+  });
+
+  it('throws for an invalid explicit designRuleProfile', () => {
+    const invalid = { ...GDS_DEFAULT_DESIGN_RULE_PROFILE, typeScale: { ratio: 1.4 as never } };
+    expect(() => createBrandTheme('class-usa', { designRuleProfile: invalid })).toThrow(GdsAxisError);
+  });
+
+  describe('accent-as-background dev warning', () => {
+    let warnSpy: ReturnType<typeof vi.spyOn>;
+
+    beforeEach(() => {
+      warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      warnSpy.mockRestore();
+    });
+
+    it('warns exactly once when overrides sets a background-relevant key to an accent-classed color', () => {
+      const accent = createBrandTheme('class-usa').cssVariables['--gds-brand-accent'];
+      createBrandTheme('class-usa', {
+        overrides: { components: { Card: { styles: { root: { background: accent } } } } },
+      });
+      expect(warnSpy).toHaveBeenCalledTimes(1);
+      expect(warnSpy.mock.calls[0][0]).toContain('accent-classed color');
+    });
+
+    it('does not warn for the identical color in a non-background (text color) path', () => {
+      const accent = createBrandTheme('class-usa').cssVariables['--gds-brand-accent'];
+      createBrandTheme('class-usa', {
+        overrides: { components: { Card: { styles: { root: { color: accent } } } } },
+      });
+      expect(warnSpy).not.toHaveBeenCalled();
+    });
+
+    it('does not warn when overrides has no colliding value', () => {
+      createBrandTheme('class-usa', {
+        overrides: { components: { Card: { styles: { root: { background: '#123456' } } } } },
+      });
+      expect(warnSpy).not.toHaveBeenCalled();
+    });
+
+    it('respects an explicit designRuleProfile opt-out (rule: "none"), even with a colliding override', () => {
+      const accent = createBrandTheme('class-usa').cssVariables['--gds-brand-accent'];
+      createBrandTheme('class-usa', {
+        designRuleProfile: GDS_DEFAULT_DESIGN_RULE_PROFILE,
+        overrides: { components: { Card: { styles: { root: { background: accent } } } } },
+      });
+      expect(warnSpy).not.toHaveBeenCalled();
+    });
   });
 });
 
