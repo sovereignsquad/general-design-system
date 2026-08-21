@@ -855,7 +855,7 @@ export function ReferenceThemeExplorer({
         ))}
       </ReferenceSection>
 
-      {/* Declared classification (issue #644) vs. measured rendered reality (issue #649/#650), plus type-scale (#645) and color-harmony (#646) -- wired to the same preset state every other section reads. */}
+      {/* Declared classification (GH-644) vs. measured rendered reality (GH-649/GH-650), plus type-scale (GH-645) and color-harmony (GH-646) -- wired to the same preset state every other section reads. */}
       <ReferenceSection title={copy.designRuleProfileTitle} description={copy.designRuleProfileDescription}>
         <GdsDesignRuleProfilePanel preset={preset} />
       </ReferenceSection>

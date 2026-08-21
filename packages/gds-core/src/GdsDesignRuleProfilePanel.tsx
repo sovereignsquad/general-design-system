@@ -14,10 +14,10 @@ export interface GdsDesignRuleProfilePanelProps {
 }
 
 /**
- * Displays a preset's design-rule profile (issue #651): the declared color-proportion
- * classification (issue #644, token-role counts) side by side with the measured rendered
- * reality (issues #649/#650, real pixel-area percentages from the reference site), plus
- * its named type-scale ratio (issue #645) and color-harmony classification (issue #646).
+ * Displays a preset's design-rule profile (GH-651): the declared color-proportion
+ * classification (GH-644, token-role counts) side by side with the measured rendered
+ * reality (GH-649/GH-650, real pixel-area percentages from the reference site), plus
+ * its named type-scale ratio (GH-645) and color-harmony classification (GH-646).
  *
  * Every number is read live from the real resolvers/generated artifact at render time --
  * never a hand-typed literal. Declared and measured are two different metrics (role count
@@ -48,17 +48,17 @@ export function GdsDesignRuleProfilePanel({ preset }: GdsDesignRuleProfilePanelP
     : [];
 
   const declaredSummary = colorProportion.rule === '60-30-10'
-    ? `Declared/intended token-role classification (issue #644) -- ${colorProportion.classification.dominant.length} dominant, ${colorProportion.classification.secondary.length} secondary, and ${colorProportion.classification.accent.length} accent roles for "${preset}". Counts intended usage roles, not measured pixels.`
-    : `Declared/intended token-role classification (issue #644) -- "${preset}" declares no color-proportion rule.`;
+    ? `Declared/intended token-role classification (GH-644) -- ${colorProportion.classification.dominant.length} dominant, ${colorProportion.classification.secondary.length} secondary, and ${colorProportion.classification.accent.length} accent roles for "${preset}". Counts intended usage roles, not measured pixels.`
+    : `Declared/intended token-role classification (GH-644) -- "${preset}" declares no color-proportion rule.`;
 
   const measuredSummary = measured
-    ? `Measured/rendered pixel-area coverage on the GDS reference site (issue #649) -- ${measured.dominant}% dominant, ${measured.secondary}% secondary, ${measured.accent}% accent, ${measured.unclassified}% unclassified for "${preset}". Reference site only, not a consumer's own app.`
-    : `Measured/rendered pixel-area coverage on the GDS reference site (issue #649) -- no measurement recorded yet for "${preset}".`;
+    ? `Measured/rendered pixel-area coverage on the GDS reference site (GH-649) -- ${measured.dominant}% dominant, ${measured.secondary}% secondary, ${measured.accent}% accent, ${measured.unclassified}% unclassified for "${preset}". Reference site only, not a consumer's own app.`
+    : `Measured/rendered pixel-area coverage on the GDS reference site (GH-649) -- no measurement recorded yet for "${preset}".`;
 
   return (
     <Stack gap="md" data-gds-design-rule-profile-panel="">
       <Text size="sm" c="dimmed">
-        Declared intent (issue #644) and measured rendered reality (issue #649/#650) are two
+        Declared intent (GH-644) and measured rendered reality (GH-649/GH-650) are two
         different metrics -- token-role count versus real rendered pixel area -- and can
         legitimately diverge. Neither is presented as more "correct" than the other.
       </Text>
