@@ -11,6 +11,7 @@ import {
   getGdsMaturitySummary,
   getGdsRecommendedMaturityCapabilities,
   GdsAccentContrastMatrix,
+  GdsDesignRuleProfilePanel,
   MediaWithFallback,
   NumberStepper,
   SearchableSelect,
@@ -2046,6 +2047,20 @@ function AccentContrastMatrixDemo() {
   );
 }
 
+function DesignRuleProfilePanelDemo() {
+  const [preset, setPreset] = useState<GdsThemePresetId>('default');
+
+  return (
+    <SectionPanel
+      title="Design rule profile"
+      description="A preset's declared color-proportion classification (issue #644), measured rendered reality (issues #649/#650), type-scale ratio (issue #645), and color-harmony classification (issue #646) -- every number read live from the real resolvers and a generated copy of the measurement artifact, never a hand-typed literal."
+    >
+      <VibeThemePicker value={preset} onChange={setPreset} label="Preset" />
+      <GdsDesignRuleProfilePanel preset={preset} />
+    </SectionPanel>
+  );
+}
+
 function SearchableSelectDemo() {
   const [value, setValue] = useState<string | null>('riverside');
 
@@ -3353,6 +3368,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <MapSurfaceDemo />;
     case 'accent-contrast-matrix':
       return <AccentContrastMatrixDemo />;
+    case 'design-rule-profile-panel':
+      return <DesignRuleProfilePanelDemo />;
     case 'searchable-select':
       return <SearchableSelectDemo />;
     case 'conversation-surface':
