@@ -413,6 +413,20 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:accent-background-vars',
+    script: null,
+    mutants: [
+      {
+        id: 'accent-background-vars-detects-stale-committed-list',
+        claim: 'Detects the committed accent-background variable list drifting from ACCENT_ROLES',
+        file: 'packages/gds-eslint-config/generated-accent-background-vars.js',
+        find: '"--gds-brand-accent",',
+        replace: '"--gds-brand-accent-MUTANT",',
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:i18n-leakage',
     script: null,
     mutants: [

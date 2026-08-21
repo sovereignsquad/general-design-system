@@ -1,9 +1,9 @@
 {
-  "releaseChainGates": 42,
-  "gatesWithMutants": 28,
+  "releaseChainGates": 43,
+  "gatesWithMutants": 29,
   "gatesExempted": 16,
-  "mutantsRun": 38,
-  "killed": 38,
+  "mutantsRun": 39,
+  "killed": 39,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -194,6 +194,13 @@
       "gate": "verify:font-lane-coverage",
       "mutantId": "font-coverage-detects-partial-lane",
       "claim": "Detects a font lane that cannot render every supported language",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:accent-background-vars",
+      "mutantId": "accent-background-vars-detects-stale-committed-list",
+      "claim": "Detects the committed accent-background variable list drifting from ACCENT_ROLES",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
