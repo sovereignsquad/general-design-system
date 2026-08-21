@@ -370,6 +370,16 @@ differ):
 *intended token usage*, not measured rendered pixels — real measurement on the reference
 site is separate, sequenced work (issue #649).
 
+### Type-scale ratio (issue #645)
+
+`resolveGdsTypeScaleProfile(presetId)` (`type-scale-profile.ts`) names the modular type
+scale ratio in effect. The current ratio is **1.125 (Major Second)**, read live from
+`GDS_DEFAULT_TYPOGRAPHY_AXIS.scale.ratio` — no preset overrides it today. This ratio
+governs only the `2xs`/`2xl`/`3xl`/`4xl` text steps; `xs`–`xl` are Mantine-inherited
+non-uniform overrides, not on the modular scale. See "Raw token scale vs.
+Mantine-rendered scale" (issue #642) for why those steps diverge — this section does not
+repeat that explanation.
+
 ## CSS VibeThemes
 
 GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.
