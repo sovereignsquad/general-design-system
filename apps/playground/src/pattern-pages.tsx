@@ -2053,7 +2053,7 @@ function DesignRuleProfilePanelDemo() {
   return (
     <SectionPanel
       title="Design rule profile"
-      description="A preset's declared color-proportion classification (issue #644), measured rendered reality (issues #649/#650), type-scale ratio (issue #645), and color-harmony classification (issue #646) -- every number read live from the real resolvers and a generated copy of the measurement artifact, never a hand-typed literal."
+      description="A preset's declared color-proportion classification (GH-644), measured rendered reality (GH-649/GH-650), type-scale ratio (GH-645), and color-harmony classification (GH-646) -- every number read live from the real resolvers and a generated copy of the measurement artifact, never a hand-typed literal."
     >
       <VibeThemePicker value={preset} onChange={setPreset} label="Preset" />
       <GdsDesignRuleProfilePanel preset={preset} />
