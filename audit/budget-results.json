@@ -149,6 +149,16 @@
       "finding": "F18",
       "advisory": false,
       "status": "OK"
+    },
+    {
+      "key": "designRuleUnclassifiedRate",
+      "measured": 73.6,
+      "value": 73.6,
+      "direction": "max",
+      "unit": "%",
+      "finding": "issue 650",
+      "advisory": true,
+      "status": "OK"
     }
   ]
 }

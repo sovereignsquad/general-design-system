@@ -78,6 +78,14 @@ function measure(key) {
     case 'gateSuiteMutationScore': return read('gate-mutation-score.json')?.gateMutationSuiteScore;
     case 'gateSuiteUnexplainedSurvivors': return read('gate-mutation-score.json')?.unexplainedSurvivors;
     case 'obligationGaps':        return read('obligation-coverage.json')?.gapCount;
+    case 'designRuleUnclassifiedRate': {
+      // Worst-case, not an average: a single preset regressing must not be hidden by
+      // 24 healthy ones averaging it out (issue 650).
+      const data = read('design-rule-coverage.json');
+      if (!data) return undefined;
+      const values = Object.values(data.presets).map((p) => p.unclassified);
+      return values.length ? Math.max(...values) : undefined;
+    }
     default: fail(`Budget "${key}" has no measurement resolver.`); return undefined;
   }
 }
