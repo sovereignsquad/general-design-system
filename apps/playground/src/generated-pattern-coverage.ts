@@ -31,6 +31,7 @@ export const provenPatternIds: readonly string[] = [
   "dashboards",
   "data-toolbars",
   "density-spacing",
+  "design-rule-profile-panel",
   "destructive-actions",
   "detail-profile-shell",
   "detail-surfaces",
