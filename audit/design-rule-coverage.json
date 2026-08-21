@@ -1,0 +1,186 @@
+{
+  "generatedAt": null,
+  "commit": "a2e2f8bcc4009b29e67f7f131adfb883dc15d039",
+  "partial": false,
+  "methodology": {
+    "scope": "apps/playground reference site only, not consumer apps",
+    "routes": [
+      "/",
+      "/patterns/public",
+      "/components",
+      "/themes"
+    ],
+    "aggregation": "area-weighted-sum-across-sampled-routes: every visible, opaque, solid-colored element across all sampled routes for a preset is summed into one area total before computing percentages, so a route with more visible content correctly counts for more.",
+    "excludedPaintSources": [
+      "background-image",
+      "gradients",
+      "svg-fill"
+    ],
+    "excludedFromDenominator": [
+      "invisible elements (aria-hidden/inert/display:none/visibility:hidden/opacity:0)",
+      "zero-area elements",
+      "fully transparent backgrounds",
+      "background-image-painted elements"
+    ],
+    "knownLimitations": [
+      "Overlapping elements (a child painted on top of its parent) are summed independently, not resolved to one topmost-paint-per-pixel-region -- a documented approximation, not real rasterization.",
+      "No overflow-hidden clip-region intersection: a clipped element counts at its full box area, not its visually clipped area.",
+      "Classifies only issue #644's BrandSemanticRole tokens (dominant/secondary/accent). A meaningful share of rendered area on decorated presets comes from the separate --gds-vibe-* atmosphere variables (glow/gradient/swatch/hero) -- deliberately outside #644's classification scope -- and lands in unclassified; this is not itself a 60-30-10 violation, since those variables were never part of the classified role vocabulary.",
+      "Secondary/accent role usage as a literal background-color fill is genuinely rare across the sampled routes: most accent-classed tokens (buttons, badges, tab indicators) paint small, scarce surfaces by design, and a 4-route sample does not guarantee catching every such instance."
+    ]
+  },
+  "skippedCells": 0,
+  "skipped": [],
+  "presets": {
+    "default": {
+      "dominant": 47.5,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52.5
+    },
+    "high-contrast": {
+      "dominant": 81.3,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 18.7
+    },
+    "colorblind-safe": {
+      "dominant": 48,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52
+    },
+    "dark-public": {
+      "dominant": 31.6,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 68.4
+    },
+    "flat-surface": {
+      "dominant": 48.4,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 51.6
+    },
+    "editorial": {
+      "dominant": 48.4,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 51.6
+    },
+    "brand": {
+      "dominant": 48.4,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 51.6
+    },
+    "partner-discovery": {
+      "dominant": 48.4,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 51.6
+    },
+    "class-usa": {
+      "dominant": 48.2,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 51.8
+    },
+    "gold-athlete": {
+      "dominant": 48,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52
+    },
+    "sunset": {
+      "dominant": 48,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52
+    },
+    "oceanic": {
+      "dominant": 46.9,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 53.1
+    },
+    "forest": {
+      "dominant": 48.3,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 51.7
+    },
+    "ruby": {
+      "dominant": 48.6,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 51.4
+    },
+    "amber": {
+      "dominant": 47.3,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52.7
+    },
+    "neon-night": {
+      "dominant": 46.9,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 53.1
+    },
+    "skyline": {
+      "dominant": 47.8,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52.2
+    },
+    "aurora": {
+      "dominant": 47.8,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52.2
+    },
+    "coral": {
+      "dominant": 47.9,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52.1
+    },
+    "mint": {
+      "dominant": 47.9,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52.1
+    },
+    "orchid": {
+      "dominant": 47.6,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52.4
+    },
+    "royal": {
+      "dominant": 47.1,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 52.9
+    },
+    "warm": {
+      "dominant": 26.4,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 73.6
+    },
+    "athlete-gold": {
+      "dominant": 26.6,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 73.4
+    },
+    "cosmic": {
+      "dominant": 37.2,
+      "secondary": 0,
+      "accent": 0,
+      "unclassified": 62.8
+    }
+  }
+}
