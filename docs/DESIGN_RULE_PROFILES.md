@@ -1,7 +1,7 @@
 # Design Rule Profiles
 
 Status: Active SSOT
-Version: 6.3.0
+Version: 6.4.0
 Last updated: 2026-08-21
 
 Design rule profiles are GDS's answer to a question every brand theme eventually asks: not
@@ -17,20 +17,33 @@ Each linked section below is the detailed technical reference; this document con
 
 ## Research grounding
 
-Three established design conventions this system encodes:
+Three established design conventions this system encodes, cited from this milestone's own
+originating research (tracking issue [#654](https://github.com/sovereignsquad/general-design-system/issues/654)):
 
 - **The 60-30-10 rule** — a page's color should split roughly 60% dominant/neutral surface,
-  30% secondary/brand-chrome, 10% scarce accent. GDS can only classify *intended token role*,
-  not control what fraction of a real rendered page ends up which color (a page-composition
-  decision, not a token decision) — see "Declared vs. measured," below.
-- **Named modular type-scale ratios** — the six historically named ratios: 1.067 (Minor
-  Second), 1.125 (Major Second), 1.2 (Minor Third), 1.25 (Major Third), 1.333 (Perfect
-  Fourth), 1.5 (Perfect Fifth), 1.618 (Golden Ratio). A modular scale computes
-  `size(n) = base × ratio^n`.
-- **Color-harmony classification** — the standard color-wheel relationships: monochromatic
-  (0° hue difference), analogous (30°), triadic (120°), split-complementary (150°), and
-  complementary (180°), each with a tolerance band; anything outside every band, or where a
-  color reads as near-gray, classifies `custom`.
+  30% secondary/brand-chrome, 10% scarce accent
+  ([Wix: "What Is the 60-30-10 Color Rule?"](https://www.wix.com/wixel/resources/60-30-10-color-rule),
+  [UX Planet: "The 60-30-10 Rule"](https://uxplanet.org/the-60-30-10-rule-a-simple-way-to-creating-catchy-user-interfaces-e9e2cf957213)).
+  GDS can only classify *intended token role*, not control what fraction of a real rendered
+  page ends up which color (a page-composition decision, not a token decision) — see
+  "Declared vs. measured," below.
+- **Named modular type-scale ratios**
+  ([Creative Market: "What is a Typographic Scale?"](https://creativemarket.com/blog/typographic-scale))
+  — the six historically named ratios: 1.067 (Minor Second), 1.125 (Major Second), 1.2
+  (Minor Third), 1.25 (Major Third), 1.333 (Perfect Fourth), 1.5 (Perfect Fifth), 1.618
+  (Golden Ratio). A modular scale computes `size(n) = base × ratio^n`.
+- **Color-harmony classification**
+  ([The Color Atlas: "Color Harmony & Relationships"](https://thecoloratlas.org/color-harmony-relationships/))
+  — the standard color-wheel relationships: monochromatic (0° hue difference), analogous
+  (30°), triadic (120°), split-complementary (150°), and complementary (180°), each with a
+  tolerance band; anything outside every band, or where a color reads as near-gray,
+  classifies `custom`.
+
+The wider milestone also drew on Dieter Rams' ten principles for good design, Nielsen's
+usability heuristics, the 8-point grid, Gestalt principles, Material Design 3's tonal-palette
+color roles, and WCAG 2.2 contrast requirements as general design-quality framing — see #654
+for the full source list. Only the three conventions above became a computed, gated axis;
+the rest informed the milestone's scope without becoming their own classification mechanism.
 
 ## The `GdsDesignRuleProfile` contract (#643)
 

@@ -2,6 +2,71 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 6.4.0 - 2026-08-21 — Design Rule Profiles: computed 60-30-10, type-scale, and color-harmony as a gated theme axis (#643-#653)
+
+A new, optional eighth theme axis lets a theme declare which established design-quality
+conventions it follows, computed from real values rather than asserted, with enforcement and
+measurement at every layer GDS can actually see. Full narrative and worked adoption example:
+[`docs/DESIGN_RULE_PROFILES.md`](docs/DESIGN_RULE_PROFILES.md).
+
+### The `GdsDesignRuleProfile` contract (#643)
+
+`GdsThemeAxes.designRuleProfile?: GdsDesignRuleProfile` (`packages/gds-theme/src/axes.ts`)
+carries a color-proportion rule (`'60-30-10' | 'none'`), a color-harmony classification, a
+named modular type-scale ratio, and a WCAG contrast target. `GDS_DEFAULT_DESIGN_RULE_PROFILE`
+is additive and optional — every existing theme already satisfies it with zero behavior
+change. `validateGdsDesignRuleProfile` throws a single `GdsAxisError` on the first violation,
+matching this file's existing shape/density axis validators.
+
+### Classification, computed not hand-typed (#644, #645, #646)
+
+- `resolveGdsColorProportionProfile(presetId)` classifies every `BrandSemanticRole` into
+  `dominant`/`secondary`/`accent`, shared identically across all 25 presets.
+- `resolveGdsTypeScaleProfile(presetId)` names the live modular type-scale ratio
+  (`GDS_DEFAULT_TYPOGRAPHY_AXIS.scale.ratio`) against the six historically named ratios.
+- `resolveGdsColorHarmonyProfile(presetId)` computes each preset's primary/accent hue-angle
+  relationship (monochromatic/analogous/triadic/split-complementary/complementary/custom)
+  from real hex values — never a hand-assigned label.
+
+### Enforcement (#647, #648, #652)
+
+- `@sovereignsquad/gds-eslint-config`'s new `no-accent-as-background` rule (opt-in via
+  `accentBackgroundVariables`) flags accent-classed `--gds-*` tokens used as a background
+  fill.
+- `createBrandTheme`'s three overloads accept an optional `designRuleProfile`, default to the
+  computed profile for a named preset, and return it on the result; a dev-only console warning
+  fires once when `overrides` sets a background to an accent-classed color.
+- `gds-compliance check-design-rules` scans committed source for the same misuse plus any
+  `createBrandTheme(...)` call missing a `designRuleProfile`, both `warn`-severity by default;
+  `compliance.designRuleProfile.enforced: true` in `gds-adoption.json` promotes
+  `accent-as-background` to a blocking `error`.
+
+### Measurement (#649, #650)
+
+`npm run audit:design-rule-coverage` captures every visible element's rendered
+background-color area across 25 presets × 2 schemes × 4 reference-site routes via headless
+Chrome, classifies each against the #644 role split, and area-weights the result into
+`audit/design-rule-coverage.json` — a real, honestly-scoped measurement (methodology and
+known limitations recorded in the artifact itself), not an estimate. `audit/budgets.json`'s
+`designRuleUnclassifiedRate` tracks the worst-case unclassified percentage across all 25
+presets, `advisory: true` pending a full release cycle of stability.
+
+### Seeing it live (#651)
+
+`GdsDesignRuleProfilePanel`, wired into `ReferenceThemeExplorer` on
+[`/themes`](https://sovereignsquad.github.io/general-design-system/themes), renders declared
+role classification alongside measured rendered reality as two donut charts, plus type-scale
+and color-harmony badges, updating live on preset switch — every number read at render time
+from the live resolvers and a generated copy of the coverage artifact.
+
+### Documentation (#653)
+
+New [`docs/DESIGN_RULE_PROFILES.md`](docs/DESIGN_RULE_PROFILES.md): research grounding (the
+60-30-10 rule, named type-scale ratios, color-harmony classification, cited), the full
+contract, how classification/enforcement/measurement work, the Theme Lab, a worked adoption
+example, and an FAQ. `THEME_GOVERNANCE.md`'s design-rule section is now a pointer plus the
+standing governance rules. `README.md` and `llms.txt` each gained one new entry.
+
 ## 6.3.0 - 2026-08-17 — ClassScout remaining gap-request items (#642)
 
 ### Read-only rating display: `GdsRatingDisplay` (item 11, #642)
