@@ -143,6 +143,15 @@
       "unit": "count",
       "finding": "F18",
       "justifiedBy": "issue 581 - 373 prop jsdoc gaps + 37 variant demo gaps, measured"
+    },
+    "designRuleUnclassifiedRate": {
+      "source": "design-rule-coverage.json#/presets/*/unclassified (worst case across all 25 presets)",
+      "direction": "max",
+      "value": 73.6,
+      "unit": "%",
+      "finding": "issue 650",
+      "justifiedBy": "issue 650: first real measurement from issue 649's audit/design-rule-coverage.json (25 presets x 2 schemes x 4 routes), transcribed not estimated. Worst preset: warm (73.6%). Advisory: a brand-new, single-release-old measurement mechanism, not yet graduated to blocking.",
+      "advisory": true
     }
   }
 }

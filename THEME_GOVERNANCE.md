@@ -463,6 +463,13 @@ becoming an immediate blocking check is deliberately deferred to issue #650. No 
 or estimated number may substitute for this issue's real measurement anywhere it is shown
 (issue #651's Theme Lab panel included).
 
+**Tracked, advisory (issue #650)**: `audit/budgets.json`'s `designRuleUnclassifiedRate`
+entry ratchets the worst-case (highest) `unclassified` percentage across all 25 presets,
+via `npm run verify:budgets`'s standard mechanism — `advisory: true`, so a regression is
+reported in the console table and PR summary but does not fail `verify:release` yet. It
+graduates to blocking only as an explicit, separate follow-up decision, once this
+measurement has proven stable across a real release cycle — not automatically.
+
 ## CSS VibeThemes
 
 GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.
