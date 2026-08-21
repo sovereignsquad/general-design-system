@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.3.0
-Last updated: 2026-08-09
+Last updated: 2026-08-21
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
 
@@ -324,161 +324,41 @@ document must call `resolveGdsTypographyTokens()` itself and merge the result. W
 given brand lane (e.g. `class-usa`) *should* populate a tracking scale by default is a
 brand-design decision left to that theme, not a system default every lane must set.
 
-## Design rule profiles (issue #643, milestone: Design Rule Profiles)
+## Design rule profiles (milestone: Design Rule Profiles, issues #643-#653)
 
-`GdsThemeAxes` gains an eighth, optional axis: `designRuleProfile?: GdsDesignRuleProfile`
-(`packages/gds-theme/src/axes.ts`), letting a theme declare which established design-quality
-rules it follows — a color-proportion rule (`'60-30-10' | 'none'`), a named color-harmony
-classification, a named modular type-scale ratio, and a WCAG contrast target
-(`'AA' | 'AAA'`). The axis is additive and optional; `GDS_DEFAULT_DESIGN_RULE_PROFILE`
-asserts no proportion claim, `custom` harmony, a `1.25` (Major Third) type scale, and `AA`
-contrast — a profile every existing theme already satisfies with zero behavior change.
+Full narrative, research grounding, worked adoption example, and FAQ:
+[`docs/DESIGN_RULE_PROFILES.md`](docs/DESIGN_RULE_PROFILES.md). This section states only the
+governance rules — the constraints future changes to this axis must keep satisfying — not the
+full technical explanation, matching how this file treats every other cross-cutting axis.
 
-`validateGdsDesignRuleProfile(profile, themeId)` follows this file's own `axes.ts` established
-pattern exactly: it throws a single `GdsAxisError` on the *first* violation found, matching
-`validateGdsShapeAxis`/`validateGdsDensityAxis` — it does not accumulate every violation into
-one report (that is `GdsBrandThemeError`'s distinct, separate pattern in `brand-tokens.ts`).
+`GdsThemeAxes` carries an eighth, optional axis: `designRuleProfile?: GdsDesignRuleProfile`
+(`packages/gds-theme/src/axes.ts`). Governance rules:
 
-As of this section, no shipped preset declares a non-default `designRuleProfile` yet — the
-color-proportion classification, type-scale naming, and color-harmony classification that
-populate it per-preset are separate, sequenced work (tracking issue
-[#654](https://github.com/sovereignsquad/general-design-system/issues/654)). The Theme Lab
-(`/themes`) will surface the resolved profile per preset once that work lands; a consumer
-inherits the selected profile automatically through `createBrandTheme`'s own
-`designRuleProfile` parameter once it exists.
-
-### Color-proportion classification (issue #644)
-
-Every `BrandSemanticRole` (`packages/gds-theme/src/semantic-token-source.ts`) is classified
-into exactly one proportion class, shared identically across all 25 presets (role *meaning*
-is preset-independent — every preset emits the same role names, only the color values
-differ):
-
-- **`dominant`** — large-surface roles (`bg.*`, `text.*`, `border.card`, `nav.inactiveOnInverse`,
-  `control.disabled*`), meant to cover most of a rendered page and therefore stay
-  low-saturation/neutral.
-- **`secondary`** — brand-chrome roles (`brand.primary`, `brand.primaryPressed`, `support`),
-  moderate-frequency, identity-carrying.
-- **`accent`** — scarce-signal roles (`brand.accent`, `accent`, `price`, `star`, `state.*`,
-  `badge.*`, `focus.ring`), meant to be rare and attention-carrying. `focus.ring` sits here
-  rather than `secondary`: a focus outline is a thin stroke, not a fill, so its rendered area
-  is negligible regardless of occurrence frequency — the same shape as the other accent
-  roles, not the "moderate real area" shape brand-chrome has.
-
-`resolveGdsColorProportionProfile(presetId)` (`color-proportion-classification.ts`) returns
-`{ rule: '60-30-10', classification }` for every shipped preset. This is a claim about
-*intended token usage*, not measured rendered pixels — real measurement on the reference
-site is separate, sequenced work (issue #649).
-
-### Type-scale ratio (issue #645)
-
-`resolveGdsTypeScaleProfile(presetId)` (`type-scale-profile.ts`) names the modular type
-scale ratio in effect. The current ratio is **1.125 (Major Second)**, read live from
-`GDS_DEFAULT_TYPOGRAPHY_AXIS.scale.ratio` — no preset overrides it today. This ratio
-governs only the `2xs`/`2xl`/`3xl`/`4xl` text steps; `xs`–`xl` are Mantine-inherited
-non-uniform overrides, not on the modular scale. See "Raw token scale vs.
-Mantine-rendered scale" (issue #642) for why those steps diverge — this section does not
-repeat that explanation.
-
-### Color harmony (issue #646)
-
-`resolveGdsColorHarmonyProfile(presetId)` (`color-harmony-classification.ts`) computes —
-never hand-assigns — each preset's `colorHarmony` classification from its actual
-`primary`/`accent` hex values (`vibe-themes.ts`). The two colors are converted to HSL and
-the hue-angle distance between them is bucketed against five named angles, each with a
-15° tolerance: monochromatic (0°), analogous (30°), triadic (120°), split-complementary
-(150°), complementary (180°). A pair that falls outside every band, or where either color
-reads as near-gray (saturation below 10, no meaningful hue to relate), classifies as
-`custom`.
-
-This measures only the primary/accent hue relationship, not a full-palette analysis —
-state, support, and badge colors are out of scope. It is independent of WCAG contrast:
-a theme's contrast obligations are unaffected by whether its hues form a named harmony.
-
-### Accent-scarcity enforcement (issue #647)
-
-The color-proportion classification (issue #644) is descriptive metadata unless something
-enforces it. `@sovereignsquad/gds-eslint-config`'s `no-accent-as-background` rule is that
-enforcement: a static, lint-time scan that flags any accent-classed `--gds-*` token
-(`ACCENT_ROLES`, mapped to CSS variable names via
-`generated-accent-background-vars.js`) used as a `background`/`backgroundColor`/`bg`
-value. It is opt-in (`accentBackgroundVariables`) since the rule has no built-in default
-list. See the package's own `README.md` for the option shape and the reviewed exceptions
-(`allowedAccentBackgrounds`) this repo's own source already needs — a CTA button fill, a
-badge fill, and an active-tab indicator are the intended small-surface use of an accent
-token, not a scarcity violation.
-
-This is source-level enforcement only; it has no visibility into rendered pixel area on a
-page. That measurement is separate, sequenced work (issue #649/#650).
-
-### Consumer application (issue #648)
-
-`createBrandTheme`'s three overloads (`'class-usa'`, `'gold-athlete'`, and the generic
-five-ramp entry point) all accept an optional `designRuleProfile`, defaulting to the
-computed profile for a named preset (issues #644/#645/#646) or
-`GDS_DEFAULT_DESIGN_RULE_PROFILE` for a custom brand with no preset identity to compute
-from — and return it on `BrandThemeResult.designRuleProfile`, so a caller (or #652's
-compliance CLI) can inspect what was actually applied. This is the first point in this
-milestone where a real consumer sees a concrete effect: see `docs/CLASSSCOUT_INTEGRATION.md`
-for the full example.
-
-`createBrandTheme` also carries the one runtime accent-as-background check GDS can make
-with genuine visibility into a caller's literal color intent: its `overrides` escape hatch
-is a plain object at call time (unlike arbitrary consumer CSS, which #647's static lint
-rule handles instead). A `background`/`backgroundColor`/`bg` key anywhere in `overrides`
-set to a color matching one of the theme's own accent-classed tokens fires a dev-only
-`gdsDevWarnOnce`, once per call — a warning, never a thrown error, since the existing
-"governed roles always win over collisions" precedence already prevents the override from
-taking visible effect; this only makes the caller's mistaken intent visible. Passing
-`designRuleProfile: GDS_DEFAULT_DESIGN_RULE_PROFILE` explicitly opts out and suppresses it.
-
-### Rendered color-proportion sampling (issue #649)
-
-Every measurement above is a claim about *intended* token usage. `npm run
-audit:design-rule-coverage` (`scripts/audit/design-rule-coverage.mjs`) is the one
-measurement in this milestone that checks the reference site's actual rendered pixels: for
-every shipped preset × light/dark scheme, across a fixed four-route sample (`/`,
-`/patterns/public`, `/components`, `/themes`), it captures every visible element's
-rendered background-color area via a headless-Chrome CDP session (reusing
-`scripts/lib/browser-runtime.mjs`'s `launchBrowser`/`createCdpClient` — no second
-browser-launch mechanism), classifies each resolved color against issue #644's
-`dominant`/`secondary`/`accent` role split, and area-weights the result into
-`audit/design-rule-coverage.json`.
-
-**Scope**: `apps/playground` only — GDS cannot see a consumer's rendered app. **Excluded
-from measurement entirely** (not counted as `unclassified`, excluded from the denominator
-too): invisible elements, zero-area elements, fully transparent backgrounds, and any
-element painted via `background-image` (gradients, images, SVG fills — a solid
-`background-color` capture cannot see these). **Known limitations**, stated in the
-artifact's own `methodology` field: overlapping elements are summed independently (no
-per-pixel topmost-layer resolution); no overflow-hidden clip-region intersection (a
-clipped element counts at its full box area); a meaningful share of rendered area comes
-from the separate `--gds-vibe-*` atmosphere variables (glow/gradient/swatch/hero),
-deliberately outside #644's `BrandSemanticRole` classification scope, which lands in
-`unclassified` without representing a 60-30-10 violation; and accent-classed tokens paint
-small, scarce surfaces by design, so a 4-route sample will not catch every instance.
-
-This produces a real artifact, not a hard CI gate — a new, unproven measurement mechanism
-becoming an immediate blocking check is deliberately deferred to issue #650. No simulated
-or estimated number may substitute for this issue's real measurement anywhere it is shown
-(issue #651's Theme Lab panel included).
-
-**Tracked, advisory (issue #650)**: `audit/budgets.json`'s `designRuleUnclassifiedRate`
-entry ratchets the worst-case (highest) `unclassified` percentage across all 25 presets,
-via `npm run verify:budgets`'s standard mechanism — `advisory: true`, so a regression is
-reported in the console table and PR summary but does not fail `verify:release` yet. It
-graduates to blocking only as an explicit, separate follow-up decision, once this
-measurement has proven stable across a real release cycle — not automatically.
-
-### Theme Lab display (issue #651)
-
-Every measurement above is otherwise only visible in a JSON artifact, a test, or source.
-`GdsDesignRuleProfilePanel` (`packages/gds-core/src/GdsDesignRuleProfilePanel.tsx`),
-wired into `ReferenceThemeExplorer` on `/themes`, is where a human actually sees it: two
-`GdsChart` donuts (declared role classification vs. measured rendered reality for the
-selected preset) plus type-scale and color-harmony badges, updating live on preset switch.
-Every number is read at render time from the real resolvers (issues #644–#646) and a
-generated copy of #649/#650's artifact — never a hand-typed literal.
+- **Additive and optional, always.** `GDS_DEFAULT_DESIGN_RULE_PROFILE` (no proportion claim,
+  `custom` harmony, `1.25` Major Third type scale, `AA` contrast) is a profile every existing
+  theme already satisfies with zero behavior change. A future change to this axis must
+  preserve that: no theme may be silently opted into a stricter profile.
+- **Computed, never hand-typed.** Color-proportion classification (`resolveGdsColorProportionProfile`),
+  type-scale naming (`resolveGdsTypeScaleProfile`), and color-harmony classification
+  (`resolveGdsColorHarmonyProfile`) all read live source values (role names, the real
+  typography axis ratio, real preset hex colors) — a hand-asserted classification for any
+  preset is a governance violation of this axis, not an acceptable shortcut.
+- **`validateGdsDesignRuleProfile(profile, themeId)`** follows this file's own `axes.ts`
+  established pattern: throws a single `GdsAxisError` on the *first* violation found, matching
+  `validateGdsShapeAxis`/`validateGdsDensityAxis` — it does not accumulate every violation into
+  one report (that is `GdsBrandThemeError`'s distinct, separate pattern in `brand-tokens.ts`).
+- **Declared and measured are two different, non-reconcilable metrics — never conflate them.**
+  Declared/intended (token-role classification) and measured/rendered (real pixel-area
+  sampling on the reference site) can legitimately diverge; no future work may present one as
+  a "correction" of the other, or silently drop the distinction in UI or docs.
+- **Enforcement stays source-level and advisory-first.** The lint rule, dev-time warning, and
+  `gds-compliance check-design-rules` CLI are opt-in and `warn`-severity by default; the
+  measurement budget (`designRuleUnclassifiedRate`) is `advisory: true`. Promoting any of
+  these to a hard blocking gate is an explicit, separate governance decision — not a change
+  bundled silently into an unrelated fix.
+- **No simulated or estimated measurement.** Anywhere a measured percentage is shown (the
+  Theme Lab panel included), it must be read from the real, committed
+  `audit/design-rule-coverage.json` artifact — never a placeholder or hand-typed estimate.
 
 ## CSS VibeThemes
 
