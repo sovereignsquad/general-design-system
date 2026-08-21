@@ -4,10 +4,12 @@
   "type": "module",
   "main": "./index.js",
   "exports": {
-    ".": "./index.js"
+    ".": "./index.js",
+    "./generated-accent-background-vars.js": "./generated-accent-background-vars.js"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "generated-accent-background-vars.js"
   ],
   "publishConfig": {
     "access": "public",

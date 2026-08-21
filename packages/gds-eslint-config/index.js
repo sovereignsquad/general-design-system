@@ -22,6 +22,76 @@ function isForbiddenImport(source, allowedImports) {
   });
 }
 
+const BACKGROUND_PROP_PATTERN = /\b(?:background|backgroundColor|background-color|bg)\s*[:=]/;
+
+/** True if `token` (a `--gds-*` variable name) appears in `text` at a name boundary -- not as a prefix of a longer, unrelated variable name (e.g. `--gds-brand-accent-tint`). */
+function containsAccentToken(text, token) {
+  const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?<![\\w-])${escaped}(?![\\w-])`).test(text);
+}
+
+function createNoAccentAsBackgroundRule(options) {
+  const accentVars = options.accentBackgroundVariables ?? [];
+  const allowedAccentBackgrounds = options.allowedAccentBackgrounds ?? [];
+
+  if (options.accentBackgroundVariables !== undefined && accentVars.length === 0) {
+    throw new Error(
+      'gds-eslint-config: no-accent-as-background was configured with accentBackgroundVariables: [] -- ' +
+      'an empty list makes the rule fire on nothing. Pass the real list (see ' +
+      '@sovereignsquad/gds-eslint-config/generated-accent-background-vars.js) or omit the option to leave the rule off.',
+    );
+  }
+
+  return {
+    meta: {
+      type: 'problem',
+      docs: {
+        description: 'Forbid accent-classed GDS tokens (scarce by design intent, issue #644) as a background fill.',
+      },
+      schema: [],
+      messages: {
+        accentAsBackground:
+          'Token "{{token}}" is classified accent (issue #644) -- meant to be scarce, never a background ' +
+          'fill. Use a dominant- or secondary-classed token, or add a reviewed entry to allowedAccentBackgrounds ' +
+          'if this is deliberate.',
+      },
+    },
+    create(context) {
+      const filename = context.filename ?? '';
+      if (shouldIgnoreFile(filename) || accentVars.length === 0) {
+        return {};
+      }
+
+      const checkText = (node, text) => {
+        if (!BACKGROUND_PROP_PATTERN.test(text)) return;
+        for (const token of accentVars) {
+          if (allowedAccentBackgrounds.includes(token)) continue;
+          if (containsAccentToken(text, token)) {
+            context.report({ node, messageId: 'accentAsBackground', data: { token } });
+          }
+        }
+      };
+
+      return {
+        Property(node) {
+          const keyText = node.key.type === 'Identifier' ? node.key.name : node.key.value;
+          if (typeof keyText !== 'string' || !/^(?:background|backgroundColor|background-color|bg)$/.test(keyText)) {
+            return;
+          }
+          if (node.value.type === 'Literal' && typeof node.value.value === 'string') {
+            checkText(node, `${keyText}: ${node.value.value}`);
+          } else if (node.value.type === 'TemplateLiteral') {
+            checkText(node, `${keyText}: ${context.sourceCode.getText(node.value)}`);
+          }
+        },
+        TemplateElement(node) {
+          checkText(node, node.value.raw);
+        },
+      };
+    },
+  };
+}
+
 function createRules(options = {}) {
   const allowedImports = options.allowedImports ?? [];
 
@@ -160,6 +230,7 @@ function createRules(options = {}) {
       };
     },
   },
+  'no-accent-as-background': createNoAccentAsBackgroundRule(options),
   };
 }
 
@@ -205,6 +276,16 @@ export function createGdsConfig(options = {}) {
       files: options.jsdocFiles ?? ['**/*.{ts,tsx}'],
       rules: {
         'gds/require-exported-jsdoc': 'error',
+      },
+    });
+  }
+
+  // Opt-in: the rule has no default variable list to check against. Pass
+  // accentBackgroundVariables (see generated-accent-background-vars.js) to enable it.
+  if (options.accentBackgroundVariables) {
+    config.push({
+      rules: {
+        'gds/no-accent-as-background': 'error',
       },
     });
   }
