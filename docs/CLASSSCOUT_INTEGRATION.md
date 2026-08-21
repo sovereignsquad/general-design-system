@@ -75,6 +75,26 @@ theme declares no per-role overrides, which Class USA currently doesn't — see 
 computed proof (how many of the 14 roles currently share a value) on the reference site's
 Foundations → Shape & Elevation page.
 
+**Design rule profile (issue #648).** `createBrandTheme`'s result now includes
+`designRuleProfile` — the 60-30-10 color-proportion classification, color-harmony
+classification, and named type-scale ratio actually applied to this theme (computed for
+`'class-usa'`/`'gold-athlete'`; `GDS_DEFAULT_DESIGN_RULE_PROFILE` — no proportion rule — for
+a custom brand built from `brandColors`). Nothing needs to change to get this: it's on the
+existing return value.
+
+```tsx
+const { mantineTheme, designRuleProfile } = createBrandTheme('class-usa', { fonts });
+designRuleProfile.colorProportion.rule; // '60-30-10'
+```
+
+If `overrides` sets a `background`/`backgroundColor`/`bg` key anywhere to a color matching
+one of this theme's accent-classed tokens (`--gds-brand-accent`, `--gds-state-*`,
+`--gds-badge-*`, etc. — scarce by design intent), a development-only console warning fires
+once, naming the offending value. It's a warning, not a thrown error: the governed role
+still wins over the collision at render time either way, matching this doc's own line above
+("governed roles always win over collisions"). Pass `designRuleProfile:
+GDS_DEFAULT_DESIGN_RULE_PROFILE` explicitly to opt out and suppress the warning entirely.
+
 ## 3.8.0 replacement surfaces
 
 Use these primitives to delete app-local ClassScout forks:
