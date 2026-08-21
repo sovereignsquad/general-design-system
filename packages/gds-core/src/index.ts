@@ -189,6 +189,7 @@ export * from './GdsShapeElevationSystemReference';
 export * from './GdsDensitySpacingSystemReference';
 export * from './GdsIconSystemReference';
 export * from './GdsTypographySystemReference';
+export * from './GdsDesignRuleProfilePanel';
 export * from './GdsInlineLink';
 
 // ── Partner surfaces ──

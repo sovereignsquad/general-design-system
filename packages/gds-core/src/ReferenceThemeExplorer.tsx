@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { GdsAccentContrastMatrix } from './GdsAccentContrastMatrix';
+import { GdsDesignRuleProfilePanel } from './GdsDesignRuleProfilePanel';
 import {
   Badge,
   Box,
@@ -852,6 +853,11 @@ export function ReferenceThemeExplorer({
         {(colorScheme === 'auto' ? (['light', 'dark'] as const) : ([colorScheme] as const)).map((scheme) => (
           <GdsAccentContrastMatrix key={scheme} preset={preset} colorScheme={scheme} />
         ))}
+      </ReferenceSection>
+
+      {/* Declared classification (issue #644) vs. measured rendered reality (issue #649/#650), plus type-scale (#645) and color-harmony (#646) -- wired to the same preset state every other section reads. */}
+      <ReferenceSection title={copy.designRuleProfileTitle} description={copy.designRuleProfileDescription}>
+        <GdsDesignRuleProfilePanel preset={preset} />
       </ReferenceSection>
     </Stack>
   );

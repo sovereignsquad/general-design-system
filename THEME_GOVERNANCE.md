@@ -470,6 +470,16 @@ reported in the console table and PR summary but does not fail `verify:release` 
 graduates to blocking only as an explicit, separate follow-up decision, once this
 measurement has proven stable across a real release cycle — not automatically.
 
+### Theme Lab display (issue #651)
+
+Every measurement above is otherwise only visible in a JSON artifact, a test, or source.
+`GdsDesignRuleProfilePanel` (`packages/gds-core/src/GdsDesignRuleProfilePanel.tsx`),
+wired into `ReferenceThemeExplorer` on `/themes`, is where a human actually sees it: two
+`GdsChart` donuts (declared role classification vs. measured rendered reality for the
+selected preset) plus type-scale and color-harmony badges, updating live on preset switch.
+Every number is read at render time from the real resolvers (issues #644–#646) and a
+generated copy of #649/#650's artifact — never a hand-typed literal.
+
 ## CSS VibeThemes
 
 GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.
