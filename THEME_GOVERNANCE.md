@@ -395,6 +395,22 @@ This measures only the primary/accent hue relationship, not a full-palette analy
 state, support, and badge colors are out of scope. It is independent of WCAG contrast:
 a theme's contrast obligations are unaffected by whether its hues form a named harmony.
 
+### Accent-scarcity enforcement (issue #647)
+
+The color-proportion classification (issue #644) is descriptive metadata unless something
+enforces it. `@sovereignsquad/gds-eslint-config`'s `no-accent-as-background` rule is that
+enforcement: a static, lint-time scan that flags any accent-classed `--gds-*` token
+(`ACCENT_ROLES`, mapped to CSS variable names via
+`generated-accent-background-vars.js`) used as a `background`/`backgroundColor`/`bg`
+value. It is opt-in (`accentBackgroundVariables`) since the rule has no built-in default
+list. See the package's own `README.md` for the option shape and the reviewed exceptions
+(`allowedAccentBackgrounds`) this repo's own source already needs — a CTA button fill, a
+badge fill, and an active-tab indicator are the intended small-surface use of an accent
+token, not a scarcity violation.
+
+This is source-level enforcement only; it has no visibility into rendered pixel area on a
+page. That measurement is separate, sequenced work (issue #649/#650).
+
 ## CSS VibeThemes
 
 GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.
