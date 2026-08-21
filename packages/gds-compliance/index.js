@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { extname, dirname, join, resolve } from 'node:path';
+import { ACCENT_BACKGROUND_VARIABLES } from './generated-accent-background-vars.js';
 
 const SOURCE_EXTENSIONS = new Set(['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs']);
 const IGNORED_DIRS = new Set(['node_modules', '.git', '.next', 'dist', 'coverage']);
@@ -1242,6 +1243,63 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
   return findings;
 }
 
+const DESIGN_RULE_BACKGROUND_KEY_PATTERN = /\b(?:background|backgroundColor|background-color|bg)\s*[:=]/;
+
+/** True if `token` (a `--gds-*` variable name) appears in `text` at a name boundary -- not as a prefix of a longer, unrelated variable name (e.g. `--gds-brand-accent-tint`). Mirrors gds-eslint-config's no-accent-as-background rule (issue #647) -- reimplemented here, not imported, since gds-compliance ships with zero runtime dependencies and importing a devDependency-only package across the publish boundary would add one just for this helper. */
+function containsAccentToken(text, token) {
+  const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?<![\\w-])${escaped}(?![\\w-])`).test(text);
+}
+
+/**
+ * Scans a consumer's own source for the same accent-as-background misuse issue #647's
+ * ESLint rule catches inside this monorepo (issue #652) -- the consumer-facing half of
+ * that enforcement, since a consumer app has no obligation to run gds-eslint-config.
+ * Also flags a `createBrandTheme(...)` call site with no `designRuleProfile` (issue
+ * #648), as an adoption-visibility signal, never a hard requirement.
+ *
+ * `designRuleProfile.enforced` (manifest, default false) controls only the severity of
+ * the accent-as-background finding ('error' vs 'warn') -- the scan itself always runs, so
+ * a consumer sees the finding before opting into enforcement, not only after.
+ */
+function scanDesignRuleUsage({ manifestRoot, manifest, sourceFiles }) {
+  const findings = [];
+  const enforced = manifest.compliance?.designRuleProfile?.enforced === true;
+  const normalizedRoot = normalizePath(manifestRoot).replace(/\/$/, '');
+
+  for (const filePath of sourceFiles) {
+    const content = stripComments(readFileSync(filePath, 'utf8'));
+    const relativePath = normalizePath(filePath).replace(`${normalizedRoot}/`, '');
+    const lines = content.split('\n');
+
+    lines.forEach((lineText, index) => {
+      if (!DESIGN_RULE_BACKGROUND_KEY_PATTERN.test(lineText)) return;
+      for (const token of ACCENT_BACKGROUND_VARIABLES) {
+        if (containsAccentToken(lineText, token)) {
+          findings.push({
+            rule: 'design-rule.accent-as-background',
+            severity: enforced ? 'error' : 'warn',
+            file: `${relativePath}:${index + 1}`,
+            message: `Token "${token}" is classified accent (issue #644) -- meant to be scarce, never a background fill.`,
+          });
+        }
+      }
+    });
+
+    if (/\bcreateBrandTheme\s*\(/.test(content) && !/\bdesignRuleProfile\b/.test(content)) {
+      const lineIndex = lines.findIndex((line) => /\bcreateBrandTheme\s*\(/.test(line));
+      findings.push({
+        rule: 'design-rule.missing-profile',
+        severity: 'warn',
+        file: `${relativePath}:${lineIndex + 1}`,
+        message: 'createBrandTheme(...) call has no designRuleProfile (issue #648) -- adoption-visibility signal, not a hard requirement.',
+      });
+    }
+  }
+
+  return findings;
+}
+
 function findThemeOwnershipFiles({ manifestRoot, sourceFiles, themeOwnershipPaths = [] }) {
   if (!themeOwnershipPaths.length) {
     return [];
@@ -1369,6 +1427,7 @@ export function runComplianceCheck({ manifestPath, currentDate }) {
   findings.push(...validateApprovedExceptionsAgainstRepo({ manifestRoot, manifest, sourceFiles }));
   findings.push(...scanThemeGovernance({ manifestRoot, manifest, sourceFiles }));
   findings.push(...scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }));
+  findings.push(...scanDesignRuleUsage({ manifestRoot, manifest, sourceFiles }));
 
   if (protectedSurfacePaths.length) {
     const normalizedProtectedSurfacePaths = protectedSurfacePaths.map((value) => normalizePath(resolve(manifestRoot, value)));

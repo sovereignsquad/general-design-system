@@ -1,8 +1,9 @@
 import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { afterEach, describe, expect, it } from 'vitest';
-import { createAdoptionReport, createExceptionLifecycleReport, formatAdoptionReport, runComplianceCheck } from './index.js';
+import { createAdoptionReport, createExceptionLifecycleReport, formatAdoptionReport, formatReport, runComplianceCheck } from './index.js';
 
 const tempDirs = [];
 
@@ -990,5 +991,165 @@ describe('@sovereignsquad/gds-compliance strict mode', () => {
     expect(byFile('commented.tsx')).toEqual([]);
     expect(byFile('violating.tsx')).toContain('strict.raw-color');
     expect(byFile('violating.tsx')).toContain('strict.raw-control');
+  });
+});
+
+const REQUIRED_MANIFEST_FIELDS = {
+  schemaVersion: 1,
+  gdsVersion: '2.6.7',
+  productArchetype: 'admin',
+  requiredContracts: [],
+  localAdapters: [],
+  approvedExceptions: [],
+  migrationStatus: 'governed',
+  owner: 'platform-ui',
+  lastReviewedAt: '2026-05-27',
+};
+
+describe('@sovereignsquad/gds-compliance design-rule scan (issue #652)', () => {
+  it('flags an accent-classed token used as a background, with severity warn by default', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/Hero.tsx': `
+        export function Hero() {
+          return <div style={{ background: 'var(--gds-brand-accent)' }} />;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const finding = report.findings.find((f) => f.rule === 'design-rule.accent-as-background');
+
+    expect(finding).toBeDefined();
+    expect(finding.severity).toBe('warn');
+    expect(finding.file).toMatch(/Hero\.tsx:\d+/);
+    expect(finding.message).toContain('--gds-brand-accent');
+  });
+
+  it('does not flag the same token in a non-background (text color) property', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/Hero.tsx': `
+        export function Hero() {
+          return <div style={{ color: 'var(--gds-brand-accent)' }} />;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.filter((f) => f.rule === 'design-rule.accent-as-background')).toEqual([]);
+  });
+
+  it('raises severity to error when compliance.designRuleProfile.enforced is true', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        ...REQUIRED_MANIFEST_FIELDS,
+        compliance: { designRuleProfile: { enforced: true } },
+      }, null, 2),
+      'src/Hero.tsx': `
+        export function Hero() {
+          return <div style={{ background: 'var(--gds-brand-accent)' }} />;
+        }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const finding = report.findings.find((f) => f.rule === 'design-rule.accent-as-background');
+    expect(finding.severity).toBe('error');
+  });
+
+  it('flags a createBrandTheme(...) call with no designRuleProfile as an informational (warn) finding', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/theme.ts': `
+        import { createBrandTheme } from '@sovereignsquad/gds-theme';
+        export const theme = createBrandTheme('class-usa', { fonts });
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const finding = report.findings.find((f) => f.rule === 'design-rule.missing-profile');
+    expect(finding).toBeDefined();
+    expect(finding.severity).toBe('warn');
+  });
+
+  it('does not flag a createBrandTheme(...) call that already passes designRuleProfile, even across lines', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/theme.ts': `
+        import { createBrandTheme } from '@sovereignsquad/gds-theme';
+        export const theme = createBrandTheme('class-usa', {
+          fonts,
+          designRuleProfile: myProfile,
+        });
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.filter((f) => f.rule === 'design-rule.missing-profile')).toEqual([]);
+  });
+
+  it('produces no design-rule findings for a repo with no createBrandTheme calls at all', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/App.tsx': `
+        import { gdsTheme } from '@sovereignsquad/gds-theme';
+        export const theme = gdsTheme;
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    expect(report.findings.filter((f) => f.rule.startsWith('design-rule.'))).toEqual([]);
+  });
+
+  it('formatReport renders a design-rule finding (text and json) the same way as any other finding', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/Hero.tsx': `export function Hero() { return <div style={{ background: 'var(--gds-brand-accent)' }} />; }`,
+    });
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const designRuleReport = { manifest: report.manifest, findings: report.findings.filter((f) => f.rule.startsWith('design-rule.')) };
+
+    expect(formatReport(designRuleReport, 'text')).toContain('accent-as-background');
+    expect(JSON.parse(formatReport(designRuleReport, 'json')).findings[0].rule).toBe('design-rule.accent-as-background');
+  });
+});
+
+describe('gds-compliance check-design-rules CLI (issue #652)', () => {
+  const BIN = resolve(import.meta.dirname, 'bin/gds-compliance.js');
+
+  function runCli(args, cwd) {
+    try {
+      const output = execFileSync('node', [BIN, ...args], { cwd, encoding: 'utf8' });
+      return { exitCode: 0, output };
+    } catch (error) {
+      return { exitCode: error.status ?? 1, output: `${error.stdout ?? ''}${error.stderr ?? ''}` };
+    }
+  }
+
+  it('exits 0 and reports only design-rule findings when not enforced', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/Hero.tsx': `export function Hero() { return <div style={{ background: 'var(--gds-brand-accent)' }} />; }`,
+    });
+
+    const { exitCode, output } = runCli(['check-design-rules', '--manifest', './gds-adoption.json'], fixture);
+    expect(exitCode).toBe(0);
+    expect(output).toContain('design-rule.accent-as-background');
+    // Filtered view: other rule families (e.g. manifest checks) must not appear.
+    expect(output).not.toContain('manifest.missingField');
+  });
+
+  it('exits 1 when enforced and an accent-as-background finding exists', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        ...REQUIRED_MANIFEST_FIELDS,
+        compliance: { designRuleProfile: { enforced: true } },
+      }, null, 2),
+      'src/Hero.tsx': `export function Hero() { return <div style={{ background: 'var(--gds-brand-accent)' }} />; }`,
+    });
+
+    const { exitCode } = runCli(['check-design-rules', '--manifest', './gds-adoption.json'], fixture);
+    expect(exitCode).toBe(1);
   });
 });

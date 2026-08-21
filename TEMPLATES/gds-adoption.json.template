@@ -164,6 +164,9 @@
       "legacy-ui-kit"
     ],
     "strictMode": false,
+    "designRuleProfile": {
+      "enforced": false
+    },
     "approvedShellPrimitives": [
       "DiscoveryShell"
     ],

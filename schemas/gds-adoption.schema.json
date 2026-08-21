@@ -223,6 +223,16 @@
         "strictMode": {
           "type": "boolean"
         },
+        "designRuleProfile": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enforced": {
+              "type": "boolean",
+              "description": "When true, an accent-classed token (issue #644) used as a background fill (scanned by gds-compliance check-design-rules, issue #652) is reported as an error; otherwise as a warning. Defaults to false -- opt-in, not retroactive for existing adopters."
+            }
+          }
+        },
         "approvedShellPrimitives": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 },

@@ -30,8 +30,8 @@ try {
   process.exit(1);
 }
 
-if (!['check', 'validate-manifest', 'adoption-report', 'exceptions', 'expire-check'].includes(command)) {
-  console.error('Usage: gds-compliance <check|validate-manifest|adoption-report|exceptions|expire-check> --manifest ./gds-adoption.json [--format text|json|md|html] [--current-date YYYY-MM-DD]');
+if (!['check', 'validate-manifest', 'adoption-report', 'exceptions', 'expire-check', 'check-design-rules'].includes(command)) {
+  console.error('Usage: gds-compliance <check|validate-manifest|adoption-report|exceptions|expire-check|check-design-rules> --manifest ./gds-adoption.json [--format text|json|md|html] [--current-date YYYY-MM-DD]');
   process.exit(1);
 }
 
@@ -42,12 +42,22 @@ if (command === 'adoption-report') {
   output = formatAdoptionReport(createAdoptionReport(report, { currentDate }), format);
 } else if (command === 'exceptions' || command === 'expire-check') {
   output = formatExceptionLifecycleReport(createExceptionLifecycleReport(report.manifest, { currentDate }), format);
+} else if (command === 'check-design-rules') {
+  // A filtered view over the same findings runComplianceCheck already produces, exactly
+  // as adoption-report/exceptions are filtered/reshaped views, not an independent scan.
+  const designRuleFindings = report.findings.filter((finding) => finding.rule.startsWith('design-rule.'));
+  output = formatReport({ manifest: report.manifest, findings: designRuleFindings }, format);
 } else {
   output = formatReport(report, format);
 }
 
 if (output) {
   console.log(output);
+}
+
+if (command === 'check-design-rules') {
+  const designRuleErrors = report.findings.some((finding) => finding.rule.startsWith('design-rule.') && finding.severity === 'error');
+  process.exit(designRuleErrors ? 1 : 0);
 }
 
 const hasErrors = report.findings.some((finding) => finding.severity === 'error');
