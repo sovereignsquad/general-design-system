@@ -347,6 +347,29 @@ populate it per-preset are separate, sequenced work (tracking issue
 inherits the selected profile automatically through `createBrandTheme`'s own
 `designRuleProfile` parameter once it exists.
 
+### Color-proportion classification (issue #644)
+
+Every `BrandSemanticRole` (`packages/gds-theme/src/semantic-token-source.ts`) is classified
+into exactly one proportion class, shared identically across all 25 presets (role *meaning*
+is preset-independent — every preset emits the same role names, only the color values
+differ):
+
+- **`dominant`** — large-surface roles (`bg.*`, `text.*`, `border.card`, `nav.inactiveOnInverse`,
+  `control.disabled*`), meant to cover most of a rendered page and therefore stay
+  low-saturation/neutral.
+- **`secondary`** — brand-chrome roles (`brand.primary`, `brand.primaryPressed`, `support`),
+  moderate-frequency, identity-carrying.
+- **`accent`** — scarce-signal roles (`brand.accent`, `accent`, `price`, `star`, `state.*`,
+  `badge.*`, `focus.ring`), meant to be rare and attention-carrying. `focus.ring` sits here
+  rather than `secondary`: a focus outline is a thin stroke, not a fill, so its rendered area
+  is negligible regardless of occurrence frequency — the same shape as the other accent
+  roles, not the "moderate real area" shape brand-chrome has.
+
+`resolveGdsColorProportionProfile(presetId)` (`color-proportion-classification.ts`) returns
+`{ rule: '60-30-10', classification }` for every shipped preset. This is a claim about
+*intended token usage*, not measured rendered pixels — real measurement on the reference
+site is separate, sequenced work (issue #649).
+
 ## CSS VibeThemes
 
 GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.
