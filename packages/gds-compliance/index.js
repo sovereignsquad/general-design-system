@@ -1244,6 +1244,12 @@ function scanIdentityProviderBranding({ manifest, manifestRoot, sourceFiles }) {
 }
 
 const DESIGN_RULE_BACKGROUND_KEY_PATTERN = /\b(?:background|backgroundColor|background-color|bg)\s*[:=]/;
+// No `\s*` before the paren: real call syntax never has a space here in this codebase's
+// style, and allowing one matched English prose mentioning the function name before an
+// unrelated parenthetical (e.g. "...supporting createBrandTheme (GH-316).") as if it were
+// a call site -- a real false positive caught by this scan's own first live run against
+// this repository's reference site (issue #652).
+const CREATE_BRAND_THEME_CALL_PATTERN = /\bcreateBrandTheme\(/;
 
 /** True if `token` (a `--gds-*` variable name) appears in `text` at a name boundary -- not as a prefix of a longer, unrelated variable name (e.g. `--gds-brand-accent-tint`). Mirrors gds-eslint-config's no-accent-as-background rule (issue #647) -- reimplemented here, not imported, since gds-compliance ships with zero runtime dependencies and importing a devDependency-only package across the publish boundary would add one just for this helper. */
 function containsAccentToken(text, token) {
@@ -1286,8 +1292,8 @@ function scanDesignRuleUsage({ manifestRoot, manifest, sourceFiles }) {
       }
     });
 
-    if (/\bcreateBrandTheme\s*\(/.test(content) && !/\bdesignRuleProfile\b/.test(content)) {
-      const lineIndex = lines.findIndex((line) => /\bcreateBrandTheme\s*\(/.test(line));
+    if (CREATE_BRAND_THEME_CALL_PATTERN.test(content) && !/\bdesignRuleProfile\b/.test(content)) {
+      const lineIndex = lines.findIndex((line) => CREATE_BRAND_THEME_CALL_PATTERN.test(line));
       findings.push({
         rule: 'design-rule.missing-profile',
         severity: 'warn',

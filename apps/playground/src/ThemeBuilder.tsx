@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { BodyText, MeaningBadge, ReferenceSection, SemanticButton } from '@sovereignsquad/gds-core';
 import { AdminTextInput } from '@sovereignsquad/gds-admin';
-import { createBrandTheme, GdsBrandThemeError } from '@sovereignsquad/gds-theme';
+import { createBrandTheme, GdsBrandThemeError, GDS_DEFAULT_DESIGN_RULE_PROFILE } from '@sovereignsquad/gds-theme';
 
 // Browser theme builder (issue 453): input five brand ramps and the governed
 // `createBrandTheme(...)` generator returns a validated GDS token file (the
@@ -47,6 +47,9 @@ export function ThemeBuilder() {
       const { cssVariables } = createBrandTheme({
         brandColors: colors,
         fonts: { display: 'Inter', body: 'Inter' },
+        // A fully custom, user-entered brand has no preset identity to compute a
+        // design-rule profile from (issue #648) -- explicit, not merely the implicit default.
+        designRuleProfile: GDS_DEFAULT_DESIGN_RULE_PROFILE,
       });
       return { ok: true as const, css: toCssFile(cssVariables) };
     } catch (error) {
