@@ -104,6 +104,7 @@ This repository serves as the central, hardened hub for all UI, UX, and design p
 - **Templates**: `TEMPLATES/` — Starter templates for your project's theme, providers, shell, and thin wrappers.
 - **Machine-readable Contracts**: `compatibility.matrix.json`, `schemas/gds-adoption.schema.json`, and `TEMPLATES/gds-adoption.json.template` — shared compatibility, adoption, and validation contracts.
 - **Adoption Reporting**: `gds-compliance adoption-report`, `gds-compliance exceptions`, and `gds-compliance expire-check` — score consumer drift, export Markdown/HTML evidence, and fail CI when dependency-boundary exceptions expire.
+- **Design Rule Compliance**: `gds-compliance check-design-rules` — flags accent-classed tokens (issue #644) used as a background fill and `createBrandTheme(...)` calls with no `designRuleProfile` (issue #648) in a consumer's own source; informational by default, opt into `compliance.designRuleProfile.enforced: true` in `gds-adoption.json` to make an accent-as-background finding fail CI.
 - **Primary Runtime Package**: `@sovereignsquad/gds` — the public umbrella install for most consumers, re-exporting the theme, core, and admin surface families through root, `client`, and `server` entrypoints.
 - **Granular Runtime Packages**: `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin` — direct lanes for consumers that want tighter dependency boundaries or package-by-package upgrades.
 - **Tooling Packages**: `@sovereignsquad/gds-eslint-config` and `@sovereignsquad/gds-compliance` — shared lint and compliance enforcement for adopting repos.
@@ -318,6 +319,7 @@ Required repository behavior:
 - `npm run verify:forced-colors-runtime` — emulates `forced-colors: active` in a headless browser and checks governed routes for platform-backed surfaces, visible focus, and readable control states
 - `gds-compliance adoption-report --manifest ./gds-adoption.json --format md` — emits the governed adoption score and remediation summary for a consumer repository
 - `gds-compliance expire-check --manifest ./gds-adoption.json` — fails when dependency-boundary exceptions are past `removeBy` with `enforcementMode: "error"`
+- `gds-compliance check-design-rules --manifest ./gds-adoption.json` — flags accent-classed tokens used as a background fill and `createBrandTheme(...)` calls with no `designRuleProfile`; fails only when `compliance.designRuleProfile.enforced: true`
 - `npm run verify:api-docs-coverage` — validates the registry-backed public API documentation contract for shipped runtime exports
 - `npm run verify:access-gate` — validates the access-gate docs, exports, live proof registry, privacy policy, and non-rendering tests for paywall/protected-content boundaries
 - `npm run verify:i18n-route-coverage` — validates localized route declarations and route-copy implementation markers

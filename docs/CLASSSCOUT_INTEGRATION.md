@@ -95,6 +95,26 @@ still wins over the collision at render time either way, matching this doc's own
 ("governed roles always win over collisions"). Pass `designRuleProfile:
 GDS_DEFAULT_DESIGN_RULE_PROFILE` explicitly to opt out and suppress the warning entirely.
 
+**CI-side check (issue #652).** The dev-time warning above only fires locally, in a
+running app. `gds-compliance check-design-rules` is the CI-side equivalent — it scans this
+repo's own source (no app needs to run) for the same accent-as-background misuse, plus any
+`createBrandTheme(...)` call with no `designRuleProfile`:
+
+```bash
+npx gds-compliance check-design-rules --manifest ./gds-adoption.json --format text
+```
+
+```text
+GDS compliance check found 2 issue(s):
+- [warn] design-rule.accent-as-background (src/components/Hero.tsx:42): Token "--gds-brand-accent" is classified accent (issue #644) -- meant to be scarce, never a background fill.
+- [warn] design-rule.missing-profile (src/theme.ts:10): createBrandTheme(...) call has no designRuleProfile (issue #648) -- adoption-visibility signal, not a hard requirement.
+```
+
+Informational (`warn`, exit code `0`) by default. Add `compliance.designRuleProfile.enforced:
+true` to `gds-adoption.json` to make an accent-as-background finding an `error` and fail CI
+— `missing-profile` stays a `warn`-only signal either way, since it names an adoption gap,
+not a violation.
+
 ## 3.8.0 replacement surfaces
 
 Use these primitives to delete app-local ClassScout forks:
