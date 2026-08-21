@@ -41,4 +41,8 @@ export const INTERNAL_EXPORTS = new Set([
   'contrastRatio',
   'ensureContrast',
   'readableForeground',
+  'rgbToHsl',
+  'hueAngleDistance',
+  // Test-only escape hatch (issue #646): not part of the public API, no barrel export.
+  '__internal',
 ]);
