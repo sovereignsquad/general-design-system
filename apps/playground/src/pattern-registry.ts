@@ -586,6 +586,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'GdsAccentContrastMatrix',
   },
   {
+    id: 'design-rule-profile-panel',
+    title: 'Design Rule Profile Panel',
+    docSection: 'Core Component Contracts',
+    family: 'public',
+    section: 'Public Shells & Docs',
+    summary: 'Live declared-vs-measured color-proportion donuts plus type-scale and color-harmony badges for the selected theme preset.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsDesignRuleProfilePanel',
+  },
+  {
     id: 'reference-site-shell',
     title: 'Reference Site Shell',
     docSection: 'Core Component Contracts',

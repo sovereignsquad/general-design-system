@@ -988,6 +988,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Catalog component (GdsDesignHandoff) — design-handoff index, not a catalog pattern."
   },
   {
+    "name": "GdsDesignRuleProfilePanel",
+    "status": "registered",
+    "home": {
+      "id": "design-rule-profile-panel",
+      "family": "public",
+      "section": "Public Shells & Docs"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsDialog",
     "status": "registered",
     "home": {

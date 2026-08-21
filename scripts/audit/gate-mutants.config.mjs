@@ -427,6 +427,20 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:design-rule-coverage-module',
+    script: null,
+    mutants: [
+      {
+        id: 'design-rule-coverage-module-detects-stale-committed-copy',
+        claim: 'Detects the committed gds-core coverage module drifting from audit/design-rule-coverage.json',
+        file: 'packages/gds-core/src/generated-design-rule-coverage.ts',
+        find: "'default': { dominant:",
+        replace: "'default_MUTANT': { dominant:",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:i18n-leakage',
     script: null,
     mutants: [

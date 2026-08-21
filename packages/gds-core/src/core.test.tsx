@@ -3197,6 +3197,17 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect([...activeMarkers].some((element) => element.textContent?.includes('Default runtime theme'))).toBe(true);
   });
 
+  it('mounts the design rule profile panel and updates it on preset switch (issue #651)', async () => {
+    const user = userEvent.setup();
+    const { container } = renderWithGds(<ReferenceThemeExplorer />);
+
+    expect(container.querySelector('[data-gds-design-rule-profile-panel]')).toBeInTheDocument();
+    expect(screen.getAllByText(/default: declared role classification/).length).toBeGreaterThan(0);
+
+    await user.selectOptions(screen.getByLabelText('Preset'), 'editorial');
+    expect(screen.getAllByText(/editorial: declared role classification/).length).toBeGreaterThan(0);
+  });
+
   it('does not fall back to English reference theme explorer copy for non-English locales', () => {
     renderWithGds(<ReferenceThemeExplorer />, { locale: 'ru' });
 

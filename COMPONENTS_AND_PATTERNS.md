@@ -135,6 +135,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **GDS Chart Contract** | Chart-heavy surfaces should use `GdsChart` typed lanes (`line`, `area`, `bar`, `stacked-bar`, `pie`, `donut`, `radar`, `scatter`, `bubble`, `heatmap`, `funnel`, `treemap`, `candlestick`, `sankey`) with package-owned Set A / Set B / Set C registries, validation, rendering-budget guardrails, adapter hook, fallback tables, and state wrappers. | `lg` |
 | **Block Layout Schema** | Page assembly should use `renderGdsLayout`, `validateGdsLayout`, `renderGdsLayoutWithDiagnostics`, `getGdsLayoutTemplates`, `getGdsLayoutTemplate`, `GdsLayoutTemplatePreview`, and schema-driven blocks for repeatable developer composition. Default governed blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`; product-authored blocks must enter through `registerGdsBlock`. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
+| **Design Rule Profile Panel** | `GdsDesignRuleProfilePanel` renders a preset's declared color-proportion classification (`GdsChart` donut) beside its measured rendered reality, plus type-scale and color-harmony badges — every number read live from the real resolvers/generated artifact, never hardcoded. Wired into the Theme Lab (`/themes`) via `ReferenceThemeExplorer`. | `md` |
 
 ## 4. Feedback & Messaging
 

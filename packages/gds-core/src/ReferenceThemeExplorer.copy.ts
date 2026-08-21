@@ -47,6 +47,8 @@ const referenceThemeExplorerCopy = {
     prohibitedOwnership: 'Prohibited ownership',
     accentContrastTitle: 'Accent contrast',
     accentContrastDescription: 'Every accent, shade and mode measured against its threshold for the selected preset and scheme.',
+    designRuleProfileTitle: 'Design rule profile',
+    designRuleProfileDescription: 'The selected preset’s declared color-proportion classification, measured rendered reality, type-scale ratio, and color-harmony classification.',
     previewBestFor: 'Best for:',
     previewColorScheme: 'Color scheme:',
     previewA11yProof: 'Accessibility proof:',
