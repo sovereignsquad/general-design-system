@@ -411,6 +411,37 @@ token, not a scarcity violation.
 This is source-level enforcement only; it has no visibility into rendered pixel area on a
 page. That measurement is separate, sequenced work (issue #649/#650).
 
+### Rendered color-proportion sampling (issue #649)
+
+Every measurement above is a claim about *intended* token usage. `npm run
+audit:design-rule-coverage` (`scripts/audit/design-rule-coverage.mjs`) is the one
+measurement in this milestone that checks the reference site's actual rendered pixels: for
+every shipped preset × light/dark scheme, across a fixed four-route sample (`/`,
+`/patterns/public`, `/components`, `/themes`), it captures every visible element's
+rendered background-color area via a headless-Chrome CDP session (reusing
+`scripts/lib/browser-runtime.mjs`'s `launchBrowser`/`createCdpClient` — no second
+browser-launch mechanism), classifies each resolved color against issue #644's
+`dominant`/`secondary`/`accent` role split, and area-weights the result into
+`audit/design-rule-coverage.json`.
+
+**Scope**: `apps/playground` only — GDS cannot see a consumer's rendered app. **Excluded
+from measurement entirely** (not counted as `unclassified`, excluded from the denominator
+too): invisible elements, zero-area elements, fully transparent backgrounds, and any
+element painted via `background-image` (gradients, images, SVG fills — a solid
+`background-color` capture cannot see these). **Known limitations**, stated in the
+artifact's own `methodology` field: overlapping elements are summed independently (no
+per-pixel topmost-layer resolution); no overflow-hidden clip-region intersection (a
+clipped element counts at its full box area); a meaningful share of rendered area comes
+from the separate `--gds-vibe-*` atmosphere variables (glow/gradient/swatch/hero),
+deliberately outside #644's `BrandSemanticRole` classification scope, which lands in
+`unclassified` without representing a 60-30-10 violation; and accent-classed tokens paint
+small, scarce surfaces by design, so a 4-route sample will not catch every instance.
+
+This produces a real artifact, not a hard CI gate — a new, unproven measurement mechanism
+becoming an immediate blocking check is deliberately deferred to issue #650. No simulated
+or estimated number may substitute for this issue's real measurement anywhere it is shown
+(issue #651's Theme Lab panel included).
+
 ## CSS VibeThemes
 
 GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.
