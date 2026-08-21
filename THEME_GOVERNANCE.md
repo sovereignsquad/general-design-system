@@ -324,6 +324,29 @@ document must call `resolveGdsTypographyTokens()` itself and merge the result. W
 given brand lane (e.g. `class-usa`) *should* populate a tracking scale by default is a
 brand-design decision left to that theme, not a system default every lane must set.
 
+## Design rule profiles (issue #643, milestone: Design Rule Profiles)
+
+`GdsThemeAxes` gains an eighth, optional axis: `designRuleProfile?: GdsDesignRuleProfile`
+(`packages/gds-theme/src/axes.ts`), letting a theme declare which established design-quality
+rules it follows — a color-proportion rule (`'60-30-10' | 'none'`), a named color-harmony
+classification, a named modular type-scale ratio, and a WCAG contrast target
+(`'AA' | 'AAA'`). The axis is additive and optional; `GDS_DEFAULT_DESIGN_RULE_PROFILE`
+asserts no proportion claim, `custom` harmony, a `1.25` (Major Third) type scale, and `AA`
+contrast — a profile every existing theme already satisfies with zero behavior change.
+
+`validateGdsDesignRuleProfile(profile, themeId)` follows this file's own `axes.ts` established
+pattern exactly: it throws a single `GdsAxisError` on the *first* violation found, matching
+`validateGdsShapeAxis`/`validateGdsDensityAxis` — it does not accumulate every violation into
+one report (that is `GdsBrandThemeError`'s distinct, separate pattern in `brand-tokens.ts`).
+
+As of this section, no shipped preset declares a non-default `designRuleProfile` yet — the
+color-proportion classification, type-scale naming, and color-harmony classification that
+populate it per-preset are separate, sequenced work (tracking issue
+[#654](https://github.com/sovereignsquad/general-design-system/issues/654)). The Theme Lab
+(`/themes`) will surface the resolved profile per preset once that work lands; a consumer
+inherits the selected profile automatically through `createBrandTheme`'s own
+`designRuleProfile` parameter once it exists.
+
 ## CSS VibeThemes
 
 GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.

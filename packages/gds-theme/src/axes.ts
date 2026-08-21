@@ -148,6 +148,7 @@ export interface GdsThemeAxes {
   motion?: GdsMotionAxis;
   reaction?: GdsReactionAxis;
   accent?: GdsAccentAxis;
+  designRuleProfile?: GdsDesignRuleProfile;
 }
 
 /** Emitted shape tokens: one per step, one per role. */
@@ -745,4 +746,97 @@ export function resolveGdsAxisTokens(
  */
 export function gdsRadius(role: GdsRadiusRole | GdsRadiusStep): string {
   return `var(--gds-radius-${role})`;
+}
+
+// ── Design rule profile (issue #643) ──────────────────────────────────────
+
+/** A theme's color-proportion rule. `'none'` is a truthful default: no proportion claim made. */
+export type GdsColorProportionRule = '60-30-10' | 'none';
+
+/** Named hue-relationship classification a theme's brand/accent ramps are built on. */
+export type GdsColorHarmony = 'complementary' | 'analogous' | 'triadic' | 'split-complementary' | 'monochromatic' | 'custom';
+
+/** Named modular type-scale ratios (musical-interval-derived): Minor Second through the Golden Ratio. */
+export type GdsTypeScaleRatio = 1.125 | 1.2 | 1.25 | 1.333 | 1.5 | 1.618;
+
+/** Which WCAG conformance level a theme's contrast pairs are declared to target. */
+export type GdsContrastTarget = 'AA' | 'AAA';
+
+/**
+ * Which semantic token roles (the role-name strings `emitCssVariables`/`resolveGdsAccentTokens`
+ * emit, e.g. `'bg.page'`, `'brand.accent'`) a theme classifies into each proportion class. A
+ * role belongs to exactly one class — the three arrays are a partition, not overlapping tags.
+ */
+export interface GdsColorProportionClassification {
+  dominant: string[];
+  secondary: string[];
+  accent: string[];
+}
+
+/** A theme's declared design-quality claims: color proportion, color harmony, type scale, contrast target. */
+export interface GdsDesignRuleProfile {
+  colorProportion: {
+    rule: GdsColorProportionRule;
+    classification: GdsColorProportionClassification;
+  };
+  colorHarmony: GdsColorHarmony;
+  typeScale: {
+    ratio: GdsTypeScaleRatio;
+  };
+  contrastTarget: GdsContrastTarget;
+}
+
+/** The default design rule profile: no proportion claim, no harmony claim, Major Second type scale, WCAG AA. */
+export const GDS_DEFAULT_DESIGN_RULE_PROFILE: GdsDesignRuleProfile = {
+  colorProportion: { rule: 'none', classification: { dominant: [], secondary: [], accent: [] } },
+  colorHarmony: 'custom',
+  typeScale: { ratio: 1.25 },
+  contrastTarget: 'AA',
+};
+
+const GDS_COLOR_PROPORTION_RULES: GdsColorProportionRule[] = ['60-30-10', 'none'];
+const GDS_COLOR_HARMONIES: GdsColorHarmony[] = ['complementary', 'analogous', 'triadic', 'split-complementary', 'monochromatic', 'custom'];
+const GDS_TYPE_SCALE_RATIOS: GdsTypeScaleRatio[] = [1.125, 1.2, 1.25, 1.333, 1.5, 1.618];
+const GDS_CONTRAST_TARGETS: GdsContrastTarget[] = ['AA', 'AAA'];
+
+/**
+ * Validates a design rule profile at theme-construction time, not render time: an invalid
+ * value fails the build with the offending field, instead of shipping as a silently wrong
+ * claim. Throws on the first violation found, matching every sibling `validateGds*Axis`.
+ */
+export function validateGdsDesignRuleProfile(profile: GdsDesignRuleProfile, themeId = 'theme'): void {
+  if (!GDS_COLOR_PROPORTION_RULES.includes(profile.colorProportion.rule)) {
+    throw new GdsAxisError(`${themeId}: colorProportion.rule "${profile.colorProportion.rule}" is not one of ${GDS_COLOR_PROPORTION_RULES.join(', ')}.`);
+  }
+  if (!GDS_COLOR_HARMONIES.includes(profile.colorHarmony)) {
+    throw new GdsAxisError(`${themeId}: colorHarmony "${profile.colorHarmony}" is not one of ${GDS_COLOR_HARMONIES.join(', ')}.`);
+  }
+  if (!GDS_TYPE_SCALE_RATIOS.includes(profile.typeScale.ratio)) {
+    throw new GdsAxisError(`${themeId}: typeScale.ratio ${profile.typeScale.ratio} is not one of ${GDS_TYPE_SCALE_RATIOS.join(', ')}.`);
+  }
+  if (!GDS_CONTRAST_TARGETS.includes(profile.contrastTarget)) {
+    throw new GdsAxisError(`${themeId}: contrastTarget "${profile.contrastTarget}" is not one of ${GDS_CONTRAST_TARGETS.join(', ')}.`);
+  }
+
+  // A rule of 'none' asserting a non-empty classification is a contradiction: it claims no
+  // proportion rule while still stating role assignments. Either state the rule or leave the
+  // classification empty — not both.
+  const { rule, classification } = profile.colorProportion;
+  const classifiedCount = classification.dominant.length + classification.secondary.length + classification.accent.length;
+  if (rule === 'none' && classifiedCount > 0) {
+    throw new GdsAxisError(`${themeId}: colorProportion.rule is "none" but classification lists ${classifiedCount} role(s) — either declare a rule or clear the classification.`);
+  }
+
+  // A role must not appear in more than one class — 60/30/10 is a partition, not an
+  // overlapping tag set. Downstream percentage math assumes this invariant.
+  const seen = new Map<string, keyof GdsColorProportionClassification>();
+  for (const cls of ['dominant', 'secondary', 'accent'] as const) {
+    for (const role of classification[cls]) {
+      const existing = seen.get(role);
+      if (existing && existing !== cls) {
+        throw new GdsAxisError(`${themeId}: role "${role}" is classified as both "${existing}" and "${cls}" — a role may belong to exactly one proportion class.`);
+      }
+      seen.set(role, cls);
+    }
+  }
 }

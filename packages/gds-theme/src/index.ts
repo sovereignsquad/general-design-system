@@ -27,6 +27,10 @@ export type { GdsTypographyAxis, GdsElevationAxis, GdsTextSizeStep, GdsWeightNam
 export { gdsSpace, resolveGdsDensityTokens, resolveGdsShellHeightTokens, GDS_SHELL_HEIGHTS, validateGdsDensityAxis, GDS_DEFAULT_DENSITY_AXIS, GDS_SPACE_STEPS, GDS_CONTROL_SIZES, GDS_MIN_TARGET_PX, GDS_CONTROL_HEIGHT_EXCEPTIONS } from './axes';
 export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResolvedShapeTokens } from './axes';
 export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
+
+// ── Design rule profile (issue #643) ──
+export { validateGdsDesignRuleProfile, GDS_DEFAULT_DESIGN_RULE_PROFILE } from './axes';
+export type { GdsDesignRuleProfile, GdsColorProportionRule, GdsColorProportionClassification, GdsColorHarmony, GdsTypeScaleRatio, GdsContrastTarget } from './axes';
 export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, deriveVibeSemanticCssVariables } from './vibe-themes';
 export type { GdsVibeTheme } from './vibe-themes';
 export { VibeThemePicker } from './VibeThemePicker.client';
