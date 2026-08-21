@@ -72,6 +72,7 @@ export default function App() {
 - Agent usage guide: docs/AI_AGENT_GUIDE.md
 - Guided onboarding tour: docs/GUIDED_TOUR.md
 - Badge system (GdsBadge, GdsCountBadge, GdsRemovableTag, GdsIconBadge, GdsRatingDisplay, shapes, stack): docs/BADGE_SYSTEM.md
+- Design rule profiles (60-30-10 color proportion, type-scale ratios, color harmony, enforcement, measurement, Theme Lab panel): docs/DESIGN_RULE_PROFILES.md
 - Foundation & rules: FOUNDATION.md
 - Components & patterns: COMPONENTS_AND_PATTERNS.md
 - Installation: INSTALLATION_GUIDE.md
