@@ -162,6 +162,39 @@ export function ensureContrast(
   return color;
 }
 
+/** A color's hue (degrees, `[0, 360)`), saturation and lightness (percent, `[0, 100]`). */
+export interface HslColor {
+  h: number;
+  s: number;
+  l: number;
+}
+
+/** Converts an opaque `RgbColor` to HSL (issue #646). */
+export function rgbToHsl({ r, g, b }: RgbColor): HslColor {
+  const rN = r / 255;
+  const gN = g / 255;
+  const bN = b / 255;
+  const max = Math.max(rN, gN, bN);
+  const min = Math.min(rN, gN, bN);
+  const l = (max + min) / 2;
+  if (max === min) {
+    return { h: 0, s: 0, l: l * 100 };
+  }
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h: number;
+  if (max === rN) h = ((gN - bN) / d + (gN < bN ? 6 : 0)) * 60;
+  else if (max === gN) h = ((bN - rN) / d + 2) * 60;
+  else h = ((rN - gN) / d + 4) * 60;
+  return { h, s: s * 100, l: l * 100 };
+}
+
+/** Shortest angular distance between two hues (degrees), `[0, 180]` (issue #646). */
+export function hueAngleDistance(h1: number, h2: number): number {
+  const diff = Math.abs(h1 - h2) % 360;
+  return diff > 180 ? 360 - diff : diff;
+}
+
 /**
  * Picks a readable foreground for `background` by trying white first, then black,
  * then falling back to whichever reached the higher ratio. Used for roles that sit on

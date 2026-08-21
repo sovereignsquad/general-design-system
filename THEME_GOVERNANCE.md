@@ -380,6 +380,21 @@ non-uniform overrides, not on the modular scale. See "Raw token scale vs.
 Mantine-rendered scale" (issue #642) for why those steps diverge — this section does not
 repeat that explanation.
 
+### Color harmony (issue #646)
+
+`resolveGdsColorHarmonyProfile(presetId)` (`color-harmony-classification.ts`) computes —
+never hand-assigns — each preset's `colorHarmony` classification from its actual
+`primary`/`accent` hex values (`vibe-themes.ts`). The two colors are converted to HSL and
+the hue-angle distance between them is bucketed against five named angles, each with a
+15° tolerance: monochromatic (0°), analogous (30°), triadic (120°), split-complementary
+(150°), complementary (180°). A pair that falls outside every band, or where either color
+reads as near-gray (saturation below 10, no meaningful hue to relate), classifies as
+`custom`.
+
+This measures only the primary/accent hue relationship, not a full-palette analysis —
+state, support, and badge colors are out of scope. It is independent of WCAG contrast:
+a theme's contrast obligations are unaffected by whether its hues form a named harmony.
+
 ## CSS VibeThemes
 
 GDS must provide expressive color lanes for real products. Light mode and dark mode are scheme choices, not the full theme offering. A VibeTheme is a package-owned visual contract that combines a Mantine theme preset with CSS variables for canvas, shell, surface, border, text, muted text, primary, accent, glow, gradient, and hero treatments.

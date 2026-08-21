@@ -33,6 +33,7 @@ export { validateGdsDesignRuleProfile, GDS_DEFAULT_DESIGN_RULE_PROFILE } from '.
 export type { GdsDesignRuleProfile, GdsColorProportionRule, GdsColorProportionClassification, GdsColorHarmony, GdsTypeScaleRatio, GdsContrastTarget } from './axes';
 export { DOMINANT_ROLES, SECONDARY_ROLES, ACCENT_ROLES, colorProportionClassificationByPreset, resolveGdsColorProportionProfile } from './color-proportion-classification';
 export { resolveGdsTypeScaleProfile, NAMED_TYPE_SCALE_RATIO_LABELS } from './type-scale-profile';
+export { resolveGdsColorHarmonyProfile } from './color-harmony-classification';
 export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, deriveVibeSemanticCssVariables } from './vibe-themes';
 export type { GdsVibeTheme } from './vibe-themes';
 export { VibeThemePicker } from './VibeThemePicker.client';
