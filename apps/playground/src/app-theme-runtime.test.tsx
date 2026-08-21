@@ -13,6 +13,9 @@ describe('playground app runtime theme flow', () => {
     document.documentElement.style.removeProperty('--gds-vibe-accent');
   });
 
+  // /themes grew heavier this cycle (the design rule profile panel, issue #651): this full
+  // mount + multi-step transition flow outgrew the 15s default under whole-suite contention,
+  // the same class of margin the sibling test below already needed bumping for.
   it('applies dark -> light -> dark transitions on the live /themes route without resetting preset', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');
 
@@ -44,7 +47,7 @@ describe('playground app runtime theme flow', () => {
     );
 
     expect((presetSelect as HTMLSelectElement).value).toBe('brand');
-  });
+  }, 30000);
 
   // The suite grew this cycle (motion reference, index page, consolidated foundations);
   // this full-app flow outgrew the 15s default under whole-suite contention.
