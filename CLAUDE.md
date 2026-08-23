@@ -283,3 +283,17 @@ that way. Never add a comment describing this removal.
 Excluded: legally required notices, third-party license/copyright text, externally required
 attribution, protocol/standards references, and technically meaningful AI references where AI
 is genuinely part of the product.
+
+## Portable lesson: a framework silently picking one of two ambiguous configs is a real failure mode
+
+A production outage in a sibling project (the `management` engine repo, built on Next.js, 2026-08-20)
+came from two files that, by the framework's own routing rules, resolved to the identical URL. The
+framework did not error at build time — it silently picked one and discarded the other, with no warning
+anywhere, and the discarded one became completely unreachable. The bug was invisible until a real user
+hit it in production; every prior check had only ever exercised the winning path.
+
+The general lesson, applicable beyond Next.js: when a framework or tool allows two pieces of config to
+plausibly resolve to the same identity (a route, a key, a slot, a registration), do not assume it will
+error on the collision — verify it does, or add an explicit check that greps/validates for duplicates
+before deploy. "The build succeeded" is not evidence of no collision unless the build step actually checks
+for one.
