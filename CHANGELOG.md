@@ -2,6 +2,16 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased
+
+### Test suite determinism (#641)
+
+`vitest.config.ts` caps `maxWorkers` at 4. Every test file boots a full jsdom + React +
+Mantine tree, so a worker costs memory rather than CPU, and one worker per core oversubscribes:
+on a 10-core/16GB machine the default measured 121s wall / 551s test time with 8 timeout
+failures, against 39s / 58s and no failures at 4. Five consecutive full-suite runs at load
+average 9.91 pass 856/856. No retry mechanism was introduced.
+
 ## 6.4.0 - 2026-08-21 — Design Rule Profiles: computed 60-30-10, type-scale, and color-harmony as a gated theme axis (#643-#653)
 
 A new, optional eighth theme axis lets a theme declare which established design-quality

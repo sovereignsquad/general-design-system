@@ -24,6 +24,11 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     css: false,
     testTimeout: 15000,
+    // Every file boots a full jsdom + React + Mantine tree, so a worker costs memory rather
+    // than CPU. One worker per core oversubscribes: on a 10-core/16GB machine the default
+    // measured 121s wall / 551s test time with 8 timeout failures, against 39s / 58s and no
+    // failures at 4. Raise only with a measurement on the machine class that has to hold it.
+    maxWorkers: 4,
     include: [
       // Issue 582. Verification scripts carry real branching — the budget report's
       // direction rule inverts for `min` budgets, and getting it backwards would tell a
