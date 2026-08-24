@@ -441,7 +441,7 @@ export interface KanbanBoardProps<
   /** Minimum column width in multi-column layout. Defaults to `'17.5rem'` (scales with root font size). */
   columnWidth?: number | string;
   /**
-   * Wheel-gesture routing over the multi-column horizontal scroll area (issue #464).
+   * Wheel-gesture routing over the multi-column horizontal scroll area (issue 464).
    * Defaults to `'none'`: no interception — a wheel/trackpad gesture behaves natively
    * (a vertical gesture chains to the page), fully backward compatible.
    *

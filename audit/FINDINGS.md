@@ -99,7 +99,7 @@ emitter and keep the static block. Not both.
 
 `styles.css` declares the motion scale at `:113–121`:
 
-```
+```css
 --gds-motion-duration-instant: 0ms;
 --gds-motion-duration-fast:   120ms;
 --gds-motion-duration-base:   180ms;
@@ -249,7 +249,7 @@ Untraceable values by property, across all 40 cells:
 
 Untraceable observations per cell are almost identical across every theme:
 
-```
+```text
 default/light      4,758      class-usa/light    4,590
 dark-public/light  4,758      class-usa/dark     4,512
 dark-public/dark   4,738      gold-athlete/dark  4,512
@@ -355,7 +355,7 @@ smaller thing wearing the system's name.
 Declared, but referenced by no shipped CSS rule or component style, so nothing
 can ever render them:
 
-```
+```text
 --gds-vibe-warning            --gds-badge-attention       --gds-bg-canvas
 --gds-vibe-success            --gds-badge-validation      --gds-bg-page
 --gds-vibe-hero               --gds-badge-info            --gds-brand-primary-pressed

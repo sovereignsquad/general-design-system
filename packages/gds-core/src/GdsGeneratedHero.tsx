@@ -10,7 +10,7 @@ import {
 import type { GdsGeneratedPaletteColors, GdsGeneratedPaletteSource } from './generated-art-engine';
 
 /**
- * GdsGeneratedHero (epic #503, issue #506): a deterministic, zero-network
+ * GdsGeneratedHero (epic #503, issue 506): a deterministic, zero-network
  * generated backdrop for a page/section hero — a background (one of four
  * pluggable strategies) plus a seeded scatter of up to 6 category badges at
  * a fixed size ladder. This is the backdrop only, not a full hero-with-copy

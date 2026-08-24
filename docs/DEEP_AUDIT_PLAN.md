@@ -89,7 +89,7 @@ resolves it. None may be reported as a defect before that phase produces evidenc
 
 ## 3. State space
 
-```
+```text
 25 themes × 2 schemes × 110 patterns                    =   5,500 cells
         × ~6 interaction states                          =  33,000
         × 8 locales (incl. 2 RTL)                        = 264,000
@@ -308,7 +308,7 @@ report.
 
 ### 3.1.2 Factor weights
 
-```
+```text
 w(level) = max(0.5, incidence(level) / mean_incidence)
 ```
 

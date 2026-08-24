@@ -1,7 +1,7 @@
 /**
  * Dedicated subpath entry for `ReferenceThemeExplorer` (`@sovereignsquad/gds-core/reference-theme-explorer`).
  *
- * Moved out of the main `.`/`./client` barrel (issue #532): it's the single
+ * Moved out of the main `.`/`./client` barrel (issue 532): it's the single
  * largest module in gds-core's client bundle (`ReferenceThemeExplorer.tsx` +
  * `ReferenceThemeExplorer.copy.ts`, ~112.7 KB combined — bigger than the
  * `GdsRichTextEditor` subtree that first established this pattern), and every

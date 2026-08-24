@@ -1,6 +1,6 @@
 # Design-To-Code Handoff
 
-Status: package-native handoff contract  
+Status: package-native handoff contract
 Package: `@sovereignsquad/gds-core`  
 Issue: `#253`
 

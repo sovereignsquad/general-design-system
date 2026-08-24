@@ -1,8 +1,8 @@
 # Narimato GDS Adoption
 
-Status: Active — npm consumer reference  
-Version: 2.6.2  
-Last updated: 2026-05-27  
+Status: Active — npm consumer reference
+Version: 2.6.2
+Last updated: 2026-05-27
 Project: `/Users/Shared/Projects/narimato`
 
 ## Objective

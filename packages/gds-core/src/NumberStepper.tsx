@@ -3,7 +3,7 @@ import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { GdsIcons } from './icons';
 
 /**
- * NumberStepper (gap B9 / issue #324).
+ * NumberStepper (gap B9 / issue 324).
  *
  * Accessible bounded -/value/+ quantity control composed from GDS primitives.
  * Enforces min/max/step with clamp + snap, supports keyboard (Arrow/Home/End),

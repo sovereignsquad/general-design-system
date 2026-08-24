@@ -3,7 +3,7 @@ import type { GdsVibeTheme } from '@sovereignsquad/gds-theme';
 
 // Owned-contrast roles are the intentional *vibe swatch* surfaces that preview a
 // specific theme atmosphere rather than matching the surrounding page. The
-// retired `theme-lab-controls` role (issue #461) forced the Theme Lab's primary
+// retired `theme-lab-controls` role (issue 461) forced the Theme Lab's primary
 // control/result cards onto a dark `surfaceDark` surface, which painted dark
 // boxes on a light page; those cards now re-theme globally like any `.gds-paper`.
 /**

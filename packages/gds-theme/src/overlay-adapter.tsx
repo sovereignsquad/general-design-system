@@ -3,7 +3,7 @@
 import React, { createContext, useContext } from 'react';
 
 /**
- * Overlay adapter seam (issue #349).
+ * Overlay adapter seam (issue 349).
  *
  * Overlays (menus, selects, popovers, hovercards, tooltips) are GDS's
  * highest-risk, most vendor-coupled primitive. This seam isolates the overlay
@@ -51,7 +51,7 @@ export interface GdsOverlayConfig {
  * The adapter is the single overlay-engine touchpoint. `surfaceProps` are the
  * DOM props a GDS overlay component spreads onto its dropdown/surface element —
  * notably `data-gds-overlay-surface`, which the GDS stylesheet paints opaque
- * (issue #342). Swapping the adapter changes overlay behavior engine-wide with
+ * (issue 342). Swapping the adapter changes overlay behavior engine-wide with
  * no consumer change.
  */
 export interface OverlayAdapter {

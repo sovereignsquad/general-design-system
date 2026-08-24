@@ -1,8 +1,8 @@
 # Narimato GDS Audit
 
-Status: Active reference-consumer audit  
-Version: 2.6.2  
-Last updated: 2026-05-27  
+Status: Active reference-consumer audit
+Version: 2.6.2
+Last updated: 2026-05-27
 Reference consumer: `/Users/Shared/Projects/narimato`
 
 ## Purpose

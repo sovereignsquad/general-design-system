@@ -13,7 +13,7 @@ describe('playground app runtime theme flow', () => {
     document.documentElement.style.removeProperty('--gds-vibe-accent');
   });
 
-  // /themes grew heavier this cycle (the design rule profile panel, issue #651): this full
+  // /themes grew heavier this cycle (the design rule profile panel, issue 651): this full
   // mount + multi-step transition flow outgrew the 15s default under whole-suite contention,
   // the same class of margin the sibling test below already needed bumping for.
   it('applies dark -> light -> dark transitions on the live /themes route without resetting preset', async () => {
@@ -96,7 +96,7 @@ describe('playground app runtime theme flow', () => {
     expect((comparisonPresetSelect as HTMLSelectElement).value).toBe('dark-public');
   }, 30000);
 
-  // /themes grew heavier this cycle (the design rule profile panel, issue #651) -- same
+  // /themes grew heavier this cycle (the design rule profile panel, issue 651) -- same
   // margin issue as the two tests above.
   it('keeps formerly dark-forward presets responsive to the requested app runtime scheme', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');
@@ -135,7 +135,7 @@ describe('playground app runtime theme flow', () => {
     expect((presetSelect as HTMLSelectElement).value).toBe('cosmic');
   }, 30000);
 
-  // /themes grew heavier this cycle (the design rule profile panel, issue #651) -- same
+  // /themes grew heavier this cycle (the design rule profile panel, issue 651) -- same
   // margin issue as the tests above.
   it('persists selected theme and font lane across direct route loads', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');

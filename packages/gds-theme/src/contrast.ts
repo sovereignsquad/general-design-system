@@ -1,5 +1,5 @@
 /**
- * Consumer WCAG contrast checker (issue #453).
+ * Consumer WCAG contrast checker (issue 453).
  *
  * Surfaces the same WCAG 2.x contrast math GDS uses in CI
  * (`verify:token-contrast-scoring`) as a small, pure, server-safe API so a

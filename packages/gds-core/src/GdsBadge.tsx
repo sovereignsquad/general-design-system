@@ -10,7 +10,7 @@ import type { GdsBadgeShapeName } from './badge-shapes';
 import { GdsBadgeStack, GdsBadgeStackLayer } from './GdsBadgeStack';
 
 /**
- * GdsBadge (issue #489, part of epic #484): the unified, always-theme-aware
+ * GdsBadge (issue 489, part of epic #484): the unified, always-theme-aware
  * static status/meaning label. Never interactive — removable tokens are
  * `GdsRemovableTag`'s job, counts are `GdsCountBadge`'s.
  *
@@ -139,7 +139,7 @@ interface GdsBadgeBaseProps extends Omit<BadgeProps, 'color' | 'children' | 'var
   shape?: GdsBadgeShapeName;
   /**
    * Emoji glyph rendered instead of `icon` when the effective badge glyph
-   * mode is `'emoji'` (issue #525) — see `iconStyle` and `GdsProvider`'s
+   * mode is `'emoji'` (issue 525) — see `iconStyle` and `GdsProvider`'s
    * `defaultBadgeIconStyle`. Optional: a badge with no `emoji` simply keeps
    * rendering its Tabler `icon` even in emoji mode — that fallback is the
    * point, not a gap to close. Renders on a fixed neutral disc (never
@@ -153,7 +153,7 @@ interface GdsBadgeBaseProps extends Omit<BadgeProps, 'color' | 'children' | 'var
    */
   emoji?: string;
   /**
-   * Per-instance override for the ambient badge glyph mode (issue #525).
+   * Per-instance override for the ambient badge glyph mode (issue 525).
    * Defaults to whatever `GdsProvider`'s `defaultBadgeIconStyle` resolves
    * to (itself defaulting to `'tabler'`, today's only behavior). Rarely
    * needed — most consumers set the mode once on `GdsProvider` and let
@@ -163,7 +163,7 @@ interface GdsBadgeBaseProps extends Omit<BadgeProps, 'color' | 'children' | 'var
 }
 
 /**
- * Emoji badge glyph (issue #525): centered on a fixed dark-neutral disc,
+ * Emoji badge glyph (issue 525): centered on a fixed dark-neutral disc,
  * never directly on the badge's own accent/tone background. The disc uses
  * the same fixed neutral-dark value `toneColors.neutral` already uses for
  * its own foreground below (`var(--mantine-color-dark-7, #1f2937)`) — not a
@@ -232,7 +232,7 @@ export function GdsBadge(props: GdsBadgeProps) {
     ? { bg: accentToken(accent), fg: `var(--gds-accent-${accent}-on, #ffffff)` }
     : toneColors[tone ?? 'neutral'];
 
-  // The failsafe (issue #525): a badge with no `emoji` keeps its Tabler
+  // The failsafe (issue 525): a badge with no `emoji` keeps its Tabler
   // icon even when the ambient/overridden mode is `'emoji'` — this is the
   // one branch that decides emoji-vs-Tabler for the whole component.
   const useEmoji = resolvedIconStyle === 'emoji' && Boolean(emoji);

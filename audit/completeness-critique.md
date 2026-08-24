@@ -64,7 +64,7 @@ Phase 1 is validated: both render mutants are killed, 2/2 = 100%.
 M1 is the one that matters. Planting the *default* theme's `--gds-support` value as a
 literal produced:
 
-```
+```text
 default/light         +0     planted value matched default's token -> classified `token`
 class-usa/light      +51
 gold-athlete/light   +45     same literal, no matching token -> classified `literal`

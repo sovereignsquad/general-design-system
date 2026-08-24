@@ -2,7 +2,7 @@ import { createReactComponent } from '@tabler/icons-react';
 import type { IconNode } from '@tabler/icons-react';
 
 /**
- * Badge shape vocabulary (issue #487, part of epic #484).
+ * Badge shape vocabulary (issue 487, part of epic #484).
  *
  * Six badge silhouettes authored with Tabler's public `createReactComponent`
  * from Tabler's own `iconNode` path data — the geometry is imported, never

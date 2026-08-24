@@ -1,6 +1,6 @@
 # I18n Runtime
 
-Status: package-native runtime contract  
+Status: package-native runtime contract
 Packages: `@sovereignsquad/gds-core`, `@sovereignsquad/gds-theme`  
 Issue: `#264`
 

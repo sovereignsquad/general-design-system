@@ -748,7 +748,7 @@ export function gdsRadius(role: GdsRadiusRole | GdsRadiusStep): string {
   return `var(--gds-radius-${role})`;
 }
 
-// ── Design rule profile (issue #643) ──────────────────────────────────────
+// ── Design rule profile (issue 643) ──────────────────────────────────────
 
 /** A theme's color-proportion rule. `'none'` is a truthful default: no proportion claim made. */
 export type GdsColorProportionRule = '60-30-10' | 'none';

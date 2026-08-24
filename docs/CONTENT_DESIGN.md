@@ -1,6 +1,6 @@
 # Content Design System
 
-Status: package-native content contract  
+Status: package-native content contract
 Package: `@sovereignsquad/gds-core`  
 Issue: `#265`
 

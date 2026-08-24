@@ -12,7 +12,7 @@ context loaded.
 
 ---
 
-```
+```text
 You are setting up to create a new theme lane for the General Design System
 (GDS) — a governed, cross-project Mantine-based component library owned by
 sovereignsquad. Read this whole brief before touching anything.

@@ -4,7 +4,7 @@ import { Combobox, Group, InputBase, Loader, Text, useCombobox } from '@mantine/
 import { GdsIcons } from './icons';
 
 /**
- * SearchableSelect / Combobox (gap B6 / issue #318).
+ * SearchableSelect / Combobox (gap B6 / issue 318).
  *
  * Canonical searchable single-select with typeahead filtering, async option
  * loading (debounced, with stale-response cancellation), option grouping, and

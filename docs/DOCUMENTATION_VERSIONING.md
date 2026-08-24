@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.5.0
-Last updated: 2026-08-16
+Last updated: 2026-08-24
 
 Peers (Chakra, Primer, …) keep prior-major documentation live so consumers pinned to an older major aren't stranded on docs that describe a newer API. GDS meets the same need (issue #454) — but because **GDS documentation lives in-repo as versioned Markdown**, every published release is already a complete, immutable documentation snapshot. This document is the decided scheme for reading docs at a specific version.
 
@@ -39,6 +39,36 @@ certificate that every sentence was re-read that release.
 The gate prints the documents it does not govern on every run, so that set cannot grow
 silently, and refuses to pass if the derivation collapses below the count the previous
 hand-written array carried.
+
+## Status vocabulary
+
+`Status:` had no enumerated set of values before this section — 36 distinct phrasings across
+~85 documents, including case variants (`In progress` / `In Progress`) and near-miss governed
+values (`Active SSOT (issue 626)` alongside the exact-matched `Active SSOT`). Two separate
+populations use the field for genuinely different purposes, so this is two short vocabularies,
+not one:
+
+**Root and `docs/` documents** (the governance-relevant population, checked by
+`verify-docs-governance-consistency.mjs`):
+
+| Value | Meaning |
+| --- | --- |
+| `Active SSOT` | Governed — tracks `VERSION`, restamped every release. See "What keeps the headers true" above. |
+| `Active` / `Reference` | Governed by explicit exception (`ALSO_GOVERNED` in the gate script), same tracking as `Active SSOT`. |
+| `Active reference` | A live, maintained document that is evidence or narrative rather than a versioned contract — deliberately ungoverned. |
+| `Planned` / `Proposed` / `Draft ...` | Not yet executed. Restamping to the current version would falsely claim it describes shipped behavior. |
+| `Executed — <evidence>` / `Delivered — <evidence>` | A plan whose work is done; states what to read for proof, not just that it finished. |
+| `Decision record after issue split (...)` / `Archived — superseded by ...` | Point-in-time, deliberately frozen — like a `CHANGELOG.md` entry, never restamped. |
+
+**`PROJECTS/*.md` files** (per-consumer adoption tracking, a different lifecycle from the
+governance population above): `Planned`, `In progress`, `Complete`, or a short specific phrase
+when neither fits (e.g. `Active reusable-contract driver`) — always sentence case, matching the
+values above, never `In Progress`.
+
+A new value belongs in this table before it ships in a document — that is what keeps the field
+readable as a status rather than free-text commentary.
+
+## Support policy
 
 ## Support policy
 

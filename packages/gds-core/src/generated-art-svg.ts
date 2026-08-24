@@ -12,7 +12,7 @@ import type { GdsThemePresetId } from '@sovereignsquad/gds-theme';
 
 /**
  * Headless, non-React twins of `GdsGeneratedThumbnail`/`GdsGeneratedHero`
- * (epic #503, issue #508): plain functions returning a complete, valid,
+ * (epic #503, issue 508): plain functions returning a complete, valid,
  * self-contained `<svg>...</svg>` string — for `og:image` routes, email,
  * or any SSR/rasterization context with no live browser CSS cascade.
  *

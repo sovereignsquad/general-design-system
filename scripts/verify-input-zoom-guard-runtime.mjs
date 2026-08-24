@@ -7,7 +7,7 @@ import {
   evaluate,
 } from './lib/browser-runtime.mjs';
 
-// Verifies the mobile input-focus auto-zoom guard (gdsTheme's `Input.vars`, issue #379):
+// Verifies the mobile input-focus auto-zoom guard (gdsTheme's `Input.vars`, issue 379):
 // iOS Safari/Chrome force-zoom the page when a focused input's *computed* font-size is
 // under 16px. This checks the exact components a consuming app reported the gap
 // against (AdminTextInput/AdminSelect/AdminTextarea) at the risky sizes (`xs`, `sm`,

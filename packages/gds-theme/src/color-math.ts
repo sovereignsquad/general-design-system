@@ -137,7 +137,7 @@ export function contrastRatio(foreground: string, background: string, fallbackBa
  * Nudges `candidate` toward white or black until it clears `minRatio` against
  * `background`, or gives up after 16 steps and returns the best it reached.
  *
- * Promoted here from `vibe-themes.ts` (issue #537). It was private there, so the
+ * Promoted here from `vibe-themes.ts` (issue 537). It was private there, so the
  * hand-authored brand lanes had no way to use it and derived their semantic pairs by
  * hand instead — which is exactly how `text.onInverse` came to be paired with
  * `support`, a role it was never designed to sit on, at 1.89:1 in class-usa dark.
@@ -169,7 +169,7 @@ export interface HslColor {
   l: number;
 }
 
-/** Converts an opaque `RgbColor` to HSL (issue #646). */
+/** Converts an opaque `RgbColor` to HSL (issue 646). */
 export function rgbToHsl({ r, g, b }: RgbColor): HslColor {
   const rN = r / 255;
   const gN = g / 255;
@@ -189,7 +189,7 @@ export function rgbToHsl({ r, g, b }: RgbColor): HslColor {
   return { h, s: s * 100, l: l * 100 };
 }
 
-/** Shortest angular distance between two hues (degrees), `[0, 180]` (issue #646). */
+/** Shortest angular distance between two hues (degrees), `[0, 180]` (issue 646). */
 export function hueAngleDistance(h1: number, h2: number): number {
   const diff = Math.abs(h1 - h2) % 360;
   return diff > 180 ? 360 - diff : diff;

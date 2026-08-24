@@ -1,6 +1,6 @@
 # GitHub Handover (Safe Baseline)
 
-Status: Historical handover record (superseded 2026-07-26)  
+Status: Historical handover record (superseded 2026-07-26)
 Last updated: 2026-05-31
 
 > **⚠️ Superseded — board model changed.** The GDS delivery board is now the

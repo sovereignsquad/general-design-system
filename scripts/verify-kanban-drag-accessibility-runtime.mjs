@@ -7,7 +7,7 @@ import {
   evaluate,
 } from './lib/browser-runtime.mjs';
 
-// Verifies KanbanBoard's opt-in enableDrag (issue #382/#383) never regresses the
+// Verifies KanbanBoard's opt-in enableDrag (issue 382/#383) never regresses the
 // keyboard/screen-reader accessible "Move to column" menu, and that the new drag
 // handle is itself a proper, labeled, keyboard-focusable control — not a mouse-only
 // affordance. Native HTML5 drag-and-drop is never used; this checks the @dnd-kit-based

@@ -6,7 +6,7 @@ const NAMED_RATIOS: GdsTypeScaleRatio[] = [1.125, 1.2, 1.25, 1.333, 1.5, 1.618];
 
 /**
  * Names of the six modular-scale ratios `GdsTypeScaleRatio` supports, for display
- * (issue #645). Musical-interval-derived: Minor Second through the Golden Ratio.
+ * (issue 645). Musical-interval-derived: Minor Second through the Golden Ratio.
  */
 export const NAMED_TYPE_SCALE_RATIO_LABELS: Record<GdsTypeScaleRatio, string> = {
   1.125: 'Major Second',

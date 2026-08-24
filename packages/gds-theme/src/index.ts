@@ -28,7 +28,7 @@ export { gdsSpace, resolveGdsDensityTokens, resolveGdsShellHeightTokens, GDS_SHE
 export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResolvedShapeTokens } from './axes';
 export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
 
-// ── Design rule profile (issue #643) ──
+// ── Design rule profile (issue 643) ──
 export { validateGdsDesignRuleProfile, GDS_DEFAULT_DESIGN_RULE_PROFILE } from './axes';
 export type { GdsDesignRuleProfile, GdsColorProportionRule, GdsColorProportionClassification, GdsColorHarmony, GdsTypeScaleRatio, GdsContrastTarget } from './axes';
 export { DOMINANT_ROLES, SECONDARY_ROLES, ACCENT_ROLES, colorProportionClassificationByPreset, resolveGdsColorProportionProfile } from './color-proportion-classification';
@@ -73,7 +73,7 @@ export type { OverlayAdapter, GdsOverlayConfig, GdsOverlayPlacement, GdsOverlayR
 export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIds, getGdsLocaleIdsByScript, getGdsLocaleMetadata, getGdsLocaleScripts, isGdsRtlLocale, useGdsTranslation } from './i18n';
 export type { GdsI18nContextValue, GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './i18n';
 
-// ── Badge icon style (issue #525) ──
+// ── Badge icon style (issue 525) ──
 export { GdsIconStyleContext, useGdsBadgeIconStyle } from './icon-style';
 export type { GdsBadgeIconStyle, GdsIconStyleContextValue } from './icon-style';
 

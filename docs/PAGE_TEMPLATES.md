@@ -1,6 +1,6 @@
 # Production Page Templates
 
-Status: package-native runtime contract  
+Status: package-native runtime contract
 Package: `@sovereignsquad/gds-core`  
 Issue: `#263`
 

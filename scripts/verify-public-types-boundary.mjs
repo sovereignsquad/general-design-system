@@ -1,5 +1,5 @@
 /**
- * Public type-boundary gate (issue #343).
+ * Public type-boundary gate (issue 343).
  *
  * Scans the built, consumer-facing `.d.ts` entrypoints for references to the
  * vendor engine (`@mantine/*`) and fails if any reference appears that is not

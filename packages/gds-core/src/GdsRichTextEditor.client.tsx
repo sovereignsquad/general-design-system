@@ -74,7 +74,7 @@ function getToolbarActions(editor: Editor, active: ToolbarActiveState): ToolbarA
  * see DEPENDENCY_GOVERNANCE.md's "Content engine" class; consumers never
  * import `@tiptap/*` or touch its `Editor`/extension APIs directly). Fills
  * the gap where "Content Ops Editor" patterns owned the surrounding layout
- * but not the actual text-editing surface inside them (issue #392).
+ * but not the actual text-editing surface inside them (issue 392).
  *
  * Chosen over a hand-rolled contentEditable build per the same
  * lowest-dependency/rock-solid-reliability standard used for KanbanBoard's

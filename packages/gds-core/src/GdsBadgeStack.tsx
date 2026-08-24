@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 
 /**
- * Badge composition/layering primitive (issue #488, part of epic #484).
+ * Badge composition/layering primitive (issue 488, part of epic #484).
  *
  * The Font Awesome layering model: a relatively-positioned square box sized by
  * `size` (default `1em`, so it scales with surrounding text), with each

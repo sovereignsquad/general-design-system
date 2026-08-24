@@ -4,7 +4,7 @@ import type { GdsIconKey } from './icons';
 import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
 
 /**
- * A consumer's own category identity (issue #525): one color+glyph record
+ * A consumer's own category identity (issue 525): one color+glyph record
  * shared across `GdsBadge`, `GdsMapPinBadge`, `GdsGeneratedThumbnail`, and
  * `GdsGeneratedHero`, so a category reads the same everywhere it appears —
  * the existing principle `BADGE_SYSTEM.md`'s "same activity identity, worn
@@ -51,7 +51,7 @@ export type GdsResolvedCategoryBadgeGlyph =
 
 /**
  * The one shared failsafe branch behind "emoji where it has to be, icon
- * where it doesn't" (issue #525): `iconStyle === 'emoji'` and `category`
+ * where it doesn't" (issue 525): `iconStyle === 'emoji'` and `category`
  * has an `emoji` resolves to that emoji; every other case — `'tabler'`
  * mode, or `'emoji'` mode with no `emoji` on this category — resolves to
  * the category's `icon`. A plain data-presence check, deterministic and
