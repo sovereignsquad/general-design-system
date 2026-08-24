@@ -45,6 +45,71 @@
       "import": "./dist/map.mjs",
       "require": "./dist/map.js"
     },
+    "./locales/lazy": {
+      "types": "./dist/locales/lazy/index.d.ts",
+      "import": "./dist/locales/lazy/index.mjs",
+      "require": "./dist/locales/lazy/index.js"
+    },
+    "./locales/lazy/all": {
+      "types": "./dist/locales/lazy/all.d.ts",
+      "import": "./dist/locales/lazy/all.mjs",
+      "require": "./dist/locales/lazy/all.js"
+    },
+    "./locales/lazy/es": {
+      "types": "./dist/locales/lazy/es.d.ts",
+      "import": "./dist/locales/lazy/es.mjs",
+      "require": "./dist/locales/lazy/es.js"
+    },
+    "./locales/lazy/hu": {
+      "types": "./dist/locales/lazy/hu.d.ts",
+      "import": "./dist/locales/lazy/hu.mjs",
+      "require": "./dist/locales/lazy/hu.js"
+    },
+    "./locales/lazy/de": {
+      "types": "./dist/locales/lazy/de.d.ts",
+      "import": "./dist/locales/lazy/de.mjs",
+      "require": "./dist/locales/lazy/de.js"
+    },
+    "./locales/lazy/fr": {
+      "types": "./dist/locales/lazy/fr.d.ts",
+      "import": "./dist/locales/lazy/fr.mjs",
+      "require": "./dist/locales/lazy/fr.js"
+    },
+    "./locales/lazy/it": {
+      "types": "./dist/locales/lazy/it.d.ts",
+      "import": "./dist/locales/lazy/it.mjs",
+      "require": "./dist/locales/lazy/it.js"
+    },
+    "./locales/lazy/ru": {
+      "types": "./dist/locales/lazy/ru.d.ts",
+      "import": "./dist/locales/lazy/ru.mjs",
+      "require": "./dist/locales/lazy/ru.js"
+    },
+    "./locales/lazy/he": {
+      "types": "./dist/locales/lazy/he.d.ts",
+      "import": "./dist/locales/lazy/he.mjs",
+      "require": "./dist/locales/lazy/he.js"
+    },
+    "./locales/lazy/ar": {
+      "types": "./dist/locales/lazy/ar.d.ts",
+      "import": "./dist/locales/lazy/ar.mjs",
+      "require": "./dist/locales/lazy/ar.js"
+    },
+    "./locales/lazy/zh": {
+      "types": "./dist/locales/lazy/zh.d.ts",
+      "import": "./dist/locales/lazy/zh.mjs",
+      "require": "./dist/locales/lazy/zh.js"
+    },
+    "./locales/lazy/ja": {
+      "types": "./dist/locales/lazy/ja.d.ts",
+      "import": "./dist/locales/lazy/ja.mjs",
+      "require": "./dist/locales/lazy/ja.js"
+    },
+    "./locales/lazy/ko": {
+      "types": "./dist/locales/lazy/ko.d.ts",
+      "import": "./dist/locales/lazy/ko.mjs",
+      "require": "./dist/locales/lazy/ko.js"
+    },
     "./map.css": "./dist/map.css"
   },
   "files": [

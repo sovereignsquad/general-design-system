@@ -15,6 +15,24 @@ needing a demo rather than a comment.
 
 `obligationGaps` 404 -> 356 (prop 726/1054, variant 69/107, accent 10/10).
 
+### Opt-in lazy locale registry (#662, Fix 2 of #532)
+
+`@sovereignsquad/gds-core/locales/lazy` and its eleven per-locale subpaths let a consumer
+register only the locale dictionaries it ships, instead of `getGdsMessages`'s default eager
+import of all twelve. `getGdsMessagesLazy` keeps the same synchronous signature and
+fallback-to-English behavior — no async, no Suspense — the difference is what makes a locale
+available: importing its subpath, not shipping automatically. `locales/lazy/all` restores
+today's coverage in one import for a consumer that wants the registry without trimming yet.
+
+Measured directly rather than assumed from tree-shaking theory (esbuild, minified, isolated
+from the rest of the client bundle): the eager path is 202.7KB; one locale through the lazy
+registry is 11.3KB.
+
+Purely additive — `getGdsMessages`, `gdsLocales`, and the default `GdsProvider`/`GdsI18nRuntime`
+behavior are unchanged. Migrating the default itself is a separate decision, deliberately left
+open (`docs/I18N_RUNTIME.md`), because it would silently change every existing consumer's
+locale fallback behavior across GDS's roughly ten downstream products.
+
 ### ReferenceLinkGrid's two links meet the 44px touch-target floor (#659)
 
 Traced 286 of the 564 remaining touch-target violations to one shared component,
