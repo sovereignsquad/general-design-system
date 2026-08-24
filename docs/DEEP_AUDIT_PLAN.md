@@ -1,6 +1,6 @@
 # Deep Audit Plan — GDS and the reference site
 
-Status: Approved plan, not yet executed
+Status: Executed — findings in audit/FINDINGS.md (#576)
 Version: 6.0.0
 Last updated: 2026-08-11
 

@@ -23,6 +23,23 @@ Because every `gds-v*` tag is an immutable Git ref, this needs no separate hoste
 
 To read the docs for **any** other released version `X.Y.Z`, replace the tag: `github.com/sovereignsquad/general-design-system/tree/gds-vX.Y.Z`.
 
+## What keeps the headers true
+
+`scripts/verify-docs-governance-consistency.mjs` derives the governed set rather than listing
+it: a document declaring `Status: Active SSOT` is claiming to describe the current system, so
+its `Version:` header must equal `VERSION`. Documents declaring any other status — `Planned`,
+`Proposed`, `Decision record`, `Active reference` — are point-in-time records, and restamping
+them would make them claim to describe a release they predate, so the gate reports them
+instead of governing them. Two documents are governed by explicit exception, each carrying its
+reason in source.
+
+The header states which release line a document belongs to, per the scheme above. It is not a
+certificate that every sentence was re-read that release.
+
+The gate prints the documents it does not govern on every run, so that set cannot grow
+silently, and refuses to pass if the derivation collapses below the count the previous
+hand-written array carried.
+
 ## Support policy
 
 - **Current major** is actively maintained: docs, packages, and the live site track `main`.

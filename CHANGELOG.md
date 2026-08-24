@@ -4,6 +4,25 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### The documentation version gate is derived, not listed (#658)
+
+`verify-docs-governance-consistency.mjs` governed a hand-written array of 14 documents. 43
+declare `Status: Active SSOT`, so 29 were ungoverned and 30 headers had drifted — most sitting
+at `6.0.0` across four releases.
+
+The governed set is now derived from that declared status, plus two documents governed by
+explicit exception with their reasons in source. Documents declaring `Planned`, `Proposed`,
+`Decision record` or `Active reference` stay ungoverned by their own statement, and the gate
+prints them on every run so the exclusion set cannot grow silently. A floor check refuses to
+pass if the derivation collapses.
+
+48 documents are now governed and stamped `6.4.0`. `docs/DEEP_AUDIT_PLAN.md` and
+`docs/HEALTH_RETENTION_PLAN.md` had statuses that were no longer true (`Approved plan, not yet
+executed`, `Proposed`) and now state their delivered state.
+
+Carries the first mutant on a `verify:references` sub-gate, planting a stale version on a
+document the old array never covered.
+
 ### Translation generators no longer degrade committed packs silently (#660)
 
 `scripts/lib/translate.mjs` calls a network endpoint and returned the English source on any

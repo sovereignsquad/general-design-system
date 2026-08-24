@@ -1,6 +1,6 @@
 # Health Retention Plan
 
-Status: Proposed
+Status: Delivered — mechanisms run in verify:release (#577)
 Version: 6.0.0
 Last updated: 2026-08-11
 
