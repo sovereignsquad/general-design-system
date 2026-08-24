@@ -88,9 +88,13 @@ export interface PartnerMapViewport {
 
 /** Props passed to a caller-supplied map adapter so it can render pins and report interactions. */
 export interface PartnerMapAdapterProps {
+  /** Places currently in view, already filtered by the shell — the adapter renders one pin each and does no filtering of its own. */
   places: PartnerPlaceResult[];
+  /** Id of the selected place, so the adapter can render its pin in the active state. */
   activePlaceId?: string;
+  /** Called with a place id when a pin is activated; the shell owns selection state, the adapter only reports. */
   onPinSelect?: (placeId: string) => void;
+  /** Called when the map is panned or zoomed, so the shell can drop places that left the visible bounds. */
   onViewportChange?: (viewport: PartnerMapViewport) => void;
 }
 
@@ -267,7 +271,9 @@ export function filterPartnerPlaces(
 
 /** Props for the discovery page shell: branding, primary nav, optional footer, and content. */
 export interface PartnerDiscoveryShellProps {
+  /** Brand mark for the header. A node rather than a URL so consumers supply their own governed image or generated mark. */
   logo: ReactNode;
+  /** Primary navigation entries, rendered in the header on desktop and inside the burger menu on small screens. */
   navItems: PartnerNavItem[];
   /** Optional footer with a copyright line plus legal and social links. */
   footer?: {
@@ -351,9 +357,11 @@ export function PartnerDiscoveryFooter({
 
 /** Props for the toggleable grid of amenity filter chips. */
 export interface AmenityChipGridProps {
+  /** Amenities offered as filters; an empty array renders the empty state rather than an empty grid. */
   amenities: PartnerAmenityOption[];
   /** Ids of the currently selected amenities. */
   selected: string[];
+  /** Called with an amenity id on each press. The grid is controlled — it reflects `selected` and never tracks its own. */
   onToggle?: (amenityId: string) => void;
 }
 
@@ -402,8 +410,11 @@ export function AmenityChipGrid({
 
 /** Props for the discovery filter bar and its modal. */
 export interface PartnerDiscoveryFiltersProps {
+  /** Current filter selection. The bar is fully controlled; it renders this and reports intent through the callbacks. */
   value: PartnerDiscoveryFilterState;
+  /** Amenity options offered in the modal. */
   amenities: PartnerAmenityOption[];
+  /** All user-facing strings for the bar and modal, supplied by the consumer so copy and locale stay outside the component. */
   labels: PartnerDiscoveryFilterLabels;
   /** Price tiers offered in the modal; defaults to `['$', '$$', '$$$', '$$$$']`. */
   prices?: PartnerPriceLevel[];
@@ -411,13 +422,21 @@ export interface PartnerDiscoveryFiltersProps {
   opened?: boolean;
   /** Disables the search input and open/apply controls while true. */
   loading?: boolean;
+  /** Called on every keystroke in the search input. */
   onQueryChange?: (query: string) => void;
+  /** Called with the amenity id when a chip is pressed. */
   onAmenityToggle?: (amenityId: string) => void;
+  /** Called with the price tier when a price chip is pressed. */
   onPriceToggle?: (price: PartnerPriceLevel) => void;
+  /** Called when the filter modal is requested. */
   onOpen?: () => void;
+  /** Called when the modal is dismissed without applying. */
   onClose?: () => void;
+  /** Called when the reset control clears the current selection. */
   onReset?: () => void;
+  /** Called when the selection is confirmed and the modal should close. */
   onApply?: () => void;
+  /** Receives the privacy-safe telemetry events this component emits; no destination is built in. */
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
@@ -545,6 +564,7 @@ export function PartnerDiscoveryFilters({
 
 /** Props for a single place result card. */
 export interface PartnerPlaceResultCardProps {
+  /** The place this card renders. */
   place: PartnerPlaceResult;
   /** Map of amenity id to display label for the amenity badges. */
   amenityLabels?: Record<string, string>;
@@ -552,7 +572,9 @@ export interface PartnerPlaceResultCardProps {
   active?: boolean;
   /** Label for the "see details" link; defaults to "See details". */
   detailLabel?: ReactNode;
+  /** Called with the place id when the card is activated, so the shell can sync the map pin. */
   onSelect?: (placeId: string) => void;
+  /** Receives the privacy-safe telemetry events this card emits; no destination is built in. */
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
@@ -613,8 +635,11 @@ export function PartnerPlaceResultCard({
 
 /** Props for a single interactive map pin. */
 export interface PartnerMapPinProps {
+  /** Accessible name for the pin, announced in place of the visual marker. */
   label: string;
+  /** Renders the pin pressed, matching the selected result card. */
   active?: boolean;
+  /** Called when the pin is activated by pointer or keyboard. */
   onSelect?: () => void;
 }
 
@@ -646,7 +671,9 @@ export function PartnerMapPin({
 
 /** Props for the map zoom controls. */
 export interface PartnerMapControlsProps {
+  /** Called when the zoom-in control is activated; the map adapter owns the actual zoom. */
   onZoomIn?: () => void;
+  /** Called when the zoom-out control is activated; the map adapter owns the actual zoom. */
   onZoomOut?: () => void;
   /** Accessible label for the zoom-in button; defaults to "Zoom in". */
   zoomInLabel?: string;
@@ -679,18 +706,27 @@ export function PartnerMapControls({
 
 /** Props for the split map + results-list shell. */
 export interface PartnerMapListShellProps {
+  /** Places to render as cards and pass to the map adapter, already filtered by the consumer. */
   places: PartnerPlaceResult[];
+  /** Active filter state, rendered as a summary above the results. */
   filters: PartnerDiscoveryFilterState;
+  /** Id of the selected place, highlighting its card and pin together. */
   activePlaceId?: string;
+  /** Renders the loading state in place of results. */
   loading?: boolean;
+  /** Renders the error state in place of results; pairs with `onRetry`. */
   error?: ReactNode;
   /** Message shown when filtering yields no places. */
   empty?: ReactNode;
+  /** Called from the error state\u2019s retry control. */
   onRetry?: () => void;
+  /** Called with a place id when selection changes from either pane, keeping map and list in sync. */
   onActivePlaceChange?: (placeId: string) => void;
   /** Optional adapter that renders the map pane; without it the pane shows a list-only notice. */
   mapAdapter?: (props: PartnerMapAdapterProps) => ReactNode;
+  /** Amenity id to display label, used for the badges on each result card. */
   amenityLabels?: Record<string, string>;
+  /** Receives the privacy-safe telemetry events this shell emits; no destination is built in. */
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
@@ -805,12 +841,17 @@ export interface PartnerPlaceDetailLabels {
 
 /** Props for the place detail template. */
 export interface PartnerPlaceDetailTemplateProps {
+  /** The place this page describes. */
   place: PartnerPlaceDetail;
+  /** Target for the back link. A href rather than a callback so the control is a real link and works without JavaScript. */
   backHref: string;
+  /** All user-facing strings for the page, supplied by the consumer so copy and locale stay outside the component. */
   labels: PartnerPlaceDetailLabels;
   /** Share button lifecycle state driving its loading state and label. Defaults to `'idle'`. */
   shareState?: 'idle' | 'copying' | 'copied' | 'failed';
+  /** Called with the page URL when share is activated; the consumer owns clipboard or native-share behavior and reports the outcome back through `shareState`. */
   onShare?: (url: string) => void;
+  /** Receives the privacy-safe telemetry events this page emits; no destination is built in. */
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
@@ -930,16 +971,23 @@ export interface PartnerNewsletterLabels {
 
 /** Props for the newsletter capture modal. */
 export interface PartnerNewsletterCaptureProps {
+  /** Whether the modal is shown. The consumer owns when to prompt. */
   opened?: boolean;
+  /** All user-facing strings for the modal, supplied by the consumer so copy and locale stay outside the component. */
   labels: PartnerNewsletterLabels;
   /** Optional decorative visual shown above the form. */
   visual?: ReactNode;
+  /** Current email value. The field is controlled, so this and `onEmailChange` must be supplied together. */
   email?: string;
   /** Submission lifecycle state driving loading, success, and error display. Defaults to `'idle'`. */
   state?: 'idle' | 'submitting' | 'success' | 'error';
+  /** Called on every keystroke in the email field. */
   onEmailChange?: (email: string) => void;
+  /** Called when the form is submitted; the consumer performs the request and reports progress through `state`. */
   onSubmit?: () => void;
+  /** Called when the modal is closed without submitting. */
   onDismiss?: () => void;
+  /** Receives the privacy-safe telemetry events this modal emits; no destination is built in. */
   onEvent?: PartnerDiscoveryEventHandler;
 }
 

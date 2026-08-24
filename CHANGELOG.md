@@ -4,6 +4,23 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Obligation coverage, first tranche (#656)
+
+`PartnerDiscovery.tsx` carried 51 of the 404 unmet obligations, the largest of 72 contributing
+files. Its 48 prop atoms now document what the name cannot: which props are controlled and must
+be supplied in pairs, that the map adapter renders but never filters, that `backHref` is a href
+rather than a callback so the back control stays a real link, and that every `onEvent` is a
+privacy-safe hook with no built-in destination. The 3 remaining atoms are `shareState` variants
+needing a demo rather than a comment.
+
+`obligationGaps` 404 -> 356 (prop 726/1054, variant 69/107, accent 10/10).
+
+### Touch-target findings carry their classification inputs (#659)
+
+The runtime sweep records each finding's `parent` and computed `display` — the two inputs the
+WCAG 2.5.8 inline-link exception reads — so a violation can be classified from the committed
+artifact without re-running the browser sweep.
+
 ### The documentation version gate is derived, not listed (#658)
 
 `verify-docs-governance-consistency.mjs` governed a hand-written array of 14 documents. 43

@@ -139,10 +139,10 @@
     "obligationGaps": {
       "source": "obligation-coverage.json#/gapCount",
       "direction": "max",
-      "value": 404,
+      "value": 356,
       "unit": "count",
-      "finding": "F18",
-      "justifiedBy": "issue 581 - 373 prop jsdoc gaps + 37 variant demo gaps, measured"
+      "finding": "F18 / issue 656",
+      "justifiedBy": "issue 656, first tranche: packages/gds-core/src/PartnerDiscovery.tsx was the largest single contributor at 51 of the 404 (72 files carried the rest). 48 of those are prop atoms and now carry member-level JSDoc; the remaining 3 are shareState variant atoms needing a playground demo, not a comment, and are untouched here. The docs state what the name cannot - which props are controlled and therefore must be supplied in pairs (email/onEmailChange, value/onQueryChange), that the map adapter renders but never filters, that backHref is a href rather than a callback so the back control is a real link, and that every onEvent is a privacy-safe hook with no built-in destination. Restating the prop name would have satisfied the gate and helped nobody, which Rule 17 forbids. A measurement note worth keeping: the first pass inserted each block with a trailing blank line, and the gate correctly refused to count 10 of them - its obligation is a JSDoc terminator on the line ABOVE the declaration, and a blank line between the two is not that. The gate caught its own tranche. Measured 404 -> 356 (prop 726/1054, variant 69/107, accent 10/10)."
     },
     "designRuleUnclassifiedRate": {
       "source": "design-rule-coverage.json#/presets/*/unclassified (worst case across all 25 presets)",
