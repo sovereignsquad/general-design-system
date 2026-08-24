@@ -91,6 +91,40 @@ React components render the same contract:
 
 Missing keys emit `missing_key` events when `onEvent` is supplied. Use `createGdsMissingKeyTracker(...)` to dedupe repeated events per locale/key before sending them to an analytics adapter.
 
+### Opt-in lazy locale registry (issue 662)
+
+The default path above (`getGdsMessages`, and everything `GdsProvider`/`GdsI18nRuntime` build on
+it) bundles all twelve locale dictionaries — zero setup, but every consumer pays for every
+locale whether or not they ship it. Measured directly (esbuild, minified, isolated from the
+rest of the client bundle): the eager path is **202.7KB**; registering a single non-English
+locale through the lazy registry is **11.3KB**.
+
+`@sovereignsquad/gds-core/locales/lazy` is the opt-in alternative for a consumer that wants to
+register only the locales it ships:
+
+```ts
+import { getGdsMessagesLazy } from '@sovereignsquad/gds-core/locales/lazy';
+import '@sovereignsquad/gds-core/locales/lazy/de';
+import '@sovereignsquad/gds-core/locales/lazy/fr';
+
+const messages = getGdsMessagesLazy('de');
+```
+
+`getGdsMessagesLazy` is synchronous with the same fallback-to-English behavior as
+`getGdsMessages` — no async, no Suspense boundary, drop-in anywhere `getGdsMessages` is called.
+The difference is *what* triggers the fallback: importing a locale's subpath is what makes it
+available, and a lookup for a locale nothing registered falls back to English with a dev-only
+console warning naming the missing subpath import, rather than the silent "just works" every
+locale gets under the default eager path.
+
+`@sovereignsquad/gds-core/locales/lazy/all` registers all eleven non-English locales in one
+import — the lazy-registry equivalent of today's default coverage, for a consumer that wants
+the registry's dev-warning behavior without yet trimming which locales it ships.
+
+This is purely additive. `getGdsMessages`, `gdsLocales`, and the individual `en`/`de`/...
+exports are unaffected by this subpath existing or not being imported — no existing consumer's
+behavior changes by this shipping.
+
 ## Sorting
 
 Use locale-aware sorting for labels, menus, filters, and exported rows:
