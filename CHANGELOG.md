@@ -15,6 +15,18 @@ needing a demo rather than a comment.
 
 `obligationGaps` 404 -> 356 (prop 726/1054, variant 69/107, accent 10/10).
 
+### ReferenceLinkGrid's two links meet the 44px touch-target floor (#659)
+
+Traced 286 of the 564 remaining touch-target violations to one shared component,
+`ReferenceLinkGrid.tsx` (used across seven playground surfaces): its card-title link and
+"Open section" footer link are both 20-25px tall text. Fixed with the same invisible-padding
+technique issue 628 established for the checkbox and swatch grid — `.gds-touch-target-pad-link`,
+`inset: -12px`, no visible layout change. Safe here in a way the swatch grid was not
+automatically safe: each anchor sits inside `Paper p="lg"` in a `SimpleGrid spacing="lg"`, so
+the padded hit area has no neighbor within 12px in any direction.
+
+`touchTargetFloorViolations` 564 -> 268.
+
 ### Touch-target findings carry their classification inputs (#659)
 
 The runtime sweep records each finding's `parent` and computed `display` — the two inputs the

@@ -33,7 +33,12 @@ export function ReferenceLinkGrid({
             <Group justify="space-between" align="flex-start" gap="sm" wrap="wrap">
               <Stack gap={6} maw={540} miw={0}>
                 <Title order={4}>
-                  <Anchor href={item.href} underline="never">
+                  <Anchor
+                    href={item.href}
+                    underline="never"
+                    className="gds-touch-target-pad-link"
+                    data-gds-target-exception="reference-link-grid-card"
+                  >
                     {item.title}
                   </Anchor>
                 </Title>
@@ -56,7 +61,12 @@ export function ReferenceLinkGrid({
                 {item.meta}
               </Text>
             ) : null}
-            <Anchor href={item.href} fw={600}>
+            <Anchor
+              href={item.href}
+              fw={600}
+              className="gds-touch-target-pad-link"
+              data-gds-target-exception="reference-link-grid-card"
+            >
               {t('gds.reference.openSection', 'Open section')}
             </Anchor>
           </Stack>
