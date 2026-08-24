@@ -336,7 +336,7 @@
     "mantineVarsGdsDeclares": 5,
     "mantineVarsGdsConsumes": 93,
     "mantineVarsGdsConsumesButNeverDeclares": 88,
-    "mantineComponentsWithGdsDefaults": 20,
+    "mantineComponentsWithGdsDefaults": 21,
     "mantineComponentsList": [
       "sizes",
       "Popover",
@@ -349,6 +349,7 @@
       "TextInput",
       "Table",
       "Badge",
+      "NavLink",
       "AppShell",
       "Card",
       "Paper",
