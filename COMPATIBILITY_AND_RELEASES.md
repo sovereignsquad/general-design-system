@@ -49,7 +49,7 @@ GDS publishes current and future releases to GitHub Packages, the canonical regi
 
 Current live status:
 
-- published baseline (GitHub Packages): `6.4.0`
+- published baseline (GitHub Packages): `6.5.0`
 - current repository line: `6.5.0`
 - current major line: `6.x`
 
