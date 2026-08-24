@@ -747,7 +747,10 @@ export function CoveragePage() {
     id: entry.id,
     pattern: entry.title,
     family: entry.family,
-    route: entry.route,
+    // entry.route names only the family page ("/patterns/<family>"); PatternEntryCard sets
+    // `#entry-<id>` as its own anchor id (pattern-pages.tsx), so this is what actually lands
+    // on the specific pattern rather than the top of its family page.
+    route: `/general-design-system/patterns/${entry.family}#entry-${entry.anchor}`,
     status: entry.coverageStatus,
   }));
   const evidenceRows = accessibilityEvidenceEntries.map((entry) => ({
@@ -787,7 +790,7 @@ export function CoveragePage() {
       <ReferenceSection title="Pattern matrix" description="Every row points to the canonical family route where the pattern is represented.">
         <SimpleDataTable
           columns={[
-            { key: 'pattern', header: 'Pattern' },
+            { key: 'pattern', header: 'Pattern', render: (row) => <GdsInlineLink href={row.route}>{row.pattern}</GdsInlineLink> },
             { key: 'family', header: 'Family' },
             { key: 'status', header: 'Status' },
             { key: 'route', header: 'Route' },
