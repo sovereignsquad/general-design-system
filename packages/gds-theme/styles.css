@@ -1574,6 +1574,38 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
   inset: -12px;
 }
 
+/*
+ * A Mantine Slider mark-wrapper centers its own dot marker on the mark's position by
+ * offsetting `left` by half the dot's width -- confirmed live, a consistent 4px inward shift
+ * at both the 0% and 100% marks. The dot marker wants that centering; its child mark-LABEL
+ * does not, and inherits the same shift with no compensating transform of its own, so the
+ * label at the very first mark renders 4px past the track's left edge, and the last mark's
+ * label 4px short of the right edge (an initial attempt at this fix targeted the label's own
+ * `transform`, which measured no different from Mantine's default -- the overflow was never a
+ * label-centering issue). Pinning the WRAPPER's `left` to the literal 0%/100% boundary for
+ * just the first and last mark removes the shift entirely -- confirmed live, both labels land
+ * exactly flush with the track edges. Interior marks (none in GDS's shipped rating-scale
+ * preset today) keep Mantine's default dot-centered position, since only a boundary mark can
+ * overflow the track.
+ */
+.mantine-Slider-markWrapper[style*="--mark-offset: 0%"] {
+  left: 0% !important;
+}
+.mantine-Slider-markWrapper[style*="--mark-offset: 100%"] {
+  left: 100% !important;
+}
+/*
+ * The wrapper-pin above is only half the fix. A mark-label with no transform of its own
+ * renders flush-LEFT from wherever its wrapper sits: correct for the first mark, now pinned at
+ * 0%, where growing rightward stays inside the track. But the same default at the last mark
+ * (now pinned at 100%) still grows rightward from that pin point and overflows the track's
+ * right edge by the label's own width -- confirmed live (an 8px right-edge overflow) the first
+ * time this was shipped with the wrapper pin alone and no label counter-shift.
+ */
+.mantine-Slider-markWrapper[style*="--mark-offset: 100%"] .mantine-Slider-markLabel {
+  transform: translateX(-100%);
+}
+
 [data-gds-theme-swatch] {
   /*
    * A COMPLETE surface, not just a background. A consumer previewing a theme should need one

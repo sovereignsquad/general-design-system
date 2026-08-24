@@ -28,9 +28,19 @@ const toCssLength = (value?: number | string): string | undefined => {
 };
 
 /**
- * Resolves presentation props into a React `CSSProperties` object: `inline` yields
- * only a min-height, while `centered` and `fill` produce a flex column with the
- * requested alignment and justification.
+ * Resolves presentation props into a React `CSSProperties` object. Every mode is a flex
+ * column with a governed gap between stacked children — `inline` adds no alignment beyond
+ * that, while `centered` and `fill` additionally apply the requested alignment and
+ * justification.
+ *
+ * The gap is not optional: a body with no gap and multiple stacked children (the common case
+ * for a section listing several cards, e.g. `ReferenceSection`/`SectionPanel` wrapping a
+ * pattern-catalog family) rendered every child flush against the next with zero space between
+ * them, site-wide — a single missing property produced the defect everywhere this component's
+ * body held more than one child, confirmed live (0px measured between every pattern-demo card
+ * on `/components`, versus the 20px `ReferenceLinkGrid` already used one layer up). Flex-column
+ * with a gap is additive over the previous plain block flow — a lone child is unaffected, since
+ * `gap` has no effect with nothing to space.
  */
 export function resolveSurfacePresentationStyles(props: SurfacePresentationProps): CSSProperties {
   const {
@@ -40,30 +50,23 @@ export function resolveSurfacePresentationStyles(props: SurfacePresentationProps
     contentJustify,
   } = props;
 
+  const base: CSSProperties = {
+    minHeight: toCssLength(minHeight),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 'var(--mantine-spacing-lg)',
+  };
+
   if (presentation === 'inline') {
-    return {
-      minHeight: toCssLength(minHeight),
-    };
+    return base;
   }
 
   const align = contentAlign ?? 'center';
   const justify = contentJustify ?? (presentation === 'centered' ? 'center' : 'start');
 
-  if (presentation === 'fill') {
-    return {
-      minHeight: toCssLength(minHeight),
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: align === 'center' ? 'center' : 'flex-start',
-      justifyContent: justify === 'center' ? 'center' : 'flex-start',
-    };
-  }
-
   return {
-    minHeight: toCssLength(minHeight),
-    display: 'flex',
-    flexDirection: 'column',
+    ...base,
+    ...(presentation === 'fill' ? { flex: 1 } : {}),
     alignItems: align === 'center' ? 'center' : 'flex-start',
     justifyContent: justify === 'center' ? 'center' : 'flex-start',
   };

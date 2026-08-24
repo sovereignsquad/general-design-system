@@ -2,6 +2,37 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased
+
+### Site UX defects: zero-gap cards, slider mark overflow, redundant Theme Toggle box (#666)
+
+Reported live against the deployed site with annotated screenshots. Four defects, all traced
+to shared components:
+
+Every stacked pattern-demo card on `/components` rendered flush against the next with 0px
+gap, site-wide -- `SurfacePresentation.ts`'s `inline` mode (the default) returned only
+`{minHeight}`, no flex or gap at all. Every presentation mode is now a flex column with a
+governed `var(--mantine-spacing-lg)` gap; a lone child is unaffected since gap has no effect
+with nothing to space.
+
+`GdsRatingScale`'s boundary marks overflowed the Slider track by 4px on each side -- Mantine
+centers its own dot marker on each mark's position, and the label inherited that shift with no
+compensation. Fixed with two governed CSS rules in `packages/gds-theme/styles.css`; verified
+0px overflow both directions.
+
+The `theme-toggle` pattern demo wrapped one `<ThemeToggle />` button in a second, near-duplicate
+card -- its own outer card already carried the title and description. Now renders the button
+directly, matching every other single-component demo entry.
+
+`FormControlFamilyDemo` (Segmented control / Slider and rating / Wizard stepper / Date and time
+inputs) used a bare unstyled `<div>` and `<br />` tags for layout -- FOUNDATION.md's own
+prohibited pattern. Replaced with `GdsStack`, the governed primitive already used throughout
+the file. This was also the reason the site-wide gap fix alone didn't reach these four cards --
+they were nested two levels inside the fixed container via the unstyled divs.
+
+18 more `<br />` layout instances remain elsewhere in `pattern-pages.tsx`, not swept in this
+pass -- tracked, not silently left.
+
 ## 6.5.0 - 2026-08-24 — Accessibility floor sweep, an opt-in lazy locale registry, and hardened release tooling (#629, #632, #641, #656-#662)
 
 A cross-cutting maintenance release: the touch-target floor sweep closed its two largest

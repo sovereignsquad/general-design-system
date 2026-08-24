@@ -2628,7 +2628,15 @@ describe('@sovereignsquad/gds-core', () => {
   });
 
   it('resolves surface presentation styles for inline, centered, and fill modes', () => {
-    expect(resolveSurfacePresentationStyles({ presentation: 'inline', minHeight: 240 })).toEqual({ minHeight: '240px' });
+    // Every mode is a flex column with a governed gap (issue: deep-audit UX pass) -- a body
+    // with no gap and multiple stacked children rendered every one flush against the next,
+    // site-wide. A lone child is unaffected, since `gap` has no effect with nothing to space.
+    expect(resolveSurfacePresentationStyles({ presentation: 'inline', minHeight: 240 })).toEqual({
+      minHeight: '240px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 'var(--mantine-spacing-lg)',
+    });
     expect(resolveSurfacePresentationStyles({
       presentation: 'fill',
       minHeight: 360,
@@ -2639,6 +2647,7 @@ describe('@sovereignsquad/gds-core', () => {
       display: 'flex',
       flex: 1,
       flexDirection: 'column',
+      gap: 'var(--mantine-spacing-lg)',
       alignItems: 'flex-start',
       justifyContent: 'center',
     });
@@ -2651,6 +2660,7 @@ describe('@sovereignsquad/gds-core', () => {
       minHeight: '180px',
       display: 'flex',
       flexDirection: 'column',
+      gap: 'var(--mantine-spacing-lg)',
       alignItems: 'center',
       justifyContent: 'center',
     });
