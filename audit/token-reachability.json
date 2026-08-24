@@ -1,7 +1,7 @@
 {
   "declared": 294,
-  "referenced": 105,
-  "extensionPoints": 140,
+  "referenced": 106,
+  "extensionPoints": 139,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -463,13 +463,6 @@
     },
     {
       "token": "--gds-control-height-lg",
-      "classification": "extension-point",
-      "reason": "Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-control-height-md",
       "classification": "extension-point",
       "reason": "Density-axis control height (issue 556). Emitted so a control can size to the governed hit-target scale; the 44px floor is enforced in resolveGdsDensityTokens.",
       "reviewBy": "2027-08-01",
