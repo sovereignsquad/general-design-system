@@ -2,7 +2,7 @@
   "minTargetPx": 44,
   "routesSwept": 26,
   "routesSkipped": [],
-  "totalUnexemptViolations": 564,
+  "totalUnexemptViolations": 268,
   "findings": [
     {
       "route": "/",
@@ -106,206 +106,6 @@
     },
     {
       "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Browse patterns",
-      "w": 124,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open coverage matrix",
-      "w": 167,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Explore themes",
-      "w": 117,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Install GDS",
-      "w": 83,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open live proofs",
-      "w": 124,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Read governance",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Browse patterns",
-      "w": 124,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Explore themes",
-      "w": 117,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Read governance",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Request a feature",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/",
       "tag": "button",
       "cls": "gds-tour-btn gds-tour-btn--ghost",
       "label": "Skip",
@@ -331,166 +131,6 @@
       "label": "Select site locale",
       "w": 160,
       "h": 36,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Foundations",
-      "w": 93,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Components",
-      "w": 96,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Systems",
-      "w": 65,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Public, Editorial, & Docs",
-      "w": 179,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Operations",
-      "w": 83,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Data & Search",
-      "w": 107,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Access & Recovery",
-      "w": 146,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Feedback & Messaging",
-      "w": 176,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
       "parent": "div",
       "display": "block"
     },
@@ -531,166 +171,6 @@
       "label": "Patterns",
       "w": 63,
       "h": 16,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Install path",
-      "w": 82,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Governance rules",
-      "w": 134,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Live runtime proof",
-      "w": 138,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Motion Tokens",
-      "w": 111,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Shape & Elevation",
-      "w": 136,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Density & Spacing",
-      "w": 138,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Icons",
-      "w": 41,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Typography",
-      "w": 91,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/foundations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
       "parent": "div",
       "display": "block"
     },
@@ -721,206 +201,6 @@
       "label": "Patterns",
       "w": 63,
       "h": 16,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Install path",
-      "w": 82,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Governance rules",
-      "w": 134,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Live runtime proof",
-      "w": 138,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Public Shells & Docs",
-      "w": 154,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Discovery & Listing",
-      "w": 145,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Editorial & Brand Storytelling",
-      "w": 215,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Map System",
-      "w": 94,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Public Product Surfaces",
-      "w": 182,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Forms & Inputs",
-      "w": 113,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Shell & Navigation Guidance",
-      "w": 213,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
       "parent": "div",
       "display": "block"
     },
@@ -1216,66 +496,6 @@
     },
     {
       "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Install Guide",
-      "w": 93,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 342,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Governance",
-      "w": 92,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 342,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open theme runtime",
-      "w": 155,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/public",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 342,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/public",
       "tag": "button",
       "cls": "",
       "label": "Contact",
@@ -1471,126 +691,6 @@
       "label": "Patterns",
       "w": 63,
       "h": 16,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Install path",
-      "w": 82,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Governance rules",
-      "w": 134,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Live runtime proof",
-      "w": 138,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Workflow Guidance",
-      "w": 148,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Editing & Content Ops",
-      "w": 166,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Dashboard & Panel Surfaces",
-      "w": 216,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/operations",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
       "parent": "div",
       "display": "block"
     },
@@ -1856,126 +956,6 @@
     },
     {
       "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Install path",
-      "w": 82,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Governance rules",
-      "w": 134,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Live runtime proof",
-      "w": 138,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Search & Data Views",
-      "w": 157,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Workflow Guidance",
-      "w": 148,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Responsive Guidance",
-      "w": 163,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/data",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/data",
       "tag": "input",
       "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
       "label": "Filter",
@@ -2196,96 +1176,6 @@
     },
     {
       "route": "/patterns/access",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Install path",
-      "w": 82,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/access",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/access",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Governance rules",
-      "w": 134,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/access",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/access",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Live runtime proof",
-      "w": 138,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/access",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/access",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Auth, Share, & Access",
-      "w": 168,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/access",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/access",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/access",
       "tag": "input",
       "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
       "label": "Filter",
@@ -2436,136 +1326,6 @@
     },
     {
       "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Install path",
-      "w": 82,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Governance rules",
-      "w": 134,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Live runtime proof",
-      "w": 138,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Overlays & Feedback",
-      "w": 160,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Responsive Guidance",
-      "w": 163,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "State & Recovery Guidance",
-      "w": 206,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/patterns/feedback",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/patterns/feedback",
       "tag": "input",
       "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
       "label": "Filter",
@@ -2691,46 +1451,6 @@
       "label": "Select site locale",
       "w": 160,
       "h": 36,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Controls & Inputs",
-      "w": 129,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Shell & Navigation",
-      "w": 137,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
       "parent": "div",
       "display": "block"
     },
@@ -3036,466 +1756,6 @@
     },
     {
       "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Search & Data Views",
-      "w": 157,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Badges & Indicators",
-      "w": 151,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Public Product Surfaces",
-      "w": 182,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Public Shells & Docs",
-      "w": 154,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Workflow Guidance",
-      "w": 148,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Controls & Inputs",
-      "w": 129,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Overlays & Feedback",
-      "w": 160,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Auth, Share, & Access",
-      "w": 168,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Shell & Navigation",
-      "w": 137,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Discovery & Listing",
-      "w": 145,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Editing & Content Ops",
-      "w": 166,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Dashboard & Panel Surfaces",
-      "w": 216,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Editorial & Brand Storytelling",
-      "w": 215,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Generated Imagery",
-      "w": 145,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Map System",
-      "w": 94,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Shell & Navigation Guidance",
-      "w": 213,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Forms & Inputs",
-      "w": 113,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Density & Spacing",
-      "w": 138,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Icons",
-      "w": 41,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Motion Tokens",
-      "w": 111,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Shape & Elevation",
-      "w": 136,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Typography",
-      "w": 91,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/components",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/components",
       "tag": "input",
       "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
       "label": "Filter",
@@ -3511,166 +1771,6 @@
       "label": "Select site locale",
       "w": 160,
       "h": 36,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Theming & the Theme Lab",
-      "w": 199,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Badge system",
-      "w": 107,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Generated imagery",
-      "w": 145,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Motion tokens",
-      "w": 107,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Map system",
-      "w": 92,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Internationalisation",
-      "w": 143,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Badges & Indicators",
-      "w": 151,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Generated Imagery",
-      "w": 145,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
       "parent": "div",
       "display": "block"
     },
@@ -3935,212 +2035,12 @@
       "display": "flex"
     },
     {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Live proofs",
-      "w": 84,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Coverage",
-      "w": 73,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Maturity",
-      "w": 63,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Use cases",
-      "w": 79,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Request a feature",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Use with AI",
-      "w": 86,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/systems",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
       "route": "/coverage",
       "tag": "select",
       "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
       "label": "Select site locale",
       "w": 160,
       "h": 36,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/coverage",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Browse patterns",
-      "w": 124,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/coverage",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/coverage",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Explore themes",
-      "w": 117,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/coverage",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/coverage",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Read governance",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/coverage",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/coverage",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Request a feature",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/coverage",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
       "parent": "div",
       "display": "block"
     },
@@ -4176,166 +2076,6 @@
     },
     {
       "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "@sovereignsquad/gds-theme",
-      "w": 224,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 363,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "@sovereignsquad/gds-core",
-      "w": 211,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 363,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "@sovereignsquad/gds-admin",
-      "w": 223,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 363,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "@sovereignsquad/gds",
-      "w": 170,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 363,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Browse patterns",
-      "w": 124,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Explore themes",
-      "w": 117,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Read governance",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Request a feature",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/api",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/api",
       "tag": "button",
       "cls": "gds-tour-btn gds-tour-btn--ghost",
       "label": "Skip",
@@ -4361,86 +2101,6 @@
       "label": "Select site locale",
       "w": 160,
       "h": 36,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/maturity",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Browse patterns",
-      "w": 124,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/maturity",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/maturity",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Explore themes",
-      "w": 117,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/maturity",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/maturity",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Read governance",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/maturity",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/maturity",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Request a feature",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/maturity",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
       "parent": "div",
       "display": "block"
     },
@@ -4476,86 +2136,6 @@
     },
     {
       "route": "/use-cases",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Browse patterns",
-      "w": 124,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/use-cases",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/use-cases",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Explore themes",
-      "w": 117,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/use-cases",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/use-cases",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Read governance",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/use-cases",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/use-cases",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Request a feature",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/use-cases",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/use-cases",
       "tag": "button",
       "cls": "gds-tour-btn gds-tour-btn--ghost",
       "label": "Skip",
@@ -4585,272 +2165,12 @@
       "display": "block"
     },
     {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Semantic actions and auth",
-      "w": 200,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Browse patterns",
-      "w": 124,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Explore themes",
-      "w": 117,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Read governance",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Request a feature",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/install",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
       "route": "/governance",
       "tag": "select",
       "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
       "label": "Select site locale",
       "w": 160,
       "h": 36,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Homepage and install routes",
-      "w": 216,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Pattern catalog",
-      "w": 115,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Live proofs",
-      "w": 84,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 221,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Browse patterns",
-      "w": 124,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Explore themes",
-      "w": 117,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Read governance",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
-      "parent": "div",
-      "display": "block"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Request a feature",
-      "w": 133,
-      "h": 20,
-      "parent": "h4",
-      "display": "inline"
-    },
-    {
-      "route": "/governance",
-      "tag": "a",
-      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
-      "label": "Open section",
-      "w": 146,
-      "h": 25,
       "parent": "div",
       "display": "block"
     },
@@ -5003,7 +2323,367 @@
       "h": 36,
       "parent": "div",
       "display": "block"
+    },
+    {
+      "route": "/themes",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
+      "label": "Page (cream) — bg.page",
+      "w": 830,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/themes",
+      "tag": "input",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-TextInput-input",
+      "label": "Secondary text (slate) — text.secondary",
+      "w": 830,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--ghost",
+      "label": "Skip",
+      "w": 51,
+      "h": 29,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--primary",
+      "label": "Next",
+      "w": 53,
+      "h": 29,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/surfaces",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/surfaces",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Open listing",
+      "w": 90,
+      "h": 25,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/surfaces",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Reserve pickup",
+      "w": 117,
+      "h": 25,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/surfaces",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Add to order",
+      "w": 95,
+      "h": 25,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/surfaces",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Add to order",
+      "w": 95,
+      "h": 25,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/layouts",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/layouts",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Template preset",
+      "w": 788,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/semantics",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/semantics",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Settings",
+      "w": 34,
+      "h": 34,
+      "parent": "div",
+      "display": "flex"
+    },
+    {
+      "route": "/live-proofs/semantics",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_77c9d27d mantine-Button-",
+      "label": "Save",
+      "w": 830,
+      "h": 42,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/semantics",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Share",
+      "w": 34,
+      "h": 34,
+      "parent": "div",
+      "display": "flex"
+    },
+    {
+      "route": "/live-proofs/semantics",
+      "tag": "button",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Copy link",
+      "w": 34,
+      "h": 34,
+      "parent": "div",
+      "display": "flex"
+    },
+    {
+      "route": "/live-proofs/semantics",
+      "tag": "a",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Email",
+      "w": 34,
+      "h": 34,
+      "parent": "div",
+      "display": "flex"
+    },
+    {
+      "route": "/live-proofs/semantics",
+      "tag": "a",
+      "cls": "mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionI",
+      "label": "Share on X",
+      "w": 34,
+      "h": 34,
+      "parent": "div",
+      "display": "flex"
+    },
+    {
+      "route": "/live-proofs/food",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/food",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Reserve pickup",
+      "w": 117,
+      "h": 25,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/food",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Add to order",
+      "w": 95,
+      "h": 25,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/food",
+      "tag": "a",
+      "cls": "mantine-focus-auto m_849cf0da m_b6d8b162 mantine-Text-root m",
+      "label": "Add to order",
+      "w": 95,
+      "h": 25,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/playback",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/live-proofs/analytics",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/request-feature",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/request-feature",
+      "tag": "input",
+      "cls": "",
+      "label": "Name",
+      "w": 830,
+      "h": 43,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/request-feature",
+      "tag": "input",
+      "cls": "",
+      "label": "Email",
+      "w": 830,
+      "h": 43,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/request-feature",
+      "tag": "input",
+      "cls": "",
+      "label": "Organization",
+      "w": 830,
+      "h": 43,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/request-feature",
+      "tag": "select",
+      "cls": "",
+      "label": "Request type",
+      "w": 830,
+      "h": 40,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/request-feature",
+      "tag": "input",
+      "cls": "",
+      "label": "Urgency",
+      "w": 830,
+      "h": 43,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/request-feature",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--ghost",
+      "label": "Skip",
+      "w": 51,
+      "h": 29,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/request-feature",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--primary",
+      "label": "Next",
+      "w": 53,
+      "h": 29,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/ai",
+      "tag": "select",
+      "cls": "m_8fb7ebe7 mantine-Input-input mantine-NativeSelect-input",
+      "label": "Select site locale",
+      "w": 160,
+      "h": 36,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/ai",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--ghost",
+      "label": "Skip",
+      "w": 51,
+      "h": 29,
+      "parent": "div",
+      "display": "block"
+    },
+    {
+      "route": "/ai",
+      "tag": "button",
+      "cls": "gds-tour-btn gds-tour-btn--primary",
+      "label": "Next",
+      "w": 53,
+      "h": 29,
+      "parent": "div",
+      "display": "block"
     }
   ],
-  "findingsTruncated": true
+  "findingsTruncated": false
 }

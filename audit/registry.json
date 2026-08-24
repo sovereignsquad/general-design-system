@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "372ff4c1be2659ec5369c4034382421dd14a9f8d",
+  "commit": "5e1ef143cd67779c56a9a7ab77f693ec2c5322ac",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -6445,7 +6445,7 @@
       "name": "--gds-control-height-sm",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1566
+        "line": 1586
       }
     },
     {
@@ -6454,7 +6454,7 @@
       "name": "--gds-radius-pill",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1568
+        "line": 1588
       }
     },
     {
@@ -6463,7 +6463,7 @@
       "name": "--gds-vibe-swatch",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1570
+        "line": 1590
       }
     },
     {

@@ -1554,6 +1554,26 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
   inset: -6px;
 }
 
+/*
+ * Issue 659 — the two card-terminal links in ReferenceLinkGrid (the title link and the
+ * "Open section" link) are text-sized: 20-25px tall, well under the 44px floor. Same
+ * invisible-padding technique as the checkbox above (issue 628), sized for the worst
+ * measured height (20px: (44-20)/2 = 12px each side; the 25px case gets more headroom than
+ * it needs, which is harmless). Safe here in a way the checkbox and swatch grid weren't
+ * automatically safe: each anchor sits inside a Paper with p="lg" in a SimpleGrid with
+ * spacing="lg" (see ReferenceLinkGrid.tsx), so the padded hit area has no neighbor within
+ * 12px in any direction — unlike the swatch grid's accepted narrow-gap overlap, there is no
+ * overlap risk to accept here.
+ */
+.gds-touch-target-pad-link {
+  position: relative;
+}
+.gds-touch-target-pad-link::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+}
+
 [data-gds-theme-swatch] {
   /*
    * A COMPLETE surface, not just a background. A consumer previewing a theme should need one
