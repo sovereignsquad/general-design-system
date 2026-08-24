@@ -142,11 +142,11 @@
     },
     {
       "key": "obligationGaps",
-      "measured": 404,
-      "value": 404,
+      "measured": 356,
+      "value": 356,
       "direction": "max",
       "unit": "count",
-      "finding": "F18",
+      "finding": "F18 / issue 656",
       "advisory": false,
       "status": "OK"
     },

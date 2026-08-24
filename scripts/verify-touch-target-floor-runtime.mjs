@@ -61,6 +61,11 @@ const MEASURE = (minTarget) => `(() => {
       cls: (el.className || '').toString().slice(0, 60),
       label: (el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 50),
       w, h,
+      // Recorded so a finding can be classified as a discrete target or an inline link
+      // without re-running the sweep: these are the two inputs the WCAG 2.5.8 exception
+      // above reads, and a violation that survives it must be explainable by one of them.
+      parent: el.parentElement ? el.parentElement.tagName.toLowerCase() : null,
+      display: getComputedStyle(el).display,
     });
   }
   return rows;

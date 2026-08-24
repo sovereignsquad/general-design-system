@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "7eda190fb114064ef8642e1e51c546e620fdee67",
+  "commit": "372ff4c1be2659ec5369c4034382421dd14a9f8d",
   "counts": {
     "token-published": 486,
     "token-declared": 58,
@@ -28221,7 +28221,7 @@
       "name": "PartnerDiscoveryShellProps.logo",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 269
+        "line": 273
       },
       "type": "ReactNode"
     },
@@ -28231,7 +28231,7 @@
       "name": "PartnerDiscoveryShellProps.navItems",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 269
+        "line": 273
       },
       "type": "PartnerNavItem[]"
     },
@@ -28241,7 +28241,7 @@
       "name": "PartnerDiscoveryShellProps.footer",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 269
+        "line": 273
       },
       "type": "{"
     },
@@ -28251,7 +28251,7 @@
       "name": "PartnerDiscoveryShellProps.children",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 269
+        "line": 273
       },
       "type": "ReactNode"
     },
@@ -28261,7 +28261,7 @@
       "name": "AmenityChipGridProps.amenities",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 353
+        "line": 359
       },
       "type": "PartnerAmenityOption[]"
     },
@@ -28271,7 +28271,7 @@
       "name": "AmenityChipGridProps.selected",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 353
+        "line": 359
       },
       "type": "string[]"
     },
@@ -28281,7 +28281,7 @@
       "name": "AmenityChipGridProps.onToggle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 353
+        "line": 359
       },
       "type": "(amenityId: string) => void"
     },
@@ -28291,7 +28291,7 @@
       "name": "PartnerDiscoveryFiltersProps.value",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "PartnerDiscoveryFilterState"
     },
@@ -28301,7 +28301,7 @@
       "name": "PartnerDiscoveryFiltersProps.amenities",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "PartnerAmenityOption[]"
     },
@@ -28311,7 +28311,7 @@
       "name": "PartnerDiscoveryFiltersProps.labels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "PartnerDiscoveryFilterLabels"
     },
@@ -28321,7 +28321,7 @@
       "name": "PartnerDiscoveryFiltersProps.prices",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "PartnerPriceLevel[]"
     },
@@ -28331,7 +28331,7 @@
       "name": "PartnerDiscoveryFiltersProps.opened",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "boolean"
     },
@@ -28341,7 +28341,7 @@
       "name": "PartnerDiscoveryFiltersProps.loading",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "boolean"
     },
@@ -28351,7 +28351,7 @@
       "name": "PartnerDiscoveryFiltersProps.onQueryChange",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "(query: string) => void"
     },
@@ -28361,7 +28361,7 @@
       "name": "PartnerDiscoveryFiltersProps.onAmenityToggle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "(amenityId: string) => void"
     },
@@ -28371,7 +28371,7 @@
       "name": "PartnerDiscoveryFiltersProps.onPriceToggle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "(price: PartnerPriceLevel) => void"
     },
@@ -28381,7 +28381,7 @@
       "name": "PartnerDiscoveryFiltersProps.onOpen",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "() => void"
     },
@@ -28391,7 +28391,7 @@
       "name": "PartnerDiscoveryFiltersProps.onClose",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "() => void"
     },
@@ -28401,7 +28401,7 @@
       "name": "PartnerDiscoveryFiltersProps.onReset",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "() => void"
     },
@@ -28411,7 +28411,7 @@
       "name": "PartnerDiscoveryFiltersProps.onApply",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "() => void"
     },
@@ -28421,7 +28421,7 @@
       "name": "PartnerDiscoveryFiltersProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 404
+        "line": 412
       },
       "type": "PartnerDiscoveryEventHandler"
     },
@@ -28431,7 +28431,7 @@
       "name": "PartnerPlaceResultCardProps.place",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 547
+        "line": 566
       },
       "type": "PartnerPlaceResult"
     },
@@ -28441,7 +28441,7 @@
       "name": "PartnerPlaceResultCardProps.amenityLabels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 547
+        "line": 566
       },
       "type": "Record<string, string>"
     },
@@ -28451,7 +28451,7 @@
       "name": "PartnerPlaceResultCardProps.active",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 547
+        "line": 566
       },
       "type": "boolean"
     },
@@ -28461,7 +28461,7 @@
       "name": "PartnerPlaceResultCardProps.detailLabel",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 547
+        "line": 566
       },
       "type": "ReactNode"
     },
@@ -28471,7 +28471,7 @@
       "name": "PartnerPlaceResultCardProps.onSelect",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 547
+        "line": 566
       },
       "type": "(placeId: string) => void"
     },
@@ -28481,7 +28481,7 @@
       "name": "PartnerPlaceResultCardProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 547
+        "line": 566
       },
       "type": "PartnerDiscoveryEventHandler"
     },
@@ -28491,7 +28491,7 @@
       "name": "PartnerMapPinProps.label",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 615
+        "line": 637
       },
       "type": "string"
     },
@@ -28501,7 +28501,7 @@
       "name": "PartnerMapPinProps.active",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 615
+        "line": 637
       },
       "type": "boolean"
     },
@@ -28511,7 +28511,7 @@
       "name": "PartnerMapPinProps.onSelect",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 615
+        "line": 637
       },
       "type": "() => void"
     },
@@ -28521,7 +28521,7 @@
       "name": "PartnerMapControlsProps.onZoomIn",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 648
+        "line": 673
       },
       "type": "() => void"
     },
@@ -28531,7 +28531,7 @@
       "name": "PartnerMapControlsProps.onZoomOut",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 648
+        "line": 673
       },
       "type": "() => void"
     },
@@ -28541,7 +28541,7 @@
       "name": "PartnerMapControlsProps.zoomInLabel",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 648
+        "line": 673
       },
       "type": "string"
     },
@@ -28551,7 +28551,7 @@
       "name": "PartnerMapControlsProps.zoomOutLabel",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 648
+        "line": 673
       },
       "type": "string"
     },
@@ -28561,7 +28561,7 @@
       "name": "PartnerMapListShellProps.places",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "PartnerPlaceResult[]"
     },
@@ -28571,7 +28571,7 @@
       "name": "PartnerMapListShellProps.filters",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "PartnerDiscoveryFilterState"
     },
@@ -28581,7 +28581,7 @@
       "name": "PartnerMapListShellProps.activePlaceId",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "string"
     },
@@ -28591,7 +28591,7 @@
       "name": "PartnerMapListShellProps.loading",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "boolean"
     },
@@ -28601,7 +28601,7 @@
       "name": "PartnerMapListShellProps.error",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "ReactNode"
     },
@@ -28611,7 +28611,7 @@
       "name": "PartnerMapListShellProps.empty",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "ReactNode"
     },
@@ -28621,7 +28621,7 @@
       "name": "PartnerMapListShellProps.onRetry",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "() => void"
     },
@@ -28631,7 +28631,7 @@
       "name": "PartnerMapListShellProps.onActivePlaceChange",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "(placeId: string) => void"
     },
@@ -28641,7 +28641,7 @@
       "name": "PartnerMapListShellProps.mapAdapter",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "(props: PartnerMapAdapterProps) => ReactNode"
     },
@@ -28651,7 +28651,7 @@
       "name": "PartnerMapListShellProps.amenityLabels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "Record<string, string>"
     },
@@ -28661,7 +28661,7 @@
       "name": "PartnerMapListShellProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 681
+        "line": 708
       },
       "type": "PartnerDiscoveryEventHandler"
     },
@@ -28671,7 +28671,7 @@
       "name": "PartnerPlaceDetailTemplateProps.place",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       },
       "type": "PartnerPlaceDetail"
     },
@@ -28681,7 +28681,7 @@
       "name": "PartnerPlaceDetailTemplateProps.backHref",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       },
       "type": "string"
     },
@@ -28691,7 +28691,7 @@
       "name": "PartnerPlaceDetailTemplateProps.labels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       },
       "type": "PartnerPlaceDetailLabels"
     },
@@ -28701,7 +28701,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       },
       "type": "'idle' | 'copying' | 'copied' | 'failed'"
     },
@@ -28711,7 +28711,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState=idle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       }
     },
     {
@@ -28720,7 +28720,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState=copying",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       }
     },
     {
@@ -28729,7 +28729,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState=copied",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       }
     },
     {
@@ -28738,7 +28738,7 @@
       "name": "PartnerPlaceDetailTemplateProps.shareState=failed",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       }
     },
     {
@@ -28747,7 +28747,7 @@
       "name": "PartnerPlaceDetailTemplateProps.onShare",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       },
       "type": "(url: string) => void"
     },
@@ -28757,7 +28757,7 @@
       "name": "PartnerPlaceDetailTemplateProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 807
+        "line": 843
       },
       "type": "PartnerDiscoveryEventHandler"
     },
@@ -28767,7 +28767,7 @@
       "name": "PartnerNewsletterCaptureProps.opened",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       },
       "type": "boolean"
     },
@@ -28777,7 +28777,7 @@
       "name": "PartnerNewsletterCaptureProps.labels",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       },
       "type": "PartnerNewsletterLabels"
     },
@@ -28787,7 +28787,7 @@
       "name": "PartnerNewsletterCaptureProps.visual",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       },
       "type": "ReactNode"
     },
@@ -28797,7 +28797,7 @@
       "name": "PartnerNewsletterCaptureProps.email",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       },
       "type": "string"
     },
@@ -28807,7 +28807,7 @@
       "name": "PartnerNewsletterCaptureProps.state",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       },
       "type": "'idle' | 'submitting' | 'success' | 'error'"
     },
@@ -28817,7 +28817,7 @@
       "name": "PartnerNewsletterCaptureProps.state=idle",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       }
     },
     {
@@ -28826,7 +28826,7 @@
       "name": "PartnerNewsletterCaptureProps.state=submitting",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       }
     },
     {
@@ -28835,7 +28835,7 @@
       "name": "PartnerNewsletterCaptureProps.state=success",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       }
     },
     {
@@ -28844,7 +28844,7 @@
       "name": "PartnerNewsletterCaptureProps.state=error",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       }
     },
     {
@@ -28853,7 +28853,7 @@
       "name": "PartnerNewsletterCaptureProps.onEmailChange",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       },
       "type": "(email: string) => void"
     },
@@ -28863,7 +28863,7 @@
       "name": "PartnerNewsletterCaptureProps.onSubmit",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       },
       "type": "() => void"
     },
@@ -28873,7 +28873,7 @@
       "name": "PartnerNewsletterCaptureProps.onDismiss",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       },
       "type": "() => void"
     },
@@ -28883,7 +28883,7 @@
       "name": "PartnerNewsletterCaptureProps.onEvent",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 932
+        "line": 973
       },
       "type": "PartnerDiscoveryEventHandler"
     },
