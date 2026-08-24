@@ -192,6 +192,14 @@ user-visible copy (theme presets, component defaults, the Theme Lab) — and tra
 **If a string renders in English on a translated page, the usual cause is that its source file
 is not in that list.**
 
+A failed translation call never overwrites a committed translation. The endpoint is reachable
+over the network, so a rate-limited, sandboxed or offline run would otherwise write the English
+source over good copy — and the retry path targets exactly the values that already look
+English-ish, so a failed retry is what turns "looks like leakage" into leakage. The generator
+preserves what is committed, reports how many calls succeeded, and exits non-zero when more
+than 10% of them failed, because a run against a dead endpoint must not be mistaken for a
+refresh.
+
 Machine translation is the current source and **the wording has not been reviewed by a human**.
 Two known limits, both measured rather than assumed:
 
