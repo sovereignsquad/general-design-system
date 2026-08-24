@@ -50,6 +50,31 @@ they were nested two levels inside the fixed container via the unstyled divs.
 18 more `<br />` layout instances remain elsewhere in `pattern-pages.tsx`, not swept in this
 pass -- tracked, not silently left.
 
+## Unreleased
+
+### GdsColorSystemReference and GdsAccessibilitySystemReference close /foundations to all 7 axes (#661)
+
+`/foundations` claimed seven axes in its own description; two -- colour/theming and
+accessibility -- had no reference component at all, confirmed live and traced to source.
+
+`GdsColorSystemReference` groups every `BrandSemanticRole` by its 60-30-10 proportion
+classification with live-resolved swatches, states the governed accent axis (names, shades,
+per-mode enforcement), and embeds the existing `GdsAccentContrastMatrix` rather than
+re-deriving contrast, so this page can never disagree with `verify:accent-contrast`.
+
+`GdsAccessibilitySystemReference` lists every governed accessibility-floor rule and calls
+`auditGdsAccessibilityFloor()` directly for a live "Holds"/violation-count verdict across all
+25 presets x 2 schemes -- the same function `verify:a11y-floor` runs.
+
+Both caught and fixed their own layout defect before shipping: a bare Mantine `Table` cell
+holding a long sentence gets squeezed to whatever width the other columns leave it -- measured
+live at 52px wide, wrapping one rationale into a 452px-tall row. Fixed with `SimpleDataTable`
+plus an explicit minimum width, and a 2-row key/value table replaced with a plain `Stack` where
+a table wasn't the right structure to begin with.
+
+Component census 306 -> 308; `docs/AI_AGENT_GUIDE.md` and `llms.txt` both restated the count
+(one gated since #665, so it failed loudly on the stale number rather than being missed).
+
 ## 6.5.0 - 2026-08-24 — Accessibility floor sweep, an opt-in lazy locale registry, and hardened release tooling (#629, #632, #641, #656-#662)
 
 A cross-cutting maintenance release: the touch-target floor sweep closed its two largest

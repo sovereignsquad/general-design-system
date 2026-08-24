@@ -8,7 +8,7 @@ How any AI coding agent — any LLM-powered coding tool — should consume the G
 
 ## 1. What GDS is
 
-GDS (`@sovereignsquad/gds`) is a governed React design system built on Mantine. It ships 306 components, design tokens, theme presets, and runtime systems (forms, data tables, overlays, notifications, access gates, i18n). Products compose shipped GDS contracts rather than reinventing UI locally. Mantine and Tabler are implementation dependencies behind GDS-owned APIs.
+GDS (`@sovereignsquad/gds`) is a governed React design system built on Mantine. It ships 308 components, design tokens, theme presets, and runtime systems (forms, data tables, overlays, notifications, access gates, i18n). Products compose shipped GDS contracts rather than reinventing UI locally. Mantine and Tabler are implementation dependencies behind GDS-owned APIs.
 
 ## 2. Install and bootstrap
 

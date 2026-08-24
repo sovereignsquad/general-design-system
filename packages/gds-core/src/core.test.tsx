@@ -99,6 +99,8 @@ import { CreatorThemeBoundary, validateCreatorCss } from './CreatorTheme';
 import { createGdsTelemetryAdapter, emitGdsEvent, GdsTelemetryProvider, gdsOperationalEventTypes, isGdsOperationalEventType, useGdsTelemetry } from './Telemetry.client';
 import { createGdsVocabularyPack, getSemanticActionLabel } from './vocabulary';
 import { getGdsTaskPattern, getGdsTaskPatterns, validateGdsTaskPatterns } from './TaskPatterns';
+import { GdsColorSystemReference } from './GdsColorSystemReference';
+import { GdsAccessibilitySystemReference } from './GdsAccessibilitySystemReference';
 import {
   createGdsPageTemplateEvent,
   GdsAdminDashboardTemplate,
@@ -4711,4 +4713,29 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     expect(screen.getAllByText(/Unsupported layout block type "ghost"/i).length).toBeGreaterThan(0);
   });
+
+describe('GdsColorSystemReference (issue 661)', () => {
+  it('renders every 60-30-10 role group with a resolved swatch value, and the live contrast matrix', () => {
+    renderWithGds(<GdsColorSystemReference />);
+    expect(screen.getByText('Dominant (~60%)')).toBeInTheDocument();
+    expect(screen.getByText('Secondary (~30%)')).toBeInTheDocument();
+    expect(screen.getByText('Accent (~10%)')).toBeInTheDocument();
+    // bg.canvas is a DOMINANT_ROLES member; its resolved default/light value must render, not
+    // just its role name, or the page would be a role list rather than a live reference.
+    expect(screen.getByText('bg.canvas')).toBeInTheDocument();
+    expect(screen.getAllByText(/^#/).length).toBeGreaterThan(0);
+    expect(screen.getByText('Accent names', { exact: false })).toBeInTheDocument();
+  });
+});
+
+describe('GdsAccessibilitySystemReference (issue 661)', () => {
+  it('renders a live audit verdict and every governed floor rule', () => {
+    renderWithGds(<GdsAccessibilitySystemReference />);
+    // The default theme holds its own floor -- if this ever renders a violation count instead
+    // of "Holds", that is real regression evidence, not a fixture to relax.
+    expect(screen.getByText('Holds')).toBeInTheDocument();
+    expect(screen.getByText('focus-ring-min-width')).toBeInTheDocument();
+    expect(screen.getByText(/rules checked across/)).toBeInTheDocument();
+  });
+});
 });

@@ -248,6 +248,7 @@
       "files": [
         "packages/gds-core/src/BottomTabBar.tsx",
         "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/GdsColorSystemReference.tsx",
         "packages/gds-core/src/PartnerDiscovery.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/SemanticCharts.tsx",

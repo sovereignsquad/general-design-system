@@ -696,6 +696,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "GdsAccessibilitySystemReference",
+    "status": "registered",
+    "home": {
+      "id": "accessibility-floor",
+      "family": "foundations",
+      "section": "Accessibility"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsAdminDashboardTemplate",
     "status": "exempt",
     "reason": "Page template (GdsPageTemplates) — full-page scaffold, exempt per issue (templates/catalog)."
@@ -891,6 +901,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "name": "GdsCluster",
     "status": "exempt",
     "reason": "Layout primitive (wrapping cluster) — composed into registered patterns."
+  },
+  {
+    "name": "GdsColorSystemReference",
+    "status": "registered",
+    "home": {
+      "id": "color-theming",
+      "family": "foundations",
+      "section": "Colour & Theming"
+    },
+    "alsoAppearsIn": []
   },
   {
     "name": "GdsColumnGrid",

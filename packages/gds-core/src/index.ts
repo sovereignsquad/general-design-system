@@ -189,6 +189,8 @@ export * from './GdsShapeElevationSystemReference';
 export * from './GdsDensitySpacingSystemReference';
 export * from './GdsIconSystemReference';
 export * from './GdsTypographySystemReference';
+export * from './GdsColorSystemReference';
+export * from './GdsAccessibilitySystemReference';
 export * from './GdsDesignRuleProfilePanel';
 export * from './GdsInlineLink';
 
