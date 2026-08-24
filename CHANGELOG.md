@@ -4,6 +4,21 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Translation generators no longer degrade committed packs silently (#660)
+
+`scripts/lib/translate.mjs` calls a network endpoint and returned the English source on any
+failure, indistinguishable from a real translation. `npm run artifacts:refresh` on a
+rate-limited or offline machine therefore rewrote shipped translations in English with no
+warning and exit code 0 — observed replacing `Layoutschema JSON` and `Overlay-Stack-Governance`
+with their English sources.
+
+`translate()` now resolves `{ text, ok }`. `chooseTranslationValue()` holds the invariant that a
+failed call never replaces a stored translation. `generate-site-phrase-translations.mjs`
+preserves committed values, reports attempted/succeeded/failed counts, and exits non-zero above
+a 10% failure rate. `generate-component-message-packs.mjs` defers a failed id instead of
+writing English into a new entry, which the next run would have skipped as already-present —
+making "gets fixed on the next run" true rather than assumed.
+
 ### NavLink meets the 44px touch-target floor (#629)
 
 `gdsTheme.components.NavLink` resolves `min-height` from `--gds-control-height-md` rather than

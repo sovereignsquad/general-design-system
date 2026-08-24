@@ -84,10 +84,18 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   for (const locale of ['en', ...TRANSLATION_LOCALES]) {
     const pack = readPack(locale);
     const additions = [];
+    let deferred = 0;
     for (const [id, text] of defaults) {
       if (pack.entries.has(id)) continue;
-      additions.push([id, locale === 'en' ? text : await translate(text, locale)]);
+      if (locale === 'en') { additions.push([id, text]); continue; }
+      const result = await translate(text, locale);
+      // A failed call must not write English into a new entry: the next run skips any id the
+      // pack already holds, so a transient failure would plant it permanently. Leaving the id
+      // out is what makes "gets fixed on the next run" true (issue 660).
+      if (result.ok) additions.push([id, result.text]);
+      else deferred += 1;
     }
+    if (deferred > 0) console.log(`${locale}: ${deferred} id(s) deferred — translation call failed, left for the next run.`);
     if (additions.length === 0) continue;
     writeFileSync(join(localeDir, `${locale}.ts`), appendEntries(pack.source, additions));
     console.log(`${locale}: +${additions.length}`);

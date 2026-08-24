@@ -4,7 +4,7 @@ import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
 import { measureCorpusLeakage } from './lib/i18n-leakage.mjs';
 import { TARGET_FILES, extractPhrases } from './lib/site-phrases.mjs';
-import { translate, TRANSLATION_LOCALES } from './lib/translate.mjs';
+import { chooseTranslationValue, translate, TRANSLATION_LOCALES } from './lib/translate.mjs';
 
 const traverse = traverseModule.default ?? traverseModule;
 
@@ -54,6 +54,8 @@ if (existsSync(outDir)) {
 }
 
 let retried = 0;
+let failedCalls = 0;
+let preservedOnFailure = 0;
 for (const en of sortedPhrases) {
   for (const locale of localeIds) {
     const existingTranslation = existingByLocale[locale][en];
@@ -67,7 +69,14 @@ for (const en of sortedPhrases) {
 
     if (leaked) retried += 1;
     translationJobs.push(async () => {
-      generated[locale][en] = await translate(en, locale);
+      // On failure `result.text` is the English source. Writing it over a stored translation
+      // would downgrade shipped copy, and the retry path targets exactly the values that
+      // already look English-ish — so a failed retry is what turns "looks like leakage" into
+      // leakage. `chooseTranslationValue` holds that rule (issue 660).
+      const choice = chooseTranslationValue(await translate(en, locale), existingTranslation);
+      generated[locale][en] = choice.value;
+      if (choice.failed) failedCalls += 1;
+      if (choice.preserved) preservedOnFailure += 1;
     });
   }
 }
@@ -106,3 +115,21 @@ for (const locale of localeIds) {
 
 const totalPairs = localeIds.reduce((sum, locale) => sum + Object.keys(generated[locale]).length, 0);
 console.log(`Generated ${sortedPhrases.length} phrases across ${localeIds.length} locales (${totalPairs} translated pairs).`);
+
+const attempted = translationJobs.length;
+if (attempted > 0) {
+  console.log(`  translation calls    ${attempted} attempted, ${attempted - failedCalls} succeeded, ${failedCalls} failed (${preservedOnFailure} committed value(s) preserved).`);
+}
+
+// A run where the endpoint is broadly unreachable produces packs that look generated and are
+// not. Preserving stored values keeps it from being destructive; this keeps it from being
+// mistaken for a real refresh.
+const FAILURE_RATE_LIMIT = 0.1;
+if (attempted > 0 && failedCalls / attempted > FAILURE_RATE_LIMIT) {
+  console.error(
+    `\nFAIL ${failedCalls} of ${attempted} translation calls failed `
+    + `(${((failedCalls / attempted) * 100).toFixed(1)}%, limit ${FAILURE_RATE_LIMIT * 100}%). `
+    + `The endpoint is unhealthy — committed translations were preserved, but this run did not refresh them.`,
+  );
+  process.exit(1);
+}
