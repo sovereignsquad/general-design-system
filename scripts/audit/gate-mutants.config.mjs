@@ -13,6 +13,19 @@ import { resolve } from 'node:path';
 // by this repo's own release preflight rather than by CI.
 const CURRENT_VERSION = readFileSync(resolve(import.meta.dirname, '../../VERSION'), 'utf8').trim();
 
+// Same defect class as the version anchor above, one file over: this mutant plants a stale
+// component count on docs/AI_AGENT_GUIDE.md, so its anchor must read the live census rather
+// than freeze a number that changes every time a component ships (306 at #665's writing,
+// 308 by #669's -- caught by this release's own preflight, not by CI).
+const CURRENT_COMPONENT_COUNT = (() => {
+  const source = readFileSync(
+    resolve(import.meta.dirname, '../../apps/playground/src/generated-component-census.ts'), 'utf8',
+  );
+  const match = source.match(/GDS_PUBLIC_COMPONENT_COUNT = (\d+);/);
+  if (!match) throw new Error('Could not read GDS_PUBLIC_COMPONENT_COUNT for the docs-governance mutant.');
+  return match[1];
+})();
+
 /**
  * Gates deliberately not mutated, each with a reason and a review date.
  * An exemption without a reason, or past its `reviewBy`, fails the suite.
@@ -79,7 +92,7 @@ export const GATE_MUTANTS = [
         id: 'docs-governance-detects-stale-component-count',
         claim: 'Detects docs/AI_AGENT_GUIDE.md stating a component count that no longer matches the generated census (deep-audit F4)',
         file: 'docs/AI_AGENT_GUIDE.md',
-        find: 'ships 306 components',
+        find: `ships ${CURRENT_COMPONENT_COUNT} components`,
         replace: 'ships 250+ components',
         once: true,
       },

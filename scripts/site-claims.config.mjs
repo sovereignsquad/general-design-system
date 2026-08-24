@@ -33,10 +33,24 @@ export const DERIVED_PLACEHOLDER = /%[a-z]+%/i;
 
 /** Prose numbers that are written rather than interpolated, with what makes each one true. */
 export const REGISTERED_NUMERIC_CLAIMS = {
-  // Empty: every prose number on a visible surface is currently interpolated from its source.
+  'Every governed accessibility-floor rule (id, axis, WCAG citation, rationale) and a live audit result across all 25 presets x 2 schemes, computed by auditGdsAccessibilityFloor() — the same function verify:a11y-floor runs.': {
+    evidence: 'derived',
+    ref: 'auditGdsAccessibilityFloor() (packages/gds-theme/src/accessibility-floor.ts): presetsChecked = getGdsVibeThemes().length * 2, computed at call time, never typed.',
+    note: '25 presets x 2 schemes is the CURRENT preset count, stated in prose because the sentence describes the mechanism to a reader, not because it is hand-maintained -- the number the page actually shows (audit.presetsChecked) is the live computed value, and a preset added or removed changes that rendered number automatically without touching this sentence.',
+  },
 };
 
 export const REGISTERED_CLAIMS = {
+  'Every BrandSemanticRole grouped by its 60-30-10 proportion classification, the governed accent axis (names, shades, enforcement per mode), and the live contrast matrix for the default preset — embedding GdsAccentContrastMatrix so this page can never disagree with verify:accent-contrast.': {
+    evidence: 'derived',
+    ref: 'GdsColorSystemReference embeds GdsAccentContrastMatrix, which calls evaluateGdsAccentContrast() -- the same function verify:accent-contrast runs. Two callers of one function cannot compute two different answers.',
+    note: '"Can never disagree" is a structural fact about sharing one function, not a promise about behaviour verify:accent-contrast could drift from unnoticed.',
+  },
+  'Every governed accessibility-floor rule (id, axis, WCAG citation, rationale) and a live audit result across all 25 presets x 2 schemes, computed by auditGdsAccessibilityFloor() — the same function verify:a11y-floor runs.': {
+    evidence: 'derived',
+    ref: 'GdsAccessibilitySystemReference calls auditGdsAccessibilityFloor() directly -- the same function packages/gds-theme/src/verify (via verify:a11y-floor) runs.',
+    note: 'The rule list and the live verdict both come from the one exported function the gate itself calls; there is no second, hand-maintained copy of either to drift.',
+  },
   'The same five states with the governed icon ahead of the label. The icon is decorative — it is the second cue, never the only one.': {
     evidence: 'test',
     ref: 'packages/gds-core/src/core.test.tsx (status badges without withIcon render no [data-gds-icon]; the label is always present)',
