@@ -36,6 +36,24 @@ export const EXEMPTIONS = {
  */
 export const GATE_MUTANTS = [
   {
+    // Run directly rather than through `verify:references`, which aggregates 25 sub-gates and
+    // is exempted above for exactly that reason. This is the first of them to carry a mutant.
+    npmScript: 'verify:docs-governance-consistency',
+    script: 'verify-docs-governance-consistency.mjs',
+    standalone: true,
+    mutants: [
+      {
+        id: 'docs-governance-detects-stale-version-outside-the-old-list',
+        claim: 'Detects a stale Version header on an Active SSOT document that the pre-#658 hand-written array did not cover',
+        // docs/BADGE_SYSTEM.md was never in that array and sat at 6.0.0 for four releases.
+        file: 'docs/BADGE_SYSTEM.md',
+        find: 'Version: 6.4.0',
+        replace: 'Version: 6.0.0',
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:budgets',
     script: 'verify-budgets.mjs',
     mutants: [

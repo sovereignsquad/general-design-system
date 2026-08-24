@@ -1,13 +1,20 @@
 {
   "releaseChainGates": 44,
-  "gatesWithMutants": 30,
+  "gatesWithMutants": 31,
   "gatesExempted": 16,
-  "mutantsRun": 40,
-  "killed": 40,
+  "mutantsRun": 41,
+  "killed": 41,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
   "results": [
+    {
+      "gate": "verify:docs-governance-consistency",
+      "mutantId": "docs-governance-detects-stale-version-outside-the-old-list",
+      "claim": "Detects a stale Version header on an Active SSOT document that the pre-#658 hand-written array did not cover",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
     {
       "gate": "verify:budgets",
       "mutantId": "budgets-detects-regression",
