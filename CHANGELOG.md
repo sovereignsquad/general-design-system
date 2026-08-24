@@ -4,6 +4,20 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### NavLink meets the 44px touch-target floor (#629)
+
+`gdsTheme.components.NavLink` resolves `min-height` from `--gds-control-height-md` rather than
+inheriting Mantine's 41px default. No number is restated: the density axis already declares
+`controlHeights.md` as 44px and clamps it to `GDS_MIN_TARGET_PX` under every density mode, so
+NavLink was the only piece missing — it had no theme entry consuming the token. Propagates to
+every lane through `extendGdsTheme`, asserted per lane in `theme.test.ts`.
+
+Measured across the same 26-route sweep: `touchTargetFloorViolations` 791 -> 564, with
+NavLink-root findings at zero. Visible change is 41px -> 44px per navigation row.
+
+The `221x25` instances #629 also attributed to NavLink are Mantine `Text` rendered as a link —
+a different component, carried separately.
+
 ### Test suite determinism (#641)
 
 `vitest.config.ts` caps `maxWorkers` at 4. Every test file boots a full jsdom + React +

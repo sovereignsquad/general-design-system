@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { gdsTheme } from './theme';
+import { gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme } from './theme';
 
 describe('gdsTheme Input.vars mobile input-zoom guard', () => {
   const resolveInputFz = (size?: string) =>
@@ -30,5 +30,17 @@ describe('gdsTheme overlay elevation scale (#395)', () => {
   it('publishes explicit md/lg overlay shadow values rather than leaving them at silent Mantine defaults', () => {
     expect(gdsTheme.shadows.md).toBe('0 8px 24px rgba(15, 23, 42, 0.08)');
     expect(gdsTheme.shadows.lg).toBe('0 16px 40px rgba(15, 23, 42, 0.12)');
+  });
+});
+
+describe('gdsTheme NavLink touch-target floor (#629)', () => {
+  it('resolves NavLink row height from the governed control-height token, not a restated number', () => {
+    expect(gdsTheme.components.NavLink.styles.root.minHeight).toBe('var(--gds-control-height-md)');
+  });
+
+  it('keeps the floor on every shipped lane, since a lane that dropped it would reintroduce the defect site-wide', () => {
+    for (const lane of [gdsDarkPublicTheme, gdsFlatSurfaceTheme, gdsEditorialPublicTheme]) {
+      expect(lane.components.NavLink.styles.root.minHeight).toBe('var(--gds-control-height-md)');
+    }
   });
 });

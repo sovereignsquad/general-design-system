@@ -22,11 +22,11 @@
     },
     {
       "key": "touchTargetFloorViolations",
-      "measured": 791,
-      "value": 791,
+      "measured": 564,
+      "value": 564,
       "direction": "max",
       "unit": "count",
-      "finding": "issue 628",
+      "finding": "issue 628 / issue 629",
       "advisory": false,
       "status": "OK"
     },
