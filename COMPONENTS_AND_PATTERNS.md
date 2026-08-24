@@ -32,7 +32,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 - **DiscoveryShell**: Sidebar-first authenticated discovery, explore, catalog, and dashboard products must use `DiscoveryShell` as the canonical shell contract unless an approved exception is documented. It owns header, sidebar, main, mobile collapse, and sticky-nav rhythm.
 - **Responsive Localization Safety**: Shell headers, brand slots, navigation labels, selectors, and action groups must survive translated text, browser zoom, dynamic content, and mobile viewport changes without horizontal overflow, clipped controls, or overlapping regions. Long brand and route labels must truncate or wrap only in slots designed for wrapping; controls must keep accessible names and touch targets.
 - **DiscoveryShell State Governance**: Sidebar open/collapse behavior must use the shipped `useDiscoveryShellState` lane or the `DiscoveryShell` controlled props (`sidebarOpened`, `onSidebarOpenedChange`, `sidebarStorageKey`). Local ad-hoc state handling is not an approved replacement.
-- **Sidebar IA**: Sidebar information architecture must be composed through `SidebarNav`, `SidebarNavSection`, and `SidebarNavItem` so section labels, active states, icon spacing, and mobile collapse semantics stay aligned.
+- **Sidebar IA**: Sidebar information architecture must be composed through `SidebarNav`, `SidebarNavSection`, and `SidebarNavItem` so section labels, active states, icon spacing, and mobile collapse semantics stay aligned. Row height is not a component decision: `NavLink` resolves `min-height` from `--gds-control-height-md`, which the density axis clamps to the 44px touch-target floor under every density mode.
 
 ## 2. Common Workflows & Patterns
 

@@ -156,6 +156,18 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
         radius: 'xl',
       },
     },
+    // NavLink exposes no size step that reaches the 44px touch-target floor; its default row
+    // resolves to 41px. `--gds-control-height-md` is the governed control height, and
+    // `resolveGdsDensityTokens` already clamps it to GDS_MIN_TARGET_PX under every density
+    // mode, so consuming it here keeps the floor true rather than restating the number.
+    NavLink: {
+      classNames: { root: 'gds-navlink' },
+      styles: {
+        root: {
+          minHeight: 'var(--gds-control-height-md)',
+        },
+      },
+    },
   },
 }));
 
