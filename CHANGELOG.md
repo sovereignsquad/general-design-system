@@ -2,7 +2,16 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased
+## 6.5.0 - 2026-08-24 — Accessibility floor sweep, an opt-in lazy locale registry, and hardened release tooling (#629, #632, #641, #656-#662)
+
+A cross-cutting maintenance release: the touch-target floor sweep closed its two largest
+contributors (NavLink and ReferenceLinkGrid, 791 -> 268 violations), `gds-core` gained an
+opt-in lazy locale registry so a consumer can trim its bundle instead of shipping all twelve
+locales, and three release-chain defects were fixed at the source — a suite that read as
+flaky was actually worker oversubscription, a documentation version gate governed 14 of 43
+documents that claim to be current, and the translation-pack generator could silently
+overwrite committed translations with English on a network failure. Three closed p0 tracking
+issues (#573, #576, #577) were reconciled against what had actually shipped.
 
 ### Obligation coverage, first tranche (#656)
 
@@ -98,6 +107,40 @@ NavLink-root findings at zero. Visible change is 41px -> 44px per navigation row
 
 The `221x25` instances #629 also attributed to NavLink are Mantine `Text` rendered as a link —
 a different component, carried separately.
+
+### Version-tracking gaps found while cutting the release, fixed at the source
+
+`apps/playground/src/site-copy.ts`'s `stableGdsVersion`/`targetGdsVersion` are hand-restamped
+literals, checked by `verify-install-bootstrap-docs.mjs` (matching this repository's existing
+convention for the version-pinned install commands in `RELEASE_PUBLISH.md` and
+`INSTALLATION_GUIDE.md`); missed on the first pass and caught by this release's own preflight.
+
+`page-copy.ts`'s per-locale install `eyebrow` field was a hardcoded `'6.4.0 public install
+path'` literal, inconsistent with its own sibling `lead`/`upgradeSectionTitle` fields in the
+same object, which already interpolate `targetGdsVersion`. Converted to match — one release-time
+literal fewer to forget. `info-pages.test.tsx`'s assertion against the rendered install page was
+the same class of defect as the docs-governance mutant above (a version frozen in a test that
+breaks at the next bump): now asserts against the live `targetGdsVersion` constant instead.
+
+`installCopy`'s per-locale "What changed in 6.4.0" narrative section is real authored content
+describing that specific release, not a version-tracking literal — left as-is rather than
+mechanically renamed to a release it doesn't describe; tracked as #664.
+
+Also fixed: eleven `package.json` files carried internal cross-package pins
+(`@sovereignsquad/gds`'s own `dependencies` on `gds-admin`/`gds-core`/`gds-theme`, and similar
+pins in `gds-admin`, `gds-core`, and all three apps) that `check-release-alignment.mjs` does not
+check — caught only by `npm install`'s own workspace resolution failing on a version no sibling
+package declares anymore. Left unpublished stale, this would have shipped `@sovereignsquad/gds`
+depending on the *previous* release's sibling packages under a new version number. Tracked as
+#663 to close the gate gap for the next release.
+
+### The docs-governance mutant's anchor now tracks VERSION (#663, self-inflicted, caught by this release's own preflight)
+
+The mutant added for #658 hardcoded `Version: 6.4.0` as its plant target on `docs/BADGE_SYSTEM.md`.
+Cutting 6.5.0 restamped that file to `6.5.0`, so the anchor no longer existed and the mutant
+went `INVALID` rather than `KILLED` — this release's own preflight caught it before it reached
+`main`. The anchor and its replacement now read the live `VERSION` file, so the mutant survives
+every future version bump instead of expiring at the next one.
 
 ### Test suite determinism (#641)
 

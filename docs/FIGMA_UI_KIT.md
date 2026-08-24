@@ -1,7 +1,7 @@
 # Figma UI Kit — Build & Sync Playbook
 
 Status: Active SSOT
-Version: 6.4.0
+Version: 6.5.0
 Last updated: 2026-08-08
 
 Every leading design system ships an official Figma library so designers can drag real components and bind real variables (issue #450). GDS's position is deliberate and stated in [`DESIGN_HANDOFF.md`](DESIGN_HANDOFF.md): **the code tokens and component contracts are authoritative, and the Figma kit is generated/synced from them — never the reverse.** This avoids the drift every hand-maintained Figma library eventually suffers.

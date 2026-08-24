@@ -1,7 +1,7 @@
 # Design Rule Profiles
 
 Status: Active SSOT
-Version: 6.4.0
+Version: 6.5.0
 Last updated: 2026-08-21
 
 Design rule profiles are GDS's answer to a question every brand theme eventually asks: not

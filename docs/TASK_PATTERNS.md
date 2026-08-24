@@ -1,7 +1,7 @@
 # Task Patterns
 
 Status: Active SSOT
-Version: 6.4.0
+Version: 6.5.0
 Last updated: 2026-08-08
 
 GDS task patterns describe complete operator workflows, not isolated components. Each pattern defines trigger, required data, states, steps, component contracts, telemetry, copy, accessibility, edge cases, and do-not-build guidance.
