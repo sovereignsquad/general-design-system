@@ -1,7 +1,7 @@
 # Overlay System
 
 Status: Active SSOT
-Version: 6.4.0
+Version: 6.5.0
 Last updated: 2026-08-08
 
 `OverlayManagerProvider` is the canonical GDS lifecycle contract for modals, drawers, sheets, popovers, command surfaces, and confirmation overlays. Products must not invent route-local overlay stacks, focus-trap behavior, body-scroll policy, or nested-modal rules.

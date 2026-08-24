@@ -1,7 +1,7 @@
 {
   "name": "reference-vite",
   "private": true,
-  "version": "6.4.0",
+  "version": "6.5.0",
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
@@ -11,8 +11,8 @@
     "@floating-ui/core": "^1.7.5",
     "@mantine/core": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
-    "@sovereignsquad/gds-core": "6.4.0",
-    "@sovereignsquad/gds-theme": "6.4.0",
+    "@sovereignsquad/gds-core": "6.5.0",
+    "@sovereignsquad/gds-theme": "6.5.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },

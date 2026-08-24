@@ -894,7 +894,7 @@ export const useCasesCopy = {
 export const installCopy = {
     en: {
       title: 'Install GDS',
-      eyebrow: '6.4.0 public install path',
+      eyebrow: `${targetGdsVersion} public install path`,
       lead: `Use the umbrella npm package for the default public entry point, satisfy the shared Mantine peer line, wire the provider once, and align theme ownership with the canonical ${targetGdsVersion} governance rules. Current stable is ${stableGdsVersion} after publish verification.`,
       installSectionTitle: '1. Install the packages',
       installSectionDescription: 'The open-source public entry point is the umbrella package. Granular packages stay available for teams that intentionally separate runtime lanes. GDS publishes exclusively to GitHub Packages — every install, even of public packages, requires a `.npmrc` registry entry and a personal access token with `read:packages` scope.',
@@ -929,7 +929,7 @@ export const installCopy = {
     },
     de: {
       title: 'GDS installieren',
-      eyebrow: 'Öffentlicher 6.4.0-Installationspfad',
+      eyebrow: `Öffentlicher ${targetGdsVersion}-Installationspfad`,
       lead: `Verwende das Umbrella-npm-Paket als Standard-Einstieg, erfülle die gemeinsame Mantine-Peer-Linie, binde den Provider einmal ein und richte Theme-Ownership nach ${targetGdsVersion} aus. Aktuell stabil ist ${stableGdsVersion} nach der Publish-Verifikation.`,
       installSectionTitle: '1. Pakete installieren',
       installSectionDescription: 'Der öffentliche Open-Source-Pfad nutzt das Umbrella-Paket. Granulare Pakete bleiben für bewusst getrennte Runtime-Lanes verfügbar. GDS veröffentlicht ausschließlich über GitHub Packages — jede Installation, auch öffentlicher Pakete, benötigt einen `.npmrc`-Registry-Eintrag und ein Personal Access Token mit `read:packages`-Scope.',
@@ -964,7 +964,7 @@ export const installCopy = {
     },
     fr: {
       title: 'Installer GDS',
-      eyebrow: 'Parcours d’installation public 6.4.0',
+      eyebrow: `Parcours d’installation public ${targetGdsVersion}`,
       lead: `Utilisez le package npm umbrella, respectez la ligne de dépendances pair Mantine, configurez le provider une seule fois et alignez la gouvernance de thème sur ${targetGdsVersion}. La version stable est ${stableGdsVersion} après vérification de publication.`,
       installSectionTitle: '1. Installer les packages',
       installSectionDescription: 'Le point d’entrée open source public est le package umbrella. Les packages granulaires restent disponibles pour les lanes runtime séparées. GDS publie exclusivement sur GitHub Packages — chaque installation, même pour les packages publics, nécessite une entrée `.npmrc` et un jeton d’accès personnel avec le scope `read:packages`.',
@@ -1034,7 +1034,7 @@ export const installCopy = {
     },
     es: {
       title: 'Instalar GDS',
-      eyebrow: 'Ruta pública de instalación 6.4.0',
+      eyebrow: `Ruta pública de instalación ${targetGdsVersion}`,
       lead: `Usa el paquete npm umbrella como punto de entrada público predeterminado, cumple con la línea peer compartida de Mantine, configura el provider una vez y alinea la propiedad del tema con las reglas de gobernanza canónicas de ${targetGdsVersion}. La versión estable actual es ${stableGdsVersion} tras la verificación de publicación.`,
       installSectionTitle: '1. Instalar los paquetes',
       installSectionDescription: 'La entrada pública de código abierto es el paquete umbrella. Los paquetes granulares siguen disponibles para equipos que separan intencionalmente lanes de runtime. GDS publica exclusivamente en GitHub Packages: cada instalación, incluso de paquetes públicos, requiere una entrada `.npmrc` y un token de acceso personal con scope `read:packages`.',
@@ -1209,7 +1209,7 @@ export const installCopy = {
     },
     zh: {
       title: '安装GDS',
-      eyebrow: '6.4.0 公共安装路径',
+      eyebrow: `${targetGdsVersion} 公共安装路径`,
       lead: `使用 npm 包作为默认公共入口点，满足共享 Mantine 对等线，连接提供程序一次，并将主题所有权与规范对齐${targetGdsVersion}治理规则。目前稳定为${stableGdsVersion}发布验证后。`,
       installSectionTitle: '1. 安装软件包',
       installSectionDescription: '开源公共入口点是伞包。有意分离运行时通道的团队仍然可以使用粒度包。 GDS 专门发布到 GitHub Packages - 每次安装，即使是公共软件包，都需要一个“.npmrc”注册表项和一个具有“read:packages”范围的个人访问令牌。',
@@ -1244,7 +1244,7 @@ export const installCopy = {
     },
     ko: {
       title: 'GDS 설치',
-      eyebrow: '6.4.0 공개 설치 경로',
+      eyebrow: `${targetGdsVersion} 공개 설치 경로`,
       lead: `기본 공개 진입점으로 엄브렐러 npm 패키지를 사용하고, 공유 Mantine 피어 라인을 충족하고, 공급자를 한 번 연결하고, 테마 소유권을 표준과 일치시킵니다.${targetGdsVersion}거버넌스 규칙. 현재 안정은${stableGdsVersion}게시 확인 후.`,
       installSectionTitle: '1. 패키지 설치',
       installSectionDescription: '오픈 소스 공개 진입점은 엄브렐러 패키지입니다. 의도적으로 런타임 레인을 분리하는 팀은 세분화된 패키지를 계속 사용할 수 있습니다. GDS는 GitHub 패키지에만 게시합니다. 공개 패키지를 포함한 모든 설치에는 `.npmrc` 레지스트리 항목과 `read:packages` 범위의 개인 액세스 토큰이 필요합니다.',
@@ -1279,7 +1279,7 @@ export const installCopy = {
     },
     ja: {
       title: 'GDSのインストール',
-      eyebrow: '6.4.0 パブリック インストール パス',
+      eyebrow: `${targetGdsVersion} パブリック インストール パス`,
       lead: `デフォルトのパブリック エントリ ポイントにアンブレラ npm パッケージを使用し、共有 Mantine ピア ラインを満たし、プロバイダーを 1 回接続して、テーマの所有権を正規のものと調整します。${targetGdsVersion}ガバナンスルール。現在安定しているのは、${stableGdsVersion}公開検証後。`,
       installSectionTitle: '1. パッケージをインストールする',
       installSectionDescription: 'オープンソースのパブリック エントリ ポイントはアンブレラ パッケージです。ランタイム レーンを意図的に分離しているチームは、粒度の高いパッケージを引き続き利用できます。 GDS は GitHub パッケージにのみ公開します。パブリック パッケージであっても、すべてのインストールには、`.npmrc` レジストリ エントリと、`read:packages` スコープの個人アクセス トークンが必要です。',

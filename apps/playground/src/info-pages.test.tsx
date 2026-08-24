@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
 import { ApiReferencePage, CoveragePage, InstallPage, MaturityPage, OverviewPage, RequestFeaturePage, RulebookPage, TokensPage, UseCasesPage } from './info-pages';
+import { targetGdsVersion } from './site-copy';
 
 describe('playground overview page', () => {
   it('frames the site as the official reference and live proof', () => {
@@ -38,15 +39,15 @@ describe('playground overview page', () => {
     const { unmount } = renderWithGds(<InstallPage />, { locale: 'de' });
 
     expect(screen.getByRole('heading', { name: 'GDS installieren' })).toBeTruthy();
-    expect(screen.getByText('Öffentlicher 6.4.0-Installationspfad')).toBeTruthy();
-    expect(screen.getAllByText(/@sovereignsquad\/gds@6.4.0/).length).toBeGreaterThan(0);
+    expect(screen.getByText(`Öffentlicher ${targetGdsVersion}-Installationspfad`)).toBeTruthy();
+    expect(screen.getAllByText(new RegExp(`@sovereignsquad/gds@${targetGdsVersion.replace(/\./g, '\\.')}`)).length).toBeGreaterThan(0);
 
     unmount();
 
     renderWithGds(<InstallPage />, { locale: 'fr' });
 
     expect(screen.getByRole('heading', { name: 'Installer GDS' })).toBeTruthy();
-    expect(screen.getByText('Parcours d’installation public 6.4.0')).toBeTruthy();
+    expect(screen.getByText(`Parcours d’installation public ${targetGdsVersion}`)).toBeTruthy();
   });
 
   it('renders parity matrix route with coverage summary', () => {

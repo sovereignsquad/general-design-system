@@ -4,6 +4,15 @@
 // FAILS. A gate that exits 0 did not detect the defect; `claim` names the unsupported
 // assertion.
 
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+// The docs-governance mutant below plants a stale version on a real SSOT document. Its anchor
+// must track VERSION rather than a literal frozen at the commit that wrote it, or the mutant
+// goes INVALID (anchor not found) on the next release — exactly what happened at 6.5.0, caught
+// by this repo's own release preflight rather than by CI.
+const CURRENT_VERSION = readFileSync(resolve(import.meta.dirname, '../../VERSION'), 'utf8').trim();
+
 /**
  * Gates deliberately not mutated, each with a reason and a review date.
  * An exemption without a reason, or past its `reviewBy`, fails the suite.
@@ -46,9 +55,11 @@ export const GATE_MUTANTS = [
         id: 'docs-governance-detects-stale-version-outside-the-old-list',
         claim: 'Detects a stale Version header on an Active SSOT document that the pre-#658 hand-written array did not cover',
         // docs/BADGE_SYSTEM.md was never in that array and sat at 6.0.0 for four releases.
+        // The anchor and its replacement both read the live VERSION file (issue 663's sibling
+        // defect: a mutant with a version number frozen in source breaks on every release).
         file: 'docs/BADGE_SYSTEM.md',
-        find: 'Version: 6.4.0',
-        replace: 'Version: 6.0.0',
+        find: `Version: ${CURRENT_VERSION}`,
+        replace: 'Version: 0.0.0-mutant',
         once: true,
       },
     ],
