@@ -83,7 +83,7 @@ export interface CreateClassUsaBrandThemeOptions {
   /** Discouraged escape hatch merged last; governed roles still win over collisions. */
   overrides?: MantineThemeOverride;
   /**
-   * Design-rule profile (issue #643/#648). Defaults to the computed profile for
+   * Design-rule profile (issue 643/#648). Defaults to the computed profile for
    * `'class-usa'` (color-proportion classification, color harmony, and type-scale ratio
    * all resolved from the theme's actual, ramp-resolved colors) when omitted.
    */
@@ -101,7 +101,7 @@ export interface CreateGoldAthleteBrandThemeOptions {
   /** Discouraged escape hatch merged last; governed roles still win over collisions. */
   overrides?: MantineThemeOverride;
   /**
-   * Design-rule profile (issue #643/#648). Defaults to the computed profile for
+   * Design-rule profile (issue 643/#648). Defaults to the computed profile for
    * `'gold-athlete'` (color-proportion classification, color harmony, and type-scale ratio
    * all resolved from the theme's actual, ramp-resolved colors) when omitted.
    */
@@ -119,7 +119,7 @@ export interface CreateBrandThemeOptions {
   /** Discouraged escape hatch; governed roles always win over collisions. */
   overrides?: MantineThemeOverride;
   /**
-   * Design-rule profile (issue #643/#648). A custom brand has no preset identity to
+   * Design-rule profile (issue 643/#648). A custom brand has no preset identity to
    * resolve a computed profile from, so this defaults to `GDS_DEFAULT_DESIGN_RULE_PROFILE`
    * (no proportion rule declared) rather than fabricating one.
    */
@@ -134,7 +134,7 @@ export interface BrandThemeResult {
   cssVariables: Record<string, string>;
   /** Validated token graph (themeId `brand`) for snapshotting and diffing. */
   tokenGraph: GdsTokenGraph;
-  /** The design-rule profile actually applied (explicit `designRuleProfile`, or the computed default; issue #648). */
+  /** The design-rule profile actually applied (explicit `designRuleProfile`, or the computed default; issue 648). */
   designRuleProfile: GdsDesignRuleProfile;
 }
 
@@ -423,7 +423,7 @@ function normalizeColorLiteral(value: string): string {
   return parsed ? toRgbString(parsed) : value;
 }
 
-/** Recursively collects every string value keyed `background`/`backgroundColor`/`bg` anywhere in `node` (issue #648). */
+/** Recursively collects every string value keyed `background`/`backgroundColor`/`bg` anywhere in `node` (issue 648). */
 function collectBackgroundValues(node: unknown, out: string[]): void {
   if (!node || typeof node !== 'object') return;
   for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
@@ -436,9 +436,9 @@ function collectBackgroundValues(node: unknown, out: string[]): void {
 }
 
 /**
- * Warns (never throws — issue #648, a caller mistake worth surfacing, not a hard
+ * Warns (never throws — issue 648, a caller mistake worth surfacing, not a hard
  * failure) when `overrides` sets a `background`/`backgroundColor`/`bg` key anywhere to a
- * value matching one of this theme's accent-classed colors (issue #644's `ACCENT_ROLES`,
+ * value matching one of this theme's accent-classed colors (issue 644's `ACCENT_ROLES`,
  * resolved from THIS theme's actual, ramp-resolved tokens — never the preset's stale
  * defaults). Skipped entirely when the effective profile declares no proportion rule
  * (`colorProportion.rule !== '60-30-10'`) — an explicit opt-out is respected, not overridden.

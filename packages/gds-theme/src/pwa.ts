@@ -1,5 +1,5 @@
 /**
- * GDS PWA thin-build helpers (issue #458).
+ * GDS PWA thin-build helpers (issue 458).
  *
  * GDS is a component/theme library, not an app framework, so its PWA surface is
  * deliberately a *partial build* (see `docs/RESPONSIVE_AND_PLATFORM_GUIDANCE.md`):

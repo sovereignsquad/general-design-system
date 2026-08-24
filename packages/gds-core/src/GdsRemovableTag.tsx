@@ -4,7 +4,7 @@ import type { BadgeProps } from '@mantine/core';
 import { GdsIcon } from './icons';
 
 /**
- * GdsRemovableTag (issue #491, part of epic #484): the removable filter
+ * GdsRemovableTag (issue 491, part of epic #484): the removable filter
  * token, consolidating the four formerly-independent inline copies
  * (`ListingPrimitives`' ActiveFilterChips, `DataToolbar`, `BrowseSurface`,
  * `gds-admin`'s ResponsiveDataView) into one shared, tested component.

@@ -1,4 +1,4 @@
-// Issue 564 — every image the site renders comes from the generated-imagery system.
+// issue 564 — every image the site renders comes from the generated-imagery system.
 //
 // The owner's requirement is "all images visible on the page created by our thumbnail system,
 // no exceptions". A hosted photo breaks three properties the rest of the system guarantees at

@@ -1,6 +1,6 @@
 # ClassScout Mantine-Only Refactor
 
-Status: In Progress
+Status: In progress
 Version: 1.1.0
 Last updated: 2026-05-23
 Project: `/Users/Shared/Projects/classscout`

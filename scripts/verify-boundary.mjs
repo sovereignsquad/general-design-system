@@ -1,5 +1,5 @@
 /**
- * GDS boundary contract suite (issue #347).
+ * GDS boundary contract suite (issue 347).
  *
  * One named gate that asserts GDS owns its contract end-to-end — a vendor upgrade
  * or accidental leak fails here, in GDS's own CI, never silently in a consumer

@@ -4,7 +4,7 @@ import type { GdsColorProportionClassification, GdsDesignRuleProfile } from './a
 import { getGdsVibeThemes } from './vibe-themes';
 
 /**
- * Large-surface roles (issue #644): intended to cover most of a rendered page, and
+ * Large-surface roles (issue 644): intended to cover most of a rendered page, and
  * therefore intended to stay low-saturation/neutral so a 60% share reads calm, not loud.
  */
 export const DOMINANT_ROLES: BrandSemanticRole[] = [
@@ -16,7 +16,7 @@ export const DOMINANT_ROLES: BrandSemanticRole[] = [
 ];
 
 /**
- * Brand-chrome roles (issue #644): moderate-frequency, identity-carrying. Appears often
+ * Brand-chrome roles (issue 644): moderate-frequency, identity-carrying. Appears often
  * but never as the majority page fill.
  */
 export const SECONDARY_ROLES: BrandSemanticRole[] = [
@@ -24,7 +24,7 @@ export const SECONDARY_ROLES: BrandSemanticRole[] = [
 ];
 
 /**
- * Scarce-signal roles (issue #644): CTAs, status/state indicators, badges, price/star
+ * Scarce-signal roles (issue 644): CTAs, status/state indicators, badges, price/star
  * marks -- intended to be rare and attention-carrying, never a background fill for a
  * large surface. `focus.ring` is here rather than secondary: a focus outline is a thin
  * stroke, not a fill, so its rendered area is negligible regardless of how often it
@@ -77,7 +77,7 @@ const SHARED_CLASSIFICATION: GdsColorProportionClassification = {
 };
 
 /**
- * Every shipped preset's color-proportion classification (issue #644). Every preset
+ * Every shipped preset's color-proportion classification (issue 644). Every preset
  * shares the identical role->class mapping -- role meaning is preset-independent (every
  * `GdsVibeTheme` emits the same role-name set; only the color VALUES differ per preset),
  * so 25 hand-typed classification objects would be 25 opportunities to drift from each
@@ -89,7 +89,7 @@ export const colorProportionClassificationByPreset: Record<GdsThemePresetId, Gds
 ) as Record<GdsThemePresetId, GdsColorProportionClassification>;
 
 /**
- * The color-proportion half of a preset's design rule profile (issue #644): the shared
+ * The color-proportion half of a preset's design rule profile (issue 644): the shared
  * classification, combined with the `'60-30-10'` rule flag every preset satisfies once
  * classified.
  */

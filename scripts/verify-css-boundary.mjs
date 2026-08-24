@@ -1,5 +1,5 @@
 /**
- * Public CSS-selector boundary gate (issue #347).
+ * Public CSS-selector boundary gate (issue 347).
  *
  * GDS's public styling contract should key on GDS-owned `data-gds-*` hooks, not
  * vendor-internal class names. This gate scans the published stylesheet for

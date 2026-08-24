@@ -4,7 +4,7 @@ import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { GdsIcons } from './icons';
 
 /**
- * Read-only display of a rating (item 11 / issue #642) — filled/half/empty star glyphs
+ * Read-only display of a rating (item 11 / issue 642) — filled/half/empty star glyphs
  * plus an optional count, exposed as one accessible name stating the value rather than
  * announcing N separate star images. Never accepts input; use `GdsRatingScale` to collect
  * a rating from the user.

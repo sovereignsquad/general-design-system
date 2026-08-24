@@ -10,7 +10,7 @@ import {
 import type { GdsGeneratedPaletteColors, GdsGeneratedPaletteSource } from './generated-art-engine';
 
 /**
- * GdsGeneratedThumbnail (epic #503, issue #505): a deterministic, zero-network
+ * GdsGeneratedThumbnail (epic #503, issue 505): a deterministic, zero-network
  * SVG+HTML card thumbnail composed entirely from a listing's own category
  * data — no image hosting, no AI image generation, no per-consumer design
  * work. Generalizes a ClassScout engineering proposal (verified against real
@@ -46,7 +46,7 @@ import type { GdsGeneratedPaletteColors, GdsGeneratedPaletteSource } from './gen
  * across both modes, not because category mode needs it.
  *
  * A headless, non-React `buildGdsThumbnailSvg()` twin for OG/share-image use
- * (issue #508) lives in `generated-art-svg.ts`, exported from
+ * (issue 508) lives in `generated-art-svg.ts`, exported from
  * `@sovereignsquad/gds-core/server` only — it needs hand-rendered SVG
  * `<text>` for the badge labels (no HTML/CSS cascade outside a browser),
  * real enough of a difference from this component's HTML badge layer that

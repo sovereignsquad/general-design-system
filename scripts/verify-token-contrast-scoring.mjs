@@ -1,6 +1,6 @@
 import { createGdsTokenGraph } from '../packages/gds-theme/dist/index.mjs';
 
-// Real per-token-pair WCAG contrast scoring (issue #456).
+// Real per-token-pair WCAG contrast scoring (issue 456).
 //
 // The existing verify:theme-accessibility report scores a small set of coarse
 // role pairs. This gate computes actual WCAG 2.x contrast ratios for the

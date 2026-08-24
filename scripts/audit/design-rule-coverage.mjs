@@ -1,6 +1,6 @@
-// Rendered color-proportion sample (issue #649): for every shipped preset x color scheme,
+// Rendered color-proportion sample (issue 649): for every shipped preset x color scheme,
 // visits a fixed set of representative reference-site routes, captures each visible
-// element's rendered background-color area, classifies it against issue #644's
+// element's rendered background-color area, classifies it against issue 644's
 // dominant/secondary/accent role split, and aggregates an area-weighted percentage per
 // preset. The one measurement in this milestone that checks the reference site's actual
 // rendered pixels, not a theme's declared intent -- scoped to apps/playground only, never

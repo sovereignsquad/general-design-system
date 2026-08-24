@@ -14,7 +14,7 @@ GDS already has **45 `verify-*` scripts**, **21 chained commands** in
 `verify:release`, and **8 of those are explicitly coverage / parity /
 completeness gates**:
 
-```
+```text
 verify-api-docs-coverage        verify-i18n-message-parity
 verify-api-jsdoc-coverage       verify-locale-coverage
 verify-component-catalog-parity verify-pattern-catalog-coverage

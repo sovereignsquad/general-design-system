@@ -97,7 +97,7 @@ const DEFAULT_VIBE = resolveGdsVibeTheme('default');
 /**
  * The category accent as a CSS VARIABLE REFERENCE, for live-DOM rendering.
  *
- * Issue 594. This used to return a fixed hex, and the reason was sound at the time: accents
+ * issue 594. This used to return a fixed hex, and the reason was sound at the time: accents
  * were "deliberately theme-independent fixed sRGB — there is no variable to reference". The
  * accent axis makes that premise false, so a category surface now follows the active theme.
  */
@@ -105,7 +105,7 @@ function resolveCategoryColorToken(options: GdsGeneratedPaletteOptions): string 
   if (!options.category) {
     throw new Error("gds-core generated-art-engine: paletteSource 'category' requires a `category` option (a GdsBadgeAccentName).");
   }
-  // Issue 594. This returned a fixed hex because the comment below was true: accents were
+  // issue 594. This returned a fixed hex because the comment below was true: accents were
   // "deliberately theme-independent fixed sRGB — there is no variable to reference". The
   // accent axis makes that premise false, so the live-DOM path now references the token and
   // follows the theme. `resolveGdsGeneratedPaletteHex` still resolves to a literal, because

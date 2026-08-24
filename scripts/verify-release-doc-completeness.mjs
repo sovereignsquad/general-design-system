@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-// Release-doc completeness gate (issue #446).
+// Release-doc completeness gate (issue 446).
 //
 // The recurring failure this guards against: a feature ships and its
 // human-facing doc (COMPONENTS_AND_PATTERNS.md, docs/*) is updated, but the

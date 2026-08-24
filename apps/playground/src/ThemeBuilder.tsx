@@ -48,7 +48,7 @@ export function ThemeBuilder() {
         brandColors: colors,
         fonts: { display: 'Inter', body: 'Inter' },
         // A fully custom, user-entered brand has no preset identity to compute a
-        // design-rule profile from (issue #648) -- explicit, not merely the implicit default.
+        // design-rule profile from (issue 648) -- explicit, not merely the implicit default.
         designRuleProfile: GDS_DEFAULT_DESIGN_RULE_PROFILE,
       });
       return { ok: true as const, css: toCssFile(cssVariables) };

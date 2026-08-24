@@ -1,6 +1,6 @@
 # Deprecations & Migrations
 
-Status: Active SSOT  
+Status: Active SSOT
 Version: 6.5.0
 Last updated: 2026-08-09
 

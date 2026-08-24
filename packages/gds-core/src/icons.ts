@@ -104,7 +104,7 @@ import {
   IconCode,
   IconH1,
   IconH2,
-  // Broader catalog expansion (issue #397)
+  // Broader catalog expansion (issue 397)
   IconChevronLeft,
   IconChevronRight,
   IconArrowUp,
@@ -263,7 +263,7 @@ export const GdsIcons = {
   More: IconDotsVertical,
   Kanban: IconLayoutKanban,
 
-  // Rich text editor (issue #392)
+  // Rich text editor (issue 392)
   Bold: IconBold,
   Italic: IconItalic,
   Underline: IconUnderline,
@@ -276,7 +276,7 @@ export const GdsIcons = {
   Undo: IconArrowBackUp,
   Redo: IconArrowForwardUp,
 
-  // Broader catalog expansion (issue #397)
+  // Broader catalog expansion (issue 397)
   ChevronLeft: IconChevronLeft,
   ChevronRight: IconChevronRight,
   ArrowUp: IconArrowUp,

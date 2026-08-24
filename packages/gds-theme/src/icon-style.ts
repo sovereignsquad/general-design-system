@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 /**
- * Badge glyph mode (issue #525): `'tabler'` (default) renders every
+ * Badge glyph mode (issue 525): `'tabler'` (default) renders every
  * badge/pin icon through the governed `GdsIcons` stroke-SVG registry,
  * exactly today's only behavior. `'emoji'` is an alternate, opt-in "view"
  * for the whole badge family (`GdsBadge`, `GdsMapPinBadge`) — every badge

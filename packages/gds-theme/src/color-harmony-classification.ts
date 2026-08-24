@@ -3,10 +3,10 @@ import type { GdsColorHarmony } from './axes';
 import { resolveGdsVibeTheme } from './vibe-themes';
 import type { GdsThemePresetId } from './theme-presets';
 
-/** Below this saturation a color reads as gray -- no meaningful hue to relate (issue #646). */
+/** Below this saturation a color reads as gray -- no meaningful hue to relate (issue 646). */
 const NEUTRAL_SATURATION_THRESHOLD = 10;
 
-/** How close to a textbook angle still counts as that harmony (issue #646). */
+/** How close to a textbook angle still counts as that harmony (issue 646). */
 const TOLERANCE_DEGREES = 15;
 
 const HARMONY_ANGLES: Array<{ harmony: GdsColorHarmony; angle: number }> = [
@@ -18,7 +18,7 @@ const HARMONY_ANGLES: Array<{ harmony: GdsColorHarmony; angle: number }> = [
 ];
 
 /**
- * Classifies the hue relationship between two CSS colors (issue #646). Either color
+ * Classifies the hue relationship between two CSS colors (issue 646). Either color
  * reading as near-gray (saturation below {@link NEUTRAL_SATURATION_THRESHOLD}), or the
  * hue distance falling outside every named angle's {@link TOLERANCE_DEGREES} band,
  * resolves to `'custom'`. On a tie between two equally-close named angles, the earlier
@@ -46,11 +46,11 @@ function classifyHueRelationship(primaryHex: string, accentHex: string): GdsColo
 }
 
 /**
- * Classifies a preset's primary/accent hue relationship (issue #646). Computed from the
+ * Classifies a preset's primary/accent hue relationship (issue 646). Computed from the
  * preset's real `vibe-themes.ts` hex values -- never hand-assigned.
  *
  * Primary/accent only -- not a full-palette harmony analysis (state/support colors are
- * out of scope; see issue #646).
+ * out of scope; see issue 646).
  */
 export function resolveGdsColorHarmonyProfile(presetId: GdsThemePresetId): GdsColorHarmony {
   const vibe = resolveGdsVibeTheme(presetId);
@@ -64,5 +64,5 @@ export function resolveGdsColorHarmonyProfile(presetId: GdsThemePresetId): GdsCo
   return harmony;
 }
 
-/** Exposed for testing against synthetic hue pairs (issue #646) -- not part of the public API. */
+/** Exposed for testing against synthetic hue pairs (issue 646) -- not part of the public API. */
 export const __internal = { classifyHueRelationship };

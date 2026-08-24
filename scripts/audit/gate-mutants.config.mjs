@@ -62,6 +62,27 @@ export const GATE_MUTANTS = [
         replace: 'Version: 0.0.0-mutant',
         once: true,
       },
+      {
+        id: 'docs-governance-detects-active-ssot-doc-with-no-version-header',
+        claim: 'Detects an Active SSOT document that has no Version header at all, not just a stale one',
+        // docs/MAP_SYSTEM.md, docs/SITE_ARCHITECTURE.md, and docs/ACCESS_GATE.md all shipped
+        // this exact way: Active SSOT, no Version line, invisible to the derivation because it
+        // only ever scanned docs that already had one (deep-audit finding F1). Deleting the
+        // line this mutant plants proves the fix, rather than just re-proving the sibling
+        // mutant above.
+        file: 'docs/ACCESS_GATE.md',
+        find: 'Status: Active SSOT\nVersion: ' + CURRENT_VERSION + '\n',
+        replace: 'Status: Active SSOT\n',
+        once: true,
+      },
+      {
+        id: 'docs-governance-detects-stale-component-count',
+        claim: 'Detects docs/AI_AGENT_GUIDE.md stating a component count that no longer matches the generated census (deep-audit F4)',
+        file: 'docs/AI_AGENT_GUIDE.md',
+        find: 'ships 306 components',
+        replace: 'ships 250+ components',
+        once: true,
+      },
     ],
   },
   {

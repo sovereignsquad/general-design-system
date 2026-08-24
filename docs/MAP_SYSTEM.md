@@ -1,8 +1,9 @@
 # The GDS Map System
 
-Status: Active SSOT (issues 549, 572)
+Status: Active SSOT
+Version: 6.5.0
 Owner: GDS core
-Last updated: 2026-08-14
+Last updated: 2026-08-24
 
 The map is the first GDS surface with a **runtime external-service dependency**: every other
 component renders from the bundle, while a map needs a network, a tile host, a CSP entry, and a
@@ -33,7 +34,7 @@ default for products that do not bring their own engine.
 
 ## 2. The layer model
 
-```
+```text
 MapPanel                      panel chrome; renders StateBlocks INSTEAD of the map
 └─ renderMap() →
    GdsMapBasemapWash          theme wash host (§5); pointer-events pass through

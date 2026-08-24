@@ -43,7 +43,7 @@ for (const proof of [
   'createGdsOwnedContrastTokens',
   // Owned contrast is reserved for the vibe *swatch* surfaces (gallery, contract,
   // Athlete Gold reference). The primary Theme Lab control/result cards must NOT
-  // carry it — they re-theme globally like any `.gds-paper` (issue #461) — so the
+  // carry it — they re-theme globally like any `.gds-paper` (issue 461) — so the
   // retired `theme-lab-controls` role is intentionally absent from this list.
   "role: 'vibe-gallery-card'",
   "role: 'vibe-contract'",

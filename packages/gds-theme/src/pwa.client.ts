@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import type { GdsWebAppManifestDisplay } from './pwa';
 
 /**
- * GDS PWA `display-mode` detection (issue #458).
+ * GDS PWA `display-mode` detection (issue 458).
  *
  * The client half of the PWA thin build: a small hook so a GDS shell can adapt
  * when the app is running installed/standalone (hide browser-only chrome, apply

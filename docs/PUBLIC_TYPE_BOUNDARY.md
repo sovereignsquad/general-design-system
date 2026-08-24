@@ -10,7 +10,7 @@ into `verify:release`) scans the built, consumer-facing `.d.ts` entrypoints
 (`packages/*/dist/{index,client,server}.d.ts`) for `@mantine/*` references and
 compares them against the committed baseline:
 
-```
+```text
 boundary/public-type-allowlist.json
 ```
 

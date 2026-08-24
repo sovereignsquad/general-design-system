@@ -21,7 +21,7 @@ const files = [
 
 // The GDS stylesheet import is the single mandatory integration step that paints
 // every GDS surface (including dropdown/overlay backgrounds). Every consumer
-// integration path must document it or the build fails here (issue #344).
+// integration path must document it or the build fails here (issue 344).
 const MANDATORY_STYLESHEET_IMPORT = '@sovereignsquad/gds-theme/styles.css';
 
 const requiredByFile = {

@@ -1,7 +1,8 @@
 # Reference-Site Architecture
 
-Status: Active SSOT (issue 626)
-Last updated: 2026-08-21
+Status: Active SSOT
+Version: 6.5.0
+Last updated: 2026-08-24
 
 The owner's directive, verbatim core: **rebuild the structure — what goes where, why, and
 how; professional UX-first; a complete element list with all examples and use cases; nothing

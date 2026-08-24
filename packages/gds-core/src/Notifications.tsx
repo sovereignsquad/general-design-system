@@ -110,7 +110,7 @@ export interface BannerNoticeProps extends Omit<InlineAlertProps, 'title'> {
   /**
    * `panel` (default): bordered card with title, optional eyebrow/status badge, and
    * message. `compact`: a one-line centered status strip with no title, for a page-level
-   * status line that doesn't warrant a heading (issue #642).
+   * status line that doesn't warrant a heading (issue 642).
    */
   variant?: 'panel' | 'compact';
 }

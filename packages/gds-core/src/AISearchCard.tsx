@@ -6,7 +6,7 @@ import { MeaningBadge } from './MeaningBadge';
 import { GdsIcons } from './icons';
 
 /**
- * AISearchCard (gap B10 / issue #325).
+ * AISearchCard (gap B10 / issue 325).
  *
  * Governed pattern + thin wrapper for an AI search entry surface: a search
  * input, a BETA meaning badge, and prompt chips that route a query into the

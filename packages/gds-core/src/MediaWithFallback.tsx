@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { AspectRatio, Box, Text } from '@mantine/core';
 
 /**
- * MediaWithFallback (gap B8 / issue #323).
+ * MediaWithFallback (gap B8 / issue 323).
  *
  * Image primitive that guarantees a stable, branded box. On load failure or a
  * missing `src` it renders a branded fallback instead of collapsing to null, so

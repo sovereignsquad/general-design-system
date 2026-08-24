@@ -2,8 +2,8 @@
   "releaseChainGates": 44,
   "gatesWithMutants": 31,
   "gatesExempted": 16,
-  "mutantsRun": 41,
-  "killed": 41,
+  "mutantsRun": 43,
+  "killed": 43,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -12,6 +12,20 @@
       "gate": "verify:docs-governance-consistency",
       "mutantId": "docs-governance-detects-stale-version-outside-the-old-list",
       "claim": "Detects a stale Version header on an Active SSOT document that the pre-#658 hand-written array did not cover",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:docs-governance-consistency",
+      "mutantId": "docs-governance-detects-active-ssot-doc-with-no-version-header",
+      "claim": "Detects an Active SSOT document that has no Version header at all, not just a stale one",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:docs-governance-consistency",
+      "mutantId": "docs-governance-detects-stale-component-count",
+      "claim": "Detects docs/AI_AGENT_GUIDE.md stating a component count that no longer matches the generated census (deep-audit F4)",
       "status": "KILLED",
       "detail": "gate exited 1"
     },

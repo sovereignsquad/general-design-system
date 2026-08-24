@@ -39,7 +39,7 @@ export type GdsChartSetBType =
   | 'funnel'
   | 'treemap';
 
-/** Specialized chart types (issue #398): financial (candlestick) and network-flow (sankey), the data-heavy chart families most peer design systems (Carbon, Spectrum) include that GDS didn't. */
+/** Specialized chart types (issue 398): financial (candlestick) and network-flow (sankey), the data-heavy chart families most peer design systems (Carbon, Spectrum) include that GDS didn't. */
 export type GdsChartSetCType =
   | 'candlestick'
   | 'sankey';

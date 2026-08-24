@@ -1,5 +1,5 @@
 /**
- * Single consumer install surface (issue #346).
+ * Single consumer install surface (issue 346).
  *
  * Goal: a consumer installs `@sovereignsquad/gds` (+ their own React) and nothing
  * else — the vendor UI engine is GDS's concern, not part of the consumer's

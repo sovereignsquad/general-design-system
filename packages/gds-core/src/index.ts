@@ -197,7 +197,7 @@ export * from './PartnerDiscovery';
 
 // ── Reference-site building blocks ──
 // ReferenceThemeExplorer lives behind the `./reference-theme-explorer` subpath
-// (see src/reference-theme-explorer.ts) — not re-exported here; issue #532.
+// (see src/reference-theme-explorer.ts) — not re-exported here; issue 532.
 export * from './ReferenceLocaleNotice';
 export * from './ReferenceLinkGrid';
 export * from './ReferenceSection';

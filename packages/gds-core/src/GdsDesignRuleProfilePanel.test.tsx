@@ -71,7 +71,7 @@ describe('GdsDesignRuleProfilePanel (issue #651)', () => {
   });
 
   it('renders a "no measurement recorded yet" state, not a blank panel, for a preset absent from the generated coverage module', async () => {
-    // Simulates a future preset not yet swept by issue #649's audit (all 25 real presets
+    // Simulates a future preset not yet swept by issue 649's audit (all 25 real presets
     // currently have coverage) -- mocks only the generated data module, not the real
     // #644-#646 resolvers, which still need a real, valid preset id to not throw.
     vi.doMock('./generated-design-rule-coverage', () => ({ designRuleCoverageByPreset: {} }));

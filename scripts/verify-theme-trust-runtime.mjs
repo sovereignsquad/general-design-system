@@ -112,7 +112,7 @@ async function verifyRouteCase(client, route, testCase, viewport) {
       const vibeContract = document.querySelector('[data-gds-owned-contrast="vibe-contract"]');
       const activeMarkers = [...document.querySelectorAll('[data-gds-theme-lab-active]')].filter(visible);
 
-      // Issue #461: the primary control/result cards must NOT be bespoke
+      // issue 461: the primary control/result cards must NOT be bespoke
       // owned-contrast surfaces (that forced a dark surface onto a light page).
       if (controlSurfaces.length !== 0) failures.push('Theme Lab control cards must not use the retired theme-lab-controls owned-contrast surface (issue #461).');
       if (vibeGalleryCards.length < 12) failures.push('Theme Lab must render the full owned vibe gallery.');
