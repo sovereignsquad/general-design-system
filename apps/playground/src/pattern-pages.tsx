@@ -327,73 +327,73 @@ function FormControlFamilyDemo() {
   ];
 
   return (
-    <div>
+    <GdsStack gap="lg">
       <SectionPanel title="Segmented control" description="Overflow-safe assessment tabs, including a many-item scroll case.">
-        <GdsSegmentedControl
-          ariaLabel="Assessment focus"
-          value={assessment}
-          onChange={setAssessment}
-          options={[
-            { value: 'readiness', label: 'Readiness' },
-            { value: 'recovery', label: 'Recovery' },
-            { value: 'load', label: 'Load' },
-            { value: 'archived', label: 'Archived', disabled: true },
-          ]}
-        />
-        <br />
-        <GdsSegmentedControl
-          ariaLabel="Weekly focus (overflow)"
-          value={assessment}
-          onChange={setAssessment}
-          options={[
-            { value: 'readiness', label: 'Readiness' },
-            { value: 'recovery', label: 'Recovery' },
-            { value: 'load', label: 'Load' },
-            { value: 'sleep', label: 'Sleep' },
-            { value: 'nutrition', label: 'Nutrition' },
-            { value: 'mobility', label: 'Mobility' },
-            { value: 'mental', label: 'Mental' },
-          ]}
-        />
-        <br />
-        <GdsSegmentedControl
-          ariaLabel="Disabled assessment focus"
-          value={assessment}
-          onChange={setAssessment}
-          disabled
-          options={[
-            { value: 'readiness', label: 'Readiness' },
-            { value: 'recovery', label: 'Recovery' },
-          ]}
-        />
+        <GdsStack gap="md">
+          <GdsSegmentedControl
+            ariaLabel="Assessment focus"
+            value={assessment}
+            onChange={setAssessment}
+            options={[
+              { value: 'readiness', label: 'Readiness' },
+              { value: 'recovery', label: 'Recovery' },
+              { value: 'load', label: 'Load' },
+              { value: 'archived', label: 'Archived', disabled: true },
+            ]}
+          />
+          <GdsSegmentedControl
+            ariaLabel="Weekly focus (overflow)"
+            value={assessment}
+            onChange={setAssessment}
+            options={[
+              { value: 'readiness', label: 'Readiness' },
+              { value: 'recovery', label: 'Recovery' },
+              { value: 'load', label: 'Load' },
+              { value: 'sleep', label: 'Sleep' },
+              { value: 'nutrition', label: 'Nutrition' },
+              { value: 'mobility', label: 'Mobility' },
+              { value: 'mental', label: 'Mental' },
+            ]}
+          />
+          <GdsSegmentedControl
+            ariaLabel="Disabled assessment focus"
+            value={assessment}
+            onChange={setAssessment}
+            disabled
+            options={[
+              { value: 'readiness', label: 'Readiness' },
+              { value: 'recovery', label: 'Recovery' },
+            ]}
+          />
+        </GdsStack>
       </SectionPanel>
       <SectionPanel title="Slider and rating" description="1-10 effort slider, a boundary case where min equals max, and a 1-5 rating scale.">
-        <GdsSlider
-          label="Perceived effort"
-          description="Rate the session load from 1 to 10."
-          value={effort}
-          onChange={setEffort}
-          min={1}
-          max={10}
-        />
-        <br />
-        <GdsSlider
-          label="Single fixed checkpoint"
-          description="Boundary case where the minimum equals the maximum."
-          value={boundary}
-          onChange={setBoundary}
-          min={5}
-          max={5}
-          disabled
-        />
-        <br />
-        <GdsRatingScale
-          label="Session satisfaction"
-          description="Five-point rating scale."
-          value={rating}
-          onChange={setRating}
-          scale={5}
-        />
+        <GdsStack gap="md">
+          <GdsSlider
+            label="Perceived effort"
+            description="Rate the session load from 1 to 10."
+            value={effort}
+            onChange={setEffort}
+            min={1}
+            max={10}
+          />
+          <GdsSlider
+            label="Single fixed checkpoint"
+            description="Boundary case where the minimum equals the maximum."
+            value={boundary}
+            onChange={setBoundary}
+            min={5}
+            max={5}
+            disabled
+          />
+          <GdsRatingScale
+            label="Session satisfaction"
+            description="Five-point rating scale."
+            value={rating}
+            onChange={setRating}
+            scale={5}
+          />
+        </GdsStack>
       </SectionPanel>
       <SectionPanel title="Wizard stepper" description="Save-and-next progression across first, middle, and last steps.">
         <GdsWizardStepper
@@ -405,13 +405,13 @@ function FormControlFamilyDemo() {
         />
       </SectionPanel>
       <SectionPanel title="Date and time inputs" description="Governed date/time/date-range pickers wrapping @mantine/dates behind a GDS-owned contract.">
-        <GdsDateInput label="Session date" value={sessionDate} onChange={setSessionDate} />
-        <br />
-        <GdsDateTimeInput label="Check-in time" value={checkInTime} onChange={setCheckInTime} />
-        <br />
-        <GdsDateRangeInput label="Coverage window" value={coverageWindow} onChange={setCoverageWindow} />
+        <GdsStack gap="md">
+          <GdsDateInput label="Session date" value={sessionDate} onChange={setSessionDate} />
+          <GdsDateTimeInput label="Check-in time" value={checkInTime} onChange={setCheckInTime} />
+          <GdsDateRangeInput label="Coverage window" value={coverageWindow} onChange={setCoverageWindow} />
+        </GdsStack>
       </SectionPanel>
-    </div>
+    </GdsStack>
   );
 }
 
@@ -2241,11 +2241,10 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         />
       );
     case 'theme-toggle':
-      return (
-        <SectionPanel title="Theme toggle" description="Use the package-owned color-scheme control instead of local switches.">
-          <ThemeToggle />
-        </SectionPanel>
-      );
+      // PatternEntryCard's own SectionPanel already carries this entry's title and
+      // description from the registry -- a second, near-duplicate SectionPanel wrapping one
+      // small toggle button added a whole bordered card with no content of its own.
+      return <ThemeToggle />;
     case 'partner-discovery-system':
       return (
         <PartnerDiscoveryShell
