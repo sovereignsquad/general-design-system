@@ -4,6 +4,23 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Pattern matrix links to the actual pattern, not just plain text (#666)
+
+The "Pattern matrix" table on `/coverage` showed each pattern's name and route as inert text
+-- `entry.route` names only the family page, with no way to reach the specific pattern from the
+matrix. Each pattern name is now a real link to its family page's `#entry-<anchor>` deep link
+(the same id `PatternEntryCard` already sets), using the registry's own canonical `anchor`
+field rather than reaching for `.id` directly. Verified live: 119 links generated, each
+resolving to the correct family route.
+
+The evidence table on the same page states `route` too but has no `family` field to build the
+same link from without changing its own registry shape -- left as plain text rather than
+shipping a broken link; not in this pass.
+
+Confirmed while fixing this: internal `#entry-*` hash-anchor links (this one and the existing
+`components-index-page.tsx` links) don't scroll to their target after a client-side navigation
+-- a pre-existing router-level gap, not introduced here. Tracked separately (#667).
+
 ### Site UX defects: zero-gap cards, slider mark overflow, redundant Theme Toggle box (#666)
 
 Reported live against the deployed site with annotated screenshots. Four defects, all traced

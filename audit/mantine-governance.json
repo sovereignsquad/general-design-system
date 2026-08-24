@@ -873,7 +873,8 @@
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/LayoutPrimitives.tsx",
         "packages/gds-core/src/PublicBrandFooter.tsx",
-        "packages/gds-core/src/SafeStyles.tsx"
+        "packages/gds-core/src/SafeStyles.tsx",
+        "packages/gds-core/src/SurfacePresentation.ts"
       ]
     },
     {

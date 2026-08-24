@@ -26,6 +26,8 @@
     ".mantine-Radio-label",
     ".mantine-SegmentedControl-control",
     ".mantine-Select-dropdown",
+    ".mantine-Slider-markLabel",
+    ".mantine-Slider-markWrapper",
     ".mantine-Switch-label",
     ".mantine-Table-root",
     ".mantine-Table-table",
