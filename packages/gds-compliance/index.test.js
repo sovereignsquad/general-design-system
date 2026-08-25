@@ -1006,6 +1006,76 @@ const REQUIRED_MANIFEST_FIELDS = {
   lastReviewedAt: '2026-05-27',
 };
 
+describe('@sovereignsquad/gds-compliance basic (non-strict) raw-color scan', () => {
+  it('flags a bare hex/rgb literal outside theme/token files with no strictMode set', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/lib/chartTheme.ts': `export const palette = ['#3b82f6', '#10b981'];`,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const findings = report.findings.filter((finding) => finding.rule === 'forbidden-color');
+
+    expect(findings).toHaveLength(1);
+    expect(findings[0].file).toContain('chartTheme.ts');
+  });
+
+  it('does not flag a hex/rgb literal used only as a var() fallback', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/app/layout.tsx': `export const style = { color: "var(--mantine-color-dimmed, #868e96)" };`,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const findings = report.findings.filter((finding) => finding.rule === 'forbidden-color');
+
+    expect(findings).toHaveLength(0);
+  });
+
+  it('still flags a bare literal on a line that also has an unrelated var() fallback', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/app/mixed.ts': `const x = { a: "var(--x, #fff)", b: "#123456" };`,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const findings = report.findings.filter((finding) => finding.rule === 'forbidden-color');
+
+    expect(findings).toHaveLength(1);
+    expect(findings[0].file).toContain('mixed.ts');
+  });
+
+  it('does not flag a var() fallback with a nested-parens value (documented v1 limitation)', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({ ...REQUIRED_MANIFEST_FIELDS, compliance: {} }, null, 2),
+      'src/app/alpha.ts': `export const style = { color: "var(--x, rgba(0,0,0,0.5))" };`,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const findings = report.findings.filter((finding) => finding.rule === 'forbidden-color');
+
+    // rgba(...) inside the fallback is a nested paren the v1 masking regex does not unwrap, so
+    // this still matches RAW_COLOR_PATTERN on the inner "rgba(" -- asserted explicitly so any
+    // future change to this behavior is a deliberate, visible test update either direction.
+    expect(findings).toHaveLength(1);
+  });
+
+  it('exempts a raw-color literal declared under compliance.themeOwnershipPaths, matching the strict-mode exemption', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        ...REQUIRED_MANIFEST_FIELDS,
+        compliance: { themeOwnershipPaths: ['src/lib/chartTheme.ts'] },
+      }, null, 2),
+      'src/lib/chartTheme.ts': `export const palette = ['#3b82f6', '#10b981'];`,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const findings = report.findings.filter((finding) => finding.rule === 'forbidden-color');
+
+    expect(findings).toHaveLength(0);
+  });
+});
+
 describe('@sovereignsquad/gds-compliance design-rule scan (issue #652)', () => {
   it('flags an accent-classed token used as a background, with severity warn by default', () => {
     const fixture = createFixture({

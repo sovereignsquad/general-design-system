@@ -6,6 +6,20 @@ const SOURCE_EXTENSIONS = new Set(['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs']
 const IGNORED_DIRS = new Set(['node_modules', '.git', '.next', 'dist', 'coverage']);
 const RAW_COLOR_PATTERN = /#(?:[0-9a-fA-F]{3,8})\b|rgb[a]?\s*\(/;
 const INLINE_COLOR_STYLE_PATTERN = /style\s*=\s*\{\s*\{[\s\S]{0,700}\b(?:color|background|backgroundColor|borderColor|fill|stroke)\s*:\s*['"`](?!var\(|currentColor\b|inherit\b|transparent\b|unset\b|none\b)[^'"`]+['"`]/;
+// Matches `var(--token, <fallback>)` where <fallback> has no nested parens -- the common case
+// (a plain hex/rgb/keyword fallback). A hex/rgb literal used only as a var() fallback is not a
+// styling authority -- the variable is -- so it must not trip RAW_COLOR_PATTERN the way a bare
+// literal does. INLINE_COLOR_STYLE_PATTERN already excludes var(...) for JSX style={{}}; this
+// brings the plain-text scan used by the basic and strict raw-color rules to the same standard.
+const VAR_FALLBACK_WRAPPER_PATTERN = /var\(\s*--[\w-]+\s*,\s*[^()]*\)/g;
+
+function stripVarFallbacksForColorScan(content) {
+  // Blank the fallback segment only, preserving string length so any future line/column
+  // reporting stays correct. A bare literal elsewhere in the same file is unaffected.
+  return content.replace(VAR_FALLBACK_WRAPPER_PATTERN, (full) =>
+    full.replace(/(--[\w-]+\s*,\s*)([^()]*)(\))$/, (_m, prefix, fallback, suffix) =>
+      prefix + fallback.replace(/[^\s]/g, ' ') + suffix));
+}
 const NON_TOKEN_RADIUS_PATTERN = /\b(?:borderRadius|radius)\s*[:=]\s*(?:\{\s*)?(?:['"]?\d+(?:\.\d+)?(?:px|rem)?['"]?|\d+(?:\.\d+)?)/;
 const IMPORT_SOURCE_PATTERN = /(?:import\s+[^'"]*?from\s*|import\s*)['"]([^'"]+)['"]/g;
 const DEFAULT_FORBIDDEN_IMPORTS = ['@/components/ui/', '@radix-ui/', 'tailwindcss', 'lucide-react'];
@@ -659,11 +673,13 @@ function stripComments(source) {
   return out;
 }
 
-function scanSourceFile(filePath, allowedImports, forbiddenImports) {
+function scanSourceFile(filePath, allowedImports, forbiddenImports, manifest, manifestRoot) {
   const findings = [];
   const content = stripComments(readFileSync(filePath, 'utf8'));
+  const normalizedRoot = normalizePath(manifestRoot).replace(/\/$/, '');
+  const relativePath = normalizePath(filePath).replace(`${normalizedRoot}/`, '');
 
-  if (!/(?:^|\/)(?:theme|tokens)\//.test(filePath) && RAW_COLOR_PATTERN.test(content)) {
+  if (!isThemeOwnedPath(relativePath, manifest) && RAW_COLOR_PATTERN.test(stripVarFallbacksForColorScan(content))) {
     findings.push({
       rule: 'forbidden-color',
       severity: 'error',
@@ -976,7 +992,7 @@ function pushStrictFinding({ findings, manifest, normalizedRoot, filePath, rule,
   });
 }
 
-function isStrictThemeOwnedPath(relativePath, manifest) {
+function isThemeOwnedPath(relativePath, manifest) {
   return /(?:^|\/)(?:theme|tokens)\//.test(relativePath)
     || matchesScope(relativePath, manifest.compliance?.themeOwnershipPaths ?? []);
 }
@@ -990,7 +1006,7 @@ function scanStrictConsumerViolations({ manifest, sourceFiles, manifestRoot }) {
     const content = stripComments(readFileSync(filePath, 'utf8'));
     const inGdsPackage = /(^|\/)packages\/gds-(?:core|admin|theme)\//.test(relativePath);
     const inDocumentation = /\.(md|mdx)$/.test(relativePath) || /(^|\/)docs\//.test(relativePath);
-    const themeOwnedPath = isStrictThemeOwnedPath(relativePath, manifest);
+    const themeOwnedPath = isThemeOwnedPath(relativePath, manifest);
 
     if (!inGdsPackage && /from\s+['"]@mantine\/core['"]/.test(content)) {
       pushStrictFinding({
@@ -1047,7 +1063,7 @@ function scanStrictConsumerViolations({ manifest, sourceFiles, manifestRoot }) {
       });
     }
 
-    if (!inGdsPackage && !inDocumentation && !themeOwnedPath && RAW_COLOR_PATTERN.test(content)) {
+    if (!inGdsPackage && !inDocumentation && !themeOwnedPath && RAW_COLOR_PATTERN.test(stripVarFallbacksForColorScan(content))) {
       pushStrictFinding({
         findings,
         manifest,
@@ -1426,7 +1442,7 @@ export function runComplianceCheck({ manifestPath, currentDate }) {
 
   const sourceFiles = walk(manifestRoot);
   for (const filePath of sourceFiles) {
-    findings.push(...scanSourceFile(filePath, allowedImports, forbiddenImports));
+    findings.push(...scanSourceFile(filePath, allowedImports, forbiddenImports, manifest, manifestRoot));
   }
 
   findings.push(...validateApprovedExceptions(manifest, resolvedCurrentDate));
