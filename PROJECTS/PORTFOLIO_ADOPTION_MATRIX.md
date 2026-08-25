@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.5.0
-Last updated: 2026-08-08
+Last updated: 2026-08-25
 
 This matrix gives the shared GDS a portfolio-level view of where each project stands, what kind of migration it needs, and what the next practical move should be.
 
@@ -44,6 +44,9 @@ Prioritize in this order:
 | Misisimi | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Narimato | Mantine 7 + vendored `@sovereignsquad/gds-core` / `@sovereignsquad/gds-theme`; local adapter `docs/GDS_ADOPTION.md` | Mantine-rooted enforcement | Low | Keep packages synced (`npm run gds:sync`); extend CI guard; see `PROJECTS/NARIMATO.md` |
 | Pesti Est / budapest-night | Mantine-first product with local brand theme extension and strong i18n/RTL needs; adoption plan now in progress | Mantine-rooted enforcement | Medium | Close package publishing, theme-extension, discovery-shell, and RTL adapter gaps so local duplicates can shrink. |
+| Management | `gds-core`/`gds-theme` `^6.1.0` via the documented GitHub Packages install path; `gds-compliance` installed and CI-wired; see `PROJECTS/MANAGEMENT_ADOPTION_PLAN.md` | Package adoption, actively governed | Low | Routine version bump only — this is the canonical install path working as documented. Its `gds:check` script is a local fork of `gds-compliance`, not the real package; upstream fixes need manual re-porting. |
+| Sales Lead Generator | `gds-*` `3.14.3` via an unsupported GitHub Release tarball URL, 3+ major versions behind current; no `gds-compliance` dependency, hand-rolled duplicate scanner instead; see `PROJECTS/SALESLEADGENERATOR_ADOPTION_PLAN.md` | Package adoption, stale + unsupported install path | High | Migrate to the documented install path, upgrade to current, adopt the real `gds-compliance` package. |
+| Save The World | No `@sovereignsquad/*` dependency anywhere; Tailwind-only stack; see `PROJECTS/SAVETHEWORLD_ADOPTION_STATUS.md` | Not adopted | N/A (out of scope) | Confirmed out of scope for now (2026-08-25), not a discovery-required unknown. Revisit if that changes. |
 | Openclaw | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Opencode | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Paperclip | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
@@ -98,6 +101,19 @@ Required fix:
 Corrective direction:
 
 - mobile shell, dashboard priority, and data-view consistency should lead, not cosmetic cleanup
+
+### Sales Lead Generator
+
+Required fix:
+
+- move off the unsupported GitHub Release tarball install path and the 3+ major version drift it
+  caused
+
+Corrective direction:
+
+- adopt `INSTALLATION_GUIDE.md`'s documented GitHub Packages install path
+- replace the hand-rolled `scripts/audit-gds-style.mjs` with the real `@sovereignsquad/gds-compliance`
+  package
 
 ### Launchmass
 
