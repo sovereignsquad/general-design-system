@@ -26,22 +26,31 @@ tracking entry recording current state, not a refactor plan.
   `gds-compliance`'s raw-color scanner false-positived on. Fixed upstream in issue #670; not a
   real violation.
 
-## Known gap: `scripts/gds-check.mjs` is a fork, not the real package
+## `scripts/gds-check.mjs` is a fork, not the real package — re-synced 2026-08-25
 
 `npm run gds:check` in this repo does **not** call the installed `@sovereignsquad/gds-compliance`
 package — `scripts/gds-check.mjs` is a hand-ported, dependency-free reimplementation of
 `scanSourceFile()`'s logic, with its own header explaining why: "GitHub Packages install not
-reliably available in every environment." This means upstream fixes to the real package (like
-#670's `var()`-fallback exclusion) do not reach this repo's actual CI gate without someone
-manually re-porting the change — confirmed by directly reading both the real package and this
-fork's source during the 2026-08-25 audit. Flagged here rather than acted on: fixing it means
-editing the `management` repo itself, out of scope for a GDS-repo-only tracking entry.
+reliably available in every environment." Because of that, issue #670's fix (the `var()`
+fallback exclusion + `themeOwnershipPaths` support) did not reach this fork automatically — it
+was manually re-ported into `scripts/gds-check.mjs` directly in the `management` repo (commit
+`fd3b61a`, merged to both `dev` and `main`). `npm run gds:check` now reports 0 findings across
+177 source files. This fork will need the same manual re-port for any future upstream fix —
+that's the accepted, ongoing cost of it not being the real package.
+
+The install-reliability problem the fork exists to work around is itself now resolved:
+`GDS_PACKAGES_TOKEN` is provisioned as both a GitHub Actions secret and a Vercel project
+environment variable for `management` (production Vercel project) and `padel-africa` (the
+hosted-client Vercel project on the same codebase) — see the [deployment-host build-step
+recipe](../INSTALLATION_GUIDE.md#getting-github_token-into-a-deployment-hosts-build). Both
+Vercel projects confirmed `READY` on their latest deployment as of 2026-08-25. Whether to now
+retire the fork in favor of the real installed package is a call for whoever owns `management`,
+not made here.
 
 ## Exit criteria
 
-- listed in `PORTFOLIO_ADOPTION_MATRIX.md` (done, this pass)
-- upgrade to the GDS release carrying issue #670's fix, confirming the `layout.tsx` finding
-  clears without code changes
-- decide whether `scripts/gds-check.mjs`'s fork is a permanent necessity or a fixable
-  install-reliability problem worth revisiting via the [deployment-host build-step
-  recipe](../INSTALLATION_GUIDE.md#getting-github_token-into-a-deployment-hosts-build)
+- listed in `PORTFOLIO_ADOPTION_MATRIX.md` (done)
+- upgrade to the GDS release carrying issue #670's fix — done via manual re-port, not a package
+  upgrade; `layout.tsx`'s finding clears (confirmed 0 findings)
+- `GITHUB_TOKEN`/`GDS_PACKAGES_TOKEN` provisioned everywhere the install needs it — done
+  (GitHub Actions and both Vercel projects)

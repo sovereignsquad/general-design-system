@@ -44,8 +44,8 @@ Prioritize in this order:
 | Misisimi | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Narimato | Mantine 7 + vendored `@sovereignsquad/gds-core` / `@sovereignsquad/gds-theme`; local adapter `docs/GDS_ADOPTION.md` | Mantine-rooted enforcement | Low | Keep packages synced (`npm run gds:sync`); extend CI guard; see `PROJECTS/NARIMATO.md` |
 | Pesti Est / budapest-night | Mantine-first product with local brand theme extension and strong i18n/RTL needs; adoption plan now in progress | Mantine-rooted enforcement | Medium | Close package publishing, theme-extension, discovery-shell, and RTL adapter gaps so local duplicates can shrink. |
-| Management | `gds-core`/`gds-theme` `^6.1.0` via the documented GitHub Packages install path; `gds-compliance` installed and CI-wired; see `PROJECTS/MANAGEMENT_ADOPTION_PLAN.md` | Package adoption, actively governed | Low | Routine version bump only — this is the canonical install path working as documented. Its `gds:check` script is a local fork of `gds-compliance`, not the real package; upstream fixes need manual re-porting. |
-| Sales Lead Generator | `gds-*` `3.14.3` via an unsupported GitHub Release tarball URL, 3+ major versions behind current; no `gds-compliance` dependency, hand-rolled duplicate scanner instead; see `PROJECTS/SALESLEADGENERATOR_ADOPTION_PLAN.md` | Package adoption, stale + unsupported install path | High | Migrate to the documented install path, upgrade to current, adopt the real `gds-compliance` package. |
+| Management | `gds-core`/`gds-theme` `^6.1.0` via the documented GitHub Packages install path; `gds-compliance` fork re-synced (0 findings); `GITHUB_TOKEN` set in GitHub Actions and both Vercel projects (`management`, `padel-africa`), both confirmed `READY`; see `PROJECTS/MANAGEMENT_ADOPTION_PLAN.md` | Package adoption, actively governed | Low | Routine version bump only. `gds:check` remains a local fork of `gds-compliance`, not the real package — upstream fixes need manual re-porting, as just done for issue #670. |
+| Sales Lead Generator | Migrated to `gds-*` `^6.5.0` via the documented registry install (from an unsupported 3.14.3 Release tarball); real `gds-compliance` adopted, hand-rolled scanner retired; `GITHUB_TOKEN` set in GitHub Actions, **Vercel project not yet confirmed**; see `PROJECTS/SALESLEADGENERATOR_ADOPTION_PLAN.md` | Package adoption, actively governed | Medium | Locate this repo's actual Vercel project (not visible from the reachable Vercel team) and set `GITHUB_TOKEN` there before the next deploy. |
 | Save The World | No `@sovereignsquad/*` dependency anywhere; Tailwind-only stack; see `PROJECTS/SAVETHEWORLD_ADOPTION_STATUS.md` | Not adopted | N/A (out of scope) | Confirmed out of scope for now (2026-08-25), not a discovery-required unknown. Revisit if that changes. |
 | Openclaw | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Opencode | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
@@ -104,16 +104,11 @@ Corrective direction:
 
 ### Sales Lead Generator
 
-Required fix:
+Done (2026-08-25): migrated to the documented GitHub Packages install path at `6.5.0`, adopted
+the real `@sovereignsquad/gds-compliance` package, retired `scripts/audit-gds-style.mjs`.
 
-- move off the unsupported GitHub Release tarball install path and the 3+ major version drift it
-  caused
-
-Corrective direction:
-
-- adopt `INSTALLATION_GUIDE.md`'s documented GitHub Packages install path
-- replace the hand-rolled `scripts/audit-gds-style.mjs` with the real `@sovereignsquad/gds-compliance`
-  package
+Remaining: this repo's Vercel project needs `GITHUB_TOKEN` set — not locatable from the one
+Vercel team this session could reach, so the repo owner needs to find and set it directly.
 
 ### Launchmass
 
