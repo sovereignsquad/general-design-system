@@ -268,6 +268,20 @@ literal-values allowlist, and a closing "open items, don't guess" list — is
   package's own unit test, and `npm run lint` targets `apps/playground` alone —
   which would not cover the packages the exports live in even if it were wired.
   The Node coverage gate is the real mechanism.
+- **Consumer-facing rule sections carry four things, not just the rule.** Any doc section that
+  states a rule a consumer must follow (`FOUNDATION.md`'s Styling API Order, `COMPLIANCE_TOOLKIT.md`'s
+  rule list, `INSTALLATION_GUIDE.md`'s setup steps) should include: **the rule** itself; a
+  **worked example** (correct vs. incorrect code — not abstract prose a reader has to translate
+  themselves); **common mistakes**, named from real adoption experience where available rather
+  than invented — write "none observed yet" if there genuinely are none, rather than omitting the
+  subsection silently; and **known issues**, naming anywhere the tooling doesn't yet fully enforce
+  what the prose promises, with a workaround and a tracking issue — write "fully enforced, no
+  known gaps" rather than omitting it silently. This came out of auditing how seven sibling
+  consumer repos actually use GDS (2026-08-25): every real gap was a rule stated correctly with
+  none of the other three present, not a rule stated wrong. See `COMPLIANCE_TOOLKIT.md`'s "Where
+  a literal value is allowed to live" section and `INSTALLATION_GUIDE.md` §5/§7 for the shape
+  applied — a worked `themeOwnershipPaths` example, a named real cost on each "common mistake,"
+  and an explicit known-issue callout for a since-fixed false positive.
 - **File-header comments are not required.** This codebase has never
   consistently used them (many long-standing files, e.g. `Typography.tsx`,
   have none) and retrofitting one everywhere would be pure diff churn with
