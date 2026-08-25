@@ -4,6 +4,28 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### `gds-compliance` raw-color scan: `var()` fallback exclusion, and `themeOwnershipPaths` now honored outside strict mode (#670)
+
+Two related false positives in `strict.raw-color`/the always-on `forbidden-color` check, found
+auditing how messmass, management, classscout, camera, savetheworld, salesleadgenerator, and sso
+actually use GDS. Both are fixed at the shared `RAW_COLOR_PATTERN` matching layer, not per rule.
+
+`color: "var(--mantine-color-dimmed, #868e96)"` (management's real violating line) used to trip
+`forbidden-color`/`strict.raw-color` even though the actual styling authority is the CSS
+variable and the hex is only a defensive pre-hydration fallback. `strict.inline-color` already
+excluded `var(...)` values for JSX `style={{}}`; the plain-text scan now does the same via a new
+`stripVarFallbacksForColorScan()` helper, for both the basic and strict rule paths. A nested-paren
+fallback (`var(--x, rgba(0,0,0,0.5))`) is a known, tested v1 limitation and still flags.
+
+Separately: `COMPLIANCE_TOOLKIT.md` has always documented that `compliance.themeOwnershipPaths`
+exempts a raw-color literal from the scan -- true for `strict.raw-color` (`isStrictThemeOwnedPath`,
+now renamed `isThemeOwnedPath` since it's shared), but never actually implemented for the
+always-on `forbidden-color` check that every non-strict consumer runs (`strictMode` is `false` or
+unset for all seven audited repos). `scanSourceFile()` now receives the manifest and honors
+`themeOwnershipPaths` there too, so a categorical/data-visualization color palette (messmass's
+`lib/chartTheme.ts`) can be declared out of scope the same way strict-mode consumers already
+could, rather than the documented behavior silently not applying to anyone actually using it.
+
 ### Pattern matrix links to the actual pattern, not just plain text (#666)
 
 The "Pattern matrix" table on `/coverage` showed each pattern's name and route as inert text

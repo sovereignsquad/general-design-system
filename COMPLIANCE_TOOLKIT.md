@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.5.0
-Last updated: 2026-08-08
+Last updated: 2026-08-25
 
 This document defines the canonical governance enforcement toolkit for GDS consumers.
 
@@ -39,7 +39,11 @@ Exit behavior:
 - missing required manifest fields
 - invalid approved exception metadata
 - missing declared adapter paths
-- forbidden raw color literals outside approved theme/token files
+- forbidden raw color literals outside approved theme/token files -- this check runs
+  unconditionally, regardless of `compliance.strictMode`; it excludes a hex/rgb literal used
+  solely as a `var(--token, <fallback>)` fallback value, and it honors
+  `compliance.themeOwnershipPaths` the same way the strict-mode version of this rule does (see
+  "Where a literal value is allowed to live" below)
 - forbidden UI imports such as `@radix-ui/gds-*`, `tailwindcss`, or other configured legacy UI dependencies
 - stale SSOT references in docs, including legacy path references to superseded local SSOT directories
 - strict consumer drift rules when `compliance.strictMode` is `true`:
@@ -78,10 +82,44 @@ enforces (verified against `packages/gds-compliance/index.js`, issue 543):
 5. **The PWA manifest** (`packages/gds-theme/src/pwa.ts`): `manifest.json` fields
    (`theme_color`, `background_color`) are consumed by the platform, not by CSS — there is no
    `var()` to read. The generator resolves them from the active theme at build time.
+6. **A consumer's own categorical/data-visualization color set** (a chart-library color array, a
+   map-legend palette): the same reasoning as 3 and 4 — by the time it's a literal array passed
+   to a charting or mapping API, there is no stylesheet and no theme in scope, and it typically
+   needs more distinct hues than GDS's semantic accent set provides. Declare the file(s) under
+   `compliance.themeOwnershipPaths` in `gds-adoption.json` (worked example below) — the same
+   mechanism category 1 already uses, and, as of issue #670, honored by this rule whether or not
+   `compliance.strictMode` is set:
 
-Everything else reads tokens. If a sixth category ever seems necessary, the burden is on the
+   ```json
+   {
+     "compliance": {
+       "themeOwnershipPaths": ["src/lib/chartTheme.ts"]
+     }
+   }
+   ```
+
+   This is a narrow, path-scoped declaration, not a blanket escape hatch — reach for it only
+   when the palette genuinely can't be expressed as GDS accent tokens (a 2-3 color palette
+   usually can be), and scope it to the specific file(s), not a wide glob.
+
+Everything else reads tokens. If a seventh category ever seems necessary, the burden is on the
 new case to show its output genuinely has no stylesheet and no theme in scope — "the token was
 inconvenient here" does not qualify. Comments are not code and are never scanned (issue 615).
+
+**`themeOwnershipPaths` vs. `approvedExceptions` vs. `approvedTemporaryExceptions`** — three
+different manifest mechanisms, easy to confuse by name:
+
+- `compliance.themeOwnershipPaths` (used above): declares a file or glob as a literal-value
+  *authority*, exempting it from the raw-color/radius scans entirely, in both strict and
+  non-strict mode. This is what a categorical color palette needs.
+- `approvedExceptions` (top-level manifest array): suppresses specific `strict.*` findings
+  (`strict.raw-color`, `strict.inline-color`, `strict.raw-control`, etc.) — **only when
+  `compliance.strictMode` is `true`**. It does not affect the always-on `forbidden-color` check
+  a non-strict consumer actually runs, and is the wrong mechanism for the categorical-palette
+  case above unless the repo has also adopted strict mode.
+- `compliance.approvedTemporaryExceptions` (a flat list of contract names): unrelated to color at
+  all — it only suppresses `strict.<surface>.local-adapter` findings for declared `localAdapters`
+  entries.
 
 ## Manifest configuration
 
