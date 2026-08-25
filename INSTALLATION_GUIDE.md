@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.5.0
-Last updated: 2026-08-08
+Last updated: 2026-08-25
 
 This guide is the canonical consumer setup path for the public umbrella package `@sovereignsquad/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
@@ -49,7 +49,43 @@ export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxx
 npm install
 ```
 
-**In GitHub Actions, you do not need a PAT at all** — the workflow's built-in `secrets.GITHUB_TOKEN` reads packages when the job has `permissions: packages: read`; see [CI (GitHub Actions) setup](#ci-github-actions-setup). A PAT is only for local development and non-GitHub CI (e.g. Vercel), where you store it as a `GITHUB_TOKEN` secret.
+**In GitHub Actions, you do not need a PAT at all** — the workflow's built-in `secrets.GITHUB_TOKEN` reads packages when the job has `permissions: packages: read`; see [CI (GitHub Actions) setup](#ci-github-actions-setup). A PAT is only for local development and non-GitHub CI/CD hosts (e.g. Vercel), where you store it as a project-level environment variable — worked recipe below.
+
+### Getting `GITHUB_TOKEN` into a deployment host's build
+
+`npm install` runs during your deployment host's **build step**, not just at runtime, so the
+classic PAT from [Getting a `read:packages` token](#getting-a-readpackages-token) above has to
+be present *before* `npm install` runs there — not only in your local shell. This is the step
+consumer adoption most often skips, which is what pushes a team toward vendoring a `file:` tarball
+instead (see [Common mistakes](#7-common-mistakes) below for what that costs).
+
+**Vercel — dashboard:**
+
+1. Project → **Settings** → **Environment Variables** in the sidebar.
+2. **Name**: `GITHUB_TOKEN`. **Value**: the classic PAT (`read:packages` scope, SSO-authorized if
+   your org enforces it).
+3. Select which [environments](https://vercel.com/docs/deployments/environments) it applies to
+   (**Production** and **Preview** at minimum — a build with no `GITHUB_TOKEN` fails `npm install`
+   with `401` the same way a local shell does).
+4. **Save**, then redeploy — Vercel does not retroactively apply the variable to a deployment that
+   already ran.
+
+**Vercel — CLI**, equivalent to the dashboard steps above:
+
+```bash
+vercel env add GITHUB_TOKEN production
+vercel env add GITHUB_TOKEN preview
+```
+
+Vercel marks a production/preview variable `sensitive` by default (unreadable again from the
+dashboard or `vercel env ls` after creation) — correct for a PAT; do not pass `--no-sensitive`.
+
+**Every host follows the same principle**, even where the exact menu differs: the token must be
+set as a **build-time** environment variable/secret (not runtime-only), scoped to every
+environment that runs `npm install` (production and preview/staging alike), and re-applied after
+rotation. Netlify, Render, and Docker-based CI/CD builds expose an equivalent "build environment
+variable"/`--build-arg` mechanism — consult that host's own docs for the exact steps, and prefer
+its native secret store over baking the token into a Dockerfile layer.
 
 The vendor UI engine is still GDS's concern, not yours, once the registry is configured. Install the umbrella package and your own React; the engine is pulled in automatically:
 
@@ -258,7 +294,12 @@ Before introducing a new local surface contract, verify the live catalog first:
 
 ## 5. Required governance setup
 
-Every mature consumer should add a `gds-adoption.json` manifest and run shared compliance checks in CI.
+Every consumer **must** add a `gds-adoption.json` manifest and run `gds-compliance` as a standing
+CI check on every PR — not a one-time local command run during adoption and never wired in
+afterward. `gds-compliance` installed as a dependency with no CI step calling it enforces nothing;
+a real `gds-adoption.json` manifest has been found sitting unwired for an extended period with
+dozens of accumulated, unaddressed findings before, precisely because nothing was ever going to
+surface them.
 
 Minimum CI contract:
 
@@ -267,6 +308,26 @@ npm run lint
 gds-compliance validate-manifest --manifest ./gds-adoption.json
 gds-compliance check --manifest ./gds-adoption.json
 ```
+
+Add it as an actual CI step, not just a command a developer might remember to run locally —
+extend the [CI (GitHub Actions) setup](#ci-github-actions-setup) job below with:
+
+```yaml
+  - run: npm run lint
+  - run: npx gds-compliance validate-manifest --manifest ./gds-adoption.json
+  - run: npx gds-compliance check --manifest ./gds-adoption.json
+```
+
+If the check currently fails on adoption day, that is not a reason to skip wiring it in — see
+[Required verification before adoption](#6-required-verification-before-adoption)'s "compliance
+failure" guidance below for how to land the CI gate before the repo is fully clean.
+
+**Known issue:** a `var(--token, #fallback)` CSS-variable-with-literal-fallback pattern could
+false-positive on the raw-color check before issue #670 shipped (fixed: the check now excludes a
+hex/rgb literal used solely as a `var()` fallback). If `gds-compliance check` reports a
+`forbidden-color`/`strict.raw-color` finding on a line that already reads a token via `var()` and
+you are on a version predating that fix, upgrade rather than stripping the fallback — the
+fallback is correct, defensive code, not a violation.
 
 For repos targeting true GDS-only enforcement:
 
@@ -415,15 +476,27 @@ between 3.9.0 and the current line.
 Do not:
 
 - assume GitHub Packages allows anonymous installs — every install needs the `.npmrc` token, and these packages are private, so the token also needs org read access
-- use sibling `file:` links in CI or hosted builds
+- use sibling `file:` links in CI or hosted builds — this is not a theoretical warning: several
+  real GDS consumers have vendored a `file:vendor/gds/*.tgz` copy as their **primary**, permanent
+  install mechanism rather than a one-off workaround. `npm outdated`/Dependabot cannot track a
+  `file:` dependency the way they track a registry semver range, so nothing ever prompts an
+  upgrade — the vendored copy just gets older. Use the [deployment-host build step
+  recipe](#getting-github_token-into-a-deployment-hosts-build) above instead of vendoring; it
+  solves the same underlying problem (getting the token into a hosted build) without losing
+  update visibility.
 - keep a second active token or primitive system alive
 - invent local shell, card, or action wrappers when the canonical GDS primitive already exists
 - mix `server` and `client` entrypoints arbitrarily
 - enable strict mode before the canonical primitives are actually adopted
 - assume a missing local implementation means the GDS contract does not exist; check the live pattern catalog and SSOT first
+- reimplement `gds-compliance`'s checks by hand because installing the real package hit friction
+  (registry auth, environment constraints) — a hand-rolled duplicate never receives upstream
+  fixes (for example, issue #670's raw-color false-positive fix) and drifts from the real rule
+  set silently. If the installed package is genuinely unavailable in some environment, say so and
+  file the gap rather than forking the logic.
 
 ## 8. Release-visibility artifacts (not an install path)
 
-Each `gds-v<VERSION>` tag (for example `gds-v6.5.0`) also gets a GitHub Release page with `.tgz` tarballs attached, generated by `.github/workflows/release-bundles.yml`. This exists for release-notes visibility and offline/audit purposes — it is **not** a documented or supported consumer install path. Install from GitHub Packages as described above.
+Each `gds-v<VERSION>` tag (for example `gds-v6.5.0`) also gets a GitHub Release page with `.tgz` tarballs attached, generated by `.github/workflows/release-bundles.yml`. This exists for release-notes visibility and offline/audit purposes — it is **not** a documented or supported consumer install path: it carries no update signal at all, so a consumer installing from a Release tarball URL can drift multiple major versions behind with nothing ever prompting an upgrade. Install from GitHub Packages as described above.
 
 See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the full publish/release process.
