@@ -1,7 +1,7 @@
 # Access Gate and Paywall Runtime
 
 Status: Active SSOT
-Version: 6.6.0
+Version: 6.7.0
 Last updated: 2026-08-24
 Package lane: `@sovereignsquad/gds-core`
 

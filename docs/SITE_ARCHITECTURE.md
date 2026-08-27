@@ -1,7 +1,7 @@
 # Reference-Site Architecture
 
 Status: Active SSOT
-Version: 6.6.0
+Version: 6.7.0
 Last updated: 2026-08-24
 
 The owner's directive, verbatim core: **rebuild the structure — what goes where, why, and
