@@ -8,6 +8,13 @@ import { IconCheck, IconX } from '@tabler/icons-react';
 import { getSemanticActionLabel, resolveSemanticActionConfig } from './vocabulary';
 import type { GdsVocabularyPack, SemanticActionId } from './vocabulary';
 
+/**
+ * How long a transient success/error feedback treatment stays on the button before it reverts
+ * to its resting label. Exported so documentation surfaces read the real value rather than
+ * restating it (Rule 14) -- a change here changes both the behaviour and the page.
+ */
+export const GDS_BUTTON_FEEDBACK_DURATION_MS = 2000;
+
 /** Props for `SemanticButton`; extends Mantine `ButtonProps` and the native button attributes. */
 export interface SemanticButtonProps extends ButtonProps, Omit<React.ComponentPropsWithoutRef<'button'>, keyof ButtonProps | 'leftSection' | 'children'> {
   /** Governed semantic action id whose label and icon are resolved from the vocabulary. */
@@ -84,7 +91,7 @@ export function SemanticButton({
   useEffect(() => {
     if (feedbackState) {
       setInternalFeedback(feedbackState);
-      const timer = setTimeout(() => setInternalFeedback(null), 2000);
+      const timer = setTimeout(() => setInternalFeedback(null), GDS_BUTTON_FEEDBACK_DURATION_MS);
       return () => clearTimeout(timer);
     }
   }, [feedbackState]);

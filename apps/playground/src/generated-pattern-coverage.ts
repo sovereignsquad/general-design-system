@@ -21,6 +21,7 @@ export const provenPatternIds: readonly string[] = [
   "badges",
   "bottom-tab-navigation",
   "browse-surface",
+  "button-feedback",
   "buttons",
   "checkboxes-radios",
   "choice-chips",

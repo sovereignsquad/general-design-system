@@ -1044,6 +1044,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'GdsAccessibilitySystemReference',
   },
   {
+    id: 'button-feedback',
+    title: 'Button Micro-feedback',
+    docSection: 'Feedback & Messaging',
+    family: 'feedback',
+    section: 'Button Micro-feedback',
+    summary: "SemanticButton's transient success/error treatment, live and clickable. Success feedback is per action — its own icon and message key, read from GdsVocabulary — so a delete confirms with its own glyph rather than a generic tick; error feedback is uniform. The revert duration is surfaced from GDS_BUTTON_FEEDBACK_DURATION_MS, the constant the component itself uses. Each action also declares a feedback colour that the theme does not currently paint; the page states that gap rather than claiming it (issue 677).",
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsButtonFeedbackReference',
+  },
+  {
     id: 'badges',
     title: 'Badges',
     docSection: 'Feedback & Messaging',

@@ -191,6 +191,7 @@ export * from './GdsIconSystemReference';
 export * from './GdsTypographySystemReference';
 export * from './GdsColorSystemReference';
 export * from './GdsAccessibilitySystemReference';
+export * from './GdsButtonFeedbackReference';
 export * from './GdsDesignRuleProfilePanel';
 export * from './GdsInlineLink';
 
