@@ -1,7 +1,7 @@
 # AI Agent Guide
 
 Status: Active SSOT
-Version: 6.5.0
+Version: 6.6.0
 Last updated: 2026-08-24
 
 How any AI coding agent — any LLM-powered coding tool — should consume the General Design System (GDS). The machine-readable summary lives in [`llms.txt`](../llms.txt) at the repo root; this is the human- and agent-readable long form.

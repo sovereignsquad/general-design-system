@@ -1,7 +1,7 @@
 {
   "name": "playground",
   "private": true,
-  "version": "6.5.0",
+  "version": "6.6.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,9 +14,9 @@
     "@mantine/core": "^7.9.0",
     "@mantine/dates": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
-    "@sovereignsquad/gds-admin": "6.5.0",
-    "@sovereignsquad/gds-core": "6.5.0",
-    "@sovereignsquad/gds-theme": "6.5.0",
+    "@sovereignsquad/gds-admin": "6.6.0",
+    "@sovereignsquad/gds-core": "6.6.0",
+    "@sovereignsquad/gds-theme": "6.6.0",
     "dayjs": "^1.11.13",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
