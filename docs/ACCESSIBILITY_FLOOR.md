@@ -9,7 +9,7 @@ advisory, and an advisory floor is not a floor.
 This file is GENERATED from `packages/gds-theme/src/accessibility-floor.ts`. A floor described
 differently from how it is checked is a floor nobody can rely on — run `npm run docs:a11y-floor`.
 
-## Rules (8)
+## Rules (9)
 
 - **focus-ring-min-width** (reaction axis, 2.4.11 Focus Appearance (AA)) — Below 2px a focus ring is not reliably visible, and a keyboard user has no other indication of where they are.
 - **focus-ring-is-not-removed** (reaction axis, 2.4.7 Focus Visible (AA)) — A theme must not be able to erase focus indication by setting the ring to none or transparent.
@@ -18,6 +18,7 @@ differently from how it is checked is a floor nobody can rely on — run `npm ru
 - **motion-duration-bounded** (motion axis, 2.2.2 Pause, Stop, Hide (A)) — A transition longer than two seconds is an animation the user cannot skip.
 - **reduced-motion-not-overridden** (motion axis, 2.3.3 Animation from Interactions (AAA)) — A theme may make motion calmer than the user asked for; it may never make it louder.
 - **badge-tone-pairs-legible** (color axis, 1.4.3 Contrast (Minimum) (AA)) — A status badge is often the only signal that something needs attention, so an illegible one is a functional failure rather than a cosmetic one.
+- **primary-cta-text-contrast** (color axis, 1.4.3 Contrast (Minimum) (AA)) — The primary call to action is the one control a page most expects to be pressed, and its label is normal-weight text. Nothing else in GDS measured this pairing: createBrandTheme's assertContrast gates text on page/surface/inverse and derives a readable foreground for support, and no floor rule covered the action fill, so a preset could ship a CTA below AA and every gate stayed silent (issue 680).
 - **disabled-control-still-distinguishable** (color axis, 1.4.1 Use of Color (A)) — A disabled control whose text and background are the same value is invisible rather than merely muted.
 
 ## What is not here

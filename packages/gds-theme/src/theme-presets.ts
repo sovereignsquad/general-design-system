@@ -1,6 +1,7 @@
 import type { MantineThemeOverride } from '@mantine/core';
 import { createPublicBrandTheme, extendGdsTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme } from './theme';
 import { createBrandTheme } from './brand-tokens';
+import { padelAfricaThemePreset } from './padel-africa';
 
 /** Identifier of a built-in GDS theme preset (accessibility, brand, and vibe lanes). */
 export type GdsThemePresetId =
@@ -28,7 +29,8 @@ export type GdsThemePresetId =
   | 'warm'
   | 'athlete-gold'
   | 'class-usa'
-  | 'gold-athlete';
+  | 'gold-athlete'
+  | 'padel-africa';
 
 /** Catalog entry describing a theme preset for selection UIs and documentation. */
 export interface GdsThemePreset {
@@ -253,6 +255,7 @@ const customPresetThemes: Record<Exclude<GdsThemePresetId, 'default' | 'dark-pub
   'athlete-gold': createVibrantPresetTheme('yellow'),
   'class-usa': classUsaThemePreset,
   'gold-athlete': goldAthleteThemePreset,
+  'padel-africa': padelAfricaThemePreset,
 };
 
 const themePresetCatalog: GdsThemePreset[] = [
@@ -280,6 +283,7 @@ const themePresetCatalog: GdsThemePreset[] = [
   { id: 'warm', label: 'Warm sand', description: 'Honey-amber warm lane for lifestyle, commerce, and community products.', runtimeLane: 'resolveGdsThemePreset(warm)' },
   { id: 'athlete-gold', label: 'Athlete Gold', description: 'Premium black-and-gold performance lane with stronger metallic gold accents and dark operator surfaces.', runtimeLane: 'resolveGdsThemePreset(athlete-gold)' },
   { id: 'class-usa', label: 'Class USA', description: 'Warm cream, ink navy, and action-orange family-discovery brand lane for ClassScout-style listings, with a trust-green source/freshness accent and Playfair Display headings.', runtimeLane: 'resolveGdsThemePreset(class-usa)' },
+  { id: 'padel-africa', label: 'Padel Africa', description: 'Vibrant African sport lane: deep jungle foundation with an emerald primary, lime energy accents, and a green-and-gold signature pairing on a warm ivory ground.', runtimeLane: 'resolveGdsThemePreset(padel-africa)' },
   { id: 'gold-athlete', label: 'Gold Athlete', description: 'Governed black-and-metallic-gold performance brand lane for Habigoal, with charcoal body text on ivory in light mode and ivory text with gold accents in dark mode.', runtimeLane: 'resolveGdsThemePreset(gold-athlete)' },
 ];
 

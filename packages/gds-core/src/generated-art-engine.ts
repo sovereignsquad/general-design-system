@@ -222,7 +222,7 @@ export function resolveGdsGeneratedPaletteHex(options: ResolveGdsGeneratedPalett
   }
   if (!options.themePresetId) {
     throw new Error(
-      "gds-core generated-art-engine: resolveGdsGeneratedPaletteHex with paletteSource 'theme' requires either `themePresetId` (one of the 25 built-in presets) or an explicit `colors` override for a custom brand theme — there is no live DOM to read CSS variables from outside a browser.",
+      "gds-core generated-art-engine: resolveGdsGeneratedPaletteHex with paletteSource 'theme' requires either `themePresetId` (one of the built-in presets) or an explicit `colors` override for a custom brand theme — there is no live DOM to read CSS variables from outside a browser.",
     );
   }
   const variables = getGdsVibeThemeCssVariables(options.themePresetId, options.colorScheme ?? 'light');

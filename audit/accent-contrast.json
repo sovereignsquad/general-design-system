@@ -1,8 +1,8 @@
 {
-  "presets": 25,
+  "presets": 26,
   "presetsWithOwnAccents": 0,
-  "evaluated": 6000,
-  "enforced": 2000,
+  "evaluated": 6240,
+  "enforced": 2080,
   "violationCount": 0,
   "modeEnforcement": {
     "filled": {

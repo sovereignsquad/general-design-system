@@ -1,7 +1,8 @@
 {
-  "presetsChecked": 50,
-  "rulesEvaluated": 8,
+  "presetsChecked": 52,
+  "rulesEvaluated": 9,
   "violationCount": 0,
+  "reportCount": 20,
   "rules": [
     {
       "id": "focus-ring-min-width",
@@ -44,6 +45,12 @@
       "axis": "color",
       "wcag": "1.4.3 Contrast (Minimum) (AA)",
       "rationale": "A status badge is often the only signal that something needs attention, so an illegible one is a functional failure rather than a cosmetic one."
+    },
+    {
+      "id": "primary-cta-text-contrast",
+      "axis": "color",
+      "wcag": "1.4.3 Contrast (Minimum) (AA)",
+      "rationale": "The primary call to action is the one control a page most expects to be pressed, and its label is normal-weight text. Nothing else in GDS measured this pairing: createBrandTheme's assertContrast gates text on page/surface/inverse and derives a readable foreground for support, and no floor rule covered the action fill, so a preset could ship a CTA below AA and every gate stayed silent (issue 680)."
     },
     {
       "id": "disabled-control-still-distinguishable",

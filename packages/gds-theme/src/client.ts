@@ -1,6 +1,8 @@
 export { gdsTheme, gdsDarkPublicTheme, gdsFlatSurfaceTheme, gdsEditorialPublicTheme, createPublicBrandTheme, extendGdsTheme, withGdsMotion } from './theme';
 export { getGdsThemePresets, resolveGdsThemePreset, classUsaThemePreset, goldAthleteThemePreset } from './theme-presets';
 export type { GdsThemePreset, GdsThemePresetId } from './theme-presets';
+export { padelAfricaThemePreset, PADEL_AFRICA_ROLES, PADEL_AFRICA_RAMPS, PADEL_AFRICA_CORE_PALETTE, PADEL_AFRICA_ACCESSIBLE_CTA, PADEL_AFRICA_BASE_INDEX, buildPadelAfricaRamp } from './padel-africa';
+export type { PadelAfricaRamp } from './padel-africa';
 export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES } from './axes';
 export { GdsThemeBoundary } from './GdsThemeBoundary';
 export type { GdsThemeBoundaryProps } from './GdsThemeBoundary';

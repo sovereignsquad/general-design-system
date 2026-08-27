@@ -619,12 +619,14 @@
         "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
         "packages/gds-core/src/GdsMap.client.tsx",
         "packages/gds-core/src/GdsMapPinBadge.tsx",
+        "packages/gds-core/src/ListingCard.tsx",
         "packages/gds-core/src/MeaningBadge.tsx",
         "packages/gds-core/src/MediaWithFallback.tsx",
         "packages/gds-core/src/PartnerDiscovery.tsx",
         "packages/gds-core/src/PublicShell.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-theme/src/accessibility-floor.ts",
         "packages/gds-theme/src/theme-presets.ts",
         "packages/gds-theme/src/theme.ts",
         "packages/gds-theme/styles.css"
@@ -919,6 +921,7 @@
         "packages/gds-core/src/DocsShell.tsx",
         "packages/gds-core/src/GdsMapPinPreviewCard.tsx",
         "packages/gds-core/src/LayoutPrimitives.tsx",
+        "packages/gds-core/src/ListingCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SemanticCharts.tsx"
       ]

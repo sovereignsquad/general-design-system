@@ -4,10 +4,10 @@
     "com.sovereignsquad.gds": {
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
-      "themeCount": 25,
-      "tokenCount": 5350,
-      "atmosphereTokenCount": 425,
-      "semanticTokenCount": 4925,
+      "themeCount": 26,
+      "tokenCount": 5564,
+      "atmosphereTokenCount": 442,
+      "semanticTokenCount": 5122,
       "globalTokenCount": 36,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
@@ -32280,6 +32280,3190 @@
           "$type": "number",
           "$value": "600",
           "$description": "gold-athlete semantic role \"weight-semibold\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "weight-semibold",
+              "lane": "semantic",
+              "scheme": {
+                "light": "600",
+                "dark": "600"
+              }
+            }
+          }
+        }
+      }
+    },
+    "padel-africa": {
+      "$description": "GDS theme preset: padel-africa",
+      "primary": {
+        "$type": "color",
+        "$value": "#0b9b4a",
+        "$description": "padel-africa primary (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "primary",
+            "mode": "shared",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "#035033",
+        "$description": "padel-africa accent (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "accent",
+            "mode": "shared",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "glow": {
+        "$type": "color",
+        "$value": "rgba(11, 155, 74, 0.22)",
+        "$description": "padel-africa glow (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "glow",
+            "mode": "shared",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "canvas-light": {
+        "$type": "color",
+        "$value": "#f2f8ec",
+        "$description": "padel-africa canvas-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "canvas-light",
+            "mode": "light",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "canvas-dark": {
+        "$type": "color",
+        "$value": "#051a14",
+        "$description": "padel-africa canvas-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "canvas-dark",
+            "mode": "dark",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "shell-light": {
+        "$type": "color",
+        "$value": "rgba(255, 255, 255, 0.92)",
+        "$description": "padel-africa shell-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "shell-light",
+            "mode": "light",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "shell-dark": {
+        "$type": "color",
+        "$value": "rgba(6, 32, 24, 0.92)",
+        "$description": "padel-africa shell-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "shell-dark",
+            "mode": "dark",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "surface-light": {
+        "$type": "color",
+        "$value": "rgba(255, 255, 255, 0.96)",
+        "$description": "padel-africa surface-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "surface-light",
+            "mode": "light",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "surface-dark": {
+        "$type": "color",
+        "$value": "rgba(9, 38, 29, 0.9)",
+        "$description": "padel-africa surface-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "surface-dark",
+            "mode": "dark",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "border-light": {
+        "$type": "color",
+        "$value": "#dde8d2",
+        "$description": "padel-africa border-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "border-light",
+            "mode": "light",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "border-dark": {
+        "$type": "color",
+        "$value": "#123528",
+        "$description": "padel-africa border-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "border-dark",
+            "mode": "dark",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "text-light": {
+        "$type": "color",
+        "$value": "#062018",
+        "$description": "padel-africa text-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "text-light",
+            "mode": "light",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "text-dark": {
+        "$type": "color",
+        "$value": "#f2f8ec",
+        "$description": "padel-africa text-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "text-dark",
+            "mode": "dark",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "muted-light": {
+        "$type": "color",
+        "$value": "#3f5148",
+        "$description": "padel-africa muted-light (light mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "muted-light",
+            "mode": "light",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "muted-dark": {
+        "$type": "color",
+        "$value": "#b9cbbf",
+        "$description": "padel-africa muted-dark (dark mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "muted-dark",
+            "mode": "dark",
+            "category": "color",
+            "lane": "atmosphere"
+          }
+        }
+      },
+      "gradient": {
+        "$type": "com.sovereignsquad.gds.cssGradient",
+        "$value": "radial-gradient(circle at 16% 8%, rgba(11, 155, 74, 0.18), transparent 28%), radial-gradient(circle at 88% 18%, rgba(243, 168, 6, 0.16), transparent 30%), linear-gradient(135deg, #f2f8ec, #e8f2dc)",
+        "$description": "padel-africa gradient (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "gradient",
+            "mode": "shared",
+            "category": "effect",
+            "lane": "atmosphere",
+            "cssComposite": true
+          }
+        }
+      },
+      "hero": {
+        "$type": "com.sovereignsquad.gds.cssGradient",
+        "$value": "linear-gradient(135deg, rgba(6, 32, 24, 0.14), rgba(11, 155, 74, 0.2))",
+        "$description": "padel-africa hero (shared mode)",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "hero",
+            "mode": "shared",
+            "category": "effect",
+            "lane": "atmosphere",
+            "cssComposite": true
+          }
+        }
+      },
+      "semantic": {
+        "$description": "Semantic role tokens: the values that actually paint GDS components. Each carries both scheme values under $extensions; $value is the light one.",
+        "accent": {
+          "$type": "color",
+          "$value": "#035033",
+          "$description": "padel-africa semantic role \"accent\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#035033",
+                "dark": "rgb(66, 124, 102)"
+              }
+            }
+          }
+        },
+        "accent-bronze-base": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "padel-africa semantic role \"accent-bronze-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-bronze-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "#8a5a00"
+              }
+            }
+          }
+        },
+        "accent-bronze-deep": {
+          "$type": "color",
+          "$value": "#6c4600",
+          "$description": "padel-africa semantic role \"accent-bronze-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-bronze-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#6c4600",
+                "dark": "#6c4600"
+              }
+            }
+          }
+        },
+        "accent-bronze-deeper": {
+          "$type": "color",
+          "$value": "#4f3300",
+          "$description": "padel-africa semantic role \"accent-bronze-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-bronze-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#4f3300",
+                "dark": "#4f3300"
+              }
+            }
+          }
+        },
+        "accent-bronze-deepest": {
+          "$type": "color",
+          "$value": "#301f00",
+          "$description": "padel-africa semantic role \"accent-bronze-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-bronze-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#301f00",
+                "dark": "#301f00"
+              }
+            }
+          }
+        },
+        "accent-bronze-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-bronze-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-bronze-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "accent-forest-base": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "padel-africa semantic role \"accent-forest-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-forest-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "#2f6b3a"
+              }
+            }
+          }
+        },
+        "accent-forest-deep": {
+          "$type": "color",
+          "$value": "#25532d",
+          "$description": "padel-africa semantic role \"accent-forest-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-forest-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#25532d",
+                "dark": "#25532d"
+              }
+            }
+          }
+        },
+        "accent-forest-deeper": {
+          "$type": "color",
+          "$value": "#1b3d21",
+          "$description": "padel-africa semantic role \"accent-forest-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-forest-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1b3d21",
+                "dark": "#1b3d21"
+              }
+            }
+          }
+        },
+        "accent-forest-deepest": {
+          "$type": "color",
+          "$value": "#102514",
+          "$description": "padel-africa semantic role \"accent-forest-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-forest-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#102514",
+                "dark": "#102514"
+              }
+            }
+          }
+        },
+        "accent-forest-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-forest-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-forest-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "accent-grape-base": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "padel-africa semantic role \"accent-grape-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-grape-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "#5b3374"
+              }
+            }
+          }
+        },
+        "accent-grape-deep": {
+          "$type": "color",
+          "$value": "#47285a",
+          "$description": "padel-africa semantic role \"accent-grape-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-grape-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#47285a",
+                "dark": "#47285a"
+              }
+            }
+          }
+        },
+        "accent-grape-deeper": {
+          "$type": "color",
+          "$value": "#341d42",
+          "$description": "padel-africa semantic role \"accent-grape-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-grape-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#341d42",
+                "dark": "#341d42"
+              }
+            }
+          }
+        },
+        "accent-grape-deepest": {
+          "$type": "color",
+          "$value": "#201229",
+          "$description": "padel-africa semantic role \"accent-grape-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-grape-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#201229",
+                "dark": "#201229"
+              }
+            }
+          }
+        },
+        "accent-grape-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-grape-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-grape-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "accent-indigo-base": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "padel-africa semantic role \"accent-indigo-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-indigo-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "#3f4d9e"
+              }
+            }
+          }
+        },
+        "accent-indigo-deep": {
+          "$type": "color",
+          "$value": "#313c7b",
+          "$description": "padel-africa semantic role \"accent-indigo-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-indigo-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#313c7b",
+                "dark": "#313c7b"
+              }
+            }
+          }
+        },
+        "accent-indigo-deeper": {
+          "$type": "color",
+          "$value": "#242c5a",
+          "$description": "padel-africa semantic role \"accent-indigo-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-indigo-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#242c5a",
+                "dark": "#242c5a"
+              }
+            }
+          }
+        },
+        "accent-indigo-deepest": {
+          "$type": "color",
+          "$value": "#161b37",
+          "$description": "padel-africa semantic role \"accent-indigo-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-indigo-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#161b37",
+                "dark": "#161b37"
+              }
+            }
+          }
+        },
+        "accent-indigo-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-indigo-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-indigo-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "accent-magenta-base": {
+          "$type": "color",
+          "$value": "#a52a6c",
+          "$description": "padel-africa semantic role \"accent-magenta-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-magenta-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#a52a6c",
+                "dark": "#a52a6c"
+              }
+            }
+          }
+        },
+        "accent-magenta-deep": {
+          "$type": "color",
+          "$value": "#812154",
+          "$description": "padel-africa semantic role \"accent-magenta-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-magenta-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#812154",
+                "dark": "#812154"
+              }
+            }
+          }
+        },
+        "accent-magenta-deeper": {
+          "$type": "color",
+          "$value": "#5e183e",
+          "$description": "padel-africa semantic role \"accent-magenta-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-magenta-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5e183e",
+                "dark": "#5e183e"
+              }
+            }
+          }
+        },
+        "accent-magenta-deepest": {
+          "$type": "color",
+          "$value": "#3a0f26",
+          "$description": "padel-africa semantic role \"accent-magenta-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-magenta-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3a0f26",
+                "dark": "#3a0f26"
+              }
+            }
+          }
+        },
+        "accent-magenta-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-magenta-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-magenta-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "accent-ocean-base": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "padel-africa semantic role \"accent-ocean-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-ocean-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "#1f6e8c"
+              }
+            }
+          }
+        },
+        "accent-ocean-deep": {
+          "$type": "color",
+          "$value": "#18566d",
+          "$description": "padel-africa semantic role \"accent-ocean-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-ocean-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#18566d",
+                "dark": "#18566d"
+              }
+            }
+          }
+        },
+        "accent-ocean-deeper": {
+          "$type": "color",
+          "$value": "#123f50",
+          "$description": "padel-africa semantic role \"accent-ocean-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-ocean-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#123f50",
+                "dark": "#123f50"
+              }
+            }
+          }
+        },
+        "accent-ocean-deepest": {
+          "$type": "color",
+          "$value": "#0b2731",
+          "$description": "padel-africa semantic role \"accent-ocean-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-ocean-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#0b2731",
+                "dark": "#0b2731"
+              }
+            }
+          }
+        },
+        "accent-ocean-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-ocean-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-ocean-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "accent-plum-base": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "padel-africa semantic role \"accent-plum-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-plum-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "#7c3a6e"
+              }
+            }
+          }
+        },
+        "accent-plum-deep": {
+          "$type": "color",
+          "$value": "#612d56",
+          "$description": "padel-africa semantic role \"accent-plum-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-plum-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#612d56",
+                "dark": "#612d56"
+              }
+            }
+          }
+        },
+        "accent-plum-deeper": {
+          "$type": "color",
+          "$value": "#47213f",
+          "$description": "padel-africa semantic role \"accent-plum-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-plum-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#47213f",
+                "dark": "#47213f"
+              }
+            }
+          }
+        },
+        "accent-plum-deepest": {
+          "$type": "color",
+          "$value": "#2b1427",
+          "$description": "padel-africa semantic role \"accent-plum-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-plum-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2b1427",
+                "dark": "#2b1427"
+              }
+            }
+          }
+        },
+        "accent-plum-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-plum-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-plum-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "accent-slate-base": {
+          "$type": "color",
+          "$value": "#52606d",
+          "$description": "padel-africa semantic role \"accent-slate-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-slate-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#52606d",
+                "dark": "#52606d"
+              }
+            }
+          }
+        },
+        "accent-slate-deep": {
+          "$type": "color",
+          "$value": "#404b55",
+          "$description": "padel-africa semantic role \"accent-slate-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-slate-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#404b55",
+                "dark": "#404b55"
+              }
+            }
+          }
+        },
+        "accent-slate-deeper": {
+          "$type": "color",
+          "$value": "#2f373e",
+          "$description": "padel-africa semantic role \"accent-slate-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-slate-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f373e",
+                "dark": "#2f373e"
+              }
+            }
+          }
+        },
+        "accent-slate-deepest": {
+          "$type": "color",
+          "$value": "#1d2226",
+          "$description": "padel-africa semantic role \"accent-slate-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-slate-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1d2226",
+                "dark": "#1d2226"
+              }
+            }
+          }
+        },
+        "accent-slate-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-slate-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-slate-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "accent-teal-base": {
+          "$type": "color",
+          "$value": "#0f766e",
+          "$description": "padel-africa semantic role \"accent-teal-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-teal-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#0f766e",
+                "dark": "#0f766e"
+              }
+            }
+          }
+        },
+        "accent-teal-deep": {
+          "$type": "color",
+          "$value": "#0c5c56",
+          "$description": "padel-africa semantic role \"accent-teal-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-teal-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#0c5c56",
+                "dark": "#0c5c56"
+              }
+            }
+          }
+        },
+        "accent-teal-deeper": {
+          "$type": "color",
+          "$value": "#09433f",
+          "$description": "padel-africa semantic role \"accent-teal-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-teal-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#09433f",
+                "dark": "#09433f"
+              }
+            }
+          }
+        },
+        "accent-teal-deepest": {
+          "$type": "color",
+          "$value": "#052927",
+          "$description": "padel-africa semantic role \"accent-teal-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-teal-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#052927",
+                "dark": "#052927"
+              }
+            }
+          }
+        },
+        "accent-teal-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-teal-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-teal-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "accent-terracotta-base": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "padel-africa semantic role \"accent-terracotta-base\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-terracotta-base",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "#b04a2f"
+              }
+            }
+          }
+        },
+        "accent-terracotta-deep": {
+          "$type": "color",
+          "$value": "#893a25",
+          "$description": "padel-africa semantic role \"accent-terracotta-deep\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-terracotta-deep",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#893a25",
+                "dark": "#893a25"
+              }
+            }
+          }
+        },
+        "accent-terracotta-deeper": {
+          "$type": "color",
+          "$value": "#642a1b",
+          "$description": "padel-africa semantic role \"accent-terracotta-deeper\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-terracotta-deeper",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#642a1b",
+                "dark": "#642a1b"
+              }
+            }
+          }
+        },
+        "accent-terracotta-deepest": {
+          "$type": "color",
+          "$value": "#3e1a10",
+          "$description": "padel-africa semantic role \"accent-terracotta-deepest\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-terracotta-deepest",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3e1a10",
+                "dark": "#3e1a10"
+              }
+            }
+          }
+        },
+        "accent-terracotta-on": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"accent-terracotta-on\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "accent-terracotta-on",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "badge-attention": {
+          "$type": "color",
+          "$value": "#035033",
+          "$description": "padel-africa semantic role \"badge-attention\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-attention",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#035033",
+                "dark": "rgb(66, 124, 102)"
+              }
+            }
+          }
+        },
+        "badge-info": {
+          "$type": "color",
+          "$value": "rgb(223, 231, 219)",
+          "$description": "padel-africa semantic role \"badge-info\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-info",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(223, 231, 219)",
+                "dark": "rgb(41, 59, 52)"
+              }
+            }
+          }
+        },
+        "badge-soft-danger": {
+          "$type": "color",
+          "$value": "rgb(243, 220, 219)",
+          "$description": "padel-africa semantic role \"badge-soft-danger\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-danger",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(243, 220, 219)",
+                "dark": "rgb(68, 64, 58)"
+              }
+            }
+          }
+        },
+        "badge-soft-danger-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "padel-africa semantic role \"badge-soft-danger-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-danger-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "badge-soft-info": {
+          "$type": "color",
+          "$value": "rgb(215, 219, 218)",
+          "$description": "padel-africa semantic role \"badge-soft-info\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-info",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(215, 219, 218)",
+                "dark": "rgb(67, 83, 78)"
+              }
+            }
+          }
+        },
+        "badge-soft-info-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "padel-africa semantic role \"badge-soft-info-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-info-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "badge-soft-neutral": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"badge-soft-neutral\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-neutral",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(35, 53, 48)"
+              }
+            }
+          }
+        },
+        "badge-soft-neutral-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "padel-africa semantic role \"badge-soft-neutral-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-neutral-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "badge-soft-success": {
+          "$type": "color",
+          "$value": "rgb(218, 237, 226)",
+          "$description": "padel-africa semantic role \"badge-soft-success\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-success",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(218, 237, 226)",
+                "dark": "rgb(51, 75, 65)"
+              }
+            }
+          }
+        },
+        "badge-soft-success-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "padel-africa semantic role \"badge-soft-success-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-success-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "badge-soft-warning": {
+          "$type": "color",
+          "$value": "rgb(236, 230, 218)",
+          "$description": "padel-africa semantic role \"badge-soft-warning\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-warning",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(236, 230, 218)",
+                "dark": "rgb(65, 70, 50)"
+              }
+            }
+          }
+        },
+        "badge-soft-warning-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "padel-africa semantic role \"badge-soft-warning-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-soft-warning-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "badge-solid-danger": {
+          "$type": "color",
+          "$value": "#b3261e",
+          "$description": "padel-africa semantic role \"badge-solid-danger\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-danger",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b3261e",
+                "dark": "#f2786f"
+              }
+            }
+          }
+        },
+        "badge-solid-danger-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"badge-solid-danger-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-danger-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
+        "badge-solid-info": {
+          "$type": "color",
+          "$value": "#062018",
+          "$description": "padel-africa semantic role \"badge-solid-info\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-info",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#062018",
+                "dark": "rgb(234, 239, 236)"
+              }
+            }
+          }
+        },
+        "badge-solid-info-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"badge-solid-info-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-info-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
+        "badge-solid-neutral": {
+          "$type": "color",
+          "$value": "#3f5148",
+          "$description": "padel-africa semantic role \"badge-solid-neutral\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-neutral",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f5148",
+                "dark": "#b9cbbf"
+              }
+            }
+          }
+        },
+        "badge-solid-neutral-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"badge-solid-neutral-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-neutral-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
+        "badge-solid-success": {
+          "$type": "color",
+          "$value": "rgb(26, 142, 76)",
+          "$description": "padel-africa semantic role \"badge-solid-success\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-success",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(26, 142, 76)",
+                "dark": "rgb(132, 191, 157)"
+              }
+            }
+          }
+        },
+        "badge-solid-success-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "padel-africa semantic role \"badge-solid-success-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-success-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
+        "badge-solid-warning": {
+          "$type": "color",
+          "$value": "rgb(138, 101, 25)",
+          "$description": "padel-africa semantic role \"badge-solid-warning\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-warning",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(138, 101, 25)",
+                "dark": "#e0a23c"
+              }
+            }
+          }
+        },
+        "badge-solid-warning-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"badge-solid-warning-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-solid-warning-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
+        "badge-urgencyBg": {
+          "$type": "color",
+          "$value": "rgb(244, 222, 221)",
+          "$description": "padel-africa semantic role \"badge-urgencyBg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-urgencyBg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(244, 222, 221)",
+                "dark": "rgb(49, 29, 23)"
+              }
+            }
+          }
+        },
+        "badge-validation": {
+          "$type": "color",
+          "$value": "rgb(26, 142, 76)",
+          "$description": "padel-africa semantic role \"badge-validation\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "badge-validation",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(26, 142, 76)",
+                "dark": "rgb(132, 191, 157)"
+              }
+            }
+          }
+        },
+        "bg-canvas": {
+          "$type": "color",
+          "$value": "#f2f8ec",
+          "$description": "padel-africa semantic role \"bg-canvas\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-canvas",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#f2f8ec",
+                "dark": "#051a14"
+              }
+            }
+          }
+        },
+        "bg-card": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"bg-card\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-card",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(35, 53, 48)"
+              }
+            }
+          }
+        },
+        "bg-info-tag": {
+          "$type": "color",
+          "$value": "rgb(223, 231, 219)",
+          "$description": "padel-africa semantic role \"bg-info-tag\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(223, 231, 219)",
+                "dark": "rgb(41, 59, 52)"
+              }
+            }
+          }
+        },
+        "bg-info-tag-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "padel-africa semantic role \"bg-info-tag-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-info-tag-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "bg-inverse": {
+          "$type": "color",
+          "$value": "#062018",
+          "$description": "padel-africa semantic role \"bg-inverse\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-inverse",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#062018",
+                "dark": "#062018"
+              }
+            }
+          }
+        },
+        "bg-page": {
+          "$type": "color",
+          "$value": "#f2f8ec",
+          "$description": "padel-africa semantic role \"bg-page\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-page",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#f2f8ec",
+                "dark": "#051a14"
+              }
+            }
+          }
+        },
+        "bg-surface": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"bg-surface\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-surface",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(35, 53, 48)"
+              }
+            }
+          }
+        },
+        "border-card": {
+          "$type": "color",
+          "$value": "#dde8d2",
+          "$description": "padel-africa semantic role \"border-card\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-card",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#dde8d2",
+                "dark": "#123528"
+              }
+            }
+          }
+        },
+        "brand-accent": {
+          "$type": "color",
+          "$value": "#035033",
+          "$description": "padel-africa semantic role \"brand-accent\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#035033",
+                "dark": "rgb(66, 124, 102)"
+              }
+            }
+          }
+        },
+        "brand-accent-action": {
+          "$type": "color",
+          "$value": "rgb(2, 60, 38)",
+          "$description": "padel-africa semantic role \"brand-accent-action\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(2, 60, 38)",
+                "dark": "rgb(2, 60, 38)"
+              }
+            }
+          }
+        },
+        "brand-accent-action-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"brand-accent-action-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-action-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"brand-accent-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-accent-tint": {
+          "$type": "color",
+          "$value": "rgb(244, 222, 221)",
+          "$description": "padel-africa semantic role \"brand-accent-tint\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(244, 222, 221)",
+                "dark": "rgb(49, 29, 23)"
+              }
+            }
+          }
+        },
+        "brand-accent-tint-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "padel-africa semantic role \"brand-accent-tint-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-accent-tint-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "brand-primary": {
+          "$type": "color",
+          "$value": "#062018",
+          "$description": "padel-africa semantic role \"brand-primary\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-primary",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#062018",
+                "dark": "#f2f8ec"
+              }
+            }
+          }
+        },
+        "brand-primary-fg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"brand-primary-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-primary-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
+        "brand-primary-pressed": {
+          "$type": "color",
+          "$value": "#051a14",
+          "$description": "padel-africa semantic role \"brand-primary-pressed\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "brand-primary-pressed",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#051a14",
+                "dark": "#051a14"
+              }
+            }
+          }
+        },
+        "control-disabledBg": {
+          "$type": "color",
+          "$value": "rgb(215, 223, 211)",
+          "$description": "padel-africa semantic role \"control-disabledBg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "control-disabledBg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(215, 223, 211)",
+                "dark": "rgb(50, 70, 63)"
+              }
+            }
+          }
+        },
+        "control-disabledText": {
+          "$type": "color",
+          "$value": "#3f5148",
+          "$description": "padel-africa semantic role \"control-disabledText\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "control-disabledText",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f5148",
+                "dark": "#b9cbbf"
+              }
+            }
+          }
+        },
+        "control-height-lg": {
+          "$type": "dimension",
+          "$value": "52px",
+          "$description": "padel-africa semantic role \"control-height-lg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "control-height-lg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "52px",
+                "dark": "52px"
+              }
+            }
+          }
+        },
+        "control-height-md": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "padel-africa semantic role \"control-height-md\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "control-height-md",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "control-height-sm": {
+          "$type": "dimension",
+          "$value": "36px",
+          "$description": "padel-africa semantic role \"control-height-sm\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "control-height-sm",
+              "lane": "semantic",
+              "scheme": {
+                "light": "36px",
+                "dark": "36px"
+              }
+            }
+          }
+        },
+        "control-height-xl": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "padel-africa semantic role \"control-height-xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "control-height-xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "control-height-xs": {
+          "$type": "dimension",
+          "$value": "32px",
+          "$description": "padel-africa semantic role \"control-height-xs\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "control-height-xs",
+              "lane": "semantic",
+              "scheme": {
+                "light": "32px",
+                "dark": "32px"
+              }
+            }
+          }
+        },
+        "density": {
+          "$type": "com.sovereignsquad.gds.cssKeyword",
+          "$value": "comfortable",
+          "$description": "padel-africa semantic role \"density\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "density",
+              "lane": "semantic",
+              "scheme": {
+                "light": "comfortable",
+                "dark": "comfortable"
+              }
+            }
+          }
+        },
+        "elevation-0": {
+          "$type": "color",
+          "$value": "none",
+          "$description": "padel-africa semantic role \"elevation-0\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-0",
+              "lane": "semantic",
+              "scheme": {
+                "light": "none",
+                "dark": "none"
+              }
+            }
+          }
+        },
+        "elevation-1": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "padel-africa semantic role \"elevation-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
+        "elevation-2": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 8px 24px rgba(15, 23, 42, 0.08)",
+          "$description": "padel-africa semantic role \"elevation-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 8px 24px rgba(15, 23, 42, 0.08)",
+                "dark": "0 8px 24px rgba(15, 23, 42, 0.08)"
+              }
+            }
+          }
+        },
+        "elevation-3": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
+          "$description": "padel-africa semantic role \"elevation-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
+                "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-4": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 24px 56px rgba(15, 23, 42, 0.16)",
+          "$description": "padel-africa semantic role \"elevation-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 24px 56px rgba(15, 23, 42, 0.16)",
+                "dark": "0 24px 56px rgba(15, 23, 42, 0.16)"
+              }
+            }
+          }
+        },
+        "elevation-card": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "padel-africa semantic role \"elevation-card\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-card",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
+        "elevation-drawer": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
+          "$description": "padel-africa semantic role \"elevation-drawer\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-drawer",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
+                "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-menu": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 8px 24px rgba(15, 23, 42, 0.08)",
+          "$description": "padel-africa semantic role \"elevation-menu\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-menu",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 8px 24px rgba(15, 23, 42, 0.08)",
+                "dark": "0 8px 24px rgba(15, 23, 42, 0.08)"
+              }
+            }
+          }
+        },
+        "elevation-modal": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
+          "$description": "padel-africa semantic role \"elevation-modal\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-modal",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
+                "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-panel": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "padel-africa semantic role \"elevation-panel\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-panel",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
+        "elevation-sheet": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
+          "$description": "padel-africa semantic role \"elevation-sheet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sheet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
+                "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-tooltip": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 8px 24px rgba(15, 23, 42, 0.08)",
+          "$description": "padel-africa semantic role \"elevation-tooltip\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-tooltip",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 8px 24px rgba(15, 23, 42, 0.08)",
+                "dark": "0 8px 24px rgba(15, 23, 42, 0.08)"
+              }
+            }
+          }
+        },
+        "focus-ring": {
+          "$type": "color",
+          "$value": "rgb(2, 60, 38)",
+          "$description": "padel-africa semantic role \"focus-ring\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "focus-ring",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(2, 60, 38)",
+                "dark": "rgb(66, 124, 102)"
+              }
+            }
+          }
+        },
+        "focus-ring-color": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-focus-ring)",
+          "$description": "padel-africa semantic role \"focus-ring-color\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "focus-ring-color",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-focus-ring)",
+                "dark": "var(--gds-focus-ring)"
+              }
+            }
+          }
+        },
+        "focus-ring-offset": {
+          "$type": "dimension",
+          "$value": "2px",
+          "$description": "padel-africa semantic role \"focus-ring-offset\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "focus-ring-offset",
+              "lane": "semantic",
+              "scheme": {
+                "light": "2px",
+                "dark": "2px"
+              }
+            }
+          }
+        },
+        "focus-ring-style": {
+          "$type": "com.sovereignsquad.gds.cssKeyword",
+          "$value": "solid",
+          "$description": "padel-africa semantic role \"focus-ring-style\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "focus-ring-style",
+              "lane": "semantic",
+              "scheme": {
+                "light": "solid",
+                "dark": "solid"
+              }
+            }
+          }
+        },
+        "focus-ring-width": {
+          "$type": "dimension",
+          "$value": "2px",
+          "$description": "padel-africa semantic role \"focus-ring-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "focus-ring-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "2px",
+                "dark": "2px"
+              }
+            }
+          }
+        },
+        "font-lane-body": {
+          "$type": "com.sovereignsquad.gds.cssKeyword",
+          "$value": "inter",
+          "$description": "padel-africa semantic role \"font-lane-body\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-lane-body",
+              "lane": "semantic",
+              "scheme": {
+                "light": "inter",
+                "dark": "inter"
+              }
+            }
+          }
+        },
+        "font-lane-display": {
+          "$type": "com.sovereignsquad.gds.cssKeyword",
+          "$value": "inter",
+          "$description": "padel-africa semantic role \"font-lane-display\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-lane-display",
+              "lane": "semantic",
+              "scheme": {
+                "light": "inter",
+                "dark": "inter"
+              }
+            }
+          }
+        },
+        "font-lane-mono": {
+          "$type": "com.sovereignsquad.gds.cssKeyword",
+          "$value": "inter",
+          "$description": "padel-africa semantic role \"font-lane-mono\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-lane-mono",
+              "lane": "semantic",
+              "scheme": {
+                "light": "inter",
+                "dark": "inter"
+              }
+            }
+          }
+        },
+        "font-size-2xl": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1rem * 1.4238)",
+          "$description": "padel-africa semantic role \"font-size-2xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-size-2xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1rem * 1.4238)",
+                "dark": "calc(1rem * 1.4238)"
+              }
+            }
+          }
+        },
+        "font-size-2xs": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1rem * 0.7023)",
+          "$description": "padel-africa semantic role \"font-size-2xs\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-size-2xs",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1rem * 0.7023)",
+                "dark": "calc(1rem * 0.7023)"
+              }
+            }
+          }
+        },
+        "font-size-3xl": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1rem * 1.6018)",
+          "$description": "padel-africa semantic role \"font-size-3xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-size-3xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1rem * 1.6018)",
+                "dark": "calc(1rem * 1.6018)"
+              }
+            }
+          }
+        },
+        "font-size-4xl": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1rem * 1.802)",
+          "$description": "padel-africa semantic role \"font-size-4xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-size-4xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1rem * 1.802)",
+                "dark": "calc(1rem * 1.802)"
+              }
+            }
+          }
+        },
+        "font-size-lg": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1.125rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"font-size-lg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-size-lg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1.125rem * var(--mantine-scale))",
+                "dark": "calc(1.125rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "font-size-md": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"font-size-md\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-size-md",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "font-size-sm": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.875rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"font-size-sm\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-size-sm",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.875rem * var(--mantine-scale))",
+                "dark": "calc(0.875rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "font-size-xl": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1.25rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"font-size-xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-size-xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1.25rem * var(--mantine-scale))",
+                "dark": "calc(1.25rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "font-size-xs": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.75rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"font-size-xs\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "font-size-xs",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.75rem * var(--mantine-scale))",
+                "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "line-height-2xl": {
+          "$type": "number",
+          "$value": "1.25",
+          "$description": "padel-africa semantic role \"line-height-2xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "line-height-2xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1.25",
+                "dark": "1.25"
+              }
+            }
+          }
+        },
+        "line-height-3xl": {
+          "$type": "number",
+          "$value": "1.2",
+          "$description": "padel-africa semantic role \"line-height-3xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "line-height-3xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1.2",
+                "dark": "1.2"
+              }
+            }
+          }
+        },
+        "line-height-4xl": {
+          "$type": "number",
+          "$value": "1.15",
+          "$description": "padel-africa semantic role \"line-height-4xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "line-height-4xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1.15",
+                "dark": "1.15"
+              }
+            }
+          }
+        },
+        "line-height-lg": {
+          "$type": "number",
+          "$value": "1.45",
+          "$description": "padel-africa semantic role \"line-height-lg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "line-height-lg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1.45",
+                "dark": "1.45"
+              }
+            }
+          }
+        },
+        "line-height-md": {
+          "$type": "number",
+          "$value": "1.55",
+          "$description": "padel-africa semantic role \"line-height-md\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "line-height-md",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1.55",
+                "dark": "1.55"
+              }
+            }
+          }
+        },
+        "line-height-xl": {
+          "$type": "number",
+          "$value": "1.35",
+          "$description": "padel-africa semantic role \"line-height-xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "line-height-xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1.35",
+                "dark": "1.35"
+              }
+            }
+          }
+        },
+        "nav-inactiveOnInverse": {
+          "$type": "color",
+          "$value": "rgba(242, 248, 236, 0.72)",
+          "$description": "padel-africa semantic role \"nav-inactiveOnInverse\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "nav-inactiveOnInverse",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(242, 248, 236, 0.72)",
+                "dark": "rgba(242, 248, 236, 0.72)"
+              }
+            }
+          }
+        },
+        "price": {
+          "$type": "color",
+          "$value": "#035033",
+          "$description": "padel-africa semantic role \"price\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "price",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#035033",
+                "dark": "rgb(66, 124, 102)"
+              }
+            }
+          }
+        },
+        "radius-avatar": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-avatar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-avatar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-badge": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-badge\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-badge",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-button": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-button\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-button",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-card": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-card\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-card",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-chip": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-chip\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-chip",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-drawer": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-drawer\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-drawer",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-image": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-image\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-image",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-input": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-input\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-input",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-lg": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-lg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-lg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-md": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-md\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-md",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-modal": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-modal\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-modal",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-none": {
+          "$type": "dimension",
+          "$value": "0",
+          "$description": "padel-africa semantic role \"radius-none\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-none",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0",
+                "dark": "0"
+              }
+            }
+          }
+        },
+        "radius-panel": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-panel\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-panel",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-pill": {
+          "$type": "dimension",
+          "$value": "9999px",
+          "$description": "padel-africa semantic role \"radius-pill\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-pill",
+              "lane": "semantic",
+              "scheme": {
+                "light": "9999px",
+                "dark": "9999px"
+              }
+            }
+          }
+        },
+        "radius-pin": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-sheet": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-sheet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-sheet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-sm": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.25rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-sm\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-sm",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.25rem * var(--mantine-scale))",
+                "dark": "calc(0.25rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-surface": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-surface\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-surface",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-thumbnail": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-thumbnail\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-thumbnail",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.5rem * var(--mantine-scale))",
+                "dark": "calc(0.5rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-xl": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(2rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "radius-xs": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.125rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"radius-xs\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "radius-xs",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.125rem * var(--mantine-scale))",
+                "dark": "calc(0.125rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "reaction-active": {
+          "$type": "com.sovereignsquad.gds.cssKeyword",
+          "$value": "subtle",
+          "$description": "padel-africa semantic role \"reaction-active\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "reaction-active",
+              "lane": "semantic",
+              "scheme": {
+                "light": "subtle",
+                "dark": "subtle"
+              }
+            }
+          }
+        },
+        "reaction-active-lift": {
+          "$type": "dimension",
+          "$value": "-1px",
+          "$description": "padel-africa semantic role \"reaction-active-lift\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "reaction-active-lift",
+              "lane": "semantic",
+              "scheme": {
+                "light": "-1px",
+                "dark": "-1px"
+              }
+            }
+          }
+        },
+        "reaction-active-scale": {
+          "$type": "number",
+          "$value": "1.01",
+          "$description": "padel-africa semantic role \"reaction-active-scale\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "reaction-active-scale",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1.01",
+                "dark": "1.01"
+              }
+            }
+          }
+        },
+        "reaction-hover": {
+          "$type": "com.sovereignsquad.gds.cssKeyword",
+          "$value": "standard",
+          "$description": "padel-africa semantic role \"reaction-hover\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "reaction-hover",
+              "lane": "semantic",
+              "scheme": {
+                "light": "standard",
+                "dark": "standard"
+              }
+            }
+          }
+        },
+        "reaction-hover-lift": {
+          "$type": "dimension",
+          "$value": "-2px",
+          "$description": "padel-africa semantic role \"reaction-hover-lift\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "reaction-hover-lift",
+              "lane": "semantic",
+              "scheme": {
+                "light": "-2px",
+                "dark": "-2px"
+              }
+            }
+          }
+        },
+        "reaction-hover-scale": {
+          "$type": "number",
+          "$value": "1.02",
+          "$description": "padel-africa semantic role \"reaction-hover-scale\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "reaction-hover-scale",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1.02",
+                "dark": "1.02"
+              }
+            }
+          }
+        },
+        "reaction-pressed": {
+          "$type": "com.sovereignsquad.gds.cssKeyword",
+          "$value": "subtle",
+          "$description": "padel-africa semantic role \"reaction-pressed\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "reaction-pressed",
+              "lane": "semantic",
+              "scheme": {
+                "light": "subtle",
+                "dark": "subtle"
+              }
+            }
+          }
+        },
+        "reaction-pressed-lift": {
+          "$type": "dimension",
+          "$value": "-1px",
+          "$description": "padel-africa semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "reaction-pressed-lift",
+              "lane": "semantic",
+              "scheme": {
+                "light": "-1px",
+                "dark": "-1px"
+              }
+            }
+          }
+        },
+        "reaction-pressed-scale": {
+          "$type": "number",
+          "$value": "1.01",
+          "$description": "padel-africa semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "reaction-pressed-scale",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1.01",
+                "dark": "1.01"
+              }
+            }
+          }
+        },
+        "shell-height-header-branded-quiet": {
+          "$type": "dimension",
+          "$value": "88px",
+          "$description": "padel-africa semantic role \"shell-height-header-branded-quiet\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-branded-quiet",
+              "lane": "semantic",
+              "scheme": {
+                "light": "88px",
+                "dark": "88px"
+              }
+            }
+          }
+        },
+        "shell-height-header-compact": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "padel-africa semantic role \"shell-height-header-compact\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-compact",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "shell-height-header-default": {
+          "$type": "dimension",
+          "$value": "72px",
+          "$description": "padel-africa semantic role \"shell-height-header-default\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "shell-height-header-default",
+              "lane": "semantic",
+              "scheme": {
+                "light": "72px",
+                "dark": "72px"
+              }
+            }
+          }
+        },
+        "space-2xl": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(3rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"space-2xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-2xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(3rem * var(--mantine-scale))",
+                "dark": "calc(3rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "space-2xs": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.25rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"space-2xs\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-2xs",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.25rem * var(--mantine-scale))",
+                "dark": "calc(0.25rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "space-3xl": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(4rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"space-3xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-3xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(4rem * var(--mantine-scale))",
+                "dark": "calc(4rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "space-3xs": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.125rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"space-3xs\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-3xs",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.125rem * var(--mantine-scale))",
+                "dark": "calc(0.125rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "space-lg": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1.25rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"space-lg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-lg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1.25rem * var(--mantine-scale))",
+                "dark": "calc(1.25rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "space-md": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(1rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"space-md\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-md",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "space-none": {
+          "$type": "dimension",
+          "$value": "0",
+          "$description": "padel-africa semantic role \"space-none\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-none",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0",
+                "dark": "0"
+              }
+            }
+          }
+        },
+        "space-sm": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.75rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"space-sm\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-sm",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.75rem * var(--mantine-scale))",
+                "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "space-xl": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(2rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"space-xl\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-xl",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "space-xs": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(0.625rem * var(--mantine-scale))",
+          "$description": "padel-africa semantic role \"space-xs\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "space-xs",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(0.625rem * var(--mantine-scale))",
+                "dark": "calc(0.625rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "star": {
+          "$type": "color",
+          "$value": "#035033",
+          "$description": "padel-africa semantic role \"star\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "star",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#035033",
+                "dark": "rgb(66, 124, 102)"
+              }
+            }
+          }
+        },
+        "state-danger": {
+          "$type": "color",
+          "$value": "#b3261e",
+          "$description": "padel-africa semantic role \"state-danger\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "state-danger",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b3261e",
+                "dark": "#f2786f"
+              }
+            }
+          }
+        },
+        "state-info": {
+          "$type": "color",
+          "$value": "#062018",
+          "$description": "padel-africa semantic role \"state-info\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "state-info",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#062018",
+                "dark": "rgb(234, 239, 236)"
+              }
+            }
+          }
+        },
+        "state-success": {
+          "$type": "color",
+          "$value": "rgb(26, 142, 76)",
+          "$description": "padel-africa semantic role \"state-success\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "state-success",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(26, 142, 76)",
+                "dark": "rgb(132, 191, 157)"
+              }
+            }
+          }
+        },
+        "state-warning": {
+          "$type": "color",
+          "$value": "rgb(138, 101, 25)",
+          "$description": "padel-africa semantic role \"state-warning\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "state-warning",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(138, 101, 25)",
+                "dark": "#e0a23c"
+              }
+            }
+          }
+        },
+        "support": {
+          "$type": "color",
+          "$value": "rgb(39, 81, 64)",
+          "$description": "padel-africa semantic role \"support\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "support",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(39, 81, 64)",
+                "dark": "rgb(137, 171, 155)"
+              }
+            }
+          }
+        },
+        "text-body": {
+          "$type": "color",
+          "$value": "#062018",
+          "$description": "padel-africa semantic role \"text-body\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "text-body",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#062018",
+                "dark": "#f2f8ec"
+              }
+            }
+          }
+        },
+        "text-meta": {
+          "$type": "color",
+          "$value": "#3f5148",
+          "$description": "padel-africa semantic role \"text-meta\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "text-meta",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f5148",
+                "dark": "#b9cbbf"
+              }
+            }
+          }
+        },
+        "text-on-inverse": {
+          "$type": "color",
+          "$value": "#f2f8ec",
+          "$description": "padel-africa semantic role \"text-on-inverse\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "text-on-inverse",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#f2f8ec",
+                "dark": "#f2f8ec"
+              }
+            }
+          }
+        },
+        "text-on-support": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"text-on-support\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "text-on-support",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
+        "text-primary": {
+          "$type": "color",
+          "$value": "#062018",
+          "$description": "padel-africa semantic role \"text-primary\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "text-primary",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#062018",
+                "dark": "#f2f8ec"
+              }
+            }
+          }
+        },
+        "text-secondary": {
+          "$type": "color",
+          "$value": "#3f5148",
+          "$description": "padel-africa semantic role \"text-secondary\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "text-secondary",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f5148",
+                "dark": "#b9cbbf"
+              }
+            }
+          }
+        },
+        "transition-scope": {
+          "$type": "com.sovereignsquad.gds.cssKeyword",
+          "$value": "color, background, border, shadow, transform",
+          "$description": "padel-africa semantic role \"transition-scope\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "transition-scope",
+              "lane": "semantic",
+              "scheme": {
+                "light": "color, background, border, shadow, transform",
+                "dark": "color, background, border, shadow, transform"
+              }
+            }
+          }
+        },
+        "weight-bold": {
+          "$type": "number",
+          "$value": "700",
+          "$description": "padel-africa semantic role \"weight-bold\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "weight-bold",
+              "lane": "semantic",
+              "scheme": {
+                "light": "700",
+                "dark": "700"
+              }
+            }
+          }
+        },
+        "weight-medium": {
+          "$type": "number",
+          "$value": "500",
+          "$description": "padel-africa semantic role \"weight-medium\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "weight-medium",
+              "lane": "semantic",
+              "scheme": {
+                "light": "500",
+                "dark": "500"
+              }
+            }
+          }
+        },
+        "weight-regular": {
+          "$type": "number",
+          "$value": "400",
+          "$description": "padel-africa semantic role \"weight-regular\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "weight-regular",
+              "lane": "semantic",
+              "scheme": {
+                "light": "400",
+                "dark": "400"
+              }
+            }
+          }
+        },
+        "weight-semibold": {
+          "$type": "number",
+          "$value": "600",
+          "$description": "padel-africa semantic role \"weight-semibold\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "weight-semibold",

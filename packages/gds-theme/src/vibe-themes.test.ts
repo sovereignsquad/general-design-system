@@ -53,9 +53,12 @@ const SEMANTIC_ROLE_BASE_NAMES = [
 ];
 
 describe('vibe-theme semantic role tokens (badge-system foundation)', () => {
-  it('gives every one of the 25 presets a full semantic role variable set in both light and dark mode', () => {
+  it('gives every preset a full semantic role variable set in both light and dark mode', () => {
     const presetIds = getGdsThemePresets().map((preset) => preset.id);
-    expect(presetIds.length).toBe(25);
+    // Derived, not restated: this asserted a literal 25 and went stale the first time a preset was
+    // added. What matters is that the catalog and the vibe table agree and neither is empty.
+    expect(presetIds.length).toBe(getGdsVibeThemes().length);
+    expect(presetIds.length).toBeGreaterThan(0);
 
     for (const id of presetIds) {
       for (const mode of ['light', 'dark'] as const) {
