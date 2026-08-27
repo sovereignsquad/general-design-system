@@ -1,6 +1,6 @@
 # General Design System (GDS)
 
-> GDS is a governed, cross-project React design system published as `@sovereignsquad/gds`. It is built on Mantine and ships 308 components, design tokens, theme presets, and runtime systems (forms, tables, overlays, notifications, access gates, i18n). Every product surface is composed from shipped GDS contracts — never reinvented locally.
+> GDS is a governed, cross-project React design system published as `@sovereignsquad/gds`. It is built on Mantine and ships 309 components, design tokens, theme presets, and runtime systems (forms, tables, overlays, notifications, access gates, i18n). Every product surface is composed from shipped GDS contracts — never reinvented locally.
 
 This file is the entry point for AI coding agents (any LLM-powered coding tool). It tells you what GDS is, how to install it, the non-negotiable rules, and where to read more. When building UI for a project that uses GDS, follow these rules and compose the shipped components — do not author parallel primitives or raw CSS.
 

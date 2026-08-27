@@ -868,6 +868,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "GdsButtonFeedbackReference",
+    "status": "registered",
+    "home": {
+      "id": "button-feedback",
+      "family": "feedback",
+      "section": "Button Micro-feedback"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsCalendarHeatmapChart",
     "status": "exempt",
     "reason": "Chart wrapper (GdsChart) — variant of the registered reporting chart family."

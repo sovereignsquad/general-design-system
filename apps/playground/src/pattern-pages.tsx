@@ -1,5 +1,5 @@
 import { GdsMap } from '@sovereignsquad/gds-core/map';
-import { GdsPinSystemReference, GdsMotionSystemReference, GdsShapeElevationSystemReference, GdsDensitySpacingSystemReference, GdsIconSystemReference, GdsTypographySystemReference, GdsColorSystemReference, GdsAccessibilitySystemReference, GdsInlineLink } from '@sovereignsquad/gds-core';
+import { GdsPinSystemReference, GdsMotionSystemReference, GdsShapeElevationSystemReference, GdsDensitySpacingSystemReference, GdsIconSystemReference, GdsTypographySystemReference, GdsColorSystemReference, GdsAccessibilitySystemReference, GdsButtonFeedbackReference, GdsInlineLink } from '@sovereignsquad/gds-core';
 import { useEffect, useMemo, useState } from 'react';
 import {
   AISearchCard,
@@ -3367,6 +3367,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <GdsColorSystemReference />;
     case 'accessibility-floor':
       return <GdsAccessibilitySystemReference />;
+    case 'button-feedback':
+      return <GdsButtonFeedbackReference />;
     case 'gds-map':
       return <MapSurfaceDemo />;
     case 'accent-contrast-matrix':

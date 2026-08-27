@@ -4,6 +4,25 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Button micro-feedback gets its own pattern, and the colour gap it exposed is stated rather than claimed (#677)
+
+`SemanticButton`'s transient success/error treatment had no page of its own — it was one sentence
+inside another pattern's summary. `GdsButtonFeedbackReference` is a live, clickable proof plus the
+per-action feedback table, derived from `GdsVocabulary` at render time. Component census 308 -> 309;
+`docs/AI_AGENT_GUIDE.md` and `llms.txt` both restated the count and are updated.
+
+`GDS_BUTTON_FEEDBACK_DURATION_MS` is extracted from the literal inside `SemanticButton`'s effect
+and exported, so the page reads the real revert duration instead of restating it (Rule 14).
+
+Verifying the page live disproved the claim it was first written to make. Measured in the default
+preset: a success on `delete` sets `--button-bg` to Mantine's red (`#fa5252`) and still paints
+`--gds-vibe-primary` (`#7c3aed`); teal behaves the same. The label and icon do change correctly.
+The page therefore documents label-and-icon as the reliable half and states the colour gap on the
+page (Rule 15), with the defect filed as #677 — including that the red carve-out at
+`styles.css:300` matches the element yet loses the cascade, defeating the destructive-action
+distinction its own comment exists to preserve. Left unfixed here deliberately: that rule is
+global across 25 presets and needs its own contrast pass.
+
 ### `gds-compliance` raw-color scan: `var()` fallback exclusion, and `themeOwnershipPaths` now honored outside strict mode (#670)
 
 Two related false positives in `strict.raw-color`/the always-on `forbidden-color` check, found
