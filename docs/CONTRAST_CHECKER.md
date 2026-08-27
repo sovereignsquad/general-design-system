@@ -1,7 +1,7 @@
 # Consumer Contrast Checker
 
 Status: Active SSOT
-Version: 6.5.0
+Version: 6.6.0
 Last updated: 2026-08-08
 
 GDS hard-gates the contrast of its **own** readable-text token pairs in CI

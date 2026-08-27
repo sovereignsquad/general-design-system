@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased
+## 6.6.0 - 2026-08-25 — Consumer-adoption gap analysis, compliance false-positive fixes, and the last two /foundations axes (#661, #666, #670-#677)
 
 ### Button micro-feedback gets its own pattern
 
@@ -95,7 +95,6 @@ they were nested two levels inside the fixed container via the unstyled divs.
 18 more `<br />` layout instances remain elsewhere in `pattern-pages.tsx`, not swept in this
 pass -- tracked, not silently left.
 
-## Unreleased
 
 ### GdsColorSystemReference and GdsAccessibilitySystemReference close /foundations to all 7 axes (#661)
 
