@@ -2,6 +2,70 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## 6.7.0 - 2026-08-27 — Padel Africa preset, ListingCard media overlays, and a primary-CTA contrast rule (#678, #679, #680)
+
+### `padel-africa` joins the preset catalog (#678)
+
+A 26th selectable preset carrying colour and the brand's layout defaults, transcribed from the
+brand's own Website Colour Theme Guide. `getGdsThemePresets()` returns it,
+`resolveGdsThemePreset('padel-africa')` resolves it, and it has a full vibe entry, so it takes part
+in every preset-combinatorial gate.
+
+Ramps are explicit rather than interpolated. `createBrandTheme`'s five-ramp form blends between the
+values it is given and, for this palette, produced `#b56e57` — a colour in no brand asset — which
+`primaryShade` then painted on every link and button. Each colour is registered as a ten-step ramp
+with the brand value written in verbatim at the painted index, asserted per colour.
+
+One contradiction inside the guide is resolved explicitly rather than silently: its "Best
+Variations" table assigns Lime to the active tab/pill, but every rendered example in the same guide
+shows an Emerald-filled active pill, and both the Application Guidelines and the DO list assign Lime
+to focus and motion. The rendered UI and the prose agree against that one cell, so `activePill` is
+Emerald and `focusRing` is Lime.
+
+All 16 ratcheted budgets held, including the three sitting at zero slack — the preset introduced no
+untokenized values. `vibe-themes.test.ts` asserted a literal `25` presets and went stale the moment
+one was added; it now derives the count.
+
+### ListingCard gains media overlays (#679)
+
+A theme's `components:` block carries colour, radius and size defaults; it cannot make a card grow a
+category pill over its photo. So the two pieces the brand needs live in the component (Rule 16):
+`mediaOverlay` for content on the media's top-left, and
+`ListingCardAffordance.presentation: 'outline-on-media'`, which drops the disc entirely and carries
+its own drop-shadow so a save control stays legible directly over a photograph. Both token-driven.
+Additive: the positioned wrapper renders only when something is actually overlaid.
+
+### A floor rule for primary-CTA contrast, reporting rather than blocking (#680)
+
+Nothing in GDS measured the contrast of a primary CTA's label against its fill. `assertContrast`
+gates text on page/surface/inverse and *derives* a passing foreground for support; no floor rule
+covered the action fill; and `verify:component-color-pairs` only sees pairs a component declares in
+source. A preset could ship a CTA below AA in silence.
+
+`primary-cta-text-contrast` closes the measurement gap, using a new `report` severity that never
+fails a build. `auditGdsAccessibilityFloor()` returns `reports` alongside `violations`, so existing
+zero-violation checks keep their meaning.
+
+Reporting is not a courtesy to the new preset. The rule immediately found **20 preset/scheme
+combinations below 4.5:1 in the existing set** — `neon-night` at 1.98:1, `athlete-gold` 2.15:1,
+`sunset` 2.8:1, `forest` 3.3:1 among them. Enforcing would have retroactively failed roughly eight
+shipped presets, which is its own remediation project. That standing is now recorded so a future
+decision to enforce has a baseline. `padel-africa`'s Emerald sits at 3.62:1, with the in-palette AA
+alternative the guide already names as CTA hover (Forest Green, 9.55:1) exported as
+`PADEL_AFRICA_ACCESSIBLE_CTA`.
+
+The canary gained a breaching primary so the ninth rule is proven live like the other eight, and
+`docs/ACCESSIBILITY_FLOOR.md` is regenerated from the rule set.
+
+### Known issue in this release
+
+The preset's catalog label and description, and two phrases from the previous release, ship as
+English fallbacks in the eleven non-English locale packs. `translate.googleapis.com` returned `429`
+to every attempt across two days; the #660 safety mechanism correctly preserved committed
+translations rather than overwriting them, and `verify:i18n-leakage` passes. Per #668 a plain re-run
+will not repair them once the limit clears — the keys must be deleted first so the generator treats
+them as missing.
+
 ## 6.6.0 - 2026-08-25 — Consumer-adoption gap analysis, compliance false-positive fixes, and the last two /foundations axes (#661, #666, #670-#677)
 
 ### Button micro-feedback gets its own pattern

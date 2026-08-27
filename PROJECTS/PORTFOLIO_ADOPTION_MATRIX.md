@@ -1,7 +1,7 @@
 # Portfolio Adoption Matrix
 
 Status: Active SSOT
-Version: 6.6.0
+Version: 6.7.0
 Last updated: 2026-08-25
 
 This matrix gives the shared GDS a portfolio-level view of where each project stands, what kind of migration it needs, and what the next practical move should be.
@@ -45,7 +45,7 @@ Prioritize in this order:
 | Narimato | Mantine 7 + vendored `@sovereignsquad/gds-core` / `@sovereignsquad/gds-theme`; local adapter `docs/GDS_ADOPTION.md` | Mantine-rooted enforcement | Low | Keep packages synced (`npm run gds:sync`); extend CI guard; see `PROJECTS/NARIMATO.md` |
 | Pesti Est / budapest-night | Mantine-first product with local brand theme extension and strong i18n/RTL needs; adoption plan now in progress | Mantine-rooted enforcement | Medium | Close package publishing, theme-extension, discovery-shell, and RTL adapter gaps so local duplicates can shrink. |
 | Management | `gds-core`/`gds-theme` `^6.1.0` via the documented GitHub Packages install path; `gds-compliance` fork re-synced (0 findings); `GITHUB_TOKEN` set in GitHub Actions and both Vercel projects (`management`, `padel-africa`), both confirmed `READY`; see `PROJECTS/MANAGEMENT_ADOPTION_PLAN.md` | Package adoption, actively governed | Low | Routine version bump only. `gds:check` remains a local fork of `gds-compliance`, not the real package — upstream fixes need manual re-porting, as just done for issue #670. |
-| Sales Lead Generator | Migrated to `gds-*` `^6.6.0` via the documented registry install (from an unsupported 3.14.3 Release tarball); real `gds-compliance` adopted, hand-rolled scanner retired; `GITHUB_TOKEN` set in GitHub Actions, **Vercel project not yet confirmed**; see `PROJECTS/SALESLEADGENERATOR_ADOPTION_PLAN.md` | Package adoption, actively governed | Medium | Locate this repo's actual Vercel project (not visible from the reachable Vercel team) and set `GITHUB_TOKEN` there before the next deploy. |
+| Sales Lead Generator | Migrated to `gds-*` `^6.7.0` via the documented registry install (from an unsupported 3.14.3 Release tarball); real `gds-compliance` adopted, hand-rolled scanner retired; `GITHUB_TOKEN` set in GitHub Actions, **Vercel project not yet confirmed**; see `PROJECTS/SALESLEADGENERATOR_ADOPTION_PLAN.md` | Package adoption, actively governed | Medium | Locate this repo's actual Vercel project (not visible from the reachable Vercel team) and set `GITHUB_TOKEN` there before the next deploy. |
 | Save The World | No `@sovereignsquad/*` dependency anywhere; Tailwind-only stack; see `PROJECTS/SAVETHEWORLD_ADOPTION_STATUS.md` | Not adopted | N/A (out of scope) | Confirmed out of scope for now (2026-08-25), not a discovery-required unknown. Revisit if that changes. |
 | Openclaw | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
 | Opencode | No clear UI framework signal from package manifest alone | Discovery required | Unknown | Same discovery-first path. |
@@ -104,7 +104,7 @@ Corrective direction:
 
 ### Sales Lead Generator
 
-Done (2026-08-25): migrated to the documented GitHub Packages install path at `6.6.0`, adopted
+Done (2026-08-25): migrated to the documented GitHub Packages install path at `6.7.0`, adopted
 the real `@sovereignsquad/gds-compliance` package, retired `scripts/audit-gds-style.mjs`.
 
 Remaining: this repo's Vercel project needs `GITHUB_TOKEN` set — not locatable from the one

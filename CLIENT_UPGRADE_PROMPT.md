@@ -2,11 +2,11 @@
 
 ## What this is
 
-Use this for every product team migrating to the current stable `6.6.0` GDS adoption-platform release.
+Use this for every product team migrating to the current stable `6.7.0` GDS adoption-platform release.
 
-## Copy/paste message for 6.6.0 after publish verification
+## Copy/paste message for 6.7.0 after publish verification
 
-Team, we completed the GDS upgrade to the 6.6.0 adoption platform release.
+Team, we completed the GDS upgrade to the 6.7.0 adoption platform release.
 
 - GDS installs exclusively from GitHub Packages — if your `.npmrc` doesn't already have it, add:
   ```ini
@@ -15,13 +15,13 @@ Team, we completed the GDS upgrade to the 6.6.0 adoption platform release.
   ```
   (`GITHUB_TOKEN` is your own personal access token with `read:packages` scope. These packages are private to the `sovereignsquad` org, so the token also needs org read access — request it from the GDS maintainers if you don't have it.)
 - Update dependencies:
-  - `@sovereignsquad/gds@6.6.0`
-  - `@sovereignsquad/gds-eslint-config@6.6.0` (dev)
-  - `@sovereignsquad/gds-compliance@6.6.0` (dev)
+  - `@sovereignsquad/gds@6.7.0`
+  - `@sovereignsquad/gds-eslint-config@6.7.0` (dev)
+  - `@sovereignsquad/gds-compliance@6.7.0` (dev)
 - If you use granular packages, keep every GDS package on the same version:
-  - `@sovereignsquad/gds-theme@6.6.0`
-  - `@sovereignsquad/gds-core@6.6.0`
-  - `@sovereignsquad/gds-admin@6.6.0`
+  - `@sovereignsquad/gds-theme@6.7.0`
+  - `@sovereignsquad/gds-core@6.7.0`
+  - `@sovereignsquad/gds-admin@6.7.0`
 - Install Mantine peers normally; do not force peer resolution.
 - Keep the App Router split:
   - `app/layout.tsx` owns `ColorSchemeScript`
