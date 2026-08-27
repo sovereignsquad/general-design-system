@@ -1,6 +1,6 @@
 import { useState, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
-import { ActionIcon, Badge, Card, Group, Stack, Text, Title } from '@mantine/core';
+import { ActionIcon, Badge, Box, Card, Group, Stack, Text, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
 import { GdsGeneratedThumbnail } from './GdsGeneratedThumbnail';
 import { GdsVocabulary, getSemanticActionLabel, type SemanticAction } from './vocabulary';
@@ -26,6 +26,13 @@ export interface ListingCardAffordance {
   ariaLabel?: string;
   disabled?: boolean;
   active?: boolean;
+  /**
+   * `contained` (default) keeps the usual subtle disc. `outline-on-media` drops the disc entirely
+   * and carries a shadow instead, so the glyph stays legible directly over a photograph — the
+   * presentation a save control needs when it sits on the media rather than in the footer
+   * (issue 679).
+   */
+  presentation?: 'contained' | 'outline-on-media';
 }
 
 /** Props for {@link ListingCard}. */
@@ -58,6 +65,17 @@ export interface ListingCardProps {
   score?: ReactNode;
   /** Footer affordances (2–4). When present, replaces the default primaryAction footer slot. */
   actions?: ReactNode[];
+  /**
+   * Content overlaid on the media's top-left corner — typically a category pill. A theme cannot
+   * express this (it is composition, not a default), and absolute positioning it consumer-side
+   * would be a page-local reimplementation, so the card owns it (issue 679).
+   */
+  mediaOverlay?: ReactNode;
+  /**
+   * Affordance overlaid on the media's top-right corner, e.g. a save control that sits on the
+   * photo rather than in the footer. Pass `presentation: 'outline-on-media'` for the no-disc form.
+   */
+  mediaAffordance?: ListingCardAffordance;
   saveAction?: ListingCardAffordance;
   saved?: boolean;
   shareAction?: ListingCardAffordance;
@@ -130,6 +148,17 @@ function ListingAffordance({ affordance }: { affordance: ListingCardAffordance }
   const config = GdsVocabulary[affordance.action];
   const Icon = config.icon;
   const label = affordance.ariaLabel ?? getSemanticActionLabel(affordance.action);
+  const onMedia = affordance.presentation === 'outline-on-media';
+  // No disc: the glyph reads directly against the photograph, so it carries its own shadow
+  // rather than relying on a container for separation. Tokens, not literals, so any preset
+  // can recolour it.
+  const mediaStyle = onMedia
+    ? {
+        background: 'transparent',
+        color: 'var(--gds-text-on-inverse, var(--mantine-color-white))',
+        filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.55))',
+      }
+    : undefined;
   const activeStyle = affordance.active
     ? {
         // Accent on its own tint is 1.60:1 in high-contrast dark; use the tint's derived foreground.
@@ -143,11 +172,11 @@ function ListingAffordance({ affordance }: { affordance: ListingCardAffordance }
       <ActionIcon
         component="a"
         href={affordance.href}
-        variant="subtle"
+        variant={onMedia ? 'transparent' : 'subtle'}
         size="xl"
         aria-label={label}
         data-gds-active={affordance.active ? 'true' : undefined}
-        style={activeStyle}
+        style={{ ...mediaStyle, ...activeStyle }}
         disabled={affordance.disabled}
       >
         <Icon size="1rem" stroke={1.75} />
@@ -157,12 +186,12 @@ function ListingAffordance({ affordance }: { affordance: ListingCardAffordance }
 
   return (
     <ActionIcon
-      variant="subtle"
+      variant={onMedia ? 'transparent' : 'subtle'}
       size="xl"
       aria-label={label}
       onClick={affordance.onClick}
       data-gds-active={affordance.active ? 'true' : undefined}
-      style={activeStyle}
+      style={{ ...mediaStyle, ...activeStyle }}
       disabled={affordance.disabled}
     >
       <Icon size="1rem" stroke={1.75} />
@@ -197,6 +226,8 @@ export function ListingCard({
   reasonLabel: reasonLabelProp,
   score,
   actions,
+  mediaOverlay,
+  mediaAffordance,
   saveAction,
   saved = false,
   shareAction,
@@ -297,12 +328,36 @@ export function ListingCard({
           revealContent
         ) : (
           <>
-            {image ?? (
-              <ListingImageFallback
-                mediaRatio={mediaRatio}
-                seed={mediaSeed ?? href ?? imageAlt ?? (typeof title === 'string' ? title : 'gds-listing')}
-                title={typeof title === 'string' ? title : (imageAlt ?? 'Listing')}
-              />
+            {(mediaOverlay || mediaAffordance) ? (
+              // Positioned wrapper only when something is actually overlaid, so a card without
+              // overlays keeps its previous DOM exactly (issue 679).
+              <Box style={{ position: 'relative' }}>
+                {image ?? (
+                  <ListingImageFallback
+                    mediaRatio={mediaRatio}
+                    seed={mediaSeed ?? href ?? imageAlt ?? (typeof title === 'string' ? title : 'gds-listing')}
+                    title={typeof title === 'string' ? title : (imageAlt ?? 'Listing')}
+                  />
+                )}
+                {mediaOverlay ? (
+                  <Box style={{ position: 'absolute', top: 'var(--mantine-spacing-xs)', left: 'var(--mantine-spacing-xs)', zIndex: 1 }}>
+                    {mediaOverlay}
+                  </Box>
+                ) : null}
+                {mediaAffordance ? (
+                  <Box style={{ position: 'absolute', top: 0, right: 0, zIndex: 1 }}>
+                    <ListingAffordance affordance={mediaAffordance} />
+                  </Box>
+                ) : null}
+              </Box>
+            ) : (
+              image ?? (
+                <ListingImageFallback
+                  mediaRatio={mediaRatio}
+                  seed={mediaSeed ?? href ?? imageAlt ?? (typeof title === 'string' ? title : 'gds-listing')}
+                  title={typeof title === 'string' ? title : (imageAlt ?? 'Listing')}
+                />
+              )
             )}
 
             {(featured || sponsoredDisclosure) ? (

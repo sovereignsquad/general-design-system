@@ -14,8 +14,16 @@ import {
 } from './axes';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
 
-/** A floor breach is always a build failure. There is no advisory tier by design. */
-export type GdsFloorSeverity = 'violation';
+/**
+ * A floor breach is always a build failure.
+ *
+ * `report` is deliberately NOT a softer breach: it marks an axis the floor has begun *measuring*
+ * but has never enforced, where turning the measurement into a gate would retroactively fail
+ * presets that predate it. Its findings never fail a build, and a rule may only use it while that
+ * remediation is genuinely outstanding — a `report` rule that could be enforced should be
+ * enforced. See issue 680 for the first one.
+ */
+export type GdsFloorSeverity = 'violation' | 'report';
 
 /** Context a rule evaluates against: one preset in one scheme, with its resolved tokens. */
 export interface GdsFloorContext {
@@ -59,6 +67,17 @@ const violation = (
   fix: string,
 ): GdsFloorViolation => ({
   ruleId: rule.id, presetId: ctx.presetId, scheme: ctx.scheme, actual, required, wcag: rule.wcag, fix, severity: 'violation',
+});
+
+/** Same shape as {@link violation}, marked `report` so it measures without failing the build. */
+const report = (
+  ctx: GdsFloorContext,
+  rule: Pick<GdsFloorRule, 'id' | 'wcag'>,
+  actual: string,
+  required: string,
+  fix: string,
+): GdsFloorViolation => ({
+  ruleId: rule.id, presetId: ctx.presetId, scheme: ctx.scheme, actual, required, wcag: rule.wcag, fix, severity: 'report',
 });
 
 /**
@@ -181,6 +200,23 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     },
   },
   {
+    id: 'primary-cta-text-contrast',
+    axis: 'color',
+    wcag: '1.4.3 Contrast (Minimum) (AA)',
+    rationale:
+      'The primary call to action is the one control a page most expects to be pressed, and its label is normal-weight text. Nothing else in GDS measured this pairing: createBrandTheme\'s assertContrast gates text on page/surface/inverse and derives a readable foreground for support, and no floor rule covered the action fill, so a preset could ship a CTA below AA and every gate stayed silent (issue 680).',
+    evaluate(ctx) {
+      const fill = ctx.tokens['--gds-vibe-primary'];
+      if (!fill) return [];
+      // The pairing that actually renders: the governed Button rule paints
+      // `background: var(--gds-vibe-primary)` with `color: var(--mantine-color-white)`.
+      const ratio = contrastRatio('#ffffff', fill, fill);
+      if (ratio === null || ratio >= 4.5) return [];
+      return [report(ctx, this, `white on ${fill} = ${ratio}:1`, '>= 4.5:1',
+        'Darken the preset\'s `primary` vibe colour, or point the CTA at an in-palette tone that clears AA. Reported, not enforced: presets predating this rule have never been measured on this axis.')];
+    },
+  },
+  {
     id: 'disabled-control-still-distinguishable',
     axis: 'color',
     wcag: '1.4.1 Use of Color (A)',
@@ -208,6 +244,8 @@ export function auditGdsAccessibilityFloor(): {
   presetsChecked: number;
   rulesEvaluated: number;
   violations: GdsFloorViolation[];
+  /** Findings from `report`-severity rules: measured, never build-failing (issue 680). */
+  reports: GdsFloorViolation[];
 } {
   const presets = getGdsVibeThemes();
   if (!presets.length) throw new Error('No presets found — the accessibility floor cannot pass vacuously.');
@@ -236,7 +274,12 @@ export function auditGdsAccessibilityFloor(): {
     });
   }
 
-  return { presetsChecked: presets.length * 2, rulesEvaluated: gdsAccessibilityFloorRules.length, violations };
+  return {
+    presetsChecked: presets.length * 2,
+    rulesEvaluated: gdsAccessibilityFloorRules.length,
+    violations: violations.filter((v) => v.severity !== 'report'),
+    reports: violations.filter((v) => v.severity === 'report'),
+  };
 }
 
 /** Human-readable spec of the floor, used to keep the docs in step with the rules. */

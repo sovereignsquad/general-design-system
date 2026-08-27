@@ -168,7 +168,7 @@ interface GdsBadgeBaseProps extends Omit<BadgeProps, 'color' | 'children' | 'var
  * the same fixed neutral-dark value `toneColors.neutral` already uses for
  * its own foreground below (`var(--mantine-color-dark-7, #1f2937)`) — not a
  * theme- or brand-specific color — so it reads consistently against every
- * accent and every one of the 25 presets, the same way the curated accent
+ * accent and every built-in preset, the same way the curated accent
  * palette itself stays fixed across presets.
  */
 function GdsBadgeEmojiCoin({ emoji }: { emoji: string }) {
