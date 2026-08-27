@@ -62,8 +62,9 @@ function LiveFeedbackButton({ action }: { action: string }) {
  * and `GDS_BUTTON_FEEDBACK_DURATION_MS` at render time, so the page cannot drift from the
  * component.
  *
- * Each action also declares a feedback *colour*, which the theme currently does not render --
- * stated on the page rather than claimed, and tracked in issue 677.
+ * The colour column reports what the vocabulary declares. What paints also depends on the active
+ * preset's governed Button rules, so the page shows the declaration and lets the live proof above
+ * show the rendering rather than asserting a colour it cannot verify per preset.
  */
 export function GdsButtonFeedbackReference() {
   return (
@@ -101,13 +102,10 @@ export function GdsButtonFeedbackReference() {
           glyph.
         </Text>
         <Text size="sm" c="dimmed">
-          <Text component="span" fw={600}>Known gap (issue 677):</Text> the colour column below is
-          what each action <Text component="span" fs="italic">declares</Text>, not what currently
-          paints. Measured live in the default preset, a success on `delete` sets{' '}
-          <Text component="span" ff="monospace">--button-bg</Text> to Mantine&apos;s red and still
-          renders brand-primary, because a governed Button rule in the theme stylesheet repaints
-          it. Until that is resolved, treat the label and icon — not the colour — as the part of
-          the treatment you can rely on.
+          The colour column is what each action declares in the vocabulary. What reaches the
+          screen also depends on the active preset&apos;s governed Button rules, which repaint
+          some button surfaces by design — click the buttons above in the preset you care about
+          rather than reading a colour off this table.
         </Text>
         <SimpleDataTable<FeedbackRow>
           columns={[

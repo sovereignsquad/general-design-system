@@ -1049,7 +1049,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Feedback & Messaging',
     family: 'feedback',
     section: 'Button Micro-feedback',
-    summary: "SemanticButton's transient success/error treatment, live and clickable. Success feedback is per action — its own icon and message key, read from GdsVocabulary — so a delete confirms with its own glyph rather than a generic tick; error feedback is uniform. The revert duration is surfaced from GDS_BUTTON_FEEDBACK_DURATION_MS, the constant the component itself uses. Each action also declares a feedback colour that the theme does not currently paint; the page states that gap rather than claiming it (issue 677).",
+    summary: "SemanticButton's transient success/error treatment, live and clickable. Success feedback is per action — its own icon and message key, read from GdsVocabulary — so a delete confirms with its own glyph rather than a generic tick; error feedback is uniform. The revert duration is surfaced from GDS_BUTTON_FEEDBACK_DURATION_MS, the constant the component itself uses. Each action also declares a feedback colour; what paints depends on the active preset's governed Button rules, so the table reports the declaration and the live proof shows the rendering.",
     importPath: '@sovereignsquad/gds-core',
     sourceComponent: 'GdsButtonFeedbackReference',
   },

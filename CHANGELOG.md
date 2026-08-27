@@ -4,7 +4,7 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
-### Button micro-feedback gets its own pattern, and the colour gap it exposed is stated rather than claimed (#677)
+### Button micro-feedback gets its own pattern
 
 `SemanticButton`'s transient success/error treatment had no page of its own — it was one sentence
 inside another pattern's summary. `GdsButtonFeedbackReference` is a live, clickable proof plus the
@@ -14,14 +14,18 @@ per-action feedback table, derived from `GdsVocabulary` at render time. Componen
 `GDS_BUTTON_FEEDBACK_DURATION_MS` is extracted from the literal inside `SemanticButton`'s effect
 and exported, so the page reads the real revert duration instead of restating it (Rule 14).
 
-Verifying the page live disproved the claim it was first written to make. Measured in the default
-preset: a success on `delete` sets `--button-bg` to Mantine's red (`#fa5252`) and still paints
-`--gds-vibe-primary` (`#7c3aed`); teal behaves the same. The label and icon do change correctly.
-The page therefore documents label-and-icon as the reliable half and states the colour gap on the
-page (Rule 15), with the defect filed as #677 — including that the red carve-out at
-`styles.css:300` matches the element yet loses the cascade, defeating the destructive-action
-distinction its own comment exists to preserve. Left unfixed here deliberately: that rule is
-global across 25 presets and needs its own contrast pass.
+The page reports what each action declares for its feedback colour and defers to the live proof
+for what paints, because the rendered colour legitimately depends on the active preset's governed
+Button rules. It does not assert a colour per preset.
+
+An earlier draft of this entry claimed the declared colour never renders, citing measurements
+that turned out to be invalid: they came from a browser pane whose page was never painted
+(`visibilityState: "hidden"`), where Chrome throttles style recalculation and `getComputedStyle`
+serves the value from first paint. An inline `background` override read back correctly while
+computing to the stale colour, and a scan of all 1572 matching rules found no applicable
+`!important` that could have produced the reported result. The claim, and a speculative
+`styles.css` change written against it, were both withdrawn before landing; #677 is closed with
+the full account.
 
 ### `gds-compliance` raw-color scan: `var()` fallback exclusion, and `themeOwnershipPaths` now honored outside strict mode (#670)
 
