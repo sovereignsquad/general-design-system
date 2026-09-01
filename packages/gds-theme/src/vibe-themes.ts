@@ -308,6 +308,40 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     hero: 'linear-gradient(135deg, rgba(6, 32, 24, 0.14), rgba(11, 155, 74, 0.2))',
     flatSurfaces: true,
   },
+  'your-field': {
+    ...neutralVibe,
+    id: 'your-field',
+    label: 'Your Field',
+    // `primary` is what the governed Button rule paints with — navy, which is both ink and the
+    // brand's primary action colour (the v3 redesign has no separate action colour).
+    primary: '#0b223e',
+    // `accent` is a functional GDS role requiring 3:1 non-text contrast. Raw Playground Peach
+    // (#ca8570) measures 2.77:1 on the cream canvas and cannot carry it — this is peach-deep
+    // (#c9684a, the source's own "stronger peach text" shade), which clears 3.53:1. Raw peach
+    // remains addressable as an outline-only role on `theme.other.yourField.accentOutline`.
+    accent: '#c9684a',
+    // flatSurfaces neutralizes glow/gradient/hero to transparent/none below regardless of the
+    // literal values here; kept as honest, non-misleading placeholders rather than magic strings.
+    glow: 'rgba(11, 34, 62, 0.10)',
+    canvasLight: '#faf7f1',
+    canvasDark: '#0a1626',
+    shellLight: 'rgba(255, 255, 255, 0.92)',
+    shellDark: 'rgba(10, 22, 38, 0.92)',
+    surfaceLight: 'rgba(255, 255, 255, 0.96)',
+    surfaceDark: 'rgba(17, 36, 58, 0.9)',
+    borderLight: '#e4e4e1',
+    borderDark: '#23374f',
+    textLight: '#0b223e',
+    textDark: '#f2ede5',
+    mutedLight: '#434c59',
+    mutedDark: '#c4bfb4',
+    // The brand's general marketing/editorial surfaces are deliberately flat — no decorative
+    // gradient outside the Scout AI sub-lane (see your-field.ts YOUR_FIELD_ROLES.aiGradient /
+    // aiPanelGradient, which carry the brand's only two gradients under their own role names).
+    gradient: 'none',
+    hero: 'none',
+    flatSurfaces: true,
+  },
   sunset: {
     ...neutralVibe,
     id: 'sunset',
