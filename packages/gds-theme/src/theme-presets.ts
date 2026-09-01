@@ -2,6 +2,7 @@ import type { MantineThemeOverride } from '@mantine/core';
 import { createPublicBrandTheme, extendGdsTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme } from './theme';
 import { createBrandTheme } from './brand-tokens';
 import { padelAfricaThemePreset } from './padel-africa';
+import { yourFieldThemePreset } from './your-field';
 
 /** Identifier of a built-in GDS theme preset (accessibility, brand, and vibe lanes). */
 export type GdsThemePresetId =
@@ -30,7 +31,8 @@ export type GdsThemePresetId =
   | 'athlete-gold'
   | 'class-usa'
   | 'gold-athlete'
-  | 'padel-africa';
+  | 'padel-africa'
+  | 'your-field';
 
 /** Catalog entry describing a theme preset for selection UIs and documentation. */
 export interface GdsThemePreset {
@@ -256,6 +258,7 @@ const customPresetThemes: Record<Exclude<GdsThemePresetId, 'default' | 'dark-pub
   'class-usa': classUsaThemePreset,
   'gold-athlete': goldAthleteThemePreset,
   'padel-africa': padelAfricaThemePreset,
+  'your-field': yourFieldThemePreset,
 };
 
 const themePresetCatalog: GdsThemePreset[] = [
@@ -285,6 +288,7 @@ const themePresetCatalog: GdsThemePreset[] = [
   { id: 'class-usa', label: 'Class USA', description: 'Warm cream, ink navy, and action-orange family-discovery brand lane for ClassScout-style listings, with a trust-green source/freshness accent and Playfair Display headings.', runtimeLane: 'resolveGdsThemePreset(class-usa)' },
   { id: 'padel-africa', label: 'Padel Africa', description: 'Vibrant African sport lane: deep jungle foundation with an emerald primary, lime energy accents, and a green-and-gold signature pairing on a warm ivory ground.', runtimeLane: 'resolveGdsThemePreset(padel-africa)' },
   { id: 'gold-athlete', label: 'Gold Athlete', description: 'Governed black-and-metallic-gold performance brand lane for Habigoal, with charcoal body text on ivory in light mode and ivory text with gold accents in dark mode.', runtimeLane: 'resolveGdsThemePreset(gold-athlete)' },
+  { id: 'your-field', label: 'Your Field', description: 'Light, editorial family-discovery brand lane: warm cream canvas, white sidebar and cards, navy ink and primary action, an outline-only Playground Peach accent, and a Scout AI orange-gradient sub-lane reserved for AI surfaces.', runtimeLane: 'resolveGdsThemePreset(your-field)' },
 ];
 
 /** Returns the full catalog of theme presets (id, label, description, runtime lane). */

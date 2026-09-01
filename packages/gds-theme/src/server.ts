@@ -3,6 +3,8 @@ export { getGdsThemePresets, resolveGdsThemePreset, partnerDiscoveryThemePreset,
 export type { GdsThemePreset, GdsThemePresetId } from './theme-presets';
 export { padelAfricaThemePreset, PADEL_AFRICA_ROLES, PADEL_AFRICA_RAMPS, PADEL_AFRICA_CORE_PALETTE, PADEL_AFRICA_ACCESSIBLE_CTA, PADEL_AFRICA_BASE_INDEX, buildPadelAfricaRamp } from './padel-africa';
 export type { PadelAfricaRamp } from './padel-africa';
+export { yourFieldThemePreset, YOUR_FIELD_ROLES, YOUR_FIELD_RAMPS, YOUR_FIELD_CORE_PALETTE, YOUR_FIELD_RAMP_ANCHOR_INDEX, YOUR_FIELD_NAVY, YOUR_FIELD_NAVY_DEEP, YOUR_FIELD_PEACH, YOUR_FIELD_PEACH_DEEP, YOUR_FIELD_SAGE, YOUR_FIELD_SAGE_TEXT, YOUR_FIELD_CREAM, YOUR_FIELD_CHARCOAL, YOUR_FIELD_SCOUT, YOUR_FIELD_SCOUT_2, YOUR_FIELD_STAR } from './your-field';
+export type { YourFieldColorRampName, YourFieldRamp } from './your-field';
 export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIdsByScript, getGdsLocaleMetadata, isGdsRtlLocale } from './i18n';
 export type { GdsI18nContextValue, GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './i18n';
 export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES } from './axes';
