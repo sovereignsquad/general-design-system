@@ -124,6 +124,17 @@ html[data-mantine-color-scheme='dark'] {
 /* gds:motion-scale:end */
 }
 
+/*
+ * Preset opt-out (issue 724). Every rule gated on html[data-gds-theme-preset]
+ * carries `:where(:not([data-gds-fixed-tone]))` on its subject, except the
+ * `body` rules and the forced-colors / reduced-motion blocks. An element
+ * carrying data-gds-fixed-tone keeps its own styling under every preset;
+ * its descendants are unaffected. :where() contributes no specificity, so the
+ * clause changes no cascade relationship. A bare :not() would add (0,1,0) to
+ * every gated rule and silently re-order them against consumer counter-rules
+ * and the owned-contrast overrides below.
+ * preset-fixed-tone.test.ts enforces this on every gated selector.
+ */
 html[data-gds-theme-preset] body {
   --mantine-color-text: var(--gds-vibe-text);
   --mantine-color-dimmed: var(--gds-vibe-muted);
@@ -169,7 +180,7 @@ html[data-gds-theme-preset='high-contrast'] body {
   background-attachment: fixed !important;
 }
 
-html[data-gds-theme-preset] .mantine-AppShell-main {
+html[data-gds-theme-preset] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])) {
   --mantine-color-text: var(--gds-vibe-text);
   --mantine-color-dimmed: var(--gds-vibe-muted);
   min-height: 100vh;
@@ -180,7 +191,7 @@ html[data-gds-theme-preset] .mantine-AppShell-main {
     linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-canvas) 90%, white), var(--gds-vibe-canvas));
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-AppShell-main {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])) {
   background:
     radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--gds-vibe-accent) 24%, transparent), transparent 25rem),
     radial-gradient(circle at 12% 80%, color-mix(in srgb, var(--gds-vibe-primary) 26%, transparent), transparent 24rem),
@@ -199,15 +210,15 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-AppShell-
  * own narrower override here that lost the cascade to the dark-mode variant
  * below it — folded into this shared block instead of trying to out-order it.)
  */
-html[data-gds-theme-preset='class-usa'] .mantine-AppShell-main,
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-main,
-html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-main {
+html[data-gds-theme-preset='class-usa'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-canvas) !important;
 }
 
-html[data-gds-theme-preset] .mantine-AppShell-header,
-html[data-gds-theme-preset] .mantine-AppShell-navbar,
-html[data-gds-theme-preset] .mantine-AppShell-footer {
+html[data-gds-theme-preset] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])) {
   --mantine-color-text: var(--gds-vibe-text);
   --mantine-color-dimmed: var(--gds-vibe-muted);
   color: var(--gds-vibe-text);
@@ -218,7 +229,7 @@ html[data-gds-theme-preset] .mantine-AppShell-footer {
   box-shadow: 0 18px 60px color-mix(in srgb, var(--gds-vibe-glow) 36%, transparent);
 }
 
-html[data-gds-theme-preset] .mantine-AppShell-navbar {
+html[data-gds-theme-preset] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])) {
   background:
     radial-gradient(circle at 86% 78%, color-mix(in srgb, var(--gds-vibe-accent) 16%, transparent), transparent 11rem),
     linear-gradient(155deg, color-mix(in srgb, var(--gds-vibe-shell) 82%, var(--gds-vibe-primary) 10%), var(--gds-vibe-shell));
@@ -229,21 +240,21 @@ html[data-gds-theme-preset] .mantine-AppShell-navbar {
    painted a gradient + glow shadow on every preset, Class USA, Gold Athlete,
    and High Contrast included, since none of them ever checked
    --gds-vibe-atmosphere. */
-html[data-gds-theme-preset='class-usa'] .mantine-AppShell-header,
-html[data-gds-theme-preset='class-usa'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='class-usa'] .mantine-AppShell-footer,
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-header,
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-footer,
-html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-header,
-html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-footer {
+html[data-gds-theme-preset='class-usa'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='class-usa'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='class-usa'] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-shell) !important;
   box-shadow: none !important;
 }
 
-html[data-gds-theme-preset] .gds-paper,
-html[data-gds-theme-preset] .gds-card {
+html[data-gds-theme-preset] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .gds-card:where(:not([data-gds-fixed-tone])) {
   --mantine-color-text: var(--gds-vibe-text);
   --mantine-color-dimmed: var(--gds-vibe-muted);
   color: var(--gds-vibe-text);
@@ -256,12 +267,12 @@ html[data-gds-theme-preset] .gds-card {
 /* flatSurfaces lanes: same gap again — .gds-paper/.gds-card (used by cards
    and panels across the whole site) painted the same kind of gradient +
    glow on every preset. */
-html[data-gds-theme-preset='class-usa'] .gds-paper,
-html[data-gds-theme-preset='class-usa'] .gds-card,
-html[data-gds-theme-preset='gold-athlete'] .gds-paper,
-html[data-gds-theme-preset='gold-athlete'] .gds-card,
-html[data-gds-theme-preset='high-contrast'] .gds-paper,
-html[data-gds-theme-preset='high-contrast'] .gds-card {
+html[data-gds-theme-preset='class-usa'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='class-usa'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='gold-athlete'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='gold-athlete'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='high-contrast'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='high-contrast'] .gds-card:where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-surface) !important;
   box-shadow: none !important;
 }
@@ -272,13 +283,13 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] body {
   --gds-vibe-control-text: var(--gds-vibe-text);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .gds-card {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .gds-card:where(:not([data-gds-fixed-tone])) {
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%));
 }
 
-html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
+html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):where(:not([data-gds-fixed-tone])) {
   /* Solid fill, not a primary->accent gradient: none of the 25 shipped theme
      presets (theme-presets.ts) ever configure a `variant="gradient"` filled
      button, so a gradient here would show every real button on the site a
@@ -297,14 +308,14 @@ html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):n
  * product looks identical to a primary action, defeating the color semantic entirely.
  * Mirrors the existing --gds-vibe-danger carve-out already used for red Text/Menu items.
  */
-html[data-gds-theme-preset] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red'] {
+html[data-gds-theme-preset] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])) {
   background: var(--mantine-color-red-filled);
   border-color: var(--mantine-color-red-filled);
   color: var(--mantine-color-white);
   box-shadow: none;
 }
 
-html[data-gds-theme-preset] .mantine-Button-root[data-variant='default'] {
+html[data-gds-theme-preset] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-control-text);
   background: var(--gds-vibe-control);
   border-color: var(--gds-vibe-border);
@@ -331,8 +342,8 @@ html[data-gds-theme-preset] .mantine-Button-root[data-variant='default'] {
  * `--gds-vibe-control-text`/`--gds-vibe-control` pair the generic rule
  * already uses) would collapse text-on-background contrast to ~1:1.
  */
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']),
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):where(:not([data-gds-fixed-tone])) {
   border: 2px solid var(--gds-vibe-accent) !important;
 }
 
@@ -350,13 +361,13 @@ html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .m
  * color the spec certifies for a label at 4.9:1, and that certification
  * doesn't vary by scheme, so this button fill doesn't either.
  */
-html[data-gds-theme-preset='class-usa'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
+html[data-gds-theme-preset='class-usa'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-accent) !important;
   border-color: var(--gds-vibe-accent) !important;
 }
 
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root[data-variant='default'],
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root[data-variant='default'] {
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-primary) !important;
   background: var(--gds-vibe-canvas) !important;
   border: 2px solid var(--gds-vibe-primary) !important;
@@ -368,7 +379,7 @@ html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .m
  * intact under every preset — otherwise this decorative vibe tint would repaint them
  * all to the same brand color, defeating the semantic meaning they exist to carry.
  */
-html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone]) {
+html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone]):where(:not([data-gds-fixed-tone])) {
   /*
    * Issue 597. This rule used to mix the tint against `transparent` and the text against the
    * vibe primary. Both halves were defects, and the transparent one was the worse:
@@ -401,9 +412,9 @@ html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone])
  * across every preset INCLUDING those two — so the override, and its two `!important`
  * declarations, no longer have anything to correct.
  */
-html[data-gds-theme-preset] .mantine-Input-input,
-html[data-gds-theme-preset] .mantine-NativeSelect-input,
-html[data-gds-theme-preset] .mantine-Textarea-input {
+html[data-gds-theme-preset] .mantine-Input-input:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-NativeSelect-input:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Textarea-input:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-control-text);
   background: var(--gds-vibe-control);
   border: 1px solid color-mix(in srgb, var(--gds-vibe-border) 90%, var(--gds-vibe-primary));
@@ -426,9 +437,9 @@ html[data-gds-theme-preset] .mantine-Textarea-input {
  * and input text (confirmed live: "Default runtime theme" render with its
  * lower half cut off on the Theme Lab preset select).
  */
-html[data-gds-theme-preset] input:not([type='checkbox'], [type='radio'], [type='range'], [type='file'], [type='color'], [type='button'], [type='submit'], [type='reset'], [type='image']):not(.mantine-Input-input),
-html[data-gds-theme-preset] select:not(.mantine-NativeSelect-input),
-html[data-gds-theme-preset] textarea:not(.mantine-Textarea-input) {
+html[data-gds-theme-preset] input:not([type='checkbox'], [type='radio'], [type='range'], [type='file'], [type='color'], [type='button'], [type='submit'], [type='reset'], [type='image']):not(.mantine-Input-input):where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] select:not(.mantine-NativeSelect-input):where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] textarea:not(.mantine-Textarea-input):where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-control-text);
   background: var(--gds-vibe-control);
   border: 1px solid color-mix(in srgb, var(--gds-vibe-border) 90%, var(--gds-vibe-primary));
@@ -436,14 +447,14 @@ html[data-gds-theme-preset] textarea:not(.mantine-Textarea-input) {
   padding: 0.5rem var(--mantine-spacing-sm, 0.75rem);
 }
 
-html[data-gds-theme-preset] .mantine-Input-input::placeholder,
-html[data-gds-theme-preset] .mantine-Textarea-input::placeholder {
+html[data-gds-theme-preset] .mantine-Input-input:where(:not([data-gds-fixed-tone]))::placeholder,
+html[data-gds-theme-preset] .mantine-Textarea-input:where(:not([data-gds-fixed-tone]))::placeholder {
   color: color-mix(in srgb, var(--gds-vibe-muted) 76%, transparent);
 }
 
-html[data-gds-theme-preset] .mantine-Input-input:focus,
-html[data-gds-theme-preset] .mantine-NativeSelect-input:focus,
-html[data-gds-theme-preset] .mantine-Textarea-input:focus {
+html[data-gds-theme-preset] .mantine-Input-input:focus:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-NativeSelect-input:focus:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Textarea-input:focus:where(:not([data-gds-fixed-tone])) {
   border-color: var(--gds-vibe-focus);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--gds-vibe-focus) 24%, transparent);
 }
@@ -454,43 +465,43 @@ html[data-gds-theme-preset] .mantine-Textarea-input:focus {
  * gds-paper/gds-card class, so without this it renders Mantine's own flat
  * dark-mode default instead of the theme's card surface.
  */
-html[data-gds-theme-preset] .mantine-Popover-dropdown {
+html[data-gds-theme-preset] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-control);
   border-color: var(--gds-vibe-border);
   color: var(--gds-vibe-control-text);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-Popover-dropdown {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])) {
   background: linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%));
 }
 
 /* flatSurfaces lanes: same gap as .gds-paper/.gds-card above — the dark-mode
    dropdown surface (Select/Combobox/DatePicker, portalled outside any
    gds-paper/gds-card wrapper) painted the same unconditional gradient. */
-html[data-gds-theme-preset='class-usa'] .mantine-Popover-dropdown,
-html[data-gds-theme-preset='gold-athlete'] .mantine-Popover-dropdown,
-html[data-gds-theme-preset='high-contrast'] .mantine-Popover-dropdown {
+html[data-gds-theme-preset='class-usa'] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='gold-athlete'] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='high-contrast'] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-control) !important;
 }
 
-html[data-gds-theme-preset] .mantine-Checkbox-input {
+html[data-gds-theme-preset] .mantine-Checkbox-input:where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-control);
   border-color: var(--gds-vibe-border);
 }
 
-html[data-gds-theme-preset] .mantine-Checkbox-input:checked {
+html[data-gds-theme-preset] .mantine-Checkbox-input:checked:where(:not([data-gds-fixed-tone])) {
   /* Solid fill, not a gradient — same reasoning as the Button rule above: no
      shipped theme preset configures a gradient checkbox fill. */
   background: var(--gds-vibe-primary);
   border-color: var(--gds-vibe-primary);
 }
 
-html[data-gds-theme-preset] a,
-html[data-gds-theme-preset] button {
+html[data-gds-theme-preset] a:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] button:where(:not([data-gds-fixed-tone])) {
   transition: background-color var(--gds-motion-duration-fast) var(--gds-motion-ease-standard), border-color var(--gds-motion-duration-fast) var(--gds-motion-ease-standard), color var(--gds-motion-duration-fast) var(--gds-motion-ease-standard), box-shadow var(--gds-motion-duration-fast) var(--gds-motion-ease-standard), transform var(--gds-motion-duration-fast) var(--gds-motion-ease-standard);
 }
 
-html[data-gds-theme-preset] a {
+html[data-gds-theme-preset] a:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-link);
 }
 
@@ -536,16 +547,16 @@ textarea:focus-visible,
   outline-offset: 2px !important;
 }
 
-html[data-gds-theme-preset] .mantine-AppShell-main h1,
-html[data-gds-theme-preset] .mantine-AppShell-main h2,
-html[data-gds-theme-preset] .mantine-AppShell-main h3 {
+html[data-gds-theme-preset] .mantine-AppShell-main h1:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-AppShell-main h2:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-AppShell-main h3:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-text);
   text-shadow: 0 1px 0 color-mix(in srgb, var(--gds-vibe-surface) 70%, transparent);
 }
 
-html[data-gds-theme-preset] .mantine-Text-root[data-dimmed],
-html[data-gds-theme-preset] .mantine-InputWrapper-description,
-html[data-gds-theme-preset] .mantine-InputWrapper-label {
+html[data-gds-theme-preset] .mantine-Text-root[data-dimmed]:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-InputWrapper-description:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-InputWrapper-label:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-muted);
 }
 
@@ -560,45 +571,45 @@ html[data-gds-theme-preset] .mantine-InputWrapper-label {
  * lets the min-content contribution shrink, so flex columns can actually narrow; it breaks
  * inside a token only when no whole-token wrap fits, so ordinary prose renders unchanged.
  */
-html[data-gds-theme-preset] .mantine-Text-root,
-html[data-gds-theme-preset] .mantine-Title-root,
-html[data-gds-theme-preset] .mantine-Anchor-root {
+html[data-gds-theme-preset] .mantine-Text-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Title-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Anchor-root:where(:not([data-gds-fixed-tone])) {
   overflow-wrap: anywhere;
 }
 
-html[data-gds-theme-preset] .mantine-Text-root,
-html[data-gds-theme-preset] .mantine-Title-root,
-html[data-gds-theme-preset] .mantine-List-root,
-html[data-gds-theme-preset] .mantine-Table-root,
-html[data-gds-theme-preset] .mantine-Table-table,
-html[data-gds-theme-preset] .mantine-Table-td,
-html[data-gds-theme-preset] .mantine-Table-th,
-html[data-gds-theme-preset] .mantine-Menu-item,
-html[data-gds-theme-preset] .mantine-Tabs-tab,
-html[data-gds-theme-preset] .mantine-Checkbox-label,
-html[data-gds-theme-preset] .mantine-Radio-label,
-html[data-gds-theme-preset] .mantine-Switch-label {
+html[data-gds-theme-preset] .mantine-Text-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Title-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-List-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Table-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Table-table:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Table-td:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Table-th:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Menu-item:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Tabs-tab:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Checkbox-label:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Radio-label:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Switch-label:where(:not([data-gds-fixed-tone])) {
   color: inherit;
 }
 
-html[data-gds-theme-preset] [style*='--mantine-color-dimmed']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *),
-html[data-gds-theme-preset] .mantine-Text-root[style*='color: var(--mantine-color-dimmed)']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *) {
+html[data-gds-theme-preset] [style*='--mantine-color-dimmed']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *):where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Text-root[style*='color: var(--mantine-color-dimmed)']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *):where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-muted) !important;
 }
 
-html[data-gds-theme-preset] .mantine-Text-root[style*='--text-color: var(--mantine-color-red']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *),
-html[data-gds-theme-preset] .mantine-Text-root[style*='color: var(--mantine-color-red']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *),
-html[data-gds-theme-preset] .mantine-Menu-item[data-variant='danger']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *) {
+html[data-gds-theme-preset] .mantine-Text-root[style*='--text-color: var(--mantine-color-red']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *):where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Text-root[style*='color: var(--mantine-color-red']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *):where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] .mantine-Menu-item[data-variant='danger']:not([data-gds-local-contrast]):not([data-gds-local-contrast] *):where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-danger) !important;
 }
 
-html[data-gds-theme-preset] .gds-alert {
+html[data-gds-theme-preset] .gds-alert:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-text);
   background: color-mix(in srgb, var(--gds-vibe-surface) 84%, transparent);
   border-color: var(--gds-vibe-border);
 }
 
-html[data-gds-theme-preset] .gds-code {
+html[data-gds-theme-preset] .gds-code:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-link);
   background: color-mix(in srgb, var(--gds-vibe-primary) 12%, transparent);
   border: 1px solid color-mix(in srgb, var(--gds-vibe-border) 82%, transparent);
@@ -613,18 +624,18 @@ html[data-gds-theme-preset='brand'] body {
     linear-gradient(135deg, var(--gds-vibe-canvas), color-mix(in srgb, var(--gds-vibe-primary) 4%, var(--gds-vibe-canvas)));
 }
 
-html[data-gds-theme-preset='sunset'] .mantine-AppShell-main,
-html[data-gds-theme-preset='oceanic'] .mantine-AppShell-main,
-html[data-gds-theme-preset='forest'] .mantine-AppShell-main,
-html[data-gds-theme-preset='ruby'] .mantine-AppShell-main,
-html[data-gds-theme-preset='amber'] .mantine-AppShell-main,
-html[data-gds-theme-preset='neon-night'] .mantine-AppShell-main,
-html[data-gds-theme-preset='skyline'] .mantine-AppShell-main,
-html[data-gds-theme-preset='aurora'] .mantine-AppShell-main,
-html[data-gds-theme-preset='coral'] .mantine-AppShell-main,
-html[data-gds-theme-preset='mint'] .mantine-AppShell-main,
-html[data-gds-theme-preset='orchid'] .mantine-AppShell-main,
-html[data-gds-theme-preset='royal'] .mantine-AppShell-main {
+html[data-gds-theme-preset='sunset'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='oceanic'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='forest'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ruby'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='amber'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='neon-night'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='skyline'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='aurora'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='coral'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='mint'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='orchid'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='royal'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-text);
   background:
     radial-gradient(circle at 86% 10%, color-mix(in srgb, var(--gds-vibe-accent) 34%, transparent), transparent 22rem),
@@ -633,60 +644,60 @@ html[data-gds-theme-preset='royal'] .mantine-AppShell-main {
     linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-canvas) 72%, var(--gds-vibe-primary) 18%), color-mix(in srgb, var(--gds-vibe-canvas) 74%, var(--gds-vibe-accent) 14%)) !important;
 }
 
-html[data-gds-theme-preset='sunset'] .mantine-AppShell-header,
-html[data-gds-theme-preset='sunset'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='oceanic'] .mantine-AppShell-header,
-html[data-gds-theme-preset='oceanic'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='forest'] .mantine-AppShell-header,
-html[data-gds-theme-preset='forest'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='ruby'] .mantine-AppShell-header,
-html[data-gds-theme-preset='ruby'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='amber'] .mantine-AppShell-header,
-html[data-gds-theme-preset='amber'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='neon-night'] .mantine-AppShell-header,
-html[data-gds-theme-preset='neon-night'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='skyline'] .mantine-AppShell-header,
-html[data-gds-theme-preset='skyline'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='aurora'] .mantine-AppShell-header,
-html[data-gds-theme-preset='aurora'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='coral'] .mantine-AppShell-header,
-html[data-gds-theme-preset='coral'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='mint'] .mantine-AppShell-header,
-html[data-gds-theme-preset='mint'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='orchid'] .mantine-AppShell-header,
-html[data-gds-theme-preset='orchid'] .mantine-AppShell-navbar,
-html[data-gds-theme-preset='royal'] .mantine-AppShell-header,
-html[data-gds-theme-preset='royal'] .mantine-AppShell-navbar {
+html[data-gds-theme-preset='sunset'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='sunset'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='oceanic'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='oceanic'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='forest'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='forest'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ruby'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ruby'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='amber'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='amber'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='neon-night'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='neon-night'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='skyline'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='skyline'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='aurora'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='aurora'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='coral'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='coral'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='mint'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='mint'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='orchid'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='orchid'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='royal'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='royal'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-text);
   background:
     radial-gradient(circle at 90% 20%, color-mix(in srgb, var(--gds-vibe-accent) 24%, transparent), transparent 14rem),
     linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-shell) 68%, var(--gds-vibe-primary) 20%), color-mix(in srgb, var(--gds-vibe-shell) 74%, var(--gds-vibe-accent) 10%)) !important;
 }
 
-html[data-gds-theme-preset='sunset'] .gds-paper,
-html[data-gds-theme-preset='sunset'] .gds-card,
-html[data-gds-theme-preset='oceanic'] .gds-paper,
-html[data-gds-theme-preset='oceanic'] .gds-card,
-html[data-gds-theme-preset='forest'] .gds-paper,
-html[data-gds-theme-preset='forest'] .gds-card,
-html[data-gds-theme-preset='ruby'] .gds-paper,
-html[data-gds-theme-preset='ruby'] .gds-card,
-html[data-gds-theme-preset='amber'] .gds-paper,
-html[data-gds-theme-preset='amber'] .gds-card,
-html[data-gds-theme-preset='neon-night'] .gds-paper,
-html[data-gds-theme-preset='neon-night'] .gds-card,
-html[data-gds-theme-preset='skyline'] .gds-paper,
-html[data-gds-theme-preset='skyline'] .gds-card,
-html[data-gds-theme-preset='aurora'] .gds-paper,
-html[data-gds-theme-preset='aurora'] .gds-card,
-html[data-gds-theme-preset='coral'] .gds-paper,
-html[data-gds-theme-preset='coral'] .gds-card,
-html[data-gds-theme-preset='mint'] .gds-paper,
-html[data-gds-theme-preset='mint'] .gds-card,
-html[data-gds-theme-preset='orchid'] .gds-paper,
-html[data-gds-theme-preset='orchid'] .gds-card,
-html[data-gds-theme-preset='royal'] .gds-paper,
-html[data-gds-theme-preset='royal'] .gds-card {
+html[data-gds-theme-preset='sunset'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='sunset'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='oceanic'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='oceanic'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='forest'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='forest'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ruby'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ruby'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='amber'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='amber'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='neon-night'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='neon-night'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='skyline'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='skyline'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='aurora'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='aurora'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='coral'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='coral'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='mint'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='mint'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='orchid'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='orchid'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='royal'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='royal'] .gds-card:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-text);
   background:
     radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--gds-vibe-accent) 16%, transparent), transparent 12rem),
@@ -694,30 +705,30 @@ html[data-gds-theme-preset='royal'] .gds-card {
   border-color: color-mix(in srgb, var(--gds-vibe-border) 78%, var(--gds-vibe-primary)) !important;
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='sunset'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='sunset'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='oceanic'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='oceanic'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='forest'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='forest'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='ruby'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='ruby'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='amber'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='amber'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='neon-night'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='neon-night'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='skyline'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='skyline'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='aurora'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='aurora'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='coral'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='coral'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='mint'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='mint'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='orchid'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='orchid'] .gds-card,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='royal'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='royal'] .gds-card {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='sunset'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='sunset'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='oceanic'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='oceanic'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='forest'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='forest'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='ruby'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='ruby'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='amber'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='amber'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='neon-night'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='neon-night'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='skyline'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='skyline'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='aurora'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='aurora'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='coral'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='coral'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='mint'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='mint'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='orchid'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='orchid'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='royal'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='royal'] .gds-card:where(:not([data-gds-fixed-tone])) {
   background:
     radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--gds-vibe-accent) 18%, transparent), transparent 12rem),
     linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 90%, black), color-mix(in srgb, var(--gds-vibe-surface) 80%, var(--gds-vibe-primary) 12%)) !important;
@@ -771,7 +782,7 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] body::aft
   background-size: 160px 160px, 260px 260px;
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])) {
   --mantine-color-text: #ffffff;
   --mantine-color-dimmed: rgba(245, 247, 255, 0.84);
   color: #ffffff;
@@ -783,9 +794,9 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-
     linear-gradient(135deg, #19005c 0%, #071a80 38%, #003fd1 63%, #4d08a8 100%) !important;
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-header,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-navbar,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-footer {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])) {
   --mantine-color-text: #ffffff;
   --mantine-color-dimmed: rgba(245, 247, 255, 0.84);
   color: #ffffff;
@@ -795,8 +806,8 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-
   backdrop-filter: blur(22px) saturate(1.25);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .gds-paper,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .gds-card {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .gds-card:where(:not([data-gds-fixed-tone])) {
   --mantine-color-text: #ffffff;
   --mantine-color-dimmed: rgba(245, 247, 255, 0.84);
   color: #ffffff;
@@ -808,64 +819,64 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .gds-card
   backdrop-filter: blur(22px) saturate(1.2);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):where(:not([data-gds-fixed-tone])) {
   color: #ffffff;
   background: linear-gradient(135deg, #7c3cff, #e018ff, #ff9b3d) !important;
   border-color: transparent !important;
   box-shadow: 0 12px 32px rgba(224, 24, 255, 0.32);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red'] {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])) {
   color: #ffffff;
   background: var(--mantine-color-red-filled) !important;
   border-color: var(--mantine-color-red-filled) !important;
   box-shadow: none;
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root[data-variant='default'],
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Input-input,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-NativeSelect-input,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Textarea-input {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Input-input:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-NativeSelect-input:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Textarea-input:where(:not([data-gds-fixed-tone])) {
   color: #ffffff;
   background: rgba(16, 26, 86, 0.72) !important;
   border-color: rgba(212, 190, 255, 0.58) !important;
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Input-input::placeholder,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Textarea-input::placeholder {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Input-input:where(:not([data-gds-fixed-tone]))::placeholder,
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Textarea-input:where(:not([data-gds-fixed-tone]))::placeholder {
   color: rgba(235, 238, 255, 0.58);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main h1,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main h2,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main h3,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main h4,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Text-root,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-InputWrapper-label {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main h1:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main h2:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main h3:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main h4:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Text-root:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-InputWrapper-label:where(:not([data-gds-fixed-tone])) {
   color: #ffffff !important;
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Text-root[data-dimmed],
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-InputWrapper-description,
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] [style*='--mantine-color-dimmed'],
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Text-root[style*='color'] {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Text-root[data-dimmed]:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-InputWrapper-description:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] [style*='--mantine-color-dimmed']:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Text-root[style*='color']:where(:not([data-gds-fixed-tone])) {
   color: rgba(245, 247, 255, 0.84) !important;
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .gds-code {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .gds-code:where(:not([data-gds-fixed-tone])) {
   color: #ffffff;
   background: rgba(16, 26, 86, 0.82);
   border: 1px solid rgba(212, 190, 255, 0.36);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Badge-root {
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Badge-root:where(:not([data-gds-fixed-tone])) {
   color: #f7d8ff;
   background: rgba(124, 60, 255, 0.34);
   border-color: rgba(224, 24, 255, 0.35);
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast],
-html[data-gds-theme-preset] [data-gds-local-contrast] {
+html[data-gds-theme-preset] [data-gds-owned-contrast]:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast]:where(:not([data-gds-fixed-tone])) {
   --mantine-color-text: var(--gds-vibe-text) !important;
   --mantine-color-dimmed: var(--gds-vibe-muted) !important;
   color: var(--gds-vibe-text) !important;
@@ -874,47 +885,47 @@ html[data-gds-theme-preset] [data-gds-local-contrast] {
   border-radius: var(--gds-local-radius, var(--mantine-radius-lg)) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Text-root,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Title-root,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-List-root,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Table-root,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Checkbox-label,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Radio-label,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Switch-label,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-InputWrapper-label,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Text-root,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Title-root,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-List-root,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Table-root,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Checkbox-label,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Radio-label,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Switch-label,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-InputWrapper-label {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Text-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Title-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-List-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Table-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Checkbox-label:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Radio-label:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Switch-label:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-InputWrapper-label:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Text-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Title-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-List-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Table-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Checkbox-label:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Radio-label:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Switch-label:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-InputWrapper-label:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-text) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Text-root[data-dimmed],
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-InputWrapper-description,
-html[data-gds-theme-preset] [data-gds-owned-contrast] [style*='--mantine-color-dimmed'],
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Text-root[style*='color: var(--mantine-color-dimmed)'],
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Text-root[data-dimmed],
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-InputWrapper-description,
-html[data-gds-theme-preset] [data-gds-local-contrast] [style*='--mantine-color-dimmed'],
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Text-root[style*='color: var(--mantine-color-dimmed)'] {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Text-root[data-dimmed]:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-InputWrapper-description:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] [style*='--mantine-color-dimmed']:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Text-root[style*='color: var(--mantine-color-dimmed)']:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Text-root[data-dimmed]:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-InputWrapper-description:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] [style*='--mantine-color-dimmed']:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Text-root[style*='color: var(--mantine-color-dimmed)']:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-muted) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .gds-paper,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .gds-card,
-html[data-gds-theme-preset] [data-gds-local-contrast] .gds-paper,
-html[data-gds-theme-preset] [data-gds-local-contrast] .gds-card {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .gds-card:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-text) !important;
   background: color-mix(in srgb, var(--gds-vibe-surface) 88%, white) !important;
   border-color: var(--gds-vibe-border) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']),
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']) {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):where(:not([data-gds-fixed-tone])) {
   /* Solid fill, not a primary->accent gradient: this rule paints every
      filled-style button inside a vibe-gallery/vibe-contract/athlete-gold-
      reference preview, and a governed brand theme's real Button (e.g.
@@ -926,28 +937,28 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:not([
   border-color: var(--gds-vibe-primary) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red'],
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red'] {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])) {
   color: var(--mantine-color-white) !important;
   background: var(--mantine-color-red-filled) !important;
   border-color: var(--mantine-color-red-filled) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root[data-variant='default'],
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Input-input,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-NativeSelect-input,
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Textarea-input,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root[data-variant='default'],
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Input-input,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-NativeSelect-input,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Textarea-input {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Input-input:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-NativeSelect-input:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Textarea-input:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Input-input:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-NativeSelect-input:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Textarea-input:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-control-text) !important;
   background: var(--gds-vibe-control) !important;
   border-color: var(--gds-vibe-border) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .gds-code,
-html[data-gds-theme-preset] [data-gds-local-contrast] .gds-code {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .gds-code:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .gds-code:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-link) !important;
   background: color-mix(in srgb, var(--gds-vibe-primary) 12%, var(--gds-vibe-surface)) !important;
   border-color: var(--gds-vibe-border) !important;
@@ -966,8 +977,8 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .gds-code {
  * whole point of the owned-contrast contract — a swatch showing a dark theme must not borrow
  * the page's light-mode body text.
  */
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Badge-root,
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Badge-root:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-text) !important;
   background: color-mix(in srgb, var(--gds-vibe-primary) 14%, var(--gds-bg-card)) !important;
   border-color: color-mix(in srgb, var(--gds-vibe-primary) 28%, var(--gds-bg-card)) !important;
@@ -975,7 +986,7 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root {
 
 @media (max-width: 768px) {
   html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] body,
-  html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main {
+  html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])) {
     background:
       radial-gradient(circle at 115% 18%, rgba(255, 170, 70, 0.95) 0 13%, transparent 31%),
       radial-gradient(circle at 90% 38%, rgba(255, 45, 190, 0.72) 0 17%, transparent 38%),

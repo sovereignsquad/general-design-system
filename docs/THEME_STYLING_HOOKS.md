@@ -20,6 +20,16 @@ The published stylesheet then keys on the GDS class.
 | `.gds-alert` | `Alert` root | `theme.components.Alert.classNames.root` |
 | `.gds-code` | `Code` root | `theme.components.Code.classNames.root` |
 | `[data-gds-overlay-surface]` | overlay/dropdown surface | overlay rule (#342) |
+| `[data-gds-fixed-tone]` | any element a preset rule repaints | set by the consumer; every preset-gated rule excludes it via `:where(:not(…))` (#724) |
+
+## Opting one element out of preset theming
+
+`[data-gds-fixed-tone]` is the one hook consumers set themselves. Every rule gated on
+`html[data-gds-theme-preset]` (outside the forced-colors and reduced-motion blocks, and
+excluding `body`) carries `:where(:not([data-gds-fixed-tone]))` on its subject, at zero
+specificity, so the element keeps its own styling and nothing else in the cascade moves.
+Element-level, not inherited. Contract and test: `THEME_GOVERNANCE.md`, "Opting one element
+out of the preset repaint".
 
 ## Migrating a selector off the vendor class
 
