@@ -41,6 +41,9 @@ produces the same result, on the server and the client alike.
 - **A page needs a share image and has no dedicated marketing asset.** See
   [Headless SVG generation for `og:image` and email](#headless-svg-generation-for-ogimage-and-email)
   below — the same system, rendered server-side.
+- **A product needs a favicon or app icon before it has brand artwork.** See
+  [Brand badges: favicon and app-icon generation](#brand-badges-favicon-and-app-icon-generation)
+  below — a deterministic, on-brand default, replaceable at will.
 
 ## Where this comes from
 
@@ -342,6 +345,155 @@ const svg = buildGdsHeroSvg({
 });
 ```
 
+## Brand badges: favicon and app-icon generation
+
+Every product needs a favicon and web-app-manifest icons before it looks
+finished in a browser tab or ships a PWA manifest — `getGdsWebAppManifest`
+(`@sovereignsquad/gds-theme/server`) builds the manifest object but starts
+its `icons` array empty, since GDS has no artwork of its own to put there.
+`buildGdsBrandBadgeSvg` (`@sovereignsquad/gds-core/server`, issue 699) fills
+that gap: a headless twin of `GdsGeneratedMark` that turns any built-in
+theme preset (or an explicit palette override) into a deterministic,
+self-contained SVG badge, so a consumer gets an on-brand favicon and app
+icon on day one, with zero design work — and can replace it at will,
+because it is a default generator, not a locked-in identity.
+
+```ts
+import { buildGdsBrandBadgeSvg } from '@sovereignsquad/gds-core/server';
+
+const svg = buildGdsBrandBadgeSvg({
+  themePresetId: 'default',
+  colorScheme: 'light',
+  label: 'Acme',
+});
+```
+
+Same rationale as the thumbnail/hero builders above: literal hex colors
+only (no `var(...)`, no `color-mix()`), `react-dom/server` for the motif,
+server-barrel-only. Unlike them, the motif sits directly on the raw
+gradient with nothing behind it, so the badge builder additionally
+guarantees the white motif clears WCAG 1.4.11's 3:1 non-text contrast floor
+against the gradient's own midpoint, for every built-in preset and both
+color schemes — darkening both gradient stops together just enough to
+clear the floor, never relaxing it.
+
+### Favicon: serve the SVG string directly
+
+An SVG favicon needs no rasterization step — serve the string with an
+`image/svg+xml` content type and link it from the document head:
+
+```ts
+// app/icon.svg/route.ts
+import { buildGdsBrandBadgeSvg } from '@sovereignsquad/gds-core/server';
+
+export async function GET() {
+  const svg = buildGdsBrandBadgeSvg({ themePresetId: 'default', label: 'Acme' });
+  return new Response(svg, {
+    headers: { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=31536000, immutable' },
+  });
+}
+```
+
+```html
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+```
+
+### Manifest icons: served file or data URI
+
+`getGdsWebAppManifest`'s `icons` array takes either form — a route like the
+one above, or the SVG string inlined as a data URI, useful when the
+manifest itself is generated at request time and a second round trip isn't
+worth it:
+
+```ts
+import { getGdsWebAppManifest } from '@sovereignsquad/gds-theme/server';
+import { buildGdsBrandBadgeSvg } from '@sovereignsquad/gds-core/server';
+import { resolveGdsVibeTheme } from '@sovereignsquad/gds-theme';
+
+const vibe = resolveGdsVibeTheme('default');
+const svg = buildGdsBrandBadgeSvg({ themePresetId: 'default', label: 'Acme' });
+const dataUri = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+
+export default function manifest() {
+  return getGdsWebAppManifest({
+    name: 'Acme',
+    themeColor: vibe.primary,
+    backgroundColor: vibe.canvasLight,
+    icons: [
+      { src: '/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
+      { src: dataUri, sizes: 'any', type: 'image/svg+xml', purpose: 'maskable' },
+    ],
+  });
+}
+```
+
+### The maskable variant
+
+`maskable: true` swaps the rounded-square canvas for a full-bleed square
+with the motif scaled into the W3C maskable safe zone (a centred circle
+spanning 80% of the edge) — the shape a host OS's own mask (circle,
+squircle, rounded square) can safely crop without clipping the motif.
+Mutually exclusive with `cornerRadiusRatio`, since a maskable badge has no
+corner rounding of its own:
+
+```ts
+const maskableSvg = buildGdsBrandBadgeSvg({ themePresetId: 'default', maskable: true, label: 'Acme' });
+```
+
+### Determinism and caching
+
+Identical options always produce a byte-identical string — no `Date`, no
+`Math.random`, nothing environment-dependent. Every badge embeds its
+resolved identity as a `data-gds-theme-identity` attribute: the same
+`computeGdsThemeIdentity` hash that `GdsGeneratedMark` and the theme
+runtime use for change detection (`'override'` when an explicit `colors`
+palette is supplied instead of a preset). A consumer caching a rendered/rasterized
+badge can key that cache on the identity string rather than re-deriving
+one — it already changes exactly when the resolved palette does, and stays
+stable across every server restart, deploy, and cold start in between.
+
+### Replacing the generated default with real brand assets
+
+The badge is a default, not a commitment — three sanctioned levels of
+replacement, none of which touch GDS code:
+
+1. **Keep generation, override the inputs.** Pass `colors`, `icon`, or
+   `seed` to steer the generated badge without leaving the mechanism.
+2. **Keep the wiring, drop generation.** Point `<link rel="icon">` and
+   `getGdsWebAppManifest({ icons })` at consumer-owned files instead of a
+   `buildGdsBrandBadgeSvg` call — the recipes above are unchanged, only the
+   `href`/`src` values become static asset paths.
+3. **Mixed.** A generated favicon alongside real manifest icons, or vice
+   versa — GDS never registers, caches, or serves the asset either way, so
+   there is no migration step, just a wiring change.
+
+**Worked example — Your Field.** The Your Field bundle ships three real
+app-icon variants as flat brand-color PNGs
+(`appicon-navy.png`/`appicon-sage.png`/`appicon-terracotta.png`, sourced
+from `packages/gds-theme/src/your-field.ts`'s `YOUR_FIELD_NAVY`
+(`#0B223E`)/`YOUR_FIELD_SAGE` (`#90A287`)/`YOUR_FIELD_PEACH` (`#CA8570`)),
+presented at 96×96 with a 22px corner radius and the card shadow. The
+generated default for the same preset:
+
+```ts
+const generatedDefault = buildGdsBrandBadgeSvg({
+  themePresetId: 'your-field',
+  size: 96,
+  cornerRadiusRatio: 22 / 96, // matches the bundle's 22px radius at 96px
+  label: 'Your Field',
+});
+```
+
+Swapping to the real assets is level 2 above — replace the manifest entry
+and the favicon `href`, nothing in GDS changes:
+
+```ts
+icons: [
+  { src: '/appicon-navy.png', sizes: '96x96', type: 'image/png', purpose: 'any' },
+  // ...sage, terracotta, or whichever variant a given surface uses
+]
+```
+
 ## Where to see it live
 
 The `generated-imagery` pattern on the playground (`/patterns/public`)
@@ -349,3 +501,9 @@ renders `GdsGeneratedThumbnail` with both palette sources side by side,
 `GdsGeneratedHero` across all four background strategies, and
 `GdsGeneratedThumbnail` composed as the `image` placeholder on real
 `ListingCard`, `PublicProductCard`, and `PublicFoodCard` instances.
+
+The Theme Lab (`/` and `/themes`) shows every preset's brand badge live:
+each card in the shipped-lanes vibe gallery carries a `GdsGeneratedMark`
+specimen — `buildGdsBrandBadgeSvg`'s live-DOM twin — seeded and colored
+from that same preset, so a future preset shows its badge automatically
+with no explorer edit required.

@@ -96,3 +96,4 @@ export * from './SearchableSelect';
 export * from './ChatSurface';
 export * from './AISearchCard';
 export * from './generated-art-svg';
+export * from './generated-brand-badge';
