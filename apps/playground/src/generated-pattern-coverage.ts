@@ -11,6 +11,7 @@ export const provenPatternIds: readonly string[] = [
   "access-summaries",
   "accessibility-floor",
   "action-bar",
+  "activity-pictograms",
   "admin-app-shell",
   "admin-data-table",
   "admin-editor-flows",

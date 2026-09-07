@@ -1,4 +1,5 @@
 export * from './icons';
+export * from './pictograms';
 export * from './badge-shapes';
 export * from './GdsBadgeStack';
 export * from './GdsBadge';
