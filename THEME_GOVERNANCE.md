@@ -361,6 +361,20 @@ result, unlike the radius/color roles above. A theme that wants tracking applied
 document must call `resolveGdsTypographyTokens()` itself and merge the result. Whether a
 given brand lane (e.g. `class-usa`) *should* populate a tracking scale by default is a
 brand-design decision left to that theme, not a system default every lane must set.
+`tracking` values ARE validated at resolution time (issue #695) — `normal`, a signed
+px/rem/em/ch length, or a `var()` reference; a percentage, a bare unitless number, or an
+arbitrary string throws `GdsAxisError` instead of shipping straight through to CSS.
+
+**Elevation roles and italic typography (issue #695).** `GdsElevationRole` carries two more
+members, `sidebar` and `pin` (appended after `tooltip`), each defaulting to step 1 in
+`GDS_DEFAULT_ELEVATION_AXIS.roles`. `GdsElevationAxis.roles` accepts `GdsElevationStep |
+GdsElevationValue` per role — a role may either pin a shared step or declare its own
+directional shadow (or `{ kind: 'none' }`) without touching the shared, monotonic step ramp,
+mirroring how a shape-axis role can already carry a literal radius instead of a step name.
+`GdsTypographyAxis` also gained `fontStyles?: Partial<Record<GdsTextSizeStep, GdsFontStyle>>`
+(`GdsFontStyle = 'normal' | 'italic'`), resolving to `--gds-font-style-<step>` and emitted only
+for the steps a theme declares. No preset declares any of these inputs yet; this is pure
+mechanism work in `packages/gds-theme/src/axes.ts`.
 
 ## Layout (shell geometry, issue #698)
 

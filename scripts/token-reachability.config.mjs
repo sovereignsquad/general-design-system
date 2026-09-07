@@ -394,6 +394,24 @@ export const EXTENSION_POINTS = {
       + 'token derives from, anywhere in packages/gds-core/src). Untracked pending a sheet component.',
     reviewBy: '2026-12-01',
   },
+
+  // ── Elevation roles: sidebar/pin (issue 695) ──
+  '--gds-elevation-sidebar': {
+    reason:
+      'Elevation axis (issue 695). Role token for a shell sidebar, declared so a brand lane can pin '
+      + 'a step or a role-level directional shadow ahead of its real consumer. Issue 695 explicitly '
+      + 'scopes shell/sidebar component adoption out of itself; a later delivery step wires this into '
+      + 'the sidebar shell component.',
+    reviewBy: '2026-12-01',
+  },
+  '--gds-elevation-pin': {
+    reason:
+      'Elevation axis (issue 695). Role token for a map pin, declared so a brand lane can pin a step '
+      + 'or a role-level shadow ahead of its real consumer. GdsMap.client.tsx currently shadows pins '
+      + 'with the step reference var(--gds-elevation-1, ...) directly, not the role; issue 695 '
+      + 'explicitly scopes that rewiring out of itself as follow-on work later in the delivery.',
+    reviewBy: '2026-12-01',
+  },
 };
 
 /**
