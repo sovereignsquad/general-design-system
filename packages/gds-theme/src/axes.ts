@@ -100,6 +100,9 @@ export type GdsTextSizeStep = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' |
 /** Named font weights. */
 export type GdsWeightName = 'regular' | 'medium' | 'semibold' | 'bold';
 
+/** A per-step font-style treatment. Closed to the two values CSS `font-style` supports meaningfully for a variable-less lane. */
+export type GdsFontStyle = 'normal' | 'italic';
+
 /** A theme's typographic decisions. */
 export interface GdsTypographyAxis {
   /** Registered font-lane id per role. */
@@ -108,7 +111,10 @@ export interface GdsTypographyAxis {
   scale: { base: string; ratio: number; overrides?: Partial<Record<GdsTextSizeStep, string>> };
   weights: Record<GdsWeightName, number>;
   lineHeights?: Partial<Record<GdsTextSizeStep, number>>;
+  /** Per-step letter-spacing. Validated at resolution time — `normal`, a signed px/rem/em/ch length, or a `var()` reference. */
   tracking?: Partial<Record<GdsTextSizeStep, string>>;
+  /** Per-step italic display treatment. Emitted only for steps a theme declares — a consumer reads `var(--gds-font-style-<step>, normal)`. */
+  fontStyles?: Partial<Record<GdsTextSizeStep, GdsFontStyle>>;
 }
 
 /** Elevation steps, flat to highest. */
@@ -118,13 +124,21 @@ export type GdsElevationStep = 0 | 1 | 2 | 3 | 4;
 export type GdsElevationValue = { kind: 'none' } | { kind: 'border'; value: string } | { kind: 'shadow'; value: string };
 
 /** Surface families that may pin a specific elevation step. */
-export type GdsElevationRole = 'card' | 'panel' | 'modal' | 'drawer' | 'sheet' | 'menu' | 'tooltip';
+export type GdsElevationRole = 'card' | 'panel' | 'modal' | 'drawer' | 'sheet' | 'menu' | 'tooltip' | 'sidebar' | 'pin';
 
-/** A theme's elevation decisions. */
+/**
+ * A theme's elevation decisions.
+ *
+ * A role may pin a shared {@link GdsElevationStep}, or declare its own {@link GdsElevationValue}
+ * directly — mirroring how {@link GdsShapeAxis.roles} lets a radius role carry a literal value.
+ * A directional shadow (a sidebar cast sideways onto the page canvas, a map pin's drop shadow)
+ * expresses a kind, not a rank, so it lives on the role rather than corrupting the shared,
+ * monotonic step ramp every other surface resolves through.
+ */
 export interface GdsElevationAxis {
   steps: Record<GdsElevationStep, GdsElevationValue>;
   defaultStep?: GdsElevationStep;
-  roles?: Partial<Record<GdsElevationRole, GdsElevationStep>>;
+  roles?: Partial<Record<GdsElevationRole, GdsElevationStep | GdsElevationValue>>;
 }
 
 /**
@@ -320,8 +334,8 @@ export const GDS_TEXT_STEPS: GdsTextSizeStep[] = ['2xs', 'xs', 'sm', 'md', 'lg',
 export const GDS_WEIGHT_NAMES: GdsWeightName[] = ['regular', 'medium', 'semibold', 'bold'];
 /** Every elevation step, flattest first. */
 export const GDS_ELEVATION_STEPS: GdsElevationStep[] = [0, 1, 2, 3, 4];
-/** Every elevation role. */
-export const GDS_ELEVATION_ROLES: GdsElevationRole[] = ['card', 'panel', 'modal', 'drawer', 'sheet', 'menu', 'tooltip'];
+/** Every elevation role. `sidebar`/`pin` are appended after `tooltip` so existing enumeration order is preserved. */
+export const GDS_ELEVATION_ROLES: GdsElevationRole[] = ['card', 'panel', 'modal', 'drawer', 'sheet', 'menu', 'tooltip', 'sidebar', 'pin'];
 
 /**
  * The default typography axis.
@@ -363,7 +377,10 @@ export const GDS_DEFAULT_ELEVATION_AXIS: GdsElevationAxis = {
     4: { kind: 'shadow', value: '0 24px 56px rgba(15, 23, 42, 0.16)' },
   },
   defaultStep: 1,
-  roles: { card: 1, panel: 1, modal: 3, drawer: 3, sheet: 3, menu: 2, tooltip: 2 },
+  // sidebar/pin default to step 1, the resting-surface step card/panel already use: GdsMap
+  // shadows pins with --gds-elevation-1 today, so a preset declaring nothing renders exactly
+  // what it renders now once a consumer adopts the role token.
+  roles: { card: 1, panel: 1, modal: 3, drawer: 3, sheet: 3, menu: 2, tooltip: 2, sidebar: 1, pin: 1 },
 };
 
 /** Thrown when a theme declares an axis value the contract cannot accept. */
@@ -377,6 +394,11 @@ export class GdsAxisError extends Error {
 // A CSS length, a percentage, a `calc()`, or `0`. Not permissive: a loose pattern would let
 // a bad value surface as a silently wrong corner instead of a build error.
 const LENGTH = /^(0|(-?\d*\.?\d+)(px|rem|em|%|vh|vw|ch|ex)|calc\(.+\)|var\(--[a-zA-Z0-9-]+(,.*)?\))$/;
+
+// `normal`, a signed px/rem/em/ch length (including `0px` etc — but not bare `0`, which has
+// no unit and is not `normal`), or a `var()` reference. No percentage form: `letter-spacing`
+// does not accept one, unlike LENGTH above.
+const TRACKING = /^(normal|-?\d*\.?\d+(px|rem|em|ch)|var\(--[a-zA-Z0-9-]+(,.*)?\))$/;
 
 /**
  * Validates a shape axis at theme-construction time, not render time: a bad radius fails
@@ -649,7 +671,10 @@ export function resolveGdsLayoutTokens(axis: GdsLayoutAxis = {}, themeId = 'them
  *
  * Weights must ascend (a lighter `semibold` than `medium` looks broken, not styled), the
  * ratio must be a real ratio, and every lane must name a registered font lane — an
- * unregistered lane silently falls back to the browser default.
+ * unregistered lane silently falls back to the browser default. `tracking` is validated as
+ * `normal`, a signed px/rem/em/ch length, or a `var()` reference (a malformed value used to
+ * pass straight through to CSS unchecked); `fontStyles` is validated to `'normal' | 'italic'`
+ * and emitted only for the steps a theme declares.
  */
 // Size steps are `--gds-font-size-*`, not `--gds-text-*` — the latter is already the
 // semantic colour namespace (`--gds-text-body`, `--gds-text-primary`), and the token graph's
@@ -667,6 +692,7 @@ export function resolveGdsTypographyTokens(
     weights: { ...GDS_DEFAULT_TYPOGRAPHY_AXIS.weights, ...(axis.weights ?? {}) },
     lineHeights: { ...GDS_DEFAULT_TYPOGRAPHY_AXIS.lineHeights, ...(axis.lineHeights ?? {}) },
     tracking: { ...(GDS_DEFAULT_TYPOGRAPHY_AXIS.tracking ?? {}), ...(axis.tracking ?? {}) },
+    fontStyles: { ...(GDS_DEFAULT_TYPOGRAPHY_AXIS.fontStyles ?? {}), ...(axis.fontStyles ?? {}) },
   };
 
   const { ratio } = merged.scale;
@@ -684,6 +710,19 @@ export function resolveGdsTypographyTokens(
   }
   for (const [step, lh] of Object.entries(merged.lineHeights ?? {})) {
     if (!Number.isFinite(lh) || lh < 1 || lh > 2.5) throw new GdsAxisError(`${themeId}: line height for "${step}" is ${lh}; it must be between 1.0 and 2.5.`);
+  }
+  // Percentages are deliberately excluded, unlike the shared LENGTH pattern: letter-spacing
+  // does not accept percentage values, and this validator exists to fail the build rather
+  // than ship invalid CSS.
+  for (const [step, tr] of Object.entries(merged.tracking ?? {})) {
+    if (!TRACKING.test(String(tr).trim())) {
+      throw new GdsAxisError(`${themeId}: tracking for "${step}" is "${tr}", which is not "normal", a signed px/rem/em/ch length, or a var() reference.`);
+    }
+  }
+  for (const [step, fs] of Object.entries(merged.fontStyles ?? {})) {
+    if (fs !== 'normal' && fs !== 'italic') {
+      throw new GdsAxisError(`${themeId}: font style for "${step}" is "${fs}"; it must be "normal" or "italic".`);
+    }
   }
   if (knownLaneIds) {
     for (const [role, laneId] of Object.entries(merged.lanes)) {
@@ -705,6 +744,8 @@ export function resolveGdsTypographyTokens(
     if (lh !== undefined) tokens[`--gds-line-height-${step}`] = String(lh);
     const tr = merged.tracking?.[step];
     if (tr !== undefined) tokens[`--gds-tracking-${step}`] = tr;
+    const fs = merged.fontStyles?.[step];
+    if (fs !== undefined) tokens[`--gds-font-style-${step}`] = fs;
   });
   for (const name of GDS_WEIGHT_NAMES) tokens[`--gds-weight-${name}`] = String(merged.weights[name]);
   for (const role of ['display', 'body', 'mono'] as GdsFontLaneRole[]) tokens[`--gds-font-lane-${role}`] = merged.lanes[role];
@@ -715,7 +756,12 @@ export function resolveGdsTypographyTokens(
  * Validates and resolves the elevation axis.
  *
  * Steps must not decrease in visual weight: a modal flatter than the card behind it reads
- * as a rendering bug, not a design choice.
+ * as a rendering bug, not a design choice. That monotonicity rule governs the shared step
+ * ramp only — a role may instead pin one of the declared steps, or carry its own
+ * {@link GdsElevationValue} (a directional shadow, or `{ kind: 'none' }`), which is exempt
+ * from it by design because it expresses a kind, not a rank. Every role in
+ * {@link GDS_ELEVATION_ROLES} always emits a token, falling back to `defaultStep` when
+ * undeclared, so no consumer of `--gds-elevation-<role>` ever lands on an undefined variable.
  */
 export function resolveGdsElevationTokens(axis: GdsElevationAxis = GDS_DEFAULT_ELEVATION_AXIS, themeId = 'theme'): Record<string, string> {
   const merged: GdsElevationAxis = {
@@ -743,11 +789,32 @@ export function resolveGdsElevationTokens(axis: GdsElevationAxis = GDS_DEFAULT_E
     if (value.kind !== 'none') seenNonNone = true;
   }
 
+  // Role keys are a closed set at runtime too (JSON-derived themes bypass TS), matching
+  // validateGdsShapeAxis's typo guard.
+  for (const role of Object.keys(merged.roles ?? {})) {
+    if (!GDS_ELEVATION_ROLES.includes(role as GdsElevationRole)) {
+      throw new GdsAxisError(`${themeId}: "${role}" is not a known elevation role. Roles are a closed set so a typo cannot become a silently unstyled surface.`);
+    }
+  }
+
   const tokens: Record<string, string> = {};
   for (const step of GDS_ELEVATION_STEPS) tokens[`--gds-elevation-${step}`] = render(merged.steps[step]);
+
   const fallback = merged.defaultStep ?? 1;
   for (const role of GDS_ELEVATION_ROLES) {
-    tokens[`--gds-elevation-${role}`] = render(merged.steps[merged.roles?.[role] ?? fallback]);
+    const declared = merged.roles?.[role];
+    if (declared === undefined) {
+      tokens[`--gds-elevation-${role}`] = render(merged.steps[fallback]);
+    } else if (typeof declared === 'number') {
+      if (!GDS_ELEVATION_STEPS.includes(declared)) {
+        throw new GdsAxisError(`${themeId}: elevation role "${role}" pins step ${declared}, which is not a declared step.`);
+      }
+      tokens[`--gds-elevation-${role}`] = render(merged.steps[declared]);
+    } else {
+      // Role-level value: validated by render(); exempt from the step monotonicity rule,
+      // which orders the shared ramp, not per-role kinds.
+      tokens[`--gds-elevation-${role}`] = render(declared);
+    }
   }
   return tokens;
 }

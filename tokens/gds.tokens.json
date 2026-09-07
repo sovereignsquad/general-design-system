@@ -5,9 +5,9 @@
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
       "themeCount": 27,
-      "tokenCount": 6021,
+      "tokenCount": 6075,
       "atmosphereTokenCount": 459,
-      "semanticTokenCount": 5562,
+      "semanticTokenCount": 5616,
       "globalTokenCount": 36,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
@@ -2330,6 +2330,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "default semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -2341,6 +2356,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "default semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -5649,6 +5679,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "high-contrast semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -5660,6 +5705,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "high-contrast semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -8968,6 +9028,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "colorblind-safe semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -8979,6 +9054,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "colorblind-safe semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -12287,6 +12377,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "dark-public semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -12298,6 +12403,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "dark-public semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -15606,6 +15726,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "flat-surface semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -15617,6 +15752,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "flat-surface semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -18925,6 +19075,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "editorial semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -18936,6 +19101,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "editorial semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -22244,6 +22424,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "brand semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -22255,6 +22450,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "brand semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -25563,6 +25773,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "partner-discovery semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -25574,6 +25799,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "partner-discovery semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -28882,6 +29122,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "class-usa semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -28893,6 +29148,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "class-usa semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -32201,6 +32471,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "gold-athlete semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -32212,6 +32497,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "gold-athlete semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -35520,6 +35820,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "padel-africa semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -35531,6 +35846,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "padel-africa semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -38839,6 +39169,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "your-field semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -38850,6 +39195,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "your-field semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -42158,6 +42518,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "sunset semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -42169,6 +42544,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "sunset semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -45477,6 +45867,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "oceanic semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -45488,6 +45893,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "oceanic semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -48796,6 +49216,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "forest semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -48807,6 +49242,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "forest semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -52115,6 +52565,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "ruby semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -52126,6 +52591,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "ruby semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -55434,6 +55914,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "amber semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -55445,6 +55940,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "amber semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -58753,6 +59263,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "neon-night semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -58764,6 +59289,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "neon-night semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -62072,6 +62612,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "skyline semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -62083,6 +62638,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "skyline semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -65391,6 +65961,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "aurora semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -65402,6 +65987,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "aurora semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -68710,6 +69310,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "coral semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -68721,6 +69336,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "coral semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -72029,6 +72659,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "mint semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -72040,6 +72685,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "mint semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -75348,6 +76008,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "orchid semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -75359,6 +76034,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "orchid semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -78667,6 +79357,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "royal semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -78678,6 +79383,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "royal semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -81986,6 +82706,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "warm semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -81997,6 +82732,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "warm semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -85305,6 +86055,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "athlete-gold semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -85316,6 +86081,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "athlete-gold semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }
@@ -88624,6 +89404,21 @@
             }
           }
         },
+        "elevation-pin": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "cosmic semantic role \"elevation-pin\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-pin",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
+              }
+            }
+          }
+        },
         "elevation-sheet": {
           "$type": "com.sovereignsquad.gds.cssShadow",
           "$value": "0 16px 40px rgba(15, 23, 42, 0.12)",
@@ -88635,6 +89430,21 @@
               "scheme": {
                 "light": "0 16px 40px rgba(15, 23, 42, 0.12)",
                 "dark": "0 16px 40px rgba(15, 23, 42, 0.12)"
+              }
+            }
+          }
+        },
+        "elevation-sidebar": {
+          "$type": "com.sovereignsquad.gds.cssShadow",
+          "$value": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+          "$description": "cosmic semantic role \"elevation-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "elevation-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)",
+                "dark": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)"
               }
             }
           }

@@ -17,7 +17,7 @@ export type { GdsFloorRule, GdsFloorViolation, GdsFloorContext, GdsFloorSeverity
 export { resolveGdsMotionTokens, resolveGdsReactionTokens, GDS_DEFAULT_REACTION_AXIS, GDS_DEFAULT_FOCUS_RING } from './axes';
 export type { GdsMotionAxis, GdsReactionAxis, GdsReactionIntensity, GdsFocusRingSpec } from './axes';
 export { gdsElevation, resolveGdsTypographyTokens, resolveGdsElevationTokens, GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_TEXT_STEPS, GDS_WEIGHT_NAMES, GDS_ELEVATION_STEPS, GDS_ELEVATION_ROLES } from './axes';
-export type { GdsTypographyAxis, GdsElevationAxis, GdsTextSizeStep, GdsWeightName, GdsFontLaneRole, GdsElevationStep, GdsElevationValue, GdsElevationRole } from './axes';
+export type { GdsTypographyAxis, GdsElevationAxis, GdsTextSizeStep, GdsWeightName, GdsFontLaneRole, GdsElevationStep, GdsElevationValue, GdsElevationRole, GdsFontStyle } from './axes';
 export { gdsSpace, resolveGdsDensityTokens, resolveGdsShellHeightTokens, GDS_SHELL_HEIGHTS, validateGdsDensityAxis, GDS_DEFAULT_DENSITY_AXIS, GDS_SPACE_STEPS, GDS_CONTROL_SIZES, GDS_MIN_TARGET_PX, GDS_CONTROL_HEIGHT_EXCEPTIONS } from './axes';
 export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResolvedShapeTokens } from './axes';
 export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
