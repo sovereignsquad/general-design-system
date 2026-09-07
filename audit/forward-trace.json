@@ -4,7 +4,7 @@
   "cellsEvaluated": 460,
   "obligationsSatisfied": {
     "listed": 81,
-    "demoed": 69,
+    "demoed": 70,
     "explained": 64,
     "variationsShown": 40,
     "useCase": 10
@@ -1021,22 +1021,6 @@
       ]
     },
     {
-      "token": "--gds-accent",
-      "role": "accent",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": true,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-support",
       "role": "support",
       "declaredIn": [
@@ -1437,6 +1421,21 @@
       "role": "motion-duration-fast",
       "declaredIn": [
         "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-accent",
+      "role": "accent",
+      "declaredIn": [
+        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,

@@ -1,18 +1,11 @@
 {
   "declared": 303,
-  "referenced": 119,
-  "extensionPoints": 135,
+  "referenced": 120,
+  "extensionPoints": 134,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
   "rows": [
-    {
-      "token": "--gds-accent",
-      "classification": "extension-point",
-      "reason": "Published accent role. Components consume the scheme-resolved --gds-brand-accent-action and --gds-brand-accent-tint instead; --gds-accent is the un-specialised role a consumer reads when it wants the lane accent without GDS's action/tint semantics.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
     {
       "token": "--gds-accent-bronze-base",
       "classification": "extension-point",

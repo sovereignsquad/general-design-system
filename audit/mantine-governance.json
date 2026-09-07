@@ -752,6 +752,7 @@
         "packages/gds-core/src/SemanticCharts.tsx",
         "packages/gds-core/src/StyleUtilities.tsx",
         "packages/gds-core/src/icons.ts",
+        "packages/gds-core/src/pictograms.tsx",
         "packages/gds-theme/styles.css"
       ]
     },

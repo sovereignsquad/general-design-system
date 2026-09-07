@@ -1,5 +1,5 @@
 import { GdsMap } from '@sovereignsquad/gds-core/map';
-import { GdsPinSystemReference, GdsMotionSystemReference, GdsShapeElevationSystemReference, GdsDensitySpacingSystemReference, GdsIconSystemReference, GdsTypographySystemReference, GdsColorSystemReference, GdsAccessibilitySystemReference, GdsButtonFeedbackReference, GdsInlineLink } from '@sovereignsquad/gds-core';
+import { GdsPinSystemReference, GdsMotionSystemReference, GdsShapeElevationSystemReference, GdsDensitySpacingSystemReference, GdsIconSystemReference, GdsPictogramSystemReference, GdsTypographySystemReference, GdsColorSystemReference, GdsAccessibilitySystemReference, GdsButtonFeedbackReference, GdsInlineLink } from '@sovereignsquad/gds-core';
 import { useEffect, useMemo, useState } from 'react';
 import {
   AISearchCard,
@@ -3458,6 +3458,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <GdsDensitySpacingSystemReference />;
     case 'icon-system':
       return <GdsIconSystemReference />;
+    case 'activity-pictograms':
+      return <GdsPictogramSystemReference />;
     case 'typography':
       return <GdsTypographySystemReference />;
     case 'color-theming':
