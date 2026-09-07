@@ -28,7 +28,14 @@ export default defineConfig({
     // than CPU. One worker per core oversubscribes: on a 10-core/16GB machine the default
     // measured 121s wall / 551s test time with 8 timeout failures, against 39s / 58s and no
     // failures at 4. Raise only with a measurement on the machine class that has to hold it.
-    maxWorkers: 4,
+    //
+    // CI (issue 732): GitHub Actions' shared, virtualized runners have less consistent headroom
+    // than a dedicated local machine at the same nominal core count -- 4 workers there produced
+    // the same class of intermittent timeout failure this comment already documents locally
+    // (KanbanBoard.test.tsx's Move-menu test, mantine-9 leg specifically, 3 times across two
+    // unrelated PRs, never reproduced locally including under a real mantine-9 install). Capped
+    // lower only under CI; local development keeps the full 4.
+    maxWorkers: process.env.CI ? 2 : 4,
     include: [
       // Issue 582. Verification scripts carry real branching — the budget report's
       // direction rule inverts for `min` budgets, and getting it backwards would tell a
