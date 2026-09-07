@@ -54,6 +54,43 @@ export interface GdsDensityAxis {
   factors?: { compact: number; spacious: number };
 }
 
+/**
+ * A theme's shell-geometry decisions: sidebar, header, footer and bottom-bar sizing, content
+ * width, list-rail width, and how far content sits above a fixed bottom bar.
+ *
+ * Scheme-independent — geometry does not fork light/dark — and every field is a CSS length
+ * string so `calc()`/`var()` stay expressible. A theme declares only the fields it wants to
+ * change; the resolver merges the rest from {@link GDS_DEFAULT_LAYOUT_AXIS}.
+ */
+export interface GdsLayoutAxis {
+  /** Desktop sidebar width. */
+  sidebarWidth?: string;
+  /** Shell header height. */
+  headerHeight?: string;
+  /** Shell footer height, used when a footer is rendered. */
+  footerHeight?: string;
+  /**
+   * Sidebar nav-item row height. A value below {@link GDS_MIN_TARGET_PX} is legal only through
+   * the recorded {@link GDS_LAYOUT_DIMENSION_EXCEPTIONS.navItemHeight} exception — read its
+   * rationale, including the consumer hit-target obligation, before declaring one.
+   */
+  navItemHeight?: string;
+  /** Max width of the main content column. */
+  contentMaxWidth?: string;
+  /** Width of the list rail in a list+map (or list+detail) browse split. */
+  listRailWidth?: string;
+  /** Mobile bottom-tab-bar height, excluding the safe-area inset. */
+  bottomBarHeight?: string;
+  /** Bottom padding owed to content stacked above a fixed bottom bar, so nothing hides behind it. */
+  contentBottomPadding?: string;
+  /**
+   * A {@link GdsRadiusStep} name (resolved to that step's token) or a literal CSS value.
+   * Defaults to the shape axis's `sheet` role, not a step, so a lane that repoints `sheet`
+   * gets matching bottom-sheet geometry for free instead of declaring the radius twice.
+   */
+  sheetTopRadius?: GdsRadiusStep | string;
+}
+
 /** Font lane roles a theme assigns. */
 export type GdsFontLaneRole = 'display' | 'body' | 'mono';
 
@@ -143,6 +180,7 @@ export interface GdsReactionAxis {
 export interface GdsThemeAxes {
   shape?: GdsShapeAxis;
   density?: GdsDensityAxis;
+  layout?: GdsLayoutAxis;
   type?: GdsTypographyAxis;
   elevation?: GdsElevationAxis;
   motion?: GdsMotionAxis;
@@ -239,6 +277,41 @@ export const GDS_DEFAULT_DENSITY_AXIS: GdsDensityAxis = {
   controlHeights: { xs: '32px', sm: '36px', md: '44px', lg: '52px', xl: '60px' },
   mode: 'comfortable',
   factors: { compact: 0.75, spacious: 1.25 },
+};
+
+/**
+ * Layout dimensions deliberately below {@link GDS_MIN_TARGET_PX}.
+ *
+ * `navItemHeight` is the one recorded case: a dense sidebar nav row may render below 44px
+ * visual height only where the interactive row still preserves a >= 44px effective hit target
+ * — the full row width plus its vertical padding, not the visual text line. A consumer
+ * adopting a sub-44px `navItemHeight` owns that obligation, the same way this exception says
+ * the token itself may.
+ */
+export const GDS_LAYOUT_DIMENSION_EXCEPTIONS: Partial<Record<keyof GdsLayoutAxis, string>> = {
+  navItemHeight: 'Dense sidebar nav rows may render below 44px visual height only where the interactive row (full row width plus vertical padding) preserves a 44px effective hit target. A consumer adopting a sub-44px navItemHeight owns that obligation.',
+};
+
+/**
+ * The default layout axis: today's `DiscoveryShell`/`BottomTabBar` literals, captured as
+ * tokens rather than component defaults, so a lane overriding one field keeps the other eight
+ * unchanged.
+ *
+ * `contentBottomPadding` is derived rather than a literal — `bottomBarHeight + space-xl`,
+ * resolving to 96px at defaults — so a lane that raises its bar height gets correct padding
+ * without a second declaration. `sheetTopRadius` defaults to the shape axis's `sheet` ROLE
+ * token, not a step, for the same reason: declared once, never twice.
+ */
+export const GDS_DEFAULT_LAYOUT_AXIS: Required<GdsLayoutAxis> = {
+  sidebarWidth: '280px',
+  headerHeight: '60px',
+  footerHeight: '68px',
+  navItemHeight: '44px',
+  contentMaxWidth: '1400px',
+  listRailWidth: '480px',
+  bottomBarHeight: '64px',
+  contentBottomPadding: 'calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))',
+  sheetTopRadius: 'var(--gds-radius-sheet)',
 };
 
 /** Every text size step, smallest first. */
@@ -473,6 +546,10 @@ export function gdsSpace(step: GdsSpaceStep): string {
  * Named and emitted as CSS custom properties rather than left as bare numbers inside
  * `PublicShell`'s ternary. These are the shipped values as-is, not rounded onto an existing
  * spacing step (`compact` coincidentally matches `--gds-space-3xl`; the others do not).
+ *
+ * Not to be confused with the `layout` axis's `--gds-layout-*` namespace below: that one is a
+ * themeable axis covering `DiscoveryShell`/`BottomTabBar` shell geometry, this one is a fixed,
+ * per-variant constant set for `PublicShell`'s header.
  */
 export const GDS_SHELL_HEIGHTS: Record<string, number> = {
   'header-compact': 64,
@@ -487,6 +564,84 @@ export function resolveGdsShellHeightTokens(): Record<string, string> {
     tokens[`--gds-shell-height-${key}`] = `${px}px`;
   }
   return tokens;
+}
+
+/** Whether a string names one of the fixed {@link GDS_RADIUS_STEPS}, as opposed to a literal CSS value. */
+function isGdsRadiusStep(value: string): value is GdsRadiusStep {
+  return (GDS_RADIUS_STEPS as readonly string[]).includes(value);
+}
+
+/**
+ * Validates a layout axis at theme-construction time, matching every sibling `validateGds*Axis`.
+ *
+ * `headerHeight`/`footerHeight`/`bottomBarHeight` enforce the {@link GDS_MIN_TARGET_PX} floor
+ * with no exception path: these regions host interactive 44px targets (the burger toggle,
+ * footer actions, tab items with a 44px min hit target) and cannot be shorter than the targets
+ * they contain. `navItemHeight` enforces the same floor, exception-gated through
+ * {@link GDS_LAYOUT_DIMENSION_EXCEPTIONS}. `calc()`/`var()` values pass through unchecked, as
+ * in {@link validateGdsDensityAxis}.
+ */
+export function validateGdsLayoutAxis(axis: GdsLayoutAxis, themeId = 'theme'): void {
+  for (const key of Object.keys(axis) as Array<keyof GdsLayoutAxis>) {
+    const value = axis[key];
+    if (value === undefined) continue;
+
+    const trimmed = String(value).trim();
+    if (!trimmed) {
+      throw new GdsAxisError(`${themeId}: layout field "${key}" is empty. Every declared layout value must be a non-empty CSS value or radius step name.`);
+    }
+    if (key === 'sheetTopRadius') continue; // A step name or a literal CSS value; non-empty is the only rule.
+
+    const pxMatch = /^(-?\d*\.?\d+)px$/.exec(trimmed);
+    if (!pxMatch) continue; // calc()/var() pass through unchecked, as in the density resolver.
+
+    const px = parseFloat(pxMatch[1]);
+    if (px <= 0) {
+      throw new GdsAxisError(`${themeId}: layout field "${key}" is "${value}", which is not a positive dimension.`);
+    }
+    if ((key === 'headerHeight' || key === 'footerHeight' || key === 'bottomBarHeight') && px < GDS_MIN_TARGET_PX) {
+      throw new GdsAxisError(
+        `${themeId}: layout field "${key}" is ${value}, below the ${GDS_MIN_TARGET_PX}px target floor. This region hosts an `
+        + 'interactive target that cannot be shorter than the target it contains.',
+      );
+    }
+    if (key === 'navItemHeight' && px < GDS_MIN_TARGET_PX && !GDS_LAYOUT_DIMENSION_EXCEPTIONS.navItemHeight) {
+      throw new GdsAxisError(
+        `${themeId}: layout field "navItemHeight" is declared as ${value}, below the ${GDS_MIN_TARGET_PX}px target floor, `
+        + 'and has no recorded exception. Raise it, or record why this control may be smaller.',
+      );
+    }
+  }
+}
+
+/**
+ * Resolves a layout axis into `--gds-layout-*` custom properties.
+ *
+ * Emitted unconditionally, like shape and density: every preset gets the full nine-token
+ * namespace whether or not it declares `layout`, so a component's
+ * `var(--gds-layout-*, <literal>)` fallback is a safety net for token-less renders (no GDS
+ * theme runtime present), not the normal path. Density mode does not scale these values —
+ * shell geometry does not compress at `compact`, unlike spacing.
+ */
+export function resolveGdsLayoutTokens(axis: GdsLayoutAxis = {}, themeId = 'theme'): Record<string, string> {
+  const merged: Required<GdsLayoutAxis> = { ...GDS_DEFAULT_LAYOUT_AXIS, ...axis };
+  validateGdsLayoutAxis(merged, themeId);
+
+  const sheetTopRadius = isGdsRadiusStep(merged.sheetTopRadius)
+    ? `var(--gds-radius-${merged.sheetTopRadius})`
+    : merged.sheetTopRadius;
+
+  return {
+    '--gds-layout-sidebar-width': merged.sidebarWidth,
+    '--gds-layout-header-height': merged.headerHeight,
+    '--gds-layout-footer-height': merged.footerHeight,
+    '--gds-layout-nav-item-height': merged.navItemHeight,
+    '--gds-layout-content-max-width': merged.contentMaxWidth,
+    '--gds-layout-list-rail-width': merged.listRailWidth,
+    '--gds-layout-bottom-bar-height': merged.bottomBarHeight,
+    '--gds-layout-content-bottom-padding': merged.contentBottomPadding,
+    '--gds-layout-sheet-top-radius': sheetTopRadius,
+  };
 }
 
 /**
@@ -725,6 +880,9 @@ export function resolveGdsAxisTokens(
     ...resolveGdsDensityTokens(axes?.density ?? GDS_DEFAULT_DENSITY_AXIS, String(themeId)),
     // Fixed, not per-theme — see resolveGdsShellHeightTokens.
     ...resolveGdsShellHeightTokens(),
+    // Shell geometry (issue 698): unconditional, like shape/density above — every preset gets
+    // the full nine-token namespace even with no layout axis declared.
+    ...resolveGdsLayoutTokens(axes?.layout ?? GDS_DEFAULT_LAYOUT_AXIS, String(themeId)),
     ...resolveGdsTypographyTokens(axes?.type ?? GDS_DEFAULT_TYPOGRAPHY_AXIS, String(themeId)),
     ...resolveGdsElevationTokens(axes?.elevation ?? GDS_DEFAULT_ELEVATION_AXIS, String(themeId)),
     ...resolveGdsReactionTokens(axes?.reaction ?? GDS_DEFAULT_REACTION_AXIS, String(themeId)),

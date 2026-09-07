@@ -1,7 +1,7 @@
 {
-  "declared": 294,
-  "referenced": 107,
-  "extensionPoints": 138,
+  "declared": 303,
+  "referenced": 113,
+  "extensionPoints": 141,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -651,6 +651,41 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
+      "token": "--gds-layout-content-bottom-padding",
+      "classification": "extension-point",
+      "reason": "Layout axis (issue 698). Bottom-clearance padding for content stacked above the fixed bottom tab bar; no scrollable content region owns this concern yet. Consumed by whichever page shell adopts it first (candidate: issue 707's browse canvas).",
+      "reviewBy": "2026-12-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-layout-content-max-width",
+      "classification": "extension-point",
+      "reason": "Layout axis (issue 698). Main-content max-width token; wiring it into DiscoveryShell now would silently constrain every existing consumer's content area, an unrequested behavior change outside issue 698's scope. Issue 707 (browse canvas) is the real consumer.",
+      "reviewBy": "2026-12-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-layout-list-rail-width",
+      "classification": "extension-point",
+      "reason": "Layout axis (issue 698). List-rail width for the list+map browse split; the split view does not exist yet. Issue 707 (browse canvas) wires it up.",
+      "reviewBy": "2026-12-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-layout-nav-item-height",
+      "classification": "extension-point",
+      "reason": "Layout axis (issue 698). Sidebar nav-row height token, declared so a brand lane can set it (and record the 44px-floor exception it needs) ahead of its real consumer. Issue 698 explicitly scopes SidebarNav adoption out of itself; issue 702 (SidebarNav light-surface variant) wires it up.",
+      "reviewBy": "2026-12-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-layout-sheet-top-radius",
+      "classification": "extension-point",
+      "reason": "Layout axis (issue 698). Bottom-sheet top-corner radius; gds-core has no bottom-sheet/drawer component to consume it yet (verified: zero references to --gds-radius-sheet, the role this token derives from, anywhere in packages/gds-core/src). Untracked pending a sheet component.",
+      "reviewBy": "2026-12-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
       "token": "--gds-line-height-2xl",
       "classification": "extension-point",
       "reason": "Typography-axis line height (issue 557), unitless, published per step a theme declares.",
@@ -784,13 +819,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-radius-sheet",
-      "classification": "extension-point",
-      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-radius-surface",
       "classification": "extension-point",
       "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
@@ -904,13 +932,6 @@
     },
     {
       "token": "--gds-space-none",
-      "classification": "extension-point",
-      "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-space-xl",
       "classification": "extension-point",
       "reason": "Density-axis spacing step (issue 556). Published contract a theme overrides; components consume the steps they need.",
       "reviewBy": "2027-08-01",
