@@ -353,6 +353,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "ConfirmChecklist",
+    "status": "registered",
+    "home": {
+      "id": "trust-layer",
+      "family": "operations",
+      "section": "Dashboard & Panel Surfaces"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "ConfirmDialog",
     "status": "registered",
     "home": {
@@ -1727,6 +1737,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Typography atom (Typography) — text primitive."
   },
   {
+    "name": "LastCheckedLabel",
+    "status": "registered",
+    "home": {
+      "id": "trust-layer",
+      "family": "operations",
+      "section": "Dashboard & Panel Surfaces"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "LayeredSurfaceSlot",
     "status": "exempt",
     "reason": "Style utility (StyleUtilities) — composition helper, not a catalog pattern."
@@ -2084,6 +2104,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "PriceEstimateLabel",
+    "status": "registered",
+    "home": {
+      "id": "trust-layer",
+      "family": "operations",
+      "section": "Dashboard & Panel Surfaces"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "ProductCard",
     "status": "registered",
     "home": {
@@ -2294,6 +2324,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "ReportOutdatedLink",
+    "status": "registered",
+    "home": {
+      "id": "trust-layer",
+      "family": "operations",
+      "section": "Dashboard & Panel Surfaces"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "ResponsiveDataView",
     "status": "registered",
     "home": {
@@ -2449,6 +2489,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "SourceBlock",
+    "status": "registered",
+    "home": {
+      "id": "trust-layer",
+      "family": "operations",
+      "section": "Dashboard & Panel Surfaces"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "StateBlock",
     "status": "registered",
     "home": {
@@ -2505,6 +2555,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
       "id": "theme-toggle",
       "family": "components",
       "section": "Controls & Inputs"
+    },
+    "alsoAppearsIn": []
+  },
+  {
+    "name": "TrustBadge",
+    "status": "registered",
+    "home": {
+      "id": "trust-layer",
+      "family": "operations",
+      "section": "Dashboard & Panel Surfaces"
     },
     "alsoAppearsIn": []
   },

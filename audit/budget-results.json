@@ -62,8 +62,8 @@
     },
     {
       "key": "undeclaredMantineDependencies",
-      "measured": 80,
-      "value": 80,
+      "measured": 81,
+      "value": 81,
       "direction": "max",
       "unit": "count",
       "finding": "F17",

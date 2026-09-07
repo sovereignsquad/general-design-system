@@ -1,11 +1,11 @@
 {
-  "consumed": 94,
+  "consumed": 95,
   "governed": 5,
   "delegated": 7,
   "dynamic": 2,
   "laneGoverned": 12,
-  "ungovernedCount": 80,
-  "budget": 80,
+  "ungovernedCount": 81,
+  "budget": 81,
   "rows": [
     {
       "variable": "--mantine-color-",
@@ -148,6 +148,7 @@
         "packages/gds-core/src/PublicShell.tsx",
         "packages/gds-core/src/SectionPanel.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
+        "packages/gds-core/src/TrustLayer.tsx",
         "packages/gds-theme/src/theme-presets.ts",
         "packages/gds-theme/src/theme.ts"
       ]
@@ -265,6 +266,7 @@
         "packages/gds-core/src/PartnerDiscovery.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-core/src/TrustLayer.client.tsx",
         "packages/gds-theme/src/theme.ts",
         "packages/gds-theme/styles.css"
       ]
@@ -306,7 +308,9 @@
       "why": "GDS does not change gdsTheme.colors.gray.7 from Mantine's default",
       "files": [
         "packages/gds-core/src/AccentPanel.tsx",
-        "packages/gds-core/src/ChoiceChip.tsx"
+        "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/TrustLayer.client.tsx",
+        "packages/gds-core/src/TrustLayer.tsx"
       ]
     },
     {
@@ -364,6 +368,8 @@
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.colors.green.7 from Mantine's default",
       "files": [
+        "packages/gds-core/src/TrustLayer.client.tsx",
+        "packages/gds-core/src/TrustLayer.tsx",
         "packages/gds-core/src/icons.ts"
       ]
     },
@@ -655,7 +661,8 @@
       "files": [
         "packages/gds-core/src/AccentPanel.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
-        "packages/gds-core/src/SectionPanel.tsx"
+        "packages/gds-core/src/SectionPanel.tsx",
+        "packages/gds-core/src/TrustLayer.client.tsx"
       ]
     },
     {
@@ -683,6 +690,14 @@
       ]
     },
     {
+      "variable": "--mantine-color-yellow-6",
+      "classification": "ungoverned",
+      "why": "GDS does not change gdsTheme.colors.yellow.6 from Mantine's default",
+      "files": [
+        "packages/gds-core/src/TrustLayer.client.tsx"
+      ]
+    },
+    {
       "variable": "--mantine-color-yellow-7",
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.colors.yellow.7 from Mantine's default",
@@ -696,6 +711,8 @@
       "why": "GDS does not change gdsTheme.colors.yellow.8 from Mantine's default",
       "files": [
         "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/TrustLayer.client.tsx",
+        "packages/gds-core/src/TrustLayer.tsx",
         "packages/gds-core/src/icons.ts",
         "packages/gds-theme/styles.css"
       ]
@@ -707,7 +724,8 @@
       "files": [
         "packages/gds-core/src/AccentPanel.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
-        "packages/gds-core/src/SectionPanel.tsx"
+        "packages/gds-core/src/SectionPanel.tsx",
+        "packages/gds-core/src/TrustLayer.client.tsx"
       ]
     },
     {

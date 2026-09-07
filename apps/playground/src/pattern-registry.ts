@@ -426,6 +426,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'DetailFactsTable / ProviderCTA',
   },
   {
+    id: 'trust-layer',
+    title: 'Trust Layer',
+    docSection: 'Core Component Contracts',
+    family: 'operations',
+    section: 'Dashboard & Panel Surfaces',
+    summary: 'A closed eight-label trust vocabulary, price/freshness uncertainty labels, a report-outdated action, a detail-page source card, and a check-before-booking list, so data provenance is stated rather than hidden.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'TrustBadge / PriceEstimateLabel / LastCheckedLabel / ReportOutdatedLink / SourceBlock / ConfirmChecklist',
+  },
+  {
     id: 'public-flow-shell',
     title: 'Public Flow Shell',
     docSection: 'Core Component Contracts',
