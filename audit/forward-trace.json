@@ -1,11 +1,11 @@
 {
-  "tokenUniverse": 92,
-  "darkSiblingsExcluded": 34,
-  "cellsEvaluated": 460,
+  "tokenUniverse": 95,
+  "darkSiblingsExcluded": 37,
+  "cellsEvaluated": 475,
   "obligationsSatisfied": {
-    "listed": 81,
+    "listed": 84,
     "demoed": 71,
-    "explained": 64,
+    "explained": 67,
     "variationsShown": 40,
     "useCase": 10
   },
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 6,
-  "tokensWithGaps": 86,
+  "tokensWithGaps": 89,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -440,6 +440,57 @@
     {
       "token": "--gds-badge-validation",
       "role": "badge-validation",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-ai-gradient",
+      "role": "ai-gradient",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-ai-panel",
+      "role": "ai-panel",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-ai-accent",
+      "role": "ai-accent",
       "declaredIn": [
         "ts-emitter"
       ],

@@ -511,6 +511,57 @@ Avoid:
 - changing only `primaryColor` while leaving shell, controls, cards, nav, focus, and page canvas visually neutral
 - consumer-owned `createTheme(...)`, `mergeMantineTheme(...)`, or `extendGdsTheme(...)` theme catalogs
 
+## Reserved sub-brand accent lanes (`ai.*`, issue #697)
+
+A preset may declare a reserved sub-brand accent lane — `GdsVibeTheme.ai` in
+`packages/gds-theme/src/vibe-themes.ts` — when its brand carries a distinct identity for one
+sub-system that is deliberately never a general action color. The first (and, at the time of
+writing, only) lane is Your Field's Scout AI identity: `--gds-ai-gradient` (an orange identity
+gradient), `--gds-ai-panel` (a navy promo-panel gradient), and `--gds-ai-accent` (the Scout
+orange used as a static color). Every preset without an `ai` field emits none of these
+variables; their absence is the default, not an omission.
+
+Reserved-usage contract, exhaustive:
+
+> The `ai.*` token family is a reserved sub-brand lane. Its sanctioned consumers are,
+> exhaustively: AI search/entry surfaces (`AISearchCard`), chat surfaces (`ChatThread`,
+> `ChatMessage`, `ChatInput`, `StreamingIndicator`), the AI promo panel component, the
+> emphasized AI tab disc in `BottomTabBar`, the preset's focus ring (via
+> `GdsFocusRingSpec.colorRole` referencing the ai accent role), and the featured ring. It is
+> never a general action color: `SemanticButton` intents, links, badges, and every non-AI
+> control keep the preset's primary/accent roles. A gradient-filled control carries text at
+> 14px minimum and weight 600 minimum, since white on the Scout orange fill measures 2.84:1 —
+> below the AA text floor — and is never claimed as a text-contrast pass.
+
+Governance rules:
+
+- **Encoded twice, checked once each way.** The reservation is declared as a claim
+  (`axes.designRuleProfile.reservedAccents`, an array of `{ role, surfaces }`) and enforced as a
+  mechanical gate (`scripts/verify-ai-reserved-usage.mjs`, wired as `verify:ai-reserved-usage`
+  into `verify:release`), which scans `packages/gds-core/src/**` and
+  `packages/gds-theme/styles.css` for the literal string `--gds-ai-` against an explicit
+  allowlist and fails loudly, naming file and line, on anything unlisted.
+- **Widening the allowlist is a governance decision.** Adding a sanctioned consumer's file to
+  the gate's allowlist happens in the same change set as that consumer, never ahead of it and
+  never as an unrelated drive-by edit.
+- **`reservedAccents` is validated, not just typed.** `validateGdsDesignRuleProfile` throws if a
+  role is reserved more than once, or if a reservation names zero surfaces — a reservation
+  nothing may consume is a contradiction.
+- **Classified as non-text, everywhere.** `ai-gradient`/`ai-panel` are the `effect` token
+  category; `ai-accent` is `color` but excluded from the readable-text hard gates
+  (`verify:token-contrast-scoring`). The `ai-accent-text-contrast` accessibility-floor rule
+  measures white on the accent fill and prints the ratio every run at `report` severity — it
+  never fails the build, because the lane never claims a text-contrast pass in the first place.
+- **Dark values are authored, never copied.** The handoff a reserved lane's light values come
+  from may define no dark scheme at all; the dark sibling for each field is a deliberate
+  decision derived with this package's own contrast machinery (`ensureContrast`/
+  `mixCssColors`), documented in the vibe entry's own comment — never the light value reused
+  silently in dark mode.
+- **No consuming component may construct an `ai.*` variable name dynamically** (string
+  concatenation, template interpolation of the role name, etc.) — the gate matches the literal
+  `--gds-ai-` substring, and a dynamically-built reference would evade it while still violating
+  the reservation.
+
 ## Importing an externally-produced design (issue #535)
 
 A theme lane's source material — a Figma file, a screenshot, an AI design
