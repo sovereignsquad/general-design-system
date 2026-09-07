@@ -2,6 +2,29 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased — Element-level opt-out from the theme-preset repaint (#724)
+
+### `data-gds-fixed-tone` excludes one element from every preset rule
+
+A consumer (classscout, gap-request item 12) rediscovered the same defect six times in six weeks:
+the active preset repaints `.gds-paper`/`.gds-card`, `.mantine-Button-root`,
+`.mantine-Popover-dropdown`, and the `AppShell` navbar unconditionally, several rules with
+`!important`, and an instance styled on purpose had no way out except a counter-rule at matched or
+higher specificity. One of those counter-rules tied on specificity and won only by import order; one
+shipped at `(0,4,2)` and was silently beaten by a GDS rule at `(0,5,1)`. `Badge` already had the
+answer — `:not([data-gds-badge-fixed-tone])` in the preset rule's own selector — for one component.
+
+Every rule gated on `html[data-gds-theme-preset]` now carries `:where(:not([data-gds-fixed-tone]))`
+on its subject, except the `body` rules and the forced-colors and reduced-motion blocks. An element
+carrying `data-gds-fixed-tone` is not matched by the repaint at all; its descendants are unaffected.
+`:where()` contributes no specificity, so no rule moved in the cascade and every existing consumer
+counter-rule keeps behaving as before until it is deleted. The Badge rule honours both attributes.
+
+Documented in `THEME_GOVERNANCE.md`, `docs/THEME_STYLING_HOOKS.md`, and
+`docs/CLASSSCOUT_INTEGRATION.md` B19. `preset-fixed-tone.test.ts` asserts the contract on every
+gated selector in both directions and that no gated rule uses a bare `:not()`; the release-doc
+completeness gate requires `llms.txt` and `README.md` to keep naming the attribute.
+
 ## 6.7.0 - 2026-08-27 — Padel Africa preset, ListingCard media overlays, and a primary-CTA contrast rule (#678, #679, #680)
 
 ### `padel-africa` joins the preset catalog (#678)
