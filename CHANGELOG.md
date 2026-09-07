@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, and a logo lockup / notification bell / compare button (#708, #699, #724, #698, #710, #713)
+## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, and detail-page facts / provider-claim surfaces (#708, #699, #724, #698, #710, #713, #711)
 
 ### A governed activity pictogram family (#708)
 
@@ -190,6 +190,37 @@ pixel literals) and ship colocated tests, pattern-registry demos (`logo-lockup`,
 `notifications` and `badges`), export-coverage entries, and new `gds.notificationBell.*`/
 `gds.compareButton.*` message keys translated across all 12 locale packs. Component census
 313 -> 316.
+
+### `DetailFactsTable` and `ProviderCTA`: detail-page facts and provider-claim surfaces (#711)
+
+Listing detail pages had two surfaces GDS could not express from package exports alone: a
+key-facts block whose rows are guaranteed present even when data is missing, and a provider-claim
+prompt. Every prior option was page-local composition — exactly what Rules 10/15/16 forbid on the
+reference site.
+
+`DetailFactsTable` renders real `<dl>`/`<dt>`/`<dd>` semantics (never `div`s styled to look like a
+table) for a fixed nine-fact schema — age range, activity type, format, location, indoor/outdoor,
+price, booking, source, and last checked — via the exported `GDS_DETAIL_FACT_IDS` /
+`GdsDetailFactId` contract. All nine rows always render: a missing, `null`, or whitespace-only
+value renders the localized unknown phrase in place of the value, never a blank cell or a dropped
+row, so a reader can always see a listing's data provenance and freshness. A `facts` prop replaces
+the schema entirely for a custom fact set, with the same never-omit-a-row substitution applied per
+row. The label column's width ships as the exported, documented `GDS_DETAIL_FACTS_LABEL_COLUMN_PX
+= 130` constant rather than a literal repeated in prose (Rule 14). Server-safe: no client-only
+behavior.
+
+`ProviderCTA` is a calm, factual "are you the provider?" panel — headline, body copy, and a
+primary + optional ghost action pair — composed from the governed button lane (`SemanticButton`,
+`CtaButtonGroup`, `createGdsVocabularyPack`) rather than reimplemented locally; the ghost action is
+Mantine's own `variant="subtle"` lane on the same governed button. It fires only the `onAction` /
+`onSecondary` callbacks it is given — no claim workflow, navigation, or data mutation of its own.
+
+Both compose as `DetailProfileShell` sections in `page` and `drawer` modes, take every visual
+value from governed tokens (`--gds-bg-card`/`--gds-bg-info-tag`, `--gds-border-card`,
+`--gds-radius-card`, `--gds-text-primary`/`--gds-text-secondary`), and ship colocated tests, a
+pattern-registry demo (`detail-facts-provider-cta`), export-coverage entries, and new
+`gds.detailFacts.*` / `gds.providerCta.*` message keys translated across all 12 locale packs.
+Component census 316 -> 318.
 
 ## 6.7.0 - 2026-08-27 — Padel Africa preset, ListingCard media overlays, and a primary-CTA contrast rule (#678, #679, #680)
 

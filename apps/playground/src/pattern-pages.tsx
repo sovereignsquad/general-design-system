@@ -63,6 +63,8 @@ import {
   BulkActionsBar,
   SortMenu,
   DetailProfileShell,
+  DetailFactsTable,
+  ProviderCTA,
   DiscoveryShell,
   DocsCodeBlock,
   DocsShell,
@@ -2566,6 +2568,41 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             </SectionPanel>,
           ]}
         />
+      );
+    case 'detail-facts-provider-cta':
+      return (
+        <GdsStack gap="xl">
+          <GdsStack gap="sm">
+            <MetadataText>Page mode</MetadataText>
+            <DetailProfileShell
+              mode="page"
+              hero={<PageHeader title="Weekend Soccer Clinic" description="Key facts and provider claim composed as governed sections." />}
+              sections={[
+                <DetailFactsTable
+                  key="facts"
+                  values={{
+                    ageRange: '6-10',
+                    activityType: 'Soccer',
+                    format: 'Small group',
+                    location: 'Prospect Park, Brooklyn',
+                  }}
+                />,
+                <ProviderCTA key="cta" onAction={() => {}} secondaryLabel="Not the provider" onSecondary={() => {}} />,
+              ]}
+            />
+          </GdsStack>
+          <GdsStack gap="sm">
+            <MetadataText>Drawer mode</MetadataText>
+            <DetailProfileShell
+              mode="drawer"
+              hero={<PageHeader title="Weekend Soccer Clinic" description="The same sections inside the bordered drawer surface." />}
+              sections={[
+                <DetailFactsTable key="facts" values={{ price: '$45 / session' }} />,
+                <ProviderCTA key="cta" onAction={() => {}} />,
+              ]}
+            />
+          </GdsStack>
+        </GdsStack>
       );
     case 'embed-surfaces':
     case 'map-panel':

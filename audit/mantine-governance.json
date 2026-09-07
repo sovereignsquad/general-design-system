@@ -87,6 +87,7 @@
       "files": [
         "packages/gds-core/src/AccentPanel.tsx",
         "packages/gds-core/src/BoundedPreviewSurface.tsx",
+        "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/EditorialCard.tsx",
         "packages/gds-core/src/GdsPageTemplates.tsx",
         "packages/gds-core/src/HeroSearchPanel.client.tsx",
@@ -136,12 +137,14 @@
         "packages/gds-core/src/AccentPanel.tsx",
         "packages/gds-core/src/ChatSurface.tsx",
         "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/EditorialCard.tsx",
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/GdsBadge.tsx",
         "packages/gds-core/src/GdsMap.client.tsx",
         "packages/gds-core/src/GdsMapPinBadge.tsx",
         "packages/gds-core/src/MeaningBadge.tsx",
+        "packages/gds-core/src/ProviderCTA.tsx",
         "packages/gds-core/src/PublicShell.tsx",
         "packages/gds-core/src/SectionPanel.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
@@ -182,11 +185,13 @@
       "why": "no GDS theme field maps to this variable",
       "files": [
         "packages/gds-core/src/ChatSurface.tsx",
+        "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/GdsPageTemplates.tsx",
         "packages/gds-core/src/GdsRichTextEditor.client.tsx",
         "packages/gds-core/src/HeroSearchPanel.client.tsx",
         "packages/gds-core/src/ListingCard.tsx",
+        "packages/gds-core/src/ProviderCTA.tsx",
         "packages/gds-core/src/PublicShell.tsx",
         "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
@@ -233,6 +238,7 @@
         "packages/gds-core/src/GdsBadge.tsx",
         "packages/gds-core/src/GdsFormControls.tsx",
         "packages/gds-core/src/MediaWithFallback.tsx",
+        "packages/gds-core/src/ProviderCTA.tsx",
         "packages/gds-core/src/SemanticCharts.tsx"
       ]
     },
@@ -254,6 +260,7 @@
       "files": [
         "packages/gds-core/src/BottomTabBar.tsx",
         "packages/gds-core/src/ChoiceChip.tsx",
+        "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/GdsColorSystemReference.tsx",
         "packages/gds-core/src/PartnerDiscovery.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
@@ -287,6 +294,7 @@
       "why": "GDS does not change gdsTheme.colors.gray.6 from Mantine's default",
       "files": [
         "packages/gds-core/src/BottomTabBar.tsx",
+        "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/SemanticCharts.tsx"
@@ -895,9 +903,11 @@
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.spacing.md from Mantine's default",
       "files": [
+        "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/GdsPageTemplates.tsx",
         "packages/gds-core/src/HeroSearchPanel.client.tsx",
         "packages/gds-core/src/LayoutPrimitives.tsx",
+        "packages/gds-core/src/ProviderCTA.tsx",
         "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx"
       ]
@@ -907,6 +917,7 @@
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.spacing.sm from Mantine's default",
       "files": [
+        "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/GdsRichTextEditor.client.tsx",
         "packages/gds-core/src/LayoutPrimitives.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
