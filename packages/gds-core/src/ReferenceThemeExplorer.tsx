@@ -21,6 +21,8 @@ import {
 import type { MantineThemeOverride } from '@mantine/core';
 import { ActionBar } from './ActionBar';
 import { FormField } from './FormField';
+import { GdsBadgeShapeCircle } from './badge-shapes';
+import { GdsGeneratedMark } from './GdsGeneratedMark';
 import { ListingCard } from './ListingCard';
 import { createGdsOwnedContrastTokens, getGdsOwnedContrastProps } from './OwnedContrastSurface';
 import { getGdsMessages } from './locales';
@@ -31,6 +33,7 @@ import { referenceThemeExplorerCopy, referenceThemeExplorerCopyOverrides } from 
 import {
   GdsProvider,
   applyGdsFontLane,
+  computeGdsThemeIdentity,
   getGdsFontLanes,
   getGdsThemePresets,
   getGdsVibeThemes,
@@ -635,6 +638,12 @@ export function ReferenceThemeExplorer({
                     <Badge variant="light">{copy.selected}</Badge>
                   ) : null}
                 </Group>
+                <GdsGeneratedMark
+                  seed={computeGdsThemeIdentity({ preset: vibe.id, colorScheme: 'light' })}
+                  icon={<GdsBadgeShapeCircle />}
+                  colors={{ primary: vibe.primary, accent: vibe.accent }}
+                  size={32}
+                />
                 <Box
                   aria-hidden="true"
                   style={{

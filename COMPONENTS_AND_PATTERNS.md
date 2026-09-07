@@ -204,6 +204,7 @@ The following families are mandatory local contracts when a project has the corr
 | **Upload / Media Surface** | Product allows image/file selection, drop, preview, replace, or remove | drag states, selection, pending/error/readonly states, accepted-type/size guidance, policy copy, retry/remove slots |
 | **Access Summary** | Product has scoped roles or blocked/forbidden/expired/permission-limited states | role badges, scope labels, owner labels, recovery hints, non-color-only state labels |
 | **Access Recovery** | Product has protected routes, scope failures, expired sessions, timeouts, or recoverable not-found/unavailable states | sign-in, back, retry, support fallback, action priority, mobile recovery hierarchy |
+| **Brand Badge / Favicon** | Product ships a browser favicon or web-app-manifest icons | generated-default vs. real-asset decision, `maskable` variant usage where installable, the replacement path when real brand artwork exists (see `docs/GENERATED_IMAGERY.md`) |
 
 Mantine UI examples may be used to inform these contracts only after the project confirms the GDS behavior, responsive rules, and token boundaries remain unchanged.
 
