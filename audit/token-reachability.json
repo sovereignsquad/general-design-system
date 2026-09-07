@@ -1,7 +1,7 @@
 {
   "declared": 303,
-  "referenced": 113,
-  "extensionPoints": 141,
+  "referenced": 119,
+  "extensionPoints": 135,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -448,13 +448,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-bg-page",
-      "classification": "extension-point",
-      "reason": "Canonical page-surface role, emitted for all 25 presets by getGdsVibeThemeCssVariables. GDS components paint their own surfaces via --gds-bg-card/--gds-bg-surface, so nothing in-repo reads it; a consumer building a page shell around GDS reads exactly this.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-brand-primary-pressed",
       "classification": "extension-point",
       "reason": "Pressed-state brand colour. GDS's own buttons delegate pressed styling to Mantine's variant handling, so no GDS rule reads it; it exists for consumer-built controls that need the lane's pressed value.",
@@ -518,13 +511,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-elevation-card",
-      "classification": "extension-point",
-      "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-elevation-drawer",
       "classification": "extension-point",
       "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
@@ -540,13 +526,6 @@
     },
     {
       "token": "--gds-elevation-modal",
-      "classification": "extension-point",
-      "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-elevation-panel",
       "classification": "extension-point",
       "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
       "reviewBy": "2027-08-01",
@@ -770,30 +749,9 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-radius-card",
-      "classification": "extension-point",
-      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-radius-drawer",
       "classification": "extension-point",
       "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-radius-input",
-      "classification": "extension-point",
-      "reason": "Shape-axis role token (issue 555). Emitted for every preset so a consumer or a future GDS component can read it; the axis guarantees presence, not consumption.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-radius-md",
-      "classification": "extension-point",
-      "reason": "Shape-axis step token (issue 555). The step scale is the published contract a theme overrides; components read roles, so a step is referenced only where a role is not the right unit.",
       "reviewBy": "2027-08-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },

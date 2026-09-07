@@ -267,4 +267,5 @@ export const zh = {
   'gds.gdsMap.tilesRetryLabel': "尝试再次加载图像",
   'gds.ratingDisplay.labelWithCount': "{value} 颗星（共 {max} 颗星），评分为 {count} 颗",
   'gds.ratingDisplay.label': "{value} 颗星（共 {max} 颗）",
+  'gds.heroSearchPanel.ariaLabel': "搜索",
 };

@@ -267,4 +267,5 @@ export const ko = {
   'gds.gdsMap.tilesRetryLabel': "이미지를 다시 로드해 보세요.",
   'gds.ratingDisplay.labelWithCount': "별 {max}개 중 {value}개, 평점 {count}개",
   'gds.ratingDisplay.label': "별 {max}개 중 {value}개",
+  'gds.heroSearchPanel.ariaLabel': "검색",
 };

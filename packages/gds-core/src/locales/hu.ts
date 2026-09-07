@@ -267,4 +267,5 @@ export const hu = {
   'gds.gdsMap.tilesRetryLabel': "Próbálja újra betölteni a képeket",
   'gds.ratingDisplay.labelWithCount': "{value}/{max} csillag, {count} értékelés",
   'gds.ratingDisplay.label': "{value}/{max} csillag",
+  'gds.heroSearchPanel.ariaLabel': "Keresés",
 };

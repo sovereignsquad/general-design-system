@@ -2,13 +2,13 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-24
+Last updated: 2026-09-07
 
 How any AI coding agent — any LLM-powered coding tool — should consume the General Design System (GDS). The machine-readable summary lives in [`llms.txt`](../llms.txt) at the repo root; this is the human- and agent-readable long form.
 
 ## 1. What GDS is
 
-GDS (`@sovereignsquad/gds`) is a governed React design system built on Mantine. It ships 309 components, design tokens, theme presets, and runtime systems (forms, data tables, overlays, notifications, access gates, i18n). Products compose shipped GDS contracts rather than reinventing UI locally. Mantine and Tabler are implementation dependencies behind GDS-owned APIs.
+GDS (`@sovereignsquad/gds`) is a governed React design system built on Mantine. It ships 311 components, design tokens, theme presets, and runtime systems (forms, data tables, overlays, notifications, access gates, i18n). Products compose shipped GDS contracts rather than reinventing UI locally. Mantine and Tabler are implementation dependencies behind GDS-owned APIs.
 
 ## 2. Install and bootstrap
 

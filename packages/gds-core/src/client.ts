@@ -126,4 +126,6 @@ export * from './NumberStepper';
 export * from './SearchableSelect';
 export * from './ChatSurface';
 export * from './AISearchCard';
+export * from './HeroSearchPanel.client';
+export * from './QuickStartCard';
 export * from './KanbanBoard.client';
