@@ -232,7 +232,7 @@ function inferNodeCategory(role: string): GdsTokenNode['category'] {
   // Each axis owns a token prefix, so the prefix is the category — a new axis must add a
   // branch here, or its tokens validate as colour and fail loudly rather than shipping
   // unvalidated.
-  if (/^(radius|space|control-height|font-size|shell-height)-/.test(role)) return 'dimension';
+  if (/^(radius|space|control-height|font-size|shell-height|layout)-/.test(role)) return 'dimension';
   if (/^focus-ring-(width|offset)$/.test(role)) return 'dimension';
   if (/^reaction-\w+-lift$/.test(role)) return 'dimension';
   if (/^(weight|line-height)-/.test(role)) return 'number';

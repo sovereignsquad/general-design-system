@@ -1,11 +1,11 @@
 {
-  "tokenUniverse": 83,
+  "tokenUniverse": 92,
   "darkSiblingsExcluded": 34,
-  "cellsEvaluated": 415,
+  "cellsEvaluated": 460,
   "obligationsSatisfied": {
-    "listed": 72,
-    "demoed": 64,
-    "explained": 54,
+    "listed": 81,
+    "demoed": 68,
+    "explained": 63,
     "variationsShown": 40,
     "useCase": 9
   },
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 5,
-  "tokensWithGaps": 78,
+  "tokensWithGaps": 87,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -352,6 +352,91 @@
         "reason": "The density axis MODE FLAG (axes.ts writes the current mode name into it). The axis itself is demonstrated through components; the flag token has no variation demo or use-case prose of its own on the site.",
         "reviewBy": "2026-11-01"
       }
+    },
+    {
+      "token": "--gds-layout-nav-item-height",
+      "role": "layout-nav-item-height",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-content-max-width",
+      "role": "layout-content-max-width",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-list-rail-width",
+      "role": "layout-list-rail-width",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-content-bottom-padding",
+      "role": "layout-content-bottom-padding",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-sheet-top-radius",
+      "role": "layout-sheet-top-radius",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
     },
     {
       "token": "--gds-brand-primary-pressed",
@@ -807,6 +892,70 @@
     {
       "token": "--gds-local-radius",
       "role": "local-radius",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-sidebar-width",
+      "role": "layout-sidebar-width",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-header-height",
+      "role": "layout-header-height",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-footer-height",
+      "role": "layout-footer-height",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-bottom-bar-height",
+      "role": "layout-bottom-bar-height",
       "declaredIn": [
         "ts-emitter"
       ],
