@@ -153,6 +153,7 @@ import {
   getGdsDesignTokenMappings,
   validateGdsDesignHandoffMappings,
 } from './GdsDesignHandoff';
+import { getGdsVibeThemes } from '@sovereignsquad/gds-theme';
 
 function mockMatchMedia(matches: boolean) {
   const original = window.matchMedia;
@@ -3242,6 +3243,20 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(activeMarkers.length).toBe(2);
     expect([...activeMarkers].some((element) => element.textContent?.includes('Selected'))).toBe(true);
     expect([...activeMarkers].some((element) => element.textContent?.includes('Default runtime theme'))).toBe(true);
+  });
+
+  it('renders one generated brand-badge specimen per catalog preset, as a live proof (issue 699)', () => {
+    const { container } = renderWithGds(<ReferenceThemeExplorer />);
+
+    // Count derived from the catalog, never a literal (vibe-themes.test.ts lesson) — a
+    // preset added in the future must appear here automatically, with no explorer edit.
+    const expectedCount = getGdsVibeThemes().length;
+    const badgeSpecimens = container.querySelectorAll('[data-gds-generated-mark]');
+    expect(badgeSpecimens.length).toBe(expectedCount);
+
+    // Decorative within an already-labeled vibe-gallery card: no accessible name of its own.
+    expect(badgeSpecimens[0]).toHaveAttribute('aria-hidden', 'true');
+    expect(badgeSpecimens[0]).not.toHaveAttribute('role');
   });
 
   it('mounts the design rule profile panel and updates it on preset switch (issue #651)', async () => {

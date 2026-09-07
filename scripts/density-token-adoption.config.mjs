@@ -25,7 +25,7 @@ export const DENSITY_ALLOWLIST = {
     reason: '0.5rem gap in the theme picker; off the scale for the same reason as PublicShell:83.',
     reviewBy: '2026-12-01',
   },
-  'packages/gds-core/src/ReferenceThemeExplorer.tsx:295': {
+  'packages/gds-core/src/ReferenceThemeExplorer.tsx:298': {
     reason:
       'Theme Lab preview chrome at 12px, between 2xs and xs. Same category as the two shape '
       + 'debt entries in shape-token-adoption.config.mjs: migrating visibly reshapes the page '

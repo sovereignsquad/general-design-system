@@ -2,7 +2,44 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — Element-level opt-out from the theme-preset repaint, and a layout axis (#724, #698)
+## Unreleased — A generated brand badge, an element-level opt-out from the theme-preset repaint, and a layout axis (#699, #724, #698)
+
+### A generated brand badge fills the favicon/app-icon gap (#699)
+
+`getGdsWebAppManifest` has shipped a manifest generator since issue 458, but its `icons` array
+starts empty — GDS had no artwork of its own to put there, so every consumer had to hand-author
+a favicon before their product looked finished in a browser tab. `GdsGeneratedMark` already
+rendered the right square-mark artwork, but only as a live-DOM React component whose colors are
+CSS `var(...)` references — useless as a standalone favicon file, which has no cascade to
+resolve against.
+
+`buildGdsBrandBadgeSvg` (`packages/gds-core/src/generated-brand-badge.ts`, exported from
+`@sovereignsquad/gds-core/server` only) is `GdsGeneratedMark`'s headless twin, following the
+`generated-art-svg.ts` precedent: literal hex colors via `resolveGdsGeneratedPaletteHex`,
+`react-dom/server` for the motif, and geometry (48-unit canvas, gradient direction, motif
+proportion, ±20° tilt) held identical to the React component by twin tests rather than shared
+code. Unlike the thumbnail/hero builders, its motif sits directly on the raw gradient with
+nothing behind it, so it additionally guarantees the white motif clears WCAG 1.4.11's 3:1
+non-text contrast floor against the gradient's own midpoint — darkening both stops together, by
+just enough, for every built-in preset and both color schemes. A `maskable` option produces a
+full-bleed square with the motif scaled into the W3C maskable safe zone; the default is a
+rounded square at a `0.25` corner-radius ratio (`GdsGeneratedMark`'s 12px default over its
+48-unit canvas). Every badge embeds the resolved `computeGdsThemeIdentity` hash as a
+`data-gds-theme-identity` attribute, giving a consumer a ready-made cache key.
+
+Colors resolve exclusively through the governed palette resolver or an explicit `colors`
+override — never an invented literal — and every throw case (missing palette source, empty
+label, `maskable`/`cornerRadiusRatio` combined, an out-of-range ratio, a non-finite size) is an
+actionable error, not a silently wrong badge. The reference site's Theme Lab shows the mechanism
+live: every card in the shipped-lanes vibe gallery now carries a `GdsGeneratedMark` badge
+specimen seeded and colored from that preset, so a future preset shows its badge automatically.
+
+Validated against the Your Field bundle's three real app-icon variants (navy `#0B223E`, sage
+`#90A287`, terracotta `#CA8570`, sourced from `packages/gds-theme/src/your-field.ts`'s exported
+constants) at the bundle's own 96×96/22px presentation, and documented end-to-end in
+`docs/GENERATED_IMAGERY.md` — the generated default, the favicon and manifest-icon recipes, the
+maskable variant, and all three replacement levels, worked through with the real Your Field PNGs
+swapped in for the generated default with no GDS code changed.
 
 ### `data-gds-fixed-tone` excludes one element from every preset rule
 
