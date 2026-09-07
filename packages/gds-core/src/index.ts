@@ -58,6 +58,7 @@ export * from './SocialAuthButtons';
 export * from './ChoiceChip';
 export * from './NumberStepper';
 export * from './ThemeToggle';
+export * from './GdsCompareButton';
 
 // ── Feedback, empty & async states ──
 export * from './EmptyState';
@@ -67,6 +68,7 @@ export * from './PlaceholderPanel';
 export * from './ConfirmDialog';
 export * from './Notifications';
 export * from './Notifications.client';
+export * from './GdsNotificationBell';
 export * from './FeedbackRuntime.client';
 export * from './Telemetry.client';
 
@@ -182,6 +184,7 @@ export * from './GdsMapFilterRail';
 export * from './GdsMapPinPreviewCard';
 export * from './GdsGeneratedAvatar';
 export * from './GdsGeneratedMark';
+export * from './GdsLogoLockup';
 export * from './GdsIconBadge';
 export * from './GdsMeter';
 export * from './GdsRatingDisplay';

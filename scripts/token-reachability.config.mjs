@@ -350,17 +350,11 @@ export const EXTENSION_POINTS = {
       + '--gds-brand-accent-tint, referenced by 3 files. The value renders; this spelling does not.',
     reviewBy: '2027-02-01',
   },
-  '--gds-badge-attention': {
-    reason:
-      'Weakest case of the fifteen, and recorded as such. Unlike badge.info/badge.urgencyBg it has '
-      + 'no alias, so neither the name NOR the value reaches any component. Retained rather than '
-      + 'removed because it is a member of the published BrandSemanticRole union returned by '
-      + 'createBrandTheme(), so a consumer can be reading it today and removal is a breaking change '
-      + 'requiring a deprecation cycle (issue 586 §6). Near-dated deliberately.',
-    reviewBy: '2026-11-01',
-  },
   '--gds-badge-validation': {
-    reason: 'No alias and no consumer, exactly as --gds-badge-attention. Same reasoning, same near date.',
+    reason:
+      'No alias and no consumer. A member of the published BrandSemanticRole union returned by '
+      + 'createBrandTheme(), so removal is a breaking change requiring a deprecation cycle '
+      + '(issue 586 §6). Near-dated deliberately.',
     reviewBy: '2026-11-01',
   },
 

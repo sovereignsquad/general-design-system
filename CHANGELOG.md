@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, and a layout axis (#708, #699, #724, #698)
+## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, and a logo lockup / notification bell / compare button (#708, #699, #724, #698, #710, #713)
 
 ### A governed activity pictogram family (#708)
 
@@ -149,6 +149,47 @@ covering the zero/one/five/ten field counts and the ten-scenario quick-start set
 `gds.heroSearchPanel.ariaLabel` message key translated across all 12 locale packs. Component
 census 309 -> 311; `docs/AI_AGENT_GUIDE.md` and `llms.txt` both restated the count and are
 updated.
+
+### `GdsLogoLockup`, `GdsNotificationBell`, `GdsCompareButton` (#713)
+
+Three small, preset-agnostic `@sovereignsquad/gds-core` exports the Your Field delivery needed
+and no governed counterpart existed for.
+
+`GdsLogoLockup` is the real-asset counterpart to the generated-imagery system: GDS shipped only
+generated identity art (`GdsGeneratedMark`/`GdsGeneratedAvatar`/`GdsGeneratedThumbnail`/
+`GdsGeneratedHero`) with no component for a consumer's actual logo file, so every brand consumer
+hand-composed its lockup. It renders a consumer-supplied mark (`src` + required `alt`, or an
+arbitrary `mark` node) plus an optional wordmark and badge pill, an `onInverse` variant for dark
+grounds, and a `framed` presentation — card surface, border, `gdsRadius('card')`,
+`gdsElevation('card')` — that honors the brand-guidelines rule that a real mark always sits on a
+light contrasting badge. `src` without `alt` throws in development (mirroring
+`GdsSavedIndicator`'s required-label stance); `src` and `mark` together throw as a contract
+violation. A broken/slow `src` keeps the lockup's layout — the plain `img` element's native
+behavior — and the wordmark never depends on the mark having loaded.
+
+`GdsNotificationBell` is the trigger affordance the Notifications family
+(`GdsNotificationProvider`/`NotificationCenter`/`InlineAlert`/`BannerNotice`) had no governed
+entry point for: a circular bell button sized to `--gds-control-height-md` (the 44px floor) with
+an optional unread dot. The dot is an inline `GdsBadgeShapeCircle` colored via
+`var(--gds-badge-attention)` — a filled `currentColor` SVG survives forced-colors mode, unlike a
+`background-color`-painted span — with a decorative `box-shadow` separation ring in
+`var(--gds-bg-card)`; state is carried by the `aria-label` swap ("Notifications" /
+"Notifications (unread)"), never by the dot alone. It composes with
+`GdsNotificationProvider`/`useGdsNotifications` by prop (`unread={notifications.length > 0}`) —
+it is the trigger only, no dropdown panel of its own.
+
+`GdsCompareButton` is a fully controlled `aria-pressed` compare-before-decide toggle — off/added
+states with an icon+label swap (`Compare`/`Added to compare`, the new `Compare` icon key mapping
+to `IconArrowsLeftRight`) — a different semantic from `GdsSavedIndicator` (favoriting, icon-only):
+the label states the action's current outcome, not just its availability. It deliberately holds
+no internal state mirroring the `added` prop, unlike a known bundle defect this component exists
+to not repeat, so an externally driven state change always re-renders correctly.
+
+All three bind only existing `--gds-*` semantic-role tokens (zero raw hex/rgb, zero bare themed
+pixel literals) and ship colocated tests, pattern-registry demos (`logo-lockup`, extending
+`notifications` and `badges`), export-coverage entries, and new `gds.notificationBell.*`/
+`gds.compareButton.*` message keys translated across all 12 locale packs. Component census
+313 -> 316.
 
 ## 6.7.0 - 2026-08-27 — Padel Africa preset, ListingCard media overlays, and a primary-CTA contrast rule (#678, #679, #680)
 

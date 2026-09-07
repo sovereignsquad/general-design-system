@@ -279,4 +279,8 @@ export const hu = {
   'gds.pictogram.lacrosse': "Lacrosse",
   'gds.pictogram.athletics': "Atlétika",
   'gds.pictogram.hockey': "Hoki",
+  'gds.notificationBell.label': "Értesítések",
+  'gds.notificationBell.unreadLabel': "Értesítések (olvasatlan)",
+  'gds.compareButton.add': "Összehasonlítás",
+  'gds.compareButton.added': "Hozzáadva az összehasonlításhoz",
 };

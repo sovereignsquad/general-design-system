@@ -91,6 +91,7 @@ import {
   MediaField,
   MetricCard,
   NotificationCenter,
+  GdsNotificationBell,
   OverlayManagerProvider,
   useOverlayManager,
   PartnerDiscoveryFilters,
@@ -101,6 +102,8 @@ import {
   PartnerPlaceDetailTemplate,
   partnerDiscoveryDefaultAmenities,
   GdsNotificationProvider,
+  useGdsNotifications,
+  createGdsNotificationId,
   BannerNotice,
   BoundedPreviewSurface,
   InlineAlert,
@@ -148,11 +151,13 @@ import {
   GdsRatingDisplay,
   GdsGeneratedAvatar,
   GdsGeneratedMark,
+  GdsLogoLockup,
   GdsMapBasemapWash,
   GdsMapFilterRail,
   GdsMapPinBadge,
   GdsMapPinPreviewCard,
   GdsSavedIndicator,
+  GdsCompareButton,
   GdsGeneratedThumbnail,
   GdsGeneratedHero,
   gdsBadgeAccentColors,
@@ -210,6 +215,7 @@ import {
   type PatternRegistryEntry,
 } from './pattern-registry';
 import { SiteTourLauncher } from './SiteTourLauncher';
+import { GDS_LOGO_LOCKUP_DEMO_MARK } from './logo-lockup-demo-asset';
 
 const catalogEntryCount = patternRegistry.length;
 
@@ -993,6 +999,21 @@ function GeneratedIdentityDemo() {
   );
 }
 
+function LogoLockupDemo() {
+  return (
+    <SectionPanel
+      title="Logo lockup"
+      description="GdsLogoLockup composes a consumer-supplied real logo asset — never generated art, unlike GdsGeneratedMark — with an optional wordmark and badge pill. `framed` renders the brand-guidelines-mandated light contrasting badge (card surface, border, radius, elevation) so the mark stays legible on any ground; `onInverse` alone adjusts text color for a dark ground but is legible-not-guideline-honoring without `framed`. The framed + onInverse pair below is the guideline-honoring presentation for a dark nav/header ground; DiscoveryShell's own header is the real placement for that pairing."
+    >
+      <GdsInline gap="lg" align="center">
+        <GdsLogoLockup src={GDS_LOGO_LOCKUP_DEMO_MARK} alt="" wordmark="Your Field" badge="NYC" />
+        <GdsLogoLockup src={GDS_LOGO_LOCKUP_DEMO_MARK} alt="Your Field, mark-only" />
+        <GdsLogoLockup src={GDS_LOGO_LOCKUP_DEMO_MARK} alt="" wordmark="Your Field" badge="NYC" onInverse framed />
+      </GdsInline>
+    </SectionPanel>
+  );
+}
+
 function GeneratedHeroDemo() {
   const badges = [
     { key: 'soccer', label: 'Soccer', icon: 'Location' as const },
@@ -1222,6 +1243,31 @@ function channelSummary(): string {
     .replace(/%instore%/, String(CHANNEL_SHARES[1].share));
 }
 
+function NotificationBellDemo() {
+  const { notifications, notify, clear } = useGdsNotifications();
+  const unread = notifications.length > 0;
+  return (
+    <SectionPanel
+      title="Notification bell"
+      description="GdsNotificationBell is the trigger affordance for the notification family — a bell with an unread dot, no panel of its own. Unread here is derived from useGdsNotifications().notifications.length > 0, exactly as a header/topbar consumer would derive it."
+    >
+      <GdsInline gap="lg" align="center">
+        <GdsNotificationBell
+          unread={unread}
+          onClick={() => {
+            if (unread) {
+              clear();
+            } else {
+              notify({ id: createGdsNotificationId('bell-demo'), title: 'New activity added nearby', severity: 'info' });
+            }
+          }}
+        />
+        <InlineText>{unread ? `${notifications.length} unread — click the bell to clear` : 'No unread — click the bell to add one'}</InlineText>
+      </GdsInline>
+    </SectionPanel>
+  );
+}
+
 function SavedIndicatorDemo() {
   const [saved, setSaved] = useState(false);
   return (
@@ -1247,6 +1293,24 @@ function SavedIndicatorDemo() {
           unsaveLabel="Remove Riverside Swim Club from saved"
           anchor={<GdsMapPinBadge accent="ocean" icon="Location" label="Riverside Swim Club" size={56} filled />}
         />
+      </GdsInline>
+    </SectionPanel>
+  );
+}
+
+function CompareButtonDemo() {
+  const [added, setAdded] = useState(false);
+  return (
+    <SectionPanel
+      title="Compare button"
+      description="A labelled aria-pressed toggle for compare-before-decide flows — a different semantic from GdsSavedIndicator (favoriting, icon-only): the label states the action's current outcome, not just its availability. Fully controlled: activating it calls onAddedChange with the next value, and the button re-renders correctly on an externally driven state change rather than mirroring the prop into its own state."
+    >
+      <GdsInline gap="lg" align="center">
+        <GdsCompareButton added={added} onAddedChange={setAdded} />
+        <InlineText>{added ? 'In the compare set' : 'Not in the compare set'}</InlineText>
+        <button type="button" onClick={() => setAdded((current) => !current)}>
+          Toggle from outside
+        </button>
       </GdsInline>
     </SectionPanel>
   );
@@ -1924,6 +1988,7 @@ function BadgeVocabularyDemo() {
       <BadgeOverlayDemo />
       <EmojiModeDemo />
       <SavedIndicatorDemo />
+      <CompareButtonDemo />
       <BadgeThemeMatrixDemo />
     </GdsStack>
   );
@@ -2924,6 +2989,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <GeneratedImageryCardPlaceholderDemo />
         </div>
       );
+    case 'logo-lockup':
+      return <LogoLockupDemo />;
     case 'consumer-sections':
       return (
         <ConsumerSection
@@ -3334,6 +3401,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         <GdsNotificationProvider>
           <SectionPanel title="Notification surface" description="Notifications remain contextual, actionable, and explicit.">
             <div>
+              <NotificationBellDemo />
+              <br />
               <BannerNotice
                 eyebrow="Service status"
                 severity="warning"

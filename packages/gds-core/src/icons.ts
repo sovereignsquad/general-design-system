@@ -134,6 +134,7 @@ import {
   IconTool,
   IconPhone,
   IconGripVertical,
+  IconArrowsLeftRight,
 } from '@tabler/icons-react';
 import { createElement } from 'react';
 
@@ -182,6 +183,7 @@ export const GdsIcons = {
   Cancel: IconBan,
   Confirm: IconThumbUp,
   Close: IconX,
+  Compare: IconArrowsLeftRight,
 
   // Preferences & System
   Language: IconLanguage,
@@ -341,6 +343,7 @@ const gdsIconNameAliases = {
   clear: 'Clear',
   clone: 'Clone',
   close: 'Close',
+  compare: 'Compare',
   confirm: 'Confirm',
   copy: 'Copy',
   danger: 'Danger',
@@ -383,7 +386,7 @@ const gdsIconNameAliases = {
 } as const satisfies Record<string, GdsIconKey>;
 
 const categoryByIcon = {
-  action: ['Add', 'Remove', 'Edit', 'Delete', 'Search', 'Save', 'Play', 'Start', 'Send', 'Reply', 'Forward', 'Attach', 'Upload', 'Download', 'Print', 'Copy', 'Duplicate', 'Check', 'Uncheck', 'Complete', 'Clear', 'Cancel', 'Confirm', 'Close', 'Export', 'Import', 'Preview', 'Clone', 'Restore', 'Toggle', 'Submit', 'Reset', 'Login', 'Register', 'Verify', 'Launch', 'Draft', 'Refer'],
+  action: ['Add', 'Remove', 'Edit', 'Delete', 'Search', 'Save', 'Play', 'Start', 'Send', 'Reply', 'Forward', 'Attach', 'Upload', 'Download', 'Print', 'Copy', 'Duplicate', 'Check', 'Uncheck', 'Complete', 'Clear', 'Cancel', 'Confirm', 'Close', 'Compare', 'Export', 'Import', 'Preview', 'Clone', 'Restore', 'Toggle', 'Submit', 'Reset', 'Login', 'Register', 'Verify', 'Launch', 'Draft', 'Refer'],
   status: ['Success', 'Warning', 'Danger', 'Info'],
   resource: ['Users', 'Gallery', 'Profile', 'Course', 'Lesson', 'Certificate', 'Student', 'Class', 'Grade', 'Child', 'Family', 'Habit', 'Goal', 'Streak', 'Reward', 'Trophy', 'Crown', 'Star', 'StarFilled', 'Currency', 'Evidence'],
   navigation: ['Dashboard', 'Analytics', 'Home', 'Inbox', 'Calendar', 'History', 'Grid', 'List', 'Back', 'ChevronDown', 'ChevronUp', 'ChevronLeft', 'ChevronRight', 'ArrowUp', 'ArrowDown', 'ExternalLink', 'Link', 'Menu', 'Kanban', 'Location'],

@@ -279,4 +279,8 @@ export const ja = {
   'gds.pictogram.lacrosse': "ラクロス",
   'gds.pictogram.athletics': "陸上競技",
   'gds.pictogram.hockey': "ホッケー",
+  'gds.notificationBell.label': "通知",
+  'gds.notificationBell.unreadLabel': "通知(未読)",
+  'gds.compareButton.add': "比較",
+  'gds.compareButton.added': "比較に追加済み",
 };

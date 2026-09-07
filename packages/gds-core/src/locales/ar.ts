@@ -279,4 +279,8 @@ export const ar = {
   'gds.pictogram.lacrosse': "اللاكروس",
   'gds.pictogram.athletics': "ألعاب القوى",
   'gds.pictogram.hockey': "الهوكي",
+  'gds.notificationBell.label': "إشعارات",
+  'gds.notificationBell.unreadLabel': "إشعارات (غير مقروءة)",
+  'gds.compareButton.add': "مقارنة",
+  'gds.compareButton.added': "أُضيف للمقارنة",
 };
