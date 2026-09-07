@@ -279,4 +279,8 @@ export const it = {
   'gds.pictogram.lacrosse': "Lacrosse",
   'gds.pictogram.athletics': "Atletica",
   'gds.pictogram.hockey': "Hockey",
+  'gds.notificationBell.label': "Notifiche",
+  'gds.notificationBell.unreadLabel': "Notifiche (non lette)",
+  'gds.compareButton.add': "Confronta",
+  'gds.compareButton.added': "Aggiunto al confronto",
 };

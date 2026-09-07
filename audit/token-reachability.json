@@ -1,7 +1,7 @@
 {
   "declared": 303,
-  "referenced": 120,
-  "extensionPoints": 134,
+  "referenced": 121,
+  "extensionPoints": 133,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -357,13 +357,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-badge-attention",
-      "classification": "extension-point",
-      "reason": "Weakest case of the fifteen, and recorded as such. Unlike badge.info/badge.urgencyBg it has no alias, so neither the name NOR the value reaches any component. Retained rather than removed because it is a member of the published BrandSemanticRole union returned by createBrandTheme(), so a consumer can be reading it today and removal is a breaking change requiring a deprecation cycle (issue 586 §6). Near-dated deliberately.",
-      "reviewBy": "2026-11-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-badge-info",
       "classification": "extension-point",
       "reason": "The ROLE is live, the name is the consumer-facing spelling: emitCssVariables maps badge.info to --gds-bg-info-tag, which is referenced by 2 files. The canonical --gds-badge-info carries the same value for consumers reading by role name.",
@@ -436,7 +429,7 @@
     {
       "token": "--gds-badge-validation",
       "classification": "extension-point",
-      "reason": "No alias and no consumer, exactly as --gds-badge-attention. Same reasoning, same near date.",
+      "reason": "No alias and no consumer. A member of the published BrandSemanticRole union returned by createBrandTheme(), so removal is a breaking change requiring a deprecation cycle (issue 586 §6). Near-dated deliberately.",
       "reviewBy": "2026-11-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },

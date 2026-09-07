@@ -4,7 +4,7 @@
   "cellsEvaluated": 460,
   "obligationsSatisfied": {
     "listed": 81,
-    "demoed": 70,
+    "demoed": 71,
     "explained": 64,
     "variationsShown": 40,
     "useCase": 10
@@ -423,23 +423,6 @@
     {
       "token": "--gds-brand-primary-pressed",
       "role": "brand-primary-pressed",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-badge-attention",
-      "role": "badge-attention",
       "declaredIn": [
         "ts-emitter"
       ],
@@ -1103,6 +1086,22 @@
     {
       "token": "--gds-state-info",
       "role": "state-info",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-attention",
+      "role": "badge-attention",
       "declaredIn": [
         "ts-emitter"
       ],

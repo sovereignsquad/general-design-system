@@ -436,14 +436,17 @@ export const GATE_MUTANTS = [
       {
         id: 'reachability-detects-expired-extension-point',
         claim: 'Detects an extension-point allowlist entry whose reviewBy date has passed',
-        // Anchored on --gds-badge-validation deliberately: it is the file's last entry, has no
-        // alias, and issue 586 §6 records it as retained-not-removed only because of the
-        // breaking-change cost of dropping a published BrandSemanticRole member -- it cannot
-        // become accidentally reachable the way a generic surface-role token (--gds-bg-page,
-        // --gds-bg-canvas) can once some component starts consuming it for an unrelated reason.
+        // Anchored on --gds-badge-validation's reviewBy line alone (confirmed unique in the
+        // file), not its free-text reason, which is legitimately edited over time -- it already
+        // has been once, breaking an earlier version of this exact anchor that matched the
+        // whole entry including that prose. issue 586 §6 records this entry as
+        // retained-not-removed only because of the breaking-change cost of dropping a published
+        // BrandSemanticRole member -- it cannot become accidentally reachable the way a generic
+        // surface-role token (--gds-bg-page, --gds-bg-canvas) can once some component starts
+        // consuming it for an unrelated reason, so it stays a stable, real extension point.
         file: 'scripts/token-reachability.config.mjs',
-        find: "  '--gds-badge-validation': {\n    reason: 'No alias and no consumer, exactly as --gds-badge-attention. Same reasoning, same near date.',\n    reviewBy: '2026-11-01',\n  },",
-        replace: "  '--gds-badge-validation': {\n    reason: 'No alias and no consumer, exactly as --gds-badge-attention. Same reasoning, same near date.',\n    reviewBy: '2020-01-01',\n  },",
+        find: "    reviewBy: '2026-11-01',\n  },",
+        replace: "    reviewBy: '2020-01-01',\n  },",
         once: true,
       },
     ],

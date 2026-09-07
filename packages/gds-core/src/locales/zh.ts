@@ -279,4 +279,8 @@ export const zh = {
   'gds.pictogram.lacrosse': "长曲棍球",
   'gds.pictogram.athletics': "田径",
   'gds.pictogram.hockey': "曲棍球",
+  'gds.notificationBell.label': "通知",
+  'gds.notificationBell.unreadLabel': "通知(未读)",
+  'gds.compareButton.add': "比较",
+  'gds.compareButton.added': "已加入比较",
 };
