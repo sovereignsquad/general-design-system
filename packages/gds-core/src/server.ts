@@ -95,6 +95,7 @@ export * from './PartnerDiscovery';
 export * from './locales';
 export * from './FitScoreChip';
 export * from './MeaningBadge';
+export * from './TrustLayer';
 export * from './MediaWithFallback';
 export * from './NumberStepper';
 export * from './SearchableSelect';

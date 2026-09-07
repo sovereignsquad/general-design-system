@@ -186,6 +186,14 @@ import {
   type KanbanColumnData,
   GdsSchemaForm,
   type GdsFormSchema,
+  TrustBadge,
+  TRUST_BADGE_DEFINITIONS,
+  type GdsTrustLabel,
+  PriceEstimateLabel,
+  LastCheckedLabel,
+  ReportOutdatedLink,
+  SourceBlock,
+  ConfirmChecklist,
 } from '@sovereignsquad/gds-core';
 // Excluded from the main barrel so consumers who don't use it don't bundle it.
 import { GdsRichTextEditor } from '@sovereignsquad/gds-core/rich-text-editor';
@@ -2604,6 +2612,67 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           </GdsStack>
         </GdsStack>
       );
+    case 'trust-layer': {
+      const trustLabels = Object.keys(TRUST_BADGE_DEFINITIONS) as GdsTrustLabel[];
+      return (
+        <GdsStack gap="xl">
+          <GdsStack gap="sm">
+            <MetadataText>All 8 trust labels (TrustBadge) — an unrecognized label falls back to "Public source"</MetadataText>
+            <GdsInline gap="sm" wrap="wrap">
+              {trustLabels.map((label) => <TrustBadge key={label} label={label} />)}
+              <TrustBadge label={'not_a_real_label' as GdsTrustLabel} />
+            </GdsInline>
+          </GdsStack>
+          <GdsStack gap="sm">
+            <MetadataText>Price certainty states (PriceEstimateLabel)</MetadataText>
+            <GdsStack gap="xs">
+              <PriceEstimateLabel price={0} />
+              <PriceEstimateLabel price={null} />
+              <PriceEstimateLabel price={45} unit="session" status="confirmed" />
+              <PriceEstimateLabel price={45} unit="session" status="estimated" />
+            </GdsStack>
+          </GdsStack>
+          <GdsStack gap="sm">
+            <MetadataText>Freshness (LastCheckedLabel) — fresh and stale</MetadataText>
+            <GdsStack gap="xs">
+              <LastCheckedLabel date={new Date('2026-06-01')} />
+              <LastCheckedLabel date={new Date('2025-01-01')} stale />
+            </GdsStack>
+          </GdsStack>
+          <GdsStack gap="sm">
+            <MetadataText>Report action (ReportOutdatedLink) — activate it to see the persistent confirmation</MetadataText>
+            <ReportOutdatedLink onReport={() => {}} />
+          </GdsStack>
+          <GdsStack gap="sm">
+            <MetadataText>Detail-page source card (SourceBlock) with data</MetadataText>
+            <SourceBlock
+              sourceType="Official provider website"
+              sourceUrl="https://example.org/weekend-soccer-clinic"
+              lastChecked={new Date('2026-06-01')}
+              priceStatus="confirmed"
+              scheduleStatus="needs-confirmation"
+              onReport={() => {}}
+            />
+          </GdsStack>
+          <GdsStack gap="sm">
+            <MetadataText>SourceBlock with no source data yet — every row still renders, stating the unknown value</MetadataText>
+            <SourceBlock />
+          </GdsStack>
+          <GdsStack gap="sm">
+            <MetadataText>Check before booking (ConfirmChecklist) — six default items; check one to see the line-through</MetadataText>
+            <ConfirmChecklist />
+          </GdsStack>
+          <GdsStack gap="sm">
+            <MetadataText>One item</MetadataText>
+            <ConfirmChecklist items={['Exact schedule']} />
+          </GdsStack>
+          <GdsStack gap="sm">
+            <MetadataText>Explicit empty list renders nothing</MetadataText>
+            <ConfirmChecklist items={[]} />
+          </GdsStack>
+        </GdsStack>
+      );
+    }
     case 'embed-surfaces':
     case 'map-panel':
       return (

@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, and detail-page facts / provider-claim surfaces (#708, #699, #724, #698, #710, #713, #711)
+## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, and the trust-layer component family (#708, #699, #724, #698, #710, #713, #711, #709)
 
 ### A governed activity pictogram family (#708)
 
@@ -221,6 +221,53 @@ value from governed tokens (`--gds-bg-card`/`--gds-bg-info-tag`, `--gds-border-c
 pattern-registry demo (`detail-facts-provider-cta`), export-coverage entries, and new
 `gds.detailFacts.*` / `gds.providerCta.*` message keys translated across all 12 locale packs.
 Component census 316 -> 318.
+
+### A governed trust-layer component family (#709)
+
+The Your Field product (successor to ClassScout) aggregates children's-activity listings from
+external sources — provider websites, public feeds, provider claims — data that is inherently
+uncertain: prices change, schedules move, ages go unconfirmed. The product's trust strategy is
+honesty about that uncertainty, and until now that honesty existed only as a reference
+implementation outside this repository (inline styles, hardcoded `$` currency, English-only
+copy) — exactly the kind of local composition Rules 10/15/16 forbid on the reference site and
+that would otherwise leave every consumer to hand-roll its own provenance badges.
+
+`TrustBadge` renders a closed, eight-label operational vocabulary — `official_source`,
+`public_source`, `provider_claimed`, `recently_checked`, `price_estimate`, `schedule_estimate`,
+`age_not_confirmed`, `reported_outdated` — through the exported `TRUST_BADGE_DEFINITIONS`
+tone/icon/message-id mapping (Rule 14: documentation derives the label table from this export,
+never retypes it); an unrecognized runtime value falls back to `public_source` rather than
+rendering unstyled. `PriceEstimateLabel` states price certainty instead of implying a fixed
+number — free, an unknown price that asks the reader to confirm, a provider-confirmed amount, or
+an estimate — formatted through `formatGdsCurrency` with no hardcoded currency symbol; an
+explicit `0` always wins as "Free" even when `status` is `'unknown'` (branch order is contract).
+`LastCheckedLabel` states when data was last checked, or a stale caution the consumer sets
+explicitly — GDS never computes a freshness window itself. `ReportOutdatedLink` is a real
+`<button>` with a one-way idle-to-sent transition: activating it swaps in a persistent thank-you
+confirmation, announced through an always-present polite live region, and fires the
+consumer-owned `onReport` exactly once even under two activations in the same tick (a ref guard,
+not just state). `SourceBlock` is a detail-page information-source card: a title, four rows that
+are never omitted — an absent value states the unknown wording explicitly rather than dropping
+the row — a standing "confirm with the provider" line, and the embedded `ReportOutdatedLink`
+when `onReport` is set; its source-type link goes through the existing `GdsInlineLink` primitive,
+which already applies the safe `rel` for an external target. `ConfirmChecklist` is an amber
+check-before-booking card — the warning-tint tone pair (`--gds-badge-soft-warning` background,
+`--gds-state-warning` border, `--gds-badge-soft-warning-fg` text) so it stays legible by
+construction across every preset and both color schemes — with six default items; checking one
+applies a line-through and reduced emphasis while it remains a real, labelled, checked checkbox,
+and an explicit empty `items` array renders nothing. Every interactive target (the report button,
+each checklist row) meets the governed 44px minimum.
+
+The vocabulary is deliberately humble: a test asserts no rendered default string in the family
+contains "verified", "safe", "guaranteed", "best", or "perfect". Seven new `GdsIcons` registry
+entries back the family (`Confirmed`, `Freshness`, `Stale`, `Price`, `Schedule`, `Checklist`,
+`SourceInfo`), and the full `gds.trust.*` copy contract ships translated across all 12 locale
+packs. Stateless (`TrustBadge`, `PriceEstimateLabel`, `LastCheckedLabel`) and stateful
+(`ReportOutdatedLink`, `SourceBlock`, `ConfirmChecklist`) halves split across `TrustLayer.tsx` /
+`TrustLayer.client.tsx` per this repo's `.client.tsx` convention. Reference-site live proof
+(`trust-layer`) composes all eight badge labels, all four price states, fresh and stale
+freshness, the report action pre- and post-activation, `SourceBlock` with real data and with
+every value absent, and the checklist at zero/one/six items. Component census 318 -> 324.
 
 ## 6.7.0 - 2026-08-27 — Padel Africa preset, ListingCard media overlays, and a primary-CTA contrast rule (#678, #679, #680)
 
