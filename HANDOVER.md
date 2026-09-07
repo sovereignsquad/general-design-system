@@ -11,17 +11,35 @@ memory of the session that produced this state**.
 ## 1. Where we are, in one paragraph
 
 `main` is at **`327179f`**, version **6.7.0** (unreleased — `VERSION` has not been bumped
-for 6.8.0 yet; that happens once the whole milestone below ships). `origin/dev` is also at
-`327179f` **except for one pushed, unmerged commit**: `c694d2c` ("Add the Scout AI reserved
-sub-brand gradient accent lane (`--gds-ai-*`)", closes #697) is on `origin/dev` and open as
+for 6.8.0 yet; that happens once the whole milestone below ships). `origin/dev` is two commits
+ahead, at **`6c39ead`**: `c694d2c` ("Add the Scout AI reserved sub-brand gradient accent lane
+(`--gds-ai-*`)", closes #697) plus `6c39ead` (this file's rewrite). Both are open as
 **[PR #736](https://github.com/sovereignsquad/general-design-system/pull/736)**, base `main`.
-Local `npm run preflight` passed clean on this exact commit before it was pushed. **CI on
-PR #736 was still running when this handover was written — it has not been confirmed green.
-Check `gh pr checks 736 --repo sovereignsquad/general-design-system` before doing anything
-else**, and if green, merge it (`gh pr merge 736 --merge`) and sync `dev`/`main`
-(`git fetch origin main:main && git checkout dev && git rebase main dev && git push origin dev`)
-before starting the next issue — this is the exact same close-out sequence used for every
-prior issue this session (§3).
+Local `npm run preflight` passed clean on the `c694d2c` commit before it was pushed.
+
+**CI status, as actually observed (not assumed):** on the first CI run
+(`https://github.com/sovereignsquad/general-design-system/actions/runs/34149880005`),
+`validate (mantine-9)` **passed** (10m50s) but `validate (mantine-7)` **failed** (7m17s) inside
+`verify:forced-colors-runtime`, with a headless-Chrome DevTools-connection timeout preceded by
+a cascade of `Failed to connect to the bus` (dbus) errors — a runner-environment problem, not a
+gate finding a real defect in the code. Strong evidence this is CI infrastructure flakiness,
+not a regression from this PR: `verify:forced-colors-runtime` and `scripts/lib/browser-runtime.mjs`
+are untouched by #697's diff, and the `mantine-9` leg ran the identical check against the
+identical commit and passed clean. A rerun of just the failed job was triggered
+(`gh run rerun 34149880005 --repo sovereignsquad/general-design-system --failed`) before the
+session had to stop — **its result was not observed; check it fresh, don't assume it passed.**
+If it fails again with the *same* dbus/DevTools signature, that raises the probability of a
+real, currently-broken runner/workflow (check whether `.github/workflows/*.yml` or the runner
+image changed recently) rather than a one-off flake — investigate the workflow/runner rather
+than rerunning indefinitely.
+
+**Check `gh pr checks 736 --repo sovereignsquad/general-design-system` before trusting anything
+above or doing anything else.** If green, merge (`gh pr merge 736 --merge --delete-branch=false`)
+and sync `dev`/`main` (`git fetch origin main:main && git checkout dev && git rebase main dev &&
+git push origin dev`) before starting the next issue — the exact close-out sequence used for
+every prior issue this session (§3). If still red on a *different* check than
+`verify:forced-colors-runtime`, treat it as a real finding and diagnose before merging (Rule 13:
+never leave a red run on main, and never merge a red PR).
 
 Everything in this repo right now is one big effort: delivering **GDS 6.8.0 milestone 35,
 "GDS 6.8.0 - Your Field Delivery"** (org project 11:
@@ -202,9 +220,12 @@ entry in the same budget file, read that entry for the full mechanism explanatio
 **Verified this session, independently, after the delegated agent's own report:** full-diff
 review of all 31 changed files against the issue's exact Section 9/11 code shapes (all
 matched), full monorepo `npm run build`, `npm run lint`, `npm run test:run` (1288/1288 passed),
-committed, `npm run preflight` passed clean, pushed, PR #736 opened. **CI watch was started in
-the background and its conclusion was not yet known when this handover was written** — this is
-the very next thing to check.
+committed, `npm run preflight` passed clean, pushed, PR #736 opened. **CI's first run came back
+mixed — `mantine-9` passed, `mantine-7` failed inside `verify:forced-colors-runtime` on a
+headless-Chrome/dbus timeout that has nothing to do with this diff (full detail and the
+already-triggered rerun in §1).** Confirm the rerun's actual result before merging — §1 is the
+authoritative, most-recently-corrected account of this; don't rely on this paragraph's framing
+if it ever drifts from §1.
 
 One thing to be aware of if you see it again: `npm run test:run` prints two lines that look
 like real failures —
