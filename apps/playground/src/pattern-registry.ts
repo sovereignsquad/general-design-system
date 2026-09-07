@@ -1014,6 +1014,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'GdsIconSystemReference',
   },
   {
+    id: 'activity-pictograms',
+    title: 'Activity Pictograms',
+    docSection: 'Core Component Contracts',
+    family: 'foundations',
+    section: 'Pictograms',
+    summary: 'The governed activity pictogram family — 11 line-based, non-figurative equipment marks, four contextual treatments (list/detail/hero/pin), three scales, and a token-only interaction-state contract, walked live from getGdsActivityPictogramKeys()/gdsActivityPictograms so the drawing, every number, and the source guidelines\' usage rules are never retyped.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsPictogramSystemReference',
+  },
+  {
     id: 'typography',
     title: 'Typography Tokens',
     docSection: 'Core Component Contracts',

@@ -52,6 +52,7 @@
     "GdsDensityProvider": "Provider/context (global density mode) \u2014 non-visual; density-aware cards are registered via ProductCard.",
     "CreatorThemeDiagnostics": "Diagnostics/dev surface (creator theme) \u2014 not a consumer-facing catalog pattern.",
     "GdsIcon": "Icon surface (GDS-owned icon component) \u2014 icon rendering primitive, not a catalog pattern.",
+    "GdsPictogram": "Pictogram surface (issue 708) \u2014 icon rendering primitive mirroring GdsIcon, not a catalog pattern; the shipped family is demonstrated live via GdsPictogramSystemReference, which is registered.",
     "GdsIcons": "Icon surface (GDS-owned icon registry) \u2014 icon set, not a catalog pattern.",
     "GdsBadgeShapes": "Badge shape dictionary (issue 487) \u2014 closed name\u2192component lookup mirroring GdsIcons; the six shape components it maps to are registered on the badges pattern.",
     "GdsAdminDashboardTemplate": "Page template (GdsPageTemplates) \u2014 full-page scaffold, exempt per issue (templates/catalog).",

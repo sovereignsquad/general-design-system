@@ -7,6 +7,7 @@ export * from './SafeStyles';
 export * from './EmptyState';
 export * from './ConfirmDialog';
 export * from './icons';
+export * from './pictograms';
 export * from './badge-shapes';
 export * from './GdsBadgeStack';
 export * from './GdsBadge';
