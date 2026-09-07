@@ -389,7 +389,8 @@
       }
     ],
     "themeOwnershipPaths": [
-      "src/main.tsx"
+      "src/main.tsx",
+      "src/logo-lockup-demo-asset.ts"
     ],
     "approvedTemporaryExceptions": []
   }

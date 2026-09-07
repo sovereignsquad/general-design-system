@@ -49,6 +49,11 @@ export const SHAPE_ALLOWLIST = {
     reason: 'Circular colour swatch in the theme picker. A swatch is a colour sample; rounding it by the active theme would make the control restyle itself while being used to choose that theme.',
     reviewBy: '2027-08-01',
   },
+  "packages/gds-core/src/GdsNotificationBell.tsx::borderRadius: '50%',": {
+    category: 'circle',
+    reason: 'Unread-status dot on the bell trigger. Same reasoning as GdsBadge/ChatSurface: a circle is a shape, not a step.',
+    reviewBy: '2027-08-01',
+  },
 
   "packages/gds-core/src/ReferenceThemeExplorer.tsx::borderRadius: 18,": {
     category: 'debt',

@@ -933,6 +933,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Layout primitive (column-grid track-span child) — composed into registered patterns."
   },
   {
+    "name": "GdsCompareButton",
+    "status": "registered",
+    "home": {
+      "id": "badges",
+      "family": "systems",
+      "section": "Badges & Indicators"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsConfirmProvider",
     "status": "exempt",
     "reason": "Provider/context (overlay confirm) — non-visual; the confirm pattern is registered via ConfirmDialog."
@@ -1203,6 +1213,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "i18n runtime surface (GdsI18nRuntime) — message resolver, not a catalog pattern."
   },
   {
+    "name": "GdsLogoLockup",
+    "status": "registered",
+    "home": {
+      "id": "logo-lockup",
+      "family": "systems",
+      "section": "Brand & Identity"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsLongitudinalChart",
     "status": "registered",
     "home": {
@@ -1291,6 +1311,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
       "id": "motion-system",
       "family": "foundations",
       "section": "Motion Tokens"
+    },
+    "alsoAppearsIn": []
+  },
+  {
+    "name": "GdsNotificationBell",
+    "status": "registered",
+    "home": {
+      "id": "loaders-skeletons",
+      "family": "feedback",
+      "section": "Overlays & Feedback"
     },
     "alsoAppearsIn": []
   },

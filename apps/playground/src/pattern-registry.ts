@@ -656,6 +656,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'GdsGeneratedThumbnail / GdsGeneratedHero / GdsGeneratedAvatar / GdsGeneratedMark',
   },
   {
+    id: 'logo-lockup',
+    title: 'Logo Lockup',
+    docSection: 'Core Component Contracts',
+    family: 'systems',
+    section: 'Brand & Identity',
+    summary: 'A consumer-supplied real logo asset — mark, optional wordmark, optional badge pill — the governed counterpart to the generated-imagery system for brands that bring their own mark. `framed` renders the brand-guidelines light contrasting badge (card surface, border, radius, elevation) so a real mark stays legible on any ground.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsLogoLockup',
+  },
+  {
     id: 'consumer-sections',
     title: 'Consumer Sections',
     docSection: 'Core Component Contracts',
@@ -969,9 +979,9 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Feedback & Messaging',
     family: 'feedback',
     section: 'Overlays & Feedback',
-    summary: 'Notifications use the governed queue for severity, retry, announcement-only updates, persistence, and metadata-only audit events.',
+    summary: 'Notifications use the governed queue for severity, retry, announcement-only updates, persistence, and metadata-only audit events. GdsNotificationBell is the header/topbar trigger affordance — a bell with an unread dot, wired to the provider\'s live notification count.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'GdsNotificationProvider / GdsNotificationCenter / NotificationCenter / InlineAlert / BannerNotice',
+    sourceComponent: 'GdsNotificationProvider / GdsNotificationCenter / NotificationCenter / InlineAlert / BannerNotice / GdsNotificationBell / useGdsNotifications',
   },
   {
     id: 'motion-system',
@@ -1071,7 +1081,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Badges & Indicators',
     summary: 'Badges are compact state cues and must not rely on color only. The shape vocabulary renders Tabler-geometry silhouettes for composed badge marks.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'StatusBadge / CountBadge / LabelTag / GdsBadgeShapeCircle / GdsBadgeShapeSquircle / GdsBadgeShapeHexagon / GdsBadgeShapeShield / GdsBadgeShapeRosette / GdsBadgeShapePin / GdsBadge / GdsBadgeStack / GdsBadgeStackLayer / GdsCountBadge / GdsRemovableTag / GdsIconBadge / GdsVibeThemeScope / GdsMapPinBadge / GdsIconStyleContext (SportsEmojiModeDemo scopes the badge glyph mode directly; useGdsBadgeIconStyle is exercised internally by GdsBadge/GdsMapPinBadge whenever that demo renders) / GdsSavedIndicator / GdsRatingDisplay',
+    sourceComponent: 'StatusBadge / CountBadge / LabelTag / GdsBadgeShapeCircle / GdsBadgeShapeSquircle / GdsBadgeShapeHexagon / GdsBadgeShapeShield / GdsBadgeShapeRosette / GdsBadgeShapePin / GdsBadge / GdsBadgeStack / GdsBadgeStackLayer / GdsCountBadge / GdsRemovableTag / GdsIconBadge / GdsVibeThemeScope / GdsMapPinBadge / GdsIconStyleContext (SportsEmojiModeDemo scopes the badge glyph mode directly; useGdsBadgeIconStyle is exercised internally by GdsBadge/GdsMapPinBadge whenever that demo renders) / GdsSavedIndicator / GdsCompareButton / GdsRatingDisplay',
   },
   {
     id: 'modals',

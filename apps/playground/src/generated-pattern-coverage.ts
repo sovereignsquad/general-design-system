@@ -67,6 +67,7 @@ export const provenPatternIds: readonly string[] = [
   "kanban-board",
   "listing-card",
   "loaders-skeletons",
+  "logo-lockup",
   "map-panel",
   "maturity-capabilities",
   "meaning-badge",
