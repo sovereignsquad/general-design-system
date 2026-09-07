@@ -286,14 +286,11 @@ export const EXTENSION_POINTS = {
   // --gds-bg-page and --gds-bg-canvas are no longer listed here: issue 710's QuickStartCard
   // reads --gds-bg-page directly (packages/gds-core/src/QuickStartCard.tsx), and
   // --gds-bg-canvas was already read by GdsMapBasemapWash.tsx and pattern-pages.tsx (pre-dating
-  // this issue) -- both are real, reachable tokens now, not extension points.
-  '--gds-accent': {
-    reason:
-      'Published accent role. Components consume the scheme-resolved --gds-brand-accent-action '
-      + 'and --gds-brand-accent-tint instead; --gds-accent is the un-specialised role a consumer '
-      + 'reads when it wants the lane accent without GDS\'s action/tint semantics.',
-    reviewBy: '2027-08-01',
-  },
+  // this issue) -- both are real, reachable tokens now, not extension points. --gds-accent is
+  // no longer listed either: issue 708's GdsPictogram reads it directly for the pictogram
+  // `selected` state (packages/gds-core/src/pictograms.tsx) -- the un-specialised accent role
+  // a pictogram needs without GDS's badge action/tint semantics -- so it is now genuinely
+  // reachable, not an extension point.
   '--gds-brand-primary-pressed': {
     reason:
       'Pressed-state brand colour. GDS\'s own buttons delegate pressed styling to Mantine\'s '

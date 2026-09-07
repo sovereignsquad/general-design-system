@@ -1325,6 +1325,21 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Catalog component (GdsPageTemplates) — template index, not a catalog pattern."
   },
   {
+    "name": "GdsPictogram",
+    "status": "exempt",
+    "reason": "Pictogram surface (issue 708) — icon rendering primitive mirroring GdsIcon, not a catalog pattern; the shipped family is demonstrated live via GdsPictogramSystemReference, which is registered."
+  },
+  {
+    "name": "GdsPictogramSystemReference",
+    "status": "registered",
+    "home": {
+      "id": "activity-pictograms",
+      "family": "foundations",
+      "section": "Pictograms"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsPinSystemReference",
     "status": "registered",
     "home": {
