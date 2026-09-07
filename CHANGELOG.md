@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, and the trust-layer component family (#708, #699, #724, #698, #710, #713, #711, #709)
+## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, and sidebar/pin elevation roles with validated tracking and italic typography inputs (#708, #699, #724, #698, #710, #713, #711, #709, #695)
 
 ### A governed activity pictogram family (#708)
 
@@ -268,6 +268,43 @@ packs. Stateless (`TrustBadge`, `PriceEstimateLabel`, `LastCheckedLabel`) and st
 (`trust-layer`) composes all eight badge labels, all four price states, fresh and stale
 freshness, the report action pre- and post-activation, `SourceBlock` with real data and with
 every value absent, and the checklist at zero/one/six items. Component census 318 -> 324.
+
+### Sidebar/pin elevation roles, role-level shadow values, validated tracking, and italic typography inputs (#695)
+
+An externally designed brand system due later in this release declares visual decisions the
+theme-axis mechanism could not yet represent: a 240px sidebar shell carrying a directional
+shadow (`2px 0 16px 0 rgba(13,35,64,0.04)`, cast sideways onto the page canvas) and map pins
+carrying a dedicated shadow (`0 2px 8px 0 rgba(11,34,62,0.1)`) — neither `sidebar` nor `pin` was
+a `GdsElevationRole`, and a directional shadow cannot honestly occupy a slot on the shared
+5-step elevation ramp every other surface resolves through. This is pure mechanism work in
+`packages/gds-theme/src/axes.ts`: no preset declares any of these inputs yet.
+
+`GdsElevationRole`/`GDS_ELEVATION_ROLES` gain `sidebar` and `pin`, appended after `tooltip` so
+existing enumeration order is preserved; `GDS_DEFAULT_ELEVATION_AXIS.roles` maps both to step 1,
+the resting-surface step `card`/`panel` already use, so a preset declaring nothing renders
+exactly what it renders today once a consumer adopts the role token. `GdsElevationAxis.roles`
+widens to accept `GdsElevationStep | GdsElevationValue` per role — mirroring how the shape axis
+already lets a radius role carry a literal value — so a theme can either pin a role to a shared
+step or declare its own directional shadow (or `{ kind: 'none' }`) without touching the
+monotonic step ramp at all; `resolveGdsElevationTokens` runtime-guards the role key set (a JSON-
+derived theme bypasses TypeScript, so a typo cannot become a silently unstyled surface) and
+still emits a dense token for every role, undeclared roles falling back to `defaultStep`.
+
+`GdsTypographyAxis`'s `tracking` map (`--gds-tracking-<step>`) previously emitted any string
+unchecked — a malformed value shipped as a silent visual defect rather than failing the build,
+the exact failure mode the axis validators otherwise prevent. It is now validated against
+`normal`, a signed px/rem/em/ch length, or a `var()` reference (percentages are deliberately
+excluded — `letter-spacing` does not accept one). A new `fontStyles?:
+Partial<Record<GdsTextSizeStep, GdsFontStyle>>` input (`GdsFontStyle = 'normal' | 'italic'`)
+resolves to `--gds-font-style-<step>`, emitted only for the steps a theme declares — a consumer
+reads `var(--gds-font-style-<step>, normal)`.
+
+No component adopts any of these tokens yet — `GdsMap.client.tsx`, shell/sidebar components, and
+card/thumbnail components are unchanged; that wiring is follow-on work later in this delivery.
+`GdsShapeElevationSystemReference` iterates `GDS_ELEVATION_ROLES`/`GDS_RADIUS_ROLES` directly, so
+the new `sidebar`/`pin` elevation rows (and the pre-existing `thumbnail` radius role, now
+test-proven to resolve distinctly from `image`/`card`) appear on the reference site from the
+shipped constants alone, with no playground-local code.
 
 ## 6.7.0 - 2026-08-27 — Padel Africa preset, ListingCard media overlays, and a primary-CTA contrast rule (#678, #679, #680)
 

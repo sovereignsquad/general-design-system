@@ -1,7 +1,7 @@
 {
-  "declared": 303,
+  "declared": 305,
   "referenced": 123,
-  "extensionPoints": 131,
+  "extensionPoints": 133,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -501,6 +501,20 @@
       "classification": "extension-point",
       "reason": "Elevation-axis step or role (issue 557). Every step and role is emitted for every preset so a surface can read its elevation by name.",
       "reviewBy": "2027-08-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-elevation-pin",
+      "classification": "extension-point",
+      "reason": "Elevation axis (issue 695). Role token for a map pin, declared so a brand lane can pin a step or a role-level shadow ahead of its real consumer. GdsMap.client.tsx currently shadows pins with the step reference var(--gds-elevation-1, ...) directly, not the role; issue 695 explicitly scopes that rewiring out of itself as follow-on work later in the delivery.",
+      "reviewBy": "2026-12-01",
+      "declaredIn": "getGdsVibeThemeCssVariables"
+    },
+    {
+      "token": "--gds-elevation-sidebar",
+      "classification": "extension-point",
+      "reason": "Elevation axis (issue 695). Role token for a shell sidebar, declared so a brand lane can pin a step or a role-level directional shadow ahead of its real consumer. Issue 695 explicitly scopes shell/sidebar component adoption out of itself; a later delivery step wires this into the sidebar shell component.",
+      "reviewBy": "2026-12-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {

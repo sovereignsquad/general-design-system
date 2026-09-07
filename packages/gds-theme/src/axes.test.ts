@@ -3,13 +3,15 @@ import { DEFAULT_THEME } from '@mantine/core';
 import {
   GDS_CONTROL_HEIGHT_EXCEPTIONS, GDS_CONTROL_SIZES, GDS_DEFAULT_DENSITY_AXIS,
   GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_ROLES, GDS_RADIUS_STEPS, GDS_SPACE_STEPS, GdsAxisError,
-  GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_ELEVATION_ROLES,
-  gdsRadius, resolveGdsDensityTokens, resolveGdsElevationTokens, resolveGdsShapeTokens,
+  GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_ELEVATION_ROLES, GDS_ELEVATION_STEPS,
+  gdsElevation, gdsRadius, resolveGdsDensityTokens, resolveGdsElevationTokens, resolveGdsShapeTokens,
   resolveGdsTypographyTokens, resolveGdsMotionTokens, resolveGdsReactionTokens, validateGdsShapeAxis,
   GDS_DEFAULT_LAYOUT_AXIS, GDS_LAYOUT_DIMENSION_EXCEPTIONS, GDS_MIN_TARGET_PX,
   resolveGdsAxisTokens, resolveGdsLayoutTokens, validateGdsLayoutAxis,
 } from './axes';
+import type { GdsTypographyAxis } from './axes';
 import { gdsTheme } from './theme';
+import { resolveGdsTypeScaleProfile } from './type-scale-profile';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
 
 describe('shape axis (issue 555)', () => {
@@ -369,5 +371,176 @@ describe('layout axis (issue 698)', () => {
     expect(dark['--gds-layout-sidebar-width']).toBe('240px');
     expect(light['--gds-layout-header-height']).toBe(dark['--gds-layout-header-height']);
     expect(light['--gds-layout-nav-item-height']).toBe(dark['--gds-layout-nav-item-height']);
+  });
+});
+
+describe('elevation roles: sidebar and pin (issue 695)', () => {
+  const SIDEBAR_SHADOW = { kind: 'shadow', value: '2px 0 16px 0 rgba(13,35,64,0.04)' } as const;
+  const PIN_SHADOW = { kind: 'shadow', value: '0 2px 8px 0 rgba(11,34,62,0.1)' } as const;
+
+  it('includes sidebar and pin in the role union, appended after tooltip', () => {
+    expect(GDS_ELEVATION_ROLES.slice(-2)).toEqual(['sidebar', 'pin']);
+    expect(GDS_ELEVATION_ROLES.indexOf('tooltip')).toBe(GDS_ELEVATION_ROLES.length - 3);
+  });
+
+  it('defaults sidebar and pin to step 1', () => {
+    expect(GDS_DEFAULT_ELEVATION_AXIS.roles?.sidebar).toBe(1);
+    expect(GDS_DEFAULT_ELEVATION_AXIS.roles?.pin).toBe(1);
+  });
+
+  it('zero overrides: every role, including sidebar and pin, resolves through defaultStep', () => {
+    const tokens = resolveGdsElevationTokens();
+    expect(tokens['--gds-elevation-sidebar']).toBe(tokens['--gds-elevation-1']);
+    expect(tokens['--gds-elevation-pin']).toBe(tokens['--gds-elevation-1']);
+    for (const role of GDS_ELEVATION_ROLES) expect(tokens[`--gds-elevation-${role}`]).toBeTruthy();
+  });
+
+  it('one override: pinning sidebar to a step leaves pin at its default', () => {
+    const tokens = resolveGdsElevationTokens({ ...GDS_DEFAULT_ELEVATION_AXIS, roles: { ...GDS_DEFAULT_ELEVATION_AXIS.roles, sidebar: 3 } });
+    expect(tokens['--gds-elevation-sidebar']).toBe(tokens['--gds-elevation-3']);
+    expect(tokens['--gds-elevation-pin']).toBe(tokens['--gds-elevation-1']);
+  });
+
+  it('many overrides: mixes a pinned step with role-level directional-shadow values', () => {
+    const tokens = resolveGdsElevationTokens({
+      ...GDS_DEFAULT_ELEVATION_AXIS,
+      roles: { ...GDS_DEFAULT_ELEVATION_AXIS.roles, sidebar: SIDEBAR_SHADOW, pin: PIN_SHADOW, menu: 4 },
+    });
+    expect(tokens['--gds-elevation-sidebar']).toBe(SIDEBAR_SHADOW.value);
+    expect(tokens['--gds-elevation-pin']).toBe(PIN_SHADOW.value);
+    expect(tokens['--gds-elevation-menu']).toBe(tokens['--gds-elevation-4']);
+  });
+
+  it('resolves the role-level directional-shadow fixture verbatim, without altering any step token', () => {
+    const baseline = resolveGdsElevationTokens();
+    const tokens = resolveGdsElevationTokens({ ...GDS_DEFAULT_ELEVATION_AXIS, roles: { ...GDS_DEFAULT_ELEVATION_AXIS.roles, sidebar: SIDEBAR_SHADOW } });
+    expect(tokens['--gds-elevation-sidebar']).toBe('2px 0 16px 0 rgba(13,35,64,0.04)');
+    for (const step of GDS_ELEVATION_STEPS) expect(tokens[`--gds-elevation-${step}`]).toBe(baseline[`--gds-elevation-${step}`]);
+  });
+
+  it('permits a role-level {kind: "none"}, flattening that one role without touching the step ramp', () => {
+    const tokens = resolveGdsElevationTokens({ ...GDS_DEFAULT_ELEVATION_AXIS, roles: { ...GDS_DEFAULT_ELEVATION_AXIS.roles, sidebar: { kind: 'none' } } });
+    expect(tokens['--gds-elevation-sidebar']).toBe('none');
+    expect(tokens['--gds-elevation-1']).not.toBe('none'); // the shared step ramp is untouched
+  });
+
+  it('step tokens are unchanged when only roles are declared', () => {
+    const baseline = resolveGdsElevationTokens();
+    const tokens = resolveGdsElevationTokens({
+      ...GDS_DEFAULT_ELEVATION_AXIS,
+      roles: { ...GDS_DEFAULT_ELEVATION_AXIS.roles, sidebar: SIDEBAR_SHADOW, pin: 2 },
+    });
+    for (const step of GDS_ELEVATION_STEPS) expect(tokens[`--gds-elevation-${step}`]).toBe(baseline[`--gds-elevation-${step}`]);
+  });
+
+  it('rejects an unknown role key at runtime, matching the closed-set guard on the shape axis', () => {
+    expect(() => resolveGdsElevationTokens({ ...GDS_DEFAULT_ELEVATION_AXIS, roles: { nope: 1 } as never }, 'probe'))
+      .toThrow(/"nope" is not a known elevation role/);
+  });
+
+  it('rejects a role pinning a step outside the declared set', () => {
+    expect(() => resolveGdsElevationTokens({ ...GDS_DEFAULT_ELEVATION_AXIS, roles: { sidebar: 5 as never } }, 'probe'))
+      .toThrow(/elevation role "sidebar" pins step 5, which is not a declared step/);
+  });
+
+  it('rejects a role-level value with an empty shadow/border value', () => {
+    expect(() => resolveGdsElevationTokens({ ...GDS_DEFAULT_ELEVATION_AXIS, roles: { sidebar: { kind: 'shadow', value: '' } } }, 'probe'))
+      .toThrow(/elevation value of kind "shadow" has no value/);
+  });
+
+  it('emits --gds-elevation-sidebar and --gds-elevation-pin for every preset, both schemes, defaulting to step 1', () => {
+    for (const { id } of getGdsVibeThemes()) {
+      for (const scheme of ['light', 'dark'] as const) {
+        const vars = getGdsVibeThemeCssVariables(id, scheme);
+        expect(vars['--gds-elevation-sidebar']).toBe(vars['--gds-elevation-1']);
+        expect(vars['--gds-elevation-pin']).toBe(vars['--gds-elevation-1']);
+      }
+    }
+  });
+
+  it('gdsElevation("sidebar") returns the var() reference, not a resolved shadow', () => {
+    expect(gdsElevation('sidebar')).toBe('var(--gds-elevation-sidebar)');
+    expect(gdsElevation('pin')).toBe('var(--gds-elevation-pin)');
+  });
+});
+
+describe('shape axis: thumbnail radius role (issue 695)', () => {
+  it('resolves distinctly from image and card under per-role overrides', () => {
+    const tokens = resolveGdsShapeTokens({
+      scale: GDS_DEFAULT_SHAPE_AXIS.scale,
+      roles: { card: '16px', thumbnail: '20px', image: '8px' },
+    });
+    expect(tokens['--gds-radius-thumbnail']).toBe('20px');
+    expect(tokens['--gds-radius-card']).toBe('16px');
+    expect(tokens['--gds-radius-image']).toBe('8px');
+    expect(tokens['--gds-radius-thumbnail']).not.toBe(tokens['--gds-radius-card']);
+    expect(tokens['--gds-radius-thumbnail']).not.toBe(tokens['--gds-radius-image']);
+  });
+
+  it('is present in every preset\'s emission', () => {
+    for (const { id } of getGdsVibeThemes()) {
+      const vars = getGdsVibeThemeCssVariables(id, 'light');
+      expect(vars['--gds-radius-thumbnail']).toBeTruthy();
+    }
+  });
+});
+
+describe('typography axis: tracking validation, fontStyles, and the non-modular ramp (issue 695)', () => {
+  it('accepts normal, signed px/rem/em/ch lengths, and var() references for tracking', () => {
+    for (const tr of ['2px', '-1.5px', 'normal', '0.5rem', 'var(--gds-tracking-lg)']) {
+      expect(() => resolveGdsTypographyTokens({ ...GDS_DEFAULT_TYPOGRAPHY_AXIS, tracking: { md: tr } }, 'probe')).not.toThrow();
+    }
+  });
+
+  it('rejects a percentage, a keyword, and a unitless value for tracking', () => {
+    for (const tr of ['2%', 'bold', '0']) {
+      expect(() => resolveGdsTypographyTokens({ ...GDS_DEFAULT_TYPOGRAPHY_AXIS, tracking: { md: tr } }, 'probe'))
+        .toThrow(/tracking for "md" is/);
+    }
+  });
+
+  it('emits --gds-font-style-<step> only for declared steps', () => {
+    const tokens = resolveGdsTypographyTokens({ ...GDS_DEFAULT_TYPOGRAPHY_AXIS, fontStyles: { '4xl': 'italic' } }, 'probe');
+    expect(tokens['--gds-font-style-4xl']).toBe('italic');
+    expect(tokens['--gds-font-style-md']).toBeUndefined();
+    expect(tokens['--gds-font-style-2xs']).toBeUndefined();
+  });
+
+  it('rejects a fontStyles value that is neither normal nor italic', () => {
+    expect(() => resolveGdsTypographyTokens({ ...GDS_DEFAULT_TYPOGRAPHY_AXIS, fontStyles: { md: 'oblique' as never } }, 'probe'))
+      .toThrow(/font style for "md" is "oblique"; it must be "normal" or "italic"/);
+  });
+
+  it('sparse emission: an undeclared step emits neither a tracking nor a font-style token', () => {
+    const tokens = resolveGdsTypographyTokens({ ...GDS_DEFAULT_TYPOGRAPHY_AXIS, tracking: { lg: '1px' }, fontStyles: { '4xl': 'italic' } }, 'probe');
+    expect(tokens['--gds-tracking-md']).toBeUndefined();
+    expect(tokens['--gds-font-style-lg']).toBeUndefined();
+    expect(tokens['--gds-tracking-lg']).toBe('1px');
+    expect(tokens['--gds-font-style-4xl']).toBe('italic');
+  });
+
+  it('resolves the motivating non-modular ramp (body 28/16, card-title 19.25/14, hero 58.528/49.6) under a named ratio', () => {
+    // The hero-to-h2 ratio 49.6/32 = 1.55 fits none of the six named GdsTypeScaleRatio
+    // values, so the ramp rides on scale.overrides (taken verbatim) with a named ratio still
+    // declared, rather than on the ratio itself.
+    const axis: GdsTypographyAxis = {
+      ...GDS_DEFAULT_TYPOGRAPHY_AXIS,
+      scale: { base: '1rem', ratio: 1.5, overrides: { md: '16px', sm: '14px', '4xl': '49.6px' } },
+      lineHeights: { md: 1.75, sm: 1.375, '4xl': 1.18 },
+    };
+    const tokens = resolveGdsTypographyTokens(axis, 'probe');
+    expect(tokens['--gds-font-size-md']).toBe('16px');
+    expect(tokens['--gds-line-height-md']).toBe('1.75'); // body: 28/16
+    expect(tokens['--gds-font-size-sm']).toBe('14px');
+    expect(tokens['--gds-line-height-sm']).toBe('1.375'); // card-title: 19.25/14
+    expect(tokens['--gds-font-size-4xl']).toBe('49.6px');
+    expect(tokens['--gds-line-height-4xl']).toBe('1.18'); // hero: 58.528/49.6
+    expect(resolveGdsTypeScaleProfile('default', axis)).toEqual({ ratio: 1.5 });
+  });
+
+  it('a scale.ratio of 1.55 (49.6/32) resolves fine on its own but fails resolveGdsTypeScaleProfile', () => {
+    const axis: GdsTypographyAxis = { ...GDS_DEFAULT_TYPOGRAPHY_AXIS, scale: { ...GDS_DEFAULT_TYPOGRAPHY_AXIS.scale, ratio: 1.55 } };
+    expect(() => resolveGdsTypographyTokens(axis, 'probe')).not.toThrow();
+    expect(() => resolveGdsTypeScaleProfile('default', axis)).toThrow(/not one of the six named/);
   });
 });
