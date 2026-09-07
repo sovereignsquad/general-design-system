@@ -1595,6 +1595,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "HeroSearchPanel",
+    "status": "registered",
+    "home": {
+      "id": "hero-search-panel",
+      "family": "public",
+      "section": "Public Product Surfaces"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "InfoCard",
     "status": "registered",
     "home": {
@@ -2155,6 +2165,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
       "id": "public-site-footer",
       "family": "public",
       "section": "Editorial & Brand Storytelling"
+    },
+    "alsoAppearsIn": []
+  },
+  {
+    "name": "QuickStartCard",
+    "status": "registered",
+    "home": {
+      "id": "quick-start-card",
+      "family": "public",
+      "section": "Public Product Surfaces"
     },
     "alsoAppearsIn": []
   },

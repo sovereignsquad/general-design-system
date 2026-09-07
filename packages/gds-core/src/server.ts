@@ -95,5 +95,6 @@ export * from './NumberStepper';
 export * from './SearchableSelect';
 export * from './ChatSurface';
 export * from './AISearchCard';
+export * from './QuickStartCard';
 export * from './generated-art-svg';
 export * from './generated-brand-badge';

@@ -267,4 +267,5 @@ export const ja = {
   'gds.gdsMap.tilesRetryLabel': "画像を再度ロードしてみてください",
   'gds.ratingDisplay.labelWithCount': "{max} 個の星のうち {value}、評価は {count} 個です",
   'gds.ratingDisplay.label': "{max} つ星中 {value}",
+  'gds.heroSearchPanel.ariaLabel': "検索",
 };

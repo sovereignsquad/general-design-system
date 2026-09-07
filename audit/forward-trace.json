@@ -4,10 +4,10 @@
   "cellsEvaluated": 460,
   "obligationsSatisfied": {
     "listed": 81,
-    "demoed": 68,
-    "explained": 63,
+    "demoed": 69,
+    "explained": 64,
     "variationsShown": 40,
-    "useCase": 9
+    "useCase": 10
   },
   "confidence": {
     "listed": "high - direct lookup against the published DTCG graph and docs corpus",
@@ -17,8 +17,8 @@
     "useCase": "LOW - directive-phrase heuristic; same caveat"
   },
   "publishedRoleOverlap": null,
-  "tokensSatisfyingAll": 5,
-  "tokensWithGaps": 87,
+  "tokensSatisfyingAll": 6,
+  "tokensWithGaps": 86,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -277,24 +277,6 @@
       "gaps": [
         "demoed",
         "explained",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-bg-page",
-      "role": "bg-page",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
         "useCase"
       ]
     },
@@ -638,6 +620,23 @@
       ]
     },
     {
+      "token": "--gds-bg-page",
+      "role": "bg-page",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-bg-card",
       "role": "bg-card",
       "declaredIn": [
@@ -824,22 +823,6 @@
         "reason": "Ambient motion duration in styles.css with a prefers-reduced-motion: 0ms override. Motion-token documentation coverage is finding F2's territory and lands with it.",
         "reviewBy": "2026-11-01"
       }
-    },
-    {
-      "token": "--gds-motion-ease-standard",
-      "role": "motion-ease-standard",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": false,
-      "variationsShown": true,
-      "useCase": false,
-      "gaps": [
-        "explained",
-        "useCase"
-      ]
     },
     {
       "token": "--gds-motion-ease-entrance",
@@ -1543,6 +1526,19 @@
     {
       "token": "--gds-motion-duration-base",
       "role": "motion-duration-base",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-motion-ease-standard",
+      "role": "motion-ease-standard",
       "declaredIn": [
         "styles.css"
       ],

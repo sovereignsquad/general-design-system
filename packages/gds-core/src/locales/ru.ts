@@ -267,4 +267,5 @@ export const ru = {
   'gds.gdsMap.tilesRetryLabel': "Попробуйте загрузить изображения еще раз.",
   'gds.ratingDisplay.labelWithCount': "{value} из {max} звезд, оценок: {count}",
   'gds.ratingDisplay.label': "{value} из {max} звезд",
+  'gds.heroSearchPanel.ariaLabel': "Поиск",
 };

@@ -267,4 +267,5 @@ export const he = {
   'gds.gdsMap.tilesRetryLabel': "נסה לטעון שוב תמונות",
   'gds.ratingDisplay.labelWithCount': "{value} מתוך {max} כוכבים, {count} דירוגים",
   'gds.ratingDisplay.label': "{value} מתוך {max} כוכבים",
+  'gds.heroSearchPanel.ariaLabel': "חיפוש",
 };

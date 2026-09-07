@@ -1632,3 +1632,18 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root:where(
   border: 1px solid var(--gds-border-card, var(--gds-vibe-border));
   background: var(--gds-vibe-swatch);
 }
+
+/*
+ * QuickStartCard hover lift (issue 710), following the `.gds-tour-btn` precedent: a
+ * package-level component class carrying a resting/hover state pair. Bound exclusively to
+ * `--gds-motion-*` tokens, which the generated prefers-reduced-motion block above already
+ * zeroes, so the lift disappears under reduced motion with no separate override here.
+ */
+.gds-quick-start-card {
+  box-shadow: var(--gds-elevation-card);
+  transition: transform var(--gds-motion-duration-base) var(--gds-motion-ease-standard), box-shadow var(--gds-motion-duration-base) var(--gds-motion-ease-standard);
+}
+.gds-quick-start-card:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--gds-elevation-panel);
+}
