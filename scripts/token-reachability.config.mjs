@@ -13,8 +13,8 @@ export const EXTENSION_POINTS = {
   // ── Badge tone pairs ──
   '--gds-badge-soft-success': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
   '--gds-badge-soft-success-fg': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
-  '--gds-badge-soft-warning': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
-  '--gds-badge-soft-warning-fg': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
+  // --gds-badge-soft-warning / -fg: no longer an extension point — ConfirmChecklist (issue 709)
+  // reads both directly for its amber card background/foreground.
   '--gds-badge-soft-danger': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
   '--gds-badge-soft-danger-fg': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
   '--gds-badge-soft-info': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },

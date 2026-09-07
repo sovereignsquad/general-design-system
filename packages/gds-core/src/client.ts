@@ -127,6 +127,8 @@ export * from './GdsDesignHandoff';
 export * from './locales';
 export * from './FitScoreChip';
 export * from './MeaningBadge';
+export * from './TrustLayer';
+export * from './TrustLayer.client';
 export * from './MediaWithFallback';
 export * from './NumberStepper';
 export * from './SearchableSelect';

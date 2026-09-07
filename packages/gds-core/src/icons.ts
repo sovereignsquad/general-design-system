@@ -135,6 +135,14 @@ import {
   IconPhone,
   IconGripVertical,
   IconArrowsLeftRight,
+  // Trust layer additions (issue 709)
+  IconCircleCheck,
+  IconClockCheck,
+  IconClockExclamation,
+  IconCoin,
+  IconCalendarTime,
+  IconChecklist,
+  IconFileInfo,
 } from '@tabler/icons-react';
 import { createElement } from 'react';
 
@@ -309,6 +317,15 @@ export const GdsIcons = {
   Tool: IconTool,
   Phone: IconPhone,
   DragHandle: IconGripVertical,
+
+  // Trust layer (issue 709)
+  Confirmed: IconCircleCheck,
+  Freshness: IconClockCheck,
+  Stale: IconClockExclamation,
+  Price: IconCoin,
+  Schedule: IconCalendarTime,
+  Checklist: IconChecklist,
+  SourceInfo: IconFileInfo,
 };
 
 /** Canonical name of an icon in the {@link GdsIcons} dictionary. */
@@ -386,15 +403,15 @@ const gdsIconNameAliases = {
 } as const satisfies Record<string, GdsIconKey>;
 
 const categoryByIcon = {
-  action: ['Add', 'Remove', 'Edit', 'Delete', 'Search', 'Save', 'Play', 'Start', 'Send', 'Reply', 'Forward', 'Attach', 'Upload', 'Download', 'Print', 'Copy', 'Duplicate', 'Check', 'Uncheck', 'Complete', 'Clear', 'Cancel', 'Confirm', 'Close', 'Compare', 'Export', 'Import', 'Preview', 'Clone', 'Restore', 'Toggle', 'Submit', 'Reset', 'Login', 'Register', 'Verify', 'Launch', 'Draft', 'Refer'],
-  status: ['Success', 'Warning', 'Danger', 'Info'],
-  resource: ['Users', 'Gallery', 'Profile', 'Course', 'Lesson', 'Certificate', 'Student', 'Class', 'Grade', 'Child', 'Family', 'Habit', 'Goal', 'Streak', 'Reward', 'Trophy', 'Crown', 'Star', 'StarFilled', 'Currency', 'Evidence'],
-  navigation: ['Dashboard', 'Analytics', 'Home', 'Inbox', 'Calendar', 'History', 'Grid', 'List', 'Back', 'ChevronDown', 'ChevronUp', 'ChevronLeft', 'ChevronRight', 'ArrowUp', 'ArrowDown', 'ExternalLink', 'Link', 'Menu', 'Kanban', 'Location'],
+  action: ['Add', 'Remove', 'Edit', 'Delete', 'Search', 'Save', 'Play', 'Start', 'Send', 'Reply', 'Forward', 'Attach', 'Upload', 'Download', 'Print', 'Copy', 'Duplicate', 'Check', 'Uncheck', 'Complete', 'Clear', 'Cancel', 'Confirm', 'Close', 'Compare', 'Export', 'Import', 'Preview', 'Clone', 'Restore', 'Toggle', 'Submit', 'Reset', 'Login', 'Register', 'Verify', 'Launch', 'Draft', 'Refer', 'Checklist'],
+  status: ['Success', 'Warning', 'Danger', 'Info', 'Confirmed', 'Freshness', 'Stale'],
+  resource: ['Users', 'Gallery', 'Profile', 'Course', 'Lesson', 'Certificate', 'Student', 'Class', 'Grade', 'Child', 'Family', 'Habit', 'Goal', 'Streak', 'Reward', 'Trophy', 'Crown', 'Star', 'StarFilled', 'Currency', 'Evidence', 'SourceInfo'],
+  navigation: ['Dashboard', 'Analytics', 'Home', 'Inbox', 'Calendar', 'History', 'Grid', 'List', 'Back', 'ChevronDown', 'ChevronUp', 'ChevronLeft', 'ChevronRight', 'ArrowUp', 'ArrowDown', 'ExternalLink', 'Link', 'Menu', 'Kanban', 'Location', 'Schedule'],
   media: ['Capture', 'Record', 'Flip', 'Flash', 'Eye', 'EyeOff'],
   feedback: ['Message', 'Mail', 'Refresh', 'TrendingUp', 'TrendingDown', 'Notifications', 'Help'],
   system: ['Settings', 'Language', 'Theme', 'Logout', 'Moon', 'Sun', 'Filter', 'Sort', 'Move', 'More', 'Connectivity', 'Tool'],
   content: ['Bold', 'Italic', 'Underline', 'Strikethrough', 'Quote', 'OrderedList', 'InlineCode', 'Heading1', 'Heading2', 'Undo', 'Redo'],
-  commerce: ['Cart', 'Package', 'Payment', 'Wallet', 'Discount', 'Tag'],
+  commerce: ['Cart', 'Package', 'Payment', 'Wallet', 'Discount', 'Tag', 'Price'],
   security: ['Lock', 'Unlock', 'Key', 'Biometric'],
 } as const satisfies Record<GdsIconCategory, readonly GdsIconKey[]>;
 
