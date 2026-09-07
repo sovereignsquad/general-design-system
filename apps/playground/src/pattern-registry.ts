@@ -416,6 +416,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'DetailProfileShell',
   },
   {
+    id: 'detail-facts-provider-cta',
+    title: 'Detail Facts & Provider CTA',
+    docSection: 'Core Component Contracts',
+    family: 'operations',
+    section: 'Dashboard & Panel Surfaces',
+    summary: 'A key-facts block that states unknown values explicitly and never omits a row, paired with a calm provider-claim prompt, composed inside the detail profile shell in page and drawer modes.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'DetailFactsTable / ProviderCTA',
+  },
+  {
     id: 'public-flow-shell',
     title: 'Public Flow Shell',
     docSection: 'Core Component Contracts',

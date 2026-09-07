@@ -89,6 +89,8 @@ export * from './ListingCard';
 export * from './ListingPrimitives';
 export * from './ListingState.client';
 export * from './DetailProfileShell';
+export * from './DetailFactsTable';
+export * from './ProviderCTA';
 export * from './FitScoreChip';
 export * from './MeaningBadge';
 export * from './AISearchCard';

@@ -30,6 +30,15 @@ export interface SemanticButtonProps extends ButtonProps, Omit<React.ComponentPr
   prerenderLabelOnly?: boolean;
   /** Additional vocabulary packs consulted when resolving the action's label and icon. */
   vocabularyPacks?: GdsVocabularyPack[];
+  /**
+   * Overrides the rendered label with an arbitrary node instead of the vocabulary-resolved
+   * string -- the vocabulary system is string-only by design (it exists to keep a label
+   * translated and consistent everywhere the same `action` appears), so a caller that genuinely
+   * needs non-string content (e.g. a caller-supplied `ReactNode` label prop of its own) sets this
+   * rather than reimplementing button chrome locally. The icon, `feedbackState`, and
+   * `prerenderLabelOnly` behavior are unaffected -- only the text content changes.
+   */
+  label?: React.ReactNode;
 }
 
 const brandButtonStyles: Record<NonNullable<SemanticButtonProps['brandVariant']>, React.CSSProperties> = {
@@ -74,6 +83,7 @@ export function SemanticButton({
   feedbackText,
   prerenderLabelOnly = true,
   vocabularyPacks = [],
+  label: labelOverride,
   ...props
 }: SemanticButtonProps) {
   const { t } = useGdsTranslation();
@@ -97,7 +107,7 @@ export function SemanticButton({
   }, [feedbackState]);
 
   let Icon = config.icon;
-  let label = getSemanticActionLabel(action, t, vocabularyPacks);
+  let label: React.ReactNode = labelOverride ?? getSemanticActionLabel(action, t, vocabularyPacks);
   let color = props.color;
   const brandStyle = brandVariant ? brandButtonStyles[brandVariant] : undefined;
   const disabled = props.disabled || brandVariant === 'disabled';
@@ -106,7 +116,7 @@ export function SemanticButton({
     const { leftSection, style, ...buttonProps } = props;
     return (
       <Button {...buttonProps} loading={loading} color={color} data-gds-brand-button={brandVariant} disabled={disabled} style={{ ...brandStyle, ...style }}>
-        {getSemanticActionLabel(action, undefined, vocabularyPacks)}
+        {labelOverride ?? getSemanticActionLabel(action, undefined, vocabularyPacks)}
       </Button>
     );
   }
