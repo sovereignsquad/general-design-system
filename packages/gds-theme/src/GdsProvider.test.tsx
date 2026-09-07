@@ -324,9 +324,13 @@ describe('GdsProvider', () => {
     expect(semantic.length).toBeGreaterThan(0);
     expect(graph.tokenCount).toBe(atmosphere.length + semantic.length);
 
-    // Every preset must publish the same semantic role set.
+    // Every preset must publish the same semantic role set, with one deliberate exception:
+    // the reserved ai.* sub-brand lane (issue 697) is an optional GdsVibeTheme field, not a
+    // member of the semantic role union every lane fills, so it is additive and per-preset by
+    // design — excluded here so it cannot mask a real, accidental role-set divergence.
     const rolesPerTheme = new Map<string, Set<string>>();
     for (const node of semantic) {
+      if (node.role.startsWith('ai-')) continue;
       const set = rolesPerTheme.get(node.themeId) ?? new Set<string>();
       set.add(node.role);
       rolesPerTheme.set(node.themeId, set);
@@ -334,6 +338,18 @@ describe('GdsProvider', () => {
     const roleSetSizes = new Set([...rolesPerTheme.values()].map((set) => set.size));
     expect(roleSetSizes.size).toBe(1);
     expect(rolesPerTheme.size).toBe(graph.themeCount);
+
+    // The ai.* exception itself stays pinned exactly to your-field's three roles — a future
+    // preset may add its own reserved lane, but no preset may silently ship a partial one.
+    const aiRolesByTheme = new Map<string, Set<string>>();
+    for (const node of semantic) {
+      if (!node.role.startsWith('ai-')) continue;
+      const set = aiRolesByTheme.get(node.themeId) ?? new Set<string>();
+      set.add(node.role);
+      aiRolesByTheme.set(node.themeId, set);
+    }
+    expect([...aiRolesByTheme.keys()]).toEqual(['your-field']);
+    expect(aiRolesByTheme.get('your-field')).toEqual(new Set(['ai-gradient', 'ai-panel', 'ai-accent']));
 
     // Scheme is a first-class dimension, not a name suffix.
     for (const node of semantic) {

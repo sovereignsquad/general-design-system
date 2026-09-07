@@ -247,6 +247,10 @@ function inferNodeCategory(role: string): GdsTokenNode['category'] {
   if (/^accent-\w+-(base|deep|deeper|deepest|on)$/.test(role)) return 'color';
   if (/^badge-(soft|solid)-/.test(role)) return 'color';
   if (/^elevation-/.test(role)) return 'effect';
+  // Reserved sub-brand accent lane (issue 697): the gradient/panel roles carry CSS gradient
+  // strings, never a static colour; the accent role is a static colour like every other role.
+  if (/^ai-(gradient|panel)$/.test(role)) return 'effect';
+  if (/^ai-accent$/.test(role)) return 'color';
   return 'color';
 }
 

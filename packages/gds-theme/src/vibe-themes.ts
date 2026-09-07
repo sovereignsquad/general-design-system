@@ -1,13 +1,15 @@
 import type { GdsThemePresetId } from './theme-presets';
-import { resolveGdsAxisTokens, type GdsThemeAxes } from './axes';
-import { readableForeground } from './color-math';
+import { resolveGdsAxisTokens, GDS_DEFAULT_DESIGN_RULE_PROFILE, type GdsThemeAxes } from './axes';
+import { ensureContrast, mixCssColors, readableForeground } from './color-math';
 import {
   classUsaDefaultColorRamps,
   deriveVibeSemanticCssVariables,
   emitClassUsaCssVariables,
   emitGoldAthleteCssVariables,
   goldAthleteDefaultColorRamps,
+  type SemanticPair,
 } from './semantic-token-source';
+import { YOUR_FIELD_NAVY_DEEP, YOUR_FIELD_SCOUT, YOUR_FIELD_SCOUT_2 } from './your-field';
 
 // Re-exported, not defined here. The public surface is unchanged; the definition moved so
 // that every semantic-role value lives in one module.
@@ -19,6 +21,19 @@ export { deriveVibeSemanticCssVariables };
 // palette), so deriving one from the other would be a visual-design decision, not a
 // mechanical refactor. `vibe-themes.test.ts` guards the drift that is mechanical: every
 // preset id in `theme-presets.ts`'s catalog must have a matching entry here and vice versa.
+
+/**
+ * Reserved sub-brand accent lane (issue 697). Declared only by a preset whose brand carries a
+ * distinct AI/sub-brand identity; absence means the preset emits no `--gds-ai-*` tokens at
+ * all — this is not part of the generic atmosphere palette every preset gets. `gradient` and
+ * `panel` are CSS gradient strings; `accent` is a static color. Every dark value is a
+ * deliberate decision derived from the light value, never a copy of it.
+ */
+export interface GdsAiAccentLane {
+  gradient: SemanticPair;
+  panel: SemanticPair;
+  accent: SemanticPair;
+}
 
 /** The saturated "vibe" atmosphere palette for one preset: brand hues plus light/dark surface, text, and decorative effect colors. */
 export interface GdsVibeTheme {
@@ -73,6 +88,11 @@ export interface GdsVibeTheme {
    */
   axes?: GdsThemeAxes;
   flatSurfaces?: boolean;
+  /**
+   * Reserved sub-brand accent lane (issue 697): see {@link GdsAiAccentLane}. Optional and
+   * absent for every preset without a distinct AI/sub-brand identity.
+   */
+  ai?: GdsAiAccentLane;
 }
 
 const neutralVibe: GdsVibeTheme = {
@@ -96,6 +116,46 @@ const neutralVibe: GdsVibeTheme = {
   gradient: 'radial-gradient(circle at 18% 12%, rgba(124, 58, 237, 0.18), transparent 28%), radial-gradient(circle at 82% 8%, rgba(6, 182, 212, 0.16), transparent 30%)',
   hero: 'linear-gradient(135deg, rgba(124, 58, 237, 0.14), rgba(6, 182, 212, 0.12))',
 };
+
+// Your Field's Scout AI sub-brand accent lane (issue 697). Light values are the handoff's own
+// anchors, reused verbatim from your-field.ts (YOUR_FIELD_SCOUT/YOUR_FIELD_SCOUT_2/
+// YOUR_FIELD_NAVY_DEEP) rather than retyped, so there is exactly one place each hex lives.
+// `#1A3A6A` (the second ai.panel stop) mirrors that same literal, cased identically, already
+// carried by your-field.ts's own `YOUR_FIELD_ROLES.aiPanelGradient` — not a fresh invention.
+//
+// The handoff ships no dark scheme at all, so every dark value below is authored here, never
+// copied from light (incidents 533/534): each is nudged toward white with the same
+// ensureContrast/mixCssColors recipe `deriveVibeSemanticCssVariables` already uses for this
+// preset's own generic accent's dark sibling — mix 75% toward white, then push further only
+// if still under the WCAG non-text floor — run against the your-field vibe's own
+// canvasDark/surfaceDark. `ai.accent` and both `ai.gradient` stops clear >= 3:1 (WCAG 1.4.11)
+// against canvasDark, the ring/gradient's actual dark ground; both `ai.panel` stops clear
+// >= 3:1 against surfaceDark, the surface the panel sits on top of — a straight navy-on-navy
+// repaint would otherwise let the panel disappear into an equally dark shell instead of
+// reading as an elevated surface. Gradient angle and stop offsets stay unchanged between
+// schemes: geometry is brand identity, not a contrast decision.
+const YOUR_FIELD_AI_CANVAS_DARK = '#0a1626';
+const YOUR_FIELD_AI_SURFACE_DARK = 'rgba(17, 36, 58, 0.9)';
+const YOUR_FIELD_AI_ACCENT_DARK = ensureContrast(
+  mixCssColors(YOUR_FIELD_SCOUT, '#ffffff', 0.75, YOUR_FIELD_AI_CANVAS_DARK),
+  YOUR_FIELD_AI_CANVAS_DARK, 3, true, YOUR_FIELD_AI_CANVAS_DARK,
+);
+const YOUR_FIELD_AI_GRADIENT_STOP_2_DARK = ensureContrast(
+  mixCssColors(YOUR_FIELD_SCOUT_2, '#ffffff', 0.75, YOUR_FIELD_AI_CANVAS_DARK),
+  YOUR_FIELD_AI_CANVAS_DARK, 3, true, YOUR_FIELD_AI_CANVAS_DARK,
+);
+const YOUR_FIELD_AI_PANEL_STOP_1_DARK = ensureContrast(
+  mixCssColors(YOUR_FIELD_NAVY_DEEP, '#ffffff', 0.75, YOUR_FIELD_AI_SURFACE_DARK),
+  YOUR_FIELD_AI_SURFACE_DARK, 3, true, YOUR_FIELD_AI_SURFACE_DARK,
+);
+const YOUR_FIELD_AI_PANEL_STOP_2_DARK = ensureContrast(
+  mixCssColors('#1A3A6A', '#ffffff', 0.75, YOUR_FIELD_AI_SURFACE_DARK),
+  YOUR_FIELD_AI_SURFACE_DARK, 3, true, YOUR_FIELD_AI_SURFACE_DARK,
+);
+// ai.gradient's first stop is Scout itself, the same hue ai.accent derives from, so its dark
+// sibling reuses the identical derived value rather than recomputing the same thing twice.
+const YOUR_FIELD_AI_GRADIENT_DARK = `linear-gradient(135deg, ${YOUR_FIELD_AI_ACCENT_DARK} 0%, ${YOUR_FIELD_AI_GRADIENT_STOP_2_DARK} 100%)`;
+const YOUR_FIELD_AI_PANEL_DARK = `linear-gradient(124deg, ${YOUR_FIELD_AI_PANEL_STOP_1_DARK} 0%, ${YOUR_FIELD_AI_PANEL_STOP_2_DARK} 100%)`;
 
 const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   default: neutralVibe,
@@ -336,11 +396,51 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     mutedLight: '#434c59',
     mutedDark: '#c4bfb4',
     // The brand's general marketing/editorial surfaces are deliberately flat — no decorative
-    // gradient outside the Scout AI sub-lane (see your-field.ts YOUR_FIELD_ROLES.aiGradient /
-    // aiPanelGradient, which carry the brand's only two gradients under their own role names).
+    // gradient outside the Scout AI sub-lane. The brand's only two gradients are carried
+    // twice by design, not by drift: your-field.ts's YOUR_FIELD_ROLES.aiGradient/
+    // aiPanelGradient expose them as Mantine theme.other values (the pre-issue-697 delivery
+    // path, unscoped by colour scheme), and the `ai` field below (issue 697) is the same two
+    // gradients plus the accent colour, as governed --gds-ai-* tokens with authored dark
+    // siblings. Both read the same light-mode anchors; see the `ai` field's own comment above
+    // this preset table for how the dark siblings were derived.
     gradient: 'none',
     hero: 'none',
     flatSurfaces: true,
+    ai: {
+      gradient: {
+        light: `linear-gradient(135deg, ${YOUR_FIELD_SCOUT} 0%, ${YOUR_FIELD_SCOUT_2} 100%)`,
+        dark: YOUR_FIELD_AI_GRADIENT_DARK,
+      },
+      panel: {
+        light: `linear-gradient(124deg, ${YOUR_FIELD_NAVY_DEEP} 0%, #1A3A6A 100%)`,
+        dark: YOUR_FIELD_AI_PANEL_DARK,
+      },
+      accent: {
+        light: YOUR_FIELD_SCOUT,
+        dark: YOUR_FIELD_AI_ACCENT_DARK,
+      },
+    },
+    axes: {
+      designRuleProfile: {
+        ...GDS_DEFAULT_DESIGN_RULE_PROFILE,
+        // Reserved-usage contract (issue 697, normative text in THEME_GOVERNANCE.md): the ai
+        // lane is exclusive to Scout AI surfaces plus the focus ring and featured ring, and is
+        // never a general action colour. Mechanically enforced by
+        // `scripts/verify-ai-reserved-usage.mjs` (`verify:ai-reserved-usage`), not just declared
+        // here as a claim.
+        reservedAccents: [
+          {
+            role: 'ai.gradient',
+            surfaces: ['AISearchCard', 'ChatThread', 'ChatMessage', 'ChatInput', 'StreamingIndicator', 'AIPromoPanel', 'BottomTabBar'],
+          },
+          { role: 'ai.panel', surfaces: ['AIPromoPanel'] },
+          {
+            role: 'ai.accent',
+            surfaces: ['AISearchCard', 'ChatThread', 'ChatMessage', 'ChatInput', 'StreamingIndicator', 'AIPromoPanel', 'BottomTabBar', 'FocusRing', 'FeaturedRing'],
+          },
+        ],
+      },
+    },
   },
   sunset: {
     ...neutralVibe,
@@ -612,6 +712,34 @@ export function resolveGdsVibeTheme(id: GdsThemePresetId) {
   return vibeThemes[id] ?? neutralVibe;
 }
 
+/**
+ * The reserved sub-brand accent lane a preset declares (issue 697), or `undefined` when the
+ * preset has none. Reads the same vibe catalog {@link getGdsVibeThemeCssVariables} emits from,
+ * so a gate or test can read the lane's values without parsing CSS.
+ */
+export function getGdsAiAccentLane(id: GdsThemePresetId): GdsAiAccentLane | undefined {
+  return resolveGdsVibeTheme(id).ai;
+}
+
+/**
+ * Emits the `--gds-ai-*` variable pair for a preset's reserved sub-brand accent lane
+ * (issue 697), or nothing when the preset declares none. The caller merges this into the
+ * semantic variable set BEFORE the dark-collapse loop in {@link getGdsVibeThemeCssVariables},
+ * so its `-dark` values collapse onto their base names in dark mode exactly like every other
+ * `--gds-*` role, rather than needing a second collapse path.
+ */
+function emitAiAccentCssVariables(vibe: GdsVibeTheme): Record<string, string> {
+  if (!vibe.ai) return {};
+  return {
+    '--gds-ai-gradient': vibe.ai.gradient.light,
+    '--gds-ai-gradient-dark': vibe.ai.gradient.dark,
+    '--gds-ai-panel': vibe.ai.panel.light,
+    '--gds-ai-panel-dark': vibe.ai.panel.dark,
+    '--gds-ai-accent': vibe.ai.accent.light,
+    '--gds-ai-accent-dark': vibe.ai.accent.dark,
+  };
+}
+
 // These two lanes' semantic values are generated from the single source in
 // `semantic-token-source.ts` — the same table `createBrandTheme` emits from — so the two
 // paths cannot disagree. `verify:token-single-source` enforces this mechanically.
@@ -715,9 +843,14 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
   // dark — so they are merged in once rather than resolved per scheme.
   const axisVariables = resolveGdsAxisTokens(vibe.axes, id, colorScheme);
 
-  const semanticVariables: Record<string, string> = { ...brandSemanticCssVariables };
+  // The reserved ai lane (issue 697) merges in here, before the dark-collapse loop below, so
+  // its `-dark` values collapse onto their base names in dark mode exactly like every other
+  // `--gds-*` role rather than needing a second collapse path.
+  const semanticSource: Record<string, string> = { ...brandSemanticCssVariables, ...emitAiAccentCssVariables(vibe) };
+
+  const semanticVariables: Record<string, string> = { ...semanticSource };
   if (dark) {
-    Object.entries(brandSemanticCssVariables).forEach(([property, value]) => {
+    Object.entries(semanticSource).forEach(([property, value]) => {
       if (property.endsWith('-dark')) {
         semanticVariables[property.replace(/-dark$/, '')] = value;
       }

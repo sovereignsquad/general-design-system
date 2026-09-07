@@ -2,7 +2,57 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, and sidebar/pin elevation roles with validated tracking and italic typography inputs (#708, #699, #724, #698, #710, #713, #711, #709, #695)
+## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, sidebar/pin elevation roles with validated tracking and italic typography inputs, and a reserved Scout AI sub-brand accent lane (#708, #699, #724, #698, #710, #713, #711, #709, #695, #697)
+
+### A reserved Scout AI sub-brand accent lane (#697)
+
+The Your Field handoff defines a distinct Scout AI sub-brand — an orange identity gradient
+(`linear-gradient(135deg, #ff6b35 0%, #ff9055 100%)`), a navy promo-panel gradient
+(`linear-gradient(124deg, #0d2340 0%, #1a3a6a 100%)`), and the Scout orange `#ff6b35` doubling
+as the system-wide focus ring and featured-card ring — with an explicit rule that the gradient
+belongs to Scout AI exclusively and is never a general action color. Nothing in GDS could
+express that: the token graph's color validation rejects a gradient-valued role outright (no
+gradient-carrying `BrandSemanticRole` exists), and no gate could say "this token may be
+consumed only by these surfaces."
+
+`GdsAiAccentLane` (`packages/gds-theme/src/vibe-themes.ts`) is a new optional field,
+`GdsVibeTheme.ai`, carrying `gradient`/`panel`/`accent` as light/dark pairs. Only the
+`your-field` preset declares it; every other preset's emitted token set is byte-identical
+before and after this change. `emitAiAccentCssVariables` merges the lane into the semantic
+variable set inside `getGdsVibeThemeCssVariables`, before the existing dark-collapse loop, so
+`--gds-ai-gradient`, `--gds-ai-panel`, and `--gds-ai-accent` (plus their `-dark` siblings)
+collapse onto their base names in dark mode exactly like every other `--gds-*` role.
+`getGdsAiAccentLane(id)` (re-exported from `index.ts`/`client.ts`/`server.ts`) reads the same
+lane without parsing CSS, returning `undefined` for every preset but `your-field`.
+
+The handoff's token source ships no dark scheme at all. Each dark value is a deliberate
+decision, not the light value reused: `ai.accent` and both `ai.gradient` stops are nudged
+toward white with the package's own `ensureContrast`/`mixCssColors` machinery until they clear
+3:1 (WCAG 1.4.11) against `your-field`'s dark canvas (`#0a1626`); both `ai.panel` stops clear
+3:1 against the dark surface (`rgba(17, 36, 58, 0.9)`) it actually sits on top of, so the panel
+keeps reading as an elevated surface instead of disappearing into an equally dark shell.
+
+`inferNodeCategory` (`token-operations.ts`) classifies `ai-gradient`/`ai-panel` as `effect` and
+`ai-accent` as `color`, so the token graph and `verify:token-contrast-scoring` stay clean and
+the ai roles are excluded from the readable-text hard gates they never claim to pass. A new
+report-severity accessibility-floor rule, `ai-accent-text-contrast`, measures white on
+`ai.accent` per preset × scheme and prints the ratio (2.84:1 for `your-field`, below AA) every
+run without failing the build — the number is derived, never retyped as prose.
+
+The reservation is encoded twice. `GdsDesignRuleProfile.reservedAccents`
+(`packages/gds-theme/src/axes.ts`) is a new optional array of `{ role, surfaces }` claims;
+`validateGdsDesignRuleProfile` now throws on a duplicate role or an entry with zero surfaces.
+`your-field`'s vibe entry declares its own reservation. Mechanically,
+`scripts/verify-ai-reserved-usage.mjs` (`npm run verify:ai-reserved-usage`, wired into
+`verify:release`) scans `packages/gds-core/src/**` and `packages/gds-theme/styles.css` for the
+literal `--gds-ai-` against an explicit allowlist — empty today, since every sanctioned
+consumer (`AISearchCard`, the chat surfaces, the AI promo panel, `BottomTabBar`'s emphasized
+disc, the focus ring, the featured ring) lands in a follow-on issue in this delivery — and
+fails loudly, naming file and line, on anything unlisted. The reserved-usage contract itself is
+documented in `THEME_GOVERNANCE.md`.
+
+This issue ships the token mechanism, contract, and gates only — no consuming component, no
+`SemanticButton` gradient variant, and no change to any other preset's visual output.
 
 ### A governed activity pictogram family (#708)
 

@@ -5,9 +5,9 @@
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
       "themeCount": 27,
-      "tokenCount": 6075,
+      "tokenCount": 6078,
       "atmosphereTokenCount": 459,
-      "semanticTokenCount": 5616,
+      "semanticTokenCount": 5619,
       "globalTokenCount": 36,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
@@ -38280,6 +38280,51 @@
               "scheme": {
                 "light": "#ffffff",
                 "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "ai-accent": {
+          "$type": "color",
+          "$value": "#FF6B35",
+          "$description": "your-field semantic role \"ai-accent\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "ai-accent",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#FF6B35",
+                "dark": "rgb(255, 144, 104)"
+              }
+            }
+          }
+        },
+        "ai-gradient": {
+          "$type": "com.sovereignsquad.gds.cssGradient",
+          "$value": "linear-gradient(135deg, #FF6B35 0%, #FF9055 100%)",
+          "$description": "your-field semantic role \"ai-gradient\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "ai-gradient",
+              "lane": "semantic",
+              "scheme": {
+                "light": "linear-gradient(135deg, #FF6B35 0%, #FF9055 100%)",
+                "dark": "linear-gradient(135deg, rgb(255, 144, 104) 0%, rgb(255, 172, 128) 100%)"
+              }
+            }
+          }
+        },
+        "ai-panel": {
+          "$type": "com.sovereignsquad.gds.cssGradient",
+          "$value": "linear-gradient(124deg, #0D2340 0%, #1A3A6A 100%)",
+          "$description": "your-field semantic role \"ai-panel\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "ai-panel",
+              "lane": "semantic",
+              "scheme": {
+                "light": "linear-gradient(124deg, #0D2340 0%, #1A3A6A 100%)",
+                "dark": "linear-gradient(124deg, rgb(108, 122, 139) 0%, rgb(100, 122, 154) 100%)"
               }
             }
           }

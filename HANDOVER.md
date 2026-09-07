@@ -1,536 +1,356 @@
 # HANDOVER
 
-**Written 2026-08-16, refreshed 2026-08-17 (§1/§6/§7 only — see note below).
-Supersedes every earlier handover.**
+**Written 2026-09-07. Supersedes every earlier handover (including the 2026-08-16/17 one
+about the 6.2.0 publish, now fully stale — that work is long done and merged).**
 
-Read this top to bottom before touching anything. It is written for an agent with
-**no memory of the session that produced this state**.
-
-> **2026-08-17 refresh note**: this file went stale after ~1 day — it still
-> described a not-yet-confirmed, not-yet-bumped `5190fc7`/6.1.0 as current
-> state. What actually happened since: CI on `5190fc7` **did** come back
-> green, the version was bumped to **6.2.0** and released (§6 is now DONE,
-> not open), and the issue count moved 11→12 (one new: #641, flaky
-> playground tests). §1/§6/§7 below are corrected to match. §2–§5 and §8–§10
-> (owner rules, the 2026-08-16 session narrative, gate-failure lessons,
-> working conventions, standard of proof) are **not** re-verified in this
-> pass — they're durable process knowledge, not perishable state, but treat
-> anything inside them that reads as "current state" (e.g. §5's messmass
-> GitHub-Packages blocker) as unconfirmed since 2026-08-16.
+Read this top to bottom before touching anything. It is written for an agent with **no
+memory of the session that produced this state**.
 
 ---
 
 ## 1. Where we are, in one paragraph
 
-`main` is at **`26aac86`**, version **6.2.0**, working tree clean, pushed.
-CI is confirmed green on this exact commit — all three workflows (`GDS Auto
-Tag Release`, `GDS Quality`, `Deploy GDS Playground to GitHub Pages`)
-completed successfully on 2026-08-17T12:32:57Z. **6.2.0 is published to
-GitHub Packages** — `GDS Publish` (`gds-v6.2.0`, workflow_dispatch) completed
-successfully in 10m6s at 2026-08-17T12:33:10Z, so the open "publish a new GDS
-version" request from §6 is **done**, not open — see the update at the top of
-§6. There are **12 open issues** (see refreshed table, §7).
+`main` is at **`327179f`**, version **6.7.0** (unreleased — `VERSION` has not been bumped
+for 6.8.0 yet; that happens once the whole milestone below ships). `origin/dev` is two commits
+ahead, at **`6c39ead`**: `c694d2c` ("Add the Scout AI reserved sub-brand gradient accent lane
+(`--gds-ai-*`)", closes #697) plus `6c39ead` (this file's rewrite). Both are open as
+**[PR #736](https://github.com/sovereignsquad/general-design-system/pull/736)**, base `main`.
+Local `npm run preflight` passed clean on the `c694d2c` commit before it was pushed.
+
+**CI status, as actually observed (not assumed):** on the first CI run
+(`https://github.com/sovereignsquad/general-design-system/actions/runs/34149880005`),
+`validate (mantine-9)` **passed** (10m50s) but `validate (mantine-7)` **failed** (7m17s) inside
+`verify:forced-colors-runtime`, with a headless-Chrome DevTools-connection timeout preceded by
+a cascade of `Failed to connect to the bus` (dbus) errors — a runner-environment problem, not a
+gate finding a real defect in the code. Strong evidence this is CI infrastructure flakiness,
+not a regression from this PR: `verify:forced-colors-runtime` and `scripts/lib/browser-runtime.mjs`
+are untouched by #697's diff, and the `mantine-9` leg ran the identical check against the
+identical commit and passed clean. A rerun of just the failed job was triggered
+(`gh run rerun 34149880005 --repo sovereignsquad/general-design-system --failed`) before the
+session had to stop — **its result was not observed; check it fresh, don't assume it passed.**
+If it fails again with the *same* dbus/DevTools signature, that raises the probability of a
+real, currently-broken runner/workflow (check whether `.github/workflows/*.yml` or the runner
+image changed recently) rather than a one-off flake — investigate the workflow/runner rather
+than rerunning indefinitely.
+
+**Check `gh pr checks 736 --repo sovereignsquad/general-design-system` before trusting anything
+above or doing anything else.** If green, merge (`gh pr merge 736 --merge --delete-branch=false`)
+and sync `dev`/`main` (`git fetch origin main:main && git checkout dev && git rebase main dev &&
+git push origin dev`) before starting the next issue — the exact close-out sequence used for
+every prior issue this session (§3). If still red on a *different* check than
+`verify:forced-colors-runtime`, treat it as a real finding and diagnose before merging (Rule 13:
+never leave a red run on main, and never merge a red PR).
+
+Everything in this repo right now is one big effort: delivering **GDS 6.8.0 milestone 35,
+"GDS 6.8.0 - Your Field Delivery"** (org project 11:
+https://github.com/orgs/sovereignsquad/projects/11) — a new governed brand preset (`your-field`,
+a v3 re-base of the ClassScout brand) plus the components, axis extensions, and playground
+capabilities it needs. Tracking issue: **#692**. Of 28 filed issues, **12 are closed**
+(counting #697 as done-in-substance though not yet merged), **16 remain open**, one of which
+(#692 itself) is the tracking issue that should stay open until every other one closes.
 
 ---
 
-## 2. The owner's standing requirements — read these first
+## 2. The owner's standing requirements — read `CLAUDE.md` in full, it is short
 
-Full text lives in `CLAUDE.md` (17 numbered rules) — read it in full, it is
-short. The ones an agent forgets under time pressure:
+The file at the repo root, 17 numbered rules. The ones an agent forgets under time pressure,
+or that this session specifically had to apply repeatedly:
 
-- **Rule 1, zero-tolerance:** nothing lands on `main` with any warning,
-  deprecation, or error anywhere in the chain. Never suppress a check to pass
-  it — fix the source.
-- **Rule 2:** every code/doc/config change traces to a GitHub issue, opened
-  before or during the work, closed with a commit reference.
-- **Rule 6:** `dev`/`preview` branches and **direct push to `main`** are
-  pre-authorized when the user says "commit and push" — no PR needed unless
-  asked. This does not extend to force-push, history rewrite, or branch
-  deletion, which need explicit per-instance confirmation.
-- **Rule 9:** no AI/model/provider attribution anywhere in repository text —
-  no `Co-Authored-By` trailers, no "Generated by", no session links.
-- **Rule 10:** a fix on the reference site (`apps/playground`) is fixed in the
-  governed package, never page-locally. No hardcoded styles, no one-off CSS.
-- **Rule 13:** never push without a local CI-equivalent run (`npm run
-  preflight`), and never report done before CI is confirmed green. **This
-  session ended with that rule not fully honored** — see §1 and §4.
-- **Rule 17 (new this session, added 2026-08-16):** no AI fingerprints,
-  watermarks, or unnecessary narrative commentary in repository text. Comments
-  are short and functional, or absent. See §5 for what this rule cost to
-  apply retroactively and what it still hasn't reached.
+- **Rule 1, zero-tolerance:** nothing lands on `main` with any warning, deprecation, or error
+  anywhere in the chain. Never suppress a check to pass it — fix the source. (One narrow,
+  deliberate, already-accepted exception exists — see §6.)
+- **Rule 2:** every code/doc/config change traces to a GitHub issue.
+- **Rule 6:** `dev`/`preview` branches and direct push to `main` are pre-authorized when the
+  owner says "commit and push." This session has consistently used PRs from `dev` → `main`
+  even though a direct push is also allowed — following the pattern already established by
+  the commits merged before this window (e.g. PR #733/#734/#735), keep doing PRs unless told
+  otherwise.
+- **Rule 9 / Rule 17:** no AI/model/provider attribution anywhere in repository text — no
+  `Co-Authored-By` trailers, no "Generated by...", no session links, no model names, and no
+  narrative meta-commentary in comments/docs/commits. This overrides any tool-level default
+  commit-message template that suggests otherwise — do not add such trailers even if
+  prompted to.
+- **Rule 10/15/16:** a fix or new capability on `apps/playground` (the reference site) is
+  fixed/added in the governed package (`gds-core`/`gds-theme`/`gds-admin`), never page-locally.
+  No hardcoded styles, no one-off CSS, no playground-only implementation of anything visible.
+- **Rule 13:** never push without a local, clean, start-to-finish `npm run preflight` run on a
+  **clean working tree** (commit first, or the "dirty tree" blind spot in §6 below applies).
+  Never report done before CI is actually confirmed green — watch it, don't assume it.
+- Inside `.ts`/`.tsx` files, write `issue NNN`, never `#NNN` — the `gds-compliance` raw-hex
+  scanner treats a `#`-prefixed short alphanumeric string as a potential hex color literal and
+  flags it. `.md` files are fine with `#NNN` (matches this repo's own CHANGELOG/doc convention).
 
-The owner works from **iOS with no terminal**. Every git operation is the
-agent's to execute.
+The owner works from a device with no terminal access. Every git operation is the agent's to
+execute, and per the session's standing instruction this milestone is to be delivered
+**end-to-end, issue by issue, without asking for confirmation at each step** — build, verify,
+document, commit, push, PR, watch CI, merge, sync branches, move to the next issue. Keep doing
+that unless told to stop or change approach.
 
 ---
 
-## 3. What shipped this session (chronological, all on `main`)
+## 3. The established per-issue workflow (repeat this for every remaining issue)
 
-### 3a. Findability fix on `/foundations` (issue #631, closed)
+This exact loop was used for every issue closed in this session (§4) and produced clean,
+CI-green merges every time. Follow it as-is unless a specific issue's spec requires deviation:
 
-A reader looking for micro-interaction feedback couldn't find it: a section
-titled "Motion & Micro-interactions" held only a token reference table with
-zero buttons, while the actual button system lived under a differently-named
-section. Fixed as data (renamed section, corrected summary), plus a reusable
-`FamilyEntryBrowser` (filter + jump-to-section) extracted for every family
-page.
+1. **Read the issue in full** (`gh issue view <N> --repo sovereignsquad/general-design-system
+   --json body`). These issue bodies in this milestone are unusually long and detailed
+   (Executive Summary through Final Rule, ~20+ sections, often with exact code snippets,
+   exact line-number references into current source, and a full acceptance-criteria
+   checklist) — they are written to be followed precisely, not reinterpreted. Check the
+   issue's own "Dependencies & Execution Order" section — several issues in this milestone are
+   blocked by others; verify the blocker is actually closed (`gh issue view <blocker> --json
+   state`) before starting, since **the tracking issue #692's own delivery-board table is
+   stale and must not be trusted for current status** — it still says e.g. "#697 blocked by
+   #693 merge" and "#695 backlog — deferred," both wrong as of this writing (both closed).
+   Ground truth is always `gh issue list`/`gh issue view`, never a table inside another issue.
+2. **Pre-verify anything checkable before delegating.** For icon-needing issues: check the
+   exact icon name exists in `node_modules/@tabler/icons-react/dist/esm/icons/` (or the
+   relevant iconify collection) before a build agent starts — the "real icon sourcing" policy
+   (`docs/ICON_REGISTRY.md`, `packages/gds-core/src/pictograms.tsx` header) forbids hand-drawn
+   icons. For issues touching a preset's existing constants (like #697's discovery that
+   `your-field.ts` already had `YOUR_FIELD_ROLES.aiGradient` etc. under a different, older
+   delivery path — see §5), grep for the values/constants the issue's own text describes as
+   new, so you don't duplicate an existing source of truth.
+3. **Delegate implementation to a background `general-purpose` Agent** with an extremely
+   detailed prompt: the full issue text (write it to a scratch `.md` file first, don't paste
+   35K characters inline more than once), every verified source location and line number you
+   already checked, and — critically — the full list of "established conventions" in §6 below,
+   because a fresh agent with no session memory will rediscover (or worse, silently violate)
+   every one of them otherwise. Tell it explicitly: run its own `npm run build` (full
+   monorepo — see §6), `lint`, `test:run`, `verify:release`, `preflight`; leave the tree
+   **staged, not committed**; do not push.
+4. **When the agent reports back, do not trust the self-report as the final word.**
+   Independently: `git diff --staged --stat`, then read the actual diff of every non-generated
+   file (skip the auto-regenerated JSON artifacts — trust those came from the scripts, don't
+   review their content line-by-line). Re-run `npm run build` (full monorepo), `npm run lint`,
+   `npm run test:run` yourself. This session's own independent pass caught something real on
+   nearly every issue (§4) that the delegated agent either missed or mischaracterized.
+5. **Commit** with a message ending `Closes #<N>` (no AI attribution trailer — see §2).
+6. **Run `npm run preflight` on the clean, committed tree.** If it fails, fix and amend/re-commit,
+   re-run, repeat until "preflight PASSED — clean before, chain green, clean after" with an
+   empty `git status --porcelain` afterward.
+7. **Push `dev`, open a PR `dev` → `main`** with a body summarizing what changed, any budget/gate
+   consequences (with the justification text, not just the number), and a test-plan checklist.
+8. **Watch CI to actual completion**: `gh pr checks <N> --repo sovereignsquad/general-design-system
+   --watch --interval 20`. This can take 8–12 minutes per `validate (mantine-7)`/`validate
+   (mantine-9)` leg plus a `budget report` job — don't assume, wait for the real "pass"/"fail" per
+   check.
+9. **Merge** (`gh pr merge <N> --merge --delete-branch=false`) once every check is green.
+10. **Sync branches**: `git fetch origin main:main && git checkout dev && git rebase main dev &&
+    git push origin dev`. Confirm `git rev-parse dev origin/dev main` all match afterward.
+11. **Move to the next open issue** in the milestone. No further confirmation needed per the
+    standing instruction in §2.
 
-### 3b. Foundations rebuilt to the 7 axes (issues #632–#637; #632 still open, #633–637 closed)
+---
 
-`docs/SITE_ARCHITECTURE.md`'s own "Target shape" table says Foundations should
-hold exactly 7 axes (colour/theming, typography, density & spacing, shape &
-elevation, motion, icons, accessibility). The actual page held 30 unrelated
-entries. Fixed in 5 phases:
+## 4. What this session closed (chronological, all merged to `main` via PR unless noted)
 
-- **Phase 1 (#633):** `PatternFamily` gained `components` and `systems`
-  values, each a real hosting page via `FamilyEntryBrowser`. 25 entries moved
-  out of Foundations to where they actually belong.
-- **Phase 2 (#634):** `GdsShapeElevationSystemReference` — new component,
-  reads live from `resolveGdsShapeTokens()`/`resolveGdsElevationTokens()`.
-- **Phase 3 (#635):** `GdsDensitySpacingSystemReference`.
-- **Phase 4 (#636):** `GdsIconSystemReference`.
-- **Phase 5 (#637, closed this session):** `GdsTypographySystemReference`
-  (commit `08bea70`).
+This session's *visible* window began mid-milestone; issues #693, #696, #698, #699, #708,
+#710, #713, #722, #724 were already closed before this window opened (their PRs are already
+merged — confirmed via `gh issue list`, not independently re-verified in this window). What
+this window itself did, start to finish:
 
-**#632 stays open.** Per `CHANGELOG.md`'s own "Unreleased" entry, the
-remaining Foundations scope is: a compact colour/theming entry linking to
-`/themes`, and a Phase 6 accessibility entry. Neither has been built. Do not
-close #632 until both exist — check `CHANGELOG.md` and `SITE_ARCHITECTURE.md`
-directly rather than trusting this paragraph, since it may go stale.
+- **#711** — `DetailFactsTable` + `ProviderCTA`. Found and fixed a real bug in adversarial
+  review: `ProviderCTAProps.actionLabel`/`secondaryLabel` were typed `ReactNode` but
+  `SemanticButton`'s vocabulary-pack label system is string-only, so a non-string label
+  silently rendered as empty. Fixed by adding a new, purely-additive `label?: React.ReactNode`
+  override prop to `SemanticButton` itself (shared component, not a `ProviderCTA`-local
+  workaround). Merged via PR #733.
+- **#709** — Trust layer: `TrustBadge`, `PriceEstimateLabel`, `LastCheckedLabel` (stateless,
+  `TrustLayer.tsx`) + `ReportOutdatedLink`, `SourceBlock`, `ConfirmChecklist` (stateful,
+  `TrustLayer.client.tsx`). 7 new `GdsIcons` entries, all pre-verified real Tabler names. Own
+  verification pass caught a real TypeScript build error (`<GdsStack gap={4}>` — `gap` takes a
+  named `GdsLayoutToken`, not a raw number) that the delegated build/verify agents had missed
+  because neither ran the **full** `npm run build` (all 8 workspaces), only `gds-theme`'s own.
+  Merged via PR #734.
+- **#695** — Theme axis mechanism extensions: `sidebar`/`pin` elevation roles (with role-level
+  literal values, e.g. a directional shadow, exempt from the shared step ramp's monotonicity
+  rule), validated `tracking` (previously any string passed straight through to CSS
+  unchecked), new `GdsFontStyle`/`fontStyles` italic-display input. Pure mechanism work in
+  `packages/gds-theme/src/axes.ts` — no preset, no component. `publishedGraphOverlap` budget
+  ratcheted 189 → 208 (measured; justified). Merged via PR #735.
+- **#697** — Scout AI reserved sub-brand gradient accent lane. See §5 for the full detail —
+  this is the one still sitting as an unmerged, CI-pending PR (#736) as of this handover.
 
-### 3c. Full-repo AI-fingerprint/watermark removal sweep (Rule 17, no tracking issue — direct owner instruction)
+Every one of the three merged issues followed the §3 loop exactly, including the
+"delegate → independently re-verify → find something real → fix → commit → preflight → push →
+watch CI → merge → sync" shape.
 
-The owner gave two escalating, explicit, angry-then-precise instructions mid-
-session: first "stop creating new word when we work together, remove all
-watermark words and patterns right now", then a full written specification
-(now Rule 17 in `CLAUDE.md`). The trigger was a repeated formulaic doc-comment
-pattern the agent had stamped across newly-created files (opening with
-"Issue NNN — X, surfaced" and closing with "Rule 14 throughout... never
-retyped" paragraphs, identically, across independent files) — the owner named
-this a "watermark" and required its removal, then generalized the rule to the
-whole repository.
+---
 
-**Scope actually swept:** 138 files — `apps/playground/src/*.ts(x)` (10),
-`packages/gds-core/src/*.tsx/.ts` (30), `packages/gds-theme/src/*.ts` +
-`packages/gds/src/client.ts` (17), `scripts/audit/*.mjs` + `scripts/lib/*.mjs`
-+ `scripts/config/*.mjs` + `scripts/codemods/*.mjs` (16), `scripts/*.mjs`
-top-level (51), plus 14 `.test.ts(x)`/`.test.mjs` files swept separately
-(deliberately held back from the first batches to avoid risking test-assertion
-breakage; all 296 tests in those files confirmed still passing afterward).
-Executed via 9 parallel background `general-purpose` agents, each given the
-exact Rule 17 text, an explicit "comments only, never touch code logic"
-boundary, an explicit "no cleanup narration" instruction (i.e. don't replace
-"AI-generated wording" with a comment saying so), and a verification
-requirement. Zero code-logic regressions across all batches, confirmed by full
-build+lint+test+preflight after every batch.
+## 5. #697 in detail — read this before checking on PR #736
 
-**Three real (not cosmetic) regressions surfaced as side effects, all
-diagnosed and fixed honestly — the pattern repeats in §4 below, learn it
-once:**
+**What it is:** a governed, CSS-variable-based sub-brand gradient accent token family
+(`ai.gradient`, `ai.panel`, `ai.accent`) in `packages/gds-theme`, emitted as `--gds-ai-*` for
+the `your-field` preset only, plus a reserved-usage governance contract and a new mechanical
+gate (`scripts/verify-ai-reserved-usage.mjs`, wired into `verify:release`) that fails loudly if
+any file under `packages/gds-core/src/**` or `packages/gds-theme/styles.css` references
+`--gds-ai-` outside an explicit allowlist (empty today, by design — no consuming component
+ships in this issue).
 
-1. `verify:registry-drift` failed — `scripts/audit/extract-registry.mjs`'s
-   `token-emitted` extraction is **comment-blind**: it regexes raw file text
-   (not AST/comment-stripped) for `--gds-*` string literals, so a narrative
-   comment that happened to quote a token name was previously over-counted.
-   Fixed by `npm run artifacts:refresh` (regenerates `audit/registry.json`);
-   confirmed the underlying coverage numbers were unchanged — pure
-   measurement noise.
-2. `verify:obligation-coverage` failed — `scripts/verify-obligation-coverage.mjs`'s
-   `variationShown` check is **also comment-blind** (unlike its sibling
-   `jsdoc` check, which explicitly excludes comment lines): it scans the
-   concatenated playground source for a quoted literal without excluding
-   comments. A removed comment had coincidentally contained the word 'left',
-   which had been falsely satisfying `EditorialHeroProps.mediaPosition=left`'s
-   obligation. **Fixed honestly, not by gaming the check**: added
-   `mediaPosition="left"` as a real prop on the actual `EditorialHero` demo,
-   genuinely exercising the previously-undemonstrated variant.
-3. `verify:density-token-adoption` failed — `scripts/density-token-adoption.config.mjs`'s
-   `DENSITY_ALLOWLIST` is **deliberately keyed by `file:line`** (its own header
-   comment explains why: an entry should stop matching when the line moves,
-   forcing re-review). Comment removal shifted a real hardcoded-spacing
-   declaration in `ReferenceThemeExplorer.tsx` from line 316 to 294, orphaning
-   the allowlist entry. Fixed by re-pointing the key to the new line number.
-   **This exact same failure mode recurred twice more later in the session**
-   (see §4) — it is not a one-off, it is structural to a line-keyed allowlist
-   plus any bulk comment edit, and it will happen again to whoever next edits
-   comments near an allowlisted line.
+**The one thing the issue text itself didn't know about, discovered and handled correctly this
+session:** `packages/gds-theme/src/your-field.ts` already had a **separate, older, still-live**
+mechanism carrying the *identical* brand values —
+`YOUR_FIELD_ROLES.aiGradient`/`.aiPanelGradient`/`.aiAccent`/`.focusRing`, consumed via
+Mantine's `theme.other.yourField` object, not CSS variables, not the token graph, not gated by
+anything. This issue's implementation correctly (a) did **not** remove/rename/migrate that
+object — it stays exactly as-is, a legitimate independent delivery path — and (b) reused its
+exported hex constants (`YOUR_FIELD_SCOUT`, `YOUR_FIELD_SCOUT_2`, `YOUR_FIELD_NAVY_DEEP`) rather
+than retyping the same hexes as fresh literals, and added a test
+(`ai-accent-lane.test.ts`: "agrees byte-for-byte with the pre-existing theme.other.yourField
+gradient values") proving the two paths can never silently drift apart. **If a future issue
+in this milestone (there is nothing currently filed for this) ever wires an actual component to
+consume `theme.other.yourField.aiGradient`, check whether it should be reading `--gds-ai-gradient`
+instead** — the two mechanisms coexisting long-term, rather than one being retired, was not an
+explicit decision anyone made; it's just where #693 and #697 happened to land.
 
-`CLAUDE.md` was also rewritten in full during this pass: renumbered 1→17
-sequentially (Rule 13 had been oddly positioned after Rule 16 from an earlier
-session), every `(owner directive, DATE)` header citation removed, every "this
-rule exists because of a real failure..." narrative opener stripped, while
-preserving every genuinely load-bearing checklist item.
+**Dark siblings** (the handoff bundle defines no dark scheme at all) were authored, never
+copied from light, using this file's own existing `ensureContrast`/`mixCssColors` recipe — the
+identical recipe `deriveVibeSemanticCssVariables` already uses for this same preset's generic
+accent's dark sibling (`semantic-token-source.ts` line ~318). `ai.accent`/`ai.gradient` clear
+≥3:1 against `canvasDark`; `ai.panel`'s two stops clear ≥3:1 against `surfaceDark` (the actual
+surface the panel sits on, not the canvas behind it).
 
-**Known NOT fully swept, left deliberately for a future pass:**
+**`tokensWithGaps` budget** ratcheted 86 → 89 (the three new tokens have no consumer yet, by
+design, so they land on the `demoed`/`variationsShown`/`useCase` gap every mechanism-ahead-of-
+adoption token in this milestone hits — same structural reason as issue #698's layout axis
+entry in the same budget file, read that entry for the full mechanism explanation).
 
-- `apps/playground/src/pattern-export-coverage.ts` — roughly 150 `rationale`
-  strings still carry an "Issue NNN" citation style. Explicitly deprioritized:
-  this file is internal governance metadata that feeds only
-  `verify-pattern-export-coverage.mjs` and is never rendered on the live site,
-  so it was judged lower priority than source comments a reader actually
-  encounters. Not forgotten — just not done.
-- `CHANGELOG.md`'s ~75 pre-existing historical entries (from before this
-  session) were explicitly scoped **out** of the sweep as a dated historical
-  record, not live source. Flagged to the owner rather than silently skipped;
-  the owner did not ask for it to be included.
-- The git **commit history** still contains old AI-attribution trailers
-  (`Co-Authored-By: Claude Opus 4.8`, "🤖 Generated with [Claude Code]") on
-  historical commits. **Explicitly NOT rewritten** — this would be a
-  destructive history rewrite (force-push required) and Rule 6/9's
-  destructive-operation safeguard requires the owner's explicit per-instance
-  confirmation before that happens. Do not do this without asking first, even
-  though Rule 9 technically wants it gone.
-- Issue **#512** (already tracked, open, `status: blocked`) covers the
-  equivalent problem at the ref/tag level: 19 `gds-v*` tags plus 1 stray
-  branch carry AI attribution. Blocked on repo permissions the agent's `gh`
-  token doesn't currently have (checked this session: token scopes are
-  `gist, project, read:org, read:packages, repo, workflow` — no
-  `write:packages`, and whatever additional scope ref-rewriting needs).
+**Verified this session, independently, after the delegated agent's own report:** full-diff
+review of all 31 changed files against the issue's exact Section 9/11 code shapes (all
+matched), full monorepo `npm run build`, `npm run lint`, `npm run test:run` (1288/1288 passed),
+committed, `npm run preflight` passed clean, pushed, PR #736 opened. **CI's first run came back
+mixed — `mantine-9` passed, `mantine-7` failed inside `verify:forced-colors-runtime` on a
+headless-Chrome/dbus timeout that has nothing to do with this diff (full detail and the
+already-triggered rerun in §1).** Confirm the rerun's actual result before merging — §1 is the
+authoritative, most-recently-corrected account of this; don't rely on this paragraph's framing
+if it ever drifts from §1.
 
-### 3d. ClassScout upstream asks — issue #638 (closed) and duplicates #639/#640 (closed)
-
-**Context:** the owner asked for a plan to get a consumer project (ClassScout,
-a separate private repo at `/Users/Shared/Projects/classscout`, not part of
-this monorepo) to 100% GDS adoption, based on ClassScout's own
-`docs/gds-gap-request.md` and `docs/gds-css-detours-audit.md`. Of ClassScout's
-9 open asks (their own numbering 3–11), 3 were resolved as verdicts-only in
-chat (item 6 focus-ring — already shipped in 6.1.0, upgrade only; item 7
-tracking-scale — self-serve today via `resolveGdsTypographyTokens()`, no
-package change needed; item 8 radius-scale — confirmed real but documentation-
-only, not a bug to fix locally); item 11 (read-only rating display) stays
-deferred as low priority per the source doc itself. The owner then asked to
-**implement** the remaining 5 asks (items 3, 4, 5, 9, 10). All 5 shipped,
-commit range `58fbf0a..5190fc7` on `main`:
-
-**1. `BottomTabBarProps.renderItem`** (`packages/gds-core/src/BottomTabBar.tsx`)
-```ts
-renderItem?: (item: PublicNavItem, active: boolean, emphasized: boolean) => ReactNode;
+One thing to be aware of if you see it again: `npm run test:run` prints two lines that look
+like real failures —
 ```
-Mirrors `PublicNav.tsx`'s existing `renderLink` pattern exactly: when set, the
-whole `.map()` short-circuits to `<span key={item.id}>{renderItem(...)}</span>`
-before the default `<Anchor>` block. A custom render is responsible for
-reproducing the 44×44 min-hit-target sizing and `flex: 1`, and — if
-overriding the emphasized item — its raised-button layout, since none of that
-survives once the default is bypassed (documented in the JSDoc and in
-`docs/CLASSSCOUT_INTEGRATION.md`'s B2 section).
-
-**2. `GdsRemovableTagProps.disabled`** (`packages/gds-core/src/GdsRemovableTag.tsx`)
-```ts
-disabled?: boolean;
+FAIL gateSuiteMutationScore — measured 89.7%, budget min 100. ...
+FAIL gateSuiteMutationScore — measured 50%, budget min 100. ...
 ```
-It already renders a real native `<button>` (`component="button"` on
-Mantine's `Badge`), so this is the native `disabled` attribute paired with
-`aria-disabled`, matching the exact precedent at
-`packages/gds-core/src/ChoiceChip.tsx`'s `SelectionBadge` (verified this is
-the established in-repo convention before writing it, not invented).
-
-**3. `GdsIconBadge`** (new file, `packages/gds-core/src/GdsIconBadge.tsx`)
-Icon-only categorical-accent flat circular disc, decorative by default
-(`aria-hidden`), a named `role="img"` when `label` is given. **Deliberately a
-separate component, not an extension of `GdsBadge`** — `GdsBadge` hard-
-requires `label` as a tested, documented invariant ("meaning never lives in
-color alone"); relaxing it would fight the system's own architecture. Modeled
-on `GdsGeneratedMark.tsx`'s optional-label/decorative-by-default pattern,
-reusing the existing 10-name accent axis via `resolveGdsAccentTokens` (not the
-`@deprecated` `gdsBadgeAccentColors`/`gdsBadgeAccentShades` re-exports —
-deliberately imports the live theme-following axis function directly).
-Exported from `packages/gds-core/src/index.ts` only (matches
-`GdsGeneratedMark`'s own export scope — not from `client.ts`/`server.ts`,
-since neither is).
-
-**4. `GdsMeter`** (new file, `packages/gds-core/src/GdsMeter.tsx`)
-Static score/measurement with real `role="meter"` semantics. **Verified
-directly against Mantine's own source before building this** (not assumed):
-passing `role="meter"` to Mantine's top-level `<Progress>` is a silent no-op —
-it lands on the wrong DOM node (`ProgressRoot`'s wrapper div) and even there
-would be overwritten by `ProgressSection`'s own hardcoded `ariaAttributes`
-object, because the convenience `<Progress>` component never exposes
-`withAria`. Built on Mantine's low-level compound API instead:
-`<Progress.Root><Progress.Section withAria={false} role="meter" aria-valuemin=
-{min} aria-valuemax={max} aria-valuenow={value} aria-valuetext={...} /></Progress.Root>`.
-`min`/`max` default to 0/100 but are real parameters, not a percentage
-assumption — `role="meter"` doesn't require one, so a 1–5 rating works
-directly. Exported from `index.ts`, `client.ts`, and `server.ts` (matches
-`ProgressCard`'s export scope — it's pure server-renderable, no hooks).
-
-**5. Generated-imagery tint + interactive badges**
-(`packages/gds-core/src/generated-art-engine.ts`,
-`GdsGeneratedThumbnail.tsx`, `GdsGeneratedHero.tsx`)
-- `tintWithBackground`/`mixRatio` added to `GdsGeneratedPaletteOptions`. On the
-  live-DOM resolver (`gdsGeneratedPaletteCssRefs`) it composes a
-  `color-mix(in srgb, <color> <ratio>%, <tintWithBackground>)` string — the
-  same technique the two consumer components already use internally via their
-  own `darkSurface()` helper. On the literal-hex resolver
-  (`resolveGdsGeneratedPaletteHex`, used for OG images/email with no live
-  DOM) it uses `mixCssColors` — a function that existed in
-  `packages/gds-theme/src/color-math.ts` but **was not previously exported
-  from any public entrypoint**; it is now exported from `gds-theme`'s
-  `index.ts` (only — not `client.ts`/`server.ts`, matching the precedent of
-  `getGdsMapAreaFill`, the other consumer of the same file, which is also
-  index-only). Does not apply when an explicit `colors` override is given —
-  documented as intentional, an override is used exactly as supplied.
-  **Both consuming components (`GdsGeneratedThumbnail`, `GdsGeneratedHero`)
-  needed their own props threaded through to the resolver call** — the first
-  implementation pass added the options to `generated-art-engine.ts` but
-  forgot to thread them through the two React components' own prop interfaces
-  and `useMemo` calls, which a test caught (see §4).
-- `onSelect?: (key: string) => void` added to
-  `GdsGeneratedThumbnailCategory`/`GdsGeneratedHeroBadge`. When set, that
-  badge renders as a real `<button>` (dynamic JSX tag `component="button"` vs
-  `"span"`) instead of static `<span>` content, firing on click with the
-  category's `key`. Mirrors the existing span/anchor/button-by-prop
-  convention already proven in `ChoiceChip.tsx`/`GdsRemovableTag.tsx`.
-
-**6. Radius-scale documentation** (`packages/gds-core/src/GdsShapeElevationSystemReference.tsx`)
-Per Rule 14 ("a checkable claim must be computed, not written"): the "Radius
-roles" section now computes `new Set(values).size` across all 14
-`GDS_RADIUS_ROLES` and states live whether they're differentiated, plus prose
-explaining that a theme's Mantine `theme.radius` scale is a separate
-mechanism from this axis and is not required to align with it. Also added to
-`docs/CLASSSCOUT_INTEGRATION.md`'s B1 section, pointing at the live proof
-rather than restating the number.
-
-All 5 have tests (`GdsIconBadge.test.tsx`, `GdsMeter.test.tsx`, additions to
-`badge-system.test.tsx`, `classscout-components.test.tsx`,
-`GdsGeneratedThumbnail.test.tsx`, `GdsGeneratedHero.test.tsx`,
-`generated-art-engine.test.ts`), live proofs on the reference site (verified
-in an actual running dev server, not just unit tests — see the browser-
-verification note in §4), docs (`docs/BADGE_SYSTEM.md`,
-`docs/CLASSSCOUT_INTEGRATION.md`, `docs/GENERATED_IMAGERY.md`, `llms.txt`), and
-a `CHANGELOG.md` "Unreleased" entry.
+and `verify:release`'s full log additionally contains a `FAIL --gds-ai-* referenced outside
+the sanctioned allowlist:` block. **All three are expected, harmless noise, not real
+failures** — `scripts/verify-budgets-real.test.mjs` and the new
+`scripts/verify-ai-reserved-usage.test.mjs` deliberately corrupt a committed artifact / write a
+temporary unsanctioned-reference fixture, run the real gate script as a subprocess to prove it
+correctly rejects the bad state, then restore/delete it in an `afterEach`/`finally`. The actual
+test-suite summary line (`Test Files ... passed`, `Tests ... passed`) and the process exit code
+are the ground truth, not these bleed-through subprocess stdout lines. This exact false-alarm
+shape recurred at least three times this session — always double-check the real exit code
+(`echo $?` or `; echo EXIT:$?`) before treating console text as a failure.
 
 ---
 
-## 4. Every gate failure hit this session, and the actual fix — read before assuming a gate is wrong
+## 6. Established conventions and gotchas this session had to (re)learn — read before delegating the next issue
 
-Every one of these was a **real** regression from a real change, not gate
-flakiness, confirmed by reading the gate's own source before touching
-anything else. In order encountered:
-
-1. **`GdsStack gap={4}` type error** (`tsc -b`, not caught by a standalone
-   `tsc --noEmit -p apps/playground/tsconfig.json` run — the two commands
-   resolve differently, trust `tsc -b` / the real `npm run build` script).
-   `GdsStack`'s `gap` prop is `GdsResponsiveValue<GdsLayoutToken>`, a closed
-   union (`0 | 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'`), not a raw
-   number and **not `'2xs'` either** (that's a Mantine-native size token that
-   doesn't exist on GDS's own `GdsLayoutToken` union — two wrong guesses
-   before landing on `'xs'`).
-2. **`verify-playground-gds-only.mjs` failed on 3 inline `style={{}}` blocks**
-   in the new demos. This gate has **zero exceptions, no allowlist mechanism**
-   — it regex-matches `style=\{\{` on any line in any non-test playground
-   source file, full stop, regardless of purpose (even "simulating what a
-   consumer's own custom code would look like" doesn't exempt it — the
-   reference site itself may never contain page-local styling, Rule 10). Bare
-   `<a>` tags are separately banned (must use `GdsInlineLink`) but bare
-   `<button>` is **not** banned. Fixed by rewriting the demos on governed
-   primitives: `GdsInline` for the icon-badge row, a plain `<button>` +
-   `GdsStack` (no `style` prop, no polymorphic `component=`) for the custom
-   tab item, `GdsInlineLink` for the rest.
-3. **`GdsStack`/`GdsBox` used polymorphically (`component="button"` +
-   `type`/`onClick`, or `component="a"` + `href`) fails `tsc -b`**, even
-   though a standalone `tsc --noEmit` pass on the same file did not catch it.
-   `GdsLayoutPrimitiveBaseProps` accepts a `component?: ElementType` prop but
-   is **not** a truly polymorphic TypeScript interface the way Mantine's own
-   `Box` is — it doesn't grant the DOM attributes that go with a given
-   `component` value. There is no existing precedent anywhere in this
-   codebase for using `GdsBox`/`GdsStack` this way; don't add one without
-   extending the type first. Fixed by using a plain `<button>` (allowed, see
-   #2) wrapping a default (non-polymorphic) `GdsStack` for layout, and
-   `GdsInlineLink` for navigation items.
-4. **`verify:density-token-adoption` failed a second time** (same class of
-   failure as §3c #3, different file) — a comment-count shift in
-   `GdsGeneratedThumbnail.tsx` (dynamic-tag refactor added lines above an
-   existing hardcoded `padding: '10px 12px'`) moved it from the allowlisted
-   line 253 to 261. Re-pointed the key.
-5. **`verify:shape-token-adoption` failed** — `GdsIconBadge.tsx`'s
-   `borderRadius: '50%'` (a genuine circle-shape literal, not a step) had no
-   allowlist entry yet. `scripts/shape-token-adoption.config.mjs` is
-   **keyed by file + exact source text, not `file:line`** (unlike the density
-   allowlist) specifically so line shifts don't orphan it — added a new
-   `circle`-category entry following the file's own established pattern
-   (7 existing precedents, e.g. `GdsGeneratedAvatar.tsx`, `ChatSurface.tsx`).
-6. **`verify:i18n-leakage` failed**: `ar` (Arabic) had 1 untranslated value
-   ("Fit score") against a **budget of 0** (unlike `de`, which tolerates 3).
-   The translation pipeline (`scripts/lib/translate.mjs`) calls Google
-   Translate over HTTPS live and **falls back to English on any network
-   failure**, by design (a corrupted/truncated pack is worse than a visibly-
-   untranslated one). The first attempt genuinely failed over the network.
-   Fixed by re-running `node scripts/generate-site-phrase-translations.mjs` —
-   its own retry mechanism (issue #588: a stored value equal to its English
-   source, where a **peer locale** translated the same phrase successfully,
-   gets retried) picked it up and the second network call succeeded. **This
-   depends on live network access to `translate.googleapis.com`** — if a
-   future environment has no network egress, this exact failure mode will
-   recur and cannot be fixed by retrying locally.
-7. **`verify:obligation-coverage` failed**: 407 gaps vs. budget 404 (a
-   measuring gate, not a 100%-required one — see `scripts/verify-budgets.mjs`).
-   Traced via `audit/obligation-coverage.json`'s `gaps` array (the console
-   output truncates to 50 of 407 — read the JSON directly, don't guess from
-   truncated stdout) to exactly 3 new gaps: `GdsMeterProps.size`, `.radius`,
-   `.color` had no JSDoc comment. Added one-line JSDoc to each; budget
-   returned to exactly 404.
-8. **`GDS compliance check` failed** on `pattern-export-coverage.ts`:
-   "Raw color literal found outside approved theme/token files" —
-   because the rationale string `(#638)` parses as a valid 3-digit hex color
-   literal (`#RGB` pattern) to whatever regex the compliance scanner uses.
-   **Every other one of the 37 existing issue references in this exact file
-   already uses `(GH-NNN)`, never `(#NNN)`, for precisely this reason** — this
-   was a known, already-solved problem in the file's own established
-   convention that a fresh addition violated by not checking precedent first.
-   Fixed by using `(GH-638)` to match.
-9. **Resource-contention test flakiness** (not a real regression): 5 tests
-   across 3 files failed with `Test timed out` inside a full `npm run
-   preflight` run, all in files whose own comments already acknowledge
-   timeout-sensitivity "under full-suite contention". Traced to a leftover
-   `vite preview --port 4173` process (spawned by an earlier verify step,
-   never cleaned up) competing for CPU during the vitest run. Killed the
-   process; all 24 tests across those 3 files then passed cleanly in
-   isolation in 6.96s. **If you see `gateSuiteMutationScore` fail with
-   "measured 89.7%"/"measured 50%" inside `test:run` output, that is NOT a
-   real failure** — `scripts/verify-budgets-gate-suite-floor.test.mjs`
-   deliberately writes a fake, lowered `gate-mutation-score.json` to prove
-   `verify:budgets` correctly rejects it, and its own subprocess's stdout
-   (the deliberately-triggered "FAIL" lines) bleeds into the console. All
-   744/744 real tests pass; this line pair is expected, harmless noise every
-   single run.
-10. **Before starting a preview server for browser verification, check for
-    and kill any already-running `vite preview`/`vite` process on the target
-    port** — this session had to open a **second browser tab** mid-session
-    because the first tab's Browser-pane compositing silently broke (all
-    screenshots returned solid black) after a `scroll` action timed out; DOM-
-    level verification (`get_page_text`, `javascript_tool` DOM queries,
-    `read_page`) kept working fine throughout and is what actually confirmed
-    correctness — don't rely on `screenshot` alone if it stops producing
-    useful output, fall back to DOM inspection.
-
-**None of these were caught by a standalone `npm run build`/`npm run test:run`
-run** — they only surfaced inside the full `verify:release` chain (or, for
-#1/#3, inside `tsc -b` specifically rather than a scoped `tsc --noEmit`).
-**This is exactly why Rule 13 exists and why skipping the full chain is
-risky** — the next agent inherits a state where every *known* issue from this
-session is fixed, but the exact final commit (`5190fc7`) never finished one
-uninterrupted full local `preflight` run. Run it once, start to finish, before
-trusting this state further.
+- **Full monorepo build, not workspace-scoped.** `npm run build` (root) builds all 8
+  workspaces: `gds-theme`, `gds-core`, `gds-admin`, `gds-a11y`, `gds`, `playground`,
+  `reference-vite`, `reference-next`. A scoped `npm run build --workspace=@sovereignsquad/gds-theme`
+  can pass while the playground (which consumes gds-theme's exports) has a real TypeScript
+  error. This caught a real bug on #709 (§4). Always insist on the full build, both when
+  delegating and when independently re-verifying.
+- **`npm run artifacts:refresh` is currently unusable end-to-end in this environment** — its
+  last step, `scripts/generate-site-phrase-translations.mjs`, calls Google's Translate API,
+  which is confirmed rate-limiting/blocking this environment as automated traffic. For any
+  issue that adds **no new user-facing copy** (check the issue's own Non-Goals/Section 20 —
+  most mechanism-only issues in this milestone explicitly state this), run the individual
+  steps directly instead, skipping only the translation script, in this exact order (order is
+  load-bearing — the registry indexes tokens/census/phrase-packs, and forward-trace/dimensions
+  read the registry):
+  ```
+  npm run tokens:motion-css
+  npm run tokens:component-census
+  npm run tokens:pattern-coverage
+  npm run tokens:dtcg
+  npm run generate:accent-background-vars
+  npm run generate:design-rule-coverage-module
+  node scripts/audit/snapshot-token-baseline.mjs
+  node scripts/generate-component-message-packs.mjs
+  node scripts/generate-site-identity.mjs
+  node scripts/generate-component-index.mjs
+  npm run registry:build
+  node scripts/audit/forward-trace.mjs
+  node scripts/audit/dimensions.mjs
+  ```
+  Never hand-edit anything under `tokens/`, `audit/`, or any `__snapshots__/` directory —
+  only ever produce them via these scripts. If a future issue genuinely does add new
+  user-facing copy, the translation step becomes mandatory and this workaround does not apply —
+  check whether network access to `translate.googleapis.com` has been restored first.
+- **`audit/budgets.json` is an exact-match ratchet, in both directions.** Every value must
+  equal the currently-measured value exactly. If your change makes a measured number *better*
+  (lower drift, more coverage) without tightening the budget to match, you leave unclaimed
+  "slack" that lets the corresponding entry in `scripts/audit/gate-mutants.config.mjs`'s
+  mutation-test suite survive undetected — i.e. `verify:budgets`' own self-test
+  (`verify-budgets-real.test.mjs`) will fail. Every value change needs a `justifiedBy` prose
+  entry, evidence-based, **prepended** before any existing text for that key (never delete
+  prior justifications — they're a decision log). This recurred on nearly every issue this
+  session: #711 (`obligationGaps` 356→355), #709 (`undeclaredMantineDependencies` 80→81),
+  #695 (`publishedGraphOverlap` 189→208), #697 (`tokensWithGaps` 86→89).
+- **Gate-mutant configs (`scripts/audit/gate-mutants.config.mjs`) and some allowlists
+  (`scripts/token-reachability.config.mjs`, `scripts/density-token-adoption.config.mjs`) are
+  keyed by exact file:line or exact source text.** An unrelated edit that shifts lines, or a
+  legitimate prose change, can orphan an entry. Fix the reference to match reality — don't
+  bump an unrelated budget to compensate.
+- **A token with no consumer yet (by an issue's own explicit design) needs a documented
+  extension-point entry in `scripts/token-reachability.config.mjs`**, not a suppressed gate —
+  give it a `reason` and a concrete `reviewBy` date (this milestone has been using
+  `2026-12-01` consistently for "follow-on issue in the same delivery will consume this").
+- **This repo's `GdsLayoutToken`/similar closed-union props do not take raw numbers or
+  arbitrary strings** — e.g. `GdsStack`'s `gap` is `0 | 'none' | 'xs' | 'sm' | 'md' | 'lg' |
+  'xl' | '2xl'` (`packages/gds-theme/src/LayoutPrimitives.tsx` — wherever the actual current
+  definition lives; check it directly, don't assume the exact union from memory).
+- **Icon sourcing is real-icons-only, always pre-verify before delegating**: `@tabler/icons-react`
+  first (check `node_modules/@tabler/icons-react/dist/esm/icons/` for the exact export name),
+  then iconify.design's collections, preferring stroke-style; `fillMode?: 'stroke' | 'fill'` on
+  `GdsPictogramDefinition` for the rare glyph that only exists filled. Never hand-draw or
+  approximate an icon path.
+- **Before recommending or reusing anything from a prior handover, issue, or memory: verify it
+  still exists.** This session confirmed `your-field`'s vibe entry, `YOUR_FIELD_ROLES`, and
+  several axis line-number references directly against source before trusting an issue's own
+  "Current State" section — issue text is written by a human/process that itself verified
+  against a specific past commit, and can drift from HEAD by the time you act on it.
 
 ---
 
-## 5. The messmass GitHub Packages issue — unrelated repo, still blocked
+## 7. Remaining open issues (16, including the tracking issue — refreshed 2026-09-07 via `gh issue list`, re-check before trusting)
 
-Earlier in this session, a pasted CI failure log for a **different,
-unrelated** project ("messmass") was diagnosed: its build failed because it
-depends on `@sovereignsquad/*` GDS packages, which are marked **private** on
-GitHub Packages. The owner chose (via an explicit question) to make them
-public. **Blocked**: this agent's `gh` token lacks `write:packages` scope
-(confirmed: `gist, project, read:org, read:packages, repo, workflow` only).
-Needs either the owner to grant that scope, or to change package visibility
-manually via the GitHub web UI (Settings → Packages, on each of the 7
-`@sovereignsquad/*` packages on `npm.pkg.github.com`). **Not touched since**;
-still open, still blocked, not tracked by a GDS-repo issue since it's a
-different project's problem, not this repo's.
+| Issue | Title | Note |
+| --- | --- | --- |
+| #692 | Tracking: Your Field brand lane and delivery | Keep open until every other row closes. Its own delivery-board table is stale (§3) — don't trust it for per-issue status. |
+| #697 | Scout AI sub-brand accent lane | **Implemented, committed, pushed, PR #736 open.** Check CI, merge, sync (§1) before anything else. |
+| #700 | SemanticButton — outline-accent/gradient intents, v3 micro-action states | Per #692's board: was blocked by #693 + #697. #693 is closed; #697 is functionally done pending merge — should be unblocked once #736 merges. |
+| #701 | ListingCard — featured ring, pick overlay badge, generated-tile default media | Was blocked by #693 merge — #693 is closed, so unblocked. |
+| #702 | SidebarNav — light-surface variant, promo/profile slots | Was blocked by #693 + #698 — both closed, unblocked. |
+| #703 | GdsScoutPromoPanel + GdsProfileSwitcher | Was blocked by #702 + #697 — check #702's actual status before starting; #697 will be unblocked once #736 merges. |
+| #707 | Browse canvas — viewport-fill, list/split/map view modes | Was blocked by #698 — closed, unblocked. |
+| #712 | GdsBurgerMenu + BottomTabBar emphasized center tab | Was blocked by #698 — closed, unblocked. |
+| #714 | Media: generated-first default sweep | Independent per #692's board. |
+| #715 | Playground: components catalog inline rendering | Independent; unblocks #716. |
+| #716 | Playground: site-wide element search (CommandPalette) | Blocked by #715. |
+| #717 | Governance: brand-request archive, gap-analysis record, class-usa continuity note | Independent. |
+| #718 | Newsletter capture — promotion to core | `priority: p2`, backlog. |
+| #719 | Standalone pagination contract | `priority: p2`, backlog. |
+| #720 | Testimonial block | `priority: p2`, backlog. |
+| #721 | Booking-slot schedule view | `priority: p2`, backlog. |
 
----
+**Not in this milestone but worth knowing about:** issue #723 (`Build: gds-core lazy locale
+registry - tsup ignored-bare-import warnings under sideEffects:false`, milestone: none,
+`priority: p2`, `status: backlog`) tracks a **pre-existing, already-known, already-filed**
+build warning (Vite's `ignored-bare-import` for lazy locale chunks, plus a "chunks larger than
+700 kB" warning) that shows up in every single `npm run build` of the playground in this
+environment, unrelated to any of this milestone's changes. It predates this session, has its
+own tracking issue, and does not need to be treated as a Rule-1 blocker for milestone work —
+don't be alarmed if you see it; don't try to fix it as a side effect of an unrelated issue.
 
-## 6. Publish a new GDS version — DONE (2026-08-17)
-
-**Update, 2026-08-17: this happened.** `VERSION` and all 7 workspace
-`package.json`s were bumped to **6.2.0** (commits `15959db` "Release 6.2.0"
-and `26aac86` "Align every version reference to 6.2.0", the latter fixing two
-version-string gates the release commit itself had missed — see
-`CHANGELOG.md`'s `## 6.2.0` entry for the shipped content: five backward-
-compatible package additions plus the Foundations rebuild). The push to
-`main` fired `auto-tag-release.yml`, which tagged `gds-v6.2.0` and dispatched
-`publish-github-packages.yml`, which **completed successfully**
-(`GDS Publish`, run `32030416629`, 10m6s, 2026-08-17T12:33:10Z) — confirmed
-via `gh run list --workflow=publish-github-packages.yml`, not assumed. All 7
-`@sovereignsquad/*` packages are published at 6.2.0 on `npm.pkg.github.com`.
-
-The mechanism below is left as-written (accurate, and useful for the *next*
-version cut) — only the "not done" framing above it was wrong as of this
-refresh.
-
-The owner asked mid-session (2026-08-16): *"When it is done, publish the new
-version of gds."* At the time of the original write-up this had **not been
-executed**; it has been since. What was established about the mechanism
-(still accurate):
-
-**The actual publish mechanism (verified by reading the workflow files
-directly, not assumed):**
-
-1. `VERSION` (repo root, currently `6.1.0`) is the single source of truth.
-   `scripts/check-release-alignment.mjs` (part of `verify:release`) requires
-   it to exactly match: every one of the 7 workspace packages'
-   `package.json` `"version"` field (`packages/gds-theme`, `gds-core`,
-   `gds-admin`, `gds-a11y`, `gds`, `gds-eslint-config`, `gds-compliance`), and
-   `compatibility.matrix.json`'s `"gdsVersion"` field.
-2. Bump `VERSION` + all 7 `package.json`s + `compatibility.matrix.json` to
-   the new version number **together**, in one commit, then run the full
-   `npm run preflight` chain (this re-validates alignment) and push to `main`.
-3. **`.github/workflows/auto-tag-release.yml`** triggers automatically on any
-   push to `main` that changes the `VERSION` file. It creates and pushes a
-   `gds-v<VERSION>` git tag using the Action's own ambient `GITHUB_TOKEN`
-   (works regardless of the local agent's own token scopes), then explicitly
-   dispatches (`gh workflow run ... --ref <tag>`) both
-   `release-bundles.yml` and `publish-github-packages.yml` for that tag —
-   this explicit dispatch step exists because of a documented, already-
-   learned lesson in that workflow's own comments: GitHub's anti-recursion
-   rule means a tag pushed by the default `GITHUB_TOKEN` does **not**
-   auto-fire other workflows' `push: tags:` triggers, so the tag alone would
-   silently stall the release at "tagged" without ever reaching "published".
-4. **`publish-github-packages.yml`** (dispatched by the above) is what
-   actually runs `npm run publish:npm` → `scripts/publish-packages.mjs`,
-   which reads the `VERSION` file, checks `npm view <pkg> version` for each
-   of the 7 packages against the GitHub Packages registry
-   (`https://npm.pkg.github.com`), skips any package already published at
-   that exact version, and runs `npm publish --workspace <pkg> --access
-   public` for the rest. **This runs on GitHub's own infrastructure with a
-   repo secret, not with the local agent's `gh`/`npm` credentials** — the
-   local environment's `~/.npmrc` has no `npm.pkg.github.com` auth token at
-   all (checked this session), so a local `npm run publish:npm` would fail
-   outright. **Publishing genuinely requires the version bump + push path
-   above, not a direct local publish command.**
-
-**What the next agent needs to decide before executing this:**
-
-- **Semver bump size.** 6.1.0 → 6.2.0 (minor) is the technically correct
-  choice: 5 new backward-compatible features shipped this session (new
-  components `GdsIconBadge`/`GdsMeter`, new optional props on
-  `BottomTabBar`/`GdsRemovableTag`/the generated-imagery components), zero
-  breaking changes. This was identified but **never actually applied** — no
-  file currently reads anything other than `6.1.0`.
-- **Whether 6.1.0 was already published.** Not verified this session (no
-  registry auth to check `npm view` against `npm.pkg.github.com` locally).
-  If 6.1.0 was already published before this session's changes landed, then
-  publishing "the new version" **requires** the bump above — republishing
-  unbumped 6.1.0 would just skip (see step 4) and ship nothing new.
-- **`CHANGELOG.md`'s "Unreleased" section** should become a versioned
-  `## 6.2.0 - <date>` heading as part of the same commit (check how prior
-  version cuts formatted this — read the file, don't guess the convention).
-
-**Do this only after CI on `5190fc7` is confirmed green** (§1) — don't stack
-a version bump on top of an unconfirmed base.
-
----
-
-## 7. Remaining open issues (12, refreshed 2026-08-17 via `gh issue list` — re-check before trusting)
-
-| Issue | State |
-| --- | --- |
-| #641 | **New since the 2026-08-16 write-up.** Playground runtime test suite is flaky under load, so a real failure is easy to dismiss as noise. `area: tooling`, `priority: p1`, `status: backlog`. |
-| #632 | Foundations content-vs-spec decision. `status: in progress` — see §3b, genuinely incomplete (2 sub-entries missing). Still open as of 2026-08-17. |
-| #630 | Typography stratification measurement needs a real single-card container boundary before it can gate anything. `priority: p2`, `status: backlog`. |
-| #629 | NavLink components render below the 44px touch-target floor site-wide (247×41 / 221×25). `priority: p2`, `status: backlog`, `area: a11y`. |
-| #627 | `untraceableRenderRate` budget (7.2%) is stale — fresh measurement is ~9.86% on the same slice. `priority: p1`, `status: backlog`. |
-| #625 | Tokens: brand-lane home/themes routes ~9pts above the untraceable mean at phone width (found by a covering array). `priority: p2`. |
-| #577 | Tracking: health retention — ratchets, self-verifying gates, registry-derived completeness. `priority: p0`, `status: ready`. Large. |
-| #576 | Tracking: deep audit — bidirectional token traceability, combinatorial coverage, mutation-verified. `priority: p0`, `status: ready`. Large. |
-| #573 | Tracking: GDS 7.0.0 — total theme control, generated-imagery exclusivity, real map system. `priority: p0`, `status: ready`. Large. |
-| #532 | vendor-gds bundle code-splitting (~307KB). `status: blocked` on a design decision. |
-| #512 | Ref-level AI attribution cleanup (19 tags + 1 branch). `status: blocked` on permissions — see §3c. |
-| #498 | Epic: designer usage-pattern docs for every component. `status: backlog`. |
-
-Closed 2026-08-16 session: #631, #633, #634, #635, #636, #637, #638, #639, #640.
-No closures observed between 2026-08-16 and this 2026-08-17 refresh besides
-those already reflected above.
+There is also one closed-but-worth-knowing-about issue: **#722** (dependency audit — tiptap
+prototype-pollution advisory) was closed within this milestone's issue range but is a security/
+dependency matter, not brand-lane work — if `npm run audit:dependencies` ever flags something
+new, check whether it's the same advisory reopening or something genuinely new.
 
 ---
 
@@ -538,99 +358,45 @@ those already reflected above.
 
 ```bash
 npm run preflight            # THE gate before any push: clean-before, full chain, clean-after
-npm run artifacts:refresh    # regenerate ALL generated artifacts, in dependency order
+npm run build                # full monorepo, all 8 workspaces — always use this, not a scoped one
+npm run lint
+npm run test:run
 npm run verify:release       # the chain alone (preflight wraps it: clean-before/after + this)
 ```
 
-**The loop:**
-
-1. Make the change.
-2. `npm run artifacts:refresh` — **last**, after every source edit. Order
-   matters: it rebuilds tokens/census/phrase-packs, **then** the atom
-   registry (which indexes those), **then** forward-trace/dimensions (which
-   read the registry). Running it out of order leaves stale data.
-3. Commit.
-4. `npm run preflight`. Expect it to fail once or twice on artifact churn or a
-   line-shifted allowlist entry (see §4 items 4–5) — that's normal, not a
-   sign something is wrong. Fix, commit again, re-run.
-5. Push, then **watch CI to completion and report its real conclusion** —
-   don't report done from a local pass alone.
-
-**Traps, most already hit this session (§4), plus older ones still true:**
-
-- `tsc -b` (the real `npm run build` entrypoint for `apps/playground`) and a
-  standalone `tsc --noEmit -p apps/playground/tsconfig.json` **do not always
-  agree**. Trust `tsc -b` / the actual build script.
-- `verify-playground-gds-only.mjs` has **zero exceptions** for inline
-  `style={{}}` — not even to "simulate a consumer's custom code" in a demo.
-  Use governed layout primitives (`GdsBox`/`GdsStack`/`GdsInline`) with their
-  own typed props, or a plain unstyled `<button>` (allowed; bare `<a>` is
-  not — use `GdsInlineLink`).
-- `GdsBox`/`GdsStack`/`GdsInline` are **not** truly polymorphic at the type
-  level — `component="button"` does not grant `type`/`onClick`;
-  `component="a"` does not grant `href`. Don't reach for them as a button/
-  anchor substitute.
-- The shape-token allowlist (`scripts/shape-token-adoption.config.mjs`) is
-  keyed by **file + exact source text** (survives line shifts). The density-
-  token allowlist (`scripts/density-token-adoption.config.mjs`) is keyed by
-  **`file:line`** (deliberately breaks on line shifts, forcing review) — two
-  different files, two different keying strategies, on purpose. Know which
-  one you're editing.
-- `audit/*.json` console output from a `verify:*` script often **truncates**
-  (e.g. obligation-coverage shows 50 of N gaps). Read the JSON file directly
-  for the full list before diagnosing.
-- The i18n phrase-translation pipeline calls Google Translate live over
-  HTTPS and silently falls back to English on any network failure — a
-  transient `verify:i18n-leakage` failure may just need
-  `node scripts/generate-site-phrase-translations.mjs` re-run, not a code fix.
-- `(#NNN)` in any string inside a file the GDS compliance scanner covers can
-  false-positive as a hex color literal when NNN is exactly 3 or 6 hex-safe
-  digits. Use `(GH-NNN)` — this is already the established convention in
-  `pattern-export-coverage.ts`; check for it before assuming your own
-  reference-syntax choice is safe.
-- Before starting a local dev-server browser check, `ps aux | grep vite` and
-  kill any stray leftover process first — one caused 5 spurious test timeouts
-  this session by resource contention during a full-suite `preflight` run.
-- `mcp__Claude_Browser__preview_start` needs `.claude/launch.json` — this
-  session created one (`npm run dev --workspace=apps/playground`, port 5173)
-  then **deleted it afterward** (it's untracked, and an untracked file blocks
-  `npm run preflight`'s clean-tree check). Re-create it if you need the
-  browser tool again; it's a 10-line JSON file, see git history of this
-  handover commit for the exact contents if needed, or just recreate from
-  `apps/playground/package.json`'s `dev` script.
+The loop is §3 above. Read §6 before delegating anything. Read the specific issue's own text
+in full before assuming you know its scope — these issue bodies are unusually complete and are
+meant to be followed, not summarized from a title.
 
 ---
 
 ## 9. Standard of proof for any claim you make
 
-- Say **which** routes, elements, themes and colour schemes were checked, and
-  whether it was a local build or the **deployed** site. "Confirmed" with no
-  qualifier reads as "everywhere, as deployed".
-- Local verification is **not** deployment. The owner cannot see your working
-  tree, and per §1, CI on the current HEAD is not yet confirmed either — say
-  so plainly rather than implying it's done.
-- "Audit" means an exhaustive sweep, not a spot check.
-- If the owner says something is still broken, the default assumption is that
-  they are right and the verification was incomplete.
-- Never minimise a defect. There is no "minor" or "cosmetic" tier for
-  something a user will see.
-- Live-browser DOM verification (`get_page_text`, `javascript_tool` DOM
-  queries against `data-gds-*` attributes and ARIA roles) is stronger
-  evidence than a unit test alone for anything user-facing — this session
-  used it to confirm all 5 ClassScout items actually render and behave
-  correctly in a running dev server, not just that their unit tests pass.
+- State exactly what was checked: which build (full vs. scoped), which command, whether CI was
+  actually watched to completion or just pushed. "Preflight passed" and "CI is green" are two
+  different, both-necessary claims — don't conflate them.
+- A console line starting with `FAIL` is not automatically a real failure in this repo — this
+  session hit the same class of harmless, deliberate self-test noise on `verify:budgets`
+  (§4/§5) and the new `verify:ai-reserved-usage` gate. Always check the actual process exit
+  code and the test-runner's own summary line before reacting to console text.
+- Never report an issue "done" before its PR's CI has actually been watched to a real
+  conclusion (pass or fail) — a local `preflight` pass is necessary but not sufficient.
+- If told something is still broken after a fix was reported, assume the report is right and
+  the verification was incomplete — re-check, don't defend the earlier claim.
 
 ---
 
 ## 10. If you read nothing else
 
-1. **Check CI on `5190fc7` first.** It was not confirmed before this
-   handover was written.
-2. `npm run preflight` before every push, start to finish, uninterrupted.
-   Watch CI after every push.
-3. Never write a value you could compute.
-4. Never claim something you have not observed **this session**.
-5. The "publish a new GDS version" request is open — §6 has the exact
-   mechanism and the exact decision (semver bump size) still needed.
-6. No AI attribution anywhere in repository text (Rule 17). Check what you
-   write before committing it, not after.
+1. **Check `gh pr checks 736 --repo sovereignsquad/general-design-system` first.** If green,
+   merge #736 and sync `dev`/`main` (exact commands in §1) before starting anything new.
+2. Then work down the table in §7, following the loop in §3, applying every gotcha in §6.
+3. Full monorepo `npm run build`, never a scoped one — this alone caught a real bug on #709.
+4. `audit/budgets.json` is an exact-match ratchet in both directions, with a prepended
+   justification for every change — never leave unclaimed slack.
+5. No AI attribution anywhere in repository text (Rule 9/17) — check what you write before
+   committing it, not after.
+6. `npm run artifacts:refresh` cannot currently run end-to-end (translation API blocked) — use
+   the manual step sequence in §6 for any issue that adds no new user-facing copy.
+7. This milestone is to be delivered end-to-end, issue by issue, without pausing for
+   confirmation between issues, per the owner's standing instruction (§2) — keep going.
