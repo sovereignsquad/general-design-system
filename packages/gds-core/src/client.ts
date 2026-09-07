@@ -47,6 +47,8 @@ export * from './OwnedContrastSurface';
 export * from './AccentPanel';
 export * from './SectionPanel';
 export * from './DetailProfileShell';
+export * from './DetailFactsTable';
+export * from './ProviderCTA';
 export * from './StateBlock';
 export * from './AsyncSurface';
 export * from './DataToolbar';
