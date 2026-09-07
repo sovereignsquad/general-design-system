@@ -463,6 +463,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "DetailFactsTable",
+    "status": "registered",
+    "home": {
+      "id": "detail-facts-provider-cta",
+      "family": "operations",
+      "section": "Dashboard & Panel Surfaces"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "DetailProfileShell",
     "status": "registered",
     "home": {
@@ -2088,6 +2098,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "status": "registered",
     "home": {
       "id": "metric-cards",
+      "family": "operations",
+      "section": "Dashboard & Panel Surfaces"
+    },
+    "alsoAppearsIn": []
+  },
+  {
+    "name": "ProviderCTA",
+    "status": "registered",
+    "home": {
+      "id": "detail-facts-provider-cta",
       "family": "operations",
       "section": "Dashboard & Panel Surfaces"
     },

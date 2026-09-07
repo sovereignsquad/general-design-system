@@ -56,6 +56,11 @@ export const REGISTERED_CLAIMS = {
     ref: 'packages/gds-core/src/core.test.tsx (status badges without withIcon render no [data-gds-icon]; the label is always present)',
     note: 'The icon is opt-in and additive: a badge renders its meaning as text with or without it, so colour and glyph are never the only carrier (WCAG 1.4.1).',
   },
+  'A key-facts block that states unknown values explicitly and never omits a row, paired with a calm provider-claim prompt, composed inside the detail profile shell in page and drawer modes.': {
+    evidence: 'test',
+    ref: 'packages/gds-core/src/DetailFactsTable.test.tsx ("renders exactly nine rows with no values, each showing the unknown phrase"; "never filters rows: a custom schema renders every row it is given, in order")',
+    note: 'DetailFactsTable never filters its resolved row list — every schema row renders, with a blank value replaced by the localized unknown phrase rather than being dropped (issue 711).',
+  },
   // Same fact as the badge-introduction claim above, restated for accessibility-evidence-registry.ts.
   'badge meaning never relies on colour alone — shape and text carry the same signal': {
     evidence: 'test',

@@ -1,15 +1,15 @@
 {
-  "evaluated": 1214,
-  "gapCount": 356,
+  "evaluated": 1222,
+  "gapCount": 355,
   "excludedCount": 80,
   "byKind": {
     "prop": {
-      "evaluated": 1097,
+      "evaluated": 1105,
       "gaps": 318
     },
     "variant": {
       "evaluated": 107,
-      "gaps": 38
+      "gaps": 37
     },
     "accent": {
       "evaluated": 10,
@@ -17,7 +17,7 @@
     }
   },
   "unmodelled": [],
-  "budget": 356,
+  "budget": 355,
   "gaps": [
     {
       "atom": "ContentOpsSectionProps.tone=critical",
@@ -898,20 +898,6 @@
         {
           "obligation": "jsdoc",
           "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "DetailProfileShellProps.mode=page",
-      "kind": "variant",
-      "source": {
-        "file": "packages/gds-core/src/DetailProfileShell.tsx",
-        "line": 5
-      },
-      "unmet": [
-        {
-          "obligation": "variationShown",
-          "why": "literal 'page' is rendered by no playground demo"
         }
       ]
     },

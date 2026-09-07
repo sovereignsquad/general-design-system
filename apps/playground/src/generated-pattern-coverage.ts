@@ -37,6 +37,7 @@ export const provenPatternIds: readonly string[] = [
   "density-spacing",
   "design-rule-profile-panel",
   "destructive-actions",
+  "detail-facts-provider-cta",
   "detail-profile-shell",
   "detail-surfaces",
   "discovery-shell",
