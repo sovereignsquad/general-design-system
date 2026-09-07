@@ -362,6 +362,50 @@ document must call `resolveGdsTypographyTokens()` itself and merge the result. W
 given brand lane (e.g. `class-usa`) *should* populate a tracking scale by default is a
 brand-design decision left to that theme, not a system default every lane must set.
 
+## Layout (shell geometry, issue #698)
+
+`GdsThemeAxes` carries a `layout?: GdsLayoutAxis` key (`packages/gds-theme/src/axes.ts`),
+following the file's own recipe for adding an axis: a type, `GDS_DEFAULT_LAYOUT_AXIS`,
+`validateGdsLayoutAxis`, and a `resolveGdsLayoutTokens` branch in `resolveGdsAxisTokens`.
+
+Unlike `motion` (which emits only declared overrides), `layout` is emitted unconditionally, like
+`shape` and `density`: every preset resolves the full nine-token `--gds-layout-*` namespace
+whether or not it declares `layout` at all, so `DiscoveryShell`/`BottomTabBar` reading
+`var(--gds-layout-*, ...)` get a real token on every preset, and their literal fallback is a
+safety net for rendering with no GDS theme runtime present, not the normal path.
+
+The nine tokens: `sidebar-width` (280px default), `header-height` (60px), `footer-height`
+(68px), `nav-item-height` (44px), `content-max-width` (1400px), `list-rail-width` (480px),
+`bottom-bar-height` (64px), `content-bottom-padding` (derived, `calc(bottom-bar-height +
+space-xl)`), and `sheet-top-radius` (defaults to the shape axis's `sheet` ROLE token, not a
+step, so repointing that role repaints bottom sheets without a second declaration).
+
+Governance rules:
+
+- **Scheme-independent.** The resolver takes no `scheme` parameter; shell geometry does not
+  fork light/dark the way color and accent do.
+- **Density-invariant, deliberately.** `compact`/`spacious` do not scale `--gds-layout-*`
+  values — the density resolver's own rationale (scaling would redesign, not adjust: a 240px
+  sidebar at 0.75 becomes an unreadable 180px) applies here even more directly, since shell
+  regions are structural, not typographic rhythm.
+- **44px target floor, same enforcement shape as density.** `headerHeight`/`footerHeight`/
+  `bottomBarHeight` throw below 44px with no exception path — these regions host interactive
+  44px targets (the burger toggle, footer actions, bottom-tab items) and cannot be shorter than
+  the targets they contain. `navItemHeight` enforces the same floor through one recorded
+  exception, `GDS_LAYOUT_DIMENSION_EXCEPTIONS.navItemHeight`, mirroring
+  `GDS_CONTROL_HEIGHT_EXCEPTIONS`'s precedent: a dense sidebar nav row may render below 44px
+  visual height only where the interactive row (full row width plus vertical padding) still
+  preserves a 44px effective hit target. A consumer declaring a sub-44px `navItemHeight` owns
+  that obligation.
+- **Backward-compatible by construction.** `DiscoveryShell`'s `sidebarWidth`/`headerHeight`
+  prop defaults and its inline footer height, and `BottomTabBar`'s bar-height `calc()`, changed
+  to `var(--gds-layout-*, <same literal as before>)` — with no theme runtime present, rendered
+  geometry is pixel-identical to before this axis existed. An explicit prop still wins over the
+  token default.
+- **Not the `GDS_SHELL_HEIGHTS` constants.** `resolveGdsShellHeightTokens`'s `--gds-shell-height-*`
+  set is a separate, fixed, non-themed `PublicShell` header-variant table; the two namespaces
+  are not interchangeable and folding one into the other is a distinct, future decision.
+
 ## Design rule profiles (milestone: Design Rule Profiles, issues #643-#653)
 
 Full narrative, research grounding, worked adoption example, and FAQ:
@@ -369,7 +413,7 @@ Full narrative, research grounding, worked adoption example, and FAQ:
 governance rules — the constraints future changes to this axis must keep satisfying — not the
 full technical explanation, matching how this file treats every other cross-cutting axis.
 
-`GdsThemeAxes` carries an eighth, optional axis: `designRuleProfile?: GdsDesignRuleProfile`
+`GdsThemeAxes` carries a ninth, optional axis: `designRuleProfile?: GdsDesignRuleProfile`
 (`packages/gds-theme/src/axes.ts`). Governance rules:
 
 - **Additive and optional, always.** `GDS_DEFAULT_DESIGN_RULE_PROFILE` (no proportion claim,

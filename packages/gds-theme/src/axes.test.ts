@@ -6,6 +6,8 @@ import {
   GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_ELEVATION_ROLES,
   gdsRadius, resolveGdsDensityTokens, resolveGdsElevationTokens, resolveGdsShapeTokens,
   resolveGdsTypographyTokens, resolveGdsMotionTokens, resolveGdsReactionTokens, validateGdsShapeAxis,
+  GDS_DEFAULT_LAYOUT_AXIS, GDS_LAYOUT_DIMENSION_EXCEPTIONS, GDS_MIN_TARGET_PX,
+  resolveGdsAxisTokens, resolveGdsLayoutTokens, validateGdsLayoutAxis,
 } from './axes';
 import { gdsTheme } from './theme';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
@@ -222,5 +224,150 @@ describe('motion and reaction axes (issue 558)', () => {
     expect(quiet['--gds-reaction-hover-scale']).toBe('1');
     const loud = resolveGdsReactionTokens({ hover: 'pronounced' }, 'probe');
     expect(loud['--gds-reaction-hover-lift']).toBe('-4px');
+  });
+});
+
+describe('layout axis (issue 698)', () => {
+  const LAYOUT_TOKEN_NAMES = [
+    '--gds-layout-sidebar-width',
+    '--gds-layout-header-height',
+    '--gds-layout-footer-height',
+    '--gds-layout-nav-item-height',
+    '--gds-layout-content-max-width',
+    '--gds-layout-list-rail-width',
+    '--gds-layout-bottom-bar-height',
+    '--gds-layout-content-bottom-padding',
+    '--gds-layout-sheet-top-radius',
+  ] as const;
+
+  it('emits all nine tokens at their documented defaults when no layout axis is declared (zero declarations)', () => {
+    const tokens = resolveGdsLayoutTokens();
+    expect(tokens['--gds-layout-sidebar-width']).toBe('280px');
+    expect(tokens['--gds-layout-header-height']).toBe('60px');
+    expect(tokens['--gds-layout-footer-height']).toBe('68px');
+    expect(tokens['--gds-layout-nav-item-height']).toBe('44px');
+    expect(tokens['--gds-layout-content-max-width']).toBe('1400px');
+    expect(tokens['--gds-layout-list-rail-width']).toBe('480px');
+    expect(tokens['--gds-layout-bottom-bar-height']).toBe('64px');
+    expect(tokens['--gds-layout-content-bottom-padding']).toBe('calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))');
+    expect(tokens['--gds-layout-sheet-top-radius']).toBe('var(--gds-radius-sheet)');
+  });
+
+  it('emits the full nine-token namespace for every preset, whether or not it declares a layout override', () => {
+    // Unconditional, like shape/density: a preset that stays silent still gets every token, so
+    // a component's var(--gds-layout-*, ...) fallback is a safety net, not the normal path.
+    for (const { id } of getGdsVibeThemes()) {
+      const vars = getGdsVibeThemeCssVariables(id, 'light');
+      for (const name of LAYOUT_TOKEN_NAMES) expect(vars[name]).toBeTruthy();
+    }
+  });
+
+  it('overrides one declared field and keeps the other eight at their defaults (one declaration)', () => {
+    const tokens = resolveGdsLayoutTokens({ sidebarWidth: '240px' });
+    expect(tokens['--gds-layout-sidebar-width']).toBe('240px');
+    expect(tokens['--gds-layout-header-height']).toBe(GDS_DEFAULT_LAYOUT_AXIS.headerHeight);
+    expect(tokens['--gds-layout-footer-height']).toBe(GDS_DEFAULT_LAYOUT_AXIS.footerHeight);
+    expect(tokens['--gds-layout-nav-item-height']).toBe(GDS_DEFAULT_LAYOUT_AXIS.navItemHeight);
+    expect(tokens['--gds-layout-content-max-width']).toBe(GDS_DEFAULT_LAYOUT_AXIS.contentMaxWidth);
+    expect(tokens['--gds-layout-list-rail-width']).toBe(GDS_DEFAULT_LAYOUT_AXIS.listRailWidth);
+    expect(tokens['--gds-layout-bottom-bar-height']).toBe(GDS_DEFAULT_LAYOUT_AXIS.bottomBarHeight);
+    expect(tokens['--gds-layout-content-bottom-padding']).toBe(GDS_DEFAULT_LAYOUT_AXIS.contentBottomPadding);
+    expect(tokens['--gds-layout-sheet-top-radius']).toBe('var(--gds-radius-sheet)');
+  });
+
+  it('resolves a full nine-field declaration to the your-field target values (many declarations, the expressibility proof)', () => {
+    const tokens = resolveGdsLayoutTokens({
+      sidebarWidth: '240px',
+      headerHeight: '56px',
+      footerHeight: '68px',
+      navItemHeight: '38px',
+      contentMaxWidth: '1400px',
+      listRailWidth: '480px',
+      bottomBarHeight: '64px',
+      contentBottomPadding: 'calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))',
+      sheetTopRadius: 'lg',
+    }, 'your-field');
+    expect(tokens).toEqual({
+      '--gds-layout-sidebar-width': '240px',
+      '--gds-layout-header-height': '56px',
+      '--gds-layout-footer-height': '68px',
+      '--gds-layout-nav-item-height': '38px',
+      '--gds-layout-content-max-width': '1400px',
+      '--gds-layout-list-rail-width': '480px',
+      '--gds-layout-bottom-bar-height': '64px',
+      '--gds-layout-content-bottom-padding': 'calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))',
+      '--gds-layout-sheet-top-radius': 'var(--gds-radius-lg)',
+    });
+  });
+
+  it('resolves a GdsRadiusStep name for sheetTopRadius to its step token, a literal through verbatim, and the default to the sheet ROLE token', () => {
+    expect(resolveGdsLayoutTokens({ sheetTopRadius: 'xl' })['--gds-layout-sheet-top-radius']).toBe('var(--gds-radius-xl)');
+    expect(resolveGdsLayoutTokens({ sheetTopRadius: '24px' })['--gds-layout-sheet-top-radius']).toBe('24px');
+    expect(resolveGdsLayoutTokens()['--gds-layout-sheet-top-radius']).toBe('var(--gds-radius-sheet)');
+  });
+
+  it('passes calc()/var() declared values through unvalidated, as the density resolver does', () => {
+    const tokens = resolveGdsLayoutTokens({
+      headerHeight: 'var(--some-custom-height)',
+      bottomBarHeight: 'calc(4rem + env(safe-area-inset-bottom))',
+    });
+    expect(tokens['--gds-layout-header-height']).toBe('var(--some-custom-height)');
+    expect(tokens['--gds-layout-bottom-bar-height']).toBe('calc(4rem + env(safe-area-inset-bottom))');
+  });
+
+  it('rejects a non-positive px dimension, naming the theme id and field', () => {
+    expect(() => validateGdsLayoutAxis({ sidebarWidth: '0px' }, 'probe')).toThrow(/probe.*sidebarWidth.*not a positive dimension/);
+    expect(() => validateGdsLayoutAxis({ contentMaxWidth: '-10px' }, 'probe')).toThrow(/not a positive dimension/);
+  });
+
+  it('rejects an empty declared value', () => {
+    expect(() => validateGdsLayoutAxis({ sidebarWidth: '' }, 'probe')).toThrow(/is empty/);
+  });
+
+  it('rejects headerHeight/footerHeight/bottomBarHeight below the 44px floor, with no exception path', () => {
+    expect(() => validateGdsLayoutAxis({ headerHeight: '40px' }, 'probe')).toThrow(/headerHeight.*below the 44px target floor/);
+    expect(() => validateGdsLayoutAxis({ footerHeight: '40px' }, 'probe')).toThrow(/footerHeight.*below the 44px target floor/);
+    expect(() => validateGdsLayoutAxis({ bottomBarHeight: '40px' }, 'probe')).toThrow(GdsAxisError);
+  });
+
+  it('passes navItemHeight: 38px through the shipped recorded exception', () => {
+    expect(GDS_LAYOUT_DIMENSION_EXCEPTIONS.navItemHeight).toBeTruthy();
+    expect(() => validateGdsLayoutAxis({ navItemHeight: '38px' }, 'probe')).not.toThrow();
+    expect(resolveGdsLayoutTokens({ navItemHeight: '38px' })['--gds-layout-nav-item-height']).toBe('38px');
+  });
+
+  it('rejects navItemHeight: 38px once the recorded exception is removed (test double), and restores it afterward', () => {
+    const original = GDS_LAYOUT_DIMENSION_EXCEPTIONS.navItemHeight;
+    delete (GDS_LAYOUT_DIMENSION_EXCEPTIONS as Record<string, string | undefined>).navItemHeight;
+    try {
+      expect(() => validateGdsLayoutAxis({ navItemHeight: '38px' }, 'probe'))
+        .toThrow(/navItemHeight" is declared as 38px, below the 44px target floor.*no recorded exception/);
+    } finally {
+      (GDS_LAYOUT_DIMENSION_EXCEPTIONS as Record<string, string | undefined>).navItemHeight = original;
+    }
+    // Restored: the shipped your-field value stays legal for every test that runs after this one.
+    expect(() => validateGdsLayoutAxis({ navItemHeight: '38px' }, 'probe')).not.toThrow();
+  });
+
+  it('leaves density mode with nothing to scale, structurally: resolveGdsLayoutTokens takes no density input at all', () => {
+    const compact = resolveGdsAxisTokens({ density: { ...GDS_DEFAULT_DENSITY_AXIS, mode: 'compact' } }, 'probe');
+    const spacious = resolveGdsAxisTokens({ density: { ...GDS_DEFAULT_DENSITY_AXIS, mode: 'spacious' } }, 'probe');
+    const comfortable = resolveGdsAxisTokens(undefined, 'probe');
+    for (const name of LAYOUT_TOKEN_NAMES) {
+      expect(compact[name]).toBe(comfortable[name]);
+      expect(spacious[name]).toBe(comfortable[name]);
+    }
+    // Sanity check that density itself DID change in the same call, so this isn't vacuous.
+    expect(compact['--gds-control-height-xs']).not.toBe(comfortable['--gds-control-height-xs']);
+  });
+
+  it('resolves identically across light and dark, and honours a declared override through the shared axes container', () => {
+    const declared = { layout: { sidebarWidth: '240px', headerHeight: '56px', navItemHeight: '38px' } };
+    const light = resolveGdsAxisTokens(declared, 'probe', 'light');
+    const dark = resolveGdsAxisTokens(declared, 'probe', 'dark');
+    expect(light['--gds-layout-sidebar-width']).toBe('240px');
+    expect(dark['--gds-layout-sidebar-width']).toBe('240px');
+    expect(light['--gds-layout-header-height']).toBe(dark['--gds-layout-header-height']);
+    expect(light['--gds-layout-nav-item-height']).toBe(dark['--gds-layout-nav-item-height']);
   });
 });

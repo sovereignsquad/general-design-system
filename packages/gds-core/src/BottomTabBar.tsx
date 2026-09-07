@@ -12,7 +12,7 @@ import type { PublicNavItem } from './PublicNav';
 
 /** Maximum number of tabs the bottom tab bar renders. */
 export const BOTTOM_TAB_MAX_ITEMS = 5;
-/** Bar height in pixels, excluding the safe-area inset. */
+/** Bar height in pixels, excluding the safe-area inset — the fallback behind `--gds-layout-bottom-bar-height`. */
 export const BOTTOM_TAB_HEIGHT = 64;
 
 /** Props for {@link BottomTabBar}. */
@@ -95,7 +95,7 @@ export function BottomTabBar({
         // gate; an inline value here would always win over that media query.
         justifyContent: 'space-around',
         alignItems: 'stretch',
-        height: `calc(${BOTTOM_TAB_HEIGHT}px + env(safe-area-inset-bottom, 0px))`,
+        height: `calc(var(--gds-layout-bottom-bar-height, ${BOTTOM_TAB_HEIGHT}px) + env(safe-area-inset-bottom, 0px))`,
         paddingBottom: 'env(safe-area-inset-bottom, 0px)',
         background: 'var(--gds-bg-surface, var(--mantine-color-white))',
         borderTop: '1px solid var(--gds-border-card, var(--mantine-color-gray-3))',

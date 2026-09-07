@@ -47,7 +47,7 @@ the rest informed the milestone's scope without becoming their own classificatio
 
 ## The `GdsDesignRuleProfile` contract (#643)
 
-`GdsThemeAxes` carries an eighth, optional axis (`packages/gds-theme/src/axes.ts`):
+`GdsThemeAxes` carries a ninth, optional axis (`packages/gds-theme/src/axes.ts`):
 
 ```ts
 export interface GdsDesignRuleProfile {

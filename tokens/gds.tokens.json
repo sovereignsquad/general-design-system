@@ -5,9 +5,9 @@
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
       "themeCount": 27,
-      "tokenCount": 5778,
+      "tokenCount": 6021,
       "atmosphereTokenCount": 459,
-      "semanticTokenCount": 5319,
+      "semanticTokenCount": 5562,
       "globalTokenCount": 36,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
@@ -2611,6 +2611,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "default semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "default semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "default semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "default semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "default semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "default semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "default semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "default semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "default semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -5799,6 +5934,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "high-contrast semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "high-contrast semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "high-contrast semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "high-contrast semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "high-contrast semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "high-contrast semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "high-contrast semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "high-contrast semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "high-contrast semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -8979,6 +9249,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "colorblind-safe semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "colorblind-safe semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "colorblind-safe semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "colorblind-safe semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "colorblind-safe semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "colorblind-safe semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "colorblind-safe semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "colorblind-safe semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "colorblind-safe semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -12167,6 +12572,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "dark-public semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "dark-public semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "dark-public semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "dark-public semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "dark-public semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "dark-public semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "dark-public semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "dark-public semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "dark-public semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -15347,6 +15887,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "flat-surface semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "flat-surface semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "flat-surface semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "flat-surface semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "flat-surface semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "flat-surface semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "flat-surface semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "flat-surface semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "flat-surface semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -18535,6 +19210,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "editorial semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "editorial semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "editorial semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "editorial semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "editorial semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "editorial semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "editorial semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "editorial semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "editorial semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -21715,6 +22525,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "brand semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "brand semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "brand semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "brand semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "brand semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "brand semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "brand semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "brand semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "brand semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -24903,6 +25848,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "partner-discovery semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "partner-discovery semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "partner-discovery semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "partner-discovery semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "partner-discovery semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "partner-discovery semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "partner-discovery semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "partner-discovery semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "partner-discovery semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -28083,6 +29163,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "class-usa semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "class-usa semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "class-usa semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "class-usa semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "class-usa semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "class-usa semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "class-usa semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "class-usa semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "class-usa semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -31271,6 +32486,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "gold-athlete semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "gold-athlete semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "gold-athlete semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "gold-athlete semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "gold-athlete semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "gold-athlete semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "gold-athlete semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "gold-athlete semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "gold-athlete semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -34451,6 +35801,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "padel-africa semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "padel-africa semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "padel-africa semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "padel-africa semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "padel-africa semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "padel-africa semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "padel-africa semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "padel-africa semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "padel-africa semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -37639,6 +39124,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "your-field semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "your-field semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "your-field semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "your-field semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "your-field semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "your-field semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "your-field semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "your-field semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "your-field semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -40819,6 +42439,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "sunset semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "sunset semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "sunset semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "sunset semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "sunset semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "sunset semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "sunset semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "sunset semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "sunset semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -44007,6 +45762,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "oceanic semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "oceanic semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "oceanic semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "oceanic semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "oceanic semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "oceanic semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "oceanic semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "oceanic semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "oceanic semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -47187,6 +49077,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "forest semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "forest semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "forest semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "forest semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "forest semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "forest semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "forest semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "forest semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "forest semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -50375,6 +52400,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "ruby semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "ruby semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "ruby semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "ruby semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "ruby semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "ruby semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "ruby semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "ruby semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "ruby semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -53555,6 +55715,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "amber semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "amber semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "amber semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "amber semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "amber semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "amber semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "amber semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "amber semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "amber semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -56743,6 +59038,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "neon-night semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "neon-night semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "neon-night semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "neon-night semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "neon-night semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "neon-night semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "neon-night semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "neon-night semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "neon-night semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -59923,6 +62353,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "skyline semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "skyline semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "skyline semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "skyline semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "skyline semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "skyline semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "skyline semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "skyline semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "skyline semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -63111,6 +65676,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "aurora semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "aurora semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "aurora semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "aurora semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "aurora semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "aurora semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "aurora semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "aurora semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "aurora semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -66291,6 +68991,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "coral semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "coral semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "coral semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "coral semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "coral semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "coral semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "coral semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "coral semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "coral semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -69479,6 +72314,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "mint semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "mint semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "mint semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "mint semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "mint semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "mint semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "mint semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "mint semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "mint semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -72659,6 +75629,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "orchid semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "orchid semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "orchid semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "orchid semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "orchid semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "orchid semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "orchid semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "orchid semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "orchid semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -75847,6 +78952,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "royal semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "royal semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "royal semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "royal semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "royal semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "royal semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "royal semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "royal semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "royal semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -79027,6 +82267,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "warm semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "warm semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "warm semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "warm semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "warm semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "warm semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "warm semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "warm semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "warm semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }
@@ -82215,6 +85590,141 @@
             }
           }
         },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "athlete-gold semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "athlete-gold semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "athlete-gold semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "athlete-gold semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "athlete-gold semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "athlete-gold semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "athlete-gold semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "athlete-gold semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "athlete-gold semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
+              }
+            }
+          }
+        },
         "line-height-2xl": {
           "$type": "number",
           "$value": "1.25",
@@ -85395,6 +88905,141 @@
               "scheme": {
                 "light": "calc(0.75rem * var(--mantine-scale))",
                 "dark": "calc(0.75rem * var(--mantine-scale))"
+              }
+            }
+          }
+        },
+        "layout-bottom-bar-height": {
+          "$type": "dimension",
+          "$value": "64px",
+          "$description": "cosmic semantic role \"layout-bottom-bar-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-bottom-bar-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "64px",
+                "dark": "64px"
+              }
+            }
+          }
+        },
+        "layout-content-bottom-padding": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+          "$description": "cosmic semantic role \"layout-content-bottom-padding\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-bottom-padding",
+              "lane": "semantic",
+              "scheme": {
+                "light": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))",
+                "dark": "calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))"
+              }
+            }
+          }
+        },
+        "layout-content-max-width": {
+          "$type": "dimension",
+          "$value": "1400px",
+          "$description": "cosmic semantic role \"layout-content-max-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-content-max-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "1400px",
+                "dark": "1400px"
+              }
+            }
+          }
+        },
+        "layout-footer-height": {
+          "$type": "dimension",
+          "$value": "68px",
+          "$description": "cosmic semantic role \"layout-footer-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-footer-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "68px",
+                "dark": "68px"
+              }
+            }
+          }
+        },
+        "layout-header-height": {
+          "$type": "dimension",
+          "$value": "60px",
+          "$description": "cosmic semantic role \"layout-header-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-header-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "60px",
+                "dark": "60px"
+              }
+            }
+          }
+        },
+        "layout-list-rail-width": {
+          "$type": "dimension",
+          "$value": "480px",
+          "$description": "cosmic semantic role \"layout-list-rail-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-list-rail-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "480px",
+                "dark": "480px"
+              }
+            }
+          }
+        },
+        "layout-nav-item-height": {
+          "$type": "dimension",
+          "$value": "44px",
+          "$description": "cosmic semantic role \"layout-nav-item-height\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-nav-item-height",
+              "lane": "semantic",
+              "scheme": {
+                "light": "44px",
+                "dark": "44px"
+              }
+            }
+          }
+        },
+        "layout-sheet-top-radius": {
+          "$type": "com.sovereignsquad.gds.cssComputed",
+          "$value": "var(--gds-radius-sheet)",
+          "$description": "cosmic semantic role \"layout-sheet-top-radius\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sheet-top-radius",
+              "lane": "semantic",
+              "scheme": {
+                "light": "var(--gds-radius-sheet)",
+                "dark": "var(--gds-radius-sheet)"
+              }
+            }
+          }
+        },
+        "layout-sidebar-width": {
+          "$type": "dimension",
+          "$value": "280px",
+          "$description": "cosmic semantic role \"layout-sidebar-width\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "layout-sidebar-width",
+              "lane": "semantic",
+              "scheme": {
+                "light": "280px",
+                "dark": "280px"
               }
             }
           }

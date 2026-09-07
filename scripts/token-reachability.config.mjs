@@ -373,6 +373,43 @@ export const EXTENSION_POINTS = {
     reason: 'No alias and no consumer, exactly as --gds-badge-attention. Same reasoning, same near date.',
     reviewBy: '2026-11-01',
   },
+
+  // ── Layout axis (issue 698) ──
+  '--gds-layout-nav-item-height': {
+    reason:
+      'Layout axis (issue 698). Sidebar nav-row height token, declared so a brand lane can set it '
+      + '(and record the 44px-floor exception it needs) ahead of its real consumer. Issue 698 '
+      + 'explicitly scopes SidebarNav adoption out of itself; issue 702 (SidebarNav light-surface '
+      + 'variant) wires it up.',
+    reviewBy: '2026-12-01',
+  },
+  '--gds-layout-content-max-width': {
+    reason:
+      'Layout axis (issue 698). Main-content max-width token; wiring it into DiscoveryShell now '
+      + 'would silently constrain every existing consumer\'s content area, an unrequested behavior '
+      + 'change outside issue 698\'s scope. Issue 707 (browse canvas) is the real consumer.',
+    reviewBy: '2026-12-01',
+  },
+  '--gds-layout-list-rail-width': {
+    reason:
+      'Layout axis (issue 698). List-rail width for the list+map browse split; the split view does '
+      + 'not exist yet. Issue 707 (browse canvas) wires it up.',
+    reviewBy: '2026-12-01',
+  },
+  '--gds-layout-content-bottom-padding': {
+    reason:
+      'Layout axis (issue 698). Bottom-clearance padding for content stacked above the fixed bottom '
+      + 'tab bar; no scrollable content region owns this concern yet. Consumed by whichever page '
+      + 'shell adopts it first (candidate: issue 707\'s browse canvas).',
+    reviewBy: '2026-12-01',
+  },
+  '--gds-layout-sheet-top-radius': {
+    reason:
+      'Layout axis (issue 698). Bottom-sheet top-corner radius; gds-core has no bottom-sheet/drawer '
+      + 'component to consume it yet (verified: zero references to --gds-radius-sheet, the role this '
+      + 'token derives from, anywhere in packages/gds-core/src). Untracked pending a sheet component.',
+    reviewBy: '2026-12-01',
+  },
 };
 
 /**

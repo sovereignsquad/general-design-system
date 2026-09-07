@@ -31,6 +31,8 @@ export type { GdsTypographyAxis, GdsElevationAxis, GdsTextSizeStep, GdsWeightNam
 export { gdsSpace, resolveGdsDensityTokens, resolveGdsShellHeightTokens, GDS_SHELL_HEIGHTS, validateGdsDensityAxis, GDS_DEFAULT_DENSITY_AXIS, GDS_SPACE_STEPS, GDS_CONTROL_SIZES, GDS_MIN_TARGET_PX, GDS_CONTROL_HEIGHT_EXCEPTIONS } from './axes';
 export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResolvedShapeTokens } from './axes';
 export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
+export { resolveGdsLayoutTokens, validateGdsLayoutAxis, GDS_DEFAULT_LAYOUT_AXIS, GDS_LAYOUT_DIMENSION_EXCEPTIONS } from './axes';
+export type { GdsLayoutAxis } from './axes';
 
 // ── Design rule profile (issue 643) ──
 export { validateGdsDesignRuleProfile, GDS_DEFAULT_DESIGN_RULE_PROFILE } from './axes';
