@@ -30,6 +30,7 @@ const AXIS_PREFIXES = [
   '--gds-font-size-', '--gds-line-height-', '--gds-weight-', '--gds-tracking-', '--gds-font-lane-',
   '--gds-elevation-', '--gds-reaction-', '--gds-focus-ring-w', '--gds-focus-ring-o',
   '--gds-focus-ring-s', '--gds-focus-ring-c', '--gds-transition-scope', '--gds-motion-',
+  '--gds-layout-',
 ];
 const isAxisToken = (name) => AXIS_PREFIXES.some((p) => name.startsWith(p));
 

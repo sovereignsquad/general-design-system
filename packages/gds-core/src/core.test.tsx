@@ -69,6 +69,7 @@ import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
 import { ShareButtonGroup } from './ShareButtonGroup';
 import { DiscoveryShell, useDiscoveryShellState } from './DiscoveryShell';
+import { BottomTabBar, BOTTOM_TAB_HEIGHT } from './BottomTabBar';
 import { SemanticButton } from './SemanticButton';
 import { SectionPanel } from './SectionPanel';
 import { ReferenceSection } from './ReferenceSection';
@@ -1728,6 +1729,40 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByRole('link', { name: 'Settings' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Logout' })).toBeInTheDocument();
     expect(screen.getByText('Discovery content')).toBeInTheDocument();
+  });
+
+  it('defaults sidebar/header/footer sizing to the --gds-layout-* tokens, with the pre-token literals as var() fallbacks (issue 698)', () => {
+    const { container } = renderWithGds(
+      <DiscoveryShell
+        header={<Text fw={700}>Token defaults</Text>}
+        sidebar={<div>sidebar</div>}
+        footer={<button type="button">Home</button>}
+      >
+        <div>content</div>
+      </DiscoveryShell>,
+    );
+
+    const appShellVars = Array.from(container.querySelectorAll('style')).map((s) => s.textContent).join('\n');
+    expect(appShellVars).toContain('var(--gds-layout-sidebar-width, 280px)');
+    expect(appShellVars).toContain('var(--gds-layout-header-height, 60px)');
+    expect(appShellVars).toContain('var(--gds-layout-footer-height, 68px)');
+  });
+
+  it('lets an explicit sidebarWidth/headerHeight prop win over the layout tokens', () => {
+    const { container } = renderWithGds(
+      <DiscoveryShell
+        header={<Text fw={700}>Explicit sizing</Text>}
+        sidebar={<div>sidebar</div>}
+        sidebarWidth={320}
+        headerHeight="72px"
+      >
+        <div>content</div>
+      </DiscoveryShell>,
+    );
+
+    const appShellVars = Array.from(container.querySelectorAll('style')).map((s) => s.textContent).join('\n');
+    expect(appShellVars).not.toContain('--gds-layout-sidebar-width');
+    expect(appShellVars).not.toContain('--gds-layout-header-height');
   });
 
   it('supports shell-state toggling with deterministic callbacks', async () => {
@@ -4713,6 +4748,18 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     expect(screen.getAllByText(/Unsupported layout block type "ghost"/i).length).toBeGreaterThan(0);
   });
+
+describe('BottomTabBar layout token (issue 698)', () => {
+  const items = [{ id: 'home', label: 'Home', href: '/' }];
+
+  it('reads the bar height from --gds-layout-bottom-bar-height, with the pre-token literal as the var() fallback', () => {
+    const { container } = renderWithGds(<BottomTabBar items={items} />);
+    const nav = container.querySelector('nav');
+    expect(nav).toHaveStyle({
+      height: `calc(var(--gds-layout-bottom-bar-height, ${BOTTOM_TAB_HEIGHT}px) + env(safe-area-inset-bottom, 0px))`,
+    });
+  });
+});
 
 describe('GdsColorSystemReference (issue 661)', () => {
   it('renders every 60-30-10 role group with a resolved swatch value, and the live contrast matrix', () => {

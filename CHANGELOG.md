@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — Element-level opt-out from the theme-preset repaint (#724)
+## Unreleased — Element-level opt-out from the theme-preset repaint, and a layout axis (#724, #698)
 
 ### `data-gds-fixed-tone` excludes one element from every preset rule
 
@@ -24,6 +24,49 @@ Documented in `THEME_GOVERNANCE.md`, `docs/THEME_STYLING_HOOKS.md`, and
 `docs/CLASSSCOUT_INTEGRATION.md` B19. `preset-fixed-tone.test.ts` asserts the contract on every
 gated selector in both directions and that no gated rule uses a bare `:not()`; the release-doc
 completeness gate requires `llms.txt` and `README.md` to keep naming the attribute.
+
+### A `layout` axis governs shell geometry (#698)
+
+Sidebar width, header/footer heights, nav-item height, content max-width, browse list-rail
+width, mobile bottom-tab-bar height, content bottom padding, and bottom-sheet top radius were
+the one dimensional concern the theme-axis mechanism did not govern: `DiscoveryShell` hardcoded
+`sidebarWidth = 280`/`headerHeight = 60` as prop defaults and a footer height of `68` inline;
+`BottomTabBar` hardcoded `BOTTOM_TAB_HEIGHT = 64`. A brand lane had no lever for any of it short
+of restating the same prop at every call site, or forking the component.
+
+`GdsLayoutAxis` (`packages/gds-theme/src/axes.ts`) is the ninth key on `GdsThemeAxes`, following
+the file's own four-part recipe for adding an axis: a type, `GDS_DEFAULT_LAYOUT_AXIS`,
+`validateGdsLayoutAxis`, and a `resolveGdsLayoutTokens` branch in `resolveGdsAxisTokens`. It
+resolves nine `--gds-layout-*` custom properties, emitted unconditionally like shape and
+density so every preset carries the full namespace whether or not it declares an override:
+
+- `--gds-layout-sidebar-width` (280px), `--gds-layout-header-height` (60px),
+  `--gds-layout-footer-height` (68px), `--gds-layout-nav-item-height` (44px)
+- `--gds-layout-content-max-width` (1400px), `--gds-layout-list-rail-width` (480px)
+- `--gds-layout-bottom-bar-height` (64px)
+- `--gds-layout-content-bottom-padding` — derived, `calc(bottom-bar-height + space-xl)`,
+  ~96px at defaults, so a lane that raises its bar height gets correct padding for free
+- `--gds-layout-sheet-top-radius` — defaults to the shape axis's `sheet` ROLE token
+  (`var(--gds-radius-sheet)`), not a step, so repointing `sheet` repaints bottom sheets too
+
+`headerHeight`/`footerHeight`/`bottomBarHeight` enforce the 44px target floor with no exception
+path — these regions host interactive 44px targets and cannot be shorter than the targets they
+contain. `navItemHeight` enforces the same floor through one recorded exception,
+`GDS_LAYOUT_DIMENSION_EXCEPTIONS.navItemHeight`: a dense sidebar nav row may render below 44px
+visual height only where the interactive row (full row width plus vertical padding) still
+preserves a 44px effective hit target — a consumer adopting a sub-44px value owns that
+obligation. `calc()`/`var()` declared values pass through unvalidated, matching the density
+resolver. Density mode does not scale layout tokens; shell geometry does not compress at
+`compact`.
+
+`DiscoveryShell`'s `sidebarWidth`/`headerHeight` prop defaults and its inline footer height, and
+`BottomTabBar`'s bar-height `calc()`, now read the tokens with the pre-token literals as
+`var(..., <literal>)` fallbacks — pixel-identical rendering with no GDS theme runtime present,
+and an explicit prop still wins. `BOTTOM_TAB_HEIGHT` remains exported as the fallback constant.
+
+A consumer stacking content above a fixed bottom tab bar should read
+`--gds-layout-content-bottom-padding` rather than inventing a bottom-padding literal, so nothing
+hides behind the bar.
 
 ## 6.7.0 - 2026-08-27 — Padel Africa preset, ListingCard media overlays, and a primary-CTA contrast rule (#678, #679, #680)
 

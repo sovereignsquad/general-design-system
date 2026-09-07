@@ -97,9 +97,9 @@ export interface DiscoveryShellProps {
   desktopCollapsible?: boolean;
   /** Accessible label for the desktop sidebar toggle; defaults to "Toggle sidebar". */
   desktopNavigationLabel?: string;
-  /** Sidebar width; defaults to 280. */
+  /** Sidebar width; defaults to `var(--gds-layout-sidebar-width, 280px)`. */
   sidebarWidth?: number | string;
-  /** Header height; defaults to 60. */
+  /** Header height; defaults to `var(--gds-layout-header-height, 60px)`. */
   headerHeight?: number | string;
   /** Main-content padding; defaults to "md". */
   shellPadding?: MantineSpacing | number;
@@ -133,8 +133,8 @@ export function DiscoveryShell({
   stickySidebar = true,
   desktopCollapsible = false,
   desktopNavigationLabel: desktopNavigationLabelProp,
-  sidebarWidth = 280,
-  headerHeight = 60,
+  sidebarWidth = 'var(--gds-layout-sidebar-width, 280px)',
+  headerHeight = 'var(--gds-layout-header-height, 60px)',
   shellPadding = 'md',
   collapseBreakpoint = 'sm',
   closeMobileNavigationOnItemSelect = true,
@@ -158,7 +158,7 @@ export function DiscoveryShell({
   return (
     <MantineAppShell
       header={{ height: headerHeight }}
-      footer={footer ? { height: 68 } : undefined}
+      footer={footer ? { height: 'var(--gds-layout-footer-height, 68px)' } : undefined}
       navbar={{
         width: sidebarWidth,
         breakpoint: collapseBreakpoint,
