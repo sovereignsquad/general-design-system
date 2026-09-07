@@ -626,6 +626,7 @@
         "packages/gds-core/src/PublicShell.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-core/src/generated-brand-badge.ts",
         "packages/gds-theme/src/accessibility-floor.ts",
         "packages/gds-theme/src/theme-presets.ts",
         "packages/gds-theme/src/theme.ts",
