@@ -23,8 +23,8 @@ export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResol
 export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
 export { resolveGdsLayoutTokens, validateGdsLayoutAxis, GDS_DEFAULT_LAYOUT_AXIS, GDS_LAYOUT_DIMENSION_EXCEPTIONS } from './axes';
 export type { GdsLayoutAxis } from './axes';
-export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, deriveVibeSemanticCssVariables } from './vibe-themes';
-export type { GdsVibeTheme } from './vibe-themes';
+export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, deriveVibeSemanticCssVariables, getGdsAiAccentLane } from './vibe-themes';
+export type { GdsVibeTheme, GdsAiAccentLane } from './vibe-themes';
 export { GdsVibeThemeScope } from './VibeThemeScope';
 export type { GdsVibeThemeScopeProps } from './VibeThemeScope';
 export { createGdsThemeAccessibilityReport, validateGdsThemeAccessibility } from './accessibility-report';

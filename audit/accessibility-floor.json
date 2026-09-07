@@ -1,8 +1,8 @@
 {
   "presetsChecked": 54,
-  "rulesEvaluated": 9,
+  "rulesEvaluated": 10,
   "violationCount": 0,
-  "reportCount": 20,
+  "reportCount": 22,
   "rules": [
     {
       "id": "focus-ring-min-width",
@@ -51,6 +51,12 @@
       "axis": "color",
       "wcag": "1.4.3 Contrast (Minimum) (AA)",
       "rationale": "The primary call to action is the one control a page most expects to be pressed, and its label is normal-weight text. Nothing else in GDS measured this pairing: createBrandTheme's assertContrast gates text on page/surface/inverse and derives a readable foreground for support, and no floor rule covered the action fill, so a preset could ship a CTA below AA and every gate stayed silent (issue 680)."
+    },
+    {
+      "id": "ai-accent-text-contrast",
+      "axis": "color",
+      "wcag": "1.4.3 Contrast (Minimum) (AA)",
+      "rationale": "The reserved ai.accent role (issue 697) is a non-text, sub-brand identity colour — the Your Field handoff's Scout orange, #ff6b35 — never a general text or action fill. White on it measures 2.84:1, clearing neither AA text threshold. This rule measures and prints that number every run so it stays derived (Rule 14), never retyped as prose, without treating a non-text lane as a text-contrast failure it never claimed to pass."
     },
     {
       "id": "disabled-control-still-distinguishable",

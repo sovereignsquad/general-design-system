@@ -217,6 +217,21 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     },
   },
   {
+    id: 'ai-accent-text-contrast',
+    axis: 'color',
+    wcag: '1.4.3 Contrast (Minimum) (AA)',
+    rationale:
+      'The reserved ai.accent role (issue 697) is a non-text, sub-brand identity colour — the Your Field handoff\'s Scout orange, #ff6b35 — never a general text or action fill. White on it measures 2.84:1, clearing neither AA text threshold. This rule measures and prints that number every run so it stays derived (Rule 14), never retyped as prose, without treating a non-text lane as a text-contrast failure it never claimed to pass.',
+    evaluate(ctx) {
+      const fill = ctx.tokens['--gds-ai-accent'];
+      if (!fill) return [];
+      const ratio = contrastRatio('#ffffff', fill, fill);
+      if (ratio === null || ratio >= 4.5) return [];
+      return [report(ctx, this, `white on ${fill} = ${ratio}:1`, '>= 4.5:1',
+        'Reserved non-text sub-brand lane; gradient-filled controls carry >=14px/600 text per the lane rule (THEME_GOVERNANCE.md), not this fill alone.')];
+    },
+  },
+  {
     id: 'disabled-control-still-distinguishable',
     axis: 'color',
     wcag: '1.4.1 Use of Color (A)',

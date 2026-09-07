@@ -467,6 +467,22 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:ai-reserved-usage',
+    script: null,
+    mutants: [
+      {
+        id: 'ai-reserved-usage-detects-unsanctioned-reference',
+        claim: 'Detects a --gds-ai-* reference in a scanned file that is not on the sanctioned consumer allowlist',
+        // packages/gds-theme/styles.css is one of the two directories/files the gate scans
+        // (packages/gds-core/src/** is the other); its very first line is a stable anchor.
+        file: 'packages/gds-theme/styles.css',
+        find: "@import '@mantine/core/styles.css';",
+        replace: "@import '@mantine/core/styles.css'; /* --gds-ai-mutant-probe */",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:font-lane-coverage',
     script: null,
     mutants: [
