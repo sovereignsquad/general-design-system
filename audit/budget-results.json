@@ -32,8 +32,8 @@
     },
     {
       "key": "tokensWithGaps",
-      "measured": 87,
-      "value": 87,
+      "measured": 86,
+      "value": 86,
       "direction": "max",
       "unit": "count",
       "finding": "F11",
@@ -92,7 +92,7 @@
     },
     {
       "key": "englishLeakageWorstLocale",
-      "measured": 0.15,
+      "measured": 0.14,
       "value": 0.15,
       "direction": "max",
       "unit": "%",

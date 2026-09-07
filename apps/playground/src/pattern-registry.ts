@@ -1215,6 +1215,26 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     importPath: '@sovereignsquad/gds-core',
     sourceComponent: 'AISearchCard',
   },
+  {
+    id: 'hero-search-panel',
+    title: 'Hero Search Panel',
+    docSection: 'Core Component Contracts',
+    family: 'public',
+    section: 'Public Product Surfaces',
+    summary: 'Governed homepage intent-capture surface: a wrapping row of consumer-defined text fields, a primary + optional secondary CTA, and an optional trust-line slot.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'HeroSearchPanel',
+  },
+  {
+    id: 'quick-start-card',
+    title: 'Quick Start Card',
+    docSection: 'Core Component Contracts',
+    family: 'public',
+    section: 'Public Product Surfaces',
+    summary: 'Governed clickable scenario card for homepage quick-start grids: an icon square, a bold label, and an optional one-line description with a token-bound hover lift.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'QuickStartCard',
+  },
 ];
 
 const provenIds = new Set(provenPatternIds);

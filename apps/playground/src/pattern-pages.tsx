@@ -82,6 +82,9 @@ import {
   ValidatedFieldMessage,
   GameBoardTile,
   GdsIcons,
+  type GdsIconName,
+  HeroSearchPanel,
+  QuickStartCard,
   ListingCard,
   MapPanel,
   MediaCard,
@@ -156,6 +159,7 @@ import {
   GdsBox,
   GdsStack,
   GdsInline,
+  GdsGrid,
   GdsIcon,
   MeaningBadge,
   FitScoreChip,
@@ -2172,6 +2176,99 @@ function AISearchCardDemo() {
   );
 }
 
+const heroSearchPanelExampleFields = [
+  { key: 'childAge', label: 'Child age', placeholder: 'e.g. 6' },
+  { key: 'neighbourhood', label: 'Neighbourhood', placeholder: 'e.g. Riverside' },
+  { key: 'date', label: 'Date', placeholder: 'e.g. This weekend' },
+  { key: 'activityType', label: 'Activity type', placeholder: 'e.g. Swimming' },
+  { key: 'budget', label: 'Budget', placeholder: 'e.g. Under $50' },
+];
+
+const heroSearchPanelOverflowFields = Array.from({ length: 10 }, (_, index) => ({
+  key: `overflow-${index}`,
+  label: `Field ${index + 1}`,
+  placeholder: `Value ${index + 1}`,
+}));
+
+function HeroSearchPanelDemo() {
+  const [submittedValues, setSubmittedValues] = useState<Record<string, string> | null>(null);
+
+  return (
+    <SectionPanel
+      title="Hero search panel"
+      description="A homepage intent-capture surface: a wrapping row of consumer-defined text fields, a primary and optional secondary CTA, and an optional trust line. Field configuration and every visible string are consumer data — the component supplies structure, tokens, and value collection, and hands the current values to the caller verbatim on submit."
+    >
+      <GdsStack gap="lg">
+        <HeroSearchPanel
+          fields={heroSearchPanelExampleFields}
+          onSubmit={setSubmittedValues}
+          secondaryActionLabel="Browse all activities"
+          onSecondaryAction={() => setSubmittedValues(null)}
+          trustLine="Source-backed listings · Clear estimates · Confirm final details with providers"
+        />
+        <MetadataText>
+          {submittedValues
+            ? `Submitted verbatim: ${JSON.stringify(submittedValues)}`
+            : 'Submit the panel above — the caller receives the current field values unchanged, with no trimming, coercion, or validation.'}
+        </MetadataText>
+        <GdsStack gap="xs">
+          <MetadataText>Zero fields is a valid, honest state — a CTA-only hero with no row at all:</MetadataText>
+          <HeroSearchPanel fields={[]} onSubmit={() => {}} ariaLabel="CTA-only search" />
+        </GdsStack>
+        <GdsStack gap="xs">
+          <MetadataText>One field:</MetadataText>
+          <HeroSearchPanel
+            fields={[{ key: 'query', label: 'What are you looking for?', placeholder: 'e.g. Swim lessons' }]}
+            onSubmit={() => {}}
+            ariaLabel="Single-field search"
+          />
+        </GdsStack>
+        <GdsStack gap="xs">
+          <MetadataText>Ten fields — wraps onto multiple rows as the panel narrows:</MetadataText>
+          <HeroSearchPanel fields={heroSearchPanelOverflowFields} onSubmit={() => {}} ariaLabel="Ten-field search" />
+        </GdsStack>
+      </GdsStack>
+    </SectionPanel>
+  );
+}
+
+const quickStartScenarios: Array<{ icon: GdsIconName; label: string; description?: string }> = [
+  { icon: 'Calendar', label: 'This weekend' },
+  { icon: 'Time', label: 'Today after school' },
+  { icon: 'Currency', label: 'Free & low-cost' },
+  { icon: 'Home', label: 'Indoor activities' },
+  { icon: 'Flag', label: 'Camps open now' },
+  { icon: 'Reward', label: 'Birthday party ideas' },
+  { icon: 'Child', label: 'Toddler drop-ins' },
+  { icon: 'Habit', label: 'STEM & coding' },
+  { icon: 'Trophy', label: 'Sports & movement' },
+  { icon: 'Location', label: 'Near me' },
+];
+
+function QuickStartCardDemo() {
+  const [activated, setActivated] = useState<string | null>(null);
+
+  return (
+    <SectionPanel
+      title="Quick start card"
+      description="A clickable scenario card for homepage quick-start grids: an icon square, a bold label, and an optional one-line description. Hover raises the card via the package stylesheet's token-bound lift, which disappears under reduced motion; click, Enter, and Space all activate it through native button semantics."
+    >
+      <GdsGrid columns={{ base: 1, xs: 2, sm: 3 }} gap="sm">
+        {quickStartScenarios.map((scenario) => (
+          <QuickStartCard
+            key={scenario.label}
+            icon={scenario.icon}
+            label={scenario.label}
+            description={scenario.description}
+            onClick={() => setActivated(scenario.label)}
+          />
+        ))}
+      </GdsGrid>
+      <MetadataText>{activated ? `Activated: ${activated}` : 'Activate a card above — the caller decides what happens next.'}</MetadataText>
+    </SectionPanel>
+  );
+}
+
 function renderEntryDemo(entry: PatternRegistryEntry) {
   const vocab = createGdsVocabularyPack('camera', {
     urgent: {
@@ -3385,6 +3482,10 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <NumberStepperDemo />;
     case 'ai-search-card':
       return <AISearchCardDemo />;
+    case 'hero-search-panel':
+      return <HeroSearchPanelDemo />;
+    case 'quick-start-card':
+      return <QuickStartCardDemo />;
     default:
       // verify:pattern-live-proof fails the build if a live-proof entry lands here.
       return (

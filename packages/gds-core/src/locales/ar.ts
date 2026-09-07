@@ -267,4 +267,5 @@ export const ar = {
   'gds.gdsMap.tilesRetryLabel': "حاول تحميل الصور مرة أخرى",
   'gds.ratingDisplay.labelWithCount': "{value} من أصل {max} من النجوم، و{count} من التقييمات",
   'gds.ratingDisplay.label': "{value} من أصل {max} من النجوم",
+  'gds.heroSearchPanel.ariaLabel': "بحث",
 };

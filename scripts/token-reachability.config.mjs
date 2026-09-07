@@ -283,17 +283,10 @@ export const EXTENSION_POINTS = {
   },
 
   // ── Surface and colour roles a consumer application builds its own shell on ──
-  '--gds-bg-page': {
-    reason:
-      'Canonical page-surface role, emitted for all 25 presets by getGdsVibeThemeCssVariables. '
-      + 'GDS components paint their own surfaces via --gds-bg-card/--gds-bg-surface, so nothing '
-      + 'in-repo reads it; a consumer building a page shell around GDS reads exactly this.',
-    reviewBy: '2027-08-01',
-  },
-  '--gds-bg-canvas': {
-    reason: 'Canvas-surface counterpart to --gds-bg-page, same rationale and same emitter.',
-    reviewBy: '2027-08-01',
-  },
+  // --gds-bg-page and --gds-bg-canvas are no longer listed here: issue 710's QuickStartCard
+  // reads --gds-bg-page directly (packages/gds-core/src/QuickStartCard.tsx), and
+  // --gds-bg-canvas was already read by GdsMapBasemapWash.tsx and pattern-pages.tsx (pre-dating
+  // this issue) -- both are real, reachable tokens now, not extension points.
   '--gds-accent': {
     reason:
       'Published accent role. Components consume the scheme-resolved --gds-brand-accent-action '

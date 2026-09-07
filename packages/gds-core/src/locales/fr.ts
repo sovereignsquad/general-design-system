@@ -267,4 +267,5 @@ export const fr = {
   'gds.gdsMap.tilesRetryLabel': "Essayez à nouveau de charger les images",
   'gds.ratingDisplay.labelWithCount': "{value} sur {max} étoiles, {count} notes",
   'gds.ratingDisplay.label': "{value} sur {max} étoiles",
+  'gds.heroSearchPanel.ariaLabel': "Recherche",
 };
