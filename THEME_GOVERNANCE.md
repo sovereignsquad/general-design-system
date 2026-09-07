@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-21
+Last updated: 2026-09-07
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
 
@@ -231,6 +231,44 @@ Forced-colors contract:
 - focus indicators must stay visibly outlined in forced-colors mode
 - this contract binds **every** theme lane, including the expressive vibe/brand presets (`cosmic`, `neon-night`, …) whose `!important` gradients must not out-specify the forced-colors reset; a specificity backstop in `styles.css` guarantees this
 - runtime acceptance requires the browser-level `verify:forced-colors-runtime` gate, not only static CSS review — which now sweeps the new-component pattern routes across 8 presets (including the vibe lanes) so a gradient-leak regression in any lane is caught
+
+## Opting one element out of the preset repaint (`data-gds-fixed-tone`, issue #724)
+
+The active theme preset repaints surfaces through `html[data-gds-theme-preset] …` rules in
+`styles.css`: `.gds-paper`/`.gds-card`, `.mantine-Button-root`, `.mantine-Popover-dropdown`,
+the `AppShell` header/navbar/footer/main, inputs, checkboxes, links, headings, dimmed text, and
+the expressive vibe lanes' own variants of each. Several of those rules are `!important`. That
+repaint is what makes an unstyled app coherent under any preset, and it stays. An element that
+carries its own intentional styling opts out by setting `data-gds-fixed-tone` on that element:
+
+```tsx
+<Paper data-gds-fixed-tone bg="navy.2">…</Paper>
+<Button data-gds-fixed-tone variant="outline">…</Button>
+<Popover.Dropdown data-gds-fixed-tone>…</Popover.Dropdown>
+```
+
+Contract:
+
+- Every preset-gated rule outside the `forced-colors` and `prefers-reduced-motion` blocks carries
+  `:where(:not([data-gds-fixed-tone]))` on its subject, so an opted-out element is not matched at
+  all. No counter-rule, no consumer-side `!important`, no source-order dependency.
+- `:where()` has zero specificity. Adding the clause changed no rule's specificity, so every
+  existing cascade relationship — between GDS's own rules, and against any consumer counter-rule
+  written before the attribute existed — is unchanged.
+- Element-level only. Descendants are not opted out; the attribute goes on each element that keeps
+  its own styling.
+- `body` is never opted out: its rules publish the `--mantine-color-text` and
+  `--mantine-color-dimmed` values the page depends on. The forced-colors and reduced-motion resets
+  apply to every element regardless of the attribute.
+- Contrast on an opted-out element is the consumer's responsibility, as for any consumer styling.
+
+`data-gds-badge-fixed-tone` (`GdsBadge`, `StatusBadge`, `GdsCountBadge`, `GdsRemovableTag`) is
+the component-specific precedent and keeps working; the Badge rule honours both attributes.
+`data-gds-local-contrast` is a different contract: package-owned, set only by
+`getGdsOwnedContrastProps`, and it excludes descendants too.
+
+`packages/gds-theme/src/preset-fixed-tone.test.ts` enforces the contract on every preset-gated
+selector in both directions.
 
 ## Appendix: Amanoba dark shell + yellow CTA
 

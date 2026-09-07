@@ -31,6 +31,8 @@ const RELEASE_DOC_SURFACE = [
   { marker: 'checkbox-group', since: '3.14.0', surface: 'GdsSchemaForm grouped multi-select field type' },
   { marker: 'repeatable', since: '3.14.0', surface: 'GdsSchemaForm add-another-row field type' },
   { marker: 'dates.css', since: '3.14.0', surface: 'opt-in @sovereignsquad/gds-theme/dates.css import for date field types' },
+  // 6.8.0 — element-level opt-out from the theme-preset repaint (#724)
+  { marker: 'data-gds-fixed-tone', since: '6.8.0', surface: 'element-level opt-out from the theme-preset repaint' },
 ];
 
 const contentsByFile = Object.fromEntries(

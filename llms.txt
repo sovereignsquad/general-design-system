@@ -45,6 +45,7 @@ export default function App() {
 - Every interactive surface designs loading / empty / error / disabled / success states — use `StateBlock`, `EmptyState`, and the `loading`/`error` props components expose.
 - Access-gated content uses `GdsAccessGate` with `protectedContentPolicy="never-render-while-locked"` so private/paid content is never mounted while locked.
 - Accessibility (visible focus, AA contrast, semantic labels, focus traps) and responsive/localized layout are acceptance criteria, not cleanup.
+- One element that must keep its own explicit styling under a theme preset (a brand-coloured `Paper`, an outline `Button`, a `Popover.Dropdown`, an `AppShell` navbar) carries `data-gds-fixed-tone` — never a `!important` counter-rule against the preset stylesheet. Element-level, not inherited; see THEME_GOVERNANCE.md "Opting one element out of the preset repaint".
 
 ## Packages
 

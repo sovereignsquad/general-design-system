@@ -545,6 +545,27 @@ who wants it applied to the document wires it themselves.
 
 ---
 
+## B19 — Keeping one element's own styling under the preset (`data-gds-fixed-tone`, item 12)
+
+#724 · `@sovereignsquad/gds-theme`
+
+Replaces every scoped counter-rule written to beat the preset repaint (the Paper/Card, navbar,
+Button, and Popover overrides item 12 lists): set the attribute on the element and delete the rule.
+
+```tsx
+<Paper data-gds-fixed-tone bg="navy.2">…</Paper>
+<Button data-gds-fixed-tone variant="outline">…</Button>
+<Popover.Dropdown data-gds-fixed-tone>…</Popover.Dropdown>
+<AppShell.Navbar data-gds-fixed-tone>…</AppShell.Navbar>
+```
+
+Element-level (descendants are not opted out), every preset and both colour schemes, zero
+specificity (`:where(:not(…))` in the preset rule's own selector, so existing counter-rules keep
+behaving exactly as before until they are deleted); forced-colors and reduced-motion resets still
+apply. Contract and test: `THEME_GOVERNANCE.md`, "Opting one element out of the preset repaint".
+
+---
+
 ## Drop-in agent rules for ClassScout repo
 
 Copy these into the ClassScout repo root so every AI coding session follows GDS automatically:
