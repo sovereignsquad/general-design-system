@@ -34,6 +34,9 @@ const canaryTokens = {
   // White on this yellow is ~1.2:1 — breaches primary-cta-text-contrast, which the canary must
   // prove fires even though it only reports.
   '--gds-vibe-primary': '#ffee00',
+  // Same reasoning for ai-accent-text-contrast (issue 697): a near-white fill measures well
+  // under 4.5:1 and the report-severity rule must still fire on it.
+  '--gds-ai-accent': '#ffee00',
 };
 const canary = validateGdsAccessibilityFloor({ presetId: 'canary', scheme: 'light', tokens: canaryTokens });
 const canaryRules = new Set(canary.map((v) => v.ruleId));

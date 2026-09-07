@@ -59,16 +59,25 @@ export interface GdsDesignRuleProfile {
                                                  // | 'split-complementary' | 'monochromatic' | 'custom'
   typeScale: { ratio: GdsTypeScaleRatio };      // one of the six named ratios above
   contrastTarget: GdsContrastTarget;            // 'AA' | 'AAA'
+  reservedAccents?: Array<{ role: string; surfaces: string[] }>;  // issue 697, see below
 }
 ```
 
 `GDS_DEFAULT_DESIGN_RULE_PROFILE` — no proportion claim (`rule: 'none'`), `custom` harmony,
-`1.25` (Major Third) type scale, `AA` contrast — is a profile every existing theme already
-satisfies with zero behavior change; the axis is additive. `validateGdsDesignRuleProfile(profile,
-themeId)` throws a single `GdsAxisError` on the first violation found (matching the file's own
-`validateGdsShapeAxis`/`validateGdsDensityAxis` pattern), including a check that a role never
-appears in more than one proportion class and that `rule: 'none'` cannot carry a non-empty
-classification.
+`1.25` (Major Third) type scale, `AA` contrast, no reservations — is a profile every existing
+theme already satisfies with zero behavior change; the axis is additive.
+`validateGdsDesignRuleProfile(profile, themeId)` throws a single `GdsAxisError` on the first
+violation found (matching the file's own `validateGdsShapeAxis`/`validateGdsDensityAxis`
+pattern), including a check that a role never appears in more than one proportion class, that
+`rule: 'none'` cannot carry a non-empty classification, that no `reservedAccents` role repeats,
+and that no `reservedAccents` entry names zero surfaces.
+
+`reservedAccents` (issue 697) is a different kind of claim from the other three fields: it
+does not classify a role a theme already emits into a proportion/harmony/scale bucket, it
+declares a role reserved to a closed, named set of consuming surfaces — e.g. the `your-field`
+preset's Scout AI sub-brand lane, `[{ role: 'ai.gradient', surfaces: ['AISearchCard', ...] },
+...]`. See THEME_GOVERNANCE.md's "Reserved sub-brand accent lanes" section for the full
+contract and the `scripts/verify-ai-reserved-usage.mjs` gate that enforces it.
 
 ## Classification: how the numbers are computed, not asserted
 

@@ -395,6 +395,33 @@ export const EXTENSION_POINTS = {
     reviewBy: '2026-12-01',
   },
 
+  // ── Reserved ai.* sub-brand accent lane (issue 697) ──
+  '--gds-ai-gradient': {
+    reason:
+      'Reserved sub-brand accent lane (issue 697). Scout AI identity gradient for the your-field '
+      + 'preset only; issue 697 explicitly ships the token, its dark sibling, and the reserved-usage '
+      + 'gate/contract with no consuming component (no AISearchCard, chat surfaces, AI promo panel, '
+      + 'or BottomTabBar emphasized disc yet) to avoid unreviewed, unrequested UI work. The follow-on '
+      + 'Scout AI component issues in the same delivery are the real consumers.',
+    reviewBy: '2026-12-01',
+  },
+  '--gds-ai-panel': {
+    reason:
+      'Reserved sub-brand accent lane (issue 697). Scout AI promo-panel navy gradient for the '
+      + 'your-field preset only; no AI promo panel component exists yet (issue 697\'s own Non-Goals). '
+      + 'A follow-on Scout AI component issue is the real consumer.',
+    reviewBy: '2026-12-01',
+  },
+  '--gds-ai-accent': {
+    reason:
+      'Reserved sub-brand accent lane (issue 697). Scout AI accent colour for the your-field preset '
+      + 'only, also the intended focus-ring/featured-ring role (GdsFocusRingSpec.colorRole); wiring '
+      + 'either ring is explicitly out of scope for issue 697 (separate issues in this delivery). '
+      + 'Measured, not silently unowned: the ai-accent-text-contrast accessibility-floor rule reports '
+      + 'its contrast every run.',
+    reviewBy: '2026-12-01',
+  },
+
   // ── Elevation roles: sidebar/pin (issue 695) ──
   '--gds-elevation-sidebar': {
     reason:

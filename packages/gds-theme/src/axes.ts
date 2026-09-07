@@ -1009,6 +1009,18 @@ export interface GdsDesignRuleProfile {
     ratio: GdsTypeScaleRatio;
   };
   contrastTarget: GdsContrastTarget;
+  /**
+   * Roles a theme reserves for a named, closed set of consuming surfaces (issue 697) — e.g.
+   * the Scout AI sub-brand lane's `ai.gradient`/`ai.panel`/`ai.accent`. Validated non-empty:
+   * a reservation nothing may consume is a contradiction. Enforced mechanically by a
+   * repository gate, not just declared here as a claim.
+   */
+  reservedAccents?: Array<{
+    /** The emitted role name the reservation covers, e.g. `'ai.gradient'`. */
+    role: string;
+    /** Sanctioned consumer identifiers, e.g. `'AISearchCard'`. */
+    surfaces: string[];
+  }>;
 }
 
 /** The default design rule profile: no proportion claim, no harmony claim, Major Second type scale, WCAG AA. */
@@ -1050,6 +1062,21 @@ export function validateGdsDesignRuleProfile(profile: GdsDesignRuleProfile, them
   const classifiedCount = classification.dominant.length + classification.secondary.length + classification.accent.length;
   if (rule === 'none' && classifiedCount > 0) {
     throw new GdsAxisError(`${themeId}: colorProportion.rule is "none" but classification lists ${classifiedCount} role(s) — either declare a rule or clear the classification.`);
+  }
+
+  // A role reserved twice, or reserved for no surface at all, is a contradiction (issue 697):
+  // the whole point of a reservation is a singular, enforceable claim.
+  if (profile.reservedAccents) {
+    const seenRoles = new Set<string>();
+    for (const reservation of profile.reservedAccents) {
+      if (seenRoles.has(reservation.role)) {
+        throw new GdsAxisError(`${themeId}: reservedAccents declares role "${reservation.role}" more than once.`);
+      }
+      seenRoles.add(reservation.role);
+      if (reservation.surfaces.length === 0) {
+        throw new GdsAxisError(`${themeId}: reservedAccents role "${reservation.role}" has no surfaces — a reservation nothing may consume is a contradiction.`);
+      }
+    }
   }
 
   // A role must not appear in more than one class — 60/30/10 is a partition, not an
