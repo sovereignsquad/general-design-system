@@ -1,13 +1,13 @@
 {
   "generatedAt": null,
-  "commit": "ffd72c80268298a477549425d7e7d144d6c6e936",
+  "commit": "49b79008687a52a2a0ba003c1ff73664e488adb6",
   "counts": {
     "token-published": 522,
     "token-declared": 59,
     "token-referenced": 67,
     "token-emitted": 498,
     "export": 958,
-    "prop": 1181,
+    "prop": 1198,
     "variant": 111,
     "motion-token": 11,
     "motion-shipped": 9,
@@ -17,7 +17,7 @@
     "locale-pack-package": 12,
     "locale-pack-site": 11,
     "route": 26,
-    "pattern": 127,
+    "pattern": 128,
     "theme": 27,
     "accent": 10
   },
@@ -34059,7 +34059,177 @@
       }
     },
     {
-      "id": "prop:GdsTypographyProps.children#3328",
+      "id": "prop:ReportOutdatedLinkProps.onReport#3328",
+      "kind": "prop",
+      "name": "ReportOutdatedLinkProps.onReport",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 23
+      },
+      "type": "() => void"
+    },
+    {
+      "id": "prop:ReportOutdatedLinkProps.label#3329",
+      "kind": "prop",
+      "name": "ReportOutdatedLinkProps.label",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 23
+      },
+      "type": "string"
+    },
+    {
+      "id": "prop:SourceBlockProps.sourceType#3330",
+      "kind": "prop",
+      "name": "SourceBlockProps.sourceType",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 83
+      },
+      "type": "string"
+    },
+    {
+      "id": "prop:SourceBlockProps.sourceUrl#3331",
+      "kind": "prop",
+      "name": "SourceBlockProps.sourceUrl",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 83
+      },
+      "type": "string"
+    },
+    {
+      "id": "prop:SourceBlockProps.lastChecked#3332",
+      "kind": "prop",
+      "name": "SourceBlockProps.lastChecked",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 83
+      },
+      "type": "Date | string"
+    },
+    {
+      "id": "prop:SourceBlockProps.priceStatus#3333",
+      "kind": "prop",
+      "name": "SourceBlockProps.priceStatus",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 83
+      },
+      "type": "SourceRowStatus"
+    },
+    {
+      "id": "prop:SourceBlockProps.scheduleStatus#3334",
+      "kind": "prop",
+      "name": "SourceBlockProps.scheduleStatus",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 83
+      },
+      "type": "SourceRowStatus"
+    },
+    {
+      "id": "prop:SourceBlockProps.onReport#3335",
+      "kind": "prop",
+      "name": "SourceBlockProps.onReport",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 83
+      },
+      "type": "() => void"
+    },
+    {
+      "id": "prop:ConfirmChecklistProps.items#3336",
+      "kind": "prop",
+      "name": "ConfirmChecklistProps.items",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 178
+      },
+      "type": "string[]"
+    },
+    {
+      "id": "prop:ConfirmChecklistProps.title#3337",
+      "kind": "prop",
+      "name": "ConfirmChecklistProps.title",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.client.tsx",
+        "line": 178
+      },
+      "type": "string"
+    },
+    {
+      "id": "prop:TrustBadgeProps.label#3338",
+      "kind": "prop",
+      "name": "TrustBadgeProps.label",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.tsx",
+        "line": 33
+      },
+      "type": "GdsTrustLabel"
+    },
+    {
+      "id": "prop:PriceEstimateLabelProps.price#3339",
+      "kind": "prop",
+      "name": "PriceEstimateLabelProps.price",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.tsx",
+        "line": 89
+      },
+      "type": "number | null"
+    },
+    {
+      "id": "prop:PriceEstimateLabelProps.currency#3340",
+      "kind": "prop",
+      "name": "PriceEstimateLabelProps.currency",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.tsx",
+        "line": 89
+      },
+      "type": "string"
+    },
+    {
+      "id": "prop:PriceEstimateLabelProps.unit#3341",
+      "kind": "prop",
+      "name": "PriceEstimateLabelProps.unit",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.tsx",
+        "line": 89
+      },
+      "type": "string"
+    },
+    {
+      "id": "prop:PriceEstimateLabelProps.status#3342",
+      "kind": "prop",
+      "name": "PriceEstimateLabelProps.status",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.tsx",
+        "line": 89
+      },
+      "type": "PriceEstimateStatus"
+    },
+    {
+      "id": "prop:LastCheckedLabelProps.date#3343",
+      "kind": "prop",
+      "name": "LastCheckedLabelProps.date",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.tsx",
+        "line": 145
+      },
+      "type": "Date | string"
+    },
+    {
+      "id": "prop:LastCheckedLabelProps.stale#3344",
+      "kind": "prop",
+      "name": "LastCheckedLabelProps.stale",
+      "source": {
+        "file": "packages/gds-core/src/TrustLayer.tsx",
+        "line": 145
+      },
+      "type": "boolean"
+    },
+    {
+      "id": "prop:GdsTypographyProps.children#3345",
       "kind": "prop",
       "name": "GdsTypographyProps.children",
       "source": {
@@ -34069,7 +34239,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:GdsTypographyProps.id#3329",
+      "id": "prop:GdsTypographyProps.id#3346",
       "kind": "prop",
       "name": "GdsTypographyProps.id",
       "source": {
@@ -34079,7 +34249,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsTypographyProps.className#3330",
+      "id": "prop:GdsTypographyProps.className#3347",
       "kind": "prop",
       "name": "GdsTypographyProps.className",
       "source": {
@@ -34089,7 +34259,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.title#3331",
+      "id": "prop:UploadDropzoneProps.title#3348",
       "kind": "prop",
       "name": "UploadDropzoneProps.title",
       "source": {
@@ -34099,7 +34269,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.description#3332",
+      "id": "prop:UploadDropzoneProps.description#3349",
       "kind": "prop",
       "name": "UploadDropzoneProps.description",
       "source": {
@@ -34109,7 +34279,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.onFilesSelected#3333",
+      "id": "prop:UploadDropzoneProps.onFilesSelected#3350",
       "kind": "prop",
       "name": "UploadDropzoneProps.onFilesSelected",
       "source": {
@@ -34119,7 +34289,7 @@
       "type": "(files: File[]) => void"
     },
     {
-      "id": "prop:UploadDropzoneProps.accept#3334",
+      "id": "prop:UploadDropzoneProps.accept#3351",
       "kind": "prop",
       "name": "UploadDropzoneProps.accept",
       "source": {
@@ -34129,7 +34299,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.acceptedTypesLabel#3335",
+      "id": "prop:UploadDropzoneProps.acceptedTypesLabel#3352",
       "kind": "prop",
       "name": "UploadDropzoneProps.acceptedTypesLabel",
       "source": {
@@ -34139,7 +34309,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.maxSizeLabel#3336",
+      "id": "prop:UploadDropzoneProps.maxSizeLabel#3353",
       "kind": "prop",
       "name": "UploadDropzoneProps.maxSizeLabel",
       "source": {
@@ -34149,7 +34319,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.multiple#3337",
+      "id": "prop:UploadDropzoneProps.multiple#3354",
       "kind": "prop",
       "name": "UploadDropzoneProps.multiple",
       "source": {
@@ -34159,7 +34329,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:UploadDropzoneProps.actionLabel#3338",
+      "id": "prop:UploadDropzoneProps.actionLabel#3355",
       "kind": "prop",
       "name": "UploadDropzoneProps.actionLabel",
       "source": {
@@ -34169,7 +34339,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.mode#3339",
+      "id": "prop:UploadDropzoneProps.mode#3356",
       "kind": "prop",
       "name": "UploadDropzoneProps.mode",
       "source": {
@@ -34179,7 +34349,7 @@
       "type": "'panel' | 'inline'"
     },
     {
-      "id": "variant:UploadDropzoneProps.mode=panel#3340",
+      "id": "variant:UploadDropzoneProps.mode=panel#3357",
       "kind": "variant",
       "name": "UploadDropzoneProps.mode=panel",
       "source": {
@@ -34188,7 +34358,7 @@
       }
     },
     {
-      "id": "variant:UploadDropzoneProps.mode=inline#3341",
+      "id": "variant:UploadDropzoneProps.mode=inline#3358",
       "kind": "variant",
       "name": "UploadDropzoneProps.mode=inline",
       "source": {
@@ -34197,7 +34367,7 @@
       }
     },
     {
-      "id": "prop:UploadDropzoneProps.state#3342",
+      "id": "prop:UploadDropzoneProps.state#3359",
       "kind": "prop",
       "name": "UploadDropzoneProps.state",
       "source": {
@@ -34207,7 +34377,7 @@
       "type": "UploadDropzoneState"
     },
     {
-      "id": "prop:UploadDropzoneProps.selectedFiles#3343",
+      "id": "prop:UploadDropzoneProps.selectedFiles#3360",
       "kind": "prop",
       "name": "UploadDropzoneProps.selectedFiles",
       "source": {
@@ -34217,7 +34387,7 @@
       "type": "string[]"
     },
     {
-      "id": "prop:UploadDropzoneProps.error#3344",
+      "id": "prop:UploadDropzoneProps.error#3361",
       "kind": "prop",
       "name": "UploadDropzoneProps.error",
       "source": {
@@ -34227,7 +34397,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.policyText#3345",
+      "id": "prop:UploadDropzoneProps.policyText#3362",
       "kind": "prop",
       "name": "UploadDropzoneProps.policyText",
       "source": {
@@ -34237,7 +34407,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.progressValue#3346",
+      "id": "prop:UploadDropzoneProps.progressValue#3363",
       "kind": "prop",
       "name": "UploadDropzoneProps.progressValue",
       "source": {
@@ -34247,7 +34417,7 @@
       "type": "number"
     },
     {
-      "id": "prop:UploadDropzoneProps.inputId#3347",
+      "id": "prop:UploadDropzoneProps.inputId#3364",
       "kind": "prop",
       "name": "UploadDropzoneProps.inputId",
       "source": {
@@ -34257,7 +34427,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.describedBy#3348",
+      "id": "prop:UploadDropzoneProps.describedBy#3365",
       "kind": "prop",
       "name": "UploadDropzoneProps.describedBy",
       "source": {
@@ -34267,7 +34437,7 @@
       "type": "string"
     },
     {
-      "id": "prop:UploadDropzoneProps.invalid#3349",
+      "id": "prop:UploadDropzoneProps.invalid#3366",
       "kind": "prop",
       "name": "UploadDropzoneProps.invalid",
       "source": {
@@ -34277,7 +34447,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:UploadDropzoneProps.required#3350",
+      "id": "prop:UploadDropzoneProps.required#3367",
       "kind": "prop",
       "name": "UploadDropzoneProps.required",
       "source": {
@@ -34287,7 +34457,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:UploadDropzoneProps.retryAction#3351",
+      "id": "prop:UploadDropzoneProps.retryAction#3368",
       "kind": "prop",
       "name": "UploadDropzoneProps.retryAction",
       "source": {
@@ -34297,7 +34467,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:UploadDropzoneProps.removeAction#3352",
+      "id": "prop:UploadDropzoneProps.removeAction#3369",
       "kind": "prop",
       "name": "UploadDropzoneProps.removeAction",
       "source": {
@@ -34307,7 +34477,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:UploadDropzoneProps.readonly#3353",
+      "id": "prop:UploadDropzoneProps.readonly#3370",
       "kind": "prop",
       "name": "UploadDropzoneProps.readonly",
       "source": {
@@ -34317,7 +34487,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:GdsPictogramProps.family#3354",
+      "id": "prop:GdsPictogramProps.family#3371",
       "kind": "prop",
       "name": "GdsPictogramProps.family",
       "source": {
@@ -34327,7 +34497,7 @@
       "type": "GdsPictogramFamily"
     },
     {
-      "id": "prop:GdsPictogramProps.pictogram#3355",
+      "id": "prop:GdsPictogramProps.pictogram#3372",
       "kind": "prop",
       "name": "GdsPictogramProps.pictogram",
       "source": {
@@ -34337,7 +34507,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsPictogramProps.treatment#3356",
+      "id": "prop:GdsPictogramProps.treatment#3373",
       "kind": "prop",
       "name": "GdsPictogramProps.treatment",
       "source": {
@@ -34347,7 +34517,7 @@
       "type": "GdsPictogramTreatment"
     },
     {
-      "id": "prop:GdsPictogramProps.scale#3357",
+      "id": "prop:GdsPictogramProps.scale#3374",
       "kind": "prop",
       "name": "GdsPictogramProps.scale",
       "source": {
@@ -34357,7 +34527,7 @@
       "type": "GdsPictogramScale"
     },
     {
-      "id": "prop:GdsPictogramProps.state#3358",
+      "id": "prop:GdsPictogramProps.state#3375",
       "kind": "prop",
       "name": "GdsPictogramProps.state",
       "source": {
@@ -34367,7 +34537,7 @@
       "type": "GdsPictogramState"
     },
     {
-      "id": "prop:GdsPictogramProps.label#3359",
+      "id": "prop:GdsPictogramProps.label#3376",
       "kind": "prop",
       "name": "GdsPictogramProps.label",
       "source": {
@@ -34377,7 +34547,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsPictogramProps.decorative#3360",
+      "id": "prop:GdsPictogramProps.decorative#3377",
       "kind": "prop",
       "name": "GdsPictogramProps.decorative",
       "source": {
@@ -34387,7 +34557,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:GdsProviderProps.children#3361",
+      "id": "prop:GdsProviderProps.children#3378",
       "kind": "prop",
       "name": "GdsProviderProps.children",
       "source": {
@@ -34397,7 +34567,7 @@
       "type": "React.ReactNode"
     },
     {
-      "id": "prop:GdsProviderProps.locale#3362",
+      "id": "prop:GdsProviderProps.locale#3379",
       "kind": "prop",
       "name": "GdsProviderProps.locale",
       "source": {
@@ -34407,7 +34577,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsProviderProps.messages#3363",
+      "id": "prop:GdsProviderProps.messages#3380",
       "kind": "prop",
       "name": "GdsProviderProps.messages",
       "source": {
@@ -34417,7 +34587,7 @@
       "type": "Record<string, string>"
     },
     {
-      "id": "prop:GdsProviderProps.theme#3364",
+      "id": "prop:GdsProviderProps.theme#3381",
       "kind": "prop",
       "name": "GdsProviderProps.theme",
       "source": {
@@ -34427,7 +34597,7 @@
       "type": "MantineThemeOverride"
     },
     {
-      "id": "prop:GdsProviderProps.defaultColorScheme#3365",
+      "id": "prop:GdsProviderProps.defaultColorScheme#3382",
       "kind": "prop",
       "name": "GdsProviderProps.defaultColorScheme",
       "source": {
@@ -34437,7 +34607,7 @@
       "type": "'light' | 'dark' | 'auto'"
     },
     {
-      "id": "variant:GdsProviderProps.defaultColorScheme=light#3366",
+      "id": "variant:GdsProviderProps.defaultColorScheme=light#3383",
       "kind": "variant",
       "name": "GdsProviderProps.defaultColorScheme=light",
       "source": {
@@ -34446,7 +34616,7 @@
       }
     },
     {
-      "id": "variant:GdsProviderProps.defaultColorScheme=dark#3367",
+      "id": "variant:GdsProviderProps.defaultColorScheme=dark#3384",
       "kind": "variant",
       "name": "GdsProviderProps.defaultColorScheme=dark",
       "source": {
@@ -34455,7 +34625,7 @@
       }
     },
     {
-      "id": "variant:GdsProviderProps.defaultColorScheme=auto#3368",
+      "id": "variant:GdsProviderProps.defaultColorScheme=auto#3385",
       "kind": "variant",
       "name": "GdsProviderProps.defaultColorScheme=auto",
       "source": {
@@ -34464,7 +34634,7 @@
       }
     },
     {
-      "id": "prop:GdsProviderProps.forceColorScheme#3369",
+      "id": "prop:GdsProviderProps.forceColorScheme#3386",
       "kind": "prop",
       "name": "GdsProviderProps.forceColorScheme",
       "source": {
@@ -34474,7 +34644,7 @@
       "type": "'light' | 'dark'"
     },
     {
-      "id": "variant:GdsProviderProps.forceColorScheme=light#3370",
+      "id": "variant:GdsProviderProps.forceColorScheme=light#3387",
       "kind": "variant",
       "name": "GdsProviderProps.forceColorScheme=light",
       "source": {
@@ -34483,7 +34653,7 @@
       }
     },
     {
-      "id": "variant:GdsProviderProps.forceColorScheme=dark#3371",
+      "id": "variant:GdsProviderProps.forceColorScheme=dark#3388",
       "kind": "variant",
       "name": "GdsProviderProps.forceColorScheme=dark",
       "source": {
@@ -34492,7 +34662,7 @@
       }
     },
     {
-      "id": "prop:GdsProviderProps.colorSchemeRootElement#3372",
+      "id": "prop:GdsProviderProps.colorSchemeRootElement#3389",
       "kind": "prop",
       "name": "GdsProviderProps.colorSchemeRootElement",
       "source": {
@@ -34502,7 +34672,7 @@
       "type": "() => HTMLElement | undefined"
     },
     {
-      "id": "prop:GdsProviderProps.cssVariablesSelector#3373",
+      "id": "prop:GdsProviderProps.cssVariablesSelector#3390",
       "kind": "prop",
       "name": "GdsProviderProps.cssVariablesSelector",
       "source": {
@@ -34512,7 +34682,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsProviderProps.applyDocumentColorScheme#3374",
+      "id": "prop:GdsProviderProps.applyDocumentColorScheme#3391",
       "kind": "prop",
       "name": "GdsProviderProps.applyDocumentColorScheme",
       "source": {
@@ -34522,7 +34692,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:GdsProviderProps.overlayAdapter#3375",
+      "id": "prop:GdsProviderProps.overlayAdapter#3392",
       "kind": "prop",
       "name": "GdsProviderProps.overlayAdapter",
       "source": {
@@ -34532,7 +34702,7 @@
       "type": "OverlayAdapter"
     },
     {
-      "id": "prop:GdsProviderProps.defaultBadgeIconStyle#3376",
+      "id": "prop:GdsProviderProps.defaultBadgeIconStyle#3393",
       "kind": "prop",
       "name": "GdsProviderProps.defaultBadgeIconStyle",
       "source": {
@@ -34542,7 +34712,7 @@
       "type": "GdsBadgeIconStyle"
     },
     {
-      "id": "prop:GdsProviderProps.themeApplicationMode#3377",
+      "id": "prop:GdsProviderProps.themeApplicationMode#3394",
       "kind": "prop",
       "name": "GdsProviderProps.themeApplicationMode",
       "source": {
@@ -34552,7 +34722,7 @@
       "type": "GdsThemeApplicationMode"
     },
     {
-      "id": "prop:GdsProviderProps.reloadOnThemeChange#3378",
+      "id": "prop:GdsProviderProps.reloadOnThemeChange#3395",
       "kind": "prop",
       "name": "GdsProviderProps.reloadOnThemeChange",
       "source": {
@@ -34562,7 +34732,7 @@
       "type": "boolean"
     },
     {
-      "id": "prop:GdsProviderProps.onBeforeThemeApply#3379",
+      "id": "prop:GdsProviderProps.onBeforeThemeApply#3396",
       "kind": "prop",
       "name": "GdsProviderProps.onBeforeThemeApply",
       "source": {
@@ -34572,7 +34742,7 @@
       "type": "(next: GdsThemeIdentity, previous: GdsThemeIdentity) => void"
     },
     {
-      "id": "prop:GdsProviderProps.onAfterThemeApply#3380",
+      "id": "prop:GdsProviderProps.onAfterThemeApply#3397",
       "kind": "prop",
       "name": "GdsProviderProps.onAfterThemeApply",
       "source": {
@@ -34582,7 +34752,7 @@
       "type": "(identity: GdsThemeIdentity) => void"
     },
     {
-      "id": "prop:GdsThemeBoundaryProps.preset#3381",
+      "id": "prop:GdsThemeBoundaryProps.preset#3398",
       "kind": "prop",
       "name": "GdsThemeBoundaryProps.preset",
       "source": {
@@ -34592,7 +34762,7 @@
       "type": "GdsThemePresetId | string"
     },
     {
-      "id": "prop:GdsThemeBoundaryProps.colorScheme#3382",
+      "id": "prop:GdsThemeBoundaryProps.colorScheme#3399",
       "kind": "prop",
       "name": "GdsThemeBoundaryProps.colorScheme",
       "source": {
@@ -34602,7 +34772,7 @@
       "type": "'light' | 'dark'"
     },
     {
-      "id": "variant:GdsThemeBoundaryProps.colorScheme=light#3383",
+      "id": "variant:GdsThemeBoundaryProps.colorScheme=light#3400",
       "kind": "variant",
       "name": "GdsThemeBoundaryProps.colorScheme=light",
       "source": {
@@ -34611,7 +34781,7 @@
       }
     },
     {
-      "id": "variant:GdsThemeBoundaryProps.colorScheme=dark#3384",
+      "id": "variant:GdsThemeBoundaryProps.colorScheme=dark#3401",
       "kind": "variant",
       "name": "GdsThemeBoundaryProps.colorScheme=dark",
       "source": {
@@ -34620,7 +34790,7 @@
       }
     },
     {
-      "id": "prop:GdsThemeBoundaryProps.extra#3385",
+      "id": "prop:GdsThemeBoundaryProps.extra#3402",
       "kind": "prop",
       "name": "GdsThemeBoundaryProps.extra",
       "source": {
@@ -34630,7 +34800,7 @@
       "type": "Record<string, string | number | boolean | undefined>"
     },
     {
-      "id": "prop:GdsThemeBoundaryProps.children#3386",
+      "id": "prop:GdsThemeBoundaryProps.children#3403",
       "kind": "prop",
       "name": "GdsThemeBoundaryProps.children",
       "source": {
@@ -34640,7 +34810,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:VibeThemePickerProps.value#3387",
+      "id": "prop:VibeThemePickerProps.value#3404",
       "kind": "prop",
       "name": "VibeThemePickerProps.value",
       "source": {
@@ -34650,7 +34820,7 @@
       "type": "GdsThemePresetId"
     },
     {
-      "id": "prop:VibeThemePickerProps.onChange#3388",
+      "id": "prop:VibeThemePickerProps.onChange#3405",
       "kind": "prop",
       "name": "VibeThemePickerProps.onChange",
       "source": {
@@ -34660,7 +34830,7 @@
       "type": "(id: GdsThemePresetId) => void"
     },
     {
-      "id": "prop:VibeThemePickerProps.label#3389",
+      "id": "prop:VibeThemePickerProps.label#3406",
       "kind": "prop",
       "name": "VibeThemePickerProps.label",
       "source": {
@@ -34670,7 +34840,7 @@
       "type": "string"
     },
     {
-      "id": "prop:GdsVibeThemeScopeProps.presetId#3390",
+      "id": "prop:GdsVibeThemeScopeProps.presetId#3407",
       "kind": "prop",
       "name": "GdsVibeThemeScopeProps.presetId",
       "source": {
@@ -34680,7 +34850,7 @@
       "type": "GdsThemePresetId"
     },
     {
-      "id": "prop:GdsVibeThemeScopeProps.scheme#3391",
+      "id": "prop:GdsVibeThemeScopeProps.scheme#3408",
       "kind": "prop",
       "name": "GdsVibeThemeScopeProps.scheme",
       "source": {
@@ -34690,7 +34860,7 @@
       "type": "'light' | 'dark'"
     },
     {
-      "id": "variant:GdsVibeThemeScopeProps.scheme=light#3392",
+      "id": "variant:GdsVibeThemeScopeProps.scheme=light#3409",
       "kind": "variant",
       "name": "GdsVibeThemeScopeProps.scheme=light",
       "source": {
@@ -34699,7 +34869,7 @@
       }
     },
     {
-      "id": "variant:GdsVibeThemeScopeProps.scheme=dark#3393",
+      "id": "variant:GdsVibeThemeScopeProps.scheme=dark#3410",
       "kind": "variant",
       "name": "GdsVibeThemeScopeProps.scheme=dark",
       "source": {
@@ -34708,7 +34878,7 @@
       }
     },
     {
-      "id": "prop:GdsVibeThemeScopeProps.children#3394",
+      "id": "prop:GdsVibeThemeScopeProps.children#3411",
       "kind": "prop",
       "name": "GdsVibeThemeScopeProps.children",
       "source": {
@@ -34718,7 +34888,7 @@
       "type": "ReactNode"
     },
     {
-      "id": "prop:GdsVibeThemeScopeProps.className#3395",
+      "id": "prop:GdsVibeThemeScopeProps.className#3412",
       "kind": "prop",
       "name": "GdsVibeThemeScopeProps.className",
       "source": {
@@ -34728,7 +34898,7 @@
       "type": "string"
     },
     {
-      "id": "motion-token:instant#3396",
+      "id": "motion-token:instant#3413",
       "kind": "motion-token",
       "name": "instant",
       "source": {
@@ -34737,7 +34907,7 @@
       }
     },
     {
-      "id": "motion-token:fast#3397",
+      "id": "motion-token:fast#3414",
       "kind": "motion-token",
       "name": "fast",
       "source": {
@@ -34746,7 +34916,7 @@
       }
     },
     {
-      "id": "motion-token:base#3398",
+      "id": "motion-token:base#3415",
       "kind": "motion-token",
       "name": "base",
       "source": {
@@ -34755,7 +34925,7 @@
       }
     },
     {
-      "id": "motion-token:slow#3399",
+      "id": "motion-token:slow#3416",
       "kind": "motion-token",
       "name": "slow",
       "source": {
@@ -34764,7 +34934,7 @@
       }
     },
     {
-      "id": "motion-token:slower#3400",
+      "id": "motion-token:slower#3417",
       "kind": "motion-token",
       "name": "slower",
       "source": {
@@ -34773,7 +34943,7 @@
       }
     },
     {
-      "id": "motion-token:ambient#3401",
+      "id": "motion-token:ambient#3418",
       "kind": "motion-token",
       "name": "ambient",
       "source": {
@@ -34782,7 +34952,7 @@
       }
     },
     {
-      "id": "motion-token:standard#3402",
+      "id": "motion-token:standard#3419",
       "kind": "motion-token",
       "name": "standard",
       "source": {
@@ -34791,7 +34961,7 @@
       }
     },
     {
-      "id": "motion-token:entrance#3403",
+      "id": "motion-token:entrance#3420",
       "kind": "motion-token",
       "name": "entrance",
       "source": {
@@ -34800,7 +34970,7 @@
       }
     },
     {
-      "id": "motion-token:exit#3404",
+      "id": "motion-token:exit#3421",
       "kind": "motion-token",
       "name": "exit",
       "source": {
@@ -34809,7 +34979,7 @@
       }
     },
     {
-      "id": "motion-token:emphasis#3405",
+      "id": "motion-token:emphasis#3422",
       "kind": "motion-token",
       "name": "emphasis",
       "source": {
@@ -34818,7 +34988,7 @@
       }
     },
     {
-      "id": "motion-token:linear#3406",
+      "id": "motion-token:linear#3423",
       "kind": "motion-token",
       "name": "linear",
       "source": {
@@ -34827,7 +34997,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3407",
+      "id": "motion-shipped:transition#3424",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -34836,7 +35006,7 @@
       }
     },
     {
-      "id": "motion-shipped:animation#3408",
+      "id": "motion-shipped:animation#3425",
       "kind": "motion-shipped",
       "name": "animation",
       "source": {
@@ -34845,7 +35015,7 @@
       }
     },
     {
-      "id": "motion-shipped:animation#3409",
+      "id": "motion-shipped:animation#3426",
       "kind": "motion-shipped",
       "name": "animation",
       "source": {
@@ -34854,7 +35024,7 @@
       }
     },
     {
-      "id": "motion-shipped:animation#3410",
+      "id": "motion-shipped:animation#3427",
       "kind": "motion-shipped",
       "name": "animation",
       "source": {
@@ -34863,7 +35033,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3411",
+      "id": "motion-shipped:transition#3428",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -34872,7 +35042,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3412",
+      "id": "motion-shipped:transition#3429",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -34881,7 +35051,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3413",
+      "id": "motion-shipped:transition#3430",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -34890,7 +35060,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3414",
+      "id": "motion-shipped:transition#3431",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -34899,7 +35069,7 @@
       }
     },
     {
-      "id": "motion-shipped:transition#3415",
+      "id": "motion-shipped:transition#3432",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
@@ -34908,7 +35078,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-chat-typing#3416",
+      "id": "motion-keyframes:gds-chat-typing#3433",
       "kind": "motion-keyframes",
       "name": "gds-chat-typing",
       "source": {
@@ -34917,7 +35087,7 @@
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#3417",
+      "id": "motion-reduced-guard:prefers-reduced-motion#3434",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
@@ -34926,7 +35096,7 @@
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#3418",
+      "id": "motion-reduced-guard:prefers-reduced-motion#3435",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
@@ -34935,7 +35105,7 @@
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#3419",
+      "id": "motion-reduced-guard:prefers-reduced-motion#3436",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
@@ -34944,7 +35114,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3420",
+      "id": "interaction-state:focus-visible#3437",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -34953,7 +35123,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3421",
+      "id": "interaction-state:focus-visible#3438",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -34962,165 +35132,12 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#3422",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 529
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3423",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 531
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3424",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 533
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3425",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 535
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3426",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 537
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3427",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 539
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3428",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 541
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3429",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 543
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3430",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 545
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3431",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1052
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3432",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1054
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3433",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1056
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3434",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1058
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3435",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1060
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3436",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1062
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3437",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1064
-      }
-    },
-    {
-      "id": "interaction-state:focus-visible#3438",
-      "kind": "interaction-state",
-      "name": "focus-visible",
-      "source": {
-        "file": "packages/gds-theme/styles.css",
-        "line": 1066
-      }
-    },
-    {
       "id": "interaction-state:focus-visible#3439",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1068
+        "line": 529
       }
     },
     {
@@ -35129,7 +35146,7 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1070
+        "line": 531
       }
     },
     {
@@ -35138,43 +35155,43 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1072
+        "line": 533
       }
     },
     {
-      "id": "interaction-state:disabled#3442",
+      "id": "interaction-state:focus-visible#3442",
       "kind": "interaction-state",
-      "name": "disabled",
+      "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1109
+        "line": 535
       }
     },
     {
-      "id": "interaction-state:disabled#3443",
+      "id": "interaction-state:focus-visible#3443",
       "kind": "interaction-state",
-      "name": "disabled",
+      "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1111
+        "line": 537
       }
     },
     {
-      "id": "interaction-state:disabled#3444",
+      "id": "interaction-state:focus-visible#3444",
       "kind": "interaction-state",
-      "name": "disabled",
+      "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1112
+        "line": 539
       }
     },
     {
-      "id": "interaction-state:disabled#3445",
+      "id": "interaction-state:focus-visible#3445",
       "kind": "interaction-state",
-      "name": "disabled",
+      "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1113
+        "line": 541
       }
     },
     {
@@ -35183,25 +35200,25 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1352
+        "line": 543
       }
     },
     {
-      "id": "interaction-state:hover#3447",
+      "id": "interaction-state:focus-visible#3447",
       "kind": "interaction-state",
-      "name": "hover",
+      "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1359
+        "line": 545
       }
     },
     {
-      "id": "interaction-state:hover#3448",
+      "id": "interaction-state:focus-visible#3448",
       "kind": "interaction-state",
-      "name": "hover",
+      "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1462
+        "line": 1052
       }
     },
     {
@@ -35210,11 +35227,164 @@
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
+        "line": 1054
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3450",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1056
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3451",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1058
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3452",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1060
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3453",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1062
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3454",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1064
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3455",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1066
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3456",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1068
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3457",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1070
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3458",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1072
+      }
+    },
+    {
+      "id": "interaction-state:disabled#3459",
+      "kind": "interaction-state",
+      "name": "disabled",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1109
+      }
+    },
+    {
+      "id": "interaction-state:disabled#3460",
+      "kind": "interaction-state",
+      "name": "disabled",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1111
+      }
+    },
+    {
+      "id": "interaction-state:disabled#3461",
+      "kind": "interaction-state",
+      "name": "disabled",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1112
+      }
+    },
+    {
+      "id": "interaction-state:disabled#3462",
+      "kind": "interaction-state",
+      "name": "disabled",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1113
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3463",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1352
+      }
+    },
+    {
+      "id": "interaction-state:hover#3464",
+      "kind": "interaction-state",
+      "name": "hover",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1359
+      }
+    },
+    {
+      "id": "interaction-state:hover#3465",
+      "kind": "interaction-state",
+      "name": "hover",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1462
+      }
+    },
+    {
+      "id": "interaction-state:focus-visible#3466",
+      "kind": "interaction-state",
+      "name": "focus-visible",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
         "line": 1465
       }
     },
     {
-      "id": "interaction-state:hover#3450",
+      "id": "interaction-state:hover#3467",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
@@ -35223,7 +35393,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#3451",
+      "id": "interaction-state:disabled#3468",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -35232,237 +35402,237 @@
       }
     },
     {
-      "id": "locale-pack-package:ar#3452",
+      "id": "locale-pack-package:ar#3469",
       "kind": "locale-pack-package",
       "name": "ar",
       "source": {
         "file": "packages/gds-core/src/locales/ar.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:de#3453",
+      "id": "locale-pack-package:de#3470",
       "kind": "locale-pack-package",
       "name": "de",
       "source": {
         "file": "packages/gds-core/src/locales/de.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:en#3454",
+      "id": "locale-pack-package:en#3471",
       "kind": "locale-pack-package",
       "name": "en",
       "source": {
         "file": "packages/gds-core/src/locales/en.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:es#3455",
+      "id": "locale-pack-package:es#3472",
       "kind": "locale-pack-package",
       "name": "es",
       "source": {
         "file": "packages/gds-core/src/locales/es.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:fr#3456",
+      "id": "locale-pack-package:fr#3473",
       "kind": "locale-pack-package",
       "name": "fr",
       "source": {
         "file": "packages/gds-core/src/locales/fr.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:he#3457",
+      "id": "locale-pack-package:he#3474",
       "kind": "locale-pack-package",
       "name": "he",
       "source": {
         "file": "packages/gds-core/src/locales/he.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:hu#3458",
+      "id": "locale-pack-package:hu#3475",
       "kind": "locale-pack-package",
       "name": "hu",
       "source": {
         "file": "packages/gds-core/src/locales/hu.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:it#3459",
+      "id": "locale-pack-package:it#3476",
       "kind": "locale-pack-package",
       "name": "it",
       "source": {
         "file": "packages/gds-core/src/locales/it.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:ja#3460",
+      "id": "locale-pack-package:ja#3477",
       "kind": "locale-pack-package",
       "name": "ja",
       "source": {
         "file": "packages/gds-core/src/locales/ja.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:ko#3461",
+      "id": "locale-pack-package:ko#3478",
       "kind": "locale-pack-package",
       "name": "ko",
       "source": {
         "file": "packages/gds-core/src/locales/ko.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:ru#3462",
+      "id": "locale-pack-package:ru#3479",
       "kind": "locale-pack-package",
       "name": "ru",
       "source": {
         "file": "packages/gds-core/src/locales/ru.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-package:zh#3463",
+      "id": "locale-pack-package:zh#3480",
       "kind": "locale-pack-package",
       "name": "zh",
       "source": {
         "file": "packages/gds-core/src/locales/zh.ts",
         "line": 1
       },
-      "keyCount": 296
+      "keyCount": 329
     },
     {
-      "id": "locale-pack-site:ar#3464",
+      "id": "locale-pack-site:ar#3481",
       "kind": "locale-pack-site",
       "name": "ar",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/ar.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:de#3465",
+      "id": "locale-pack-site:de#3482",
       "kind": "locale-pack-site",
       "name": "de",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/de.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:es#3466",
+      "id": "locale-pack-site:es#3483",
       "kind": "locale-pack-site",
       "name": "es",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/es.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:fr#3467",
+      "id": "locale-pack-site:fr#3484",
       "kind": "locale-pack-site",
       "name": "fr",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/fr.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:he#3468",
+      "id": "locale-pack-site:he#3485",
       "kind": "locale-pack-site",
       "name": "he",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/he.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:hu#3469",
+      "id": "locale-pack-site:hu#3486",
       "kind": "locale-pack-site",
       "name": "hu",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/hu.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:it#3470",
+      "id": "locale-pack-site:it#3487",
       "kind": "locale-pack-site",
       "name": "it",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/it.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:ja#3471",
+      "id": "locale-pack-site:ja#3488",
       "kind": "locale-pack-site",
       "name": "ja",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/ja.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:ko#3472",
+      "id": "locale-pack-site:ko#3489",
       "kind": "locale-pack-site",
       "name": "ko",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/ko.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:ru#3473",
+      "id": "locale-pack-site:ru#3490",
       "kind": "locale-pack-site",
       "name": "ru",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/ru.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "locale-pack-site:zh#3474",
+      "id": "locale-pack-site:zh#3491",
       "kind": "locale-pack-site",
       "name": "zh",
       "source": {
         "file": "apps/playground/src/generated-site-phrases/zh.ts",
         "line": 1
       },
-      "keyCount": 2107
+      "keyCount": 2116
     },
     {
-      "id": "route:/#3475",
+      "id": "route:/#3492",
       "kind": "route",
       "name": "/",
       "source": {
@@ -35471,7 +35641,7 @@
       }
     },
     {
-      "id": "route:/patterns#3476",
+      "id": "route:/patterns#3493",
       "kind": "route",
       "name": "/patterns",
       "source": {
@@ -35480,7 +35650,7 @@
       }
     },
     {
-      "id": "route:/foundations#3477",
+      "id": "route:/foundations#3494",
       "kind": "route",
       "name": "/foundations",
       "source": {
@@ -35489,7 +35659,7 @@
       }
     },
     {
-      "id": "route:/patterns/public#3478",
+      "id": "route:/patterns/public#3495",
       "kind": "route",
       "name": "/patterns/public",
       "source": {
@@ -35498,7 +35668,7 @@
       }
     },
     {
-      "id": "route:/patterns/operations#3479",
+      "id": "route:/patterns/operations#3496",
       "kind": "route",
       "name": "/patterns/operations",
       "source": {
@@ -35507,7 +35677,7 @@
       }
     },
     {
-      "id": "route:/patterns/data#3480",
+      "id": "route:/patterns/data#3497",
       "kind": "route",
       "name": "/patterns/data",
       "source": {
@@ -35516,7 +35686,7 @@
       }
     },
     {
-      "id": "route:/patterns/access#3481",
+      "id": "route:/patterns/access#3498",
       "kind": "route",
       "name": "/patterns/access",
       "source": {
@@ -35525,7 +35695,7 @@
       }
     },
     {
-      "id": "route:/patterns/feedback#3482",
+      "id": "route:/patterns/feedback#3499",
       "kind": "route",
       "name": "/patterns/feedback",
       "source": {
@@ -35534,7 +35704,7 @@
       }
     },
     {
-      "id": "route:/components#3483",
+      "id": "route:/components#3500",
       "kind": "route",
       "name": "/components",
       "source": {
@@ -35543,7 +35713,7 @@
       }
     },
     {
-      "id": "route:/systems#3484",
+      "id": "route:/systems#3501",
       "kind": "route",
       "name": "/systems",
       "source": {
@@ -35552,7 +35722,7 @@
       }
     },
     {
-      "id": "route:/coverage#3485",
+      "id": "route:/coverage#3502",
       "kind": "route",
       "name": "/coverage",
       "source": {
@@ -35561,7 +35731,7 @@
       }
     },
     {
-      "id": "route:/api#3486",
+      "id": "route:/api#3503",
       "kind": "route",
       "name": "/api",
       "source": {
@@ -35570,7 +35740,7 @@
       }
     },
     {
-      "id": "route:/maturity#3487",
+      "id": "route:/maturity#3504",
       "kind": "route",
       "name": "/maturity",
       "source": {
@@ -35579,7 +35749,7 @@
       }
     },
     {
-      "id": "route:/use-cases#3488",
+      "id": "route:/use-cases#3505",
       "kind": "route",
       "name": "/use-cases",
       "source": {
@@ -35588,7 +35758,7 @@
       }
     },
     {
-      "id": "route:/install#3489",
+      "id": "route:/install#3506",
       "kind": "route",
       "name": "/install",
       "source": {
@@ -35597,7 +35767,7 @@
       }
     },
     {
-      "id": "route:/governance#3490",
+      "id": "route:/governance#3507",
       "kind": "route",
       "name": "/governance",
       "source": {
@@ -35606,7 +35776,7 @@
       }
     },
     {
-      "id": "route:/themes#3491",
+      "id": "route:/themes#3508",
       "kind": "route",
       "name": "/themes",
       "source": {
@@ -35615,7 +35785,7 @@
       }
     },
     {
-      "id": "route:/live-proofs#3492",
+      "id": "route:/live-proofs#3509",
       "kind": "route",
       "name": "/live-proofs",
       "source": {
@@ -35624,7 +35794,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/surfaces#3493",
+      "id": "route:/live-proofs/surfaces#3510",
       "kind": "route",
       "name": "/live-proofs/surfaces",
       "source": {
@@ -35633,7 +35803,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/layouts#3494",
+      "id": "route:/live-proofs/layouts#3511",
       "kind": "route",
       "name": "/live-proofs/layouts",
       "source": {
@@ -35642,7 +35812,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/semantics#3495",
+      "id": "route:/live-proofs/semantics#3512",
       "kind": "route",
       "name": "/live-proofs/semantics",
       "source": {
@@ -35651,7 +35821,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/food#3496",
+      "id": "route:/live-proofs/food#3513",
       "kind": "route",
       "name": "/live-proofs/food",
       "source": {
@@ -35660,7 +35830,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/playback#3497",
+      "id": "route:/live-proofs/playback#3514",
       "kind": "route",
       "name": "/live-proofs/playback",
       "source": {
@@ -35669,7 +35839,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/analytics#3498",
+      "id": "route:/live-proofs/analytics#3515",
       "kind": "route",
       "name": "/live-proofs/analytics",
       "source": {
@@ -35678,7 +35848,7 @@
       }
     },
     {
-      "id": "route:/request-feature#3499",
+      "id": "route:/request-feature#3516",
       "kind": "route",
       "name": "/request-feature",
       "source": {
@@ -35687,7 +35857,7 @@
       }
     },
     {
-      "id": "route:/ai#3500",
+      "id": "route:/ai#3517",
       "kind": "route",
       "name": "/ai",
       "source": {
@@ -35696,7 +35866,7 @@
       }
     },
     {
-      "id": "pattern:stable-shell#3501",
+      "id": "pattern:stable-shell#3518",
       "kind": "pattern",
       "name": "stable-shell",
       "source": {
@@ -35705,7 +35875,7 @@
       }
     },
     {
-      "id": "pattern:primary-navigation#3502",
+      "id": "pattern:primary-navigation#3519",
       "kind": "pattern",
       "name": "primary-navigation",
       "source": {
@@ -35714,7 +35884,7 @@
       }
     },
     {
-      "id": "pattern:mobile-navigation#3503",
+      "id": "pattern:mobile-navigation#3520",
       "kind": "pattern",
       "name": "mobile-navigation",
       "source": {
@@ -35723,7 +35893,7 @@
       }
     },
     {
-      "id": "pattern:page-headers#3504",
+      "id": "pattern:page-headers#3521",
       "kind": "pattern",
       "name": "page-headers",
       "source": {
@@ -35732,7 +35902,7 @@
       }
     },
     {
-      "id": "pattern:theme-toggle#3505",
+      "id": "pattern:theme-toggle#3522",
       "kind": "pattern",
       "name": "theme-toggle",
       "source": {
@@ -35741,7 +35911,7 @@
       }
     },
     {
-      "id": "pattern:form-field#3506",
+      "id": "pattern:form-field#3523",
       "kind": "pattern",
       "name": "form-field",
       "source": {
@@ -35750,7 +35920,7 @@
       }
     },
     {
-      "id": "pattern:game-board-tile#3507",
+      "id": "pattern:game-board-tile#3524",
       "kind": "pattern",
       "name": "game-board-tile",
       "source": {
@@ -35759,7 +35929,7 @@
       }
     },
     {
-      "id": "pattern:shell-contracts#3508",
+      "id": "pattern:shell-contracts#3525",
       "kind": "pattern",
       "name": "shell-contracts",
       "source": {
@@ -35768,7 +35938,7 @@
       }
     },
     {
-      "id": "pattern:discovery-shell#3509",
+      "id": "pattern:discovery-shell#3526",
       "kind": "pattern",
       "name": "discovery-shell",
       "source": {
@@ -35777,7 +35947,7 @@
       }
     },
     {
-      "id": "pattern:sidebar-navigation#3510",
+      "id": "pattern:sidebar-navigation#3527",
       "kind": "pattern",
       "name": "sidebar-navigation",
       "source": {
@@ -35786,7 +35956,7 @@
       }
     },
     {
-      "id": "pattern:dashboards#3511",
+      "id": "pattern:dashboards#3528",
       "kind": "pattern",
       "name": "dashboards",
       "source": {
@@ -35795,7 +35965,7 @@
       }
     },
     {
-      "id": "pattern:forms#3512",
+      "id": "pattern:forms#3529",
       "kind": "pattern",
       "name": "forms",
       "source": {
@@ -35804,7 +35974,7 @@
       }
     },
     {
-      "id": "pattern:admin-editor-flows#3513",
+      "id": "pattern:admin-editor-flows#3530",
       "kind": "pattern",
       "name": "admin-editor-flows",
       "source": {
@@ -35813,7 +35983,7 @@
       }
     },
     {
-      "id": "pattern:search-filters-lists#3514",
+      "id": "pattern:search-filters-lists#3531",
       "kind": "pattern",
       "name": "search-filters-lists",
       "source": {
@@ -35822,7 +35992,7 @@
       }
     },
     {
-      "id": "pattern:destructive-actions#3515",
+      "id": "pattern:destructive-actions#3532",
       "kind": "pattern",
       "name": "destructive-actions",
       "source": {
@@ -35831,7 +36001,7 @@
       }
     },
     {
-      "id": "pattern:pattern-service-reuse#3516",
+      "id": "pattern:pattern-service-reuse#3533",
       "kind": "pattern",
       "name": "pattern-service-reuse",
       "source": {
@@ -35840,7 +36010,7 @@
       }
     },
     {
-      "id": "pattern:maturity-capabilities#3517",
+      "id": "pattern:maturity-capabilities#3534",
       "kind": "pattern",
       "name": "maturity-capabilities",
       "source": {
@@ -35849,7 +36019,7 @@
       }
     },
     {
-      "id": "pattern:semantic-actions#3518",
+      "id": "pattern:semantic-actions#3535",
       "kind": "pattern",
       "name": "semantic-actions",
       "source": {
@@ -35858,7 +36028,7 @@
       }
     },
     {
-      "id": "pattern:detail-surfaces#3519",
+      "id": "pattern:detail-surfaces#3536",
       "kind": "pattern",
       "name": "detail-surfaces",
       "source": {
@@ -35867,7 +36037,7 @@
       }
     },
     {
-      "id": "pattern:embed-surfaces#3520",
+      "id": "pattern:embed-surfaces#3537",
       "kind": "pattern",
       "name": "embed-surfaces",
       "source": {
@@ -35876,7 +36046,7 @@
       }
     },
     {
-      "id": "pattern:buttons#3521",
+      "id": "pattern:buttons#3538",
       "kind": "pattern",
       "name": "buttons",
       "source": {
@@ -35885,7 +36055,7 @@
       }
     },
     {
-      "id": "pattern:choice-chips#3522",
+      "id": "pattern:choice-chips#3539",
       "kind": "pattern",
       "name": "choice-chips",
       "source": {
@@ -35894,7 +36064,7 @@
       }
     },
     {
-      "id": "pattern:icon-buttons#3523",
+      "id": "pattern:icon-buttons#3540",
       "kind": "pattern",
       "name": "icon-buttons",
       "source": {
@@ -35903,7 +36073,7 @@
       }
     },
     {
-      "id": "pattern:inputs#3524",
+      "id": "pattern:inputs#3541",
       "kind": "pattern",
       "name": "inputs",
       "source": {
@@ -35912,7 +36082,7 @@
       }
     },
     {
-      "id": "pattern:selects-combobox#3525",
+      "id": "pattern:selects-combobox#3542",
       "kind": "pattern",
       "name": "selects-combobox",
       "source": {
@@ -35921,7 +36091,7 @@
       }
     },
     {
-      "id": "pattern:checkboxes-radios#3526",
+      "id": "pattern:checkboxes-radios#3543",
       "kind": "pattern",
       "name": "checkboxes-radios",
       "source": {
@@ -35930,7 +36100,7 @@
       }
     },
     {
-      "id": "pattern:product-cards#3527",
+      "id": "pattern:product-cards#3544",
       "kind": "pattern",
       "name": "product-cards",
       "source": {
@@ -35939,7 +36109,7 @@
       }
     },
     {
-      "id": "pattern:public-product-cards#3528",
+      "id": "pattern:public-product-cards#3545",
       "kind": "pattern",
       "name": "public-product-cards",
       "source": {
@@ -35948,7 +36118,7 @@
       }
     },
     {
-      "id": "pattern:media-card#3529",
+      "id": "pattern:media-card#3546",
       "kind": "pattern",
       "name": "media-card",
       "source": {
@@ -35957,7 +36127,7 @@
       }
     },
     {
-      "id": "pattern:accent-panels#3530",
+      "id": "pattern:accent-panels#3547",
       "kind": "pattern",
       "name": "accent-panels",
       "source": {
@@ -35966,7 +36136,7 @@
       }
     },
     {
-      "id": "pattern:metric-cards#3531",
+      "id": "pattern:metric-cards#3548",
       "kind": "pattern",
       "name": "metric-cards",
       "source": {
@@ -35975,7 +36145,7 @@
       }
     },
     {
-      "id": "pattern:data-toolbars#3532",
+      "id": "pattern:data-toolbars#3549",
       "kind": "pattern",
       "name": "data-toolbars",
       "source": {
@@ -35984,7 +36154,7 @@
       }
     },
     {
-      "id": "pattern:state-blocks#3533",
+      "id": "pattern:state-blocks#3550",
       "kind": "pattern",
       "name": "state-blocks",
       "source": {
@@ -35993,7 +36163,7 @@
       }
     },
     {
-      "id": "pattern:surface-presentation#3534",
+      "id": "pattern:surface-presentation#3551",
       "kind": "pattern",
       "name": "surface-presentation",
       "source": {
@@ -36002,7 +36172,7 @@
       }
     },
     {
-      "id": "pattern:action-bar#3535",
+      "id": "pattern:action-bar#3552",
       "kind": "pattern",
       "name": "action-bar",
       "source": {
@@ -36011,7 +36181,7 @@
       }
     },
     {
-      "id": "pattern:listing-card#3536",
+      "id": "pattern:listing-card#3553",
       "kind": "pattern",
       "name": "listing-card",
       "source": {
@@ -36020,7 +36190,7 @@
       }
     },
     {
-      "id": "pattern:share-button-group#3537",
+      "id": "pattern:share-button-group#3554",
       "kind": "pattern",
       "name": "share-button-group",
       "source": {
@@ -36029,7 +36199,7 @@
       }
     },
     {
-      "id": "pattern:public-food-card#3538",
+      "id": "pattern:public-food-card#3555",
       "kind": "pattern",
       "name": "public-food-card",
       "source": {
@@ -36038,7 +36208,7 @@
       }
     },
     {
-      "id": "pattern:food-menu-section#3539",
+      "id": "pattern:food-menu-section#3556",
       "kind": "pattern",
       "name": "food-menu-section",
       "source": {
@@ -36047,7 +36217,7 @@
       }
     },
     {
-      "id": "pattern:map-panel#3540",
+      "id": "pattern:map-panel#3557",
       "kind": "pattern",
       "name": "map-panel",
       "source": {
@@ -36056,7 +36226,7 @@
       }
     },
     {
-      "id": "pattern:detail-profile-shell#3541",
+      "id": "pattern:detail-profile-shell#3558",
       "kind": "pattern",
       "name": "detail-profile-shell",
       "source": {
@@ -36065,7 +36235,7 @@
       }
     },
     {
-      "id": "pattern:detail-facts-provider-cta#3542",
+      "id": "pattern:detail-facts-provider-cta#3559",
       "kind": "pattern",
       "name": "detail-facts-provider-cta",
       "source": {
@@ -36074,772 +36244,781 @@
       }
     },
     {
-      "id": "pattern:public-flow-shell#3543",
+      "id": "pattern:trust-layer#3560",
       "kind": "pattern",
-      "name": "public-flow-shell",
+      "name": "trust-layer",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 429
       }
     },
     {
-      "id": "pattern:playback-surface#3544",
+      "id": "pattern:public-flow-shell#3561",
       "kind": "pattern",
-      "name": "playback-surface",
+      "name": "public-flow-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 439
       }
     },
     {
-      "id": "pattern:public-shells#3545",
+      "id": "pattern:playback-surface#3562",
       "kind": "pattern",
-      "name": "public-shells",
+      "name": "playback-surface",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 449
       }
     },
     {
-      "id": "pattern:public-nav#3546",
+      "id": "pattern:public-shells#3563",
       "kind": "pattern",
-      "name": "public-nav",
+      "name": "public-shells",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 459
       }
     },
     {
-      "id": "pattern:auth-shells#3547",
+      "id": "pattern:public-nav#3564",
       "kind": "pattern",
-      "name": "auth-shells",
+      "name": "public-nav",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 469
       }
     },
     {
-      "id": "pattern:social-auth-buttons#3548",
+      "id": "pattern:auth-shells#3565",
       "kind": "pattern",
-      "name": "social-auth-buttons",
+      "name": "auth-shells",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 479
       }
     },
     {
-      "id": "pattern:provider-identity-buttons#3549",
+      "id": "pattern:social-auth-buttons#3566",
       "kind": "pattern",
-      "name": "provider-identity-buttons",
+      "name": "social-auth-buttons",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 489
       }
     },
     {
-      "id": "pattern:article-shells#3550",
+      "id": "pattern:provider-identity-buttons#3567",
       "kind": "pattern",
-      "name": "article-shells",
+      "name": "provider-identity-buttons",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 499
       }
     },
     {
-      "id": "pattern:docs-page-shell#3551",
+      "id": "pattern:article-shells#3568",
       "kind": "pattern",
-      "name": "docs-page-shell",
+      "name": "article-shells",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 509
       }
     },
     {
-      "id": "pattern:docs-shell#3552",
+      "id": "pattern:docs-page-shell#3569",
       "kind": "pattern",
-      "name": "docs-shell",
+      "name": "docs-page-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 519
       }
     },
     {
-      "id": "pattern:reference-section#3553",
+      "id": "pattern:docs-shell#3570",
       "kind": "pattern",
-      "name": "reference-section",
+      "name": "docs-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 529
       }
     },
     {
-      "id": "pattern:reference-link-grid#3554",
+      "id": "pattern:reference-section#3571",
       "kind": "pattern",
-      "name": "reference-link-grid",
+      "name": "reference-section",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 539
       }
     },
     {
-      "id": "pattern:reference-locale-notice#3555",
+      "id": "pattern:reference-link-grid#3572",
       "kind": "pattern",
-      "name": "reference-locale-notice",
+      "name": "reference-link-grid",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 549
       }
     },
     {
-      "id": "pattern:reference-theme-explorer#3556",
+      "id": "pattern:reference-locale-notice#3573",
       "kind": "pattern",
-      "name": "reference-theme-explorer",
+      "name": "reference-locale-notice",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 559
       }
     },
     {
-      "id": "pattern:pin-system#3557",
+      "id": "pattern:reference-theme-explorer#3574",
       "kind": "pattern",
-      "name": "pin-system",
+      "name": "reference-theme-explorer",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 569
       }
     },
     {
-      "id": "pattern:gds-map#3558",
+      "id": "pattern:pin-system#3575",
       "kind": "pattern",
-      "name": "gds-map",
+      "name": "pin-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 579
       }
     },
     {
-      "id": "pattern:accent-contrast-matrix#3559",
+      "id": "pattern:gds-map#3576",
       "kind": "pattern",
-      "name": "accent-contrast-matrix",
+      "name": "gds-map",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 589
       }
     },
     {
-      "id": "pattern:design-rule-profile-panel#3560",
+      "id": "pattern:accent-contrast-matrix#3577",
       "kind": "pattern",
-      "name": "design-rule-profile-panel",
+      "name": "accent-contrast-matrix",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 599
       }
     },
     {
-      "id": "pattern:reference-site-shell#3561",
+      "id": "pattern:design-rule-profile-panel#3578",
       "kind": "pattern",
-      "name": "reference-site-shell",
+      "name": "design-rule-profile-panel",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 609
       }
     },
     {
-      "id": "pattern:editorial-hero#3562",
+      "id": "pattern:reference-site-shell#3579",
       "kind": "pattern",
-      "name": "editorial-hero",
+      "name": "reference-site-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 619
       }
     },
     {
-      "id": "pattern:feature-band#3563",
+      "id": "pattern:editorial-hero#3580",
       "kind": "pattern",
-      "name": "feature-band",
+      "name": "editorial-hero",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 629
       }
     },
     {
-      "id": "pattern:browse-surface#3564",
+      "id": "pattern:feature-band#3581",
       "kind": "pattern",
-      "name": "browse-surface",
+      "name": "feature-band",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 639
       }
     },
     {
-      "id": "pattern:editorial-cards#3565",
+      "id": "pattern:browse-surface#3582",
       "kind": "pattern",
-      "name": "editorial-cards",
+      "name": "browse-surface",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 649
       }
     },
     {
-      "id": "pattern:generated-imagery#3566",
+      "id": "pattern:editorial-cards#3583",
       "kind": "pattern",
-      "name": "generated-imagery",
+      "name": "editorial-cards",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 659
       }
     },
     {
-      "id": "pattern:logo-lockup#3567",
+      "id": "pattern:generated-imagery#3584",
       "kind": "pattern",
-      "name": "logo-lockup",
+      "name": "generated-imagery",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 669
       }
     },
     {
-      "id": "pattern:consumer-sections#3568",
+      "id": "pattern:logo-lockup#3585",
       "kind": "pattern",
-      "name": "consumer-sections",
+      "name": "logo-lockup",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 679
       }
     },
     {
-      "id": "pattern:consumer-dashboard-grid#3569",
+      "id": "pattern:consumer-sections#3586",
       "kind": "pattern",
-      "name": "consumer-dashboard-grid",
+      "name": "consumer-sections",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 689
       }
     },
     {
-      "id": "pattern:media-fields#3570",
+      "id": "pattern:consumer-dashboard-grid#3587",
       "kind": "pattern",
-      "name": "media-fields",
+      "name": "consumer-dashboard-grid",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 699
       }
     },
     {
-      "id": "pattern:content-operations-editor#3571",
+      "id": "pattern:media-fields#3588",
       "kind": "pattern",
-      "name": "content-operations-editor",
+      "name": "media-fields",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 709
       }
     },
     {
-      "id": "pattern:admin-app-shell#3572",
+      "id": "pattern:content-operations-editor#3589",
       "kind": "pattern",
-      "name": "admin-app-shell",
+      "name": "content-operations-editor",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 719
       }
     },
     {
-      "id": "pattern:editor-scaffold#3573",
+      "id": "pattern:admin-app-shell#3590",
       "kind": "pattern",
-      "name": "editor-scaffold",
+      "name": "admin-app-shell",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 729
       }
     },
     {
-      "id": "pattern:kanban-board#3574",
+      "id": "pattern:editor-scaffold#3591",
       "kind": "pattern",
-      "name": "kanban-board",
+      "name": "editor-scaffold",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 739
       }
     },
     {
-      "id": "pattern:form-section#3575",
+      "id": "pattern:kanban-board#3592",
       "kind": "pattern",
-      "name": "form-section",
+      "name": "kanban-board",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 749
       }
     },
     {
-      "id": "pattern:workspace-header#3576",
+      "id": "pattern:form-section#3593",
       "kind": "pattern",
-      "name": "workspace-header",
+      "name": "form-section",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 759
       }
     },
     {
-      "id": "pattern:section-panels#3577",
+      "id": "pattern:workspace-header#3594",
       "kind": "pattern",
-      "name": "section-panels",
+      "name": "workspace-header",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 769
       }
     },
     {
-      "id": "pattern:public-brand-footer#3578",
+      "id": "pattern:section-panels#3595",
       "kind": "pattern",
-      "name": "public-brand-footer",
+      "name": "section-panels",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 779
       }
     },
     {
-      "id": "pattern:public-site-footer#3579",
+      "id": "pattern:public-brand-footer#3596",
       "kind": "pattern",
-      "name": "public-site-footer",
+      "name": "public-brand-footer",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 789
       }
     },
     {
-      "id": "pattern:filter-drawer#3580",
+      "id": "pattern:public-site-footer#3597",
       "kind": "pattern",
-      "name": "filter-drawer",
+      "name": "public-site-footer",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 799
       }
     },
     {
-      "id": "pattern:docs-code-blocks#3581",
+      "id": "pattern:filter-drawer#3598",
       "kind": "pattern",
-      "name": "docs-code-blocks",
+      "name": "filter-drawer",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 809
       }
     },
     {
-      "id": "pattern:cta-button-groups#3582",
+      "id": "pattern:docs-code-blocks#3599",
       "kind": "pattern",
-      "name": "cta-button-groups",
+      "name": "docs-code-blocks",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 819
       }
     },
     {
-      "id": "pattern:upload-surfaces#3583",
+      "id": "pattern:cta-button-groups#3600",
       "kind": "pattern",
-      "name": "upload-surfaces",
+      "name": "cta-button-groups",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 829
       }
     },
     {
-      "id": "pattern:access-summaries#3584",
+      "id": "pattern:upload-surfaces#3601",
       "kind": "pattern",
-      "name": "access-summaries",
+      "name": "upload-surfaces",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 839
       }
     },
     {
-      "id": "pattern:access-recovery-panels#3585",
+      "id": "pattern:access-summaries#3602",
       "kind": "pattern",
-      "name": "access-recovery-panels",
+      "name": "access-summaries",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 849
       }
     },
     {
-      "id": "pattern:access-gates#3586",
+      "id": "pattern:access-recovery-panels#3603",
       "kind": "pattern",
-      "name": "access-gates",
+      "name": "access-recovery-panels",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 859
       }
     },
     {
-      "id": "pattern:placeholder-panels#3587",
+      "id": "pattern:access-gates#3604",
       "kind": "pattern",
-      "name": "placeholder-panels",
+      "name": "access-gates",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 869
       }
     },
     {
-      "id": "pattern:simple-data-tables#3588",
+      "id": "pattern:placeholder-panels#3605",
       "kind": "pattern",
-      "name": "simple-data-tables",
+      "name": "placeholder-panels",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 879
       }
     },
     {
-      "id": "pattern:admin-data-table#3589",
+      "id": "pattern:simple-data-tables#3606",
       "kind": "pattern",
-      "name": "admin-data-table",
+      "name": "simple-data-tables",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 889
       }
     },
     {
-      "id": "pattern:responsive-data-view#3590",
+      "id": "pattern:admin-data-table#3607",
       "kind": "pattern",
-      "name": "responsive-data-view",
+      "name": "admin-data-table",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 899
       }
     },
     {
-      "id": "pattern:stats-strip#3591",
+      "id": "pattern:responsive-data-view#3608",
       "kind": "pattern",
-      "name": "stats-strip",
+      "name": "responsive-data-view",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 909
       }
     },
     {
-      "id": "pattern:info-card#3592",
+      "id": "pattern:stats-strip#3609",
       "kind": "pattern",
-      "name": "info-card",
+      "name": "stats-strip",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 919
       }
     },
     {
-      "id": "pattern:semantic-nav-link#3593",
+      "id": "pattern:info-card#3610",
       "kind": "pattern",
-      "name": "semantic-nav-link",
+      "name": "info-card",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 929
       }
     },
     {
-      "id": "pattern:empty-state#3594",
+      "id": "pattern:semantic-nav-link#3611",
       "kind": "pattern",
-      "name": "empty-state",
+      "name": "semantic-nav-link",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 939
       }
     },
     {
-      "id": "pattern:stats-sections#3595",
+      "id": "pattern:empty-state#3612",
       "kind": "pattern",
-      "name": "stats-sections",
+      "name": "empty-state",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 949
       }
     },
     {
-      "id": "pattern:reporting-contracts#3596",
+      "id": "pattern:stats-sections#3613",
       "kind": "pattern",
-      "name": "reporting-contracts",
+      "name": "stats-sections",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 959
       }
     },
     {
-      "id": "pattern:alerts#3597",
+      "id": "pattern:reporting-contracts#3614",
       "kind": "pattern",
-      "name": "alerts",
+      "name": "reporting-contracts",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 969
       }
     },
     {
-      "id": "pattern:loaders-skeletons#3598",
+      "id": "pattern:alerts#3615",
       "kind": "pattern",
-      "name": "loaders-skeletons",
+      "name": "alerts",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 979
       }
     },
     {
-      "id": "pattern:notifications#3599",
+      "id": "pattern:loaders-skeletons#3616",
       "kind": "pattern",
-      "name": "notifications",
+      "name": "loaders-skeletons",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 987
+        "line": 989
       }
     },
     {
-      "id": "pattern:motion-system#3600",
+      "id": "pattern:notifications#3617",
       "kind": "pattern",
-      "name": "motion-system",
+      "name": "notifications",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 997
       }
     },
     {
-      "id": "pattern:shape-elevation#3601",
+      "id": "pattern:motion-system#3618",
       "kind": "pattern",
-      "name": "shape-elevation",
+      "name": "motion-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1007
       }
     },
     {
-      "id": "pattern:density-spacing#3602",
+      "id": "pattern:shape-elevation#3619",
       "kind": "pattern",
-      "name": "density-spacing",
+      "name": "shape-elevation",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1017
       }
     },
     {
-      "id": "pattern:icon-system#3603",
+      "id": "pattern:density-spacing#3620",
       "kind": "pattern",
-      "name": "icon-system",
+      "name": "density-spacing",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1027
       }
     },
     {
-      "id": "pattern:activity-pictograms#3604",
+      "id": "pattern:icon-system#3621",
       "kind": "pattern",
-      "name": "activity-pictograms",
+      "name": "icon-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1037
       }
     },
     {
-      "id": "pattern:typography#3605",
+      "id": "pattern:activity-pictograms#3622",
       "kind": "pattern",
-      "name": "typography",
+      "name": "activity-pictograms",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1047
       }
     },
     {
-      "id": "pattern:color-theming#3606",
+      "id": "pattern:typography#3623",
       "kind": "pattern",
-      "name": "color-theming",
+      "name": "typography",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1057
       }
     },
     {
-      "id": "pattern:accessibility-floor#3607",
+      "id": "pattern:color-theming#3624",
       "kind": "pattern",
-      "name": "accessibility-floor",
+      "name": "color-theming",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1067
       }
     },
     {
-      "id": "pattern:button-feedback#3608",
+      "id": "pattern:accessibility-floor#3625",
       "kind": "pattern",
-      "name": "button-feedback",
+      "name": "accessibility-floor",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1077
       }
     },
     {
-      "id": "pattern:badges#3609",
+      "id": "pattern:button-feedback#3626",
       "kind": "pattern",
-      "name": "badges",
+      "name": "button-feedback",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1087
       }
     },
     {
-      "id": "pattern:modals#3610",
+      "id": "pattern:badges#3627",
       "kind": "pattern",
-      "name": "modals",
+      "name": "badges",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1097
       }
     },
     {
-      "id": "pattern:drawers#3611",
+      "id": "pattern:modals#3628",
       "kind": "pattern",
-      "name": "drawers",
+      "name": "modals",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1107
       }
     },
     {
-      "id": "pattern:small-screen-priority#3612",
+      "id": "pattern:drawers#3629",
       "kind": "pattern",
-      "name": "small-screen-priority",
+      "name": "drawers",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1117
       }
     },
     {
-      "id": "pattern:table-responsive-strategies#3613",
+      "id": "pattern:small-screen-priority#3630",
+      "kind": "pattern",
+      "name": "small-screen-priority",
+      "source": {
+        "file": "apps/playground/src/pattern-registry.ts",
+        "line": 1127
+      }
+    },
+    {
+      "id": "pattern:table-responsive-strategies#3631",
       "kind": "pattern",
       "name": "table-responsive-strategies",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1125
+        "line": 1135
       }
     },
     {
-      "id": "pattern:mobile-action-density#3614",
+      "id": "pattern:mobile-action-density#3632",
       "kind": "pattern",
       "name": "mobile-action-density",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1133
+        "line": 1143
       }
     },
     {
-      "id": "pattern:searchable-selection#3615",
+      "id": "pattern:searchable-selection#3633",
       "kind": "pattern",
       "name": "searchable-selection",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1141
+        "line": 1151
       }
     },
     {
-      "id": "pattern:vocabulary-extension-lane#3616",
+      "id": "pattern:vocabulary-extension-lane#3634",
       "kind": "pattern",
       "name": "vocabulary-extension-lane",
-      "source": {
-        "file": "apps/playground/src/pattern-registry.ts",
-        "line": 1149
-      }
-    },
-    {
-      "id": "pattern:partner-discovery-system#3617",
-      "kind": "pattern",
-      "name": "partner-discovery-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1159
       }
     },
     {
-      "id": "pattern:bottom-tab-navigation#3618",
+      "id": "pattern:partner-discovery-system#3635",
       "kind": "pattern",
-      "name": "bottom-tab-navigation",
+      "name": "partner-discovery-system",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1169
       }
     },
     {
-      "id": "pattern:searchable-select#3619",
+      "id": "pattern:bottom-tab-navigation#3636",
       "kind": "pattern",
-      "name": "searchable-select",
+      "name": "bottom-tab-navigation",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1179
       }
     },
     {
-      "id": "pattern:fit-score-chip#3620",
+      "id": "pattern:searchable-select#3637",
       "kind": "pattern",
-      "name": "fit-score-chip",
+      "name": "searchable-select",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1189
       }
     },
     {
-      "id": "pattern:conversation-surface#3621",
+      "id": "pattern:fit-score-chip#3638",
       "kind": "pattern",
-      "name": "conversation-surface",
+      "name": "fit-score-chip",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1199
       }
     },
     {
-      "id": "pattern:meaning-badge#3622",
+      "id": "pattern:conversation-surface#3639",
       "kind": "pattern",
-      "name": "meaning-badge",
+      "name": "conversation-surface",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1209
       }
     },
     {
-      "id": "pattern:media-with-fallback#3623",
+      "id": "pattern:meaning-badge#3640",
       "kind": "pattern",
-      "name": "media-with-fallback",
+      "name": "meaning-badge",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1219
       }
     },
     {
-      "id": "pattern:number-stepper#3624",
+      "id": "pattern:media-with-fallback#3641",
       "kind": "pattern",
-      "name": "number-stepper",
+      "name": "media-with-fallback",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1229
       }
     },
     {
-      "id": "pattern:ai-search-card#3625",
+      "id": "pattern:number-stepper#3642",
       "kind": "pattern",
-      "name": "ai-search-card",
+      "name": "number-stepper",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1239
       }
     },
     {
-      "id": "pattern:hero-search-panel#3626",
+      "id": "pattern:ai-search-card#3643",
       "kind": "pattern",
-      "name": "hero-search-panel",
+      "name": "ai-search-card",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1249
       }
     },
     {
-      "id": "pattern:quick-start-card#3627",
+      "id": "pattern:hero-search-panel#3644",
       "kind": "pattern",
-      "name": "quick-start-card",
+      "name": "hero-search-panel",
       "source": {
         "file": "apps/playground/src/pattern-registry.ts",
         "line": 1259
       }
     },
     {
-      "id": "theme:default#3628",
+      "id": "pattern:quick-start-card#3645",
+      "kind": "pattern",
+      "name": "quick-start-card",
+      "source": {
+        "file": "apps/playground/src/pattern-registry.ts",
+        "line": 1269
+      }
+    },
+    {
+      "id": "theme:default#3646",
       "kind": "theme",
       "name": "default",
       "source": {
@@ -36848,7 +37027,7 @@
       }
     },
     {
-      "id": "theme:high-contrast#3629",
+      "id": "theme:high-contrast#3647",
       "kind": "theme",
       "name": "high-contrast",
       "source": {
@@ -36857,7 +37036,7 @@
       }
     },
     {
-      "id": "theme:colorblind-safe#3630",
+      "id": "theme:colorblind-safe#3648",
       "kind": "theme",
       "name": "colorblind-safe",
       "source": {
@@ -36866,7 +37045,7 @@
       }
     },
     {
-      "id": "theme:dark-public#3631",
+      "id": "theme:dark-public#3649",
       "kind": "theme",
       "name": "dark-public",
       "source": {
@@ -36875,7 +37054,7 @@
       }
     },
     {
-      "id": "theme:flat-surface#3632",
+      "id": "theme:flat-surface#3650",
       "kind": "theme",
       "name": "flat-surface",
       "source": {
@@ -36884,7 +37063,7 @@
       }
     },
     {
-      "id": "theme:editorial#3633",
+      "id": "theme:editorial#3651",
       "kind": "theme",
       "name": "editorial",
       "source": {
@@ -36893,7 +37072,7 @@
       }
     },
     {
-      "id": "theme:brand#3634",
+      "id": "theme:brand#3652",
       "kind": "theme",
       "name": "brand",
       "source": {
@@ -36902,7 +37081,7 @@
       }
     },
     {
-      "id": "theme:partner-discovery#3635",
+      "id": "theme:partner-discovery#3653",
       "kind": "theme",
       "name": "partner-discovery",
       "source": {
@@ -36911,7 +37090,7 @@
       }
     },
     {
-      "id": "theme:class-usa#3636",
+      "id": "theme:class-usa#3654",
       "kind": "theme",
       "name": "class-usa",
       "source": {
@@ -36920,7 +37099,7 @@
       }
     },
     {
-      "id": "theme:gold-athlete#3637",
+      "id": "theme:gold-athlete#3655",
       "kind": "theme",
       "name": "gold-athlete",
       "source": {
@@ -36929,7 +37108,7 @@
       }
     },
     {
-      "id": "theme:padel-africa#3638",
+      "id": "theme:padel-africa#3656",
       "kind": "theme",
       "name": "padel-africa",
       "source": {
@@ -36938,7 +37117,7 @@
       }
     },
     {
-      "id": "theme:your-field#3639",
+      "id": "theme:your-field#3657",
       "kind": "theme",
       "name": "your-field",
       "source": {
@@ -36947,7 +37126,7 @@
       }
     },
     {
-      "id": "theme:sunset#3640",
+      "id": "theme:sunset#3658",
       "kind": "theme",
       "name": "sunset",
       "source": {
@@ -36956,7 +37135,7 @@
       }
     },
     {
-      "id": "theme:oceanic#3641",
+      "id": "theme:oceanic#3659",
       "kind": "theme",
       "name": "oceanic",
       "source": {
@@ -36965,7 +37144,7 @@
       }
     },
     {
-      "id": "theme:forest#3642",
+      "id": "theme:forest#3660",
       "kind": "theme",
       "name": "forest",
       "source": {
@@ -36974,7 +37153,7 @@
       }
     },
     {
-      "id": "theme:ruby#3643",
+      "id": "theme:ruby#3661",
       "kind": "theme",
       "name": "ruby",
       "source": {
@@ -36983,7 +37162,7 @@
       }
     },
     {
-      "id": "theme:amber#3644",
+      "id": "theme:amber#3662",
       "kind": "theme",
       "name": "amber",
       "source": {
@@ -36992,7 +37171,7 @@
       }
     },
     {
-      "id": "theme:neon-night#3645",
+      "id": "theme:neon-night#3663",
       "kind": "theme",
       "name": "neon-night",
       "source": {
@@ -37001,7 +37180,7 @@
       }
     },
     {
-      "id": "theme:skyline#3646",
+      "id": "theme:skyline#3664",
       "kind": "theme",
       "name": "skyline",
       "source": {
@@ -37010,7 +37189,7 @@
       }
     },
     {
-      "id": "theme:aurora#3647",
+      "id": "theme:aurora#3665",
       "kind": "theme",
       "name": "aurora",
       "source": {
@@ -37019,7 +37198,7 @@
       }
     },
     {
-      "id": "theme:coral#3648",
+      "id": "theme:coral#3666",
       "kind": "theme",
       "name": "coral",
       "source": {
@@ -37028,7 +37207,7 @@
       }
     },
     {
-      "id": "theme:mint#3649",
+      "id": "theme:mint#3667",
       "kind": "theme",
       "name": "mint",
       "source": {
@@ -37037,7 +37216,7 @@
       }
     },
     {
-      "id": "theme:orchid#3650",
+      "id": "theme:orchid#3668",
       "kind": "theme",
       "name": "orchid",
       "source": {
@@ -37046,7 +37225,7 @@
       }
     },
     {
-      "id": "theme:royal#3651",
+      "id": "theme:royal#3669",
       "kind": "theme",
       "name": "royal",
       "source": {
@@ -37055,7 +37234,7 @@
       }
     },
     {
-      "id": "theme:warm#3652",
+      "id": "theme:warm#3670",
       "kind": "theme",
       "name": "warm",
       "source": {
@@ -37064,7 +37243,7 @@
       }
     },
     {
-      "id": "theme:athlete-gold#3653",
+      "id": "theme:athlete-gold#3671",
       "kind": "theme",
       "name": "athlete-gold",
       "source": {
@@ -37073,7 +37252,7 @@
       }
     },
     {
-      "id": "theme:cosmic#3654",
+      "id": "theme:cosmic#3672",
       "kind": "theme",
       "name": "cosmic",
       "source": {
@@ -37082,7 +37261,7 @@
       }
     },
     {
-      "id": "accent:plum#3655",
+      "id": "accent:plum#3673",
       "kind": "accent",
       "name": "plum",
       "source": {
@@ -37092,7 +37271,7 @@
       "value": "#7c3a6e"
     },
     {
-      "id": "accent:indigo#3656",
+      "id": "accent:indigo#3674",
       "kind": "accent",
       "name": "indigo",
       "source": {
@@ -37102,7 +37281,7 @@
       "value": "#3f4d9e"
     },
     {
-      "id": "accent:ocean#3657",
+      "id": "accent:ocean#3675",
       "kind": "accent",
       "name": "ocean",
       "source": {
@@ -37112,7 +37291,7 @@
       "value": "#1f6e8c"
     },
     {
-      "id": "accent:teal#3658",
+      "id": "accent:teal#3676",
       "kind": "accent",
       "name": "teal",
       "source": {
@@ -37122,7 +37301,7 @@
       "value": "#0f766e"
     },
     {
-      "id": "accent:forest#3659",
+      "id": "accent:forest#3677",
       "kind": "accent",
       "name": "forest",
       "source": {
@@ -37132,7 +37311,7 @@
       "value": "#2f6b3a"
     },
     {
-      "id": "accent:bronze#3660",
+      "id": "accent:bronze#3678",
       "kind": "accent",
       "name": "bronze",
       "source": {
@@ -37142,7 +37321,7 @@
       "value": "#8a5a00"
     },
     {
-      "id": "accent:terracotta#3661",
+      "id": "accent:terracotta#3679",
       "kind": "accent",
       "name": "terracotta",
       "source": {
@@ -37152,7 +37331,7 @@
       "value": "#b04a2f"
     },
     {
-      "id": "accent:magenta#3662",
+      "id": "accent:magenta#3680",
       "kind": "accent",
       "name": "magenta",
       "source": {
@@ -37162,7 +37341,7 @@
       "value": "#a52a6c"
     },
     {
-      "id": "accent:slate#3663",
+      "id": "accent:slate#3681",
       "kind": "accent",
       "name": "slate",
       "source": {
@@ -37172,7 +37351,7 @@
       "value": "#52606d"
     },
     {
-      "id": "accent:grape#3664",
+      "id": "accent:grape#3682",
       "kind": "accent",
       "name": "grape",
       "source": {

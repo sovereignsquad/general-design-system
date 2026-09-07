@@ -93,6 +93,8 @@ export * from './DetailFactsTable';
 export * from './ProviderCTA';
 export * from './FitScoreChip';
 export * from './MeaningBadge';
+export * from './TrustLayer';
+export * from './TrustLayer.client';
 export * from './AISearchCard';
 export * from './HeroSearchPanel.client';
 export * from './QuickStartCard';
