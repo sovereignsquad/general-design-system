@@ -28,7 +28,11 @@ describe('KanbanBoard', () => {
     expect(screen.queryByLabelText(/Drag to reorder/i)).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Move: Task A' }));
-    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }));
+    // Timeout raised from testing-library's 1000ms default: Mantine 9's Menu open-transition
+    // occasionally exceeds it under CI load, causing an intermittent false failure here even
+    // though the menu genuinely opens (confirmed by re-running the identical assertion locally
+    // and in CI without this change) -- 5000ms gives real margin without masking a real defect.
+    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }, { timeout: 5000 }));
 
     expect(onMoveItem).toHaveBeenCalledWith('a', 'todo', 'done');
   });
@@ -44,7 +48,11 @@ describe('KanbanBoard', () => {
     const moveButton = screen.getByRole('button', { name: 'Move: Task A' });
     expect(moveButton).toBeInTheDocument();
     await user.click(moveButton);
-    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }));
+    // Timeout raised from testing-library's 1000ms default: Mantine 9's Menu open-transition
+    // occasionally exceeds it under CI load, causing an intermittent false failure here even
+    // though the menu genuinely opens (confirmed by re-running the identical assertion locally
+    // and in CI without this change) -- 5000ms gives real margin without masking a real defect.
+    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }, { timeout: 5000 }));
     expect(onMoveItem).toHaveBeenCalledWith('a', 'todo', 'done');
   });
 
@@ -142,7 +150,11 @@ describe('KanbanCard move-menu affordance (#429)', () => {
     expect(moveButton.querySelector('[data-gds-icon]')).toBeNull();
 
     await user.click(moveButton);
-    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }));
+    // Timeout raised from testing-library's 1000ms default: Mantine 9's Menu open-transition
+    // occasionally exceeds it under CI load, causing an intermittent false failure here even
+    // though the menu genuinely opens (confirmed by re-running the identical assertion locally
+    // and in CI without this change) -- 5000ms gives real margin without masking a real defect.
+    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }, { timeout: 5000 }));
     expect(onMoveItem).toHaveBeenCalledWith('a', 'todo', 'done');
   });
 
@@ -186,7 +198,11 @@ describe('KanbanColumnData.title ReactNode (#434)', () => {
     expect(screen.getByTestId('custom-title')).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Move: Task A' }));
-    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }));
+    // Timeout raised from testing-library's 1000ms default: Mantine 9's Menu open-transition
+    // occasionally exceeds it under CI load, causing an intermittent false failure here even
+    // though the menu genuinely opens (confirmed by re-running the identical assertion locally
+    // and in CI without this change) -- 5000ms gives real margin without masking a real defect.
+    await user.click(await screen.findByRole('menuitem', { name: 'Move to Done' }, { timeout: 5000 }));
     expect(onMoveItem).toHaveBeenCalledWith('a', 'todo', 'done');
   });
 });

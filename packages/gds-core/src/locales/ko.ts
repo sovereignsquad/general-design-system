@@ -279,4 +279,8 @@ export const ko = {
   'gds.pictogram.lacrosse': "라크로스",
   'gds.pictogram.athletics': "육상",
   'gds.pictogram.hockey': "하키",
+  'gds.notificationBell.label': "알림",
+  'gds.notificationBell.unreadLabel': "알림 (읽지 않음)",
+  'gds.compareButton.add': "비교",
+  'gds.compareButton.added': "비교에 추가됨",
 };

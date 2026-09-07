@@ -279,4 +279,8 @@ export const he = {
   'gds.pictogram.lacrosse': "לקרוס",
   'gds.pictogram.athletics': "אתלטיקה",
   'gds.pictogram.hockey': "הוקי",
+  'gds.notificationBell.label': "התראות",
+  'gds.notificationBell.unreadLabel': "התראות (לא נקראו)",
+  'gds.compareButton.add': "השווה",
+  'gds.compareButton.added': "נוסף להשוואה",
 };
