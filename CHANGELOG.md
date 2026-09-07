@@ -105,6 +105,43 @@ A consumer stacking content above a fixed bottom tab bar should read
 `--gds-layout-content-bottom-padding` rather than inventing a bottom-padding literal, so nothing
 hides behind the bar.
 
+### `HeroSearchPanel` and `QuickStartCard`: home discovery intent surfaces (#710)
+
+Two new public `@sovereignsquad/gds-core` exports, composed entirely from existing primitives and
+tokens — neither introduces a new token, preset, or dependency.
+
+`HeroSearchPanel` (`.client.tsx`, holds field-value state) is a card-shaped `<form role="search">`:
+a consumer-defined, flex-wrapping row of `FormField`-wrapped text fields
+(`GDS_HERO_SEARCH_FIELD_FLEX_BASIS_PX`/`GDS_HERO_SEARCH_FIELD_MIN_WIDTH_PX` govern the wrap), a
+primary CTA (`SemanticButton` on the governed `search` vocabulary action, overridable via
+`primaryActionLabel`), an optional secondary CTA that renders only when both
+`secondaryActionLabel` and `onSecondaryAction` are supplied, and an optional `trustLine` slot.
+Controlled (`values`/`onChange`) and uncontrolled (`defaultValues`) modes both hand `onSubmit` the
+current record verbatim — no trimming, coercion, or validation — on the primary CTA or Enter in
+any field. Duplicate `fields` keys resolve rather than throw: the last definition wins for
+rendering, one value slot backs both. Card surface/radius/elevation bind to `--gds-bg-card`,
+`--gds-border-card`, `--gds-radius-card`, and `--gds-elevation-card`; fields bind to
+`--gds-radius-input` and the existing `GDS_MIN_TARGET_PX` 44px control-height floor.
+
+`QuickStartCard` (server-safe, hook-free) is a single native `<button>` scenario card — an icon
+square (`GDS_QUICK_START_ICON_BOX_PX`, `--gds-radius-md`, `--gds-bg-page` tint, icon in
+`--gds-brand-primary`), a bold label, and an optional description — so click, Enter, and Space all
+activate it through native semantics with no custom key handling. Its hover lift lives in
+`packages/gds-theme/styles.css` as a new `.gds-quick-start-card` class, following the
+`.gds-tour-btn` precedent for package-level component classes: resting `--gds-elevation-card` to
+hovered `--gds-elevation-panel` plus `translateY(-2px)`, transitioned exclusively on
+`--gds-motion-duration-base`/`--gds-motion-ease-standard` — use this pair for the shared
+base-speed/standard-ease transition rather than a component-local duration, so the lift
+disappears under reduced motion with no separate override.
+
+Neither component renders fetched data, so the loading/empty/error/success states contract does
+not apply internally — documented as such in `COMPONENTS_AND_PATTERNS.md`. Both are registered in
+the pattern catalog (`family: 'public'`, `section: 'Public Product Surfaces'`) with live demos
+covering the zero/one/five/ten field counts and the ten-scenario quick-start set, and ship a new
+`gds.heroSearchPanel.ariaLabel` message key translated across all 12 locale packs. Component
+census 309 -> 311; `docs/AI_AGENT_GUIDE.md` and `llms.txt` both restated the count and are
+updated.
+
 ## 6.7.0 - 2026-08-27 — Padel Africa preset, ListingCard media overlays, and a primary-CTA contrast rule (#678, #679, #680)
 
 ### `padel-africa` joins the preset catalog (#678)

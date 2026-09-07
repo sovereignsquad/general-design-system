@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-08
+Last updated: 2026-09-07
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
 
@@ -137,6 +137,8 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Block Layout Schema** | Page assembly should use `renderGdsLayout`, `validateGdsLayout`, `renderGdsLayoutWithDiagnostics`, `getGdsLayoutTemplates`, `getGdsLayoutTemplate`, `GdsLayoutTemplatePreview`, and schema-driven blocks for repeatable developer composition. Default governed blocks are `hero`, `stats`, `cards-grid`, `table`, `chart`, `filter`, `cta`, and `footer`; product-authored blocks must enter through `registerGdsBlock`. | `lg` |
 | **Stats Sections** | Repeated lightweight reporting sections must explicitly define loading, below-threshold, error, and live states. | `md` |
 | **Design Rule Profile Panel** | `GdsDesignRuleProfilePanel` renders a preset's declared color-proportion classification (`GdsChart` donut) beside its measured rendered reality, plus type-scale and color-harmony badges — every number read live from the real resolvers/generated artifact, never hardcoded. Wired into the Theme Lab (`/themes`) via `ReferenceThemeExplorer`. | `md` |
+| **Hero Search Panel** | `HeroSearchPanel` (issue 710) is a card-shaped `<form role="search">` for homepage intent capture: a consumer-defined, flex-wrapping row of `HeroSearchFieldConfig` text fields (`GDS_HERO_SEARCH_FIELD_FLEX_BASIS_PX`/`GDS_HERO_SEARCH_FIELD_MIN_WIDTH_PX` govern the wrap geometry), a primary CTA (the governed `search` vocabulary action by default, overridable via `primaryActionLabel`) plus an optional secondary CTA (renders only when both `secondaryActionLabel` and `onSecondaryAction` are supplied), and an optional `trustLine` slot in metadata typography. Supports controlled (`values`/`onChange`) and uncontrolled (`defaultValues`) value modes; `onSubmit` receives the current record verbatim on the primary CTA or Enter in any field, with no trimming, coercion, or validation. Card surface, radius, and elevation bind to `--gds-bg-card`/`--gds-border-card`/`--gds-radius-card`/`--gds-elevation-card`; fields bind to `--gds-radius-input` and the `GDS_MIN_TARGET_PX` 44px floor. Ships client-side (`'use client'`) because it holds field-value state. Renders no fetched data, so the loading/empty/error/success states contract does not apply internally — a consumer wraps post-submit lifecycle in `AsyncSurface`/`StateBlock`. | `lg` |
+| **Quick Start Card** | `QuickStartCard` (issue 710) is a single native `<button>` scenario card for homepage quick-start grids: an icon square (`GDS_QUICK_START_ICON_BOX_PX`, `--gds-radius-md`, `--gds-bg-page` tint, icon in `--gds-brand-primary`), a bold label, and an optional one-line description, both in governed typography (`CardTitle`/`MetadataText`). Click, Enter, and Space all activate it through native button semantics — no custom key handling. Hover raises the card via the `.gds-quick-start-card` class in `packages/gds-theme/styles.css` (resting `--gds-elevation-card` to hovered `--gds-elevation-panel`, `translateY(-2px)`), bound exclusively to `--gds-motion-duration-base`/`--gds-motion-ease-standard` so the lift disappears under reduced motion with no separate override. Server-safe (no hooks); renders no fetched data, so the states contract does not apply internally. | `md` |
 
 ## 4. Feedback & Messaging
 

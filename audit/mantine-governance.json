@@ -89,8 +89,10 @@
         "packages/gds-core/src/BoundedPreviewSurface.tsx",
         "packages/gds-core/src/EditorialCard.tsx",
         "packages/gds-core/src/GdsPageTemplates.tsx",
+        "packages/gds-core/src/HeroSearchPanel.client.tsx",
         "packages/gds-core/src/ListingCard.tsx",
         "packages/gds-core/src/PublicShell.tsx",
+        "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SectionPanel.tsx",
         "packages/gds-theme/src/GdsProvider.tsx",
@@ -183,8 +185,10 @@
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/GdsPageTemplates.tsx",
         "packages/gds-core/src/GdsRichTextEditor.client.tsx",
+        "packages/gds-core/src/HeroSearchPanel.client.tsx",
         "packages/gds-core/src/ListingCard.tsx",
         "packages/gds-core/src/PublicShell.tsx",
+        "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/StyleUtilities.tsx"
       ]
@@ -215,6 +219,7 @@
         "packages/gds-core/src/EditorialCard.tsx",
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/PartnerDiscovery.tsx",
+        "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SectionPanel.tsx",
         "packages/gds-theme/src/theme.ts"
@@ -237,6 +242,7 @@
       "why": "GDS does not change gdsTheme.colors.gray.2 from Mantine's default",
       "files": [
         "packages/gds-core/src/AccentPanel.tsx",
+        "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SemanticButton.tsx"
       ]
@@ -281,6 +287,7 @@
       "why": "GDS does not change gdsTheme.colors.gray.6 from Mantine's default",
       "files": [
         "packages/gds-core/src/BottomTabBar.tsx",
+        "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/SemanticCharts.tsx"
       ]
@@ -739,6 +746,7 @@
         "packages/gds-core/src/GdsFormControls.tsx",
         "packages/gds-core/src/GdsRatingDisplay.tsx",
         "packages/gds-core/src/ListingCard.tsx",
+        "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/SemanticCharts.tsx",
@@ -887,7 +895,9 @@
       "why": "GDS does not change gdsTheme.spacing.md from Mantine's default",
       "files": [
         "packages/gds-core/src/GdsPageTemplates.tsx",
+        "packages/gds-core/src/HeroSearchPanel.client.tsx",
         "packages/gds-core/src/LayoutPrimitives.tsx",
+        "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx"
       ]
     },
@@ -923,6 +933,7 @@
         "packages/gds-core/src/GdsMapPinPreviewCard.tsx",
         "packages/gds-core/src/LayoutPrimitives.tsx",
         "packages/gds-core/src/ListingCard.tsx",
+        "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SemanticCharts.tsx"
       ]

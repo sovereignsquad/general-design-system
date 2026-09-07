@@ -644,6 +644,11 @@ export const patternExportCoverage: ExportCoverageEntry[] = [
   { packageName: '@sovereignsquad/gds-core', exportName: 'MediaWithFallback', status: 'live-proof', registryId: 'media-with-fallback', rationale: 'Resilient media primitive with branded fallback (GH-323).' },
   { packageName: '@sovereignsquad/gds-core', exportName: 'NumberStepper', status: 'live-proof', registryId: 'number-stepper', rationale: 'Bounded accessible quantity stepper (GH-324).' },
   { packageName: '@sovereignsquad/gds-core', exportName: 'AISearchCard', status: 'live-proof', registryId: 'ai-search-card', rationale: 'Governed AI search entry pattern routing into the assistant (GH-325).' },
+  { packageName: '@sovereignsquad/gds-core', exportName: 'HeroSearchPanel', status: 'live-proof', registryId: 'hero-search-panel', rationale: 'Homepage intent-capture surface: a wrapping row of consumer-defined text fields plus primary/secondary CTAs and a trust-line slot (GH-710).' },
+  { packageName: '@sovereignsquad/gds-core', exportName: 'QuickStartCard', status: 'live-proof', registryId: 'quick-start-card', rationale: 'Clickable scenario card for homepage quick-start grids, with a token-bound hover lift (GH-710).' },
+  { packageName: '@sovereignsquad/gds-core', exportName: 'GDS_HERO_SEARCH_FIELD_FLEX_BASIS_PX', status: 'support-api', registryId: 'hero-search-panel', rationale: 'Flex basis of one intent field in the panel\'s wrapping row, exported so documentation derives the geometry instead of retyping it (GH-710).' },
+  { packageName: '@sovereignsquad/gds-core', exportName: 'GDS_HERO_SEARCH_FIELD_MIN_WIDTH_PX', status: 'support-api', registryId: 'hero-search-panel', rationale: 'Minimum width one intent field may shrink to before the row wraps (GH-710).' },
+  { packageName: '@sovereignsquad/gds-core', exportName: 'GDS_QUICK_START_ICON_BOX_PX', status: 'support-api', registryId: 'quick-start-card', rationale: 'Edge length of the QuickStartCard icon square (GH-710).' },
 
   // Class USA and Gold-Athlete completion lane (milestone GDS 3.8.0, issues GH-359 / Habigoal GH-502).
   { packageName: '@sovereignsquad/gds-theme', exportName: 'classUsaThemePreset', status: 'support-api', registryId: 'reference-theme-explorer', rationale: 'First-class Class USA preset exposes the governed brand theme through the public preset catalog.' },

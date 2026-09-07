@@ -89,6 +89,8 @@ export * from './DetailProfileShell';
 export * from './FitScoreChip';
 export * from './MeaningBadge';
 export * from './AISearchCard';
+export * from './HeroSearchPanel.client';
+export * from './QuickStartCard';
 
 // ── Shells & navigation ──
 export * from './PublicShell';
