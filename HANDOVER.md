@@ -51,7 +51,7 @@ or that this session specifically had to apply repeatedly:
 
 - **Rule 1, zero-tolerance:** nothing lands on `main` with any warning, deprecation, or error
   anywhere in the chain. Never suppress a check to pass it — fix the source. (One narrow,
-  deliberate, already-accepted exception exists — see §6.)
+  pre-existing, already-tracked exception exists — see §7's note on issue #723.)
 - **Rule 2:** every code/doc/config change traces to a GitHub issue.
 - **Rule 6:** `dev`/`preview` branches and direct push to `main` are pre-authorized when the
   owner says "commit and push." This session has consistently used PRs from `dev` → `main`
@@ -166,7 +166,7 @@ this window itself did, start to finish:
 - **#697** — Scout AI reserved sub-brand gradient accent lane. See §5 for the full detail.
   Merged via PR #736 (after a CI flake and a clean rerun, see §1) — closed.
 
-Every one of the three merged issues followed the §3 loop exactly, including the
+Every one of the four issues above followed the §3 loop exactly, including the
 "delegate → independently re-verify → find something real → fix → commit → preflight → push →
 watch CI → merge → sync" shape.
 
@@ -292,9 +292,9 @@ shape recurred at least three times this session — always double-check the rea
   give it a `reason` and a concrete `reviewBy` date (this milestone has been using
   `2026-12-01` consistently for "follow-on issue in the same delivery will consume this").
 - **This repo's `GdsLayoutToken`/similar closed-union props do not take raw numbers or
-  arbitrary strings** — e.g. `GdsStack`'s `gap` is `0 | 'none' | 'xs' | 'sm' | 'md' | 'lg' |
-  'xl' | '2xl'` (`packages/gds-theme/src/LayoutPrimitives.tsx` — wherever the actual current
-  definition lives; check it directly, don't assume the exact union from memory).
+  arbitrary strings** — `GdsStack`'s `gap` is `0 | 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' |
+  '2xl'` (`packages/gds-core/src/LayoutPrimitives.tsx:8` — verified directly against source,
+  not assumed; re-check if it's moved by the time you read this).
 - **Icon sourcing is real-icons-only, always pre-verify before delegating**: `@tabler/icons-react`
   first (check `node_modules/@tabler/icons-react/dist/esm/icons/` for the exact export name),
   then iconify.design's collections, preferring stroke-style; `fillMode?: 'stroke' | 'fill'` on
