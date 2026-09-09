@@ -1,9 +1,10 @@
 # HANDOVER
 
-**Originally written 2026-09-07; corrected 2026-09-09; refreshed again 2026-09-09** after
-PR #740 (a critical, out-of-milestone security fix, issue #739) merged. **Supersedes every
-earlier handover (including the 2026-08-16/17 one about the 6.2.0 publish, now fully stale —
-that work is long done and merged).**
+**Originally written 2026-09-07; corrected 2026-09-09; refreshed twice more on 2026-09-09**,
+first after PR #740 (a critical, out-of-milestone security fix, issue #739) merged, then again
+after PR #744 (issue #701, the previously in-flight `ListingCard`/`useGdsBrowseSelection` work)
+merged. **Supersedes every earlier handover (including the 2026-08-16/17 one about the 6.2.0
+publish, now fully stale — that work is long done and merged).**
 
 Read this top to bottom before touching anything. It is written for an agent with **no
 memory of the session that produced this state**.
@@ -12,19 +13,21 @@ memory of the session that produced this state**.
 
 ## 1. Where we are, in one paragraph
 
-`origin/main` and `origin/dev` are both at **`63fbc0c`** (confirmed by direct `git ls-remote`),
-version **6.7.0** (unreleased — `VERSION` has not been bumped for 6.8.0 yet; that happens once
-the whole milestone below ships). **The primary working tree is NOT clean right now**: a
-separate, in-flight session still has 41 files staged (uncommitted) implementing issue #701 —
-`packages/gds-core/src/ListingCard.tsx`, a new `BrowseSelection.client.ts`, the `gds-core`
-barrel (`index.ts`/`client.ts`), all 12 locale files, and 8 regenerated `audit/*.json`
-artifacts — unchanged since the previous correction pass; that session's local `dev` branch
-will read behind `origin/dev` (last synced at `bdf6008`) until it commits and pulls, which is
-expected and not a problem to fix. **Do not start a new issue until #701 is committed,
-preflighted, pushed, and merged (or explicitly abandoned)** — starting fresh work on top of
-that staged set risks exactly the file collisions CLAUDE.md Rule 13's clean-tree requirement
-exists to prevent (a new issue touching the same barrel/locales/audit files would conflict at
-commit time).
+`main`, `dev`, `origin/main`, and `origin/dev` are all identical at **`018ac48`** (confirmed by
+direct `git rev-parse` comparison of all four — and the working tree is genuinely clean, no
+staged or uncommitted changes anywhere), version **6.7.0** (unreleased — `VERSION` has not been
+bumped for 6.8.0 yet; that happens once the whole milestone below ships).
+
+**[PR #744](https://github.com/sovereignsquad/general-design-system/pull/744) (issue #701,
+`ListingCard` featured/selected ring, pick badge, media-left row tile, `useGdsBrowseSelection`)
+is MERGED and closed.** This is the work that sat staged-but-uncommitted for the first half of
+this document's life (§1's earlier revisions describe that in-flight state — now resolved).
+Full detail in §5b, including several real defects an independent review found and fixed
+*before* commit (two missing token `var()` wrappers the review found plus a third it missed,
+a vacuous test pair, 11 hand-edited-out-of-order locale files, and two spec-required tests that
+didn't exist yet) — read §5b before touching `ListingCard`/`BrowseSelection.client.ts` again.
+**#702 is now the next pick** — genuinely unblocked (`#693`/`#698` both closed), and the only
+remaining blocker of `#703`.
 
 **[PR #740](https://github.com/sovereignsquad/general-design-system/pull/740) (issue #739,
 critical Next.js RCE + 3 other dependency advisories) is MERGED and closed** — this is
@@ -65,11 +68,10 @@ Everything in this repo right now is one big effort: delivering **GDS 6.8.0 mile
 "GDS 6.8.0 - Your Field Delivery"** (org project 11:
 https://github.com/orgs/sovereignsquad/projects/11) — a new governed brand preset (`your-field`,
 a v3 re-base of the ClassScout brand) plus the components, axis extensions, and playground
-capabilities it needs. Tracking issue: **#692**. Of 28 filed issues, **14 are closed**, **14
+capabilities it needs. Tracking issue: **#692**. Of 28 filed issues, **15 are closed**, **13
 remain open**, one of which (#692 itself) is the tracking issue that should stay open until
-every other one closes. **The next step: let #701 land first** (see above) — **then** pick the
-next open issue from §7 and follow the §3 loop. #702 is the earliest unblocked pick and the
-only remaining blocker of #703.
+every other one closes. **The next step: pick #702 from §7 and follow the §3 loop** — there is
+no pending PR, no pending CI, no uncommitted state to resolve first.
 
 ---
 
@@ -226,6 +228,12 @@ enough that the session doing it worked the fix directly), but it did follow eve
 independent verification of every claim, a real PR, CI watched to actual completion (across
 many retries — see §5a), merge, and branch sync.
 
+**#701 itself then landed later the same day**, picking up the 41 files that had been staged
+(uncommitted) since before this window opened — see §5b for the full detail, including a real
+independent-review pass before commit (this issue had no delegated agent to check a self-report
+against, since the original implementing session had handed off mid-work; the review step was
+done from scratch instead, exactly as thoroughly as §3 step 4 calls for). Merged via PR #744.
+
 ---
 
 ## 5. #697 in detail — merged; read this before touching Scout AI / `your-field` code again
@@ -357,6 +365,82 @@ you intend to change.
 
 ---
 
+## 5b. Issue #701 in detail — merged as PR #744; read this before touching `ListingCard`/`BrowseSelection.client.ts` again
+
+**What it is:** the Your Field v3 reference's flagship listing-card behaviors, landed in the
+shared `ListingCard` (`packages/gds-core/src/ListingCard.tsx`). Featured/selected surface
+treatment (1px accent border + 3px ring + elevated shadow, explicitly no hover-lift, identical
+for `featured`/`selected`, no doubled effect when both are true); a "Pick" overlay badge on the
+media tile (pill on a dark scrim, top-left, shares its corner with `mediaOverlay`, independent
+of the top-right `mediaAffordance` slot); the generated-tile default confirmed and extended
+with a 96×96 thumbnail-radius row-tile form; and a new **`useGdsBrowseSelection`** hook
+(`BrowseSelection.client.ts`, new file) so a selected list card and its matching `GdsMapPinBadge`
+pin can share one piece of state. Ring, border, and badge scrim all consume the your-field
+lane's `ring.featured`/`featured-border`/`badge.pickBg` token roles (blocked-by issue #693) via
+`var(--token, reference-accurate-fallback)`, so the lane drives this card's colors once it ships.
+
+**This issue had no delegated agent to check a self-report against** — the 41 files implementing
+it were already staged, uncommitted, in the working tree from before this document's first
+version, left by a session that handed off mid-work. Rather than commit them as-is, they got
+the same independent-scrutiny treatment §3 step 4 gives a delegated agent's report, done from
+scratch: a four-lane parallel review (spec compliance against the issue's own text, test-
+coverage adequacy, generated-artifact legitimacy, budget/governance discipline), each finding
+adversarially re-verified before being trusted. **It found five real, confirmed defects**,
+all fixed before the first commit:
+
+1. **Two missing token `var()` wrappers the review found, plus a third it missed**: the
+   featured ring's `boxShadow` and the pick badge's scrim `backgroundColor` both hardcoded only
+   the derived fallback color, with no `var(--gds-ring-featured, ...)`/
+   `var(--gds-badge-pick-bg, ...)` wrapper — meaning #693's tokens would have had zero visual
+   effect on this card once shipped. A third, identical bug in the featured *border* color
+   (missing `var(--gds-listing-featured-border, ...)`) was present in the exact same component
+   but wasn't caught by the four review lanes — found by cross-checking the issue's own literal
+   code sample line-by-line after fixing the two the review did catch. **Lesson: when a review
+   finds a pattern of bug, grep for every other occurrence of that same pattern before trusting
+   the review's finding count as exhaustive.**
+2. **A vacuous test pair**: the "generated-tile seed chain" tests asserted equality on
+   `data-gds-generated-thumbnail`, an attribute hardcoded to `""` in `GdsGeneratedThumbnail.tsx`
+   regardless of seed — the tests could never fail no matter how broken the seed-priority logic
+   was. Fixed by asserting against the real seed-driven output (the motif `<g>`'s `transform`
+   attribute) instead; verified with a throwaway sanity check that two different seeds do
+   produce different transforms, so the fixed tests have real teeth.
+3. **11 locale files hand-edited out of generator order**: all 11
+   `apps/playground/src/generated-site-phrases/*.ts` files had their 4 new keys appended after
+   the alphabetically-last entry instead of inserted in sorted position —
+   `scripts/generate-site-phrase-translations.mjs` always re-sorts before writing, so this
+   could not have been a real invocation's output. Fixed by re-sorting the *existing* (verified
+   plausible) translations to match the generator's exact `localeCompare` order and output
+   format — **not** by re-running the generator, since `translate.googleapis.com` was still
+   returning `429` at the time (§6's documented translation-API block, still current).
+4. **Two spec-required tests that didn't exist**: issue #701's own §15 explicitly calls out
+   "pickBadge on a card with no media at all is impossible today ... the test suite must pin
+   this assumption" and flip-mode's "overlays and badge belong to the front face only; the ring
+   persists on both faces" — neither had a test. Both added.
+5. A pre-existing, unrelated tool blind spot (the atom registry's export scanner doesn't follow
+   barrel `export * from` re-exports, so `useGdsBrowseSelection` and the six new
+   `GDS_LISTING_*` constants will never appear in `audit/registry.json`) was correctly *not*
+   fixed as a drive-by — filed separately as **issue #743**.
+
+**Verified independently after the review's fixes were applied**: full monorepo `npm run build`,
+`npm run lint`, `npm run test:run` (1324/1324 relevant tests passed; 10 unrelated tests remain
+`it.skip`'d per issue #742 and were untouched), `npm run preflight` — **PASSED, clean before,
+chain green, clean after** — pushed, PR #744 opened, CI watched to actual completion and green
+(`validate (mantine-7)`/`(mantine-9)`/`budget report` all pass), merged, branches synced, org
+project 11's item for #701 updated (`Status` was already `Done` — GitHub's own project
+automation moved it the moment the issue closed; `Dependency Signal` still needed a manual
+refresh from its stale "blocked by 693" text).
+
+**A git mechanics note, since it recurred here too:** the local `dev` branch this work had been
+staged on top of was several commits behind `origin/dev` (it had never been synced since before
+§5a's security fix merged, for the same "don't touch a dirty tree" caution documented there).
+Committing the 41 files, then `git rebase origin/dev`, hit exactly one conflict — in
+`audit/registry.json`, a generated artifact. Resolved by taking either side as a placeholder
+(`git checkout --theirs`), completing the rebase, then regenerating the file for real from the
+merged source tree via the §6 artifact sequence — never by hand-resolving generated-artifact
+merge conflicts textually.
+
+---
+
 ## 6. Established conventions and gotchas this session had to (re)learn — read before delegating the next issue
 
 - **Full monorepo build, not workspace-scoped.** `npm run build` (root) builds all 8
@@ -436,13 +520,12 @@ you intend to change.
 
 ---
 
-## 7. Remaining open issues (14, including the tracking issue — refreshed 2026-09-09 post-#738-merge via `gh issue list`, re-confirmed unchanged post-#740-merge since #739/#742 aren't in this milestone; re-check before trusting)
+## 7. Remaining open issues (13, plus the tracking issue #692 — refreshed 2026-09-09 post-#744-merge via `gh issue list`; re-check before trusting)
 
 | Issue | Title | Note |
 | --- | --- | --- |
 | #692 | Tracking: Your Field brand lane and delivery | Keep open until every other row closes. Its own delivery-board table is stale (§3) — don't trust it for per-issue status. |
-| #701 | ListingCard — featured ring, pick overlay badge, generated-tile default media | **IN FLIGHT** — 41 files staged uncommitted in the working tree right now (§1). Do not start; finish/commit/land it first. |
-| #702 | SidebarNav — light-surface variant, promo/profile slots | Was blocked by #693 + #698 — both closed, unblocked. Earliest unblocked pick after #701 lands. |
+| #702 | SidebarNav — light-surface variant, promo/profile slots | Was blocked by #693 + #698 — both closed, unblocked. **This is the next pick.** |
 | #703 | GdsScoutPromoPanel + GdsProfileSwitcher | **BLOCKED.** #697 is closed, but #702 (its other blocker) is still open — do not start until #702 merges. |
 | #707 | Browse canvas — viewport-fill, list/split/map view modes | Was blocked by #698 — closed, unblocked. |
 | #712 | GdsBurgerMenu + BottomTabBar emphasized center tab | Was blocked by #698 — closed, unblocked. |
@@ -455,8 +538,9 @@ you intend to change.
 | #720 | Testimonial block | `priority: p2`, backlog. |
 | #721 | Booking-slot schedule view | `priority: p2`, backlog. |
 
-**#700** (SemanticButton — outline-accent/gradient intents) is no longer in this table: it
-closed via PR #738 on 2026-09-08 (§4) — do not re-pick it.
+**#700** (SemanticButton — outline-accent/gradient intents) and **#701** (`ListingCard`
+featured ring/pick badge/row tile/`useGdsBrowseSelection`) are no longer in this table: #700
+closed via PR #738 on 2026-09-08, #701 via PR #744 on 2026-09-09 (§4/§5b) — don't re-pick either.
 
 **Not in this milestone but worth knowing about:** issue #723 (`Build: gds-core lazy locale
 registry - tsup ignored-bare-import warnings under sideEffects:false`, milestone: none,
@@ -472,17 +556,18 @@ one narrow, pre-existing exception CLAUDE.md Rule 1 tolerates — see §2.)
 
 There is also one closed-but-worth-knowing-about issue: **#722** (dependency audit — tiptap
 prototype-pollution advisory, GHSA-cp6q-959q-f8rh) — it **is** a member of this milestone
-(counted in the 28-filed/14-closed totals above, not merely "in the issue-number range"), but
+(counted in the 28-filed/15-closed totals above, not merely "in the issue-number range"), but
 it is a security/dependency matter, not brand-lane work — if `npm run audit:dependencies` ever
 flags something new, check whether it's the same advisory reopening or something genuinely new.
 Housekeeping: it is still labeled `status: in progress` although closed, and it is the only
 milestone-35 issue with no item on org project 11.
 
-Two more not in this milestone, from 2026-09-09's security fix (§5a): **#739** (closed —
-critical Next.js RCE + 3 other dependency advisories, `milestone: none`) and **#742** (open,
-`priority: p1`, `milestone: none` — the ~9 `it.skip`'d test-timeout investigation §5a
-describes). Neither counts toward or affects the 28-filed/14-closed/14-open milestone totals
-above. Don't un-skip #742's tests without reading that issue first.
+Three more not in this milestone: **#739** (closed — critical Next.js RCE + 3 other dependency
+advisories, `milestone: none`, §5a), **#742** (open, `priority: p1`, `milestone: none` — the
+~9 `it.skip`'d test-timeout investigation §5a describes), and **#743** (open, `priority: p2`,
+`milestone: none` — the atom-registry `export *` blind spot §5b found). None of the three count
+toward or affect the 28-filed/15-closed/13-open milestone totals above. Don't un-skip #742's
+tests without reading that issue first.
 
 ---
 
@@ -520,14 +605,13 @@ meant to be followed, not summarized from a title.
 
 ## 10. If you read nothing else
 
-1. **#701 is in flight, not pending merge review — it's mid-implementation.** `origin/main` and
-   `origin/dev` are synced at `63fbc0c` (§1), but 41 files are staged uncommitted for #701 in the
-   primary working tree right now. Land that (commit → preflight → push → PR → CI → merge →
-   sync, §3) before picking anything else; #702 is next after it.
-2. **PR #740 (issue #739, critical Next.js RCE) is merged and unrelated to the milestone below**
-   — don't re-do it, don't let it block #701. Its one open follow-up, **issue #742** (~9 tests
-   `it.skip`'d for a real, unresolved CI-timeout cause — §5a), is tracked separately and isn't a
-   milestone blocker either.
+1. **Nothing is pending.** `main`/`dev`/`origin` are all synced at `018ac48` (§1), working tree
+   clean. **#702 is the next pick** — genuinely unblocked, go straight to it via §3's loop.
+2. **PR #740 (issue #739, critical Next.js RCE) and PR #744 (issue #701, `ListingCard`/
+   `useGdsBrowseSelection`) are both merged**, neither is a milestone-35 issue's work-in-
+   -progress anymore — don't re-do either. Their two open follow-ups, **issue #742** (~9 tests
+   `it.skip`'d for a real, unresolved CI-timeout cause, §5a) and **issue #743** (a registry
+   export-scanner blind spot, §5b), are tracked separately and aren't milestone blockers.
 3. Work down the table in §7, following the loop in §3 (12 steps — §3 step 11 adds an org
    project 11 update per CLAUDE.md Rule 7), applying every gotcha in §6.
 4. Full monorepo `npm run build`, never a scoped one — this alone caught a real bug on #709.
@@ -536,15 +620,24 @@ meant to be followed, not summarized from a title.
    prepended justification for every change.
 6. No AI attribution anywhere in repository text (Rule 9/17) — check what you write before
    committing it, not after.
-7. `npm run artifacts:refresh` cannot currently run end-to-end (translation API blocked) — use
-   the manual step sequence in §6 for any issue that adds no new user-facing copy.
+7. `npm run artifacts:refresh` cannot currently run end-to-end (translation API blocked, still
+   confirmed as of #701's fix) — use the manual step sequence in §6 for any issue that adds no
+   new user-facing copy; if it adds copy that already exists correctly but mis-ordered, re-sort
+   to match the generator's exact output rather than re-running a blocked generator (§5b).
 8. This milestone is to be delivered end-to-end, issue by issue, without pausing for
    confirmation between issues, per the owner's standing instruction (§2) — keep going.
 9. When amending a commit in a shared working tree, never use a bare `git commit --amend` (§5a)
    — it silently pulls in the entire current index, which can include another in-flight issue's
    staged files. Use `--amend --only <path>` or construct a fresh commit via `git commit-tree`.
-10. This document is a snapshot, not a live query — every commit hash, issue count, and CI run
+   If a generated artifact conflicts during a rebase, resolve with a placeholder and regenerate
+   from the merged tree afterward — never hand-merge generated JSON (§5b).
+10. Before committing someone else's staged, uncommitted work with no live agent to check a
+    self-report against, give it the same independent-review scrutiny §3 step 4 gives a
+    delegated agent — a parallel multi-lane review found five real, confirmed defects in #701's
+    staged work this way (§5b), including one the review itself initially missed until its own
+    findings were cross-checked for the same bug pattern elsewhere in the same file.
+11. This document is a snapshot, not a live query — every commit hash, issue count, and CI run
     ID in it starts going stale the moment it's committed (that's exactly how it drifted twice
-    between 2026-09-07 and 2026-09-09, and needed a further refresh the same day after #740).
-    Re-run the `gh`/`git` commands it cites rather than trusting the numbers if any meaningful
-    time has passed since the refresh date at the top.
+    between 2026-09-07 and 2026-09-09, and needed two further refreshes the same day). Re-run
+    the `gh`/`git` commands it cites rather than trusting the numbers if any meaningful time has
+    passed since the refresh date at the top.
