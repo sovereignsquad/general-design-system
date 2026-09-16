@@ -129,4 +129,49 @@ describe('GdsGeneratedThumbnail (#505)', () => {
 
     expect(screen.getByRole('img', { name: 'Gymnastics' })).toBeTruthy();
   });
+
+  describe('background (#183 goal 2 — richer composition, ported from GdsGeneratedHero)', () => {
+    it('defaults to the wash motif: exactly the base gradient rect and one motif <g>, same as before this option existed', () => {
+      const { container } = renderWithGds(<GdsGeneratedThumbnail seed="listing-1" categories={CATEGORIES} />);
+      const svg = container.querySelector('svg') as SVGSVGElement;
+      expect(svg.querySelectorAll(':scope > rect').length).toBe(1);
+      expect(svg.querySelectorAll(':scope > g').length).toBe(1);
+    });
+
+    it('mosaic-abstract renders more than the one base rect', () => {
+      const { container } = renderWithGds(<GdsGeneratedThumbnail seed="listing-1" categories={CATEGORIES} background="mosaic-abstract" />);
+      const svg = container.querySelector('svg') as SVGSVGElement;
+      expect(svg.querySelectorAll('rect').length).toBeGreaterThan(1);
+    });
+
+    it('icon-field scatters the thumbnail\'s own categories, not the single fixed wash motif', () => {
+      const { container } = renderWithGds(<GdsGeneratedThumbnail seed="listing-1" categories={CATEGORIES} background="icon-field" />);
+      const svg = container.querySelector('svg') as SVGSVGElement;
+      // 3 categories → up to 3 scattered groups, distinct from wash's exactly-one fixed motif group.
+      expect(svg.querySelectorAll(':scope > g').length).toBeGreaterThan(1);
+    });
+
+    it('region-mosaic renders exactly one rect per supplied region, plus the base gradient rect', () => {
+      const { container } = renderWithGds(
+        <GdsGeneratedThumbnail
+          seed="listing-1"
+          categories={CATEGORIES}
+          background={{
+            type: 'region-mosaic',
+            regions: [
+              { x0: 0, y0: 0, x1: 0.5, y1: 0.5 },
+              { x0: 0.5, y0: 0.5, x1: 1, y1: 1, weight: 2 },
+            ],
+          }}
+        />,
+      );
+      const svg = container.querySelector('svg') as SVGSVGElement;
+      expect(svg.querySelectorAll('rect').length).toBe(3);
+    });
+
+    it('a non-wash background does not affect the HTML badge overlay', () => {
+      renderWithGds(<GdsGeneratedThumbnail seed="listing-1" categories={CATEGORIES} background="mosaic-abstract" />);
+      expect(screen.getByText('Soccer')).toBeTruthy();
+    });
+  });
 });

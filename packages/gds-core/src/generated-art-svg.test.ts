@@ -53,6 +53,48 @@ describe('buildGdsThumbnailSvg (#508)', () => {
     const b = buildGdsThumbnailSvg({ seed: 'listing-b', categories: CATEGORIES, themePresetId: 'default', label: 'x' });
     expect(a).not.toBe(b);
   });
+
+  describe('background (#183 goal 2 — richer composition, ported from buildGdsHeroSvg)', () => {
+    it('defaults to the wash motif: exactly the three base rects (gradient, badge scrim, lead pill), no mosaic/icon-field/region shapes', () => {
+      const svg = buildGdsThumbnailSvg({ seed: 'listing-1', categories: CATEGORIES, themePresetId: 'default', label: 'x' });
+      expect((svg.match(/<rect/g) ?? []).length).toBe(3);
+    });
+
+    it('mosaic-abstract renders more than the two base rects', () => {
+      const svg = buildGdsThumbnailSvg({ seed: 'listing-1', categories: CATEGORIES, themePresetId: 'default', label: 'x', background: 'mosaic-abstract' });
+      expect((svg.match(/<rect/g) ?? []).length).toBeGreaterThan(3);
+    });
+
+    it('icon-field scatters the thumbnail\'s own categories as low-opacity icon groups', () => {
+      const svg = buildGdsThumbnailSvg({ seed: 'listing-1', categories: CATEGORIES, themePresetId: 'default', label: 'x', background: 'icon-field' });
+      // The wash motif's own single <g> (removed) vs the icon-field scatter (one <g> per placement,
+      // up to 8) — asserting there IS a scatter distinguishes it from the wash's single fixed icon.
+      expect((svg.match(/opacity="0.1"/g) ?? []).length).toBeGreaterThan(0);
+    });
+
+    it('region-mosaic renders exactly one rect per supplied region, plus the three base rects', () => {
+      const svg = buildGdsThumbnailSvg({
+        seed: 'listing-1',
+        categories: CATEGORIES,
+        themePresetId: 'default',
+        label: 'x',
+        background: {
+          type: 'region-mosaic',
+          regions: [
+            { x0: 0, y0: 0, x1: 0.5, y1: 0.5 },
+            { x0: 0.5, y0: 0.5, x1: 1, y1: 1, weight: 2 },
+          ],
+        },
+      });
+      expect((svg.match(/<rect/g) ?? []).length).toBe(5);
+    });
+
+    it('is still deterministic under a non-wash background', () => {
+      const a = buildGdsThumbnailSvg({ seed: 'listing-42', categories: CATEGORIES, themePresetId: 'default', label: 'x', background: 'mosaic-abstract' });
+      const b = buildGdsThumbnailSvg({ seed: 'listing-42', categories: CATEGORIES, themePresetId: 'default', label: 'x', background: 'mosaic-abstract' });
+      expect(a).toBe(b);
+    });
+  });
 });
 
 describe('buildGdsHeroSvg (#508)', () => {
