@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-08
+Last updated: 2026-10-01
 
 This playbook defines the canonical path for adopting GDS through direct package consumption and for migrating repos away from local mirrored adapters or legacy UI systems.
 
@@ -11,10 +11,12 @@ This playbook defines the canonical path for adopting GDS through direct package
 Every governed consumer should converge on this shape:
 
 1. install `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, `@sovereignsquad/gds-admin`, and governance packages from a registry
-2. mount `GdsProvider` once at the application root
+2. import `@sovereignsquad/gds-theme/styles.css` once, before app styles, and mount `GdsProvider` once at the application root. The provider does not load the stylesheet, and the stylesheet already includes Mantine's core and notifications sheets, so the app does not import those separately ([INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md), section 3)
 3. consume shared contracts through documented `server` and `client` entrypoints
 4. keep local adapters narrow, temporary, and machine-declared in `gds-adoption.json`
 5. validate adoption through build, test, codemods where applicable, and `gds-compliance`
+
+A product that cannot import the packages follows [Runtime-constrained mirror](#runtime-constrained-mirror) instead.
 
 ## 2. Adoption Profiles
 
@@ -24,14 +26,14 @@ Use when the product has little or no existing UI system.
 
 Execution:
 1. install packages
-2. wire root provider and theme through one approved lane (`gdsTheme`, shipped public preset, or `createPublicBrandTheme(...)`)
+2. import `@sovereignsquad/gds-theme/styles.css` once, then wire root provider and theme through one approved lane (`gdsTheme`, shipped public preset, or `createPublicBrandTheme(...)`)
 3. choose shell, page-header, state-block, card, and action contracts
 4. add `gds-adoption.json`
 5. enable shared lint/gds-compliance in CI
 
 ### Mirrored-local transition
 
-Use when the product already mirrors GDS contracts locally because registry or release readiness was not available earlier.
+Use when the product can import the GDS packages and already mirrors GDS contracts locally because registry or release readiness was not available earlier. A product that can never import the packages uses [Runtime-constrained mirror](#runtime-constrained-mirror) instead.
 
 Execution:
 1. record all local mirrored contracts in `gds-adoption.json`
@@ -40,13 +42,58 @@ Execution:
 4. remove temporary import aliases and sibling-repo assumptions
 5. use the reference codemods for safe mechanical rewrites before touching bespoke cases manually
 
+### Runtime-constrained mirror
+
+Use when the product renders its pages outside `GdsProvider` and can never import the GDS packages at runtime, for example a server-rendered Python app. [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md), subsection "Surfaces outside GdsProvider", states what GDS ships for such a consumer and which contracts still bind it. This profile covers the one thing such a consumer may mirror: token values.
+
+Requirements:
+1. Record the mirror as an `approvedExceptions` entry with `category: "runtime-constraint"`, a narrow `scope`, `owner`, `reviewDate`, and an `exitCondition` that retires the mirror once GDS publishes a stylesheet the app can load without a bundler.
+2. Declare the mirror file in `localAdapters` with `status: "exception"`, inside that exception's `scope`.
+3. Generate the values in a Node build step; never type them. The step calls `getGdsVibeThemeCssVariables(presetId, colorScheme)` from `@sovereignsquad/gds-theme/server` for one named preset and writes the mirror file. That entry imports `@mantine/core` and `react` when it loads, so the build step installs them next to `@sovereignsquad/gds-theme`. These are build-time dependencies only: do not list `@sovereignsquad/gds-*` packages as runtime dependencies, and omit `supportedEntryPoints` from the manifest or declare it as `[]`.
+4. Generate both colour schemes from the same preset, or declare the one scheme the app renders. Never combine values from different presets or pick values per scheme by hand.
+5. Some returned values reference `var(--mantine-*)`; the density and radius steps, for example, are `calc(… * var(--mantine-scale))`. They do not resolve in a document that loads no Mantine stylesheet. The generator handles each such value explicitly and never replaces it with a hand-picked literal.
+6. Do not re-declare a GDS-owned `--gds-*` name with any value other than the preset's generated value.
+7. A third-party runtime that takes a theme map instead of CSS (for example a Gradio theme) reads from the same generated output, never from a second hand-typed palette.
+8. Mirrored markup meets the same accessibility contracts as GDS components: the consumer duties in [docs/ACCESSIBILITY_PER_COMPONENT.md](docs/ACCESSIBILITY_PER_COMPONENT.md) and the rules in [docs/ACCESSIBILITY_FLOOR.md](docs/ACCESSIBILITY_FLOOR.md). A disclosure or navigation toggle is a `<button>` that exposes its state with `aria-expanded` and names the region it controls with `aria-controls`. A checkbox-driven CSS toggle does not conform.
+9. Where the app has a Node toolchain, scan every served route with `runGdsAxeScan` ([A11Y_CI_PACKAGE.md](A11Y_CI_PACKAGE.md)). It reports axe violations only; keyboard order needs `expectGdsTabOrder`, and the `control-height-min-target` floor needs a test of its own.
+
+`gds-compliance` reads only JavaScript and TypeScript files ([COMPLIANCE_TOOLKIT.md, "Scanner scope"](COMPLIANCE_TOOLKIT.md#scanner-scope)). The generator script must therefore be inside the exception's `scope`: a scope that lists only the generated stylesheet fails `exception-scope-no-matches`. The scanner never reads the mirror's CSS or the app's templates.
+
+Manifest entries for this profile:
+
+```json
+{
+  "localAdapters": [
+    { "contract": "getGdsVibeThemeCssVariables", "path": "static/gds-tokens.css", "status": "exception" }
+  ],
+  "approvedExceptions": [
+    {
+      "surface": "Generated GDS token mirror",
+      "category": "runtime-constraint",
+      "scope": ["scripts/generate-gds-tokens.mjs", "static/gds-tokens.css"],
+      "reason": "Pages are rendered by a non-React server and cannot import the GDS packages.",
+      "allowedImplementation": ["static/gds-tokens.css generated by scripts/generate-gds-tokens.mjs from one named preset and colour scheme"],
+      "mustStillUse": ["Consumer duties in docs/ACCESSIBILITY_PER_COMPONENT.md", "control-height-min-target"],
+      "mustNotDo": ["Hand-edit generated values", "Re-declare --gds-* names with non-preset values", "Keep a second hand-typed palette for another runtime"],
+      "a11yRequirements": ["Disclosure and navigation toggles are buttons with aria-expanded and aria-controls", "Every control has an accessible name"],
+      "testingRequirements": ["runGdsAxeScan on every served route", "Generator check fails when the generated file differs from the committed one"],
+      "observabilityRequirements": ["The generated file records the preset id, colour scheme and GDS version"],
+      "owner": "platform-ui",
+      "reviewDate": "2026-12-31",
+      "exitCondition": "Retire the mirror when GDS publishes a stylesheet the app can load without a bundler.",
+      "status": "approved"
+    }
+  ]
+}
+```
+
 ### Legacy migration
 
 Use when the product still has a prior design/token/component authority.
 
 Execution:
 1. freeze legacy UI expansion
-2. establish `GdsProvider` and theme ownership
+2. import `@sovereignsquad/gds-theme/styles.css` once and establish `GdsProvider` and theme ownership
 3. migrate one governed surface family at a time in this order: shell -> navigation -> actions -> listing -> detail -> embeds
 4. record exceptions narrowly
 5. delete legacy primitives and token sources
@@ -77,7 +124,8 @@ import { AppShell } from '@sovereignsquad/gds-admin/client';
 ### Root bootstrap
 
 `app/layout.tsx` should own:
-- `ColorSchemeScript`
+- the single `@sovereignsquad/gds-theme/styles.css` import, before app styles
+- `ColorSchemeScript`, imported from `@mantine/core` because GDS has no export for it ([DEPENDENCY_GOVERNANCE.md, "Mantine boundary"](DEPENDENCY_GOVERNANCE.md#mantine-boundary))
 - root `lang`
 - root `dir`
 
@@ -91,13 +139,14 @@ Theme ownership rule:
 
 ## 4. Vite / SPA Contract
 
-Single-runtime apps may consume `@sovereignsquad/gds-*/client` directly for interactive surfaces. Keep the provider at the top of the tree and avoid local theme forks.
+Single-runtime apps may consume `@sovereignsquad/gds-*/client` directly for interactive surfaces. Import `@sovereignsquad/gds-theme/styles.css` once in the entry file, keep the provider at the top of the tree, and avoid local theme forks.
 
 ## 5. Migration Algorithm
 
 ```ts
 async function migrateConsumerRepo() {
   freezeLegacyUI();
+  importGdsStylesheetOnce();
   addGdsProviderAtRoot();
   declareAdoptionManifest();
   runReferenceCodemods();
@@ -416,7 +465,7 @@ This keeps rollback, review cadence, and compliance enforcement deterministic ac
 
 Do not:
 - rely on sibling `file:` links in CI or production-like environments
-- preserve local mirrored contracts as permanent hidden authorities
-- mix direct package consumption with a second live token system
+- preserve local mirrored contracts as permanent hidden authorities; a runtime-constrained mirror is declared, generated, and bounded by a review date and exit condition ([Runtime-constrained mirror](#runtime-constrained-mirror))
+- mix direct package consumption with a second live token system, or hand-type GDS token values into any runtime
 - skip manifest or compliance setup after package adoption
 - introduce new shell/card/button wrappers after the canonical GDS primitive for that surface exists

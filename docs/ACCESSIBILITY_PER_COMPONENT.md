@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-08
+Last updated: 2026-10-01
 
 Every leading design system (Carbon, Primer, Fluent, Adobe React Aria) ships a per-component **Accessibility** section: a keyboard-interaction table, focus behavior, screen-reader expectations, and an explicit "what the system provides vs. what you must do" split. This is that reference for GDS (issue #448). It is generated against the same package-owned accessibility-evidence registry that gates every release (`apps/playground/src/accessibility-evidence-registry.ts`, enforced by `npm run verify:accessibility-evidence`), so it cannot silently drift from what the components actually do.
 
@@ -14,6 +14,10 @@ GDS is a component library, so accessibility is a shared contract:
 
 - **GDS provides (the "system"):** semantic roles, keyboard operability, focus management, visible focus (light/dark/forced-colors), state exposure (name/role/value), localized status announcements, and the CI gates that keep them from regressing.
 - **You provide (the "consumer"):** the real content and text alternatives, meaningful labels and link text, page structure (landmarks, headings, `lang`, page title, skip links), and running the `@sovereignsquad/gds-a11y` gate on your assembled routes.
+
+Part of the system half ships in `@sovereignsquad/gds-theme/styles.css`, not in `GdsProvider`: the stylesheet's global `:focus-visible` rules, its `forced-colors` and `prefers-reduced-motion` overrides, and the overlay surface and scrim tokens load only with it. Importing it once is part of the consumer half ([INSTALLATION_GUIDE.md](../INSTALLATION_GUIDE.md), section 3).
+
+The consumer duties and the route gate also apply to pages rendered outside `GdsProvider`, including pages a non-React server renders ([INSTALLATION_GUIDE.md](../INSTALLATION_GUIDE.md), subsection "Surfaces outside GdsProvider").
 
 Each section below is explicit about which half is which.
 

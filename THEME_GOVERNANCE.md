@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-09-07
+Last updated: 2026-10-01
 
 This document defines the approved adopter-facing theme lanes for products that need branding without creating a second design authority.
 
@@ -15,6 +15,7 @@ This document defines the approved adopter-facing theme lanes for products that 
   - `gdsFlatSurfaceTheme`
   - `gdsEditorialPublicTheme`
   - `createPublicBrandTheme(...)`
+- `createBrandTheme(...)` is not a separate lane: its `mantineTheme` is composed with `createPublicBrandTheme(...)`. Use it when a product also needs the brand's `--gds-*` role map; see [Choosing a brand factory](#choosing-a-brand-factory).
 - Products may not fork the shared theme into a permanent parallel token system.
 - Public and operator accent surfaces must resolve from shared semantic contracts such as `AccentPanel`, not product-local `light-dark(...)` patches or raw `*.0` shade assumptions.
 - `extendGdsTheme(...)` is no longer a canonical adopter path. It remains temporarily exported only for bounded internal/runtime composition inside GDS-controlled implementation.
@@ -24,7 +25,7 @@ This document defines the approved adopter-facing theme lanes for products that 
 - primary color and semantic brand palette
 - typography family where product identity or locale coverage requires it
 - shell defaults for dark or light products
-- component default props when they remain compatible with shared interaction meaning
+- component default props when they remain compatible with shared interaction meaning and set no colour on text or surface components: no `c`, `color`, `bg` or colour `styles` defaults on `Text`, `Title`, `Anchor`, `Card`, `Paper`, inputs, `Modal`, `Drawer` or similar. Text and surfaces take their colour from the colour scheme and the [semantic role tokens](docs/SEMANTIC_ROLE_TOKENS.md). Non-colour defaults such as `withBorder` and `radius` are allowed.
 - narrow `theme.other` tokens for non-Mantine rendering surfaces such as email, OG images, or certificates
 
 ## Not allowed
@@ -33,14 +34,95 @@ This document defines the approved adopter-facing theme lanes for products that 
 - declaring a second token layer as the real authority while `gdsTheme` remains nominal
 - product-specific page styling that bypasses the theme for repeated surfaces
 
+## Choosing a brand factory
+
+Two factories build a branded theme. Both results descend from `gdsTheme`.
+
+| | `createPublicBrandTheme(options)` | `createBrandTheme(...)` |
+| --- | --- | --- |
+| Inputs | `editorialSerif`, `flatSurfaces`, and `overrides` (a Mantine theme override, merged last) | Generic form: `brandColors` (five hex colours, by role below), `fonts { display, body }`, `flatSurfaces`, `overrides`, `designRuleProfile`. Named forms `'class-usa'` and `'gold-athlete'` take optional ramp and font overrides. |
+| Returns | A Mantine theme | `{ mantineTheme, cssVariables, tokenGraph, designRuleProfile }`. `mantineTheme` is built with `createPublicBrandTheme` and carries `cssVariables` as `other.gdsCssVariables`. |
+| `--gds-*` role values | None. The page keeps the default role layer ([`docs/SEMANTIC_ROLE_TOKENS.md`](docs/SEMANTIC_ROLE_TOKENS.md)). | The full semantic map, light and `-dark`, applied by `GdsProvider` through [`theme.other.gdsCssVariables`](#themeothergdscssvariables). |
+| Contrast validation | None | Throws `GdsBrandThemeError` on the pairs in [`createBrandTheme` contrast scope](#createbrandtheme-contrast-scope). Every other pair is the consumer's to measure. |
+| Fonts | Mantine `fontFamily`/`headings` overrides, or `applyGdsFontLane(theme, lane)` | `fonts` families are written into `fontFamily` and `headings.fontFamily` without a lane check, and nothing loads them. See [Font lanes](#font-lanes-must-cover-every-supported-language). |
+
+Each generic-form input sets the roles below (`deriveBrandSemanticTokens` in `packages/gds-theme/src/brand-tokens.ts`). Use this table for the mapping: choose each input by the role it sets, never by its name.
+
+| Input | Role | Sets |
+| --- | --- | --- |
+| `navy` | Primary brand colour and inverse surface | `--gds-bg-inverse`; light `--gds-brand-primary`, `--gds-text-body`, `--gds-text-primary`, `--gds-state-info` |
+| `terracotta` | Scarce accent reserved for price, star ratings, attention badges and the light focus ring; never the primary action fill | `--gds-brand-accent` and `--gds-brand-accent-action` in both schemes; light `--gds-accent`, `--gds-price`, `--gds-star`, `--gds-badge-attention`, `--gds-focus-ring` |
+| `sage` | Success and support: positive state colours | `--gds-state-success`; light `--gds-support`, `--gds-badge-validation` |
+| `cream` | Page background | `--gds-text-on-inverse`; light `--gds-bg-page`, `--gds-bg-canvas`; dark `--gds-brand-primary`, `--gds-text-body`, `--gds-text-primary` |
+| `slate` | Secondary text and inactive labels | light `--gds-text-secondary`, `--gds-text-meta` |
+
+Values the generic form does not derive from its inputs (read `createBrandTheme` in `packages/gds-theme/src/brand-tokens.ts` for the values): `deriveBrandSemanticTokens` sets the card and surface backgrounds, the card border, the pressed primary, the warning and danger states, the info and urgency badge backgrounds, the disabled-control pair, and most dark-scheme values (including the dark page and surfaces) to literals. The Mantine `brand` ramp mixes the inputs with literal steps, and with Mantine's default `primaryShade` the light-scheme filled primary is one of those literal steps, so the filled CTA colour does not follow the inputs. The heading stack is `fonts.display` followed by a Georgia serif fallback.
+
+### What `GdsProvider` does with `theme`
+
+`theme` replaces `gdsTheme`; it is not merged onto it. `GdsProvider` adds only the governed `light` variant resolver (`withGdsGovernedVariants`) and passes the result to `MantineProvider`, which merges it onto Mantine's own defaults. A theme that does not descend from `gdsTheme` renders without what `gdsTheme` defines in `packages/gds-theme/src/theme.ts`:
+
+- the `gds-card`, `gds-paper`, `gds-alert`, `gds-code` and `gds-navlink` class hooks that `styles.css` keys on
+- the `Input` font-size floor that stops iOS browsers zooming the page on focus
+- the `NavLink` minimum height bound to `--gds-control-height-md` (the touch-target floor)
+- the `Button`, `Card`, `Paper`, `Popover`, `TextInput`, `Table` and `Badge` defaults
+- the governed shadows and heading scale
+- the binding of Mantine spacing and radius to the density and shape axes
+
+Inputs that descend from `gdsTheme`: `gdsTheme`, `gdsDarkPublicTheme`, `gdsFlatSurfaceTheme`, `gdsEditorialPublicTheme`, `createPublicBrandTheme(...)`, `createBrandTheme(...).mantineTheme`, and `applyGdsFontLane(theme, lane)` when `theme` is one of these. `resolveGdsThemePreset(id)` (and `useGdsThemePresetState().selection.theme`) descends from `gdsTheme` for presets built on those lanes; `padelAfricaThemePreset` and `yourFieldThemePreset` are plain override objects, so the `padel-africa` and `your-field` presets do not. A hand spread such as `{ ...gdsTheme, components: { … } }` replaces the whole component map; pass changes through `createPublicBrandTheme({ overrides })`, which merges.
+
+### `theme.other.gdsCssVariables`
+
+The channel that puts brand `--gds-*` role values on the page.
+
+- **Shape.** A flat record keyed by custom-property name. A dark-scheme value uses the same name with a `-dark` suffix, for example `--gds-bg-page` and `--gds-bg-page-dark`.
+- **Filter.** Only entries whose key starts with `--gds-` and whose value is a string are applied. Every other entry is ignored.
+- **Write targets.** `GdsProvider` writes every entry, base and `-dark` keys alike, as an inline custom property on the colour-scheme root (`colorSchemeRootElement()`, default `<html>`), and removes them when the theme changes or the provider unmounts. It also writes the entries to its wrapper element resolved for the computed scheme, so under the dark scheme each base name takes its `-dark` value there. Content rendered outside the wrapper, such as a Mantine portal attached to `body`, inherits the root values, where each base name holds the light value.
+- **Precedence.** Inline values win over the `:root` default layer in `styles.css`.
+- **Populated by.** Every `createBrandTheme(...)` overload, and so the `class-usa` and `gold-athlete` presets. `gdsTheme`, the other lanes and `createPublicBrandTheme(...)` set no entries. Any theme that carries the key gets the same treatment; the provider derives nothing from it.
+
+### `createBrandTheme` contrast scope
+
+`createBrandTheme` throws `GdsBrandThemeError` when a pair it checks falls below its minimum. The checked pairs are `assertContrast` in `packages/gds-theme/src/brand-tokens.ts`, plus one filled-button label check in each named overload. This list is written from that source, not generated from it; the source is authoritative.
+
+- Every overload checks primary and secondary text on the page, primary text on the surface, on-inverse text on the inverse surface, and the derived on-support label on `support`. Only the `support` pair is checked in the dark scheme.
+- `'class-usa'` also checks white on its action colour; `'gold-athlete'` checks white on its primary.
+- No overload checks the accent roles that are used for text (`--gds-brand-accent`, `--gds-accent`, `--gds-price`, `--gds-star`) or the focus ring (`--gds-focus-ring`) against the page, or `--gds-badge-attention` against anything.
+- The generic overload does not check the filled primary that its `mantineTheme` paints against that button's label.
+
+A theme that passes `createBrandTheme` is therefore not validated for its CTA, accent text or focus ring. [`docs/CONTRAST_CHECKER.md`, Checking a brand theme](docs/CONTRAST_CHECKER.md#checking-a-brand-theme) scores those pairs; use it for the CTA, accent-text and focus-ring pairs of every brand theme.
+
 ## White-label and tenant theming
 
 White-label or tenant theming is allowed only when:
 
 - the base product still resolves from `gdsTheme`
-- tenant overrides remain scoped to documented brand surfaces
+- tenant overrides remain scoped to brand surfaces, as defined below
 - contrast, readability, and focus states still meet the shared baseline
 - switching tenants does not introduce a second runtime provider authority
+
+A **brand surface** is an element inside a product-owned canvas, such as a tenant-branded section or a `CreatorThemeBoundary` canvas, where the product applies the tenant colour through component props or variables scoped to that canvas. GDS-owned chrome is never a brand surface: shells, navigation, consent, legal and recovery controls, and system messaging keep the product theme. Tenant values never write to the document root ([Runtime-authored styling and the document root](#runtime-authored-styling-and-the-document-root)).
+
+### Tenant seed colour
+
+GDS has no runtime scope that derives a tenant theme for a subtree from one seed colour. The partial paths and their limits:
+
+| Path | Limit |
+| --- | --- |
+| `createBrandTheme(...)` | Needs five role colours and two fonts, throws on contrast failure, and returns a whole Mantine theme for `GdsProvider`, not a subtree scope. |
+| `deriveVibeSemanticCssVariables(vibe)` | Needs a complete `GdsVibeTheme`. |
+| `deriveGdsAccentShades(ramp, scheme)` | Covers the categorical accent ramps only. |
+
+Without a seed scope, a tenant colour (`seed`) on a brand surface follows these steps:
+
+1. Resolve the seed to a concrete `#hex` (3 or 6 digits), `rgb()` or `rgba()` value before measuring. On a `var()` or `color-mix()` value, `pickGdsAutoForeground` returns its first candidate without measuring and `checkGdsContrast` throws.
+2. Derive the label on a tenant fill with `pickGdsAutoForeground(seed)` and confirm it with `checkGdsContrast(label, seed)` (4.5:1).
+3. Measure tenant fills and borders that identify a control against the adjacent surface with `checkGdsContrast(seed, surface, { size: 'large' })` (3:1, WCAG 1.4.11). `checkGdsContrast` has no non-text mode; `size: 'large'` applies the same threshold.
+4. Measure against the surfaces of every scheme the product renders, or pin the scheme ([Colour scheme](#colour-scheme)). No GDS helper derives a seed per scheme.
+5. Never pass a raw seed to Mantine `color=` on a filled component without also setting the derived label on it. `gdsTheme` does not set `autoContrast`, so Mantine labels every filled colour with `theme.white`. Mantine's `autoContrast` chooses `theme.black` or `theme.white` by luminance, not by contrast ratio, so its choice is measured like any other label.
+6. Derive tints with `color-mix(in srgb, <seed> <weight>, var(--gds-bg-surface))`, never by appending alpha digits to a hex string: a 3-digit hex plus two alpha digits is not a valid colour. `checkGdsContrast` cannot parse a `color-mix()` value, so text stays on role surfaces unless the mixed colour is resolved and measured.
+
+Worked example for the label and surface checks above: [`docs/CONTRAST_CHECKER.md`, Tenant seed colour](docs/CONTRAST_CHECKER.md#tenant-seed-colour).
 
 ## Identity provider branding policy
 
@@ -64,7 +146,7 @@ Recommended model:
 
 1. start from the closest shipped lane
 2. use `createPublicBrandTheme(...)` when a branded public product needs governed overrides
-3. apply tenant-level overrides only on documented brand surfaces and only through the approved lane
+3. apply tenant-level overrides only on brand surfaces ([White-label and tenant theming](#white-label-and-tenant-theming)) and only through the approved lane
 
 For public/editorial products that want one sanctioned entrypoint instead of ad hoc merging, use `createPublicBrandTheme({ editorialSerif, flatSurfaces, overrides })` from `@sovereignsquad/gds-theme`.
 
@@ -74,7 +156,7 @@ Some products need a bounded creator-, editor-, or customer-authored visual canv
 
 Ownership boundary:
 
-- GDS owns app chrome, navigation, shells, shared controls, consent surfaces, legal rows, recovery states, and system messaging.
+- GDS owns app chrome, navigation, shells, shared controls, consent surfaces, legal rows, recovery states, and system messaging. The consent surface GDS ships is `PublicConsentStep`, the `consent` stage of `PublicCaptureFlow` (`@sovereignsquad/gds-core` root and `/client` entry points): a layout that renders consent copy above a control the product supplies, such as a labelled Mantine `Checkbox`. GDS ships no cookie-consent banner, accept-state persistence or consent-gated CTA primitive; those are product-owned under the next point.
 - The adopting product owns storage, moderation, sanitization, and publish flow for creator-authored presentation data.
 - Creator-authored overrides may own only the approved experience canvas.
 
@@ -106,21 +188,65 @@ Required documentation path:
 - include `a11yRequirements`, `testingRequirements`, and `observabilityRequirements`
 - describe what shared controls must remain governed outside the canvas
 
-Recommended implementation shape:
+Products still own storage and moderation, but they may not use that as justification for replacing GDS-owned application structure.
 
-```ts
-type ExperienceThemeOverrideMode = 'none' | 'css-class' | 'scoped-css';
+### The shipped boundary
 
-type ExperienceOverrideContract = {
-  mode: ExperienceThemeOverrideMode;
-  scopeId: string;
-  renderOrder: 'after-base-experience-styles';
-  mayOverride: string[];
-  mustNotOverride: string[];
-};
+`@sovereignsquad/gds-core` (root, `/client` and `/server` entry points) exports `CreatorThemeBoundary`, `validateCreatorCss` and `CreatorThemeDiagnostics`.
+
+```tsx
+import { CreatorThemeBoundary } from '@sovereignsquad/gds-core/client';
+
+<CreatorThemeBoundary scopeId={page.id} css={page.customCss} onDiagnostics={recordCreatorCssIssues}>
+  <CreatorCanvas page={page} />
+</CreatorThemeBoundary>
 ```
 
-This is a governance contract first. Products still own storage and moderation, but they may not use that as justification for replacing GDS-owned application structure.
+`CreatorThemeBoundary` props: `css`, `scopeId`, `policy`, `requiredVisibleSelectors`, `children`, `onDiagnostics`. Render behaviour:
+
+- Children render inside `<div data-gds-creator-theme="<scopeId>">`. The boundary sets the policy's `scopeSelector` to `[data-gds-creator-theme="<scopeId>"]`, replacing any `policy.scopeSelector`, so every selector in `css` must start with it.
+- `validateCreatorCss(css, policy)` runs on every render, and `onDiagnostics(issues)` is called during render. It can fire more than once for the same CSS; treat it as a report of the current state, not as an event.
+- `css` is injected as a `<style>` element inside the wrapper only when no issue has severity `error`.
+- When any issue is an `error`, the styles are not injected and `CreatorThemeDiagnostics` renders inside the wrapper, visible on the page. Its copy is English only.
+- Children always render; with blocking errors they keep the base GDS presentation.
+
+`validateCreatorCss` returns `CreatorCssValidationIssue[]` (`code`, `severity`, `message`, optional `selector` and `property`):
+
+| Code | Severity | Raised when |
+| --- | --- | --- |
+| `creator-css-too-large` | error | `css` is longer than `policy.maxLength` |
+| `creator-css-unsafe-function` | error | `css` contains `javascript:`, `expression(` or `@import` |
+| `creator-css-out-of-scope` | error | a comma-separated part of a selector does not start with `policy.scopeSelector` |
+| `creator-css-blocked-selector` | error | a selector matches a `policy.blockedSelectorPatterns` entry |
+| `creator-css-blocked-property` | error | a declaration sets a `policy.blockedProperties` entry |
+| `creator-css-raw-color` | warning | a value contains a hex or `rgb()`/`rgba()` colour and no `var(--gds-` or `var(--mantine-` reference |
+
+The default `maxLength`, `blockedProperties` and `blockedSelectorPatterns` are module constants in `packages/gds-core/src/CreatorTheme.tsx`. They are not exported; read them there.
+
+### What the boundary does not enforce
+
+Behaviour of `validateCreatorCss` with the default policy:
+
+| Gap | Consequence |
+| --- | --- |
+| `requiredVisibleSelectors` (prop and policy field) is accepted and never read. | No selector is protected from being hidden. |
+| There is no contrast check. | Creator colours are not measured against each other or against GDS surfaces. |
+| Properties outside the default block list pass, including `opacity`, `height`, `overflow`, `transform`, `clip-path`, `color` and `outline`. | Creator CSS can hide, clip or make transparent any content inside the canvas, and can remove focus outlines. |
+| The scope check is a prefix test. | A selector that starts with the scope can reach elements outside the canvas through a sibling combinator (`~`, `+`). |
+| Rules inside `@media` or `@supports` are validated; the at-rule itself is not. | An at-rule prelude is never checked. |
+| Raw colours only warn, and only hex and `rgb()`/`rgba()` are detected. | Named colours and `hsl()` raise nothing. |
+| The default `script` selector pattern matches any selector containing that text. | A class such as `.description` is rejected as `creator-css-blocked-selector`. |
+
+Consent, legal and recovery controls therefore render outside the canvas (required render order above), and the product's `product-authored-experience` exception covers their visibility and focus visibility in `a11yRequirements` and `testingRequirements`.
+
+## Runtime-authored styling and the document root
+
+Styling authored at runtime by a creator, tenant or admin never writes to `:root`, `html`, `body` or `document.documentElement`, whether through `style.setProperty`, an injected `<style>` rule, or a stylesheet loaded at runtime. It is scoped to a canvas root element the product renders, such as the `CreatorThemeBoundary` wrapper or a report root, so GDS shell chrome is never restyled by it. `!important` against GDS chrome is never valid.
+
+- Root attributes and root custom properties belong to the theme runtime: `GdsProvider`, `useGdsThemePresetState`, and the Mantine provider they wrap.
+- Admin- or tenant-configured shell styling is a theme-lane change, not a runtime root write.
+- Report styling that also feeds a print or PDF path scopes its variables to the report root element.
+- `<meta name="theme-color">` is browser chrome outside any canvas. GDS ships no API for it; it is product-owned.
 
 ## Atmosphere has a scale
 
@@ -174,6 +300,29 @@ and pushes every consuming app to rediscover and solve that locally.
   written out. Adding a locale in a new script makes the font map incomplete and **fails the
   build** rather than shipping a lane that cannot draw it.
 - Fonts load from `fonts.googleapis.com` only, always with `display=swap`.
+- Naming a family in a stack does not load it. Each lane's `cssImportUrl` requests the Noto
+  families together with the lane's own face, except on the default `inter` lane: its font comes
+  from the static import in `packages/gds-theme/styles.css`, which requests Inter only, and
+  `useGdsThemePresetState` adds no lane stylesheet for it. On the default lane, glyphs Inter
+  lacks render from a locally installed Noto family when one exists, otherwise from the system
+  fallback at the end of the stack.
+
+### The registry is closed to consumers
+
+The lanes are the module-private array in `packages/gds-theme/src/font-lanes.ts`; read them with
+`getGdsFontLanes()`. There is no registration API. `GdsFontLaneSource` has two members,
+`'system'` and `'google-fonts-compatible'`: no self-hosted, `next/font` or CSS-variable source
+exists, and per-tenant fonts have no lane mechanism. A brand font that is not a lane follows the
+exception path in [`INSTALLATION_GUIDE.md`, Unregistered brand font](INSTALLATION_GUIDE.md#unregistered-brand-font).
+
+- `createBrandTheme`'s `fonts` input is not a lane: its families are written into the theme's
+  font stacks without a lane check, and nothing loads them.
+- A stored lane id must be a lane id, not a family name: `resolveGdsFontLane` falls back to
+  `inter` for an unknown id, and `resolveGdsTypographyTokens` throws `GdsAxisError` when a
+  typography axis names an unregistered lane.
+- `packages/gds-theme/styles.css` loads Inter on every page that imports it, so a second Inter
+  load (`next/font`, a `<link>` or `@import`) requests the same family twice. No variant of the
+  stylesheet omits that import.
 
 ### Enforcement
 
@@ -191,11 +340,83 @@ network-dependent assertion already exempted elsewhere in the chain.
 ## Dark-mode rule
 
 - a product may default to dark when that is part of its deliberate shell identity
+- a dark-only product pins the scheme with recipe (a) in [Colour scheme](#colour-scheme). No theme option declares a theme dark-only; the pin is the runtime `forceColorScheme` prop, and a theme validated in one scheme only can fall below AA contrast in the other
 - dark products must still provide readable tokens for text, paper, card, alert, table, and link surfaces
 - mixed-mode islands remain exceptions, not the default layout strategy
 - preset styles must set `--mantine-color-text` and `--mantine-color-dimmed` from `--gds-vibe-text` and `--gds-vibe-muted` on body, shell, card, and paper surfaces so nested Mantine components cannot keep stale light-mode foregrounds on dark backgrounds
 - dark and dark-forward VibeTheme controls must use `--gds-vibe-control` and `--gds-vibe-control-text` for inputs, default buttons, and code-like surfaces rather than assuming the base Mantine default variant remains readable
 - mixed-preview surfaces, such as the Theme Lab shipped-lane gallery and VibeTheme contract preview, must use `data-gds-local-contrast` plus local `--gds-vibe-*`, Mantine foreground variables, local control tokens, and a local radius token when they intentionally render a light preview card inside a dark page
+
+## Colour scheme
+
+`GdsProvider` is the only owner of the colour scheme. Through Mantine it writes
+`data-mantine-color-scheme` on the root element. Mantine's colour variables follow that
+attribute, and Mantine binds the CSS `color-scheme` property on `:root` to it. Every
+`light-dark()` value GDS ships follows that property
+(see [`docs/SEMANTIC_ROLE_TOKENS.md`](docs/SEMANTIC_ROLE_TOKENS.md#the-default-layer-follows-the-css-color-scheme-property)).
+
+Consumers must not:
+
+- run a second scheme library, such as `next-themes`, or toggle a class on `html` to switch schemes
+- declare `color-scheme` in their own CSS
+- write `data-mantine-color-scheme` themselves. Its writers are `GdsProvider`,
+  `useGdsThemePresetState` and Mantine's `ColorSchemeScript`.
+
+To style a third-party widget per scheme, read the scheme with Mantine's `useComputedColorScheme()`
+or from the `data-mantine-color-scheme` attribute; never set it. `gds-compliance` does not detect
+a second scheme library or a consumer `color-scheme` declaration.
+
+### One recipe per product shape
+
+| Product shape | `GdsProvider` | Theme toggle | `ColorSchemeScript` (server-rendered apps) |
+| --- | --- | --- | --- |
+| (a) Single scheme | `forceColorScheme="dark"` (or `"light"`) | `AppShell showThemeToggle={false}`; render no `ThemeToggle` | `forceColorScheme` with the same value |
+| (b) Follows the OS, no user choice | `defaultColorScheme="auto"` | `AppShell showThemeToggle={false}` | `defaultColorScheme="auto"` |
+| (c) User-switchable and persisted | `defaultColorScheme` and `forceColorScheme` derived from `useGdsThemePresetState` (below) | `AppShell showThemeToggle={false}`, and `<ThemeToggle onColorSchemeChange={setScheme} />` in `headerActions` | `defaultColorScheme` matching the initial selection |
+
+Recipe (c):
+
+```tsx
+const { selection, setScheme } = useGdsThemePresetState({
+  storageKey: 'my-app-theme-selection',
+  applyToDocument: false,
+});
+
+<GdsProvider
+  theme={brandTheme}
+  defaultColorScheme={selection.colorScheme}
+  forceColorScheme={selection.colorScheme === 'auto' ? undefined : selection.colorScheme}
+>
+  <AppShell showThemeToggle={false} headerActions={<ThemeToggle onColorSchemeChange={setScheme} />}>
+    {children}
+  </AppShell>
+</GdsProvider>;
+```
+
+- `applyToDocument: false` is required for a brand or any other non-preset theme. With the
+  default `true`, the hook also writes `data-gds-theme-preset`, which turns on every
+  preset-gated rule in `styles.css`, and the preset's `--gds-vibe-*` variables. Pass the
+  product's own `theme`, not `selection.theme`.
+- With nothing stored, the selection starts at `light`. Pass
+  `initialSelection: { colorScheme: 'auto' }` to start from the OS preference.
+- `prefers-color-scheme`, including changes during the session, is followed in (b), and in (c)
+  when the stored selection is `auto` at load.
+
+### Current behaviour
+
+- `GdsProvider` does not persist the scheme. Its colour-scheme manager has no storage: after a
+  reload the scheme returns to `forceColorScheme ?? defaultColorScheme`, and tabs do not sync.
+- `AppShell` renders the built-in `ThemeToggle` unless `showThemeToggle={false}`. That toggle
+  passes no `onColorSchemeChange`, so its choice is lost on reload.
+- Under `forceColorScheme`, Mantine's `setColorScheme` does nothing, so a toggle without
+  `onColorSchemeChange` wiring renders and has no effect. `ThemeToggle` still calls
+  `onColorSchemeChange`, which is why recipe (c) works with a derived `forceColorScheme`.
+- Mantine's `ColorSchemeScript` reads its own storage key, which neither `GdsProvider` nor
+  `useGdsThemePresetState` writes. In a server-rendered app the first paint uses the script's
+  `defaultColorScheme` or `forceColorScheme`, and a stored choice in (c) applies at hydration.
+- No theme object declares which schemes it supports. A theme contrast-checked in one scheme can
+  fall below AA in the other, so a single-scheme product leaves the other scheme unreachable
+  with recipe (a).
 
 ## Theme trust hardening
 
@@ -272,44 +493,118 @@ selector in both directions.
 
 ## Appendix: Amanoba dark shell + yellow CTA
 
-Amanoba is a dark-default LMS/game product. Recommended recipe:
+Worked recipe on `createPublicBrandTheme` for a dark-only product with a yellow call to action,
+such as the Amanoba LMS/game product:
 
 ```ts
+// theme.ts
 import { createPublicBrandTheme } from '@sovereignsquad/gds-theme/client';
 
 export const amanobaMantineTheme = createPublicBrandTheme({
   flatSurfaces: true,
   overrides: {
     primaryColor: 'amanoba',
+    // Mantine labels filled controls with `theme.black` when the primary colour is light.
+    // The test below verifies the label against the fill that renders.
+    autoContrast: true,
     colors: {
-      amanoba: [/gds-* yellow scale */],
-      amanobaYellow: [/gds-* alias scale */],
-      ink: [/gds-* dark grey scale */],
+      amanoba: [/* the one yellow ramp, 10 steps */],
     },
     other: {
-      brand: { /gds-* email/OG/chart tokens */ },
-      email: { /gds-* transactional email palette */ },
+      brand: { /* email, OG and certificate tokens for non-Mantine surfaces */ },
+      email: { /* transactional email palette */ },
     },
     components: {
-      Text: { defaultProps: { c: 'gray.2' } },
-      Card: { defaultProps: { bg: 'ink.8', withBorder: true } },
-      /gds-* form + modal dark surfaces */
+      Card: { defaultProps: { withBorder: true } },
     },
   },
 });
 ```
 
+```tsx
+// providers.tsx and the admin/editor layouts: the scheme is pinned (Colour scheme, recipe (a))
+<GdsProvider theme={amanobaMantineTheme} forceColorScheme="dark">
+  <AppShell showThemeToggle={false} {...shellProps}>
+    {children}
+  </AppShell>
+</GdsProvider>
+```
+
+```ts
+// brand-contrast.test.ts: brand colour is measured, not picked
+import { getPrimaryShade, isLightColor } from '@mantine/core';
+import { checkGdsContrast, pickGdsAutoForeground } from '@sovereignsquad/gds-theme/server';
+import { amanobaMantineTheme as theme } from './theme';
+
+// Every dark surface brand-coloured text renders on. Card, Paper and the GdsProvider wrapper
+// paint `--mantine-color-body`, which is `theme.colors.dark[7]` in the dark scheme; role
+// surfaces take their dark values from docs/SEMANTIC_ROLE_TOKENS.md.
+const darkSurfaces: string[] = [theme.colors.dark[7] /* , role surfaces the text sits on */];
+// Ramp indices rendered as text, including the step `--mantine-color-anchor` uses for links.
+const brandTextSteps: number[] = [/* … */];
+
+it('labels the filled CTA with a passing colour', () => {
+  const fill = theme.colors.amanoba[getPrimaryShade(theme, 'dark')];
+  const label = pickGdsAutoForeground(fill, { candidates: [theme.white, theme.black] });
+  // Under `autoContrast`, Mantine picks the label from the light-scheme primary shade.
+  const lightShade = theme.colors.amanoba[getPrimaryShade(theme, 'light')];
+  expect(isLightColor(lightShade, theme.luminanceThreshold) ? theme.black : theme.white).toBe(label);
+  expect(checkGdsContrast(label, fill).passes).toBe(true);
+});
+
+it.each(brandTextSteps)('brand text step %i reads on every dark surface', (step) => {
+  for (const surface of darkSurfaces) {
+    expect(checkGdsContrast(theme.colors.amanoba[step], surface).passes).toBe(true);
+  }
+});
+```
+
 Rules:
 
+- One palette per hue. No alias ramps: a second name for the same ramp makes a "CTA hue for
+  primary actions only" rule impossible to check by name.
+- No colour default props on text or surface components ([Allowed extension surfaces](#allowed-extension-surfaces)).
+  The dark look comes from the pinned scheme, not from per-component colours. Non-colour
+  defaults such as `withBorder` stay.
+- Pin the scheme with [Colour scheme](#colour-scheme) recipe (a): `forceColorScheme="dark"` on
+  `GdsProvider` and `ColorSchemeScript`, `showThemeToggle={false}` on every `AppShell`, and no
+  second scheme library or `html` class toggle. Under the pin the built-in toggle renders and
+  does nothing.
+- Surfaces and text use the scheme defaults and the [semantic role tokens](docs/SEMANTIC_ROLE_TOKENS.md)
+  (`var(--gds-bg-surface)`, `var(--gds-text-body)`, `var(--gds-text-meta)`). Do not use
+  `c="dimmed"`: outside presets it is Mantine's own dimmed colour, not a GDS text role. Use
+  `var(--gds-text-meta)` for the secondary text instead. Emphasis surfaces use `AccentPanel`,
+  not `bg="<ramp>.0"` tints.
+- Brand-coloured text and the CTA label are measured with the test above, against the surfaces
+  that render in the pinned scheme. The filled CTA uses the shade Mantine resolves for the
+  pinned scheme (`getPrimaryShade`), not a fixed step. A step that passes on dark surfaces is
+  not guaranteed on light ones.
+- The CTA hue is never the only signal of a state; pair it with a label or icon (WCAG 1.4.1).
+- `theme.other.brand` and `theme.other.email` feed non-Mantine surfaces (email, OG images,
+  certificates) only, never UI text.
 - use `@sovereignsquad/gds-theme/client` in client providers; use `@sovereignsquad/gds-theme/server` only for SSR-safe theme data
 - do not call `withGdsMotion()` unless product marketing explicitly wants shared hover motion
 - keep provider-branded OAuth colors in documented exception surfaces, not in `primaryColor`
+
+What GDS does not provide for this shape:
+
+- No scheme-aware brand-accent text role. `--gds-brand-accent` is not defined at the default
+  role layer, `createPublicBrandTheme` emits no `--gds-*` roles, and `createBrandTheme` emits
+  `--gds-brand-accent` as its raw input in both schemes. A product that renders both schemes
+  runs the test above for the brand text of each scheme, or stays pinned.
+- No surface-role inputs on `createPublicBrandTheme`. A non-preset brand can only set role
+  values through [`theme.other.gdsCssVariables`](#themeothergdscssvariables), which takes literal
+  values and derives nothing. Nothing paints `--gds-bg-page` as the page; in non-preset lanes
+  the page is `--mantine-color-body`.
+- No exported resolver returns the default role values for a non-preset lane; the table in
+  `docs/SEMANTIC_ROLE_TOKENS.md` is the source for the test's role surfaces.
+- No `amanoba` preset (`GdsThemePresetId`).
 
 ## Approved preset modes
 
 - `high-contrast` (`resolveGdsThemePreset('high-contrast')`) is the approved **accessibility** lane: a maximal-contrast, flat, undecorated preset with pure black/white surfaces, WCAG AAA body and meta text in both schemes, solid borders, near-black filled controls, and no decorative gradients. It is a first-class selectable preset (issue #453) — distinct from OS-driven `forced-colors` support, which GDS also honors — for products or users that want a deliberately high-contrast shell. Verified by `verify:token-contrast-scoring` and `verify:theme-accessibility`.
 - `colorblind-safe` (`resolveGdsThemePreset('colorblind-safe')`) is the approved **accessibility** lane whose brand palette is drawn from the Okabe-Ito colorblind-safe qualitative set (blue `#0072b2` / vermillion `#d55e00`) so categorical/brand color stays distinguishable across deuteranopia, protanopia, and tritanopia (issue #453). It complements — it does not replace — GDS's standing rule that state is never signalled by hue alone (semantic components carry a label + icon per WCAG 1.4.1), which is what keeps success/danger distinguishable under every preset.
-- `gdsDarkPublicTheme` is the approved preset for products that deliberately default to a dark public shell.
+- `gdsDarkPublicTheme` is the approved preset for products that deliberately default to a dark public shell. The lane sets no colour scheme: pass `defaultColorScheme="dark"` to `GdsProvider`, or pin the scheme with [Colour scheme](#colour-scheme) recipe (a) for a dark-only product. No theme option declares a theme dark-only.
 - `gdsFlatSurfaceTheme` is the approved preset for products that need flatter operational surfaces without creating a second token authority.
 - `gdsEditorialPublicTheme` is the approved preset for public/editorial products that need serif-forward storytelling and flatter public surfaces without creating a private token branch.
 - `createPublicBrandTheme()` is the approved composition helper for branded public products that need to layer serif headings, flat surfaces, and product-local token overrides in one governed merge path.
@@ -322,7 +617,9 @@ Rules:
 
 GDS does not publish a second, competing z-index scale. `@mantine/core/styles.css` (loaded via the mandatory `@sovereignsquad/gds-theme/styles.css` import) already ships a documented CSS variable scale — `--mantine-z-index-app` (100), `--mantine-z-index-modal` (200), `--mantine-z-index-popover` (300), `--mantine-z-index-overlay` (400), `--mantine-z-index-max` (9999) — and GDS defers to it as the single stacking authority rather than inventing a parallel one that could drift out of sync.
 
-`gdsZIndexToken` (`@sovereignsquad/gds-theme`) exposes this scale by documented, typed tier name (`app`, `modal`, `popover`, `overlay`, `max`) so GDS's own components and consumers don't need to know Mantine's internal variable names. Any GDS component that renders fixed/sticky page-level chrome outside a Mantine overlay primitive (e.g. `BottomTabBar`, `FloatingActionPlacement`) must use `gdsZIndexToken.app` rather than an ad hoc number — this was a real, unpublished gap (see `DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md` P0 item 3) where two such components independently hardcoded different arbitrary values (200 and 20) with no shared authority. Consumers building custom overlays outside GDS's own component set should align with the same scale instead of guessing a number.
+`gdsZIndexToken` (`@sovereignsquad/gds-theme`) exposes this scale by documented, typed tier name (`app`, `modal`, `popover`, `overlay`, `max`) so GDS's own components and consumers don't need to know Mantine's internal variable names. Any GDS component that renders fixed/sticky page-level chrome outside a Mantine overlay primitive (e.g. `BottomTabBar`, `FloatingActionPlacement`) must use `gdsZIndexToken.app` rather than an ad hoc number — this was a real, unpublished gap (see `DESIGN_SYSTEM_COMPETITIVE_GAP_ANALYSIS.md` P0 item 3) where two such components independently hardcoded different arbitrary values (200 and 20) with no shared authority.
+
+Consumer rule: consumer fixed and sticky chrome (headers, sidebars, bars, floating buttons) and consumer overlays must take their stacking value from these tiers, through `gdsZIndexToken.<tier>` in JS or, in CSS, the `--mantine-z-index-*` variable the tier resolves to. Consumer chrome must stay at or below the `app` tier, so GDS overlays on the `modal`, `popover` and `overlay` tiers render above it. A parallel numeric scale is not allowed: chrome numbered above the `modal` tier covers `ConfirmDialog` and every other GDS modal. GDS publishes no `--gds-*` z-index variables; CSS reads Mantine's names. Content that must sit above a GDS overlay uses a GDS overlay or notification surface rather than a higher number; the Mantine `Notifications` mount inside `GdsProvider` sits on the `overlay` tier. The same rule, with its identifier, is `global-css.z-index` in [`docs/SAFE_STYLING.md`](docs/SAFE_STYLING.md#global-css-in-a-gds-app).
 
 ## Elevation
 
@@ -496,7 +793,7 @@ const { selection, setPreset, setScheme, setFontLane, reset } = useGdsThemePrese
 Runtime rule:
 
 - `useGdsThemePresetState(...)` must set `data-gds-theme-preset`, `data-gds-theme-runtime`, `data-gds-font-lane`, `data-mantine-color-scheme`, and the `--gds-vibe-*` CSS variables on the document root.
-- `useGdsThemePresetState(...)` also loads the active font lane's web font: the default `'inter'` lane is loaded statically by `packages/gds-theme/styles.css`; every other lane is loaded on demand via a single non-blocking `<link id="gds-font-lane-stylesheet">`, added/swapped/removed as the lane changes (issue 529). The package stylesheet must never statically `@import` more than the default lane's font — that duplicates each lane's own governed `cssImportUrl` (font-lanes.ts) by hand and defeats every lane's declared `loadStrategy: 'non-blocking-stylesheet'`.
+- `useGdsThemePresetState(...)` also loads the active font lane's web font: the default `'inter'` lane's font is loaded statically by `packages/gds-theme/styles.css`, which requests Inter only and none of the Noto families the lane's `cssImportUrl` names; every other lane is loaded on demand via a single non-blocking `<link id="gds-font-lane-stylesheet">`, added/swapped/removed as the lane changes. The package stylesheet must never statically `@import` more than the default lane's font — that duplicates each lane's own governed `cssImportUrl` (font-lanes.ts) by hand and defeats every lane's declared `loadStrategy: 'non-blocking-stylesheet'`.
 - The official site must use the selected VibeTheme across the whole shell, not only inside the Theme Lab card.
 - VibeTheme visuals must be CSS-only: gradients, color-mix, surface variables, and component tokens are allowed; pixel/image backgrounds are not the default theme mechanism.
 - `cosmic` is the sanctioned high-saturation reference lane. If teams need a dramatic multicolour app vibe, start from `cosmic` instead of building route-local image or gradient systems.
@@ -730,12 +1027,16 @@ const {
   defaultColorScheme={selection.colorScheme}
   forceColorScheme={selection.colorScheme === 'auto' ? undefined : selection.colorScheme}
 >
-  <ReferenceThemeExplorer
-    initialSelection={selection}
-    onSelectionChange={setSelection}
-  />
+  <DocsShell actions={<ThemeToggle onColorSchemeChange={setScheme} />}>
+    <ReferenceThemeExplorer
+      initialSelection={selection}
+      onSelectionChange={setSelection}
+    />
+  </DocsShell>
 </GdsProvider>;
 ```
+
+`ThemeToggle` reports each change through `onColorSchemeChange`, and the selection drives `forceColorScheme`, so the toggle works under the pin and the choice is persisted. See [Colour scheme](#colour-scheme) for the same wiring in a product.
 
 Review checklist for runtime-theme work:
 

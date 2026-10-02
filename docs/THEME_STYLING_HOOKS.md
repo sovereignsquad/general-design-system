@@ -31,6 +31,14 @@ specificity, so the element keeps its own styling and nothing else in the cascad
 Element-level, not inherited. Contract and test: `THEME_GOVERNANCE.md`, "Opting one element
 out of the preset repaint".
 
+Release status: `data-gds-fixed-tone` is not in 6.7.0 or any earlier release; `CHANGELOG.md`
+lists it under Unreleased. A consumer on 6.7.0 or earlier has no element-level opt-out.
+
+It is the sanctioned alternative to `!important` against a preset rule. The rules for a
+consumer's own stylesheets (element selectors, `!important`, assigning `--mantine-*` variables,
+the page background, `color-scheme` and z-index) are in
+[`SAFE_STYLING.md`, Global CSS in a GDS app](SAFE_STYLING.md#global-css-in-a-gds-app).
+
 ## Migrating a selector off the vendor class
 
 The surface group above is migrated. Remaining `.mantine-*` selectors in

@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 // Mandatory: load the GDS stylesheet exactly once, before your own app styles.
 // Without it, GDS surfaces (including dropdown/overlay backgrounds) render unstyled.
+// It already includes @mantine/core/styles.css and @mantine/notifications/styles.css,
+// and it loads the Inter font: do not import those sheets or load Inter again.
 import "@sovereignsquad/gds-theme/styles.css";
 import { ColorSchemeScript } from "@mantine/core";
 import Providers from "./providers";
