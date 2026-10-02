@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-08
+Last updated: 2026-10-01
 
 This document defines how products adopt the design system, enforce compliance, and migrate legacy UI. 
 
@@ -41,7 +41,7 @@ Before starting a new product UI implementation or a Mantine migration, projects
 4. **Legacy Boundary**: Which files are legacy and frozen from new UI work.
 5. **Pattern Contract Inventory**: Which local files implement required GDS pattern families and which are still backlog.
 
-**First PR Shape:** The first PR should establish the root provider, theme, and modal/notification setup, migrating *one* high-value surface. Do not attempt a full-app migration in one pass.
+**First PR Shape:** The first PR should establish the `@sovereignsquad/gds-theme/styles.css` import, the root provider, theme, and modal/notification setup, migrating *one* high-value surface. Do not attempt a full-app migration in one pass.
 
 Projects should also be classified in `PROJECTS/PORTFOLIO_ADOPTION_MATRIX.md` before major migration work begins.
 
@@ -56,7 +56,7 @@ Migrate legacy applications via true refactoring, not by bridging old token laye
 
 ### Standard Migration Phases
 1. **Phase 0: Freeze** - Ban new product UI in the old system.
-2. **Phase 1: Root Platform** - Add `MantineProvider`, theme, and central overlays.
+2. **Phase 1: Root Platform** - Import `@sovereignsquad/gds-theme/styles.css` once, mount `GdsProvider` with an approved theme lane, and set up central overlays ([INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md), section 3).
 3. **Phase 2: Core Primitives** - Migrate buttons, inputs, alerts, cards.
 4. **Phase 3: Auth & High-Traffic** - Migrate login, registration, and core user journeys.
 5. **Phase 4: Admin & CRUD** - Migrate dashboards, tables, and settings.
@@ -69,7 +69,7 @@ Projects must actively enforce the Mantine-only policy to prevent design-system 
 
 ### Minimum Enforcement Layers
 - **Adoption Manifest**: Every mature adopter should declare a `gds-adoption.json` file validated against `schemas/gds-adoption.schema.json`.
-- **Shared Lint Config**: `@sovereignsquad/gds-eslint-config` should be the default enforcement package for raw design value and forbidden import checks.
+- **Shared Lint Config**: `@sovereignsquad/gds-eslint-config` should be the default enforcement package for raw design value and forbidden import checks. It covers only the forms listed in [COMPLIANCE_TOOLKIT.md, "Lint scope"](COMPLIANCE_TOOLKIT.md#lint-scope).
 - **Compliance CLI**: `gds-compliance` should validate manifest structure, adapter paths, exception metadata, and repo-level drift.
 - **Compliance Config**: `gds-adoption.json` may declare `compliance.documentationPaths`, `compliance.staleDocumentationReferences`, `compliance.protectedSurfacePaths`, and `compliance.bannedImports` so shared tooling can catch stale SSOT references, protected-surface drift, and lingering legacy UI dependencies without product-local scripts.
 - **Theme Governance Config**: `gds-adoption.json` may declare `compliance.approvedThemeLanes` and `compliance.themeOwnershipPaths` so shared tooling can flag non-canonical branding-layer theme ownership in consumer repos.
@@ -109,7 +109,7 @@ Use [ADOPTION_AND_MIGRATION_PLAYBOOK.md](ADOPTION_AND_MIGRATION_PLAYBOOK.md) as 
 
 ### Pull Request Checklist
 Reviewers must ask:
-- Does this use shipped GDS contracts first, with direct Mantine/Tabler usage only behind an approved dependency-boundary exception?
+- Does this use shipped GDS contracts first, importing Mantine components only through GDS (the sanctioned passthroughs or a GDS replacement), with any direct `@mantine/core` or Tabler import behind an approved exception? Rule: [DEPENDENCY_GOVERNANCE.md, "Mantine boundary"](DEPENDENCY_GOVERNANCE.md#mantine-boundary).
 - Could theme defaults solve this instead of local override logic?
 - Does this use the documented server-safe/client-safe import path for the target runtime?
 - If runtime theme or typography switching is present, does it persist serializable theme intent across direct links, static-host fallback reloads, browser refreshes, and route remounts?
@@ -164,7 +164,7 @@ If a consumer needs an approved dependency-level exception such as `lucide-react
 
 Shared lint/gds-compliance tooling may use that manifest-level allowlist to keep the default GDS guardrails active without forcing a repo to abandon the shared tooling entirely.
 
-Dependency-boundary exceptions must use `category: "dependency-boundary"` when the exception permits direct imports from an implementation dependency such as Mantine, Tabler, or a temporary icon bridge. They must also define accessibility, testing, observability, exit, and rollback requirements so the exception remains operationally owned.
+Dependency-boundary exceptions must use `category: "dependency-boundary"` when the exception permits direct imports from an implementation dependency such as Mantine, Tabler, or a temporary icon bridge. They must also define accessibility, testing, observability, exit, and rollback requirements so the exception remains operationally owned. A direct `@mantine/core` import is off-governance in every consumer, whatever `compliance.strictMode` is; the rule, its enforcement limits and the GDS replacements are in [DEPENDENCY_GOVERNANCE.md, "Mantine boundary"](DEPENDENCY_GOVERNANCE.md#mantine-boundary).
 
 Recommended compliance path:
 

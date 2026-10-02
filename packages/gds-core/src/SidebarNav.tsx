@@ -11,7 +11,11 @@ import type { GdsVocabularyPack, SemanticActionId } from './vocabulary';
 /** Props for {@link SidebarNav}, the `<nav>` container. */
 export interface SidebarNavProps {
   children: ReactNode;
-  /** Accessible label for the nav landmark; defaults to "Primary navigation". */
+  /**
+   * Accessible label for the nav landmark; defaults to the `gds.sidebarNav.ariaLabel` phrase
+   * ("Primary navigation"). Give each `SidebarNav` on a page a distinct label, for example when a
+   * shell renders one in `primaryNavigation` and another in `secondaryNavigation`.
+   */
   ariaLabel?: string;
   /** Vertical gap between sections; defaults to `'md'`. */
   gap?: string | number;
@@ -43,7 +47,12 @@ export interface SidebarNavItemProps extends Omit<NavLinkProps, 'label' | 'leftS
   vocabularyPacks?: GdsVocabularyPack[];
 }
 
-/** Full-height sidebar navigation landmark that stacks its sections inside a labeled `<nav>`. */
+/**
+ * Full-height sidebar navigation landmark that stacks its sections inside a labeled `<nav>`. This
+ * is the content shell navigation slots expect (`primaryNavigation` and `secondaryNavigation` on
+ * `DocsShell` and the `gds-admin` `AppShell`). Inside a shell sidebar it is a second, labelled
+ * `<nav>` within the shell's unlabelled navbar `<nav>`.
+ */
 export function SidebarNav({ children, ariaLabel: ariaLabelProp, gap = 'md' }: SidebarNavProps) {
   const { t } = useGdsTranslation();
   const ariaLabel = ariaLabelProp ?? t('gds.sidebarNav.ariaLabel', "Primary navigation");
@@ -108,5 +117,17 @@ const _SidebarNavItem = forwardRef<HTMLAnchorElement, SidebarNavItemProps>(
  * leading icon from a semantic `action` (via the vocabulary/translation) unless
  * overridden, mirrors the active state into `aria-current="page"`, and renders any
  * `badge` in the right section. Renders as an `<a>` by default.
+ *
+ * Pick the element by what the item does. A routed item passes `href` (or `component={Link}`
+ * with `href`). An item that switches in-memory view state passes `component="button"` and
+ * `onClick`, and renders `<button type="button">`. `active` sets `aria-current="page"` on both.
+ * An item with only `onClick` renders an `<a>` without `href`, which is not in the tab order and
+ * exposes no link or button role; `data-gds-nav-close` does not make it reachable.
+ *
+ * @example
+ * ```tsx
+ * <SidebarNavItem href="/records" label="Records" active={pathname === '/records'} />
+ * <SidebarNavItem component="button" label="Map" active={view === 'map'} onClick={() => setView('map')} />
+ * ```
  */
 export const SidebarNavItem = createPolymorphicComponent<'a', SidebarNavItemProps>(_SidebarNavItem);

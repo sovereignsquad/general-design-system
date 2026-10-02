@@ -10,7 +10,13 @@ export interface ArticleShellProps {
   lead?: ReactNode;
   /** Byline/metadata row shown below the lead. */
   meta?: ReactNode;
-  /** Optional right-hand rail, shown only from the `lg` breakpoint up. */
+  /**
+   * Optional right-hand rail, shown only from the `lg` breakpoint up. For secondary, on-page
+   * content: a table of contents for this article, related links, metadata. It renders after the
+   * article column in DOM order, in a plain stack with no landmark, and is hidden below `lg`, so
+   * its content must be non-essential or repeated inline. Section and site navigation goes in a
+   * shell navigation slot (`DocsShell` `primaryNavigation`), not here.
+   */
   sideRail?: ReactNode;
   children: ReactNode;
 }

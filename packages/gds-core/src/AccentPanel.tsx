@@ -1,20 +1,27 @@
 import type { ReactNode } from 'react';
 import { Badge, Box, Group, Paper, Stack, Text, Title } from '@mantine/core';
 
-/** Color family for an `AccentPanel`. */
+/**
+ * Color family for an `AccentPanel`. Decorative only: a tone carries no severity, and the panel
+ * exposes no role or severity text, so a `red` or `amber` panel signals severity by colour alone
+ * and none reaches assistive technology. Severity goes to `InlineAlert` or `BannerNotice`
+ * `severity`, with the severity also stated in the text.
+ */
 export type AccentTone = 'gray' | 'violet' | 'green' | 'red' | 'amber' | 'blue';
 /** Fill style for an `AccentPanel`: tinted `subtle` background, or `soft-outline` (body background with a toned border). */
 export type AccentPanelVariant = 'subtle' | 'soft-outline';
 
 /** Props for `AccentPanel`. */
 export interface AccentPanelProps {
-  /** Color family; defaults to `violet`. */
+  /** Decorative color family with no severity meaning; defaults to `violet`. */
   tone?: AccentTone;
   /** Fill style; defaults to `subtle`. */
   variant?: AccentPanelVariant;
+  /** Panel heading, rendered as an `h4`. */
   title?: ReactNode;
   /** Optional badge; a string renders as a filled badge in the panel tone, any other node is passed through. */
   badge?: ReactNode;
+  /** Panel body; a string is wrapped in `Text`. */
   children: ReactNode;
 }
 
@@ -70,7 +77,13 @@ export function resolveAccentPanelStyles(tone: AccentTone = 'violet', variant: A
   };
 }
 
-/** Rounded panel with a tone-driven accent surface, an optional title/badge header, and body content. */
+/**
+ * Rounded panel with a tone-driven accent surface, an optional title/badge header, and body content.
+ * Use it for emphasis that stays readable in both colour schemes. `tone` is decorative and conveys
+ * no severity: use `InlineAlert` or `BannerNotice` with `severity` for a warning, error or notice,
+ * and `tone="gray"` or `SectionPanel` for related-links and next-steps panels. Selection rules:
+ * COMPONENTS_AND_PATTERNS.md, "Component Selection Rules".
+ */
 export function AccentPanel({
   tone = 'violet',
   variant = 'subtle',

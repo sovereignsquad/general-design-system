@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-08
+Last updated: 2026-10-01
 
 GDS components speak in **semantic roles** — `var(--gds-bg-surface)`, `var(--gds-text-body)`, `var(--gds-border-card)` — not raw Mantine ramps. Historically those role variables were only *defined* by `createBrandTheme(...)`; the base `gdsTheme` left them undefined, so every component fell back to a per-call-site guess (`--gds-bg-surface` resolved to `#eee` in one place, `white` in another, `gray-1` in a third). That made the default theme's surfaces inconsistent and made a guaranteed contrast contract impossible (issue #451).
 
@@ -14,7 +14,7 @@ Defined once in `:root` (light / dark via CSS `light-dark()`), matching the cont
 
 | Role variable | Light | Dark | Purpose |
 |---|---|---|---|
-| `--gds-bg-canvas` / `--gds-bg-page` | `#f8fafc` | `#0f172a` | Page background |
+| `--gds-bg-canvas` / `--gds-bg-page` | `#f8fafc` | `#0f172a` | Page colour role, used for contrast checks; not painted (see below) |
 | `--gds-bg-surface` / `--gds-bg-card` | `#ffffff` | `#1e293b` | Card / raised surface |
 | `--gds-bg-inverse` | `#111827` | `#111827` | Inverse/emphasis surface (dark in both schemes) |
 | `--gds-border-card` | `#e2e8f0` | `#334155` | Subtle card border (decorative) |
@@ -22,9 +22,22 @@ Defined once in `:root` (light / dark via CSS `light-dark()`), matching the cont
 | `--gds-text-meta` / `--gds-text-secondary` | `#64748b` | `#cbd5e1` | Meta / secondary text |
 | `--gds-text-on-inverse` | `#f8fafc` | `#f8fafc` | Text on an inverse surface |
 
+No provider or shell paints these page roles onto the page: neither `GdsProvider` nor any shell reads `--gds-bg-canvas` or `--gds-bg-page` for the page background. Outside presets the page canvas is `--mantine-color-body`, painted by the `GdsProvider` wrapper and shared with `Paper`, `Card` and modal surfaces; presets paint `body` from `--gds-vibe-canvas`. Components and contrast checks read these roles as the page colour. Consumer rules for the page background are in [`SAFE_STYLING.md`, Global CSS in a GDS app](SAFE_STYLING.md#global-css-in-a-gds-app).
+
+The [Amanoba appendix in `THEME_GOVERNANCE.md`](../THEME_GOVERNANCE.md#appendix-amanoba-dark-shell--yellow-cta) is the worked example of a dark-only product measuring brand text against these values.
+
+### The default layer follows the CSS `color-scheme` property
+
+The values above are `light-dark()` declarations. `light-dark()` resolves against the CSS `color-scheme` of the element that reads the variable, and Mantine binds `color-scheme` on `:root` to `data-mantine-color-scheme`, which `GdsProvider` writes. A consumer `color-scheme` declaration therefore flips every `light-dark()` value inside its scope regardless of the provider's scheme, while Mantine's own `--mantine-color-*` variables keep following the attribute; the page renders half in each scheme. GDS declares no `color-scheme` of its own, and consumers declare none: use the [`THEME_GOVERNANCE.md`, Colour scheme](../THEME_GOVERNANCE.md#colour-scheme) recipes for the scheme a product needs.
+
+- Follow `color-scheme`: every `light-dark()` value in the `:root` layer of `packages/gds-theme/styles.css` (the roles in the table above with different light and dark values, and the default `--gds-vibe-danger`, `--gds-vibe-warning` and `--gds-vibe-success`), the governed `light` variant tint that `GdsProvider` applies to every theme, and lane styles written with `light-dark()` such as `gdsDarkPublicTheme`'s surfaces.
+- Do not follow it: brand values from `theme.other.gdsCssVariables` (resolved per scheme by `GdsProvider` in JS), preset values written by `useGdsThemePresetState`, and Mantine's scheme variables.
+
 ### Scope — structural roles only
 
 This layer defines the **structural contract roles** (backgrounds, text, border, on-inverse) — the ones the issue names (`bg`/`surface`/`on-*`/`border`) and the ones the readability contract depends on. It deliberately does **not** define the **decorative / state / accent** roles (`--gds-brand-accent`, `--gds-state-*`, `--gds-focus-ring`, `--gds-badge-*`, `--gds-price`, `--gds-support`, …) at the default layer, when **no preset is active**. Those stay **brand/preset-driven**, because their hue is a brand decision (an accent is intentionally violet under one theme, terracotta under another) rather than a fixed default.
+
+No default brand-accent text role exists. `--gds-brand-accent` is undefined at this layer, `createPublicBrandTheme` emits no `--gds-*` roles, and `createBrandTheme` emits `--gds-brand-accent` as its raw input in both schemes, so no GDS role gives a brand-coloured text value derived per scheme. Use [`checkGdsContrast`](CONTRAST_CHECKER.md#brand-text-on-role-surfaces) for the brand-coloured text, measured against these surfaces in each scheme the product renders.
 
 ### Every preset now defines the full role set (badge-system foundation, #485)
 
@@ -38,7 +51,7 @@ The `:root` values are the **base layer only**. At runtime, brand and vibe-prese
 
 - Base `gdsTheme` → the `:root` defaults above.
 - A vibe preset (Theme Lab) → its `--gds-vibe-*` repaint on top; the structural role defaults remain unless the preset overrides them.
-- `createBrandTheme(...)` / `class-usa` / `gold-athlete` → their full semantic map overrides every role.
+- `createBrandTheme(...)` / `class-usa` / `gold-athlete` → their full semantic map overrides every role. The map reaches the page through `theme.other.gdsCssVariables` ([`THEME_GOVERNANCE.md`](../THEME_GOVERNANCE.md#themeothergdscssvariables) documents its shape and write targets). Overriding a role does not validate it: [`THEME_GOVERNANCE.md`, `createBrandTheme` contrast scope](../THEME_GOVERNANCE.md#createbrandtheme-contrast-scope) lists which pairs the factory checks.
 
 There is **no regression to existing presets**: because presets override via inline styles, nothing a preset already renders changes.
 
@@ -74,3 +87,5 @@ Read the role variable with a Mantine fallback, so the value degrades gracefully
 ```
 
 Do **not** hard-code `#fff` / `gray-6` / etc. for these structural needs — reach for the role so the default layer, presets, and brand themes can all re-theme it. See [`SAFE_STYLING.md`](SAFE_STYLING.md) for the token-backed style contracts that wrap these roles.
+
+Read `--mantine-*` variables; never assign them in consumer CSS. Mantine declares its scheme variables under `:root[data-mantine-color-scheme='light']` and `:root[data-mantine-color-scheme='dark']`, specificity (0,2,0), so a weaker override loses silently, and a winning override of `--mantine-color-body` repaints the page wrapper, `Paper`, `Card` and modal surfaces together. Rules for consumer stylesheets: [`SAFE_STYLING.md`, Global CSS in a GDS app](SAFE_STYLING.md#global-css-in-a-gds-app).
