@@ -381,3 +381,7 @@ The shared package validation path is now expected to cover:
 - Translated labels, browser zoom, and resized windows are mandatory layout inputs. Shells and headers must avoid horizontal overflow, clipped action controls, and overlapping brand/action regions in every supported locale.
 - Accessibility is part of design acceptance, not a cleanup pass.
 - Internationalization resilience is mandatory for shared patterns.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
