@@ -4,6 +4,11 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, sidebar/pin elevation roles with validated tracking and italic typography inputs, a reserved Scout AI sub-brand accent lane, two new SemanticButton brand intents for it, and a ListingCard featured/selected ring with a pick badge, a row tile, and a browse-selection hook (#708, #699, #724, #698, #710, #713, #711, #709, #695, #697, #700, #701)
 
+
+### Dependency audit: `brace-expansion` override raised to 5.0.12 (#929)
+
+The root `overrides."brace-expansion"` pinned `5.0.9`, which is inside the range of the newly published advisory GHSA-q2hr-2g5m-vwhr (4.0.0 - 5.0.11, a CPU denial of service through quadratic-time expansion; two further recursion advisories share the range). `npm audit --omit=dev` therefore reported two high findings (`brace-expansion` and its dependant `minimatch`) and failed `GDS Quality` on every pull request. The override is now `5.0.12` and `package-lock.json` resolves it; `npm audit --omit=dev` reports 0 findings. No shipped package changed.
+
 ### `ListingCard` featured/selected ring, a pick badge, a media-left row tile, and `useGdsBrowseSelection` (#701)
 
 `ListingCard` gains a `selected` prop rendering the identical ring surface treatment as
