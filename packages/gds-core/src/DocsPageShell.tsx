@@ -16,7 +16,13 @@ export interface DocsPageShellProps {
   eyebrow?: string;
   /** Meta row (dates, tags, etc.) under the lead. */
   meta?: ReactNode;
-  /** Optional right-hand rail, shown from the `lg` breakpoint up. */
+  /**
+   * Optional right-hand rail, shown from the `lg` breakpoint up. For secondary, on-page content: a
+   * table of contents for this page, related links, version or edit metadata. It renders after the
+   * article in DOM order, in a plain stack with no landmark, and is hidden below `lg`, so its
+   * content must be non-essential or repeated inline. Section and site navigation goes in
+   * `DocsShell` `primaryNavigation` as a `SidebarNav`, not here.
+   */
   sideRail?: ReactNode;
   /** "Next" link rendered at the foot of the article. */
   footerNext?: { label: string; href: string };
@@ -26,7 +32,10 @@ export interface DocsPageShellProps {
 /**
  * Documentation page layout: a breadcrumb trail, title block (eyebrow/lead/meta),
  * the article body, an optional "next" footer link, and an optional right side rail
- * that appears only on wide viewports.
+ * that appears only on wide viewports. It renders the page body only; the site header and
+ * section navigation come from `DocsShell`, whose `primaryNavigation` takes a `SidebarNav`.
+ * `DocsPageShell` is also exported from `/server`; `DocsShell` is exported from the root and
+ * `/client` only.
  */
 export function DocsPageShell({
   breadcrumbs = [],

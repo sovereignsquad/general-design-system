@@ -4,17 +4,41 @@ import { Alert, Badge, Box, Card, Container, Divider, Group, Stack, Text, Title 
 
 /** Props for {@link AuthShell}. */
 export interface AuthShellProps {
+  /** Card heading, rendered as an `h2`. Name the flow here; the intent badge is not a sufficient cue on its own. */
   title: string;
+  /**
+   * Supporting copy under the title. Rendered inside a paragraph (`<p>`), so it accepts phrasing
+   * content only: text, inline elements, an `Anchor` with `href`, a `Button`. Never `Text` (it
+   * renders `<p>`), `Title`, `Stack`, `Group` or another block element.
+   */
   description?: ReactNode;
-  /** Auth flow the shell frames; drives the intent badge. Defaults to `'sign-in'`. */
+  /**
+   * Auth flow the shell frames; drives the intent badge. Defaults to `'sign-in'`.
+   *
+   * - sign-in: `'sign-in'`
+   * - account creation: `'sign-up'`
+   * - linking an identity provider to an existing account: `'account-linking'`
+   * - continuing without an account: `'guest-entry'`
+   *
+   * No intent exists for password recovery, sign-out, verification or access denied, and the badge
+   * always renders: it cannot be hidden, and an omitted `intent` shows the sign-in badge. For
+   * access denied and an expired session, render `AccessRecoveryPanel` (`forbidden`,
+   * `expired-session`) instead. The badge label is the intent id with its first hyphen replaced by
+   * a space, and is not translated.
+   */
   intent?: 'sign-in' | 'sign-up' | 'account-linking' | 'guest-entry';
   /** Brand mark shown in the header. */
   brand?: ReactNode;
   /** Header-level actions (e.g. a locale switcher). */
   headerActions?: ReactNode;
-  /** Footer copy shown below the card. */
+  /**
+   * Footer copy shown below the card. Rendered inside a paragraph (`<p>`); phrasing content only,
+   * as for `description`. A sign-in/sign-up switch here is a `Button variant="subtle"
+   * type="button"` or an `Anchor` with `href`, never an `Anchor` with only `onClick`, which is not
+   * keyboard-focusable.
+   */
   footer?: ReactNode;
-  /** Helper copy shown inside the card, below the form. */
+  /** Helper copy shown inside the card, below the form. Rendered inside a paragraph (`<p>`); phrasing content only, as for `description`. */
   helper?: ReactNode;
   /** Error banner shown above the form. */
   error?: ReactNode;
@@ -35,6 +59,63 @@ export interface AuthShellProps {
  * optional brand + header actions, a card holding an intent badge, title, error
  * banner, optional social-auth block with divider, the form (`children`), and
  * guest/support actions plus helper and footer copy.
+ *
+ * The shell renders no `<form>`. Put one in `children` so Enter in a field submits: wire it to
+ * `useGdsForm`, give each field an `id` equal to its form field name (the `FormErrorSummary`
+ * links target `#<field>`), and give the submit button `type="submit"`, because `SemanticButton`
+ * and Mantine `Button` default to `type="button"`. `useGdsForm` keeps the `validate` and
+ * `onSubmit` from the render in which its snapshot last changed, so key the form component by any
+ * value those callbacks read, such as the sign-in/sign-up mode. A flow with only provider buttons
+ * needs no `<form>`; pass them as `socialAuth`. A multi-step flow uses one `<form>` per step. Full
+ * example with field errors: COMPONENTS_AND_PATTERNS.md, "AuthShell form composition".
+ *
+ * @example
+ * ```tsx
+ * <AuthShell
+ *   intent={mode}
+ *   title={mode === 'sign-in' ? copy.signInTitle : copy.signUpTitle}
+ *   footer={(
+ *     <Button variant="subtle" type="button" onClick={toggleMode}>
+ *       {mode === 'sign-in' ? copy.toSignUp : copy.toSignIn}
+ *     </Button>
+ *   )}
+ * >
+ *   <CredentialsForm key={mode} mode={mode} onSubmit={submitCredentials} />
+ * </AuthShell>
+ *
+ * // Inside CredentialsForm:
+ * const form = useGdsForm({ initialValues: { identity: '', password: '' }, validate, onSubmit });
+ * const { submitState } = form.snapshot;
+ *
+ * <form noValidate onSubmit={(event) => { event.preventDefault(); void form.submit(); }}>
+ *   <GdsFormProvider snapshot={form.snapshot}>
+ *     <Stack gap="md">
+ *       <FormErrorSummary />
+ *       <TextInput
+ *         id="identity"
+ *         autoComplete="username"
+ *         label={copy.identity}
+ *         value={String(form.snapshot.fields.identity?.value ?? '')}
+ *         onChange={(event) => form.setFieldValue('identity', event.currentTarget.value)}
+ *         onBlur={() => form.touchField('identity')}
+ *       />
+ *       <PasswordInput
+ *         id="password"
+ *         autoComplete={mode === 'sign-in' ? 'current-password' : 'new-password'}
+ *         label={copy.password}
+ *         value={String(form.snapshot.fields.password?.value ?? '')}
+ *         onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
+ *         onBlur={() => form.touchField('password')}
+ *       />
+ *       <SemanticButton
+ *         type="submit"
+ *         action={mode === 'sign-in' ? 'login' : 'register'}
+ *         loading={submitState === 'validating' || submitState === 'submitting'}
+ *       />
+ *     </Stack>
+ *   </GdsFormProvider>
+ * </form>
+ * ```
  */
 export function AuthShell({
   title,

@@ -1,3 +1,15 @@
+/**
+ * Sanctioned Mantine passthroughs. Each name below, and its `*Props` type, is a GDS export,
+ * re-exported unchanged from `@mantine/core` by every `@sovereignsquad/gds-core` entry and the
+ * `@sovereignsquad/gds` umbrella. Consumers import these names from `@sovereignsquad/gds` or
+ * `@sovereignsquad/gds-core` (root or `/client`), never from `@mantine/core`. A passthrough has
+ * Mantine's behaviour only; prefer the GDS component that carries a contract for the same job,
+ * such as `SemanticButton`, `FormField`, `SearchableSelect` or `SidebarNavItem`.
+ *
+ * This file is the list. Removing a name is a breaking change that needs a
+ * DEPRECATIONS_AND_MIGRATIONS.md entry. Policy and replacements for Mantine names not listed
+ * here: DEPENDENCY_GOVERNANCE.md, "Mantine boundary".
+ */
 export {
   Accordion,
   ActionIcon,

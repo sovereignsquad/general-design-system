@@ -44,23 +44,45 @@ import {
 /**
  * Governed brand-theme entry point.
  *
- * Consumers pass five brand color ramps and two font families and receive a
- * fully tokened Mantine theme, a brand-named semantic CSS-variable map, and a
- * validated token graph. Components read the emitted `--gds-*` variables instead
- * of hardcoding hex, keeping brand application inside GDS token governance.
+ * The generic form takes five brand colours and two font families; the named forms
+ * (`'class-usa'`, `'gold-athlete'`) take optional ramp and font overrides. Each returns a Mantine
+ * theme, a brand-named semantic CSS-variable map, and a validated token graph. Components read
+ * the emitted `--gds-*` variables instead of hardcoding hex, keeping brand application inside GDS
+ * token governance.
+ *
+ * Contrast validation is partial. It covers the pairs in `assertContrast`, most of them in the
+ * light scheme only, plus one filled-button label check in each named form. It does not check
+ * the accent roles used as text or the focus ring against the page, and the generic form does not
+ * check its filled primary against the button label. Scope per form: THEME_GOVERNANCE.md,
+ * "`createBrandTheme` contrast scope"; measuring the unchecked pairs: docs/CONTRAST_CHECKER.md,
+ * "Checking a brand theme".
  */
 
-/** Five brand color ramps consumed by the legacy `createBrandTheme(options)` entry point. */
+/**
+ * The five role colours of the generic `createBrandTheme(options)` form, each a 3- or 6-digit hex.
+ * Field names are one brand's palette names; read each field by its role. Exact role mapping:
+ * `deriveBrandSemanticTokens`.
+ */
 export interface BrandColorRamps {
-  /** Primary brand color (e.g. navy). Drives `brand.primary` / `bg.inverse`. */
+  /**
+   * Primary brand colour and inverse surface (for example navy). Sets `bg.inverse`, and in the
+   * light scheme `brand.primary`, `text.body`, `text.primary` and `state.info`.
+   */
   navy: string;
-  /** Accent brand color (e.g. terracotta). Drives `brand.accent` / `price`. */
+  /**
+   * Scarce accent, also used for price and star (for example terracotta). Not a CTA fill. Sets
+   * `brand.accent` in both schemes, and in the light scheme `accent`, `price`, `star`,
+   * `badge.attention` and `focus.ring`. None of these is contrast-checked against the page.
+   */
   terracotta: string;
-  /** Positive/validation accent (e.g. sage). Drives `state.success`. */
+  /** Success and support colour (for example sage). Sets `state.success`, and in the light scheme `support` and `badge.validation`. */
   sage: string;
-  /** Page background (e.g. cream). Drives `bg.page`. */
+  /**
+   * Page background (for example cream). Sets `text.onInverse`, in the light scheme `bg.page`
+   * and `bg.canvas`, and in the dark scheme `brand.primary`, `text.body` and `text.primary`.
+   */
   cream: string;
-  /** Secondary text / inactive (e.g. slate). Drives `text.secondary`. */
+  /** Secondary text (for example slate). Sets `text.secondary` and `text.meta` in the light scheme. */
   slate: string;
 }
 
@@ -108,9 +130,9 @@ export interface CreateGoldAthleteBrandThemeOptions {
   designRuleProfile?: GdsDesignRuleProfile;
 }
 
-/** Options for the legacy `createBrandTheme(options)` entry point (five ramps plus two fonts). */
+/** Options for the legacy `createBrandTheme(options)` entry point (five role colours plus two fonts). */
 export interface CreateBrandThemeOptions {
-  /** Five brand color ramps (required). */
+  /** Five brand role colours (required); see `BrandColorRamps` for the role of each field. */
   brandColors: BrandColorRamps;
   /** Display and body fonts (required). */
   fonts: BrandFonts;
@@ -128,9 +150,25 @@ export interface CreateBrandThemeOptions {
 
 /** Result of `createBrandTheme(...)`: the Mantine theme plus its governed token outputs. */
 export interface BrandThemeResult {
-  /** Fully composed Mantine theme, ready to pass to `GdsProvider`. */
+  /**
+   * Mantine theme built with `createPublicBrandTheme`, for `GdsProvider` `theme`. It descends from
+   * `gdsTheme`, so it keeps the component class hooks and every default the brand does not
+   * override, and it carries `cssVariables` as `other.gdsCssVariables`.
+   *
+   * In the generic form some values do not follow the inputs. Steps 1-3, 6 and 9 of the `brand`
+   * ramp are literals, and with Mantine's default `primaryShade` the light-scheme filled primary is
+   * literal step 6, so the filled CTA colour is the same for every input set and its label is not
+   * contrast-checked. The heading stack is `fonts.display` followed by a Georgia serif fallback.
+   * The fixed role values are described on `deriveBrandSemanticTokens`. Source of the values:
+   * `createLegacyBrandTheme` in this file.
+   */
   mantineTheme: MantineTheme;
-  /** Brand-named semantic variables, light and dark, for injection at `:root`. */
+  /**
+   * Brand semantic `--gds-*` variables (the named forms also include axis tokens). A dark-scheme
+   * value uses the base name with a `-dark` suffix. The record is also carried as
+   * `mantineTheme.other.gdsCssVariables`, which `GdsProvider` applies when `mantineTheme` is its
+   * `theme`.
+   */
   cssVariables: Record<string, string>;
   /** Validated token graph (themeId `brand`) for snapshotting and diffing. */
   tokenGraph: GdsTokenGraph;
@@ -227,8 +265,10 @@ export function brandContrastRatio(foreground: string, background: string): numb
 
 /**
  * Deterministically derive the full brand semantic role set (light + dark) from
- * the five brand ramps. Dark values are anchored to navy so the palette holds
- * together in dark mode.
+ * the five generic-form role colours. Many values are literals that do not follow the
+ * inputs, including the light card and surface backgrounds, the card border, the pressed primary,
+ * the warning and danger states, the info and urgency badge backgrounds, the disabled-control
+ * pair, and most dark-scheme values, among them the dark page, canvas, card and surface.
  */
 export function deriveBrandSemanticTokens(colors: BrandColorRamps): Record<BrandSemanticRole, SemanticPair> {
   const { navy, terracotta, sage, cream, slate } = colors;
@@ -482,12 +522,23 @@ function collectAccentColorValues(tokens: Record<BrandSemanticRole, SemanticPair
  * CSS-variable map, and validated token graph. Throws `GdsBrandThemeError` when
  * input, WCAG contrast, or token-graph validation fails.
  *
+ * The contrast check is not a full WCAG AA guarantee. It covers the pairs in `assertContrast`,
+ * most of them in the light scheme only, plus one filled-button label check in each named
+ * overload. It does not check the accent roles used as text (accent, price, star) or the focus ring
+ * against the page, and the generic overload does not check its `mantineTheme` filled primary
+ * against the button label. Measure those pairs with `checkGdsContrast` (docs/CONTRAST_CHECKER.md,
+ * "Checking a brand theme"). Scope per overload: THEME_GOVERNANCE.md, "`createBrandTheme` contrast
+ * scope".
+ *
  * Overload: the built-in `'class-usa'` brand, optionally customized.
  */
 export function createBrandTheme(id: 'class-usa', options?: CreateClassUsaBrandThemeOptions): BrandThemeResult;
 /** Overload: the built-in `'gold-athlete'` brand, optionally customized. */
 export function createBrandTheme(id: 'gold-athlete', options?: CreateGoldAthleteBrandThemeOptions): BrandThemeResult;
-/** Overload: a custom brand derived from five color ramps and two fonts. */
+/**
+ * Overload: a custom brand derived from five role colours and two fonts. Its filled primary,
+ * heading fallback and several role values are fixed literals; see `BrandThemeResult.mantineTheme`.
+ */
 export function createBrandTheme(options: CreateBrandThemeOptions): BrandThemeResult;
 /** Implementation dispatching to the `createBrandTheme` overloads above. */
 export function createBrandTheme(

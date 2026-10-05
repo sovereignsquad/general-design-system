@@ -1,14 +1,19 @@
 "use client";
 
+// GdsProvider does not load the GDS stylesheet. Import
+// "@sovereignsquad/gds-theme/styles.css" once in the app entry:
+// next-app-layout.tsx.template (Next.js) or vite-main.tsx.template (Vite).
+import type { ReactNode } from "react";
 import { GdsProvider } from "@sovereignsquad/gds-theme/client";
 import { appTheme } from "./theme";
 
-export function AppProviders({
+export default function Providers({
   children,
-  mode
+  mode = "light"
 }: {
-  children: React.ReactNode;
-  mode: "light" | "dark";
+  children: ReactNode;
+  // Keep equal to ColorSchemeScript's defaultColorScheme in the root layout.
+  mode?: "light" | "dark";
 }) {
   return (
     <GdsProvider theme={appTheme} defaultColorScheme={mode}>
