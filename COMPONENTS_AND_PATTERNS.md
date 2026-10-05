@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-09-08
+Last updated: 2026-10-01
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.
 
@@ -32,8 +32,69 @@ The official website must also consume these contracts directly. `apps/playgroun
 - **DiscoveryShell**: Sidebar-first authenticated discovery, explore, catalog, and dashboard products must use `DiscoveryShell` as the canonical shell contract unless an approved exception is documented. It owns header, sidebar, main, mobile collapse, and sticky-nav rhythm.
 - **Responsive Localization Safety**: Shell headers, brand slots, navigation labels, selectors, and action groups must survive translated text, browser zoom, dynamic content, and mobile viewport changes without horizontal overflow, clipped controls, or overlapping regions. Long brand and route labels must truncate or wrap only in slots designed for wrapping; controls must keep accessible names and touch targets.
 - **DiscoveryShell State Governance**: Sidebar open/collapse behavior must use the shipped `useDiscoveryShellState` lane or the `DiscoveryShell` controlled props (`sidebarOpened`, `onSidebarOpenedChange`, `sidebarStorageKey`). Local ad-hoc state handling is not an approved replacement.
-- **Sidebar IA**: Sidebar information architecture must be composed through `SidebarNav`, `SidebarNavSection`, and `SidebarNavItem` so section labels, active states, icon spacing, and mobile collapse semantics stay aligned. Row height is not a component decision: `NavLink` resolves `min-height` from `--gds-control-height-md`, which the density axis clamps to the 44px touch-target floor under every density mode.
+- **Sidebar IA**: Sidebar information architecture must be composed through `SidebarNav`, `SidebarNavSection`, and `SidebarNavItem` so section labels, active states, icon spacing, and mobile collapse semantics stay aligned. Row height is not a component decision: `NavLink` resolves `min-height` from `--gds-control-height-md`, which the density axis clamps to the 44px touch-target floor under every density mode. Every item is a link with `href` or a `button`; see [Sidebar IA Composition](#sidebar-ia-composition) for the routed and state-driven item patterns, the shell navigation slots, `data-gds-nav-close`, and the side rail.
 - **Shell geometry is a `layout` axis, not a component default**: `DiscoveryShell`'s `sidebarWidth`/`headerHeight` props and its footer height, and `BottomTabBar`'s bar height, default to the `--gds-layout-*` tokens (`sidebar-width`, `header-height`, `footer-height`, `nav-item-height`, `content-max-width`, `list-rail-width`, `bottom-bar-height`, `content-bottom-padding`, `sheet-top-radius`) resolved from a theme's `axes.layout` declaration, not a hardcoded literal — a brand lane sets its shell geometry once, and every `DiscoveryShell`/`BottomTabBar` call site picks it up. An explicit prop still wins over the token default. Content stacked above a fixed `BottomTabBar` must read `--gds-layout-content-bottom-padding` (derived as bar height + `--gds-space-xl`, ~96px at defaults) for its bottom padding rather than inventing a literal, so nothing hides behind the bar.
+
+### Sidebar IA Composition
+
+`SidebarNavItem` is a polymorphic Mantine `NavLink` that renders an `<a>` by default. Choose its element by what the item does:
+
+- **Routed item** (changes the URL): pass `href`, or `component={Link}` plus `href` for a router link component.
+- **State-driven item** (switches an in-memory view without changing the URL): pass `component="button"` and `onClick`. It renders `<button type="button">`.
+- When the view state is also held in the URL (a hash or query parameter), use `href` with the URL that restores that state.
+- `active` sets `aria-current="page"` on both element types.
+- An `<a>` without `href` is never valid navigation. A `SidebarNavItem`, Mantine `NavLink` or `Anchor` given only `onClick` renders an `<a>` with no `href`: it is not in the tab order and exposes no link or button role.
+
+```tsx
+import { SidebarNav, SidebarNavItem, SidebarNavSection } from '@sovereignsquad/gds-core/client';
+
+// Routed
+<SidebarNav ariaLabel="Workspace">
+  <SidebarNavSection label="Records">
+    <SidebarNavItem href="/records" label="All records" active={pathname === '/records'} />
+    <SidebarNavItem href="/records/archived" label="Archived" active={pathname === '/records/archived'} />
+  </SidebarNavSection>
+</SidebarNav>
+
+// State-driven
+<SidebarNav ariaLabel="Views">
+  <SidebarNavSection>
+    {views.map((view) => (
+      <SidebarNavItem
+        key={view.id}
+        component="button"
+        label={view.label}
+        active={activeView === view.id}
+        onClick={() => setActiveView(view.id)}
+      />
+    ))}
+  </SidebarNavSection>
+</SidebarNav>
+```
+
+- **Parent items**: a `SidebarNavItem` with children toggles them on click and Space instead of navigating. Give a parent `component="button"`; its children follow the same `href`/`button` rule.
+- **Locked items**: `disabled` sets `data-disabled` only. The item is dimmed and ignores pointer input, but it stays focusable, Enter still activates it, and no `aria-disabled` is set. Keep a locked item focusable, explain the lock in `description`, and make its handler a no-op while locked.
+
+Shell navigation slots:
+
+- `primaryNavigation` and `secondaryNavigation` on `DocsShell` and on the `gds-admin` `AppShell` take a `SidebarNav` with sections and items. `navLinks` on `AppShell` is a legacy alias, used only when `primaryNavigation` is absent.
+- Landmarks: `DiscoveryShell` renders its `sidebar` inside Mantine `AppShell.Navbar`, a `<nav>` with no accessible name. A `SidebarNav` inside it is a second, labelled `<nav>`. Its default label comes from the `gds.sidebarNav.ariaLabel` phrase. Pass `ariaLabel` when that label does not describe the region, and give each `SidebarNav` on a page a distinct label: a `SidebarNav` in `primaryNavigation` and another in `secondaryNavigation` otherwise share the default name. In `AppShell`, `accountPanel` also renders inside the unnamed `<nav>`.
+- The `AppShell` sidebar headings ("Primary", "More", "Account") are fixed English strings in `packages/gds-admin/src/AppShell.tsx`. `DocsShell` reads its headings from the `gds.navigation.primary` and `gds.navigation.more` phrases.
+- `DocsShell` is exported from the package root and `/client` only. `DocsPageShell` and `ArticleShell` are also exported from `/server`.
+
+Close on select (`data-gds-nav-close`):
+
+- A click inside a shell's mobile navigation panel closes the panel when the click target, or an ancestor of it, matches `'a[href], button, [role="menuitem"], [data-gds-nav-close]'`. The selector is the module constant `navigationActivationSelector`, repeated in `DiscoveryShell.tsx`, `DocsShell.tsx` and `PublicShell.tsx`.
+- It applies to the `DiscoveryShell` sidebar drawer below its collapse breakpoint, when `closeMobileNavigationOnItemSelect` is `true` (the default); to the `DocsShell` `inline-collapse` panel; and to the `PublicShell` `inline-collapse` and `drawer` panels. The `gds-admin` `AppShell` does not forward `closeMobileNavigationOnItemSelect`, so its drawer always closes on select.
+- A routed item (`a[href]`) and a state-driven item (`button`) already match. `data-gds-nav-close` is for a custom element that is neither a link with `href`, a `button`, nor a `role="menuitem"` element and should still close the panel. It is never a fix for an `<a>` without `href`: that element stays unreachable by keyboard whether or not the panel closes.
+
+Side rail (`sideRail` on `DocsPageShell` and `ArticleShell`):
+
+- The rail holds secondary, on-page content: a table of contents for the current page, related links, version or edit metadata.
+- It renders after the main column in DOM order, in a plain stack with no landmark, and is hidden below the `lg` breakpoint (`visibleFrom="lg"`).
+- Content in the rail must be non-essential, or repeated inline where it is visible at every width.
+- Section and site navigation belongs in `DocsShell` `primaryNavigation` as a `SidebarNav`. It renders in the shell sidebar, which becomes the mobile drawer in the default `drawer` mode. With `mobileNavigationMode="inline-collapse"` and `mobileNavigation` set, the sidebar has no mobile toggle, so pass the section navigation as `mobileNavigation` too.
+- `PublicShell` `navItems` carries top-level destinations. A section tree still goes in `DocsShell` `primaryNavigation`.
 
 ## 2. Common Workflows & Patterns
 
@@ -59,13 +120,13 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Selects / Combobox** | Use `Select` for small sets, `Combobox` (searchable) for long lists. Canonical decision: do **not** wrap searchable selection yet; use governed Mantine composition for static and async search with shared labeling, empty, loading, and mobile ergonomics. Use `MultiSelect` only when truly needed. | `md` |
 | **Checkboxes/Radios** | Checkbox = independent opt-in. Radio = mutually exclusive. Switch = immediate on/off action. | `md` |
 | **Product Cards** | Fixed slots for media/icon, title, metadata, status/progress, primary action, and overflow actions. Use the shared `size`, `density`, and `variant` card contract instead of local width/padding/title CSS. One visible primary action on mobile. | `md` |
-| **Public Product Cards** | Media-first public cards must keep price, availability state, one clear mobile action, and localized helper/state messaging visible without consumer-local layout authority. Use the shared card contract for compact/dense/spacious presentation. | `md` |
-| **Accent Panels** | Accent and emphasis surfaces must remain readable in light, dark, and auto color schemes through the shared accent contract, not raw tone-0 backgrounds. | `md` |
-| **Metric Cards** | Prominent value, readable label, optional trend/status. Analytics may not outrank next action or urgent exceptions on mobile. | `md` |
+| **Public Product Cards** | Media-first public cards must keep price, availability state, one clear mobile action, and localized helper/state messaging visible without consumer-local layout authority. Use the shared card contract for compact/dense/spacious presentation. `PublicProductCard` is for retail items only; see [Component Selection Rules](#component-selection-rules). | `md` |
+| **Accent Panels** | Accent and emphasis surfaces must remain readable in light, dark, and auto color schemes through the shared accent contract, not raw tone-0 backgrounds. `AccentPanel` `tone` is a decorative color family with no severity meaning; severity goes to `InlineAlert` or `BannerNotice` (see [Component Selection Rules](#component-selection-rules)). | `md` |
+| **Metric Cards** | Prominent value, readable label, optional trend/status. Analytics may not outrank next action or urgent exceptions on mobile. A `MetricCard` value is one numeric KPI; see [Component Selection Rules](#component-selection-rules). | `md` |
 | **Data Toolbars** | Search, filters, sort, reset, and create actions in predictable order. Active filters visible and removable. | `md` |
 | **Listing State Contract** | Listing flows should use `ListingProvider` + `useListingState` with `SortMenu`, `ResultSummary`, `ActiveFilterChips`, and `BulkActionsBar` so search/sort/filter/page/selection stay in one governed runtime lane. | `md` |
 | **Browse Selection Contract** | Browse split views (a listing card list beside a map) should use `useGdsBrowseSelection` (issue 701) instead of a per-consumer selection sync: one hook instance's `selectedId`/`isSelected`/`select`/`toggle`/`clear` drive both a `ListingCard`'s `selected` ring and a `GdsMapPinBadge`'s `state="selected"` from the same id. Controlled (`selectedId`/`onChange`) or uncontrolled (`defaultSelectedId`); a separate, complementary mechanism from `ListingProvider`'s multi-row bulk-action `selection`. | `md` |
-| **Form Validation Contract** | Form-heavy flows should use `useGdsForm` plus `FormErrorSummary`/`ValidatedFieldMessage` so touched/dirty/async validation/submit states stay deterministic. | `md` |
+| **Form Validation Contract** | Form-heavy flows should use `useGdsForm` plus `FormErrorSummary`/`ValidatedFieldMessage` so touched/dirty/async validation/submit states stay deterministic. `useGdsForm` handles no DOM events: wrap the fields in a `<form>` whose `onSubmit` calls `submit()`, and give the submit button `type="submit"`. See [AuthShell form composition](#authshell-form-composition) for the wiring. | `md` |
 | **Rich Text Editor** | Content-editing surfaces (e.g. inside `ContentOpsEditor`) should use `GdsRichTextEditor` (Tiptap-backed) for the actual text-editing region — never a hand-rolled `contentEditable`. Import it from the dedicated `@sovereignsquad/gds-core/rich-text-editor` subpath, not the main package entry, so its larger Content-engine dependency stays opt-in for consumers who don't use it. | `md` |
 | **Reporting Contracts** | Reporting-heavy workflows must use governed period controls, evidence/source panels, chart-token wrappers, text summaries, and table fallbacks. | `lg` |
 | **State Blocks** | Loading, empty, error, permission, disabled, and success states must explain the state and provide the next action where possible. | `md` |
@@ -90,13 +151,13 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Reference Locale Notice** | Canonical disclosure surface for partial or in-progress localized reference-site coverage so language claims stay honest. | `md` |
 | **Reference Theme Explorer** | Canonical shipped-theme explorer with preset switching, color-scheme preview, bounded creator-authored controls, and live proof surfaces. | `xl` |
 | **Reference Site Shell** | Canonical public reference-site shell for the official website and future docs/reference properties using governed navigation, route context, and footer rhythm. | `xl` |
-| **Docs Shell** | Canonical docs/reference shell for public documentation surfaces with full-width content, governed sidebar/header contracts, bounded brand/action slots, and localization-safe header overflow behavior. Use `DocsHeaderActionSelect` for language or compact header selection controls. | `xl` |
+| **Docs Shell** | Canonical docs/reference shell for public documentation surfaces with full-width content, governed sidebar/header contracts, bounded brand/action slots, and localization-safe header overflow behavior. Use `DocsHeaderActionSelect` for language or compact header selection controls. `primaryNavigation` and `secondaryNavigation` take a `SidebarNav`; section and site navigation goes there, not in a page's side rail (see [Sidebar IA Composition](#sidebar-ia-composition)). | `xl` |
 | **Public Shells** | Public marketing/discovery/docs shells must define brand slot, navigation rhythm, readability width, CTA hierarchy, footer slot, and mobile nav behavior, including branded header variants and non-hook mobile nav patterns. | `md` |
 | **Public Nav** | Primary public navigation uses explicit nav items, an explicit active item, and semantic `aria-current` handling. | `md` |
 | **Auth Shells** | Auth entry surfaces must define intent, inline error/helper placement, guest/support lanes, provider-brand exception handling, safe action hierarchy, and canonical social-auth placement. | `md` |
 | **Social Auth Buttons** | Provider-button cluster for Google, Apple, GitHub, and similar identity lanes with governed wording, spacing, loading/error/tenant-disabled states, and provider-brand treatment. Use `ProviderIdentityButton` / `ProviderIdentityButtonGroup`; `SocialAuthButtons` is a compatibility façade. | `md` |
-| **Article Shells** | Docs/news/legal/editorial surfaces must define width, heading rhythm, metadata, side-rail behavior, and mobile collapse. | `md` |
-| **Docs Page Shell** | Docs shells may add breadcrumbs, next-step affordances, side rail slots, and shared code-block treatment without redefining article readability rules. | `md` |
+| **Article Shells** | Docs/news/legal/editorial surfaces must define width, heading rhythm, metadata, side-rail content, and mobile behavior. `sideRail` holds secondary, on-page content only: it renders after the main column, has no landmark, and is hidden below `lg` (see [Sidebar IA Composition](#sidebar-ia-composition)). | `md` |
+| **Docs Page Shell** | Docs shells may add breadcrumbs, next-step affordances, a side rail, and shared code-block treatment without redefining article readability rules. The `sideRail` rules in Article Shells apply; section navigation goes in `DocsShell` `primaryNavigation`. | `md` |
 | **Editorial Hero** | Public/editorial hero sections must use a shared split text/media contract with one clear primary CTA, deterministic mobile collapse, and background-safe media fade behavior. | `xl` |
 | **Feature Band** | Hero-adjacent trust/service/value strips must use a shared multi-column contract with honest loading and empty states. | `md` |
 | **Browse Surface** | Catalog/discovery surfaces must use one governed result header + toolbar + filter + scope rhythm instead of page-local list chrome. | `lg` |
@@ -105,7 +166,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Consumer Dashboard Grid** | Metric/progress/account-summary cards should use a shared responsive grid rhythm before introducing page-local dashboard layout CSS. | `lg` |
 | **Media Fields** | Media editing must unify upload, URL entry, preview, typed status, retry/replace/reset/remove actions, accepted-type/size guidance, and policy messaging in one shared contract. | `lg` |
 | **Content Operations Editor** | Admin content/settings editors must use a shared scaffold for multi-section editing, preview rails, and sticky or repeated save bars. | `xl` |
-| **Section Panels** | Operational dashboards, detail pages, and settings surfaces must reuse the shared section/panel framing contract instead of local `SectionCard` wrappers. Body layout now includes the same shared presentation contract (`inline`, `centered`, `fill`). | `lg` |
+| **Section Panels** | Operational dashboards, detail pages, and settings surfaces must reuse `SectionPanel`, the shared section/panel framing contract, instead of local `SectionCard` wrappers. Body layout now includes the same shared presentation contract (`inline`, `centered`, `fill`). `SectionPanel` is the default titled panel for forms, lists, settings, and status; see [Component Selection Rules](#component-selection-rules). | `lg` |
 | **Public Brand Footer** | Narrative/media/quote public footers must use a shared footer composition contract with documented layout variants and slot hooks instead of repo-local layout systems. | `lg` |
 | **Filter Drawer** | Mobile/operational filters must use the shared drawer/bottom-sheet contract with explicit apply/reset/close behavior. | `md` |
 | **Overlay Manager** | Dialog/drawer/popover stacks should use `OverlayManagerProvider` + `useOverlayManager` for top-most close policy and deterministic stack behavior. | `md` |
@@ -122,9 +183,9 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Semantic Icon Registry** | Consumer code must use `GdsIcon`, `GdsIconKey`, semantic actions, or package-owned `GdsIcons` compatibility exports instead of importing `@tabler/icons-react` directly. | `sm` |
 | **Activity Pictograms** | A domain-object visual identity (issue 708) must use `GdsPictogram` from the validated `gdsActivityPictograms` family (soccer, baseball, basketball, swimming, tennis, flag football, martial arts, camps, lacrosse, athletics, hockey) instead of a page-local SVG — never `GdsIcons`, a different, UI-chrome-only family. Every drawing is a single path on a 24×24 grid — the real, unmodified data of a published icon-library glyph (default `@tabler/icons-react`, falling back to the wider Iconify catalogue), never hand-drawn or redrawn; most render `stroke`, matching Tabler's line grammar, and a glyph that exists only as a filled icon renders `fill` instead (`GdsPictogramDefinition.fillMode`) rather than being forced into a stroke it was never drawn as. Treatment/scale never swap geometry, only size, stroke, and (for `hero`) a fixed scale/opacity layer recipe. Four contextual treatments each default to their own scale — `list`/`pin` → 16px, `detail` → 32px, `hero` → 72px (`GDS_PICTOGRAM_TREATMENT_SCALE`) — and four interaction states resolve through existing tokens only: `selected` reads the semantic `--gds-accent` role, `disabled` applies the shared reduced-opacity convention, `hover` changes no drawing color (that's the host surface's job). A consumer family enters through `createGdsPictogramFamily`, which validates kebab-case keys, non-empty labels, and rejects path data that is not well-formed SVG path syntax. An unresolvable key renders the family's `fallbackKey` or a layout-stable empty slot, never a throw. `gdsPictogramUsageRules` ships the source guidelines' constraints as data: one pictogram per card, never paired with a stock photo, no labels inside a pictogram pin, hero depth from scale/opacity only. See the Pictograms reference page for a live proof of every treatment/scale/state combination. | `sm` |
 | **Media Preview Cards** | Asset preview cards must use `MediaPreviewCard` for source/thumbnail URLs, alt/caption behavior, contain/cover modes, metadata, actions, and missing/error/loading states. | `md` |
-| **Public Capture Flow** | Public identity, consent, capture, accept, CTA, restart, and share flows should use `PublicCaptureFlow` and its stage helpers around bounded hardware slots. Hardware/device runtime remains consumer-owned under approved exceptions. | `xl` |
+| **Public Capture Flow** | Public identity, consent, capture, accept, CTA, restart, and share flows should use `PublicCaptureFlow` and its stage helpers around bounded hardware slots. Hardware/device runtime remains consumer-owned under approved exceptions. For the `consent` stage, pass `PublicConsentStep` as `body`: it renders `consentText` (inside a paragraph, so phrasing content only) above a consumer-supplied `control`, such as a labelled `Checkbox`. It is layout only. GDS ships no cookie-consent banner, no accept-state persistence and no CTA gating; those stay product-owned. | `xl` |
 | **Playback Controls** | Fullscreen, kiosk, slideshow, and timed playback surfaces should use `PlaybackControls`, `PlaybackOverlayControls`, and `usePlaybackKeyboardControls` around consumer-owned media engines. | `lg` |
-| **Creator Theme Boundary** | Creator-authored CSS must enter through `CreatorThemeBoundary`, `validateCreatorCss`, and `CreatorThemeDiagnostics` with scoped selectors, blocked unsafe properties, fallback behavior, and visibility/contrast diagnostics. | `lg` |
+| **Creator Theme Boundary** | Creator-authored CSS must enter through `CreatorThemeBoundary`, `validateCreatorCss`, and `CreatorThemeDiagnostics`. `CreatorThemeBoundary` wraps its children in a `data-gds-creator-theme` scope and validates the CSS against that scope prefix and the policy: oversized CSS, `javascript:`/`expression()`/`@import`, selectors outside the scope, blocked selector patterns, and blocked properties are errors; raw colors are warnings. It injects the CSS only when no error is found, renders `CreatorThemeDiagnostics` in its place otherwise, and always renders its children. The default policy is defined in `packages/gds-core/src/CreatorTheme.tsx`. The validator does not evaluate `requiredVisibleSelectors` and runs no contrast check, so the boundary does not keep consent, legal, or recovery controls visible; [`THEME_GOVERNANCE.md`](THEME_GOVERNANCE.md) (creator-authored experience theming) holds the full contract and its limits. | `lg` |
 | **Access Summaries** | Role, scope, owner, blocked/forbidden/expired/permission-limited, and recovery cues must be explicit and may not rely on color only. | `md` |
 | **Access Recovery Panels** | Protected-content, expired-session, timeout, unavailable, forbidden, and not-found failures must use one canonical recovery surface with clear state meaning and one obvious mobile recovery action. | `md` |
 | **Placeholder Panels** | Placeholder and coming-soon surfaces must be honest, visibly non-live, and must not imply fabricated data. | `md` |
@@ -144,7 +205,7 @@ The official website must also consume these contracts directly. `apps/playgroun
 | **Logo Lockup** | `GdsLogoLockup` (issue 713) is the real-asset counterpart to the generated-imagery system: GDS's identity art (`GdsGeneratedMark`/`GdsGeneratedAvatar`/`GdsGeneratedThumbnail`/`GdsGeneratedHero`) is generated-only, so a consumer bringing an actual logo file had no governed component. Composes a consumer-supplied mark (`src` + required `alt`, or an arbitrary `mark` node — the two are mutually exclusive, and `src` without `alt` throws in development, mirroring `GdsSavedIndicator`'s required-label stance) plus an optional `wordmark` and `badge` pill (the badge renders only when `wordmark` renders — `badge` alone is suppressed). `onInverse` swaps wordmark/pill colors for a dark ground (`--gds-text-on-inverse`; the pill's inverse background derives from that same token via `color-mix()`, never a raw `rgba()`). `framed` renders the brand-guidelines-mandated light contrasting badge — `--gds-bg-card` + `--gds-border-card` + `gdsRadius('card')` + `gdsElevation('card')` — and is the **mandatory** presentation whenever the mark sits on a non-light ground; `onInverse` alone is legible but off-guideline without it. A broken/slow `src` keeps the lockup's layout (the `img` element's native behavior) and exposes `alt` — the wordmark never depends on the mark having loaded. Server-safe (no hooks); slots into `PublicShell`'s `brand` prop or `DiscoveryShell`'s `header` with no shell changes. | `sm` |
 | **Notification Bell** | `GdsNotificationBell` (issue 713) is the header/topbar trigger affordance the Notifications family (`GdsNotificationProvider`/`NotificationCenter`/`InlineAlert`/`BannerNotice`) had no governed entry point for — the bell is the trigger only, never a dropdown panel of its own. A circular button at `--gds-control-height-md` (the `GDS_MIN_TARGET_PX` 44px floor) with `GdsIcon icon="Notifications"`, plus an optional unread dot rendered as a `GdsBadgeShapeCircle` (a filled `currentColor` SVG, which survives forced-colors mode — a `background-color`-painted span would not) colored `var(--gds-badge-attention)`, with a decorative `var(--gds-bg-card)` separation ring. State is carried by the accessible-name swap ("Notifications" ↔ "Notifications (unread)"), never by the dot alone — the dot is `aria-hidden`. Compose it with `useGdsNotifications()`: `<GdsNotificationBell unread={notifications.length > 0} onClick={openPanel} />`. Server-safe (no hooks beyond `useGdsTranslation`, which does not force a client boundary in this codebase — see `Notifications.tsx`/`ActionBar.tsx` for the same pattern). | `sm` |
 | **Compare Button** | `GdsCompareButton` (issue 713) is a fully controlled `aria-pressed` toggle for compare-before-decide flows — off/added states with an icon+label swap (`Compare`/`Added to compare` by default, the `Compare` icon key mapping to `IconArrowsLeftRight`; off binds `--gds-border-card`/`--gds-bg-card`/`--gds-text-primary`, added binds `--gds-brand-primary` border+text on `--gds-bg-canvas`). Distinct semantics from `GdsSavedIndicator` — see the Badges entry below for the boundary. Deliberately holds **no internal state mirroring `added`**: a known upstream bundle rendered this exact control by mirroring its `added` prop into `useState`, so an externally driven state change was silently ignored; `GdsCompareButton` re-derives its render from the `added` prop on every call, so a controlled parent's state change always re-renders correctly. `onAddedChange` is called with the next value on activation — the caller does not need to invert it. | `sm` |
-| **Detail Facts Table** | `DetailFactsTable` (issue 711) renders a listing detail page's key-facts block with real `<dl>`/`<dt>`/`<dd>` semantics — never `div`s styled to look like a table — for the fixed nine-fact default schema (`GDS_DETAIL_FACT_IDS`: `ageRange`, `activityType`, `format`, `location`, `setting`, `price`, `booking`, `source`, `lastChecked`). **All nine rows always render.** A row's value comes from the `values` map keyed by fact id; when a value is `undefined`, `null`, or an empty/whitespace-only string, the row renders the localized `gds.detailFacts.unknown` phrase instead — never a blank cell, and the row is never omitted. A `facts` prop replaces the schema entirely with a consumer-defined list (same unknown-phrase substitution, no dedup, an empty array renders the bordered card with zero rows); it is documented as almost never what a consumer wants versus the default schema, since replacing the schema forfeits the source/last-checked guarantee. The label column is a fixed `GDS_DETAIL_FACTS_LABEL_COLUMN_PX` (130px) exported constant, never a literal restated in prose (Rule 14). Card surface, border, and radius bind to `--gds-bg-card`/`--gds-border-card`/`--gds-radius-card`/`--gds-elevation-card`; a known value renders in `--gds-text-primary` at weight 500, an unknown value in `--gds-text-secondary`. Server-safe (no client-only behavior); composes as a `DetailProfileShell` section. | `md` |
+| **Detail Facts Table** | `DetailFactsTable` (issue 711) renders a listing detail page's key-facts block with real `<dl>`/`<dt>`/`<dd>` semantics — never `div`s styled to look like a table — for the fixed nine-fact default schema (`GDS_DETAIL_FACT_IDS`: `ageRange`, `activityType`, `format`, `location`, `setting`, `price`, `booking`, `source`, `lastChecked`). **All nine rows always render.** A row's value comes from the `values` map keyed by fact id; when a value is `undefined`, `null`, or an empty/whitespace-only string, the row renders the localized `gds.detailFacts.unknown` phrase instead — never a blank cell, and the row is never omitted. A `facts` prop replaces the schema entirely with a consumer-defined list (same unknown-phrase substitution, no dedup, an empty array renders the bordered card with zero rows). On a listing detail page, keep the default schema: replacing it forfeits the source/last-checked guarantee. Outside listing detail pages, a custom `facts` schema is the governed label/value list for non-metric text such as identifiers, addresses, and selections (see [Component Selection Rules](#component-selection-rules)); the unknown phrase is worded for listings, so omit a row that has no value rather than passing a blank one. The label column is a fixed `GDS_DETAIL_FACTS_LABEL_COLUMN_PX` (130px) exported constant, never a literal restated in prose (Rule 14). Card surface, border, and radius bind to `--gds-bg-card`/`--gds-border-card`/`--gds-radius-card`/`--gds-elevation-card`; a known value renders in `--gds-text-primary` at weight 500, an unknown value in `--gds-text-secondary`. Server-safe (no client-only behavior); composes as a `DetailProfileShell` section. | `md` |
 | **Provider CTA** | `ProviderCTA` (issue 711) is the calm, factual "are you the provider?" claim-prompt panel for listing detail pages: a headline, body copy, and a primary + optional ghost action pair, each defaulting to localized copy (`gds.providerCta.headline`/`.body`/`.action`) overridable per instance. Both actions render through the governed button lane — `SemanticButton` inside `CtaButtonGroup` — rather than a reimplemented button, with the ghost action using Mantine's own `variant="subtle"` lane on that same governed button (never a bespoke ghost style). The ghost button renders only when `secondaryLabel` is supplied; `onAction`/`onSecondary` are plain `() => void` callbacks the component only forwards — it fires no navigation, fetch, or mutation of its own, and ships no claim workflow (that lane is entirely consumer-owned). The soft-tinted surface binds to the existing `--gds-bg-info-tag`/`--gds-bg-info-tag-fg` contrast-verified pair (no new token role), with `--gds-border-card`/`--gds-radius-card` for the frame. Ships client-side (`'use client'`) because `SemanticButton` needs interactivity; composes as a `DetailProfileShell` section beside `DetailFactsTable`. | `sm` |
 | **Trust Layer** | Six components (issue 709) state listing data uncertainty instead of hiding it, ported from the Your Field product's reference handoff into governed, token-driven, localized exports. `TrustBadge` renders a **closed eight-label vocabulary** — `official_source`, `public_source`, `provider_claimed`, `recently_checked`, `price_estimate`, `schedule_estimate`, `age_not_confirmed`, `reported_outdated` — through the exported `TRUST_BADGE_DEFINITIONS` tone/icon/message-id mapping (Rule 14: this table is the source, never retyped); an unrecognized runtime value falls back to `public_source`. `PriceEstimateLabel` states price certainty — free / unknown / provider-confirmed / estimated — formatted through `formatGdsCurrency` (no hardcoded `$`); an explicit `0` always renders "Free" even when `status` is `'unknown'` (branch order is contract). `LastCheckedLabel` states when data was last checked, or a stale caution the consumer sets explicitly — GDS never computes a freshness window. `ReportOutdatedLink` is a real `<button>` with a one-way idle-to-sent transition, announced through an always-present polite live region, firing the consumer-owned `onReport` exactly once even under two activations in the same tick. `SourceBlock` is a detail-page information-source card whose four rows are **never omitted** — an absent value states `gds.trust.source.unknownValue` rather than dropping the row — plus a standing confirm-with-provider line and the embedded `ReportOutdatedLink` when `onReport` is set; its source-type link uses `GdsInlineLink`, which already applies the safe external `rel`. `ConfirmChecklist` is an amber check-before-booking card painted from the derived warning-tint pair (`--gds-badge-soft-warning` background, `--gds-state-warning` border, `--gds-badge-soft-warning-fg` text) with six default items; checking one applies a line-through and reduced emphasis while remaining a real, labelled, checked checkbox, and an explicit empty `items` array renders nothing. No rendered default string in the family contains "verified", "safe", "guaranteed", "best", or "perfect" (test-enforced). Every interactive target meets the `GDS_MIN_TARGET_PX` 44px floor. Stateless (`TrustBadge`/`PriceEstimateLabel`/`LastCheckedLabel`) and stateful (`ReportOutdatedLink`/`SourceBlock`/`ConfirmChecklist`) halves split across `TrustLayer.tsx`/`TrustLayer.client.tsx`. Seven new `GdsIcons` registry entries (`Confirmed`, `Freshness`, `Stale`, `Price`, `Schedule`, `Checklist`, `SourceInfo`) back the family; the `gds.trust.*` copy contract ships across all 12 locale packs. | `lg` |
 
@@ -181,7 +242,7 @@ The following families are mandatory local contracts when a project has the corr
 | **Public Food Card** | Product lists dishes, prepared meals, bakery drops, bundles, or seasonal food sets | food-oriented price hierarchy, freshness/pickup/scarcity helper text, menu-specific states |
 | **Food Menu Section** | Product presents grouped weekly menus, category menus, or preorder collections | grouped headings, section notes, category helper notes, governed item grids, empty menu handling |
 | **Public Product Card** | Product has media-first menu, catalog, offer, or discovery cards | image treatment, price/helper hierarchy, availability states, localized helper labels, one mobile primary action, missing-image/loading behavior |
-| **Metric / Progress Card** | Product shows repeated stats or progress | value hierarchy, label rules, trend/status rules, mobile priority |
+| **Metric / Progress Card** | Product shows repeated stats or progress | value hierarchy, label rules, trend/status rules, mobile priority; numeric KPIs only in `MetricCard`, static measurements in `GdsMeter`, in-flight operations in `ProgressCard` ([Component Selection Rules](#component-selection-rules)) |
 | **Reporting Section** | Product has analytics, evidence, dashboard, KPI, or period-scoped reporting surfaces | period/scope control, metrics, evidence, chart summary, table fallback, partial/stale/permission-limited states |
 | **Period Selector** | Product lets users change reporting period, scope, or freshness windows | timezone disclosure, selected period description, filtered/stale state, disabled/error handling |
 | **Evidence Panel** | Product shows proof behind metrics, claims, reports, or moderation/audit decisions | source, freshness, confidence, evidence count, permission disclosure, retry action |
@@ -190,12 +251,12 @@ The following families are mandatory local contracts when a project has the corr
 | **ActionBar** | Product has repeated action rows, save bars, CTA clusters, or semantic button stacks | primary/secondary/tertiary priority, icon-only lane, mobile wrapping, loading/disabled states |
 | **Auth Shell** | Product has login, signup, account linking, consent, or guest entry | auth intent, inline errors, provider branding, anonymous/guest behavior, support fallback |
 | **Social Auth Buttons** | Product has provider-based login, signup, SSO, or account-linking entry | provider ordering, brand treatment, divider usage, loading/error/tenant-disabled states. Prefer `ProviderIdentityButton` / `ProviderIdentityButtonGroup`; `SocialAuthButtons` is compatibility-only. |
-| **Article / Docs Shell** | Product has release notes, docs, news, or blog content | article width, side rail behavior, metadata, typography, mobile collapse |
+| **Article / Docs Shell** | Product has release notes, docs, news, or blog content | article width, side rail content (secondary and on-page only; hidden below `lg`), section navigation in `DocsShell` `primaryNavigation`, metadata, typography, mobile behavior |
 | **State Block** | Always | loading, empty, error, permission, disabled, success, not-enough-data states |
 | **Surface Presentation Contract** | Shared surfaces that need bounded framing | `inline`, `centered`, and `fill` body behavior for state and panel surfaces |
-| **Section Panel** | Operational dashboards and detail surfaces | Shared framed section surfaces with bounded panel body presentation |
+| **Section Panel** | Operational dashboards and detail surfaces | Shared framed section surfaces (`SectionPanel`) with bounded panel body presentation |
 | **Public Shell** | Product has public marketing, docs, listing, profile, or auth-adjacent surfaces | brand slot, nav model, readability width, CTA hierarchy, footer, mobile nav, branded header density |
-| **Accent Surface** | Product needs a repeated highlighted guidance, support, rollout, or emphasis panel | readable light/dark tones, border/background/foreground semantics, nested focus visibility |
+| **Accent Surface** | Product needs a repeated highlighted guidance, support, rollout, or emphasis panel | readable light/dark tones, color-mode-safe border/background/foreground (tone is decorative and carries no severity), nested focus visibility |
 | **Editorial Hero** | Product has split text/media public landing sections | CTA hierarchy, media fade, mobile collapse, loading/error behavior |
 | **Feature Band** | Product has repeated public trust/service/location bands | icon/media slot, title rhythm, loading/empty behavior, mobile stacking |
 | **Browse Surface** | Product has searchable discovery, marketplace, catalog, or finder pages | result summary, filters, scope control, mobile filter entry, empty/error/loading states |
@@ -219,6 +280,20 @@ The following families are mandatory local contracts when a project has the corr
 | **Brand Badge / Favicon** | Product ships a browser favicon or web-app-manifest icons | generated-default vs. real-asset decision, `maskable` variant usage where installable, the replacement path when real brand artwork exists (see `docs/GENERATED_IMAGERY.md`) |
 
 Mantine UI examples may be used to inform these contracts only after the project confirms the GDS behavior, responsive rules, and token boundaries remain unchanged.
+
+### Component Selection Rules
+
+One row per export, keyed by export name.
+
+| Export | Use when | Do not use when | Use instead |
+|---|---|---|---|
+| `SectionPanel` | A titled panel groups related content on a dashboard, detail page, or settings surface: a form, a list, a settings group, a status summary. | The panel shows report data with reporting states. `tone="warning"` or `tone="critical"` is the only severity signal: tone sets the background only and the panel has no `role`, so the title must state the severity. | `ReportingSection` for reports. `GdsSettingsTemplate` for a settings page; it renders each group as a `SectionPanel`. `SectionPanel` has no `state` prop: put `StateBlock` or `AsyncSurface` inside it for loading, empty, and error states. `InlineAlert` or `BannerNotice` for a severity message. |
+| `ReportingSection` | The surface shows report data through at least one of `periodControl`, `metrics`, `chart`, `table`, or `evidence`, and the reporting states (`below-threshold`, `partial`, `stale`, `filtered`, `permission-limited`) apply. | Use `SectionPanel`, not `ReportingSection`, when there are no period controls, metrics, charting, table fallback or evidence. The state titles are fixed report wording in `ReportingSection.tsx`; `stateMessage` replaces only the description. | `SectionPanel` with `StateBlock` or `AsyncSurface` for forms, lists, settings, and status panels. `GdsSettingsTemplate` for settings pages. |
+| `AccentPanel` | A highlighted guidance, support, rollout, or related-links panel whose color is decorative. | The color is meant to signal severity ("Important", "Warning", "Security warning"). `tone` is a color family with no severity meaning, and the panel sets no `role`, so a severity carried by tone reaches no assistive technology. | `InlineAlert` with `severity` (`role="alert"` for `error`, `role="status"` otherwise), or `BannerNotice` with `severity`, with the severity word in the title. Reserve `severity="error"` for real errors. The `BannerNotice` `panel` badge label comes from `severityToStateVariant` in `Notifications.tsx` and is not the severity word for every severity. Related-links and next-steps panels: `AccentPanel tone="gray"` or `SectionPanel`. |
+| `PublicProductCard` | A retail item with a real availability state, a price, and pickup or inventory detail. | The object is not sold with an availability state: a course, enrolment, membership, or other progress-bearing object. The card always renders an availability badge (`state` defaults to `'available'` and no state omits the badge) and labels its `pickupNote` and `inventoryNote` rows with fixed retail labels. | `ListingCard`. `ListingCard` has no progress slot; a progress value goes in a `metadata` row. |
+| `MetricCard` | One numeric KPI (a count, amount, ratio, or duration, with an optional unit) and its trend. | The value is an identifier, an address, a selection, a categorical or ordinal label ("Level 3"), or a placeholder such as `-`. `value` accepts any node but renders as the card heading. | `DetailFactsTable` with a `facts` schema for label/value text. `GdsBadge` for a categorical label. When there is no value, omit the card; `MetricCard` has no empty or loading state. |
+| `ProgressCard` | An operation in flight whose completion changes while the user watches: an upload, an import, a step-through flow. | The value is a static measurement within a known range: a score, XP, a stored completion percentage, a survey share, quota usage. `ProgressCard` renders Mantine `Progress` (`role="progressbar"`). | `GdsMeter`. |
+| `GdsMeter` | A static measurement within a known range: a score, XP, a stored completion percentage, a survey share, quota usage. It renders `role="meter"`. It first shipped in gds-core 6.2.0 (`CHANGELOG.md`). | An operation is in flight. | `ProgressCard`, or `Progress` without the card. |
 
 ### Typography Runtime Rules
 
@@ -328,7 +403,7 @@ The type parameters are inferred from `columns` + `renderItem`, so the explicit 
 
 ### Reporting, Evidence, and Chart Rules
 
-Reporting surfaces must not present charts or KPIs without proof context. Use `ReportingSection` as the top-level composition when a page combines period controls, metrics, charting, evidence, and fallback data. Use `PeriodSelector` for period/scope changes, `EvidencePanel` for source/freshness/confidence disclosure, and `ChartTokenPanel` for chart containment.
+Reporting surfaces must not present charts or KPIs without proof context. Use `ReportingSection` as the top-level composition when a page combines period controls, metrics, charting, evidence, and fallback data; a panel without any of these is a `SectionPanel` (see [Component Selection Rules](#component-selection-rules)). Use `PeriodSelector` for period/scope changes, `EvidencePanel` for source/freshness/confidence disclosure, and `ChartTokenPanel` for chart containment.
 
 Required reporting states:
 
@@ -373,7 +448,7 @@ Auth and protected-content surfaces must use `AuthShell`, `ProviderIdentityButto
 
 Auth shell states and lanes:
 
-- `sign-in`, `sign-up`, `account-linking`, and `guest-entry` intent must be visible through the shell contract
+- `sign-in`, `sign-up`, `account-linking`, and `guest-entry` intent must be visible through the shell contract; choose `intent` by flow from [AuthShell intent by flow](#authshell-intent-by-flow)
 - provider errors must be inline and announced through accessible alert semantics
 - guest and support fallback actions must be explicit slots, not hidden links in product copy
 - GDS owns provider button presentation, label rhythm, disabled/loading/error/tenant-policy states, touch target, and focus visibility
@@ -399,6 +474,147 @@ Access and recovery states:
 | `missing` | Not-found meaning separated from permission failure |
 | `unavailable` | Retry/back/support hierarchy visible |
 | `permission-limited` | Access summaries disclose limited scope and owner/recovery path |
+
+#### AuthShell intent by flow
+
+`intent` defaults to `'sign-in'` and selects the badge above the title. The badge always renders and no prop hides it. Its color follows `intent`, and its text is the `intent` value with the first hyphen replaced by a space; the text is not translated. The `title` must name the flow, so the badge is never the only cue for which flow is shown.
+
+| Flow | `intent` |
+|---|---|
+| Sign in to an existing account | `sign-in` (default) |
+| Create an account | `sign-up` |
+| Link another identity provider to an existing account | `account-linking` |
+| Continue without an account | `guest-entry` |
+| Password recovery or reset | None. GDS has no intent for this flow and no way to hide the badge, so every `AuthShell` rendering of it shows another flow's badge. |
+| Sign-out in progress | None. GDS has no intent for this flow and no way to hide the badge, so every `AuthShell` rendering of it shows another flow's badge. |
+| Email or identity verification | None. GDS has no intent for this flow and no way to hide the badge, so every `AuthShell` rendering of it shows another flow's badge. |
+| Access denied | Not an `AuthShell` flow: use `AccessRecoveryPanel` with `state="forbidden"`. |
+| Expired session | Not an `AuthShell` flow: use `AccessRecoveryPanel` with `state="expired-session"`. |
+
+#### AuthShell slot content model
+
+- `description`, `helper`, and `footer` are each rendered inside a Mantine `Text`, which is a `<p>`. They accept phrasing content only: text, inline formatting, an `Anchor` with `href`, a `Button`. They must not receive `Title`, `Stack`, `Group`, a default `Text` (itself a `<p>`), or any other `<p>` or `<div>`.
+- `title` is a string rendered as the card heading (`<h2>`).
+- `children`, `error`, `socialAuth`, `guestAction`, `supportAction`, `brand`, and `headerActions` render inside block containers and accept any content.
+- `AuthShell` renders no `<form>`. The form belongs in `children`.
+
+#### AuthShell form composition
+
+- Nest `AuthShell` > `<form noValidate onSubmit>` > `GdsFormProvider` > `FormErrorSummary`, the fields, and a `SemanticButton type="submit"` with `action="login"` or `action="register"`.
+- `useGdsForm` handles no DOM events. The form's `onSubmit` calls `event.preventDefault()` and then the controller's `submit()`.
+- `SemanticButton` and Mantine `Button` default to `type="button"`. Such a button inside a `<form>` submits it only with `type="submit"`, and Enter in a text field submits through that button.
+- Each field's `id` equals its `useGdsForm` field name, because `FormErrorSummary` links each blocking issue to `#<field>`. Given `id` and `error`, Mantine `TextInput` sets `aria-invalid` and points `aria-describedby` at `<id>-error`. Mantine `PasswordInput` sets `aria-describedby` but not `aria-invalid`, so the example passes `aria-invalid` itself.
+- `autoComplete` values (`username`, `current-password`, `new-password`) let browsers and password managers fill and save credentials from a real `<form>`.
+- Set `loading` on the submit button while `submitState` is `validating` or `submitting`. A loading Mantine `Button` is disabled, and Enter does not submit a form whose submit button is disabled, so Enter starts no second submit while the button shows its loading state.
+- The sign-in/sign-up switch is a `Button` with `type="button"` in `footer`, which is phrasing content inside the footer paragraph. Never use an `Anchor` without `href` for it. Keep the default button size (no `xs` or `compact-*` size), per the target-size floor in [`docs/ACCESSIBILITY_FLOOR.md`](docs/ACCESSIBILITY_FLOOR.md).
+- The form is keyed by `mode`. `useGdsForm` keeps the `validate` and `onSubmit` callbacks from the render in which the form snapshot last changed, so a value those callbacks read must remount the form when it changes. `useGdsFormOrchestration` reads the current callbacks.
+
+```tsx
+'use client';
+
+import { useState } from 'react';
+import {
+  AuthShell,
+  Button,
+  FormErrorSummary,
+  GdsFormProvider,
+  PasswordInput,
+  SemanticButton,
+  Stack,
+  TextInput,
+  useGdsForm,
+  type ValidationIssue,
+} from '@sovereignsquad/gds-core/client';
+
+type AuthMode = 'sign-in' | 'sign-up';
+type Credentials = { identity: string; password: string };
+
+export function AuthEntry({ onSubmit }: { onSubmit: (mode: AuthMode, values: Credentials) => Promise<void> }) {
+  const [mode, setMode] = useState<AuthMode>('sign-in');
+  const signingIn = mode === 'sign-in';
+
+  return (
+    <AuthShell
+      intent={mode}
+      title={signingIn ? 'Sign in' : 'Create your account'}
+      footer={(
+        <>
+          {signingIn ? 'New here? ' : 'Already have an account? '}
+          <Button variant="subtle" type="button" onClick={() => setMode(signingIn ? 'sign-up' : 'sign-in')}>
+            {signingIn ? 'Create an account' : 'Sign in'}
+          </Button>
+        </>
+      )}
+    >
+      <CredentialsForm key={mode} mode={mode} onSubmit={(values) => onSubmit(mode, values)} />
+    </AuthShell>
+  );
+}
+
+function CredentialsForm({ mode, onSubmit }: { mode: AuthMode; onSubmit: (values: Credentials) => Promise<void> }) {
+  const form = useGdsForm<Credentials>({
+    initialValues: { identity: '', password: '' },
+    validate: (snapshot) => {
+      const issues: ValidationIssue[] = [];
+      if (!String(snapshot.fields.identity?.value ?? '').trim()) {
+        issues.push({ field: 'identity', message: 'Enter your email or username.', severity: 'blocking' });
+      }
+      if (!String(snapshot.fields.password?.value ?? '')) {
+        issues.push({ field: 'password', message: 'Enter your password.', severity: 'blocking' });
+      }
+      return issues;
+    },
+    onSubmit,
+  });
+  const { snapshot } = form;
+  const busy = snapshot.submitState === 'validating' || snapshot.submitState === 'submitting';
+  const errorFor = (field: keyof Credentials) =>
+    snapshot.issues.find((issue) => issue.field === field && issue.severity === 'blocking')?.message;
+
+  return (
+    <form
+      noValidate
+      onSubmit={(event) => {
+        event.preventDefault();
+        void form.submit();
+      }}
+    >
+      <GdsFormProvider snapshot={snapshot}>
+        <Stack gap="md">
+          <FormErrorSummary />
+          <TextInput
+            id="identity"
+            label="Email or username"
+            autoComplete="username"
+            value={String(snapshot.fields.identity?.value ?? '')}
+            onChange={(event) => form.setFieldValue('identity', event.currentTarget.value)}
+            onBlur={() => form.touchField('identity')}
+            error={errorFor('identity')}
+          />
+          <PasswordInput
+            id="password"
+            label="Password"
+            autoComplete={mode === 'sign-in' ? 'current-password' : 'new-password'}
+            value={String(snapshot.fields.password?.value ?? '')}
+            onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
+            onBlur={() => form.touchField('password')}
+            error={errorFor('password')}
+            aria-invalid={errorFor('password') ? true : undefined}
+          />
+          <SemanticButton type="submit" action={mode === 'sign-in' ? 'login' : 'register'} loading={busy} />
+        </Stack>
+      </GdsFormProvider>
+    </form>
+  );
+}
+```
+
+- `FormErrorSummary` and `ValidatedFieldMessage` throw outside `GdsFormProvider`.
+- Show a failed sign-in through `AuthShell` `error`, with copy written for the user. `snapshot.submitError` holds the thrown `Error.message`, or a fixed English string when validation blocks the submit or the thrown value is not an `Error`, so it is not display copy.
+- Social-only sign-in needs no `<form>`: the provider buttons go in `socialAuth`.
+- A multi-step flow (sign-up, then a second credential step) uses one `<form>` per step, each with its own `type="submit"` button.
+- A `<form action>` (a native POST or a server action) submits on Enter the same way; its submit button also needs `type="submit"`.
+- `GdsSchemaForm` renders no `<form>` and its submit button is `type="button"`, so Enter in a generated field does not submit it.
 
 ### Guided Onboarding Tour Rules
 

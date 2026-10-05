@@ -3,10 +3,11 @@
 ## For Developers
 
 1. Install the package lane shown on `/install`.
-2. Open `/api` to confirm the export, import path, runtime lane, and state contract.
-3. Open `/patterns` or `/live-proofs` to inspect the implementation pattern.
-4. Add or update `gds-adoption.json`.
-5. Run:
+2. Before composing a surface, check the [Component Selection Rules](COMPONENTS_AND_PATTERNS.md#component-selection-rules). They state when a panel, card, metric or progress component is the wrong choice and what to use instead.
+3. Open `/api` to confirm the export, import path, runtime lane, and state contract.
+4. Open `/patterns` or `/live-proofs` to inspect the implementation pattern.
+5. Add or update `gds-adoption.json`.
+6. Run:
 
 ```bash
 npm run build

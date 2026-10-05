@@ -53,6 +53,10 @@ test('GDS route accessibility', async ({ page }) => {
 });
 ```
 
+## Pages outside GdsProvider
+
+The helpers drive any route a Playwright page can load, including pages a non-React server renders. The consumer duties in [docs/ACCESSIBILITY_PER_COMPONENT.md](docs/ACCESSIBILITY_PER_COMPONENT.md) apply to those pages too; what else applies to them is stated in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md), subsection "Surfaces outside GdsProvider". `runGdsAxeScan` reads `axe` from the document it scans and returns no findings when `axe` is absent, so axe-core must be loaded into that document.
+
 ## CI States
 
 - `pass`: no active findings.
