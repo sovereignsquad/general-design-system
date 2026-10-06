@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "131433be5c001c1c856b15f1860b8e01ea01ee2b",
+  "commit": "a19f1471d3c4fd9bdf153e343a043097942aa27f",
   "counts": {
     "token-published": 522,
     "token-declared": 59,
@@ -7768,7 +7768,7 @@
       "name": "--gds-foo",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 93
+        "line": 130
       }
     },
     {
@@ -7777,7 +7777,7 @@
       "name": "--gds-foo-dark",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 93
+        "line": 130
       }
     },
     {
@@ -24076,7 +24076,7 @@
       "name": "AccentPanelProps.tone",
       "source": {
         "file": "packages/gds-core/src/AccentPanel.tsx",
-        "line": 10
+        "line": 15
       },
       "type": "AccentTone"
     },
@@ -24086,7 +24086,7 @@
       "name": "AccentPanelProps.variant",
       "source": {
         "file": "packages/gds-core/src/AccentPanel.tsx",
-        "line": 10
+        "line": 15
       },
       "type": "AccentPanelVariant"
     },
@@ -24096,7 +24096,7 @@
       "name": "AccentPanelProps.title",
       "source": {
         "file": "packages/gds-core/src/AccentPanel.tsx",
-        "line": 10
+        "line": 15
       },
       "type": "ReactNode"
     },
@@ -24106,7 +24106,7 @@
       "name": "AccentPanelProps.badge",
       "source": {
         "file": "packages/gds-core/src/AccentPanel.tsx",
-        "line": 10
+        "line": 15
       },
       "type": "ReactNode"
     },
@@ -24116,7 +24116,7 @@
       "name": "AccentPanelProps.children",
       "source": {
         "file": "packages/gds-core/src/AccentPanel.tsx",
-        "line": 10
+        "line": 15
       },
       "type": "ReactNode"
     },
@@ -34637,7 +34637,7 @@
       "name": "SidebarNavSectionProps.label",
       "source": {
         "file": "packages/gds-core/src/SidebarNav.tsx",
-        "line": 21
+        "line": 25
       },
       "type": "ReactNode"
     },
@@ -34647,7 +34647,7 @@
       "name": "SidebarNavSectionProps.children",
       "source": {
         "file": "packages/gds-core/src/SidebarNav.tsx",
-        "line": 21
+        "line": 25
       },
       "type": "ReactNode"
     },
@@ -34657,7 +34657,7 @@
       "name": "SidebarNavSectionProps.pushToBottom",
       "source": {
         "file": "packages/gds-core/src/SidebarNav.tsx",
-        "line": 21
+        "line": 25
       },
       "type": "boolean"
     },
@@ -35437,7 +35437,7 @@
       "name": "GdsProviderProps.children",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "React.ReactNode"
     },
@@ -35447,7 +35447,7 @@
       "name": "GdsProviderProps.locale",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "string"
     },
@@ -35457,7 +35457,7 @@
       "name": "GdsProviderProps.messages",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "Record<string, string>"
     },
@@ -35467,7 +35467,7 @@
       "name": "GdsProviderProps.theme",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "MantineThemeOverride"
     },
@@ -35477,7 +35477,7 @@
       "name": "GdsProviderProps.defaultColorScheme",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "'light' | 'dark' | 'auto'"
     },
@@ -35487,7 +35487,7 @@
       "name": "GdsProviderProps.defaultColorScheme=light",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       }
     },
     {
@@ -35496,7 +35496,7 @@
       "name": "GdsProviderProps.defaultColorScheme=dark",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       }
     },
     {
@@ -35505,7 +35505,7 @@
       "name": "GdsProviderProps.defaultColorScheme=auto",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       }
     },
     {
@@ -35514,7 +35514,7 @@
       "name": "GdsProviderProps.forceColorScheme",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "'light' | 'dark'"
     },
@@ -35524,7 +35524,7 @@
       "name": "GdsProviderProps.forceColorScheme=light",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       }
     },
     {
@@ -35533,7 +35533,7 @@
       "name": "GdsProviderProps.forceColorScheme=dark",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       }
     },
     {
@@ -35542,7 +35542,7 @@
       "name": "GdsProviderProps.colorSchemeRootElement",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "() => HTMLElement | undefined"
     },
@@ -35552,7 +35552,7 @@
       "name": "GdsProviderProps.cssVariablesSelector",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "string"
     },
@@ -35562,7 +35562,7 @@
       "name": "GdsProviderProps.applyDocumentColorScheme",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "boolean"
     },
@@ -35572,7 +35572,7 @@
       "name": "GdsProviderProps.overlayAdapter",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "OverlayAdapter"
     },
@@ -35582,7 +35582,7 @@
       "name": "GdsProviderProps.defaultBadgeIconStyle",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "GdsBadgeIconStyle"
     },
@@ -35592,7 +35592,7 @@
       "name": "GdsProviderProps.themeApplicationMode",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "GdsThemeApplicationMode"
     },
@@ -35602,7 +35602,7 @@
       "name": "GdsProviderProps.reloadOnThemeChange",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "boolean"
     },
@@ -35612,7 +35612,7 @@
       "name": "GdsProviderProps.onBeforeThemeApply",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "(next: GdsThemeIdentity, previous: GdsThemeIdentity) => void"
     },
@@ -35622,7 +35622,7 @@
       "name": "GdsProviderProps.onAfterThemeApply",
       "source": {
         "file": "packages/gds-theme/src/GdsProvider.tsx",
-        "line": 15
+        "line": 18
       },
       "type": "(identity: GdsThemeIdentity) => void"
     },

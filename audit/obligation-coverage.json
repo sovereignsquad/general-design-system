@@ -1,11 +1,11 @@
 {
   "evaluated": 1241,
-  "gapCount": 355,
+  "gapCount": 347,
   "excludedCount": 80,
   "byKind": {
     "prop": {
       "evaluated": 1124,
-      "gaps": 318
+      "gaps": 310
     },
     "variant": {
       "evaluated": 107,
@@ -17,7 +17,7 @@
     }
   },
   "unmodelled": [],
-  "budget": 355,
+  "budget": 347,
   "gaps": [
     {
       "atom": "ContentOpsSectionProps.tone=critical",
@@ -39,20 +39,6 @@
       "source": {
         "file": "packages/gds-core/src/AISearchCard.tsx",
         "line": 18
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "AccentPanelProps.title",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/AccentPanel.tsx",
-        "line": 10
       },
       "unmet": [
         {
@@ -179,34 +165,6 @@
       "source": {
         "file": "packages/gds-core/src/ArticleShell.tsx",
         "line": 5
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "AuthShellProps.title",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 6
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "AuthShellProps.description",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 6
       },
       "unmet": [
         {
@@ -3105,76 +3063,6 @@
       "source": {
         "file": "packages/gds-core/src/MediaWithFallback.tsx",
         "line": 14
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "MetricCardProps.label",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/MetricCard.tsx",
-        "line": 5
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "MetricCardProps.value",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/MetricCard.tsx",
-        "line": 5
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "MetricCardProps.description",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/MetricCard.tsx",
-        "line": 5
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "MetricCardProps.icon",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/MetricCard.tsx",
-        "line": 5
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "MetricCardProps.footer",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/MetricCard.tsx",
-        "line": 5
       },
       "unmet": [
         {

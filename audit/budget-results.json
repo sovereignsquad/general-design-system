@@ -32,7 +32,7 @@
     },
     {
       "key": "tokensWithGaps",
-      "measured": 89,
+      "measured": 87,
       "value": 89,
       "direction": "max",
       "unit": "count",
@@ -142,8 +142,8 @@
     },
     {
       "key": "obligationGaps",
-      "measured": 355,
-      "value": 355,
+      "measured": 347,
+      "value": 347,
       "direction": "max",
       "unit": "count",
       "finding": "F18 / issue 656",

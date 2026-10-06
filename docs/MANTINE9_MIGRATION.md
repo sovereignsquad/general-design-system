@@ -20,7 +20,7 @@ The Mantine 9 changelog (mantine.dev) introduced several API changes. Below is e
 
 | Change | Mantine 9 behavior | GDS impact | Action |
 |---|---|---|---|
-| `TextInput` / `Textarea` — `icon` prop removed | Use `leftSection` / `rightSection` | GDS wraps these internally via `FormField`; consumers using raw Mantine `TextInput` directly must migrate | Use `leftSection` |
+| `TextInput` / `Textarea` — `icon` prop removed | Use `leftSection` / `rightSection` | `TextInput` and `Textarea` are GDS passthroughs (`packages/gds-core/src/GdsPrimitives.tsx`), so consumer code using them must migrate whether it imports them from GDS or from `@mantine/core` | Use `leftSection` |
 | `Select` / `MultiSelect` — `searchable` prop renamed | No change in Mantine 9 (still present) | None | — |
 | `Badge` — `variant="filled"` default changed | Still available; default variant is now `"light"` | `FitScoreChip`, `MeaningBadge` both explicitly set `variant="filled"` — unaffected | — |
 | `Card` — `withBorder` still present | No breaking change | GDS cards all use `withBorder radius="lg"` — unaffected | — |
@@ -42,7 +42,7 @@ npm install @mantine/core@^9 @mantine/hooks@^9 @mantine/modals@^9 @mantine/notif
 
 ### Consumer-side raw Mantine usage to migrate
 
-If your repo uses raw Mantine primitives alongside GDS (which violates GDS governance — migrate to GDS contracts first), the following props need attention for Mantine 9:
+A direct `@mantine/core` import is off-governance without an approved exception; [DEPENDENCY_GOVERNANCE.md, "Mantine boundary"](../DEPENDENCY_GOVERNANCE.md#mantine-boundary) lists the GDS entries and replacements. The GDS passthroughs (`TextInput` and the other names re-exported by `packages/gds-core/src/GdsPrimitives.tsx`) are Mantine components, so the same props apply to them. The following props need attention for Mantine 9:
 
 ```tsx
 // Mantine 8 — icon prop (removed in 9)

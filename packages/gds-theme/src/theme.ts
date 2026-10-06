@@ -273,7 +273,10 @@ export interface PublicBrandThemeOptions {
   editorialSerif?: boolean;
   /** Layer the flat-surface (no-shadow) lane. */
   flatSurfaces?: boolean;
-  /** Additional Mantine overrides merged last (win over the layered lanes). */
+  /**
+   * Additional Mantine overrides, deep-merged last so they win over the layered lanes. Keys they
+   * do not set keep the `gdsTheme` values, including component defaults.
+   */
   overrides?: MantineThemeOverride;
 }
 
@@ -281,7 +284,12 @@ function composeGdsTheme(overrides: MantineThemeOverride = {}) {
   return mergeMantineTheme(baseTheme, overrides);
 }
 
-/** Composes a public brand theme by layering the flat-surface and/or editorial lanes and the given overrides over the base GDS theme. */
+/**
+ * Composes a public brand theme by layering the flat-surface and/or editorial lanes and the given
+ * overrides over the base GDS theme. The result descends from `gdsTheme` and can be passed to
+ * `GdsProvider` `theme`. It sets no `--gds-*` role values and runs no contrast check; use
+ * `createBrandTheme` for a brand role map (THEME_GOVERNANCE.md, "Choosing a brand factory").
+ */
 export function createPublicBrandTheme({
   editorialSerif = false,
   flatSurfaces = false,
@@ -308,10 +316,14 @@ export function createPublicBrandTheme({
 }
 
 /**
- * @deprecated Consumer repositories should use `gdsTheme`, `gdsDarkPublicTheme`,
- * `gdsFlatSurfaceTheme`, `gdsEditorialPublicTheme`, or `createPublicBrandTheme(...)`
- * instead of building a custom branding layer with `extendGdsTheme(...)`.
- * This helper remains temporarily exported for bounded internal/runtime composition only.
+ * Merges `overrides` onto `gdsTheme` with Mantine's `mergeMantineTheme`.
+ *
+ * @deprecated Consumer use is deprecated (THEME_GOVERNANCE.md, "Approved preset modes"). Use an
+ * approved lane instead: `gdsTheme`, `gdsDarkPublicTheme`, `gdsFlatSurfaceTheme`,
+ * `gdsEditorialPublicTheme` or `createPublicBrandTheme({ overrides })`, or
+ * `createBrandTheme(...).mantineTheme` when the brand also needs a `--gds-*` role map
+ * (THEME_GOVERNANCE.md, "Choosing a brand factory"). It stays exported for composition inside
+ * the GDS packages only.
  */
 export function extendGdsTheme(overrides: MantineThemeOverride = {}) {
   return composeGdsTheme(overrides);
@@ -357,9 +369,9 @@ export function withGdsMotion(overrides: MantineThemeOverride = {}) {
 /**
  * Wraps a theme so its `light` variant is governed, whatever the theme is.
  *
- * Putting the resolver on `gdsTheme` alone is not enough: `GdsProvider` accepts any
- * `MantineThemeOverride`, and a preset built by `resolveGdsThemePreset` does not descend
- * from `gdsTheme`, so the governed lane would be dropped on any route using a preset.
+ * Putting the resolver on `gdsTheme` alone is not enough: `GdsProvider` uses its `theme` prop in
+ * place of `gdsTheme` rather than merging it, and some presets returned by `resolveGdsThemePreset`
+ * do not descend from `gdsTheme`, so the governed lane would be dropped on any route using one.
  * Applied inside the provider so no theme can opt out of it by accident.
  *
  * A consumer's own resolver is still honoured for every other variant; only `light` is
