@@ -1,15 +1,9 @@
 {
   "declarationsScanned": 72,
-  "adopted": 20,
-  "allowlisted": 5,
+  "adopted": 21,
+  "allowlisted": 4,
   "violationCount": 0,
   "allowed": [
-    {
-      "at": "packages/gds-core/src/GdsGeneratedThumbnail.tsx:261",
-      "value": "'10px 12px'",
-      "reason": "Pixel geometry inside a GENERATED image, not page layout. The thumbnail composes a fixed-dimension raster whose internal padding is part of the image design; scaling it with the page density would change the picture, not the layout around it. Imagery geometry belongs to #563/#564.",
-      "reviewBy": "2027-02-01"
-    },
     {
       "at": "packages/gds-core/src/PublicShell.tsx:83",
       "value": "'0.5rem'",

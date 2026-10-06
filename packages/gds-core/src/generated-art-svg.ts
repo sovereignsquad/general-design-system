@@ -6,7 +6,7 @@ import type { GdsIconKey } from './icons';
 import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
 import { gdsSeededRandom, resolveGdsGeneratedPaletteHex } from './generated-art-engine';
 import type { GdsGeneratedPaletteColors, GdsGeneratedPaletteSource } from './generated-art-engine';
-import type { GdsGeneratedThumbnailAspectRatio, GdsGeneratedThumbnailCategory } from './GdsGeneratedThumbnail';
+import type { GdsGeneratedThumbnailAspectRatio, GdsGeneratedThumbnailBackground, GdsGeneratedThumbnailCategory } from './GdsGeneratedThumbnail';
 import type { GdsGeneratedHeroAspectRatio, GdsGeneratedHeroBackground, GdsGeneratedHeroBadge } from './GdsGeneratedHero';
 import type { GdsThemePresetId } from '@sovereignsquad/gds-theme';
 
@@ -126,6 +126,8 @@ export interface GdsGeneratedThumbnailSvgOptions {
   aspectRatio?: GdsGeneratedThumbnailAspectRatio;
   maxBadges?: number;
   motifOpacity?: number;
+  /** Defaults to `'wash'` (unchanged pre-existing behavior). See {@link GdsGeneratedThumbnailBackground}. */
+  background?: GdsGeneratedThumbnailBackground;
   /** Accessible name embedded as the SVG's own `<title>` — always set here, unlike the React component's optional `label`, since a standalone image file has no adjacent DOM to fall back on. */
   label: string;
 }
@@ -147,7 +149,7 @@ export interface GdsGeneratedThumbnailSvgOptions {
  * ```
  */
 export function buildGdsThumbnailSvg(options: GdsGeneratedThumbnailSvgOptions): string {
-  const { seed, categories, paletteSource, category, shade, colors, themePresetId, colorScheme, aspectRatio = '3:2', maxBadges = 3, motifOpacity = 0.14, label } = options;
+  const { seed, categories, paletteSource, category, shade, colors, themePresetId, colorScheme, aspectRatio = '3:2', maxBadges = 3, motifOpacity = 0.14, background = 'wash', label } = options;
   if (categories.length === 0) {
     throw new Error('buildGdsThumbnailSvg: `categories` must contain at least one entry.');
   }
@@ -155,6 +157,24 @@ export function buildGdsThumbnailSvg(options: GdsGeneratedThumbnailSvgOptions): 
   const palette = resolveGdsGeneratedPaletteHex({ paletteSource, category, shade, colors, themePresetId, colorScheme });
   const { width, height } = THUMBNAIL_ASPECT_RATIO_VIEWBOX[aspectRatio];
   const motif = computeMotifTransform(seed, width, height);
+  // `'wash'` (default) is the original oversized-icon motif, byte-identical to before this option
+  // existed. The other three strategies replace it with the same richer, seeded texture
+  // `buildGdsHeroSvg` below already renders — ported here, not reinvented, via the SAME
+  // `computeMosaicTilesSvg`/`computeIconFieldSvg` helpers (defined further down this file).
+  const backgroundArtSvg =
+    background === 'mosaic-abstract'
+      ? computeMosaicTilesSvg(seed, width, height, palette.primary, palette.accent)
+      : background === 'icon-field'
+        ? computeIconFieldSvg(seed, categories, width, height)
+        : typeof background === 'object' && background.type === 'region-mosaic'
+          ? background.regions
+              .map((region) => {
+                const weight = region.weight ?? 1;
+                const opacity = Math.min(0.85, 0.06 + weight * 0.05);
+                return `<rect x="${region.x0 * width}" y="${region.y0 * height}" width="${(region.x1 - region.x0) * width}" height="${(region.y1 - region.y0) * height}" fill="${palette.accent}" opacity="${opacity}" />`;
+              })
+              .join('')
+          : '';
   const inverse = '#ffffff';
   const pillBg = mixHexTowardBlack(palette.accent, 30);
   const gradientDark = mixHexTowardBlack(palette.primary, 30);
@@ -205,9 +225,13 @@ export function buildGdsThumbnailSvg(options: GdsGeneratedThumbnailSvgOptions): 
       </linearGradient>
     </defs>
     <rect width="${width}" height="${height}" fill="url(#gds-thumb-bg)" />
-    <g transform="translate(${motif.centerX} ${motif.centerY}) rotate(${motif.rotationDeg}) scale(${motif.scale})" opacity="${motifOpacity}">
+    ${
+      background === 'wash'
+        ? `<g transform="translate(${motif.centerX} ${motif.centerY}) rotate(${motif.rotationDeg}) scale(${motif.scale})" opacity="${motifOpacity}">
       <g transform="translate(-12 -12)">${iconSvg(lead.icon, inverse, 24)}</g>
-    </g>
+    </g>`
+        : backgroundArtSvg
+    }
     <rect x="0" y="${height - badgeAreaHeight * 1.6}" width="${width}" height="${badgeAreaHeight * 1.6}" fill="url(#gds-thumb-scrim)" />
     ${leadBadgeSvg}
     ${secondaryBadgesSvg}
