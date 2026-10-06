@@ -425,7 +425,7 @@ export function GdsGeneratedThumbnail({
           position: 'absolute',
           insetInline: 0,
           insetBlockEnd: 0,
-          padding: '10px 12px',
+          padding: 'var(--gds-space-xs) var(--gds-space-sm)',
           display: 'flex',
           alignItems: 'center',
           background: `linear-gradient(to top, ${darkSurface(palette.primary)} 0%, transparent 100%)`,
