@@ -1,7 +1,7 @@
 # Components & Patterns
 
 Status: Active SSOT
-Version: 6.7.0
+Version: 6.8.0
 Last updated: 2026-10-01
 
 This document defines the canonical behavior for UI components, workflows, and responsive layouts. Adopting projects may not alter interaction meanings or bypass these required UX patterns.

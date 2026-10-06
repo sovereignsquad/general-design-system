@@ -15,8 +15,8 @@ memory of the session that produced this state**.
 
 `main`, `dev`, `origin/main`, and `origin/dev` are all identical at **`018ac48`** (confirmed by
 direct `git rev-parse` comparison of all four — and the working tree is genuinely clean, no
-staged or uncommitted changes anywhere), version **6.7.0** (unreleased — `VERSION` has not been
-bumped for 6.8.0 yet; that happens once the whole milestone below ships).
+staged or uncommitted changes anywhere), version **6.7.0** (at that commit). 6.8.0 was cut on 2026-10-06 before milestone 35
+finished: its issues that were still open at that point are listed on the milestone.
 
 **[PR #744](https://github.com/sovereignsquad/general-design-system/pull/744) (issue #701,
 `ListingCard` featured/selected ring, pick badge, media-left row tile, `useGdsBrowseSelection`)
