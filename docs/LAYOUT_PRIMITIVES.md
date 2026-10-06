@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-08
+Last updated: 2026-10-01
 
 GDS layout primitives are the approved composition layer for product pages, admin tools, docs, public surfaces, and data-heavy workflows. They exist so consumers do not create local `Stack`, `Grid`, `Container`, `Sidebar`, negative-margin, or inline-style layout systems.
 
@@ -46,9 +46,15 @@ Every responsive prop accepts either one value or a breakpoint object:
 </GdsGrid>
 ```
 
-Supported breakpoints are `base`, `xs`, `sm`, `md`, `lg`, and `xl`. Supported spacing tokens are `none`, `xs`, `sm`, `md`, `lg`, `xl`, and `2xl`. Supported size tokens are `content`, `narrow`, `page`, `wide`, and `full`.
+The accepted values are the types in `packages/gds-core/src/LayoutPrimitives.tsx`; TypeScript rejects anything else:
 
-Raw pixel strings, viewport-unit hacks, visual reordering, and arbitrary CSS values are intentionally not part of the public contract. Use a component prop, token, or a reviewed exception instead.
+- breakpoints (`GdsLayoutBreakpoint`): `base`, `xs`, `sm`, `md`, `lg`, `xl`
+- spacing for `gap`, `padding`, `margin` and `bleed` (`GdsLayoutToken`): `0`, `none`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`. `2xl` is `xl × 1.5`, declared by the layout primitives separately from the density-axis `2xl`. `3xl` is not accepted.
+- widths for `maxWidth`, `GdsContainer` `size`, `GdsSidebar` `sidebarWidth` and `GdsGrid` `minColumnWidth` (`GdsLayoutSize`): the spacing names except `0`, plus `aside`, `content`, `narrow`, `page`, `wide`, `full`. The named widths are fixed `rem` values, not axis tokens.
+
+How these steps compare with Mantine props, `safeStyle` and the axis variables, and which values have no step, is in [`SAFE_STYLING.md`](SAFE_STYLING.md#spacing-size-and-type-steps-by-prop).
+
+Raw pixel strings, viewport-unit hacks, visual reordering, and arbitrary CSS values are not part of the public contract. Use a component prop, token, or a reviewed exception instead.
 
 ## Cookbook
 
@@ -140,8 +146,9 @@ The gate found two real system defects on its first honest run, both fixed at to
 email address, a long compound — can no longer inflate a column past the viewport), which is
 the issue 619 pattern: the missing capability is the finding.
 
-Both answers are token-driven: spacing comes from the density axis via `gap`, so a compact theme
-tightens the row with everything else and no surface does its own arithmetic.
+Both answers are token-driven: spacing comes from a `gap` step, so no surface does its own
+arithmetic. `gap` resolves through `--mantine-spacing-*`, which does not follow a density-axis
+mode (see the scale table in [`SAFE_STYLING.md`](SAFE_STYLING.md#spacing-size-and-type-steps-by-prop)).
 
 ## Bounded viewport frame (`GdsViewportFrame`)
 

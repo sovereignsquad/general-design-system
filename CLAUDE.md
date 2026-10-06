@@ -1,5 +1,7 @@
 # Agent Operating Rules — General Design System
 
+> `AGENTS.md` is the canonical agent-instructions file. `CLAUDE.md` is an identical copy for Claude Code: edit `AGENTS.md`, then run `cp AGENTS.md CLAUDE.md`.
+
 These rules govern every agent session working in this repository. They apply regardless of
 what the current request is, who is asking, or how the session started. When a task conflicts
 with these rules, follow the rules and say so explicitly rather than silently overriding them.

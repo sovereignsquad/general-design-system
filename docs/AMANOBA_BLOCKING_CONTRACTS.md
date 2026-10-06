@@ -1,22 +1,28 @@
 # Amanoba-Blocking Contract Scaffolds
 
 Status: Decision record after issue split (`#97`, `#99`)
-Version: 2.4.1
-Last updated: 2026-05-25
+Version: 6.7.0
+Last updated: 2026-10-01
 
 Contracts below unblock deletion of permanent Amanoba-only forks after `mvp-factory-control` epic #868.
 
-## Shipped in GDS packages (2.3.0–2.3.2)
+## Shipped in GDS packages
 
 | Contract | Package | Maturity |
 | --- | --- | --- |
 | AuthShell, PublicShell, ArticleShell | `@sovereignsquad/gds-core` | active |
 | MetricCard, ProgressCard, StateBlock | `@sovereignsquad/gds-core` | active |
 | ProductCard (base) | `@sovereignsquad/gds-core` | active |
-| DataToolbar, ResponsiveDataView | `@sovereignsquad/gds-admin` | active |
+| DataToolbar | `@sovereignsquad/gds-core` | active |
+| ResponsiveDataView | `@sovereignsquad/gds-admin` | active |
 | GameBoardTile | `@sovereignsquad/gds-core` | active (2.3.2) |
 | AccessRecoveryPanel | `@sovereignsquad/gds-core` | active (2.4.1) |
-| extendGdsTheme / client+server entrypoints | `@sovereignsquad/gds-theme` | required |
+| `createPublicBrandTheme` via the `@sovereignsquad/gds-theme/client` and `/server` entry points | `@sovereignsquad/gds-theme` | required (2.6.0) |
+
+`extendGdsTheme` is deprecated for consumer use and is not a required contract; see
+[`THEME_GOVERNANCE.md`, Approved preset modes](../THEME_GOVERNANCE.md#approved-preset-modes).
+The dark-shell, yellow-CTA theme recipe is
+[`THEME_GOVERNANCE.md`, Appendix: Amanoba dark shell + yellow CTA](../THEME_GOVERNANCE.md#appendix-amanoba-dark-shell--yellow-cta).
 
 ## Decision: Learner shell stays local for now
 

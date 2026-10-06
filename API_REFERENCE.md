@@ -125,6 +125,8 @@ Every public entry includes:
 - `testing`
 - `docsPath`
 
+Each entry's `summary` is the export's `rationale` in `apps/playground/src/pattern-export-coverage.ts` (`summary: entry.rationale` in `apps/playground/src/api-reference-registry.ts`); edit the rationale to change what `/api` shows. For an export listed in the [Component Selection Rules](COMPONENTS_AND_PATTERNS.md#component-selection-rules), the rationale must carry that rule's selection constraint, so the `/api` summary states when the component is the wrong choice.
+
 ## Verification
 
 ```bash

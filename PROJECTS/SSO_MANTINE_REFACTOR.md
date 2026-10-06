@@ -1,38 +1,68 @@
 # SSO Mantine Refactor
 
-Status: In progress
-Version: 1.0.0
-Last updated: 2026-05-23
-Project: `/Users/moldovancsaba/Projects/sso`
+Status: Legacy removal complete, adoption gaps open
+Version: 2.0.0
+Last updated: 2026-10-01
+Project: `moldovancsaba/sso`
+
+Paths below are relative to the SSO repository root.
 
 ## Objective
 
-Refactor SSO to a pure Mantine system with no long-lived bridge between the current local CSS/theme system and the future Mantine theme.
+Refactor SSO to a pure Mantine and GDS system with no long-lived bridge between the former local CSS/theme system and the GDS theme.
+
+## Current state (verified 2026-10-01)
+
+Read-only check of a local checkout at `main` `d6c385be`.
+
+- **Packages.** `gds-core`, `gds-theme` and `gds-admin` 6.0.0 in `dependencies` (`package.json:44-46`) and `gds-compliance`, `gds-eslint-config` 6.0.0 in `devDependencies` (`:64-65`), all vendored `file:vendor/gds/` tarballs. `overrides` repeat the runtime three (`:81-83`).
+- **Stack.** Next.js Pages Router in plain JavaScript. GDS has no Pages Router recipe, template or install proof at this version; [INSTALLATION_GUIDE.md, "Next.js Pages Router"](../INSTALLATION_GUIDE.md#nextjs-pages-router) states the two root steps that still apply.
+- **Provider and theme.** One `GdsProvider` in `pages/_app.js`. The theme comes from `createPublicBrandTheme` (`lib/theme/mantineTheme.js:1,102`), an approved lane. Its overrides still carry raw colour literals and a private radius scale.
+- **Stylesheet.** `@sovereignsquad/gds-theme/styles.css` is not imported. `pages/_app.js:1-2` imports the Mantine stylesheets directly, so the `--gds-*` tokens that GDS components read are undefined.
+- **Manifest.** `gds-adoption.json` declares `gdsVersion` 6.0.0 and `migrationStatus` `direct`, which is not a value in `schemas/gds-adoption.schema.json`. `compliance.strictMode` is absent, so a zero-finding `gds-compliance` run does not cover the strict rules ([COMPLIANCE_TOOLKIT.md, "What a zero-finding run proves"](../COMPLIANCE_TOOLKIT.md#what-a-zero-finding-run-proves)).
+- **Local adapter doc.** `docs/DESIGN_SYSTEM.md:3` reads "Direct package adoption — no local UI authority remains".
+- **Surfaces without GDS.** The OAuth consent page (`pages/oauth/consent.js`) imports no GDS package. The magic-link failure responses in `pages/api/admin/magic-login.js` and `pages/api/public/magic-login.js` are standalone HTML strings that reference `--mantine-color-*` variables without loading their stylesheet. The admin pages render no shell component.
+- **Auth and dialogs.** No page sets `AuthShell` `intent`. Account and admin flows, including user deletion, use browser `confirm()`, `prompt()` and `alert()`.
+
+### Legacy inventory: deleted
+
+No tracked CSS file remains (`git ls-files '*.css'` is empty).
+
+| Former file | Deleted in |
+|---|---|
+| `styles/globals.css` | `406218d0` (2026-08-24) |
+| `components/ThemeProvider.js` | `533d5070` (2026-05-21) |
+| `styles/login.module.css` | `533d5070` (2026-05-21) |
+| `styles/docs.module.css` | `e793657a` (2026-05-24) |
+| `styles/docs-layout.module.css` | `e793657a` (2026-05-24) |
+| `styles/home.module.css` | `533d5070` (2026-05-21) |
+| `pages/admin/style-editor.js` | `533d5070` (2026-05-21) |
+
+## Next steps
+
+1. Import `@sovereignsquad/gds-theme/styles.css` once in `pages/_app.js` and remove the direct Mantine stylesheet imports, which it already includes.
+2. Redirect the magic-link failure responses to ordinary routes that render inside `pages/_app.js` ([INSTALLATION_GUIDE.md, "Surfaces outside GdsProvider"](../INSTALLATION_GUIDE.md#surfaces-outside-gdsprovider)).
+3. Render the OAuth consent page through GDS, starting with `AuthShell`.
+4. Set `AuthShell` `intent` on each auth page, and replace browser dialogs with `useGdsConfirm`, which the installed 6.0.0 `gds-core` exports.
+5. Set `compliance.strictMode: true`, replace `migrationStatus` with a schema value, and upgrade from 6.0.0 to the current line through the registry install.
+
+Full fix list: `gds_fix_handover.md` at the SSO repository root. It is not committed to the SSO repository.
 
 ## Non-Goals
 
-- preserving `styles/globals.css` as a permanent token source
-- preserving `components/ThemeProvider.js` as a permanent runtime theme layer
-- preserving product UI CSS modules as the default path for new work
-
-## Legacy Inventory
-
-- `/Users/moldovancsaba/Projects/sso/styles/globals.css`
-- `/Users/moldovancsaba/Projects/sso/components/ThemeProvider.js`
-- `/Users/moldovancsaba/Projects/sso/styles/login.module.css`
-- `/Users/moldovancsaba/Projects/sso/styles/docs.module.css`
-- `/Users/moldovancsaba/Projects/sso/styles/docs-layout.module.css`
-- `/Users/moldovancsaba/Projects/sso/styles/home.module.css`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/style-editor.js`
+- reintroducing a local token source next to the GDS theme
+- reintroducing a runtime theme layer next to `GdsProvider`
+- product UI CSS modules as the default path for new work
 
 ## Target End State
 
-- one Mantine root provider in `_app`
-- one exported Mantine theme file
-- Mantine notifications and modals configured centrally
-- auth and admin surfaces rendered from Mantine primitives
-- docs surfaces moved to Mantine layout and typography where practical
-- old token/theme infrastructure deleted
+- one root `GdsProvider` in `pages/_app.js` (done)
+- one exported theme file built by an approved lane (done)
+- notifications and modals configured centrally (done)
+- auth and admin surfaces rendered from GDS and Mantine primitives
+- docs surfaces on GDS layout and typography (done)
+- old token/theme infrastructure deleted (done)
+- `@sovereignsquad/gds-theme/styles.css` loaded once (open)
 
 ## Pattern Service Priorities
 
@@ -45,30 +75,18 @@ Required local contracts:
 3. **DocsShell**: documentation/article layout, readable typography, side navigation where needed, and mobile collapse.
 4. **StateBlock**: loading, empty, error, permission, disabled, and success states for auth/admin/docs workflows.
 
-Recommended sequence:
-
-1. finish docs surface migration through `DocsShell`
-2. delete obsolete CSS modules and old token sources
-3. enforce no new product UI CSS modules
-4. keep provider-branded auth controls as documented narrow exceptions inside Mantine layout
-
 Acceptance requirements:
 
 - SSO does not import a broad product-card or metric system unless a real repeated SSO workflow needs it
 - auth/admin/docs shells are the only shell variants
-- legacy theme and CSS modules are removed or frozen with deletion plan
+- no product UI CSS modules are reintroduced
 
 ## Required Local Adapter
 
-SSO must maintain a local adapter note in:
+SSO maintains its local adapter note in `docs/DESIGN_SYSTEM.md`. It describes:
 
-- `/Users/moldovancsaba/Projects/sso/docs/DESIGN_SYSTEM.md`
-
-That adapter must describe:
-
-- local status: `migrating`
+- local status
 - current foundation
-- target foundation
 - theme/provider path
 - wrapper or direct primitive policy
 - validation commands
@@ -79,157 +97,70 @@ That adapter must describe:
 
 ### Phase 0: Freeze
 
+Status: complete.
+
 - local docs point to shared SSOT
 - no new product UI is added in the legacy system
 
 ### Phase 1: Root Mantine Platform
 
-Status:
-
-- completed
-
-Files:
-
-- `/Users/moldovancsaba/Projects/sso/pages/_app.js`
-- new theme/provider files in `/Users/moldovancsaba/Projects/sso`
-
-Tasks:
-
-- install Mantine packages
-- add `MantineProvider`
-- register notifications and modals
-- move root layout concerns onto Mantine-friendly structure
-- define the single theme file path
-- define direct primitive versus thin-wrapper policy
-
-Exit criteria:
-
-- `_app` is Mantine-rooted
-- one theme file exists and is the only approved token authority for new UI
-- notifications and modals are centralized
-- the legacy freeze is documented locally
+Status: complete.
 
 Implemented in:
 
-- `/Users/moldovancsaba/Projects/sso/pages/_app.js`
-- `/Users/moldovancsaba/Projects/sso/pages/_document.js`
-- `/Users/moldovancsaba/Projects/sso/lib/ui/mantineTheme.js`
-- `/Users/moldovancsaba/Projects/sso/components/AppFooter.js`
+- `pages/_app.js`
+- `pages/_document.js`
+- `lib/theme/mantineTheme.js`
+
+Exit criteria:
+
+- `_app` is GDS-rooted
+- one theme file exists and is the only approved token authority for new UI
+- notifications and modals are centralized
 
 ### Phase 2: Auth Surfaces
 
-Status:
-
-- completed
+Status: complete except the OAuth consent page, which imports no GDS package.
 
 Files:
 
-- `/Users/moldovancsaba/Projects/sso/pages/login.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/index.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/callback.js`
-- `/Users/moldovancsaba/Projects/sso/pages/oauth/consent.js`
-
-Tasks:
-
-- migrate forms, alerts, cards, and loading states
-- keep provider-brand buttons compliant inside Mantine layout
+- `pages/login.js`
+- `pages/admin/index.js`
+- `pages/admin/callback.js`
+- `pages/oauth/consent.js`
 
 Exit criteria:
 
 - login and admin-entry flows no longer depend on legacy auth-page styling
 - redirect, re-auth, and provider-login behavior remains correct
 
-Implemented in:
-
-- `/Users/moldovancsaba/Projects/sso/components/AuthSurface.js`
-- `/Users/moldovancsaba/Projects/sso/pages/login.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/index.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/callback.js`
-- `/Users/moldovancsaba/Projects/sso/pages/oauth/consent.js`
-
 ### Phase 3: Admin Shell And CRUD
 
-Status:
-
-- completed
+Status: in progress. Admin pages are Mantine-based, but no admin page renders a shell component.
 
 Files:
 
-- `/Users/moldovancsaba/Projects/sso/pages/admin/dashboard.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/users.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/oauth-clients.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/activity.js`
-
-Tasks:
-
-- migrate layout, tables, filters, forms, modals, and destructive flows
+- `pages/admin/dashboard.js`
+- `pages/admin/users.js`
+- `pages/admin/oauth-clients.js`
+- `pages/admin/activity.js`
 
 Exit criteria:
 
-- the main admin shell and CRUD flows use Mantine primitives only
-- legacy admin page CSS no longer drives layout decisions
-
-Implemented in:
-
-- `/Users/moldovancsaba/Projects/sso/components/AdminShell.js`
-- `/Users/moldovancsaba/Projects/sso/components/AccountShell.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/dashboard.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/users.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/oauth-clients.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/activity.js`
-- `/Users/moldovancsaba/Projects/sso/pages/admin/forgot-password.js`
-- `/Users/moldovancsaba/Projects/sso/pages/account.js`
-- `/Users/moldovancsaba/Projects/sso/pages/index.js`
+- the main admin shell and CRUD flows use GDS and Mantine primitives only
+- destructive flows use GDS confirmation, not browser dialogs
 
 ### Phase 4: Style Editor Decision
 
-Status:
-
-- completed
-
-Files:
-
-- `/Users/moldovancsaba/Projects/sso/pages/admin/style-editor.js`
-- `/Users/moldovancsaba/Projects/sso/components/ThemeProvider.js`
-- `/Users/moldovancsaba/Projects/sso/pages/api/admin/themes/*`
-
-Decision:
-
-- removed
-
-Implemented in:
-
-- removed `/Users/moldovancsaba/Projects/sso/pages/admin/style-editor.js`
-- removed `/Users/moldovancsaba/Projects/sso/components/ThemeProvider.js`
-- removed `/Users/moldovancsaba/Projects/sso/lib/styleThemes.mjs`
-- removed `/Users/moldovancsaba/Projects/sso/pages/api/admin/themes/*`
-- removed `/Users/moldovancsaba/Projects/sso/pages/api/themes/active.js`
+Status: complete. Decision: removed, together with `components/ThemeProvider.js`, `lib/styleThemes.mjs`, `pages/api/admin/themes/*` and `pages/api/themes/active.js`.
 
 ### Phase 5: Docs Surfaces
 
-- migrate `/Users/moldovancsaba/Projects/sso/pages/docs/*`
-
-Exit criteria:
-
-- docs layout and state callouts are Mantine-driven
-- any remaining editorial CSS is narrow and intentional
+Status: complete. Docs pages under `pages/docs/` render `DocsPageShell`.
 
 ### Phase 6: Deletion
 
-- delete legacy theme provider
-- delete obsolete CSS modules
-- delete obsolete local design-system docs
-
-Exit criteria:
-
-- `/Users/moldovancsaba/Projects/sso/components/ThemeProvider.js` is gone
-- obsolete token ownership in `styles/globals.css` is gone
-- no product UI path depends on legacy design infrastructure
-
-## Initial Implementation Sequence
-
-1. docs surfaces
-2. deletion pass
+Status: complete. See [Legacy inventory: deleted](#legacy-inventory-deleted).
 
 ## Validation Commands
 
@@ -241,4 +172,4 @@ Exit criteria:
 
 - ban new product UI CSS modules
 - ban new raw HTML inputs/buttons in product UI
-- ban new token definitions outside the Mantine theme
+- ban new token definitions outside the theme file
