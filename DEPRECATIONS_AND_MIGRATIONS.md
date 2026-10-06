@@ -1,7 +1,7 @@
 # Deprecations & Migrations
 
 Status: Active SSOT
-Version: 6.7.0
+Version: 6.8.0
 Last updated: 2026-10-01
 
 This document defines how `@sovereignsquad/gds-*` contracts are deprecated, replaced, and removed.

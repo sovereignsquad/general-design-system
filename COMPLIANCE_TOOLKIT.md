@@ -1,7 +1,7 @@
 # Compliance Toolkit
 
 Status: Active SSOT
-Version: 6.7.0
+Version: 6.8.0
 Last updated: 2026-10-01
 
 This document defines the canonical governance enforcement toolkit for GDS consumers.
@@ -254,7 +254,7 @@ A consumer with no React tree (for example a server-rendered Python app) does no
 ```json
 {
   "schemaVersion": 1,
-  "gdsVersion": "6.7.0",
+  "gdsVersion": "6.8.0",
   "productArchetype": "public",
   "requiredContracts": ["control-height-min-target"],
   "localAdapters": [],
