@@ -27,11 +27,11 @@ export interface PublicProductCardProps {
   helperText?: ReactNode;
   /** Which region `helperText` fills; defaults to `'supporting'`. */
   helperKind?: PublicProductCardHelperKind;
-  /** Pickup detail row; also the fallback when `helperKind` is not `'pickup'`. */
+  /** Pickup detail row, labelled "Pickup"; also the fallback when `helperKind` is not `'pickup'`. */
   pickupNote?: ReactNode;
-  /** Availability detail row; also the fallback when `helperKind` is not `'inventory'`. */
+  /** Availability detail row, labelled "Availability"; also the fallback when `helperKind` is not `'inventory'`. */
   inventoryNote?: ReactNode;
-  /** Availability state; defaults to `'available'`. */
+  /** Availability state; defaults to `'available'`. A badge renders for every state; none omits it. */
   state?: PublicProductCardState;
   /** Per-state overrides for the status badge label. */
   stateLabels?: Partial<Record<PublicProductCardState, string>>;
@@ -117,6 +117,13 @@ function LoadingCard({ compact, size, density, variant }: { compact: boolean; si
  * and primary/secondary actions. Actions are auto-disabled when disabled or sold out,
  * a skeleton renders while `loading`, and the whole surface can act as a button via
  * `interactiveMode`. Sizing derives from the resolved card contract.
+ *
+ * Retail items only: things with a real availability state, a price, and pickup or inventory
+ * detail. The availability badge always renders (`state` defaults to `'available'`), and the
+ * helper rows are labelled "Pickup" and "Availability", so courses, enrolments and other
+ * progress-bearing objects use `ListingCard`. `ListingCard` has no progress slot; a progress
+ * value goes in one of its `metadata` rows. Selection rules: COMPONENTS_AND_PATTERNS.md,
+ * "Component Selection Rules".
  */
 export function PublicProductCard({
   title,

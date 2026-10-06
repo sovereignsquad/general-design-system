@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-08
+Last updated: 2026-10-01
 
 This runbook defines the authenticated package-publish flow for the General Design System.
 
@@ -15,7 +15,7 @@ Current registry reality:
 
 GDS publishes current and future releases only to GitHub Packages, chosen specifically because it authenticates with the same ambient `GITHUB_TOKEN` every GitHub Actions run already has — no separate npm.com account, no `NPM_TOKEN` secret, no external credential to lose access to. `@sovereignsquad/gds` is the preferred convenience package; it installs correctly from GitHub Packages because it's a real resolving registry (its dependency on the granular runtime packages resolves against the same registry, exactly like npmjs.com would).
 
-A frozen `3.9.0` snapshot of the `@sovereignsquad` packages also exists on npmjs.com from before the move to GitHub-Packages-only. Those listings are **deprecated** (see [Deprecating the legacy npmjs 3.9.0 packages](#deprecating-the-legacy-npmjs-390-packages) below) — they still install so existing consumers are not broken, but they are frozen and never updated.
+A frozen `3.9.0` snapshot of the `@sovereignsquad` packages also exists on npmjs.com from before the move to GitHub-Packages-only, and the older `@doneisbetter` packages remain there too. GDS policy deprecates both; they still install so existing consumers are not broken, but they are frozen and never updated. As of 2026-10-01 the registry marks none of them deprecated, so installing them prints no warning. Marking them is the manual step in [Deprecating the legacy npmjs packages](#deprecating-the-legacy-npmjs-packages) below.
 
 The one real tradeoff: GitHub Packages authenticates every install, including of public packages. Every consumer needs a personal access token (`read:packages` scope) and an `.npmrc` entry. See "Consumer install" below and `INSTALLATION_GUIDE.md`.
 
@@ -28,10 +28,10 @@ The one real tradeoff: GitHub Packages authenticates every install, including of
 ```
 
 ```bash
-npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react
+npm install @sovereignsquad/gds react react-dom
 ```
 
-`GITHUB_TOKEN` here is the consumer's own personal access token or their CI's provisioned token — not a GDS-owned secret.
+`GITHUB_TOKEN` here is the consumer's own personal access token or their CI's provisioned token — not a GDS-owned secret. Peer dependencies follow the single rule in [`INSTALLATION_GUIDE.md` → Peer dependencies](INSTALLATION_GUIDE.md#peer-dependencies).
 
 ## Preconditions
 
@@ -173,21 +173,36 @@ The project board is **GitHub Issues filtered by `status:` labels**, not a Proje
 
 Both steps use the ambient `GITHUB_TOKEN` with `issues: write` — **no secret PAT is required**. This is the point of the label-based board: unlike the retired org-level Projects v2 board (project #11), which needed a `GDS_PROJECT_TOKEN` PAT the default token could not stand in for, every board operation here is a label change the default token can perform. See issue #431 (the superseded Projects v2 sync) and `PROJECT_BOARD.md`.
 
-## Deprecating the legacy npmjs 3.9.0 packages
+## Deprecating the legacy npmjs packages
 
-A `3.9.0` snapshot of the `@sovereignsquad` packages remains on **npmjs.com** from before the move to GitHub-Packages-only. The policy is to mark those listings deprecated (with a pointer to GitHub Packages) so consumers see a warning, without unpublishing them — unpublishing would break the apps still installing `3.9.0`, and npm blocks unpublish after 72 hours anyway.
+Two legacy lines remain on **npmjs.com** from before the move to GitHub-Packages-only: the `3.9.0` snapshot of the seven `@sovereignsquad` packages, and every version of the seven `@doneisbetter` packages. The policy is to mark them deprecated (with a pointer to GitHub Packages) so consumers see a warning, without unpublishing them — unpublishing would break the apps still installing them, and npm blocks unpublish after 72 hours anyway. Their deprecation records are in [`DEPRECATIONS_AND_MIGRATIONS.md` → Registry deprecations](DEPRECATIONS_AND_MIGRATIONS.md#registry-deprecations).
 
-This is a manual, credentialed step against npmjs (it needs an npm account with publish rights to the `@sovereignsquad` scope — the repo's ambient GitHub Actions token cannot do it). Run once, authenticated to npmjs (`npm login --registry=https://registry.npmjs.org`), from a shell whose `.npmrc` is **not** pointing `@sovereignsquad` at GitHub Packages:
+Registry state as of 2026-10-01: no listing on either line is marked deprecated.
+
+This is a manual, credentialed step against npmjs. It needs an npm account with publish rights to each scope (`@sovereignsquad`, `@doneisbetter`); the repo's ambient GitHub Actions token cannot do it. Run it only with maintainer approval, authenticated to npmjs (`npm login --registry=https://registry.npmjs.org`), from a shell whose `.npmrc` does **not** map `@sovereignsquad` to GitHub Packages:
 
 ```bash
 MSG="Deprecated on npmjs: GDS now publishes to GitHub Packages (https://npm.pkg.github.com). See INSTALLATION_GUIDE.md."
-npm deprecate @sovereignsquad/gds@3.9.0        "$MSG" --registry=https://registry.npmjs.org
-npm deprecate @sovereignsquad/gds-core@3.9.0   "$MSG" --registry=https://registry.npmjs.org
-npm deprecate @sovereignsquad/gds-theme@3.9.0  "$MSG" --registry=https://registry.npmjs.org
-npm deprecate @sovereignsquad/gds-admin@3.9.0  "$MSG" --registry=https://registry.npmjs.org
+for pkg in gds gds-core gds-theme gds-admin gds-a11y gds-compliance gds-eslint-config; do
+  npm deprecate "@sovereignsquad/${pkg}@3.9.0" "$MSG" --registry=https://registry.npmjs.org
+done
+
+MSG_SCOPE="Deprecated: renamed to @sovereignsquad and published to GitHub Packages (https://npm.pkg.github.com). See MIGRATION_TO_SOVEREIGNSQUAD.md."
+for pkg in gds gds-core gds-theme gds-admin gds-a11y gds-compliance gds-eslint-config; do
+  npm deprecate "@doneisbetter/${pkg}" "$MSG_SCOPE" --registry=https://registry.npmjs.org
+done
 ```
 
-Do **not** unpublish these versions. To confirm afterward: `npm view @sovereignsquad/gds-core@3.9.0 deprecated --registry=https://registry.npmjs.org`.
+`npm deprecate` without a version marks every version of the package. Do **not** unpublish any of these versions.
+
+To confirm afterward, print the mark for each package; empty output means not marked, and the `>=0.0.0` range covers every published version. The scoped flag reads npmjs even where `.npmrc` maps `@sovereignsquad` to GitHub Packages:
+
+```bash
+npm view @sovereignsquad/gds-core@3.9.0 deprecated --@sovereignsquad:registry=https://registry.npmjs.org
+npm view "@doneisbetter/gds-core@>=0.0.0" deprecated --registry=https://registry.npmjs.org
+```
+
+After the run, replace the dated registry-state lines here, in [`DEPRECATIONS_AND_MIGRATIONS.md`](DEPRECATIONS_AND_MIGRATIONS.md#registry-deprecations) and in [`INSTALLATION_GUIDE.md`](INSTALLATION_GUIDE.md#migrating-from-the-legacy-npmjs-390-packages) with the run date and that output.
 
 ## Recovery guidance
 
