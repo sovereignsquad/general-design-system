@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, sidebar/pin elevation roles with validated tracking and italic typography inputs, a reserved Scout AI sub-brand accent lane, two new SemanticButton brand intents for it, and a ListingCard featured/selected ring with a pick badge, a row tile, and a browse-selection hook, and the documentation delivered from the consumer-ecosystem audit (#708, #699, #724, #698, #710, #713, #711, #709, #695, #697, #700, #701, #746)
+## 6.8.0 - 2026-10-06 — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, sidebar/pin elevation roles with validated tracking and italic typography inputs, a reserved Scout AI sub-brand accent lane, two new SemanticButton brand intents for it, and a ListingCard featured/selected ring with a pick badge, a row tile, and a browse-selection hook, and the documentation delivered from the consumer-ecosystem audit (#708, #699, #724, #698, #710, #713, #711, #709, #695, #697, #700, #701, #746)
 
 ### Consumer-ecosystem audit: documentation and portfolio records (#746)
 
