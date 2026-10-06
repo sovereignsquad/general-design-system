@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-08
+Last updated: 2026-10-01
 
 `useGdsFormOrchestration` is the canonical runtime contract for advanced GDS forms. It extends the existing `useGdsForm` field/summary model with autosave, optimistic submit, retry, server error mapping, and draft restore behavior.
 
@@ -12,6 +12,17 @@ Last updated: 2026-08-08
 - `createGdsDraftAdapter(storageKey, storage?)`: typed persistence adapter boundary.
 - `GdsValidationSummary`: canonical blocking validation summary alias.
 - `GdsFormProvider`, `ValidatedFieldMessage`, and `FormErrorSummary` continue to render summary and field-level messages from the shared snapshot.
+
+## Form Element Wiring
+
+`useGdsForm` and `useGdsFormOrchestration` hold field state and run validation; they handle no DOM events. [AuthShell form composition](../COMPONENTS_AND_PATTERNS.md#authshell-form-composition) is the worked example with `useGdsForm`; `useGdsFormOrchestration` is wired the same way:
+
+- Render the fields inside `<form noValidate onSubmit>`. `onSubmit` calls `event.preventDefault()` and then the controller's `submit()`.
+- The submit control is a `SemanticButton` or Mantine `Button` with `type="submit"`. Both default to `type="button"`, which does not submit and is not triggered by Enter in a field.
+- Each field's `id` equals its field name, because `FormErrorSummary` links each blocking issue to `#<field>`.
+- Set `loading` on the submit button while `submitState` is `validating` or `submitting`; with `useGdsFormOrchestration`, also `autosaving` and `optimistic`. A loading Mantine `Button` is disabled, so Enter starts no second submit.
+- `useGdsForm` keeps the `validate` and `onSubmit` callbacks from the render in which the snapshot last changed. Key the form by any value those callbacks read so it remounts when that value changes. `useGdsFormOrchestration` reads the current callbacks.
+- `GdsSchemaForm` renders no `<form>` element and submits through a `type="button"` control, so Enter in a generated field does not submit it.
 
 ## State Model
 
@@ -56,7 +67,7 @@ Adapters must avoid secrets and private credentials. Sensitive fields should be 
 
 - `GdsValidationSummary` links blocking errors to field IDs.
 - `ValidatedFieldMessage` provides field-level error copy.
-- Consumers must set `aria-invalid` and `aria-describedby` on fields when errors are present.
+- Consumers must set `aria-invalid` and `aria-describedby` on fields when errors are present. Given `id` and `error`, Mantine `TextInput` sets both; Mantine `PasswordInput` sets `aria-describedby` only, so pass `aria-invalid` to it directly.
 - Status changes such as autosave, failure, and restore must be visible in the form surface.
 - Keyboard submit must not duplicate in-flight submits.
 

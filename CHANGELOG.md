@@ -2,7 +2,49 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, sidebar/pin elevation roles with validated tracking and italic typography inputs, a reserved Scout AI sub-brand accent lane, two new SemanticButton brand intents for it, and a ListingCard featured/selected ring with a pick badge, a row tile, and a browse-selection hook (#708, #699, #724, #698, #710, #713, #711, #709, #695, #697, #700, #701)
+## Unreleased — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, sidebar/pin elevation roles with validated tracking and italic typography inputs, a reserved Scout AI sub-brand accent lane, two new SemanticButton brand intents for it, and a ListingCard featured/selected ring with a pick badge, a row tile, and a browse-selection hook, and the documentation delivered from the consumer-ecosystem audit (#708, #699, #724, #698, #710, #713, #711, #709, #695, #697, #700, #701, #746)
+
+### Consumer-ecosystem audit: documentation and portfolio records (#746)
+
+Eight local consumers (amanoba, camera, messmass, savetheworld, sso, fanmass, step, try-on) were
+audited against current GDS. Several never import `@sovereignsquad/gds-theme/styles.css`, and GDS
+gave no signal: the requirement was one install-guide line, and `GdsProvider` and the agent guide
+described the provider as injecting tokens. The recurring causes were missing or contradictory
+documentation, which this entry fixes. Code, token and tooling gaps are filed as issues on the
+"Consumer Ecosystem Audit 2026-09" milestone, with one brand-preset request per consumer.
+
+**Documentation (the documentation parts of #771-#773 and #784-#798).** Each issue stays open for
+its code and gate parts.
+
+- `GdsProvider` and `@sovereignsquad/gds-theme/styles.css`: the install guide, agent guide, `llms.txt`,
+  templates and the `GdsProvider` TSDoc state that the stylesheet is mandatory, and that the provider
+  writes theme variables but does not import it. A "Common setup mistakes" section of the install
+  guide covers a second provider, the deprecated theme factory, and Mantine CSS imported in place of
+  the GDS stylesheet.
+- `COMPLIANCE_TOOLKIT.md` states which files `gds-compliance` reads, which directories it skips, which
+  rule families run only under `strictMode`, what a zero-finding run does not prove, and the current
+  rules' false positives and blind spots. Each statement names its source symbol in
+  `packages/gds-compliance/index.js`.
+- `THEME_GOVERNANCE.md`: the colour-scheme owner and one recipe per product shape, the contrast scope
+  of `createBrandTheme` per overload, `GdsProvider` `theme` replace semantics and
+  `theme.other.gdsCssVariables`, runtime-authored (tenant and creator) styling through the shipped
+  boundaries, and the Amanoba recipe on `createPublicBrandTheme`. `extendGdsTheme` carries an
+  `@deprecated` tag naming the approved lanes.
+- `INSTALLATION_GUIDE.md`: the Next.js Pages Router recipe, stylesheet and bundler troubleshooting,
+  handling for brand fonts outside the lane registry (`next/font` included), the upgrade path from
+  the legacy npmjs `3.9.0` packages, and surfaces outside `GdsProvider` for non-React consumers.
+- `docs/SAFE_STYLING.md` and `docs/SEMANTIC_ROLE_TOKENS.md`: rules for consumer global CSS, and the
+  scale each spacing, size and type prop family accepts.
+- `COMPONENTS_AND_PATTERNS.md`: component selection and do-not-use rules, AuthShell intents and form
+  composition, and shell navigation slots.
+- `PROJECTS/`: `PORTFOLIO_ADOPTION_MATRIX.md` is re-verified against local checkouts, and a
+  per-project record exists for each of the eight consumers. `SAVETHEWORLD_ADOPTION_STATUS.md`
+  recorded savetheworld as outside GDS; it adopted GDS on 2026-08-25.
+
+
+### Dependency audit: `brace-expansion` override raised to 5.0.12 (#929)
+
+The root `overrides."brace-expansion"` pinned `5.0.9`, which is inside the range of the newly published advisory GHSA-q2hr-2g5m-vwhr (4.0.0 - 5.0.11, a CPU denial of service through quadratic-time expansion; two further recursion advisories share the range). `npm audit --omit=dev` therefore reported two high findings (`brace-expansion` and its dependant `minimatch`) and failed `GDS Quality` on every pull request. The override is now `5.0.12` and `package-lock.json` resolves it; `npm audit --omit=dev` reports 0 findings. No shipped package changed.
 
 ### `ListingCard` featured/selected ring, a pick badge, a media-left row tile, and `useGdsBrowseSelection` (#701)
 

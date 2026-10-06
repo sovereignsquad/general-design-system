@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.7.0
-Last updated: 2026-08-08
+Last updated: 2026-10-01
 
 This document defines which surfaces stay outside first-class GDS component ownership, how they must still integrate with the system, and how they must be documented through the canonical exception contract.
 
@@ -34,12 +34,13 @@ Mandatory when `category` is `product-authored-experience`:
 - `testingRequirements`
 - `observabilityRequirements`
 
-Exception categories:
+Exception categories (accepted values: `EXCEPTION_CATEGORIES` in `packages/gds-compliance/index.js`):
 
 - `runtime-constraint`
 - `product-authored-experience`
 - `package-coverage-gap`
 - `migration-bridge`
+- `dependency-boundary`, for direct imports from an implementation dependency; contract in [DEPENDENCY_GOVERNANCE.md](DEPENDENCY_GOVERNANCE.md#dependency-boundary-exception-contract)
 
 Exceptions must remain narrow. Broad scopes such as `src/**`, `app/**`, or whole-surface bypasses are not valid.
 
@@ -49,6 +50,49 @@ Creator-authored experience exceptions must also remain non-authoritative:
 - GDS still owns surrounding shell, navigation, shared controls, consent, legal, and recovery chrome
 - a local exception adapter with status `exception` must be covered by an approved exception scope
 - stale exception scopes that no longer match repository files are invalid and should be removed
+
+### Worked entry: creator canvas styled from stored data
+
+A creator landing page or report whose CSS comes from stored data renders its canvas through `CreatorThemeBoundary` from `@sovereignsquad/gds-core`. The boundary wraps its children in `[data-gds-creator-theme="<scopeId>"]` and injects the CSS only when `validateCreatorCss` reports no error; on an error it renders `CreatorThemeDiagnostics` in the page instead of the styles, and it always renders the children. It does not evaluate `requiredVisibleSelectors` and has no contrast check, so the entry's accessibility and testing requirements carry those checks. Canvas rules: [THEME_GOVERNANCE.md, "Creator-authored experience theming"](THEME_GOVERNANCE.md#creator-authored-experience-theming), including "What the boundary does not enforce"; the document-root rule is in [THEME_GOVERNANCE.md, "Runtime-authored styling and the document root"](THEME_GOVERNANCE.md#runtime-authored-styling-and-the-document-root). [TEMPLATES/gds-adoption.json.template](TEMPLATES/gds-adoption.json.template) carries a campaign-canvas variant.
+
+```json
+{
+  "surface": "Creator landing page canvas",
+  "category": "product-authored-experience",
+  "scope": ["src/features/landing/LandingCanvas.tsx"],
+  "reason": "Creators style their own landing page body with CSS stored per page.",
+  "allowedImplementation": ["Stored creator CSS rendered only through CreatorThemeBoundary on the canvas root"],
+  "mustStillUse": [
+    "GDS public shell and navigation outside the canvas",
+    "Consent, privacy and terms controls rendered outside the canvas",
+    "GDS recovery and error states outside the canvas"
+  ],
+  "mustNotDo": [
+    "Inject creator CSS as an unscoped style element",
+    "Write creator values to :root, html, body or document.documentElement",
+    "Place consent, legal or recovery controls inside the canvas",
+    "Override GDS chrome with !important"
+  ],
+  "a11yRequirements": [
+    "Consent, privacy and terms controls stay visible and operable with the stored CSS applied",
+    "Focus indicators inside the canvas stay visible",
+    "Text inside the canvas meets WCAG AA contrast against its background"
+  ],
+  "testingRequirements": [
+    "Route test applies stored creator CSS and asserts the consent, privacy and terms controls are visible and operable",
+    "Route test covers the canvas when validateCreatorCss reports an error",
+    "runGdsAxeScan on the landing route with creator CSS applied"
+  ],
+  "observabilityRequirements": [
+    "validateCreatorCss issues are recorded per page and owner, de-duplicated because onDiagnostics runs on every render",
+    "Moderation and publish workflows identify the canvas owner"
+  ],
+  "owner": "platform-ui",
+  "reviewDate": "2026-12-31",
+  "exitCondition": "Remove when a GDS creator-canvas lane covers stored creator styling without a product exception.",
+  "status": "approved"
+}
+```
 
 ## Chart surfaces
 

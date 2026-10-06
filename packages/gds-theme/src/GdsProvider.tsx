@@ -11,18 +11,55 @@ import { GdsI18nContext, isGdsRtlLocale } from './i18n';
 import { GdsIconStyleContext, type GdsBadgeIconStyle } from './icon-style';
 import { OverlayAdapterProvider, mantineOverlayAdapter, type OverlayAdapter } from './overlay-adapter';
 
-/** Props for `GdsProvider`, the single required root provider. */
+/**
+ * Props for `GdsProvider`, the root provider mounted once per React root. The app entry also
+ * imports `@sovereignsquad/gds-theme/styles.css`; the provider does not load it.
+ */
 export interface GdsProviderProps {
   children: React.ReactNode;
   /** Active locale id; drives translations and text direction. Defaults to `'en'`. */
   locale?: string;
   /** Translation dictionary keyed by message id. */
   messages?: Record<string, string>;
-  /** Mantine theme override to apply. Defaults to `gdsTheme`. */
+  /**
+   * Mantine theme for the subtree. Defaults to `gdsTheme`.
+   *
+   * The value replaces `gdsTheme`; it is not merged onto it. The provider adds only the governed
+   * `light` variant resolver (`withGdsGovernedVariants`). A theme that does not descend from
+   * `gdsTheme` renders without what `gdsTheme` defines in `theme.ts`, including the `gds-*` class
+   * hooks that `styles.css` keys on, the `Input` font-size floor that stops iOS browsers zooming on
+   * focus, the `NavLink` touch-target minimum height, the component default props, and the
+   * governed shadows and heading scale.
+   *
+   * Inputs that descend from `gdsTheme`: `gdsTheme`, `gdsDarkPublicTheme`, `gdsFlatSurfaceTheme`,
+   * `gdsEditorialPublicTheme`, `createPublicBrandTheme(...)`, `createBrandTheme(...).mantineTheme`,
+   * and `applyGdsFontLane(theme, lane)` over one of these. `resolveGdsThemePreset(id)` descends
+   * from `gdsTheme` for some presets only. To change a lane, pass
+   * `createPublicBrandTheme({ overrides })`, which deep-merges; a spread of `gdsTheme` with its own
+   * `components` key replaces the whole component map.
+   *
+   * `theme.other.gdsCssVariables`, when present, is a flat record of custom properties; a
+   * dark-scheme value uses the same name with a `-dark` suffix. Only string values whose key starts
+   * with `--gds-` are applied. They are set inline on the colour-scheme root and, resolved for the
+   * computed scheme, on the provider's wrapper element. `createBrandTheme` populates it; `gdsTheme`,
+   * the other lanes and `createPublicBrandTheme` do not.
+   *
+   * See THEME_GOVERNANCE.md, "What `GdsProvider` does with `theme`" and
+   * "`theme.other.gdsCssVariables`".
+   */
   theme?: MantineThemeOverride;
-  /** Initial color scheme. Defaults to `'light'`. */
+  /**
+   * Colour scheme applied when `forceColorScheme` is unset. Defaults to `'light'`. The provider
+   * stores no user choice: after a reload the scheme returns to this value, and tabs do not sync.
+   * Recipes per product shape: THEME_GOVERNANCE.md, "Colour scheme".
+   */
   defaultColorScheme?: 'light' | 'dark' | 'auto';
-  /** Pins the color scheme, overriding `defaultColorScheme` and any toggle. */
+  /**
+   * Pins the colour scheme, overriding `defaultColorScheme`. While it is set, Mantine's
+   * `setColorScheme` does nothing, so a `ThemeToggle` (including the `AppShell` built-in one)
+   * renders but has no effect unless its `onColorSchemeChange` updates this prop. A single-scheme
+   * product also hides the toggle (`AppShell` `showThemeToggle={false}`).
+   */
   forceColorScheme?: 'light' | 'dark';
   /** Returns the element the color-scheme attribute is written to. Defaults to `<html>`. */
   colorSchemeRootElement?: () => HTMLElement | undefined;
@@ -137,8 +174,21 @@ function GdsThemeVariablesScope({ variables, dir, children }: { variables: Recor
 }
 
 /**
- * GdsProvider is the single required root provider for any application
- * adopting the General Design System. It injects the strict Mantine theme.
+ * Root provider for a GDS application, mounted once per React root alongside a one-time
+ * `import '@sovereignsquad/gds-theme/styles.css'` in the app entry, before app styles.
+ *
+ * The provider supplies the Mantine theme (`theme`, default `gdsTheme`) and its `--mantine-*`
+ * variables, colour-scheme handling, text direction, locale and messages, the overlay adapter, and
+ * the modals and notifications mounts. It writes `--gds-*` variables only from
+ * `theme.other.gdsCssVariables`, and it loads no fonts.
+ *
+ * The stylesheet supplies the rest: the Mantine core and notifications sheets, the bundled Inter
+ * font, the default `--gds-*` role, overlay and motion tokens, the theme-preset rules, and the
+ * global `:focus-visible`, `forced-colors` and `prefers-reduced-motion` rules. Without it, every
+ * `var(--gds-…)` that relies on the default layer is undefined, overlay surfaces lose their opaque
+ * background, and the GDS focus-visible, forced-colors and reduced-motion rules do not apply. The
+ * provider does not detect a missing stylesheet. Do not also import `@mantine/core/styles.css` or
+ * `@mantine/notifications/styles.css`; the stylesheet already imports both.
  */
 export function GdsProvider({
   children,

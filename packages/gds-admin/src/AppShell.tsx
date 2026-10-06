@@ -8,13 +8,22 @@ import { DiscoveryShell, ThemeToggle } from '@sovereignsquad/gds-core';
 export interface AppShellProps {
   /** Brand text shown in the header; defaults to "GDS". */
   logoText?: string;
-  /** Legacy alias for the primary sidebar navigation; used when `primaryNavigation` is absent. */
+  /** Legacy alias for `primaryNavigation`; used only when `primaryNavigation` is absent. */
   navLinks?: ReactNode;
-  /** Primary sidebar navigation. */
+  /**
+   * Primary sidebar navigation: a `SidebarNav` with `SidebarNavSection`s and `SidebarNavItem`s.
+   * Each item takes `href` for a route or `component="button"` for a view-state switch. It renders
+   * under a fixed English "Primary" heading inside the shell's unlabelled navbar `<nav>`, so the
+   * `SidebarNav` is a second, labelled `<nav>`; set its `ariaLabel` when the default label does not
+   * describe the region.
+   */
   primaryNavigation?: ReactNode;
-  /** Secondary ("More") sidebar navigation. */
+  /**
+   * Secondary sidebar navigation under a fixed English "More" heading: a `SidebarNav` whose
+   * `ariaLabel` differs from the primary one.
+   */
   secondaryNavigation?: ReactNode;
-  /** Account panel pinned to the foot of the sidebar. */
+  /** Account panel pinned to the foot of the sidebar, under a fixed English "Account" heading inside the navbar `<nav>`. */
   accountPanel?: ReactNode;
   /** Secondary line under the logo; also increases the header height. */
   headerContext?: ReactNode;
@@ -22,7 +31,13 @@ export interface AppShellProps {
   headerActions?: ReactNode;
   /** Footer content for mobile navigation. */
   mobileNavigation?: ReactNode;
-  /** Render the theme toggle in the header; defaults to `true`. */
+  /**
+   * Render the built-in theme toggle in the header; defaults to `true`. The built-in toggle passes
+   * no `onColorSchemeChange`, so the user's choice is lost on reload, and under `GdsProvider`
+   * `forceColorScheme` it renders but does nothing. Set `false` for a single-scheme or OS-following
+   * product; for a persisted choice, set `false` and put `<ThemeToggle onColorSchemeChange={…} />`
+   * in `headerActions`. See THEME_GOVERNANCE.md, "Colour scheme".
+   */
   showThemeToggle?: boolean;
   /** Main content area. */
   children: ReactNode;
@@ -31,6 +46,13 @@ export interface AppShellProps {
 /**
  * AppShell provides the standard GDS application layout.
  * It strictly controls the header, sidebar, and main content area.
+ *
+ * Built on `DiscoveryShell`. Below the collapse breakpoint the sidebar is a drawer that closes
+ * when a click lands on, or inside, a link with `href`, a `button`, a `role="menuitem"` element or
+ * an element marked `data-gds-nav-close` (`navigationActivationSelector` in `DiscoveryShell.tsx`).
+ * `closeMobileNavigationOnItemSelect` is not forwarded, so the drawer always closes on select.
+ * `data-gds-nav-close` is for custom non-navigating controls; it does not make an `<a>` without
+ * `href` keyboard-reachable.
  */
 export function AppShell({
   logoText = 'GDS',
