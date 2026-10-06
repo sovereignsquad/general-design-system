@@ -479,6 +479,10 @@ the new `sidebar`/`pin` elevation rows (and the pre-existing `thumbnail` radius 
 test-proven to resolve distinctly from `image`/`card`) appear on the reference site from the
 shipped constants alone, with no playground-local code.
 
+### Dependency audit: `sharp` override raised to 0.35.5 (#934)
+
+The root `overrides.sharp` pinned `0.35.4`, one patch inside the range of the newly published advisory GHSA-wq5f-xc86-pv6w (`sharp` below 0.35.5, a librsvg vulnerability, CVE-2026-96889, severity high). `sharp` reaches the repository only through `apps/reference-next` and `next`, a dev/reference fixture, so `npm audit --omit=dev` stayed at 0 findings, but the full audit gate (`npm run audit:dependencies`) rejected the unaccepted advisory id and would have failed `GDS Quality` and any release. The override is now `0.35.5` and `package-lock.json` resolves it (the `@img/sharp-*` platform packages move together). No shipped package changed.
+
 ## 6.7.0 - 2026-08-27 — Padel Africa preset, ListingCard media overlays, and a primary-CTA contrast rule (#678, #679, #680)
 
 ### `padel-africa` joins the preset catalog (#678)
