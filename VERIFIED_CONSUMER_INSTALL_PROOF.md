@@ -2,11 +2,11 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-08-08
+Last updated: 2026-10-06
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
-Latest published GitHub Packages baseline validated by this proof: `6.7.0`
+Latest published GitHub Packages baseline validated by this proof: `6.8.0`
 Current repository line: `6.8.0`
 Current major line: `6.x`
 
