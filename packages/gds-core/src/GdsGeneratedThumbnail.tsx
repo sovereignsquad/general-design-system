@@ -66,6 +66,37 @@ export interface GdsGeneratedThumbnailCategory {
   onSelect?: (key: string) => void;
 }
 
+/** A consumer-supplied region for the `region-mosaic` background strategy — normalized fractions of the thumbnail's own box, same contract as {@link GdsGeneratedHero}'s identically-named type. */
+export interface GdsGeneratedThumbnailRegion {
+  /** Left edge, 0-1. */
+  x0: number;
+  /** Top edge, 0-1. */
+  y0: number;
+  /** Right edge, 0-1. */
+  x1: number;
+  /** Bottom edge, 0-1. */
+  y1: number;
+  /** Relative tint weight (higher = more visible). Defaults to `1`. */
+  weight?: number;
+}
+
+/**
+ * Background strategy (issue 508/#183 goal 2). `'wash'` (the pre-existing accent gradient plus a
+ * single oversized low-opacity lead-category motif) is the default and is BYTE-IDENTICAL to this
+ * component's behavior before this option existed — every current consumer is unaffected. The other
+ * three strategies REPLACE that single motif with a richer, still fully GDS-generated texture, ported
+ * directly from {@link GdsGeneratedHero}'s identical `background` option (`'mosaic-abstract'`: a seeded
+ * abstract tile field; `'icon-field'`: a scatter of the thumbnail's own `categories` icons at low
+ * opacity; `{type:'region-mosaic', regions}`: consumer-supplied bounding boxes, e.g. neighborhood
+ * shapes) — see that component's docs for the full rationale. The gradient wash itself is never
+ * replaced; it stays as the base layer every strategy renders over.
+ */
+export type GdsGeneratedThumbnailBackground =
+  | 'wash'
+  | 'mosaic-abstract'
+  | 'icon-field'
+  | { type: 'region-mosaic'; regions: GdsGeneratedThumbnailRegion[] };
+
 /** Supported card aspect ratios. */
 export type GdsGeneratedThumbnailAspectRatio = '3:2' | '16:9' | '4:3' | '1:1';
 
@@ -109,8 +140,10 @@ export interface GdsGeneratedThumbnailProps {
    * noticing what a reader would have seen.
    */
   badges?: 'ranked' | 'none';
-  /** Opacity of the background icon motif (0-1). Defaults to `0.14`. */
+  /** Opacity of the background icon motif (0-1). Defaults to `0.14`. Ignored when `background` is not `'wash'` — the alternate strategies manage their own shape opacities. */
   motifOpacity?: number;
+  /** Defaults to `'wash'` (unchanged pre-existing behavior). See {@link GdsGeneratedThumbnailBackground}. */
+  background?: GdsGeneratedThumbnailBackground;
   /**
    * Optional overall name for the whole composition. When given, the root
    * renders `role="group"` with this label — `role="img"` is deliberately
@@ -163,6 +196,135 @@ function computeMotifTransform(seed: string, viewBoxWidth: number, viewBoxHeight
   return { rotationDeg, scale, centerX, centerY };
 }
 
+interface MosaicTile {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  opacity: number;
+  usePrimary: boolean;
+}
+
+/** Ported from {@link GdsGeneratedHero}'s identically-named function — see that module's docs. */
+function computeMosaicTiles(seed: string, viewBoxWidth: number, viewBoxHeight: number): MosaicTile[] {
+  const next = gdsSeededRandom(`${seed}:mosaic`);
+  const columns = 9;
+  const rows = 4;
+  const cellWidth = viewBoxWidth / columns;
+  const cellHeight = viewBoxHeight / rows;
+  const tiles: MosaicTile[] = [];
+  for (let row = 0; row < rows; row += 1) {
+    for (let col = 0; col < columns; col += 1) {
+      if (next() < 0.32) {
+        continue;
+      }
+      const inset = 0.08 + next() * 0.1;
+      tiles.push({
+        x: col * cellWidth + cellWidth * inset,
+        y: row * cellHeight + cellHeight * inset,
+        width: cellWidth * (1 - inset * 2),
+        height: cellHeight * (1 - inset * 2),
+        opacity: 0.05 + next() * 0.11,
+        usePrimary: next() < 0.5,
+      });
+    }
+  }
+  return tiles;
+}
+
+/** Ported from {@link GdsGeneratedHero}'s identically-named function — see that module's docs. */
+function computeIconFieldPlacements(seed: string, count: number, viewBoxWidth: number, viewBoxHeight: number) {
+  const next = gdsSeededRandom(`${seed}:icon-field`);
+  return Array.from({ length: count }, () => ({
+    x: viewBoxWidth * (0.08 + next() * 0.84),
+    y: viewBoxHeight * (0.1 + next() * 0.8),
+    size: viewBoxHeight * (0.22 + next() * 0.16),
+    rotationDeg: (next() - 0.5) * 40,
+  }));
+}
+
+/**
+ * Renders {@link GdsGeneratedThumbnailProps.background} for anything other than `'wash'` (the caller
+ * keeps rendering the pre-existing oversized motif for `'wash'` itself). Returns SVG children only —
+ * the caller supplies the `<svg>`/`<defs>`/gradient wrapper. Ported from `GdsGeneratedHero`'s
+ * `renderBackground`, adapted to source `icon-field`'s scatter from this component's own `categories`
+ * (a thumbnail has no separate `badges` list the way a hero backdrop does).
+ */
+function renderBackground(
+  background: Exclude<GdsGeneratedThumbnailBackground, 'wash'>,
+  categories: GdsGeneratedThumbnailCategory[],
+  seed: string,
+  palette: { primary: string; accent: string },
+  viewBoxWidth: number,
+  viewBoxHeight: number,
+) {
+  if (background === 'mosaic-abstract') {
+    const tiles = computeMosaicTiles(seed, viewBoxWidth, viewBoxHeight);
+    return (
+      <>
+        {tiles.map((tile, index) => (
+          <rect
+            key={index}
+            x={tile.x}
+            y={tile.y}
+            width={tile.width}
+            height={tile.height}
+            rx={Math.min(tile.width, tile.height) * 0.12}
+            fill={tile.usePrimary ? palette.primary : palette.accent}
+            opacity={tile.opacity}
+          />
+        ))}
+      </>
+    );
+  }
+
+  if (background === 'icon-field') {
+    if (categories.length === 0) {
+      return null;
+    }
+    const next = gdsSeededRandom(`${seed}:icon-field-pick`);
+    const placements = computeIconFieldPlacements(seed, Math.min(categories.length, 8), viewBoxWidth, viewBoxHeight);
+    return (
+      <>
+        {placements.map((placement, index) => {
+          const entry = categories[Math.floor(next() * categories.length)];
+          return (
+            <g
+              key={index}
+              transform={`translate(${placement.x} ${placement.y}) rotate(${placement.rotationDeg}) scale(${placement.size / 24})`}
+              opacity={0.1}
+              style={{ color: 'var(--gds-text-on-inverse, var(--mantine-color-white))' }}
+            >
+              <svg x={-12} y={-12} width={24} height={24} viewBox="0 0 24 24">
+                {renderIcon(entry.icon)}
+              </svg>
+            </g>
+          );
+        })}
+      </>
+    );
+  }
+
+  return (
+    <>
+      {background.regions.map((region, index) => {
+        const weight = region.weight ?? 1;
+        return (
+          <rect
+            key={index}
+            x={region.x0 * viewBoxWidth}
+            y={region.y0 * viewBoxHeight}
+            width={(region.x1 - region.x0) * viewBoxWidth}
+            height={(region.y1 - region.y0) * viewBoxHeight}
+            fill={palette.accent}
+            opacity={Math.min(0.85, 0.06 + weight * 0.05)}
+          />
+        );
+      })}
+    </>
+  );
+}
+
 /**
  * Card-scale generated thumbnail: an accent wash, an oversized low-opacity
  * icon motif, and up to `maxBadges` ranked category badges. See the module
@@ -193,6 +355,7 @@ export function GdsGeneratedThumbnail({
   maxBadges = 3,
   badges = 'ranked',
   motifOpacity = 0.14,
+  background = 'wash',
   label,
   className,
   style,
@@ -241,15 +404,19 @@ export function GdsGeneratedThumbnail({
           </linearGradient>
         </defs>
         <rect width={viewBoxWidth} height={viewBoxHeight} fill={`url(#${gradientId})`} />
-        <g
-          transform={`translate(${motif.centerX} ${motif.centerY}) rotate(${motif.rotationDeg}) scale(${motif.scale})`}
-          opacity={motifOpacity}
-          style={{ color: inverseColor }}
-        >
-          <svg x={-12} y={-12} width={24} height={24} viewBox="0 0 24 24">
-            {renderIcon(lead.icon)}
-          </svg>
-        </g>
+        {background === 'wash' ? (
+          <g
+            transform={`translate(${motif.centerX} ${motif.centerY}) rotate(${motif.rotationDeg}) scale(${motif.scale})`}
+            opacity={motifOpacity}
+            style={{ color: inverseColor }}
+          >
+            <svg x={-12} y={-12} width={24} height={24} viewBox="0 0 24 24">
+              {renderIcon(lead.icon)}
+            </svg>
+          </g>
+        ) : (
+          renderBackground(background, categories, seed, palette, viewBoxWidth, viewBoxHeight)
+        )}
       </svg>
 
 {badges === 'none' ? null : (
@@ -258,7 +425,7 @@ export function GdsGeneratedThumbnail({
           position: 'absolute',
           insetInline: 0,
           insetBlockEnd: 0,
-          padding: '10px 12px',
+          padding: 'var(--gds-space-xs) var(--gds-space-sm)',
           display: 'flex',
           alignItems: 'center',
           background: `linear-gradient(to top, ${darkSurface(palette.primary)} 0%, transparent 100%)`,
