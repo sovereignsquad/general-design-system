@@ -1,7 +1,7 @@
 # The GDS Map System
 
 Status: Active SSOT
-Version: 6.7.0
+Version: 6.8.0
 Owner: GDS core
 Last updated: 2026-08-24
 
