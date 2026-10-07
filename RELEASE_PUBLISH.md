@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-10-01
+Last updated: 2026-10-07
 
 This runbook defines the authenticated package-publish flow for the General Design System.
 
@@ -15,9 +15,24 @@ Current registry reality:
 
 GDS publishes current and future releases only to GitHub Packages, chosen specifically because it authenticates with the same ambient `GITHUB_TOKEN` every GitHub Actions run already has — no separate npm.com account, no `NPM_TOKEN` secret, no external credential to lose access to. `@sovereignsquad/gds` is the preferred convenience package; it installs correctly from GitHub Packages because it's a real resolving registry (its dependency on the granular runtime packages resolves against the same registry, exactly like npmjs.com would).
 
-A frozen `3.9.0` snapshot of the `@sovereignsquad` packages also exists on npmjs.com from before the move to GitHub-Packages-only, and the older `@doneisbetter` packages remain there too. GDS policy deprecates both; they still install so existing consumers are not broken, but they are frozen and never updated. As of 2026-10-01 the registry marks none of them deprecated, so installing them prints no warning. Marking them is the manual step in [Deprecating the legacy npmjs packages](#deprecating-the-legacy-npmjs-packages) below.
+A frozen `3.9.0` snapshot of the `@sovereignsquad` packages also exists on npmjs.com from before the move to GitHub-Packages-only, and the older `@doneisbetter` packages remain there too. GDS policy deprecates the `@doneisbetter` line; they still install so existing consumers are not broken, but they are frozen and never updated. The `@sovereignsquad` `3.9.0` snapshot is frozen today and is covered by the registry policy decision below. As of 2026-10-01 the registry marks none of them deprecated, so installing them prints no warning. Marking them is the manual step in [Deprecating the legacy npmjs packages](#deprecating-the-legacy-npmjs-packages) below.
 
-The one real tradeoff: GitHub Packages authenticates every install, including of public packages. Every consumer needs a personal access token (`read:packages` scope) and an `.npmrc` entry. See "Consumer install" below and `INSTALLATION_GUIDE.md`.
+### Registry policy decision (2026-10-07): npmjs.com becomes the primary public registry
+
+**Status: decided, not yet in effect.** Until the setup steps below are done, every release is still published to GitHub Packages only, and everything above and in "Consumer install" remains the current state. Tracked in issue #938.
+
+Why: GitHub Packages needs a `read:packages` token for every install, even of public packages, while npmjs.com installs anonymously. A GitHub Packages quota/billing `403` has already broken CI installs, and four consumer repos work around it by vendoring tarballs. GitHub Packages stays as the audit mirror.
+
+How: npm trusted publishing (OIDC) from GitHub Actions, so no long-lived npm token is stored. A granular token in the existing `NPM_TOKEN` repository secret is the fallback.
+
+Setup, in order:
+
+1. On npmjs.com, for each of the seven `@sovereignsquad` packages, add a trusted publisher for GitHub Actions: **Organization or user** `sovereignsquad`, **Repository** `general-design-system`, **Workflow filename** `publish-npmjs.yml`. This is an owner action on npmjs; the packages already exist there (`3.9.0`).
+2. Change `.github/workflows/publish-npmjs.yml` (separate PR): add `permissions: id-token: write`, stop passing `NODE_AUTH_TOKEN` from `secrets.NPM_TOKEN`, keep the hosted runner and Node 24. npm documents npm CLI 11.5.1 or later and Node 22.14 or later as the minimum, self-hosted runners as unsupported, and the registered workflow filename as the workflow that actually runs `npm publish` (a reusable workflow is validated by its caller's name). Provenance is generated automatically.
+3. Publish the next release to npmjs: after the GitHub Packages publish succeeds, dispatch `GDS Publish (npmjs.com)` on the release tag, then run `npm run verify:published` against `GDS_NPM_REGISTRY=https://registry.npmjs.org`.
+4. Update `INSTALLATION_GUIDE.md`; deprecate `@sovereignsquad@3.9.0` on npmjs with a pointer to the latest release (see below); remove the `NPM_TOKEN` repository secret.
+
+The one real tradeoff of GitHub Packages as the only registry: GitHub Packages authenticates every install, including of public packages. Every consumer needs a personal access token (`read:packages` scope) and an `.npmrc` entry. See "Consumer install" below and `INSTALLATION_GUIDE.md`.
 
 ## Consumer install
 
@@ -178,6 +193,8 @@ Both steps use the ambient `GITHUB_TOKEN` with `issues: write` — **no secret P
 Two legacy lines remain on **npmjs.com** from before the move to GitHub-Packages-only: the `3.9.0` snapshot of the seven `@sovereignsquad` packages, and every version of the seven `@doneisbetter` packages. The policy is to mark them deprecated (with a pointer to GitHub Packages) so consumers see a warning, without unpublishing them — unpublishing would break the apps still installing them, and npm blocks unpublish after 72 hours anyway. Their deprecation records are in [`DEPRECATIONS_AND_MIGRATIONS.md` → Registry deprecations](DEPRECATIONS_AND_MIGRATIONS.md#registry-deprecations).
 
 Registry state as of 2026-10-01: no listing on either line is marked deprecated.
+
+Once a release newer than `3.9.0` is published to npmjs.com (see [Registry policy decision](#registry-policy-decision-2026-10-07-npmjscom-becomes-the-primary-public-registry)), mark the `@sovereignsquad` `3.9.0` snapshot with a pointer to the latest release instead of to GitHub Packages: `Deprecated: upgrade to the current release (npm install @sovereignsquad/gds@latest). See INSTALLATION_GUIDE.md.` The `@doneisbetter` message below is unchanged.
 
 This is a manual, credentialed step against npmjs. It needs an npm account with publish rights to each scope (`@sovereignsquad`, `@doneisbetter`); the repo's ambient GitHub Actions token cannot do it. Run it only with maintainer approval, authenticated to npmjs (`npm login --registry=https://registry.npmjs.org`), from a shell whose `.npmrc` does **not** map `@sovereignsquad` to GitHub Packages:
 
