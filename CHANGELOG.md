@@ -2,15 +2,19 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — npmjs.com decided as the primary public registry (setup pending)
+## Unreleased — npmjs.com is a release registry from 6.8.0 (manual dispatch)
 
 ### Registry policy: npmjs.com primary, GitHub Packages mirror (#938)
 
-The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public registry for GDS releases, with GitHub Packages kept as the audit mirror, published through npm trusted publishing from GitHub Actions. **This is not yet in effect:** the next release is still published to GitHub Packages only until the trusted publishers are configured on npmjs.com and `publish-npmjs.yml` is changed. `RELEASE_PUBLISH.md` records the reason, the ordered setup steps and the npm constraints, and notes that the `@sovereignsquad` `3.9.0` snapshot on npmjs is to be deprecated with a pointer to the latest release once a newer one is published there. No package changed.
+The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public registry for GDS releases, with GitHub Packages kept as the audit mirror, published through npm trusted publishing from GitHub Actions. **In effect from 6.8.0 (2026-10-07), by manual dispatch of `publish-npmjs.yml`; GitHub Packages is still published for every release.** `RELEASE_PUBLISH.md` records the reason, the ordered setup steps and the npm constraints, and notes that the `@sovereignsquad` `3.9.0` snapshot on npmjs is to be deprecated with a pointer to the latest release once a newer one is published there. No package changed.
 
 ### Registry policy: the npmjs publish workflow uses trusted publishing (#938)
 
-`.github/workflows/publish-npmjs.yml` now authenticates with npm trusted publishing (OIDC) instead of the `NPM_TOKEN` secret: the publish job has `id-token: write`, a step fails early unless npm is 11.5.1 or later, and no step reads `secrets.NPM_TOKEN`. The workflow is still dispatch-only and still not part of the automatic release dispatch list. **Still not in effect:** each of the seven `@sovereignsquad` packages needs a trusted publisher registered on npmjs.com (owner action) before a dispatch can publish anything, and releases continue to go to GitHub Packages only until then. `RELEASE_PUBLISH.md` records the ordered steps.
+`.github/workflows/publish-npmjs.yml` now authenticates with npm trusted publishing (OIDC) instead of the `NPM_TOKEN` secret: the publish job has `id-token: write`, a step fails early unless npm is 11.5.1 or later, and no step reads `secrets.NPM_TOKEN`. The workflow is still dispatch-only and still not part of the automatic release dispatch list. `RELEASE_PUBLISH.md` records the ordered steps.
+
+### Registry policy: first release published to npmjs.com (#938)
+
+GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
 ## 6.8.0 - 2026-10-06 — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, sidebar/pin elevation roles with validated tracking and italic typography inputs, a reserved Scout AI sub-brand accent lane, two new SemanticButton brand intents for it, and a ListingCard featured/selected ring with a pick badge, a row tile, and a browse-selection hook, and the documentation delivered from the consumer-ecosystem audit (#708, #699, #724, #698, #710, #713, #711, #709, #695, #697, #700, #701, #746)
 
