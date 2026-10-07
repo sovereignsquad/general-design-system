@@ -7,11 +7,15 @@ name: GDS Publish (npmjs.com)
 # not a GDS choice). This is the only real path to a zero-token consumer
 # install.
 #
-# Requires an `NPM_TOKEN` repository secret: an npmjs.com "Automation" access
-# token for the account that owns the @sovereignsquad scope. Until that
-# secret exists this workflow fails cleanly at the publish step with an auth
-# error — dispatch it manually to confirm before wiring it into
-# auto-tag-release.yml's automatic per-release dispatch list.
+# Authenticates with npm trusted publishing (OIDC): no npm token is stored or
+# read. Each of the seven @sovereignsquad packages needs a trusted publisher
+# on npmjs.com (Organization or user `sovereignsquad`, Repository
+# `general-design-system`, Workflow filename `publish-npmjs.yml`); until that
+# is registered this workflow fails cleanly at the publish step with an auth
+# error. npm CLI 11.5.1 or later and a GitHub-hosted runner are required.
+# Policy and setup order: RELEASE_PUBLISH.md "Registry policy decision" (#938).
+# Dispatch it manually on a release tag; it is not part of
+# auto-tag-release.yml's automatic dispatch list.
 #
 # GitHub Packages (publish-github-packages.yml) remains the canonical,
 # audit-friendly registry; this is a second, additive distribution channel,
@@ -30,6 +34,9 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing (OIDC)
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -42,6 +49,11 @@ jobs:
           registry-url: https://registry.npmjs.org
           scope: "@sovereignsquad"
 
+      - name: Require npm 11.5.1 or later (trusted publishing)
+        run: |
+          v=$(npm --version)
+          [ "$(printf '%s\n' 11.5.1 "$v" | sort -V | head -n1)" = 11.5.1 ] || { echo "npm $v is older than 11.5.1, trusted publishing needs 11.5.1 or later"; exit 1; }
+
       - name: Install dependencies
         run: npm ci --omit=optional
 
@@ -53,12 +65,9 @@ jobs:
 
       - name: Publish packages to npmjs.com
         run: npm run publish:npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Verify registry publication
         run: npm run verify:published
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GDS_REGISTRY_RETRIES: 15
           GDS_REGISTRY_DELAY_MS: 10000
