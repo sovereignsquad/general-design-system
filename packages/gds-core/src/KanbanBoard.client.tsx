@@ -302,7 +302,8 @@ export function KanbanColumn<
   collapsible = false,
   collapsed,
   onCollapsedChange,
-}: KanbanColumnProps<TItem, TColumn>) {
+  fillHeight = false,
+}: KanbanColumnProps<TItem, TColumn> & { fillHeight?: boolean }) {
   const { t } = useGdsTranslation();
   // A droppable region keyed by the column id itself, so dropping on an empty column
   // (or in the empty space below the last card) resolves to this column even though
@@ -379,11 +380,14 @@ export function KanbanColumn<
       withBorder
       radius="lg"
       p="md"
-      style={width ? { minWidth: width, flex: '0 0 auto' } : undefined}
+      style={{
+        ...(width ? { minWidth: width, flex: '0 0 auto' } : {}),
+        ...(fillHeight ? { display: 'flex', flexDirection: 'column', height: '100%' } : {}),
+      }}
       data-gds-kanban-column={column.id}
       data-gds-kanban-column-collapsed={collapsible && resolvedCollapsed ? 'true' : undefined}
     >
-      <Stack gap="sm">
+      <Stack gap="sm" style={fillHeight ? { flex: 1, minHeight: 0 } : undefined}>
         <Group justify="space-between" align="center" wrap="nowrap" data-gds-kanban-column-header={column.id}>
           <Group gap="xs" wrap="nowrap" style={{ minWidth: 0 }}>
             {collapsible ? (
@@ -406,11 +410,25 @@ export function KanbanColumn<
           <Badge variant="light">{count}</Badge>
         </Group>
         {collapsible ? (
-          <div id={bodyId} hidden={resolvedCollapsed} data-gds-kanban-column-body={column.id}>
-            {resolvedCollapsed ? null : <Stack gap="sm">{body}</Stack>}
+          <div
+            id={bodyId}
+            hidden={resolvedCollapsed}
+            data-gds-kanban-column-body={column.id}
+            style={fillHeight && !resolvedCollapsed ? { flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' } : undefined}
+          >
+            {resolvedCollapsed ? null : (
+              <Stack gap="sm" style={fillHeight ? { flex: 1, minHeight: 0 } : undefined}>
+                {body}
+              </Stack>
+            )}
           </div>
         ) : (
-          body
+          <div
+            data-gds-kanban-column-body={column.id}
+            style={fillHeight ? { flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' } : undefined}
+          >
+            {body}
+          </div>
         )}
       </Stack>
     </Paper>
@@ -489,6 +507,13 @@ export interface KanbanBoardProps<
   collapsedColumnIds?: string[];
   /** Notified with the column id and its new collapsed state whenever a column's toggle changes. */
   onCollapsedChange?: (columnId: string, collapsed: boolean) => void;
+  /**
+   * When `true`, expands the board root, horizontal scroll area, and columns vertically
+   * (`flex: 1`, `height: 100%`, `align-items: stretch`) so that columns and the horizontal
+   * scrollbar anchor cleanly to the bottom of the container rather than floating in the middle
+   * of the viewport when columns have few items (issue #946). Off by default for backward compatibility.
+   */
+  fillHeight?: boolean;
 }
 
 function findColumnByItemId<TColumn extends KanbanColumnData>(
@@ -532,6 +557,7 @@ export function KanbanBoard<
   collapsible = false,
   collapsedColumnIds,
   onCollapsedChange,
+  fillHeight = false,
 }: KanbanBoardProps<TItem, TColumn>) {
   const { t } = useGdsTranslation();
   const autoOrientation = useGdsKanbanOrientation();
@@ -678,17 +704,47 @@ export function KanbanBoard<
         collapsible={collapsible}
         collapsed={collapsible ? collapsedIds.includes(column.id) : undefined}
         onCollapsedChange={(next) => handleColumnCollapsedChange(column.id, next)}
+        fillHeight={fillHeight}
       />
     ));
 
   const board = (
-    <Stack gap="md" role="region" aria-label={regionLabel} data-gds-kanban-orientation={resolvedOrientation}>
+    <Stack
+      gap="md"
+      role="region"
+      aria-label={regionLabel}
+      data-gds-kanban-orientation={resolvedOrientation}
+      data-gds-kanban-fill-height={fillHeight ? 'true' : undefined}
+      style={fillHeight ? { flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' } : undefined}
+    >
       {title ? typeof title === 'string' ? <Title order={3}>{title}</Title> : title : null}
       {resolvedOrientation === 'stacked' ? (
-        <Stack gap="lg">{columnList(undefined)}</Stack>
+        <Stack gap="lg" style={fillHeight ? { flex: 1, minHeight: 0 } : undefined}>
+          {columnList(undefined)}
+        </Stack>
       ) : (
-        <ScrollArea type="auto" scrollbarSize={8} offsetScrollbars viewportRef={viewportRef}>
-          <Group gap="md" wrap="nowrap" align="flex-start">
+        <ScrollArea
+          type="auto"
+          scrollbarSize={8}
+          offsetScrollbars
+          viewportRef={viewportRef}
+          style={fillHeight ? { flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' } : undefined}
+          styles={
+            fillHeight
+              ? {
+                  root: { flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' },
+                  viewport: { flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' },
+                  scrollbar: { position: 'absolute', bottom: 0, left: 0, right: 0 },
+                }
+              : undefined
+          }
+        >
+          <Group
+            gap="md"
+            wrap="nowrap"
+            align={fillHeight ? 'stretch' : 'flex-start'}
+            style={fillHeight ? { flex: 1, minHeight: '100%', alignItems: 'stretch' } : undefined}
+          >
             {columnList(columnWidth)}
           </Group>
         </ScrollArea>
