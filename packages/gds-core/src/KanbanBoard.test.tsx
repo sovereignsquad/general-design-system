@@ -342,4 +342,26 @@ describe('KanbanBoard column-pan wheel routing (#464)', () => {
     const header = container.querySelector('[data-gds-kanban-column-header="todo"]')!;
     expect(wheelOver(header).defaultPrevented).toBe(false);
   });
+
+  describe('KanbanBoard fillHeight (#946)', () => {
+    it('defaults fillHeight to false (no data-gds-kanban-fill-height attribute)', () => {
+      const { container } = renderWithGds(<KanbanBoard columns={makeColumns()} orientation="columns" />);
+      const board = container.querySelector('[data-gds-kanban-orientation]');
+      expect(board?.getAttribute('data-gds-kanban-fill-height')).toBeNull();
+    });
+
+    it('sets data-gds-kanban-fill-height and applies full height styling to columns when fillHeight is true', () => {
+      const { container } = renderWithGds(
+        <KanbanBoard columns={makeColumns()} orientation="columns" fillHeight />,
+      );
+      const board = container.querySelector('[data-gds-kanban-orientation]');
+      expect(board?.getAttribute('data-gds-kanban-fill-height')).toBe('true');
+
+      const col = container.querySelector('[data-gds-kanban-column="todo"]') as HTMLElement;
+      expect(col).not.toBeNull();
+      expect(col.style.height).toBe('100%');
+      expect(col.style.display).toBe('flex');
+      expect(col.style.flexDirection).toBe('column');
+    });
+  });
 });
