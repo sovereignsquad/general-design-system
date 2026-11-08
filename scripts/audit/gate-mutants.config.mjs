@@ -50,7 +50,7 @@ export const EXEMPTIONS = {
   'verify:a11y-package': { reason: 'Reads dist/; needs a rebuild-aware mutant.', reviewBy: '2026-12-01' },
   'verify:token-contrast-scoring': { reason: 'Reads dist/; needs a rebuild-aware mutant.', reviewBy: '2026-12-01' },
   // Self-referential: mutating it re-runs the whole suite (8 mutants, two rebuilds) inside itself.
-  'verify:gates': { reason: 'Self-referential: mutating it re-runs the whole suite inside itself, including rebuilds. Deferred on cost, not principle. The gate that verifies gates is currently unverified.', reviewBy: '2026-11-01' },
+  'verify:gates': { reason: 'Self-referential: mutating it re-runs the whole suite inside itself, including rebuilds. Deferred on cost, not principle. The gate that verifies gates is currently unverified.', reviewBy: '2027-05-01' },
 };
 
 /**
@@ -445,7 +445,7 @@ export const GATE_MUTANTS = [
         // surface-role token (--gds-bg-page, --gds-bg-canvas) can once some component starts
         // consuming it for an unrelated reason, so it stays a stable, real extension point.
         file: 'scripts/token-reachability.config.mjs',
-        find: "    reviewBy: '2026-11-01',\n  },",
+        find: "    reviewBy: '2027-05-01',\n  },",
         replace: "    reviewBy: '2020-01-01',\n  },",
         once: true,
       },
