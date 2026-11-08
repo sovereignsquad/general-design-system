@@ -355,7 +355,7 @@ export const EXTENSION_POINTS = {
       'No alias and no consumer. A member of the published BrandSemanticRole union returned by '
       + 'createBrandTheme(), so removal is a breaking change requiring a deprecation cycle '
       + '(issue 586 §6). Near-dated deliberately.',
-    reviewBy: '2026-11-01',
+    reviewBy: '2027-05-01',
   },
 
   // ── Layout axis (issue 698) ──
