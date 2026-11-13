@@ -2,11 +2,11 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-10-06
+Last updated: 2026-11-13
 
 This document records the current proof points for the direct package-consumption path that consumer teams should rely on when evaluating GDS adoption readiness.
 
-Latest published GitHub Packages baseline validated by this proof: `6.8.0`
+Latest published baseline validated by this proof (GitHub Packages mirror): `6.8.0`
 Current repository line: `6.8.0`
 Current major line: `6.x`
 
@@ -103,12 +103,7 @@ That means the current verified statement is:
 
 ## Consumer install commands
 
-All installs require the `.npmrc` scope mapping to GitHub Packages first:
-
-```ini
-@sovereignsquad:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
+Installs from npmjs.com need no `.npmrc` entry. Installs from the GitHub Packages mirror need the scope mapping and token in [INSTALLATION_GUIDE.md "GitHub Packages mirror (authenticated)"](INSTALLATION_GUIDE.md#github-packages-mirror-authenticated).
 
 Canonical `6.8.0` end-state install source after the release gate opens:
 
@@ -124,7 +119,7 @@ npm install @sovereignsquad/gds-theme@6.8.0 @sovereignsquad/gds-core@6.8.0 @sove
 npm install -D @sovereignsquad/gds-eslint-config@6.8.0 @sovereignsquad/gds-compliance@6.8.0 @sovereignsquad/gds-a11y@6.8.0
 ```
 
-Release-visibility tarballs attached to the `gds-v<VERSION>` GitHub Release (see [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md)) are audit/offline artifacts, not a documented install path — do not use them in place of the GitHub Packages install above, and do not use sibling `file:` links in CI or Vercel flows.
+Release-visibility tarballs attached to the `gds-v<VERSION>` GitHub Release (see [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md)) are audit/offline artifacts, not a documented install path — do not use them in place of the registry install above, and do not use sibling `file:` links in CI or Vercel flows.
 
 ## Evidence commands
 

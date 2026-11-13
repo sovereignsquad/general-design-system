@@ -8,12 +8,7 @@ Use this for every product team migrating to the current stable `6.8.0` GDS adop
 
 Team, we completed the GDS upgrade to the 6.8.0 adoption platform release.
 
-- GDS installs exclusively from GitHub Packages — if your `.npmrc` doesn't already have it, add:
-  ```ini
-  @sovereignsquad:registry=https://npm.pkg.github.com
-  //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-  ```
-  (`GITHUB_TOKEN` is your own personal access token with `read:packages` scope. These packages are private to the `sovereignsquad` org, so the token also needs org read access — request it from the GDS maintainers if you don't have it.)
+- GDS installs from npmjs.com with no `.npmrc` entry and no token. If your `.npmrc` has `@sovereignsquad:registry=https://npm.pkg.github.com` and the matching `_authToken` line from an earlier setup, remove both (and the CI and deployment-host token settings that only GDS needed) unless your organization requires the authenticated GitHub Packages mirror; see INSTALLATION_GUIDE.md "Switching an existing app from GitHub Packages to npmjs.com".
 - Update dependencies:
   - `@sovereignsquad/gds@6.8.0`
   - `@sovereignsquad/gds-eslint-config@6.8.0` (dev)

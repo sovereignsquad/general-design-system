@@ -55,9 +55,10 @@ import {
 } from './page-copy';
 import { productUseCases } from './product-use-cases';
 
-const npmrcCode = `# .npmrc
-@sovereignsquad:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}`;
+const npmrcCode = `# .npmrc — not needed: GDS installs anonymously from npmjs.com.
+# Only for the authenticated GitHub Packages mirror:
+# @sovereignsquad:registry=https://npm.pkg.github.com
+# //npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}`;
 
 const installCode = `npm install @sovereignsquad/gds@${targetGdsVersion}
 npm install -D @sovereignsquad/gds-eslint-config@${targetGdsVersion} @sovereignsquad/gds-compliance@${targetGdsVersion} @sovereignsquad/gds-a11y@${targetGdsVersion}`;
@@ -207,7 +208,7 @@ npm run verify:published:consumer
 gds-compliance check --manifest ./gds-adoption.json --format text`;
 
 const fallbackConsumerInstallCode = `# NOT a documented install path — release-visibility artifact only.
-# GDS installs exclusively via GitHub Packages (see the .npmrc block above).
+# GDS installs from npmjs.com with the commands above.
 # These tarballs exist for audit/offline purposes; the @sovereignsquad/gds
 # umbrella package cannot be installed this way (registry-only dependency ranges).
 npm install https://github.com/sovereignsquad/general-design-system/releases/download/gds-v${targetGdsVersion}/sovereignsquad-gds-theme-${targetGdsVersion}.tgz \\
@@ -282,10 +283,7 @@ function SiteFooter() {
 }
 
 export function AiPage() {
-  const installCode = `# .npmrc — required: GitHub Packages authenticates every install, even public packages.
-# @sovereignsquad:registry=https://npm.pkg.github.com
-# //npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}
-
+  const installCode = `# Installs anonymously from npmjs.com: no .npmrc entry and no token.
 npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications @tabler/icons-react react react-dom`;
 
   const providerCode = `import { GdsProvider, MetricCard, SemanticButton } from '@sovereignsquad/gds';
@@ -1083,7 +1081,7 @@ export function InstallPage() {
       <SiteTourLauncher
         tourId="gds-install"
         steps={[
-          { id: 'install-registry', target: 'install-registry', title: 'Install from GitHub Packages', body: 'Add the .npmrc registry line, then install @sovereignsquad/gds and its peers. Every install authenticates, even for public packages.', placement: 'bottom' },
+          { id: 'install-registry', target: 'install-registry', title: 'Install from npmjs.com', body: 'Install @sovereignsquad/gds and its peer dependencies from npmjs.com. No .npmrc entry or token is needed.', placement: 'bottom' },
           { id: 'install-provider', target: 'install-provider', title: 'Wrap your app once', body: 'Load the GDS stylesheet, then wrap the app in a single GdsProvider — the one required root that injects theme, tokens, and locale.', placement: 'top' },
         ]}
       />

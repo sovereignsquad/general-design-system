@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-10-01
+Last updated: 2026-11-13
 
 This document defines how `@sovereignsquad/gds-*` contracts are deprecated, replaced, and removed.
 
@@ -116,8 +116,8 @@ Beyond code contracts, a distribution channel can be deprecated.
 ### npmjs.com `@sovereignsquad` packages (frozen at `3.9.0`)
 
 - `contract`: the `@sovereignsquad` packages published on **npmjs.com** at `3.9.0`: `gds`, `gds-core`, `gds-theme`, `gds-admin`, `gds-a11y`, `gds-compliance` and `gds-eslint-config`
-- `replacement`: the same packages on **GitHub Packages** (`https://npm.pkg.github.com`) at the current release, with `@sovereignsquad/gds` as the recommended umbrella
-- `deprecatedIn`: 4.0.0, by GDS policy and documentation. Registry state: as of 2026-10-01 none of the seven `3.9.0` listings is marked deprecated on npmjs; `npm view @sovereignsquad/<package>@3.9.0 deprecated --@sovereignsquad:registry=https://registry.npmjs.org` printed nothing for each. Marking them is the maintainer step in [`RELEASE_PUBLISH.md`](RELEASE_PUBLISH.md#deprecating-the-legacy-npmjs-packages); update this line with the date and output when it runs
+- `replacement`: the same packages on **npmjs.com** at the current release (`latest`, `6.8.0` and later), with `@sovereignsquad/gds` as the recommended umbrella; the GitHub Packages mirror (`https://npm.pkg.github.com`) carries the same versions
+- `deprecatedIn`: 4.0.0, by GDS policy and documentation. Registry state: as of 2026-11-13 none of the seven `3.9.0` listings is marked deprecated on npmjs; `npm view @sovereignsquad/<package>@3.9.0 deprecated --@sovereignsquad:registry=https://registry.npmjs.org` printed nothing for each. Marking them is the maintainer step in [`RELEASE_PUBLISH.md`](RELEASE_PUBLISH.md#deprecating-the-legacy-npmjs-packages); update this line with the date and output when it runs
 - `removalTarget`: **none — not unpublished.** The `3.9.0` listings stay resolvable so existing consumers are not broken; they are frozen and receive no updates
 - `detectionRule`: a resolved `@sovereignsquad/*@3.9.0` from `registry.npmjs.org`
 - `migrationGuide`: [`INSTALLATION_GUIDE.md` → Migrating from the legacy npmjs 3.9.0 packages](INSTALLATION_GUIDE.md#migrating-from-the-legacy-npmjs-390-packages). Name changes between `3.9.0` and the current release are listed in [3.9.0 to current](#390-to-current)
@@ -126,11 +126,11 @@ Beyond code contracts, a distribution channel can be deprecated.
 ### npmjs.com `@doneisbetter` packages (superseded by the `@sovereignsquad` scope)
 
 - `contract`: the `@doneisbetter` packages on **npmjs.com**: `gds`, `gds-core`, `gds-theme`, `gds-admin`, `gds-a11y`, `gds-compliance` and `gds-eslint-config`, with `latest` at `3.8.0`
-- `replacement`: the same packages under `@sovereignsquad` on **GitHub Packages** at the current release
-- `deprecatedIn`: 3.9.0, the scope rename ([`MIGRATION_TO_SOVEREIGNSQUAD.md`](MIGRATION_TO_SOVEREIGNSQUAD.md)). Registry state: as of 2026-10-01 no version of the seven packages is marked deprecated on npmjs. Marking them is the maintainer step in [`RELEASE_PUBLISH.md`](RELEASE_PUBLISH.md#deprecating-the-legacy-npmjs-packages); update this line with the date and output when it runs
+- `replacement`: the same packages under `@sovereignsquad` on **npmjs.com** at the current release
+- `deprecatedIn`: 3.9.0, the scope rename ([`MIGRATION_TO_SOVEREIGNSQUAD.md`](MIGRATION_TO_SOVEREIGNSQUAD.md)). Registry state: as of 2026-11-13 no version of the seven packages is marked deprecated on npmjs; `npm view "@doneisbetter/<package>@>=0.0.0" deprecated --registry=https://registry.npmjs.org` printed nothing for each. Marking them is the maintainer step in [`RELEASE_PUBLISH.md`](RELEASE_PUBLISH.md#deprecating-the-legacy-npmjs-packages); update this line with the date and output when it runs
 - `removalTarget`: **none — not unpublished.** Existing installs keep resolving
 - `detectionRule`: a resolved `@doneisbetter/*` package in the lockfile or `node_modules`
-- `migrationGuide`: rename imports with the package mapping in [`MIGRATION_TO_SOVEREIGNSQUAD.md`](MIGRATION_TO_SOVEREIGNSQUAD.md), then follow [`INSTALLATION_GUIDE.md` → Migrating from the legacy npmjs 3.9.0 packages](INSTALLATION_GUIDE.md#migrating-from-the-legacy-npmjs-390-packages) to the current release on GitHub Packages. Regenerate the lockfile so the declared, locked and installed scopes agree
+- `migrationGuide`: rename imports with the package mapping in [`MIGRATION_TO_SOVEREIGNSQUAD.md`](MIGRATION_TO_SOVEREIGNSQUAD.md), then follow [`INSTALLATION_GUIDE.md` → Migrating from the legacy npmjs 3.9.0 packages](INSTALLATION_GUIDE.md#migrating-from-the-legacy-npmjs-390-packages) to the current release. Regenerate the lockfile so the declared, locked and installed scopes agree
 - `riskLevel`: low (installs keep working during migration)
 
 ## Component-export relocations
@@ -172,7 +172,7 @@ The names an app on `3.9.0` changes when it moves to the current release. Instal
 | Change | Before | After | Release | Record |
 |---|---|---|---|---|
 | Package scope | `@doneisbetter/*` (up to `3.8.0`) | `@sovereignsquad/*` | 3.9.0 | [`@doneisbetter` record](#npmjscom-doneisbetter-packages-superseded-by-the-sovereignsquad-scope) |
-| Registry | npmjs.com `3.9.0` snapshot | GitHub Packages | 4.0.0 | [npmjs record](#npmjscom-sovereignsquad-packages-frozen-at-390) |
+| Registry | npmjs.com `3.9.0` snapshot | GitHub Packages (4.0.0), then npmjs.com `latest` again (6.8.0) | 4.0.0 | [npmjs record](#npmjscom-sovereignsquad-packages-frozen-at-390) |
 | Peer dependencies | `@mantine/dates` and `dayjs` not declared | `@mantine/dates` and `dayjs` are peers of `@sovereignsquad/gds` and `@sovereignsquad/gds-core` | 3.12.0 | [`INSTALLATION_GUIDE.md` → Peer dependencies](INSTALLATION_GUIDE.md#peer-dependencies) |
 | Prop, alias kept | `GdsPageTemplateAction.pending` | `GdsPageTemplateAction.loading` | 3.13.0 | [record](#gdspagetemplateactionpending-renamed-to-loading-3130) |
 | Export subpath | `ReferenceThemeExplorer`, `ThemeExplorerSelection`, `ThemePresetId`, `ThemeSchemeId` from `@sovereignsquad/gds-core` and `@sovereignsquad/gds-core/client` | `@sovereignsquad/gds-core/reference-theme-explorer` | 5.0.0 | [record](#referencethemeexplorer-moved-to-a-dedicated-subpath-500) |

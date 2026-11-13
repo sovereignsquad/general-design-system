@@ -2,13 +2,34 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-10-01
+Last updated: 2026-11-13
 
 This guide is the canonical consumer setup path for the public umbrella package `@sovereignsquad/gds`. Granular package lanes remain available when a consumer explicitly wants them.
 
 ## Single install surface
 
-GDS publishes current and future releases to GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`). A frozen `3.9.0` snapshot of the packages also exists on npmjs.com. GDS policy deprecates it and does not support it, but as of 2026-10-01 the registry does not mark it deprecated, so installing it prints no warning (see [Migrating from the legacy npmjs 3.9.0 packages](#migrating-from-the-legacy-npmjs-390-packages) below). All new installs use GitHub Packages. Every install, for every consumer, starts with a one-time `.npmrc` entry:
+GDS publishes every release from `6.8.0` on to npmjs.com, the primary registry. Installs from npmjs.com are anonymous: no `.npmrc` entry, no token and no GitHub account. Install the umbrella package and your own React; the engine arrives as peer dependencies (see [Peer dependencies](#peer-dependencies)):
+
+```bash
+npm install @sovereignsquad/gds react react-dom
+```
+
+`react` and `react-dom` are on the install line because your app imports them itself. The engine packages are peer dependencies, covered by the rule below.
+
+Use icons through the GDS-owned `GdsIcons` surface (`import { GdsIcons } from '@sovereignsquad/gds'`) — do not import `@tabler/icons-react` directly.
+
+### Switching an existing app from GitHub Packages to npmjs.com
+
+Apps set up for an earlier release carry a scoped registry line in `.npmrc`. That line routes every `@sovereignsquad/*` install to GitHub Packages, which requires a token, even though the same versions are on npmjs.com. To install anonymously:
+
+1. Remove `@sovereignsquad:registry=https://npm.pkg.github.com` and the `//npm.pkg.github.com/:_authToken=...` line from `.npmrc` (project and user level), and delete the file if nothing else is left in it.
+2. Remove `registry-url: https://npm.pkg.github.com`, `scope: "@sovereignsquad"`, `NODE_AUTH_TOKEN` and `packages: read` from install steps in CI that only needed them for GDS.
+3. Remove the `GITHUB_TOKEN` build variable from deployment hosts that only needed it for GDS.
+4. Regenerate the lockfile so its `resolved` URLs point at `registry.npmjs.org`, then confirm with `npm ls @sovereignsquad/gds`.
+
+### GitHub Packages mirror (authenticated)
+
+Every release is also published to GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`) as an audit mirror. Nothing requires it. Use it only if your organization mandates it. GitHub Packages authenticates every install, including of public packages, and these packages are **private** to the `sovereignsquad` org there, so a token needs both the `read:packages` scope and read access to the org; a token from an account outside the org gets a `401` even with the scope set. Add a one-time `.npmrc` entry:
 
 ```ini
 # .npmrc (project root)
@@ -16,9 +37,9 @@ GDS publishes current and future releases to GitHub Packages' npm-compatible reg
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
-`GITHUB_TOKEN` is your own personal access token (a classic PAT with `read:packages` scope is sufficient) or your CI's provisioned token — not a GDS-owned secret. GitHub Packages authenticates every install, and these packages are currently **private** to the `sovereignsquad` org, so a token needs both the `read:packages` scope and read access to the org — a token from an account outside the org gets a `401` even with the scope set. Export the token in your shell (or CI secret store) as `GITHUB_TOKEN` before running any command below; the `.npmrc` above expands `${GITHUB_TOKEN}` from that environment variable. If it is unset or empty, installs fail with `401 unauthenticated`. See [Troubleshooting `401`/`403` on install](#troubleshooting-401403-on-install) for the full checklist, including SAML-SSO token authorization.
+`GITHUB_TOKEN` is your own personal access token (a classic PAT with `read:packages` scope is sufficient) or your CI's provisioned token — not a GDS-owned secret. Export it in your shell (or CI secret store) as `GITHUB_TOKEN` before installing; the `.npmrc` above expands `${GITHUB_TOKEN}` from that environment variable. If it is unset or empty, installs fail with `401 unauthenticated`. See [Troubleshooting `401`/`403` on install](#troubleshooting-401403-on-install) for the full checklist, including SAML-SSO token authorization.
 
-### Getting a `read:packages` token
+#### Getting a `read:packages` token
 
 The GDS packages are **private** to the `sovereignsquad` GitHub org. Before generating a token, get read access to the org (or to the specific `@sovereignsquad/*` packages) from the GDS maintainers — a token from an account with no org access will `401` regardless of scope.
 
@@ -51,7 +72,7 @@ npm install
 
 **In GitHub Actions, you do not need a PAT at all** — the workflow's built-in `secrets.GITHUB_TOKEN` reads packages when the job has `permissions: packages: read`; see [CI (GitHub Actions) setup](#ci-github-actions-setup). A PAT is only for local development and non-GitHub CI/CD hosts (e.g. Vercel), where you store it as a project-level environment variable — worked recipe below.
 
-### Getting `GITHUB_TOKEN` into a deployment host's build
+#### Getting `GITHUB_TOKEN` into a deployment host's build
 
 `npm install` runs during your deployment host's **build step**, not just at runtime, so the
 classic PAT from [Getting a `read:packages` token](#getting-a-readpackages-token) above has to
@@ -87,16 +108,6 @@ rotation. Netlify, Render, and Docker-based CI/CD builds expose an equivalent "b
 variable"/`--build-arg` mechanism — consult that host's own docs for the exact steps, and prefer
 its native secret store over baking the token into a Dockerfile layer.
 
-The vendor UI engine is still GDS's concern, not yours, once the registry is configured. Install the umbrella package and your own React; the engine arrives as peer dependencies (see [Peer dependencies](#peer-dependencies)):
-
-```bash
-npm install @sovereignsquad/gds react react-dom
-```
-
-`react` and `react-dom` are on the install line because your app imports them itself. The engine packages are peer dependencies, covered by the rule below.
-
-Use icons through the GDS-owned `GdsIcons` surface (`import { GdsIcons } from '@sovereignsquad/gds'`) — do not import `@tabler/icons-react` directly.
-
 ### Peer dependencies
 
 This is the single peer-dependency rule for every GDS install path.
@@ -116,7 +127,7 @@ Release-line rule:
 
 - current stable package line: `6.8.0`
 - current major line: `6.x`
-- do not announce or ask clients to install a new version until `npm run verify:published` confirms availability on GitHub Packages
+- do not announce or ask clients to install a new version until it is available on npmjs.com: `GDS_NPM_REGISTRY=https://registry.npmjs.org npm run verify:published` (the script checks the GitHub Packages mirror when `GDS_NPM_REGISTRY` is unset)
 
 Public install and reference routes:
 
@@ -219,7 +230,7 @@ No GDS artifact covers error HTML served before the React app can boot (edge mid
 
 ## 2. Canonical install commands
 
-All commands below assume the `.npmrc` from "Single install surface" is already in place.
+All commands below install from npmjs.com with no `.npmrc` entry. Apps that use the GitHub Packages mirror need its `.npmrc` entry from [GitHub Packages mirror (authenticated)](#github-packages-mirror-authenticated) in place first.
 
 Preferred `6.8.0` runtime package:
 
@@ -567,13 +578,15 @@ Expected failure handling:
 
 ### Troubleshooting `401`/`403` on install
 
+Installs from npmjs.com need no token, so a `401` or `403` on `@sovereignsquad/*` means the install went to GitHub Packages. If you did not choose the mirror, an `@sovereignsquad:registry` line in a project or user `.npmrc` is routing it there: remove it as described in [Switching an existing app from GitHub Packages to npmjs.com](#switching-an-existing-app-from-github-packages-to-npmjscom). The rest of this section applies to apps that use the mirror.
+
 A `401 unauthenticated: User cannot be authenticated with the token provided` means GitHub Packages rejected the token outright. Work through these in order — they are listed most-common first:
 
 1. **`$GITHUB_TOKEN` is empty or unset.** The `.npmrc` line `//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}` only works if that environment variable is exported and non-empty. Run `echo $GITHUB_TOKEN` (or `printenv GITHUB_TOKEN`) — a blank result means npm sent an empty token, which reads as `401`. Export a real token first: `export GITHUB_TOKEN=ghp_...`.
 2. **Missing `read:packages` scope.** A classic PAT needs at least `read:packages`. Regenerate or edit the token's scopes.
 3. **SAML SSO not authorized for the org.** If `sovereignsquad` (or your own org) enforces SAML single sign-on, a correctly-scoped token still `401`s until it is explicitly authorized: open the token's settings page and use **Configure SSO → Authorize** for the org. This is the most common cause when the token *looks* correct.
 4. **Fine-grained PAT without the right access.** A fine-grained token must grant the resource owner (the org) and **Packages: read** permission, and the org must allow fine-grained tokens. If in doubt, use a classic PAT with `read:packages`.
-5. **`.npmrc` scope/registry lines missing.** Confirm both lines from [Single install surface](#single-install-surface) are present (`@sovereignsquad:registry=...` and the `_authToken` line).
+5. **`.npmrc` scope/registry lines missing.** Confirm both lines from [GitHub Packages mirror (authenticated)](#github-packages-mirror-authenticated) are present (`@sovereignsquad:registry=...` and the `_authToken` line).
 
 A `403` means GitHub Packages accepted the credentials and refused the request. Two causes:
 
@@ -586,7 +599,7 @@ In GitHub Actions, prefer the workflow's own `secrets.GITHUB_TOKEN` (with `permi
 
 ### Registry outage: bounded vendored fallback
 
-Use this only while installs from GitHub Packages fail for every token (cause 2 above). It is temporary by definition: once its removal date passes, it is the permanent vendoring that [Common mistakes](#7-common-mistakes) forbids.
+Use this only while the registry the app installs from is unavailable: npmjs.com is down, or, for an app that uses the mirror, every token fails (cause 2 above). It is temporary by definition: once its removal date passes, it is the permanent vendoring that [Common mistakes](#7-common-mistakes) forbids.
 
 1. **Tarballs.** Download the tarballs of the exact version the app already runs from the GitHub Release of its `gds-v<VERSION>` tag ([section 8](#8-release-visibility-artifacts-not-an-install-path)). Release assets are served by GitHub Releases, not GitHub Packages:
 
@@ -601,7 +614,19 @@ Use this only while installs from GitHub Packages fail for every token (cause 2 
 
 ### CI (GitHub Actions) setup
 
-In a consumer repo's workflow, authenticate the ambient token to GitHub Packages and grant read permission:
+A consumer workflow that installs from npmjs.com needs no registry setup, token or `packages` permission:
+
+```yaml
+permissions:
+  contents: read
+steps:
+  - uses: actions/setup-node@v6
+    with:
+      node-version: 24
+  - run: npm ci
+```
+
+A workflow that installs from the GitHub Packages mirror authenticates the ambient token and grants read permission:
 
 ```yaml
 permissions:
@@ -618,11 +643,11 @@ steps:
       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-For **local development**, each developer uses their own classic PAT (`read:packages`, SSO-authorized if required), exported as `GITHUB_TOKEN`. Do not commit tokens; keep the `${GITHUB_TOKEN}` indirection in `.npmrc` so the file carries no secret.
+For **local development** against the mirror, each developer uses their own classic PAT (`read:packages`, SSO-authorized if required), exported as `GITHUB_TOKEN`. Do not commit tokens; keep the `${GITHUB_TOKEN}` indirection in `.npmrc` so the file carries no secret.
 
 ### Migrating from the legacy npmjs 3.9.0 packages
 
-The `@sovereignsquad/*` `3.9.0` listings on npmjs.com are a frozen snapshot that receives no updates, and GDS policy deprecates them. As of 2026-10-01 none of them is marked deprecated on the registry, so installing them prints no warning. Check the current state with:
+The `@sovereignsquad/*` `3.9.0` listings on npmjs.com are a frozen snapshot that receives no updates, and GDS policy deprecates them. Since `6.8.0`, `latest` on npmjs.com is the current release, so an unpinned install gets it; only an install pinned to `3.9.0` gets the snapshot. As of 2026-11-13 none of the `3.9.0` listings is marked deprecated on the registry, so installing them prints no warning. Check the current state with:
 
 ```bash
 npm view @sovereignsquad/gds@3.9.0 deprecated --@sovereignsquad:registry=https://registry.npmjs.org
@@ -630,12 +655,12 @@ npm view @sovereignsquad/gds@3.9.0 deprecated --@sovereignsquad:registry=https:/
 
 Empty output means the version is not marked. The scoped flag is needed because `--registry` does not override an `@sovereignsquad:registry` line in `.npmrc`.
 
-An app still on `@doneisbetter/*` first renames its imports with the package mapping in [MIGRATION_TO_SOVEREIGNSQUAD.md](MIGRATION_TO_SOVEREIGNSQUAD.md), then follows the steps below to the current release on GitHub Packages, not to the npmjs `3.9.0` snapshot.
+An app still on `@doneisbetter/*` first renames its imports with the package mapping in [MIGRATION_TO_SOVEREIGNSQUAD.md](MIGRATION_TO_SOVEREIGNSQUAD.md), then follows the steps below to the current release, not to the `3.9.0` snapshot.
 
 Install-path steps:
 
-1. **Registry.** Add the `@sovereignsquad:registry` line and token line to `.npmrc` ([Single install surface](#single-install-surface)).
-2. **CI token.** Give each workflow that installs `permissions: packages: read`, `registry-url` and `NODE_AUTH_TOKEN` ([CI setup](#ci-github-actions-setup)), and set `GITHUB_TOKEN` on every deployment host that builds ([deployment hosts](#getting-github_token-into-a-deployment-hosts-build)).
+1. **Registry.** Install from npmjs.com with no `.npmrc` entry ([Single install surface](#single-install-surface)). Apps that use the GitHub Packages mirror add its `.npmrc` lines ([GitHub Packages mirror](#github-packages-mirror-authenticated)).
+2. **CI token.** Only for the mirror: give each workflow that installs `permissions: packages: read`, `registry-url` and `NODE_AUTH_TOKEN` ([CI setup](#ci-github-actions-setup)), and set `GITHUB_TOKEN` on every deployment host that builds ([deployment hosts](#getting-github_token-into-a-deployment-hosts-build)).
 3. **Install.** Switch to the umbrella at the current version: `npm install @sovereignsquad/gds@6.8.0`. It re-exports `gds-core`, `gds-theme` and `gds-admin`. To keep the split packages, install `@sovereignsquad/gds-core@6.7.0` and `@sovereignsquad/gds-theme@6.7.0` instead. Apply the [peer rule](#peer-dependencies): `@mantine/dates` and `dayjs` became peers of `gds-core` and the umbrella in `3.12.0`.
 4. **Lockfile.** Regenerate the lockfile, then confirm the declared, locked and installed versions agree with `npm ls @sovereignsquad/gds` (or `pnpm list @sovereignsquad/gds`). Remove any `3.9.0` entries from pnpm's `minimumReleaseAgeExclude`.
 
@@ -666,7 +691,8 @@ Root setup mistakes (stylesheet, providers, theme factory, fonts) are in [Common
 
 Do not:
 
-- assume GitHub Packages allows anonymous installs — every install needs the `.npmrc` token, and these packages are private, so the token also needs org read access
+- leave an `@sovereignsquad:registry=https://npm.pkg.github.com` line in `.npmrc` when you meant to install from npmjs.com — it routes every GDS install to the authenticated mirror
+- assume the GitHub Packages mirror allows anonymous installs — every mirror install needs the `.npmrc` token, and the packages are private there, so the token also needs org read access
 - use sibling `file:` links in CI or hosted builds — this is not a theoretical warning: several
   real GDS consumers have vendored a `file:vendor/gds/*.tgz` copy as their **primary**, permanent
   install mechanism rather than a one-off workaround. `npm outdated`/Dependabot cannot track a
@@ -691,6 +717,6 @@ Do not:
 
 ## 8. Release-visibility artifacts (not an install path)
 
-Each `gds-v<VERSION>` tag (for example `gds-v6.8.0`) also gets a GitHub Release page with `.tgz` tarballs attached, generated by `.github/workflows/release-bundles.yml`. This exists for release-notes visibility and offline/audit purposes — it is **not** a supported consumer install path: it carries no update signal at all, so a consumer installing from a Release tarball URL can drift multiple major versions behind with nothing ever prompting an upgrade. Install from GitHub Packages as described above. The only sanctioned use of these tarballs in a consumer is the time-boxed [registry-outage fallback](#registry-outage-bounded-vendored-fallback).
+Each `gds-v<VERSION>` tag (for example `gds-v6.8.0`) also gets a GitHub Release page with `.tgz` tarballs attached, generated by `.github/workflows/release-bundles.yml`. This exists for release-notes visibility and offline/audit purposes — it is **not** a supported consumer install path: it carries no update signal at all, so a consumer installing from a Release tarball URL can drift multiple major versions behind with nothing ever prompting an upgrade. Install from npmjs.com as described above. The only sanctioned use of these tarballs in a consumer is the time-boxed [registry-outage fallback](#registry-outage-bounded-vendored-fallback).
 
 See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the full publish/release process.

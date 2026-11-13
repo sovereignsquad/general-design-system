@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-08-09
+Last updated: 2026-11-13
 
 This document defines the supported package/runtime contract for the umbrella package `@sovereignsquad/gds` and the granular runtime packages `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.
 
@@ -35,29 +35,21 @@ For hosted CI and Vercel builds, the intended end state is:
 2. keep the consumer repo independent of a sibling GDS checkout
 3. pin the consumed GDS version explicitly in the consumer repo
 
-Canonical registry target: **GitHub Packages** (`https://npm.pkg.github.com`)
+Primary registry: **npmjs.com** (`https://registry.npmjs.org`). Mirror: **GitHub Packages** (`https://npm.pkg.github.com`).
 
-GDS publishes current and future releases to GitHub Packages, the canonical registry. (A frozen, deprecated `3.9.0` snapshot also remains on npmjs.com; new installs use GitHub Packages — see `INSTALLATION_GUIDE.md`.) Every GitHub Packages install — including of public packages — requires authentication:
-
-```ini
-# .npmrc
-@sovereignsquad:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
-
-`GITHUB_TOKEN` is a personal access token with `read:packages` scope (yours, or your CI's provisioned token) — not a GDS-owned secret.
+GDS publishes every release from `6.8.0` on to npmjs.com, where installs are anonymous (no `.npmrc` entry, no token). Every release is also published to GitHub Packages as an authenticated audit mirror, which needs an `.npmrc` entry and a `read:packages` token; see `INSTALLATION_GUIDE.md` "GitHub Packages mirror (authenticated)". The `3.9.0` listings on npmjs.com are a frozen, deprecated snapshot.
 
 Current live status:
 
-- published baseline (GitHub Packages): `6.8.0`
+- published baseline (npmjs.com and the GitHub Packages mirror): `6.8.0`
 - current repository line: `6.8.0`
 - current major line: `6.x`
 
 Consumer repos should install the latest published version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
-Authenticated release operators should use [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md); publishing itself runs only through `.github/workflows/publish-github-packages.yml` in CI, not from a maintainer's machine.
+Authenticated release operators should use [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md); publishing itself runs only in CI, through `.github/workflows/publish-github-packages.yml` (mirror) and `.github/workflows/publish-npmjs.yml` (npmjs.com), not from a maintainer's machine.
 
-For the current `6.8.0` line, the install contract is (requires the `.npmrc` block above):
+For the current `6.8.0` line, the install contract is:
 
 ```bash
 npm install @sovereignsquad/gds@6.8.0
@@ -78,7 +70,7 @@ Do not mix pre-3.0 package lines with `6.8.0` packages in the same consumer depe
 Every `gds-v<VERSION>` tag also produces a public GitHub Release with `.tgz` tarballs attached (via `npm run pack:release`), giving each release a visible page and a downloadable artifact for audit/offline purposes. These are **not** a documented consumer install path:
 
 - the `@sovereignsquad/gds` umbrella package cannot be installed this way — its dependency ranges assume its sub-packages resolve from a registry
-- do not point consumers at these tarball URLs; use the GitHub Packages install contract above
+- do not point consumers at these tarball URLs; use the npmjs.com install contract above
 
 See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the operator-side bundling flow.
 

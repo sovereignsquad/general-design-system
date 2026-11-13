@@ -6,18 +6,13 @@ This file is the entry point for AI coding agents (any LLM-powered coding tool).
 
 ## Install
 
-GDS publishes exclusively to GitHub Packages' npm-compatible registry (`https://npm.pkg.github.com`) — there is no npmjs.com publish and no anonymous install, even for public packages. Add this to `.npmrc` first:
-
-```ini
-@sovereignsquad:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
-
-`GITHUB_TOKEN` is a personal access token with `read:packages` scope (yours, or your CI's provisioned token) — not a GDS-owned secret. Then:
+GDS publishes every release from `6.8.0` on to npmjs.com. Install anonymously, with no `.npmrc` entry, no token and no custom tooling:
 
 ```bash
 npm install @sovereignsquad/gds react react-dom
 ```
+
+Every release is also published to GitHub Packages (`https://npm.pkg.github.com`) as an authenticated mirror. No install needs it. If the project's `.npmrc` contains `@sovereignsquad:registry=https://npm.pkg.github.com`, installs go to the mirror and fail without a `read:packages` token: remove that line unless the project deliberately uses the mirror (INSTALLATION_GUIDE.md "Switching an existing app from GitHub Packages to npmjs.com"). Never ask for or paste a token to install GDS. Do not pin `3.9.0`: it is a frozen, deprecated snapshot.
 
 npm 7+ installs the umbrella's `peerDependencies` automatically. When peer auto-install is off (for example `--legacy-peer-deps`), follow the peer-dependency rule in INSTALLATION_GUIDE.md "Single install surface".
 

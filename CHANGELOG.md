@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — npmjs.com is a release registry from 6.8.0 (manual dispatch)
+## Unreleased — npmjs.com is the primary registry from 6.8.0 and the documented install path
 
 ### Registry policy: npmjs.com primary, GitHub Packages mirror (#938)
 
@@ -15,6 +15,10 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 ### Registry policy: first release published to npmjs.com (#938)
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
+
+### Install documentation: npmjs.com is the documented install path (#938)
+
+Every install instruction now points at npmjs.com, where `npm install @sovereignsquad/gds react react-dom` works anonymously with no `.npmrc` entry and no token: `llms.txt`, `README.md`, `INSTALLATION_GUIDE.md`, `docs/AI_AGENT_GUIDE.md`, `COMPATIBILITY_AND_RELEASES.md`, `RELEASE_PUBLISH.md`, `CLIENT_UPGRADE_PROMPT.md`, `VERIFIED_CONSUMER_INSTALL_PROOF.md`, `DEPRECATIONS_AND_MIGRATIONS.md`, `docs/CLASSSCOUT_INTEGRATION.md`, the Step adoption records, and the reference site's install and AI pages in all 12 locales. `INSTALLATION_GUIDE.md` adds "Switching an existing app from GitHub Packages to npmjs.com" (remove the scoped `.npmrc` line, CI token settings and deployment-host token, then regenerate the lockfile) and keeps the token, deployment-host, CI and `401`/`403` material under "GitHub Packages mirror (authenticated)". The registry state of the `3.9.0` and `@doneisbetter` listings was re-checked on 2026-11-13: none is marked deprecated. Still open, as owner actions: deprecating `3.9.0` on npmjs, removing the `NPM_TOKEN` secret, and automatic dispatch of `publish-npmjs.yml`. No package changed.
 
 ## 6.8.0 - 2026-10-06 — A governed activity pictogram family, a generated brand badge, an element-level opt-out from the theme-preset repaint, a layout axis, a logo lockup / notification bell / compare button, detail-page facts / provider-claim surfaces, the trust-layer component family, sidebar/pin elevation roles with validated tracking and italic typography inputs, a reserved Scout AI sub-brand accent lane, two new SemanticButton brand intents for it, and a ListingCard featured/selected ring with a pick badge, a row tile, and a browse-selection hook, and the documentation delivered from the consumer-ecosystem audit (#708, #699, #724, #698, #710, #713, #711, #709, #695, #697, #700, #701, #746)
 

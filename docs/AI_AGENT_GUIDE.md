@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-10-01
+Last updated: 2026-11-13
 
 How any AI coding agent — any LLM-powered coding tool — should consume the General Design System (GDS). The machine-readable summary lives in [`llms.txt`](../llms.txt) at the repo root; this is the human- and agent-readable long form.
 
@@ -12,18 +12,13 @@ GDS (`@sovereignsquad/gds`) is a governed React design system built on Mantine. 
 
 ## 2. Install and bootstrap
 
-GDS publishes current and future releases to GitHub Packages (`https://npm.pkg.github.com`); every install authenticates, even for public packages. (A frozen, deprecated `3.9.0` snapshot also remains on npmjs.com; use GitHub Packages for new installs.) Add to `.npmrc` first:
-
-```ini
-@sovereignsquad:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
-
-`GITHUB_TOKEN` is a personal access token with `read:packages` scope (yours, or your CI's provisioned token) — not a GDS-owned secret. Then:
+GDS publishes every release from `6.8.0` on to npmjs.com. Install anonymously, with no `.npmrc` entry and no token:
 
 ```bash
 npm install @sovereignsquad/gds react react-dom
 ```
+
+If the project's `.npmrc` has an `@sovereignsquad:registry=https://npm.pkg.github.com` line, installs go to the authenticated GitHub Packages mirror and fail without a `read:packages` token. Remove the line unless the project deliberately uses the mirror ([INSTALLATION_GUIDE.md](../INSTALLATION_GUIDE.md#switching-an-existing-app-from-github-packages-to-npmjscom)). Never ask for or paste a token to install GDS.
 
 npm 7+ installs the umbrella's `peerDependencies` automatically. When peer auto-install is off (for example `--legacy-peer-deps`), follow the peer-dependency rule in [INSTALLATION_GUIDE.md "Single install surface"](../INSTALLATION_GUIDE.md#single-install-surface).
 
