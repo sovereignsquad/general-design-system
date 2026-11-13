@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-10-01
+Last updated: 2026-11-13
 
 `/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
 
@@ -285,15 +285,9 @@ Product repositories may **not** redefine:
 
 **If a project-local UI document conflicts with this directory, this directory wins.**
 
-## Install (GitHub Packages)
+## Install (npmjs.com)
 
-Current and future GDS releases publish to **GitHub Packages** (`https://npm.pkg.github.com`), the canonical registry — authenticated in CI by the workflow run's own ambient `GITHUB_TOKEN`, with no `NPM_TOKEN` or npm.com account dependency. Because it's a real resolving registry (not tarballs), the recommended `@sovereignsquad/gds` umbrella package resolves here too. A frozen `3.9.0` snapshot of the packages also exists on npmjs.com; it is **deprecated and unsupported** — kept only so existing installs keep resolving, and never updated — so new work should use GitHub Packages. Add to your `.npmrc`:
-
-```ini
-# .npmrc
-@sovereignsquad:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
+GDS publishes every release from `6.8.0` on to **npmjs.com**, the primary registry. Installs are anonymous: no `.npmrc` entry and no token.
 
 ```bash
 npm install @sovereignsquad/gds react react-dom
@@ -301,11 +295,11 @@ npm install @sovereignsquad/gds react react-dom
 
 npm 7+ installs the umbrella's `peerDependencies` automatically. When peer auto-install is off (for example `--legacy-peer-deps`), follow the peer-dependency rule in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md#single-install-surface).
 
-`${GITHUB_TOKEN}` is your own GitHub personal access token with `read:packages` scope, exported in your shell (or provided by CI). These packages are currently **private** to the `sovereignsquad` org on GitHub Packages, so the token also needs read access to the org — a token from outside the org, or without org access, gets a `401` even with `read:packages` set. If your organization enforces SAML SSO, authorize the token for the `sovereignsquad` org first. See [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) for full setup and `401` troubleshooting.
+Every release is also published to **GitHub Packages** (`https://npm.pkg.github.com`) as an authenticated audit mirror; no install needs it. An `@sovereignsquad:registry=https://npm.pkg.github.com` line left in `.npmrc` from an earlier setup routes installs to the mirror, which requires a `read:packages` token with read access to the `sovereignsquad` org. Remove that line to install from npmjs.com. The `3.9.0` listings on npmjs.com are a frozen, deprecated snapshot; `latest` there is the current release. See [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) for switching an existing app, the mirror setup and `401` troubleshooting.
 
 ### Release-visibility artifacts (not an install path)
 
-Every `gds-v<VERSION>` tag also produces a public GitHub Release with `.tgz` tarballs attached, via `npm run pack:release`. These exist for audit/offline visibility only — they are **not** a documented consumer install path, and the `@sovereignsquad/gds` umbrella package cannot be installed this way (its dependency ranges assume its sub-packages resolve from a registry). Do not point consumers at these tarball URLs; use GitHub Packages above.
+Every `gds-v<VERSION>` tag also produces a public GitHub Release with `.tgz` tarballs attached, via `npm run pack:release`. These exist for audit/offline visibility only — they are **not** a documented consumer install path, and the `@sovereignsquad/gds` umbrella package cannot be installed this way (its dependency ranges assume its sub-packages resolve from a registry). Do not point consumers at these tarball URLs; install from npmjs.com as above.
 
 See [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md) for the full publish process.
 

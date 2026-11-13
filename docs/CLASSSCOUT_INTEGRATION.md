@@ -4,12 +4,7 @@ GDS 4.0.0 delivered the first-class `Class USA` theme and the missing ClassScout
 
 ## Install
 
-GDS publishes current and future releases to GitHub Packages (`https://npm.pkg.github.com`); a frozen, deprecated `3.9.0` snapshot also remains on npmjs.com (use GitHub Packages for new installs). These packages are **private** to the `sovereignsquad` org — your token needs `read:packages` scope and org read access (request access from the GDS maintainers if you don't have it). Add to `.npmrc` first:
-
-```ini
-@sovereignsquad:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
+GDS publishes every release from `6.8.0` on to npmjs.com; install with no `.npmrc` entry and no token. The `3.9.0` listings there are a frozen, deprecated snapshot, so do not pin them. The authenticated GitHub Packages mirror is described in [INSTALLATION_GUIDE.md](../INSTALLATION_GUIDE.md#github-packages-mirror-authenticated).
 
 ```bash
 npm install @sovereignsquad/gds@6.8.0
@@ -584,9 +579,7 @@ This project uses @sovereignsquad/gds for all UI. When building or changing inte
   FitScoreChip, ListingCard (with reason/score/actions slots), MeaningBadge,
   MediaWithFallback, NumberStepper, SearchableSelect — all in @sovereignsquad/gds-core.
 - Brand theme: createBrandTheme from @sovereignsquad/gds-theme.
-- Install (GitHub Packages) — add to .npmrc first:
-  @sovereignsquad:registry=https://npm.pkg.github.com
-  //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-  then: npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications
+- Install from npmjs.com, no .npmrc entry or token needed:
+  npm install @sovereignsquad/gds @mantine/core @mantine/hooks @mantine/modals @mantine/notifications
 - Full guide: https://sovereignsquad.github.io/general-design-system/ai
 ```

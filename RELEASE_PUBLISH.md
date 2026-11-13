@@ -2,20 +2,20 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-10-07
+Last updated: 2026-11-13
 
 This runbook defines the authenticated package-publish flow for the General Design System.
 
-Canonical registry target: **GitHub Packages** (`https://npm.pkg.github.com`)
+Primary registry: **npmjs.com** (`https://registry.npmjs.org`). Mirror: **GitHub Packages** (`https://npm.pkg.github.com`).
 
 Current registry reality:
 
 - canonical install source: GitHub Packages
 - current repository line: `6.8.0`
 
-GDS publishes current and future releases only to GitHub Packages, chosen specifically because it authenticates with the same ambient `GITHUB_TOKEN` every GitHub Actions run already has — no separate npm.com account, no `NPM_TOKEN` secret, no external credential to lose access to. `@sovereignsquad/gds` is the preferred convenience package; it installs correctly from GitHub Packages because it's a real resolving registry (its dependency on the granular runtime packages resolves against the same registry, exactly like npmjs.com would).
+GDS publishes every release to two registries: npmjs.com, the primary public registry where installs are anonymous (from `6.8.0`, through `publish-npmjs.yml` with trusted publishing), and GitHub Packages, the authenticated audit mirror (through `publish-github-packages.yml` with the workflow's ambient `GITHUB_TOKEN`). `@sovereignsquad/gds` is the preferred convenience package; on both registries its dependency on the granular runtime packages resolves against the same registry.
 
-A frozen `3.9.0` snapshot of the `@sovereignsquad` packages also exists on npmjs.com from before the move to GitHub-Packages-only, and the older `@doneisbetter` packages remain there too. GDS policy deprecates the `@doneisbetter` line; they still install so existing consumers are not broken, but they are frozen and never updated. The `@sovereignsquad` `3.9.0` snapshot is frozen today and is covered by the registry policy decision below. As of 2026-10-01 the registry marks none of them deprecated, so installing them prints no warning. Marking them is the manual step in [Deprecating the legacy npmjs packages](#deprecating-the-legacy-npmjs-packages) below.
+A frozen `3.9.0` snapshot of the `@sovereignsquad` packages also exists on npmjs.com from the period when GDS published to GitHub Packages only, and the older `@doneisbetter` packages remain there too. GDS policy deprecates both; they still install so existing consumers are not broken, but they are frozen and never updated. `latest` on npmjs.com is the current release, so only an install pinned to `3.9.0` gets the snapshot. As of 2026-11-13 the registry marks none of them deprecated, so installing them prints no warning. Marking them is the manual step in [Deprecating the legacy npmjs packages](#deprecating-the-legacy-npmjs-packages) below.
 
 ### Registry policy decision (2026-10-07): npmjs.com becomes the primary public registry
 
@@ -30,23 +30,17 @@ Setup, in order:
 1. On npmjs.com, for each of the seven `@sovereignsquad` packages, add a trusted publisher for GitHub Actions: **Organization or user** `sovereignsquad`, **Repository** `general-design-system`, **Workflow filename** `publish-npmjs.yml`. This is an owner action on npmjs; the packages already exist there (`3.9.0`). Allow `npm publish` in addition to the default `npm stage publish` on each configuration: a configuration that only allows staging rejects the workflow's plain `npm publish`. A new configuration must complete its first successful publish within 2 days or it expires. Done on 2026-10-07 for all seven packages.
 2. `.github/workflows/publish-npmjs.yml` authenticates with trusted publishing: the publish job has `permissions: id-token: write`, no step reads `secrets.NPM_TOKEN`, a step fails early unless npm is 11.5.1 or later, and it keeps the hosted runner and Node 24. npm documents npm CLI 11.5.1 or later and Node 22.14 or later as the minimum, self-hosted runners as unsupported, and the registered workflow filename as the workflow that actually runs `npm publish` (a reusable workflow is validated by its caller's name). Provenance is generated automatically. If a package has no valid trusted publisher, the workflow fails at that package's publish step with an auth error. The publish script skips versions that are already published, so re-running after a fix is safe. The workflow waits up to 10 minutes for the registry to show each version: npmjs took about 5 minutes to show `@sovereignsquad/gds-core` 6.8.0.
 3. Publish each release to npmjs: after the GitHub Packages publish succeeds, dispatch `GDS Publish (npmjs.com)` on `main` (the workflow file on an older release tag is the version from that time; for 6.8.0 the tag still carried the token-based workflow, and `main` differed from the tag only in docs) and, if the workflow reports a registry-wait failure, run `npm run verify:published` against `GDS_NPM_REGISTRY=https://registry.npmjs.org`.
-4. Update `INSTALLATION_GUIDE.md`; deprecate `@sovereignsquad@3.9.0` on npmjs with a pointer to the latest release (see below); remove the `NPM_TOKEN` repository secret.
+4. Install documentation points at npmjs.com: done on 2026-11-13 (`INSTALLATION_GUIDE.md`, `README.md`, `llms.txt`, `docs/AI_AGENT_GUIDE.md`, `COMPATIBILITY_AND_RELEASES.md` and the reference site's install page). Still open, both owner actions: deprecate `@sovereignsquad@3.9.0` on npmjs with a pointer to the latest release (see below), and remove the `NPM_TOKEN` repository secret.
 
-The one real tradeoff of GitHub Packages as the only registry: GitHub Packages authenticates every install, including of public packages. Every consumer needs a personal access token (`read:packages` scope) and an `.npmrc` entry. See "Consumer install" below and `INSTALLATION_GUIDE.md`.
+GitHub Packages authenticates every install, including of public packages, so a consumer that uses the mirror needs a personal access token (`read:packages` scope) and an `.npmrc` entry. Consumers that install from npmjs.com need neither. See "Consumer install" below and `INSTALLATION_GUIDE.md`.
 
 ## Consumer install
-
-```ini
-# .npmrc
-@sovereignsquad:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
 
 ```bash
 npm install @sovereignsquad/gds react react-dom
 ```
 
-`GITHUB_TOKEN` here is the consumer's own personal access token or their CI's provisioned token — not a GDS-owned secret. Peer dependencies follow the single rule in [`INSTALLATION_GUIDE.md` → Peer dependencies](INSTALLATION_GUIDE.md#peer-dependencies).
+This installs from npmjs.com with no `.npmrc` entry and no token. Consumers that use the GitHub Packages mirror add the `.npmrc` lines in [`INSTALLATION_GUIDE.md` → GitHub Packages mirror](INSTALLATION_GUIDE.md#github-packages-mirror-authenticated), with their own personal access token or their CI's provisioned token — not a GDS-owned secret. Peer dependencies follow the single rule in [`INSTALLATION_GUIDE.md` → Peer dependencies](INSTALLATION_GUIDE.md#peer-dependencies).
 
 ## Preconditions
 
@@ -62,7 +56,7 @@ npm install @sovereignsquad/gds react react-dom
 - for strict adoption releases, all scoped implementation issues are complete before publishing
 - `npm run audit:board:strict` passes before and after the version bump
 
-No local npm authentication step is required — publishing runs exclusively through `.github/workflows/publish-github-packages.yml`, authenticated by that workflow run's own `GITHUB_TOKEN`. There is no `npm whoami`/`npm adduser` precondition.
+No local npm authentication step is required — publishing runs only in CI: `.github/workflows/publish-github-packages.yml`, authenticated by that workflow run's own `GITHUB_TOKEN`, and `.github/workflows/publish-npmjs.yml`, authenticated by npm trusted publishing. There is no `npm whoami`/`npm adduser` precondition.
 
 ## Publishable packages
 

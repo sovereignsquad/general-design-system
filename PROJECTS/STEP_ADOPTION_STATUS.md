@@ -22,7 +22,7 @@ Read-only check of a local checkout at `main` `b836eb14`.
 ## Next steps
 
 1. Render the primary navigation with `SidebarNav` and `SidebarNavItem`, each item a link with `href` or a `button` ([COMPONENTS_AND_PATTERNS.md, "Sidebar IA Composition"](../COMPONENTS_AND_PATTERNS.md#sidebar-ia-composition)). Render the sign-up and import toggles as buttons, and wrap sign-in and unlock in a `<form>` with a submit button.
-2. Move `apps/web-app` from the npmjs 3.9.0 snapshot to the current line on GitHub Packages, following [INSTALLATION_GUIDE.md, "Migrating from the legacy npmjs 3.9.0 packages"](../INSTALLATION_GUIDE.md#migrating-from-the-legacy-npmjs-390-packages), and declare `@tabler/icons-react`.
+2. Move `apps/web-app` from the npmjs 3.9.0 snapshot to the current line on npmjs.com (no `.npmrc` change needed), following [INSTALLATION_GUIDE.md, "Migrating from the legacy npmjs 3.9.0 packages"](../INSTALLATION_GUIDE.md#migrating-from-the-legacy-npmjs-390-packages), and declare `@tabler/icons-react`.
 3. Import `@sovereignsquad/gds-theme/styles.css` once in `apps/web-app/src/main.tsx`, in place of the direct Mantine stylesheet imports.
 4. Add `apps/web-app/gds-adoption.json` and run `gds-compliance` in CI. The scan root is the manifest's directory, so the manifest belongs in `apps/web-app`.
 5. Replace direct `@mantine/core` imports with GDS exports where GDS re-exports the component, and record an approved exception for the rest.
