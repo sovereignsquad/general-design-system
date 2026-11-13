@@ -635,7 +635,7 @@ The axis tokens (`--gds-space-*`, `--gds-radius-*`, `--gds-elevation-*`, `--gds-
 
 | Lane | Source of its axis tokens |
 |---|---|
-| `gdsTheme`, `gdsDarkPublicTheme`, `createPublicBrandTheme(...)` | The generated `:root` block between the `gds:axis-defaults` markers in `packages/gds-theme/styles.css`, which declares `resolveGdsAxisTokens(undefined)` (the `GDS_DEFAULT_*` axes) plus the `default` preset's `--gds-focus-ring`. These themes inject no axis tokens of their own. |
+| `gdsTheme`, `gdsDarkPublicTheme`, `createPublicBrandTheme(...)` | The generated `:root` block between the `gds:axis-defaults` markers in `packages/gds-theme/styles.css`, which declares `resolveGdsAxisTokens(undefined)` (the `GDS_DEFAULT_*` axes) plus the `default` preset's `--gds-focus-ring`, and the `gds:badge-defaults` block with the `default` preset's badge roles (#968). These themes inject no axis tokens of their own. |
 | `createBrandTheme('class-usa' \| 'gold-athlete')` and the generic `createBrandTheme({ brandColors, fonts })` | `cssVariables`, which `GdsProvider` writes inline on the root element through `other.gdsCssVariables`. It holds the same axis set as the `:root` block, followed by the lane's semantic roles. |
 | A theme preset (`useGdsThemePresetState`, the reference site) | The preset runtime writes `resolveGdsAxisTokens(preset axes)` inline on `<html>`. |
 
