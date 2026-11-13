@@ -11,8 +11,8 @@ export default defineConfig({
   build: {
     // GdsRichTextEditor (Tiptap/ProseMirror) lives behind the
     // `@sovereignsquad/gds-core/rich-text-editor` subpath so consumers who don't
-    // import it don't bundle it. This app does import it (admin-editor-flows), so
-    // its vendor-gds chunk carries that cost.
+    // import it don't bundle it. This app imports it (admin-editor-flows); it gets
+    // its own chunk below so vendor-gds stays under this limit.
     chunkSizeWarningLimit: 700,
     rolldownOptions: {
       output: {
@@ -39,6 +39,12 @@ export default defineConfig({
               // stay higher than vendor-gds so this narrower match wins.
               name: 'vendor-gds-theme-explorer',
               test: /[\\/]packages[\\/]gds-core[\\/]dist[\\/]reference-theme-explorer/,
+              priority: 2,
+            },
+            {
+              // The opt-in rich-text editor subpath; only admin-editor-flows imports it.
+              name: 'vendor-gds-rich-text-editor',
+              test: /[\\/]packages[\\/]gds-core[\\/]dist[\\/]rich-text-editor/,
               priority: 2,
             },
             {

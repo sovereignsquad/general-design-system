@@ -58,7 +58,7 @@ Before merging shared package changes, run:
 - `npm run lint`
 - `npm run test:run`
 
-`vitest.config.ts` caps `maxWorkers` at 4 because each test file holds a full jsdom tree in
+`vitest.config.mts` caps `maxWorkers` at 4 because each test file holds a full jsdom tree in
 memory. Raising it oversubscribes a typical developer machine and produces timeout failures
 that look like real assertion failures (#641); change it only with a measurement.
 
