@@ -16,6 +16,25 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Axis tokens are defined in every lane, not only under a theme preset (#765)
+
+GDS components read the axis tokens (`--gds-space-*`, `--gds-radius-*`, `--gds-elevation-*`, `--gds-control-height-*`, `--gds-layout-*` and others) with no fallback. Only the preset runtime and the `class-usa`/`gold-athlete` lane emitters defined them. Under `gdsTheme`, `gdsDarkPublicTheme`, `createPublicBrandTheme(...)` and the generic `createBrandTheme(...)` they were undefined, so pills rendered square, paddings and gaps collapsed to 0, cards lost their shadow, and the `GdsMap` selected-item border disappeared. The 6.5.0 NavLink 44px floor also had no effect in these lanes, contrary to the statement that it propagates to every lane: measured at 24.8px.
+
+- `packages/gds-theme/styles.css` gains a generated plain `:root` block between `gds:axis-defaults` markers. `scripts/generate-axis-css.mjs` (`npm run tokens:axis-css`, part of `artifacts:refresh`) writes it from `resolveGdsAxisTokens(undefined)` (149 tokens) plus the `default` preset's `--gds-focus-ring`, which `--gds-focus-ring-color` resolves through. `npm run verify:axis-css` drift-checks it. Inline values from `GdsProvider` and the preset runtime still override it.
+- `resolveGdsAxisTokens` is exported from `@sovereignsquad/gds-theme`, `/client` and `/server`.
+- The generic `createBrandTheme({ brandColors, fonts })` `cssVariables` gain the 149 axis keys (118 → 267, the same key set as `class-usa`). Their semantic values are unchanged. All 27 presets × 2 schemes and the `class-usa`/`gold-athlete` outputs are byte-identical.
+- `npm run verify:default-lane-axis-tokens` fails when an axis token read with no fallback, followed transitively, has no definition in any of the six non-preset lanes. Against the previous stylesheet it reports 24 unresolved names. `npm run verify:default-lane-axis-runtime` measures computed styles in a browser: a no-preset fixture in light and dark, and `apps/reference-vite`.
+- The flat lane (`createPublicBrandTheme({ flatSurfaces: true })`) keeps the default `--gds-elevation-*` tokens, like the flat presets; only Mantine's own shadow scale is flat. Recorded in THEME_GOVERNANCE.md "Where each lane gets its axis tokens".
+- `apps/reference-vite` and `apps/reference-next` did not import `@sovereignsquad/gds-theme/styles.css`, the mandatory first bootstrap step; they imported the Mantine stylesheets directly. Both now import the GDS stylesheet once, as the install guide states.
+
+Visible changes in the non-preset lanes, from tokens that now resolve:
+
+- Mantine `NavLink` rows render at least 44px, and their theme `min-height` now overrides a consumer class that sets a smaller one.
+- `GdsNotificationBell` and `GdsCompareButton` take the 44px control height.
+- The theme swatch (`[data-gds-theme-swatch]`) is 36px instead of its 2rem fallback.
+- The `GdsMap` marker shadow and pin preview card shadow use the elevation scale instead of their fallbacks.
+- The guided-tour button and launcher focus outlines use the default focus-ring colour instead of Mantine's primary colour.
+
 ### Browser runtime gates never pick a port Node fetch() refuses (#967)
 
 `GDS Quality` run 574 failed on `main` at `verify:forced-colors-runtime` with `Timed out waiting for Chrome DevTools endpoint`, although Chrome reported `DevTools listening on ws://127.0.0.1:10080`. Port 10080 is on the WHATWG Fetch blocked-port list, and Node's `fetch()` rejects it (`bad port`), so the launcher's polling could never reach it. That gate draws from 9800–10099, so about one launch in 300 failed. `launchBrowser()` now picks its port with `pickDevToolsPort()`, which excludes the Fetch blocked ports; `scripts/lib/browser-runtime.test.mjs` covers it.

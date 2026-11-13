@@ -663,6 +663,58 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:default-lane-axis-runtime',
+    script: 'verify-default-lane-axis-runtime.mjs',
+    standalone: true,
+    mutants: [
+      {
+        id: 'default-lane-runtime-detects-sub-floor-control-height',
+        claim: 'Detects a default control height that renders a NavLink row below the 44px floor',
+        file: 'packages/gds-theme/styles.css',
+        find: '  --gds-control-height-md: 44px;\n',
+        replace: '  --gds-control-height-md: 24px;\n',
+        once: true,
+      },
+    ],
+  },
+  {
+    npmScript: 'verify:default-lane-axis-tokens',
+    script: 'verify-default-lane-axis-tokens.mjs',
+    standalone: true,
+    mutants: [
+      {
+        id: 'default-lane-detects-missing-pill-radius',
+        claim: 'Detects a no-fallback axis read that a non-preset lane leaves undefined',
+        file: 'packages/gds-theme/styles.css',
+        find: '  --gds-radius-pill: 9999px;\n  --gds-radius-card:',
+        replace: '  --gds-radius-card:',
+        once: true,
+      },
+      {
+        id: 'default-lane-detects-unresolved-transitive-reference',
+        claim: 'Detects an axis token whose var() reference has no default-lane value',
+        file: 'packages/gds-theme/styles.css',
+        find: '  --gds-focus-ring: light-dark(rgb(5, 123, 143), rgb(68, 200, 223));\n',
+        replace: '',
+        once: true,
+      },
+    ],
+  },
+  {
+    npmScript: 'verify:axis-css',
+    script: null,
+    mutants: [
+      {
+        id: 'axis-css-detects-hand-edited-default',
+        claim: 'Detects a hand-edited value in the generated axis-defaults block',
+        file: 'packages/gds-theme/styles.css',
+        find: '  --gds-radius-pill: 9999px;\n  --gds-radius-card:',
+        replace: '  --gds-radius-pill: 999px;\n  --gds-radius-card:',
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:built-entries',
     script: 'verify-built-entries.mjs',
     standalone: true,

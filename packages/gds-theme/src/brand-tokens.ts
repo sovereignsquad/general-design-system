@@ -1,7 +1,7 @@
 import { mergeThemeOverrides, type MantineColorsTuple, type MantineTheme, type MantineThemeOverride } from '@mantine/core';
 import { createPublicBrandTheme } from './theme';
 import { parseCssColor, readableForeground, toRgbString } from './color-math';
-import { validateGdsDesignRuleProfile, GDS_DEFAULT_DESIGN_RULE_PROFILE, type GdsDesignRuleProfile } from './axes';
+import { resolveGdsAxisTokens, validateGdsDesignRuleProfile, GDS_DEFAULT_DESIGN_RULE_PROFILE, type GdsDesignRuleProfile } from './axes';
 import { ACCENT_ROLES, resolveGdsColorProportionProfile } from './color-proportion-classification';
 import { resolveGdsColorHarmonyProfile } from './color-harmony-classification';
 import { resolveGdsTypeScaleProfile } from './type-scale-profile';
@@ -573,7 +573,9 @@ function createLegacyBrandTheme(opts: CreateBrandThemeOptions): BrandThemeResult
     throw new GdsBrandThemeError('Brand token graph failed validation.', graphReport.findings);
   }
 
-  const cssVariables = emitCssVariables(tokens);
+  // Same key set as the class-usa and gold-athlete lane emitters: the default axis tokens, then
+  // the semantic roles.
+  const cssVariables = { ...resolveGdsAxisTokens(undefined, 'brand'), ...emitCssVariables(tokens) };
 
   const brandOverrides: MantineThemeOverride = {
     fontFamily: `${opts.fonts.body}, system-ui, sans-serif`,
