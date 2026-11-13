@@ -16,6 +16,11 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Build and test runs print no warnings (#963)
+
+- `vitest.config.ts` is now `vitest.config.mts`. Vite 8.3 warned that the file used ESM syntax but loaded as CommonJS, which its future default `configLoader: 'native'` does not support. `__dirname` is derived from `import.meta.url`.
+- The playground build warned that `vendor-gds` (753 kB) exceeded its 700 kB chunk limit. The opt-in rich-text editor subpath gets its own `vendor-gds-rich-text-editor` chunk (392 kB), the same treatment `vendor-gds-theme-explorer` already had, and `vendor-gds` drops to 360 kB. The limit is unchanged.
+
 ### npm install prints no install-scripts warning (#963)
 
 npm 11.19 warned on every install that `esbuild@0.28.1`'s `postinstall` was not covered by `allowScripts`. `package.json` now denies it: the script only verifies and optimizes the platform binary that esbuild already resolves from its optional platform package. A clean `npm ci` with the script denied builds every package. The decision is recorded in `DEPENDENCY_AUDIT.md` "Install scripts".
