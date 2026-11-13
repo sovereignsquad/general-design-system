@@ -7,7 +7,7 @@
     "demoed": 72,
     "explained": 70,
     "variationsShown": 40,
-    "useCase": 21
+    "useCase": 22
   },
   "confidence": {
     "listed": "high - direct lookup against the published DTCG graph and docs corpus",
@@ -389,23 +389,6 @@
     {
       "token": "--gds-brand-primary-pressed",
       "role": "brand-primary-pressed",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-badge-validation",
-      "role": "badge-validation",
       "declaredIn": [
         "ts-emitter"
       ],
@@ -980,6 +963,22 @@
       "gaps": [
         "variationsShown",
         "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-validation",
+      "role": "badge-validation",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "demoed",
+        "variationsShown"
       ]
     },
     {

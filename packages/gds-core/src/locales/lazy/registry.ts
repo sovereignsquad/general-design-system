@@ -4,7 +4,13 @@ import { en } from '../en';
 /** Shape of every locale dictionary — every key `en` declares, verbatim. */
 export type GdsLocaleDictionary = typeof en;
 
-const registry = new Map<string, GdsLocaleDictionary>([['en', en]]);
+// One registry per JavaScript realm. The CommonJS build bundles each lazy entry separately, so
+// a module-level Map would give `locales/lazy/de` and `locales/lazy` different registries.
+const REGISTRY_KEY = Symbol.for('@sovereignsquad/gds-core/locale-registry');
+type GlobalWithRegistry = typeof globalThis & { [REGISTRY_KEY]?: Map<string, GdsLocaleDictionary> };
+const registryHost = globalThis as GlobalWithRegistry;
+const registry: Map<string, GdsLocaleDictionary> = registryHost[REGISTRY_KEY] ?? new Map([['en', en]]);
+registryHost[REGISTRY_KEY] = registry;
 
 /**
  * Registers a locale dictionary for {@link getGdsMessagesLazy}.

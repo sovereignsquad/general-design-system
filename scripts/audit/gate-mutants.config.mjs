@@ -663,6 +663,42 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:built-entries',
+    script: 'verify-built-entries.mjs',
+    standalone: true,
+    mutants: [
+      {
+        id: 'built-entries-detect-dropped-locale-side-effect',
+        claim: 'Detects a lazy locale entry that a sideEffects-honouring bundler drops',
+        file: 'packages/gds-core/package.json',
+        find: '    "./dist/locales/lazy/*",\n',
+        replace: '',
+        once: true,
+        requiresBuild: ['@sovereignsquad/gds-core'],
+      },
+      {
+        id: 'built-entries-detect-split-cjs-registry',
+        claim: 'Detects CommonJS lazy entries that each get their own locale registry',
+        file: 'packages/gds-core/src/locales/lazy/registry.ts',
+        find: 'registryHost[REGISTRY_KEY] ?? new Map',
+        replace: 'new Map',
+        once: true,
+        requiresBuild: ['@sovereignsquad/gds-core'],
+      },
+      {
+        id: 'built-entries-detect-unresolvable-map-asset',
+        claim: 'Detects a map.css that references an asset the package does not ship',
+        file: 'packages/gds-core/scripts/copy-map-css.mjs',
+        find: "const stripped = css.replace(/^\\s*background-image:\\s*url\\(images\\/[^)]+\\);\\r?\\n/gm, '');",
+        replace: "const stripped = css;",
+        alsoRemove: ["if (/url\\(images\\//.test(stripped)) {"],
+        replaceWith: ["if (false) {"],
+        once: true,
+        requiresBuild: ['@sovereignsquad/gds-core'],
+      },
+    ],
+  },
+  {
     npmScript: 'verify:package-readmes',
     script: null,
     mutants: [
