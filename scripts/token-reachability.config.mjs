@@ -119,7 +119,6 @@ export const EXTENSION_POINTS = {
   '--gds-weight-regular': { reason: 'Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.', reviewBy: '2027-08-01' },
   '--gds-weight-medium': { reason: 'Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.', reviewBy: '2027-08-01' },
   '--gds-weight-semibold': { reason: 'Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.', reviewBy: '2027-08-01' },
-  '--gds-weight-bold': { reason: 'Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.', reviewBy: '2027-08-01' },
   '--gds-font-lane-display': { reason: 'Typography-axis font-lane assignment (issue 557). Names the registered lane for the role.', reviewBy: '2027-08-01' },
   '--gds-font-lane-body': { reason: 'Typography-axis font-lane assignment (issue 557). Names the registered lane for the role.', reviewBy: '2027-08-01' },
   '--gds-font-lane-mono': { reason: 'Typography-axis font-lane assignment (issue 557). Names the registered lane for the role.', reviewBy: '2027-08-01' },
