@@ -57,6 +57,21 @@ Never add a second provider or a second Mantine `MantineProvider`. `GdsProvider`
 - Accessibility (visible focus, AA contrast, semantic labels, focus traps) and responsive/localized layout are acceptance criteria, not cleanup.
 - One element that must keep its own explicit styling under a theme preset (a brand-coloured `Paper`, an outline `Button`, a `Popover.Dropdown`, an `AppShell` navbar) carries `data-gds-fixed-tone` — never a `!important` counter-rule against the preset stylesheet. Element-level, not inherited; see THEME_GOVERNANCE.md "Opting one element out of the preset repaint".
 
+<!-- gds:page-templates:start -->
+## Page templates
+
+Start a full page from a governed page template when one matches the task, before composing primitives. Import templates from `@sovereignsquad/gds` (or `@sovereignsquad/gds-core`). Each takes `title`, an optional `state` and `actions`, plus its own content slots; it renders the header, the state gate and the slots from GDS components. `getGdsPageTemplates()` returns the same catalog at runtime.
+
+- `GdsAdminDashboardTemplate` (`admin-dashboard`): Operational overview with metrics, sections, loading, empty, error, and retry states. Component contracts: `PageHeader`, `MetricCard`, `SectionPanel`, `AsyncSurface`. Spec: docs/templates/admin-dashboard.md
+- `GdsSettingsTemplate` (`settings`): Grouped settings surface with save, disabled, saving, and permission states. Component contracts: `PageHeader`, `SectionPanel`, `StatusBadge`, `AsyncSurface`. Spec: docs/templates/settings.md
+- `GdsResourceManagerTemplate` (`resource-manager`): List/detail resource surface for CRUD, preview, delete, and recovery workflows. Component contracts: `GdsDataTable`, `SimpleDataTable`, `DetailProfileShell`, `SectionPanel`. Spec: docs/templates/resource-manager.md
+- `GdsCrudEditorTemplate` (`crud-editor`): Edit surface that composes governed forms, summaries, saving states, and destructive zones. Component contracts: `GdsSchemaForm`, `GdsValidationSummary`, `SectionPanel`, `AsyncSurface`. Spec: docs/templates/crud-editor.md
+- `GdsAnalyticsTemplate` (`analytics`): Reporting page with metrics, chart slot, table fallback, empty data, and retry states. Component contracts: `MetricCard`, `GdsChart`, `SimpleDataTable`, `StateBlock`. Spec: docs/templates/analytics.md
+- `GdsPublicEventTemplate` (`public-event`): Public event page with hero media slot, event metadata, registration, and no-media recovery. Component contracts: `PublicShell`, `MediaCard`, `ShareButtonGroup`, `StateBlock`. Spec: docs/templates/public-event.md
+- `GdsErrorPageTemplate` (`error-page`): Semantic error, not-found, and permission-denied page with explicit recovery actions. Component contracts: `StateBlock`, `AsyncSurface`, `StatusBadge`. Spec: docs/templates/error-page.md
+- `GdsEmptyStateTemplate` (`empty-state-page`): First-run or no-results page with actionable copy, status, and optional illustration slot. Component contracts: `EmptyState`, `StateBlock`, `PageHeader`. Spec: docs/templates/empty-state-page.md
+<!-- gds:page-templates:end -->
+
 ## Packages
 
 - `@sovereignsquad/gds` — umbrella install (theme + core + admin); root, `/client`, `/server` entrypoints.

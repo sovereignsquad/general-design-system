@@ -7,7 +7,13 @@
 
 # AGENTS.md — UI is built with the General Design System (GDS)
 
-This project consumes **`@sovereignsquad/gds`** (the General Design System) for all UI, UX, and design. When you build or change any interface, follow these rules. The full agent guide is in your installed package and at the GDS repo's `docs/AI_AGENT_GUIDE.md`.
+This project consumes **`@sovereignsquad/gds`** (the General Design System) for all UI, UX, and design. When you build or change any interface, follow these rules. Before writing UI, read `node_modules/@sovereignsquad/gds/llms.txt`: it ships with the installed version and covers install, bootstrap, the composition rules and the page-template catalog. The longer agent guide is the GDS repo's `docs/AI_AGENT_GUIDE.md`.
+
+## Install
+
+- Install from npmjs.com: `npm install @sovereignsquad/gds react react-dom`. No `.npmrc` entry and no token are needed.
+- If `.npmrc` contains `@sovereignsquad:registry=https://npm.pkg.github.com`, installs go to the authenticated GitHub Packages mirror. Remove the line unless this project deliberately uses the mirror (PROJECT-SPECIFIC: state which). Never ask for or paste a token to install GDS.
+- Keep every `@sovereignsquad/*` package on the same version.
 
 ## Setup
 
@@ -16,6 +22,7 @@ This project consumes **`@sovereignsquad/gds`** (the General Design System) for 
 
 ## Rules (do)
 
+- Start a full page from a governed page template (`GdsAnalyticsTemplate`, `GdsSettingsTemplate`, `GdsResourceManagerTemplate`, … — the catalog is in `llms.txt`) when one matches.
 - Compose shipped GDS components: import from `'@sovereignsquad/gds'`. Check `COMPONENTS_AND_PATTERNS.md` / the API reference before building anything new.
 - Style with component props and theme tokens — `c="dimmed"`, `mt="md"`, `p="lg"`, `variant`, `color`, `size`, `radius` — and GDS layout primitives (`GdsStack`, `GdsInline`, `GdsBox`, `GdsGrid`).
 - Use `SemanticButton action="…"` (semantic `action` enum) for actions; `Select`/`MultiSelect` take `data={[{value,label}]}`.

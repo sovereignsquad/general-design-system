@@ -25,6 +25,8 @@ import {
 } from '@sovereignsquad/gds-core';
 ```
 
+Per-template specs (required data, states, component contracts, accessibility, edge cases, telemetry, rollback) are generated from `getGdsPageTemplates()` into [`docs/templates/`](templates/) by `npm run templates:docs`, which also writes the page-template catalog in `llms.txt`; `verify:release` fails when either is stale.
+
 ## Architecture
 
 ```text

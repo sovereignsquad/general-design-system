@@ -321,6 +321,7 @@ Required repository behavior:
 - `npm run verify:accessibility-evidence` — validates that every stable pattern publishes structured accessibility evidence with required WCAG mappings, AT/browser rows, freshness, owners, limitations, and recovery metadata
 - `npm run verify:a11y-package` — builds and tests the reusable `@sovereignsquad/gds-a11y` Playwright/axe helper package and verifies its docs/API contract
 - `npm run verify:package-readmes` — checks that every published package has a README for its npmjs.com page that names each exported subpath and command, uses absolute links and no mirror registry, that the umbrella README's bootstrap code equals `llms.txt`, and that `npm pack` of `@sovereignsquad/gds` ships `llms.txt` (copied from the root by its `prepack` script)
+- `npm run templates:docs` — builds `gds-core` and writes the page-template catalog block in `llms.txt` and one spec per template in `docs/templates/` from `getGdsPageTemplates()`; `verify:release` runs it with `--check`
 - `npm run verify:theme-tokens` — validates the shipped theme token graph, light/dark pair ownership, and per-surface compatibility coverage
 - `npm run verify:forced-colors-runtime` — emulates `forced-colors: active` in a headless browser and checks governed routes for platform-backed surfaces, visible focus, and readable control states
 - `gds-compliance adoption-report --manifest ./gds-adoption.json --format md` — emits the governed adoption score and remediation summary for a consumer repository
