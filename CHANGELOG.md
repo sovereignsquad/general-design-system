@@ -16,6 +16,20 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Chart tokens: series ramp, gridlines, axis text, gradient area fill and a swatch legend (#954)
+
+New `--gds-chart-*` roles, emitted for every preset and scheme and for `createBrandTheme(...)`: `--gds-chart-series-1` to `-8` (series 1 from the lane's brand accent, 2-8 from the accent axis, each at least 3:1 against `--gds-bg-card`), `--gds-chart-grid`, `--gds-chart-axis-text` (at least 4.5:1) and the area-gradient stops `--gds-chart-area-opacity-start`/`-end`. Lanes without the preset runtime get the `default` preset's values from a generated `gds:chart-defaults` block in `styles.css`. New accessibility-floor rule `chart-roles-legible`. New exports: `emitChartCssVariables`, `evaluateGdsChartContrast` and the `GDS_CHART_*` constants (gds-theme); `getGdsChartSeriesColor`, `resolveGdsChartTokenColor`, `GDS_CHART_SERIES_SLOTS` (gds-core). docs/CHART_TOKENS.md.
+
+Visible changes:
+
+- `GdsAreaChart` fills with a vertical gradient (was a flat fill at 0.18 opacity).
+- Line and area charts draw four quiet gridlines and fill the width of their container; they were letterboxed in a square viewBox.
+- `axisLabels` on the line and area wrappers labels the first, middle and last points. Off by default.
+- The `ChartTokenPanel` legend is a list of colour swatches with labels. The token is no longer printed: "Online: var(--mantine-color-blue-6)" now reads "Online" with a swatch. The `GdsChart` default legend tokens changed from `brand.primary`/`support` to `chart.series-1`/`chart.series-2`.
+- Under forced colours, series lines take the text colour, the area gradient is dropped and legend swatches get an outline; `verify:forced-colors-runtime` checks this on `/patterns/data`.
+
+`seriesTone` still resolves through `gdsSeriesPalette`, which moved to `chart-colors.ts` and is re-exported unchanged.
+
 ### Status surfaces paint contrast-checked badge pairs; optional badge type tokens (#952)
 
 Five status surfaces picked raw Mantine colours that did not follow the preset and were covered only by the default-preset runtime check. Each now paints a contrast-checked badge pair (BADGE_SYSTEM.md "Status surfaces paint a badge token pair"):

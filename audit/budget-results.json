@@ -32,8 +32,8 @@
     },
     {
       "key": "tokensWithGaps",
-      "measured": 241,
-      "value": 241,
+      "measured": 252,
+      "value": 252,
       "direction": "max",
       "unit": "count",
       "finding": "F11",
@@ -52,7 +52,7 @@
     },
     {
       "key": "publishedGraphOverlap",
-      "measured": 211,
+      "measured": 221,
       "value": 208,
       "direction": "min",
       "unit": "count",

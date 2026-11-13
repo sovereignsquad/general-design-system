@@ -334,8 +334,8 @@
   },
   "themeControl": {
     "mantineVarsGdsDeclares": 5,
-    "mantineVarsGdsConsumes": 95,
-    "mantineVarsGdsConsumesButNeverDeclares": 90,
+    "mantineVarsGdsConsumes": 94,
+    "mantineVarsGdsConsumesButNeverDeclares": 89,
     "mantineComponentsWithGdsDefaults": 21,
     "mantineComponentsList": [
       "sizes",
@@ -367,7 +367,7 @@
     "uncoveredKinds": [
       {
         "kind": "export",
-        "atoms": 970
+        "atoms": 991
       },
       {
         "kind": "prop",

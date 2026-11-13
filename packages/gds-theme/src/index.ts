@@ -21,6 +21,8 @@ export type { GdsThemeBoundaryProps } from './GdsThemeBoundary';
 export { computeGdsThemeIdentity, gdsThemeIdentityChanged } from './theme-identity';
 export type { GdsThemeIdentity, GdsThemeApplicationMode, GdsThemeIdentityInput } from './theme-identity';
 export { resolveGdsAccentTokens, evaluateGdsAccentContrast, deriveGdsAccentShades, GdsAccentError, GDS_DEFAULT_ACCENT_AXIS, GDS_ACCENT_NAMES, GDS_ACCENT_SHADES, GDS_ACCENT_MODES, GDS_DEFAULT_SHADE_FACTORS, GDS_ACCENT_EMOJI_DISC, GDS_ACCENT_MODE_ENFORCEMENT } from './accent-axis';
+export { emitChartCssVariables, evaluateGdsChartContrast, GDS_CHART_SERIES_COUNT, GDS_CHART_SERIES_MIN_CONTRAST, GDS_CHART_AXIS_TEXT_MIN_CONTRAST, GDS_CHART_AREA_OPACITY } from './chart-tokens';
+export type { GdsChartContrastResult } from './chart-tokens';
 export type { GdsAccentAxis, GdsAccentRamp, GdsAccentName, GdsAccentShade, GdsAccentMode, GdsAccentContrastResult } from './accent-axis';
 export { gdsAccessibilityFloorRules, validateGdsAccessibilityFloor, auditGdsAccessibilityFloor, describeGdsAccessibilityFloor } from './accessibility-floor';
 export type { GdsFloorRule, GdsFloorViolation, GdsFloorContext, GdsFloorSeverity } from './accessibility-floor';

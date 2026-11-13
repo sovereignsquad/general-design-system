@@ -5,10 +5,10 @@
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
       "themeCount": 27,
-      "tokenCount": 6078,
+      "tokenCount": 6348,
       "atmosphereTokenCount": 459,
-      "semanticTokenCount": 5619,
-      "globalTokenCount": 36,
+      "semanticTokenCount": 5889,
+      "globalTokenCount": 38,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
       "cssComputedType": "com.sovereignsquad.gds.cssComputed",
@@ -20,6 +20,30 @@
   "gds": {
     "global": {
       "$description": "Tokens that render identically under every preset (motion, overlay, safe-area, tour geometry). Values are the plain :root declarations, not the reduced-motion or forced-colors overrides.",
+      "chart-area-opacity-end": {
+        "$type": "number",
+        "$value": "0.02",
+        "$description": "Theme-invariant GDS token \"chart-area-opacity-end\" — identical under every preset.",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "chart-area-opacity-end",
+            "lane": "global",
+            "cssProperty": "--gds-chart-area-opacity-end"
+          }
+        }
+      },
+      "chart-area-opacity-start": {
+        "$type": "number",
+        "$value": "0.28",
+        "$description": "Theme-invariant GDS token \"chart-area-opacity-start\" — identical under every preset.",
+        "$extensions": {
+          "com.sovereignsquad.gds": {
+            "role": "chart-area-opacity-start",
+            "lane": "global",
+            "cssProperty": "--gds-chart-area-opacity-start"
+          }
+        }
+      },
       "motion-duration-ambient": {
         "$type": "duration",
         "$value": "1000ms",
@@ -2056,6 +2080,156 @@
               "scheme": {
                 "light": "#0f172a",
                 "dark": "#0f172a"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "default semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(124, 58, 237, 0.22)",
+          "$description": "default semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(124, 58, 237, 0.22)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(5, 148, 172)",
+          "$description": "default semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(5, 148, 172)",
+                "dark": "rgb(143, 222, 236)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "default semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "default semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "default semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "default semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "default semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "default semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "default semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
               }
             }
           }
@@ -5409,6 +5583,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#3a3a3a",
+          "$description": "high-contrast semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3a3a3a",
+                "dark": "#d6d6d6"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "high-contrast semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#7a1fa2",
+          "$description": "high-contrast semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7a1fa2",
+                "dark": "rgb(195, 154, 213)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "high-contrast semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "high-contrast semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "high-contrast semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "high-contrast semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "high-contrast semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "high-contrast semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#a52a6c",
+          "$description": "high-contrast semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#a52a6c",
+                "dark": "rgb(201, 127, 167)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(225, 225, 225)",
@@ -8754,6 +9078,156 @@
               "scheme": {
                 "light": "#0a1420",
                 "dark": "#0a1420"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#475569",
+          "$description": "colorblind-safe semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#475569",
+                "dark": "#c3ccd6"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(0, 114, 178, 0.28)",
+          "$description": "colorblind-safe semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(0, 114, 178, 0.28)",
+                "dark": "rgba(86, 180, 233, 0.32)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#d55e00",
+          "$description": "colorblind-safe semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#d55e00",
+                "dark": "rgb(236, 182, 140)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "colorblind-safe semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "colorblind-safe semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "colorblind-safe semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "colorblind-safe semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "colorblind-safe semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "colorblind-safe semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "colorblind-safe semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
               }
             }
           }
@@ -12107,6 +12581,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#5f6d82",
+          "$description": "dark-public semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(124, 58, 237, 0.22)",
+          "$description": "dark-public semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(124, 58, 237, 0.22)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(25, 154, 174)",
+          "$description": "dark-public semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(25, 154, 174)",
+                "dark": "rgb(155, 235, 247)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "dark-public semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "dark-public semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "dark-public semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "dark-public semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "dark-public semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "dark-public semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "dark-public semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(223, 223, 236)",
@@ -15452,6 +16076,156 @@
               "scheme": {
                 "light": "#111827",
                 "dark": "#111827"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "flat-surface semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(124, 58, 237, 0.22)",
+          "$description": "flat-surface semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(124, 58, 237, 0.22)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(16, 149, 134)",
+          "$description": "flat-surface semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(16, 149, 134)",
+                "dark": "rgb(149, 223, 215)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "flat-surface semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "flat-surface semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "flat-surface semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "flat-surface semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "flat-surface semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "flat-surface semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "flat-surface semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
               }
             }
           }
@@ -18805,6 +19579,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#5f6d82",
+          "$description": "editorial semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(154, 52, 18, 0.22)",
+          "$description": "editorial semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(154, 52, 18, 0.22)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#be123c",
+          "$description": "editorial semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#be123c",
+                "dark": "rgb(226, 148, 167)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "editorial semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "editorial semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "editorial semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "editorial semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "editorial semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "editorial semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "editorial semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(231, 226, 221)",
@@ -22150,6 +23074,156 @@
               "scheme": {
                 "light": "#0f172a",
                 "dark": "#0f172a"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "brand semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(124, 58, 237, 0.22)",
+          "$description": "brand semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(124, 58, 237, 0.22)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(5, 148, 172)",
+          "$description": "brand semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(5, 148, 172)",
+                "dark": "rgb(143, 222, 236)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "brand semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "brand semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "brand semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "brand semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "brand semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "brand semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "brand semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
               }
             }
           }
@@ -25503,6 +26577,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#333333",
+          "$description": "partner-discovery semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#333333",
+                "dark": "#c9d8d3"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(8, 70, 59, 0.18)",
+          "$description": "partner-discovery semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(8, 70, 59, 0.18)",
+                "dark": "rgba(212, 255, 194, 0.26)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(38, 162, 0)",
+          "$description": "partner-discovery semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(38, 162, 0)",
+                "dark": "rgb(161, 230, 140)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "partner-discovery semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "partner-discovery semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "partner-discovery semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "partner-discovery semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "partner-discovery semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "partner-discovery semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "partner-discovery semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(224, 224, 224)",
@@ -28848,6 +30072,156 @@
               "scheme": {
                 "light": "#071626",
                 "dark": "#071626"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#5b6573",
+          "$description": "class-usa semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b6573",
+                "dark": "#b8bfc9"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "#e6e1d8",
+          "$description": "class-usa semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#e6e1d8",
+                "dark": "#2c323b"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#c24a0a",
+          "$description": "class-usa semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#c24a0a",
+                "dark": "rgb(249, 175, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "class-usa semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "class-usa semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "class-usa semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "class-usa semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "class-usa semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "class-usa semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "class-usa semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
               }
             }
           }
@@ -32201,6 +33575,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#414b57",
+          "$description": "gold-athlete semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#414b57",
+                "dark": "#d6c8a6"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "#ede2c6",
+          "$description": "gold-athlete semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ede2c6",
+                "dark": "#2b303a"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#c08a12",
+          "$description": "gold-athlete semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#c08a12",
+                "dark": "rgb(241, 215, 157)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "gold-athlete semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "gold-athlete semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "gold-athlete semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "gold-athlete semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "gold-athlete semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "gold-athlete semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "gold-athlete semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "#e7e2d5",
@@ -35546,6 +37070,156 @@
               "scheme": {
                 "light": "#051a14",
                 "dark": "#051a14"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#3f5148",
+          "$description": "padel-africa semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f5148",
+                "dark": "#b9cbbf"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "#dde8d2",
+          "$description": "padel-africa semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#dde8d2",
+                "dark": "#123528"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#035033",
+          "$description": "padel-africa semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#035033",
+                "dark": "rgb(142, 176, 163)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "padel-africa semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "padel-africa semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "padel-africa semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "padel-africa semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "padel-africa semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "padel-africa semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "padel-africa semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
               }
             }
           }
@@ -38944,6 +40618,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#434c59",
+          "$description": "your-field semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#434c59",
+                "dark": "#c4bfb4"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "#e4e4e1",
+          "$description": "your-field semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#e4e4e1",
+                "dark": "#23374f"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#c9684a",
+          "$description": "your-field semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#c9684a",
+                "dark": "rgb(231, 187, 173)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "your-field semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "your-field semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "your-field semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "your-field semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "your-field semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "your-field semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "your-field semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(223, 221, 218)",
@@ -42289,6 +44113,156 @@
               "scheme": {
                 "light": "#211106",
                 "dark": "#211106"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#5f6d82",
+          "$description": "sunset semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(249, 115, 22, 0.3)",
+          "$description": "sunset semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(249, 115, 22, 0.3)",
+                "dark": "rgba(251, 146, 60, 0.36)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#ec4899",
+          "$description": "sunset semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ec4899",
+                "dark": "rgb(247, 173, 209)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "sunset semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "sunset semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "sunset semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "sunset semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "sunset semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "sunset semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "sunset semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
               }
             }
           }
@@ -45642,6 +47616,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "oceanic semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(8, 145, 178, 0.28)",
+          "$description": "oceanic semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(8, 145, 178, 0.28)",
+                "dark": "rgba(103, 232, 249, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#2563eb",
+          "$description": "oceanic semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2563eb",
+                "dark": "rgb(157, 185, 246)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "oceanic semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "oceanic semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "oceanic semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "oceanic semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "oceanic semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "oceanic semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "oceanic semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(216, 233, 238)",
@@ -48987,6 +51111,156 @@
               "scheme": {
                 "light": "#06180d",
                 "dark": "#06180d"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "forest semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(22, 163, 74, 0.26)",
+          "$description": "forest semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(22, 163, 74, 0.26)",
+                "dark": "rgba(134, 239, 172, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(96, 149, 16)",
+          "$description": "forest semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(96, 149, 16)",
+                "dark": "rgb(200, 232, 150)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "forest semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "forest semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "forest semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "forest semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "forest semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "forest semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "forest semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
               }
             }
           }
@@ -52340,6 +54614,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#5f6d82",
+          "$description": "ruby semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(225, 29, 72, 0.28)",
+          "$description": "ruby semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(225, 29, 72, 0.28)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(224, 104, 20)",
+          "$description": "ruby semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(224, 104, 20)",
+                "dark": "rgb(253, 192, 150)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "ruby semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "ruby semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "ruby semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "ruby semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "ruby semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "ruby semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "ruby semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(231, 221, 225)",
@@ -55685,6 +58109,156 @@
               "scheme": {
                 "light": "#1f1604",
                 "dark": "#1f1604"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "amber semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(217, 119, 6, 0.28)",
+          "$description": "amber semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(217, 119, 6, 0.28)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(171, 131, 5)",
+          "$description": "amber semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(171, 131, 5)",
+                "dark": "rgb(245, 221, 144)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "amber semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "amber semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "amber semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "amber semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "amber semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "amber semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "amber semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
               }
             }
           }
@@ -59038,6 +61612,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "neon-night semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(132, 204, 22, 0.3)",
+          "$description": "neon-night semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(132, 204, 22, 0.3)",
+                "dark": "rgba(190, 242, 100, 0.34)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(25, 154, 174)",
+          "$description": "neon-night semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(25, 154, 174)",
+                "dark": "rgb(155, 235, 247)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "neon-night semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "neon-night semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "neon-night semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "neon-night semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "neon-night semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "neon-night semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "neon-night semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(225, 233, 217)",
@@ -62383,6 +65107,156 @@
               "scheme": {
                 "light": "#0b1026",
                 "dark": "#0b1026"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#5f6d82",
+          "$description": "skyline semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(79, 70, 229, 0.28)",
+          "$description": "skyline semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(79, 70, 229, 0.28)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(13, 149, 210)",
+          "$description": "skyline semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(13, 149, 210)",
+                "dark": "rgb(146, 215, 245)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "skyline semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "skyline semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "skyline semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "skyline semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "skyline semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "skyline semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "skyline semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
               }
             }
           }
@@ -65736,6 +68610,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "aurora semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(13, 148, 136, 0.28)",
+          "$description": "aurora semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(13, 148, 136, 0.28)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(107, 150, 35)",
+          "$description": "aurora semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(107, 150, 35)",
+                "dark": "rgb(214, 244, 164)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "aurora semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "aurora semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "aurora semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "aurora semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "aurora semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "aurora semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "aurora semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(219, 232, 233)",
@@ -69081,6 +72105,156 @@
               "scheme": {
                 "light": "#251021",
                 "dark": "#251021"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#5f6d82",
+          "$description": "coral semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(219, 39, 119, 0.28)",
+          "$description": "coral semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(219, 39, 119, 0.28)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(226, 102, 120)",
+          "$description": "coral semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(226, 102, 120)",
+                "dark": "rgb(253, 191, 200)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "coral semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "coral semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "coral semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "coral semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "coral semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "coral semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "coral semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
               }
             }
           }
@@ -72434,6 +75608,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "mint semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(5, 150, 105, 0.28)",
+          "$description": "mint semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(5, 150, 105, 0.28)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(16, 149, 134)",
+          "$description": "mint semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(16, 149, 134)",
+                "dark": "rgb(149, 223, 215)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "mint semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "mint semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "mint semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "mint semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "mint semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "mint semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "mint semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(216, 232, 229)",
@@ -75779,6 +79103,156 @@
               "scheme": {
                 "light": "#1d0b2f",
                 "dark": "#1d0b2f"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#5f6d82",
+          "$description": "orchid semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(147, 51, 234, 0.28)",
+          "$description": "orchid semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(147, 51, 234, 0.28)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#ec4899",
+          "$description": "orchid semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ec4899",
+                "dark": "rgb(247, 173, 209)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "orchid semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "orchid semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "orchid semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "orchid semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "orchid semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "orchid semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "orchid semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
               }
             }
           }
@@ -79132,6 +82606,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#5f6d82",
+          "$description": "royal semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5f6d82",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(124, 58, 237, 0.3)",
+          "$description": "royal semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(124, 58, 237, 0.3)",
+                "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(5, 148, 172)",
+          "$description": "royal semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(5, 148, 172)",
+                "dark": "rgb(143, 222, 236)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "royal semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "royal semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "royal semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "royal semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "royal semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "royal semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "royal semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(223, 223, 236)",
@@ -82477,6 +86101,156 @@
               "scheme": {
                 "light": "#1c1005",
                 "dark": "#1c1005"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#64748b",
+          "$description": "warm semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#64748b",
+                "dark": "#cbd5e1"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(180, 83, 9, 0.26)",
+          "$description": "warm semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(180, 83, 9, 0.26)",
+                "dark": "rgba(252, 176, 69, 0.32)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(224, 104, 20)",
+          "$description": "warm semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(224, 104, 20)",
+                "dark": "rgb(253, 192, 150)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "warm semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "warm semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "warm semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "warm semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "warm semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "warm semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "warm semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
               }
             }
           }
@@ -85830,6 +89604,156 @@
             }
           }
         },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#58442a",
+          "$description": "athlete-gold semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#58442a",
+                "dark": "#d8c8a8"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(176, 118, 24, 0.32)",
+          "$description": "athlete-gold semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(176, 118, 24, 0.32)",
+                "dark": "rgba(240, 182, 66, 0.38)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "rgb(167, 142, 69)",
+          "$description": "athlete-gold semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(167, 142, 69)",
+                "dark": "rgb(255, 237, 188)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "athlete-gold semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "athlete-gold semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "athlete-gold semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "athlete-gold semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "athlete-gold semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#5b3374",
+          "$description": "athlete-gold semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#5b3374",
+                "dark": "rgb(157, 133, 172)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "athlete-gold semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
         "control-disabledBg": {
           "$type": "color",
           "$value": "rgb(230, 221, 202)",
@@ -89175,6 +93099,156 @@
               "scheme": {
                 "light": "#030018",
                 "dark": "#030018"
+              }
+            }
+          }
+        },
+        "chart-axis-text": {
+          "$type": "color",
+          "$value": "#4f4476",
+          "$description": "cosmic semantic role \"chart-axis-text\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-axis-text",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#4f4476",
+                "dark": "rgba(235, 238, 255, 0.78)"
+              }
+            }
+          }
+        },
+        "chart-grid": {
+          "$type": "color",
+          "$value": "rgba(124, 60, 255, 0.26)",
+          "$description": "cosmic semantic role \"chart-grid\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-grid",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgba(124, 60, 255, 0.26)",
+                "dark": "rgba(190, 160, 255, 0.52)"
+              }
+            }
+          }
+        },
+        "chart-series-1": {
+          "$type": "color",
+          "$value": "#e018ff",
+          "$description": "cosmic semantic role \"chart-series-1\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-1",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#e018ff",
+                "dark": "rgb(241, 151, 255)"
+              }
+            }
+          }
+        },
+        "chart-series-2": {
+          "$type": "color",
+          "$value": "#1f6e8c",
+          "$description": "cosmic semantic role \"chart-series-2\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-2",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f6e8c",
+                "dark": "rgb(121, 168, 186)"
+              }
+            }
+          }
+        },
+        "chart-series-3": {
+          "$type": "color",
+          "$value": "#b04a2f",
+          "$description": "cosmic semantic role \"chart-series-3\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-3",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#b04a2f",
+                "dark": "rgb(208, 146, 130)"
+              }
+            }
+          }
+        },
+        "chart-series-4": {
+          "$type": "color",
+          "$value": "#2f6b3a",
+          "$description": "cosmic semantic role \"chart-series-4\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-4",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#2f6b3a",
+                "dark": "rgb(130, 166, 137)"
+              }
+            }
+          }
+        },
+        "chart-series-5": {
+          "$type": "color",
+          "$value": "#8a5a00",
+          "$description": "cosmic semantic role \"chart-series-5\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-5",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#8a5a00",
+                "dark": "rgb(185, 156, 102)"
+              }
+            }
+          }
+        },
+        "chart-series-6": {
+          "$type": "color",
+          "$value": "#3f4d9e",
+          "$description": "cosmic semantic role \"chart-series-6\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-6",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#3f4d9e",
+                "dark": "rgb(140, 148, 197)"
+              }
+            }
+          }
+        },
+        "chart-series-7": {
+          "$type": "color",
+          "$value": "#a52a6c",
+          "$description": "cosmic semantic role \"chart-series-7\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-7",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#a52a6c",
+                "dark": "rgb(201, 127, 167)"
+              }
+            }
+          }
+        },
+        "chart-series-8": {
+          "$type": "color",
+          "$value": "#7c3a6e",
+          "$description": "cosmic semantic role \"chart-series-8\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "chart-series-8",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#7c3a6e",
+                "dark": "rgb(176, 137, 168)"
               }
             }
           }

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { Badge, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { Badge, Box, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { resolveGdsChartTokenColor } from './chart-colors';
 import { StateBlock } from './StateBlock';
 
 /** Data/availability state of the chart panel. */
@@ -15,7 +16,11 @@ export type ChartTokenPanelState =
 /** One legend entry mapping a label to the design token driving its series color. */
 export interface ChartLegendItem {
   label: ReactNode;
-  /** Design token (CSS variable or color name) shown alongside the label. */
+  /**
+   * Series color token, painted as the entry's swatch: a series tone (`primary`), a custom
+   * property (`--gds-chart-series-2`), a dotted role id (`chart.series-2`) or a CSS color.
+   * Not rendered as text.
+   */
   token: string;
   description?: ReactNode;
 }
@@ -28,7 +33,7 @@ export interface ChartTokenPanelProps {
   summary: ReactNode;
   /** Panel state; drives which state block (if any) replaces the chart. Defaults to "ready". */
   state?: ChartTokenPanelState;
-  /** Token-based legend entries rendered as badges. */
+  /** Legend entries, each rendered as a color swatch and its label. */
   legend?: ChartLegendItem[];
   /** The chart itself, rendered in the ready state. */
   children?: ReactNode;
@@ -93,11 +98,24 @@ export function ChartTokenPanel({
         <Text size="sm">{summary}</Text>
 
         {legend.length ? (
-          <Group gap="xs" wrap="wrap" aria-label="Chart legend">
+          <Group component="ul" role="list" gap="md" wrap="wrap" aria-label="Chart legend" className="gds-chart-legend">
             {legend.map((item, index) => (
-              <Badge key={`${String(item.label)}-${index}`} variant="outline" color="gray" title={typeof item.description === 'string' ? item.description : undefined}>
-                {item.label}: {item.token}
-              </Badge>
+              <Group
+                component="li"
+                key={`${String(item.label)}-${index}`}
+                gap="xs"
+                wrap="nowrap"
+                data-token={item.token}
+                title={typeof item.description === 'string' ? item.description : undefined}
+              >
+                <Box
+                  component="span"
+                  aria-hidden
+                  className="gds-chart-legend-swatch"
+                  style={{ background: resolveGdsChartTokenColor(item.token) }}
+                />
+                <Text component="span" size="sm">{item.label}</Text>
+              </Group>
             ))}
           </Group>
         ) : null}
