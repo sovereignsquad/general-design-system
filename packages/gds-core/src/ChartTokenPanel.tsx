@@ -78,7 +78,13 @@ export function ChartTokenPanel({
             {description ? <Text size="sm" c="dimmed">{description}</Text> : null}
           </Stack>
           {state !== 'ready' ? (
-            <Badge variant="light" color={state === 'permission-limited' ? 'grape' : 'yellow'}>
+            <Badge
+              variant="filled"
+              style={{
+                background: `var(--gds-badge-soft-${state === 'permission-limited' ? 'info' : 'warning'})`,
+                color: `var(--gds-badge-soft-${state === 'permission-limited' ? 'info' : 'warning'}-fg)`,
+              }}
+            >
               {state.replace('-', ' ')}
             </Badge>
           ) : null}

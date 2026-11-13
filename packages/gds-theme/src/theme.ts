@@ -155,6 +155,14 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
       defaultProps: {
         radius: 'xl',
       },
+      // Opt-in type tokens; the fallbacks are Mantine's own Badge values, so nothing changes
+      // until a theme sets them.
+      styles: {
+        root: {
+          fontWeight: 'var(--gds-badge-font-weight, var(--mantine-font-weight-bold))',
+          textTransform: 'var(--gds-badge-text-transform, uppercase)',
+        },
+      },
     },
     // NavLink exposes no size step that reaches the 44px touch-target floor; its default row
     // resolves to 41px. `--gds-control-height-md` is the governed control height, and

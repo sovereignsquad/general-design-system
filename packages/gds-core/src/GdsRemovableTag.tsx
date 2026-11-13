@@ -36,12 +36,11 @@ export interface GdsRemovableTagProps extends Omit<BadgeProps, 'color' | 'childr
   disabled?: boolean;
 }
 
-const toneColorMap: Record<GdsRemovableTagTone, string> = {
-  neutral: 'gray',
-  info: 'blue',
-  success: 'green',
-  warning: 'yellow',
-};
+// Each tone paints its contrast-checked soft badge pair, not a Mantine tint.
+const toneLane = (tone: GdsRemovableTagTone) => ({
+  background: `var(--gds-badge-soft-${tone})`,
+  color: `var(--gds-badge-soft-${tone}-fg)`,
+});
 
 /**
  * Removable filter token: a keyboard-operable Badge-as-button whose whole
@@ -61,14 +60,13 @@ export function GdsRemovableTag({
       type="button"
       data-gds-badge-fixed-tone="true"
       data-gds-removable-tag=""
-      color={toneColorMap[tone]}
-      variant="light"
+      variant="filled"
       aria-label={removeLabel}
       aria-disabled={disabled || undefined}
       disabled={disabled}
       onClick={disabled ? undefined : onRemove}
       rightSection={<GdsIcon icon="Close" size="xs" />}
-      style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.55 : 1 }}
+      style={{ ...toneLane(tone), cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.55 : 1 }}
       {...props}
     >
       {label}
