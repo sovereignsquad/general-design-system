@@ -26,10 +26,11 @@ export interface MetricCardProps {
 
 type MetricTrendTone = NonNullable<NonNullable<MetricCardProps['trend']>['tone']>;
 
-const trendColors: Record<MetricTrendTone, string> = {
-  positive: 'teal',
-  negative: 'red',
-  neutral: 'gray',
+// Trend badges paint the contrast-checked soft badge pair for their tone.
+const trendLane: Record<MetricTrendTone, 'success' | 'danger' | 'neutral'> = {
+  positive: 'success',
+  negative: 'danger',
+  neutral: 'neutral',
 };
 
 /**
@@ -71,7 +72,13 @@ export function MetricCard({ label, value, description, trend, icon, footer }: M
               <span />
             )}
             {trend ? (
-              <Badge color={trendColors[trend.tone ?? 'neutral']} variant="light">
+              <Badge
+                variant="filled"
+                style={{
+                  background: `var(--gds-badge-soft-${trendLane[trend.tone ?? 'neutral']})`,
+                  color: `var(--gds-badge-soft-${trendLane[trend.tone ?? 'neutral']}-fg)`,
+                }}
+              >
                 {trend.label}
               </Badge>
             ) : null}

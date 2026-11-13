@@ -105,6 +105,17 @@ export function CountBadge({ value, cap = 99, srLabel, ...props }: CountBadgePro
   const normalizedCap = Math.max(1, Math.floor(cap));
   const displayValue = normalizedValue > normalizedCap ? `${normalizedCap}+` : String(normalizedValue);
   return (
-    <Badge color="violet" variant="filled" aria-label={srLabel} {...props}>{displayValue}</Badge>
+    <Badge
+      variant="filled"
+      aria-label={srLabel}
+      {...props}
+      style={{
+        background: 'var(--gds-badge-solid-info)',
+        color: 'var(--gds-badge-solid-info-fg)',
+        ...(props.style as React.CSSProperties | undefined),
+      }}
+    >
+      {displayValue}
+    </Badge>
   );
 }

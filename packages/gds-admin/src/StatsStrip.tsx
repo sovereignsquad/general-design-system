@@ -1,4 +1,4 @@
-import { SimpleGrid, Paper, Text, Group, Box } from '@mantine/core';
+import { Badge, SimpleGrid, Paper, Text, Group, Box } from '@mantine/core';
 
 /** A single stat rendered by {@link StatsStrip}. */
 export interface StatItem {
@@ -30,9 +30,15 @@ export function StatsStrip({ stats }: StatsStripProps) {
           </Text>
         </Box>
         {stat.diff !== undefined && (
-          <Text c={stat.diff > 0 ? 'teal' : 'red'} size="sm" fw={600}>
+          <Badge
+            variant="filled"
+            style={{
+              background: `var(--gds-badge-soft-${stat.diff > 0 ? 'success' : stat.diff < 0 ? 'danger' : 'neutral'})`,
+              color: `var(--gds-badge-soft-${stat.diff > 0 ? 'success' : stat.diff < 0 ? 'danger' : 'neutral'}-fg)`,
+            }}
+          >
             {stat.diff > 0 ? '+' : ''}{stat.diff}%
-          </Text>
+          </Badge>
         )}
       </Group>
     </Paper>

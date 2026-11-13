@@ -3,9 +3,9 @@
   "darkSiblingsExcluded": 37,
   "cellsEvaluated": 1245,
   "obligationsSatisfied": {
-    "listed": 100,
+    "listed": 104,
     "demoed": 113,
-    "explained": 86,
+    "explained": 89,
     "variationsShown": 40,
     "useCase": 23
   },
@@ -595,44 +595,6 @@
     {
       "token": "--gds-weight-regular",
       "role": "weight-regular",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-weight-medium",
-      "role": "weight-medium",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-weight-semibold",
-      "role": "weight-semibold",
       "declaredIn": [
         "styles.css"
       ],
@@ -2699,44 +2661,8 @@
       ]
     },
     {
-      "token": "--gds-badge-solid-info",
-      "role": "badge-solid-info",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": true,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-badge-solid-info-fg",
       "role": "badge-solid-info-fg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": true,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-badge-soft-info",
-      "role": "badge-soft-info",
       "declaredIn": [
         "styles.css"
       ],
@@ -3006,6 +2932,40 @@
       ]
     },
     {
+      "token": "--gds-weight-medium",
+      "role": "weight-medium",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-weight-semibold",
+      "role": "weight-semibold",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-elevation-0",
       "role": "elevation-0",
       "declaredIn": [
@@ -3018,6 +2978,23 @@
       "useCase": false,
       "gaps": [
         "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-info",
+      "role": "badge-solid-info",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "explained",
         "variationsShown",
         "useCase"
       ]
@@ -3681,6 +3658,22 @@
     {
       "token": "--gds-badge-soft-warning-fg",
       "role": "badge-soft-warning-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-info",
+      "role": "badge-soft-info",
       "declaredIn": [
         "styles.css"
       ],

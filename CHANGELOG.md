@@ -16,6 +16,18 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Status surfaces paint contrast-checked badge pairs; optional badge type tokens (#952)
+
+Five status surfaces picked raw Mantine colours that did not follow the preset and were covered only by the default-preset runtime check. Each now paints a contrast-checked badge pair (BADGE_SYSTEM.md "Status surfaces paint a badge token pair"):
+
+- `GdsRemovableTag`: `variant="light"` gray, blue, green or yellow → the `--gds-badge-soft-<tone>` pair.
+- `MetricCard` trend: light teal, red or gray → the soft success, danger or neutral pair.
+- `StatsStrip` change: plain teal or red text → a soft success, danger or neutral badge. A state colour as small text is not guaranteed 4.5:1, because the presets derive the state roles at 3:1.
+- Legacy `CountBadge`: violet → the solid info pair.
+- `ChartTokenPanel` state badge: light grape or yellow → the soft info or warning pair.
+
+Colours follow the active preset or brand from now on, and the contrast gates cover them. `gdsTheme` also reads two optional Badge type tokens, `--gds-badge-font-weight` and `--gds-badge-text-transform`, falling back to Mantine's own bold and uppercase, so no badge changes until a theme sets them. Tests: `packages/gds-core/src/badge-token-surfaces.test.tsx`, `packages/gds-admin/src/StatsStrip.test.tsx`, `packages/gds-theme/src/theme.test.ts`.
+
 ### CI actions run on Node 24 (#969)
 
 `GDS Quality` printed GitHub's Node 20 deprecation notice and `DEP0040`/`DEP0169` warnings from `actions/upload-artifact@v4`. Five actions targeted Node 20 and are moved to their Node 24 majors: `upload-artifact` v4 → v7, `download-artifact` v4 → v8, `configure-pages` v5 → v6, `deploy-pages` v4 → v5, `upload-pages-artifact` v3 → v5 (which uses `upload-artifact@v7`). The inputs in use are unchanged, and `upload-artifact@v7`'s new `archive` input defaults to `true`, so artifacts stay zipped.

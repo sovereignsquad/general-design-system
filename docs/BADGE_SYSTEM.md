@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-08-08
+Last updated: 2026-11-13
 
 The unified, always-theme-aware GDS badge system (epic #484): one governed
 family for status labels, category tags, counts, removable filter tokens, and
@@ -84,6 +84,36 @@ import { GdsBadge, GdsCountBadge, GdsRemovableTag, GdsIconBadge, GdsRatingDispla
 - **Composition uses the stack.** Corner dots separate from the base mark via
   a CSS mask cutout, never a ring painted in the page background color (which
   breaks over the gradient/hero surfaces vibe themes use).
+
+## Status surfaces paint a badge token pair (#952)
+
+Every GDS status pill paints one of the contrast-checked pairs: a background role and its `-fg` foreground, derived together per preset and scheme. None uses a Mantine `light` tint or a bare colour on text.
+
+| Surface | Pair |
+|---|---|
+| `GdsBadge` (tone) | `--gds-badge-solid-<tone>` / `-fg` |
+| `StatusBadge`, `LabelTag` | `--gds-badge-soft-<status>` / `-fg` |
+| `GdsRemovableTag` | `--gds-badge-soft-<tone>` / `-fg` |
+| `MetricCard` trend | `--gds-badge-soft-{success,danger,neutral}` / `-fg` for `positive`, `negative`, `neutral` |
+| `StatsStrip` change | `--gds-badge-soft-{success,danger,neutral}` / `-fg` for a rise, a fall, no change |
+| `GdsCountBadge` | `--gds-badge-solid-{danger,info,neutral}` / `-fg` |
+| `CountBadge` (legacy) | `--gds-badge-solid-info` / `-fg` |
+| `ChartTokenPanel` state | `--gds-badge-soft-info` (permission-limited) or `--gds-badge-soft-warning` / `-fg` |
+
+The pairs resolve in every lane: theme presets and brand themes set them, and `styles.css` declares the `default` preset's pairs for lanes without one (#968). `verify:component-color-pairs` checks every declared pair at 4.5:1 in every preset and scheme, and `verify:badge-contrast` measures the rendered badges.
+
+Status, priority and time labels use `GdsBadge` with a `tone` (or `StatusBadge`); there is no separate priority or time-label component.
+
+### Badge type tokens
+
+Badge text weight and case come from two optional tokens:
+
+| Token | Fallback (Mantine's Badge value) |
+|---|---|
+| `--gds-badge-font-weight` | `var(--mantine-font-weight-bold)` |
+| `--gds-badge-text-transform` | `uppercase` |
+
+`gdsTheme` reads both with these fallbacks, so badges render as before until a theme or a `:root` rule sets them, for example `--gds-badge-font-weight: var(--gds-weight-semibold)` and `--gds-badge-text-transform: none` for medium-weight, sentence-case pills. Weight stays at 500 or above (`--gds-weight-medium`) for legibility at badge sizes.
 
 ## Map markers: use `GdsMapPinBadge`, don't hand-compose one
 
