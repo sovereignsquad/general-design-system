@@ -6,13 +6,27 @@ const root = process.cwd();
 const policyPath = resolve(root, 'DEPENDENCY_AUDIT.md');
 const policy = readFileSync(policyPath, 'utf8');
 
-const acceptedDevAdvisories = new Set([
-  'GHSA-qx2v-qp2m-jg93',
-  'GHSA-f88m-g3jw-g9cj',
-  'GHSA-6g55-p6wh-862q',
-  'GHSA-r28c-9q8g-f849',
-  'GHSA-fxqj-rqcc-2cmp',
-]);
+// Accepted dev/reference-tooling advisories are the `### GHSA-…` entries under
+// "## Accepted Dev / Reference Tooling Advisories" in DEPENDENCY_AUDIT.md, each with a
+// `Review date:` line. The document is the only list.
+function readAcceptedAdvisories(text) {
+  const start = text.indexOf('## Accepted Dev / Reference Tooling Advisories');
+  if (start === -1) {
+    console.error('DEPENDENCY_AUDIT.md has no "## Accepted Dev / Reference Tooling Advisories" section.');
+    process.exit(1);
+  }
+  const next = text.indexOf('\n## ', start + 1);
+  const section = text.slice(start, next === -1 ? undefined : next);
+  const entries = new Map();
+  for (const block of section.split(/\n### /).slice(1)) {
+    const id = block.match(/^(GHSA-[A-Za-z0-9-]+)/)?.[1];
+    if (!id) continue;
+    entries.set(id, block.match(/Review date:\s*(\d{4}-\d{2}-\d{2})/)?.[1] ?? null);
+  }
+  return entries;
+}
+
+const acceptedDevAdvisories = readAcceptedAdvisories(policy);
 
 function runAudit(args) {
   try {
@@ -62,7 +76,13 @@ if (productionCount > 0) {
 const fullReport = runAudit([]);
 const fullIds = advisoryIds(fullReport);
 const unexpectedIds = [...fullIds].filter((id) => !acceptedDevAdvisories.has(id));
-const undocumentedIds = [...acceptedDevAdvisories].filter((id) => !policy.includes(id));
+const today = new Date().toISOString().slice(0, 10);
+const reviewFailures = [];
+for (const [id, reviewDate] of acceptedDevAdvisories) {
+  if (!reviewDate) reviewFailures.push(`${id} has no "Review date: YYYY-MM-DD" line.`);
+  else if (reviewDate < today) reviewFailures.push(`${id} review date ${reviewDate} has passed; re-examine it.`);
+  if (!fullIds.has(id)) reviewFailures.push(`${id} is accepted but no longer reported by npm audit; remove the exception.`);
+}
 
 if (unexpectedIds.length > 0) {
   console.error('Dependency audit found unaccepted advisory ids:');
@@ -72,16 +92,11 @@ if (unexpectedIds.length > 0) {
   process.exit(1);
 }
 
-if (undocumentedIds.length > 0) {
-  console.error('Dependency audit policy is missing accepted advisory documentation:');
-  for (const id of undocumentedIds) {
-    console.error(`- ${id}`);
+if (reviewFailures.length > 0) {
+  console.error('Dependency audit policy has stale accepted advisories:');
+  for (const failure of reviewFailures) {
+    console.error(`- ${failure}`);
   }
-  process.exit(1);
-}
-
-if (!/Review date:\s*2026-07-06/.test(policy)) {
-  console.error('Dependency audit policy must include the current accepted-advisory review date: 2026-07-06.');
   process.exit(1);
 }
 

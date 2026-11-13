@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-08-08
+Last updated: 2026-11-13
 
 This repository treats published runtime package dependencies and local reference/tooling dependencies differently.
 
@@ -16,100 +16,9 @@ This repository treats published runtime package dependencies and local referenc
 
 ## Accepted Dev / Reference Tooling Advisories
 
-### GHSA-qx2v-qp2m-jg93
+None. `npm audit` reports no advisories as of 2026-11-13.
 
-Owner: GDS platform
-Review date: 2026-07-06
-Scope: `apps/reference-next` development/reference fixture via `next@15.5.18` and nested `postcss@8.4.31`
-Severity: moderate
-
-Reason:
-
-- The finding is currently reported through Next's nested PostCSS dependency in the private App Router reference fixture.
-- `next` is kept in `devDependencies` for the reference fixture so it is not part of the production dependency audit or published GDS package runtime surface.
-- The latest stable Next line available during this release still declares the same nested PostCSS version, so forcing a framework major or npm's suggested downgrade is not a safe corrective action.
-
-Operational behavior:
-
-- Do not ship public consumer guidance that requires `apps/reference-next` as a runtime dependency.
-- Recheck monthly or when Next publishes a patched stable dependency graph.
-- Remove this exception once `npm audit --json` no longer reports the advisory through the reference fixture.
-
-### GHSA-f88m-g3jw-g9cj
-
-Owner: GDS platform
-Review date: 2026-08-22
-Scope: `apps/reference-next` development/reference fixture via `next@15.5.20` and nested `sharp@0.34.5` (libvips CVE-2026-33327/33328/35590/35591)
-Severity: high
-
-Reason:
-
-- The finding is reported through Next's nested `sharp` image-optimization dependency in the private App Router reference fixture, the same non-shipped dependency chain as `GHSA-qx2v-qp2m-jg93`.
-- `next` is kept in `devDependencies` for the reference fixture so it is not part of the production dependency audit or published GDS package runtime surface. The reference fixture does not serve or process untrusted images.
-- The only automated fix path (`npm audit fix --force`) downgrades `next` to `9.3.3`, a major regression far below the supported `15.x` reference line, so it is not a safe corrective action.
-
-Operational behavior:
-
-- Do not ship public consumer guidance that requires `apps/reference-next` as a runtime dependency.
-- Recheck monthly or when Next publishes a patched `sharp`/libvips dependency graph.
-- Remove this exception once `npm audit --json` no longer reports the advisory through the reference fixture.
-
-### GHSA-6g55-p6wh-862q
-
-Owner: GDS platform
-Review date: 2026-08-23
-Scope: nested `postcss@8.4.31` (`<=8.5.11` vulnerable range) reached via two dev-only paths — `apps/reference-next`'s `next` dependency (same non-shipped reference fixture as the other accepted advisories above) and the root `tsup` devDependency used to build the published packages
-Severity: high
-
-Reason:
-
-- The advisory ("Arbitrary file read and information disclosure via attacker-controlled sourceMappingURL in CSS comments") requires processing attacker-controlled CSS input containing a malicious `sourceMappingURL` comment. Neither path applies here: `apps/reference-next` doesn't serve or process untrusted CSS, and `tsup` only ever processes GDS's own first-party, repo-controlled source during the build — no untrusted CSS ever reaches PostCSS in either case.
-- `postcss` is a nested dev-tooling dependency in both paths, not a runtime dependency of any published `@sovereignsquad/*` package (`npm audit --omit=dev` reports zero findings) — it never ships in built package output.
-- The only automated fix (`npm audit fix --force`) downgrades `next` to `9.3.3`, a major regression far below the supported `15.x` reference line, so it is not a safe corrective action.
-
-Operational behavior:
-
-- Do not ship public consumer guidance that requires `apps/reference-next` or `tsup` as a runtime dependency (already true — both are dev-only).
-- Recheck monthly or when Next/tsup publish a patched nested PostCSS dependency graph.
-- Remove this exception once `npm audit --json` no longer reports the advisory through either path.
-
-### GHSA-r28c-9q8g-f849
-
-Owner: GDS platform
-Review date: 2026-08-24
-Scope: nested `postcss@8.4.31` reached via the same two dev-only paths as `GHSA-6g55-p6wh-862q` above — `apps/reference-next`'s `next` dependency (non-shipped App Router reference fixture) and the root `tsup` devDependency used to build the published packages
-Severity: high
-
-Reason:
-
-- The advisory ("Path Traversal in Previous Source Map Auto-Loading (sourceMappingURL) leads to Arbitrary `.map` File Disclosure") is the same PostCSS source-map class as `GHSA-6g55-p6wh-862q`: it requires PostCSS to process attacker-controlled CSS containing a malicious `sourceMappingURL`. Neither path does that — `apps/reference-next` never serves or processes untrusted CSS, and `tsup` only ever processes GDS's own first-party, repo-controlled source during the build.
-- `postcss` is a nested dev-tooling dependency in both paths, not a runtime dependency of any published `@sovereignsquad/*` package (`npm audit --omit=dev` reports zero findings) — it never ships in built package output.
-- Newly disclosed after the 3.12.0 line; surfaced here once the react-router production advisory (GHSA-qwww-vcr4-c8h2) was remediated by the React 19 / react-router 8 upgrade and stopped masking the full-audit dev findings. Forcing a nested-`postcss` override across `next`/`tsup` risks build-graph churn in the reference fixture for no shipped benefit, matching the disposition already recorded for `GHSA-6g55-p6wh-862q`.
-
-Operational behavior:
-
-- Do not ship public consumer guidance that requires `apps/reference-next` or `tsup` as a runtime dependency (already true — both are dev-only).
-- Recheck monthly or when Next/tsup publish a patched nested PostCSS dependency graph.
-- Remove this exception once `npm audit --json` no longer reports the advisory through either path.
-
-### GHSA-fxqj-rqcc-2cmp
-
-Owner: GDS platform
-Review date: 2026-09-05
-Scope: nested `postcss@8.4.31` reached via the same dev-only path as the other `postcss` advisories above — `apps/reference-next`'s `next` dependency (non-shipped App Router reference fixture)
-Severity: moderate
-
-Reason:
-
-- GitHub's own advisory title is "incomplete fix of `GHSA-6g55-p6wh-862q`" — this is a refinement of the sourceMappingURL/arbitrary-file-read class already accepted above, in the identical dependency chain, not a new exploit surface. The same disposition applies verbatim: it requires PostCSS to process attacker-controlled CSS containing a malicious `sourceMappingURL`, and `apps/reference-next` never serves or processes untrusted CSS.
-- `postcss` is a nested dev-tooling dependency, not a runtime dependency of any published `@sovereignsquad/*` package (`npm audit --omit=dev` reports zero findings) — it never ships in built package output.
-- `next@15.5.21` (the latest stable 15.x line) still hard-pins `postcss@8.4.31` internally (not a range), so no in-place patch or update within the supported 15.x reference line resolves it. The only fix is `next@16.3.0`, a semver-major bump — already tracked as "Accepted, review at next sweep" in the Staleness & Deprecation Sweep table below, and matching the same "no safe automated fix" disposition recorded for this advisory's siblings.
-
-Operational behavior:
-
-- Do not ship public consumer guidance that requires `apps/reference-next` as a runtime dependency (already true — dev-only).
-- Recheck monthly or when Next publishes a patched stable dependency graph, alongside the tracked `next@16` sweep item.
-- Remove this exception once `npm audit --json` no longer reports the advisory through the reference fixture.
+An accepted advisory is a `### GHSA-…` entry in this section with `Owner:`, `Review date: YYYY-MM-DD`, `Scope:`, `Severity:`, a reason and operational behavior. `scripts/verify-dependency-audit.mjs` reads this section as the only list, and fails when an accepted entry's review date has passed or when `npm audit` no longer reports it.
 
 ## Staleness & Deprecation Sweep (added 2026-07-24, housekeeping issue #406)
 
@@ -138,6 +47,16 @@ Disposition for the 13 packages with a newer major version available:
 Owner: GDS platform. Review cadence: re-run `npm run audit:dependencies` and
 re-triage this table at least once per minor release, or sooner if a
 deprecation notice appears (`staleness.deprecatedPackages` non-empty).
+
+## Resolved 2026-11-13 (#963)
+
+- `minimatch` GHSA-g3hv-75wg-m249 (production, through `@sovereignsquad/gds-eslint-config` → `eslint@10` → `@eslint/config-array`): root override `minimatch` `11.0.8`. The latest `eslint` (10.14.0) and `@eslint/config-array` (0.23.5) still declare `^10`; lint and the `gds-eslint-config` tests pass on 11.0.8.
+- `vite` GHSA-698v-4r3x-3vcv, GHSA-r825-w8mm-5pxw, GHSA-587h-7wmj-h5pm, GHSA-9jrq-w75r-8gcw, GHSA-rq7h-c2jc-7f22: override and app ranges raised to `8.3.8`.
+- `next` GHSA-4jqv-mc3x-m676, GHSA-mcj8-r9mp-w47p, GHSA-2464-fhr4-w9xw, GHSA-p3m5-59mp-jv5r: `apps/reference-next` raised to `^15.5.29`, still on the supported 15.x line.
+- `vitest` / `@vitest/mocker` GHSA-qxg6-89mg-rqv8, GHSA-xp26-3454-mjgp: `vitest` raised to `^4.1.12`.
+- `zod` GHSA-mrhx-c7xc-m3w5 (through `eslint-plugin-react-hooks`): updated within its range to `4.6.7`.
+- `postcss` GHSA-qx2v-qp2m-jg93, GHSA-6g55-p6wh-862q, GHSA-r28c-9q8g-f849, GHSA-fxqj-rqcc-2cmp, previously accepted: root override `postcss` `8.5.32`. `next@15.5.29` pins `postcss@8.4.31` exactly; a minimal Next 15.5.29 App Router build with the override compiled and minified its CSS correctly. Their acceptances were removed.
+- `sharp` GHSA-f88m-g3jw-g9cj, previously accepted: no longer reported since the `sharp` `0.35.5` override (#934). Its acceptance was removed.
 
 ## Resolved During 3.0.7
 
