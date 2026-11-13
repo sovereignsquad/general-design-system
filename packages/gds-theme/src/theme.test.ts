@@ -48,7 +48,7 @@ describe('gdsTheme NavLink touch-target floor (#629)', () => {
 describe('Badge type tokens (#952)', () => {
   it('reads opt-in weight and case tokens with Mantine\'s own Badge values as fallbacks', () => {
     const root = (gdsTheme.components.Badge.styles as { root: Record<string, string> }).root;
-    expect(root.fontWeight).toBe('var(--gds-badge-font-weight, var(--mantine-font-weight-bold))');
+    expect(root.fontWeight).toBe('var(--gds-badge-font-weight, var(--gds-weight-bold))');
     expect(root.textTransform).toBe('var(--gds-badge-text-transform, uppercase)');
   });
 });

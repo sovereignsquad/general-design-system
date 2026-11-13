@@ -155,11 +155,11 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
       defaultProps: {
         radius: 'xl',
       },
-      // Opt-in type tokens; the fallbacks are Mantine's own Badge values, so nothing changes
+      // Opt-in type tokens; the fallbacks equal Mantine's own Badge values (700, uppercase), so nothing changes
       // until a theme sets them.
       styles: {
         root: {
-          fontWeight: 'var(--gds-badge-font-weight, var(--mantine-font-weight-bold))',
+          fontWeight: 'var(--gds-badge-font-weight, var(--gds-weight-bold))',
           textTransform: 'var(--gds-badge-text-transform, uppercase)',
         },
       },

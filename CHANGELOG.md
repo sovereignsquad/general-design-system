@@ -26,7 +26,7 @@ Five status surfaces picked raw Mantine colours that did not follow the preset a
 - Legacy `CountBadge`: violet → the solid info pair.
 - `ChartTokenPanel` state badge: light grape or yellow → the soft info or warning pair.
 
-Colours follow the active preset or brand from now on, and the contrast gates cover them. `gdsTheme` also reads two optional Badge type tokens, `--gds-badge-font-weight` and `--gds-badge-text-transform`, falling back to Mantine's own bold and uppercase, so no badge changes until a theme sets them. Tests: `packages/gds-core/src/badge-token-surfaces.test.tsx`, `packages/gds-admin/src/StatsStrip.test.tsx`, `packages/gds-theme/src/theme.test.ts`.
+Colours follow the active preset or brand from now on, and the contrast gates cover them. `gdsTheme` also reads two optional Badge type tokens, `--gds-badge-font-weight` and `--gds-badge-text-transform`, falling back to `--gds-weight-bold` (700) and uppercase, the values Mantine's Badge uses, so no badge changes until a theme sets them. Tests: `packages/gds-core/src/badge-token-surfaces.test.tsx`, `packages/gds-admin/src/StatsStrip.test.tsx`, `packages/gds-theme/src/theme.test.ts`.
 
 ### CI actions run on Node 24 (#969)
 
