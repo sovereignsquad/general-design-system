@@ -97,5 +97,6 @@ describe('chart color helpers (#954)', () => {
     expect(getGdsChartSeriesColor(8)).toBe('var(--gds-chart-series-8)');
     expect(getGdsChartSeriesColor(9)).toBe('var(--gds-chart-series-1)');
     expect(getGdsChartSeriesColor(0)).toBe('var(--gds-chart-series-1)');
+    expect(getGdsChartSeriesColor(Number.NaN)).toBe('var(--gds-chart-series-1)');
   });
 });

@@ -542,7 +542,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChartTokenPanel.tsx",
-        "line": 24
+        "line": 29
       },
       "unmet": [
         {
@@ -556,7 +556,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChartTokenPanel.tsx",
-        "line": 24
+        "line": 29
       },
       "unmet": [
         {
@@ -4630,7 +4630,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/SemanticCharts.tsx",
-        "line": 25
+        "line": 10
       },
       "unmet": [
         {
@@ -4644,7 +4644,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/SemanticCharts.tsx",
-        "line": 25
+        "line": 10
       },
       "unmet": [
         {

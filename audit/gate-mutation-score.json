@@ -2,8 +2,8 @@
   "releaseChainGates": 50,
   "gatesWithMutants": 38,
   "gatesExempted": 15,
-  "mutantsRun": 57,
-  "killed": 57,
+  "mutantsRun": 53,
+  "killed": 53,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -145,15 +145,15 @@
       "gate": "verify:a11y-floor",
       "mutantId": "a11y-floor-detects-thin-focus-ring",
       "claim": "Detects a theme thinning the focus ring below the 2px floor",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:a11y-floor exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first. Gate stderr: FAI"
     },
     {
       "gate": "verify:a11y-floor",
       "mutantId": "a11y-floor-detects-a-floor-that-checks-nothing",
       "claim": "Detects a floor that evaluates nothing and reports a vacuous pass",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:a11y-floor exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first. Gate stderr: FAI"
     },
     {
       "gate": "verify:density-token-adoption",
@@ -194,15 +194,15 @@
       "gate": "verify:token-reachability",
       "mutantId": "reachability-detects-newly-unreachable-token",
       "claim": "Detects a declared token that no rule or component references",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:token-reachability exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first. Gate std"
     },
     {
       "gate": "verify:token-reachability",
       "mutantId": "reachability-detects-expired-extension-point",
       "claim": "Detects an extension-point allowlist entry whose reviewBy date has passed",
-      "status": "KILLED",
-      "detail": "gate exited 1"
+      "status": "INVALID",
+      "detail": "BASELINE BROKEN: verify:token-reachability exits 1 with no mutation applied. Every mutant would report KILLED for the wrong reason. Fix the gate first. Gate std"
     },
     {
       "gate": "verify:component-census",

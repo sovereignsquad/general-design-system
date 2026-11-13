@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "92648b7e505245a89f8b1a6e246c949c46f567f7",
+  "commit": "0a2e68be8bc368c2dc49099428980a57dfd0dce8",
   "counts": {
     "token-published": 524,
     "token-declared": 245,
@@ -9167,7 +9167,7 @@
       "name": "--gds-chart-series-1",
       "source": {
         "file": "packages/gds-core/src/chart-colors.ts",
-        "line": 20
+        "line": 32
       }
     },
     {
@@ -9176,7 +9176,7 @@
       "name": "--gds-chart-series-2",
       "source": {
         "file": "packages/gds-core/src/chart-colors.ts",
-        "line": 34
+        "line": 46
       }
     },
     {
@@ -9185,7 +9185,7 @@
       "name": "--gds-brand-primary",
       "source": {
         "file": "packages/gds-core/src/chart-colors.ts",
-        "line": 34
+        "line": 46
       }
     },
     {
@@ -9194,7 +9194,7 @@
       "name": "--gds-chart-series-3",
       "source": {
         "file": "packages/gds-core/src/chart-colors.ts",
-        "line": 35
+        "line": 47
       }
     },
     {
