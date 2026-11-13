@@ -16,6 +16,10 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Dead files removed (#966)
+
+`test-crash.js`, `test-jsdom.js`, `test-pup.js`, `test-pup-local.js` and `scratch/` are removed. They arrived with the repository import commit, nothing references them, `puppeteer` (which two of them need) is not a dependency, `test-pup.js` targeted the old `moldovancsaba.github.io` URL, and the `scratch/` locale files were stale 68-line copies of the 334-line locale sources.
+
 ### Build and test runs print no warnings (#963)
 
 - `vitest.config.ts` is now `vitest.config.mts`. Vite 8.3 warned that the file used ESM syntax but loaded as CommonJS, which its future default `configLoader: 'native'` does not support. `__dirname` is derived from `import.meta.url`.
