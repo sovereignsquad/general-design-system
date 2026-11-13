@@ -16,8 +16,8 @@ name: GDS Auto Tag Release
 # triggers, specifically to prevent workflow-triggers-workflow loops. The
 # gds-v3.11.0 tag was created and pushed successfully, but nothing downstream
 # fired — the release silently stalled at "tagged" instead of reaching
-# "published". This is why the workflow now explicitly dispatches both
-# downstream workflows itself (`gh workflow run ... --ref <tag>`) once the tag
+# "published". This is why the workflow explicitly dispatches the downstream
+# workflows itself (`gh workflow run ... --ref <tag>`) once the tag
 # is pushed, rather than relying on the tag-push event to fan out to them.
 # `gh workflow run` is an authenticated API call, not a push/ref event, so the
 # anti-recursion rule does not apply to it.
@@ -70,13 +70,14 @@ jobs:
           git tag -a "${{ steps.version.outputs.tag }}" -m "GDS ${{ steps.version.outputs.version }} release"
           git push origin "${{ steps.version.outputs.tag }}"
 
-      - name: Dispatch release-bundles and publish-github-packages for the new tag
+      - name: Dispatch release-bundles, publish-github-packages and publish-npmjs for the new tag
         if: steps.version.outputs.exists == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh workflow run release-bundles.yml --repo "${{ github.repository }}" --ref "${{ steps.version.outputs.tag }}"
           gh workflow run publish-github-packages.yml --repo "${{ github.repository }}" --ref "${{ steps.version.outputs.tag }}"
+          gh workflow run publish-npmjs.yml --repo "${{ github.repository }}" --ref "${{ steps.version.outputs.tag }}"
 
       - name: Skip (tag already exists)
         if: steps.version.outputs.exists == 'true'

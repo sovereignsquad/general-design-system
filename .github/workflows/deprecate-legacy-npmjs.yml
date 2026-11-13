@@ -1,0 +1,50 @@
+name: GDS Deprecate legacy npmjs packages
+
+# Marks the frozen @sovereignsquad 3.9.0 snapshot and every @doneisbetter version
+# deprecated on npmjs.com, without unpublishing anything. npm trusted publishing
+# covers `npm publish` only, so `npm deprecate` authenticates with the NPM_TOKEN
+# repository secret (a token with publish rights to both scopes).
+# Runbook: RELEASE_PUBLISH.md "Deprecating the legacy npmjs packages".
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deprecate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Deprecate legacy listings
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -u
+          MSG="Deprecated: frozen snapshot. Upgrade to the current release (npm install @sovereignsquad/gds@latest). See INSTALLATION_GUIDE.md."
+          MSG_SCOPE="Deprecated: renamed to @sovereignsquad. Install @sovereignsquad/gds instead. See MIGRATION_TO_SOVEREIGNSQUAD.md."
+          failed=0
+          for pkg in gds gds-core gds-theme gds-admin gds-a11y gds-compliance gds-eslint-config; do
+            npm deprecate "@sovereignsquad/${pkg}@3.9.0" "$MSG" --registry=https://registry.npmjs.org || { echo "::error::@sovereignsquad/${pkg}@3.9.0 not deprecated"; failed=1; }
+            npm deprecate "@doneisbetter/${pkg}" "$MSG_SCOPE" --registry=https://registry.npmjs.org || { echo "::error::@doneisbetter/${pkg} not deprecated"; failed=1; }
+          done
+          exit $failed
+
+      - name: Verify deprecation marks
+        if: always()
+        run: |
+          missing=0
+          for pkg in gds gds-core gds-theme gds-admin gds-a11y gds-compliance gds-eslint-config; do
+            a=$(npm view "@sovereignsquad/${pkg}@3.9.0" deprecated --registry=https://registry.npmjs.org)
+            b=$(npm view "@doneisbetter/${pkg}@>=0.0.0" deprecated --registry=https://registry.npmjs.org | head -n1)
+            echo "@sovereignsquad/${pkg}@3.9.0: ${a:-NOT MARKED}"
+            echo "@doneisbetter/${pkg}: ${b:-NOT MARKED}"
+            [ -n "$a" ] && [ -n "$b" ] || missing=1
+          done
+          exit $missing

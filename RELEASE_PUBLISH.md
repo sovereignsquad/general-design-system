@@ -19,7 +19,7 @@ A frozen `3.9.0` snapshot of the `@sovereignsquad` packages also exists on npmjs
 
 ### Registry policy decision (2026-10-07): npmjs.com becomes the primary public registry
 
-**Status: in effect for 6.8.0 and later, by manual dispatch.** GDS 6.8.0 was published to npmjs.com on 2026-10-07 by `publish-npmjs.yml` with trusted publishing, and every release is still also published to GitHub Packages, which remains the audit mirror. `auto-tag-release.yml` does not dispatch the npmjs workflow yet, so each release needs a manual dispatch until it does. The install instructions above and in "Consumer install" still describe GitHub Packages and are updated in the last step below. Tracked in issue #938.
+**Status: in effect for 6.8.0 and later, automatic from the next release.** GDS 6.8.0 was published to npmjs.com on 2026-10-07 by `publish-npmjs.yml` with trusted publishing. Every release is also published to GitHub Packages, which remains the audit mirror. `auto-tag-release.yml` dispatches `publish-npmjs.yml` on each new release tag, at the same time as `publish-github-packages.yml` (decided 2026-11-13). Tracked in issue #938.
 
 Why: GitHub Packages needs a `read:packages` token for every install, even of public packages, while npmjs.com installs anonymously. A GitHub Packages quota/billing `403` has already broken CI installs, and four consumer repos work around it by vendoring tarballs. GitHub Packages stays as the audit mirror.
 
@@ -29,8 +29,8 @@ Setup, in order:
 
 1. On npmjs.com, for each of the seven `@sovereignsquad` packages, add a trusted publisher for GitHub Actions: **Organization or user** `sovereignsquad`, **Repository** `general-design-system`, **Workflow filename** `publish-npmjs.yml`. This is an owner action on npmjs; the packages already exist there (`3.9.0`). Allow `npm publish` in addition to the default `npm stage publish` on each configuration: a configuration that only allows staging rejects the workflow's plain `npm publish`. A new configuration must complete its first successful publish within 2 days or it expires. Done on 2026-10-07 for all seven packages.
 2. `.github/workflows/publish-npmjs.yml` authenticates with trusted publishing: the publish job has `permissions: id-token: write`, no step reads `secrets.NPM_TOKEN`, a step fails early unless npm is 11.5.1 or later, and it keeps the hosted runner and Node 24. npm documents npm CLI 11.5.1 or later and Node 22.14 or later as the minimum, self-hosted runners as unsupported, and the registered workflow filename as the workflow that actually runs `npm publish` (a reusable workflow is validated by its caller's name). Provenance is generated automatically. If a package has no valid trusted publisher, the workflow fails at that package's publish step with an auth error. The publish script skips versions that are already published, so re-running after a fix is safe. The workflow waits up to 10 minutes for the registry to show each version: npmjs took about 5 minutes to show `@sovereignsquad/gds-core` 6.8.0.
-3. Publish each release to npmjs: after the GitHub Packages publish succeeds, dispatch `GDS Publish (npmjs.com)` on `main` (the workflow file on an older release tag is the version from that time; for 6.8.0 the tag still carried the token-based workflow, and `main` differed from the tag only in docs) and, if the workflow reports a registry-wait failure, run `npm run verify:published` against `GDS_NPM_REGISTRY=https://registry.npmjs.org`.
-4. Install documentation points at npmjs.com: done on 2026-11-13 (`INSTALLATION_GUIDE.md`, `README.md`, `llms.txt`, `docs/AI_AGENT_GUIDE.md`, `COMPATIBILITY_AND_RELEASES.md` and the reference site's install page). Still open, both owner actions: deprecate `@sovereignsquad@3.9.0` on npmjs with a pointer to the latest release (see below), and remove the `NPM_TOKEN` repository secret.
+3. Publish each release to npmjs: `auto-tag-release.yml` dispatches `GDS Publish (npmjs.com)` on the new release tag, concurrently with the GitHub Packages publish. A release tag cut before this change carries the older workflow file, so a manual re-run for one of those dispatches on `main` instead. If the workflow reports a registry-wait failure, run `npm run verify:published` against `GDS_NPM_REGISTRY=https://registry.npmjs.org`.
+4. Install documentation points at npmjs.com: done on 2026-11-13 (`INSTALLATION_GUIDE.md`, `README.md`, `llms.txt`, `docs/AI_AGENT_GUIDE.md`, `COMPATIBILITY_AND_RELEASES.md` and the reference site's install page). Then deprecate the `@sovereignsquad` `3.9.0` snapshot with a pointer to the latest release by dispatching `deprecate-legacy-npmjs.yml` (see below), and remove the `NPM_TOKEN` repository secret once that run has marked every package. That workflow is its only remaining reader.
 
 GitHub Packages authenticates every install, including of public packages, so a consumer that uses the mirror needs a personal access token (`read:packages` scope) and an `.npmrc` entry. Consumers that install from npmjs.com need neither. See "Consumer install" below and `INSTALLATION_GUIDE.md`.
 
@@ -137,17 +137,19 @@ Retry policy:
 
 ## GitHub Actions publish path
 
-This repository includes three workflows:
+This repository includes five release workflows:
 
 - `.github/workflows/auto-tag-release.yml`
 - `.github/workflows/release-bundles.yml`
 - `.github/workflows/publish-github-packages.yml`
+- `.github/workflows/publish-npmjs.yml` (npm trusted publishing, no stored token)
+- `.github/workflows/deprecate-legacy-npmjs.yml` (manual; reads the `NPM_TOKEN` secret)
 
-No repository secret is required for any of them — each authenticates with the workflow run's own ambient `GITHUB_TOKEN`.
+The first three authenticate with the workflow run's own ambient `GITHUB_TOKEN`.
 
 ### Auto-tag-release (fully automatic — no manual tag/release step)
 
-Triggers on every push to `main` that changes the root `VERSION` file. It reads `VERSION`, checks whether the matching `gds-v<VERSION>` tag already exists on the remote, and if not, creates and pushes it using the workflow run's own ambient `GITHUB_TOKEN`. This makes a routine release a normal merge, not a separate manual step: bump `VERSION` (and the aligned package/doc versions per `check-release-alignment.mjs`), merge to `main`, and the tag push happens automatically. Pushing that tag is what fans out into the two workflows below — no maintainer needs to run `git tag`/`git push` or draft a release in the GitHub web UI for a routine version bump.
+Triggers on every push to `main` that changes the root `VERSION` file. It reads `VERSION`, checks whether the matching `gds-v<VERSION>` tag already exists on the remote, and if not, creates and pushes it using the workflow run's own ambient `GITHUB_TOKEN`. This makes a routine release a normal merge, not a separate manual step: bump `VERSION` (and the aligned package/doc versions per `check-release-alignment.mjs`), merge to `main`, and the tag push happens automatically. It then dispatches `release-bundles.yml`, `publish-github-packages.yml` and `publish-npmjs.yml` on that tag (a tag pushed with `GITHUB_TOKEN` does not trigger other workflows by itself) — no maintainer needs to run `git tag`/`git push` or draft a release in the GitHub web UI for a routine version bump.
 
 Manually creating the tag (via `git push` or the GitHub UI) still works and is the fallback if this workflow is ever disabled or a hotfix tag is needed outside the normal `VERSION`-bump flow.
 
@@ -184,21 +186,19 @@ Both steps use the ambient `GITHUB_TOKEN` with `issues: write` — **no secret P
 
 ## Deprecating the legacy npmjs packages
 
-Two legacy lines remain on **npmjs.com** from before the move to GitHub-Packages-only: the `3.9.0` snapshot of the seven `@sovereignsquad` packages, and every version of the seven `@doneisbetter` packages. The policy is to mark them deprecated (with a pointer to GitHub Packages) so consumers see a warning, without unpublishing them — unpublishing would break the apps still installing them, and npm blocks unpublish after 72 hours anyway. Their deprecation records are in [`DEPRECATIONS_AND_MIGRATIONS.md` → Registry deprecations](DEPRECATIONS_AND_MIGRATIONS.md#registry-deprecations).
+Two legacy lines remain on **npmjs.com** from before the move to GitHub-Packages-only: the `3.9.0` snapshot of the seven `@sovereignsquad` packages, and every version of the seven `@doneisbetter` packages. The policy is to mark them deprecated (with a pointer to the current `@sovereignsquad` release) so consumers see a warning, without unpublishing them — unpublishing would break the apps still installing them, and npm blocks unpublish after 72 hours anyway. Their deprecation records are in [`DEPRECATIONS_AND_MIGRATIONS.md` → Registry deprecations](DEPRECATIONS_AND_MIGRATIONS.md#registry-deprecations).
 
-Registry state as of 2026-10-01: no listing on either line is marked deprecated.
+Registry state as of 2026-11-13, before the first run of `deprecate-legacy-npmjs.yml`: no listing on either line is marked deprecated.
 
-Once a release newer than `3.9.0` is published to npmjs.com (see [Registry policy decision](#registry-policy-decision-2026-10-07-npmjscom-becomes-the-primary-public-registry)), mark the `@sovereignsquad` `3.9.0` snapshot with a pointer to the latest release instead of to GitHub Packages: `Deprecated: upgrade to the current release (npm install @sovereignsquad/gds@latest). See INSTALLATION_GUIDE.md.` The `@doneisbetter` message below is unchanged.
-
-This is a manual, credentialed step against npmjs. It needs an npm account with publish rights to each scope (`@sovereignsquad`, `@doneisbetter`); the repo's ambient GitHub Actions token cannot do it. Run it only with maintainer approval, authenticated to npmjs (`npm login --registry=https://registry.npmjs.org`), from a shell whose `.npmrc` does **not** map `@sovereignsquad` to GitHub Packages:
+Run it by dispatching `GDS Deprecate legacy npmjs packages` (`.github/workflows/deprecate-legacy-npmjs.yml`). Trusted publishing covers `npm publish` only, so the workflow authenticates with the `NPM_TOKEN` repository secret, which needs publish rights to both scopes (`@sovereignsquad`, `@doneisbetter`). It marks every package, then prints each mark and fails if any is missing. The equivalent manual commands, for a maintainer authenticated to npmjs (`npm login --registry=https://registry.npmjs.org`) in a shell whose `.npmrc` does **not** map `@sovereignsquad` to GitHub Packages:
 
 ```bash
-MSG="Deprecated on npmjs: GDS now publishes to GitHub Packages (https://npm.pkg.github.com). See INSTALLATION_GUIDE.md."
+MSG="Deprecated: frozen snapshot. Upgrade to the current release (npm install @sovereignsquad/gds@latest). See INSTALLATION_GUIDE.md."
 for pkg in gds gds-core gds-theme gds-admin gds-a11y gds-compliance gds-eslint-config; do
   npm deprecate "@sovereignsquad/${pkg}@3.9.0" "$MSG" --registry=https://registry.npmjs.org
 done
 
-MSG_SCOPE="Deprecated: renamed to @sovereignsquad and published to GitHub Packages (https://npm.pkg.github.com). See MIGRATION_TO_SOVEREIGNSQUAD.md."
+MSG_SCOPE="Deprecated: renamed to @sovereignsquad. Install @sovereignsquad/gds instead. See MIGRATION_TO_SOVEREIGNSQUAD.md."
 for pkg in gds gds-core gds-theme gds-admin gds-a11y gds-compliance gds-eslint-config; do
   npm deprecate "@doneisbetter/${pkg}" "$MSG_SCOPE" --registry=https://registry.npmjs.org
 done
