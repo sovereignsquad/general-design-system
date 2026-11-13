@@ -62,6 +62,16 @@ const brandIntentComponents = [
   { selector: "[data-gds-brand-intent-demo='gradient'] .mantine-Button-root", label: 'SemanticButton gradient brand intent' },
 ];
 
+// Chart parts carry an expected computed value: series colours are indistinguishable in
+// forced colours, so lines take the text colour, the area gradient is dropped and each legend
+// swatch keeps its colour inside a system-coloured outline.
+const chartComponents = [
+  { selector: '.gds-chart-line', label: 'Chart series line', expect: { property: 'stroke', equals: 'text' } },
+  { selector: '.gds-chart-area-fill', label: 'Chart area gradient fill', expect: { property: 'fill', equals: 'none' }, unpainted: true },
+  { selector: '.gds-chart-grid', label: 'Chart gridline', expect: { property: 'stroke', not: 'none' }, unpainted: true, hairline: true },
+  { selector: '.gds-chart-legend-swatch', label: 'Chart legend swatch', expect: { property: 'outline-style', equals: 'solid' } },
+];
+
 // Route coverage follows the pattern-catalog families that mount the components
 // (`/patterns/operations` = Kanban and Forms; `/systems` = the badge system).
 const routeConfigs = [
@@ -75,6 +85,7 @@ const routeConfigs = [
   // Badge system lives under the systems family now; the sweep follows the content, not the old filing.
   { route: '/systems', cases: baseCases, components: badgeShapeComponents },
   { route: '/patterns/feedback', cases: baseCases, components: brandIntentComponents },
+  { route: '/patterns/data', cases: widenedCases, components: chartComponents },
 ];
 
 async function launchBrowser() {
@@ -181,7 +192,11 @@ async function verifyCase(client, routeConfig, testCase) {
     // and painted with at least one of text/border/background color.
     const requiredComponents = ${JSON.stringify(components)};
     for (const component of requiredComponents) {
-      const element = [...document.querySelectorAll(component.selector)].find(visible);
+      // A horizontal SVG line has zero height; a hairline counts as visible with extent on either axis.
+      const shown = component.hairline
+        ? (el) => { const r = el.getBoundingClientRect(); return getComputedStyle(el).visibility !== 'hidden' && (r.width > 0 || r.height > 0); }
+        : visible;
+      const element = [...document.querySelectorAll(component.selector)].find(shown);
       if (!element) {
         failures.push('Required 3.14.0 component not found/visible: ' + component.label + ' (' + component.selector + ').');
         continue;
@@ -191,8 +206,18 @@ async function verifyCase(client, routeConfig, testCase) {
         failures.push(component.label + ' paints a decorative background image in forced-colors.');
       }
       const painted = !isTransparent(style.color) || !isTransparent(style.borderColor) || !isTransparent(style.backgroundColor);
-      if (!painted) {
+      if (!painted && !component.unpainted) {
         failures.push(component.label + ' has no visible text/border/background color in forced-colors.');
+      }
+      if (component.expect) {
+        const actual = style.getPropertyValue(component.expect.property).trim();
+        const wanted = component.expect.equals === 'text' ? getComputedStyle(body).color : component.expect.equals;
+        if (wanted !== undefined && actual !== wanted) {
+          failures.push(component.label + ' computes ' + component.expect.property + ': ' + actual + ', expected ' + wanted + ' in forced-colors.');
+        }
+        if (component.expect.not !== undefined && actual === component.expect.not) {
+          failures.push(component.label + ' computes ' + component.expect.property + ': ' + actual + ' in forced-colors.');
+        }
       }
     }
 

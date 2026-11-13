@@ -3666,7 +3666,8 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getByText('Partial report')).toBeInTheDocument();
     expect(screen.getByText('Evidence: 18')).toBeInTheDocument();
     expect(screen.getByText('Accessible data fallback')).toBeInTheDocument();
-    expect(screen.getByText('Online: var(--mantine-color-blue-6)')).toBeInTheDocument();
+    expect(within(screen.getByRole('list', { name: 'Chart legend' })).getByText('Online')).toBeInTheDocument();
+    expect(screen.queryByText(/var\(--mantine-color-blue-6\)/)).not.toBeInTheDocument();
 
     await user.selectOptions(screen.getByLabelText('Reporting period'), 'last-7');
     expect(onPeriodChange).toHaveBeenCalledWith('last-7');
@@ -4625,7 +4626,8 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
 
     expect(renderer).toHaveBeenCalledTimes(1);
     expect(screen.getByText('Adapter rendered line with 2 points')).toBeInTheDocument();
-    expect(screen.getByText('Primary series: brand.primary')).toBeInTheDocument();
+    expect(screen.getByText('Primary series')).toBeInTheDocument();
+    expect(screen.queryByText(/chart\.series-1/)).not.toBeInTheDocument();
     expect(screen.getByText('Accessible data fallback')).toBeInTheDocument();
   });
 

@@ -1,6 +1,7 @@
 import type { GdsThemePresetId } from './theme-presets';
 import { resolveGdsAxisTokens, GDS_DEFAULT_DESIGN_RULE_PROFILE, type GdsThemeAxes } from './axes';
 import { ensureContrast, mixCssColors, readableForeground } from './color-math';
+import { emitChartCssVariables } from './chart-tokens';
 import {
   classUsaDefaultColorRamps,
   deriveVibeSemanticCssVariables,
@@ -775,6 +776,9 @@ function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeThem
     // derived `support`, while the hand-authored `support` is what actually wins.
     merged['--gds-text-on-support'] = readableForeground(merged['--gds-support'], 4.5, merged['--gds-bg-page'] ?? vibe.canvasLight);
     merged['--gds-text-on-support-dark'] = readableForeground(merged['--gds-support-dark'], 4.5, merged['--gds-bg-page-dark'] ?? vibe.canvasDark);
+    // Chart roles are measured against the card and seeded from the accent, both of which the
+    // hand-authored layer may replace.
+    Object.assign(merged, emitChartCssVariables(merged));
 
     return merged;
   }

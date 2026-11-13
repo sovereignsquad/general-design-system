@@ -1,13 +1,13 @@
 {
-  "tokenUniverse": 249,
+  "tokenUniverse": 261,
   "darkSiblingsExcluded": 37,
-  "cellsEvaluated": 1245,
+  "cellsEvaluated": 1305,
   "obligationsSatisfied": {
-    "listed": 104,
-    "demoed": 113,
-    "explained": 89,
-    "variationsShown": 40,
-    "useCase": 23
+    "listed": 111,
+    "demoed": 118,
+    "explained": 95,
+    "variationsShown": 42,
+    "useCase": 28
   },
   "confidence": {
     "listed": "high - direct lookup against the published DTCG graph and docs corpus",
@@ -17,8 +17,8 @@
     "useCase": "LOW - directive-phrase heuristic; same caveat"
   },
   "publishedRoleOverlap": null,
-  "tokensSatisfyingAll": 8,
-  "tokensWithGaps": 241,
+  "tokensSatisfyingAll": 9,
+  "tokensWithGaps": 252,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -595,25 +595,6 @@
     {
       "token": "--gds-weight-regular",
       "role": "weight-regular",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-weight-bold",
-      "role": "weight-bold",
       "declaredIn": [
         "styles.css"
       ],
@@ -2182,6 +2163,120 @@
       ]
     },
     {
+      "token": "--gds-chart-series-3",
+      "role": "chart-series-3",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-4",
+      "role": "chart-series-4",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-5",
+      "role": "chart-series-5",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-6",
+      "role": "chart-series-6",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-7",
+      "role": "chart-series-7",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-8",
+      "role": "chart-series-8",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-nav-inactiveOnInverse",
       "role": "nav-inactiveOnInverse",
       "declaredIn": [
@@ -3000,6 +3095,40 @@
       ]
     },
     {
+      "token": "--gds-chart-series-1",
+      "role": "chart-series-1",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-2",
+      "role": "chart-series-2",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-brand-primary-pressed",
       "role": "brand-primary-pressed",
       "declaredIn": [
@@ -3200,42 +3329,8 @@
       ]
     },
     {
-      "token": "--gds-border-card",
-      "role": "border-card",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-text-body",
       "role": "text-body",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-text-meta",
-      "role": "text-meta",
       "declaredIn": [
         "styles.css",
         "ts-emitter"
@@ -3515,6 +3610,22 @@
       ]
     },
     {
+      "token": "--gds-weight-bold",
+      "role": "weight-bold",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-elevation-card",
       "role": "elevation-card",
       "declaredIn": [
@@ -3700,6 +3811,22 @@
       "useCase": false,
       "gaps": [
         "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-area-opacity-end",
+      "role": "chart-area-opacity-end",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "explained",
         "useCase"
       ]
     },
@@ -4210,8 +4337,40 @@
       ]
     },
     {
+      "token": "--gds-border-card",
+      "role": "border-card",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
       "token": "--gds-text-primary",
       "role": "text-primary",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-text-meta",
+      "role": "text-meta",
       "declaredIn": [
         "styles.css",
         "ts-emitter"
@@ -4275,6 +4434,36 @@
     {
       "token": "--gds-elevation-panel",
       "role": "elevation-panel",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-chart-axis-text",
+      "role": "chart-axis-text",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-chart-grid",
+      "role": "chart-grid",
       "declaredIn": [
         "styles.css"
       ],
@@ -4422,6 +4611,19 @@
     {
       "token": "--gds-motion-ease-standard",
       "role": "motion-ease-standard",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-chart-area-opacity-start",
+      "role": "chart-area-opacity-start",
       "declaredIn": [
         "styles.css"
       ],

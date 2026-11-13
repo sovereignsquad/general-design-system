@@ -237,8 +237,8 @@ export const gdsChartTypeRegistry: Record<GdsChartType, GdsChartTypeDefinition> 
 
 /** Default two-entry legend (primary and secondary series) used when no `legend` is supplied. */
 export const gdsDefaultChartLegend: GdsChartLegendItem[] = [
-  { label: 'Primary series', token: 'brand.primary', description: 'Primary measured value' },
-  { label: 'Secondary series', token: 'support', description: 'Grouped or comparative value' },
+  { label: 'Primary series', token: 'chart.series-1', description: 'Primary measured value' },
+  { label: 'Secondary series', token: 'chart.series-2', description: 'Grouped or comparative value' },
 ];
 
 /** Registry subset covering only the Set A chart types. */

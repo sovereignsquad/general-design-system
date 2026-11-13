@@ -7,6 +7,7 @@
 
 import { createGdsThemeAccessibilityReport } from './accessibility-report';
 import { contrastRatio } from './color-math';
+import { evaluateGdsChartContrast, GDS_CHART_SERIES_COUNT } from './chart-tokens';
 import {
   GDS_CONTROL_HEIGHT_EXCEPTIONS,
   GDS_CONTROL_SIZES,
@@ -195,6 +196,30 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
               'The foreground is derived against the background; if this fails, the derivation or the state colour changed.'));
           }
         }
+      }
+      return out;
+    },
+  },
+  {
+    id: 'chart-roles-legible',
+    axis: 'color',
+    wcag: '1.4.11 Non-text Contrast (AA); 1.4.3 Contrast (Minimum) (AA)',
+    rationale: 'A chart series that fades into the card cannot be read or told apart, and axis labels are text.',
+    evaluate(ctx) {
+      const out: GdsFloorViolation[] = [];
+      for (const result of evaluateGdsChartContrast(ctx.tokens)) {
+        if (!result.value) {
+          out.push(violation(ctx, this, `${result.role} missing`, 'emitted',
+            'Emit the chart roles from emitChartCssVariables.'));
+        } else if (!result.passes) {
+          out.push(violation(ctx, this, `${result.role} = ${result.ratio}:1 on ${result.surface}`, `>= ${result.required}:1`,
+            'The series is pushed to contrast against --gds-bg-card in emitChartCssVariables; if this fails, the card or the seed colour changed.'));
+        }
+      }
+      const series = Array.from({ length: GDS_CHART_SERIES_COUNT }, (_, i) => ctx.tokens[`--gds-chart-series-${i + 1}`]);
+      if (series.every(Boolean) && new Set(series).size !== series.length) {
+        out.push(violation(ctx, this, series.join(', '), 'eight distinct series colours',
+          'Two series resolve to the same colour; adjust the candidate order in chart-tokens.ts.'));
       }
       return out;
     },

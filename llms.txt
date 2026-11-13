@@ -107,6 +107,7 @@ Start a full page from a governed page template when one matches the task, befor
 - Agent usage guide: docs/AI_AGENT_GUIDE.md
 - Guided onboarding tour: docs/GUIDED_TOUR.md
 - Badge system (GdsBadge, GdsCountBadge, GdsRemovableTag, GdsIconBadge, GdsRatingDisplay, shapes, stack): docs/BADGE_SYSTEM.md
+- Chart tokens (`--gds-chart-series-1..8`, grid, axis text, area gradient; swatch legend; `getGdsChartSeriesColor`): docs/CHART_TOKENS.md
 - Design rule profiles (60-30-10 color proportion, type-scale ratios, color harmony, enforcement, measurement, Theme Lab panel): docs/DESIGN_RULE_PROFILES.md
 - Foundation & rules: FOUNDATION.md
 - Components & patterns (including the Component Selection Rules): COMPONENTS_AND_PATTERNS.md

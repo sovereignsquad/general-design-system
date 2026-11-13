@@ -9,6 +9,7 @@
 
 import { ensureContrast, mixCssColors, parseCssColor, readableForeground } from './color-math';
 import { resolveGdsAxisTokens } from './axes';
+import { emitChartCssVariables } from './chart-tokens';
 // Type-only, so this is erased at compile time and creates no runtime cycle. The generic
 // lanes derive their roles FROM the atmosphere palette, so the shape has to be visible
 // here; the values still live in vibe-themes.ts.
@@ -246,7 +247,7 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
   vars['--gds-state-success-dark'] = tokens['state.success'].dark;
   // Badge tone pairs are derived from the state colours above, so they cannot disagree
   // with them and no lane can forget to emit them.
-  Object.assign(vars, emitBadgeToneCssVariables(vars));
+  Object.assign(vars, emitBadgeToneCssVariables(vars), emitChartCssVariables(vars));
   return vars;
 }
 
@@ -267,7 +268,7 @@ export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<stri
   // These overrides land after `emitCssVariables` already derived the badge foregrounds, so
   // a foreground computed against the pre-override fill is stale. Re-deriving is idempotent
   // and cannot fall out of step with an override again.
-  Object.assign(vars, emitBadgeToneCssVariables(vars));
+  Object.assign(vars, emitBadgeToneCssVariables(vars), emitChartCssVariables(vars));
   return vars;
 }
 
@@ -279,7 +280,7 @@ export function emitGoldAthleteCssVariables(ramps: GoldAthleteColorRamps): Recor
   // These overrides land after `emitCssVariables` already derived the badge foregrounds, so
   // a foreground computed against the pre-override fill is stale. Re-deriving is idempotent
   // and cannot fall out of step with an override again.
-  Object.assign(vars, emitBadgeToneCssVariables(vars));
+  Object.assign(vars, emitBadgeToneCssVariables(vars), emitChartCssVariables(vars));
   return vars;
 }
 
@@ -413,7 +414,7 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
   };
   // Badge tone pairs are derived from the state colours above, so they cannot disagree
   // with them and no lane can forget to emit them.
-  Object.assign(derived, emitBadgeToneCssVariables(derived));
+  Object.assign(derived, emitBadgeToneCssVariables(derived), emitChartCssVariables(derived));
   return derived;
 }
 
