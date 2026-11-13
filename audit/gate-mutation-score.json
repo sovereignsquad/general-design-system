@@ -1,9 +1,9 @@
 {
-  "releaseChainGates": 47,
-  "gatesWithMutants": 35,
+  "releaseChainGates": 50,
+  "gatesWithMutants": 38,
   "gatesExempted": 15,
-  "mutantsRun": 52,
-  "killed": 52,
+  "mutantsRun": 56,
+  "killed": 56,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -320,6 +320,34 @@
       "gate": "verify:gates",
       "mutantId": "gates-detect-uncovered-gate",
       "claim": "Detects a release-chain gate with neither mutants nor an exemption",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:default-lane-axis-runtime",
+      "mutantId": "default-lane-runtime-detects-sub-floor-control-height",
+      "claim": "Detects a default control height that renders a NavLink row below the 44px floor",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:default-lane-axis-tokens",
+      "mutantId": "default-lane-detects-missing-pill-radius",
+      "claim": "Detects a no-fallback axis read that a non-preset lane leaves undefined",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:default-lane-axis-tokens",
+      "mutantId": "default-lane-detects-unresolved-transitive-reference",
+      "claim": "Detects an axis token whose var() reference has no default-lane value",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:axis-css",
+      "mutantId": "axis-css-detects-hand-edited-default",
+      "claim": "Detects a hand-edited value in the generated axis-defaults block",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
