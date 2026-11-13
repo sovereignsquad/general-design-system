@@ -354,8 +354,10 @@ export const EXTENSION_POINTS = {
     reason:
       'No alias and no consumer. A member of the published BrandSemanticRole union returned by '
       + 'createBrandTheme(), so removal is a breaking change requiring a deprecation cycle '
-      + '(issue 586 §6). Near-dated deliberately.',
-    reviewBy: '2026-11-01',
+      + '(issue 586 §6). Re-examined 2026-11-13: class-usa, gold-athlete and createBrandTheme '
+      + 'author values for it, but MeaningBadge validation paints from --gds-badge-solid-success, '
+      + 'so those values never render. Wire-or-deprecate decision is issue 964.',
+    reviewBy: '2027-02-01',
   },
 
   // ── Layout axis (issue 698) ──
