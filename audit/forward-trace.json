@@ -6,7 +6,7 @@
     "listed": 111,
     "demoed": 126,
     "explained": 95,
-    "variationsShown": 42,
+    "variationsShown": 43,
     "useCase": 28
   },
   "confidence": {
@@ -3272,23 +3272,6 @@
       ]
     },
     {
-      "token": "--gds-bg-card",
-      "role": "bg-card",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-text-body",
       "role": "text-body",
       "declaredIn": [
@@ -4310,6 +4293,22 @@
       "useCase": true,
       "gaps": [
         "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-bg-card",
+      "role": "bg-card",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
       ]
     },
     {

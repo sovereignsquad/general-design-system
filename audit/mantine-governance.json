@@ -300,7 +300,7 @@
         "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-core/src/chart-colors.ts",
         "packages/gds-theme/styles.css"
       ]
     },
@@ -362,7 +362,7 @@
       "why": "GDS does not change gdsTheme.colors.green.6 from Mantine's default",
       "files": [
         "packages/gds-core/src/SafeStyles.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx"
+        "packages/gds-core/src/chart-colors.ts"
       ]
     },
     {
@@ -460,7 +460,7 @@
       "why": "GDS does not change gdsTheme.colors.red.6 from Mantine's default",
       "files": [
         "packages/gds-core/src/SafeStyles.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx"
+        "packages/gds-core/src/chart-colors.ts"
       ]
     },
     {
@@ -704,7 +704,7 @@
       "classification": "ungoverned",
       "why": "GDS does not change gdsTheme.colors.yellow.7 from Mantine's default",
       "files": [
-        "packages/gds-core/src/SemanticCharts.tsx"
+        "packages/gds-core/src/chart-colors.ts"
       ]
     },
     {
@@ -777,8 +777,8 @@
         "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx",
         "packages/gds-core/src/StyleUtilities.tsx",
+        "packages/gds-core/src/chart-colors.ts",
         "packages/gds-core/src/icons.ts",
         "packages/gds-core/src/pictograms.tsx",
         "packages/gds-theme/styles.css"
