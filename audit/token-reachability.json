@@ -1,7 +1,7 @@
 {
   "declared": 311,
-  "referenced": 128,
-  "extensionPoints": 134,
+  "referenced": 131,
+  "extensionPoints": 133,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -915,13 +915,6 @@
       "reason": "Atmosphere-palette state colour; see --gds-vibe-success.",
       "reviewBy": "2027-08-01",
       "declaredIn": "packages/gds-theme/styles.css"
-    },
-    {
-      "token": "--gds-weight-bold",
-      "classification": "extension-point",
-      "reason": "Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
       "token": "--gds-weight-medium",
