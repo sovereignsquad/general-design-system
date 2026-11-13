@@ -54,6 +54,9 @@ function rebuild(workspaces) {
   }
 }
 
+// Last stderr lines of each gate's most recent failing run, reported when its baseline breaks.
+const lastStderr = new Map();
+
 function runGate(entry) {
   const cmd = entry.standalone
     ? ['node', [join(ROOT, 'scripts', entry.script)]]
@@ -62,6 +65,7 @@ function runGate(entry) {
     execFileSync(cmd[0], cmd[1], { cwd: ROOT, stdio: 'pipe', timeout: TIMEOUT_MS });
     return 0;
   } catch (error) {
+    lastStderr.set(entry.npmScript, String(error.stderr ?? '').trim().split('\n').slice(-6).join(' | '));
     if (error.killed || error.signal) return null; // timeout -> INVALID, never KILLED
     return error.status ?? 1;
   }
@@ -90,7 +94,8 @@ for (const entry of GATE_MUTANTS) {
       if (clean !== 0) {
         throw new Error(
           `BASELINE BROKEN: ${entry.npmScript} exits ${clean ?? 'TIMEOUT'} with no mutation applied. `
-          + 'Every mutant would report KILLED for the wrong reason. Fix the gate first.',
+          + 'Every mutant would report KILLED for the wrong reason. Fix the gate first.'
+          + (lastStderr.get(entry.npmScript) ? ` Gate stderr: ${lastStderr.get(entry.npmScript)}` : ''),
         );
       }
       if (!original.includes(mutant.find)) throw new Error(`anchor not found: ${mutant.find.slice(0, 60)}`);

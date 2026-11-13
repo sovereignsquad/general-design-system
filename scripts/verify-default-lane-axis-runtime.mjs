@@ -84,6 +84,19 @@ function contrast(a, b) {
 }
 const opaque = (color) => /^rgb\(/.test(color) || /^rgba\([^)]*,\s*1\)$/.test(color);
 
+// Polls until the page has loaded its stylesheets and the root declares --gds-radius-pill, or
+// the timeout passes; the caller then measures either way so a real absence is reported.
+const READY = `document.readyState === 'complete' && getComputedStyle(document.documentElement).getPropertyValue('--gds-radius-pill').trim() !== ''`;
+async function untilReady(client, extra = 'true', timeoutMs = 15000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    if (await evaluate(client, `(${READY}) && (${extra})`)) return true;
+    await wait(150);
+  }
+  return false;
+}
+const settle = (client) => evaluate(client, 'new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve(true))))');
+
 const setScheme = (scheme) => `document.documentElement.setAttribute('data-mantine-color-scheme', '${scheme}')`;
 const px = (value) => Number.parseFloat(value);
 
@@ -123,10 +136,10 @@ try {
   const client = await createCdpClient(session.webSocketDebuggerUrl);
 
   await client.send('Page.navigate', { url: `file://${fixturePath}` });
-  await wait(600);
+  await untilReady(client, `Boolean(document.getElementById('badge-soft'))`);
   for (const scheme of ['light', 'dark']) {
     await evaluate(client, setScheme(scheme));
-    await wait(100);
+    await settle(client);
     const m = await evaluate(client, MEASURE_FIXTURE);
     const label = `fixture (no preset, no injected variables) ${scheme}`;
     checkCommon(label, m);
@@ -142,15 +155,10 @@ try {
   }
 
   await client.send('Page.navigate', { url: referenceUrl });
-  let reference;
-  for (let attempt = 0; attempt < 50; attempt += 1) {
-    await wait(200);
-    reference = await evaluate(client, MEASURE_REFERENCE);
-    if (reference.pillFound && reference.heroFound) break;
-  }
+  await untilReady(client, `Boolean(document.querySelector('[style*="--gds-radius-pill"]')) && Boolean(document.querySelector('[style*="var(--gds-space-xs) var(--gds-space-md)"]'))`);
   for (const scheme of ['light', 'dark']) {
     await evaluate(client, setScheme(scheme));
-    await wait(100);
+    await settle(client);
     const m = await evaluate(client, MEASURE_REFERENCE);
     const label = `apps/reference-vite (gdsDarkPublicTheme) ${scheme}`;
     if (!m.pillFound || !m.heroFound) {
