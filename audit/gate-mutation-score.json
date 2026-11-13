@@ -1,9 +1,9 @@
 {
-  "releaseChainGates": 45,
-  "gatesWithMutants": 32,
-  "gatesExempted": 16,
-  "mutantsRun": 44,
-  "killed": 44,
+  "releaseChainGates": 46,
+  "gatesWithMutants": 34,
+  "gatesExempted": 15,
+  "mutantsRun": 49,
+  "killed": 49,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -306,6 +306,41 @@
       "gate": "verify:mantine-governance",
       "mutantId": "mantine-governance-detects-expired-delegation",
       "claim": "Detects a delegation whose reviewBy date has passed",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:gates",
+      "mutantId": "gates-detect-expired-exemption",
+      "claim": "Detects a release-chain gate exemption whose reviewBy date has passed",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:gates",
+      "mutantId": "gates-detect-uncovered-gate",
+      "claim": "Detects a release-chain gate with neither mutants nor an exemption",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:package-readmes",
+      "mutantId": "package-readmes-detect-bootstrap-drift",
+      "claim": "Detects an umbrella README whose bootstrap code differs from llms.txt",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:package-readmes",
+      "mutantId": "package-readmes-detect-unnamed-subpath",
+      "claim": "Detects a README that omits one of its package exported subpaths",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:package-readmes",
+      "mutantId": "package-readmes-detect-unpacked-llms",
+      "claim": "Detects an umbrella tarball that no longer ships llms.txt",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
