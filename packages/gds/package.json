@@ -1,6 +1,7 @@
 {
   "name": "@sovereignsquad/gds",
   "version": "6.8.0",
+  "description": "General Design System (GDS): governed React design system on Mantine. Umbrella package re-exporting gds-core, gds-theme and gds-admin.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -42,11 +43,13 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "llms.txt"
   ],
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "prepack": "node ../../scripts/copy-llms-into-umbrella.mjs"
   },
   "dependencies": {
     "@sovereignsquad/gds-admin": "6.8.0",

@@ -3,6 +3,12 @@
 Custom ESLint rules for GDS consumers, exposed via `createGdsConfig(options)`. Flat-config
 only (ESLint 9+).
 
+```bash
+npm install -D @sovereignsquad/gds-eslint-config
+```
+
+Installs from npmjs.com need no `.npmrc` entry and no token.
+
 ```js
 import { createGdsConfig } from '@sovereignsquad/gds-eslint-config';
 

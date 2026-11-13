@@ -1,6 +1,7 @@
 {
   "name": "@sovereignsquad/gds-core",
   "version": "6.8.0",
+  "description": "GDS layouts, cards, shells, forms, tables, overlays, charts, page templates, access gates and i18n.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
