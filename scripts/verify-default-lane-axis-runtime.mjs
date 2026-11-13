@@ -2,7 +2,7 @@
 //
 // 1. Fixture: plain HTML linking Mantine's stylesheet and packages/gds-theme/styles.css, no
 //    preset attribute and no injected variables (the gdsTheme / createPublicBrandTheme lane),
-//    measuring the reads components make, in light and dark.
+//    measuring the reads components make (axis tokens and badge pairs), in light and dark.
 // 2. apps/reference-vite (gdsDarkPublicTheme), served from its built dist/: the FeatureBand
 //    process step pill and the EditorialHero action, in light and dark.
 import { createServer } from 'node:http';
@@ -36,6 +36,8 @@ const FIXTURE = `<!doctype html>
   <a id="navlink" class="mantine-NavLink-root" style="display: flex; min-height: var(--gds-control-height-md)">nav</a>
   <div id="map-item" style="border: var(--gds-focus-ring-width) solid var(--gds-focus-ring-color)">selected</div>
   <div id="card" style="box-shadow: var(--gds-elevation-card)">card</div>
+  <span id="badge-solid" style="background: var(--gds-badge-solid-success); color: var(--gds-badge-solid-success-fg)">done</span>
+  <span id="badge-soft" style="background: var(--gds-badge-soft-info); color: var(--gds-badge-soft-info-fg)">info</span>
 </body>
 </html>`;
 
@@ -51,6 +53,7 @@ const MEASURE_FIXTURE = `(() => {
     navHeight: document.getElementById('navlink').getBoundingClientRect().height,
     mapBorder: [cs('map-item').borderTopWidth, cs('map-item').borderTopStyle, cs('map-item').borderTopColor],
     cardShadow: cs('card').boxShadow,
+    badges: ['badge-solid', 'badge-soft'].map((id) => ({ id, bg: cs(id).backgroundColor, fg: cs(id).color })),
   };
 })()`;
 
@@ -67,6 +70,19 @@ const MEASURE_REFERENCE = `(() => {
     heroPadding: hero ? [getComputedStyle(hero).paddingTop, getComputedStyle(hero).paddingLeft] : null,
   };
 })()`;
+
+function luminance(rgb) {
+  const [r, g, b] = rgb.match(/[\d.]+/g).slice(0, 3).map((v) => {
+    const c = Number(v) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+function contrast(a, b) {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+}
+const opaque = (color) => /^rgb\(/.test(color) || /^rgba\([^)]*,\s*1\)$/.test(color);
 
 const setScheme = (scheme) => `document.documentElement.setAttribute('data-mantine-color-scheme', '${scheme}')`;
 const px = (value) => Number.parseFloat(value);
@@ -118,7 +134,11 @@ try {
     if (m.navHeight < 44) failures.push(`${label}: NavLink-class row is ${m.navHeight}px high, below the 44px floor.`);
     if (m.mapBorder[0] !== '2px' || m.mapBorder[1] !== 'solid' || !/^rgb/.test(m.mapBorder[2])) failures.push(`${label}: selected map item border is ${m.mapBorder.join(' ')}, expected 2px solid with a resolved colour.`);
     if (!m.cardShadow || m.cardShadow === 'none') failures.push(`${label}: --gds-elevation-card computes to no shadow.`);
-    measured.push(`${label}: pill ${m.pillRadius}, padding ${m.heroPadding.join('/')}, NavLink ${m.navHeight}px, map border ${m.mapBorder.join(' ')}`);
+    for (const badge of m.badges) {
+      if (!opaque(badge.bg)) failures.push(`${label}: #${badge.id} background is ${badge.bg}, expected an opaque badge colour.`);
+      else if (contrast(badge.bg, badge.fg) < 4.5) failures.push(`${label}: #${badge.id} text is ${contrast(badge.bg, badge.fg).toFixed(2)}:1 on its background, below 4.5:1.`);
+    }
+    measured.push(`${label}: pill ${m.pillRadius}, padding ${m.heroPadding.join('/')}, NavLink ${m.navHeight}px, map border ${m.mapBorder.join(' ')}, badges ${m.badges.map((b) => (opaque(b.bg) ? contrast(b.bg, b.fg).toFixed(2) : 'transparent')).join('/')}:1`);
   }
 
   await client.send('Page.navigate', { url: referenceUrl });

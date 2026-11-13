@@ -1,11 +1,11 @@
 {
-  "tokenUniverse": 229,
+  "tokenUniverse": 249,
   "darkSiblingsExcluded": 37,
-  "cellsEvaluated": 1145,
+  "cellsEvaluated": 1245,
   "obligationsSatisfied": {
-    "listed": 96,
-    "demoed": 99,
-    "explained": 82,
+    "listed": 100,
+    "demoed": 113,
+    "explained": 86,
     "variationsShown": 40,
     "useCase": 23
   },
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 8,
-  "tokensWithGaps": 221,
+  "tokensWithGaps": 241,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -2066,28 +2066,10 @@
       ]
     },
     {
-      "token": "--gds-nav-inactiveOnInverse",
-      "role": "nav-inactiveOnInverse",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-badge-info",
       "role": "badge-info",
       "declaredIn": [
+        "styles.css",
         "ts-emitter"
       ],
       "listed": false,
@@ -2106,6 +2088,140 @@
     {
       "token": "--gds-badge-urgencyBg",
       "role": "badge-urgencyBg",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-success",
+      "role": "badge-soft-success",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-success-fg",
+      "role": "badge-soft-success-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-danger",
+      "role": "badge-soft-danger",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-danger-fg",
+      "role": "badge-soft-danger-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-neutral",
+      "role": "badge-soft-neutral",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-neutral-fg",
+      "role": "badge-soft-neutral-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": false,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "demoed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-inactiveOnInverse",
+      "role": "nav-inactiveOnInverse",
       "declaredIn": [
         "ts-emitter"
       ],
@@ -2491,6 +2607,186 @@
         "reason": "Same axis and same plan as --gds-focus-ring-offset (issue 965). Its floor is already enforced in accessibility-floor.ts; what is missing is the reference-page story.",
         "reviewBy": "2027-02-01"
       }
+    },
+    {
+      "token": "--gds-badge-solid-success-fg",
+      "role": "badge-solid-success-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-warning",
+      "role": "badge-solid-warning",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-warning-fg",
+      "role": "badge-solid-warning-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-danger",
+      "role": "badge-solid-danger",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-danger-fg",
+      "role": "badge-solid-danger-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-info",
+      "role": "badge-solid-info",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-info-fg",
+      "role": "badge-solid-info-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-info",
+      "role": "badge-soft-info",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-info-fg",
+      "role": "badge-soft-info-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-neutral-fg",
+      "role": "badge-solid-neutral-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
     },
     {
       "token": "--gds-badge-stack-size",
@@ -3317,6 +3613,104 @@
       ]
     },
     {
+      "token": "--gds-badge-attention",
+      "role": "badge-attention",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-validation",
+      "role": "badge-validation",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "demoed",
+        "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-success",
+      "role": "badge-solid-success",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-warning",
+      "role": "badge-soft-warning",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-warning-fg",
+      "role": "badge-soft-warning-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-neutral",
+      "role": "badge-solid-neutral",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-local-background",
       "role": "local-background",
       "declaredIn": [
@@ -3458,38 +3852,6 @@
       "gaps": [
         "variationsShown",
         "useCase"
-      ]
-    },
-    {
-      "token": "--gds-badge-attention",
-      "role": "badge-attention",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-badge-validation",
-      "role": "badge-validation",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "demoed",
-        "variationsShown"
       ]
     },
     {

@@ -691,6 +691,14 @@ export const GATE_MUTANTS = [
         once: true,
       },
       {
+        id: 'default-lane-detects-missing-badge-role',
+        claim: 'Detects a badge colour role that a non-preset lane leaves undefined',
+        file: 'packages/gds-theme/styles.css',
+        find: '  --gds-badge-solid-success: light-dark(rgb(54, 118, 116), rgb(132, 191, 157));\n',
+        replace: '',
+        once: true,
+      },
+      {
         id: 'default-lane-detects-unresolved-transitive-reference',
         claim: 'Detects an axis token whose var() reference has no default-lane value',
         file: 'packages/gds-theme/styles.css',

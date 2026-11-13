@@ -52,6 +52,22 @@ describe('default axis tokens in styles.css (#765)', () => {
   });
 });
 
+describe('default badge roles in styles.css (#968)', () => {
+  const badgeBlock = stylesCss.slice(stylesCss.indexOf('/* gds:badge-defaults:start'), stylesCss.indexOf('/* gds:badge-defaults:end */'));
+  const badges = declarationsIn(badgeBlock);
+
+  it('declares every default-preset badge role as its light/dark pair', () => {
+    const light = getGdsVibeThemeCssVariables('default', 'light');
+    const dark = getGdsVibeThemeCssVariables('default', 'dark');
+    const names = Object.keys(light).filter((name) => name.startsWith('--gds-badge-') && !name.endsWith('-dark'));
+    expect(names.length).toBeGreaterThan(0);
+    for (const name of names) {
+      const expected = light[name] === dark[name] ? light[name] : `light-dark(${light[name]}, ${dark[name]})`;
+      expect(badges[name], name).toBe(expected);
+    }
+  });
+});
+
 describe('lanes without the preset runtime (#765)', () => {
   it('generic createBrandTheme carries every axis key and leaves its semantic roles as they were', () => {
     const { cssVariables } = createBrandTheme(brandOptions);
