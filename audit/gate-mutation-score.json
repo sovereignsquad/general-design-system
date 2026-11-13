@@ -2,8 +2,8 @@
   "releaseChainGates": 50,
   "gatesWithMutants": 38,
   "gatesExempted": 15,
-  "mutantsRun": 56,
-  "killed": 56,
+  "mutantsRun": 57,
+  "killed": 57,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
@@ -334,6 +334,13 @@
       "gate": "verify:default-lane-axis-tokens",
       "mutantId": "default-lane-detects-missing-pill-radius",
       "claim": "Detects a no-fallback axis read that a non-preset lane leaves undefined",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:default-lane-axis-tokens",
+      "mutantId": "default-lane-detects-missing-badge-role",
+      "claim": "Detects a badge colour role that a non-preset lane leaves undefined",
       "status": "KILLED",
       "detail": "gate exited 1"
     },
