@@ -643,6 +643,36 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:package-readmes',
+    script: null,
+    mutants: [
+      {
+        id: 'package-readmes-detect-bootstrap-drift',
+        claim: 'Detects an umbrella README whose bootstrap code differs from llms.txt',
+        file: 'packages/gds/README.md',
+        find: '<GdsProvider defaultColorScheme="light">',
+        replace: '<GdsProvider defaultColorScheme="dark">',
+        once: true,
+      },
+      {
+        id: 'package-readmes-detect-unnamed-subpath',
+        claim: 'Detects a README that omits one of its package exported subpaths',
+        file: 'packages/gds-core/README.md',
+        find: '`@sovereignsquad/gds-core/rich-text-editor`',
+        replace: '`rich text editor`',
+        once: true,
+      },
+      {
+        id: 'package-readmes-detect-unpacked-llms',
+        claim: 'Detects an umbrella tarball that no longer ships llms.txt',
+        file: 'packages/gds/package.json',
+        find: '    "dist",\n    "llms.txt"\n',
+        replace: '    "dist"\n',
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:obligation-coverage',
     script: null,
     mutants: [
