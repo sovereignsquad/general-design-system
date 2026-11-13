@@ -14,12 +14,11 @@ name: GDS Publish (npmjs.com)
 # is registered this workflow fails cleanly at the publish step with an auth
 # error. npm CLI 11.5.1 or later and a GitHub-hosted runner are required.
 # Policy and setup order: RELEASE_PUBLISH.md "Registry policy decision" (#938).
-# Dispatch it manually on a release tag; it is not part of
-# auto-tag-release.yml's automatic dispatch list.
+# auto-tag-release.yml dispatches it on each new release tag, concurrently with
+# publish-github-packages.yml; it can also be dispatched manually on a tag.
 #
-# GitHub Packages (publish-github-packages.yml) remains the canonical,
-# audit-friendly registry; this is a second, additive distribution channel,
-# not a replacement.
+# npmjs.com is the primary registry; GitHub Packages
+# (publish-github-packages.yml) is the authenticated audit mirror.
 
 on:
   workflow_dispatch:
