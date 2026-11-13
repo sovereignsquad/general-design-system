@@ -58,6 +58,10 @@ deprecation notice appears (`staleness.deprecatedPackages` non-empty).
 - `postcss` GHSA-qx2v-qp2m-jg93, GHSA-6g55-p6wh-862q, GHSA-r28c-9q8g-f849, GHSA-fxqj-rqcc-2cmp, previously accepted: root override `postcss` `8.5.32`. `next@15.5.29` pins `postcss@8.4.31` exactly; a minimal Next 15.5.29 App Router build with the override compiled and minified its CSS correctly. Their acceptances were removed.
 - `sharp` GHSA-f88m-g3jw-g9cj, previously accepted: no longer reported since the `sharp` `0.35.5` override (#934). Its acceptance was removed.
 
+## Install scripts
+
+`package.json` `allowScripts` records install-script decisions for npm 11.19 and later, which warns on every install about scripts it has no decision for. `esbuild` is denied: its `postinstall` only verifies and optimizes the platform binary, which esbuild already resolves through its optional platform package. A clean `npm ci` with the script denied builds every package. npm versions without `allowScripts` ignore the field and run the script.
+
 ## Resolved During 3.0.7
 
 - `vitest` was upgraded from `3.2.4` to `4.1.8`, resolving GHSA-5xrq-8626-4rwp for the local test runner.

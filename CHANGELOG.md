@@ -16,6 +16,10 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### npm install prints no install-scripts warning (#963)
+
+npm 11.19 warned on every install that `esbuild@0.28.1`'s `postinstall` was not covered by `allowScripts`. `package.json` now denies it: the script only verifies and optimizes the platform binary that esbuild already resolves from its optional platform package. A clean `npm ci` with the script denied builds every package. The decision is recorded in `DEPENDENCY_AUDIT.md` "Install scripts".
+
 ### Lazy locales register in CommonJS and bundled consumers; map.css bundles (#962)
 
 `@sovereignsquad/gds-core/locales/lazy/*` worked only as an unbundled ESM import:
