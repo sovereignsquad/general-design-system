@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { GATE_MUTANTS, EXEMPTIONS, KNOWN_SURVIVORS } from './audit/gate-mutants.config.mjs';
+import { checkGateCoverage, readReleaseChain } from './lib/gate-coverage.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const TIMEOUT_MS = 180000;
@@ -17,30 +18,9 @@ const today = () => new Date();
 const fail = (msg) => { console.error(`FAIL ${msg}`); process.exit(1); };
 
 // ── Coverage: every release-chain gate needs mutants or a live exemption ─────
-const releaseChain = readFileSync(join(ROOT, 'package.json'), 'utf8');
-const chain = JSON.parse(releaseChain).scripts['verify:release']
-  .split('&&').map((c) => c.trim())
-  .filter((c) => c.startsWith('npm run'))
-  .map((c) => c.replace('npm run ', '').trim());
-
-if (chain.length === 0) fail('Could not parse verify:release — refusing to pass vacuously.');
-if (GATE_MUTANTS.length === 0) fail('Empty gate-mutant registry — refusing to pass vacuously.');
-
-const covered = new Set(GATE_MUTANTS.map((g) => g.npmScript));
-const coverageFailures = [];
-for (const gate of chain) {
-  if (covered.has(gate)) continue;
-  const exempt = EXEMPTIONS[gate];
-  if (!exempt) {
-    coverageFailures.push(`${gate} is in verify:release but has neither mutants nor an exemption.`);
-    continue;
-  }
-  if (!exempt.reason?.trim()) coverageFailures.push(`${gate} exemption has no reason.`);
-  if (!exempt.reviewBy) coverageFailures.push(`${gate} exemption has no reviewBy date.`);
-  else if (Date.parse(exempt.reviewBy) < today()) {
-    coverageFailures.push(`${gate} exemption expired ${exempt.reviewBy} — re-examine or add mutants.`);
-  }
-}
+const chain = readReleaseChain(ROOT);
+const coverageFailures = checkGateCoverage({ chain, gateMutants: GATE_MUTANTS, exemptions: EXEMPTIONS, now: today() });
+if (chain.length === 0 || GATE_MUTANTS.length === 0) fail(coverageFailures[0]);
 
 // ── Baseline tree state ─────────────────────────────────────────────────────
 // Compared against a baseline, not absolute cleanliness: pre-existing untracked files are not leaked mutations.

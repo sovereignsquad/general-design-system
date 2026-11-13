@@ -49,8 +49,6 @@ export const EXEMPTIONS = {
   'verify:boundary': { reason: 'Reads dist/; needs a rebuild-aware mutant with a verified anchor. Same solved pattern as verify:theme-tokens.', reviewBy: '2026-12-01' },
   'verify:a11y-package': { reason: 'Reads dist/; needs a rebuild-aware mutant.', reviewBy: '2026-12-01' },
   'verify:token-contrast-scoring': { reason: 'Reads dist/; needs a rebuild-aware mutant.', reviewBy: '2026-12-01' },
-  // Self-referential: mutating it re-runs the whole suite (8 mutants, two rebuilds) inside itself.
-  'verify:gates': { reason: 'Self-referential: mutating it re-runs the whole suite inside itself, including rebuilds. Deferred on cost, not principle. The gate that verifies gates is currently unverified.', reviewBy: '2026-11-01' },
 };
 
 /**
@@ -436,17 +434,14 @@ export const GATE_MUTANTS = [
       {
         id: 'reachability-detects-expired-extension-point',
         claim: 'Detects an extension-point allowlist entry whose reviewBy date has passed',
-        // Anchored on --gds-badge-validation's reviewBy line alone (confirmed unique in the
-        // file), not its free-text reason, which is legitimately edited over time -- it already
-        // has been once, breaking an earlier version of this exact anchor that matched the
-        // whole entry including that prose. issue 586 §6 records this entry as
-        // retained-not-removed only because of the breaking-change cost of dropping a published
-        // BrandSemanticRole member -- it cannot become accidentally reachable the way a generic
-        // surface-role token (--gds-bg-page, --gds-bg-canvas) can once some component starts
-        // consuming it for an unrelated reason, so it stays a stable, real extension point.
+        // Anchored on the last reason fragment and reviewBy of --gds-badge-validation, the only
+        // entry naming issue 964; several entries share the 2027-02-01 date, so the date alone is
+        // not unique. issue 586 §6 retains this published BrandSemanticRole member because
+        // dropping it is breaking. When issue 964 removes or re-points the entry, retarget this
+        // mutant to another extension point.
         file: 'scripts/token-reachability.config.mjs',
-        find: "    reviewBy: '2026-11-01',\n  },",
-        replace: "    reviewBy: '2020-01-01',\n  },",
+        find: "Wire-or-deprecate decision is issue 964.',\n    reviewBy: '2027-02-01',\n  },",
+        replace: "Wire-or-deprecate decision is issue 964.',\n    reviewBy: '2020-01-01',\n  },",
         once: true,
       },
     ],
@@ -638,6 +633,31 @@ export const GATE_MUTANTS = [
         file: 'scripts/mantine-governance.config.mjs',
         find: "reviewBy: '2027-08-01',\n  },\n  '--mantine-z-index-modal'",
         replace: "reviewBy: '2020-01-01',\n  },\n  '--mantine-z-index-modal'",
+        once: true,
+      },
+    ],
+  },
+  {
+    // Mutates the coverage half only, through scripts/verify-gate-coverage.mjs, so the suite does
+    // not re-enter itself. The mutant runner's inverted verdicts are not mutation-tested.
+    npmScript: 'verify:gates',
+    script: 'verify-gate-coverage.mjs',
+    standalone: true,
+    mutants: [
+      {
+        id: 'gates-detect-expired-exemption',
+        claim: 'Detects a release-chain gate exemption whose reviewBy date has passed',
+        file: 'scripts/audit/gate-mutants.config.mjs',
+        find: "'lint': { reason: 'ESLint is third-party and separately tested upstream.', reviewBy: '2027-08-01' },",
+        replace: "'lint': { reason: 'ESLint is third-party and separately tested upstream.', reviewBy: '2020-01-01' },",
+        once: true,
+      },
+      {
+        id: 'gates-detect-uncovered-gate',
+        claim: 'Detects a release-chain gate with neither mutants nor an exemption',
+        file: 'scripts/audit/gate-mutants.config.mjs',
+        find: "  'lint': { reason: 'ESLint is third-party and separately tested upstream.', reviewBy: '2027-08-01' },\n",
+        replace: '',
         once: true,
       },
     ],
