@@ -121,6 +121,8 @@ locale gets under the default eager path.
 import — the lazy-registry equivalent of today's default coverage, for a consumer that wants
 the registry's dev-warning behavior without yet trimming which locales it ships.
 
+The lazy subpaths work as ESM `import`, as CommonJS `require`, and through bundlers that honour `sideEffects`: `gds-core` declares the `locales/lazy/*` entries as side-effectful, so a bare `import '@sovereignsquad/gds-core/locales/lazy/de'` is kept, and every entry registers into one registry per JavaScript realm. `npm run verify:built-entries` checks the built output in all three ways.
+
 This is purely additive. `getGdsMessages`, `gdsLocales`, and the individual `en`/`de`/...
 exports are unaffected by this subpath existing or not being imported — no existing consumer's
 behavior changes by this shipping.

@@ -5,7 +5,11 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "./src/locales/lazy/*.ts",
+    "./dist/locales/lazy/*",
+    "*.css"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com"

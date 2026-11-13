@@ -16,6 +16,25 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Lazy locales register in CommonJS and bundled consumers; map.css bundles (#962)
+
+`@sovereignsquad/gds-core/locales/lazy/*` worked only as an unbundled ESM import:
+
+- In CommonJS, `locales/lazy/all.js` was built empty (`"use strict";`), and `require('…/locales/lazy/de')` registered into a separate copy of the registry.
+- Through a bundler that honours `sideEffects` (esbuild, webpack), the documented bare `import '@sovereignsquad/gds-core/locales/lazy/de'` was dropped, because `gds-core` declared `"sideEffects": false`.
+
+In every broken case `getGdsMessagesLazy` fell back to English.
+
+The fix:
+
+- The registry is one map per JavaScript realm (`Symbol.for` on `globalThis`).
+- `locales/lazy/all` registers the dictionaries directly instead of bare-importing the per-locale entries. This also removes the eleven `ignored-bare-import` warnings from the `gds-core` build.
+- `sideEffects` is now `["./src/locales/lazy/*.ts", "./dist/locales/lazy/*", "*.css"]`.
+
+`@sovereignsquad/gds-core/map.css` referenced Leaflet's `images/*.png`, which the package did not ship, so bundlers that resolve CSS assets failed on it. The build now removes those declarations; `GdsMap` never renders the elements they styled.
+
+`npm run verify:built-entries`, added to `verify:release` with three rebuild-aware mutants, checks the built output: ESM, CommonJS and an esbuild consumer bundle for the lazy locales, and a consumer bundle of `map.css`. Against the previous build it reports all four defects.
+
 ### Release chain green again: advisories cleared, expired review dates re-examined (#963)
 
 `verify:release` failed on `main` from 2026-11-01 with no code change. Fixed at the source:

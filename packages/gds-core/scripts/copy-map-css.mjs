@@ -30,6 +30,16 @@ if (!/\.leaflet-tile\b/.test(css) || !/position\s*:\s*absolute/.test(css)) {
   process.exit(1);
 }
 
+// GdsMap renders markers with L.divIcon and adds no layers control, so Leaflet's bitmap
+// references (layers toggle, L.Icon.Default path probe) style nothing GDS renders. They are
+// removed rather than shipped: GDS ships no vendor imagery, and an unresolvable url() fails
+// consumer bundlers that resolve CSS assets.
+const stripped = css.replace(/^\s*background-image:\s*url\(images\/[^)]+\);\r?\n/gm, '');
+if (/url\(images\//.test(stripped)) {
+  console.error('dist/map.css would still reference Leaflet images/; update the strip rule.');
+  process.exit(1);
+}
+
 const version = JSON.parse(readFileSync(resolve(pkgRoot, '../../node_modules/leaflet/package.json'), 'utf8')).version;
 
 mkdirSync(dirname(target), { recursive: true });
@@ -38,7 +48,7 @@ writeFileSync(
   `/* Vendored from leaflet@${version} (BSD-2-Clause), by packages/gds-core/scripts/copy-map-css.mjs.\n`
   + ` * Imported as \`@sovereignsquad/gds-core/map.css\` so the map's stylesheet is a governed\n`
   + ` * specifier rather than a vendor path every consumer has to discover for themselves. */\n`
-  + css,
+  + stripped,
 );
 
-console.log(`Wrote dist/map.css from leaflet@${version} (${css.length} bytes).`);
+console.log(`Wrote dist/map.css from leaflet@${version} (${stripped.length} bytes).`);

@@ -3,7 +3,7 @@
 Status: Active SSOT
 Version: 6.8.0
 Owner: GDS core
-Last updated: 2026-08-24
+Last updated: 2026-11-13
 
 The map is the first GDS surface with a **runtime external-service dependency**: every other
 component renders from the bundle, while a map needs a network, a tile host, a CSP entry, and a
@@ -68,6 +68,10 @@ Two properties follow from "imperative DOM" and are easy to trip over:
 - **The engine is CSS-dependent.** `.leaflet-tile { position: absolute }` is load-bearing;
   without the stylesheet, tiles render as a vertical strip. The `@sovereignsquad/gds-core/map.css`
   export exists for exactly this, and its build step refuses to emit a file missing that rule.
+  The build also removes Leaflet's `url(images/…)` declarations (layers-control toggle and the
+  `L.Icon.Default` path probe): `GdsMap` renders markers with `L.divIcon` and adds no layers
+  control, GDS ships no vendor imagery, and an unresolvable `url()` fails consumer bundlers.
+  `npm run verify:built-entries` bundles `map.css` as a consumer would.
 
 Coordinates are `{ lat, lng }` (WGS84); rendering uses Leaflet's default Web-Mercator
 projection (EPSG:3857), the projection every raster tile host serves. Products needing another
