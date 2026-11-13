@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import '@mantine/core/styles.css';
-import '@mantine/notifications/styles.css';
+import '@sovereignsquad/gds-theme/styles.css';
 import { GdsProvider, gdsDarkPublicTheme } from '@sovereignsquad/gds-theme/client';
 import { App } from './App';
 

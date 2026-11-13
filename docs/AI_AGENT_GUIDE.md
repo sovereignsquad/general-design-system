@@ -30,7 +30,7 @@ Bootstrap is two steps. Both are required; neither replaces the other.
 import '@sovereignsquad/gds-theme/styles.css';
 ```
 
-The stylesheet supplies the Mantine component CSS (it already includes `@mantine/core/styles.css` and `@mantine/notifications/styles.css`; do not import those separately), the default `--gds-*` role, overlay and motion tokens, the Inter font, the rules gated on `data-gds-theme-preset`, and the `forced-colors`, `prefers-reduced-motion` and global `:focus-visible` rules.
+The stylesheet supplies the Mantine component CSS (it already includes `@mantine/core/styles.css` and `@mantine/notifications/styles.css`; do not import those separately), the default `--gds-*` role, overlay, motion and axis tokens (spacing, radius, elevation, control height, layout, type scale and focus ring), the Inter font, the rules gated on `data-gds-theme-preset`, and the `forced-colors`, `prefers-reduced-motion` and global `:focus-visible` rules.
 
 **2. Wrap the app once in `GdsProvider`.** It supplies the Mantine theme (`gdsTheme` unless you pass `theme`) and its `--mantine-*` variables, color-scheme handling, text direction, locale and messages, and the modals and notifications mounts. It writes `--gds-*` variables only when the theme carries `theme.other.gdsCssVariables` (themes built with `createBrandTheme`), and it loads no fonts.
 

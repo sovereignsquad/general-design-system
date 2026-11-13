@@ -32,8 +32,8 @@
     },
     {
       "key": "tokensWithGaps",
-      "measured": 87,
-      "value": 89,
+      "measured": 221,
+      "value": 221,
       "direction": "max",
       "unit": "count",
       "finding": "F11",

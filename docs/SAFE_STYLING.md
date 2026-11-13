@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.8.0
-Last updated: 2026-10-01
+Last updated: 2026-11-13
 
 The safe styling API is the approved replacement for product-local inline styles and arbitrary CSS when a full component contract is not the right fit. It constrains common visual needs to GDS tokens and semantic enums.
 
@@ -98,6 +98,16 @@ const contract = createGdsStyleContract('product-preview', {
 ```
 
 Use the low-level contract for GDS-owned package integration or reviewed adapter code. Product UI should prefer `GdsSafeBox`, `GdsMediaFrame`, `GdsOverflowFrame`, and `GdsResponsiveVisibility`.
+
+Axis token references:
+
+```tsx
+import { gdsElevation, gdsRadius, gdsSpace } from '@sovereignsquad/gds';
+
+const style = { padding: gdsSpace('md'), borderRadius: gdsRadius('card'), boxShadow: gdsElevation('card') };
+```
+
+`gdsSpace()`, `gdsRadius()` and `gdsElevation()` return `var(--gds-…)` references, not resolved values, so the element follows the active theme. They resolve in every lane: `styles.css` declares the default axis tokens at `:root`, and brand lanes and theme presets override them (THEME_GOVERNANCE.md "Where each lane gets its axis tokens").
 
 ## Spacing, size and type steps by prop
 

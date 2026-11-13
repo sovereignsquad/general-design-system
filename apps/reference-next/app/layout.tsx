@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { ColorSchemeScript } from '@mantine/core';
+import '@sovereignsquad/gds-theme/styles.css';
 import './globals.css';
 import Providers from './providers';
 

@@ -257,7 +257,7 @@ Peers: with peer auto-install on, these commands need no peer list. With it off,
 
 Every React root needs two separate steps. `GdsProvider` does not perform the first one.
 
-1. **The stylesheet.** Import `@sovereignsquad/gds-theme/styles.css` exactly once, in the app entry, before your own app styles. It supplies the Mantine core and notifications stylesheets, the bundled Inter font, the default `--gds-*` role, overlay and motion tokens, the theme-preset rules, and the global `:focus-visible`, `forced-colors` and `prefers-reduced-motion` rules.
+1. **The stylesheet.** Import `@sovereignsquad/gds-theme/styles.css` exactly once, in the app entry, before your own app styles. It supplies the Mantine core and notifications stylesheets, the bundled Inter font, the default `--gds-*` role, overlay, motion and axis tokens (spacing, radius, elevation, control height, layout, type scale and focus ring), the theme-preset rules, and the global `:focus-visible`, `forced-colors` and `prefers-reduced-motion` rules.
 2. **The provider.** Mount one `GdsProvider` at the root. It supplies the Mantine theme and its `--mantine-*` variables, color-scheme handling, direction, locale, modals and notifications, and any `--gds-*` variables the theme itself carries (`theme.other.gdsCssVariables`).
 
 > **Mandatory:** import `@sovereignsquad/gds-theme/styles.css` exactly once, before your own app styles. Without it, GDS surfaces — including dropdown/menu/overlay backgrounds — render unstyled (transparent dropdowns).
