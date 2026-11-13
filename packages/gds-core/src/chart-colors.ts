@@ -17,16 +17,28 @@ export function getGdsSeriesColor(tone: GdsSeriesTone = 'primary') {
   return gdsSeriesPalette[tone];
 }
 
+/** The categorical chart series colors, slot 1 first. */
+export const GDS_CHART_SERIES_COLORS = [
+  'var(--gds-chart-series-1)',
+  'var(--gds-chart-series-2)',
+  'var(--gds-chart-series-3)',
+  'var(--gds-chart-series-4)',
+  'var(--gds-chart-series-5)',
+  'var(--gds-chart-series-6)',
+  'var(--gds-chart-series-7)',
+  'var(--gds-chart-series-8)',
+] as const;
+
 /** Number of categorical chart series slots (`--gds-chart-series-1` to `-8`). */
-export const GDS_CHART_SERIES_SLOTS = 8;
+export const GDS_CHART_SERIES_SLOTS = GDS_CHART_SERIES_COLORS.length;
 
 /**
  * The categorical series color for a 1-based series index. Indexes past the last slot wrap,
  * so series 9 reuses slot 1; label series directly when more than eight are shown.
  */
 export function getGdsChartSeriesColor(index: number) {
-  const slot = ((Math.max(1, Math.trunc(index)) - 1) % GDS_CHART_SERIES_SLOTS) + 1;
-  return `var(--gds-chart-series-${slot})`;
+  const slot = Number.isFinite(index) ? Math.max(1, Math.trunc(index)) : 1;
+  return GDS_CHART_SERIES_COLORS[(slot - 1) % GDS_CHART_SERIES_SLOTS];
 }
 
 /**

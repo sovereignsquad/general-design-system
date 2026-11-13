@@ -3,7 +3,7 @@ import { Box, Group, Paper, Stack, Text } from '@mantine/core';
 import { getGdsSeriesColor, type GdsSeriesTone } from './chart-colors';
 import { GdsChart, type GdsChartDatum, type GdsChartProps, type GdsChartRendererContext } from './GdsChart';
 
-export { gdsSeriesPalette, getGdsSeriesColor, getGdsChartSeriesColor, resolveGdsChartTokenColor, GDS_CHART_SERIES_SLOTS } from './chart-colors';
+export { gdsSeriesPalette, getGdsSeriesColor, getGdsChartSeriesColor, resolveGdsChartTokenColor, GDS_CHART_SERIES_SLOTS, GDS_CHART_SERIES_COLORS } from './chart-colors';
 export type { GdsSeriesTone } from './chart-colors';
 
 /** Props for {@link SemanticChartFrame}. */

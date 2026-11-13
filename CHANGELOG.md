@@ -18,7 +18,7 @@ GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` 
 
 ### Chart tokens: series ramp, gridlines, axis text, gradient area fill and a swatch legend (#954)
 
-New `--gds-chart-*` roles, emitted for every preset and scheme and for `createBrandTheme(...)`: `--gds-chart-series-1` to `-8` (series 1 from the lane's brand accent, 2-8 from the accent axis, each at least 3:1 against `--gds-bg-card`), `--gds-chart-grid`, `--gds-chart-axis-text` (at least 4.5:1) and the area-gradient stops `--gds-chart-area-opacity-start`/`-end`. Lanes without the preset runtime get the `default` preset's values from a generated `gds:chart-defaults` block in `styles.css`. New accessibility-floor rule `chart-roles-legible`. New exports: `emitChartCssVariables`, `evaluateGdsChartContrast` and the `GDS_CHART_*` constants (gds-theme); `getGdsChartSeriesColor`, `resolveGdsChartTokenColor`, `GDS_CHART_SERIES_SLOTS` (gds-core). docs/CHART_TOKENS.md.
+New `--gds-chart-*` roles, emitted for every preset and scheme and for `createBrandTheme(...)`: `--gds-chart-series-1` to `-8` (series 1 from the lane's brand accent, 2-8 from the accent axis, each at least 3:1 against `--gds-bg-card`), `--gds-chart-grid`, `--gds-chart-axis-text` (at least 4.5:1) and the area-gradient stops `--gds-chart-area-opacity-start`/`-end`. Lanes without the preset runtime get the `default` preset's values from a generated `gds:chart-defaults` block in `styles.css`. New accessibility-floor rule `chart-roles-legible`. New exports: `emitChartCssVariables`, `evaluateGdsChartContrast` and the `GDS_CHART_*` constants (gds-theme); `getGdsChartSeriesColor`, `resolveGdsChartTokenColor`, `GDS_CHART_SERIES_COLORS`, `GDS_CHART_SERIES_SLOTS` (gds-core). docs/CHART_TOKENS.md.
 
 Visible changes:
 

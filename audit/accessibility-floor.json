@@ -1,6 +1,6 @@
 {
   "presetsChecked": 54,
-  "rulesEvaluated": 11,
+  "rulesEvaluated": 12,
   "violationCount": 0,
   "reportCount": 47,
   "rules": [
@@ -45,6 +45,12 @@
       "axis": "color",
       "wcag": "1.4.3 Contrast (Minimum) (AA)",
       "rationale": "A status badge is often the only signal that something needs attention, so an illegible one is a functional failure rather than a cosmetic one."
+    },
+    {
+      "id": "chart-roles-legible",
+      "axis": "color",
+      "wcag": "1.4.11 Non-text Contrast (AA); 1.4.3 Contrast (Minimum) (AA)",
+      "rationale": "A chart series that fades into the card cannot be read or told apart, and axis labels are text."
     },
     {
       "id": "primary-cta-text-contrast",

@@ -4,7 +4,7 @@
   "cellsEvaluated": 1305,
   "obligationsSatisfied": {
     "listed": 111,
-    "demoed": 118,
+    "demoed": 126,
     "explained": 95,
     "variationsShown": 42,
     "useCase": 28
@@ -2163,120 +2163,6 @@
       ]
     },
     {
-      "token": "--gds-chart-series-3",
-      "role": "chart-series-3",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-chart-series-4",
-      "role": "chart-series-4",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-chart-series-5",
-      "role": "chart-series-5",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-chart-series-6",
-      "role": "chart-series-6",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-chart-series-7",
-      "role": "chart-series-7",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-chart-series-8",
-      "role": "chart-series-8",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-nav-inactiveOnInverse",
       "role": "nav-inactiveOnInverse",
       "declaredIn": [
@@ -2810,6 +2696,114 @@
       ]
     },
     {
+      "token": "--gds-chart-series-3",
+      "role": "chart-series-3",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-4",
+      "role": "chart-series-4",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-5",
+      "role": "chart-series-5",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-6",
+      "role": "chart-series-6",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-7",
+      "role": "chart-series-7",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-8",
+      "role": "chart-series-8",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-badge-stack-size",
       "role": "badge-stack-size",
       "declaredIn": [
@@ -3090,40 +3084,6 @@
       "useCase": false,
       "gaps": [
         "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-chart-series-1",
-      "role": "chart-series-1",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-chart-series-2",
-      "role": "chart-series-2",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
         "variationsShown",
         "useCase"
       ]
@@ -3801,6 +3761,38 @@
     {
       "token": "--gds-badge-solid-neutral",
       "role": "badge-solid-neutral",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-1",
+      "role": "chart-series-1",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-2",
+      "role": "chart-series-2",
       "declaredIn": [
         "styles.css"
       ],
