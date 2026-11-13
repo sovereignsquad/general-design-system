@@ -110,7 +110,7 @@ Badge text weight and case come from two optional tokens:
 
 | Token | Fallback (Mantine's Badge value) |
 |---|---|
-| `--gds-badge-font-weight` | `var(--mantine-font-weight-bold)` |
+| `--gds-badge-font-weight` | `var(--gds-weight-bold)` (700) |
 | `--gds-badge-text-transform` | `uppercase` |
 
 `gdsTheme` reads both with these fallbacks, so badges render as before until a theme or a `:root` rule sets them, for example `--gds-badge-font-weight: var(--gds-weight-semibold)` and `--gds-badge-text-transform: none` for medium-weight, sentence-case pills. Weight stays at 500 or above (`--gds-weight-medium`) for legibility at badge sizes.
