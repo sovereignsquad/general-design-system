@@ -869,7 +869,8 @@
       "files": [
         "packages/gds-core/src/GdsMap.client.tsx",
         "packages/gds-core/src/MapPanel.tsx",
-        "packages/gds-theme/src/axes.ts"
+        "packages/gds-theme/src/axes.ts",
+        "packages/gds-theme/styles.css"
       ]
     },
     {
