@@ -1,6 +1,7 @@
 {
   "name": "@sovereignsquad/gds-admin",
   "version": "6.8.0",
+  "description": "GDS operator scaffolds: AppShell, PageHeader, ContentOpsEditor, ResponsiveDataView.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

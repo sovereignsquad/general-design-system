@@ -1,6 +1,7 @@
 {
   "name": "@sovereignsquad/gds-a11y",
   "version": "6.8.0",
+  "description": "Playwright and axe accessibility test helpers for apps built on GDS.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

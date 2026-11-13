@@ -103,3 +103,4 @@ Never add a second provider or a second Mantine `MantineProvider`. `GdsProvider`
 - API reference: https://sovereignsquad.github.io/general-design-system/api
 - Live pattern catalog: https://sovereignsquad.github.io/general-design-system/patterns
 - Drop-in agent rules for your repo: TEMPLATES/AGENTS.md.template
+- This file ships inside the umbrella package: `node_modules/@sovereignsquad/gds/llms.txt` matches the installed version.

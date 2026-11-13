@@ -17,3 +17,6 @@ audit/theme-coverage-matrix.findings.json
 # Environment files
 .env*
 !.env.example
+
+# Packed copy of the root llms.txt, written by the gds prepack script.
+packages/gds/llms.txt
