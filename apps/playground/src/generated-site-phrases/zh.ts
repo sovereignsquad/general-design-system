@@ -461,7 +461,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Controls & Inputs": "控制和输入",
   "Controls require names, keyboard operation, status announcements, non-color-only state, and mobile-safe layout.": "控件需要名称、键盘操作、状态公告、非纯颜色状态和移动安全布局。",
   "Controls should stay compact and auditable.": "控制措施应保持紧凑且可审计。",
-  "Conversation": "对话",
+  "Conversation": "Conversation",
   "Conversation list beside the open conversation, with list then detail navigation and a back action on narrow viewports.": "打开对话旁边的对话列表，先是列表，然后是详细导航，以及在狭窄视口上的后退操作。",
   "conversation load error": "对话加载错误",
   "conversation loading": "对话加载",

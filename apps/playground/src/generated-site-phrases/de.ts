@@ -461,7 +461,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Controls & Inputs": "Bedienelemente und Eingaben",
   "Controls require names, keyboard operation, status announcements, non-color-only state, and mobile-safe layout.": "Für Steuerelemente sind Namen, Tastaturbedienung, Statusankündigungen, nicht nur farbige Status und ein für Mobilgeräte sicheres Layout erforderlich.",
   "Controls should stay compact and auditable.": "Kontrollen sollten kompakt und überprüfbar bleiben.",
-  "Conversation": "Gespräch",
+  "Conversation": "Conversation",
   "Conversation list beside the open conversation, with list then detail navigation and a back action on narrow viewports.": "Konversationsliste neben der offenen Konversation, mit Listennavigation, dann Detailnavigation und einer Zurück-Aktion in schmalen Ansichtsfenstern.",
   "conversation load error": "Fehler beim Laden der Konversation",
   "conversation loading": "Konversation wird geladen",

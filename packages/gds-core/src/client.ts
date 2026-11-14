@@ -128,6 +128,7 @@ export * from './CreatorTheme';
 export * from './MaturityCapabilities';
 export * from './TaskPatterns';
 export * from './GdsPageTemplates';
+export * from './GdsPageTemplates.client';
 export * from './GdsI18nRuntime';
 export * from './GdsContentDesign';
 export * from './GdsDesignHandoff';
