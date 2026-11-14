@@ -10,6 +10,10 @@
  * `reason` must state evidence — what was read, and where — not an assumption of use.
  */
 export const EXTENSION_POINTS = {
+  // ── Surface hierarchy roles (#951) ──
+  '--gds-bg-raised': { reason: 'Surface hierarchy role (#951), emitted for every preset and scheme and gated by surface-hierarchy-legible. First consumer is the bulk action bar in #956; remove this entry when it reads the role.', reviewBy: '2027-02-01' },
+  '--gds-border-subtle': { reason: 'Surface hierarchy role (#951): the card border made opaque. First consumers are the tree view (#956) and thread list (#957); remove this entry when one reads it.', reviewBy: '2027-02-01' },
+  '--gds-border-strong': { reason: 'Surface hierarchy role (#951), 3:1 on the card and gated by surface-hierarchy-legible. First consumer is the sidebar nav active indicator boundary (#955); remove this entry when it reads it.', reviewBy: '2027-02-01' },
   // ── Badge tone pairs ──
   '--gds-badge-soft-success': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },
   '--gds-badge-soft-success-fg': { reason: 'Badge tone pair (issue 595). Both halves are emitted for every preset and scheme so the foreground is always derived against the background it lands on; the accessibility floor verifies every pair.', reviewBy: '2027-08-01' },

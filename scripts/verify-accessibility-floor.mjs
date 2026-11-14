@@ -33,6 +33,11 @@ const canaryTokens = {
   '--gds-badge-soft-info-fg': '#fefefe',
   // A near-white series on the white card: chart-roles-legible.
   // Brand primary in the body text colour: brand-fill-not-text-colour.
+  // Body text on a dark raised panel: surface-hierarchy-legible. Page, sidebar and card all
+  // white: surface-separation.
+  '--gds-bg-raised': '#333333',
+  '--gds-bg-page': '#ffffff',
+  '--gds-bg-sidebar': '#ffffff',
   '--gds-brand-primary': '#111827',
   '--gds-text-body': '#111827',
   '--gds-chart-series-3': '#fafafa',

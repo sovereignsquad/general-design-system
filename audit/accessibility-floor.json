@@ -1,8 +1,8 @@
 {
   "presetsChecked": 54,
-  "rulesEvaluated": 13,
+  "rulesEvaluated": 15,
   "violationCount": 0,
-  "reportCount": 47,
+  "reportCount": 53,
   "rules": [
     {
       "id": "focus-ring-min-width",
@@ -51,6 +51,18 @@
       "axis": "color",
       "wcag": "1.4.11 Non-text Contrast (AA)",
       "rationale": "A primary control or info badge filled with the body text colour reads as text, not as a control (#970)."
+    },
+    {
+      "id": "surface-hierarchy-legible",
+      "axis": "color",
+      "wcag": "1.4.3 Contrast (Minimum) (AA); 1.4.11 Non-text Contrast (AA)",
+      "rationale": "Text on the sidebar and on raised panels is still text, and a strong border exists to be seen (#951)."
+    },
+    {
+      "id": "surface-separation",
+      "axis": "color",
+      "wcag": "1.4.11 Non-text Contrast (AA), informative: a surface is not a UI component",
+      "rationale": "A sidebar whose fill matches both the page and the card (CIE76 below 2.3, a just-noticeable difference) is told apart only by its border. Reported, not enforced: in light schemes a darker sidebar would take muted text below 4.5:1, so most presets keep a two-level fill and rely on borders and elevation (#951)."
     },
     {
       "id": "chart-roles-legible",

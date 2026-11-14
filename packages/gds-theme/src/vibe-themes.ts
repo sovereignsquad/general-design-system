@@ -6,6 +6,9 @@ import {
   classUsaDefaultColorRamps,
   GDS_CLASS_USA_SHAPE_AXIS,
   GDS_GOLD_ATHLETE_SHAPE_AXIS,
+  GDS_CLASS_USA_SHELL,
+  GDS_GOLD_ATHLETE_SHELL,
+  emitSurfaceHierarchyCssVariables,
   deriveVibeSemanticCssVariables,
   getGdsVibeCardSurface,
   applyGdsGreyWhenText,
@@ -320,8 +323,8 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     // Dark canvas is neutral charcoal, not a navy-dark tint: navy is reserved for accents
     // and the inverse shell only.
     canvasDark: '#14171c',
-    shellLight: 'rgba(255, 255, 255, 0.9)',
-    shellDark: 'rgba(15, 44, 74, 0.9)',
+    shellLight: GDS_CLASS_USA_SHELL.light,
+    shellDark: GDS_CLASS_USA_SHELL.dark,
     surfaceLight: 'rgba(255, 255, 255, 0.96)',
     surfaceDark: 'rgba(28, 32, 39, 0.9)',
     borderLight: '#e6e1d8',
@@ -344,8 +347,8 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     glow: 'rgba(240, 182, 66, 0.24)',
     canvasLight: '#fbf7ee',
     canvasDark: '#0a0d12',
-    shellLight: 'rgba(255, 255, 255, 0.92)',
-    shellDark: 'rgba(18, 21, 27, 0.92)',
+    shellLight: GDS_GOLD_ATHLETE_SHELL.light,
+    shellDark: GDS_GOLD_ATHLETE_SHELL.dark,
     surfaceLight: 'rgba(255, 255, 255, 0.96)',
     surfaceDark: 'rgba(22, 25, 32, 0.9)',
     borderLight: '#ede2c6',
@@ -819,7 +822,7 @@ function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeThem
     // readable grey, as in the derived presets. Chart roles are measured against the card and
     // seeded from the accent, both of which the hand-authored layer may replace.
     const greyed = applyGdsGreyWhenText(merged);
-    return { ...greyed, ...emitChartCssVariables(greyed) };
+    return { ...greyed, ...emitChartCssVariables(greyed), ...emitSurfaceHierarchyCssVariables(greyed, { light: vibe.shellLight, dark: vibe.shellDark }) };
   }
 
   const cached = derivedSemanticCssVariablesCache.get(id);

@@ -7,7 +7,7 @@
 // directly — that path runs brand-tokens -> token-operations -> vibe-themes and closes a
 // cycle. The dependency-free extraction is what makes single-sourcing possible.
 
-import { ensureContrast, mixCssColors, parseCssColor, readableForeground } from './color-math';
+import { blend, ensureContrast, mixCssColors, parseCssColor, readableForeground, toRgbString } from './color-math';
 import { GDS_DEFAULT_SHAPE_AXIS, resolveGdsAxisTokens, type GdsShapeAxis } from './axes';
 import { emitChartCssVariables } from './chart-tokens';
 // Type-only, so this is erased at compile time and creates no runtime cycle. The generic
@@ -248,7 +248,7 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
   // Badge tone pairs are derived from the state colours above, so they cannot disagree
   // with them and no lane can forget to emit them.
   // Consumer brand colours are kept as given; the grey rule applies to GDS presets only.
-  Object.assign(vars, emitBadgeToneCssVariables(vars), emitChartCssVariables(vars));
+  Object.assign(vars, emitBadgeToneCssVariables(vars), emitChartCssVariables(vars), emitSurfaceHierarchyCssVariables(vars));
   return vars;
 }
 
@@ -280,6 +280,45 @@ export const GDS_GOLD_ATHLETE_SHAPE_AXIS: GdsShapeAxis = {
   defaultStep: 'md',
 };
 
+/** Class USA's translucent app-shell colours; the preset and the brand lane both read them. */
+export const GDS_CLASS_USA_SHELL = { light: 'rgba(255, 255, 255, 0.9)', dark: 'rgba(15, 44, 74, 0.9)' } as const;
+/** Gold Athlete's translucent app-shell colours; the preset and the brand lane both read them. */
+export const GDS_GOLD_ATHLETE_SHELL = { light: 'rgba(255, 255, 255, 0.92)', dark: 'rgba(18, 21, 27, 0.92)' } as const;
+
+/** Minimum luminance contrast between the card and a raised surface above it (dark scheme). */
+export const GDS_SURFACE_STEP_MIN = 1.05;
+
+function opaqueOver(color: string | undefined, backdrop: string): string {
+  const top = color ? parseCssColor(color) : null;
+  const under = parseCssColor(backdrop);
+  if (!top || !under) return backdrop;
+  return top.a === 1 ? color! : toRgbString(blend(top, under));
+}
+
+/**
+ * Surface hierarchy roles (#951), per scheme (`-dark` suffix for dark):
+ * - `--gds-bg-sidebar`: the app shell composited opaque over the page, the colour the navbar
+ *   paints there; the page itself when the lane has no shell colour.
+ * - `--gds-bg-raised`: the card in light; in dark, the card lifted until it is
+ *   {@link GDS_SURFACE_STEP_MIN} apart from it.
+ * - `--gds-border-subtle`: the card border composited opaque over the card.
+ * - `--gds-border-strong`: the subtle border pushed to 3:1 on the card (WCAG 1.4.11).
+ */
+export function emitSurfaceHierarchyCssVariables(base: Record<string, string>, shell?: { light: string; dark: string }): Record<string, string> {
+  const vars: Record<string, string> = {};
+  for (const [suffix, dark] of [['', false], ['-dark', true]] as const) {
+    const page = base[`--gds-bg-page${suffix}`] ?? base['--gds-bg-page'] ?? (dark ? '#000000' : '#ffffff');
+    const card = base[`--gds-bg-card${suffix}`] ?? base['--gds-bg-card'] ?? page;
+    const border = base[`--gds-border-card${suffix}`] ?? base['--gds-border-card'];
+    vars[`--gds-bg-sidebar${suffix}`] = opaqueOver(shell ? (dark ? shell.dark : shell.light) : undefined, page);
+    vars[`--gds-bg-raised${suffix}`] = dark ? ensureContrast(card, card, GDS_SURFACE_STEP_MIN, true, card) : card;
+    const subtle = opaqueOver(border, card);
+    vars[`--gds-border-subtle${suffix}`] = subtle;
+    vars[`--gds-border-strong${suffix}`] = ensureContrast(subtle, card, 3, dark, card);
+  }
+  return vars;
+}
+
 /** Complete `--gds-*` variable set for the Class USA lane. */
 export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<string, string> {
   // Axis tokens are part of a lane's complete variable set. Emitting them only on the
@@ -292,7 +331,7 @@ export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<stri
   // and cannot fall out of step with an override again.
   // A brand primary or state info equal to the body text colour takes the readable grey (#970).
   const greyed = applyGdsGreyWhenText(vars);
-  return { ...greyed, ...emitChartCssVariables(greyed) };
+  return { ...greyed, ...emitChartCssVariables(greyed), ...emitSurfaceHierarchyCssVariables(greyed, GDS_CLASS_USA_SHELL) };
 }
 
 /** Complete `--gds-*` variable set for the Gold Athlete lane. */
@@ -305,7 +344,7 @@ export function emitGoldAthleteCssVariables(ramps: GoldAthleteColorRamps): Recor
   // and cannot fall out of step with an override again.
   // A brand primary or state info equal to the body text colour takes the readable grey (#970).
   const greyed = applyGdsGreyWhenText(vars);
-  return { ...greyed, ...emitChartCssVariables(greyed) };
+  return { ...greyed, ...emitChartCssVariables(greyed), ...emitSurfaceHierarchyCssVariables(greyed, GDS_GOLD_ATHLETE_SHELL) };
 }
 
 
@@ -483,7 +522,7 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
   };
   // Badge tone pairs are derived from the state colours above, so they cannot disagree
   // with them and no lane can forget to emit them.
-  Object.assign(derived, emitBadgeToneCssVariables(derived), emitChartCssVariables(derived));
+  Object.assign(derived, emitBadgeToneCssVariables(derived), emitChartCssVariables(derived), emitSurfaceHierarchyCssVariables(derived, { light: vibe.shellLight, dark: vibe.shellDark }));
   return derived;
 }
 

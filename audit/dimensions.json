@@ -370,7 +370,7 @@
     "uncoveredKinds": [
       {
         "kind": "export",
-        "atoms": 1021
+        "atoms": 1033
       },
       {
         "kind": "prop",

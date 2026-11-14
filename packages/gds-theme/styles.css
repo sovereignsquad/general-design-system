@@ -446,9 +446,10 @@ html[data-gds-theme-preset] .mantine-AppShell-footer:where(:not([data-gds-fixed-
 }
 
 html[data-gds-theme-preset] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])) {
+  /* The gradient ends on --gds-bg-sidebar, the shell composited over the page (#951). */
   background:
     radial-gradient(circle at 86% 78%, color-mix(in srgb, var(--gds-vibe-accent) 16%, transparent), transparent 11rem),
-    linear-gradient(155deg, color-mix(in srgb, var(--gds-vibe-shell) 82%, var(--gds-vibe-primary) 10%), var(--gds-vibe-shell));
+    linear-gradient(155deg, color-mix(in srgb, var(--gds-vibe-shell) 82%, var(--gds-vibe-primary) 10%), var(--gds-bg-sidebar, var(--gds-vibe-shell)));
 }
 
 /* flatSurfaces lanes: same gap as .mantine-AppShell-main above — the shared

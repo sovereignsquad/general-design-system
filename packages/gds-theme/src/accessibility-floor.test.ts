@@ -6,8 +6,11 @@ import {
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
 
 const base = getGdsVibeThemeCssVariables('default', 'light');
+// The default light sidebar matches both page and card, so it always carries the
+// surface-separation report; surface-hierarchy.test.ts covers that rule.
 const probe = (over: Record<string, string>) =>
-  validateGdsAccessibilityFloor({ presetId: 'probe', scheme: 'light', tokens: { ...base, ...over } });
+  validateGdsAccessibilityFloor({ presetId: 'probe', scheme: 'light', tokens: { ...base, ...over } })
+    .filter((finding) => finding.ruleId !== 'surface-separation');
 
 describe('accessibility floor (issue 559)', () => {
   it('has no advisory tier — every breach is a violation', () => {

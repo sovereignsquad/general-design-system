@@ -213,3 +213,29 @@ export function readableForeground(background: string, minRatio: number, fallbac
   // Neither pure white nor pure black cleared the bar — push the better one further.
   return ensureContrast(best, background, minRatio, best === '#ffffff', fallback);
 }
+
+function srgbToLinear(channel: number) {
+  const c = channel / 255;
+  return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+}
+
+/** CIE L*a*b* (D65) for an opaque colour. */
+export function rgbToLab({ r, g, b }: RgbColor): { l: number; a: number; b: number } {
+  const [lr, lg, lb] = [srgbToLinear(r), srgbToLinear(g), srgbToLinear(b)];
+  const x = (lr * 0.4124 + lg * 0.3576 + lb * 0.1805) / 0.95047;
+  const y = lr * 0.2126 + lg * 0.7152 + lb * 0.0722;
+  const z = (lr * 0.0193 + lg * 0.1192 + lb * 0.9505) / 1.08883;
+  const f = (t: number) => (t > 216 / 24389 ? Math.cbrt(t) : (24389 / 27 * t + 16) / 116);
+  const [fx, fy, fz] = [f(x), f(y), f(z)];
+  return { l: 116 * fy - 16, a: 500 * (fx - fy), b: 200 * (fy - fz) };
+}
+
+/** CIE76 colour difference between two CSS colours, or `null` when either is unparseable. */
+export function deltaE76(first: string, second: string): number | null {
+  const a = parseCssColor(first);
+  const b = parseCssColor(second);
+  if (!a || !b) return null;
+  const [la, lb] = [rgbToLab(a), rgbToLab(b)];
+  return Math.hypot(la.l - lb.l, la.a - lb.a, la.b - lb.b);
+}
+

@@ -5,9 +5,9 @@
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
       "themeCount": 27,
-      "tokenCount": 6348,
+      "tokenCount": 6456,
       "atmosphereTokenCount": 459,
-      "semanticTokenCount": 5889,
+      "semanticTokenCount": 5997,
       "globalTokenCount": 38,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
@@ -1919,6 +1919,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "default semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(65, 71, 87)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(254, 254, 254)",
+          "$description": "default semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(254, 254, 254)",
+                "dark": "rgb(15, 23, 42)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -1945,6 +1975,36 @@
               "scheme": {
                 "light": "rgba(124, 58, 237, 0.22)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(149, 140, 165)",
+          "$description": "default semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(149, 140, 165)",
+                "dark": "rgb(126, 125, 156)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(226, 212, 251)",
+          "$description": "default semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(226, 212, 251)",
+                "dark": "rgb(78, 76, 119)"
               }
             }
           }
@@ -5418,6 +5478,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "high-contrast semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(25, 25, 25)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "high-contrast semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "#000000"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -5440,6 +5530,36 @@
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "border-card",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "high-contrast semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "high-contrast semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
               "lane": "semantic",
               "scheme": {
                 "light": "#000000",
@@ -8917,6 +9037,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "colorblind-safe semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(40, 50, 61)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(254, 254, 254)",
+          "$description": "colorblind-safe semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(254, 254, 254)",
+                "dark": "rgb(10, 20, 32)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -8943,6 +9093,36 @@
               "scheme": {
                 "light": "rgba(0, 114, 178, 0.28)",
                 "dark": "rgba(86, 180, 233, 0.32)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(121, 142, 153)",
+          "$description": "colorblind-safe semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(121, 142, 153)",
+                "dark": "rgb(80, 110, 131)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(184, 216, 233)",
+          "$description": "colorblind-safe semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(184, 216, 233)",
+                "dark": "rgb(38, 76, 102)"
               }
             }
           }
@@ -12416,6 +12596,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "dark-public semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(57, 60, 71)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(253, 253, 255)",
+          "$description": "dark-public semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(253, 253, 255)",
+                "dark": "rgb(8, 12, 31)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -12442,6 +12652,36 @@
               "scheme": {
                 "light": "rgba(124, 58, 237, 0.22)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(149, 140, 165)",
+          "$description": "dark-public semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(149, 140, 165)",
+                "dark": "rgb(122, 117, 146)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(226, 212, 251)",
+          "$description": "dark-public semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(226, 212, 251)",
+                "dark": "rgb(72, 66, 106)"
               }
             }
           }
@@ -15915,6 +16155,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "flat-surface semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(67, 72, 84)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(248, 250, 252)",
+          "$description": "flat-surface semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(248, 250, 252)",
+                "dark": "rgb(15, 23, 42)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -15941,6 +16211,36 @@
               "scheme": {
                 "light": "rgba(124, 58, 237, 0.22)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(149, 140, 165)",
+          "$description": "flat-surface semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(149, 140, 165)",
+                "dark": "rgb(128, 125, 154)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(226, 212, 251)",
+          "$description": "flat-surface semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(226, 212, 251)",
+                "dark": "rgb(80, 76, 117)"
               }
             }
           }
@@ -19414,6 +19714,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "editorial semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(75, 73, 71)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 247, 237)",
+          "$description": "editorial semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 247, 237)",
+                "dark": "rgb(17, 23, 39)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -19440,6 +19770,36 @@
               "scheme": {
                 "light": "rgba(154, 52, 18, 0.22)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(153, 138, 134)",
+          "$description": "editorial semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(153, 138, 134)",
+                "dark": "rgb(132, 125, 147)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(233, 210, 203)",
+          "$description": "editorial semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(233, 210, 203)",
+                "dark": "rgb(86, 77, 107)"
               }
             }
           }
@@ -22913,6 +23273,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "brand semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(65, 71, 87)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(254, 254, 254)",
+          "$description": "brand semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(254, 254, 254)",
+                "dark": "rgb(15, 23, 42)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -22939,6 +23329,36 @@
               "scheme": {
                 "light": "rgba(124, 58, 237, 0.22)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(149, 140, 165)",
+          "$description": "brand semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(149, 140, 165)",
+                "dark": "rgb(126, 125, 156)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(226, 212, 251)",
+          "$description": "brand semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(226, 212, 251)",
+                "dark": "rgb(78, 76, 119)"
               }
             }
           }
@@ -26412,6 +26832,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "partner-discovery semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(59, 69, 67)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 255, 255)",
+          "$description": "partner-discovery semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 255, 255)",
+                "dark": "rgb(7, 20, 17)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -26438,6 +26888,36 @@
               "scheme": {
                 "light": "rgba(8, 70, 59, 0.18)",
                 "dark": "rgba(212, 255, 194, 0.26)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(139, 146, 144)",
+          "$description": "partner-discovery semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(139, 146, 144)",
+                "dark": "rgb(116, 131, 116)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(211, 222, 220)",
+          "$description": "partner-discovery semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(211, 222, 220)",
+                "dark": "rgb(83, 102, 84)"
               }
             }
           }
@@ -29911,6 +30391,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "class-usa semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(51, 54, 61)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 254, 254)",
+          "$description": "class-usa semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 254, 254)",
+                "dark": "rgb(16, 42, 69)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -29933,6 +30443,36 @@
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "border-card",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#e6e1d8",
+                "dark": "#2c323b"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(150, 149, 142)",
+          "$description": "class-usa semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(150, 149, 142)",
+                "dark": "rgb(101, 106, 113)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "#e6e1d8",
+          "$description": "class-usa semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
               "lane": "semantic",
               "scheme": {
                 "light": "#e6e1d8",
@@ -33410,6 +33950,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "gold-athlete semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(45, 48, 53)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 254, 254)",
+          "$description": "gold-athlete semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 254, 254)",
+                "dark": "rgb(17, 20, 26)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -33432,6 +34002,36 @@
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "border-card",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ede2c6",
+                "dark": "#2b303a"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(140, 134, 117)",
+          "$description": "gold-athlete semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(140, 134, 117)",
+                "dark": "rgb(100, 105, 112)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "#ede2c6",
+          "$description": "gold-athlete semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
               "lane": "semantic",
               "scheme": {
                 "light": "#ede2c6",
@@ -36909,6 +37509,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(57, 73, 69)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(254, 254, 253)",
+          "$description": "padel-africa semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(254, 254, 253)",
+                "dark": "rgb(6, 32, 24)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -36931,6 +37561,36 @@
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "border-card",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#dde8d2",
+                "dark": "#123528"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(131, 137, 124)",
+          "$description": "padel-africa semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(131, 137, 124)",
+                "dark": "rgb(115, 135, 128)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "#dde8d2",
+          "$description": "padel-africa semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
               "lane": "semantic",
               "scheme": {
                 "light": "#dde8d2",
@@ -40453,6 +41113,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "your-field semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(61, 71, 83)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 254, 254)",
+          "$description": "your-field semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 254, 254)",
+                "dark": "rgb(10, 22, 38)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -40475,6 +41165,36 @@
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "border-card",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#e4e4e1",
+                "dark": "#23374f"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(135, 135, 134)",
+          "$description": "your-field semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(135, 135, 134)",
+                "dark": "rgb(111, 124, 140)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "#e4e4e1",
+          "$description": "your-field semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
               "lane": "semantic",
               "scheme": {
                 "light": "#e4e4e1",
@@ -43952,6 +44672,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "sunset semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(80, 67, 58)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 247, 237)",
+          "$description": "sunset semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 247, 237)",
+                "dark": "rgb(43, 18, 10)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -43978,6 +44728,36 @@
               "scheme": {
                 "light": "rgba(249, 115, 22, 0.3)",
                 "dark": "rgba(251, 146, 60, 0.36)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(167, 140, 122)",
+          "$description": "sunset semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(167, 140, 122)",
+                "dark": "rgb(153, 115, 85)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(253, 213, 185)",
+          "$description": "sunset semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(253, 213, 185)",
+                "dark": "rgb(129, 82, 45)"
               }
             }
           }
@@ -47451,6 +48231,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "oceanic semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(56, 68, 78)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(236, 254, 255)",
+          "$description": "oceanic semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(236, 254, 255)",
+                "dark": "rgb(5, 25, 42)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -47477,6 +48287,36 @@
               "scheme": {
                 "light": "rgba(8, 145, 178, 0.28)",
                 "dark": "rgba(103, 232, 249, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(122, 148, 153)",
+          "$description": "oceanic semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(122, 148, 153)",
+                "dark": "rgb(91, 129, 138)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(186, 224, 233)",
+          "$description": "oceanic semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(186, 224, 233)",
+                "dark": "rgb(53, 99, 111)"
               }
             }
           }
@@ -50950,6 +51790,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "forest semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(58, 72, 63)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(240, 253, 244)",
+          "$description": "forest semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(240, 253, 244)",
+                "dark": "rgb(8, 34, 18)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -50976,6 +51846,36 @@
               "scheme": {
                 "light": "rgba(22, 163, 74, 0.26)",
                 "dark": "rgba(134, 239, 172, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(128, 151, 136)",
+          "$description": "forest semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(128, 151, 136)",
+                "dark": "rgb(99, 133, 112)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(194, 231, 208)",
+          "$description": "forest semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(194, 231, 208)",
+                "dark": "rgb(63, 104, 78)"
               }
             }
           }
@@ -54449,6 +55349,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "ruby semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(80, 57, 62)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 241, 242)",
+          "$description": "ruby semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 241, 242)",
+                "dark": "rgb(48, 8, 17)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -54475,6 +55405,36 @@
               "scheme": {
                 "light": "rgba(225, 29, 72, 0.28)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(162, 126, 134)",
+          "$description": "ruby semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(162, 126, 134)",
+                "dark": "rgb(135, 116, 143)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(247, 192, 204)",
+          "$description": "ruby semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(247, 192, 204)",
+                "dark": "rgb(91, 64, 100)"
               }
             }
           }
@@ -57948,6 +58908,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "amber semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(78, 71, 56)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 251, 235)",
+          "$description": "amber semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 251, 235)",
+                "dark": "rgb(40, 28, 6)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -57974,6 +58964,36 @@
               "scheme": {
                 "light": "rgba(217, 119, 6, 0.28)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(160, 142, 122)",
+          "$description": "amber semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(160, 142, 122)",
+                "dark": "rgb(134, 124, 138)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(244, 217, 185)",
+          "$description": "amber semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(244, 217, 185)",
+                "dark": "rgb(89, 75, 94)"
               }
             }
           }
@@ -61447,6 +62467,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "neon-night semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(55, 59, 67)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(247, 254, 231)",
+          "$description": "neon-night semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(247, 254, 231)",
+                "dark": "rgb(5, 12, 23)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -61473,6 +62523,36 @@
               "scheme": {
                 "light": "rgba(132, 204, 22, 0.3)",
                 "dark": "rgba(190, 242, 100, 0.34)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(128, 142, 110)",
+          "$description": "neon-night semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(128, 142, 110)",
+                "dark": "rgb(103, 122, 83)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(218, 240, 185)",
+          "$description": "neon-night semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(218, 240, 185)",
+                "dark": "rgb(86, 107, 64)"
               }
             }
           }
@@ -64946,6 +66026,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "skyline semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(61, 66, 83)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(238, 242, 255)",
+          "$description": "skyline semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(238, 242, 255)",
+                "dark": "rgb(13, 20, 50)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -64972,6 +66082,36 @@
               "scheme": {
                 "light": "rgba(79, 70, 229, 0.28)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(135, 134, 163)",
+          "$description": "skyline semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(135, 134, 163)",
+                "dark": "rgb(125, 121, 154)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(206, 203, 248)",
+          "$description": "skyline semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(206, 203, 248)",
+                "dark": "rgb(76, 71, 116)"
               }
             }
           }
@@ -68445,6 +69585,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "aurora semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(56, 80, 78)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(240, 253, 250)",
+          "$description": "aurora semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(240, 253, 250)",
+                "dark": "rgb(5, 43, 41)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -68471,6 +69641,36 @@
               "scheme": {
                 "light": "rgba(13, 148, 136, 0.28)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(122, 149, 146)",
+          "$description": "aurora semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(122, 149, 146)",
+                "dark": "rgb(121, 129, 151)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(187, 225, 222)",
+          "$description": "aurora semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(187, 225, 222)",
+                "dark": "rgb(71, 82, 112)"
               }
             }
           }
@@ -71944,6 +73144,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "coral semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(82, 66, 80)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(253, 242, 248)",
+          "$description": "coral semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(253, 242, 248)",
+                "dark": "rgb(48, 18, 42)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -71970,6 +73200,36 @@
               "scheme": {
                 "light": "rgba(219, 39, 119, 0.28)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(161, 128, 142)",
+          "$description": "coral semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(161, 128, 142)",
+                "dark": "rgb(136, 121, 152)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(245, 195, 217)",
+          "$description": "coral semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(245, 195, 217)",
+                "dark": "rgb(92, 71, 113)"
               }
             }
           }
@@ -75443,6 +76703,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "mint semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(55, 75, 71)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(236, 253, 245)",
+          "$description": "mint semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(236, 253, 245)",
+                "dark": "rgb(5, 40, 33)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -75469,6 +76759,36 @@
               "scheme": {
                 "light": "rgba(5, 150, 105, 0.28)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(122, 149, 140)",
+          "$description": "mint semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(122, 149, 140)",
+                "dark": "rgb(121, 127, 146)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(185, 226, 213)",
+          "$description": "mint semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(185, 226, 213)",
+                "dark": "rgb(71, 79, 106)"
               }
             }
           }
@@ -78942,6 +80262,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "orchid semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(76, 61, 90)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(250, 245, 255)",
+          "$description": "orchid semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(250, 245, 255)",
+                "dark": "rgb(38, 15, 61)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -78968,6 +80318,36 @@
               "scheme": {
                 "light": "rgba(147, 51, 234, 0.28)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(149, 130, 164)",
+          "$description": "orchid semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(149, 130, 164)",
+                "dark": "rgb(133, 119, 158)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(225, 198, 249)",
+          "$description": "orchid semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(225, 198, 249)",
+                "dark": "rgb(87, 68, 122)"
               }
             }
           }
@@ -82441,6 +83821,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "royal semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(66, 61, 89)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(245, 243, 255)",
+          "$description": "royal semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(245, 243, 255)",
+                "dark": "rgb(20, 13, 57)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -82467,6 +83877,36 @@
               "scheme": {
                 "light": "rgba(124, 58, 237, 0.3)",
                 "dark": "rgba(167, 139, 250, 0.28)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(158, 142, 183)",
+          "$description": "royal semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(158, 142, 183)",
+                "dark": "rgb(127, 118, 157)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(216, 196, 250)",
+          "$description": "royal semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(216, 196, 250)",
+                "dark": "rgb(79, 67, 120)"
               }
             }
           }
@@ -85940,6 +87380,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "warm semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(75, 66, 57)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 251, 240)",
+          "$description": "warm semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 251, 240)",
+                "dark": "rgb(37, 23, 8)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -85966,6 +87436,36 @@
               "scheme": {
                 "light": "rgba(180, 83, 9, 0.26)",
                 "dark": "rgba(252, 176, 69, 0.32)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(155, 138, 126)",
+          "$description": "warm semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(155, 138, 126)",
+                "dark": "rgb(144, 119, 86)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(236, 210, 191)",
+          "$description": "warm semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(236, 210, 191)",
+                "dark": "rgb(118, 87, 46)"
               }
             }
           }
@@ -89439,6 +90939,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "athlete-gold semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(55, 60, 65)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(255, 248, 230)",
+          "$description": "athlete-gold semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(255, 248, 230)",
+                "dark": "rgb(5, 11, 20)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -89465,6 +90995,36 @@
               "scheme": {
                 "light": "rgba(176, 118, 24, 0.32)",
                 "dark": "rgba(240, 182, 66, 0.38)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(150, 139, 119)",
+          "$description": "athlete-gold semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(150, 139, 119)",
+                "dark": "rgb(126, 109, 72)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(230, 211, 181)",
+          "$description": "athlete-gold semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(230, 211, 181)",
+                "dark": "rgb(112, 93, 52)"
               }
             }
           }
@@ -92938,6 +94498,36 @@
             }
           }
         },
+        "bg-raised": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "cosmic semantic role \"bg-raised\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-raised",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(55, 53, 72)"
+              }
+            }
+          }
+        },
+        "bg-sidebar": {
+          "$type": "color",
+          "$value": "rgb(254, 254, 255)",
+          "$description": "cosmic semantic role \"bg-sidebar\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "bg-sidebar",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(254, 254, 255)",
+                "dark": "rgb(7, 8, 39)"
+              }
+            }
+          }
+        },
         "bg-surface": {
           "$type": "color",
           "$value": "#ffffff",
@@ -92964,6 +94554,36 @@
               "scheme": {
                 "light": "rgba(124, 60, 255, 0.26)",
                 "dark": "rgba(190, 160, 255, 0.52)"
+              }
+            }
+          }
+        },
+        "border-strong": {
+          "$type": "color",
+          "$value": "rgb(145, 134, 167)",
+          "$description": "cosmic semantic role \"border-strong\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-strong",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(145, 134, 167)",
+                "dark": "rgb(115, 98, 158)"
+              }
+            }
+          }
+        },
+        "border-subtle": {
+          "$type": "color",
+          "$value": "rgb(221, 204, 255)",
+          "$description": "cosmic semantic role \"border-subtle\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "border-subtle",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(221, 204, 255)",
+                "dark": "rgb(115, 98, 158)"
               }
             }
           }

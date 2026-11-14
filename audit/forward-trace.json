@@ -5,7 +5,7 @@
   "obligationsSatisfied": {
     "listed": 120,
     "demoed": 134,
-    "explained": 104,
+    "explained": 105,
     "variationsShown": 44,
     "useCase": 28
   },
@@ -3110,23 +3110,6 @@
       ]
     },
     {
-      "token": "--gds-vibe-shell",
-      "role": "vibe-shell",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": false,
-      "variationsShown": true,
-      "useCase": false,
-      "gaps": [
-        "explained",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-vibe-border",
       "role": "vibe-border",
       "declaredIn": [
@@ -4147,6 +4130,22 @@
     {
       "token": "--gds-vibe-canvas",
       "role": "vibe-canvas",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-shell",
+      "role": "vibe-shell",
       "declaredIn": [
         "styles.css",
         "ts-emitter"

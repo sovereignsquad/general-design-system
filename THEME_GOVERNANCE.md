@@ -268,6 +268,8 @@ A `flatSurfaces` brand lane (Class USA, Gold Athlete) has no atmosphere by defin
 a flat tint instead of an invented gradient — same reasoning that neutralises `glow` and
 `gradient` for those lanes.
 
+**Surface separation threshold (#951).** A sidebar is reported when its fill is within CIE76 2.3 (`GDS_SURFACE_JND_DELTA_E`, the just-noticeable difference given in Sharma's *Digital Color Imaging Handbook*) of both the page and the card. It is reported rather than enforced because, in light schemes, the page and card sit about 1.04:1 apart and a darker sidebar takes `--gds-text-meta` below 4.5:1; a fill ladder there would trade text legibility for decoration. Text legibility on `--gds-bg-sidebar`/`--gds-bg-raised` and the 3:1 `--gds-border-strong` are enforced (`surface-hierarchy-legible`). Details: [SEMANTIC_ROLE_TOKENS.md](docs/SEMANTIC_ROLE_TOKENS.md#surface-hierarchy-sidebar-raised-and-border-roles-951).
+
 **An opaque declared surface is the card (#865).** When a preset's `surfaceLight` or
 `surfaceDark` is opaque, it becomes `--gds-bg-card`/`--gds-bg-surface` for that scheme and paints
 cards flat through `--gds-vibe-card`, with no preset-id selector. A preset that has its own

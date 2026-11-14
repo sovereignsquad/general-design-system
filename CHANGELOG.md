@@ -16,6 +16,12 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Surface hierarchy roles: sidebar, raised, subtle and strong borders (#951)
+
+New roles in every preset, both hand-authored lanes and `createBrandTheme(...)`, from `emitSurfaceHierarchyCssVariables()`: `--gds-bg-sidebar` (the shell composited opaque over the page), `--gds-bg-raised` (the card; in dark, 1.05:1 above it), `--gds-border-subtle` (the card border made opaque) and `--gds-border-strong` (3:1 on the card), each with `-dark`. The token baseline changed by added keys only. The navbar gradient now ends on `--gds-bg-sidebar`; its paint is unchanged to within 2/255 per channel.
+
+New accessibility-floor rules: `surface-hierarchy-legible` (enforced: text 4.5:1 on sidebar and raised, strong border 3:1) and `surface-separation` (reported: sidebar within CIE76 2.3 of both page and card). New exports: `emitSurfaceHierarchyCssVariables`, `GDS_SURFACE_STEP_MIN`, `GDS_SURFACE_JND_DELTA_E`, `deltaE76`. A three-step fill ladder in light schemes would push meta text below 4.5:1, so most presets keep a two-level fill and separate the third step with borders; THEME_GOVERNANCE states the threshold and why it is reported.
+
 ### A preset's opaque declared surface is its card (#865)
 
 `getGdsVibeCardSurface(vibe, scheme)` returns a preset's `surfaceLight`/`surfaceDark` when it is opaque. That surface now drives `--gds-bg-card`, `--gds-bg-surface` and every pair derived from them, and the new `--gds-vibe-card` paints `.gds-card`, `.gds-paper`, the Mantine `Card` and the dark `Popover` dropdown flat. Translucent surfaces (25 of 27 presets) and both hand-authored lanes are byte-identical; the token baseline changed only in the `high-contrast` and `colorblind-safe` entries.
