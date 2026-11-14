@@ -42,6 +42,8 @@ export * from './ListingCard';
 export * from './CardContracts';
 export * from './GdsDensity';
 export * from './GdsShapeScope';
+export * from './GdsTreeView';
+export * from './GdsBulkActionBar';
 export * from './BrowseSurface';
 export * from './BoundedPreviewSurface';
 export * from './OwnedContrastSurface';

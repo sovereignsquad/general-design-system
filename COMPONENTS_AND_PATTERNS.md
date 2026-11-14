@@ -411,6 +411,18 @@ interface LeadColumn extends KanbanColumnData<LeadItem> {
 
 The type parameters are inferred from `columns` + `renderItem`, so the explicit `<LeadItem, LeadColumn>` arguments are optional. Because both default to the base contracts, existing non-generic usages compile unchanged, and `onMoveItem` keeps its string-id signature (`(itemId, fromColumnId, toColumnId, toIndex?)`) — no vendor drag-engine types are exposed on the public surface.
 
+### Tree, Bulk Action and View Toggle Rules (#956)
+
+- **`GdsTreeView`** renders hierarchies with the WAI-ARIA tree pattern: `role="tree"`/`treeitem`/`group`, `aria-level`, `aria-expanded`, `aria-selected`, one tab stop (roving tabindex), Up/Down, Left/Right (collapse or go to parent, expand or go to first child), Home/End, Enter/Space to select, and first-character type-ahead. `expandedIds`/`onExpandedChange` and `selectedId`/`onSelect` control it. A node with `hasChildren` and no `children` is loaded through `loadChildren` on first expand, with a localized loading row and an error row with Retry. Levels indent by `--gds-space-md`; the selected item paints the navigation active roles; the frame uses `--gds-border-subtle`.
+- **`GdsBulkActionBar`** appears when `selectedCount` is above zero, states the count (`gds.bulkActions.selectedCount`), offers semantic `action` items and a clear-selection control, and announces count changes in a polite live region that stays mounted so clearing is announced too. It paints `--gds-bg-raised` inside a `--gds-border-strong` boundary.
+- **`ResponsiveDataView`** takes `showViewToggle` for a labelled table/grid `SegmentedControl` on wide viewports, and `view`/`defaultView`/`onViewChange`. Narrow viewports always show the card list.
+
+```tsx
+<GdsTreeView ariaLabel="Folders" nodes={folders} loadChildren={fetchFolder} onSelect={openFolder} />
+<GdsBulkActionBar selectedCount={selected.length} actions={[{ action: 'delete', onClick: removeSelected }]} onClearSelection={clear} />
+<ResponsiveDataView data={rows} columns={columns} renderCard={renderCard} showViewToggle />
+```
+
 ### Reporting, Evidence, and Chart Rules
 
 Reporting surfaces must not present charts or KPIs without proof context. Use `ReportingSection` as the top-level composition when a page combines period controls, metrics, charting, evidence, and fallback data; a panel without any of these is a `SectionPanel` (see [Component Selection Rules](#component-selection-rules)). Use `PeriodSelector` for period/scope changes, `EvidencePanel` for source/freshness/confidence disclosure, and `ChartTokenPanel` for chart containment.

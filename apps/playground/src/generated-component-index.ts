@@ -888,6 +888,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "GdsBulkActionBar",
+    "status": "registered",
+    "home": {
+      "id": "bulk-action-bar",
+      "family": "data",
+      "section": "Search & Data Views"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsButtonFeedbackReference",
     "status": "registered",
     "home": {
@@ -1623,6 +1633,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "name": "GdsTourProvider",
     "status": "exempt",
     "reason": "Provider/context (guided-tour runtime) — non-visual controller; renders the spotlight/step-card overlay imperatively via useGdsTour, covered as support-api."
+  },
+  {
+    "name": "GdsTreeView",
+    "status": "registered",
+    "home": {
+      "id": "tree-view",
+      "family": "data",
+      "section": "Search & Data Views"
+    },
+    "alsoAppearsIn": []
   },
   {
     "name": "GdsTypographySystemReference",
