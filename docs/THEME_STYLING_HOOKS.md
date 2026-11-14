@@ -54,3 +54,7 @@ incrementally — each migration is a ratchet-down the gate enforces:
 
 The CSS-boundary gate guarantees the vendor-selector surface only ever shrinks
 deliberately, never grows by accident.
+
+## Declared card paint: `--gds-vibe-card`
+
+The preset runtime sets `--gds-vibe-card` on `<html>` only for a preset and scheme whose declared surface is opaque (#865). The `.gds-card`/`.gds-paper` rules, the dark `Popover` dropdown and the Mantine `Card` root read `var(--gds-vibe-card, <previous paint>)`, so a preset gets a flat card from data with no preset-id selector. It is reset inside `data-gds-owned-contrast` and `data-gds-local-contrast` surfaces and set to `Canvas` under forced colours. Switching to a preset without an opaque surface removes it.

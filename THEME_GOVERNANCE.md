@@ -268,6 +268,12 @@ A `flatSurfaces` brand lane (Class USA, Gold Athlete) has no atmosphere by defin
 a flat tint instead of an invented gradient — same reasoning that neutralises `glow` and
 `gradient` for those lanes.
 
+**An opaque declared surface is the card (#865).** When a preset's `surfaceLight` or
+`surfaceDark` is opaque, it becomes `--gds-bg-card`/`--gds-bg-surface` for that scheme and paints
+cards flat through `--gds-vibe-card`, with no preset-id selector. A preset that has its own
+per-preset card rule in `styles.css` keeps its surface translucent. Rules and the two changed
+presets: [SEMANTIC_ROLE_TOKENS.md, "Card surface from the palette"](docs/SEMANTIC_ROLE_TOKENS.md#card-surface-from-the-palette-865).
+
 ### Consuming it
 
 Apply `[data-gds-theme-swatch]` and the governed value is used for you:

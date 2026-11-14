@@ -16,6 +16,17 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### A preset's opaque declared surface is its card (#865)
+
+`getGdsVibeCardSurface(vibe, scheme)` returns a preset's `surfaceLight`/`surfaceDark` when it is opaque. That surface now drives `--gds-bg-card`, `--gds-bg-surface` and every pair derived from them, and the new `--gds-vibe-card` paints `.gds-card`, `.gds-paper`, the Mantine `Card` and the dark `Popover` dropdown flat. Translucent surfaces (25 of 27 presets) and both hand-authored lanes are byte-identical; the token baseline changed only in the `high-contrast` and `colorblind-safe` entries.
+
+- A hand-authored table that contradicts an opaque surface throws `GdsCardSurfaceError`.
+- Owned/local-contrast surfaces reset `--gds-vibe-card`; forced colours set it to `Canvas`; the preset runtime removes it when switching to a preset without one.
+- `gdsTheme`'s Card root background is `var(--gds-vibe-card, var(--mantine-color-body))`. Before this, the Card's inline body background overrode every preset card rule, so a declared surface could not reach a Card.
+- New gate `verify:card-surface-runtime` (CDP): flat declared cards, gradients kept for translucent presets, owned-contrast reset, forced colours.
+
+Stated changes: `high-contrast` dark card `rgb(31, 31, 31)` -> `#000000`; `colorblind-safe` dark card `rgb(39, 48, 59)` -> `#101b28`, and its cards paint flat in both schemes. The badge tints, readable grey and chart roles of those two presets re-derive against the new card.
+
 ### Shape profiles on the shape axis, and components read the radius roles (#953)
 
 - `GdsShapeAxis.profile` with `GDS_SHAPE_PROFILES` (`default`, `operations`, `workspace`) and `resolveGdsShapeProfileRoles()`. `operations` puts cards, panels, surfaces, buttons, inputs, chips and media on `sm`; `workspace` puts surfaces, modals, drawers, sheets and media on `lg`. No preset selects one.

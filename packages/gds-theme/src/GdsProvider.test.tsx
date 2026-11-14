@@ -78,7 +78,7 @@ describe('GdsProvider', () => {
   it('keeps the canonical base theme motion-safe and exposes opt-in motion overrides', () => {
     expect(gdsTheme.components.Button?.styles).toBeUndefined();
     expect(gdsTheme.components.Card?.styles?.root).toEqual({
-      background: 'var(--mantine-color-body)',
+      background: 'var(--gds-vibe-card, var(--mantine-color-body))',
     });
 
     const motionTheme = withGdsMotion();

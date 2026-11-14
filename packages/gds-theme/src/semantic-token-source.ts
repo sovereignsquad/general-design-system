@@ -367,6 +367,17 @@ export function applyGdsGreyWhenText(vars: Record<string, string>): Record<strin
   return { ...out, ...emitBadgeToneCssVariables(out) };
 }
 
+/**
+ * The card surface a preset declares for a scheme, when it is opaque: `surfaceLight` or
+ * `surfaceDark` if it parses with alpha 1, otherwise `undefined`. A translucent colour has no
+ * contrast ratio of its own, so only an opaque one can become the card role.
+ */
+export function getGdsVibeCardSurface(vibe: Pick<GdsVibeTheme, 'surfaceLight' | 'surfaceDark'>, scheme: 'light' | 'dark'): string | undefined {
+  const value = scheme === 'dark' ? vibe.surfaceDark : vibe.surfaceLight;
+  const parsed = typeof value === 'string' ? parseCssColor(value) : null;
+  return parsed && parsed.a === 1 ? value : undefined;
+}
+
 export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<string, string> {
   const accentLight = ensureContrast(vibe.accent, vibe.canvasLight, 3, false, vibe.canvasLight);
   const accentDark = ensureContrast(mixCssColors(vibe.accent, '#ffffff', 0.75, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
@@ -376,10 +387,13 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
   const successDark = ensureContrast(mixCssColors(UNIVERSAL_SUCCESS, '#ffffff', 0.55, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
   const warningLight = ensureContrast(mixCssColors(UNIVERSAL_WARNING, vibe.primary, 0.75, vibe.canvasLight), vibe.canvasLight, 3, false, vibe.canvasLight);
 
-  const bgCardDark = mixCssColors(vibe.canvasDark, '#ffffff', 0.88, vibe.canvasDark);
+  // An opaque declared surface is the card; otherwise white in light and the canvas mixed 12%
+  // toward white in dark.
+  const bgCardLight = getGdsVibeCardSurface(vibe, 'light') ?? '#ffffff';
+  const bgCardDark = getGdsVibeCardSurface(vibe, 'dark') ?? mixCssColors(vibe.canvasDark, '#ffffff', 0.88, vibe.canvasDark);
   // Brand primary and state info are controls and status fills, not text: the body text
   // colour would read as text, so both take the preset's readable grey.
-  const grey = deriveGdsReadableGrey(vibe.mutedLight, '#ffffff', bgCardDark);
+  const grey = deriveGdsReadableGrey(vibe.mutedLight, bgCardLight, bgCardDark);
   const navInactiveOnInverse = toRgba(vibe.textDark, 0.72);
 
   const badgeInfoLight = mixCssColors(vibe.canvasLight, vibe.textLight, 0.92, vibe.canvasLight);
@@ -414,11 +428,11 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
     '--gds-text-on-support-dark': textOnSupportDark,
     '--gds-bg-canvas': vibe.canvasLight,
     '--gds-bg-canvas-dark': vibe.canvasDark,
-    '--gds-bg-card': '#ffffff',
+    '--gds-bg-card': bgCardLight,
     '--gds-bg-card-dark': bgCardDark,
     '--gds-bg-page': vibe.canvasLight,
     '--gds-bg-page-dark': vibe.canvasDark,
-    '--gds-bg-surface': '#ffffff',
+    '--gds-bg-surface': bgCardLight,
     '--gds-bg-surface-dark': bgCardDark,
     '--gds-bg-inverse': vibe.textLight,
     '--gds-bg-inverse-dark': vibe.textLight,
