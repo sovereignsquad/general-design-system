@@ -185,7 +185,7 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
     // `resolveGdsDensityTokens` already clamps it to GDS_MIN_TARGET_PX under every density
     // mode, so consuming it here keeps the floor true rather than restating the number.
     NavLink: {
-      classNames: { root: 'gds-navlink' },
+      classNames: { root: 'gds-navlink', description: 'gds-navlink-description' },
       styles: {
         root: {
           minHeight: 'var(--gds-control-height-md)',

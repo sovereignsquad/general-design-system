@@ -2029,7 +2029,7 @@ html[data-gds-theme-preset] .gds-navlink:where([data-active], [aria-current='pag
   color: var(--gds-nav-active-fg);
   box-shadow: inset var(--gds-focus-ring-width) 0 0 var(--gds-nav-active-indicator);
 }
-.gds-navlink:where([data-active], [aria-current='page']) .mantine-NavLink-description {
+.gds-navlink:where([data-active], [aria-current='page']) .gds-navlink-description {
   --description-color: var(--gds-nav-active-fg);
 }
 [dir='rtl'] .gds-navlink:where([data-active], [aria-current='page']) {
