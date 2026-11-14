@@ -16,6 +16,16 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Page archetypes: analytics dashboard, asset manager and workspace inbox (#958, #959, #960)
+
+- `GdsAnalyticsTemplate` gains optional `periodControl`, `charts` (one or more chart-token charts) and `table` slots; existing props keep working.
+- New `GdsAssetManagerTemplate` (`asset-manager`): folder tree, toolbar, bulk actions, table/grid toggle, upload and detail, on the `operations` shape profile.
+- New `GdsWorkspaceInboxTemplate` (`workspace-inbox`): navigation, thread list and conversation in labelled regions; list then detail with a back action and heading focus on narrow viewports.
+- New `GdsViewToggle`, the labelled table/grid switch, now shared by `ResponsiveDataView` and the asset-manager template.
+- Page templates take `landmark` (`main` by default, `none` when embedded), and their section headings are `h2`.
+- Accessibility fixes found by the new axe tests: `MetricCard` no longer renders its value as an `h3` heading (it is text at the same size), and `SectionPanel`/`StateBlock` take `titleOrder` so their headings fit the outline. Visible change: none; the heading outline of pages with metrics changes.
+- Pattern registry entries `analytics-template`, `asset-manager-template` and `workspace-inbox-template` render the real templates; specs in `docs/templates/` and the `llms.txt` catalog are regenerated.
+
 ### Thread list and multi-party message thread (#957)
 
 - New `GdsThreadList`: inbox conversations with `aria-current` on the open thread, unread by weight, dot and hidden text (not colour alone), locale timestamps, avatars, and loading, empty, error/retry and load-more states.

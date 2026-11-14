@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Badge, Card, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
+import { Badge, Card, Group, Stack, Text, ThemeIcon } from '@mantine/core';
 
 /** Props for {@link MetricCard}. */
 export interface MetricCardProps {
@@ -53,7 +53,8 @@ export function MetricCard({ label, value, description, trend, icon, footer }: M
             <Text size="sm" c="dimmed" fw={600}>
               {label}
             </Text>
-            <Title order={3}>{value}</Title>
+            {/* A metric value is data, not a heading; it keeps the h3 type scale. */}
+            <Text component="p" fz="h3" lh="h3" style={{ fontWeight: 'var(--gds-weight-semibold)' }}>{value}</Text>
           </Stack>
           {icon ? (
             <ThemeIcon variant="light" size="xl" radius="xl" aria-hidden>

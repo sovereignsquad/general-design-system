@@ -352,4 +352,13 @@ export const en = {
   'gds.threadList.emptyTitle': "No conversations yet",
   'gds.threadList.unread': "Unread",
   'gds.threadList.loadMore': "Load more",
+  'gds.assetManagerTemplate.folders': "Folders",
+  'gds.assetManagerTemplate.emptyTitle': "This folder is empty",
+  'gds.assetManagerTemplate.detailTitle': "Selected item",
+  'gds.workspaceInboxTemplate.conversations': "Conversations",
+  'gds.workspaceInboxTemplate.conversation': "Conversation",
+  'gds.workspaceInboxTemplate.back': "Back to conversations",
+  'gds.workspaceInboxTemplate.loading': "Loading conversation",
+  'gds.workspaceInboxTemplate.noSelection': "Select a conversation",
+  'gds.workspaceInboxTemplate.navigation': "Workspace",
 };

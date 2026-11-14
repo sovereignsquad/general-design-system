@@ -352,4 +352,13 @@ export const it = {
   'gds.threadList.emptyTitle': "Nessuna conversazione ancora",
   'gds.threadList.unread': "Non letto",
   'gds.threadList.loadMore': "Carica di più",
+  'gds.assetManagerTemplate.folders': "Cartelle",
+  'gds.assetManagerTemplate.emptyTitle': "Questa cartella è vuota",
+  'gds.assetManagerTemplate.detailTitle': "Elemento selezionato",
+  'gds.workspaceInboxTemplate.conversations': "Conversazioni",
+  'gds.workspaceInboxTemplate.conversation': "Conversazione",
+  'gds.workspaceInboxTemplate.back': "Torniamo alle conversazioni",
+  'gds.workspaceInboxTemplate.loading': "Caricamento conversazione",
+  'gds.workspaceInboxTemplate.noSelection': "Seleziona una conversazione",
+  'gds.workspaceInboxTemplate.navigation': "Spazio di lavoro",
 };

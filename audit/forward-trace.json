@@ -4,7 +4,7 @@
   "cellsEvaluated": 1385,
   "obligationsSatisfied": {
     "listed": 131,
-    "demoed": 146,
+    "demoed": 147,
     "explained": 116,
     "variationsShown": 44,
     "useCase": 29
@@ -2962,23 +2962,6 @@
       ]
     },
     {
-      "token": "--gds-weight-semibold",
-      "role": "weight-semibold",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-elevation-0",
       "role": "elevation-0",
       "declaredIn": [
@@ -3544,6 +3527,22 @@
       "declaredIn": [
         "styles.css",
         "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-weight-semibold",
+      "role": "weight-semibold",
+      "declaredIn": [
+        "styles.css"
       ],
       "listed": true,
       "demoed": true,

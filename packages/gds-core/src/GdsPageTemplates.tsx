@@ -1,5 +1,7 @@
-import type { Key, ReactNode } from 'react';
-import { Badge, Card, Divider, Group, List, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { useEffect, useId, useRef, type Key, type ReactNode } from 'react';
+import { Badge, Box, Button, Card, Divider, Grid, Group, List, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { useMediaQuery, useUncontrolled } from '@mantine/hooks';
+import type { GdsShapeProfile } from '@sovereignsquad/gds-theme';
 import { gdsDevWarnOnce , useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { AsyncSurface, type AsyncSurfaceState } from './AsyncSurface';
 import { GdsBox, GdsGrid, GdsStack } from './LayoutPrimitives';
@@ -9,6 +11,9 @@ import { SectionPanel } from './SectionPanel';
 import { SimpleDataTable, type SimpleTableColumn } from './SimpleDataTable';
 import { StateBlock } from './StateBlock';
 import { StatusBadge, type StatusVariant } from './StatusBadge';
+import { GdsBulkActionBar, type GdsBulkActionBarProps } from './GdsBulkActionBar';
+import { GdsShapeScope } from './GdsShapeScope';
+import { GdsViewToggle, type GdsCollectionView } from './GdsViewToggle';
 
 /** Identifier for one of the governed page-template blueprints. */
 export type GdsPageTemplateId =
@@ -19,7 +24,9 @@ export type GdsPageTemplateId =
   | 'analytics'
   | 'public-event'
   | 'error-page'
-  | 'empty-state-page';
+  | 'empty-state-page'
+  | 'asset-manager'
+  | 'workspace-inbox';
 
 /** Lifecycle / UX state a page template can render, driving its status badge and async state gate. */
 export type GdsPageTemplateState =
@@ -91,21 +98,30 @@ export interface GdsPageTemplateConfig {
 
 /** Shared props for every GDS page template: header content, current state, actions, and retry wiring. */
 export interface GdsPageTemplateBaseProps {
+  /** Page title, rendered as the page `h1`. */
   title: string;
+  /** Supporting text under the title. */
   description?: string;
   /** Small uppercase label rendered above the title. */
   eyebrow?: string;
   /** Current page state; drives the status badge and the async state gate. Defaults to `ready`. */
   state?: GdsPageTemplateState;
+  /** Page-level actions rendered in the header beside the status badge. */
   actions?: GdsPageTemplateAction[];
   /** Invoked when the user triggers the retry action shown in error/retrying states. */
   onRetry?: () => void;
+  /** Label of the retry action; defaults to the `gds.gdsPageTemplates.retryLabel` message. */
   retryLabel?: string;
   /** Overrides the status-badge text; defaults to a label derived from `state`. */
   statusLabel?: string;
   children?: ReactNode;
   /** Optional content rendered in a bordered card between the header and the body. */
   metadata?: ReactNode;
+  /**
+   * `main` (default) renders the template as the page's `<main>` landmark. `none` renders a
+   * plain container, for a template embedded in a page that already has a `<main>`.
+   */
+  landmark?: 'main' | 'none';
 }
 
 /** Props for the admin dashboard template: a metric grid plus governed sections. */
@@ -156,6 +172,58 @@ export interface GdsAnalyticsTemplateProps<T extends Record<string, unknown> = R
   columns?: SimpleTableColumn<T>[];
   /** Optional insight/commentary card rendered between the chart and table. */
   insight?: ReactNode;
+  /** Period control shown above the charts, e.g. `PeriodSelector`. */
+  periodControl?: ReactNode;
+  /** Charts on the chart tokens (`GdsAreaChart`, `GdsLineChart`); one or two per row. Takes precedence over `chart`. */
+  charts?: ReactNode[];
+  /** Structured data table, e.g. `GdsDataTable` through `createGdsTableAdapter`; replaces the `rows`/`columns` fallback. */
+  table?: ReactNode;
+}
+
+/** Props for the asset-manager template: folder tree, toolbar, bulk actions, table/grid items, upload and detail. */
+export interface GdsAssetManagerTemplateProps extends GdsPageTemplateBaseProps {
+  /** Folder navigation, normally a `GdsTreeView`. */
+  tree?: ReactNode;
+  /** Toolbar above the items: search, filters, sort, upload trigger (`DataToolbar`, `ActionBar`). */
+  toolbar?: ReactNode;
+  /** Bulk actions for the current selection; the bar shows when `selectedCount` is above zero. */
+  bulkActions?: GdsBulkActionBarProps;
+  /** Items as a table, normally an `AdvancedDataTable` with row selection. */
+  table?: ReactNode;
+  /** Items as a grid of cards, e.g. `GdsAssetPreviewCard`. */
+  grid?: ReactNode;
+  /** Item layout (controlled) when both `table` and `grid` are given. */
+  view?: GdsCollectionView;
+  /** Initial item layout when uncontrolled; defaults to `'table'`. */
+  defaultView?: GdsCollectionView;
+  /** Called when the user switches the item layout. */
+  onViewChange?: (view: GdsCollectionView) => void;
+  /** Upload flow, normally `GdsAssetManager`. */
+  upload?: ReactNode;
+  /** Details of the selected item. */
+  detail?: ReactNode;
+  /** Shape profile for the page; defaults to `'operations'` for dense screens. */
+  shapeProfile?: GdsShapeProfile;
+}
+
+/** Props for the workspace-inbox template: navigation, thread list and conversation pane. */
+export interface GdsWorkspaceInboxTemplateProps extends GdsPageTemplateBaseProps {
+  /** Workspace navigation, e.g. a `SidebarNav`. */
+  navigation?: ReactNode;
+  /** The conversation list, normally a `GdsThreadList`. */
+  threadList: ReactNode;
+  /** The open conversation, normally a `GdsMessageThread`. */
+  detail?: ReactNode;
+  /** Heading of the open conversation; focused when it opens on a narrow viewport. */
+  detailTitle?: string;
+  /** A conversation is open. On a narrow viewport the detail pane replaces the list. */
+  hasSelection?: boolean;
+  /** The open conversation is loading. */
+  detailLoading?: boolean;
+  /** Returns from the detail pane to the list on a narrow viewport; clear the selection here. */
+  onBack?: () => void;
+  /** Height of each region; when set, the regions scroll independently. */
+  regionHeight?: string;
 }
 
 /** Props for the public event template: hero media, event metadata, details, and registration. */
@@ -282,10 +350,10 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     requiredData: ['period', 'metrics', 'chart or table data'],
     requiredStates: allTemplateStates,
     taskPatterns: ['review-submission'],
-    componentContracts: ['MetricCard', 'GdsChart', 'SimpleDataTable', 'StateBlock'],
+    componentContracts: ['MetricCard', 'PeriodSelector', 'GdsAreaChart', 'GdsLineChart', 'GdsDataTable', 'SimpleDataTable', 'StateBlock'],
     telemetryEvents: ['page_view', 'state_visible', 'action_clicked', 'retry_requested'],
-    accessibility: ['non-color-only data summary', 'table fallback', 'heading hierarchy', 'empty data copy'],
-    edgeCases: ['analytics no data', 'chart adapter unavailable', 'long period labels'],
+    accessibility: ['non-color-only data summary', 'table fallback', 'heading hierarchy', 'empty data copy', 'chart summaries and data tables for every chart'],
+    edgeCases: ['analytics no data', 'partial data', 'single data point', 'large values', 'right-to-left locale', 'chart adapter unavailable', 'long period labels'],
     rollback: 'Keep vendor-specific analytics behind the chart/table slots.',
   },
   {
@@ -329,6 +397,34 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['single h1', 'specific empty reason', 'keyboard reachable recovery', 'no color-only meaning'],
     edgeCases: ['empty no action', 'permission denied', 'not found'],
     rollback: 'Replace blank pages and static placeholders route by route when recovery actions are ready.',
+  },
+  {
+    id: 'asset-manager',
+    title: 'Asset manager template',
+    description: 'Dense file or asset screen with a folder tree, toolbar, bulk actions, a table/grid of items, upload and item detail.',
+    packageName: '@sovereignsquad/gds-core',
+    requiredData: ['folder tree', 'items in the open folder', 'selection'],
+    requiredStates: allTemplateStates,
+    taskPatterns: ['create-resource', 'confirm-destructive-action'],
+    componentContracts: ['GdsTreeView', 'DataToolbar', 'GdsBulkActionBar', 'GdsViewToggle', 'AdvancedDataTable', 'GdsAssetManager', 'GdsShapeScope'],
+    telemetryEvents: ['page_view', 'state_visible', 'action_clicked', 'retry_requested'],
+    accessibility: ['folder tree follows the tree pattern', 'keyboard path tree, toolbar, bulk actions, layout toggle, items', 'selection count announced', 'labelled layout toggle'],
+    edgeCases: ['empty folder', 'nothing selected', 'thousands of items', 'upload failure', 'folder load error', 'permission denied'],
+    rollback: 'Keep the existing resource screen beside this template; the slots accept the current table and upload components.',
+  },
+  {
+    id: 'workspace-inbox',
+    title: 'Workspace inbox template',
+    description: 'Inbox with workspace navigation, a thread list and a conversation pane; list then detail on narrow viewports.',
+    packageName: '@sovereignsquad/gds-core',
+    requiredData: ['threads', 'open thread', 'messages of the open thread'],
+    requiredStates: allTemplateStates,
+    taskPatterns: ['review-submission'],
+    componentContracts: ['SidebarNav', 'GdsThreadList', 'GdsMessageThread', 'StateBlock'],
+    telemetryEvents: ['page_view', 'state_visible', 'action_clicked', 'retry_requested'],
+    accessibility: ['labelled navigation, list and conversation regions', 'focus moves to the conversation heading when it opens on a narrow viewport', 'back action returns to the list', 'messages carry sender and time'],
+    edgeCases: ['empty inbox', 'no conversation selected', 'conversation loading', 'conversation load error', 'long thread', 'narrow viewport'],
+    rollback: 'Adopt per inbox route; the thread list and conversation slots accept existing components.',
   },
 ];
 
@@ -503,10 +599,11 @@ function PageTemplateFrame({
   actions,
   statusLabel,
   metadata,
+  landmark = 'main',
   children,
 }: GdsPageTemplateBaseProps & { id: GdsPageTemplateId }) {
   return (
-    <GdsBox component="main" padding={{ base: 'md', md: 'xl' }} data-gds-page-template={id}>
+    <GdsBox component={landmark === 'main' ? 'main' : 'div'} padding={{ base: 'md', md: 'xl' }} data-gds-page-template={id}>
       <GdsStack gap="lg">
         <PageHeader
           title={title}
@@ -566,7 +663,7 @@ function renderSections(sections: GdsPageTemplateSection[] = []) {
   return (
     <GdsGrid columns={{ base: 1, md: 2 }} gap="md">
       {sections.map((section) => (
-        <SectionPanel key={section.id} title={section.title} description={section.description}>
+        <SectionPanel titleOrder={2} key={section.id} title={section.title} description={section.description}>
           {section.content}
         </SectionPanel>
       ))}
@@ -619,7 +716,7 @@ export function GdsSettingsTemplate({
         successContent={groups.length ? (
           <GdsStack gap="md">
             {groups.map((group) => (
-              <SectionPanel key={group.id} title={group.title} description={group.description}>
+              <SectionPanel titleOrder={2} key={group.id} title={group.title} description={group.description}>
                 {group.fields}
               </SectionPanel>
             ))}
@@ -649,10 +746,10 @@ export function GdsResourceManagerTemplate<T extends Record<string, unknown> = R
         retryLabel={retryLabel}
         successContent={(
           <GdsGrid columns={{ base: 1, lg: detail ? 2 : 1 }} gap="lg">
-            <SectionPanel title="Resources" description="Governed resource list with empty, loading, and error states.">
+            <SectionPanel titleOrder={2} title="Resources" description="Governed resource list with empty, loading, and error states.">
               <SimpleDataTable rows={rows} columns={columns} getRowKey={getRowKey} emptyTitle="No resources" emptyDescription="Create or import a resource to start this workflow." />
             </SectionPanel>
-            {detail ? <SectionPanel title="Selected resource">{detail}</SectionPanel> : null}
+            {detail ? <SectionPanel titleOrder={2} title="Selected resource">{detail}</SectionPanel> : null}
           </GdsGrid>
         )}
       />
@@ -678,9 +775,9 @@ export function GdsCrudEditorTemplate({
         retryLabel={retryLabel}
         successContent={(
           <GdsStack gap="lg">
-            {summary ? <SectionPanel title="Summary">{summary}</SectionPanel> : null}
-            <SectionPanel title="Editor">{form}</SectionPanel>
-            {destructiveZone ? <SectionPanel title="Destructive actions" description="Risky changes require confirmation and recovery copy.">{destructiveZone}</SectionPanel> : null}
+            {summary ? <SectionPanel titleOrder={2} title="Summary">{summary}</SectionPanel> : null}
+            <SectionPanel titleOrder={2} title="Editor">{form}</SectionPanel>
+            {destructiveZone ? <SectionPanel titleOrder={2} title="Destructive actions" description="Risky changes require confirmation and recovery copy.">{destructiveZone}</SectionPanel> : null}
           </GdsStack>
         )}
       />
@@ -696,6 +793,9 @@ export function GdsAnalyticsTemplate<T extends Record<string, unknown> = Record<
   rows = [],
   columns = [],
   insight,
+  periodControl,
+  charts,
+  table,
   onRetry,
   retryLabel,
   ...props
@@ -711,12 +811,162 @@ export function GdsAnalyticsTemplate<T extends Record<string, unknown> = Record<
             <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="md">
               {metrics.map((metric) => <MetricCard key={String(metric.label)} {...metric} />)}
             </SimpleGrid>
-            <SectionPanel title="Chart and accessible summary">
-              {chart ?? <StateBlock variant="not-enough-data" title="No chart available" description="Provide a governed chart or keep the table fallback visible." compact />}
+            <SectionPanel titleOrder={2} title="Chart and accessible summary">
+              <GdsStack gap="md">
+                {periodControl}
+                {charts?.length ? (
+                  <SimpleGrid cols={{ base: 1, lg: charts.length > 1 ? 2 : 1 }} spacing="md">
+                    {charts.map((item, index) => <Box key={index}>{item}</Box>)}
+                  </SimpleGrid>
+                ) : (chart ?? <StateBlock variant="not-enough-data" title="No chart available" description="Provide a governed chart or keep the table fallback visible." compact />)}
+              </GdsStack>
             </SectionPanel>
             {insight ? <Card withBorder radius="lg" padding="md">{insight}</Card> : null}
-            <SimpleDataTable rows={rows} columns={columns} emptyTitle="No analytics data" emptyDescription="The selected period has no reportable data yet." />
+            {table ?? <SimpleDataTable rows={rows} columns={columns} emptyTitle="No analytics data" emptyDescription="The selected period has no reportable data yet." />}
           </GdsStack>
+        )}
+      />
+    </PageTemplateFrame>
+  );
+}
+
+/**
+ * Asset-manager page template: a folder tree beside the items, with a toolbar, a bulk-action
+ * bar for the selection, a labelled table/grid toggle when both layouts are given, an upload
+ * slot and item detail. The page uses the `operations` shape profile unless `shapeProfile`
+ * says otherwise. Focus order follows the layout: tree, toolbar, bulk actions, layout toggle,
+ * items.
+ */
+export function GdsAssetManagerTemplate({
+  state = 'ready',
+  tree,
+  toolbar,
+  bulkActions,
+  table,
+  grid,
+  view: viewProp,
+  defaultView = 'table',
+  onViewChange,
+  upload,
+  detail,
+  shapeProfile = 'operations',
+  onRetry,
+  retryLabel,
+  ...props
+}: GdsAssetManagerTemplateProps) {
+  const { t } = useGdsTranslation();
+  const [view, setView] = useUncontrolled<GdsCollectionView>({ value: viewProp, defaultValue: defaultView, finalValue: 'table', onChange: onViewChange });
+  const items = table && grid ? (view === 'grid' ? grid : table) : (table ?? grid);
+  return (
+    <GdsShapeScope profile={shapeProfile}>
+      <PageTemplateFrame id="asset-manager" state={state} {...props}>
+        <TemplateStateGate
+          state={state}
+          onRetry={onRetry}
+          retryLabel={retryLabel}
+          successContent={(
+            <Grid gutter="md">
+              {tree ? (
+                <Grid.Col span={{ base: 12, md: 3 }}>
+                  <Box component="nav" aria-label={t('gds.assetManagerTemplate.folders', 'Folders')} data-gds-asset-tree="">{tree}</Box>
+                </Grid.Col>
+              ) : null}
+              <Grid.Col span={{ base: 12, md: tree ? 9 : 12 }}>
+                <GdsStack gap="md">
+                  {toolbar}
+                  {bulkActions ? <GdsBulkActionBar {...bulkActions} /> : null}
+                  {table && grid ? <GdsViewToggle value={view} onChange={setView} /> : null}
+                  {items ?? <StateBlock variant="empty" compact titleOrder={2} title={t('gds.assetManagerTemplate.emptyTitle', 'This folder is empty')} />}
+                  {upload}
+                  {detail ? <SectionPanel titleOrder={2} title={t('gds.assetManagerTemplate.detailTitle', 'Selected item')}>{detail}</SectionPanel> : null}
+                </GdsStack>
+              </Grid.Col>
+            </Grid>
+          )}
+        />
+      </PageTemplateFrame>
+    </GdsShapeScope>
+  );
+}
+
+/**
+ * Workspace-inbox page template: workspace navigation, a conversation list and the open
+ * conversation, each a labelled region that scrolls on its own when `regionHeight` is set. On a
+ * narrow viewport it shows the list, or the open conversation with a back action; opening one
+ * moves focus to its heading.
+ */
+export function GdsWorkspaceInboxTemplate({
+  state = 'ready',
+  navigation,
+  threadList,
+  detail,
+  detailTitle,
+  hasSelection = false,
+  detailLoading = false,
+  onBack,
+  regionHeight,
+  onRetry,
+  retryLabel,
+  ...props
+}: GdsWorkspaceInboxTemplateProps) {
+  const { t } = useGdsTranslation();
+  const narrow = useMediaQuery('(max-width: 48em)');
+  const headingId = useId();
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (narrow && hasSelection) headingRef.current?.focus();
+  }, [narrow, hasSelection]);
+
+  const scroll = regionHeight ? { maxBlockSize: regionHeight, overflowY: 'auto' as const } : undefined;
+  const conversationsLabel = t('gds.workspaceInboxTemplate.conversations', 'Conversations');
+  const title = detailTitle ?? t('gds.workspaceInboxTemplate.conversation', 'Conversation');
+
+  const listRegion = (
+    <Box component="section" aria-label={conversationsLabel} style={scroll} data-gds-inbox-list="">{threadList}</Box>
+  );
+  const detailRegion = (
+    <Box component="section" aria-labelledby={headingId} style={scroll} data-gds-inbox-detail="">
+      <GdsStack gap="sm">
+        {narrow && hasSelection && onBack ? (
+          <Button variant="subtle" size="xs" onClick={onBack} style={{ alignSelf: 'flex-start' }}>
+            {t('gds.workspaceInboxTemplate.back', 'Back to conversations')}
+          </Button>
+        ) : null}
+        <Title order={2} size="h4" id={headingId} ref={headingRef} tabIndex={-1}>
+          {title}
+        </Title>
+        {detailLoading
+          ? <StateBlock variant="loading" compact titleOrder={3} title={t('gds.workspaceInboxTemplate.loading', 'Loading conversation')} />
+          : hasSelection
+            ? detail
+            : <StateBlock variant="empty" compact titleOrder={3} title={t('gds.workspaceInboxTemplate.noSelection', 'Select a conversation')} />}
+      </GdsStack>
+    </Box>
+  );
+
+  return (
+    <PageTemplateFrame id="workspace-inbox" state={state} {...props}>
+      <TemplateStateGate
+        state={state}
+        onRetry={onRetry}
+        retryLabel={retryLabel}
+        successContent={narrow ? (
+          hasSelection ? detailRegion : (
+            <GdsStack gap="md">
+              {navigation ? <Box component="nav" aria-label={t('gds.workspaceInboxTemplate.navigation', 'Workspace')}>{navigation}</Box> : null}
+              {listRegion}
+            </GdsStack>
+          )
+        ) : (
+          <Grid gutter="md">
+            {navigation ? (
+              <Grid.Col span={{ base: 12, md: 2 }}>
+                <Box component="nav" aria-label={t('gds.workspaceInboxTemplate.navigation', 'Workspace')} style={scroll}>{navigation}</Box>
+              </Grid.Col>
+            ) : null}
+            <Grid.Col span={{ base: 12, md: navigation ? 4 : 5 }}>{listRegion}</Grid.Col>
+            <Grid.Col span={{ base: 12, md: navigation ? 6 : 7 }}>{detailRegion}</Grid.Col>
+          </Grid>
         )}
       />
     </PageTemplateFrame>

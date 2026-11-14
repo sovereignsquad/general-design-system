@@ -29,6 +29,8 @@ export interface StateBlockProps extends SurfacePresentationProps {
   icon?: ReactNode;
   /** Tighter spacing and a smaller heading for inline use. */
   compact?: boolean;
+  /** Heading level of `title`, so the block fits the page outline. Defaults to 4 when `compact`, else 3. */
+  titleOrder?: 2 | 3 | 4 | 5 | 6;
 }
 
 const variantConfig: Record<StateBlockVariant, { color: string; icon: ReactNode }> = {
@@ -57,6 +59,7 @@ export function StateBlock({
   action,
   icon,
   compact = false,
+  titleOrder,
   presentation = 'inline',
   minHeight,
   contentAlign,
@@ -90,7 +93,7 @@ export function StateBlock({
         {icon ?? config.icon}
       </ThemeIcon>
       <Stack gap={6} align={headingAlign}>
-        <Title order={compact ? 4 : 3}>{title}</Title>
+        <Title order={titleOrder ?? (compact ? 4 : 3)}>{title}</Title>
         {description ? (
           <Text c="dimmed" maw={compact ? undefined : 480}>
             {description}

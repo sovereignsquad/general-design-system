@@ -39,10 +39,14 @@ import {
   createGdsVocabularyPack,
   DataToolbar,
   GdsAreaChart,
+  GdsLineChart,
   GdsTreeView,
   GdsBulkActionBar,
   GdsThreadList,
   GdsMessageThread,
+  GdsAnalyticsTemplate,
+  GdsAssetManagerTemplate,
+  GdsWorkspaceInboxTemplate,
   GdsSparkline,
   GdsLongitudinalChart,
   GdsBenchmarkBarChart,
@@ -502,6 +506,113 @@ function AdminEditorFlowsDemo() {
         </SectionPanel>
       }
       actionBar={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'refresh' }] }} />}
+    />
+  );
+}
+
+const templateTrend = [
+  { label: 'Week 1', value: 42 },
+  { label: 'Week 2', value: 55 },
+  { label: 'Week 3', value: 61 },
+  { label: 'Week 4', value: 78 },
+];
+
+function AnalyticsTemplateDemo() {
+  const [period, setPeriod] = useState('30d');
+  return (
+    <GdsAnalyticsTemplate
+      landmark="none"
+      title="Release health"
+      description="Adoption and quality for the current release."
+      metrics={[
+        { label: 'Active projects', value: '128', trend: { tone: 'positive', label: '+12%' } },
+        { label: 'Open defects', value: '7', trend: { tone: 'negative', label: '+2' } },
+        { label: 'Passing checks', value: '100%' },
+        { label: 'Median build', value: '11 min' },
+      ]}
+      periodControl={(
+        <PeriodSelector
+          label="Period"
+          value={period}
+          onChange={setPeriod}
+          options={[{ value: '7d', label: 'Last 7 days' }, { value: '30d', label: 'Last 30 days' }]}
+        />
+      )}
+      charts={[
+        <GdsAreaChart key="adoption" title="Adoption" summary="Active projects rose every week of the period." data={templateTrend} axisLabels />,
+        <GdsLineChart key="builds" title="Build time" summary="Median build time per week." data={templateTrend} axisLabels />,
+      ]}
+      rows={templateTrend}
+      columns={[{ key: 'label', header: 'Week' }, { key: 'value', header: 'Active projects' }]}
+    />
+  );
+}
+
+function AssetManagerTemplateDemo() {
+  const [selected, setSelected] = useState(2);
+  return (
+    <GdsAssetManagerTemplate
+      landmark="none"
+      title="Brand assets"
+      description="Logos, photography and templates for every product."
+      tree={(
+        <GdsTreeView
+          ariaLabel="Asset folders"
+          defaultExpandedIds={['brand']}
+          defaultSelectedId="logos"
+          nodes={[
+            { id: 'brand', label: 'Brand', children: [{ id: 'logos', label: 'Logos' }, { id: 'photos', label: 'Photography' }] },
+            { id: 'templates', label: 'Templates' },
+          ]}
+        />
+      )}
+      bulkActions={{ selectedCount: selected, actions: [{ action: 'download', onClick: () => setSelected(0) }, { action: 'delete', onClick: () => setSelected(0) }], onClearSelection: () => setSelected(0) }}
+      table={(
+        <SimpleDataTable
+          rows={[{ name: 'logo-primary.svg', size: '12 KB' }, { name: 'logo-mark.svg', size: '4 KB' }, { name: 'logo-mono.svg', size: '9 KB' }]}
+          columns={[{ key: 'name', header: 'Name' }, { key: 'size', header: 'Size' }]}
+        />
+      )}
+      grid={(
+        <GdsGrid columns={{ base: 1, sm: 3 }} gap="md">
+          {['logo-primary.svg', 'logo-mark.svg', 'logo-mono.svg'].map((name) => <SectionPanel key={name} title={name} titleOrder={2}><p>SVG</p></SectionPanel>)}
+        </GdsGrid>
+      )}
+    />
+  );
+}
+
+function WorkspaceInboxTemplateDemo() {
+  const [selected, setSelected] = useState<string | null>('t1');
+  return (
+    <GdsWorkspaceInboxTemplate
+      landmark="none"
+      title="Inbox"
+      regionHeight="28rem"
+      hasSelection={selected !== null}
+      detailTitle="Design lead"
+      onBack={() => setSelected(null)}
+      threadList={(
+        <GdsThreadList
+          ariaLabel="Conversations"
+          selectedId={selected}
+          onSelect={setSelected}
+          threads={[
+            { id: 't1', title: 'Design lead', preview: 'Can you check the dark preview?', timestamp: '2026-11-13T09:13:00', unread: true },
+            { id: 't2', title: 'Engineering lead', preview: 'Shipping the nav states next.', timestamp: '2026-11-14T08:05:00' },
+          ]}
+        />
+      )}
+      detail={(
+        <GdsMessageThread
+          ariaLabel="Conversation with the design lead"
+          selfId="you"
+          messages={[
+            { id: 'm1', senderId: 'lead', senderName: 'Design lead', content: 'Can you check the dark preview?', createdAt: '2026-11-13T09:13:00' },
+            { id: 'm2', senderId: 'you', senderName: 'You', content: 'I checked it, and every series is easy to read.', createdAt: '2026-11-13T09:20:00' },
+          ]}
+        />
+      )}
     />
   );
 }
@@ -3446,6 +3557,12 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <BulkActionBarDemo />;
     case 'thread-list':
       return <ThreadListDemo />;
+    case 'analytics-template':
+      return <AnalyticsTemplateDemo />;
+    case 'asset-manager-template':
+      return <AssetManagerTemplateDemo />;
+    case 'workspace-inbox-template':
+      return <WorkspaceInboxTemplateDemo />;
     case 'message-thread':
       return (
         <GdsMessageThread

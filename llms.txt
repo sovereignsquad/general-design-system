@@ -1,6 +1,6 @@
 # General Design System (GDS)
 
-> GDS is a governed, cross-project React design system published as `@sovereignsquad/gds`. It is built on Mantine and ships 329 components, design tokens, theme presets, and runtime systems (forms, tables, overlays, notifications, access gates, i18n). Every product surface is composed from shipped GDS contracts — never reinvented locally.
+> GDS is a governed, cross-project React design system published as `@sovereignsquad/gds`. It is built on Mantine and ships 332 components, design tokens, theme presets, and runtime systems (forms, tables, overlays, notifications, access gates, i18n). Every product surface is composed from shipped GDS contracts — never reinvented locally.
 
 This file is the entry point for AI coding agents (any LLM-powered coding tool). It tells you what GDS is, how to install it, the non-negotiable rules, and where to read more. When building UI for a project that uses GDS, follow these rules and compose the shipped components — do not author parallel primitives or raw CSS.
 
@@ -66,10 +66,12 @@ Start a full page from a governed page template when one matches the task, befor
 - `GdsSettingsTemplate` (`settings`): Grouped settings surface with save, disabled, saving, and permission states. Component contracts: `PageHeader`, `SectionPanel`, `StatusBadge`, `AsyncSurface`. Spec: docs/templates/settings.md
 - `GdsResourceManagerTemplate` (`resource-manager`): List/detail resource surface for CRUD, preview, delete, and recovery workflows. Component contracts: `GdsDataTable`, `SimpleDataTable`, `DetailProfileShell`, `SectionPanel`. Spec: docs/templates/resource-manager.md
 - `GdsCrudEditorTemplate` (`crud-editor`): Edit surface that composes governed forms, summaries, saving states, and destructive zones. Component contracts: `GdsSchemaForm`, `GdsValidationSummary`, `SectionPanel`, `AsyncSurface`. Spec: docs/templates/crud-editor.md
-- `GdsAnalyticsTemplate` (`analytics`): Reporting page with metrics, chart slot, table fallback, empty data, and retry states. Component contracts: `MetricCard`, `GdsChart`, `SimpleDataTable`, `StateBlock`. Spec: docs/templates/analytics.md
+- `GdsAnalyticsTemplate` (`analytics`): Reporting page with metrics, chart slot, table fallback, empty data, and retry states. Component contracts: `MetricCard`, `PeriodSelector`, `GdsAreaChart`, `GdsLineChart`, `GdsDataTable`, `SimpleDataTable`, `StateBlock`. Spec: docs/templates/analytics.md
 - `GdsPublicEventTemplate` (`public-event`): Public event page with hero media slot, event metadata, registration, and no-media recovery. Component contracts: `PublicShell`, `MediaCard`, `ShareButtonGroup`, `StateBlock`. Spec: docs/templates/public-event.md
 - `GdsErrorPageTemplate` (`error-page`): Semantic error, not-found, and permission-denied page with explicit recovery actions. Component contracts: `StateBlock`, `AsyncSurface`, `StatusBadge`. Spec: docs/templates/error-page.md
 - `GdsEmptyStateTemplate` (`empty-state-page`): First-run or no-results page with actionable copy, status, and optional illustration slot. Component contracts: `EmptyState`, `StateBlock`, `PageHeader`. Spec: docs/templates/empty-state-page.md
+- `GdsAssetManagerTemplate` (`asset-manager`): Dense file or asset screen with a folder tree, toolbar, bulk actions, a table/grid of items, upload and item detail. Component contracts: `GdsTreeView`, `DataToolbar`, `GdsBulkActionBar`, `GdsViewToggle`, `AdvancedDataTable`, `GdsAssetManager`, `GdsShapeScope`. Spec: docs/templates/asset-manager.md
+- `GdsWorkspaceInboxTemplate` (`workspace-inbox`): Inbox with workspace navigation, a thread list and a conversation pane; list then detail on narrow viewports. Component contracts: `SidebarNav`, `GdsThreadList`, `GdsMessageThread`, `StateBlock`. Spec: docs/templates/workspace-inbox.md
 <!-- gds:page-templates:end -->
 
 ## Packages

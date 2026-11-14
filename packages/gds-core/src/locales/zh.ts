@@ -352,4 +352,13 @@ export const zh = {
   'gds.threadList.emptyTitle': "还没有对话",
   'gds.threadList.unread': "未读",
   'gds.threadList.loadMore': "加载更多",
+  'gds.assetManagerTemplate.folders': "文件夹",
+  'gds.assetManagerTemplate.emptyTitle': "该文件夹是空的",
+  'gds.assetManagerTemplate.detailTitle': "所选项目",
+  'gds.workspaceInboxTemplate.conversations': "对话",
+  'gds.workspaceInboxTemplate.conversation': "对话",
+  'gds.workspaceInboxTemplate.back': "返回对话",
+  'gds.workspaceInboxTemplate.loading': "正在加载对话",
+  'gds.workspaceInboxTemplate.noSelection': "选择一个对话",
+  'gds.workspaceInboxTemplate.navigation': "工作空间",
 };

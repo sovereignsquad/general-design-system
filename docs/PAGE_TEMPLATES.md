@@ -18,6 +18,8 @@ import {
   GdsPublicEventTemplate,
   GdsErrorPageTemplate,
   GdsEmptyStateTemplate,
+  GdsAssetManagerTemplate,
+  GdsWorkspaceInboxTemplate,
   getGdsPageTemplates,
   getGdsPageTemplate,
   validateGdsPageTemplates,
@@ -59,8 +61,10 @@ The templates compose existing GDS primitives:
 - `GdsPublicEventTemplate`
 - `GdsErrorPageTemplate`
 - `GdsEmptyStateTemplate`
+- `GdsAssetManagerTemplate`
+- `GdsWorkspaceInboxTemplate`
 
-The registry helpers expose the same eight stable ids:
+The registry helpers expose the same ten stable ids:
 
 - `admin-dashboard`
 - `settings`
@@ -70,6 +74,16 @@ The registry helpers expose the same eight stable ids:
 - `public-event`
 - `error-page`
 - `empty-state-page`
+- `asset-manager`
+- `workspace-inbox`
+
+### Archetypes (#958, #959, #960)
+
+- **Analytics** (`GdsAnalyticsTemplate`): besides `metrics`, `chart` and the `rows`/`columns` fallback, it takes `periodControl` (e.g. `PeriodSelector`), `charts` (one or more `GdsAreaChart`/`GdsLineChart`, two per row on wide viewports) and `table` (e.g. `GdsDataTable` through `createGdsTableAdapter`), which replaces the fallback table.
+- **Asset manager** (`GdsAssetManagerTemplate`): `tree` (a `GdsTreeView`) in a labelled `nav` beside the items, `toolbar`, `bulkActions` (`GdsBulkActionBar` props), `table` and `grid` with a `GdsViewToggle` when both are given (`view`/`defaultView`/`onViewChange`), `upload` (e.g. `GdsAssetManager`) and `detail`. It applies the `operations` shape profile through `GdsShapeScope` unless `shapeProfile` says otherwise. Focus order: tree, toolbar, bulk actions, layout toggle, items.
+- **Workspace inbox** (`GdsWorkspaceInboxTemplate`): `navigation`, `threadList` (a `GdsThreadList`) and `detail` (a `GdsMessageThread`) in labelled regions that scroll independently when `regionHeight` is set. With nothing open the conversation pane asks for a selection; `detailLoading` shows a loading state. On a narrow viewport (max-width 48em) it shows the list, or the open conversation with a back action (`onBack`), and moves focus to the conversation heading (`detailTitle`) when one opens.
+
+Every template takes `landmark`: `main` (default) renders the page's `<main>`; `none` renders a plain container for a template embedded in a page that already has one, as on the reference site. Section headings inside templates are `h2` under the page `h1`.
 
 ## Runtime States
 

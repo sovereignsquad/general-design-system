@@ -352,4 +352,13 @@ export const ko = {
   'gds.threadList.emptyTitle': "아직 대화가 없습니다.",
   'gds.threadList.unread': "읽히지 않는",
   'gds.threadList.loadMore': "더 로드하기",
+  'gds.assetManagerTemplate.folders': "폴더",
+  'gds.assetManagerTemplate.emptyTitle': "이 폴더는 비어 있습니다.",
+  'gds.assetManagerTemplate.detailTitle': "선택한 항목",
+  'gds.workspaceInboxTemplate.conversations': "대화",
+  'gds.workspaceInboxTemplate.conversation': "대화",
+  'gds.workspaceInboxTemplate.back': "대화로 돌아가기",
+  'gds.workspaceInboxTemplate.loading': "대화 로드 중",
+  'gds.workspaceInboxTemplate.noSelection': "대화를 선택하세요",
+  'gds.workspaceInboxTemplate.navigation': "작업공간",
 };

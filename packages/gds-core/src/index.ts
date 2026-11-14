@@ -39,6 +39,7 @@ export * from './GdsTreeView';
 export * from './GdsBulkActionBar';
 export * from './GdsThreadList';
 export * from './GdsMessageThread';
+export * from './GdsViewToggle';
 export * from './CardContracts';
 
 // ── Layout & structural surfaces ──

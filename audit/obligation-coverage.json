@@ -1,15 +1,15 @@
 {
-  "evaluated": 1272,
-  "gapCount": 347,
+  "evaluated": 1278,
+  "gapCount": 344,
   "excludedCount": 80,
   "byKind": {
     "prop": {
-      "evaluated": 1155,
-      "gaps": 310
+      "evaluated": 1159,
+      "gaps": 306
     },
     "variant": {
-      "evaluated": 107,
-      "gaps": 37
+      "evaluated": 109,
+      "gaps": 38
     },
     "accent": {
       "evaluated": 10,
@@ -1980,58 +1980,16 @@
       ]
     },
     {
-      "atom": "GdsPageTemplateBaseProps.title",
-      "kind": "prop",
+      "atom": "GdsPageTemplateBaseProps.landmark=main",
+      "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 93
+        "line": 100
       },
       "unmet": [
         {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "GdsPageTemplateBaseProps.description",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 93
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "GdsPageTemplateBaseProps.actions",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 93
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "GdsPageTemplateBaseProps.retryLabel",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 93
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
+          "obligation": "variationShown",
+          "why": "literal 'main' is rendered by no playground demo"
         }
       ]
     },

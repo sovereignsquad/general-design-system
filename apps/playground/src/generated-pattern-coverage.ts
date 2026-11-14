@@ -17,7 +17,9 @@ export const provenPatternIds: readonly string[] = [
   "admin-editor-flows",
   "ai-search-card",
   "alerts",
+  "analytics-template",
   "article-shells",
+  "asset-manager-template",
   "auth-shells",
   "badges",
   "bottom-tab-navigation",
@@ -135,5 +137,6 @@ export const provenPatternIds: readonly string[] = [
   "typography",
   "upload-surfaces",
   "vocabulary-extension-lane",
-  "workspace-header"
+  "workspace-header",
+  "workspace-inbox-template"
 ] as const;

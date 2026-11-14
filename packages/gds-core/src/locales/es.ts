@@ -352,4 +352,13 @@ export const es = {
   'gds.threadList.emptyTitle': "Aún no hay conversaciones",
   'gds.threadList.unread': "No leído",
   'gds.threadList.loadMore': "Cargar más",
+  'gds.assetManagerTemplate.folders': "Carpetas",
+  'gds.assetManagerTemplate.emptyTitle': "Esta carpeta está vacía",
+  'gds.assetManagerTemplate.detailTitle': "Artículo seleccionado",
+  'gds.workspaceInboxTemplate.conversations': "Conversaciones",
+  'gds.workspaceInboxTemplate.conversation': "Conversación",
+  'gds.workspaceInboxTemplate.back': "Volver a conversaciones",
+  'gds.workspaceInboxTemplate.loading': "Cargando conversación",
+  'gds.workspaceInboxTemplate.noSelection': "Seleccione una conversación",
+  'gds.workspaceInboxTemplate.navigation': "Espacio de trabajo",
 };

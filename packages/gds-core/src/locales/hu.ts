@@ -352,4 +352,13 @@ export const hu = {
   'gds.threadList.emptyTitle': "Még nincsenek beszélgetések",
   'gds.threadList.unread': "Nem olvasott",
   'gds.threadList.loadMore': "Töltsön be többet",
+  'gds.assetManagerTemplate.folders': "Mappák",
+  'gds.assetManagerTemplate.emptyTitle': "Ez a mappa üres",
+  'gds.assetManagerTemplate.detailTitle': "Kiválasztott elem",
+  'gds.workspaceInboxTemplate.conversations': "Beszélgetések",
+  'gds.workspaceInboxTemplate.conversation': "Beszélgetés",
+  'gds.workspaceInboxTemplate.back': "Vissza a beszélgetésekhez",
+  'gds.workspaceInboxTemplate.loading': "Beszélgetés betöltése",
+  'gds.workspaceInboxTemplate.noSelection': "Válasszon ki egy beszélgetést",
+  'gds.workspaceInboxTemplate.navigation': "Munkaterület",
 };

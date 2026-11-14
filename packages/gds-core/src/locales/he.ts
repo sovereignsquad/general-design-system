@@ -352,4 +352,13 @@ export const he = {
   'gds.threadList.emptyTitle': "עדיין אין שיחות",
   'gds.threadList.unread': "לא נקרא",
   'gds.threadList.loadMore': "טען עוד",
+  'gds.assetManagerTemplate.folders': "תיקיות",
+  'gds.assetManagerTemplate.emptyTitle': "התיקיה הזו ריקה",
+  'gds.assetManagerTemplate.detailTitle': "פריט נבחר",
+  'gds.workspaceInboxTemplate.conversations': "שיחות",
+  'gds.workspaceInboxTemplate.conversation': "שִׂיחָה",
+  'gds.workspaceInboxTemplate.back': "חזרה לשיחות",
+  'gds.workspaceInboxTemplate.loading': "טוען שיחה",
+  'gds.workspaceInboxTemplate.noSelection': "בחר שיחה",
+  'gds.workspaceInboxTemplate.navigation': "סביבת עבודה",
 };

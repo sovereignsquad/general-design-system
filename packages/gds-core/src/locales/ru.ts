@@ -352,4 +352,13 @@ export const ru = {
   'gds.threadList.emptyTitle': "Пока нет разговоров",
   'gds.threadList.unread': "Непрочитано",
   'gds.threadList.loadMore': "Загрузить больше",
+  'gds.assetManagerTemplate.folders': "Папки",
+  'gds.assetManagerTemplate.emptyTitle': "Эта папка пуста",
+  'gds.assetManagerTemplate.detailTitle': "Выбранный элемент",
+  'gds.workspaceInboxTemplate.conversations': "Разговоры",
+  'gds.workspaceInboxTemplate.conversation': "Беседа",
+  'gds.workspaceInboxTemplate.back': "Вернуться к разговорам",
+  'gds.workspaceInboxTemplate.loading': "Загрузка разговора",
+  'gds.workspaceInboxTemplate.noSelection': "Выберите разговор",
+  'gds.workspaceInboxTemplate.navigation': "Рабочая область",
 };

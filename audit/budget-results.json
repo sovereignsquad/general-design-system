@@ -142,7 +142,7 @@
     },
     {
       "key": "obligationGaps",
-      "measured": 347,
+      "measured": 344,
       "value": 347,
       "direction": "max",
       "unit": "count",

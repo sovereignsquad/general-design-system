@@ -352,4 +352,13 @@ export const ja = {
   'gds.threadList.emptyTitle': "まだ会話はありません",
   'gds.threadList.unread': "未読",
   'gds.threadList.loadMore': "さらにロードする",
+  'gds.assetManagerTemplate.folders': "フォルダー",
+  'gds.assetManagerTemplate.emptyTitle': "このフォルダは空です",
+  'gds.assetManagerTemplate.detailTitle': "選択した項目",
+  'gds.workspaceInboxTemplate.conversations': "会話",
+  'gds.workspaceInboxTemplate.conversation': "会話",
+  'gds.workspaceInboxTemplate.back': "会話に戻る",
+  'gds.workspaceInboxTemplate.loading': "会話を読み込んでいます",
+  'gds.workspaceInboxTemplate.noSelection': "会話を選択してください",
+  'gds.workspaceInboxTemplate.navigation': "ワークスペース",
 };
