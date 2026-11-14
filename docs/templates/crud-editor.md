@@ -57,6 +57,37 @@ Edit surface that composes governed forms, summaries, saving states, and destruc
 - `action_clicked`
 - `retry_requested`
 
+## Do
+
+- Pass the form as `form`; it renders in the "Editor" panel.
+- Put delete and other irreversible actions in `destructiveZone`, a separate "Destructive actions" panel.
+
+## Don't
+
+- Do not put irreversible actions in the page `actions` next to save.
+- Do not use it for a list of records; use the resource-manager template.
+
+## Minimal example
+
+From [`examples/crud-editor.tsx`](examples/crud-editor.tsx), which the test suite renders and checks with axe.
+
+```tsx
+import { Button, GdsCrudEditorTemplate, TextInput } from '@sovereignsquad/gds-core';
+
+export default function CrudEditorExample() {
+  return (
+    <GdsCrudEditorTemplate
+      title="Edit room"
+      state="ready"
+      summary="Main hall, capacity 120."
+      form={<TextInput label="Room name" defaultValue="Main hall" />}
+      destructiveZone={<Button color="red" variant="light">Delete room</Button>}
+      actions={[{ id: 'save', label: 'Save', kind: 'primary', onClick: () => undefined }]}
+    />
+  );
+}
+```
+
 ## Rollback
 
 Keep existing editor routes beside this template until schema/form adapters are ready.

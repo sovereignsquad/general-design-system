@@ -47,6 +47,8 @@ export interface GdsThreadListProps {
   loadingMore?: boolean;
   /** Empty-state heading; defaults to the `gds.threadList.emptyTitle` message. */
   emptyTitle?: string;
+  /** Heading level of the loading, error and empty state titles; defaults to 4. Set it to fit the surrounding outline. */
+  stateTitleOrder?: 2 | 3 | 4 | 5 | 6;
 }
 
 function formatTimestamp(value: Date | number | string, locale: string) {
@@ -74,6 +76,7 @@ export function GdsThreadList({
   onLoadMore,
   loadingMore = false,
   emptyTitle,
+  stateTitleOrder,
 }: GdsThreadListProps) {
   const { t, locale } = useGdsTranslation();
 
@@ -82,6 +85,7 @@ export function GdsThreadList({
       <StateBlock
         variant="error"
         compact
+        titleOrder={stateTitleOrder}
         title={t('gds.threadList.errorTitle', 'Conversations could not be loaded')}
         description={error}
         action={onRetry ? <Button size="xs" variant="light" onClick={onRetry}>{t('gds.threadList.retry', 'Retry')}</Button> : undefined}
@@ -89,10 +93,10 @@ export function GdsThreadList({
     );
   }
   if (loading) {
-    return <StateBlock variant="loading" compact title={t('gds.threadList.loading', 'Loading conversations')} />;
+    return <StateBlock variant="loading" compact titleOrder={stateTitleOrder} title={t('gds.threadList.loading', 'Loading conversations')} />;
   }
   if (threads.length === 0) {
-    return <StateBlock variant="empty" compact title={emptyTitle ?? t('gds.threadList.emptyTitle', 'No conversations yet')} />;
+    return <StateBlock variant="empty" compact titleOrder={stateTitleOrder} title={emptyTitle ?? t('gds.threadList.emptyTitle', 'No conversations yet')} />;
   }
 
   return (

@@ -1,10 +1,10 @@
 {
-  "evaluated": 1278,
+  "evaluated": 1279,
   "gapCount": 344,
   "excludedCount": 80,
   "byKind": {
     "prop": {
-      "evaluated": 1159,
+      "evaluated": 1160,
       "gaps": 306
     },
     "variant": {
@@ -1984,7 +1984,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 93
+        "line": 103
       },
       "unmet": [
         {

@@ -33,6 +33,8 @@ export interface AsyncSurfaceProps extends SurfacePresentationProps {
   /** Custom retry action; overrides the default button built from `onRetry`. */
   retryAction?: ReactNode;
   compact?: boolean;
+  /** Heading level of the state block title; defaults to 3, or 4 when `compact`. Set it to fit the surrounding outline. */
+  titleOrder?: 2 | 3 | 4 | 5 | 6;
 }
 
 function getRetryAction(onRetry?: () => void) {
@@ -52,6 +54,7 @@ function renderStateBlock({
   contentAlign,
   contentJustify,
   action,
+  titleOrder,
 }: {
   variant: StateBlockVariant;
   title: string;
@@ -62,6 +65,7 @@ function renderStateBlock({
   contentAlign?: SurfacePresentationProps['contentAlign'];
   contentJustify?: SurfacePresentationProps['contentJustify'];
   action?: ReactNode;
+  titleOrder?: 2 | 3 | 4 | 5 | 6;
 }) {
   return (
     <StateBlock
@@ -70,6 +74,7 @@ function renderStateBlock({
       description={description}
       action={action}
       compact={compact}
+      titleOrder={titleOrder}
       presentation={presentation}
       minHeight={minHeight}
       contentAlign={contentAlign}
@@ -100,6 +105,7 @@ export function AsyncSurface({
   onRetry,
   retryAction,
   compact = false,
+  titleOrder,
   presentation = 'inline',
   minHeight,
   contentAlign,
@@ -131,6 +137,7 @@ export function AsyncSurface({
       title: loadingTitle,
       description: loadingDescription,
       compact,
+      titleOrder,
       presentation,
       minHeight,
       contentAlign,
@@ -144,6 +151,7 @@ export function AsyncSurface({
       title: emptyTitle,
       description: emptyDescription,
       compact,
+      titleOrder,
       presentation,
       minHeight,
       contentAlign,
@@ -158,6 +166,7 @@ export function AsyncSurface({
       title: errorTitle,
       description: errorDescription,
       compact,
+      titleOrder,
       presentation,
       minHeight,
       contentAlign,
@@ -171,6 +180,7 @@ export function AsyncSurface({
     title: refreshingTitle,
     description: refreshingDescription,
     compact,
+    titleOrder,
     presentation,
     minHeight,
     contentAlign,

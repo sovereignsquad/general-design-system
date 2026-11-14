@@ -172,6 +172,7 @@ export function TemplateStateGate({
       refreshingDescription={stateDescription('retrying')}
       retryAction={retryAction}
       compact={false}
+      titleOrder={2}
     />
   );
 }

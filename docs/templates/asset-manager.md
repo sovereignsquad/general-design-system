@@ -62,6 +62,37 @@ Dense file or asset screen with a folder tree, toolbar, bulk actions, a table/gr
 - `action_clicked`
 - `retry_requested`
 
+## Do
+
+- Pass both `table` and `grid` to get the layout toggle; with only one there is no toggle.
+- Pass `bulkActions` with the current `selectedCount`; the bar shows only while it is above zero.
+
+## Don't
+
+- Do not import it from the `/server` entry; it is a client component.
+- Do not wrap `tree` in your own `nav`; the template already wraps it in a labelled `nav`.
+
+## Minimal example
+
+From [`examples/asset-manager.tsx`](examples/asset-manager.tsx), which the test suite renders and checks with axe.
+
+```tsx
+import { BodyText, GdsAssetManagerTemplate, GdsTreeView } from '@sovereignsquad/gds-core';
+
+export default function AssetManagerExample() {
+  return (
+    <GdsAssetManagerTemplate
+      title="Files"
+      state="ready"
+      tree={<GdsTreeView ariaLabel="Folders" nodes={[{ id: 'brand', label: 'Brand' }, { id: 'press', label: 'Press' }]} />}
+      bulkActions={{ selectedCount: 0, actions: [], onClearSelection: () => undefined }}
+      table={<BodyText>Items as a table.</BodyText>}
+      grid={<BodyText>Items as a grid.</BodyText>}
+    />
+  );
+}
+```
+
 ## Rollback
 
 Keep the existing resource screen beside this template; the slots accept the current table and upload components.

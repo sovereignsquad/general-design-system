@@ -47,6 +47,34 @@ First-run or no-results page with actionable copy, status, and optional illustra
 - `state_visible`
 - `action_clicked`
 
+## Do
+
+- Put the first step, such as creating the first item, in `actions`.
+- Pass an `illustration` only when it adds meaning; it renders above the heading.
+
+## Don't
+
+- Do not use it for one empty section inside a page; use `StateBlock`.
+- Do not omit `description` when the next step is not obvious from the title.
+
+## Minimal example
+
+From [`examples/empty-state-page.tsx`](examples/empty-state-page.tsx), which the test suite renders and checks with axe.
+
+```tsx
+import { GdsEmptyStateTemplate } from '@sovereignsquad/gds-core';
+
+export default function EmptyStatePageExample() {
+  return (
+    <GdsEmptyStateTemplate
+      title="No projects yet"
+      description="Create a project to start tracking work."
+      actions={[{ id: 'create', label: 'Create project', kind: 'primary', onClick: () => undefined }]}
+    />
+  );
+}
+```
+
 ## Rollback
 
 Replace blank pages and static placeholders route by route when recovery actions are ready.

@@ -425,7 +425,7 @@ The type parameters are inferred from `columns` + `renderItem`, so the explicit 
 
 ### Heading levels in panels and state blocks
 
-`SectionPanel` and `StateBlock` take `titleOrder` (2 to 6) so their title fits the page outline; the defaults are unchanged (`SectionPanel` 3, `StateBlock` 3, or 4 when `compact`). Page templates use 2 under the page title. `MetricCard` renders its value as text at the `h3` type scale, not as a heading: a metric value is data, and as a heading it broke the outline of every page that showed metrics.
+`SectionPanel` and `StateBlock` take `titleOrder` (2 to 6) so their title fits the page outline; the defaults are unchanged (`SectionPanel` 3, `StateBlock` 3, or 4 when `compact`). `AsyncSurface` takes `titleOrder` for its state blocks, and `SimpleDataTable` and `GdsThreadList` take `stateTitleOrder` for their loading, error and empty titles (default 4). Page templates use 2 under the page title and 3 inside their sections, and are tested with axe in every state they declare. `MetricCard` renders its value as text at the `h3` type scale, not as a heading: a metric value is data, and as a heading it broke the outline of every page that showed metrics.
 
 ### Thread List and Message Thread Rules (#957)
 

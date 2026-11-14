@@ -1,5 +1,6 @@
 // Writes the page-template catalog block in llms.txt and one spec per template in
-// docs/templates/, from getGdsPageTemplates() in the built gds-core. --check fails on drift.
+// docs/templates/, from getGdsPageTemplates() in the built gds-core and the example in
+// docs/templates/examples/<id>.tsx. --check fails on drift.
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -9,6 +10,7 @@ const check = process.argv.includes('--check');
 const distEntry = resolve(root, 'packages/gds-core/dist/index.mjs');
 const llmsPath = resolve(root, 'llms.txt');
 const specDir = resolve(root, 'docs/templates');
+const exampleDir = resolve(specDir, 'examples');
 const START = '<!-- gds:page-templates:start -->';
 const END = '<!-- gds:page-templates:end -->';
 
@@ -40,6 +42,11 @@ for (const template of templates) {
   const name = exportNames[template.id];
   if (!name) failures.push(`Template "${template.id}" has no export name in scripts/generate-page-template-docs.mjs.`);
   else if (typeof core[name] !== 'function') failures.push(`${name} is not a function export of @sovereignsquad/gds-core.`);
+  if (!template.guidance) failures.push(`Template "${template.id}" has no guidance in its config.`);
+  if (!existsSync(resolve(exampleDir, `${template.id}.tsx`))) failures.push(`Template "${template.id}" has no example at docs/templates/examples/${template.id}.tsx.`);
+}
+for (const file of existsSync(exampleDir) ? readdirSync(exampleDir) : []) {
+  if (!templates.some((template) => `${template.id}.tsx` === file)) failures.push(`docs/templates/examples/${file} matches no template.`);
 }
 for (const id of Object.keys(exportNames)) {
   if (!templates.some((template) => template.id === id)) failures.push(`Export map lists "${id}", which getGdsPageTemplates() does not return.`);
@@ -105,6 +112,22 @@ ${list(template.edgeCases)}
 ## Telemetry events
 
 ${list(template.telemetryEvents.map(code))}
+
+## Do
+
+${list(template.guidance.do)}
+
+## Don't
+
+${list(template.guidance.dont)}
+
+## Minimal example
+
+From [\`examples/${template.id}.tsx\`](examples/${template.id}.tsx), which the test suite renders and checks with axe.
+
+\`\`\`tsx
+${readFileSync(resolve(exampleDir, `${template.id}.tsx`), 'utf8').trimEnd()}
+\`\`\`
 
 ## Rollback
 

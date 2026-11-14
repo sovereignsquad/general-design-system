@@ -58,6 +58,36 @@ Inbox with workspace navigation, a thread list and a conversation pane; list the
 - `action_clicked`
 - `retry_requested`
 
+## Do
+
+- Set `hasSelection` and `detailTitle` when a conversation opens; on a narrow viewport the conversation replaces the list and its heading takes focus.
+- Pass `onBack` to clear the selection; the narrow-viewport back action calls it.
+- Give the `GdsThreadList` `stateTitleOrder={2}` so its loading, empty and error titles follow the page `h1`.
+
+## Don't
+
+- Do not pass `detail` without `hasSelection`; the pane asks for a selection until it is set.
+- Do not import it from the `/server` entry; it is a client component.
+
+## Minimal example
+
+From [`examples/workspace-inbox.tsx`](examples/workspace-inbox.tsx), which the test suite renders and checks with axe.
+
+```tsx
+import { GdsThreadList, GdsWorkspaceInboxTemplate } from '@sovereignsquad/gds-core';
+
+export default function WorkspaceInboxExample() {
+  return (
+    <GdsWorkspaceInboxTemplate
+      title="Inbox"
+      state="ready"
+      threadList={<GdsThreadList ariaLabel="Conversations" threads={[{ id: 't1', title: 'Venue booking', preview: 'Is Friday still free?' }]} stateTitleOrder={2} />}
+      hasSelection={false}
+    />
+  );
+}
+```
+
 ## Rollback
 
 Adopt per inbox route; the thread list and conversation slots accept existing components.

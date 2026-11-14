@@ -87,6 +87,16 @@ export interface GdsPageTemplateConfig {
   accessibility: string[];
   edgeCases: string[];
   rollback: string;
+  /** Usage guidance rendered in the template's spec: what to do and what to avoid, from the template's behaviour. */
+  guidance?: GdsPageTemplateGuidance;
+}
+
+/** Do and don't guidance for one page template. */
+export interface GdsPageTemplateGuidance {
+  /** Recommended uses, one sentence each. */
+  do: string[];
+  /** Uses to avoid, one sentence each. */
+  dont: string[];
 }
 
 /** Shared props for every GDS page template: header content, current state, actions, and retry wiring. */
@@ -246,6 +256,16 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['main landmark', 'single h1', 'status copy', 'keyboard reachable actions'],
     edgeCases: ['no metrics', 'long localized title', 'permission denied', 'stale loader'],
     rollback: 'Keep the previous product route while adopting this additive template export.',
+    guidance: {
+      do: [
+        'Pass `metrics` as `MetricCard` props, one numeric KPI each.',
+        'Pass `onRetry` so the error and retrying states offer a retry action.',
+      ],
+      dont: [
+        'Do not publish the page without metrics; it shows a "No metrics configured" block instead.',
+        'Do not put identifiers, categories or placeholders in a metric `value`.',
+      ],
+    },
   },
   {
     id: 'settings',
@@ -260,6 +280,16 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['labelled groups', 'save state copy', 'error recovery', 'keyboard submit path'],
     edgeCases: ['missing group', 'disabled save', 'server validation failure'],
     rollback: 'Consumers can keep route-local settings pages until migration is complete.',
+    guidance: {
+      do: [
+        'Give each group an `id`, a `title` and its `fields`; each group is its own panel with an `h2`.',
+        'Put the save action in `actions` and set its `loading` while saving.',
+      ],
+      dont: [
+        'Do not pass an empty `groups` list for a page that has settings; it shows a "No settings groups" block.',
+        'Do not put a destructive action among the settings fields; use the crud-editor template\'s destructive zone.',
+      ],
+    },
   },
   {
     id: 'resource-manager',
@@ -274,6 +304,16 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['table headers', 'named row actions', 'detail heading', 'retry action'],
     edgeCases: ['empty resources', 'not found detail', 'permission denied', 'stale rows'],
     rollback: 'Adopt per resource type; no persistence contract is hardcoded into the template.',
+    guidance: {
+      do: [
+        'Pass `getRowKey` so each row keeps a stable key when the list changes.',
+        'Pass `detail` for the selected resource; large screens then show the list and the detail side by side.',
+      ],
+      dont: [
+        'Do not use it for folders or bulk actions on a selection; use the asset-manager template.',
+        'Do not omit `columns`; the table renders only the columns it is given.',
+      ],
+    },
   },
   {
     id: 'crud-editor',
@@ -288,6 +328,16 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['form labels', 'validation summary', 'status announcements', 'destructive confirmation boundary'],
     edgeCases: ['server validation', 'dirty draft restore', 'permission denied', 'save timeout'],
     rollback: 'Keep existing editor routes beside this template until schema/form adapters are ready.',
+    guidance: {
+      do: [
+        'Pass the form as `form`; it renders in the "Editor" panel.',
+        'Put delete and other irreversible actions in `destructiveZone`, a separate "Destructive actions" panel.',
+      ],
+      dont: [
+        'Do not put irreversible actions in the page `actions` next to save.',
+        'Do not use it for a list of records; use the resource-manager template.',
+      ],
+    },
   },
   {
     id: 'analytics',
@@ -302,6 +352,16 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['non-color-only data summary', 'table fallback', 'heading hierarchy', 'empty data copy', 'chart summaries and data tables for every chart'],
     edgeCases: ['analytics no data', 'partial data', 'single data point', 'large values', 'right-to-left locale', 'chart adapter unavailable', 'long period labels'],
     rollback: 'Keep vendor-specific analytics behind the chart/table slots.',
+    guidance: {
+      do: [
+        'Pass `rows` and `columns`, or `table`: the table is the accessible alternative to the chart and renders without one.',
+        'Pass several charts as `charts`; two or more share two columns on large screens.',
+      ],
+      dont: [
+        'Do not pass `chart` and `charts` together; when `charts` has items, `chart` is not rendered.',
+        'Do not leave the data only in the chart.',
+      ],
+    },
   },
   {
     id: 'public-event',
@@ -316,6 +376,16 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['public main landmark', 'event time text', 'media alternative slot', 'named CTA'],
     edgeCases: ['public event no media', 'registration closed', 'not found', 'timezone copy'],
     rollback: 'Adopt per public route without changing event storage or registration adapters.',
+    guidance: {
+      do: [
+        'Pass `when` already formatted for the reader\'s locale; the template renders it as given.',
+        'Pass the sign-up control as `registration`; a divider separates it from `details`.',
+      ],
+      dont: [
+        'Do not repeat the date and place in `details`; `when` and `location` render in the event header row.',
+        'Do not treat `media` as required; without it the page shows a "No media available" block and stays readable.',
+      ],
+    },
   },
   {
     id: 'error-page',
@@ -330,6 +400,16 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['main landmark', 'semantic heading', 'recovery action label', 'status text'],
     edgeCases: ['retry unavailable', 'permission denied', 'unknown route'],
     rollback: 'Replace route error pages one at a time; no routing adapter is required.',
+    guidance: {
+      do: [
+        'Set `state` to `not-found`, `permission-denied` or `error`; `permission-denied` uses the permission state block.',
+        'Pass `recovery` or `onRetry` so the page offers a way forward.',
+      ],
+      dont: [
+        'Do not use it for an error inside one section; set that page template\'s `state` or use `StateBlock`.',
+        'Do not leave `title` empty unless the state\'s default title fits; the state supplies it when `title` is empty.',
+      ],
+    },
   },
   {
     id: 'empty-state-page',
@@ -344,6 +424,16 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['single h1', 'specific empty reason', 'keyboard reachable recovery', 'no color-only meaning'],
     edgeCases: ['empty no action', 'permission denied', 'not found'],
     rollback: 'Replace blank pages and static placeholders route by route when recovery actions are ready.',
+    guidance: {
+      do: [
+        'Put the first step, such as creating the first item, in `actions`.',
+        'Pass an `illustration` only when it adds meaning; it renders above the heading.',
+      ],
+      dont: [
+        'Do not use it for one empty section inside a page; use `StateBlock`.',
+        'Do not omit `description` when the next step is not obvious from the title.',
+      ],
+    },
   },
   {
     id: 'asset-manager',
@@ -358,6 +448,16 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['folder tree follows the tree pattern', 'keyboard path tree, toolbar, bulk actions, layout toggle, items', 'selection count announced', 'labelled layout toggle'],
     edgeCases: ['empty folder', 'nothing selected', 'thousands of items', 'upload failure', 'folder load error', 'permission denied'],
     rollback: 'Keep the existing resource screen beside this template; the slots accept the current table and upload components.',
+    guidance: {
+      do: [
+        'Pass both `table` and `grid` to get the layout toggle; with only one there is no toggle.',
+        'Pass `bulkActions` with the current `selectedCount`; the bar shows only while it is above zero.',
+      ],
+      dont: [
+        'Do not import it from the `/server` entry; it is a client component.',
+        'Do not wrap `tree` in your own `nav`; the template already wraps it in a labelled `nav`.',
+      ],
+    },
   },
   {
     id: 'workspace-inbox',
@@ -372,6 +472,17 @@ const templateConfigs: GdsPageTemplateConfig[] = [
     accessibility: ['labelled navigation, list and conversation regions', 'focus moves to the conversation heading when it opens on a narrow viewport', 'back action returns to the list', 'messages carry sender and time'],
     edgeCases: ['empty inbox', 'no conversation selected', 'conversation loading', 'conversation load error', 'long thread', 'narrow viewport'],
     rollback: 'Adopt per inbox route; the thread list and conversation slots accept existing components.',
+    guidance: {
+      do: [
+        'Set `hasSelection` and `detailTitle` when a conversation opens; on a narrow viewport the conversation replaces the list and its heading takes focus.',
+        'Pass `onBack` to clear the selection; the narrow-viewport back action calls it.',
+        'Give the `GdsThreadList` `stateTitleOrder={2}` so its loading, empty and error titles follow the page `h1`.',
+      ],
+      dont: [
+        'Do not pass `detail` without `hasSelection`; the pane asks for a selection until it is set.',
+        'Do not import it from the `/server` entry; it is a client component.',
+      ],
+    },
   },
 ];
 
@@ -385,6 +496,7 @@ function cloneTemplateConfig(config: GdsPageTemplateConfig): GdsPageTemplateConf
     telemetryEvents: [...config.telemetryEvents],
     accessibility: [...config.accessibility],
     edgeCases: [...config.edgeCases],
+    ...(config.guidance ? { guidance: { do: [...config.guidance.do], dont: [...config.guidance.dont] } } : {}),
   };
 }
 
@@ -415,6 +527,7 @@ export function validateGdsPageTemplates(templates: GdsPageTemplateConfig[] = te
     if (!template.accessibility.length) failures.push(`${template.id} must define accessibility guidance.`);
     if (!template.edgeCases.length) failures.push(`${template.id} must define edge-case guidance.`);
     if (!template.componentContracts.length) failures.push(`${template.id} must define component contracts.`);
+    if (template.guidance && (!template.guidance.do.length || !template.guidance.dont.length)) failures.push(`${template.id} guidance must list at least one do and one don't.`);
   }
   return failures;
 }
@@ -436,7 +549,7 @@ export function createGdsPageTemplateEvent(
 
 function renderSections(sections: GdsPageTemplateSection[] = []) {
   if (!sections.length) {
-    return <StateBlock variant="empty" title="No sections configured" description="Add at least one governed section before publishing this page." compact />;
+    return <StateBlock variant="empty" title="No sections configured" description="Add at least one governed section before publishing this page." compact titleOrder={2} />;
   }
   return (
     <GdsGrid columns={{ base: 1, md: 2 }} gap="md">
@@ -467,7 +580,7 @@ export function GdsAdminDashboardTemplate({
         successContent={(
           <GdsStack gap="lg">
             <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="md">
-              {metrics.length ? metrics.map((metric) => <MetricCard key={String(metric.label)} {...metric} />) : <StateBlock variant="empty" title="No metrics configured" description="Connect governed metric cards before publishing the dashboard." compact />}
+              {metrics.length ? metrics.map((metric) => <MetricCard key={String(metric.label)} {...metric} />) : <StateBlock variant="empty" title="No metrics configured" description="Connect governed metric cards before publishing the dashboard." compact titleOrder={2} />}
             </SimpleGrid>
             {renderSections(sections)}
           </GdsStack>
@@ -499,7 +612,7 @@ export function GdsSettingsTemplate({
               </SectionPanel>
             ))}
           </GdsStack>
-        ) : <StateBlock variant="empty" title="No settings groups" description="Settings pages must publish grouped fields with labels and save behavior." compact />}
+        ) : <StateBlock variant="empty" title="No settings groups" description="Settings pages must publish grouped fields with labels and save behavior." compact titleOrder={2} />}
       />
     </PageTemplateFrame>
   );
@@ -525,7 +638,7 @@ export function GdsResourceManagerTemplate<T extends Record<string, unknown> = R
         successContent={(
           <GdsGrid columns={{ base: 1, lg: detail ? 2 : 1 }} gap="lg">
             <SectionPanel titleOrder={2} title="Resources" description="Governed resource list with empty, loading, and error states.">
-              <SimpleDataTable rows={rows} columns={columns} getRowKey={getRowKey} emptyTitle="No resources" emptyDescription="Create or import a resource to start this workflow." />
+              <SimpleDataTable rows={rows} columns={columns} getRowKey={getRowKey} emptyTitle="No resources" emptyDescription="Create or import a resource to start this workflow." stateTitleOrder={3} />
             </SectionPanel>
             {detail ? <SectionPanel titleOrder={2} title="Selected resource">{detail}</SectionPanel> : null}
           </GdsGrid>
@@ -596,11 +709,11 @@ export function GdsAnalyticsTemplate<T extends Record<string, unknown> = Record<
                   <SimpleGrid cols={{ base: 1, lg: charts.length > 1 ? 2 : 1 }} spacing="md">
                     {charts.map((item, index) => <Box key={index}>{item}</Box>)}
                   </SimpleGrid>
-                ) : (chart ?? <StateBlock variant="not-enough-data" title="No chart available" description="Provide a governed chart or keep the table fallback visible." compact />)}
+                ) : (chart ?? <StateBlock variant="not-enough-data" title="No chart available" description="Provide a governed chart or keep the table fallback visible." compact titleOrder={3} />)}
               </GdsStack>
             </SectionPanel>
             {insight ? <Card withBorder radius="lg" padding="md">{insight}</Card> : null}
-            {table ?? <SimpleDataTable rows={rows} columns={columns} emptyTitle="No analytics data" emptyDescription="The selected period has no reportable data yet." />}
+            {table ?? <SimpleDataTable rows={rows} columns={columns} emptyTitle="No analytics data" emptyDescription="The selected period has no reportable data yet." stateTitleOrder={3} />}
           </GdsStack>
         )}
       />
@@ -628,7 +741,7 @@ export function GdsPublicEventTemplate({
         retryLabel={retryLabel}
         successContent={(
           <GdsGrid columns={{ base: 1, md: media ? 2 : 1 }} gap="lg">
-            {media ? <Card withBorder radius="lg" padding="md">{media}</Card> : <StateBlock variant="empty" title="No media available" description="This event remains readable without a hero image." compact />}
+            {media ? <Card withBorder radius="lg" padding="md">{media}</Card> : <StateBlock variant="empty" title="No media available" description="This event remains readable without a hero image." compact titleOrder={2} />}
             <Card withBorder radius="lg" padding="lg">
               <Stack gap="md">
                 <Group gap="sm" wrap="wrap">
@@ -671,6 +784,7 @@ export function GdsErrorPageTemplate({
         variant={state === 'permission-denied' ? 'permission' : 'error'}
         title={code ? `${code}: ${resolvedTitle}` : resolvedTitle}
         description={resolvedDescription}
+        titleOrder={2}
         action={recovery ?? (onRetry ? <button type="button" onClick={onRetry}>{retryLabel}</button> : undefined)}
       />
     </PageTemplateFrame>
