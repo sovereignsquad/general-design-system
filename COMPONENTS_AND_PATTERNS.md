@@ -423,6 +423,10 @@ The type parameters are inferred from `columns` + `renderItem`, so the explicit 
 <ResponsiveDataView data={rows} columns={columns} renderCard={renderCard} showViewToggle />
 ```
 
+### Heading levels in panels and state blocks
+
+`SectionPanel` and `StateBlock` take `titleOrder` (2 to 6) so their title fits the page outline; the defaults are unchanged (`SectionPanel` 3, `StateBlock` 3, or 4 when `compact`). Page templates use 2 under the page title. `MetricCard` renders its value as text at the `h3` type scale, not as a heading: a metric value is data, and as a heading it broke the outline of every page that showed metrics.
+
 ### Thread List and Message Thread Rules (#957)
 
 - **`GdsThreadList`** lists conversations as buttons in a labelled list. The open thread carries `aria-current="true"` and the navigation active paint. An unread thread is bold, shows a dot and includes a visually hidden "Unread" label, so the state does not rely on colour. Timestamps use `formatGdsDate` for the active locale (time for today, date otherwise). Built-in loading, empty, error (with `onRetry`) and `hasMore`/`onLoadMore` states.

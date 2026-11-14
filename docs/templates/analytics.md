@@ -27,7 +27,10 @@ Reporting page with metrics, chart slot, table fallback, empty data, and retry s
 ## Component contracts
 
 - `MetricCard`
-- `GdsChart`
+- `PeriodSelector`
+- `GdsAreaChart`
+- `GdsLineChart`
+- `GdsDataTable`
 - `SimpleDataTable`
 - `StateBlock`
 
@@ -41,10 +44,15 @@ Reporting page with metrics, chart slot, table fallback, empty data, and retry s
 - table fallback
 - heading hierarchy
 - empty data copy
+- chart summaries and data tables for every chart
 
 ## Edge cases
 
 - analytics no data
+- partial data
+- single data point
+- large values
+- right-to-left locale
 - chart adapter unavailable
 - long period labels
 

@@ -20,6 +20,8 @@ export interface SectionPanelProps extends SurfacePresentationProps {
   id?: string;
   /** Show a divider between the header and body. Defaults to `true`. */
   divided?: boolean;
+  /** Heading level of `title`, so the panel fits the page outline. Defaults to `3`. */
+  titleOrder?: 2 | 3 | 4 | 5 | 6;
 }
 
 const toneBackgrounds: Record<SectionPanelTone, string> = {
@@ -38,6 +40,7 @@ const toneBackgrounds: Record<SectionPanelTone, string> = {
 export function SectionPanel({
   eyebrow,
   title,
+  titleOrder = 3,
   description,
   action,
   children,
@@ -86,7 +89,7 @@ export function SectionPanel({
                       {eyebrow}
                     </Text>
                   ) : null}
-                  {title ? <Title order={3}>{title}</Title> : null}
+                  {title ? <Title order={titleOrder}>{title}</Title> : null}
                   {description ? (
                     <Text size="sm" c="dimmed">
                       {description}

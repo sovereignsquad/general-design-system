@@ -23,6 +23,8 @@ const exportNames = {
   'public-event': 'GdsPublicEventTemplate',
   'error-page': 'GdsErrorPageTemplate',
   'empty-state-page': 'GdsEmptyStateTemplate',
+  'asset-manager': 'GdsAssetManagerTemplate',
+  'workspace-inbox': 'GdsWorkspaceInboxTemplate',
 };
 
 if (!existsSync(distEntry)) {

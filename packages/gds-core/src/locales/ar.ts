@@ -352,4 +352,13 @@ export const ar = {
   'gds.threadList.emptyTitle': "لا توجد محادثات بعد",
   'gds.threadList.unread': "غير مقروءة",
   'gds.threadList.loadMore': "تحميل المزيد",
+  'gds.assetManagerTemplate.folders': "المجلدات",
+  'gds.assetManagerTemplate.emptyTitle': "هذا المجلد فارغ",
+  'gds.assetManagerTemplate.detailTitle': "العنصر المحدد",
+  'gds.workspaceInboxTemplate.conversations': "المحادثات",
+  'gds.workspaceInboxTemplate.conversation': "محادثة",
+  'gds.workspaceInboxTemplate.back': "العودة إلى المحادثات",
+  'gds.workspaceInboxTemplate.loading': "جارٍ تحميل المحادثة",
+  'gds.workspaceInboxTemplate.noSelection': "حدد محادثة",
+  'gds.workspaceInboxTemplate.navigation': "مساحة العمل",
 };

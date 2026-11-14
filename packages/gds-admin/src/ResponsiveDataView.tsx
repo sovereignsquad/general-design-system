@@ -1,10 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Badge, Group, SegmentedControl, SimpleGrid, Stack } from '@mantine/core';
+import { Badge, Group, SimpleGrid, Stack } from '@mantine/core';
 import { useMediaQuery, useUncontrolled } from '@mantine/hooks';
-import { useGdsTranslation } from '@sovereignsquad/gds-theme';
-import { GdsRemovableTag, StateBlock } from '@sovereignsquad/gds-core';
+import { GdsRemovableTag, GdsViewToggle, StateBlock, type GdsCollectionView } from '@sovereignsquad/gds-core';
 import { DataTable, type DataTableColumn } from './DataTable';
 
 /** An active-filter chip shown above a {@link ResponsiveDataView}. */
@@ -16,7 +15,7 @@ export interface ResponsiveDataViewFilterChip {
 }
 
 /** Layout of a {@link ResponsiveDataView} on wide viewports. */
-export type ResponsiveDataViewMode = 'table' | 'grid';
+export type ResponsiveDataViewMode = GdsCollectionView;
 
 /** Props for {@link ResponsiveDataView}. */
 export interface ResponsiveDataViewProps<T extends Record<string, unknown>> {
@@ -86,7 +85,6 @@ export function ResponsiveDataView<T extends Record<string, unknown>>({
   onViewChange,
   showViewToggle = false,
 }: ResponsiveDataViewProps<T>) {
-  const { t } = useGdsTranslation();
   const isMobile = useMediaQuery('(max-width: 48em)');
   const [view, setView] = useUncontrolled<ResponsiveDataViewMode>({ value: viewProp, defaultValue: defaultView, finalValue: 'table', onChange: onViewChange });
   const showCards = isMobile || view === 'grid';
@@ -104,16 +102,7 @@ export function ResponsiveDataView<T extends Record<string, unknown>>({
     <Stack gap="md">
       {toolbar}
       {showViewToggle && !isMobile ? (
-        <SegmentedControl
-          aria-label={t('gds.dataView.toggleLabel', 'Layout')}
-          value={view}
-          onChange={(value) => setView(value as ResponsiveDataViewMode)}
-          data={[
-            { value: 'table', label: t('gds.dataView.table', 'Table') },
-            { value: 'grid', label: t('gds.dataView.grid', 'Grid') },
-          ]}
-          style={{ alignSelf: 'flex-start' }}
-        />
+        <GdsViewToggle value={view} onChange={setView} />
       ) : null}
       {activeFilters.length ? (
         <Group gap="xs" wrap="wrap">

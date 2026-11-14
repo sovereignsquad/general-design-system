@@ -1,7 +1,7 @@
 {
   "declared": 358,
-  "referenced": 161,
-  "extensionPoints": 129,
+  "referenced": 162,
+  "extensionPoints": 128,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -897,13 +897,6 @@
     },
     {
       "token": "--gds-weight-regular",
-      "classification": "extension-point",
-      "reason": "Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-weight-semibold",
       "classification": "extension-point",
       "reason": "Typography-axis named weight (issue 557). Published so a consumer names a weight rather than hardcoding a number.",
       "reviewBy": "2027-08-01",

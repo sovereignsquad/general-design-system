@@ -732,8 +732,13 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
   },
   {
     "name": "GdsAnalyticsTemplate",
-    "status": "exempt",
-    "reason": "Page template (GdsPageTemplates) — full-page scaffold."
+    "status": "registered",
+    "home": {
+      "id": "analytics-template",
+      "family": "data",
+      "section": "Search & Data Views"
+    },
+    "alsoAppearsIn": []
   },
   {
     "name": "GdsAreaChart",
@@ -749,6 +754,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "name": "GdsAssetManager",
     "status": "exempt",
     "reason": "Client-runtime composite (GdsAssetManager.client) — asset manager scaffold, not a standalone catalog pattern."
+  },
+  {
+    "name": "GdsAssetManagerTemplate",
+    "status": "registered",
+    "home": {
+      "id": "asset-manager-template",
+      "family": "data",
+      "section": "Search & Data Views"
+    },
+    "alsoAppearsIn": []
   },
   {
     "name": "GdsAssetPreviewCard",
@@ -1695,6 +1710,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "GdsViewToggle",
+    "status": "registered",
+    "home": {
+      "id": "asset-manager-template",
+      "family": "data",
+      "section": "Search & Data Views"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsVocabulary",
     "status": "exempt",
     "reason": "i18n/vocabulary runtime surface (vocabulary) — provider/consumer helper, not a catalog pattern."
@@ -1706,6 +1731,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
       "id": "dashboards",
       "family": "operations",
       "section": "Workflow Guidance"
+    },
+    "alsoAppearsIn": []
+  },
+  {
+    "name": "GdsWorkspaceInboxTemplate",
+    "status": "registered",
+    "home": {
+      "id": "workspace-inbox-template",
+      "family": "data",
+      "section": "Search & Data Views"
     },
     "alsoAppearsIn": []
   },

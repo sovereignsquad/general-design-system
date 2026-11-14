@@ -459,6 +459,8 @@ describe('@sovereignsquad/gds-core', () => {
       'public-event',
       'error-page',
       'empty-state-page',
+      'asset-manager',
+      'workspace-inbox',
     ]);
     expect(validateGdsPageTemplates(templates)).toEqual([]);
     for (const template of templates) {
