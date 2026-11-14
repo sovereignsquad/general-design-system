@@ -331,4 +331,8 @@ export const en = {
   'gds.trust.checklist.registration': "Registration requirements",
   'gds.trust.checklist.cancellation': "Cancellation / refund policy",
   'gds.trust.checklist.parentPresence': "Parent presence requirement",
+  'gds.appShell.primaryHeading': "Primary",
+  'gds.appShell.secondaryHeading': "More",
+  'gds.appShell.accountHeading': "Account",
+  'gds.state.emptyDataTitle': "No data available",
 };

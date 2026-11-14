@@ -3,6 +3,7 @@
 import { forwardRef } from 'react';
 import type { ReactNode } from 'react';
 import { Box, NavLink, Stack, Text, createPolymorphicComponent } from '@mantine/core';
+import { useUncontrolled } from '@mantine/hooks';
 import type { NavLinkProps } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { getSemanticActionLabel, resolveSemanticActionConfig } from './vocabulary';
@@ -45,6 +46,12 @@ export interface SidebarNavItemProps extends Omit<NavLinkProps, 'label' | 'leftS
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
   /** Vocabulary packs consulted to resolve `action` labels and icons. */
   vocabularyPacks?: GdsVocabularyPack[];
+  /**
+   * Nested items. An item with children is a disclosure: it renders as `<button type="button">`
+   * with `aria-expanded`, toggles on click, Enter and Space, and indents its children by
+   * `--gds-space-md`. Use `opened`/`onChange` to control it, or `defaultOpened`.
+   */
+  children?: ReactNode;
 }
 
 /**
@@ -90,9 +97,20 @@ const _SidebarNavItem = forwardRef<HTMLAnchorElement, SidebarNavItemProps>(
     'aria-label': ariaLabel,
     'aria-current': ariaCurrent,
     vocabularyPacks = [],
+    children,
+    opened: openedProp,
+    defaultOpened,
+    onChange,
+    childrenOffset = 'var(--gds-space-md)',
     ...props
   }, ref) => {
     const { t } = useGdsTranslation();
+    const hasChildren = Boolean(children);
+    const [opened, setOpened] = useUncontrolled({ value: openedProp, defaultValue: defaultOpened, finalValue: false, onChange });
+    // A parent with children is a disclosure button, not a link without href.
+    const disclosureProps: Record<string, unknown> = hasChildren
+      ? { component: 'button', type: 'button', 'aria-expanded': opened, opened, onChange: setOpened }
+      : {};
     const config = action ? resolveSemanticActionConfig(action, vocabularyPacks) : null;
     const Icon = config?.icon;
     const resolvedLabel = label ?? (action ? getSemanticActionLabel(action, t, vocabularyPacks) : undefined);
@@ -106,8 +124,12 @@ const _SidebarNavItem = forwardRef<HTMLAnchorElement, SidebarNavItemProps>(
         rightSection={badge ? <Box>{badge}</Box> : props.rightSection}
         aria-label={ariaLabel ?? (typeof resolvedLabel === 'string' ? resolvedLabel : undefined)}
         aria-current={props.active ? 'page' : ariaCurrent}
+        childrenOffset={childrenOffset}
+        {...disclosureProps}
         {...props}
-      />
+      >
+        {children}
+      </NavLink>
     );
   },
 );

@@ -331,4 +331,8 @@ export const ko = {
   'gds.trust.checklist.registration': "등록 요건",
   'gds.trust.checklist.cancellation': "취소/환불 정책",
   'gds.trust.checklist.parentPresence': "보호자 동반 필요",
+  'gds.appShell.primaryHeading': "주요한",
+  'gds.appShell.secondaryHeading': "더",
+  'gds.appShell.accountHeading': "계정",
+  'gds.state.emptyDataTitle': "데이터가 없습니다",
 };

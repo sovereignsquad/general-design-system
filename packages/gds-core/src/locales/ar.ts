@@ -331,4 +331,8 @@ export const ar = {
   'gds.trust.checklist.registration': "متطلبات التسجيل",
   'gds.trust.checklist.cancellation': "سياسة الإلغاء / الاسترداد",
   'gds.trust.checklist.parentPresence': "يلزم حضور أحد الوالدين",
+  'gds.appShell.primaryHeading': "أساسي",
+  'gds.appShell.secondaryHeading': "أكثر",
+  'gds.appShell.accountHeading': "حساب",
+  'gds.state.emptyDataTitle': "لا توجد بيانات متاحة",
 };

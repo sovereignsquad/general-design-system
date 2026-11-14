@@ -331,4 +331,8 @@ export const ru = {
   'gds.trust.checklist.registration': "Требования к регистрации",
   'gds.trust.checklist.cancellation': "Условия отмены / возврата средств",
   'gds.trust.checklist.parentPresence': "Требуется присутствие родителя",
+  'gds.appShell.primaryHeading': "Начальный",
+  'gds.appShell.secondaryHeading': "Более",
+  'gds.appShell.accountHeading': "Счет",
+  'gds.state.emptyDataTitle': "Нет доступных данных",
 };

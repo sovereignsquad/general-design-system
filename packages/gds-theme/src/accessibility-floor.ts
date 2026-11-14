@@ -253,6 +253,32 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     },
   },
   {
+    id: 'nav-states-legible',
+    axis: 'color',
+    wcag: '1.4.3 Contrast (Minimum) (AA); 1.4.11 Non-text Contrast (AA)',
+    rationale: 'The active navigation item is where the user is; its label must be readable and its indicator visible against the sidebar (#955, #944).',
+    evaluate(ctx) {
+      const out: GdsFloorViolation[] = [];
+      const sidebar = ctx.tokens['--gds-bg-sidebar'];
+      const activeBg = ctx.tokens['--gds-nav-active-bg'];
+      const pairs: Array<[string, string | undefined, string | undefined, number]> = [
+        ['active label', ctx.tokens['--gds-nav-active-fg'], activeBg, 4.5],
+        ['hover label', ctx.tokens['--gds-text-body'], ctx.tokens['--gds-nav-hover-bg'], 4.5],
+        ['inactive label', ctx.tokens['--gds-text-body'], sidebar, 4.5],
+        ['indicator on sidebar', ctx.tokens['--gds-nav-active-indicator'], sidebar, 3],
+        ['indicator on active background', ctx.tokens['--gds-nav-active-indicator'], activeBg, 3],
+      ];
+      for (const [label, fg, bg, min] of pairs) {
+        const ratio = fg && bg ? contrastRatio(fg, bg, bg) : null;
+        if (ratio === null || ratio < min) {
+          out.push(violation(ctx, this, `${label} = ${ratio ?? 'missing'}:1`, `>= ${min}:1`,
+            'Nav states are derived in emitSurfaceHierarchyCssVariables (semantic token source) from the sidebar, body text and brand accent; if one fails, one of those changed.'));
+        }
+      }
+      return out;
+    },
+  },
+  {
     id: 'surface-separation',
     axis: 'color',
     wcag: '1.4.11 Non-text Contrast (AA), informative: a surface is not a UI component',

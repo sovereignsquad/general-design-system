@@ -331,4 +331,8 @@ export const zh = {
   'gds.trust.checklist.registration': "报名要求",
   'gds.trust.checklist.cancellation': "取消/退款政策",
   'gds.trust.checklist.parentPresence': "需家长陪同",
+  'gds.appShell.primaryHeading': "基本的",
+  'gds.appShell.secondaryHeading': "更多的",
+  'gds.appShell.accountHeading': "帐户",
+  'gds.state.emptyDataTitle': "无可用数据",
 };

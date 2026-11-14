@@ -9,7 +9,7 @@ import { pathToFileURL } from 'node:url';
 const root = process.cwd();
 const stylesPath = resolve(root, 'packages/gds-theme/styles.css');
 const themeDist = resolve(root, 'packages/gds-theme/dist/index.mjs');
-const AXIS_FAMILY = /^--gds-(space|radius|elevation|control-height|shell-height|layout|font-size|line-height|weight|reaction|density|focus-ring|badge|chart|brand|state)(-|$)/;
+const AXIS_FAMILY = /^--gds-(space|radius|elevation|control-height|shell-height|layout|font-size|line-height|weight|reaction|density|focus-ring|badge|chart|brand|state|nav)(-|$)/;
 const HELPER_FAMILY = { gdsRadius: 'radius', gdsSpace: 'space', gdsElevation: 'elevation' };
 
 if (!existsSync(themeDist)) {
