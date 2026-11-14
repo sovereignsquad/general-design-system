@@ -1,11 +1,11 @@
 {
-  "tokenUniverse": 261,
+  "tokenUniverse": 264,
   "darkSiblingsExcluded": 37,
-  "cellsEvaluated": 1305,
+  "cellsEvaluated": 1320,
   "obligationsSatisfied": {
-    "listed": 111,
-    "demoed": 126,
-    "explained": 95,
+    "listed": 114,
+    "demoed": 129,
+    "explained": 98,
     "variationsShown": 43,
     "useCase": 28
   },
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 9,
-  "tokensWithGaps": 252,
+  "tokensWithGaps": 255,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -3758,6 +3758,139 @@
       ]
     },
     {
+      "token": "--gds-brand-primary",
+      "role": "brand-primary",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-primary-fg",
+      "role": "brand-primary-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-fg",
+      "role": "brand-accent-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-action-fg",
+      "role": "brand-accent-action-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-success",
+      "role": "state-success",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-warning",
+      "role": "state-warning",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-danger",
+      "role": "state-danger",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-info",
+      "role": "state-info",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-chart-series-1",
       "role": "chart-series-1",
       "declaredIn": [
@@ -3838,22 +3971,6 @@
       ]
     },
     {
-      "token": "--gds-brand-primary",
-      "role": "brand-primary",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-support",
       "role": "support",
       "declaredIn": [
@@ -3872,70 +3989,6 @@
     {
       "token": "--gds-price",
       "role": "price",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-state-success",
-      "role": "state-success",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-state-warning",
-      "role": "state-warning",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-state-danger",
-      "role": "state-danger",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-state-info",
-      "role": "state-info",
       "declaredIn": [
         "ts-emitter"
       ],
@@ -4438,6 +4491,38 @@
       ]
     },
     {
+      "token": "--gds-brand-accent",
+      "role": "brand-accent",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-action",
+      "role": "brand-accent-action",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
       "token": "--gds-chart-axis-text",
       "role": "chart-axis-text",
       "declaredIn": [
@@ -4457,36 +4542,6 @@
       "role": "chart-grid",
       "declaredIn": [
         "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-brand-accent",
-      "role": "brand-accent",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-brand-accent-action",
-      "role": "brand-accent-action",
-      "declaredIn": [
-        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,

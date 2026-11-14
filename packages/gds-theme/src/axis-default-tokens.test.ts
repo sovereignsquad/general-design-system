@@ -5,7 +5,8 @@ import { describe, expect, it } from 'vitest';
 import { GDS_MIN_TARGET_PX, resolveGdsAxisTokens } from './axes';
 import { createBrandTheme, deriveBrandSemanticTokens } from './brand-tokens';
 import { createPublicBrandTheme, gdsDarkPublicTheme, gdsTheme } from './theme';
-import { getGdsVibeThemeCssVariables } from './vibe-themes';
+import { contrastRatio } from './color-math';
+import { GDS_DEFAULT_LANE_GREY_ROLES, getGdsDefaultLaneCssVariables, getGdsVibeThemeCssVariables } from './vibe-themes';
 
 const stylesCss = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), '..', 'styles.css'), 'utf8');
 const START = '/* gds:axis-defaults:start';
@@ -52,19 +53,54 @@ describe('default axis tokens in styles.css (#765)', () => {
   });
 });
 
-describe('default badge roles in styles.css (#968)', () => {
-  const badgeBlock = stylesCss.slice(stylesCss.indexOf('/* gds:badge-defaults:start'), stylesCss.indexOf('/* gds:badge-defaults:end */'));
-  const badges = declarationsIn(badgeBlock);
+describe('default badge, brand and state roles in styles.css (#968)', () => {
+  const lane = getGdsDefaultLaneCssVariables();
+  const pair = (name: string) => {
+    const dark = lane[`${name}-dark`] ?? lane[name];
+    return lane[name] === dark ? lane[name] : `light-dark(${lane[name]}, ${dark})`;
+  };
+  const blockOf = (marker: string) => declarationsIn(stylesCss.slice(stylesCss.indexOf(`/* gds:${marker}:start`), stylesCss.indexOf(`/* gds:${marker}:end */`)));
 
-  it('declares every default-preset badge role as its light/dark pair', () => {
-    const light = getGdsVibeThemeCssVariables('default', 'light');
-    const dark = getGdsVibeThemeCssVariables('default', 'dark');
-    const names = Object.keys(light).filter((name) => name.startsWith('--gds-badge-') && !name.endsWith('-dark'));
+  it('declares every default-lane badge role as its light/dark pair', () => {
+    const badges = blockOf('badge-defaults');
+    const names = Object.keys(lane).filter((name) => name.startsWith('--gds-badge-') && !name.endsWith('-dark'));
     expect(names.length).toBeGreaterThan(0);
-    for (const name of names) {
-      const expected = light[name] === dark[name] ? light[name] : `light-dark(${light[name]}, ${dark[name]})`;
-      expect(badges[name], name).toBe(expected);
+    for (const name of names) expect(badges[name], name).toBe(pair(name));
+  });
+
+  it('declares brand and state roles, with brand primary and state info on the muted grey', () => {
+    const brand = blockOf('brand-defaults');
+    for (const name of ['--gds-brand-primary', '--gds-brand-primary-fg', '--gds-brand-accent', '--gds-brand-accent-action-fg', '--gds-state-success', '--gds-state-danger', '--gds-state-info']) {
+      expect(brand[name], name).toBe(pair(name));
     }
+    for (const role of GDS_DEFAULT_LANE_GREY_ROLES) {
+      expect(lane[role]).toBe(lane['--gds-text-meta']);
+      const dark = lane[`${role}-dark`];
+      expect(contrastRatio(dark, lane['--gds-bg-card-dark'], lane['--gds-bg-card-dark']) ?? 0).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it('never paints brand primary or state info with the body text colour', () => {
+    for (const suffix of ['', '-dark']) {
+      const text = lane[`--gds-text-body${suffix}`];
+      for (const role of GDS_DEFAULT_LANE_GREY_ROLES) {
+        expect(lane[`${role}${suffix}`], `${role}${suffix}`).not.toBe(text);
+        expect(contrastRatio(lane[`${role}${suffix}`], text, text) ?? 0, `${role}${suffix} vs body text`).toBeGreaterThanOrEqual(2);
+      }
+    }
+  });
+
+  it('keeps brand primary legible as a fill and as text on the card in both schemes', () => {
+    for (const suffix of ['', '-dark']) {
+      const fill = lane[`--gds-brand-primary${suffix}`];
+      const card = lane[`--gds-bg-card${suffix}`];
+      expect(contrastRatio(lane[`--gds-brand-primary-fg${suffix}`], fill, fill) ?? 0).toBeGreaterThanOrEqual(4.5);
+      expect(contrastRatio(fill, card, card) ?? 0).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it('the default preset itself is unchanged', () => {
+    expect(getGdsVibeThemeCssVariables('default', 'light')['--gds-brand-primary']).toBe(lane['--gds-text-body']);
   });
 });
 

@@ -31,9 +31,13 @@ describe('default semantic-role token layer (#451)', () => {
     expect(stylesCss).toMatch(new RegExp(`${role}\\s*:`));
   });
 
-  it('does NOT pin decorative/accent hue roles at the default layer (they stay brand/preset-driven)', () => {
-    // brand-accent must remain undefined by default so its hue stays a brand decision.
-    expect(stylesCss).not.toMatch(/--gds-brand-accent\s*:/);
+  it('declares brand and state roles only in the generated default-lane block (#968)', () => {
+    // Presets and createBrandTheme override them inline; the :root block serves lanes without a preset.
+    const start = stylesCss.indexOf('/* gds:brand-defaults:start');
+    const end = stylesCss.indexOf('/* gds:brand-defaults:end */');
+    expect(start).toBeGreaterThan(-1);
+    const outside = stylesCss.slice(0, start) + stylesCss.slice(end);
+    expect(outside).not.toMatch(/^\s*--gds-(brand|state)-[\w-]+\s*:/m);
   });
 });
 

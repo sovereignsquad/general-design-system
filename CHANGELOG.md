@@ -16,6 +16,17 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Brand and state roles have defaults in lanes without a preset; brand primary is a grey, never the text colour (#968)
+
+`gdsTheme`, `gdsDarkPublicTheme` and `createPublicBrandTheme` now get `--gds-brand-primary`, `--gds-brand-accent`, `--gds-brand-accent-action` (each with `-fg`) and `--gds-state-success`/`-warning`/`-danger`/`-info` from a generated `gds:brand-defaults` block in `styles.css`. `GdsCompareButton` and `GdsNotificationBell`, which read these without a fallback, previously had no colour in these lanes. The values come from the new `getGdsDefaultLaneCssVariables()`: the `default` preset's roles, except brand primary and state info (`GDS_DEFAULT_LANE_GREY_ROLES`). The preset sets those to the body text colour (`#111827` in light, `#f8fafc` in dark), so here they take its muted grey instead: `#64748b` in light, and in dark the same grey lifted to 4.5:1 on the card (`rgb(154, 164, 179)`). The solid and soft info badge pairs are re-derived from it, so the default-lane info badge is grey, no longer near-black.
+
+Visible changes in lanes without a preset:
+
+- Primary controls that fell back to `--gds-vibe-primary` (violet) or Mantine's primary colour now paint the grey: primary `SemanticButton`, selected `ChoiceChip`, `QuickStartCard`, the `seriesTone="primary"` charts and generated art.
+- State colours read through `--gds-state-*` change from Mantine green, yellow and red to the default preset's contrast-gated values.
+
+Presets and `createBrandTheme` are unchanged: their values are applied inline and override these defaults. `verify:default-lane-axis-tokens` now covers the brand and state families, and `verify:default-lane-axis-runtime` checks the brand-primary fill and its foreground in both schemes.
+
 ### Chart tokens: series ramp, gridlines, axis text, gradient area fill and a swatch legend (#954)
 
 New `--gds-chart-*` roles, emitted for every preset and scheme and for `createBrandTheme(...)`: `--gds-chart-series-1` to `-8` (series 1 from the lane's brand accent, 2-8 from the accent axis, each at least 3:1 against `--gds-bg-card`), `--gds-chart-grid`, `--gds-chart-axis-text` (at least 4.5:1) and the area-gradient stops `--gds-chart-area-opacity-start`/`-end`. Lanes without the preset runtime get the `default` preset's values from a generated `gds:chart-defaults` block in `styles.css`. New accessibility-floor rule `chart-roles-legible`. New exports: `emitChartCssVariables`, `evaluateGdsChartContrast` and the `GDS_CHART_*` constants (gds-theme); `getGdsChartSeriesColor`, `resolveGdsChartTokenColor`, `GDS_CHART_SERIES_COLORS`, `GDS_CHART_SERIES_SLOTS` (gds-core). docs/CHART_TOKENS.md.
