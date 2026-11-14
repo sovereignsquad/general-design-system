@@ -239,7 +239,8 @@ describe('GdsProvider', () => {
     );
 
     expect(screen.getByText('Gold Athlete shell')).toBeInTheDocument();
-    expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('#12161c');
+    // Gold Athlete's hand-authored brand primary is its body text colour, so it takes the readable grey (#970).
+    expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('#414b57');
     expect(document.documentElement.style.getPropertyValue('--gds-brand-accent-action')).toBe('#8a5a00');
 
     unmount();

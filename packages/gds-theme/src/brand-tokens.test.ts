@@ -72,7 +72,8 @@ describe('createBrandTheme', () => {
     expect(result.tokenGraph.themes).toEqual(['gold-athlete']);
     expect(result.mantineTheme.primaryColor).toBe('goldAthleteCharcoal');
     expect(result.mantineTheme.other?.gdsBrandThemeId).toBe('gold-athlete');
-    expect(result.cssVariables['--gds-brand-primary']).toBe('#12161c');
+    // The hand-authored brand primary equals the body text colour, so it takes the readable grey (#970).
+    expect(result.cssVariables['--gds-brand-primary']).toBe(result.cssVariables['--gds-text-meta']);
     expect(result.cssVariables['--gds-brand-primary-pressed']).toBe('#0a0d12');
     expect(result.cssVariables['--gds-brand-accent']).toBe('#c08a12');
     expect(result.cssVariables['--gds-brand-accent-action']).toBe('#8a5a00');

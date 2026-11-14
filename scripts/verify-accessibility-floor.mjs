@@ -32,6 +32,9 @@ const canaryTokens = {
   '--gds-badge-soft-info': '#ffffff',
   '--gds-badge-soft-info-fg': '#fefefe',
   // A near-white series on the white card: chart-roles-legible.
+  // Brand primary in the body text colour: brand-fill-not-text-colour.
+  '--gds-brand-primary': '#111827',
+  '--gds-text-body': '#111827',
   '--gds-chart-series-3': '#fafafa',
   // White on this yellow is ~1.2:1 — breaches primary-cta-text-contrast, which the canary must
   // prove fires even though it only reports.

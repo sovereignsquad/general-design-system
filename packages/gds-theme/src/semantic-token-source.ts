@@ -247,6 +247,7 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
   vars['--gds-state-success-dark'] = tokens['state.success'].dark;
   // Badge tone pairs are derived from the state colours above, so they cannot disagree
   // with them and no lane can forget to emit them.
+  // Consumer brand colours are kept as given; the grey rule applies to GDS presets only.
   Object.assign(vars, emitBadgeToneCssVariables(vars), emitChartCssVariables(vars));
   return vars;
 }
@@ -268,8 +269,9 @@ export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<stri
   // These overrides land after `emitCssVariables` already derived the badge foregrounds, so
   // a foreground computed against the pre-override fill is stale. Re-deriving is idempotent
   // and cannot fall out of step with an override again.
-  Object.assign(vars, emitBadgeToneCssVariables(vars), emitChartCssVariables(vars));
-  return vars;
+  // A brand primary or state info equal to the body text colour takes the readable grey (#970).
+  const greyed = applyGdsGreyWhenText(vars);
+  return { ...greyed, ...emitChartCssVariables(greyed) };
 }
 
 /** Complete `--gds-*` variable set for the Gold Athlete lane. */
@@ -280,8 +282,9 @@ export function emitGoldAthleteCssVariables(ramps: GoldAthleteColorRamps): Recor
   // These overrides land after `emitCssVariables` already derived the badge foregrounds, so
   // a foreground computed against the pre-override fill is stale. Re-deriving is idempotent
   // and cannot fall out of step with an override again.
-  Object.assign(vars, emitBadgeToneCssVariables(vars), emitChartCssVariables(vars));
-  return vars;
+  // A brand primary or state info equal to the body text colour takes the readable grey (#970).
+  const greyed = applyGdsGreyWhenText(vars);
+  return { ...greyed, ...emitChartCssVariables(greyed) };
 }
 
 
@@ -310,10 +313,39 @@ function toRgba(hexOrRgb: string, alpha: number): string {
  * hand-authored for `class-usa`/`gold-athlete`) for any vibe theme that doesn't define one
  * of its own, so badges and other semantic-role consumers get a real per-preset color
  * everywhere instead of falling through to the 12 generic `--gds-vibe-*` variables. Several
- * roles reuse an already-WCAG-safe vibe field directly (e.g. `brand-primary` = `textLight`);
+ * roles reuse an already-WCAG-safe vibe field directly (e.g. `text-body` = `textLight`);
  * the rest are mixed from the preset's own hue and pushed toward black/white with
  * {@link ensureContrast} until they clear WCAG AA/non-text-AA against their background.
  */
+/**
+ * The readable grey brand primary and state info use instead of the body text colour, which
+ * reads as text rather than as a control: the preset's muted text colour at 4.5:1 on the light
+ * card, and the same grey lifted only until it clears 4.5:1 on the dark card.
+ */
+export function deriveGdsReadableGrey(muted: string, card: string, cardDark: string): { light: string; dark: string } {
+  const light = ensureContrast(muted, card, 4.5, false, card);
+  return { light, dark: ensureContrast(light, cardDark, 4.5, true, cardDark) };
+}
+
+/** Roles painted with the readable grey whenever they would otherwise be the body text colour. */
+export const GDS_GREY_WHEN_TEXT_ROLES = ['--gds-brand-primary', '--gds-state-info'] as const;
+
+/**
+ * Replaces any {@link GDS_GREY_WHEN_TEXT_ROLES} value equal to that scheme's body text colour
+ * with the readable grey, then re-derives the badge pairs that depend on it.
+ */
+export function applyGdsGreyWhenText(vars: Record<string, string>): Record<string, string> {
+  const card = vars['--gds-bg-card'] ?? '#ffffff';
+  const cardDark = vars['--gds-bg-card-dark'] ?? card;
+  const grey = deriveGdsReadableGrey(vars['--gds-text-meta'] ?? vars['--gds-text-body'] ?? '#64748b', card, cardDark);
+  const out = { ...vars };
+  for (const role of GDS_GREY_WHEN_TEXT_ROLES) {
+    if (out[role] !== undefined && out[role] === out['--gds-text-body']) out[role] = grey.light;
+    if (out[`${role}-dark`] !== undefined && out[`${role}-dark`] === out['--gds-text-body-dark']) out[`${role}-dark`] = grey.dark;
+  }
+  return { ...out, ...emitBadgeToneCssVariables(out) };
+}
+
 export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<string, string> {
   const accentLight = ensureContrast(vibe.accent, vibe.canvasLight, 3, false, vibe.canvasLight);
   const accentDark = ensureContrast(mixCssColors(vibe.accent, '#ffffff', 0.75, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
@@ -322,9 +354,11 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
   const successLight = ensureContrast(mixCssColors(UNIVERSAL_SUCCESS, vibe.primary, 0.75, vibe.canvasLight), vibe.canvasLight, 3, false, vibe.canvasLight);
   const successDark = ensureContrast(mixCssColors(UNIVERSAL_SUCCESS, '#ffffff', 0.55, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
   const warningLight = ensureContrast(mixCssColors(UNIVERSAL_WARNING, vibe.primary, 0.75, vibe.canvasLight), vibe.canvasLight, 3, false, vibe.canvasLight);
-  const infoDark = ensureContrast(mixCssColors(vibe.mutedDark, '#ffffff', 0.3, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
 
   const bgCardDark = mixCssColors(vibe.canvasDark, '#ffffff', 0.88, vibe.canvasDark);
+  // Brand primary and state info are controls and status fills, not text: the body text
+  // colour would read as text, so both take the preset's readable grey.
+  const grey = deriveGdsReadableGrey(vibe.mutedLight, '#ffffff', bgCardDark);
   const navInactiveOnInverse = toRgba(vibe.textDark, 0.72);
 
   const badgeInfoLight = mixCssColors(vibe.canvasLight, vibe.textLight, 0.92, vibe.canvasLight);
@@ -343,8 +377,8 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
   const textOnSupportDark = readableForeground(supportDark, 4.5, vibe.canvasDark);
 
   const derived: Record<string, string> = {
-    '--gds-brand-primary': vibe.textLight,
-    '--gds-brand-primary-dark': vibe.textDark,
+    '--gds-brand-primary': grey.light,
+    '--gds-brand-primary-dark': grey.dark,
     '--gds-brand-primary-pressed': vibe.canvasDark,
     '--gds-brand-primary-pressed-dark': vibe.canvasDark,
     '--gds-brand-accent': accentLight,
@@ -391,8 +425,8 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
     '--gds-state-warning-dark': UNIVERSAL_WARNING_DARK,
     '--gds-state-danger': UNIVERSAL_DANGER,
     '--gds-state-danger-dark': UNIVERSAL_DANGER_DARK,
-    '--gds-state-info': vibe.textLight,
-    '--gds-state-info-dark': infoDark,
+    '--gds-state-info': grey.light,
+    '--gds-state-info-dark': grey.dark,
     '--gds-badge-attention': accentLight,
     '--gds-badge-attention-dark': accentDark,
     '--gds-badge-validation': successLight,

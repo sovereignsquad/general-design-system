@@ -6,7 +6,8 @@ import { GDS_MIN_TARGET_PX, resolveGdsAxisTokens } from './axes';
 import { createBrandTheme, deriveBrandSemanticTokens } from './brand-tokens';
 import { createPublicBrandTheme, gdsDarkPublicTheme, gdsTheme } from './theme';
 import { contrastRatio } from './color-math';
-import { GDS_DEFAULT_LANE_GREY_ROLES, getGdsDefaultLaneCssVariables, getGdsVibeThemeCssVariables } from './vibe-themes';
+import { GDS_GREY_WHEN_TEXT_ROLES } from './semantic-token-source';
+import { getGdsDefaultLaneCssVariables, getGdsVibeThemeCssVariables } from './vibe-themes';
 
 const stylesCss = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), '..', 'styles.css'), 'utf8');
 const START = '/* gds:axis-defaults:start';
@@ -73,7 +74,7 @@ describe('default badge, brand and state roles in styles.css (#968)', () => {
     for (const name of ['--gds-brand-primary', '--gds-brand-primary-fg', '--gds-brand-accent', '--gds-brand-accent-action-fg', '--gds-state-success', '--gds-state-danger', '--gds-state-info']) {
       expect(brand[name], name).toBe(pair(name));
     }
-    for (const role of GDS_DEFAULT_LANE_GREY_ROLES) {
+    for (const role of GDS_GREY_WHEN_TEXT_ROLES) {
       expect(lane[role]).toBe(lane['--gds-text-meta']);
       const dark = lane[`${role}-dark`];
       expect(contrastRatio(dark, lane['--gds-bg-card-dark'], lane['--gds-bg-card-dark']) ?? 0).toBeGreaterThanOrEqual(4.5);
@@ -83,7 +84,7 @@ describe('default badge, brand and state roles in styles.css (#968)', () => {
   it('never paints brand primary or state info with the body text colour', () => {
     for (const suffix of ['', '-dark']) {
       const text = lane[`--gds-text-body${suffix}`];
-      for (const role of GDS_DEFAULT_LANE_GREY_ROLES) {
+      for (const role of GDS_GREY_WHEN_TEXT_ROLES) {
         expect(lane[`${role}${suffix}`], `${role}${suffix}`).not.toBe(text);
         expect(contrastRatio(lane[`${role}${suffix}`], text, text) ?? 0, `${role}${suffix} vs body text`).toBeGreaterThanOrEqual(2);
       }
@@ -99,8 +100,13 @@ describe('default badge, brand and state roles in styles.css (#968)', () => {
     }
   });
 
-  it('the default preset itself is unchanged', () => {
-    expect(getGdsVibeThemeCssVariables('default', 'light')['--gds-brand-primary']).toBe(lane['--gds-text-body']);
+  it('the default lane carries the default preset values (#970)', () => {
+    for (const scheme of ['light', 'dark'] as const) {
+      const preset = getGdsVibeThemeCssVariables('default', scheme);
+      for (const role of ['--gds-brand-primary', '--gds-state-info', '--gds-badge-solid-info']) {
+        expect(scheme === 'light' ? lane[role] : lane[`${role}-dark`] ?? lane[role], `${role} ${scheme}`).toBe(preset[role]);
+      }
+    }
   });
 });
 

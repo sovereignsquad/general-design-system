@@ -16,7 +16,7 @@ is not enforced yet. Severity is set per finding inside each rule's `evaluate`, 
 This file is GENERATED from `packages/gds-theme/src/accessibility-floor.ts`. A floor described
 differently from how it is checked is a floor nobody can rely on — run `npm run docs:a11y-floor`.
 
-## Rules (12)
+## Rules (13)
 
 - **focus-ring-min-width** (reaction axis, 2.4.11 Focus Appearance (AA)) — Below 2px a focus ring is not reliably visible, and a keyboard user has no other indication of where they are.
 - **focus-ring-is-not-removed** (reaction axis, 2.4.7 Focus Visible (AA)) — A theme must not be able to erase focus indication by setting the ring to none or transparent.
@@ -25,6 +25,7 @@ differently from how it is checked is a floor nobody can rely on — run `npm ru
 - **motion-duration-bounded** (motion axis, 2.2.2 Pause, Stop, Hide (A)) — A transition longer than two seconds is an animation the user cannot skip.
 - **reduced-motion-not-overridden** (motion axis, 2.3.3 Animation from Interactions (AAA)) — A theme may make motion calmer than the user asked for; it may never make it louder.
 - **badge-tone-pairs-legible** (color axis, 1.4.3 Contrast (Minimum) (AA)) — A status badge is often the only signal that something needs attention, so an illegible one is a functional failure rather than a cosmetic one.
+- **brand-fill-not-text-colour** (color axis, 1.4.11 Non-text Contrast (AA)) — A primary control or info badge filled with the body text colour reads as text, not as a control (#970).
 - **chart-roles-legible** (color axis, 1.4.11 Non-text Contrast (AA); 1.4.3 Contrast (Minimum) (AA)) — A chart series that fades into the card cannot be read or told apart, and axis labels are text.
 - **primary-cta-text-contrast** (color axis, 1.4.3 Contrast (Minimum) (AA)) — The primary call to action is the one control a page most expects to be pressed, and its label is normal-weight text. Nothing else in GDS measured this pairing: createBrandTheme's assertContrast gates text on page/surface/inverse and derives a readable foreground for support, and no floor rule covered the action fill, so a preset could ship a CTA below AA and every gate stayed silent (issue 680).
 - **ai-accent-text-contrast** (color axis, 1.4.3 Contrast (Minimum) (AA)) — The reserved ai.accent role (issue 697) is a non-text, sub-brand identity colour — the Your Field handoff's Scout orange, #ff6b35 — never a general text or action fill. White on it measures 2.84:1, clearing neither AA text threshold. This rule measures and prints that number every run so it stays derived (Rule 14), never retyped as prose, without treating a non-text lane as a text-contrast failure it never claimed to pass.

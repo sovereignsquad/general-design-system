@@ -201,6 +201,24 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     },
   },
   {
+    id: 'brand-fill-not-text-colour',
+    axis: 'color',
+    wcag: '1.4.11 Non-text Contrast (AA)',
+    rationale: 'A primary control or info badge filled with the body text colour reads as text, not as a control (#970).',
+    evaluate(ctx) {
+      const text = ctx.tokens['--gds-text-body'];
+      if (!text) return [];
+      const out: GdsFloorViolation[] = [];
+      for (const role of ['--gds-brand-primary', '--gds-state-info']) {
+        if (ctx.tokens[role] === text) {
+          out.push(violation(ctx, this, `${role} = ${text} (the body text colour)`, 'a value other than the body text colour',
+            'Derive it with deriveGdsReadableGrey, or run the lane through applyGdsGreyWhenText.'));
+        }
+      }
+      return out;
+    },
+  },
+  {
     id: 'chart-roles-legible',
     axis: 'color',
     wcag: '1.4.11 Non-text Contrast (AA); 1.4.3 Contrast (Minimum) (AA)',
