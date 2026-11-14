@@ -331,4 +331,8 @@ export const ja = {
   'gds.trust.checklist.registration': "登録要件",
   'gds.trust.checklist.cancellation': "キャンセル・返金ポリシー",
   'gds.trust.checklist.parentPresence': "保護者の同伴が必要",
+  'gds.appShell.primaryHeading': "主要な",
+  'gds.appShell.secondaryHeading': "もっと",
+  'gds.appShell.accountHeading': "アカウント",
+  'gds.state.emptyDataTitle': "利用可能なデータがありません",
 };

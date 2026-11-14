@@ -72,7 +72,17 @@ import { SidebarNav, SidebarNavItem, SidebarNavSection } from '@sovereignsquad/g
 </SidebarNav>
 ```
 
-- **Parent items**: a `SidebarNavItem` with children toggles them on click and Space instead of navigating. Give a parent `component="button"`; its children follow the same `href`/`button` rule.
+- **Parent items** (#955): a `SidebarNavItem` with children is a disclosure. It renders `<button type="button">` with `aria-expanded`, toggles on click, Enter and Space instead of navigating, and indents its children by `--gds-space-md` (`childrenOffset`). Control it with `opened`/`onChange` or start it with `defaultOpened`. Its children follow the same `href`/`button` rule.
+
+```tsx
+<SidebarNavItem label="Reports" defaultOpened>
+  <SidebarNavItem href="/reports/weekly" label="Weekly" active={pathname === '/reports/weekly'} />
+  <SidebarNavItem href="/reports/monthly" label="Monthly" />
+</SidebarNavItem>
+```
+
+- **Active and hover paint** (#955): every `NavLink` (theme class `gds-navlink`) paints `--gds-nav-active-bg` with `--gds-nav-active-fg` and a `--gds-nav-active-indicator` bar on its leading edge when active, and `--gds-nav-hover-bg` on hover. The roles are derived per preset and scheme against `--gds-bg-sidebar`; the accessibility-floor rule `nav-states-legible` holds the active and hover labels at 4.5:1 and the indicator at 3:1 on the sidebar and on the active background. Under forced colours the active item paints `Highlight`.
+- **`gds-admin` `AppShell` headings**: "Primary", "More" and "Account" are GDS messages (`gds.appShell.primaryHeading`, `gds.appShell.secondaryHeading`, `gds.appShell.accountHeading`) in every supported locale; `primaryHeading`, `secondaryHeading` and `accountHeading` override them.
 - **Locked items**: `disabled` sets `data-disabled` only. The item is dimmed and ignores pointer input, but it stays focusable, Enter still activates it, and no `aria-disabled` is set. Keep a locked item focusable, explain the lock in `description`, and make its handler a no-op while locked.
 
 Shell navigation slots:

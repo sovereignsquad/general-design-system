@@ -1,4 +1,4 @@
-// Regenerates the gds-core locale packs from `t()` calls in packages/gds-core/src.
+// Regenerates the gds-core locale packs from `t()` calls in packages/gds-core/src and packages/gds-admin/src.
 //
 // Existing entries are never overwritten.
 //
@@ -17,17 +17,21 @@ const traverse = traverseModule.default ?? traverseModule;
 const root = process.cwd();
 const srcDir = resolve(root, 'packages/gds-core/src');
 const localeDir = join(srcDir, 'locales');
+const adminSrcDir = resolve(root, 'packages/gds-admin/src');
 
 /** Every `t('id', 'English')` call in the components, as id -> English text. */
 export function collectMessageDefaults() {
   const found = new Map();
   const conflicts = [];
 
-  const files = readdirSync(srcDir)
-    .filter((name) => (name.endsWith('.tsx') || name.endsWith('.ts')) && !name.includes('.test.'));
+  // gds-admin components read the same packs, so their `t()` calls are collected too.
+  const files = [srcDir, adminSrcDir].flatMap((dir) => readdirSync(dir)
+    .filter((name) => (name.endsWith('.tsx') || name.endsWith('.ts')) && !name.includes('.test.'))
+    .map((name) => join(dir, name)));
 
-  for (const name of files) {
-    const source = readFileSync(join(srcDir, name), 'utf8');
+  for (const file of files) {
+    const name = file.slice(root.length + 1);
+    const source = readFileSync(file, 'utf8');
     const ast = parse(source, { sourceType: 'module', plugins: ['typescript', 'jsx'] });
     traverse(ast, {
       CallExpression(path) {

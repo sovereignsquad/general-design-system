@@ -331,4 +331,8 @@ export const he = {
   'gds.trust.checklist.registration': "דרישות הרשמה",
   'gds.trust.checklist.cancellation': "מדיניות ביטול / החזר כספי",
   'gds.trust.checklist.parentPresence': "נדרשת נוכחות הורה",
+  'gds.appShell.primaryHeading': "יְסוֹדִי",
+  'gds.appShell.secondaryHeading': "יוֹתֵר",
+  'gds.appShell.accountHeading': "חֶשְׁבּוֹן",
+  'gds.state.emptyDataTitle': "אין נתונים זמינים",
 };

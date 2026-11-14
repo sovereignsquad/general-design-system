@@ -16,7 +16,7 @@ is not enforced yet. Severity is set per finding inside each rule's `evaluate`, 
 This file is GENERATED from `packages/gds-theme/src/accessibility-floor.ts`. A floor described
 differently from how it is checked is a floor nobody can rely on — run `npm run docs:a11y-floor`.
 
-## Rules (15)
+## Rules (16)
 
 - **focus-ring-min-width** (reaction axis, 2.4.11 Focus Appearance (AA)) — Below 2px a focus ring is not reliably visible, and a keyboard user has no other indication of where they are.
 - **focus-ring-is-not-removed** (reaction axis, 2.4.7 Focus Visible (AA)) — A theme must not be able to erase focus indication by setting the ring to none or transparent.
@@ -27,6 +27,7 @@ differently from how it is checked is a floor nobody can rely on — run `npm ru
 - **badge-tone-pairs-legible** (color axis, 1.4.3 Contrast (Minimum) (AA)) — A status badge is often the only signal that something needs attention, so an illegible one is a functional failure rather than a cosmetic one.
 - **brand-fill-not-text-colour** (color axis, 1.4.11 Non-text Contrast (AA)) — A primary control or info badge filled with the body text colour reads as text, not as a control (#970).
 - **surface-hierarchy-legible** (color axis, 1.4.3 Contrast (Minimum) (AA); 1.4.11 Non-text Contrast (AA)) — Text on the sidebar and on raised panels is still text, and a strong border exists to be seen (#951).
+- **nav-states-legible** (color axis, 1.4.3 Contrast (Minimum) (AA); 1.4.11 Non-text Contrast (AA)) — The active navigation item is where the user is; its label must be readable and its indicator visible against the sidebar (#955, #944).
 - **surface-separation** (color axis, 1.4.11 Non-text Contrast (AA), informative: a surface is not a UI component) — A sidebar whose fill matches both the page and the card (CIE76 below 2.3, a just-noticeable difference) is told apart only by its border. Reported, not enforced: in light schemes a darker sidebar would take muted text below 4.5:1, so most presets keep a two-level fill and rely on borders and elevation (#951).
 - **chart-roles-legible** (color axis, 1.4.11 Non-text Contrast (AA); 1.4.3 Contrast (Minimum) (AA)) — A chart series that fades into the card cannot be read or told apart, and axis labels are text.
 - **primary-cta-text-contrast** (color axis, 1.4.3 Contrast (Minimum) (AA)) — The primary call to action is the one control a page most expects to be pressed, and its label is normal-weight text. Nothing else in GDS measured this pairing: createBrandTheme's assertContrast gates text on page/surface/inverse and derives a readable foreground for support, and no floor rule covered the action fill, so a preset could ship a CTA below AA and every gate stayed silent (issue 680).

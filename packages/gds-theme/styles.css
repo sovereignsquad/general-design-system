@@ -320,6 +320,11 @@ html[data-mantine-color-scheme='dark'] {
   --gds-state-warning: light-dark(rgb(166, 77, 66), #e0a23c);
   --gds-state-danger: light-dark(#b3261e, #f2786f);
   --gds-state-info: light-dark(#64748b, rgb(154, 164, 179));
+  --gds-bg-sidebar: light-dark(rgb(254, 254, 254), rgb(15, 23, 42));
+  --gds-nav-active-bg: light-dark(rgb(219, 239, 243), rgb(22, 48, 67));
+  --gds-nav-active-fg: light-dark(#111827, #f8fafc);
+  --gds-nav-active-indicator: light-dark(rgb(5, 148, 172), rgb(68, 200, 223));
+  --gds-nav-hover-bg: light-dark(rgb(240, 240, 241), rgb(29, 37, 55));
 }
 /* gds:brand-defaults:end */
 
@@ -2005,5 +2010,36 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root:where(
   .gds-chart-legend-swatch {
     forced-color-adjust: none;
     outline: 1px solid CanvasText;
+  }
+}
+
+/*
+ * Navigation states (#955): every NavLink (theme class `gds-navlink`) paints the governed nav
+ * roles, so the active label is 4.5:1 on its background and its indicator 3:1 on the sidebar.
+ * Mantine's own rules are :where()-scoped, so these win by source order at equal specificity;
+ * the html[data-gds-theme-preset] selector outranks the preset-lane link colour rule.
+ */
+.gds-navlink:hover {
+  background-color: var(--gds-nav-hover-bg);
+}
+.gds-navlink:where([data-active], [aria-current='page']),
+.gds-navlink:where([data-active], [aria-current='page']):hover,
+html[data-gds-theme-preset] .gds-navlink:where([data-active], [aria-current='page']):where(:not([data-gds-fixed-tone])) {
+  background-color: var(--gds-nav-active-bg);
+  color: var(--gds-nav-active-fg);
+  box-shadow: inset var(--gds-focus-ring-width) 0 0 var(--gds-nav-active-indicator);
+}
+.gds-navlink:where([data-active], [aria-current='page']) .mantine-NavLink-description {
+  --description-color: var(--gds-nav-active-fg);
+}
+[dir='rtl'] .gds-navlink:where([data-active], [aria-current='page']) {
+  box-shadow: inset calc(-1 * var(--gds-focus-ring-width)) 0 0 var(--gds-nav-active-indicator);
+}
+@media (forced-colors: active) {
+  .gds-navlink:where([data-active], [aria-current='page']) {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+    box-shadow: none;
   }
 }

@@ -2507,6 +2507,15 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             <SidebarNavItem action="list" href="/general-design-system/patterns/data" />
             <SidebarNavItem action="notifications" href="/general-design-system/patterns/feedback" />
           </SidebarNavSection>
+          <SidebarNavSection label="Pattern families">
+            <SidebarNavItem label="Open group" defaultOpened>
+              <SidebarNavItem label="Public" href="/general-design-system/patterns/public" />
+              <SidebarNavItem label="Access" href="/general-design-system/patterns/access" active />
+            </SidebarNavItem>
+            <SidebarNavItem label="Collapsed group">
+              <SidebarNavItem label="Operations" href="/general-design-system/patterns/operations" />
+            </SidebarNavItem>
+          </SidebarNavSection>
         </SidebarNav>
       );
     case 'dashboards':

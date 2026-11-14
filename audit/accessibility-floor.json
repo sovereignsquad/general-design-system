@@ -1,6 +1,6 @@
 {
   "presetsChecked": 54,
-  "rulesEvaluated": 15,
+  "rulesEvaluated": 16,
   "violationCount": 0,
   "reportCount": 53,
   "rules": [
@@ -57,6 +57,12 @@
       "axis": "color",
       "wcag": "1.4.3 Contrast (Minimum) (AA); 1.4.11 Non-text Contrast (AA)",
       "rationale": "Text on the sidebar and on raised panels is still text, and a strong border exists to be seen (#951)."
+    },
+    {
+      "id": "nav-states-legible",
+      "axis": "color",
+      "wcag": "1.4.3 Contrast (Minimum) (AA); 1.4.11 Non-text Contrast (AA)",
+      "rationale": "The active navigation item is where the user is; its label must be readable and its indicator visible against the sidebar (#955, #944)."
     },
     {
       "id": "surface-separation",

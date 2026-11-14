@@ -36,6 +36,9 @@ const canaryTokens = {
   // Body text on a dark raised panel: surface-hierarchy-legible. Page, sidebar and card all
   // white: surface-separation.
   '--gds-bg-raised': '#333333',
+  // An active label the colour of its background: nav-states-legible.
+  '--gds-nav-active-fg': '#f0f0f0',
+  '--gds-nav-active-bg': '#ffffff',
   '--gds-bg-page': '#ffffff',
   '--gds-bg-sidebar': '#ffffff',
   '--gds-brand-primary': '#111827',

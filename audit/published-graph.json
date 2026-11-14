@@ -1,8 +1,8 @@
 {
-  "runtimeSemanticRoles": 225,
-  "publishedSemanticRoles": 225,
-  "overlap": 225,
+  "runtimeSemanticRoles": 229,
+  "publishedSemanticRoles": 229,
+  "overlap": 229,
   "coverage": 100,
   "globalTokens": 38,
-  "totalTokens": 6456
+  "totalTokens": 6564
 }

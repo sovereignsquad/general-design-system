@@ -331,4 +331,8 @@ export const de = {
   'gds.trust.checklist.registration': "Anmeldevoraussetzungen",
   'gds.trust.checklist.cancellation': "Stornierungs-/Erstattungsbedingungen",
   'gds.trust.checklist.parentPresence': "Anwesenheitspflicht eines Elternteils",
+  'gds.appShell.primaryHeading': "Primär",
+  'gds.appShell.secondaryHeading': "Mehr",
+  'gds.appShell.accountHeading': "Konto",
+  'gds.state.emptyDataTitle': "Keine Daten verfügbar",
 };

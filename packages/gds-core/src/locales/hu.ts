@@ -331,4 +331,8 @@ export const hu = {
   'gds.trust.checklist.registration': "Regisztrációs követelmények",
   'gds.trust.checklist.cancellation': "Lemondási / visszatérítési feltételek",
   'gds.trust.checklist.parentPresence': "Szülői jelenlét szükséges",
+  'gds.appShell.primaryHeading': "Elsődleges",
+  'gds.appShell.secondaryHeading': "Több",
+  'gds.appShell.accountHeading': "fiók",
+  'gds.state.emptyDataTitle': "Nincs adat",
 };

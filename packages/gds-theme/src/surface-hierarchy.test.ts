@@ -53,4 +53,14 @@ describe('surface hierarchy roles (#951)', () => {
     expect(deltaE76('#000000', '#ffffff')).toBeCloseTo(100, 0);
     expect(deltaE76('var(--x)', '#ffffff')).toBeNull();
   });
+
+  it('every preset and scheme emits nav state roles that clear the nav floor rule (#955)', () => {
+    for (const { id } of getGdsVibeThemes()) {
+      for (const scheme of ['light', 'dark'] as const) {
+        const t = getGdsVibeThemeCssVariables(id, scheme);
+        for (const role of ['--gds-nav-active-bg', '--gds-nav-active-fg', '--gds-nav-active-indicator', '--gds-nav-hover-bg']) expect(t[role], `${id} ${scheme} ${role}`).toBeTruthy();
+        expect(validateGdsAccessibilityFloor({ presetId: id, scheme, tokens: t }).filter((v) => v.ruleId === 'nav-states-legible'), `${id} ${scheme}`).toEqual([]);
+      }
+    }
+  });
 });

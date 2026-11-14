@@ -1,13 +1,13 @@
 {
-  "tokenUniverse": 265,
+  "tokenUniverse": 270,
   "darkSiblingsExcluded": 37,
-  "cellsEvaluated": 1325,
+  "cellsEvaluated": 1350,
   "obligationsSatisfied": {
-    "listed": 120,
-    "demoed": 134,
-    "explained": 105,
+    "listed": 126,
+    "demoed": 139,
+    "explained": 111,
     "variationsShown": 44,
-    "useCase": 28
+    "useCase": 29
   },
   "confidence": {
     "listed": "high - direct lookup against the published DTCG graph and docs corpus",
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 9,
-  "tokensWithGaps": 256,
+  "tokensWithGaps": 261,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -2291,24 +2291,6 @@
       ]
     },
     {
-      "token": "--gds-space-md",
-      "role": "space-md",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": true,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-control-height-sm",
       "role": "control-height-sm",
       "declaredIn": [
@@ -3422,6 +3404,22 @@
       ]
     },
     {
+      "token": "--gds-space-md",
+      "role": "space-md",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-space-xl",
       "role": "space-xl",
       "declaredIn": [
@@ -3848,6 +3846,70 @@
       "declaredIn": [
         "styles.css",
         "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-active-bg",
+      "role": "nav-active-bg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-active-fg",
+      "role": "nav-active-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-active-indicator",
+      "role": "nav-active-indicator",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-hover-bg",
+      "role": "nav-hover-bg",
+      "declaredIn": [
+        "styles.css"
       ],
       "listed": true,
       "demoed": true,
@@ -4497,6 +4559,21 @@
       "declaredIn": [
         "styles.css",
         "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-bg-sidebar",
+      "role": "bg-sidebar",
+      "declaredIn": [
+        "styles.css"
       ],
       "listed": true,
       "demoed": true,

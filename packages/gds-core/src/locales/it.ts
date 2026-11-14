@@ -331,4 +331,8 @@ export const it = {
   'gds.trust.checklist.registration': "Requisiti di iscrizione",
   'gds.trust.checklist.cancellation': "Politica di cancellazione / rimborso",
   'gds.trust.checklist.parentPresence': "Presenza di un genitore richiesta",
+  'gds.appShell.primaryHeading': "Primario",
+  'gds.appShell.secondaryHeading': "Di più",
+  'gds.appShell.accountHeading': "Account",
+  'gds.state.emptyDataTitle': "Nessun dato disponibile",
 };

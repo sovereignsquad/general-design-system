@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react';
 import { Divider, Group, Stack, Text, Title } from '@mantine/core';
 import { DiscoveryShell, ThemeToggle } from '@sovereignsquad/gds-core';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 /** Props for {@link AppShell}. */
 export interface AppShellProps {
@@ -13,18 +14,26 @@ export interface AppShellProps {
   /**
    * Primary sidebar navigation: a `SidebarNav` with `SidebarNavSection`s and `SidebarNavItem`s.
    * Each item takes `href` for a route or `component="button"` for a view-state switch. It renders
-   * under a fixed English "Primary" heading inside the shell's unlabelled navbar `<nav>`, so the
+   * under the `primaryHeading` (default: the `gds.appShell.primaryHeading` message, "Primary")
+   * inside the shell's unlabelled navbar `<nav>`, so the
    * `SidebarNav` is a second, labelled `<nav>`; set its `ariaLabel` when the default label does not
    * describe the region.
    */
   primaryNavigation?: ReactNode;
   /**
-   * Secondary sidebar navigation under a fixed English "More" heading: a `SidebarNav` whose
-   * `ariaLabel` differs from the primary one.
+   * Secondary sidebar navigation under the `secondaryHeading` (default: the
+   * `gds.appShell.secondaryHeading` message, "More"): a `SidebarNav` whose `ariaLabel` differs
+   * from the primary one.
    */
   secondaryNavigation?: ReactNode;
-  /** Account panel pinned to the foot of the sidebar, under a fixed English "Account" heading inside the navbar `<nav>`. */
+  /** Account panel pinned to the foot of the sidebar, under the `accountHeading` (default: the `gds.appShell.accountHeading` message, "Account"). */
   accountPanel?: ReactNode;
+  /** Heading over `primaryNavigation`; defaults to the localized `gds.appShell.primaryHeading` message. */
+  primaryHeading?: ReactNode;
+  /** Heading over `secondaryNavigation`; defaults to the localized `gds.appShell.secondaryHeading` message. */
+  secondaryHeading?: ReactNode;
+  /** Heading over `accountPanel`; defaults to the localized `gds.appShell.accountHeading` message. */
+  accountHeading?: ReactNode;
   /** Secondary line under the logo; also increases the header height. */
   headerContext?: ReactNode;
   /** Actions rendered on the trailing edge of the header. */
@@ -64,8 +73,12 @@ export function AppShell({
   headerActions,
   mobileNavigation,
   showThemeToggle = true,
+  primaryHeading,
+  secondaryHeading,
+  accountHeading,
   children,
 }: AppShellProps) {
+  const { t } = useGdsTranslation();
   const primaryNav = primaryNavigation ?? navLinks;
 
   return (
@@ -96,7 +109,7 @@ export function AppShell({
             {primaryNav ? (
               <Stack gap="xs">
                 <Text size="xs" fw={700} c="dimmed">
-                  Primary
+                  {primaryHeading ?? t('gds.appShell.primaryHeading', 'Primary')}
                 </Text>
                 {primaryNav}
               </Stack>
@@ -106,7 +119,7 @@ export function AppShell({
                 <Divider />
                 <Stack gap="xs">
                   <Text size="xs" fw={700} c="dimmed">
-                    More
+                    {secondaryHeading ?? t('gds.appShell.secondaryHeading', 'More')}
                   </Text>
                   {secondaryNavigation}
                 </Stack>
@@ -117,7 +130,7 @@ export function AppShell({
                 <Divider mt="auto" />
                 <Stack gap="xs">
                   <Text size="xs" fw={700} c="dimmed">
-                    Account
+                    {accountHeading ?? t('gds.appShell.accountHeading', 'Account')}
                   </Text>
                   {accountPanel}
                 </Stack>

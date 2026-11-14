@@ -303,6 +303,13 @@ function opaqueOver(color: string | undefined, backdrop: string): string {
  *   {@link GDS_SURFACE_STEP_MIN} apart from it.
  * - `--gds-border-subtle`: the card border composited opaque over the card.
  * - `--gds-border-strong`: the subtle border pushed to 3:1 on the card (WCAG 1.4.11).
+ *
+ * Navigation states on the sidebar (#955):
+ * - `--gds-nav-active-bg`: the brand accent at 14% over the sidebar.
+ * - `--gds-nav-active-fg`: body text pushed to 4.5:1 on the active background.
+ * - `--gds-nav-active-indicator`: the brand accent pushed to 3:1 on both the sidebar and the
+ *   active background.
+ * - `--gds-nav-hover-bg`: body text at 6% over the sidebar.
  */
 export function emitSurfaceHierarchyCssVariables(base: Record<string, string>, shell?: { light: string; dark: string }): Record<string, string> {
   const vars: Record<string, string> = {};
@@ -315,6 +322,15 @@ export function emitSurfaceHierarchyCssVariables(base: Record<string, string>, s
     const subtle = opaqueOver(border, card);
     vars[`--gds-border-subtle${suffix}`] = subtle;
     vars[`--gds-border-strong${suffix}`] = ensureContrast(subtle, card, 3, dark, card);
+
+    const sidebar = vars[`--gds-bg-sidebar${suffix}`];
+    const text = base[`--gds-text-body${suffix}`] ?? base['--gds-text-body'] ?? (dark ? '#ffffff' : '#000000');
+    const accent = base[`--gds-brand-accent${suffix}`] ?? base['--gds-brand-accent'] ?? text;
+    const activeBg = mixCssColors(accent, sidebar, 0.14, sidebar);
+    vars[`--gds-nav-active-bg${suffix}`] = activeBg;
+    vars[`--gds-nav-active-fg${suffix}`] = ensureContrast(text, activeBg, 4.5, dark, activeBg);
+    vars[`--gds-nav-active-indicator${suffix}`] = ensureContrast(ensureContrast(accent, sidebar, 3, dark, sidebar), activeBg, 3, dark, activeBg);
+    vars[`--gds-nav-hover-bg${suffix}`] = mixCssColors(text, sidebar, 0.06, sidebar);
   }
   return vars;
 }
