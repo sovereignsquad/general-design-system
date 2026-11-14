@@ -575,6 +575,7 @@ tests without reading that issue first.
 
 ```bash
 npm run preflight            # THE gate before any push: clean-before, full chain, clean-after
+npm run preflight -- --mantine-9   # also CI's Mantine 9 leg on HEAD, in a throwaway worktree
 npm run build                # full monorepo, all 8 workspaces — always use this, not a scoped one
 npm run lint
 npm run test:run

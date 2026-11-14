@@ -16,6 +16,11 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Mantine 9 leg in local preflight (#971)
+
+- `npm run preflight -- --mantine-9` also runs CI's Mantine 9 leg on the committed HEAD in a throwaway worktree. It runs the install, native-binding, Mantine 9 override and `verify:release` steps, each read from `.github/workflows/quality.yml` so the leg cannot drift from CI. The worktree is removed afterwards.
+- Without it, a local preflight covers only the Mantine 7 leg. That is how `Grid gutter`, removed in Mantine 9, reached CI in #958–#960. AGENTS.md Rule 13 and HANDOVER.md say when to use it.
+
 ### Localized page-template copy and governed buttons (#972)
 
 - Page template panel titles, empty states and state copy now come from `gds.gdsPageTemplates.*` messages in every locale pack, instead of fixed English. The state titles and descriptions cover loading, empty, error, retrying, saving, permission denied and not found.
