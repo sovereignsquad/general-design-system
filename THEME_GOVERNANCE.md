@@ -661,9 +661,17 @@ A brand theme built with `createBrandTheme(...)` exposes the same design decisio
 
 A consumer who wires the raw custom properties onto the document for use in plain CSS gets
 different values than what GDS's own Mantine components render on the same page **by
-design**. `GdsShapeElevationSystemReference` computes and states live how many of the 14
+design**, except for radius, below. `GdsShapeElevationSystemReference` computes and states live how many of the 14
 semantic radius roles a given theme actually differentiates, rather than asserting a fixed
 number — read that page, not this paragraph, for a theme's current state.
+
+**Radius is no longer split (#953).** `gdsTheme`'s Card, Paper, Button, TextInput, Badge, Chip, Modal and Drawer take their `radius` from the role tokens (`var(--gds-radius-card)` and so on), so the raw role tokens and what those components render are the same value. The `default` shape profile sets the roles to what the components rendered before: card and panel `lg`, badge `xl`, chip `pill`, drawer `none`, the rest `md`. A lane that remaps Mantine's radius scale declares the scale on its shape axis and feeds Mantine from it (`GDS_CLASS_USA_SHAPE_AXIS`); presets whose Mantine `defaultRadius` is not `md` carry it on the `modal` role (`high-contrast` `sm`, `gold-athlete` `lg`). Components that set their own `radius` prop, and brand themes that override component defaults, are unaffected.
+
+### Shape profiles (#953)
+
+`GdsShapeAxis.profile` selects a role map from `GDS_SHAPE_PROFILES`: `default`, `operations` (cards, panels, surfaces, buttons, inputs, chips and media on `sm`, for dense tables and lists) or `workspace` (surfaces, modals, drawers, sheets and media on `lg`). `operations` and `workspace` are layered over `default`, and explicit `roles` win over the profile. No preset selects a profile, so the default output is unchanged.
+
+For one part of a page, `GdsShapeScope` (`@sovereignsquad/gds-core`) sets the profile's own role variables on its own element, never the document root; roles the profile does not list, and every role under `default`, stay the theme's. Each role points at a step token (`var(--gds-radius-sm)`), so it follows the active theme's own scale. Modals and drawers render in a portal outside the scope: give them `withinPortal={false}` or spread `getGdsShapeScopeStyle(profile)` into their `styles`. `GdsShapeElevationSystemReference` renders the same components under each profile.
 
 **Typography tracking follows the same split, with one real gap.** `GdsTypographyAxis`
 supports a `tracking` map, and `resolveGdsTypographyTokens()` emits `--gds-tracking-*` from

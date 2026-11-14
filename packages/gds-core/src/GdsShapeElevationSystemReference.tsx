@@ -1,8 +1,10 @@
-import { Code, Group, Paper, Stack, Table, Text } from '@mantine/core';
+import { Button, Card, Chip, Code, Group, Paper, SimpleGrid, Stack, Table, Text, TextInput } from '@mantine/core';
 import {
   GDS_RADIUS_STEPS, GDS_RADIUS_ROLES, resolveGdsShapeTokens,
+  GDS_SHAPE_PROFILE_NAMES, GDS_SHAPE_PROFILES,
   GDS_ELEVATION_STEPS, GDS_ELEVATION_ROLES, resolveGdsElevationTokens,
 } from '@sovereignsquad/gds-theme';
+import { GdsShapeScope } from './GdsShapeScope';
 
 /** Reference for the shape and elevation axes: every step/role read from resolveGdsShapeTokens()/resolveGdsElevationTokens(). */
 export function GdsShapeElevationSystemReference() {
@@ -57,14 +59,55 @@ export function GdsShapeElevationSystemReference() {
               {distinctCount === 1
                 ? `All ${GDS_RADIUS_ROLES.length} roles above resolve to the same value here: this axis declares no per-role overrides, so every role falls back to the default step.`
                 : `${distinctCount} distinct value(s) across ${GDS_RADIUS_ROLES.length} roles.`}
-              {' '}A theme's Mantine <Code>theme.radius</Code> scale (used by Mantine components
-              directly, e.g. <Code>radius=&quot;md&quot;</Code>) is a separate mechanism from this
-              axis and is not required to share its values — a brand handoff can specify its own
-              <Code>theme.radius</Code> steps independent of how many of these roles it
-              differentiates.
+              {' '}Card, Paper, Button, TextInput, Badge, Chip, Modal and Drawer take their radius
+              from these roles, so a theme or a <Code>GdsShapeScope</Code> that changes a role
+              changes those components.
             </Text>
           );
         })()}
+      </Stack>
+
+      <Stack gap="2xs" data-gds-shape-profiles="">
+        <Text fw={700}>Shape profiles — the same components, three role maps</Text>
+        <Text size="sm">
+          Each column wraps the same Card, Paper, TextInput, Button and Chip in a{' '}
+          <Code>GdsShapeScope</Code>. A scope sets only its profile&rsquo;s own roles, from{' '}
+          <Code>GDS_SHAPE_PROFILES</Code>, pointing at the active theme&rsquo;s own steps; every other role, and every role under <Code>default</Code>, stays the theme&rsquo;s.
+        </Text>
+        <SimpleGrid cols={{ base: 1, md: GDS_SHAPE_PROFILE_NAMES.length }} spacing="md">
+          {GDS_SHAPE_PROFILE_NAMES.map((profile) => {
+            const roles: Partial<Record<string, string>> = profile === 'default' ? {} : GDS_SHAPE_PROFILES[profile];
+            return (
+              <GdsShapeScope key={profile} profile={profile}>
+                <Stack gap="sm">
+                  <Text fw={600}>{profile}</Text>
+                  <Card>
+                    <Stack gap="xs">
+                      <Text size="sm" fw={600}>Card</Text>
+                      <TextInput label="Input" placeholder="Search" />
+                      <Group gap="xs">
+                        <Button size="xs">Button</Button>
+                        <Chip size="xs" checked readOnly>Chip</Chip>
+                      </Group>
+                    </Stack>
+                  </Card>
+                  <Paper p="xs">
+                    <Table>
+                      <Table.Tbody>
+                        {(['card', 'panel', 'input', 'button', 'chip', 'modal', 'sheet'] as const).map((role) => (
+                          <Table.Tr key={role}>
+                            <Table.Td>{role}</Table.Td>
+                            <Table.Td><Code>{roles[role] ?? 'theme'}</Code></Table.Td>
+                          </Table.Tr>
+                        ))}
+                      </Table.Tbody>
+                    </Table>
+                  </Paper>
+                </Stack>
+              </GdsShapeScope>
+            );
+          })}
+        </SimpleGrid>
       </Stack>
 
       <Stack gap="2xs">

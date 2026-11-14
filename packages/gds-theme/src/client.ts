@@ -5,7 +5,7 @@ export { padelAfricaThemePreset, PADEL_AFRICA_ROLES, PADEL_AFRICA_RAMPS, PADEL_A
 export type { PadelAfricaRamp } from './padel-africa';
 export { yourFieldThemePreset, YOUR_FIELD_ROLES, YOUR_FIELD_RAMPS, YOUR_FIELD_CORE_PALETTE, YOUR_FIELD_RAMP_ANCHOR_INDEX, YOUR_FIELD_NAVY, YOUR_FIELD_NAVY_DEEP, YOUR_FIELD_PEACH, YOUR_FIELD_PEACH_DEEP, YOUR_FIELD_SAGE, YOUR_FIELD_SAGE_TEXT, YOUR_FIELD_CREAM, YOUR_FIELD_CHARCOAL, YOUR_FIELD_SCOUT, YOUR_FIELD_SCOUT_2, YOUR_FIELD_STAR } from './your-field';
 export type { YourFieldColorRampName, YourFieldRamp } from './your-field';
-export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES } from './axes';
+export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES, GDS_SHAPE_PROFILES, GDS_SHAPE_PROFILE_NAMES, resolveGdsShapeProfileRoles } from './axes';
 export { GdsThemeBoundary } from './GdsThemeBoundary';
 export type { GdsThemeBoundaryProps } from './GdsThemeBoundary';
 export { computeGdsThemeIdentity, gdsThemeIdentityChanged } from './theme-identity';
@@ -22,7 +22,7 @@ export type { GdsMotionAxis, GdsReactionAxis, GdsReactionIntensity, GdsFocusRing
 export { gdsElevation, resolveGdsTypographyTokens, resolveGdsElevationTokens, GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_TEXT_STEPS, GDS_WEIGHT_NAMES, GDS_ELEVATION_STEPS, GDS_ELEVATION_ROLES } from './axes';
 export type { GdsTypographyAxis, GdsElevationAxis, GdsTextSizeStep, GdsWeightName, GdsFontLaneRole, GdsElevationStep, GdsElevationValue, GdsElevationRole, GdsFontStyle } from './axes';
 export { gdsSpace, resolveGdsDensityTokens, resolveGdsShellHeightTokens, GDS_SHELL_HEIGHTS, validateGdsDensityAxis, GDS_DEFAULT_DENSITY_AXIS, GDS_SPACE_STEPS, GDS_CONTROL_SIZES, GDS_MIN_TARGET_PX, GDS_CONTROL_HEIGHT_EXCEPTIONS } from './axes';
-export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResolvedShapeTokens } from './axes';
+export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResolvedShapeTokens, GdsShapeProfile } from './axes';
 export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
 export { resolveGdsAxisTokens, resolveGdsLayoutTokens, validateGdsLayoutAxis, GDS_DEFAULT_LAYOUT_AXIS, GDS_LAYOUT_DIMENSION_EXCEPTIONS } from './axes';
 export type { GdsLayoutAxis } from './axes';

@@ -89,7 +89,7 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
     },
     Button: {
       defaultProps: {
-        radius: 'md',
+        radius: 'var(--gds-radius-button)',
         size: 'sm',
         fw: 600,
       },
@@ -100,7 +100,7 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
       // `.mantine-Card-root`. Survives preset theme merging.
       classNames: { root: 'gds-card' },
       defaultProps: {
-        radius: 'lg',
+        radius: 'var(--gds-radius-card)',
         shadow: 'sm',
         withBorder: true,
       },
@@ -113,7 +113,7 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
     Paper: {
       classNames: { root: 'gds-paper' },
       defaultProps: {
-        radius: 'lg',
+        radius: 'var(--gds-radius-panel)',
         withBorder: true,
       },
     },
@@ -142,7 +142,22 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
     },
     TextInput: {
       defaultProps: {
-        radius: 'md',
+        radius: 'var(--gds-radius-input)',
+      },
+    },
+    Chip: {
+      defaultProps: {
+        radius: 'var(--gds-radius-chip)',
+      },
+    },
+    Modal: {
+      defaultProps: {
+        radius: 'var(--gds-radius-modal)',
+      },
+    },
+    Drawer: {
+      defaultProps: {
+        radius: 'var(--gds-radius-drawer)',
       },
     },
     Table: {
@@ -153,7 +168,7 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
     },
     Badge: {
       defaultProps: {
-        radius: 'xl',
+        radius: 'var(--gds-radius-badge)',
       },
       // Opt-in type tokens; the fallbacks equal Mantine's own Badge values (700, uppercase), so nothing changes
       // until a theme sets them.

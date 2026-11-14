@@ -781,6 +781,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "GdsMap, GdsMapBasemapWash, GdsMapFilterRail, GdsMapPinPreviewCard": "GdsMap، GdsMapBasemapWash، GdsMapFilterRail، GdsMapPinPreviewCard",
   "GdsMapPinBadge follows the same ambient mode — the ring stays the category's accent, the pin fills with a fixed dark-neutral disc in emoji mode (never the accent), and the emoji centers on it.": "يتبع GdsMapPinBadge نفس الوضع المحيط - تظل الحلقة هي لهجة الفئة، ويمتلئ الدبوس بقرص محايد داكن ثابت في وضع الرموز التعبيرية (ليس لهجة أبدًا)، وتتركز الرموز التعبيرية عليها.",
   "GdsNotificationProvider / GdsNotificationCenter / NotificationCenter / InlineAlert / BannerNotice / GdsNotificationBell / useGdsNotifications": "GdsNotificationProvider / GdsNotificationCenter / NotificationCenter / InlineAlert / BannerNotice / GdsNotificationBell / useGdsNotifications",
+  "GdsShapeElevationSystemReference / GdsShapeScope": "GdsShapeElevationSystemReference / GdsShapeScope",
   "General Design System": "نظام التصميم العام",
   "General Design System live proofs": "البراهين الحية لنظام التصميم العام",
   "General settings": "الإعدادات العامة",

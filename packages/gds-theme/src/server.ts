@@ -7,7 +7,7 @@ export { yourFieldThemePreset, YOUR_FIELD_ROLES, YOUR_FIELD_RAMPS, YOUR_FIELD_CO
 export type { YourFieldColorRampName, YourFieldRamp } from './your-field';
 export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIdsByScript, getGdsLocaleMetadata, isGdsRtlLocale } from './i18n';
 export type { GdsI18nContextValue, GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './i18n';
-export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES } from './axes';
+export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, GDS_DEFAULT_SHAPE_AXIS, GDS_RADIUS_STEPS, GDS_RADIUS_ROLES, GDS_SHAPE_PROFILES, GDS_SHAPE_PROFILE_NAMES, resolveGdsShapeProfileRoles } from './axes';
 export { computeGdsThemeIdentity, gdsThemeIdentityChanged } from './theme-identity';
 export type { GdsThemeIdentity, GdsThemeApplicationMode, GdsThemeIdentityInput } from './theme-identity';
 export { resolveGdsAccentTokens, evaluateGdsAccentContrast, deriveGdsAccentShades, GdsAccentError, GDS_DEFAULT_ACCENT_AXIS, GDS_ACCENT_NAMES, GDS_ACCENT_SHADES, GDS_ACCENT_MODES, GDS_DEFAULT_SHADE_FACTORS, GDS_ACCENT_EMOJI_DISC, GDS_ACCENT_MODE_ENFORCEMENT } from './accent-axis';
@@ -22,7 +22,7 @@ export type { GdsMotionAxis, GdsReactionAxis, GdsReactionIntensity, GdsFocusRing
 export { gdsElevation, resolveGdsTypographyTokens, resolveGdsElevationTokens, GDS_DEFAULT_TYPOGRAPHY_AXIS, GDS_DEFAULT_ELEVATION_AXIS, GDS_TEXT_STEPS, GDS_WEIGHT_NAMES, GDS_ELEVATION_STEPS, GDS_ELEVATION_ROLES } from './axes';
 export type { GdsTypographyAxis, GdsElevationAxis, GdsTextSizeStep, GdsWeightName, GdsFontLaneRole, GdsElevationStep, GdsElevationValue, GdsElevationRole, GdsFontStyle } from './axes';
 export { gdsSpace, resolveGdsDensityTokens, resolveGdsShellHeightTokens, GDS_SHELL_HEIGHTS, validateGdsDensityAxis, GDS_DEFAULT_DENSITY_AXIS, GDS_SPACE_STEPS, GDS_CONTROL_SIZES, GDS_MIN_TARGET_PX, GDS_CONTROL_HEIGHT_EXCEPTIONS } from './axes';
-export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResolvedShapeTokens } from './axes';
+export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResolvedShapeTokens, GdsShapeProfile } from './axes';
 export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
 export { resolveGdsAxisTokens, resolveGdsLayoutTokens, validateGdsLayoutAxis, GDS_DEFAULT_LAYOUT_AXIS, GDS_LAYOUT_DIMENSION_EXCEPTIONS } from './axes';
 export type { GdsLayoutAxis } from './axes';

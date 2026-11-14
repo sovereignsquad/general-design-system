@@ -16,6 +16,7 @@ import {
   emitCssVariables,
   emitGoldAthleteCssVariables,
   classUsaDefaultColorRamps,
+  GDS_CLASS_USA_SHAPE_AXIS,
   goldAthleteDefaultColorRamps,
   type BrandColorRamp,
   type BrandSemanticRole,
@@ -676,15 +677,14 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       classUsaCream: ramps.cream as unknown as MantineColorsTuple,
       classUsaSlate: ramps.slate as unknown as MantineColorsTuple,
     },
-    // The handoff's own radius scale (8 / 12 / 16 / 24 / pill), encoded here rather than
-    // inherited from Mantine's stock scale, so the named steps mean the handoff tiers:
-    // xs 8 (tight chrome), sm 12 (controls), md 16 (cards), lg 24 (large panels), xl pill.
+    // The handoff's radius scale, from the lane's shape axis so the Mantine steps and the
+    // --gds-radius-* tokens cannot disagree.
     radius: {
-      xs: '0.5rem',
-      sm: '0.75rem',
-      md: '1rem',
-      lg: '1.5rem',
-      xl: '624.9375rem',
+      xs: GDS_CLASS_USA_SHAPE_AXIS.scale.xs,
+      sm: GDS_CLASS_USA_SHAPE_AXIS.scale.sm,
+      md: GDS_CLASS_USA_SHAPE_AXIS.scale.md,
+      lg: GDS_CLASS_USA_SHAPE_AXIS.scale.lg,
+      xl: GDS_CLASS_USA_SHAPE_AXIS.scale.xl,
     },
     defaultRadius: 'md',
     black: tokens['brand.primaryPressed'].light,
@@ -693,8 +693,8 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       Button: {
         defaultProps: {
           color: 'classUsaAction',
-          // The controls tier of the scale above — no longer a literal that can drift from it.
-          radius: 'sm',
+          // The button role of the lane's shape axis (the `sm` controls tier).
+          radius: 'var(--gds-radius-button)',
           fw: 700,
         },
         styles: {
@@ -705,7 +705,7 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       },
       Card: {
         defaultProps: {
-          radius: 'md',
+          radius: 'var(--gds-radius-card)',
           withBorder: true,
           shadow: 'sm',
         },
@@ -719,7 +719,7 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       },
       Paper: {
         defaultProps: {
-          radius: 'md',
+          radius: 'var(--gds-radius-panel)',
           withBorder: true,
         },
         styles: {
@@ -732,7 +732,7 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       },
       Badge: {
         defaultProps: {
-          radius: 'xl',
+          radius: 'var(--gds-radius-badge)',
         },
         styles: {
           root: {
@@ -848,7 +848,7 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
     components: {
       Button: {
         defaultProps: {
-          radius: 'xl',
+          radius: 'var(--gds-radius-button)',
           fw: 700,
         },
         styles: {
@@ -859,7 +859,7 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
       },
       Card: {
         defaultProps: {
-          radius: 'lg',
+          radius: 'var(--gds-radius-card)',
           withBorder: true,
           shadow: 'sm',
         },
@@ -873,7 +873,7 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
       },
       Paper: {
         defaultProps: {
-          radius: 'lg',
+          radius: 'var(--gds-radius-panel)',
           withBorder: true,
         },
         styles: {
@@ -886,7 +886,7 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
       },
       Badge: {
         defaultProps: {
-          radius: 'xl',
+          radius: 'var(--gds-radius-badge)',
         },
         styles: {
           root: {

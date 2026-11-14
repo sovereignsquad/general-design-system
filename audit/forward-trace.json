@@ -3,9 +3,9 @@
   "darkSiblingsExcluded": 37,
   "cellsEvaluated": 1320,
   "obligationsSatisfied": {
-    "listed": 114,
-    "demoed": 129,
-    "explained": 98,
+    "listed": 119,
+    "demoed": 133,
+    "explained": 103,
     "variationsShown": 43,
     "useCase": 28
   },
@@ -80,84 +80,8 @@
       ]
     },
     {
-      "token": "--gds-radius-button",
-      "role": "radius-button",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-badge",
-      "role": "radius-badge",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-radius-pin",
       "role": "radius-pin",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-modal",
-      "role": "radius-modal",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-drawer",
-      "role": "radius-drawer",
       "declaredIn": [
         "styles.css"
       ],
@@ -2205,24 +2129,6 @@
       }
     },
     {
-      "token": "--gds-radius-sm",
-      "role": "radius-sm",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": true,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-radius-lg",
       "role": "radius-lg",
       "declaredIn": [
@@ -2259,8 +2165,8 @@
       ]
     },
     {
-      "token": "--gds-radius-panel",
-      "role": "radius-panel",
+      "token": "--gds-radius-button",
+      "role": "radius-button",
       "declaredIn": [
         "styles.css"
       ],
@@ -2277,8 +2183,8 @@
       ]
     },
     {
-      "token": "--gds-radius-chip",
-      "role": "radius-chip",
+      "token": "--gds-radius-modal",
+      "role": "radius-modal",
       "declaredIn": [
         "styles.css"
       ],
@@ -3389,6 +3295,22 @@
       ]
     },
     {
+      "token": "--gds-radius-sm",
+      "role": "radius-sm",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-radius-md",
       "role": "radius-md",
       "declaredIn": [
@@ -3421,8 +3343,72 @@
       ]
     },
     {
+      "token": "--gds-radius-panel",
+      "role": "radius-panel",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-radius-input",
       "role": "radius-input",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-chip",
+      "role": "radius-chip",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-badge",
+      "role": "radius-badge",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-drawer",
+      "role": "radius-drawer",
       "declaredIn": [
         "styles.css"
       ],
