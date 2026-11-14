@@ -15,11 +15,22 @@
 // verify:release does not.
 
 import { execFileSync } from 'node:child_process';
-import { rmSync, existsSync, readdirSync } from 'node:fs';
+import { rmSync, existsSync, readdirSync, readFileSync, mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const CLEAN_DIST = process.argv.includes('--clean-dist');
+// Also runs the CI Mantine 9 leg on the committed HEAD in a throwaway worktree. The local tree
+// installs Mantine 7, so without it a Mantine 9 API removal in package sources fails only in CI.
+const MANTINE_9 = process.argv.includes('--mantine-9');
+const WORKFLOW = join(ROOT, '.github/workflows/quality.yml');
+const MANTINE_9_STEPS = [
+  'Install dependencies',
+  'Install Linux native build bindings',
+  'Override to Mantine 9',
+  'Verify release alignment and quality gates',
+];
 
 const git = (...args) => execFileSync('git', args, { cwd: ROOT }).toString().trim();
 const die = (msg, hint) => {
@@ -69,6 +80,52 @@ if (after) {
     'the chain left the working tree dirty — CI fails on exactly this.',
     `A gate wrote an artifact that nothing restored, or a mutation leaked:\n${after.split('\n').map((l) => `    ${l}`).join('\n')}`,
   );
+}
+
+// ── 5. Optional: the CI Mantine 9 leg ────────────────────────────────────────
+// Each step's `run:` block is read from the workflow itself, so this leg cannot drift from CI.
+function workflowRun(stepName) {
+  const lines = readFileSync(WORKFLOW, 'utf8').split('\n');
+  const at = lines.findIndex((line) => line.trim() === `- name: ${stepName}`);
+  if (at === -1) die(`.github/workflows/quality.yml has no step named "${stepName}".`, 'Update MANTINE_9_STEPS in scripts/preflight.mjs to match the workflow.');
+  const stepIndent = lines[at].indexOf('-');
+  for (let i = at + 1; i < lines.length; i += 1) {
+    const line = lines[i];
+    const indent = line.search(/\S/);
+    if (indent !== -1 && indent <= stepIndent) break;
+    const inline = line.match(/^\s*run:\s*(.+)$/);
+    if (!inline) continue;
+    if (inline[1].trim() !== '|') return inline[1].trim();
+    const block = [];
+    const blockIndent = lines[i + 1].search(/\S/);
+    for (let j = i + 1; j < lines.length && (lines[j].trim() === '' || lines[j].search(/\S/) >= blockIndent); j += 1) block.push(lines[j].slice(blockIndent));
+    return block.join('\n').trim();
+  }
+  return die(`The workflow step "${stepName}" has no run command.`);
+}
+
+if (MANTINE_9) {
+  const commands = MANTINE_9_STEPS.map((name) => [name, workflowRun(name)]);
+  const dir = mkdtempSync(join(tmpdir(), 'gds-preflight-m9-'));
+  console.log(`\npreflight: running the CI Mantine 9 leg on HEAD in ${dir}`);
+  git('worktree', 'add', '--detach', dir, 'HEAD');
+  let failed = null;
+  try {
+    for (const [name, command] of commands) {
+      console.log(`\npreflight (mantine-9): ${name}`);
+      try {
+        execFileSync('bash', ['-eo', 'pipefail', '-c', command], { cwd: dir, stdio: 'inherit', env: { ...process.env, CI: 'true' } });
+      } catch {
+        failed = name;
+        break;
+      }
+    }
+  } finally {
+    git('worktree', 'remove', '--force', dir);
+    git('worktree', 'prune');
+  }
+  if (failed) die(`the Mantine 9 leg failed at "${failed}".`);
+  console.log('preflight: Mantine 9 leg green');
 }
 
 console.log('\npreflight PASSED — clean before, chain green, clean after.');

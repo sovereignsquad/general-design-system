@@ -208,6 +208,10 @@ invented approximation.
 - **`git status --porcelain` must be empty after the chain.** Use `npm run preflight`, which
   enforces clean-before, clean-after, and the full chain in one command. `verify:release` alone
   doesn't satisfy this.
+- **The local tree covers only the Mantine 7 CI leg.** CI also runs the chain on Mantine 9 and
+  React 19. A change that touches Mantine component props, or bumps a Mantine or React
+  dependency, needs `npm run preflight -- --mantine-9`. That runs CI's Mantine 9 steps, read
+  from `.github/workflows/quality.yml`, on the committed HEAD in a throwaway worktree.
 - **Build artifacts must not be assumed.** A developer tree always has a `dist/` from an earlier
   build; a CI checkout doesn't. When a change touches the release chain's ordering or a gate
   that reads built output, delete every `dist/` and run the chain from scratch.
