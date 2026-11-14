@@ -325,6 +325,13 @@ html[data-mantine-color-scheme='dark'] {
   --gds-nav-active-fg: light-dark(#111827, #f8fafc);
   --gds-nav-active-indicator: light-dark(rgb(5, 148, 172), rgb(68, 200, 223));
   --gds-nav-hover-bg: light-dark(rgb(240, 240, 241), rgb(29, 37, 55));
+  --gds-bg-raised: light-dark(#ffffff, rgb(65, 71, 87));
+  --gds-border-subtle: light-dark(rgb(226, 212, 251), rgb(78, 76, 119));
+  --gds-border-strong: light-dark(rgb(149, 140, 165), rgb(126, 125, 156));
+  --gds-message-self-bg: light-dark(rgb(215, 238, 242), rgb(48, 75, 93));
+  --gds-message-self-fg: light-dark(#111827, #f8fafc);
+  --gds-message-other-bg: light-dark(#ffffff, rgb(65, 71, 87));
+  --gds-message-other-fg: light-dark(#111827, #f8fafc);
 }
 /* gds:brand-defaults:end */
 

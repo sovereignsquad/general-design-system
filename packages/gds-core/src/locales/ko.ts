@@ -345,4 +345,11 @@ export const ko = {
   'gds.dataView.toggleLabel': "공들여 나열한 것",
   'gds.dataView.table': "테이블",
   'gds.dataView.grid': "그리드",
+  'gds.messageThread.you': "너",
+  'gds.threadList.errorTitle': "대화를 로드할 수 없습니다.",
+  'gds.threadList.retry': "다시 해 보다",
+  'gds.threadList.loading': "대화 로드 중",
+  'gds.threadList.emptyTitle': "아직 대화가 없습니다.",
+  'gds.threadList.unread': "읽히지 않는",
+  'gds.threadList.loadMore': "더 로드하기",
 };

@@ -1,11 +1,11 @@
 {
-  "tokenUniverse": 270,
+  "tokenUniverse": 277,
   "darkSiblingsExcluded": 37,
-  "cellsEvaluated": 1350,
+  "cellsEvaluated": 1385,
   "obligationsSatisfied": {
-    "listed": 126,
-    "demoed": 139,
-    "explained": 111,
+    "listed": 131,
+    "demoed": 146,
+    "explained": 116,
     "variationsShown": 44,
     "useCase": 29
   },
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 9,
-  "tokensWithGaps": 261,
+  "tokensWithGaps": 268,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -2584,6 +2584,42 @@
       ]
     },
     {
+      "token": "--gds-message-self-fg",
+      "role": "message-self-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-message-other-fg",
+      "role": "message-other-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-chart-series-3",
       "role": "chart-series-3",
       "declaredIn": [
@@ -3908,6 +3944,86 @@
     {
       "token": "--gds-nav-hover-bg",
       "role": "nav-hover-bg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-bg-raised",
+      "role": "bg-raised",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-border-subtle",
+      "role": "border-subtle",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-border-strong",
+      "role": "border-strong",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-message-self-bg",
+      "role": "message-self-bg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-message-other-bg",
+      "role": "message-other-bg",
       "declaredIn": [
         "styles.css"
       ],

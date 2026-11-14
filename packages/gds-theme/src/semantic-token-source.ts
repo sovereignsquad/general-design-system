@@ -310,6 +310,11 @@ function opaqueOver(color: string | undefined, backdrop: string): string {
  * - `--gds-nav-active-indicator`: the brand accent pushed to 3:1 on both the sidebar and the
  *   active background.
  * - `--gds-nav-hover-bg`: body text at 6% over the sidebar.
+ *
+ * Message bubbles between people (#957):
+ * - `--gds-message-self-bg` / `-fg`: the brand accent at 16% over the card, with body text
+ *   pushed to 4.5:1 on it.
+ * - `--gds-message-other-bg` / `-fg`: the raised surface, with body text pushed to 4.5:1.
  */
 export function emitSurfaceHierarchyCssVariables(base: Record<string, string>, shell?: { light: string; dark: string }): Record<string, string> {
   const vars: Record<string, string> = {};
@@ -331,6 +336,13 @@ export function emitSurfaceHierarchyCssVariables(base: Record<string, string>, s
     vars[`--gds-nav-active-fg${suffix}`] = ensureContrast(text, activeBg, 4.5, dark, activeBg);
     vars[`--gds-nav-active-indicator${suffix}`] = ensureContrast(ensureContrast(accent, sidebar, 3, dark, sidebar), activeBg, 3, dark, activeBg);
     vars[`--gds-nav-hover-bg${suffix}`] = mixCssColors(text, sidebar, 0.06, sidebar);
+
+    const selfBg = mixCssColors(accent, card, 0.16, card);
+    const otherBg = vars[`--gds-bg-raised${suffix}`];
+    vars[`--gds-message-self-bg${suffix}`] = selfBg;
+    vars[`--gds-message-self-fg${suffix}`] = ensureContrast(text, selfBg, 4.5, dark, selfBg);
+    vars[`--gds-message-other-bg${suffix}`] = otherBg;
+    vars[`--gds-message-other-fg${suffix}`] = ensureContrast(text, otherBg, 4.5, dark, otherBg);
   }
   return vars;
 }

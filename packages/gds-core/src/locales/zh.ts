@@ -345,4 +345,11 @@ export const zh = {
   'gds.dataView.toggleLabel': "布局",
   'gds.dataView.table': "桌子",
   'gds.dataView.grid': "网格",
+  'gds.messageThread.you': "你",
+  'gds.threadList.errorTitle': "无法加载对话",
+  'gds.threadList.retry': "重试",
+  'gds.threadList.loading': "加载对话",
+  'gds.threadList.emptyTitle': "还没有对话",
+  'gds.threadList.unread': "未读",
+  'gds.threadList.loadMore': "加载更多",
 };

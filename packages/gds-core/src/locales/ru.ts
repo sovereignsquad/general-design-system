@@ -345,4 +345,11 @@ export const ru = {
   'gds.dataView.toggleLabel': "Макет",
   'gds.dataView.table': "Стол",
   'gds.dataView.grid': "Сетка",
+  'gds.messageThread.you': "Ты",
+  'gds.threadList.errorTitle': "Не удалось загрузить беседы",
+  'gds.threadList.retry': "Повторить попытку",
+  'gds.threadList.loading': "Загрузка разговоров",
+  'gds.threadList.emptyTitle': "Пока нет разговоров",
+  'gds.threadList.unread': "Непрочитано",
+  'gds.threadList.loadMore': "Загрузить больше",
 };

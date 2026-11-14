@@ -37,6 +37,8 @@ export * from './GdsDensity';
 export * from './GdsShapeScope';
 export * from './GdsTreeView';
 export * from './GdsBulkActionBar';
+export * from './GdsThreadList';
+export * from './GdsMessageThread';
 export * from './CardContracts';
 
 // ── Layout & structural surfaces ──

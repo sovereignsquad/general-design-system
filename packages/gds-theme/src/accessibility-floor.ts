@@ -279,6 +279,25 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     },
   },
   {
+    id: 'message-bubbles-legible',
+    axis: 'color',
+    wcag: '1.4.3 Contrast (Minimum) (AA)',
+    rationale: 'A message bubble is the content of a conversation; its text must be readable for both sides (#957).',
+    evaluate(ctx) {
+      const out: GdsFloorViolation[] = [];
+      for (const side of ['self', 'other']) {
+        const bg = ctx.tokens[`--gds-message-${side}-bg`];
+        const fg = ctx.tokens[`--gds-message-${side}-fg`];
+        const ratio = bg && fg ? contrastRatio(fg, bg, bg) : null;
+        if (ratio === null || ratio < 4.5) {
+          out.push(violation(ctx, this, `${side} bubble = ${ratio ?? 'missing'}:1`, '>= 4.5:1',
+            'Message roles are derived in emitSurfaceHierarchyCssVariables (semantic token source) from the brand accent, card and raised surface.'));
+        }
+      }
+      return out;
+    },
+  },
+  {
     id: 'surface-separation',
     axis: 'color',
     wcag: '1.4.11 Non-text Contrast (AA), informative: a surface is not a UI component',

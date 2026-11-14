@@ -16,6 +16,13 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Thread list and multi-party message thread (#957)
+
+- New `GdsThreadList`: inbox conversations with `aria-current` on the open thread, unread by weight, dot and hidden text (not colour alone), locale timestamps, avatars, and loading, empty, error/retry and load-more states.
+- New `GdsMessageThread`: a `role="log"` conversation between people with self/other sides, grouped consecutive messages, day separators and per-message sender and time for assistive technology. `ChatMessage`/`ChatThread` are unchanged.
+- New roles `--gds-message-self-bg`/`-fg` and `--gds-message-other-bg`/`-fg`, derived per preset and scheme, with the accessibility-floor rule `message-bubbles-legible`.
+- Lanes without a preset now get `--gds-bg-raised`, `--gds-border-subtle`, `--gds-border-strong` and the message roles from the `gds:brand-defaults` block. `GdsTreeView` and `GdsBulkActionBar` (#956) read the first three without a fallback, so in those lanes they had no fill or border; `verify:default-lane-axis-tokens` now also covers the `bg` and `border` families.
+
 ### Tree view, bulk action bar and a table/grid toggle for dense resource screens (#956)
 
 - New `GdsTreeView`: the WAI-ARIA tree pattern with roving tabindex, arrow/Home/End/type-ahead keys, controlled expanded and selected ids, and lazy children with loading and error/retry states.

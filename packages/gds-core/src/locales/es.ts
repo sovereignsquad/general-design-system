@@ -345,4 +345,11 @@ export const es = {
   'gds.dataView.toggleLabel': "Disposición",
   'gds.dataView.table': "Mesa",
   'gds.dataView.grid': "Red",
+  'gds.messageThread.you': "Tú",
+  'gds.threadList.errorTitle': "No se pudieron cargar las conversaciones",
+  'gds.threadList.retry': "Rever",
+  'gds.threadList.loading': "Cargando conversaciones",
+  'gds.threadList.emptyTitle': "Aún no hay conversaciones",
+  'gds.threadList.unread': "No leído",
+  'gds.threadList.loadMore': "Cargar más",
 };

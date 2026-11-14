@@ -63,4 +63,14 @@ describe('surface hierarchy roles (#951)', () => {
       }
     }
   });
+
+  it('every preset and scheme emits message bubble roles that clear 4.5:1 (#957)', () => {
+    for (const { id } of getGdsVibeThemes()) {
+      for (const scheme of ['light', 'dark'] as const) {
+        const t = getGdsVibeThemeCssVariables(id, scheme);
+        expect(validateGdsAccessibilityFloor({ presetId: id, scheme, tokens: t }).filter((v) => v.ruleId === 'message-bubbles-legible'), `${id} ${scheme}`).toEqual([]);
+        expect(t['--gds-message-other-bg']).toBe(t['--gds-bg-raised']);
+      }
+    }
+  });
 });

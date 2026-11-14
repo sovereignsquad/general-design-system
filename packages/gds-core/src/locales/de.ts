@@ -345,4 +345,11 @@ export const de = {
   'gds.dataView.toggleLabel': "Layout",
   'gds.dataView.table': "Tisch",
   'gds.dataView.grid': "Netz",
+  'gds.messageThread.you': "Du",
+  'gds.threadList.errorTitle': "Gespräche konnten nicht geladen werden",
+  'gds.threadList.retry': "Wiederholen",
+  'gds.threadList.loading': "Gespräche werden geladen",
+  'gds.threadList.emptyTitle': "Noch keine Gespräche",
+  'gds.threadList.unread': "Ungelesen",
+  'gds.threadList.loadMore': "Mehr laden",
 };

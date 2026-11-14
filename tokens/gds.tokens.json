@@ -5,9 +5,9 @@
       "generator": "scripts/generate-dtcg-tokens.mjs",
       "source": "createGdsTokenGraph() from @sovereignsquad/gds-theme",
       "themeCount": 27,
-      "tokenCount": 6564,
+      "tokenCount": 6672,
       "atmosphereTokenCount": 459,
-      "semanticTokenCount": 6105,
+      "semanticTokenCount": 6213,
       "globalTokenCount": 38,
       "cssGradientType": "com.sovereignsquad.gds.cssGradient",
       "cssEnvType": "com.sovereignsquad.gds.cssEnv",
@@ -3100,6 +3100,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "default semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(65, 71, 87)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "default semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(215, 238, 242)",
+          "$description": "default semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(215, 238, 242)",
+                "dark": "rgb(48, 75, 93)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "default semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -6723,6 +6783,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "high-contrast semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(25, 25, 25)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "high-contrast semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(234, 219, 240)",
+          "$description": "high-contrast semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(234, 219, 240)",
+                "dark": "rgb(25, 14, 30)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "high-contrast semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#000000",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(236, 224, 242)",
@@ -10338,6 +10458,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "colorblind-safe semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(40, 50, 61)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#12181f",
+          "$description": "colorblind-safe semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#12181f",
+                "dark": "#f2f6fa"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(248, 229, 214)",
+          "$description": "colorblind-safe semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(248, 229, 214)",
+                "dark": "rgb(49, 44, 44)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#12181f",
+          "$description": "colorblind-safe semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#12181f",
+                "dark": "#f2f6fa"
               }
             }
           }
@@ -13961,6 +14141,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "dark-public semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(57, 60, 71)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "dark-public semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(218, 239, 242)",
+          "$description": "dark-public semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(218, 239, 242)",
+                "dark": "rgb(44, 67, 81)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "dark-public semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(221, 239, 244)",
@@ -17576,6 +17816,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "flat-surface semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(67, 72, 84)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "flat-surface semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(217, 238, 236)",
+          "$description": "flat-surface semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(217, 238, 236)",
+                "dark": "rgb(51, 76, 85)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "flat-surface semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -21199,6 +21499,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "editorial semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(75, 73, 71)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "editorial semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(245, 217, 224)",
+          "$description": "editorial semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(245, 217, 224)",
+                "dark": "rgb(79, 57, 60)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "editorial semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(246, 215, 212)",
@@ -24814,6 +25174,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "brand semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(65, 71, 87)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "brand semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(215, 238, 242)",
+          "$description": "brand semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(215, 238, 242)",
+                "dark": "rgb(48, 75, 93)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "brand semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -28437,6 +28857,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "partner-discovery semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(59, 69, 67)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#010800",
+          "$description": "partner-discovery semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#010800",
+                "dark": "#f4f7fb"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(220, 240, 214)",
+          "$description": "partner-discovery semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(220, 240, 214)",
+                "dark": "rgb(47, 75, 49)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#010800",
+          "$description": "partner-discovery semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#010800",
+                "dark": "#f4f7fb"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(225, 242, 219)",
@@ -32052,6 +32532,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "class-usa semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(51, 54, 61)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#1f3a5c",
+          "$description": "class-usa semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f3a5c",
+                "dark": "#f2ede4"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(245, 226, 216)",
+          "$description": "class-usa semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(245, 226, 216)",
+                "dark": "rgb(63, 46, 42)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#1f3a5c",
+          "$description": "class-usa semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#1f3a5c",
+                "dark": "#f2ede4"
               }
             }
           }
@@ -35675,6 +36215,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "gold-athlete semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(45, 48, 53)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#12161c",
+          "$description": "gold-athlete semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#12161c",
+                "dark": "#fbf7ee"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(245, 236, 217)",
+          "$description": "gold-athlete semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(245, 236, 217)",
+                "dark": "rgb(55, 51, 41)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#12161c",
+          "$description": "gold-athlete semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#12161c",
+                "dark": "#fbf7ee"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(246, 238, 221)",
@@ -39290,6 +39890,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "padel-africa semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(57, 73, 69)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#062018",
+          "$description": "padel-africa semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#062018",
+                "dark": "#f2f8ec"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(215, 227, 222)",
+          "$description": "padel-africa semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(215, 227, 222)",
+                "dark": "rgb(40, 64, 57)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#062018",
+          "$description": "padel-africa semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#062018",
+                "dark": "#f2f8ec"
               }
             }
           }
@@ -42958,6 +43618,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "your-field semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(61, 71, 83)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#0b223e",
+          "$description": "your-field semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#0b223e",
+                "dark": "#f2ede5"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(246, 231, 226)",
+          "$description": "your-field semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(246, 231, 226)",
+                "dark": "rgb(67, 65, 73)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#0b223e",
+          "$description": "your-field semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#0b223e",
+                "dark": "#f2ede5"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(247, 233, 229)",
@@ -46573,6 +47293,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "sunset semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(80, 67, 58)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "sunset semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(252, 226, 239)",
+          "$description": "sunset semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(252, 226, 239)",
+                "dark": "rgb(89, 58, 59)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "sunset semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -50196,6 +50976,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "oceanic semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(56, 68, 78)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "oceanic semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(220, 230, 252)",
+          "$description": "oceanic semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(220, 230, 252)",
+                "dark": "rgb(43, 62, 87)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "oceanic semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(208, 232, 252)",
@@ -53811,6 +54651,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "forest semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(58, 72, 63)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "forest semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(230, 238, 217)",
+          "$description": "forest semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(230, 238, 217)",
+                "dark": "rgb(56, 78, 48)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "forest semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -57434,6 +58334,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "ruby semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(80, 57, 62)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "ruby semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(250, 231, 217)",
+          "$description": "ruby semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(250, 231, 217)",
+                "dark": "rgb(91, 53, 47)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "ruby semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(251, 222, 211)",
@@ -61049,6 +62009,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "amber semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(78, 71, 56)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "amber semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(242, 235, 215)",
+          "$description": "amber semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(242, 235, 215)",
+                "dark": "rgb(87, 74, 40)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "amber semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -64672,6 +65692,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "neon-night semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(55, 59, 67)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "neon-night semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(218, 239, 242)",
+          "$description": "neon-night semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(218, 239, 242)",
+                "dark": "rgb(42, 67, 77)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "neon-night semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(216, 240, 223)",
@@ -68287,6 +69367,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "skyline semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(61, 66, 83)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "skyline semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(216, 238, 248)",
+          "$description": "skyline semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(216, 238, 248)",
+                "dark": "rgb(45, 68, 92)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "skyline semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -71910,6 +73050,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "aurora semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(56, 80, 78)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "aurora semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(231, 238, 220)",
+          "$description": "aurora semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(231, 238, 220)",
+                "dark": "rgb(58, 88, 65)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "aurora semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(221, 239, 220)",
@@ -75525,6 +76725,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "coral semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(82, 66, 80)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "coral semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(250, 231, 233)",
+          "$description": "coral semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(250, 231, 233)",
+                "dark": "rgb(93, 62, 77)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "coral semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -79148,6 +80408,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "mint semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(55, 75, 71)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "mint semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(217, 238, 236)",
+          "$description": "mint semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(217, 238, 236)",
+                "dark": "rgb(40, 79, 72)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "mint semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(205, 238, 229)",
@@ -82763,6 +84083,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "orchid semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(76, 61, 90)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "orchid semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(252, 226, 239)",
+          "$description": "orchid semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(252, 226, 239)",
+                "dark": "rgb(86, 52, 89)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "orchid semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -86386,6 +87766,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "royal semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(66, 61, 89)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "royal semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(215, 238, 242)",
+          "$description": "royal semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(215, 238, 242)",
+                "dark": "rgb(49, 65, 94)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "royal semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(211, 230, 243)",
@@ -90001,6 +91441,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "warm semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(75, 66, 57)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "warm semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(250, 231, 217)",
+          "$description": "warm semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(250, 231, 217)",
+                "dark": "rgb(86, 62, 42)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#111827",
+          "$description": "warm semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#111827",
+                "dark": "#f8fafc"
               }
             }
           }
@@ -93624,6 +95124,66 @@
             }
           }
         },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "athlete-gold semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(55, 60, 65)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#17130a",
+          "$description": "athlete-gold semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#17130a",
+                "dark": "#fff9e8"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(241, 237, 225)",
+          "$description": "athlete-gold semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(241, 237, 225)",
+                "dark": "rgb(69, 68, 60)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#17130a",
+          "$description": "athlete-gold semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#17130a",
+                "dark": "#fff9e8"
+              }
+            }
+          }
+        },
         "nav-active-bg": {
           "$type": "color",
           "$value": "rgb(243, 233, 207)",
@@ -97239,6 +98799,66 @@
               "scheme": {
                 "light": "1.35",
                 "dark": "1.35"
+              }
+            }
+          }
+        },
+        "message-other-bg": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "cosmic semantic role \"message-other-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#ffffff",
+                "dark": "rgb(55, 53, 72)"
+              }
+            }
+          }
+        },
+        "message-other-fg": {
+          "$type": "color",
+          "$value": "#170f35",
+          "$description": "cosmic semantic role \"message-other-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-other-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#170f35",
+                "dark": "#ffffff"
+              }
+            }
+          }
+        },
+        "message-self-bg": {
+          "$type": "color",
+          "$value": "rgb(250, 218, 255)",
+          "$description": "cosmic semantic role \"message-self-bg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-bg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "rgb(250, 218, 255)",
+                "dark": "rgb(65, 39, 84)"
+              }
+            }
+          }
+        },
+        "message-self-fg": {
+          "$type": "color",
+          "$value": "#170f35",
+          "$description": "cosmic semantic role \"message-self-fg\" — the value GDS components render for this role.",
+          "$extensions": {
+            "com.sovereignsquad.gds": {
+              "role": "message-self-fg",
+              "lane": "semantic",
+              "scheme": {
+                "light": "#170f35",
+                "dark": "#ffffff"
               }
             }
           }

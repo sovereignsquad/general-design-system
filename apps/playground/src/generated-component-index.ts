@@ -1320,6 +1320,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Layout primitive (aspect-ratio media frame) — composed into registered patterns."
   },
   {
+    "name": "GdsMessageThread",
+    "status": "registered",
+    "home": {
+      "id": "message-thread",
+      "family": "data",
+      "section": "Search & Data Views"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsMeter",
     "status": "registered",
     "home": {
@@ -1616,6 +1626,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
       "id": "alerts",
       "family": "feedback",
       "section": "Overlays & Feedback"
+    },
+    "alsoAppearsIn": []
+  },
+  {
+    "name": "GdsThreadList",
+    "status": "registered",
+    "home": {
+      "id": "thread-list",
+      "family": "data",
+      "section": "Search & Data Views"
     },
     "alsoAppearsIn": []
   },

@@ -39,6 +39,9 @@ const canaryTokens = {
   // An active label the colour of its background: nav-states-legible.
   '--gds-nav-active-fg': '#f0f0f0',
   '--gds-nav-active-bg': '#ffffff',
+  // A self bubble whose text matches its fill: message-bubbles-legible.
+  '--gds-message-self-bg': '#777777',
+  '--gds-message-self-fg': '#787878',
   '--gds-bg-page': '#ffffff',
   '--gds-bg-sidebar': '#ffffff',
   '--gds-brand-primary': '#111827',
