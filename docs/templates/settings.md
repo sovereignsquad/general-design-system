@@ -55,6 +55,37 @@ Grouped settings surface with save, disabled, saving, and permission states.
 - `action_clicked`
 - `retry_requested`
 
+## Do
+
+- Give each group an `id`, a `title` and its `fields`; each group is its own panel with an `h2`.
+- Put the save action in `actions` and set its `loading` while saving.
+
+## Don't
+
+- Do not pass an empty `groups` list for a page that has settings; it shows a "No settings groups" block.
+- Do not put a destructive action among the settings fields; use the crud-editor template's destructive zone.
+
+## Minimal example
+
+From [`examples/settings.tsx`](examples/settings.tsx), which the test suite renders and checks with axe.
+
+```tsx
+import { GdsSettingsTemplate, TextInput } from '@sovereignsquad/gds-core';
+
+export default function SettingsExample() {
+  return (
+    <GdsSettingsTemplate
+      title="Settings"
+      state="ready"
+      actions={[{ id: 'save', label: 'Save changes', kind: 'primary', onClick: () => undefined }]}
+      groups={[
+        { id: 'profile', title: 'Profile', description: 'Shown to other members.', fields: <TextInput label="Display name" defaultValue="Ada" /> },
+      ]}
+    />
+  );
+}
+```
+
 ## Rollback
 
 Consumers can keep route-local settings pages until migration is complete.

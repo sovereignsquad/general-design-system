@@ -20,6 +20,8 @@ export interface SimpleDataTableProps<T extends Record<string, unknown>> {
   emptyDescription?: string;
   /** Derives a stable React key per row; defaults to the row index. */
   getRowKey?: (row: T, index: number) => React.Key;
+  /** Heading level of the loading, error and empty state titles; defaults to 4. Set it to fit the surrounding outline. */
+  stateTitleOrder?: 2 | 3 | 4 | 5 | 6;
 }
 
 /**
@@ -36,21 +38,22 @@ export function SimpleDataTable<T extends Record<string, unknown>>({
   emptyTitle: emptyTitleProp,
   emptyDescription: emptyDescriptionProp,
   getRowKey,
+  stateTitleOrder,
 }: SimpleDataTableProps<T>) {
   const { t } = useGdsTranslation();
   const emptyTitle = emptyTitleProp ?? t('gds.simpleDataTable.emptyTitle', "No data available");
   const emptyDescription = emptyDescriptionProp ?? t('gds.simpleDataTable.emptyDescription', "There is no live data to show yet.");
 
   if (error) {
-    return <StateBlock variant="error" title="Unable to load data" description={error} compact />;
+    return <StateBlock variant="error" title="Unable to load data" description={error} compact titleOrder={stateTitleOrder} />;
   }
 
   if (loading) {
-    return <StateBlock variant="loading" title="Loading data" description="Please wait while the shared dataset is prepared." compact />;
+    return <StateBlock variant="loading" title="Loading data" description="Please wait while the shared dataset is prepared." compact titleOrder={stateTitleOrder} />;
   }
 
   if (!rows.length) {
-    return <StateBlock variant="empty" title={emptyTitle} description={emptyDescription} compact />;
+    return <StateBlock variant="empty" title={emptyTitle} description={emptyDescription} compact titleOrder={stateTitleOrder} />;
   }
 
   return (

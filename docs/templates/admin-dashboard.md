@@ -57,6 +57,40 @@ Operational overview with metrics, sections, loading, empty, error, and retry st
 - `action_clicked`
 - `retry_requested`
 
+## Do
+
+- Pass `metrics` as `MetricCard` props, one numeric KPI each.
+- Pass `onRetry` so the error and retrying states offer a retry action.
+
+## Don't
+
+- Do not publish the page without metrics; it shows a "No metrics configured" block instead.
+- Do not put identifiers, categories or placeholders in a metric `value`.
+
+## Minimal example
+
+From [`examples/admin-dashboard.tsx`](examples/admin-dashboard.tsx), which the test suite renders and checks with axe.
+
+```tsx
+import { GdsAdminDashboardTemplate } from '@sovereignsquad/gds-core';
+
+export default function AdminDashboardExample() {
+  return (
+    <GdsAdminDashboardTemplate
+      title="Operations"
+      description="Open work across the team."
+      state="ready"
+      metrics={[
+        { label: 'Open requests', value: 42 },
+        { label: 'Median response', value: '3 h' },
+      ]}
+      sections={[{ id: 'queue', title: 'Review queue', content: 'Requests awaiting review appear here.' }]}
+      onRetry={() => undefined}
+    />
+  );
+}
+```
+
 ## Rollback
 
 Keep the previous product route while adopting this additive template export.

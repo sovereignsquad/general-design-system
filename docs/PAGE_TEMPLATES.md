@@ -27,7 +27,7 @@ import {
 } from '@sovereignsquad/gds-core';
 ```
 
-Per-template specs (required data, states, component contracts, accessibility, edge cases, telemetry, rollback) are generated from `getGdsPageTemplates()` into [`docs/templates/`](templates/) by `npm run templates:docs`, which also writes the page-template catalog in `llms.txt`; `verify:release` fails when either is stale.
+Per-template specs (required data, states, component contracts, accessibility, edge cases, telemetry, do and don't guidance, a minimal example, rollback) are generated from `getGdsPageTemplates()` and `docs/templates/examples/<id>.tsx` into [`docs/templates/`](templates/) by `npm run templates:docs`. The guidance is the config's `guidance` field. The test suite renders each example and every template in every state it declares, and checks them with axe. `npm run templates:docs` which also writes the page-template catalog in `llms.txt`; `verify:release` fails when either is stale.
 
 ## Architecture
 

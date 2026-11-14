@@ -6,9 +6,9 @@ export interface MetricCardProps {
   /** Name of the metric. */
   label: string;
   /**
-   * One numeric KPI: a count, amount, ratio or duration, with an optional unit. Rendered as an
-   * `h3`. Not for identifiers, addresses, selections, categorical labels such as "Level 3", or
-   * placeholders such as `-`; omit the card when there is no value.
+   * One numeric KPI: a count, amount, ratio or duration, with an optional unit. Rendered as
+   * `h3`-sized text, not a heading. Not for identifiers, addresses, selections, categorical
+   * labels such as "Level 3", or placeholders such as `-`; omit the card when there is no value.
    */
   value: ReactNode;
   /** Supporting text under the value. */

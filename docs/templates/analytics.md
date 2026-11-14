@@ -63,6 +63,44 @@ Reporting page with metrics, chart slot, table fallback, empty data, and retry s
 - `action_clicked`
 - `retry_requested`
 
+## Do
+
+- Pass `rows` and `columns`, or `table`: the table is the accessible alternative to the chart and renders without one.
+- Pass several charts as `charts`; two or more share two columns on large screens.
+
+## Don't
+
+- Do not pass `chart` and `charts` together; when `charts` has items, `chart` is not rendered.
+- Do not leave the data only in the chart.
+
+## Minimal example
+
+From [`examples/analytics.tsx`](examples/analytics.tsx), which the test suite renders and checks with axe.
+
+```tsx
+import { GdsAnalyticsTemplate } from '@sovereignsquad/gds-core';
+
+const rows = [
+  { month: 'January', visits: 1200 },
+  { month: 'February', visits: 1350 },
+];
+
+export default function AnalyticsExample() {
+  return (
+    <GdsAnalyticsTemplate
+      title="Traffic"
+      state="ready"
+      metrics={[{ label: 'Visits', value: 2550 }]}
+      rows={rows}
+      columns={[
+        { key: 'month', header: 'Month' },
+        { key: 'visits', header: 'Visits' },
+      ]}
+    />
+  );
+}
+```
+
 ## Rollback
 
 Keep vendor-specific analytics behind the chart/table slots.

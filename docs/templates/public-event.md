@@ -56,6 +56,37 @@ Public event page with hero media slot, event metadata, registration, and no-med
 - `action_clicked`
 - `retry_requested`
 
+## Do
+
+- Pass `when` already formatted for the reader's locale; the template renders it as given.
+- Pass the sign-up control as `registration`; a divider separates it from `details`.
+
+## Don't
+
+- Do not repeat the date and place in `details`; `when` and `location` render in the event header row.
+- Do not treat `media` as required; without it the page shows a "No media available" block and stays readable.
+
+## Minimal example
+
+From [`examples/public-event.tsx`](examples/public-event.tsx), which the test suite renders and checks with axe.
+
+```tsx
+import { BodyText, Button, GdsPublicEventTemplate } from '@sovereignsquad/gds-core';
+
+export default function PublicEventExample() {
+  return (
+    <GdsPublicEventTemplate
+      title="Spring meetup"
+      state="ready"
+      when="12 April, 18:00"
+      location="Main hall"
+      details={<BodyText>Talks and open discussion.</BodyText>}
+      registration={<Button>Register</Button>}
+    />
+  );
+}
+```
+
 ## Rollback
 
 Adopt per public route without changing event storage or registration adapters.

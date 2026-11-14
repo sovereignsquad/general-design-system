@@ -16,6 +16,13 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Page template guidance, examples and heading levels (#950)
+
+- Each page template config carries `guidance` (`do` and `dont`), and each template has a minimal example in `docs/templates/examples/<id>.tsx`. Both appear in the generated spec; the generator fails when either is missing.
+- The test suite renders every example, and every template in every state it declares, and checks each with axe.
+- That check found skipped heading levels in the shipped templates, now fixed. The state gate's loading, error and retrying titles were `h3` directly under the page `h1`. The fallback blocks were `h4`: no metrics, no settings groups, no sections, no media, no chart, the error page block and the empty table. New `AsyncSurface.titleOrder`, `SimpleDataTable.stateTitleOrder` and `GdsThreadList.stateTitleOrder`; the templates pass 2 under the page title and 3 inside a section. Defaults are unchanged.
+- `MetricCardProps.value` documentation no longer says the value renders as an `h3`.
+
 ### Single preset registration (#961)
 
 - A built-in theme preset is one module, `packages/gds-theme/src/presets/<id>.ts`, whose default export is `defineGdsThemePreset({ id, catalog, vibe, mantine?, semanticOverrides? })`, plus one entry in `gdsThemePresetRegistry`. The `GdsThemePresetId` union, `getGdsThemePresets()`, `resolveGdsThemePreset`, `getGdsVibeThemes()` and the hand-authored semantic tables of `class-usa` and `gold-athlete` are derived from it.
