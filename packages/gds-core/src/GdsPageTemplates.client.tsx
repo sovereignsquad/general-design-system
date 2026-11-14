@@ -94,7 +94,7 @@ export function GdsAssetManagerTemplate({
           onRetry={onRetry}
           retryLabel={retryLabel}
           successContent={(
-            <Grid gutter="md">
+            <Grid style={{ gap: 'var(--gds-space-md)' }}>
               {tree ? (
                 <Grid.Col span={{ base: 12, md: 3 }}>
                   <Box component="nav" aria-label={t('gds.assetManagerTemplate.folders', 'Folders')} data-gds-asset-tree="">{tree}</Box>
@@ -187,7 +187,7 @@ export function GdsWorkspaceInboxTemplate({
             </GdsStack>
           )
         ) : (
-          <Grid gutter="md">
+          <Grid style={{ gap: 'var(--gds-space-md)' }}>
             {navigation ? (
               <Grid.Col span={{ base: 12, md: 2 }}>
                 <Box component="nav" aria-label={t('gds.workspaceInboxTemplate.navigation', 'Workspace')} style={scroll}>{navigation}</Box>
