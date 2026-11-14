@@ -42,7 +42,7 @@ export type { GdsDesignRuleProfile, GdsColorProportionRule, GdsColorProportionCl
 export { DOMINANT_ROLES, SECONDARY_ROLES, ACCENT_ROLES, colorProportionClassificationByPreset, resolveGdsColorProportionProfile } from './color-proportion-classification';
 export { resolveGdsTypeScaleProfile, NAMED_TYPE_SCALE_RATIO_LABELS } from './type-scale-profile';
 export { resolveGdsColorHarmonyProfile } from './color-harmony-classification';
-export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, deriveVibeSemanticCssVariables, getGdsAiAccentLane } from './vibe-themes';
+export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, getGdsDefaultLaneCssVariables, GDS_DEFAULT_LANE_GREY_ROLES, deriveVibeSemanticCssVariables, getGdsAiAccentLane } from './vibe-themes';
 export type { GdsVibeTheme, GdsAiAccentLane } from './vibe-themes';
 export { VibeThemePicker } from './VibeThemePicker.client';
 export type { VibeThemePickerProps } from './VibeThemePicker.client';

@@ -5,6 +5,7 @@ import { emitChartCssVariables } from './chart-tokens';
 import {
   classUsaDefaultColorRamps,
   deriveVibeSemanticCssVariables,
+  emitBadgeToneCssVariables,
   emitClassUsaCssVariables,
   emitGoldAthleteCssVariables,
   goldAthleteDefaultColorRamps,
@@ -791,6 +792,31 @@ function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeThem
   const derived = deriveVibeSemanticCssVariables(vibe);
   derivedSemanticCssVariablesCache.set(id, derived);
   return derived;
+}
+
+/** Roles the default lane paints with the muted text grey instead of the preset value. */
+export const GDS_DEFAULT_LANE_GREY_ROLES = ['--gds-brand-primary', '--gds-state-info'] as const;
+
+/**
+ * The semantic roles for lanes without the preset runtime (`gdsTheme`, `gdsDarkPublicTheme`,
+ * `createPublicBrandTheme`), with `-dark` keys for the dark scheme. The `default` preset's
+ * roles, except {@link GDS_DEFAULT_LANE_GREY_ROLES}: there the preset uses the body text colour
+ * (near-black in light, near-white in dark), so a filled control would read as text. These take
+ * the preset's light `--gds-text-meta` grey, lifted in dark only as far as 4.5:1 on the card needs. Badge, brand-foreground and chart roles are re-derived
+ * from the result, so every pair stays contrast-checked.
+ */
+export function getGdsDefaultLaneCssVariables(): Record<string, string> {
+  const base = { ...deriveVibeSemanticCssVariables(resolveGdsVibeTheme('default')) };
+  // Light: the muted grey as it is. Dark: the same grey lifted only until it clears 4.5:1 on the
+  // dark card, so it stays a mid grey instead of converging on the near-white body text.
+  const grey = base['--gds-text-meta'];
+  const cardDark = base['--gds-bg-card-dark'];
+  const greyDark = ensureContrast(grey, cardDark, 4.5, true, cardDark);
+  for (const role of GDS_DEFAULT_LANE_GREY_ROLES) {
+    base[role] = grey;
+    base[`${role}-dark`] = greyDark;
+  }
+  return { ...base, ...emitBadgeToneCssVariables(base), ...emitChartCssVariables(base) };
 }
 
 /**

@@ -2,7 +2,8 @@
 //
 // 1. Fixture: plain HTML linking Mantine's stylesheet and packages/gds-theme/styles.css, no
 //    preset attribute and no injected variables (the gdsTheme / createPublicBrandTheme lane),
-//    measuring the reads components make (axis tokens and badge pairs), in light and dark.
+//    measuring the reads components make (axis tokens, badge pairs and the brand-primary fill),
+//    in light and dark.
 // 2. apps/reference-vite (gdsDarkPublicTheme), served from its built dist/: the FeatureBand
 //    process step pill and the EditorialHero action, in light and dark.
 import { createServer } from 'node:http';
@@ -38,6 +39,7 @@ const FIXTURE = `<!doctype html>
   <div id="card" style="box-shadow: var(--gds-elevation-card)">card</div>
   <span id="badge-solid" style="background: var(--gds-badge-solid-success); color: var(--gds-badge-solid-success-fg)">done</span>
   <span id="badge-soft" style="background: var(--gds-badge-soft-info); color: var(--gds-badge-soft-info-fg)">info</span>
+  <span id="brand-primary" style="background: var(--gds-brand-primary); color: var(--gds-brand-primary-fg)">primary</span>
 </body>
 </html>`;
 
@@ -53,7 +55,8 @@ const MEASURE_FIXTURE = `(() => {
     navHeight: document.getElementById('navlink').getBoundingClientRect().height,
     mapBorder: [cs('map-item').borderTopWidth, cs('map-item').borderTopStyle, cs('map-item').borderTopColor],
     cardShadow: cs('card').boxShadow,
-    badges: ['badge-solid', 'badge-soft'].map((id) => ({ id, bg: cs(id).backgroundColor, fg: cs(id).color })),
+    badges: ['badge-solid', 'badge-soft', 'brand-primary'].map((id) => ({ id, bg: cs(id).backgroundColor, fg: cs(id).color })),
+    bodyText: getComputedStyle(document.body).color,
   };
 })()`;
 
@@ -150,6 +153,8 @@ try {
     for (const badge of m.badges) {
       if (!opaque(badge.bg)) failures.push(`${label}: #${badge.id} background is ${badge.bg}, expected an opaque badge colour.`);
       else if (contrast(badge.bg, badge.fg) < 4.5) failures.push(`${label}: #${badge.id} text is ${contrast(badge.bg, badge.fg).toFixed(2)}:1 on its background, below 4.5:1.`);
+      // A brand fill in the body text colour reads as text, not as a control (#968).
+      if (badge.id === 'brand-primary' && opaque(badge.bg) && badge.bg === m.bodyText) failures.push(`${label}: #brand-primary fill is the body text colour ${badge.bg}.`);
     }
     measured.push(`${label}: pill ${m.pillRadius}, padding ${m.heroPadding.join('/')}, NavLink ${m.navHeight}px, map border ${m.mapBorder.join(' ')}, badges ${m.badges.map((b) => (opaque(b.bg) ? contrast(b.bg, b.fg).toFixed(2) : 'transparent')).join('/')}:1`);
   }
