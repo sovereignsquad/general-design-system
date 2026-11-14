@@ -64,7 +64,7 @@ Operational overview with metrics, sections, loading, empty, error, and retry st
 
 ## Don't
 
-- Do not publish the page without metrics; it shows a "No metrics configured" block instead.
+- Do not publish the page without metrics; it shows a "No metrics yet" block instead.
 - Do not put identifiers, categories or placeholders in a metric `value`.
 
 ## Minimal example

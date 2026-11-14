@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
+import { Button } from '@mantine/core';
 import { StateBlock } from './StateBlock';
 import type { StateBlockVariant } from './StateBlock';
 import type { SurfacePresentationProps } from './SurfacePresentation';
@@ -37,11 +38,11 @@ export interface AsyncSurfaceProps extends SurfacePresentationProps {
   titleOrder?: 2 | 3 | 4 | 5 | 6;
 }
 
-function getRetryAction(onRetry?: () => void) {
+function getRetryAction(label: string, onRetry?: () => void) {
   if (!onRetry) {
     return undefined;
   }
-  return <button type="button" onClick={onRetry}>Retry</button>;
+  return <Button variant="light" onClick={onRetry}>{label}</Button>;
 }
 
 function renderStateBlock({
@@ -121,7 +122,7 @@ export function AsyncSurface({
   const refreshingTitle = refreshingTitleProp ?? t('gds.asyncSurface.refreshingTitle', "Refreshing");
   const refreshingDescription = refreshingDescriptionProp ?? t('gds.asyncSurface.refreshingDescription', "The latest data is being fetched.");
 
-  const fallbackRetryAction = retryAction ?? getRetryAction(onRetry);
+  const fallbackRetryAction = retryAction ?? getRetryAction(t('gds.asyncSurface.retry', 'Retry'), onRetry);
 
   if (state === 'success') {
     return <>{successContent}</>;

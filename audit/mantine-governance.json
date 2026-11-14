@@ -13,7 +13,6 @@
       "reason": "Constructed at runtime from `palette.accent` in EditorialCard.tsx:183; the reachable palette set is not statically knowable.",
       "files": [
         "packages/gds-core/src/EditorialCard.tsx",
-        "packages/gds-core/src/GdsPageTemplateFrame.tsx",
         "packages/gds-theme/src/presets/vibrant.ts",
         "packages/gds-theme/src/theme.ts"
       ]
@@ -89,7 +88,6 @@
         "packages/gds-core/src/BoundedPreviewSurface.tsx",
         "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/EditorialCard.tsx",
-        "packages/gds-core/src/GdsPageTemplateFrame.tsx",
         "packages/gds-core/src/HeroSearchPanel.client.tsx",
         "packages/gds-core/src/ListingCard.tsx",
         "packages/gds-core/src/PublicShell.tsx",
@@ -188,7 +186,6 @@
         "packages/gds-core/src/ChatSurface.tsx",
         "packages/gds-core/src/DetailFactsTable.tsx",
         "packages/gds-core/src/EditorialHero.tsx",
-        "packages/gds-core/src/GdsPageTemplateFrame.tsx",
         "packages/gds-core/src/GdsRichTextEditor.client.tsx",
         "packages/gds-core/src/HeroSearchPanel.client.tsx",
         "packages/gds-core/src/ListingCard.tsx",
@@ -827,7 +824,6 @@
         "packages/gds-core/src/GdsGeneratedHero.tsx",
         "packages/gds-core/src/GdsGeneratedMark.tsx",
         "packages/gds-core/src/GdsGeneratedThumbnail.tsx",
-        "packages/gds-core/src/GdsPageTemplateFrame.tsx",
         "packages/gds-core/src/MediaWithFallback.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
         "packages/gds-theme/styles.css"
@@ -925,7 +921,6 @@
       "why": "GDS does not change gdsTheme.spacing.md from Mantine's default",
       "files": [
         "packages/gds-core/src/DetailFactsTable.tsx",
-        "packages/gds-core/src/GdsPageTemplateFrame.tsx",
         "packages/gds-core/src/HeroSearchPanel.client.tsx",
         "packages/gds-core/src/LayoutPrimitives.tsx",
         "packages/gds-core/src/ProviderCTA.tsx",
