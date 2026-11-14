@@ -14,7 +14,7 @@
       "files": [
         "packages/gds-core/src/EditorialCard.tsx",
         "packages/gds-core/src/GdsPageTemplateFrame.tsx",
-        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/presets/vibrant.ts",
         "packages/gds-theme/src/theme.ts"
       ]
     },
@@ -106,7 +106,7 @@
       "why": "GDS does not change gdsTheme.colors.dark.4 from Mantine's default",
       "files": [
         "packages/gds-core/src/SafeStyles.tsx",
-        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/presets/vibrant.ts",
         "packages/gds-theme/src/theme.ts"
       ]
     },
@@ -116,7 +116,7 @@
       "why": "GDS does not change gdsTheme.colors.dark.5 from Mantine's default",
       "files": [
         "packages/gds-core/src/PartnerDiscovery.tsx",
-        "packages/gds-theme/src/theme-presets.ts"
+        "packages/gds-theme/src/presets/vibrant.ts"
       ]
     },
     {
@@ -149,7 +149,7 @@
         "packages/gds-core/src/SectionPanel.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/TrustLayer.tsx",
-        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/presets/vibrant.ts",
         "packages/gds-theme/src/theme.ts"
       ]
     },
@@ -159,7 +159,7 @@
       "why": "GDS does not change gdsTheme.colors.dark.8 from Mantine's default",
       "files": [
         "packages/gds-core/src/PartnerDiscovery.tsx",
-        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/presets/vibrant.ts",
         "packages/gds-theme/src/theme.ts"
       ]
     },
@@ -651,7 +651,7 @@
         "packages/gds-core/src/SemanticCharts.tsx",
         "packages/gds-core/src/generated-brand-badge.ts",
         "packages/gds-theme/src/accessibility-floor.ts",
-        "packages/gds-theme/src/theme-presets.ts",
+        "packages/gds-theme/src/presets/vibrant.ts",
         "packages/gds-theme/src/theme.ts",
         "packages/gds-theme/styles.css"
       ]

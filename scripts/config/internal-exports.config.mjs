@@ -6,6 +6,11 @@
 // package lands here even though no consumer can reach it.
 
 export const INTERNAL_EXPORTS = new Set([
+  // Built-in preset registry (gds-theme/src/presets). theme-presets.ts and vibe-themes.ts derive the public surface from it.
+  'defineGdsThemePreset',
+  'createVibrantPresetTheme',
+  'neutralVibe',
+  'gdsThemePresetRegistry',
   // Page template frame shared by GdsPageTemplates.tsx and GdsPageTemplates.client.tsx. Absent from index/client/server.
   'stateTitle',
   'stateDescription',

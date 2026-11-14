@@ -203,7 +203,7 @@ literal-values allowlist, and a closing "open items, don't guess" list — is
    unverified from elsewhere.
 
 3. **Map the intent into the full `GdsVibeTheme` contract**
-   (`packages/gds-theme/src/vibe-themes.ts`) — every field the interface
+   (the `vibe` of a new `packages/gds-theme/src/presets/<id>.ts` module) — every field the interface
    requires (`id`, `label`, `primary`, `accent`, `glow`, and the `Light`/`Dark`
    pair for `canvas`, `shell`, `surface`, `border`, `text`, `muted`), plus
    `gradient`/`hero`, plus `flatSurfaces: true` if it's a serious brand lane
@@ -215,8 +215,8 @@ literal-values allowlist, and a closing "open items, don't guess" list — is
    scheme-aware) — do not repeat it. If this is a full branded product theme,
    also add its `createBrandTheme('<id>', …)` semantic-role token table in
    `packages/gds-theme/src/brand-tokens.ts`, copying the exact key list an
-   existing branded lane (e.g. `class-usa`) defines in
-   `brandSemanticCssVariablesByPreset` — don't improvise a subset.
+   existing branded lane (e.g. `class-usa`) passes as `semanticOverrides` in
+   `presets/class-usa.ts` — don't improvise a subset.
 
 4. **Verify every pairing against WCAG AA** (4.5:1 normal text, 3:1 large
    text/UI components) in both light and dark, from real
@@ -226,9 +226,10 @@ literal-values allowlist, and a closing "open items, don't guess" list — is
    alone. `HANDOVER.md`'s environment-bootstrap section has the
    headless-Chrome/CDP pattern this repo uses for that check.
 
-5. **Register and verify like any other lane.** Add the preset id to
-   `packages/gds-theme/src/theme-presets.ts` (union type, catalog entry,
-   `resolveGdsThemePreset` wiring), add live Theme Lab coverage and package
+5. **Register and verify like any other lane.** Default-export the preset from
+   `defineGdsThemePreset(...)` and add it to `gdsThemePresetRegistry` in
+   `packages/gds-theme/src/presets/index.ts`; the id union, catalog,
+   Mantine lane and vibe map derive from it. Add live Theme Lab coverage and package
    tests, then run `npm run verify:release` clean — no exemption exists for
    an externally-sourced lane; it passes the same gates every other theme
    does.

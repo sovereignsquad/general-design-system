@@ -137,9 +137,14 @@ for (const [dir, kind] of [
 
 // ── themes + accents ────────────────────────────────────────────────────────
 {
-  const vf = join(ROOT, 'packages/gds-theme/src/vibe-themes.ts');
-  const src = readFileSync(vf, 'utf8');
-  for (const m of src.matchAll(/^\s{2,4}id: '([^']+)'/gm)) add('theme', m[1], vf, lineOf(src, m.index));
+  // One module per preset; its `defineGdsThemePreset({ id })` is the registration.
+  const presetDir = join(ROOT, 'packages/gds-theme/src/presets');
+  for (const file of readdirSync(presetDir).filter((f) => f.endsWith('.ts')).sort()) {
+    const pf = join(presetDir, file);
+    const src = readFileSync(pf, 'utf8');
+    const m = src.match(/defineGdsThemePreset\(\{\n  id: '([^']+)'/);
+    if (m) add('theme', m[1], pf, lineOf(src, m.index));
+  }
   // Accent hex values are computed in accent-axis.ts, not a literal table.
   const af = join(ROOT, 'packages/gds-theme/src/accent-axis.ts');
   const a = readFileSync(af, 'utf8');

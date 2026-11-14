@@ -829,7 +829,7 @@ Runtime rule:
 - VibeTheme visuals must be CSS-only: gradients, color-mix, surface variables, and component tokens are allowed; pixel/image backgrounds are not the default theme mechanism.
 - `cosmic` is the sanctioned high-saturation reference lane. If teams need a dramatic multicolour app vibe, start from `cosmic` instead of building route-local image or gradient systems.
 
-Do not create a product-local theme catalog to achieve colorful branding. If a color lane is missing, add it to the GDS preset registry and VibeTheme registry, document the intended product use, add live Theme Lab coverage, and verify the lane through package tests.
+Do not create a product-local theme catalog to achieve colorful branding. If a color lane is missing, add it to the GDS preset registry (see "Preset registry"), document the intended product use, add live Theme Lab coverage, and verify the lane through package tests.
 
 Avoid:
 
@@ -838,6 +838,20 @@ Avoid:
 - using image backgrounds as the theme identity
 - changing only `primaryColor` while leaving shell, controls, cards, nav, focus, and page canvas visually neutral
 - consumer-owned `createTheme(...)`, `mergeMantineTheme(...)`, or `extendGdsTheme(...)` theme catalogs
+
+## Preset registry (issue #961)
+
+A built-in preset is one module, `packages/gds-theme/src/presets/<id>.ts`, whose default export is `defineGdsThemePreset({ id, catalog, vibe, mantine?, semanticOverrides? })`, and one entry in `gdsThemePresetRegistry` (`presets/index.ts`). Everything else is derived from that list:
+
+| Derived surface | Source |
+|---|---|
+| `GdsThemePresetId` union | `(typeof gdsThemePresetRegistry)[number]['id']` |
+| `getGdsThemePresets()` | each preset's `catalog`, in registry order |
+| `resolveGdsThemePreset(id)` | each preset's `mantine` (a theme, or a function of `{ createBrandTheme }` called once); `brand` is composed per call from its options |
+| `getGdsVibeThemes()` / `resolveGdsVibeTheme(id)` | each preset's `vibe`, in registry order |
+| Hand-authored semantic roles | each preset's `semanticOverrides`, emitted by `semantic-token-source.ts` |
+
+`defineGdsThemePreset` throws when `vibe.id` differs from `id`. Registry order is the order of the Theme Lab select, the vibe picker and the token graph. `verify:theme-governance` reads the built registry: every approved colorful id must be in both the catalog and the vibe list, ids are unique, and both lists carry the same ids in the same order. `verify:token-single-source` scans the preset modules, so a literal semantic-role table in one fails it.
 
 ## Reserved sub-brand accent lanes (`ai.*`, issue #697)
 
@@ -957,7 +971,7 @@ Required process for any externally-sourced design:
    into a token file unverified — every value that ships must be
    deliberately chosen for both schemes, not "whatever the source file
    happened to show in whichever mode it was captured in."
-2. **Map into the full `GdsVibeTheme` field list** (`packages/gds-theme/src/vibe-themes.ts`)
+2. **Map into the full `GdsVibeTheme` field list** (the preset module's `vibe`, see "Preset registry")
    — every light/dark pair, not just the ones the source material made
    obvious. A source design that only shows one color scheme does not
    excuse skipping the other; the missing scheme must be deliberately

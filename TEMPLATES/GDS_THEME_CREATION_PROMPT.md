@@ -123,27 +123,34 @@ these, not clash with or duplicate one.
 
 ## 5. The exact files a new theme touches
 
-- `packages/gds-theme/src/vibe-themes.ts` — add a new entry to the vibe
-  registry. Every field on the `GdsVibeTheme` interface is required unless
-  explicitly marked optional:
-  `id`, `label`, `primary`, `accent`, `glow`, `canvasLight`, `canvasDark`,
-  `shellLight`, `shellDark`, `surfaceLight`, `surfaceDark`, `borderLight`,
-  `borderDark`, `textLight`, `textDark`, `mutedLight`, `mutedDark`,
-  `gradient`, `hero`, and optionally `flatSurfaces: true` if this is a real
-  branded product theme with no decorative gradient/glow/shadow anywhere in
-  its own identity (set this for a serious brand lane; leave it unset for
-  an expressive generic color lane where the gradient/glow IS the point).
-- `packages/gds-theme/src/theme-presets.ts` — add the new preset id to the
-  `GdsThemePresetId` union type, add a `themePresetCatalog` entry (id,
-  label, description, `runtimeLane: 'resolveGdsThemePreset(<id>)'`), and
-  wire `resolveGdsThemePreset` to resolve it.
+- `packages/gds-theme/src/presets/<id>.ts` — one new module whose default export is
+  `defineGdsThemePreset({ id, catalog, vibe, mantine?, semanticOverrides? })`:
+  - `catalog`: `label`, `description`, `runtimeLane: 'resolveGdsThemePreset(<id>)'`.
+  - `vibe`: every field on `GdsVibeThemeFields` is required unless marked
+    optional: `id` (equal to the preset id), `label`, `primary`, `accent`,
+    `glow`, `canvasLight`, `canvasDark`, `shellLight`, `shellDark`,
+    `surfaceLight`, `surfaceDark`, `borderLight`, `borderDark`,
+    `textLight`, `textDark`, `mutedLight`, `mutedDark`, `gradient`,
+    `hero`, and optionally `flatSurfaces: true` if this is a real branded
+    product theme with no decorative gradient/glow/shadow anywhere in its own
+    identity (set this for a serious brand lane; leave it unset for an
+    expressive generic color lane where the gradient/glow IS the point),
+    `axes` and `ai`. Spread `neutralVibe` from `./default` to inherit
+    the fields you don't change.
+  - `mantine`: the Mantine theme, e.g. `createVibrantPresetTheme('<color>')`
+    from `./vibrant`, or `({ createBrandTheme }) => createBrandTheme('<id>').mantineTheme`
+    for a branded lane.
+- `packages/gds-theme/src/presets/index.ts` — add the preset to
+  `gdsThemePresetRegistry`. The `GdsThemePresetId` union,
+  `getGdsThemePresets()`, `resolveGdsThemePreset` and `getGdsVibeThemes()`
+  are derived from that list; nothing else registers a preset.
 - If this is a real branded theme (not just a generic vibe color lane), it
   also needs a `createBrandTheme('<id>', ...)` definition in
-  `packages/gds-theme/src/brand-tokens.ts`, including its own semantic-role
-  token table with EVERY token's light value AND its `-dark` sibling (see
-  `brandSemanticCssVariablesByPreset` in `vibe-themes.ts` for the exact key
-  list an existing branded lane like `class-usa`/`gold-athlete` defines —
-  copy that key list exactly, don't improvise a subset).
+  `packages/gds-theme/src/brand-tokens.ts` and its semantic-role table in
+  `packages/gds-theme/src/semantic-token-source.ts`, with EVERY token's light
+  value AND its `-dark` sibling. The preset passes the emitted table as
+  `semanticOverrides` (see `presets/class-usa.ts`); copy the key list an
+  existing branded lane defines exactly, don't improvise a subset.
 - Every new hex/rgb color value must live in these token files — never
   inline in a component or a route. `gds-compliance`'s own scanner will
   flag a raw color literal anywhere in `apps/playground/src` outside a
@@ -212,7 +219,7 @@ the questions here is what makes them actually get asked):
    cross-reference rather than restate) — plus any point where you deviated
    from the source for accessibility reasons.
 
-Get that confirmed before touching `vibe-themes.ts` — guessing brand intent
+Get that confirmed before writing the preset module — guessing brand intent
 from a vague brief is exactly the kind of assumption this project's rules
 forbid, and items 2-5 are precisely the ones that get guessed when only
 colours are asked for.

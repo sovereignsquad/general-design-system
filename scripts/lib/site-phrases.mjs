@@ -2,6 +2,7 @@
 
 import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
+import { readdirSync } from 'node:fs';
 
 const traverse = traverseModule.default ?? traverseModule;
 
@@ -15,7 +16,10 @@ export const TARGET_FILES = [
   'apps/playground/src/product-use-cases.ts',
   'apps/playground/src/site-routes.ts',
   // Theme preset and vibe labels/descriptions, rendered on /themes and the Theme Lab.
-  'packages/gds-theme/src/theme-presets.ts',
+  ...readdirSync(new URL('../../packages/gds-theme/src/presets/', import.meta.url))
+    .filter((file) => file.endsWith('.ts'))
+    .sort()
+    .map((file) => `packages/gds-theme/src/presets/${file}`),
   // Theme Lab preview mock copy lives inline in the explorer, not in its copy map.
   'packages/gds-core/src/ReferenceThemeExplorer.tsx',
   'packages/gds-core/src/GdsAccentContrastMatrix.tsx',
