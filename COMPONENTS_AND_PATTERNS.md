@@ -423,6 +423,12 @@ The type parameters are inferred from `columns` + `renderItem`, so the explicit 
 <ResponsiveDataView data={rows} columns={columns} renderCard={renderCard} showViewToggle />
 ```
 
+### Thread List and Message Thread Rules (#957)
+
+- **`GdsThreadList`** lists conversations as buttons in a labelled list. The open thread carries `aria-current="true"` and the navigation active paint. An unread thread is bold, shows a dot and includes a visually hidden "Unread" label, so the state does not rely on colour. Timestamps use `formatGdsDate` for the active locale (time for today, date otherwise). Built-in loading, empty, error (with `onRetry`) and `hasMore`/`onLoadMore` states.
+- **`GdsMessageThread`** renders a conversation between people as a labelled `role="log"`. Messages from `selfId` sit at the end on `--gds-message-self-bg`; others sit at the start on `--gds-message-other-bg` (the raised surface, with a `--gds-border-subtle` edge) under the sender's name and avatar. Consecutive messages from one sender share one header, each day starts with a date separator, and every message carries its sender and time in visually hidden text. `ChatThread`/`ChatMessage` keep their `user`/`assistant` roles for assistant chat.
+- The message roles (`--gds-message-self-bg`/`-fg`, `--gds-message-other-bg`/`-fg`) are derived per preset and scheme; the accessibility-floor rule `message-bubbles-legible` holds both at 4.5:1.
+
 ### Reporting, Evidence, and Chart Rules
 
 Reporting surfaces must not present charts or KPIs without proof context. Use `ReportingSection` as the top-level composition when a page combines period controls, metrics, charting, evidence, and fallback data; a panel without any of these is a `SectionPanel` (see [Component Selection Rules](#component-selection-rules)). Use `PeriodSelector` for period/scope changes, `EvidencePanel` for source/freshness/confidence disclosure, and `ChartTokenPanel` for chart containment.

@@ -345,4 +345,11 @@ export const en = {
   'gds.dataView.toggleLabel': "Layout",
   'gds.dataView.table': "Table",
   'gds.dataView.grid': "Grid",
+  'gds.messageThread.you': "You",
+  'gds.threadList.errorTitle': "Conversations could not be loaded",
+  'gds.threadList.retry': "Retry",
+  'gds.threadList.loading': "Loading conversations",
+  'gds.threadList.emptyTitle': "No conversations yet",
+  'gds.threadList.unread': "Unread",
+  'gds.threadList.loadMore': "Load more",
 };

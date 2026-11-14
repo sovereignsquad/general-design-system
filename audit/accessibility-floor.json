@@ -1,6 +1,6 @@
 {
   "presetsChecked": 54,
-  "rulesEvaluated": 16,
+  "rulesEvaluated": 17,
   "violationCount": 0,
   "reportCount": 53,
   "rules": [
@@ -63,6 +63,12 @@
       "axis": "color",
       "wcag": "1.4.3 Contrast (Minimum) (AA); 1.4.11 Non-text Contrast (AA)",
       "rationale": "The active navigation item is where the user is; its label must be readable and its indicator visible against the sidebar (#955, #944)."
+    },
+    {
+      "id": "message-bubbles-legible",
+      "axis": "color",
+      "wcag": "1.4.3 Contrast (Minimum) (AA)",
+      "rationale": "A message bubble is the content of a conversation; its text must be readable for both sides (#957)."
     },
     {
       "id": "surface-separation",

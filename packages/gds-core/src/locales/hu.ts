@@ -345,4 +345,11 @@ export const hu = {
   'gds.dataView.toggleLabel': "Elrendezés",
   'gds.dataView.table': "Táblázat",
   'gds.dataView.grid': "Rács",
+  'gds.messageThread.you': "Te",
+  'gds.threadList.errorTitle': "A beszélgetéseket nem sikerült betölteni",
+  'gds.threadList.retry': "Próbálja újra",
+  'gds.threadList.loading': "Beszélgetések betöltése",
+  'gds.threadList.emptyTitle': "Még nincsenek beszélgetések",
+  'gds.threadList.unread': "Nem olvasott",
+  'gds.threadList.loadMore': "Töltsön be többet",
 };

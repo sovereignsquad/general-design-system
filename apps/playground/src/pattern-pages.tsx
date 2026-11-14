@@ -41,6 +41,8 @@ import {
   GdsAreaChart,
   GdsTreeView,
   GdsBulkActionBar,
+  GdsThreadList,
+  GdsMessageThread,
   GdsSparkline,
   GdsLongitudinalChart,
   GdsBenchmarkBarChart,
@@ -500,6 +502,24 @@ function AdminEditorFlowsDemo() {
         </SectionPanel>
       }
       actionBar={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'refresh' }] }} />}
+    />
+  );
+}
+
+function ThreadListDemo() {
+  const [selected, setSelected] = useState('t1');
+  return (
+    <GdsThreadList
+      ariaLabel="Conversations"
+      selectedId={selected}
+      onSelect={setSelected}
+      hasMore
+      onLoadMore={() => {}}
+      threads={[
+        { id: 't1', title: 'Design lead', preview: 'Can you check the dark preview?', timestamp: '2026-11-13T09:13:00', unread: true },
+        { id: 't2', title: 'Engineering lead', preview: 'Shipping the nav states next.', timestamp: '2026-11-14T08:05:00' },
+        { id: 't3', title: 'Design review', preview: 'Notes are in the doc.', timestamp: '2026-11-10T15:40:00' },
+      ]}
     />
   );
 }
@@ -3424,6 +3444,21 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'bulk-action-bar':
       return <BulkActionBarDemo />;
+    case 'thread-list':
+      return <ThreadListDemo />;
+    case 'message-thread':
+      return (
+        <GdsMessageThread
+          ariaLabel="Release planning"
+          selfId="you"
+          messages={[
+            { id: 'm1', senderId: 'ada', senderName: 'Design lead', content: 'The chart tokens are on main.', createdAt: '2026-11-13T09:12:00' },
+            { id: 'm2', senderId: 'ada', senderName: 'Design lead', content: 'Can you check the dark preview?', createdAt: '2026-11-13T09:13:00' },
+            { id: 'm3', senderId: 'you', senderName: 'You', content: 'I checked it, and every series is easy to read.', createdAt: '2026-11-13T09:20:00' },
+            { id: 'm4', senderId: 'lee', senderName: 'Engineering lead', content: 'Shipping the nav states next.', createdAt: '2026-11-14T08:05:00' },
+          ]}
+        />
+      );
     case 'stats-strip':
       return <StatsStrip stats={[{ label: 'Routes', value: 8, diff: 12 }, { label: 'Exports', value: 92, diff: 4 }, { label: 'Mismatches', value: 0, diff: 0 }]} />;
     case 'info-card':

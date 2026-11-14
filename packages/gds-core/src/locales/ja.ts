@@ -345,4 +345,11 @@ export const ja = {
   'gds.dataView.toggleLabel': "レイアウト",
   'gds.dataView.table': "テーブル",
   'gds.dataView.grid': "グリッド",
+  'gds.messageThread.you': "あなた",
+  'gds.threadList.errorTitle': "会話を読み込めませんでした",
+  'gds.threadList.retry': "リトライ",
+  'gds.threadList.loading': "会話を読み込んでいます",
+  'gds.threadList.emptyTitle': "まだ会話はありません",
+  'gds.threadList.unread': "未読",
+  'gds.threadList.loadMore': "さらにロードする",
 };

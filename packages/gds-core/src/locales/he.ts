@@ -345,4 +345,11 @@ export const he = {
   'gds.dataView.toggleLabel': "מַעֲרָך",
   'gds.dataView.table': "לוּחַ",
   'gds.dataView.grid': "רֶשֶׁת",
+  'gds.messageThread.you': "אַתָה",
+  'gds.threadList.errorTitle': "לא ניתן היה לטעון את השיחות",
+  'gds.threadList.retry': "נסה שוב",
+  'gds.threadList.loading': "טוען שיחות",
+  'gds.threadList.emptyTitle': "עדיין אין שיחות",
+  'gds.threadList.unread': "לא נקרא",
+  'gds.threadList.loadMore': "טען עוד",
 };

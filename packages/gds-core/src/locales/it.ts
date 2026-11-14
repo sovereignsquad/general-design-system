@@ -345,4 +345,11 @@ export const it = {
   'gds.dataView.toggleLabel': "Disposizione",
   'gds.dataView.table': "Tavolo",
   'gds.dataView.grid': "Griglia",
+  'gds.messageThread.you': "Voi",
+  'gds.threadList.errorTitle': "Impossibile caricare le conversazioni",
+  'gds.threadList.retry': "Riprova",
+  'gds.threadList.loading': "Caricamento conversazioni",
+  'gds.threadList.emptyTitle': "Nessuna conversazione ancora",
+  'gds.threadList.unread': "Non letto",
+  'gds.threadList.loadMore': "Carica di più",
 };

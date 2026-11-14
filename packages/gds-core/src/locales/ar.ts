@@ -345,4 +345,11 @@ export const ar = {
   'gds.dataView.toggleLabel': "تَخطِيط",
   'gds.dataView.table': "طاولة",
   'gds.dataView.grid': "شبكة",
+  'gds.messageThread.you': "أنت",
+  'gds.threadList.errorTitle': "لا يمكن تحميل المحادثات",
+  'gds.threadList.retry': "أعد المحاولة",
+  'gds.threadList.loading': "جارٍ تحميل المحادثات",
+  'gds.threadList.emptyTitle': "لا توجد محادثات بعد",
+  'gds.threadList.unread': "غير مقروءة",
+  'gds.threadList.loadMore': "تحميل المزيد",
 };
