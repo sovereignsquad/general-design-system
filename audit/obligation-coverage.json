@@ -17,7 +17,7 @@
     }
   },
   "unmodelled": [],
-  "budget": 347,
+  "budget": 344,
   "gaps": [
     {
       "atom": "ContentOpsSectionProps.tone=critical",
@@ -1984,7 +1984,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "unmet": [
         {

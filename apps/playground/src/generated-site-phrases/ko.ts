@@ -771,7 +771,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "folder tree": "폴더 트리",
   "folder tree follows the tree pattern": "폴더 트리는 트리 패턴을 따릅니다.",
   "Folder tree, bulk actions and a table or grid of items on the operations shape profile, as one governed page.": "폴더 트리, 대량 작업 및 작업 형태 프로필의 항목 테이블 또는 그리드가 하나의 관리 페이지로 표시됩니다.",
-  "Folders": "Folders",
+  "Folders": "폴더",
   "Follow the non-negotiable rules": "타협할 수 없는 규칙을 따르세요",
   "Food": "음식",
   "Food & Menu": "음식 및 메뉴",

@@ -21,6 +21,7 @@ GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` 
 - `GdsAnalyticsTemplate` gains optional `periodControl`, `charts` (one or more chart-token charts) and `table` slots; existing props keep working.
 - New `GdsAssetManagerTemplate` (`asset-manager`): folder tree, toolbar, bulk actions, table/grid toggle, upload and detail, on the `operations` shape profile.
 - New `GdsWorkspaceInboxTemplate` (`workspace-inbox`): navigation, thread list and conversation in labelled regions; list then detail with a back action and heading focus on narrow viewports.
+- Both new templates are client components (`GdsPageTemplates.client`), exported from the root and `/client` entries and not from `/server`.
 - New `GdsViewToggle`, the labelled table/grid switch, now shared by `ResponsiveDataView` and the asset-manager template.
 - Page templates take `landmark` (`main` by default, `none` when embedded), and their section headings are `h2`.
 - Accessibility fixes found by the new axe tests: `MetricCard` no longer renders its value as an `h3` heading (it is text at the same size), and `SectionPanel`/`StateBlock` take `titleOrder` so their headings fit the outline. Visible change: none; the heading outline of pages with metrics changes.

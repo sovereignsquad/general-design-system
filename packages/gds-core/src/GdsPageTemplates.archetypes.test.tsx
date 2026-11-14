@@ -2,7 +2,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
 import { expectNoAxeViolations } from '../../../test-utils/axe';
-import { GdsAnalyticsTemplate, GdsAssetManagerTemplate, GdsWorkspaceInboxTemplate, getGdsPageTemplate, validateGdsPageTemplates } from './GdsPageTemplates';
+import { GdsAnalyticsTemplate, getGdsPageTemplate, validateGdsPageTemplates } from './GdsPageTemplates';
+import { GdsAssetManagerTemplate, GdsWorkspaceInboxTemplate } from './GdsPageTemplates.client';
 import { GdsTreeView } from './GdsTreeView';
 
 const originalMatchMedia = window.matchMedia;

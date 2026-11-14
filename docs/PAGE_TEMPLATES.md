@@ -83,6 +83,8 @@ The registry helpers expose the same ten stable ids:
 - **Asset manager** (`GdsAssetManagerTemplate`): `tree` (a `GdsTreeView`) in a labelled `nav` beside the items, `toolbar`, `bulkActions` (`GdsBulkActionBar` props), `table` and `grid` with a `GdsViewToggle` when both are given (`view`/`defaultView`/`onViewChange`), `upload` (e.g. `GdsAssetManager`) and `detail`. It applies the `operations` shape profile through `GdsShapeScope` unless `shapeProfile` says otherwise. Focus order: tree, toolbar, bulk actions, layout toggle, items.
 - **Workspace inbox** (`GdsWorkspaceInboxTemplate`): `navigation`, `threadList` (a `GdsThreadList`) and `detail` (a `GdsMessageThread`) in labelled regions that scroll independently when `regionHeight` is set. With nothing open the conversation pane asks for a selection; `detailLoading` shows a loading state. On a narrow viewport (max-width 48em) it shows the list, or the open conversation with a back action (`onBack`), and moves focus to the conversation heading (`detailTitle`) when one opens.
 
+`GdsAssetManagerTemplate` and `GdsWorkspaceInboxTemplate` hold state and render client components, so they are client components: import them from `@sovereignsquad/gds-core` or `@sovereignsquad/gds-core/client`, not the server entry.
+
 Every template takes `landmark`: `main` (default) renders the page's `<main>`; `none` renders a plain container for a template embedded in a page that already has one, as on the reference site. Section headings inside templates are `h2` under the page `h1`.
 
 ## Runtime States

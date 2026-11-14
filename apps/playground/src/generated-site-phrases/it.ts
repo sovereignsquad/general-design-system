@@ -1059,7 +1059,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Loaders & Skeletons": "Caricatori e scheletri",
   "Loading": "Caricamento",
   "Loading benchmark": "Caricamento benchmark",
-  "Loading conversation": "Loading conversation",
+  "Loading conversation": "Caricamento conversazione",
   "Loading data": "Caricamento dati",
   "Loading map": "Caricamento mappa",
   "Loading resources": "Caricamento risorse",

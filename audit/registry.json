@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "5f5aa712aa41fe1f6a1cf8d799ca9f0187976fa7",
+  "commit": "66cce47b2cb1b2f4c9b495e3fbef544b2ee8bbc4",
   "counts": {
     "token-published": 524,
     "token-declared": 269,
@@ -33833,7 +33833,7 @@
       "name": "GdsPageTemplateBaseProps.title",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "string"
     },
@@ -33843,7 +33843,7 @@
       "name": "GdsPageTemplateBaseProps.description",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "string"
     },
@@ -33853,7 +33853,7 @@
       "name": "GdsPageTemplateBaseProps.eyebrow",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "string"
     },
@@ -33863,7 +33863,7 @@
       "name": "GdsPageTemplateBaseProps.state",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "GdsPageTemplateState"
     },
@@ -33873,7 +33873,7 @@
       "name": "GdsPageTemplateBaseProps.actions",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "GdsPageTemplateAction[]"
     },
@@ -33883,7 +33883,7 @@
       "name": "GdsPageTemplateBaseProps.onRetry",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "() => void"
     },
@@ -33893,7 +33893,7 @@
       "name": "GdsPageTemplateBaseProps.retryLabel",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "string"
     },
@@ -33903,7 +33903,7 @@
       "name": "GdsPageTemplateBaseProps.statusLabel",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "string"
     },
@@ -33913,7 +33913,7 @@
       "name": "GdsPageTemplateBaseProps.children",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "ReactNode"
     },
@@ -33923,7 +33923,7 @@
       "name": "GdsPageTemplateBaseProps.metadata",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "ReactNode"
     },
@@ -33933,7 +33933,7 @@
       "name": "GdsPageTemplateBaseProps.landmark",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       },
       "type": "'main' | 'none'"
     },
@@ -33943,7 +33943,7 @@
       "name": "GdsPageTemplateBaseProps.landmark=main",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       }
     },
     {
@@ -33952,7 +33952,7 @@
       "name": "GdsPageTemplateBaseProps.landmark=none",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 100
+        "line": 93
       }
     },
     {

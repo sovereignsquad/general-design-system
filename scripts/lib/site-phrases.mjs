@@ -34,6 +34,8 @@ export const TARGET_FILES = [
   'packages/gds-core/src/GdsDataTable.client.tsx',
   'packages/gds-core/src/GdsFormControls.tsx',
   'packages/gds-core/src/GdsPageTemplates.tsx',
+  'packages/gds-core/src/GdsPageTemplates.client.tsx',
+  'packages/gds-core/src/GdsPageTemplateFrame.tsx',
   'packages/gds-core/src/GdsResourceManager.client.tsx',
   'packages/gds-core/src/ListingCard.tsx',
   'packages/gds-core/src/GdsSchemaForm.client.tsx',

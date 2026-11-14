@@ -171,6 +171,7 @@ export * from './GdsI18nRuntime';
 
 // ── Page templates & task patterns ──
 export * from './GdsPageTemplates';
+export * from './GdsPageTemplates.client';
 export * from './TaskPatterns';
 export * from './MaturityCapabilities';
 export * from './CreatorTheme';

@@ -6,6 +6,12 @@
 // package lands here even though no consumer can reach it.
 
 export const INTERNAL_EXPORTS = new Set([
+  // Page template frame shared by GdsPageTemplates.tsx and GdsPageTemplates.client.tsx. Absent from index/client/server.
+  'stateTitle',
+  'stateDescription',
+  'renderActions',
+  'PageTemplateFrame',
+  'TemplateStateGate',
   // Cross-module, not cross-package: semantic emitters call it for badge tone pairs. Absent from index/client/server.
   'emitBadgeToneCssVariables',
   // Cross-module: vibe-themes.ts and semantic-token-source.ts both call it. Absent from index/client/server.
