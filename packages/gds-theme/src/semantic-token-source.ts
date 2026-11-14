@@ -8,7 +8,7 @@
 // cycle. The dependency-free extraction is what makes single-sourcing possible.
 
 import { ensureContrast, mixCssColors, parseCssColor, readableForeground } from './color-math';
-import { resolveGdsAxisTokens } from './axes';
+import { GDS_DEFAULT_SHAPE_AXIS, resolveGdsAxisTokens, type GdsShapeAxis } from './axes';
 import { emitChartCssVariables } from './chart-tokens';
 // Type-only, so this is erased at compile time and creates no runtime cycle. The generic
 // lanes derive their roles FROM the atmosphere palette, so the shape has to be visible
@@ -259,11 +259,32 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
 // The lane emitters below are the whole definition of a lane's CSS variables, so a caller
 // cannot forget the overrides.
 
+/**
+ * The Class USA handoff's radius scale (8 / 12 / 16 / 24 / pill): xs tight chrome, sm controls,
+ * md cards, lg large panels, xl pill. Its Mantine radius scale and its `--gds-radius-*` tokens
+ * both come from here. Roles match the lane's components: cards and panels on md, buttons on sm.
+ */
+export const GDS_CLASS_USA_SHAPE_AXIS: GdsShapeAxis = {
+  scale: { none: '0', xs: '0.5rem', sm: '0.75rem', md: '1rem', lg: '1.5rem', xl: '624.9375rem', pill: '9999px' },
+  roles: { card: 'md', panel: 'md', button: 'sm', badge: 'xl' },
+  defaultStep: 'md',
+};
+
+/**
+ * Gold Athlete's shape: the default scale, with buttons on `xl` and modals on `lg` (the lane's
+ * Mantine `defaultRadius: 'lg'`).
+ */
+export const GDS_GOLD_ATHLETE_SHAPE_AXIS: GdsShapeAxis = {
+  scale: GDS_DEFAULT_SHAPE_AXIS.scale,
+  roles: { button: 'xl', modal: 'lg' },
+  defaultStep: 'md',
+};
+
 /** Complete `--gds-*` variable set for the Class USA lane. */
 export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<string, string> {
   // Axis tokens are part of a lane's complete variable set. Emitting them only on the
   // document path would leave the two consumption paths with different key sets.
-  const vars = { ...resolveGdsAxisTokens(undefined, 'class-usa'), ...emitCssVariables(deriveClassUsaSemanticTokens(ramps)) };
+  const vars = { ...resolveGdsAxisTokens({ shape: GDS_CLASS_USA_SHAPE_AXIS }, 'class-usa'), ...emitCssVariables(deriveClassUsaSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.action[6];
   vars['--gds-brand-accent-action-dark'] = ramps.brand[5];
   // These overrides land after `emitCssVariables` already derived the badge foregrounds, so
@@ -276,7 +297,7 @@ export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<stri
 
 /** Complete `--gds-*` variable set for the Gold Athlete lane. */
 export function emitGoldAthleteCssVariables(ramps: GoldAthleteColorRamps): Record<string, string> {
-  const vars = { ...resolveGdsAxisTokens(undefined, 'gold-athlete'), ...emitCssVariables(deriveGoldAthleteSemanticTokens(ramps)) };
+  const vars = { ...resolveGdsAxisTokens({ shape: GDS_GOLD_ATHLETE_SHAPE_AXIS }, 'gold-athlete'), ...emitCssVariables(deriveGoldAthleteSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.gold[6];
   vars['--gds-brand-accent-action-dark'] = ramps.gold[3];
   // These overrides land after `emitCssVariables` already derived the badge foregrounds, so

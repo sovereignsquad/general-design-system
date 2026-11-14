@@ -34,6 +34,7 @@ export * from './GdsGeneratedHero';
 export * from './GdsRemovableTag';
 export * from './GdsSavedIndicator';
 export * from './GdsDensity';
+export * from './GdsShapeScope';
 export * from './CardContracts';
 
 // ── Layout & structural surfaces ──

@@ -23,11 +23,20 @@ export type GdsRadiusRole =
   | 'modal' | 'drawer' | 'sheet'
   | 'image' | 'avatar' | 'thumbnail';
 
+/**
+ * A named role map on the shape axis. `default` is what GDS components render without a
+ * profile; `operations` tightens dense utility surfaces; `workspace` softens cards, overlays
+ * and sheets. See {@link GDS_SHAPE_PROFILES}.
+ */
+export type GdsShapeProfile = 'default' | 'operations' | 'workspace';
+
 /** A theme's corner-geometry decisions. */
 export interface GdsShapeAxis {
   /** The step scale. Values are CSS lengths; `pill` is conventionally a very large radius. */
   scale: Record<GdsRadiusStep, string>;
-  /** Per-role overrides. A role resolves to its override, else to {@link GdsShapeAxis.defaultStep}. */
+  /** Role map applied beneath {@link GdsShapeAxis.roles}. Defaults to `default`. */
+  profile?: GdsShapeProfile;
+  /** Per-role overrides. A role resolves to its override, else its profile step, else {@link GdsShapeAxis.defaultStep}. */
   roles?: Partial<Record<GdsRadiusRole, GdsRadiusStep | string>>;
   /** Step used by any role without an explicit override. Defaults to `md`. */
   defaultStep?: GdsRadiusStep;
@@ -216,6 +225,38 @@ export const GDS_RADIUS_ROLES: GdsRadiusRole[] = [
   'modal', 'drawer', 'sheet',
   'image', 'avatar', 'thumbnail',
 ];
+
+/**
+ * Role maps per {@link GdsShapeProfile}, as steps of the theme's own scale. `operations` and
+ * `workspace` are layered over `default`; roles none of them list resolve to the axis
+ * `defaultStep`.
+ *
+ * `default` matches what the GDS components render: Card and Paper on `lg`, Badge on `xl`,
+ * Chip on `pill` and Drawer on `none` (Mantine's own fallbacks for those two), everything
+ * else on `md`. `operations` puts cards, panels, surfaces, controls, chips and media on `sm`
+ * for dense tables and lists. `workspace` puts surfaces, overlays, drawers, sheets and media
+ * on `lg` for consumer workspaces.
+ */
+export const GDS_SHAPE_PROFILES: Record<GdsShapeProfile, Partial<Record<GdsRadiusRole, GdsRadiusStep>>> = {
+  default: { card: 'lg', panel: 'lg', badge: 'xl', chip: 'pill', drawer: 'none' },
+  operations: {
+    card: 'sm', panel: 'sm', surface: 'sm',
+    button: 'sm', input: 'sm', chip: 'sm',
+    image: 'sm', thumbnail: 'sm',
+  },
+  workspace: {
+    surface: 'lg', modal: 'lg', drawer: 'lg', sheet: 'lg',
+    image: 'lg', thumbnail: 'lg',
+  },
+};
+
+/** The role map a profile resolves to: `default`, then the profile's own entries. */
+export function resolveGdsShapeProfileRoles(profile: GdsShapeProfile = 'default'): Partial<Record<GdsRadiusRole, GdsRadiusStep>> {
+  return { ...GDS_SHAPE_PROFILES.default, ...GDS_SHAPE_PROFILES[profile] };
+}
+
+/** Every shape profile name. */
+export const GDS_SHAPE_PROFILE_NAMES = Object.keys(GDS_SHAPE_PROFILES) as GdsShapeProfile[];
 
 /**
  * The default shape axis.
@@ -415,6 +456,10 @@ export function validateGdsShapeAxis(axis: GdsShapeAxis, themeId = 'theme'): voi
     }
   }
 
+  if (axis.profile !== undefined && !GDS_SHAPE_PROFILE_NAMES.includes(axis.profile)) {
+    throw new GdsAxisError(`${themeId}: shape profile "${axis.profile}" is not one of ${GDS_SHAPE_PROFILE_NAMES.join(', ')}.`);
+  }
+
   if (axis.defaultStep && !GDS_RADIUS_STEPS.includes(axis.defaultStep)) {
     throw new GdsAxisError(`${themeId}: defaultStep "${axis.defaultStep}" is not a declared step.`);
   }
@@ -445,6 +490,7 @@ export function resolveGdsShapeTokens(axis: GdsShapeAxis = GDS_DEFAULT_SHAPE_AXI
     roles: { ...(axis.roles ?? {}) },
   };
   validateGdsShapeAxis(merged, themeId);
+  merged.roles = { ...resolveGdsShapeProfileRoles(merged.profile), ...merged.roles };
 
   const tokens: GdsResolvedShapeTokens = {};
   for (const step of GDS_RADIUS_STEPS) {

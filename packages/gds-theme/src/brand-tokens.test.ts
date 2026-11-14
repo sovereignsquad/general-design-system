@@ -41,10 +41,15 @@ describe('createBrandTheme', () => {
       xs: '0.5rem', sm: '0.75rem', md: '1rem', lg: '1.5rem', xl: '624.9375rem',
     });
     expect(result.mantineTheme.defaultRadius).toBe('md');
-    expect(result.mantineTheme.components?.Button?.defaultProps?.radius).toBe('sm');
-    expect(result.mantineTheme.components?.Card?.defaultProps?.radius).toBe('md');
-    expect(result.mantineTheme.components?.Paper?.defaultProps?.radius).toBe('md');
-    expect(result.mantineTheme.components?.Badge?.defaultProps?.radius).toBe('xl');
+    // Components read the radius roles, which the lane's shape axis puts on these steps (#953).
+    expect(result.mantineTheme.components?.Button?.defaultProps?.radius).toBe('var(--gds-radius-button)');
+    expect(result.mantineTheme.components?.Card?.defaultProps?.radius).toBe('var(--gds-radius-card)');
+    expect(result.mantineTheme.components?.Paper?.defaultProps?.radius).toBe('var(--gds-radius-panel)');
+    expect(result.mantineTheme.components?.Badge?.defaultProps?.radius).toBe('var(--gds-radius-badge)');
+    expect(result.cssVariables['--gds-radius-button']).toBe('0.75rem');
+    expect(result.cssVariables['--gds-radius-card']).toBe('1rem');
+    expect(result.cssVariables['--gds-radius-panel']).toBe('1rem');
+    expect(result.cssVariables['--gds-radius-badge']).toBe('624.9375rem');
     expect(result.mantineTheme.other?.gdsBrandThemeId).toBe('class-usa');
     expect(result.cssVariables['--gds-brand-primary']).toBe('#0f2c4a');
     expect(result.cssVariables['--gds-brand-primary-pressed']).toBe('#071626');

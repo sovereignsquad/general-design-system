@@ -781,6 +781,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "GdsMap, GdsMapBasemapWash, GdsMapFilterRail, GdsMapPinPreviewCard": "GdsMap, GdsMapBasemapWash, GdsMapFilterRail, GdsMapPinPreviewCard",
   "GdsMapPinBadge follows the same ambient mode — the ring stays the category's accent, the pin fills with a fixed dark-neutral disc in emoji mode (never the accent), and the emoji centers on it.": "GdsMapPinBadge는 동일한 주변 모드를 따릅니다. 링은 카테고리의 악센트를 유지하고, 핀은 이모티콘 모드(악센트 아님)에서 고정된 어두운 중립 디스크로 채워지고, 이모티콘은 그 중심에 표시됩니다.",
   "GdsNotificationProvider / GdsNotificationCenter / NotificationCenter / InlineAlert / BannerNotice / GdsNotificationBell / useGdsNotifications": "GdsNotificationProvider / GdsNotificationCenter / NotificationCenter / InlineAlert / BannerNotice / GdsNotificationBell / useGdsNotifications",
+  "GdsShapeElevationSystemReference / GdsShapeScope": "GdsShapeElevationSystemReference / GdsShapeScope",
   "General Design System": "일반 디자인 시스템",
   "General Design System live proofs": "일반 디자인 시스템 실시간 교정",
   "General settings": "일반 설정",

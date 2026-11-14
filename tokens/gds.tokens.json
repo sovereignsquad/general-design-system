@@ -3091,15 +3091,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "default semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -3121,45 +3121,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "default semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "default semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "default semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -3256,15 +3256,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "default semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -6590,15 +6590,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "high-contrast semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -6620,45 +6620,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "high-contrast semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "high-contrast semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "high-contrast semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -6725,15 +6725,15 @@
         },
         "radius-modal": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(0.25rem * var(--mantine-scale))",
           "$description": "high-contrast semantic role \"radius-modal\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-modal",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(0.25rem * var(--mantine-scale))",
+                "dark": "calc(0.25rem * var(--mantine-scale))"
               }
             }
           }
@@ -6755,15 +6755,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "high-contrast semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -10089,15 +10089,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "colorblind-safe semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -10119,45 +10119,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "colorblind-safe semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "colorblind-safe semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "colorblind-safe semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -10254,15 +10254,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "colorblind-safe semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -13588,15 +13588,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "dark-public semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -13618,45 +13618,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "dark-public semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "dark-public semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "dark-public semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -13753,15 +13753,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "dark-public semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -17087,15 +17087,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "flat-surface semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -17117,45 +17117,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "flat-surface semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "flat-surface semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "flat-surface semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -17252,15 +17252,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "flat-surface semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -20586,15 +20586,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "editorial semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -20616,45 +20616,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "editorial semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "editorial semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "editorial semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -20751,15 +20751,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "editorial semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -24085,15 +24085,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "brand semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -24115,45 +24115,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "brand semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "brand semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "brand semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -24250,15 +24250,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "brand semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -27584,15 +27584,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "partner-discovery semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -27614,45 +27614,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "partner-discovery semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "partner-discovery semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "partner-discovery semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -27749,15 +27749,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "partner-discovery semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -31067,166 +31067,166 @@
           }
         },
         "radius-avatar": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-avatar\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-avatar",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
         },
         "radius-badge": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "624.9375rem",
           "$description": "class-usa semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "624.9375rem",
+                "dark": "624.9375rem"
               }
             }
           }
         },
         "radius-button": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0.75rem",
           "$description": "class-usa semantic role \"radius-button\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-button",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0.75rem",
+                "dark": "0.75rem"
               }
             }
           }
         },
         "radius-card": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "class-usa semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "class-usa semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "radius-image": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-image\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-image",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
         },
         "radius-input": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-input\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-input",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
         },
         "radius-lg": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(1rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1.5rem",
           "$description": "class-usa semantic role \"radius-lg\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-lg",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(1rem * var(--mantine-scale))",
-                "dark": "calc(1rem * var(--mantine-scale))"
+                "light": "1.5rem",
+                "dark": "1.5rem"
               }
             }
           }
         },
         "radius-md": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-md\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-md",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
         },
         "radius-modal": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-modal\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-modal",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
@@ -31247,16 +31247,16 @@
           }
         },
         "radius-panel": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
@@ -31277,106 +31277,106 @@
           }
         },
         "radius-pin": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-pin\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-pin",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
         },
         "radius-sheet": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-sheet\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-sheet",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
         },
         "radius-sm": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.25rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0.75rem",
           "$description": "class-usa semantic role \"radius-sm\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-sm",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.25rem * var(--mantine-scale))",
-                "dark": "calc(0.25rem * var(--mantine-scale))"
+                "light": "0.75rem",
+                "dark": "0.75rem"
               }
             }
           }
         },
         "radius-surface": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-surface\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-surface",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
         },
         "radius-thumbnail": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "1rem",
           "$description": "class-usa semantic role \"radius-thumbnail\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-thumbnail",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "1rem",
+                "dark": "1rem"
               }
             }
           }
         },
         "radius-xl": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(2rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "624.9375rem",
           "$description": "class-usa semantic role \"radius-xl\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-xl",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(2rem * var(--mantine-scale))",
-                "dark": "calc(2rem * var(--mantine-scale))"
+                "light": "624.9375rem",
+                "dark": "624.9375rem"
               }
             }
           }
         },
         "radius-xs": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.125rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0.5rem",
           "$description": "class-usa semantic role \"radius-xs\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-xs",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.125rem * var(--mantine-scale))",
-                "dark": "calc(0.125rem * var(--mantine-scale))"
+                "light": "0.5rem",
+                "dark": "0.5rem"
               }
             }
           }
@@ -34582,75 +34582,75 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "gold-athlete semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-button": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "gold-athlete semantic role \"radius-button\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-button",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "gold-athlete semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "gold-athlete semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "gold-athlete semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -34717,15 +34717,15 @@
         },
         "radius-modal": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "gold-athlete semantic role \"radius-modal\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-modal",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -34747,15 +34747,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "gold-athlete semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -38081,15 +38081,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "padel-africa semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -38111,45 +38111,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "padel-africa semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "padel-africa semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "padel-africa semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -38246,15 +38246,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "padel-africa semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -41625,15 +41625,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "your-field semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -41655,45 +41655,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "your-field semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "your-field semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "your-field semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -41790,15 +41790,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "your-field semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -45124,15 +45124,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "sunset semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -45154,45 +45154,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "sunset semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "sunset semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "sunset semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -45289,15 +45289,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "sunset semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -48623,15 +48623,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "oceanic semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -48653,45 +48653,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "oceanic semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "oceanic semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "oceanic semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -48788,15 +48788,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "oceanic semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -52122,15 +52122,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "forest semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -52152,45 +52152,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "forest semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "forest semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "forest semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -52287,15 +52287,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "forest semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -55621,15 +55621,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "ruby semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -55651,45 +55651,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "ruby semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "ruby semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "ruby semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -55786,15 +55786,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "ruby semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -59120,15 +59120,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "amber semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -59150,45 +59150,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "amber semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "amber semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "amber semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -59285,15 +59285,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "amber semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -62619,15 +62619,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "neon-night semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -62649,45 +62649,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "neon-night semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "neon-night semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "neon-night semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -62784,15 +62784,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "neon-night semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -66118,15 +66118,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "skyline semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -66148,45 +66148,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "skyline semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "skyline semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "skyline semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -66283,15 +66283,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "skyline semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -69617,15 +69617,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "aurora semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -69647,45 +69647,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "aurora semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "aurora semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "aurora semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -69782,15 +69782,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "aurora semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -73116,15 +73116,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "coral semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -73146,45 +73146,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "coral semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "coral semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "coral semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -73281,15 +73281,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "coral semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -76615,15 +76615,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "mint semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -76645,45 +76645,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "mint semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "mint semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "mint semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -76780,15 +76780,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "mint semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -80114,15 +80114,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "orchid semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -80144,45 +80144,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "orchid semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "orchid semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "orchid semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -80279,15 +80279,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "orchid semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -83613,15 +83613,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "royal semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -83643,45 +83643,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "royal semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "royal semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "royal semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -83778,15 +83778,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "royal semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -87112,15 +87112,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "warm semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -87142,45 +87142,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "warm semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "warm semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "warm semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -87277,15 +87277,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "warm semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -90611,15 +90611,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "athlete-gold semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -90641,45 +90641,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "athlete-gold semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "athlete-gold semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "athlete-gold semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -90776,15 +90776,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "athlete-gold semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
@@ -94110,15 +94110,15 @@
         },
         "radius-badge": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(2rem * var(--mantine-scale))",
           "$description": "cosmic semantic role \"radius-badge\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-badge",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(2rem * var(--mantine-scale))",
+                "dark": "calc(2rem * var(--mantine-scale))"
               }
             }
           }
@@ -94140,45 +94140,45 @@
         },
         "radius-card": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "cosmic semantic role \"radius-card\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-card",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }
         },
         "radius-chip": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "9999px",
           "$description": "cosmic semantic role \"radius-chip\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-chip",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "9999px",
+                "dark": "9999px"
               }
             }
           }
         },
         "radius-drawer": {
-          "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$type": "dimension",
+          "$value": "0",
           "$description": "cosmic semantic role \"radius-drawer\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-drawer",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
@@ -94275,15 +94275,15 @@
         },
         "radius-panel": {
           "$type": "com.sovereignsquad.gds.cssComputed",
-          "$value": "calc(0.5rem * var(--mantine-scale))",
+          "$value": "calc(1rem * var(--mantine-scale))",
           "$description": "cosmic semantic role \"radius-panel\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "radius-panel",
               "lane": "semantic",
               "scheme": {
-                "light": "calc(0.5rem * var(--mantine-scale))",
-                "dark": "calc(0.5rem * var(--mantine-scale))"
+                "light": "calc(1rem * var(--mantine-scale))",
+                "dark": "calc(1rem * var(--mantine-scale))"
               }
             }
           }

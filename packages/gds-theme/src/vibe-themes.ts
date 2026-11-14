@@ -1,9 +1,11 @@
 import type { GdsThemePresetId } from './theme-presets';
-import { resolveGdsAxisTokens, GDS_DEFAULT_DESIGN_RULE_PROFILE, type GdsThemeAxes } from './axes';
+import { resolveGdsAxisTokens, GDS_DEFAULT_DESIGN_RULE_PROFILE, GDS_DEFAULT_SHAPE_AXIS, type GdsThemeAxes } from './axes';
 import { ensureContrast, mixCssColors, readableForeground } from './color-math';
 import { emitChartCssVariables } from './chart-tokens';
 import {
   classUsaDefaultColorRamps,
+  GDS_CLASS_USA_SHAPE_AXIS,
+  GDS_GOLD_ATHLETE_SHAPE_AXIS,
   deriveVibeSemanticCssVariables,
   applyGdsGreyWhenText,
   emitClassUsaCssVariables,
@@ -171,6 +173,8 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
   'high-contrast': {
     id: 'high-contrast',
     label: 'High contrast',
+    // Modals on `sm`, matching the preset's Mantine `defaultRadius: 'sm'`.
+    axes: { shape: { scale: GDS_DEFAULT_SHAPE_AXIS.scale, roles: { modal: 'sm' } } },
     primary: '#0b3d91',
     accent: '#7a1fa2',
     glow: 'rgba(0, 0, 0, 0.25)',
@@ -295,6 +299,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     // dark-mode badge tint). `brand[5]` (#f5793b) does not (2.56:1/2.73:1 on cream/white).
     // The full light/dark accent split lives in the scheme-aware `--gds-*` semantic-role
     // tokens below (`classUsaSemanticCssVariables`), not in this single-value field.
+    axes: { shape: GDS_CLASS_USA_SHAPE_AXIS },
     primary: '#0f2c4a',
     accent: '#c24a0a',
     glow: 'rgba(194, 74, 10, 0.2)',
@@ -320,6 +325,7 @@ const vibeThemes: Record<GdsThemePresetId, GdsVibeTheme> = {
     ...neutralVibe,
     id: 'gold-athlete',
     label: 'Gold Athlete',
+    axes: { shape: GDS_GOLD_ATHLETE_SHAPE_AXIS },
     primary: '#8a5a00',
     accent: '#f0b642',
     glow: 'rgba(240, 182, 66, 0.24)',
