@@ -47,6 +47,21 @@ A primary control or info badge filled with the body text colour reads as text. 
 
 No default brand-accent text role exists. `--gds-brand-accent` is undefined at this layer, `createPublicBrandTheme` emits no `--gds-*` roles, and `createBrandTheme` emits `--gds-brand-accent` as its raw input in both schemes, so no GDS role gives a brand-coloured text value derived per scheme. Use [`checkGdsContrast`](CONTRAST_CHECKER.md#brand-text-on-role-surfaces) for the brand-coloured text, measured against these surfaces in each scheme the product renders.
 
+### Surface hierarchy: sidebar, raised and border roles (#951)
+
+Every preset, both hand-authored lanes and `createBrandTheme(...)` emit four more roles (with `-dark` pairs), from `emitSurfaceHierarchyCssVariables()`:
+
+| Role | Value |
+|---|---|
+| `--gds-bg-sidebar` | The app shell composited opaque over the page: the colour the navbar paints there. The page itself in a lane with no shell colour (`createBrandTheme(...)`). |
+| `--gds-bg-raised` | The card in light; in dark, the card lifted until it is `GDS_SURFACE_STEP_MIN` (1.05:1) above it. |
+| `--gds-border-subtle` | The card border composited opaque over the card. |
+| `--gds-border-strong` | The subtle border pushed to 3:1 on the card (WCAG 1.4.11). |
+
+`class-usa` and `gold-athlete` take their shell from `GDS_CLASS_USA_SHELL` and `GDS_GOLD_ATHLETE_SHELL`, which their presets also read, so both paths emit identical roles. The navbar gradient ends on `var(--gds-bg-sidebar, var(--gds-vibe-shell))`; the painted navbar is unchanged (within 2 of 255 per channel, sampled in six presets and schemes).
+
+Gates: the accessibility-floor rule `surface-hierarchy-legible` requires body and meta text at 4.5:1 on the sidebar and raised surfaces and the strong border at 3:1 on the card, for every preset and scheme. `surface-separation` is reported, not enforced: it flags a sidebar within a just-noticeable CIE76 difference (`GDS_SURFACE_JND_DELTA_E`, 2.3) of both the page and the card. In light schemes the page and card are already within about 1.04:1, and a sidebar darker than the page takes meta text below 4.5:1, so most presets have a two-level fill (the sidebar flush with the page or with the card) and separate the third step with `--gds-border-subtle` and elevation. `high-contrast` and the light `partner-discovery` paint page, sidebar and card the same colour; their sidebar is separated by its border only.
+
 ### Card surface from the palette (#865)
 
 A preset's declared card surface (`surfaceLight` / `surfaceDark` on `GdsVibeTheme`) is the card when it is opaque: `getGdsVibeCardSurface(vibe, scheme)` returns it when it parses with alpha 1 and `undefined` otherwise. For that scheme it sets `--gds-bg-card` and `--gds-bg-surface`, every tint and foreground derived against them (badge pairs, the readable grey, chart roles), and `--gds-vibe-card`, which makes `.gds-card`, `.gds-paper`, the Mantine `Card` and the dark `Popover` dropdown paint it flat. A translucent surface keeps the previous behaviour: `#ffffff` in light, the canvas mixed 12% toward white in dark, and the surface gradient paint.

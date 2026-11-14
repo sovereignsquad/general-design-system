@@ -6,7 +6,7 @@
 // pairs across every preset and scheme; the floor calls it and adopts its findings.
 
 import { createGdsThemeAccessibilityReport } from './accessibility-report';
-import { contrastRatio } from './color-math';
+import { contrastRatio, deltaE76 } from './color-math';
 import { evaluateGdsChartContrast, GDS_CHART_SERIES_COUNT } from './chart-tokens';
 import {
   GDS_CONTROL_HEIGHT_EXCEPTIONS,
@@ -54,6 +54,9 @@ export interface GdsFloorRule {
   rationale: string;
   evaluate(ctx: GdsFloorContext): GdsFloorViolation[];
 }
+
+/** CIE76 difference treated as just noticeable (Sharma, Digital Color Imaging Handbook: about 2.3). */
+export const GDS_SURFACE_JND_DELTA_E = 2.3;
 
 const px = (value: string | undefined): number | null => {
   const m = /^(-?\d*\.?\d+)px$/.exec(String(value ?? '').trim());
@@ -216,6 +219,54 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
         }
       }
       return out;
+    },
+  },
+  {
+    id: 'surface-hierarchy-legible',
+    axis: 'color',
+    wcag: '1.4.3 Contrast (Minimum) (AA); 1.4.11 Non-text Contrast (AA)',
+    rationale: 'Text on the sidebar and on raised panels is still text, and a strong border exists to be seen (#951).',
+    evaluate(ctx) {
+      const out: GdsFloorViolation[] = [];
+      for (const surface of ['--gds-bg-sidebar', '--gds-bg-raised']) {
+        const fill = ctx.tokens[surface];
+        if (!fill) {
+          out.push(violation(ctx, this, `${surface} missing`, 'emitted', 'Emit it from emitSurfaceHierarchyCssVariables.'));
+          continue;
+        }
+        for (const text of ['--gds-text-body', '--gds-text-meta']) {
+          const ratio = contrastRatio(ctx.tokens[text] ?? '', fill, fill);
+          if (ratio === null || ratio < 4.5) {
+            out.push(violation(ctx, this, `${text} on ${surface} = ${ratio ?? 'unresolvable'}:1`, '>= 4.5:1',
+              'The surface is derived from the shell, page and card; if text fails on it, one of those changed.'));
+          }
+        }
+      }
+      const card = ctx.tokens['--gds-bg-card'];
+      const strong = ctx.tokens['--gds-border-strong'];
+      const ratio = strong && card ? contrastRatio(strong, card, card) : null;
+      if (ratio === null || ratio < 3) {
+        out.push(violation(ctx, this, `--gds-border-strong on --gds-bg-card = ${ratio ?? 'missing'}:1`, '>= 3:1',
+          'emitSurfaceHierarchyCssVariables pushes the strong border to 3:1 against the card.'));
+      }
+      return out;
+    },
+  },
+  {
+    id: 'surface-separation',
+    axis: 'color',
+    wcag: '1.4.11 Non-text Contrast (AA), informative: a surface is not a UI component',
+    rationale: `A sidebar whose fill matches both the page and the card (CIE76 below ${GDS_SURFACE_JND_DELTA_E}, a just-noticeable difference) is told apart only by its border. Reported, not enforced: in light schemes a darker sidebar would take muted text below 4.5:1, so most presets keep a two-level fill and rely on borders and elevation (#951).`,
+    evaluate(ctx) {
+      const page = ctx.tokens['--gds-bg-page'];
+      const sidebar = ctx.tokens['--gds-bg-sidebar'];
+      const card = ctx.tokens['--gds-bg-card'];
+      if (!page || !sidebar || !card) return [];
+      const toPage = deltaE76(page, sidebar) ?? 0;
+      const toCard = deltaE76(sidebar, card) ?? 0;
+      if (toPage >= GDS_SURFACE_JND_DELTA_E || toCard >= GDS_SURFACE_JND_DELTA_E) return [];
+      return [report(ctx, this, `sidebar ${sidebar}: dE ${toPage.toFixed(1)} from page, ${toCard.toFixed(1)} from card`, `>= ${GDS_SURFACE_JND_DELTA_E} from at least one`,
+        'The sidebar is separated by its border only. Tint the preset\'s shell or canvas in the semantic token source (vibe-themes.ts) if a filled separation is wanted.')];
     },
   },
   {
