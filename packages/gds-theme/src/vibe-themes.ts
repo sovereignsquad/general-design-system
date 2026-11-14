@@ -7,6 +7,7 @@ import {
   GDS_CLASS_USA_SHAPE_AXIS,
   GDS_GOLD_ATHLETE_SHAPE_AXIS,
   deriveVibeSemanticCssVariables,
+  getGdsVibeCardSurface,
   applyGdsGreyWhenText,
   emitClassUsaCssVariables,
   emitGoldAthleteCssVariables,
@@ -17,7 +18,15 @@ import { YOUR_FIELD_NAVY_DEEP, YOUR_FIELD_SCOUT, YOUR_FIELD_SCOUT_2 } from './yo
 
 // Re-exported, not defined here. The public surface is unchanged; the definition moved so
 // that every semantic-role value lives in one module.
-export { deriveVibeSemanticCssVariables };
+export { deriveVibeSemanticCssVariables, getGdsVibeCardSurface };
+
+/** Thrown when a hand-authored card role disagrees with the preset's opaque declared surface. */
+export class GdsCardSurfaceError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'GdsCardSurfaceError';
+  }
+}
 
 // This file maintains its own hand-authored color values rather than deriving them from
 // `theme-presets.ts`'s Mantine hue names: the two systems draw from different color sources
@@ -59,9 +68,13 @@ export interface GdsVibeTheme {
   shellLight: string;
   /** Shell/app-bar surface, dark mode. */
   shellDark: string;
-  /** Card surface, light mode. */
+  /**
+   * Card surface, light mode. When opaque (alpha 1) it is the card: it drives `--gds-bg-card`
+   * and `--gds-bg-surface`, the pairs derived from them, and a flat card paint
+   * (`--gds-vibe-card`). A translucent value keeps the white card role.
+   */
   surfaceLight: string;
-  /** Card surface, dark mode. */
+  /** Card surface, dark mode. Same opacity rule as `surfaceLight`; a translucent value keeps the canvas mix. */
   surfaceDark: string;
   /** Border color, light mode. */
   borderLight: string;
@@ -765,6 +778,24 @@ const brandSemanticCssVariablesByPreset: Partial<Record<GdsThemePresetId, Record
 
 const derivedSemanticCssVariablesCache = new Map<GdsThemePresetId, Record<string, string>>();
 
+/**
+ * An opaque declared surface is the card; a hand-authored table may repeat it but never
+ * contradict it, so two sources for one role never resolve silently.
+ */
+export function assertGdsHandAuthoredCardMatchesSurface(id: string, vibe: Pick<GdsVibeTheme, 'surfaceLight' | 'surfaceDark'>, handAuthored: Record<string, string>): void {
+  for (const scheme of ['light', 'dark'] as const) {
+    const surface = getGdsVibeCardSurface(vibe, scheme);
+    if (!surface) continue;
+    const suffix = scheme === 'dark' ? '-dark' : '';
+    for (const role of ['--gds-bg-card', '--gds-bg-surface']) {
+      const authored = handAuthored[`${role}${suffix}`];
+      if (authored !== undefined && authored.toLowerCase() !== surface.toLowerCase()) {
+        throw new GdsCardSurfaceError(`${id}: ${role}${suffix} is ${authored} in the hand-authored table, but the preset's opaque ${scheme} surface is ${surface}.`);
+      }
+    }
+  }
+}
+
 function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeTheme): Record<string, string> {
   const handAuthored = brandSemanticCssVariablesByPreset[id];
   if (handAuthored) {
@@ -776,6 +807,7 @@ function resolveVibeSemanticCssVariables(id: GdsThemePresetId, vibe: GdsVibeThem
     // deliberate brand decision while making an omission fall back to a contrast-derived
     // default rather than to nothing, and means a future role cannot silently disappear
     // from these two lanes.
+    assertGdsHandAuthoredCardMatchesSurface(id, vibe, handAuthored);
     const merged = { ...deriveVibeSemanticCssVariables(vibe), ...handAuthored };
 
     // Roles derived from another role must be recomputed after the override layer is
@@ -881,5 +913,7 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
     });
   }
 
-  return { ...variables, ...axisVariables, ...semanticVariables };
+  // An opaque declared surface paints the card flat (`--gds-vibe-card`), for that scheme only.
+  const cardSurface = getGdsVibeCardSurface(vibe, colorScheme);
+  return { ...variables, ...(cardSurface ? { '--gds-vibe-card': cardSurface } : {}), ...axisVariables, ...semanticVariables };
 }

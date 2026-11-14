@@ -185,6 +185,9 @@ function applyFontLaneStylesheet(fontLaneId: GdsFontLaneId) {
   document.head.appendChild(link);
 }
 
+/** Vibe variables a preset may omit; cleared on apply when the new preset does not emit them. */
+const OPTIONAL_VIBE_VARIABLES = ['--gds-vibe-card'];
+
 function applyDocumentRuntime(selection: GdsThemePresetSelection) {
   const documentScheme = resolveDocumentScheme(selection);
   const vibeVariables = getGdsVibeThemeCssVariables(selection.preset, documentScheme);
@@ -198,6 +201,10 @@ function applyDocumentRuntime(selection: GdsThemePresetSelection) {
   Object.entries(vibeVariables).forEach(([property, value]) => {
     document.documentElement.style.setProperty(property, value);
   });
+  // Emitted only for a preset and scheme with an opaque surface; a switch away must clear it.
+  for (const property of OPTIONAL_VIBE_VARIABLES) {
+    if (!(property in vibeVariables)) document.documentElement.style.removeProperty(property);
+  }
 
   return documentScheme;
 }

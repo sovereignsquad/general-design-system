@@ -474,8 +474,9 @@ html[data-gds-theme-preset] .gds-card:where(:not([data-gds-fixed-tone])) {
   --mantine-color-text: var(--gds-vibe-text);
   --mantine-color-dimmed: var(--gds-vibe-muted);
   color: var(--gds-vibe-text);
-  background:
-    linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 94%, white), color-mix(in srgb, var(--gds-vibe-surface) 86%, var(--gds-vibe-primary) 7%));
+  /* An opaque declared surface (--gds-vibe-card) paints flat; otherwise the surface gradient. */
+  background: var(--gds-vibe-card,
+    linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 94%, white), color-mix(in srgb, var(--gds-vibe-surface) 86%, var(--gds-vibe-primary) 7%)));
   border-color: var(--gds-vibe-border);
   box-shadow: 0 18px 54px color-mix(in srgb, var(--gds-vibe-glow) 20%, transparent);
 }
@@ -501,8 +502,8 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] body {
 
 html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .gds-paper:where(:not([data-gds-fixed-tone])),
 html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .gds-card:where(:not([data-gds-fixed-tone])) {
-  background:
-    linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%));
+  background: var(--gds-vibe-card,
+    linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%)));
 }
 
 html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
@@ -785,7 +786,7 @@ html[data-gds-theme-preset] .mantine-Popover-dropdown:where(:not([data-gds-fixed
 }
 
 html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])) {
-  background: linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%));
+  background: var(--gds-vibe-card, linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%)));
 }
 
 /* flatSurfaces lanes: same gap as .gds-paper/.gds-card above — the dark-mode
@@ -1192,6 +1193,8 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-
 
 html[data-gds-theme-preset] [data-gds-owned-contrast]:where(:not([data-gds-fixed-tone])),
 html[data-gds-theme-preset] [data-gds-local-contrast]:where(:not([data-gds-fixed-tone])) {
+  /* Cards inside paint the local surface, not the root's declared card. */
+  --gds-vibe-card: initial;
   --mantine-color-text: var(--gds-vibe-text) !important;
   --mantine-color-dimmed: var(--gds-vibe-muted) !important;
   color: var(--gds-vibe-text) !important;
@@ -1331,6 +1334,7 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root:where(
     --gds-vibe-canvas: Canvas !important;
     --gds-vibe-shell: Canvas !important;
     --gds-vibe-surface: Canvas !important;
+    --gds-vibe-card: Canvas !important;
     --gds-vibe-border: CanvasText !important;
     --gds-vibe-text: CanvasText !important;
     --gds-vibe-muted: GrayText !important;

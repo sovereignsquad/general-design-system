@@ -5008,7 +5008,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(243, 220, 219)",
-                "dark": "rgb(65, 45, 44)"
+                "dark": "rgb(39, 19, 18)"
               }
             }
           }
@@ -5038,7 +5038,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(223, 223, 223)",
-                "dark": "rgb(48, 48, 48)"
+                "dark": "rgb(20, 20, 20)"
               }
             }
           }
@@ -5068,7 +5068,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(31, 31, 31)"
+                "dark": "#000000"
               }
             }
           }
@@ -5098,7 +5098,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(218, 233, 229)",
-                "dark": "rgb(47, 57, 51)"
+                "dark": "rgb(21, 31, 25)"
               }
             }
           }
@@ -5128,7 +5128,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(236, 227, 221)",
-                "dark": "rgb(62, 52, 36)"
+                "dark": "rgb(36, 26, 10)"
               }
             }
           }
@@ -5188,7 +5188,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#3a3a3a",
-                "dark": "rgb(139, 139, 139)"
+                "dark": "rgb(126, 126, 126)"
               }
             }
           }
@@ -5353,7 +5353,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(31, 31, 31)"
+                "dark": "#000000"
               }
             }
           }
@@ -5428,7 +5428,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(31, 31, 31)"
+                "dark": "#000000"
               }
             }
           }
@@ -5548,7 +5548,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#3a3a3a",
-                "dark": "rgb(139, 139, 139)"
+                "dark": "rgb(126, 126, 126)"
               }
             }
           }
@@ -7258,7 +7258,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#3a3a3a",
-                "dark": "rgb(139, 139, 139)"
+                "dark": "rgb(126, 126, 126)"
               }
             }
           }
@@ -8507,7 +8507,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(243, 220, 219)",
-                "dark": "rgb(71, 60, 67)"
+                "dark": "rgb(52, 42, 51)"
               }
             }
           }
@@ -8537,7 +8537,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(226, 228, 231)",
-                "dark": "rgb(56, 65, 76)"
+                "dark": "rgb(33, 44, 57)"
               }
             }
           }
@@ -8567,7 +8567,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(39, 48, 59)"
+                "dark": "#101b28"
               }
             }
           }
@@ -8597,7 +8597,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(218, 235, 231)",
-                "dark": "rgb(54, 71, 75)"
+                "dark": "rgb(35, 53, 59)"
               }
             }
           }
@@ -8627,7 +8627,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(236, 229, 222)",
-                "dark": "rgb(69, 66, 59)"
+                "dark": "rgb(49, 49, 43)"
               }
             }
           }
@@ -8687,7 +8687,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#475569",
-                "dark": "rgb(146, 154, 167)"
+                "dark": "rgb(121, 131, 146)"
               }
             }
           }
@@ -8852,7 +8852,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(39, 48, 59)"
+                "dark": "#101b28"
               }
             }
           }
@@ -8927,7 +8927,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(39, 48, 59)"
+                "dark": "#101b28"
               }
             }
           }
@@ -9047,7 +9047,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#475569",
-                "dark": "rgb(146, 154, 167)"
+                "dark": "rgb(121, 131, 146)"
               }
             }
           }
@@ -10757,7 +10757,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#475569",
-                "dark": "rgb(146, 154, 167)"
+                "dark": "rgb(121, 131, 146)"
               }
             }
           }

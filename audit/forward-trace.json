@@ -1,12 +1,12 @@
 {
-  "tokenUniverse": 264,
+  "tokenUniverse": 265,
   "darkSiblingsExcluded": 37,
-  "cellsEvaluated": 1320,
+  "cellsEvaluated": 1325,
   "obligationsSatisfied": {
-    "listed": 119,
-    "demoed": 133,
-    "explained": 103,
-    "variationsShown": 43,
+    "listed": 120,
+    "demoed": 134,
+    "explained": 104,
+    "variationsShown": 44,
     "useCase": 28
   },
   "confidence": {
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 9,
-  "tokensWithGaps": 255,
+  "tokensWithGaps": 256,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -4536,6 +4536,22 @@
       "useCase": true,
       "gaps": [
         "variationsShown"
+      ]
+    },
+    {
+      "token": "--gds-vibe-card",
+      "role": "vibe-card",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
       ]
     },
     {

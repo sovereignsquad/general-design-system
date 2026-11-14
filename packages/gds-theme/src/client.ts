@@ -26,7 +26,7 @@ export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResol
 export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
 export { resolveGdsAxisTokens, resolveGdsLayoutTokens, validateGdsLayoutAxis, GDS_DEFAULT_LAYOUT_AXIS, GDS_LAYOUT_DIMENSION_EXCEPTIONS } from './axes';
 export type { GdsLayoutAxis } from './axes';
-export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, getGdsDefaultLaneCssVariables, deriveVibeSemanticCssVariables, getGdsAiAccentLane } from './vibe-themes';
+export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, getGdsDefaultLaneCssVariables, getGdsVibeCardSurface, GdsCardSurfaceError, deriveVibeSemanticCssVariables, getGdsAiAccentLane } from './vibe-themes';
 export type { GdsVibeTheme, GdsAiAccentLane } from './vibe-themes';
 export { VibeThemePicker } from './VibeThemePicker.client';
 export type { VibeThemePickerProps } from './VibeThemePicker.client';

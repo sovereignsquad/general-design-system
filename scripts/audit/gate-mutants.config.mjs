@@ -43,6 +43,7 @@ export const EXEMPTIONS = {
   'verify:input-zoom-guard-runtime': { reason: 'Browser-driven; see above.', reviewBy: '2026-12-01' },
   'verify:kanban-drag-accessibility-runtime': { reason: 'Browser-driven; see above.', reviewBy: '2026-12-01' },
   // Browser-driven. Negative control was observed live (344 uncomputable pairs, then 26 below 4.5:1) rather than planted.
+  'verify:card-surface-runtime': { reason: 'Browser-driven against the built playground; a source mutation is invisible without a rebuild. Needs the rebuild-aware harness from issue 579, like verify:badge-contrast. Its negative control was observed live: the first run failed on Card painting the body colour over a declared surface (#865) until theme.ts read --gds-vibe-card.', reviewBy: '2026-12-01' },
   'verify:badge-contrast': { reason: 'Browser-driven; needs the rebuild-aware harness pattern from issue 579. Its negative control was observed live on real defects (344 uncomputable, then 26 low pairs) rather than planted. Tracked, not waived.', reviewBy: '2026-12-01' },
   'verify:references': { reason: 'Aggregate of 25 sub-gates; mutants belong on the individual scripts rather than the aggregate. Tracked.', reviewBy: '2026-12-01' },
   // Read from dist/; a source mutation is invisible without a rebuild.

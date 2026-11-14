@@ -106,7 +106,8 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
       },
       styles: {
         root: {
-          background: 'var(--mantine-color-body)',
+          // A preset's opaque declared surface (#865); otherwise the body colour.
+          background: 'var(--gds-vibe-card, var(--mantine-color-body))',
         }
       }
     },
