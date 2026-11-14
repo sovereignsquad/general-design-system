@@ -1,6 +1,6 @@
 {
   "presetsChecked": 54,
-  "rulesEvaluated": 12,
+  "rulesEvaluated": 13,
   "violationCount": 0,
   "reportCount": 47,
   "rules": [
@@ -45,6 +45,12 @@
       "axis": "color",
       "wcag": "1.4.3 Contrast (Minimum) (AA)",
       "rationale": "A status badge is often the only signal that something needs attention, so an illegible one is a functional failure rather than a cosmetic one."
+    },
+    {
+      "id": "brand-fill-not-text-colour",
+      "axis": "color",
+      "wcag": "1.4.11 Non-text Contrast (AA)",
+      "rationale": "A primary control or info badge filled with the body text colour reads as text, not as a control (#970)."
     },
     {
       "id": "chart-roles-legible",

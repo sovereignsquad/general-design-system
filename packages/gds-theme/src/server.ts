@@ -11,6 +11,7 @@ export { gdsRadius, resolveGdsShapeTokens, validateGdsShapeAxis, GdsAxisError, G
 export { computeGdsThemeIdentity, gdsThemeIdentityChanged } from './theme-identity';
 export type { GdsThemeIdentity, GdsThemeApplicationMode, GdsThemeIdentityInput } from './theme-identity';
 export { resolveGdsAccentTokens, evaluateGdsAccentContrast, deriveGdsAccentShades, GdsAccentError, GDS_DEFAULT_ACCENT_AXIS, GDS_ACCENT_NAMES, GDS_ACCENT_SHADES, GDS_ACCENT_MODES, GDS_DEFAULT_SHADE_FACTORS, GDS_ACCENT_EMOJI_DISC, GDS_ACCENT_MODE_ENFORCEMENT } from './accent-axis';
+export { deriveGdsReadableGrey, applyGdsGreyWhenText, GDS_GREY_WHEN_TEXT_ROLES } from './semantic-token-source';
 export { emitChartCssVariables, evaluateGdsChartContrast, GDS_CHART_SERIES_COUNT, GDS_CHART_SERIES_MIN_CONTRAST, GDS_CHART_AXIS_TEXT_MIN_CONTRAST, GDS_CHART_AREA_OPACITY } from './chart-tokens';
 export type { GdsChartContrastResult } from './chart-tokens';
 export type { GdsAccentAxis, GdsAccentRamp, GdsAccentName, GdsAccentShade, GdsAccentMode, GdsAccentContrastResult } from './accent-axis';
@@ -25,7 +26,7 @@ export type { GdsThemeAxes, GdsShapeAxis, GdsRadiusStep, GdsRadiusRole, GdsResol
 export type { GdsDensityAxis, GdsSpaceStep, GdsControlSize, GdsDensityMode } from './axes';
 export { resolveGdsAxisTokens, resolveGdsLayoutTokens, validateGdsLayoutAxis, GDS_DEFAULT_LAYOUT_AXIS, GDS_LAYOUT_DIMENSION_EXCEPTIONS } from './axes';
 export type { GdsLayoutAxis } from './axes';
-export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, getGdsDefaultLaneCssVariables, GDS_DEFAULT_LANE_GREY_ROLES, deriveVibeSemanticCssVariables, getGdsAiAccentLane } from './vibe-themes';
+export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, getGdsDefaultLaneCssVariables, deriveVibeSemanticCssVariables, getGdsAiAccentLane } from './vibe-themes';
 export type { GdsVibeTheme, GdsAiAccentLane } from './vibe-themes';
 export { GdsVibeThemeScope } from './VibeThemeScope';
 export type { GdsVibeThemeScopeProps } from './VibeThemeScope';

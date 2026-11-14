@@ -103,7 +103,9 @@ describe('vibe-theme semantic role tokens (badge-system foundation)', () => {
     // class-usa v2 re-base (issue 536): navy anchor moved #0b223e -> #0f2c4a.
     expect(classUsaLight['--gds-brand-primary']).toBe('#0f2c4a');
     expect(classUsaLight['--gds-state-danger']).toBe('#b3261e');
-    expect(goldAthleteLight['--gds-brand-primary']).toBe('#12161c');
+    // Its hand-authored brand primary is the body text colour, so it takes the readable grey (#970).
+    expect(goldAthleteLight['--gds-text-body']).toBe('#12161c');
+    expect(goldAthleteLight['--gds-brand-primary']).toBe(goldAthleteLight['--gds-text-meta']);
     expect(goldAthleteLight['--gds-state-danger']).toBe('#b3261e');
   });
 
