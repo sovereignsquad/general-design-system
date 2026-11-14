@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "66cce47b2cb1b2f4c9b495e3fbef544b2ee8bbc4",
+  "commit": "b3775a7980044b47d15bfc23c6711a685f2603f0",
   "counts": {
     "token-published": 524,
     "token-declared": 269,
@@ -15512,7 +15512,7 @@
       "name": "--gds-bg-card",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 75
+        "line": 67
       }
     },
     {
@@ -15521,7 +15521,7 @@
       "name": "--gds-bg-surface",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 76
+        "line": 68
       }
     },
     {
@@ -15530,7 +15530,7 @@
       "name": "--gds-vibe-card",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 77
+        "line": 69
       }
     },
     {
@@ -15539,7 +15539,7 @@
       "name": "--gds-ai-gradient",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 762
+        "line": 147
       }
     },
     {
@@ -15548,7 +15548,7 @@
       "name": "--gds-ai-gradient-dark",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 763
+        "line": 148
       }
     },
     {
@@ -15557,7 +15557,7 @@
       "name": "--gds-ai-panel",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 764
+        "line": 149
       }
     },
     {
@@ -15566,7 +15566,7 @@
       "name": "--gds-ai-panel-dark",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 765
+        "line": 150
       }
     },
     {
@@ -15575,7 +15575,7 @@
       "name": "--gds-ai-accent",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 766
+        "line": 151
       }
     },
     {
@@ -15584,7 +15584,7 @@
       "name": "--gds-ai-accent-dark",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 767
+        "line": 152
       }
     },
     {
@@ -15593,7 +15593,7 @@
       "name": "--gds-bg-card",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 793
+        "line": 174
       }
     },
     {
@@ -15602,7 +15602,7 @@
       "name": "--gds-bg-surface",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 793
+        "line": 174
       }
     },
     {
@@ -15611,7 +15611,7 @@
       "name": "--gds-text-on-support",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 819
+        "line": 200
       }
     },
     {
@@ -15620,7 +15620,7 @@
       "name": "--gds-support",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 819
+        "line": 200
       }
     },
     {
@@ -15629,7 +15629,7 @@
       "name": "--gds-bg-page",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 819
+        "line": 200
       }
     },
     {
@@ -15638,7 +15638,7 @@
       "name": "--gds-text-on-support-dark",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 820
+        "line": 201
       }
     },
     {
@@ -15647,7 +15647,7 @@
       "name": "--gds-support-dark",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 820
+        "line": 201
       }
     },
     {
@@ -15656,7 +15656,7 @@
       "name": "--gds-bg-page-dark",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 820
+        "line": 201
       }
     },
     {
@@ -15665,7 +15665,7 @@
       "name": "--gds-vibe-glow",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 865
+        "line": 246
       }
     },
     {
@@ -15674,7 +15674,7 @@
       "name": "--gds-vibe-gradient",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 865
+        "line": 246
       }
     },
     {
@@ -15683,7 +15683,7 @@
       "name": "--gds-vibe-primary",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 872
+        "line": 253
       }
     },
     {
@@ -15692,7 +15692,7 @@
       "name": "--gds-vibe-accent",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 873
+        "line": 254
       }
     },
     {
@@ -15701,7 +15701,7 @@
       "name": "--gds-vibe-glow",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 874
+        "line": 255
       }
     },
     {
@@ -15710,7 +15710,7 @@
       "name": "--gds-vibe-canvas",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 875
+        "line": 256
       }
     },
     {
@@ -15719,7 +15719,7 @@
       "name": "--gds-vibe-shell",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 876
+        "line": 257
       }
     },
     {
@@ -15728,7 +15728,7 @@
       "name": "--gds-vibe-surface",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 877
+        "line": 258
       }
     },
     {
@@ -15737,7 +15737,7 @@
       "name": "--gds-vibe-border",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 878
+        "line": 259
       }
     },
     {
@@ -15746,7 +15746,7 @@
       "name": "--gds-vibe-text",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 879
+        "line": 260
       }
     },
     {
@@ -15755,7 +15755,7 @@
       "name": "--gds-vibe-muted",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 880
+        "line": 261
       }
     },
     {
@@ -15764,7 +15764,7 @@
       "name": "--gds-vibe-focus",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 881
+        "line": 262
       }
     },
     {
@@ -15773,7 +15773,7 @@
       "name": "--gds-vibe-gradient",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 882
+        "line": 263
       }
     },
     {
@@ -15782,7 +15782,7 @@
       "name": "--gds-vibe-hero",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 883
+        "line": 264
       }
     },
     {
@@ -15791,7 +15791,7 @@
       "name": "--gds-vibe-hero",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 886
+        "line": 267
       }
     },
     {
@@ -15800,7 +15800,7 @@
       "name": "--gds-vibe-swatch",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 894
+        "line": 275
       }
     },
     {
@@ -15809,7 +15809,7 @@
       "name": "--gds-vibe-atmosphere",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 897
+        "line": 278
       }
     },
     {
@@ -15818,7 +15818,7 @@
       "name": "--gds-vibe-card",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 919
+        "line": 300
       }
     },
     {
@@ -15827,7 +15827,7 @@
       "name": "--gds-vibe-card",
       "source": {
         "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 921
+        "line": 302
       }
     },
     {
@@ -42834,246 +42834,246 @@
       }
     },
     {
-      "id": "theme:default#4271",
-      "kind": "theme",
-      "name": "default",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 119
-      }
-    },
-    {
-      "id": "theme:high-contrast#4272",
-      "kind": "theme",
-      "name": "high-contrast",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 190
-      }
-    },
-    {
-      "id": "theme:colorblind-safe#4273",
-      "kind": "theme",
-      "name": "colorblind-safe",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 219
-      }
-    },
-    {
-      "id": "theme:dark-public#4274",
-      "kind": "theme",
-      "name": "dark-public",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 241
-      }
-    },
-    {
-      "id": "theme:flat-surface#4275",
-      "kind": "theme",
-      "name": "flat-surface",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 255
-      }
-    },
-    {
-      "id": "theme:editorial#4276",
-      "kind": "theme",
-      "name": "editorial",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 268
-      }
-    },
-    {
-      "id": "theme:brand#4277",
-      "kind": "theme",
-      "name": "brand",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 283
-      }
-    },
-    {
-      "id": "theme:partner-discovery#4278",
-      "kind": "theme",
-      "name": "partner-discovery",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 288
-      }
-    },
-    {
-      "id": "theme:class-usa#4279",
-      "kind": "theme",
-      "name": "class-usa",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 310
-      }
-    },
-    {
-      "id": "theme:gold-athlete#4280",
-      "kind": "theme",
-      "name": "gold-athlete",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 342
-      }
-    },
-    {
-      "id": "theme:padel-africa#4281",
-      "kind": "theme",
-      "name": "padel-africa",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 366
-      }
-    },
-    {
-      "id": "theme:your-field#4282",
-      "kind": "theme",
-      "name": "your-field",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 397
-      }
-    },
-    {
-      "id": "theme:sunset#4283",
-      "kind": "theme",
-      "name": "sunset",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 475
-      }
-    },
-    {
-      "id": "theme:oceanic#4284",
-      "kind": "theme",
-      "name": "oceanic",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 494
-      }
-    },
-    {
-      "id": "theme:forest#4285",
-      "kind": "theme",
-      "name": "forest",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 512
-      }
-    },
-    {
-      "id": "theme:ruby#4286",
-      "kind": "theme",
-      "name": "ruby",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 530
-      }
-    },
-    {
-      "id": "theme:amber#4287",
+      "id": "theme:amber#4271",
       "kind": "theme",
       "name": "amber",
       "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 546
+        "file": "packages/gds-theme/src/presets/amber.ts",
+        "line": 5
       }
     },
     {
-      "id": "theme:neon-night#4288",
-      "kind": "theme",
-      "name": "neon-night",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 561
-      }
-    },
-    {
-      "id": "theme:skyline#4289",
-      "kind": "theme",
-      "name": "skyline",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 578
-      }
-    },
-    {
-      "id": "theme:aurora#4290",
-      "kind": "theme",
-      "name": "aurora",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 594
-      }
-    },
-    {
-      "id": "theme:coral#4291",
-      "kind": "theme",
-      "name": "coral",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 609
-      }
-    },
-    {
-      "id": "theme:mint#4292",
-      "kind": "theme",
-      "name": "mint",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 625
-      }
-    },
-    {
-      "id": "theme:orchid#4293",
-      "kind": "theme",
-      "name": "orchid",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 640
-      }
-    },
-    {
-      "id": "theme:royal#4294",
-      "kind": "theme",
-      "name": "royal",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 656
-      }
-    },
-    {
-      "id": "theme:warm#4295",
-      "kind": "theme",
-      "name": "warm",
-      "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 672
-      }
-    },
-    {
-      "id": "theme:athlete-gold#4296",
+      "id": "theme:athlete-gold#4272",
       "kind": "theme",
       "name": "athlete-gold",
       "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 690
+        "file": "packages/gds-theme/src/presets/athlete-gold.ts",
+        "line": 5
       }
     },
     {
-      "id": "theme:cosmic#4297",
+      "id": "theme:aurora#4273",
+      "kind": "theme",
+      "name": "aurora",
+      "source": {
+        "file": "packages/gds-theme/src/presets/aurora.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:brand#4274",
+      "kind": "theme",
+      "name": "brand",
+      "source": {
+        "file": "packages/gds-theme/src/presets/brand.ts",
+        "line": 4
+      }
+    },
+    {
+      "id": "theme:class-usa#4275",
+      "kind": "theme",
+      "name": "class-usa",
+      "source": {
+        "file": "packages/gds-theme/src/presets/class-usa.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:colorblind-safe#4276",
+      "kind": "theme",
+      "name": "colorblind-safe",
+      "source": {
+        "file": "packages/gds-theme/src/presets/colorblind-safe.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "theme:coral#4277",
+      "kind": "theme",
+      "name": "coral",
+      "source": {
+        "file": "packages/gds-theme/src/presets/coral.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:cosmic#4278",
       "kind": "theme",
       "name": "cosmic",
       "source": {
-        "file": "packages/gds-theme/src/vibe-themes.ts",
-        "line": 711
+        "file": "packages/gds-theme/src/presets/cosmic.ts",
+        "line": 4
+      }
+    },
+    {
+      "id": "theme:dark-public#4279",
+      "kind": "theme",
+      "name": "dark-public",
+      "source": {
+        "file": "packages/gds-theme/src/presets/dark-public.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:default#4280",
+      "kind": "theme",
+      "name": "default",
+      "source": {
+        "file": "packages/gds-theme/src/presets/default.ts",
+        "line": 28
+      }
+    },
+    {
+      "id": "theme:editorial#4281",
+      "kind": "theme",
+      "name": "editorial",
+      "source": {
+        "file": "packages/gds-theme/src/presets/editorial.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:flat-surface#4282",
+      "kind": "theme",
+      "name": "flat-surface",
+      "source": {
+        "file": "packages/gds-theme/src/presets/flat-surface.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:forest#4283",
+      "kind": "theme",
+      "name": "forest",
+      "source": {
+        "file": "packages/gds-theme/src/presets/forest.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:gold-athlete#4284",
+      "kind": "theme",
+      "name": "gold-athlete",
+      "source": {
+        "file": "packages/gds-theme/src/presets/gold-athlete.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:high-contrast#4285",
+      "kind": "theme",
+      "name": "high-contrast",
+      "source": {
+        "file": "packages/gds-theme/src/presets/high-contrast.ts",
+        "line": 43
+      }
+    },
+    {
+      "id": "theme:mint#4286",
+      "kind": "theme",
+      "name": "mint",
+      "source": {
+        "file": "packages/gds-theme/src/presets/mint.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:neon-night#4287",
+      "kind": "theme",
+      "name": "neon-night",
+      "source": {
+        "file": "packages/gds-theme/src/presets/neon-night.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:oceanic#4288",
+      "kind": "theme",
+      "name": "oceanic",
+      "source": {
+        "file": "packages/gds-theme/src/presets/oceanic.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:orchid#4289",
+      "kind": "theme",
+      "name": "orchid",
+      "source": {
+        "file": "packages/gds-theme/src/presets/orchid.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:padel-africa#4290",
+      "kind": "theme",
+      "name": "padel-africa",
+      "source": {
+        "file": "packages/gds-theme/src/presets/padel-africa.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:partner-discovery#4291",
+      "kind": "theme",
+      "name": "partner-discovery",
+      "source": {
+        "file": "packages/gds-theme/src/presets/partner-discovery.ts",
+        "line": 115
+      }
+    },
+    {
+      "id": "theme:royal#4292",
+      "kind": "theme",
+      "name": "royal",
+      "source": {
+        "file": "packages/gds-theme/src/presets/royal.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:ruby#4293",
+      "kind": "theme",
+      "name": "ruby",
+      "source": {
+        "file": "packages/gds-theme/src/presets/ruby.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:skyline#4294",
+      "kind": "theme",
+      "name": "skyline",
+      "source": {
+        "file": "packages/gds-theme/src/presets/skyline.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:sunset#4295",
+      "kind": "theme",
+      "name": "sunset",
+      "source": {
+        "file": "packages/gds-theme/src/presets/sunset.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:warm#4296",
+      "kind": "theme",
+      "name": "warm",
+      "source": {
+        "file": "packages/gds-theme/src/presets/warm.ts",
+        "line": 5
+      }
+    },
+    {
+      "id": "theme:your-field#4297",
+      "kind": "theme",
+      "name": "your-field",
+      "source": {
+        "file": "packages/gds-theme/src/presets/your-field.ts",
+        "line": 47
       }
     },
     {

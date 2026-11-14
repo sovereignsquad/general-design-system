@@ -11,8 +11,9 @@ const explorerSource = readFileSync(resolve(root, 'packages/gds-core/src/Referen
 const ownedContrastSource = readFileSync(resolve(root, 'packages/gds-core/src/OwnedContrastSurface.tsx'), 'utf8');
 const explorerCopySource = readFileSync(resolve(root, 'packages/gds-core/src/ReferenceThemeExplorer.copy.ts'), 'utf8');
 const explorerContractSource = `${explorerSource}\n${explorerCopySource}`;
-const themePresetSource = readFileSync(resolve(root, 'packages/gds-theme/src/theme-presets.ts'), 'utf8');
-const vibeThemeSource = readFileSync(resolve(root, 'packages/gds-theme/src/vibe-themes.ts'), 'utf8');
+const { getGdsThemePresets, getGdsVibeThemes, resolveGdsThemePreset } = await import(resolve(root, 'packages/gds-theme/dist/index.js'));
+const catalogIds = getGdsThemePresets().map((preset) => preset.id);
+const vibeIds = getGdsVibeThemes().map((vibe) => vibe.id);
 const themeStylesSource = readFileSync(resolve(root, 'packages/gds-theme/styles.css'), 'utf8');
 const playgroundAppSource = readFileSync(resolve(root, 'apps/playground/src/App.tsx'), 'utf8');
 const runtimeTestSource = readFileSync(resolve(root, 'apps/playground/src/app-theme-runtime.test.tsx'), 'utf8');
@@ -92,12 +93,24 @@ for (const presetId of colorfulThemePresetIds) {
     failures.push(`THEME_GOVERNANCE.md must document colorful preset "${presetId}".`);
   }
 
-  if (!themePresetSource.includes(`'${presetId}'`)) {
-    failures.push(`theme-presets.ts must ship colorful preset "${presetId}".`);
+  if (!catalogIds.includes(presetId)) {
+    failures.push(`The preset registry must ship colorful preset "${presetId}" in getGdsThemePresets().`);
   }
 
-  if (!vibeThemeSource.includes(`${presetId}:`) && !vibeThemeSource.includes(`'${presetId}':`)) {
-    failures.push(`vibe-themes.ts must ship CSS VibeTheme "${presetId}".`);
+  if (!vibeIds.includes(presetId)) {
+    failures.push(`The preset registry must ship CSS VibeTheme "${presetId}" in getGdsVibeThemes().`);
+  }
+}
+
+if (new Set(catalogIds).size !== catalogIds.length) {
+  failures.push('getGdsThemePresets() lists a preset id more than once.');
+}
+if (catalogIds.join(',') !== vibeIds.join(',')) {
+  failures.push('getGdsThemePresets() and getGdsVibeThemes() must list the same preset ids in the same order; both derive from gdsThemePresetRegistry.');
+}
+for (const id of catalogIds) {
+  if (id !== 'brand' && !resolveGdsThemePreset(id)) {
+    failures.push(`resolveGdsThemePreset("${id}") returned no Mantine theme.`);
   }
 }
 

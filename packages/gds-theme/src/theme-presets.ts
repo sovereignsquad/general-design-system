@@ -1,295 +1,29 @@
 import type { MantineThemeOverride } from '@mantine/core';
-import { createPublicBrandTheme, extendGdsTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme } from './theme';
+import { createPublicBrandTheme, gdsTheme } from './theme';
 import { createBrandTheme } from './brand-tokens';
-import { padelAfricaThemePreset } from './padel-africa';
-import { yourFieldThemePreset } from './your-field';
+import { gdsThemePresetRegistry } from './presets';
+import type { GdsThemePresetCatalogEntry } from './presets/define';
 
-/** Identifier of a built-in GDS theme preset (accessibility, brand, and vibe lanes). */
-export type GdsThemePresetId =
-  | 'default'
-  | 'high-contrast'
-  | 'colorblind-safe'
-  | 'dark-public'
-  | 'flat-surface'
-  | 'editorial'
-  | 'brand'
-  | 'partner-discovery'
-  | 'sunset'
-  | 'oceanic'
-  | 'forest'
-  | 'ruby'
-  | 'amber'
-  | 'neon-night'
-  | 'skyline'
-  | 'aurora'
-  | 'coral'
-  | 'mint'
-  | 'orchid'
-  | 'royal'
-  | 'cosmic'
-  | 'warm'
-  | 'athlete-gold'
-  | 'class-usa'
-  | 'gold-athlete'
-  | 'padel-africa'
-  | 'your-field';
+/** Identifier of a built-in GDS theme preset (accessibility, brand, and vibe lanes), derived from `gdsThemePresetRegistry`. */
+export type GdsThemePresetId = (typeof gdsThemePresetRegistry)[number]['id'];
 
 /** Catalog entry describing a theme preset for selection UIs and documentation. */
-export interface GdsThemePreset {
+export interface GdsThemePreset extends GdsThemePresetCatalogEntry {
   id: GdsThemePresetId;
-  /** Human-readable preset name. */
-  label: string;
-  /** Short summary of the preset's look and intended use. */
-  description: string;
-  /** Name of the runtime source that produces this preset (e.g. `resolveGdsThemePreset(...)`). */
-  runtimeLane: string;
 }
 
-function createVibrantPresetTheme(primaryColor: string): MantineThemeOverride {
-  return extendGdsTheme({
-    primaryColor,
-    components: {
-      AppShell: {
-        styles: {
-          main: {
-            background: `light-dark(color-mix(in srgb, var(--mantine-color-${primaryColor}-0) 58%, var(--mantine-color-white)), var(--mantine-color-dark-8))`,
-          },
-          header: {
-            background: `light-dark(color-mix(in srgb, var(--mantine-color-${primaryColor}-0) 68%, var(--mantine-color-white)), var(--mantine-color-dark-8))`,
-            borderColor: `light-dark(var(--mantine-color-${primaryColor}-2), var(--mantine-color-dark-5))`,
-          },
-          navbar: {
-            background: `light-dark(color-mix(in srgb, var(--mantine-color-${primaryColor}-0) 48%, var(--mantine-color-white)), var(--mantine-color-dark-8))`,
-            borderColor: `light-dark(var(--mantine-color-${primaryColor}-2), var(--mantine-color-dark-5))`,
-          },
-        },
-      },
-      Card: {
-        styles: {
-          root: {
-            background: `light-dark(var(--mantine-color-white), color-mix(in srgb, var(--mantine-color-${primaryColor}-9) 10%, var(--mantine-color-dark-7)))`,
-            borderColor: `light-dark(var(--mantine-color-${primaryColor}-2), var(--mantine-color-dark-4))`,
-          },
-        },
-      },
-      Paper: {
-        styles: {
-          root: {
-            background: `light-dark(color-mix(in srgb, var(--mantine-color-${primaryColor}-0) 16%, var(--mantine-color-white)), color-mix(in srgb, var(--mantine-color-${primaryColor}-9) 8%, var(--mantine-color-dark-7)))`,
-            borderColor: `light-dark(var(--mantine-color-${primaryColor}-2), var(--mantine-color-dark-4))`,
-          },
-        },
-      },
-    },
-  });
+const themePresetCatalog: GdsThemePreset[] = gdsThemePresetRegistry.map((preset) => ({ id: preset.id, ...preset.catalog }));
+
+const resolvedMantineThemes = new Map<GdsThemePresetId, MantineThemeOverride>();
+
+function resolveRegisteredMantineTheme(id: GdsThemePresetId): MantineThemeOverride {
+  const cached = resolvedMantineThemes.get(id);
+  if (cached) return cached;
+  const mantine = gdsThemePresetRegistry.find((preset) => preset.id === id)?.mantine;
+  const theme = typeof mantine === 'function' ? mantine({ createBrandTheme }) : (mantine ?? gdsTheme);
+  resolvedMantineThemes.set(id, theme);
+  return theme;
 }
-
-/** Compact, family-friendly teal/lime map-and-list discovery theme with explicit dark-mode tokens. */
-export const partnerDiscoveryThemePreset = extendGdsTheme({
-  primaryColor: 'teal',
-  fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-  headings: {
-    fontFamily: 'Jost, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-    sizes: {
-      h1: { fontSize: '2rem', fontWeight: '500', lineHeight: '1.2' },
-      h2: { fontSize: '1.5rem', fontWeight: '500', lineHeight: '1.25' },
-      h3: { fontSize: '1.0625rem', fontWeight: '500', lineHeight: '1.2' },
-    },
-  },
-  colors: {
-    teal: ['#e8f5f2', '#cfe7e1', '#9bcfc3', '#67b5a5', '#3f9d8a', '#23816f', '#126858', '#08463b', '#06392f', '#03251f'],
-    lime: ['#ecffe4', '#d4ffc2', '#a4f58c', '#75e653', '#4fd51f', '#2fc800', '#28a900', '#208700', '#196900', '#104500'],
-  },
-  defaultRadius: 'md',
-  black: '#010800',
-  white: '#ffffff',
-  components: {
-    AppShell: {
-      styles: {
-        main: {
-          color: 'light-dark(#010800, #f4f7fb)',
-          background: 'light-dark(linear-gradient(#ffffffcc, #ffffffcc), #071411)',
-        },
-        header: {
-          color: 'light-dark(#08463b, #d4ffc2)',
-          background: 'light-dark(#ffffffd9, #071411)',
-          borderColor: 'light-dark(#dddddd, #204a2c)',
-        },
-      },
-    },
-    Button: {
-      defaultProps: {
-        radius: 'xl',
-        size: 'sm',
-        fw: 600,
-      },
-      styles: {
-        root: {
-          minHeight: 38,
-        },
-      },
-    },
-    Card: {
-      defaultProps: {
-        radius: 'md',
-        withBorder: true,
-        shadow: undefined,
-      },
-      styles: {
-        root: {
-          color: 'light-dark(#010800, #f4f7fb)',
-          background: 'light-dark(#ffffff, #0d211c)',
-          borderColor: 'light-dark(#dddddd, #204a2c)',
-        },
-      },
-    },
-    Paper: {
-      defaultProps: {
-        radius: 'md',
-        withBorder: true,
-      },
-      styles: {
-        root: {
-          color: 'light-dark(#010800, #f4f7fb)',
-          background: 'light-dark(#ffffff, #0d211c)',
-          borderColor: 'light-dark(#dddddd, #204a2c)',
-        },
-      },
-    },
-    TextInput: {
-      defaultProps: {
-        radius: 'xl',
-      },
-      styles: {
-        input: {
-          minHeight: 38,
-          color: 'light-dark(#010800, #f4f7fb)',
-          background: 'light-dark(#ffffff, #0d211c)',
-          borderColor: 'light-dark(#dddddd, #204a2c)',
-        },
-      },
-    },
-    Badge: {
-      defaultProps: {
-        radius: 'xl',
-      },
-    },
-    Modal: {
-      defaultProps: {
-        radius: 'md',
-      },
-    },
-  },
-  other: {
-    gdsPartnerDiscoveryTokens: {
-      teal: '#08463b',
-      lime: '#2fc800',
-      dark: '#010800',
-      gray: '#dddddd',
-      warm: '#eedad0',
-      cardRadius: 8,
-      mapRadius: 16,
-      pillRadius: 24,
-    },
-  },
-});
-
-/** Mantine theme for the governed Class USA brand (ivory/navy/sage/terracotta). */
-export const classUsaThemePreset = createBrandTheme('class-usa').mantineTheme;
-
-/** Mantine theme for the governed Gold Athlete brand (black-and-metallic-gold). */
-export const goldAthleteThemePreset = createBrandTheme('gold-athlete').mantineTheme;
-
-// Accessibility lane (#453): a maximal-contrast, flat, undecorated preset built
-// on the `high-contrast` VibeTheme tokens. `primaryColor: 'dark'` + autoContrast
-// gives near-black filled controls with white labels (max legibility); shadows
-// are removed and Card/Paper/AppShell surfaces read the pure `--gds-vibe-*`
-// tokens with a solid 2px border. Text/meta clear WCAG AAA in both schemes.
-const highContrastPresetTheme = extendGdsTheme({
-  primaryColor: 'dark',
-  autoContrast: true,
-  luminanceThreshold: 0.4,
-  defaultRadius: 'sm',
-  shadows: { xs: 'none', sm: 'none', md: 'none', lg: 'none', xl: 'none' },
-  components: {
-    AppShell: {
-      styles: {
-        main: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-canvas)' },
-        header: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-canvas)', borderColor: 'var(--gds-vibe-border)' },
-        navbar: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-canvas)', borderColor: 'var(--gds-vibe-border)' },
-      },
-    },
-    Card: {
-      defaultProps: { withBorder: true, shadow: undefined },
-      styles: { root: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-surface)', borderColor: 'var(--gds-vibe-border)', borderWidth: 2 } },
-    },
-    Paper: {
-      defaultProps: { withBorder: true, shadow: undefined },
-      styles: { root: { color: 'var(--gds-vibe-text)', background: 'var(--gds-vibe-surface)', borderColor: 'var(--gds-vibe-border)', borderWidth: 2 } },
-    },
-    Button: { defaultProps: { fw: 700 } },
-  },
-});
-
-const colorblindSafePresetTheme = extendGdsTheme({
-  primaryColor: 'blue',
-  autoContrast: true,
-  luminanceThreshold: 0.4,
-});
-
-const customPresetThemes: Record<Exclude<GdsThemePresetId, 'default' | 'dark-public' | 'flat-surface' | 'editorial' | 'brand' | 'partner-discovery'>, MantineThemeOverride> = {
-  'high-contrast': highContrastPresetTheme,
-  'colorblind-safe': colorblindSafePresetTheme,
-  sunset: createVibrantPresetTheme('orange'),
-  oceanic: createVibrantPresetTheme('cyan'),
-  forest: createVibrantPresetTheme('green'),
-  ruby: createVibrantPresetTheme('red'),
-  amber: createVibrantPresetTheme('yellow'),
-  'neon-night': createVibrantPresetTheme('lime'),
-  skyline: createVibrantPresetTheme('indigo'),
-  aurora: createVibrantPresetTheme('teal'),
-  coral: createVibrantPresetTheme('pink'),
-  mint: createVibrantPresetTheme('lime'),
-  orchid: createVibrantPresetTheme('grape'),
-  royal: createVibrantPresetTheme('violet'),
-  cosmic: createVibrantPresetTheme('violet'),
-  warm: createVibrantPresetTheme('orange'),
-  'athlete-gold': createVibrantPresetTheme('yellow'),
-  'class-usa': classUsaThemePreset,
-  'gold-athlete': goldAthleteThemePreset,
-  'padel-africa': padelAfricaThemePreset,
-  'your-field': yourFieldThemePreset,
-};
-
-const themePresetCatalog: GdsThemePreset[] = [
-  { id: 'default', label: 'Default runtime theme', description: 'Balanced, neutral baseline lane.', runtimeLane: 'gdsTheme' },
-  { id: 'high-contrast', label: 'High contrast', description: 'Maximal-contrast accessibility lane: pure black/white surfaces, WCAG AAA text and meta, solid borders, and no decorative gradients.', runtimeLane: 'resolveGdsThemePreset(high-contrast)' },
-  { id: 'colorblind-safe', label: 'Colorblind safe', description: 'Accessibility lane using the Okabe-Ito colorblind-safe brand palette (blue/vermillion) that stays distinguishable across deuteranopia, protanopia, and tritanopia.', runtimeLane: 'resolveGdsThemePreset(colorblind-safe)' },
-  { id: 'dark-public', label: 'Dark public theme', description: 'Dark public lane with explicit light and dark modes.', runtimeLane: 'gdsDarkPublicTheme' },
-  { id: 'flat-surface', label: 'Flat surface theme', description: 'Lower-elevation operational lane.', runtimeLane: 'gdsFlatSurfaceTheme' },
-  { id: 'editorial', label: 'Editorial serif theme', description: 'Reading-first, serif headline lane.', runtimeLane: 'gdsEditorialPublicTheme' },
-  { id: 'brand', label: 'Brand theme generator', description: 'Governed brand composition lane.', runtimeLane: 'createPublicBrandTheme(...)' },
-  { id: 'partner-discovery', label: 'Partner discovery theme', description: 'Compact family-friendly map/list discovery lane with teal/lime semantics and explicit dark-mode tokens.', runtimeLane: 'partnerDiscoveryThemePreset' },
-  { id: 'sunset', label: 'Sunset pulse', description: 'Warm orange-magenta vibrant lane.', runtimeLane: 'resolveGdsThemePreset(sunset)' },
-  { id: 'oceanic', label: 'Oceanic wave', description: 'Cool cyan-blue vibrant lane.', runtimeLane: 'resolveGdsThemePreset(oceanic)' },
-  { id: 'forest', label: 'Forest signal', description: 'Natural emerald-driven vibrant lane.', runtimeLane: 'resolveGdsThemePreset(forest)' },
-  { id: 'ruby', label: 'Ruby spark', description: 'Bold red high-contrast lane.', runtimeLane: 'resolveGdsThemePreset(ruby)' },
-  { id: 'amber', label: 'Amber glow', description: 'Golden yellow energetic lane.', runtimeLane: 'resolveGdsThemePreset(amber)' },
-  { id: 'neon-night', label: 'Neon night', description: 'Lime-accented vibrant lane with explicit light and dark modes.', runtimeLane: 'resolveGdsThemePreset(neon-night)' },
-  { id: 'skyline', label: 'Skyline indigo', description: 'Indigo technology-forward lane.', runtimeLane: 'resolveGdsThemePreset(skyline)' },
-  { id: 'aurora', label: 'Aurora teal', description: 'Fresh teal-cyan app lane for optimistic product surfaces.', runtimeLane: 'resolveGdsThemePreset(aurora)' },
-  { id: 'coral', label: 'Coral bloom', description: 'Expressive pink-coral lane for creator, commerce, and social products.', runtimeLane: 'resolveGdsThemePreset(coral)' },
-  { id: 'mint', label: 'Mint circuit', description: 'Clean green-mint lane for health, learning, and growth products.', runtimeLane: 'resolveGdsThemePreset(mint)' },
-  { id: 'orchid', label: 'Orchid signal', description: 'Purple-grape lane for editorial, culture, and premium tools.', runtimeLane: 'resolveGdsThemePreset(orchid)' },
-  { id: 'royal', label: 'Royal violet', description: 'Confident violet lane for SaaS dashboards and professional apps.', runtimeLane: 'resolveGdsThemePreset(royal)' },
-  { id: 'cosmic', label: 'Cosmic burst', description: 'Highly saturated blue-violet-cyan-magenta showcase lane for bold public apps and launch surfaces.', runtimeLane: 'resolveGdsThemePreset(cosmic)' },
-  { id: 'warm', label: 'Warm sand', description: 'Honey-amber warm lane for lifestyle, commerce, and community products.', runtimeLane: 'resolveGdsThemePreset(warm)' },
-  { id: 'athlete-gold', label: 'Athlete Gold', description: 'Premium black-and-gold performance lane with stronger metallic gold accents and dark operator surfaces.', runtimeLane: 'resolveGdsThemePreset(athlete-gold)' },
-  { id: 'class-usa', label: 'Class USA', description: 'Warm cream, ink navy, and action-orange family-discovery brand lane for ClassScout-style listings, with a trust-green source/freshness accent and Playfair Display headings.', runtimeLane: 'resolveGdsThemePreset(class-usa)' },
-  { id: 'padel-africa', label: 'Padel Africa', description: 'Vibrant African sport lane: deep jungle foundation with an emerald primary, lime energy accents, and a green-and-gold signature pairing on a warm ivory ground.', runtimeLane: 'resolveGdsThemePreset(padel-africa)' },
-  { id: 'gold-athlete', label: 'Gold Athlete', description: 'Governed black-and-metallic-gold performance brand lane for Habigoal, with charcoal body text on ivory in light mode and ivory text with gold accents in dark mode.', runtimeLane: 'resolveGdsThemePreset(gold-athlete)' },
-  { id: 'your-field', label: 'Your Field', description: 'Light, editorial family-discovery brand lane: warm cream canvas, white sidebar and cards, navy ink and primary action, an outline-only Playground Peach accent, and a Scout AI orange-gradient sub-lane reserved for AI surfaces.', runtimeLane: 'resolveGdsThemePreset(your-field)' },
-];
 
 /** Returns the full catalog of theme presets (id, label, description, runtime lane). */
 export function getGdsThemePresets() {
@@ -298,28 +32,25 @@ export function getGdsThemePresets() {
 
 /**
  * Resolves a preset id to its Mantine theme override. The `'brand'` lane is
- * composed on demand from the optional brand options; all other ids map to a
- * prebuilt lane, falling back to the default theme for unknown ids.
+ * composed on demand from the optional brand options; all other ids map to the
+ * registered preset's lane, falling back to the default theme for unknown ids.
  */
 export function resolveGdsThemePreset(id: GdsThemePresetId, options?: { brandPrimary?: string; brandFlatSurfaces?: boolean; brandEditorialSerif?: boolean }): MantineThemeOverride {
-  switch (id) {
-    case 'default':
-      return gdsTheme;
-    case 'dark-public':
-      return gdsDarkPublicTheme;
-    case 'flat-surface':
-      return gdsFlatSurfaceTheme;
-    case 'editorial':
-      return gdsEditorialPublicTheme;
-    case 'brand':
-      return createPublicBrandTheme({
-        editorialSerif: options?.brandEditorialSerif ?? false,
-        flatSurfaces: options?.brandFlatSurfaces ?? true,
-        overrides: { primaryColor: options?.brandPrimary ?? 'blue' },
-      });
-    case 'partner-discovery':
-      return partnerDiscoveryThemePreset;
-    default:
-      return customPresetThemes[id] ?? gdsTheme;
+  if (id === 'brand') {
+    return createPublicBrandTheme({
+      editorialSerif: options?.brandEditorialSerif ?? false,
+      flatSurfaces: options?.brandFlatSurfaces ?? true,
+      overrides: { primaryColor: options?.brandPrimary ?? 'blue' },
+    });
   }
+  return resolveRegisteredMantineTheme(id);
 }
+
+/** Compact, family-friendly teal/lime map-and-list discovery theme with explicit dark-mode tokens. */
+export const partnerDiscoveryThemePreset = resolveGdsThemePreset('partner-discovery');
+
+/** Mantine theme for the governed Class USA brand (ivory/navy/sage/terracotta). */
+export const classUsaThemePreset = resolveGdsThemePreset('class-usa');
+
+/** Mantine theme for the governed Gold Athlete brand (black-and-metallic-gold). */
+export const goldAthleteThemePreset = resolveGdsThemePreset('gold-athlete');

@@ -16,6 +16,13 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Single preset registration (#961)
+
+- A built-in theme preset is one module, `packages/gds-theme/src/presets/<id>.ts`, whose default export is `defineGdsThemePreset({ id, catalog, vibe, mantine?, semanticOverrides? })`, plus one entry in `gdsThemePresetRegistry`. The `GdsThemePresetId` union, `getGdsThemePresets()`, `resolveGdsThemePreset`, `getGdsVibeThemes()` and the hand-authored semantic tables of `class-usa` and `gold-athlete` are derived from it.
+- All 27 presets moved without output change: vibe themes, every `--gds-*` variable for every preset in both schemes, the Mantine themes, the default-lane roles and the theme identity hashes are identical. `partnerDiscoveryThemePreset`, `classUsaThemePreset` and `goldAthleteThemePreset` are the objects `resolveGdsThemePreset` returns, as before.
+- Visible change: `getGdsThemePresets()` lists presets in registry order, the order `getGdsVibeThemes()` already used, so the Theme Lab select now matches the vibe picker. The branded lanes (`class-usa`, `gold-athlete`, `padel-africa`, `your-field`) now come before the colour lanes.
+- `verify:theme-governance` reads the built registry instead of matching text in `theme-presets.ts` and `vibe-themes.ts`, and checks that ids are unique and that the catalog and vibe lists agree. `verify:token-single-source` scans the preset modules. `THEME_GOVERNANCE.md` ("Preset registry"), `CONTRIBUTING.md` and `TEMPLATES/GDS_THEME_CREATION_PROMPT.md` describe the one-entry procedure.
+
 ### Page archetypes: analytics dashboard, asset manager and workspace inbox (#958, #959, #960)
 
 - `GdsAnalyticsTemplate` gains optional `periodControl`, `charts` (one or more chart-token charts) and `table` slots; existing props keep working.

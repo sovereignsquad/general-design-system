@@ -48,7 +48,8 @@ if (SEMANTIC_ROLES.size < 50) {
 // (a component legitimately sets one or two variables inline).
 const TABLE_THRESHOLD = 3;
 
-for (const file of readdirSync(SRC).filter((f) => f.endsWith('.ts') && !f.includes('.test.'))) {
+const sourceFiles = readdirSync(SRC, { recursive: true }).filter((f) => f.endsWith('.ts') && !f.includes('.test.'));
+for (const file of sourceFiles) {
   if (file === OWNER) continue;
   const lines = readFileSync(join(SRC, file), 'utf8').split('\n');
 
