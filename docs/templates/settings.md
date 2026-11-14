@@ -62,7 +62,7 @@ Grouped settings surface with save, disabled, saving, and permission states.
 
 ## Don't
 
-- Do not pass an empty `groups` list for a page that has settings; it shows a "No settings groups" block.
+- Do not pass an empty `groups` list for a page that has settings; it shows a "No settings available" block.
 - Do not put a destructive action among the settings fields; use the crud-editor template's destructive zone.
 
 ## Minimal example

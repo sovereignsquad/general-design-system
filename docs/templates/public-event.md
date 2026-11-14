@@ -64,7 +64,7 @@ Public event page with hero media slot, event metadata, registration, and no-med
 ## Don't
 
 - Do not repeat the date and place in `details`; `when` and `location` render in the event header row.
-- Do not treat `media` as required; without it the page shows a "No media available" block and stays readable.
+- Do not treat `media` as required; without it the page shows a "No image" block and stays readable.
 
 ## Minimal example
 

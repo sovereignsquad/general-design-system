@@ -16,6 +16,14 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Localized page-template copy and governed buttons (#972)
+
+- Page template panel titles, empty states and state copy now come from `gds.gdsPageTemplates.*` messages in every locale pack, instead of fixed English. The state titles and descriptions cover loading, empty, error, retrying, saving, permission denied and not found.
+- Developer-facing copy shown to users is rewritten as user copy. For example, "No metrics configured / Connect governed metric cards before publishing the dashboard." is now "No metrics yet / Metrics appear here once they are available."; the analytics section is titled "Charts".
+- Template actions, the template and error-page retry, and `AsyncSurface`'s default retry render the governed `Button` instead of a raw `<button>`. The old one carried a hardcoded 40px height and a hardcoded violet.
+- Visible change: a `primary` action is a filled button in the theme's primary colour, `danger` is light red, `link` is subtle, and the rest use the default variant.
+- `AsyncSurface`'s retry label is the `gds.asyncSurface.retry` message.
+
 ### Page template guidance, examples and heading levels (#950)
 
 - Each page template config carries `guidance` (`do` and `dont`), and each template has a minimal example in `docs/templates/examples/<id>.tsx`. Both appear in the generated spec; the generator fails when either is missing.

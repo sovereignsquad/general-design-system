@@ -1,12 +1,12 @@
 import type { Key, ReactNode } from 'react';
-import { Badge, Box, Card, Divider, Group, List, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { Badge, Box, Button, Card, Divider, Group, List, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { GdsGrid, GdsStack } from './LayoutPrimitives';
 import { MetricCard, type MetricCardProps } from './MetricCard';
 import { SectionPanel } from './SectionPanel';
 import { SimpleDataTable, type SimpleTableColumn } from './SimpleDataTable';
 import { StateBlock } from './StateBlock';
-import { stateTitle, stateDescription, renderActions, PageTemplateFrame, TemplateStateGate } from './GdsPageTemplateFrame';
+import { stateTitle, stateDescription, renderActions, PageTemplateFrame, TemplateStateGate, type GdsTemplateTranslate } from './GdsPageTemplateFrame';
 
 /** Identifier for one of the governed page-template blueprints. */
 export type GdsPageTemplateId =
@@ -262,7 +262,7 @@ const templateConfigs: GdsPageTemplateConfig[] = [
         'Pass `onRetry` so the error and retrying states offer a retry action.',
       ],
       dont: [
-        'Do not publish the page without metrics; it shows a "No metrics configured" block instead.',
+        'Do not publish the page without metrics; it shows a "No metrics yet" block instead.',
         'Do not put identifiers, categories or placeholders in a metric `value`.',
       ],
     },
@@ -286,7 +286,7 @@ const templateConfigs: GdsPageTemplateConfig[] = [
         'Put the save action in `actions` and set its `loading` while saving.',
       ],
       dont: [
-        'Do not pass an empty `groups` list for a page that has settings; it shows a "No settings groups" block.',
+        'Do not pass an empty `groups` list for a page that has settings; it shows a "No settings available" block.',
         'Do not put a destructive action among the settings fields; use the crud-editor template\'s destructive zone.',
       ],
     },
@@ -383,7 +383,7 @@ const templateConfigs: GdsPageTemplateConfig[] = [
       ],
       dont: [
         'Do not repeat the date and place in `details`; `when` and `location` render in the event header row.',
-        'Do not treat `media` as required; without it the page shows a "No media available" block and stays readable.',
+        'Do not treat `media` as required; without it the page shows a "No image" block and stays readable.',
       ],
     },
   },
@@ -547,9 +547,9 @@ export function createGdsPageTemplateEvent(
   };
 }
 
-function renderSections(sections: GdsPageTemplateSection[] = []) {
+function renderSections(t: GdsTemplateTranslate, sections: GdsPageTemplateSection[] = []) {
   if (!sections.length) {
-    return <StateBlock variant="empty" title="No sections configured" description="Add at least one governed section before publishing this page." compact titleOrder={2} />;
+    return <StateBlock variant="empty" title={t('gds.gdsPageTemplates.noSections.title', "Nothing to show yet")} description={t('gds.gdsPageTemplates.noSections.description', "Sections appear here once they are available.")} compact titleOrder={2} />;
   }
   return (
     <GdsGrid columns={{ base: 1, md: 2 }} gap="md">
@@ -571,6 +571,7 @@ export function GdsAdminDashboardTemplate({
   retryLabel,
   ...props
 }: GdsAdminDashboardTemplateProps) {
+  const { t } = useGdsTranslation();
   return (
     <PageTemplateFrame id="admin-dashboard" state={state} {...props}>
       <TemplateStateGate
@@ -580,9 +581,9 @@ export function GdsAdminDashboardTemplate({
         successContent={(
           <GdsStack gap="lg">
             <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="md">
-              {metrics.length ? metrics.map((metric) => <MetricCard key={String(metric.label)} {...metric} />) : <StateBlock variant="empty" title="No metrics configured" description="Connect governed metric cards before publishing the dashboard." compact titleOrder={2} />}
+              {metrics.length ? metrics.map((metric) => <MetricCard key={String(metric.label)} {...metric} />) : <StateBlock variant="empty" title={t('gds.gdsPageTemplates.noMetrics.title', "No metrics yet")} description={t('gds.gdsPageTemplates.noMetrics.description', "Metrics appear here once they are available.")} compact titleOrder={2} />}
             </SimpleGrid>
-            {renderSections(sections)}
+            {renderSections(t, sections)}
           </GdsStack>
         )}
       />
@@ -598,6 +599,7 @@ export function GdsSettingsTemplate({
   retryLabel,
   ...props
 }: GdsSettingsTemplateProps) {
+  const { t } = useGdsTranslation();
   return (
     <PageTemplateFrame id="settings" state={state} {...props}>
       <TemplateStateGate
@@ -612,7 +614,7 @@ export function GdsSettingsTemplate({
               </SectionPanel>
             ))}
           </GdsStack>
-        ) : <StateBlock variant="empty" title="No settings groups" description="Settings pages must publish grouped fields with labels and save behavior." compact titleOrder={2} />}
+        ) : <StateBlock variant="empty" title={t('gds.gdsPageTemplates.noSettings.title', "No settings available")} description={t('gds.gdsPageTemplates.noSettings.description', "There are no settings to change here.")} compact titleOrder={2} />}
       />
     </PageTemplateFrame>
   );
@@ -629,6 +631,7 @@ export function GdsResourceManagerTemplate<T extends Record<string, unknown> = R
   retryLabel,
   ...props
 }: GdsResourceManagerTemplateProps<T>) {
+  const { t } = useGdsTranslation();
   return (
     <PageTemplateFrame id="resource-manager" state={state} {...props}>
       <TemplateStateGate
@@ -637,10 +640,10 @@ export function GdsResourceManagerTemplate<T extends Record<string, unknown> = R
         retryLabel={retryLabel}
         successContent={(
           <GdsGrid columns={{ base: 1, lg: detail ? 2 : 1 }} gap="lg">
-            <SectionPanel titleOrder={2} title="Resources" description="Governed resource list with empty, loading, and error states.">
-              <SimpleDataTable rows={rows} columns={columns} getRowKey={getRowKey} emptyTitle="No resources" emptyDescription="Create or import a resource to start this workflow." stateTitleOrder={3} />
+            <SectionPanel titleOrder={2} title={t('gds.gdsPageTemplates.resources.title', "Resources")}>
+              <SimpleDataTable rows={rows} columns={columns} getRowKey={getRowKey} emptyTitle={t('gds.gdsPageTemplates.resources.emptyTitle', "No resources yet")} emptyDescription={t('gds.gdsPageTemplates.resources.emptyDescription', "Create or import a resource to get started.")} stateTitleOrder={3} />
             </SectionPanel>
-            {detail ? <SectionPanel titleOrder={2} title="Selected resource">{detail}</SectionPanel> : null}
+            {detail ? <SectionPanel titleOrder={2} title={t('gds.gdsPageTemplates.resources.selectedTitle', "Selected resource")}>{detail}</SectionPanel> : null}
           </GdsGrid>
         )}
       />
@@ -658,6 +661,7 @@ export function GdsCrudEditorTemplate({
   retryLabel,
   ...props
 }: GdsCrudEditorTemplateProps) {
+  const { t } = useGdsTranslation();
   return (
     <PageTemplateFrame id="crud-editor" state={state} {...props}>
       <TemplateStateGate
@@ -666,9 +670,9 @@ export function GdsCrudEditorTemplate({
         retryLabel={retryLabel}
         successContent={(
           <GdsStack gap="lg">
-            {summary ? <SectionPanel titleOrder={2} title="Summary">{summary}</SectionPanel> : null}
-            <SectionPanel titleOrder={2} title="Editor">{form}</SectionPanel>
-            {destructiveZone ? <SectionPanel titleOrder={2} title="Destructive actions" description="Risky changes require confirmation and recovery copy.">{destructiveZone}</SectionPanel> : null}
+            {summary ? <SectionPanel titleOrder={2} title={t('gds.gdsPageTemplates.crud.summaryTitle', "Summary")}>{summary}</SectionPanel> : null}
+            <SectionPanel titleOrder={2} title={t('gds.gdsPageTemplates.crud.editorTitle', "Editor")}>{form}</SectionPanel>
+            {destructiveZone ? <SectionPanel titleOrder={2} title={t('gds.gdsPageTemplates.crud.destructiveTitle', "Destructive actions")} description={t('gds.gdsPageTemplates.crud.destructiveDescription', "These changes cannot be undone.")}>{destructiveZone}</SectionPanel> : null}
           </GdsStack>
         )}
       />
@@ -691,6 +695,7 @@ export function GdsAnalyticsTemplate<T extends Record<string, unknown> = Record<
   retryLabel,
   ...props
 }: GdsAnalyticsTemplateProps<T>) {
+  const { t } = useGdsTranslation();
   return (
     <PageTemplateFrame id="analytics" state={state} {...props}>
       <TemplateStateGate
@@ -702,18 +707,18 @@ export function GdsAnalyticsTemplate<T extends Record<string, unknown> = Record<
             <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="md">
               {metrics.map((metric) => <MetricCard key={String(metric.label)} {...metric} />)}
             </SimpleGrid>
-            <SectionPanel titleOrder={2} title="Chart and accessible summary">
+            <SectionPanel titleOrder={2} title={t('gds.gdsPageTemplates.analytics.chartsTitle', "Charts")}>
               <GdsStack gap="md">
                 {periodControl}
                 {charts?.length ? (
                   <SimpleGrid cols={{ base: 1, lg: charts.length > 1 ? 2 : 1 }} spacing="md">
                     {charts.map((item, index) => <Box key={index}>{item}</Box>)}
                   </SimpleGrid>
-                ) : (chart ?? <StateBlock variant="not-enough-data" title="No chart available" description="Provide a governed chart or keep the table fallback visible." compact titleOrder={3} />)}
+                ) : (chart ?? <StateBlock variant="not-enough-data" title={t('gds.gdsPageTemplates.analytics.noChartTitle', "No chart available")} description={t('gds.gdsPageTemplates.analytics.noChartDescription', "The data is in the table below.")} compact titleOrder={3} />)}
               </GdsStack>
             </SectionPanel>
             {insight ? <Card withBorder radius="lg" padding="md">{insight}</Card> : null}
-            {table ?? <SimpleDataTable rows={rows} columns={columns} emptyTitle="No analytics data" emptyDescription="The selected period has no reportable data yet." stateTitleOrder={3} />}
+            {table ?? <SimpleDataTable rows={rows} columns={columns} emptyTitle={t('gds.gdsPageTemplates.analytics.emptyTitle', "No data for this period")} emptyDescription={t('gds.gdsPageTemplates.analytics.emptyDescription', "Choose another period or check back later.")} stateTitleOrder={3} />}
           </GdsStack>
         )}
       />
@@ -733,6 +738,7 @@ export function GdsPublicEventTemplate({
   retryLabel,
   ...props
 }: GdsPublicEventTemplateProps) {
+  const { t } = useGdsTranslation();
   return (
     <PageTemplateFrame id="public-event" state={state} {...props}>
       <TemplateStateGate
@@ -741,11 +747,11 @@ export function GdsPublicEventTemplate({
         retryLabel={retryLabel}
         successContent={(
           <GdsGrid columns={{ base: 1, md: media ? 2 : 1 }} gap="lg">
-            {media ? <Card withBorder radius="lg" padding="md">{media}</Card> : <StateBlock variant="empty" title="No media available" description="This event remains readable without a hero image." compact titleOrder={2} />}
+            {media ? <Card withBorder radius="lg" padding="md">{media}</Card> : <StateBlock variant="empty" title={t('gds.gdsPageTemplates.event.noMediaTitle', "No image")} description={t('gds.gdsPageTemplates.event.noMediaDescription', "This event has no image.")} compact titleOrder={2} />}
             <Card withBorder radius="lg" padding="lg">
               <Stack gap="md">
                 <Group gap="sm" wrap="wrap">
-                  <Badge variant="light">Event</Badge>
+                  <Badge variant="light">{t('gds.gdsPageTemplates.event.badge', "Event")}</Badge>
                   <Text fw={700}>{when}</Text>
                   {location ? <Text c="dimmed">{location}</Text> : null}
                 </Group>
@@ -776,8 +782,8 @@ export function GdsErrorPageTemplate({
   const { t } = useGdsTranslation();
   const retryLabel = retryLabelProp ?? t('gds.gdsPageTemplates.retryLabel', "Retry");
 
-  const resolvedTitle = title || stateTitle(state);
-  const resolvedDescription = description || stateDescription(state);
+  const resolvedTitle = title || stateTitle(state, t);
+  const resolvedDescription = description || stateDescription(state, t);
   return (
     <PageTemplateFrame id="error-page" state={state} title={resolvedTitle} description={resolvedDescription} actions={actions} {...props}>
       <StateBlock
@@ -785,7 +791,7 @@ export function GdsErrorPageTemplate({
         title={code ? `${code}: ${resolvedTitle}` : resolvedTitle}
         description={resolvedDescription}
         titleOrder={2}
-        action={recovery ?? (onRetry ? <button type="button" onClick={onRetry}>{retryLabel}</button> : undefined)}
+        action={recovery ?? (onRetry ? <Button variant="light" onClick={onRetry}>{retryLabel}</Button> : undefined)}
       />
     </PageTemplateFrame>
   );

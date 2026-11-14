@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { resetGdsDevWarnings } from '@sovereignsquad/gds-theme';
 import { renderWithGds } from '../../../test-utils/render';
-import { GdsAdminDashboardTemplate, type GdsPageTemplateAction } from './GdsPageTemplates';
+import { GdsAdminDashboardTemplate, GdsAnalyticsTemplate, GdsSettingsTemplate, type GdsPageTemplateAction } from './GdsPageTemplates';
+import { de } from './locales/de';
 
 function renderAction(action: GdsPageTemplateAction): HTMLButtonElement {
   renderWithGds(
@@ -50,5 +51,35 @@ describe('GdsPageTemplateAction busy state (loading vs. deprecated pending)', ()
     expect(button).not.toBeDisabled();
     expect(button.textContent).toBe('Save');
     expect(warnSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe('page template copy is localized (#972)', () => {
+  it('renders template headings, empty states, state copy and retry from the active locale pack', () => {
+    const { container } = renderWithGds(
+      <>
+        <GdsAdminDashboardTemplate title="Betrieb" landmark="none" />
+        <GdsAnalyticsTemplate title="Verkehr" landmark="none" rows={[]} columns={[{ key: 'month', header: 'Monat' }]} />
+        <GdsSettingsTemplate title="Einstellungen" landmark="none" state="error" onRetry={() => undefined} />
+      </>,
+      { locale: 'de', messages: de },
+    );
+    const text = container.textContent ?? '';
+    expect(text).toContain(de['gds.gdsPageTemplates.noMetrics.title']);
+    expect(text).toContain(de['gds.gdsPageTemplates.analytics.chartsTitle']);
+    expect(text).toContain(de['gds.gdsPageTemplates.analytics.emptyTitle']);
+    expect(text).toContain(de['gds.gdsPageTemplates.state.error.title']);
+    expect(text).not.toContain('No metrics yet');
+    expect(text).not.toContain('Charts');
+    expect(text).not.toContain('Unable to load');
+    const retry = [...container.querySelectorAll('button')].find((button) => button.textContent === de['gds.gdsPageTemplates.retryLabel']);
+    expect(retry).toBeDefined();
+    expect(retry?.className).toMatch(/mantine-Button-root/);
+  });
+
+  it('renders actions with the governed button', () => {
+    const button = renderAction({ id: 'save', label: 'Save', kind: 'primary' });
+    expect(button.className).toMatch(/mantine-Button-root/);
+    expect(button.getAttribute('style') ?? '').not.toMatch(/min-height/);
   });
 });

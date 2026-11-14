@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Card, Group } from '@mantine/core';
+import { Button, Card, Group } from '@mantine/core';
 import { gdsDevWarnOnce, useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { AsyncSurface, type AsyncSurfaceState } from './AsyncSurface';
 import { GdsBox, GdsStack } from './LayoutPrimitives';
@@ -14,30 +14,33 @@ function stateToAsyncState(state: GdsPageTemplateState): AsyncSurfaceState {
   return state;
 }
 
-export function stateTitle(state: GdsPageTemplateState) {
+/** Translate function returned by `useGdsTranslation()`. */
+export type GdsTemplateTranslate = ReturnType<typeof useGdsTranslation>['t'];
+
+export function stateTitle(state: GdsPageTemplateState, t: GdsTemplateTranslate) {
   const titles: Record<GdsPageTemplateState, string> = {
-    loading: 'Loading',
-    empty: 'Nothing here yet',
-    ready: 'Ready',
-    error: 'Unable to load',
-    retrying: 'Retrying',
-    saving: 'Saving',
-    'permission-denied': 'Permission denied',
-    'not-found': 'Not found',
+    loading: t('gds.gdsPageTemplates.state.loading.title', 'Loading'),
+    empty: t('gds.gdsPageTemplates.state.empty.title', 'Nothing here yet'),
+    ready: t('gds.gdsPageTemplates.state.ready.title', 'Ready'),
+    error: t('gds.gdsPageTemplates.state.error.title', 'Unable to load'),
+    retrying: t('gds.gdsPageTemplates.state.retrying.title', 'Retrying'),
+    saving: t('gds.gdsPageTemplates.state.saving.title', 'Saving'),
+    'permission-denied': t('gds.gdsPageTemplates.state.permissionDenied.title', 'Permission denied'),
+    'not-found': t('gds.gdsPageTemplates.state.notFound.title', 'Not found'),
   };
   return titles[state];
 }
 
-export function stateDescription(state: GdsPageTemplateState) {
+export function stateDescription(state: GdsPageTemplateState, t: GdsTemplateTranslate) {
   const descriptions: Record<GdsPageTemplateState, string> = {
-    loading: 'The page is preparing the latest governed data.',
-    empty: 'There is no data available for this page yet.',
-    ready: 'The page is ready.',
-    error: 'The page could not be prepared. Retry when the upstream service recovers.',
-    retrying: 'The recovery action is running.',
-    saving: 'Your changes are being saved.',
-    'permission-denied': 'Your current role cannot access this page.',
-    'not-found': 'The requested resource could not be found.',
+    loading: t('gds.gdsPageTemplates.state.loading.description', 'Loading the latest data.'),
+    empty: t('gds.gdsPageTemplates.state.empty.description', 'There is no data available for this page yet.'),
+    ready: t('gds.gdsPageTemplates.state.ready.description', 'The page is ready.'),
+    error: t('gds.gdsPageTemplates.state.error.description', 'The page could not be loaded. Try again in a moment.'),
+    retrying: t('gds.gdsPageTemplates.state.retrying.description', 'Trying again.'),
+    saving: t('gds.gdsPageTemplates.state.saving.description', 'Your changes are being saved.'),
+    'permission-denied': t('gds.gdsPageTemplates.state.permissionDenied.description', 'Your current role cannot access this page.'),
+    'not-found': t('gds.gdsPageTemplates.state.notFound.description', 'The requested resource could not be found.'),
   };
   return descriptions[state];
 }
@@ -53,13 +56,13 @@ function statusVariantForState(state: GdsPageTemplateState): StatusVariant {
 function actionVariant(action: GdsPageTemplateAction) {
   if (action.kind === 'primary') return 'filled';
   if (action.kind === 'danger') return 'light';
-  return 'outline';
+  if (action.kind === 'link') return 'subtle';
+  return 'default';
 }
 
 function actionColor(action: GdsPageTemplateAction) {
   if (action.kind === 'danger' || action.destructive) return 'red';
-  if (action.kind === 'primary') return 'violet';
-  return 'gray';
+  return undefined;
 }
 
 /**
@@ -84,26 +87,17 @@ export function renderActions(actions: GdsPageTemplateAction[] = []) {
       {actions.map((action) => {
         const busy = actionIsBusy(action);
         return (
-          <button
+          <Button
             key={action.id}
-            type="button"
-            aria-disabled={action.disabled || busy || undefined}
+            variant={actionVariant(action)}
+            color={actionColor(action)}
             disabled={action.disabled || busy}
             onClick={action.onClick}
             data-gds-template-action={action.id}
             data-gds-template-action-kind={action.kind ?? 'secondary'}
-            style={{
-              minHeight: 40,
-              borderRadius: 'var(--mantine-radius-md)',
-              border: '1px solid var(--mantine-color-default-border)',
-              padding: '0 var(--mantine-spacing-md)',
-              fontWeight: 700,
-              color: `var(--mantine-color-${actionColor(action)}-7)`,
-              background: actionVariant(action) === 'filled' ? `var(--mantine-color-${actionColor(action)}-1)` : 'var(--mantine-color-body)',
-            }}
           >
             {busy ? `${action.label}...` : action.label}
-          </button>
+          </Button>
         );
       })}
     </Group>
@@ -122,6 +116,7 @@ export function PageTemplateFrame({
   landmark = 'main',
   children,
 }: GdsPageTemplateBaseProps & { id: GdsPageTemplateId }) {
+  const { t } = useGdsTranslation();
   return (
     <GdsBox component={landmark === 'main' ? 'main' : 'div'} padding={{ base: 'md', md: 'xl' }} data-gds-page-template={id}>
       <GdsStack gap="lg">
@@ -131,7 +126,7 @@ export function PageTemplateFrame({
           eyebrow={eyebrow}
           actions={(
             <Group gap="sm" wrap="wrap">
-              <StatusBadge status={statusVariantForState(state)}>{statusLabel ?? stateTitle(state)}</StatusBadge>
+              <StatusBadge status={statusVariantForState(state)}>{statusLabel ?? stateTitle(state, t)}</StatusBadge>
               {renderActions(actions)}
             </Group>
           )}
@@ -157,19 +152,19 @@ export function TemplateStateGate({
   const { t } = useGdsTranslation();
   const retryLabel = retryLabelProp ?? t('gds.gdsPageTemplates.retryLabel', "Retry");
 
-  const retryAction = onRetry ? <button type="button" onClick={onRetry}>{retryLabel}</button> : undefined;
+  const retryAction = onRetry ? <Button variant="light" onClick={onRetry}>{retryLabel}</Button> : undefined;
   return (
     <AsyncSurface
       state={stateToAsyncState(state)}
       successContent={successContent}
-      loadingTitle={stateTitle('loading')}
-      loadingDescription={stateDescription('loading')}
-      emptyTitle={stateTitle('empty')}
-      emptyDescription={stateDescription('empty')}
-      errorTitle={stateTitle(state === 'permission-denied' || state === 'not-found' ? state : 'error')}
-      errorDescription={stateDescription(state === 'permission-denied' || state === 'not-found' ? state : 'error')}
-      refreshingTitle={stateTitle('retrying')}
-      refreshingDescription={stateDescription('retrying')}
+      loadingTitle={stateTitle('loading', t)}
+      loadingDescription={stateDescription('loading', t)}
+      emptyTitle={stateTitle('empty', t)}
+      emptyDescription={stateDescription('empty', t)}
+      errorTitle={stateTitle(state === 'permission-denied' || state === 'not-found' ? state : 'error', t)}
+      errorDescription={stateDescription(state === 'permission-denied' || state === 'not-found' ? state : 'error', t)}
+      refreshingTitle={stateTitle('retrying', t)}
+      refreshingDescription={stateDescription('retrying', t)}
       retryAction={retryAction}
       compact={false}
       titleOrder={2}

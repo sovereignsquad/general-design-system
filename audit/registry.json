@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "a1384b4e13ade2b3e30d49ccf45bd4e0320abe12",
+  "commit": "2d95c824ff0db53c3e0cd0c3c245b25d8d98fe40",
   "counts": {
     "token-published": 524,
     "token-declared": 269,
@@ -41172,7 +41172,7 @@
         "file": "packages/gds-core/src/locales/ar.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:de#4089",
@@ -41182,7 +41182,7 @@
         "file": "packages/gds-core/src/locales/de.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:en#4090",
@@ -41192,7 +41192,7 @@
         "file": "packages/gds-core/src/locales/en.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:es#4091",
@@ -41202,7 +41202,7 @@
         "file": "packages/gds-core/src/locales/es.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:fr#4092",
@@ -41212,7 +41212,7 @@
         "file": "packages/gds-core/src/locales/fr.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:he#4093",
@@ -41222,7 +41222,7 @@
         "file": "packages/gds-core/src/locales/he.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:hu#4094",
@@ -41232,7 +41232,7 @@
         "file": "packages/gds-core/src/locales/hu.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:it#4095",
@@ -41242,7 +41242,7 @@
         "file": "packages/gds-core/src/locales/it.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:ja#4096",
@@ -41252,7 +41252,7 @@
         "file": "packages/gds-core/src/locales/ja.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:ko#4097",
@@ -41262,7 +41262,7 @@
         "file": "packages/gds-core/src/locales/ko.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:ru#4098",
@@ -41272,7 +41272,7 @@
         "file": "packages/gds-core/src/locales/ru.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-package:zh#4099",
@@ -41282,7 +41282,7 @@
         "file": "packages/gds-core/src/locales/zh.ts",
         "line": 1
       },
-      "keyCount": 361
+      "keyCount": 400
     },
     {
       "id": "locale-pack-site:ar#4100",
@@ -41292,7 +41292,7 @@
         "file": "apps/playground/src/generated-site-phrases/ar.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:de#4101",
@@ -41302,7 +41302,7 @@
         "file": "apps/playground/src/generated-site-phrases/de.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:es#4102",
@@ -41312,7 +41312,7 @@
         "file": "apps/playground/src/generated-site-phrases/es.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:fr#4103",
@@ -41322,7 +41322,7 @@
         "file": "apps/playground/src/generated-site-phrases/fr.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:he#4104",
@@ -41332,7 +41332,7 @@
         "file": "apps/playground/src/generated-site-phrases/he.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:hu#4105",
@@ -41342,7 +41342,7 @@
         "file": "apps/playground/src/generated-site-phrases/hu.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:it#4106",
@@ -41352,7 +41352,7 @@
         "file": "apps/playground/src/generated-site-phrases/it.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:ja#4107",
@@ -41362,7 +41362,7 @@
         "file": "apps/playground/src/generated-site-phrases/ja.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:ko#4108",
@@ -41372,7 +41372,7 @@
         "file": "apps/playground/src/generated-site-phrases/ko.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:ru#4109",
@@ -41382,7 +41382,7 @@
         "file": "apps/playground/src/generated-site-phrases/ru.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "locale-pack-site:zh#4110",
@@ -41392,7 +41392,7 @@
         "file": "apps/playground/src/generated-site-phrases/zh.ts",
         "line": 1
       },
-      "keyCount": 2221
+      "keyCount": 2219
     },
     {
       "id": "route:/#4111",
