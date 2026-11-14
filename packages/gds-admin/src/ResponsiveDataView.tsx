@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Badge, Group, SimpleGrid, Stack } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { Badge, Group, SegmentedControl, SimpleGrid, Stack } from '@mantine/core';
+import { useMediaQuery, useUncontrolled } from '@mantine/hooks';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { GdsRemovableTag, StateBlock } from '@sovereignsquad/gds-core';
 import { DataTable, type DataTableColumn } from './DataTable';
 
@@ -13,6 +14,9 @@ export interface ResponsiveDataViewFilterChip {
   /** Remove handler; when set, the chip shows a clear affordance. */
   onRemove?: () => void;
 }
+
+/** Layout of a {@link ResponsiveDataView} on wide viewports. */
+export type ResponsiveDataViewMode = 'table' | 'grid';
 
 /** Props for {@link ResponsiveDataView}. */
 export interface ResponsiveDataViewProps<T extends Record<string, unknown>> {
@@ -44,12 +48,21 @@ export interface ResponsiveDataViewProps<T extends Record<string, unknown>> {
   mobileFilters?: React.ReactNode;
   /** Stable React key for each row/card; defaults to the index. */
   getRowKey?: (item: T, index: number) => React.Key;
+  /** Wide-viewport layout (controlled). Narrow viewports always show cards. */
+  view?: ResponsiveDataViewMode;
+  /** Initial wide-viewport layout when uncontrolled; defaults to `'table'`. */
+  defaultView?: ResponsiveDataViewMode;
+  onViewChange?: (view: ResponsiveDataViewMode) => void;
+  /** Render a labelled table/grid toggle above the data on wide viewports; defaults to `false`. */
+  showViewToggle?: boolean;
 }
 
 /**
  * Data surface that renders a table on wide viewports and a card list (via
  * `renderCard`) on narrow ones, sharing the same `data`/`columns` and carrying
  * governed loading, empty, and error states plus optional toolbar/filter slots.
+ * `showViewToggle` lets the user switch wide viewports between the table and a card grid
+ * (`view`/`onViewChange` to control it); narrow viewports always show cards.
  * Use it when a list must stay usable on both desktop and mobile without you
  * writing two separate layouts.
  */
@@ -68,12 +81,40 @@ export function ResponsiveDataView<T extends Record<string, unknown>>({
   filterDrawer,
   mobileFilters,
   getRowKey,
+  view: viewProp,
+  defaultView = 'table',
+  onViewChange,
+  showViewToggle = false,
 }: ResponsiveDataViewProps<T>) {
+  const { t } = useGdsTranslation();
   const isMobile = useMediaQuery('(max-width: 48em)');
+  const [view, setView] = useUncontrolled<ResponsiveDataViewMode>({ value: viewProp, defaultValue: defaultView, finalValue: 'table', onChange: onViewChange });
+  const showCards = isMobile || view === 'grid';
+  const cards = (
+    <SimpleGrid cols={isMobile ? { base: 1, sm: 2 } : { base: 1, sm: 2, lg: 3 }} spacing="md">
+      {data.map((item, index) => (
+        <React.Fragment key={getRowKey ? getRowKey(item, index) : index}>
+          {renderCard(item, index)}
+        </React.Fragment>
+      ))}
+    </SimpleGrid>
+  );
 
   return (
     <Stack gap="md">
       {toolbar}
+      {showViewToggle && !isMobile ? (
+        <SegmentedControl
+          aria-label={t('gds.dataView.toggleLabel', 'Layout')}
+          value={view}
+          onChange={(value) => setView(value as ResponsiveDataViewMode)}
+          data={[
+            { value: 'table', label: t('gds.dataView.table', 'Table') },
+            { value: 'grid', label: t('gds.dataView.grid', 'Grid') },
+          ]}
+          style={{ alignSelf: 'flex-start' }}
+        />
+      ) : null}
       {activeFilters.length ? (
         <Group gap="xs" wrap="wrap">
           {activeFilters.map((filter, index) =>
@@ -107,17 +148,9 @@ export function ResponsiveDataView<T extends Record<string, unknown>>({
         <StateBlock variant="empty" title={emptyTitle} description={emptyDescription} action={emptyAction} compact />
       ) : null}
 
-      {!error && isMobile && data.length > 0 ? (
-        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
-          {data.map((item, index) => (
-            <React.Fragment key={getRowKey ? getRowKey(item, index) : index}>
-              {renderCard(item, index)}
-            </React.Fragment>
-          ))}
-        </SimpleGrid>
-      ) : null}
+      {!error && showCards && data.length > 0 ? cards : null}
 
-      {!error && !isMobile ? (
+      {!error && !showCards ? (
         <DataTable data={data} columns={columns} loading={loading} getRowKey={getRowKey} />
       ) : null}
     </Stack>

@@ -1,7 +1,7 @@
 {
   "declared": 350,
-  "referenced": 154,
-  "extensionPoints": 132,
+  "referenced": 157,
+  "extensionPoints": 129,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -430,27 +430,6 @@
       "token": "--gds-badge-validation",
       "classification": "extension-point",
       "reason": "No alias and no consumer. A member of the published BrandSemanticRole union returned by createBrandTheme(), so removal is a breaking change requiring a deprecation cycle (issue 586 §6). Re-examined 2026-11-13: class-usa, gold-athlete and createBrandTheme author values for it, but MeaningBadge validation paints from --gds-badge-solid-success, so those values never render. Wire-or-deprecate decision is issue 964.",
-      "reviewBy": "2027-02-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-bg-raised",
-      "classification": "extension-point",
-      "reason": "Surface hierarchy role (#951), emitted for every preset and scheme and gated by surface-hierarchy-legible. First consumer is the bulk action bar in #956; remove this entry when it reads the role.",
-      "reviewBy": "2027-02-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-border-strong",
-      "classification": "extension-point",
-      "reason": "Surface hierarchy role (#951), 3:1 on the card and gated by surface-hierarchy-legible. First consumer is the sidebar nav active indicator boundary (#955); remove this entry when it reads it.",
-      "reviewBy": "2027-02-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-border-subtle",
-      "classification": "extension-point",
-      "reason": "Surface hierarchy role (#951): the card border made opaque. First consumers are the tree view (#956) and thread list (#957); remove this entry when one reads it.",
       "reviewBy": "2027-02-01",
       "declaredIn": "getGdsVibeThemeCssVariables"
     },

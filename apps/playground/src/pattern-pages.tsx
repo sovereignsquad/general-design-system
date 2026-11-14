@@ -39,6 +39,8 @@ import {
   createGdsVocabularyPack,
   DataToolbar,
   GdsAreaChart,
+  GdsTreeView,
+  GdsBulkActionBar,
   GdsSparkline,
   GdsLongitudinalChart,
   GdsBenchmarkBarChart,
@@ -498,6 +500,20 @@ function AdminEditorFlowsDemo() {
         </SectionPanel>
       }
       actionBar={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'refresh' }] }} />}
+    />
+  );
+}
+
+function BulkActionBarDemo() {
+  const [selected, setSelected] = useState(3);
+  return (
+    <GdsBulkActionBar
+      selectedCount={selected}
+      actions={[
+        { action: 'download', onClick: () => setSelected(0) },
+        { action: 'delete', onClick: () => setSelected(0) },
+      ]}
+      onClearSelection={() => setSelected(0)}
     />
   );
 }
@@ -3388,8 +3404,26 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             </SectionPanel>
           )}
           getRowKey={(row) => String(row.id)}
+          showViewToggle
         />
       );
+    case 'tree-view':
+      return (
+        <GdsTreeView
+          ariaLabel="Pattern families"
+          defaultExpandedIds={['families']}
+          nodes={[
+            { id: 'families', label: 'Pattern families', children: [
+              { id: 'public', label: 'Public' },
+              { id: 'operations', label: 'Operations', children: [{ id: 'kanban', label: 'Kanban' }, { id: 'forms', label: 'Forms' }] },
+              { id: 'data', label: 'Data' },
+            ] },
+            { id: 'foundations', label: 'Foundations', children: [{ id: 'shape', label: 'Shape' }, { id: 'color', label: 'Color' }] },
+          ]}
+        />
+      );
+    case 'bulk-action-bar':
+      return <BulkActionBarDemo />;
     case 'stats-strip':
       return <StatsStrip stats={[{ label: 'Routes', value: 8, diff: 12 }, { label: 'Exports', value: 92, diff: 4 }, { label: 'Mismatches', value: 0, diff: 0 }]} />;
     case 'info-card':

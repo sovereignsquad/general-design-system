@@ -16,6 +16,15 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Tree view, bulk action bar and a table/grid toggle for dense resource screens (#956)
+
+- New `GdsTreeView`: the WAI-ARIA tree pattern with roving tabindex, arrow/Home/End/type-ahead keys, controlled expanded and selected ids, and lazy children with loading and error/retry states.
+- New `GdsBulkActionBar`: appears with a selection, a localized count, semantic actions, clear selection, and a mounted polite live region.
+- `ResponsiveDataView` gains `showViewToggle`, `view`, `defaultView` and `onViewChange` for a user-controlled table/grid layout on wide viewports; narrow viewports keep the automatic card fallback. Off by default.
+- The two components are the first readers of `--gds-border-subtle`, `--gds-bg-raised` and `--gds-border-strong` (#951), which leave the token-reachability extension-point list.
+- `axe-core` 4.14.0 is a pinned dev dependency; `test-utils/axe.ts` runs it under jsdom (colour contrast excluded, gated elsewhere) in the new component tests.
+- Pattern registry entries `tree-view` and `bulk-action-bar`; the `responsive-data-view` pattern shows the toggle.
+
 ### Sidebar navigation: nested disclosure items, governed active and hover states, localized AppShell headings (#955)
 
 - `SidebarNavItem` with children renders `<button type="button">` with `aria-expanded` (it was an `<a>` without `href`, out of the tab order and with no expanded state), toggles on click, Enter and Space, takes `opened`/`onChange`/`defaultOpened`, and indents children by `--gds-space-md`.
