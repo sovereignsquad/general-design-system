@@ -400,4 +400,10 @@ export const ko = {
   'gds.gdsPageTemplates.event.noMediaTitle': "이미지 없음",
   'gds.gdsPageTemplates.event.noMediaDescription': "이 이벤트에는 이미지가 없습니다.",
   'gds.gdsPageTemplates.event.badge': "이벤트",
+  'gds.notifications.severity.success': "성공",
+  'gds.notifications.severity.error': "오류",
+  'gds.notifications.severity.warning': "경고",
+  'gds.notifications.severity.info': "정보",
+  'gds.notifications.severity.neutral': "알아채다",
+  'gds.notifications.severity.loading': "진행 중",
 };

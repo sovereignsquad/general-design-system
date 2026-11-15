@@ -400,4 +400,10 @@ export const ja = {
   'gds.gdsPageTemplates.event.noMediaTitle': "画像なし",
   'gds.gdsPageTemplates.event.noMediaDescription': "このイベントには画像がありません。",
   'gds.gdsPageTemplates.event.badge': "イベント",
+  'gds.notifications.severity.success': "成功",
+  'gds.notifications.severity.error': "エラー",
+  'gds.notifications.severity.warning': "警告",
+  'gds.notifications.severity.info': "情報",
+  'gds.notifications.severity.neutral': "知らせ",
+  'gds.notifications.severity.loading': "進行中",
 };

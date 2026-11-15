@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Alert, Badge, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
-import type { StateBlockVariant } from './StateBlock';
 import { GdsIcons } from './icons';
 
 /** Semantic severity of a notification, driving its color and accessibility role. */
@@ -124,12 +123,16 @@ const notificationColorMap: Record<GdsNotificationSeverity, string> = {
   loading: 'blue',
 };
 
-function severityToStateVariant(severity: GdsNotificationSeverity): StateBlockVariant {
-  if (severity === 'success') return 'success';
-  if (severity === 'error') return 'error';
-  if (severity === 'warning') return 'not-enough-data';
-  if (severity === 'neutral') return 'disabled';
-  return 'info';
+function severityLabel(severity: GdsNotificationSeverity, t: ReturnType<typeof useGdsTranslation>['t']): string {
+  const labels: Record<GdsNotificationSeverity, string> = {
+    success: t('gds.notifications.severity.success', 'Success'),
+    error: t('gds.notifications.severity.error', 'Error'),
+    warning: t('gds.notifications.severity.warning', 'Warning'),
+    info: t('gds.notifications.severity.info', 'Info'),
+    neutral: t('gds.notifications.severity.neutral', 'Notice'),
+    loading: t('gds.notifications.severity.loading', 'In progress'),
+  };
+  return labels[severity];
 }
 
 /** Generates a unique notification id from a prefix (default `notification`), the current timestamp, and a random suffix. */
@@ -209,6 +212,7 @@ export function BannerNotice({
   action,
   variant = 'panel',
 }: BannerNoticeProps) {
+  const { t } = useGdsTranslation();
   const livePolicy = getGdsNotificationLivePolicy({ severity });
 
   if (variant === 'compact') {
@@ -231,13 +235,20 @@ export function BannerNotice({
   }
 
   return (
-    <Paper withBorder radius="lg" p="md">
+    <Paper
+      withBorder
+      radius="lg"
+      p="md"
+      role={severity === 'error' ? 'alert' : 'status'}
+      aria-live={livePolicy === 'off' ? undefined : livePolicy}
+      aria-atomic="true"
+    >
       <Stack gap="xs">
         <Group justify="space-between" align="center">
           <Group gap="xs">
             {eyebrow ? <Badge variant="light">{eyebrow}</Badge> : null}
             <Badge variant="light" color={notificationColorMap[severity]}>
-              {severityToStateVariant(severity).replace('-', ' ')}
+              {severityLabel(severity, t)}
             </Badge>
           </Group>
           {action}

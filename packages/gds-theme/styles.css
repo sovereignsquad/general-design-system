@@ -353,6 +353,15 @@ html[data-mantine-color-scheme='dark'] {
 /* gds:chart-defaults:end */
 
 /*
+ * Lanes without a preset: Mantine's dimmed colour (gray-6 light, dark-2 dark) is below 4.5:1 on
+ * its own body, so secondary text reads the meta-text role. Declared on body, so a preset
+ * (html[data-gds-theme-preset] body) or a scoped theme closer to the text still wins.
+ */
+body {
+  --mantine-color-dimmed: var(--gds-text-meta);
+}
+
+/*
  * Preset opt-out (issue 724). Every rule gated on html[data-gds-theme-preset]
  * carries `:where(:not([data-gds-fixed-tone]))` on its subject, except the
  * `body` rules and the forced-colors / reduced-motion blocks. An element

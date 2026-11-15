@@ -10,7 +10,7 @@ npm install -D @sovereignsquad/gds-a11y @playwright/test axe-core
 
 ## Public Helpers
 
-- `createGdsA11yTest(page, config)` opens a route, runs axe, optional keyboard order assertions, and the GDS contrast gate, then returns one deterministic report.
+- `createGdsA11yTest(page, config)` opens a route, runs axe, optional keyboard order assertions, and the GDS contrast gate, then returns one deterministic report. It navigates with `page.goto(config.route)`, so axe must be loaded with `page.addInitScript`; a script added with `page.addScriptTag` before the call is discarded by that navigation. When `axe` is not defined in the page, the scan returns a critical `gds-axe-missing` failure instead of an empty result.
 - `runGdsAxeScan(page, config)` maps axe violations into GDS findings with severity, route, selector, status, help URL, and suggested GDS replacement.
 - `expectGdsTabOrder(page, selectors, config)` verifies that expected keyboard stops are focusable in order.
 - `expectGdsFocusTrap(page, containerSelector, config)` verifies that modal, drawer, command, or overlay focus remains inside the governed container.
@@ -27,9 +27,11 @@ import { createGdsA11yTest, formatGdsA11yReport } from '@sovereignsquad/gds-a11y
 import axeSource from 'axe-core/axe.min.js?raw';
 
 test('GDS route accessibility', async ({ page }) => {
-  await page.addScriptTag({ content: axeSource });
+  // addInitScript runs in every document, including the one createGdsA11yTest navigates to.
+  await page.addInitScript({ content: axeSource });
 
   const report = await createGdsA11yTest(page, {
+    // Passed to page.goto: a path needs Playwright's baseURL, otherwise use an absolute URL.
     route: '/settings',
     severityThreshold: 'serious',
     expectedTabOrder: [

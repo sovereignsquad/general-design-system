@@ -3034,7 +3034,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 94
+        "line": 93
       },
       "unmet": [
         {
@@ -3048,7 +3048,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 94
+        "line": 93
       },
       "unmet": [
         {
@@ -3062,7 +3062,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 94
+        "line": 93
       },
       "unmet": [
         {

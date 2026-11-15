@@ -352,6 +352,7 @@ network-dependent assertion already exempted elsewhere in the chain.
 - dark products must still provide readable tokens for text, paper, card, alert, table, and link surfaces
 - mixed-mode islands remain exceptions, not the default layout strategy
 - preset styles must set `--mantine-color-text` and `--mantine-color-dimmed` from `--gds-vibe-text` and `--gds-vibe-muted` on body, shell, card, and paper surfaces so nested Mantine components cannot keep stale light-mode foregrounds on dark backgrounds
+- lanes without a preset set `--mantine-color-dimmed` from `--gds-text-meta` on `body`: Mantine's own dimmed colour is below 4.5:1 on its body in both schemes. `verify:default-lane-axis-runtime` measures it in light and dark (#944)
 - dark and dark-forward VibeTheme controls must use `--gds-vibe-control` and `--gds-vibe-control-text` for inputs, default buttons, and code-like surfaces rather than assuming the base Mantine default variant remains readable
 - mixed-preview surfaces, such as the Theme Lab shipped-lane gallery and VibeTheme contract preview, must use `data-gds-local-contrast` plus local `--gds-vibe-*`, Mantine foreground variables, local control tokens, and a local radius token when they intentionally render a light preview card inside a dark page
 

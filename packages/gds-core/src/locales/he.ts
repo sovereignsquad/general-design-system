@@ -400,4 +400,10 @@ export const he = {
   'gds.gdsPageTemplates.event.noMediaTitle': "אין תמונה",
   'gds.gdsPageTemplates.event.noMediaDescription': "לאירוע הזה אין תמונה.",
   'gds.gdsPageTemplates.event.badge': "מִקרֶה",
+  'gds.notifications.severity.success': "הַצלָחָה",
+  'gds.notifications.severity.error': "שְׁגִיאָה",
+  'gds.notifications.severity.warning': "אַזהָרָה",
+  'gds.notifications.severity.info': "מידע",
+  'gds.notifications.severity.neutral': "הוֹדָעָה",
+  'gds.notifications.severity.loading': "בתהליך",
 };

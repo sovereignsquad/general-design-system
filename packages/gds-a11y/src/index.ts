@@ -227,13 +227,25 @@ export function createGdsA11yReport({
   };
 }
 
+interface GdsAxeRunResult {
+  violations?: Array<{
+    id: string;
+    impact?: GdsA11ySeverity;
+    help?: string;
+    helpUrl?: string;
+    nodes?: Array<{ target?: string[]; html?: string }>;
+  }>;
+}
+
 /**
  * Runs an axe-core scan in the page and returns findings at or above
  * `config.severityThreshold` (default `'serious'`).
  *
- * Requires axe-core to be present in the page. Results axe reports as incomplete are
- * surfaced with status `'incomplete'` rather than dropped, because an unreached verdict
- * is not a pass.
+ * Requires axe-core to be present in the page. When `axe` is not defined the result is one
+ * critical `gds-axe-missing` failure, so a scan that never ran cannot report a pass. Load
+ * axe with `page.addInitScript`, which survives navigation, before calling
+ * {@link createGdsA11yTest}. Results axe reports as incomplete are surfaced with status
+ * `'incomplete'` rather than dropped, because an unreached verdict is not a pass.
  */
 export async function runGdsAxeScan(
   page: GdsPlaywrightLikePage,
@@ -241,23 +253,23 @@ export async function runGdsAxeScan(
 ): Promise<GdsA11yFinding[]> {
   const route = routeOf(page, config.route);
   const threshold = severityRank[config.severityThreshold ?? 'serious'];
-  const axeResult = await page.evaluate(() => {
-    const maybeAxe = (globalThis as typeof globalThis & {
-      axe?: {
-        run: () => Promise<{
-          violations?: Array<{
-            id: string;
-            impact?: GdsA11ySeverity;
-            help?: string;
-            helpUrl?: string;
-            nodes?: Array<{ target?: string[]; html?: string }>;
-          }>;
-        }>;
-      };
-    }).axe;
-    if (!maybeAxe) return { violations: [] };
+  const axeResult = await page.evaluate<GdsAxeRunResult | { missing: true }>(() => {
+    const maybeAxe = (globalThis as typeof globalThis & { axe?: { run: () => Promise<GdsAxeRunResult> } }).axe;
+    if (!maybeAxe) return { missing: true };
     return maybeAxe.run();
   });
+
+  if ('missing' in axeResult) {
+    return [{
+      id: 'gds-axe-missing',
+      route,
+      selector: 'document',
+      severity: 'critical',
+      status: 'failure',
+      message: 'axe-core is not loaded in the page, so no axe scan ran. Load it with page.addInitScript({ content: axeSource }) before navigating.',
+      suggestedGdsReplacement: 'Add axe-core with page.addInitScript before createGdsA11yTest; page.addScriptTag is discarded by the navigation createGdsA11yTest performs.',
+    }];
+  }
 
   const findings = (axeResult.violations ?? []).flatMap((violation) => {
     const severity = violation.impact ?? 'moderate';

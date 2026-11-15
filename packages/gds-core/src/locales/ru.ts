@@ -400,4 +400,10 @@ export const ru = {
   'gds.gdsPageTemplates.event.noMediaTitle': "Нет изображения",
   'gds.gdsPageTemplates.event.noMediaDescription': "У этого события нет изображения.",
   'gds.gdsPageTemplates.event.badge': "Событие",
+  'gds.notifications.severity.success': "Успех",
+  'gds.notifications.severity.error': "Ошибка",
+  'gds.notifications.severity.warning': "Предупреждение",
+  'gds.notifications.severity.info': "Информация",
+  'gds.notifications.severity.neutral': "Уведомление",
+  'gds.notifications.severity.loading': "В ходе выполнения",
 };

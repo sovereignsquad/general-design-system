@@ -205,7 +205,7 @@ These have no governed fix on this version:
 |---|---|
 | `global-css.gap.placeholder-color` | GDS sets the input placeholder color only in preset lanes (`html[data-gds-theme-preset] … ::placeholder` in `styles.css`). Elsewhere the placeholder is Mantine's `--mantine-color-placeholder`, which is below the WCAG 1.4.3 minimum against the light-scheme input background. Removing a consumer's `!important` placeholder pin does not fix this; it is a GDS gap. |
 | `global-css.gap.button-height` | `gdsTheme` sets the `Button` default `size` to `sm`, which renders Mantine's `--button-height-sm`. Button height is not bound to `--gds-control-height-*`, and the default renders below `GDS_MIN_TARGET_PX`, the `control-height-min-target` floor in [`ACCESSIBILITY_FLOOR.md`](ACCESSIBILITY_FLOOR.md) (WCAG 2.5.5). Removing a consumer's global `button` minimum height lowers its targets to that default. |
-| `global-css.gap.dimmed-text` | In preset lanes, GDS binds `--mantine-color-dimmed` and `--mantine-color-text` to the preset's `--gds-vibe-*` text roles. Elsewhere dimmed text uses Mantine's own `--mantine-color-dimmed`, which GDS does not bind to a GDS text role. |
+| `global-css.gap.dimmed-text` | Closed after 6.8.0 (#944): lanes without a preset bind `--mantine-color-dimmed` to `--gds-text-meta` on `body`, and preset lanes bind it to `--gds-vibe-muted`. In 6.8.0 and earlier, lanes without a preset render Mantine's own dimmed colour, which is 3.32:1 on the light body and 4.04:1 on the dark body. |
 
 ### Special cases
 
