@@ -16,6 +16,14 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Responsive layout props apply at their breakpoints (#945)
+
+- Every layout primitive wrote the `base` value of a responsive prop inline and its breakpoint values as class media rules. An inline declaration outranks a class rule, so no breakpoint value ever applied.
+- Affected: `GdsSplit` and `GdsSidebar` were a single column at every width. Responsive `GdsGrid` and `GdsColumnGrid` columns, `GdsColumnGridItem` spans, `GdsInline` wrap, `GdsBleed`, and `GdsBox` display, gap, padding, margin, align, justify and maxWidth kept their base value.
+- Measured in Chromium at 1280px: `GdsSplit ratio="1:2"` went from one 1280px track to 420px and 840px; `GdsGrid columns={{ base: 1, md: 3 }}` went from one track to three. At 375px all of them still collapse to one column.
+- A breakpoint object is now written entirely as class rules, with the base first. Single values stay inline as before, and an explicit `style` still wins.
+- Visible change: layouts that declared breakpoints now take them, including the templates and the reference site.
+
 ### `@sovereignsquad/gds-theme/tokens`: the theme helpers without Mantine or React (#942)
 
 - `/server` loads `@mantine/core`, because it exports `gdsTheme`, the presets and `createBrandTheme`, which Mantine builds at module load, and it loads React. So it cannot be imported from a Next.js route handler or server component: the build fails with "mergeThemeOverrides is on the client".
