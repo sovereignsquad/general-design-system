@@ -1,7 +1,7 @@
 # Compatibility & Releases
 
 Status: Active SSOT
-Version: 6.8.0
+Version: 6.9.0
 Last updated: 2026-11-13
 
 This document defines the supported package/runtime contract for the umbrella package `@sovereignsquad/gds` and the granular runtime packages `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.
@@ -41,29 +41,29 @@ GDS publishes every release from `6.8.0` on to npmjs.com, where installs are ano
 
 Current live status:
 
-- published baseline (npmjs.com and the GitHub Packages mirror): `6.8.0`
-- current repository line: `6.8.0`
+- published baseline (npmjs.com and the GitHub Packages mirror): `6.9.0`
+- current repository line: `6.9.0`
 - current major line: `6.x`
 
 Consumer repos should install the latest published version unless they are explicitly validating an unpublished release candidate or an internal pre-release cut.
 
 Authenticated release operators should use [RELEASE_PUBLISH.md](RELEASE_PUBLISH.md); publishing itself runs only in CI, through `.github/workflows/publish-github-packages.yml` (mirror) and `.github/workflows/publish-npmjs.yml` (npmjs.com), not from a maintainer's machine.
 
-For the current `6.8.0` line, the install contract is:
+For the current `6.9.0` line, the install contract is:
 
 ```bash
-npm install @sovereignsquad/gds@6.8.0
-npm install -D @sovereignsquad/gds-eslint-config@6.8.0 @sovereignsquad/gds-compliance@6.8.0
+npm install @sovereignsquad/gds@6.9.0
+npm install -D @sovereignsquad/gds-eslint-config@6.9.0 @sovereignsquad/gds-compliance@6.9.0
 ```
 
 Granular consumers should use the same version across every package:
 
 ```bash
-npm install @sovereignsquad/gds-theme@6.8.0 @sovereignsquad/gds-core@6.8.0 @sovereignsquad/gds-admin@6.8.0
-npm install -D @sovereignsquad/gds-eslint-config@6.8.0 @sovereignsquad/gds-compliance@6.8.0
+npm install @sovereignsquad/gds-theme@6.9.0 @sovereignsquad/gds-core@6.9.0 @sovereignsquad/gds-admin@6.9.0
+npm install -D @sovereignsquad/gds-eslint-config@6.9.0 @sovereignsquad/gds-compliance@6.9.0
 ```
 
-Do not mix pre-3.0 package lines with `6.8.0` packages in the same consumer dependency graph.
+Do not mix pre-3.0 package lines with `6.9.0` packages in the same consumer dependency graph.
 
 ### Release-visibility artifacts (not an install path)
 
