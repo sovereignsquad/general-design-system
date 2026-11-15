@@ -1,7 +1,7 @@
 # Chart Tokens
 
 Status: Active SSOT
-Version: 6.8.0
+Version: 6.9.0
 Last updated: 2026-11-13
 
 The `--gds-chart-*` roles colour the GDS chart renderers (`GdsAreaChart`, `GdsLineChart` and the

@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased — npmjs.com is the primary registry from 6.8.0 and the documented install path
+## 6.9.0 - 2026-11-15 — npmjs.com as the primary registry, surface, navigation, message and chart roles, shape profiles, tree, bulk-action and inbox components, three new page archetypes with tested examples, single preset registration, a Mantine-free `/tokens` entry, visible toasts, responsive layout props that apply at their breakpoints, and accessibility and localization fixes from consumer reports (#938, #942, #944, #945, #948-#961, #968, #970-#973)
 
 ### Registry policy: npmjs.com primary, GitHub Packages mirror (#938)
 
