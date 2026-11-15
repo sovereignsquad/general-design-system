@@ -249,6 +249,20 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:tokens-entry',
+    script: null,
+    mutants: [
+      {
+        id: 'tokens-entry-detects-mantine-in-graph',
+        claim: 'Detects a module in the /tokens graph that loads Mantine at runtime',
+        file: 'packages/gds-theme/src/tokens.ts',
+        find: "export { deltaE76 } from './color-math';",
+        replace: "export { deltaE76 } from './color-math';\nexport { gdsTheme } from './theme';",
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:token-single-source',
     script: null,
     mutants: [

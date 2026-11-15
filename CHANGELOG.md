@@ -16,6 +16,16 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### `@sovereignsquad/gds-theme/tokens`: the theme helpers without Mantine or React (#942)
+
+- `/server` loads `@mantine/core`, because it exports `gdsTheme`, the presets and `createBrandTheme`, which Mantine builds at module load, and it loads React. So it cannot be imported from a Next.js route handler or server component: the build fails with "mergeThemeOverrides is on the client".
+- New `@sovereignsquad/gds-theme/tokens` entry. It carries everything in `/server` except the Mantine theme objects, `GdsVibeThemeScope`, the i18n context and the font-lane theme helpers. That covers `getGdsWebAppManifest`, `getGdsPwaViewportMetaContent`, the vibe themes and their CSS variables, the axes, contrast, chart, accessibility-floor and token-graph helpers, motion, z-index and locale metadata. It loads neither Mantine nor React.
+- `verify:tokens-entry` walks its runtime import graph for Mantine, React and `'use client'`. It then imports the built ESM and CJS bundles with `@mantine/*` and `react` made to throw.
+- To make that possible, theme preset modules no longer build Mantine themes when imported. Each preset's `mantine` is a function of the theme builders, called on first `resolveGdsThemePreset`. Outputs are unchanged: vibes, CSS variables, Mantine themes and identity hashes match.
+- Locale metadata moved to `locale-metadata.ts`, still re-exported from `i18n`.
+- `/server` and the root are unchanged.
+- The PWA, generated-imagery, motion and theme-governance docs import pure helpers from `/tokens`.
+
 ### Default-lane dimmed text, axe-less scans and BannerNotice announcements (#944)
 
 - Lanes without a theme preset (`gdsTheme`, `gdsDarkPublicTheme`, `createPublicBrandTheme`) render dimmed text, such as `PageHeader` and `StateBlock` descriptions, in `--gds-text-meta`. It was Mantine's gray-6 and dark-2, measured at 3.32:1 on the light body and 4.04:1 on the dark body. It is now 4.76:1 and 10.46:1. `verify:default-lane-axis-runtime` checks it in both schemes.

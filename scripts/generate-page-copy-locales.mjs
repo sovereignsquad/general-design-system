@@ -55,7 +55,7 @@ const ast = parse(source, { sourceType: 'module', plugins: ['typescript'] });
 
 // Locale ids read from gds-theme (same source the font policy and leakage detector use).
 const localeCatalog = new Set(
-  [...readFileSync(resolve(root, 'packages/gds-theme/src/i18n.ts'), 'utf8')
+  [...readFileSync(resolve(root, 'packages/gds-theme/src/locale-metadata.ts'), 'utf8')
     .matchAll(/^\s{2}(\w+):\s*\{[^}]*script:\s*'[^']+'/gm)].map((match) => match[1]),
 );
 

@@ -1,11 +1,11 @@
+import type { MantineThemeOverride } from '@mantine/core';
 import { defineGdsThemePreset } from './define';
-import { extendGdsTheme } from '../theme';
 
-const colorblindSafeMantineTheme = extendGdsTheme({
+const colorblindSafeMantineOverride: MantineThemeOverride = {
   primaryColor: 'blue',
   autoContrast: true,
   luminanceThreshold: 0.4,
-});
+};
 
 // Accessibility lane: colorblind-safe brand palette drawn from the Okabe-Ito qualitative
 // set — colors distinguishable across deuteranopia, protanopia, and tritanopia. `primary`
@@ -19,7 +19,7 @@ export default defineGdsThemePreset({
     description: 'Accessibility lane using the Okabe-Ito colorblind-safe brand palette (blue/vermillion) that stays distinguishable across deuteranopia, protanopia, and tritanopia.',
     runtimeLane: 'resolveGdsThemePreset(colorblind-safe)',
   },
-  mantine: colorblindSafeMantineTheme,
+  mantine: ({ extendGdsTheme }) => extendGdsTheme(colorblindSafeMantineOverride),
   vibe: {
     id: 'colorblind-safe',
     label: 'Colorblind safe',

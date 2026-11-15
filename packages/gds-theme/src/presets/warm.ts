@@ -1,5 +1,4 @@
 import { defineGdsThemePreset } from './define';
-import { createVibrantPresetTheme } from './vibrant';
 import { neutralVibe } from './default';
 
 export default defineGdsThemePreset({
@@ -9,7 +8,7 @@ export default defineGdsThemePreset({
     description: 'Honey-amber warm lane for lifestyle, commerce, and community products.',
     runtimeLane: 'resolveGdsThemePreset(warm)',
   },
-  mantine: createVibrantPresetTheme('orange'),
+  mantine: ({ createVibrantPresetTheme }) => createVibrantPresetTheme('orange'),
   vibe: {
     ...neutralVibe,
     id: 'warm',

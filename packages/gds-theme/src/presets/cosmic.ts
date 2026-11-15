@@ -1,5 +1,4 @@
 import { defineGdsThemePreset } from './define';
-import { createVibrantPresetTheme } from './vibrant';
 
 export default defineGdsThemePreset({
   id: 'cosmic',
@@ -8,7 +7,7 @@ export default defineGdsThemePreset({
     description: 'Highly saturated blue-violet-cyan-magenta showcase lane for bold public apps and launch surfaces.',
     runtimeLane: 'resolveGdsThemePreset(cosmic)',
   },
-  mantine: createVibrantPresetTheme('violet'),
+  mantine: ({ createVibrantPresetTheme }) => createVibrantPresetTheme('violet'),
   vibe: {
     id: 'cosmic',
     label: 'Cosmic burst',

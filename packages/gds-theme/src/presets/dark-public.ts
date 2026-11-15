@@ -1,6 +1,5 @@
 import { defineGdsThemePreset } from './define';
 import { neutralVibe } from './default';
-import { gdsDarkPublicTheme } from '../theme';
 
 export default defineGdsThemePreset({
   id: 'dark-public',
@@ -9,7 +8,7 @@ export default defineGdsThemePreset({
     description: 'Dark public lane with explicit light and dark modes.',
     runtimeLane: 'gdsDarkPublicTheme',
   },
-  mantine: gdsDarkPublicTheme,
+  mantine: ({ gdsDarkPublicTheme }) => gdsDarkPublicTheme,
   vibe: {
     ...neutralVibe,
     id: 'dark-public',

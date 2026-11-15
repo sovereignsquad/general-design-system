@@ -69,11 +69,11 @@ GDS is a component/theme library, not an app framework, so its PWA surface is a 
 
 ### Web app manifest — `getGdsWebAppManifest(options)`
 
-Server-safe generator (`@sovereignsquad/gds-theme`, `/server`, `/client`) that returns a valid, spec-shaped web-app-manifest object from GDS theme/brand inputs, so the manifest's `theme_color`/`background_color` stay aligned to the active theme instead of a hand-maintained duplicate. GDS does not serve the manifest — serialize the result and expose it at your `manifest.webmanifest` URL.
+Generator exported from `@sovereignsquad/gds-theme/tokens`, which loads neither Mantine nor React (also from the root, `/server` and `/client`, which load both), that returns a valid, spec-shaped web-app-manifest object from GDS theme/brand inputs, so the manifest's `theme_color`/`background_color` stay aligned to the active theme instead of a hand-maintained duplicate. GDS does not serve the manifest — serialize the result and expose it at your `manifest.webmanifest` URL.
 
 ```ts
-// Next.js app/manifest.ts
-import { getGdsWebAppManifest, resolveGdsVibeTheme } from '@sovereignsquad/gds-theme/server';
+// Next.js app/manifest.ts. A route handler cannot load Mantine, so import from /tokens.
+import { getGdsWebAppManifest, resolveGdsVibeTheme } from '@sovereignsquad/gds-theme/tokens';
 
 const vibe = resolveGdsVibeTheme('cosmic');
 

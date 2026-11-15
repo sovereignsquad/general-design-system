@@ -1,5 +1,7 @@
 import type { MantineThemeOverride } from '@mantine/core';
 import type { createBrandTheme } from '../brand-tokens';
+import type { extendGdsTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme } from '../theme';
+import type { createVibrantPresetTheme } from './vibrant';
 import type { GdsVibeThemeFields } from '../vibe-themes';
 
 /** Selection-UI and documentation entry of a preset. */
@@ -13,12 +15,25 @@ export interface GdsThemePresetCatalogEntry {
 }
 
 /**
- * Factories handed to a preset's `mantine` function. A preset module never imports
- * `brand-tokens` itself, because that module reads the vibe map built from this registry.
+ * Theme builders handed to a preset's `mantine` function. Preset modules import no Mantine-backed
+ * module at runtime, so the vibe map, which is built from them, loads without Mantine (the
+ * `/tokens` entry depends on this), and `brand-tokens`, which reads that map, cannot form a cycle.
  */
 export interface GdsThemePresetMantineFactories {
   /** Builds a governed brand theme from a brand id. */
   createBrandTheme: typeof createBrandTheme;
+  /** Extends the GDS base theme with an override. */
+  extendGdsTheme: typeof extendGdsTheme;
+  /** Builds a vibrant colour lane from one Mantine colour. */
+  createVibrantPresetTheme: typeof createVibrantPresetTheme;
+  /** The GDS base theme. */
+  gdsTheme: typeof gdsTheme;
+  /** The dark public lane. */
+  gdsDarkPublicTheme: typeof gdsDarkPublicTheme;
+  /** The flat surface lane. */
+  gdsFlatSurfaceTheme: typeof gdsFlatSurfaceTheme;
+  /** The editorial serif lane. */
+  gdsEditorialPublicTheme: typeof gdsEditorialPublicTheme;
 }
 
 /** One built-in theme preset: the single entry a new theme adds. */
@@ -31,7 +46,7 @@ export interface GdsThemePresetDefinition<Id extends string = string> {
   vibe: GdsVibeThemeFields & { id: Id };
   /**
    * Mantine theme returned by `resolveGdsThemePreset(id)`. A function is called once, on first
-   * resolve. Omitted only for `brand`, which is composed per call from its options; any other
+   * resolve; a preset that needs a theme builder must use the function form. Omitted only for `brand`, which is composed per call from its options; any other
    * preset without one resolves to the default theme.
    */
   mantine?: MantineThemeOverride | ((factories: GdsThemePresetMantineFactories) => MantineThemeOverride);

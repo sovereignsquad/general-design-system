@@ -1,5 +1,4 @@
 import { defineGdsThemePreset } from './define';
-import { createVibrantPresetTheme } from './vibrant';
 import { neutralVibe } from './default';
 
 export default defineGdsThemePreset({
@@ -9,7 +8,7 @@ export default defineGdsThemePreset({
     description: 'Premium black-and-gold performance lane with stronger metallic gold accents and dark operator surfaces.',
     runtimeLane: 'resolveGdsThemePreset(athlete-gold)',
   },
-  mantine: createVibrantPresetTheme('yellow'),
+  mantine: ({ createVibrantPresetTheme }) => createVibrantPresetTheme('yellow'),
   vibe: {
     ...neutralVibe,
     id: 'athlete-gold',

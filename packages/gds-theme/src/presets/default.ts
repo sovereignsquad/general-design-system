@@ -1,5 +1,4 @@
 import { defineGdsThemePreset } from './define';
-import { gdsTheme } from '../theme';
 import type { GdsVibeThemeFields } from '../vibe-themes';
 
 /** Atmosphere of the default lane; other presets spread it and override what differs. */
@@ -32,6 +31,6 @@ export default defineGdsThemePreset({
     description: 'Balanced, neutral baseline lane.',
     runtimeLane: 'gdsTheme',
   },
-  mantine: gdsTheme,
+  mantine: ({ gdsTheme }) => gdsTheme,
   vibe: neutralVibe,
 });

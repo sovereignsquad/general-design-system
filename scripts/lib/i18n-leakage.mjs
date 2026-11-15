@@ -9,10 +9,10 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 /**
- * Script per locale, read at load time from `gdsLocaleMetadata` in packages/gds-theme/src/i18n.ts.
+ * Script per locale, read at load time from `gdsLocaleMetadata` in packages/gds-theme/src/locale-metadata.ts.
  */
 export function readLocaleScripts(root = process.cwd()) {
-  const source = readFileSync(join(root, 'packages/gds-theme/src/i18n.ts'), 'utf8');
+  const source = readFileSync(join(root, 'packages/gds-theme/src/locale-metadata.ts'), 'utf8');
   const block = /export const gdsLocaleMetadata = \{([\s\S]*?)\n\} as const;/.exec(source);
   if (!block) throw new Error('Could not read gdsLocaleMetadata — refusing to guess locale scripts.');
   return Object.fromEntries(

@@ -349,7 +349,7 @@ const svg = buildGdsHeroSvg({
 
 Every product needs a favicon and web-app-manifest icons before it looks
 finished in a browser tab or ships a PWA manifest — `getGdsWebAppManifest`
-(`@sovereignsquad/gds-theme/server`) builds the manifest object but starts
+(`@sovereignsquad/gds-theme/tokens`) builds the manifest object but starts
 its `icons` array empty, since GDS has no artwork of its own to put there.
 `buildGdsBrandBadgeSvg` (`@sovereignsquad/gds-core/server`, issue 699) fills
 that gap: a headless twin of `GdsGeneratedMark` that turns any built-in
@@ -406,9 +406,8 @@ manifest itself is generated at request time and a second round trip isn't
 worth it:
 
 ```ts
-import { getGdsWebAppManifest } from '@sovereignsquad/gds-theme/server';
+import { getGdsWebAppManifest, resolveGdsVibeTheme } from '@sovereignsquad/gds-theme/tokens';
 import { buildGdsBrandBadgeSvg } from '@sovereignsquad/gds-core/server';
-import { resolveGdsVibeTheme } from '@sovereignsquad/gds-theme';
 
 const vibe = resolveGdsVibeTheme('default');
 const svg = buildGdsBrandBadgeSvg({ themePresetId: 'default', label: 'Acme' });

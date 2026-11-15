@@ -26,7 +26,7 @@ The runtime contract is intentionally small:
 
 ## Runtime API
 
-Import static helpers from `@sovereignsquad/gds-theme` or `@sovereignsquad/gds-theme/server`:
+Import static helpers from `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-theme/server`, or `@sovereignsquad/gds-theme/tokens` where Mantine and React must not load:
 
 ```ts
 import {

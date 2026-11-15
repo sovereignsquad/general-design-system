@@ -1,6 +1,5 @@
 import { defineGdsThemePreset } from './define';
 import { neutralVibe } from './default';
-import { gdsEditorialPublicTheme } from '../theme';
 
 export default defineGdsThemePreset({
   id: 'editorial',
@@ -9,7 +8,7 @@ export default defineGdsThemePreset({
     description: 'Reading-first, serif headline lane.',
     runtimeLane: 'gdsEditorialPublicTheme',
   },
-  mantine: gdsEditorialPublicTheme,
+  mantine: ({ gdsEditorialPublicTheme }) => gdsEditorialPublicTheme,
   vibe: {
     ...neutralVibe,
     id: 'editorial',

@@ -1,9 +1,9 @@
+import type { MantineThemeOverride } from '@mantine/core';
 import { defineGdsThemePreset } from './define';
 import { neutralVibe } from './default';
-import { extendGdsTheme } from '../theme';
 
 /** Compact, family-friendly teal/lime map-and-list discovery theme with explicit dark-mode tokens. */
-const partnerDiscoveryMantineTheme = extendGdsTheme({
+const partnerDiscoveryMantineOverride: MantineThemeOverride = {
   primaryColor: 'teal',
   fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
   headings: {
@@ -110,7 +110,7 @@ const partnerDiscoveryMantineTheme = extendGdsTheme({
       pillRadius: 24,
     },
   },
-});
+};
 
 export default defineGdsThemePreset({
   id: 'partner-discovery',
@@ -119,7 +119,7 @@ export default defineGdsThemePreset({
     description: 'Compact family-friendly map/list discovery lane with teal/lime semantics and explicit dark-mode tokens.',
     runtimeLane: 'partnerDiscoveryThemePreset',
   },
-  mantine: partnerDiscoveryMantineTheme,
+  mantine: ({ extendGdsTheme }) => extendGdsTheme(partnerDiscoveryMantineOverride),
   vibe: {
     ...neutralVibe,
     id: 'partner-discovery',
