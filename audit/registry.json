@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "4fb6c9c1b27af5b4666f93ad0ec403be089cec8d",
+  "commit": "94c4d43c6ea8c847246dcec3366956efa4079c01",
   "counts": {
     "token-published": 524,
     "token-declared": 269,
@@ -42849,7 +42849,7 @@
       "name": "amber",
       "source": {
         "file": "packages/gds-theme/src/presets/amber.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -42858,7 +42858,7 @@
       "name": "athlete-gold",
       "source": {
         "file": "packages/gds-theme/src/presets/athlete-gold.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -42867,7 +42867,7 @@
       "name": "aurora",
       "source": {
         "file": "packages/gds-theme/src/presets/aurora.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -42903,7 +42903,7 @@
       "name": "coral",
       "source": {
         "file": "packages/gds-theme/src/presets/coral.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -42912,7 +42912,7 @@
       "name": "cosmic",
       "source": {
         "file": "packages/gds-theme/src/presets/cosmic.ts",
-        "line": 4
+        "line": 3
       }
     },
     {
@@ -42921,7 +42921,7 @@
       "name": "dark-public",
       "source": {
         "file": "packages/gds-theme/src/presets/dark-public.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -42930,7 +42930,7 @@
       "name": "default",
       "source": {
         "file": "packages/gds-theme/src/presets/default.ts",
-        "line": 28
+        "line": 27
       }
     },
     {
@@ -42939,7 +42939,7 @@
       "name": "editorial",
       "source": {
         "file": "packages/gds-theme/src/presets/editorial.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -42948,7 +42948,7 @@
       "name": "flat-surface",
       "source": {
         "file": "packages/gds-theme/src/presets/flat-surface.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -42957,7 +42957,7 @@
       "name": "forest",
       "source": {
         "file": "packages/gds-theme/src/presets/forest.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -42984,7 +42984,7 @@
       "name": "mint",
       "source": {
         "file": "packages/gds-theme/src/presets/mint.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -42993,7 +42993,7 @@
       "name": "neon-night",
       "source": {
         "file": "packages/gds-theme/src/presets/neon-night.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -43002,7 +43002,7 @@
       "name": "oceanic",
       "source": {
         "file": "packages/gds-theme/src/presets/oceanic.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -43011,7 +43011,7 @@
       "name": "orchid",
       "source": {
         "file": "packages/gds-theme/src/presets/orchid.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -43038,7 +43038,7 @@
       "name": "royal",
       "source": {
         "file": "packages/gds-theme/src/presets/royal.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -43047,7 +43047,7 @@
       "name": "ruby",
       "source": {
         "file": "packages/gds-theme/src/presets/ruby.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -43056,7 +43056,7 @@
       "name": "skyline",
       "source": {
         "file": "packages/gds-theme/src/presets/skyline.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -43065,7 +43065,7 @@
       "name": "sunset",
       "source": {
         "file": "packages/gds-theme/src/presets/sunset.ts",
-        "line": 5
+        "line": 4
       }
     },
     {
@@ -43074,7 +43074,7 @@
       "name": "warm",
       "source": {
         "file": "packages/gds-theme/src/presets/warm.ts",
-        "line": 5
+        "line": 4
       }
     },
     {

@@ -542,7 +542,7 @@ export const amanobaMantineTheme = createPublicBrandTheme({
 ```ts
 // brand-contrast.test.ts: brand colour is measured, not picked
 import { getPrimaryShade, isLightColor } from '@mantine/core';
-import { checkGdsContrast, pickGdsAutoForeground } from '@sovereignsquad/gds-theme/server';
+import { checkGdsContrast, pickGdsAutoForeground } from '@sovereignsquad/gds-theme/tokens';
 import { amanobaMantineTheme as theme } from './theme';
 
 // Every dark surface brand-coloured text renders on. Card, Paper and the GdsProvider wrapper
@@ -591,7 +591,7 @@ Rules:
 - The CTA hue is never the only signal of a state; pair it with a label or icon (WCAG 1.4.1).
 - `theme.other.brand` and `theme.other.email` feed non-Mantine surfaces (email, OG images,
   certificates) only, never UI text.
-- use `@sovereignsquad/gds-theme/client` in client providers; use `@sovereignsquad/gds-theme/server` only for SSR-safe theme data
+- use `@sovereignsquad/gds-theme/client` in client providers; use `@sovereignsquad/gds-theme/server` for theme objects during server rendering of client components (it loads `@mantine/core`); use `@sovereignsquad/gds-theme/tokens` for token, preset-data, contrast and PWA helpers in Next.js route handlers, server components and other code that must not load Mantine or React
 - do not call `withGdsMotion()` unless product marketing explicitly wants shared hover motion
 - keep provider-branded OAuth colors in documented exception surfaces, not in `primaryColor`
 

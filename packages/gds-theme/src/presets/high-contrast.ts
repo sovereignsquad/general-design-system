@@ -1,13 +1,13 @@
+import type { MantineThemeOverride } from '@mantine/core';
 import { defineGdsThemePreset } from './define';
 import { GDS_DEFAULT_SHAPE_AXIS } from '../axes';
-import { extendGdsTheme } from '../theme';
 
 // Accessibility lane (#453): a maximal-contrast, flat, undecorated preset built
 // on the `high-contrast` VibeTheme tokens. `primaryColor: 'dark'` + autoContrast
 // gives near-black filled controls with white labels (max legibility); shadows
 // are removed and Card/Paper/AppShell surfaces read the pure `--gds-vibe-*`
 // tokens with a solid 2px border. Text/meta clear WCAG AAA in both schemes.
-const highContrastMantineTheme = extendGdsTheme({
+const highContrastMantineOverride: MantineThemeOverride = {
   primaryColor: 'dark',
   autoContrast: true,
   luminanceThreshold: 0.4,
@@ -31,7 +31,7 @@ const highContrastMantineTheme = extendGdsTheme({
     },
     Button: { defaultProps: { fw: 700 } },
   },
-});
+};
 
 // Accessibility lane: maximal-contrast, flat, undecorated. Pure white/black canvases,
 // black/white body text, near-pure dark-gray/light-gray meta text (all AAA), and solid
@@ -47,7 +47,7 @@ export default defineGdsThemePreset({
     description: 'Maximal-contrast accessibility lane: pure black/white surfaces, WCAG AAA text and meta, solid borders, and no decorative gradients.',
     runtimeLane: 'resolveGdsThemePreset(high-contrast)',
   },
-  mantine: highContrastMantineTheme,
+  mantine: ({ extendGdsTheme }) => extendGdsTheme(highContrastMantineOverride),
   vibe: {
     id: 'high-contrast',
     label: 'High contrast',

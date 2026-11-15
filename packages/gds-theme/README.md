@@ -24,7 +24,8 @@ Apps that render a GDS date component also import `@sovereignsquad/gds-theme/dat
 
 ## Entry points
 
-- `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-theme/client` and `@sovereignsquad/gds-theme/server`: tokens, presets and theme factories.
+- `@sovereignsquad/gds-theme`, `@sovereignsquad/gds-theme/client` and `@sovereignsquad/gds-theme/server`: tokens, presets and theme factories. These load `@mantine/core` (the theme objects are built with it) and React.
+- `@sovereignsquad/gds-theme/tokens`: the token, preset-data, contrast, PWA and locale-metadata helpers, without Mantine or React. Import from it in Next.js route handlers and server components, workers and build scripts. `verify:tokens-entry` keeps it free of both.
 - `@sovereignsquad/gds-theme/styles.css` and `@sovereignsquad/gds-theme/dates.css`: stylesheets.
 - `gds-theme-tokens` command: `graph`, `validate` and `compatibility` reports over the token graph ([API reference](https://github.com/sovereignsquad/general-design-system/blob/main/API_REFERENCE.md)).
 

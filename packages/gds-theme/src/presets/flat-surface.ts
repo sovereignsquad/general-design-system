@@ -1,6 +1,5 @@
 import { defineGdsThemePreset } from './define';
 import { neutralVibe } from './default';
-import { gdsFlatSurfaceTheme } from '../theme';
 
 export default defineGdsThemePreset({
   id: 'flat-surface',
@@ -9,7 +8,7 @@ export default defineGdsThemePreset({
     description: 'Lower-elevation operational lane.',
     runtimeLane: 'gdsFlatSurfaceTheme',
   },
-  mantine: gdsFlatSurfaceTheme,
+  mantine: ({ gdsFlatSurfaceTheme }) => gdsFlatSurfaceTheme,
   vibe: {
     ...neutralVibe,
     id: 'flat-surface',
