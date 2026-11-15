@@ -1,4 +1,4 @@
-import { forwardRef, type CSSProperties, type ElementType, type ReactNode } from 'react';
+import { forwardRef, type AriaRole, type CSSProperties, type ElementType, type ReactNode } from 'react';
 import { Box } from '@mantine/core';
 import type { BoxProps } from '@mantine/core';
 
@@ -28,6 +28,10 @@ export interface GdsResponsiveResolution<T> {
 /** Shared props for every layout primitive: token-based, responsive spacing/alignment on a governed `Box`. */
 export interface GdsLayoutPrimitiveBaseProps extends Omit<BoxProps, 'align' | 'children' | 'component' | 'display' | 'gap' | 'justify' | 'm' | 'maw' | 'miw' | 'p' | 'style'> {
   children?: ReactNode;
+  /** Element id, e.g. an in-page anchor or a scroll-restoration target. */
+  id?: string;
+  /** ARIA role, e.g. `log`, `region` or `list`, when the element carries one. */
+  role?: AriaRole;
   /** Element or component to render as, via Mantine's polymorphic `component`. Defaults to `div`. */
   component?: ElementType;
   style?: CSSProperties;
