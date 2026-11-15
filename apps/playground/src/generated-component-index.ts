@@ -1660,6 +1660,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Provider/context (toast) — non-visual; notification pattern is registered via GdsNotificationProvider."
   },
   {
+    "name": "GdsToastViewport",
+    "status": "registered",
+    "home": {
+      "id": "loaders-skeletons",
+      "family": "feedback",
+      "section": "Overlays & Feedback"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsTourButton",
     "status": "exempt",
     "reason": "Thin guided-tour launcher affordance — a governed .gds-tour-launch button that calls useGdsTour().start(); demonstrated live on every site destination via SiteTourLauncher, covered as support-api (issue 475)."

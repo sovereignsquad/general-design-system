@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import { useId, type ReactNode } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
-import { Alert, Badge, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { Badge, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { GdsIcons } from './icons';
 
 /** Semantic severity of a notification, driving its color and accessibility role. */
@@ -98,6 +98,11 @@ export interface InlineAlertProps {
   status?: GdsNotificationStatus;
   /** Optional action node rendered below the message. */
   action?: ReactNode;
+  /**
+   * Renders the alert as its own live region (`role="alert"` or `"status"`). Defaults to true.
+   * Set false where a provider already announces the message, so it is announced once.
+   */
+  live?: boolean;
 }
 
 /** Props for the `BannerNotice` component. */
@@ -122,6 +127,18 @@ const notificationColorMap: Record<GdsNotificationSeverity, string> = {
   neutral: 'gray',
   loading: 'blue',
 };
+
+function statusLabel(status: GdsNotificationStatus, t: ReturnType<typeof useGdsTranslation>['t']): string {
+  const labels: Record<GdsNotificationStatus, string> = {
+    shown: '',
+    loading: t('gds.notifications.status.loading', 'Loading'),
+    retrying: t('gds.notifications.status.retrying', 'Retrying'),
+    dismissed: t('gds.notifications.status.dismissed', 'Dismissed'),
+    failed: t('gds.notifications.status.failed', 'Failed'),
+    succeeded: t('gds.notifications.status.succeeded', 'Succeeded'),
+  };
+  return labels[status];
+}
 
 function severityLabel(severity: GdsNotificationSeverity, t: ReturnType<typeof useGdsTranslation>['t']): string {
   const labels: Record<GdsNotificationSeverity, string> = {
@@ -166,35 +183,59 @@ export function createGdsNotificationAuditEvent(
   };
 }
 
-/** Inline, in-flow alert built on Mantine's `Alert`. Uses `role="alert"` for errors and `role="status"` otherwise, with a matching ARIA live region. */
+const inlineAlertTone: Record<GdsNotificationSeverity, { bg: string; fg: string }> = {
+  success: { bg: 'var(--gds-badge-soft-success)', fg: 'var(--gds-badge-soft-success-fg)' },
+  error: { bg: 'var(--gds-badge-soft-danger)', fg: 'var(--gds-badge-soft-danger-fg)' },
+  warning: { bg: 'var(--gds-badge-soft-warning)', fg: 'var(--gds-badge-soft-warning-fg)' },
+  info: { bg: 'var(--gds-badge-soft-info)', fg: 'var(--gds-badge-soft-info-fg)' },
+  neutral: { bg: 'var(--gds-badge-soft-neutral)', fg: 'var(--gds-badge-soft-neutral-fg)' },
+  loading: { bg: 'var(--gds-badge-soft-info)', fg: 'var(--gds-badge-soft-info-fg)' },
+};
+
+/**
+ * Inline, in-flow alert painted from the severity's soft badge pair, which is contrast-checked
+ * per preset and scheme. As a live region (`live`, the default) it uses `role="alert"` for
+ * errors and `role="status"` otherwise; with `live={false}` it is a labelled group.
+ */
 export function InlineAlert({
   title,
   message,
   severity = 'info',
   status,
   action,
+  live = true,
 }: InlineAlertProps) {
+  const { t } = useGdsTranslation();
+  const titleId = useId();
   const livePolicy = getGdsNotificationLivePolicy({ severity });
+  const statusText = status && status !== 'shown' ? statusLabel(status, t) : null;
+  const tone = inlineAlertTone[severity];
   return (
-    <Alert
-      variant="light"
-      color={notificationColorMap[severity]}
-      title={title}
-      icon={<GdsIcons.Info size="1rem" />}
-      role={severity === 'error' ? 'alert' : 'status'}
-      aria-live={livePolicy === 'off' ? undefined : livePolicy}
-      aria-atomic="true"
+    <Paper
+      withBorder
+      radius="md"
+      p="sm"
+      role={live ? (severity === 'error' ? 'alert' : 'status') : 'group'}
+      aria-live={live && livePolicy !== 'off' ? livePolicy : undefined}
+      aria-atomic={live ? 'true' : undefined}
+      aria-labelledby={titleId}
+      data-gds-inline-alert={severity}
+      style={{ background: tone.bg, color: tone.fg, ['--paper-border-color' as string]: 'var(--gds-border-subtle)' }}
     >
-      <Stack gap="xs">
-        {status ? (
-          <Badge variant="light" color={notificationColorMap[severity]} w="fit-content">
-            {status.replace('-', ' ')}
-          </Badge>
-        ) : null}
-        {message ? <Text size="sm">{message}</Text> : null}
-        {action}
-      </Stack>
-    </Alert>
+      <Group gap="sm" wrap="nowrap" align="flex-start">
+        <GdsIcons.Info size="1rem" aria-hidden="true" style={{ flex: 'none', marginBlockStart: 'var(--gds-space-2xs)' }} />
+        <Stack gap="xs" style={{ minWidth: 0, flex: 1 }}>
+          <Text id={titleId} size="sm" fw={700} c="inherit">{title}</Text>
+          {statusText ? (
+            <Badge variant="light" color={notificationColorMap[severity]} w="fit-content">
+              {statusText}
+            </Badge>
+          ) : null}
+          {message ? <Text size="sm" c="inherit">{message}</Text> : null}
+          {action}
+        </Stack>
+      </Group>
+    </Paper>
   );
 }
 
@@ -273,6 +314,7 @@ export function NotificationCenterView({
   onRetry,
   title: titleProp,
   emptyMessage: emptyMessageProp,
+  live = true,
 }: {
   notifications: GdsNotificationMessage[];
   onDismiss?: (id: string) => void;
@@ -281,6 +323,8 @@ export function NotificationCenterView({
   onRetry?: (notification: GdsNotificationMessage) => void;
   title?: ReactNode;
   emptyMessage?: ReactNode;
+  /** Renders each alert as its own live region; false when a provider already announces. Defaults to true. */
+  live?: boolean;
 }) {
   const { t } = useGdsTranslation();
   const title = titleProp ?? t('gds.notifications.title', "Notifications");
@@ -294,7 +338,7 @@ export function NotificationCenterView({
         <Group justify="space-between" align="center">
           <Title order={4}>{title}</Title>
           <Button size="xs" variant="subtle" onClick={onClear} disabled={visibleNotifications.length === 0 || !onClear}>
-            Clear all
+            {t('gds.notifications.clearAll', 'Clear all')}
           </Button>
         </Group>
         {visibleNotifications.length === 0 ? (
@@ -304,6 +348,7 @@ export function NotificationCenterView({
             {visibleNotifications.map((item) => (
               <InlineAlert
                 key={item.id}
+                live={live}
                 severity={item.severity}
                 status={item.status}
                 title={item.title}
@@ -328,11 +373,11 @@ export function NotificationCenterView({
                         onClick={() => onRetry?.(item)}
                         disabled={!onRetry || item.status === 'retrying'}
                       >
-                        {item.status === 'retrying' ? 'Retrying' : (item.retry.label ?? 'Retry')}
+                        {item.status === 'retrying' ? t('gds.notifications.status.retrying', 'Retrying') : (item.retry.label ?? t('gds.notifications.retry', 'Retry'))}
                       </Button>
                     ) : null}
                     <Button size="xs" variant="subtle" onClick={() => onDismiss?.(item.id)} disabled={!onDismiss}>
-                      Dismiss
+                      {t('gds.notifications.dismiss', 'Dismiss')}
                     </Button>
                   </Group>
                 )}

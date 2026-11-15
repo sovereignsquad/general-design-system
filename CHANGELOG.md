@@ -16,6 +16,24 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Visible toasts, single announcements and a governed InlineAlert (#973)
+
+- New `GdsToastViewport`: the active notifications as a stack fixed to a viewport corner.
+  - It sits above overlays, clears safe areas and mirrors in right-to-left layouts.
+  - It offers each toast's actions, retry and a translated dismiss, and shows at most `maxVisible` with a count of the rest.
+  - `GdsToastProvider` renders one by default; `viewport={false}` opts out and viewport props place it.
+  - Visible change: toasts from `useGdsToasts` appear on screen. Before, nothing drew them without a mounted `NotificationCenter`.
+- Announcements: the notification provider's live region now announces every notification. It used to announce only announcement-only ones, so an ordinary toast was announced only by a mounted `NotificationCenter`. `NotificationCenter` and the viewport render their items without live roles, so each notification is announced once (tested).
+- `InlineAlert`:
+  - It is built on GDS tokens instead of Mantine `Alert`. Mantine's `Alert` forces `role="alert"`, so every `InlineAlert` was announced assertively, including info and success, against its documented `role="status"`.
+  - It paints from the severity's soft badge pair, which is contrast-checked per preset and scheme, and takes `live` (default true).
+  - Its status badge is a translated label; the internal "shown" is no longer displayed.
+  - Visible change: the alert colours follow the badge tones.
+- Translated strings that were hardcoded English:
+  - `NotificationCenter`'s "Clear all", "Retry", "Retrying" and "Dismiss";
+  - the toast retry label;
+  - `GdsConfirmProvider`'s undo panel and failure alert.
+
 ### `role` and `id` on layout primitives and text roles (#945)
 
 - The layout primitives (`GdsBox`, `GdsStack`, `GdsInline`, `GdsGrid` and the others) accept `id` and `role` in their types. Both already reached the DOM, but TypeScript rejected them, so landmarks such as `role="log"` and scroll anchors needed a wrapper.

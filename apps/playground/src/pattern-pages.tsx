@@ -101,6 +101,8 @@ import {
   MediaField,
   MetricCard,
   NotificationCenter,
+  Select,
+  GdsToastViewport,
   GdsNotificationBell,
   OverlayManagerProvider,
   useOverlayManager,
@@ -1398,6 +1400,28 @@ function channelSummary(): string {
   return 'Online orders account for %online% percent of visible orders; in-store orders account for %instore% percent.'
     .replace(/%online%/, String(CHANNEL_SHARES[0].share))
     .replace(/%instore%/, String(CHANNEL_SHARES[1].share));
+}
+
+function ToastPositionDemo() {
+  const [position, setPosition] = useState<'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'>('bottom-end');
+  return (
+    <>
+      <Select
+        label="Toast position"
+        description="Where GdsToastViewport anchors the toast stack. Trigger a toast with the bell above."
+        value={position}
+        allowDeselect={false}
+        onChange={(value) => { if (value) setPosition(value as typeof position); }}
+        data={[
+          { value: 'top-start', label: 'Top, start edge' },
+          { value: 'top-end', label: 'Top, end edge' },
+          { value: 'bottom-start', label: 'Bottom, start edge' },
+          { value: 'bottom-end', label: 'Bottom, end edge' },
+        ]}
+      />
+      <GdsToastViewport position={position} />
+    </>
+  );
 }
 
 function NotificationBellDemo() {
@@ -3718,6 +3742,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
               />
               <br />
               <NotificationCenter />
+              <ToastPositionDemo />
             </div>
           </SectionPanel>
         </GdsNotificationProvider>

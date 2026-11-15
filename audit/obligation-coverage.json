@@ -1,14 +1,14 @@
 {
-  "evaluated": 1282,
+  "evaluated": 1290,
   "gapCount": 344,
-  "excludedCount": 80,
+  "excludedCount": 81,
   "byKind": {
     "prop": {
-      "evaluated": 1163,
+      "evaluated": 1167,
       "gaps": 306
     },
     "variant": {
-      "evaluated": 109,
+      "evaluated": 113,
       "gaps": 38
     },
     "accent": {
@@ -1340,7 +1340,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/FeedbackRuntime.client.tsx",
-        "line": 92
+        "line": 93
       },
       "unmet": [
         {

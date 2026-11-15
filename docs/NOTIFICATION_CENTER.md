@@ -24,7 +24,9 @@ The provider owns queue state, deterministic replacement by `id` or `key`, persi
 
 - `GdsNotificationProvider` wraps the app or route surface and accepts `defaultPolicy`, `disabled`, and `onAuditEvent`.
 - `useGdsNotifications()` exposes `notify`, `updateNotification`, `dismissNotification`, `runRetry`, `runAction`, `dismiss`, `clear`, and the current queue.
-- `GdsNotificationCenter` and `NotificationCenter` render the governed visual queue.
+- `GdsNotificationCenter` and `NotificationCenter` render the governed visual queue as a panel.
+- `GdsToastViewport` renders the queue as a stack fixed to a viewport corner (`position`, default `bottom-end`, logical so it mirrors in right-to-left layouts), above overlays (`gdsZIndexToken.max`), clear of safe areas, at most `maxVisible` (default 3) with a count of the rest. `GdsToastProvider` renders one unless `viewport={false}`; pass viewport props to place it.
+- Announcements: the provider's live region announces every notification once. `NotificationCenter` and `GdsToastViewport` render their items without live roles (`InlineAlert live={false}`), so showing both does not repeat an announcement. `NotificationCenterView` used on its own keeps live items by default.
 - `NotificationCenterView` is the server-safe rendering contract for package-owned composition.
 - `createGdsNotificationId(prefix)` creates stable-enough runtime IDs for transient notifications.
 - `getGdsNotificationLivePolicy(message)` resolves polite/assertive/off announcement policy.
