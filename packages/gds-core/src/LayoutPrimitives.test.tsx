@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { renderWithGds } from '../../../test-utils/render';
-import { GdsBox, GdsColumnGrid, GdsGrid, GdsInline, GdsSidebar, GdsSplit } from './LayoutPrimitives';
+import { GdsBox, GdsColumnGrid, GdsGrid, GdsInline, GdsSidebar, GdsSplit, GdsStack } from './LayoutPrimitives';
+import { BodyText } from './Typography';
 
 // An inline declaration outranks every media rule, so a responsive value must live entirely in
 // the generated class rules: base first, then one media rule per breakpoint (#945).
@@ -61,5 +62,23 @@ describe('responsive layout primitives (#945)', () => {
     expect(box.css).toContain('padding:var(--mantine-spacing-xl);');
     expect(probe(container, 'explicit').element.style.padding).toBe('0px');
     expect(probe(container, 'plain').element.style.padding).toBe('var(--mantine-spacing-md)');
+  });
+});
+
+describe('role and id on layout and text roles (#945)', () => {
+  it('passes role and id through layout primitives and text roles', () => {
+    const { container } = renderWithGds(
+      <>
+        <GdsStack id="thread" role="log" aria-label="Conversation">
+          <BodyText role="status">Saved</BodyText>
+        </GdsStack>
+        <GdsInline id="actions" role="toolbar" aria-label="Actions"><span /></GdsInline>
+        <GdsBox id="anchor" role="region" aria-label="Details">x</GdsBox>
+      </>,
+    );
+    expect(container.querySelector('#thread')?.getAttribute('role')).toBe('log');
+    expect(container.querySelector('#actions')?.getAttribute('role')).toBe('toolbar');
+    expect(container.querySelector('#anchor')?.getAttribute('role')).toBe('region');
+    expect(container.querySelector('[role="status"]')?.textContent).toBe('Saved');
   });
 });

@@ -48,6 +48,8 @@ Every responsive prop accepts either one value or a breakpoint object:
 
 A single value is written to the element's inline style. A breakpoint object is written as generated class rules: the `base` value (or the prop's default when `base` is omitted), then one `min-width` media rule per breakpoint. None of a breakpoint object's values go inline, because an inline declaration outranks every media rule. An explicit `style` entry for the same property still wins over both. `GdsSplit` and `GdsSidebar` always use class rules, since they collapse below `collapseBelow`. `LayoutPrimitives.test.tsx` asserts this for each primitive. Before this was fixed (#945), the base value was also written inline, so no breakpoint value ever applied, and `GdsSplit`, `GdsSidebar` and responsive `GdsGrid` columns stayed a single column at every width.
 
+Every primitive also takes `id` and `role` (for example `role="log"` on a `GdsStack` that lists messages, or an `id` as an in-page anchor), and `aria-*` attributes. The typography roles (`PageTitle`, `SectionTitle`, `CardTitle`, `BodyText`, `MetadataText` and the others) take `id`, `className` and `role`.
+
 The accepted values are the types in `packages/gds-core/src/LayoutPrimitives.tsx`; TypeScript rejects anything else:
 
 - breakpoints (`GdsLayoutBreakpoint`): `base`, `xs`, `sm`, `md`, `lg`, `xl`

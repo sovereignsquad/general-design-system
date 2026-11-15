@@ -16,6 +16,11 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### `role` and `id` on layout primitives and text roles (#945)
+
+- The layout primitives (`GdsBox`, `GdsStack`, `GdsInline`, `GdsGrid` and the others) accept `id` and `role` in their types. Both already reached the DOM, but TypeScript rejected them, so landmarks such as `role="log"` and scroll anchors needed a wrapper.
+- The typography roles accept `role` and forward it to the rendered element.
+
 ### Production UI findings: dialogs, overlays, SearchableSelect, SemanticButton (#945)
 
 - `ConfirmDialog`:
