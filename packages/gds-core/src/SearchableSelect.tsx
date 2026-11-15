@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
-import { Combobox, Group, InputBase, Loader, Text, useCombobox } from '@mantine/core';
+import { CloseButton, Combobox, Group, InputBase, Loader, Text, VisuallyHidden, useCombobox } from '@mantine/core';
 import { GdsIcons } from './icons';
 
 /**
@@ -43,8 +43,15 @@ export interface SearchableSelectProps<T extends string = string> {
   errorLabel?: string;
   /** Retry-link label shown in the async error state. Defaults to "Retry". */
   retryLabel?: string;
-  /** Accessible label for the trigger button. */
+  /** Visible label above the trigger, associated with it. Prefer this over `ariaLabel`. */
+  label?: string;
+  /**
+   * Accessible name for the trigger when no visible `label` fits. The selected label or the
+   * placeholder is appended, so the accessible name always contains the visible text.
+   */
   ariaLabel?: string;
+  /** Accessible name of the clear button; defaults to the `gds.searchableSelect.clear` message. */
+  clearLabel?: string;
 }
 
 type LoadState = 'idle' | 'loading' | 'ready' | 'empty' | 'error';
@@ -90,9 +97,14 @@ export function SearchableSelect<T extends string = string>({
   noResultsLabel: noResultsLabelProp,
   errorLabel: errorLabelProp,
   retryLabel: retryLabelProp,
+  label,
   ariaLabel,
+  clearLabel: clearLabelProp,
 }: SearchableSelectProps<T>) {
   const { t } = useGdsTranslation();
+  const clearLabel = clearLabelProp ?? t('gds.searchableSelect.clear', 'Clear selection');
+  const nameId = useId();
+  const valueId = useId();
   const noResultsLabel = noResultsLabelProp ?? t('gds.searchableSelect.noResultsLabel', "No results found");
   const errorLabel = errorLabelProp ?? t('gds.searchableSelect.errorLabel', "Could not load options");
   const retryLabel = retryLabelProp ?? t('gds.searchableSelect.retryLabel', "Retry");
@@ -204,14 +216,15 @@ export function SearchableSelect<T extends string = string>({
           component="button"
           type="button"
           pointer
-          aria-label={ariaLabel}
+          label={label}
+          aria-labelledby={ariaLabel && !label ? `${nameId} ${valueId}` : undefined}
           disabled={disabled}
           rightSection={
             clearable && value ? (
-              <GdsIcons.Close
-                size="0.9rem"
-                role="button"
-                aria-label="Clear selection"
+              <CloseButton
+                size="sm"
+                aria-label={clearLabel}
+                icon={<GdsIcons.Close size="0.9rem" aria-hidden="true" />}
                 onClick={(event: React.MouseEvent) => {
                   event.stopPropagation();
                   onChange(null);
@@ -221,9 +234,11 @@ export function SearchableSelect<T extends string = string>({
               <Combobox.Chevron />
             )
           }
+          rightSectionPointerEvents={clearable && value ? 'all' : 'none'}
           onClick={() => combobox.toggleDropdown()}
         >
-          {selectedLabel || <Text component="span" c="dimmed">{placeholder}</Text>}
+          {ariaLabel && !label ? <VisuallyHidden id={nameId}>{ariaLabel}</VisuallyHidden> : null}
+          <span id={valueId}>{selectedLabel || <Text component="span" c="dimmed">{placeholder}</Text>}</span>
         </InputBase>
       </Combobox.Target>
 

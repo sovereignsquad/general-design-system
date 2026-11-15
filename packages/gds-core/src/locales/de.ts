@@ -406,4 +406,5 @@ export const de = {
   'gds.notifications.severity.info': "Info",
   'gds.notifications.severity.neutral': "Beachten",
   'gds.notifications.severity.loading': "Im Gange",
+  'gds.searchableSelect.clear': "Klare Auswahl",
 };

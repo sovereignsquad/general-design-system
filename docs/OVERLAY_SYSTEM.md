@@ -6,6 +6,8 @@ Last updated: 2026-08-08
 
 `OverlayManagerProvider` is the canonical GDS lifecycle contract for modals, drawers, sheets, popovers, command surfaces, and confirmation overlays. Products must not invent route-local overlay stacks, focus-trap behavior, body-scroll policy, or nested-modal rules.
 
+`GdsModal`, `GdsDialog`, `GdsDrawer` and `GdsSheet` render without the provider: they open, trap focus, apply `closeOnEscape` and `closeOnOutsideClick`, and call `onClose`, and they log a development warning once. Without the provider there is no stack (each surface is independent), no registry entry, and no close blocking (`onBlockedClose` is never called). `useOverlayManager()` still throws outside the provider. Before #945 the surfaces threw outside it too.
+
 ## Architecture
 
 ```text

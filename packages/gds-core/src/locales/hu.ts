@@ -406,4 +406,5 @@ export const hu = {
   'gds.notifications.severity.info': "Info",
   'gds.notifications.severity.neutral': "Értesítés",
   'gds.notifications.severity.loading': "Folyamatban van",
+  'gds.searchableSelect.clear': "Kiválasztás törlése",
 };

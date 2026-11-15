@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { ReactNode } from 'react';
 import { Drawer, Modal } from '@mantine/core';
 import type { DrawerProps, ModalProps } from '@mantine/core';
-import { getGdsMotionPreset, useGdsTranslation } from '@sovereignsquad/gds-theme';
+import { getGdsMotionPreset, gdsDevWarnOnce, useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 /** Governed overlay surface kinds. */
 export type GdsOverlayType = 'modal' | 'dialog' | 'drawer' | 'sheet' | 'popover' | 'command';
@@ -294,19 +294,32 @@ function useOverlaySurface({
   onClose,
   onBlockedClose,
 }: GdsOverlaySurfaceBaseProps & { kind: GdsOverlayType }) {
-  const {
-    registerOverlay,
-    unregisterOverlay,
-    requestClose: requestOverlayClose,
-  } = useOverlayManager();
+  // Without an OverlayManagerProvider the surface still opens, traps focus and honours its
+  // escape and outside-click policy through Mantine; stacking, the overlay registry and close
+  // blocking need the provider.
+  const manager = useContext(OverlayManagerContext);
+  if (!manager) {
+    gdsDevWarnOnce(
+      'OverlayManager:missing-provider',
+      'A GDS overlay (GdsModal, GdsDialog, GdsDrawer or GdsSheet) rendered without an OverlayManagerProvider. It works standalone; wrap the app in OverlayManagerProvider for stacking, the overlay registry and close blocking.',
+    );
+  }
+
+  const registerOverlay = manager?.registerOverlay;
+  const unregisterOverlay = manager?.unregisterOverlay;
+  const requestOverlayClose = manager?.requestClose;
 
   useEffect(() => {
-    if (!opened) return undefined;
+    if (!registerOverlay || !unregisterOverlay || !opened) return undefined;
     registerOverlay({ id, kind, title, description, invokerId, policy });
     return () => unregisterOverlay(id);
   }, [description, id, invokerId, kind, opened, policy, registerOverlay, title, unregisterOverlay]);
 
   const requestClose = useCallback((reason: OverlayCloseReason) => {
+    if (!requestOverlayClose || !unregisterOverlay) {
+      onClose();
+      return;
+    }
     const acceptedReason = requestOverlayClose(id, reason);
     if (!acceptedReason) {
       onBlockedClose?.(reason);

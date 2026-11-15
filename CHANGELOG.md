@@ -16,6 +16,20 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Production UI findings: dialogs, overlays, SearchableSelect, SemanticButton (#945)
+
+- `ConfirmDialog`:
+  - Its close button is named (`gds.overlay.close`). It was unnamed, which fails axe `button-name`, critical.
+  - New `confirmLabel` and `cancelLabel` props.
+  - A non-danger confirm uses the theme primary colour instead of a hardcoded violet.
+- `GdsModal`, `GdsDialog`, `GdsDrawer` and `GdsSheet` render without an `OverlayManagerProvider` instead of throwing, with a development warning. Stacking, the overlay registry and close blocking still need the provider.
+- `SearchableSelect`:
+  - New `label` (a visible, associated label).
+  - `ariaLabel` now names the trigger through `aria-labelledby` together with the visible selection or placeholder. The name contains the visible text, so axe's `label-content-name-mismatch` passes.
+  - The clear control is a real, focusable button with a translated name (`gds.searchableSelect.clear`, `clearLabel`). It was an icon with `role="button"` that the keyboard could not reach.
+- `SemanticButton` types `children` as `never` and warns in development, because children were silently discarded; the text comes from `action` or `label`.
+  - Seven buttons on the reference site passed children that never rendered. They now pass none, so what renders is unchanged.
+
 ### Responsive layout props apply at their breakpoints (#945)
 
 - Every layout primitive wrote the `base` value of a responsive prop inline and its breakpoint values as class media rules. An inline declaration outranks a class rule, so no breakpoint value ever applied.

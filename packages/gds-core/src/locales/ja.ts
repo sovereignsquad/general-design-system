@@ -406,4 +406,5 @@ export const ja = {
   'gds.notifications.severity.info': "情報",
   'gds.notifications.severity.neutral': "知らせ",
   'gds.notifications.severity.loading': "進行中",
+  'gds.searchableSelect.clear': "選択をクリア",
 };

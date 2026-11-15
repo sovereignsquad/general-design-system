@@ -406,4 +406,5 @@ export const zh = {
   'gds.notifications.severity.info': "信息",
   'gds.notifications.severity.neutral': "注意",
   'gds.notifications.severity.loading': "进行中",
+  'gds.searchableSelect.clear': "清除选择",
 };

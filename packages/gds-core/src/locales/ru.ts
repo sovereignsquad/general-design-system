@@ -406,4 +406,5 @@ export const ru = {
   'gds.notifications.severity.info': "Информация",
   'gds.notifications.severity.neutral': "Уведомление",
   'gds.notifications.severity.loading': "В ходе выполнения",
+  'gds.searchableSelect.clear': "Очистить выбор",
 };

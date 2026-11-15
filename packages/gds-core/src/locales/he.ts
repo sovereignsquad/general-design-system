@@ -406,4 +406,5 @@ export const he = {
   'gds.notifications.severity.info': "מידע",
   'gds.notifications.severity.neutral': "הוֹדָעָה",
   'gds.notifications.severity.loading': "בתהליך",
+  'gds.searchableSelect.clear': "נקה בחירה",
 };
