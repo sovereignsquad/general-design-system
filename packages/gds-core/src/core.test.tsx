@@ -1244,7 +1244,8 @@ describe('@sovereignsquad/gds-core', () => {
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Delete' }));
     expect(onConfirmed).toHaveBeenCalledTimes(1);
-    expect(screen.getByText('Deleted')).toBeInTheDocument();
+    // The toast is visible in the toast viewport (#973) as well as in the NotificationCenter.
+    expect(within(screen.getByRole('region', { name: 'Recent notifications' })).getByText('Deleted')).toBeInTheDocument();
   });
 
   it('runs typed confirmation actions with async failure, retry, undo, events, and focus return', async () => {
@@ -2735,7 +2736,7 @@ describe('@sovereignsquad/gds-core', () => {
 
     await user.click(screen.getByRole('button', { name: 'Mark finished' }));
     expect(screen.getByText('Partner sync finished')).toBeInTheDocument();
-    expect(screen.getByText('succeeded')).toBeInTheDocument();
+    expect(screen.getByText('Succeeded')).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Announce only' }));
     expect(screen.queryByText('Screen reader only update')).not.toBeInTheDocument();
@@ -2782,7 +2783,7 @@ describe('@sovereignsquad/gds-core', () => {
 
     await waitFor(() => expect(retry).toHaveBeenCalledTimes(1));
     expect(action).toHaveBeenCalledTimes(1);
-    expect(screen.getByText('succeeded')).toBeInTheDocument();
+    expect(screen.getByText('Succeeded')).toBeInTheDocument();
     expect(audit.mock.calls.map(([event]) => event.type)).toEqual(expect.arrayContaining([
       'shown',
       'action_clicked',

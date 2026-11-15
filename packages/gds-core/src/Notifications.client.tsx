@@ -1,9 +1,12 @@
 'use client';
-import { useGdsTranslation } from '@sovereignsquad/gds-theme';
+import { gdsSafeAreaInset, gdsZIndexToken, useGdsTranslation } from '@sovereignsquad/gds-theme';
+import { Box, Button, Group, Text } from '@mantine/core';
+import { GdsStack } from './LayoutPrimitives';
 
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
+  InlineAlert,
   NotificationCenterView,
   createGdsNotificationAuditEvent,
   getGdsNotificationLivePolicy,
@@ -133,9 +136,10 @@ export function GdsNotificationProvider({
     const mergedPolicy = { ...defaultPolicy, ...policy };
     const next = normalizeNotification(message, mergedPolicy);
     audit('shown', next);
-    if (next.persistence === 'announcement-only' || next.announcementOnly || disabled) {
-      setAnnouncement(next);
-    }
+    // The provider's live region announces every notification, so visible renderers
+    // (NotificationCenter, GdsToastViewport) render without live roles and each message is
+    // announced once.
+    setAnnouncement(next);
 
     if (disabled) return next.id;
 
@@ -266,6 +270,7 @@ export function NotificationCenter({
 
   return (
     <NotificationCenterView
+      live={false}
       title={title}
       emptyMessage={emptyMessage}
       notifications={notifications}
@@ -283,3 +288,81 @@ export function NotificationCenter({
 
 /** Alias for {@link NotificationCenter}. */
 export const GdsNotificationCenter = NotificationCenter;
+
+/** Props for {@link GdsToastViewport}. */
+export interface GdsToastViewportProps {
+  /** Corner the stack is anchored to. Logical, so `end` is the left edge in right-to-left layouts. Defaults to `bottom-end`. */
+  position?: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
+  /** Most toasts shown at once; older ones are counted in a summary line. Defaults to 3. */
+  maxVisible?: number;
+}
+
+/**
+ * Visible stack of the active notifications from {@link GdsNotificationProvider}, fixed to a
+ * viewport corner above overlays (`gdsZIndexToken.max`) and clear of device safe areas. Items are
+ * not live regions: the provider already announces each notification once. Each toast offers its
+ * actions, retry and dismiss. `GdsToastProvider` renders one unless `viewport={false}`.
+ */
+export function GdsToastViewport({ position = 'bottom-end', maxVisible = 3 }: GdsToastViewportProps) {
+  const { t } = useGdsTranslation();
+  const { notifications, dismissNotification, runAction, runRetry } = useGdsNotifications();
+  const visible = notifications.filter((item) => item.persistence !== 'announcement-only' && !item.announcementOnly);
+  if (visible.length === 0) return null;
+  const shown = visible.slice(-Math.max(1, maxVisible));
+  const hiddenCount = visible.length - shown.length;
+  const [vertical, horizontal] = position.split('-') as ['top' | 'bottom', 'start' | 'end'];
+  const sideInset = `calc(var(--gds-space-md) + max(${gdsSafeAreaInset.left}, ${gdsSafeAreaInset.right}))`;
+  const edgeInset = `calc(var(--gds-space-md) + ${vertical === 'top' ? gdsSafeAreaInset.top : gdsSafeAreaInset.bottom})`;
+
+  return (
+    <Box
+      component="section"
+      aria-label={t('gds.toast.regionLabel', 'Recent notifications')}
+      data-gds-toast-viewport={position}
+      style={{
+        position: 'fixed',
+        zIndex: gdsZIndexToken.max,
+        [vertical]: edgeInset,
+        insetInlineStart: horizontal === 'start' ? sideInset : undefined,
+        insetInlineEnd: horizontal === 'end' ? sideInset : undefined,
+        inlineSize: 'calc(100% - 2 * var(--gds-space-md))',
+        display: 'flex',
+        justifyContent: horizontal === 'end' ? 'flex-end' : 'flex-start',
+        pointerEvents: 'none',
+      }}
+    >
+      <GdsStack gap="sm" maxWidth="aside" style={{ inlineSize: '100%', pointerEvents: 'auto' }}>
+        {hiddenCount > 0 ? (
+          <Text size="xs" c="dimmed">{t('gds.toast.more', '{count} more').replace('{count}', String(hiddenCount))}</Text>
+        ) : null}
+        {shown.map((item) => (
+          <InlineAlert
+            key={item.id}
+            live={false}
+            severity={item.severity}
+            status={item.status}
+            title={item.title}
+            message={item.message}
+            action={(
+              <Group gap="xs">
+                {item.actions?.map((action) => (
+                  <Button key={action.id} size="xs" variant="default" onClick={() => runAction(item.id, action.id)} disabled={action.disabled}>
+                    {action.label}
+                  </Button>
+                ))}
+                {item.retry ? (
+                  <Button size="xs" variant="default" onClick={() => void runRetry(item.id)} disabled={item.status === 'retrying'}>
+                    {item.status === 'retrying' ? t('gds.notifications.status.retrying', 'Retrying') : (item.retry.label ?? t('gds.notifications.retry', 'Retry'))}
+                  </Button>
+                ) : null}
+                <Button size="xs" variant="subtle" onClick={() => dismissNotification(item.id)}>
+                  {t('gds.notifications.dismiss', 'Dismiss')}
+                </Button>
+              </Group>
+            )}
+          />
+        ))}
+      </GdsStack>
+    </Box>
+  );
+}

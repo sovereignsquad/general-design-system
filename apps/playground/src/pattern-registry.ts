@@ -1071,7 +1071,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     section: 'Overlays & Feedback',
     summary: 'Notifications use the governed queue for severity, retry, announcement-only updates, persistence, and metadata-only audit events. GdsNotificationBell is the header/topbar trigger affordance — a bell with an unread dot, wired to the provider\'s live notification count.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'GdsNotificationProvider / GdsNotificationCenter / NotificationCenter / InlineAlert / BannerNotice / GdsNotificationBell / useGdsNotifications',
+    sourceComponent: 'GdsNotificationProvider / GdsNotificationCenter / NotificationCenter / GdsToastViewport / InlineAlert / BannerNotice / GdsNotificationBell / useGdsNotifications',
   },
   {
     id: 'motion-system',

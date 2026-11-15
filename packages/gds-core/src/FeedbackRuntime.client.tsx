@@ -2,9 +2,10 @@
 
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Alert, Button, Group, Paper, Stack, Text } from '@mantine/core';
 import { ConfirmDialog } from './ConfirmDialog';
-import { GdsNotificationProvider, useGdsNotifications } from './Notifications.client';
+import { GdsNotificationProvider, GdsToastViewport, useGdsNotifications, type GdsToastViewportProps } from './Notifications.client';
 import type { GdsNotificationMessage } from './Notifications';
 import type { SemanticAction } from './vocabulary';
 
@@ -111,7 +112,8 @@ type ActiveConfirmRequest =
 
 interface UndoState {
   id: string;
-  label: string;
+  /** Caller label; the translated default is resolved at render. */
+  label?: string;
   expiresAt: number;
   onUndo: () => Promise<void>;
 }
@@ -146,6 +148,7 @@ export function GdsConfirmProvider({
   defaultTimeoutMs = 10000,
   onConfirmationEvent,
 }: GdsConfirmProviderProps) {
+  const { t } = useGdsTranslation();
   const [activeRequest, setActiveRequest] = useState<ActiveConfirmRequest | null>(null);
   const [undoState, setUndoState] = useState<UndoState | null>(null);
   const activeResolver = useRef<((confirmed: boolean) => void) | null>(null);
@@ -239,7 +242,7 @@ export function GdsConfirmProvider({
         const undoPolicy = request.undo;
         setUndoState({
           id: request.id ?? 'confirmation-undo',
-          label: undoPolicy.label ?? 'Undo',
+          label: undoPolicy.label,
           expiresAt,
           onUndo: async () => {
             emit('undo_started', request, 'undoable');
@@ -259,7 +262,7 @@ export function GdsConfirmProvider({
       setActiveRequest(null);
       restoreFocus();
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Action failed.';
+      const message = error instanceof Error ? error.message : undefined;
       emit('failed', request, 'failed');
       setActiveRequest({ ...request, status: 'failed', error: message });
     }
@@ -275,14 +278,14 @@ export function GdsConfirmProvider({
     <GdsConfirmContext.Provider value={value}>
       {children}
       {undoState ? (
-        <Paper withBorder radius="md" p="sm" mb="sm" role="status" aria-live="polite" aria-label="Action can be undone">
+        <Paper withBorder radius="md" p="sm" mb="sm" role="status" aria-live="polite" aria-label={t('gds.confirm.undoTitle', 'Action can be undone')}>
           <Group justify="space-between">
             <Stack gap={2}>
-              <Text fw={700} size="sm">Action can be undone</Text>
-              <Text size="sm">Undo is available until the recovery window expires.</Text>
+              <Text fw={700} size="sm">{t('gds.confirm.undoTitle', 'Action can be undone')}</Text>
+              <Text size="sm">{t('gds.confirm.undoDescription', 'Undo is available until the recovery window expires.')}</Text>
             </Stack>
             <Button size="xs" variant="default" onClick={() => { void undoState.onUndo(); }}>
-              {undoState.label}
+              {undoState.label ?? t('gds.confirm.undo', 'Undo')}
             </Button>
           </Group>
         </Paper>
@@ -309,9 +312,9 @@ export function GdsConfirmProvider({
           ) : null}
           {activeRequest?.mode === 'action' && activeRequest.preview ? <div>{activeRequest.preview}</div> : null}
           {activeRequest?.mode === 'action' && activeRequest.status === 'failed' ? (
-            <Alert color="red" title="Action failed" role="alert">
-              <Text size="sm">{activeRequest.error}</Text>
-              {activeRequest.retryable ? <Text size="xs">Use the primary action to retry.</Text> : null}
+            <Alert color="red" title={t('gds.confirm.failedTitle', 'Action failed')} role="alert">
+              <Text size="sm">{activeRequest.error ?? t('gds.confirm.failedDescription', 'The action did not complete.')}</Text>
+              {activeRequest.retryable ? <Text size="xs">{t('gds.confirm.retryHint', 'Use the primary action to retry.')}</Text> : null}
             </Alert>
           ) : null}
         </Stack>
@@ -350,11 +353,22 @@ function createToastId(prefix: string) {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
-/** Wraps children in the notification provider and exposes the governed toast API via `useGdsToasts`. */
-export function GdsToastProvider({ children }: { children: ReactNode }) {
+/** Props for {@link GdsToastProvider}. */
+export interface GdsToastProviderProps {
+  children: ReactNode;
+  /**
+   * Renders a {@link GdsToastViewport} so toasts are visible. Pass viewport props to place it, or
+   * `false` when the app shows notifications only in its own `NotificationCenter`. Defaults to true.
+   */
+  viewport?: boolean | GdsToastViewportProps;
+}
+
+/** Wraps children in the notification provider, exposes the governed toast API via `useGdsToasts`, and renders the visible toast stack. */
+export function GdsToastProvider({ children, viewport = true }: GdsToastProviderProps) {
   return (
     <GdsNotificationProvider>
       <GdsToastProviderInner>{children}</GdsToastProviderInner>
+      {viewport ? <GdsToastViewport {...(viewport === true ? {} : viewport)} /> : null}
     </GdsNotificationProvider>
   );
 }
@@ -373,7 +387,7 @@ function GdsToastProviderInner({ children }: { children: ReactNode }) {
       id: message.id ?? createToastId('error'),
       severity: 'error',
       autoCloseMs: message.autoCloseMs ?? false,
-      retry: message.retry ? { onRetry: message.retry, maxAttempts: 3, label: 'Retry' } : undefined,
+      retry: message.retry ? { onRetry: message.retry, maxAttempts: 3 } : undefined,
     }),
     notifyActionComplete: (message) => notify({
       ...message,
