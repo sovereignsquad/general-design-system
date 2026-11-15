@@ -216,13 +216,29 @@ function hashLayoutSignature(input: string) {
   return `gds-layout-${Math.abs(hash).toString(36)}`;
 }
 
+/** True when the value sets at least one breakpoint beyond `base`. */
+function hasBreakpoints<T>(value: GdsResponsiveValue<T> | undefined) {
+  return Object.values(normalizeGdsResponsiveValue(value).breakpoints).some((entry) => entry !== undefined);
+}
+
+/**
+ * Class rules for a responsive value: the base value, then one media rule per breakpoint.
+ * The base goes in the same rule set rather than the inline style, because an inline
+ * declaration would outrank every media rule. A plain value renders no rules; callers keep it
+ * inline. `fallback` is the base when the value sets breakpoints but no `base`.
+ */
 function responsiveCss<T>(
   className: string,
   property: string,
   value: GdsResponsiveValue<T> | undefined,
   resolver: (value: T) => string | number | undefined,
+  fallback?: T,
 ) {
+  if (!hasBreakpoints(value)) return '';
   const normalized = normalizeGdsResponsiveValue(value);
+  const base = normalized.base ?? fallback;
+  const resolvedBase = base === undefined ? undefined : resolver(base);
+  const baseRule = resolvedBase === undefined ? '' : `.${className}{${property}:${resolvedBase};}`;
   const rules = Object.entries(normalized.breakpoints)
     .filter((entry): entry is [Exclude<GdsLayoutBreakpoint, 'base'>, T] => entry[1] !== undefined)
     .map(([breakpoint, nextValue]) => {
@@ -230,7 +246,7 @@ function responsiveCss<T>(
       return resolved === undefined ? '' : `@media (min-width: ${breakpointPixels[breakpoint]}px){.${className}{${property}:${resolved};}}`;
     })
     .filter(Boolean);
-  return rules.join('');
+  return baseRule + rules.join('');
 }
 
 function baseValue<T>(value: GdsResponsiveValue<T> | undefined, fallback: T): T {
@@ -276,14 +292,27 @@ export function resolveGdsLayoutStyle({
 
 function sharedResponsiveCss(className: string, props: Pick<GdsBoxProps, 'display' | 'gap' | 'padding' | 'margin' | 'align' | 'justify' | 'maxWidth'>) {
   return [
-    responsiveCss(className, 'display', props.display, (value) => String(value)),
-    responsiveCss(className, 'gap', props.gap, resolveSpacing),
-    responsiveCss(className, 'padding', props.padding, resolveSpacing),
-    responsiveCss(className, 'margin', props.margin, resolveSpacing),
-    responsiveCss(className, 'align-items', props.align, (value) => alignMap[value]),
-    responsiveCss(className, 'justify-content', props.justify, (value) => justifyMap[value]),
-    responsiveCss(className, 'max-width', props.maxWidth, resolveSize),
+    responsiveCss(className, 'display', props.display, (value) => String(value), 'block'),
+    responsiveCss(className, 'gap', props.gap, resolveSpacing, 'none'),
+    responsiveCss(className, 'padding', props.padding, resolveSpacing, 'none'),
+    responsiveCss(className, 'margin', props.margin, resolveSpacing, 'none'),
+    responsiveCss(className, 'align-items', props.align, (value) => alignMap[value], 'stretch' as GdsLayoutAlign),
+    responsiveCss(className, 'justify-content', props.justify, (value) => justifyMap[value], 'start' as GdsLayoutJustify),
+    responsiveCss(className, 'max-width', props.maxWidth, resolveSize, 'full'),
   ].join('');
+}
+
+/** Removes inline declarations whose value is responsive, so the class rules can apply; an explicit `style` entry stays. */
+function withoutResponsiveInline(
+  computed: CSSProperties,
+  explicit: CSSProperties | undefined,
+  entries: Array<[unknown, keyof CSSProperties]>,
+): CSSProperties {
+  const next = { ...computed };
+  for (const [value, key] of entries) {
+    if (hasBreakpoints(value as GdsResponsiveValue<unknown>) && !(explicit && key in explicit)) delete next[key];
+  }
+  return next;
 }
 
 function joinClassNames(...classNames: Array<string | undefined>) {
@@ -316,7 +345,11 @@ export const GdsBox = forwardRef<HTMLElement, GdsBoxProps>(function GdsBox({
         ref={ref}
         component={component}
         className={joinClassNames(generatedClassName, className)}
-        style={resolveGdsLayoutStyle({ display, gap, padding, margin, align, justify, overflow, minWidth, maxWidth, style })}
+        style={withoutResponsiveInline(
+          resolveGdsLayoutStyle({ display, gap, padding, margin, align, justify, overflow, minWidth, maxWidth, style }),
+          style as CSSProperties | undefined,
+          [[display, 'display'], [gap, 'gap'], [padding, 'padding'], [margin, 'margin'], [align, 'alignItems'], [justify, 'justifyContent'], [maxWidth, 'maxWidth']],
+        )}
         {...props}
       >
         {children}
@@ -359,7 +392,7 @@ export const GdsInline = forwardRef<HTMLElement, GdsInlineProps>(function GdsInl
   ...props
 }, ref) {
   const generatedClassName = composeResponsiveClass({ wrap });
-  const css = responsiveCss(generatedClassName, 'flex-wrap', wrap, (value) => wrapMap[value]);
+  const css = responsiveCss(generatedClassName, 'flex-wrap', wrap, (value) => wrapMap[value], 'wrap' as GdsLayoutWrap);
   return (
     <>
       {renderResponsiveStyle(css)}
@@ -371,7 +404,7 @@ export const GdsInline = forwardRef<HTMLElement, GdsInlineProps>(function GdsInl
         align={align}
         justify={justify}
         className={joinClassNames(generatedClassName, className)}
-        style={{ flexWrap: wrapMap[baseValue(wrap, 'wrap')], minWidth: 0, ...style }}
+        style={{ flexWrap: hasBreakpoints(wrap) ? undefined : wrapMap[baseValue(wrap, 'wrap')], minWidth: 0, ...style }}
         {...props}
       />
     </>
@@ -409,7 +442,7 @@ export const GdsGrid = forwardRef<HTMLElement, GdsGridProps>(function GdsGrid({
   ...props
 }, ref) {
   const generatedClassName = composeResponsiveClass({ columns, minColumnWidth });
-  const css = responsiveCss(generatedClassName, 'grid-template-columns', columns, (value) => resolveGridColumns(value, minColumnWidth));
+  const css = responsiveCss(generatedClassName, 'grid-template-columns', columns, (value) => resolveGridColumns(value, minColumnWidth), 1);
   return (
     <>
       {renderResponsiveStyle(css)}
@@ -419,7 +452,7 @@ export const GdsGrid = forwardRef<HTMLElement, GdsGridProps>(function GdsGrid({
         display="grid"
         gap={gap}
         className={joinClassNames(generatedClassName, className)}
-        style={{ gridTemplateColumns: resolveGridColumns(baseValue(columns, 1), minColumnWidth), minWidth: 0, ...style }}
+        style={{ gridTemplateColumns: hasBreakpoints(columns) ? undefined : resolveGridColumns(baseValue(columns, 1), minColumnWidth), minWidth: 0, ...style }}
         {...props}
       />
     </>
@@ -443,7 +476,7 @@ export const GdsColumnGrid = forwardRef<HTMLElement, GdsColumnGridProps>(functio
   ...props
 }, ref) {
   const generatedClassName = composeResponsiveClass({ columns, type: 'column-grid' });
-  const css = responsiveCss(generatedClassName, 'grid-template-columns', columns, (value) => `repeat(${value}, minmax(0, 1fr))`);
+  const css = responsiveCss(generatedClassName, 'grid-template-columns', columns, (value) => `repeat(${value}, minmax(0, 1fr))`, 12);
   return (
     <>
       {renderResponsiveStyle(css)}
@@ -453,7 +486,7 @@ export const GdsColumnGrid = forwardRef<HTMLElement, GdsColumnGridProps>(functio
         display="grid"
         gap={gap}
         className={joinClassNames(generatedClassName, className)}
-        style={{ gridTemplateColumns: `repeat(${baseValue(columns, 12)}, minmax(0, 1fr))`, minWidth: 0, ...style }}
+        style={{ gridTemplateColumns: hasBreakpoints(columns) ? undefined : `repeat(${baseValue(columns, 12)}, minmax(0, 1fr))`, minWidth: 0, ...style }}
         {...props}
       />
     </>
@@ -484,8 +517,8 @@ export const GdsColumnGridItem = forwardRef<HTMLElement, GdsColumnGridItemProps>
         component={component}
         className={joinClassNames(generatedClassName, className)}
         style={{
-          gridColumnStart: baseStart,
-          gridColumnEnd: baseSpan !== undefined ? `span ${baseSpan}` : undefined,
+          gridColumnStart: hasBreakpoints(start) ? undefined : baseStart,
+          gridColumnEnd: hasBreakpoints(span) || baseSpan === undefined ? undefined : `span ${baseSpan}`,
           minWidth: 0,
           ...style,
         }}
@@ -510,7 +543,7 @@ export const GdsSplit = forwardRef<HTMLElement, GdsSplitProps>(function GdsSplit
   ...props
 }, ref) {
   const generatedClassName = composeResponsiveClass({ ratio, collapseBelow, type: 'split' });
-  const css = `@media (min-width: ${breakpointPixels[collapseBelow]}px){.${generatedClassName}{grid-template-columns:${splitTemplate(ratio)};}}`;
+  const css = `.${generatedClassName}{grid-template-columns:minmax(0, 1fr);}@media (min-width: ${breakpointPixels[collapseBelow]}px){.${generatedClassName}{grid-template-columns:${splitTemplate(ratio)};}}`;
   return (
     <>
       {renderResponsiveStyle(css)}
@@ -519,7 +552,7 @@ export const GdsSplit = forwardRef<HTMLElement, GdsSplitProps>(function GdsSplit
         display="grid"
         gap={gap}
         className={joinClassNames(generatedClassName, className)}
-        style={{ gridTemplateColumns: 'minmax(0, 1fr)', alignItems: 'start', ...style }}
+        style={{ alignItems: 'start', ...style }}
         {...props}
       />
     </>
@@ -539,7 +572,7 @@ export const GdsSidebar = forwardRef<HTMLElement, GdsSidebarProps>(function GdsS
   const generatedClassName = composeResponsiveClass({ side, sidebarWidth, collapseBelow, type: 'sidebar' });
   const sidebarTrack = `minmax(min(100%, ${resolveSize(sidebarWidth)}), ${resolveSize(sidebarWidth)})`;
   const template = side === 'start' ? `${sidebarTrack} minmax(0, 1fr)` : `minmax(0, 1fr) ${sidebarTrack}`;
-  const css = `@media (min-width: ${breakpointPixels[collapseBelow]}px){.${generatedClassName}{grid-template-columns:${template};}}`;
+  const css = `.${generatedClassName}{grid-template-columns:minmax(0, 1fr);}@media (min-width: ${breakpointPixels[collapseBelow]}px){.${generatedClassName}{grid-template-columns:${template};}}`;
   return (
     <>
       {renderResponsiveStyle(css)}
@@ -548,7 +581,7 @@ export const GdsSidebar = forwardRef<HTMLElement, GdsSidebarProps>(function GdsS
         display="grid"
         gap={gap}
         className={joinClassNames(generatedClassName, className)}
-        style={{ gridTemplateColumns: 'minmax(0, 1fr)', alignItems: 'start', ...style }}
+        style={{ alignItems: 'start', ...style }}
         {...props}
       />
     </>
@@ -566,7 +599,7 @@ export const GdsBleed = forwardRef<HTMLElement, GdsBleedProps>(function GdsBleed
   const css = responsiveCss(generatedClassName, 'margin-inline', bleed, (value) => {
     const resolved = resolveSpacing(value);
     return resolved ? `calc(${resolved} * -1)` : undefined;
-  });
+  }, 'md');
   const baseBleed = resolveSpacing(baseValue(bleed, 'md'));
   return (
     <>
@@ -574,7 +607,7 @@ export const GdsBleed = forwardRef<HTMLElement, GdsBleedProps>(function GdsBleed
       <GdsBox
         ref={ref}
         className={joinClassNames(generatedClassName, className)}
-        style={{ marginInline: baseBleed ? `calc(${baseBleed} * -1)` : undefined, ...style }}
+        style={{ marginInline: !hasBreakpoints(bleed) && baseBleed ? `calc(${baseBleed} * -1)` : undefined, ...style }}
         {...props}
       />
     </>
