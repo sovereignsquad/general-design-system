@@ -400,4 +400,10 @@ export const ar = {
   'gds.gdsPageTemplates.event.noMediaTitle': "لا توجد صورة",
   'gds.gdsPageTemplates.event.noMediaDescription': "هذا الحدث ليس له صورة.",
   'gds.gdsPageTemplates.event.badge': "حدث",
+  'gds.notifications.severity.success': "نجاح",
+  'gds.notifications.severity.error': "خطأ",
+  'gds.notifications.severity.warning': "تحذير",
+  'gds.notifications.severity.info': "معلومات",
+  'gds.notifications.severity.neutral': "يلاحظ",
+  'gds.notifications.severity.loading': "في تَقَدم",
 };

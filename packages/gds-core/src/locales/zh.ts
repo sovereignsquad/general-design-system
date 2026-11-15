@@ -400,4 +400,10 @@ export const zh = {
   'gds.gdsPageTemplates.event.noMediaTitle': "无图像",
   'gds.gdsPageTemplates.event.noMediaDescription': "此事件没有图像。",
   'gds.gdsPageTemplates.event.badge': "事件",
+  'gds.notifications.severity.success': "成功",
+  'gds.notifications.severity.error': "错误",
+  'gds.notifications.severity.warning': "警告",
+  'gds.notifications.severity.info': "信息",
+  'gds.notifications.severity.neutral': "注意",
+  'gds.notifications.severity.loading': "进行中",
 };

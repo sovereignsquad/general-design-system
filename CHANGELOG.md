@@ -16,6 +16,15 @@ The maintainer decided on 2026-10-07 that npmjs.com becomes the primary public r
 
 GDS 6.8.0 was published to npmjs.com on 2026-10-07: all seven `@sovereignsquad` packages, by `publish-npmjs.yml` with trusted publishing and no stored token, `latest` now 6.8.0 (it was the `3.9.0` snapshot). Each package's `dist.integrity` equals the GitHub Packages tarball, and `npm run verify:published` against `https://registry.npmjs.org` passes. The workflow now waits up to 10 minutes (was 2.5) for the registry to show each version, because npmjs took about 5 minutes to show `@sovereignsquad/gds-core`. The trusted-publisher configurations must allow `npm publish`, not only the default `npm stage publish`. Not done yet: the install guide and consumer docs, the `3.9.0` deprecation, removing the `NPM_TOKEN` secret and consumers dropping vendored tarballs. No package changed.
 
+### Default-lane dimmed text, axe-less scans and BannerNotice announcements (#944)
+
+- Lanes without a theme preset (`gdsTheme`, `gdsDarkPublicTheme`, `createPublicBrandTheme`) render dimmed text, such as `PageHeader` and `StateBlock` descriptions, in `--gds-text-meta`. It was Mantine's gray-6 and dark-2, measured at 3.32:1 on the light body and 4.04:1 on the dark body. It is now 4.76:1 and 10.46:1. `verify:default-lane-axis-runtime` checks it in both schemes.
+- Preset lanes already used `--gds-vibe-muted`. All 27 presets were measured at 4.5:1 or more for muted text against canvas, page, surface and card in both schemes, computed from the emitted tokens.
+- The active `SidebarNavItem` label reported in the issue is 14.91:1 (light) and 13.05:1 (dark) since the navigation roles of #955.
+- `runGdsAxeScan` returns a critical `gds-axe-missing` failure when `axe` is not defined in the page, instead of an empty result. `A11Y_CI_PACKAGE.md` loads axe with `page.addInitScript`, which survives the navigation `createGdsA11yTest` performs, and notes that a relative `route` needs Playwright's `baseURL`.
+- `BannerNotice` in the default `panel` variant is a live region (`role="alert"` for errors, `role="status"` otherwise), as the `compact` variant and `InlineAlert` already were.
+- Its severity badge is a translated label (`gds.notifications.severity.*`). It previously showed internal state names, for example "not enough-data" for a warning.
+
 ### Mantine 9 leg in local preflight (#971)
 
 - `npm run preflight -- --mantine-9` also runs CI's Mantine 9 leg on the committed HEAD in a throwaway worktree. It runs the install, native-binding, Mantine 9 override and `verify:release` steps, each read from `.github/workflows/quality.yml` so the leg cannot drift from CI. The worktree is removed afterwards.

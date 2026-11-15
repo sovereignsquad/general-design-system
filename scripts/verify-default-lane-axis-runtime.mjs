@@ -40,6 +40,7 @@ const FIXTURE = `<!doctype html>
   <span id="badge-solid" style="background: var(--gds-badge-solid-success); color: var(--gds-badge-solid-success-fg)">done</span>
   <span id="badge-soft" style="background: var(--gds-badge-soft-info); color: var(--gds-badge-soft-info-fg)">info</span>
   <span id="brand-primary" style="background: var(--gds-brand-primary); color: var(--gds-brand-primary-fg)">primary</span>
+  <p id="dimmed" style="color: var(--mantine-color-dimmed)">secondary text</p>
 </body>
 </html>`;
 
@@ -57,6 +58,8 @@ const MEASURE_FIXTURE = `(() => {
     cardShadow: cs('card').boxShadow,
     badges: ['badge-solid', 'badge-soft', 'brand-primary'].map((id) => ({ id, bg: cs(id).backgroundColor, fg: cs(id).color })),
     bodyText: getComputedStyle(document.body).color,
+    bodyBg: getComputedStyle(document.body).backgroundColor,
+    dimmed: cs('dimmed').color,
   };
 })()`;
 
@@ -156,7 +159,9 @@ try {
       // A brand fill in the body text colour reads as text, not as a control (#968).
       if (badge.id === 'brand-primary' && opaque(badge.bg) && badge.bg === m.bodyText) failures.push(`${label}: #brand-primary fill is the body text colour ${badge.bg}.`);
     }
-    measured.push(`${label}: pill ${m.pillRadius}, padding ${m.heroPadding.join('/')}, NavLink ${m.navHeight}px, map border ${m.mapBorder.join(' ')}, badges ${m.badges.map((b) => (opaque(b.bg) ? contrast(b.bg, b.fg).toFixed(2) : 'transparent')).join('/')}:1`);
+    // Mantine's dimmed colour (PageHeader and StateBlock descriptions) is normal-size text (#944).
+    if (contrast(m.dimmed, m.bodyBg) < 4.5) failures.push(`${label}: dimmed text ${m.dimmed} is ${contrast(m.dimmed, m.bodyBg).toFixed(2)}:1 on the body ${m.bodyBg}, below 4.5:1.`);
+    measured.push(`${label}: dimmed ${contrast(m.dimmed, m.bodyBg).toFixed(2)}:1, pill ${m.pillRadius}, padding ${m.heroPadding.join('/')}, NavLink ${m.navHeight}px, map border ${m.mapBorder.join(' ')}, badges ${m.badges.map((b) => (opaque(b.bg) ? contrast(b.bg, b.fg).toFixed(2) : 'transparent')).join('/')}:1`);
   }
 
   await client.send('Page.navigate', { url: referenceUrl });

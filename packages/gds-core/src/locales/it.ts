@@ -400,4 +400,10 @@ export const it = {
   'gds.gdsPageTemplates.event.noMediaTitle': "Nessuna immagine",
   'gds.gdsPageTemplates.event.noMediaDescription': "Questo evento non ha immagine.",
   'gds.gdsPageTemplates.event.badge': "Evento",
+  'gds.notifications.severity.success': "Successo",
+  'gds.notifications.severity.error': "Errore",
+  'gds.notifications.severity.warning': "Avvertimento",
+  'gds.notifications.severity.info': "Informazioni",
+  'gds.notifications.severity.neutral': "Avviso",
+  'gds.notifications.severity.loading': "In corso",
 };

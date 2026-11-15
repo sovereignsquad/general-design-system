@@ -90,6 +90,20 @@ describe('@sovereignsquad/gds-a11y', () => {
     expect(findings[0].suggestedGdsReplacement).toContain('GDS primitive');
   });
 
+  it('fails when axe-core is not loaded instead of reporting a pass (#944)', async () => {
+    const page = createPage(async () => ({ missing: true }));
+    const findings = await runGdsAxeScan(page, { route: '/demo' });
+    expect(findings).toEqual([expect.objectContaining({ id: 'gds-axe-missing', severity: 'critical', status: 'failure' })]);
+    expect(findings[0].message).toContain('addInitScript');
+
+    let call = 0;
+    const report = await createGdsA11yTest(createPage(async () => {
+      call += 1;
+      return call === 1 ? { missing: true } : [];
+    }), { route: '/demo' });
+    expect(report.status).toBe('failure');
+  });
+
   it('asserts tab order through a supplied page adapter', async () => {
     const page = createPage(async (_fn, expected) => expected);
     const result = await expectGdsTabOrder(page, ['button.primary', 'a.secondary'], { route: '/demo' });

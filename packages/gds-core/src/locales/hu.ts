@@ -400,4 +400,10 @@ export const hu = {
   'gds.gdsPageTemplates.event.noMediaTitle': "Nincs kép",
   'gds.gdsPageTemplates.event.noMediaDescription': "Ennek az eseménynek nincs képe.",
   'gds.gdsPageTemplates.event.badge': "Esemény",
+  'gds.notifications.severity.success': "Siker",
+  'gds.notifications.severity.error': "Hiba",
+  'gds.notifications.severity.warning': "Figyelmeztetés",
+  'gds.notifications.severity.info': "Info",
+  'gds.notifications.severity.neutral': "Értesítés",
+  'gds.notifications.severity.loading': "Folyamatban van",
 };

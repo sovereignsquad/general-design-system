@@ -2638,6 +2638,22 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.queryByText('Partner sync delayed')).not.toBeInTheDocument();
   });
 
+  it('announces a panel BannerNotice: alert for errors, status otherwise, with a translated severity (#944)', () => {
+    renderWithGds(
+      <>
+        <BannerNotice severity="error" title="Payments are unavailable" message="Card payments failed to load." />
+        <BannerNotice severity="warning" title="Sync delayed" />
+      </>,
+    );
+    const alert = screen.getByRole('alert');
+    expect(alert).toHaveAttribute('aria-live', 'assertive');
+    expect(alert).toHaveTextContent('Payments are unavailable');
+    expect(alert).toHaveTextContent('Error');
+    const status = screen.getByRole('status');
+    expect(status).toHaveTextContent('Warning');
+    expect(status).not.toHaveTextContent('not enough');
+  });
+
   it('renders a one-line compact BannerNotice with no title (#642)', () => {
     renderWithGds(
       <BannerNotice variant="compact" severity="info" message="Preview mode — changes are not saved." />,
