@@ -406,4 +406,5 @@ export const ar = {
   'gds.notifications.severity.info': "معلومات",
   'gds.notifications.severity.neutral': "يلاحظ",
   'gds.notifications.severity.loading': "في تَقَدم",
+  'gds.searchableSelect.clear': "مسح التحديد",
 };

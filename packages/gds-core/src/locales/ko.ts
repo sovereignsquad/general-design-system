@@ -406,4 +406,5 @@ export const ko = {
   'gds.notifications.severity.info': "정보",
   'gds.notifications.severity.neutral': "알아채다",
   'gds.notifications.severity.loading': "진행 중",
+  'gds.searchableSelect.clear': "선택 취소",
 };

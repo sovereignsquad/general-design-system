@@ -110,7 +110,7 @@ Scope: this rule covers `@mantine/core` component imports. Mantine stylesheets a
 | `Burger` | No standalone export | `DiscoveryShell` and `DocsShell` render their own labelled navigation toggle. |
 | `Card` | `ListingCard`, `SectionPanel`, `InfoCard` (`@sovereignsquad/gds-admin`) | |
 | `ColorSchemeScript` | No GDS export | The Next.js layout in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) imports it from `@mantine/core`. Under `strictMode` that file reports `strict.import.mantine-core` unless an exception covers it. |
-| `Drawer` | `GdsDrawer`, `AdminDetailDrawer` (`@sovereignsquad/gds-admin`) | `GdsDrawer` throws outside an `OverlayManagerProvider`. |
+| `Drawer` | `GdsDrawer`, `AdminDetailDrawer` (`@sovereignsquad/gds-admin`) | Outside an `OverlayManagerProvider`, `GdsDrawer` works standalone (focus trap, escape and outside-click policy) with a development warning; stacking, the overlay registry and close blocking need the provider. |
 | `FileInput` | `MediaField`, `UploadDropzone`, `AdminFileUpload` (`@sovereignsquad/gds-admin`) | |
 | `Grid` | `GdsGrid`, or the `SimpleGrid` passthrough | |
 | `Image` | `MediaWithFallback`, `GdsMediaFrame` | `MediaWithFallback` requires `alt` and renders a fallback when the image fails. |

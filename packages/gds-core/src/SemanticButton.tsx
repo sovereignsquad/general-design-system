@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, VisuallyHidden } from '@mantine/core';
 import type { ButtonProps } from '@mantine/core';
-import { useGdsTranslation } from '@sovereignsquad/gds-theme';
+import { gdsDevWarnOnce, useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { getSemanticActionLabel, resolveSemanticActionConfig } from './vocabulary';
 import type { GdsVocabularyPack, SemanticActionId } from './vocabulary';
@@ -29,7 +29,7 @@ export const GDS_BUTTON_GRADIENT_TEXT_FLOOR = { fontSizePx: 14, fontWeight: 600 
 export const GDS_BUTTON_OUTLINE_ACCENT_STROKE_PX = 1.5;
 
 /** Props for `SemanticButton`; extends Mantine `ButtonProps` and the native button attributes. */
-export interface SemanticButtonProps extends ButtonProps, Omit<React.ComponentPropsWithoutRef<'button'>, keyof ButtonProps | 'leftSection' | 'children'> {
+export interface SemanticButtonProps extends Omit<ButtonProps, 'children'>, Omit<React.ComponentPropsWithoutRef<'button'>, keyof ButtonProps | 'leftSection' | 'children'> {
   /** Governed semantic action id whose label and icon are resolved from the vocabulary. */
   action: SemanticActionId;
   /**
@@ -61,6 +61,8 @@ export interface SemanticButtonProps extends ButtonProps, Omit<React.ComponentPr
    * `prerenderLabelOnly` behavior are unaffected -- only the text content changes.
    */
   label?: React.ReactNode;
+  /** Not supported: the text comes from `action`, or from `label`. Children would be discarded. */
+  children?: never;
 }
 
 const brandButtonStyles: Record<NonNullable<SemanticButtonProps['brandVariant']>, React.CSSProperties> = {
@@ -115,6 +117,12 @@ export function SemanticButton({
   label: labelOverride,
   ...props
 }: SemanticButtonProps) {
+  if ((props as { children?: unknown }).children !== undefined) {
+    gdsDevWarnOnce(
+      'SemanticButton:children',
+      'SemanticButton ignores children: its text comes from `action` or the `label` prop. Pass the text as `label`.',
+    );
+  }
   const { t } = useGdsTranslation();
   const config = resolveSemanticActionConfig(action, vocabularyPacks);
 

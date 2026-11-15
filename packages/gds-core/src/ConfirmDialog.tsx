@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Modal, Group, Text } from '@mantine/core';
+import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { SemanticButton } from './SemanticButton';
 import type { SemanticAction } from './vocabulary';
 
@@ -18,6 +19,10 @@ export interface ConfirmDialogProps {
   isDanger?: boolean;
   /** Shows the confirm button in a loading state and disables cancel; defaults to false. */
   loading?: boolean;
+  /** Visible label of the confirm button, e.g. "Delete project"; defaults to the `confirmAction` vocabulary label. */
+  confirmLabel?: ReactNode;
+  /** Visible label of the cancel button; defaults to the `cancelAction` vocabulary label. */
+  cancelLabel?: ReactNode;
 }
 
 /**
@@ -33,15 +38,25 @@ export function ConfirmDialog({
   cancelAction = 'cancel',
   isDanger = true,
   loading = false,
+  confirmLabel,
+  cancelLabel,
 }: ConfirmDialogProps) {
+  const { t } = useGdsTranslation();
   return (
-    <Modal opened={opened} onClose={onClose} title={title} centered trapFocus>
+    <Modal
+      opened={opened}
+      onClose={onClose}
+      title={title}
+      centered
+      trapFocus
+      closeButtonProps={{ 'aria-label': t('gds.overlay.close', 'Close') }}
+    >
       <Text component="div" size="sm" mb="xl">
         {children}
       </Text>
       <Group justify="flex-end">
-        <SemanticButton action={cancelAction} variant="default" onClick={onClose} disabled={loading} />
-        <SemanticButton action={confirmAction} color={isDanger ? 'red' : 'violet'} onClick={onConfirm} loading={loading} />
+        <SemanticButton action={cancelAction} label={cancelLabel} variant="default" onClick={onClose} disabled={loading} />
+        <SemanticButton action={confirmAction} label={confirmLabel} color={isDanger ? 'red' : undefined} onClick={onConfirm} loading={loading} />
       </Group>
     </Modal>
   );

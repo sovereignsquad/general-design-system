@@ -707,7 +707,7 @@ function MissingDataPromptDemo() {
       <SectionPanel title="Missing data prompt" description="Default i18n-resolved recovery copy with a required-fields list and call to action.">
         <MissingDataPrompt
           missingFields={['Readiness score', 'Recovery notes']}
-          action={<SemanticButton action="add">Add required data</SemanticButton>}
+          action={<SemanticButton action="add" />}
         />
       </SectionPanel>
       <div role="status">
@@ -741,7 +741,7 @@ function OverlayAliasDemo() {
           description="Focus is trapped, Escape closes, and focus returns to the trigger."
         >
           <p>Dialog body content stays on an opaque governed overlay surface.</p>
-          <SemanticButton action="confirm" onClick={() => setDialogOpen(false)}>Confirm</SemanticButton>
+          <SemanticButton action="confirm" onClick={() => setDialogOpen(false)} />
         </GdsDialog>
         <GdsSidePanel
           id="alias-side-panel"
@@ -752,7 +752,7 @@ function OverlayAliasDemo() {
           description="Side panel wrapper with scroll lock and focus return."
         >
           <p>Side panel body content for extended context.</p>
-          <SemanticButton action="close" onClick={() => setPanelOpen(false)}>Close panel</SemanticButton>
+          <SemanticButton action="close" onClick={() => setPanelOpen(false)} />
         </GdsSidePanel>
       </SectionPanel>
     </OverlayManagerProvider>
@@ -763,7 +763,7 @@ function DestructiveActionDemo() {
   const [open, setOpen] = useState(false);
   return (
     <SectionPanel title="Destructive confirmation" description="Irreversible actions require an explicit, dismissible confirmation — never a permanently-open dialog.">
-      <SemanticButton action="delete" onClick={() => setOpen(true)}>Delete pattern</SemanticButton>
+      <SemanticButton action="delete" onClick={() => setOpen(true)} />
       <ConfirmDialog
         opened={open}
         onClose={() => setOpen(false)}
@@ -825,7 +825,7 @@ function BadgeButtonAnchorDemo() {
           <GdsCountBadge dot label="new activity on this listing" tone="info" anchor={<GdsIcon icon="Star" size="lg" />} anchorSize="1.75rem" />
         </button>
         <GdsInline gap="xs">
-          <SemanticButton action="save">Save</SemanticButton>
+          <SemanticButton action="save" />
           <GdsBadge tone="success" icon="Success" label="Saved" />
         </GdsInline>
       </GdsInline>
@@ -935,7 +935,7 @@ function MapSurfaceDemo() {
                     lastChecked={detail.lastChecked}
                     thumbnailSeed={pin.id}
                     categories={[{ key: detail.activityId, label: detail.activity, icon: detail.categoryIcon }]}
-                    primaryAction={<SemanticButton action="preview" fullWidth>View provider</SemanticButton>}
+                    primaryAction={<SemanticButton action="preview" fullWidth />}
                     saved={Boolean(savedPins[pin.id])}
                     saveLabel={`Save ${pin.label}`}
                     unsaveLabel={`Remove ${pin.label} from saved`}
@@ -1313,7 +1313,7 @@ function BadgeOverlayDemo() {
             </GdsBadgeStack>
             <BodyText>Ten-session streak — keep it going!</BodyText>
           </GdsInline>
-          <SemanticButton action="confirm" onClick={() => setOpen(false)}>Nice</SemanticButton>
+          <SemanticButton action="confirm" onClick={() => setOpen(false)} />
         </GdsDialog>
         <InlineAlert
           title="New badge available"
