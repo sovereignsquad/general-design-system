@@ -54,7 +54,7 @@ describe('buildGdsBrandBadgeSvg (issue 699)', () => {
   });
 
   it('contains only literal colors — zero occurrences of var( or color-mix(', () => {
-    const svg = buildGdsBrandBadgeSvg({ themePresetId: 'your-field', colorScheme: 'dark', label: 'x' });
+    const svg = buildGdsBrandBadgeSvg({ themePresetId: 'linen', colorScheme: 'dark', label: 'x' });
     expect(svg).not.toContain('var(');
     expect(svg).not.toContain('color-mix(');
   });
@@ -302,7 +302,7 @@ describe('buildGdsBrandBadgeSvg (issue 699)', () => {
     });
   });
 
-  describe('Your Field validation target (issue 699, after issue 693)', () => {
+  describe('Linen validation target (issue 699, after issue 693)', () => {
     const variants = [
       ['navy', YOUR_FIELD_NAVY],
       ['sage', YOUR_FIELD_SAGE],
@@ -311,8 +311,8 @@ describe('buildGdsBrandBadgeSvg (issue 699)', () => {
 
     for (const [name, hex] of variants) {
       it(`builds the ${name} app-icon variant deterministically, independent of colorScheme, clearing the contrast floor`, () => {
-        const light = buildGdsBrandBadgeSvg({ colors: { primary: hex, accent: hex }, colorScheme: 'light', label: `Your Field ${name}` });
-        const dark = buildGdsBrandBadgeSvg({ colors: { primary: hex, accent: hex }, colorScheme: 'dark', label: `Your Field ${name}` });
+        const light = buildGdsBrandBadgeSvg({ colors: { primary: hex, accent: hex }, colorScheme: 'light', label: `Linen ${name}` });
+        const dark = buildGdsBrandBadgeSvg({ colors: { primary: hex, accent: hex }, colorScheme: 'dark', label: `Linen ${name}` });
         expect(light).toBe(dark);
         // A flat single-color badge (primary === accent, matching the real PNG variant's solid
         // fill): the two stops are equal, and darkened together if `hex` alone doesn't already
@@ -323,10 +323,10 @@ describe('buildGdsBrandBadgeSvg (issue 699)', () => {
       });
     }
 
-    it('renders the your-field preset itself for both schemes (theme-sourced, not an override)', () => {
+    it('renders the linen preset itself for both schemes (theme-sourced, not an override)', () => {
       for (const scheme of SCHEMES) {
-        const svg = buildGdsBrandBadgeSvg({ themePresetId: 'your-field', colorScheme: scheme, label: 'Your Field' });
-        expect(svg).toContain(`data-gds-theme-identity="your-field:${scheme}:`);
+        const svg = buildGdsBrandBadgeSvg({ themePresetId: 'linen', colorScheme: scheme, label: 'Linen' });
+        expect(svg).toContain(`data-gds-theme-identity="linen:${scheme}:`);
       }
     });
 
@@ -335,7 +335,7 @@ describe('buildGdsBrandBadgeSvg (issue 699)', () => {
         colors: { primary: YOUR_FIELD_NAVY, accent: YOUR_FIELD_NAVY },
         size: 96,
         cornerRadiusRatio: 22 / 96,
-        label: 'Your Field',
+        label: 'Linen',
       });
       expect(svg).toContain('width="96" height="96"');
       // 22/96 * 48 = 11 viewBox units, which renders at 22px once scaled 48 -> 96.

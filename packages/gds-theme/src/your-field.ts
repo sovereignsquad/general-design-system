@@ -1,5 +1,5 @@
 /**
- * Your Field — brand preset (v3 re-base of the ClassScout brand).
+ * Linen — brand preset (v3 re-base of the ClassScout brand).
  *
  * Source of truth is the `classscout_final (Copy).fig` v3 redesign, cross-checked against three
  * iterations of an exported design-system handoff bundle (colour anchors, ten-step ramp tables,
@@ -11,7 +11,7 @@
  * The handoff spec's own "Decisions taken" section instructs re-basing `class-usa` into this
  * brand and renaming the lane. That instruction is overruled by owner decision (2026-08-31):
  * `class-usa` remains a supported lane, unchanged — its colours, Playfair Display typography, and
- * every token stay exactly as shipped. Your Field registers as an independent preset instead,
+ * every token stay exactly as shipped. Linen registers as an independent preset instead,
  * following the same pattern as {@link padelAfricaThemePreset}.
  *
  * ## Why the ramps are copied verbatim, not regenerated

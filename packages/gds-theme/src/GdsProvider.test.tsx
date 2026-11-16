@@ -154,9 +154,9 @@ describe('GdsProvider', () => {
       'orchid',
       'royal',
       'cosmic',
-      'athlete-gold',
-      'class-usa',
-      'gold-athlete',
+      'gilded',
+      'harbor',
+      'ochre',
     ];
 
     expect(presets.length).toBeGreaterThanOrEqual(19);
@@ -190,22 +190,22 @@ describe('GdsProvider', () => {
     expect(cosmicVibe.label).toBe('Cosmic burst');
     expect(cosmicVibe.gradient).toContain('#f7f3ff');
 
-    const athleteGoldVibe = resolveGdsVibeTheme('athlete-gold');
-    expect(athleteGoldVibe.label).toBe('Athlete Gold');
+    const athleteGoldVibe = resolveGdsVibeTheme('gilded');
+    expect(athleteGoldVibe.label).toBe('Gilded');
     expect(athleteGoldVibe.primary).toBe('#e4a623');
     expect(athleteGoldVibe.canvasDark).toBe('#03080f');
     expect(athleteGoldVibe.hero).toContain('rgba(5, 11, 20, 0.92)');
 
-    const classUsaVibe = resolveGdsVibeTheme('class-usa');
-    expect(classUsaVibe.label).toBe('Class USA');
+    const classUsaVibe = resolveGdsVibeTheme('harbor');
+    expect(classUsaVibe.label).toBe('Harbor');
     expect(classUsaVibe.primary).toBe('#0f2c4a');
-    expect(resolveGdsThemePreset('class-usa').primaryColor).toBe('classUsaNavy');
+    expect(resolveGdsThemePreset('harbor').primaryColor).toBe('classUsaNavy');
 
-    const goldAthleteVibe = resolveGdsVibeTheme('gold-athlete');
-    expect(goldAthleteVibe.label).toBe('Gold Athlete');
+    const goldAthleteVibe = resolveGdsVibeTheme('ochre');
+    expect(goldAthleteVibe.label).toBe('Ochre');
     expect(goldAthleteVibe.primary).toBe('#8a5a00');
     expect(goldAthleteVibe.canvasDark).toBe('#0a0d12');
-    expect(resolveGdsThemePreset('gold-athlete').primaryColor).toBe('goldAthleteCharcoal');
+    expect(resolveGdsThemePreset('ochre').primaryColor).toBe('goldAthleteCharcoal');
 
     const partnerVibe = resolveGdsVibeTheme('partner-discovery');
     expect(partnerVibe.primary).toBe('#08463b');
@@ -213,15 +213,15 @@ describe('GdsProvider', () => {
   });
 
   it('applies theme-owned CSS variables at the provider root for portalled overlays', () => {
-    const classUsaTheme = createBrandTheme('class-usa').mantineTheme;
+    const classUsaTheme = createBrandTheme('harbor').mantineTheme;
 
     const { unmount } = renderWithGds(
       <GdsProvider theme={classUsaTheme}>
-        <div>Class USA shell</div>
+        <div>Harbor shell</div>
       </GdsProvider>,
     );
 
-    expect(screen.getByText('Class USA shell')).toBeInTheDocument();
+    expect(screen.getByText('Harbor shell')).toBeInTheDocument();
     expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('#0f2c4a');
     expect(document.documentElement.style.getPropertyValue('--gds-brand-accent-action')).toBe('#c24a0a');
 
@@ -229,17 +229,17 @@ describe('GdsProvider', () => {
     expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('');
   });
 
-  it('applies Gold Athlete theme-owned CSS variables at the provider root for portalled overlays', () => {
-    const goldAthleteTheme = createBrandTheme('gold-athlete').mantineTheme;
+  it('applies Ochre theme-owned CSS variables at the provider root for portalled overlays', () => {
+    const goldAthleteTheme = createBrandTheme('ochre').mantineTheme;
 
     const { unmount } = renderWithGds(
       <GdsProvider theme={goldAthleteTheme}>
-        <div>Gold Athlete shell</div>
+        <div>Ochre shell</div>
       </GdsProvider>,
     );
 
-    expect(screen.getByText('Gold Athlete shell')).toBeInTheDocument();
-    // Gold Athlete's hand-authored brand primary is its body text colour, so it takes the readable grey (#970).
+    expect(screen.getByText('Ochre shell')).toBeInTheDocument();
+    // Ochre's hand-authored brand primary is its body text colour, so it takes the readable grey (#970).
     expect(document.documentElement.style.getPropertyValue('--gds-brand-primary')).toBe('#414b57');
     expect(document.documentElement.style.getPropertyValue('--gds-brand-accent-action')).toBe('#8a5a00');
 
@@ -248,17 +248,17 @@ describe('GdsProvider', () => {
   });
 
   it('resolves brand semantic-role tokens (text-body, border-card) to their dark-mode value when forceColorScheme is dark (issue 533)', () => {
-    const classUsaTheme = createBrandTheme('class-usa').mantineTheme;
+    const classUsaTheme = createBrandTheme('harbor').mantineTheme;
 
     // Uses render(), not renderWithGds's outer GdsProvider: a nested second GdsProvider
     // with different config is an unsupported configuration, not the scenario under test.
     const { container } = render(
       <GdsProvider theme={classUsaTheme} forceColorScheme="dark">
-        <div>Class USA dark shell</div>
+        <div>Harbor dark shell</div>
       </GdsProvider>,
     );
 
-    expect(screen.getByText('Class USA dark shell')).toBeInTheDocument();
+    expect(screen.getByText('Harbor dark shell')).toBeInTheDocument();
 
     // Regression: the wrapper's inline style must resolve the base custom property
     // (`--gds-text-body`) to the dark value in forced dark mode, not leave it holding the
@@ -270,15 +270,15 @@ describe('GdsProvider', () => {
   });
 
   it('keeps brand semantic-role tokens at their light-mode value when forceColorScheme is light (issue 533 regression guard)', () => {
-    const classUsaTheme = createBrandTheme('class-usa').mantineTheme;
+    const classUsaTheme = createBrandTheme('harbor').mantineTheme;
 
     const { container } = render(
       <GdsProvider theme={classUsaTheme} forceColorScheme="light">
-        <div>Class USA light shell</div>
+        <div>Harbor light shell</div>
       </GdsProvider>,
     );
 
-    expect(screen.getByText('Class USA light shell')).toBeInTheDocument();
+    expect(screen.getByText('Harbor light shell')).toBeInTheDocument();
 
     const scope = container.querySelector('[style*="--gds-text-body"]') as HTMLElement | null;
     expect(scope).not.toBeNull();
@@ -340,7 +340,7 @@ describe('GdsProvider', () => {
     expect(roleSetSizes.size).toBe(1);
     expect(rolesPerTheme.size).toBe(graph.themeCount);
 
-    // The ai.* exception itself stays pinned exactly to your-field's three roles — a future
+    // The ai.* exception itself stays pinned exactly to linen's three roles — a future
     // preset may add its own reserved lane, but no preset may silently ship a partial one.
     const aiRolesByTheme = new Map<string, Set<string>>();
     for (const node of semantic) {
@@ -349,8 +349,8 @@ describe('GdsProvider', () => {
       set.add(node.role);
       aiRolesByTheme.set(node.themeId, set);
     }
-    expect([...aiRolesByTheme.keys()]).toEqual(['your-field']);
-    expect(aiRolesByTheme.get('your-field')).toEqual(new Set(['ai-gradient', 'ai-panel', 'ai-accent']));
+    expect([...aiRolesByTheme.keys()]).toEqual(['linen']);
+    expect(aiRolesByTheme.get('linen')).toEqual(new Set(['ai-gradient', 'ai-panel', 'ai-accent']));
 
     // Scheme is a first-class dimension, not a name suffix.
     for (const node of semantic) {

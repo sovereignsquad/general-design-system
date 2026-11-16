@@ -392,14 +392,14 @@ html[data-gds-theme-preset] body::before {
     radial-gradient(circle at 8% 78%, color-mix(in srgb, var(--gds-vibe-primary) 24%, transparent), transparent 24rem),
     radial-gradient(circle at 92% 24%, color-mix(in srgb, var(--gds-vibe-accent) 22%, transparent), transparent 28rem),
     linear-gradient(135deg, color-mix(in srgb, var(--gds-vibe-primary) 8%, transparent), transparent 42%);
-  /* flatSurfaces lanes (Class USA, Gold Athlete) publish --gds-vibe-atmosphere:
+  /* flatSurfaces lanes (Harbor, Ochre) publish --gds-vibe-atmosphere:
      0 — their real theme has no atmospheric background wash. Generic vibe
      lanes don't set this variable, so they fall through to the default 1. */
   opacity: var(--gds-vibe-atmosphere, 1);
 }
 
 /*
- * flatSurfaces lanes (Class USA, Gold Athlete): same gap as .mantine-AppShell-main
+ * flatSurfaces lanes (Harbor, Ochre): same gap as .mantine-AppShell-main
  * below — the base body rule above reads --gds-vibe-gradient (which IS already
  * neutralized to 'none' at the source for flatSurfaces lanes, see
  * getGdsVibeThemeCssVariables) but ALSO layers a second, un-gated diagonal wash
@@ -410,8 +410,8 @@ html[data-gds-theme-preset] body::before {
  * (keeping the same `fixed` attachment so the override doesn't silently reset it
  * via the `background` shorthand) closes that gap.
  */
-html[data-gds-theme-preset='class-usa'] body,
-html[data-gds-theme-preset='gold-athlete'] body,
+html[data-gds-theme-preset='harbor'] body,
+html[data-gds-theme-preset='ochre'] body,
 html[data-gds-theme-preset='high-contrast'] body {
   background: var(--gds-vibe-canvas) !important;
   background-attachment: fixed !important;
@@ -436,7 +436,7 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-AppShell-
 }
 
 /*
- * flatSurfaces lanes (Class USA, Gold Athlete, High Contrast): the base
+ * flatSurfaces lanes (Harbor, Ochre, High Contrast): the base
  * .mantine-AppShell-main rule above was written before flatSurfaces existed
  * and never checked it — unlike body::before (which does respect
  * --gds-vibe-atmosphere), it kept painting the same decorative radial/linear
@@ -447,8 +447,8 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-AppShell-
  * own narrower override here that lost the cascade to the dark-mode variant
  * below it — folded into this shared block instead of trying to out-order it.)
  */
-html[data-gds-theme-preset='class-usa'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='harbor'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ochre'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])),
 html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-main:where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-canvas) !important;
 }
@@ -475,15 +475,15 @@ html[data-gds-theme-preset] .mantine-AppShell-navbar:where(:not([data-gds-fixed-
 
 /* flatSurfaces lanes: same gap as .mantine-AppShell-main above — the shared
    header/navbar/footer wash and this navbar-specific extra layer both
-   painted a gradient + glow shadow on every preset, Class USA, Gold Athlete,
+   painted a gradient + glow shadow on every preset, Harbor, Ochre,
    and High Contrast included, since none of them ever checked
    --gds-vibe-atmosphere. */
-html[data-gds-theme-preset='class-usa'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='class-usa'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='class-usa'] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='gold-athlete'] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='harbor'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='harbor'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='harbor'] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ochre'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ochre'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ochre'] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])),
 html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-header:where(:not([data-gds-fixed-tone])),
 html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-navbar:where(:not([data-gds-fixed-tone])),
 html[data-gds-theme-preset='high-contrast'] .mantine-AppShell-footer:where(:not([data-gds-fixed-tone])) {
@@ -506,10 +506,10 @@ html[data-gds-theme-preset] .gds-card:where(:not([data-gds-fixed-tone])) {
 /* flatSurfaces lanes: same gap again — .gds-paper/.gds-card (used by cards
    and panels across the whole site) painted the same kind of gradient +
    glow on every preset. */
-html[data-gds-theme-preset='class-usa'] .gds-paper:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='class-usa'] .gds-card:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='gold-athlete'] .gds-paper:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='gold-athlete'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='harbor'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='harbor'] .gds-card:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ochre'] .gds-paper:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ochre'] .gds-card:where(:not([data-gds-fixed-tone])),
 html[data-gds-theme-preset='high-contrast'] .gds-paper:where(:not([data-gds-fixed-tone])),
 html[data-gds-theme-preset='high-contrast'] .gds-card:where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-surface) !important;
@@ -660,12 +660,12 @@ html[data-gds-theme-preset] .mantine-Button-root[data-variant='default']:where(:
 }
 
 /*
- * flatSurfaces lanes (Class USA, Gold Athlete) in LIGHT mode read as washed
+ * flatSurfaces lanes (Harbor, Ochre) in LIGHT mode read as washed
  * out on buttons: the generic rules above are correct in principle (solid
  * primary fill, no fake gradient/glow) but leave the brand's SECOND color
- * (accent — Class USA's terracotta, Gold Athlete's metallic gold) completely
+ * (accent — Harbor's terracotta, Ochre's metallic gold) completely
  * unused anywhere near a button, and the default/secondary button's border
- * (`--gds-vibe-border`, a flat neutral like Class USA's `#eee7dd`) and
+ * (`--gds-vibe-border`, a flat neutral like Harbor's `#eee7dd`) and
  * background (`--gds-vibe-control`, only 7% primary blended into the
  * surface) are both too faint to read as "on brand" (owner directive,
  * 2026-08-09). Both colors are real, governed tokens already defined on the
@@ -680,19 +680,18 @@ html[data-gds-theme-preset] .mantine-Button-root[data-variant='default']:where(:
  * `--gds-vibe-control-text`/`--gds-vibe-control` pair the generic rule
  * already uses) would collapse text-on-background contrast to ~1:1.
  */
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])),
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='harbor'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='ochre'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
   /* outline-accent/gradient excluded (issue 700): this decorative trim border would fight
      outline-accent's own accent stroke and gradient's borderless fill. */
   border: 2px solid var(--gds-vibe-accent) !important;
 }
 
 /*
- * Class USA v2 re-base (issue 536): CTAs must read as the brand's action
+ * Harbor v2 re-base (issue 536): CTAs must read as the brand's action
  * orange ("Action orange — Buttons, links, focus ring. The only colour that
  * carries a label"), not the generic `--gds-vibe-primary` (navy) solid fill
- * the rule above this section gives every other flatSurfaces theme — Gold
- * Athlete is untouched, this selector only matches class-usa. Deliberately
+ * the rule above this section gives every other flatSurfaces theme — Ochre is untouched, this selector only matches harbor. Deliberately
  * `--gds-vibe-accent` (the scheme-invariant `#c24a0a` anchor), not the
  * scheme-split `--gds-brand-accent-action` semantic token: white label text
  * on that token's dark-mode value (`#f5793b`) computes to only 2.73:1,
@@ -701,15 +700,15 @@ html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .m
  * color the spec certifies for a label at 4.9:1, and that certification
  * doesn't vary by scheme, so this button fill doesn't either.
  */
-html[data-gds-theme-preset='class-usa'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
+html[data-gds-theme-preset='harbor'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
   /* outline-accent/gradient excluded (issue 700): forcing this solid accent fill would erase
      outline-accent's transparent fill and gradient's own background-image/color layering. */
   background: var(--gds-vibe-accent) !important;
   border-color: var(--gds-vibe-accent) !important;
 }
 
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])),
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])) {
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='harbor'] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='ochre'] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])) {
   color: var(--gds-vibe-primary) !important;
   background: var(--gds-vibe-canvas) !important;
   border: 2px solid var(--gds-vibe-primary) !important;
@@ -730,7 +729,7 @@ html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone])
    *   system therefore walked past these badges without measuring them — 344 of them, across
    *   every route. Zero findings from a check that cannot see its subject reads exactly like a
    *   clean bill of health, which is why this survived so long.
-   * - The hue-mixed foreground measured 2.25:1 at worst (class-usa, dark) across the 25
+   * - The hue-mixed foreground measured 2.25:1 at worst (harbor, dark) across the 25
    *   presets. That is issue 534, which was reported as two badges and was in fact every badge
    *   the rule touched.
    *
@@ -747,7 +746,7 @@ html[data-gds-theme-preset] .mantine-Badge-root:not([data-gds-badge-fixed-tone])
 }
 
 /*
- * The Class USA / Gold Athlete dark-mode special case that used to live here (issue 533) is
+ * The Harbor / Ochre dark-mode special case that used to live here (issue 533) is
  * gone, not moved. It existed because the general rule above mixed its tint against
  * `transparent`, so a fixed dark navy primary landed dark-on-dark. The general rule now mixes
  * against `--gds-bg-card` and uses the governed body text, which measures 8.63:1 at worst
@@ -820,8 +819,8 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .mantine-Popover-d
 /* flatSurfaces lanes: same gap as .gds-paper/.gds-card above — the dark-mode
    dropdown surface (Select/Combobox/DatePicker, portalled outside any
    gds-paper/gds-card wrapper) painted the same unconditional gradient. */
-html[data-gds-theme-preset='class-usa'] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset='gold-athlete'] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='harbor'] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset='ochre'] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])),
 html[data-gds-theme-preset='high-contrast'] .mantine-Popover-dropdown:where(:not([data-gds-fixed-tone])) {
   background: var(--gds-vibe-control) !important;
 }
@@ -1281,9 +1280,9 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .gds-card:where(:not([data
 html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])),
 html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
   /* Solid fill, not a primary->accent gradient: this rule paints every
-     filled-style button inside a vibe-gallery/vibe-contract/athlete-gold-
+     filled-style button inside a vibe-gallery/vibe-contract/gilded-
      reference preview, and a governed brand theme's real Button (e.g.
-     createBrandTheme('class-usa')'s Mantine `primaryColor` filled button)
+     createBrandTheme('harbor')'s Mantine `primaryColor` filled button)
      is a single solid color. A gradient here would show users a button
      style the theme itself never actually produces. outline-accent/gradient
      excluded (issue 700) so a SemanticButton preview inside one of these

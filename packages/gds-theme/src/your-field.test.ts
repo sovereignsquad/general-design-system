@@ -14,18 +14,18 @@ import { getGdsThemePresets, resolveGdsThemePreset } from './theme-presets';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
 import { contrastRatio } from './color-math';
 
-describe('your-field preset', () => {
+describe('linen preset', () => {
   it('is registered in the catalog and resolvable', () => {
-    expect(getGdsThemePresets().map((p) => p.id)).toContain('your-field');
-    expect(resolveGdsThemePreset('your-field')).toBe(yourFieldThemePreset);
-    expect(getGdsVibeThemes().map((v) => v.id)).toContain('your-field');
+    expect(getGdsThemePresets().map((p) => p.id)).toContain('linen');
+    expect(resolveGdsThemePreset('linen')).toBe(yourFieldThemePreset);
+    expect(getGdsVibeThemes().map((v) => v.id)).toContain('linen');
   });
 
-  it('does not touch class-usa', () => {
+  it('does not touch harbor', () => {
     // The lane ships as a new preset, not a rename or re-base — this is the regression a
     // careless refactor of theme-presets.ts could most easily introduce.
-    expect(getGdsThemePresets().map((p) => p.id)).toContain('class-usa');
-    const classUsa = resolveGdsThemePreset('class-usa');
+    expect(getGdsThemePresets().map((p) => p.id)).toContain('harbor');
+    const classUsa = resolveGdsThemePreset('harbor');
     expect(classUsa).not.toBe(yourFieldThemePreset);
   });
 
@@ -56,8 +56,8 @@ describe('your-field preset', () => {
   });
 
   it('paints the governed button rule with navy in light, lifted to 3:1 off the dark canvas in dark', () => {
-    expect(getGdsVibeThemeCssVariables('your-field', 'light')['--gds-vibe-primary']?.toUpperCase()).toBe(YOUR_FIELD_NAVY.toUpperCase());
-    const dark = getGdsVibeThemeCssVariables('your-field', 'dark');
+    expect(getGdsVibeThemeCssVariables('linen', 'light')['--gds-vibe-primary']?.toUpperCase()).toBe(YOUR_FIELD_NAVY.toUpperCase());
+    const dark = getGdsVibeThemeCssVariables('linen', 'dark');
     expect(contrastRatio(dark['--gds-vibe-primary'], dark['--gds-vibe-canvas'], dark['--gds-vibe-canvas'])).toBeGreaterThanOrEqual(3);
   });
 
@@ -96,8 +96,8 @@ describe('your-field preset', () => {
     expect((yourFieldThemePreset.other as Record<string, unknown>).yourField).toEqual(YOUR_FIELD_ROLES);
   });
 
-  it('never redefines a shared Mantine radius step (the class-usa xl/pill collision)', () => {
-    // Regression guard for the live classscout.ai incident (2026-09-01): class-usa's issue 551
+  it('never redefines a shared Mantine radius step (the harbor xl/pill collision)', () => {
+    // Regression guard for the live classscout.ai incident (2026-09-01): harbor's issue 551
     // repointed the shared `xl` step to mean "pill", silently turning every consumer's
     // radius="xl" rounded-rectangle into a full ellipse. This preset must never touch the shared
     // scale — every radius value is literal, at the specific component that needs it.

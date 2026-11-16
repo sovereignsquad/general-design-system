@@ -31,7 +31,7 @@ const W = (incidence) => Math.max(0.5, incidence / 17.9);
 
 export const FACTORS = [
   { name: 'route', levels: patternRoutes(), weight: () => 0.5 },
-  { name: 'theme', levels: presetIds, weight: (level) => (level === 'class-usa' || level === 'gold-athlete' ? W(12) : 0.5) },
+  { name: 'theme', levels: presetIds, weight: (level) => (level === 'harbor' || level === 'ochre' ? W(12) : 0.5) },
   { name: 'scheme', levels: ['light', 'dark'], weight: (level) => (level === 'dark' ? W(12) : 0.5) },
   { name: 'viewport', levels: viewports, weight: () => W(18) },
   { name: 'locale', levels: localeIds, weight: (level) => (level === 'en' ? 0.5 : W(15)) },
@@ -59,7 +59,7 @@ export const PAGE_FACTORS = ['route', 'locale', 'theme', 'scheme'];
 export const EXISTING_SUITE = [
   // scripts/verify-forced-colors-runtime.mjs — its routes × presets under forced-colors:active.
   ...['/patterns', '/patterns/foundations', '/patterns/public', '/patterns/operations', '/themes', '/live-proofs', '/live-proofs/surfaces']
-    .flatMap((route) => ['default', 'high-contrast', 'colorblind-safe', 'dark-public', 'flat-surface', 'editorial', 'brand', 'class-usa']
+    .flatMap((route) => ['default', 'high-contrast', 'colorblind-safe', 'dark-public', 'flat-surface', 'editorial', 'brand', 'harbor']
       .map((preset) => ({ route, theme: preset, scheme: 'dark', viewport: 1408, locale: 'en', reducedMotion: 'no-preference', forcedColors: 'active', state: 'base' }))),
   // scripts/verify-theme-trust-runtime.mjs — routes × its three preset/scheme cases.
   ...['/patterns/foundations', '/patterns/public', '/themes']

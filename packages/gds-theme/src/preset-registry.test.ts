@@ -29,8 +29,8 @@ describe('theme preset registry (#961)', () => {
     }
     expect(resolveGdsThemePreset('default')).toBe(gdsTheme);
     expect(partnerDiscoveryThemePreset).toBe(resolveGdsThemePreset('partner-discovery'));
-    expect(classUsaThemePreset).toBe(resolveGdsThemePreset('class-usa'));
-    expect(goldAthleteThemePreset).toBe(resolveGdsThemePreset('gold-athlete'));
+    expect(classUsaThemePreset).toBe(resolveGdsThemePreset('harbor'));
+    expect(goldAthleteThemePreset).toBe(resolveGdsThemePreset('ochre'));
   });
 
   it('composes the brand lane from its options on every call', () => {
@@ -42,7 +42,7 @@ describe('theme preset registry (#961)', () => {
 
   it('carries hand-authored semantic roles only for the branded lanes that declare them', () => {
     const withOverrides = gdsThemePresetRegistry.filter((preset) => preset.semanticOverrides).map((preset) => preset.id);
-    expect(withOverrides).toEqual(['class-usa', 'gold-athlete']);
+    expect(withOverrides).toEqual(['harbor', 'ochre']);
   });
 
   it('rejects a definition whose vibe id differs from the preset id', () => {

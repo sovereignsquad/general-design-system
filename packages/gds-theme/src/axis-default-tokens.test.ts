@@ -130,7 +130,7 @@ describe('lanes without the preset runtime (#765)', () => {
     const flat = createPublicBrandTheme({ flatSurfaces: true });
     expect((flat.other as { gdsCssVariables?: unknown } | undefined)?.gdsCssVariables).toBeUndefined();
     expect(declared['--gds-elevation-card']).not.toBe('none');
-    for (const preset of ['high-contrast', 'padel-africa', 'your-field'] as const) {
+    for (const preset of ['high-contrast', 'meadow', 'linen'] as const) {
       expect(getGdsVibeThemeCssVariables(preset, 'light')['--gds-elevation-card']).not.toBe('none');
     }
   });

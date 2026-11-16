@@ -277,7 +277,7 @@ describe('layout axis (issue 698)', () => {
     expect(tokens['--gds-layout-sheet-top-radius']).toBe('var(--gds-radius-sheet)');
   });
 
-  it('resolves a full nine-field declaration to the your-field target values (many declarations, the expressibility proof)', () => {
+  it('resolves a full nine-field declaration to the linen target values (many declarations, the expressibility proof)', () => {
     const tokens = resolveGdsLayoutTokens({
       sidebarWidth: '240px',
       headerHeight: '56px',
@@ -288,7 +288,7 @@ describe('layout axis (issue 698)', () => {
       bottomBarHeight: '64px',
       contentBottomPadding: 'calc(var(--gds-layout-bottom-bar-height) + var(--gds-space-xl))',
       sheetTopRadius: 'lg',
-    }, 'your-field');
+    }, 'linen');
     expect(tokens).toEqual({
       '--gds-layout-sidebar-width': '240px',
       '--gds-layout-header-height': '56px',
@@ -347,7 +347,7 @@ describe('layout axis (issue 698)', () => {
     } finally {
       (GDS_LAYOUT_DIMENSION_EXCEPTIONS as Record<string, string | undefined>).navItemHeight = original;
     }
-    // Restored: the shipped your-field value stays legal for every test that runs after this one.
+    // Restored: the shipped linen value stays legal for every test that runs after this one.
     expect(() => validateGdsLayoutAxis({ navItemHeight: '38px' }, 'probe')).not.toThrow();
   });
 

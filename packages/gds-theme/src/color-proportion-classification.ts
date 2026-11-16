@@ -2,6 +2,7 @@ import type { BrandSemanticRole } from './semantic-token-source';
 import type { GdsThemePresetId } from './theme-presets';
 import type { GdsColorProportionClassification, GdsDesignRuleProfile } from './axes';
 import { getGdsVibeThemes } from './vibe-themes';
+import { normalizeGdsThemePresetId } from './presets/aliases';
 
 /**
  * Large-surface roles (issue 644): intended to cover most of a rendered page, and
@@ -93,8 +94,9 @@ export const colorProportionClassificationByPreset: Record<GdsThemePresetId, Gds
  * classification, combined with the `'60-30-10'` rule flag every preset satisfies once
  * classified.
  */
-export function resolveGdsColorProportionProfile(presetId: GdsThemePresetId): GdsDesignRuleProfile['colorProportion'] {
-  const classification = colorProportionClassificationByPreset[presetId];
+export function resolveGdsColorProportionProfile(id: GdsThemePresetId): GdsDesignRuleProfile['colorProportion'] {
+  const presetId = normalizeGdsThemePresetId(id);
+  const classification = colorProportionClassificationByPreset[presetId as keyof typeof colorProportionClassificationByPreset];
   if (!classification) {
     throw new Error(`No color-proportion classification registered for preset "${presetId}" (issue #644).`);
   }

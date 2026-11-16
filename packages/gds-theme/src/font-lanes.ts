@@ -125,9 +125,9 @@ const lanes: readonly GdsFontLane[] = [
   lane({ id: 'partner-discovery', label: 'Partner Discovery', body: `Inter, ${sansFallback}`, heading: `Jost, ${sansFallback}`, fallbackStack: sansFallback, localeCoverage: broadLatinLocales, source: 'google-fonts-compatible', cssImportUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600;700&display=swap' }),
   lane({ id: 'instrument-serif', label: 'Instrument Serif', body: sansFallback, heading: `"Instrument Serif", ${serifFallback}`, fallbackStack: serifFallback, localeCoverage: broadLatinLocales, source: 'google-fonts-compatible', cssImportUrl: googleFontUrl('Instrument+Serif') }),
   lane({ id: 'source-serif', label: 'Source Serif', body: `"Source Serif 4", ${serifFallback}`, heading: `"Source Serif 4", ${serifFallback}`, fallbackStack: serifFallback, localeCoverage: broadUiLocales, source: 'google-fonts-compatible', cssImportUrl: googleFontUrl('Source+Serif+4') }),
-  // Class USA v2 re-base: display Playfair Display, body Inter.
+  // Harbor v2 re-base: display Playfair Display, body Inter.
   lane({ id: 'playfair-display', label: 'Playfair Display', body: sansFallback, heading: `"Playfair Display", ${serifFallback}`, fallbackStack: serifFallback, localeCoverage: broadLatinLocales, source: 'google-fonts-compatible', cssImportUrl: googleFontUrl('Playfair+Display') }),
-  // Your Field v3 display face. DM Serif Display ships only a regular weight (roman + italic) —
+  // Linen v3 display face. DM Serif Display ships only a regular weight (roman + italic) —
   // no bold/medium/semibold axis — so it cannot use googleFontUrl()'s wght@400;500;600;700;800
   // request (an unsupported axis silently degrades to regular in every weight). The literal URL
   // below requests the family's actual ital axis instead, still appending universalFamilyParams

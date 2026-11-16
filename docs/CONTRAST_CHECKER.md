@@ -157,7 +157,7 @@ for (const scheme of ['light', 'dark'] as const) {
   `getPrimaryShade`, never assumed to be a fixed step.
 - The label is `theme.white` unless `autoContrast` is set. A theme that sets `white` to an
   off-white is scored with that value.
-- If the theme sets `components.Button.defaultProps.color` (the `'class-usa'` overload does),
+- If the theme sets `components.Button.defaultProps.color` (the `'harbor'` overload does),
   filled Buttons paint that palette instead of `primaryColor`; read the fill from it.
 - Under an active preset (`data-gds-theme-preset` on `<html>`), `styles.css` repaints filled
   Buttons from `--gds-vibe-primary` with `--mantine-color-white`; score that pair for the CTA

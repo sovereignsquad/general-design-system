@@ -19,8 +19,8 @@ Source: `packages/gds-theme/src/chart-tokens.ts`.
 | `--gds-chart-area-opacity-start` / `-end` | `GDS_CHART_AREA_OPACITY` | Scheme-independent; declared once in `styles.css` |
 
 Each colour role is emitted per preset and scheme by `emitChartCssVariables()` with the other
-semantic roles (`-dark` suffix for the dark scheme), so the vibe presets, the Class USA and Gold
-Athlete lanes and `createBrandTheme(...)` all carry them. For `class-usa` and `gold-athlete` the
+semantic roles (`-dark` suffix for the dark scheme), so the vibe presets, the Harbor and Gold
+Athlete lanes and `createBrandTheme(...)` all carry them. For `harbor` and `ochre` the
 roles are recomputed after the hand-authored layer, so series 1 follows their own accent. A
 colour that falls short of its contract is mixed toward black (light scheme) or white (dark
 scheme) until it passes; in the dark scheme the accent bases are first lifted toward white so

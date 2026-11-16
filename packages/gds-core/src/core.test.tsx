@@ -3366,7 +3366,7 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getAllByText('createPublicBrandTheme(...)').length).toBeGreaterThan(0);
     expect(screen.getByText('Light, dark, and auto proof')).toBeInTheDocument();
     expect(screen.getByText('Unsupported lane boundary')).toBeInTheDocument();
-    expect(screen.getByText('Athlete Gold reference surface')).toBeInTheDocument();
+    expect(screen.getByText('Gilded reference surface')).toBeInTheDocument();
     expect(screen.getByText('Athlete IQ')).toBeInTheDocument();
 
     await user.selectOptions(screen.getByLabelText('Preset'), 'brand');

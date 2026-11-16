@@ -46,7 +46,7 @@ import {
  * Governed brand-theme entry point.
  *
  * The generic form takes five brand colours and two font families; the named forms
- * (`'class-usa'`, `'gold-athlete'`) take optional ramp and font overrides. Each returns a Mantine
+ * (`'harbor'`, `'ochre'`) take optional ramp and font overrides. Each returns a Mantine
  * theme, a brand-named semantic CSS-variable map, and a validated token graph. Components read
  * the emitted `--gds-*` variables instead of hardcoding hex, keeping brand application inside GDS
  * token governance.
@@ -95,9 +95,9 @@ export interface BrandFonts {
   body: string;
 }
 
-/** Options for `createBrandTheme('class-usa', ...)`; every field is optional and falls back to the built-in Class USA defaults. */
+/** Options for `createBrandTheme('harbor', ...)`; every field is optional and falls back to the built-in Harbor defaults. */
 export interface CreateClassUsaBrandThemeOptions {
-  /** Override any subset of the Class USA color ramps. */
+  /** Override any subset of the Harbor color ramps. */
   colorRamps?: Partial<ClassUsaColorRamps>;
   /** Override the display and/or body font. */
   fonts?: Partial<BrandFonts>;
@@ -107,15 +107,15 @@ export interface CreateClassUsaBrandThemeOptions {
   overrides?: MantineThemeOverride;
   /**
    * Design-rule profile (issue 643/#648). Defaults to the computed profile for
-   * `'class-usa'` (color-proportion classification, color harmony, and type-scale ratio
+   * `'harbor'` (color-proportion classification, color harmony, and type-scale ratio
    * all resolved from the theme's actual, ramp-resolved colors) when omitted.
    */
   designRuleProfile?: GdsDesignRuleProfile;
 }
 
-/** Options for `createBrandTheme('gold-athlete', ...)`; every field is optional and falls back to the built-in Gold Athlete defaults. */
+/** Options for `createBrandTheme('ochre', ...)`; every field is optional and falls back to the built-in Ochre defaults. */
 export interface CreateGoldAthleteBrandThemeOptions {
-  /** Override any subset of the Gold Athlete color ramps. */
+  /** Override any subset of the Ochre color ramps. */
   colorRamps?: Partial<GoldAthleteColorRamps>;
   /** Override the display and/or body font. */
   fonts?: Partial<BrandFonts>;
@@ -125,7 +125,7 @@ export interface CreateGoldAthleteBrandThemeOptions {
   overrides?: MantineThemeOverride;
   /**
    * Design-rule profile (issue 643/#648). Defaults to the computed profile for
-   * `'gold-athlete'` (color-proportion classification, color harmony, and type-scale ratio
+   * `'ochre'` (color-proportion classification, color harmony, and type-scale ratio
    * all resolved from the theme's actual, ramp-resolved colors) when omitted.
    */
   designRuleProfile?: GdsDesignRuleProfile;
@@ -311,7 +311,7 @@ export function deriveBrandSemanticTokens(colors: BrandColorRamps): Record<Brand
   };
 }
 
-function buildTokenGraph(colors: BrandColorRamps, tokens: Record<BrandSemanticRole, SemanticPair>, themeId: 'brand' | 'class-usa' | 'gold-athlete' = 'brand'): GdsTokenGraph {
+function buildTokenGraph(colors: BrandColorRamps, tokens: Record<BrandSemanticRole, SemanticPair>, themeId: 'brand' | 'harbor' | 'ochre' = 'brand'): GdsTokenGraph {
   const node = (
     id: string,
     role: GdsTokenNode['role'],
@@ -433,12 +433,12 @@ function assertContrast(tokens: Record<BrandSemanticRole, SemanticPair>): GdsTok
  * Resolves the design-rule profile a `createBrandTheme` call actually applies (issue
  * #648): an explicit `designRuleProfile` (validated via {@link validateGdsDesignRuleProfile},
  * throwing on the first violation found); otherwise the computed profile for a named
- * preset (`'class-usa'`/`'gold-athlete'`, issues #644/#645/#646); otherwise
+ * preset (`'harbor'`/`'ochre'`, issues #644/#645/#646); otherwise
  * `GDS_DEFAULT_DESIGN_RULE_PROFILE` for a custom brand, which has no preset identity to
  * compute a profile from.
  */
 function resolveEffectiveDesignRuleProfile(
-  presetId: Extract<GdsThemePresetId, 'class-usa' | 'gold-athlete'> | null,
+  presetId: Extract<GdsThemePresetId, 'harbor' | 'ochre'> | null,
   explicit: GdsDesignRuleProfile | undefined,
 ): GdsDesignRuleProfile {
   if (explicit) {
@@ -531,11 +531,11 @@ function collectAccentColorValues(tokens: Record<BrandSemanticRole, SemanticPair
  * "Checking a brand theme"). Scope per overload: THEME_GOVERNANCE.md, "`createBrandTheme` contrast
  * scope".
  *
- * Overload: the built-in `'class-usa'` brand, optionally customized.
+ * Overload: the built-in `'harbor'` brand (deprecated id `'class-usa'`), optionally customized.
  */
-export function createBrandTheme(id: 'class-usa', options?: CreateClassUsaBrandThemeOptions): BrandThemeResult;
-/** Overload: the built-in `'gold-athlete'` brand, optionally customized. */
-export function createBrandTheme(id: 'gold-athlete', options?: CreateGoldAthleteBrandThemeOptions): BrandThemeResult;
+export function createBrandTheme(id: 'harbor' | 'class-usa', options?: CreateClassUsaBrandThemeOptions): BrandThemeResult;
+/** Overload: the built-in `'ochre'` brand (deprecated id `'gold-athlete'`), optionally customized. */
+export function createBrandTheme(id: 'ochre' | 'gold-athlete', options?: CreateGoldAthleteBrandThemeOptions): BrandThemeResult;
 /**
  * Overload: a custom brand derived from five role colours and two fonts. Its filled primary,
  * heading fallback and several role values are fixed literals; see `BrandThemeResult.mantineTheme`.
@@ -543,13 +543,13 @@ export function createBrandTheme(id: 'gold-athlete', options?: CreateGoldAthlete
 export function createBrandTheme(options: CreateBrandThemeOptions): BrandThemeResult;
 /** Implementation dispatching to the `createBrandTheme` overloads above. */
 export function createBrandTheme(
-  idOrOptions: 'class-usa' | 'gold-athlete' | CreateBrandThemeOptions,
+  idOrOptions: 'harbor' | 'class-usa' | 'ochre' | 'gold-athlete' | CreateBrandThemeOptions,
   maybeOptions: CreateClassUsaBrandThemeOptions | CreateGoldAthleteBrandThemeOptions = {},
 ): BrandThemeResult {
-  if (idOrOptions === 'class-usa') {
+  if (idOrOptions === 'harbor' || idOrOptions === 'class-usa') {
     return createClassUsaBrandTheme(maybeOptions);
   }
-  if (idOrOptions === 'gold-athlete') {
+  if (idOrOptions === 'ochre' || idOrOptions === 'gold-athlete') {
     return createGoldAthleteBrandTheme(maybeOptions);
   }
   return createLegacyBrandTheme(idOrOptions);
@@ -616,7 +616,7 @@ function createLegacyBrandTheme(opts: CreateBrandThemeOptions): BrandThemeResult
 function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {}): BrandThemeResult {
   const inputFindings = validateClassUsaInput(options);
   if (inputFindings.length > 0) {
-    throw new GdsBrandThemeError('Invalid Class USA brand theme input.', inputFindings);
+    throw new GdsBrandThemeError('Invalid Harbor brand theme input.', inputFindings);
   }
 
   const ramps = mergeClassUsaColorRamps(options.colorRamps);
@@ -634,11 +634,11 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       severity: 'error',
       rule: 'token.invalid-color',
       tokenId: 'class-usa.primary-button',
-      message: 'Class USA primary button text contrast must stay at least 4.5:1.',
+      message: 'Harbor primary button text contrast must stay at least 4.5:1.',
     });
   }
   if (contrastFindings.length > 0) {
-    throw new GdsBrandThemeError('Class USA brand theme failed WCAG contrast requirements.', contrastFindings);
+    throw new GdsBrandThemeError('Harbor brand theme failed WCAG contrast requirements.', contrastFindings);
   }
 
   const colors: BrandColorRamps = {
@@ -648,10 +648,10 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
     cream: tokens['bg.canvas'].light,
     slate: tokens['text.meta'].light,
   };
-  const tokenGraph = buildTokenGraph(colors, tokens, 'class-usa');
+  const tokenGraph = buildTokenGraph(colors, tokens, 'harbor');
   const graphReport = validateGdsTokenGraph(tokenGraph);
   if (!graphReport.ok) {
-    throw new GdsBrandThemeError('Class USA token graph failed validation.', graphReport.findings);
+    throw new GdsBrandThemeError('Harbor token graph failed validation.', graphReport.findings);
   }
 
   const cssVariables = emitClassUsaCssVariables(ramps);
@@ -767,7 +767,7 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
       },
     },
     other: {
-      gdsBrandThemeId: 'class-usa',
+      gdsBrandThemeId: 'harbor',
       gdsCssVariables: cssVariables,
       gdsBrandRamps: ramps,
       gdsBrandSemanticTokens: tokens,
@@ -779,7 +779,7 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
     overrides: mergeThemeOverrides(brandOverrides, options.overrides ?? {}),
   });
 
-  const designRuleProfile = resolveEffectiveDesignRuleProfile('class-usa', options.designRuleProfile);
+  const designRuleProfile = resolveEffectiveDesignRuleProfile('harbor', options.designRuleProfile);
   checkOverridesAgainstDesignRuleProfile(options.overrides, designRuleProfile, collectAccentColorValues(tokens));
 
   return { mantineTheme, cssVariables, tokenGraph, designRuleProfile };
@@ -788,7 +788,7 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
 function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions = {}): BrandThemeResult {
   const inputFindings = validateGoldAthleteInput(options);
   if (inputFindings.length > 0) {
-    throw new GdsBrandThemeError('Invalid Gold Athlete brand theme input.', inputFindings);
+    throw new GdsBrandThemeError('Invalid Ochre brand theme input.', inputFindings);
   }
 
   const ramps = mergeGoldAthleteColorRamps(options.colorRamps);
@@ -803,11 +803,11 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
       severity: 'error',
       rule: 'token.invalid-color',
       tokenId: 'gold-athlete.primary-button',
-      message: 'Gold Athlete primary button text contrast must stay at least 4.5:1.',
+      message: 'Ochre primary button text contrast must stay at least 4.5:1.',
     });
   }
   if (contrastFindings.length > 0) {
-    throw new GdsBrandThemeError('Gold Athlete brand theme failed WCAG contrast requirements.', contrastFindings);
+    throw new GdsBrandThemeError('Ochre brand theme failed WCAG contrast requirements.', contrastFindings);
   }
 
   const colors: BrandColorRamps = {
@@ -817,10 +817,10 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
     cream: tokens['bg.canvas'].light,
     slate: tokens['text.meta'].light,
   };
-  const tokenGraph = buildTokenGraph(colors, tokens, 'gold-athlete');
+  const tokenGraph = buildTokenGraph(colors, tokens, 'ochre');
   const graphReport = validateGdsTokenGraph(tokenGraph);
   if (!graphReport.ok) {
-    throw new GdsBrandThemeError('Gold Athlete token graph failed validation.', graphReport.findings);
+    throw new GdsBrandThemeError('Ochre token graph failed validation.', graphReport.findings);
   }
 
   const cssVariables = emitGoldAthleteCssVariables(ramps);
@@ -921,7 +921,7 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
       },
     },
     other: {
-      gdsBrandThemeId: 'gold-athlete',
+      gdsBrandThemeId: 'ochre',
       gdsCssVariables: cssVariables,
       gdsBrandRamps: ramps,
       gdsBrandSemanticTokens: tokens,
@@ -933,7 +933,7 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
     overrides: mergeThemeOverrides(brandOverrides, options.overrides ?? {}),
   });
 
-  const designRuleProfile = resolveEffectiveDesignRuleProfile('gold-athlete', options.designRuleProfile);
+  const designRuleProfile = resolveEffectiveDesignRuleProfile('ochre', options.designRuleProfile);
   checkOverridesAgainstDesignRuleProfile(options.overrides, designRuleProfile, collectAccentColorValues(tokens));
 
   return { mantineTheme, cssVariables, tokenGraph, designRuleProfile };

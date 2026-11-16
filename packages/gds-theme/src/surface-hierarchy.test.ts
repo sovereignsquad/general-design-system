@@ -33,9 +33,9 @@ describe('surface hierarchy roles (#951)', () => {
     expect(contrastRatio(d['--gds-bg-raised'], d['--gds-bg-card'], d['--gds-bg-card']) ?? 0).toBeGreaterThanOrEqual(GDS_SURFACE_STEP_MIN);
   });
 
-  it('class-usa resolves the same roles on the preset and the brand-theme path', () => {
-    const preset = getGdsVibeThemeCssVariables('class-usa', 'light');
-    const brand = createBrandTheme('class-usa').cssVariables;
+  it('harbor resolves the same roles on the preset and the brand-theme path', () => {
+    const preset = getGdsVibeThemeCssVariables('harbor', 'light');
+    const brand = createBrandTheme('harbor').cssVariables;
     for (const role of ROLES) expect(brand[role], role).toBe(preset[role]);
     expect(GDS_CLASS_USA_SHELL.light).toBe('rgba(255, 255, 255, 0.9)');
   });

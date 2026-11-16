@@ -23,7 +23,7 @@ for (const { id } of theme.getGdsVibeThemes()) {
     }
   }
 }
-for (const lane of ['class-usa', 'gold-athlete']) {
+for (const lane of ['harbor', 'ochre']) {
   for (const token of Object.keys(theme.createBrandTheme(lane).mantineTheme.other.gdsCssVariables)) {
     declare(token, `createBrandTheme('${lane}')`);
   }

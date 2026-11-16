@@ -466,7 +466,7 @@ replacement, none of which touch GDS code:
    versa — GDS never registers, caches, or serves the asset either way, so
    there is no migration step, just a wiring change.
 
-**Worked example — Your Field.** The Your Field bundle ships three real
+**Worked example — Linen.** The Linen bundle ships three real
 app-icon variants as flat brand-color PNGs
 (`appicon-navy.png`/`appicon-sage.png`/`appicon-terracotta.png`, sourced
 from `packages/gds-theme/src/your-field.ts`'s `YOUR_FIELD_NAVY`
@@ -476,10 +476,10 @@ generated default for the same preset:
 
 ```ts
 const generatedDefault = buildGdsBrandBadgeSvg({
-  themePresetId: 'your-field',
+  themePresetId: 'linen',
   size: 96,
   cornerRadiusRatio: 22 / 96, // matches the bundle's 22px radius at 96px
-  label: 'Your Field',
+  label: 'Linen',
 });
 ```
 

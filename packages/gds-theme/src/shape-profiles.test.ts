@@ -53,9 +53,9 @@ describe('shape profiles (#953)', () => {
     expect(components.Drawer.defaultProps?.radius).toBe('var(--gds-radius-drawer)');
   });
 
-  it('class-usa feeds its Mantine radius scale and its radius tokens from one shape axis', () => {
-    const { mantineTheme, cssVariables } = createBrandTheme('class-usa');
-    const preset = getGdsVibeThemeCssVariables('class-usa', 'light');
+  it('harbor feeds its Mantine radius scale and its radius tokens from one shape axis', () => {
+    const { mantineTheme, cssVariables } = createBrandTheme('harbor');
+    const preset = getGdsVibeThemeCssVariables('harbor', 'light');
     for (const step of ['xs', 'sm', 'md', 'lg', 'xl'] as const) {
       expect((mantineTheme.radius as Record<string, string>)[step]).toBe(GDS_CLASS_USA_SHAPE_AXIS.scale[step]);
       expect(cssVariables[`--gds-radius-${step}`]).toBe(GDS_CLASS_USA_SHAPE_AXIS.scale[step]);
@@ -63,20 +63,20 @@ describe('shape profiles (#953)', () => {
     }
   });
 
-  it('class-usa and gold-athlete components read the roles, so a shape scope reaches them', () => {
-    for (const lane of ['class-usa', 'gold-athlete'] as const) {
+  it('harbor and ochre components read the roles, so a shape scope reaches them', () => {
+    for (const lane of ['harbor', 'ochre'] as const) {
       const components = createBrandTheme(lane).mantineTheme.components as Record<string, { defaultProps?: { radius?: string } }>;
       expect(components.Button.defaultProps?.radius, lane).toBe('var(--gds-radius-button)');
       expect(components.Card.defaultProps?.radius, lane).toBe('var(--gds-radius-card)');
       expect(components.Paper.defaultProps?.radius, lane).toBe('var(--gds-radius-panel)');
       expect(components.Badge.defaultProps?.radius, lane).toBe('var(--gds-radius-badge)');
     }
-    expect(createBrandTheme('gold-athlete').cssVariables['--gds-radius-button']).toBe(GDS_DEFAULT_SHAPE_AXIS.scale.xl);
+    expect(createBrandTheme('ochre').cssVariables['--gds-radius-button']).toBe(GDS_DEFAULT_SHAPE_AXIS.scale.xl);
   });
 
   it('presets with a non-md default radius carry it on the modal role', () => {
     expect(getGdsVibeThemeCssVariables('high-contrast', 'light')['--gds-radius-modal']).toBe(GDS_DEFAULT_SHAPE_AXIS.scale.sm);
-    expect(getGdsVibeThemeCssVariables('gold-athlete', 'light')['--gds-radius-modal']).toBe(GDS_DEFAULT_SHAPE_AXIS.scale.lg);
-    expect(createBrandTheme('gold-athlete').cssVariables['--gds-radius-modal']).toBe(GDS_DEFAULT_SHAPE_AXIS.scale.lg);
+    expect(getGdsVibeThemeCssVariables('ochre', 'light')['--gds-radius-modal']).toBe(GDS_DEFAULT_SHAPE_AXIS.scale.lg);
+    expect(createBrandTheme('ochre').cssVariables['--gds-radius-modal']).toBe(GDS_DEFAULT_SHAPE_AXIS.scale.lg);
   });
 });

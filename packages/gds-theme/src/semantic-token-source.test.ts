@@ -6,7 +6,7 @@ import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
 // Guards that a semantic role has one definition, so the brand-theme and vibe-theme
 // consumption paths cannot disagree in value, not just in which preset ids they cover.
 describe('semantic token single source', () => {
-  const LANES = ['class-usa', 'gold-athlete'] as const;
+  const LANES = ['harbor', 'ochre'] as const;
 
   it.each(LANES)('%s resolves every shared role identically through both paths', (lane) => {
     const brand = createBrandTheme(lane).mantineTheme.other.gdsCssVariables as Record<string, string>;

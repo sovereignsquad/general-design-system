@@ -7,7 +7,7 @@ import { gdsDevWarnOnce, useGdsTranslation } from '@sovereignsquad/gds-theme';
  * pictograms are different families with different contracts (24×24 grid, contextual
  * treatments, scale-tuned stroke, and a token-only interaction-state contract).
  *
- * Source: Your Field v3 Design Guidelines, "Visual Language & Pictogram Guidelines" — every
+ * Source: Linen v3 Design Guidelines, "Visual Language & Pictogram Guidelines" — every
  * activity is a single, consistent icon family; marks signal the activity rather than depict a
  * scene.
  *
@@ -141,7 +141,7 @@ export const GDS_PICTOGRAM_DISABLED_OPACITY = 0.55;
 
 /**
  * `selected`-state stroke color: the semantic, un-specialised accent role (`--gds-accent`),
- * which resolves per theme preset (terracotta in the Your Field lane, that lane's own accent
+ * which resolves per theme preset (terracotta in the Linen lane, that lane's own accent
  * elsewhere) — never a curated per-category accent like `GdsBadge`'s `accent` prop. The
  * fallback chain ends at Mantine's own primary-color token, mirroring `gdsIconToneColor.primary`
  * in `icons.ts`, so a pictogram never renders colorless before a GDS theme mounts.

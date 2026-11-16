@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { getGdsVibeThemeCssVariables } from './vibe-themes';
 import type { GdsThemePresetId } from './theme-presets';
+import { normalizeGdsThemePresetId } from './presets/aliases';
 
 /** Props for `GdsVibeThemeScope`. */
 export interface GdsVibeThemeScopeProps {
@@ -31,9 +32,10 @@ export interface GdsVibeThemeScopeProps {
  * ```
  */
 export function GdsVibeThemeScope({ presetId, scheme = 'light', children, className }: GdsVibeThemeScopeProps) {
-  const variables = getGdsVibeThemeCssVariables(presetId, scheme);
+  const id = normalizeGdsThemePresetId(presetId);
+  const variables = getGdsVibeThemeCssVariables(id, scheme);
   return (
-    <span data-gds-vibe-theme-scope={presetId} className={className} style={variables as CSSProperties}>
+    <span data-gds-vibe-theme-scope={id} className={className} style={variables as CSSProperties}>
       {children}
     </span>
   );

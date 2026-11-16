@@ -35,7 +35,7 @@ const AXIS_PREFIXES = [
 const isAxisToken = (name) => AXIS_PREFIXES.some((p) => name.startsWith(p));
 
 const SEMANTIC_ROLES = new Set([
-  ...Object.keys(mod.createBrandTheme('class-usa').mantineTheme.other.gdsCssVariables),
+  ...Object.keys(mod.createBrandTheme('harbor').mantineTheme.other.gdsCssVariables),
   ...Object.keys(mod.getGdsVibeThemeCssVariables('aurora', 'light')).filter((k) => !k.startsWith('--gds-vibe-')),
 ].filter((name) => !isAxisToken(name)));
 if (SEMANTIC_ROLES.size < 50) {
@@ -78,7 +78,7 @@ for (const file of sourceFiles) {
 }
 
 // ── 2. Behavioural: both consumption paths agree ─────────────────────────────
-const LANES = ['class-usa', 'gold-athlete'];
+const LANES = ['harbor', 'ochre'];
 let compared = 0;
 
 for (const lane of LANES) {

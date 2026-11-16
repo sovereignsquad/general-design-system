@@ -4,6 +4,14 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Theme presets have neutral names (#985)
+
+- Five presets named after clients or sports are renamed: `class-usa` is now `harbor` (Harbor), `gold-athlete` is `ochre` (Ochre), `padel-africa` is `meadow` (Meadow), `your-field` is `linen` (Linen) and `athlete-gold` is `gilded` (Gilded). Their colours, axes and tokens are unchanged.
+- Old ids keep working until 8.0.0. `GDS_THEME_PRESET_ALIASES` and `normalizeGdsThemePresetId` resolve them in every preset API, the theme runtime (stored selections included), theme identity and `createBrandTheme`.
+- `harborThemePreset` and `ochreThemePreset` replace `classUsaThemePreset` and `goldAthleteThemePreset`, which are deprecated.
+- `data-gds-theme-preset` and `gdsBrandThemeId` carry the new id, and the stylesheet's preset selectors use it. Visible change: consumer CSS that targets an old id in that attribute stops matching.
+- Record in `DEPRECATIONS_AND_MIGRATIONS.md`.
+
 ### Generic names for activity- and family-specific package APIs (#985)
 
 - `DetailFactsTable`'s first two default facts are `audience` ("Audience") and `category` ("Category"), translated in every locale pack. The old value keys `ageRange` and `activityType` still fill those rows and are deprecated.

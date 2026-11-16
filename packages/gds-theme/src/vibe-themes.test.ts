@@ -96,11 +96,11 @@ describe('vibe-theme semantic role tokens (badge-system foundation)', () => {
     }
   });
 
-  it('does not touch class-usa/gold-athlete\'s existing hand-authored values', () => {
-    const classUsaLight = getGdsVibeThemeCssVariables('class-usa', 'light');
-    const goldAthleteLight = getGdsVibeThemeCssVariables('gold-athlete', 'light');
+  it('does not touch harbor/ochre\'s existing hand-authored values', () => {
+    const classUsaLight = getGdsVibeThemeCssVariables('harbor', 'light');
+    const goldAthleteLight = getGdsVibeThemeCssVariables('ochre', 'light');
 
-    // class-usa v2 re-base (issue 536): navy anchor moved #0b223e -> #0f2c4a.
+    // harbor v2 re-base (issue 536): navy anchor moved #0b223e -> #0f2c4a.
     expect(classUsaLight['--gds-brand-primary']).toBe('#0f2c4a');
     expect(classUsaLight['--gds-state-danger']).toBe('#b3261e');
     // Its hand-authored brand primary is the body text colour, so it takes the readable grey (#970).
@@ -109,9 +109,9 @@ describe('vibe-theme semantic role tokens (badge-system foundation)', () => {
     expect(goldAthleteLight['--gds-state-danger']).toBe('#b3261e');
   });
 
-  it('splits class-usa\'s accent light/dark by ramp anchor, not a reused value (v2 re-base, issue 536)', () => {
-    const classUsaLight = getGdsVibeThemeCssVariables('class-usa', 'light');
-    const classUsaDark = getGdsVibeThemeCssVariables('class-usa', 'dark');
+  it('splits harbor\'s accent light/dark by ramp anchor, not a reused value (v2 re-base, issue 536)', () => {
+    const classUsaLight = getGdsVibeThemeCssVariables('harbor', 'light');
+    const classUsaDark = getGdsVibeThemeCssVariables('harbor', 'dark');
 
     expect(classUsaLight['--gds-accent']).toBe('#c24a0a');
     expect(classUsaDark['--gds-accent']).toBe('#f5793b');
@@ -139,12 +139,12 @@ describe('vibe-theme semantic role tokens (badge-system foundation)', () => {
   it('pairs --gds-text-on-support with --gds-support at WCAG AA for every preset and scheme (issue #537)', () => {
     // The regression this guards: ChoiceChip's selected state paired
     // `--gds-text-on-inverse` (designed to sit on `bg.inverse`) with `--gds-support`,
-    // two roles never designed to meet. It measured 1.89:1 in class-usa dark against a
+    // two roles never designed to meet. It measured 1.89:1 in harbor dark against a
     // 4.5:1 requirement and passed every existing gate, because every existing gate
     // checked DESIGNED pairings and this pairing was never designed at all.
     //
     // Asserting all 25 presets x both schemes rather than sampling is deliberate: the
-    // fix itself introduced a 4.1:1 failure in class-usa light (the hand-authored
+    // fix itself introduced a 4.1:1 failure in harbor light (the hand-authored
     // `support` override winning over a foreground derived against the derived
     // `support`), and only exhaustive checking surfaced it.
     const presetIds = getGdsThemePresets().map((preset) => preset.id);

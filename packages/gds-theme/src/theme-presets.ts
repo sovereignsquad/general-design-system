@@ -4,13 +4,20 @@ import { createVibrantPresetTheme } from './presets/vibrant';
 import { createBrandTheme } from './brand-tokens';
 import { gdsThemePresetRegistry } from './presets';
 import type { GdsThemePresetCatalogEntry, GdsThemePresetMantineFactories } from './presets/define';
+import { normalizeGdsThemePresetId, type GdsDeprecatedThemePresetId } from './presets/aliases';
 
-/** Identifier of a built-in GDS theme preset (accessibility, brand, and vibe lanes), derived from `gdsThemePresetRegistry`. */
-export type GdsThemePresetId = (typeof gdsThemePresetRegistry)[number]['id'];
+/** Identifier of a registered GDS theme preset, derived from `gdsThemePresetRegistry`. */
+export type GdsCurrentThemePresetId = (typeof gdsThemePresetRegistry)[number]['id'];
+
+/**
+ * Identifier a preset can be selected by: a registered id, or a deprecated id that resolves to
+ * its replacement (see `GDS_THEME_PRESET_ALIASES`).
+ */
+export type GdsThemePresetId = GdsCurrentThemePresetId | GdsDeprecatedThemePresetId;
 
 /** Catalog entry describing a theme preset for selection UIs and documentation. */
 export interface GdsThemePreset extends GdsThemePresetCatalogEntry {
-  id: GdsThemePresetId;
+  id: GdsCurrentThemePresetId;
 }
 
 const themePresetCatalog: GdsThemePreset[] = gdsThemePresetRegistry.map((preset) => ({ id: preset.id, ...preset.catalog }));
@@ -25,9 +32,9 @@ const mantineFactories: GdsThemePresetMantineFactories = {
   gdsEditorialPublicTheme,
 };
 
-const resolvedMantineThemes = new Map<GdsThemePresetId, MantineThemeOverride>();
+const resolvedMantineThemes = new Map<GdsCurrentThemePresetId, MantineThemeOverride>();
 
-function resolveRegisteredMantineTheme(id: GdsThemePresetId): MantineThemeOverride {
+function resolveRegisteredMantineTheme(id: GdsCurrentThemePresetId): MantineThemeOverride {
   const cached = resolvedMantineThemes.get(id);
   if (cached) return cached;
   const mantine = gdsThemePresetRegistry.find((preset) => preset.id === id)?.mantine;
@@ -46,7 +53,8 @@ export function getGdsThemePresets() {
  * composed on demand from the optional brand options; all other ids map to the
  * registered preset's lane, falling back to the default theme for unknown ids.
  */
-export function resolveGdsThemePreset(id: GdsThemePresetId, options?: { brandPrimary?: string; brandFlatSurfaces?: boolean; brandEditorialSerif?: boolean }): MantineThemeOverride {
+export function resolveGdsThemePreset(presetId: GdsThemePresetId, options?: { brandPrimary?: string; brandFlatSurfaces?: boolean; brandEditorialSerif?: boolean }): MantineThemeOverride {
+  const id = normalizeGdsThemePresetId(presetId);
   if (id === 'brand') {
     return createPublicBrandTheme({
       editorialSerif: options?.brandEditorialSerif ?? false,
@@ -60,8 +68,14 @@ export function resolveGdsThemePreset(id: GdsThemePresetId, options?: { brandPri
 /** Compact, family-friendly teal/lime map-and-list discovery theme with explicit dark-mode tokens. */
 export const partnerDiscoveryThemePreset = resolveGdsThemePreset('partner-discovery');
 
-/** Mantine theme for the governed Class USA brand (ivory/navy/sage/terracotta). */
-export const classUsaThemePreset = resolveGdsThemePreset('class-usa');
+/** Mantine theme for the Harbor brand lane (warm cream, ink navy and action orange). */
+export const harborThemePreset = resolveGdsThemePreset('harbor');
 
-/** Mantine theme for the governed Gold Athlete brand (black-and-metallic-gold). */
-export const goldAthleteThemePreset = resolveGdsThemePreset('gold-athlete');
+/** Mantine theme for the Ochre brand lane (deep gold on cream). */
+export const ochreThemePreset = resolveGdsThemePreset('ochre');
+
+/** @deprecated Use `harborThemePreset`. Removed in 8.0.0. */
+export const classUsaThemePreset = harborThemePreset;
+
+/** @deprecated Use `ochreThemePreset`. Removed in 8.0.0. */
+export const goldAthleteThemePreset = ochreThemePreset;
