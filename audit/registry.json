@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "05f3a2be3ba9f93a4f63a36cec40853cf8489949",
+  "commit": "aba29d94cbc2a202620ea5d6b195e478d0610e13",
   "counts": {
     "token-published": 524,
     "token-declared": 272,
@@ -9545,7 +9545,7 @@
       "name": "--gds-focus-ring-width",
       "source": {
         "file": "packages/gds-core/src/NarrowContainers.test.tsx",
-        "line": 25
+        "line": 26
       }
     },
     {
