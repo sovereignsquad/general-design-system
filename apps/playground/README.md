@@ -8,7 +8,7 @@ The `playground` app is the canonical public website for General Design System d
 - `/install` — install and verification playbook
 - `/governance` — rules for GDS adoption and local exceptions
 - `/themes` — theme explorer and lane comparison (legacy `/tokens`)
-- `/patterns` — pattern catalog and family routes
+- `/patterns` — pattern catalog and family routes. Each demo has a Usage panel whose code `scripts/generate-pattern-usage.mjs` derives from the demo's source in `src/pattern-pages.tsx`; `verify:pattern-usage` fails when it is stale.
 - `/live-proofs` and family routes for shipped runtime proofs
 - `/releases` — release notes, generated from `CHANGELOG.md` by `scripts/generate-release-notes.mjs`
 - `/request-feature` — canonical request intake for new primitives or policy updates

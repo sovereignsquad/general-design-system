@@ -787,6 +787,19 @@ export const GATE_MUTANTS = [
         replace: 'All notable policy changes to the General Design System are recorded here.\n\n## 0.0.0 - 2026-01-01 — Planted',
         once: true,
       },
+  {
+    npmScript: 'verify:pattern-usage',
+    script: null,
+    mutants: [
+      {
+        id: 'pattern-usage-detects-unregenerated-demo',
+        claim: 'Detects a pattern demo edit whose usage code was not regenerated',
+        file: 'apps/playground/src/pattern-pages.tsx',
+        find: 'progressLabel="Pattern-site coverage"',
+        replace: 'progressLabel="Pattern-site coverage (planted)"',
+      },
+    ],
+  },
     ],
   },
   {

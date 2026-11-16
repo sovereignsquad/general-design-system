@@ -75,6 +75,7 @@ import {
   ProviderCTA,
   DiscoveryShell,
   DocsCodeBlock,
+  DocsCodeDisclosure,
   GdsReleaseNotes,
   DocsShell,
   DocsPageShell,
@@ -242,6 +243,7 @@ import {
 } from './pattern-registry';
 import { SiteTourLauncher } from './SiteTourLauncher';
 import { GDS_LOGO_LOCKUP_DEMO_MARK } from './logo-lockup-demo-asset';
+import { loadPatternUsage, patternUsageIds } from './generated-pattern-usage';
 
 const catalogEntryCount = patternRegistry.length;
 
@@ -3471,7 +3473,12 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         </FilterDrawer>
       );
     case 'docs-code-blocks':
-      return <DocsCodeBlock title="Usage" language="tsx" code="import { ListingCard } from '@sovereignsquad/gds-core';" />;
+      return (
+        <GdsStack gap="sm">
+          <DocsCodeBlock title="Install" language="bash" code="npm install @sovereignsquad/gds" />
+          <DocsCodeDisclosure label="Show an example" language="tsx" code={"import { ListingCard } from '@sovereignsquad/gds-core';\n\n<ListingCard title=\"Studio space\" />"} />
+        </GdsStack>
+      );
     case 'release-notes':
       return (
         <GdsReleaseNotes
@@ -3940,12 +3947,18 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
   }
 }
 
+function PatternUsage({ entry }: { entry: PatternRegistryEntry }) {
+  if (!patternUsageIds.has(entry.id)) return null;
+  return <DocsCodeDisclosure label="Usage" language="tsx" loadCode={() => loadPatternUsage(entry.id)} />;
+}
+
 function PatternEntryCard({ entry }: { entry: PatternRegistryEntry }) {
   if (entry.id === 'partner-discovery-system') {
     return (
       <>
         <CoverageText entry={entry} />
         {renderEntryDemo(entry)}
+        <PatternUsage entry={entry} />
       </>
     );
   }
@@ -3955,6 +3968,7 @@ function PatternEntryCard({ entry }: { entry: PatternRegistryEntry }) {
     <SectionPanel id={`entry-${entry.id}`} title={entry.title} description={entry.summary}>
       <CoverageText entry={entry} />
       {renderEntryDemo(entry)}
+      <PatternUsage entry={entry} />
     </SectionPanel>
   );
 }

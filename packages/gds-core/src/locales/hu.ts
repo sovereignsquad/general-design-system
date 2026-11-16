@@ -423,4 +423,10 @@ export const hu = {
   'gds.toast.regionLabel': "Legutóbbi értesítések",
   'gds.detailFacts.audience': "Közönség",
   'gds.detailFacts.category': "Kategória",
+  'gds.docsCodeBlock.copied': "Kódblokk másolva",
+  'gds.docsCodeBlock.copy': "Kódblokk másolása",
+  'gds.docsCodeDisclosure.show': "Kód megjelenítése",
+  'gds.docsCodeDisclosure.loading': "Kód betöltése…",
+  'gds.docsCodeDisclosure.error': "A kódot nem sikerült betölteni. Zárja be, majd nyissa meg újra az újrapróbálkozáshoz.",
+  'gds.docsCodeBlock.region': "Kód",
 };

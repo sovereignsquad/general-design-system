@@ -423,4 +423,10 @@ export const ko = {
   'gds.toast.regionLabel': "최근 알림",
   'gds.detailFacts.audience': "청중",
   'gds.detailFacts.category': "범주",
+  'gds.docsCodeBlock.copied': "복사된 코드 블록",
+  'gds.docsCodeBlock.copy': "코드 블록 복사",
+  'gds.docsCodeDisclosure.show': "코드 표시",
+  'gds.docsCodeDisclosure.loading': "코드 로드 중…",
+  'gds.docsCodeDisclosure.error': "코드를 로드할 수 없습니다. 닫았다가 다시 열어서 시도해 보세요.",
+  'gds.docsCodeBlock.region': "암호",
 };

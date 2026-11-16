@@ -423,4 +423,10 @@ export const he = {
   'gds.toast.regionLabel': "הודעות אחרונות",
   'gds.detailFacts.audience': "קהל",
   'gds.detailFacts.category': "קָטֵגוֹרִיָה",
+  'gds.docsCodeBlock.copied': "בלוק קוד הועתק",
+  'gds.docsCodeBlock.copy': "העתק בלוק קוד",
+  'gds.docsCodeDisclosure.show': "הצג קוד",
+  'gds.docsCodeDisclosure.loading': "טוען קוד...",
+  'gds.docsCodeDisclosure.error': "לא ניתן היה לטעון את הקוד. סגור ופתח מחדש כדי לנסות שוב.",
+  'gds.docsCodeBlock.region': "קוד",
 };

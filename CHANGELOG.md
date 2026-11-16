@@ -9,6 +9,15 @@ All notable policy changes to the General Design System are recorded here.
 - `strict.raw-control` and `strict.raw-table` match tag names case-sensitively. Lowercase JSX tags (`<button>`, `<table>`) are native elements and are still reported; a component such as GDS `<Button>`, `<Select>` or `<Table>` is not.
 - Previously any PascalCase tag of those names was reported, including components imported from `@sovereignsquad/gds-core`.
 
+### Usage code under every pattern demo (#978)
+
+- New `DocsCodeDisclosure` (`@sovereignsquad/gds-core`, root and `/client`): a collapsed code block that takes `code`, or `loadCode` to fetch the code on first open. Loading and failure are announced; reopening after a failure retries.
+- Every pattern demo on the reference site has a Usage panel. Its code is derived from the demo's own source by `scripts/generate-pattern-usage.mjs`, with the package imports it needs and any local helpers it uses. Names that come from site modules are listed in a comment instead of inlined.
+  - The code ships as `apps/playground/public/pattern-usage.json`, fetched once on the first open.
+  - `verify:pattern-usage` fails the release chain when the usage code is stale.
+- `DocsCodeBlock` copy-button labels are translated (`gds.docsCodeBlock.copy`, `gds.docsCodeBlock.copied`).
+- `DocsCodeBlock` code is a focusable group named by the block's title (or the translated "Code"), so a block whose long lines scroll horizontally can be scrolled from the keyboard.
+
 ### Reference site: every route answers 200 (#978)
 
 - Static route shells are derived from the router (`<Route path>` in `apps/playground/src/App.tsx`) instead of a hand-kept list. `/releases` and `/ai` were missing from that list and answered 404 before the SPA fallback rendered them.
