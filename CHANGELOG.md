@@ -15,6 +15,7 @@ All notable policy changes to the General Design System are recorded here.
   - Issue references such as `#123` link through `issueHref`.
   - A version listed more than once gets distinct anchors.
   - List markers are hidden from assistive technology; the list role carries the structure.
+  - A slash in text, as in `secondary`/`subtle`, is a line-break opportunity, so code spans joined by slashes wrap between words, not inside one.
   - The pattern catalog shows it as the `release-notes` entry (Public Shells & Docs) with a live demo.
 - The reference site has a `/releases` page built from `CHANGELOG.md` at build time by `scripts/generate-release-notes.mjs`: one static JSON file per major version under `apps/playground/public/release-notes`, fetched when that group is shown.
   - The parser fails on a Markdown construct it does not model, so nothing is silently dropped.

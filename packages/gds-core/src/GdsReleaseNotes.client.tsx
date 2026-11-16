@@ -55,18 +55,31 @@ export interface GdsReleaseNotesProps {
 
 const ISSUE_REFERENCE = /#(\d+)/g;
 
+// A slash is not a line-break opportunity, so `a`/`b`/`c` would form one unbreakable run and
+// overflow-wrap would split a code word mid-word. A <wbr> after each slash allows the break.
+function withSlashBreaks(text: string, key: string): ReactNode {
+  if (!text.includes('/')) return text;
+  const pieces = text.split('/');
+  return pieces.map((piece, index) => (
+    <Fragment key={`${key}-s${index}`}>
+      {piece}
+      {index < pieces.length - 1 ? <>/<wbr /></> : null}
+    </Fragment>
+  ));
+}
+
 function renderText(text: string, issueHref: GdsReleaseNotesProps['issueHref'], key: string): ReactNode {
-  if (!issueHref) return text;
+  if (!issueHref) return withSlashBreaks(text, key);
   const parts: ReactNode[] = [];
   let last = 0;
   for (const match of text.matchAll(ISSUE_REFERENCE)) {
     const index = match.index ?? 0;
-    if (index > last) parts.push(text.slice(last, index));
+    if (index > last) parts.push(<Fragment key={`${key}-t${last}`}>{withSlashBreaks(text.slice(last, index), `${key}-t${last}`)}</Fragment>);
     parts.push(<GdsInlineLink key={`${key}-${index}`} href={issueHref(Number(match[1]))}>{match[0]}</GdsInlineLink>);
     last = index + match[0].length;
   }
-  if (last < text.length) parts.push(text.slice(last));
-  return parts.length === 1 ? parts[0] : parts;
+  if (last < text.length) parts.push(<Fragment key={`${key}-t${last}`}>{withSlashBreaks(text.slice(last), `${key}-t${last}`)}</Fragment>);
+  return parts;
 }
 
 function renderInline(content: GdsReleaseNoteInline[], issueHref: GdsReleaseNotesProps['issueHref'], key: string): ReactNode {
