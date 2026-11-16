@@ -1,5 +1,6 @@
-// Parses CHANGELOG.md into GdsRelease data for the reference site's release notes page, one
-// module per major version so each loads on its own.
+// Parses CHANGELOG.md into GdsRelease data for the reference site's release notes page: one
+// static JSON file per major version under apps/playground/public/release-notes, fetched on
+// demand, plus a typed index module listing the groups.
 //
 // Strict: a construct the parser does not model (a level-4 heading, a blockquote, raw HTML)
 // fails the run instead of being dropped.
@@ -10,6 +11,7 @@ import { join } from 'node:path';
 
 const ROOT = process.cwd();
 const OUT_DIR = join(ROOT, 'apps/playground/src/generated-release-notes');
+const DATA_DIR = join(ROOT, 'apps/playground/public/release-notes');
 const REPO_BLOB = 'https://github.com/sovereignsquad/general-design-system/blob/main/';
 const check = process.argv.includes('--check');
 
@@ -176,14 +178,23 @@ function render(releases) {
     if (!groups.has(major)) groups.set(major, []);
     groups.get(major).push(release);
   }
-  const files = new Map();
+  const data = new Map();
+  for (const [major, list] of groups) data.set(`v${major}.json`, `${JSON.stringify(list)}\n`);
   const header = '// Generated from CHANGELOG.md by scripts/generate-release-notes.mjs. Do not edit by hand.\n';
-  for (const [major, list] of groups) {
-    files.set(`v${major}.ts`, `${header}import type { GdsRelease } from '@sovereignsquad/gds-core';\n\nconst releases: GdsRelease[] = ${JSON.stringify(list)};\n\nexport default releases;\n`);
-  }
-  const index = [...groups.keys()];
-  files.set('index.ts', `${header}import type { GdsRelease } from '@sovereignsquad/gds-core';\n\n/** Release groups in changelog order: id, release count, and a loader for its releases. */\nexport const releaseGroups: Array<{ id: string; count: number; load: () => Promise<GdsRelease[]> }> = [\n${index.map((major) => `  { id: ${JSON.stringify(major)}, count: ${groups.get(major).length}, load: () => import('./v${major}').then((module) => module.default) },`).join('\n')}\n];\n`);
-  return files;
+  const index = new Map([['index.ts', `${header}import type { GdsRelease } from '@sovereignsquad/gds-core';
+
+async function load(file: string): Promise<GdsRelease[]> {
+  const response = await fetch(\`\${import.meta.env.BASE_URL}release-notes/\${file}\`);
+  if (!response.ok) throw new Error(\`release-notes/\${file}: HTTP \${response.status}\`);
+  return response.json() as Promise<GdsRelease[]>;
+}
+
+/** Release groups in changelog order: id, release count, and a loader for its releases. */
+export const releaseGroups: Array<{ id: string; count: number; load: () => Promise<GdsRelease[]> }> = [
+${[...groups.keys()].map((major) => `  { id: ${JSON.stringify(major)}, count: ${groups.get(major).length}, load: () => load('v${major}.json') },`).join('\n')}
+];
+`]]);
+  return { index, data };
 }
 
 const releases = parseChangelog(readFileSync(join(ROOT, 'CHANGELOG.md'), 'utf8'));
@@ -191,23 +202,28 @@ if (releases.length === 0) {
   console.error('FAIL no releases parsed from CHANGELOG.md.');
   process.exit(1);
 }
-const files = render(releases);
+const { index, data } = render(releases);
+const outputs = [[OUT_DIR, index], [DATA_DIR, data]];
 
 if (check) {
   const stale = [];
-  for (const [name, content] of files) {
-    const path = join(OUT_DIR, name);
-    if (!existsSync(path) || readFileSync(path, 'utf8') !== content) stale.push(name);
+  for (const [dir, files] of outputs) {
+    for (const [name, content] of files) {
+      const path = join(dir, name);
+      if (!existsSync(path) || readFileSync(path, 'utf8') !== content) stale.push(path.slice(ROOT.length + 1));
+    }
+    if (existsSync(dir)) for (const name of readdirSync(dir)) if (!files.has(name)) stale.push(join(dir, name).slice(ROOT.length + 1));
   }
-  const extra = existsSync(OUT_DIR) ? readdirSync(OUT_DIR).filter((name) => !files.has(name)) : [];
-  if (stale.length || extra.length) {
-    console.error(`FAIL apps/playground/src/generated-release-notes is stale (${[...stale, ...extra].join(', ')}). Run node scripts/generate-release-notes.mjs and commit the result.`);
+  if (stale.length) {
+    console.error(`FAIL release notes are stale (${stale.join(', ')}). Run node scripts/generate-release-notes.mjs and commit the result.`);
     process.exit(1);
   }
-  console.log(`Release notes are current: ${releases.length} releases in ${files.size - 1} groups.`);
+  console.log(`Release notes are current: ${releases.length} releases in ${data.size} groups.`);
 } else {
-  if (existsSync(OUT_DIR)) rmSync(OUT_DIR, { recursive: true });
-  mkdirSync(OUT_DIR, { recursive: true });
-  for (const [name, content] of files) writeFileSync(join(OUT_DIR, name), content);
-  console.log(`Wrote ${releases.length} releases in ${files.size - 1} groups to apps/playground/src/generated-release-notes.`);
+  for (const [dir, files] of outputs) {
+    if (existsSync(dir)) rmSync(dir, { recursive: true });
+    mkdirSync(dir, { recursive: true });
+    for (const [name, content] of files) writeFileSync(join(dir, name), content);
+  }
+  console.log(`Wrote ${releases.length} releases in ${data.size} groups to apps/playground/public/release-notes.`);
 }
