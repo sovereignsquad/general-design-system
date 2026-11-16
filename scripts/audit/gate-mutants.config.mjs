@@ -776,6 +776,20 @@ export const GATE_MUTANTS = [
     ],
   },
   {
+    npmScript: 'verify:release-notes',
+    script: null,
+    mutants: [
+      {
+        id: 'release-notes-detect-unregenerated-changelog',
+        claim: 'Detects a CHANGELOG.md edit whose release notes data was not regenerated',
+        file: 'CHANGELOG.md',
+        find: 'All notable policy changes to the General Design System are recorded here.',
+        replace: 'All notable policy changes to the General Design System are recorded here.\n\n## 0.0.0 - 2026-01-01 — Planted',
+        once: true,
+      },
+    ],
+  },
+  {
     npmScript: 'verify:package-readmes',
     script: null,
     mutants: [
