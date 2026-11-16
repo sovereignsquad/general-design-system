@@ -121,6 +121,7 @@ export * from './PublicBrandFooter';
 export * from './GdsBreadcrumbs';
 export * from './PageHeader';
 export * from './DocsCodeBlock';
+export * from './GdsReleaseNotes.client';
 
 // ── Forms & validation ──
 export * from './FormField';

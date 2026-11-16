@@ -73,6 +73,7 @@ export * from './AuthShell';
 export * from './SocialAuthButtons';
 export * from './ArticleShell';
 export * from './DocsCodeBlock';
+export * from './GdsReleaseNotes.client';
 export * from './CtaButtonGroup';
 export * from './DocsPageShell';
 export * from './GdsBreadcrumbs';

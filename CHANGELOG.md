@@ -4,6 +4,16 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Release notes on the reference site (#978)
+
+- New `GdsReleaseNotes` (`@sovereignsquad/gds-core`, root and `/client`). It renders releases as data: version, date, title, sections, paragraphs, nested lists, code and tables.
+  - Issue references such as `#123` link through `issueHref`.
+  - A version listed more than once gets distinct anchors.
+- The reference site has a `/releases` page built from `CHANGELOG.md` at build time by `scripts/generate-release-notes.mjs`, one lazily loaded module per major version.
+  - The parser fails on a Markdown construct it does not model, so nothing is silently dropped.
+  - `verify:release-notes` fails the release chain when the generated data is stale.
+  - The page loads the unreleased changes and the current major first, and older majors on request.
+
 ### Theme presets have neutral names (#985)
 
 - Five presets named after clients or sports are renamed: `class-usa` is now `harbor` (Harbor), `gold-athlete` is `ochre` (Ochre), `padel-africa` is `meadow` (Meadow), `your-field` is `linen` (Linen) and `athlete-gold` is `gilded` (Gilded). Their colours, axes and tokens are unchanged.

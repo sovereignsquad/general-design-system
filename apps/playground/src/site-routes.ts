@@ -163,6 +163,15 @@ export const publicSiteRoutes: PublicSiteRoute[] = [
     activePrefixes: ['/request-feature'],
   },
   {
+    id: 'releases',
+    path: '/releases',
+    label: 'Release notes',
+    action: 'history',
+    audienceIntent: 'resources',
+    navGroup: 'secondary',
+    activePrefixes: ['/releases'],
+  },
+  {
     id: 'ai',
     path: '/ai',
     label: 'Use with AI',
