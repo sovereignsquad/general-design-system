@@ -12,7 +12,7 @@ function renderReference() {
 describe('GdsButtonFeedbackReference', () => {
   it('swaps the label on click and reverts it after the governed duration', async () => {
     renderReference();
-    const button = screen.getAllByRole('button')[0];
+    const button = screen.getAllByRole('button').filter((b) => !b.closest('[data-gds-button-variant-reference]'))[0];
     const resting = button.textContent;
 
     fireEvent.click(button);
@@ -35,7 +35,7 @@ describe('GdsButtonFeedbackReference', () => {
     // against a number that would go stale when the vocabulary gains a colour. Excludes the
     // outline-accent/gradient brand-intent demo added by issue 700, which renders its own
     // fixed set of buttons unrelated to the vocabulary's colour count.
-    const liveFeedbackButtons = screen.getAllByRole('button').filter((button) => !button.closest('[data-gds-brand-intent-demo]'));
+    const liveFeedbackButtons = screen.getAllByRole('button').filter((button) => !button.closest('[data-gds-brand-intent-demo], [data-gds-button-variant-reference]'));
     expect(liveFeedbackButtons).toHaveLength(distinctColors.size * 2);
   });
 
@@ -47,6 +47,12 @@ describe('GdsButtonFeedbackReference', () => {
       const buttons = demo!.querySelectorAll(`[data-gds-brand-button='${variant}']`);
       expect(buttons.length).toBe(4);
     }
+  });
+
+  it('shows the variant hierarchy in emphasis order, with filled and light red (#977)', () => {
+    renderReference();
+    const probes = [...document.querySelectorAll('[data-gds-button-variant-probe]')].map((el) => el.getAttribute('data-gds-button-variant-probe'));
+    expect(probes).toEqual(['filled', 'light', 'outline', 'subtle', 'default', 'red-filled', 'red-light']);
   });
 
   it('lists every vocabulary action that declares a feedback config', () => {

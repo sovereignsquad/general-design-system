@@ -1,13 +1,13 @@
 {
-  "tokenUniverse": 277,
+  "tokenUniverse": 279,
   "darkSiblingsExcluded": 37,
-  "cellsEvaluated": 1385,
+  "cellsEvaluated": 1395,
   "obligationsSatisfied": {
-    "listed": 131,
-    "demoed": 153,
-    "explained": 116,
+    "listed": 134,
+    "demoed": 155,
+    "explained": 119,
     "variationsShown": 44,
-    "useCase": 29
+    "useCase": 31
   },
   "confidence": {
     "listed": "high - direct lookup against the published DTCG graph and docs corpus",
@@ -18,7 +18,7 @@
   },
   "publishedRoleOverlap": null,
   "tokensSatisfyingAll": 9,
-  "tokensWithGaps": 268,
+  "tokensWithGaps": 270,
   "gapsClassified": 9,
   "classificationsExpiredOrStale": [],
   "rows": [
@@ -2416,24 +2416,6 @@
       ]
     },
     {
-      "token": "--gds-badge-solid-danger",
-      "role": "badge-solid-danger",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": true,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-badge-solid-danger-fg",
       "role": "badge-solid-danger-fg",
       "declaredIn": [
@@ -3887,6 +3869,22 @@
       ]
     },
     {
+      "token": "--gds-bg-sidebar",
+      "role": "bg-sidebar",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-nav-active-bg",
       "role": "nav-active-bg",
       "declaredIn": [
@@ -4647,6 +4645,21 @@
       ]
     },
     {
+      "token": "--gds-badge-solid-danger",
+      "role": "badge-solid-danger",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
       "token": "--gds-brand-accent",
       "role": "brand-accent",
       "declaredIn": [
@@ -4668,21 +4681,6 @@
       "declaredIn": [
         "styles.css",
         "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-bg-sidebar",
-      "role": "bg-sidebar",
-      "declaredIn": [
-        "styles.css"
       ],
       "listed": true,
       "demoed": true,
@@ -4740,6 +4738,21 @@
       ]
     },
     {
+      "token": "--gds-action-fill-fg",
+      "role": "action-fill-fg",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
+      ]
+    },
+    {
       "token": "--gds-text-on-support",
       "role": "text-on-support",
       "declaredIn": [
@@ -4771,6 +4784,21 @@
       "useCase": false,
       "gaps": [
         "useCase"
+      ]
+    },
+    {
+      "token": "--gds-action-outline",
+      "role": "action-outline",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": true,
+      "gaps": [
+        "variationsShown"
       ]
     },
     {

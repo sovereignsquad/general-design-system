@@ -30,15 +30,18 @@ describe('accessibility floor (issue 559)', () => {
     ['reduced-motion-not-overridden', { '--gds-motion-policy': 'never-reduce' }],
     ['disabled-control-still-distinguishable', { '--gds-control-disabledText': '#cccccc', '--gds-control-disabledBg': '#cccccc' }],
     ['outline-accent-text-contrast', { '--gds-brand-accent-action': '#ffee00' }],
+    ['primary-cta-text-contrast', { '--gds-vibe-primary': '#888888', '--gds-action-fill-fg': '#999999' }],
+    ['action-fill-separation', { '--gds-vibe-primary': '#fafafa', '--gds-vibe-canvas': '#ffffff' }],
+    ['action-gradient-text-contrast', { '--gds-vibe-action-gradient': 'linear-gradient(135deg, #7c3cff, #ffee00)', '--gds-vibe-action-gradient-fg': '#ffffff' }],
   ])('rule %s fires on its own breach', (ruleId, tokens) => {
     expect(probe(tokens).map((v) => v.ruleId)).toContain(ruleId);
   });
 
-  it('outline-accent-text-contrast is report severity, not a build-failing violation (issue 700)', () => {
+  it('outline-accent-text-contrast fails the build (#977)', () => {
     const found = probe({ '--gds-brand-accent-action': '#ffee00' });
     const finding = found.find((v) => v.ruleId === 'outline-accent-text-contrast');
     expect(finding).toBeTruthy();
-    expect(finding!.severity).toBe('report');
+    expect(finding!.severity).toBe('violation');
   });
 
   it('outline-accent-text-contrast stays silent on the real default/light pairing (issue 700)', () => {

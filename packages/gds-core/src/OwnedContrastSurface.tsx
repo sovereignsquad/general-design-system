@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { GdsVibeTheme } from '@sovereignsquad/gds-theme';
+import { getGdsVibeThemeCssVariables, type GdsVibeTheme } from '@sovereignsquad/gds-theme';
 
 // Owned-contrast roles are the intentional *vibe swatch* surfaces that preview a
 // specific theme atmosphere rather than matching the surrounding page. The
@@ -18,7 +18,10 @@ export interface GdsOwnedContrastTokens {
   muted: string;
   background: string;
   radius: string;
+  /** Filled-control colour, as the preset emits it for light mode. */
   primary: string;
+  /** Label colour on `primary`. */
+  primaryFg?: string;
   accent: string;
   surface: string;
   border: string;
@@ -66,18 +69,21 @@ export function createGdsOwnedContrastTokens(
   const muted = options.muted ?? vibe.mutedLight;
   const surface = options.surface ?? vibe.surfaceLight;
   const border = options.border ?? vibe.borderLight;
+  const emitted = getGdsVibeThemeCssVariables(vibe.id, 'light');
+  const primary = emitted['--gds-vibe-primary'];
 
   return {
     text,
     muted,
     background: options.background,
     radius: options.radius,
-    primary: vibe.primary,
-    accent: vibe.accent,
+    primary,
+    primaryFg: emitted['--gds-action-fill-fg'],
+    accent: emitted['--gds-vibe-accent'],
     surface,
     border,
-    link: options.link ?? `color-mix(in srgb, ${vibe.primary} 64%, ${text})`,
-    control: options.control ?? `color-mix(in srgb, ${surface} 88%, ${vibe.primary} 8%)`,
+    link: options.link ?? `color-mix(in srgb, ${primary} 64%, ${text})`,
+    control: options.control ?? `color-mix(in srgb, ${surface} 88%, ${primary} 8%)`,
     controlText: options.controlText ?? text,
     backgroundColor: options.backgroundColor ?? surface,
     borderColor: options.borderColor ?? border,
@@ -97,6 +103,7 @@ export function getGdsOwnedContrastProps({ role, tokens }: GdsOwnedContrastProps
     '--gds-local-background': tokens.background,
     '--gds-local-radius': tokens.radius,
     '--gds-vibe-primary': tokens.primary,
+    ...(tokens.primaryFg ? { '--gds-action-fill-fg': tokens.primaryFg } : {}),
     '--gds-vibe-accent': tokens.accent,
     '--gds-vibe-surface': tokens.surface,
     '--gds-vibe-border': tokens.border,

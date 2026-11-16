@@ -1,6 +1,6 @@
 import type { GdsThemePresetId } from './theme-presets';
 import { resolveGdsAxisTokens, type GdsThemeAxes } from './axes';
-import { readableForeground } from './color-math';
+import { ensureContrast, readableForeground, resolveOpaque, toRgbString } from './color-math';
 import { emitChartCssVariables } from './chart-tokens';
 import {
   emitSurfaceHierarchyCssVariables,
@@ -44,7 +44,16 @@ export interface GdsAiAccentLane {
   accent: SemanticPair;
 }
 
-/** The saturated "vibe" atmosphere palette for one preset: brand hues plus light/dark surface, text, and decorative effect colors. */
+/** A filled-button gradient: its angle, colour stops and label colour. */
+export interface GdsVibeActionGradient {
+  /** Gradient angle in degrees. */
+  angle: number;
+  /** Colour stops, evenly spaced. */
+  stops: readonly string[];
+  /** Label colour; 4.5:1 against every stop. */
+  fg: string;
+}
+
 /** Atmosphere fields of a {@link GdsVibeTheme}; a preset definition declares these plus its id. */
 export interface GdsVibeThemeFields {
   /** Human-readable theme name. */
@@ -88,18 +97,24 @@ export interface GdsVibeThemeFields {
   /** Hero/banner gradient. */
   hero: string;
   /**
+   * Non-colour design decisions: shape, density, typography, motion. Optional — a preset
+   * that declares nothing gets the captured defaults, reproducing today's geometry exactly.
+   */
+  axes?: GdsThemeAxes;
+  /**
    * True for a lane backed by a real `createBrandTheme(...)` brand (Class USA, Gold
    * Athlete), whose own definition sets `flatSurfaces: true` and never configures a
    * gradient, glow, or colored shadow. Consumers previewing this lane's atmosphere
    * (gradient/glow fields above) must skip those fields when true. Unset/false for the
    * generic vibe lanes, where the gradient/glow atmosphere is the lane's own identity.
    */
-  /**
-   * Non-colour design decisions: shape, density, typography, motion. Optional — a preset
-   * that declares nothing gets the captured defaults, reproducing today's geometry exactly.
-   */
-  axes?: GdsThemeAxes;
   flatSurfaces?: boolean;
+  /**
+   * A gradient fill for filled buttons in one scheme, in place of the solid primary.
+   * Every stop must reach 4.5:1 against `fg`; the theme tests check each preset.
+   * Emitted as `--gds-vibe-action-gradient` and `--gds-vibe-action-gradient-fg`.
+   */
+  actionGradient?: Partial<Record<'light' | 'dark', GdsVibeActionGradient>>;
   /**
    * Reserved sub-brand accent lane (issue 697): see {@link GdsAiAccentLane}. Optional and
    * absent for every preset without a distinct AI/sub-brand identity.
@@ -225,6 +240,27 @@ export function getGdsDefaultLaneCssVariables(): Record<string, string> {
   return { ...resolveVibeSemanticCssVariables('default', resolveGdsVibeTheme('default')) };
 }
 
+// WCAG 1.4.11: a filled control's fill reaches 3:1 against the canvas and the card it sits on.
+const GDS_FILL_SEPARATION = 3;
+
+function opaqueOn(surface: string, canvas: string): string {
+  const opaque = resolveOpaque(surface, canvas);
+  return opaque ? toRgbString(opaque) : canvas;
+}
+
+function separated(color: string, surfaces: readonly string[], dark: boolean, minRatio: number): string {
+  // Each pass moves the colour one way, so a later surface never undoes an earlier one.
+  let result = color;
+  for (let pass = 0; pass < 2; pass += 1) {
+    for (const surface of surfaces) result = ensureContrast(result, surface, minRatio, dark, surface);
+  }
+  return result;
+}
+
+function actionGradientCss(gradient: GdsVibeActionGradient): string {
+  return `linear-gradient(${gradient.angle}deg, ${gradient.stops.join(', ')})`;
+}
+
 /**
  * Builds the `--gds-vibe-*` CSS variables for a preset and color scheme (mode is
  * resolved to the light or dark value of each token), plus the full `--gds-*`
@@ -249,9 +285,19 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
   const glow = vibe.flatSurfaces ? 'transparent' : vibe.glow;
   const gradient = vibe.flatSurfaces ? 'none' : vibe.gradient;
 
-  const variables = {
-    '--gds-vibe-primary': vibe.primary,
-    '--gds-vibe-accent': vibe.accent,
+  const brandSemanticCssVariables = resolveVibeSemanticCssVariables(id, vibe);
+  const canvas = dark ? vibe.canvasDark : vibe.canvasLight;
+  const semanticCard = (dark ? brandSemanticCssVariables['--gds-bg-card-dark'] : undefined) ?? brandSemanticCssVariables['--gds-bg-card'];
+  const surfaces = [canvas, opaqueOn(dark ? vibe.surfaceDark : vibe.surfaceLight, canvas), ...(semanticCard ? [semanticCard] : [])];
+  // The brand's primary and accent, moved toward white (dark) or black (light) only as far as
+  // they need to stand 3:1 off this scheme's canvas and cards.
+  const primary = separated(vibe.primary, surfaces, dark, GDS_FILL_SEPARATION);
+  const accent = separated(vibe.accent, surfaces, dark, GDS_FILL_SEPARATION);
+  const actionGradient = vibe.actionGradient?.[colorScheme];
+
+  const variables: Record<string, string> = {
+    '--gds-vibe-primary': primary,
+    '--gds-vibe-accent': accent,
     '--gds-vibe-glow': glow,
     '--gds-vibe-canvas': dark ? vibe.canvasDark : vibe.canvasLight,
     '--gds-vibe-shell': dark ? vibe.shellDark : vibe.shellLight,
@@ -273,12 +319,19 @@ export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: '
     // A `flatSurfaces` brand lane has no atmosphere by definition, so it gets an honest flat
     // tint rather than an invented gradient — the same reasoning as `glow`/`gradient` above.
     '--gds-vibe-swatch': vibe.flatSurfaces
-      ? `color-mix(in srgb, ${vibe.primary} 18%, ${dark ? vibe.surfaceDark : vibe.surfaceLight})`
-      : `radial-gradient(circle at 50% 50%, color-mix(in srgb, ${vibe.accent} 34%, ${dark ? vibe.surfaceDark : vibe.surfaceLight}) 0%, color-mix(in srgb, ${vibe.primary} 22%, ${dark ? vibe.surfaceDark : vibe.surfaceLight}) 100%)`,
+      ? `color-mix(in srgb, ${primary} 18%, ${dark ? vibe.surfaceDark : vibe.surfaceLight})`
+      : `radial-gradient(circle at 50% 50%, color-mix(in srgb, ${accent} 34%, ${dark ? vibe.surfaceDark : vibe.surfaceLight}) 0%, color-mix(in srgb, ${primary} 22%, ${dark ? vibe.surfaceDark : vibe.surfaceLight}) 100%)`,
     '--gds-vibe-atmosphere': vibe.flatSurfaces ? '0' : '1',
+    // Label on a filled primary button: white or black, whichever reaches 4.5:1 on the fill.
+    '--gds-action-fill-fg': readableForeground(primary, 4.5, '#ffffff'),
+    // The primary at 4.5:1 on this scheme's canvas and card: the outline button's border.
+    '--gds-action-outline': separated(primary, surfaces, dark, 4.5),
   };
+  if (actionGradient) {
+    variables['--gds-vibe-action-gradient'] = actionGradientCss(actionGradient);
+    variables['--gds-vibe-action-gradient-fg'] = actionGradient.fg;
+  }
 
-  const brandSemanticCssVariables = resolveVibeSemanticCssVariables(id, vibe);
   // Axis tokens are scheme-independent — a corner radius does not change between light and
   // dark — so they are merged in once rather than resolved per scheme.
   const axisVariables = resolveGdsAxisTokens(vibe.axes, id, colorScheme);

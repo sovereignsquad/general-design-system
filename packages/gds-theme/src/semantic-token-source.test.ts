@@ -31,15 +31,16 @@ describe('semantic token single source', () => {
   it('emits an identical role key set from both paths, for both lanes', () => {
     for (const lane of LANES) {
       const brand = Object.keys(createBrandTheme(lane).mantineTheme.other.gdsCssVariables).sort();
+      // The atmosphere lane and the preset button roles exist only under a theme preset.
       const vibe = Object.keys(getGdsVibeThemeCssVariables(lane, 'light'))
-        .filter((k) => !k.startsWith('--gds-vibe-'))
+        .filter((k) => !k.startsWith('--gds-vibe-') && !k.startsWith('--gds-action-'))
         .sort();
       expect(vibe).toEqual(brand);
     }
   });
 
   it('reproduces the committed token baseline for every preset and scheme', () => {
-    // Frozen fixture of all 25 presets x 2 schemes; any token value change must be
+    // Frozen fixture of every preset x 2 schemes; any token value change must be
     // re-committed to the baseline explicitly.
     const snapshot: Record<string, Record<string, string>> = {};
     for (const { id } of getGdsVibeThemes()) {

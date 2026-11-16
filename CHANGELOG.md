@@ -2,6 +2,23 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased
+
+### Button variants keep their emphasis under every preset; fills and labels meet contrast in every theme (#977)
+
+- Under a theme preset every Button except `default` was repainted as the filled primary: `light`, `subtle`, `outline`, `transparent` and `white` all rendered as the same violet fill (measured live on `/patterns/data`: Download, Delete and Clear selection, all `rgb(124, 58, 237)`). The repaint now applies to filled buttons only, and the red carve-out to filled red only.
+- Every preset's primary and accent stand 3:1 off its canvas and card (WCAG 1.4.11), derived in `getGdsVibeThemeCssVariables` for every preset and scheme. Before, the your-field dark navy measured 1.14:1 against its canvas and a filled button disappeared.
+- New roles `--gds-action-fill-fg` (label on the filled primary, 4.5:1) and `--gds-action-outline` (the outline button's border, 4.5:1 on canvas and card). Outline and subtle labels use `--gds-vibe-text`. A filled red button paints the solid danger badge pair.
+- The dark `--gds-brand-accent-action` (the `outline-accent` label) is derived against the dark canvas and card. Before, it reused the light value.
+- New optional preset field `actionGradient`. Cosmic dark moves its button gradient into its preset, darkened to `#7c3cff`, `#b513cf`, `#a76628` so white clears 4.5:1 on every stop (it was 3.85:1).
+- Accessibility floor: `primary-cta-text-contrast` and `outline-accent-text-contrast` fail the build instead of reporting. New rules `action-fill-separation` and `action-gradient-text-contrast`.
+- New gate `verify:button-variants-runtime`: it renders every variant under every preset and scheme in a browser, and checks that each label is at least 4.5:1 on what renders behind it and that filled stays distinct from the others. It found 91 failures before this change.
+- The Button Micro-feedback reference shows the variant hierarchy.
+- Visible change:
+  - Light, outline and subtle buttons look like themselves again under presets.
+  - Several presets' primary or accent colours shift slightly where they sat below 3:1, for example the default preset's light-mode cyan accent and your-field's dark navy.
+  - Filled red buttons are a darker red.
+
 ## 6.9.0 - 2026-11-15 — npmjs.com as the primary registry, surface, navigation, message and chart roles, shape profiles, tree, bulk-action and inbox components, three new page archetypes with tested examples, single preset registration, a Mantine-free `/tokens` entry, visible toasts, responsive layout props that apply at their breakpoints, and accessibility and localization fixes from consumer reports (#938, #942, #944, #945, #948-#961, #968, #970-#973)
 
 ### Registry policy: npmjs.com primary, GitHub Packages mirror (#938)

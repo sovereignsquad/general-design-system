@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { resolveGdsVibeTheme } from '@sovereignsquad/gds-theme';
+import { getGdsVibeThemeCssVariables } from '@sovereignsquad/gds-theme';
 import App from './App';
 
 describe('playground app runtime theme flow', () => {
@@ -139,7 +139,8 @@ describe('playground app runtime theme flow', () => {
   // margin issue as the tests above.
   it('persists selected theme and font lane across direct route loads', async () => {
     window.history.pushState({}, '', '/general-design-system/themes');
-    const expectedOceanicVibe = resolveGdsVibeTheme('oceanic');
+    const oceanicDark = getGdsVibeThemeCssVariables('oceanic', 'dark');
+    const expectedOceanicVibe = { primary: oceanicDark['--gds-vibe-primary'], accent: oceanicDark['--gds-vibe-accent'] };
 
     const firstRender = render(<App />);
 

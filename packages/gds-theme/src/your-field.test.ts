@@ -55,11 +55,10 @@ describe('your-field preset', () => {
     });
   });
 
-  it('paints the governed button rule with navy in both schemes', () => {
-    for (const scheme of ['light', 'dark'] as const) {
-      expect(getGdsVibeThemeCssVariables('your-field', scheme)['--gds-vibe-primary']?.toUpperCase())
-        .toBe(YOUR_FIELD_NAVY.toUpperCase());
-    }
+  it('paints the governed button rule with navy in light, lifted to 3:1 off the dark canvas in dark', () => {
+    expect(getGdsVibeThemeCssVariables('your-field', 'light')['--gds-vibe-primary']?.toUpperCase()).toBe(YOUR_FIELD_NAVY.toUpperCase());
+    const dark = getGdsVibeThemeCssVariables('your-field', 'dark');
+    expect(contrastRatio(dark['--gds-vibe-primary'], dark['--gds-vibe-canvas'], dark['--gds-vibe-canvas'])).toBeGreaterThanOrEqual(3);
   });
 
   it('white on navy clears AA for the primary button', () => {
