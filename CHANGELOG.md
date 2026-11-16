@@ -4,6 +4,11 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Compliance: native-element rules no longer flag components (#978)
+
+- `strict.raw-control` and `strict.raw-table` match tag names case-sensitively. Lowercase JSX tags (`<button>`, `<table>`) are native elements and are still reported; a component such as GDS `<Button>`, `<Select>` or `<Table>` is not.
+- Previously any PascalCase tag of those names was reported, including components imported from `@sovereignsquad/gds-core`.
+
 ### Release notes on the reference site (#978)
 
 - New `GdsReleaseNotes` (`@sovereignsquad/gds-core`, root and `/client`). It renders releases as data: version, date, title, sections, paragraphs, nested lists, code and tables.

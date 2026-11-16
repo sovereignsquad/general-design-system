@@ -992,6 +992,40 @@ describe('@sovereignsquad/gds-compliance strict mode', () => {
     expect(byFile('violating.tsx')).toContain('strict.raw-color');
     expect(byFile('violating.tsx')).toContain('strict.raw-control');
   });
+
+  it('flags lowercase native controls and tables but not capitalised components such as GDS Button and Table', () => {
+    const fixture = createFixture({
+      'gds-adoption.json': JSON.stringify({
+        schemaVersion: 1,
+        gdsVersion: '6.9.0',
+        productArchetype: 'admin',
+        requiredContracts: [],
+        localAdapters: [],
+        approvedExceptions: [],
+        migrationStatus: 'governed',
+        owner: 'platform-ui',
+        lastReviewedAt: '2026-11-16',
+        compliance: { strictMode: true },
+      }, null, 2),
+      'src/components.tsx': `
+        import { Button, Select, Table, Textarea } from '@sovereignsquad/gds-core';
+        export function Components() {
+          return <div><Button variant="default">Show more</Button><Select data={[]} /><Textarea /><Table><Table.Tbody /></Table></div>;
+        }
+      `,
+      'src/native.tsx': `
+        export function Native() { return <div><textarea /><table><tbody /></table></div>; }
+      `,
+    });
+
+    const report = runComplianceCheck({ manifestPath: join(fixture, 'gds-adoption.json') });
+    const byFile = (name) => report.findings.filter((f) => f.file.includes(name)).map((f) => f.rule);
+
+    expect(byFile('components.tsx')).not.toContain('strict.raw-control');
+    expect(byFile('components.tsx')).not.toContain('strict.raw-table');
+    expect(byFile('native.tsx')).toContain('strict.raw-control');
+    expect(byFile('native.tsx')).toContain('strict.raw-table');
+  });
 });
 
 const REQUIRED_MANIFEST_FIELDS = {

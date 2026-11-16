@@ -1030,7 +1030,9 @@ function scanStrictConsumerViolations({ manifest, sourceFiles, manifestRoot }) {
       });
     }
 
-    if (!inDocumentation && /<(button|input|select|textarea)\b/i.test(content)) {
+    // Case-sensitive here and in strict.raw-table: JSX intrinsic elements are lowercase;
+    // `<Button>`, `<Select>`, `<Table>` are components.
+    if (!inDocumentation && /<(button|input|select|textarea)\b/.test(content)) {
       pushStrictFinding({
         findings,
         manifest,
@@ -1052,7 +1054,7 @@ function scanStrictConsumerViolations({ manifest, sourceFiles, manifestRoot }) {
       });
     }
 
-    if (!inDocumentation && /<(table|th|td)\b/i.test(content)) {
+    if (!inDocumentation && /<(table|th|td)\b/.test(content)) {
       pushStrictFinding({
         findings,
         manifest,
