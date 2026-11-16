@@ -647,7 +647,6 @@
         "packages/gds-core/src/SemanticButton.tsx",
         "packages/gds-core/src/SemanticCharts.tsx",
         "packages/gds-core/src/generated-brand-badge.ts",
-        "packages/gds-theme/src/accessibility-floor.ts",
         "packages/gds-theme/src/presets/vibrant.ts",
         "packages/gds-theme/src/theme.ts",
         "packages/gds-theme/styles.css"
