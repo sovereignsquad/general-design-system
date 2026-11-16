@@ -1,10 +1,10 @@
 {
-  "evaluated": 1295,
+  "evaluated": 1300,
   "gapCount": 344,
   "excludedCount": 81,
   "byKind": {
     "prop": {
-      "evaluated": 1172,
+      "evaluated": 1177,
       "gaps": 306
     },
     "variant": {
@@ -976,7 +976,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/DocsCodeBlock.tsx",
-        "line": 8
+        "line": 9
       },
       "unmet": [
         {
@@ -990,7 +990,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/DocsCodeBlock.tsx",
-        "line": 8
+        "line": 9
       },
       "unmet": [
         {
@@ -1004,7 +1004,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/DocsCodeBlock.tsx",
-        "line": 8
+        "line": 9
       },
       "unmet": [
         {
