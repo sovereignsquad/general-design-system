@@ -52,9 +52,9 @@ const catalogEntryCount = patternRegistry.length;
 
 function DemoFooter() {
   return (
-    <p>
+    <BodyText>
       Need something missing? <GdsInlineLink href="mailto:moldovancsaba+general.design.system@gmail.com">Request a feature</GdsInlineLink>.
-    </p>
+    </BodyText>
   );
 }
 
@@ -161,7 +161,7 @@ export function LiveProofsPage() {
           { id: 'live-proofs-howto', target: 'live-proofs-howto', title: 'These are shipped contracts', body: 'Every proof renders the real published primitives — not marketing art or local sandboxes — so each one doubles as a migration target.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="live-proofs-families">
+      <GdsBox data-gds-tour-target="live-proofs-families">
       <ReferenceSection
         title="Open a live proof family"
         description="The proofs are separated by purpose so visitors can inspect the exact runtime lane they care about."
@@ -207,9 +207,9 @@ export function LiveProofsPage() {
           ]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
-      <div data-gds-tour-target="live-proofs-howto">
+      <GdsBox data-gds-tour-target="live-proofs-howto">
       <ReferenceSection
         title="How to read these proofs"
         description="These are live examples built from shipped GDS packages. They are not mock marketing art and they are not local component sandboxes."
@@ -235,7 +235,7 @@ export function LiveProofsPage() {
           ]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <DemoFooter />
     </DocsPageShell>
@@ -477,7 +477,7 @@ export function LayoutsPage() {
           actions={<ActionBar primary={{ action: 'edit', size: 'sm' }} secondary={[{ action: 'refer', size: 'sm' }]} />}
           sections={[
             <SectionPanel key="overview" title="Overview" description="Shared detail-shell content blocks.">
-              <p>Use the same detail contract across page and drawer modes instead of growing product-local profile panels.</p>
+              <BodyText>Use the same detail contract across page and drawer modes instead of growing product-local profile panels.</BodyText>
             </SectionPanel>,
             <AccessSummary
               key="access"
@@ -503,7 +503,7 @@ export function LayoutsPage() {
             status: 'ready',
             body: (
               <SectionPanel title="Before you continue" description="This is where a staged flow explains the next irreversible step.">
-                <p>Confirm lighting, permissions, and the intended upload destination before opening a hardware-adjacent step.</p>
+                <BodyText>Confirm lighting, permissions, and the intended upload destination before opening a hardware-adjacent step.</BodyText>
               </SectionPanel>
             ),
             actions: [
@@ -684,7 +684,7 @@ export function VocabularyPage() {
           helper="You can swap in your product session wiring while preserving the shared auth presentation."
         >
           <SectionPanel title="Email lane" description="Products keep their backend auth implementation. GDS governs the surface contract.">
-            <p>This bounded helper block replaces the old pattern of every app inventing a different social-login stack.</p>
+            <BodyText>This bounded helper block replaces the old pattern of every app inventing a different social-login stack.</BodyText>
           </SectionPanel>
         </AuthShell>
       </ReferenceSection>
@@ -746,7 +746,7 @@ export function PlaybackPage() {
                 title="Capture pre-check"
                 description="Verify permissions, upload destination, and preview settings before users enter a production step."
               >
-                <p>Do not invent local capture UX. Use this contract for every hardware-adjacent staged flow.</p>
+                <BodyText>Do not invent local capture UX. Use this contract for every hardware-adjacent staged flow.</BodyText>
               </SectionPanel>
             ),
             actions: [
@@ -793,7 +793,7 @@ export function AnalyticsPage() {
           ]}
           renderCard={(item) => (
             <SectionPanel title={item.surface} description={item.coverage}>
-              <p>{item.status}</p>
+              <BodyText>{item.status}</BodyText>
             </SectionPanel>
           )}
         />

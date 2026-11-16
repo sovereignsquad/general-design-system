@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { BodyText, MeaningBadge, ReferenceSection, SemanticButton } from '@sovereignsquad/gds-core';
+import { BodyText, DocsCodeBlock, MeaningBadge, ReferenceSection, SemanticButton } from '@sovereignsquad/gds-core';
 import { AdminTextInput } from '@sovereignsquad/gds-admin';
 import { createBrandTheme, GdsBrandThemeError, GDS_DEFAULT_DESIGN_RULE_PROFILE } from '@sovereignsquad/gds-theme';
 
@@ -97,9 +97,7 @@ export function ThemeBuilder() {
         <>
           <MeaningBadge variant="validation" label="Valid — WCAG AA contrast passed" />
           <BodyText>Generated GDS token file:</BodyText>
-          <pre aria-label="Generated GDS token file">
-            <code>{result.css}</code>
-          </pre>
+          <DocsCodeBlock code={result.css} language="css" title="Generated GDS token file" withCopy={false} />
           <SemanticButton action="copy" brandVariant="secondary" size="sm" onClick={copyCss} />
           {copied ? <BodyText>Copied to clipboard.</BodyText> : null}
         </>

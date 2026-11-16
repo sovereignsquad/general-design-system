@@ -4,6 +4,23 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### The reference site renders only through GDS components (#983)
+
+- The site source had 166 raw HTML elements that rendered outside the governed typography, control and surface contracts. One was the grey native "Sign in" button reported from a phone. They included:
+  - 39 `<button>`, 7 `<input>` and 2 `<select>`;
+  - layout `<div>`s;
+  - `<p>`, `<span>`, `<strong>` and `<h4>` text;
+  - one `<ul>` and one `<pre>`.
+- They are now GDS components:
+  - controls: `Button`, `ActionIcon` (icon-only), `TextInput`, `Select`;
+  - text roles: `BodyText`, `InlineText`, `InlineEmphasis`, `CardTitle`;
+  - layout primitives: `GdsBox`, `GdsStack`, `GdsInline`;
+  - a `GdsStack role="list"` list;
+  - `DocsCodeBlock`.
+- `verify-playground-gds-only.mjs` now fails on a raw HTML element in site source.
+- The unused starter assets `src/assets/hero.png`, `react.svg` and `vite.svg` are removed.
+- Visible change: demo buttons and inputs on the reference site are themed GDS controls instead of browser defaults.
+
 ### Components keep whole words and their width inside narrow containers (#982)
 
 - Phone screenshots showed several components breaking at narrow width: a vertical "M e n u" in `PublicShell`, "Boo k / Profil e" in `BottomTabBar`, "classific ation" in the design-rule panel, a squeezed `ReferenceSiteShell` header and a clipped selected chip. A first sweep of every route at 390px counted 578 words split across lines, hyphen breaks included. The stricter gate below, which counts only words that would have fitted, finds 40 on the deployed site and 0 on this build.

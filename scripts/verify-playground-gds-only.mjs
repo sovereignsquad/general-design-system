@@ -60,6 +60,13 @@ const CHECKS = [
     test: (line) => /<a[\s/>]/.test(line),
     message: 'renders a bare <a> tag. Use GdsInlineLink instead — an unstyled anchor ignores the theme entirely.',
   },
+  {
+    // Any other intrinsic HTML element in JSX. Code inside template strings (samples) starts with
+    // a quote or backtick context and is skipped by requiring the tag to follow JSX-ish context.
+    test: (line) => /(^|[\s({=>?:])<(div|span|p|strong|em|b|i|h[1-6]|button|input|textarea|select|label|ul|ol|li|pre|code|section|article|aside|header|footer|nav|table|img|form|fieldset|small)(?=[\s/>])/.test(line)
+      && !/^\s*['"`]/.test(line),
+    message: 'renders a raw HTML element. Use the GDS component for it (BodyText and the text roles, Button, TextInput, the layout primitives, DocsCodeBlock); a raw element renders outside the governed typography, control and surface contracts (#983).',
+  },
 ];
 
 const failures = [];

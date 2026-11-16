@@ -30,9 +30,9 @@ export function SiteTourLauncher({
     typeof Element.prototype.scrollIntoView === 'function';
 
   return (
-    <div>
+    <>
       <GdsTourButton tourId={tourId} steps={steps} label={label} persist="none" />
       {autoStart ? <GdsGuidedTour id={tourId} steps={steps} open={canAutoStart} persist="localStorage" /> : null}
-    </div>
+    </>
   );
 }

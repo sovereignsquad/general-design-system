@@ -81,6 +81,19 @@ variants/states, coverage text as evidence. Deepening individual entries' use-ca
 continuous editorial work under the standing rules, not a phase with an end state — any entry
 found wanting files as its own issue.
 
+## The site renders only through GDS (#983)
+
+The site source (`apps/playground/src`) contains no raw HTML elements, inline styles, local
+stylesheets or `@mantine/*` imports. Every element maps to a GDS component:
+- text uses `BodyText`, `InlineText`, `InlineEmphasis`, `CardTitle` and the other text roles;
+- controls use `Button`, `ActionIcon`, `TextInput` and `Select`;
+- layout uses `GdsBox`, `GdsStack` and `GdsInline`;
+- lists use `GdsStack role="list"` with `role="listitem"` children;
+- code uses `DocsCodeBlock`.
+
+`scripts/verify-playground-gds-only.mjs`, part of `verify:references`, fails on a raw element in
+page source. Against the site source before #983 it reports 166.
+
 ## Phase 5 — delivered (issue 631)
 
 A reader could not find `semantic-actions` (`ActionBar`/`SemanticButton`'s click-feedback

@@ -17,6 +17,8 @@ import {
   SimpleDataTable,
   StateBlock,
   type GdsTourStep,
+  GdsBox,
+  InlineText,
 } from '@sovereignsquad/gds-core';
 // Statically imported (renders on first paint of / and /themes) from its own
 // subpath, not the main barrel, so consumers who don't use it don't bundle it.
@@ -132,7 +134,7 @@ npm run verify:theme-trust-runtime`;
 const scopedPreviewProviderCode = `// Scoped preview island
 const previewRootId = 'product-theme-preview';
 
-<div id={previewRootId}>
+<GdsBox id={previewRootId}>
   <GdsProvider
     theme={previewTheme}
     defaultColorScheme="dark"
@@ -142,7 +144,7 @@ const previewRootId = 'product-theme-preview';
   >
     <PreviewSurface />
   </GdsProvider>
-</div>;`;
+</GdsBox>;`;
 
 const updateCode = `npm install @sovereignsquad/gds@${targetGdsVersion}
 
@@ -338,7 +340,7 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
       lead="GDS is designed to be used by AI coding agents and any LLM-powered coding tool. Every component ships TypeScript contracts, a machine-readable entry point (llms.txt), and drop-in repo rules so agents build with the real system automatically."
     >
       <SiteTourLauncher tourId="gds-ai-page" steps={tourSteps} autoStart />
-      <div ref={entryRef} data-gds-tour-target="ai-entry">
+      <GdsBox ref={entryRef} data-gds-tour-target="ai-entry">
       <ReferenceSection
         title="Machine-readable entry point (llms.txt)"
         description="Any LLM tool can discover GDS rules by fetching llms.txt at the repo root. It lists install steps, non-negotiable rules, packages, and component families."
@@ -356,9 +358,9 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
           columns={2}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
-      <div ref={bootstrapRef} data-gds-tour-target="ai-bootstrap">
+      <GdsBox ref={bootstrapRef} data-gds-tour-target="ai-bootstrap">
       <ReferenceSection
         title="Install and bootstrap"
         description="One install command, one required provider. Agents follow these same steps."
@@ -366,7 +368,7 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
         <DocsCodeBlock code={installCode} language="bash" />
         <DocsCodeBlock code={providerCode} language="tsx" />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <ReferenceSection
         title="Drop-in repo rules"
@@ -386,7 +388,7 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
         <DocsCodeBlock code={agentsTemplate} language="markdown" />
       </ReferenceSection>
 
-      <div ref={rulesRef} data-gds-tour-target="ai-rules">
+      <GdsBox ref={rulesRef} data-gds-tour-target="ai-rules">
       <ReferenceSection
         title="Non-negotiable rules for agents"
         description="These rules are encoded in llms.txt and the drop-in templates. Agents that follow them produce on-brand, shippable code."
@@ -406,7 +408,7 @@ Full rules: https://sovereignsquad.github.io/general-design-system/ai`;
           ]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
     </DocsPageShell>
   );
 }
@@ -465,7 +467,7 @@ export function RequestFeaturePage() {
           { id: 'request-triage', target: 'request-triage', title: 'How requests are triaged', body: 'Only reusable, accessible, non-product-specific needs become GDS issues. This is the contract for what gets promoted, routed, or rejected.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="request-form">
+      <GdsBox data-gds-tour-target="request-form">
       <ReferenceSection title="Official feature request form" description="Use the shared mail path while we build the full API-backed tracker.">
         <form
           onSubmit={(event) => {
@@ -478,7 +480,7 @@ export function RequestFeaturePage() {
             title="Why this form is simple"
             description="It keeps onboarding friction low and records consistent evidence fields before we move to a structured portal."
           />
-          <div>
+          <GdsStack gap="sm">
             <FormField label="Name">
               <input
                 id="gds-feature-name"
@@ -550,7 +552,7 @@ export function RequestFeaturePage() {
                 placeholder="High, Medium, Low"
               />
             </FormField>
-          </div>
+          </GdsStack>
           <ActionBar
             primary={{ action: 'submit', onClick: () => { window.location.href = mailtoUrl; } }}
             secondary={[{ action: 'reset', onClick: () => {
@@ -565,7 +567,7 @@ export function RequestFeaturePage() {
           />
         </form>
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <ReferenceSection title="What we prioritize" description="If your request is aligned with the next-wave adoption surface, it gets a clear path to production sooner.">
         <FeatureBand
@@ -590,7 +592,7 @@ export function RequestFeaturePage() {
         />
       </ReferenceSection>
 
-      <div data-gds-tour-target="request-triage">
+      <GdsBox data-gds-tour-target="request-triage">
       <ReferenceSection title="Triage and repository hygiene" description="Only reusable GDS capability requests belong in this repository and project board. Product-specific work must stay with the owning product.">
         <FeatureBand
           columns={3}
@@ -614,7 +616,7 @@ export function RequestFeaturePage() {
           ]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <ReferenceSection title="Mail-client fallback" description="If your mail client does not open, copy the address and send the same fields manually.">
         <StateBlock
@@ -680,14 +682,14 @@ export function OverviewPage({
       meta={(
         <>
           {i18n.meta.map((item) => (
-            <span key={item}>{item}</span>
+            <InlineText key={item}>{item}</InlineText>
           ))}
         </>
       )}
     >
       <SiteTourLauncher tourId="gds-home" steps={homeSteps} autoStart />
 
-      <div ref={themesRef} data-gds-tour-target="home-themes">
+      <GdsBox ref={themesRef} data-gds-tour-target="home-themes">
       <ReferenceSection
         title={i18n.themesTitle}
         description={i18n.themesDescription}
@@ -697,9 +699,9 @@ export function OverviewPage({
           onSelectionChange={onSiteThemeSelectionChange}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
-      <div ref={whatRef} data-gds-tour-target="home-what">
+      <GdsBox ref={whatRef} data-gds-tour-target="home-what">
       <ReferenceSection
         title={i18n.whatTitle}
         description={i18n.whatDescription}
@@ -709,7 +711,7 @@ export function OverviewPage({
           items={[...i18n.whatItems]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <ReferenceSection
         title={i18n.whyTitle}
@@ -722,13 +724,13 @@ export function OverviewPage({
         />
       </ReferenceSection>
 
-      <div ref={startRef} data-gds-tour-target="home-start">
+      <GdsBox ref={startRef} data-gds-tour-target="home-start">
       <ReferenceSection title={i18n.startTitle} description={i18n.startDescription}>
         <ReferenceLinkGrid
           items={[...i18n.links]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <SiteFooter />
     </DocsPageShell>
@@ -773,7 +775,7 @@ export function CoveragePage() {
           { id: 'coverage-evidence', target: 'coverage-evidence', title: 'Accessibility evidence', body: 'Every stable pattern publishes keyboard, focus, WCAG, screen-reader, and AT/browser evidence — visible here, not buried in release notes.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="coverage-summary">
+      <GdsBox data-gds-tour-target="coverage-summary">
       <ReferenceSection title="Coverage summary" description="Status counts are generated from the shared pattern registry used by the docs routes.">
         <FeatureBand
           columns={2}
@@ -784,7 +786,7 @@ export function CoveragePage() {
           ]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
       <ReferenceSection title="Pattern matrix" description="Every row points to the canonical family route where the pattern is represented.">
         <SimpleDataTable
           columns={[
@@ -797,7 +799,7 @@ export function CoveragePage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
-      <div data-gds-tour-target="coverage-evidence">
+      <GdsBox data-gds-tour-target="coverage-evidence">
       <ReferenceSection title="Accessibility evidence" description="Every stable pattern publishes package-owned keyboard, focus, WCAG, screen-reader, and AT/browser evidence. Known limitations stay visible here instead of hiding in release notes.">
         <FeatureBand
           columns={4}
@@ -820,7 +822,7 @@ export function CoveragePage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
       <SiteFooter />
     </DocsPageShell>
   );
@@ -859,7 +861,7 @@ export function ApiReferencePage() {
           { id: 'api-table', target: 'api-table', title: 'Search the full export table', body: 'Each row is one public entry with its package, kind, runtime lane, docs status, stability, dependency boundary, and exact import path.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="api-summary">
+      <GdsBox data-gds-tour-target="api-summary">
       <ReferenceSection title={i18n.summaryTitle} description={i18n.summaryDescription}>
         <FeatureBand
           columns={4}
@@ -885,7 +887,7 @@ export function ApiReferencePage() {
           }))}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
       <ReferenceSection title="Accessibility evidence contract" description="The API surface is paired with a package-owned evidence registry so consumers can audit keyboard behavior, visible focus, WCAG mapping, assistive-technology coverage, known limitations, and recovery notes before adoption.">
         <FeatureBand
           columns={4}
@@ -908,7 +910,7 @@ export function ApiReferencePage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
-      <div data-gds-tour-target="api-table">
+      <GdsBox data-gds-tour-target="api-table">
       <ReferenceSection title={i18n.tableTitle} description={i18n.tableDescription}>
         <SimpleDataTable
           columns={[
@@ -925,7 +927,7 @@ export function ApiReferencePage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
       <SiteFooter />
     </DocsPageShell>
   );
@@ -947,7 +949,7 @@ export function MaturityPage() {
           { id: 'maturity-benefits', target: 'maturity-benefits', title: 'Issue-backed capabilities', body: 'Each capability is traceable to a GitHub issue with its benefit, owning packages, and primary contracts — no unbacked roadmap claims.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="maturity-summary">
+      <GdsBox data-gds-tour-target="maturity-summary">
       <ReferenceSection title={i18n.summaryTitle} description={i18n.summaryDescription}>
         <FeatureBand
           columns={4}
@@ -960,8 +962,8 @@ export function MaturityPage() {
           ]}
         />
       </ReferenceSection>
-      </div>
-      <div data-gds-tour-target="maturity-benefits">
+      </GdsBox>
+      <GdsBox data-gds-tour-target="maturity-benefits">
       <ReferenceSection title={i18n.benefitsTitle} description={i18n.benefitsDescription}>
         <SimpleDataTable
           columns={[
@@ -984,7 +986,7 @@ export function MaturityPage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
       <ReferenceSection title={i18n.operationsTitle} description={i18n.operationsDescription}>
         {capabilities.map((capability) => (
           <StateBlock
@@ -1015,7 +1017,7 @@ export function UseCasesPage() {
           { id: 'use-cases-contract', target: 'use-cases-contract', title: 'Confirm the operational contract', body: 'The table pairs each use case with its audience, risk, recommended packages, and the checks a product owner should confirm before approving work.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="use-cases-guide">
+      <GdsBox data-gds-tour-target="use-cases-guide">
       <ReferenceSection title={i18n.guideTitle} description={i18n.guideDescription}>
         <FeatureBand
           columns={2}
@@ -1026,8 +1028,8 @@ export function UseCasesPage() {
           }))}
         />
       </ReferenceSection>
-      </div>
-      <div data-gds-tour-target="use-cases-contract">
+      </GdsBox>
+      <GdsBox data-gds-tour-target="use-cases-contract">
       <ReferenceSection title="Operational contract" description="Product owners should confirm the delivery lane, risk, checks, and accessibility obligation before approving local UI work.">
         <SimpleDataTable
           columns={[
@@ -1048,7 +1050,7 @@ export function UseCasesPage() {
           getRowKey={(row) => row.id}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
       <ReferenceSection title="Accessibility and recovery" description="Every recommended lane carries explicit accessibility and operational behavior.">
         {productUseCases.map((useCase) => (
           <StateBlock
@@ -1085,14 +1087,14 @@ export function InstallPage() {
           { id: 'install-provider', target: 'install-provider', title: 'Wrap your app once', body: 'Load the GDS stylesheet, then wrap the app in a single GdsProvider — the one required root that injects theme, tokens, and locale.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="install-registry">
+      <GdsBox data-gds-tour-target="install-registry">
       <ReferenceSection title={copy.installSectionTitle} description={copy.installSectionDescription}>
         <DocsCodeBlock code={npmrcCode} language="ini" title={copy.npmrcCodeTitle} />
         <DocsCodeBlock code={installCode} language="bash" title={copy.installCodeTitle} />
         <DocsCodeBlock code={granularInstallCode} language="bash" title={copy.granularCodeTitle} />
         <DocsCodeBlock code={peerCode} language="bash" title={copy.peerCodeTitle} />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <ReferenceSection title={copy.upgradeSectionTitle} description={copy.upgradeSectionDescription}>
         <DocsCodeBlock code={updateCode} language="bash" title={copy.upgradeCodeTitle} />
@@ -1119,14 +1121,14 @@ export function InstallPage() {
         />
       </ReferenceSection>
 
-      <div data-gds-tour-target="install-provider">
+      <GdsBox data-gds-tour-target="install-provider">
       <ReferenceSection title={copy.providerSectionTitle} description={copy.providerSectionDescription}>
         <DocsCodeBlock code={nextLayoutCode} language="tsx" title={copy.nextLayoutTitle} />
         <DocsCodeBlock code={providerCode} language="tsx" title={copy.providerCodeTitle} />
         <DocsCodeBlock code={viteBootstrapCode} language="tsx" title={copy.viteBootstrapTitle} />
         <DocsCodeBlock code={scopedPreviewProviderCode} language="tsx" title={copy.scopedPreviewProviderTitle} />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <ReferenceSection title={copy.adoptSectionTitle} description={copy.adoptSectionDescription}>
         <ReferenceLinkGrid
@@ -1193,7 +1195,7 @@ export function RulebookPage() {
           { id: 'gov-evidence', target: 'gov-evidence', title: 'Accessibility is enforced', body: 'Stable patterns must publish structured accessibility evidence; missing or stale records fail release verification.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="gov-require">
+      <GdsBox data-gds-tour-target="gov-require">
       <ReferenceSection title={i18n.requireTitle} description={i18n.requireDescription}>
         <FeatureBand
           columns={3}
@@ -1216,7 +1218,7 @@ export function RulebookPage() {
           ]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <ReferenceSection title={i18n.implementedTitle} description={i18n.implementedDescription}>
         <FeatureBand
@@ -1302,7 +1304,7 @@ export function RulebookPage() {
           ]}
         />
       </ReferenceSection>
-      <div data-gds-tour-target="gov-evidence">
+      <GdsBox data-gds-tour-target="gov-evidence">
       <ReferenceSection title="Accessibility evidence rules" description="Stable patterns must publish structured evidence with owner, freshness, WCAG mapping, AT/browser status, known limitations, and recovery text. Missing or stale records fail release verification.">
         <FeatureBand
           columns={3}
@@ -1325,7 +1327,7 @@ export function RulebookPage() {
           ]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
 
       <SiteFooter />
     </DocsPageShell>
@@ -1358,12 +1360,12 @@ export function TokensPage({
           { id: 'themes-builder', target: 'themes-builder', title: 'Build your own brand theme', body: 'Generate a governed brand theme from a seed color — the builder emits the token overrides you drop into createBrandTheme.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="themes-explorer">
+      <GdsBox data-gds-tour-target="themes-explorer">
         <ReferenceThemeExplorer initialSelection={initialThemeSelection} onSelectionChange={onSiteThemeSelectionChange} />
-      </div>
-      <div data-gds-tour-target="themes-builder">
+      </GdsBox>
+      <GdsBox data-gds-tour-target="themes-builder">
         <ThemeBuilder />
-      </div>
+      </GdsBox>
       {/*
         Two atmosphere scales: --gds-vibe-hero (full-width band, 135deg ramp) and
         --gds-vibe-swatch (small surfaces). Using hero's ramp on a swatch renders a hard
@@ -1375,7 +1377,7 @@ export function TokensPage({
       >
         <GdsInline gap="lg" align="center">
           <GdsStack gap="xs" align="center">
-            <span data-gds-theme-swatch aria-hidden="true" />
+            <GdsBox data-gds-theme-swatch aria-hidden="true" />
             <MetadataText>--gds-vibe-swatch</MetadataText>
           </GdsStack>
         </GdsInline>
