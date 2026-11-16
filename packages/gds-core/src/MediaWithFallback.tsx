@@ -58,7 +58,9 @@ export function MediaWithFallback({
   const showFallback = state === 'error';
 
   return (
-    <AspectRatio ratio={ratio}>
+    // Fills its container's width: an aspect-ratio box has no intrinsic width, so in a flex row
+    // it would otherwise shrink to its content.
+    <AspectRatio ratio={ratio} w="100%">
       <Box
         style={{
           position: 'relative',

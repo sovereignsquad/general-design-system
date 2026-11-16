@@ -2383,7 +2383,7 @@ function MediaWithFallbackDemo() {
       title="Media with fallback"
       description="The box reserves its aspect ratio before anything loads, so a missing or failed image degrades in place rather than resizing the frame around it. The right-hand frame points at a path that does not resolve: it shows the branded fallback at the same size, in the same position."
     >
-      <GdsInline gap="lg" align="start">
+      <GdsGrid columns="auto-fit" minColumnWidth="aside" gap="lg">
         <MediaWithFallback alt="No source supplied — the branded fallback stands in at the reserved ratio." ratio={16 / 9} fallbackLabel="No image supplied" />
         <MediaWithFallback
           src="/general-design-system/deliberately-unresolvable.png"
@@ -2391,7 +2391,7 @@ function MediaWithFallbackDemo() {
           ratio={16 / 9}
           fallbackLabel="Image unavailable"
         />
-      </GdsInline>
+      </GdsGrid>
     </SectionPanel>
   );
 }

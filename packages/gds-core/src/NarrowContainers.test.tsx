@@ -5,6 +5,7 @@ import { BottomTabBar } from './BottomTabBar';
 import { PillBar } from './ChoiceChip';
 import { GdsDesignRuleProfilePanel } from './GdsDesignRuleProfilePanel';
 import { GdsPictogramSystemReference } from './GdsPictogramSystemReference';
+import { MediaWithFallback } from './MediaWithFallback';
 import { SectionPanel } from './SectionPanel';
 
 const items = [
@@ -23,6 +24,13 @@ describe('components in narrow containers (#982)', () => {
   it('PillBar leaves room for the selection and focus ring inside its scroller', () => {
     renderWithGds(<PillBar ariaLabel="Filter" options={[{ value: 'a', label: 'A' }]} value="a" onChange={() => undefined} />);
     expect(screen.getByRole('radiogroup').style.padding).toContain('--gds-focus-ring-width');
+  });
+
+  it('MediaWithFallback fills its container width instead of shrinking to its content in a row', () => {
+    const { container } = renderWithGds(<MediaWithFallback alt="x" ratio={16 / 9} fallbackLabel="No image" />);
+    const root = container.querySelector('.mantine-AspectRatio-root') as HTMLElement;
+    expect(root).toBeTruthy();
+    expect(root.style.width).toBe('100%');
   });
 
   it('SectionPanel marks itself so a nested panel can flatten on compact screens', () => {
