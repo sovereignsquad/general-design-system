@@ -155,7 +155,7 @@ export function DetailFactsTable({ values, facts }: DetailFactsTableProps) {
               flex: '1 1 auto',
               minWidth: 0,
               margin: 0,
-              overflowWrap: 'anywhere',
+              overflowWrap: 'break-word',
               color: row.known
                 ? 'var(--gds-text-primary, var(--mantine-color-dark-7))'
                 : 'var(--gds-text-secondary, var(--mantine-color-gray-6))',

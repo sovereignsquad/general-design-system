@@ -44,7 +44,8 @@ export function GdsDensitySpacingSystemReference() {
           spacious density mode scales spacing freely, but a control height only shrinks below
           the floor when the size carries a recorded exception below.
         </Text>
-        <Table withTableBorder>
+        <Table.ScrollContainer minWidth={0} type="native">
+<Table withTableBorder>
           <Table.Tbody>
             {GDS_CONTROL_SIZES.map((size) => (
               <Table.Tr key={size}>
@@ -59,6 +60,7 @@ export function GdsDensitySpacingSystemReference() {
             ))}
           </Table.Tbody>
         </Table>
+</Table.ScrollContainer>
       </Stack>
     </Stack>
   );

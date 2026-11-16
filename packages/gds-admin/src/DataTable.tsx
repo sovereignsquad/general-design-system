@@ -47,7 +47,8 @@ export function DataTable<T extends Record<string, unknown>>({ data, columns, lo
   return (
     <Paper withBorder pos="relative" style={{ overflow: 'hidden' }}>
       <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: 'sm', blur: 2 }} />
-      <Table striped highlightOnHover>
+      <Table.ScrollContainer minWidth={0} type="native">
+<Table striped highlightOnHover>
         <Table.Thead>
           <Table.Tr>
             {columns.map((col) => (
@@ -67,6 +68,7 @@ export function DataTable<T extends Record<string, unknown>>({ data, columns, lo
           ))}
         </Table.Tbody>
       </Table>
+</Table.ScrollContainer>
     </Paper>
   );
 }

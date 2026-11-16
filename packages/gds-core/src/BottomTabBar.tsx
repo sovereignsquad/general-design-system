@@ -109,7 +109,15 @@ export function BottomTabBar({
           : 'var(--gds-text-secondary, var(--mantine-color-gray-6))';
 
         if (renderItem) {
-          return <span key={item.id}>{renderItem(item, active, emphasized)}</span>;
+          // A custom item gets the same equal-width, centred cell as a built-in one.
+          return (
+            <Box
+              key={item.id}
+              style={{ flex: 1, minWidth: 44, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+            >
+              {renderItem(item, active, emphasized)}
+            </Box>
+          );
         }
 
         return (

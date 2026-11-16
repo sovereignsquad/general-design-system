@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { Button, Group, Menu, Stack } from '@mantine/core';
+import { Box, Button, Group, Menu, Stack } from '@mantine/core';
 import { IconChevronDown, IconLanguage } from '@tabler/icons-react';
 import { AccentPanel, ThemeToggle } from '@sovereignsquad/gds-core';
 import { AppShell } from './AppShell';
@@ -62,16 +62,18 @@ export function ReferenceSiteShell({
       headerContext={headerContext}
       showThemeToggle={false}
       headerActions={(
-        <Group gap="sm">
+        <Group gap="sm" wrap="nowrap">
           <Menu position="bottom-end" withArrow>
             <Menu.Target>
+              {/* Icon-only on phones so the brand keeps its width; the name stays the locale. */}
               <Button
                 variant="light"
                 radius="md"
+                aria-label={activeLocale?.label ?? 'Language'}
                 leftSection={<IconLanguage size="1.1rem" />}
                 rightSection={<IconChevronDown size="0.95rem" />}
               >
-                {activeLocale?.label ?? 'Language'}
+                <Box component="span" visibleFrom="sm">{activeLocale?.label ?? 'Language'}</Box>
               </Button>
             </Menu.Target>
             <Menu.Dropdown>

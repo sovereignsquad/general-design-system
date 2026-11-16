@@ -231,7 +231,8 @@ export function DocsShell({
       hideMobileNavigationToggle={mobileNavigationMode === 'inline-collapse' && Boolean(mobileNavigation)}
       headerHeight={72}
     >
-      <Container size={resolveContentContainerSize(contentWidth)} px="md" py="lg" w="100%">
+      {/* The shell's main area already pads; on phones a second inset only costs width. */}
+      <Container size={resolveContentContainerSize(contentWidth)} px={{ base: 0, sm: 'md' }} py="lg" w="100%">
         {children}
       </Container>
     </DiscoveryShell>

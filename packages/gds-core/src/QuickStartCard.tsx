@@ -82,7 +82,7 @@ export function QuickStartCard({ icon, label, description, onClick, disabled = f
       >
         <GdsIcon icon={icon} />
       </span>
-      <div style={{ overflowWrap: 'anywhere' }}>
+      <div style={{ overflowWrap: 'break-word' }}>
         <CardTitle>{label}</CardTitle>
         {description ? <MetadataText>{description}</MetadataText> : null}
       </div>

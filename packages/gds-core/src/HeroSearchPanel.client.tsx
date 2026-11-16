@@ -154,7 +154,7 @@ export function HeroSearchPanel({
                 style={{
                   flex: `1 1 ${GDS_HERO_SEARCH_FIELD_FLEX_BASIS_PX}px`,
                   minWidth: `${GDS_HERO_SEARCH_FIELD_MIN_WIDTH_PX}px`,
-                  overflowWrap: 'anywhere',
+                  overflowWrap: 'break-word',
                 }}
               >
                 <FormField label={field.label}>
