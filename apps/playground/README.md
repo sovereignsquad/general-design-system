@@ -51,4 +51,4 @@ Use [CLIENT_UPGRADE_PROMPT.md](CLIENT_UPGRADE_PROMPT.md) as the standard custome
 
 ## Deployment
 
-GitHub Pages deployment is handled by workflow `/.github/workflows/deploy-pages.yml` and uses an SPA fallback.
+GitHub Pages deployment is handled by workflow `/.github/workflows/deploy-pages.yml`. After the Vite build, `scripts/generate-playground-static-routes.mjs` writes an `index.html` shell for every literal `<Route path>` in `src/App.tsx`, so each route answers 200, and a `404.html` SPA fallback for anything else. The script fails if a route in `src/site-routes.ts` has no matching `<Route path>`.

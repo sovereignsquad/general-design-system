@@ -9,6 +9,11 @@ All notable policy changes to the General Design System are recorded here.
 - `strict.raw-control` and `strict.raw-table` match tag names case-sensitively. Lowercase JSX tags (`<button>`, `<table>`) are native elements and are still reported; a component such as GDS `<Button>`, `<Select>` or `<Table>` is not.
 - Previously any PascalCase tag of those names was reported, including components imported from `@sovereignsquad/gds-core`.
 
+### Reference site: every route answers 200 (#978)
+
+- Static route shells are derived from the router (`<Route path>` in `apps/playground/src/App.tsx`) instead of a hand-kept list. `/releases` and `/ai` were missing from that list and answered 404 before the SPA fallback rendered them.
+- The generator fails when a route declared in `site-routes.ts` has no route in the router.
+
 ### Release notes on the reference site (#978)
 
 - New `GdsReleaseNotes` (`@sovereignsquad/gds-core`, root and `/client`). It renders releases as data: version, date, title, sections, paragraphs, nested lists, code and tables.
