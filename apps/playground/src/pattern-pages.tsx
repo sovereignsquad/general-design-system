@@ -75,6 +75,7 @@ import {
   ProviderCTA,
   DiscoveryShell,
   DocsCodeBlock,
+  GdsReleaseNotes,
   DocsShell,
   DocsPageShell,
   EditorialCard,
@@ -3471,6 +3472,30 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'docs-code-blocks':
       return <DocsCodeBlock title="Usage" language="tsx" code="import { ListingCard } from '@sovereignsquad/gds-core';" />;
+    case 'release-notes':
+      return (
+        <GdsReleaseNotes
+          headingLevel={3}
+          issueHref={(issue) => `https://github.com/sovereignsquad/general-design-system/issues/${issue}`}
+          releases={[
+            {
+              version: '2.1.0',
+              date: '2026-03-02',
+              title: 'Saved views',
+              sections: [
+                {
+                  heading: [{ kind: 'text', text: 'Saved views on data tables (#42)' }],
+                  blocks: [
+                    { kind: 'paragraph', content: [{ kind: 'text', text: 'Pass ' }, { kind: 'code', text: 'savedViews' }, { kind: 'text', text: ' to keep filters and column order between visits.' }] },
+                    { kind: 'list', ordered: false, items: [{ content: [{ kind: 'text', text: 'Views are stored by the product, not the component.' }] }, { content: [{ kind: 'strong', children: [{ kind: 'text', text: 'No breaking changes.' }] }] }] },
+                    { kind: 'code', language: 'tsx', code: '<DataTable savedViews={views} onSaveView={saveView} />' },
+                  ],
+                },
+              ],
+            },
+          ]}
+        />
+      );
     case 'cta-button-groups':
       return (
         <CtaButtonGroup

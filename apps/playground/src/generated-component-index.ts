@@ -1480,6 +1480,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "i18n formatter surface (GdsI18nRuntime) — relative-time formatter."
   },
   {
+    "name": "GdsReleaseNotes",
+    "status": "registered",
+    "home": {
+      "id": "release-notes",
+      "family": "public",
+      "section": "Public Shells & Docs"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsRemovableTag",
     "status": "registered",
     "home": {

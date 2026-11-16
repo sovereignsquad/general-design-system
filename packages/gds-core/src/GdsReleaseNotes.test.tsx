@@ -38,7 +38,13 @@ describe('GdsReleaseNotes (#978)', () => {
     expect(screen.getByRole('heading', { level: 3, name: /Theme presets renamed/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: '#985' })).toHaveAttribute('href', 'https://example.com/issues/985');
     expect(screen.getByText('harbor', { selector: 'code' })).toBeInTheDocument();
-    expect(screen.getByText('Until 8.0.0.')).toBeInTheDocument();
+    expect(screen.getByText(/Until 8\.0\.0\./)).toBeInTheDocument();
+    const markers = container.querySelectorAll('[data-gds-release-marker]');
+    expect(markers).toHaveLength(2);
+    for (const marker of markers) {
+      expect(marker).toHaveAttribute('aria-hidden', 'true');
+      expect(marker.textContent).toBe('• ');
+    }
     expect(within(screen.getByRole('table')).getByText('class-usa')).toBeInTheDocument();
     await expectNoAxeViolations(container);
   });
