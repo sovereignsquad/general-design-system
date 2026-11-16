@@ -36,6 +36,7 @@ All notable policy changes to the General Design System are recorded here.
   - `PublicShell` shows the "Menu" label from `sm` up and keeps its actions on one line.
   - `ReferenceSiteShell`'s language control is icon-only on phones, and the active locale stays its accessible name.
 - The `MapPanel` pattern demo renders a real `GdsMap` instead of its empty state.
+- `MediaWithFallback` fills its container width. Its aspect-ratio box has no intrinsic width, so in a row it collapsed to a sliver, showing only the fallback initials (the "(N)(U)" pair reported from a phone). Its demo packs the two frames in an auto-fit grid.
 - New gate `verify:word-wrap-runtime`: every route at 390px and 320px fails on a word that breaks mid-word although it fits its line. It found 40 such words on the deployed site before this change.
 - Visible change:
   - Text no longer splits inside words.
