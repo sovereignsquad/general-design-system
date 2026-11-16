@@ -67,9 +67,9 @@ const BROWSE_SELECTION_LISTINGS: Array<{
   accent: 'ocean' | 'teal' | 'grape';
   icon: 'Location' | 'Habit' | 'Message';
 }> = [
-  { id: 'pool', title: 'Community pool', description: 'Heated pools with beginner lanes and family sessions.', accent: 'ocean', icon: 'Location' },
-  { id: 'studio', title: 'Dance studio', description: 'Ballet and street classes with end-of-term showcases.', accent: 'teal', icon: 'Habit' },
-  { id: 'hall', title: 'Riverside hall', description: 'Choir and ensemble sessions in a riverside hall.', accent: 'grape', icon: 'Message' },
+  { id: 'cafe', title: 'Bankside café', description: 'Independent roastery with long tables and reliable wifi.', accent: 'ocean', icon: 'Location' },
+  { id: 'library', title: 'Barbican library', description: 'Public library with quiet study floors and weekly author talks.', accent: 'teal', icon: 'Habit' },
+  { id: 'gallery', title: 'South Bank gallery', description: 'Riverside gallery with rotating exhibitions and guided tours.', accent: 'grape', icon: 'Message' },
 ];
 
 // Labels reuse AsyncSurface's own governed default titles (already localized package-side)

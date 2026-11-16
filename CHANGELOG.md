@@ -4,6 +4,21 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Reference site demo content covers many domains, not sport (#984)
+
+- The site's demo data was mostly sport and two client domains: dance, padel, swimming, soccer, athletes, coaches, sports classes. GDS is for any product, so the demos now use domains that fit each pattern:
+  - the charts use orders, active users and a quarterly target;
+  - the badge card is a pottery course;
+  - the map shows a café, a library, a gallery and a co-working space;
+  - the profile badge reads "Verified seller";
+  - the detail page is a photography workshop;
+  - the search, chat and select demos are about co-working spaces;
+  - the number stepper counts workshop seats;
+  - the hero and thumbnails show coffee, photography, talks and wellness.
+- Theme presets named after brands (class-usa, gold-athlete, padel-africa, your-field) stay as theme lanes.
+- The site phrase packs are regenerated in every locale.
+- Pattern metadata under each entry (section, component, package) renders as `MetadataText` instead of body text.
+
 ### The reference site renders only through GDS components (#983)
 
 - The site source had 166 raw HTML elements that rendered outside the governed typography, control and surface contracts. One was the grey native "Sign in" button reported from a phone. They included:

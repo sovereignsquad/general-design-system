@@ -356,7 +356,7 @@ function FormControlFamilyDemo() {
   ]);
 
   const wizardSteps = [
-    { id: 'profile', title: 'Profile', description: 'Confirm athlete identity and cohort.' },
+    { id: 'profile', title: 'Profile', description: 'Confirm patient identity and clinic.' },
     { id: 'metrics', title: 'Metrics', description: 'Capture readiness and recovery scores.', optional: true },
     { id: 'review', title: 'Review', description: 'Confirm and save the assessment.', completed: wizardStep > 2 },
   ];
@@ -664,32 +664,32 @@ function ChartWrapperFamilyDemo() {
     { label: 'Wk 4', value: 78 },
   ];
   const radar = [
-    { label: 'Sprint', value: 4 },
-    { label: 'Endurance', value: 5 },
-    { label: 'Recovery', value: 3 },
-    { label: 'Mobility', value: 4 },
+    { label: 'Speed', value: 4 },
+    { label: 'Reliability', value: 5 },
+    { label: 'Support', value: 3 },
+    { label: 'Usability', value: 4 },
   ];
-  const gauge = [{ label: 'Readiness', value: 72 }];
+  const gauge = [{ label: 'Quarterly target', value: 72 }];
 
   return (
     <GdsStack gap="sm">
       <SectionPanel title="Populated chart wrappers" description="Every wrapper renders its visual plus the mandatory accessible table fallback.">
-        <GdsAreaChart title="Load trend" summary="Weekly training load trend for the athlete." data={trend} />
+        <GdsAreaChart title="Orders trend" summary="Weekly orders for the online store." data={trend} />
         <br />
-        <GdsSparkline title="Readiness sparkline" summary="Compact readiness trend across recent sessions." data={trend} />
+        <GdsSparkline title="Active users sparkline" summary="Compact active-user trend across recent weeks." data={trend} />
         <br />
-        <GdsLongitudinalChart title="Longitudinal progression" summary="Longitudinal progression across the mesocycle." data={trend} />
+        <GdsLongitudinalChart title="Longitudinal progression" summary="Longitudinal progression across the quarter." data={trend} />
         <br />
-        <GdsBenchmarkBarChart title="Benchmark comparison" summary="Athlete metrics compared against the squad benchmark." data={trend} seriesTone="info" />
+        <GdsBenchmarkBarChart title="Benchmark comparison" summary="Store metrics compared against the category benchmark." data={trend} seriesTone="info" />
         <br />
         <GdsRadarChart title="Capability profile" summary="Multi-dimension capability profile." data={radar} />
         <br />
         <GdsMaturityRadarChart title="Maturity profile" summary="Maturity coverage across capability dimensions." data={radar} />
         <br />
-        <GdsGaugeChart title="Readiness gauge" summary="Current readiness index against target." data={gauge} />
+        <GdsGaugeChart title="Target gauge" summary="Current progress against the quarterly sales target." data={gauge} />
       </SectionPanel>
       <SectionPanel title="Empty and loading states" description="Empty data and loading states surface the accessible fallback instead of a blank chart.">
-        <GdsAreaChart title="Empty load trend" summary="No sessions recorded for this period yet." data={[]} />
+        <GdsAreaChart title="Empty orders trend" summary="No orders recorded for this period yet." data={[]} />
         <br />
         <GdsBenchmarkBarChart title="Loading benchmark" summary="Benchmark data is loading." data={trend} state="loading" />
       </SectionPanel>
@@ -790,17 +790,17 @@ function BadgeCardCompositionDemo() {
     <SectionPanel title="Badges on cards" description="A card's status slot and footer accept any node, so a badge replaces the plain status pill and a cluster of badges summarizes categories or reasons at a glance.">
       <GdsInline gap="lg" align="start">
         <ProductCard
-          title="Summer swim program"
-          description="Eight-week beginner track at the community pool."
+          title="Beginner pottery course"
+          description="Eight-week evening course at the community studio."
           status={<GdsBadge tone="success" icon="Success" label="Enrollment open" />}
           metadata={[
-            { label: 'Ages', value: '6-12' },
+            { label: 'Ages', value: '16+' },
             { label: 'Sessions', value: '8' },
           ]}
           footer={
             <GdsInline gap="xs">
-              <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Swimming" />
-              <GdsBadge accent="ocean" shape="circle" icon="Location" label="Pool 2" />
+              <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Ceramics" />
+              <GdsBadge accent="ocean" shape="circle" icon="Location" label="Studio 2" />
             </GdsInline>
           }
         />
@@ -847,10 +847,10 @@ const MAP_PIN_MARKERS: Array<{
   icon: 'Location' | 'Habit' | 'Message' | 'Verify';
   label: string;
 }> = [
-  { id: 'pool', position: { lat: 51.5079, lng: -0.0877 }, accent: 'ocean', icon: 'Location', label: 'Community pool' },
-  { id: 'studio', position: { lat: 51.5133, lng: -0.0886 }, accent: 'teal', icon: 'Habit', label: 'Dance studio' },
-  { id: 'hall', position: { lat: 51.5031, lng: -0.1195 }, accent: 'grape', icon: 'Message', label: 'Riverside hall' },
-  { id: 'center', position: { lat: 51.5014, lng: -0.0993 }, accent: 'forest', icon: 'Verify', label: 'Certified center' },
+  { id: 'cafe', position: { lat: 51.5079, lng: -0.0877 }, accent: 'ocean', icon: 'Location', label: 'Bankside café' },
+  { id: 'library', position: { lat: 51.5133, lng: -0.0886 }, accent: 'teal', icon: 'Habit', label: 'Barbican library' },
+  { id: 'gallery', position: { lat: 51.5031, lng: -0.1195 }, accent: 'grape', icon: 'Message', label: 'South Bank gallery' },
+  { id: 'coworking', position: { lat: 51.5014, lng: -0.0993 }, accent: 'forest', icon: 'Verify', label: 'Borough co-working' },
 ];
 
 // Keyed by the same ids as MAP_PIN_MARKERS: activity drives the filter rail, the rest
@@ -861,10 +861,10 @@ const MAP_PIN_DETAILS: Record<string, {
   verified?: boolean; categoryIcon: 'Location' | 'Habit' | 'Message' | 'Verify';
 }> = {
   // Four different domains, deliberately: the pin system is domain-agnostic.
-  pool: { activity: 'Swimming', activityId: 'swimming', neighbourhood: 'Bankside', summary: 'Heated pools with beginner lanes and family sessions.', ageRange: '6-12', priceEstimate: '~\u00a340 / month', lastChecked: 'Checked last week', categoryIcon: 'Location' },
-  studio: { activity: 'Dance', activityId: 'dance', neighbourhood: 'Barbican', summary: 'Ballet and street classes with end-of-term showcases.', ageRange: '5-16', priceEstimate: '~\u00a355 / term', lastChecked: 'Checked this month', categoryIcon: 'Habit' },
-  hall: { activity: 'Music', activityId: 'music', neighbourhood: 'South Bank', summary: 'Choir and ensemble sessions in a riverside hall.', ageRange: '8-18', categoryIcon: 'Message' },
-  center: { activity: 'Cooking', activityId: 'cooking', neighbourhood: 'Borough', summary: 'Certified kitchen classes with seasonal, market-led menus.', ageRange: '10-16', priceEstimate: '~\u00a348 / month', lastChecked: 'Checked last week', verified: true, categoryIcon: 'Verify' },
+  cafe: { activity: 'Coffee', activityId: 'coffee', neighbourhood: 'Bankside', summary: 'Independent roastery with long tables and reliable wifi.', ageRange: 'All ages', priceEstimate: '~\u00a34 / visit', lastChecked: 'Checked last week', categoryIcon: 'Location' },
+  library: { activity: 'Reading', activityId: 'reading', neighbourhood: 'Barbican', summary: 'Public library with quiet study floors and weekly author talks.', ageRange: 'All ages', priceEstimate: 'Free entry', lastChecked: 'Checked this month', categoryIcon: 'Habit' },
+  gallery: { activity: 'Art', activityId: 'art', neighbourhood: 'South Bank', summary: 'Riverside gallery with rotating exhibitions and guided tours.', ageRange: '12+', categoryIcon: 'Message' },
+  coworking: { activity: 'Co-working', activityId: 'coworking', neighbourhood: 'Borough', summary: 'Hot desks, bookable meeting rooms and a shared kitchen.', ageRange: '18+', priceEstimate: '~\u00a3180 / month', lastChecked: 'Checked last week', verified: true, categoryIcon: 'Verify' },
 };
 
 function BadgeMapDemo() {
@@ -899,13 +899,13 @@ function MapSurfaceDemo() {
 
   return (
     <MapPanel
-      title="Nearby activities"
+      title="Nearby places"
       description="Real OpenStreetMap tiles via GdsMap, composed under GdsMapBasemapWash — the tiles desaturate and take a tint of the active theme's canvas colour, so the basemap reads as part of the page rather than a foreign surface. The filter rail's counts come from the same markers the map renders, and selecting a pin opens its preview card. Tiles, markers and the ODbL credit are all governed, and switching the theme above re-initialises the map because Leaflet holds imperative DOM the CSS cascade cannot reach."
       minHeight={320}
       renderMap={() => (
         <GdsStack gap="sm">
           <GdsMapFilterRail
-            ariaLabel="Filter places by activity"
+            ariaLabel="Filter places by category"
             options={railOptions}
             value={activityFilter}
             onChange={(next) => {
@@ -915,7 +915,7 @@ function MapSurfaceDemo() {
           />
           <GdsMapBasemapWash>
             <GdsMap
-              label="Nearby activities"
+              label="Nearby places"
               height="320px"
               markers={visibleMarkers.map((pin) => ({
                 id: pin.id,
@@ -962,11 +962,11 @@ function MapSurfaceDemo() {
 
 /**
  * Consumer-domain vocabulary, not a GDS-owned enum. `icon` uses existing GdsIconKey
- * stand-ins — no sport-specific icon exists in the closed registry.
+ * stand-ins — no domain-specific icon exists in the closed registry.
  */
 const EMOJI_MODE_CATEGORIES: GdsCategoryDefinition[] = [
-  // Three different domains, deliberately: emoji mode is not sport-specific.
-  { key: 'soccer', label: 'Soccer', accent: 'forest', icon: 'Location', emoji: '⚽' },
+  // Three different domains, deliberately: emoji mode is domain-agnostic.
+  { key: 'gardening', label: 'Gardening', accent: 'forest', icon: 'Habit', emoji: '🌱' },
   { key: 'painting', label: 'Painting', accent: 'terracotta', icon: 'Gallery', emoji: '🎨' },
   { key: 'cooking', label: 'Cooking', accent: 'bronze', icon: 'Star', emoji: '🍜' },
 ];
@@ -1021,7 +1021,7 @@ function EmojiModeDemo() {
               <GdsStack key={category.key} gap="xs" align="center">
                 <GdsBox w={160}>
                   <GdsGeneratedThumbnail
-                    seed={`sports-demo-${category.key}`}
+                    seed={`emoji-demo-${category.key}`}
                     categories={[{ key: category.key, label: category.label, icon: category.icon as never }]}
                     paletteSource="category"
                     category={category.accent}
@@ -1051,7 +1051,7 @@ function GeneratedThumbnailDemo() {
               seed="demo-listing-1"
               badges="ranked"
               categories={[
-                { key: 'soccer', label: 'Soccer', icon: 'Location' },
+                { key: 'coffee', label: 'Coffee', icon: 'Location' },
                 { key: 'painting', label: 'Painting', icon: 'Gallery' },
                 { key: 'choir', label: 'Choir', icon: 'Message' },
               ]}
@@ -1073,7 +1073,7 @@ function GeneratedThumbnailDemo() {
             <GdsGeneratedThumbnail
               seed="demo-listing-3"
               categories={[
-                { key: 'swimming', label: 'Swimming', icon: 'Star' },
+                { key: 'wellness', label: 'Wellness', icon: 'Star' },
                 { key: 'yoga', label: 'Yoga', icon: 'Habit' },
               ]}
               paletteSource="category"
@@ -1100,7 +1100,7 @@ function GeneratedThumbnailDemo() {
             <GdsGeneratedThumbnail
               seed="demo-listing-interactive"
               categories={[
-                { key: 'soccer', label: 'Soccer', icon: 'Location', onSelect: setSelectedCategory },
+                { key: 'coffee', label: 'Coffee', icon: 'Location', onSelect: setSelectedCategory },
                 { key: 'painting', label: 'Painting', icon: 'Gallery', onSelect: setSelectedCategory },
               ]}
               tintWithBackground="var(--gds-bg-canvas)"
@@ -1170,9 +1170,9 @@ function LogoLockupDemo() {
       description="GdsLogoLockup composes a consumer-supplied real logo asset — never generated art, unlike GdsGeneratedMark — with an optional wordmark and badge pill. `framed` renders the brand-guidelines-mandated light contrasting badge (card surface, border, radius, elevation) so the mark stays legible on any ground; `onInverse` alone adjusts text color for a dark ground but is legible-not-guideline-honoring without `framed`. The framed + onInverse pair below is the guideline-honoring presentation for a dark nav/header ground; DiscoveryShell's own header is the real placement for that pairing."
     >
       <GdsInline gap="lg" align="center">
-        <GdsLogoLockup src={GDS_LOGO_LOCKUP_DEMO_MARK} alt="" wordmark="Your Field" badge="NYC" />
-        <GdsLogoLockup src={GDS_LOGO_LOCKUP_DEMO_MARK} alt="Your Field, mark-only" />
-        <GdsLogoLockup src={GDS_LOGO_LOCKUP_DEMO_MARK} alt="" wordmark="Your Field" badge="NYC" onInverse framed />
+        <GdsLogoLockup src={GDS_LOGO_LOCKUP_DEMO_MARK} alt="" wordmark="Meridian" badge="NYC" />
+        <GdsLogoLockup src={GDS_LOGO_LOCKUP_DEMO_MARK} alt="Meridian, mark-only" />
+        <GdsLogoLockup src={GDS_LOGO_LOCKUP_DEMO_MARK} alt="" wordmark="Meridian" badge="NYC" onInverse framed />
       </GdsInline>
     </SectionPanel>
   );
@@ -1180,10 +1180,10 @@ function LogoLockupDemo() {
 
 function GeneratedHeroDemo() {
   const badges = [
-    { key: 'soccer', label: 'Soccer', icon: 'Location' as const },
-    { key: 'basketball', label: 'Basketball', icon: 'Habit' as const },
-    { key: 'gymnastics', label: 'Gymnastics', icon: 'Trophy' as const },
-    { key: 'swimming', label: 'Swimming', icon: 'Star' as const },
+    { key: 'coffee', label: 'Coffee', icon: 'Location' as const },
+    { key: 'photography', label: 'Photography', icon: 'Habit' as const },
+    { key: 'talks', label: 'Talks', icon: 'Trophy' as const },
+    { key: 'wellness', label: 'Wellness', icon: 'Star' as const },
     { key: 'art', label: 'Art', icon: 'Gallery' as const },
     { key: 'music', label: 'Music', icon: 'Message' as const },
   ];
@@ -1193,9 +1193,9 @@ function GeneratedHeroDemo() {
       description="GdsGeneratedHero shares GdsGeneratedThumbnail's palette and seed engine at banner scale: an accent wash plus one of four pluggable background strategies, and up to 6 ranked badges at a fixed size ladder (one large, two medium, three small) — fixed slots, not free placement, so the composition never reads as clutter."
     >
       <GdsStack gap="md">
-        <GdsGeneratedHero seed="demo-hero-wash" label="Sports classes in Riverdale" badges={badges} />
-        <GdsGeneratedHero seed="demo-hero-mosaic" label="Camps across the city" background="mosaic-abstract" badges={badges} />
-        <GdsGeneratedHero seed="demo-hero-icons" label="Every activity, one map" background="icon-field" badges={badges} />
+        <GdsGeneratedHero seed="demo-hero-wash" label="Workshops and talks in Riverdale" badges={badges} />
+        <GdsGeneratedHero seed="demo-hero-mosaic" label="Galleries across the city" background="mosaic-abstract" badges={badges} />
+        <GdsGeneratedHero seed="demo-hero-icons" label="Every place, one map" background="icon-field" badges={badges} />
         <GdsGeneratedHero
           seed="demo-hero-regions"
           label="Neighborhood coverage"
@@ -1284,10 +1284,10 @@ function BadgeProfileClusterDemo() {
         <GdsStack gap="xs">
           <BodyText>Jordan Rivera</BodyText>
           <GdsInline gap="xs">
-            <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Swimming" />
+            <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Ceramics" />
             <GdsBadge accent="grape" shape="circle" icon="Message" label="Choir" />
-            <GdsBadge accent="forest" shape="shield" icon="Verify" label="Certified coach" />
-            <GdsCountBadge value={3} label="badges earned this season" tone="info" />
+            <GdsBadge accent="forest" shape="shield" icon="Verify" label="Verified seller" />
+            <GdsCountBadge value={3} label="badges earned this year" tone="info" />
           </GdsInline>
         </GdsStack>
       </GdsInline>
@@ -1324,18 +1324,18 @@ function BadgeOverlayDemo() {
         </GdsDialog>
         <InlineAlert
           title="New badge available"
-          message="Complete two more sessions to unlock the Certified Coach badge."
+          message="Complete two more orders to unlock the Verified Seller badge."
           severity="info"
-          action={<GdsBadge tone="info" icon="Info" label="2 sessions to go" />}
+          action={<GdsBadge tone="info" icon="Info" label="2 orders to go" />}
         />
         <InlineAlert
-          title="Certification expiring soon"
-          message="Renew before the season starts to keep the Certified Coach badge active."
+          title="Verification expiring soon"
+          message="Renew before the next quarter starts to keep the Verified Seller badge active."
           severity="warning"
           action={<GdsBadge tone="warning" icon="Warning" label="Renew by Sep 1" />}
         />
         <InlineAlert
-          title="Certification lapsed"
+          title="Verification lapsed"
           message="This badge no longer displays on the public profile until it is renewed."
           severity="error"
           action={<GdsBadge tone="danger" icon="Danger" label="Renewal required" />}
@@ -1465,8 +1465,8 @@ function SavedIndicatorDemo() {
         <GdsSavedIndicator
           saved={saved}
           onSaveChange={setSaved}
-          saveLabel="Save Riverside Swim Club"
-          unsaveLabel="Remove Riverside Swim Club from saved"
+          saveLabel="Save Riverside Gallery"
+          unsaveLabel="Remove Riverside Gallery from saved"
         />
         <InlineText>{saved ? 'Saved' : 'Not saved'}</InlineText>
         {/* The corner form takes its anchor as a prop and composes through the governed badge
@@ -1475,9 +1475,9 @@ function SavedIndicatorDemo() {
           mode="corner"
           saved={saved}
           onSaveChange={setSaved}
-          saveLabel="Save Riverside Swim Club"
-          unsaveLabel="Remove Riverside Swim Club from saved"
-          anchor={<GdsMapPinBadge accent="ocean" icon="Location" label="Riverside Swim Club" size={56} filled />}
+          saveLabel="Save Riverside Gallery"
+          unsaveLabel="Remove Riverside Gallery from saved"
+          anchor={<GdsMapPinBadge accent="ocean" icon="Location" label="Riverside Gallery" size={56} filled />}
         />
       </GdsInline>
     </SectionPanel>
@@ -2023,11 +2023,11 @@ function DemoList({ items }: { items: string[] }) {
 
 function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
   return (
-    <BodyText>
+    <MetadataText>
       {entry.docSection}
       {entry.sourceComponent ? ` • ${entry.sourceComponent}` : ''}
       {entry.importPath ? ` • ${entry.importPath}` : ''}
-    </BodyText>
+    </MetadataText>
   );
 }
 
@@ -2117,7 +2117,7 @@ function BadgeVocabularyDemo() {
         title="Composed badge — category accent"
         description="An accent names a category and means the same thing in every theme, which is why it does not shift with the preset the way a tone does."
       >
-        <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Swimming" />
+        <GdsBadge accent="teal" shape="hexagon" icon="Habit" label="Photography" />
         <GdsBadge accent="grape" shape="circle" icon="Message" label="Choir" />
         <GdsBadge accent="forest" shape="shield" icon="Verify" label="Certified" />
         <GdsBadge accent="terracotta" shape="pin" icon="Location" label="Nearby" />
@@ -2152,7 +2152,7 @@ function BadgeVocabularyDemo() {
         description="A flat accent disc with no text, for a category already named by adjacent content — a legend, a caption, an aria-labelled group. Decorative by default; pass label when it stands alone."
       >
         <GdsInline gap="sm" align="center">
-          <GdsIconBadge accent="teal" icon="Habit" label="Fitness" />
+          <GdsIconBadge accent="teal" icon="Habit" label="Wellness" />
           <GdsIconBadge accent="ocean" shade="deep" icon="Location" label="Nearby" />
           <GdsIconBadge accent="terracotta" icon="Calendar" label="Scheduled" />
         </GdsInline>
@@ -2334,15 +2334,15 @@ function SearchableSelectDemo() {
       <SearchableSelect
         value={value}
         onChange={setValue}
-        ariaLabel="Find a swim club"
-        placeholder="Search clubs…"
+        ariaLabel="Find a co-working space"
+        placeholder="Search spaces…"
         clearable
         options={[
-          { value: 'riverside', label: 'Riverside Swim Club', group: 'Nearby' },
-          { value: 'lakeside', label: 'Lakeside Aquatic Centre', group: 'Nearby' },
-          { value: 'northgate', label: 'Northgate Pool', group: 'Nearby' },
-          { value: 'harbour', label: 'Harbour Masters', group: 'Further out' },
-          { value: 'summit', label: 'Summit Leisure', group: 'Further out', disabled: true },
+          { value: 'riverside', label: 'Riverside Commons', group: 'Nearby' },
+          { value: 'lakeside', label: 'Lakeside Studios', group: 'Nearby' },
+          { value: 'northgate', label: 'Northgate Library Hub', group: 'Nearby' },
+          { value: 'harbour', label: 'Harbour Works', group: 'Further out' },
+          { value: 'summit', label: 'Summit House', group: 'Further out', disabled: true },
         ]}
       />
       <MetadataText>{value ? `Selected value: ${value}` : 'No selection — the clearable control returns null, not an empty string.'}</MetadataText>
@@ -2352,8 +2352,8 @@ function SearchableSelectDemo() {
 
 function ConversationSurfaceDemo() {
   const [messages, setMessages] = useState<ChatMessageModel[]>([
-    { id: 'm1', role: 'user', content: 'Which clubs run a beginner lane on weekday evenings?' },
-    { id: 'm2', role: 'assistant', content: 'Riverside and Northgate both run beginner lanes on weekday evenings.' },
+    { id: 'm1', role: 'user', content: 'Which spaces keep a quiet room open on weekday evenings?' },
+    { id: 'm2', role: 'assistant', content: 'Riverside and Northgate both keep a quiet room open on weekday evenings.' },
   ]);
 
   // Transport and persistence belong to the caller; this appends locally only.
@@ -2366,9 +2366,9 @@ function ConversationSurfaceDemo() {
       title="Conversation surface"
       description="An auto-scrolling thread that stays pinned to the newest message unless the reader has scrolled away, role-styled bubbles for user and assistant, and an input that sends on Enter and inserts a newline on Shift+Enter. The thread is an ARIA live region, so arriving replies are announced. The second thread is the same component with streaming set, which is what reveals the typing indicator."
     >
-      <ChatThread messages={messages} onSend={send} placeholder="Ask about a club…" />
+      <ChatThread messages={messages} onSend={send} placeholder="Ask about a space…" />
       <ChatThread
-        messages={[{ id: 's1', role: 'user', content: 'Do any of them offer a family rate?' }]}
+        messages={[{ id: 's1', role: 'user', content: 'Do any of them offer a day pass?' }]}
         streaming
         onSend={send}
         placeholder="Input is disabled while the assistant streams"
@@ -2397,7 +2397,7 @@ function MediaWithFallbackDemo() {
 }
 
 // Single source for the bound: the control's `max` and the sentence beside it.
-const LANE_PLACES = 8;
+const WORKSHOP_SEATS = 8;
 
 function NumberStepperDemo() {
   const [quantity, setQuantity] = useState(2);
@@ -2408,8 +2408,8 @@ function NumberStepperDemo() {
       description="A bounded quantity control with spinbutton semantics: it exposes its current, minimum and maximum values to assistive technology, clamps rather than accepting an out-of-range entry, and moves in whole steps from the keyboard. The increment and decrement controls carry their own accessible names instead of relying on the glyph."
     >
       <GdsInline gap="lg" align="center">
-        <NumberStepper value={quantity} onChange={setQuantity} min={1} max={LANE_PLACES} ariaLabel="Lane places" />
-        <InlineText>{`${quantity} of ${LANE_PLACES} places`}</InlineText>
+        <NumberStepper value={quantity} onChange={setQuantity} min={1} max={WORKSHOP_SEATS} ariaLabel="Workshop seats" />
+        <InlineText>{`${quantity} of ${WORKSHOP_SEATS} seats`}</InlineText>
       </GdsInline>
       <MetadataText>Bounds are enforced by the component: the controls disable at the ends rather than letting the value leave the range.</MetadataText>
     </SectionPanel>
@@ -2426,8 +2426,8 @@ function AISearchCardDemo() {
     >
       <AISearchCard
         onSubmit={setSubmitted}
-        placeholder="Ask about clubs, lanes or timetables"
-        prompts={['Beginner lanes near me', 'Weekend family sessions', 'Clubs with a warm pool']}
+        placeholder="Ask about spaces, desks or opening hours"
+        prompts={['Quiet desks near me', 'Weekend day passes', 'Spaces with a meeting room']}
       />
       <MetadataText>{submitted ? `Last query handed to the caller: ${submitted}` : 'Submit a query or pick a prompt — the card reports the text and does nothing else with it.'}</MetadataText>
     </SectionPanel>
@@ -2438,7 +2438,7 @@ const heroSearchPanelExampleFields = [
   { key: 'childAge', label: 'Child age', placeholder: 'e.g. 6' },
   { key: 'neighbourhood', label: 'Neighbourhood', placeholder: 'e.g. Riverside' },
   { key: 'date', label: 'Date', placeholder: 'e.g. This weekend' },
-  { key: 'activityType', label: 'Activity type', placeholder: 'e.g. Swimming' },
+  { key: 'activityType', label: 'Activity type', placeholder: 'e.g. Photography' },
   { key: 'budget', label: 'Budget', placeholder: 'e.g. Under $50' },
 ];
 
@@ -2476,7 +2476,7 @@ function HeroSearchPanelDemo() {
         <GdsStack gap="xs">
           <MetadataText>One field:</MetadataText>
           <HeroSearchPanel
-            fields={[{ key: 'query', label: 'What are you looking for?', placeholder: 'e.g. Swim lessons' }]}
+            fields={[{ key: 'query', label: 'What are you looking for?', placeholder: 'e.g. Cooking classes' }]}
             onSubmit={() => {}}
             ariaLabel="Single-field search"
           />
@@ -2495,11 +2495,11 @@ const quickStartScenarios: Array<{ icon: GdsIconName; label: string; description
   { icon: 'Time', label: 'Today after school' },
   { icon: 'Currency', label: 'Free & low-cost' },
   { icon: 'Home', label: 'Indoor activities' },
-  { icon: 'Flag', label: 'Camps open now' },
+  { icon: 'Flag', label: 'Workshops open now' },
   { icon: 'Reward', label: 'Birthday party ideas' },
   { icon: 'Child', label: 'Toddler drop-ins' },
   { icon: 'Habit', label: 'STEM & coding' },
-  { icon: 'Trophy', label: 'Sports & movement' },
+  { icon: 'Trophy', label: 'Talks & events' },
   { icon: 'Location', label: 'Near me' },
 ];
 
@@ -2776,13 +2776,13 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             <MetadataText>Page mode</MetadataText>
             <DetailProfileShell
               mode="page"
-              hero={<PageHeader title="Weekend Soccer Clinic" description="Key facts and provider claim composed as governed sections." />}
+              hero={<PageHeader title="Weekend Photography Workshop" description="Key facts and provider claim composed as governed sections." />}
               sections={[
                 <DetailFactsTable
                   key="facts"
                   values={{
-                    ageRange: '6-10',
-                    activityType: 'Soccer',
+                    ageRange: '16+',
+                    activityType: 'Photography',
                     format: 'Small group',
                     location: 'Prospect Park, Brooklyn',
                   }}
@@ -2795,7 +2795,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             <MetadataText>Drawer mode</MetadataText>
             <DetailProfileShell
               mode="drawer"
-              hero={<PageHeader title="Weekend Soccer Clinic" description="The same sections inside the bordered drawer surface." />}
+              hero={<PageHeader title="Weekend Photography Workshop" description="The same sections inside the bordered drawer surface." />}
               sections={[
                 <DetailFactsTable key="facts" values={{ price: '$45 / session' }} />,
                 <ProviderCTA key="cta" onAction={() => {}} />,
@@ -2839,7 +2839,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             <MetadataText>Detail-page source card (SourceBlock) with data</MetadataText>
             <SourceBlock
               sourceType="Official provider website"
-              sourceUrl="https://example.org/weekend-soccer-clinic"
+              sourceUrl="https://example.org/weekend-photography-workshop"
               lastChecked={new Date('2026-06-01')}
               priceStatus="confirmed"
               scheduleStatus="needs-confirmation"
