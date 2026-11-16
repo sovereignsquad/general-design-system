@@ -14,6 +14,7 @@ import { useGdsDomPhraseTranslation,
   SidebarNavItem,
   StateBlock,
   ThemeToggle,
+  InlineEmphasis,
 } from '@sovereignsquad/gds-core';
 // ThemeExplorerSelection ships from the reference-theme-explorer subpath, not the main barrel.
 import type { ThemeExplorerSelection } from '@sovereignsquad/gds-core/reference-theme-explorer';
@@ -266,7 +267,7 @@ function PlaygroundContent() {
     >
       <GdsTourProvider>
       <DocsShell
-        brand={<strong>General Design System</strong>}
+        brand={<InlineEmphasis>General Design System</InlineEmphasis>}
         primaryNavigation={primaryNavigation}
         secondaryNavigation={secondaryNavigation}
         headerContext={headerContext}

@@ -204,6 +204,11 @@ import {
   ReportOutdatedLink,
   SourceBlock,
   ConfirmChecklist,
+  ActionIcon,
+  Button,
+  CardTitle,
+  InlineEmphasis,
+  TextInput,
 } from '@sovereignsquad/gds-core';
 // Excluded from the main barrel so consumers who don't use it don't bundle it.
 import { GdsRichTextEditor } from '@sovereignsquad/gds-core/rich-text-editor';
@@ -244,7 +249,7 @@ function ListingFrameworkDemo() {
   const resultCount = state.search ? 4 : 12;
 
   return (
-    <div>
+    <GdsStack gap="sm">
       <DataToolbar
         searchSlot={(
           <input
@@ -253,7 +258,7 @@ function ListingFrameworkDemo() {
             onChange={(event) => dispatch({ type: 'set-search', value: event.currentTarget.value })}
           />
         )}
-        filterSlot={<button type="button" onClick={() => dispatch({ type: 'toggle-filter', value: 'Published' })}>Toggle published</button>}
+        filterSlot={<Button variant="default" size="compact-sm" type="button" onClick={() => dispatch({ type: 'toggle-filter', value: 'Published' })}>Toggle published</Button>}
         sortSlot={(
           <SortMenu
             value={state.sort}
@@ -266,8 +271,8 @@ function ListingFrameworkDemo() {
             label="Sort by"
           />
         )}
-        resetAction={<button type="button" onClick={() => dispatch({ type: 'reset-query' })}>Reset</button>}
-        createAction={<button type="button">Create</button>}
+        resetAction={<Button variant="default" size="compact-sm" type="button" onClick={() => dispatch({ type: 'reset-query' })}>Reset</Button>}
+        createAction={<Button variant="default" size="compact-sm" type="button">Create</Button>}
         activeFilters={state.filters.map((filter) => ({
           label: filter,
           onRemove: () => dispatch({ type: 'toggle-filter', value: filter }),
@@ -290,13 +295,13 @@ function ListingFrameworkDemo() {
       <br />
       <BulkActionsBar
         selectedCount={state.selection.length}
-        actions={<button type="button" onClick={() => dispatch({ type: 'toggle-selection', value: 'row-1' })}>Toggle row-1</button>}
-        clearAction={<button type="button" onClick={() => dispatch({ type: 'clear-selection' })}>Clear selection</button>}
+        actions={<Button variant="default" size="compact-sm" type="button" onClick={() => dispatch({ type: 'toggle-selection', value: 'row-1' })}>Toggle row-1</Button>}
+        clearAction={<Button variant="default" size="compact-sm" type="button" onClick={() => dispatch({ type: 'clear-selection' })}>Clear selection</Button>}
       />
-      <button type="button" onClick={() => dispatch({ type: 'toggle-selection', value: 'row-1' })}>
+      <Button variant="default" size="compact-sm" type="button" onClick={() => dispatch({ type: 'toggle-selection', value: 'row-1' })}>
         {state.selection.includes('row-1') ? 'Unselect row-1' : 'Select row-1'}
-      </button>
-    </div>
+      </Button>
+    </GdsStack>
   );
 }
 
@@ -315,12 +320,12 @@ function ChoiceChipFamilyDemo() {
     setTags((current) => (current.includes(tag) ? current.filter((t) => t !== tag) : [...current, tag]));
 
   return (
-    <div>
-      <div>
+    <GdsStack gap="sm">
+      <GdsStack gap="sm">
         <ChoiceChip label="Draft" active />
         <ChoiceChip label="Published" onClick={() => {}} />
         <ChoiceChip label="Archived" />
-      </div>
+      </GdsStack>
       <br />
       <PillBar options={options} value={pill} onChange={setPill} ariaLabel="Filter by lifecycle (pill)" />
       <br />
@@ -328,12 +333,12 @@ function ChoiceChipFamilyDemo() {
       <br />
       <FilterChipGroup options={options} value={filter} onChange={setFilter} ariaLabel="Filter by lifecycle (filter)" />
       <br />
-      <div>
+      <GdsStack gap="sm">
         {['Published', 'Draft', 'Archived'].map((tag) => (
           <ChoiceChip key={tag} label={tag} active={tags.includes(tag)} onClick={() => toggleTag(tag)} />
         ))}
-      </div>
-    </div>
+      </GdsStack>
+    </GdsStack>
   );
 }
 
@@ -449,7 +454,7 @@ function AdminEditorFlowsDemo() {
   const [visibility, setVisibility] = useState<string | null>('public');
   const [slug, setSlug] = useState('catalog-admin-shell');
   const [notes, setNotes] = useState('');
-  const [body, setBody] = useState('<p>Describe the catalog item here.</p>');
+  const [body, setBody] = useState('<BodyText>Describe the catalog item here.</BodyText>');
 
   return (
     <ContentOpsEditor
@@ -499,12 +504,12 @@ function AdminEditorFlowsDemo() {
       )}
       preview={
         <SectionPanel title="Live preview" description="Shared preview rail for editor contexts.">
-          <p>Keep previews close to the current editing state.</p>
+          <BodyText>Keep previews close to the current editing state.</BodyText>
         </SectionPanel>
       }
       settings={
         <SectionPanel title="Settings" description="Operations settings stay in the same contract.">
-          <p>Settings remain grouped and stable for team-wide governance.</p>
+          <BodyText>Settings remain grouped and stable for team-wide governance.</BodyText>
         </SectionPanel>
       }
       actionBar={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'refresh' }] }} />}
@@ -577,7 +582,7 @@ function AssetManagerTemplateDemo() {
       )}
       grid={(
         <GdsGrid columns={{ base: 1, sm: 3 }} gap="md">
-          {['logo-primary.svg', 'logo-mark.svg', 'logo-mono.svg'].map((name) => <SectionPanel key={name} title={name} titleOrder={2}><p>SVG</p></SectionPanel>)}
+          {['logo-primary.svg', 'logo-mark.svg', 'logo-mono.svg'].map((name) => <SectionPanel key={name} title={name} titleOrder={2}><BodyText>SVG</BodyText></SectionPanel>)}
         </GdsGrid>
       )}
     />
@@ -667,7 +672,7 @@ function ChartWrapperFamilyDemo() {
   const gauge = [{ label: 'Readiness', value: 72 }];
 
   return (
-    <div>
+    <GdsStack gap="sm">
       <SectionPanel title="Populated chart wrappers" description="Every wrapper renders its visual plus the mandatory accessible table fallback.">
         <GdsAreaChart title="Load trend" summary="Weekly training load trend for the athlete." data={trend} />
         <br />
@@ -688,13 +693,13 @@ function ChartWrapperFamilyDemo() {
         <br />
         <GdsBenchmarkBarChart title="Loading benchmark" summary="Benchmark data is loading." data={trend} state="loading" />
       </SectionPanel>
-    </div>
+    </GdsStack>
   );
 }
 
 function MissingDataPromptDemo() {
   return (
-    <div>
+    <GdsStack gap="sm">
       <StateBlock
         variant="info"
         title="Shared feedback surface"
@@ -712,15 +717,15 @@ function MissingDataPromptDemo() {
           action={<SemanticButton action="add" />}
         />
       </SectionPanel>
-      <div role="status">
+      <GdsBox role="status">
         <SectionPanel title="Missing data status region" description="Same prompt announced through a status region for assistive technology.">
           <MissingDataPrompt
             title="Assessment incomplete"
             description="Provide the outstanding inputs before the readiness view can be trusted."
           />
         </SectionPanel>
-      </div>
-    </div>
+      </GdsBox>
+    </GdsStack>
   );
 }
 
@@ -731,9 +736,9 @@ function OverlayAliasDemo() {
   return (
     <OverlayManagerProvider>
       <SectionPanel title="Dialog and side panel aliases" description="Product-vocabulary overlay wrappers over the governed modal and drawer primitives.">
-        <button id="open-alias-dialog" type="button" onClick={() => setDialogOpen(true)}>Open dialog</button>
+        <Button variant="default" size="compact-sm" id="open-alias-dialog" type="button" onClick={() => setDialogOpen(true)}>Open dialog</Button>
         {' '}
-        <button id="open-alias-panel" type="button" onClick={() => setPanelOpen(true)}>Open side panel</button>
+        <Button variant="default" size="compact-sm" id="open-alias-panel" type="button" onClick={() => setPanelOpen(true)}>Open side panel</Button>
         <GdsDialog
           id="alias-dialog"
           opened={dialogOpen}
@@ -742,7 +747,7 @@ function OverlayAliasDemo() {
           title="Assessment dialog"
           description="Focus is trapped, Escape closes, and focus returns to the trigger."
         >
-          <p>Dialog body content stays on an opaque governed overlay surface.</p>
+          <BodyText>Dialog body content stays on an opaque governed overlay surface.</BodyText>
           <SemanticButton action="confirm" onClick={() => setDialogOpen(false)} />
         </GdsDialog>
         <GdsSidePanel
@@ -753,7 +758,7 @@ function OverlayAliasDemo() {
           title="Details side panel"
           description="Side panel wrapper with scroll lock and focus return."
         >
-          <p>Side panel body content for extended context.</p>
+          <BodyText>Side panel body content for extended context.</BodyText>
           <SemanticButton action="close" onClick={() => setPanelOpen(false)} />
         </GdsSidePanel>
       </SectionPanel>
@@ -820,12 +825,12 @@ function BadgeButtonAnchorDemo() {
   return (
     <SectionPanel title="Badges beside buttons" description="A count badge anchors to an icon button's corner via the same GdsBadgeStack corner model used to anchor an icon — the button stays the accessible hit target and name, the pill is decorative, and count changes announce through the badge's own live region. A plain badge can also sit beside a labeled button as a status echo.">
       <GdsInline gap="xl">
-        <button type="button" aria-label="Notifications">
+        <ActionIcon variant="subtle" size="xl" aria-label="Notifications">
           <GdsCountBadge value={4} label="unread notifications" anchor={<GdsIcon icon="Notifications" size="lg" />} anchorSize="1.75rem" />
-        </button>
-        <button type="button" aria-label="Save this listing">
+        </ActionIcon>
+        <ActionIcon variant="subtle" size="xl" aria-label="Save this listing">
           <GdsCountBadge dot label="new activity on this listing" tone="info" anchor={<GdsIcon icon="Star" size="lg" />} anchorSize="1.75rem" />
-        </button>
+        </ActionIcon>
         <GdsInline gap="xs">
           <SemanticButton action="save" />
           <GdsBadge tone="success" icon="Success" label="Saved" />
@@ -1295,7 +1300,7 @@ function BadgeOverlayDemo() {
   return (
     <OverlayManagerProvider>
       <SectionPanel title="Badges in overlays" description="A modal can confirm a badge was just earned; an inline alert carries a badge as its action content. Badges never appear inside a toast body, which stays text-only for assistive tech.">
-        <button id="open-badge-dialog" type="button" onClick={() => setOpen(true)}>View achievement</button>
+        <Button variant="default" size="compact-sm" id="open-badge-dialog" type="button" onClick={() => setOpen(true)}>View achievement</Button>
         <GdsDialog
           id="badge-achievement-dialog"
           opened={open}
@@ -1489,9 +1494,9 @@ function CompareButtonDemo() {
       <GdsInline gap="lg" align="center">
         <GdsCompareButton added={added} onAddedChange={setAdded} />
         <InlineText>{added ? 'In the compare set' : 'Not in the compare set'}</InlineText>
-        <button type="button" onClick={() => setAdded((current) => !current)}>
+        <Button variant="default" size="compact-sm" type="button" onClick={() => setAdded((current) => !current)}>
           Toggle from outside
-        </button>
+        </Button>
       </GdsInline>
     </SectionPanel>
   );
@@ -1547,7 +1552,7 @@ function FormArchitectureDemo() {
   return (
     <GdsFormProvider snapshot={form.snapshot}>
       <SectionPanel title="Shared form guidance" description="GDS governs labels, descriptions, validation, and submit-state behavior.">
-        <div>
+        <GdsStack gap="sm">
           <FormErrorSummary />
           <FormField label="Title" description="Use shared form fields for all labels and errors.">
             <input
@@ -1561,12 +1566,15 @@ function FormArchitectureDemo() {
           </FormField>
           <ValidatedFieldMessage field="title" />
           <FormField label="Status" description="Use shared select semantics for branch choices.">
-            <select aria-label="Status" value={String(form.snapshot.fields.status?.value ?? 'Draft')} onChange={(event) => form.setFieldValue('status', event.currentTarget.value)}>
-              <option>Draft</option>
-              <option>Published</option>
-            </select>
+            <Select
+              aria-label="Status"
+              data={['Draft', 'Published']}
+              value={String(form.snapshot.fields.status?.value ?? 'Draft')}
+              onChange={(next) => form.setFieldValue('status', next ?? 'Draft')}
+              allowDeselect={false}
+            />
           </FormField>
-        </div>
+        </GdsStack>
         <ActionBar
           primary={{ action: 'submit', onClick: () => { void form.submit(); }, loading: form.snapshot.submitState === 'submitting' || form.snapshot.submitState === 'validating' }}
           secondary={[{ action: 'cancel' }]}
@@ -1582,10 +1590,10 @@ function OverlayProbe() {
 
   return (
     <SectionPanel title="Overlay stack governance" description={`Top overlay: ${topOverlay?.id ?? 'none'}.`}>
-      <button type="button" onClick={() => overlay.registerOverlay({ id: 'dialog-a', kind: 'dialog', invokerId: 'open-dialog' })}>Register dialog</button>
-      <button type="button" onClick={() => overlay.registerOverlay({ id: 'drawer-a', kind: 'drawer', invokerId: 'open-drawer' })}>Register drawer</button>
-      <button type="button" onClick={() => overlay.unregisterOverlay('drawer-a')}>Unregister drawer</button>
-      <p>Escape close reason for top entry: {overlay.requestClose('drawer-a', 'escape') ?? 'blocked'}</p>
+      <Button variant="default" size="compact-sm" type="button" onClick={() => overlay.registerOverlay({ id: 'dialog-a', kind: 'dialog', invokerId: 'open-dialog' })}>Register dialog</Button>
+      <Button variant="default" size="compact-sm" type="button" onClick={() => overlay.registerOverlay({ id: 'drawer-a', kind: 'drawer', invokerId: 'open-drawer' })}>Register drawer</Button>
+      <Button variant="default" size="compact-sm" type="button" onClick={() => overlay.unregisterOverlay('drawer-a')}>Unregister drawer</Button>
+      <BodyText>Escape close reason for top entry: {overlay.requestClose('drawer-a', 'escape') ?? 'blocked'}</BodyText>
     </SectionPanel>
   );
 }
@@ -1603,7 +1611,9 @@ function CommandProbe() {
 
   return (
     <SectionPanel title="Command palette" description="Cmd/Ctrl+K opens the shared command surface.">
-      <button
+      <Button
+        variant="default"
+        size="compact-sm"
         type="button"
         onClick={() => launcher.registerCommands([
           { id: 'open-patterns', label: 'Open patterns', keywords: ['patterns', 'catalog'], shortcut: 'Cmd+1', run: () => {} },
@@ -1611,8 +1621,8 @@ function CommandProbe() {
         ])}
       >
         Register commands
-      </button>
-      <button type="button" onClick={() => launcher.open()}>Open command palette</button>
+      </Button>
+      <Button variant="default" size="compact-sm" type="button" onClick={() => launcher.open()}>Open command palette</Button>
     </SectionPanel>
   );
 }
@@ -1630,7 +1640,9 @@ function TelemetryProbe({ events }: { events: string[] }) {
 
   return (
     <SectionPanel title="Telemetry contract" description="Cross-primitive event contract with privacy-safe defaults.">
-      <button
+      <Button
+        variant="default"
+        size="compact-sm"
         type="button"
         onClick={() => telemetry.emit({
           component: 'TelemetryDemo',
@@ -1641,7 +1653,7 @@ function TelemetryProbe({ events }: { events: string[] }) {
         })}
       >
         Emit event
-      </button>
+      </Button>
       <DemoList items={events.length > 0 ? events : ['No events captured yet.']} />
     </SectionPanel>
   );
@@ -1716,43 +1728,43 @@ function AccessGatePlaygroundDemo() {
   };
 
   return (
-    <div>
+    <GdsStack gap="sm">
       <GdsAccessGate
         {...contract}
         protectedContentPolicy="never-render-while-locked"
         teaserLabel="Article preview"
         entitlementLabel="Member"
         preview={
-          <div>
-            <h4>{previewTitle}</h4>
-            <p>
+          <GdsStack gap="sm">
+            <CardTitle order={4}>{previewTitle}</CardTitle>
+            <BodyText>
               Use this boundary when a page can show summary content while protecting premium or private detail.
               The protected member section is never mounted until unlocked.
-            </p>
-          </div>
+            </BodyText>
+          </GdsStack>
         }
         protectedContent={() => (
-          <div>
-            <h4>Protected member-only article body</h4>
-            <p>This content only mounts after the access state is unlocked.</p>
-          </div>
+          <GdsStack gap="sm">
+            <CardTitle order={4}>Protected member-only article body</CardTitle>
+            <BodyText>This content only mounts after the access state is unlocked.</BodyText>
+          </GdsStack>
         )}
         onAction={handleAction}
       />
-      <div>
-        <button type="button" onClick={beginSignIn} disabled={isSigningIn || isAuthenticated}>
+      <GdsStack gap="sm">
+        <Button variant="default" size="compact-sm" type="button" onClick={beginSignIn} disabled={isSigningIn || isAuthenticated}>
           Click to login
-        </button>
+        </Button>
         {isAuthenticated ? (
           <>
             {' '}
-            <button type="button" onClick={beginSignOut}>
+            <Button variant="default" size="compact-sm" type="button" onClick={beginSignOut}>
               Sign out
-            </button>
+            </Button>
           </>
         ) : null}
-      </div>
-    </div>
+      </GdsStack>
+    </GdsStack>
   );
 }
 
@@ -1879,9 +1891,9 @@ function KanbanBoardDemo() {
     <BoundedPreviewSurface minHeight="26rem">
       <KanbanBoard
         title={
-          <span>
+          <InlineText>
             <GdsIcons.Grid size="1rem" /> Sprint board
-          </span>
+          </InlineText>
         }
         boardLabel="Sprint board"
         columns={columns}
@@ -2001,21 +2013,21 @@ function groupEntries(entries: PatternRegistryEntry[]) {
 
 function DemoList({ items }: { items: string[] }) {
   return (
-    <ul>
+    <GdsStack role="list" gap="xs">
       {items.map((item) => (
-        <li key={item}>{item}</li>
+        <BodyText role="listitem" key={item}>{item}</BodyText>
       ))}
-    </ul>
+    </GdsStack>
   );
 }
 
 function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
   return (
-    <p>
+    <BodyText>
       {entry.docSection}
       {entry.sourceComponent ? ` • ${entry.sourceComponent}` : ''}
       {entry.importPath ? ` • ${entry.importPath}` : ''}
-    </p>
+    </BodyText>
   );
 }
 
@@ -2023,7 +2035,7 @@ function CoverageText({ entry }: { entry: PatternRegistryEntry }) {
 function BadgeSection({ title, description, children }: { title: string; description: string; children: React.ReactNode }) {
   return (
     <GdsStack gap="xs">
-      <BodyText><strong>{title}</strong></BodyText>
+      <BodyText><InlineEmphasis>{title}</InlineEmphasis></BodyText>
       <MetadataText>{description}</MetadataText>
       <GdsInline gap="sm" align="center">{children}</GdsInline>
     </GdsStack>
@@ -2080,14 +2092,14 @@ function BadgeVocabularyDemo() {
         title="Shape vocabulary"
         description="Six silhouettes drawn on the Tabler geometry, so a composed mark sits beside the icon set instead of next to it."
       >
-        <span data-gds-badge-shapes>
+        <GdsInline gap="xs" data-gds-badge-shapes>
           <GdsBadgeShapeCircle size={40} stroke={1.75} aria-hidden="true" />
           <GdsBadgeShapeSquircle size={40} stroke={1.75} aria-hidden="true" />
           <GdsBadgeShapeHexagon size={40} stroke={1.75} aria-hidden="true" />
           <GdsBadgeShapeShield size={40} stroke={1.75} aria-hidden="true" />
           <GdsBadgeShapeRosette size={40} stroke={1.75} aria-hidden="true" />
           <GdsBadgeShapePin size={40} stroke={1.75} aria-hidden="true" />
-        </span>
+        </GdsInline>
       </BadgeSection>
 
       <BadgeSection
@@ -2115,24 +2127,24 @@ function BadgeVocabularyDemo() {
         title="Count badge, standalone and anchored"
         description="The same count either stands alone or anchors to an icon's corner through the badge stack — the anchor stays the accessible target."
       >
-        <span data-gds-count-badge-demo>
+        <GdsInline gap="xs" data-gds-count-badge-demo>
           <GdsCountBadge value={7} label="notifications" />
           <GdsCountBadge value={126} cap={99} label="unread messages" tone="info" />
           <GdsCountBadge dot label="new activity" tone="danger" anchor={<GdsIcon icon="Notifications" size="lg" />} />
           <GdsCountBadge value={3} label="drafts" tone="neutral" anchor={<GdsIcon icon="Inbox" size="lg" />} />
-        </span>
+        </GdsInline>
       </BadgeSection>
 
       <BadgeSection
         title="Removable tags"
         description="A filter a reader can take off. The remove control names the filter it removes, so it is unambiguous out of context."
       >
-        <span data-gds-removable-tag-demo>
+        <GdsInline gap="xs" data-gds-removable-tag-demo>
           <GdsRemovableTag label="Music" removeLabel="Remove filter: Music" onRemove={() => {}} />
           <GdsRemovableTag label="Ages 6-8" tone="info" removeLabel="Remove filter: Ages 6-8" onRemove={() => {}} />
           <GdsRemovableTag label="Weekends" tone="success" removeLabel="Remove filter: Weekends" onRemove={() => {}} />
           <GdsRemovableTag label="Archived" removeLabel="Remove filter: Archived" onRemove={() => {}} disabled />
-        </span>
+        </GdsInline>
       </BadgeSection>
 
       <BadgeSection
@@ -2238,12 +2250,12 @@ function BottomTabNavigationDemo() {
             ariaLabel="Example primary navigation with a custom item"
             renderItem={(item, active) => (
               item.id === 'inbox' ? (
-                <button type="button" onClick={() => setSheetOpenFor(item.label)}>
+                <Button variant="default" size="compact-sm" type="button" onClick={() => setSheetOpenFor(item.label)}>
                   <GdsStack gap="none" align="center" justify="center">
                     {item.icon}
                     <MetadataText>{active ? `${item.label} (active)` : item.label}</MetadataText>
                   </GdsStack>
-                </button>
+                </Button>
               ) : (
                 <GdsInlineLink href={item.href}>
                   {active ? `${item.label} (active)` : item.label}
@@ -2591,7 +2603,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'partner-discovery-system':
       return (
         <PartnerDiscoveryShell
-          logo={<strong>Partner Baby</strong>}
+          logo={<InlineEmphasis>Partner Baby</InlineEmphasis>}
           navItems={[
             { id: 'add', label: 'Add to Map', href: '#submit-place' },
             { id: 'lists', label: 'Lists', href: '#lists', current: true },
@@ -2653,19 +2665,19 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'form-field':
       return (
-        <div>
+        <GdsStack gap="sm">
           <FormField label="Canonical field" description="Visible label, helper text, and error placement are owned by GDS." error="Example validation message">
-            <input aria-label="Canonical field" defaultValue="Reference value" />
+            <TextInput aria-label="Canonical field" defaultValue="Reference value" />
           </FormField>
           <br />
           <FormControlFamilyDemo />
-        </div>
+        </GdsStack>
       );
     case 'game-board-tile':
       return (
-        <div>
+        <GdsStack gap="sm">
           <GameBoardTile face="GDS" revealed matched={false} disabled={false} onPress={() => {}} />
-        </div>
+        </GdsStack>
       );
     case 'sidebar-navigation':
       return (
@@ -2699,13 +2711,13 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'forms':
       return (
-        <div>
+        <GdsStack gap="sm">
           <FormArchitectureDemo />
           <br />
           <FormControlFamilyDemo />
           <br />
           <SchemaFormDemo />
-        </div>
+        </GdsStack>
       );
     case 'inputs':
     case 'selects-combobox':
@@ -2726,7 +2738,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           ]}
           renderCard={(item) => (
             <SectionPanel title={item.surface} description={item.status}>
-              <p>Canonical searchable and filterable surface contract.</p>
+              <BodyText>Canonical searchable and filterable surface contract.</BodyText>
             </SectionPanel>
           )}
         />
@@ -2752,7 +2764,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           actions={<ActionBar primary={{ action: 'edit' }} secondary={[{ action: 'refer' }]} />}
           sections={[
             <SectionPanel key="overview" title="Overview" description="One detail contract for page and drawer modes.">
-              <p>Use one reusable composition, not local detail shells.</p>
+              <BodyText>Use one reusable composition, not local detail shells.</BodyText>
             </SectionPanel>,
           ]}
         />
@@ -2943,7 +2955,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Media compatibility card"
           description="Use only where the full PublicProductCard contract is not needed."
           status="Compatibility"
-          image={<div />}
+          image={<GdsBox />}
           overlay={<StatusBadge status="info">Media</StatusBadge>}
           actions={[{ label: 'Preview' }]}
         />
@@ -2951,20 +2963,20 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'accent-panels':
       return (
         <AccentPanel tone="violet" title="Accent band">
-          <p>Use accent panel for advisory messaging.</p>
-          <p>Shared tonal semantics preserve readability across surfaces.</p>
+          <BodyText>Use accent panel for advisory messaging.</BodyText>
+          <BodyText>Shared tonal semantics preserve readability across surfaces.</BodyText>
         </AccentPanel>
       );
     case 'metric-cards':
       return (
-        <div>
+        <GdsStack gap="sm">
           <MetricCard label="Coverage" value="100%" description="Live catalog coverage." trend={{ tone: 'positive', label: '+2%' }} />
           <ProgressCard label="Adoption" value="18 apps" progress={86} progressLabel="Connected teams" />
           <GdsStack gap="xs">
             <MetadataText>Fit score — a static measurement, role=&quot;meter&quot; not role=&quot;progressbar&quot;</MetadataText>
             <GdsMeter value={72} label="Fit score" />
           </GdsStack>
-        </div>
+        </GdsStack>
       );
     case 'data-toolbars':
       return (
@@ -2976,14 +2988,14 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <MissingDataPromptDemo />;
     case 'surface-presentation':
       return (
-        <div>
+        <GdsStack gap="sm">
           <SectionPanel title="Centered presentation" description="Shared presentation helper powers panel and state body alignment." presentation="centered" minHeight={220}>
             <StateBlock variant="empty" title="Centered state" description="No local wrapper needed for body alignment." compact />
           </SectionPanel>
           <SectionPanel title="Fill presentation" description="Fill mode keeps bounded state surfaces stable." presentation="fill" minHeight={180}>
-            <p>Content fills the governed panel body without custom layout CSS.</p>
+            <BodyText>Content fills the governed panel body without custom layout CSS.</BodyText>
           </SectionPanel>
-        </div>
+        </GdsStack>
       );
     case 'action-bar':
       return <ActionBar primary={{ action: 'save' }} secondary={[{ action: 'cancel' }]} tertiary={[{ action: 'preview' }]} iconOnly={[{ action: 'settings' }]} />;
@@ -3001,7 +3013,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           shareAction={{ action: 'refer' }}
           size="lg"
           interactiveMode="flip"
-          revealContent={<p>Flip-side content slot for extended context and compliance-safe disclosure text.</p>}
+          revealContent={<BodyText>Flip-side content slot for extended context and compliance-safe disclosure text.</BodyText>}
         />
       );
     case 'share-button-group':
@@ -3052,27 +3064,27 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Playback contract"
           state="ready"
           statusMessage="Accessible timed-media containment."
-          media={<div />}
+          media={<GdsBox />}
         />
       );
     case 'public-shells':
       return (
         <BoundedPreviewSurface minHeight="30rem">
           <PublicShell
-            brand={<strong>General Design System</strong>}
+            brand={<InlineEmphasis>General Design System</InlineEmphasis>}
             navItems={[
               { id: 'overview', label: 'Overview', href: '/general-design-system/patterns' },
               { id: 'docs', label: 'Docs', href: '/general-design-system/themes' },
             ]}
             activeNavId="overview"
-            actions={<button type="button">Sign in</button>}
+            actions={<Button variant="default" size="compact-sm" type="button">Sign in</Button>}
             mobileNavigationMode="inline-collapse"
             mobileNavigation={<GdsInlineLink href="/general-design-system/patterns">Patterns</GdsInlineLink>}
             footer={<PublicBrandFooter brandTitle="GDS" description="Canonical public shell." />}
             maxContentWidth="lg"
           >
             <SectionPanel title="Public content area" description="Bounded public shell for docs and marketing pages.">
-              <p>Public chrome should not be re-implemented locally.</p>
+              <BodyText>Public chrome should not be re-implemented locally.</BodyText>
             </SectionPanel>
           </PublicShell>
         </BoundedPreviewSurface>
@@ -3088,11 +3100,11 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             intent="sign-in"
             error="The last provider attempt timed out. Choose a provider, retry, or continue as guest if your product allows it."
             socialAuth={<SocialAuthButtons layout="grid" providers={[{ id: 'google', policyNote: 'Approved by identity policy.' }, { id: 'github', tenantDisabledReason: 'Disabled by tenant policy.' }]} />}
-            guestAction={<button type="button">Continue as guest</button>}
-            supportAction={<button type="button">Contact support</button>}
+            guestAction={<Button variant="default" size="compact-sm" type="button">Continue as guest</Button>}
+            supportAction={<Button variant="default" size="compact-sm" type="button">Contact support</Button>}
             helper="Keep provider logic in the app; keep layout in GDS."
           >
-            <p>Social auth remains part of the shared auth shell contract.</p>
+            <BodyText>Social auth remains part of the shared auth shell contract.</BodyText>
           </AuthShell>
         </BoundedPreviewSurface>
       );
@@ -3118,12 +3130,12 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           lead="Article content stays in one shared shell."
           sideRail={
             <SectionPanel title="Side rail" description="Related docs and indexes.">
-              <p>Surface side rails show indexes and adjacent references.</p>
+              <BodyText>Surface side rails show indexes and adjacent references.</BodyText>
             </SectionPanel>
           }
-          meta={<span>Scope: Pattern catalog</span>}
+          meta={<InlineText>Scope: Pattern catalog</InlineText>}
         >
-          <p>Use ArticleShell for docs, legal, and editorial readability.</p>
+          <BodyText>Use ArticleShell for docs, legal, and editorial readability.</BodyText>
         </ArticleShell>
       );
     case 'docs-page-shell':
@@ -3133,14 +3145,14 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           lead="Docs surface with shared breadcrumbs and body layout."
           breadcrumbs={[{ label: 'Docs', href: '/general-design-system' }, { label: 'Patterns' }]}
         >
-          <p>The docs shell is now fully controlled by GDS.</p>
+          <BodyText>The docs shell is now fully controlled by GDS.</BodyText>
         </DocsPageShell>
       );
     case 'docs-shell':
       return (
         <BoundedPreviewSurface minHeight="30rem">
           <DocsShell
-            brand={<strong>General Design System</strong>}
+            brand={<InlineEmphasis>General Design System</InlineEmphasis>}
             primaryNavigation={<SidebarNavItem action="home" href="/general-design-system/patterns/public" active />}
             secondaryNavigation={<SidebarNavItem action="theme" href="/general-design-system/themes" />}
             headerContext="Canonical docs/reference shell contract"
@@ -3148,7 +3160,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             contentWidth="full"
           >
             <SectionPanel title="Docs shell content" description="Reference/docs content belongs in package-owned shell framing.">
-              <p>The official site should use this contract instead of page-local shell wrappers.</p>
+              <BodyText>The official site should use this contract instead of page-local shell wrappers.</BodyText>
             </SectionPanel>
           </DocsShell>
         </BoundedPreviewSurface>
@@ -3159,7 +3171,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Governed section framing"
           description="Reference pages should use one canonical section rhythm for heading, summary, and actionable content."
         >
-          <p>This section is the package-owned docs contract used across the official site.</p>
+          <BodyText>This section is the package-owned docs contract used across the official site.</BodyText>
         </ReferenceSection>
       );
     case 'reference-link-grid':
@@ -3191,7 +3203,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'reference-theme-explorer':
       return (
-        <div>
+        <GdsStack gap="sm">
           <BodyText>
             The full reference theme explorer owns the document runtime and is mounted on the Themes route.
             The catalog keeps this entry bounded so pattern previews cannot overwrite the active page color scheme.
@@ -3208,7 +3220,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
               },
             ]}
           />
-        </div>
+        </GdsStack>
       );
     case 'reference-site-shell':
       return (
@@ -3223,7 +3235,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             onLocaleChange={() => {}}
           >
             <SectionPanel title="Reference-site composition" description="Legacy reference shell retained for bounded compatibility lanes.">
-              <p>Prefer DocsShell for the official site path, keep this contract only where explicitly required.</p>
+              <BodyText>Prefer DocsShell for the official site path, keep this contract only where explicitly required.</BodyText>
             </SectionPanel>
           </ReferenceSiteShell>
         </BoundedPreviewSurface>
@@ -3235,7 +3247,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Shipped editorial hero"
           description="Hero surface with media and action controls."
           actions={[{ label: 'Get started', href: '/general-design-system/patterns' }]}
-          media={<div />}
+          media={<GdsBox />}
           mediaPosition="left"
         />
       );
@@ -3257,8 +3269,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           description="Single browse surface contract for search, filters, and sort."
           resultCount={3}
           scopeOptions={[{ id: 'all', label: 'All', active: true }, { id: 'public', label: 'Public' }]}
-          toolbar={{ searchSlot: <input aria-label="Search discoverables" />, createAction: <button type="button">Create</button> }}
-          mobileFilters={<button type="button">Filters</button>}
+          toolbar={{ searchSlot: <TextInput aria-label="Search discoverables" />, createAction: <Button variant="default" size="compact-sm" type="button">Create</Button> }}
+          mobileFilters={<Button variant="default" size="compact-sm" type="button">Filters</Button>}
           content={<DemoList items={['Discovery Shell', 'Listing Card', 'Map Panel']} />}
         />
       );
@@ -3275,7 +3287,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'generated-imagery':
       return (
-        <div>
+        <GdsStack gap="sm">
           <GeneratedThumbnailDemo />
           <br />
           <GeneratedIdentityDemo />
@@ -3283,7 +3295,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           <GeneratedHeroDemo />
           <br />
           <GeneratedImageryCardPlaceholderDemo />
-        </div>
+        </GdsStack>
       );
     case 'logo-lockup':
       return <LogoLockupDemo />;
@@ -3295,7 +3307,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           action={<ActionBar primary={{ action: 'save' }} />}
         >
           <SectionPanel title="Section content" description="Actions and metadata stay composable.">
-            <p>Section children are now explicit to satisfy required layout contract.</p>
+            <BodyText>Section children are now explicit to satisfy required layout contract.</BodyText>
           </SectionPanel>
         </ConsumerSection>
       );
@@ -3309,7 +3321,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'media-fields':
       return (
-        <div>
+        <GdsStack gap="sm">
           {/* Preview uses the generated-imagery system: deterministic, zero-network, theme-following. */}
           <MediaField
             label="Hero image"
@@ -3321,15 +3333,15 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
                 categories={[{ key: 'hero', label: 'Hero image', icon: 'Gallery' }]}
               />
             )}
-            uploadControl={<button type="button">Upload image</button>}
-            urlInput={<input aria-label="Image URL" defaultValue="https://cdn.example.com/hero.jpg" />}
+            uploadControl={<Button variant="default" size="compact-sm" type="button">Upload image</Button>}
+            urlInput={<TextInput aria-label="Image URL" defaultValue="https://cdn.example.com/hero.jpg" />}
             helpText="Prefer authored media with descriptive alt text."
             policyText="Public assets must be licensed for reuse and include alt text before publishing."
             acceptedTypes="JPEG, PNG, WebP"
             maxSize="10 MB max"
             progress={64}
-            replaceAction={<button type="button">Replace</button>}
-            retryAction={<button type="button">Retry</button>}
+            replaceAction={<Button variant="default" size="compact-sm" type="button">Replace</Button>}
+            retryAction={<Button variant="default" size="compact-sm" type="button">Retry</Button>}
             onReset={() => {}}
             onRemove={() => {}}
             state="uploading"
@@ -3349,7 +3361,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             maxSize="2 MB max"
             readonly
           />
-        </div>
+        </GdsStack>
       );
     case 'content-operations-editor':
       return (
@@ -3358,7 +3370,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           sections={(
             <ContentOpsSection id="general" title="General settings" description="Shared sectioning for ops workflows.">
               <FormField label="Title" description="Use the same pattern for every editor." >
-                <input aria-label="Content title" />
+                <TextInput aria-label="Content title" />
               </FormField>
             </ContentOpsSection>
           )}
@@ -3376,7 +3388,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             showThemeToggle={false}
           >
             <SectionPanel title="Admin shell content" description="AppShell is backed by DiscoveryShell and remains an admin compatibility path.">
-              <p>Use DiscoveryShell directly for new sidebar-first apps when possible.</p>
+              <BodyText>Use DiscoveryShell directly for new sidebar-first apps when possible.</BodyText>
             </SectionPanel>
           </AppShell>
         </BoundedPreviewSurface>
@@ -3385,9 +3397,9 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return (
         <EditorScaffold
           header={<WorkspaceHeader title="Editor scaffold" description="Header, form, preview, settings, and footer stay in one scaffold." />}
-          form={<FormSection title="Form" description="Canonical grouped editor body."><FormField label="Name"><input aria-label="Name" /></FormField></FormSection>}
-          preview={<SectionPanel title="Preview" description="Bounded preview rail."><p>Preview content</p></SectionPanel>}
-          settings={<SectionPanel title="Settings" description="Bounded settings rail."><p>Settings content</p></SectionPanel>}
+          form={<FormSection title="Form" description="Canonical grouped editor body."><FormField label="Name"><TextInput aria-label="Name" /></FormField></FormSection>}
+          preview={<SectionPanel title="Preview" description="Bounded preview rail."><BodyText>Preview content</BodyText></SectionPanel>}
+          settings={<SectionPanel title="Settings" description="Bounded settings rail."><BodyText>Settings content</BodyText></SectionPanel>}
           footer={<ContentOpsActionBar actions={{ primary: { action: 'save' }, secondary: [{ action: 'cancel' }] }} />}
           stickyFooter
         />
@@ -3395,7 +3407,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'form-section':
       return (
         <FormSection title="Publication settings" description="Use FormSection for grouped admin form content.">
-          <FormField label="Visibility"><select aria-label="Visibility"><option>Public</option></select></FormField>
+          <FormField label="Visibility"><Select aria-label="Visibility" data={['Public', 'Members only', 'Private']} defaultValue="Public" allowDeselect={false} /></FormField>
         </FormSection>
       );
     case 'kanban-board':
@@ -3403,7 +3415,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'workspace-header':
       return (
         <WorkspaceHeader
-          breadcrumbs={[<GdsInlineLink href="/general-design-system/patterns" key="patterns">Patterns</GdsInlineLink>, <span key="operations">Operations</span>]}
+          breadcrumbs={[<GdsInlineLink href="/general-design-system/patterns" key="patterns">Patterns</GdsInlineLink>, <InlineText key="operations">Operations</InlineText>]}
           eyebrow="Workspace"
           title="Operations workspace"
           description="Governed workspace context and action placement."
@@ -3421,10 +3433,10 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           contentAlign="start"
           contentJustify="start"
         >
-          <p>
+          <BodyText>
             Use this panel as the canonical bounded composition for grouped content.
-          </p>
-          <p>Fill-mode examples can keep state surfaces stable without local wrappers.</p>
+          </BodyText>
+          <BodyText>Fill-mode examples can keep state surfaces stable without local wrappers.</BodyText>
         </SectionPanel>
       );
     case 'public-brand-footer':
@@ -3432,7 +3444,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
         <PublicBrandFooter
           brandTitle="General Design System"
           description="Canonical footer for public surfaces."
-          actions={<button type="button">Contact</button>}
+          actions={<Button variant="default" size="compact-sm" type="button">Contact</Button>}
           legal="© General Design System"
         />
       );
@@ -3453,7 +3465,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           resetAction={<SemanticButton action="reset" />}
         >
           <SectionPanel title="Filter controls" description="Scope, sort, and type remain bounded.">
-            <p>Controls should stay compact and auditable.</p>
+            <BodyText>Controls should stay compact and auditable.</BodyText>
           </SectionPanel>
         </FilterDrawer>
       );
@@ -3462,14 +3474,14 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
     case 'cta-button-groups':
       return (
         <CtaButtonGroup
-          primary={<button type="button">Save</button>}
-          secondary={<button type="button">Cancel</button>}
-          tertiary={<button type="button">Learn more</button>}
+          primary={<Button variant="default" size="compact-sm" type="button">Save</Button>}
+          secondary={<Button variant="default" size="compact-sm" type="button">Cancel</Button>}
+          tertiary={<Button variant="default" size="compact-sm" type="button">Learn more</Button>}
         />
       );
     case 'upload-surfaces':
       return (
-        <div>
+        <GdsStack gap="sm">
           <UploadDropzone
             title="Upload reference assets"
             description="Use the shared dropzone in upload-first flows. GDS renders state and policy; the product owns storage."
@@ -3478,8 +3490,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             selectedFiles={['brief.pdf']}
             policyText="Do not upload private customer data or unsupported file types."
             state="selected"
-            retryAction={<button type="button">Retry upload</button>}
-            removeAction={<button type="button">Remove asset</button>}
+            retryAction={<Button variant="default" size="compact-sm" type="button">Retry upload</Button>}
+            removeAction={<Button variant="default" size="compact-sm" type="button">Remove asset</Button>}
           />
           <UploadDropzone
             title="Logo upload failed"
@@ -3489,8 +3501,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             policyText="Replace the file with a compressed PNG before retrying."
             state="too-large"
             error="The selected file is larger than the allowed size."
-            retryAction={<button type="button">Choose another file</button>}
-            removeAction={<button type="button">Remove file</button>}
+            retryAction={<Button variant="default" size="compact-sm" type="button">Choose another file</Button>}
+            removeAction={<Button variant="default" size="compact-sm" type="button">Remove file</Button>}
           />
           <UploadDropzone
             title="Archived asset"
@@ -3498,16 +3510,16 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             selectedFiles={['brand-mark.png']}
             readonly
           />
-        </div>
+        </GdsStack>
       );
     case 'access-summaries':
       return <AccessSummary title="Shared access summary" roles={['platform-ui', 'maintainers']} scope="Reference site" state="permission-limited" owner="platform-ui" recoveryHint="Request the docs-admin scope to unlock private evidence." description="Access and scope stay explicit." />;
     case 'access-recovery-panels':
       return (
-        <div>
+        <GdsStack gap="sm">
           <AccessRecoveryPanel state="unauthenticated" onSignIn={() => {}} onBack={() => {}} />
           <AccessRecoveryPanel state="timeout" onRetry={() => {}} onBack={() => {}} supportAction={{ action: 'help', onClick: () => {}, variant: 'subtle' }} />
-        </div>
+        </GdsStack>
       );
     case 'access-gates':
       return <AccessGatePlaygroundDemo />;
@@ -3565,7 +3577,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           activeFilters={[{ label: 'Live proof', onRemove: () => {} }]}
           renderCard={(item) => (
             <SectionPanel title={String(item.surface)} description={String(item.state)}>
-              <p>Card fallback is owned by the consumer slot, not the responsive contract.</p>
+              <BodyText>Card fallback is owned by the consumer slot, not the responsive contract.</BodyText>
             </SectionPanel>
           )}
           getRowKey={(row) => String(row.id)}
@@ -3629,7 +3641,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return <StatsSection title="Threshold-aware statistics" belowThreshold thresholdMessage="Not enough data yet for this report." />;
     case 'reporting-contracts':
       return (
-        <div>
+        <GdsStack gap="sm">
         <ReportingSection
           title="Operational evidence report"
           description="A governed reporting section keeps period controls, metrics, chart summaries, evidence, and fallback tables in one predictable flow."
@@ -3653,7 +3665,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             />
           )}
           metrics={(
-            <div>
+            <GdsStack gap="sm">
               <MetricCard label="Orders" value="1,240" description="Visible aggregate." trend={{ label: '+8%', tone: 'positive' }} />
               {/*
                 `progress` is computed from the fraction rather than written beside it. It read
@@ -3667,7 +3679,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
                 progress={Math.round((EVIDENCE_SOURCES.covered / EVIDENCE_SOURCES.total) * 100)}
                 progressLabel="Reporting sources"
               />
-            </div>
+            </GdsStack>
           )}
           chart={(
             <ChartTokenPanel
@@ -3702,13 +3714,13 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
               evidenceCount={18}
               state="permission-limited"
               permissionNote="Private customer-level evidence is intentionally hidden from this aggregate."
-              retryAction={<button type="button">Refresh evidence</button>}
+              retryAction={<Button variant="default" size="compact-sm" type="button">Refresh evidence</Button>}
             />
           )}
         />
         <br />
         <ChartWrapperFamilyDemo />
-        </div>
+        </GdsStack>
       );
     case 'alerts':
       return <TelemetryDemo />;
@@ -3735,7 +3747,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       return (
         <GdsNotificationProvider>
           <SectionPanel title="Notification surface" description="Notifications remain contextual, actionable, and explicit.">
-            <div>
+            <GdsStack gap="sm">
               <NotificationBellDemo />
               <br />
               <BannerNotice
@@ -3753,44 +3765,44 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
               <br />
               <NotificationCenter />
               <ToastPositionDemo />
-            </div>
+            </GdsStack>
           </SectionPanel>
         </GdsNotificationProvider>
       );
     case 'meaning-badge':
       return (
-        <div>
+        <GdsStack gap="sm">
           <MeaningBadge variant="attention" label="Featured" />
           <MeaningBadge variant="validation" label="Verified" icon="Success" />
           <MeaningBadge variant="info" label="Editorial pick" />
           <MeaningBadge variant="urgency" label="Ends soon" icon="Warning" />
-        </div>
+        </GdsStack>
       );
     case 'fit-score-chip':
       return (
-        <div>
+        <GdsStack gap="sm">
           <FitScoreChip value={92} dimensions={[{ label: 'Budget' }, { label: 'Location' }]} />
           <FitScoreChip value={64} />
           <FitScoreChip value={31} />
-        </div>
+        </GdsStack>
       );
     case 'badges':
       return <BadgeVocabularyDemo />;
     case 'modals':
       return (
-        <div>
+        <GdsStack gap="sm">
           <OverlayContractDemo />
           <br />
           <OverlayAliasDemo />
-        </div>
+        </GdsStack>
       );
     case 'drawers':
       return (
-        <div>
+        <GdsStack gap="sm">
           <CommandPaletteDemo />
           <br />
           <OverlayAliasDemo />
-        </div>
+        </GdsStack>
       );
     case 'small-screen-priority':
       return (
@@ -3826,18 +3838,18 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       );
     case 'searchable-selection':
       return (
-        <div>
+        <GdsStack gap="sm">
           <ActionBar primary={{ action: 'search' }} secondary={[{ action: 'submit' }]} />
           <DataToolbar
-            searchSlot={<input aria-label="Search selection" />}
-            filterSlot={<input aria-label="Filter selection" />}
-            sortSlot={<button type="button">Sort</button>}
-            resetAction={<button type="button">Reset</button>}
-            createAction={<button type="button">Create</button>}
+            searchSlot={<TextInput aria-label="Search selection" />}
+            filterSlot={<TextInput aria-label="Filter selection" />}
+            sortSlot={<Button variant="default" size="compact-sm" type="button">Sort</Button>}
+            resetAction={<Button variant="default" size="compact-sm" type="button">Reset</Button>}
+            createAction={<Button variant="default" size="compact-sm" type="button">Create</Button>}
             activeFilters={[{ label: 'Selected', onRemove: () => {} }]}
           />
           <DemoList items={['Open', 'Selected', 'Filtered']} />
-        </div>
+        </GdsStack>
       );
     case 'vocabulary-extension-lane':
       return (
@@ -3897,7 +3909,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
       // verify:pattern-live-proof fails the build if a live-proof entry lands here.
       return (
         <SectionPanel title="Live reference note" description="This documented pattern is represented through the shared component family.">
-          <p>No interactive demo renders here — this pattern is implemented through the exports and coverage details listed above.</p>
+          <BodyText>No interactive demo renders here — this pattern is implemented through the exports and coverage details listed above.</BodyText>
         </SectionPanel>
       );
   }
@@ -3945,12 +3957,12 @@ export function PatternsIndexPage() {
           { id: 'patterns-coverage', target: 'patterns-coverage', title: 'Every pattern is traceable', body: 'The catalog stays a strict consumer of shipped primitives — each entry maps back to the canonical markdown SSOT, never a local fork.', placement: 'top' },
         ]}
       />
-      <div data-gds-tour-target="patterns-families">
+      <GdsBox data-gds-tour-target="patterns-families">
       <ReferenceSection title="Browse pattern families" description="Every documented pattern is grouped into a public route so visitors can inspect the live contract.">
         <ReferenceLinkGrid items={counts} />
       </ReferenceSection>
-      </div>
-      <div data-gds-tour-target="patterns-coverage">
+      </GdsBox>
+      <GdsBox data-gds-tour-target="patterns-coverage">
       <ReferenceSection title="Coverage promise" description="The official site is expected to remain a strict consumer of the primitives it documents.">
         <FeatureBand
           columns={3}
@@ -3961,7 +3973,7 @@ export function PatternsIndexPage() {
           ]}
         />
       </ReferenceSection>
-      </div>
+      </GdsBox>
     </DocsPageShell>
   );
 }
